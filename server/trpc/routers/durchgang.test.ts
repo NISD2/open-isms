@@ -26,6 +26,7 @@ const USER = "11111111-1111-4111-8111-111111111111";
 const ASSESSMENT = "22222222-2222-4222-8222-222222222222";
 const REQUIREMENT = "55555555-5555-4555-8555-555555555555";
 const STATUS = "66666666-6666-4666-8666-666666666666";
+const CATEGORY = "77777777-7777-4777-8777-777777777777";
 
 const dialect = new PgDialect();
 const paramsOf = (where: SQL) => dialect.sqlToQuery(where).params;
@@ -36,6 +37,8 @@ function setup(opts: {
   accessLevel: "full" | "grandfathered" | "free";
   statusRow?: boolean;
   existingAssets?: readonly string[];
+  role?: "admin" | "member";
+  assigned?: boolean;
 }) {
   const writes: Write[] = [];
   const wheres: Array<{ table: string; where: SQL }> = [];
@@ -51,8 +54,11 @@ function setup(opts: {
       complianceFramework: { findFirst: async () => ({ id: "framework-1" }) },
       companyAssessment: { findFirst: captured("companyAssessment", { id: ASSESSMENT }) },
       requirement: {
-        findFirst: captured("requirement", { id: REQUIREMENT }),
+        findFirst: captured("requirement", { id: REQUIREMENT, categoryId: CATEGORY }),
         findMany: async () => [{ id: REQUIREMENT, code: "12.2" }],
+      },
+      categoryAssignment: {
+        findFirst: async () => (opts.assigned ? { id: "assignment-1" } : undefined),
       },
       companyRequirementStatus: {
         findFirst: captured(
@@ -91,7 +97,7 @@ function setup(opts: {
   const caller = createCallerFactory(durchgangRouter)({
     db: db as unknown as TRPCContext["db"],
     session: {
-      role: "admin",
+      role: opts.role ?? "admin",
       accessLevel: opts.accessLevel,
       user: { id: USER, email: "someone@example.com" },
     } as TRPCContext["session"],
@@ -111,10 +117,32 @@ describe("durchgang router", () => {
     await expect(caller.wait({ code: "12.2", reason: "letter" })).rejects.toMatchObject({
       code: "FORBIDDEN",
     });
-    await expect(caller.addAssets({ catalogIds: [] })).rejects.toMatchObject({
+    await expect(
+      caller.addAssets({ catalogIds: [], locale: "de" }),
+    ).rejects.toMatchObject({
       code: "FORBIDDEN",
     });
     expect(writes).toEqual([]);
+  });
+
+  test("takes the category's owner or an admin, as the answers on the page do", async () => {
+    audits.length = 0;
+    const stranger = setup({ accessLevel: "full", role: "member", assigned: false });
+    await expect(stranger.caller.finish({ code: "12.2" })).rejects.toMatchObject({
+      code: "FORBIDDEN",
+    });
+    await expect(stranger.caller.adoptMethod()).rejects.toMatchObject({
+      code: "FORBIDDEN",
+    });
+    expect(stranger.writes).toEqual([]);
+    // The mutation middleware logs every attempt under the procedure's name; no state row follows.
+    const states = () =>
+      audits.map((a) => a.action).filter((a) => a.startsWith("durchgang."));
+    expect(states()).toEqual([]);
+
+    const owner = setup({ accessLevel: "full", role: "member", assigned: true });
+    await owner.caller.finish({ code: "12.2" });
+    expect(states()).toEqual(["durchgang.item_done"]);
   });
 
   test("resolves only the codes the walk contains", async () => {
@@ -172,6 +200,7 @@ describe("durchgang router", () => {
     });
     const result = await caller.addAssets({
       catalogIds: ["bp-sales-cs", "bp-production-service", "no-such-item"],
+      locale: "de",
     });
     expect(result).toEqual({ added: 1 });
     const insert = writes.find((w) => w.op === "insert" && w.table === asset);
@@ -182,11 +211,28 @@ describe("durchgang router", () => {
     expect(lookup && paramsOf(lookup.where)).toContain(COMPANY);
   });
 
+  test("names assets in the page's language and knows an item under either name", async () => {
+    const { caller, writes } = setup({
+      accessLevel: "full",
+      existingAssets: ["Sales and customer service"],
+    });
+    const result = await caller.addAssets({
+      catalogIds: ["bp-sales-cs", "bp-production-service"],
+      locale: "de",
+    });
+    expect(result).toEqual({ added: 1 });
+    const insert = writes.find((w) => w.op === "insert" && w.table === asset);
+    expect(insert?.values).toEqual([
+      expect.objectContaining({ name: "Produktion oder Dienstleistungserbringung" }),
+    ]);
+  });
+
   test("keeps the person's own entries, once each, as type other", async () => {
     const { caller, writes } = setup({ accessLevel: "full", existingAssets: ["Kasse"] });
     const result = await caller.addAssets({
       catalogIds: [],
       custom: [{ name: "Laborsoftware" }, { name: " laborsoftware " }, { name: "kasse" }],
+      locale: "de",
     });
     expect(result).toEqual({ added: 1 });
     const insert = writes.find((w) => w.op === "insert" && w.table === asset);

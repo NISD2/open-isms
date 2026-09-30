@@ -4,6 +4,7 @@ import path from "node:path";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import type { ItemView, WalkEntry } from "@/components/durchgang/view";
 import { CATALOG } from "@/lib/asset-inventory/catalog";
+import { catalogNames } from "@/lib/asset-inventory/catalog-labels";
 import { getSession } from "@/lib/auth";
 import { canSeeCategory, getUserAccess } from "@/lib/compliance/access";
 import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
@@ -102,6 +103,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     ...new Set(screens.flatMap((s) => (s.kind === "register" ? [s.module] : []))),
   ];
   const asksAssets = screens.some((s) => s.kind === "assets");
+  const asksAdopt = screens.some((s) => s.kind === "adopt");
 
   const [
     words,
@@ -109,19 +111,18 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     tc,
     tInfo,
     tPortal,
-    tAssets,
     tUi,
     statuses,
     intake,
     registers,
     assets,
+    adoption,
   ] = await Promise.all([
     wordsOf(item),
     getTranslations("requirements"),
     getTranslations("compliance"),
     getTranslations("info"),
     getTranslations("portal"),
-    getTranslations("assetInventory"),
     getTranslations("durchgang.ui"),
     assessment
       ? api.assessment.getStatusesByCategory({
@@ -138,6 +139,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
       : Promise.resolve({ answers: {} as Record<string, unknown> }),
     Promise.all(modules.map(async (m) => [m, await REGISTERS[m]()] as const)),
     asksAssets ? api.asset.list() : Promise.resolve([]),
+    asksAdopt ? api.durchgang.adoption() : Promise.resolve({ adoptedAt: null }),
   ]);
 
   const statusId = statuses.find((s) => s.requirementId === req.id)?.status?.id ?? null;
@@ -152,7 +154,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
   );
   const assetNames = new Set(assets.map((a) => a.name.trim().toLowerCase()));
   const listedAssets = CATALOG.filter((c) =>
-    assetNames.has(tAssets(`catalog.${c.id}.label`).trim().toLowerCase()),
+    catalogNames(c.id).some((name) => assetNames.has(name.trim().toLowerCase())),
   ).map((c) => c.id);
 
   const law = buildCitationRows({
@@ -201,6 +203,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     fields,
     registers: Object.fromEntries(registers),
     listedAssets,
+    adoptedAt: adoption.adoptedAt,
     locale,
   };
 }

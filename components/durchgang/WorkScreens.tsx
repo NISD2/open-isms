@@ -41,11 +41,11 @@ interface WorkProps {
   readonly onDraft: DraftUpdate;
 }
 
-const today = (locale: "de" | "en") =>
+const longDate = (locale: "de" | "en", date: Date) =>
   new Intl.DateTimeFormat(locale === "de" ? "de-DE" : "en-GB", {
     timeZone: "Europe/Berlin",
     dateStyle: "long",
-  }).format(new Date());
+  }).format(date);
 
 /** A value as an input holds it: dates as YYYY-MM-DD, everything else as text. */
 export const asInput = (meta: FieldMeta | undefined, value: unknown): string => {
@@ -270,7 +270,16 @@ export function Evidence({
   );
 }
 
-export function Adopt({ item, entry }: { item: ItemView; entry: Of<"adopt"> }) {
+/** Once the method is adopted, the card shows that day and moving on writes nothing again. */
+export function Adopt({
+  item,
+  entry,
+  adoptedAt,
+}: {
+  item: ItemView;
+  entry: Of<"adopt">;
+  adoptedAt: Date | null;
+}) {
   const t = useTranslations("durchgang.ui");
   return (
     <>
@@ -280,7 +289,11 @@ export function Adopt({ item, entry }: { item: ItemView; entry: Of<"adopt"> }) {
         <header className="flex items-center gap-3 border-b bg-muted/40 px-5 py-3">
           <ScrollText className="size-4 text-muted-foreground" />
           <p className="text-sm font-medium">{t("record")}</p>
-          <p className="ml-auto text-xs text-muted-foreground">{today(item.locale)}</p>
+          <p className="ml-auto text-xs text-muted-foreground">
+            {adoptedAt
+              ? t("adoptedOn", { date: longDate(item.locale, adoptedAt) })
+              : longDate(item.locale, new Date())}
+          </p>
         </header>
         <dl className="divide-y">
           {entry.copy.lines.map((line) => (

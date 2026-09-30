@@ -42,6 +42,7 @@
       "sampleWhat": "What",
       "sampleDetail": "In short",
       "record": "Entry in your records",
+      "adoptedOn": "Adopted on {date}",
       "signLine": "Approval by management",
       "pending": "pending",
       "adopted": "Adopted",

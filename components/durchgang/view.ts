@@ -48,5 +48,7 @@ export interface ItemView {
   >;
   /** Catalogue items whose name is already on the company's asset list. */
   readonly listedAssets: readonly string[];
+  /** When the company took over the BSI method in the walk; a second pass then writes nothing. */
+  readonly adoptedAt: Date | null;
   readonly locale: "de" | "en";
 }

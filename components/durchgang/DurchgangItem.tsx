@@ -35,6 +35,7 @@ import {
 import { useRouter } from "@/i18n/navigation";
 import { RISK_LEVEL_TEXT } from "@/lib/compliance/bsi-200-3";
 import { type ItemState, resumeAt, type ScreenKind } from "@/lib/durchgang";
+import type { FieldMeta } from "@/lib/forms/schema-introspect";
 import { trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
 import type { Draft } from "./draft";
@@ -75,15 +76,22 @@ const KIND_ICON: Readonly<Record<ScreenKind, LucideIcon>> = {
 
 const SCREEN_PARAM = "s";
 
-/** An intake answer as the save sends it: numbers as numbers, empty as absent. */
+/**
+ * An intake answer as the save sends it: numbers as numbers, and an emptied field as null, which
+ * the intake save stores as cleared. Undefined means there is nothing valid to send.
+ */
 const toAnswer = (type: string | undefined, value: unknown): unknown => {
-  if (value === "" || value === null || value === undefined) return undefined;
+  if (value === "" || value === null || value === undefined) return null;
   if (type === "number") {
     const n = Number(value);
     return Number.isFinite(n) ? n : undefined;
   }
   return typeof value === "string" ? value.trim() : value;
 };
+
+/** A stored answer as the draft holds it: yes or no stays a boolean, everything else a string. */
+const toDraft = (meta: FieldMeta | undefined, value: unknown): unknown =>
+  meta?.type === "boolean" && typeof value === "boolean" ? value : asInput(meta, value);
 
 const clampScreen = (value: number, total: number) =>
   Number.isInteger(value) && value >= 0 && value < total ? value : 0;
@@ -99,15 +107,17 @@ export function DurchgangItem({
 }) {
   const t = useTranslations("durchgang.ui");
   const router = useRouter();
-  const utils = trpc.useUtils();
   const total = item.screens.length;
   const [index, setIndex] = useState(() => clampScreen(initialScreen, total));
   const [error, setError] = useState<number | null>(null);
   const [waitOpen, setWaitOpen] = useState(false);
   const [railOpen, setRailOpen] = useState(false);
+  /** Set when this visit resumed a waiting item or adopted the method, so neither is sent twice. */
+  const [resumed, setResumed] = useState(false);
+  const [adoptedAt, setAdoptedAt] = useState(item.adoptedAt);
   const [draft, setDraft] = useState<Draft>(() => ({
     values: Object.fromEntries(
-      Object.entries(item.answers).map(([k, v]) => [k, asInput(item.fields[k], v)]),
+      Object.entries(item.answers).map(([k, v]) => [k, toDraft(item.fields[k], v)]),
     ),
     sources: [],
     acceptance: null,
@@ -117,20 +127,25 @@ export function DurchgangItem({
   }));
   /** What the server holds, so an unchanged screen saves nothing. */
   const saved = useRef<Readonly<Record<string, unknown>>>(draft.values);
+  /**
+   * The writes run one after another. The screen moves on before its write settles, and two
+   * answer saves in flight at once would each merge into the same stored answers, the later
+   * overwriting the earlier.
+   */
+  const queue = useRef<Promise<void>>(Promise.resolve());
 
   const self = walk.find((w) => w.code === item.code);
   const filled: ItemState = { kind: "filled", since: new Date() };
   const next = resumeAt(walk, (w) => (w.code === item.code ? filled : w.state));
 
-  const settle = { onSettled: () => utils.durchgang.walk.invalidate() };
-  const saveAnswers = trpc.intake.saveRequirementAnswers.useMutation(settle);
-  const sources = trpc.durchgang.sources.useMutation(settle);
-  const adopt = trpc.durchgang.adoptMethod.useMutation(settle);
-  const decide = trpc.durchgang.decideAcceptance.useMutation(settle);
-  const addAssets = trpc.durchgang.addAssets.useMutation(settle);
-  const finish = trpc.durchgang.finish.useMutation(settle);
-  const resume = trpc.durchgang.resume.useMutation(settle);
-  const wait = trpc.durchgang.wait.useMutation(settle);
+  const saveAnswers = trpc.intake.saveRequirementAnswers.useMutation();
+  const sources = trpc.durchgang.sources.useMutation();
+  const adopt = trpc.durchgang.adoptMethod.useMutation();
+  const decide = trpc.durchgang.decideAcceptance.useMutation();
+  const addAssets = trpc.durchgang.addAssets.useMutation();
+  const finish = trpc.durchgang.finish.useMutation();
+  const resume = trpc.durchgang.resume.useMutation();
+  const wait = trpc.durchgang.wait.useMutation();
 
   // The screen lives in the URL, so the browser's back button and a reload keep the place.
   const show = useCallback((target: number, direction: Direction, push = true) => {
@@ -181,7 +196,12 @@ export function DurchgangItem({
             answers,
           })
           .then(() => {
-            saved.current = { ...saved.current, ...draft.values };
+            saved.current = {
+              ...saved.current,
+              ...Object.fromEntries(
+                Object.keys(answers).map((k) => [k, draft.values[k]]),
+              ),
+            };
           });
       }
       case "evidence": {
@@ -195,7 +215,7 @@ export function DurchgangItem({
         });
       }
       case "adopt":
-        return adopt.mutateAsync();
+        return adoptedAt === null ? adopt.mutateAsync() : null;
       case "decide":
         return draft.acceptance ? decide.mutateAsync({ level: draft.acceptance }) : null;
       case "sources":
@@ -207,6 +227,7 @@ export function DurchgangItem({
           ? addAssets.mutateAsync({
               catalogIds: [...draft.checked],
               custom: draft.custom.map((c) => ({ name: c.name })),
+              locale: item.locale,
             })
           : null;
       default:
@@ -225,20 +246,26 @@ export function DurchgangItem({
     }
     setError(null);
     const at = index;
-    const writes = [
-      saveOf(at),
-      at === 0 && self?.state.kind === "waiting"
-        ? resume.mutateAsync({ code: item.code })
-        : null,
-      item.screens[at + 1]?.screen.kind === "done"
-        ? finish.mutateAsync({ code: item.code })
-        : null,
-    ].filter((w): w is Promise<unknown> => w !== null);
+    // Decided now, from this screen's state; the writes themselves wait their turn.
+    const resuming = at === 0 && self?.state.kind === "waiting" && !resumed;
+    const adopting = entry.screen.kind === "adopt" && adoptedAt === null;
+    const finishing = item.screens[at + 1]?.screen.kind === "done";
+    if (resuming) setResumed(true);
+    if (adopting) setAdoptedAt(new Date());
     show(Math.min(at + 1, total - 1), "forward");
-    Promise.all(writes).catch(() => {
-      setError(at);
-      show(at, "back");
-    });
+    queue.current = queue.current
+      .then(async () => {
+        if (resuming) await resume.mutateAsync({ code: item.code });
+        await saveOf(at);
+        // The item counts as filled only once its last answers are stored.
+        if (finishing) await finish.mutateAsync({ code: item.code });
+      })
+      .catch(() => {
+        if (resuming) setResumed(false);
+        if (adopting) setAdoptedAt(null);
+        setError(at);
+        show(at, "back");
+      });
   };
 
   const back = () => {
@@ -246,13 +273,19 @@ export function DurchgangItem({
     else show(index - 1, "back");
   };
 
+  /** Parks the item once the pending writes and the waiting row are stored, then goes home. */
   const park = (reason: Parameters<typeof wait.mutate>[0]["reason"], note: string) => {
     setWaitOpen(false);
-    wait.mutate(
-      { code: item.code, reason, note: note.trim() || undefined },
-      { onError: () => toast.error(t("saveFailed")) },
-    );
-    router.push("/durchgang");
+    queue.current = queue.current
+      .then(() =>
+        wait.mutateAsync({ code: item.code, reason, note: note.trim() || undefined }),
+      )
+      .then(
+        () => router.push("/durchgang"),
+        () => {
+          toast.error(t("saveFailed"));
+        },
+      );
   };
 
   const recorded = [
@@ -278,7 +311,7 @@ export function DurchgangItem({
   ];
 
   const primary =
-    entry.screen.kind === "adopt"
+    entry.screen.kind === "adopt" && adoptedAt === null
       ? t("adopt")
       : entry.screen.kind === "done"
         ? next && next.code !== item.code
@@ -307,7 +340,7 @@ export function DurchgangItem({
       case "evidence":
         return <Evidence {...work} entry={entry} />;
       case "adopt":
-        return <Adopt item={item} entry={entry} />;
+        return <Adopt item={item} entry={entry} adoptedAt={adoptedAt} />;
       case "decide":
         return <Decide {...work} entry={entry} />;
       case "sources":

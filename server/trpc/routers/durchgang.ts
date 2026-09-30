@@ -1,7 +1,8 @@
 import { TRPCError } from "@trpc/server";
-import { eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
 import { CATALOG_BY_ID } from "@/lib/asset-inventory/catalog";
+import { CATALOG_LABELS, catalogNames } from "@/lib/asset-inventory/catalog-labels";
 import { logAudit } from "@/lib/audit";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { mayWalkDurchgang } from "@/lib/billing/access";
@@ -19,12 +20,15 @@ import {
   WALK,
   waitingNote,
 } from "@/lib/durchgang";
-import assetLabelsDe from "@/messages/assetInventory/de.json";
-import assetLabelsEn from "@/messages/assetInventory/en.json";
 import durchgangDe from "@/messages/durchgang/de.json";
 import durchgangEn from "@/messages/durchgang/en.json";
-import { asset, companyRiskMethodology } from "@/schema";
-import { appendNote, durchgangItem, walkStates } from "../helpers/durchgang";
+import { asset, auditLog, companyRiskMethodology } from "@/schema";
+import {
+  appendNote,
+  type DurchgangActor,
+  durchgangItem,
+  walkStates,
+} from "../helpers/durchgang";
 import {
   activatedCompanyProcedure,
   companyProcedure,
@@ -61,10 +65,16 @@ const durchgangProcedure = companyProcedure.use(({ ctx, next }) => {
 
 const code = z.string().max(10);
 const NAMESPACES = { de: durchgangDe.durchgang, en: durchgangEn.durchgang } as const;
-const ASSET_LABELS = {
-  de: assetLabelsDe.assetInventory.catalog,
-  en: assetLabelsEn.assetInventory.catalog,
-} as const;
+
+const actorOf = (ctx: {
+  companyId: string;
+  userId: string;
+  session: { role: string };
+}): DurchgangActor => ({
+  companyId: ctx.companyId,
+  userId: ctx.userId,
+  role: ctx.session.role,
+});
 
 const itemOf = (c: string) => {
   const item = WALK.find((i) => i.code === c);
@@ -77,7 +87,7 @@ const itemOf = (c: string) => {
 };
 
 export const durchgangRouter = router({
-  /** Where each item stands. Read by the home screen and after every write. */
+  /** Where each item stands. Read on the server by every Durchgang page. */
   walk: durchgangProcedure.query(async ({ ctx }) => {
     const states = await walkStates(ctx.db, ctx.companyId);
     return WALK.map((item) => ({
@@ -86,13 +96,20 @@ export const durchgangRouter = router({
     }));
   }),
 
-  /** The company's risk method, or null. Unlike `risk.getMethodology`, reading writes nothing. */
-  methodology: durchgangProcedure.query(async ({ ctx }) => {
-    return (
-      (await ctx.db.query.companyRiskMethodology.findFirst({
-        where: eq(companyRiskMethodology.companyId, ctx.companyId),
-      })) ?? null
-    );
+  /**
+   * When the company last took over the BSI method here, or null. A method row alone says nothing:
+   * `risk.getMethodology` writes the default on its first read, before anyone chose it.
+   */
+  adoption: durchgangProcedure.query(async ({ ctx }) => {
+    const row = await ctx.db.query.auditLog.findFirst({
+      where: and(
+        eq(auditLog.companyId, ctx.companyId),
+        eq(auditLog.action, "durchgang.adopted"),
+      ),
+      orderBy: desc(auditLog.createdAt),
+      columns: { createdAt: true },
+    });
+    return { adoptedAt: row?.createdAt ?? null };
   }),
 
   /** "Geht noch nicht": the reason goes into the audit row, the free text only into the notes. */
@@ -105,7 +122,7 @@ export const durchgangRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const ref = await durchgangItem(ctx.db, ctx.companyId, input.code);
+      const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
       const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
       const reason = NAMESPACES[locale].waitReasons[input.reason];
       await appendNote(
@@ -127,7 +144,7 @@ export const durchgangRouter = router({
   resume: durchgangProcedure
     .input(z.object({ code }))
     .mutation(async ({ ctx, input }) => {
-      const ref = await durchgangItem(ctx.db, ctx.companyId, input.code);
+      const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
       await logAudit({
         companyId: ctx.companyId,
         userId: ctx.userId,
@@ -147,7 +164,7 @@ export const durchgangRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const ref = await durchgangItem(ctx.db, ctx.companyId, input.code);
+      const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
       const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
       const copy = resolveItem(NAMESPACES[locale], itemOf(input.code));
       const chosen = new Set<string>(input.sources);
@@ -179,7 +196,7 @@ export const durchgangRouter = router({
    * company that set its own scales on the requirement page gets them replaced only by this click.
    */
   adoptMethod: durchgangProcedure.mutation(async ({ ctx }) => {
-    const ref = await durchgangItem(ctx.db, ctx.companyId, "2.1");
+    const ref = await durchgangItem(ctx.db, actorOf(ctx), "2.1");
     const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
     const method = getDefaultMethodology(locale);
     const values = {
@@ -213,7 +230,7 @@ export const durchgangRouter = router({
   decideAcceptance: durchgangProcedure
     .input(z.object({ level: z.enum(RISK_LEVELS) }))
     .mutation(async ({ ctx, input }) => {
-      const ref = await durchgangItem(ctx.db, ctx.companyId, "2.1");
+      const ref = await durchgangItem(ctx.db, actorOf(ctx), "2.1");
       const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
       await appendNote(
         ctx.db,
@@ -235,7 +252,7 @@ export const durchgangRouter = router({
   finish: durchgangProcedure
     .input(z.object({ code }))
     .mutation(async ({ ctx, input }) => {
-      const ref = await durchgangItem(ctx.db, ctx.companyId, input.code);
+      const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
       await logAudit({
         companyId: ctx.companyId,
         userId: ctx.userId,
@@ -247,9 +264,9 @@ export const durchgangRouter = router({
     }),
 
   /**
-   * 2.2: the ticked catalogue items and the person's own entries become asset rows. Names that
-   * already exist are skipped, so a second pass adds only what is new, and nothing is ever deleted
-   * here.
+   * 2.2: the ticked catalogue items and the person's own entries become asset rows, named in the
+   * language of the page they were ticked on. An item already listed under any of its names is
+   * skipped, so a second pass adds only what is new, and nothing is ever deleted here.
    */
   addAssets: activatedCompanyProcedure
     .use(({ ctx, next }) => {
@@ -263,18 +280,19 @@ export const durchgangRouter = router({
           .array(z.object({ name: z.string().trim().min(1).max(255) }))
           .max(50)
           .default([]),
+        locale: z.enum(["de", "en"]),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
-      const labels: Readonly<Record<string, { label: string }>> = ASSET_LABELS[locale];
       const wanted = [
         ...input.catalogIds.flatMap((id) => {
           const item = CATALOG_BY_ID.get(id);
-          const label = labels[id]?.label;
-          return item && label ? [{ name: label, type: item.category }] : [];
+          const label = CATALOG_LABELS[input.locale][id]?.label;
+          return item && label
+            ? [{ name: label, type: item.category, names: catalogNames(id) }]
+            : [];
         }),
-        ...input.custom.map((c) => ({ name: c.name, type: "other" })),
+        ...input.custom.map((c) => ({ name: c.name, type: "other", names: [c.name] })),
       ];
       const existing = await ctx.db.query.asset.findMany({
         where: eq(asset.companyId, ctx.companyId),
@@ -282,10 +300,10 @@ export const durchgangRouter = router({
       });
       const key = (name: string) => name.trim().toLowerCase();
       const taken = new Set(existing.map((a) => key(a.name)));
-      // The first spelling of a name wins, and a name already on the list is left alone.
+      // The first spelling of a name wins, and an item already on the list is left alone.
       const fresh = wanted.filter(
         (a, i) =>
-          !taken.has(key(a.name)) &&
+          !a.names.some((n) => taken.has(key(n))) &&
           wanted.findIndex((b) => key(b.name) === key(a.name)) === i,
       );
       if (fresh.length > 0) {

@@ -42,6 +42,7 @@
       "sampleWhat": "Was",
       "sampleDetail": "Kurz dazu",
       "record": "Eintrag in Ihren Unterlagen",
+      "adoptedOn": "Übernommen am {date}",
       "signLine": "Freigabe durch die Geschäftsführung",
       "pending": "steht aus",
       "adopted": "Übernommen",
