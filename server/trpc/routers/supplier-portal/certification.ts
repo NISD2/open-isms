@@ -10,6 +10,7 @@
 import { TRPCError } from "@trpc/server";
 import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
+import { rateLimit } from "@/lib/rate-limit";
 import { MAX_UPLOAD_BYTES } from "@/lib/storage/limits";
 import { sanitizeFilename } from "@/lib/storage/object-key";
 import { createPresignedPut } from "@/lib/storage/presign";
@@ -18,6 +19,16 @@ import { companyCertificationCreateSchema } from "@/schema/validators";
 import { assertOwnObjectKey } from "../../guards";
 import { accountProcedure, router } from "../../init";
 import { insertRow } from "../../typed";
+
+/**
+ * Presigned PUTs per company per hour. Each one lets the holder write up to
+ * MAX_UPLOAD_BYTES into the production bucket, any company can ask (the
+ * supplier portal sits on the free tier), and an object never attached to a
+ * certification is neither recorded nor cleaned up. So the count of URLs is the
+ * only brake on what lands in the bucket. A supplier uploads a handful of
+ * certificates, retries included.
+ */
+export const CERT_UPLOADS_PER_HOUR = 10;
 
 /** Where uploadUrl puts a company's certificates; the only keys a certification may hold. */
 const certificationPrefix = (companyId: string) =>
@@ -90,6 +101,18 @@ export const companyCertificationRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      if (
+        !rateLimit(
+          `upload:certification:${ctx.companyId}`,
+          CERT_UPLOADS_PER_HOUR,
+          60 * 60_000,
+        )
+      ) {
+        throw new TRPCError({
+          code: "TOO_MANY_REQUESTS",
+          message: "Too many uploads from your organization. Please try again later.",
+        });
+      }
       const safeName = sanitizeFilename(input.fileName);
       const key = `${certificationPrefix(ctx.companyId)}${Date.now()}-${safeName}`;
       const url = await createPresignedPut(key, input.contentType, input.fileSize);

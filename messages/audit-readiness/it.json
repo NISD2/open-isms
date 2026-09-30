@@ -30,6 +30,7 @@
     "issue": "Problema",
     "recommendation": "Raccomandazione",
     "noGaps": "Nessuna lacuna individuata",
-    "disclaimer": "Valutazione generata dall'AI - non sostituisce un audit formale"
+    "disclaimer": "Valutazione generata dall'AI - non sostituisce un audit formale",
+    "rateLimited": "La tua organizzazione ha raggiunto il limite orario di valutazioni con l'AI. Riprova più tardi."
   }
 }

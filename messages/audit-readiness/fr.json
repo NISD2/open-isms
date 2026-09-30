@@ -30,6 +30,7 @@
     "issue": "Problème",
     "recommendation": "Recommandation",
     "noGaps": "Aucun écart identifié",
-    "disclaimer": "Évaluation générée par IA - ne remplace pas un audit formel"
+    "disclaimer": "Évaluation générée par IA - ne remplace pas un audit formel",
+    "rateLimited": "Votre organisation a atteint la limite horaire d'évaluations par IA. Veuillez réessayer plus tard."
   }
 }

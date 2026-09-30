@@ -1,6 +1,8 @@
-import { useState, useCallback } from "react";
-import type { UseFormReturn, FieldValues, Path, PathValue } from "react-hook-form";
+import { useTranslations } from "next-intl";
+import { useCallback, useState } from "react";
+import type { FieldValues, Path, PathValue, UseFormReturn } from "react-hook-form";
 import { trpc } from "@/lib/trpc/client";
+import { trpcErrorCode } from "@/lib/trpc/error-message";
 
 export interface LLMFieldMeta {
   key: string;
@@ -48,6 +50,7 @@ export function useLLMPrefill<T extends FieldValues>(
   const [error, setError] = useState<string | null>(null);
   const [filledCount, setFilledCount] = useState(0);
 
+  const t = useTranslations("llm");
   const extract = trpc.llm.extract.useMutation();
 
   const open = useCallback(() => {
@@ -94,14 +97,19 @@ export function useLLMPrefill<T extends FieldValues>(
         onSuccess?.(data as Partial<T>);
         setTimeout(() => setIsOpen(false), 800);
       } catch (err) {
-        const msg = err instanceof Error ? err.message : "Extraction failed";
+        const msg =
+          trpcErrorCode(err) === "TOO_MANY_REQUESTS"
+            ? t("rateLimited")
+            : err instanceof Error
+              ? err.message
+              : "Extraction failed";
         setError(msg);
         onError?.(msg);
       } finally {
         setIsLoading(false);
       }
     },
-    [form, extract, fields, excludeFields, language, context, onSuccess, onError],
+    [form, extract, fields, excludeFields, language, context, onSuccess, onError, t],
   );
 
   return { isOpen, open, close, isLoading, error, filledCount, submit };

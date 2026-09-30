@@ -30,6 +30,7 @@
     "issue": "Problém",
     "recommendation": "Doporučení",
     "noGaps": "Nebyly zjištěny žádné nedostatky",
-    "disclaimer": "Vyhodnocení vytvořené umělou inteligencí. Nenahrazuje formální audit"
+    "disclaimer": "Vyhodnocení vytvořené umělou inteligencí. Nenahrazuje formální audit",
+    "rateLimited": "Vaše organizace dosáhla hodinového limitu pro vyhodnocení pomocí umělé inteligence. Zkuste to prosím později."
   }
 }

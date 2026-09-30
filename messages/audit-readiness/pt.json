@@ -30,6 +30,7 @@
     "issue": "Problema",
     "recommendation": "Recomendação",
     "noGaps": "Nenhuma lacuna identificada",
-    "disclaimer": "Avaliação gerada por IA. Não substitui uma auditoria formal"
+    "disclaimer": "Avaliação gerada por IA. Não substitui uma auditoria formal",
+    "rateLimited": "A sua organização atingiu o limite horário de avaliações com IA. Tente novamente mais tarde."
   }
 }
