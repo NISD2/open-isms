@@ -542,15 +542,12 @@ export const supplierUpdateSchema = supplierInsertSchema.partial().omit({
 });
 
 /**
- * Layer 2 — Per-customer contract clauses (supplier portal).
- *
- * Things that vary per customer because each contract negotiates its own
- * terms: right-to-audit, DPA, exit plan, location-change notification,
- * incident SLA, etc. Strict pick of supplierInsertSchema so the supplier
- * portal can never mass-assign supplierCompanyId / customerCompanyId or the
- * portal-share state (status, token, etc.).
+ * The clause answers the supplier gives each customer from its own portal.
+ * Once a row is linked to the supplier's company they are the supplier's
+ * statements, so this one list decides what the supplier may write, what it
+ * reads back, and what the customer can no longer overwrite on a linked row.
  */
-export const relationshipClausesUpdateSchema = supplierInsertSchema.partial().pick({
+const supplierOwnedClauseColumns = {
   acceptRightToAudit: true,
   hasSubprocessors: true,
   subprocessorList: true,
@@ -561,6 +558,69 @@ export const relationshipClausesUpdateSchema = supplierInsertSchema.partial().pi
   notifyMaterialChanges: true,
   hasExitPlan: true,
   incidentSlaHours: true,
+} as const;
+
+/**
+ * Who the customer on a relationship is, and how the relationship began. Both
+ * sides rely on these once linked: the supplier sees them as its customer,
+ * incident broadcasts and the access link are mailed to customerEmail, and
+ * (supplierCompanyId, customerEmail) is the portal share's unique key.
+ */
+const relationshipIdentityColumns = {
+  customerEmail: true,
+  customerOrgName: true,
+  source: true,
+} as const;
+
+/**
+ * Layer 2 — Per-customer contract clauses (supplier portal).
+ *
+ * Things that vary per customer because each contract negotiates its own
+ * terms: right-to-audit, DPA, exit plan, location-change notification,
+ * incident SLA, etc. Strict pick of supplierInsertSchema so the supplier
+ * portal can never mass-assign supplierCompanyId / customerCompanyId or the
+ * portal-share state (status, token, etc.).
+ */
+export const relationshipClausesUpdateSchema = supplierInsertSchema
+  .partial()
+  .pick(supplierOwnedClauseColumns);
+
+/**
+ * Everything the supplier side may read of a relationship row: who the
+ * customer is, the relationship's lifecycle, and the clause answers the
+ * supplier wrote. The rest of the row is the customer's own assessment of the
+ * supplier (risk level, criticality, due diligence, contract dates) and never
+ * leaves the customer. An allowlist, so a column added later stays private
+ * until someone decides the supplier should see it.
+ */
+export const supplierFacingRelationshipSchema = supplierSelectSchema.pick({
+  ...supplierOwnedClauseColumns,
+  ...relationshipIdentityColumns,
+  id: true,
+  status: true,
+  createdAt: true,
+  confirmedAt: true,
+  unsubscribedAt: true,
+});
+
+/**
+ * The customer's edit of a row the supplier's company is linked to: neither
+ * the supplier's clause answers nor the relationship identity both sides rely on.
+ */
+export const supplierLinkedUpdateSchema = supplierUpdateSchema.omit({
+  ...supplierOwnedClauseColumns,
+  ...relationshipIdentityColumns,
+});
+
+/**
+ * The customer's own record of a supplier: what they may still edit on a
+ * linked row, minus the supplier's display name, which is NOT NULL. When the
+ * customer removes a linked row, the row stays for the supplier and these
+ * columns are cleared, because deleting it from the register is the customer
+ * asking for them gone.
+ */
+export const customerSupplierAssessmentSchema = supplierLinkedUpdateSchema.omit({
+  name: true,
 });
 
 // ============================================================================

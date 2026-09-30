@@ -27,7 +27,7 @@
  */
 import { createHash, createHmac } from "node:crypto";
 import type { InferSelectModel } from "drizzle-orm";
-import { and, eq, gte, inArray, isNotNull, lt, ne, or, sql } from "drizzle-orm";
+import { and, eq, gte, inArray, isNotNull, isNull, lt, ne, or, sql } from "drizzle-orm";
 import { logAudit } from "@/lib/audit";
 import { deleteBillingAccountIfUnused } from "@/lib/billing/accounts";
 import { type DbOrTx, db } from "@/lib/db";
@@ -1215,8 +1215,20 @@ async function tearDownCompany(
   // touched. Rows where cid is merely the SUPPLIER to another surviving company
   // are that company's records: we sever cid's identity (null supplierCompanyId)
   // rather than delete, so we never destroy or FK-block another tenant.
+  //
+  // A row no customer holds (released from a register, or a supplier-side
+  // invite never taken into one) is cid's alone. Severing cid there would leave
+  // a row with neither party, still carrying an access token and a contact
+  // address, that no tenant can see or delete. Its offerings and broadcasts
+  // hang off cid's assets and incidents, already deleted above.
   await del("supplier", () =>
     tx.delete(supplier).where(eq(supplier.customerCompanyId, cid)).returning(),
+  );
+  await del("supplier", () =>
+    tx
+      .delete(supplier)
+      .where(and(eq(supplier.supplierCompanyId, cid), isNull(supplier.customerCompanyId)))
+      .returning(),
   );
   await tx
     .update(supplier)
