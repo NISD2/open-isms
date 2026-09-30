@@ -21,7 +21,7 @@ import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { rateLimit } from "@/lib/rate-limit";
-import { sanitizeFilename } from "@/lib/storage/object-key";
+import { companyUploadPrefixes, sanitizeFilename } from "@/lib/storage/object-key";
 import { createPresignedPut } from "@/lib/storage/presign";
 import { company } from "@/schema";
 import { securityProfileUpdateSchema } from "@/schema/validators";
@@ -31,7 +31,7 @@ import { updateRow } from "../../typed";
 import { normalizeDomain } from "./helpers";
 
 /** Where the logo upload URL puts a company's logos; the only keys setLogo accepts. */
-const logoPrefix = (companyId: string) => `supplier-profile/${companyId}/`;
+const logoPrefix = companyUploadPrefixes.logos;
 
 /**
  * Logo PUT URLs per company per hour. Same exposure as the certificate upload

@@ -5,6 +5,7 @@
  */
 import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
 import { billingAlertEmail, sendMail } from "@/lib/mail";
+import { maskAddressesIn } from "@/lib/mail/mask-address";
 
 /** An error the operators have already been told about, so it is not reported twice. */
 export class AlreadyAlerted extends Error {
@@ -14,7 +15,9 @@ export class AlreadyAlerted extends Error {
 }
 
 export const alertOperators = async (subject: string, lines: readonly string[]) => {
-  console.error(`[billing] ${subject}\n${lines.join("\n")}`);
+  // The mail to the operators keeps the customer's address, which they need to
+  // act; the container log, which erasure cannot reach, does not.
+  console.error(maskAddressesIn(`[billing] ${subject}\n${lines.join("\n")}`));
   const admins = [...getPlatformAdminEmails()];
   if (admins.length === 0) return;
   await sendMail({

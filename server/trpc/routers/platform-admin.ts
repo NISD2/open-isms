@@ -45,6 +45,7 @@ import {
   ErasureRefused,
   eraseUser,
   erasureCompanyOf,
+  erasureStoredFiles,
   previewUserErasure,
 } from "@/lib/gdpr/erase-user";
 import { runLifecycleEmails } from "@/lib/lifecycle/dispatch";
@@ -2048,7 +2049,7 @@ export const platformAdminRouter = router({
       return {
         caseRef: row.caseRef,
         filename: erasureCertificateFilename(row),
-        markdown: buildErasureCertificate(row),
+        markdown: buildErasureCertificate(row, await erasureStoredFiles(ctx.db, row)),
       };
     }),
 

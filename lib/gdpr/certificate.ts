@@ -7,6 +7,7 @@
 import type { InferSelectModel } from "drizzle-orm";
 import type { ErasureScope } from "@/schema";
 import { dataErasureLog } from "@/schema";
+import type { StoredFileState } from "./stored-files";
 
 export type ErasureLogRow = InferSelectModel<typeof dataErasureLog>;
 
@@ -42,17 +43,53 @@ function fmtCounts(rec: Record<string, number>): string {
     .join("\n");
 }
 
-export function buildErasureCertificate(row: ErasureLogRow): string {
+const UPLOADED_FILES =
+  "the organization's uploaded files (evidence documents, training certificates, supplier-portal certificates, policy files and its logo)";
+
+/** The "Stored files" section, or nothing when no files were in scope. */
+function storedFilesSection(files: StoredFileState): string {
+  const section = (body: string) => `\n### Stored files\n${body}\n`;
+  switch (files.kind) {
+    case "not_applicable":
+      return "";
+    case "complete":
+      return section(
+        `All of ${UPLOADED_FILES} were deleted from file storage (AWS S3) after the database records: ${files.deleted} file(s).`,
+      );
+    case "pending":
+      return section(
+        `Not all of ${UPLOADED_FILES} had been deleted from file storage (AWS S3) when this record was issued: ${files.deleted} file(s) deleted so far, ${files.pendingPrefixes.length} folder(s) outstanding. The deletion is retried daily.`,
+      );
+    case "unrecorded":
+      return section(
+        `No deletion of ${UPLOADED_FILES} from file storage (AWS S3) is recorded for this erasure.`,
+      );
+  }
+}
+
+/**
+ * Render the certificate. `files` is what happened to a torn-down
+ * organization's stored files, read at render time: they are deleted after
+ * the checksummed record is written, so the record alone cannot say whether
+ * that finished, and the certificate claims complete deletion only when it did.
+ */
+export function buildErasureCertificate(
+  row: ErasureLogRow,
+  files: StoredFileState,
+): string {
   const scope = row.scope as ErasureScope;
   const methodLabel =
     row.method === "hard_delete"
       ? "Complete deletion (no retained-evidence footprint)"
       : "Deletion with anonymisation of tamper-evident and tenant records";
+  const filesDone = files.kind === "not_applicable" || files.kind === "complete";
+  const confirmation = filesDone
+    ? "Confirming that your account and all associated personal data have been deleted,\nas you requested."
+    : 'Confirming that your account and the associated personal data in our database\nhave been deleted, as you requested. The organization\'s stored files are covered\nunder "Stored files" below, because their deletion is not recorded as complete.';
 
   return `Hello,
 
-Confirming that your account and all associated personal data have been deleted,
-as you requested. The formal record is below. If anything's unclear, reply here
+${confirmation} The formal record is below. If anything's unclear, reply here
 or to contact@nisd2.eu quoting the case reference (${esc(row.caseRef)}).
 
 Best regards,
@@ -95,7 +132,7 @@ at intake per our procedure. No fee was charged (Art. 12(5)).
 
 **Method:** ${methodLabel}
 **Executed:** ${fmtDate(row.erasedAt)} by ${esc(row.actorEmail)}
-**Company teardown:** ${row.companyTornDown ? "Yes. The subject owned the organization, so it and all its tenant data were deleted, together with every member account that belonged to no other organization." : "No"}
+**Company teardown:** ${row.companyTornDown ? `Yes. The subject owned the organization, so it and all its tenant data${filesDone ? "" : " in our database"} were deleted, together with every member account that belonged to no other organization.` : "No"}
 
 ### Data categories and systems cleared
 ${scope.systemsCleared.length ? scope.systemsCleared.map((s) => `- ${esc(s)}`).join("\n") : "_none recorded_"}
@@ -105,7 +142,7 @@ ${fmtCounts(scope.deleted)}
 
 ### Records anonymised (subject identity severed, record retained)
 ${fmtCounts(scope.anonymized)}
-
+${storedFilesSection(files)}
 ### Processors and sub-processors
 Your data was processed only within our own systems and standard operational logs. Beyond the sub-processors listed below, which hold copies under our Article 28 agreements and delete it as part of this erasure and on their standard backup-retention cycle, it was not disclosed to any separate third-party recipient, so no separate Article 19 recipient notification was required.
 ${scope.processorsInScope.length ? scope.processorsInScope.map((p) => `- ${esc(p)}`).join("\n") : "_none_"}
@@ -116,7 +153,7 @@ ${scope.residualNotes.length ? `### Notes\n${scope.residualNotes.map((n) => `- $
 
 Assessed. No exception applies: the account was not processed for journalism,
 public-interest, or scientific-research purposes, and no legal-retention duty
-attaches to it. Erasure was carried out in full.
+attaches to it. ${filesDone ? "Erasure was carried out in full." : 'Erasure of the database records was carried out in full; the stored files are as\ndescribed under "Stored files".'}
 
 ## What was retained, and why
 

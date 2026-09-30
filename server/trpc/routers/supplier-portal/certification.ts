@@ -12,8 +12,9 @@ import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
 import { rateLimit } from "@/lib/rate-limit";
 import { MAX_UPLOAD_BYTES } from "@/lib/storage/limits";
-import { sanitizeFilename } from "@/lib/storage/object-key";
-import { createPresignedPut } from "@/lib/storage/presign";
+import { companyUploadPrefixes, sanitizeFilename } from "@/lib/storage/object-key";
+import { createPresignedPut, deleteObject } from "@/lib/storage/presign";
+import { removeReleasedObject } from "@/lib/storage/released-object";
 import { companyCertification } from "@/schema";
 import { companyCertificationCreateSchema } from "@/schema/validators";
 import { assertOwnObjectKey } from "../../guards";
@@ -31,8 +32,7 @@ import { insertRow } from "../../typed";
 export const CERT_UPLOADS_PER_HOUR = 10;
 
 /** Where uploadUrl puts a company's certificates; the only keys a certification may hold. */
-const certificationPrefix = (companyId: string) =>
-  `supplier-certifications/${companyId}/`;
+const certificationPrefix = companyUploadPrefixes.certifications;
 
 export const companyCertificationRouter = router({
   /** List all certifications I own. */
@@ -70,11 +70,11 @@ export const companyCertificationRouter = router({
       return row;
     }),
 
-  /** Delete a cert (does not delete the S3 object — that's a separate cleanup). */
+  /** Delete a cert, and its PDF once no other certification points at it. */
   delete: accountProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
-      const result = await ctx.db
+      const [removed] = await ctx.db
         .delete(companyCertification)
         .where(
           and(
@@ -82,8 +82,22 @@ export const companyCertificationRouter = router({
             eq(companyCertification.companyId, ctx.companyId),
           ),
         )
-        .returning({ id: companyCertification.id });
-      if (result.length === 0) throw new TRPCError({ code: "NOT_FOUND" });
+        .returning({ storageKey: companyCertification.storageKey });
+      if (!removed) throw new TRPCError({ code: "NOT_FOUND" });
+      await removeReleasedObject({
+        key: removed.storageKey,
+        prefix: certificationPrefix(ctx.companyId),
+        stillReferenced: async (key) =>
+          (await ctx.db.query.companyCertification.findFirst({
+            where: and(
+              eq(companyCertification.companyId, ctx.companyId),
+              eq(companyCertification.storageKey, key),
+            ),
+            columns: { id: true },
+          })) !== undefined,
+        remove: deleteObject,
+        record: `company_certification ${input.id}`,
+      });
       return { deleted: true };
     }),
 

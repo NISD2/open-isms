@@ -2,7 +2,7 @@ Five endpoints do scheduled work. Four of them run only when something calls the
 
 | Path | Suggested schedule (UTC) | |
 |---|---|---|
-| `/api/cron/deadlines` | `0 6 * * *` | the daily heartbeat, seven phases |
+| `/api/cron/deadlines` | `0 6 * * *` | the daily heartbeat, eight phases |
 | `/api/cron/course-reminders` | `0 7 * * *` | follow-ups for people who started a course and have not finished |
 | `/api/cron/lifecycle` | `0 8 * * *` | one-time re-engagement emails, e.g. the activation nudge for quiet accounts with open path steps |
 | `/api/cron/indexnow` | `0 5 * * *` | only if you set an IndexNow key: tells Bing and others which public pages changed |
@@ -10,7 +10,7 @@ Five endpoints do scheduled work. Four of them run only when something calls the
 
 ## What the daily heartbeat actually does
 
-Calling it "deadline reminders" undersells it. One request runs seven phases in order:
+Calling it "deadline reminders" undersells it. One request runs eight phases in order:
 
 1. **Status transitions.** Requirements whose next review date has passed move to `needs_review`.
 2. **Backfill.** Requirements with no review date get one, computed from their priority.
@@ -19,8 +19,9 @@ Calling it "deadline reminders" undersells it. One request runs seven phases in 
 5. **Digest compilation.** Pending notifications are batched into the daily or weekly digest and sent, then marked sent.
 6. **Supplier broadcasts.** Queued supplier publication events, incident notifications among them, are drained. The synchronous fan-out at publish time is the fast path; this is the safety net for the ones that failed.
 7. **GDPR retention.** Erasure records past their three-year window are minimised, leaving only the pseudonymous fingerprint and dropping the raw email.
+8. **GDPR stored files.** When an erasure tore an organization down but could not delete all of its uploaded files from object storage, the deletion is tried again. Until it succeeds, that erasure's certificate says the files are outstanding.
 
-Skip it and none of that happens. Requirements stay in the status they were last given, escalation never fires, queued supplier notifications sit in the queue, and erasure records keep an email address they were supposed to shed. Phase 7 in particular is a compliance obligation of your own, not a convenience.
+Skip it and none of that happens. Requirements stay in the status they were last given, escalation never fires, queued supplier notifications sit in the queue, erasure records keep an email address they were supposed to shed, and files an erasure could not delete stay in the bucket. Phases 7 and 8 in particular are compliance obligations of your own, not a convenience.
 
 ## Lifecycle emails
 

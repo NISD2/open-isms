@@ -6,12 +6,15 @@ import {
   recheckModuleRequirements,
 } from "@/lib/compliance/module-recheck";
 import {
+  companyUploadPrefixes,
   createPresignedGet,
   createPresignedPut,
+  deleteObject,
   normalizeContentType,
   sanitizeFilename,
 } from "@/lib/storage";
 import { MAX_UPLOAD_BYTES } from "@/lib/storage/limits";
+import { removeReleasedObject } from "@/lib/storage/released-object";
 import { trainingRecord } from "@/schema";
 import { trainingInsertSchema, trainingUpdateSchema } from "@/schema/validators";
 import { assertOwnObjectKey, verifyMemberReferences } from "../guards";
@@ -44,7 +47,7 @@ const batchCreateSchema = z.object({
 });
 
 /** Where getCertificateUploadUrl puts a company's certificates; the only keys a record may hold. */
-const certificatePrefix = (companyId: string) => `companies/${companyId}/training-certs/`;
+const certificatePrefix = companyUploadPrefixes.trainingCertificates;
 
 export const trainingRouter = router({
   list: companyProcedure.query(async ({ ctx }) => {
@@ -142,14 +145,30 @@ export const trainingRouter = router({
   delete: companyProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
-      await ctx.db
+      const [removed] = await ctx.db
         .delete(trainingRecord)
         .where(
           and(
             eq(trainingRecord.id, input.id),
             eq(trainingRecord.companyId, ctx.companyId),
           ),
-        );
+        )
+        .returning({ certificateFileKey: trainingRecord.certificateFileKey });
+      await removeReleasedObject({
+        key: removed?.certificateFileKey,
+        prefix: certificatePrefix(ctx.companyId),
+        // batchCreate gives every participant's row the same certificate.
+        stillReferenced: async (key) =>
+          (await ctx.db.query.trainingRecord.findFirst({
+            where: and(
+              eq(trainingRecord.companyId, ctx.companyId),
+              eq(trainingRecord.certificateFileKey, key),
+            ),
+            columns: { id: true },
+          })) !== undefined,
+        remove: deleteObject,
+        record: `training_record ${input.id}`,
+      });
       recheckModuleRequirements(
         ctx.db,
         ctx.companyId,

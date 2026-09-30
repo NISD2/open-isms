@@ -1,5 +1,32 @@
 import { describe, expect, test } from "bun:test";
-import { formatDecision, formatReportDate, formatSigner } from "./format";
+import { SHOWN_ANSWER_CHARS } from "@/lib/compliance/intake-answers";
+import {
+  formatDecision,
+  formatFieldValue,
+  formatReportDate,
+  formatSigner,
+} from "./format";
+
+// Rows saved before answers were checked can hold megabytes; react-pdf lays
+// out whatever it is given, synchronously, on the one app container.
+describe("formatFieldValue", () => {
+  test("cuts an oversized stored answer down", () => {
+    const rendered = formatFieldValue("x".repeat(9 * 1024 * 1024), "text", "de");
+    expect(rendered).toHaveLength(SHOWN_ANSWER_CHARS + 1);
+    expect(rendered.endsWith("…")).toBe(true);
+  });
+
+  test("cuts an oversized value of any shape, not only strings", () => {
+    const rendered = formatFieldValue(Array(200_000).fill("abc"), "text", "en");
+    expect(rendered.length).toBeLessThanOrEqual(SHOWN_ANSWER_CHARS + 1);
+  });
+
+  test("leaves an ordinary answer as it was", () => {
+    expect(formatFieldValue("SIEM_und_EDR", "text", "en")).toBe("SIEM und EDR");
+    expect(formatFieldValue(true, "boolean", "de")).toBe("Ja");
+    expect(formatFieldValue(4, "number", "de")).toBe("4");
+  });
+});
 
 describe("formatSigner", () => {
   test("prints the name with the role in brackets", () => {

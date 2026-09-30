@@ -15,6 +15,10 @@ import { and, asc, eq, inArray } from "drizzle-orm";
 import { z } from "zod";
 import { hasReviewAccess } from "@/lib/auth";
 import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
+import {
+  checkRequirementAnswers,
+  withinIntakePayloadCap,
+} from "@/lib/compliance/intake-answers";
 import { REQUIREMENT_FIELD_MAP } from "@/lib/compliance/requirement-fields";
 import { hasSignOffToWithdraw } from "@/lib/compliance/sign-off-state";
 import type { Database, DbOrTx } from "@/lib/db";
@@ -137,7 +141,9 @@ export const intakeRouter = router({
         assessmentId: z.string().uuid(),
         categoryId: z.string().uuid(),
         requirementCode: z.string(),
-        answers: z.record(z.string(), z.unknown()),
+        answers: z
+          .record(z.string(), z.unknown())
+          .refine(withinIntakePayloadCap, "These answers are too long to save."),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -153,6 +159,15 @@ export const intakeRouter = router({
         });
       }
 
+      const checked = checkRequirementAnswers(
+        categoryCode,
+        fieldInfo.fieldKeys,
+        input.answers,
+      );
+      if (!checked.ok) {
+        throw new TRPCError({ code: "BAD_REQUEST", message: checked.message });
+      }
+
       // Load existing category-level answers
       const existing = await ctx.db.query.companyCategoryIntake.findFirst({
         where: and(
@@ -163,12 +178,7 @@ export const intakeRouter = router({
 
       // Shallow merge: only overwrite keys that belong to this requirement
       const currentAnswers = (existing?.answers ?? {}) as Record<string, unknown>;
-      const merged = { ...currentAnswers };
-      for (const key of fieldInfo.fieldKeys) {
-        if (input.answers[key] !== undefined) {
-          merged[key] = input.answers[key];
-        }
-      }
+      const merged = { ...currentAnswers, ...checked.answers };
 
       // Recalculate completion for the full category
       const schema = CATEGORY_SCHEMAS[categoryCode];
