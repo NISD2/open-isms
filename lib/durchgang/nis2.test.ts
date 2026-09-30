@@ -49,8 +49,13 @@ const NO_SCREEN: Readonly<Record<string, string>> = {
     "the incident register fills when an incident happens; 3.3 prepares the reporting, and the register stays on the incidents page",
 };
 
+/** The value's own schema under any optional, nullable or default wrapper. */
 const unwrap = (schema: z.ZodType): z.ZodType =>
-  schema instanceof z.ZodOptional ? unwrap(schema.unwrap() as z.ZodType) : schema;
+  schema instanceof z.ZodOptional ||
+  schema instanceof z.ZodNullable ||
+  schema instanceof z.ZodDefault
+    ? unwrap(schema.unwrap() as z.ZodType)
+    : schema;
 
 const screensOf = (item: (typeof NIS2_SCRIPT)[number]): readonly AnyScreen[] =>
   item.screens;
@@ -95,8 +100,6 @@ describe("the NIS 2 script", () => {
             return s.fields;
           case "evidence":
             return s.field ? [s.field] : [];
-          case "fixed":
-            return Object.keys(s.values);
           default:
             return [];
         }

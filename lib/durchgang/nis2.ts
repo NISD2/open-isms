@@ -6,7 +6,6 @@
  * its reviewed copy in messages/durchgang.
  */
 
-import { REPORTING_CLOCK } from "@/lib/compliance/bsig-32";
 import type { CategoryCode } from "@/lib/compliance/category-schemas";
 import type { AnyItem, Item } from "./types";
 
@@ -64,7 +63,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
   item({
     code: "12.3",
     category: "REG",
-    glossary: ["bsiRegistration", "muk"],
+    glossary: ["bsiRegistration"],
     reviewed: "2026-09-30",
     screens: [
       { kind: "learn", id: "learn" },
@@ -116,18 +115,14 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     screens: [
       { kind: "learn", id: "learn" },
       { kind: "provision", id: "clock", provision: "bsig_32_clock" },
-      {
-        kind: "fixed",
-        id: "deadline",
-        values: { earlyWarningSlaHours: REPORTING_CLOCK.earlyWarningHours },
-      },
       { kind: "prepare", id: "ready" },
+      {
+        kind: "fields",
+        id: "setup",
+        fields: ["earlyWarningSlaHours", "bsiReportingRegistered"],
+      },
       { kind: "done", id: "done" },
     ],
-    notAsked: {
-      bsiReportingRegistered:
-        "Reports go through the BSI-Portal with the registration's access (BSI info pack Meldepflicht), so whether the reporting contact is registered is 12.2's answer; the Durchgang does not ask it twice.",
-    },
   }),
   item({
     code: "12.2",

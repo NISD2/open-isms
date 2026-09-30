@@ -21,8 +21,9 @@
         "teaser": "Sector and size decide the level.",
         "missed": [
           "If more than one type of entity applies, record every one, not just your main line of business.",
-          "If your company belongs to a group, partner and linked enterprises count towards headcount and turnover. That does not apply if your IT demonstrably runs independently of them (§ 28(4) BSIG).",
-          "Side activities that hardly matter to your business as a whole may be left out of the assignment (§ 28(3) BSIG)."
+          "If your company belongs to a group, the figures of partner and linked enterprises count too: headcount, turnover and balance sheet total. That does not apply if your company is legally, economically and in fact independent of them as regards its IT and how it is run (§ 28(4) BSIG).",
+          "Side activities that hardly matter to your business as a whole may be left out of the assignment (§ 28(3) BSIG).",
+          "For operators of public telecommunications networks, energy companies under the Energy Industry Act (EnWG) and financial entities under DORA, §§ 30, 32 and 38 BSIG generally do not apply (§ 28(5) and (6) BSIG). They still have to register."
         ],
         "screens": {
           "learn": {
@@ -138,14 +139,14 @@
         "headline": "Write down who works for you",
         "teaser": "A list of your suppliers and service providers.",
         "missed": [
-          "IT is not the only thing that counts. The law speaks of direct suppliers and service providers without restriction (§ 30(2) no. 4 BSIG).",
+          "It is not only IT firms that count. It covers every direct supplier and service provider that touches your IT or your data, including for example the tax adviser with access to staff data (§ 30(1) and (2) no. 4 BSIG).",
           "The EU Agency for Cybersecurity (ENISA) suggests classifying suppliers, for example as critical, strategic and routine."
         ],
         "screens": {
           "learn": {
             "title": "Who works for your company",
             "body": [
-              "Security also covers whoever works for you from outside: service providers, software vendors, suppliers. The first step is a list of who they are and what they do for you.",
+              "The security of your IT also covers whoever works on it from outside or can reach your data: service providers, software vendors, suppliers. The first step is a list of who they are and what they do for you.",
               "Start with the ones your business could not run without. The list grows over time."
             ],
             "duty": "The law requires measures for supply chain security, including in your relationships with your direct suppliers and service providers."
@@ -205,7 +206,8 @@
         "headline": "Keep the registration up to date",
         "teaser": "When something changes, update it with the BSI.",
         "missed": [
-          "The two weeks run from the moment your company learns of the change. So add the BSI portal to what happens when someone leaves the company.",
+          "The two weeks run from the moment your company learns of the change, not from a fixed review date.",
+          "The law names the company's contact details, not a contact person. But the BSI applies the two weeks to all data in the portal, so to that person too. So add the BSI portal to what happens when someone leaves the company.",
           "Give a shared mailbox for the point of contact, as the BSI recommends. Then less changes."
         ],
         "screens": {
@@ -226,6 +228,10 @@
                 "detail": "someone leaves or takes on a different job"
               },
               {
+                "name": "Name and legal form",
+                "detail": "a change of company name or legal form"
+              },
+              {
                 "name": "Address, phone and email",
                 "detail": "a move, a new number, a mailbox switched off"
               },
@@ -238,7 +244,7 @@
                 "detail": "a new line of business or services in another country"
               }
             ],
-            "source": "§ 33(1) and (5) BSIG. Changes are made in the BSI portal under \"Ihre Registrierung\" (BSI guide)."
+            "source": "§ 33(1) and (5) BSIG. The BSI asks for \"all changes to the registration data\" to be made within two weeks in the BSI portal under \"Ihre Registrierung\" (BSI guide)."
           },
           "contact": {
             "title": "Who is registered with the BSI",
@@ -253,7 +259,7 @@
         "fields": {
           "contactPersonName": {
             "label": "Contact person",
-            "hint": "The person entered in the BSI portal as the NIS 2 contact person."
+            "hint": "The person entered in the BSI portal as the contact person for NIS 2."
           },
           "contactPersonEmail": {
             "label": "Contact person's email address",
@@ -280,7 +286,7 @@
               "Management carries the responsibility. It has to implement the measures and oversee their implementation (§ 38(1) BSIG). It hands the work to people in the company.",
               "At the centre is one coordinating role. It drives information security forward and advises management."
             ],
-            "duty": "Your company has to document how it meets its duties. That includes who is responsible for what."
+            "duty": "Your company has to document that it implements the information security measures."
           },
           "who": {
             "title": "What good looks like",
@@ -308,7 +314,7 @@
         "headline": "Plan what happens in an incident",
         "teaser": "Who decides, whom you call, how you reach each other.",
         "missed": [
-          "Plan a second way to communicate outside your own IT. The law explicitly names secured communication and, where needed, secured emergency communication (§ 30(2) no. 10 BSIG).",
+          "The law explicitly names secured voice, video and text communication and, where needed, secured emergency communication systems within the company (§ 30(2) no. 10 BSIG). A phone list on paper does not replace that; it is the fallback when everything else is down.",
           "Decide who writes the report to the BSI. The first report is due at the latest 24 hours after you learn of a significant incident (§ 32(1) BSIG)."
         ],
         "screens": {
@@ -334,7 +340,7 @@
             "title": "The second way",
             "caption": "How you reach each other when email and the network fail",
             "good": {
-              "value": "A phone list on paper, at the office and at management's homes",
+              "value": "An encrypted messenger on the company phones, plus a phone list on paper",
               "note": "Works even when your own IT is down."
             },
             "bad": {
@@ -371,7 +377,7 @@
           },
           "secureCommsChannel": {
             "label": "Second communication channel",
-            "hint": "A way outside your own IT, for example a phone list on paper."
+            "hint": "How you reach each other securely when your own IT fails, for example an encrypted messenger on the company phones."
           }
         }
       },
@@ -380,8 +386,8 @@
         "teaser": "Three reports to the BSI, with fixed deadlines.",
         "missed": [
           "The clock runs from when you learn of it, not from when everything is clear. Report early; the second report confirms or updates the first.",
-          "The BSI reads \"learning of it\" as the moment someone in the company finds out about the incident during working hours.",
-          "If personal data is affected, report to the data protection authority in parallel, with its own 72-hour deadline (Art. 33 GDPR)."
+          "The BSI reads \"learning of it\" as the moment someone in the company finds out about the incident during working hours (BSI, Meldepflicht info pack).",
+          "If it is a personal data breach, you usually also notify the data protection authority: without undue delay and, where feasible, within 72 hours, unless the breach is unlikely to result in a risk to the people affected (Art. 33 GDPR)."
         ],
         "screens": {
           "learn": {
@@ -390,17 +396,12 @@
               "If a security incident is significant, you report it to the BSI. It is significant if it can seriously disrupt your operations or cause you financial losses, or if it can cause considerable damage to others.",
               "Reports are made in the BSI portal, with the same access as for the registration."
             ],
-            "duty": "You report significant incidents in three steps to the joint reporting office of the BSI and the Federal Office of Civil Protection and Disaster Assistance."
+            "duty": "You report significant incidents in three steps with fixed deadlines to the joint reporting office of the BSI and the Federal Office of Civil Protection and Disaster Assistance."
           },
           "clock": {
             "title": "The three deadlines",
             "lead": "The clock runs from the moment your company learns of the incident. The third deadline starts with the second report.",
-            "source": "§ 32(1) and (2) BSIG. If the incident is still going on after a month, send a progress report instead of the final report, and the final report once it is dealt with."
-          },
-          "deadline": {
-            "title": "Your deadline for the first report",
-            "lead": "The law sets this number. You only confirm it.",
-            "source": "§ 32(1) no. 1 BSIG: without undue delay, and at the latest within 24 hours of becoming aware."
+            "source": "§ 32(1) and (2) BSIG. If the BSI asks for one, an interim report comes in between. If the incident is still going on after a month, send a progress report instead of the final report, and the final report once it is dealt with."
           },
           "ready": {
             "title": "What you need for the first report",
@@ -421,6 +422,11 @@
             ],
             "source": "§ 32(1) no. 1 BSIG. A company that is not registered yet reports through the BSI's reporting and information portal (BSI, Meldepflicht info pack)."
           },
+          "setup": {
+            "title": "Record your reporting setup",
+            "lead": "Two details. Your own deadline may be shorter than the legal one, not longer.",
+            "document": "Your emergency plan"
+          },
           "done": {
             "title": "Reporting prepared",
             "note": "At the end, management reviews every item and signs."
@@ -428,8 +434,12 @@
         },
         "fields": {
           "earlyWarningSlaHours": {
-            "label": "Deadline for the early warning, in hours",
-            "hint": "At the latest 24 hours after your company learns of a significant incident."
+            "label": "Your deadline for the early warning, in hours",
+            "hint": "The law requires the report without undue delay, at the latest 24 hours after becoming aware (§ 32(1) no. 1 BSIG). A shorter internal deadline is possible."
+          },
+          "bsiReportingRegistered": {
+            "label": "Registered in the BSI portal",
+            "hint": "Yes, once the registration with the BSI is complete. You report incidents there with the same access."
           }
         }
       },
@@ -656,7 +666,7 @@
         "ask": "Are we an essential or an important entity, and which entity types from Annex 1 and 2 apply to us?",
         "missed": [
           "Several sectors: the main one is not the only one that counts. Record every entity type that applies.",
-          "Groups: each company is classified on its own. Data of partner enterprises counts pro rata and of linked enterprises in full, unless the company's own IT demonstrably runs independently of them (§28(4) BSIG).",
+          "Groups: each company is classified on its own. Data of partner enterprises counts pro rata and of linked enterprises in full (Recommendation 2003/361/EC). That does not apply if the company is legally, economically and in fact independent of them as regards its IT and how it is run (§28(4) BSIG).",
           "Negligible side activities may be left out of the classification (§28(3) BSIG). Re-check the classification after growth, new lines of business or acquisitions."
         ]
       },
@@ -700,7 +710,7 @@
         "who": "Procurement, or whoever holds the contract, adds the supplier. Information security rates risk and criticality, legal reviews the contract clauses. Management knows the list of critical suppliers.",
         "ask": "Which suppliers could halt our operations or have access to our systems, data or premises, and who on our side is responsible for each of them?",
         "missed": [
-          "Not only IT suppliers: §30(2) Nr. 4 BSIG speaks of direct suppliers and service providers without qualification. Anyone who can disrupt operations belongs in the register.",
+          "Not only IT suppliers: §30(2) Nr. 4 BSIG means every direct supplier and service provider that touches the company's IT or data, the tax adviser included. Anyone who can disrupt operations that way belongs in the register.",
           "Every row needs an owner and a rating. Without both, the register is a list of names in an audit.",
           "Subcontractors do not end at the first link. For critical services, ask whom the supplier relies on in turn."
         ]
@@ -726,7 +736,7 @@
         "who": "Information security writes the plan and names the lead of the incident team. Legal or compliance drafts the notification texts, data protection covers incidents involving personal data. Management approves the plan.",
         "ask": "Who decides whether an incident is significant? By which route and from which threshold does the escalation reach me, and when did we last test the fallback communication channel?",
         "missed": [
-          "A second communication channel outside your own IT. In a real incident, email and chat are often affected too; §30(2) Nr. 10 BSIG names secured emergency communication explicitly.",
+          "A second communication channel in case email and chat are affected too. §30(2) Nr. 10 BSIG explicitly names secured communication and, where needed, secured emergency communication systems; a phone list on paper is only the fallback.",
           "Detecting is not handling. Monitoring without a defined response, ownership and escalation is not a plan.",
           "Whoever drafts the report to the BSI is rarely in the plan. Fill that role in advance; in smaller companies it sits with compliance or legal."
         ]
@@ -735,9 +745,9 @@
         "who": "Information security classifies the incident and clears the report, compliance or legal drafts it, IT supplies the facts. Management is informed without delay. Data protection checks in parallel whether the supervisory authority has to be notified (Art. 33 GDPR).",
         "ask": "Who decides what counts as significant, and when did we last exercise the reporting route, in a real incident or a drill?",
         "missed": [
-          "Three reports, one incident: an early warning within 24 hours, a notification within 72 hours, and a final report one month after the second report (§32(1) BSIG). If the incident is still ongoing, a progress report takes its place (§32(2) BSIG).",
+          "Three reports with deadlines, one incident: an early warning within 24 hours, a notification within 72 hours, and a final report one month after the second report (§32(1) BSIG). If the BSI asks, an interim report comes in between. If the incident is still ongoing, a progress report takes the final report's place (§32(2) BSIG).",
           "The recipient is the joint reporting office of the BSI and the BBK. Reports are filed through the BSI portal with the same access used for registration.",
-          "If personal data is affected, the notification to the data protection authority under Art. 33 GDPR runs in parallel, with its own 72-hour deadline."
+          "If it is a personal data breach, the notification to the data protection authority under Art. 33 GDPR runs in parallel: without undue delay and, where feasible, within 72 hours, unless the breach is unlikely to result in a risk to the people affected."
         ]
       }
     }

@@ -14,11 +14,7 @@
 
 import type { FunctionalGroup } from "@/lib/asset-inventory/catalog";
 import type { Frequency, Impact } from "@/lib/compliance/bsi-200-3";
-import type {
-  CategoryCode,
-  CategoryField,
-  CategoryValues,
-} from "@/lib/compliance/category-schemas";
+import type { CategoryCode, CategoryField } from "@/lib/compliance/category-schemas";
 
 /**
  * A rule shown as it is, read-only, rendered from the module that holds it: the 200-3 matrix
@@ -75,12 +71,6 @@ export type Screen<C extends CategoryCode> =
       readonly field: CategoryField<C> | null;
     }
   | { readonly kind: "adopt"; readonly id: string; readonly adopts: Adoptable }
-  /** Values the law sets, shown with their source and written when the person confirms. */
-  | {
-      readonly kind: "fixed";
-      readonly id: string;
-      readonly values: Readonly<Partial<CategoryValues<C>>>;
-    }
   | { readonly kind: "register"; readonly id: string; readonly module: RegisterModule }
   | { readonly kind: "decide"; readonly id: string; readonly decision: Decision }
   | {

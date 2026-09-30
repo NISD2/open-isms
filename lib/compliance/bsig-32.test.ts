@@ -24,6 +24,19 @@ describe("§ 32 BSIG reporting clock", () => {
     expect(section32).toContain("spätestens einen Monat nach Übermittlung der Meldung");
   });
 
+  test("the final report lists every item of Nr. 4 a to d", () => {
+    for (const part of [
+      "Schweregrad",
+      "Auswirkungen",
+      "Art der Bedrohung",
+      "Abhilfemaßnahmen",
+      "grenzüberschreitenden",
+    ]) {
+      expect(section32).toContain(part);
+      expect(REPORT_TEXT.de.final_report.content).toContain(part);
+    }
+  });
+
   test("the German report names are the statute's words", () => {
     // Mid-sentence in the statute: "eine frühe Erstmeldung".
     const { name } = REPORT_TEXT.de.early_warning;

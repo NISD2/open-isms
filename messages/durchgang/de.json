@@ -21,8 +21,9 @@
         "teaser": "Sektor und Größe entscheiden über die Stufe.",
         "missed": [
           "Trifft mehr als eine Einrichtungsart zu, halten Sie jede fest, nicht nur die Hauptbranche.",
-          "Gehört Ihr Unternehmen zu einer Gruppe, zählen Partner und verbundene Unternehmen bei Beschäftigten und Umsatz mit. Das entfällt, wenn Ihre IT nachweislich unabhängig von ihnen betrieben wird (§ 28 Abs. 4 BSIG).",
-          "Nebentätigkeiten, die für Ihr Geschäft insgesamt kaum ins Gewicht fallen, dürfen bei der Zuordnung außen vor bleiben (§ 28 Abs. 3 BSIG)."
+          "Gehört Ihr Unternehmen zu einer Gruppe, zählen die Zahlen von Partner- und verbundenen Unternehmen mit: Beschäftigte, Umsatz und Bilanzsumme. Das entfällt, wenn Ihr Unternehmen bei seiner IT und deren Betrieb rechtlich, wirtschaftlich und tatsächlich unabhängig von ihnen ist (§ 28 Abs. 4 BSIG).",
+          "Nebentätigkeiten, die für Ihr Geschäft insgesamt kaum ins Gewicht fallen, dürfen bei der Zuordnung außen vor bleiben (§ 28 Abs. 3 BSIG).",
+          "Für Betreiber öffentlicher Telekommunikationsnetze, Energieunternehmen unter dem Energiewirtschaftsgesetz und Finanzunternehmen unter DORA gelten die §§ 30, 32 und 38 BSIG in der Regel nicht (§ 28 Abs. 5 und 6 BSIG). Registrieren müssen sie sich trotzdem."
         ],
         "screens": {
           "learn": {
@@ -144,14 +145,14 @@
         "headline": "Aufschreiben, wer für Sie arbeitet",
         "teaser": "Eine Liste Ihrer Lieferanten und Dienstleister.",
         "missed": [
-          "Nicht nur IT zählt. Das Gesetz spricht von direkten Anbietern und Dienstleistern ohne Einschränkung (§ 30 Abs. 2 Nr. 4 BSIG).",
+          "Nicht nur IT-Firmen zählen. Es geht um alle direkten Anbieter und Dienstleister, die Ihre IT oder Ihre Daten berühren, etwa auch das Steuerbüro mit Zugriff auf Personaldaten (§ 30 Abs. 1 und Abs. 2 Nr. 4 BSIG).",
           "Die Agentur der EU für Cybersicherheit (ENISA) schlägt vor, Lieferanten einzustufen, etwa in kritisch, strategisch und Routine."
         ],
         "screens": {
           "learn": {
             "title": "Wer für Ihr Unternehmen arbeitet",
             "body": [
-              "Zur Sicherheit gehört auch, wer von außen für Sie arbeitet: Dienstleister, Softwareanbieter, Lieferanten. Der erste Schritt ist eine Liste, wer das ist und was er für Sie tut.",
+              "Zur Sicherheit Ihrer IT gehört auch, wer von außen daran mitarbeitet oder an Ihre Daten kommt: Dienstleister, Softwareanbieter, Lieferanten. Der erste Schritt ist eine Liste, wer das ist und was er für Sie tut.",
               "Fangen Sie mit denen an, ohne die Ihr Betrieb stehen würde. Die Liste wächst mit."
             ],
             "duty": "Das Gesetz verlangt Maßnahmen für die Sicherheit der Lieferkette, auch in den Beziehungen zu Ihren direkten Anbietern und Dienstleistern."
@@ -217,7 +218,8 @@
         "headline": "Die Registrierung aktuell halten",
         "teaser": "Ändert sich etwas, tragen Sie es beim BSI nach.",
         "missed": [
-          "Die zwei Wochen laufen ab dem Moment, in dem Ihr Unternehmen von der Änderung erfährt. Nehmen Sie das BSI-Portal deshalb in den Ablauf auf, wenn jemand das Unternehmen verlässt.",
+          "Die zwei Wochen laufen ab dem Moment, in dem Ihr Unternehmen von der Änderung erfährt, nicht ab einem festen Prüftermin.",
+          "Das Gesetz nennt die Kontaktdaten des Unternehmens, keine Kontaktperson. Das BSI wendet die zwei Wochen aber auf alle Daten im Portal an, also auch auf sie. Nehmen Sie das BSI-Portal deshalb in den Ablauf auf, wenn jemand das Unternehmen verlässt.",
           "Tragen Sie für die Kontaktstelle ein Funktionspostfach ein, wie es das BSI empfiehlt. Dann ändert sich seltener etwas."
         ],
         "screens": {
@@ -238,6 +240,10 @@
                 "detail": "jemand geht oder übernimmt eine andere Aufgabe"
               },
               {
+                "name": "Name und Rechtsform",
+                "detail": "Umfirmierung oder neue Rechtsform"
+              },
+              {
                 "name": "Anschrift, Telefon und E-Mail",
                 "detail": "Umzug, neue Nummer, abgeschaltetes Postfach"
               },
@@ -250,7 +256,7 @@
                 "detail": "neues Geschäftsfeld oder Dienste in einem weiteren Land"
               }
             ],
-            "source": "§ 33 Abs. 1 und 5 BSIG. Geändert wird im BSI-Portal unter „Ihre Registrierung“ (Anleitung des BSI)."
+            "source": "§ 33 Abs. 1 und 5 BSIG. Das BSI verlangt, „alle Änderungen an den Registrierungsdaten“ binnen zwei Wochen im BSI-Portal unter „Ihre Registrierung“ nachzutragen (Anleitung des BSI)."
           },
           "contact": {
             "title": "Wer beim BSI eingetragen ist",
@@ -265,7 +271,7 @@
         "fields": {
           "contactPersonName": {
             "label": "Kontaktperson",
-            "hint": "Die Person, die im BSI-Portal als NIS-2-Kontaktperson eingetragen ist."
+            "hint": "Die Person, die im BSI-Portal als Kontaktperson für NIS 2 eingetragen ist."
           },
           "contactPersonEmail": {
             "label": "E-Mail-Adresse der Kontaktperson",
@@ -292,7 +298,7 @@
               "Die Verantwortung trägt die Geschäftsführung. Sie muss die Maßnahmen umsetzen und ihre Umsetzung überwachen (§ 38 Abs. 1 BSIG). Die Arbeit verteilt sie auf Personen im Unternehmen.",
               "Im Mittelpunkt steht eine koordinierende Rolle. Sie treibt die Informationssicherheit voran und berät die Geschäftsführung."
             ],
-            "duty": "Ihr Unternehmen muss dokumentieren, wie es seine Pflichten erfüllt. Dazu gehört, wer wofür zuständig ist."
+            "duty": "Ihr Unternehmen muss dokumentieren, dass es die Maßnahmen zur Informationssicherheit umsetzt."
           },
           "who": {
             "title": "So sieht es richtig aus",
@@ -320,7 +326,7 @@
         "headline": "Planen, was bei einem Vorfall passiert",
         "teaser": "Wer entscheidet, wen Sie anrufen, wie Sie sich erreichen.",
         "missed": [
-          "Planen Sie einen zweiten Kommunikationsweg außerhalb Ihrer IT. Das Gesetz nennt gesicherte Kommunikation und, wo nötig, gesicherte Notfallkommunikation ausdrücklich (§ 30 Abs. 2 Nr. 10 BSIG).",
+          "Das Gesetz nennt gesicherte Sprach-, Video- und Textkommunikation und, wo nötig, gesicherte Notfallkommunikationssysteme im Unternehmen (§ 30 Abs. 2 Nr. 10 BSIG). Eine Telefonliste auf Papier ersetzt das nicht; sie ist der Rückfall, wenn alles andere steht.",
           "Legen Sie fest, wer die Meldung an das BSI schreibt. Die erste Meldung ist spätestens 24 Stunden, nachdem Sie von einem erheblichen Vorfall erfahren haben, fällig (§ 32 Abs. 1 BSIG)."
         ],
         "screens": {
@@ -346,7 +352,7 @@
             "title": "Der zweite Weg",
             "caption": "Wie Sie sich erreichen, wenn E-Mail und Netz ausfallen",
             "good": {
-              "value": "Telefonliste auf Papier, im Büro und bei der Geschäftsführung zu Hause",
+              "value": "Verschlüsselter Messenger auf den Diensthandys, dazu eine Telefonliste auf Papier",
               "note": "Funktioniert auch, wenn Ihre eigene IT steht."
             },
             "bad": {
@@ -383,7 +389,7 @@
           },
           "secureCommsChannel": {
             "label": "Zweiter Kommunikationsweg",
-            "hint": "Ein Weg außerhalb Ihrer eigenen IT, zum Beispiel eine Telefonliste auf Papier."
+            "hint": "Wie Sie sich sicher erreichen, wenn die eigene IT ausfällt, zum Beispiel ein verschlüsselter Messenger auf den Diensthandys."
           }
         }
       },
@@ -392,8 +398,8 @@
         "teaser": "Drei Meldungen an das BSI, mit festen Fristen.",
         "missed": [
           "Die Uhr läuft ab Kenntnis, nicht erst, wenn alles geklärt ist. Melden Sie früh; die zweite Meldung bestätigt oder aktualisiert die erste.",
-          "Das BSI versteht unter Kenntnis den Moment, in dem jemand im Unternehmen innerhalb der Arbeitszeit von dem Vorfall erfährt.",
-          "Sind personenbezogene Daten betroffen, melden Sie parallel an die Datenschutzaufsicht, mit eigener Frist von 72 Stunden (Art. 33 DSGVO)."
+          "Das BSI versteht unter Kenntnis den Moment, in dem jemand im Unternehmen innerhalb der Arbeitszeit von dem Vorfall erfährt (BSI, Infopaket Meldepflicht).",
+          "Ist der Schutz personenbezogener Daten verletzt, melden Sie das in der Regel auch der Datenschutzaufsicht: unverzüglich und möglichst binnen 72 Stunden, außer wenn voraussichtlich kein Risiko für die Betroffenen entsteht (Art. 33 DSGVO)."
         ],
         "screens": {
           "learn": {
@@ -402,17 +408,12 @@
               "Ist ein Sicherheitsvorfall erheblich, melden Sie ihn dem BSI. Erheblich ist er, wenn er Ihren Betrieb schwer stören oder Ihnen finanzielle Verluste bringen kann, oder wenn er anderen erheblichen Schaden zufügen kann.",
               "Gemeldet wird im BSI-Portal, mit demselben Zugang wie bei der Registrierung."
             ],
-            "duty": "Erhebliche Vorfälle melden Sie in drei Schritten an die gemeinsame Meldestelle des BSI und des Bundesamts für Bevölkerungsschutz und Katastrophenhilfe."
+            "duty": "Erhebliche Vorfälle melden Sie in drei Schritten mit festen Fristen an die gemeinsame Meldestelle des BSI und des Bundesamts für Bevölkerungsschutz und Katastrophenhilfe."
           },
           "clock": {
             "title": "Die drei Fristen",
             "lead": "Die Uhr läuft ab dem Moment, in dem Ihr Unternehmen von dem Vorfall erfährt. Die dritte Frist beginnt mit der zweiten Meldung.",
-            "source": "§ 32 Abs. 1 und 2 BSIG. Dauert der Vorfall nach einem Monat noch an, schicken Sie statt der Abschlussmeldung eine Fortschrittsmeldung und die Abschlussmeldung, sobald er bewältigt ist."
-          },
-          "deadline": {
-            "title": "Ihre Frist für die erste Meldung",
-            "lead": "Diese Zahl legt das Gesetz fest. Sie bestätigen sie nur.",
-            "source": "§ 32 Abs. 1 Nr. 1 BSIG: „unverzüglich, spätestens jedoch innerhalb von 24 Stunden nach Kenntniserlangung“."
+            "source": "§ 32 Abs. 1 und 2 BSIG. Verlangt das BSI es, kommt dazwischen eine Zwischenmeldung. Dauert der Vorfall nach einem Monat noch an, schicken Sie statt der Abschlussmeldung eine Fortschrittsmeldung und die Abschlussmeldung, sobald er bewältigt ist."
           },
           "ready": {
             "title": "Was Sie für die erste Meldung brauchen",
@@ -433,6 +434,11 @@
             ],
             "source": "§ 32 Abs. 1 Nr. 1 BSIG. Wer noch nicht registriert ist, meldet über das Melde- und Informationsportal des BSI (BSI, Infopaket Meldepflicht)."
           },
+          "setup": {
+            "title": "Halten Sie Ihren Meldeweg fest",
+            "lead": "Zwei Angaben. Ihre eigene Frist darf kürzer sein als die gesetzliche, nicht länger.",
+            "document": "Ihr Notfallplan"
+          },
           "done": {
             "title": "Meldeweg vorbereitet",
             "note": "Am Ende sieht die Geschäftsführung alle Punkte durch und unterschreibt."
@@ -440,8 +446,12 @@
         },
         "fields": {
           "earlyWarningSlaHours": {
-            "label": "Frist für die frühe Erstmeldung, in Stunden",
-            "hint": "Spätestens 24 Stunden, nachdem Ihr Unternehmen von einem erheblichen Vorfall erfahren hat."
+            "label": "Ihre Frist für die frühe Erstmeldung, in Stunden",
+            "hint": "Das Gesetz verlangt die Meldung unverzüglich, spätestens 24 Stunden nach Kenntnis (§ 32 Abs. 1 Nr. 1 BSIG). Eine kürzere eigene Frist ist möglich."
+          },
+          "bsiReportingRegistered": {
+            "label": "Im BSI-Portal registriert",
+            "hint": "Ja, sobald die Registrierung beim BSI abgeschlossen ist. Mit demselben Zugang melden Sie dort Vorfälle."
           }
         }
       },
@@ -662,7 +672,7 @@
         "ask": "Sind wir eine besonders wichtige oder eine wichtige Einrichtung, und welche Einrichtungsarten aus Anlage 1 und 2 treffen auf uns zu?",
         "missed": [
           "Mehrere Sektoren: nicht nur der Hauptsektor zählt. Alle zutreffenden Einrichtungsarten festhalten.",
-          "Konzern: jede Gesellschaft wird einzeln eingestuft. Daten von Partnerunternehmen zählen anteilig, von verbundenen Unternehmen voll, sofern die eigene IT nicht nachweislich unabhängig von ihnen betrieben wird (§28(4) BSIG).",
+          "Konzern: jede Gesellschaft wird einzeln eingestuft. Daten von Partnerunternehmen zählen anteilig, von verbundenen Unternehmen voll (Empfehlung 2003/361/EG). Das entfällt, wenn die Gesellschaft bei ihrer IT und deren Betrieb rechtlich, wirtschaftlich und tatsächlich unabhängig von ihnen ist (§28(4) BSIG).",
           "Vernachlässigbare Nebentätigkeiten dürfen bei der Zuordnung unberücksichtigt bleiben (§28(3) BSIG). Die Einstufung bei Wachstum, neuen Geschäftsfeldern oder Zukäufen erneut prüfen."
         ]
       },
@@ -706,7 +716,7 @@
         "who": "Der Einkauf oder die Person, die den Vertrag hält, legt den Lieferanten an. Die Informationssicherheit stuft Risiko und Kritikalität ein, Recht prüft die Vertragsklauseln. Die Geschäftsleitung kennt die Liste der kritischen Lieferanten.",
         "ask": "Welche Lieferanten könnten unseren Betrieb anhalten oder haben Zugang zu unseren Systemen, Daten oder Räumen, und wer bei uns ist für jeden davon zuständig?",
         "missed": [
-          "Nicht nur IT-Lieferanten: §30(2) Nr. 4 BSIG spricht von unmittelbaren Anbietern und Diensteanbietern ohne Einschränkung. Wer den Betrieb stören kann, gehört ins Register.",
+          "Nicht nur IT-Lieferanten: §30(2) Nr. 4 BSIG meint alle unmittelbaren Anbieter und Diensteanbieter, die die IT oder die Daten des Unternehmens berühren, auch etwa das Steuerbüro. Wer so den Betrieb stören kann, gehört ins Register.",
           "Jede Zeile braucht einen Zuständigen und eine Einstufung. Ohne beides ist das Register im Audit eine Namensliste.",
           "Unterauftragnehmer enden nicht beim ersten Glied. Bei kritischen Diensten fragen, wen der Lieferant selbst einsetzt."
         ]
@@ -732,7 +742,7 @@
         "who": "Die Informationssicherheit schreibt den Plan und benennt die Leitung des Vorfallteams. Recht oder Compliance formuliert die Meldetexte, der Datenschutz deckt Vorfälle mit personenbezogenen Daten ab. Die Geschäftsleitung gibt den Plan frei.",
         "ask": "Wer entscheidet bei uns, ob ein Vorfall erheblich ist? Auf welchem Weg und ab welcher Schwelle erreicht mich die Eskalation, und wann haben wir den Ersatzkommunikationsweg zuletzt getestet?",
         "missed": [
-          "Ein zweiter Kommunikationsweg außerhalb der eigenen IT. Bei einem echten Vorfall sind E-Mail und Chat oft mitbetroffen; §30(2) Nr. 10 BSIG nennt gesicherte Notfallkommunikation ausdrücklich.",
+          "Ein zweiter Kommunikationsweg für den Fall, dass E-Mail und Chat mitbetroffen sind. §30(2) Nr. 10 BSIG nennt gesicherte Kommunikation und, wo nötig, gesicherte Notfallkommunikationssysteme ausdrücklich; eine Telefonliste auf Papier ist nur der Rückfall.",
           "Erkennen ist nicht Bewältigen. Ein Monitoring ohne festgelegte Reaktion, Zuständigkeit und Eskalation ist kein Plan.",
           "Wer die Meldung an das BSI formuliert, steht selten im Plan. Diese Rolle vorab besetzen, in kleineren Häusern bei Compliance oder Recht."
         ]
@@ -741,9 +751,9 @@
         "who": "Die Informationssicherheit stuft den Vorfall ein und gibt die Meldung frei, Compliance oder Recht formuliert sie, die IT liefert die Fakten. Die Geschäftsleitung wird unverzüglich informiert. Der Datenschutz prüft parallel die Meldung an die Datenschutzaufsicht (Art. 33 DSGVO).",
         "ask": "Wer entscheidet, was als erheblich gilt, und wann haben wir den Meldeweg zuletzt geübt, im Ernstfall oder als Übung?",
         "missed": [
-          "Drei Meldungen, ein Vorfall: frühe Erstmeldung binnen 24 Stunden, Meldung binnen 72 Stunden, Abschlussmeldung einen Monat nach der zweiten Meldung (§32(1) BSIG). Dauert der Vorfall noch an, tritt eine Fortschrittsmeldung an ihre Stelle (§32(2) BSIG).",
+          "Drei Meldungen mit Frist, ein Vorfall: frühe Erstmeldung binnen 24 Stunden, Meldung binnen 72 Stunden, Abschlussmeldung einen Monat nach der zweiten Meldung (§32(1) BSIG). Auf Ersuchen des BSI kommt eine Zwischenmeldung hinzu. Dauert der Vorfall noch an, tritt eine Fortschrittsmeldung an die Stelle der Abschlussmeldung (§32(2) BSIG).",
           "Empfänger ist die gemeinsame Meldestelle von BSI und BBK. Gemeldet wird über das BSI-Portal mit demselben Zugang wie die Registrierung.",
-          "Sind personenbezogene Daten betroffen, läuft die Meldung an die Datenschutzaufsicht nach Art. 33 DSGVO parallel, mit eigener Frist von 72 Stunden."
+          "Ist der Schutz personenbezogener Daten verletzt, läuft die Meldung an die Datenschutzaufsicht nach Art. 33 DSGVO parallel: unverzüglich und möglichst binnen 72 Stunden, außer wenn voraussichtlich kein Risiko für die Betroffenen entsteht."
         ]
       }
     }

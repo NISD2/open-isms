@@ -5,7 +5,8 @@
  * sent (Nr. 4). The rule is "unverzüglich"; these are the outer limits.
  *
  * If the incident is still going on when the month is up, a progress report takes the place of
- * the final report, and the final report follows once the incident is dealt with (Abs. 2).
+ * the final report, and the final report follows once the incident is dealt with (Abs. 2). An
+ * interim report comes only when the BSI asks for one (Nr. 3), so it has no deadline here.
  */
 export const REPORTING_CLOCK = {
   /** Nr. 1, frühe Erstmeldung. */
@@ -45,7 +46,7 @@ export const REPORT_TEXT: Readonly<
     final_report: {
       name: "Abschlussmeldung",
       content:
-        "Eine ausführliche Beschreibung des Vorfalls, die wahrscheinliche Ursache, die getroffenen und laufenden Abhilfemaßnahmen und gegebenenfalls die grenzüberschreitenden Auswirkungen.",
+        "Eine ausführliche Beschreibung des Vorfalls mit Schweregrad und Auswirkungen, die Art der Bedrohung oder ihre zugrunde liegende Ursache, die getroffenen und laufenden Abhilfemaßnahmen und gegebenenfalls die grenzüberschreitenden Auswirkungen.",
     },
   },
   en: {
@@ -62,7 +63,7 @@ export const REPORT_TEXT: Readonly<
     final_report: {
       name: "Final report",
       content:
-        "A detailed description of the incident, its likely root cause, the mitigation measures applied and ongoing, and any cross-border impact.",
+        "A detailed description of the incident with its severity and impact, the type of threat or its underlying root cause, the mitigation measures applied and ongoing, and any cross-border impact.",
     },
   },
 };
