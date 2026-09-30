@@ -507,6 +507,7 @@
     "assistExamples": "Gute Beispiele",
     "assistWhereToFind": "Wo finde ich das?",
     "assistField": "Feld",
-    "assistValue": "Wert"
+    "assistValue": "Wert",
+    "rateLimited": "Ihre Organisation hat das Stundenlimit für die Datenextraktion per KI erreicht. Bitte versuchen Sie es später erneut."
   }
 }

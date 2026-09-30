@@ -502,6 +502,7 @@
     "assistExamples": "Exemple bune",
     "assistWhereToFind": "Unde sa gasiti aceasta",
     "assistField": "Camp",
-    "assistValue": "Valoare"
+    "assistValue": "Valoare",
+    "rateLimited": "Organizația dumneavoastră a atins limita orară pentru extragerea datelor cu IA. Vă rugăm să încercați din nou mai târziu."
   }
 }

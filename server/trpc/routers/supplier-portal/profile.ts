@@ -20,6 +20,7 @@
 import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
+import { rateLimit } from "@/lib/rate-limit";
 import { sanitizeFilename } from "@/lib/storage/object-key";
 import { createPresignedPut } from "@/lib/storage/presign";
 import { company } from "@/schema";
@@ -27,6 +28,13 @@ import { securityProfileUpdateSchema } from "@/schema/validators";
 import { accountProcedure, router } from "../../init";
 import { updateRow } from "../../typed";
 import { normalizeDomain } from "./helpers";
+
+/**
+ * Logo PUT URLs per company per hour. Same exposure as the certificate upload
+ * (free tier, production bucket, no cleanup of unattached objects) at 5 MB each,
+ * and a company has one logo.
+ */
+export const LOGO_UPLOADS_PER_HOUR = 10;
 
 /**
  * Shape of the supplier-portal subset of the company row, projected by `get`.
@@ -151,6 +159,14 @@ export const supplierProfileRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      if (
+        !rateLimit(`upload:logo:${ctx.companyId}`, LOGO_UPLOADS_PER_HOUR, 60 * 60_000)
+      ) {
+        throw new TRPCError({
+          code: "TOO_MANY_REQUESTS",
+          message: "Too many uploads from your organization. Please try again later.",
+        });
+      }
       const safeName = sanitizeFilename(input.fileName);
       const key = `supplier-profile/${ctx.companyId}/logo-${Date.now()}-${safeName}`;
       const url = await createPresignedPut(key, input.contentType, input.fileSize);

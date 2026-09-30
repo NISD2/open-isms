@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { TRPCClientError } from "@trpc/client";
-import { userFacingError } from "./error-message";
+import { trpcErrorCode, userFacingError } from "./error-message";
 
 const FALLBACK = "Speichern fehlgeschlagen";
 
@@ -47,7 +47,9 @@ describe("userFacingError", () => {
   });
 
   test("hides anything that is not a tRPC client error", () => {
-    expect(userFacingError(new Error("ECONNREFUSED 10.0.0.5:5432"), FALLBACK)).toBe(FALLBACK);
+    expect(userFacingError(new Error("ECONNREFUSED 10.0.0.5:5432"), FALLBACK)).toBe(
+      FALLBACK,
+    );
     expect(userFacingError("connection string leaked", FALLBACK)).toBe(FALLBACK);
     expect(userFacingError(null, FALLBACK)).toBe(FALLBACK);
     expect(userFacingError(undefined, FALLBACK)).toBe(FALLBACK);
@@ -60,5 +62,19 @@ describe("userFacingError", () => {
 
   test("falls back rather than showing an empty message", () => {
     expect(userFacingError(clientError("FORBIDDEN", "   "), FALLBACK)).toBe(FALLBACK);
+  });
+});
+
+describe("trpcErrorCode", () => {
+  test("reads the code a tRPC client error carries", () => {
+    expect(trpcErrorCode(clientError("TOO_MANY_REQUESTS", "slow down"))).toBe(
+      "TOO_MANY_REQUESTS",
+    );
+  });
+
+  test("is null for a tRPC error without a code and for anything else", () => {
+    expect(trpcErrorCode(new TRPCClientError("bare failure"))).toBeNull();
+    expect(trpcErrorCode(new Error("TOO_MANY_REQUESTS"))).toBeNull();
+    expect(trpcErrorCode(undefined)).toBeNull();
   });
 });

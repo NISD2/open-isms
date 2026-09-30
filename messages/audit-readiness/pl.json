@@ -30,6 +30,7 @@
     "issue": "Problem",
     "recommendation": "Zalecenie",
     "noGaps": "Nie zidentyfikowano luk",
-    "disclaimer": "Ocena wygenerowana przez AI - nie zastępuje formalnego audytu"
+    "disclaimer": "Ocena wygenerowana przez AI - nie zastępuje formalnego audytu",
+    "rateLimited": "Twoja organizacja osiągnęła godzinny limit ocen przez AI. Spróbuj ponownie później."
   }
 }

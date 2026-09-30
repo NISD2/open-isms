@@ -1,6 +1,9 @@
+import { TRPCError } from "@trpc/server";
 import { and, eq } from "drizzle-orm";
 import { z } from "zod";
+import { isLocaleCode } from "@/lib/locale";
 import {
+  isCourseLesson,
   loadCourse,
   loadDictionary,
   loadLesson,
@@ -21,6 +24,29 @@ function progressWhere(userId: string, courseId: string, lessonId?: string) {
   ];
   if (lessonId) conditions.push(eq(trainingLessonProgress.lessonId, lessonId));
   return and(...conditions);
+}
+
+/**
+ * One lesson of one course, as every lesson procedure takes it. The length caps
+ * are only a first filter (real lesson IDs look like "2.15"); membership in the
+ * course catalogue is checked by requireCourseLesson, because the lesson
+ * procedures write progress rows keyed on these two strings.
+ */
+export const lessonRefSchema = z.object({
+  courseId: z.string().min(1).max(64),
+  lessonId: z.string().min(1).max(16),
+});
+
+/** A refinement rather than z.enum so the lesson page can pass getLocale()'s plain string. */
+export const lessonLocaleSchema = z
+  .string()
+  .refine(isLocaleCode, "Unsupported locale")
+  .default("en");
+
+async function requireCourseLesson(courseId: string, lessonId: string): Promise<void> {
+  if (!(await isCourseLesson(courseId, lessonId))) {
+    throw new TRPCError({ code: "NOT_FOUND", message: "Lesson not found" });
+  }
 }
 
 export const trainingPortalRouter = router({
@@ -58,14 +84,9 @@ export const trainingPortalRouter = router({
     .query(({ ctx, input }) => courseParticipants(ctx.db, input.courseIds)),
 
   getLesson: protectedProcedure
-    .input(
-      z.object({
-        courseId: z.string(),
-        lessonId: z.string(),
-        locale: z.string().default("en"),
-      }),
-    )
+    .input(lessonRefSchema.extend({ locale: lessonLocaleSchema }))
     .query(async ({ ctx, input }) => {
+      await requireCourseLesson(input.courseId, input.lessonId);
       const [lesson, dictionary, markdown] = await Promise.all([
         loadLesson(input.courseId, input.lessonId),
         loadDictionary(input.courseId),
@@ -104,14 +125,9 @@ export const trainingPortalRouter = router({
     }),
 
   getQuiz: protectedProcedure
-    .input(
-      z.object({
-        courseId: z.string(),
-        lessonId: z.string(),
-        locale: z.string().default("en"),
-      }),
-    )
+    .input(lessonRefSchema.extend({ locale: lessonLocaleSchema }))
     .query(async ({ ctx, input }) => {
+      await requireCourseLesson(input.courseId, input.lessonId);
       const quiz = await loadQuiz(input.courseId, input.lessonId);
       if (!quiz) return null;
 
@@ -134,14 +150,13 @@ export const trainingPortalRouter = router({
 
   submitQuiz: protectedProcedure
     .input(
-      z.object({
-        courseId: z.string(),
-        lessonId: z.string(),
-        locale: z.string().default("en"),
+      lessonRefSchema.extend({
+        locale: lessonLocaleSchema,
         answers: z.array(z.number().int().nonnegative()),
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      await requireCourseLesson(input.courseId, input.lessonId);
       const quiz = await loadQuiz(input.courseId, input.lessonId);
       if (!quiz) throw new Error("No quiz for this lesson");
 
@@ -216,8 +231,19 @@ export const trainingPortalRouter = router({
     }),
 
   completeLesson: protectedProcedure
-    .input(z.object({ courseId: z.string(), lessonId: z.string() }))
+    .input(lessonRefSchema)
     .mutation(async ({ ctx, input }) => {
+      await requireCourseLesson(input.courseId, input.lessonId);
+      // A quiz lesson counts as done only through submitQuiz, which records the
+      // pass. Completing it here skipped the quiz and still unlocked the course
+      // certificate, which for nis2-ceo is the §38(3) BSIG training record. The
+      // lesson page never offers this button when a quiz exists.
+      if (await loadQuiz(input.courseId, input.lessonId)) {
+        throw new TRPCError({
+          code: "PRECONDITION_FAILED",
+          message: "This lesson is completed by passing its quiz.",
+        });
+      }
       const existing = await ctx.db
         .select()
         .from(trainingLessonProgress)

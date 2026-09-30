@@ -1,8 +1,9 @@
 import "@/lib/server-guard";
 
-import { readFile } from "fs/promises";
-import { join } from "path";
-import type { Course, Lesson, Quiz, DictionaryTerm } from "./schemas";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+import { isLocaleCode } from "@/lib/locale";
+import type { Course, DictionaryTerm, Lesson, Quiz } from "./schemas";
 
 const COURSES_DIR = join(process.cwd(), "courses");
 
@@ -31,13 +32,26 @@ export async function loadCourse(courseId: string): Promise<Course> {
 }
 
 /**
+ * Whether lessonId is one of the course's current lessons.
+ *
+ * The lesson files are named after the ID with its first dot replaced, so
+ * "2-1" loads the same lesson as "2.1" without being one. Anything that
+ * records progress or builds a path from a lesson ID checks it here first.
+ */
+export async function isCourseLesson(
+  courseId: string,
+  lessonId: string,
+): Promise<boolean> {
+  if (!KNOWN_COURSES.has(courseId)) return false;
+  const course = await loadCourse(courseId);
+  return course.modules.some((m) => m.lessonIds.includes(lessonId));
+}
+
+/**
  * Load a lesson's metadata by course and lesson ID.
  * Lesson ID "2.1" maps to file "2-1.ts".
  */
-export async function loadLesson(
-  courseId: string,
-  lessonId: string,
-): Promise<Lesson> {
+export async function loadLesson(courseId: string, lessonId: string): Promise<Lesson> {
   assertKnownCourse(courseId);
   const fileSlug = lessonId.replace(".", "-");
   const mod = await import(`@/courses/${courseId}/lessons/${fileSlug}`);
@@ -62,9 +76,7 @@ export async function courseTotals(courseId: string): Promise<{
 }> {
   const course = await loadCourse(courseId);
   const lessonIds = course.modules.flatMap((m) => m.lessonIds);
-  const lessons = await Promise.all(
-    lessonIds.map((id) => loadLesson(courseId, id)),
-  );
+  const lessons = await Promise.all(lessonIds.map((id) => loadLesson(courseId, id)));
   return {
     modules: course.modules.length,
     lessons: lessonIds.length,
@@ -76,10 +88,7 @@ export async function courseTotals(courseId: string): Promise<{
  * Load a quiz by course and lesson ID.
  * Returns null if the lesson has no quiz.
  */
-export async function loadQuiz(
-  courseId: string,
-  lessonId: string,
-): Promise<Quiz | null> {
+export async function loadQuiz(courseId: string, lessonId: string): Promise<Quiz | null> {
   assertKnownCourse(courseId);
   const fileSlug = lessonId.replace(".", "-");
   try {
@@ -93,9 +102,7 @@ export async function loadQuiz(
 /**
  * Load the course-level dictionary.
  */
-export async function loadDictionary(
-  courseId: string,
-): Promise<DictionaryTerm[]> {
+export async function loadDictionary(courseId: string): Promise<DictionaryTerm[]> {
   assertKnownCourse(courseId);
   const mod = await import(`@/courses/${courseId}/dictionary`);
   return mod.default;
@@ -104,6 +111,12 @@ export async function loadDictionary(
 /**
  * Load the markdown content for a lesson.
  * Tries {lessonSlug}.{locale}.md first, falls back to {lessonSlug}.en.md.
+ *
+ * Unlike the imports above, this reads the filesystem directly, where no
+ * bundler context confines the path: a locale of "/../../../../README" used
+ * to read and render any .md file on disk. So both values that reach the
+ * path are checked here against what actually exists, whatever the caller
+ * validated already.
  */
 export async function loadLessonContent(
   courseId: string,
@@ -111,6 +124,12 @@ export async function loadLessonContent(
   locale: string,
 ): Promise<string> {
   assertKnownCourse(courseId);
+  if (!isLocaleCode(locale)) {
+    throw new Error("Unsupported lesson locale");
+  }
+  if (!(await isCourseLesson(courseId, lessonId))) {
+    throw new Error(`Unknown lesson in course ${courseId}`);
+  }
   const fileSlug = lessonId.replace(".", "-");
   const contentDir = join(COURSES_DIR, courseId, "content");
 

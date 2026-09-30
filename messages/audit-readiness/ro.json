@@ -30,6 +30,7 @@
     "issue": "Problemă",
     "recommendation": "Recomandare",
     "noGaps": "Nu au fost identificate lacune",
-    "disclaimer": "Evaluare generată de AI. Nu înlocuiește un audit formal."
+    "disclaimer": "Evaluare generată de AI. Nu înlocuiește un audit formal.",
+    "rateLimited": "Organizația dumneavoastră a atins limita orară pentru evaluările cu AI. Vă rugăm să încercați din nou mai târziu."
   }
 }

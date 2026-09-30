@@ -502,6 +502,7 @@
     "assistExamples": "Dobre przykłady",
     "assistWhereToFind": "Gdzie to znaleźć",
     "assistField": "Pole",
-    "assistValue": "Wartość"
+    "assistValue": "Wartość",
+    "rateLimited": "Twoja organizacja osiągnęła godzinny limit ekstrakcji danych przez AI. Spróbuj ponownie później."
   }
 }

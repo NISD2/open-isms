@@ -30,6 +30,7 @@
     "issue": "Problem",
     "recommendation": "Empfehlung",
     "noGaps": "Keine Lücken identifiziert",
-    "disclaimer": "KI-generierte Bewertung - ersetzt keine formelle Prüfung"
+    "disclaimer": "KI-generierte Bewertung - ersetzt keine formelle Prüfung",
+    "rateLimited": "Ihre Organisation hat das Stundenlimit für Bewertungen per KI erreicht. Bitte versuchen Sie es später erneut."
   }
 }

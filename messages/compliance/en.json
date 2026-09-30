@@ -507,6 +507,7 @@
     "assistExamples": "Good examples",
     "assistWhereToFind": "Where to find it",
     "assistField": "Field",
-    "assistValue": "Value"
+    "assistValue": "Value",
+    "rateLimited": "Your organization has reached the hourly limit for AI extraction. Please try again later."
   }
 }

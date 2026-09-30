@@ -502,6 +502,7 @@
     "assistExamples": "Dobré příklady",
     "assistWhereToFind": "Kde to najít",
     "assistField": "Pole",
-    "assistValue": "Hodnota"
+    "assistValue": "Hodnota",
+    "rateLimited": "Vaše organizace dosáhla hodinového limitu pro extrakci dat pomocí AI. Zkuste to prosím později."
   }
 }

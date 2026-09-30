@@ -30,6 +30,7 @@
     "issue": "Issue",
     "recommendation": "Recommendation",
     "noGaps": "No gaps identified",
-    "disclaimer": "AI-generated evaluation - does not replace a formal audit"
+    "disclaimer": "AI-generated evaluation - does not replace a formal audit",
+    "rateLimited": "Your organization has reached the hourly limit for AI evaluations. Please try again later."
   }
 }

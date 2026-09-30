@@ -502,6 +502,7 @@
     "assistExamples": "Buenos ejemplos",
     "assistWhereToFind": "Dónde encontrarlo",
     "assistField": "Campo",
-    "assistValue": "Valor"
+    "assistValue": "Valor",
+    "rateLimited": "Su organización ha alcanzado el límite por hora de extracción con IA. Inténtelo de nuevo más tarde."
   }
 }

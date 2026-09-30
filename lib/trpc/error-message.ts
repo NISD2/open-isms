@@ -26,6 +26,16 @@ const INTENTIONAL_CODES = new Set([
 ]);
 
 /**
+ * The tRPC error code a caught error carries, or null for anything that is not
+ * a tRPC error. For callers that show their own translated text for one code,
+ * such as TOO_MANY_REQUESTS, instead of the server's English message.
+ */
+export function trpcErrorCode(err: unknown): string | null {
+  if (!(err instanceof TRPCClientError)) return null;
+  return (err.data as { code?: string } | null)?.code ?? null;
+}
+
+/**
  * The message to show a user for a failed mutation.
  *
  * Returns the server's own wording when the server chose it, and the caller's

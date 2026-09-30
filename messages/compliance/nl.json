@@ -502,6 +502,7 @@
     "assistExamples": "Goede voorbeelden",
     "assistWhereToFind": "Waar te vinden",
     "assistField": "Veld",
-    "assistValue": "Waarde"
+    "assistValue": "Waarde",
+    "rateLimited": "Uw organisatie heeft de uurlimiet voor AI-extractie bereikt. Probeer het later opnieuw."
   }
 }

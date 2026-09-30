@@ -502,6 +502,7 @@
     "assistExamples": "Bons exemples",
     "assistWhereToFind": "Où le trouver",
     "assistField": "Champ",
-    "assistValue": "Valeur"
+    "assistValue": "Valeur",
+    "rateLimited": "Votre organisation a atteint la limite horaire d'extraction par IA. Veuillez réessayer plus tard."
   }
 }
