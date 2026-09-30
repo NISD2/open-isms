@@ -15,33 +15,26 @@
  * Gated by platformAdminProcedure (PLATFORM_ADMIN_EMAILS allowlist), same as
  * the rest of the platform-admin surface.
  */
-import { and, count, desc, eq, isNotNull, isNull, ne, sql } from "drizzle-orm";
-import { z } from "zod";
+
 import { TRPCError } from "@trpc/server";
+import { and, count, desc, eq, isNotNull, isNull, ne, sql } from "drizzle-orm";
 import { getTranslations } from "next-intl/server";
-import { router, protectedProcedure, publicProcedure } from "../init";
-import { isPlatformAdmin } from "@/lib/auth/platform-admin";
+import { z } from "zod";
+import { logAudit } from "@/lib/audit";
+import { unsubscribeUrl as buildUnsubscribeUrl } from "@/lib/email/unsubscribe";
+import { mailSupportEmail } from "@/lib/env";
+import { newsletterEmail, sendMail } from "@/lib/mail";
+import { renderNewsletterMarkdown } from "@/lib/mail/markdown";
+import { getNewsletterCta, NEWSLETTER_CTA_KEYS } from "@/lib/newsletter/cta";
+import { getAppUrl } from "@/lib/utils";
 import {
-  newsletterIssue,
   newsletterGroup,
   newsletterGroupMember,
+  newsletterIssue,
   notification,
   user,
 } from "@/schema";
-import { renderNewsletterMarkdown } from "@/lib/mail/markdown";
-import { sendMail, newsletterEmail } from "@/lib/mail";
-import { unsubscribeUrl as buildUnsubscribeUrl } from "@/lib/email/unsubscribe";
-import { getAppUrl } from "@/lib/utils";
-import { logAudit } from "@/lib/audit";
-import { getNewsletterCta, NEWSLETTER_CTA_KEYS } from "@/lib/newsletter/cta";
-import { mailSupportEmail } from "@/lib/env";
-
-const platformAdminProcedure = protectedProcedure.use(({ ctx, next }) => {
-  if (!isPlatformAdmin(ctx.session?.user.email)) {
-    throw new TRPCError({ code: "FORBIDDEN", message: "Platform admin access required" });
-  }
-  return next({ ctx });
-});
+import { platformAdminProcedure, publicProcedure, router } from "../init";
 
 // Replies to the broadcast route to a real Workspace mailbox (cory@nisd2.eu),
 // configured via env so no real address is committed to the public repo. Set
@@ -58,7 +51,10 @@ const NEWS_FROM_EMAIL = process.env.RESEND_FROM_EMAIL_NEWS;
 // spam heuristics and provider rate limits. Trickle BURST_SIZE messages per
 // BURST_INTERVAL_MS (default ~2/second). Tunable via env without a deploy.
 const BURST_SIZE = Math.max(1, Number(process.env.NEWSLETTER_BURST_SIZE) || 2);
-const BURST_INTERVAL_MS = Math.max(200, Number(process.env.NEWSLETTER_BURST_INTERVAL_MS) || 1000);
+const BURST_INTERVAL_MS = Math.max(
+  200,
+  Number(process.env.NEWSLETTER_BURST_INTERVAL_MS) || 1000,
+);
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -94,8 +90,16 @@ function dispatchNewsletter(opts: {
   cta: { url: string; label: string } | null;
   viewInBrowserUrl: string | null;
 }): void {
-  const { recipients, subject, preheader, bodyHtml, bodyText, forwardUrl, cta, viewInBrowserUrl } =
-    opts;
+  const {
+    recipients,
+    subject,
+    preheader,
+    bodyHtml,
+    bodyText,
+    forwardUrl,
+    cta,
+    viewInBrowserUrl,
+  } = opts;
   void (async () => {
     for (let i = 0; i < recipients.length; i += BURST_SIZE) {
       const batch = recipients.slice(i, i + BURST_SIZE);
@@ -254,7 +258,10 @@ export const newsletterRouter = router({
         .values(values)
         .returning({ id: newsletterIssue.id });
       if (!created) {
-        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Insert returned no rows" });
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Insert returned no rows",
+        });
       }
       return { id: created.id };
     }),
@@ -299,10 +306,7 @@ export const newsletterRouter = router({
         .select({ count: count() })
         .from(user)
         .where(eq(user.isDisposableEmail, true)),
-      ctx.db
-        .select({ count: count() })
-        .from(user)
-        .where(isNull(user.emailVerifiedAt)),
+      ctx.db.select({ count: count() }).from(user).where(isNull(user.emailVerifiedAt)),
     ]);
 
     return {
@@ -331,10 +335,16 @@ export const newsletterRouter = router({
       });
       if (!issue) throw new TRPCError({ code: "NOT_FOUND" });
       if (issue.status === "sent") {
-        throw new TRPCError({ code: "BAD_REQUEST", message: "This issue has already been sent." });
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "This issue has already been sent.",
+        });
       }
       if (issue.bodyMarkdown.trim().length === 0) {
-        throw new TRPCError({ code: "BAD_REQUEST", message: "Cannot send an empty issue." });
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Cannot send an empty issue.",
+        });
       }
 
       const groupId = input.groupId ?? null;
@@ -343,7 +353,8 @@ export const newsletterRouter = router({
           where: eq(newsletterGroup.id, groupId),
           columns: { id: true },
         });
-        if (!group) throw new TRPCError({ code: "NOT_FOUND", message: "Group not found." });
+        if (!group)
+          throw new TRPCError({ code: "NOT_FOUND", message: "Group not found." });
       }
 
       // Recipients = eligible users, optionally narrowed to group members.
@@ -463,7 +474,10 @@ export const newsletterRouter = router({
     .mutation(async ({ ctx, input }) => {
       const to = input.testEmail?.trim() || ctx.session?.user.email;
       if (!to) {
-        throw new TRPCError({ code: "BAD_REQUEST", message: "No test recipient address." });
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "No test recipient address.",
+        });
       }
       const bodyHtml = await renderNewsletterMarkdown(input.bodyMarkdown);
       const unsubUrl = buildUnsubscribeUrl(ctx.userId);
@@ -489,7 +503,10 @@ export const newsletterRouter = router({
         fromEmail: NEWS_FROM_EMAIL,
       });
       if (!res.success) {
-        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Test send failed." });
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Test send failed.",
+        });
       }
       // res.id === "dev-blocked" when the dev guard suppressed real delivery.
       return { to, devBlocked: res.id === "dev-blocked" };
@@ -605,7 +622,10 @@ export const newsletterRouter = router({
         eligibleCount: sql<number>`(count(${newsletterGroupMember.id}) filter (where ${user.emailFollowupsDisabled} = false and ${user.isDisposableEmail} = false and ${user.emailVerifiedAt} is not null))::int`,
       })
       .from(newsletterGroup)
-      .leftJoin(newsletterGroupMember, eq(newsletterGroupMember.groupId, newsletterGroup.id))
+      .leftJoin(
+        newsletterGroupMember,
+        eq(newsletterGroupMember.groupId, newsletterGroup.id),
+      )
       .leftJoin(user, eq(user.id, newsletterGroupMember.userId))
       .groupBy(newsletterGroup.id)
       .orderBy(desc(newsletterGroup.createdAt));
@@ -624,7 +644,10 @@ export const newsletterRouter = router({
         .values({ name: input.name, description: input.description ?? null })
         .returning({ id: newsletterGroup.id });
       if (!created) {
-        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Insert returned no rows" });
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Insert returned no rows",
+        });
       }
       return { id: created.id };
     }),

@@ -1,9 +1,17 @@
-import { getTranslations } from "next-intl/server";
-import { api } from "@/lib/trpc/server";
-import { AuditLogTable } from "@/components/audit/AuditLogTable";
 import { ScrollText } from "lucide-react";
+import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
+import { AuditLogTable } from "@/components/audit/AuditLogTable";
+import { getSession, hasReviewAccess } from "@/lib/auth";
+import { api } from "@/lib/trpc/server";
 
 export default async function AuditPage() {
+  const session = await getSession();
+  if (!session) redirect("/auth/signin");
+  if (!hasReviewAccess(session.role)) {
+    redirect("/dashboard");
+  }
+
   const t = await getTranslations("audit");
 
   const rows = await api.audit.list({ limit: 100, offset: 0 });

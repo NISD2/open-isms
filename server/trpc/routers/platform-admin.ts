@@ -93,7 +93,7 @@ import {
   user,
 } from "@/schema";
 import { NIS2_FRAMEWORK_CODE } from "../helpers/nis2-scope";
-import { protectedProcedure, router } from "../init";
+import { platformAdminProcedure, router } from "../init";
 
 /**
  * Sends to one recipient in one UTC day at which the email dashboard flags
@@ -226,13 +226,6 @@ function refusalAsTrpcError(err: unknown): never {
   }
   throw err;
 }
-
-const platformAdminProcedure = protectedProcedure.use(({ ctx, next }) => {
-  if (!isPlatformAdmin(ctx.session?.user.email)) {
-    throw new TRPCError({ code: "FORBIDDEN", message: "Platform admin access required" });
-  }
-  return next({ ctx });
-});
 
 export const platformAdminRouter = router({
   /**
@@ -554,7 +547,9 @@ export const platformAdminRouter = router({
         action: "billing.close_deal",
         entityType: "invoice",
         entityId: null,
-        description: `Closed ${outcome.number} for ${input.customerEmail}${outcome.createdUser ? " (new customer)" : ""}${outcome.setupSent ? ", setup link sent" : ""}${input.termsAcceptedOnCall ? ", terms accepted on the call" : ", terms acceptance not recorded"}`,
+        // The invoice number leads to the customer. Their email here would outlive an erasure,
+        // which reaches only rows the erased user wrote or their own company holds.
+        description: `Closed ${outcome.number}${outcome.createdUser ? " (new customer)" : ""}${outcome.setupSent ? ", setup link sent" : ""}${input.termsAcceptedOnCall ? ", terms accepted on the call" : ", terms acceptance not recorded"}`,
         ipAddress: ctx.ip,
         userAgent: ctx.userAgent,
       });

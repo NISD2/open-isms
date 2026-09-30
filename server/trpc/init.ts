@@ -3,6 +3,7 @@ import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
 import { logAudit } from "@/lib/audit";
 import { getSession, hasReviewAccess } from "@/lib/auth";
+import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { getClientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
 import { company } from "@/schema";
@@ -40,6 +41,18 @@ export const publicProcedure = setup.publicProcedure;
 export const protectedProcedure = setup.protectedProcedure;
 
 /**
+ * The platform operator (PLATFORM_ADMIN_EMAILS, lib/auth/platform-admin), across every company.
+ * Never build it on protectedProcedure: that files every mutation, with inputs naming other
+ * customers, under the operator's own open company, where that company's reviewers can read it.
+ */
+export const platformAdminProcedure = setup.platformProcedure.use(({ ctx, next }) => {
+  if (!isPlatformAdmin(ctx.session?.user.email)) {
+    throw new TRPCError({ code: "FORBIDDEN", message: "Platform admin access required" });
+  }
+  return next({ ctx });
+});
+
+/**
  * The access gate (NIS2 plan, slice 5). Every company tier below (companyProcedure, adminProcedure,
  * reviewerProcedure, and activatedCompanyProcedure built on them) refuses an account whose
  * effective level is free, which only exists once billing is launched (lib/billing/access.ts). A
@@ -47,7 +60,7 @@ export const protectedProcedure = setup.protectedProcedure;
  * The portal layout redirects a free account first; this is what stops a direct API call.
  *
  * NOT gated: `protectedProcedure`. A few of its routes read the caller's own company (the gap
- * assessment, audit log reads, the team list, the assessment list) and stay reachable to a free
+ * assessment, the team list, the assessment list) and stay reachable to a free
  * account through the API, though the layout hides their pages. None of them is the journey.
  */
 const assertNotFree = (session: TRPCContext["session"]) => {

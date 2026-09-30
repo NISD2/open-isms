@@ -6,7 +6,7 @@ import { AdminTestPanel } from "@/components/portal/AdminTestPanel";
 import { AppSidebar, type FrameworkGroup } from "@/components/portal/AppSidebar";
 import { PortalHeader } from "@/components/portal/PortalHeader";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { getSession } from "@/lib/auth";
+import { getSession, hasReviewAccess } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { mayOpenPortalPath } from "@/lib/billing/access";
 import { billingFor } from "@/lib/billing/ordering-access";
@@ -141,6 +141,7 @@ export default async function PortalLayout({ children }: { children: React.React
         }}
         frameworks={frameworks}
         showBilling={billing.open}
+        showAuditTrail={hasReviewAccess(session.role)}
       />
       <SidebarInset>
         <PortalHeader

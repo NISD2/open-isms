@@ -77,6 +77,8 @@ interface AppSidebarProps {
   frameworks: FrameworkGroup[];
   /** Whether billing is launched for this person (lib/billing/ordering-access.ts). */
   showBilling: boolean;
+  /** Whether this person's role may read the audit trail (hasReviewAccess, server/trpc/routers/audit.ts). */
+  showAuditTrail: boolean;
 }
 
 function NavMenu({ items, pathname }: { items: NavItem[]; pathname: string }) {
@@ -100,7 +102,12 @@ function NavMenu({ items, pathname }: { items: NavItem[]; pathname: string }) {
   );
 }
 
-export function AppSidebar({ user, frameworks, showBilling }: AppSidebarProps) {
+export function AppSidebar({
+  user,
+  frameworks,
+  showBilling,
+  showAuditTrail,
+}: AppSidebarProps) {
   const t = useTranslations("portal");
   const pathname = usePathname();
   // `usePathname()` returns the route template (e.g. `/compliance/[categorySlug]`),
@@ -124,7 +131,9 @@ export function AppSidebar({ user, frameworks, showBilling }: AppSidebarProps) {
     { href: "/team", label: t("team"), icon: Users },
     { href: "/organization", label: t("organization"), icon: Building2 },
     ...(showBilling ? [{ href: "/billing", label: t("billing"), icon: Receipt }] : []),
-    { href: "/audit", label: t("auditTrail"), icon: ScrollText },
+    ...(showAuditTrail
+      ? [{ href: "/audit", label: t("auditTrail"), icon: ScrollText }]
+      : []),
   ];
 
   return (
