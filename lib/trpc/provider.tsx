@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 import superjson from "superjson";
+import { TRPC_MAX_BATCH_SIZE } from "./batch";
 import { trpc } from "./client";
 import { userFacingError } from "./error-message";
 
@@ -31,12 +32,11 @@ export function TRPCProvider({ children }: { children: React.ReactNode }) {
           // onError handlers take precedence and opt out of this.
           //
           // Routed through userFacingError rather than toasting error.message
-          // directly. tRPC runs without an errorFormatter, so an unexpected
-          // exception arrives with its original text attached — a Postgres
-          // error, an S3 endpoint, a signed-URL fragment — and this handler
-          // was putting whatever that happened to say on screen. Now the
-          // server's own wording shows only for the codes the application
-          // raises on purpose, and anything else gets the generic line.
+          // directly. The server's errorFormatter already replaces any
+          // message nobody wrote on purpose with an English generic line;
+          // this shows the server's wording only for the codes the
+          // application raises on purpose, and the translated generic line
+          // for anything else.
           onError: (error, _variables, _context, mutation) => {
             if (mutation.options.onError) return;
             toast.error(userFacingError(error, tRef.current("actionFailed")));
@@ -51,6 +51,7 @@ export function TRPCProvider({ children }: { children: React.ReactNode }) {
         httpBatchLink({
           url: `${getBaseUrl()}/api/trpc`,
           transformer: superjson,
+          maxItems: TRPC_MAX_BATCH_SIZE,
         }),
       ],
     }),

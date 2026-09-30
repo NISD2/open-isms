@@ -500,6 +500,7 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
             {previewHtml ? (
               <iframe
                 title="Newsletter preview"
+                sandbox=""
                 srcDoc={previewHtml}
                 className="h-[560px] w-full rounded-md border bg-white"
               />
@@ -634,6 +635,7 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
               <div className="text-sm text-muted-foreground">{viewing.meta}</div>
               <iframe
                 title="Sent issue"
+                sandbox=""
                 srcDoc={viewing.html}
                 className="h-[60vh] w-full rounded-md border bg-white"
               />

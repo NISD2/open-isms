@@ -7,11 +7,10 @@ import { TRPCClientError } from "@trpc/client";
  * Their messages are written for the person reading the screen ("This
  * requirement requires sign-off by CEO"), so they are safe to show.
  *
- * INTERNAL_SERVER_ERROR is deliberately absent. tRPC is configured without an
- * `errorFormatter`, so an unexpected exception reaches the client with its
- * original message attached — an AWS SDK failure, a Postgres error, a stack
- * from somewhere in the storage layer. Those can carry endpoints, object keys
- * and signed-URL fragments, none of which belong in a toast.
+ * INTERNAL_SERVER_ERROR is deliberately absent. The server's errorFormatter
+ * (packages/isms-trpc/src/error-formatter.ts) sends it with a fixed English
+ * line, never the original exception, so the translated fallback is the
+ * better thing to show.
  */
 const INTENTIONAL_CODES = new Set([
   "BAD_REQUEST",

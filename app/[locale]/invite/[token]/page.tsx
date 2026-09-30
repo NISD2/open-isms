@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { AcceptInviteCard } from "@/components/invite/AcceptInviteCard";
 import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { inviteRedirectPath } from "@/lib/organization/invite-redirect";
 import { company, companyInvite } from "@/schema";
 
 interface Props {
@@ -45,7 +46,7 @@ export default async function InvitePage({ params }: Props) {
       inviteEmail={invite.email}
       companyName={invite.company.name}
       role={invite.role}
-      redirectPath={invite.redirectPath}
+      redirectPath={inviteRedirectPath(invite.redirectPath)}
       userEmail={session?.user.email ?? null}
       isSignedIn={!!session}
     />

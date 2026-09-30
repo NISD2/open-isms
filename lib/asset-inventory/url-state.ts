@@ -1,4 +1,4 @@
-import type { AssetLayer } from "./types";
+import { type AssetLayer, isAssetLayer } from "./types";
 
 // URL hash state. The user's inventory lives in the URL fragment (#) so
 // the server never sees it — full privacy, no signup, every state is one
@@ -25,10 +25,7 @@ function encodeBase64Url(str: string): string {
   const bytes = new TextEncoder().encode(str);
   let binary = "";
   for (const b of bytes) binary += String.fromCharCode(b);
-  return btoa(binary)
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_")
-    .replace(/=+$/, "");
+  return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
 
 function decodeBase64Url(b64url: string): string {
@@ -63,16 +60,18 @@ export function decodeUrlState(encoded: string): UrlState | null {
     const checked = Array.isArray(parsed.c)
       ? parsed.c.filter((v): v is string => typeof v === "string")
       : [];
+    // The hash arrives in a shared link, so a layer outside the list is dropped here rather
+    // than reaching the classifier and the CSV as an arbitrary string.
     const custom = Array.isArray(parsed.x)
       ? parsed.x
           .filter(
-            (v): v is { n: string; l: string } =>
+            (v): v is { n: string; l: AssetLayer } =>
               typeof v === "object" &&
               v !== null &&
               typeof (v as { n: unknown }).n === "string" &&
-              typeof (v as { l: unknown }).l === "string",
+              isAssetLayer((v as { l: unknown }).l),
           )
-          .map((v) => ({ name: v.n, layer: v.l as AssetLayer }))
+          .map((v) => ({ name: v.n, layer: v.l }))
       : [];
     return { sectors, checked, custom };
   } catch {
@@ -96,5 +95,9 @@ export function writeStateToHash(state: UrlState): void {
   if (typeof window === "undefined") return;
   const encoded = encodeUrlState(state);
   const newHash = `#${URL_STATE_PARAM}=${encoded}`;
-  window.history.replaceState(null, "", `${window.location.pathname}${window.location.search}${newHash}`);
+  window.history.replaceState(
+    null,
+    "",
+    `${window.location.pathname}${window.location.search}${newHash}`,
+  );
 }

@@ -1,3 +1,4 @@
+import { toCsv } from "@/lib/csv";
 import type { InformationsverbundOutput, InventoryAsset } from "./types";
 
 // CSV export. Format: standard RFC 4180 (commas, double-quote escaping,
@@ -7,17 +8,10 @@ import type { InformationsverbundOutput, InventoryAsset } from "./types";
 // Columns: id, name, layer, category, defaultExposure, source
 // (source = "catalog:<id>" or "custom")
 
-function escapeCell(value: string): string {
-  if (value.includes('"') || value.includes(",") || value.includes("\n")) {
-    return `"${value.replace(/"/g, '""')}"`;
-  }
-  return value;
-}
+const HEADER = ["id", "name", "layer", "category", "exposure", "source"] as const;
 
-function rowOf(asset: InventoryAsset): string {
-  const source = asset.source
-    ? `catalog:${asset.source.optionId}`
-    : "custom";
+function rowOf(asset: InventoryAsset): string[] {
+  const source = asset.source ? `catalog:${asset.source.optionId}` : "custom";
   return [
     asset.id,
     asset.name,
@@ -25,13 +19,10 @@ function rowOf(asset: InventoryAsset): string {
     asset.category,
     asset.defaultExposure,
     source,
-  ]
-    .map(escapeCell)
-    .join(",");
+  ];
 }
 
 export function outputToCsv(output: InformationsverbundOutput): string {
-  const header = "id,name,layer,category,exposure,source";
   const all = [
     ...output.geschaeftsprozesse,
     ...output.anwendungen,
@@ -39,7 +30,7 @@ export function outputToCsv(output: InformationsverbundOutput): string {
     ...output.raeume,
     ...output.kommunikationsverbindungen,
   ];
-  return [header, ...all.map(rowOf)].join("\r\n");
+  return toCsv([HEADER, ...all.map(rowOf)]);
 }
 
 /** Trigger a browser download for the given CSV content. */

@@ -22,7 +22,8 @@ interface Props {
   inviteEmail: string;
   companyName: string;
   role: string;
-  redirectPath?: string | null;
+  /** Already checked to be a same-origin path (lib/organization/invite-redirect.ts). */
+  redirectPath: string;
   userEmail: string | null;
   isSignedIn: boolean;
 }
@@ -44,7 +45,7 @@ export function AcceptInviteCard({
   const acceptMutation = trpc.team.acceptInvite.useMutation({
     onSuccess: () => {
       toast.success(t("accept.joined", { company: companyName }));
-      router.push((redirectPath ?? "/") as never);
+      router.push(redirectPath as never);
       router.refresh();
     },
     onError: (err) => {
