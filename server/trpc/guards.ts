@@ -1,6 +1,7 @@
 import { TRPCError } from "@trpc/server";
 import { and, eq, inArray } from "drizzle-orm";
 import type { Database } from "@/lib/db";
+import { isOwnObjectKey } from "@/lib/storage/object-key";
 import {
   asset,
   categoryAssignment,
@@ -121,6 +122,20 @@ export async function verifyMemberReferences(
     );
   if (found.length !== wanted.length) {
     throw new TRPCError({ code: "NOT_FOUND", message: "User not found in your company" });
+  }
+}
+
+/**
+ * Verify that a stored-file key sent by the browser is one this company's upload path issued, under
+ * `prefix` and without climbing out of it (isOwnObjectKey). Does nothing when no key is sent, so a
+ * record can still be saved without a file or have its file cleared.
+ */
+export function assertOwnObjectKey(prefix: string, key: string | null | undefined): void {
+  if (key && !isOwnObjectKey(prefix, key)) {
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: "The file was not uploaded for this company.",
+    });
   }
 }
 

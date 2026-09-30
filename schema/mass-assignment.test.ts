@@ -6,7 +6,12 @@
  * absent from the parsed output — the router then cannot write it.
  */
 import { describe, expect, test } from "bun:test";
-import { supplierUpdateSchema, trainingUpdateSchema } from "./validators";
+import {
+  incidentUpdateSchema,
+  riskUpdateSchema,
+  supplierUpdateSchema,
+  trainingUpdateSchema,
+} from "./validators";
 
 describe("supplierUpdateSchema", () => {
   // unsubscribeToken is the portal's bearer credential: holding it grants read
@@ -57,5 +62,30 @@ describe("trainingUpdateSchema", () => {
     });
     expect(parsed).not.toHaveProperty("companyId");
     expect(parsed.title).toBe("NIS2 Basics");
+  });
+});
+
+describe("riskUpdateSchema", () => {
+  // The sign-off on a residual risk: the router stamps who and when from the session.
+  test("drops who accepted the risk and when", () => {
+    const parsed = riskUpdateSchema.parse({
+      title: "Ransomware",
+      acceptedBy: "44444444-4444-4444-4444-444444444444",
+      acceptedAt: new Date(),
+    });
+    expect(parsed).not.toHaveProperty("acceptedBy");
+    expect(parsed).not.toHaveProperty("acceptedAt");
+    expect(parsed.title).toBe("Ransomware");
+  });
+});
+
+describe("incidentUpdateSchema", () => {
+  test("drops createdBy", () => {
+    const parsed = incidentUpdateSchema.parse({
+      title: "Phishing",
+      createdBy: "55555555-5555-5555-5555-555555555555",
+    });
+    expect(parsed).not.toHaveProperty("createdBy");
+    expect(parsed.title).toBe("Phishing");
   });
 });

@@ -463,7 +463,14 @@ export const riskInsertSchema = createInsertSchema(risk, {
   treatment: z.enum(["mitigate", "accept", "transfer", "avoid"]),
 });
 export const riskSelectSchema = createSelectSchema(risk);
-export const riskUpdateSchema = riskInsertSchema.partial().omit(omitTenantMeta);
+/**
+ * acceptedBy / acceptedAt are the sign-off on a residual risk. The router stamps them with the
+ * caller and the time (server/trpc/helpers/risk-acceptance.ts); left writable, any member could
+ * record an acceptance in someone else's name, or in a user id from another tenant.
+ */
+export const riskUpdateSchema = riskInsertSchema
+  .partial()
+  .omit({ ...omitTenantMeta, acceptedBy: true, acceptedAt: true });
 
 export const riskAssetInsertSchema = createInsertSchema(riskAsset);
 export const riskSupplierInsertSchema = createInsertSchema(riskSupplier);
@@ -478,7 +485,10 @@ export const incidentInsertSchema = createInsertSchema(incident, {
   description: z.string().min(1),
 });
 export const incidentSelectSchema = createSelectSchema(incident);
-export const incidentUpdateSchema = incidentInsertSchema.partial().omit(omitTenantMeta);
+// createdBy is set once, from the session, when the incident is recorded.
+export const incidentUpdateSchema = incidentInsertSchema
+  .partial()
+  .omit({ ...omitTenantMeta, createdBy: true });
 
 // ============================================================================
 // Suppliers — bilateral supplier↔customer table (post-C3)

@@ -27,6 +27,7 @@ import {
   riskUpdateSchema,
 } from "@/schema/validators";
 import { verifyMemberReferences } from "../guards";
+import { riskAcceptanceValues } from "../helpers/risk-acceptance";
 import { companyProcedure, router } from "../init";
 import { insertRow, updateRow } from "../typed";
 
@@ -137,6 +138,7 @@ export const riskRouter = router({
     });
   }),
 
+  // A risk is accepted after it is recorded, through update, which attributes it to the caller.
   create: companyProcedure
     .input(
       riskInsertSchema.omit({
@@ -145,6 +147,8 @@ export const riskRouter = router({
         createdAt: true,
         updatedAt: true,
         riskScore: true,
+        acceptedBy: true,
+        acceptedAt: true,
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -160,9 +164,15 @@ export const riskRouter = router({
     }),
 
   update: companyProcedure
-    .input(riskUpdateSchema.extend({ id: z.string().uuid() }))
+    .input(
+      riskUpdateSchema.extend({
+        id: z.string().uuid(),
+        accepted: z.boolean().optional(),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
-      const { id, ...data } = input;
+      const { id, accepted, ...data } = input;
+      const now = new Date();
       const needsScoreCalc = data.likelihood != null || data.impact != null;
       const needsResidualCalc =
         data.residualLikelihood != null || data.residualImpact != null;
@@ -195,10 +205,10 @@ export const riskRouter = router({
 
       const updates = {
         ...data,
-        updatedAt: new Date(),
+        updatedAt: now,
         ...(riskScore != null ? { riskScore } : {}),
         ...(residualRiskScore != null ? { residualRiskScore } : {}),
-        ...(data.acceptedAt != null ? { acceptedBy: ctx.userId } : {}),
+        ...riskAcceptanceValues(accepted, ctx.userId, now),
       };
       const [row] = await ctx.db
         .update(risk)

@@ -5,11 +5,11 @@ import type { DbOrTx } from "@/lib/db";
 import { listUserCompanies, openCompany } from "@/lib/organization/membership";
 import { billingAccount, company } from "@/schema";
 import { insertDraftCompany } from "../helpers/setup-helpers";
-import { activatedCompanyProcedure, protectedProcedure, router } from "../init";
+import { adminProcedure, protectedProcedure, router } from "../init";
 
 /**
- * The account of a set-up company. Any member of it may add companies to that account, because one
- * payment covers unlimited companies; a draft cannot, so a half-finished signup does not multiply.
+ * The account of a set-up company, which its admins may add companies to because one payment covers
+ * unlimited companies; a draft cannot, so a half-finished signup does not multiply.
  */
 const accountOfSetUpCompany = async (db: DbOrTx, companyId: string) => {
   const [row] = await db
@@ -24,9 +24,11 @@ export const companyRouter = router({
   /** The companies the caller belongs to, for the company switcher. */
   listMine: protectedProcedure.query(async ({ ctx }) => {
     const companies = await listUserCompanies(ctx.db, ctx.userId);
-    const canAddCompany = ctx.companyId
-      ? (await accountOfSetUpCompany(ctx.db, ctx.companyId)) !== null
-      : false;
+    // The same role test as adminProcedure on createAnother, so the menu only offers what succeeds.
+    const canAddCompany =
+      ctx.companyId && ctx.session.role === "admin"
+        ? (await accountOfSetUpCompany(ctx.db, ctx.companyId)) !== null
+        : false;
     return {
       companies: companies.map(({ id, name, activatedAt, role }) => ({
         id,
@@ -54,12 +56,14 @@ export const companyRouter = router({
 
   /**
    * Start another company under the paying account of the open one, so it inherits the account's
-   * access level. Any member of a set-up company may add one; the caller owns the new company, and
-   * the account keeps its owner, who pays. The new company is a draft, opened for the caller, and
-   * set up through the same journey as a first one; a draft the caller already started under this
-   * account is reopened instead of adding a second.
+   * access level. Only an admin of a set-up company may add one: the caller owns the new company
+   * and keeps it and its access even after leaving this one, so a member or reviewer must not be
+   * able to spend the payer's account that way. The account keeps its owner, who pays. The new
+   * company is a draft, opened for the caller, and set up through the same journey as a first
+   * one; a draft the caller already started under this account is reopened instead of adding a
+   * second.
    */
-  createAnother: activatedCompanyProcedure.mutation(async ({ ctx }) => {
+  createAnother: adminProcedure.mutation(async ({ ctx }) => {
     const billingAccountId = await accountOfSetUpCompany(ctx.db, ctx.companyId);
     if (!billingAccountId) {
       throw new TRPCError({
