@@ -309,6 +309,31 @@ if (process.env.NODE_ENV !== "production" && process.env.ENABLE_DEV_AUTH === "tr
   );
 }
 
+type StoredSessionVersion = { ok: true; version: number | null } | { ok: false };
+
+/**
+ * The stored session version for this email (null when the user is gone), or not ok when the
+ * database could not be asked. Auth.js reads a throw in the jwt callback as "signed out" and clears
+ * the cookie, so a database blip would otherwise end every session; getSession still refuses data
+ * while the database is down. Only the error's name is logged, since a query error's message
+ * carries its parameters, here the address.
+ */
+async function storedSessionVersion(email: string): Promise<StoredSessionVersion> {
+  try {
+    const stored = await db.query.user.findFirst({
+      where: eq(user.email, email),
+      columns: { sessionVersion: true },
+    });
+    return { ok: true, version: stored?.sessionVersion ?? null };
+  } catch (err) {
+    console.error(
+      "[auth] session version lookup failed, keeping the token:",
+      err instanceof Error ? err.name : "unknown",
+    );
+    return { ok: false };
+  }
+}
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers,
 
@@ -500,12 +525,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         return null;
       }
       if (!token.email) return null;
-      const stored = await db.query.user.findFirst({
-        where: eq(user.email, token.email),
-        columns: { sessionVersion: true },
-      });
-      return stored &&
-        isSessionVersionCurrent(token.sessionVersion ?? null, stored.sessionVersion)
+      const stored = await storedSessionVersion(token.email);
+      if (!stored.ok) return token;
+      return stored.version !== null &&
+        isSessionVersionCurrent(token.sessionVersion ?? null, stored.version)
         ? token
         : null;
     },

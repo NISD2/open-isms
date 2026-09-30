@@ -24,8 +24,9 @@ const HOUR = 60 * 60;
 
 const state: {
   storedVersion: number | undefined;
+  dbDown: boolean;
   updates: Array<{ set: Record<string, unknown>; where: SQL }>;
-} = { storedVersion: 1, updates: [] };
+} = { storedVersion: 1, dbDown: false, updates: [] };
 
 // Auth.js reads its secret and origin from process.env when NextAuth() is
 // called and on each request, so both are set before config.ts loads and put
@@ -53,10 +54,12 @@ mock.module("@/lib/db", () => ({
   db: {
     query: {
       user: {
-        findFirst: async () =>
-          state.storedVersion === undefined
+        findFirst: async () => {
+          if (state.dbDown) throw new Error("connection terminated");
+          return state.storedVersion === undefined
             ? undefined
-            : { sessionVersion: state.storedVersion },
+            : { sessionVersion: state.storedVersion };
+        },
       },
     },
     update: () => ({
@@ -136,11 +139,21 @@ async function signOut(jwt: string) {
 
 beforeEach(() => {
   state.storedVersion = 1;
+  state.dbDown = false;
   state.updates.splice(0);
 });
 
 describe("reading a session re-signs only a live token", () => {
   test("a current token comes back and its cookie is renewed", async () => {
+    const { body, cookie } = await readSession(
+      await sessionCookie({ authTime: now() - HOUR, sessionVersion: 1 }),
+    );
+    expect(body?.user?.email).toBe(EMAIL);
+    expect(cookie?.value ?? "").not.toBe("");
+  });
+
+  test("a database error keeps a live token instead of signing the user out", async () => {
+    state.dbDown = true;
     const { body, cookie } = await readSession(
       await sessionCookie({ authTime: now() - HOUR, sessionVersion: 1 }),
     );
