@@ -359,7 +359,13 @@ export const policyInsertSchema = createInsertSchema(policy, {
   type: z.string().min(1).max(100),
 });
 export const policySelectSchema = createSelectSchema(policy);
-export const policyUpdateSchema = policyInsertSchema.partial().omit(omitTenantMeta);
+/**
+ * The approval columns are a sign-off, so they are never the client's to write: left writable, a
+ * member could name the Geschäftsführer as approver with any date. No client path sets them.
+ */
+export const policyUpdateSchema = policyInsertSchema
+  .partial()
+  .omit({ ...omitTenantMeta, approvedBy: true, approvedAt: true, approverRole: true });
 
 // ============================================================================
 // Audit Log (insert-only -- no update schema for append-only log)
@@ -463,7 +469,14 @@ export const riskInsertSchema = createInsertSchema(risk, {
   treatment: z.enum(["mitigate", "accept", "transfer", "avoid"]),
 });
 export const riskSelectSchema = createSelectSchema(risk);
-export const riskUpdateSchema = riskInsertSchema.partial().omit(omitTenantMeta);
+/**
+ * acceptedBy / acceptedAt are the sign-off on a residual risk. The router stamps them with the
+ * caller and the time (server/trpc/helpers/risk-acceptance.ts); left writable, any member could
+ * record an acceptance in someone else's name, or in a user id from another tenant.
+ */
+export const riskUpdateSchema = riskInsertSchema
+  .partial()
+  .omit({ ...omitTenantMeta, acceptedBy: true, acceptedAt: true });
 
 export const riskAssetInsertSchema = createInsertSchema(riskAsset);
 export const riskSupplierInsertSchema = createInsertSchema(riskSupplier);
@@ -478,7 +491,10 @@ export const incidentInsertSchema = createInsertSchema(incident, {
   description: z.string().min(1),
 });
 export const incidentSelectSchema = createSelectSchema(incident);
-export const incidentUpdateSchema = incidentInsertSchema.partial().omit(omitTenantMeta);
+// createdBy is set once, from the session, when the incident is recorded.
+export const incidentUpdateSchema = incidentInsertSchema
+  .partial()
+  .omit({ ...omitTenantMeta, createdBy: true });
 
 // ============================================================================
 // Suppliers — bilateral supplier↔customer table (post-C3)
@@ -601,9 +617,10 @@ export const patchRecordInsertSchema = createInsertSchema(patchRecord, {
   severity: z.string().min(1).max(50),
 });
 export const patchRecordSelectSchema = createSelectSchema(patchRecord);
+// Who approved an exception is a sign-off, never the client's to name; see policyUpdateSchema.
 export const patchRecordUpdateSchema = patchRecordInsertSchema
   .partial()
-  .omit(omitTenantMeta);
+  .omit({ ...omitTenantMeta, exceptionApprovedBy: true });
 
 // ============================================================================
 // Operations: Vulnerability Management

@@ -15,8 +15,13 @@ import { sanitizeFilename } from "@/lib/storage/object-key";
 import { createPresignedPut } from "@/lib/storage/presign";
 import { companyCertification } from "@/schema";
 import { companyCertificationCreateSchema } from "@/schema/validators";
+import { assertOwnObjectKey } from "../../guards";
 import { accountProcedure, router } from "../../init";
 import { insertRow } from "../../typed";
+
+/** Where uploadUrl puts a company's certificates; the only keys a certification may hold. */
+const certificationPrefix = (companyId: string) =>
+  `supplier-certifications/${companyId}/`;
 
 export const companyCertificationRouter = router({
   /** List all certifications I own. */
@@ -33,13 +38,7 @@ export const companyCertificationRouter = router({
     .mutation(async ({ ctx, input }) => {
       // Defense-in-depth: prevent a supplier from referencing another
       // supplier's S3 object by guessing/leaking storage keys.
-      const expectedPrefix = `supplier-certifications/${ctx.companyId}/`;
-      if (!input.storageKey.startsWith(expectedPrefix)) {
-        throw new TRPCError({
-          code: "FORBIDDEN",
-          message: "Storage key does not belong to this company",
-        });
-      }
+      assertOwnObjectKey(certificationPrefix(ctx.companyId), input.storageKey);
       const [row] = await ctx.db
         .insert(companyCertification)
         .values(
@@ -92,7 +91,7 @@ export const companyCertificationRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       const safeName = sanitizeFilename(input.fileName);
-      const key = `supplier-certifications/${ctx.companyId}/${Date.now()}-${safeName}`;
+      const key = `${certificationPrefix(ctx.companyId)}${Date.now()}-${safeName}`;
       const url = await createPresignedPut(key, input.contentType, input.fileSize);
       return { url, key };
     }),

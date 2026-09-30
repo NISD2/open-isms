@@ -14,7 +14,7 @@ import {
 import { MAX_UPLOAD_BYTES } from "@/lib/storage/limits";
 import { trainingRecord } from "@/schema";
 import { trainingInsertSchema, trainingUpdateSchema } from "@/schema/validators";
-import { verifyMemberReferences } from "../guards";
+import { assertOwnObjectKey, verifyMemberReferences } from "../guards";
 import { companyProcedure, router } from "../init";
 
 /**
@@ -46,22 +46,6 @@ const batchCreateSchema = z.object({
 /** Where getCertificateUploadUrl puts a company's certificates; the only keys a record may hold. */
 const certificatePrefix = (companyId: string) => `companies/${companyId}/training-certs/`;
 
-const isOwnCertificateKey = (companyId: string, key: string) =>
-  key.startsWith(certificatePrefix(companyId));
-
-/**
- * A certificate key must be one this company's upload URL issued. A record holding any other key
- * would have its download sign someone else's object, such as another tenant's evidence.
- */
-const assertOwnCertificateKey = (companyId: string, key: string | null | undefined) => {
-  if (key && !isOwnCertificateKey(companyId, key)) {
-    throw new TRPCError({
-      code: "BAD_REQUEST",
-      message: "The certificate file was not uploaded for this company.",
-    });
-  }
-};
-
 export const trainingRouter = router({
   list: companyProcedure.query(async ({ ctx }) => {
     if (!ctx.companyId) return [];
@@ -74,7 +58,7 @@ export const trainingRouter = router({
   create: companyProcedure
     .input(trainingInsertSchema.omit({ id: true, companyId: true, createdAt: true }))
     .mutation(async ({ ctx, input }) => {
-      assertOwnCertificateKey(ctx.companyId, input.certificateFileKey);
+      assertOwnObjectKey(certificatePrefix(ctx.companyId), input.certificateFileKey);
       await verifyMemberReferences(ctx.db, [input.userId], ctx.companyId);
       const [row] = await ctx.db
         .insert(trainingRecord)
@@ -92,7 +76,10 @@ export const trainingRouter = router({
   batchCreate: companyProcedure
     .input(batchCreateSchema)
     .mutation(async ({ ctx, input }) => {
-      assertOwnCertificateKey(ctx.companyId, input.training.certificateFileKey);
+      assertOwnObjectKey(
+        certificatePrefix(ctx.companyId),
+        input.training.certificateFileKey,
+      );
       await verifyMemberReferences(
         ctx.db,
         input.participants.map((p) => p.userId),
@@ -121,7 +108,20 @@ export const trainingRouter = router({
     .input(trainingUpdateSchema.extend({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const { id, ...data } = input;
-      assertOwnCertificateKey(ctx.companyId, data.certificateFileKey);
+      const current = data.certificateFileKey
+        ? await ctx.db.query.trainingRecord.findFirst({
+            where: and(
+              eq(trainingRecord.id, id),
+              eq(trainingRecord.companyId, ctx.companyId),
+            ),
+            columns: { certificateFileKey: true },
+          })
+        : undefined;
+      assertOwnObjectKey(
+        certificatePrefix(ctx.companyId),
+        data.certificateFileKey,
+        current?.certificateFileKey,
+      );
       await verifyMemberReferences(ctx.db, [data.userId], ctx.companyId);
       const [row] = await ctx.db
         .update(trainingRecord)
@@ -203,11 +203,10 @@ export const trainingRouter = router({
         columns: { certificateFileKey: true },
       });
       // Checked again here, because rows written before the key was checked on write may hold any
-      // key; one outside this company's prefix is treated as no certificate at all.
-      if (
-        !row?.certificateFileKey ||
-        !isOwnCertificateKey(ctx.companyId, row.certificateFileKey)
-      ) {
+      // key; one outside this company's prefix is treated as no certificate at all. A prefix test,
+      // not isOwnObjectKey: keys issued before audit F-4 (2026-09-10) kept the raw filename, which
+      // may hold a backslash, and the stricter check applies to keys when they are written.
+      if (!row?.certificateFileKey?.startsWith(certificatePrefix(ctx.companyId))) {
         throw new TRPCError({
           code: "NOT_FOUND",
           message: "No certificate on this record",

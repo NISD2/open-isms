@@ -26,6 +26,7 @@ export const patchRouter = router({
         companyId: true,
         createdAt: true,
         updatedAt: true,
+        exceptionApprovedBy: true,
       }),
     )
     .mutation(async ({ ctx, input }) => {

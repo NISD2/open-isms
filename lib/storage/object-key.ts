@@ -6,7 +6,7 @@
  * Two of them sanitized the caller's filename and pinned the content type; two
  * spliced `input.fileName` straight into the key and passed `fileType` through
  * as whatever the client claimed. This module is the one copy, so they cannot
- * drift apart again.
+ * drift apart again. The same goes for checking a key the browser sends back.
  */
 
 /**
@@ -23,6 +23,30 @@
  */
 export function sanitizeFilename(name: string): string {
   return name.replace(/[^a-zA-Z0-9._-]/g, "_").slice(0, 200);
+}
+
+/**
+ * Whether a key the browser sent back names an object inside `prefix`, the folder one upload path
+ * issues a company's keys under. A record holding any other key would have its later download
+ * sign someone else's object, such as another tenant's evidence.
+ *
+ * A bare prefix test is not enough: `supplier-profile/<id>/../<other-id>/logo.png` starts with
+ * the right folder and leaves it on any store that resolves dot segments. So no segment may be
+ * empty (which also covers a leading "/"), "." or "..". No issued key holds a backslash, since
+ * sanitizeFilename replaces it, so one is refused rather than left to a store to read as a
+ * separator. Dots inside a name (`..report.pdf`) stay allowed, because sanitizeFilename keeps
+ * them and such a name cannot climb. A prefix without its trailing "/" would also match a longer
+ * sibling id, so it fails closed.
+ */
+export function isOwnObjectKey(prefix: string, key: string): boolean {
+  return (
+    prefix.endsWith("/") &&
+    key.startsWith(prefix) &&
+    !key.includes("\\") &&
+    key
+      .split("/")
+      .every((segment) => segment !== "" && segment !== "." && segment !== "..")
+  );
 }
 
 /**
