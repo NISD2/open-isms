@@ -93,7 +93,7 @@ import {
   user,
 } from "@/schema";
 import { NIS2_FRAMEWORK_CODE } from "../helpers/nis2-scope";
-import { protectedProcedure, router } from "../init";
+import { platformAdminProcedure, router } from "../init";
 
 /**
  * Sends to one recipient in one UTC day at which the email dashboard flags
@@ -226,13 +226,6 @@ function refusalAsTrpcError(err: unknown): never {
   }
   throw err;
 }
-
-const platformAdminProcedure = protectedProcedure.use(({ ctx, next }) => {
-  if (!isPlatformAdmin(ctx.session?.user.email)) {
-    throw new TRPCError({ code: "FORBIDDEN", message: "Platform admin access required" });
-  }
-  return next({ ctx });
-});
 
 export const platformAdminRouter = router({
   /**

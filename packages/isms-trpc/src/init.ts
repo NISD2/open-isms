@@ -49,13 +49,14 @@ export interface TRPCSetupOptions {
  * Returns the same surface as a hand-written `init.ts` so existing
  * routers can keep importing `protectedProcedure` etc. unchanged.
  */
-export function createTRPCSetup<TContext extends BaseContext>(
-  options: TRPCSetupOptions,
-) {
+export function createTRPCSetup<TContext extends BaseContext>(options: TRPCSetupOptions) {
   const t = initTRPC.context<TContext>().create({ transformer: superjson });
 
-  const protectedProcedure = t.procedure.use(
-    async ({ ctx, next, type, path, getRawInput }) => {
+  // The company a row is filed under decides who can read it (audit.list
+  // filters on company_id), so the scope is fixed per procedure tier and
+  // never left to each handler to remember.
+  const authenticatedAndAudited = (auditScope: "callerCompany" | "platform") =>
+    t.procedure.use(async ({ ctx, next, type, path, getRawInput }) => {
       if (!ctx.userId || !ctx.session) {
         throw new TRPCError({
           code: "UNAUTHORIZED",
@@ -75,7 +76,7 @@ export function createTRPCSetup<TContext extends BaseContext>(
       if (type === "mutation") {
         const rawInput = await getRawInput();
         options.logAudit({
-          companyId: ctx.companyId,
+          companyId: auditScope === "callerCompany" ? ctx.companyId : null,
           userId: ctx.userId,
           action: path,
           entityType: path.split(".")[0] ?? path,
@@ -88,8 +89,18 @@ export function createTRPCSetup<TContext extends BaseContext>(
       }
 
       return result;
-    },
-  );
+    });
+
+  const protectedProcedure = authenticatedAndAudited("callerCompany");
+
+  /**
+   * For operator actions across tenants (platform admin, newsletter). The
+   * operator's own open company is a tenant like any other, and these inputs
+   * name other customers, so the automatic row carries no company and no
+   * tenant's audit.list can return it. A handler that acts on one company
+   * writes its own row under that company.
+   */
+  const platformProcedure = authenticatedAndAudited("platform");
 
   const companyProcedure = protectedProcedure.use(({ ctx, next }) => {
     if (!ctx.companyId) {
@@ -124,6 +135,7 @@ export function createTRPCSetup<TContext extends BaseContext>(
     createCallerFactory: t.createCallerFactory,
     publicProcedure: t.procedure,
     protectedProcedure,
+    platformProcedure,
     companyProcedure,
     adminProcedure,
     reviewerProcedure,
@@ -134,13 +146,7 @@ export function createTRPCSetup<TContext extends BaseContext>(
 function extractEntityId(input: unknown): string | null {
   if (!input || typeof input !== "object") return null;
   const obj = input as Record<string, unknown>;
-  for (const key of [
-    "id",
-    "statusId",
-    "evidenceId",
-    "categoryId",
-    "assessmentId",
-  ]) {
+  for (const key of ["id", "statusId", "evidenceId", "categoryId", "assessmentId"]) {
     const v = obj[key];
     if (typeof v === "string") return v;
   }
@@ -193,6 +199,20 @@ const AUDIT_REDACT_KEYS = new Set([
   // confirmation; it must never be persisted in the (non-retention-managed)
   // audit log, which would defeat the erasure.
   "confirmemail",
+  "confirmorgname",
+  // Billing identity (the order form, the operator's close and quote). The
+  // invoice and billing account already hold these; a copy in the audit log is
+  // one erasure cannot reach once the row sits outside the customer's company.
+  "customeremail",
+  "customername",
+  "companyname",
+  "vatnumber",
+  "street",
+  "zip",
+  "city",
+  "invoiceemail",
+  "copytoemail",
+  "purchaseorder",
 ]);
 
 function scrubSensitiveValues(value: unknown): unknown {

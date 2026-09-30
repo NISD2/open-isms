@@ -1,22 +1,22 @@
+import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
-import { eq, and, desc } from "drizzle-orm";
-import { router, protectedProcedure } from "../init";
-import { auditLog, user } from "@/schema";
+import { auditLog } from "@/schema";
+import { reviewerProcedure, router } from "../init";
 
+// Reviewer tier: each row carries the raw input of a mutation anywhere in the
+// company, wider than what a member scoped to assigned categories can open.
 export const auditRouter = router({
   /** Paginated audit log list */
-  list: protectedProcedure
+  list: reviewerProcedure
     .input(
       z.object({
         entityType: z.string().optional(),
         entityId: z.string().uuid().optional(),
         limit: z.number().int().min(1).max(100).default(50),
         offset: z.number().int().min(0).default(0),
-      })
+      }),
     )
     .query(async ({ ctx, input }) => {
-      if (!ctx.companyId) return [];
-
       const conditions = [eq(auditLog.companyId, ctx.companyId)];
       if (input.entityType) {
         conditions.push(eq(auditLog.entityType, input.entityType));
@@ -52,15 +52,14 @@ export const auditRouter = router({
     }),
 
   /** All audit entries for a specific entity */
-  getByEntity: protectedProcedure
+  getByEntity: reviewerProcedure
     .input(
       z.object({
         entityType: z.string(),
         entityId: z.string().uuid(),
-      })
+      }),
     )
     .query(async ({ ctx, input }) => {
-      if (!ctx.companyId) return [];
       return ctx.db.query.auditLog.findMany({
         where: and(
           eq(auditLog.companyId, ctx.companyId),
