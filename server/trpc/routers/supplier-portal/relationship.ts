@@ -15,12 +15,23 @@ import { z } from "zod";
 import { company, supplier } from "@/schema";
 import {
   relationshipClausesUpdateSchema,
+  supplierFacingRelationshipSchema,
   supplierInviteCustomerSchema,
 } from "@/schema/validators";
 import { accountProcedure, router } from "../../init";
-import { insertRow, updateRow } from "../../typed";
+import { insertRow, pickColumns, updateRow } from "../../typed";
 import { notifyCustomerAdded } from "./broadcast";
 import { generateOpaqueToken } from "./helpers";
+
+/**
+ * The only shape a supplier row leaves this router in. The same row is the
+ * customer's register entry, carrying their assessment of this supplier and
+ * the customer's access token, neither of which is the supplier's to read.
+ */
+const supplierFacingColumns = pickColumns(
+  supplier,
+  supplierFacingRelationshipSchema.shape,
+);
 
 /**
  * Guard: only companies that have opted into the supplier portal
@@ -45,15 +56,11 @@ async function requireSupplierRole(
 export const supplierRelationshipRouter = router({
   /** List all customers (supplier rows) where I'm the supplier-side party. */
   listMyCustomers: accountProcedure.query(async ({ ctx }) => {
-    // Audit F-9 (2026-09-10): no `unsubscribeToken`. It is the bearer
-    // credential for /supplier-access/{token}, one per customer, and this
-    // list renders customer name and status. `invite` and `resend` build the
-    // link from a targeted read, which is where the token belongs.
-    return ctx.db.query.supplier.findMany({
-      where: eq(supplier.supplierCompanyId, ctx.companyId),
-      columns: { unsubscribeToken: false },
-      orderBy: [desc(supplier.createdAt)],
-    });
+    return ctx.db
+      .select(supplierFacingColumns)
+      .from(supplier)
+      .where(eq(supplier.supplierCompanyId, ctx.companyId))
+      .orderBy(desc(supplier.createdAt));
   }),
 
   /** Add a single customer subscription. Idempotent on (supplier, email). */
@@ -120,21 +127,17 @@ export const supplierRelationshipRouter = router({
       return { id: inserted.id };
     }),
 
-  /**
-   * Get a single relationship — returns the supplier row INCLUDING
-   * per-customer contract clauses, but not the access token (audit F-9): the
-   * detail view renders clauses and SLA, and the token is a credential.
-   */
+  /** Get a single relationship, with the per-customer contract clauses. */
   get: accountProcedure
     .input(z.object({ id: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
-      const row = await ctx.db.query.supplier.findFirst({
-        where: and(
-          eq(supplier.id, input.id),
-          eq(supplier.supplierCompanyId, ctx.companyId),
-        ),
-        columns: { unsubscribeToken: false },
-      });
+      const [row] = await ctx.db
+        .select(supplierFacingColumns)
+        .from(supplier)
+        .where(
+          and(eq(supplier.id, input.id), eq(supplier.supplierCompanyId, ctx.companyId)),
+        )
+        .limit(1);
       if (!row) throw new TRPCError({ code: "NOT_FOUND" });
       return row;
     }),
@@ -155,7 +158,7 @@ export const supplierRelationshipRouter = router({
         .update(supplier)
         .set(updateRow(supplier, { ...clauses, updatedAt: new Date() }))
         .where(and(eq(supplier.id, id), eq(supplier.supplierCompanyId, ctx.companyId)))
-        .returning();
+        .returning(supplierFacingColumns);
       if (!row) throw new TRPCError({ code: "NOT_FOUND" });
       return row;
     }),
@@ -175,7 +178,7 @@ export const supplierRelationshipRouter = router({
         .where(
           and(eq(supplier.id, input.id), eq(supplier.supplierCompanyId, ctx.companyId)),
         )
-        .returning();
+        .returning({ id: supplier.id });
       if (!row) throw new TRPCError({ code: "NOT_FOUND" });
       return row;
     }),

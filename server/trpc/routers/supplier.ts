@@ -11,16 +11,25 @@
  * table from the supplier perspective via supplierCompanyId.
  */
 
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, isNotNull, isNull } from "drizzle-orm";
 import { z } from "zod";
 import {
   invalidateModuleSignOffs,
   recheckModuleRequirements,
 } from "@/lib/compliance/module-recheck";
-import { supplier } from "@/schema";
-import { supplierInsertSchema, supplierUpdateSchema } from "@/schema/validators";
+import { riskSupplier, supplier } from "@/schema";
+import {
+  customerSupplierAssessmentSchema,
+  supplierInsertSchema,
+  supplierLinkedUpdateSchema,
+  supplierUpdateSchema,
+} from "@/schema/validators";
 import { companyProcedure, router } from "../init";
 import { insertRow, updateRow } from "../typed";
+
+const clearedAssessment = Object.fromEntries(
+  Object.keys(customerSupplierAssessmentSchema.shape).map((column) => [column, null]),
+);
 
 export const supplierRouter = router({
   list: companyProcedure.query(async ({ ctx }) => {
@@ -76,7 +85,18 @@ export const supplierRouter = router({
     .input(supplierUpdateSchema.extend({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const { id, ...data } = input;
-      const updates = { ...data, updatedAt: new Date() };
+      const current = await ctx.db.query.supplier.findFirst({
+        where: and(eq(supplier.id, id), eq(supplier.customerCompanyId, ctx.companyId)),
+        columns: { supplierCompanyId: true },
+      });
+      // On a linked row the clause answers are the supplier's own statements,
+      // shown to the customer as such. A link is never added to an existing
+      // row, only removed, so reading it first cannot let a clause write slip
+      // through.
+      const writable = current?.supplierCompanyId
+        ? supplierLinkedUpdateSchema.parse(data)
+        : data;
+      const updates = { ...writable, updatedAt: new Date() };
       const [row] = await ctx.db
         .update(supplier)
         .set(updateRow(supplier, updates))
@@ -91,11 +111,38 @@ export const supplierRouter = router({
   delete: companyProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
-      await ctx.db
-        .delete(supplier)
-        .where(
-          and(eq(supplier.id, input.id), eq(supplier.customerCompanyId, ctx.companyId)),
-        );
+      const mine = and(
+        eq(supplier.id, input.id),
+        eq(supplier.customerCompanyId, ctx.companyId),
+      );
+      await ctx.db.transaction(async (tx) => {
+        // A linked row is also the supplier's side of the relationship, and a
+        // hard delete cascades into their asset offerings and the incident
+        // broadcasts that prove they notified us. End it the way the supplier
+        // does (revoked), drop it from our register by severing our side, as
+        // erase-user does for the other party, and clear what we recorded.
+        const [ended] = await tx
+          .update(supplier)
+          .set(
+            updateRow(supplier, {
+              ...clearedAssessment,
+              customerCompanyId: null,
+              status: "revoked" as const,
+              unsubscribedAt: new Date(),
+              updatedAt: new Date(),
+            }),
+          )
+          .where(and(mine, isNotNull(supplier.supplierCompanyId)))
+          .returning({ id: supplier.id });
+        if (ended) {
+          // Our risks stay; only their links to a supplier we no longer hold go.
+          // risk.linkSupplier only links a tenant's risk to that tenant's own
+          // supplier row, so the row released above scopes these to us.
+          await tx.delete(riskSupplier).where(eq(riskSupplier.supplierId, ended.id));
+          return;
+        }
+        await tx.delete(supplier).where(and(mine, isNull(supplier.supplierCompanyId)));
+      });
       recheckModuleRequirements(ctx.db, ctx.companyId, "supplier", ctx.userId).catch(
         (err) => console.error("[background] supplier:", err),
       );
