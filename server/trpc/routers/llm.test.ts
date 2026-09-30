@@ -10,7 +10,19 @@ import { beforeEach, describe, expect, mock, test } from "bun:test";
 // The auto-audit middleware would otherwise reach for a real database.
 mock.module("@/lib/audit", () => ({ logAudit: () => {} }));
 
-const { __resetRateLimitState } = await import("@/lib/rate-limit");
+// The limiter counts in Postgres, which this suite does not have. What is under
+// test is which key and budget each procedure asks for, so a stand-in with the
+// same contract (allow up to `limit` hits per key) is enough; the real counting
+// is drilled in scripts/ci/rate-limit-drill.ts.
+const hits = new Map<string, number>();
+mock.module("@/lib/rate-limit", () => ({
+  rateLimit: async (key: string, limit: number) => {
+    const count = (hits.get(key) ?? 0) + 1;
+    hits.set(key, count);
+    return count <= limit;
+  },
+}));
+
 const { createCallerFactory } = await import("../init");
 const {
   LLM_CALLS_PER_HOUR,
@@ -49,7 +61,7 @@ const EXTRACT = { text: "Muster GmbH, Berlin", fields: [field("name")] };
 type Schema = { safeParse: (v: unknown) => { success: boolean } };
 const accepts = (schema: Schema, v: unknown) => schema.safeParse(v).success;
 
-beforeEach(() => __resetRateLimitState());
+beforeEach(() => hits.clear());
 
 describe("extract input bounds", () => {
   test("accept the largest form that calls it today, with room to grow", () => {

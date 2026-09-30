@@ -1,13 +1,13 @@
-import { NextRequest } from "next/server";
 import { renderToBuffer } from "@react-pdf/renderer";
+import { eq } from "drizzle-orm";
+import { NextRequest } from "next/server";
 import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { companyAssessment } from "@/schema";
-import { eq } from "drizzle-orm";
-import { loadPolicyData } from "@/lib/pdf/load-policy-data";
 import { pdfLocale } from "@/lib/pdf/format";
+import { loadPolicyData } from "@/lib/pdf/load-policy-data";
 import { PolicyDocument } from "@/lib/pdf/policy-document";
 import { rateLimit } from "@/lib/rate-limit";
+import { companyAssessment } from "@/schema";
 
 export async function GET(request: NextRequest) {
   const session = await getSession();
@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  if (!rateLimit(`export:policy:${session.user.id}`, 5, 60_000)) {
+  if (!(await rateLimit(`export:policy:${session.user.id}`, 5, 60_000))) {
     return new Response("Too many requests", { status: 429 });
   }
 
@@ -36,9 +36,7 @@ export async function GET(request: NextRequest) {
   }
 
   const data = await loadPolicyData(assessmentId, categoryCode, locale);
-  const buffer = await renderToBuffer(
-    PolicyDocument({ data, locale }),
-  );
+  const buffer = await renderToBuffer(PolicyDocument({ data, locale }));
 
   const date = new Date().toISOString().split("T")[0];
   const filename = `${categoryCode.toLowerCase()}-policy-${date}.pdf`;

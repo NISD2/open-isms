@@ -20,7 +20,9 @@ import { user } from "@/schema";
  *   400:  { error }    429: { error }
  */
 export async function POST(request: Request) {
-  if (!rateLimit(`setup-password:${getClientIp(request.headers)}`, 10, 15 * 60_000)) {
+  if (
+    !(await rateLimit(`setup-password:${getClientIp(request.headers)}`, 10, 15 * 60_000))
+  ) {
     return NextResponse.json(
       { error: "Too many attempts. Please try again later." },
       { status: 429 },

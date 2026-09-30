@@ -1,135 +1,134 @@
 /**
- * In-memory sliding-window rate limiter.
+ * Rate limiter, counted in Postgres (`rate_limit_window`).
  *
- * Audit M-2 (2026-06-10) / F-2 (2026-09-10): the previous version pruned the
- * timestamps inside an entry but never removed the entry itself, so every
- * distinct key was a permanent Map entry for the life of the process. Keys
- * embed the client IP (`applicability:search:${ip}`, `supplier-access:read:${ip}`,
- * …), so the Map grew with every new caller and never shrank.
+ * The in-memory version this replaces was per process: a redeploy reset every
+ * budget and a second replica doubled every limit. The window now lives in one
+ * row per key, and one statement both counts a hit and decides it.
  *
- * Two changes, both of which only ever DELETE windows that have fully expired:
- * an entry whose timestamps have all aged out is indistinguishable from one
- * that was never created, so dropping it cannot hand anyone a fresh budget
- * they did not already have.
- *
- * Still per-process, so a redeploy resets every budget and a second replica
- * would double every limit. Moving the window to Postgres with a `reset_at`
- * TTL — the shape `email_otp` already uses — is the real fix and wants its
- * own change.
+ * A FIXED window, where the in-memory one slid: the first hit opens a window of
+ * `windowMs`, up to `limit` hits pass inside it, and the first hit after it
+ * closes opens the next. A caller who times it can get up to twice the limit
+ * across a window boundary. Every limit here is a ceiling on abuse sized well
+ * above honest use, so that edge is the price of a single atomic statement,
+ * where an exact sliding window needs a row per hit.
  */
+import "@/lib/server-guard";
+import { and, inArray, lte, sql } from "drizzle-orm";
+import { db } from "@/lib/db";
+import { rateLimitWindow } from "@/schema";
+import { publicRouteBudget, windowKey } from "./rate-limit-rules";
 
-/** Named RateWindow, not Window, so it cannot shadow the DOM global. */
-interface RateWindow {
-  timestamps: number[];
-  /** When the last timestamp in this window ages out. */
-  expiresAt: number;
+/** A window is over once reset_at has passed, for counting and cleanup alike. */
+const expired = lte(rateLimitWindow.resetAt, sql`now()`);
+
+/**
+ * Counts one hit and says whether it is allowed.
+ *
+ * One statement, so concurrent hits on a key cannot both read the same count:
+ * ON CONFLICT takes the row lock and evaluates the update against the latest
+ * committed row. The first hit on a key inserts. A later hit either restarts an
+ * expired window at 1 or adds 1 while the count is under the limit. At the limit
+ * the WHERE fails, nothing is written and no row comes back: that is the denial.
+ * The clock is the database's, so every replica agrees on when a window ends.
+ */
+async function countHit(
+  rowKey: string,
+  limit: number,
+  windowMs: number,
+): Promise<boolean> {
+  const counted = await db
+    .insert(rateLimitWindow)
+    .values({
+      key: rowKey,
+      count: 1,
+      resetAt: sql`now() + make_interval(secs => ${windowMs / 1000})`,
+    })
+    .onConflictDoUpdate({
+      target: rateLimitWindow.key,
+      set: {
+        count: sql`CASE WHEN ${expired} THEN 1 ELSE ${rateLimitWindow.count} + 1 END`,
+        resetAt: sql`CASE WHEN ${expired} THEN excluded.reset_at ELSE ${rateLimitWindow.resetAt} END`,
+      },
+      setWhere: sql`${expired} OR ${rateLimitWindow.count} < ${limit}`,
+    })
+    .returning({ key: rateLimitWindow.key });
+  return counted.length > 0;
 }
 
-const windows = new Map<string, RateWindow>();
+/**
+ * Expired windows are deleted from the hit path, not by a cron route. The cron
+ * routes need CRON_SECRET and an outside scheduler to call them (Coolify
+ * scheduled tasks, see docs/coolify-deployment.md), and compose.self-host.yml
+ * ships none. Such a job is also easy to forget: cleanupExpiredOtps in
+ * lib/auth/otp.ts has no caller at all. Here one hit in SWEEP_ONE_IN
+ * deletes up to SWEEP_BATCH expired rows. A hit writes at most one row, so
+ * cleanup can remove five rows for every one traffic creates, and the table
+ * stays at the live windows plus a short tail whatever the traffic.
+ */
+const SWEEP_ONE_IN = 100;
+const SWEEP_BATCH = 500;
 
 /**
- * Only consider sweeping once the Map is bigger than this. Sized well above
- * any plausible concurrent-caller count so a normal instance never sweeps.
+ * Deletes up to `batch` expired windows and returns how many went. Dropping an
+ * expired window cannot hand anyone a budget: their next hit would restart it
+ * anyway. The subquery locks each row it picks and re-checks it is still expired
+ * as it does, so a window a concurrent hit has just restarted is left alone, and
+ * SKIP LOCKED leaves a row a hit holds right now to a later sweep, so a sweep
+ * never waits on a hit or on another sweep. The outer `expired` keeps the DELETE
+ * safe on its own.
  */
-const SWEEP_THRESHOLD = 10_000;
-
-/**
- * And then at most this often.
- *
- * Both guards are needed, and the size one alone is a trap: the sweep is O(n)
- * over the whole Map, so if the entries above the threshold are still LIVE it
- * deletes nothing, the size never drops, and every subsequent call pays a
- * full scan. Measured at 10.050 live windows that is 47 µs/call against
- * 0,20 µs for the unswept map — a 237x regression, reachable by anyone able
- * to put 10.001 distinct keys in play, which is the same "many distinct IPs"
- * the eviction exists to survive. Time-throttling bounds the cost to one scan
- * a minute no matter what the caller does.
- *
- * The trade is that between sweeps the Map holds at most a minute of unique
- * keys rather than none, which is the point: bounded, not zero.
- */
-const SWEEP_INTERVAL_MS = 60_000;
-
-/** Timestamp cursor for the throttle above. Mutable for the same reason `windows` is. */
-let lastSweptAt = 0;
-
-/** Drop every window whose newest timestamp has already aged out. */
-function sweepExpired(now: number): void {
-  lastSweptAt = now;
-  for (const [key, entry] of windows) {
-    if (entry.expiresAt <= now) windows.delete(key);
-  }
+export async function sweepExpiredWindows(batch: number = SWEEP_BATCH): Promise<number> {
+  const due = db
+    .select({ key: rateLimitWindow.key })
+    .from(rateLimitWindow)
+    .where(expired)
+    .limit(batch)
+    .for("update", { skipLocked: true });
+  const result = await db
+    .delete(rateLimitWindow)
+    .where(and(inArray(rateLimitWindow.key, due), expired));
+  return result.rowCount ?? 0;
 }
 
 /**
  * Returns `true` if the request is allowed, `false` if it is rate-limited.
+ *
+ * FAILS OPEN, and this is the only place that decides it. When a hit cannot be
+ * counted (database unreachable, statement error) the request is allowed and
+ * the error logged. Most routes behind this limiter need the same database for
+ * their own work, so during an outage the request fails at its next query
+ * anyway, and failing closed would turn a fault in the limiter alone into every
+ * user locked out of login. The cost: while the limiter is down, the routes that
+ * work without the database lose their ceiling. Those are the public
+ * questionnaire PDF and DOCX, and the applicability company search, which calls
+ * the paid RapidAPI before it touches the database.
  */
-export function rateLimit(key: string, limit: number, windowMs: number): boolean {
-  const now = Date.now();
-  const cutoff = now - windowMs;
-
-  if (windows.size > SWEEP_THRESHOLD && now - lastSweptAt >= SWEEP_INTERVAL_MS) {
-    sweepExpired(now);
+export async function rateLimit(
+  key: string,
+  limit: number,
+  windowMs: number,
+): Promise<boolean> {
+  try {
+    const allowed = await countHit(windowKey(key), limit, windowMs);
+    // Not awaited: the answer does not depend on it, so no request waits on it.
+    if (Math.random() < 1 / SWEEP_ONE_IN) {
+      void sweepExpiredWindows().catch((err) =>
+        console.error("[rate-limit] sweep of expired windows failed:", err),
+      );
+    }
+    return allowed;
+  } catch (err) {
+    console.error("[rate-limit] hit not counted, request allowed:", err);
+    return true;
   }
-
-  const existing = windows.get(key);
-  const recent = existing ? existing.timestamps.filter((t) => t > cutoff) : [];
-
-  if (recent.length >= limit) {
-    // expiresAt tracks the NEWEST timestamp, not the oldest: the window is
-    // only safe to sweep once every timestamp in it has aged out. Keying it
-    // off the oldest would let the sweep drop a window that still holds live
-    // hits, which is precisely the fail-open this change exists to avoid.
-    const newest = recent[recent.length - 1] ?? now;
-    windows.set(key, { timestamps: recent, expiresAt: newest + windowMs });
-    return false;
-  }
-
-  windows.set(key, {
-    timestamps: [...recent, now],
-    expiresAt: now + windowMs,
-  });
-  return true;
 }
 
-/**
- * Per-IP limit for an unauthenticated route, with a sane answer for the
- * deployments that cannot report an IP.
- *
- * `getClientIp` returns the literal "unknown" when neither `x-real-ip` nor
- * `x-forwarded-for` is present, which is every self-hosted instance started
- * without the optional Caddy proxy profile. Keying on that string would put
- * every visitor to such an instance in ONE bucket, so the eleventh download
- * of the day from anybody 429s. Those callers get their own, much larger
- * shared budget instead: still a ceiling on the CPU an anonymous crowd can
- * burn, without pretending a whole instance is one person.
- *
- * Deployments behind Traefik or Caddy always have the header, so they get the
- * real per-IP limit.
- */
+/** Per-IP limit for an unauthenticated route; see publicRouteBudget for "unknown". */
 export function rateLimitPublicRoute(
   name: string,
   ip: string,
   perIpPerMinute: number,
-): boolean {
-  return ip === "unknown"
-    ? rateLimit(`${name}:no-client-ip`, perIpPerMinute * 12, 60_000)
-    : rateLimit(`${name}:${ip}`, perIpPerMinute, 60_000);
+): Promise<boolean> {
+  const { key, limit, windowMs } = publicRouteBudget(name, ip, perIpPerMinute);
+  return rateLimit(key, limit, windowMs);
 }
-
-/** Test seam: drop all state. Not used in application code. */
-export function __resetRateLimitState(): void {
-  windows.clear();
-  lastSweptAt = 0;
-}
-
-/**
- * Test seam: how many windows are being held, and a way to run the sweep
- * without waiting out SWEEP_INTERVAL_MS. Not used in application code — the
- * sweep is what keeps the Map bounded and what must never drop a live window,
- * so it is worth testing directly rather than through a minute-long wait.
- */
-export const __rateLimitInternals = {
-  windowCount: () => windows.size,
-  forceSweep: () => sweepExpired(Date.now()),
-};

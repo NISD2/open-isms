@@ -15,7 +15,9 @@ export async function GET(request: Request): Promise<Response> {
   // cacheable, but only `locale` changes the output, so any unknown query
   // parameter produces a fresh cache key and a fresh render. Every other
   // export route in the app throttles; this one had nothing.
-  if (!rateLimitPublicRoute("questionnaire:pdf", getClientIp(request.headers), 10)) {
+  if (
+    !(await rateLimitPublicRoute("questionnaire:pdf", getClientIp(request.headers), 10))
+  ) {
     return NextResponse.json({ error: "Too many requests" }, { status: 429 });
   }
 

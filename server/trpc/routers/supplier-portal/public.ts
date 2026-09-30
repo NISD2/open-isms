@@ -15,21 +15,22 @@
  *
  * No public profile, no slugs, no anonymous subscribe form.
  */
-import { z } from "zod";
-import { eq, and, desc } from "drizzle-orm";
+
 import { TRPCError } from "@trpc/server";
-import { router, publicProcedure } from "../../init";
-import {
-  supplier,
-  asset,
-  incident,
-  companyCertification,
-  company,
-  assetSupplierOffering,
-  incidentBroadcast,
-} from "@/schema";
-import { rateLimit } from "@/lib/rate-limit";
+import { and, desc, eq } from "drizzle-orm";
+import { z } from "zod";
 import { logAudit } from "@/lib/audit";
+import { rateLimit } from "@/lib/rate-limit";
+import {
+  asset,
+  assetSupplierOffering,
+  company,
+  companyCertification,
+  incident,
+  incidentBroadcast,
+  supplier,
+} from "@/schema";
+import { publicProcedure, router } from "../../init";
 
 export const supplierPublicRouter = router({
   /**
@@ -54,7 +55,7 @@ export const supplierPublicRouter = router({
       // of entropy so brute-force is computationally infeasible, but rate
       // limiting still prevents the public endpoint from being a free
       // enumeration / scraping channel and protects the DB from cheap reads.
-      if (!rateLimit(`supplier-access:read:${ctx.ip}`, 60, 60_000)) {
+      if (!(await rateLimit(`supplier-access:read:${ctx.ip}`, 60, 60_000))) {
         throw new TRPCError({
           code: "TOO_MANY_REQUESTS",
           message: "Too many requests. Please wait a minute and try again.",
@@ -198,7 +199,10 @@ export const supplierPublicRouter = router({
         )
         .orderBy(desc(incident.createdAt))
         .limit(50);
-      const recentEvents = broadcastRows.map((r) => ({ ...r.incident, broadcast: r.broadcast }));
+      const recentEvents = broadcastRows.map((r) => ({
+        ...r.incident,
+        broadcast: r.broadcast,
+      }));
 
       // Active certifications (cert metadata only — no S3 storage keys)
       const certifications = await ctx.db.query.companyCertification.findMany({
@@ -259,7 +263,7 @@ export const supplierPublicRouter = router({
     .mutation(async ({ ctx, input }) => {
       // Per-IP rate limit. Same rationale as getByToken — defense in depth
       // against brute force + spam.
-      if (!rateLimit(`supplier-access:revoke:${ctx.ip}`, 10, 60_000)) {
+      if (!(await rateLimit(`supplier-access:revoke:${ctx.ip}`, 10, 60_000))) {
         throw new TRPCError({
           code: "TOO_MANY_REQUESTS",
           message: "Too many requests. Please wait a minute and try again.",

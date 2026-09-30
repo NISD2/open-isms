@@ -105,10 +105,14 @@ const LOGIN_MAX_PER_IP = 30;
  * per window. An "unknown" IP would put every visitor in one bucket, so it
  * gets the email cap only.
  */
-function isLoginAllowed(email: string, ip: string): boolean {
+async function isLoginAllowed(email: string, ip: string): Promise<boolean> {
   const byIp =
-    ip === "unknown" || rateLimit(`login:ip:${ip}`, LOGIN_MAX_PER_IP, LOGIN_WINDOW_MS);
-  return byIp && rateLimit(`login:email:${email}`, LOGIN_MAX_PER_EMAIL, LOGIN_WINDOW_MS);
+    ip === "unknown" ||
+    (await rateLimit(`login:ip:${ip}`, LOGIN_MAX_PER_IP, LOGIN_WINDOW_MS));
+  return (
+    byIp &&
+    (await rateLimit(`login:email:${email}`, LOGIN_MAX_PER_EMAIL, LOGIN_WINDOW_MS))
+  );
 }
 
 const providers: Provider[] = [
@@ -130,7 +134,7 @@ const providers: Provider[] = [
 
       // A coded error, not null: null reads as a wrong password, which sends
       // someone who is only rate limited off to reset a password that works.
-      if (!isLoginAllowed(email, getClientIp(request.headers))) {
+      if (!(await isLoginAllowed(email, getClientIp(request.headers)))) {
         throw new CredentialsFlowError("RATE_LIMITED");
       }
 
