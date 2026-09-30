@@ -2059,7 +2059,7 @@
       "overview": {
         "heading": "Estás afectado. ¿Y ahora qué?",
         "p1": "Se estima que 29.500 empresas en Alemania entran en el ámbito de NIS2. Si tienes más de 50 empleados y operas en un sector cubierto (gestión de residuos, producción de alimentos, fabricación, energía, transporte, salud, infraestructura digital) eres casi con toda seguridad una de ellas. El BSIG entró en vigor el 6 de diciembre de 2025, y el plazo de registro ante el BSI fue el 6 de marzo de 2026.",
-        "p2": "Esto es lo que la mayoría de los consultores no te dirán: para una empresa del mid-market con TI básica, el cumplimiento de NIS2 es manejable. No es un proyecto de 6 meses y seis cifras. La mayoría de los 49 requisitos del BSIG son documentación que se escribe una sola vez: políticas, evaluaciones de riesgos, procedimientos. Solo un puñado requieren procesos operativos continuos. La ley exige medidas 'apropiadas' proporcionales a tu riesgo, no la infraestructura de seguridad de una Fortune 500.",
+        "p2": "Esto es lo que la mayoría de los consultores no te dirán: para una empresa del mid-market con TI básica, el cumplimiento de NIS2 es manejable. No es un proyecto de 6 meses y seis cifras. La mayoría de los 49 requisitos del BSIG son documentación que se escribe una sola vez: políticas, evaluaciones de riesgos, procedimientos. Solo un puñado requieren procesos operativos continuos. La ley exige medidas apropiadas y proporcionales a tu riesgo, no la infraestructura de seguridad de una Fortune 500.",
         "p3": "Esta guía te da el plan práctico: una hoja de ruta de 12 semanas, las funciones que necesitas (todas a tiempo parcial, todas con personal existente), los errores comunes que hacen tropezar a empresas de tu tamaño, y el orden de prioridad para abordar las 10 medidas obligatorias del §30 BSIG. Sin teoría, sin alarmismo, solo los pasos."
       },
       "audience": {
@@ -2158,7 +2158,7 @@
           },
           "overEngineering": {
             "title": "Sobreingeniería de la solución",
-            "description": "Una empresa de gestión de residuos de 100 personas no necesita un SOC ni un SIEM. Ajusta tus controles a tu perfil de riesgo real. El BSIG exige medidas 'apropiadas', no medidas máximas."
+            "description": "Una empresa de gestión de residuos de 100 personas no necesita un SOC ni un SIEM. Ajusta tus controles a tu perfil de riesgo real. El BSIG exige medidas 'adecuadas, proporcionadas y eficaces', no medidas máximas."
           },
           "noManagement": {
             "title": "Tratarlo como un proyecto de TI",
@@ -2435,7 +2435,7 @@
         "items": {
           "awareness": {
             "title": "Falta de concienciación",
-            "description": "Una encuesta de G DATA realizada en 2024 constató que el 44% de las empresas alemanas del mid-market desconocían que NIS2 les aplicaba. Los criterios de ámbito (50+ empleados o 10 millones de euros de facturación en 18 sectores cubiertos) no son evidentes para empresas que nunca han tratado con la regulación de seguridad de la información. Muchas empresas de sectores como la gestión de residuos, la producción de alimentos y la fabricación química no se consideran 'infraestructura crítica'."
+            "description": "Una encuesta de G DATA realizada en 2024 constató que el 44% de las empresas alemanas del mid-market desconocían que NIS2 les aplicaba. Los criterios de ámbito (50+ empleados, o más de 10 millones de euros tanto de facturación como de balance, en 18 sectores cubiertos) no son evidentes para empresas que nunca han tratado con la regulación de seguridad de la información. Muchas empresas de sectores como la gestión de residuos, la producción de alimentos y la fabricación química no se consideran 'infraestructura crítica'."
           },
           "complexity": {
             "title": "Complejidad del ámbito",
@@ -3412,7 +3412,7 @@
           "monitoring": {
             "section": "Prueba 2",
             "title": "¿Es usted una mediana empresa o mayor?",
-            "body": "El umbral es la definición de pyme de la Recomendación 2003/361/CE de la Comisión: al menos 50 empleados y al menos 10 millones EUR de volumen de negocio o balance, o mayor. Si está por debajo, usted queda fuera, salvo que alguna de las excepciones con independencia del tamaño del artículo 2, apartados 2 a 4, le incluya de todos modos (p. ej., usted es el único prestador de un servicio esencial, un prestador cualificado de servicios de confianza o un prestador de servicios de DNS)."
+            "body": "El umbral es la definición de pyme de la Recomendación 2003/361/CE de la Comisión: al menos 50 empleados, o más de 10 millones EUR tanto de volumen de negocio como de balance, o mayor. Si está por debajo, usted queda fuera, salvo que alguna de las excepciones con independencia del tamaño del artículo 2, apartados 2 a 4, le incluya de todos modos (p. ej., usted es el único prestador de un servicio esencial, un prestador cualificado de servicios de confianza o un prestador de servicios de DNS)."
           },
           "independent": {
             "section": "Prueba 3",
@@ -3489,7 +3489,7 @@
         "items": [
           "Directiva (UE) 2022/2555 (NIS 2), artículo 2 (ámbito de aplicación), anexo I y anexo II (sectores), artículo 21, apartado 2, letra d) (seguridad de la cadena de suministro) y artículo 21, apartado 3 (consideración de las vulnerabilidades específicas del proveedor).",
           "Reglamento de Ejecución (UE) 2024/2690 de la Comisión, de 17 de octubre de 2024, §5 (seguridad de la cadena de suministro): política de adquisiciones con criterios de selección, registro de riesgos de proveedores, obligaciones de seguridad contractuales.",
-          "Recomendación 2003/361/CE de la Comisión, artículo 2 del anexo (definición de mediana empresa: al menos 50 empleados y al menos 10 millones EUR de volumen de negocio o total del balance).",
+          "Recomendación 2003/361/CE de la Comisión, artículo 2 del anexo (definición de mediana empresa: al menos 50 empleados, o más de 10 millones EUR tanto de volumen de negocio como de total del balance).",
           "BSIG (Alemania) §28 (Einrichtungsarten und Größenkriterien) y §30 (Risikomanagementmaßnahmen, incluida la Lieferkettensicherheit), por los que se aplican los artículos 2 y 21 de NIS 2.",
           "Guía de implementación de NIS 2 de ENISA y la especificación del registro de entidades conforme al artículo 27: el ámbito conforme al artículo 2 rige si una entidad se registra; las medidas de cadena de suministro conforme al artículo 21 rigen qué hace una entidad sujeta al ámbito respecto de sus proveedores."
         ]
@@ -3608,7 +3608,7 @@
       },
       "practitioner": {
         "heading": "Cómo se desarrolla esto en grupos reales del Mittelstand",
-        "p1": "En los grupos que vemos, la cuestión casi siempre acaba en el paso 3. La filial operativa realiza alguna actividad del anexo I o II. Por sí sola es pequeña. Dentro del grupo se sitúa por encima de 50 empleados o por encima de 10 millones de euros de volumen de negocio. Conforme a la 2003/361/CE, eso la incluye.",
+        "p1": "En los grupos que vemos, la cuestión casi siempre acaba en el paso 3. La filial operativa realiza alguna actividad del anexo I o II. Por sí sola es pequeña. Dentro del grupo se sitúa por encima de 50 empleados o por encima de 10 millones de euros tanto de volumen de negocio como de balance. Conforme a la 2003/361/CE, eso la incluye.",
         "p2": "La palanca es el argumento de independencia del considerando 16. Si una filial es genuinamente independiente en cómo se gestiona (órgano de dirección propio, contratos con clientes propios, decisiones propias, sin una asignación de costes de grupo que determine su modelo de negocio), la autoridad nacional puede tratarla como autónoma a efectos de la prueba de tamaño. Ponga la independencia por escrito antes de confiar en ella. No la dé por supuesta."
       },
       "platform": {
@@ -4022,7 +4022,7 @@
           },
           "legal": {
             "title": "5. Considera asesoramiento jurídico si el ámbito no está claro",
-            "description": "Si tu empresa se sitúa cerca del umbral (próxima a 50 empleados o a 10 millones de euros de facturación), opera en un sector que puede interpretarse de varias maneras o tiene una estructura societaria compleja, consulta a un abogado especializado en regulación de TI. El coste de un dictamen jurídico (2.000-5.000 €) es insignificante frente al coste de la falta de conformidad o de una conformidad innecesaria. Algunas asociaciones sectoriales (como Bitkom o BDI) también ofrecen orientación a sus miembros sobre el ámbito de NIS2."
+            "description": "Si tu empresa se sitúa cerca del umbral (próxima a 50 empleados o a 10 millones de euros de facturación y de balance), opera en un sector que puede interpretarse de varias maneras o tiene una estructura societaria compleja, consulta a un abogado especializado en regulación de TI. El coste de un dictamen jurídico (2.000-5.000 €) es insignificante frente al coste de la falta de conformidad o de una conformidad innecesaria. Algunas asociaciones sectoriales (como Bitkom o BDI) también ofrecen orientación a sus miembros sobre el ámbito de NIS2."
           }
         }
       },
@@ -4116,12 +4116,12 @@
           "scope": {
             "aspect": "Ámbito de aplicación",
             "kritis": "Aproximadamente 2.000 operadores de infraestructuras críticas en 10 sectores, identificados por superar valores umbral específicos (p. ej., 500.000 personas atendidas)",
-            "nis2": "Aproximadamente 30.000 entidades en 18 sectores, mediante un sencillo umbral de tamaño: 50 o más empleados o más de 10 millones EUR de facturación anual. Incluye tanto la categoría «esencial» como la «importante»"
+            "nis2": "Aproximadamente 30.000 entidades en 18 sectores, mediante un sencillo umbral de tamaño: 50 o más empleados, o más de 10 millones EUR tanto de facturación anual como de balance. Incluye tanto la categoría «esencial» como la «importante»"
           },
           "threshold": {
             "aspect": "Modelo de umbral",
             "kritis": "Umbrales cuantitativos específicos por sector (p. ej., 500.000 personas abastecidas para energía, 500.000 residentes para agua). Complejos de calcular, muchos casos límite",
-            "nis2": "Criterios de tamaño uniformes: mediana empresa (50 o más empleados o más de 10 millones EUR de facturación) en todos los sectores. Mucho más sencillo de determinar. Algunos sectores tienen criterios adicionales con independencia del tamaño"
+            "nis2": "Criterios de tamaño uniformes: mediana empresa (50 o más empleados, o más de 10 millones EUR tanto de facturación como de balance) en todos los sectores. Mucho más sencillo de determinar. Algunos sectores tienen criterios adicionales con independencia del tamaño"
           },
           "registration": {
             "aspect": "Registro",
@@ -4267,7 +4267,7 @@
         },
         "cir2024": {
           "term": "CIR 2024/2690",
-          "definition": "El Reglamento de Ejecución de la UE que establece los requisitos técnicos y metodológicos de las medidas del artículo 21, apartado 2, de NIS2, pero solo para determinados tipos de entidades: proveedores de servicios de DNS, registros de nombres de dominio de primer nivel, proveedores de servicios de computación en nube, proveedores de servicios de centros de datos, proveedores de redes de distribución de contenidos, proveedores de servicios gestionados, proveedores de servicios de seguridad gestionados, proveedores de mercados en línea, de motores de búsqueda en línea y de plataformas de servicios de redes sociales, y prestadores de servicios de confianza. A diferencia de la Directiva, este se aplica directamente en todos los Estados miembros sin transposición. Para esas entidades, detalla qué significan realmente en la práctica las 'medidas de ciberseguridad adecuadas': considérelo el reglamento técnico que rellena los detalles que la Directiva dejó abiertos.",
+          "definition": "El Reglamento de Ejecución de la UE que establece los requisitos técnicos y metodológicos de las medidas del artículo 21, apartado 2, de NIS2, pero solo para determinados tipos de entidades: proveedores de servicios de DNS, registros de nombres de dominio de primer nivel, proveedores de servicios de computación en nube, proveedores de servicios de centros de datos, proveedores de redes de distribución de contenidos, proveedores de servicios gestionados, proveedores de servicios de seguridad gestionados, proveedores de mercados en línea, de motores de búsqueda en línea y de plataformas de servicios de redes sociales, y prestadores de servicios de confianza. A diferencia de la Directiva, este se aplica directamente en todos los Estados miembros sin transposición. Para esas entidades, detalla qué significan realmente en la práctica las medidas de ciberseguridad adecuadas: considérelo el reglamento técnico que rellena los detalles que la Directiva dejó abiertos.",
           "legalRef": "Reglamento de Ejecución (UE) 2024/2690 de la Comisión"
         },
         "bsiRegistration": {
@@ -4401,12 +4401,12 @@
         "description": "La gestión de residuos entra por primera vez en el ámbito de aplicación de NIS2 (anexo II). Guía para empresas de residuos con más de 50 empleados: requisitos legales, activos y primeros pasos."
       },
       "title": "NIS2 para empresas de gestión de residuos",
-      "subtitle": "Su sector entra por primera vez en el ámbito de aplicación del anexo II de NIS2. Si su empresa de gestión de residuos tiene más de 50 empleados o más de 10 M€ de facturación, esta es su guía práctica sobre lo que exige la ley y por dónde empezar.",
+      "subtitle": "Su sector entra por primera vez en el ámbito de aplicación del anexo II de NIS2. Si su empresa de gestión de residuos tiene 50 o más empleados, o más de 10 M€ tanto de facturación como de balance, esta es su guía práctica sobre lo que exige la ley y por dónde empezar.",
       "badge": "Anexo II - Entidad importante",
       "why": {
         "heading": "¿Por qué se aplica NIS2 a las empresas de residuos?",
         "p1": "La gestión de residuos se incorporó a NIS2 porque las operaciones de residuos modernas dependen en gran medida de los sistemas de TI. La gestión de flotas, la optimización de rutas, los sistemas de báscula puente, los controles de las plantas de clasificación, la facturación y los informes regulatorios funcionan todos con software en red. Un ataque de ransomware que paraliza el sistema de gestión de flotas de una empresa de residuos no solo detiene los camiones: crea un riesgo para la salud pública. La basura sin recoger en una ciudad de 200.000 habitantes se convierte en una crisis en cuestión de días.",
-        "p2": "La UE clasificó la gestión de residuos en el anexo II de la Directiva NIS2, lo que significa que las empresas de residuos que alcanzan el umbral de tamaño (más de 50 empleados o más de 10 M€ de facturación anual) se categorizan como «entidades importantes» (wichtige Einrichtungen) conforme al §28(2) BSIG. Esto significa que se aplica toda la gama de obligaciones de NIS2: registro ante el BSI, medidas de gestión del riesgo de ciberseguridad, notificación de incidentes, seguridad de la cadena de suministro y responsabilidad de la dirección.",
+        "p2": "La UE clasificó la gestión de residuos en el anexo II de la Directiva NIS2, lo que significa que las empresas de residuos que alcanzan el umbral de tamaño (50 o más empleados, o más de 10 M€ tanto de facturación anual como de balance) se categorizan como «entidades importantes» (wichtige Einrichtungen) conforme al §28(2) BSIG. Esto significa que se aplica toda la gama de obligaciones de NIS2: registro ante el BSI, medidas de gestión del riesgo de ciberseguridad, notificación de incidentes, seguridad de la cadena de suministro y responsabilidad de la dirección.",
         "p3": "La mayoría de las empresas de residuos nunca se han enfrentado a la regulación de ciberseguridad. No es una crítica: hasta NIS2 no había ninguna razón legal para hacerlo. Pero sí significa que hay una curva de aprendizaje más pronunciada en comparación con sectores que ya estaban bajo KRITIS. La buena noticia: los entornos de TI de las empresas de residuos suelen ser menos complejos que los de la banca o la energía, lo que significa que el esfuerzo de cumplimiento es proporcionalmente menor."
       },
       "assets": {
@@ -4475,7 +4475,7 @@
         "heading": "Preguntas frecuentes",
         "q1": {
           "q": "¿Está realmente nuestra empresa de residuos dentro del ámbito de aplicación de NIS2?",
-          "a": "Si su empresa opera en la recogida, el tratamiento o la eliminación de residuos y tiene 50 o más empleados o 10 M€ o más de facturación anual, está casi con toda seguridad dentro del ámbito de aplicación como entidad importante conforme al anexo II de NIS2. La definición del sector cubre toda la cadena de gestión de residuos. Si está cerca del umbral, compruebe si las empresas del grupo vinculadas le hacen superar el límite: NIS2 utiliza la definición de pyme de la UE, que tiene en cuenta las empresas vinculadas."
+          "a": "Si su empresa opera en la recogida, el tratamiento o la eliminación de residuos y tiene 50 o más empleados, o más de 10 M€ tanto de facturación anual como de balance, está casi con toda seguridad dentro del ámbito de aplicación como entidad importante conforme al anexo II de NIS2. La definición del sector cubre toda la cadena de gestión de residuos. Si está cerca del umbral, compruebe si las empresas del grupo vinculadas le hacen superar el límite: NIS2 utiliza la definición de pyme de la UE, que tiene en cuenta las empresas vinculadas."
         },
         "q2": {
           "q": "Externalizamos toda la TI: ¿se nos sigue aplicando NIS2?",
@@ -4648,7 +4648,7 @@
     "securityObligation": {
       "meta": {
         "title": "Obligación de seguridad de TI - NIS2 y BSIG",
-        "description": "NIS2 es la nueva obligación de seguridad de TI para empresas alemanas de 50+ empleados o 10M+ de facturación en sectores críticos. Qué exige el BSIG."
+        "description": "NIS2 es la nueva obligación de seguridad de TI para empresas alemanas de 50+ empleados, o de más de 10M tanto de facturación como de balance, en sectores críticos. Qué exige el BSIG."
       },
       "title": "La nueva obligación de seguridad de TI para las empresas alemanas",
       "subtitle": "Si has buscado 'IT Sicherheitspflicht', lo que buscas es NIS2. Desde diciembre de 2025, el BSIG revisado convierte la ciberseguridad en una obligación legal para unas 29.500 empresas alemanas.",
@@ -4656,7 +4656,7 @@
         "heading": "NIS2 es la obligación de seguridad de TI de la que has oído hablar",
         "p1": "No existe una 'ley autónoma de obligación de seguridad de TI' en Alemania. Lo que existe es la Directiva NIS2 (UE 2022/2555), transpuesta a la legislación alemana a través del NIS2UmsuCG, que reformó por completo la Ley federal de ciberseguridad (BSIG). Esta es la ley que crea obligaciones vinculantes de seguridad de TI para las empresas de 18 sectores críticos.",
         "p2": "El BSIG entró en vigor el 6 de diciembre de 2025. Exige a las empresas afectadas implementar 10 medidas específicas de gestión de riesgos de ciberseguridad (Sección 30 BSIG), registrarse ante el BSI, notificar los incidentes significativos dentro de plazos estrictos y asegurar sus cadenas de suministro. La dirección es personalmente responsable en virtud de la Sección 38 BSIG de garantizar el cumplimiento.",
-        "p3": "Si tu empresa tiene 50 o más empleados o supera los 10 millones de euros de facturación anual y opera en uno de los 18 sectores NIS2, estas obligaciones te aplican ahora mismo. El plazo de registro fue el 6 de marzo de 2026. La implementación de todas las medidas es obligatoria a más tardar el 17 de octubre de 2026."
+        "p3": "Si tu empresa tiene 50 o más empleados, o supera los 10 millones de euros tanto de facturación anual como de balance, y opera en uno de los 18 sectores NIS2, estas obligaciones te aplican ahora mismo. El plazo de registro fue el 6 de marzo de 2026."
       },
       "check": {
         "heading": "¿Esto le aplica a mi empresa?",
@@ -4682,7 +4682,7 @@
       },
       "steps": {
         "heading": "Lo que tienes que hacer",
-        "description": "El BSIG exige cinco pasos concretos. El registro ya debería estar hecho. Las medidas restantes deben implementarse a más tardar en octubre de 2026.",
+        "description": "El BSIG exige cinco pasos concretos. El registro ya debería estar hecho.",
         "items": {
           "register": {
             "title": "Registrarse ante el BSI",
@@ -4812,7 +4812,7 @@
       },
       "scope": {
         "heading": "Quién está sujeto al §30 BSIG",
-        "p1": "El §30 BSIG se aplica a las entidades esenciales conforme al §28(6) BSIG y a las entidades importantes conforme al §28(7) BSIG. Los sectores se enumeran en el anexo 1 y el anexo 2 de la Directiva NIS 2. El umbral de tamaño es de al menos 50 empleados o 10 millones de euros de volumen de negocios anual, con reglas especiales para las infraestructuras críticas (KRITIS) y para los sectores que se aplican con independencia del tamaño.",
+        "p1": "El §30 BSIG se aplica a las entidades esenciales conforme al §28(6) BSIG y a las entidades importantes conforme al §28(7) BSIG. Los sectores se enumeran en el anexo 1 y el anexo 2 de la Directiva NIS 2. El umbral de tamaño es de al menos 50 empleados, o más de 10 millones de euros tanto de volumen de negocios anual como de balance, con reglas especiales para las infraestructuras críticas (KRITIS) y para los sectores que se aplican con independencia del tamaño.",
         "p2": "Si tiene dudas, comience con la prueba de aplicabilidad conforme al artículo 2 NIS 2. Los proveedores de entidades reguladas también entran en contacto con el §30 a través del núm. 4 (cadena de suministro): las obligaciones se transmiten contractualmente a los proveedores directos."
       },
       "penalties": {
@@ -5072,11 +5072,11 @@
       },
       "badge": "Anexo II - Entidad importante",
       "title": "NIS2 para empresas de producción y distribución de alimentos",
-      "subtitle": "La producción, la transformación y la distribución mayorista de alimentos están dentro del ámbito del anexo II de NIS2. Si su empresa tiene 50 o más empleados o supera los 10 millones de euros de facturación, esta es su guía práctica de lo que exige la BSIG.",
+      "subtitle": "La producción, la transformación y la distribución mayorista de alimentos están dentro del ámbito del anexo II de NIS2. Si su empresa tiene 50 o más empleados, o supera los 10 millones de euros tanto de facturación como de balance, esta es su guía práctica de lo que exige la BSIG.",
       "why": {
         "heading": "¿Por qué se aplica NIS2 a las empresas alimentarias?",
         "p1": "La producción moderna de alimentos depende profundamente de los sistemas de TI. Los sistemas ERP gestionan los pedidos y la facturación. Los sistemas de control de producción (MES) programan y supervisan las líneas de fabricación. Los sistemas de monitorización de la cadena de frío controlan las temperaturas desde la producción hasta la entrega. Los sistemas de información de laboratorio gestionan las pruebas de calidad. Si un ransomware deja fuera de servicio su ERP, no puede expedir. Si falla la monitorización de su cadena de frío, no puede demostrar la seguridad del producto. Por eso la UE clasificó los alimentos como un sector crítico.",
-        "p2": "La UE situó la producción, la transformación y la distribución mayorista de alimentos en el anexo II de la Directiva NIS2. Las empresas que cumplen el umbral de tamaño (50 o más empleados o más de 10 millones de euros de facturación anual) se clasifican como «wichtige Einrichtungen» (entidades importantes) conforme al artículo 28(2) BSIG. Esto significa que se aplica el conjunto completo de obligaciones de NIS2: registro ante el BSI, las 10 medidas de gestión de riesgos de ciberseguridad, notificación de incidentes, seguridad de la cadena de suministro y responsabilidad de la dirección.",
+        "p2": "La UE situó la producción, la transformación y la distribución mayorista de alimentos en el anexo II de la Directiva NIS2. Las empresas que cumplen el umbral de tamaño (50 o más empleados, o más de 10 millones de euros tanto de facturación anual como de balance) se clasifican como «wichtige Einrichtungen» (entidades importantes) conforme al artículo 28(2) BSIG. Esto significa que se aplica el conjunto completo de obligaciones de NIS2: registro ante el BSI, las 10 medidas de gestión de riesgos de ciberseguridad, notificación de incidentes, seguridad de la cadena de suministro y responsabilidad de la dirección.",
         "p3": "La mayoría de las empresas alimentarias no se han enfrentado antes a una regulación de ciberseguridad. Las regulaciones de seguridad alimentaria (HACCP, IFS, BRC) resultan familiares, pero las obligaciones de seguridad informática son nuevas. La buena noticia: si su empresa ya tiene un sistema de gestión de calidad estructurado, muchos de los conceptos son transferibles. Evaluación de riesgos, documentación, auditorías, acciones correctivas: el marco es similar, solo que aplicado a la TI en lugar de a la higiene de producción."
       },
       "assets": {
@@ -5177,7 +5177,7 @@
       "why": {
         "heading": "¿Por qué se aplica NIS2 a la fabricación?",
         "p1": "La fabricación moderna depende de la convergencia de la TI y la OT (tecnología operativa). Los sistemas ERP gestionan la planificación de la producción. Las plataformas MES gestionan la ejecución en planta. Los sistemas SCADA controlan la maquinaria y la automatización de procesos. Los sistemas CAD/CAM definen qué se fabrica. Cuando estos sistemas están interconectados (y en la mayoría de las fábricas lo están), un ciberataque a uno puede propagarse en cascada por toda la cadena de producción. Una infección por ransomware en la red de oficina que alcanza el MES puede paralizar las líneas de producción.",
-        "p2": "La UE clasificó la fabricación en el anexo II de la Directiva NIS2, abarcando: la fabricación de productos sanitarios, la fabricación de equipos informáticos y electrónicos, la fabricación de equipos eléctricos, la fabricación de maquinaria y equipos, la fabricación de vehículos de motor y la fabricación de otro material de transporte. Las empresas que alcanzan el umbral de tamaño (más de 50 empleados o más de 10 millones de euros de facturación anual) son «wichtige Einrichtungen» (entidades importantes) conforme al §28(2) BSIG.",
+        "p2": "La UE clasificó la fabricación en el anexo II de la Directiva NIS2, abarcando: la fabricación de productos sanitarios, la fabricación de equipos informáticos y electrónicos, la fabricación de equipos eléctricos, la fabricación de maquinaria y equipos, la fabricación de vehículos de motor y la fabricación de otro material de transporte. Las empresas que alcanzan el umbral de tamaño (50 o más empleados, o más de 10 millones de euros tanto de facturación anual como de balance) son «wichtige Einrichtungen» (entidades importantes) conforme al §28(2) BSIG.",
         "p3": "La fabricación tiene un reto singular que la mayoría de los demás sectores de NIS2 no afrontan en la misma medida: la seguridad de la OT. Los equipos de producción suelen ejecutar sistemas operativos especializados, utilizan protocolos propietarios y tienen restricciones de ciclo de vida que dificultan la aplicación de parches. Una máquina CNC de 2015 puede ejecutar Windows 7 Embedded y no poder actualizarse sin la intervención del fabricante. NIS2 no ignora esta realidad: el §30 BSIG exige medidas que sean «proporcionadas» al riesgo. Pero debe documentar los riesgos y los controles compensatorios."
       },
       "assets": {
@@ -5379,7 +5379,7 @@
       "why": {
         "heading": "¿Por qué se aplica NIS2 a las empresas de logística?",
         "p1": "La logística es la columna vertebral de la economía física. Un ciberataque que paraliza a un gran proveedor de logística no solo afecta a una empresa, sino que interrumpe las cadenas de suministro de decenas o cientos de clientes. El ataque NotPetya de 2017 costó solo a Maersk más de 300 millones de euros e interrumpió el transporte marítimo mundial durante semanas. La UE clasificó el transporte en el anexo I (sectores de alta criticidad) porque las interrupciones logísticas se propagan en cascada por toda la economía.",
-        "p2": "NIS2 abarca todos los modos de transporte: transporte de mercancías por carretera, transporte ferroviario, vías navegables interiores, transporte marítimo y carga aérea. Las empresas que alcanzan el umbral de tamaño (más de 50 empleados o más de 10 millones de euros de facturación) entran en el ámbito de aplicación. Las grandes empresas (más de 250 empleados) en los sectores del anexo I se clasifican como entidades esenciales. Las medianas empresas (50-249 empleados) son entidades importantes (wichtige Einrichtungen). Ambas afrontan el conjunto completo de obligaciones de NIS2.",
+        "p2": "NIS2 abarca todos los modos de transporte: transporte de mercancías por carretera, transporte ferroviario, vías navegables interiores, transporte marítimo y carga aérea. Las empresas que alcanzan el umbral de tamaño (50 o más empleados, o más de 10 millones de euros tanto de facturación como de balance) entran en el ámbito de aplicación. Las grandes empresas (más de 250 empleados) en los sectores del anexo I se clasifican como entidades esenciales. Las medianas empresas (50-249 empleados) son entidades importantes (wichtige Einrichtungen). Ambas afrontan el conjunto completo de obligaciones de NIS2.",
         "p3": "Las empresas de logística modernas funcionan sobre sistemas de TI interconectados. Los sistemas de gestión del transporte (TMS) orquestan los envíos. La gestión de flotas rastrea los vehículos en tiempo real. Los sistemas de gestión de almacenes (WMS) controlan el inventario y la preparación de pedidos. Las unidades telemáticas de los camiones transmiten datos de posición, velocidad, temperatura y conductor. Si cualquiera de estos sistemas falla, las operaciones se detienen o se vuelven peligrosamente ineficientes. NIS2 le exige identificar estas dependencias y gestionar los riesgos de ciberseguridad de forma sistemática."
       },
       "assets": {
@@ -6335,7 +6335,7 @@
         },
         "q24": {
           "q": "¿Caen todos los participantes en una cadena de suministro segura en el ámbito de la seguridad de la aviación bajo KRITIS, aun cuando sean pequeñas empresas por debajo de los umbrales de aplicabilidad de NIS 2?",
-          "a": "No. La participación en la cadena de suministro segura conforme al §9a LuftSiG no convierte automáticamente a una empresa en una Infraestructura Crítica y no la convierte automáticamente en una entidad NIS 2. Dos umbrales separados son decisivos: usted solo se convierte en operador KRITIS si supera los umbrales de volumen de la BSI-KritisV para un servicio crítico (normalmente en los sectores de la aviación o la logística). La aplicabilidad de NIS 2 conforme al anexo I o II de la Directiva NIS 2 (UE) 2022/2555, a su vez, requiere que usted opere en un sector cubierto y cumpla los criterios de tamaño (por regla general a partir de 50 empleados o más de 10 millones de EUR de volumen de negocios anual; el BSIG lo transpone en el §28). Quien queda por debajo de ambos umbrales no está cubierto ni por KRITIS ni por NIS 2 a través de la mera participación en la cadena de suministro. Encontrará la prueba completa en [Quién está afectado](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
+          "a": "No. La participación en la cadena de suministro segura conforme al §9a LuftSiG no convierte automáticamente a una empresa en una Infraestructura Crítica y no la convierte automáticamente en una entidad NIS 2. Dos umbrales separados son decisivos: usted solo se convierte en operador KRITIS si supera los umbrales de volumen de la BSI-KritisV para un servicio crítico (normalmente en los sectores de la aviación o la logística). La aplicabilidad de NIS 2 conforme al anexo I o II de la Directiva NIS 2 (UE) 2022/2555, a su vez, requiere que usted opere en un sector cubierto y cumpla los criterios de tamaño (por regla general a partir de 50 empleados, o con más de 10 millones de EUR tanto de volumen de negocios anual como de balance anual; el BSIG lo transpone en el §28). Quien queda por debajo de ambos umbrales no está cubierto ni por KRITIS ni por NIS 2 a través de la mera participación en la cadena de suministro. Encontrará la prueba completa en [Quién está afectado](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
         },
         "q25": {
           "q": "¿Qué formas jurídicas caen bajo el sector financiero y el subsector bancario conforme a NIS 2?",
@@ -7256,7 +7256,7 @@
           },
           "check": {
             "title": "Comprueba el umbral de cada país",
-            "description": "NIS2 se aplica a las entidades medianas y grandes (50+ empleados o 10M+ € de facturación). Aplica la prueba del umbral por entidad jurídica, no a nivel de grupo; una filial pequeña puede quedar por debajo del umbral."
+            "description": "NIS2 se aplica a las entidades medianas y grandes (50+ empleados, o más de 10M€ tanto de facturación como de balance). Aplica la prueba del umbral por entidad jurídica, no a nivel de grupo; una filial pequeña puede quedar por debajo del umbral."
           },
           "register": {
             "title": "Regístrate ante cada autoridad nacional",
@@ -7786,7 +7786,7 @@
           "framework": {
             "section": "§28 + §30 BSIG",
             "title": "Ámbito de aplicación y las diez medidas",
-            "body": "El §28 BSIG establece quién está dentro del ámbito: entidades «especialmente importantes» e «importantes», evaluadas por sector (anexos I y II de NIS 2) y tamaño (50 o más empleados o más de 10 millones EUR de facturación, con excepciones). El §30 BSIG enumera las diez medidas de ciberseguridad que toda entidad dentro del ámbito tiene que implantar. El §30 transpone el artículo 21(2) de la directiva."
+            "body": "El §28 BSIG establece quién está dentro del ámbito: entidades «especialmente importantes» e «importantes», evaluadas por sector (anexos I y II de NIS 2) y tamaño (50 o más empleados, o más de 10 millones EUR tanto de facturación como de balance, con excepciones). El §30 BSIG enumera las diez medidas de ciberseguridad que toda entidad dentro del ámbito tiene que implantar. El §30 transpone el artículo 21(2) de la directiva."
           },
           "monitoring": {
             "section": "§32 + §33 BSIG",
@@ -9475,7 +9475,7 @@
       "overview": {
         "heading": "La versión breve",
         "p1": "Los hospitales se sitúan en el sector 5 del anexo I de NIS 2 (Gesundheitswesen). La directiva los recoge como 'Gesundheitsdienstleister' en el sentido del artículo 3(g) de la Directiva 2011/24/UE. La lista del sector es más amplia que los hospitales por sí solos: los laboratorios de referencia de la UE, la I+D de medicamentos, los fabricantes de productos farmacéuticos y los fabricantes de dispositivos médicos críticos para emergencias de salud pública están en el mismo grupo.",
-        "p2": "Que NIS 2 le vincule depende del artículo 2(1). Está en el ámbito si es una mediana empresa conforme a la Recomendación 2003/361/CE de la Comisión, o mayor. El umbral de mediana es de 50 empleados o 10 millones de euros de volumen de negocios anual o de balance total. Una clínica regional de 60 empleados está dentro. Una consulta especializada de 20 empleados, por lo general, no.",
+        "p2": "Que NIS 2 le vincule depende del artículo 2(1). Está en el ámbito si es una mediana empresa conforme a la Recomendación 2003/361/CE de la Comisión, o mayor. El umbral de mediana es de 50 empleados, o más de 10 millones de euros tanto de volumen de negocios anual como de balance total. Una clínica regional de 60 empleados está dentro. Una consulta especializada de 20 empleados, por lo general, no.",
         "p3": "Alemania tiene un segundo régimen funcionando en paralelo: KRITIS. La KRITIS-Verordnung fija un umbral específico para hospitales de 30 000 vollstationäre Krankenhausfälle al año. Los hospitales con estatus KRITIS siguen siendo entidades NIS 2, pero además asumen deberes más estrictos conforme a las secciones KRITIS del BSIG. KRITIS no es el umbral de NIS 2. Dos tests separados."
       },
       "legalAnchor": {
@@ -9489,7 +9489,7 @@
         "regulation": {
           "label": "Artículo 2(1) NIS 2 + Recomendación 2003/361/CE",
           "quote": "La presente Directiva se aplica a las entidades públicas o privadas de un tipo de los mencionados en el anexo I o II que tengan la consideración de medianas empresas en virtud del artículo 2 del anexo de la Recomendación 2003/361/CE, o que superen los límites máximos para las medianas empresas previstos en el apartado 1 de dicho artículo.",
-          "context": "El artículo 2(1) es la regla de ámbito. La definición de tamaño de 2003/361/CE establece que mediana significa 50 empleados o más, o 10 millones de euros o más en volumen de negocios anual o balance total. Supere cualquiera de los dos umbrales y está dentro."
+          "context": "El artículo 2(1) es la regla de ámbito. La definición de tamaño de 2003/361/CE establece que mediana significa 50 empleados o más, o más de 10 millones de euros tanto en volumen de negocios anual como en balance total. Supere el umbral de empleados o el umbral financiero y está dentro."
         },
         "transposition": {
           "label": "§28 BSIG más KRITIS-Verordnung (Alemania)",
@@ -9509,7 +9509,7 @@
           "size": {
             "section": "Test 2",
             "title": "Test de tamaño (artículo 2(1))",
-            "body": "¿Tiene 50 empleados o más, o 10 millones de euros o más en volumen de negocios anual o balance total? Cualquiera de los dos umbrales le pone en el ámbito. Por debajo de ambos, queda fuera, con excepciones limitadas en el artículo 2(2) y (3) (anulaciones con independencia del tamaño para proveedores únicos, administración pública, servicios de confianza cualificados y algunos otros)."
+            "body": "¿Tiene 50 empleados o más, o más de 10 millones de euros tanto en volumen de negocios anual como en balance total? Cualquiera de los dos umbrales le pone en el ámbito. Por debajo de ambos, queda fuera, con excepciones limitadas en el artículo 2(2) y (3) (anulaciones con independencia del tamaño para proveedores únicos, administración pública, servicios de confianza cualificados y algunos otros)."
           },
           "kritis": {
             "section": "Test 3",
@@ -9559,7 +9559,7 @@
         "items": {
           "kritisThreshold": {
             "myth": "Estamos por debajo de 30 000 casos al año, así que estamos fuera.",
-            "reality": "Ese es el umbral de KRITIS, no el de NIS 2. NIS 2 utiliza el artículo 2(1): 50 empleados o 10 millones de euros de volumen de negocios. Una clínica regional de 60 empleados con 8000 casos al año está en NIS 2 y fuera de KRITIS. Ambas cosas pueden ser ciertas a la vez."
+            "reality": "Ese es el umbral de KRITIS, no el de NIS 2. NIS 2 utiliza el artículo 2(1): 50 empleados, o más de 10 millones de euros tanto de volumen de negocios como de balance. Una clínica regional de 60 empleados con 8000 casos al año está en NIS 2 y fuera de KRITIS. Ambas cosas pueden ser ciertas a la vez."
           },
           "onlyIt": {
             "myth": "NIS 2 solo se aplica a los sistemas de TI, no al resto del hospital.",
@@ -9887,7 +9887,7 @@
         "directive": {
           "label": "Directiva NIS 2 (2022/2555), Anexo I Sector 8 y art. 2(2)(a)",
           "quote": "Sector 8 Infraestructura digital: proveedores de redes públicas de comunicaciones electrónicas; proveedores de servicios de comunicaciones electrónicas disponibles al público. La presente Directiva se aplicará también a las entidades, con independencia de su tamaño, que cumplan cualquiera de los criterios siguientes: (a) proveedores de redes públicas de comunicaciones electrónicas o proveedores de servicios de comunicaciones electrónicas disponibles al público.",
-          "context": "Hay que leer dos piezas juntas. El sector 8 del Anexo I nombra las telecomunicaciones como infraestructura esencial. El artículo 2(2)(a) crea después una inclusión con independencia del tamaño para esos mismos proveedores de telecomunicaciones. El umbral normal de mediana empresa (50 empleados o 10 M EUR de volumen de negocios) no se aplica aquí."
+          "context": "Hay que leer dos piezas juntas. El sector 8 del Anexo I nombra las telecomunicaciones como infraestructura esencial. El artículo 2(2)(a) crea después una inclusión con independencia del tamaño para esos mismos proveedores de telecomunicaciones. El umbral normal de mediana empresa (50 empleados, o más de 10 M EUR tanto de volumen de negocios como de balance) no se aplica aquí."
         },
         "regulation": {
           "label": "Directiva (UE) 2018/1972 (Código Europeo de las Comunicaciones Electrónicas), art. 2",
@@ -10050,7 +10050,7 @@
           "size": {
             "section": "Tamaño",
             "title": "¿Mediana empresa o mayor?",
-            "body": "La Recomendación 2003/361/CE define la mediana empresa como 50 empleados o más, O un volumen de negocio de al menos 10 millones de euros Y un balance de al menos 10 millones de euros. El artículo 2, apartado 1, te alcanza a partir de la mediana empresa hacia arriba. Se aplica la agregación de empresas vinculadas: si una matriz controla más del 50 por ciento de los votos, se combinan la plantilla y el volumen de negocio. Una filial de 30 personas de un grupo de 5.000 personas cuenta como parte de las cifras de ese grupo."
+            "body": "La Recomendación 2003/361/CE define la mediana empresa como 50 empleados o más, O un volumen de negocio de más de 10 millones de euros Y un balance de más de 10 millones de euros. El artículo 2, apartado 1, te alcanza a partir de la mediana empresa hacia arriba. Se aplica la agregación de empresas vinculadas: si una matriz controla más del 50 por ciento de los votos, se combinan la plantilla y el volumen de negocio. Una filial de 30 personas de un grupo de 5.000 personas cuenta como parte de las cifras de ese grupo."
           },
           "override": {
             "section": "Excepción",
@@ -11092,7 +11092,7 @@
       "overview": {
         "heading": "La versión corta",
         "p1": "Si presta un servicio de computación en la nube a clientes, está en el ámbito de NIS 2 en cuanto cruza el umbral de tamaño de mediana empresa. El sector 8 del Anexo I nombra directamente a los proveedores de servicios de computación en la nube dentro de Infraestructura digital. La definición del Artículo 6(30) es amplia: IaaS, PaaS, SaaS, nube pública, nube privada vendida como servicio, ofertas híbridas, todas cuentan.",
-        "p2": "A diferencia de las telecomunicaciones o el DNS, los proveedores de la nube no están en la lista de 'con independencia del tamaño' del Artículo 2(2). Se aplica la prueba normal del Artículo 2(1): mediana empresa según la Recomendación 2003/361/CE significa 50 empleados o más, o un volumen de negocio anual superior a 10 millones EUR. Cruce cualquiera de los dos umbrales y entra en el ámbito. Permanezca por debajo de ambos y normalmente está fuera, con las excepciones limitadas de los Artículos 2(2) y (3) que no se aplican a la nube como tal.",
+        "p2": "A diferencia de las telecomunicaciones o el DNS, los proveedores de la nube no están en la lista de 'con independencia del tamaño' del Artículo 2(2). Se aplica la prueba normal del Artículo 2(1): mediana empresa según la Recomendación 2003/361/CE significa 50 empleados o más, o un volumen de negocio anual y un balance anual superiores cada uno a 10 millones EUR. Cruce cualquiera de los dos umbrales y entra en el ámbito. Permanezca por debajo de ambos y normalmente está fuera, con las excepciones limitadas de los Artículos 2(2) y (3) que no se aplican a la nube como tal.",
         "p3": "Alemania incorpora esto al Derecho nacional a través del §28 BSIG. El BSI es su autoridad. Por encima de la Directiva, el Reglamento de Ejecución (UE) 2024/2690 de la Comisión enumera a los proveedores de la nube en su Anexo, de modo que sus requisitos técnicos y metodológicos le vinculan directamente sin necesidad de más Derecho alemán. Esta página recorre la Directiva, la definición de la UE y la transposición alemana en ese orden."
       },
       "legalAnchor": {
@@ -11126,7 +11126,7 @@
           "sizeTest": {
             "section": "Prueba B",
             "title": "¿Cruza el umbral de tamaño?",
-            "body": "Los proveedores de la nube siguen la prueba normal del Artículo 2(1). Según la Recomendación 2003/361/CE, mediana empresa empieza en 50 empleados o un volumen de negocio anual superior a 10 millones EUR (con un balance anual total superior a 10 millones EUR como alternativa). Con 250 empleados o un volumen de negocio superior a 50 millones EUR pasa a ser una gran empresa y se clasifica como 'esencial'. Por debajo de 50 empleados y con un volumen de negocio inferior a 10 millones EUR, normalmente está fuera del ámbito como proveedor de la nube."
+            "body": "Los proveedores de la nube siguen la prueba normal del Artículo 2(1). Según la Recomendación 2003/361/CE, mediana empresa empieza en 50 empleados, o en un volumen de negocio anual y un balance anual total superiores cada uno a 10 millones EUR. Con 250 empleados, o con un volumen de negocio superior a 50 millones EUR y un balance superior a 43 millones EUR, pasa a ser una gran empresa y se clasifica como 'esencial'. Por debajo de 50 empleados y con un volumen de negocio inferior a 10 millones EUR, normalmente está fuera del ámbito como proveedor de la nube."
           },
           "cirDirect": {
             "section": "Prueba C",
@@ -11185,7 +11185,7 @@
           },
           "nicheSaas": {
             "myth": "Somos un SaaS pequeño, así que las reglas de la nube no se nos aplican.",
-            "reality": "La prueba jurídica tiene dos partes. Primero el Artículo 6(30): un SaaS multiinquilino vendido por la red sobre una infraestructura compartida cumple la definición. Segundo el Artículo 2(1): el umbral de tamaño. Si tiene menos de 50 empleados y menos de 10 millones EUR de volumen de negocio, está fuera del ámbito en la fila de la nube. Si cruza cualquiera de los dos, está dentro. 'De nicho' no es una categoría jurídica. Las cifras y la definición hacen el trabajo."
+            "reality": "La prueba jurídica tiene dos partes. Primero el Artículo 6(30): un SaaS multiinquilino vendido por la red sobre una infraestructura compartida cumple la definición. Segundo el Artículo 2(1): el umbral de tamaño. Si tiene menos de 50 empleados y menos de 10 millones EUR de volumen de negocio, está fuera del ámbito en la fila de la nube. Si supera el umbral de empleados, o a la vez el de volumen de negocio y el de balance, está dentro. 'De nicho' no es una categoría jurídica. Las cifras y la definición hacen el trabajo."
           },
           "privateCloud": {
             "myth": "Operamos una nube privada para nuestro propio grupo, así que somos un proveedor de la nube en el ámbito.",
@@ -11249,7 +11249,7 @@
         "transposition": {
           "label": "§28 BSIG (Alemania) y la KRITIS-Verordnung",
           "quote": "Anbieter von Rechenzentrumsdiensten gelten ab dem Schwellenwert für mittlere Unternehmen als wichtige Einrichtungen, ab dem Schwellenwert für große Unternehmen als besonders wichtige Einrichtungen im Sinne dieses Gesetzes.",
-          "context": "El §28 BSIG transpone las obligaciones de NIS2 para los centros de datos. La prueba del tamaño del artículo 2(1) (50 empleados / 10 millones de euros de volumen de negocios) decide si la entidad es «wichtig» o «besonders wichtig». La KRITIS-Verordnung es una capa alemana separada con su propio umbral de carga de TI de 3,5 MW para los centros de datos. KRITIS añade obligaciones por encima; no es la condición de entrada a NIS2. Un operador de colocación de 25 MW está en ambos regímenes. Un emplazamiento de colocación con 200 empleados y una carga de TI de 1 MW está dentro del ámbito de aplicación de NIS2 pero no de KRITIS."
+          "context": "El §28 BSIG transpone las obligaciones de NIS2 para los centros de datos. La prueba del tamaño del artículo 2(1) (50 empleados / más de 10 millones de euros tanto de volumen de negocios como de balance) decide si la entidad es «wichtig» o «besonders wichtig». La KRITIS-Verordnung es una capa alemana separada con su propio umbral de carga de TI de 3,5 MW para los centros de datos. KRITIS añade obligaciones por encima; no es la condición de entrada a NIS2. Un operador de colocación de 25 MW está en ambos regímenes. Un emplazamiento de colocación con 200 empleados y una carga de TI de 1 MW está dentro del ámbito de aplicación de NIS2 pero no de KRITIS."
         }
       },
       "elements": {
@@ -11264,7 +11264,7 @@
           "sizeTest": {
             "section": "Prueba B",
             "title": "¿Está por encima del umbral de tamaño?",
-            "body": "El artículo 2(1) NIS2 remite a la Recomendación 2003/361/CE. Las entidades medianas (50 o más empleados, o volumen de negocios anual y total de balance superiores a 10 millones de euros) quedan sujetas al régimen como «importantes». Las entidades grandes (más de 250 empleados o volumen de negocios superior a 50 millones de euros) quedan sujetas a él como «esenciales». No hay una incorporación con independencia del tamaño para los centros de datos."
+            "body": "El artículo 2(1) NIS2 remite a la Recomendación 2003/361/CE. Las entidades medianas (50 o más empleados, o volumen de negocios anual y total de balance superiores a 10 millones de euros) quedan sujetas al régimen como «importantes». Las entidades grandes (250 o más empleados, o volumen de negocios superior a 50 millones de euros y balance superior a 43 millones de euros) quedan sujetas a él como «esenciales». No hay una incorporación con independencia del tamaño para los centros de datos."
           },
           "kritisOverlap": {
             "section": "Prueba C",
@@ -11368,7 +11368,7 @@
       "overview": {
         "heading": "La versión breve",
         "p1": "Los fabricantes de productos sanitarios aparecen en dos anexos de NIS 2 al mismo tiempo. El sector 5 del Anexo I los enumera en su quinta subcategoría como fabricantes de productos considerados críticos durante una emergencia de salud pública conforme al artículo 22 del Reglamento (UE) 2022/123. Esa es la lista de productos críticos de la EMA. Las empresas incluidas en ella son entidades esenciales y se sitúan en la franja de sanción superior.",
-        "p2": "El sector 5 del Anexo II alcanza al resto de la industria. Las subcategorías son los fabricantes de productos sanitarios conforme al artículo 2, apartado 1, del Reglamento (UE) 2017/745 (MDR) y los fabricantes de productos sanitarios para diagnóstico in vitro conforme al artículo 2, apartado 2, del Reglamento (UE) 2017/746 (IVDR). Estas son entidades importantes. La misma prueba de tamaño del artículo 2, apartado 1, que para todos los demás: 50 empleados o 10 millones de euros de volumen de negocio o balance total.",
+        "p2": "El sector 5 del Anexo II alcanza al resto de la industria. Las subcategorías son los fabricantes de productos sanitarios conforme al artículo 2, apartado 1, del Reglamento (UE) 2017/745 (MDR) y los fabricantes de productos sanitarios para diagnóstico in vitro conforme al artículo 2, apartado 2, del Reglamento (UE) 2017/746 (IVDR). Estas son entidades importantes. La misma prueba de tamaño del artículo 2, apartado 1, que para todos los demás: 50 empleados, o más de 10 millones de euros tanto de volumen de negocio como de balance total.",
         "p3": "El MDR y el IVDR funcionan en paralelo, no sustituyen a NIS 2. El MDR cubre el producto, NIS 2 cubre la empresa. Los deberes de ciberseguridad del MDR conforme al Anexo I, punto 17.2, se sitúan a nivel de producto. Los deberes de NIS 2 conforme al artículo 21 se sitúan a nivel de entidad. Se aplican ambos. No existe una excepción de lex specialis al estilo de DORA para los fabricantes de productos sanitarios."
       },
       "legalAnchor": {
@@ -11386,7 +11386,7 @@
         },
         "transposition": {
           "label": "§28 BSIG y artículo 2, apartado 1, de NIS 2 (prueba de tamaño)",
-          "quote": "El §28 BSIG transpone el ámbito de los Anexos I y II al Derecho alemán. El artículo 2, apartado 1, de NIS 2 más la Recomendación 2003/361/CE fijan el umbral de tamaño: 50 empleados o más, o 10 millones de euros o más de volumen de negocio anual o balance total.",
+          "quote": "El §28 BSIG transpone el ámbito de los Anexos I y II al Derecho alemán. El artículo 2, apartado 1, de NIS 2 más la Recomendación 2003/361/CE fijan el umbral de tamaño: 50 empleados o más, o más de 10 millones de euros tanto de volumen de negocio anual como de balance total.",
           "context": "Dos umbrales, basta con uno de ellos. La regla de tamaño es idéntica para las entidades del Anexo I y del Anexo II. Lo único que cambia entre ambos es la franja de sanción y el régimen de supervisión. La BfArM sigue siendo el regulador del MDR y del IVDR; el BSI es el regulador de NIS 2. Dos autoridades distintas, una sola empresa."
         }
       },
@@ -11407,7 +11407,7 @@
           "size": {
             "section": "Prueba 3",
             "title": "Prueba de tamaño (artículo 2, apartado 1)",
-            "body": "¿Tienes 50 empleados o más, o 10 millones de euros o más de volumen de negocio anual o balance total? Cualquiera de los dos umbrales te sitúa dentro del ámbito de aplicación. Por debajo de ambos, permaneces fuera, con las limitadas excepciones con independencia del tamaño del artículo 2, apartados 2 y 3 (prestadores únicos, Administración pública, servicios de confianza cualificados y algunos otros)."
+            "body": "¿Tienes 50 empleados o más, o más de 10 millones de euros tanto de volumen de negocio anual como de balance total? Cualquiera de los dos umbrales te sitúa dentro del ámbito de aplicación. Por debajo de ambos, permaneces fuera, con las limitadas excepciones con independencia del tamaño del artículo 2, apartados 2 y 3 (prestadores únicos, Administración pública, servicios de confianza cualificados y algunos otros)."
           }
         }
       },
@@ -11499,7 +11499,7 @@
         "description": "Si fabrica máquinas, instalaciones o equipos industriales en la UE, lo más probable es que esté dentro del ámbito de NIS 2 como entidad importante conforme al Anexo II sector 5. Esta página recorre el test NACE, el test de tamaño y la huella de OT que lo deciden."
       },
       "title": "¿Soy un fabricante de maquinaria conforme a NIS 2?",
-      "subtitle": "El Anexo II sector 5 de la Directiva NIS 2 incorpora la fabricación al ámbito. Los fabricantes de máquinas se sitúan en la subcategoría (d), división NACE C28. Si tiene 50 empleados o 10 millones de euros de volumen de negocios, es una entidad importante con los mismos diez deberes del Artículo 21(2) que los grandes.",
+      "subtitle": "El Anexo II sector 5 de la Directiva NIS 2 incorpora la fabricación al ámbito. Los fabricantes de máquinas se sitúan en la subcategoría (d), división NACE C28. Si tiene 50 empleados, o más de 10 millones de euros tanto de volumen de negocios como de balance, es una entidad importante con los mismos diez deberes del Artículo 21(2) que los grandes.",
       "overview": {
         "heading": "La versión corta",
         "p1": "NIS 2 cubre la fabricación como un sector importante. El Anexo II sector 5 nombra seis subcategorías de fabricación. La fabricación de maquinaria y equipo, división NACE C28, es una de ellas. Si eso es lo que hace y está por encima del umbral de tamaño, NIS 2 se le aplica.",
@@ -11587,7 +11587,7 @@
         "items": {
           "onlyBigCompanies": {
             "myth": "NIS 2 es para los grandes grupos industriales, no para nuestro taller de máquinas de 80 personas.",
-            "reality": "El test de tamaño es 50 empleados o 10 millones de euros de volumen de negocios. Un taller de máquinas de 80 personas con NACE C28 está de lleno dentro. La categoría de 'entidad importante' del Anexo II existe precisamente para la capa del Mittelstand. El techo de sanción es inferior al de las entidades esenciales, pero los diez deberes del Artículo 21(2) son los mismos."
+            "reality": "El test de tamaño es 50 empleados, o más de 10 millones de euros tanto de volumen de negocios como de balance. Un taller de máquinas de 80 personas con NACE C28 está de lleno dentro. La categoría de 'entidad importante' del Anexo II existe precisamente para la capa del Mittelstand. El techo de sanción es inferior al de las entidades esenciales, pero los diez deberes del Artículo 21(2) son los mismos."
           },
           "justAssembly": {
             "myth": "Solo hacemos el montaje final, la fabricación real está en nuestros proveedores.",
@@ -11768,7 +11768,7 @@
       "subtitle": "Conforme al artículo 2, apartado 1, de NIS 2, la directiva solo se aplica a entidades medianas y mayores. Ese es el titular. La realidad es una prueba de tres pasos: la definición de tamaño de la Recomendación 2003/361/CE, la regla de empresas vinculadas y las excepciones del artículo 2, apartado 2, que vuelven a incluir a las microempresas y pequeñas empresas en el ámbito.",
       "overview": {
         "heading": "La versión breve",
-        "p1": "NIS 2 fija un umbral mínimo de tamaño. Por defecto, la directiva solo se aplica a las entidades que alcanzan o superan el umbral de mediana empresa conforme a la Recomendación 2003/361/CE: 50 o más empleados, o volumen de negocio anual superior a 10 millones de euros, o total del balance superior a 10 millones de euros. Las microempresas y pequeñas empresas se sitúan por debajo de ese umbral.",
+        "p1": "NIS 2 fija un umbral mínimo de tamaño. Por defecto, la directiva solo se aplica a las entidades que alcanzan o superan el umbral de mediana empresa conforme a la Recomendación 2003/361/CE: 50 o más empleados, o volumen de negocio anual y total del balance superiores cada uno a 10 millones de euros. Las microempresas y pequeñas empresas se sitúan por debajo de ese umbral.",
         "p2": "Eso suena sencillo. No lo es. La Recomendación tiene sus propias reglas para el cómputo. El artículo 3, apartado 3, de su anexo dice que si una matriz posee más del 50 por ciento de los derechos de voto en una filial, usted tiene que agregar el número de empleados y el volumen de negocio de ambas. Una pequeña filial de un gran grupo no es una pequeña entidad bajo este régimen.",
         "p3": "El artículo 2, apartado 2, de NIS 2 nombra entonces categorías que entran con independencia del tamaño. Telecomunicaciones, prestadores cualificados de servicios de confianza, DNS, registros de nombres de dominio de primer nivel, prestadores únicos de un servicio esencial en un Estado miembro, entidades de la administración pública y algunas más. Si encaja en una de ellas, la prueba de tamaño no le salva. La exención es el principio del análisis, no el final."
       },
@@ -11783,7 +11783,7 @@
         "regulation": {
           "label": "Artículo 2, apartados 2 y 3, del anexo de la Recomendación 2003/361/CE",
           "quote": "The category of micro, small and medium-sized enterprises (SMEs) is made up of enterprises which employ fewer than 250 persons and which have an annual turnover not exceeding EUR 50 million, and/or an annual balance sheet total not exceeding EUR 43 million. Within the SME category, a small enterprise is defined as an enterprise which employs fewer than 50 persons and whose annual turnover and/or annual balance sheet total does not exceed EUR 10 million. Within the SME category, a microenterprise is defined as an enterprise which employs fewer than 10 persons and whose annual turnover and/or annual balance sheet total does not exceed EUR 2 million.",
-          "context": "La Recomendación le da las cifras. Micro: menos de 10 empleados Y volumen de negocio o balance de hasta 2 millones de euros. Pequeña: menos de 50 empleados Y volumen de negocio o balance de hasta 10 millones de euros. Mediana: desde 50 empleados hasta 249 O volumen de negocio superior a 10 millones de euros. Para mantenerse por debajo de un tramo de tamaño tiene que estar por debajo en número de empleados Y por debajo en volumen de negocio o balance. Cruce cualquiera de los dos y habrá subido."
+          "context": "La Recomendación le da las cifras. Micro: menos de 10 empleados Y volumen de negocio o balance de hasta 2 millones de euros. Pequeña: menos de 50 empleados Y volumen de negocio o balance de hasta 10 millones de euros. Mediana: desde 50 empleados hasta 249 O volumen de negocio y balance superiores ambos a 10 millones de euros. Para mantenerse por debajo de un tramo de tamaño tiene que estar por debajo en número de empleados Y por debajo en volumen de negocio o balance. Cruce cualquiera de los dos y habrá subido."
         },
         "transposition": {
           "label": "Artículo 2, apartado 2, de NIS 2 (con independencia del tamaño)",
@@ -11857,7 +11857,7 @@
           },
           "staffOverThreshold": {
             "myth": "Tenemos menos de 50 empleados, así que contamos como pequeña empresa.",
-            "reality": "Lea con atención el artículo 2, apartado 2, del anexo de la Recomendación. Pequeña requiere menos de 50 empleados Y volumen de negocio o balance de 10 millones de euros o menos. Cruce cualquiera de los umbrales y pasa a mediana. Una consultoría de 45 personas con 12 millones de euros de volumen de negocio es mediana conforme a la Recomendación, y eso significa que NIS 2 se aplica si el sector encaja."
+            "reality": "Lea con atención el artículo 2, apartado 2, del anexo de la Recomendación. Pequeña requiere menos de 50 empleados Y volumen de negocio o balance de 10 millones de euros o menos. Cruce cualquiera de los umbrales y pasa a mediana. Una consultoría de 45 personas con 12 millones de euros de volumen de negocio y 11 millones de euros de balance es mediana conforme a la Recomendación, y eso significa que NIS 2 se aplica si el sector encaja."
           },
           "parentIndependent": {
             "myth": "Nuestra empresa matriz es grande, pero operamos de forma independiente, así que contamos por nuestra cuenta.",
@@ -12039,7 +12039,7 @@
         "heading": "La versión breve",
         "p1": "Un prestador de servicios de confianza es cualquiera que preste uno o más servicios de confianza según se definen en el artículo 3(16) del Reglamento eIDAS (UE) 910/2014: firmas electrónicas, sellos electrónicos, sellos de tiempo electrónicos, entrega electrónica certificada, certificados de autenticación de sitios web, o la conservación de cualquiera de estos. El sector 8 del Anexo I de NIS2 nombra explícitamente a los prestadores de servicios de confianza como parte de la Infraestructura Digital.",
         "p2": "El artículo 2(2)(b) NIS2 acciona entonces una palanca que no se aplica a la mayoría de los demás sectores. Los prestadores cualificados de servicios de confianza, según se definen en el artículo 3(17) de eIDAS, están dentro del ámbito de aplicación con independencia del tamaño. Un TSP cualificado de dos personas que emite certificados cualificados para firmas electrónicas está vinculado del mismo modo que una AC de 500 personas. El umbral de mediana empresa del artículo 2(1) no los condiciona.",
-        "p3": "Los TSP no cualificados siguen la prueba del tamaño habitual: al menos 50 empleados, o por encima de 10 millones de euros de volumen de negocios anual o de balance, los sitúa dentro del ámbito de aplicación. Por debajo de eso quedan fuera de NIS2, aunque el artículo 19 de eIDAS sigue vinculándolos con una base de seguridad. Dos regímenes se ejecutan en paralelo en cualquier caso: eIDAS para el propio servicio de confianza, NIS2 para las obligaciones cibernéticas interorganizativas (formación de la dirección del artículo 20, notificación de incidentes significativos del §32 BSIG, medidas de gestión de riesgos del artículo 21)."
+        "p3": "Los TSP no cualificados siguen la prueba del tamaño habitual: al menos 50 empleados, o más de 10 millones de euros tanto de volumen de negocios anual como de balance, los sitúa dentro del ámbito de aplicación. Por debajo de eso quedan fuera de NIS2, aunque el artículo 19 de eIDAS sigue vinculándolos con una base de seguridad. Dos regímenes se ejecutan en paralelo en cualquier caso: eIDAS para el propio servicio de confianza, NIS2 para las obligaciones cibernéticas interorganizativas (formación de la dirección del artículo 20, notificación de incidentes significativos del §32 BSIG, medidas de gestión de riesgos del artículo 21)."
       },
       "legalAnchor": {
         "heading": "La fuente legal",
@@ -15917,7 +15917,7 @@
       "overview": {
         "heading": "Resumen",
         "p1": "NIS 1 era la Directiva (UE) 2016/1148. Cubría siete sectores y dividía a los destinatarios en 'operadores de servicios esenciales' (OES) y 'proveedores de servicios digitales' (DSP). Los Estados miembros designaban a los OES individualmente.",
-        "p2": "NIS 2 es la Directiva (UE) 2022/2555. Cubre 15 sectores en el Anexo I y 7 sectores en el Anexo II, sustituye la división OES/DSP por 'entidades esenciales' y 'entidades importantes', y usa un criterio de tamaño explícito (50 empleados o más, o volumen de negocios anual superior a 10 millones de euros).",
+        "p2": "NIS 2 es la Directiva (UE) 2022/2555. Cubre 15 sectores en el Anexo I y 7 sectores en el Anexo II, sustituye la división OES/DSP por 'entidades esenciales' y 'entidades importantes', y usa un criterio de tamaño explícito (50 empleados o más, o volumen de negocios anual y balance superiores cada uno a 10 millones de euros).",
         "p3": "El artículo 41 de NIS 2 derogó la Directiva NIS 1 con efecto a partir del 18 de octubre de 2024. Cuando el Derecho de un Estado miembro siga refiriéndose a la antigua directiva, esas referencias apuntan ahora a NIS 2. Los estatutos nacionales de transposición (como la BSIG alemana en su versión NIS 2) sustituyen la arquitectura anterior de la IT-Sicherheitsgesetz 2.0."
       },
       "legalAnchor": {
@@ -15946,7 +15946,7 @@
           "scope": {
             "section": "Ámbito",
             "title": "De 7 sectores y designación OES a 15 más 7 sectores con una regla de tamaño",
-            "body": "NIS 1 cubría siete sectores y exigía a los Estados miembros designar a los OES uno por uno. NIS 2 enumera 15 sectores en el Anexo I (esenciales) y 7 sectores en el Anexo II (importantes), y se aplica automáticamente a las entidades de estos sectores que cumplan el criterio de tamaño (50 empleados o más, o más de 10 millones de euros de volumen de negocios). Varios tipos de entidades están dentro del ámbito con independencia del tamaño."
+            "body": "NIS 1 cubría siete sectores y exigía a los Estados miembros designar a los OES uno por uno. NIS 2 enumera 15 sectores en el Anexo I (esenciales) y 7 sectores en el Anexo II (importantes), y se aplica automáticamente a las entidades de estos sectores que cumplan el criterio de tamaño (50 empleados o más, o más de 10 millones de euros tanto de volumen de negocios como de balance). Varios tipos de entidades están dentro del ámbito con independencia del tamaño."
           },
           "obligations": {
             "section": "Obligaciones",
@@ -17159,7 +17159,7 @@
           "scope": {
             "section": "Ámbito",
             "title": "Confirmar si la directiva se aplica",
-            "body": "NIS 2 se aplica si la entidad se encuentra en uno de los sectores nombrados en el Anexo I o el Anexo II y alcanza el umbral de tamaño (mediana empresa tal como se define en la Recomendación 2003/361/CE, es decir, 50 empleados o más de 10 millones de euros de volumen de negocio). Un puñado de tipos de entidad están cubiertos con independencia del tamaño: prestadores cualificados de servicios de confianza, registros de nombres de dominio de primer nivel, proveedores de servicios de DNS, Administración pública, prestadores únicos en un Estado miembro. El primer cometido del órgano de dirección es saber cuál de estos se aplica."
+            "body": "NIS 2 se aplica si la entidad se encuentra en uno de los sectores nombrados en el Anexo I o el Anexo II y alcanza el umbral de tamaño (mediana empresa tal como se define en la Recomendación 2003/361/CE, es decir, 50 empleados, o más de 10 millones de euros tanto de volumen de negocio como de balance). Un puñado de tipos de entidad están cubiertos con independencia del tamaño: prestadores cualificados de servicios de confianza, registros de nombres de dominio de primer nivel, proveedores de servicios de DNS, Administración pública, prestadores únicos en un Estado miembro. El primer cometido del órgano de dirección es saber cuál de estos se aplica."
           },
           "duties": {
             "section": "Deberes",

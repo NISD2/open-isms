@@ -281,7 +281,7 @@
     }
   },
   "3.3": {
-    "summary": "Ihr Unternehmen muss einen Prozess aufbauen, um schwere IT-Vorfälle innerhalb von 24 Stunden, 72 Stunden und einem Monat an das BSI zu melden. Sie sind fertig, wenn Vorlagen für alle drei Meldungen existieren, der Prozess getestet ist und alle verantwortlichen Personen wissen, was zu tun ist.",
+    "summary": "Ihr Unternehmen muss einen Prozess aufbauen, um schwere IT-Vorfälle an das BSI zu melden: Frühwarnung innerhalb von 24 Stunden, Meldung innerhalb von 72 Stunden und Abschlussmeldung spätestens einen Monat nach dieser Meldung (§32 Abs. 1 Nr. 4 BSIG). Sie sind fertig, wenn Vorlagen für alle drei Meldungen existieren, der Prozess getestet ist und alle verantwortlichen Personen wissen, was zu tun ist.",
     "applicability": "Das gilt für jede besonders wichtige und jede wichtige Einrichtung (§32 Abs. 1 BSIG), unabhängig von ihrer Größe.",
     "quickTip": "Rufen Sie Ihren IT-Leiter an und fragen Sie: 'Haben wir schon Vorlagen für BSI-Meldungen?'",
     "implementationSteps": "Erstellen Sie Vorlagen für die drei Meldungen: 24-Stunden-Frühwarnung, 72-Stunden-Details und Monats-Abschlussbericht.\n\nRichten Sie einen Wachdienst ein, der auch nachts, am Wochenende und Feiertag die 24-Stunden-Meldung starten kann.\n\nSchreiben Sie auf, wer wann was macht, inklusive Eskalationswege.\n\nFühren Sie einmal im Jahr eine Trockenübung durch, um die Fristen zu testen.\n\nDokumentieren Sie den gesamten Prozess und die Übung.",

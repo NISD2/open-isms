@@ -2305,7 +2305,7 @@
       "overview": {
         "heading": "Sie sind betroffen. Was nun?",
         "p1": "Schätzungsweise 29.500 Unternehmen in Deutschland fallen unter den NIS2-Anwendungsbereich. Wenn Sie mehr als 50 Mitarbeiter haben und in einem betroffenen Sektor tätig sind - Abfallwirtschaft, Lebensmittelproduktion, Verarbeitendes Gewerbe, Energie, Transport, Gesundheit, digitale Infrastruktur - gehören Sie mit hoher Wahrscheinlichkeit dazu. Das BSIG trat am 6. Dezember 2025 in Kraft, und die BSI-Registrierungsfrist war der 6. März 2026.",
-        "p2": "Was die meisten Berater Ihnen nicht sagen: Für ein mittelständisches Unternehmen mit grundlegender IT ist die NIS2-Compliance machbar. Es ist kein 6-monatiges, sechsstelliges Projekt. Die meisten der 49 BSIG-Anforderungen sind einmalige Dokumentationsaufgaben - Richtlinien, Risikobewertungen, Verfahren. Nur wenige erfordern laufende operative Prozesse. Das Gesetz verlangt ‚angemessene' Maßnahmen proportional zu Ihrem Risiko - keine Fortune-500-Sicherheitsinfrastruktur.",
+        "p2": "Was die meisten Berater Ihnen nicht sagen: Für ein mittelständisches Unternehmen mit grundlegender IT ist die NIS2-Compliance machbar. Es ist kein 6-monatiges, sechsstelliges Projekt. Die meisten der 49 BSIG-Anforderungen sind einmalige Dokumentationsaufgaben - Richtlinien, Risikobewertungen, Verfahren. Nur wenige erfordern laufende operative Prozesse. Das Gesetz verlangt ‚geeignete, verhältnismäßige und wirksame' Maßnahmen (§ 30 Abs. 1 BSIG), passend zu Ihrem Risiko - keine Fortune-500-Sicherheitsinfrastruktur.",
         "p3": "Dieser Leitfaden gibt Ihnen den praktischen Plan: einen 12-Wochen-Fahrplan, die Rollen, die Sie brauchen (alle in Teilzeit, alle bestehende Mitarbeiter), die häufigsten Fehler, die Unternehmen Ihrer Größe machen, und die Prioritätsreihenfolge für die 10 Pflichtmaßnahmen nach §30 BSIG. Keine Theorie, keine Panikmache - nur die konkreten Schritte."
       },
       "audience": {
@@ -2404,7 +2404,7 @@
           },
           "overEngineering": {
             "title": "Die Lösung überdimensionieren",
-            "description": "Ein 100-Personen-Abfallwirtschaftsunternehmen braucht kein SOC und kein SIEM. Passen Sie Ihre Kontrollen an Ihr tatsächliches Risikoprofil an. Das BSIG verlangt ‚angemessene' Maßnahmen, nicht maximale Maßnahmen."
+            "description": "Ein 100-Personen-Abfallwirtschaftsunternehmen braucht kein SOC und kein SIEM. Passen Sie Ihre Kontrollen an Ihr tatsächliches Risikoprofil an. Das BSIG verlangt ‚geeignete, verhältnismäßige und wirksame' Maßnahmen, nicht maximale Maßnahmen."
           },
           "noManagement": {
             "title": "NIS2 als IT-Projekt behandeln",
@@ -2681,7 +2681,7 @@
         "items": {
           "awareness": {
             "title": "Mangelndes Bewusstsein",
-            "description": "Viele Unternehmen im Mittelstand wissen nicht, dass sie unter NIS2 fallen. Die Betroffenheitskriterien - Sektorzugehörigkeit kombiniert mit Schwellenwerten für Mitarbeiterzahl und Umsatz - sind für Geschäftsführer ohne Compliance-Hintergrund nicht intuitiv. Insbesondere Unternehmen in neu aufgenommenen Sektoren wie Abfallwirtschaft, Lebensmittelproduktion und verarbeitendes Gewerbe erkennen ihre Betroffenheit oft nicht."
+            "description": "Viele Unternehmen im Mittelstand wissen nicht, dass sie unter NIS2 fallen. Die Betroffenheitskriterien - Sektorzugehörigkeit kombiniert mit Schwellenwerten für Mitarbeiterzahl, Umsatz und Bilanzsumme - sind für Geschäftsführer ohne Compliance-Hintergrund nicht intuitiv. Insbesondere Unternehmen in neu aufgenommenen Sektoren wie Abfallwirtschaft, Lebensmittelproduktion und verarbeitendes Gewerbe erkennen ihre Betroffenheit oft nicht."
           },
           "complexity": {
             "title": "Komplexität der Betroffenheitsprüfung",
@@ -3655,7 +3655,7 @@
           "monitoring": {
             "section": "Test 2",
             "title": "Sind Sie ein mittleres Unternehmen oder größer?",
-            "body": "Schwelle ist die KMU-Definition aus Empfehlung 2003/361/EG: mindestens 50 Beschäftigte und mindestens 10 Mio. Euro Jahresumsatz oder Bilanzsumme, oder darüber. Liegen Sie darunter, sind Sie draußen, es sei denn, eine der Ausnahmen unabhängig von der Größe in Art. 2 Abs. 2 bis 4 erfasst Sie trotzdem (z. B. Sie sind alleiniger Anbieter eines unverzichtbaren Dienstes, qualifizierter Vertrauensdiensteanbieter oder DNS-Diensteanbieter)."
+            "body": "Schwelle ist die KMU-Definition aus Empfehlung 2003/361/EG: mindestens 50 Beschäftigte, oder Jahresumsatz und Bilanzsumme von jeweils über 10 Mio. Euro. Liegen Sie darunter, sind Sie draußen, es sei denn, eine der Ausnahmen unabhängig von der Größe in Art. 2 Abs. 2 bis 4 erfasst Sie trotzdem (z. B. Sie sind alleiniger Anbieter eines unverzichtbaren Dienstes, qualifizierter Vertrauensdiensteanbieter oder DNS-Diensteanbieter)."
           },
           "independent": {
             "section": "Test 3",
@@ -3732,7 +3732,7 @@
         "items": [
           "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 2 (Anwendungsbereich), Anhang I und Anhang II (Sektoren), Artikel 21 Absatz 2 Buchstabe d (Lieferkettensicherheit) und Artikel 21 Absatz 3.",
           "Durchführungsverordnung (EU) 2024/2690 der Kommission vom 17. Oktober 2024, §5 (Lieferkettensicherheit).",
-          "Empfehlung 2003/361/EG, Artikel 2 des Anhangs (Definition des mittleren Unternehmens: mindestens 50 Beschäftigte und mindestens 10 Mio. Euro Jahresumsatz oder Bilanzsumme).",
+          "Empfehlung 2003/361/EG, Artikel 2 des Anhangs (Definition des mittleren Unternehmens: ab 50 Beschäftigten oder mit Jahresumsatz und Bilanzsumme von jeweils über 10 Mio. Euro).",
           "BSIG §28 (Einrichtungsarten und Größenkriterien) und §30 (Risikomanagementmaßnahmen einschließlich Lieferkettensicherheit), Umsetzung von Art. 2 und 21 NIS 2.",
           "ENISA-Implementierungshinweise zu NIS 2 und Spezifikation des Einrichtungsregisters nach Art. 27."
         ]
@@ -3851,7 +3851,7 @@
       },
       "practitioner": {
         "heading": "Wie sich das in echten Mittelstandskonzernen abspielt",
-        "p1": "In den Konzernen, die wir sehen, landet die Frage fast immer in Schritt 3. Die operative Tochter tut etwas aus Anhang I oder II. Allein ist sie klein. Im Konzern liegt sie über 50 Beschäftigten oder über 10 Millionen Euro Umsatz. Nach 2003/361/EG zieht sie das in den Anwendungsbereich.",
+        "p1": "In den Konzernen, die wir sehen, landet die Frage fast immer in Schritt 3. Die operative Tochter tut etwas aus Anhang I oder II. Allein ist sie klein. Im Konzern erreicht sie 50 Beschäftigte, oder Umsatz und Bilanzsumme liegen jeweils über 10 Millionen Euro. Nach 2003/361/EG zieht sie das in den Anwendungsbereich.",
         "p2": "Der Hebel ist Erwägungsgrund 16: die Unabhängigkeit. Ist eine Tochter wirklich selbstständig in ihrer Steuerung (eigenes Leitungsorgan, eigene Kundenverträge, eigene Entscheidungen, keine konzerninterne Kostenverteilung, die das Geschäftsmodell bestimmt), kann die nationale Behörde sie für den Größentest eigenständig behandeln. Schreiben Sie die Unabhängigkeit auf, bevor Sie sich darauf verlassen. Nicht erst danach."
       },
       "platform": {
@@ -4261,7 +4261,7 @@
           },
           "legal": {
             "title": "5. Rechtliche Beratung erwägen, wenn der Geltungsbereich unklar ist",
-            "description": "Wenn Ihr Unternehmen nahe an der Schwelle liegt (um 50 Mitarbeiter oder 10 Mio. EUR Umsatz), in einem Sektor tätig ist, der mehrfach interpretiert werden kann, oder eine komplexe Konzernstruktur hat, konsultieren Sie einen auf IT-Recht spezialisierten Anwalt. Die Kosten einer rechtlichen Einschätzung (2.000-5.000 EUR) sind marginal im Vergleich zu den Kosten von Nicht-Compliance oder unnötiger Compliance. Einige Branchenverbände (wie Bitkom oder BDI) bieten auch NIS2-Betroffenheitsberatung für Mitglieder an."
+            "description": "Wenn Ihr Unternehmen nahe an der Schwelle liegt (um 50 Mitarbeiter oder um jeweils 10 Mio. EUR Umsatz und Bilanzsumme), in einem Sektor tätig ist, der mehrfach interpretiert werden kann, oder eine komplexe Konzernstruktur hat, konsultieren Sie einen auf IT-Recht spezialisierten Anwalt. Die Kosten einer rechtlichen Einschätzung (2.000-5.000 EUR) sind marginal im Vergleich zu den Kosten von Nicht-Compliance oder unnötiger Compliance. Einige Branchenverbände (wie Bitkom oder BDI) bieten auch NIS2-Betroffenheitsberatung für Mitglieder an."
           }
         }
       },
@@ -4341,7 +4341,7 @@
       "overview": {
         "heading": "Vom KRITIS-Regime zum NIS2-BSIG",
         "p1": "Bis zum Inkrafttreten des NIS2UmsuCG am 6. Dezember 2025 war das BSI-Gesetz (BSIG) primär auf Betreiber kritischer Infrastrukturen (KRITIS) ausgerichtet. Die KRITIS-Verordnung (BSI-KritisV) definierte Schwellenwerte, ab denen Unternehmen in den Sektoren Energie, Wasser, Gesundheit, Ernährung, Transport, Finanz- und Versicherungswesen, IT und Telekommunikation als KRITIS galten. Der zentrale Schwellenwert: 500.000 versorgte Personen.",
-        "p2": "Mit der NIS2-Umsetzung hat sich das grundlegend geändert. Der Geltungsbereich wurde von 7 auf 18 Sektoren erweitert, die Schwellenwerte drastisch gesenkt (50 Mitarbeiter oder 10 Mio. EUR Umsatz), und neue Pflichten wie die persönliche Geschäftsführerhaftung eingeführt. KRITIS-Betreiber bleiben als Sonderkategorie erhalten - unterliegen aber zusätzlich den erweiterten NIS2-Anforderungen. Für Unternehmen, die bisher nur unter KRITIS fielen, bedeutet das: Ihre bestehenden Maßnahmen bleiben gültig, aber es kommen neue Pflichten hinzu (insbesondere §38 Geschäftsführerhaftung und erweiterte Meldepflichten). Für die rund 28.000 Unternehmen, die neu unter NIS2 fallen, ist das gesamte BSIG-Pflichtenprogramm neu."
+        "p2": "Mit der NIS2-Umsetzung hat sich das grundlegend geändert. Der Geltungsbereich wurde von 7 auf 18 Sektoren erweitert, die Schwellenwerte drastisch gesenkt (50 Mitarbeiter oder jeweils über 10 Mio. EUR Umsatz und Bilanzsumme), und neue Pflichten wie die persönliche Geschäftsführerhaftung eingeführt. KRITIS-Betreiber bleiben als Sonderkategorie erhalten - unterliegen aber zusätzlich den erweiterten NIS2-Anforderungen. Für Unternehmen, die bisher nur unter KRITIS fielen, bedeutet das: Ihre bestehenden Maßnahmen bleiben gültig, aber es kommen neue Pflichten hinzu (insbesondere §38 Geschäftsführerhaftung und erweiterte Meldepflichten). Für die rund 28.000 Unternehmen, die neu unter NIS2 fallen, ist das gesamte BSIG-Pflichtenprogramm neu."
       },
       "table": {
         "heading": "Vergleichstabelle",
@@ -4360,7 +4360,7 @@
           "threshold": {
             "aspect": "Schwellenwerte",
             "kritis": "500.000 versorgte Personen (BSI-KritisV), sektorspezifisch",
-            "nis2": "Ab 50 Mitarbeiter ODER ab 10 Mio. EUR Jahresumsatz in betroffenen Sektoren"
+            "nis2": "Ab 50 Mitarbeiter ODER über 10 Mio. EUR Jahresumsatz und Jahresbilanzsumme in betroffenen Sektoren"
           },
           "registration": {
             "aspect": "Registrierung",
@@ -4433,7 +4433,7 @@
         "items": [
           "Das BSI bleibt die zentrale zuständige Behörde und nationales CSIRT für Deutschland",
           "IT-Grundschutz bleibt die empfohlene Methodik zur Umsetzung von Sicherheitsmaßnahmen (§44(2) BSIG)",
-          "Das Grundprinzip „angemessener und verhältnismäßiger“ Maßnahmen - Sie müssen umsetzen, was für Ihre Größe und Ihr Risikoprofil angemessen ist, nicht alles theoretisch Mögliche",
+          "Das Grundprinzip „geeigneter, verhältnismäßiger und wirksamer“ Maßnahmen - Sie müssen umsetzen, was für Ihre Größe und Ihr Risikoprofil angemessen ist, nicht alles theoretisch Mögliche",
           "Die Anforderung, ein Informationssicherheitsmanagementsystem (ISMS) in irgendeiner Form zu unterhalten - ob formal zertifiziert oder nach Grundschutz strukturiert"
         ]
       },
@@ -4506,7 +4506,7 @@
         },
         "cir2024": {
           "term": "CIR 2024/2690",
-          "definition": "Die Durchführungsverordnung (EU) 2024/2690 der Europäischen Kommission. Sie legt die technischen und methodischen Anforderungen an die Maßnahmen nach Artikel 21 Absatz 2 NIS2 fest, aber nur für bestimmte Einrichtungsarten: DNS-Diensteanbieter, Top Level Domain Name Registries, Cloud-Computing-Dienstleister, Anbieter von Rechenzentrumsdiensten, Betreiber von Content Delivery Networks, Managed Service Provider, Managed Security Service Provider, Anbieter von Online-Marktplätzen, Online-Suchmaschinen und Plattformen für Dienste sozialer Netzwerke sowie Vertrauensdiensteanbieter. Anders als die Richtlinie gilt sie unmittelbar in allen EU-Mitgliedstaaten ohne nationale Umsetzung. Für diese Einrichtungen definiert sie, was ‚angemessene Cybersicherheitsmaßnahmen' in der Praxis bedeuten - das technische Regelwerk, das die offenen Details der Richtlinie ausfüllt.",
+          "definition": "Die Durchführungsverordnung (EU) 2024/2690 der Europäischen Kommission. Sie legt die technischen und methodischen Anforderungen an die Maßnahmen nach Artikel 21 Absatz 2 NIS2 fest, aber nur für bestimmte Einrichtungsarten: DNS-Diensteanbieter, Top Level Domain Name Registries, Cloud-Computing-Dienstleister, Anbieter von Rechenzentrumsdiensten, Betreiber von Content Delivery Networks, Managed Service Provider, Managed Security Service Provider, Anbieter von Online-Marktplätzen, Online-Suchmaschinen und Plattformen für Dienste sozialer Netzwerke sowie Vertrauensdiensteanbieter. Anders als die Richtlinie gilt sie unmittelbar in allen EU-Mitgliedstaaten ohne nationale Umsetzung. Für diese Einrichtungen definiert sie, was angemessene Cybersicherheitsmaßnahmen in der Praxis bedeuten - das technische Regelwerk, das die offenen Details der Richtlinie ausfüllt.",
           "legalRef": "Durchführungsverordnung (EU) 2024/2690"
         },
         "bsiRegistration": {
@@ -4645,7 +4645,7 @@
       "why": {
         "heading": "Warum die Abfallwirtschaft?",
         "p1": "Die NIS2-Richtlinie stuft die Abfallwirtschaft als sonstigen kritischen Sektor (Anhang II) ein. Die Begründung: Abfallentsorgung ist eine essenzielle Dienstleistung der Daseinsvorsorge. Ein Ausfall der Abfalllogistik - etwa durch einen Cyberangriff auf Fuhrparkmanagementsysteme oder Wägesysteme - hat direkte Auswirkungen auf die öffentliche Hygiene und Gesundheit.",
-        "p2": "Unternehmen der Abfallwirtschaft mit mindestens 50 Mitarbeitern oder einem Jahresumsatz von mindestens 10 Mio. EUR fallen als wichtige Einrichtungen unter das BSIG. Bei großen Entsorgern (ab 250 Mitarbeiter oder über 50 Mio. EUR Umsatz) in Sektoren des Anhangs I kann auch eine Einstufung als wesentliche Einrichtung in Betracht kommen.",
+        "p2": "Unternehmen der Abfallwirtschaft mit mindestens 50 Mitarbeitern oder mit Jahresumsatz und Bilanzsumme von jeweils über 10 Mio. EUR fallen als wichtige Einrichtungen unter das BSIG. Bei großen Entsorgern (ab 250 Mitarbeiter oder über 50 Mio. EUR Umsatz und über 43 Mio. EUR Bilanzsumme) in Sektoren des Anhangs I kann auch eine Einstufung als wesentliche Einrichtung in Betracht kommen.",
         "p3": "Die meisten mittelständischen Entsorgungsunternehmen hatten bisher keinen Kontakt mit IT-Sicherheitsregulierung. Weder das alte KRITIS-Regime noch branchenspezifische Standards adressierten die Abfallwirtschaft explizit. NIS2 ändert das grundlegend."
       },
       "assets": {
@@ -4714,7 +4714,7 @@
         "heading": "Häufig gestellte Fragen",
         "q1": {
           "q": "Ist unser Entsorgungsunternehmen tatsächlich von NIS2 betroffen?",
-          "a": "Wenn Ihr Unternehmen in der Abfallsammlung, -behandlung oder -entsorgung tätig ist und 50 oder mehr Mitarbeiter oder 10 Mio. EUR oder mehr Jahresumsatz hat, sind Sie mit sehr hoher Wahrscheinlichkeit als wichtige Einrichtung nach NIS2 Anhang II betroffen. Die Sektordefinition deckt die gesamte Wertschöpfungskette der Abfallwirtschaft ab. Wenn Sie nahe an der Schwelle liegen, prüfen Sie, ob verbundene Konzernunternehmen Sie über den Grenzwert bringen - NIS2 verwendet die EU-KMU-Definition, die verbundene Unternehmen berücksichtigt."
+          "a": "Wenn Ihr Unternehmen in der Abfallsammlung, -behandlung oder -entsorgung tätig ist und 50 oder mehr Mitarbeiter oder jeweils über 10 Mio. EUR Jahresumsatz und Bilanzsumme hat, sind Sie mit sehr hoher Wahrscheinlichkeit als wichtige Einrichtung nach NIS2 Anhang II betroffen. Die Sektordefinition deckt die gesamte Wertschöpfungskette der Abfallwirtschaft ab. Wenn Sie nahe an der Schwelle liegen, prüfen Sie, ob verbundene Konzernunternehmen Sie über den Grenzwert bringen - NIS2 verwendet die EU-KMU-Definition, die verbundene Unternehmen berücksichtigt."
         },
         "q2": {
           "q": "Wir lagern die gesamte IT aus - gilt NIS2 trotzdem für uns?",
@@ -4921,7 +4921,7 @@
       },
       "steps": {
         "heading": "Was muss ich tun?",
-        "description": "Die IT-Sicherheitspflicht nach BSIG umfasst fünf zentrale Handlungsfelder. Die Registrierung beim BSI war bereits bis März 2026 fällig, die vollständige Umsetzung muss bis Oktober 2026 stehen.",
+        "description": "Die IT-Sicherheitspflicht nach BSIG umfasst fünf zentrale Handlungsfelder. Die Registrierung beim BSI war bereits bis März 2026 fällig.",
         "items": {
           "register": {
             "title": "Beim BSI registrieren",
@@ -4966,7 +4966,7 @@
         },
         "q4": {
           "q": "Gibt es eine Übergangsfrist?",
-          "a": "Nein. Das BSIG ist seit dem 6. Dezember 2025 in Kraft und die Pflichten gelten sofort. Die Registrierungsfrist beim BSI war der 6. März 2026, die vollständige Umsetzung der Sicherheitsmaßnahmen wird bis zum 17. Oktober 2026 erwartet. Wer jetzt erst anfängt, sollte zumindest die Registrierung sofort nachholen und einen nachvollziehbaren Umsetzungsplan dokumentieren."
+          "a": "Nein. Das BSIG ist seit dem 6. Dezember 2025 in Kraft und die Pflichten gelten sofort. Die Registrierungsfrist beim BSI war der 6. März 2026. Wer jetzt erst anfängt, sollte zumindest die Registrierung sofort nachholen und einen nachvollziehbaren Umsetzungsplan dokumentieren."
         },
         "q5": {
           "q": "Kann ich die Umsetzung komplett an einen IT-Dienstleister auslagern?",
@@ -5051,7 +5051,7 @@
       },
       "scope": {
         "heading": "Wer ist von § 30 BSIG betroffen",
-        "p1": "§ 30 BSIG gilt für besonders wichtige Einrichtungen nach § 28 Abs. 6 BSIG und wichtige Einrichtungen nach § 28 Abs. 7 BSIG. Die Sektoren stehen in Anhang 1 und Anhang 2 der NIS 2 Richtlinie. Die Größenschwelle liegt bei mindestens 50 Beschäftigten oder 10 Mio. EUR Jahresumsatz, mit einigen Sonderregelungen für KRITIS und für Sektoren unabhängig von der Größe.",
+        "p1": "§ 30 BSIG gilt für besonders wichtige Einrichtungen nach § 28 Abs. 6 BSIG und wichtige Einrichtungen nach § 28 Abs. 7 BSIG. Die Sektoren stehen in Anhang 1 und Anhang 2 der NIS 2 Richtlinie. Die Größenschwelle liegt bei mindestens 50 Beschäftigten oder jeweils über 10 Mio. EUR Jahresumsatz und Jahresbilanzsumme, mit einigen Sonderregelungen für KRITIS und für Sektoren unabhängig von der Größe.",
         "p2": "Wer im Zweifel ist, beginnt mit der Betroffenheitsprüfung nach Artikel 2 NIS 2. Auch Zulieferer eines regulierten Unternehmens kommen mit § 30 in Kontakt: über Nr. 4 (Lieferkette) reichen die Pflichten vertraglich an direkte Anbieter weiter."
       },
       "penalties": {
@@ -5315,7 +5315,7 @@
       "why": {
         "heading": "Warum die Lebensmittelindustrie?",
         "p1": "Die Versorgung mit Lebensmitteln ist eine essenzielle Grundfunktion der Gesellschaft. Ein Cyberangriff auf Produktionssteuerungen, Kühlkettenmanagement oder Logistiksysteme kann die Versorgungssicherheit unmittelbar gefährden. NIS2 stuft die Lebensmittelindustrie daher als sonstigen kritischen Sektor (Anhang II) ein - konkret Großhandel, industrielle Produktion und Verarbeitung.",
-        "p2": "Unternehmen der Lebensmittelindustrie mit mindestens 50 Mitarbeitern oder einem Jahresumsatz von mindestens 10 Mio. EUR (bei gleichzeitig über 10 Mio. EUR Bilanzsumme) fallen als wichtige Einrichtungen unter das BSIG. Große Unternehmen ab 250 Mitarbeitern oder über 50 Mio. EUR Umsatz können als wesentliche Einrichtung eingestuft werden.",
+        "p2": "Unternehmen der Lebensmittelindustrie mit mindestens 50 Mitarbeitern oder einem Jahresumsatz von über 10 Mio. EUR (bei gleichzeitig über 10 Mio. EUR Bilanzsumme) fallen als wichtige Einrichtungen unter das BSIG. Große Unternehmen ab 250 Mitarbeitern oder über 50 Mio. EUR Umsatz und über 43 Mio. EUR Bilanzsumme können als wesentliche Einrichtung eingestuft werden.",
         "p3": "Die Branche hat ein besonderes Risikoprofil: Die Produktion ist zunehmend automatisiert (MES, SPS-Steuerungen, Kühlkettenmonitoring), gleichzeitig sind viele Produktionssysteme historisch gewachsen und nicht für Cybersicherheit ausgelegt. Hinzu kommen strenge Hygienevorschriften und Chargenrückverfolgung, die bei einem IT-Ausfall direkt betroffen sind."
       },
       "assets": {
@@ -5517,7 +5517,7 @@
       "why": {
         "heading": "Warum das Gesundheitswesen?",
         "p1": "Cyberangriffe auf Gesundheitseinrichtungen gefährden unmittelbar Menschenleben. Ransomware-Angriffe auf Krankenhäuser haben in den letzten Jahren zu Notaufnahme-Umleitungen, verschobenen Operationen und kompromittierten Patientendaten geführt. NIS2 stuft das Gesundheitswesen daher als hochkritischen Sektor (Anhang I) ein - große Einrichtungen werden als wesentliche Einrichtungen klassifiziert.",
-        "p2": "Der Anwendungsbereich ist breit: Krankenhäuser und Kliniken, pharmazeutische Unternehmen, Hersteller von Medizinprodukten (insbesondere bei Versorgungsengpässen), EU-Referenzlabore und Forschungseinrichtungen im Gesundheitsbereich. Ab 50 Mitarbeitern oder über 10 Mio. EUR Umsatz fallen diese Einrichtungen unter das BSIG.",
+        "p2": "Der Anwendungsbereich ist breit: Krankenhäuser und Kliniken, pharmazeutische Unternehmen, Hersteller von Medizinprodukten (insbesondere bei Versorgungsengpässen), EU-Referenzlabore und Forschungseinrichtungen im Gesundheitsbereich. Ab 50 Mitarbeitern oder mit jeweils über 10 Mio. EUR Umsatz und Bilanzsumme fallen diese Einrichtungen unter das BSIG.",
         "p3": "Das Gesundheitswesen hat ein doppeltes Risikoprofil: Einerseits die Verfügbarkeit kritischer Systeme für die Patientenversorgung, andererseits die Vertraulichkeit sensibler Gesundheitsdaten. Patientendaten sind nach Art. 9 DSGVO besondere Kategorien personenbezogener Daten und unterliegen erhöhtem Schutzbedarf. Ein Cybersicherheitsvorfall im Gesundheitswesen ist daher fast immer auch ein Datenschutzvorfall."
       },
       "assets": {
@@ -5586,7 +5586,7 @@
         "heading": "Häufig gestellte Fragen",
         "q1": {
           "q": "Wir sind ein Krankenhaus mit 300 Betten. Sind wir wesentliche Einrichtung?",
-          "a": "Mit hoher Wahrscheinlichkeit ja. Krankenhäuser fallen unter NIS2 Anhang I (Gesundheitswesen, hochkritischer Sektor). Wenn Sie 250 oder mehr Mitarbeiter haben oder über 50 Mio. EUR Umsatz, werden Sie als wesentliche Einrichtung eingestuft. Das bedeutet proaktive BSI-Aufsicht und die höchste Bußgeldstufe (bis 10 Mio. EUR oder 2 % des Umsatzes). Mittlere Einrichtungen (50 bis 249 Mitarbeiter) gelten als wichtige Einrichtung."
+          "a": "Mit hoher Wahrscheinlichkeit ja. Krankenhäuser fallen unter NIS2 Anhang I (Gesundheitswesen, hochkritischer Sektor). Wenn Sie 250 oder mehr Mitarbeiter haben oder über 50 Mio. EUR Umsatz und zugleich über 43 Mio. EUR Bilanzsumme, werden Sie als wesentliche Einrichtung eingestuft. Das bedeutet proaktive BSI-Aufsicht und die höchste Bußgeldstufe (bis 10 Mio. EUR oder 2 % des Umsatzes). Mittlere Einrichtungen (50 bis 249 Mitarbeiter) gelten als wichtige Einrichtung."
         },
         "q2": {
           "q": "Wie gehen wir mit Medizingeräten um, die wir nicht patchen dürfen?",
@@ -6104,7 +6104,7 @@
         "heading": "Häufig gestellte Fragen",
         "q1": {
           "q": "Kann mein Unternehmen gleichzeitig wichtig und wesentlich sein?",
-          "a": "Nein. Die Kategorien schließen sich nach §28 BSIG gegenseitig aus. Wenn Sie den Schwellenwert für wesentlich erreichen (250+ Mitarbeiter oder >50 Mio. EUR Umsatz in einem Anlage-1-Sektor), sind Sie wesentlich. Wenn Sie den Schwellenwert für wichtig, aber nicht für wesentlich erreichen, sind Sie wichtig. KRITIS ist eine Teilmenge der wesentlichen - KRITIS-Betreiber werden automatisch als wesentlich eingestuft, mit zusätzlichen Pflichten."
+          "a": "Nein. Die Kategorien schließen sich nach §28 BSIG gegenseitig aus. Wenn Sie den Schwellenwert für wesentlich erreichen (250+ Mitarbeiter oder >50 Mio. EUR Umsatz und >43 Mio. EUR Bilanzsumme in einem Anlage-1-Sektor), sind Sie wesentlich. Wenn Sie den Schwellenwert für wichtig, aber nicht für wesentlich erreichen, sind Sie wichtig. KRITIS ist eine Teilmenge der wesentlichen - KRITIS-Betreiber werden automatisch als wesentlich eingestuft, mit zusätzlichen Pflichten."
         },
         "q2": {
           "q": "Ich bin eine wichtige Einrichtung. Muss ich weniger Compliance-Arbeit leisten?",
@@ -6574,7 +6574,7 @@
         },
         "q24": {
           "q": "Fallen alle Beteiligten einer sicheren Lieferkette im Bereich Luftsicherheit unter KRITIS, auch wenn sie Kleinunternehmen unterhalb der Schwellenwerten zur NIS-2-Betroffenheit sind?",
-          "a": "Nein. Die Beteiligung an der sicheren Lieferkette nach §9a LuftSiG macht ein Unternehmen nicht automatisch zu einer Kritischen Infrastruktur und nicht automatisch zu einer NIS-2-Einrichtung. Zwei getrennte Schwellen entscheiden: KRITIS-Betreiber wird nur, wer die Mengenschwellen der BSI-KritisV bei einer kritischen Dienstleistung überschreitet (typischerweise in den Branchen Luftfahrt oder Logistik). NIS-2-Betroffenheit nach Anhang I bzw. II der NIS-2-Richtlinie (EU) 2022/2555 wiederum setzt voraus, dass Sie in einem erfassten Sektor tätig sind und die Größenkriterien erreichen (in der Regel ab 50 Beschäftigten oder mehr als 10 Mio. Euro Jahresumsatz; das BSIG transponiert dies in §28). Wer beide Schwellen unterschreitet, fällt durch die bloße Lieferkettenbeteiligung weder unter KRITIS noch unter NIS 2. Den vollständigen Test finden Sie unter [Wer ist betroffen](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
+          "a": "Nein. Die Beteiligung an der sicheren Lieferkette nach §9a LuftSiG macht ein Unternehmen nicht automatisch zu einer Kritischen Infrastruktur und nicht automatisch zu einer NIS-2-Einrichtung. Zwei getrennte Schwellen entscheiden: KRITIS-Betreiber wird nur, wer die Mengenschwellen der BSI-KritisV bei einer kritischen Dienstleistung überschreitet (typischerweise in den Branchen Luftfahrt oder Logistik). NIS-2-Betroffenheit nach Anhang I bzw. II der NIS-2-Richtlinie (EU) 2022/2555 wiederum setzt voraus, dass Sie in einem erfassten Sektor tätig sind und die Größenkriterien erreichen (in der Regel ab 50 Beschäftigten oder mit jeweils mehr als 10 Mio. Euro Jahresumsatz und Jahresbilanzsumme; das BSIG transponiert dies in §28). Wer beide Schwellen unterschreitet, fällt durch die bloße Lieferkettenbeteiligung weder unter KRITIS noch unter NIS 2. Den vollständigen Test finden Sie unter [Wer ist betroffen](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
         },
         "q25": {
           "q": "Welche Gesellschaftsformen fallen gemäß NIS-2 unter den Sektor Finanzwesen und die Branche Bankwesen?",
@@ -7340,7 +7340,7 @@
       "why": {
         "heading": "Warum auch kleine Zulieferer von NIS2 betroffen sind",
         "p1": "NIS2 (Art. 21 Abs. 2 Buchst. d NIS-2-Richtlinie, in Deutschland § 30 Abs. 2 Nr. 4 BSIG) verpflichtet regulierte Unternehmen ausdrücklich, ihre gesamte Lieferkette abzusichern. Das bedeutet: Die in Deutschland betroffenen Einrichtungen (BSI-Schätzungen liegen im Bereich von rund 29.500) müssen Cybersicherheitsstandards vertraglich von ihren Zulieferern einfordern.",
-        "p2": "Wenn Ihr Unternehmen weniger als 50 Mitarbeiter hat oder unter den Umsatzschwellen liegt, sind Sie nicht direkt von NIS2 reguliert. Aber wenn Sie IT-Dienstleistungen, Software, Komponenten, Logistik oder andere Services an ein reguliertes Unternehmen liefern, werden NIS2-Anforderungen über Ihre Verträge auf Sie zukommen.",
+        "p2": "Wenn Ihr Unternehmen weniger als 50 Mitarbeiter hat und Umsatz und Bilanzsumme nicht beide über 10 Mio. EUR liegen, sind Sie nicht direkt von NIS2 reguliert. Aber wenn Sie IT-Dienstleistungen, Software, Komponenten, Logistik oder andere Services an ein reguliertes Unternehmen liefern, werden NIS2-Anforderungen über Ihre Verträge auf Sie zukommen.",
         "p3": "Das ist keine Theorie. Große Unternehmen aktualisieren bereits ihre Einkaufsbedingungen, fügen Cybersicherheitsklauseln hinzu und fordern Compliance-Nachweise von Zulieferern. Unternehmen, die keine angemessenen Sicherheitsmaßnahmen nachweisen können, riskieren den Verlust von Aufträgen an Wettbewerber."
       },
       "legalBasis": {
@@ -7510,7 +7510,7 @@
           },
           "check": {
             "title": "Schwellenwerte je Land prüfen",
-            "description": "NIS2 gilt für mittlere und große Einrichtungen (50+ Mitarbeitende oder 10 Mio. € Jahresumsatz). Wenden Sie den Schwellenwerttest pro juristische Person an: nicht konzernweit. Eine kleine Tochtergesellschaft kann unterhalb der Schwelle liegen."
+            "description": "NIS2 gilt für mittlere und große Einrichtungen (50+ Mitarbeitende oder jeweils über 10 Mio. € Jahresumsatz und Bilanzsumme). Wenden Sie den Schwellenwerttest pro juristische Person an: nicht konzernweit. Eine kleine Tochtergesellschaft kann unterhalb der Schwelle liegen."
           },
           "register": {
             "title": "Bei jeder nationalen Behörde registrieren",
@@ -8040,7 +8040,7 @@
           "framework": {
             "section": "§28 + §30 BSIG",
             "title": "Anwendungsbereich und die zehn Maßnahmen",
-            "body": "§28 BSIG legt fest, wer in den Anwendungsbereich fällt: 'besonders wichtige' und 'wichtige' Einrichtungen, bestimmt nach Sektor (Anhang I und II der Richtlinie) und Größe (ab 50 Beschäftigten oder 10 Mio. € Umsatz, mit Ausnahmen). §30 BSIG listet die zehn Cybersicherheitsmaßnahmen, die jede in den Anwendungsbereich fallende Einrichtung umsetzen muss. §30 setzt Artikel 21(2) der Richtlinie um."
+            "body": "§28 BSIG legt fest, wer in den Anwendungsbereich fällt: 'besonders wichtige' und 'wichtige' Einrichtungen, bestimmt nach Sektor (Anhang I und II der Richtlinie) und Größe (ab 50 Beschäftigten oder jeweils über 10 Mio. € Umsatz und Bilanzsumme, mit Ausnahmen). §30 BSIG listet die zehn Cybersicherheitsmaßnahmen, die jede in den Anwendungsbereich fallende Einrichtung umsetzen muss. §30 setzt Artikel 21(2) der Richtlinie um."
           },
           "monitoring": {
             "section": "§32 + §33 BSIG",
@@ -9729,7 +9729,7 @@
       "overview": {
         "heading": "Die Kurzfassung",
         "p1": "Krankenhäuser stehen in Anhang I Sektor 5 NIS 2 (Gesundheitswesen). Die Richtlinie erfasst sie als Gesundheitsdienstleister im Sinne des Artikels 3 Buchstabe g der Richtlinie 2011/24/EU. Der Sektor ist breiter als nur Krankenhäuser: EU-Referenzlaboratorien, Forschung und Entwicklung an Arzneimitteln, pharmazeutische Hersteller und Hersteller kritischer Medizinprodukte fallen ebenfalls in Sektor 5.",
-        "p2": "Ob NIS 2 Sie bindet, entscheidet Artikel 2(1). Sie sind im Anwendungsbereich, wenn Sie ein mittleres Unternehmen nach Empfehlung 2003/361/EG sind oder darüber liegen. Die Schwelle für mittlere Unternehmen liegt bei 50 Beschäftigten oder 10 Millionen Euro Jahresumsatz oder Jahresbilanzsumme. Eine Klinik mit 60 Beschäftigten ist drin. Eine Facharztpraxis mit 20 Beschäftigten in der Regel nicht.",
+        "p2": "Ob NIS 2 Sie bindet, entscheidet Artikel 2(1). Sie sind im Anwendungsbereich, wenn Sie ein mittleres Unternehmen nach Empfehlung 2003/361/EG sind oder darüber liegen. Die Schwelle für mittlere Unternehmen liegt bei 50 Beschäftigten, oder bei Jahresumsatz und Jahresbilanzsumme von jeweils über 10 Millionen Euro. Eine Klinik mit 60 Beschäftigten ist drin. Eine Facharztpraxis mit 20 Beschäftigten in der Regel nicht.",
         "p3": "In Deutschland läuft daneben ein zweites Regime: KRITIS. Die BSI-Kritisverordnung legt für Krankenhäuser eine Schwelle von 30.000 vollstationären Krankenhausfällen pro Jahr fest. KRITIS-Krankenhäuser sind weiterhin NIS 2 Einrichtungen, tragen aber zusätzlich die strengeren Pflichten aus den KRITIS-Abschnitten des BSIG. KRITIS ist nicht die NIS 2 Schwelle. Zwei Prüfungen."
       },
       "legalAnchor": {
@@ -9743,7 +9743,7 @@
         "regulation": {
           "label": "Artikel 2(1) NIS 2 + Empfehlung 2003/361/EG",
           "quote": "Diese Richtlinie gilt für öffentliche und private Einrichtungen einer in Anhang I oder II genannten Art, die als mittlere Unternehmen nach Artikel 2 des Anhangs der Empfehlung 2003/361/EG einzustufen sind oder die Schwellenwerte für mittlere Unternehmen nach Absatz 1 jenes Artikels überschreiten.",
-          "context": "Artikel 2(1) ist die Anwendungsregel. Die Größenschwelle aus 2003/361/EG für mittlere Unternehmen liegt bei 50 Beschäftigten oder 10 Millionen Euro Jahresumsatz oder Jahresbilanzsumme. Eine der beiden Schwellen reicht."
+          "context": "Artikel 2(1) ist die Anwendungsregel. Die Größenschwelle aus 2003/361/EG für mittlere Unternehmen liegt bei 50 Beschäftigten, oder bei Jahresumsatz und Jahresbilanzsumme von jeweils über 10 Millionen Euro. Eine der beiden Schwellen reicht."
         },
         "transposition": {
           "label": "§28 BSIG und KRITIS-Verordnung (Deutschland)",
@@ -9763,7 +9763,7 @@
           "size": {
             "section": "Prüfung 2",
             "title": "Größenprüfung (Art. 2(1))",
-            "body": "Haben Sie 50 Beschäftigte oder mehr, oder 10 Millionen Euro Jahresumsatz oder Jahresbilanzsumme oder mehr? Eine der beiden Schwellen reicht. Darunter sind Sie draußen, mit den engen Ausnahmen aus Art. 2(2) und (3) (Anwendung unabhängig von der Größe für Alleinanbieter, öffentliche Verwaltung, qualifizierte Vertrauensdiensteanbieter und einige weitere)."
+            "body": "Haben Sie 50 Beschäftigte oder mehr, oder liegen Jahresumsatz und Jahresbilanzsumme jeweils über 10 Millionen Euro? Eine der beiden Schwellen reicht. Darunter sind Sie draußen, mit den engen Ausnahmen aus Art. 2(2) und (3) (Anwendung unabhängig von der Größe für Alleinanbieter, öffentliche Verwaltung, qualifizierte Vertrauensdiensteanbieter und einige weitere)."
           },
           "kritis": {
             "section": "Prüfung 3",
@@ -9813,7 +9813,7 @@
         "items": {
           "kritisThreshold": {
             "myth": "Wir liegen unter 30.000 Fällen pro Jahr, also sind wir raus.",
-            "reality": "Das ist die KRITIS-Schwelle, nicht die NIS 2 Schwelle. NIS 2 nutzt Artikel 2(1): 50 Beschäftigte oder 10 Millionen Euro Umsatz. Eine Regionalklinik mit 60 Beschäftigten und 8.000 Fällen pro Jahr ist in NIS 2 und nicht in KRITIS. Beides kann gleichzeitig zutreffen."
+            "reality": "Das ist die KRITIS-Schwelle, nicht die NIS 2 Schwelle. NIS 2 nutzt Artikel 2(1): 50 Beschäftigte oder jeweils über 10 Millionen Euro Umsatz und Bilanzsumme. Eine Regionalklinik mit 60 Beschäftigten und 8.000 Fällen pro Jahr ist in NIS 2 und nicht in KRITIS. Beides kann gleichzeitig zutreffen."
           },
           "onlyIt": {
             "myth": "NIS 2 betrifft nur die IT-Systeme, nicht den Rest des Krankenhauses.",
@@ -10141,7 +10141,7 @@
         "directive": {
           "label": "NIS 2-Richtlinie (2022/2555), Anhang I Sektor 8 und Art. 2 Abs. 2 Buchst. a",
           "quote": "Sektor 8 Digitale Infrastruktur: Anbieter öffentlicher elektronischer Kommunikationsnetze; Anbieter öffentlich zugänglicher elektronischer Kommunikationsdienste. Diese Richtlinie gilt zudem unabhängig von ihrer Größe für Einrichtungen, die unter eines der folgenden Kriterien fallen: a) Anbieter öffentlicher elektronischer Kommunikationsnetze oder Anbieter öffentlich zugänglicher elektronischer Kommunikationsdienste.",
-          "context": "Beide Stellen gehören zusammen gelesen. Anhang I Sektor 8 nennt die Telekommunikation als wesentliche Infrastruktur. Art. 2 Abs. 2 Buchst. a macht für genau diese Anbieter eine Größenausnahme nach oben offen. Die übliche Schwelle für mittlere Unternehmen (50 Beschäftigte oder 10 Mio. EUR Umsatz) gilt hier nicht."
+          "context": "Beide Stellen gehören zusammen gelesen. Anhang I Sektor 8 nennt die Telekommunikation als wesentliche Infrastruktur. Art. 2 Abs. 2 Buchst. a macht für genau diese Anbieter eine Größenausnahme nach oben offen. Die übliche Schwelle für mittlere Unternehmen (50 Beschäftigte oder jeweils über 10 Mio. EUR Umsatz und Bilanzsumme) gilt hier nicht."
         },
         "regulation": {
           "label": "Richtlinie (EU) 2018/1972 (Europäischer Kodex für die elektronische Kommunikation), Art. 2",
@@ -10171,7 +10171,7 @@
           "sizeIrrelevant": {
             "section": "Test C",
             "title": "Die Größe spielt keine Rolle",
-            "body": "Art. 2 Abs. 2 Buchst. a hebt die übliche Schwelle von 50 Beschäftigten oder 10 Mio. EUR Umsatz für die Telekommunikation auf. Ein regionaler Glasfaser-ISP mit fünf Beschäftigten und ein kleiner IP-Telefonie-Reseller liegen auf derselben Rechtsgrundlage im Anwendungsbereich wie die Deutsche Telekom. Eine Kleinbetriebs-Ausnahme gibt es in diesem Sektor nicht."
+            "body": "Art. 2 Abs. 2 Buchst. a hebt die übliche Schwelle von 50 Beschäftigten oder jeweils über 10 Mio. EUR Umsatz und Bilanzsumme für die Telekommunikation auf. Ein regionaler Glasfaser-ISP mit fünf Beschäftigten und ein kleiner IP-Telefonie-Reseller liegen auf derselben Rechtsgrundlage im Anwendungsbereich wie die Deutsche Telekom. Eine Kleinbetriebs-Ausnahme gibt es in diesem Sektor nicht."
           }
         }
       },
@@ -10221,7 +10221,7 @@
         "items": {
           "tooSmall": {
             "myth": "Wir haben nur fünf Beschäftigte, also greift die Größenschwelle.",
-            "reality": "Nicht für die Telekommunikation. Art. 2 Abs. 2 Buchst. a NIS 2 listet Anbieter öffentlicher Netze und Anbieter öffentlich zugänglicher Dienste als größenunabhängige Kategorie. Die Schwelle von 50 Beschäftigten oder 10 Mio. EUR Umsatz, die die übrigen Sektoren filtert, gilt hier nicht. Ein regionaler ISP mit fünf Beschäftigten liegt auf derselben Stufe wie ein nationaler Carrier im Anwendungsbereich."
+            "reality": "Nicht für die Telekommunikation. Art. 2 Abs. 2 Buchst. a NIS 2 listet Anbieter öffentlicher Netze und Anbieter öffentlich zugänglicher Dienste als größenunabhängige Kategorie. Die Schwelle von 50 Beschäftigten oder jeweils über 10 Mio. EUR Umsatz und Bilanzsumme, die die übrigen Sektoren filtert, gilt hier nicht. Ein regionaler ISP mit fünf Beschäftigten liegt auf derselben Stufe wie ein nationaler Carrier im Anwendungsbereich."
           },
           "notMsp": {
             "myth": "Wir sind kein MSP, also greift Sektor 8 nicht.",
@@ -10304,7 +10304,7 @@
           "size": {
             "section": "Größe",
             "title": "Mittleres Unternehmen oder größer?",
-            "body": "Empfehlung 2003/361/EG definiert mittel als 50 Beschäftigte oder mehr, ODER Umsatz von mindestens 10 Millionen Euro UND Bilanzsumme von mindestens 10 Millionen Euro. Artikel 2(1) erfasst Sie ab mittel aufwärts. Verbundene Unternehmen werden zusammengerechnet: Wenn eine Muttergesellschaft mehr als 50 Prozent der Stimmrechte hält, werden Beschäftigtenzahl und Umsatz kumuliert. Eine Tochter mit 30 Mitarbeitenden in einer Gruppe mit 5000 zählt mit den Gruppenzahlen."
+            "body": "Empfehlung 2003/361/EG definiert mittel als 50 Beschäftigte oder mehr, ODER Umsatz von über 10 Millionen Euro UND Bilanzsumme von über 10 Millionen Euro. Artikel 2(1) erfasst Sie ab mittel aufwärts. Verbundene Unternehmen werden zusammengerechnet: Wenn eine Muttergesellschaft mehr als 50 Prozent der Stimmrechte hält, werden Beschäftigtenzahl und Umsatz kumuliert. Eine Tochter mit 30 Mitarbeitenden in einer Gruppe mit 5000 zählt mit den Gruppenzahlen."
           },
           "override": {
             "section": "Übersteuerung",
@@ -11346,7 +11346,7 @@
       "overview": {
         "heading": "Die Kurzfassung",
         "p1": "Wer Cloud-Computing-Dienste an Kundinnen und Kunden anbietet, fällt unter NIS 2, sobald die Schwelle zum mittleren Unternehmen erreicht ist. Anhang I Sektor 8 nennt Anbieter von Cloud-Computing-Diensten direkt unter Digitale Infrastruktur. Die Definition in Art. 6 Nr. 30 ist weit gefasst: IaaS, PaaS, SaaS, Public Cloud, als Dienst angebotene Private Cloud, Hybridangebote, alles ist erfasst.",
-        "p2": "Anders als Telekommunikation oder DNS stehen Cloud-Anbieter nicht auf der größenunabhängigen Liste in Art. 2 Abs. 2. Es gilt die übliche Prüfung nach Art. 2 Abs. 1. Mittlere Unternehmen im Sinne der Empfehlung 2003/361/EG sind solche ab 50 Beschäftigten oder mit einem Jahresumsatz über 10 Mio. EUR (Bilanzsumme über 10 Mio. EUR als Alternative). Wer eine der Schwellen reißt, fällt in den Anwendungsbereich. Wer unter beiden bleibt, ist auf der Cloud-Zeile in der Regel draußen.",
+        "p2": "Anders als Telekommunikation oder DNS stehen Cloud-Anbieter nicht auf der größenunabhängigen Liste in Art. 2 Abs. 2. Es gilt die übliche Prüfung nach Art. 2 Abs. 1. Mittlere Unternehmen im Sinne der Empfehlung 2003/361/EG sind solche ab 50 Beschäftigten oder mit Jahresumsatz und Bilanzsumme von jeweils über 10 Mio. EUR. Wer eine der beiden Schwellen reißt, fällt in den Anwendungsbereich. Wer unter beiden bleibt, ist auf der Cloud-Zeile in der Regel draußen.",
         "p3": "Deutschland setzt das in §28 BSIG um. Das BSI ist zuständig. Zusätzlich zur Richtlinie listet die Durchführungsverordnung (EU) 2024/2690 Cloud-Anbieter in ihrem Anhang. Ihre technischen und methodischen Anforderungen binden unmittelbar, ohne weitere nationale Umsetzung. Diese Seite geht die Richtlinie, die EU-Definition und die deutsche Umsetzung in dieser Reihenfolge durch."
       },
       "legalAnchor": {
@@ -11380,7 +11380,7 @@
           "sizeTest": {
             "section": "Test B",
             "title": "Wird die Größenschwelle erreicht?",
-            "body": "Cloud-Anbieter folgen der üblichen Prüfung nach Art. 2 Abs. 1. Nach Empfehlung 2003/361/EG beginnt 'mittel' bei 50 Beschäftigten oder einem Jahresumsatz über 10 Mio. EUR (Bilanzsumme über 10 Mio. EUR als Alternative). Bei 250 Beschäftigten oder einem Umsatz über 50 Mio. EUR liegt ein großes Unternehmen vor, das als 'wesentlich' eingestuft wird. Unter 50 Beschäftigten und unter 10 Mio. EUR Umsatz liegt man auf der Cloud-Zeile in der Regel außerhalb des Anwendungsbereichs."
+            "body": "Cloud-Anbieter folgen der üblichen Prüfung nach Art. 2 Abs. 1. Nach Empfehlung 2003/361/EG beginnt 'mittel' bei 50 Beschäftigten oder bei Jahresumsatz und Bilanzsumme von jeweils über 10 Mio. EUR. Bei 250 Beschäftigten oder einem Umsatz über 50 Mio. EUR und zugleich einer Bilanzsumme über 43 Mio. EUR liegt ein großes Unternehmen vor, das als 'wesentlich' eingestuft wird. Unter 50 Beschäftigten und unter 10 Mio. EUR Umsatz liegt man auf der Cloud-Zeile in der Regel außerhalb des Anwendungsbereichs."
           },
           "cirDirect": {
             "section": "Test C",
@@ -11439,7 +11439,7 @@
           },
           "nicheSaas": {
             "myth": "Wir sind ein kleiner SaaS-Anbieter, also gelten Cloud-Regeln für uns nicht.",
-            "reality": "Die Prüfung ist zweiteilig. Erst Art. 6 Nr. 30: Ein mandantenfähiges SaaS-Angebot, das über das Netz auf einer geteilten Infrastruktur verkauft wird, erfüllt die Definition. Dann Art. 2 Abs. 1: die Größenschwelle. Unter 50 Beschäftigten und unter 10 Mio. EUR Umsatz liegt man auf der Cloud-Zeile außerhalb. Wer eine der Schwellen reißt, liegt drin. 'Nische' ist keine rechtliche Kategorie. Die Zahlen und die Definition entscheiden."
+            "reality": "Die Prüfung ist zweiteilig. Erst Art. 6 Nr. 30: Ein mandantenfähiges SaaS-Angebot, das über das Netz auf einer geteilten Infrastruktur verkauft wird, erfüllt die Definition. Dann Art. 2 Abs. 1: die Größenschwelle. Unter 50 Beschäftigten und unter 10 Mio. EUR Umsatz liegt man auf der Cloud-Zeile außerhalb. Wer 50 Beschäftigte erreicht oder bei Umsatz und Bilanzsumme jeweils über 10 Mio. EUR liegt, ist drin. 'Nische' ist keine rechtliche Kategorie. Die Zahlen und die Definition entscheiden."
           },
           "privateCloud": {
             "myth": "Wir betreiben eine Private Cloud für die eigene Gruppe, also sind wir ein Cloud-Anbieter im Anwendungsbereich.",
@@ -11484,7 +11484,7 @@
       "overview": {
         "heading": "Die Kurzfassung",
         "p1": "Wer einen Rechenzentrumsdienst an Dritte verkauft, fällt in den Anwendungsbereich, sobald die übliche NIS 2-Größenschwelle erreicht ist. Anhang I Sektor 8 nennt Anbieter von Rechenzentrumsdiensten direkt unter Digitale Infrastruktur. Art. 6 Nr. 31 beschreibt, was als Dienst gilt: die IT- und Netzwerktechnik plus die unterstützende Strom- und Klimainfrastruktur. Das Gebäude, die USV, die Kälteanlagen und das Notstromaggregat sind Teil des Dienstes, nicht etwas daneben.",
-        "p2": "Der Größentest ist der reguläre NIS 2-Test. Art. 2 Abs. 1 der Richtlinie verweist auf die Empfehlung 2003/361/EG: mittlere Unternehmen (ab 50 Beschäftigten oder ab 10 Mio. EUR Jahresumsatz und Jahresbilanzsumme) fallen unter das Regime als wichtige Einrichtungen, große Unternehmen als besonders wichtige Einrichtungen. Eine größenunabhängige Aufnahme wie bei Telekommunikation oder DNS gibt es für Rechenzentren nicht.",
+        "p2": "Der Größentest ist der reguläre NIS 2-Test. Art. 2 Abs. 1 der Richtlinie verweist auf die Empfehlung 2003/361/EG: mittlere Unternehmen (ab 50 Beschäftigten oder mit jeweils über 10 Mio. EUR Jahresumsatz und Jahresbilanzsumme) fallen unter das Regime als wichtige Einrichtungen, große Unternehmen als besonders wichtige Einrichtungen. Eine größenunabhängige Aufnahme wie bei Telekommunikation oder DNS gibt es für Rechenzentren nicht.",
         "p3": "Deutschland setzt das in §28 BSIG um. Die Schwelle der KRITIS-Verordnung (3,5 MW IT-Anschlussleistung) ist ein eigenständiger deutscher Aufsatz, der entscheidet, ob ein Rechenzentrum zusätzlich KRITIS ist, mit zusätzlichen Pflichten. Sie entscheidet nicht, ob NIS 2 greift. Die Durchführungsverordnung (EU) 2024/2690 listet Anbieter von Rechenzentrumsdiensten namentlich im Anhang, das heißt Teile der Verordnung binden Rechenzentren unmittelbar, ohne weitere nationale Umsetzung."
       },
       "legalAnchor": {
@@ -11503,7 +11503,7 @@
         "transposition": {
           "label": "§28 BSIG (Deutschland) und KRITIS-Verordnung",
           "quote": "Anbieter von Rechenzentrumsdiensten gelten ab dem Schwellenwert für mittlere Unternehmen als wichtige Einrichtungen, ab dem Schwellenwert für große Unternehmen als besonders wichtige Einrichtungen im Sinne dieses Gesetzes.",
-          "context": "§28 BSIG setzt die NIS 2-Pflichten für Rechenzentren um. Der Größentest aus Art. 2 Abs. 1 (50 Beschäftigte oder 10 Mio. EUR Umsatz) entscheidet über die Einstufung als wichtige oder besonders wichtige Einrichtung. Die KRITIS-Verordnung ist eine eigene deutsche Schicht mit der Schwelle 3,5 MW IT-Anschlussleistung für Rechenzentren. KRITIS legt zusätzliche Pflichten obendrauf, sie ist nicht die Eingangsbedingung für NIS 2. Ein Colocation-Betreiber mit 25 MW liegt in beiden Regimen. Ein Standort mit 200 Beschäftigten und 1 MW IT-Anschlussleistung liegt in NIS 2, aber nicht in KRITIS."
+          "context": "§28 BSIG setzt die NIS 2-Pflichten für Rechenzentren um. Der Größentest aus Art. 2 Abs. 1 (50 Beschäftigte oder jeweils über 10 Mio. EUR Umsatz und Bilanzsumme) entscheidet über die Einstufung als wichtige oder besonders wichtige Einrichtung. Die KRITIS-Verordnung ist eine eigene deutsche Schicht mit der Schwelle 3,5 MW IT-Anschlussleistung für Rechenzentren. KRITIS legt zusätzliche Pflichten obendrauf, sie ist nicht die Eingangsbedingung für NIS 2. Ein Colocation-Betreiber mit 25 MW liegt in beiden Regimen. Ein Standort mit 200 Beschäftigten und 1 MW IT-Anschlussleistung liegt in NIS 2, aber nicht in KRITIS."
         }
       },
       "elements": {
@@ -11518,7 +11518,7 @@
           "sizeTest": {
             "section": "Test B",
             "title": "Wird die Größenschwelle erreicht?",
-            "body": "Art. 2 Abs. 1 NIS 2 verweist auf die Empfehlung 2003/361/EG. Mittlere Unternehmen (ab 50 Beschäftigten oder ab 10 Mio. EUR Jahresumsatz und Jahresbilanzsumme) fallen als wichtige Einrichtungen unter das Regime. Große Unternehmen (über 250 Beschäftigte oder über 50 Mio. EUR Umsatz) als besonders wichtige Einrichtungen. Eine größenunabhängige Ausnahme nach oben gibt es für Rechenzentren nicht."
+            "body": "Art. 2 Abs. 1 NIS 2 verweist auf die Empfehlung 2003/361/EG. Mittlere Unternehmen (ab 50 Beschäftigten oder mit jeweils über 10 Mio. EUR Jahresumsatz und Jahresbilanzsumme) fallen als wichtige Einrichtungen unter das Regime. Große Unternehmen (ab 250 Beschäftigten oder über 50 Mio. EUR Umsatz und über 43 Mio. EUR Bilanzsumme) als besonders wichtige Einrichtungen. Eine größenunabhängige Ausnahme nach oben gibt es für Rechenzentren nicht."
           },
           "kritisOverlap": {
             "section": "Test C",
@@ -11577,7 +11577,7 @@
           },
           "belowKritis": {
             "myth": "Wir liegen deutlich unter den 3,5 MW der KRITIS-V, also gilt NIS 2 nicht.",
-            "reality": "KRITIS-V und NIS 2 sind zwei Regime mit zwei Schwellen. Die 3,5 MW IT-Anschlussleistung sind der deutsche KRITIS-Aufsatz. NIS 2 hat einen eigenen Größentest nach Art. 2 Abs. 1: mittleres Unternehmen ab 50 Beschäftigten oder 10 Mio. EUR Jahresumsatz und Jahresbilanzsumme. Ein Colocation-Betreiber mit 200 Beschäftigten und 1 MW IT-Anschlussleistung liegt in NIS 2, aber nicht in KRITIS. KRITIS-raus ist nicht NIS 2-raus."
+            "reality": "KRITIS-V und NIS 2 sind zwei Regime mit zwei Schwellen. Die 3,5 MW IT-Anschlussleistung sind der deutsche KRITIS-Aufsatz. NIS 2 hat einen eigenen Größentest nach Art. 2 Abs. 1: mittleres Unternehmen ab 50 Beschäftigten oder mit jeweils über 10 Mio. EUR Jahresumsatz und Jahresbilanzsumme. Ein Colocation-Betreiber mit 200 Beschäftigten und 1 MW IT-Anschlussleistung liegt in NIS 2, aber nicht in KRITIS. KRITIS-raus ist nicht NIS 2-raus."
           },
           "colocationOnly": {
             "myth": "Wir machen nur Colocation, die Server gehören dem Kunden, also erbringen wir keinen Rechenzentrumsdienst.",
@@ -11622,7 +11622,7 @@
       "overview": {
         "heading": "Die Kurzfassung",
         "p1": "Hersteller von Medizinprodukten stehen gleichzeitig in zwei Anhängen der NIS 2. Anhang I Sektor 5 erfasst sie über den fünften Gedankenstrich als Hersteller von Medizinprodukten, die während einer Notlage im Bereich der öffentlichen Gesundheit als kritisch im Sinne des Artikels 22 der Verordnung (EU) 2022/123 eingestuft sind. Das ist die EMA-Liste kritischer Medizinprodukte. Unternehmen auf dieser Liste sind wesentliche Einrichtungen und stehen im höheren Bußgeldrahmen.",
-        "p2": "Anhang II Sektor 5 erfasst den Rest der Branche. Die Unterkategorien sind Hersteller von Medizinprodukten im Sinne des Artikels 2 Nummer 1 der Verordnung (EU) 2017/745 (MDR) und Hersteller von In-vitro-Diagnostika im Sinne des Artikels 2 Nummer 2 der Verordnung (EU) 2017/746 (IVDR). Das sind wichtige Einrichtungen. Gleiche Größenschwelle wie alle anderen: 50 Beschäftigte oder 10 Millionen Euro Jahresumsatz oder Jahresbilanzsumme.",
+        "p2": "Anhang II Sektor 5 erfasst den Rest der Branche. Die Unterkategorien sind Hersteller von Medizinprodukten im Sinne des Artikels 2 Nummer 1 der Verordnung (EU) 2017/745 (MDR) und Hersteller von In-vitro-Diagnostika im Sinne des Artikels 2 Nummer 2 der Verordnung (EU) 2017/746 (IVDR). Das sind wichtige Einrichtungen. Gleiche Größenschwelle wie alle anderen: 50 Beschäftigte, oder Jahresumsatz und Jahresbilanzsumme von jeweils über 10 Millionen Euro.",
         "p3": "MDR und IVDR laufen parallel, sie ersetzen NIS 2 nicht. MDR betrifft das Produkt, NIS 2 betrifft das Unternehmen. Die Cybersicherheitsanforderung aus Anhang I Nummer 17.2 MDR liegt auf Produktebene. Die Pflichten aus Artikel 21 NIS 2 liegen auf Unternehmensebene. Beides gilt. Es gibt keine Lex-specialis-Ausnahme im Stil von DORA für Medizinproduktehersteller."
       },
       "legalAnchor": {
@@ -11640,7 +11640,7 @@
         },
         "transposition": {
           "label": "§28 BSIG und Artikel 2(1) NIS 2 (Größenschwelle)",
-          "quote": "§28 BSIG setzt den Anwendungsbereich nach Anhang I und Anhang II in deutsches Recht um. Artikel 2(1) NIS 2 und Empfehlung 2003/361/EG legen die Größenschwelle fest: 50 Beschäftigte oder mehr, oder 10 Millionen Euro Jahresumsatz oder Jahresbilanzsumme oder mehr.",
+          "quote": "§28 BSIG setzt den Anwendungsbereich nach Anhang I und Anhang II in deutsches Recht um. Artikel 2(1) NIS 2 und Empfehlung 2003/361/EG legen die Größenschwelle fest: 50 Beschäftigte oder mehr, oder Jahresumsatz und Jahresbilanzsumme von jeweils über 10 Millionen Euro.",
           "context": "Zwei Schwellen, eine reicht. Die Größenregel ist für Anhang I und Anhang II identisch. Was sich zwischen beiden ändert, ist der Bußgeldrahmen und das Aufsichtsregime. Das BfArM bleibt zuständig für MDR und IVDR; das BSI ist zuständig für NIS 2. Zwei Behörden, ein Unternehmen."
         }
       },
@@ -11661,7 +11661,7 @@
           "size": {
             "section": "Prüfung 3",
             "title": "Größenprüfung (Art. 2(1))",
-            "body": "Haben Sie 50 Beschäftigte oder mehr, oder 10 Millionen Euro Jahresumsatz oder Jahresbilanzsumme oder mehr? Eine der beiden Schwellen reicht. Darunter sind Sie draußen, mit den engen Ausnahmen aus Art. 2(2) und (3) (Anwendung unabhängig von der Größe für Alleinanbieter, öffentliche Verwaltung, qualifizierte Vertrauensdiensteanbieter und einige weitere)."
+            "body": "Haben Sie 50 Beschäftigte oder mehr, oder liegen Jahresumsatz und Jahresbilanzsumme jeweils über 10 Millionen Euro? Eine der beiden Schwellen reicht. Darunter sind Sie draußen, mit den engen Ausnahmen aus Art. 2(2) und (3) (Anwendung unabhängig von der Größe für Alleinanbieter, öffentliche Verwaltung, qualifizierte Vertrauensdiensteanbieter und einige weitere)."
           }
         }
       },
@@ -11753,7 +11753,7 @@
         "description": "Wer in der EU Maschinen, Anlagen oder Industrieausrüstung baut, fällt sehr wahrscheinlich als wichtige Einrichtung in den Anwendungsbereich von NIS 2 (Anhang II Sektor 5). Diese Seite führt durch den NACE-Test, den Größentest und die OT-Landschaft."
       },
       "title": "Bin ich Maschinenbauer unter NIS 2?",
-      "subtitle": "Anhang II Sektor 5 der NIS 2 Richtlinie zieht das verarbeitende Gewerbe in den Anwendungsbereich. Maschinenbauer sitzen in der Unterkategorie (d), NACE-Abteilung C28. Ab 50 Beschäftigten oder 10 Millionen Euro Umsatz sind Sie wichtige Einrichtung mit denselben zehn Pflichten aus Artikel 21 Absatz 2 wie die Großen.",
+      "subtitle": "Anhang II Sektor 5 der NIS 2 Richtlinie zieht das verarbeitende Gewerbe in den Anwendungsbereich. Maschinenbauer sitzen in der Unterkategorie (d), NACE-Abteilung C28. Ab 50 Beschäftigten oder mit jeweils über 10 Millionen Euro Umsatz und Bilanzsumme sind Sie wichtige Einrichtung mit denselben zehn Pflichten aus Artikel 21 Absatz 2 wie die Großen.",
       "overview": {
         "heading": "Die kurze Fassung",
         "p1": "NIS 2 erfasst das verarbeitende Gewerbe als sonstigen kritischen Sektor. Anhang II Sektor 5 nennt sechs Unterkategorien. Herstellung von Maschinen und Ausrüstung anderweitig nicht genannt, NACE-Abteilung C28, ist eine davon. Wer das tut und über der Größenschwelle liegt, fällt unter NIS 2.",
@@ -11841,7 +11841,7 @@
         "items": {
           "onlyBigCompanies": {
             "myth": "NIS 2 ist für große Industriegruppen, nicht für unsere 80 Mann starke Maschinenbude.",
-            "reality": "Der Größentest steht bei 50 Beschäftigten oder 10 Millionen Euro Umsatz. Eine 80 Mann starke Maschinenbude mit NACE C28 fällt klar darunter. Die Kategorie 'wichtige Einrichtung' aus Anhang II existiert genau für die Mittelstandsschicht. Die Bußgeldobergrenze liegt niedriger als bei besonders wichtigen Einrichtungen, die zehn Pflichten aus Artikel 21 Absatz 2 sind dieselben."
+            "reality": "Der Größentest steht bei 50 Beschäftigten oder jeweils über 10 Millionen Euro Umsatz und Bilanzsumme. Eine 80 Mann starke Maschinenbude mit NACE C28 fällt klar darunter. Die Kategorie 'wichtige Einrichtung' aus Anhang II existiert genau für die Mittelstandsschicht. Die Bußgeldobergrenze liegt niedriger als bei besonders wichtigen Einrichtungen, die zehn Pflichten aus Artikel 21 Absatz 2 sind dieselben."
           },
           "justAssembly": {
             "myth": "Wir machen nur Endmontage, die eigentliche Fertigung sitzt bei unseren Lieferanten.",
@@ -12022,7 +12022,7 @@
       "subtitle": "Nach Artikel 2(1) NIS 2 gilt die Richtlinie nur für mittlere und größere Einrichtungen. Das ist die Schlagzeile. Die Realität ist eine dreistufige Prüfung: die Größendefinition aus der Empfehlung 2003/361/EG, die Regel für verbundene Unternehmen und die Sonderbestimmungen aus Artikel 2(2), die Kleinstunternehmen und kleine Einrichtungen wieder in den Anwendungsbereich holen.",
       "overview": {
         "heading": "Die Kurzfassung",
-        "p1": "NIS 2 setzt eine Größenuntergrenze. Im Grundsatz gilt die Richtlinie nur für Einrichtungen, die nach der Empfehlung 2003/361/EG mindestens die Schwelle für mittlere Unternehmen erreichen: 50 Beschäftigte oder mehr, oder Jahresumsatz über 10 Millionen Euro, oder Bilanzsumme über 10 Millionen Euro. Kleinstunternehmen und kleine Einrichtungen liegen darunter.",
+        "p1": "NIS 2 setzt eine Größenuntergrenze. Im Grundsatz gilt die Richtlinie nur für Einrichtungen, die nach der Empfehlung 2003/361/EG mindestens die Schwelle für mittlere Unternehmen erreichen: 50 Beschäftigte oder mehr, oder Jahresumsatz und Bilanzsumme von jeweils über 10 Millionen Euro. Kleinstunternehmen und kleine Einrichtungen liegen darunter.",
         "p2": "Klingt einfach. Ist es nicht. Die Empfehlung hat eigene Zaehlregeln. Artikel 3(3) im Anhang sagt: hält eine Muttergesellschaft mehr als 50 Prozent der Stimmrechte an einer Tochter, werden Mitarbeiterzahl und Umsatz aggregiert. Eine kleine Tochter eines großen Konzerns ist unter diesem Regime keine kleine Einrichtung.",
         "p3": "Artikel 2(2) NIS 2 nennt dann Kategorien, die unabhängig von der Größe erfasst sind. Telekommunikation, qualifizierte Vertrauensdienste, DNS, TLD Registries, alleinige Anbieter eines wesentlichen Dienstes in einem Mitgliedstaat, Einrichtungen der öffentlichen Verwaltung und einige weitere. Wer in eine dieser Kategorien fällt, dem hilft der Größentest nicht. Die Ausnahme ist der Beginn der Prüfung, nicht das Ende."
       },
@@ -12037,7 +12037,7 @@
         "regulation": {
           "label": "Artikel 2(2) und (3), Anhang Empfehlung 2003/361/EG",
           "quote": "Die Größenklasse der Kleinstunternehmen sowie der kleinen und mittleren Unternehmen (KMU) setzt sich aus Unternehmen zusammen, die weniger als 250 Personen beschäftigen und die entweder einen Jahresumsatz von höchstens 50 Mio. EUR erzielen oder deren Jahresbilanzsumme sich auf höchstens 43 Mio. EUR beläuft. Innerhalb der KMU-Gruppe gilt als kleines Unternehmen ein Unternehmen, das weniger als 50 Personen beschäftigt und dessen Jahresumsatz bzw. Jahresbilanz 10 Mio. EUR nicht überschreitet. Innerhalb der KMU-Gruppe gilt als Kleinstunternehmen ein Unternehmen, das weniger als 10 Personen beschäftigt und dessen Jahresumsatz bzw. Jahresbilanz 2 Mio. EUR nicht überschreitet.",
-          "context": "Die Empfehlung liefert die Zahlen. Kleinstunternehmen: weniger als 10 Beschäftigte UND Umsatz oder Bilanz bis 2 Millionen Euro. Klein: weniger als 50 Beschäftigte UND Umsatz oder Bilanz bis 10 Millionen Euro. Mittel: ab 50 Beschäftigten bis 249 ODER Umsatz über 10 Millionen Euro. Um in einer Größenklasse zu bleiben, muss man bei Beschäftigten UND bei Umsatz oder Bilanz darunter liegen. Schon ein Wert darüber hebt einen in die nächste Klasse."
+          "context": "Die Empfehlung liefert die Zahlen. Kleinstunternehmen: weniger als 10 Beschäftigte UND Umsatz oder Bilanz bis 2 Millionen Euro. Klein: weniger als 50 Beschäftigte UND Umsatz oder Bilanz bis 10 Millionen Euro. Mittel: ab 50 Beschäftigten bis 249 ODER Umsatz und Bilanz jeweils über 10 Millionen Euro. Um in einer Größenklasse zu bleiben, muss man bei Beschäftigten UND bei Umsatz oder Bilanz darunter liegen. Schon ein Wert darüber hebt einen in die nächste Klasse."
         },
         "transposition": {
           "label": "Artikel 2(2) NIS 2 (unabhängig von der Größe)",
@@ -12111,7 +12111,7 @@
           },
           "staffOverThreshold": {
             "myth": "Wir haben unter 50 Beschäftigte, also gelten wir als klein.",
-            "reality": "Artikel 2(2) im Anhang der Empfehlung muss man genau lesen. Klein heißt weniger als 50 Beschäftigte UND Umsatz oder Bilanz bei 10 Millionen Euro oder darunter. Wird eine der beiden Schwellen überschritten, ist man mittel. Eine Beratung mit 45 Personen und 12 Millionen Euro Umsatz ist nach der Empfehlung mittel, und damit gilt NIS 2, wenn der Sektor passt."
+            "reality": "Artikel 2(2) im Anhang der Empfehlung muss man genau lesen. Klein heißt weniger als 50 Beschäftigte UND Umsatz oder Bilanz bei 10 Millionen Euro oder darunter. Wird eine der beiden Schwellen überschritten, ist man mittel. Eine Beratung mit 45 Personen, 12 Millionen Euro Umsatz und einer Bilanzsumme über 10 Millionen Euro ist nach der Empfehlung mittel, und damit gilt NIS 2, wenn der Sektor passt."
           },
           "parentIndependent": {
             "myth": "Unsere Mutter ist gross, aber wir arbeiten unabhängig, deshalb zählen wir uns alleine.",
@@ -12293,7 +12293,7 @@
         "heading": "Die Kurzfassung",
         "p1": "Vertrauensdiensteanbieter ist, wer einen oder mehrere Vertrauensdienste im Sinne von Artikel 3(16) der eIDAS-Verordnung (EU) 910/2014 erbringt: elektronische Signaturen, elektronische Siegel, elektronische Zeitstempel, elektronische Einschreibedienste, Zertifikate für die Website-Authentifizierung oder die Bewahrung dieser Dienste. Anhang I Sektor 8 NIS 2 nennt Vertrauensdiensteanbieter ausdrücklich als Teil der digitalen Infrastruktur.",
         "p2": "Artikel 2(2)(b) NIS 2 zieht dann einen Hebel, den die meisten anderen Sektoren nicht kennen. Qualifizierte Vertrauensdiensteanbieter im Sinne von Artikel 3(17) eIDAS sind unabhängig von der Größe im Anwendungsbereich. Ein qualifizierter Anbieter mit zwei Beschäftigten, der qualifizierte Zertifikate für elektronische Signaturen ausstellt, ist genauso gebunden wie eine Zertifizierungsstelle mit 500 Beschäftigten. Die Schwelle für mittlere Unternehmen aus Artikel 2(1) greift nicht.",
-        "p3": "Nicht qualifizierte Anbieter folgen der regulären Größenprüfung: mindestens 50 Beschäftigte oder mehr als 10 Millionen Euro Jahresumsatz oder Bilanzsumme. Darunter sind sie außerhalb von NIS 2, wobei Artikel 19 eIDAS sie weiter mit einem Sicherheitsfundament bindet. Zwei Regime laufen ohnehin parallel: eIDAS für den Vertrauensdienst selbst, NIS 2 für die organisationsübergreifenden Cyberpflichten (Artikel 20 Schulung des Leitungsorgans, §32 BSIG Meldepflicht für erhebliche Sicherheitsvorfälle, Artikel 21 Risikomanagementmaßnahmen)."
+        "p3": "Nicht qualifizierte Anbieter folgen der regulären Größenprüfung: mindestens 50 Beschäftigte, oder Jahresumsatz und Bilanzsumme von jeweils mehr als 10 Millionen Euro. Darunter sind sie außerhalb von NIS 2, wobei Artikel 19 eIDAS sie weiter mit einem Sicherheitsfundament bindet. Zwei Regime laufen ohnehin parallel: eIDAS für den Vertrauensdienst selbst, NIS 2 für die organisationsübergreifenden Cyberpflichten (Artikel 20 Schulung des Leitungsorgans, §32 BSIG Meldepflicht für erhebliche Sicherheitsvorfälle, Artikel 21 Risikomanagementmaßnahmen)."
       },
       "legalAnchor": {
         "heading": "Die Rechtsgrundlage",
@@ -16171,7 +16171,7 @@
       "overview": {
         "heading": "Überblick",
         "p1": "NIS 1 war die Richtlinie (EU) 2016/1148. Sie erfasste sieben Sektoren und unterschied zwei Adressatengruppen: Betreiber wesentlicher Dienste (OES) und Anbieter digitaler Dienste (DSP). Die OES wurden von den Mitgliedstaaten einzeln benannt.",
-        "p2": "NIS 2 ist die Richtlinie (EU) 2022/2555. Sie erfasst 15 Sektoren in Anhang I und 7 Sektoren in Anhang II, ersetzt die Unterscheidung OES und DSP durch wesentliche und wichtige Einrichtungen und nutzt eine ausdrückliche Größenschwelle (ab 50 Beschäftigten oder über 10 Millionen Euro Jahresumsatz).",
+        "p2": "NIS 2 ist die Richtlinie (EU) 2022/2555. Sie erfasst 15 Sektoren in Anhang I und 7 Sektoren in Anhang II, ersetzt die Unterscheidung OES und DSP durch wesentliche und wichtige Einrichtungen und nutzt eine ausdrückliche Größenschwelle (ab 50 Beschäftigten oder mit jeweils über 10 Millionen Euro Jahresumsatz und Bilanzsumme).",
         "p3": "Artikel 41 NIS 2 hebt die NIS 1 Richtlinie mit Wirkung vom 18. Oktober 2024 auf. Verweise im nationalen Recht auf die alte Richtlinie gelten ab diesem Datum als Verweise auf NIS 2. Nationale Umsetzungsgesetze (etwa das deutsche BSIG in der NIS 2 Fassung) lösen die frühere Architektur des IT-Sicherheitsgesetzes 2.0 ab."
       },
       "legalAnchor": {
@@ -16200,7 +16200,7 @@
           "scope": {
             "section": "Anwendungsbereich",
             "title": "Von 7 Sektoren mit OES Benennung zu 15 plus 7 Sektoren mit Größenschwelle",
-            "body": "NIS 1 erfasste sieben Sektoren und verlangte eine Einzelbenennung der OES durch die Mitgliedstaaten. NIS 2 listet 15 Sektoren in Anhang I (wesentliche Einrichtungen) und 7 Sektoren in Anhang II (wichtige Einrichtungen) und gilt automatisch fur Einrichtungen dieser Sektoren, die die Größenschwelle erreichen (ab 50 Beschäftigten oder über 10 Millionen Euro Jahresumsatz). Einige Einrichtungstypen sind unabhängig von der Größe erfasst."
+            "body": "NIS 1 erfasste sieben Sektoren und verlangte eine Einzelbenennung der OES durch die Mitgliedstaaten. NIS 2 listet 15 Sektoren in Anhang I (wesentliche Einrichtungen) und 7 Sektoren in Anhang II (wichtige Einrichtungen) und gilt automatisch fur Einrichtungen dieser Sektoren, die die Größenschwelle erreichen (ab 50 Beschäftigten oder mit jeweils über 10 Millionen Euro Jahresumsatz und Bilanzsumme). Einige Einrichtungstypen sind unabhängig von der Größe erfasst."
           },
           "obligations": {
             "section": "Pflichten",
@@ -17413,7 +17413,7 @@
           "scope": {
             "section": "Geltungsbereich",
             "title": "Klären, ob die Richtlinie greift",
-            "body": "NIS 2 greift, wenn das Unternehmen in einem der in Anhang I oder Anhang II genannten Sektoren tätig ist und die Größenschwelle erreicht (mittelgroß im Sinne der Empfehlung 2003/361/EG, also ab 50 Beschäftigten oder mehr als 10 Mio. Euro Umsatz). Einige Einrichtungstypen sind unabhängig von der Größe erfasst: qualifizierte Vertrauensdiensteanbieter, TLD-Namenregister, DNS-Diensteanbieter, öffentliche Verwaltung, alleinige Anbieter eines Dienstes in einem Mitgliedstaat. Die erste Aufgabe des Leitungsorgans ist zu wissen, was davon zutrifft."
+            "body": "NIS 2 greift, wenn das Unternehmen in einem der in Anhang I oder Anhang II genannten Sektoren tätig ist und die Größenschwelle erreicht (mittelgroß im Sinne der Empfehlung 2003/361/EG, also ab 50 Beschäftigten oder mit jeweils mehr als 10 Mio. Euro Umsatz und Bilanzsumme). Einige Einrichtungstypen sind unabhängig von der Größe erfasst: qualifizierte Vertrauensdiensteanbieter, TLD-Namenregister, DNS-Diensteanbieter, öffentliche Verwaltung, alleinige Anbieter eines Dienstes in einem Mitgliedstaat. Die erste Aufgabe des Leitungsorgans ist zu wissen, was davon zutrifft."
           },
           "duties": {
             "section": "Pflichten",

@@ -2681,7 +2681,7 @@
         "items": {
           "awareness": {
             "title": "Lack of awareness",
-            "description": "A G DATA survey conducted in 2024 found that 44% of German mid-market companies were unaware that NIS2 applied to them. The scoping criteria - 50+ employees or EUR 10 million turnover in 18 covered sectors - are not self-evident to companies that have never dealt with IT security regulation. Many companies in sectors like waste management, food production, and chemical manufacturing do not think of themselves as 'critical infrastructure'."
+            "description": "A G DATA survey conducted in 2024 found that 44% of German mid-market companies were unaware that NIS2 applied to them. The scoping criteria - 50+ employees, or turnover and balance sheet total each above EUR 10 million, in 18 covered sectors - are not self-evident to companies that have never dealt with IT security regulation. Many companies in sectors like waste management, food production, and chemical manufacturing do not think of themselves as 'critical infrastructure'."
           },
           "complexity": {
             "title": "Scoping complexity",
@@ -3658,7 +3658,7 @@
           "monitoring": {
             "section": "Test 2",
             "title": "Are you a medium enterprise or larger?",
-            "body": "Threshold is the SME definition in Commission Recommendation 2003/361/EC: at least 50 employees and at least EUR 10 million turnover or balance sheet, or larger. If you are below that, you are out, unless one of the regardless-of-size overrides in Article 2(2) to (4) catches you anyway (e.g. you are the only provider of an essential service, a qualified trust service provider, or a DNS service provider)."
+            "body": "Threshold is the SME definition in Commission Recommendation 2003/361/EC: at least 50 employees, or turnover and balance sheet each above EUR 10 million. If you are below that, you are out, unless one of the regardless-of-size overrides in Article 2(2) to (4) catches you anyway (e.g. you are the only provider of an essential service, a qualified trust service provider, or a DNS service provider)."
           },
           "independent": {
             "section": "Test 3",
@@ -3735,7 +3735,7 @@
         "items": [
           "Directive (EU) 2022/2555 (NIS 2), Article 2 (scope), Annex I and Annex II (sectors), Article 21(2)(d) (supply chain security) and Article 21(3) (consideration of supplier-specific vulnerabilities).",
           "Commission Implementing Regulation (EU) 2024/2690 of 17 October 2024, §5 (supply chain security): procurement policy with selection criteria, supplier risk register, contractual security obligations.",
-          "Commission Recommendation 2003/361/EC, Article 2 of the Annex (definition of medium-sized enterprise: at least 50 employees and at least EUR 10 million turnover or balance-sheet total).",
+          "Commission Recommendation 2003/361/EC, Article 2 of the Annex (definition of medium-sized enterprise: from 50 employees, or with turnover and balance-sheet total each above EUR 10 million).",
           "BSIG (Germany) §28 (Einrichtungsarten und Größenkriterien) and §30 (Risikomanagementmaßnahmen, including Lieferkettensicherheit), implementing NIS 2 Arts. 2 and 21.",
           "ENISA NIS 2 implementation guidance and the Art. 27 entity-register specification: scope under Art. 2 governs whether an entity is registered; supply-chain measures under Art. 21 govern what an in-scope entity does about its suppliers."
         ]
@@ -3854,7 +3854,7 @@
       },
       "practitioner": {
         "heading": "How this plays out in real Mittelstand groups",
-        "p1": "In the groups we see, the question almost always lands on step 3. The operating subsidiary does something from Annex I or II. On its own it is small. Inside the group it sits above 50 staff or above 10 million euro turnover. Under 2003/361/EC, that pulls it in.",
+        "p1": "In the groups we see, the question almost always lands on step 3. The operating subsidiary does something from Annex I or II. On its own it is small. Inside the group it reaches 50 staff, or turnover and balance sheet each above 10 million euro. Under 2003/361/EC, that pulls it in.",
         "p2": "The lever is the Recital 16 independence argument. If a subsidiary is genuinely independent in how it runs (own management body, own customer contracts, own decisions, no group cost allocation that decides its business model), the national authority may treat it as stand-alone for the size test. Write the independence down before you rely on it. Do not assume it."
       },
       "platform": {
@@ -4268,7 +4268,7 @@
           },
           "legal": {
             "title": "5. Consider legal counsel if scope is unclear",
-            "description": "If your company sits near the threshold (close to 50 employees or €10M revenue), operates in a sector that could be interpreted multiple ways, or has a complex corporate structure, consult a lawyer specializing in IT regulation. The cost of a legal opinion (€2,000-5,000) is trivial compared to the cost of either non-compliance or unnecessary compliance. Some industry associations (like Bitkom or BDI) also offer NIS2 scope guidance for members."
+            "description": "If your company sits near the threshold (close to 50 employees, or close to €10M in both turnover and balance sheet total), operates in a sector that could be interpreted multiple ways, or has a complex corporate structure, consult a lawyer specializing in IT regulation. The cost of a legal opinion (€2,000-5,000) is trivial compared to the cost of either non-compliance or unnecessary compliance. Some industry associations (like Bitkom or BDI) also offer NIS2 scope guidance for members."
           }
         }
       },
@@ -4362,12 +4362,12 @@
           "scope": {
             "aspect": "Scope",
             "kritis": "Approximately 2,000 operators of critical infrastructure in 10 sectors, identified by exceeding specific threshold values (e.g., 500,000 people served)",
-            "nis2": "Approximately 30,000 entities across 18 sectors, using a simple size threshold: 50+ employees or €10M+ annual revenue. Includes both 'essential' and 'important' categories"
+            "nis2": "Approximately 30,000 entities across 18 sectors, using a simple size threshold: 50+ employees, or annual turnover and balance sheet total each above €10M. Includes both 'essential' and 'important' categories"
           },
           "threshold": {
             "aspect": "Threshold model",
             "kritis": "Sector-specific quantitative thresholds (e.g., 500,000 supplied persons for energy, 500,000 residents for water). Complex to calculate, many borderline cases",
-            "nis2": "Uniform size criteria: medium enterprise (50+ employees or €10M+ revenue) across all sectors. Much simpler to determine. Some sectors have additional criteria regardless of size"
+            "nis2": "Uniform size criteria: medium enterprise (50+ employees, or turnover and balance sheet each above €10M) across all sectors. Much simpler to determine. Some sectors have additional criteria regardless of size"
           },
           "registration": {
             "aspect": "Registration",
@@ -4513,7 +4513,7 @@
         },
         "cir2024": {
           "term": "CIR 2024/2690",
-          "definition": "The EU Implementing Regulation that sets the technical and methodological requirements for the Article 21(2) measures, but only for certain entity types: DNS service providers, TLD name registries, cloud computing service providers, data centre service providers, content delivery network providers, managed service providers, managed security service providers, providers of online marketplaces, online search engines and social networking services platforms, and trust service providers. Unlike the Directive, this applies directly in all member states without transposition. For those entities it details what 'appropriate cybersecurity measures' actually means in practice - think of it as the technical rulebook that fills in the details the Directive left open.",
+          "definition": "The EU Implementing Regulation that sets the technical and methodological requirements for the Article 21(2) measures, but only for certain entity types: DNS service providers, TLD name registries, cloud computing service providers, data centre service providers, content delivery network providers, managed service providers, managed security service providers, providers of online marketplaces, online search engines and social networking services platforms, and trust service providers. Unlike the Directive, this applies directly in all member states without transposition. For those entities it details what appropriate cybersecurity measures actually mean in practice - think of it as the technical rulebook that fills in the details the Directive left open.",
           "legalRef": "Commission Implementing Regulation (EU) 2024/2690"
         },
         "bsiRegistration": {
@@ -4647,12 +4647,12 @@
         "description": "Waste management is newly in NIS 2 scope through Annex II. For waste companies with 50 or more staff: legal requirements, assets, and the first steps."
       },
       "title": "NIS2 for Waste Management Companies",
-      "subtitle": "Your sector is newly in scope under NIS2 Annex II. If your waste management company has 50+ employees or €10M+ revenue, this is your practical guide to what the law requires and where to start.",
+      "subtitle": "Your sector is newly in scope under NIS2 Annex II. If your waste management company has 50+ employees, or turnover and balance sheet each above €10M, this is your practical guide to what the law requires and where to start.",
       "badge": "Annex II - Important Entity",
       "why": {
         "heading": "Why Does NIS2 Apply to Waste Companies?",
         "p1": "Waste management was added to NIS2 because modern waste operations depend heavily on IT systems. Fleet management, route optimization, weighbridge systems, sorting plant controls, billing, and regulatory reporting all run on networked software. A ransomware attack that takes down a waste company's fleet management system does not just stop trucks - it creates a public health risk. Uncollected waste in a city of 200,000 people becomes a crisis within days.",
-        "p2": "The EU classified waste management under Annex II of the NIS2 Directive, which means waste companies meeting the size threshold (50+ employees or €10M+ annual revenue) are categorized as 'important entities' (wichtige Einrichtungen) under §28(2) BSIG. This means the full range of NIS2 obligations applies: BSI registration, cybersecurity risk management measures, incident reporting, supply chain security, and management liability.",
+        "p2": "The EU classified waste management under Annex II of the NIS2 Directive, which means waste companies meeting the size threshold (50+ employees, or annual turnover and balance sheet total each above €10M) are categorized as 'important entities' (wichtige Einrichtungen) under §28(2) BSIG. This means the full range of NIS2 obligations applies: BSI registration, cybersecurity risk management measures, incident reporting, supply chain security, and management liability.",
         "p3": "Most waste companies have never dealt with cybersecurity regulation before. This is not a criticism - until NIS2, there was no legal reason to. But it does mean there is a steeper learning curve compared to sectors that were already under KRITIS. The good news: waste company IT environments are typically less complex than those in banking or energy, which means the compliance effort is proportionately smaller."
       },
       "assets": {
@@ -4721,7 +4721,7 @@
         "heading": "Frequently Asked Questions",
         "q1": {
           "q": "Is our waste company actually in scope for NIS2?",
-          "a": "If your company operates in waste collection, treatment, or disposal and has 50 or more employees or €10M or more in annual revenue, you are almost certainly in scope as an important entity under NIS2 Annex II. The sector definition covers the full waste management chain. If you are close to the threshold, check whether connected group companies push you over the limit - NIS2 uses the EU SME definition which considers linked enterprises."
+          "a": "If your company operates in waste collection, treatment, or disposal and has 50 or more employees, or more than €10M in both annual turnover and balance sheet total, you are almost certainly in scope as an important entity under NIS2 Annex II. The sector definition covers the full waste management chain. If you are close to the threshold, check whether connected group companies push you over the limit - NIS2 uses the EU SME definition which considers linked enterprises."
         },
         "q2": {
           "q": "We outsource all IT - does NIS2 still apply to us?",
@@ -4894,7 +4894,7 @@
     "securityObligation": {
       "meta": {
         "title": "IT Security Obligation - NIS2 & BSIG",
-        "description": "NIS2 is the new IT security obligation for German companies with 50+ employees or 10M+ revenue in critical sectors. What the BSIG requires."
+        "description": "NIS2 is the new IT security obligation for German companies with 50+ employees, or turnover and balance sheet above 10M, in critical sectors. What the BSIG requires."
       },
       "title": "The New IT Security Obligation for German Companies",
       "subtitle": "If you searched for 'IT Sicherheitspflicht', you are looking for NIS2. Since December 2025, the revised BSIG makes cybersecurity a legal obligation for roughly 29,500 German companies.",
@@ -4902,7 +4902,7 @@
         "heading": "NIS2 Is the IT Security Obligation You Have Been Hearing About",
         "p1": "There is no standalone 'IT security obligation law' in Germany. What exists is the NIS2 Directive (EU 2022/2555), transposed into German law through the NIS2UmsuCG, which overhauled the Federal Cybersecurity Act (BSIG). This is the law that creates binding IT security obligations for companies in 18 critical sectors.",
         "p2": "The BSIG entered into force on 6 December 2025. It requires affected companies to implement 10 specific cybersecurity risk management measures (Section 30 BSIG), register with the BSI, report significant incidents within strict timelines, and secure their supply chains. Management is personally liable under Section 38 BSIG for ensuring compliance.",
-        "p3": "If your company has 50 or more employees or exceeds 10 million euros in annual revenue and operates in one of the 18 NIS2 sectors, these obligations apply to you right now. The registration deadline was 6 March 2026. Implementation of all measures is required by 17 October 2026."
+        "p3": "If your company has 50 or more employees, or exceeds 10 million euros in both annual turnover and balance sheet total, and operates in one of the 18 NIS2 sectors, these obligations apply to you right now. The registration deadline was 6 March 2026."
       },
       "check": {
         "heading": "Does This Apply to My Company?",
@@ -4928,7 +4928,7 @@
       },
       "steps": {
         "heading": "What You Need to Do",
-        "description": "The BSIG requires five concrete steps. Registration should already be done. The remaining measures must be implemented by October 2026.",
+        "description": "The BSIG requires five concrete steps. Registration should already be done.",
         "items": {
           "register": {
             "title": "Register with the BSI",
@@ -5058,7 +5058,7 @@
       },
       "scope": {
         "heading": "Who falls under Section 30 BSIG",
-        "p1": "Section 30 BSIG applies to essential entities under Section 28(6) BSIG and important entities under Section 28(7) BSIG. The sectors are listed in Annex 1 and Annex 2 of the NIS 2 Directive. The size threshold is at least 50 employees or 10 million euros annual turnover, with special rules for KRITIS and for sectors that apply regardless of size.",
+        "p1": "Section 30 BSIG applies to essential entities under Section 28(6) BSIG and important entities under Section 28(7) BSIG. The sectors are listed in Annex 1 and Annex 2 of the NIS 2 Directive. The size threshold is at least 50 employees, or annual turnover and balance sheet total each above 10 million euros, with special rules for KRITIS and for sectors that apply regardless of size.",
         "p2": "If you are unsure, start with the applicability test under Article 2 NIS 2. Suppliers to regulated entities also come into contact with Section 30 via No. 4 (supply chain): the obligations cascade contractually to direct suppliers."
       },
       "penalties": {
@@ -5181,7 +5181,7 @@
         },
         "q3": {
           "q": "We are not sure if we classify as essential or important. What do we select?",
-          "a": "Essential entities (essential entities) are large companies (250+ employees or 50M+ turnover) in Annex I sectors, plus all KRITIS operators. Important entities (wichtige Einrichtungen) are medium companies (50-249 employees or 10-50M turnover) in Annex I sectors, or medium/large companies in Annex II sectors. If you are genuinely uncertain, the BSI portal provides classification guidance during the registration process."
+          "a": "Essential entities (essential entities) are large companies (250+ employees, or turnover above 50M and balance sheet above 43M) in Annex I sectors, plus all KRITIS operators. Important entities (wichtige Einrichtungen) are medium companies (50-249 employees, or turnover and balance sheet each above 10M, below the large-company thresholds) in Annex I sectors, or medium/large companies in Annex II sectors. If you are genuinely uncertain, the BSI portal provides classification guidance during the registration process."
         },
         "q4": {
           "q": "What happens after we register? Does the BSI contact us?",
@@ -5318,11 +5318,11 @@
       },
       "badge": "Annex II - Important Entity",
       "title": "NIS2 for Food Production and Distribution Companies",
-      "subtitle": "Food production, processing, and wholesale distribution are in scope under NIS2 Annex II. If your company has 50+ employees or exceeds 10M euros in revenue, this is your practical guide to what the BSIG requires.",
+      "subtitle": "Food production, processing, and wholesale distribution are in scope under NIS2 Annex II. If your company has 50+ employees, or exceeds 10M euros in both turnover and balance sheet, this is your practical guide to what the BSIG requires.",
       "why": {
         "heading": "Why Does NIS2 Apply to Food Companies?",
         "p1": "Modern food production is deeply dependent on IT systems. ERP systems manage orders and invoicing. Production control systems (MES) schedule and monitor manufacturing lines. Cold chain monitoring systems track temperatures from production through delivery. Laboratory information systems manage quality testing. If ransomware takes out your ERP, you cannot ship. If your cold chain monitoring fails, you cannot prove product safety. That is why the EU classified food as a critical sector.",
-        "p2": "The EU placed food production, processing, and wholesale distribution under Annex II of the NIS2 Directive. Companies meeting the size threshold (50+ employees or over 10 million euros in annual revenue) are classified as 'wichtige Einrichtungen' (important entities) under Section 28(2) BSIG. This means the full set of NIS2 obligations applies: BSI registration, 10 cybersecurity risk management measures, incident reporting, supply chain security, and management liability.",
+        "p2": "The EU placed food production, processing, and wholesale distribution under Annex II of the NIS2 Directive. Companies meeting the size threshold (50+ employees, or annual turnover and balance sheet total each over 10 million euros) are classified as 'wichtige Einrichtungen' (important entities) under Section 28(2) BSIG. This means the full set of NIS2 obligations applies: BSI registration, 10 cybersecurity risk management measures, incident reporting, supply chain security, and management liability.",
         "p3": "Most food companies have not dealt with cybersecurity regulation before. Food safety regulations (HACCP, IFS, BRC) are familiar, but IT security obligations are new. The good news: if your company already runs a structured quality management system, many of the concepts transfer. Risk assessment, documentation, audits, corrective actions - the framework is similar, just applied to IT instead of production hygiene."
       },
       "assets": {
@@ -5423,7 +5423,7 @@
       "why": {
         "heading": "Why Does NIS2 Apply to Manufacturing?",
         "p1": "Modern manufacturing depends on the convergence of IT and OT (operational technology). ERP systems drive production scheduling. MES platforms manage shop floor execution. SCADA systems control machinery and process automation. CAD/CAM systems define what gets built. When these systems are interconnected - and in most factories they are - a cyberattack on one can cascade across the entire production chain. A ransomware infection in the office network that reaches the MES can shut down production lines.",
-        "p2": "The EU classified manufacturing under Annex II of the NIS2 Directive, covering: medical device manufacturing, computer and electronics manufacturing, electrical equipment manufacturing, machinery and equipment manufacturing, motor vehicle manufacturing, and other transport equipment manufacturing. Companies meeting the size threshold (50+ employees or over 10 million euros annual revenue) are 'wichtige Einrichtungen' (important entities) under Section 28(2) BSIG.",
+        "p2": "The EU classified manufacturing under Annex II of the NIS2 Directive, covering: medical device manufacturing, computer and electronics manufacturing, electrical equipment manufacturing, machinery and equipment manufacturing, motor vehicle manufacturing, and other transport equipment manufacturing. Companies meeting the size threshold (50+ employees, or annual turnover and balance sheet total each over 10 million euros) are 'wichtige Einrichtungen' (important entities) under Section 28(2) BSIG.",
         "p3": "Manufacturing has a unique challenge that most other NIS2 sectors do not face at the same scale: OT security. Production equipment often runs specialized operating systems, uses proprietary protocols, and has lifecycle constraints that make patching difficult. A CNC machine from 2015 may run Windows 7 Embedded and cannot be updated without the manufacturer's involvement. NIS2 does not ignore this reality - Section 30 BSIG requires measures that are 'proportionate' to the risk. But you must document the risks and the compensating controls."
       },
       "assets": {
@@ -5625,7 +5625,7 @@
       "why": {
         "heading": "Why Does NIS2 Apply to Logistics Companies?",
         "p1": "Logistics is the backbone of the physical economy. A cyberattack that stops a major logistics provider does not just affect one company - it disrupts supply chains for dozens or hundreds of clients. The 2017 NotPetya attack cost Maersk alone over 300 million euros and disrupted global shipping for weeks. The EU classified transport under Annex I (sectors of high criticality) because logistics disruptions cascade through the entire economy.",
-        "p2": "NIS2 covers all transport modes: road freight, rail transport, inland waterways, maritime shipping, and air cargo. Companies meeting the size threshold (50+ employees or over 10 million euros in revenue) are in scope. Large companies (250+ employees) in Annex I sectors are classified as essential entities. Medium companies (50-249 employees) are important entities (wichtige Einrichtungen). Both face the full set of NIS2 obligations.",
+        "p2": "NIS2 covers all transport modes: road freight, rail transport, inland waterways, maritime shipping, and air cargo. Companies meeting the size threshold (50+ employees, or turnover and balance sheet total each over 10 million euros) are in scope. Large companies (250+ employees) in Annex I sectors are classified as essential entities. Medium companies (50-249 employees) are important entities (wichtige Einrichtungen). Both face the full set of NIS2 obligations.",
         "p3": "Modern logistics companies run on interconnected IT systems. Transport Management Systems (TMS) orchestrate shipments. Fleet management tracks vehicles in real time. Warehouse Management Systems (WMS) control inventory and picking. Telematics units in trucks transmit position, speed, temperature, and driver data. If any of these systems fail, operations stop or become dangerously inefficient. NIS2 requires you to identify these dependencies and manage the cybersecurity risks systematically."
       },
       "assets": {
@@ -6111,7 +6111,7 @@
         "heading": "Frequently Asked Questions",
         "q1": {
           "q": "Can my company be both important and essential?",
-          "a": "No. The categories are mutually exclusive under §28 BSIG. If you meet the essential threshold (250+ employees or >50M revenue in an Annex I sector), you are essential. If you meet the important threshold but not the essential one, you are important. KRITIS is a subset of essential - KRITIS operators are automatically classified as essential with additional obligations on top."
+          "a": "No. The categories are mutually exclusive under §28 BSIG. If you meet the essential threshold (250+ employees, or >50M turnover and >43M balance sheet, in an Annex I sector), you are essential. If you meet the important threshold but not the essential one, you are important. KRITIS is a subset of essential - KRITIS operators are automatically classified as essential with additional obligations on top."
         },
         "q2": {
           "q": "I am an important entity. Do I need to do less compliance work?",
@@ -6581,7 +6581,7 @@
         },
         "q24": {
           "q": "Do all participants in a secure supply chain in the field of aviation security fall under KRITIS, even if they are small enterprises below the thresholds for NIS 2 applicability?",
-          "a": "No. Participation in the secure supply chain under §9a LuftSiG does not automatically make a company a Critical Infrastructure and does not automatically make it a NIS 2 entity. Two separate thresholds are decisive: you only become a KRITIS operator if you exceed the volume thresholds of the BSI-KritisV for a critical service (typically in the aviation or logistics sectors). NIS 2 applicability under Annex I or II of the NIS 2 Directive (EU) 2022/2555, in turn, requires that you are active in a covered sector and meet the size criteria (as a rule from 50 employees or more than EUR 10 million in annual turnover; the BSIG transposes this in §28). Anyone who falls below both thresholds is not covered by either KRITIS or NIS 2 through mere supply chain participation. You can find the complete test under [Who is affected](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
+          "a": "No. Participation in the secure supply chain under §9a LuftSiG does not automatically make a company a Critical Infrastructure and does not automatically make it a NIS 2 entity. Two separate thresholds are decisive: you only become a KRITIS operator if you exceed the volume thresholds of the BSI-KritisV for a critical service (typically in the aviation or logistics sectors). NIS 2 applicability under Annex I or II of the NIS 2 Directive (EU) 2022/2555, in turn, requires that you are active in a covered sector and meet the size criteria (as a rule from 50 employees, or more than EUR 10 million in both annual turnover and balance sheet total; the BSIG transposes this in §28). Anyone who falls below both thresholds is not covered by either KRITIS or NIS 2 through mere supply chain participation. You can find the complete test under [Who is affected](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
         },
         "q25": {
           "q": "Which legal forms fall under the financial sector and the banking subsector according to NIS 2?",
@@ -7347,7 +7347,7 @@
       "why": {
         "heading": "Why small suppliers are affected by NIS2",
         "p1": "NIS2 (Art. 21(2)(d) NIS-2, transposed in Section 30(2)(4) BSIG) explicitly requires regulated companies to secure their entire supply chain. This means every essential and important entity (BSI estimates put the German cohort in the range of roughly 29,500) must contractually require cybersecurity standards from their suppliers.",
-        "p2": "If your company has fewer than 50 employees or falls below the revenue thresholds, you are not directly regulated by NIS2. But if you provide IT services, software, components, logistics, or any other service to a company that is regulated, you will face NIS2 requirements through your contracts.",
+        "p2": "If your company has fewer than 50 employees and its turnover and balance sheet are not both above EUR 10 million, you are not directly regulated by NIS2. But if you provide IT services, software, components, logistics, or any other service to a company that is regulated, you will face NIS2 requirements through your contracts.",
         "p3": "This is not theoretical. Large companies are already updating their procurement terms, adding cybersecurity clauses, and requesting compliance evidence from suppliers. Companies that cannot demonstrate adequate security measures risk losing contracts to competitors who can."
       },
       "legalBasis": {
@@ -7517,7 +7517,7 @@
           },
           "check": {
             "title": "Check each country's threshold",
-            "description": "NIS2 applies to medium and large entities (50+ employees or €10M+ turnover). Apply the threshold test per legal entity, not group-wide, a small subsidiary may fall below the threshold."
+            "description": "NIS2 applies to medium and large entities (50+ employees, or turnover and balance sheet each above €10M). Apply the threshold test per legal entity, not group-wide, a small subsidiary may fall below the threshold."
           },
           "register": {
             "title": "Register with each national authority",
@@ -8047,7 +8047,7 @@
           "framework": {
             "section": "§28 + §30 BSIG",
             "title": "Scope and the ten measures",
-            "body": "§28 BSIG sets out who is in scope: 'particularly important' and 'important' entities, judged by sector (Annex I and II of NIS 2) and size (50+ headcount or €10m+ turnover, with overrides). §30 BSIG lists the ten cybersecurity measures every in-scope entity has to put in place. §30 transposes Article 21(2) of the directive."
+            "body": "§28 BSIG sets out who is in scope: 'particularly important' and 'important' entities, judged by sector (Annex I and II of NIS 2) and size (50+ headcount, or turnover and balance sheet each above €10m, with overrides). §30 BSIG lists the ten cybersecurity measures every in-scope entity has to put in place. §30 transposes Article 21(2) of the directive."
           },
           "monitoring": {
             "section": "§32 + §33 BSIG",
@@ -9736,7 +9736,7 @@
       "overview": {
         "heading": "The short version",
         "p1": "Hospitals sit in NIS 2 Annex I sector 5 (Gesundheitswesen). The directive picks them up as 'Gesundheitsdienstleister' in the sense of Article 3(g) of Directive 2011/24/EU. The sector list is wider than hospitals on their own: EU reference laboratories, drug R&D, pharmaceutical manufacturers and makers of critical medical devices for public-health emergencies are in the same bucket.",
-        "p2": "Whether NIS 2 binds you turns on Article 2(1). You are in scope if you are a medium-sized enterprise under Commission Recommendation 2003/361/EC, or larger. The medium threshold is 50 employees or 10 million euros annual turnover or balance-sheet total. A 60-staff regional clinic is in. A 20-staff specialist practice is generally not.",
+        "p2": "Whether NIS 2 binds you turns on Article 2(1). You are in scope if you are a medium-sized enterprise under Commission Recommendation 2003/361/EC, or larger. The medium threshold is 50 employees, or annual turnover and balance-sheet total each above 10 million euros. A 60-staff regional clinic is in. A 20-staff specialist practice is generally not.",
         "p3": "Germany has a second regime running alongside: KRITIS. The KRITIS-Verordnung sets a hospital-specific threshold of 30,000 vollstationäre Krankenhausfälle per year. KRITIS-status hospitals are still NIS 2 entities, but they also carry stricter duties under the BSIG KRITIS sections. KRITIS is not the NIS 2 threshold. Two separate tests."
       },
       "legalAnchor": {
@@ -9750,7 +9750,7 @@
         "regulation": {
           "label": "Article 2(1) NIS 2 + Recommendation 2003/361/EC",
           "quote": "This Directive applies to public or private entities of a type referred to in Annex I or II which qualify as medium-sized enterprises under Article 2 of the Annex to Recommendation 2003/361/EC, or which exceed the ceilings for medium-sized enterprises provided for in paragraph 1 of that Article.",
-          "context": "Article 2(1) is the scope rule. The 2003/361/EC size definition says medium-sized means 50 or more employees, or 10 million euros or more in annual turnover or balance-sheet total. Cross either threshold and you are in."
+          "context": "Article 2(1) is the scope rule. The 2003/361/EC size definition says medium-sized means 50 or more employees, or more than 10 million euros in both annual turnover and balance-sheet total. Cross either threshold and you are in."
         },
         "transposition": {
           "label": "§28 BSIG plus KRITIS-Verordnung (Germany)",
@@ -9770,7 +9770,7 @@
           "size": {
             "section": "Test 2",
             "title": "Size test (Article 2(1))",
-            "body": "Do you have 50 or more employees, or 10 million euros or more in annual turnover or balance-sheet total? Either threshold puts you in scope. Below both, you stay out, with narrow exceptions in Article 2(2) and (3) (regardless-of-size overrides for sole providers, public administration, qualified trust services and a few others)."
+            "body": "Do you have 50 or more employees, or more than 10 million euros in both annual turnover and balance-sheet total? Either threshold puts you in scope. Below both, you stay out, with narrow exceptions in Article 2(2) and (3) (regardless-of-size overrides for sole providers, public administration, qualified trust services and a few others)."
           },
           "kritis": {
             "section": "Test 3",
@@ -9820,7 +9820,7 @@
         "items": {
           "kritisThreshold": {
             "myth": "We are under 30,000 cases a year, so we are out.",
-            "reality": "That is the KRITIS threshold, not the NIS 2 threshold. NIS 2 uses Article 2(1): 50 employees or 10 million euros turnover. A 60-staff regional clinic with 8,000 cases a year is in NIS 2 and out of KRITIS. Both can be true at once."
+            "reality": "That is the KRITIS threshold, not the NIS 2 threshold. NIS 2 uses Article 2(1): 50 employees, or more than 10 million euros in both turnover and balance sheet. A 60-staff regional clinic with 8,000 cases a year is in NIS 2 and out of KRITIS. Both can be true at once."
           },
           "onlyIt": {
             "myth": "NIS 2 only applies to the IT systems, not the rest of the hospital.",
@@ -10148,7 +10148,7 @@
         "directive": {
           "label": "NIS 2 Directive (2022/2555), Annex I Sector 8 and Art. 2(2)(a)",
           "quote": "Sector 8 Digital Infrastructure: providers of public electronic communications networks; providers of publicly available electronic communications services. This Directive shall also apply to entities, regardless of their size, that fall under any of the following criteria: (a) providers of public electronic communications networks or providers of publicly available electronic communications services.",
-          "context": "Two pieces have to be read together. Annex I sector 8 names telecoms as essential infrastructure. Article 2(2)(a) then makes a regardless-of-size carve-IN for the same telecoms providers. The normal medium-enterprise threshold (50 staff or EUR 10m turnover) does not apply here."
+          "context": "Two pieces have to be read together. Annex I sector 8 names telecoms as essential infrastructure. Article 2(2)(a) then makes a regardless-of-size carve-IN for the same telecoms providers. The normal medium-enterprise threshold (50 staff, or turnover and balance sheet each above EUR 10m) does not apply here."
         },
         "regulation": {
           "label": "Directive (EU) 2018/1972 (European Electronic Communications Code), Art. 2",
@@ -10311,7 +10311,7 @@
           "size": {
             "section": "Size",
             "title": "Medium enterprise or larger?",
-            "body": "Recommendation 2003/361/EC defines medium as 50 staff or more, OR turnover of at least EUR 10 million AND balance sheet of at least EUR 10 million. Article 2(1) catches you from medium upwards. Linked-enterprise aggregation applies: if a parent controls more than 50 percent of the votes, headcount and turnover are combined. A 30-person subsidiary of a 5000-person group counts as part of that group's figures."
+            "body": "Recommendation 2003/361/EC defines medium as 50 staff or more, OR turnover above EUR 10 million AND balance sheet above EUR 10 million. Article 2(1) catches you from medium upwards. Linked-enterprise aggregation applies: if a parent controls more than 50 percent of the votes, headcount and turnover are combined. A 30-person subsidiary of a 5000-person group counts as part of that group's figures."
           },
           "override": {
             "section": "Override",
@@ -11353,7 +11353,7 @@
       "overview": {
         "heading": "The short version",
         "p1": "If you provide a cloud computing service to customers, you are in NIS 2 scope as soon as you cross the medium-enterprise size threshold. Annex I sector 8 names cloud computing service providers directly under Digital Infrastructure. The Article 6(30) definition is broad: IaaS, PaaS, SaaS, public cloud, private cloud sold as a service, hybrid offerings, all count.",
-        "p2": "Unlike telecoms or DNS, cloud providers are not on the regardless-of-size list in Article 2(2). The normal Article 2(1) test applies: medium-sized under Recommendation 2003/361/EC means 50 staff or more, or annual turnover above EUR 10 million. Cross either threshold and you fall in scope. Stay under both and you are normally out, with the limited exceptions in Article 2(2) and (3) that do not apply to cloud as such.",
+        "p2": "Unlike telecoms or DNS, cloud providers are not on the regardless-of-size list in Article 2(2). The normal Article 2(1) test applies: medium-sized under Recommendation 2003/361/EC means 50 staff or more, or annual turnover and balance sheet total each above EUR 10 million. Cross either threshold and you fall in scope. Stay under both and you are normally out, with the limited exceptions in Article 2(2) and (3) that do not apply to cloud as such.",
         "p3": "Germany puts this into national law through §28 BSIG. The BSI is your authority. On top of the Directive, Commission Implementing Regulation (EU) 2024/2690 lists cloud providers in its Annex, so its technical and methodological requirements bind you directly without needing further German law. This page walks the Directive, the EU definition and the German transposition in that order."
       },
       "legalAnchor": {
@@ -11387,7 +11387,7 @@
           "sizeTest": {
             "section": "Test B",
             "title": "Do you cross the size threshold?",
-            "body": "Cloud providers follow the normal Article 2(1) test. Under Recommendation 2003/361/EC, medium-sized starts at 50 staff or annual turnover above EUR 10 million (with annual balance sheet total above EUR 10 million as the alternative). At 250 staff or turnover above EUR 50 million you become a large enterprise and are classified as 'essential'. Below 50 staff and turnover under EUR 10 million, you are normally out of scope as a cloud provider."
+            "body": "Cloud providers follow the normal Article 2(1) test. Under Recommendation 2003/361/EC, medium-sized starts at 50 staff, or at annual turnover and balance sheet total each above EUR 10 million. At 250 staff, or turnover above EUR 50 million together with a balance sheet total above EUR 43 million, you become a large enterprise and are classified as 'essential'. Below 50 staff and turnover under EUR 10 million, you are normally out of scope as a cloud provider."
           },
           "cirDirect": {
             "section": "Test C",
@@ -11446,7 +11446,7 @@
           },
           "nicheSaas": {
             "myth": "We are a small SaaS, so cloud rules do not apply to us.",
-            "reality": "The legal test is two-part. First Article 6(30): a multi-tenant SaaS sold over the network on a shared infrastructure meets the definition. Second Article 2(1): the size threshold. If you are under 50 staff and under EUR 10 million turnover, you are out of scope on the cloud row. If you cross either, you are in. 'Niche' is not a legal category. The numbers and the definition do the work."
+            "reality": "The legal test is two-part. First Article 6(30): a multi-tenant SaaS sold over the network on a shared infrastructure meets the definition. Second Article 2(1): the size threshold. If you are under 50 staff and under EUR 10 million turnover, you are out of scope on the cloud row. If you reach 50 staff, or exceed EUR 10 million in both turnover and balance sheet, you are in. 'Niche' is not a legal category. The numbers and the definition do the work."
           },
           "privateCloud": {
             "myth": "We run a private cloud for our own group, so we are an in-scope cloud provider.",
@@ -11510,7 +11510,7 @@
         "transposition": {
           "label": "§28 BSIG (Germany) and the KRITIS-Verordnung",
           "quote": "Anbieter von Rechenzentrumsdiensten gelten ab dem Schwellenwert für mittlere Unternehmen als wichtige Einrichtungen, ab dem Schwellenwert für große Unternehmen als besonders wichtige Einrichtungen im Sinne dieses Gesetzes.",
-          "context": "§28 BSIG transposes the NIS 2 data centre obligations. The Article 2(1) size test (50 staff / EUR 10m turnover) decides whether the entity is 'wichtig' or 'besonders wichtig'. The KRITIS-Verordnung is a separate German layer with its own threshold of 3.5 MW IT load for data centres. KRITIS adds duties on top, it is not the entry condition for NIS 2. A 25 MW co-location operator is in both regimes. A 200-staff colocation site at 1 MW IT load is in NIS 2 scope but not KRITIS."
+          "context": "§28 BSIG transposes the NIS 2 data centre obligations. The Article 2(1) size test (50 staff, or turnover and balance sheet each above EUR 10m) decides whether the entity is 'wichtig' or 'besonders wichtig'. The KRITIS-Verordnung is a separate German layer with its own threshold of 3.5 MW IT load for data centres. KRITIS adds duties on top, it is not the entry condition for NIS 2. A 25 MW co-location operator is in both regimes. A 200-staff colocation site at 1 MW IT load is in NIS 2 scope but not KRITIS."
         }
       },
       "elements": {
@@ -11525,7 +11525,7 @@
           "sizeTest": {
             "section": "Test B",
             "title": "Are you above the size threshold?",
-            "body": "Article 2(1) NIS 2 references Recommendation 2003/361/EC. Medium-sized entities (50 or more staff, or annual turnover and balance sheet total above EUR 10 million) fall under the regime as 'important'. Large entities (above 250 staff or turnover above EUR 50 million) fall under it as 'essential'. There is no regardless-of-size carve-in for data centres."
+            "body": "Article 2(1) NIS 2 references Recommendation 2003/361/EC. Medium-sized entities (50 or more staff, or annual turnover and balance sheet total above EUR 10 million) fall under the regime as 'important'. Large entities (250 or more staff, or turnover above EUR 50 million and balance sheet total above EUR 43 million) fall under it as 'essential'. There is no regardless-of-size carve-in for data centres."
           },
           "kritisOverlap": {
             "section": "Test C",
@@ -11629,7 +11629,7 @@
       "overview": {
         "heading": "The short version",
         "p1": "Medical device makers appear in two NIS 2 annexes at the same time. Annex I sector 5 lists them under its fifth sub-category as makers of devices considered critical during a public-health emergency under Article 22 of Regulation (EU) 2022/123. That is the EMA critical-devices list. Companies on it are essential entities and sit in the higher penalty band.",
-        "p2": "Annex II sector 5 catches the rest of the industry. The sub-categories are manufacturers of medical devices under Article 2(1) of Regulation (EU) 2017/745 (MDR) and manufacturers of in vitro diagnostics under Article 2(2) of Regulation (EU) 2017/746 (IVDR). These are important entities. Same Article 2(1) size test as everyone else: 50 staff or 10 million euros turnover or balance-sheet total.",
+        "p2": "Annex II sector 5 catches the rest of the industry. The sub-categories are manufacturers of medical devices under Article 2(1) of Regulation (EU) 2017/745 (MDR) and manufacturers of in vitro diagnostics under Article 2(2) of Regulation (EU) 2017/746 (IVDR). These are important entities. Same Article 2(1) size test as everyone else: 50 staff, or turnover and balance-sheet total each above 10 million euros.",
         "p3": "MDR and IVDR run in parallel, they do not replace NIS 2. MDR covers the device, NIS 2 covers the company. Cybersecurity duties under MDR Annex I 17.2 sit at product level. NIS 2 duties under Article 21 sit at entity level. Both apply. There is no DORA-style lex specialis carve-out for medical device manufacturers."
       },
       "legalAnchor": {
@@ -11647,7 +11647,7 @@
         },
         "transposition": {
           "label": "§28 BSIG and Article 2(1) NIS 2 (size test)",
-          "quote": "§28 BSIG transposes the Annex I and Annex II scope into German law. Article 2(1) NIS 2 plus Recommendation 2003/361/EC set the size threshold: 50 or more employees, or 10 million euros or more in annual turnover or balance-sheet total.",
+          "quote": "§28 BSIG transposes the Annex I and Annex II scope into German law. Article 2(1) NIS 2 plus Recommendation 2003/361/EC set the size threshold: 50 or more employees, or more than 10 million euros in both annual turnover and balance-sheet total.",
           "context": "Two thresholds, either one is enough. The size rule is identical for Annex I and Annex II entities. The only thing that changes between the two is the penalty band and the supervision regime. BfArM remains the regulator for MDR and IVDR; BSI is the regulator for NIS 2. Two different authorities, one company."
         }
       },
@@ -11668,7 +11668,7 @@
           "size": {
             "section": "Test 3",
             "title": "Size test (Article 2(1))",
-            "body": "Do you have 50 or more employees, or 10 million euros or more in annual turnover or balance-sheet total? Either threshold puts you in scope. Below both, you stay out, with the narrow regardless-of-size overrides in Article 2(2) and (3) (sole providers, public administration, qualified trust services, a few others)."
+            "body": "Do you have 50 or more employees, or more than 10 million euros in both annual turnover and balance-sheet total? Either threshold puts you in scope. Below both, you stay out, with the narrow regardless-of-size overrides in Article 2(2) and (3) (sole providers, public administration, qualified trust services, a few others)."
           }
         }
       },
@@ -11760,7 +11760,7 @@
         "description": "If you build machines, plant, or industrial equipment in the EU, you are most likely in scope of NIS 2 as an important entity under Annex II sector 5. This page walks the NACE test, the size test, and the OT footprint that decide it."
       },
       "title": "Am I a machinery manufacturer under NIS 2?",
-      "subtitle": "Annex II sector 5 of the NIS 2 Directive pulls manufacturing into scope. Machine builders sit in sub-category (d), NACE division C28. If you have 50 staff or 10 million euro turnover, you are an important entity with the same ten Article 21(2) duties as the big ones.",
+      "subtitle": "Annex II sector 5 of the NIS 2 Directive pulls manufacturing into scope. Machine builders sit in sub-category (d), NACE division C28. If you have 50 staff, or turnover and balance sheet each above 10 million euro, you are an important entity with the same ten Article 21(2) duties as the big ones.",
       "overview": {
         "heading": "The short version",
         "p1": "NIS 2 covers manufacturing as an important sector. Annex II sector 5 names six manufacturing sub-categories. Machinery and equipment manufacture, NACE division C28, is one of them. If that is what you do and you are above the size threshold, NIS 2 applies to you.",
@@ -11848,7 +11848,7 @@
         "items": {
           "onlyBigCompanies": {
             "myth": "NIS 2 is for big industrial groups, not for our 80-person machine shop.",
-            "reality": "The size test is 50 staff or 10 million euro turnover. An 80-person machine shop with NACE C28 is squarely in. The Annex II 'important entity' category exists exactly for the Mittelstand layer. The penalty ceiling is lower than for essential entities, but the ten Article 21(2) duties are the same."
+            "reality": "The size test is 50 staff, or turnover and balance sheet each above 10 million euro. An 80-person machine shop with NACE C28 is squarely in. The Annex II 'important entity' category exists exactly for the Mittelstand layer. The penalty ceiling is lower than for essential entities, but the ten Article 21(2) duties are the same."
           },
           "justAssembly": {
             "myth": "We only do final assembly, the real manufacturing is at our suppliers.",
@@ -12029,7 +12029,7 @@
       "subtitle": "Under Article 2(1) NIS 2, the directive only applies to medium-sized and larger entities. That is the headline. The reality is a three-step test: the size definition from Recommendation 2003/361/EC, the linked-enterprise rule, and the Article 2(2) overrides that bring micro and small entities back into scope.",
       "overview": {
         "heading": "The short version",
-        "p1": "NIS 2 sets a size floor. By default the directive only applies to entities that meet or exceed the medium-sized threshold under Recommendation 2003/361/EC: 50 or more staff, or annual turnover above 10 million euros, or balance sheet total above 10 million euros. Micro and small entities sit below that floor.",
+        "p1": "NIS 2 sets a size floor. By default the directive only applies to entities that meet or exceed the medium-sized threshold under Recommendation 2003/361/EC: 50 or more staff, or annual turnover and balance sheet total each above 10 million euros. Micro and small entities sit below that floor.",
         "p2": "That sounds simple. It is not. The Recommendation has its own rules for counting. Article 3(3) of its Annex says if a parent holds more than 50 percent of the voting rights in a subsidiary, you have to aggregate their headcount and turnover. A small subsidiary of a large group is not a small entity under this regime.",
         "p3": "Article 2(2) NIS 2 then names categories that fall in regardless of size. Telecoms, qualified trust service providers, DNS, TLD name registries, sole providers of an essential service in a member state, public administration entities, and a few more. If you fit one of those, the size test does not save you. The exemption is the start of the analysis, not the end."
       },
@@ -12044,7 +12044,7 @@
         "regulation": {
           "label": "Article 2(2) and (3), Annex to Recommendation 2003/361/EC",
           "quote": "The category of micro, small and medium-sized enterprises (SMEs) is made up of enterprises which employ fewer than 250 persons and which have an annual turnover not exceeding EUR 50 million, and/or an annual balance sheet total not exceeding EUR 43 million. Within the SME category, a small enterprise is defined as an enterprise which employs fewer than 50 persons and whose annual turnover and/or annual balance sheet total does not exceed EUR 10 million. Within the SME category, a microenterprise is defined as an enterprise which employs fewer than 10 persons and whose annual turnover and/or annual balance sheet total does not exceed EUR 2 million.",
-          "context": "The Recommendation gives you the numbers. Micro: fewer than 10 staff AND turnover or balance sheet up to 2 million euros. Small: fewer than 50 staff AND turnover or balance sheet up to 10 million euros. Medium: from 50 staff up to 249 OR turnover above 10 million euros. To stay below a size band you have to be below on staff AND below on turnover or balance sheet. Cross either one and you have moved up."
+          "context": "The Recommendation gives you the numbers. Micro: fewer than 10 staff AND turnover or balance sheet up to 2 million euros. Small: fewer than 50 staff AND turnover or balance sheet up to 10 million euros. Medium: from 50 staff up to 249 OR turnover and balance sheet both above 10 million euros. To stay below a size band you have to be below on staff AND below on turnover or balance sheet. Cross either one and you have moved up."
         },
         "transposition": {
           "label": "Article 2(2) NIS 2 (regardless of size)",
@@ -12118,7 +12118,7 @@
           },
           "staffOverThreshold": {
             "myth": "We are under 50 staff, so we count as small.",
-            "reality": "Read Article 2(2) of the Recommendation Annex carefully. Small requires fewer than 50 staff AND turnover or balance sheet at 10 million euros or below. Cross either threshold and you move into medium. A 45-person consultancy with 12 million euros in turnover is medium-sized under the Recommendation, and that means NIS 2 applies if the sector fits."
+            "reality": "Read Article 2(2) of the Recommendation Annex carefully. Small requires fewer than 50 staff AND turnover or balance sheet at 10 million euros or below. Cross either threshold and you move into medium. A 45-person consultancy with 12 million euros in turnover and a balance sheet total above 10 million euros is medium-sized under the Recommendation, and that means NIS 2 applies if the sector fits."
           },
           "parentIndependent": {
             "myth": "Our parent company is large, but we run independently, so we count on our own.",
@@ -12300,7 +12300,7 @@
         "heading": "The short version",
         "p1": "A trust service provider is anyone who provides one or more trust services as defined in Article 3(16) eIDAS Regulation (EU) 910/2014: electronic signatures, electronic seals, electronic time stamps, electronic registered delivery, website authentication certificates, or the preservation of any of these. Annex I sector 8 of NIS 2 names trust service providers explicitly as part of Digital Infrastructure.",
         "p2": "Article 2(2)(b) NIS 2 then pulls a lever that does not apply to most other sectors. Qualified trust service providers, as defined in Article 3(17) eIDAS, are in scope regardless of size. A two-person qualified TSP that issues qualified certificates for electronic signatures is bound the same way as a 500-person CA. The medium-enterprise threshold from Article 2(1) does not gate them.",
-        "p3": "Non-qualified TSPs follow the regular size test: at least 50 staff, or above 10 million euros annual turnover or balance sheet, puts them in scope. Below that they sit outside NIS 2, though eIDAS Article 19 still binds them with a security baseline. Two regimes run in parallel either way: eIDAS for the trust service itself, NIS 2 for the cross-organisational cyber duties (Article 20 management training, §32 BSIG significant-incident reporting, Article 21 risk-management measures)."
+        "p3": "Non-qualified TSPs follow the regular size test: at least 50 staff, or annual turnover and balance sheet each above 10 million euros, puts them in scope. Below that they sit outside NIS 2, though eIDAS Article 19 still binds them with a security baseline. Two regimes run in parallel either way: eIDAS for the trust service itself, NIS 2 for the cross-organisational cyber duties (Article 20 management training, §32 BSIG significant-incident reporting, Article 21 risk-management measures)."
       },
       "legalAnchor": {
         "heading": "The legal source",
@@ -16178,7 +16178,7 @@
       "overview": {
         "heading": "Overview",
         "p1": "NIS 1 was Directive (EU) 2016/1148. It covered seven sectors and split addressees into 'operators of essential services' (OES) and 'digital service providers' (DSP). Member States designated OES individually.",
-        "p2": "NIS 2 is Directive (EU) 2022/2555. It covers 15 sectors in Annex I and 7 sectors in Annex II, replaces the OES/DSP split with 'essential entities' and 'important entities', and uses an explicit size criterion (50 or more staff, or annual turnover above 10 million euro).",
+        "p2": "NIS 2 is Directive (EU) 2022/2555. It covers 15 sectors in Annex I and 7 sectors in Annex II, replaces the OES/DSP split with 'essential entities' and 'important entities', and uses an explicit size criterion (50 or more staff, or annual turnover and balance sheet total each above 10 million euro).",
         "p3": "Article 41 of NIS 2 repealed the NIS 1 Directive with effect from 18 October 2024. Where Member State law still references the old directive, those references now point to NIS 2. National transposition statutes (such as the German BSIG in its NIS 2 version) replace the earlier IT-Sicherheitsgesetz 2.0 architecture."
       },
       "legalAnchor": {
@@ -16207,7 +16207,7 @@
           "scope": {
             "section": "Scope",
             "title": "From 7 sectors and OES designation to 15 plus 7 sectors with a size rule",
-            "body": "NIS 1 covered seven sectors and required Member States to designate OES one by one. NIS 2 lists 15 sectors in Annex I (essential) and 7 sectors in Annex II (important), and applies automatically to entities of these sectors that meet the size criterion (50 or more staff or more than 10 million euro turnover). Several entity types are in scope regardless of size."
+            "body": "NIS 1 covered seven sectors and required Member States to designate OES one by one. NIS 2 lists 15 sectors in Annex I (essential) and 7 sectors in Annex II (important), and applies automatically to entities of these sectors that meet the size criterion (50 or more staff, or more than 10 million euro in both turnover and balance sheet). Several entity types are in scope regardless of size."
           },
           "obligations": {
             "section": "Obligations",
@@ -17420,7 +17420,7 @@
           "scope": {
             "section": "Scope",
             "title": "Confirm whether the directive applies",
-            "body": "NIS 2 applies if the entity sits in one of the sectors named in Annex I or Annex II and meets the size threshold (medium-sized as defined in Recommendation 2003/361/EC, so 50 staff or more than €10 million turnover). A handful of entity types are covered regardless of size: qualified trust service providers, top-level domain name registries, DNS service providers, public administration, sole providers in a member state. The management body's first job is to know which of these applies."
+            "body": "NIS 2 applies if the entity sits in one of the sectors named in Annex I or Annex II and meets the size threshold (medium-sized as defined in Recommendation 2003/361/EC, so 50 staff, or more than €10 million in both turnover and balance sheet). A handful of entity types are covered regardless of size: qualified trust service providers, top-level domain name registries, DNS service providers, public administration, sole providers in a member state. The management body's first job is to know which of these applies."
           },
           "duties": {
             "section": "Duties",

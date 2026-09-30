@@ -2435,7 +2435,7 @@
         "items": {
           "awareness": {
             "title": "Nedostatek povědomí",
-            "description": "Průzkum G DATA provedený v roce 2024 zjistil, že 44 % německých společností středního trhu nevědělo, že se na ně NIS2 vztahuje. Kritéria rozsahu (více než 50 zaměstnanců nebo obrat 10 milionů EUR v 18 pokrytých odvětvích) nejsou pro společnosti, které nikdy neměly co do činění s regulací IT bezpečnosti, samozřejmá. Mnoho společností v odvětvích jako odpadové hospodářství, výroba potravin a chemická výroba se nepovažuje za 'kritickou infrastrukturu'."
+            "description": "Průzkum G DATA provedený v roce 2024 zjistil, že 44 % německých společností středního trhu nevědělo, že se na ně NIS2 vztahuje. Kritéria rozsahu (alespoň 50 zaměstnanců, nebo obrat i bilanční suma nad 10 milionů EUR, v 18 pokrytých odvětvích) nejsou pro společnosti, které nikdy neměly co do činění s regulací IT bezpečnosti, samozřejmá. Mnoho společností v odvětvích jako odpadové hospodářství, výroba potravin a chemická výroba se nepovažuje za 'kritickou infrastrukturu'."
           },
           "complexity": {
             "title": "Složitost určení rozsahu",
@@ -3412,7 +3412,7 @@
           "monitoring": {
             "section": "Test 2",
             "title": "Jste střední podnik nebo větší?",
-            "body": "Prahem je definice malých a středních podniků v doporučení Komise 2003/361/ES: alespoň 50 zaměstnanců a alespoň 10 milionů EUR obratu nebo bilanční sumy, nebo více. Pokud jste pod tím, jste venku, ledaže vás přesto zachytí některá z výjimek bez ohledu na velikost v čl. 2 odst. 2 až 4 (např. jste jediným poskytovatelem základní služby, kvalifikovaným poskytovatelem služeb vytvářejících důvěru nebo poskytovatelem služby DNS)."
+            "body": "Prahem je definice malých a středních podniků v doporučení Komise 2003/361/ES: alespoň 50 zaměstnanců, nebo obrat i bilanční suma nad 10 milionů EUR. Pokud jste pod tím, jste venku, ledaže vás přesto zachytí některá z výjimek bez ohledu na velikost v čl. 2 odst. 2 až 4 (např. jste jediným poskytovatelem základní služby, kvalifikovaným poskytovatelem služeb vytvářejících důvěru nebo poskytovatelem služby DNS)."
           },
           "independent": {
             "section": "Test 3",
@@ -3489,7 +3489,7 @@
         "items": [
           "Směrnice (EU) 2022/2555 (NIS 2), článek 2 (působnost), příloha I a příloha II (sektory), čl. 21 odst. 2 písm. d) (bezpečnost dodavatelského řetězce) a čl. 21 odst. 3 (zohlednění zranitelností specifických pro dodavatele).",
           "Prováděcí nařízení Komise (EU) 2024/2690 ze dne 17. října 2024, §5 (bezpečnost dodavatelského řetězce): politika zadávání zakázek s kritérii výběru, registr rizik dodavatelů, smluvní bezpečnostní povinnosti.",
-          "Doporučení Komise 2003/361/ES, článek 2 přílohy (definice středního podniku: alespoň 50 zaměstnanců a alespoň 10 milionů EUR obratu nebo bilanční sumy).",
+          "Doporučení Komise 2003/361/ES, článek 2 přílohy (práh středního podniku: alespoň 50 zaměstnanců, nebo obrat i bilanční suma nad 10 milionů EUR).",
           "BSIG (Německo) §28 (Einrichtungsarten und Größenkriterien) a §30 (Risikomanagementmaßnahmen, včetně Lieferkettensicherheit), provádějící čl. 2 a 21 NIS 2.",
           "Implementační vodítka ENISA k NIS 2 a specifikace registru subjektů podle čl. 27: působnost podle čl. 2 rozhoduje o tom, zda je subjekt registrován; opatření pro dodavatelský řetězec podle čl. 21 rozhodují o tom, co subjekt v působnosti dělá ohledně svých dodavatelů."
         ]
@@ -3608,7 +3608,7 @@
       },
       "practitioner": {
         "heading": "Jak to dopadá ve skutečných skupinách středních firem",
-        "p1": "Ve skupinách, které vídáme, otázka téměř vždy dopadne na krok 3. Provozní dceřiná společnost provádí něco z přílohy I nebo II. Sama o sobě je malá. Uvnitř skupiny je nad 50 zaměstnanci nebo nad 10 miliony eur obratu. Podle 2003/361/ES ji to zatahuje dovnitř.",
+        "p1": "Ve skupinách, které vídáme, otázka téměř vždy dopadne na krok 3. Provozní dceřiná společnost provádí něco z přílohy I nebo II. Sama o sobě je malá. Uvnitř skupiny je nad 50 zaměstnanci nebo nad 10 miliony eur obratu i bilanční sumy. Podle 2003/361/ES ji to zatahuje dovnitř.",
         "p2": "Pákou je argument nezávislosti podle bodu odůvodnění 16. Pokud je dceřiná společnost skutečně nezávislá v tom, jak funguje (vlastní řídící orgán, vlastní smlouvy se zákazníky, vlastní rozhodnutí, žádné skupinové rozdělení nákladů, které určuje její obchodní model), může ji národní orgán pro test velikosti považovat za samostatnou. Nezávislost si sepište dříve, než se na ni spolehnete. Nepředpokládejte ji."
       },
       "platform": {
@@ -4022,7 +4022,7 @@
           },
           "legal": {
             "title": "5. Při nejasné působnosti zvažte právní poradenství",
-            "description": "Pokud se vaše firma pohybuje blízko prahu (kolem 50 zaměstnanců nebo obratu 10 mil. EUR), působí v odvětví, které lze vykládat více způsoby, nebo má složitou korporátní strukturu, poraďte se s právníkem se specializací na IT regulaci. Náklady na právní stanovisko (2 000 až 5 000 EUR) jsou zanedbatelné ve srovnání s náklady na nesoulad nebo na zbytečnou shodu. Některá oborová sdružení (jako Bitkom nebo BDI) nabízejí svým členům i poradenství k působnosti NIS2."
+            "description": "Pokud se vaše firma pohybuje blízko prahu (kolem 50 zaměstnanců nebo kolem 10 mil. EUR obratu i bilanční sumy), působí v odvětví, které lze vykládat více způsoby, nebo má složitou korporátní strukturu, poraďte se s právníkem se specializací na IT regulaci. Náklady na právní stanovisko (2 000 až 5 000 EUR) jsou zanedbatelné ve srovnání s náklady na nesoulad nebo na zbytečnou shodu. Některá oborová sdružení (jako Bitkom nebo BDI) nabízejí svým členům i poradenství k působnosti NIS2."
           }
         }
       },
@@ -4116,12 +4116,12 @@
           "scope": {
             "aspect": "Rozsah",
             "kritis": "Přibližně 2 000 provozovatelů kritické infrastruktury v 10 odvětvích, identifikovaných překročením konkrétních prahových hodnot (např. 500 000 obsluhovaných osob)",
-            "nis2": "Přibližně 30 000 subjektů napříč 18 odvětvími, s použitím jednoduchého velikostního prahu: 50+ zaměstnanců nebo 10 mil. EUR+ ročního obratu. Zahrnuje kategorie 'základní' i 'důležité'"
+            "nis2": "Přibližně 30 000 subjektů napříč 18 odvětvími, s použitím jednoduchého velikostního prahu: 50+ zaměstnanců, nebo roční obrat i bilanční suma nad 10 mil. EUR. Zahrnuje kategorie 'základní' i 'důležité'"
           },
           "threshold": {
             "aspect": "Model prahových hodnot",
             "kritis": "Odvětvově specifické kvantitativní prahy (např. 500 000 zásobovaných osob pro energetiku, 500 000 obyvatel pro vodu). Složité na výpočet, mnoho hraničních případů",
-            "nis2": "Jednotná velikostní kritéria: střední podnik (50+ zaměstnanců nebo 10 mil. EUR+ obratu) napříč všemi odvětvími. Mnohem jednodušší na určení. Některá odvětví mají další kritéria bez ohledu na velikost"
+            "nis2": "Jednotná velikostní kritéria: střední podnik (50+ zaměstnanců, nebo obrat i bilanční suma nad 10 mil. EUR) napříč všemi odvětvími. Mnohem jednodušší na určení. Některá odvětví mají další kritéria bez ohledu na velikost"
           },
           "registration": {
             "aspect": "Registrace",
@@ -4194,7 +4194,7 @@
         "items": [
           "BSI zůstává ústředním příslušným orgánem a vnitrostátním CSIRT pro Německo",
           "IT-Grundschutz zůstává doporučenou metodikou pro zavádění bezpečnostních opatření (§ 44 odst. 2 BSIG)",
-          "Základní princip 'přiměřených a úměrných' opatření. Musíte zavést to, co je rozumné pro vaši velikost a rizikový profil, nikoli vše teoreticky možné",
+          "Základní princip 'vhodných a přiměřených' opatření. Musíte zavést to, co je rozumné pro vaši velikost a rizikový profil, nikoli vše teoreticky možné",
           "Požadavek udržovat systém řízení bezpečnosti informací (ISMS) v nějaké formě, ať už formálně certifikovaný, nebo strukturovaný kolem Grundschutz"
         ]
       },
@@ -4267,7 +4267,7 @@
         },
         "cir2024": {
           "term": "CIR 2024/2690",
-          "definition": "Prováděcí nařízení EU, které stanoví technické a metodické požadavky na opatření podle čl. 21 odst. 2 NIS2, ale jen pro určité typy subjektů: provozovatele DNS, registry domén nejvyšší úrovně, poskytovatele služeb cloud computingu, poskytovatele služeb datových center, poskytovatele sítí pro doručování obsahu, poskytovatele řízených služeb, poskytovatele řízených bezpečnostních služeb, poskytovatele on-line tržišť, internetových vyhledávačů a služeb platforem sociálních sítí a poskytovatele služeb vytvářejících důvěru. Na rozdíl od směrnice se uplatňuje přímo ve všech členských státech bez provedení. Pro tyto subjekty upřesňuje, co 'vhodná kyberbezpečnostní opatření' v praxi skutečně znamenají. Berte ho jako technický předpis, který doplňuje detaily, které směrnice nechala otevřené.",
+          "definition": "Prováděcí nařízení EU, které stanoví technické a metodické požadavky na opatření podle čl. 21 odst. 2 NIS2, ale jen pro určité typy subjektů: provozovatele DNS, registry domén nejvyšší úrovně, poskytovatele služeb cloud computingu, poskytovatele služeb datových center, poskytovatele sítí pro doručování obsahu, poskytovatele řízených služeb, poskytovatele řízených bezpečnostních služeb, poskytovatele on-line tržišť, internetových vyhledávačů a služeb platforem sociálních sítí a poskytovatele služeb vytvářejících důvěru. Na rozdíl od směrnice se uplatňuje přímo ve všech členských státech bez provedení. Pro tyto subjekty upřesňuje, co vhodná kyberbezpečnostní opatření v praxi skutečně znamenají. Berte ho jako technický předpis, který doplňuje detaily, které směrnice nechala otevřené.",
           "legalRef": "Prováděcí nařízení Komise (EU) 2024/2690"
         },
         "bsiRegistration": {
@@ -4401,12 +4401,12 @@
         "description": "Odpadové hospodářství je nově v působnosti NIS2 podle přílohy II. Pro firmy od 50 zaměstnanců: zákonné požadavky, aktiva a první kroky k souladu."
       },
       "title": "NIS2 pro firmy v odpadovém hospodářství",
-      "subtitle": "Vaše odvětví je nově v působnosti podle přílohy II NIS2. Pokud má vaše firma v odpadovém hospodářství 50+ zaměstnanců nebo obrat 10 mil. EUR+, toto je váš praktický průvodce tím, co zákon vyžaduje a kde začít.",
+      "subtitle": "Vaše odvětví je nově v působnosti podle přílohy II NIS2. Pokud má vaše firma v odpadovém hospodářství 50+ zaměstnanců, nebo obrat i bilanční sumu nad 10 mil. EUR, toto je váš praktický průvodce tím, co zákon vyžaduje a kde začít.",
       "badge": "Příloha II - důležitý subjekt",
       "why": {
         "heading": "Proč se NIS2 vztahuje na firmy v odpadovém hospodářství?",
         "p1": "Odpadové hospodářství bylo do NIS2 zařazeno, protože moderní provoz v oblasti odpadů silně závisí na IT systémech. Správa vozového parku, optimalizace tras, mostové váhy, řízení třídicích závodů, fakturace a regulatorní výkaznictví, to vše běží na propojeném softwaru. Ransomwarový útok, který vyřadí systém správy vozového parku firmy v odpadovém hospodářství, nezastaví jen nákladní vozy. Vytváří riziko pro veřejné zdraví. Nesvezený odpad ve městě s 200 000 obyvateli se během několika dní stane krizí.",
-        "p2": "EU zařadila odpadové hospodářství do přílohy II směrnice NIS2, což znamená, že firmy v odpadovém hospodářství splňující práh velikosti (50+ zaměstnanců nebo roční obrat 10 mil. EUR+) jsou klasifikovány jako \"důležité subjekty\" (wichtige Einrichtungen) podle §28(2) BSIG. To znamená, že platí celá řada povinností NIS2: registrace u BSI, opatření řízení rizik kybernetické bezpečnosti, hlášení incidentů, bezpečnost dodavatelského řetězce a odpovědnost vedení.",
+        "p2": "EU zařadila odpadové hospodářství do přílohy II směrnice NIS2, což znamená, že firmy v odpadovém hospodářství splňující práh velikosti (50+ zaměstnanců, nebo roční obrat i bilanční suma nad 10 mil. EUR) jsou klasifikovány jako \"důležité subjekty\" (wichtige Einrichtungen) podle §28(2) BSIG. To znamená, že platí celá řada povinností NIS2: registrace u BSI, opatření řízení rizik kybernetické bezpečnosti, hlášení incidentů, bezpečnost dodavatelského řetězce a odpovědnost vedení.",
         "p3": "Většina firem v odpadovém hospodářství se dosud s regulací kybernetické bezpečnosti nikdy nesetkala. To není kritika. Až do NIS2 k tomu nebyl právní důvod. Znamená to ale strmější křivku učení oproti odvětvím, která už spadala pod KRITIS. Dobrá zpráva: IT prostředí firem v odpadovém hospodářství jsou obvykle méně složitá než v bankovnictví nebo energetice, což znamená, že úsilí na shodu je úměrně menší."
       },
       "assets": {
@@ -4475,7 +4475,7 @@
         "heading": "Časté dotazy",
         "q1": {
           "q": "Spadá naše firma v odpadovém hospodářství skutečně do působnosti NIS2?",
-          "a": "Pokud vaše firma působí ve svozu, zpracování nebo likvidaci odpadu a má 50 nebo více zaměstnanců nebo roční obrat 10 mil. EUR nebo více, jste téměř jistě v působnosti jako důležitý subjekt podle přílohy II NIS2. Definice odvětví pokrývá celý řetězec odpadového hospodářství. Pokud jste blízko prahu, ověřte, zda vás propojené společnosti ve skupině nepřevedou přes limit. NIS2 používá definici malých a středních podniků EU, která zohledňuje propojené podniky."
+          "a": "Pokud vaše firma působí ve svozu, zpracování nebo likvidaci odpadu a má 50 nebo více zaměstnanců, nebo roční obrat i bilanční sumu nad 10 mil. EUR, jste téměř jistě v působnosti jako důležitý subjekt podle přílohy II NIS2. Definice odvětví pokrývá celý řetězec odpadového hospodářství. Pokud jste blízko prahu, ověřte, zda vás propojené společnosti ve skupině nepřevedou přes limit. NIS2 používá definici malých a středních podniků EU, která zohledňuje propojené podniky."
         },
         "q2": {
           "q": "Outsourcujeme veškeré IT. Vztahuje se na nás NIS2 i tak?",
@@ -4648,7 +4648,7 @@
     "securityObligation": {
       "meta": {
         "title": "Povinnost zajistit IT bezpečnost - NIS2 a BSIG",
-        "description": "NIS2 je nová povinnost zajistit IT bezpečnost pro německé společnosti s více než 50 zaměstnanci nebo obratem nad 10 mil. v kritických odvětvích. Co BSIG vyžaduje."
+        "description": "NIS2 je nová povinnost zajistit IT bezpečnost pro německé společnosti s 50+ zaměstnanci nebo obratem i bilanční sumou nad 10 mil. EUR v kritických odvětvích. Co BSIG vyžaduje."
       },
       "title": "Nová povinnost zajistit IT bezpečnost pro německé společnosti",
       "subtitle": "Pokud jste hledali 'IT Sicherheitspflicht', hledáte NIS2. Od prosince 2025 dělá revidovaný BSIG z kybernetické bezpečnosti zákonnou povinnost pro zhruba 29 500 německých společností.",
@@ -4656,7 +4656,7 @@
         "heading": "NIS2 je ta povinnost zajistit IT bezpečnost, o které jste slyšeli",
         "p1": "V Německu neexistuje samostatný 'zákon o povinnosti zajistit IT bezpečnost'. Co existuje, je směrnice NIS2 (EU 2022/2555), transponovaná do německého práva prostřednictvím NIS2UmsuCG, který zásadně přepracoval spolkový zákon o kybernetické bezpečnosti (BSIG). To je zákon, který vytváří závazné povinnosti zajistit IT bezpečnost pro společnosti v 18 kritických odvětvích.",
         "p2": "BSIG nabyl účinnosti 6. prosince 2025. Vyžaduje, aby dotčené společnosti zavedly 10 konkrétních opatření pro řízení rizik kybernetické bezpečnosti (§30 BSIG), zaregistrovaly se u BSI, hlásily významné incidenty v přísných lhůtách a zabezpečily svůj dodavatelský řetězec. Vedení je podle §38 BSIG osobně odpovědné za zajištění shody.",
-        "p3": "Pokud má vaše společnost 50 nebo více zaměstnanců nebo překračuje 10 milionů eur ročního obratu a působí v jednom z 18 odvětví NIS2, tyto povinnosti se na vás vztahují právě teď. Termín registrace byl 6. března 2026. Implementace všech opatření je vyžadována do 17. října 2026."
+        "p3": "Pokud má vaše společnost 50 nebo více zaměstnanců, nebo roční obrat i bilanční sumu nad 10 milionů eur, a působí v jednom z 18 odvětví NIS2, tyto povinnosti se na vás vztahují právě teď. Termín registrace byl 6. března 2026."
       },
       "check": {
         "heading": "Vztahuje se to na mou společnost?",
@@ -4682,7 +4682,7 @@
       },
       "steps": {
         "heading": "Co musíte udělat",
-        "description": "BSIG vyžaduje pět konkrétních kroků. Registrace by již měla být hotova. Zbývající opatření musí být zavedena do října 2026.",
+        "description": "BSIG vyžaduje pět konkrétních kroků. Registrace by již měla být hotova.",
         "items": {
           "register": {
             "title": "Zaregistrujte se u BSI",
@@ -4812,7 +4812,7 @@
       },
       "scope": {
         "heading": "Kdo spadá pod §30 BSIG",
-        "p1": "§30 BSIG platí pro základní subjekty podle §28(6) BSIG a důležité subjekty podle §28(7) BSIG. Sektory jsou uvedeny v příloze 1 a příloze 2 směrnice NIS 2. Práh velikosti je alespoň 50 zaměstnanců nebo 10 milionů eur ročního obratu, se zvláštními pravidly pro KRITIS a pro sektory, které platí bez ohledu na velikost.",
+        "p1": "§30 BSIG platí pro základní subjekty podle §28(6) BSIG a důležité subjekty podle §28(7) BSIG. Sektory jsou uvedeny v příloze 1 a příloze 2 směrnice NIS 2. Práh velikosti je alespoň 50 zaměstnanců, nebo roční obrat i bilanční suma nad 10 milionů eur, se zvláštními pravidly pro KRITIS a pro sektory, které platí bez ohledu na velikost.",
         "p2": "Pokud si nejste jisti, začněte testem působnosti podle článku 2 NIS 2. Dodavatelé regulovaných subjektů přicházejí do styku s §30 také prostřednictvím č. 4 (dodavatelský řetězec): povinnosti se smluvně přenášejí na přímé dodavatele."
       },
       "penalties": {
@@ -4935,7 +4935,7 @@
         },
         "q3": {
           "q": "Nejsme si jisti, zda se zařadíme jako základní nebo důležitý subjekt. Co vybereme?",
-          "a": "Základní subjekty (essential entities) jsou velké firmy (250 a více zaměstnanců nebo obrat 50 mil. a více) v sektorech přílohy I, plus všichni provozovatelé KRITIS. Důležité subjekty (wichtige Einrichtungen) jsou střední firmy (50 až 249 zaměstnanců nebo obrat 10 až 50 mil.) v sektorech přílohy I, nebo střední a velké firmy v sektorech přílohy II. Pokud si opravdu nejste jisti, portál BSI během registračního procesu poskytuje pokyny k zařazení."
+          "a": "Základní subjekty (essential entities) jsou velké firmy (250 a více zaměstnanců, nebo obrat nad 50 mil. a zároveň bilanční suma nad 43 mil.) v sektorech přílohy I, plus všichni provozovatelé KRITIS. Důležité subjekty (wichtige Einrichtungen) jsou střední firmy (50 až 249 zaměstnanců, nebo obrat i bilanční suma nad 10 mil., pod prahy velkého podniku) v sektorech přílohy I, nebo střední a velké firmy v sektorech přílohy II. Pokud si opravdu nejste jisti, portál BSI během registračního procesu poskytuje pokyny k zařazení."
         },
         "q4": {
           "q": "Co se stane po registraci? Kontaktuje nás BSI?",
@@ -5072,11 +5072,11 @@
       },
       "badge": "Příloha II - důležitý subjekt",
       "title": "NIS2 pro společnosti vyrábějící a distribuující potraviny",
-      "subtitle": "Výroba, zpracování a velkoobchodní distribuce potravin spadají do rozsahu přílohy II NIS2. Pokud má vaše společnost 50+ zaměstnanců nebo překračuje 10 mil. eur obratu, toto je váš praktický průvodce tím, co BSIG vyžaduje.",
+      "subtitle": "Výroba, zpracování a velkoobchodní distribuce potravin spadají do rozsahu přílohy II NIS2. Pokud má vaše společnost 50+ zaměstnanců, nebo obrat i bilanční sumu nad 10 mil. eur, toto je váš praktický průvodce tím, co BSIG vyžaduje.",
       "why": {
         "heading": "Proč se NIS2 vztahuje na potravinářské společnosti?",
         "p1": "Moderní výroba potravin je hluboce závislá na IT systémech. ERP systémy spravují objednávky a fakturaci. Systémy řízení výroby (MES) plánují a monitorují výrobní linky. Systémy monitorování chladicího řetězce sledují teploty od výroby po dodání. Laboratorní informační systémy spravují testování kvality. Pokud ransomware vyřadí váš ERP, nemůžete expedovat. Pokud selže monitorování chladicího řetězce, nemůžete prokázat bezpečnost produktu. Proto EU zařadila potraviny mezi kritická odvětví.",
-        "p2": "EU zařadila výrobu, zpracování a velkoobchodní distribuci potravin pod přílohu II směrnice NIS2. Společnosti splňující velikostní práh (50+ zaměstnanců nebo přes 10 milionů eur ročního obratu) jsou klasifikovány jako 'wichtige Einrichtungen' (důležité subjekty) podle § 28 odst. 2 BSIG. To znamená, že platí celá sada povinností NIS2: registrace u BSI, 10 opatření pro řízení kybernetických rizik, hlášení incidentů, bezpečnost dodavatelského řetězce a odpovědnost vedení.",
+        "p2": "EU zařadila výrobu, zpracování a velkoobchodní distribuci potravin pod přílohu II směrnice NIS2. Společnosti splňující velikostní práh (50+ zaměstnanců, nebo roční obrat i bilanční suma přes 10 milionů eur) jsou klasifikovány jako 'wichtige Einrichtungen' (důležité subjekty) podle § 28 odst. 2 BSIG. To znamená, že platí celá sada povinností NIS2: registrace u BSI, 10 opatření pro řízení kybernetických rizik, hlášení incidentů, bezpečnost dodavatelského řetězce a odpovědnost vedení.",
         "p3": "Většina potravinářských společností se dosud s regulací kybernetické bezpečnosti nesetkala. Předpisy o bezpečnosti potravin (HACCP, IFS, BRC) jsou známé, ale povinnosti IT bezpečnosti jsou nové. Dobrá zpráva: pokud vaše společnost již provozuje strukturovaný systém řízení kvality, mnoho konceptů se přenáší. Hodnocení rizik, dokumentace, audity, nápravná opatření. Rámec je podobný, jen aplikovaný na IT místo výrobní hygieny."
       },
       "assets": {
@@ -5177,7 +5177,7 @@
       "why": {
         "heading": "Proč se NIS2 vztahuje na výrobu?",
         "p1": "Moderní výroba závisí na konvergenci IT a OT (provozní technologie). ERP systémy řídí plánování výroby. Platformy MES řídí provádění na dílně. Systémy SCADA řídí stroje a automatizaci procesů. Systémy CAD/CAM definují, co se vyrábí. Když jsou tyto systémy propojené (a ve většině továren jsou), kybernetický útok na jeden z nich může zasáhnout celý výrobní řetězec. Ransomwarová nákaza v kancelářské síti, která se dostane k MES, může zastavit výrobní linky.",
-        "p2": "EU zařadila výrobu do přílohy II směrnice NIS2 a pokrývá: výrobu zdravotnických prostředků, výrobu počítačů a elektroniky, výrobu elektrických zařízení, výrobu strojů a zařízení, výrobu motorových vozidel a výrobu ostatních dopravních prostředků. Firmy splňující práh velikosti (50+ zaměstnanců nebo roční obrat nad 10 milionů eur) jsou \"wichtige Einrichtungen\" (důležité subjekty) podle § 28(2) BSIG.",
+        "p2": "EU zařadila výrobu do přílohy II směrnice NIS2 a pokrývá: výrobu zdravotnických prostředků, výrobu počítačů a elektroniky, výrobu elektrických zařízení, výrobu strojů a zařízení, výrobu motorových vozidel a výrobu ostatních dopravních prostředků. Firmy splňující práh velikosti (50+ zaměstnanců, nebo roční obrat i bilanční suma nad 10 milionů eur) jsou \"wichtige Einrichtungen\" (důležité subjekty) podle § 28(2) BSIG.",
         "p3": "Výroba má jedinečnou výzvu, které většina jiných odvětví NIS2 nečelí ve stejném rozsahu: bezpečnost OT. Výrobní zařízení často běží na specializovaných operačních systémech, používá proprietární protokoly a má omezení životního cyklu, která ztěžují záplatování. Stroj CNC z roku 2015 může běžet na Windows 7 Embedded a nelze jej aktualizovat bez zapojení výrobce. NIS2 tuto realitu neignoruje. § 30 BSIG vyžaduje opatření, která jsou \"úměrná\" riziku. Musíte však zdokumentovat rizika a kompenzační kontroly."
       },
       "assets": {
@@ -5379,7 +5379,7 @@
       "why": {
         "heading": "Proč se NIS2 vztahuje na logistické společnosti?",
         "p1": "Logistika je páteří fyzické ekonomiky. Kybernetický útok, který zastaví velkého logistického poskytovatele, nepostihne jen jednu společnost. Naruší dodavatelské řetězce desítek nebo stovek klientů. Útok NotPetya z roku 2017 stál samotný Maersk přes 300 milionů eur a na týdny narušil světovou lodní dopravu. EU zařadila dopravu pod přílohu I (odvětví vysoké kritičnosti), protože výpadky logistiky se kaskádovitě šíří celou ekonomikou.",
-        "p2": "NIS2 pokrývá všechny druhy dopravy: silniční nákladní dopravu, železniční dopravu, vnitrozemskou vodní dopravu, námořní lodní dopravu a leteckou nákladní dopravu. Do působnosti spadají společnosti splňující velikostní prahy (50 a více zaměstnanců nebo obrat nad 10 milionů eur). Velké společnosti (250 a více zaměstnanců) v odvětvích přílohy I jsou zařazeny jako základní subjekty. Střední společnosti (50 až 249 zaměstnanců) jsou důležité subjekty (wichtige Einrichtungen). Obojí čelí plné sadě povinností NIS2.",
+        "p2": "NIS2 pokrývá všechny druhy dopravy: silniční nákladní dopravu, železniční dopravu, vnitrozemskou vodní dopravu, námořní lodní dopravu a leteckou nákladní dopravu. Do působnosti spadají společnosti splňující velikostní prahy (50 a více zaměstnanců, nebo obrat i bilanční suma nad 10 milionů eur). Velké společnosti (250 a více zaměstnanců) v odvětvích přílohy I jsou zařazeny jako základní subjekty. Střední společnosti (50 až 249 zaměstnanců) jsou důležité subjekty (wichtige Einrichtungen). Obojí čelí plné sadě povinností NIS2.",
         "p3": "Moderní logistické společnosti běží na propojených IT systémech. Systémy řízení dopravy (TMS) řídí zásilky. Správa vozového parku sleduje vozidla v reálném čase. Systémy řízení skladu (WMS) řídí zásoby a vychystávání. Telematické jednotky v nákladních vozech přenášejí polohu, rychlost, teplotu a data o řidiči. Pokud kterýkoli z těchto systémů selže, provoz se zastaví nebo se stane nebezpečně neefektivním. NIS2 vyžaduje, abyste tyto závislosti identifikovali a systematicky řídili kybernetická rizika."
       },
       "assets": {
@@ -6335,7 +6335,7 @@
         },
         "q24": {
           "q": "Spadají všichni účastníci zabezpečeného dodavatelského řetězce v oblasti bezpečnosti letectví pod KRITIS, i když jsou malými podniky pod prahy pro použitelnost NIS 2?",
-          "a": "Ne. Účast v zabezpečeném dodavatelském řetězci podle §9a LuftSiG z firmy automaticky nečiní kritickou infrastrukturu a automaticky z ní nečiní subjekt NIS 2. Rozhodující jsou dva oddělené prahy: provozovatelem KRITIS se stáváte jen tehdy, když překročíte objemové prahy BSI-KritisV pro kritickou službu (typicky v odvětví letectví nebo logistiky). Použitelnost NIS 2 podle přílohy I nebo II směrnice NIS 2 (EU) 2022/2555 zase vyžaduje, abyste působili v pokrytém odvětví a splňovali velikostní kritéria (zpravidla od 50 zaměstnanců nebo více než 10 milionů EUR ročního obratu; BSIG to transponuje v §28). Kdo je pod oběma prahy, není pouhou účastí v dodavatelském řetězci pokryt ani KRITIS, ani NIS 2. Kompletní test najdete na [Kdo je dotčen](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
+          "a": "Ne. Účast v zabezpečeném dodavatelském řetězci podle §9a LuftSiG z firmy automaticky nečiní kritickou infrastrukturu a automaticky z ní nečiní subjekt NIS 2. Rozhodující jsou dva oddělené prahy: provozovatelem KRITIS se stáváte jen tehdy, když překročíte objemové prahy BSI-KritisV pro kritickou službu (typicky v odvětví letectví nebo logistiky). Použitelnost NIS 2 podle přílohy I nebo II směrnice NIS 2 (EU) 2022/2555 zase vyžaduje, abyste působili v pokrytém odvětví a splňovali velikostní kritéria (zpravidla od 50 zaměstnanců, nebo při ročním obratu i bilanční sumě nad 10 milionů EUR; BSIG to transponuje v §28). Kdo je pod oběma prahy, není pouhou účastí v dodavatelském řetězci pokryt ani KRITIS, ani NIS 2. Kompletní test najdete na [Kdo je dotčen](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
         },
         "q25": {
           "q": "Které právní formy spadají podle NIS 2 do finančního odvětví a bankovního pododvětví?",
@@ -7256,7 +7256,7 @@
           },
           "check": {
             "title": "Ověřte prahovou hodnotu každé země",
-            "description": "NIS2 se vztahuje na střední a velké subjekty (více než 50 zaměstnanců nebo obrat nad 10 mil. EUR). Použijte test prahové hodnoty na jednotlivý právní subjekt, nikoli na celou skupinu, malá dceřiná společnost může spadat pod prahovou hodnotu."
+            "description": "NIS2 se vztahuje na střední a velké subjekty (alespoň 50 zaměstnanců, nebo obrat i bilanční suma nad 10 mil. EUR). Použijte test prahové hodnoty na jednotlivý právní subjekt, nikoli na celou skupinu, malá dceřiná společnost může spadat pod prahovou hodnotu."
           },
           "register": {
             "title": "Zaregistrujte se u každého národního orgánu",
@@ -7786,7 +7786,7 @@
           "framework": {
             "section": "§ 28 + § 30 BSIG",
             "title": "Rozsah a deset opatření",
-            "body": "§ 28 BSIG vymezuje, kdo spadá do rozsahu: 'zvláště důležité' a 'důležité' subjekty, posuzované podle odvětví (příloha I a II NIS 2) a velikosti (50+ zaměstnanců nebo 10 mil. EUR+ obratu, s výjimkami). § 30 BSIG uvádí deset kybernetických opatření, která musí každý dotčený subjekt zavést. § 30 transponuje čl. 21 odst. 2 směrnice."
+            "body": "§ 28 BSIG vymezuje, kdo spadá do rozsahu: 'zvláště důležité' a 'důležité' subjekty, posuzované podle odvětví (příloha I a II NIS 2) a velikosti (50+ zaměstnanců, nebo obrat i bilanční suma nad 10 mil. EUR, s výjimkami). § 30 BSIG uvádí deset kybernetických opatření, která musí každý dotčený subjekt zavést. § 30 transponuje čl. 21 odst. 2 směrnice."
           },
           "monitoring": {
             "section": "§ 32 + § 33 BSIG",
@@ -9475,7 +9475,7 @@
       "overview": {
         "heading": "Stručná verze",
         "p1": "Nemocnice sedí v NIS 2 příloze I sektoru 5 (Gesundheitswesen). Směrnice je zachytává jako 'Gesundheitsdienstleister' ve smyslu čl. 3 písm. g) směrnice 2011/24/EU. Seznam sektoru je širší než samotné nemocnice: referenční laboratoře EU, výzkum a vývoj léčiv, výrobci léčivých přípravků a výrobci kritických zdravotnických prostředků pro mimořádné situace v oblasti veřejného zdraví jsou ve stejné kategorii.",
-        "p2": "Zda vás NIS 2 zavazuje, závisí na čl. 2 odst. 1. Jste v působnosti, pokud jste středním podnikem podle doporučení Komise 2003/361/ES, nebo větší. Práh střední velikosti je 50 zaměstnanců nebo 10 milionů eur ročního obratu nebo bilanční sumy. Regionální klinika se 60 zaměstnanci je uvnitř. Specializovaná praxe s 20 zaměstnanci obecně není.",
+        "p2": "Zda vás NIS 2 zavazuje, závisí na čl. 2 odst. 1. Jste v působnosti, pokud jste středním podnikem podle doporučení Komise 2003/361/ES, nebo větší. Práh střední velikosti je 50 zaměstnanců, nebo roční obrat i bilanční suma nad 10 milionů eur. Regionální klinika se 60 zaměstnanci je uvnitř. Specializovaná praxe s 20 zaměstnanci obecně není.",
         "p3": "Německo má vedle toho běžící druhý režim: KRITIS. KRITIS-Verordnung stanoví práh specifický pro nemocnice ve výši 30 000 vollstationäre Krankenhausfälle za rok. Nemocnice se statusem KRITIS jsou stále subjekty NIS 2, ale nesou navíc přísnější povinnosti podle sekcí KRITIS v BSIG. KRITIS není práh NIS 2. Dva samostatné testy."
       },
       "legalAnchor": {
@@ -9489,7 +9489,7 @@
         "regulation": {
           "label": "Článek 2 odst. 1 NIS 2 + doporučení 2003/361/ES",
           "quote": "Tato směrnice se vztahuje na veřejné nebo soukromé subjekty typu uvedeného v příloze I nebo II, které se kvalifikují jako střední podniky podle článku 2 přílohy doporučení 2003/361/ES, nebo které překračují stropy pro střední podniky stanovené v odstavci 1 uvedeného článku.",
-          "context": "Článek 2 odst. 1 je pravidlo o působnosti. Definice velikosti 2003/361/ES říká, že střední znamená 50 nebo více zaměstnanců, nebo 10 milionů eur nebo více ročního obratu nebo bilanční sumy. Překročte kterýkoli práh a jste uvnitř."
+          "context": "Článek 2 odst. 1 je pravidlo o působnosti. Definice velikosti 2003/361/ES říká, že střední znamená 50 nebo více zaměstnanců, nebo roční obrat i bilanční sumu nad 10 milionů eur. Překročte kterýkoli práh a jste uvnitř."
         },
         "transposition": {
           "label": "§28 BSIG plus KRITIS-Verordnung (Německo)",
@@ -9509,7 +9509,7 @@
           "size": {
             "section": "Test 2",
             "title": "Test velikosti (čl. 2 odst. 1)",
-            "body": "Máte 50 nebo více zaměstnanců, nebo 10 milionů eur nebo více ročního obratu nebo bilanční sumy? Kterýkoli práh vás dostane do působnosti. Pod oběma zůstáváte venku, s úzkými výjimkami v čl. 2 odst. 2 a 3 (přepisy bez ohledu na velikost pro výhradní poskytovatele, veřejnou správu, kvalifikované služby vytvářející důvěru a několik dalších)."
+            "body": "Máte 50 nebo více zaměstnanců, nebo roční obrat i bilanční sumu nad 10 milionů eur? Kterýkoli práh vás dostane do působnosti. Pod oběma zůstáváte venku, s úzkými výjimkami v čl. 2 odst. 2 a 3 (přepisy bez ohledu na velikost pro výhradní poskytovatele, veřejnou správu, kvalifikované služby vytvářející důvěru a několik dalších)."
           },
           "kritis": {
             "section": "Test 3",
@@ -9559,7 +9559,7 @@
         "items": {
           "kritisThreshold": {
             "myth": "Jsme pod 30 000 případy ročně, takže jsme venku.",
-            "reality": "To je práh KRITIS, ne práh NIS 2. NIS 2 používá čl. 2 odst. 1: 50 zaměstnanců nebo 10 milionů eur obratu. Regionální klinika se 60 zaměstnanci a 8 000 případy ročně je v NIS 2 a mimo KRITIS. Obojí může platit naráz."
+            "reality": "To je práh KRITIS, ne práh NIS 2. NIS 2 používá čl. 2 odst. 1: 50 zaměstnanců, nebo obrat i bilanční suma nad 10 milionů eur. Regionální klinika se 60 zaměstnanci a 8 000 případy ročně je v NIS 2 a mimo KRITIS. Obojí může platit naráz."
           },
           "onlyIt": {
             "myth": "NIS 2 se vztahuje jen na IT systémy, ne na zbytek nemocnice.",
@@ -9887,7 +9887,7 @@
         "directive": {
           "label": "Směrnice NIS 2 (2022/2555), příloha I sektor 8 a čl. 2 odst. 2 písm. a)",
           "quote": "Sektor 8 Digitální infrastruktura: poskytovatelé veřejných sítí elektronických komunikací; poskytovatelé veřejně dostupných služeb elektronických komunikací. Tato směrnice se vztahuje rovněž na subjekty bez ohledu na jejich velikost, které splňují kterékoli z následujících kritérií: a) poskytovatelé veřejných sítí elektronických komunikací nebo poskytovatelé veřejně dostupných služeb elektronických komunikací.",
-          "context": "Dvě části je třeba číst společně. Sektor 8 přílohy I jmenuje telekomunikace jako klíčovou infrastrukturu. Článek 2 odst. 2 písm. a) pak činí ze stejných poskytovatelů telekomunikací zahrnutí bez ohledu na velikost. Běžný práh středního podniku (50 zaměstnanců nebo 10 mil. EUR obratu) se zde neuplatní."
+          "context": "Dvě části je třeba číst společně. Sektor 8 přílohy I jmenuje telekomunikace jako klíčovou infrastrukturu. Článek 2 odst. 2 písm. a) pak činí ze stejných poskytovatelů telekomunikací zahrnutí bez ohledu na velikost. Běžný práh středního podniku (50 zaměstnanců, nebo obrat i bilanční suma nad 10 mil. EUR) se zde neuplatní."
         },
         "regulation": {
           "label": "Směrnice (EU) 2018/1972 (evropský kodex pro elektronické komunikace), čl. 2",
@@ -10050,7 +10050,7 @@
           "size": {
             "section": "Velikost",
             "title": "Střední podnik nebo větší?",
-            "body": "Doporučení 2003/361/ES definuje střední podnik jako 50 zaměstnanců nebo více, NEBO obrat alespoň 10 milionů EUR A bilanční sumu alespoň 10 milionů EUR. Článek 2 odst. 1 vás zachycuje od středního výše. Uplatňuje se sčítání propojených podniků: pokud mateřský podnik ovládá více než 50 procent hlasů, sčítá se počet zaměstnanců a obrat. Dceřiná společnost s 30 zaměstnanci v rámci skupiny s 5000 lidmi se počítá jako součást údajů této skupiny."
+            "body": "Doporučení 2003/361/ES definuje střední podnik jako 50 zaměstnanců nebo více, NEBO obrat nad 10 milionů EUR A bilanční sumu nad 10 milionů EUR. Článek 2 odst. 1 vás zachycuje od středního výše. Uplatňuje se sčítání propojených podniků: pokud mateřský podnik ovládá více než 50 procent hlasů, sčítá se počet zaměstnanců a obrat. Dceřiná společnost s 30 zaměstnanci v rámci skupiny s 5000 lidmi se počítá jako součást údajů této skupiny."
           },
           "override": {
             "section": "Výjimka",
@@ -11092,7 +11092,7 @@
       "overview": {
         "heading": "Stručná verze",
         "p1": "Pokud poskytujete zákazníkům službu cloud computingu, jste v působnosti NIS 2, jakmile překročíte práh velikosti středního podniku. Odvětví 8 Přílohy I jmenuje poskytovatele služeb cloud computingu přímo pod digitální infrastrukturou. Definice v čl. 6 bodě 30 je široká: IaaS, PaaS, SaaS, veřejný cloud, privátní cloud prodávaný jako služba, hybridní nabídky, vše se počítá.",
-        "p2": "Na rozdíl od telekomunikací nebo DNS nejsou poskytovatelé cloudu na seznamu „bez ohledu na velikost“ podle čl. 2 odst. 2. Uplatní se běžný test podle čl. 2 odst. 1: střední podnik podle doporučení 2003/361/ES znamená 50 a více zaměstnanců nebo roční obrat nad 10 milionů EUR. Překročte kterýkoli práh a spadnete do působnosti. Zůstaňte pod oběma a jste obvykle mimo, s omezenými výjimkami v čl. 2 odst. 2 a 3, které se na cloud jako takový nevztahují.",
+        "p2": "Na rozdíl od telekomunikací nebo DNS nejsou poskytovatelé cloudu na seznamu „bez ohledu na velikost“ podle čl. 2 odst. 2. Uplatní se běžný test podle čl. 2 odst. 1: střední podnik podle doporučení 2003/361/ES znamená 50 a více zaměstnanců, nebo roční obrat i bilanční suma nad 10 milionů EUR. Překročte kterýkoli práh a spadnete do působnosti. Zůstaňte pod oběma a jste obvykle mimo, s omezenými výjimkami v čl. 2 odst. 2 a 3, které se na cloud jako takový nevztahují.",
         "p3": "Německo to převádí do národního práva prostřednictvím §28 BSIG. BSI je vaším orgánem. Nad rámec směrnice prováděcí nařízení Komise (EU) 2024/2690 zařazuje poskytovatele cloudu do své přílohy, takže jeho technické a metodické požadavky vás vážou přímo bez potřeby dalšího německého zákona. Tato stránka projde směrnici, unijní definici a německou transpozici v tomto pořadí."
       },
       "legalAnchor": {
@@ -11126,7 +11126,7 @@
           "sizeTest": {
             "section": "Test B",
             "title": "Překračujete práh velikosti?",
-            "body": "Poskytovatelé cloudu se řídí běžným testem podle čl. 2 odst. 1. Podle doporučení 2003/361/ES začíná střední podnik na 50 zaměstnancích nebo ročním obratu nad 10 milionů EUR (s roční bilanční sumou nad 10 milionů EUR jako alternativou). Při 250 zaměstnancích nebo obratu nad 50 milionů EUR se stáváte velkým podnikem a zařazujete se jako „klíčový“. Pod 50 zaměstnanci a obratem pod 10 milionů EUR jste jako poskytovatel cloudu obvykle mimo působnost."
+            "body": "Poskytovatelé cloudu se řídí běžným testem podle čl. 2 odst. 1. Podle doporučení 2003/361/ES začíná střední podnik na 50 zaměstnancích, nebo při ročním obratu i roční bilanční sumě nad 10 milionů EUR. Při 250 zaměstnancích, nebo při obratu nad 50 milionů EUR a zároveň bilanční sumě nad 43 milionů EUR se stáváte velkým podnikem a zařazujete se jako „klíčový“. Pod 50 zaměstnanci a obratem pod 10 milionů EUR jste jako poskytovatel cloudu obvykle mimo působnost."
           },
           "cirDirect": {
             "section": "Test C",
@@ -11185,7 +11185,7 @@
           },
           "nicheSaas": {
             "myth": "Jsme malý SaaS, takže cloudová pravidla se na nás nevztahují.",
-            "reality": "Právní test je dvoudílný. Nejprve čl. 6 bod 30: vícenájemní SaaS prodávaný po síti na sdílené infrastruktuře splňuje definici. Poté čl. 2 odst. 1: práh velikosti. Pokud máte pod 50 zaměstnanců a obrat pod 10 milionů EUR, jste na řádku cloudu mimo působnost. Pokud kterýkoli překročíte, jste uvnitř. „Niche“ není právní kategorie. Práci dělají čísla a definice."
+            "reality": "Právní test je dvoudílný. Nejprve čl. 6 bod 30: vícenájemní SaaS prodávaný po síti na sdílené infrastruktuře splňuje definici. Poté čl. 2 odst. 1: práh velikosti. Pokud máte pod 50 zaměstnanců a obrat pod 10 milionů EUR, jste na řádku cloudu mimo působnost. Pokud máte 50 a více zaměstnanců, nebo obrat i bilanční sumu nad 10 milionů EUR, jste uvnitř. „Niche“ není právní kategorie. Práci dělají čísla a definice."
           },
           "privateCloud": {
             "myth": "Provozujeme privátní cloud pro vlastní skupinu, takže jsme poskytovatel cloudu v působnosti.",
@@ -11249,7 +11249,7 @@
         "transposition": {
           "label": "§28 BSIG (Německo) a KRITIS-Verordnung",
           "quote": "Anbieter von Rechenzentrumsdiensten gelten ab dem Schwellenwert für mittlere Unternehmen als wichtige Einrichtungen, ab dem Schwellenwert für große Unternehmen als besonders wichtige Einrichtungen im Sinne dieses Gesetzes.",
-          "context": "§28 BSIG transponuje povinnosti NIS 2 pro datová centra. Test velikosti podle článku 2 odst. 1 (50 zaměstnanců / obrat 10 mil. eur) rozhoduje, zda je subjekt „wichtig“ nebo „besonders wichtig“. KRITIS-Verordnung je samostatná německá vrstva s vlastním prahem zátěže IT 3,5 MW pro datová centra. KRITIS přidává povinnosti navrch, není vstupní podmínkou pro NIS 2. Provozovatel kolokace s 25 MW je v obou režimech. Kolokační lokalita s 200 zaměstnanci při zátěži IT 1 MW je v působnosti NIS 2, ale ne KRITIS."
+          "context": "§28 BSIG transponuje povinnosti NIS 2 pro datová centra. Test velikosti podle článku 2 odst. 1 (50 zaměstnanců, nebo obrat i bilanční suma nad 10 mil. eur) rozhoduje, zda je subjekt „wichtig“ nebo „besonders wichtig“. KRITIS-Verordnung je samostatná německá vrstva s vlastním prahem zátěže IT 3,5 MW pro datová centra. KRITIS přidává povinnosti navrch, není vstupní podmínkou pro NIS 2. Provozovatel kolokace s 25 MW je v obou režimech. Kolokační lokalita s 200 zaměstnanci při zátěži IT 1 MW je v působnosti NIS 2, ale ne KRITIS."
         }
       },
       "elements": {
@@ -11264,7 +11264,7 @@
           "sizeTest": {
             "section": "Test B",
             "title": "Jste nad prahem velikosti?",
-            "body": "Článek 2 odst. 1 NIS 2 odkazuje na doporučení 2003/361/ES. Střední subjekty (50 a více zaměstnanců, nebo roční obrat a bilanční suma celkem nad 10 milionů eur) spadají pod režim jako „důležité“. Velké subjekty (nad 250 zaměstnanců nebo obrat nad 50 milionů eur) pod něj spadají jako „nezbytné“. Pro datová centra neexistuje žádné zahrnutí bez ohledu na velikost."
+            "body": "Článek 2 odst. 1 NIS 2 odkazuje na doporučení 2003/361/ES. Střední subjekty (50 a více zaměstnanců, nebo roční obrat a bilanční suma celkem nad 10 milionů eur) spadají pod režim jako „důležité“. Velké subjekty (nad 250 zaměstnanců, nebo obrat nad 50 milionů eur a zároveň bilanční suma nad 43 milionů eur) pod něj spadají jako „nezbytné“. Pro datová centra neexistuje žádné zahrnutí bez ohledu na velikost."
           },
           "kritisOverlap": {
             "section": "Test C",
@@ -11368,7 +11368,7 @@
       "overview": {
         "heading": "Krátká verze",
         "p1": "Výrobci zdravotnických prostředků se objevují ve dvou přílohách NIS 2 současně. Sektor 5 přílohy I je uvádí ve své páté podkategorii jako výrobce prostředků považovaných za kritické během mimořádné situace v oblasti veřejného zdraví podle článku 22 nařízení (EU) 2022/123. To je seznam kritických prostředků EMA. Společnosti na něm jsou zásadně významnými subjekty a sedí ve vyšším pásmu pokut.",
-        "p2": "Sektor 5 přílohy II zachycuje zbytek odvětví. Podkategorie jsou výrobci zdravotnických prostředků podle článku 2 odst. 1 nařízení (EU) 2017/745 (MDR) a výrobci diagnostických zdravotnických prostředků in vitro podle článku 2 odst. 2 nařízení (EU) 2017/746 (IVDR). To jsou významné subjekty. Stejný test velikosti podle článku 2 odst. 1 jako u všech ostatních: 50 zaměstnanců nebo 10 milionů eur obratu nebo bilanční sumy.",
+        "p2": "Sektor 5 přílohy II zachycuje zbytek odvětví. Podkategorie jsou výrobci zdravotnických prostředků podle článku 2 odst. 1 nařízení (EU) 2017/745 (MDR) a výrobci diagnostických zdravotnických prostředků in vitro podle článku 2 odst. 2 nařízení (EU) 2017/746 (IVDR). To jsou významné subjekty. Stejný test velikosti podle článku 2 odst. 1 jako u všech ostatních: 50 zaměstnanců, nebo obrat i bilanční suma nad 10 milionů eur.",
         "p3": "MDR a IVDR běží souběžně, NIS 2 nenahrazují. MDR pokrývá prostředek, NIS 2 pokrývá společnost. Povinnosti v oblasti kybernetické bezpečnosti podle MDR příloha I bod 17.2 sedí na úrovni produktu. Povinnosti NIS 2 podle článku 21 sedí na úrovni subjektu. Platí obojí. Pro výrobce zdravotnických prostředků neexistuje žádná výjimka typu lex specialis jako u DORA."
       },
       "legalAnchor": {
@@ -11386,7 +11386,7 @@
         },
         "transposition": {
           "label": "§ 28 BSIG a článek 2 odst. 1 NIS 2 (test velikosti)",
-          "quote": "§ 28 BSIG transponuje působnost přílohy I a přílohy II do německého práva. Článek 2 odst. 1 NIS 2 plus doporučení 2003/361/ES stanoví prahovou hodnotu velikosti: 50 nebo více zaměstnanců, nebo 10 milionů eur nebo více ročního obratu nebo bilanční sumy.",
+          "quote": "§ 28 BSIG transponuje působnost přílohy I a přílohy II do německého práva. Článek 2 odst. 1 NIS 2 plus doporučení 2003/361/ES stanoví prahovou hodnotu velikosti: 50 nebo více zaměstnanců, nebo roční obrat i bilanční suma nad 10 milionů eur.",
           "context": "Dvě prahové hodnoty, jedna z nich stačí. Pravidlo velikosti je totožné pro subjekty z přílohy I i přílohy II. Jediné, co se mezi nimi mění, je pásmo pokut a režim dohledu. BfArM zůstává regulátorem pro MDR a IVDR; BSI je regulátorem pro NIS 2. Dva různé orgány, jedna společnost."
         }
       },
@@ -11407,7 +11407,7 @@
           "size": {
             "section": "Test 3",
             "title": "Test velikosti (článek 2 odst. 1)",
-            "body": "Máte 50 nebo více zaměstnanců, nebo 10 milionů eur nebo více ročního obratu nebo bilanční sumy? Kterákoli prahová hodnota vás dostává do působnosti. Pod oběma zůstáváte mimo, s úzkými výjimkami bez ohledu na velikost v článku 2 odst. 2 a odst. 3 (výhradní poskytovatelé, veřejná správa, kvalifikované služby vytvářející důvěru, několik dalších)."
+            "body": "Máte 50 nebo více zaměstnanců, nebo roční obrat i bilanční sumu nad 10 milionů eur? Kterákoli prahová hodnota vás dostává do působnosti. Pod oběma zůstáváte mimo, s úzkými výjimkami bez ohledu na velikost v článku 2 odst. 2 a odst. 3 (výhradní poskytovatelé, veřejná správa, kvalifikované služby vytvářející důvěru, několik dalších)."
           }
         }
       },
@@ -11499,7 +11499,7 @@
         "description": "Pokud v EU vyrábíte stroje, zařízení nebo průmyslové vybavení, s největší pravděpodobností spadáte do působnosti NIS 2 jako důležitý subjekt podle přílohy II sektoru 5. Tato stránka prochází testem NACE, testem velikosti a stopou OT, které o tom rozhodují."
       },
       "title": "Jsem výrobce strojů podle NIS 2?",
-      "subtitle": "Příloha II sektor 5 směrnice NIS 2 vtahuje výrobu do působnosti. Výrobci strojů sídlí v podkategorii (d), oddíl NACE C28. Pokud máte 50 zaměstnanců nebo obrat 10 milionů eur, jste důležitý subjekt se stejnými deseti povinnostmi podle článku 21(2) jako ti velcí.",
+      "subtitle": "Příloha II sektor 5 směrnice NIS 2 vtahuje výrobu do působnosti. Výrobci strojů sídlí v podkategorii (d), oddíl NACE C28. Pokud máte 50 zaměstnanců, nebo obrat i bilanční sumu nad 10 milionů eur, jste důležitý subjekt se stejnými deseti povinnostmi podle článku 21(2) jako ti velcí.",
       "overview": {
         "heading": "Krátká verze",
         "p1": "NIS 2 pokrývá výrobu jako důležitý sektor. Příloha II sektor 5 jmenuje šest podkategorií výroby. Výroba strojů a zařízení, oddíl NACE C28, je jednou z nich. Pokud děláte právě tohle a jste nad prahem velikosti, NIS 2 se na vás vztahuje.",
@@ -11587,7 +11587,7 @@
         "items": {
           "onlyBigCompanies": {
             "myth": "NIS 2 je pro velké průmyslové skupiny, ne pro naši strojírnu s 80 lidmi.",
-            "reality": "Test velikosti je 50 zaměstnanců nebo obrat 10 milionů eur. Strojírna s 80 lidmi a NACE C28 je jednoznačně v ní. Kategorie „důležitý subjekt“ z přílohy II existuje právě pro vrstvu Mittelstandu. Strop pokut je nižší než u zásadních subjektů, ale deset povinností podle článku 21(2) je stejných."
+            "reality": "Test velikosti je 50 zaměstnanců, nebo obrat i bilanční suma nad 10 milionů eur. Strojírna s 80 lidmi a NACE C28 je jednoznačně v ní. Kategorie „důležitý subjekt“ z přílohy II existuje právě pro vrstvu Mittelstandu. Strop pokut je nižší než u zásadních subjektů, ale deset povinností podle článku 21(2) je stejných."
           },
           "justAssembly": {
             "myth": "Děláme jen finální montáž, skutečná výroba je u našich dodavatelů.",
@@ -11768,7 +11768,7 @@
       "subtitle": "Podle čl. 2 odst. 1 NIS 2 se směrnice vztahuje pouze na střední a větší subjekty. To je titulek. Realitou je třístupňový test: definice velikosti z doporučení 2003/361/ES, pravidlo propojených podniků a výjimky podle čl. 2 odst. 2, které mikropodniky a malé podniky vracejí do působnosti.",
       "overview": {
         "heading": "Stručná verze",
-        "p1": "NIS 2 stanoví velikostní dno. Ve výchozím nastavení se směrnice vztahuje pouze na subjekty, které dosahují nebo překračují práh středního podniku podle doporučení 2003/361/ES: 50 nebo více zaměstnanců, nebo roční obrat nad 10 milionů eur, nebo bilanční suma nad 10 milionů eur. Mikropodniky a malé podniky sedí pod tímto dnem.",
+        "p1": "NIS 2 stanoví velikostní dno. Ve výchozím nastavení se směrnice vztahuje pouze na subjekty, které dosahují nebo překračují práh středního podniku podle doporučení 2003/361/ES: 50 nebo více zaměstnanců, nebo roční obrat i bilanční suma nad 10 milionů eur. Mikropodniky a malé podniky sedí pod tímto dnem.",
         "p2": "Zní to jednoduše. Není. Doporučení má vlastní pravidla pro počítání. Čl. 3 odst. 3 jeho přílohy říká, že pokud mateřský podnik drží více než 50 procent hlasovacích práv v dceřiné společnosti, musíte sečíst jejich počet zaměstnanců a obrat. Malá dceřiná společnost velké skupiny není podle tohoto režimu malým subjektem.",
         "p3": "Čl. 2 odst. 2 NIS 2 pak jmenuje kategorie, které spadají dovnitř bez ohledu na velikost. Telekomunikace, kvalifikovaní poskytovatelé služeb vytvářejících důvěru, DNS, registry názvů TLD, jediní poskytovatelé základní služby v členském státě, subjekty veřejné správy a několik dalších. Pokud do některé z nich zapadáte, velikostní test vás nezachrání. Výjimka je začátkem analýzy, ne jejím koncem."
       },
@@ -11783,7 +11783,7 @@
         "regulation": {
           "label": "Čl. 2 odst. 2 a 3 přílohy doporučení 2003/361/ES",
           "quote": "The category of micro, small and medium-sized enterprises (SMEs) is made up of enterprises which employ fewer than 250 persons and which have an annual turnover not exceeding EUR 50 million, and/or an annual balance sheet total not exceeding EUR 43 million. Within the SME category, a small enterprise is defined as an enterprise which employs fewer than 50 persons and whose annual turnover and/or annual balance sheet total does not exceed EUR 10 million. Within the SME category, a microenterprise is defined as an enterprise which employs fewer than 10 persons and whose annual turnover and/or annual balance sheet total does not exceed EUR 2 million.",
-          "context": "Doporučení vám dává čísla. Mikro: méně než 10 zaměstnanců A obrat nebo bilanční suma do 2 milionů eur. Malý: méně než 50 zaměstnanců A obrat nebo bilanční suma do 10 milionů eur. Střední: od 50 zaměstnanců do 249, NEBO obrat nad 10 milionů eur. Abyste zůstali pod velikostním pásmem, musíte být pod ním u zaměstnanců A pod ním u obratu nebo bilanční sumy. Překročte kterékoli a posunuli jste se nahoru."
+          "context": "Doporučení vám dává čísla. Mikro: méně než 10 zaměstnanců A obrat nebo bilanční suma do 2 milionů eur. Malý: méně než 50 zaměstnanců A obrat nebo bilanční suma do 10 milionů eur. Střední: od 50 zaměstnanců do 249, NEBO obrat i bilanční suma nad 10 milionů eur. Abyste zůstali pod velikostním pásmem, musíte být pod ním u zaměstnanců A pod ním u obratu nebo bilanční sumy. Překročte kterékoli a posunuli jste se nahoru."
         },
         "transposition": {
           "label": "Čl. 2 odst. 2 NIS 2 (bez ohledu na velikost)",
@@ -11857,7 +11857,7 @@
           },
           "staffOverThreshold": {
             "myth": "Máme pod 50 zaměstnanců, takže se počítáme jako malí.",
-            "reality": "Čtěte čl. 2 odst. 2 přílohy doporučení pozorně. Malý vyžaduje méně než 50 zaměstnanců A obrat nebo bilanční sumu 10 milionů eur nebo méně. Překročte kterýkoli práh a posunete se do středního. Pětačtyřicetičlenná poradenská firma s 12 miliony eur obratu je podle doporučení středním podnikem, a to znamená, že se NIS 2 uplatní, pokud sektor sedí."
+            "reality": "Čtěte čl. 2 odst. 2 přílohy doporučení pozorně. Malý vyžaduje méně než 50 zaměstnanců A obrat nebo bilanční sumu 10 milionů eur nebo méně. Překročte kterýkoli práh a posunete se do středního. Pětačtyřicetičlenná poradenská firma s 12 miliony eur obratu a bilanční sumou nad 10 milionů eur je podle doporučení středním podnikem, a to znamená, že se NIS 2 uplatní, pokud sektor sedí."
           },
           "parentIndependent": {
             "myth": "Naše mateřská společnost je velká, ale my fungujeme samostatně, takže se počítáme sami za sebe.",
@@ -12039,7 +12039,7 @@
         "heading": "Stručně",
         "p1": "Poskytovatelem služeb vytvářejících důvěru je každý, kdo poskytuje jednu nebo více služeb vytvářejících důvěru ve smyslu článku 3 odst. 16 nařízení eIDAS (EU) 910/2014: elektronické podpisy, elektronické pečeti, elektronická časová razítka, elektronické doporučené doručování, certifikáty pro autentizaci internetových stránek nebo uchovávání kteréhokoli z nich. Příloha I, sektor 8 NIS 2 jmenuje poskytovatele služeb vytvářejících důvěru výslovně jako součást digitální infrastruktury.",
         "p2": "Článek 2 odst. 2 písm. b) NIS 2 poté zatáhne za páku, která se na většinu ostatních sektorů nevztahuje. Kvalifikovaní poskytovatelé služeb vytvářejících důvěru, jak jsou vymezeni v článku 3 odst. 17 eIDAS, jsou v působnosti bez ohledu na velikost. Dvoučlenný kvalifikovaný TSP, který vydává kvalifikované certifikáty pro elektronické podpisy, je vázán stejně jako pětisetčlenná certifikační autorita. Práh středního podniku z článku 2 odst. 1 je nepodmiňuje.",
-        "p3": "Nekvalifikovaní TSP se řídí běžným testem velikosti: nejméně 50 zaměstnanců, nebo roční obrat či bilanční suma nad 10 milionů eur je staví do působnosti. Pod tím jsou mimo NIS 2, ačkoli článek 19 eIDAS je stále zavazuje bezpečnostním základem. Tak jako tak běží souběžně dva režimy: eIDAS pro samotnou službu vytvářející důvěru, NIS 2 pro mezisubjektové kybernetické povinnosti (školení vedení podle článku 20, hlášení významných incidentů podle §32 BSIG, opatření k řízení rizik podle článku 21)."
+        "p3": "Nekvalifikovaní TSP se řídí běžným testem velikosti: nejméně 50 zaměstnanců, nebo roční obrat i bilanční suma nad 10 milionů eur je staví do působnosti. Pod tím jsou mimo NIS 2, ačkoli článek 19 eIDAS je stále zavazuje bezpečnostním základem. Tak jako tak běží souběžně dva režimy: eIDAS pro samotnou službu vytvářející důvěru, NIS 2 pro mezisubjektové kybernetické povinnosti (školení vedení podle článku 20, hlášení významných incidentů podle §32 BSIG, opatření k řízení rizik podle článku 21)."
       },
       "legalAnchor": {
         "heading": "Právní zdroj",
@@ -15917,7 +15917,7 @@
       "overview": {
         "heading": "Přehled",
         "p1": "NIS 1 byla směrnice (EU) 2016/1148. Pokrývala sedm sektorů a rozdělovala adresáty na 'provozovatele základních služeb' (OES) a 'poskytovatele digitálních služeb' (DSP). Členské státy určovaly OES jednotlivě.",
-        "p2": "NIS 2 je směrnice (EU) 2022/2555. Pokrývá 15 sektorů v příloze I a 7 sektorů v příloze II, nahrazuje rozdělení OES/DSP 'klíčovými subjekty' a 'důležitými subjekty' a používá výslovné kritérium velikosti (50 nebo více zaměstnanců, nebo roční obrat nad 10 milionů eur).",
+        "p2": "NIS 2 je směrnice (EU) 2022/2555. Pokrývá 15 sektorů v příloze I a 7 sektorů v příloze II, nahrazuje rozdělení OES/DSP 'klíčovými subjekty' a 'důležitými subjekty' a používá výslovné kritérium velikosti (50 nebo více zaměstnanců, nebo roční obrat i bilanční suma nad 10 milionů eur).",
         "p3": "Čl. 41 NIS 2 zrušil směrnici NIS 1 s účinností od 18. října 2024. Tam, kde právo členského státu stále odkazuje na starou směrnici, tyto odkazy nyní směřují na NIS 2. Národní transpoziční statuty (jako německý BSIG ve své verzi NIS 2) nahrazují dřívější architekturu IT-Sicherheitsgesetz 2.0."
       },
       "legalAnchor": {
@@ -15946,7 +15946,7 @@
           "scope": {
             "section": "Rozsah",
             "title": "Ze 7 sektorů a označování OES na 15 plus 7 sektorů s pravidlem velikosti",
-            "body": "NIS 1 pokrývala sedm sektorů a vyžadovala, aby členské státy určovaly OES jeden po druhém. NIS 2 uvádí 15 sektorů v příloze I (klíčové) a 7 sektorů v příloze II (důležité) a automaticky se vztahuje na subjekty těchto sektorů, které splňují kritérium velikosti (50 nebo více zaměstnanců nebo více než 10 milionů eur obratu). Několik typů subjektů je v rozsahu bez ohledu na velikost."
+            "body": "NIS 1 pokrývala sedm sektorů a vyžadovala, aby členské státy určovaly OES jeden po druhém. NIS 2 uvádí 15 sektorů v příloze I (klíčové) a 7 sektorů v příloze II (důležité) a automaticky se vztahuje na subjekty těchto sektorů, které splňují kritérium velikosti (50 nebo více zaměstnanců, nebo více než 10 milionů eur obratu i bilanční sumy). Několik typů subjektů je v rozsahu bez ohledu na velikost."
           },
           "obligations": {
             "section": "Povinnosti",
@@ -17159,7 +17159,7 @@
           "scope": {
             "section": "Působnost",
             "title": "Potvrďte, zda se směrnice uplatní",
-            "body": "NIS 2 se uplatní, pokud subjekt sedí v jednom ze sektorů jmenovaných v příloze I nebo příloze II a splňuje prahovou hodnotu velikosti (střední podnik, jak je definován v doporučení 2003/361/ES, tedy 50 zaměstnanců nebo více než 10 milionů EUR obratu). Hrstka typů subjektů je pokryta bez ohledu na velikost: kvalifikovaní poskytovatelé služeb vytvářejících důvěru, registry jmen domén nejvyšší úrovně, poskytovatelé služeb DNS, veřejná správa, výhradní poskytovatelé v členském státě. První úlohou řídicího orgánu je vědět, který z těchto případů se uplatní."
+            "body": "NIS 2 se uplatní, pokud subjekt sedí v jednom ze sektorů jmenovaných v příloze I nebo příloze II a splňuje prahovou hodnotu velikosti (střední podnik, jak je definován v doporučení 2003/361/ES, tedy 50 zaměstnanců, nebo více než 10 milionů EUR obratu i bilanční sumy). Hrstka typů subjektů je pokryta bez ohledu na velikost: kvalifikovaní poskytovatelé služeb vytvářejících důvěru, registry jmen domén nejvyšší úrovně, poskytovatelé služeb DNS, veřejná správa, výhradní poskytovatelé v členském státě. První úlohou řídicího orgánu je vědět, který z těchto případů se uplatní."
           },
           "duties": {
             "section": "Povinnosti",

@@ -281,7 +281,7 @@
     }
   },
   "3.3": {
-    "summary": "Your company must set up a process to report major cybersecurity incidents to Germany's Federal Office for Information Security (BSI) within 24 hours for initial warnings, 72 hours for details, and 1 month for final reports. You'll know you're done when you have templates ready, your team has practiced it in a drill, and you've documented the full process with proof of registration and timelines.",
+    "summary": "Your company must set up a process to report major cybersecurity incidents to Germany's Federal Office for Information Security (BSI) within 24 hours for initial warnings, 72 hours for details, and, for the final report, no later than 1 month after that 72-hour notification (§32(1) no. 4 BSIG). You'll know you're done when you have templates ready, your team has practiced it in a drill, and you've documented the full process with proof of registration and timelines.",
     "applicability": "Required for every besonders wichtige Einrichtung (essential entity) and wichtige Einrichtung (important entity) under §32(1) BSIG, whatever its size.",
     "quickTip": "Talk to your IT or security lead today and ask: 'Do we have a plan to notify BSI about cyber incidents within 24 hours, even on weekends?'",
     "implementationSteps": "Write simple templates for the three reports: 24-hour early warning, 72-hour details, and 1-month final summary.\nSet up an on-call system so someone can send the early warning anytime, including nights and holidays.\nRun a practice drill at least once a year where your team simulates an incident and hits all deadlines.\nDocument your full reporting process, including who does what and how it's triggered.\nGet your management board to review and approve the process.",
@@ -1162,7 +1162,7 @@
     }
   },
   "12.3": {
-    "summary": "Keep your company's BSI registration info up to date: if a registered detail changes, notify the BSI without undue delay and at the latest within two weeks of learning of the change (§33(5) BSIG). A regular review, for example once a year, helps you not miss a change. You're done when you have records of your latest review, any change notifications with BSI confirmations, and a named backup for your contact person.",
+    "summary": "Keep your company's BSI registration info up to date: if a registered detail changes, notify the BSI without undue delay and at the latest within two weeks of learning of the change (§33(5) BSIG). A regular review, for example once a year, helps you not miss a change. You're done when you have a record of the review and all change notifications are documented.",
     "applicability": "Every company registered with the BSI must do this. Nobody can skip it.",
     "quickTip": "Log into your BSI account today and check if the contact person's details are still correct.",
     "implementationSteps": "Assign a main contact person and a backup.\nReview all registration details regularly, for example once a year. Check names, emails, IP ranges, services, and company info.\nUpdate anything outdated right away and notify BSI within two weeks, saving their confirmation.\nDocument each review and change with the date and what you did.\nTest that your contact person and backup respond quickly.",
