@@ -11,6 +11,7 @@
  */
 
 import { entityTypeEnum } from "@nisd2/grc-data-model/enums";
+import { sql } from "drizzle-orm";
 import {
   type AnyPgColumn,
   boolean,
@@ -20,6 +21,7 @@ import {
   pgTable,
   text,
   timestamp,
+  uniqueIndex,
   uuid,
   varchar,
 } from "drizzle-orm/pg-core";
@@ -367,6 +369,14 @@ export const user = pgTable(
     name: varchar("name", { length: 255 }).notNull(),
     passwordHash: varchar("password_hash", { length: 255 }),
     /**
+     * The one Google account (its OIDC `sub`) that may sign in here. Google lets more than one of
+     * its accounts claim the same verified address, so the address alone would let any of them in.
+     * Recorded at the first Google sign-in and compared on every later one (lib/auth/google-link.ts).
+     * NULL for accounts that have not signed in with Google since the column shipped; they bind on
+     * their next Google sign-in.
+     */
+    googleSubject: varchar("google_subject", { length: 255 }),
+    /**
      * Superseded by `company_membership.role` and no longer read or written. Kept, with a default,
      * for one more release, because the previous release still writes it during a deploy; the
      * release after this one drops it.
@@ -483,5 +493,10 @@ export const user = pgTable(
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at").defaultNow().notNull(),
   },
-  (table) => [index("idx_user_company").on(table.companyId)],
+  (table) => [
+    index("idx_user_company").on(table.companyId),
+    uniqueIndex("uq_user_google_subject")
+      .on(table.googleSubject)
+      .where(sql`${table.googleSubject} IS NOT NULL`),
+  ],
 );

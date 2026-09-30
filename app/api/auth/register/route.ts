@@ -1,28 +1,33 @@
 import bcrypt from "bcryptjs";
 import { eq } from "drizzle-orm";
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
 import { checkEmailQuality } from "@/lib/auth/email-quality";
 import { OtpRateLimitedError, requestOtp } from "@/lib/auth/otp";
 import { getClientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
 import { isLocaleCode, type LocaleCode } from "@/lib/locale";
-import { sendAuthCode } from "@/lib/mail";
+import { registrationAttemptEmail, sendAuthCode, sendMail } from "@/lib/mail";
 import { rateLimit } from "@/lib/rate-limit";
-import type { Locale } from "@/lib/seo";
+import { type Locale, localizedAbsoluteUrl } from "@/lib/seo";
 import { user } from "@/schema";
 
 // Rate limit: max 5 attempts per IP per 15 minutes
 const WINDOW_MS = 15 * 60 * 1000;
 const MAX_ATTEMPTS = 5;
 
+// The owner notice says the same thing every time, so one an hour is enough
+// to inform and too few to flood a mailbox by registering its address in a loop.
+const NOTICE_WINDOW_MS = 60 * 60 * 1000;
+const NOTICE_MAX = 1;
+
 /**
  * Registration with email verification.
  *
  * Flow:
  *   POST /api/auth/register { email, password }
- *     → creates user with `emailVerifiedAt: null` (or no-ops if pending verify)
- *     → sends 6-digit OTP via email
- *     → returns 200 { verificationRequired: true }
+ *     → returns 200 { success: true, verificationRequired: true }
+ *     → after the response: creates the user with `emailVerifiedAt: null`
+ *       (or leaves a pending-verify one as it is) and mails a 6-digit OTP
  *
  *   client then collects the code from the user and POSTs to
  *   /api/auth/verify-email { email, code }
@@ -30,7 +35,13 @@ const MAX_ATTEMPTS = 5;
  *   only then can the user sign in via Credentials — `authorize()` blocks
  *   accounts with a null `emailVerifiedAt`.
  *
- * Locale comes from a cookie or header so the email arrives in the right
+ * Every address gets the same body, status and timing (audit H-4): the
+ * response goes out before the address is looked up, and everything that
+ * depends on it runs in `after()`. An address that already has a verified
+ * account gets a notice to its owner instead of a code, and one past the
+ * per-email code limit simply gets no mail.
+ *
+ * Locale comes from the request body so the email arrives in the right
  * language. Defaults to "de" for the German market.
  */
 export async function POST(request: Request) {
@@ -64,7 +75,6 @@ export async function POST(request: Request) {
   const persistedLocale: LocaleCode | null = isLocaleCode(localeInput)
     ? localeInput
     : null;
-  const locale: Locale = persistedLocale ?? "de";
 
   if (!email || typeof password !== "string" || !password) {
     return NextResponse.json(
@@ -88,93 +98,110 @@ export async function POST(request: Request) {
     );
   }
 
-  const existing = await db.query.user.findFirst({
-    where: eq(user.email, email),
-  });
-
-  // Verified account: return the same generic success shape as every other
-  // branch. Anything that distinguishes "this email is taken" from the
-  // happy path leaks an enumeration oracle (audit H-4). Forgotten password
-  // belongs in /api/auth/forgot-password, which proves mailbox ownership
-  // before mutating anything.
-  if (existing?.emailVerifiedAt) {
-    return NextResponse.json({ success: true, verificationRequired: true });
-  }
-
-  const quality = await checkEmailQuality(email);
-  const disposable = quality.block;
-
-  if (existing) {
-    // Pending-verify account exists. Re-issue the OTP so the user can
-    // finish signing up if they lost the original mail. CRITICAL (audit
-    // C-1): never overwrite passwordHash here. Without an ownership
-    // proof the overwrite lets an attacker hijack any not-yet-verified
-    // address by simply re-POSTing /register with their own password.
-    //
-    // The password the user just typed is not discarded, it is deferred:
-    // /api/auth/verify-email commits it in the request that carries the
-    // correct code, which is the ownership proof this request lacks. Before
-    // that existed, a second registration kept the first password and the
-    // signup dead-ended after a correct code — see the note on that route.
-    // Forgotten-password recovery still belongs in /api/auth/forgot-password.
-    await db
-      .update(user)
-      .set({
-        isDisposableEmail: disposable,
-        // Pre-verification retry may come from a different-locale page;
-        // the latest choice wins. Locale is not credential-bearing, so
-        // updating it here is safe where passwordHash is not (audit C-1).
-        ...(persistedLocale ? { locale: persistedLocale } : {}),
-        updatedAt: new Date(),
-      })
-      .where(eq(user.id, existing.id));
-  } else {
-    const passwordHash = await bcrypt.hash(password, 12);
-    const name = email.split("@")[0];
-    // onConflictDoNothing guards against two concurrent registrations for the
-    // same new email racing past the findFirst check and both attempting the
-    // insert — without this the loser hits a unique-constraint 500.
-    await db
-      .insert(user)
-      .values({
-        email,
-        name,
-        passwordHash,
-        isDisposableEmail: disposable,
-        locale: persistedLocale,
-        // emailVerifiedAt left null — set by /api/auth/verify-email
-      })
-      .onConflictDoNothing({ target: user.email });
-  }
-
-  // Disposable email: user record is kept so we can see the scoping/bot
-  // signup in admin, but we never issue an OTP. The account stays
-  // permanently unverified and unable to sign in. Response shape matches
-  // the happy path to avoid leaking which domains are blocked.
-  if (disposable) {
-    console.log(`[register] Silent block (${quality.reason}):`, email.split("@")[1]);
-    return NextResponse.json({ success: true, verificationRequired: true });
-  }
-
-  // Issue the OTP and email it. Rate-limited inside requestOtp itself.
-  let code: string;
-  try {
-    ({ code } = await requestOtp(email, "email_verify"));
-  } catch (err) {
-    if (err instanceof OtpRateLimitedError) {
-      return NextResponse.json(
-        {
-          error: "Too many verification emails. Please wait a few minutes and try again.",
-        },
-        { status: 429 },
-      );
-    }
-    throw err;
-  }
-
-  await sendAuthCode({ to: email, code, locale, kind: "verification" }).catch((err) =>
-    console.error("[register] Failed to send verification email:", err),
-  );
+  after(() => register({ email, password, persistedLocale }));
 
   return NextResponse.json({ success: true, verificationRequired: true });
+}
+
+async function register({
+  email,
+  password,
+  persistedLocale,
+}: {
+  email: string;
+  password: string;
+  persistedLocale: LocaleCode | null;
+}): Promise<void> {
+  const locale: Locale = persistedLocale ?? "de";
+  try {
+    const existing = await db.query.user.findFirst({
+      where: eq(user.email, email),
+      columns: { id: true, emailVerifiedAt: true, locale: true },
+    });
+
+    // Verified account: nothing is created or changed. Forgotten password
+    // belongs in /api/auth/forgot-password, which proves mailbox ownership
+    // before mutating anything; the notice points the owner there.
+    if (existing?.emailVerifiedAt) {
+      await notifyOwner(email, isLocaleCode(existing.locale) ? existing.locale : locale);
+      return;
+    }
+
+    const quality = await checkEmailQuality(email);
+    const disposable = quality.block;
+
+    if (existing) {
+      // Pending-verify account exists. Re-issue the OTP so the user can
+      // finish signing up if they lost the original mail. CRITICAL (audit
+      // C-1): never overwrite passwordHash here. Without an ownership
+      // proof the overwrite lets an attacker hijack any not-yet-verified
+      // address by simply re-POSTing /register with their own password.
+      //
+      // The password the user just typed is not discarded, it is deferred:
+      // /api/auth/verify-email commits it in the request that carries the
+      // correct code, which is the ownership proof this request lacks. Before
+      // that existed, a second registration kept the first password and the
+      // signup dead-ended after a correct code — see the note on that route.
+      // Forgotten-password recovery still belongs in /api/auth/forgot-password.
+      await db
+        .update(user)
+        .set({
+          isDisposableEmail: disposable,
+          // Pre-verification retry may come from a different-locale page;
+          // the latest choice wins. Locale is not credential-bearing, so
+          // updating it here is safe where passwordHash is not (audit C-1).
+          ...(persistedLocale ? { locale: persistedLocale } : {}),
+          updatedAt: new Date(),
+        })
+        .where(eq(user.id, existing.id));
+    } else {
+      const passwordHash = await bcrypt.hash(password, 12);
+      const name = email.split("@")[0];
+      // onConflictDoNothing guards against two concurrent registrations for the
+      // same new email racing past the findFirst check and both attempting the
+      // insert — without this the loser hits a unique-constraint 500.
+      await db
+        .insert(user)
+        .values({
+          email,
+          name,
+          passwordHash,
+          isDisposableEmail: disposable,
+          locale: persistedLocale,
+          // emailVerifiedAt left null — set by /api/auth/verify-email
+        })
+        .onConflictDoNothing({ target: user.email });
+    }
+
+    // Disposable email: user record is kept so we can see the scoping/bot
+    // signup in admin, but we never issue an OTP. The account stays
+    // permanently unverified and unable to sign in.
+    if (disposable) {
+      console.log(`[register] Silent block (${quality.reason}):`, email.split("@")[1]);
+      return;
+    }
+
+    const { code } = await requestOtp(email, "email_verify");
+    await sendAuthCode({ to: email, code, locale, kind: "verification" });
+  } catch (err) {
+    // Past the per-email code limit: no mail, and the response already said
+    // the same as for everyone else.
+    if (err instanceof OtpRateLimitedError) return;
+    console.error("[register] background registration failed:", err);
+  }
+}
+
+async function notifyOwner(email: string, locale: Locale): Promise<void> {
+  if (!(await rateLimit(`auth:register-notice:${email}`, NOTICE_MAX, NOTICE_WINDOW_MS))) {
+    return;
+  }
+  await sendMail({
+    emailType: "auth.registration_attempt",
+    to: email,
+    ...registrationAttemptEmail({
+      signInUrl: localizedAbsoluteUrl("/auth/signin", locale),
+      resetUrl: localizedAbsoluteUrl("/auth/forgot-password", locale),
+      locale,
+    }),
+  });
 }
