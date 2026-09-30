@@ -203,14 +203,16 @@ export const gapAssessmentRouter = router({
     });
   }),
 
-  getSharedByToken: publicProcedure
+  // A mutation so the password travels in a POST body: a tRPC query puts its input in the URL,
+  // where every access log along the way keeps it.
+  openShared: publicProcedure
     .input(
       z.object({
         token: z.string().uuid(),
         password: z.string().min(1).max(64),
       }),
     )
-    .query(async ({ ctx, input }) => {
+    .mutation(async ({ ctx, input }) => {
       if (!(await rateLimit(`gap-share:${input.token}`, 5, 15 * 60_000))) {
         throw new TRPCError({
           code: "TOO_MANY_REQUESTS",

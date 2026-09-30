@@ -236,3 +236,67 @@ describe("team.removeMember", () => {
     expect(writes.every((w) => w.inTx)).toBe(true);
   });
 });
+
+/**
+ * `invite` stores where accepting the invite lands. Any new account is the
+ * admin of its own draft company, so the value is attacker-supplied and has to
+ * be a same-origin path by the time it reaches the row.
+ */
+async function storedRedirectPath(redirectPath: string) {
+  const stored: { values?: unknown; set?: unknown } = {};
+  const db = {
+    query: {
+      user: { findFirst: async () => undefined },
+      company: { findFirst: async () => ({ name: "Acme" }) },
+    },
+    // isMemberOf builds a subquery from this; nothing reads it.
+    select: () => ({ from: () => ({ where: () => ({}) }) }),
+    insert: () => ({
+      values: (values: unknown) => {
+        stored.values = values;
+        return {
+          onConflictDoUpdate: ({ set }: { set: unknown }) => {
+            stored.set = set;
+            return { returning: async () => [{ id: "invite-1" }] };
+          },
+        };
+      },
+    }),
+  };
+  const caller = createCallerFactory(teamRouter)({
+    db: db as unknown as TRPCContext["db"],
+    session: {
+      role: "admin",
+      accessLevel: "full",
+      user: { name: "Olga Owner" },
+    } as TRPCContext["session"],
+    userId: OWNER,
+    companyId: COMPANY,
+    ip: "test",
+    userAgent: null,
+  } as TRPCContext);
+  await caller.invite({ email: "new@example.test", redirectPath });
+  return stored;
+}
+
+describe("team.invite", () => {
+  test("keeps a same-origin path", async () => {
+    const stored = await storedRedirectPath("/compliance/risk-management");
+    expect(stored.values).toMatchObject({ redirectPath: "/compliance/risk-management" });
+    expect(stored.set).toMatchObject({ redirectPath: "/compliance/risk-management" });
+  });
+
+  test("stores the start page for anything that leaves the origin", async () => {
+    for (const raw of [
+      "https://evil.invalid/login",
+      "//evil.invalid",
+      "/\\evil.invalid",
+      "/.//evil.invalid",
+      "javascript:alert(1)",
+    ]) {
+      const stored = await storedRedirectPath(raw);
+      expect(stored.values).toMatchObject({ redirectPath: "/" });
+      expect(stored.set).toMatchObject({ redirectPath: "/" });
+    }
+  });
+});

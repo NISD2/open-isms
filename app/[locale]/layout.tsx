@@ -1,12 +1,12 @@
-import { NextIntlClientProvider, hasLocale } from "next-intl";
-import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
-import Script from "next/script";
-import { routing } from "@/i18n/routing";
-import { TRPCProvider } from "@/lib/trpc/provider";
-import { Toaster } from "@/components/ui/sonner";
+import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
+import { Analytics } from "@/components/Analytics";
 import { JsonLd } from "@/components/JsonLd";
+import { Toaster } from "@/components/ui/sonner";
+import { routing } from "@/i18n/routing";
 import { buildSiteGraphJsonLd, buildSiteNavGraphJsonLd, type Locale } from "@/lib/seo";
+import { TRPCProvider } from "@/lib/trpc/provider";
 
 export default async function LocaleLayout({
   children,
@@ -55,9 +55,7 @@ export default async function LocaleLayout({
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
         <NextIntlClientProvider messages={clientMessages} locale={locale}>
-          <TRPCProvider>
-            {children}
-          </TRPCProvider>
+          <TRPCProvider>{children}</TRPCProvider>
         </NextIntlClientProvider>
         <Toaster />
         {/*
@@ -68,10 +66,9 @@ export default async function LocaleLayout({
         {process.env.NODE_ENV === "production" &&
           process.env.ANALYTICS_SCRIPT_URL &&
           process.env.ANALYTICS_WEBSITE_ID && (
-            <Script
-              defer
+            <Analytics
               src={process.env.ANALYTICS_SCRIPT_URL}
-              data-website-id={process.env.ANALYTICS_WEBSITE_ID}
+              websiteId={process.env.ANALYTICS_WEBSITE_ID}
             />
           )}
       </body>
