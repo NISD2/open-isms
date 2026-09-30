@@ -7,6 +7,7 @@ import { reviewDecisionEmail, sendMail } from "@/lib/mail";
 import { recordEmailFailure } from "@/lib/mail/failure-log";
 import { preferenceFooterFor } from "@/lib/mail/footer";
 import { resolveEmailLocale } from "@/lib/mail/locale";
+import { findMembershipRole } from "@/lib/organization/membership";
 import {
   auditLog,
   company,
@@ -230,7 +231,7 @@ export const reviewRouter = router({
       }
 
       // Fire-and-forget email notification to submitter
-      notifySubmitter(ctx.db, input.statusId, "approved", input.feedback);
+      notifySubmitter(ctx.db, input.statusId, ctx.companyId, "approved", input.feedback);
 
       // Schedule next review cycle (approval restarts the deadline clock)
       if (ctx.companyId) {
@@ -301,7 +302,7 @@ export const reviewRouter = router({
       }
 
       // Fire-and-forget email notification to submitter
-      notifySubmitter(ctx.db, input.statusId, "rejected", input.feedback);
+      notifySubmitter(ctx.db, input.statusId, ctx.companyId, "rejected", input.feedback);
 
       return { statusId: updated.id };
     }),
@@ -310,32 +311,52 @@ export const reviewRouter = router({
 // ---------------------------------------------------------------------------
 // Email notification helper (fire-and-forget)
 // ---------------------------------------------------------------------------
+
+/**
+ * Who hears about a review decision: the person who completed the requirement,
+ * as long as they still belong to the company. Someone removed since then
+ * would otherwise receive the reviewer's feedback on the company's work.
+ */
+export async function reviewDecisionRecipient(
+  db: Database,
+  statusId: string,
+  companyId: string,
+) {
+  const status = await db.query.companyRequirementStatus.findFirst({
+    where: eq(companyRequirementStatus.id, statusId),
+    columns: { completedBy: true, requirementId: true },
+  });
+  if (!status?.completedBy) return null;
+
+  const [submitter, req, role] = await Promise.all([
+    db.query.user.findFirst({
+      where: eq(user.id, status.completedBy),
+      // locale and the company's country decide what language the footer
+      // and the preference centre come back in.
+      columns: { email: true, name: true, locale: true, companyId: true },
+    }),
+    db.query.requirement.findFirst({
+      where: eq(requirement.id, status.requirementId),
+      columns: { code: true },
+    }),
+    findMembershipRole(db, { userId: status.completedBy, companyId }),
+  ]);
+  if (!submitter?.email || !req || !role) return null;
+
+  return { userId: status.completedBy, submitter, requirementCode: req.code };
+}
+
 async function notifySubmitter(
   db: Database,
   statusId: string,
+  companyId: string,
   decision: "approved" | "rejected",
   feedback?: string | null,
 ) {
   try {
-    const status = await db.query.companyRequirementStatus.findFirst({
-      where: eq(companyRequirementStatus.id, statusId),
-      columns: { completedBy: true, requirementId: true },
-    });
-    if (!status?.completedBy) return;
-
-    const [submitter, req] = await Promise.all([
-      db.query.user.findFirst({
-        where: eq(user.id, status.completedBy),
-        // locale and the company's country decide what language the footer
-        // and the preference centre come back in.
-        columns: { email: true, name: true, locale: true, companyId: true },
-      }),
-      db.query.requirement.findFirst({
-        where: eq(requirement.id, status.requirementId),
-        columns: { code: true },
-      }),
-    ]);
-    if (!submitter?.email || !req) return;
+    const recipient = await reviewDecisionRecipient(db, statusId, companyId);
+    if (!recipient) return;
+    const { userId, submitter, requirementCode } = recipient;
 
     // Only when there is no stored locale to fall back from, so the common
     // path stays one query lighter. companyId is nullable — a Google OAuth
@@ -354,21 +375,21 @@ async function notifySubmitter(
 
     const requirementsEn = (await import("@/messages/requirements/en.json")).default
       .requirements;
-    const reqKey = req.code.replace(/\./g, "_") as keyof typeof requirementsEn;
-    const reqTitle = requirementsEn[reqKey]?.title ?? req.code;
+    const reqKey = requirementCode.replace(/\./g, "_") as keyof typeof requirementsEn;
+    const reqTitle = requirementsEn[reqKey]?.title ?? requirementCode;
 
     sendMail({
       emailType: "work.review_decision",
-      recipientUserId: status.completedBy,
+      recipientUserId: userId,
       to: submitter.email,
       ...reviewDecisionEmail({
         submitterName: submitter.name ?? "",
-        requirementCode: req.code,
+        requirementCode,
         requirementTitle: reqTitle,
         decision,
         feedback,
         footer: preferenceFooterFor(
-          status.completedBy,
+          userId,
           resolveEmailLocale(submitter.locale, country),
         ),
       }),

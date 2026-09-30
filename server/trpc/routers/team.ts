@@ -5,6 +5,7 @@ import { z } from "zod";
 import { logAudit } from "@/lib/audit";
 import { invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
 import { ALL_ROLE_KEYS } from "@/lib/compliance/role-mapping";
+import { pendingSignersOf } from "@/lib/compliance/sign-off-roster";
 import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
 import { inviteEmail, memberRemovedEmail, sendMail } from "@/lib/mail";
 import { isSuppressedSendId, mailSuppressionReason } from "@/lib/mail/send";
@@ -28,8 +29,10 @@ import {
   companyAssessment,
   companyInvite,
   companyMembership,
+  companyRequirementStatus,
   membershipRoleEnum,
   notification,
+  requirementAssignment,
   requirementCategory,
   user,
 } from "@/schema";
@@ -429,59 +432,95 @@ export const teamRouter = router({
         });
       }
 
-      // Delete category assignments for this user in company assessments
       const assessments = await ctx.db.query.companyAssessment.findMany({
         where: eq(companyAssessment.companyId, ctx.companyId),
         columns: { id: true },
       });
       const assessmentIds = assessments.map((a) => a.id);
 
-      if (assessmentIds.length > 0) {
-        await ctx.db
-          .delete(categoryAssignment)
+      // All of the removal or none of it. Without the transaction, a failure
+      // partway through left a member stripped of their categories and
+      // sign-off rows who still had access to the company.
+      await ctx.db.transaction(async (tx) => {
+        if (assessmentIds.length > 0) {
+          await tx
+            .delete(categoryAssignment)
+            .where(
+              and(
+                eq(categoryAssignment.userId, input.userId),
+                inArray(categoryAssignment.assessmentId, assessmentIds),
+              ),
+            );
+
+          // A removed person can never sign, so a roster still waiting on them
+          // would block its requirement for good. Only their pending rows go:
+          // a signed row is the receipt of a sign-off they made while a member,
+          // and it stays as evidence. Locked so a signature landing meanwhile
+          // cannot turn a row into a receipt between reading and deleting it.
+          const rows = await tx
+            .select({
+              id: requirementAssignment.id,
+              userId: requirementAssignment.userId,
+              signedOffAt: requirementAssignment.signedOffAt,
+            })
+            .from(requirementAssignment)
+            .where(
+              and(
+                eq(requirementAssignment.userId, input.userId),
+                inArray(
+                  requirementAssignment.statusId,
+                  tx
+                    .select({ id: companyRequirementStatus.id })
+                    .from(companyRequirementStatus)
+                    .where(inArray(companyRequirementStatus.assessmentId, assessmentIds)),
+                ),
+              ),
+            )
+            .for("update");
+          const pendingIds = pendingSignersOf(rows).map((row) => row.id);
+          if (pendingIds.length > 0) {
+            await tx
+              .delete(requirementAssignment)
+              .where(inArray(requirementAssignment.id, pendingIds));
+          }
+        }
+
+        // Cancel pending notifications for the removed user in this company.
+        // Lifecycle claim rows are excluded: they are per-user once-ever dedup
+        // records, not company reminders, and their contract (lib/lifecycle)
+        // reads any status change as meaningful — a claim flipped to cancelled
+        // here would look never-delivered to ops and invite the manual delete
+        // that re-arms a user who already got the email.
+        await tx
+          .update(notification)
+          .set({ status: "cancelled" })
           .where(
             and(
-              eq(categoryAssignment.userId, input.userId),
-              inArray(categoryAssignment.assessmentId, assessmentIds),
+              eq(notification.recipientId, input.userId),
+              eq(notification.companyId, ctx.companyId),
+              inArray(notification.status, ["pending", "sent"]),
+              ne(notification.entityType, LIFECYCLE_ENTITY_TYPE),
             ),
           );
-      }
 
-      // Cancel pending notifications for the removed user in this company.
-      // Lifecycle claim rows are excluded: they are per-user once-ever dedup
-      // records, not company reminders, and their contract (lib/lifecycle)
-      // reads any status change as meaningful — a claim flipped to cancelled
-      // here would look never-delivered to ops and invite the manual delete
-      // that re-arms a user who already got the email.
-      await ctx.db
-        .update(notification)
-        .set({ status: "cancelled" })
-        .where(
-          and(
-            eq(notification.recipientId, input.userId),
-            eq(notification.companyId, ctx.companyId),
-            inArray(notification.status, ["pending", "sent"]),
-            ne(notification.entityType, LIFECYCLE_ENTITY_TYPE),
-          ),
-        );
-
-      // Pending invites in this company that the person sent, or that are addressed to them, are
-      // revoked, so neither can bring them back after the removal.
-      await ctx.db
-        .update(companyInvite)
-        .set({ status: "revoked" })
-        .where(
-          and(
-            eq(companyInvite.companyId, ctx.companyId),
-            eq(companyInvite.status, "pending"),
-            or(
-              eq(companyInvite.invitedBy, input.userId),
-              sql`lower(${companyInvite.email}) = ${member.email.toLowerCase()}`,
+        // Pending invites in this company that the person sent, or that are addressed to them, are
+        // revoked, so neither can bring them back after the removal.
+        await tx
+          .update(companyInvite)
+          .set({ status: "revoked" })
+          .where(
+            and(
+              eq(companyInvite.companyId, ctx.companyId),
+              eq(companyInvite.status, "pending"),
+              or(
+                eq(companyInvite.invitedBy, input.userId),
+                sql`lower(${companyInvite.email}) = ${member.email.toLowerCase()}`,
+              ),
             ),
-          ),
-        );
+          );
 
-      await leaveCompany(ctx.db, { userId: input.userId, companyId: ctx.companyId });
+        await leaveCompany(tx, { userId: input.userId, companyId: ctx.companyId });
+      });
 
       // Notify removed member (fire-and-forget)
       const companyRow = await ctx.db.query.company.findFirst({
