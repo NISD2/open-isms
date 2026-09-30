@@ -13,6 +13,7 @@ import { legislation } from "@/lib/content/citations";
 import {
   type AnyItem,
   type AnyScreen,
+  askedFields,
   itemKey,
   type RegisterModule,
   type ResolvedItem,
@@ -21,8 +22,6 @@ import {
 } from "@/lib/durchgang";
 import { introspectSchema } from "@/lib/forms/schema-introspect";
 import { api } from "@/lib/trpc/server";
-
-type Rows = Record<string, unknown>[];
 
 /** The step art on disk, read once per server process rather than on every render. */
 const ART: ReadonlySet<string> = (() => {
@@ -39,11 +38,6 @@ const ART: ReadonlySet<string> = (() => {
 
 const imageFor = (code: string): string | null =>
   ART.has(itemKey(code)) ? `/images/durchgang/${itemKey(code)}.svg` : null;
-
-const REGISTERS: Readonly<Record<RegisterModule, () => Promise<Rows>>> = {
-  supplier: () => api.supplier.list() as Promise<Rows>,
-  team: () => api.team.listMembers() as Promise<Rows>,
-};
 
 /** The parsed words of an item. The script's tests guarantee this never fails for a shipped item. */
 async function wordsOf(item: AnyItem): Promise<ResolvedItem> {
@@ -99,9 +93,8 @@ export async function loadItem(code: string): Promise<ItemView | null> {
   }
   const locale = localeTag === "de" ? "de" : "en";
   const screens: readonly AnyScreen[] = item.screens;
-  const modules = [
-    ...new Set(screens.flatMap((s) => (s.kind === "register" ? [s.module] : []))),
-  ];
+  const shows = (module: RegisterModule) =>
+    screens.some((s) => s.kind === "register" && s.module === module);
   const asksAssets = screens.some((s) => s.kind === "assets");
   const asksAdopt = screens.some((s) => s.kind === "adopt");
 
@@ -114,7 +107,8 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     tUi,
     statuses,
     intake,
-    registers,
+    supplier,
+    team,
     assets,
     adoption,
   ] = await Promise.all([
@@ -137,15 +131,14 @@ export async function loadItem(code: string): Promise<ItemView | null> {
           requirementCode: code,
         })
       : Promise.resolve({ answers: {} as Record<string, unknown> }),
-    Promise.all(modules.map(async (m) => [m, await REGISTERS[m]()] as const)),
+    shows("supplier") ? api.supplier.list() : Promise.resolve(undefined),
+    shows("team") ? api.team.listMembers() : Promise.resolve(undefined),
     asksAssets ? api.asset.list() : Promise.resolve([]),
     asksAdopt ? api.durchgang.adoption() : Promise.resolve({ adoptedAt: null }),
   ]);
 
   const statusId = statuses.find((s) => s.requirementId === req.id)?.status?.id ?? null;
-  const asked = new Set<string>(
-    screens.flatMap((s) => (s.kind === "fields" ? s.fields : [])),
-  );
+  const asked = new Set(askedFields(item));
   const schema = CATEGORY_SCHEMAS[item.category];
   const fields = Object.fromEntries(
     (schema ? introspectSchema(schema, []) : [])
@@ -201,7 +194,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     categoryId: req.category.id,
     answers: intake.answers,
     fields,
-    registers: Object.fromEntries(registers),
+    registers: { supplier, team },
     listedAssets,
     adoptedAt: adoption.adoptedAt,
     locale,

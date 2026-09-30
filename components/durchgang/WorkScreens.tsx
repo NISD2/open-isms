@@ -29,9 +29,9 @@ import type { ResolvedScreen, SourceId } from "@/lib/durchgang";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
 import { cn } from "@/lib/utils";
 import { ArtThumb } from "./Art";
-import type { Draft, DraftUpdate } from "./draft";
+import { asInput, type Draft, type DraftUpdate } from "./draft";
 import { Heading, Lead } from "./ExplainScreens";
-import type { ItemView, WalkEntry } from "./view";
+import type { ItemView, Registers, WalkEntry } from "./view";
 
 type Of<K extends ResolvedScreen["kind"]> = Extract<ResolvedScreen, { kind: K }>;
 
@@ -46,13 +46,6 @@ const longDate = (locale: "de" | "en", date: Date) =>
     timeZone: "Europe/Berlin",
     dateStyle: "long",
   }).format(date);
-
-/** A value as an input holds it: dates as YYYY-MM-DD, everything else as text. */
-export const asInput = (meta: FieldMeta | undefined, value: unknown): string => {
-  if (value === null || value === undefined) return "";
-  if (meta?.type === "date") return String(value).slice(0, 10);
-  return String(value);
-};
 
 /** Big choice cards on a real radio group: choice fields, yes or no, the acceptance limit. */
 function Choice({
@@ -463,19 +456,18 @@ export function Assets({
 
 export function Register({ item, entry }: { item: ItemView; entry: Of<"register"> }) {
   const t = useTranslations("durchgang.ui");
-  const rows = item.registers[entry.screen.module] ?? [];
   return (
     <>
       <Heading>{entry.copy.title}</Heading>
       <Lead>{entry.copy.lead}</Lead>
       <div className="mt-8">
         {entry.screen.module === "team" ? (
-          <Team rows={rows} />
+          <Team rows={item.registers.team ?? []} />
         ) : (
           <InlineModulePanel
             moduleRef={entry.screen.module}
             requirementCode={item.code}
-            items={rows}
+            items={item.registers.supplier ?? []}
             isCompleted={false}
           />
         )}
@@ -485,21 +477,21 @@ export function Register({ item, entry }: { item: ItemView; entry: Of<"register"
   );
 }
 
-const text = (value: unknown): string | null =>
-  typeof value === "string" && value.trim() ? value : null;
-
 /**
  * The team register is the company's accounts and which area each one owns; it has no field
  * for "coordinator" or "deputy". So the screen shows who is in, invites without leaving, and
  * hands the area assignment to the team page.
  */
-function Team({ rows }: { rows: readonly Record<string, unknown>[] }) {
+function Team({ rows }: { rows: Registers["team"] }) {
   const t = useTranslations("durchgang.ui.team");
-  const members = rows.map((row) => ({
-    id: String(row.id),
-    name: text(row.name) ?? text(row.email) ?? "",
-    detail: text(row.jobTitle) ?? text(row.email),
-  }));
+  const members = rows.map((row) => {
+    const name = row.name?.trim() || row.email;
+    return {
+      id: row.id,
+      name,
+      detail: row.jobTitle?.trim() || (row.name ? row.email : null),
+    };
+  });
   return (
     <div className="overflow-hidden rounded-2xl border bg-card shadow-sm">
       <ul className="divide-y">
@@ -510,7 +502,7 @@ function Team({ rows }: { rows: readonly Record<string, unknown>[] }) {
             </span>
             <div className="min-w-0">
               <p className="truncate text-sm font-medium">{member.name}</p>
-              {member.detail && member.detail !== member.name && (
+              {member.detail && (
                 <p className="truncate text-xs text-muted-foreground">{member.detail}</p>
               )}
             </div>
@@ -536,15 +528,38 @@ function Team({ rows }: { rows: readonly Record<string, unknown>[] }) {
 export function Done({
   item,
   entry,
-  recorded,
+  draft,
   next,
 }: {
   item: ItemView;
   entry: Of<"done">;
-  recorded: readonly string[];
+  draft: Draft;
   next: WalkEntry | null;
 }) {
   const t = useTranslations("durchgang.ui");
+  const shown = (
+    value: unknown,
+    options: Readonly<Record<string, string>> | undefined,
+  ) =>
+    typeof value === "boolean"
+      ? t(value ? "yes" : "no")
+      : typeof value === "string"
+        ? (options?.[value] ?? value)
+        : String(value);
+  const recorded = [
+    ...item.screens.flatMap((s) =>
+      s.kind === "fields"
+        ? s.copy.fields.flatMap((f) => {
+            const value = draft.values[f.key];
+            return value === "" || value === undefined || value === null
+              ? []
+              : [`${f.label}: ${shown(value, f.options)}`];
+          })
+        : [],
+    ),
+    ...(draft.uploaded ? [draft.uploaded] : []),
+    ...(draft.acceptance ? [RISK_LEVEL_TEXT[item.locale][draft.acceptance].label] : []),
+  ];
   return (
     <>
       <section className="relative overflow-hidden rounded-3xl bg-primary p-8 text-primary-foreground sm:p-10">

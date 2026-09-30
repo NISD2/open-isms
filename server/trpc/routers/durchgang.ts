@@ -265,8 +265,9 @@ export const durchgangRouter = router({
 
   /**
    * 2.2: the ticked catalogue items and the person's own entries become asset rows, named in the
-   * language of the page they were ticked on. An item already listed under any of its names is
-   * skipped, so a second pass adds only what is new, and nothing is ever deleted here.
+   * seed language like every other default the platform writes. An item already listed under any
+   * of its names is skipped, so a second pass adds only what is new, and nothing is ever deleted
+   * here.
    */
   addAssets: activatedCompanyProcedure
     .use(({ ctx, next }) => {
@@ -280,14 +281,14 @@ export const durchgangRouter = router({
           .array(z.object({ name: z.string().trim().min(1).max(255) }))
           .max(50)
           .default([]),
-        locale: z.enum(["de", "en"]),
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      const labels = CATALOG_LABELS[await seedLocale(ctx.db, ctx.userId, ctx.companyId)];
       const wanted = [
         ...input.catalogIds.flatMap((id) => {
           const item = CATALOG_BY_ID.get(id);
-          const label = CATALOG_LABELS[input.locale][id]?.label;
+          const label = labels[id]?.label;
           return item && label
             ? [{ name: label, type: item.category, names: catalogNames(id) }]
             : [];

@@ -1,7 +1,8 @@
 import { TRPCError } from "@trpc/server";
-import { and, eq, inArray, sql } from "drizzle-orm";
+import { and, eq, inArray, like, sql } from "drizzle-orm";
 import { z } from "zod";
 import { deleteBillingAccountIfUnused } from "@/lib/billing/accounts";
+import { askedFields, WALK } from "@/lib/durchgang";
 import {
   leaveCompany,
   listCompanyMembers,
@@ -12,6 +13,7 @@ import {
   categoryAssignment,
   company,
   companyAssessment,
+  companyCategoryIntake,
   companyRequirementStatus,
   evidence,
   membershipRoleEnum,
@@ -19,6 +21,7 @@ import {
   requirementAssignment,
   requirementCategory,
 } from "@/schema";
+import { getNis2Assessment } from "../helpers/nis2-scope";
 import { adminProcedure, protectedProcedure, router } from "../init";
 
 /**
@@ -182,4 +185,33 @@ export const devRouter = router({
 
       return { bumped: bumpedCount, flipped: flippedCount };
     }),
+
+  /**
+   * Puts the Durchgang back to a first visit for the caller's company, so it can be walked again
+   * from the introduction: every `durchgang.*` audit row (waiting, done, adopted, sources,
+   * decided) and the intake answers the walk asks for. Assets, uploads, the risk method and the
+   * notes trail stay; they are the company's records, and the walk reads none of them for its
+   * state.
+   */
+  resetDurchgang: adminProcedure.mutation(async ({ ctx }) => {
+    const keys = [...new Set(WALK.flatMap(askedFields))];
+    const assessment = await getNis2Assessment(ctx.db, ctx.companyId);
+    await ctx.db
+      .delete(auditLog)
+      .where(
+        and(eq(auditLog.companyId, ctx.companyId), like(auditLog.action, "durchgang.%")),
+      );
+    if (assessment && keys.length > 0) {
+      await ctx.db
+        .update(companyCategoryIntake)
+        .set({
+          answers: sql`${companyCategoryIntake.answers} - array[${sql.join(
+            keys.map((k) => sql`${k}`),
+            sql`, `,
+          )}]::text[]`,
+        })
+        .where(eq(companyCategoryIntake.assessmentId, assessment.id));
+    }
+    return { clearedFields: keys.length };
+  }),
 });

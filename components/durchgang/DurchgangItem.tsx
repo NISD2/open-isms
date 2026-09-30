@@ -22,7 +22,7 @@ import {
   X,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -33,21 +33,22 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { useRouter } from "@/i18n/navigation";
-import { RISK_LEVEL_TEXT } from "@/lib/compliance/bsi-200-3";
-import { type ItemState, resumeAt, type ScreenKind } from "@/lib/durchgang";
-import type { FieldMeta } from "@/lib/forms/schema-introspect";
-import { trpc } from "@/lib/trpc/client";
+import {
+  type ItemState,
+  resumeAt,
+  type ScreenKind,
+  type WaitReason,
+} from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
-import type { Draft } from "./draft";
 import { Compare, Learn, Prepare, Provision, Reading, Sample } from "./ExplainScreens";
 import { Rail } from "./Rail";
 import { type Direction, PROGRESS, STAGE, transition } from "./transition";
+import { useWalkItem } from "./useWalkItem";
 import type { ItemView, WalkEntry } from "./view";
 import { WaitSheet } from "./WaitSheet";
 import {
   Adopt,
   Assets,
-  asInput,
   Decide,
   Done,
   Evidence,
@@ -76,23 +77,6 @@ const KIND_ICON: Readonly<Record<ScreenKind, LucideIcon>> = {
 
 const SCREEN_PARAM = "s";
 
-/**
- * An intake answer as the save sends it: numbers as numbers, and an emptied field as null, which
- * the intake save stores as cleared. Undefined means there is nothing valid to send.
- */
-const toAnswer = (type: string | undefined, value: unknown): unknown => {
-  if (value === "" || value === null || value === undefined) return null;
-  if (type === "number") {
-    const n = Number(value);
-    return Number.isFinite(n) ? n : undefined;
-  }
-  return typeof value === "string" ? value.trim() : value;
-};
-
-/** A stored answer as the draft holds it: yes or no stays a boolean, everything else a string. */
-const toDraft = (meta: FieldMeta | undefined, value: unknown): unknown =>
-  meta?.type === "boolean" && typeof value === "boolean" ? value : asInput(meta, value);
-
 const clampScreen = (value: number, total: number) =>
   Number.isInteger(value) && value >= 0 && value < total ? value : 0;
 
@@ -112,40 +96,14 @@ export function DurchgangItem({
   const [error, setError] = useState<number | null>(null);
   const [waitOpen, setWaitOpen] = useState(false);
   const [railOpen, setRailOpen] = useState(false);
-  /** Set when this visit resumed a waiting item or adopted the method, so neither is sent twice. */
-  const [resumed, setResumed] = useState(false);
-  const [adoptedAt, setAdoptedAt] = useState(item.adoptedAt);
-  const [draft, setDraft] = useState<Draft>(() => ({
-    values: Object.fromEntries(
-      Object.entries(item.answers).map(([k, v]) => [k, toDraft(item.fields[k], v)]),
-    ),
-    sources: [],
-    acceptance: null,
-    checked: [],
-    custom: [],
-    uploaded: null,
-  }));
-  /** What the server holds, so an unchanged screen saves nothing. */
-  const saved = useRef<Readonly<Record<string, unknown>>>(draft.values);
-  /**
-   * The writes run one after another. The screen moves on before its write settles, and two
-   * answer saves in flight at once would each merge into the same stored answers, the later
-   * overwriting the earlier.
-   */
-  const queue = useRef<Promise<void>>(Promise.resolve());
 
   const self = walk.find((w) => w.code === item.code);
   const filled: ItemState = { kind: "filled", since: new Date() };
   const next = resumeAt(walk, (w) => (w.code === item.code ? filled : w.state));
-
-  const saveAnswers = trpc.intake.saveRequirementAnswers.useMutation();
-  const sources = trpc.durchgang.sources.useMutation();
-  const adopt = trpc.durchgang.adoptMethod.useMutation();
-  const decide = trpc.durchgang.decideAcceptance.useMutation();
-  const addAssets = trpc.durchgang.addAssets.useMutation();
-  const finish = trpc.durchgang.finish.useMutation();
-  const resume = trpc.durchgang.resume.useMutation();
-  const wait = trpc.durchgang.wait.useMutation();
+  const { draft, setDraft, adoptedAt, leave, park } = useWalkItem(
+    item,
+    self?.state.kind === "waiting",
+  );
 
   // The screen lives in the URL, so the browser's back button and a reload keep the place.
   const show = useCallback((target: number, direction: Direction, push = true) => {
@@ -173,68 +131,6 @@ export function DurchgangItem({
   const entry = item.screens[index];
   if (!entry) return null;
 
-  /** The write a screen makes when the person moves on, or null when it has nothing to record. */
-  const saveOf = (at: number): Promise<unknown> | null => {
-    const current = item.screens[at];
-    if (!current) return null;
-    switch (current.screen.kind) {
-      case "fields": {
-        const answers = Object.fromEntries(
-          current.screen.fields.flatMap((key) => {
-            const value = draft.values[key];
-            if (value === saved.current[key]) return [];
-            const answer = toAnswer(item.fields[key]?.type, value);
-            return answer === undefined ? [] : [[key, answer]];
-          }),
-        );
-        if (Object.keys(answers).length === 0 || !item.assessmentId) return null;
-        return saveAnswers
-          .mutateAsync({
-            assessmentId: item.assessmentId,
-            categoryId: item.categoryId,
-            requirementCode: item.code,
-            answers,
-          })
-          .then(() => {
-            saved.current = {
-              ...saved.current,
-              ...Object.fromEntries(
-                Object.keys(answers).map((k) => [k, draft.values[k]]),
-              ),
-            };
-          });
-      }
-      case "evidence": {
-        const field = current.screen.field;
-        if (!field || !draft.uploaded || !item.assessmentId) return null;
-        return saveAnswers.mutateAsync({
-          assessmentId: item.assessmentId,
-          categoryId: item.categoryId,
-          requirementCode: item.code,
-          answers: { [field]: draft.uploaded },
-        });
-      }
-      case "adopt":
-        return adoptedAt === null ? adopt.mutateAsync() : null;
-      case "decide":
-        return draft.acceptance ? decide.mutateAsync({ level: draft.acceptance }) : null;
-      case "sources":
-        return draft.sources.length > 0
-          ? sources.mutateAsync({ code: item.code, sources: [...draft.sources] })
-          : null;
-      case "assets":
-        return draft.checked.length > 0 || draft.custom.length > 0
-          ? addAssets.mutateAsync({
-              catalogIds: [...draft.checked],
-              custom: draft.custom.map((c) => ({ name: c.name })),
-              locale: item.locale,
-            })
-          : null;
-      default:
-        return null;
-    }
-  };
-
   const forward = () => {
     if (entry.screen.kind === "done") {
       if (next) {
@@ -246,26 +142,11 @@ export function DurchgangItem({
     }
     setError(null);
     const at = index;
-    // Decided now, from this screen's state; the writes themselves wait their turn.
-    const resuming = at === 0 && self?.state.kind === "waiting" && !resumed;
-    const adopting = entry.screen.kind === "adopt" && adoptedAt === null;
-    const finishing = item.screens[at + 1]?.screen.kind === "done";
-    if (resuming) setResumed(true);
-    if (adopting) setAdoptedAt(new Date());
+    leave(at, () => {
+      setError(at);
+      show(at, "back");
+    });
     show(Math.min(at + 1, total - 1), "forward");
-    queue.current = queue.current
-      .then(async () => {
-        if (resuming) await resume.mutateAsync({ code: item.code });
-        await saveOf(at);
-        // The item counts as filled only once its last answers are stored.
-        if (finishing) await finish.mutateAsync({ code: item.code });
-      })
-      .catch(() => {
-        if (resuming) setResumed(false);
-        if (adopting) setAdoptedAt(null);
-        setError(at);
-        show(at, "back");
-      });
   };
 
   const back = () => {
@@ -273,42 +154,15 @@ export function DurchgangItem({
     else show(index - 1, "back");
   };
 
-  /** Parks the item once the pending writes and the waiting row are stored, then goes home. */
-  const park = (reason: Parameters<typeof wait.mutate>[0]["reason"], note: string) => {
+  const parkAndGoHome = (reason: WaitReason, note: string) => {
     setWaitOpen(false);
-    queue.current = queue.current
-      .then(() =>
-        wait.mutateAsync({ code: item.code, reason, note: note.trim() || undefined }),
-      )
-      .then(
-        () => router.push("/durchgang"),
-        () => {
-          toast.error(t("saveFailed"));
-        },
-      );
+    park(reason, note).then(
+      () => router.push("/durchgang"),
+      () => {
+        toast.error(t("saveFailed"));
+      },
+    );
   };
-
-  const recorded = [
-    ...item.screens.flatMap((s) =>
-      s.screen.kind === "fields" && "fields" in s.copy
-        ? s.copy.fields.flatMap((f) => {
-            const value = draft.values[f.key];
-            if (value === "" || value === undefined || value === null) return [];
-            const shown =
-              f.options && typeof value === "string"
-                ? (f.options[value] ?? value)
-                : typeof value === "boolean"
-                  ? value
-                    ? t("yes")
-                    : t("no")
-                  : String(value);
-            return [`${f.label}: ${shown}`];
-          })
-        : [],
-    ),
-    ...(draft.uploaded ? [draft.uploaded] : []),
-    ...(draft.acceptance ? [RISK_LEVEL_TEXT[item.locale][draft.acceptance].label] : []),
-  ];
 
   const primary =
     entry.screen.kind === "adopt" && adoptedAt === null
@@ -350,7 +204,7 @@ export function DurchgangItem({
       case "register":
         return <Register item={item} entry={entry} />;
       case "done":
-        return <Done item={item} entry={entry} recorded={recorded} next={next} />;
+        return <Done item={item} entry={entry} draft={draft} next={next} />;
       default:
         return entry satisfies never;
     }
@@ -468,7 +322,7 @@ export function DurchgangItem({
         </SheetContent>
       </Sheet>
 
-      <WaitSheet open={waitOpen} onOpenChange={setWaitOpen} onConfirm={park} />
+      <WaitSheet open={waitOpen} onOpenChange={setWaitOpen} onConfirm={parkAndGoHome} />
     </div>
   );
 }

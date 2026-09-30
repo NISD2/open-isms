@@ -1,5 +1,14 @@
 import type { ItemState, RegisterModule, ResolvedScreen } from "@/lib/durchgang";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
+import type { RouterOutputs } from "@/lib/trpc/client";
+
+/** The registers an item's screens show, as their own routers return them. */
+export type Registers = Readonly<{
+  [M in RegisterModule]: {
+    supplier: RouterOutputs["supplier"]["list"];
+    team: RouterOutputs["team"]["listMembers"];
+  }[M];
+}>;
 
 export interface Citation {
   readonly label: string;
@@ -43,9 +52,8 @@ export interface ItemView {
   /** What the company already saved for this requirement. No platform defaults. */
   readonly answers: Readonly<Record<string, unknown>>;
   readonly fields: Readonly<Record<string, FieldMeta>>;
-  readonly registers: Readonly<
-    Partial<Record<RegisterModule, Record<string, unknown>[]>>
-  >;
+  /** Only the registers the item has a screen for are loaded. */
+  readonly registers: Partial<Registers>;
   /** Catalogue items whose name is already on the company's asset list. */
   readonly listedAssets: readonly string[];
   /** When the company took over the BSI method in the walk; a second pass then writes nothing. */

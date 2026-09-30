@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { getLocale } from "next-intl/server";
+import { AdminTestPanel } from "@/components/portal/AdminTestPanel";
 import { getPathname } from "@/i18n/navigation";
 import { getSession } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
@@ -30,5 +31,10 @@ export default async function DurchgangLayout({
   if (locale !== "de" && locale !== "en")
     redirect(getPathname({ href: "/durchgang", locale: "en" }));
 
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <AdminTestPanel />
+    </>
+  );
 }

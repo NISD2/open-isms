@@ -40,3 +40,9 @@ export const WALK: readonly AnyItem[] = JOURNEY_ORDER.flatMap((code) => {
   const item = BY_CODE.get(code);
   return item ? [item] : [];
 });
+
+/** The intake fields an item asks for: on its field screens, and the one its upload fills. */
+export const askedFields = (item: AnyItem): readonly string[] =>
+  item.screens.flatMap<string>((s) =>
+    s.kind === "fields" ? s.fields : s.kind === "evidence" && s.field ? [s.field] : [],
+  );

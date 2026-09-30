@@ -117,9 +117,7 @@ describe("durchgang router", () => {
     await expect(caller.wait({ code: "12.2", reason: "letter" })).rejects.toMatchObject({
       code: "FORBIDDEN",
     });
-    await expect(
-      caller.addAssets({ catalogIds: [], locale: "de" }),
-    ).rejects.toMatchObject({
+    await expect(caller.addAssets({ catalogIds: [] })).rejects.toMatchObject({
       code: "FORBIDDEN",
     });
     expect(writes).toEqual([]);
@@ -200,7 +198,6 @@ describe("durchgang router", () => {
     });
     const result = await caller.addAssets({
       catalogIds: ["bp-sales-cs", "bp-production-service", "no-such-item"],
-      locale: "de",
     });
     expect(result).toEqual({ added: 1 });
     const insert = writes.find((w) => w.op === "insert" && w.table === asset);
@@ -211,14 +208,13 @@ describe("durchgang router", () => {
     expect(lookup && paramsOf(lookup.where)).toContain(COMPANY);
   });
 
-  test("names assets in the page's language and knows an item under either name", async () => {
+  test("names assets in the seed language and knows an item under either name", async () => {
     const { caller, writes } = setup({
       accessLevel: "full",
       existingAssets: ["Sales and customer service"],
     });
     const result = await caller.addAssets({
       catalogIds: ["bp-sales-cs", "bp-production-service"],
-      locale: "de",
     });
     expect(result).toEqual({ added: 1 });
     const insert = writes.find((w) => w.op === "insert" && w.table === asset);
@@ -232,7 +228,6 @@ describe("durchgang router", () => {
     const result = await caller.addAssets({
       catalogIds: [],
       custom: [{ name: "Laborsoftware" }, { name: " laborsoftware " }, { name: "kasse" }],
-      locale: "de",
     });
     expect(result).toEqual({ added: 1 });
     const insert = writes.find((w) => w.op === "insert" && w.table === asset);
