@@ -1,14 +1,15 @@
 import {
-  pgTable,
-  uuid,
-  varchar,
-  text,
   boolean,
-  integer,
-  timestamp,
   date,
   index,
+  integer,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+  varchar,
 } from "drizzle-orm/pg-core";
+import { supplier } from "./supplier";
 
 export const asset = pgTable(
   "asset",
@@ -27,6 +28,12 @@ export const asset = pgTable(
     isCritical: boolean("is_critical").default(false),
     owner: varchar("owner", { length: 255 }),
     location: varchar("location", { length: 255 }),
+
+    // The supplier on the company's own list that provides it; null when it is run in house or
+    // the provider is not recorded.
+    supplierId: uuid("supplier_id").references(() => supplier.id, {
+      onDelete: "set null",
+    }),
 
     ipAddress: varchar("ip_address", { length: 45 }),
     hostname: varchar("hostname", { length: 255 }),
@@ -64,5 +71,6 @@ export const asset = pgTable(
     index("idx_asset_company").on(table.companyId),
     index("idx_asset_type").on(table.type),
     index("idx_asset_critical").on(table.isCritical),
+    index("idx_asset_supplier").on(table.supplierId),
   ],
 );

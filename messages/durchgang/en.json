@@ -18,6 +18,8 @@
         "sources": "Where to look",
         "assets": "Your list",
         "register": "Your list",
+        "specify": "More precisely",
+        "rate": "Rate",
         "done": "Done"
       },
       "where": "{section} · Step {step} of {total}",
@@ -56,6 +58,25 @@
       "assets": {
         "title": "Your list already exists",
         "lead": "Your company already has entries. Check them and add what is missing: processes, software, devices, data carriers, rooms and networks."
+      },
+      "specify": {
+        "what": "What exactly",
+        "provider": "From whom",
+        "inHouse": "run in house",
+        "empty": "Nothing in this area is on your list.",
+        "hint": "Whoever you name as the provider goes onto your supplier list. An empty field means run in house or not known yet."
+      },
+      "rate": {
+        "frequency": "How often it happens",
+        "impact": "How big the damage would be",
+        "frequencyShort": "How often?",
+        "impactShort": "Damage?",
+        "open": "Level",
+        "matrix": "How the level follows from this",
+        "providedBy": "from {name}",
+        "provides": "provides {names}",
+        "kept": "{count, plural, one {# risk} other {# risks}} in the risk register",
+        "empty": "Nothing in this area is on your list."
       },
       "team": {
         "invite": "Bring someone in",
@@ -270,7 +291,7 @@
           },
           "suppliers": {
             "title": "Your suppliers",
-            "lead": "Enter each one and say how important it is to your business. When in doubt, write it down rather than leave it out."
+            "lead": "Whoever you named as the provider of your software and technology is already on it. Enter all the others and say how important each one is to your business. When in doubt, write it down rather than leave it out."
           },
           "dependence": {
             "title": "Who could stop you on their own",
@@ -673,9 +694,17 @@
             "title": "Technology and rooms",
             "lead": "Servers, devices, network and the places where people work."
           },
+          "which_software": {
+            "title": "Which software exactly, and from whom?",
+            "lead": "Write down what you actually use, for example \"DATEV Unternehmen online\" instead of the kind \"Accounting\". Next to it goes who provides it."
+          },
+          "which_technology": {
+            "title": "Which technology exactly, and from whom?",
+            "lead": "The same for devices, network and rooms, for example the name of your internet provider for the internet connection. What you run yourself has no provider."
+          },
           "done": {
             "title": "Your list is in place",
-            "note": "When something new comes along, add it at any time. At the end, management reviews the list."
+            "note": "When something new comes along, add it at any time. Later you rate each entry on its own. At the end, management reviews the list."
           }
         },
         "sources": {
@@ -690,6 +719,40 @@
           "provider": {
             "label": "Your IT provider",
             "text": "They know your servers, accounts and cloud services."
+          }
+        }
+      },
+      "2_3": {
+        "headline": "Rate your risks",
+        "teaser": "Place every piece of software, every device and every supplier on the matrix.",
+        "missed": [
+          "Suppliers count too. The directive requires supply chain security, including the relationships with each direct supplier or service provider (Art. 21(2)(d) NIS 2), taking into account the vulnerabilities specific to each of them (Art. 21(3) NIS 2).",
+          "Rare does not mean small. In the BSI matrix, damage that threatens the existence of the organisation is never low, even if it could occur every 5 years at the most."
+        ],
+        "screens": {
+          "learn": {
+            "title": "How big is which risk?",
+            "body": [
+              "Your list is in place: software, technology and suppliers. Now you rate each entry with the method you set. How often does the worst realistic case happen, and how big would the damage be? The matrix turns that into one of four levels.",
+              "That shows you where protection is needed first. Individual threats, for example from the BSI's list of elementary threats, can be added afterwards in the risk register."
+            ],
+            "duty": "The law requires policies on risk analysis. How much protection is proportionate depends, among other things, expressly on the likelihood of incidents and their severity (Art. 21(1) NIS 2)."
+          },
+          "software": {
+            "title": "Rate your software",
+            "lead": "For each one, think of the worst case that is realistic: it goes down, it is attacked or data is lost. How often does something like that happen, and how big would the damage be?"
+          },
+          "technology": {
+            "title": "Rate your technology and rooms",
+            "lead": "The same for servers, devices, network and rooms. Think of fire, water and power cuts too."
+          },
+          "suppliers": {
+            "title": "Rate your suppliers",
+            "lead": "Here the worst case is that the supplier fails or has a security incident of its own. The level then also shows in your supplier list."
+          },
+          "done": {
+            "title": "Your risks are rated",
+            "note": "Low risks are marked \"Accept\": BSI Standard 200-3 calls it common practice to accept low risks and still monitor them. Everything from \"medium\" up is marked \"Mitigate\". You can change either in the risk register. At the end, management reviews the ratings."
           }
         }
       }

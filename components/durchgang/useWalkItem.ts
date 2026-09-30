@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import type { WaitReason } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
-import { changedAnswers, type Draft, initialDraft } from "./draft";
+import { changedAnswers, type Draft, fullRating, initialDraft } from "./draft";
 import type { ItemView } from "./view";
 
 /**
@@ -27,7 +27,10 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
   const sources = trpc.durchgang.sources.useMutation();
   const adopt = trpc.durchgang.adoptMethod.useMutation();
   const addAssets = trpc.durchgang.addAssets.useMutation();
+  const specify = trpc.durchgang.specifyAssets.useMutation();
+  const rate = trpc.durchgang.rate.useMutation();
   const finish = trpc.durchgang.finish.useMutation();
+  const utils = trpc.useUtils();
   const resume = trpc.durchgang.resume.useMutation();
   const wait = trpc.durchgang.wait.useMutation();
   const declineItem = trpc.durchgang.decline.useMutation();
@@ -76,8 +79,38 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
             catalogIds: [...snapshot.checked],
             custom: snapshot.custom.map((c) => ({ name: c.name })),
           });
+          await utils.asset.list.invalidate();
         }
         return;
+      case "specify": {
+        // An emptied name keeps the stored one, and the server writes only what changed.
+        const rows = Object.entries(snapshot.specified).flatMap(([id, s]) =>
+          s.name.trim() ? [{ id, name: s.name.trim(), provider: s.provider.trim() }] : [],
+        );
+        if (rows.length > 0) {
+          await specify.mutateAsync({ rows });
+          await Promise.all([
+            utils.asset.list.invalidate(),
+            utils.supplier.list.invalidate(),
+          ]);
+        }
+        return;
+      }
+      case "rate": {
+        const rows = Object.values(snapshot.ratings).flatMap((r) => {
+          const rating = fullRating(r);
+          return rating ? [{ kind: r.kind, id: r.id, ...rating }] : [];
+        });
+        if (rows.length > 0) {
+          await rate.mutateAsync({ rows });
+          await Promise.all([
+            utils.risk.listWithAssets.invalidate(),
+            utils.risk.listWithSuppliers.invalidate(),
+            utils.supplier.list.invalidate(),
+          ]);
+        }
+        return;
+      }
       default:
         return;
     }

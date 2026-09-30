@@ -1,20 +1,29 @@
 import { TRPCError } from "@trpc/server";
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, inArray } from "drizzle-orm";
 import { z } from "zod";
 import { CATALOG_BY_ID } from "@/lib/asset-inventory/catalog";
 import { CATALOG_LABELS, catalogNames } from "@/lib/asset-inventory/catalog-labels";
 import { logAudit } from "@/lib/audit";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { mayWalkDurchgang } from "@/lib/billing/access";
+import { FREQUENCIES, IMPACTS } from "@/lib/compliance/bsi-200-3";
+import { invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
 import { getDefaultMethodology } from "@/lib/compliance/risk-methodology-defaults";
 import { seedLocale } from "@/lib/compliance/seed-locale";
 import {
   declinedNote,
+  levelOf,
   methodNote,
   noteLine,
+  ratingKey,
+  ratingText,
   resolveItem,
   SOURCE_IDS,
+  SUPPLIER_LEVEL,
   sourcesNote,
+  standingOf,
+  toScale,
+  treatmentFor,
   WAIT_REASONS,
   WALK,
   waitingNote,
@@ -22,7 +31,16 @@ import {
 import { getRegistrationPortals } from "@/lib/registration-portals";
 import durchgangDe from "@/messages/durchgang/de.json";
 import durchgangEn from "@/messages/durchgang/en.json";
-import { asset, auditLog, company, companyRiskMethodology } from "@/schema";
+import {
+  asset,
+  auditLog,
+  company,
+  companyRiskMethodology,
+  risk,
+  riskAsset,
+  riskSupplier,
+  supplier,
+} from "@/schema";
 import {
   appendNote,
   type DurchgangActor,
@@ -62,6 +80,30 @@ const durchgangProcedure = companyProcedure.use(({ ctx, next }) => {
   gate(ctx.session);
   return next({ ctx });
 });
+
+/** Writes into the company's registers, which need a set-up company like the module routers do. */
+const durchgangWrite = activatedCompanyProcedure.use(({ ctx, next }) => {
+  gate(ctx.session);
+  return next({ ctx });
+});
+
+/**
+ * A register changed: sign-offs that relied on it are rechecked, in the background, as the module
+ * routers do.
+ */
+const recheck = (
+  ctx: { db: TRPCContext["db"]; companyId: string; userId: string },
+  module: string,
+) =>
+  invalidateModuleSignOffs(ctx.db, ctx.companyId, module, ctx.userId).catch((err) =>
+    console.error(`[background] ${module} recheck:`, err),
+  );
+
+/** Names compared as a person reads them, so "Datev " and "DATEV" are one supplier. */
+const nameKey = (name: string) => name.trim().toLowerCase();
+
+/** How many steps a stored scale has; the column is JSON, so its shape is checked, not assumed. */
+const steps = (levels: unknown) => (Array.isArray(levels) ? levels.length : 0);
 
 const code = z.string().max(10);
 const NAMESPACES = { de: durchgangDe.durchgang, en: durchgangEn.durchgang } as const;
@@ -297,11 +339,7 @@ export const durchgangRouter = router({
    * of its names is skipped, so a second pass adds only what is new, and nothing is ever deleted
    * here.
    */
-  addAssets: activatedCompanyProcedure
-    .use(({ ctx, next }) => {
-      gate(ctx.session);
-      return next({ ctx });
-    })
+  addAssets: durchgangWrite
     .input(
       z.object({
         catalogIds: z.array(z.string().max(80)).max(CATALOG_BY_ID.size),
@@ -327,13 +365,12 @@ export const durchgangRouter = router({
         where: eq(asset.companyId, ctx.companyId),
         columns: { name: true },
       });
-      const key = (name: string) => name.trim().toLowerCase();
-      const taken = new Set(existing.map((a) => key(a.name)));
+      const taken = new Set(existing.map((a) => nameKey(a.name)));
       // The first spelling of a name wins, and an item already on the list is left alone.
       const fresh = wanted.filter(
         (a, i) =>
-          !a.names.some((n) => taken.has(key(n))) &&
-          wanted.findIndex((b) => key(b.name) === key(a.name)) === i,
+          !a.names.some((n) => taken.has(nameKey(n))) &&
+          wanted.findIndex((b) => nameKey(b.name) === nameKey(a.name)) === i,
       );
       if (fresh.length > 0) {
         await ctx.db
@@ -341,7 +378,282 @@ export const durchgangRouter = router({
           .values(
             fresh.map((a) => ({ companyId: ctx.companyId, name: a.name, type: a.type })),
           );
+        recheck(ctx, "asset");
       }
       return { added: fresh.length };
+    }),
+
+  /**
+   * 2.2, which one exactly and from whom. Each row gives the asset the name the company knows it
+   * by and its provider, found on the company's supplier list by name or added to it. An emptied
+   * provider unlinks the asset and leaves the supplier listed. The first rename moves the old
+   * name into an empty description, so the list still says what kind of thing it is.
+   */
+  specifyAssets: durchgangWrite
+    .input(
+      z.object({
+        rows: z
+          .array(
+            z.object({
+              id: z.string().uuid(),
+              name: z.string().trim().min(1).max(255),
+              provider: z.string().trim().max(255),
+            }),
+          )
+          .max(500),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const ids = [...new Set(input.rows.map((r) => r.id))];
+      if (ids.length === 0) return { updated: 0, suppliersAdded: 0 };
+      const result = await ctx.db.transaction(async (tx) => {
+        // One writer per company at a time, so two tabs naming the same new provider add it once.
+        await tx
+          .select({ id: company.id })
+          .from(company)
+          .where(eq(company.id, ctx.companyId))
+          .for("update");
+        const owned = await tx
+          .select({
+            id: asset.id,
+            name: asset.name,
+            description: asset.description,
+            supplierId: asset.supplierId,
+          })
+          .from(asset)
+          .where(and(eq(asset.companyId, ctx.companyId), inArray(asset.id, ids)));
+        if (owned.length !== ids.length) throw new TRPCError({ code: "NOT_FOUND" });
+
+        const listed = await tx
+          .select({ id: supplier.id, name: supplier.name })
+          .from(supplier)
+          .where(eq(supplier.customerCompanyId, ctx.companyId));
+        const known = new Map(listed.map((s) => [nameKey(s.name), s.id]));
+        // The first spelling of a new provider wins.
+        const fresh = input.rows
+          .map((r) => r.provider)
+          .filter(
+            (name, i, all) =>
+              name !== "" &&
+              !known.has(nameKey(name)) &&
+              all.findIndex((n) => nameKey(n) === nameKey(name)) === i,
+          );
+        const added =
+          fresh.length > 0
+            ? await tx
+                .insert(supplier)
+                .values(fresh.map((name) => ({ name, customerCompanyId: ctx.companyId })))
+                .returning({ id: supplier.id, name: supplier.name })
+            : [];
+        const supplierOf = new Map([
+          ...known,
+          ...added.map((s) => [nameKey(s.name), s.id] as const),
+        ]);
+
+        const before = new Map(owned.map((a) => [a.id, a]));
+        const changes = input.rows.flatMap((row) => {
+          const was = before.get(row.id);
+          if (!was) return [];
+          const supplierId =
+            row.provider === "" ? null : (supplierOf.get(nameKey(row.provider)) ?? null);
+          const renamed = row.name !== was.name;
+          if (!renamed && supplierId === was.supplierId) return [];
+          const description =
+            renamed && !was.description?.trim() ? was.name : was.description;
+          return [{ id: row.id, name: row.name, supplierId, description }];
+        });
+        for (const change of changes) {
+          await tx
+            .update(asset)
+            .set({
+              name: change.name,
+              supplierId: change.supplierId,
+              description: change.description,
+              updatedAt: new Date(),
+            })
+            .where(and(eq(asset.id, change.id), eq(asset.companyId, ctx.companyId)));
+        }
+        return { updated: changes.length, suppliersAdded: added.length };
+      });
+      if (result.updated > 0) recheck(ctx, "asset");
+      if (result.suppliersAdded > 0) recheck(ctx, "supplier");
+      return result;
+    }),
+
+  /**
+   * 2.3: one rating per listed asset or supplier on the two 200-3 scales. A thing with no risk
+   * yet gets one, linked to it, with the treatment its level suggests; a thing with exactly one
+   * risk on these scales has that risk re-rated; anything else is worked on in the risk register
+   * and left alone here. A supplier's own register level follows its rating.
+   */
+  rate: durchgangWrite
+    .input(
+      z.object({
+        rows: z
+          .array(
+            z.object({
+              kind: z.enum(["asset", "supplier"]),
+              id: z.string().uuid(),
+              frequency: z.enum(FREQUENCIES),
+              impact: z.enum(IMPACTS),
+            }),
+          )
+          .max(1000),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      // One rating per thing: the last one sent wins.
+      const rows = [
+        ...new Map(input.rows.map((r) => [ratingKey(r.kind, r.id), r])).values(),
+      ];
+      if (rows.length === 0) return { written: 0 };
+      const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
+      const assetIds = rows.filter((r) => r.kind === "asset").map((r) => r.id);
+      const supplierIds = rows.filter((r) => r.kind === "supplier").map((r) => r.id);
+
+      const written = await ctx.db.transaction(async (tx) => {
+        const method = await tx.query.companyRiskMethodology.findFirst({
+          where: eq(companyRiskMethodology.companyId, ctx.companyId),
+          columns: { likelihoodLevels: true, impactLevels: true },
+        });
+        if (
+          method &&
+          (steps(method.likelihoodLevels) !== FREQUENCIES.length ||
+            steps(method.impactLevels) !== IMPACTS.length)
+        ) {
+          throw new TRPCError({
+            code: "PRECONDITION_FAILED",
+            message: "The company's risk method uses other scales than BSI 200-3.",
+          });
+        }
+
+        // Locking the rated rows keeps two tabs from each adding a first risk to the same thing.
+        const assets =
+          assetIds.length > 0
+            ? await tx
+                .select({ id: asset.id, name: asset.name })
+                .from(asset)
+                .where(
+                  and(eq(asset.companyId, ctx.companyId), inArray(asset.id, assetIds)),
+                )
+                .for("update")
+            : [];
+        const suppliers =
+          supplierIds.length > 0
+            ? await tx
+                .select({ id: supplier.id, name: supplier.name })
+                .from(supplier)
+                .where(
+                  and(
+                    eq(supplier.customerCompanyId, ctx.companyId),
+                    inArray(supplier.id, supplierIds),
+                  ),
+                )
+                .for("update")
+            : [];
+        if (
+          assets.length !== assetIds.length ||
+          suppliers.length !== supplierIds.length
+        ) {
+          throw new TRPCError({ code: "NOT_FOUND" });
+        }
+
+        const risks = { id: risk.id, likelihood: risk.likelihood, impact: risk.impact };
+        const assetLinks =
+          assetIds.length > 0
+            ? await tx
+                .select({ ...risks, target: riskAsset.assetId })
+                .from(riskAsset)
+                .innerJoin(risk, eq(risk.id, riskAsset.riskId))
+                .where(
+                  and(
+                    eq(risk.companyId, ctx.companyId),
+                    inArray(riskAsset.assetId, assetIds),
+                  ),
+                )
+            : [];
+        const supplierLinks =
+          supplierIds.length > 0
+            ? await tx
+                .select({ ...risks, target: riskSupplier.supplierId })
+                .from(riskSupplier)
+                .innerJoin(risk, eq(risk.id, riskSupplier.riskId))
+                .where(
+                  and(
+                    eq(risk.companyId, ctx.companyId),
+                    inArray(riskSupplier.supplierId, supplierIds),
+                  ),
+                )
+            : [];
+
+        const names = new Map([...assets, ...suppliers].map((t) => [t.id, t.name]));
+        const links = { asset: assetLinks, supplier: supplierLinks };
+        const plan = rows.flatMap((row) => {
+          const rating = { frequency: row.frequency, impact: row.impact };
+          const scale = toScale(rating);
+          const standing = standingOf(links[row.kind].filter((l) => l.target === row.id));
+          const unchanged =
+            standing.kind === "rated" &&
+            standing.rating.frequency === rating.frequency &&
+            standing.rating.impact === rating.impact;
+          if (standing.kind === "kept" || unchanged) return [];
+          return [
+            {
+              row,
+              level: levelOf(rating),
+              scale,
+              // Scored as the risk register scores every risk.
+              riskScore: scale.likelihood * scale.impact,
+              riskId: standing.kind === "rated" ? standing.riskId : null,
+            },
+          ];
+        });
+
+        for (const step of plan) {
+          const { row } = step;
+          if (step.riskId) {
+            await tx
+              .update(risk)
+              .set({ ...step.scale, riskScore: step.riskScore, updatedAt: new Date() })
+              .where(and(eq(risk.id, step.riskId), eq(risk.companyId, ctx.companyId)));
+          } else {
+            const [added] = await tx
+              .insert(risk)
+              .values({
+                companyId: ctx.companyId,
+                ...ratingText(locale, row.kind, names.get(row.id) ?? ""),
+                ...step.scale,
+                riskScore: step.riskScore,
+                treatment: treatmentFor(step.level),
+              })
+              .returning({ id: risk.id });
+            if (!added) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+            if (row.kind === "asset") {
+              await tx.insert(riskAsset).values({ riskId: added.id, assetId: row.id });
+            } else {
+              await tx
+                .insert(riskSupplier)
+                .values({ riskId: added.id, supplierId: row.id });
+            }
+          }
+          if (row.kind === "supplier") {
+            await tx
+              .update(supplier)
+              .set({ riskLevel: SUPPLIER_LEVEL[step.level], updatedAt: new Date() })
+              .where(
+                and(
+                  eq(supplier.id, row.id),
+                  eq(supplier.customerCompanyId, ctx.companyId),
+                ),
+              );
+          }
+        }
+        return plan.length;
+      });
+      if (written > 0) {
+        recheck(ctx, "risk");
+        if (supplierIds.length > 0) recheck(ctx, "supplier");
+      }
+      return { written };
     }),
 });

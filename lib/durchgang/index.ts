@@ -17,6 +17,27 @@ export {
   sourcesNote,
   waitingNote,
 } from "./notes";
+export type {
+  AssetSlice,
+  LinkedRisk,
+  Rating,
+  RatingRow,
+  RatingTarget,
+  Standing,
+  StoredRisk,
+} from "./ratings";
+export {
+  fromScale,
+  levelOf,
+  ratingKey,
+  ratingRows,
+  ratingText,
+  SUPPLIER_LEVEL,
+  sliceOf,
+  standingOf,
+  toScale,
+  treatmentFor,
+} from "./ratings";
 export type { DurchgangEvent, ItemState, StatusRow, WaitReason } from "./state";
 export {
   DURCHGANG_ACTIONS,

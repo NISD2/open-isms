@@ -16,7 +16,7 @@ import en from "@/messages/durchgang/en.json";
 import infoDe from "@/messages/info/de.json";
 import infoEn from "@/messages/info/en.json";
 import { resolveItem, WAIT_REASONS, WALK } from "./index";
-import { NIS2_SCRIPT, NOT_WALKED } from "./nis2";
+import { AHEAD, NIS2_SCRIPT, NOT_WALKED } from "./nis2";
 import type { AnyScreen, ScreenKind } from "./types";
 
 const FRAMEWORK = new Map(
@@ -29,13 +29,22 @@ const FRAMEWORK = new Map(
 );
 
 /** Whether a screen stands in for the register the requirement page shows. */
-const coversModule = (screen: AnyScreen, moduleRef: string): boolean =>
-  moduleRef === "asset"
-    ? screen.kind === "assets"
-    : screen.kind === "register" && screen.module === moduleRef;
+const coversModule = (screen: AnyScreen, moduleRef: string): boolean => {
+  switch (moduleRef) {
+    case "asset":
+      return screen.kind === "assets";
+    case "risk":
+      return screen.kind === "rate";
+    default:
+      return screen.kind === "register" && screen.module === moduleRef;
+  }
+};
 
 /** The screen that stands in for a custom editor the requirement page shows. */
-const EDITOR_SCREEN: Readonly<Record<string, ScreenKind>> = { "RSK:2.1": "adopt" };
+const EDITOR_SCREEN: Readonly<Record<string, ScreenKind>> = {
+  "RSK:2.1": "adopt",
+  "RSK:2.3": "rate",
+};
 
 /** Registers the flow deliberately leaves out, each with the reason. */
 const NO_SCREEN: Readonly<Record<string, string>> = {
@@ -75,13 +84,22 @@ describe("the NIS 2 script", () => {
   test("walks the start of the journey without a gap, in journey order", () => {
     // Items are scripted from the front of the journey (spec §0.7), so the walk is always the
     // first N codes: a later item scripted before an earlier one would leave a hole in the path.
-    // The only holes are the items left out on purpose, each with its reason.
+    // The only exceptions are listed with their reason: items left out, and items scripted ahead.
+    const ahead = Object.keys(AHEAD);
     const front = JOURNEY_ORDER.slice(
       0,
-      NIS2_SCRIPT.length + Object.keys(NOT_WALKED).length,
+      NIS2_SCRIPT.length - ahead.length + Object.keys(NOT_WALKED).length,
     );
-    expect(WALK.map((i) => i.code)).toEqual(front.filter((code) => !NOT_WALKED[code]));
+    expect(WALK.map((i) => i.code)).toEqual(
+      JOURNEY_ORDER.filter(
+        (code) => (front.includes(code) && !NOT_WALKED[code]) || ahead.includes(code),
+      ),
+    );
     for (const code of Object.keys(NOT_WALKED)) expect(front).toContain(code);
+    for (const code of ahead) expect(front).not.toContain(code);
+    for (const reason of [...Object.values(NOT_WALKED), ...Object.values(AHEAD)]) {
+      expect(reason.trim().length).toBeGreaterThan(20);
+    }
   });
 
   test("opens every item with what it is and closes with what was recorded", () => {
@@ -161,10 +179,14 @@ describe("the NIS 2 script", () => {
   });
 
   test("dates every item's fact-check on a real day that has passed", () => {
+    // The check is dated in Berlin, where the fact-check document is written.
+    const today = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }).format(
+      new Date(),
+    );
     for (const item of NIS2_SCRIPT) {
       const day = new Date(`${item.reviewed}T00:00:00Z`);
       expect(day.toISOString().slice(0, 10)).toBe(item.reviewed);
-      expect(day.getTime()).toBeLessThanOrEqual(Date.now());
+      expect(item.reviewed <= today).toBe(true);
     }
   });
 });

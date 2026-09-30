@@ -29,6 +29,13 @@
       "when": 1790276576879,
       "tag": "0003_brave_dracula",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1790807070149,
+      "tag": "0004_asset_supplier",
+      "breakpoints": true
     }
   ]
 }

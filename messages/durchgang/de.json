@@ -18,6 +18,8 @@
         "sources": "Wo Sie suchen",
         "assets": "Ihre Liste",
         "register": "Ihre Liste",
+        "specify": "Genauer",
+        "rate": "Bewerten",
         "done": "Erledigt"
       },
       "where": "{section} · Schritt {step} von {total}",
@@ -56,6 +58,25 @@
       "assets": {
         "title": "Ihre Liste gibt es schon",
         "lead": "Ihr Unternehmen hat bereits Einträge. Prüfen Sie sie und ergänzen Sie, was fehlt: Abläufe, Programme, Geräte, Datenträger, Räume und Netze."
+      },
+      "specify": {
+        "what": "Was genau",
+        "provider": "Von wem",
+        "inHouse": "selbst betrieben",
+        "empty": "In diesem Bereich steht nichts auf Ihrer Liste.",
+        "hint": "Wen Sie als Anbieter nennen, kommt auf Ihre Lieferantenliste. Ein leeres Feld heißt: selbst betrieben oder noch nicht bekannt."
+      },
+      "rate": {
+        "frequency": "Wie oft es eintritt",
+        "impact": "Wie groß der Schaden wäre",
+        "frequencyShort": "Wie oft?",
+        "impactShort": "Schaden?",
+        "open": "Stufe",
+        "matrix": "Wie sich daraus die Stufe ergibt",
+        "providedBy": "von {name}",
+        "provides": "liefert {names}",
+        "kept": "{count, plural, one {# Risiko} other {# Risiken}} im Risikoregister",
+        "empty": "In diesem Bereich steht nichts auf Ihrer Liste."
       },
       "team": {
         "invite": "Jemanden dazuholen",
@@ -276,7 +297,7 @@
           },
           "suppliers": {
             "title": "Ihre Lieferanten",
-            "lead": "Tragen Sie jeden ein und sagen Sie, wie wichtig er für Ihren Betrieb ist. Im Zweifel gilt: lieber aufschreiben als weglassen."
+            "lead": "Wen Sie bei Ihren Programmen und Ihrer Technik als Anbieter genannt haben, steht schon darin. Tragen Sie alle anderen ein und sagen Sie, wie wichtig jeder für Ihren Betrieb ist. Im Zweifel gilt: lieber aufschreiben als weglassen."
           },
           "dependence": {
             "title": "Wer Sie allein anhalten könnte",
@@ -673,9 +694,17 @@
             "title": "Technik und Räume",
             "lead": "Server, Geräte, Netz und die Orte, an denen gearbeitet wird."
           },
+          "which_software": {
+            "title": "Welches Programm genau, und von wem?",
+            "lead": "Schreiben Sie hin, was Sie wirklich nutzen, zum Beispiel „DATEV Unternehmen online“ statt der Art „Buchhaltung“. Daneben steht, wer es liefert."
+          },
+          "which_technology": {
+            "title": "Welche Technik genau, und von wem?",
+            "lead": "Dasselbe für Geräte, Netz und Räume, zum Beispiel der Name Ihres Internetanbieters beim Internetanschluss. Was Sie selbst betreiben, bleibt ohne Anbieter."
+          },
           "done": {
             "title": "Ihre Liste steht",
-            "note": "Kommt etwas dazu, ergänzen Sie es jederzeit. Am Ende sieht die Geschäftsführung die Liste durch."
+            "note": "Kommt etwas dazu, ergänzen Sie es jederzeit. Später bewerten Sie jeden Eintrag einzeln. Am Ende sieht die Geschäftsführung die Liste durch."
           }
         },
         "sources": {
@@ -690,6 +719,40 @@
           "provider": {
             "label": "Ihr IT-Dienstleister",
             "text": "Er kennt Ihre Server, Konten und Clouddienste."
+          }
+        }
+      },
+      "2_3": {
+        "headline": "Risiken bewerten",
+        "teaser": "Jedes Programm, jedes Gerät und jeden Lieferanten mit der Matrix einstufen.",
+        "missed": [
+          "Lieferanten gehören dazu. Das Gesetz verlangt Maßnahmen auch für die Beziehungen zu Ihren direkten Anbietern und Dienstleistern (§ 30 Abs. 2 Nr. 4 BSIG).",
+          "Selten heißt nicht klein. In der Matrix des BSI ist ein existenzbedrohender Schaden nie gering, selbst wenn er höchstens alle fünf Jahre eintreten könnte."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Wie groß ist welches Risiko?",
+            "body": [
+              "Ihre Liste steht: Programme, Technik und Lieferanten. Jetzt bewerten Sie jeden Eintrag mit der Methode, die Sie festgelegt haben. Wie oft kommt der schlimmste realistische Fall vor, und wie groß wäre der Schaden? Die Matrix macht daraus eine von vier Stufen.",
+              "So sehen Sie, wo Schutz zuerst nötig ist. Einzelne Gefährdungen, etwa aus der Liste der elementaren Gefährdungen des BSI, ergänzen Sie danach im Risikoregister."
+            ],
+            "duty": "Das Gesetz verlangt Konzepte zur Risikoanalyse. Wie viel Schutz verhältnismäßig ist, richtet sich unter anderem ausdrücklich danach, wie wahrscheinlich und wie schwer Sicherheitsvorfälle sind (§ 30 Abs. 1 BSIG)."
+          },
+          "software": {
+            "title": "Ihre Programme bewerten",
+            "lead": "Denken Sie bei jedem an den schlimmsten Fall, der realistisch ist: Es fällt aus, wird angegriffen oder Daten gehen verloren. Wie oft kommt so etwas vor, und wie groß wäre der Schaden?"
+          },
+          "technology": {
+            "title": "Ihre Technik und Räume bewerten",
+            "lead": "Dasselbe für Server, Geräte, Netz und Räume. Denken Sie auch an Feuer, Wasser und Stromausfall."
+          },
+          "suppliers": {
+            "title": "Ihre Lieferanten bewerten",
+            "lead": "Hier ist der schlimmste Fall, dass der Lieferant ausfällt oder selbst einen Sicherheitsvorfall hat. Die Stufe steht danach auch in Ihrer Lieferantenliste."
+          },
+          "done": {
+            "title": "Ihre Risiken sind bewertet",
+            "note": "Geringe Risiken sind mit „Akzeptieren“ vorgemerkt: Der BSI-Standard 200-3 nennt es üblich, sie zu akzeptieren und weiter zu beobachten. Alles ab „mittel“ ist mit „Mindern“ vorgemerkt. Beides ändern Sie im Risikoregister. Am Ende sieht die Geschäftsführung die Bewertung durch."
           }
         }
       }

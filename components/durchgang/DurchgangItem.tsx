@@ -11,6 +11,7 @@ import {
   Clock,
   Eye,
   FileUp,
+  Gauge,
   Lightbulb,
   ListChecks,
   type LucideIcon,
@@ -36,6 +37,7 @@ import { type ItemState, resumeAt, type ScreenKind } from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
 import { Compare, Learn, Prepare, Provision, Reading, Sample } from "./ExplainScreens";
 import { Rail } from "./Rail";
+import { Rate, Specify } from "./RatingScreens";
 import { type Direction, PROGRESS, STAGE, transition } from "./transition";
 import { useScreenComplete } from "./useScreenComplete";
 import { useWalkItem } from "./useWalkItem";
@@ -57,6 +59,8 @@ const KIND_ICON: Readonly<Record<ScreenKind, LucideIcon>> = {
   sources: Search,
   assets: ListChecks,
   register: ListChecks,
+  specify: PenLine,
+  rate: Gauge,
   done: CircleCheckBig,
 };
 
@@ -188,6 +192,10 @@ export function DurchgangItem({
         return <Assets {...work} entry={entry} />;
       case "register":
         return <Register item={item} entry={entry} />;
+      case "specify":
+        return <Specify {...work} entry={entry} />;
+      case "rate":
+        return <Rate {...work} entry={entry} />;
       case "done":
         return <Done item={item} entry={entry} draft={draft} next={next} />;
       default:

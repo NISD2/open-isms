@@ -15,6 +15,7 @@
 import type { FunctionalGroup } from "@/lib/asset-inventory/catalog";
 import type { Frequency, Impact } from "@/lib/compliance/bsi-200-3";
 import type { CategoryCode, CategoryField } from "@/lib/compliance/category-schemas";
+import type { AssetSlice, RatingTarget } from "./ratings";
 
 /**
  * A rule shown as it is, read-only, rendered from the module that holds it: the 200-3 matrix
@@ -94,6 +95,10 @@ export type Screen<C extends CategoryCode> =
       readonly id: string;
       readonly groups: readonly FunctionalGroup[];
     }
+  /** Which one exactly, and from whom: each listed asset gets its product and its provider. */
+  | { readonly kind: "specify"; readonly id: string; readonly slice: AssetSlice }
+  /** Each listed asset or supplier rated on the two 200-3 scales, as a risk linked to it. */
+  | { readonly kind: "rate"; readonly id: string; readonly targets: RatingTarget }
   | { readonly kind: "done"; readonly id: string };
 
 export type AnyScreen = Screen<CategoryCode>;

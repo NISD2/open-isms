@@ -42,6 +42,8 @@ const SCREEN_COPY = {
   register: z.object(heading),
   sources: z.object(heading),
   assets: z.object(heading),
+  specify: z.object(heading),
+  rate: z.object(heading),
   done: z.object({ title: text, note: text }),
 } as const satisfies Record<ScreenKind, z.ZodType>;
 
@@ -258,6 +260,10 @@ function resolveScreen(
       return one(screen, SCREEN_COPY.register);
     case "assets":
       return one(screen, SCREEN_COPY.assets);
+    case "specify":
+      return one(screen, SCREEN_COPY.specify);
+    case "rate":
+      return one(screen, SCREEN_COPY.rate);
     case "done":
       return one(screen, SCREEN_COPY.done);
     default:

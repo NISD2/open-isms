@@ -1,6 +1,18 @@
 import type { AssetLayer } from "@/lib/asset-inventory/types";
-import type { SourceId } from "@/lib/durchgang";
+import type { Rating, SourceId } from "@/lib/durchgang";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
+
+/** An asset as the "which one exactly" screen edits it: its name and who provides it. */
+export interface Specified {
+  readonly name: string;
+  readonly provider: string;
+}
+
+/** A rating being chosen for one asset or supplier; either scale may still be open. */
+export type RatingDraft = Partial<Rating> & {
+  readonly kind: "asset" | "supplier";
+  readonly id: string;
+};
 
 /** What the person has entered on this item so far, kept while they move between its screens. */
 export interface Draft {
@@ -11,6 +23,10 @@ export interface Draft {
   readonly checked: readonly string[];
   readonly custom: ReadonlyArray<{ name: string; layer: AssetLayer }>;
   readonly uploaded: string | null;
+  /** Edited assets, by id. Only rows the person touched; the others show what is stored. */
+  readonly specified: Readonly<Record<string, Specified>>;
+  /** Ratings chosen on this visit, by `ratingKey`. */
+  readonly ratings: Readonly<Record<string, RatingDraft>>;
 }
 
 export type DraftUpdate = (next: Draft) => void;
@@ -60,7 +76,15 @@ export const initialDraft = (
   checked: [],
   custom: [],
   uploaded: null,
+  specified: {},
+  ratings: {},
 });
+
+/** A rating with both scales chosen, or null. */
+export const fullRating = (rating: Partial<Rating> | undefined): Rating | null =>
+  rating?.frequency && rating.impact
+    ? { frequency: rating.frequency, impact: rating.impact }
+    : null;
 
 /** What a screen of fields sends: only the keys that differ from what the server holds. */
 export const changedAnswers = (

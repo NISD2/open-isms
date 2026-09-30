@@ -2,8 +2,8 @@
  * The NIS 2 Durchgang: which screens each item shows, in which order. Data only.
  *
  * The walk follows the journey order (`JOURNEY_ORDER`), so the order of this list does not
- * matter. v1 walks the first ten items of that order, less the ones in `NOT_WALKED`; an item is
- * added here only together with its reviewed copy in messages/durchgang.
+ * matter. v1 walks the first ten items of that order, less the ones in `NOT_WALKED`, plus the ones
+ * in `AHEAD`; an item is added here only together with its reviewed copy in messages/durchgang.
  */
 
 import type { CategoryCode } from "@/lib/compliance/category-schemas";
@@ -18,6 +18,15 @@ const item = <C extends CategoryCode>(i: Item<C>): Item<C> => i;
 export const NOT_WALKED: Readonly<Record<string, string>> = {
   "12.1":
     "Whoever reaches the Durchgang already knows their entity type; the walk does not decide it for them.",
+};
+
+/**
+ * Items scripted ahead of the front of the journey, each with the reason. The walk still shows
+ * them in journey order; the unscripted items before them stay on the requirement page.
+ */
+export const AHEAD: Readonly<Record<string, string>> = {
+  "2.3":
+    "The risk ratings are made on the assets and suppliers listed in 2.2 and 5.1, so they are walked before 1.3 and 1.4 are scripted.",
 };
 
 export const NIS2_SCRIPT: readonly AnyItem[] = [
@@ -186,11 +195,26 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
         id: "technology",
         groups: ["it-infrastructure", "endpoints", "network", "locations"],
       },
+      { kind: "specify", id: "which_software", slice: "software" },
+      { kind: "specify", id: "which_technology", slice: "technology" },
       { kind: "done", id: "done" },
     ],
     notAsked: {
       classificationLevels:
         "Protection levels (Schutzbedarf normal, hoch, sehr hoch) are the BSI 200-2 method; neither § 30 BSIG nor Art. 21 NIS 2 asks for them, and a small company rates each asset on its own before choosing a scale.",
     },
+  }),
+  item({
+    code: "2.3",
+    category: "RSK",
+    glossary: [],
+    reviewed: "2026-10-01",
+    screens: [
+      { kind: "learn", id: "learn" },
+      { kind: "rate", id: "software", targets: "software" },
+      { kind: "rate", id: "technology", targets: "technology" },
+      { kind: "rate", id: "suppliers", targets: "suppliers" },
+      { kind: "done", id: "done" },
+    ],
   }),
 ];
