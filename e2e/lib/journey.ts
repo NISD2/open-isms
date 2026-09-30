@@ -50,11 +50,39 @@ export async function gotoRequirement(page: Page, code: string): Promise<void> {
 }
 
 /**
+ * Withdraw a sign-off that is due for review, through the real button. The
+ * page offers no fresh sign-off while an old signature stands, so a row the
+ * module recheck or the deadline cron moved to needs_review is reopened
+ * first. Does nothing on any other page.
+ */
+export async function reopenIfDueForReview(page: Page): Promise<void> {
+  const reopen = page.getByTestId("reopen-button");
+  const dueForReview = await page
+    .getByTestId("requirement-needs-review")
+    .isVisible()
+    .catch(() => false);
+  if (!dueForReview || !(await reopen.isVisible().catch(() => false))) return;
+  await reopen.click();
+  const [resp] = await Promise.all([
+    page.waitForResponse(
+      (r) =>
+        r.url().includes("assessment.reopenRequirement") &&
+        r.request().method() === "POST",
+      { timeout: 20_000 },
+    ),
+    page.getByTestId("reopen-confirm").click(),
+  ]);
+  expect(resp.ok(), `reopenRequirement HTTP ${resp.status()}`).toBe(true);
+  await page.reload({ waitUntil: "networkidle" });
+}
+
+/**
  * Ensure the requirement is signable, via the product's own invalidation
  * path: saving answers flips a completed requirement back to in_progress.
  */
 export async function makeSignable(page: Page, code: string): Promise<void> {
   await gotoRequirement(page, code);
+  await reopenIfDueForReview(page);
   if (
     await page
       .getByTestId("sign-off-button")

@@ -16,6 +16,7 @@ import { z } from "zod";
 import { hasReviewAccess } from "@/lib/auth";
 import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
 import { REQUIREMENT_FIELD_MAP } from "@/lib/compliance/requirement-fields";
+import { hasSignOffToWithdraw } from "@/lib/compliance/sign-off-state";
 import type { Database, DbOrTx } from "@/lib/db";
 import { introspectSchema } from "@/lib/forms/schema-introspect";
 import {
@@ -28,7 +29,7 @@ import {
 } from "@/schema";
 import { enforceAssignment, verifyAssessmentOwnership } from "../guards";
 import { recalculateProgress } from "../helpers/assessment-helpers";
-import { answerSaveChange, hasSignOffToWithdraw } from "../helpers/manual-status";
+import { answerSaveChange } from "../helpers/manual-status";
 import {
   announceWithdrawal,
   reopenedReviewDate,

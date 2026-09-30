@@ -76,6 +76,7 @@
       "signedOff": "Schváleno",
       "signedOffByOn": "Schválil {name} dne {date}",
       "rejectionFeedback": "Zpětná vazba z přezkumu",
+      "needsReview": "Vyžaduje kontrolu: termín uplynul, nebo se změnila provozní data, na kterých tento požadavek stojí.",
       "moduleData": "Provozní data",
       "goToRegister": "Přejít do registru",
       "requiredRole": "Tento požadavek vyžaduje schválení rolí: {role}",

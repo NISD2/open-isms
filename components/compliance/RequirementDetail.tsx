@@ -34,6 +34,7 @@ import { MODULE_HREF } from "@/lib/compliance/operational-links";
 import type { CustomEditorKey } from "@/lib/compliance/requirement-fields";
 import type { RoleKey } from "@/lib/compliance/role-keys";
 import { pendingSignersOf } from "@/lib/compliance/sign-off-roster";
+import { hasSignOffToWithdraw, reopenChange } from "@/lib/compliance/sign-off-state";
 import { renderFieldInput } from "@/lib/forms/field-renderer";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
 import { trpc } from "@/lib/trpc/client";
@@ -125,6 +126,9 @@ export interface RequirementDetailProps {
    *  The assignRequirement / unassignRequirement procedures are admin-only,
    *  so non-admins must not see the assign popover (broken affordance). */
   isAdmin: boolean;
+  /** `hasReviewAccess` for the viewer's role: whether the server lets them
+   *  reopen a requirement a reviewer approved. */
+  reviewAccess: boolean;
   /** The viewer, so the page can tell "assigned to me" from "assigned to
    *  someone else" without a second round trip. */
   currentUserId: string;
@@ -194,6 +198,7 @@ export function RequirementDetail({
   next,
   isReviewer,
   isAdmin,
+  reviewAccess,
   currentUserId,
   guidance,
   requiredSignOffRole,
@@ -251,6 +256,16 @@ export function RequirementDetail({
   const isCompleted =
     status.currentStatus === "completed" || status.currentStatus === "approved";
   const isNA = status.currentStatus === "not_applicable";
+
+  // The rule assessment.reopenRequirement enforces. A row still carrying a
+  // sign-off is reopened, never signed again on top of it: a needs_review row
+  // keeps the signature it had before the recheck or the cron moved it.
+  const signOffState = {
+    status: status.currentStatus,
+    signedOffAt: status.signedOffAt,
+  };
+  const carriesSignOff = hasSignOffToWithdraw(signOffState);
+  const mayReopen = reopenChange(signOffState, reviewAccess).ok;
 
   // Offer the button exactly when assessment.signOff would accept it, reading
   // the same roster rule the server does rather than a copy of it. Only an
@@ -502,6 +517,17 @@ export function RequirementDetail({
         <div className="space-y-6 min-w-0">
           {/* What this requirement asks for, before any input is requested */}
           {decidesHere && guidancePanel}
+
+          {/* The badge alone says "needs review" and not why, and the page
+              offers Reopen instead of Sign off while the old signature stands. */}
+          {status.currentStatus === "needs_review" && (
+            <p
+              data-testid="requirement-needs-review"
+              className="border-l-2 border-l-orange-500 pl-4 py-2 text-sm"
+            >
+              {t("requirement.needsReview")}
+            </p>
+          )}
 
           {/* Review feedback — shown first when rejected */}
           {status.currentStatus === "rejected" && status.reviewFeedback && (
@@ -916,8 +942,10 @@ export function RequirementDetail({
       >
         {status.statusId && !isReviewer && decidesHere && (
           <div data-tour="requirement-decide" className="flex items-center gap-2">
-            {isCompleted || isNA ? (
-              <ReopenButton isSubmitting={isPending} onReopen={handleReopen} />
+            {carriesSignOff ? (
+              mayReopen && (
+                <ReopenButton isSubmitting={isPending} onReopen={handleReopen} />
+              )
             ) : (
               <>
                 <Button variant="outline" size="sm" onClick={() => setNaOpen(true)}>
