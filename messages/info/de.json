@@ -1018,7 +1018,7 @@
         "items": {
           "backupSetup": "Datenbanksicherungen richtet der Betreiber in der Hosting-Umgebung ein. Sie sind nicht Teil des Quellcodes. Die aktuelle Konfiguration nennen wir auf Anfrage.",
           "redundancy": "Speicherung von Nachweisdokumenten in AWS S3 mit der von AWS bereitgestellten Objekt-Haltbarkeit",
-          "rateLimits": "Begrenzung der Anfragen je Anwendungsinstanz (im Arbeitsspeicher) auf Login-Versuchen, öffentlichen Endpunkten (Anwendbarkeitsprüfung, Lieferantenportal) sowie aufwendigen authentifizierten Endpunkten (PDF-Exporte, Erstellung von Zertifikaten)",
+          "rateLimits": "Begrenzung der Anfragen (in der Datenbank gezählt und damit über Neustarts und alle Anwendungsinstanzen hinweg wirksam; IP-Adressen und E-Mail-Adressen werden dabei nur als Hash gespeichert) auf Login-Versuchen, öffentlichen Endpunkten (Anwendbarkeitsprüfung, Lieferantenportal) sowie aufwendigen authentifizierten Endpunkten (PDF-Exporte, Erstellung von Zertifikaten)",
           "uploadLimit": "Hochgeladene Dateien sind auf 50 MB pro Datei begrenzt",
           "statusPage": "Verfügbarkeitsanzeige: nisd2.eu/status prüft die Erreichbarkeit der Datenbank höchstens alle 30 Sekunden und zeigt das Ergebnis öffentlich an. Eine durchgehende Überwachung mit automatischer Alarmierung betreiben wir nicht."
         }

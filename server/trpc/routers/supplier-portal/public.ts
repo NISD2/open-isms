@@ -56,7 +56,7 @@ export const supplierPublicRouter = router({
       // of entropy so brute-force is computationally infeasible, but rate
       // limiting still prevents the public endpoint from being a free
       // enumeration / scraping channel and protects the DB from cheap reads.
-      if (!rateLimit(`supplier-access:read:${ctx.ip}`, 60, 60_000)) {
+      if (!(await rateLimit(`supplier-access:read:${ctx.ip}`, 60, 60_000))) {
         throw new TRPCError({
           code: "TOO_MANY_REQUESTS",
           message: "Too many requests. Please wait a minute and try again.",
@@ -264,7 +264,7 @@ export const supplierPublicRouter = router({
     .mutation(async ({ ctx, input }) => {
       // Per-IP rate limit. Same rationale as getByToken — defense in depth
       // against brute force + spam.
-      if (!rateLimit(`supplier-access:revoke:${ctx.ip}`, 10, 60_000)) {
+      if (!(await rateLimit(`supplier-access:revoke:${ctx.ip}`, 10, 60_000))) {
         throw new TRPCError({
           code: "TOO_MANY_REQUESTS",
           message: "Too many requests. Please wait a minute and try again.",

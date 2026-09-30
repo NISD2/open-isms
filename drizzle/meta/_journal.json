@@ -148,6 +148,13 @@
       "when": 1790783233999,
       "tag": "0020_framework_data_sync",
       "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1790785838403,
+      "tag": "0021_rate_limit_window",
+      "breakpoints": true
     }
   ]
 }

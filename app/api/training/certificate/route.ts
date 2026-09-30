@@ -1,13 +1,13 @@
+import { renderToBuffer } from "@react-pdf/renderer";
 import { NextRequest } from "next/server";
 import { hasLocale } from "next-intl";
-import { renderToBuffer } from "@react-pdf/renderer";
 import { routing } from "@/i18n/routing";
-import { pickLocalized } from "@/lib/locale";
 import { getSession } from "@/lib/auth";
-import { rateLimit } from "@/lib/rate-limit";
-import { api } from "@/lib/trpc/server";
+import { pickLocalized } from "@/lib/locale";
 import { TrainingCertificateDocument } from "@/lib/pdf/training-certificate";
+import { rateLimit } from "@/lib/rate-limit";
 import { certificateRef } from "@/lib/training/certificate-ref";
+import { api } from "@/lib/trpc/server";
 
 export async function GET(request: NextRequest) {
   const session = await getSession();
@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
     ? requestedLocale
     : routing.defaultLocale;
 
-  if (!rateLimit(`cert:${session.user.id}`, 5, 60_000)) {
+  if (!(await rateLimit(`cert:${session.user.id}`, 5, 60_000))) {
     return new Response("Too many requests", { status: 429 });
   }
 

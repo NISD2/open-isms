@@ -25,7 +25,7 @@ export const advisoryRouter = router({
    */
   submit: publicProcedure.input(advisorySubmitInput).mutation(async ({ ctx, input }) => {
     // Public PII ingestion, same exposure as applicability.captureLead.
-    if (!rateLimit(`advisory:submit:${ctx.ip}`, 5, 60_000)) {
+    if (!(await rateLimit(`advisory:submit:${ctx.ip}`, 5, 60_000))) {
       throw new TRPCError({
         code: "TOO_MANY_REQUESTS",
         message: "Too many submissions. Please wait a minute and try again.",
@@ -79,7 +79,7 @@ export const advisoryRouter = router({
    * created.
    */
   enrich: publicProcedure.input(advisoryEnrichInput).mutation(async ({ ctx, input }) => {
-    if (!rateLimit(`advisory:enrich:${ctx.ip}`, 10, 60_000)) {
+    if (!(await rateLimit(`advisory:enrich:${ctx.ip}`, 10, 60_000))) {
       throw new TRPCError({
         code: "TOO_MANY_REQUESTS",
         message: "Too many submissions. Please wait a minute and try again.",

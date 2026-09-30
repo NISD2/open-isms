@@ -345,7 +345,9 @@ function buildDoc(locale: Locale): Document {
 export async function GET(request: Request): Promise<Response> {
   // Audit F-1 (2026-09-10): unauthenticated document build, same reasoning as
   // the PDF sibling.
-  if (!rateLimitPublicRoute("questionnaire:docx", getClientIp(request.headers), 10)) {
+  if (
+    !(await rateLimitPublicRoute("questionnaire:docx", getClientIp(request.headers), 10))
+  ) {
     return NextResponse.json({ error: "Too many requests" }, { status: 429 });
   }
 

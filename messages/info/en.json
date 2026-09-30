@@ -1018,7 +1018,7 @@
         "items": {
           "backupSetup": "Database backups are set up by the operator in the hosting environment. They are not part of the source code. We share the current configuration on request.",
           "redundancy": "Storage of evidence documents in AWS S3 with the object durability guarantees provided by AWS",
-          "rateLimits": "Rate limiting per application instance (in memory) on login attempts, public endpoints (applicability check, supplier portal), and resource-heavy authenticated endpoints (PDF exports, certificate generation)",
+          "rateLimits": "Rate limiting (counted in the database, so it holds across restarts and every application instance; IP addresses and email addresses are stored only as a hash) on login attempts, public endpoints (applicability check, supplier portal), and resource-heavy authenticated endpoints (PDF exports, certificate generation)",
           "uploadLimit": "Uploaded files are limited to 50 MB per file",
           "statusPage": "Availability display: nisd2.eu/status checks database reachability at most every 30 seconds and shows the result publicly. We do not run continuous monitoring with automated alerting."
         }

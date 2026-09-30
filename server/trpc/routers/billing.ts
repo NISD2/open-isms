@@ -68,8 +68,8 @@ const requireOrdering = async (db: DbOrTx, email: string | null | undefined) => 
   return mode;
 };
 
-const limited = (key: string, limit: number) => {
-  if (!rateLimit(key, limit, 60_000)) {
+const limited = async (key: string, limit: number): Promise<void> => {
+  if (!(await rateLimit(key, limit, 60_000))) {
     throw new TRPCError({
       code: "TOO_MANY_REQUESTS",
       message: "Too many requests. Please wait a minute and try again.",
@@ -176,7 +176,7 @@ export const billingRouter = router({
    */
   cancel: payerProcedure.mutation(async ({ ctx }) => {
     const mode = await requireOrdering(ctx.db, ctx.session.user.email);
-    limited(`billing:cancel:${ctx.userId}`, 3);
+    await limited(`billing:cancel:${ctx.userId}`, 3);
     const outcome = await cancelSubscription({
       db: ctx.db,
       mode,
@@ -239,7 +239,7 @@ export const billingRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       await requireOrdering(ctx.db, ctx.session.user.email);
-      limited(`billing:quote:${ctx.userId}`, 10);
+      await limited(`billing:quote:${ctx.userId}`, 10);
       return quoteFor({
         ...input,
         netCents: await holderNetCents(ctx.db, ctx.userId),
@@ -273,7 +273,7 @@ export const billingRouter = router({
         });
       }
       const mode = await requireOrdering(ctx.db, ctx.session.user.email);
-      limited(`billing:place:${ctx.userId}`, 3);
+      await limited(`billing:place:${ctx.userId}`, 3);
 
       const outcome = await placeOrder({
         db: ctx.db,

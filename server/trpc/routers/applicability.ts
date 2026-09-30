@@ -141,7 +141,7 @@ export const applicabilityRouter = router({
       // could burn our quota and balloon the applicability_lookup table with
       // arbitrary German company records. 30 searches/min/IP is plenty for a
       // human filling out the applicability check form.
-      if (!rateLimit(`applicability:search:${ctx.ip}`, 30, 60_000)) {
+      if (!(await rateLimit(`applicability:search:${ctx.ip}`, 30, 60_000))) {
         throw new TRPCError({
           code: "TOO_MANY_REQUESTS",
           message: "Too many lookups. Please wait a minute and try again.",
@@ -208,7 +208,7 @@ export const applicabilityRouter = router({
     .query(async ({ ctx, input }) => {
       // Per-IP rate limit. Lookups hit the paid API on cache miss, so this
       // is an even more sensitive surface than `search`.
-      if (!rateLimit(`applicability:lookup:${ctx.ip}`, 30, 60_000)) {
+      if (!(await rateLimit(`applicability:lookup:${ctx.ip}`, 30, 60_000))) {
         throw new TRPCError({
           code: "TOO_MANY_REQUESTS",
           message: "Too many lookups. Please wait a minute and try again.",
@@ -299,7 +299,7 @@ export const applicabilityRouter = router({
     .mutation(async ({ ctx, input }) => {
       // Per-IP rate limit — public PII ingestion endpoint, an attacker could
       // otherwise spam the leads table with fabricated email addresses.
-      if (!rateLimit(`applicability:lead:${ctx.ip}`, 5, 60_000)) {
+      if (!(await rateLimit(`applicability:lead:${ctx.ip}`, 5, 60_000))) {
         throw new TRPCError({
           code: "TOO_MANY_REQUESTS",
           message: "Too many submissions. Please wait a minute and try again.",
