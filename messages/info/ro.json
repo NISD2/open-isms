@@ -808,16 +808,18 @@
           "contract": "Furnizarea platformei de conformitate NIS2 (Art. 6 alin. (1) lit. (b) GDPR, executarea unui contract)",
           "auth": "Autentificarea utilizatorilor și gestionarea conturilor (Art. 6 alin. (1) lit. (b) GDPR)",
           "security": "Asigurarea securității și integrității platformei noastre (Art. 6 alin. (1) lit. (f) GDPR, interes legitim)",
-          "legal": "Respectarea obligațiilor legale (Art. 6 alin. (1) lit. (c) GDPR)"
+          "legal": "Respectarea obligațiilor legale (Art. 6 alin. (1) lit. (c) GDPR)",
+          "crm": "Relația cu clienții și persoanele interesate în sistemul nostru de vânzări, pentru a vă consilia cu privire la oferta noastră și a da curs solicitărilor (Art. 6 alin. (1) lit. (f) GDPR, interes legitim). Vă puteți opune oricând acestei prelucrări."
         }
       },
       "processors": {
         "heading": "Persoane împuternicite terțe",
-        "p1": "Folosim următoarele servicii terțe pentru a opera platforma:",
+        "p1": "Folosim următoarele servicii terțe pentru a opera platforma și pentru activitatea noastră de vânzări:",
         "hetzner": "Hetzner Online GmbH (Falkenstein/Nürnberg, Germania): găzduirea serverelor de aplicații și a bazei de date PostgreSQL",
         "google": "Google (OAuth): autentificare, prelucrează numele și adresa de e-mail pentru conectare",
         "aws": "Amazon Web Services (S3): stocarea fișierelor, păstrează documentele probatorii pe care le încărcați",
-        "resend": "Resend: e-mail tranzacțional, livrează e-mailurile de notificare și de invitație"
+        "resend": "Resend: e-mail tranzacțional, livrează e-mailurile de notificare și de invitație",
+        "close": "Close (Elastic Inc., Jackson, Wyoming, SUA): sistemul nostru de vânzări (CRM). Pentru conturile verificate prelucrează numele și adresa dumneavoastră de e-mail, date despre cont și utilizare (de exemplu înregistrarea, ultima autentificare, progresul în curs, progresul în implementarea NIS 2, planul dumneavoastră și dacă vă putem trimite e-mailuri) și date despre compania dumneavoastră (de exemplu nume, sector, număr de angajați, țară). Transferurile către SUA se bazează pe clauzele contractuale standard ale UE. Dacă contul dumneavoastră este șters, ștergem și contactul dumneavoastră din Close."
       },
       "analytics": {
         "heading": "Analiză",
@@ -857,7 +859,7 @@
       },
       "changes": {
         "heading": "Modificări ale acestei politici",
-        "p1": "Putem actualiza din când în când această politică de confidențialitate. Versiunea curentă este disponibilă întotdeauna pe această pagină. Ultima actualizare: februarie 2025."
+        "p1": "Putem actualiza din când în când această politică de confidențialitate. Versiunea curentă este disponibilă întotdeauna pe această pagină. Ultima actualizare: septembrie 2026."
       }
     },
     "avv": {

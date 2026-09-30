@@ -19,8 +19,8 @@ export async function generateMetadata({
 }
 
 const dataTypes = ["account", "forms", "files", "technical", "advisory"] as const;
-const purposeKeys = ["contract", "auth", "security", "legal"] as const;
-const processorKeys = ["google", "aws", "resend"] as const;
+const purposeKeys = ["contract", "auth", "security", "crm", "legal"] as const;
+const processorKeys = ["google", "aws", "resend", "close"] as const;
 const rightKeys = [
   "access",
   "rectification",

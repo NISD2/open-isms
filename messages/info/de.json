@@ -809,16 +809,18 @@
           "contract": "Bereitstellung der NIS2-Compliance-Plattform (Art. 6 Abs. 1 lit. b DSGVO - Vertragserfüllung)",
           "auth": "Benutzerauthentifizierung und Kontoverwaltung (Art. 6 Abs. 1 lit. b DSGVO)",
           "security": "Gewährleistung der Sicherheit und Integrität unserer Plattform (Art. 6 Abs. 1 lit. f DSGVO - berechtigtes Interesse)",
-          "legal": "Erfüllung rechtlicher Verpflichtungen (Art. 6 Abs. 1 lit. c DSGVO)"
+          "legal": "Erfüllung rechtlicher Verpflichtungen (Art. 6 Abs. 1 lit. c DSGVO)",
+          "crm": "Betreuung von Kunden und Interessenten in unserem Vertriebssystem, damit wir Sie zu unserem Angebot beraten und Anfragen nachverfolgen können (Art. 6 Abs. 1 lit. f DSGVO, berechtigtes Interesse). Sie können dieser Verarbeitung jederzeit widersprechen."
         }
       },
       "processors": {
         "heading": "Auftragsverarbeiter",
-        "p1": "Wir nutzen folgende Drittanbieter zum Betrieb der Plattform:",
+        "p1": "Wir nutzen folgende Drittanbieter zum Betrieb der Plattform und für unseren Vertrieb:",
         "hetzner": "Hetzner Online GmbH (Falkenstein/Nürnberg, Deutschland): Hosting der Anwendungsserver und PostgreSQL-Datenbank",
         "google": "Google (OAuth): Authentifizierung, verarbeitet Ihren Namen und Ihre E-Mail-Adresse für die Anmeldung",
         "aws": "Amazon Web Services (S3): Dateispeicherung, speichert von Ihnen hochgeladene Nachweisdokumente",
-        "resend": "Resend: Transaktions-E-Mail, versendet Benachrichtigungs- und Einladungs-E-Mails"
+        "resend": "Resend: Transaktions-E-Mail, versendet Benachrichtigungs- und Einladungs-E-Mails",
+        "close": "Close (Elastic Inc., Jackson, Wyoming, USA): unser Vertriebssystem (CRM). Für verifizierte Konten verarbeitet es Name und E-Mail-Adresse, Angaben zu Konto und Nutzung (etwa Registrierung, letzte Anmeldung, Kursfortschritt, Fortschritt bei der Umsetzung von NIS 2, Tarif und ob wir Ihnen E-Mails senden dürfen) sowie Angaben zu Ihrem Unternehmen (etwa Name, Branche, Mitarbeiterzahl, Land). Die Übermittlung in die USA erfolgt auf Grundlage der EU-Standardvertragsklauseln. Wird Ihr Konto gelöscht, löschen wir auch Ihren Kontakt in Close."
       },
       "analytics": {
         "heading": "Analyse",
@@ -858,7 +860,7 @@
       },
       "changes": {
         "heading": "Änderungen dieser Erklärung",
-        "p1": "Wir können diese Datenschutzerklärung von Zeit zu Zeit aktualisieren. Die aktuelle Version ist immer auf dieser Seite verfügbar. Letztes Update: Februar 2025."
+        "p1": "Wir können diese Datenschutzerklärung von Zeit zu Zeit aktualisieren. Die aktuelle Version ist immer auf dieser Seite verfügbar. Letztes Update: September 2026."
       }
     },
     "avvContract": {

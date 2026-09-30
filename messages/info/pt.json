@@ -808,16 +808,18 @@
           "contract": "Fornecimento da plataforma de conformidade NIS2 (art. 6.o, n.o 1, alínea b), do GDPR. Execução de um contrato)",
           "auth": "Autenticação de utilizadores e gestão de contas (art. 6.o, n.o 1, alínea b), do GDPR)",
           "security": "Garantia da segurança e integridade da nossa plataforma (art. 6.o, n.o 1, alínea f), do GDPR. Interesse legítimo)",
-          "legal": "Cumprimento de obrigações legais (art. 6.o, n.o 1, alínea c), do GDPR)"
+          "legal": "Cumprimento de obrigações legais (art. 6.o, n.o 1, alínea c), do GDPR)",
+          "crm": "Acompanhamento de clientes e interessados no nosso sistema de vendas, para o aconselhar sobre a nossa oferta e dar seguimento a pedidos (art. 6.o, n.o 1, alínea f), do GDPR, interesse legítimo). Pode opor-se a este tratamento a qualquer momento."
         }
       },
       "processors": {
         "heading": "Subcontratantes",
-        "p1": "Utilizamos os seguintes serviços de terceiros para operar a plataforma:",
+        "p1": "Utilizamos os seguintes serviços de terceiros para operar a plataforma e para a nossa atividade comercial:",
         "hetzner": "Hetzner Online GmbH (Falkenstein/Nuremberga, Alemanha): alojamento dos servidores de aplicações e da base de dados PostgreSQL",
         "google": "Google (OAuth): autenticação, trata o seu nome e endereço de email para o início de sessão",
         "aws": "Amazon Web Services (S3): armazenamento de ficheiros, guarda os documentos de prova que carrega",
-        "resend": "Resend: email transacional, entrega emails de notificação e de convite"
+        "resend": "Resend: email transacional, entrega emails de notificação e de convite",
+        "close": "Close (Elastic Inc., Jackson, Wyoming, EUA): o nosso sistema de vendas (CRM). Para contas verificadas, trata o seu nome e endereço de email, dados sobre a sua conta e utilização (por exemplo registo, último início de sessão, progresso no curso, progresso na implementação da NIS 2, o seu plano e se lhe podemos enviar emails) e dados sobre a sua empresa (por exemplo nome, setor, número de colaboradores, país). As transferências para os EUA baseiam-se nas cláusulas contratuais-tipo da UE. Se a sua conta for eliminada, eliminamos também o seu contacto no Close."
       },
       "analytics": {
         "heading": "Análise de Utilização",
@@ -857,7 +859,7 @@
       },
       "changes": {
         "heading": "Alterações a Esta Política",
-        "p1": "Podemos atualizar esta política de privacidade periodicamente. A versão atual está sempre disponível nesta página. Última atualização: fevereiro de 2025."
+        "p1": "Podemos atualizar esta política de privacidade periodicamente. A versão atual está sempre disponível nesta página. Última atualização: setembro de 2026."
       }
     },
     "avv": {

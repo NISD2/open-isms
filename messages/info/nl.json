@@ -808,16 +808,18 @@
           "contract": "Providing the NIS2 compliance platform (Art. 6(1)(b) GDPR - performance of a contract)",
           "auth": "User authentication and account management (Art. 6(1)(b) GDPR)",
           "security": "Ensuring the security and integrity of our platform (Art. 6(1)(f) GDPR - legitimate interest)",
-          "legal": "Compliance with legal obligations (Art. 6(1)(c) GDPR)"
+          "legal": "Compliance with legal obligations (Art. 6(1)(c) GDPR)",
+          "crm": "Begeleiding van klanten en geïnteresseerden in ons verkoopsysteem, zodat wij u over ons aanbod kunnen adviseren en verzoeken kunnen opvolgen (art. 6, lid 1, onder f, GDPR, gerechtvaardigd belang). U kunt op elk moment bezwaar maken tegen deze verwerking."
         }
       },
       "processors": {
         "heading": "Subverwerkers",
-        "p1": "Wij gebruiken de volgende derde partijen om het platform te beheren:",
+        "p1": "Wij gebruiken de volgende derde partijen om het platform te beheren en voor onze verkoop:",
         "hetzner": "Hetzner Online GmbH (Falkenstein/Neurenberg, Duitsland): hosting van applicatieservers en PostgreSQL-database",
         "google": "Google (OAuth): authenticatie, verwerkt uw naam en e-mailadres voor het inloggen",
         "aws": "Amazon Web Services (S3): bestandsopslag, slaat door u geüploade bewijsdocumenten op",
-        "resend": "Resend: transactionele e-mail, levert notificatie- en uitnodigings-e-mails"
+        "resend": "Resend: transactionele e-mail, levert notificatie- en uitnodigings-e-mails",
+        "close": "Close (Elastic Inc., Jackson, Wyoming, VS): ons verkoopsysteem (CRM). Voor geverifieerde accounts verwerkt het uw naam en e-mailadres, gegevens over uw account en gebruik (zoals registratie, laatste aanmelding, voortgang in de cursus, voortgang bij de invoering van NIS 2, uw abonnement en of wij u e-mail mogen sturen) en gegevens over uw bedrijf (zoals naam, sector, aantal medewerkers, land). De doorgifte naar de VS gebeurt op basis van de EU-standaardcontractbepalingen. Wordt uw account verwijderd, dan verwijderen wij ook uw contact in Close."
       },
       "analytics": {
         "heading": "Analytics",
@@ -857,7 +859,7 @@
       },
       "changes": {
         "heading": "Changes to This Policy",
-        "p1": "We may update this privacy policy from time to time. The current version is always available on this page. Last updated: February 2025."
+        "p1": "We may update this privacy policy from time to time. The current version is always available on this page. Last updated: September 2026."
       }
     },
     "avv": {
