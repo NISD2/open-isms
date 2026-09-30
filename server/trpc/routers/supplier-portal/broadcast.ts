@@ -22,12 +22,13 @@ import { getAppUrl } from "@/lib/utils";
 import { company, incident, incidentBroadcast, supplier } from "@/schema";
 import { customerAddressOf } from "./customer-contact";
 
-async function getSupplierName(supplierCompanyId: string): Promise<string> {
+/** Raw as registered; the mail templates clean it and supply the fallback. */
+async function getSupplierName(supplierCompanyId: string): Promise<string | null> {
   const c = await db.query.company.findFirst({
     where: eq(company.id, supplierCompanyId),
     columns: { name: true },
   });
-  return c?.name ?? "Supplier";
+  return c?.name ?? null;
 }
 
 function accessUrl(token: string): string {
@@ -62,12 +63,12 @@ export async function broadcastIncidentBroadcast(broadcastId: string): Promise<b
   const broadcast = claimed[0];
   if (!broadcast) return false;
 
+  // No title or description: those are the supplier's own words, and the mail
+  // carries none (lib/mail/templates.ts). The customer reads them behind the link.
   const evt = await db.query.incident.findFirst({
     where: eq(incident.id, broadcast.incidentId),
     columns: {
       id: true,
-      title: true,
-      description: true,
       severity: true,
       companyId: true,
       createdAt: true,
@@ -108,11 +109,10 @@ export async function broadcastIncidentBroadcast(broadcastId: string): Promise<b
     to,
     ...supplierIncidentBroadcastEmail({
       supplierName,
-      title: evt.title,
-      body: evt.description ?? "",
       severity: severityForEmail(evt.severity),
       publishedAt: evt.createdAt,
-      profileUrl: link,
+      // The anchor SharedIncidentsSection gives each notice on the access page.
+      incidentUrl: `${link}#incident-${evt.id}`,
       unsubscribeUrl: link,
     }),
   });

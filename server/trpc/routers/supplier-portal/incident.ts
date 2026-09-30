@@ -18,9 +18,14 @@ import {
   incidentBroadcast,
   supplier,
 } from "@/schema";
+import {
+  requireInboxBudget,
+  requireSupplierMailBudget,
+} from "../../helpers/supplier-mail-budget";
 import { accountProcedure, router } from "../../init";
 import { insertRow } from "../../typed";
 import { broadcastIncidentBroadcast } from "./broadcast";
+import { customerAddressOf } from "./customer-contact";
 
 const severityEnum = z.enum(["info", "warning", "critical"]);
 
@@ -70,7 +75,7 @@ export const supplierIncidentRouter = router({
           eq(supplier.id, input.relationshipId),
           eq(supplier.supplierCompanyId, ctx.companyId),
         ),
-        columns: { id: true },
+        columns: { id: true, customerCompanyId: true, customerEmail: true },
       });
       if (!rel) {
         throw new TRPCError({
@@ -78,6 +83,15 @@ export const supplierIncidentRouter = router({
           message: "Relationship not owned by you",
         });
       }
+      await requireSupplierMailBudget("incidentNotices", ctx.companyId);
+      await requireSupplierMailBudget(
+        "incidentNoticesPerCustomer",
+        `${ctx.companyId}:${rel.id}`,
+      );
+      // Counted at the address the notice will go to, as broadcast.ts resolves it.
+      // None means no mail goes out, so there is nothing to count.
+      const to = await customerAddressOf(ctx.db, rel);
+      if (to) await requireInboxBudget(ctx.companyId, to);
 
       // Affected assets must be the supplier's own AND offered to THIS customer.
       if (input.affectedAssetIds && input.affectedAssetIds.length > 0) {
