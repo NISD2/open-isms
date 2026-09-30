@@ -27,26 +27,33 @@ type Write =
   | { op: "update"; table: unknown; values: Record<string, unknown> }
   | { op: "delete"; table: unknown };
 
+/** Whether the caller's register holds the row, and whether it is linked. */
+type Row = "linked" | "unlinked" | "absent";
+
 /**
  * The drizzle calls the two procedures make. Conditions are opaque here, so
- * the row is linked or not for the whole test, and an update matches it only
- * when the procedure is looking for the linked row.
+ * every lookup answers with the one row the test is about.
  */
-function fakeDb(linked: boolean, writes: Write[]) {
+function fakeDb(row: Row, writes: Write[]) {
+  const found =
+    row === "absent"
+      ? undefined
+      : { id: ROW, supplierCompanyId: row === "linked" ? "supplier-co" : null };
   const db = {
     query: {
-      supplier: {
-        findFirst: async () => ({ supplierCompanyId: linked ? "supplier-co" : null }),
-      },
+      supplier: { findFirst: async () => found },
     },
+    select: () => ({
+      from: () => ({
+        where: () => ({ for: async () => (found ? [found] : []) }),
+      }),
+    }),
     update: (table: unknown) => ({
       set: (values: Record<string, unknown>) => ({
-        where: () => ({
-          returning: async () => {
-            writes.push({ op: "update", table, values });
-            return linked || table !== supplier ? [{ id: ROW }] : [];
-          },
-        }),
+        where: () => {
+          writes.push({ op: "update", table, values });
+          return { returning: async () => [{ id: ROW }] };
+        },
       }),
     }),
     delete: (table: unknown) => ({
@@ -59,10 +66,10 @@ function fakeDb(linked: boolean, writes: Write[]) {
   return db;
 }
 
-function setup(linked: boolean) {
+function setup(row: Row) {
   const writes: Write[] = [];
   const caller = createCallerFactory(supplierRouter)({
-    db: fakeDb(linked, writes) as unknown as TRPCContext["db"],
+    db: fakeDb(row, writes) as unknown as TRPCContext["db"],
     session: { role: "admin", accessLevel: "full" } as TRPCContext["session"],
     userId: USER,
     companyId: COMPANY,
@@ -77,33 +84,50 @@ const edit = {
   name: "Acme",
   riskLevel: "high" as const,
   acceptRightToAudit: false,
+  customerEmail: "someone-else@example.com",
+  customerOrgName: "Other GmbH",
+  source: "manual",
 };
 
 describe("supplier.update", () => {
-  test("a linked row keeps the supplier's clause answers", async () => {
-    const { caller, writes } = setup(true);
+  test("a linked row keeps the supplier's clauses and the relationship identity", async () => {
+    const { caller, writes } = setup("linked");
     await caller.update(edit);
     const [write] = writes;
     if (write?.op !== "update") throw new Error("expected an update");
-    expect(write.values).not.toHaveProperty("acceptRightToAudit");
+    for (const kept of [
+      "acceptRightToAudit",
+      "customerEmail",
+      "customerOrgName",
+      "source",
+    ]) {
+      expect(write.values).not.toHaveProperty(kept);
+    }
     expect(write.values).toMatchObject({ name: "Acme", riskLevel: "high" });
   });
 
   test("an unlinked row is the customer's own and takes every field", async () => {
-    const { caller, writes } = setup(false);
+    const { caller, writes } = setup("unlinked");
     await caller.update(edit);
     const [write] = writes;
     if (write?.op !== "update") throw new Error("expected an update");
-    expect(write.values).toMatchObject({ name: "Acme", acceptRightToAudit: false });
+    expect(write.values).toMatchObject({
+      name: "Acme",
+      acceptRightToAudit: false,
+      customerEmail: "someone-else@example.com",
+    });
   });
 });
 
+const deleted = (writes: Write[], table: unknown) =>
+  writes.findIndex((w) => w.op === "delete" && w.table === table);
+
 describe("supplier.delete", () => {
   test("a linked row is revoked and released, never deleted", async () => {
-    const { caller, writes } = setup(true);
+    const { caller, writes } = setup("linked");
     expect(await caller.delete({ id: ROW })).toEqual({ deleted: true });
 
-    expect(writes.some((w) => w.op === "delete" && w.table === supplier)).toBe(false);
+    expect(deleted(writes, supplier)).toBe(-1);
     const ended = writes.find((w) => w.op === "update" && w.table === supplier);
     if (ended?.op !== "update") throw new Error("expected the row to be updated");
     expect(ended.values).toMatchObject({
@@ -124,13 +148,23 @@ describe("supplier.delete", () => {
       expect(ended.values).not.toHaveProperty(kept);
     }
     // The customer's risk links to it go with the customer's record.
-    expect(writes.some((w) => w.op === "delete" && w.table === riskSupplier)).toBe(true);
+    expect(deleted(writes, riskSupplier)).not.toBe(-1);
   });
 
-  test("an unlinked row is still hard-deleted", async () => {
-    const { caller, writes } = setup(false);
+  // risk_supplier has no ON DELETE, so the links have to go first or the
+  // delete fails on the foreign key.
+  test("an unlinked row is hard-deleted after its risk links", async () => {
+    const { caller, writes } = setup("unlinked");
     await caller.delete({ id: ROW });
-    expect(writes.some((w) => w.op === "delete" && w.table === supplier)).toBe(true);
-    expect(writes.some((w) => w.table === riskSupplier)).toBe(false);
+    const links = deleted(writes, riskSupplier);
+    expect(links).not.toBe(-1);
+    expect(deleted(writes, supplier)).toBeGreaterThan(links);
+    expect(writes.some((w) => w.op === "update")).toBe(false);
+  });
+
+  test("a row outside the caller's register is left alone", async () => {
+    const { caller, writes } = setup("absent");
+    expect(await caller.delete({ id: ROW })).toEqual({ deleted: true });
+    expect(writes).toEqual([]);
   });
 });

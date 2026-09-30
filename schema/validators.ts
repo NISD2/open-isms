@@ -545,6 +545,18 @@ const supplierOwnedClauseColumns = {
 } as const;
 
 /**
+ * Who the customer on a relationship is, and how the relationship began. Both
+ * sides rely on these once linked: the supplier sees them as its customer,
+ * incident broadcasts and the access link are mailed to customerEmail, and
+ * (supplierCompanyId, customerEmail) is the portal share's unique key.
+ */
+const relationshipIdentityColumns = {
+  customerEmail: true,
+  customerOrgName: true,
+  source: true,
+} as const;
+
+/**
  * Layer 2 — Per-customer contract clauses (supplier portal).
  *
  * Things that vary per customer because each contract negotiates its own
@@ -567,31 +579,32 @@ export const relationshipClausesUpdateSchema = supplierInsertSchema
  */
 export const supplierFacingRelationshipSchema = supplierSelectSchema.pick({
   ...supplierOwnedClauseColumns,
+  ...relationshipIdentityColumns,
   id: true,
-  customerEmail: true,
-  customerOrgName: true,
   status: true,
   createdAt: true,
   confirmedAt: true,
   unsubscribedAt: true,
 });
 
-/** The customer's edit of a row the supplier's company is linked to. */
-export const supplierLinkedUpdateSchema = supplierUpdateSchema.omit(
-  supplierOwnedClauseColumns,
-);
+/**
+ * The customer's edit of a row the supplier's company is linked to: neither
+ * the supplier's clause answers nor the relationship identity both sides rely on.
+ */
+export const supplierLinkedUpdateSchema = supplierUpdateSchema.omit({
+  ...supplierOwnedClauseColumns,
+  ...relationshipIdentityColumns,
+});
 
 /**
- * The customer's own record of a supplier: what their register form writes,
- * minus the relationship identity both sides see. When the customer removes a
- * linked row, the row stays for the supplier and these columns are cleared,
- * because deleting it from the register is the customer asking for them gone.
+ * The customer's own record of a supplier: what they may still edit on a
+ * linked row, minus the supplier's display name, which is NOT NULL. When the
+ * customer removes a linked row, the row stays for the supplier and these
+ * columns are cleared, because deleting it from the register is the customer
+ * asking for them gone.
  */
 export const customerSupplierAssessmentSchema = supplierLinkedUpdateSchema.omit({
   name: true,
-  customerEmail: true,
-  customerOrgName: true,
-  source: true,
 });
 
 // ============================================================================

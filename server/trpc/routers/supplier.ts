@@ -11,7 +11,7 @@
  * table from the supplier perspective via supplierCompanyId.
  */
 
-import { and, desc, eq, isNotNull, isNull } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
 import {
   invalidateModuleSignOffs,
@@ -116,12 +116,30 @@ export const supplierRouter = router({
         eq(supplier.customerCompanyId, ctx.companyId),
       );
       await ctx.db.transaction(async (tx) => {
+        // Locked, so the branch taken below matches the row it writes.
+        const [row] = await tx
+          .select({ id: supplier.id, supplierCompanyId: supplier.supplierCompanyId })
+          .from(supplier)
+          .where(mine)
+          .for("update");
+        if (!row) return;
+
+        // Our risks stay; only their links to this supplier go (risk_supplier
+        // has no ON DELETE, so a linked risk used to fail the delete).
+        // risk.linkSupplier only links a tenant's risk to that tenant's own
+        // supplier row, so the row found above scopes these to us.
+        await tx.delete(riskSupplier).where(eq(riskSupplier.supplierId, row.id));
+
+        if (!row.supplierCompanyId) {
+          await tx.delete(supplier).where(mine);
+          return;
+        }
         // A linked row is also the supplier's side of the relationship, and a
         // hard delete cascades into their asset offerings and the incident
         // broadcasts that prove they notified us. End it the way the supplier
         // does (revoked), drop it from our register by severing our side, as
         // erase-user does for the other party, and clear what we recorded.
-        const [ended] = await tx
+        await tx
           .update(supplier)
           .set(
             updateRow(supplier, {
@@ -132,16 +150,7 @@ export const supplierRouter = router({
               updatedAt: new Date(),
             }),
           )
-          .where(and(mine, isNotNull(supplier.supplierCompanyId)))
-          .returning({ id: supplier.id });
-        if (ended) {
-          // Our risks stay; only their links to a supplier we no longer hold go.
-          // risk.linkSupplier only links a tenant's risk to that tenant's own
-          // supplier row, so the row released above scopes these to us.
-          await tx.delete(riskSupplier).where(eq(riskSupplier.supplierId, ended.id));
-          return;
-        }
-        await tx.delete(supplier).where(and(mine, isNull(supplier.supplierCompanyId)));
+          .where(mine);
       });
       recheckModuleRequirements(ctx.db, ctx.companyId, "supplier", ctx.userId).catch(
         (err) => console.error("[background] supplier:", err),

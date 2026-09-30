@@ -73,6 +73,18 @@ describe("supplierLinkedUpdateSchema", () => {
     expect(parsed).toEqual({ name: "Acme", riskLevel: "high" });
   });
 
+  // customerEmail is where incident broadcasts and the access link are mailed,
+  // and half of the portal share's unique key.
+  test("drops the relationship identity both sides rely on", () => {
+    const parsed = supplierLinkedUpdateSchema.parse({
+      name: "Acme",
+      customerEmail: "someone-else@example.com",
+      customerOrgName: "Other GmbH",
+      source: "manual",
+    });
+    expect(parsed).toEqual({ name: "Acme" });
+  });
+
   test("covers every clause the supplier can write", () => {
     const writable = Object.keys(supplierLinkedUpdateSchema.shape);
     expect(clauses.filter((column) => writable.includes(column))).toEqual([]);
