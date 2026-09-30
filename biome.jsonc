@@ -68,6 +68,46 @@
           }
         }
       }
+    },
+    {
+      // The Durchgang core is a package in all but name: pure data and rules, reached only
+      // through lib/durchgang/index.ts. Rendering, requests and the database stay outside, so
+      // moving it into packages/ later is a move and not a rewrite. Type-only imports from
+      // @/schema are fine; they reach no bundle.
+      "includes": ["lib/durchgang/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": [
+                      "react",
+                      "react-dom",
+                      "react/**",
+                      "next",
+                      "next/**",
+                      "next-intl",
+                      "next-intl/**",
+                      "drizzle-orm",
+                      "drizzle-orm/**",
+                      "@/app/**",
+                      "@/components/**",
+                      "@/server/**",
+                      "@/lib/db",
+                      "@/lib/db/**",
+                      "@/lib/trpc/**"
+                    ],
+                    "message": "lib/durchgang is pure: no rendering, requests or database."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
     }
   ],
   "javascript": {

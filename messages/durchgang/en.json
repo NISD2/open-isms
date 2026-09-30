@@ -9,6 +9,225 @@
     "who": "Who does it",
     "ask": "Ask your team",
     "missed": "Often missed",
+    "waitReasons": {
+      "letter": "I'm waiting for a letter, for example the ELSTER activation letter",
+      "ask": "I need to ask someone first",
+      "decide": "We have to decide this internally",
+      "unclear": "I don't understand it yet"
+    },
+    "items": {
+      "12_2": {
+        "headline": "Register with the BSI",
+        "teaser": "Your company registers with the BSI once.",
+        "missed": [
+          "The BSI asks for all of your company's public static IP address ranges (§ 33(1) no. 2 BSIG). Your IT provider knows them. Ask them beforehand. If you have none, say so.",
+          "A new organisation certificate needs an activation letter that comes by post. According to Mein Unternehmenskonto this takes at least five working days. Apply early."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Registering with the BSI",
+            "body": [
+              "Every company NIS 2 applies to registers once with the Federal Office for Information Security (BSI). You tell the BSI who you are and how to reach you.",
+              "This is done online in the BSI portal. You log in with \"Mein Unternehmenskonto\" and an ELSTER organisation certificate. If your company already has one, for example from tax filings, use that one."
+            ],
+            "duty": "Registration is a duty of its own. It is due no later than three months after your company counts as an important or essential entity."
+          },
+          "data": {
+            "title": "What the BSI asks for",
+            "lead": "The law requires these details. Have them ready before you open the portal.",
+            "items": [
+              {
+                "name": "Name and legal form",
+                "detail": "with the commercial register number, if you have one"
+              },
+              {
+                "name": "Address and contact details",
+                "detail": "email address, phone numbers and your public IP address ranges"
+              },
+              {
+                "name": "Sector",
+                "detail": "from Annex 1 or 2 of the BSIG, with the subsector where one applies"
+              },
+              {
+                "name": "EU member states",
+                "detail": "in which your company provides these services"
+              },
+              {
+                "name": "Supervisory authorities",
+                "detail": "those at federal and state level responsible for your activity"
+              }
+            ],
+            "source": "§ 33(1) BSIG. The portal also asks for a point of contact and a contact person (BSI registration guide)."
+          },
+          "contact": {
+            "title": "What good looks like",
+            "caption": "The email address you give the BSI",
+            "good": {
+              "value": "it-security@your-company.de",
+              "note": "A shared mailbox, as the BSI recommends in its guide. People move on, the mailbox stays."
+            },
+            "bad": {
+              "value": "m.mueller@your-company.de",
+              "note": "A personal address. If Ms Müller changes jobs, the BSI reaches nobody."
+            }
+          },
+          "confirmation": {
+            "title": "Record the registration",
+            "lead": "Two details, so you know later which certificate was used and on which day.",
+            "document": "Your access to the BSI portal"
+          },
+          "proof": {
+            "title": "File a proof",
+            "lead": "In the BSI portal, the overview of registered procedures (registrierte Fachverfahren) lists every completed registration. A screenshot or a printout of that page records that yours is done.",
+            "document": "Overview of registered procedures"
+          },
+          "done": {
+            "title": "Registration recorded",
+            "note": "At the end, management reviews every item and signs."
+          }
+        },
+        "fields": {
+          "mukAccountId": {
+            "label": "User account ID of the organisation certificate",
+            "hint": "Every ELSTER organisation certificate carries its own number, the Benutzerkonto-ID. Whoever manages the certificate can tell you."
+          },
+          "bsiRegistrationDate": {
+            "label": "Date of registration",
+            "hint": "The day someone clicked \"Registrierung abschließen\" (complete registration) in the BSI portal."
+          }
+        }
+      },
+      "2_1": {
+        "headline": "Decide how you rate risks",
+        "teaser": "The BSI has a ready-made method for this.",
+        "missed": [
+          "Attacks are not the only thing that counts. The law requires an all-hazards approach (§ 30(2) BSIG). The EU directive explicitly names the physical environment of the systems (Art. 21(2) NIS 2), for example fire, water or a power cut.",
+          "Which risks are accepted is decided by management, as BSI Standard 200-3 also provides. Record that limit with a date."
+        ],
+        "screens": {
+          "learn": {
+            "title": "How you rate risks",
+            "body": [
+              "Before you write down risks, decide how you rate them. Then everyone in the company rates them by the same rules.",
+              "The BSI has a ready-made method for this, Standard 200-3. Every risk gets two ratings: how often can it happen, and how big would the damage be? Together they give one of four levels."
+            ],
+            "duty": "The law requires concepts for risk analysis. It does not prescribe a particular method."
+          },
+          "matrix": {
+            "title": "The BSI's matrix",
+            "lead": "Across: how often something happens. Down: how big the damage would be. Where the two meet is the level.",
+            "source": "BSI Standard 200-3, Figure 3. The BSI presents it as an example and says it should be adapted to the individual needs."
+          },
+          "reading": {
+            "title": "How to read the matrix",
+            "caption": "A server goes down once a year to once a month. The damage is limited and manageable."
+          },
+          "adopt": {
+            "title": "Adopt the method",
+            "lead": "One click records the method. This is how it will then appear in your records:",
+            "lines": [
+              {
+                "label": "Method",
+                "text": "Risk analysis according to BSI Standard 200-3"
+              },
+              {
+                "label": "Levels",
+                "text": "Four for frequency, four for damage, four risk levels"
+              },
+              {
+                "label": "Matrix",
+                "text": "The assignment from Figure 3 of the standard"
+              }
+            ]
+          },
+          "acceptance": {
+            "title": "Which risks your company accepts",
+            "lead": "Up to which level may a risk remain without you doing anything about it? Management decides this. Choose the proposal here that management signs at the end.",
+            "source": "In its examples, BSI Standard 200-3 assumes that an organisation \"accepts 'Low' risks as a matter of principle, but 'Medium', 'High' and 'Very high' risks only in exceptional cases\"."
+          },
+          "done": {
+            "title": "Method set",
+            "note": "At the end, management reviews the method and the limit and signs."
+          }
+        }
+      },
+      "2_2": {
+        "headline": "Write down what your company has",
+        "teaser": "A list of the processes, software and devices you work with.",
+        "missed": [
+          "Software you rent from the cloud belongs on the list too, for example email or accounting.",
+          "For processes and applications, the BSI expects a responsible person (Standard 200-2, section 8.1). Note who knows each one."
+        ],
+        "screens": {
+          "learn": {
+            "title": "What your company works with",
+            "body": [
+              "You can only protect what you know. So write down what your company works with: processes, information, software, devices, rooms and networks. The BSI calls this step the structure analysis (Standard 200-2, section 8.1).",
+              "The list does not have to be perfect. When something new comes along, add it."
+            ],
+            "duty": "The law requires concepts for risk analysis and for managing your IT systems, products and processes. Both start with this list."
+          },
+          "list": {
+            "title": "What your list can look like",
+            "caption": "Short is fine. One line per thing:",
+            "rows": [
+              { "name": "Payroll", "detail": "done by the tax adviser" },
+              { "name": "Email", "detail": "Microsoft 365, all staff" },
+              { "name": "Office PCs", "detail": "twelve, at the main office" }
+            ]
+          },
+          "sources": {
+            "title": "Where your list already exists",
+            "lead": "The BSI advises looking for existing overviews. Tick where you have looked:"
+          },
+          "processes": {
+            "title": "What your company does every day",
+            "lead": "Tick what runs at your company. When in doubt, write it down rather than leave it out."
+          },
+          "business_apps": {
+            "title": "Software for customers, staff and money",
+            "lead": "What you use to serve customers, pay wages and keep the books."
+          },
+          "shared_apps": {
+            "title": "Software everyone uses",
+            "lead": "Email, file storage, chat and anything only your industry has."
+          },
+          "technology": {
+            "title": "Technology and rooms",
+            "lead": "Servers, devices, network and the places where people work."
+          },
+          "protection": {
+            "title": "How many protection levels you use",
+            "lead": "A protection level says how bad it would be if something failed, was altered or got out.",
+            "document": "Your list"
+          },
+          "done": {
+            "title": "Your list is in place",
+            "note": "When something new comes along, add it at any time. At the end, management reviews the list."
+          }
+        },
+        "fields": {
+          "classificationLevels": {
+            "label": "Number of protection levels",
+            "hint": "The BSI works with three levels: normal, high and very high (Standard 200-2, section 8.2.1). Choose a different number only if your company already classifies differently."
+          }
+        },
+        "sources": {
+          "ropa": {
+            "label": "Record of processing activities",
+            "text": "From data protection (Art. 30 GDPR). It describes what you process personal data for, and often names the software too."
+          },
+          "ledger": {
+            "label": "Fixed asset register or inventory list",
+            "text": "From accounting. It lists devices and other equipment your company has bought."
+          },
+          "provider": {
+            "label": "Your IT provider",
+            "text": "They know your servers, accounts and cloud services."
+          }
+        }
+      }
+    },
     "steps": {
       "12_1": {
         "who": "Compliance or legal gathers sector, headcount and turnover. Management confirms the classification: with it, it decides which duties the company takes on.",

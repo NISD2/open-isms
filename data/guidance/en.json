@@ -80,13 +80,13 @@
       "likelihoodScale": {
         "label": "Likelihood Scale (levels with labels and descriptions)",
         "meaning": "A table or list defining levels of how likely a risk is to happen, usually 3-5 levels from least to most probable.",
-        "example": "BSI Standard 200-3:\n1 - Rare: at most once every five years\n2 - Medium: between once every five years and once a year\n3 - Frequent: between once a year and once a month\n4 - Very frequent: several times a month",
+        "example": "BSI Standard 200-3:\n1 - Rarely: every 5 years at the most\n2 - Medium: once every 5 years to once a year\n3 - Frequently: once a year to once a month\n4 - Very frequently: several times a month",
         "whereToFind": "Brainstorm with your IT or security lead; look at simple risk templates online or adapt from your current processes."
       },
       "impactScale": {
         "label": "Impact Scale (levels with labels and descriptions)",
         "meaning": "A table or list defining levels of how damaging a risk would be if it happens, covering financial, operational, and reputational effects.",
-        "example": "BSI Standard 200-3:\n1 - Negligible: minor, can be disregarded\n2 - Limited: limited and manageable\n3 - Considerable: can be considerable\n4 - Existential: can reach an existentially threatening, catastrophic scale",
+        "example": "BSI Standard 200-3:\n1 - Negligible: low, can be neglected\n2 - Limited: limited and manageable\n3 - Considerable: can be considerable\n4 - Threatening the existence of the organisation: can reach a catastrophic level",
         "whereToFind": "Discuss with department heads (finance, operations) to match your company's real-world impacts; review past incidents."
       },
       "acceptanceThreshold": {
