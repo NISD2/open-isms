@@ -1,13 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { trpc } from "@/lib/trpc/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import type {
+  AssessmentScores,
+  GapDomain,
+  GapQuestion,
+} from "@/lib/gap-assessment/schema";
+import { trpc } from "@/lib/trpc/client";
 import { GapAssessmentResults } from "./GapAssessmentResults";
-import type { AssessmentScores, GapDomain, GapQuestion } from "@/lib/gap-assessment/schema";
 
 interface GapAssessmentSharePageProps {
   token: string;
@@ -23,27 +27,20 @@ export function GapAssessmentSharePage({
   questions,
 }: GapAssessmentSharePageProps) {
   const [passwordInput, setPasswordInput] = useState("");
-  const [submittedPassword, setSubmittedPassword] = useState<string | null>(null);
 
-  const query = trpc.gapAssessment.getSharedByToken.useQuery(
-    { token, password: submittedPassword ?? "" },
-    {
-      enabled: submittedPassword !== null,
-      retry: false,
-    },
-  );
+  const unlock = trpc.gapAssessment.openShared.useMutation();
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (passwordInput.length === 0) return;
-    setSubmittedPassword(passwordInput);
+    unlock.mutate({ token, password: passwordInput });
   }
 
-  if (query.data?.scores) {
+  if (unlock.data?.scores) {
     return (
       <GapAssessmentResults
         sessionId=""
-        scores={query.data.scores as AssessmentScores}
+        scores={unlock.data.scores as AssessmentScores}
         domains={domains}
         questions={questions}
         locale={locale}
@@ -52,10 +49,10 @@ export function GapAssessmentSharePage({
     );
   }
 
-  const errorMessage = query.error
-    ? query.error.data?.code === "TOO_MANY_REQUESTS"
+  const errorMessage = unlock.error
+    ? unlock.error.data?.code === "TOO_MANY_REQUESTS"
       ? "Too many attempts. Please wait 15 minutes and try again."
-      : query.error.data?.code === "NOT_FOUND"
+      : unlock.error.data?.code === "NOT_FOUND"
         ? "This share link is invalid or has been revoked."
         : "Incorrect password."
     : null;
@@ -69,8 +66,8 @@ export function GapAssessmentSharePage({
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <p className="text-muted-foreground text-sm">
-              Enter the password you received with this link to view the gap
-              assessment results.
+              Enter the password you received with this link to view the gap assessment
+              results.
             </p>
 
             <div className="space-y-1">
@@ -93,10 +90,10 @@ export function GapAssessmentSharePage({
 
             <Button
               type="submit"
-              disabled={query.isFetching || passwordInput.length === 0}
+              disabled={unlock.isPending || passwordInput.length === 0}
               className="w-full"
             >
-              {query.isFetching ? "Checking..." : "View results"}
+              {unlock.isPending ? "Checking..." : "View results"}
             </Button>
           </form>
         </CardContent>

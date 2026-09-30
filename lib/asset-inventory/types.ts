@@ -28,6 +28,10 @@ export const ASSET_LAYERS: AssetLayer[] = [
   "kommunikation",
 ];
 
+export function isAssetLayer(value: unknown): value is AssetLayer {
+  return ASSET_LAYERS.some((layer) => layer === value);
+}
+
 // Default exposure inferred from how the asset is typically reached. Seeds
 // the risk-assessment Reach axis without asking the user a second time.
 export type Exposure = "internet" | "internal" | "partner" | "physical-only";

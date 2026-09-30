@@ -9,6 +9,7 @@ import { pendingSignersOf } from "@/lib/compliance/sign-off-roster";
 import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
 import { inviteEmail, memberRemovedEmail, sendMail } from "@/lib/mail";
 import { isSuppressedSendId, mailSuppressionReason } from "@/lib/mail/send";
+import { inviteRedirectPath } from "@/lib/organization/invite-redirect";
 import {
   asMembershipRole,
   findMembershipRole,
@@ -117,7 +118,13 @@ export const teamRouter = router({
     .input(
       z.object({
         email: z.string().email(),
-        redirectPath: z.string().max(500).optional(),
+        // Re-checked after the rewrite: normalising can percent-encode a path past the column.
+        redirectPath: z
+          .string()
+          .max(500)
+          .transform(inviteRedirectPath)
+          .pipe(z.string().max(500))
+          .optional(),
         /** Compliance role to auto-assign categories on accept */
         complianceRole: z.enum(ALL_ROLE_KEYS).optional(),
         /** When inviting from assignment popover, auto-assign on accept */
