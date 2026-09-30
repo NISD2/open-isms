@@ -809,16 +809,18 @@
           "contract": "Providing the NIS2 compliance platform (Art. 6(1)(b) GDPR - performance of a contract)",
           "auth": "User authentication and account management (Art. 6(1)(b) GDPR)",
           "security": "Ensuring the security and integrity of our platform (Art. 6(1)(f) GDPR - legitimate interest)",
-          "legal": "Compliance with legal obligations (Art. 6(1)(c) GDPR)"
+          "legal": "Compliance with legal obligations (Art. 6(1)(c) GDPR)",
+          "crm": "Looking after customers and prospects in our sales system, so we can advise you about our offer and follow up on requests (Art. 6(1)(f) GDPR, legitimate interest). You can object to this processing at any time."
         }
       },
       "processors": {
         "heading": "Third-Party Processors",
-        "p1": "We use the following third-party services to operate the platform:",
+        "p1": "We use the following third-party services to operate the platform and for our sales:",
         "hetzner": "Hetzner Online GmbH (Falkenstein/Nuremberg, Germany): hosting of application servers and PostgreSQL database",
         "google": "Google (OAuth): authentication, processes your name and email address for sign-in",
         "aws": "Amazon Web Services (S3): file storage, stores evidence documents you upload",
-        "resend": "Resend: transactional email, delivers notification and invitation emails"
+        "resend": "Resend: transactional email, delivers notification and invitation emails",
+        "close": "Close (Elastic Inc., Jackson, Wyoming, USA): our sales system (CRM). For verified accounts it processes your name and email address, facts about your account and use (such as sign-up, last sign-in, course progress, progress in implementing NIS 2, your plan and whether we may email you) and facts about your company (such as name, sector, number of employees, country). Transfers to the USA are based on the EU Standard Contractual Clauses. When your account is deleted, we also delete your contact in Close."
       },
       "analytics": {
         "heading": "Analytics",
@@ -858,7 +860,7 @@
       },
       "changes": {
         "heading": "Changes to This Policy",
-        "p1": "We may update this privacy policy from time to time. The current version is always available on this page. Last updated: February 2025."
+        "p1": "We may update this privacy policy from time to time. The current version is always available on this page. Last updated: September 2026."
       }
     },
     "avvContract": {

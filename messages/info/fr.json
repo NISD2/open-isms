@@ -808,16 +808,18 @@
           "contract": "Fourniture de la plateforme de conformité NIS2 (art. 6, paragraphe 1, point b, GDPR - exécution d'un contrat)",
           "auth": "Authentification des utilisateurs et gestion des comptes (art. 6, paragraphe 1, point b, GDPR)",
           "security": "Garantie de la sécurité et de l'intégrité de notre plateforme (art. 6, paragraphe 1, point f, GDPR - intérêt légitime)",
-          "legal": "Respect des obligations légales (art. 6, paragraphe 1, point c, GDPR)"
+          "legal": "Respect des obligations légales (art. 6, paragraphe 1, point c, GDPR)",
+          "crm": "Suivi des clients et prospects dans notre outil commercial, afin de vous conseiller sur notre offre et de donner suite à vos demandes (art. 6, paragraphe 1, point f, GDPR, intérêt légitime). Vous pouvez vous opposer à ce traitement à tout moment."
         }
       },
       "processors": {
         "heading": "Sous-traitants tiers",
-        "p1": "Nous utilisons les services tiers suivants pour exploiter la plateforme :",
+        "p1": "Nous utilisons les services tiers suivants pour exploiter la plateforme et pour notre activité commerciale :",
         "hetzner": "Hetzner Online GmbH (Falkenstein/Nuremberg, Allemagne) : hébergement des serveurs d'application et de la base de données PostgreSQL",
         "google": "Google (OAuth) : authentification, traite votre nom et votre adresse e-mail pour la connexion",
         "aws": "Amazon Web Services (S3) : stockage de fichiers, conserve les documents de preuve que vous téléversez",
-        "resend": "Resend : e-mail transactionnel, envoie les e-mails de notification et d'invitation"
+        "resend": "Resend : e-mail transactionnel, envoie les e-mails de notification et d'invitation",
+        "close": "Close (Elastic Inc., Jackson, Wyoming, États-Unis) : notre outil de gestion commerciale (CRM). Pour les comptes vérifiés, il traite votre nom et votre adresse e-mail, des informations sur votre compte et votre utilisation (par exemple inscription, dernière connexion, progression dans le cours, avancement dans la mise en œuvre de NIS 2, votre formule et si nous pouvons vous envoyer des e-mails) ainsi que des informations sur votre entreprise (par exemple nom, secteur, effectif, pays). Les transferts vers les États-Unis reposent sur les clauses contractuelles types de l'UE. Si votre compte est supprimé, nous supprimons aussi votre contact dans Close."
       },
       "analytics": {
         "heading": "Analyse d'audience",
@@ -857,7 +859,7 @@
       },
       "changes": {
         "heading": "Modifications de la présente politique",
-        "p1": "Nous pouvons mettre à jour la présente politique de confidentialité de temps à autre. La version actuelle est toujours disponible sur cette page. Dernière mise à jour : février 2025."
+        "p1": "Nous pouvons mettre à jour la présente politique de confidentialité de temps à autre. La version actuelle est toujours disponible sur cette page. Dernière mise à jour : septembre 2026."
       }
     },
     "avv": {

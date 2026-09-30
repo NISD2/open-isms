@@ -808,16 +808,18 @@
           "contract": "Udostępnianie platformy zgodności NIS2 (Art. 6(1)(b) GDPR - wykonanie umowy)",
           "auth": "Uwierzytelnianie użytkownika i zarządzanie kontem (Art. 6(1)(b) GDPR)",
           "security": "Zapewnienie bezpieczeństwa i integralności naszej platformy (Art. 6(1)(f) GDPR - prawnie uzasadniony interes)",
-          "legal": "Wypełnianie obowiązków prawnych (Art. 6(1)(c) GDPR)"
+          "legal": "Wypełnianie obowiązków prawnych (Art. 6(1)(c) GDPR)",
+          "crm": "Obsługa klientów i osób zainteresowanych w naszym systemie sprzedaży, abyśmy mogli doradzać Ci w sprawie naszej oferty i odpowiadać na zapytania (Art. 6(1)(f) GDPR, prawnie uzasadniony interes). Możesz w każdej chwili sprzeciwić się temu przetwarzaniu."
         }
       },
       "processors": {
         "heading": "Podmioty przetwarzające będące stronami trzecimi",
-        "p1": "Do obsługi platformy korzystamy z następujących usług podmiotów trzecich:",
+        "p1": "Do obsługi platformy i naszej sprzedaży korzystamy z następujących usług podmiotów trzecich:",
         "hetzner": "Hetzner Online GmbH (Falkenstein/Norymberga, Niemcy): hosting serwerów aplikacji oraz bazy danych PostgreSQL",
         "google": "Google (OAuth): uwierzytelnianie, przetwarza Twoje imię, nazwisko i adres e-mail na potrzeby logowania",
         "aws": "Amazon Web Services (S3): przechowywanie plików, przechowuje przesyłane przez Ciebie dokumenty dowodowe",
-        "resend": "Resend: transakcyjna poczta e-mail, dostarcza wiadomości z powiadomieniami i zaproszeniami"
+        "resend": "Resend: transakcyjna poczta e-mail, dostarcza wiadomości z powiadomieniami i zaproszeniami",
+        "close": "Close (Elastic Inc., Jackson, Wyoming, USA): nasz system sprzedaży (CRM). W przypadku zweryfikowanych kont przetwarza Twoje imię, nazwisko i adres e-mail, dane o Twoim koncie i korzystaniu z platformy (np. rejestracja, ostatnie logowanie, postęp w kursie, postęp we wdrażaniu NIS 2, Twój plan oraz to, czy możemy wysyłać Ci e-maile) oraz dane o Twojej firmie (np. nazwa, sektor, liczba pracowników, kraj). Przekazywanie danych do USA odbywa się na podstawie standardowych klauzul umownych UE. Jeśli Twoje konto zostanie usunięte, usuwamy również Twój kontakt w Close."
       },
       "analytics": {
         "heading": "Analityka",
@@ -857,7 +859,7 @@
       },
       "changes": {
         "heading": "Zmiany w niniejszej polityce",
-        "p1": "Niniejszą politykę prywatności możemy od czasu do czasu aktualizować. Aktualna wersja jest zawsze dostępna na tej stronie. Ostatnia aktualizacja: luty 2025."
+        "p1": "Niniejszą politykę prywatności możemy od czasu do czasu aktualizować. Aktualna wersja jest zawsze dostępna na tej stronie. Ostatnia aktualizacja: wrzesień 2026."
       }
     },
     "avv": {

@@ -808,16 +808,18 @@
           "contract": "Fornitura della piattaforma di conformità NIS2 (art. 6(1)(b) GDPR - esecuzione di un contratto)",
           "auth": "Autenticazione dell'utente e gestione dell'account (art. 6(1)(b) GDPR)",
           "security": "Garanzia della sicurezza e dell'integrità della nostra piattaforma (art. 6(1)(f) GDPR - legittimo interesse)",
-          "legal": "Rispetto degli obblighi di legge (art. 6(1)(c) GDPR)"
+          "legal": "Rispetto degli obblighi di legge (art. 6(1)(c) GDPR)",
+          "crm": "Assistenza a clienti e potenziali clienti nel nostro sistema di vendita, per consigliarti sulla nostra offerta e dare seguito alle richieste (art. 6(1)(f) GDPR, legittimo interesse). Puoi opporti a questo trattamento in qualsiasi momento."
         }
       },
       "processors": {
         "heading": "Responsabili del trattamento terzi",
-        "p1": "Utilizziamo i seguenti servizi di terzi per gestire la piattaforma:",
+        "p1": "Utilizziamo i seguenti servizi di terzi per gestire la piattaforma e per la nostra attività commerciale:",
         "hetzner": "Hetzner Online GmbH (Falkenstein/Norimberga, Germania): hosting dei server applicativi e del database PostgreSQL",
         "google": "Google (OAuth): autenticazione, tratta il tuo nome e indirizzo email per l'accesso",
         "aws": "Amazon Web Services (S3): archiviazione di file, conserva i documenti probatori che carichi",
-        "resend": "Resend: email transazionali, recapita le email di notifica e di invito"
+        "resend": "Resend: email transazionali, recapita le email di notifica e di invito",
+        "close": "Close (Elastic Inc., Jackson, Wyoming, USA): il nostro sistema di vendita (CRM). Per gli account verificati tratta il tuo nome e indirizzo email, dati sul tuo account e sul tuo utilizzo (ad esempio registrazione, ultimo accesso, avanzamento nel corso, avanzamento nell'attuazione di NIS 2, il tuo piano e se possiamo inviarti email) e dati sulla tua azienda (ad esempio nome, settore, numero di dipendenti, paese). I trasferimenti verso gli USA si basano sulle clausole contrattuali tipo dell'UE. Se il tuo account viene eliminato, eliminiamo anche il tuo contatto in Close."
       },
       "analytics": {
         "heading": "Analisi",
@@ -857,7 +859,7 @@
       },
       "changes": {
         "heading": "Modifiche alla presente informativa",
-        "p1": "Potremmo aggiornare di tanto in tanto la presente informativa sulla privacy. La versione corrente è sempre disponibile su questa pagina. Ultimo aggiornamento: febbraio 2025."
+        "p1": "Potremmo aggiornare di tanto in tanto la presente informativa sulla privacy. La versione corrente è sempre disponibile su questa pagina. Ultimo aggiornamento: settembre 2026."
       }
     },
     "avv": {
