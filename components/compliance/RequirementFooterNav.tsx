@@ -18,8 +18,7 @@ export type NavHref = Parameters<ReturnType<typeof useRouter>["push"]>[0];
 
 /**
  * One direction out of the page: where it leads and what the button says.
- * The page decides both, so the same bar walks the category pages and the
- * Durchgang without knowing either URL scheme.
+ * The page decides both, so the bar does not need to know the URL scheme.
  */
 export interface NavLink {
   href: NavHref;

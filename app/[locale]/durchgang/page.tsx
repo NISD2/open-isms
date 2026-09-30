@@ -1,22 +1,14 @@
-import { getLocale } from "next-intl/server";
-import { redirect } from "@/i18n/navigation";
-import { DURCHGANG_CODES } from "@/lib/compliance/durchgang";
-import { isDoneStatus } from "@/lib/compliance/journey-position";
-import { api } from "@/lib/trpc/server";
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+import { DurchgangHome } from "@/components/durchgang/DurchgangHome";
+import { loadWalk } from "./load";
 
-/**
- * Resume where the walk is open: the first of its items not yet done. Partial
- * is a normal state, so this is what "continue" means; once every item is
- * done, the overview is the place to be.
- */
-export default async function DurchgangPage() {
-  const [locale, { items }] = await Promise.all([getLocale(), api.journey.getItems({})]);
-  const statusByCode = new Map(items.map((item) => [item.code, item.status]));
-  const openCode = DURCHGANG_CODES.find((code) => !isDoneStatus(statusByCode.get(code)));
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("durchgang");
+  return { title: t("title"), robots: { index: false, follow: false } };
+}
 
-  redirect(
-    openCode
-      ? { href: { pathname: "/durchgang/[code]", params: { code: openCode } }, locale }
-      : { href: "/journey", locale },
-  );
+/** The Durchgang's front door: the introduction on a first visit, then "Ihr Weg". */
+export default async function DurchgangHomePage() {
+  return <DurchgangHome walk={await loadWalk()} />;
 }

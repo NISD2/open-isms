@@ -181,4 +181,17 @@ describe("durchgang router", () => {
     const lookup = wheres.find((w) => w.table === "asset");
     expect(lookup && paramsOf(lookup.where)).toContain(COMPANY);
   });
+
+  test("keeps the person's own entries, once each, as type other", async () => {
+    const { caller, writes } = setup({ accessLevel: "full", existingAssets: ["Kasse"] });
+    const result = await caller.addAssets({
+      catalogIds: [],
+      custom: [{ name: "Laborsoftware" }, { name: " laborsoftware " }, { name: "kasse" }],
+    });
+    expect(result).toEqual({ added: 1 });
+    const insert = writes.find((w) => w.op === "insert" && w.table === asset);
+    expect(insert?.values).toEqual([
+      { companyId: COMPANY, name: "Laborsoftware", type: "other" },
+    ]);
+  });
 });

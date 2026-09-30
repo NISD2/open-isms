@@ -1,5 +1,6 @@
+import type { entityTypeEnum } from "@nisd2/grc-data-model/enums";
 import type { Annex, SpecialCaseId } from "./sectors";
-import { entityTypeEnum } from "@nisd2/grc-data-model/enums";
+import { SIZE_THRESHOLDS } from "./size-thresholds";
 
 /** Reuses DB enum values + "not_in_scope" for companies outside NIS2 scope */
 export type EntityClassification =
@@ -12,7 +13,12 @@ export type ClassificationResult = {
   classification: EntityClassification;
   size: CompanySize | null;
   annexes: Annex[];
-  reason: "excluded" | "no_sector" | "below_threshold" | "special_case" | "size_and_sector";
+  reason:
+    | "excluded"
+    | "no_sector"
+    | "below_threshold"
+    | "special_case"
+    | "size_and_sector";
   penaltyCeiling: { amount: string; turnoverPercent: string } | null;
   supervision: "proactive" | "reactive" | null;
 };
@@ -23,13 +29,12 @@ export function computeSize(input: {
   balanceSheet: number;
 }): CompanySize {
   const { employees, turnover, balanceSheet } = input;
+  const reaches = (limit: (typeof SIZE_THRESHOLDS)[keyof typeof SIZE_THRESHOLDS]) =>
+    employees >= limit.employees ||
+    (turnover > limit.turnover && balanceSheet > limit.balanceSheet);
 
-  if (employees >= 250 || (turnover > 50 && balanceSheet > 43)) {
-    return "large";
-  }
-  if (employees >= 50 || (turnover > 10 && balanceSheet > 10)) {
-    return "medium";
-  }
+  if (reaches(SIZE_THRESHOLDS.large)) return "large";
+  if (reaches(SIZE_THRESHOLDS.medium)) return "medium";
   return "small";
 }
 
@@ -56,7 +61,13 @@ export function classify(input: {
   if (specialCases.length > 0) {
     const annexes = [...new Set(sectors.map((s) => s.annex))];
     const isKritis = specialCases.includes("kritis");
-    const ALWAYS_ESSENTIAL: SpecialCaseId[] = ["qtsp", "tld_registry", "dns_provider", "sole_provider", "oes_legacy"];
+    const ALWAYS_ESSENTIAL: SpecialCaseId[] = [
+      "qtsp",
+      "tld_registry",
+      "dns_provider",
+      "sole_provider",
+      "oes_legacy",
+    ];
     const hasAlwaysEssential = specialCases.some((sc) => ALWAYS_ESSENTIAL.includes(sc));
     const isTelecom = specialCases.includes("telecom_provider");
 

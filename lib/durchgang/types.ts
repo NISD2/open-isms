@@ -27,12 +27,7 @@ export type Provision = "bsi_200_3_matrix" | "bsig_28_thresholds" | "bsig_32_clo
  * A register the requirement page shows for the item (its `moduleRef`), which a screen shows as
  * the list itself. The asset register has its own screen kind, because it is offered in slices.
  */
-export type RegisterModule =
-  | "training_record"
-  | "supplier"
-  | "team"
-  | "policy"
-  | "incident";
+export type RegisterModule = "supplier" | "team";
 
 /** A decision the person takes on the screen. Nothing is preselected. */
 export type Decision = "risk_acceptance";

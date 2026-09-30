@@ -247,29 +247,47 @@ export const durchgangRouter = router({
     }),
 
   /**
-   * 2.2: the ticked catalogue items become asset rows. Names that already exist are skipped, so a
-   * second pass adds only what is new, and nothing is ever deleted here.
+   * 2.2: the ticked catalogue items and the person's own entries become asset rows. Names that
+   * already exist are skipped, so a second pass adds only what is new, and nothing is ever deleted
+   * here.
    */
   addAssets: activatedCompanyProcedure
     .use(({ ctx, next }) => {
       gate(ctx.session);
       return next({ ctx });
     })
-    .input(z.object({ catalogIds: z.array(z.string().max(80)).max(CATALOG_BY_ID.size) }))
+    .input(
+      z.object({
+        catalogIds: z.array(z.string().max(80)).max(CATALOG_BY_ID.size),
+        custom: z
+          .array(z.object({ name: z.string().trim().min(1).max(255) }))
+          .max(50)
+          .default([]),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
       const labels: Readonly<Record<string, { label: string }>> = ASSET_LABELS[locale];
-      const wanted = input.catalogIds.flatMap((id) => {
-        const item = CATALOG_BY_ID.get(id);
-        const label = labels[id]?.label;
-        return item && label ? [{ name: label, type: item.category }] : [];
-      });
+      const wanted = [
+        ...input.catalogIds.flatMap((id) => {
+          const item = CATALOG_BY_ID.get(id);
+          const label = labels[id]?.label;
+          return item && label ? [{ name: label, type: item.category }] : [];
+        }),
+        ...input.custom.map((c) => ({ name: c.name, type: "other" })),
+      ];
       const existing = await ctx.db.query.asset.findMany({
         where: eq(asset.companyId, ctx.companyId),
         columns: { name: true },
       });
-      const taken = new Set(existing.map((a) => a.name.trim().toLowerCase()));
-      const fresh = wanted.filter((a) => !taken.has(a.name.trim().toLowerCase()));
+      const key = (name: string) => name.trim().toLowerCase();
+      const taken = new Set(existing.map((a) => key(a.name)));
+      // The first spelling of a name wins, and a name already on the list is left alone.
+      const fresh = wanted.filter(
+        (a, i) =>
+          !taken.has(key(a.name)) &&
+          wanted.findIndex((b) => key(b.name) === key(a.name)) === i,
+      );
       if (fresh.length > 0) {
         await ctx.db
           .insert(asset)

@@ -14,6 +14,8 @@ import { formatFileSize } from "@/lib/utils";
 interface FileUploadProps {
   requirementStatusId: string;
   disabled?: boolean;
+  /** Called with the file's name once the upload is confirmed. */
+  onUploaded?: (fileName: string) => void;
 }
 
 async function computeSHA256(file: File): Promise<string> {
@@ -24,7 +26,11 @@ async function computeSHA256(file: File): Promise<string> {
     .join("");
 }
 
-export function FileUpload({ requirementStatusId, disabled }: FileUploadProps) {
+export function FileUpload({
+  requirementStatusId,
+  disabled,
+  onUploaded,
+}: FileUploadProps) {
   const t = useTranslations("evidence");
   const locale = useLocale();
   const [uploading, setUploading] = useState(false);
@@ -89,6 +95,7 @@ export function FileUpload({ requirementStatusId, disabled }: FileUploadProps) {
         utils.evidence.listByRequirementStatus.invalidate({
           requirementStatusId,
         });
+        onUploaded?.(file.name);
       } catch (err) {
         console.error("[evidence upload]", err);
         // Show the server's reason when the server chose it (not assigned to
@@ -103,7 +110,7 @@ export function FileUpload({ requirementStatusId, disabled }: FileUploadProps) {
         e.target.value = "";
       }
     },
-    [requirementStatusId, createUploadUrl, confirmUpload, utils, t],
+    [requirementStatusId, createUploadUrl, confirmUpload, utils, t, onUploaded],
   );
 
   const handleDelete = useCallback(

@@ -6,7 +6,6 @@ import {
 import { z } from "zod";
 import { FUNCTIONAL_GROUPS } from "@/lib/asset-inventory/catalog";
 import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
-import { DURCHGANG_CODES } from "@/lib/compliance/durchgang";
 import { JOURNEY_ORDER } from "@/lib/compliance/journey-position";
 import {
   CUSTOM_EDITOR_KEYS,
@@ -19,9 +18,6 @@ import infoEn from "@/messages/info/en.json";
 import { resolveItem, WAIT_REASONS, WALK } from "./index";
 import { NIS2_SCRIPT } from "./nis2";
 import type { AnyScreen, ScreenKind } from "./types";
-
-/** v1 walks the items today's Durchgang walks (spec §0.7). */
-const V1 = DURCHGANG_CODES;
 
 const FRAMEWORK = new Map(
   nis2Categories.flatMap((c) =>
@@ -47,6 +43,10 @@ const NO_SCREEN: Readonly<Record<string, string>> = {
     "the register has no loader or router, so the page always shows 0 entries (spec §0.6); the flow records 12.2 through its fields and its evidence",
   "3.3:incident":
     "the incident register fills when an incident happens; 3.3 prepares the reporting, and the register stays on the incidents page",
+  "1.1:training_record":
+    "the requirement page has no inline form for it, only a link away; the screen asks for the certificates, so 1.1 takes them as evidence on the item",
+  "3.1:policy":
+    "the policy form has no upload and asks for type and status as free text; the screen asks for the plan itself, so 3.1 takes it as evidence on the item",
 };
 
 /** The value's own schema under any optional, nullable or default wrapper. */
@@ -66,19 +66,18 @@ const LOCALES = [
 ] as const;
 
 describe("the NIS 2 script", () => {
-  test("scripts each item once, and only v1 requirements of their declared category", () => {
+  test("scripts each item once, as a requirement of its declared category", () => {
     const codes = NIS2_SCRIPT.map((i) => i.code);
     expect(new Set(codes).size).toBe(codes.length);
     for (const item of NIS2_SCRIPT) {
       expect(FRAMEWORK.get(item.code)?.category).toBe(item.category);
-      expect(V1).toContain(item.code);
     }
   });
 
-  test("walks the scripted items in journey order", () => {
-    expect(WALK.map((i) => i.code)).toEqual(
-      JOURNEY_ORDER.filter((code) => NIS2_SCRIPT.some((i) => i.code === code)),
-    );
+  test("walks the start of the journey without a gap, in journey order", () => {
+    // Items are scripted from the front of the journey (spec §0.7), so the walk is always the
+    // first N codes: a later item scripted before an earlier one would leave a hole in the path.
+    expect(WALK.map((i) => i.code)).toEqual(JOURNEY_ORDER.slice(0, NIS2_SCRIPT.length));
   });
 
   test("opens every item with what it is and closes with what was recorded", () => {

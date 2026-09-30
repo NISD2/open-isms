@@ -70,8 +70,10 @@ interface Extras {
   };
 }
 
+/** A screen with its words. `kind` repeats `screen.kind` at the top, so a switch on it narrows. */
 export type ResolvedScreen = {
   readonly [K in ScreenKind]: {
+    readonly kind: K;
     readonly screen: Extract<AnyScreen, { kind: K }>;
     readonly copy: z.infer<(typeof SCREEN_COPY)[K]> &
       (K extends keyof Extras ? Extras[K] : unknown);
@@ -144,23 +146,31 @@ function resolveScreen(
   const one = <S extends AnyScreen, Z extends z.ZodType>(
     s: S,
     schema: Z,
-  ): Result<{ readonly screen: S; readonly copy: z.infer<Z> }> => {
+  ): Result<{
+    readonly kind: S["kind"];
+    readonly screen: S;
+    readonly copy: z.infer<Z>;
+  }> => {
     const copy = parse(schema, raw, where);
-    return copy.ok ? ok({ screen: s, copy: copy.value }) : copy;
+    return copy.ok ? ok({ kind: s.kind, screen: s, copy: copy.value }) : copy;
   };
   switch (screen.kind) {
     case "fields": {
       const copy = parse(SCREEN_COPY.fields, raw, where);
       const fields = pick(head.fields, screen.fields, `${base}.fields`);
       return copy.ok && fields.ok
-        ? ok({ screen, copy: { ...copy.value, fields: fields.value } })
+        ? ok({ kind: screen.kind, screen, copy: { ...copy.value, fields: fields.value } })
         : { ok: false, errors: errorsOf(copy, fields) };
     }
     case "sources": {
       const copy = parse(SCREEN_COPY.sources, raw, where);
       const sources = pick(head.sources, screen.sources, `${base}.sources`);
       return copy.ok && sources.ok
-        ? ok({ screen, copy: { ...copy.value, sources: sources.value } })
+        ? ok({
+            kind: screen.kind,
+            screen,
+            copy: { ...copy.value, sources: sources.value },
+          })
         : { ok: false, errors: errorsOf(copy, sources) };
     }
     case "learn":
