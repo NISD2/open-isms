@@ -142,7 +142,7 @@
       },
       "classificationLevels": {
         "label": "Klassifizierungsstufen",
-        "meaning": "Wie viele Stufen Sie für den Schutzbedarf Ihrer Assets verwenden (z.B. 3 Stufen: normal, hoch, sehr hoch).",
+        "meaning": "Wie viele Stufen Sie für den Schutzbedarf Ihrer Assets verwenden. Das BSI arbeitet mit drei (BSI-Standard 200-2, 8.2.1): normal, \"Die Schadensauswirkungen sind begrenzt und überschaubar\"; hoch, \"Die Schadensauswirkungen können beträchtlich sein\"; sehr hoch, \"Die Schadensauswirkungen können ein existenziell bedrohliches, katastrophales Ausmaß erreichen\". Als Orientierung für Ausfälle nennt das BSI eine maximal tolerierbare Ausfallzeit von 24 bis 72 Stunden (normal), einer bis 24 Stunden (hoch) und unter einer Stunde (sehr hoch).",
         "example": "3_levels",
         "whereToFind": "Schauen Sie in Ihre Asset-Liste oder Richtlinie, wie Sie Assets einstufen."
       }
@@ -403,7 +403,7 @@
     "summary": "Ihr Unternehmen muss Backups für wichtige Daten einrichten und regelmäßig testen, damit Sie bei Ausfällen schnell wieder arbeiten können. Sie sind fertig, wenn Sie eine klare Regel haben, Tests durchgeführt wurden und die Erfolgsrate hoch ist.",
     "applicability": "Jedes Unternehmen mit kritischen IT-Systemen muss das machen; kleine Firmen ohne sensible Daten können es vereinfachen.",
     "quickTip": "Sprechen Sie zuerst mit Ihrem IT-Team: Welche Daten sind am wichtigsten zu sichern?",
-    "implementationSteps": "Richten Sie Backups für alle wichtigen Daten und Systeme ein. Folgen Sie der 3-2-1-Regel: 3 Kopien, 2 Medientypen, 1 außerhalb des Hauses.\nSchreiben Sie eine einfache Richtlinie: Was wird gesichert, wie oft, wo gespeichert und verschlüsselt.\nFühren Sie vierteljährlich einen Test durch, ob Backups wiederhergestellt werden können.\nDokumentieren Sie Testergebnisse und beheben Sie Probleme sofort.\nNutzen Sie sichere Speicher wie Air-Gap oder WORM gegen Ransomware.",
+    "implementationSteps": "Richten Sie Backups für alle wichtigen Daten und Systeme ein. Bewahren Sie mindestens eine Kopie offline auf, getrennt von Netz und laufenden Systemen (Grundschutz++ NOT.4.14). Die 3-2-1-Regel (3 Kopien, 2 Medientypen, 1 außer Haus) ist ein verbreiteter Weg dorthin, aber keine Vorgabe des BSI.\nSchreiben Sie eine einfache Richtlinie: Was wird gesichert, wie oft, wo gespeichert und verschlüsselt.\nFühren Sie vierteljährlich einen Test durch, ob Backups wiederhergestellt werden können.\nDokumentieren Sie Testergebnisse und beheben Sie Probleme sofort.\nNutzen Sie sichere Speicher wie Air-Gap oder WORM gegen Ransomware.",
     "evidenceExample": "Eine Richtlinie, die Backup-Regeln beschreibt, plus Berichte von Wiederherstellungstests, die zeigen, dass alles funktioniert hat, und Nachweis für sichere, unveränderbare Speicher.",
     "fields": {
       "backupFrequency": {
@@ -1101,8 +1101,8 @@
       },
       "passwordMinLength": {
         "label": "Password Min Length",
-        "meaning": "Die kleinste erlaubte Anzahl Zeichen für Passwörter in Ihrer Richtlinie.",
-        "example": "12",
+        "meaning": "Die kleinste erlaubte Anzahl Zeichen für Passwörter in Ihrer Richtlinie. Das BSI empfiehlt für Zugänge ohne weitere Schutzmaßnahmen, etwa ohne Mehr-Faktor-Authentifizierung, mindestens 14 Zeichen (Grundschutz++ BER.6.4).",
+        "example": "14",
         "whereToFind": "In Ihrer aktuellen Passwortrichtlinie oder empfohlen von IT (mindestens 12 Zeichen)"
       },
       "sessionTimeoutMinutes": {

@@ -142,7 +142,7 @@
       },
       "classificationLevels": {
         "label": "Classification Levels",
-        "meaning": "How many protection levels you use for assets, like 2 (normal/critical), 3 (normal/high/very high), or 4.",
+        "meaning": "How many protection levels you use for assets. The BSI uses three (BSI Standard 200-2, 8.2.1): normal, the damage is limited and manageable; high, the damage can be considerable; very high, the damage can reach an existentially threatening, catastrophic scale. As an orientation for outages, the BSI gives a maximum tolerable downtime of 24 to 72 hours (normal), one to 24 hours (high) and under one hour (very high).",
         "example": "3_levels",
         "whereToFind": "Check your company's security policy or ask IT/security lead how they rate asset sensitivity."
       }
@@ -403,7 +403,7 @@
     "summary": "Your company needs to set up regular backups of important data and test restoring them to make sure you can recover quickly if something goes wrong. You're done when you have a clear backup plan, backups are encrypted and stored safely offsite, and recent tests show they work well.",
     "applicability": "Every company handling critical data or customer information must do this; smaller firms without IT systems or data at risk can skip it.",
     "quickTip": "Talk to your IT person and ask what they currently back up and how often.",
-    "implementationSteps": "Write a simple backup policy: list what gets backed up, how often, where it's stored (including one offsite copy), and that it's encrypted.\nMake sure you follow the 3-2-1 rule: 3 copies of data on 2 different types of media with 1 offsite.\nSet up air-gapped or unchangeable backups for key data to stop ransomware.\nTest restoring backups at least every 3 months for critical stuff and write down the results.\nFix any failures right away and keep records.",
+    "implementationSteps": "Write a simple backup policy: list what gets backed up, how often, where it's stored (including one offsite copy), and that it's encrypted.\nKeep at least one copy offline, separated from the network and running systems (Grundschutz++ NOT.4.14). The 3-2-1 rule (3 copies, 2 media types, 1 offsite) is a common way to get there, but it is not a BSI requirement.\nSet up air-gapped or unchangeable backups for key data to stop ransomware.\nTest restoring backups at least every 3 months for critical stuff and write down the results.\nFix any failures right away and keep records.",
     "evidenceExample": "A document outlining your backup rules plus reports from recent restore tests showing they succeeded, data integrity was verified, and recovery time met your targets; also proof of offsite or unchangeable storage like air-gap or WORM setup.",
     "fields": {
       "backupFrequency": {
@@ -1101,8 +1101,8 @@
       },
       "passwordMinLength": {
         "label": "Password Min Length",
-        "meaning": "The shortest number of characters allowed in any password across your systems.",
-        "example": "12",
+        "meaning": "The shortest number of characters allowed in any password across your systems. For accounts without further protection, such as multi-factor authentication, the BSI recommends at least 14 characters (Grundschutz++ BER.6.4).",
+        "example": "14",
         "whereToFind": "Check your current IT password rules or ask your sysadmin what the minimum is set to now."
       },
       "sessionTimeoutMinutes": {

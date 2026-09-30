@@ -97,6 +97,7 @@
       "patchSla": "SLA aktualizacji wg poziomu krytyczności",
       "severity": "Poziom krytyczności",
       "slaHours": "SLA (godziny)",
+      "slaNote": "Typowe wartości, nie wymóg BSI. BSI nie określa sztywnych terminów; zaleca automatyczną instalację aktualizacji bezpieczeństwa (Grundschutz++ KONF.8.1.1).",
       "critical": "Krytyczny",
       "high": "Wysoki",
       "medium": "Średni",

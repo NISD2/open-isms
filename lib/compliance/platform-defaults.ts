@@ -32,6 +32,11 @@ export const PLATFORM_DEFAULTS: Record<string, Record<string, unknown>> = {
   "10.1": {
     accessControlModel: "rbac",
   },
+  // BSI Grundschutz++ BER.6.4: "Für Zugänge ohne begleitende Maßnahmen ist eine Passwortlänge
+  // nicht unter 14 Zeichen empfehlenswert."
+  "11.3": {
+    passwordMinLength: 14,
+  },
   // Safer default — most SMEs are "important" not "essential"
   "12.1": {
     entityClassification: "important",

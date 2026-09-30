@@ -523,9 +523,12 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
       frameworkRef: "Art. 21(2)(i)",
       cirReference: "10.2, 10.3, 11.3",
     }),
+    // Annual, not quarterly: CIR 11.2.3 and 11.3.3 ask for reviews "at planned intervals", and BSI
+    // Grundschutz++ BER.4.4 sets the interval by criticality ("quartalsweise, halbjährlich,
+    // jährlich"). Quarterly stays for privileged accounts, in the access-control policy default.
     mkReq("10.4", "proof", {
       priority: "P1",
-      frequency: "quarterly",
+      frequency: "annual",
       legalRef: "§30(2) Nr. 9 BSIG, CIR 11.2.3, 11.3.3",
       frameworkRef: "Art. 21(2)(i)",
       cirReference: "11.2.3, 11.3.3",

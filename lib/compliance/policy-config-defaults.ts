@@ -9,7 +9,13 @@
 // Policy type enum
 // ============================================================================
 
-export const POLICY_TYPES = ["crypto", "access_control", "procurement", "secure_dev", "patch_mgmt"] as const;
+export const POLICY_TYPES = [
+  "crypto",
+  "access_control",
+  "procurement",
+  "secure_dev",
+  "patch_mgmt",
+] as const;
 export type PolicyType = (typeof POLICY_TYPES)[number];
 
 // ============================================================================
@@ -137,15 +143,35 @@ export type PolicyConfigMap = {
 // Default factories — BSI/CIR sourced
 // ============================================================================
 
-function getDefaultCrypto(locale: "en" | "de"): CryptoPolicyConfig {
+function getDefaultCrypto(_locale: "en" | "de"): CryptoPolicyConfig {
   return {
     algorithms: [
       // Symmetric — BSI TR-02102-1
-      { category: "symmetric", algorithm: "AES-256-GCM", keyLength: "256", status: "approved" },
-      { category: "symmetric", algorithm: "AES-128-GCM", keyLength: "128", status: "approved" },
-      { category: "symmetric", algorithm: "ChaCha20-Poly1305", keyLength: "256", status: "approved" },
+      {
+        category: "symmetric",
+        algorithm: "AES-256-GCM",
+        keyLength: "256",
+        status: "approved",
+      },
+      {
+        category: "symmetric",
+        algorithm: "AES-128-GCM",
+        keyLength: "128",
+        status: "approved",
+      },
+      {
+        category: "symmetric",
+        algorithm: "ChaCha20-Poly1305",
+        keyLength: "256",
+        status: "approved",
+      },
       { category: "symmetric", algorithm: "DES", keyLength: "56", status: "prohibited" },
-      { category: "symmetric", algorithm: "3DES", keyLength: "168", status: "prohibited" },
+      {
+        category: "symmetric",
+        algorithm: "3DES",
+        keyLength: "168",
+        status: "prohibited",
+      },
       { category: "symmetric", algorithm: "RC4", status: "prohibited" },
       // Hash — BSI TR-02102-1
       { category: "hash", algorithm: "SHA-256", status: "approved" },
@@ -155,11 +181,31 @@ function getDefaultCrypto(locale: "en" | "de"): CryptoPolicyConfig {
       { category: "hash", algorithm: "MD5", status: "prohibited" },
       { category: "hash", algorithm: "SHA-1", status: "prohibited" },
       // Asymmetric — BSI TR-02102-1
-      { category: "asymmetric", algorithm: "RSA", keyLength: "3072+", status: "approved" },
-      { category: "asymmetric", algorithm: "ECDSA P-256", keyLength: "256", status: "approved" },
-      { category: "asymmetric", algorithm: "ECDSA P-384", keyLength: "384", status: "approved" },
+      {
+        category: "asymmetric",
+        algorithm: "RSA",
+        keyLength: "3072+",
+        status: "approved",
+      },
+      {
+        category: "asymmetric",
+        algorithm: "ECDSA P-256",
+        keyLength: "256",
+        status: "approved",
+      },
+      {
+        category: "asymmetric",
+        algorithm: "ECDSA P-384",
+        keyLength: "384",
+        status: "approved",
+      },
       { category: "asymmetric", algorithm: "Ed25519", status: "approved" },
-      { category: "asymmetric", algorithm: "RSA", keyLength: "<2048", status: "prohibited" },
+      {
+        category: "asymmetric",
+        algorithm: "RSA",
+        keyLength: "<2048",
+        status: "prohibited",
+      },
       // Key Exchange — BSI TR-02102-1
       { category: "key_exchange", algorithm: "ECDHE P-256", status: "approved" },
       { category: "key_exchange", algorithm: "ECDHE P-384", status: "approved" },
@@ -172,21 +218,22 @@ function getDefaultCrypto(locale: "en" | "de"): CryptoPolicyConfig {
     minTlsVersion: "tls_1_2",
     keyRotationFrequencyYears: 1,
     triggerRotationOnCompromise: true,
-    reviewCycleYears: 3,
+    // CON.1.A15 (S): "mindestens jährlich … überprüfen, ob die eingesetzten kryptografischen Verfahren … noch ausreichend sicher sind"
+    reviewCycleYears: 1,
     postQuantumReadiness: false,
   };
 }
 
 function getDefaultAccessControl(locale: "en" | "de"): AccessControlConfig {
   return {
-    model: "rbac",                                               // ORP.4.A5
+    model: "rbac", // ORP.4.A5
     reviewFrequency: {
-      standard: locale === "de" ? "jährlich" : "annual",         // ORP.4.A4
+      standard: locale === "de" ? "jährlich" : "annual", // ORP.4.A4
       privileged: locale === "de" ? "vierteljährlich" : "quarterly", // ORP.4.A4 SOLLTE
     },
-    deprovisioningSlaHours: 24,                                  // ORP.4.A6
-    sharedAccountPolicy: "prohibited",                           // ORP.4.A3 MUSS — unique IDs
-    authReviewCycleYears: 2,                                     // CIR 11.6.4
+    deprovisioningSlaHours: 24, // ORP.4.A6
+    sharedAccountPolicy: "prohibited", // ORP.4.A3 MUSS — unique IDs
+    authReviewCycleYears: 2, // CIR 11.6.4
   };
 }
 
@@ -236,7 +283,8 @@ function getDefaultSecureDev(_locale: "en" | "de"): SecureDevConfig {
       codeReview: true,
     },
     environmentSegregation: true,
-    reviewCycleYears: 2,
+    // BSI 200-2: "Für den überwiegenden Teil der Dokumente hat sich eine jährliche Überprüfung bewährt."
+    reviewCycleYears: 1,
   };
 }
 
@@ -248,7 +296,8 @@ function getDefaultPatchMgmt(_locale: "en" | "de"): PatchMgmtConfig {
       medium: 720,
       low: 2160,
     },
-    reviewCycleYears: 2,
+    // BSI 200-2: "Für den überwiegenden Teil der Dokumente hat sich eine jährliche Überprüfung bewährt."
+    reviewCycleYears: 1,
   };
 }
 
