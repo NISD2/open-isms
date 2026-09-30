@@ -8,6 +8,7 @@
     "empty": "Aucun fournisseur enregistré. Ajoutez votre premier fournisseur pour suivre la sécurité de la chaîne d'approvisionnement.",
     "deleteConfirm": "Êtes-vous sûr de vouloir supprimer ce fournisseur ?",
     "actions": "Actions",
+    "supplierMaintainsClauses": "Le fournisseur tient à jour les réponses marquées d'un cadenas dans son propre portail fournisseur. Vous pouvez les consulter ici, mais pas les modifier.",
     "critical": "Critique",
     "nonCritical": "Non critique",
     "riskLevel": {

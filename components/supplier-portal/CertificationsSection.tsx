@@ -13,6 +13,7 @@ import { Calendar, Plus, ShieldCheck, Trash2 } from "lucide-react";
  * field is rendered via a custom `render` override that mounts the existing
  * SimpleFileUpload component (S3 presigned PUT, force application/pdf).
  */
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import type { z } from "zod";
 import { SimpleFileUpload } from "@/components/shared/SimpleFileUpload";
@@ -60,6 +61,7 @@ export function CertificationsSection({
   certifications,
   readOnly = false,
 }: CertificationsSectionProps) {
+  const t = useTranslations("supplierPortal.certifications");
   const router = useRouter();
   const [showForm, setShowForm] = useState(false);
   // formKey is bumped after a successful create — forces SchemaForm to remount
@@ -102,10 +104,11 @@ export function CertificationsSection({
       render: (field) => (
         <SimpleFileUpload
           label=""
-          hint="Drop your certificate PDF here, or click to browse"
-          uploadingText="Uploading…"
-          errorText="Upload failed. Try again or contact support."
-          removeText="Remove"
+          hint={t("uploadHint")}
+          uploadingText={t("uploading")}
+          errorText={t("uploadFailed")}
+          tooManyUploadsText={t("tooManyUploads")}
+          removeText={t("remove")}
           accept=".pdf"
           currentFileKey={(field.value as string) || null}
           currentFileName={null}

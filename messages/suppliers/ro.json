@@ -8,6 +8,7 @@
     "empty": "Niciun furnizor înregistrat. Adăugați primul furnizor pentru a urmări securitatea lanțului de aprovizionare.",
     "deleteConfirm": "Sigur doriți să ștergeți acest furnizor?",
     "actions": "Acțiuni",
+    "supplierMaintainsClauses": "Răspunsurile marcate cu un lacăt sunt gestionate de furnizor în propriul portal pentru furnizori. Aici le puteți citi, dar nu le puteți modifica.",
     "critical": "Critic",
     "nonCritical": "Necritic",
     "riskLevel": {

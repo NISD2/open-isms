@@ -8,6 +8,7 @@
     "empty": "No hay proveedores registrados. Añada su primer proveedor para realizar el seguimiento de la seguridad de la cadena de suministro.",
     "deleteConfirm": "¿Está seguro de que desea eliminar este proveedor?",
     "actions": "Acciones",
+    "supplierMaintainsClauses": "El proveedor mantiene las respuestas marcadas con un candado en su propio portal de proveedores. Puede consultarlas aquí, pero no modificarlas.",
     "critical": "Crítico",
     "nonCritical": "No crítico",
     "riskLevel": {

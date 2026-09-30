@@ -1,5 +1,12 @@
 {
   "supplierPortal": {
+    "certifications": {
+      "uploadHint": "Trageți aici PDF-ul certificatului sau faceți clic pentru a-l selecta",
+      "uploading": "Se încarcă…",
+      "uploadFailed": "Încărcarea nu a reușit. Încercați din nou sau contactați asistența.",
+      "tooManyUploads": "Compania dumneavoastră a încărcat prea multe fișiere în ultima oră. Încercați din nou peste o oră.",
+      "remove": "Eliminați"
+    },
     "nav": {
       "portalName": "Portal furnizori",
       "general": "General",

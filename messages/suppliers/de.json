@@ -8,6 +8,7 @@
     "empty": "Keine Lieferanten erfasst. Fügen Sie Ihren ersten Lieferanten hinzu.",
     "deleteConfirm": "Sind Sie sicher, dass Sie diesen Lieferanten löschen möchten?",
     "actions": "Aktionen",
+    "supplierMaintainsClauses": "Die mit einem Schloss markierten Antworten pflegt der Lieferant selbst in seinem Lieferantenportal. Sie können sie hier lesen, aber nicht ändern.",
     "critical": "Kritisch",
     "nonCritical": "Nicht-kritisch",
     "riskLevel": {

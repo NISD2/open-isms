@@ -13,7 +13,7 @@ import { FileText, Loader2, Upload, X } from "lucide-react";
 import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { exceedsUploadLimit, MAX_UPLOAD_MB } from "@/lib/storage/limits";
-import { userFacingError } from "@/lib/trpc/error-message";
+import { trpcErrorCode, userFacingError } from "@/lib/trpc/error-message";
 import { cn } from "@/lib/utils";
 
 interface SimpleFileUploadProps {
@@ -54,6 +54,12 @@ interface SimpleFileUploadProps {
   errorText: string;
   /** Error text for a file above the storage limit. Takes a `size` param. */
   tooLargeText?: (maxMb: number) => string;
+  /**
+   * Error text when `getUploadUrl` is refused with TOO_MANY_REQUESTS. The
+   * server's own message is English and says only "later", and a generic
+   * failure invites the retries that keep the limit hit.
+   */
+  tooManyUploadsText?: string;
   /** Remove button text */
   removeText: string;
   disabled?: boolean;
@@ -71,6 +77,7 @@ export function SimpleFileUpload({
   uploadingText,
   errorText,
   tooLargeText,
+  tooManyUploadsText,
   removeText,
   disabled = false,
 }: SimpleFileUploadProps) {
@@ -119,7 +126,11 @@ export function SimpleFileUpload({
       // server chose it, the generic string otherwise. The S3 PUT failure
       // thrown above deliberately falls into "otherwise" — its text carries
       // the storage response, which is not for the reader.
-      setError(userFacingError(err, errorText));
+      setError(
+        tooManyUploadsText && trpcErrorCode(err) === "TOO_MANY_REQUESTS"
+          ? tooManyUploadsText
+          : userFacingError(err, errorText),
+      );
     } finally {
       setUploading(false);
     }

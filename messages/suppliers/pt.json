@@ -8,6 +8,7 @@
     "empty": "Nenhum fornecedor registado. Adicione o seu primeiro fornecedor para acompanhar a segurança da cadeia de abastecimento.",
     "deleteConfirm": "Tem a certeza de que pretende eliminar este fornecedor?",
     "actions": "Ações",
+    "supplierMaintainsClauses": "O fornecedor mantém as respostas assinaladas com um cadeado no próprio portal do fornecedor. Pode consultá-las aqui, mas não alterá-las.",
     "critical": "Crítico",
     "nonCritical": "Não crítico",
     "riskLevel": {

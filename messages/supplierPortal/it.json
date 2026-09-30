@@ -1,5 +1,12 @@
 {
   "supplierPortal": {
+    "certifications": {
+      "uploadHint": "Trascinate qui il PDF del certificato, oppure fate clic per selezionarlo",
+      "uploading": "Caricamento in corso…",
+      "uploadFailed": "Caricamento non riuscito. Riprovate o contattate l'assistenza.",
+      "tooManyUploads": "La vostra azienda ha caricato troppi file nell'ultima ora. Riprovate tra un'ora.",
+      "remove": "Rimuovi"
+    },
     "nav": {
       "portalName": "Portale fornitori",
       "general": "Generale",

@@ -1,5 +1,12 @@
 {
   "supplierPortal": {
+    "certifications": {
+      "uploadHint": "Déposez ici le PDF de votre certificat, ou cliquez pour le sélectionner",
+      "uploading": "Envoi en cours…",
+      "uploadFailed": "L'envoi a échoué. Veuillez réessayer ou contacter le support.",
+      "tooManyUploads": "Votre entreprise a envoyé trop de fichiers au cours de la dernière heure. Veuillez réessayer dans une heure.",
+      "remove": "Retirer"
+    },
     "nav": {
       "portalName": "Portail fournisseur",
       "general": "Général",

@@ -8,6 +8,7 @@
     "empty": "Žádní dodavatelé nejsou evidováni. Přidejte prvního dodavatele a začněte sledovat bezpečnost dodavatelského řetězce.",
     "deleteConfirm": "Opravdu chcete tohoto dodavatele smazat?",
     "actions": "Akce",
+    "supplierMaintainsClauses": "Odpovědi označené zámkem spravuje dodavatel sám ve svém dodavatelském portálu. Zde si je můžete přečíst, ale nemůžete je změnit.",
     "critical": "Kritický",
     "nonCritical": "Nekritický",
     "riskLevel": {

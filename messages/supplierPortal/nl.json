@@ -1,5 +1,12 @@
 {
   "supplierPortal": {
+    "certifications": {
+      "uploadHint": "Sleep de pdf van uw certificaat hierheen, of klik om een bestand te kiezen",
+      "uploading": "Bezig met uploaden…",
+      "uploadFailed": "Uploaden mislukt. Probeer het opnieuw of neem contact op met onze ondersteuning.",
+      "tooManyUploads": "Uw bedrijf heeft het afgelopen uur te veel bestanden geüpload. Probeer het over een uur opnieuw.",
+      "remove": "Verwijderen"
+    },
     "nav": {
       "portalName": "Leveranciersportaal",
       "general": "Algemeen",
