@@ -3,7 +3,9 @@
  * the attempt cap out of one code, and one code must not be accepted twice. A
  * fake database cannot show either, because both depend on how concurrent
  * UPDATEs see each other. Before the fix, 20 parallel wrong guesses were
- * recorded as one attempt and 10 parallel correct submissions all succeeded.
+ * recorded as one attempt and 10 parallel correct submissions all succeeded;
+ * with the first fix, a burst past the cap burned the code under the right
+ * submission and none succeeded (this drill caught that in CI, 30.09.2026).
  *
  *   DATABASE_URL=postgres://... AUTH_SECRET=<32+ chars> bun scripts/ci/otp-concurrency-drill.ts
  *
@@ -31,11 +33,11 @@ async function wrongGuessesAreCapped(): Promise<string | null> {
   const { code } = await requestOtp(EMAIL, PURPOSE);
   await burst(wrongCode(code), 20);
   const [row] = await db
-    .select({ attempts: emailOtp.attempts, consumedAt: emailOtp.consumedAt })
+    .select({ attempts: emailOtp.attempts })
     .from(emailOtp)
     .where(eq(emailOtp.email, EMAIL));
-  if (row?.attempts !== MAX_ATTEMPTS || row.consumedAt === null) {
-    return `20 parallel wrong guesses left attempts=${row?.attempts} consumed=${row?.consumedAt != null}; expected ${MAX_ATTEMPTS} and consumed`;
+  if (row?.attempts !== MAX_ATTEMPTS) {
+    return `20 parallel wrong guesses recorded ${row?.attempts} attempts; expected ${MAX_ATTEMPTS}`;
   }
   return (await verifyOtp(EMAIL, code, PURPOSE))
     ? "the right code still worked after the attempt cap was spent"
