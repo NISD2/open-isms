@@ -166,7 +166,7 @@
     },
     "10_4": {
       "title": "Zugriffsüberprüfungen",
-      "description": "Zugriffsrechte einschließlich privilegierter Konten regelmäßig überprüfen und dokumentieren. Gesetzlich: in geplanten Abständen; Empfehlung: vierteljährlich."
+      "description": "Zugriffsrechte einschließlich privilegierter Konten regelmäßig überprüfen und dokumentieren. Gesetzlich: in geplanten Abständen; Empfehlung: jährlich, privilegierte Konten vierteljährlich."
     },
     "11_1": {
       "title": "Authentifizierung: wo MFA verpflichtend ist",

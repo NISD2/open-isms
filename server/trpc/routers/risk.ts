@@ -9,6 +9,7 @@ import {
   getDefaultMethodology,
   type ScaleLevel,
 } from "@/lib/compliance/risk-methodology-defaults";
+import { seedLocale } from "@/lib/compliance/seed-locale";
 import {
   asset,
   companyRiskMethodology,
@@ -47,8 +48,10 @@ export const riskRouter = router({
     });
     if (existing) return existing;
 
-    // Lazy-init with BSI 200-3 defaults
-    const defaults = getDefaultMethodology("en");
+    // Lazy-init with BSI 200-3 defaults, in the account's language
+    const defaults = getDefaultMethodology(
+      await seedLocale(ctx.db, ctx.userId, ctx.companyId),
+    );
     const [row] = await ctx.db
       .insert(companyRiskMethodology)
       .values({
