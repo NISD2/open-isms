@@ -117,21 +117,8 @@ export function mailSuppressionReason(): MailSuppressionReason | null {
   return null;
 }
 
-/**
- * The sentinel ids sendMail (and the dev-stub Resend client) return instead
- * of a Resend message id when a send was suppressed. `success: true` with one
- * of these ids means "not an error" — it never means "delivered".
- */
-const SUPPRESSED_SEND_IDS: ReadonlySet<string> = new Set([
-  "dev-blocked",
-  "disabled",
-  "no-transport",
-  "dev-stub",
-]);
-
-export function isSuppressedSendId(id: string | undefined): boolean {
-  return id !== undefined && SUPPRESSED_SEND_IDS.has(id);
-}
+// Kept importable from here: every caller and test mock reads it from send.ts.
+export { isSuppressedSendId } from "./delivery";
 
 /**
  * Send a transactional email over whichever transport this instance has

@@ -23,6 +23,35 @@ describe("replaceAddress", () => {
     expect(erase(`Invited ${text} today`)).toBe(`Invited ${text} today`);
   });
 
+  // RFC local-part characters before it make a different, real address.
+  test.each(["o'anna@web.de", "x=anna@web.de", "x/anna@web.de"])(
+    "leaves %s untouched",
+    (text) => {
+      expect(erase(text)).toBe(text);
+    },
+  );
+
+  // None of these can be part of an address, and the erased person's own
+  // address stands between them in real text.
+  test.each([
+    ["German quotes", "„anna@web.de“", "„[erased]“"],
+    ["guillemets", "«anna@web.de»", "«[erased]»"],
+    ["curly single quotes", "‘anna@web.de’", "‘[erased]’"],
+    ["curly double quotes", "“anna@web.de”", "“[erased]”"],
+    ["non-breaking spaces", "an anna@web.de geschickt", "an [erased] geschickt"],
+    ["zero-width spaces", "​anna@web.de​", "​[erased]​"],
+    ["a trailing ellipsis", "anna@web.de…", "[erased]…"],
+  ])("replaces it between %s", (_, text, erased) => {
+    expect(erase(text)).toBe(erased);
+  });
+
+  // Internationalized addresses exist, so a letter beyond ASCII still continues one.
+  test("leaves an address continued by a non-ASCII letter untouched", () => {
+    expect(erase("jöanna@web.de")).toBe("jöanna@web.de");
+    expect(erase("anna@web.deä")).toBe("anna@web.deä");
+    expect(erase("𝒜anna@web.de")).toBe("𝒜anna@web.de");
+  });
+
   test("replaces the address alone", () => {
     expect(erase(ANNA)).toBe("[erased]");
   });

@@ -14,7 +14,8 @@
  * dies right after the commit. The files are deleted only after the commit:
  * deleting first would destroy them for good if the transaction then rolled
  * back. A deletion still unfinished after {@link ERASURE_FILE_RETRY_DAYS} days
- * goes to an operator, and the certificate says so.
+ * goes to an operator by mail, retried daily until the mail has gone out, and
+ * only then does the certificate say an operator has it.
  *
  * Free of the S3 client and the database handle, so the rules can be tested
  * with a fake store.
@@ -73,6 +74,12 @@ export const fileOutcomeSchema = z.object({
   keys: z.array(z.string()).default([]),
   /** Files in the company's folders whose keys fail isOwnObjectKey, so they are never deleted automatically. */
   refused: z.number().int().min(0).default(0),
+  /**
+   * For "manual": whether the mail to the operators actually went out. With
+   * no admin address, mail disabled or a failed send it has not, and until it
+   * has, nobody has been handed anything.
+   */
+  alerted: z.boolean().default(false),
 });
 
 export type FileOutcome = z.infer<typeof fileOutcomeSchema>;
@@ -149,6 +156,7 @@ export function pendingOutcome(files: StoredFiles): FileOutcome {
     pendingPrefixes: [...files.prefixes],
     keys: [...new Set(files.keys.filter((key) => isOwnKey(files.prefixes, key)))],
     refused: 0,
+    alerted: false,
   };
 }
 
@@ -210,6 +218,7 @@ export async function deleteStoredFiles(
     pendingPrefixes,
     keys: folders.flatMap((folder) => folder.left),
     refused: folders.reduce((sum, folder) => sum + folder.refused, 0),
+    alerted: false,
   };
 }
 
@@ -262,6 +271,16 @@ export function retryFiles(companyId: string, latest: FileOutcome): StoredFiles 
   return { prefixes, keys: latest.keys.filter((key) => isOwnKey(prefixes, key)) };
 }
 
+/**
+ * What the cron still owes an erasure's files: another deletion attempt, the
+ * operator mail that has not gone out yet, or nothing.
+ */
+export function followUp(outcome: FileOutcome): "delete" | "alert" | null {
+  if (outcome.state === "pending") return "delete";
+  if (outcome.state === "manual" && !outcome.alerted) return "alert";
+  return null;
+}
+
 /** An outcome still pending {@link ERASURE_FILE_RETRY_DAYS} days after the erasure is final: it needs a person. */
 export function afterRetryWindow(
   outcome: FileOutcome,
@@ -274,17 +293,26 @@ export function afterRetryWindow(
     : outcome;
 }
 
-/** What an erasure certificate may say about the organization's stored files. */
+/**
+ * What an erasure certificate may say about the organization's stored files.
+ * "pending": still being retried. "outstanding": retries are over and no
+ * operator has been reached yet. "manual": an operator has the rest.
+ */
 export type StoredFileState =
   | { kind: "not_applicable" }
   | { kind: "unrecorded" }
-  | { kind: "pending" | "manual"; deleted: number; pendingPrefixes: string[] }
+  | {
+      kind: "pending" | "outstanding" | "manual";
+      deleted: number;
+      pendingPrefixes: string[];
+    }
   | { kind: "complete"; deleted: number };
 
 /**
  * Read the latest recorded outcome. A teardown with no outcome on record,
  * which is every teardown made before files were deleted at all, is
- * "unrecorded", never "complete".
+ * "unrecorded", never "complete". A manual outcome whose operator mail has
+ * not gone out is "outstanding", never "manual".
  */
 export function storedFileState(
   companyTornDown: boolean,
@@ -293,8 +321,8 @@ export function storedFileState(
   if (!companyTornDown) return { kind: "not_applicable" };
   const parsed = fileOutcomeSchema.safeParse(latestOutcome);
   if (!parsed.success) return { kind: "unrecorded" };
-  const { state, deleted, pendingPrefixes } = parsed.data;
-  return state === "complete"
-    ? { kind: "complete", deleted }
-    : { kind: state, deleted, pendingPrefixes };
+  const { state, deleted, pendingPrefixes, alerted } = parsed.data;
+  if (state === "complete") return { kind: "complete", deleted };
+  const kind = state === "manual" ? (alerted ? "manual" : "outstanding") : "pending";
+  return { kind, deleted, pendingPrefixes };
 }

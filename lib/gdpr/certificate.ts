@@ -60,6 +60,10 @@ function storedFilesSection(files: StoredFileState): string {
       return section(
         `Not all of ${UPLOADED_FILES} had been deleted from file storage (AWS S3) when this record was issued: ${files.deleted} file(s) deleted so far, ${files.pendingPrefixes.length} folder(s) outstanding. The deletion is retried daily for up to ${ERASURE_FILE_RETRY_DAYS} days after the erasure, then passed to an operator.`,
       );
+    case "outstanding":
+      return section(
+        `Not all of ${UPLOADED_FILES} have been deleted from file storage (AWS S3): ${files.deleted} file(s) deleted, ${files.pendingPrefixes.length} folder(s) outstanding. Their deletion is not complete.`,
+      );
     case "manual":
       return section(
         `Not all of ${UPLOADED_FILES} could be deleted from file storage (AWS S3) automatically: ${files.deleted} file(s) deleted, ${files.pendingPrefixes.length} folder(s) outstanding after ${ERASURE_FILE_RETRY_DAYS} days of retries. The rest has been passed to an operator for deletion by hand.`,

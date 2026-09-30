@@ -8,37 +8,63 @@
  * occurrence counts only when the character before it could not continue the
  * local part and the character after it could not continue the domain.
  *
- * A character scan rather than a pattern, so each boundary rule is one
- * readable function.
+ * A character scan rather than a pattern over the text, so each boundary rule
+ * is one readable function; a regex only classifies single characters.
  */
 
-/** What RFC 5322 allows in an unquoted local part besides letters and digits. */
+/**
+ * What RFC 5322 allows in an unquoted local part besides letters and digits.
+ * These continue an address, so o'anna@web.de, a real address shape, is not
+ * anna@web.de.
+ */
 const LOCAL_PART_SYMBOLS = new Set("!#$%&'*+-/=?^_`{|}~.");
 
 const isAsciiAlphanumeric = (code: number) =>
   (code >= 48 && code <= 57) || (code >= 65 && code <= 90) || (code >= 97 && code <= 122);
 
+/** Tests the Unicode category of one character, never the shape of a text. */
+const LETTER_DIGIT_OR_MARK = /^[\p{L}\p{N}\p{M}]$/u;
+
 /**
- * Non-ASCII counts as part of an address on both sides: internationalized
- * local parts and domains exist, and taking such a character for a boundary
- * would match inside somebody else's address.
+ * Beyond ASCII, only letters, digits and combining marks can belong to an
+ * internationalized address. Quotes („“ «» ‘’), spaces of any width,
+ * zero-width characters and an ellipsis cannot, so they are boundaries: the
+ * erased person's own address stands between them in real text.
  */
+function isAddressCharacter(ch: string, asciiSymbols: (ch: string) => boolean): boolean {
+  const code = ch.codePointAt(0) ?? 0;
+  if (code > 127) return LETTER_DIGIT_OR_MARK.test(ch);
+  return isAsciiAlphanumeric(code) || asciiSymbols(ch);
+}
+
 function continuesLocalPart(ch: string | undefined): boolean {
-  if (ch === undefined) return false;
-  const code = ch.charCodeAt(0);
-  return isAsciiAlphanumeric(code) || code > 127 || LOCAL_PART_SYMBOLS.has(ch);
+  return ch !== undefined && isAddressCharacter(ch, (c) => LOCAL_PART_SYMBOLS.has(c));
 }
 
 function isDomainCharacter(ch: string | undefined): boolean {
-  if (ch === undefined) return false;
-  const code = ch.charCodeAt(0);
-  return isAsciiAlphanumeric(code) || code > 127 || ch === "-";
+  return ch !== undefined && isAddressCharacter(ch, (c) => c === "-");
+}
+
+/** The whole character starting at `at`, so a letter outside the BMP is read as one. */
+function characterAt(text: string, at: number): string | undefined {
+  const code = text.codePointAt(at);
+  return code === undefined ? undefined : String.fromCodePoint(code);
+}
+
+/** The whole character ending just before `at`. */
+function characterBefore(text: string, at: number): string | undefined {
+  if (at <= 0) return undefined;
+  const last = text.charCodeAt(at - 1);
+  const isLowSurrogate = last >= 0xdc00 && last <= 0xdfff;
+  return isLowSurrogate && at >= 2 ? text.slice(at - 2, at) : text[at - 1];
 }
 
 /** A dot continues the domain only when a label follows it, not at the end of a sentence. */
 function continuesDomain(text: string, at: number): boolean {
+  const next = characterAt(text, at);
   return (
-    isDomainCharacter(text[at]) || (text[at] === "." && isDomainCharacter(text[at + 1]))
+    isDomainCharacter(next) ||
+    (next === "." && isDomainCharacter(characterAt(text, at + 1)))
   );
 }
 
@@ -75,7 +101,8 @@ export function addressSpans(
   ) {
     const end = at + needle.length;
     const whole =
-      !continuesLocalPart(haystack[at - 1]) && !continuesDomain(haystack, end);
+      !continuesLocalPart(characterBefore(haystack, at)) &&
+      !continuesDomain(haystack, end);
     if (whole) spans.push([at, end]);
     from = whole ? end : at + 1;
   }

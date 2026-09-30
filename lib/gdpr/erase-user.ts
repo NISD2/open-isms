@@ -120,6 +120,7 @@ import {
   type FileOutcome,
   type FileStore,
   fileOutcomeSchema,
+  followUp,
   pendingOutcome,
   retryFiles,
   type StoredFileState,
@@ -1492,7 +1493,7 @@ async function recordFileOutcome(
   const description = {
     pending: `Erasure ${erasure.caseRef}: ${outcome.deleted} stored file(s) deleted, ${outstanding} folder(s) still to delete`,
     complete: `Erasure ${erasure.caseRef}: ${outcome.deleted} stored file(s) deleted`,
-    manual: `Erasure ${erasure.caseRef}: ${outcome.deleted} stored file(s) deleted, ${outstanding} folder(s) need manual deletion`,
+    manual: `Erasure ${erasure.caseRef}: ${outcome.deleted} stored file(s) deleted, ${outstanding} folder(s) need manual deletion, ${outcome.alerted ? "operators mailed" : "operator mail not sent yet"}`,
   }[outcome.state];
   await tx
     .update(auditLog)
@@ -1514,12 +1515,12 @@ async function recordFileOutcome(
   });
 }
 
-/** Tell the operators an erasure's files need a person. Folders name only the company id. */
+/** Tell the operators an erasure's files need a person, and say whether the mail went out. Folders name only the company id. */
 async function alertManualDeletion(
   erasure: { logId: string; caseRef: string },
   outcome: FileOutcome,
-): Promise<void> {
-  await alertGdprOperators(`${erasure.caseRef}: Dateien von Hand löschen`, [
+): Promise<boolean> {
+  return alertGdprOperators(`${erasure.caseRef}: Dateien von Hand löschen`, [
     `Löschvorgang ${erasure.caseRef}: Auch ${ERASURE_FILE_RETRY_DAYS} Tage danach sind nicht alle gespeicherten Dateien aus dem Speicher (AWS S3) gelöscht. Automatisch wird es nicht mehr versucht.`,
     `${outcome.deleted} Datei(en) gelöscht. Offene Ordner: ${outcome.pendingPrefixes.join(", ")}.`,
     `${outcome.keys.length} bekannte Datei(en) liegen noch dort, ${outcome.refused} wurden nicht angefasst, weil ihr Schlüssel aus dem Ordner der Firma herausführt.`,
@@ -1543,12 +1544,13 @@ export async function erasureStoredFiles(
 }
 
 /**
- * Retry every erasure whose latest outcome is still pending, and return how
- * many were retried. Called by the deadlines cron. Every committed teardown
- * has at least the pending outcome its transaction wrote. The folders come
- * from the erasure record's company and the recorded keys are checked against
- * them (retryFiles), so a damaged outcome cannot widen what is deleted. After
- * ERASURE_FILE_RETRY_DAYS the outcome turns "manual" and an operator is told.
+ * Retry every erasure whose files are still owed something, and return how
+ * many. Called by the deadlines cron. Every committed teardown has at least
+ * the pending outcome its transaction wrote. The folders come from the
+ * erasure record's company and the recorded keys are checked against them
+ * (retryFiles), so a damaged outcome cannot widen what is deleted. After
+ * ERASURE_FILE_RETRY_DAYS the outcome turns "manual" and the operators are
+ * mailed, again each day until the mail has actually gone out.
  */
 export async function retryPendingErasureFiles(
   store: FileStore = objectStore,
@@ -1566,13 +1568,19 @@ export async function retryPendingErasureFiles(
     .innerJoin(dataErasureLog, eq(dataErasureLog.id, auditLog.entityId))
     .where(eq(auditLog.action, ERASURE_FILES_ACTION))
     .orderBy(auditLog.entityId, desc(auditLog.createdAt));
-  const pending = latest.flatMap((row) => {
+  const owed = latest.flatMap((row) => {
     const parsed = fileOutcomeSchema.safeParse(row.outcome);
-    return parsed.success && parsed.data.state === "pending" && row.companyId
-      ? [{ ...row, companyId: row.companyId, previous: parsed.data }]
+    if (!parsed.success || !row.companyId) return [];
+    const next = followUp(parsed.data);
+    return next
+      ? [{ ...row, companyId: row.companyId, previous: parsed.data, next }]
       : [];
   });
-  for (const erasure of pending) {
+  for (const erasure of owed) {
+    if (erasure.next === "alert") {
+      await retryManualAlert(erasure);
+      continue;
+    }
     await settleStoredFiles(
       store,
       retryFiles(erasure.companyId, erasure.previous),
@@ -1582,11 +1590,37 @@ export async function retryPendingErasureFiles(
           erasure.erasedAt,
           now,
         );
-        await db.transaction((tx) => recordFileOutcome(tx, erasure, settled));
-        if (settled.state === "manual") await alertManualDeletion(erasure, settled);
+        const alerted =
+          settled.state === "manual" && (await alertManualDeletion(erasure, settled));
+        await db.transaction((tx) =>
+          recordFileOutcome(tx, erasure, { ...settled, alerted }),
+        );
       },
       `erasure ${erasure.caseRef}`,
     );
   }
-  return pending.length;
+  return owed.length;
+}
+
+/**
+ * Mail the operators about a manual deletion whose mail has not gone out, and
+ * record it once it has. An unsent attempt adds no row: the outcome already
+ * says the mail is owed, and the cron tries again tomorrow.
+ */
+async function retryManualAlert(erasure: {
+  logId: string;
+  caseRef: string;
+  previous: FileOutcome;
+}): Promise<void> {
+  if (!(await alertManualDeletion(erasure, erasure.previous))) return;
+  await db
+    .transaction((tx) =>
+      recordFileOutcome(tx, erasure, { ...erasure.previous, alerted: true }),
+    )
+    .catch((err: unknown) =>
+      console.error(
+        `[gdpr] erasure ${erasure.caseRef}: sent operator mail not recorded:`,
+        err instanceof Error ? err.name : "unknown error",
+      ),
+    );
 }

@@ -69,6 +69,10 @@ describe("buildErasureCertificate", () => {
       "files passed on for manual deletion",
       { kind: "manual", deleted: 3, pendingPrefixes: ["evidence/x/"] },
     ],
+    [
+      "retries over and no operator reached yet",
+      { kind: "outstanding", deleted: 3, pendingPrefixes: ["evidence/x/"] },
+    ],
     ["no deletion recorded", { kind: "unrecorded" }],
   ] as const)("a teardown with %s does not claim more than was done", (_, files) => {
     const text = buildErasureCertificate(row(true), files);
@@ -96,6 +100,18 @@ describe("buildErasureCertificate", () => {
       pendingPrefixes: ["evidence/x/"],
     });
     expect(text).toContain("passed to an operator for deletion by hand");
+    expect(text).not.toContain("retried daily");
+  });
+
+  // The operator mail may not have gone out (no admin address, mail off).
+  test("an outstanding deletion claims neither retries nor an operator", () => {
+    const text = buildErasureCertificate(row(true), {
+      kind: "outstanding",
+      deleted: 3,
+      pendingPrefixes: ["evidence/x/"],
+    });
+    expect(text).toContain("Their deletion is not complete.");
+    expect(text).not.toContain("passed to an operator");
     expect(text).not.toContain("retried daily");
   });
 });

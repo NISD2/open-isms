@@ -22,6 +22,7 @@ import {
   ERASURE_FILE_RETRY_DAYS,
   type FileOutcome,
   type FileStore,
+  followUp,
   pendingOutcome,
   type Retry,
   retryFiles,
@@ -145,6 +146,7 @@ describe("deleteStoredFiles", () => {
       pendingPrefixes: [],
       keys: [],
       refused: 0,
+      alerted: false,
     });
     expect([...objects].sort()).toEqual([INVOICE, OTHER_TENANT].sort());
   });
@@ -184,6 +186,7 @@ describe("deleteStoredFiles", () => {
       pendingPrefixes: [CERTS],
       keys: [CERTIFICATE],
       refused: 0,
+      alerted: false,
     });
     expect(calls.remove.get(CERTIFICATE)).toBe(3);
     expect(objects.has(CERTIFICATE)).toBe(true);
@@ -220,6 +223,7 @@ describe("retryFiles", () => {
       pendingPrefixes: ["", "billing/", `evidence/${OTHER}/`, CERTS],
       keys: [INVOICE, OTHER_TENANT, CLIMBING, CERTIFICATE],
       refused: 0,
+      alerted: false,
     };
     expect(retryFiles(COMPANY, damaged)).toEqual({
       prefixes: [CERTS],
@@ -236,6 +240,7 @@ describe("afterRetryWindow", () => {
     pendingPrefixes: [CERTS],
     keys: [],
     refused: 0,
+    alerted: false,
   };
   const daysLater = (days: number) =>
     new Date(erasedAt.getTime() + days * 24 * 60 * 60 * 1000);
@@ -325,8 +330,45 @@ describe("storedFileState", () => {
     expect(
       storedFileState(true, { state: "pending", deleted: 5, pendingPrefixes: ["x/"] }),
     ).toEqual({ kind: "pending", deleted: 5, pendingPrefixes: ["x/"] });
-    expect(
-      storedFileState(true, { state: "manual", deleted: 5, pendingPrefixes: ["x/"] }),
-    ).toEqual({ kind: "manual", deleted: 5, pendingPrefixes: ["x/"] });
+  });
+
+  // No admin address, mail switched off or a failed send: nobody was handed
+  // anything, whatever the state says.
+  test("reads a manual outcome as handed over only once the operator mail went out", () => {
+    const manual = { state: "manual", deleted: 5, pendingPrefixes: ["x/"] };
+    expect(storedFileState(true, manual)).toEqual({
+      kind: "outstanding",
+      deleted: 5,
+      pendingPrefixes: ["x/"],
+    });
+    expect(storedFileState(true, { ...manual, alerted: true })).toEqual({
+      kind: "manual",
+      deleted: 5,
+      pendingPrefixes: ["x/"],
+    });
+  });
+});
+
+describe("followUp", () => {
+  const outcome = (state: FileOutcome["state"], alerted: boolean): FileOutcome => ({
+    state,
+    deleted: 0,
+    pendingPrefixes: [],
+    keys: [],
+    refused: 0,
+    alerted,
+  });
+
+  test("retries a pending deletion", () => {
+    expect(followUp(outcome("pending", false))).toBe("delete");
+  });
+
+  test("retries the operator mail of a manual deletion until it has gone out", () => {
+    expect(followUp(outcome("manual", false))).toBe("alert");
+    expect(followUp(outcome("manual", true))).toBeNull();
+  });
+
+  test("owes a finished deletion nothing", () => {
+    expect(followUp(outcome("complete", false))).toBeNull();
   });
 });
