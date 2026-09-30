@@ -7,26 +7,13 @@ import { getClientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
 import { isLocaleCode, type LocaleCode } from "@/lib/locale";
 import { sendAuthCode } from "@/lib/mail";
+import { rateLimit } from "@/lib/rate-limit";
 import type { Locale } from "@/lib/seo";
 import { user } from "@/schema";
 
-// Simple in-memory rate limiter: max 5 attempts per IP per 15 minutes
-const attempts = new Map<string, { count: number; resetAt: number }>();
+// Rate limit: max 5 attempts per IP per 15 minutes
 const WINDOW_MS = 15 * 60 * 1000;
 const MAX_ATTEMPTS = 5;
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const entry = attempts.get(ip);
-
-  if (!entry || now > entry.resetAt) {
-    attempts.set(ip, { count: 1, resetAt: now + WINDOW_MS });
-    return false;
-  }
-
-  entry.count++;
-  return entry.count > MAX_ATTEMPTS;
-}
 
 /**
  * Registration with email verification.
@@ -49,7 +36,7 @@ function isRateLimited(ip: string): boolean {
 export async function POST(request: Request) {
   const ip = getClientIp(request.headers);
 
-  if (isRateLimited(ip)) {
+  if (!rateLimit(`auth:register:${ip}`, MAX_ATTEMPTS, WINDOW_MS)) {
     return NextResponse.json(
       { error: "Too many attempts. Please try again later." },
       { status: 429 },

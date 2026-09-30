@@ -4,24 +4,13 @@ import { NextResponse } from "next/server";
 import { verifyOtp } from "@/lib/auth/otp";
 import { getClientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
+import { rateLimit } from "@/lib/rate-limit";
 import { user } from "@/schema";
 
-// In-memory IP rate limit. Per-OTP attempts are capped server-side at 5
+// Per-IP rate limit. Per-OTP attempts are capped server-side at 5
 // inside verifyOtp; this exists to slow enumeration across emails.
-const attempts = new Map<string, { count: number; resetAt: number }>();
 const WINDOW_MS = 15 * 60 * 1000;
 const MAX_ATTEMPTS = 10;
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const entry = attempts.get(ip);
-  if (!entry || now > entry.resetAt) {
-    attempts.set(ip, { count: 1, resetAt: now + WINDOW_MS });
-    return false;
-  }
-  entry.count++;
-  return entry.count > MAX_ATTEMPTS;
-}
 
 /**
  * Complete a password reset by submitting the OTP from the
@@ -40,7 +29,7 @@ function isRateLimited(ip: string): boolean {
 export async function POST(request: Request) {
   const ip = getClientIp(request.headers);
 
-  if (isRateLimited(ip)) {
+  if (!rateLimit(`auth:reset-password:${ip}`, MAX_ATTEMPTS, WINDOW_MS)) {
     return NextResponse.json(
       { error: "Too many attempts. Please try again later." },
       { status: 429 },

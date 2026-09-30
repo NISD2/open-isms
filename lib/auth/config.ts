@@ -14,12 +14,14 @@ import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
 import { effectiveAccessLevel } from "@/lib/billing/access";
 import { isActivePromo, PROMO_COOKIE } from "@/lib/billing/promo";
 import { grandfatherByPromo } from "@/lib/billing/promo-grant";
+import { getClientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
 import { env } from "@/lib/env";
 import { isFeatureOn } from "@/lib/feature-flags";
 import { isLocaleCode, LOCALE_COOKIE, type LocaleCode } from "@/lib/locale";
 import { newUserSignupEmail, sendMail, sendWelcomeEmail } from "@/lib/mail";
 import { resolveHints } from "@/lib/onboarding/hints";
+import { rateLimit } from "@/lib/rate-limit";
 import { billingAccount, company, companyMembership, user } from "@/schema";
 import { createDraftCompany } from "@/server/trpc/helpers/setup-helpers";
 
@@ -91,23 +93,21 @@ async function applyPromoFromCookie(email: string): Promise<void> {
   }
 }
 
-// In-memory rate limiter for login attempts
-const loginAttempts = new Map<string, { count: number; resetAt: number }>();
 const LOGIN_WINDOW_MS = 15 * 60 * 1000;
-const LOGIN_MAX_ATTEMPTS = 10;
+const LOGIN_MAX_PER_EMAIL = 10;
+const LOGIN_MAX_PER_IP = 30;
 
-function isLoginRateLimited(email: string): boolean {
-  const now = Date.now();
-  const key = email.toLowerCase();
-  const entry = loginAttempts.get(key);
-
-  if (!entry || now > entry.resetAt) {
-    loginAttempts.set(key, { count: 1, resetAt: now + LOGIN_WINDOW_MS });
-    return false;
-  }
-
-  entry.count++;
-  return entry.count > LOGIN_MAX_ATTEMPTS;
+/**
+ * Per email caps guessing at one account; per IP caps one source trying a
+ * password across many accounts, which the email key alone never slowed.
+ * Both are counted on every attempt. An "unknown" IP (self-hosted without a
+ * proxy) would put every visitor in one bucket, so it gets the email cap only.
+ */
+function isLoginAllowed(email: string, ip: string): boolean {
+  const byEmail = rateLimit(`login:email:${email}`, LOGIN_MAX_PER_EMAIL, LOGIN_WINDOW_MS);
+  const byIp =
+    ip === "unknown" || rateLimit(`login:ip:${ip}`, LOGIN_MAX_PER_IP, LOGIN_WINDOW_MS);
+  return byEmail && byIp;
 }
 
 const providers: Provider[] = [
@@ -120,14 +120,14 @@ const providers: Provider[] = [
       email: { label: "Email", type: "email" },
       password: { label: "Password", type: "password" },
     },
-    async authorize(credentials) {
+    async authorize(credentials, request) {
       const email = (credentials?.email as string | undefined)?.toLowerCase().trim();
       const password = credentials?.password as string | undefined;
 
       if (!email || !password) return null;
       if (password.length > 128) return null;
 
-      if (isLoginRateLimited(email)) return null;
+      if (!isLoginAllowed(email, getClientIp(request.headers))) return null;
 
       const dbUser = await db.query.user.findFirst({
         where: eq(user.email, email),
