@@ -4,10 +4,10 @@
  * Pre-filled scale definitions with locale-aware labels.
  * Users can edit these after seeding — labels are stored in DB, not i18n.
  *
- * German labels and descriptions are BSI-Standard 200-3 v1.0 (2017), Tabelle 8
- * (Eintrittshäufigkeit) and Tabelle 9 (Schadensauswirkungen), word for word. The
- * English is our translation of the same tables.
+ * The scales are Tabelle 8 and Tabelle 9 of BSI-Standard 200-3, read from ./bsi-200-3.
  */
+
+import { FREQUENCIES, FREQUENCY_TEXT, IMPACT_TEXT, IMPACTS } from "./bsi-200-3";
 
 export interface ScaleLevel {
   value: number;
@@ -26,105 +26,14 @@ export interface RiskMethodologyData {
 export function getDefaultMethodology(locale: "en" | "de"): RiskMethodologyData {
   return {
     name: "BSI 200-3",
-    likelihoodLevels:
-      locale === "de"
-        ? [
-            {
-              value: 1,
-              label: "Selten",
-              description:
-                "Ereignis könnte nach heutigem Kenntnisstand höchstens alle fünf Jahre eintreten.",
-            },
-            {
-              value: 2,
-              label: "Mittel",
-              description:
-                "Ereignis tritt einmal alle fünf Jahre bis einmal im Jahr ein.",
-            },
-            {
-              value: 3,
-              label: "Häufig",
-              description: "Ereignis tritt einmal im Jahr bis einmal pro Monat ein.",
-            },
-            {
-              value: 4,
-              label: "Sehr häufig",
-              description: "Ereignis tritt mehrmals im Monat ein.",
-            },
-          ]
-        : [
-            {
-              value: 1,
-              label: "Rare",
-              description:
-                "By current knowledge, the event could occur at most once every five years.",
-            },
-            {
-              value: 2,
-              label: "Medium",
-              description:
-                "The event occurs between once every five years and once a year.",
-            },
-            {
-              value: 3,
-              label: "Frequent",
-              description: "The event occurs between once a year and once a month.",
-            },
-            {
-              value: 4,
-              label: "Very frequent",
-              description: "The event occurs several times a month.",
-            },
-          ],
-    impactLevels:
-      locale === "de"
-        ? [
-            {
-              value: 1,
-              label: "Vernachlässigbar",
-              description:
-                "Die Schadensauswirkungen sind gering und können vernachlässigt werden.",
-            },
-            {
-              value: 2,
-              label: "Begrenzt",
-              description: "Die Schadensauswirkungen sind begrenzt und überschaubar.",
-            },
-            {
-              value: 3,
-              label: "Beträchtlich",
-              description: "Die Schadensauswirkungen können beträchtlich sein.",
-            },
-            {
-              value: 4,
-              label: "Existenzbedrohend",
-              description:
-                "Die Schadensauswirkungen können ein existenziell bedrohliches, katastrophales Ausmaß erreichen.",
-            },
-          ]
-        : [
-            {
-              value: 1,
-              label: "Negligible",
-              description: "The damage is minor and can be disregarded.",
-            },
-            {
-              value: 2,
-              label: "Limited",
-              description: "The damage is limited and manageable.",
-            },
-            {
-              value: 3,
-              label: "Considerable",
-              description: "The damage can be considerable.",
-            },
-            {
-              value: 4,
-              label: "Existential",
-              description:
-                "The damage can reach an existentially threatening, catastrophic scale.",
-            },
-          ],
+    likelihoodLevels: FREQUENCIES.map((f, i) => ({
+      value: i + 1,
+      ...FREQUENCY_TEXT[locale][f],
+    })),
+    impactLevels: IMPACTS.map((impact, i) => ({
+      value: i + 1,
+      ...IMPACT_TEXT[locale][impact],
+    })),
     acceptanceThreshold: 4,
     includesOt: false,
   };

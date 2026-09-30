@@ -9,6 +9,219 @@
     "who": "Wer es erledigt",
     "ask": "Fragen Sie Ihr Team",
     "missed": "Häufig übersehen",
+    "waitReasons": {
+      "letter": "Ich warte auf einen Brief, zum Beispiel den Aktivierungsbrief von ELSTER",
+      "ask": "Ich muss erst jemanden fragen",
+      "decide": "Das müssen wir intern entscheiden",
+      "unclear": "Ich verstehe es noch nicht"
+    },
+    "items": {
+      "12_2": {
+        "headline": "Beim BSI registrieren",
+        "teaser": "Ihr Unternehmen meldet sich einmal beim BSI an.",
+        "missed": [
+          "Das BSI fragt nach allen öffentlichen statischen IP-Adressbereichen Ihres Unternehmens (§ 33 Abs. 1 Nr. 2 BSIG). Die kennt Ihr IT-Dienstleister. Fragen Sie ihn vorher. Haben Sie keine, geben Sie das an.",
+          "Ein neues Organisationszertifikat braucht einen Aktivierungsbrief, der per Post kommt. Das dauert nach Angabe von Mein Unternehmenskonto mindestens fünf Werktage. Beantragen Sie es früh."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Die Registrierung beim BSI",
+            "body": [
+              "Jedes Unternehmen, für das NIS 2 gilt, meldet sich einmal beim Bundesamt für Sicherheit in der Informationstechnik (BSI) an. Dabei geben Sie an, wer Sie sind und wie das BSI Sie erreicht.",
+              "Das geht online über das Portal des BSI. Hinein kommen Sie mit „Mein Unternehmenskonto“ und einem ELSTER-Organisationszertifikat. Hat Ihr Unternehmen schon eins, etwa aus der Steuer, nutzen Sie dieses."
+            ],
+            "duty": "Die Registrierung ist eine eigene Pflicht. Sie ist spätestens drei Monate fällig, nachdem Ihr Unternehmen als wichtige oder besonders wichtige Einrichtung gilt."
+          },
+          "data": {
+            "title": "Das fragt das BSI ab",
+            "lead": "Diese Angaben verlangt das Gesetz. Legen Sie sie bereit, bevor Sie das Portal öffnen.",
+            "items": [
+              {
+                "name": "Name und Rechtsform",
+                "detail": "mit Handelsregisternummer, wenn Sie eine haben"
+              },
+              {
+                "name": "Anschrift und Kontaktdaten",
+                "detail": "E-Mail-Adresse, Telefonnummern und Ihre öffentlichen IP-Adressbereiche"
+              },
+              {
+                "name": "Sektor",
+                "detail": "aus Anlage 1 oder 2 des BSIG, dazu die Branche, falls eine passt"
+              },
+              {
+                "name": "EU-Staaten",
+                "detail": "in denen Ihr Unternehmen diese Dienste erbringt"
+              },
+              {
+                "name": "Aufsichtsbehörden",
+                "detail": "die bei Bund und Ländern für Ihre Tätigkeit zuständig sind"
+              }
+            ],
+            "source": "§ 33 Abs. 1 BSIG. Das Portal fragt außerdem nach einer Kontaktstelle und einer Kontaktperson (Anleitung des BSI zur Registrierung)."
+          },
+          "contact": {
+            "title": "So sieht es richtig aus",
+            "caption": "Die E-Mail-Adresse, die Sie dem BSI angeben",
+            "good": {
+              "value": "it-sicherheit@ihre-firma.de",
+              "note": "Ein Funktionspostfach, wie es das BSI in seiner Anleitung empfiehlt. Menschen wechseln, das Postfach bleibt."
+            },
+            "bad": {
+              "value": "m.mueller@ihre-firma.de",
+              "note": "Eine persönliche Adresse. Wechselt Frau Müller die Stelle, erreicht das BSI niemanden mehr."
+            }
+          },
+          "confirmation": {
+            "title": "Halten Sie die Registrierung fest",
+            "lead": "Zwei Angaben. Damit wissen Sie später, mit welchem Zertifikat und an welchem Tag registriert wurde.",
+            "document": "Ihr Zugang zum BSI-Portal"
+          },
+          "proof": {
+            "title": "Legen Sie einen Nachweis ab",
+            "lead": "Im BSI-Portal zeigt die Übersicht der registrierten Fachverfahren jede abgeschlossene Registrierung. Ein Bildschirmfoto oder ein Ausdruck dieser Seite hält fest, dass Ihre erledigt ist.",
+            "document": "Übersicht der registrierten Fachverfahren"
+          },
+          "done": {
+            "title": "Registrierung erfasst",
+            "note": "Am Ende sieht die Geschäftsführung alle Punkte durch und unterschreibt."
+          }
+        },
+        "fields": {
+          "mukAccountId": {
+            "label": "Benutzerkonto-ID des Organisationszertifikats",
+            "hint": "Jedes ELSTER-Organisationszertifikat trägt eine eigene Kennziffer, die Benutzerkonto-ID. Wer das Zertifikat verwaltet, kann sie Ihnen nennen."
+          },
+          "bsiRegistrationDate": {
+            "label": "Tag der Registrierung",
+            "hint": "Der Tag, an dem im BSI-Portal „Registrierung abschließen“ geklickt wurde."
+          }
+        }
+      },
+      "2_1": {
+        "headline": "Festlegen, wie Sie Risiken einstufen",
+        "teaser": "Das BSI hat dafür eine fertige Methode.",
+        "missed": [
+          "Nicht nur Angriffe zählen. Das Gesetz verlangt einen gefahrenübergreifenden Ansatz (§ 30 Abs. 2 BSIG). Die EU-Richtlinie verlangt ausdrücklich, auch die physische Umgebung der Systeme zu schützen (Art. 21 Abs. 2 NIS 2), zum Beispiel vor Feuer, Wasser oder Stromausfall.",
+          "Welche Risiken hingenommen werden, entscheidet die Geschäftsführung. So sieht es auch der BSI-Standard 200-3 vor. Halten Sie diese Grenze mit Datum fest."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Wie Sie Risiken einstufen",
+            "body": [
+              "Bevor Sie Risiken aufschreiben, legen Sie fest, wie Sie sie bewerten. Dann bewertet jeder im Unternehmen nach denselben Regeln.",
+              "Das BSI hat dafür eine fertige Methode, den Standard 200-3. Jedes Risiko bekommt zwei Einschätzungen: Wie oft kann es eintreten? Wie groß wäre der Schaden? Daraus ergibt sich eine von vier Stufen."
+            ],
+            "duty": "Das Gesetz verlangt Konzepte zur Risikoanalyse. Eine bestimmte Methode schreibt es nicht vor."
+          },
+          "matrix": {
+            "title": "Die Matrix des BSI",
+            "lead": "Waagerecht steht, wie oft etwas eintritt. Senkrecht, wie groß der Schaden wäre. Wo sich beides trifft, steht die Stufe.",
+            "source": "BSI-Standard 200-3, Abbildung 3. Das BSI zeigt sie als Beispiel und schreibt, sie solle an die eigenen Bedürfnisse angepasst werden."
+          },
+          "reading": {
+            "title": "So lesen Sie die Matrix",
+            "caption": "Ein Server fällt einmal im Jahr bis einmal im Monat aus. Der Schaden ist begrenzt und überschaubar."
+          },
+          "adopt": {
+            "title": "Methode übernehmen",
+            "lead": "Mit einem Klick halten Sie die Methode fest. So steht sie danach in Ihren Unterlagen:",
+            "lines": [
+              { "label": "Methode", "text": "Risikoanalyse nach BSI-Standard 200-3" },
+              {
+                "label": "Stufen",
+                "text": "Vier für die Häufigkeit, vier für den Schaden, vier Risikostufen"
+              },
+              { "label": "Matrix", "text": "Die Zuordnung aus Abbildung 3 des Standards" }
+            ]
+          },
+          "acceptance": {
+            "title": "Welche Risiken Ihr Unternehmen hinnimmt",
+            "lead": "Bis zu welcher Stufe darf ein Risiko bleiben, ohne dass Sie etwas dagegen tun? Das entscheidet die Geschäftsführung. Wählen Sie hier den Vorschlag, den sie am Ende unterschreibt.",
+            "source": "Der BSI-Standard 200-3 geht in seinen Beispielen davon aus, dass eine Institution „‚geringe‘ Risiken grundsätzlich akzeptiert, ‚mittlere‘, ‚hohe‘ und ‚sehr hohe‘ Risiken jedoch nur in Ausnahmefällen“."
+          },
+          "done": {
+            "title": "Methode festgelegt",
+            "note": "Am Ende sieht die Geschäftsführung Methode und Grenze durch und unterschreibt."
+          }
+        }
+      },
+      "2_2": {
+        "headline": "Aufschreiben, was Ihr Unternehmen hat",
+        "teaser": "Eine Liste der Abläufe, Programme und Geräte, mit denen Sie arbeiten.",
+        "missed": [
+          "Auch gemietete Programme aus der Cloud gehören auf die Liste, etwa E-Mail oder Buchhaltung.",
+          "Für Abläufe und Programme sieht das BSI eine zuständige Person vor (Standard 200-2, Kapitel 8.1). Schreiben Sie dazu, wer sich damit auskennt."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Womit Ihr Unternehmen arbeitet",
+            "body": [
+              "Schützen können Sie nur, was Sie kennen. Deshalb schreiben Sie auf, womit Ihr Unternehmen arbeitet: Abläufe, Informationen, Programme, Geräte, Räume und Netze. Das BSI nennt diesen Schritt Strukturanalyse (Standard 200-2, Kapitel 8.1).",
+              "Die Liste muss nicht perfekt sein. Kommt etwas dazu, ergänzen Sie es."
+            ],
+            "duty": "Das Gesetz verlangt Konzepte zur Risikoanalyse und zur Verwaltung Ihrer IT-Systeme, Produkte und Prozesse. Beides beginnt mit dieser Liste."
+          },
+          "list": {
+            "title": "So kann Ihre Liste aussehen",
+            "caption": "Kurz reicht. Eine Zeile pro Sache:",
+            "rows": [
+              { "name": "Lohnabrechnung", "detail": "macht das Steuerbüro" },
+              { "name": "E-Mail", "detail": "Microsoft 365, alle Beschäftigten" },
+              { "name": "Büro-PCs", "detail": "zwölf Stück, im Hauptbüro" }
+            ]
+          },
+          "sources": {
+            "title": "Wo Ihre Liste schon steht",
+            "lead": "Das BSI rät, nach vorhandenen Übersichten zu suchen. Haken Sie ab, wo Sie nachgesehen haben:"
+          },
+          "processes": {
+            "title": "Was Ihr Unternehmen jeden Tag tut",
+            "lead": "Haken Sie an, was bei Ihnen läuft. Im Zweifel gilt: lieber aufschreiben als weglassen."
+          },
+          "business_apps": {
+            "title": "Programme für Kunden, Personal und Geld",
+            "lead": "Womit Sie Kunden bedienen, Löhne zahlen und buchen."
+          },
+          "shared_apps": {
+            "title": "Programme, die alle nutzen",
+            "lead": "E-Mail, Dateiablage, Chat und alles, was nur Ihre Branche hat."
+          },
+          "technology": {
+            "title": "Technik und Räume",
+            "lead": "Server, Geräte, Netz und die Orte, an denen gearbeitet wird."
+          },
+          "protection": {
+            "title": "Wie viele Schutzstufen Sie nutzen",
+            "lead": "Die Schutzstufe sagt, wie schlimm es wäre, wenn etwas ausfällt, verfälscht wird oder nach außen gelangt.",
+            "document": "Ihre Liste"
+          },
+          "done": {
+            "title": "Ihre Liste steht",
+            "note": "Kommt etwas dazu, ergänzen Sie es jederzeit. Am Ende sieht die Geschäftsführung die Liste durch."
+          }
+        },
+        "fields": {
+          "classificationLevels": {
+            "label": "Anzahl der Schutzstufen",
+            "hint": "Das BSI arbeitet mit drei Stufen: normal, hoch und sehr hoch (Standard 200-2, Kapitel 8.2.1). Wählen Sie eine andere Zahl nur, wenn Ihr Unternehmen schon anders einstuft."
+          }
+        },
+        "sources": {
+          "ropa": {
+            "label": "Verzeichnis der Verarbeitungstätigkeiten",
+            "text": "Aus dem Datenschutz (Art. 30 DSGVO). Es beschreibt, wofür Sie personenbezogene Daten verarbeiten, und nennt oft auch die Programme dafür."
+          },
+          "ledger": {
+            "label": "Anlagenverzeichnis oder Inventarliste",
+            "text": "Aus der Buchhaltung. Darin stehen Geräte und andere Technik, die Ihr Unternehmen gekauft hat."
+          },
+          "provider": {
+            "label": "Ihr IT-Dienstleister",
+            "text": "Er kennt Ihre Server, Konten und Clouddienste."
+          }
+        }
+      }
+    },
     "steps": {
       "12_1": {
         "who": "Compliance oder Recht trägt Sektor, Mitarbeiterzahl und Umsatz zusammen. Die Geschäftsleitung bestätigt die Einstufung: sie entscheidet damit, welche Pflichten das Unternehmen auf sich nimmt.",
@@ -41,7 +254,7 @@
         "who": "Die Informationssicherheit (ISB oder CISO) wählt die Methode und stellt die Skalen ein. Die Geschäftsleitung legt fest, welches Restrisiko das Unternehmen trägt: diese Schwelle ist ihre Entscheidung, nicht die der IT.",
         "ask": "Zeigen Sie mir die Risikomatrix und die Felder oben rechts. Welche Schwelle gilt bei uns für akzeptable Risiken, und habe ich sie freigegeben?",
         "missed": [
-          "Gefahrenübergreifend heißt nicht nur Cyber. §30(2) BSIG verlangt einen Ansatz, der auch Feuer, Wasser, Stromausfall und andere physische Gefahren einschließt.",
+          "Gefahrenübergreifend heißt nicht nur Cyber. §30(2) BSIG verlangt einen gefahrenübergreifenden Ansatz, und Art. 21(2) NIS 2 verlangt ausdrücklich, auch die physische Umgebung der Systeme zu schützen, etwa vor Feuer, Wasser oder Stromausfall.",
           "Die Akzeptanzschwelle wird oft nie ausdrücklich festgelegt. Sie gehört als eigene, datierte Entscheidung der Geschäftsleitung in die Methodik, nicht versteckt ins Risikoregister.",
           "Die Bedrohungslage gehört zur Methode: eine Quelle für aktuelle Bedrohungsinformationen benennen, mindestens die Lageberichte des BSI."
         ]

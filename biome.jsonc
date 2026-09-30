@@ -68,6 +68,52 @@
           }
         }
       }
+    },
+    {
+      // The Durchgang core is a package in all but name: pure data and rules, reached only
+      // through lib/durchgang/index.ts. Rendering, requests and the database stay outside, so
+      // moving it into packages/ later is a move and not a rewrite. Row types come from
+      // @/schema/types; the tables themselves stay out. Tests are exempt: they are never bundled.
+      "includes": ["lib/durchgang/**", "!lib/durchgang/**/*.test.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": [
+                      "react",
+                      "react-dom",
+                      "react/**",
+                      "next",
+                      "next/**",
+                      "next-intl",
+                      "next-intl/**",
+                      "drizzle-orm",
+                      "drizzle-orm/**",
+                      "@/schema",
+                      "@/schema/tables/**",
+                      "@/schema/modules/**",
+                      "@nisd2/isms-schema",
+                      "@nisd2/isms-schema/**",
+                      "@nisd2/grc-data-model/schema",
+                      "@/app/**",
+                      "@/components/**",
+                      "@/server/**",
+                      "@/lib/db",
+                      "@/lib/db/**",
+                      "@/lib/trpc/**"
+                    ],
+                    "message": "lib/durchgang is pure: no rendering, requests or database."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
     }
   ],
   "javascript": {
