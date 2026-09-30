@@ -1,13 +1,13 @@
-import { NextRequest } from "next/server";
 import { renderToBuffer } from "@react-pdf/renderer";
+import { and, desc, eq } from "drizzle-orm";
+import { NextRequest } from "next/server";
 import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { gapAssessment } from "@/schema";
-import { eq, and, desc } from "drizzle-orm";
 import { getGapAssessmentData } from "@/lib/gap-assessment";
+import type { AssessmentScores } from "@/lib/gap-assessment/schema";
 import { GapAssessmentReport } from "@/lib/pdf/gap-assessment-report";
 import { rateLimit } from "@/lib/rate-limit";
-import type { AssessmentScores } from "@/lib/gap-assessment/schema";
+import { gapAssessment } from "@/schema";
 
 export async function GET(request: NextRequest) {
   const session = await getSession();
@@ -15,28 +15,20 @@ export async function GET(request: NextRequest) {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  if (!rateLimit(`export:gap:${session.user.id}`, 5, 60_000)) {
+  if (!(await rateLimit(`export:gap:${session.user.id}`, 5, 60_000))) {
     return new Response("Too many requests", { status: 429 });
   }
 
   const sessionId = request.nextUrl.searchParams.get("sessionId");
   const locale = request.nextUrl.searchParams.get("locale") ?? "en";
 
-  let assessment;
-
-  if (sessionId) {
-    assessment = await db.query.gapAssessment.findFirst({
-      where: and(
-        eq(gapAssessment.id, sessionId),
-        eq(gapAssessment.userId, session.user.id),
-      ),
-    });
-  } else {
-    assessment = await db.query.gapAssessment.findFirst({
-      where: eq(gapAssessment.userId, session.user.id),
-      orderBy: [desc(gapAssessment.completedAt)],
-    });
-  }
+  // With a sessionId the id alone picks the row, so the ordering only acts without one.
+  const assessment = await db.query.gapAssessment.findFirst({
+    where: sessionId
+      ? and(eq(gapAssessment.id, sessionId), eq(gapAssessment.userId, session.user.id))
+      : eq(gapAssessment.userId, session.user.id),
+    orderBy: [desc(gapAssessment.completedAt)],
+  });
 
   if (!assessment || !assessment.completedAt || !assessment.scores) {
     return new Response("No completed assessment found", { status: 404 });
