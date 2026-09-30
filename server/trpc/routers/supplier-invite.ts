@@ -13,77 +13,121 @@
  * Security: companyProcedure ensures the caller is an authenticated entity.
  * Auto-audit middleware logs the create call.
  */
-import { z } from "zod";
-import { eq, and, desc, isNull, gt } from "drizzle-orm";
-import { TRPCError } from "@trpc/server";
-import { router, companyProcedure } from "../init";
-import { insertRow } from "../typed";
-import { supplierInvite, company } from "@/schema";
-import { supplierInviteRequestSchema } from "@/schema/validators";
+
 import { randomBytes } from "node:crypto";
-import { sendMail, entityInvitesSupplierEmail } from "@/lib/mail";
+import { TRPCError } from "@trpc/server";
+import { and, desc, eq, gt, isNull } from "drizzle-orm";
+import { z } from "zod";
+import { entityInvitesSupplierEmail, sendMail } from "@/lib/mail";
 import { getAppUrl } from "@/lib/utils";
+import { company, supplierInvite } from "@/schema";
+import { supplierInviteRequestSchema } from "@/schema/validators";
+import { requireSupplierMailBudget } from "../helpers/supplier-mail-budget";
+import { companyProcedure, router } from "../init";
+import { insertRow } from "../typed";
 
 /** 64-char hex magic-link token. */
 function generateInviteToken(): string {
   return randomBytes(32).toString("hex");
 }
 
-/** 30 days from now. */
-function defaultExpiry(): Date {
-  return new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+/** How long an invite link stays valid after it is sent. */
+export const INVITE_LIFETIME_MS = 30 * 24 * 60 * 60 * 1000;
+
+/** How long after an invite is sent before the same address can be sent it again. */
+export const INVITE_RESEND_COOLDOWN_MS = 24 * 60 * 60 * 1000;
+
+/**
+ * Whether an existing invite may be mailed again. The row has no column for
+ * when it was last sent, and needs none: every send sets expiresAt to the send
+ * time plus the lifetime, and revoke sets it to the moment of revocation. So a
+ * live invite was sent exactly one lifetime before it expires, and one that was
+ * revoked or ran out was sent no later than when it stopped. Reading the second
+ * case as "sent then" makes a revoke-and-invite-again loop wait out the
+ * cooldown too; the price is that an invite that simply ran out waits up to one
+ * cooldown longer than it needs to.
+ */
+export function canResendInvite(expiresAt: Date, now: Date): boolean {
+  const lastSentAt =
+    expiresAt > now ? expiresAt.getTime() - INVITE_LIFETIME_MS : expiresAt.getTime();
+  return now.getTime() - lastSentAt >= INVITE_RESEND_COOLDOWN_MS;
 }
+
+const resendTooSoon = () =>
+  new TRPCError({
+    code: "TOO_MANY_REQUESTS",
+    message:
+      "This supplier was already invited in the last 24 hours. You can send the invitation again after that.",
+  });
 
 export const supplierInviteRouter = router({
   /**
-   * Create (or refresh) an invite to a supplier email. If the same entity
-   * already has a pending invite to that email, we bump the token and expiry
-   * rather than creating a duplicate row. Returns the invite token so the
-   * caller could surface a copy-link UX in addition to the email.
+   * Create an invite to a supplier email, or send an existing one again with a
+   * new token and expiry once the cooldown is over. Returns the invite token
+   * so the caller could surface a copy-link UX in addition to the email.
    *
-   * Idempotent on (fromCompanyId, toEmail).
+   * One row per (fromCompanyId, toEmail); never duplicated.
    */
   create: companyProcedure
     .input(supplierInviteRequestSchema)
     .mutation(async ({ ctx, input }) => {
+      await requireSupplierMailBudget("supplierInvites", ctx.companyId);
       const email = input.toEmail.toLowerCase();
+      const now = new Date();
       const token = generateInviteToken();
-      const expiresAt = defaultExpiry();
+      const expiresAt = new Date(now.getTime() + INVITE_LIFETIME_MS);
+      const message = input.message ?? null;
 
-      const [row] = await ctx.db
-        .insert(supplierInvite)
-        .values(
-          insertRow(supplierInvite, {
-            fromCompanyId: ctx.companyId,
-            toEmail: email,
-            token,
-            message: input.message ?? null,
-            expiresAt,
-          }),
-        )
-        // Bump the existing invite if there's already a pending one for the
-        // same (entity, email) pair. Re-invite = new token + new expiry, but
-        // we never duplicate the row.
-        .onConflictDoUpdate({
-          target: [supplierInvite.fromCompanyId, supplierInvite.toEmail],
-          set: {
-            token,
-            message: input.message ?? null,
-            expiresAt,
-            // Reset the acceptance state so a previously-revoked invite can
-            // be re-issued. Defensive — entity wants to re-invite.
-            acceptedAt: null,
-            acceptedByCompanyId: null,
-          },
-        })
-        .returning();
+      const existing = await ctx.db.query.supplierInvite.findFirst({
+        where: and(
+          eq(supplierInvite.fromCompanyId, ctx.companyId),
+          eq(supplierInvite.toEmail, email),
+        ),
+        columns: { id: true, expiresAt: true, token: true },
+      });
+      if (existing && !canResendInvite(existing.expiresAt, now)) throw resendTooSoon();
+      if (!existing) await requireSupplierMailBudget("newRecipients", ctx.companyId);
 
-      if (!row) {
-        throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "Failed to create invite",
-        });
-      }
+      const [row] = existing
+        ? await ctx.db
+            .update(supplierInvite)
+            .set({
+              token,
+              message,
+              expiresAt,
+              // Reset the acceptance state so a previously-revoked invite can
+              // be re-issued. Defensive — entity wants to re-invite.
+              acceptedAt: null,
+              acceptedByCompanyId: null,
+            })
+            // Only while it still has the token that was read (every send
+            // replaces it), so two calls racing past the cooldown check send
+            // one mail, not two.
+            .where(
+              and(
+                eq(supplierInvite.id, existing.id),
+                eq(supplierInvite.token, existing.token),
+              ),
+            )
+            .returning()
+        : await ctx.db
+            .insert(supplierInvite)
+            .values(
+              insertRow(supplierInvite, {
+                fromCompanyId: ctx.companyId,
+                toEmail: email,
+                token,
+                message,
+                expiresAt,
+              }),
+            )
+            .onConflictDoNothing({
+              target: [supplierInvite.fromCompanyId, supplierInvite.toEmail],
+            })
+            .returning();
+
+      // No row: a concurrent call created or re-sent this invite a moment ago.
+      if (!row) throw resendTooSoon();
 
       // Look up the entity name for the email.
       const entity = await ctx.db.query.company.findFirst({
@@ -93,18 +137,18 @@ export const supplierInviteRouter = router({
 
       // Fire-and-forget — the row is the source of truth, the email is
       // best-effort. The supplier could also be given the link directly.
+      // The personal message stays on the row: the supplier reads it on the
+      // invite page, never in the mail (lib/mail/templates.ts).
       const inviteUrl = `${getAppUrl()}/supplier-invite/${row.token}`;
       sendMail({
         emailType: "supplier.invite",
         to: email,
         ...entityInvitesSupplierEmail({
-          entityName: entity?.name ?? "A NIS2 entity",
+          entityName: entity?.name ?? null,
           inviteUrl,
-          message: input.message ?? null,
+          hasMessage: message !== null && message.trim() !== "",
         }),
-      }).catch((err) =>
-        console.error("[supplier-invite] email send failed:", err),
-      );
+      }).catch((err) => console.error("[supplier-invite] email send failed:", err));
 
       return {
         id: row.id,

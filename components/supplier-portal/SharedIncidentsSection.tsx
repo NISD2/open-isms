@@ -11,14 +11,13 @@
  *
  * This is the customer-side half of what CustomerIncidentsSection publishes.
  */
-import { getTranslations, getFormatter } from "next-intl/server";
+
 import { AlertCircle } from "lucide-react";
+import { getFormatter, getTranslations } from "next-intl/server";
 import { Badge } from "@/components/ui/badge";
 import type { RouterOutputs } from "@/lib/trpc/client";
 
-type TokenView = NonNullable<
-  RouterOutputs["supplierPortal"]["public"]["getByToken"]
->;
+type TokenView = NonNullable<RouterOutputs["supplierPortal"]["public"]["getByToken"]>;
 export type SharedIncident = TokenView["recentEvents"][number];
 
 /** Only "significant" earns the loud variant; the rest stay quiet. */
@@ -53,7 +52,13 @@ export async function SharedIncidentsSection({
             const discovered = date(incident.discoveredAt);
             const resolved = date(incident.resolvedAt);
             return (
-              <li key={incident.id} className="rounded-lg border bg-background p-4 space-y-2">
+              // The notice email links here (broadcast.ts) and carries none of
+              // the supplier's text, so this is where the customer reads it.
+              <li
+                key={incident.id}
+                id={`incident-${incident.id}`}
+                className="scroll-mt-24 rounded-lg border bg-background p-4 space-y-2 target:border-primary"
+              >
                 <div className="flex flex-wrap items-center gap-2">
                   <AlertCircle className="h-4 w-4 text-muted-foreground shrink-0" />
                   <span className="font-medium">{incident.title}</span>
@@ -63,7 +68,9 @@ export async function SharedIncidentsSection({
                 </div>
 
                 {incident.description && (
-                  <p className="text-sm text-muted-foreground">{incident.description}</p>
+                  <p className="text-sm text-muted-foreground whitespace-pre-line">
+                    {incident.description}
+                  </p>
                 )}
 
                 <div className="flex flex-wrap gap-x-6 gap-y-1 text-xs text-muted-foreground">
@@ -72,9 +79,7 @@ export async function SharedIncidentsSection({
                       {t("discovered")}: {discovered}
                     </span>
                   )}
-                  <span>
-                    {resolved ? `${t("resolved")}: ${resolved}` : t("ongoing")}
-                  </span>
+                  <span>{resolved ? `${t("resolved")}: ${resolved}` : t("ongoing")}</span>
                 </div>
               </li>
             );

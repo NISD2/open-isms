@@ -146,11 +146,9 @@ const SUBJECTS: Array<[string, string]> = [
     "supplierIncident",
     t.supplierIncidentBroadcastEmail({
       supplierName: "ACME GmbH",
-      title: "Unauthorised access to a build server",
-      body: "x",
       severity: "high",
       publishedAt: new Date("2026-09-08"),
-      profileUrl: "https://nisd2.eu/s",
+      incidentUrl: "https://nisd2.eu/s#incident-1",
       unsubscribeUrl: "https://nisd2.eu/u",
     }).subject,
   ],
@@ -167,7 +165,7 @@ const SUBJECTS: Array<[string, string]> = [
     t.entityInvitesSupplierEmail({
       entityName: "Stadtwerke",
       inviteUrl: "https://nisd2.eu/i",
-      message: null,
+      hasMessage: false,
     }).subject,
   ],
   [

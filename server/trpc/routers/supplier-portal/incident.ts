@@ -18,6 +18,7 @@ import {
   incidentBroadcast,
   supplier,
 } from "@/schema";
+import { requireSupplierMailBudget } from "../../helpers/supplier-mail-budget";
 import { accountProcedure, router } from "../../init";
 import { insertRow } from "../../typed";
 import { broadcastIncidentBroadcast } from "./broadcast";
@@ -78,6 +79,11 @@ export const supplierIncidentRouter = router({
           message: "Relationship not owned by you",
         });
       }
+      await requireSupplierMailBudget("incidentNotices", ctx.companyId);
+      await requireSupplierMailBudget(
+        "incidentNoticesPerCustomer",
+        `${ctx.companyId}:${rel.id}`,
+      );
 
       // Affected assets must be the supplier's own AND offered to THIS customer.
       if (input.affectedAssetIds && input.affectedAssetIds.length > 0) {

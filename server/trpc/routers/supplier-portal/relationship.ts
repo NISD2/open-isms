@@ -18,6 +18,7 @@ import {
   supplierFacingRelationshipSchema,
   supplierInviteCustomerSchema,
 } from "@/schema/validators";
+import { requireSupplierMailBudget } from "../../helpers/supplier-mail-budget";
 import { accountProcedure, router } from "../../init";
 import { insertRow, pickColumns, updateRow } from "../../typed";
 import { notifyCustomerAdded } from "./broadcast";
@@ -54,6 +55,20 @@ async function requireSupplierRole(
   }
 }
 
+async function findRelationshipId(
+  db: typeof import("@/lib/db").db,
+  supplierCompanyId: string,
+  customerEmail: string,
+): Promise<{ id: string } | undefined> {
+  return db.query.supplier.findFirst({
+    where: and(
+      eq(supplier.supplierCompanyId, supplierCompanyId),
+      eq(supplier.customerEmail, customerEmail),
+    ),
+    columns: { id: true },
+  });
+}
+
 export const supplierRelationshipRouter = router({
   /** List all customers (supplier rows) where I'm the supplier-side party. */
   listMyCustomers: accountProcedure.query(async ({ ctx }) => {
@@ -70,7 +85,14 @@ export const supplierRelationshipRouter = router({
     .input(supplierInviteCustomerSchema)
     .mutation(async ({ ctx, input }) => {
       await requireSupplierRole(ctx.db, ctx.companyId);
+      await requireSupplierMailBudget("customerInvites", ctx.companyId);
       const email = input.customerEmail.toLowerCase();
+
+      const existing = await findRelationshipId(ctx.db, ctx.companyId, email);
+      if (existing) return existing;
+      // Checked before the row exists: a row added past the cap would still
+      // receive every incident notice this supplier publishes.
+      await requireSupplierMailBudget("newRecipients", ctx.companyId);
 
       // Look up the supplier's own company name to use as the row's display name
       const me = await ctx.db.query.company.findFirst({
@@ -103,21 +125,15 @@ export const supplierRelationshipRouter = router({
         .returning();
 
       if (!inserted) {
-        // Already existed — return the existing row, do NOT re-notify.
-        const existing = await ctx.db.query.supplier.findFirst({
-          where: and(
-            eq(supplier.supplierCompanyId, ctx.companyId),
-            eq(supplier.customerEmail, email),
-          ),
-          columns: { id: true },
-        });
-        if (!existing) {
+        // A concurrent call added the same address first: return its row, do NOT re-notify.
+        const raced = await findRelationshipId(ctx.db, ctx.companyId, email);
+        if (!raced) {
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",
             message: "Relationship lookup failed after conflict",
           });
         }
-        return existing;
+        return raced;
       }
 
       // Fire-and-forget "you've been added" notification — only on first insert

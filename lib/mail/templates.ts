@@ -19,6 +19,7 @@ import {
   SEVERITY,
   safeHeader,
 } from "./layout";
+import { companyNameForMail } from "./sender-name";
 
 // ---------------------------------------------------------------------------
 // Invite
@@ -738,17 +739,22 @@ export function weeklyManagementDigestEmail(opts: {
 // Supplier Portal: incident broadcast
 // ---------------------------------------------------------------------------
 
+/**
+ * The supplier mails below go to an address the sending company typed in, so
+ * they carry nothing that company wrote except its name, cleaned by
+ * companyNameForMail. The incident's title and text, and an invite's personal
+ * message, are read on nisd2.eu behind the link: a mail signed by our domain
+ * must not be a free channel for someone else's links and instructions.
+ */
 export function supplierIncidentBroadcastEmail(opts: {
-  supplierName: string;
-  title: string;
-  body: string;
+  supplierName: string | null;
   severity: string;
   publishedAt: Date;
-  profileUrl: string;
+  incidentUrl: string;
   unsubscribeUrl: string;
 }): EmailContent {
-  const { supplierName, title, body, severity, publishedAt, profileUrl, unsubscribeUrl } =
-    opts;
+  const { severity, publishedAt, incidentUrl, unsubscribeUrl } = opts;
+  const name = companyNameForMail(opts.supplierName, "A supplier");
   const severityColor =
     severity === "critical"
       ? SEVERITY.destructive
@@ -757,38 +763,40 @@ export function supplierIncidentBroadcastEmail(opts: {
         : "#2563eb";
   const severityLabel = severity.charAt(0).toUpperCase() + severity.slice(1);
   const safeSeverityLabel = escapeHtml(severityLabel);
-  const safeName = escapeHtml(supplierName);
-  const safeTitle = escapeHtml(title);
-  const safeBody = escapeHtml(body);
+  const safeName = escapeHtml(name);
 
   return {
-    subject: `${safeHeader(supplierName)} reported a security incident: ${safeHeader(title)}`,
+    subject: `${name} reported a security incident`,
     html: emailLayout(`
         <div style="display: inline-block; background: ${severityColor}; color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">${safeSeverityLabel}</div>
-        <h2 style="margin: 16px 0 8px; color: ${BRAND.foreground};">${safeTitle}</h2>
+        <h2 style="margin: 16px 0 8px; color: ${BRAND.foreground};">${safeName} reported a security incident</h2>
         <p style="color: ${BRAND.mutedForeground}; font-size: 13px; margin: 0 0 16px;">
-          Security notification from <strong>${safeName}</strong> · ${publishedAt.toLocaleString()}
+          Security notification · ${publishedAt.toLocaleString()}
         </p>
-        <div style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 24px; padding: 16px; background: ${BRAND.muted}; border-left: 3px solid ${severityColor}; border-radius: 4px; white-space: pre-wrap;">${safeBody}</div>
-        <a href="${profileUrl}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 14px;">View supplier profile</a>
+        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 24px;">
+          <strong>${safeName}</strong> published an incident notice for you on nisd2.eu.
+          The details are on the notice page: we never copy a supplier's own text into email.
+        </p>
+        <a href="${incidentUrl}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 14px;">Read the incident notice</a>
         <p style="color: ${BRAND.mutedForeground}; font-size: 12px; margin: 32px 0 0; line-height: 1.5; border-top: 1px solid ${BRAND.border}; padding-top: 16px;">
-          You received this because you subscribed to security updates from ${safeName} on nisd2.eu.
+          You received this because ${safeName} added your address as a recipient of their security updates on nisd2.eu.
           Use this notification as evidence for your own NIS2 §30 supplier monitoring.
           <br/><br/>
           <a href="${unsubscribeUrl}" style="color: ${BRAND.mutedForeground};">Unsubscribe</a>
         </p>
     `),
     text: [
-      `[${severityLabel}] ${supplierName}: ${title}`,
+      `${severityLabel}: ${name} reported a security incident`,
       ``,
-      `Security notification from ${supplierName} (${publishedAt.toISOString()})`,
+      `Security notification (${publishedAt.toISOString()})`,
       ``,
-      body,
+      `${name} published an incident notice for you on nisd2.eu.`,
+      `The details are on the notice page: we never copy a supplier's own text into email.`,
       ``,
-      `View supplier profile: ${profileUrl}`,
+      `Read the incident notice: ${incidentUrl}`,
       ``,
       `--`,
-      `You received this because you subscribed to security updates from ${supplierName} on nisd2.eu.`,
+      `You received this because ${name} added your address as a recipient of their security updates on nisd2.eu.`,
       `Use as evidence for your NIS2 §30 supplier monitoring.`,
       `Unsubscribe: ${unsubscribeUrl}`,
     ].join("\n"),
@@ -804,16 +812,17 @@ export function supplierIncidentBroadcastEmail(opts: {
  * fill out their security profile via magic-link.
  */
 export function entityInvitesSupplierEmail(opts: {
-  entityName: string;
+  entityName: string | null;
   inviteUrl: string;
-  message: string | null;
+  /** Whether the invite carries a personal message; its text is read on the invite page. */
+  hasMessage: boolean;
 }): EmailContent {
-  const { entityName, inviteUrl, message } = opts;
-  const safeName = escapeHtml(entityName);
-  const safeMessage = message ? escapeHtml(message) : null;
+  const { inviteUrl, hasMessage } = opts;
+  const name = companyNameForMail(opts.entityName, "A NIS2 entity");
+  const safeName = escapeHtml(name);
 
   return {
-    subject: `${safeHeader(entityName)} requests your NIS2 supplier profile on NISD2`,
+    subject: `${name} requests your NIS2 supplier profile on NISD2`,
     html: emailLayout(`
         <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">You're invited to share your security profile</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 16px;">
@@ -827,7 +836,7 @@ export function entityInvitesSupplierEmail(opts: {
           Implementation Guidance v1.0 and CIR 2024/2690) and share it with every customer who
           asks. Fill it once. Use it forever. Free.
         </p>
-        ${safeMessage ? `<blockquote style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 24px; padding: 12px 16px; border-left: 3px solid ${BRAND.primary}; background: ${BRAND.muted}; font-style: italic;">${safeMessage}</blockquote>` : ""}
+        ${hasMessage ? `<p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 24px;">${safeName} added a personal message, which you can read on the invitation page after signing in.</p>` : ""}
         <a href="${inviteUrl}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 14px;">Accept and create your free profile</a>
         <p style="color: ${BRAND.mutedForeground}; font-size: 12px; margin: 32px 0 0; line-height: 1.5; border-top: 1px solid ${BRAND.border}; padding-top: 16px;">
           This link is unique to you and expires in 30 days. You do not need to be a NIS2-regulated
@@ -835,15 +844,17 @@ export function entityInvitesSupplierEmail(opts: {
         </p>
     `),
     text: [
-      `${entityName} would like to see your security profile`,
+      `${name} would like to see your security profile`,
       ``,
-      `${entityName} is a NIS2-regulated entity required to assess their suppliers' cybersecurity practices.`,
+      `${name} is a NIS2-regulated entity required to assess their suppliers' cybersecurity practices.`,
       ``,
       `Instead of a 200-question PDF, they are using nisd2.eu: a single unified supplier questionnaire`,
       `anchored to ENISA's NIS2 Technical Implementation Guidance and CIR 2024/2690. Fill it once,`,
       `share it with every customer who asks. Free.`,
       ``,
-      message ? `Their message:\n  ${message}\n` : "",
+      hasMessage
+        ? `${name} added a personal message, which you can read on the invitation page after signing in.\n`
+        : "",
       `Accept and create your profile: ${inviteUrl}`,
       ``,
       `This link expires in 30 days. You do not need to be NIS2-regulated yourself to use the supplier portal.`,
@@ -940,15 +951,16 @@ export function advisoryRequestEmail(opts: {
 }
 
 export function supplierAddedYouEmail(opts: {
-  supplierName: string;
+  supplierName: string | null;
   profileUrl: string | null;
   unsubscribeUrl: string;
 }): EmailContent {
-  const { supplierName, profileUrl, unsubscribeUrl } = opts;
-  const safeName = escapeHtml(supplierName);
+  const { profileUrl, unsubscribeUrl } = opts;
+  const name = companyNameForMail(opts.supplierName, "A supplier");
+  const safeName = escapeHtml(name);
 
   return {
-    subject: `${safeHeader(supplierName)} will send you their security updates`,
+    subject: `${name} will send you their security updates`,
     html: emailLayout(`
         <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">You've been added as a security update recipient</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
@@ -965,9 +977,9 @@ export function supplierAddedYouEmail(opts: {
         </p>
     `),
     text: [
-      `${supplierName} added you to their NIS2 supplier security updates`,
+      `${name} added you to their NIS2 supplier security updates`,
       ``,
-      `${supplierName} added your email address to their NIS2 supplier portal on nisd2.eu.`,
+      `${name} added your email address to their NIS2 supplier portal on nisd2.eu.`,
       `You will receive security incident notifications and certification updates from them.`,
       ``,
       `Use as evidence for your NIS2 §30 supplier monitoring obligation.`,
