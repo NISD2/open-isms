@@ -2,10 +2,14 @@
  * rateLimit against a real Postgres. The limiter's promise is that parallel
  * hits on one key let exactly `limit` through, whichever process or replica
  * they land on, and only a database can show that: it rests on how INSERT ...
- * ON CONFLICT DO UPDATE serialises concurrent writers to one row. The drill
- * also covers what the in-memory unit tests used to: separate budgets per key,
- * a window that recovers once it has passed, and a sweep that deletes expired
- * windows without ever resetting a live one, even while hits race it.
+ * ON CONFLICT DO UPDATE serialises concurrent writers to one row. A process
+ * sends one hit per key at a time (createLimiter), so the statement is driven
+ * through countHit directly to get real concurrency on the row, and several
+ * limiters stand in for replicas. The drill also covers what the in-memory unit
+ * tests used to: separate budgets per key, a window that recovers once it has
+ * passed, and a sweep that deletes expired windows without ever resetting a
+ * live one, even while hits race it. And that a denied burst asks the database
+ * once, not once per hit.
  *
  *   DATABASE_URL=postgres://... AUTH_SECRET=<32+ chars> bun scripts/ci/rate-limit-drill.ts
  *
@@ -17,8 +21,8 @@
 import { randomUUID } from "node:crypto";
 import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
-import { rateLimit, sweepExpiredWindows } from "@/lib/rate-limit";
-import { windowKey } from "@/lib/rate-limit-rules";
+import { countHit, rateLimit, sweepExpiredWindows } from "@/lib/rate-limit";
+import { type CountHit, createLimiter, windowKey } from "@/lib/rate-limit-rules";
 import { rateLimitWindow } from "@/schema";
 
 const RUN = randomUUID();
@@ -32,8 +36,11 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 const allowedOf = async (hits: Promise<boolean>[]) =>
   (await Promise.all(hits)).filter(Boolean).length;
 
+/** Hits straight at the statement, with no process queue in front of it. */
 const burst = (k: string, n: number, limit: number, windowMs: number) =>
-  Array.from({ length: n }, () => rateLimit(k, limit, windowMs));
+  Array.from({ length: n }, () =>
+    countHit(windowKey(k), limit, windowMs).then((verdict) => verdict.allowed),
+  );
 
 const storedCount = async (k: string) => {
   const [row] = await db
@@ -56,6 +63,34 @@ async function burstAllowsExactlyTheLimit(limit: number): Promise<string | null>
   return stored === limit
     ? null
     : `limit ${limit}: the row holds ${stored}, not ${limit}`;
+}
+
+async function replicasShareOneBudget(): Promise<string | null> {
+  const k = key("replicas");
+  const replicas = Array.from({ length: 4 }, () => createLimiter({ countHit }));
+  const allowed = await allowedOf(
+    replicas.flatMap((limiter) =>
+      Array.from({ length: 15 }, () => limiter(k, 7, MINUTE)),
+    ),
+  );
+  return allowed === 7 ? null : `60 hits over four replicas, limit 7: ${allowed} allowed`;
+}
+
+async function deniedBurstAsksTheDatabaseOnce(): Promise<string | null> {
+  const asked: string[] = [];
+  const counted: CountHit = (rowKey, limit, windowMs) => {
+    asked.push(rowKey);
+    return countHit(rowKey, limit, windowMs);
+  };
+  const limiter = createLimiter({ countHit: counted });
+  const k = key("denied-burst");
+  const allowed = await allowedOf(
+    Array.from({ length: 500 }, () => limiter(k, 5, MINUTE)),
+  );
+  if (allowed !== 5) return `500 hits through one process, limit 5: ${allowed} allowed`;
+  return asked.length === 6
+    ? null
+    : `500 hits at limit 5 asked the database ${asked.length} times, not 6`;
 }
 
 async function keysHaveSeparateBudgets(): Promise<string | null> {
@@ -116,6 +151,8 @@ const results = [
   await burstAllowsExactlyTheLimit(1),
   await burstAllowsExactlyTheLimit(7),
   await burstAllowsExactlyTheLimit(25),
+  await replicasShareOneBudget(),
+  await deniedBurstAsksTheDatabaseOnce(),
   await keysHaveSeparateBudgets(),
   await windowRecovers(),
   await restartSurvivesRacingSweeps(),
@@ -126,7 +163,7 @@ const failures = results.filter((f): f is string => f !== null);
 for (const f of failures) console.error(`[drill] FAIL: ${f}`);
 if (failures.length === 0) {
   console.log(
-    "[drill] OK: parallel hits allow exactly the limit, windows recover, and the sweep takes only expired windows",
+    "[drill] OK: parallel hits and replicas allow exactly the limit, a denied burst asks once, windows recover, and the sweep takes only expired windows",
   );
 }
 process.exit(failures.length === 0 ? 0 : 1);

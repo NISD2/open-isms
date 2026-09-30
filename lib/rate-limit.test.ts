@@ -5,17 +5,18 @@
  * against a real database in scripts/ci/rate-limit-drill.ts.
  *
  * What stays here needs no database: which key and budget a request counts
- * against, and that every caller awaits the answer. The limiter became async,
- * and `if (!rateLimit(...))` on a promise is always false, so a missed await
- * allows every request. TypeScript does not flag `!` on a promise, and Biome's
- * promise rules do not either (checked with 2.5.11), so the last block reads
- * the callers' syntax trees instead.
+ * against, and what each process does around the shared count (createLimiter),
+ * pinned against an in-memory count with the same contract. That every caller
+ * awaits the answer is lib/rate-limit-callers.test.ts.
  */
 import { describe, expect, test } from "bun:test";
-import { readFileSync } from "node:fs";
-import { dirname, join } from "node:path";
-import ts from "typescript";
-import { publicRouteBudget, windowKey } from "./rate-limit-rules";
+import {
+  type CountHit,
+  createLimiter,
+  type LimiterOptions,
+  publicRouteBudget,
+  windowKey,
+} from "./rate-limit-rules";
 
 describe("windowKey", () => {
   test("is stable for one key and differs between keys", () => {
@@ -59,122 +60,153 @@ describe("publicRouteBudget", () => {
   });
 });
 
-const ROOT = join(import.meta.dir, "..");
-const LIMITER = "lib/rate-limit";
-
-type Call = { readonly at: string; readonly awaited: boolean };
-
-const namesLimiter = (file: string, specifier: string): boolean =>
-  specifier === `@/${LIMITER}` ||
-  (specifier.startsWith(".") && join(dirname(file), specifier) === LIMITER);
-
-const descendants = (node: ts.Node): ts.Node[] =>
-  node.getChildren().flatMap((child) => [child, ...descendants(child)]);
-
-const importedNames = (source: ts.SourceFile, file: string): ReadonlySet<string> =>
-  new Set(
-    source.statements
-      .filter(ts.isImportDeclaration)
-      .filter(
-        (d) =>
-          ts.isStringLiteral(d.moduleSpecifier) &&
-          namesLimiter(file, d.moduleSpecifier.text),
-      )
-      .flatMap((d) => {
-        const bindings = d.importClause?.namedBindings;
-        return bindings && ts.isNamedImports(bindings)
-          ? bindings.elements.map((e) => e.name.text)
-          : [];
-      }),
-  );
-
-const callsTo = (source: ts.SourceFile, names: ReadonlySet<string>) =>
-  descendants(source)
-    .filter(ts.isCallExpression)
-    .filter(
-      (call) => ts.isIdentifier(call.expression) && names.has(call.expression.text),
-    );
-
-/** The name a function is called by in this file, if it has one. */
-const enclosingFunctionName = (node: ts.Node): string | undefined => {
-  const fn = ts.findAncestor(node.parent, ts.isFunctionLike);
-  if (!fn) return undefined;
-  if (ts.isFunctionDeclaration(fn)) return fn.name?.text;
-  return ts.isVariableDeclaration(fn.parent) && ts.isIdentifier(fn.parent.name)
-    ? fn.parent.name.text
-    : undefined;
-};
-
 /**
- * A named function that calls the limiter is a limiter too (billing's
- * `limited`, llm's `requireLlmBudget`, auth's `isLoginAllowed`): forgetting to
- * await it lets the request through just the same.
+ * A fixed-window count in memory with the database half's contract, on a clock
+ * the test moves. It records every call, and how many were in flight at once.
  */
-const withWrappers = (
-  source: ts.SourceFile,
-  names: ReadonlySet<string>,
-): ReadonlySet<string> => {
-  const wrappers = callsTo(source, names)
-    .map(enclosingFunctionName)
-    .filter((name): name is string => name !== undefined && !names.has(name));
-  return wrappers.length === 0
-    ? names
-    : withWrappers(source, new Set([...names, ...wrappers]));
-};
-
-const isAwaited = (call: ts.CallExpression): boolean => {
-  const parent = ts.findAncestor(call.parent, (n) => !ts.isParenthesizedExpression(n));
-  return parent !== undefined && ts.isAwaitExpression(parent);
-};
-
-const lineOf = (source: ts.SourceFile, node: ts.Node): number =>
-  source.getLineAndCharacterOfPosition(node.getStart(source)).line + 1;
-
-function limiterCalls(file: string, text: string): Call[] {
-  const imports = ts.preProcessFile(text, true, true).importedFiles;
-  if (!imports.some((i) => namesLimiter(file, i.fileName))) return [];
-  const source = ts.createSourceFile(file, text, ts.ScriptTarget.Latest, true);
-  const names = withWrappers(source, importedNames(source, file));
-  return callsTo(source, names).map((call) => ({
-    at: `${file}:${lineOf(source, call)}`,
-    awaited: isAwaited(call),
-  }));
+function sharedCount() {
+  const clock = { now: 0 };
+  const windows = new Map<string, { count: number; resetAt: number }>();
+  const calls: string[] = [];
+  const load = { inFlight: 0, peak: 0 };
+  const countHit: CountHit = async (rowKey, limit, windowMs) => {
+    calls.push(rowKey);
+    load.inFlight += 1;
+    load.peak = Math.max(load.peak, load.inFlight);
+    await new Promise((resolve) => setTimeout(resolve, 1));
+    load.inFlight -= 1;
+    const open = windows.get(rowKey);
+    if (open === undefined || open.resetAt <= clock.now) {
+      windows.set(rowKey, { count: 1, resetAt: clock.now + windowMs });
+      return { allowed: true };
+    }
+    if (open.count < limit) {
+      open.count += 1;
+      return { allowed: true };
+    }
+    return { allowed: false, resetInMs: open.resetAt - clock.now };
+  };
+  return { clock, calls, load, countHit };
 }
 
-/** lib/rate-limit.ts itself is left out: rateLimitPublicRoute returns the promise. */
-const callers = (): string[] =>
-  ["app", "server", "lib", "components"]
-    .flatMap((dir) =>
-      [...new Bun.Glob("**/*.{ts,tsx}").scanSync({ cwd: join(ROOT, dir) })].map((f) =>
-        join(dir, f),
-      ),
-    )
-    .filter(
-      (f) => f !== `${LIMITER}.ts` && !f.endsWith(".test.ts") && !f.endsWith(".test.tsx"),
-    );
-
-describe("callers of the limiter", () => {
-  test("the check catches a missed await, directly and through a wrapper", () => {
-    const direct = `import { rateLimit } from "@/lib/rate-limit";
-      export async function GET() { if (!rateLimit("k", 1, 1)) return 429; }`;
-    const wrapped = `import { rateLimit } from "../rate-limit";
-      const limited = async () => { if (!(await rateLimit("k", 1, 1))) throw 429; };
-      export async function run() { limited(); }`;
-    expect(limiterCalls("app/api/x/route.ts", direct)).toEqual([
-      { at: "app/api/x/route.ts:2", awaited: false },
-    ]);
-    expect(limiterCalls("lib/auth/x.ts", wrapped)).toEqual([
-      { at: "lib/auth/x.ts:2", awaited: true },
-      { at: "lib/auth/x.ts:3", awaited: false },
-    ]);
+const limiterOn = (
+  shared: ReturnType<typeof sharedCount>,
+  options: Partial<LimiterOptions> = {},
+) =>
+  createLimiter({
+    countHit: shared.countHit,
+    now: () => shared.clock.now,
+    logOutage: () => {},
+    ...options,
   });
 
-  test("every call in the codebase is awaited where it is made", () => {
-    const calls = callers().flatMap((file) =>
-      limiterCalls(file, readFileSync(join(ROOT, file), "utf8")),
+describe("createLimiter around the shared count", () => {
+  test("a burst at one key asks once per allowed hit, once for the denial, one at a time", async () => {
+    const shared = sharedCount();
+    const limit = limiterOn(shared);
+    const results = await Promise.all(
+      Array.from({ length: 200 }, () => limit("k", 5, 1_000)),
     );
-    // A floor, not a count: it only proves the scan is finding the callers.
-    expect(calls.length).toBeGreaterThan(20);
-    expect(calls.filter((c) => !c.awaited).map((c) => c.at)).toEqual([]);
+    expect(results.filter(Boolean)).toHaveLength(5);
+    expect(shared.calls).toHaveLength(6);
+    expect(shared.load.peak).toBe(1);
+  });
+
+  test("a remembered denial is answered without asking, until the window resets", async () => {
+    const shared = sharedCount();
+    const limit = limiterOn(shared);
+    expect(await limit("k", 1, 1_000)).toBe(true);
+    expect(await limit("k", 1, 1_000)).toBe(false);
+    expect(await limit("k", 1, 1_000)).toBe(false);
+    expect(shared.calls).toHaveLength(2);
+
+    shared.clock.now = 1_000;
+    expect(await limit("k", 1, 1_000)).toBe(true);
+    expect(shared.calls).toHaveLength(3);
+  });
+
+  test("a denial covers the limit it was made for and smaller ones, not larger", async () => {
+    const shared = sharedCount();
+    const limit = limiterOn(shared);
+    await limit("k", 1, 1_000);
+    await limit("k", 1, 1_000);
+    expect(shared.calls).toHaveLength(2);
+    expect(await limit("k", 1, 1_000)).toBe(false);
+    expect(shared.calls).toHaveLength(2);
+    expect(await limit("k", 5, 1_000)).toBe(true);
+    expect(shared.calls).toHaveLength(3);
+  });
+
+  test("keys keep separate memories", async () => {
+    const shared = sharedCount();
+    const limit = limiterOn(shared);
+    await limit("a", 1, 1_000);
+    expect(await limit("a", 1, 1_000)).toBe(false);
+    expect(await limit("b", 1, 1_000)).toBe(true);
+  });
+
+  test("the memory is capped, and a forgotten denial is still denied by the count", async () => {
+    const shared = sharedCount();
+    const limit = limiterOn(shared, { maxDenials: 2 });
+    for (const key of ["a", "b", "c"]) {
+      await limit(key, 1, 1_000);
+      await limit(key, 1, 1_000);
+    }
+    expect(shared.calls).toHaveLength(6);
+    // "a" was the oldest and made room for "c": asked again, and still denied.
+    expect(await limit("a", 1, 1_000)).toBe(false);
+    expect(shared.calls).toHaveLength(7);
+    expect(await limit("c", 1, 1_000)).toBe(false);
+    expect(shared.calls).toHaveLength(7);
+  });
+
+  test("no answer in time is an outage: allowed, logged once, not asked again until the backoff ends", async () => {
+    const shared = sharedCount();
+    const outages: unknown[] = [];
+    const asked: string[] = [];
+    const limit = limiterOn(shared, {
+      countHit: (rowKey) => {
+        asked.push(rowKey);
+        return new Promise(() => {});
+      },
+      timeoutMs: 20,
+      outageBackoffMs: 5_000,
+      logOutage: (error) => outages.push(error),
+    });
+    const results = await Promise.all(
+      Array.from({ length: 10 }, () => limit("k", 1, 1_000)),
+    );
+    expect(results.every(Boolean)).toBe(true);
+    expect(asked).toHaveLength(1);
+    expect(outages).toHaveLength(1);
+
+    shared.clock.now = 4_999;
+    expect(await limit("other", 1, 1_000)).toBe(true);
+    expect(asked).toHaveLength(1);
+
+    shared.clock.now = 5_000;
+    expect(await limit("other", 1, 1_000)).toBe(true);
+    expect(asked).toHaveLength(2);
+    expect(outages).toHaveLength(2);
+  });
+
+  test("an error is an outage too, and remembered denials still hold through it", async () => {
+    const shared = sharedCount();
+    const broken = { now: false };
+    const outages: unknown[] = [];
+    const limit = limiterOn(shared, {
+      countHit: (rowKey, max, windowMs) =>
+        broken.now
+          ? Promise.reject(new Error("connection refused"))
+          : shared.countHit(rowKey, max, windowMs),
+      logOutage: (error) => outages.push(error),
+    });
+    await limit("spent", 1, 1_000);
+    expect(await limit("spent", 1, 1_000)).toBe(false);
+
+    broken.now = true;
+    expect(await limit("fresh", 1, 1_000)).toBe(true);
+    expect(outages).toHaveLength(1);
+    expect(await limit("spent", 1, 1_000)).toBe(false);
   });
 });

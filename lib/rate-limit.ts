@@ -11,12 +11,16 @@
  * across a window boundary. Every limit here is a ceiling on abuse sized well
  * above honest use, so that edge is the price of a single atomic statement,
  * where an exact sliding window needs a row per hit.
+ *
+ * This file is the database half. What each process keeps in memory around it
+ * (one hit per key at a time, remembered denials, the timeout and the fail-open
+ * decision) is createLimiter in lib/rate-limit-rules.ts.
  */
 import "@/lib/server-guard";
-import { and, inArray, lte, sql } from "drizzle-orm";
+import { and, eq, inArray, lte, sql } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { rateLimitWindow } from "@/schema";
-import { publicRouteBudget, windowKey } from "./rate-limit-rules";
+import { createLimiter, type HitVerdict, publicRouteBudget } from "./rate-limit-rules";
 
 /** A window is over once reset_at has passed, for counting and cleanup alike. */
 const expired = lte(rateLimitWindow.resetAt, sql`now()`);
@@ -30,12 +34,13 @@ const expired = lte(rateLimitWindow.resetAt, sql`now()`);
  * expired window at 1 or adds 1 while the count is under the limit. At the limit
  * the WHERE fails, nothing is written and no row comes back: that is the denial.
  * The clock is the database's, so every replica agrees on when a window ends.
+ * Exported for the CI drill, which needs hits that no process queue serialises.
  */
-async function countHit(
+export async function countHit(
   rowKey: string,
   limit: number,
   windowMs: number,
-): Promise<boolean> {
+): Promise<HitVerdict> {
   const counted = await db
     .insert(rateLimitWindow)
     .values({
@@ -52,7 +57,34 @@ async function countHit(
       setWhere: sql`${expired} OR ${rateLimitWindow.count} < ${limit}`,
     })
     .returning({ key: rateLimitWindow.key });
-  return counted.length > 0;
+  // Not awaited: the answer does not depend on it, so no request waits on it.
+  if (Math.random() < 1 / SWEEP_ONE_IN) {
+    void sweepExpiredWindows().catch((err) =>
+      console.error("[rate-limit] sweep of expired windows failed:", err),
+    );
+  }
+  return counted.length > 0
+    ? { allowed: true }
+    : { allowed: false, resetInMs: await msUntilReset(rowKey) };
+}
+
+/**
+ * How long a denied key's window has left, by the database clock, so a process
+ * never compares its own clock with the database's. Read only on a denial the
+ * process did not already remember, so once per key per window at most.
+ */
+async function msUntilReset(rowKey: string): Promise<number> {
+  const [row] = await db
+    .select({
+      ms: sql`extract(epoch from ${rateLimitWindow.resetAt} - now()) * 1000`.mapWith(
+        Number,
+      ),
+    })
+    .from(rateLimitWindow)
+    .where(eq(rateLimitWindow.key, rowKey));
+  const ms = row?.ms ?? 0;
+  // A value that is not a finite number is remembered as nothing, never as forever.
+  return Number.isFinite(ms) ? Math.max(0, ms) : 0;
 }
 
 /**
@@ -92,36 +124,9 @@ export async function sweepExpiredWindows(batch: number = SWEEP_BATCH): Promise<
 
 /**
  * Returns `true` if the request is allowed, `false` if it is rate-limited.
- *
- * FAILS OPEN, and this is the only place that decides it. When a hit cannot be
- * counted (database unreachable, statement error) the request is allowed and
- * the error logged. Most routes behind this limiter need the same database for
- * their own work, so during an outage the request fails at its next query
- * anyway, and failing closed would turn a fault in the limiter alone into every
- * user locked out of login. The cost: while the limiter is down, the routes that
- * work without the database lose their ceiling. Those are the public
- * questionnaire PDF and DOCX, and the applicability company search, which calls
- * the paid RapidAPI before it touches the database.
+ * Fails open when the database cannot answer; createLimiter documents why.
  */
-export async function rateLimit(
-  key: string,
-  limit: number,
-  windowMs: number,
-): Promise<boolean> {
-  try {
-    const allowed = await countHit(windowKey(key), limit, windowMs);
-    // Not awaited: the answer does not depend on it, so no request waits on it.
-    if (Math.random() < 1 / SWEEP_ONE_IN) {
-      void sweepExpiredWindows().catch((err) =>
-        console.error("[rate-limit] sweep of expired windows failed:", err),
-      );
-    }
-    return allowed;
-  } catch (err) {
-    console.error("[rate-limit] hit not counted, request allowed:", err);
-    return true;
-  }
-}
+export const rateLimit = createLimiter({ countHit });
 
 /** Per-IP limit for an unauthenticated route; see publicRouteBudget for "unknown". */
 export function rateLimitPublicRoute(
