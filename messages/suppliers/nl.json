@@ -8,6 +8,7 @@
     "empty": "Geen leveranciers geregistreerd. Voeg uw eerste leverancier toe om de toeleveringsketenbeveiliging bij te houden.",
     "deleteConfirm": "Weet u zeker dat u deze leverancier wilt verwijderen?",
     "actions": "Acties",
+    "supplierMaintainsClauses": "De antwoorden met een slotje beheert de leverancier zelf in zijn leveranciersportaal. U kunt ze hier lezen, maar niet wijzigen.",
     "critical": "Kritiek",
     "nonCritical": "Niet-kritiek",
     "riskLevel": {

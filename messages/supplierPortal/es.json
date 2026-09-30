@@ -1,5 +1,12 @@
 {
   "supplierPortal": {
+    "certifications": {
+      "uploadHint": "Arrastre aquí el PDF del certificado o haga clic para seleccionarlo",
+      "uploading": "Subiendo…",
+      "uploadFailed": "No se ha podido subir el archivo. Inténtelo de nuevo o póngase en contacto con el soporte.",
+      "tooManyUploads": "Su empresa ha subido demasiados archivos en la última hora. Vuelva a intentarlo dentro de una hora.",
+      "remove": "Quitar"
+    },
     "nav": {
       "portalName": "Portal de proveedores",
       "general": "General",

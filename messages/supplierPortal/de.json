@@ -1,5 +1,12 @@
 {
   "supplierPortal": {
+    "certifications": {
+      "uploadHint": "Legen Sie das Zertifikat als PDF hier ab oder klicken Sie, um eine Datei auszuwählen",
+      "uploading": "Wird hochgeladen…",
+      "uploadFailed": "Das Hochladen ist fehlgeschlagen. Bitte versuchen Sie es erneut oder wenden Sie sich an den Support.",
+      "tooManyUploads": "Ihr Unternehmen hat in der letzten Stunde zu viele Dateien hochgeladen. Bitte versuchen Sie es in einer Stunde erneut.",
+      "remove": "Entfernen"
+    },
     "nav": {
       "portalName": "Lieferantenportal",
       "general": "Allgemein",

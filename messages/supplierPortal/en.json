@@ -1,5 +1,12 @@
 {
   "supplierPortal": {
+    "certifications": {
+      "uploadHint": "Drop your certificate PDF here, or click to browse",
+      "uploading": "Uploading…",
+      "uploadFailed": "Upload failed. Try again or contact support.",
+      "tooManyUploads": "Your company has uploaded too many files in the last hour. Please try again in an hour.",
+      "remove": "Remove"
+    },
     "nav": {
       "portalName": "Supplier portal",
       "general": "General",

@@ -8,6 +8,7 @@
     "empty": "Nie zarejestrowano dostawców. Dodaj pierwszego dostawcę, aby monitorować bezpieczeństwo łańcucha dostaw.",
     "deleteConfirm": "Czy na pewno chcesz usunąć tego dostawcę?",
     "actions": "Działania",
+    "supplierMaintainsClauses": "Odpowiedzi oznaczone kłódką dostawca prowadzi sam w swoim portalu dostawcy. Tutaj możesz je przeczytać, ale nie możesz ich zmienić.",
     "critical": "Krytyczny",
     "nonCritical": "Niekrytyczny",
     "riskLevel": {
