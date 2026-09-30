@@ -19,11 +19,26 @@ type Company = {
 };
 
 /** What the current test put in the database; tests replace its fields. */
-const fixture: { rel: Relationship | undefined; companies: readonly Company[] } = {
+const fixture: {
+  rel: Relationship | undefined;
+  companies: readonly Company[];
+  supplierName: string;
+} = {
   rel: undefined,
   companies: [],
+  supplierName: "Lieferant GmbH",
 };
+
+/** The supplier's own words on the incident row, which no mail may carry. */
+const INCIDENT_TEXT = {
+  title: "Ausfall Rechenzentrum, Details unter status-lieferant.test",
+  description:
+    "Storage nicht erreichbar. Neues Passwort hier setzen: https://x.test/reset",
+};
+
+type Mail = { to: string; subject: string; html: string; text: string };
 const sentTo: string[] = [];
+const mails: Mail[] = [];
 const closed: Record<string, unknown>[] = [];
 
 /**
@@ -50,17 +65,18 @@ const db = {
   }),
   query: {
     incident: {
+      // Title and description come back even though broadcast.ts no longer
+      // selects them, so the mail test below holds whatever the query reads.
       findFirst: async () => ({
         id: "incident-1",
-        title: "Ausfall Rechenzentrum",
-        description: "Storage nicht erreichbar.",
+        ...INCIDENT_TEXT,
         severity: "incident",
         companyId: "supplier-co",
         createdAt: new Date("2026-09-30T08:00:00Z"),
       }),
     },
     supplier: { findFirst: async () => fixture.rel },
-    company: { findFirst: async () => ({ name: "Lieferant GmbH" }) },
+    company: { findFirst: async () => ({ name: fixture.supplierName }) },
   },
   select: () => ({
     from: () => ({
@@ -82,8 +98,9 @@ mock.module("@/lib/env", () => ({
 mock.module("@/lib/db", () => ({ db }));
 // Full export shape, as lib/lifecycle/dispatch.test.ts mocks the same module.
 mock.module("@/lib/mail/send", () => ({
-  sendMail: async (opts: { to: string }) => {
+  sendMail: async (opts: Mail) => {
     sentTo.push(opts.to);
+    mails.push(opts);
     return { success: true, id: "sent-1" };
   },
   sendWelcomeEmail: async () => ({ success: true, id: "unused" }),
@@ -97,7 +114,9 @@ const TOKEN = "c".repeat(64);
 
 beforeEach(() => {
   sentTo.splice(0);
+  mails.splice(0);
   closed.splice(0);
+  fixture.supplierName = "Lieferant GmbH";
 });
 
 describe("broadcastIncidentBroadcast", () => {
@@ -142,5 +161,43 @@ describe("broadcastIncidentBroadcast", () => {
     expect(closed).toEqual([
       expect.objectContaining({ status: "sent", deliveryCount: 0 }),
     ]);
+  });
+});
+
+describe("the notice mail", () => {
+  test("carries none of the supplier's text and no link from its name", async () => {
+    fixture.rel = {
+      customerCompanyId: null,
+      customerEmail: "isb@kunde-b.test",
+      unsubscribeToken: TOKEN,
+    };
+    fixture.companies = [];
+    fixture.supplierName = "Lieferant GmbH lieferant-support.test";
+
+    expect(await broadcastIncidentBroadcast("broadcast-1")).toBe(true);
+    expect(mails).toHaveLength(1);
+    const [mail] = mails;
+    const whole = `${mail?.subject}\n${mail?.html}\n${mail?.text}`;
+    expect(whole).not.toContain("Ausfall");
+    expect(whole).not.toContain("status-lieferant.test");
+    expect(whole).not.toContain("Storage");
+    expect(whole).not.toContain("x.test");
+    expect(whole).not.toContain("lieferant-support.test");
+    expect(mail?.subject).toBe(
+      "Lieferant GmbH lieferant-support. test reported a security incident",
+    );
+  });
+
+  test("links to the notice on the customer's access page", async () => {
+    fixture.rel = {
+      customerCompanyId: null,
+      customerEmail: "isb@kunde-b.test",
+      unsubscribeToken: TOKEN,
+    };
+    fixture.companies = [];
+
+    await broadcastIncidentBroadcast("broadcast-1");
+    expect(mails[0]?.text).toContain(`/supplier-access/${TOKEN}#incident-incident-1`);
+    expect(mails[0]?.html).toContain(`/supplier-access/${TOKEN}#incident-incident-1`);
   });
 });

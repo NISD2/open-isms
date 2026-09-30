@@ -2,6 +2,14 @@ import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { type CompanySize, classify } from "@/lib/applicability/classify";
+import {
+  type ImplisenseCompany,
+  type ImplisenseSearchResult,
+  implisenseCompanySchema,
+  implisenseIdSchema,
+  implisenseSearchSchema,
+  readVendorJson,
+} from "@/lib/applicability/implisense";
 import { SECTORS, type SpecialCaseId } from "@/lib/applicability/sectors";
 import { mapWzCodesToNis2 } from "@/lib/applicability/wz-to-nis2";
 import { db } from "@/lib/db";
@@ -11,32 +19,6 @@ import { applicabilityLookup, lead } from "@/schema";
 import { publicProcedure, router } from "../init";
 
 const RAPIDAPI_HOST = "german-company-data.p.rapidapi.com";
-
-type ImplisenseCompany = {
-  id: string;
-  name: string;
-  street: string;
-  zip: string;
-  city: string;
-  active: boolean;
-  legalForm: string;
-  purpose: string | null;
-  capital: string | null;
-  foundingDate: number | null;
-  size: { code: string; name: string } | null;
-  revenue: { code: string; name: string } | null;
-  industries: {
-    wz2008: Array<{ type: string; code: string; title: string }>;
-    nace: Array<{ type: string; code: string; title: string }>;
-  } | null;
-  externalIds: {
-    hr?: { court: string; type: string; number: string };
-    vat?: string;
-  } | null;
-  phone: string | null;
-  email: string | null;
-  url: string | null;
-};
 
 function implisenseSizeToCompanySize(
   sizeCode: string | undefined,
@@ -53,17 +35,6 @@ function implisenseSizeToCompanySize(
       return undefined;
   }
 }
-
-type ImplisenseSearchResult = {
-  companies: Array<{
-    id: string;
-    name: string;
-    street: string;
-    zip: string;
-    city: string;
-    active: boolean;
-  }>;
-};
 
 /** 30 days in ms — cache expiry for paid API responses */
 const CACHE_TTL_MS = 30 * 24 * 60 * 60 * 1000;
@@ -125,7 +96,9 @@ function processCompanyData(company: ImplisenseCompany) {
       id: company.id,
       name: company.name,
       legalForm: company.legalForm,
-      address: `${company.street}, ${company.zip} ${company.city}`,
+      address: [company.street, [company.zip, company.city].filter(Boolean).join(" ")]
+        .filter(Boolean)
+        .join(", "),
       city: company.city,
       purpose: company.purpose,
       capital: company.capital,
@@ -194,10 +167,8 @@ export const applicabilityRouter = router({
           },
         );
 
-        if (res.ok) {
-          const data = (await res.json()) as ImplisenseSearchResult;
-          companies = data.companies.filter((c) => c.active).slice(0, 5);
-        }
+        const data = await readVendorJson(res, implisenseSearchSchema);
+        if (data) companies = data.companies.filter((c) => c.active).slice(0, 5);
       }
 
       // Fallback: free implisen.se (returns 1 result, no key needed)
@@ -206,10 +177,8 @@ export const applicabilityRouter = router({
           next: { revalidate: 86400 },
         });
 
-        if (res.ok) {
-          const data = (await res.json()) as ImplisenseSearchResult;
-          companies = data.companies.filter((c) => c.active);
-        }
+        const data = await readVendorJson(res, implisenseSearchSchema);
+        if (data) companies = data.companies.filter((c) => c.active);
       }
 
       // Insert each result if not already cached. We deliberately do NOT
@@ -234,7 +203,7 @@ export const applicabilityRouter = router({
   lookup: publicProcedure
     .input(
       z.object({
-        id: z.string().min(2).max(100),
+        id: implisenseIdSchema,
         searchQuery: z.string().max(200),
       }),
     )
@@ -253,12 +222,14 @@ export const applicabilityRouter = router({
         where: eq(applicabilityLookup.companyId, input.id),
       });
 
+      // A cached row that no longer has the shape we read counts as a miss.
       if (
         cached?.apiResponse &&
         cached.lookedUpAt &&
         Date.now() - cached.lookedUpAt.getTime() < CACHE_TTL_MS
       ) {
-        return processCompanyData(cached.apiResponse as unknown as ImplisenseCompany);
+        const hit = implisenseCompanySchema.safeParse(cached.apiResponse);
+        if (hit.success) return processCompanyData(hit.data);
       }
 
       // Cache miss — call paid API
@@ -281,14 +252,13 @@ export const applicabilityRouter = router({
         },
       );
 
-      if (!res.ok) {
+      const company = await readVendorJson(res, implisenseCompanySchema);
+      if (!company) {
         throw new TRPCError({
           code: "NOT_FOUND",
           message: "Company not found",
         });
       }
-
-      const company = (await res.json()) as ImplisenseCompany;
       const result = processCompanyData(company);
 
       // Cache the API response. We refresh classification/apiResponse/
@@ -302,7 +272,7 @@ export const applicabilityRouter = router({
           companyId: company.id,
           companyName: company.name,
           classification: result.nis2.classification.classification,
-          apiResponse: company as unknown as Record<string, unknown>,
+          apiResponse: company,
           lookedUpAt: new Date(),
         })
         .onConflictDoUpdate({
@@ -310,7 +280,7 @@ export const applicabilityRouter = router({
           set: {
             companyName: company.name,
             classification: result.nis2.classification.classification,
-            apiResponse: company as unknown as Record<string, unknown>,
+            apiResponse: company,
             lookedUpAt: new Date(),
           },
         })

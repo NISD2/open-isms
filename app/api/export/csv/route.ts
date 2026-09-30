@@ -1,6 +1,7 @@
 import { eq } from "drizzle-orm";
 import { NextRequest } from "next/server";
 import { getSession } from "@/lib/auth";
+import { toCsv } from "@/lib/csv";
 import { db } from "@/lib/db";
 import { loadReportData } from "@/lib/pdf/load-report-data";
 import { rateLimit } from "@/lib/rate-limit";
@@ -69,14 +70,9 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  const csvLines = [
-    headers.map(escapeCSV).join(","),
-    ...rows.map((row) => row.map(escapeCSV).join(",")),
-  ];
-
   // UTF-8 BOM for Excel compatibility with German umlauts
   const BOM = "\uFEFF";
-  const csv = BOM + csvLines.join("\r\n");
+  const csv = BOM + toCsv([headers, ...rows]);
 
   const date = new Date().toISOString().split("T")[0];
 
@@ -86,11 +82,4 @@ export async function GET(request: NextRequest) {
       "Content-Disposition": `attachment; filename="compliance-export-${date}.csv"`,
     },
   });
-}
-
-function escapeCSV(value: string): string {
-  if (value.includes(",") || value.includes('"') || value.includes("\n")) {
-    return `"${value.replace(/"/g, '""')}"`;
-  }
-  return value;
 }

@@ -25,6 +25,7 @@ type CourseId = RouterInputs["platformAdmin"]["trainingMarkCourseComplete"]["cou
 import { PageHeader } from "@/components/shared/PageHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Link, useRouter } from "@/i18n/navigation";
 import { DevPanel } from "./DevPanel";
 import { EraseUserButton, ErasuresPanel } from "./GdprErasure";
@@ -471,42 +472,58 @@ const EMAIL_TYPE_DESCRIPTIONS: Record<string, string> = {
 
 type PreviewTemplate = "activation-nudge" | "daily-digest" | "weekly-digest";
 
-/** Opens the rendered template in a new tab, exactly as the send would render it. */
+/**
+ * Shows the rendered template exactly as the send would render it. In a sandboxed frame rather
+ * than a window written from here: the mail carries names and text other people typed, and a
+ * window opened by this page shares its origin, so any script in the HTML ran as the admin.
+ */
 function PreviewEmailButton({ template }: { template: PreviewTemplate }) {
   const utils = trpc.useUtils();
   const [loading, setLoading] = useState(false);
+  const [html, setHtml] = useState<string | null>(null);
   return (
-    <Button
-      variant="ghost"
-      size="sm"
-      disabled={loading}
-      onClick={async () => {
-        setLoading(true);
-        try {
-          const r = await utils.platformAdmin.emailPreview.fetch(
-            { template },
-            { staleTime: 0 },
-          );
-          if (!r.html) {
-            toast.warning(r.reason ?? "Nothing to preview.");
-            return;
+    <>
+      <Button
+        variant="ghost"
+        size="sm"
+        disabled={loading}
+        onClick={async () => {
+          setLoading(true);
+          try {
+            const r = await utils.platformAdmin.emailPreview.fetch(
+              { template },
+              { staleTime: 0 },
+            );
+            if (!r.html) {
+              toast.warning(r.reason ?? "Nothing to preview.");
+              return;
+            }
+            setHtml(r.html);
+          } catch (e) {
+            toast.error(e instanceof Error ? e.message : "Preview failed");
+          } finally {
+            setLoading(false);
           }
-          const w = window.open("", "_blank");
-          if (!w) {
-            toast.error("Popup blocked — allow popups for this page to preview.");
-            return;
-          }
-          w.document.write(r.html);
-          w.document.close();
-        } catch (e) {
-          toast.error(e instanceof Error ? e.message : "Preview failed");
-        } finally {
-          setLoading(false);
-        }
-      }}
-    >
-      {loading ? "Rendering..." : "Preview"}
-    </Button>
+        }}
+      >
+        {loading ? "Rendering..." : "Preview"}
+      </Button>
+      <Dialog open={html !== null} onOpenChange={(open) => !open && setHtml(null)}>
+        <DialogContent className="max-w-3xl">
+          <DialogHeader>
+            <DialogTitle>Email preview</DialogTitle>
+          </DialogHeader>
+          {html ? (
+            <iframe
+              title="Email preview"
+              sandbox=""
+              srcDoc={html}
+              className="h-[70vh] w-full rounded-md border bg-white"
+            />
+          ) : null}
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
 

@@ -10,6 +10,7 @@
  * checked where they are used.
  */
 import { z } from "zod";
+import { trimmed } from "@/lib/env-value";
 import { PROMO_ENDED } from "./promo";
 
 export const QONTO_PRODUCTION_BASE = "https://thirdparty.qonto.com/v2";
@@ -17,9 +18,6 @@ export const QONTO_SANDBOX_HOST = "thirdparty-sandbox.staging.qonto.co";
 export const VIES_DEFAULT_ENDPOINT =
   "https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number";
 
-/** Trimmed; empty or only whitespace counts as unset, so a copied `KEY=` still gets its default. */
-const trimmed = (v: unknown): unknown =>
-  typeof v === "string" ? v.trim() || undefined : v;
 const upper = (v: unknown): unknown => {
   const t = trimmed(v);
   return typeof t === "string" ? t.toUpperCase() : t;
