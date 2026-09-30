@@ -40,6 +40,15 @@
       "incorrect": "Nesprávně"
     },
     "progressLabel": "Dokončeno {completed} z {total} lekcí",
+    "participants": "{count, plural, one {# osoba začala} few {# osoby začaly} many {# osoby začalo} other {# osob začalo}}",
+    "publicOverview": {
+      "metaTitle": "Kurzy o NIS 2 a Cyber Resilience Act",
+      "metaDescription": "Tři kurzy, otevřené pod licencí CC BY 4.0: pro vedení, cvičení tabletop a SBOM podle Cyber Resilience Act.",
+      "title": "Kurzy",
+      "subtitle": "Otevřené pod licencí CC BY 4.0. Přihlaste se a začněte hned.",
+      "length": "Lekce: {lessons}, přibližně {minutes} minut",
+      "cta": "Přejít na kurz"
+    },
     "estimatedTime": "{minutes} min čtení",
     "certificate": {
       "lockedTitle": "Osvědčení o absolvování",
@@ -58,6 +67,13 @@
       "download": "Stáhnout osvědčení",
       "downloadHint": "Stáhne se jako PDF, které můžete uložit nebo vytisknout.",
       "finishEditingHint": "Nejprve uložte nebo zrušte změnu jména."
+    },
+    "overview": {
+      "lessonCount": "{count, plural, one {# lekce} few {# lekce} many {# lekcí} other {# lekcí}}",
+      "moduleCount": "{count, plural, one {# modul} few {# moduly} many {# modulů} other {# modulů}}",
+      "minutes": "{minutes} min",
+      "duration": "{hours} h {minutes} min",
+      "moduleProgress": "{completed}/{total} lekcí"
     }
   }
 }

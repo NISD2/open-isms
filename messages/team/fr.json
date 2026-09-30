@@ -43,6 +43,7 @@
     },
     "inline": {
       "sent": "Invitation envoyée à {email}",
+      "notEmailed": "Invitation créée pour {email}. Cette instance n'envoie pas d'e-mails : transmettez-lui le lien vous-même.",
       "linkCopied": "Lien copié"
     },
     "invalidTitle": "Invitation invalide",
@@ -72,6 +73,14 @@
       "hr_director": "Directeur des ressources humaines",
       "legal": "Responsable juridique / conformité",
       "dpo": "Délégué à la protection des données"
+    },
+    "memberRole": {
+      "admin": "Administrateur",
+      "member": "Membre",
+      "reviewer": "Réviseur",
+      "legal_reviewer": "Réviseur juridique",
+      "owner": "A créé l'organisation",
+      "success": "Rôle d'accès mis à jour"
     }
   }
 }

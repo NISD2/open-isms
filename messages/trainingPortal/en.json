@@ -67,6 +67,13 @@
       "download": "Download Certificate",
       "downloadHint": "Downloads as a PDF you can save or print.",
       "finishEditingHint": "Save or cancel the name change first."
+    },
+    "overview": {
+      "lessonCount": "{count, plural, one {# lesson} other {# lessons}}",
+      "moduleCount": "{count, plural, one {# module} other {# modules}}",
+      "minutes": "{minutes} min",
+      "duration": "{hours} h {minutes} min",
+      "moduleProgress": "{completed}/{total} lessons"
     }
   }
 }

@@ -67,6 +67,13 @@
       "download": "Certificaat downloaden",
       "downloadHint": "Wordt gedownload als PDF die u kunt opslaan of afdrukken.",
       "finishEditingHint": "Sla de naamswijziging eerst op of annuleer deze."
+    },
+    "overview": {
+      "lessonCount": "{count, plural, one {# les} other {# lessen}}",
+      "moduleCount": "{count, plural, one {# module} other {# modules}}",
+      "minutes": "{minutes} min",
+      "duration": "{hours} u {minutes} min",
+      "moduleProgress": "{completed}/{total} lessen"
     }
   }
 }

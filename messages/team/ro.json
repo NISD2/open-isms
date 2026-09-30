@@ -43,6 +43,7 @@
     },
     "inline": {
       "sent": "Invitație trimisă către {email}",
+      "notEmailed": "Invitație creată pentru {email}. Această instanță nu trimite e-mailuri, așa că trimiteți linkul dumneavoastră.",
       "linkCopied": "Link copiat"
     },
     "invalidTitle": "Invitație invalidă",
@@ -72,6 +73,14 @@
       "hr_director": "Director de resurse umane",
       "legal": "Responsabil juridic / de conformitate",
       "dpo": "Responsabil cu protecția datelor"
+    },
+    "memberRole": {
+      "admin": "Administrator",
+      "member": "Membru",
+      "reviewer": "Evaluator",
+      "legal_reviewer": "Evaluator juridic",
+      "owner": "A creat organizația",
+      "success": "Rol de acces actualizat"
     }
   }
 }

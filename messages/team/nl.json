@@ -1,78 +1,78 @@
 {
   "team": {
     "pageTitle": "Team",
-    "pageDescription": "Manage team members and invitations",
+    "pageDescription": "Teamleden en uitnodigingen beheren",
     "members": {
-      "title": "Members",
-      "description": "{count, plural, one {# member} other {# members}} in your company",
-      "name": "Name",
-      "email": "Email",
-      "role": "Role",
-      "you": "you",
-      "assignedCategories": "Assigned Categories",
-      "complianceRole": "Assign Role"
+      "title": "Leden",
+      "description": "{count, plural, one {# lid} other {# leden}} in uw organisatie",
+      "name": "Naam",
+      "email": "E-mail",
+      "role": "Rol",
+      "you": "u",
+      "assignedCategories": "Toegewezen categorieën",
+      "complianceRole": "Rol toewijzen"
     },
     "invites": {
-      "title": "Pending Invites",
-      "description": "{count, plural, one {# pending invitation} other {# pending invitations}}",
-      "email": "Email",
-      "expires": "Expires",
-      "linkCopied": "Link copied"
+      "title": "Openstaande uitnodigingen",
+      "description": "{count, plural, one {# openstaande uitnodiging} other {# openstaande uitnodigingen}}",
+      "email": "E-mail",
+      "expires": "Verloopt",
+      "linkCopied": "Link gekopieerd"
     },
     "invite": {
-      "title": "Invite Member",
-      "description": "Enter an email address to generate an invite link",
-      "email": "Email",
-      "emailPlaceholder": "colleague@company.com",
-      "complianceRole": "Compliance Role",
-      "complianceRolePlaceholder": "Select role (optional)",
-      "submit": "Invite",
-      "submitting": "Inviting..."
+      "title": "Lid uitnodigen",
+      "description": "Voer een e-mailadres in om een uitnodigingslink te maken",
+      "email": "E-mail",
+      "emailPlaceholder": "collega@bedrijf.nl",
+      "complianceRole": "Compliancerol",
+      "complianceRolePlaceholder": "Kies een rol (optioneel)",
+      "submit": "Uitnodigen",
+      "submitting": "Bezig met uitnodigen..."
     },
     "assignRole": {
-      "label": "Assign Role",
-      "placeholder": "Select role...",
-      "success": "Role assigned successfully",
-      "noCategories": "No categories for this role"
+      "label": "Rol toewijzen",
+      "placeholder": "Kies een rol...",
+      "success": "Rol toegewezen",
+      "noCategories": "Geen categorieën voor deze rol"
     },
     "remove": {
-      "success": "Member removed"
+      "success": "Lid verwijderd"
     },
     "revoke": {
-      "success": "Invite revoked"
+      "success": "Uitnodiging ingetrokken"
     },
     "inline": {
-      "sent": "Invite sent to {email}",
-      "notEmailed": "Invite created for {email}. This instance has no mail transport, so send them the link yourself.",
-      "linkCopied": "Link copied"
+      "sent": "Uitnodiging verstuurd naar {email}",
+      "notEmailed": "Uitnodiging voor {email} aangemaakt. Deze installatie verstuurt geen e-mail, dus stuur de link zelf door.",
+      "linkCopied": "Link gekopieerd"
     },
-    "invalidTitle": "Invalid Invite",
-    "invalidDescription": "This invite link is invalid or has already been used.",
-    "usedTitle": "Invite Already Used",
-    "usedDescription": "This invite has already been accepted or revoked.",
-    "expiredTitle": "Invite Expired",
-    "expiredDescription": "This invite link has expired. Ask your admin for a new one.",
+    "invalidTitle": "Ongeldige uitnodiging",
+    "invalidDescription": "Deze uitnodigingslink is ongeldig of al gebruikt.",
+    "usedTitle": "Uitnodiging al gebruikt",
+    "usedDescription": "Deze uitnodiging is al geaccepteerd of ingetrokken.",
+    "expiredTitle": "Uitnodiging verlopen",
+    "expiredDescription": "Deze uitnodigingslink is verlopen. Vraag uw beheerder om een nieuwe.",
     "accept": {
-      "joinTitle": "Join {company}",
-      "joinDescription": "You've been invited to join as {role}.",
-      "signInDescription": "Je bent uitgenodigd om als {role} deel te nemen. Meld je aan of registreer je om door te gaan.",
+      "joinTitle": "Lid worden van {company}",
+      "joinDescription": "U bent uitgenodigd om deel te nemen als {role}.",
+      "signInDescription": "U bent uitgenodigd om deel te nemen als {role}. Meld u aan of registreer u om door te gaan.",
       "signInToAccept": "Aanmelden en deelnemen",
-      "wrongAccountTitle": "Wrong Account",
-      "wrongAccountDescription": "This invite was sent to {inviteEmail}. You're signed in as {userEmail}.",
-      "signOutRetry": "Sign out and try again",
-      "joining": "Joining...",
-      "acceptInvite": "Accept Invite",
-      "joined": "Joined {company}"
+      "wrongAccountTitle": "Verkeerd account",
+      "wrongAccountDescription": "Deze uitnodiging is verstuurd naar {inviteEmail}. U bent aangemeld als {userEmail}.",
+      "signOutRetry": "Afmelden en opnieuw proberen",
+      "joining": "Bezig met deelnemen...",
+      "acceptInvite": "Uitnodiging accepteren",
+      "joined": "Lid geworden van {company}"
     },
     "roles": {
-      "ceo": "CEO / Managing Director",
-      "ciso": "CISO / IT Security Officer",
-      "cto": "CTO / Head of Engineering",
-      "coo": "COO / Operations Director",
-      "cpo": "CPO / Procurement Lead",
-      "hr_director": "HR Director",
-      "legal": "Legal / Compliance Officer",
-      "dpo": "Data Protection Officer"
+      "ceo": "CEO / Algemeen directeur",
+      "ciso": "CISO / IT-securityfunctionaris",
+      "cto": "CTO / Hoofd techniek",
+      "coo": "COO / Operationeel directeur",
+      "cpo": "CPO / Hoofd inkoop",
+      "hr_director": "HR-directeur",
+      "legal": "Juridisch / Compliance officer",
+      "dpo": "Functionaris gegevensbescherming"
     },
     "memberRole": {
       "admin": "Beheerder",

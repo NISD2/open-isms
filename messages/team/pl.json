@@ -43,6 +43,7 @@
     },
     "inline": {
       "sent": "Zaproszenie wysłane do {email}",
+      "notEmailed": "Utworzono zaproszenie dla {email}. Ta instancja nie wysyła e-maili, więc przekaż link samodzielnie.",
       "linkCopied": "Skopiowano link"
     },
     "invalidTitle": "Nieprawidłowe zaproszenie",
@@ -72,6 +73,14 @@
       "hr_director": "Dyrektor HR",
       "legal": "Pełnomocnik ds. prawnych / zgodności",
       "dpo": "Inspektor ochrony danych"
+    },
+    "memberRole": {
+      "admin": "Administrator",
+      "member": "Członek",
+      "reviewer": "Recenzent",
+      "legal_reviewer": "Recenzent prawny",
+      "owner": "Utworzył(a) organizację",
+      "success": "Rola dostępu zaktualizowana"
     }
   }
 }

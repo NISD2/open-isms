@@ -67,6 +67,13 @@
       "download": "Bescheinigung herunterladen",
       "downloadHint": "Wird als PDF heruntergeladen. Sie können die Datei speichern oder ausdrucken.",
       "finishEditingHint": "Speichern oder verwerfen Sie zuerst die Namensänderung."
+    },
+    "overview": {
+      "lessonCount": "{count, plural, one {# Lektion} other {# Lektionen}}",
+      "moduleCount": "{count, plural, one {# Modul} other {# Module}}",
+      "minutes": "{minutes} Min.",
+      "duration": "{hours} Std. {minutes} Min.",
+      "moduleProgress": "{completed}/{total} Lektionen"
     }
   }
 }
