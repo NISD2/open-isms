@@ -29,7 +29,8 @@ export const customerContactEmails = async (
     .where(inArray(company.id, [...customerCompanyIds]));
   return new Map(
     rows.flatMap((row) => {
-      const email = row.contactEmail ?? row.ownerEmail;
+      // A cleared form field can store "" rather than null; blank means unset.
+      const email = row.contactEmail?.trim() || row.ownerEmail;
       return email ? [[row.id, email.toLowerCase()] as const] : [];
     }),
   );
