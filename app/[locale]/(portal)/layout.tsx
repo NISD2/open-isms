@@ -8,7 +8,7 @@ import { PortalHeader } from "@/components/portal/PortalHeader";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { getSession, hasReviewAccess } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
-import { mayOpenPortalPath } from "@/lib/billing/access";
+import { mayOpenPortalPath, mayWalkDurchgang } from "@/lib/billing/access";
 import { billingFor } from "@/lib/billing/ordering-access";
 import {
   type CategoryInfo,
@@ -129,6 +129,7 @@ export default async function PortalLayout({ children }: { children: React.React
     (p) => pathname === p || pathname.startsWith(`${p}/`),
   );
   const showOnboarding = !session.companyActivated && needsCompany;
+  const platformAdmin = isPlatformAdmin(session.user.email);
 
   return (
     <SidebarProvider defaultOpen>
@@ -137,11 +138,12 @@ export default async function PortalLayout({ children }: { children: React.React
           name: session.user.name,
           email: session.user.email,
           image: session.user.image,
-          isPlatformAdmin: isPlatformAdmin(session.user.email),
+          isPlatformAdmin: platformAdmin,
         }}
         frameworks={frameworks}
         showBilling={billing.open}
         showAuditTrail={hasReviewAccess(session.role)}
+        showDurchgang={mayWalkDurchgang(session.accessLevel, platformAdmin)}
       />
       <SidebarInset>
         <PortalHeader
