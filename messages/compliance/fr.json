@@ -76,6 +76,7 @@
       "signedOff": "Approuvé",
       "signedOffByOn": "Approuvé par {name} le {date}",
       "rejectionFeedback": "Retour de la revue",
+      "needsReview": "Revue requise : l'échéance est dépassée, ou les données opérationnelles sur lesquelles repose cette exigence ont changé.",
       "moduleData": "Données opérationnelles",
       "goToRegister": "Aller au registre",
       "requiredRole": "Cette exigence requiert une approbation par : {role}",

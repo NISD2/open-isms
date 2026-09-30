@@ -79,6 +79,8 @@ interface AppSidebarProps {
   showBilling: boolean;
   /** Whether this person's role may read the audit trail (hasReviewAccess, server/trpc/routers/audit.ts). */
   showAuditTrail: boolean;
+  /** Whether this person may walk the paid guided path (mayWalkDurchgang, lib/billing/access.ts). */
+  showDurchgang: boolean;
 }
 
 function NavMenu({ items, pathname }: { items: NavItem[]; pathname: string }) {
@@ -107,6 +109,7 @@ export function AppSidebar({
   frameworks,
   showBilling,
   showAuditTrail,
+  showDurchgang,
 }: AppSidebarProps) {
   const t = useTranslations("portal");
   const pathname = usePathname();
@@ -116,7 +119,9 @@ export function AppSidebar({
 
   const overviewItems: NavItem[] = [
     { href: "/journey", label: t("journey"), icon: Compass },
-    { href: "/durchgang", label: t("durchgang"), icon: Footprints },
+    ...(showDurchgang
+      ? [{ href: "/durchgang", label: t("durchgang"), icon: Footprints }]
+      : []),
   ];
 
   // Living registers the journey strands: /assets only appears in the journey

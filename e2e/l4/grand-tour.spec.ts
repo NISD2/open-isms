@@ -6,11 +6,13 @@
  * done is signed off through the real UI, and the run ends with the
  * journey at 49/49 and every status row completed in Postgres.
  */
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import { e2eQuery } from "../lib/db";
-import { journeyCodes, gotoRequirement } from "../lib/journey";
+import { gotoRequirement, journeyCodes, reopenIfDueForReview } from "../lib/journey";
 
-test("grand tour: the company reaches a fully signed-off NIS2 implementation", async ({ page }) => {
+test("grand tour: the company reaches a fully signed-off NIS2 implementation", async ({
+  page,
+}) => {
   test.setTimeout(360_000);
 
   const signed: string[] = [];
@@ -23,6 +25,9 @@ test("grand tour: the company reaches a fully signed-off NIS2 implementation", a
     // slow-rendering signable page as done — a silent flake surfacing only
     // at the final DB assertion.
     await gotoRequirement(page, code);
+    // Module edits in l2 and the re-role in l3 can leave signed rows in
+    // needs_review, which offer Reopen rather than Sign off.
+    await reopenIfDueForReview(page);
     const button = page.getByTestId("sign-off-button");
     if (!(await button.isVisible())) {
       alreadyDone.push(code);

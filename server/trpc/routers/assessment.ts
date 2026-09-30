@@ -12,6 +12,7 @@ import {
   scheduleDeadlineReminders,
 } from "@/lib/compliance/schedule-notifications";
 import { pendingSignersOf } from "@/lib/compliance/sign-off-roster";
+import { reopenChange } from "@/lib/compliance/sign-off-state";
 import type { Database } from "@/lib/db";
 import { contactEmailChangedEmail, sendMail } from "@/lib/mail";
 import { joinCompany } from "@/lib/organization/membership";
@@ -36,11 +37,7 @@ import {
   propagateSatisfaction,
   recalculateProgress,
 } from "../helpers/assessment-helpers";
-import {
-  MANUAL_STATUSES,
-  REOPEN_APPROVED_FIRST,
-  reopenChange,
-} from "../helpers/manual-status";
+import { MANUAL_STATUSES, REOPEN_APPROVED_FIRST } from "../helpers/manual-status";
 import { getNis2Assessment, getNis2FrameworkId } from "../helpers/nis2-scope";
 import {
   createAssessmentsForFrameworks,

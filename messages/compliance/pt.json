@@ -76,6 +76,7 @@
       "signedOff": "Aprovado",
       "signedOffByOn": "Aprovado por {name} em {date}",
       "rejectionFeedback": "Comentários da revisão",
+      "needsReview": "Requer revisão: o prazo expirou ou os dados operacionais em que este requisito se baseia foram alterados.",
       "moduleData": "Dados operacionais",
       "goToRegister": "Ir para o registo",
       "requiredRole": "Este requisito exige aprovação por: {role}",

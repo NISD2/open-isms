@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Info } from "lucide-react";
+import { Info, Lock } from "lucide-react";
 import { useTranslations } from "next-intl";
 /**
  * SchemaForm — Drop-in form component driven by a Zod schema
@@ -43,6 +43,17 @@ import { useLLMPrefill } from "./use-llm-prefill";
 // Props
 // ============================================================================
 
+/**
+ * Fields another party owns: shown with their saved value, but disabled and
+ * left out of validation and of the submitted data, so the form cannot take
+ * an edit the server would discard. A disabled input alone does not say who
+ * owns it, hence the note.
+ */
+export interface ReadOnlyFields {
+  keys: readonly string[];
+  note: string;
+}
+
 interface SchemaFormProps<T extends z.ZodRawShape> {
   // biome-ignore lint/suspicious/noExplicitAny: drizzle-zod uses the "strip" literal where Zod v4 expects its $strip symbol
   schema: z.ZodObject<T, any>;
@@ -60,6 +71,8 @@ interface SchemaFormProps<T extends z.ZodRawShape> {
   llmPrefill?: boolean;
   /** When true, all fields are disabled (read-only mode) */
   disabled?: boolean;
+  /** Some fields read-only, the rest editable. The note shows only when one of them is rendered. */
+  readOnly?: ReadOnlyFields;
   /** i18n namespace for auto-resolving field labels (fields.{key}) and descriptions (fieldDescriptions.{key}) */
   translationNamespace?: string;
   /**
@@ -98,6 +111,7 @@ export function SchemaForm<T extends z.ZodRawShape>({
   actions,
   llmPrefill = false,
   disabled = false,
+  readOnly,
   translationNamespace,
   resetOnSubmit = false,
 }: SchemaFormProps<T>) {
@@ -110,12 +124,20 @@ export function SchemaForm<T extends z.ZodRawShape>({
   const selectPlaceholder = t("select");
 
   const fields = introspectSchema(schema as z.ZodObject<z.ZodRawShape>, omit);
+  const readOnlyKeys = new Set(readOnly?.keys);
+  const readOnlyNote = fields.some((f) => readOnlyKeys.has(f.key))
+    ? readOnly?.note
+    : undefined;
 
-  // Validate only the fields the form renders. Omitted fields (companyId,
-  // timestamps) are bound server-side; keeping them in the resolver schema
-  // fails every submit on a field that has no rendered error slot.
+  // Validate only the fields the form renders and the user can change.
+  // Omitted fields (companyId, timestamps) are bound server-side; keeping them
+  // in the resolver schema fails every submit on a field that has no rendered
+  // error slot. The resolver returns the parsed data, so read-only fields
+  // dropped here are also never submitted.
   const omitMask = Object.fromEntries(
-    omit.filter((k) => k in schema.shape).map((k) => [k, true as const]),
+    [...omit, ...readOnlyKeys]
+      .filter((k) => k in schema.shape)
+      .map((k) => [k, true as const]),
   );
   const baseResolverSchema = Object.keys(omitMask).length
     ? (schema as z.ZodObject<z.ZodRawShape>).omit(omitMask)
@@ -168,9 +190,11 @@ export function SchemaForm<T extends z.ZodRawShape>({
     );
   };
 
+  // A prefilled read-only field would show a value that is never saved.
+  const prefillFields = fields.filter((f) => !readOnlyKeys.has(f.key));
   const prefill = useLLMPrefill<FieldValues>({
     form,
-    fields: fields.map((f) => {
+    fields: prefillFields.map((f) => {
       const override = fieldOverrides[f.key];
       const opts = override?.options;
       const fieldLabel = resolveLabel(f);
@@ -217,6 +241,12 @@ export function SchemaForm<T extends z.ZodRawShape>({
     <TooltipProvider>
       <Form {...form}>
         <form onSubmit={handleSubmit} className={cn("space-y-6", className)}>
+          {readOnlyNote && (
+            <p className="flex items-start gap-2 border-l-4 border-muted-foreground/30 pl-3 text-sm text-muted-foreground">
+              <Lock className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden />
+              {readOnlyNote}
+            </p>
+          )}
           <div className={gridClass}>
             {fields.map((meta, idx) => {
               const override = fieldOverrides[meta.key];
@@ -253,6 +283,13 @@ export function SchemaForm<T extends z.ZodRawShape>({
                   </TooltipContent>
                 </Tooltip>
               ) : null;
+              const locked = readOnlyKeys.has(meta.key);
+              const lockIcon = locked ? (
+                <Lock
+                  className="inline h-3.5 w-3.5 ml-1 text-muted-foreground"
+                  aria-hidden
+                />
+              ) : null;
 
               if ((override?.component ?? meta.type) === "boolean") {
                 return (
@@ -276,13 +313,14 @@ export function SchemaForm<T extends z.ZodRawShape>({
                               field,
                               override,
                               selectPlaceholder,
-                              disabled,
+                              disabled || locked,
                             )}
                           </FormControl>
                           <div className="space-y-1 leading-none">
                             <FormLabel>
                               {label}
                               {infoIcon}
+                              {lockIcon}
                             </FormLabel>
                           </div>
                           <FormMessage />
@@ -310,6 +348,7 @@ export function SchemaForm<T extends z.ZodRawShape>({
                             </span>
                           )}
                           {infoIcon}
+                          {lockIcon}
                         </FormLabel>
                         <FormControl>
                           {renderFieldInput(
@@ -317,7 +356,7 @@ export function SchemaForm<T extends z.ZodRawShape>({
                             field,
                             override,
                             selectPlaceholder,
-                            disabled,
+                            disabled || locked,
                           )}
                         </FormControl>
                         <FormMessage />

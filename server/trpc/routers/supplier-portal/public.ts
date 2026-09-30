@@ -31,6 +31,7 @@ import {
   supplier,
 } from "@/schema";
 import { publicProcedure, router } from "../../init";
+import { customerAddressOf } from "./customer-contact";
 
 export const supplierPublicRouter = router({
   /**
@@ -122,7 +123,7 @@ export const supplierPublicRouter = router({
       });
       // Defense-in-depth: if a token survives a relationship cascade-delete
       // race or the supplier opted out of the supplier role, refuse to leak.
-      if (!supplierCompany || !supplierCompany.actsAsSupplier) return null;
+      if (!supplierCompany?.actsAsSupplier) return null;
 
       // Assets the supplier offers to THIS customer — service profile lives
       // in asset_supplier_offering, joined to the generic asset row.
@@ -225,7 +226,7 @@ export const supplierPublicRouter = router({
       return {
         relationship: {
           id: rel.id,
-          customerEmail: rel.customerEmail,
+          customerEmail: await customerAddressOf(ctx.db, rel),
           customerOrgName: rel.customerOrgName,
           status: rel.status,
           createdAt: rel.createdAt,
@@ -292,13 +293,14 @@ export const supplierPublicRouter = router({
         // SUPPLIER's company (the row's tenant); userId is null because
         // the caller is unauthenticated. The IP from ctx is the only
         // forensic anchor we have for the actor.
+        const customerEmail = await customerAddressOf(ctx.db, rel);
         logAudit({
           companyId: rel.supplierCompanyId,
           userId: null,
           action: "supplierPortal.public.revoke",
           entityType: "supplier",
           entityId: rel.id,
-          description: `customer ${rel.customerEmail} revoked access via token from ${ctx.ip}`,
+          description: `customer ${customerEmail} revoked access via token from ${ctx.ip}`,
           newValue: { status: "revoked", actorIp: ctx.ip },
         }).catch((err) => console.error("[audit] revoke log failed:", err));
       }

@@ -17,7 +17,7 @@
  */
 
 import { TRPCError } from "@trpc/server";
-import { and, eq, gt, isNull } from "drizzle-orm";
+import { and, eq, gt, isNull, ne } from "drizzle-orm";
 import { z } from "zod";
 import { createBillingAccount } from "@/lib/billing/accounts";
 import type { DbOrTx } from "@/lib/db";
@@ -33,6 +33,7 @@ import {
 } from "@/schema/validators";
 import { discardDraftCompany } from "../../helpers/setup-helpers";
 import { protectedProcedure, router } from "../../init";
+import { customerContactEmails } from "./customer-contact";
 import { generateOpaqueToken } from "./helpers";
 
 /**
@@ -89,6 +90,48 @@ const draftReplacedBySupplierSignup = async (db: DbOrTx, userId: string) => {
     throw new TRPCError({ code: "CONFLICT", message: "Already a member of a company" });
   }
   return signupDraftOf(mine, userId);
+};
+
+/**
+ * Create the relationship one invite describes, then mark the invite accepted, so an accepted invite
+ * always has its row. The address stored here keys uq_supplier_portal_share and is what the row
+ * keeps if the customer later unlinks it; while linked, mail goes to the customer's current address
+ * (./customer-contact). The index allows one row per (supplier company, customer email):
+ * a second inviting company reached at an address already bound collides, and its invite stays
+ * pending rather than being accepted with no relationship. Returns whether the invite was bound.
+ */
+const bindInvite = async (
+  tx: DbOrTx,
+  input: {
+    readonly inviteId: string;
+    readonly supplierCompanyId: string;
+    readonly supplierName: string;
+    readonly customerCompanyId: string;
+    readonly customerEmail: string | null;
+  },
+): Promise<boolean> => {
+  const [row] = await tx
+    .insert(supplier)
+    .values({
+      name: input.supplierName,
+      supplierCompanyId: input.supplierCompanyId,
+      customerCompanyId: input.customerCompanyId,
+      customerEmail: input.customerEmail,
+      status: "active" as const,
+      unsubscribeToken: generateOpaqueToken(),
+      source: "claim_token",
+      confirmedAt: new Date(),
+    })
+    .onConflictDoNothing({
+      target: [supplier.supplierCompanyId, supplier.customerEmail],
+    })
+    .returning({ id: supplier.id });
+  if (!row) return false;
+  await tx
+    .update(supplierInvite)
+    .set({ acceptedAt: new Date(), acceptedByCompanyId: input.supplierCompanyId })
+    .where(eq(supplierInvite.id, input.inviteId));
+  return true;
 };
 
 export const supplierOnboardingRouter = router({
@@ -207,6 +250,27 @@ export const supplierOnboardingRouter = router({
       }
 
       const result = await ctx.db.transaction(async (tx) => {
+        // Claimed before anything is created. A second submit of the same
+        // invite waits on this row, then finds it accepted and stops here
+        // instead of creating a second supplier company.
+        const [claimed] = await tx
+          .update(supplierInvite)
+          .set({ acceptedAt: new Date() })
+          .where(
+            and(
+              eq(supplierInvite.id, invite.id),
+              isNull(supplierInvite.acceptedAt),
+              gt(supplierInvite.expiresAt, new Date()),
+            ),
+          )
+          .returning({ id: supplierInvite.id });
+        if (!claimed) {
+          throw new TRPCError({
+            code: "CONFLICT",
+            message: "This invite has already been accepted.",
+          });
+        }
+
         const newCompany = await createSupplierCompany(tx, {
           userId: ctx.userId,
           name: input.name,
@@ -214,69 +278,56 @@ export const supplierOnboardingRouter = router({
           replacesBillingAccountId: signupDraft?.billingAccountId ?? null,
         });
 
-        // Mark the invite accepted (audit trail).
-        await tx
-          .update(supplierInvite)
-          .set({
-            acceptedAt: new Date(),
-            acceptedByCompanyId: newCompany.id,
-          })
-          .where(eq(supplierInvite.id, invite.id));
-
-        // Auto-bind the new supplier to the inviting entity by creating an
-        // active row in the bilateral `supplier` table. This closes the
-        // loop: the entity invited the supplier; once the supplier accepts,
-        // the entity sees the relationship in their inventory immediately.
-        await tx.insert(supplier).values({
-          name: input.name,
-          supplierCompanyId: newCompany.id,
-          customerCompanyId: invite.fromCompanyId,
-          customerEmail: callerEmail,
-          status: "active" as const,
-          unsubscribeToken: generateOpaqueToken(),
-          source: "claim_token",
-          confirmedAt: new Date(),
-        });
-
-        // Also accept any OTHER pending invites for the same email — if the
-        // supplier was invited by multiple entities, they all auto-bind in
-        // one signup. This is the killer feature.
+        // Every customer that invited this address is bound in the same signup,
+        // the clicked invite first so it is the one kept if two customers share
+        // a contact address. uq_supplier_invite_pair allows one invite per
+        // (customer, address), so no two of these describe the same relationship.
         const otherInvites = await tx.query.supplierInvite.findMany({
           where: and(
             eq(supplierInvite.toEmail, invite.toEmail),
+            ne(supplierInvite.id, invite.id),
             isNull(supplierInvite.acceptedAt),
             gt(supplierInvite.expiresAt, new Date()),
           ),
         });
+        const invites = [invite, ...otherInvites];
+        const contacts = await customerContactEmails(
+          tx,
+          invites.map((pending) => pending.fromCompanyId),
+        );
 
-        for (const other of otherInvites) {
-          await tx
-            .update(supplierInvite)
-            .set({
-              acceptedAt: new Date(),
-              acceptedByCompanyId: newCompany.id,
-            })
-            .where(eq(supplierInvite.id, other.id));
-
-          await tx
-            .insert(supplier)
-            .values({
-              name: input.name,
-              supplierCompanyId: newCompany.id,
-              customerCompanyId: other.fromCompanyId,
-              customerEmail: callerEmail,
-              status: "active" as const,
-              unsubscribeToken: generateOpaqueToken(),
-              source: "claim_token",
-              confirmedAt: new Date(),
-            })
-            .onConflictDoNothing({
-              target: [supplier.supplierCompanyId, supplier.customerEmail],
-            });
+        const outcomes: { readonly inviteId: string; readonly bound: boolean }[] = [];
+        for (const pending of invites) {
+          const bound = await bindInvite(tx, {
+            inviteId: pending.id,
+            supplierCompanyId: newCompany.id,
+            supplierName: input.name,
+            customerCompanyId: pending.fromCompanyId,
+            customerEmail: contacts.get(pending.fromCompanyId) ?? null,
+          });
+          outcomes.push({ inviteId: pending.id, bound });
         }
 
-        return { companyId: newCompany.id, boundEntities: 1 + otherInvites.length };
+        // The clicked invite is already claimed, so if it did not bind it would
+        // commit as accepted with no relationship. The new company has no rows
+        // yet for it to collide with; this keeps that from ever committing.
+        if (!outcomes.some((o) => o.inviteId === invite.id && o.bound)) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "The invite could not be linked to the new supplier company.",
+          });
+        }
+
+        return { companyId: newCompany.id, outcomes };
       });
+
+      const unbound = result.outcomes.filter((o) => !o.bound).map((o) => o.inviteId);
+      if (unbound.length > 0) {
+        console.error(
+          "[supplier.acceptInvite] invites left pending, their customer's contact address is already bound to this supplier:",
+          unbound,
+        );
+      }
 
       // Discard the abandoned entity-draft shell (best-effort, post-commit).
       if (signupDraft) {
@@ -287,6 +338,10 @@ export const supplierOnboardingRouter = router({
         }
       }
 
-      return result;
+      return {
+        companyId: result.companyId,
+        boundEntities: result.outcomes.length - unbound.length,
+        unboundInvites: unbound.length,
+      };
     }),
 });

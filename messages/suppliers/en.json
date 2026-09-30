@@ -8,6 +8,7 @@
     "empty": "No suppliers registered. Add your first supplier to track supply chain security.",
     "deleteConfirm": "Are you sure you want to delete this supplier?",
     "actions": "Actions",
+    "supplierMaintainsClauses": "The supplier maintains the answers marked with a lock in its own supplier portal. You can read them here but not change them.",
     "critical": "Critical",
     "nonCritical": "Non-Critical",
     "riskLevel": {

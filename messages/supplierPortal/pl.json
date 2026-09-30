@@ -1,5 +1,12 @@
 {
   "supplierPortal": {
+    "certifications": {
+      "uploadHint": "Proszę przeciągnąć tutaj plik PDF z certyfikatem lub kliknąć, aby go wybrać",
+      "uploading": "Przesyłanie…",
+      "uploadFailed": "Przesyłanie nie powiodło się. Proszę spróbować ponownie lub skontaktować się z pomocą techniczną.",
+      "tooManyUploads": "Państwa firma przesłała w ostatniej godzinie zbyt wiele plików. Proszę spróbować ponownie za godzinę.",
+      "remove": "Usuń"
+    },
     "nav": {
       "portalName": "Portal dostawcy",
       "general": "Ogólne",

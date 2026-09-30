@@ -21,6 +21,7 @@ import {
 import { accountProcedure, router } from "../../init";
 import { insertRow, pickColumns, updateRow } from "../../typed";
 import { notifyCustomerAdded } from "./broadcast";
+import { withCustomerAddress } from "./customer-contact";
 import { generateOpaqueToken } from "./helpers";
 
 /**
@@ -56,11 +57,12 @@ async function requireSupplierRole(
 export const supplierRelationshipRouter = router({
   /** List all customers (supplier rows) where I'm the supplier-side party. */
   listMyCustomers: accountProcedure.query(async ({ ctx }) => {
-    return ctx.db
-      .select(supplierFacingColumns)
+    const rows = await ctx.db
+      .select({ ...supplierFacingColumns, customerCompanyId: supplier.customerCompanyId })
       .from(supplier)
       .where(eq(supplier.supplierCompanyId, ctx.companyId))
       .orderBy(desc(supplier.createdAt));
+    return withCustomerAddress(ctx.db, rows);
   }),
 
   /** Add a single customer subscription. Idempotent on (supplier, email). */
@@ -131,13 +133,17 @@ export const supplierRelationshipRouter = router({
   get: accountProcedure
     .input(z.object({ id: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
-      const [row] = await ctx.db
-        .select(supplierFacingColumns)
+      const rows = await ctx.db
+        .select({
+          ...supplierFacingColumns,
+          customerCompanyId: supplier.customerCompanyId,
+        })
         .from(supplier)
         .where(
           and(eq(supplier.id, input.id), eq(supplier.supplierCompanyId, ctx.companyId)),
         )
         .limit(1);
+      const [row] = await withCustomerAddress(ctx.db, rows);
       if (!row) throw new TRPCError({ code: "NOT_FOUND" });
       return row;
     }),

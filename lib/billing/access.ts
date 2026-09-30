@@ -83,3 +83,14 @@ export const FREE_PORTAL_PATHS = [
 export const mayOpenPortalPath = (level: AccessLevel, pathname: string): boolean =>
   level !== "free" ||
   FREE_PORTAL_PATHS.some((p) => pathname === p || pathname.startsWith(`${p}/`));
+
+/**
+ * Whether a person may walk the Durchgang, the paid guided path. Only a paid account: a
+ * grandfathered one keeps the current journey free and pays for the guided path, and before the
+ * launch every account reads as grandfathered, so "not free" opened it to everyone. A platform
+ * admin passes too, so it can be shown on a call from the operator's own company.
+ */
+export const mayWalkDurchgang = (
+  level: AccessLevel | null,
+  platformAdmin: boolean,
+): boolean => level === "full" || platformAdmin;

@@ -1,5 +1,12 @@
 {
   "supplierPortal": {
+    "certifications": {
+      "uploadHint": "Přetáhněte sem PDF s certifikátem, nebo klikněte a vyberte soubor",
+      "uploading": "Nahrávání…",
+      "uploadFailed": "Nahrání se nezdařilo. Zkuste to prosím znovu nebo kontaktujte podporu.",
+      "tooManyUploads": "Vaše společnost za poslední hodinu nahrála příliš mnoho souborů. Zkuste to prosím znovu za hodinu.",
+      "remove": "Odebrat"
+    },
     "nav": {
       "portalName": "Dodavatelský portál",
       "general": "Obecné",

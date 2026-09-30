@@ -8,6 +8,7 @@
     "empty": "Nessun fornitore registrato. Aggiungi il tuo primo fornitore per monitorare la sicurezza della catena di approvvigionamento.",
     "deleteConfirm": "Sei sicuro di voler eliminare questo fornitore?",
     "actions": "Azioni",
+    "supplierMaintainsClauses": "Le risposte contrassegnate da un lucchetto sono gestite dal fornitore nel proprio portale fornitori. Qui puoi leggerle, ma non modificarle.",
     "critical": "Critico",
     "nonCritical": "Non critico",
     "riskLevel": {

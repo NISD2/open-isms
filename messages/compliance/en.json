@@ -80,6 +80,7 @@
       "signedOff": "Signed off",
       "signedOffByOn": "Signed off by {name} on {date}",
       "rejectionFeedback": "Review feedback",
+      "needsReview": "Due for review: the deadline has passed, or the operational data this requirement relies on has changed.",
       "moduleData": "Operational data",
       "goToRegister": "Go to register",
       "requiredRole": "This requirement requires sign-off by: {role}",

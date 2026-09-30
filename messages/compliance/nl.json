@@ -76,6 +76,7 @@
       "signedOff": "Afgetekend",
       "signedOffByOn": "Afgetekend door {name} op {date}",
       "rejectionFeedback": "Beoordelingsfeedback",
+      "needsReview": "Beoordeling vereist: de deadline is verstreken, of de operationele gegevens waarop deze vereiste steunt zijn gewijzigd.",
       "moduleData": "Operationele gegevens",
       "goToRegister": "Naar register",
       "requiredRole": "Voor aftekening van deze vereiste is de volgende rol vereist: {role}",

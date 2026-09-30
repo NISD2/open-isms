@@ -4,9 +4,28 @@ import {
   hasGotIn,
   isGrandfatheredPerson,
   mayOpenPortalPath,
+  mayWalkDurchgang,
   newAccountAccessLevel,
   unpaidAccessLevel,
 } from "./access";
+
+describe("mayWalkDurchgang", () => {
+  test("only a paid account walks the guided path", () => {
+    expect(mayWalkDurchgang("full", false)).toBe(true);
+    expect(mayWalkDurchgang("grandfathered", false)).toBe(false);
+    expect(mayWalkDurchgang("free", false)).toBe(false);
+    expect(mayWalkDurchgang(null, false)).toBe(false);
+  });
+
+  test("before the launch everyone reads as grandfathered, so nobody unpaid gets in", () => {
+    const beforeLaunch = effectiveAccessLevel("free", false, false);
+    expect(mayWalkDurchgang(beforeLaunch, false)).toBe(false);
+  });
+
+  test("a platform admin passes, to show it on a call", () => {
+    expect(mayWalkDurchgang("grandfathered", true)).toBe(true);
+  });
+});
 
 describe("isGrandfatheredPerson", () => {
   const never = {

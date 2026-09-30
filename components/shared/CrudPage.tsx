@@ -9,7 +9,7 @@ import { PageHeader } from "@/components/shared/PageHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { FieldOverride } from "@/lib/forms/field-renderer";
-import { SchemaForm } from "@/lib/forms/schema-form";
+import { type ReadOnlyFields, SchemaForm } from "@/lib/forms/schema-form";
 
 type Item = Record<string, unknown>;
 
@@ -21,6 +21,8 @@ interface CrudPageProps<T extends z.ZodRawShape> {
   schema: z.ZodObject<T, any>;
   omit?: string[];
   fieldOverrides?: Record<string, FieldOverride>;
+  /** Fields of the row being edited that the user cannot change, per row. */
+  readOnlyFor?: (item: Item) => ReadOnlyFields;
   inline?: boolean;
   formColumns?: 1 | 2 | 3;
   /** Awaited before the create form clears, so a caller passing `mutateAsync`
@@ -44,6 +46,7 @@ export function CrudPage<T extends z.ZodRawShape>({
   schema,
   omit,
   fieldOverrides,
+  readOnlyFor,
   inline = false,
   formColumns = 2,
   onCreate,
@@ -129,6 +132,7 @@ export function CrudPage<T extends z.ZodRawShape>({
               columns={formColumns}
               isSubmitting={isSubmitting}
               fieldOverrides={fieldOverrides}
+              readOnly={editItem ? readOnlyFor?.(editItem) : undefined}
               llmPrefill={llmPrefill}
               translationNamespace={namespace}
             />
