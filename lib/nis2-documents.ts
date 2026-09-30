@@ -394,8 +394,8 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_de: "Datensicherungsrichtlinie",
     nis2Ref: "Art. 21(2)(c)",
     cirRef: "CIR 4.2",
-    description_en: "What is backed up, how often, where backups are stored (at least one copy offline), retention periods, encryption, and how restores are tested.",
-    description_de: "Was wie häufig gesichert wird, wo Backups gespeichert werden (mindestens eine Kopie offline), Aufbewahrungsfristen, Verschlüsselung, und wie Wiederherstellungen getestet werden.",
+    description_en: "What is backed up, how often, where backups are stored, retention periods, encryption, and how restores are tested.",
+    description_de: "Was wie häufig gesichert wird, wo Backups gespeichert werden, Aufbewahrungsfristen, Verschlüsselung, und wie Wiederherstellungen getestet werden.",
     platform: COVERED(
       "BCP",
       "/policies",
