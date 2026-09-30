@@ -19,7 +19,7 @@
  * Regex over free-form prose is the right tool here; this is generated German
  * and English text, not code or a structured format.
  */
-import { describe, test, expect } from "bun:test";
+import { describe, expect, test } from "bun:test";
 import de from "@/data/guidance/de.json";
 import en from "@/data/guidance/en.json";
 import type { GuidanceFile } from "@/lib/ai/guidance-types";
@@ -44,7 +44,8 @@ const PROSE_FIELDS = [
  * Both were wrong. Number words and currency symbols are in the pattern now.
  */
 const NUMBER = String.raw`(?:\d[\d.,]*|ein|eine|einem|einer|zwei|drei|vier|fünf|sechs|sieben|acht|neun|zehn|zwölf|one|two|three|four|five|six|seven|eight|nine|ten|twelve)`;
-const UNIT = String.raw`(?:Stunden?|Tage[n]?|Wochen?|Monate[n]?|Jahre[n]?|Prozent|EUR|Euro|hours?|days?|weeks?|months?|years?|percent)`;
+const UNIT =
+  "(?:Stunden?|Tage[n]?|Wochen?|Monate[n]?|Jahre[n]?|Prozent|EUR|Euro|hours?|days?|weeks?|months?|years?|percent)";
 /** Scale words that sit between the figure and its currency: "10 Mio. €". */
 const SCALE = String.raw`(?:\s*(?:Mio\.?|Mrd\.?|Millionen|Milliarden|million|billion|M|k))?`;
 const QUANTITY = new RegExp(
@@ -59,11 +60,7 @@ const QUANTITY = new RegExp(
  * not need its own allowlist entry: "90 Tagen" is the same claim as "90 Tage".
  */
 function normalise(quantity: string): string {
-  return quantity
-    .toLowerCase()
-    .replace(/\s+/g, " ")
-    .trim()
-    .replace(/[ns]$/, "");
+  return quantity.toLowerCase().replace(/\s+/g, " ").trim().replace(/[ns]$/, "");
 }
 
 /**
@@ -198,7 +195,8 @@ describe("the claims this test was written for stay gone", () => {
       what: "a minimum training duration — §38(3) BSIG says 'regelmäßig' and sets no hours",
     },
     {
-      needle: /\d+\s*(Prozent|%)\s*(davon|of that)?\s*(als Cybersicherheitsbudget|for cybersecurity)|7-15%|25\.000 Euro/i,
+      needle:
+        /\d+\s*(Prozent|%)\s*(davon|of that)?\s*(als Cybersicherheitsbudget|for cybersecurity)|7-15%|25\.000 Euro/i,
       what: "a cybersecurity budget as a share of IT spend — no such figure exists in NIS 2 or the BSIG",
     },
     {
