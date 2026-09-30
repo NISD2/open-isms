@@ -80,13 +80,13 @@
       "likelihoodScale": {
         "label": "Likelihood Scale (levels with labels and descriptions)",
         "meaning": "A table or list defining levels of how likely a risk is to happen, usually 3-5 levels from least to most probable.",
-        "example": "1 - Rare: Might happen once in 10 years\n2 - Unlikely: Might happen once in 5 years\n3 - Possible: Might happen yearly\n4 - Likely: Might happen every 6 months\n5 - Almost Certain: Happens monthly",
+        "example": "BSI Standard 200-3:\n1 - Rare: at most once every five years\n2 - Medium: between once every five years and once a year\n3 - Frequent: between once a year and once a month\n4 - Very frequent: several times a month",
         "whereToFind": "Brainstorm with your IT or security lead; look at simple risk templates online or adapt from your current processes."
       },
       "impactScale": {
         "label": "Impact Scale (levels with labels and descriptions)",
         "meaning": "A table or list defining levels of how damaging a risk would be if it happens, covering financial, operational, and reputational effects.",
-        "example": "1 - Negligible: Less than €1,000 cost, no downtime\n2 - Minor: €1,000-€10,000, short disruption\n3 - Moderate: €10,000-€100,000, one day downtime\n4 - Major: €100,000+, week downtime\n5 - Catastrophic: Business halt, major reputation damage",
+        "example": "BSI Standard 200-3:\n1 - Negligible: minor, can be disregarded\n2 - Limited: limited and manageable\n3 - Considerable: can be considerable\n4 - Existential: can reach an existentially threatening, catastrophic scale",
         "whereToFind": "Discuss with department heads (finance, operations) to match your company's real-world impacts; review past incidents."
       },
       "acceptanceThreshold": {
@@ -652,7 +652,7 @@
     "summary": "Your company needs to set rules for how quickly to apply software security patches based on how serious the problem is. Use the Patch Policy Editor to define SLAs per severity level. Track actual patches in the inline patch register. You're done when SLA timelines are set and patches are tracked against them.",
     "applicability": "Every company handling sensitive data or critical IT systems needs this; small firms without IT vulnerabilities might use a simpler custom approach.",
     "quickTip": "Ask your IT team what their current patch update speed is for emergencies. That's your starting SLA.",
-    "implementationSteps": "Use the Patch Policy Editor to set SLA timelines for each severity level (critical, high, medium, low).\nYou choose the deadlines and justify them from your risk: CIR 6.6 requires deadlines but names no figures. For orientation, the BSI module OPS.1.1.3 expects a vulnerability to be assessed within minutes to a few hours, and places remediation in the internationally common window of 45 to 90 days.\nTrack actual patches in the patch register below the policy editor.\nThe platform automatically calculates on-time vs overdue per severity.\nReview and adjust SLAs annually.",
+    "implementationSteps": "Use the Patch Policy Editor to set SLA timelines for each severity level (critical, high, medium, low).\nYou choose the deadlines and justify them from your risk: CIR 6.6 requires deadlines but names no figures. The BSI sets no fixed deadlines either; Grundschutz++ asks that security updates are installed automatically (KONF.8.1.1). The values in the editor are common values, not a requirement.\nTrack actual patches in the patch register below the policy editor.\nThe platform automatically calculates on-time vs overdue per severity.\nReview and adjust SLAs annually.",
     "evidenceExample": "Patch policy showing SLA per severity, plus the patch register showing on-time compliance rates and any exceptions with documented reasons.",
     "fields": {}
   },
@@ -867,8 +867,8 @@
     "summary": "Your company needs a clear policy that lists which encryption methods to use, which to avoid, and rules for protecting sensitive data with encryption. You'll know you're done when you have a written document with approved algorithms, data classification rules, and a review schedule, plus filled form fields matching these rules.",
     "applicability": "Every company handling sensitive customer data like personal info or financial records must do this; smaller firms with no such data can skip it.",
     "quickTip": "Grab your IT lead for a quick chat about what encryption tools you're currently using, like AES or TLS versions.",
-    "implementationSteps": "1. Write a simple policy document listing approved encryption methods (like AES-256 for symmetric, RSA 3072-bit or better for asymmetric), banned ones (like DES or MD5), and TLS rules (1.2 minimum).\n2. Create a table or matrix showing which data types (public, confidential, secret) need what encryption level.\n3. Add a schedule to review and update these rules every 3 years, checking for new threats like quantum risks.\n4. Get your management board to review and approve the policy in a meeting.\n5. Fill the form fields based on your policy and upload the document.",
-    "evidenceExample": "A policy document that includes a table of approved and banned algorithms, a matrix classifying data types by encryption needs, and a schedule for reviews every 3 years.",
+    "implementationSteps": "1. Write a simple policy document listing approved encryption methods (like AES-256 for symmetric, RSA 3072-bit or better for asymmetric), banned ones (like DES or MD5), and TLS rules (1.2 minimum).\n2. Create a table or matrix showing which data types (public, confidential, secret) need what encryption level.\n3. Add a schedule to review these rules at least once a year (BSI CON.1.A15), checking for new threats like quantum risks.\n4. Get your management board to review and approve the policy in a meeting.\n5. Fill the form fields based on your policy and upload the document.",
+    "evidenceExample": "A policy document that includes a table of approved and banned algorithms, a matrix classifying data types by encryption needs, and a schedule for yearly reviews.",
     "fields": {
       "algorithms": {
         "label": "Approved & Prohibited Algorithms (table of cryptographic algorithms with status)",
