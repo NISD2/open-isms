@@ -18,7 +18,10 @@ import {
   supplierFacingRelationshipSchema,
   supplierInviteCustomerSchema,
 } from "@/schema/validators";
-import { requireSupplierMailBudget } from "../../helpers/supplier-mail-budget";
+import {
+  requireInboxBudget,
+  requireSupplierMailBudget,
+} from "../../helpers/supplier-mail-budget";
 import { accountProcedure, router } from "../../init";
 import { insertRow, pickColumns, updateRow } from "../../typed";
 import { notifyCustomerAdded } from "./broadcast";
@@ -92,6 +95,7 @@ export const supplierRelationshipRouter = router({
       if (existing) return existing;
       // Checked before the row exists: a row added past the cap would still
       // receive every incident notice this supplier publishes.
+      await requireInboxBudget(ctx.companyId, email);
       await requireSupplierMailBudget("newRecipients", ctx.companyId);
 
       // Look up the supplier's own company name to use as the row's display name

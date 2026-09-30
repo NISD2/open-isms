@@ -22,7 +22,10 @@ import { entityInvitesSupplierEmail, sendMail } from "@/lib/mail";
 import { getAppUrl } from "@/lib/utils";
 import { company, supplierInvite } from "@/schema";
 import { supplierInviteRequestSchema } from "@/schema/validators";
-import { requireSupplierMailBudget } from "../helpers/supplier-mail-budget";
+import {
+  requireInboxBudget,
+  requireSupplierMailBudget,
+} from "../helpers/supplier-mail-budget";
 import { companyProcedure, router } from "../init";
 import { insertRow } from "../typed";
 
@@ -38,19 +41,17 @@ export const INVITE_LIFETIME_MS = 30 * 24 * 60 * 60 * 1000;
 export const INVITE_RESEND_COOLDOWN_MS = 24 * 60 * 60 * 1000;
 
 /**
- * Whether an existing invite may be mailed again. The row has no column for
- * when it was last sent, and needs none: every send sets expiresAt to the send
- * time plus the lifetime, and revoke sets it to the moment of revocation. So a
- * live invite was sent exactly one lifetime before it expires, and one that was
- * revoked or ran out was sent no later than when it stopped. Reading the second
- * case as "sent then" makes a revoke-and-invite-again loop wait out the
- * cooldown too; the price is that an invite that simply ran out waits up to one
- * cooldown longer than it needs to.
+ * Whether an existing invite may be mailed again: once it has expired or been
+ * revoked (revoke sets expiresAt to that moment), or once a live one was sent
+ * at least the cooldown ago. The row has no column for when it was sent, and
+ * needs none: every send sets expiresAt to the send time plus the lifetime.
+ * A revoke and invite again loop is not held by this rule; the per-inbox budget
+ * (supplier-mail-budget.ts) bounds it.
  */
 export function canResendInvite(expiresAt: Date, now: Date): boolean {
-  const lastSentAt =
-    expiresAt > now ? expiresAt.getTime() - INVITE_LIFETIME_MS : expiresAt.getTime();
-  return now.getTime() - lastSentAt >= INVITE_RESEND_COOLDOWN_MS;
+  if (expiresAt <= now) return true;
+  const sentAt = expiresAt.getTime() - INVITE_LIFETIME_MS;
+  return now.getTime() - sentAt >= INVITE_RESEND_COOLDOWN_MS;
 }
 
 const resendTooSoon = () =>
@@ -86,6 +87,7 @@ export const supplierInviteRouter = router({
         columns: { id: true, expiresAt: true, token: true },
       });
       if (existing && !canResendInvite(existing.expiresAt, now)) throw resendTooSoon();
+      await requireInboxBudget(ctx.companyId, email);
       if (!existing) await requireSupplierMailBudget("newRecipients", ctx.companyId);
 
       const [row] = existing

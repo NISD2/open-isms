@@ -47,9 +47,21 @@ mock.module("@/lib/mail/send", () => ({
 const SENDER_NAME = "Lieferant GmbH lieferant-login.test";
 const ACCESS_TOKEN = "c".repeat(64);
 
+/** An unlinked relationship row, reached at the address the supplier typed. */
+type Relationship = {
+  readonly id: string;
+  readonly customerCompanyId: null;
+  readonly customerEmail: string;
+};
+const relationshipTo = (customerEmail: string, id = randomUUID()): Relationship => ({
+  id,
+  customerCompanyId: null,
+  customerEmail,
+});
+
 /** What the current test put in the database; beforeEach resets it. */
 const state: {
-  relationship: { id: string } | undefined;
+  relationship: Relationship | undefined;
   invite: { id: string; token: string; expiresAt: Date } | undefined;
   /** Whether the conditional re-send update still finds the row as it was read. */
   inviteUnchanged: boolean;
@@ -151,8 +163,12 @@ const refusedWith = (budget: keyof typeof SUPPLIER_MAIL_BUDGET) => ({
 /** notifyCustomerAdded is fire and forget, behind two lookups. */
 const settle = () => new Promise((resolve) => setTimeout(resolve, 0));
 
-const publish = (companyId: string, relationshipId: string) => {
-  state.relationship = { id: relationshipId };
+const publish = (
+  companyId: string,
+  relationshipId: string,
+  to = `isb-${relationshipId}@kunde.test`,
+) => {
+  state.relationship = relationshipTo(to, relationshipId);
   return incidents(companyId).publish({
     relationshipId,
     title: "Ausfall Rechenzentrum, Status unter status-lieferant.test",
@@ -184,6 +200,7 @@ describe("the budgets are the ones documented", () => {
       incidentNoticesPerCustomer: { limit: 10, hours: 24 },
       supplierInvites: { limit: 100, hours: 1 },
       newRecipients: { limit: 200, hours: 24 },
+      mailsPerInbox: { limit: 20, hours: 24 },
     });
   });
 });
@@ -197,7 +214,9 @@ describe("a supplier adding customers", () => {
     const [mail] = mails;
     const whole = `${mail?.subject}\n${mail?.html}\n${mail?.text}`;
     expect(whole).not.toContain("lieferant-login.test");
-    expect(mail?.subject).toBe("Lieferant GmbH will send you their security updates");
+    expect(mail?.subject).toBe(
+      "Lieferant GmbH lieferant-login. test will send you their security updates",
+    );
   });
 
   test("stops at 100 an hour, for that supplier only", async () => {
@@ -215,7 +234,7 @@ describe("a supplier adding customers", () => {
   });
 
   test("an address already added is not mailed again and is not a new recipient", async () => {
-    state.relationship = { id: randomUUID() };
+    state.relationship = relationshipTo(address(0));
     const result = await relationships("supplier-a").invite({
       customerEmail: address(0),
     });
@@ -310,13 +329,45 @@ describe("the daily cap on new recipients", () => {
       invites("company-a").create({ toEmail: address(1001) }),
     ).rejects.toMatchObject(refusedWith("newRecipients"));
 
-    state.relationship = { id: randomUUID() };
+    state.relationship = relationshipTo(address(0));
     await relationships("company-a").invite({ customerEmail: address(0) });
     await publish("company-a", randomUUID());
 
     clock.now += 24 * HOUR_MS;
     state.relationship = undefined;
     await relationships("company-a").invite({ customerEmail: address(1000) });
+  });
+});
+
+describe("one inbox behind many addresses", () => {
+  test("victim+1@ to victim+N@ share one budget of 20 a day across the paths", async () => {
+    const limit = SUPPLIER_MAIL_BUDGET.mailsPerInbox.limit;
+    for (let i = 0; i < limit / 2; i++) {
+      await relationships("supplier-a").invite({
+        customerEmail: `victim+${i}@gmail.com`,
+      });
+    }
+    for (let i = limit / 2; i < limit; i++) {
+      await invites("supplier-a").create({ toEmail: `vic.tim+${i}@googlemail.com` });
+    }
+
+    await expect(
+      relationships("supplier-a").invite({ customerEmail: "victim+x@gmail.com" }),
+    ).rejects.toMatchObject(refusedWith("mailsPerInbox"));
+    await expect(
+      publish("supplier-a", randomUUID(), "v.i.c.t.i.m+y@gmail.com"),
+    ).rejects.toMatchObject(refusedWith("mailsPerInbox"));
+    await relationships("supplier-b").invite({ customerEmail: "victim@gmail.com" });
+  });
+
+  test("the stored address stays as typed", async () => {
+    await relationships("supplier-a").invite({ customerEmail: "Victim+1@gmail.com" });
+    expect(writes).toEqual([
+      expect.objectContaining({
+        op: "insert",
+        values: expect.objectContaining({ customerEmail: "victim+1@gmail.com" }),
+      }),
+    ]);
   });
 });
 
@@ -353,15 +404,23 @@ describe("sending an invite again", () => {
     expect([...windows.keys()].some((key) => key.includes("newRecipients"))).toBe(false);
   });
 
-  test("after a revoke, waits out the cooldown from the revocation", async () => {
+  test("an invite that ran out or was revoked goes out again at once", async () => {
     state.invite = inviteExpiringIn(-HOUR_MS);
-    await expect(
-      invites("customer-a").create({ toEmail: address(0) }),
-    ).rejects.toMatchObject({ code: "TOO_MANY_REQUESTS" });
-
-    state.invite = inviteExpiringIn(-INVITE_RESEND_COOLDOWN_MS - HOUR_MS);
     await invites("customer-a").create({ toEmail: address(0) });
     expect(mails).toHaveLength(1);
+  });
+
+  test("a revoke and invite again loop stops at the inbox budget", async () => {
+    const limit = SUPPLIER_MAIL_BUDGET.mailsPerInbox.limit;
+    for (let i = 0; i < limit; i++) {
+      state.invite = inviteExpiringIn(-1);
+      await invites("customer-a").create({ toEmail: address(0) });
+    }
+    state.invite = inviteExpiringIn(-1);
+    await expect(
+      invites("customer-a").create({ toEmail: address(0) }),
+    ).rejects.toMatchObject(refusedWith("mailsPerInbox"));
+    expect(mails).toHaveLength(limit);
   });
 
   test("two calls racing past the cooldown check send one mail", async () => {

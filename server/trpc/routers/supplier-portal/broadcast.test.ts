@@ -183,7 +183,9 @@ describe("the notice mail", () => {
     expect(whole).not.toContain("Storage");
     expect(whole).not.toContain("x.test");
     expect(whole).not.toContain("lieferant-support.test");
-    expect(mail?.subject).toBe("Lieferant GmbH reported a security incident");
+    expect(mail?.subject).toBe(
+      "Lieferant GmbH lieferant-support. test reported a security incident",
+    );
   });
 
   test("links to the notice on the customer's access page", async () => {

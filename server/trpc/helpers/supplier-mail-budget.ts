@@ -17,6 +17,7 @@
  * budgets hold across replicas and redeploys.
  */
 import { TRPCError } from "@trpc/server";
+import { inboxOf } from "@/lib/mail/inbox";
 import { rateLimit } from "@/lib/rate-limit";
 
 const HOUR_MS = 60 * 60_000;
@@ -69,6 +70,20 @@ export const SUPPLIER_MAIL_BUDGET = {
     refusal:
       "Your organization has reached today's limit for new email recipients. Please try again later.",
   },
+  /**
+   * Mails one company sends into one inbox (inboxOf), across all three paths.
+   * The per-customer budget counts relationships, and victim+1@ through
+   * victim+200@ are 200 relationships into one inbox; this counts them as one.
+   * Honest use is one "added you" mail, one invite and a few notices a day.
+   * Per sending company, not per inbox alone: a global count would let anyone
+   * spend a customer's budget and silence its real suppliers' notices.
+   */
+  mailsPerInbox: {
+    limit: 20,
+    windowMs: DAY_MS,
+    refusal:
+      "This address has already received many emails from your organization today. Please try again later.",
+  },
 } as const satisfies Record<string, Budget>;
 
 export type SupplierMailBudget = keyof typeof SUPPLIER_MAIL_BUDGET;
@@ -85,4 +100,9 @@ export async function requireSupplierMailBudget(
   if (!(await rateLimit(`supplier-mail:${budget}:${scope}`, limit, windowMs))) {
     throw new TRPCError({ code: "TOO_MANY_REQUESTS", message: refusal });
   }
+}
+
+/** Counts one mail from `companyId` into the inbox `address` delivers to. */
+export function requireInboxBudget(companyId: string, address: string): Promise<void> {
+  return requireSupplierMailBudget("mailsPerInbox", `${companyId}:${inboxOf(address)}`);
 }
