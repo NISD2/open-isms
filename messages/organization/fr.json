@@ -20,6 +20,7 @@
     "legalFormPlaceholder": "par exemple GmbH, AG, KG",
     "employees": "Nombre d'employés",
     "contactEmail": "E-mail du contact conformité",
+    "contactEmailHelp": "Les fournisseurs que vous invitez voient cette adresse et y envoient leurs notifications d'incident. Si elle est vide, l'adresse de la personne qui a créé l'organisation est utilisée.",
     "cisoName": "CISO / Responsable de la sécurité informatique",
     "cisoNamePlaceholder": "Jane Smith",
     "cisoReportsTo": "Le CISO rend compte à",

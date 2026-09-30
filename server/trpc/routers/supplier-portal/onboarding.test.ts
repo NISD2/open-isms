@@ -38,6 +38,8 @@ type Customer = {
 };
 
 type Write =
+  | { readonly op: "claim"; readonly won: boolean }
+  | { readonly op: "insert"; readonly table: unknown }
   | {
       readonly op: "relationship";
       readonly customerCompanyId: unknown;
@@ -63,13 +65,19 @@ const inviteFrom = (id: string, fromCompanyId: string, token: string): Invite =>
  * here: the first invite is the one the token names, the rest are the other
  * pending invites to the same address. Supplier inserts honour
  * uq_supplier_portal_share, with NULL emails never colliding, as in Postgres.
+ * `claimable: false` is the clicked invite as a second submit finds it, once
+ * the first has committed.
  */
 function fakeDb(
-  invites: readonly Invite[],
-  customers: readonly Customer[],
+  fixture: {
+    readonly invites: readonly Invite[];
+    readonly customers: readonly Customer[];
+    readonly claimable: boolean;
+  },
   writes: Write[],
 ) {
-  const [clicked, ...others] = invites;
+  const { customers, claimable } = fixture;
+  const [clicked, ...others] = fixture.invites;
   const shares: { supplierCompanyId: unknown; customerEmail: unknown }[] = [];
   const db = {
     query: {
@@ -91,8 +99,13 @@ function fakeDb(
     }),
     insert: (table: unknown) => ({
       values: (values: Record<string, unknown>) => ({
-        returning: async () => [{ id: table === company ? SUPPLIER_CO : "billing-1" }],
-        onConflictDoUpdate: async () => {},
+        returning: async () => {
+          writes.push({ op: "insert", table });
+          return [{ id: table === company ? SUPPLIER_CO : "billing-1" }];
+        },
+        onConflictDoUpdate: async () => {
+          writes.push({ op: "insert", table });
+        },
         onConflictDoNothing: () => ({
           returning: async () => {
             if (table !== supplier) throw new Error("unexpected insert");
@@ -121,8 +134,15 @@ function fakeDb(
     }),
     update: (table: unknown) => ({
       set: (values: Record<string, unknown>) => ({
-        where: async () => {
-          if (table === supplierInvite) writes.push({ op: "accept", values });
+        // The claim sets acceptedAt alone and reads back what it updated; the
+        // acceptance also records the supplier company and is only awaited.
+        where: () => {
+          const claim = table === supplierInvite && !("acceptedByCompanyId" in values);
+          if (claim) writes.push({ op: "claim", won: claimable });
+          else if (table === supplierInvite) writes.push({ op: "accept", values });
+          return Object.assign(Promise.resolve(), {
+            returning: async () => (claim && claimable ? [{ id: clicked?.id }] : []),
+          });
         },
       }),
     }),
@@ -131,17 +151,28 @@ function fakeDb(
   return db;
 }
 
-async function accept(invites: readonly Invite[], customers: readonly Customer[]) {
+function setup(
+  invites: readonly Invite[],
+  customers: readonly Customer[],
+  claimable = true,
+) {
   const writes: Write[] = [];
   const caller = createCallerFactory(supplierOnboardingRouter)({
-    db: fakeDb(invites, customers, writes) as unknown as TRPCContext["db"],
+    db: fakeDb({ invites, customers, claimable }, writes) as unknown as TRPCContext["db"],
     session: { user: { id: USER, email: SUPPLIER_EMAIL } } as TRPCContext["session"],
     userId: USER,
     companyId: null,
     ip: "test",
     userAgent: null,
   } as TRPCContext);
-  const result = await caller.acceptInvite({ token: TOKEN, name: "Lieferant GmbH" });
+  return { caller, writes };
+}
+
+const INPUT = { token: TOKEN, name: "Lieferant GmbH" };
+
+async function accept(invites: readonly Invite[], customers: readonly Customer[]) {
+  const { caller, writes } = setup(invites, customers);
+  const result = await caller.acceptInvite(INPUT);
   return { result, writes };
 }
 
@@ -239,5 +270,28 @@ describe("supplierOnboarding.acceptInvite", () => {
       boundEntities: 1,
       unboundInvites: 1,
     });
+  });
+
+  test("the clicked invite is claimed before anything is created", async () => {
+    const { writes } = await accept(
+      [inviteFrom("invite-a", "customer-a", TOKEN)],
+      [{ id: "customer-a", contactEmail: "isb@kunde-a.test", ownerEmail: null }],
+    );
+
+    expect(writes[0]).toEqual({ op: "claim", won: true });
+    expect(writes.findIndex((w) => w.op === "insert")).toBeGreaterThan(0);
+  });
+
+  // Two submits of one invite both pass the read before the transaction. The
+  // second waits on the claim, then finds the invite accepted.
+  test("a second submit of the same invite is refused before a second company exists", async () => {
+    const { caller, writes } = setup(
+      [inviteFrom("invite-a", "customer-a", TOKEN)],
+      [{ id: "customer-a", contactEmail: "isb@kunde-a.test", ownerEmail: null }],
+      false,
+    );
+
+    await expect(caller.acceptInvite(INPUT)).rejects.toMatchObject({ code: "CONFLICT" });
+    expect(writes).toEqual([{ op: "claim", won: false }]);
   });
 });

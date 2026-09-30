@@ -17,7 +17,7 @@
  */
 
 import { TRPCError } from "@trpc/server";
-import { and, eq, gt, inArray, isNull, ne } from "drizzle-orm";
+import { and, eq, gt, isNull, ne } from "drizzle-orm";
 import { z } from "zod";
 import { createBillingAccount } from "@/lib/billing/accounts";
 import type { DbOrTx } from "@/lib/db";
@@ -33,6 +33,7 @@ import {
 } from "@/schema/validators";
 import { discardDraftCompany } from "../../helpers/setup-helpers";
 import { protectedProcedure, router } from "../../init";
+import { customerContactEmails } from "./customer-contact";
 import { generateOpaqueToken } from "./helpers";
 
 /**
@@ -92,35 +93,10 @@ const draftReplacedBySupplierSignup = async (db: DbOrTx, userId: string) => {
 };
 
 /**
- * Where each inviting customer is reached. Incident broadcasts and their access links are mailed to
- * `supplier.customerEmail`, and the supplier sees it as its customer. An invite records the inviting
- * company but not who at it sent the invite, so this is the company's contact address, or its
- * owner's when it has none.
- */
-const customerContactEmails = async (
-  tx: DbOrTx,
-  customerCompanyIds: readonly string[],
-): Promise<ReadonlyMap<string, string>> => {
-  const rows = await tx
-    .select({
-      id: company.id,
-      contactEmail: company.contactEmail,
-      ownerEmail: user.email,
-    })
-    .from(company)
-    .leftJoin(user, eq(user.id, company.ownerId))
-    .where(inArray(company.id, [...customerCompanyIds]));
-  return new Map(
-    rows.flatMap((row) => {
-      const email = row.contactEmail ?? row.ownerEmail;
-      return email ? [[row.id, email.toLowerCase()] as const] : [];
-    }),
-  );
-};
-
-/**
  * Create the relationship one invite describes, then mark the invite accepted, so an accepted invite
- * always has its row. uq_supplier_portal_share allows one row per (supplier company, customer email):
+ * always has its row. The address stored here keys uq_supplier_portal_share and is what the row
+ * keeps if the customer later unlinks it; while linked, mail goes to the customer's current address
+ * (./customer-contact). The index allows one row per (supplier company, customer email):
  * a second inviting company reached at an address already bound collides, and its invite stays
  * pending rather than being accepted with no relationship. Returns whether the invite was bound.
  */
@@ -274,6 +250,27 @@ export const supplierOnboardingRouter = router({
       }
 
       const result = await ctx.db.transaction(async (tx) => {
+        // Claimed before anything is created. A second submit of the same
+        // invite waits on this row, then finds it accepted and stops here
+        // instead of creating a second supplier company.
+        const [claimed] = await tx
+          .update(supplierInvite)
+          .set({ acceptedAt: new Date() })
+          .where(
+            and(
+              eq(supplierInvite.id, invite.id),
+              isNull(supplierInvite.acceptedAt),
+              gt(supplierInvite.expiresAt, new Date()),
+            ),
+          )
+          .returning({ id: supplierInvite.id });
+        if (!claimed) {
+          throw new TRPCError({
+            code: "CONFLICT",
+            message: "This invite has already been accepted.",
+          });
+        }
+
         const newCompany = await createSupplierCompany(tx, {
           userId: ctx.userId,
           name: input.name,
@@ -309,6 +306,16 @@ export const supplierOnboardingRouter = router({
             customerEmail: contacts.get(pending.fromCompanyId) ?? null,
           });
           outcomes.push({ inviteId: pending.id, bound });
+        }
+
+        // The clicked invite is already claimed, so if it did not bind it would
+        // commit as accepted with no relationship. The new company has no rows
+        // yet for it to collide with; this keeps that from ever committing.
+        if (!outcomes.some((o) => o.inviteId === invite.id && o.bound)) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "The invite could not be linked to the new supplier company.",
+          });
         }
 
         return { companyId: newCompany.id, outcomes };

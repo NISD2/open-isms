@@ -11,15 +11,16 @@
  * broadcasts indiscriminately — that's intentional, the broadcast table
  * itself is system-managed.
  */
-import { eq, and, or } from "drizzle-orm";
+import { and, eq, or } from "drizzle-orm";
 import { db } from "@/lib/db";
-import { incident, supplier, company, incidentBroadcast } from "@/schema";
 import {
   sendMail,
-  supplierIncidentBroadcastEmail,
   supplierAddedYouEmail,
+  supplierIncidentBroadcastEmail,
 } from "@/lib/mail";
 import { getAppUrl } from "@/lib/utils";
+import { company, incident, incidentBroadcast, supplier } from "@/schema";
+import { customerAddressOf } from "./customer-contact";
 
 async function getSupplierName(supplierCompanyId: string): Promise<string> {
   const c = await db.query.company.findFirst({
@@ -85,10 +86,11 @@ export async function broadcastIncidentBroadcast(broadcastId: string): Promise<b
       eq(supplier.id, broadcast.customerRelationshipId),
       eq(supplier.status, "active"),
     ),
-    columns: { customerEmail: true, unsubscribeToken: true },
+    columns: { customerCompanyId: true, customerEmail: true, unsubscribeToken: true },
   });
+  const to = rel ? await customerAddressOf(db, rel) : null;
 
-  if (!rel || !rel.customerEmail || !rel.unsubscribeToken) {
+  if (!rel || !to || !rel.unsubscribeToken) {
     await db
       .update(incidentBroadcast)
       .set({ status: "sent", sentAt: new Date(), deliveryCount: 0 })
@@ -103,7 +105,7 @@ export async function broadcastIncidentBroadcast(broadcastId: string): Promise<b
     // External recipient: consent lives with the portal's own token
     // (supplier.unsubscribedAt), checked when the relationship is selected.
     emailType: "supplier.incident_broadcast",
-    to: rel.customerEmail,
+    to,
     ...supplierIncidentBroadcastEmail({
       supplierName,
       title: evt.title,
@@ -138,7 +140,7 @@ export async function notifyCustomerAdded(
     ),
     columns: { unsubscribeToken: true },
   });
-  if (!rel || !rel.unsubscribeToken) return;
+  if (!rel?.unsubscribeToken) return;
 
   const supplierName = await getSupplierName(supplierCompanyId);
   const link = accessUrl(rel.unsubscribeToken);

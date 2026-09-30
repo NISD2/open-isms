@@ -20,6 +20,7 @@
     "legalFormPlaceholder": "ex. GmbH, AG, KG",
     "employees": "Număr de angajați",
     "contactEmail": "E-mail de contact pentru conformitate",
+    "contactEmailHelp": "Furnizorii pe care îi invitați văd această adresă și trimit la ea notificările de incident. Dacă este goală, se folosește adresa persoanei care a creat organizația.",
     "cisoName": "CISO / Responsabil cu securitatea IT",
     "cisoNamePlaceholder": "Ioana Popescu",
     "cisoReportsTo": "CISO raportează către",

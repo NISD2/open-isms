@@ -20,6 +20,7 @@
     "legalFormPlaceholder": "bijv. B.V., N.V., V.O.F.",
     "employees": "Aantal medewerkers",
     "contactEmail": "E-mail compliance-contactpersoon",
+    "contactEmailHelp": "Leveranciers die u uitnodigt zien dit adres en sturen hun incidentmeldingen hierheen. Is het leeg, dan wordt het adres gebruikt van de persoon die de organisatie heeft aangemaakt.",
     "cisoName": "CISO / IT-beveiligingsfunctionaris",
     "cisoNamePlaceholder": "Jan de Vries",
     "cisoReportsTo": "CISO rapporteert aan",

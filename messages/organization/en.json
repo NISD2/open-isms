@@ -20,6 +20,7 @@
     "legalFormPlaceholder": "e.g. GmbH, AG, KG",
     "employees": "Employee Count",
     "contactEmail": "Compliance Contact Email",
+    "contactEmailHelp": "Suppliers you invite see this address and send their incident notices to it. If it is empty, the address of the person who created the organization is used.",
     "cisoName": "CISO / IT Security Officer",
     "cisoNamePlaceholder": "Jane Smith",
     "cisoReportsTo": "CISO Reports To",
