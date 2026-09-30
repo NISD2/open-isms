@@ -1,21 +1,14 @@
 import { TRPCError } from "@trpc/server";
 import { addYears } from "date-fns";
-import { and, asc, eq, inArray, isNull, notInArray, or, sql } from "drizzle-orm";
+import { and, asc, eq, inArray, isNull, ne, or, sql } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
 import { hasReviewAccess } from "@/lib/auth";
 import { createBillingAccount } from "@/lib/billing/accounts";
-import {
-  computeInitialDeadline,
-  type Frequency,
-  isRecurringFrequency,
-  type Priority,
-  toDateString,
-} from "@/lib/compliance/deadlines";
+import { toDateString } from "@/lib/compliance/deadlines";
 import { DONE_STATUSES } from "@/lib/compliance/journey-position";
 import {
   backfillInitialDeadlines,
-  buildRequirementLink,
   scheduleDeadlineReminders,
 } from "@/lib/compliance/schedule-notifications";
 import { pendingSignersOf } from "@/lib/compliance/sign-off-roster";
@@ -27,11 +20,9 @@ import {
   categoryAssignment,
   company,
   companyAssessment,
-  companyMembership,
   companyRequirementStatus,
   complianceFramework,
   evidence,
-  notification,
   requirement,
   requirementAssignment,
   requirementCategory,
@@ -45,7 +36,7 @@ import {
   propagateSatisfaction,
   recalculateProgress,
 } from "../helpers/assessment-helpers";
-import { MANUAL_STATUSES, manualStatusChange } from "../helpers/manual-status";
+import { MANUAL_STATUSES, REOPEN_APPROVED_FIRST } from "../helpers/manual-status";
 import { getNis2Assessment, getNis2FrameworkId } from "../helpers/nis2-scope";
 import {
   createAssessmentsForFrameworks,
@@ -55,10 +46,14 @@ import { recordSignOffChainEntry } from "../helpers/sign-off-chain";
 import {
   completedSignOffValues,
   effectiveSignOffRole,
-  reopenedSignOffValues,
   signerMeetsRequiredRole,
   snapshotForVersion,
 } from "../helpers/sign-off-completion";
+import {
+  announceWithdrawal,
+  reopenedReviewDate,
+  withdrawSignOff,
+} from "../helpers/withdraw-sign-off";
 import {
   accountAdminProcedure,
   companyProcedure,
@@ -431,11 +426,6 @@ export const assessmentRouter = router({
         categoryId: statusRow.requirement.categoryId,
       });
 
-      const change = manualStatusChange(statusRow.status);
-      if (!change.ok) {
-        throw new TRPCError({ code: "FORBIDDEN", message: change.message });
-      }
-
       const values: Record<string, unknown> = { ...updates, updatedAt: new Date() };
       if (input.status === "not_applicable") {
         const now = new Date();
@@ -455,22 +445,33 @@ export const assessmentRouter = router({
         }
       }
 
+      // An approved row carries a reviewer's approval next to the signer's
+      // attestation, and overwriting only its status left the attestation on
+      // a row that read in progress. reopenRequirement is the way out of
+      // approved. The condition sits in the UPDATE itself so an approval that
+      // lands after the read above is not overwritten either.
       const [updated] = await ctx.db
         .update(companyRequirementStatus)
         .set(values)
-        .where(eq(companyRequirementStatus.id, statusId))
+        .where(
+          and(
+            eq(companyRequirementStatus.id, statusId),
+            ne(companyRequirementStatus.status, "approved"),
+          ),
+        )
         .returning();
+      if (!updated) {
+        throw new TRPCError({ code: "FORBIDDEN", message: REOPEN_APPROVED_FIRST });
+      }
 
-      if (updated) {
-        await recalculateProgress(ctx.db, updated.assessmentId);
-        if (input.status === "completed" && ctx.companyId) {
-          scheduleDeadlineReminders(ctx.db, {
-            statusId: updated.id,
-            anchorDate: new Date(),
-            companyId: ctx.companyId,
-            userId: ctx.userId,
-          }).catch((err) => console.error("[background] deadlines:", err));
-        }
+      await recalculateProgress(ctx.db, updated.assessmentId);
+      if (input.status === "completed" && ctx.companyId) {
+        scheduleDeadlineReminders(ctx.db, {
+          statusId: updated.id,
+          anchorDate: new Date(),
+          companyId: ctx.companyId,
+          userId: ctx.userId,
+        }).catch((err) => console.error("[background] deadlines:", err));
       }
 
       return updated;
@@ -748,10 +749,9 @@ export const assessmentRouter = router({
    * review access. A member undoing their own attestation is ordinary work;
    * a member erasing a reviewer's approval is not.
    *
-   * `sign_off_history` is untouched by design. The chain is append-only and
-   * tamper-evident — the record that this was signed, and later withdrawn,
-   * is exactly what an auditor needs. The audit_log entry below is what
-   * carries the withdrawal itself.
+   * The withdrawal itself lives in helpers/withdraw-sign-off.ts, shared with
+   * intake saves on a signed requirement. It leaves `sign_off_history`
+   * untouched and writes the audit_log entry.
    */
   reopenRequirement: companyProcedure
     .input(z.object({ statusId: z.string().uuid() }))
@@ -798,136 +798,40 @@ export const assessmentRouter = router({
       }
 
       const now = new Date();
-
-      /**
-       * The deadline a never-signed row of this requirement would carry.
-       *
-       * Reopening clears `nextReviewDate` because that date described a
-       * sign-off that no longer stands. Leaving it null would be wrong in the
-       * other direction: `backfillInitialDeadlines` gives every *recurring*
-       * requirement an initial deadline at assessment creation, so a reopened
-       * one with none silently drops out of the journey board's overdue and
-       * due-soon filters — 35 of the 49 NIS 2 requirements are recurring.
-       * Non-recurring ones legitimately carry no date; `scheduleDeadline
-       * Reminders` nulls theirs on sign-off for the same reason.
-       */
       const assessment = await ctx.db.query.companyAssessment.findFirst({
         where: eq(companyAssessment.id, statusRow.assessmentId),
         columns: { startedAt: true },
       });
-      const frequency = statusRow.requirement.frequency as Frequency;
-      const initialDeadline =
-        assessment && isRecurringFrequency(frequency)
-          ? toDateString(
-              computeInitialDeadline(
-                assessment.startedAt,
-                statusRow.requirement.priority as Priority,
-              ),
-            )
-          : null;
 
-      // Who is about to lose a signature they made. Read before the clear,
-      // and excluding whoever is doing the withdrawing — they know.
-      const losingSignature = await ctx.db
-        .select({ userId: requirementAssignment.userId })
-        .from(requirementAssignment)
-        .where(
-          and(
-            eq(requirementAssignment.statusId, input.statusId),
-            sql`${requirementAssignment.signedOffAt} IS NOT NULL`,
-            sql`${requirementAssignment.userId} <> ${ctx.userId}`,
-          ),
-        );
-
-      const reopened = await ctx.db.transaction(async (tx) => {
-        // A receipt from someone removed from the company since they signed
-        // would become a roster entry nobody can clear once reset below, and
-        // block the requirement for good. Its signature is withdrawn here
-        // anyway, so the row goes instead.
-        await tx
-          .delete(requirementAssignment)
-          .where(
-            and(
-              eq(requirementAssignment.statusId, input.statusId),
-              notInArray(
-                requirementAssignment.userId,
-                tx
-                  .select({ userId: companyMembership.userId })
-                  .from(companyMembership)
-                  .where(eq(companyMembership.companyId, ctx.companyId)),
-              ),
-            ),
-          );
-
-        // Clearing the per-signer rows is what makes reopening honest for an
-        // N-of-M requirement. Left signed, the next single signature would
-        // close the requirement again with M-1 stale attestations behind it.
-        await tx
-          .update(requirementAssignment)
-          .set({ signedOffAt: null, signedOffRole: null })
-          .where(eq(requirementAssignment.statusId, input.statusId));
-
-        const [row] = await tx
-          .update(companyRequirementStatus)
-          .set({ ...reopenedSignOffValues({ now }), nextReviewDate: initialDeadline })
-          .where(eq(companyRequirementStatus.id, input.statusId))
-          .returning();
-        return row;
-      });
+      const { row: reopened, losingSignature } = await ctx.db.transaction((tx) =>
+        withdrawSignOff(tx, {
+          statusId: input.statusId,
+          companyId: ctx.companyId,
+          actorId: ctx.userId,
+          nextReviewDate: reopenedReviewDate({
+            assessmentStartedAt: assessment?.startedAt ?? null,
+            frequency: statusRow.requirement.frequency,
+            priority: statusRow.requirement.priority,
+          }),
+          now,
+        }),
+      );
 
       if (reopened) {
         await recalculateProgress(ctx.db, reopened.assessmentId);
-
-        // Tell the people whose signature was just removed.
-        //
-        // Withdrawing is the only action that deletes somebody else's
-        // attestation, and it was doing so silently. `review.ts` notifies the
-        // submitter on both approve and reject, so the precedent for "we
-        // changed the standing of your work, here is why" already exists; an
-        // erased signature is at least as worth knowing about.
-        if (losingSignature.length > 0) {
-          buildRequirementLink(
-            ctx.db,
-            statusRow.requirement.categoryId,
-            statusRow.requirement.code,
-          )
-            .then((linkUrl) =>
-              ctx.db.insert(notification).values(
-                losingSignature.map(({ userId }) => ({
-                  companyId: ctx.companyId,
-                  recipientId: userId,
-                  entityType: "requirement",
-                  entityId: statusRow.requirement.id,
-                  triggerField: "signedOffAt",
-                  subject: `Sign-off withdrawn: ${statusRow.requirement.code}`,
-                  body:
-                    `Your sign-off on requirement ${statusRow.requirement.code} was withdrawn, ` +
-                    `and the requirement is open for editing again. It needs signing off once ` +
-                    `the work is finished.`,
-                  channel: "in_app" as const,
-                  scheduledFor: now,
-                  urgency: "warning" as const,
-                  linkUrl,
-                })),
-              ),
-            )
-            .catch((err) => console.error("[notify] reopenRequirement:", err));
-        }
-
-        logAudit({
+        announceWithdrawal(ctx.db, {
           companyId: ctx.companyId,
-          userId: ctx.userId,
-          action: "requirement.sign_off_withdrawn",
-          entityType: "requirement",
-          entityId: statusRow.requirement.id,
-          description: `${statusRow.requirement.code} reopened from ${statusRow.status}`,
-          previousValue: {
+          actorId: ctx.userId,
+          requirement: statusRow.requirement,
+          previous: {
             status: statusRow.status,
             signedOffBy: statusRow.signedOffBy,
             signedOffAt: statusRow.signedOffAt,
           },
-          newValue: { status: reopened.status },
-        }).catch((err) => console.error("[audit] reopenRequirement:", err));
+          newStatus: reopened.status,
+          losingSignature,
+          now,
+        });
       }
 
       return reopened;

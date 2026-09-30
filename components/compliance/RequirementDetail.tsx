@@ -284,7 +284,12 @@ export function RequirementDetail({
     defaultValues: answers,
   });
 
-  const fieldsDisabled = !isEditing || isNA || isReviewer;
+  // Saving answers reopens the requirement, and the server lets only someone
+  // with review access (a reviewer or an admin) reopen an approved one.
+  // Reviewers never edit answers, which leaves admins.
+  const answersLocked =
+    isNA || isReviewer || (status.currentStatus === "approved" && !isAdmin);
+  const fieldsDisabled = !isEditing || answersLocked;
 
   // Subscribed through useFormState rather than read off form.formState.
   // That object is a Proxy which only tracks properties read during render:
@@ -298,7 +303,7 @@ export function RequirementDetail({
   const editorKey = `${categoryCode}:${requirement.code}`;
   const CustomEditor = CUSTOM_EDITOR_LOOKUP[editorKey];
   /** Whether this page holds intake answers the reader could lose by leaving. */
-  const hasEditableForm = !CustomEditor && fields.length > 0 && !isNA && !isReviewer;
+  const hasEditableForm = !CustomEditor && fields.length > 0 && !answersLocked;
 
   /** Persist the intake answers. Resolves false when the write failed, so
    *  callers that were about to navigate away can stay put. */
@@ -585,8 +590,7 @@ export function RequirementDetail({
                 <h2 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                   {t("requirement.specificsSection")}
                 </h2>
-                {!isNA &&
-                  !isReviewer &&
+                {!answersLocked &&
                   (isEditing ? (
                     <div className="flex items-center gap-2">
                       <Button

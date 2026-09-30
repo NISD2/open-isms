@@ -17,25 +17,31 @@ export const MANUAL_STATUSES = [
   "not_applicable",
 ] as const satisfies readonly ItemStatus[];
 
-export type ManualStatusChange = { ok: true } | { ok: false; message: string };
+/**
+ * The refusal for any change that would take an approved requirement out of
+ * approved without going through `assessment.reopenRequirement`, which clears
+ * the signature with the status and needs review access on an approved row.
+ */
+export const REOPEN_APPROVED_FIRST =
+  "This requirement was approved in review. It has to be reopened before its status can change.";
+
+export type StatusChange = { ok: true } | { ok: false; message: string };
 
 /**
- * Whether a requirement in `current` may have its status changed by hand.
+ * Whether saving intake answers may move these requirement rows back to in
+ * progress.
  *
- * An approved row carries a reviewer's approval next to the signer's
- * attestation. Overwriting its status erased the approval and left the
- * signature, snapshot and receipts in place, so the row read as in progress
- * with an attestation on it. `assessment.reopenRequirement` is the way out of
- * approved: it clears the signature with the status, and on an approved row
- * it needs review access (a reviewer or an admin).
+ * A save reopens the rows it covers, which on an approved row erases the
+ * reviewer's approval. That is what reopening does, so it takes what
+ * reopening takes: review access (a reviewer or an admin). Everyone else
+ * could otherwise undo an approval by pressing Save.
  */
-export function manualStatusChange(current: ItemStatus): ManualStatusChange {
-  if (current === "approved") {
-    return {
-      ok: false,
-      message:
-        "This requirement was approved in review. It has to be reopened before its status can change.",
-    };
+export function answerSaveChange(
+  statuses: readonly ItemStatus[],
+  reviewAccess: boolean,
+): StatusChange {
+  if (!reviewAccess && statuses.includes("approved")) {
+    return { ok: false, message: REOPEN_APPROVED_FIRST };
   }
   return { ok: true };
 }

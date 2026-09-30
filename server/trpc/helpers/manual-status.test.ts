@@ -1,5 +1,9 @@
 import { describe, expect, test } from "bun:test";
-import { MANUAL_STATUSES, manualStatusChange } from "./manual-status";
+import {
+  answerSaveChange,
+  MANUAL_STATUSES,
+  REOPEN_APPROVED_FIRST,
+} from "./manual-status";
 
 describe("MANUAL_STATUSES", () => {
   // needs_review is the deadline cron's to write; approved and rejected are
@@ -18,13 +22,20 @@ describe("MANUAL_STATUSES", () => {
   });
 });
 
-describe("manualStatusChange", () => {
-  test("refuses to move an approved requirement", () => {
-    const change = manualStatusChange("approved");
-    expect(change.ok).toBe(false);
-    if (!change.ok) expect(change.message).toContain("reopened");
+describe("answerSaveChange", () => {
+  test("refuses a save that would reopen an approved requirement without review access", () => {
+    expect(answerSaveChange(["in_progress", "approved"], false)).toEqual({
+      ok: false,
+      message: REOPEN_APPROVED_FIRST,
+    });
   });
 
+  test("lets someone with review access reopen an approved requirement by saving", () => {
+    expect(answerSaveChange(["approved"], true)).toEqual({ ok: true });
+  });
+
+  // A member reopening their own completed work is ordinary editing, which
+  // makeSignable in the e2e suite relies on.
   test.each([
     "not_started",
     "in_progress",
@@ -32,7 +43,7 @@ describe("manualStatusChange", () => {
     "not_applicable",
     "needs_review",
     "rejected",
-  ] as const)("allows a change from %s", (current) => {
-    expect(manualStatusChange(current)).toEqual({ ok: true });
+  ] as const)("lets anyone save over a %s requirement", (status) => {
+    expect(answerSaveChange([status], false)).toEqual({ ok: true });
   });
 });
