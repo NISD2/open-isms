@@ -4,6 +4,15 @@
  * created it always stays an admin, and there is always at least one admin.
  */
 import { describe, expect, mock, test } from "bun:test";
+import type { SQL } from "drizzle-orm";
+import { PgDialect } from "drizzle-orm/pg-core";
+import {
+  categoryAssignment,
+  companyInvite,
+  companyMembership,
+  notification,
+  requirementAssignment,
+} from "@/schema";
 
 // The auto-audit middleware would otherwise reach for a real database.
 mock.module("@/lib/audit", () => ({ logAudit: () => {} }));
@@ -114,5 +123,116 @@ describe("team.setMemberRole", () => {
   test("refuses someone who is not a member", async () => {
     const { setRole } = setup([[OWNER, "admin"]]);
     await expect(setRole(MEMBER, "admin")).rejects.toThrow("not found");
+  });
+});
+
+/**
+ * `removeMember` takes the person off everything that waits on them. A pending
+ * sign-off row left behind kept them on the requirement's roster, where
+ * sign-off waited for a signature that could never come. Their signed rows are
+ * receipts of sign-offs they made and stay.
+ */
+type AssignmentRow = { id: string; userId: string; signedOffAt: Date | null };
+type Write = { op: "delete" | "update"; table: unknown; where: SQL; inTx: boolean };
+
+function removalDb(assignments: AssignmentRow[]) {
+  const writes: Write[] = [];
+  const state = { inTx: false };
+  const db = {
+    query: {
+      user: {
+        findFirst: async () => ({
+          id: MEMBER,
+          email: "member@example.test",
+          name: "Mia Member",
+        }),
+      },
+      company: { findFirst: async () => ({ ownerId: OWNER, name: "Acme" }) },
+      companyAssessment: { findMany: async () => [{ id: "assessment-1" }] },
+      companyMembership: { findFirst: async () => undefined },
+      // No NIS 2 framework, so the background module recheck finds nothing.
+      complianceFramework: { findFirst: async () => undefined },
+    },
+    // A select either becomes a subquery or, for the leaving member's rows, is
+    // read under a lock; only the locked read returns rows.
+    select: () => ({
+      from: () => ({
+        where: () => ({ for: async () => assignments }),
+      }),
+    }),
+    delete: (table: unknown) => ({
+      where: async (where: SQL) => {
+        writes.push({ op: "delete", table, where, inTx: state.inTx });
+      },
+    }),
+    update: (table: unknown) => ({
+      set: () => ({
+        where: async (where: SQL) => {
+          writes.push({ op: "update", table, where, inTx: state.inTx });
+        },
+      }),
+    }),
+    transaction: async <T>(fn: (tx: unknown) => Promise<T>) => {
+      state.inTx = true;
+      try {
+        return await fn(db);
+      } finally {
+        state.inTx = false;
+      }
+    },
+  };
+  return { db, writes };
+}
+
+async function removeMember(assignments: AssignmentRow[]) {
+  const { db, writes } = removalDb(assignments);
+  const caller = createCallerFactory(teamRouter)({
+    db: db as unknown as TRPCContext["db"],
+    session: { role: "admin", accessLevel: "full" } as TRPCContext["session"],
+    userId: OWNER,
+    companyId: COMPANY,
+    ip: "test",
+    userAgent: null,
+  } as TRPCContext);
+  await caller.removeMember({ userId: MEMBER });
+  return writes;
+}
+
+const deletedAssignmentIds = (writes: Write[]) =>
+  writes
+    .filter((w) => w.op === "delete" && w.table === requirementAssignment)
+    .flatMap((w) => new PgDialect().sqlToQuery(w.where).params);
+
+describe("team.removeMember", () => {
+  test("drops the member's pending sign-off rows and keeps their receipts", async () => {
+    const writes = await removeMember([
+      { id: "pending-row", userId: MEMBER, signedOffAt: null },
+      { id: "receipt-row", userId: MEMBER, signedOffAt: new Date("2026-09-01") },
+    ]);
+    expect(deletedAssignmentIds(writes)).toEqual(["pending-row"]);
+  });
+
+  test("deletes no sign-off rows when the member only holds receipts", async () => {
+    const writes = await removeMember([
+      { id: "receipt-row", userId: MEMBER, signedOffAt: new Date("2026-09-01") },
+    ]);
+    expect(deletedAssignmentIds(writes)).toEqual([]);
+  });
+
+  test("makes every removal write inside one transaction", async () => {
+    const writes = await removeMember([
+      { id: "pending-row", userId: MEMBER, signedOffAt: null },
+    ]);
+    const tables = writes.map((w) => w.table);
+    for (const table of [
+      categoryAssignment,
+      requirementAssignment,
+      notification,
+      companyInvite,
+      companyMembership,
+    ]) {
+      expect(tables).toContain(table);
+    }
+    expect(writes.every((w) => w.inTx)).toBe(true);
   });
 });

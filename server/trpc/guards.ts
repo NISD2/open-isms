@@ -42,23 +42,25 @@ export async function enforceAssignment(
 
 /**
  * Verify that the given assessment belongs to the specified company.
- * Throws FORBIDDEN if not.
+ * Throws FORBIDDEN if not. Returns the framework it runs, for callers that
+ * have to check a category or requirement belongs to it.
  */
 export async function verifyAssessmentOwnership(
   db: Database,
   assessmentId: string,
   companyId: string,
-): Promise<void> {
+): Promise<{ frameworkId: string }> {
   const assessment = await db.query.companyAssessment.findFirst({
     where: and(
       eq(companyAssessment.id, assessmentId),
       eq(companyAssessment.companyId, companyId),
     ),
-    columns: { id: true },
+    columns: { frameworkId: true },
   });
   if (!assessment) {
     throw new TRPCError({ code: "FORBIDDEN", message: "Access denied" });
   }
+  return assessment;
 }
 
 /**

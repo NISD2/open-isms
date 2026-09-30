@@ -317,7 +317,6 @@ export function RequirementDetail({
       await saveAnswers.mutateAsync({
         assessmentId,
         categoryId,
-        categoryCode,
         requirementCode: requirement.code,
         answers: scoped,
       });

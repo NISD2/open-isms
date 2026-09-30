@@ -1,6 +1,6 @@
 import { TRPCError } from "@trpc/server";
 import { addYears } from "date-fns";
-import { and, asc, eq, inArray, isNull, or, sql } from "drizzle-orm";
+import { and, asc, eq, inArray, isNull, notInArray, or, sql } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
 import { hasReviewAccess } from "@/lib/auth";
@@ -27,6 +27,7 @@ import {
   categoryAssignment,
   company,
   companyAssessment,
+  companyMembership,
   companyRequirementStatus,
   complianceFramework,
   evidence,
@@ -44,6 +45,7 @@ import {
   propagateSatisfaction,
   recalculateProgress,
 } from "../helpers/assessment-helpers";
+import { MANUAL_STATUSES, manualStatusChange } from "../helpers/manual-status";
 import { getNis2Assessment, getNis2FrameworkId } from "../helpers/nis2-scope";
 import {
   createAssessmentsForFrameworks,
@@ -405,13 +407,7 @@ export const assessmentRouter = router({
     .input(
       z.object({
         statusId: z.string().uuid(),
-        status: z.enum([
-          "not_started",
-          "in_progress",
-          "completed",
-          "not_applicable",
-          "needs_review",
-        ]),
+        status: z.enum(MANUAL_STATUSES),
         isApplicable: z.boolean().optional(),
         notApplicableReason: z.string().optional(),
       }),
@@ -434,6 +430,11 @@ export const assessmentRouter = router({
         assessmentId: statusRow.assessmentId,
         categoryId: statusRow.requirement.categoryId,
       });
+
+      const change = manualStatusChange(statusRow.status);
+      if (!change.ok) {
+        throw new TRPCError({ code: "FORBIDDEN", message: change.message });
+      }
 
       const values: Record<string, unknown> = { ...updates, updatedAt: new Date() };
       if (input.status === "not_applicable") {
@@ -839,6 +840,25 @@ export const assessmentRouter = router({
         );
 
       const reopened = await ctx.db.transaction(async (tx) => {
+        // A receipt from someone removed from the company since they signed
+        // would become a roster entry nobody can clear once reset below, and
+        // block the requirement for good. Its signature is withdrawn here
+        // anyway, so the row goes instead.
+        await tx
+          .delete(requirementAssignment)
+          .where(
+            and(
+              eq(requirementAssignment.statusId, input.statusId),
+              notInArray(
+                requirementAssignment.userId,
+                tx
+                  .select({ userId: companyMembership.userId })
+                  .from(companyMembership)
+                  .where(eq(companyMembership.companyId, ctx.companyId)),
+              ),
+            ),
+          );
+
         // Clearing the per-signer rows is what makes reopening honest for an
         // N-of-M requirement. Left signed, the next single signature would
         // close the requirement again with M-1 stale attestations behind it.

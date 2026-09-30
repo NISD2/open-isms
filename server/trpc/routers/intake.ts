@@ -96,18 +96,17 @@ export const intakeRouter = router({
       z.object({
         assessmentId: z.string().uuid(),
         categoryId: z.string().uuid(),
-        categoryCode: z.string(),
         answers: z.record(z.string(), z.unknown()),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      await verifyAssessmentOwnership(ctx.db, input.assessmentId, ctx.companyId);
+      const categoryCode = await authorizeIntakeWrite(ctx, input);
 
-      const schema = CATEGORY_SCHEMAS[input.categoryCode];
+      const schema = CATEGORY_SCHEMAS[categoryCode];
       if (!schema) {
         throw new TRPCError({
           code: "NOT_FOUND",
-          message: `No intake schema for category ${input.categoryCode}`,
+          message: `No intake schema for category ${categoryCode}`,
         });
       }
 
@@ -159,7 +158,7 @@ export const intakeRouter = router({
       await deriveRequirementStatuses(
         ctx.db,
         input.assessmentId,
-        input.categoryCode,
+        categoryCode,
         input.answers,
         "in_progress",
       );
@@ -175,23 +174,16 @@ export const intakeRouter = router({
       z.object({
         assessmentId: z.string().uuid(),
         categoryId: z.string().uuid(),
-        categoryCode: z.string(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      await verifyAssessmentOwnership(ctx.db, input.assessmentId, ctx.companyId);
-      await enforceAssignment(ctx.db, {
-        role: ctx.session.role,
-        userId: ctx.userId,
-        assessmentId: input.assessmentId,
-        categoryId: input.categoryId,
-      });
+      const categoryCode = await authorizeIntakeWrite(ctx, input);
 
-      const schema = CATEGORY_SCHEMAS[input.categoryCode];
+      const schema = CATEGORY_SCHEMAS[categoryCode];
       if (!schema) {
         throw new TRPCError({
           code: "NOT_FOUND",
-          message: `No intake schema for category ${input.categoryCode}`,
+          message: `No intake schema for category ${categoryCode}`,
         });
       }
 
@@ -260,7 +252,7 @@ export const intakeRouter = router({
       await deriveRequirementStatuses(
         ctx.db,
         input.assessmentId,
-        input.categoryCode,
+        categoryCode,
         intake.answers as Record<string, unknown>,
         "approved",
         {
@@ -322,19 +314,20 @@ export const intakeRouter = router({
       z.object({
         assessmentId: z.string().uuid(),
         categoryId: z.string().uuid(),
-        categoryCode: z.string(),
         requirementCode: z.string(),
         answers: z.record(z.string(), z.unknown()),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      await verifyAssessmentOwnership(ctx.db, input.assessmentId, ctx.companyId);
+      const categoryCode = await authorizeIntakeWrite(ctx, input);
 
+      // A requirement of another category would write its field keys into this
+      // category's intake row, where this category's owner never asked for them.
       const fieldInfo = REQUIREMENT_FIELD_MAP[input.requirementCode];
-      if (!fieldInfo) {
+      if (fieldInfo?.categoryCode !== categoryCode) {
         throw new TRPCError({
           code: "NOT_FOUND",
-          message: `No intake fields mapped to ${input.requirementCode}`,
+          message: `No intake fields mapped to ${input.requirementCode} in category ${categoryCode}`,
         });
       }
 
@@ -356,7 +349,7 @@ export const intakeRouter = router({
       }
 
       // Recalculate completion for the full category
-      const schema = CATEGORY_SCHEMAS[input.categoryCode];
+      const schema = CATEGORY_SCHEMAS[categoryCode];
       const fields = schema ? introspectSchema(schema, []) : [];
       const requiredFields = fields.filter((f) => f.required);
       const filledRequired = requiredFields.filter((f) => {
@@ -393,7 +386,7 @@ export const intakeRouter = router({
       await deriveRequirementStatuses(
         ctx.db,
         input.assessmentId,
-        input.categoryCode,
+        categoryCode,
         merged,
         "in_progress",
       );
@@ -405,6 +398,54 @@ export const intakeRouter = router({
 // ============================================================================
 // Helpers
 // ============================================================================
+
+/**
+ * Authorize a write to a category's intake and return the category's code.
+ *
+ * Every write needs the category owner or an admin, the same rule as sign-off.
+ * A save with filled fields moves mapped requirements back to in_progress and
+ * clears their signatures, so letting anyone in the company save let a
+ * reviewer or a member of another category undo sign-offs they could not make.
+ *
+ * The code is read from the category row, never taken from the caller. When
+ * both came from input, the id decided who was let in while the code decided
+ * which schema was checked and which requirements were approved, so the owner
+ * of one category could approve another's by sending their own id with its
+ * code. The category must also belong to the assessment's framework.
+ */
+async function authorizeIntakeWrite(
+  ctx: {
+    db: Database;
+    companyId: string;
+    userId: string;
+    session: { role: string };
+  },
+  input: { assessmentId: string; categoryId: string },
+): Promise<string> {
+  const { frameworkId } = await verifyAssessmentOwnership(
+    ctx.db,
+    input.assessmentId,
+    ctx.companyId,
+  );
+  await enforceAssignment(ctx.db, {
+    role: ctx.session.role,
+    userId: ctx.userId,
+    assessmentId: input.assessmentId,
+    categoryId: input.categoryId,
+  });
+
+  const category = await ctx.db.query.requirementCategory.findFirst({
+    where: and(
+      eq(requirementCategory.id, input.categoryId),
+      eq(requirementCategory.frameworkId, frameworkId),
+    ),
+    columns: { code: true },
+  });
+  if (!category) {
+    throw new TRPCError({ code: "NOT_FOUND", message: "Category not found" });
+  }
+  return category.code;
+}
 
 /**
  * Derive requirement statuses from intake field answers.
