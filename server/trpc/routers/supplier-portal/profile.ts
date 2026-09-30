@@ -164,7 +164,11 @@ export const supplierProfileRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       if (
-        !rateLimit(`upload:logo:${ctx.companyId}`, LOGO_UPLOADS_PER_HOUR, 60 * 60_000)
+        !(await rateLimit(
+          `upload:logo:${ctx.companyId}`,
+          LOGO_UPLOADS_PER_HOUR,
+          60 * 60_000,
+        ))
       ) {
         throw new TRPCError({
           code: "TOO_MANY_REQUESTS",

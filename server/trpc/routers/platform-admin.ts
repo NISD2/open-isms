@@ -1948,7 +1948,7 @@ export const platformAdminRouter = router({
         });
       }
       // Cheap defence-in-depth cap on an irreversible operation (per operator).
-      if (!rateLimit(`gdpr-erase:${ctx.userId}`, 10, 60 * 60 * 1000)) {
+      if (!(await rateLimit(`gdpr-erase:${ctx.userId}`, 10, 60 * 60 * 1000))) {
         throw new TRPCError({
           code: "TOO_MANY_REQUESTS",
           message: "Erasure rate limit reached. Wait before erasing more accounts.",

@@ -28,12 +28,16 @@ export const LLM_CALLS_PER_HOUR = {
 
 const HOUR_MS = 60 * 60 * 1000;
 
-function requireLlmBudget(
+async function requireLlmBudget(
   procedure: keyof typeof LLM_CALLS_PER_HOUR,
   companyId: string,
-): void {
+): Promise<void> {
   if (
-    !rateLimit(`llm:${procedure}:${companyId}`, LLM_CALLS_PER_HOUR[procedure], HOUR_MS)
+    !(await rateLimit(
+      `llm:${procedure}:${companyId}`,
+      LLM_CALLS_PER_HOUR[procedure],
+      HOUR_MS,
+    ))
   ) {
     throw new TRPCError({
       code: "TOO_MANY_REQUESTS",
@@ -106,7 +110,7 @@ export const evaluateAllInputSchema = z
 
 export const llmRouter = router({
   extract: companyProcedure.input(extractInputSchema).mutation(async ({ ctx, input }) => {
-    requireLlmBudget("extract", ctx.companyId);
+    await requireLlmBudget("extract", ctx.companyId);
     // Honor the aiDataSharing="none" opt-out before sending text to xAI.
     await requireAiEnabled(ctx.db, ctx.companyId);
 
@@ -127,7 +131,7 @@ export const llmRouter = router({
   evaluateSection: companyProcedure
     .input(evaluateSectionInputSchema)
     .mutation(async ({ ctx, input }) => {
-      requireLlmBudget("evaluateSection", ctx.companyId);
+      await requireLlmBudget("evaluateSection", ctx.companyId);
       // Honor the aiDataSharing="none" opt-out before loading sign-off snapshots.
       await requireAiEnabled(ctx.db, ctx.companyId);
 
@@ -163,7 +167,7 @@ export const llmRouter = router({
   evaluateAll: companyProcedure
     .input(evaluateAllInputSchema)
     .mutation(async ({ ctx, input }) => {
-      requireLlmBudget("evaluateAll", ctx.companyId);
+      await requireLlmBudget("evaluateAll", ctx.companyId);
       // Honor the aiDataSharing="none" opt-out before loading sign-off snapshots.
       await requireAiEnabled(ctx.db, ctx.companyId);
 

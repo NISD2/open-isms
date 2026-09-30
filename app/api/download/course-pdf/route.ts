@@ -1,28 +1,25 @@
-import { NextRequest } from "next/server";
 import { readFile } from "fs/promises";
+import { NextRequest } from "next/server";
 import { join } from "path";
 import { getSession } from "@/lib/auth";
-import { rateLimit } from "@/lib/rate-limit";
 import { getCoursePdfFilename } from "@/lib/course-pdf";
+import { rateLimit } from "@/lib/rate-limit";
 
 export async function GET(request: NextRequest) {
   const session = await getSession();
 
   if (!session) {
-    const callbackUrl = encodeURIComponent(
-      "/training/nis2-ceo?download=1",
-    );
+    const callbackUrl = encodeURIComponent("/training/nis2-ceo?download=1");
     return Response.redirect(
       new URL(`/auth/signin?callbackUrl=${callbackUrl}`, request.url),
     );
   }
 
-  if (!rateLimit(`download:course-pdf:${session.user.id}`, 10, 60_000)) {
+  if (!(await rateLimit(`download:course-pdf:${session.user.id}`, 10, 60_000))) {
     return new Response("Too many requests", { status: 429 });
   }
 
-  const locale =
-    request.nextUrl.searchParams.get("locale") ?? "en";
+  const locale = request.nextUrl.searchParams.get("locale") ?? "en";
 
   const filename = getCoursePdfFilename(locale);
   if (!filename) {

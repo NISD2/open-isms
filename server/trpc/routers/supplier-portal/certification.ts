@@ -116,11 +116,11 @@ export const companyCertificationRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       if (
-        !rateLimit(
+        !(await rateLimit(
           `upload:certification:${ctx.companyId}`,
           CERT_UPLOADS_PER_HOUR,
           60 * 60_000,
-        )
+        ))
       ) {
         throw new TRPCError({
           code: "TOO_MANY_REQUESTS",

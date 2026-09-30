@@ -1,10 +1,10 @@
+import { eq } from "drizzle-orm";
 import { NextRequest } from "next/server";
 import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { companyAssessment } from "@/schema";
-import { eq } from "drizzle-orm";
 import { loadReportData } from "@/lib/pdf/load-report-data";
 import { rateLimit } from "@/lib/rate-limit";
+import { companyAssessment } from "@/schema";
 import { getNis2FrameworkId } from "@/server/trpc/helpers/nis2-scope";
 
 export async function GET(request: NextRequest) {
@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  if (!rateLimit(`export:csv:${session.user.id}`, 10, 60_000)) {
+  if (!(await rateLimit(`export:csv:${session.user.id}`, 10, 60_000))) {
     return new Response("Too many requests", { status: 429 });
   }
 

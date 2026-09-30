@@ -1,13 +1,13 @@
-import { NextRequest } from "next/server";
 import { renderToBuffer } from "@react-pdf/renderer";
+import { eq } from "drizzle-orm";
+import { NextRequest } from "next/server";
 import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { companyAssessment } from "@/schema";
-import { eq } from "drizzle-orm";
-import { loadReportData } from "@/lib/pdf/load-report-data";
-import { pdfLocale } from "@/lib/pdf/format";
 import { ComplianceReport } from "@/lib/pdf/compliance-report";
+import { pdfLocale } from "@/lib/pdf/format";
+import { loadReportData } from "@/lib/pdf/load-report-data";
 import { rateLimit } from "@/lib/rate-limit";
+import { companyAssessment } from "@/schema";
 import { getNis2FrameworkId } from "@/server/trpc/helpers/nis2-scope";
 
 export async function GET(request: NextRequest) {
@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  if (!rateLimit(`export:report:${session.user.id}`, 5, 60_000)) {
+  if (!(await rateLimit(`export:report:${session.user.id}`, 5, 60_000))) {
     return new Response("Too many requests", { status: 429 });
   }
 
@@ -44,9 +44,7 @@ export async function GET(request: NextRequest) {
   }
 
   const data = await loadReportData(assessmentId, locale);
-  const buffer = await renderToBuffer(
-    ComplianceReport({ data, locale }),
-  );
+  const buffer = await renderToBuffer(ComplianceReport({ data, locale }));
 
   const date = new Date().toISOString().split("T")[0];
 

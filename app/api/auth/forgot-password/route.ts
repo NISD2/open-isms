@@ -31,7 +31,7 @@ const MAX_ATTEMPTS = 10;
 export async function POST(request: Request) {
   const ip = getClientIp(request.headers);
 
-  if (!rateLimit(`auth:forgot-password:${ip}`, MAX_ATTEMPTS, WINDOW_MS)) {
+  if (!(await rateLimit(`auth:forgot-password:${ip}`, MAX_ATTEMPTS, WINDOW_MS))) {
     return NextResponse.json(
       { error: "Too many attempts. Please try again later." },
       { status: 429 },

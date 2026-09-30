@@ -1,14 +1,14 @@
-import { z } from "zod";
-import { eq } from "drizzle-orm";
-import { publicProcedure, router } from "../init";
 import { TRPCError } from "@trpc/server";
-import { env } from "@/lib/env";
-import { db } from "@/lib/db";
-import { applicabilityLookup, lead } from "@/schema";
-import { mapWzCodesToNis2 } from "@/lib/applicability/wz-to-nis2";
+import { eq } from "drizzle-orm";
+import { z } from "zod";
+import { type CompanySize, classify } from "@/lib/applicability/classify";
 import { SECTORS, type SpecialCaseId } from "@/lib/applicability/sectors";
-import { classify, type CompanySize } from "@/lib/applicability/classify";
+import { mapWzCodesToNis2 } from "@/lib/applicability/wz-to-nis2";
+import { db } from "@/lib/db";
+import { env } from "@/lib/env";
 import { rateLimit } from "@/lib/rate-limit";
+import { applicabilityLookup, lead } from "@/schema";
+import { publicProcedure, router } from "../init";
 
 const RAPIDAPI_HOST = "german-company-data.p.rapidapi.com";
 
@@ -76,8 +76,12 @@ function detectHolding(company: ImplisenseCompany): boolean {
 
   const name = company.name.toLowerCase();
   const holdingPatterns = [
-    "holding", "beteiligung", "verwaltungsgesellschaft",
-    " gruppe ", " group ", "konzern",
+    "holding",
+    "beteiligung",
+    "verwaltungsgesellschaft",
+    " gruppe ",
+    " group ",
+    "konzern",
   ];
   // Check name ends with or contains holding patterns
   return holdingPatterns.some((p) => name.includes(p));
@@ -103,7 +107,9 @@ function processCompanyData(company: ImplisenseCompany) {
   // Auto-detect special cases from WZ-mapped subsectors
   const TELECOM_SUBSECTORS = ["digital_telecom_networks", "digital_telecom_services"];
   const specialCases: SpecialCaseId[] = [];
-  if (wzMatches.some((m) => m.subSectorId && TELECOM_SUBSECTORS.includes(m.subSectorId))) {
+  if (
+    wzMatches.some((m) => m.subSectorId && TELECOM_SUBSECTORS.includes(m.subSectorId))
+  ) {
     specialCases.push("telecom_provider");
   }
 
@@ -164,7 +170,7 @@ export const applicabilityRouter = router({
       // could burn our quota and balloon the applicability_lookup table with
       // arbitrary German company records. 30 searches/min/IP is plenty for a
       // human filling out the applicability check form.
-      if (!rateLimit(`applicability:search:${ctx.ip}`, 30, 60_000)) {
+      if (!(await rateLimit(`applicability:search:${ctx.ip}`, 30, 60_000))) {
         throw new TRPCError({
           code: "TOO_MANY_REQUESTS",
           message: "Too many lookups. Please wait a minute and try again.",
@@ -196,10 +202,9 @@ export const applicabilityRouter = router({
 
       // Fallback: free implisen.se (returns 1 result, no key needed)
       if (companies.length === 0) {
-        const res = await fetch(
-          `https://implisen.se/${encodeURIComponent(input.name)}`,
-          { next: { revalidate: 86400 } },
-        );
+        const res = await fetch(`https://implisen.se/${encodeURIComponent(input.name)}`, {
+          next: { revalidate: 86400 },
+        });
 
         if (res.ok) {
           const data = (await res.json()) as ImplisenseSearchResult;
@@ -236,7 +241,7 @@ export const applicabilityRouter = router({
     .query(async ({ ctx, input }) => {
       // Per-IP rate limit. Lookups hit the paid API on cache miss, so this
       // is an even more sensitive surface than `search`.
-      if (!rateLimit(`applicability:lookup:${ctx.ip}`, 30, 60_000)) {
+      if (!(await rateLimit(`applicability:lookup:${ctx.ip}`, 30, 60_000))) {
         throw new TRPCError({
           code: "TOO_MANY_REQUESTS",
           message: "Too many lookups. Please wait a minute and try again.",
@@ -326,7 +331,7 @@ export const applicabilityRouter = router({
     .mutation(async ({ ctx, input }) => {
       // Per-IP rate limit — public PII ingestion endpoint, an attacker could
       // otherwise spam the leads table with fabricated email addresses.
-      if (!rateLimit(`applicability:lead:${ctx.ip}`, 5, 60_000)) {
+      if (!(await rateLimit(`applicability:lead:${ctx.ip}`, 5, 60_000))) {
         throw new TRPCError({
           code: "TOO_MANY_REQUESTS",
           message: "Too many submissions. Please wait a minute and try again.",

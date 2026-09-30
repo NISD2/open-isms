@@ -1,12 +1,12 @@
-import { z } from "zod";
-import { eq, desc, isNull, and } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
 import bcrypt from "bcryptjs";
-import { router, protectedProcedure, publicProcedure } from "../init";
-import { gapAssessment } from "@/schema";
-import { getGapAssessmentData, answerMapSchema } from "@/lib/gap-assessment";
+import { and, desc, eq, isNull } from "drizzle-orm";
+import { z } from "zod";
+import { answerMapSchema, getGapAssessmentData } from "@/lib/gap-assessment";
 import { computeScores } from "@/lib/gap-assessment/scoring";
 import { rateLimit } from "@/lib/rate-limit";
+import { gapAssessment } from "@/schema";
+import { protectedProcedure, publicProcedure, router } from "../init";
 
 export const gapAssessmentRouter = router({
   /** Return all questions + domains from static JSON */
@@ -24,10 +24,12 @@ export const gapAssessmentRouter = router({
       conditions.push(eq(gapAssessment.companyId, ctx.companyId));
     }
 
-    return ctx.db.query.gapAssessment.findFirst({
-      where: and(...conditions),
-      orderBy: [desc(gapAssessment.createdAt)],
-    }) ?? null;
+    return (
+      ctx.db.query.gapAssessment.findFirst({
+        where: and(...conditions),
+        orderBy: [desc(gapAssessment.createdAt)],
+      }) ?? null
+    );
   }),
 
   /** Start a new assessment (idempotent — returns existing if in-progress) */
@@ -79,7 +81,10 @@ export const gapAssessmentRouter = router({
       if (!session) throw new Error("Session not found");
       if (session.completedAt) throw new Error("Session already completed");
 
-      const answers = { ...(session.answers as Record<string, number>), [input.questionId]: input.answer };
+      const answers = {
+        ...(session.answers as Record<string, number>),
+        [input.questionId]: input.answer,
+      };
 
       await ctx.db
         .update(gapAssessment)
@@ -173,13 +178,15 @@ export const gapAssessmentRouter = router({
         return session ?? null;
       }
 
-      return ctx.db.query.gapAssessment.findFirst({
-        where: and(
-          eq(gapAssessment.userId, ctx.userId),
-          // Find the most recent completed one
-        ),
-        orderBy: [desc(gapAssessment.completedAt)],
-      }) ?? null;
+      return (
+        ctx.db.query.gapAssessment.findFirst({
+          where: and(
+            eq(gapAssessment.userId, ctx.userId),
+            // Find the most recent completed one
+          ),
+          orderBy: [desc(gapAssessment.completedAt)],
+        }) ?? null
+      );
     }),
 
   /** List all sessions for the user (history) */
@@ -204,7 +211,7 @@ export const gapAssessmentRouter = router({
       }),
     )
     .query(async ({ ctx, input }) => {
-      if (!rateLimit(`gap-share:${input.token}`, 5, 15 * 60_000)) {
+      if (!(await rateLimit(`gap-share:${input.token}`, 5, 15 * 60_000))) {
         throw new TRPCError({
           code: "TOO_MANY_REQUESTS",
           message: "Too many attempts. Please wait 15 minutes and try again.",
