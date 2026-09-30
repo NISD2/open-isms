@@ -10,7 +10,13 @@ import { z } from "zod";
 import { trimmed } from "@/lib/env-value";
 import { CLOSE_FIELD_KEYS, type CloseFieldIds } from "./fields";
 
-const CONFIGURABLE = new Set<string>([...CLOSE_FIELD_KEYS, "leadSource"]);
+/** Every key CLOSE_FIELD_IDS can carry. */
+export const CLOSE_CONFIGURABLE_KEYS: readonly (keyof CloseFieldIds)[] = [
+  ...CLOSE_FIELD_KEYS,
+  "leadSource",
+];
+
+const CONFIGURABLE = new Set<string>(CLOSE_CONFIGURABLE_KEYS);
 
 const parseJson = (raw: string): unknown => {
   try {

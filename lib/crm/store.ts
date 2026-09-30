@@ -37,6 +37,10 @@ const isForeignKeyViolation = (err: unknown): boolean => {
   return code(err) === "23503" || code(cause) === "23503";
 };
 
+/** Who the sync keeps in Close: verified accounts without a disposable address. */
+export const isSyncedAccount = () =>
+  and(isNotNull(user.emailVerifiedAt), eq(user.isDisposableEmail, false));
+
 /**
  * Verified, real accounts with their open company, its billing level and the sync
  * row. The company counts only through a membership and a billing account, the same
@@ -82,7 +86,7 @@ const verifiedUsers = (db: DbOrTx) =>
     .leftJoin(company, eq(company.id, companyMembership.companyId))
     .leftJoin(billingAccount, eq(billingAccount.id, company.billingAccountId))
     .leftJoin(closeCrmSync, eq(closeCrmSync.userId, user.id))
-    .where(and(isNotNull(user.emailVerifiedAt), eq(user.isDisposableEmail, false)));
+    .where(isSyncedAccount());
 
 /** People who opted out of every optional email. */
 const optedOutOfAll = (db: DbOrTx) =>

@@ -5,6 +5,7 @@ import {
   BadgeCheck,
   Building2,
   ChartLine,
+  Contact,
   CreditCard,
   FlaskConical,
   GraduationCap,
@@ -27,6 +28,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Link, useRouter } from "@/i18n/navigation";
+import { CloseSyncPanel } from "./CloseSyncPanel";
 import { DevPanel } from "./DevPanel";
 import { EraseUserButton, ErasuresPanel } from "./GdprErasure";
 import { GraphsPanel } from "./GraphsPanel";
@@ -236,6 +238,7 @@ type Tab =
   | "erasures"
   | "pricing"
   | "subscriptions"
+  | "close"
   | "dev";
 
 /** Human-readable label for a notification.entityType value. */
@@ -378,6 +381,12 @@ export function PlatformAdminPage({
             count: undefined as number | undefined,
           },
           {
+            key: "close" as const,
+            label: "Close",
+            icon: Contact,
+            count: undefined as number | undefined,
+          },
+          {
             key: "dev" as const,
             label: "Dev",
             icon: FlaskConical,
@@ -414,6 +423,7 @@ export function PlatformAdminPage({
       {tab === "erasures" && <ErasuresPanel />}
       {tab === "pricing" && <PricingPanel />}
       {tab === "subscriptions" && <SubscriptionsPanel />}
+      {tab === "close" && <CloseSyncPanel />}
       {tab === "dev" && <DevPanel />}
     </div>
   );

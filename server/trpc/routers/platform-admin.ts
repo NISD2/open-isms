@@ -32,6 +32,8 @@ import {
 } from "@/lib/billing/subscriptions";
 import { viesConfigFromEnv } from "@/lib/billing/vies";
 import { compileDailyDigest, compileManagementDigest } from "@/lib/compliance/digest";
+import { closeSyncOnce, closeSyncState } from "@/lib/crm/schedule";
+import { closeSyncStatus } from "@/lib/crm/status";
 import type { Database } from "@/lib/db";
 import { env, mailSupportEmail } from "@/lib/env";
 import { isFeatureOn } from "@/lib/feature-flags";
@@ -676,6 +678,28 @@ export const platformAdminRouter = router({
       });
       return { cleared };
     }),
+
+  /** The Close tab: this server's Close settings (set or not), the sync's progress, refusals and last runs. */
+  closeSync: platformAdminProcedure.query(({ ctx }) => closeSyncStatus(ctx.db)),
+
+  /**
+   * One Close sync now, the same run the schedule makes and under the same lock, so it
+   * cannot overlap a scheduled one. The run logs its own result; this records who asked.
+   */
+  runCloseSync: platformAdminProcedure.mutation(async ({ ctx }) => {
+    await logAudit({
+      companyId: null,
+      userId: ctx.userId,
+      action: "platform.close_sync_run",
+      entityType: "system",
+      entityId: null,
+      description: "Close sync started by hand from the platform admin",
+      ipAddress: ctx.ip,
+      userAgent: ctx.userAgent,
+    });
+    const outcome = await closeSyncOnce("manual");
+    return { outcome, state: closeSyncState(outcome) };
+  }),
 
   myDevState: platformAdminProcedure.query(async ({ ctx }) => {
     const row = await ctx.db.query.user.findFirst({

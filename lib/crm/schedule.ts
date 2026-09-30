@@ -22,14 +22,21 @@ import { type CloseSyncRunResult, runCloseSync } from "./sync";
 
 export const CLOSE_SYNC_INTERVAL_MS = 30 * 60_000;
 /** Lets a fresh server settle, and keeps a crash loop from hammering Close. */
-const FIRST_RUN_DELAY_MS = 2 * 60_000;
+export const FIRST_RUN_DELAY_MS = 2 * 60_000;
 /** Arbitrary, fixed, and used for nothing else. */
 const CLOSE_SYNC_LOCK = 7_346_201_904;
+
+/** The audit_log actions a run leaves behind; the platform admin's Close tab reads them back. */
+export const CLOSE_SYNC_ACTION = {
+  completed: "cron.close_sync",
+  failed: "cron.close_sync.error",
+  skipped: "cron.close_sync.skipped",
+} as const;
 
 const LOCAL_HOSTS = new Set(["localhost", "127.0.0.1", "0.0.0.0", "[::1]"]);
 
 /** A production build serving a public address: not `next dev`, not a local container. */
-const isDeployedServer = (): boolean => {
+export const isDeployedServer = (): boolean => {
   if (process.env.NODE_ENV !== "production") return false;
   try {
     return !LOCAL_HOSTS.has(new URL(env.NEXT_PUBLIC_APP_URL).hostname);
@@ -103,9 +110,17 @@ export type CloseSyncOutcome =
 export const closeSyncFailed = (result: CloseSyncRunResult): boolean =>
   !("skipped" in result) && (result.stopped !== null || result.erasureRefused > 0);
 
+export type CloseSyncState = keyof typeof CLOSE_SYNC_ACTION;
+
+/** Failed (threw, stopped, or an erasure refused), skipped (never reached Close), or completed. */
+export const closeSyncState = (outcome: CloseSyncOutcome): CloseSyncState => {
+  if (!outcome.ok || closeSyncFailed(outcome.result)) return "failed";
+  return "skipped" in outcome.result ? "skipped" : "completed";
+};
+
 /**
- * Run once and record it in the audit log; a failed run, or one that threw, is
- * logged as cron.close_sync.error. Never throws.
+ * Run once and record it in the audit log under the action for its state
+ * (CLOSE_SYNC_ACTION). Never throws.
  */
 export async function closeSyncOnce(
   trigger: "schedule" | "manual",
@@ -119,21 +134,31 @@ export async function closeSyncOnce(
       error: err instanceof Error ? err.message : "Unknown error",
     }),
   );
-  const failed = !outcome.ok || closeSyncFailed(outcome.result);
-  logAudit({
+  const state = closeSyncState(outcome);
+  const description = `Close sync (${trigger}) ${state} in ${outcome.elapsed}ms: ${JSON.stringify(outcome.ok ? outcome.result : outcome.error)}`;
+  // Also in the container log, so a run is visible where the deploy platform shows output.
+  (state === "failed" ? console.error : console.info)(`[close] ${description}`);
+  await logAudit({
     companyId: null,
     userId: null,
-    action: failed ? "cron.close_sync.error" : "cron.close_sync",
+    action: CLOSE_SYNC_ACTION[state],
     entityType: "system",
     entityId: null,
-    description: `Close sync (${trigger}) ${failed ? "failed" : "completed"} in ${outcome.elapsed}ms: ${JSON.stringify(outcome.ok ? outcome.result : outcome.error)}`,
+    description,
   });
   return outcome;
 }
 
 /** Start the schedule. Does nothing without a key or outside a deployed server. */
 export function startCloseSyncSchedule(): void {
-  if (!isDeployedServer() || !closeSettings(env)) return;
+  if (!closeSettings(env)) return;
+  if (!isDeployedServer()) {
+    console.info("[close] sync not scheduled: not a deployed production server");
+    return;
+  }
+  console.info(
+    `[close] sync scheduled: first run in ${FIRST_RUN_DELAY_MS / 60_000} min, then every ${CLOSE_SYNC_INTERVAL_MS / 60_000} min`,
+  );
   const tick = () => void closeSyncOnce("schedule");
   setTimeout(() => {
     tick();
