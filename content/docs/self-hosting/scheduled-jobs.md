@@ -19,7 +19,7 @@ Calling it "deadline reminders" undersells it. One request runs eight phases in 
 5. **Digest compilation.** Pending notifications are batched into the daily or weekly digest and sent, then marked sent.
 6. **Supplier broadcasts.** Queued supplier publication events, incident notifications among them, are drained. The synchronous fan-out at publish time is the fast path; this is the safety net for the ones that failed.
 7. **GDPR retention.** Erasure records past their three-year window are minimised, leaving only the pseudonymous fingerprint and dropping the raw email.
-8. **GDPR stored files.** When an erasure tore an organization down but could not delete all of its uploaded files from object storage, the deletion is tried again. Until it succeeds, that erasure's certificate says the files are outstanding.
+8. **GDPR stored files.** When an erasure tore an organization down but could not delete all of its uploaded files from object storage, the deletion is tried again. Until it succeeds, that erasure's certificate says the files are outstanding. After 14 days the addresses in `PLATFORM_ADMIN_EMAILS` get an email to finish it by hand, and the certificate says so. Deleting files nothing points at any more needs the storage credentials to allow listing the bucket (`s3:ListBucket` on AWS).
 
 Skip it and none of that happens. Requirements stay in the status they were last given, escalation never fires, queued supplier notifications sit in the queue, erasure records keep an email address they were supposed to shed, and files an erasure could not delete stay in the bucket. Phases 7 and 8 in particular are compliance obligations of your own, not a convenience.
 

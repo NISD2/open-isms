@@ -45,6 +45,22 @@ describe("removeReleasedObject", () => {
     expect(removed).toEqual([]);
   });
 
+  // Starts in the folder, and is company B's file on a store that resolves
+  // dot segments. Rows written before #222 checked keys can hold this.
+  test("keeps a key that climbs out of the company's folder, and says so", async () => {
+    const errors = spyOn(console, "error").mockImplementation(() => {});
+    try {
+      const { outcome, removed } = run({
+        key: `${PREFIX}../../22222222-2222-4222-8222-222222222222/training-certs/x.pdf`,
+      });
+      expect(await outcome).toBe("kept");
+      expect(removed).toEqual([]);
+      expect(errors.mock.calls.flat().join(" ")).toContain("training_record r-1");
+    } finally {
+      errors.mockRestore();
+    }
+  });
+
   test("does nothing for a row without a file", async () => {
     expect(await run({ key: null }).outcome).toBe("kept");
   });

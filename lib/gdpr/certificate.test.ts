@@ -65,6 +65,10 @@ describe("buildErasureCertificate", () => {
       "files outstanding",
       { kind: "pending", deleted: 3, pendingPrefixes: ["evidence/x/"] },
     ],
+    [
+      "files passed on for manual deletion",
+      { kind: "manual", deleted: 3, pendingPrefixes: ["evidence/x/"] },
+    ],
     ["no deletion recorded", { kind: "unrecorded" }],
   ] as const)("a teardown with %s does not claim more than was done", (_, files) => {
     const text = buildErasureCertificate(row(true), files);
@@ -81,6 +85,17 @@ describe("buildErasureCertificate", () => {
       pendingPrefixes: ["evidence/x/", "supplier-profile/x/"],
     });
     expect(text).toContain("3 file(s) deleted so far, 2 folder(s) outstanding");
-    expect(text).toContain("retried daily");
+    expect(text).toContain("retried daily for up to 14 days");
+  });
+
+  // Retrying stops after the window, so the certificate must stop saying it goes on.
+  test("a deletion passed to an operator says so, and no longer promises retries", () => {
+    const text = buildErasureCertificate(row(true), {
+      kind: "manual",
+      deleted: 3,
+      pendingPrefixes: ["evidence/x/"],
+    });
+    expect(text).toContain("passed to an operator for deletion by hand");
+    expect(text).not.toContain("retried daily");
   });
 });

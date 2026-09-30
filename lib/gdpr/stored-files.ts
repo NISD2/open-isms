@@ -8,11 +8,13 @@
  * employees' names included, while the erasure certificate said everything
  * had been deleted.
  *
- * The keys are read inside the erasure transaction, before the rows go, and
- * the files are deleted only after it commits: deleting first would destroy
- * them for good if the transaction then rolled back. A deletion that fails
- * neither undoes nor fails the erasure. It is recorded, retried, and stated on
- * the certificate as outstanding.
+ * The keys are read inside the erasure transaction, before the rows go, and a
+ * pending outcome naming every folder is written in that same transaction, so
+ * every committed erasure is retried until it settles, even if the process
+ * dies right after the commit. The files are deleted only after the commit:
+ * deleting first would destroy them for good if the transaction then rolled
+ * back. A deletion still unfinished after {@link ERASURE_FILE_RETRY_DAYS} days
+ * goes to an operator, and the certificate says so.
  *
  * Free of the S3 client and the database handle, so the rules can be tested
  * with a fake store.
@@ -20,7 +22,7 @@
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 import type { DbOrTx } from "@/lib/db";
-import { companyUploadFolders } from "@/lib/storage/object-key";
+import { companyUploadFolders, isOwnObjectKey } from "@/lib/storage/object-key";
 import {
   company,
   companyAssessment,
@@ -34,6 +36,14 @@ import {
 /** The audit action that records what happened to an erasure's files, keyed by the erasure record. */
 export const ERASURE_FILES_ACTION = "gdpr.erasure_files";
 
+/**
+ * How long after the erasure a deletion is retried. Without s3:ListBucket, or
+ * with a file the folder check refuses, it can never finish by itself, and a
+ * daily retry forever would only add a row a day and keep the certificate
+ * saying "retried".
+ */
+export const ERASURE_FILE_RETRY_DAYS = 14;
+
 export interface FileStore {
   list(prefix: string): Promise<readonly string[]>;
   remove(key: string): Promise<void>;
@@ -46,16 +56,26 @@ export interface StoredFiles {
    * at any more, such as a replaced logo or an upload never attached.
    */
   readonly prefixes: readonly string[];
-  /** The keys the company's rows held, which can be deleted even where listing is not permitted. */
+  /** Keys known to hold the company's files, which can be deleted even where listing is refused. */
   readonly keys: readonly string[];
 }
 
-export const fileDeletionSchema = z.object({
+export const fileOutcomeSchema = z.object({
+  /** "manual": retried for {@link ERASURE_FILE_RETRY_DAYS} days and handed to an operator. */
+  state: z.enum(["pending", "complete", "manual"]),
   deleted: z.number().int().min(0),
   pendingPrefixes: z.array(z.string()),
+  /**
+   * Files known to be still in place. Only the newest outcome row keeps them:
+   * keys carry uploaded file names, so each new row drops them from the rows
+   * before it.
+   */
+  keys: z.array(z.string()).default([]),
+  /** Files in the company's folders whose keys fail isOwnObjectKey, so they are never deleted automatically. */
+  refused: z.number().int().min(0).default(0),
 });
 
-export type FileDeletion = z.infer<typeof fileDeletionSchema>;
+export type FileOutcome = z.infer<typeof fileOutcomeSchema>;
 
 export interface Retry {
   readonly attempts: number;
@@ -66,6 +86,15 @@ export const STORAGE_RETRY: Retry = {
   attempts: 3,
   wait: () => new Promise((resolve) => setTimeout(resolve, 500)),
 };
+
+/**
+ * Whether a key names a file inside one of the folders, without climbing out
+ * of it. A row written before keys were checked on write (#222) may hold
+ * `companies/A/training-certs/../../B/x`, which a store that resolves dot
+ * segments would read as company B's file.
+ */
+const isOwnKey = (prefixes: readonly string[], key: string) =>
+  prefixes.some((prefix) => isOwnObjectKey(prefix, key));
 
 /** Read, inside the erasure transaction, where a company's files are. */
 export async function collectCompanyFiles(
@@ -112,6 +141,17 @@ export async function collectCompanyFiles(
   };
 }
 
+/** The outcome written inside the erasure transaction: nothing deleted yet, every folder to go. */
+export function pendingOutcome(files: StoredFiles): FileOutcome {
+  return {
+    state: "pending",
+    deleted: 0,
+    pendingPrefixes: [...files.prefixes],
+    keys: [...new Set(files.keys.filter((key) => isOwnKey(files.prefixes, key)))],
+    refused: 0,
+  };
+}
+
 type Attempt<T> = { ok: true; value: T } | { ok: false };
 
 async function attempt<T>(
@@ -129,55 +169,67 @@ async function attempt<T>(
 }
 
 /**
- * Delete every file in the company's folders. A key outside all of them is
- * never deleted, whichever row held it: a row written before keys were
- * checked on write may name another tenant's object. A folder that could not
- * be listed, or holds a file that could not be deleted, comes back pending.
+ * Delete every file in the company's folders. A key outside all of them, or
+ * one that climbs out of its folder, is never deleted, whichever row held it.
+ * A folder comes back pending when it could not be listed, or still holds a
+ * file that could not be deleted or that the folder check refused.
  */
 export async function deleteStoredFiles(
   store: FileStore,
   files: StoredFiles,
   retry: Retry = STORAGE_RETRY,
-): Promise<FileDeletion> {
+): Promise<FileOutcome> {
   const folders = await Promise.all(
     files.prefixes.map(async (prefix) => {
       const listed = await attempt(() => store.list(prefix), retry);
-      const keys = new Set(
-        [...files.keys, ...(listed.ok ? listed.value : [])].filter((key) =>
-          key.startsWith(prefix),
-        ),
-      );
+      const inFolder = [
+        ...new Set([...files.keys, ...(listed.ok ? listed.value : [])]),
+      ].filter((key) => key.startsWith(prefix));
+      const own = inFolder.filter((key) => isOwnObjectKey(prefix, key));
       const removed = await Promise.all(
-        [...keys].map((key) => attempt(() => store.remove(key), retry)),
+        own.map(async (key) => ({
+          key,
+          ok: (await attempt(() => store.remove(key), retry)).ok,
+        })),
       );
+      const left = removed.filter((r) => !r.ok).map((r) => r.key);
+      const refused = inFolder.length - own.length;
       return {
         prefix,
-        deleted: removed.filter((r) => r.ok).length,
-        complete: listed.ok && removed.every((r) => r.ok),
+        deleted: removed.length - left.length,
+        left,
+        refused,
+        complete: listed.ok && left.length === 0 && refused === 0,
       };
     }),
   );
+  const pendingPrefixes = folders.filter((f) => !f.complete).map((f) => f.prefix);
   return {
+    state: pendingPrefixes.length === 0 ? "complete" : "pending",
     deleted: folders.reduce((sum, folder) => sum + folder.deleted, 0),
-    pendingPrefixes: folders.filter((f) => !f.complete).map((f) => f.prefix),
+    pendingPrefixes,
+    keys: folders.flatMap((folder) => folder.left),
+    refused: folders.reduce((sum, folder) => sum + folder.refused, 0),
   };
 }
 
 /**
  * Delete a committed erasure's files and record how that went. Never throws:
  * the erasure has committed, and an error now would tell the operator that it
- * had not. What is still outstanding is logged by folder, which names only
- * the company id; keys are never logged, since they carry uploaded file names.
+ * had not. When even the record fails, the pending outcome written inside the
+ * erasure transaction is still the newest, so the cron retries. The log names
+ * folders and counts only; keys are never logged, since they carry uploaded
+ * file names.
  */
 export async function settleStoredFiles(
   store: FileStore,
   files: StoredFiles,
-  record: (outcome: FileDeletion) => Promise<void>,
+  record: (outcome: FileOutcome) => Promise<void>,
   label: string,
   retry: Retry = STORAGE_RETRY,
-): Promise<FileDeletion> {
-  const outcome = await deleteStoredFiles(store, files, retry).catch(
-    (): FileDeletion => ({ deleted: 0, pendingPrefixes: [...files.prefixes] }),
+): Promise<FileOutcome> {
+  const outcome = await deleteStoredFiles(store, files, retry).catch(() =>
+    pendingOutcome(files),
   );
   await record(outcome).catch((err: unknown) =>
     console.error(
@@ -185,19 +237,48 @@ export async function settleStoredFiles(
       err instanceof Error ? err.name : "unknown error",
     ),
   );
+  if (outcome.refused > 0) {
+    console.error(
+      `[gdpr] ${label}: ${outcome.refused} stored file(s) left alone, their keys climb out of the company's folder`,
+    );
+  }
   if (outcome.pendingPrefixes.length > 0) {
     console.error(
-      `[gdpr] ${label}: stored files not yet deleted under ${outcome.pendingPrefixes.join(", ")}; retried by the deadlines cron`,
+      `[gdpr] ${label}: stored files not yet deleted under ${outcome.pendingPrefixes.join(", ")}`,
     );
   }
   return outcome;
+}
+
+/**
+ * What a retry may delete: the folders still pending, derived from the
+ * erasure's company rather than read from the outcome, and only the recorded
+ * keys that lie inside them. A damaged outcome row cannot widen either.
+ */
+export function retryFiles(companyId: string, latest: FileOutcome): StoredFiles {
+  const prefixes = companyUploadFolders(companyId).filter((folder) =>
+    latest.pendingPrefixes.includes(folder),
+  );
+  return { prefixes, keys: latest.keys.filter((key) => isOwnKey(prefixes, key)) };
+}
+
+/** An outcome still pending {@link ERASURE_FILE_RETRY_DAYS} days after the erasure is final: it needs a person. */
+export function afterRetryWindow(
+  outcome: FileOutcome,
+  erasedAt: Date,
+  now: Date,
+): FileOutcome {
+  const due = erasedAt.getTime() + ERASURE_FILE_RETRY_DAYS * 24 * 60 * 60 * 1000;
+  return outcome.state === "pending" && now.getTime() >= due
+    ? { ...outcome, state: "manual" }
+    : outcome;
 }
 
 /** What an erasure certificate may say about the organization's stored files. */
 export type StoredFileState =
   | { kind: "not_applicable" }
   | { kind: "unrecorded" }
-  | { kind: "pending"; deleted: number; pendingPrefixes: string[] }
+  | { kind: "pending" | "manual"; deleted: number; pendingPrefixes: string[] }
   | { kind: "complete"; deleted: number };
 
 /**
@@ -210,9 +291,10 @@ export function storedFileState(
   latestOutcome: unknown,
 ): StoredFileState {
   if (!companyTornDown) return { kind: "not_applicable" };
-  const parsed = fileDeletionSchema.safeParse(latestOutcome);
+  const parsed = fileOutcomeSchema.safeParse(latestOutcome);
   if (!parsed.success) return { kind: "unrecorded" };
-  return parsed.data.pendingPrefixes.length > 0
-    ? { kind: "pending", ...parsed.data }
-    : { kind: "complete", deleted: parsed.data.deleted };
+  const { state, deleted, pendingPrefixes } = parsed.data;
+  return state === "complete"
+    ? { kind: "complete", deleted }
+    : { kind: state, deleted, pendingPrefixes };
 }

@@ -37,8 +37,9 @@ function fakeTx(rows: Row[]) {
     }),
     update: () => ({
       set: (values: Record<string, unknown>) => ({
-        where: async () => {
-          updates.push({ id: rows[updates.length]?.id ?? "?", values });
+        where: async (where: SQL) => {
+          const [id] = new PgDialect().sqlToQuery(where).params;
+          updates.push({ id: String(id), values });
         },
       }),
     }),
@@ -130,6 +131,38 @@ describe("scrubAuditTrail", () => {
     });
     expect(updates[1]?.values).not.toHaveProperty("userId");
     expect(updates[1]?.values.description).toBe("Invited [erased]");
+  });
+
+  // SQL can only narrow by substring. Updating every row it returns rewrote
+  // hanna@web.de and susanna@web.de when anna@web.de was erased.
+  test("leaves rows that only contain the address inside another one", async () => {
+    const rows: Row[] = [
+      {
+        id: "hanna",
+        userId: OPERATOR,
+        description: "Invited hanna.muster@kunde.de",
+        previousValue: null,
+        newValue: { recipient: "hanna.muster@kunde.de" },
+      },
+      {
+        id: "longer-domain",
+        userId: null,
+        description: "product.course_followup failed",
+        previousValue: null,
+        newValue: { recipient: "anna.muster@kunde.de.example.org" },
+      },
+      {
+        id: "anna",
+        userId: null,
+        description: "Invited anna.muster@kunde.de",
+        previousValue: null,
+        newValue: null,
+      },
+    ];
+    const { tx, updates } = fakeTx(rows);
+    const count = await scrubAuditTrail(tx, { userId: SUBJECT, email: EMAIL }, redact);
+    expect(count).toBe(1);
+    expect(updates.map((u) => u.id)).toEqual(["anna"]);
   });
 
   // strpos(x, '') is 1 for every row, which would rewrite the whole trail.

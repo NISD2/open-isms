@@ -7,14 +7,17 @@
  * matched on the user id alone, so those addresses stayed in the trail after
  * the certificate said they were gone.
  *
- * A row is therefore also found by the address itself, as an exact substring
- * of the description or of either JSON value's text, the places the writers
- * put it. Its own module because erase-user.ts pulls in environment
- * validation and this deserves tests.
+ * A row is therefore also found by the address itself, in the description or
+ * in either JSON value, the places the writers put it. SQL narrows the rows to
+ * those holding the address as a substring; only those holding it as a whole
+ * address are touched, because the substring anna@web.de is also inside
+ * hanna@web.de, which belongs to somebody else. Its own module because
+ * erase-user.ts pulls in environment validation and this deserves tests.
  */
 import { eq, or, sql } from "drizzle-orm";
 import type { DbOrTx } from "@/lib/db";
 import { auditLog } from "@/schema";
+import { mentionsAddress } from "./address-match";
 
 /**
  * Redact every audit row by or mentioning the person, and return how many.
@@ -48,7 +51,14 @@ export async function scrubAuditTrail(
             sql`strpos(lower(${auditLog.newValue}::text), ${address}) > 0`,
           ),
     );
-  for (const row of rows) {
+  const affected = rows.filter(
+    (row) =>
+      row.userId === person.userId ||
+      [row.description, row.previousValue, row.newValue].some((value) =>
+        mentionsAddress(value, address),
+      ),
+  );
+  for (const row of affected) {
     await tx
       .update(auditLog)
       .set({
@@ -59,5 +69,5 @@ export async function scrubAuditTrail(
       })
       .where(eq(auditLog.id, row.id));
   }
-  return rows.length;
+  return affected.length;
 }

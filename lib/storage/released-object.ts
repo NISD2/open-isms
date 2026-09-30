@@ -3,18 +3,21 @@
  *
  * Deleting a training record or a certification used to drop the row and
  * leave its file in the bucket for good, so a certificate naming an employee
- * outlived the record the company deleted. Import-free, so the rules below
- * can be tested without a bucket.
+ * outlived the record the company deleted. Free of the S3 client, so the rules
+ * below can be tested without a bucket.
  */
+import { isOwnObjectKey } from "./object-key";
 
 export type ReleasedObjectOutcome = "removed" | "kept" | "failed";
 
 /**
  * Delete the object a deleted row pointed at, once nothing else points at it.
  *
- * Only a key inside `prefix`, the company's own upload folder, is deleted: a
- * row written before keys were checked on write may name any object,
- * including another tenant's. `stillReferenced` is asked first because some
+ * Only a key inside `prefix`, the company's own upload folder, is deleted, and
+ * only one that cannot climb out of it (isOwnObjectKey): a row written before
+ * keys were checked on write may name any object, including another tenant's,
+ * and `companies/A/training-certs/../../B/x` is company B's file on a store
+ * that resolves dot segments. `stillReferenced` is asked first because some
  * rows share a file (a batch of training records carries one certificate).
  *
  * Never throws. The row is already gone, which is what the person asked for;
@@ -31,7 +34,13 @@ export async function removeReleasedObject(input: {
   record: string;
 }): Promise<ReleasedObjectOutcome> {
   const { key } = input;
-  if (!key?.startsWith(input.prefix)) return "kept";
+  if (!key) return "kept";
+  if (!isOwnObjectKey(input.prefix, key)) {
+    console.error(
+      `[storage] file of deleted ${input.record} left in place: its key is not inside the company's folder`,
+    );
+    return "kept";
+  }
   try {
     if (await input.stillReferenced(key)) return "kept";
     await input.remove(key);

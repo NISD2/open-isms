@@ -52,7 +52,7 @@ import {
   isMemberOf,
   leaveCompany,
 } from "@/lib/organization/membership";
-import { companyUploadFolders, deleteObject, listObjectKeys } from "@/lib/storage";
+import { deleteObject, listObjectKeys } from "@/lib/storage";
 import type { ErasureMethod, ErasureScope } from "@/schema";
 // Remaining table objects, kept in a second import to keep the list readable.
 import {
@@ -109,13 +109,19 @@ import {
   user,
   vulnerability,
 } from "@/schema";
+import { alertGdprOperators } from "./alert";
 import { redactPiiInJson } from "./redact-pii";
 import { scrubAuditTrail } from "./scrub-audit-log";
 import {
+  afterRetryWindow,
   collectCompanyFiles,
+  ERASURE_FILE_RETRY_DAYS,
   ERASURE_FILES_ACTION,
-  type FileDeletion,
+  type FileOutcome,
   type FileStore,
+  fileOutcomeSchema,
+  pendingOutcome,
+  retryFiles,
   type StoredFileState,
   type StoredFiles,
   settleStoredFiles,
@@ -447,7 +453,7 @@ export async function eraseUser(
     await settleStoredFiles(
       store,
       files,
-      (outcome) => recordFileDeletion(result, outcome),
+      (outcome) => db.transaction((tx) => recordFileOutcome(tx, result, outcome)),
       `erasure ${result.caseRef}`,
     );
   }
@@ -638,6 +644,11 @@ async function eraseUserInTx(
     .insert(dataErasureLog)
     .values({ ...logCore, subjectEmail: subject.email, checksum })
     .returning({ id: dataErasureLog.id });
+  // In this transaction, so an erasure cannot commit without a pending
+  // outcome for the cron to find, even if nothing after the commit runs.
+  if (files) {
+    await recordFileOutcome(tx, { logId: logRow.id, caseRef }, pendingOutcome(files));
+  }
 
   return {
     result: {
@@ -1462,26 +1473,58 @@ export async function purgeExpiredErasureRecords(now: Date): Promise<number> {
 
 // ── Stored files after commit ────────────────────────────────────────────────
 
-/** Record what happened to an erasure's files. The erasure record is
- *  checksummed over its scope when it is written, before the files go, so the
- *  outcome lives beside it in the audit log, keyed by the record's id. */
-async function recordFileDeletion(
+/**
+ * Record what happened to an erasure's files. The erasure record is
+ * checksummed over its scope when it is written, before the files go, so the
+ * outcome lives beside it in the audit log, keyed by the record's id.
+ *
+ * Written directly rather than through logAudit, which swallows its errors:
+ * inside the erasure transaction a failure has to roll the erasure back, and
+ * after it a failure has to reach settleStoredFiles. Each new outcome drops
+ * the keys from the ones before, so only the newest row names files.
+ */
+async function recordFileOutcome(
+  tx: DbOrTx,
   erasure: { logId: string; caseRef: string },
-  outcome: FileDeletion,
+  outcome: FileOutcome,
 ): Promise<void> {
-  const pending = outcome.pendingPrefixes.length;
-  await logAudit({
+  const outstanding = outcome.pendingPrefixes.length;
+  const description = {
+    pending: `Erasure ${erasure.caseRef}: ${outcome.deleted} stored file(s) deleted, ${outstanding} folder(s) still to delete`,
+    complete: `Erasure ${erasure.caseRef}: ${outcome.deleted} stored file(s) deleted`,
+    manual: `Erasure ${erasure.caseRef}: ${outcome.deleted} stored file(s) deleted, ${outstanding} folder(s) need manual deletion`,
+  }[outcome.state];
+  await tx
+    .update(auditLog)
+    .set({ newValue: sql`${auditLog.newValue} - 'keys'` })
+    .where(
+      and(
+        eq(auditLog.action, ERASURE_FILES_ACTION),
+        eq(auditLog.entityId, erasure.logId),
+      ),
+    );
+  await tx.insert(auditLog).values({
     companyId: null,
     userId: null,
     action: ERASURE_FILES_ACTION,
     entityType: "data_erasure_log",
     entityId: erasure.logId,
-    description:
-      pending === 0
-        ? `Erasure ${erasure.caseRef}: ${outcome.deleted} stored file(s) deleted`
-        : `Erasure ${erasure.caseRef}: ${outcome.deleted} stored file(s) deleted, ${pending} folder(s) still to delete`,
+    description,
     newValue: outcome,
   });
+}
+
+/** Tell the operators an erasure's files need a person. Folders name only the company id. */
+async function alertManualDeletion(
+  erasure: { logId: string; caseRef: string },
+  outcome: FileOutcome,
+): Promise<void> {
+  await alertGdprOperators(`${erasure.caseRef}: Dateien von Hand löschen`, [
+    `Löschvorgang ${erasure.caseRef}: Auch ${ERASURE_FILE_RETRY_DAYS} Tage danach sind nicht alle gespeicherten Dateien aus dem Speicher (AWS S3) gelöscht. Automatisch wird es nicht mehr versucht.`,
+    `${outcome.deleted} Datei(en) gelöscht. Offene Ordner: ${outcome.pendingPrefixes.join(", ")}.`,
+    `${outcome.keys.length} bekannte Datei(en) liegen noch dort, ${outcome.refused} wurden nicht angefasst, weil ihr Schlüssel aus dem Ordner der Firma herausführt.`,
+    `Die Schlüssel stehen in der neuesten Zeile von audit_log mit action ${ERASURE_FILES_ACTION} und entity_id ${erasure.logId}. Diese Dateien und alles Übrige in den Ordnern von Hand löschen. Das Löschzertifikat sagt, dass die Dateien zur Löschung von Hand übergeben wurden.`,
+  ]);
 }
 
 /** What happened to an erasure's stored files, for its certificate. */
@@ -1500,19 +1543,23 @@ export async function erasureStoredFiles(
 }
 
 /**
- * Retry every erasure whose latest outcome still has folders to delete, and
- * return how many were retried. Called by the deadlines cron. The folders are
- * derived from the erasure record's company, never read back from the audit
- * row, so a damaged outcome cannot widen what is deleted.
+ * Retry every erasure whose latest outcome is still pending, and return how
+ * many were retried. Called by the deadlines cron. Every committed teardown
+ * has at least the pending outcome its transaction wrote. The folders come
+ * from the erasure record's company and the recorded keys are checked against
+ * them (retryFiles), so a damaged outcome cannot widen what is deleted. After
+ * ERASURE_FILE_RETRY_DAYS the outcome turns "manual" and an operator is told.
  */
 export async function retryPendingErasureFiles(
   store: FileStore = objectStore,
+  now: Date = new Date(),
 ): Promise<number> {
   const latest = await db
     .selectDistinctOn([auditLog.entityId], {
       logId: dataErasureLog.id,
       caseRef: dataErasureLog.caseRef,
       companyId: dataErasureLog.companyId,
+      erasedAt: dataErasureLog.erasedAt,
       outcome: auditLog.newValue,
     })
     .from(auditLog)
@@ -1520,20 +1567,24 @@ export async function retryPendingErasureFiles(
     .where(eq(auditLog.action, ERASURE_FILES_ACTION))
     .orderBy(auditLog.entityId, desc(auditLog.createdAt));
   const pending = latest.flatMap((row) => {
-    const state = storedFileState(true, row.outcome);
-    return state.kind === "pending" && row.companyId
-      ? [{ ...row, companyId: row.companyId, deletedSoFar: state.deleted }]
+    const parsed = fileOutcomeSchema.safeParse(row.outcome);
+    return parsed.success && parsed.data.state === "pending" && row.companyId
+      ? [{ ...row, companyId: row.companyId, previous: parsed.data }]
       : [];
   });
   for (const erasure of pending) {
     await settleStoredFiles(
       store,
-      { prefixes: companyUploadFolders(erasure.companyId), keys: [] },
-      (outcome) =>
-        recordFileDeletion(erasure, {
-          ...outcome,
-          deleted: erasure.deletedSoFar + outcome.deleted,
-        }),
+      retryFiles(erasure.companyId, erasure.previous),
+      async (outcome) => {
+        const settled = afterRetryWindow(
+          { ...outcome, deleted: erasure.previous.deleted + outcome.deleted },
+          erasure.erasedAt,
+          now,
+        );
+        await db.transaction((tx) => recordFileOutcome(tx, erasure, settled));
+        if (settled.state === "manual") await alertManualDeletion(erasure, settled);
+      },
       `erasure ${erasure.caseRef}`,
     );
   }

@@ -12,6 +12,7 @@ export {
   dailyDigestEmail,
   emailVerificationCodeEmail,
   entityInvitesSupplierEmail,
+  gdprAlertEmail,
   inviteEmail,
   invoiceEmail,
   memberRemovedEmail,

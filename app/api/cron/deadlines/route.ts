@@ -406,7 +406,8 @@ export async function GET(req: NextRequest) {
     // -----------------------------------------------------------------------
     // Phase 8: GDPR erasure — retry deleting a torn-down organization's stored
     // files where the erasure could not finish that after it committed. The
-    // certificate says "outstanding" until this succeeds. Isolated like 7.
+    // certificate says "outstanding" until this succeeds; after 14 days the
+    // platform admins are emailed to finish by hand. Isolated like 7.
     // -----------------------------------------------------------------------
     try {
       stats.phase8_erasure_files_retried = await retryPendingErasureFiles();
