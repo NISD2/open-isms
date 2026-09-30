@@ -15,6 +15,8 @@ import { cn } from "@/lib/utils";
 
 interface BigChecklistProps {
   sectors: string[];
+  /** Show only these groups, e.g. one slice of the catalogue per guided screen. Defaults to all. */
+  groups?: readonly FunctionalGroup[];
   checked: string[];
   custom: Array<{ name: string; layer: AssetLayer }>;
   onCheckedChange: (next: string[]) => void;
@@ -42,6 +44,7 @@ const DEFAULT_COLLAPSED = new Set<FunctionalGroup>(["sector-specific"]);
 
 export function BigChecklist({
   sectors,
+  groups = FUNCTIONAL_GROUPS,
   checked,
   custom,
   onCheckedChange,
@@ -89,7 +92,7 @@ export function BigChecklist({
 
   return (
     <div className="space-y-8">
-      {FUNCTIONAL_GROUPS.map((group) => {
+      {groups.map((group) => {
         const items = byGroup.get(group);
         if (!items || items.length === 0) return null;
 

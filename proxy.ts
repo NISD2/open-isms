@@ -112,6 +112,9 @@ const CANONICAL_PUBLIC_EXACT: readonly string[] = [
   // as the page it previews.
   "/journey-preview",
   "/supplier-preview",
+  // Static design route for the one-step Durchgang: framework text only, no
+  // company data, and the page itself 404s in production.
+  "/durchgang-preview",
 ];
 
 const CANONICAL_PUBLIC_PREFIXES: readonly string[] = [
