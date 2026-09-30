@@ -130,7 +130,6 @@ mock.module("@/lib/mail/send", () => ({
   },
   sendWelcomeEmail: async () => ({ success: true, id: "unused" }) as const,
   mailSuppressionReason: () => null,
-  isSuppressedSendId: () => false,
 }));
 
 const register = await import("@/app/api/auth/register/route");

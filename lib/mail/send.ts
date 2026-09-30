@@ -117,9 +117,6 @@ export function mailSuppressionReason(): MailSuppressionReason | null {
   return null;
 }
 
-// Kept importable from here: every caller and test mock reads it from send.ts.
-export { isSuppressedSendId } from "./delivery";
-
 /**
  * Send a transactional email over whichever transport this instance has
  * configured: its own SMTP relay when SMTP_HOST is set, Resend otherwise.

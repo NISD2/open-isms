@@ -33,8 +33,9 @@ import { logAudit } from "@/lib/audit";
 import type { DbOrTx } from "@/lib/db";
 import { mailSupportEmail } from "@/lib/env";
 import { loadEmailConsent } from "@/lib/mail/consent";
+import { isSuppressedSendId } from "@/lib/mail/delivery";
 import { FROM_NAME_PERSONAL } from "@/lib/mail/resend";
-import { isSuppressedSendId, mailSuppressionReason, sendMail } from "@/lib/mail/send";
+import { mailSuppressionReason, sendMail } from "@/lib/mail/send";
 import { notification } from "@/schema";
 import { LIFECYCLE_EMAIL_TYPES } from "./registry";
 import {

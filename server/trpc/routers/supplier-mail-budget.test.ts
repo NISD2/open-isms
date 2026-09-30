@@ -41,7 +41,6 @@ mock.module("@/lib/mail/send", () => ({
   },
   sendWelcomeEmail: async () => ({ success: true, id: "unused" }),
   mailSuppressionReason: () => null,
-  isSuppressedSendId: () => false,
 }));
 
 const SENDER_NAME = "Lieferant GmbH lieferant-login.test";

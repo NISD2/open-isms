@@ -31,12 +31,10 @@ const sendMail = mock(async (opts: { idempotencyKey?: string }) => {
 // Relative specifiers on purpose: they resolve to the same files dispatch.ts
 // imports via "@/...", and a mock registered under a specifier that fails to
 // resolve would silently not apply.
-const SUPPRESSED = new Set(["dev-blocked", "disabled", "no-transport", "dev-stub"]);
 mock.module("../mail/send", () => ({
   sendMail,
   sendWelcomeEmail: async () => ({ success: true, id: "unused" }),
   mailSuppressionReason: () => suppression,
-  isSuppressedSendId: (id: string | undefined) => id !== undefined && SUPPRESSED.has(id),
 }));
 
 const logAudit = mock((_row: { action: string; userId: string | null }) => {});

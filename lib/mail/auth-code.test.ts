@@ -19,9 +19,6 @@ mock.module("./send", () => ({
   sendMail,
   sendWelcomeEmail: async () => ({ success: true, id: "no-transport" }) as const,
   mailSuppressionReason: () => null,
-  isSuppressedSendId: (id: string | undefined) =>
-    id !== undefined &&
-    ["dev-blocked", "disabled", "no-transport", "dev-stub"].includes(id),
 }));
 
 /**

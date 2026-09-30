@@ -55,6 +55,7 @@ import { prepareActivationNudgeSample } from "@/lib/lifecycle/emails/activation-
 import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
 import { LOCALE_CODES } from "@/lib/locale";
 import { loadEmailConsent } from "@/lib/mail/consent";
+import { isSuppressedSendId } from "@/lib/mail/delivery";
 import {
   buildDigestQueue,
   type DigestKind,
@@ -63,7 +64,7 @@ import {
 import { EMAIL_FAILURE_ACTION } from "@/lib/mail/failure-log";
 import { preferenceFooterFor } from "@/lib/mail/footer";
 import { resolveEmailLocale } from "@/lib/mail/locale";
-import { isSuppressedSendId, sendMail } from "@/lib/mail/send";
+import { sendMail } from "@/lib/mail/send";
 import { dailyDigestEmail, weeklyManagementDigestEmail } from "@/lib/mail/templates";
 import { HINT_COLUMN, HINTS, resolveHints } from "@/lib/onboarding/hints";
 import { loadGrowthData } from "@/lib/platform-admin/growth";
