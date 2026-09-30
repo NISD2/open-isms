@@ -11,8 +11,13 @@ const BASE = "http://local.invalid";
  * parser accepts, because it is the parser deciding.
  */
 export function localCallbackPath(raw: string | null, fallback: string): string {
-  const url = raw === null ? null : parse(raw);
-  return url?.origin === BASE ? `${url.pathname}${url.search}${url.hash}` : fallback;
+  const url = raw ? parse(raw) : null;
+  if (url?.origin !== BASE) return fallback;
+  const path = `${url.pathname}${url.search}${url.hash}`;
+  // Checked a second time on its own: dot segments can leave an empty first
+  // segment ("/.//evil.tld" parses to the path "//evil.tld"), which is
+  // protocol-relative the moment it is used without the base.
+  return parse(path)?.origin === BASE ? path : fallback;
 }
 
 /** Not URL.canParse: Safari before 17 lacks it, and this runs on the sign-in page. */
