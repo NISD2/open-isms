@@ -8,6 +8,8 @@
  * Keyed by requirement code → field key → default value.
  * Merged server-side: saved answers always override these defaults.
  */
+import { REPORTING_CLOCK } from "./bsig-32";
+
 export const PLATFORM_DEFAULTS: Record<string, Record<string, unknown>> = {
   "1.3": {
     annualSecurityBudget: "25000",
@@ -25,7 +27,7 @@ export const PLATFORM_DEFAULTS: Record<string, Record<string, unknown>> = {
   },
   // §32 legal maximum for BSI early warning
   "3.3": {
-    earlyWarningSlaHours: 24,
+    earlyWarningSlaHours: REPORTING_CLOCK.earlyWarningHours,
   },
   // 9.2 → asset enrichment (per-asset crypto fields, no intake defaults)
   // RBAC is the SME standard

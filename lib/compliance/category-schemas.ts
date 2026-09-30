@@ -423,7 +423,7 @@ export const REG_SCHEMA = z.object({
   contactPersonName: z
     .string()
     .max(255)
-    .describe("BSI contact person name (§33(1) Nr. 6)"),
+    .describe("BSI contact person name, as entered in the BSI portal"),
   contactPersonEmail: z.string().max(255).describe("BSI contact person email"),
   lastRegistrationUpdate: z.coerce
     .date()
@@ -478,6 +478,11 @@ export type CategoryCode = keyof typeof SCHEMA_BY_CATEGORY;
 export type CategoryField<C extends CategoryCode> = C extends CategoryCode
   ? keyof (typeof SCHEMA_BY_CATEGORY)[C]["shape"] & string
   : never;
+
+/** One category's intake values as its schema parses them, so a fixed value is type-checked. */
+export type CategoryValues<C extends CategoryCode> = z.infer<
+  (typeof SCHEMA_BY_CATEGORY)[C]
+>;
 
 export const CATEGORY_SCHEMAS: Record<
   string,

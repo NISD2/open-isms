@@ -3,7 +3,9 @@ import {
   getNis2RequirementsForCategory,
   nis2Categories,
 } from "@nisd2/grc-data-model/frameworks";
+import { z } from "zod";
 import { FUNCTIONAL_GROUPS } from "@/lib/asset-inventory/catalog";
+import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
 import { DURCHGANG_CODES } from "@/lib/compliance/durchgang";
 import { JOURNEY_ORDER } from "@/lib/compliance/journey-position";
 import {
@@ -30,8 +32,11 @@ const FRAMEWORK = new Map(
   ),
 );
 
-/** The screen that stands in for a register the requirement page shows. */
-const MODULE_SCREEN: Readonly<Record<string, ScreenKind>> = { asset: "assets" };
+/** Whether a screen stands in for the register the requirement page shows. */
+const coversModule = (screen: AnyScreen, moduleRef: string): boolean =>
+  moduleRef === "asset"
+    ? screen.kind === "assets"
+    : screen.kind === "register" && screen.module === moduleRef;
 
 /** The screen that stands in for a custom editor the requirement page shows. */
 const EDITOR_SCREEN: Readonly<Record<string, ScreenKind>> = { "RSK:2.1": "adopt" };
@@ -40,7 +45,12 @@ const EDITOR_SCREEN: Readonly<Record<string, ScreenKind>> = { "RSK:2.1": "adopt"
 const NO_SCREEN: Readonly<Record<string, string>> = {
   "12.2:bsi_registration":
     "the register has no loader or router, so the page always shows 0 entries (spec §0.6); the flow records 12.2 through its fields and its evidence",
+  "3.3:incident":
+    "the incident register fills when an incident happens; 3.3 prepares the reporting, and the register stays on the incidents page",
 };
+
+const unwrap = (schema: z.ZodType): z.ZodType =>
+  schema instanceof z.ZodOptional ? unwrap(schema.unwrap() as z.ZodType) : schema;
 
 const screensOf = (item: (typeof NIS2_SCRIPT)[number]): readonly AnyScreen[] =>
   item.screens;
@@ -77,20 +87,34 @@ describe("the NIS 2 script", () => {
     }
   });
 
-  test("asks every intake field of the item exactly once, and no other", () => {
+  test("places every intake field of the item exactly once, and no other", () => {
     for (const item of NIS2_SCRIPT) {
-      const asked = screensOf(item).flatMap((s) =>
-        s.kind === "fields"
-          ? s.fields
-          : s.kind === "evidence" && s.field
-            ? [s.field]
-            : [],
-      );
-      const mapped = REQUIREMENT_FIELD_MAP[item.code]?.fieldKeys ?? [];
-      expect({ code: item.code, asked: [...asked].sort() }).toEqual({
-        code: item.code,
-        asked: [...mapped].sort(),
+      const onScreens = screensOf(item).flatMap((s): readonly string[] => {
+        switch (s.kind) {
+          case "fields":
+            return s.fields;
+          case "evidence":
+            return s.field ? [s.field] : [];
+          case "fixed":
+            return Object.keys(s.values);
+          default:
+            return [];
+        }
       });
+      const placed = [...onScreens, ...Object.keys(item.notAsked ?? {})];
+      const mapped = REQUIREMENT_FIELD_MAP[item.code]?.fieldKeys ?? [];
+      expect({ code: item.code, placed: [...placed].sort() }).toEqual({
+        code: item.code,
+        placed: [...mapped].sort(),
+      });
+    }
+  });
+
+  test("gives every field it does not ask a reason", () => {
+    for (const item of NIS2_SCRIPT) {
+      for (const reason of Object.values(item.notAsked ?? {})) {
+        expect(typeof reason === "string" && reason.trim().length > 20).toBe(true);
+      }
     }
   });
 
@@ -99,11 +123,10 @@ describe("the NIS 2 script", () => {
       const kinds = new Set(screensOf(item).map((s) => s.kind));
       const moduleRef = FRAMEWORK.get(item.code)?.moduleRef;
       if (moduleRef && !NO_SCREEN[`${item.code}:${moduleRef}`]) {
-        const needed = MODULE_SCREEN[moduleRef];
         expect({
           code: item.code,
           moduleRef,
-          screen: needed && kinds.has(needed),
+          screen: screensOf(item).some((s) => coversModule(s, moduleRef)),
         }).toEqual({
           code: item.code,
           moduleRef,
@@ -148,6 +171,30 @@ describe("the words of the Durchgang", () => {
         return resolved.ok ? [] : resolved.errors;
       });
       expect(errors).toEqual([]);
+    });
+
+    test(`every choice field names each of its options in ${locale}, and no other field has options`, () => {
+      for (const item of NIS2_SCRIPT) {
+        const resolved = resolveItem(namespace, item);
+        if (!resolved.ok) continue;
+        const shape = CATEGORY_SCHEMAS[item.category]?.shape ?? {};
+        for (const { copy } of resolved.value.screens) {
+          if (!("fields" in copy)) continue;
+          for (const field of copy.fields) {
+            const schema = shape[field.key];
+            const choice = schema ? unwrap(schema) : null;
+            expect({
+              code: item.code,
+              field: field.key,
+              options: field.options ? Object.keys(field.options).sort() : null,
+            }).toEqual({
+              code: item.code,
+              field: field.key,
+              options: choice instanceof z.ZodEnum ? [...choice.options].sort() : null,
+            });
+          }
+        }
+      }
     });
 
     test(`every wait reason has words in ${locale}`, () => {

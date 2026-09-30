@@ -31,6 +31,8 @@ const SCREEN_COPY = {
   fields: z.object({ ...heading, document: text }),
   evidence: z.object({ ...heading, document: text }),
   adopt: z.object({ ...heading, lines: z.array(z.object({ label: text, text })).min(1) }),
+  fixed: z.object({ ...heading, source: text }),
+  register: z.object(heading),
   decide: z.object({ ...heading, source: text }),
   sources: z.object(heading),
   assets: z.object(heading),
@@ -42,7 +44,17 @@ const ITEM_COPY = z.object({
   teaser: text,
   missed: z.array(text).min(1),
   screens: z.record(z.string(), z.unknown()),
-  fields: z.record(z.string(), z.object({ label: text, hint: text })).default({}),
+  fields: z
+    .record(
+      z.string(),
+      z.object({
+        label: text,
+        hint: text,
+        /** One label per value, for a field whose schema is a choice. A test checks the set. */
+        options: z.record(z.string(), text).optional(),
+      }),
+    )
+    .default({}),
   sources: z.record(z.string(), z.object({ label: text, text })).default({}),
 });
 
@@ -50,10 +62,11 @@ type ItemCopy = z.infer<typeof ITEM_COPY>;
 
 type Keyed<K extends string, V> = V & { readonly key: K };
 
+type FieldCopy = readonly Keyed<string, ItemCopy["fields"][string]>[];
+
 interface Extras {
-  readonly fields: {
-    readonly fields: readonly Keyed<string, ItemCopy["fields"][string]>[];
-  };
+  readonly fields: { readonly fields: FieldCopy };
+  readonly fixed: { readonly fields: FieldCopy };
   readonly sources: {
     readonly sources: readonly Keyed<string, ItemCopy["sources"][string]>[];
   };
@@ -119,6 +132,14 @@ const pick = <K extends string, V>(
     : ok(keys.map((key) => ({ ...record[key], key })));
 };
 
+/** The intake fields a screen shows with a label: the ones it asks, and the ones it fixes. */
+export const labelledFields = (screen: AnyScreen): readonly string[] =>
+  screen.kind === "fields"
+    ? screen.fields
+    : screen.kind === "fixed"
+      ? Object.keys(screen.values)
+      : [];
+
 /** Copy with no screen, field or source left to show it is a deleted screen's leftover. */
 const unused = (present: readonly string[], used: readonly string[], where: string) =>
   present.filter((key) => !used.includes(key)).map((key) => `${where}.${key}: unused`);
@@ -168,6 +189,15 @@ function resolveScreen(
       return one(screen, SCREEN_COPY.evidence);
     case "adopt":
       return one(screen, SCREEN_COPY.adopt);
+    case "fixed": {
+      const copy = parse(SCREEN_COPY.fixed, raw, where);
+      const fields = pick(head.fields, labelledFields(screen), `${base}.fields`);
+      return copy.ok && fields.ok
+        ? ok({ screen, copy: { ...copy.value, fields: fields.value } })
+        : { ok: false, errors: errorsOf(copy, fields) };
+    }
+    case "register":
+      return one(screen, SCREEN_COPY.register);
     case "decide":
       return one(screen, SCREEN_COPY.decide);
     case "assets":
@@ -199,7 +229,7 @@ export function resolveItem(namespace: unknown, item: AnyItem): Result<ResolvedI
     ),
     ...unused(
       Object.keys(head.value.fields),
-      screens.flatMap((s) => (s.kind === "fields" ? s.fields : [])),
+      screens.flatMap(labelledFields),
       `${base}.fields`,
     ),
     ...unused(

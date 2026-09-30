@@ -16,6 +16,435 @@
       "unclear": "Ich verstehe es noch nicht"
     },
     "items": {
+      "12_1": {
+        "headline": "Klären, ob und wie NIS 2 für Sie gilt",
+        "teaser": "Sektor und Größe entscheiden über die Stufe.",
+        "missed": [
+          "Trifft mehr als eine Einrichtungsart zu, halten Sie jede fest, nicht nur die Hauptbranche.",
+          "Gehört Ihr Unternehmen zu einer Gruppe, zählen Partner und verbundene Unternehmen bei Beschäftigten und Umsatz mit. Das entfällt, wenn Ihre IT nachweislich unabhängig von ihnen betrieben wird (§ 28 Abs. 4 BSIG).",
+          "Nebentätigkeiten, die für Ihr Geschäft insgesamt kaum ins Gewicht fallen, dürfen bei der Zuordnung außen vor bleiben (§ 28 Abs. 3 BSIG)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Ob NIS 2 für Sie gilt",
+            "body": [
+              "NIS 2 gilt für Unternehmen bestimmter Branchen ab einer bestimmten Größe. Die Branchen stehen in zwei Anlagen zum BSI-Gesetz. Wer darunter fällt, ist eine besonders wichtige oder eine wichtige Einrichtung.",
+              "Einen Bescheid dafür gibt es nicht. Das Gesetz legt fest, wer darunter fällt, und Sie prüfen es selbst."
+            ],
+            "duty": "Ob und in welcher Stufe Ihr Unternehmen erfasst ist, ergibt sich aus seinem Sektor und seiner Größe."
+          },
+          "thresholds": {
+            "title": "Die Größe entscheidet mit",
+            "lead": "Es zählen die Beschäftigten oder Umsatz und Bilanzsumme zusammen. Die obere Grenze gilt nur für Branchen aus Anlage 1.",
+            "source": "§ 28 Abs. 1 Nr. 4 und Abs. 2 Nr. 3 BSIG. Für einige Einrichtungsarten zählt die Größe nicht, etwa für Betreiber kritischer Anlagen."
+          },
+          "data": {
+            "title": "Was Sie dafür brauchen",
+            "lead": "Die Zahlen stehen meist im letzten Jahresabschluss.",
+            "items": [
+              {
+                "name": "Beschäftigte",
+                "detail": "wie viele Menschen bei Ihnen arbeiten"
+              },
+              {
+                "name": "Jahresumsatz und Jahresbilanzsumme",
+                "detail": "aus dem letzten Jahresabschluss"
+              },
+              {
+                "name": "Ihre Tätigkeiten",
+                "detail": "womit Ihr Unternehmen Geld verdient, zum Abgleich mit den Anlagen 1 und 2"
+              },
+              {
+                "name": "Beteiligungen",
+                "detail": "ob Ihr Unternehmen zu einer Gruppe gehört"
+              }
+            ],
+            "source": "§ 28 Abs. 4 BSIG verweist für die Zählung auf die Empfehlung der EU-Kommission 2003/361/EG. Zur ersten Orientierung bietet das BSI online die NIS-2-Betroffenheitsprüfung an; ihr Ergebnis ist nach Angabe des BSI nicht rechtlich bindend."
+          },
+          "classification": {
+            "title": "Halten Sie Ihre Einstufung fest",
+            "lead": "Zwei Angaben. Die Geschäftsführung bestätigt sie am Ende mit ihrer Unterschrift.",
+            "document": "Ihre Einstufung"
+          },
+          "done": {
+            "title": "Einstufung erfasst",
+            "note": "Ändern sich Größe oder Geschäftsfelder, prüfen Sie die Einstufung erneut."
+          }
+        },
+        "fields": {
+          "entityClassification": {
+            "label": "Stufe",
+            "hint": "Maßgeblich sind Sektor und Größe (§ 28 BSIG).",
+            "options": {
+              "essential": "Besonders wichtige Einrichtung",
+              "important": "Wichtige Einrichtung"
+            }
+          },
+          "applicableSectors": {
+            "label": "Sektoren und Einrichtungsarten",
+            "hint": "Jede, die auf Ihr Unternehmen zutrifft, mit der Nummer aus Anlage 1 oder 2 des BSIG, zum Beispiel 1.1.1 für Stromlieferanten."
+          }
+        }
+      },
+      "1_1": {
+        "headline": "Die Geschäftsführung schulen lassen",
+        "teaser": "Jedes Mitglied der Geschäftsführung, regelmäßig.",
+        "missed": [
+          "Die Schulung soll die Ziele aus § 38 Abs. 3 BSIG abdecken: Risiken und Risikomanagement erkennen und bewerten und beurteilen, was sie für die Dienste Ihres Unternehmens bedeuten.",
+          "Das Gesetz sagt „regelmäßig“ und nennt weder Abstand noch Dauer. Das BSI empfiehlt eine ausführliche erste Schulung und danach Folgeschulungen, Dauer und Abstand nach Ihrer Risikolage."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Die Schulung der Geschäftsführung",
+            "body": [
+              "Wer das Unternehmen leitet, nimmt regelmäßig an einer Schulung zur Informationssicherheit teil. Das gilt für jedes Mitglied der Geschäftsführung persönlich.",
+              "Einen Kurs dafür finden Sie auf dieser Plattform. Sie können auch jeden anderen Anbieter wählen; eine Zulassung für Anbieter schreibt das Gesetz nicht vor."
+            ],
+            "duty": "Die Geschäftsführung muss regelmäßig an Schulungen teilnehmen. Wie oft und wie lange, legt das Gesetz nicht fest."
+          },
+          "record": {
+            "title": "So kann ein Nachweis aussehen",
+            "caption": "Halten Sie fest, wer wann was gelernt hat:",
+            "rows": [
+              { "name": "Teilnehmerin", "detail": "Anna Beispiel, Geschäftsführerin" },
+              { "name": "Datum", "detail": "12. März 2026" },
+              {
+                "name": "Inhalte",
+                "detail": "Risiken erkennen und bewerten, Folgen für unsere Dienste"
+              },
+              { "name": "Anbieter", "detail": "wer die Schulung gehalten hat" }
+            ]
+          },
+          "training": {
+            "title": "Halten Sie die letzte Schulung fest",
+            "lead": "Wer geschult hat und wann. Gibt es noch keine, tragen Sie sie ein, sobald sie stattgefunden hat.",
+            "document": "Teilnahmebestätigung"
+          },
+          "certificates": {
+            "title": "Ein Nachweis pro Person",
+            "lead": "Legen Sie für jedes Mitglied der Geschäftsführung die Teilnahmebestätigung ab."
+          },
+          "done": {
+            "title": "Schulung erfasst",
+            "note": "Am Ende sieht die Geschäftsführung alle Punkte durch und unterschreibt."
+          }
+        },
+        "fields": {
+          "managementTrainingProvider": {
+            "label": "Anbieter der Schulung",
+            "hint": "Wer die Schulung gehalten hat, zum Beispiel ein Bildungsträger, eine Beratung oder ein Onlinekurs."
+          },
+          "lastManagementTraining": {
+            "label": "Datum der letzten Schulung",
+            "hint": "Das Datum auf der Teilnahmebestätigung."
+          }
+        }
+      },
+      "5_1": {
+        "headline": "Aufschreiben, wer für Sie arbeitet",
+        "teaser": "Eine Liste Ihrer Lieferanten und Dienstleister.",
+        "missed": [
+          "Nicht nur IT zählt. Das Gesetz spricht von direkten Anbietern und Dienstleistern ohne Einschränkung (§ 30 Abs. 2 Nr. 4 BSIG).",
+          "Die Agentur der EU für Cybersicherheit (ENISA) schlägt vor, Lieferanten einzustufen, etwa in kritisch, strategisch und Routine."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Wer für Ihr Unternehmen arbeitet",
+            "body": [
+              "Zur Sicherheit gehört auch, wer von außen für Sie arbeitet: Dienstleister, Softwareanbieter, Lieferanten. Der erste Schritt ist eine Liste, wer das ist und was er für Sie tut.",
+              "Fangen Sie mit denen an, ohne die Ihr Betrieb stehen würde. Die Liste wächst mit."
+            ],
+            "duty": "Das Gesetz verlangt Maßnahmen für die Sicherheit der Lieferkette, auch in den Beziehungen zu Ihren direkten Anbietern und Dienstleistern."
+          },
+          "list": {
+            "title": "So kann Ihre Liste aussehen",
+            "caption": "Eine Zeile pro Lieferant, mit dem, was er für Sie tut:",
+            "rows": [
+              {
+                "name": "IT-Dienstleister",
+                "detail": "betreut Server und Konten, hat Fernzugriff"
+              },
+              {
+                "name": "Steuerbüro",
+                "detail": "macht die Lohnabrechnung, sieht Personaldaten"
+              },
+              {
+                "name": "Microsoft",
+                "detail": "E-Mail und Dateien für alle Beschäftigten"
+              }
+            ]
+          },
+          "sources": {
+            "title": "Wo die Namen schon stehen",
+            "lead": "Meist kennt Ihr Unternehmen seine Lieferanten schon. Haken Sie ab, wo Sie nachgesehen haben:"
+          },
+          "suppliers": {
+            "title": "Ihre Lieferanten",
+            "lead": "Tragen Sie jeden ein und sagen Sie, wie wichtig er für Ihren Betrieb ist. Im Zweifel gilt: lieber aufschreiben als weglassen."
+          },
+          "dependence": {
+            "title": "Wer Sie allein anhalten könnte",
+            "lead": "Wie viele Lieferanten gibt es, ohne die Ihr Betrieb stehen würde und für die kein zweiter bereitsteht?",
+            "document": "Ihre Lieferantenliste"
+          },
+          "done": {
+            "title": "Ihre Liste steht",
+            "note": "Kommt ein Lieferant dazu, ergänzen Sie ihn. Am Ende sieht die Geschäftsführung die Liste durch."
+          }
+        },
+        "fields": {
+          "singlePointOfFailureCount": {
+            "label": "Anzahl solcher Lieferanten",
+            "hint": "Zählen Sie die Einträge, bei denen ein Ausfall Ihren Betrieb anhält und es keinen Ersatz gibt."
+          }
+        },
+        "sources": {
+          "payables": {
+            "label": "Kreditorenliste",
+            "text": "Aus der Buchhaltung. Wer Ihnen Rechnungen schickt, arbeitet für Sie."
+          },
+          "contracts": {
+            "label": "Verträge und Abonnements",
+            "text": "Wartungsverträge, Softwarelizenzen, Cloudkonten."
+          },
+          "provider": {
+            "label": "Ihr IT-Dienstleister",
+            "text": "Er weiß, welche Anbieter er selbst für Sie einsetzt."
+          }
+        }
+      },
+      "12_3": {
+        "headline": "Die Registrierung aktuell halten",
+        "teaser": "Ändert sich etwas, tragen Sie es beim BSI nach.",
+        "missed": [
+          "Die zwei Wochen laufen ab dem Moment, in dem Ihr Unternehmen von der Änderung erfährt. Nehmen Sie das BSI-Portal deshalb in den Ablauf auf, wenn jemand das Unternehmen verlässt.",
+          "Tragen Sie für die Kontaktstelle ein Funktionspostfach ein, wie es das BSI empfiehlt. Dann ändert sich seltener etwas."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Die Angaben aktuell halten",
+            "body": [
+              "Ändert sich etwas an dem, was Sie dem BSI bei der Registrierung angegeben haben, tragen Sie es im BSI-Portal nach. Das geht unter „Ihre Registrierung“.",
+              "Eine feste jährliche Prüfung verlangt das Gesetz nicht. Es verlangt, dass Sie schnell sind, wenn sich etwas ändert."
+            ],
+            "duty": "Änderungen melden Sie unverzüglich, spätestens zwei Wochen, nachdem Ihr Unternehmen davon erfahren hat."
+          },
+          "changes": {
+            "title": "Wann Sie etwas nachtragen",
+            "lead": "Diese Angaben können sich ändern:",
+            "items": [
+              {
+                "name": "Kontaktperson und Kontaktstelle",
+                "detail": "jemand geht oder übernimmt eine andere Aufgabe"
+              },
+              {
+                "name": "Anschrift, Telefon und E-Mail",
+                "detail": "Umzug, neue Nummer, abgeschaltetes Postfach"
+              },
+              {
+                "name": "Öffentliche IP-Adressbereiche",
+                "detail": "neuer Internetanschluss oder neuer Anbieter"
+              },
+              {
+                "name": "Sektor und EU-Staaten",
+                "detail": "neues Geschäftsfeld oder Dienste in einem weiteren Land"
+              }
+            ],
+            "source": "§ 33 Abs. 1 und 5 BSIG. Geändert wird im BSI-Portal unter „Ihre Registrierung“ (Anleitung des BSI)."
+          },
+          "contact": {
+            "title": "Wer beim BSI eingetragen ist",
+            "lead": "So wissen Sie, wen das BSI erreicht, und merken, wenn diese Person geht.",
+            "document": "Ihre Registrierung im BSI-Portal"
+          },
+          "done": {
+            "title": "Kontakt erfasst",
+            "note": "Am Ende sieht die Geschäftsführung alle Punkte durch und unterschreibt."
+          }
+        },
+        "fields": {
+          "contactPersonName": {
+            "label": "Kontaktperson",
+            "hint": "Die Person, die im BSI-Portal als NIS-2-Kontaktperson eingetragen ist."
+          },
+          "contactPersonEmail": {
+            "label": "E-Mail-Adresse der Kontaktperson",
+            "hint": "So, wie sie im BSI-Portal steht."
+          },
+          "lastRegistrationUpdate": {
+            "label": "Zuletzt nachgetragen",
+            "hint": "Der Tag, an dem Sie die Angaben zuletzt im BSI-Portal geändert haben. Leer lassen, wenn noch nichts geändert wurde."
+          }
+        }
+      },
+      "1_2": {
+        "headline": "Festlegen, wer sich kümmert",
+        "teaser": "Eine koordinierende Rolle, mit Vertretung.",
+        "missed": [
+          "Das BSI empfiehlt in seiner NIS-2-Checkliste mindestens zwei Personen für die koordinierende Rolle. Dann ist sie auch im Urlaub oder bei Krankheit besetzt.",
+          "Die Person braucht jederzeit direkten Zugang zur Geschäftsführung, um über Vorfälle und Risiken zu berichten (BSI-Standard 200-2).",
+          "Die Rolle muss nicht CISO heißen. Das BSI nennt sie Informationssicherheitsbeauftragte oder Informationssicherheitsbeauftragter (ISB)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Wer sich kümmert",
+            "body": [
+              "Die Verantwortung trägt die Geschäftsführung. Sie muss die Maßnahmen umsetzen und ihre Umsetzung überwachen (§ 38 Abs. 1 BSIG). Die Arbeit verteilt sie auf Personen im Unternehmen.",
+              "Im Mittelpunkt steht eine koordinierende Rolle. Sie treibt die Informationssicherheit voran und berät die Geschäftsführung."
+            ],
+            "duty": "Ihr Unternehmen muss dokumentieren, wie es seine Pflichten erfüllt. Dazu gehört, wer wofür zuständig ist."
+          },
+          "who": {
+            "title": "So sieht es richtig aus",
+            "caption": "Wer die Informationssicherheit koordiniert",
+            "good": {
+              "value": "Frau Kaya aus der kaufmännischen Leitung, vertreten von Herrn Brandt, beide mit direktem Draht zur Geschäftsführung",
+              "note": "Zwei Personen, direkt bei der Leitung. So empfiehlt es das BSI."
+            },
+            "bad": {
+              "value": "Die IT-Leitung, allein",
+              "note": "Fällt sie aus, kümmert sich niemand. Und wer die Systeme betreibt, bewertet dann ihre Sicherheit selbst."
+            }
+          },
+          "roles": {
+            "title": "Tragen Sie die Rollen ein",
+            "lead": "Wer koordiniert, wer vertritt und wer bei einem Vorfall entscheidet."
+          },
+          "done": {
+            "title": "Rollen verteilt",
+            "note": "Am Ende sieht die Geschäftsführung alle Punkte durch und unterschreibt."
+          }
+        }
+      },
+      "3_1": {
+        "headline": "Planen, was bei einem Vorfall passiert",
+        "teaser": "Wer entscheidet, wen Sie anrufen, wie Sie sich erreichen.",
+        "missed": [
+          "Planen Sie einen zweiten Kommunikationsweg außerhalb Ihrer IT. Das Gesetz nennt gesicherte Kommunikation und, wo nötig, gesicherte Notfallkommunikation ausdrücklich (§ 30 Abs. 2 Nr. 10 BSIG).",
+          "Legen Sie fest, wer die Meldung an das BSI schreibt. Die erste Meldung ist spätestens 24 Stunden, nachdem Sie von einem erheblichen Vorfall erfahren haben, fällig (§ 32 Abs. 1 BSIG)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Wenn etwas passiert",
+            "body": [
+              "Während eines Vorfalls ist keine Zeit, zu überlegen, wer was tut. Deshalb halten Sie es vorher fest: wer entscheidet, wen Sie anrufen und wie Sie sich erreichen, wenn E-Mail und Netz nicht gehen.",
+              "Das muss kein dickes Handbuch sein. Eine Seite, die jeder findet, reicht für den Anfang."
+            ],
+            "duty": "Das Gesetz verlangt, dass Ihr Unternehmen Sicherheitsvorfälle bewältigen kann."
+          },
+          "lead": {
+            "title": "Wer im Ernstfall führt",
+            "lead": "Eine Person entscheidet, ein kleines Team hilft.",
+            "document": "Ihr Notfallplan"
+          },
+          "escalation": {
+            "title": "Wen Sie anrufen",
+            "lead": "Wer wann Bescheid bekommt, von der IT bis zur Geschäftsführung.",
+            "document": "Ihre Telefonliste"
+          },
+          "second_way": {
+            "title": "Der zweite Weg",
+            "caption": "Wie Sie sich erreichen, wenn E-Mail und Netz ausfallen",
+            "good": {
+              "value": "Telefonliste auf Papier, im Büro und bei der Geschäftsführung zu Hause",
+              "note": "Funktioniert auch, wenn Ihre eigene IT steht."
+            },
+            "bad": {
+              "value": "Rundmail an alle",
+              "note": "Ist die E-Mail selbst betroffen, kommt die Nachricht nicht an."
+            }
+          },
+          "channel": {
+            "title": "Ihr zweiter Weg",
+            "lead": "Wie Sie sich erreichen, wenn die eigene IT nicht geht.",
+            "document": "Ihr Notfallplan"
+          },
+          "plan": {
+            "title": "Legen Sie den Plan ab",
+            "lead": "Laden Sie Ihren Notfallplan hoch, auch wenn er nur eine Seite hat. Die Geschäftsführung gibt ihn frei."
+          },
+          "done": {
+            "title": "Plan erfasst",
+            "note": "Am Ende gibt die Geschäftsführung den Plan mit ihrer Unterschrift frei."
+          }
+        },
+        "fields": {
+          "incidentLead": {
+            "label": "Leitung bei einem Vorfall",
+            "hint": "Die Person, die entscheidet, was zu tun ist, und die Geschäftsführung informiert."
+          },
+          "irtTeamSize": {
+            "label": "Größe des Teams",
+            "hint": "Wie viele Personen im Ernstfall mitarbeiten, auch externe wie Ihr IT-Dienstleister."
+          },
+          "incidentEscalationContacts": {
+            "label": "Kontakte für die Eskalation",
+            "hint": "Namen und Telefonnummern, nach Schwere des Vorfalls. Auch die Notrufnummer Ihres IT-Dienstleisters."
+          },
+          "secureCommsChannel": {
+            "label": "Zweiter Kommunikationsweg",
+            "hint": "Ein Weg außerhalb Ihrer eigenen IT, zum Beispiel eine Telefonliste auf Papier."
+          }
+        }
+      },
+      "3_3": {
+        "headline": "Wissen, wie Sie einen Vorfall melden",
+        "teaser": "Drei Meldungen an das BSI, mit festen Fristen.",
+        "missed": [
+          "Die Uhr läuft ab Kenntnis, nicht erst, wenn alles geklärt ist. Melden Sie früh; die zweite Meldung bestätigt oder aktualisiert die erste.",
+          "Das BSI versteht unter Kenntnis den Moment, in dem jemand im Unternehmen innerhalb der Arbeitszeit von dem Vorfall erfährt.",
+          "Sind personenbezogene Daten betroffen, melden Sie parallel an die Datenschutzaufsicht, mit eigener Frist von 72 Stunden (Art. 33 DSGVO)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Einen Vorfall melden",
+            "body": [
+              "Ist ein Sicherheitsvorfall erheblich, melden Sie ihn dem BSI. Erheblich ist er, wenn er Ihren Betrieb schwer stören oder Ihnen finanzielle Verluste bringen kann, oder wenn er anderen erheblichen Schaden zufügen kann.",
+              "Gemeldet wird im BSI-Portal, mit demselben Zugang wie bei der Registrierung."
+            ],
+            "duty": "Erhebliche Vorfälle melden Sie in drei Schritten an die gemeinsame Meldestelle des BSI und des Bundesamts für Bevölkerungsschutz und Katastrophenhilfe."
+          },
+          "clock": {
+            "title": "Die drei Fristen",
+            "lead": "Die Uhr läuft ab dem Moment, in dem Ihr Unternehmen von dem Vorfall erfährt. Die dritte Frist beginnt mit der zweiten Meldung.",
+            "source": "§ 32 Abs. 1 und 2 BSIG. Dauert der Vorfall nach einem Monat noch an, schicken Sie statt der Abschlussmeldung eine Fortschrittsmeldung und die Abschlussmeldung, sobald er bewältigt ist."
+          },
+          "deadline": {
+            "title": "Ihre Frist für die erste Meldung",
+            "lead": "Diese Zahl legt das Gesetz fest. Sie bestätigen sie nur.",
+            "source": "§ 32 Abs. 1 Nr. 1 BSIG: „unverzüglich, spätestens jedoch innerhalb von 24 Stunden nach Kenntniserlangung“."
+          },
+          "ready": {
+            "title": "Was Sie für die erste Meldung brauchen",
+            "lead": "Legen Sie das jetzt fest, nicht erst im Ernstfall:",
+            "items": [
+              {
+                "name": "Zugang zum BSI-Portal",
+                "detail": "den haben Sie seit der Registrierung"
+              },
+              {
+                "name": "Wer meldet",
+                "detail": "eine Person und ihre Vertretung, im Notfallplan festgehalten"
+              },
+              {
+                "name": "Was Sie wissen",
+                "detail": "was betroffen ist, seit wann, und ob ein Angriff dahinterstecken könnte"
+              }
+            ],
+            "source": "§ 32 Abs. 1 Nr. 1 BSIG. Wer noch nicht registriert ist, meldet über das Melde- und Informationsportal des BSI (BSI, Infopaket Meldepflicht)."
+          },
+          "done": {
+            "title": "Meldeweg vorbereitet",
+            "note": "Am Ende sieht die Geschäftsführung alle Punkte durch und unterschreibt."
+          }
+        },
+        "fields": {
+          "earlyWarningSlaHours": {
+            "label": "Frist für die frühe Erstmeldung, in Stunden",
+            "hint": "Spätestens 24 Stunden, nachdem Ihr Unternehmen von einem erheblichen Vorfall erfahren hat."
+          }
+        }
+      },
       "12_2": {
         "headline": "Beim BSI registrieren",
         "teaser": "Ihr Unternehmen meldet sich einmal beim BSI an.",
@@ -203,7 +632,12 @@
         "fields": {
           "classificationLevels": {
             "label": "Anzahl der Schutzstufen",
-            "hint": "Das BSI arbeitet mit drei Stufen: normal, hoch und sehr hoch (Standard 200-2, Kapitel 8.2.1). Wählen Sie eine andere Zahl nur, wenn Ihr Unternehmen schon anders einstuft."
+            "hint": "Das BSI arbeitet mit drei Stufen: normal, hoch und sehr hoch (Standard 200-2, Kapitel 8.2.1). Wählen Sie eine andere Zahl nur, wenn Ihr Unternehmen schon anders einstuft.",
+            "options": {
+              "2_levels": "Zwei Stufen",
+              "3_levels": "Drei Stufen",
+              "4_levels": "Vier Stufen"
+            }
           }
         },
         "sources": {
