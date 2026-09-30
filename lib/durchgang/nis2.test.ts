@@ -16,7 +16,7 @@ import en from "@/messages/durchgang/en.json";
 import infoDe from "@/messages/info/de.json";
 import infoEn from "@/messages/info/en.json";
 import { resolveItem, WAIT_REASONS, WALK } from "./index";
-import { NIS2_SCRIPT } from "./nis2";
+import { NIS2_SCRIPT, NOT_WALKED } from "./nis2";
 import type { AnyScreen, ScreenKind } from "./types";
 
 const FRAMEWORK = new Map(
@@ -43,8 +43,6 @@ const NO_SCREEN: Readonly<Record<string, string>> = {
     "the register has no loader or router, so the page always shows 0 entries (spec §0.6); the flow records 12.2 through its fields and its evidence",
   "3.3:incident":
     "the incident register fills when an incident happens; 3.3 prepares the reporting, and the register stays on the incidents page",
-  "1.1:training_record":
-    "the requirement page has no inline form for it, only a link away; the screen asks for the certificates, so 1.1 takes them as evidence on the item",
   "3.1:policy":
     "the policy form has no upload and asks for type and status as free text; the screen asks for the plan itself, so 3.1 takes it as evidence on the item",
 };
@@ -77,7 +75,13 @@ describe("the NIS 2 script", () => {
   test("walks the start of the journey without a gap, in journey order", () => {
     // Items are scripted from the front of the journey (spec §0.7), so the walk is always the
     // first N codes: a later item scripted before an earlier one would leave a hole in the path.
-    expect(WALK.map((i) => i.code)).toEqual(JOURNEY_ORDER.slice(0, NIS2_SCRIPT.length));
+    // The only holes are the items left out on purpose, each with its reason.
+    const front = JOURNEY_ORDER.slice(
+      0,
+      NIS2_SCRIPT.length + Object.keys(NOT_WALKED).length,
+    );
+    expect(WALK.map((i) => i.code)).toEqual(front.filter((code) => !NOT_WALKED[code]));
+    for (const code of Object.keys(NOT_WALKED)) expect(front).toContain(code);
   });
 
   test("opens every item with what it is and closes with what was recorded", () => {

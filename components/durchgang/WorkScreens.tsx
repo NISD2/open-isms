@@ -31,6 +31,7 @@ import { cn } from "@/lib/utils";
 import { ArtThumb } from "./Art";
 import { asInput, type Draft, type DraftUpdate } from "./draft";
 import { Heading, Lead } from "./ExplainScreens";
+import { TrainingRecords } from "./TrainingRecords";
 import type { ItemView, Registers, WalkEntry } from "./view";
 
 type Of<K extends ResolvedScreen["kind"]> = Extract<ResolvedScreen, { kind: K }>;
@@ -57,7 +58,13 @@ function Choice({
 }: {
   id: string;
   name: string;
-  options: ReadonlyArray<{ value: string; label: string; detail?: string }>;
+  options: ReadonlyArray<{
+    value: string;
+    label: string;
+    detail?: string;
+    /** A short mark beside the label, such as our recommendation. */
+    badge?: string;
+  }>;
   value: string;
   onChange: (value: string) => void;
 }) {
@@ -80,7 +87,14 @@ function Choice({
             className="mt-0.5"
           />
           <span>
-            <span className="block font-medium">{option.label}</span>
+            <span className="flex flex-wrap items-center gap-2 font-medium">
+              {option.label}
+              {option.badge && (
+                <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-900 dark:bg-emerald-950 dark:text-emerald-100">
+                  {option.badge}
+                </span>
+              )}
+            </span>
             {option.detail && (
               <span className="mt-1 block text-sm leading-6 text-muted-foreground">
                 {option.detail}
@@ -321,6 +335,7 @@ export function Decide({
   onDraft,
   entry,
 }: WorkProps & { entry: Of<"decide"> }) {
+  const t = useTranslations("durchgang.ui");
   return (
     <>
       <Heading>{entry.copy.title}</Heading>
@@ -338,9 +353,21 @@ export function Decide({
             value: level,
             label: RISK_LEVEL_TEXT[item.locale][level].label,
             detail: RISK_LEVEL_TEXT[item.locale][level].description,
+            badge: level === entry.screen.recommended ? t("recommended") : undefined,
           }))}
         />
       </div>
+      {draft.acceptance && (
+        <section className="mt-6 max-w-[62ch] rounded-2xl border border-primary/20 bg-primary/[0.04] p-5">
+          <p className="flex items-center gap-2 text-sm font-semibold">
+            <ScrollText className="size-4 text-primary" />
+            {t("inProposal")}
+          </p>
+          <p className="mt-2 text-sm leading-6">
+            {entry.copy.rationale[draft.acceptance]}
+          </p>
+        </section>
+      )}
       <p className="mt-4 max-w-[62ch] text-xs leading-5 text-muted-foreground">
         {entry.copy.source}
       </p>
@@ -461,16 +488,30 @@ export function Register({ item, entry }: { item: ItemView; entry: Of<"register"
       <Heading>{entry.copy.title}</Heading>
       <Lead>{entry.copy.lead}</Lead>
       <div className="mt-8">
-        {entry.screen.module === "team" ? (
-          <Team rows={item.registers.team ?? []} />
-        ) : (
-          <InlineModulePanel
-            moduleRef={entry.screen.module}
-            requirementCode={item.code}
-            items={item.registers.supplier ?? []}
-            isCompleted={false}
-          />
-        )}
+        {(() => {
+          switch (entry.screen.module) {
+            case "team":
+              return <Team rows={item.registers.team ?? []} />;
+            case "training_record":
+              return (
+                <TrainingRecords
+                  initial={item.registers.training_record ?? []}
+                  locale={item.locale}
+                />
+              );
+            case "supplier":
+              return (
+                <InlineModulePanel
+                  moduleRef={entry.screen.module}
+                  requirementCode={item.code}
+                  items={item.registers.supplier ?? []}
+                  isCompleted={false}
+                />
+              );
+            default:
+              return entry.screen.module satisfies never;
+          }
+        })()}
       </div>
       <p className="mt-4 text-sm text-muted-foreground">{t("registerHint")}</p>
     </>

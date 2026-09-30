@@ -10,7 +10,14 @@ import type { AnyItem } from "./types";
 export type { ResolvedItem, ResolvedScreen } from "./copy";
 export { itemKey, resolveItem } from "./copy";
 export type { NoteLocale } from "./notes";
-export { acceptanceNote, methodNote, noteLine, sourcesNote, waitingNote } from "./notes";
+export {
+  acceptanceNote,
+  declinedNote,
+  methodNote,
+  noteLine,
+  sourcesNote,
+  waitingNote,
+} from "./notes";
 export type { DurchgangEvent, ItemState, StatusRow, WaitReason } from "./state";
 export {
   DURCHGANG_ACTIONS,
@@ -24,6 +31,7 @@ export type {
   AnyItem,
   AnyScreen,
   Decision,
+  LearnLink,
   Provision,
   RegisterModule,
   ScreenKind,

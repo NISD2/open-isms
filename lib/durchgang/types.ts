@@ -13,24 +13,31 @@
  */
 
 import type { FunctionalGroup } from "@/lib/asset-inventory/catalog";
-import type { Frequency, Impact } from "@/lib/compliance/bsi-200-3";
+import type { Frequency, Impact, RiskLevel } from "@/lib/compliance/bsi-200-3";
 import type { CategoryCode, CategoryField } from "@/lib/compliance/category-schemas";
 
 /**
  * A rule shown as it is, read-only, rendered from the module that holds it: the 200-3 matrix
  * (`bsi-200-3.ts`), the § 28 size thresholds (`applicability/classify.ts`), the § 32 reporting
- * deadlines (`bsig-32.ts`).
+ * deadlines (`bsig-32.ts`), the national registration portals (`data/nis2-registration-portals`).
  */
-export type Provision = "bsi_200_3_matrix" | "bsig_28_thresholds" | "bsig_32_clock";
+export type Provision =
+  | "bsi_200_3_matrix"
+  | "bsig_28_thresholds"
+  | "bsig_32_clock"
+  | "registration_portals";
 
 /**
  * A register the requirement page shows for the item (its `moduleRef`), which a screen shows as
  * the list itself. The asset register has its own screen kind, because it is offered in slices.
  */
-export type RegisterModule = "supplier" | "team";
+export type RegisterModule = "supplier" | "team" | "training_record";
 
 /** A decision the person takes on the screen. Nothing is preselected. */
 export type Decision = "risk_acceptance";
+
+/** A page of the platform a learn screen points to. */
+export type LearnLink = "ceo_course";
 
 /** A BSI default the person may take over with one click, as an explicit write. */
 export type Adoptable = "bsi_200_3_method";
@@ -46,19 +53,24 @@ export const SOURCE_IDS = [
 export type SourceId = (typeof SOURCE_IDS)[number];
 
 export type Screen<C extends CategoryCode> =
-  | { readonly kind: "learn"; readonly id: string }
+  | { readonly kind: "learn"; readonly id: string; readonly link?: LearnLink }
   /** What to have ready before starting, as the law or the BSI lists it. */
   | { readonly kind: "prepare"; readonly id: string }
   /** Example: a good and a bad value side by side. */
   | { readonly kind: "compare"; readonly id: string }
   /** Example: a few lines of what the finished list looks like. */
   | { readonly kind: "sample"; readonly id: string }
-  /** Example: one risk read off the BSI 200-3 matrix. The result is computed, never written. */
+  /**
+   * Examples read off the 200-3 matrix, from low to high. Each level is computed from its two
+   * ratings, never written; the copy gives each example its words, in the same order.
+   */
   | {
       readonly kind: "reading";
       readonly id: string;
-      readonly frequency: Frequency;
-      readonly impact: Impact;
+      readonly examples: ReadonlyArray<{
+        readonly frequency: Frequency;
+        readonly impact: Impact;
+      }>;
     }
   | { readonly kind: "provision"; readonly id: string; readonly provision: Provision }
   | {
@@ -74,7 +86,13 @@ export type Screen<C extends CategoryCode> =
     }
   | { readonly kind: "adopt"; readonly id: string; readonly adopts: Adoptable }
   | { readonly kind: "register"; readonly id: string; readonly module: RegisterModule }
-  | { readonly kind: "decide"; readonly id: string; readonly decision: Decision }
+  | {
+      readonly kind: "decide";
+      readonly id: string;
+      readonly decision: Decision;
+      /** The level we suggest; marked on the screen, never preselected. */
+      readonly recommended: RiskLevel;
+    }
   | {
       readonly kind: "sources";
       readonly id: string;

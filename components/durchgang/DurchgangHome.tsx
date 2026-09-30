@@ -93,6 +93,8 @@ function Home({ walk }: { walk: readonly WalkEntry[] }) {
     switch (entry.state.kind) {
       case "filled":
         return t("ui.home.filled");
+      case "declined":
+        return t("ui.home.declined");
       case "signed":
         return t("ui.home.signed");
       case "not_applicable":

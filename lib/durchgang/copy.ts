@@ -14,7 +14,13 @@ const heading = { title: text, lead: text };
 const pair = z.object({ value: text, note: text });
 
 const SCREEN_COPY = {
-  learn: z.object({ title: text, body: z.array(text).min(1), duty: text }),
+  /** `link` labels the platform page the screen points to, where the script gives it one. */
+  learn: z.object({
+    title: text,
+    body: z.array(text).min(1),
+    duty: text,
+    link: text.optional(),
+  }),
   prepare: z.object({
     ...heading,
     items: z.array(z.object({ name: text, detail: text })).min(1),
@@ -25,14 +31,21 @@ const SCREEN_COPY = {
     title: text,
     caption: text,
     rows: z.array(z.object({ name: text, detail: text })).min(1),
+    note: text.optional(),
   }),
-  reading: z.object({ title: text, caption: text }),
+  /** One text per example of the script's screen, in its order. */
+  reading: z.object({ title: text, caption: text, examples: z.array(text).min(1) }),
   provision: z.object({ ...heading, source: text }),
   fields: z.object({ ...heading, document: text }),
   evidence: z.object({ ...heading, document: text }),
   adopt: z.object({ ...heading, lines: z.array(z.object({ label: text, text })).min(1) }),
   register: z.object(heading),
-  decide: z.object({ ...heading, source: text }),
+  /** `rationale` is what the proposal says, per level, in the notes the Geschäftsführung signs. */
+  decide: z.object({
+    ...heading,
+    source: text,
+    rationale: z.object({ low: text, medium: text, high: text, very_high: text }),
+  }),
   sources: z.object(heading),
   assets: z.object(heading),
   done: z.object({ title: text, note: text }),
@@ -173,16 +186,29 @@ function resolveScreen(
           })
         : { ok: false, errors: errorsOf(copy, sources) };
     }
-    case "learn":
-      return one(screen, SCREEN_COPY.learn);
+    case "learn": {
+      const copy = one(screen, SCREEN_COPY.learn);
+      return copy.ok && screen.link && !copy.value.copy.link
+        ? { ok: false, errors: [`${where}.link: missing`] }
+        : copy;
+    }
     case "prepare":
       return one(screen, SCREEN_COPY.prepare);
     case "compare":
       return one(screen, SCREEN_COPY.compare);
     case "sample":
       return one(screen, SCREEN_COPY.sample);
-    case "reading":
-      return one(screen, SCREEN_COPY.reading);
+    case "reading": {
+      const copy = one(screen, SCREEN_COPY.reading);
+      return copy.ok && copy.value.copy.examples.length !== screen.examples.length
+        ? {
+            ok: false,
+            errors: [
+              `${where}.examples: ${copy.value.copy.examples.length} texts for ${screen.examples.length} examples`,
+            ],
+          }
+        : copy;
+    }
     case "provision":
       return one(screen, SCREEN_COPY.provision);
     case "evidence":

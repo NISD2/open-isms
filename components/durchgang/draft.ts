@@ -43,6 +43,13 @@ export const toAnswer = (meta: FieldMeta | undefined, value: unknown): unknown =
   return typeof value === "string" ? value.trim() : value;
 };
 
+/** Whether a draft value answers its field: a real number, a yes or no, or some text. */
+export const isAnswered = (meta: FieldMeta | undefined, value: unknown): boolean => {
+  if (meta?.type === "boolean") return typeof value === "boolean";
+  if (value === null || value === undefined || String(value).trim() === "") return false;
+  return meta?.type === "number" ? Number.isFinite(Number(value)) : true;
+};
+
 /** The draft an item opens with: its stored answers, and nothing chosen yet. */
 export const initialDraft = (
   answers: Readonly<Record<string, unknown>>,

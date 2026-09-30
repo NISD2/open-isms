@@ -33,16 +33,12 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { useRouter } from "@/i18n/navigation";
-import {
-  type ItemState,
-  resumeAt,
-  type ScreenKind,
-  type WaitReason,
-} from "@/lib/durchgang";
+import { type ItemState, resumeAt, type ScreenKind } from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
 import { Compare, Learn, Prepare, Provision, Reading, Sample } from "./ExplainScreens";
 import { Rail } from "./Rail";
 import { type Direction, PROGRESS, STAGE, transition } from "./transition";
+import { useScreenComplete } from "./useScreenComplete";
 import { useWalkItem } from "./useWalkItem";
 import type { ItemView, WalkEntry } from "./view";
 import { WaitSheet } from "./WaitSheet";
@@ -100,10 +96,11 @@ export function DurchgangItem({
   const self = walk.find((w) => w.code === item.code);
   const filled: ItemState = { kind: "filled", since: new Date() };
   const next = resumeAt(walk, (w) => (w.code === item.code ? filled : w.state));
-  const { draft, setDraft, adoptedAt, leave, park } = useWalkItem(
+  const { draft, setDraft, adoptedAt, leave, park, decline } = useWalkItem(
     item,
     self?.state.kind === "waiting",
   );
+  const complete = useScreenComplete(item, item.screens[index], draft);
 
   // The screen lives in the URL, so the browser's back button and a reload keep the place.
   const show = useCallback((target: number, direction: Direction, push = true) => {
@@ -154,9 +151,10 @@ export function DurchgangItem({
     else show(index - 1, "back");
   };
 
-  const parkAndGoHome = (reason: WaitReason, note: string) => {
+  /** Sets the item aside or closes it as decided, then goes home once that is stored. */
+  const settleAndGoHome = (stored: Promise<void>) => {
     setWaitOpen(false);
-    park(reason, note).then(
+    stored.then(
       () => router.push("/durchgang"),
       () => {
         toast.error(t("saveFailed"));
@@ -290,7 +288,8 @@ export function DurchgangItem({
       <footer className="fixed inset-x-0 bottom-0 z-30 border-t bg-background/90 backdrop-blur-md">
         <div className="mx-auto grid max-w-7xl px-4 py-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:px-10 xl:gap-20">
           <div className="flex max-w-3xl items-center justify-between gap-3">
-            {entry.screen.kind !== "done" ? (
+            {/* Only a screen that cannot be completed offers the way out. */}
+            {!complete ? (
               <button
                 type="button"
                 onClick={() => setWaitOpen(true)}
@@ -302,10 +301,27 @@ export function DurchgangItem({
             ) : (
               <span />
             )}
-            <Button size="lg" onClick={forward} className="min-w-0 rounded-xl px-6">
-              <span className="max-w-[15rem] truncate sm:max-w-[24rem]">{primary}</span>
-              <ArrowRight />
-            </Button>
+            <div className="flex min-w-0 items-center gap-2">
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={back}
+                className="rounded-xl"
+                aria-label={t("back")}
+              >
+                <ChevronLeft />
+                <span className="hidden sm:inline">{t("back")}</span>
+              </Button>
+              <Button
+                size="lg"
+                onClick={forward}
+                disabled={!complete}
+                className="min-w-0 rounded-xl px-6"
+              >
+                <span className="max-w-[12rem] truncate sm:max-w-[24rem]">{primary}</span>
+                <ArrowRight />
+              </Button>
+            </div>
           </div>
         </div>
       </footer>
@@ -322,7 +338,12 @@ export function DurchgangItem({
         </SheetContent>
       </Sheet>
 
-      <WaitSheet open={waitOpen} onOpenChange={setWaitOpen} onConfirm={parkAndGoHome} />
+      <WaitSheet
+        open={waitOpen}
+        onOpenChange={setWaitOpen}
+        onWait={(reason, note) => settleAndGoHome(park(reason, note))}
+        onDecline={(reason) => settleAndGoHome(decline(reason))}
+      />
     </div>
   );
 }

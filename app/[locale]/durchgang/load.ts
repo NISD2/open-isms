@@ -97,10 +97,12 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     screens.some((s) => s.kind === "register" && s.module === module);
   const asksAssets = screens.some((s) => s.kind === "assets");
   const asksAdopt = screens.some((s) => s.kind === "adopt");
+  const showsPortals = screens.some(
+    (s) => s.kind === "provision" && s.provision === "registration_portals",
+  );
 
   const [
     words,
-    tReq,
     tc,
     tInfo,
     tPortal,
@@ -109,11 +111,12 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     intake,
     supplier,
     team,
+    trainings,
     assets,
     adoption,
+    registration,
   ] = await Promise.all([
     wordsOf(item),
-    getTranslations("requirements"),
     getTranslations("compliance"),
     getTranslations("info"),
     getTranslations("portal"),
@@ -133,8 +136,10 @@ export async function loadItem(code: string): Promise<ItemView | null> {
       : Promise.resolve({ answers: {} as Record<string, unknown> }),
     shows("supplier") ? api.supplier.list() : Promise.resolve(undefined),
     shows("team") ? api.team.listMembers() : Promise.resolve(undefined),
+    shows("training_record") ? api.training.list() : Promise.resolve(undefined),
     asksAssets ? api.asset.list() : Promise.resolve([]),
     asksAdopt ? api.durchgang.adoption() : Promise.resolve({ adoptedAt: null }),
+    showsPortals ? api.durchgang.portals() : Promise.resolve(null),
   ]);
 
   const statusId = statuses.find((s) => s.requirementId === req.id)?.status?.id ?? null;
@@ -176,7 +181,9 @@ export async function loadItem(code: string): Promise<ItemView | null> {
   return {
     code,
     section: tc(`categories.${item.category}.name`),
-    title: tReq(`${itemKey(code)}.title`),
+    // The walk's own headline, in the walk's words: the requirement title is the platform-wide
+    // name and stays on the requirement page.
+    title: words.headline,
     image: imageFor(code),
     missed: words.missed,
     terms: item.glossary.map((key) => ({
@@ -194,9 +201,10 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     categoryId: req.category.id,
     answers: intake.answers,
     fields,
-    registers: { supplier, team },
+    registers: { supplier, team, training_record: trainings },
     listedAssets,
     adoptedAt: adoption.adoptedAt,
+    registration,
     locale,
   };
 }

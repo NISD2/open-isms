@@ -59,7 +59,52 @@
       "recorded": "Festgehalten in Ihren Unterlagen",
       "comesNext": "Als Nächstes",
       "saveFailed": "Das wurde nicht gespeichert. Ihre Eingaben sind noch da. Bitte versuchen Sie es noch einmal.",
-      "uploadFirst": "Laden Sie die Datei hier hoch. Mit Weiter geht es auch ohne.",
+      "uploadFirst": "Laden Sie die Datei hier hoch. Haben Sie sie noch nicht, wählen Sie „Geht noch nicht“.",
+      "recommended": "Unsere Empfehlung",
+      "inProposal": "So steht es im Vorschlag an die Geschäftsführung",
+      "decline": {
+        "tab": "Bewusst nicht umsetzen",
+        "title": "Sie haben entschieden, das nicht zu tun?",
+        "description": "Dann gilt der Punkt als erledigt, ohne dass Sie ihn umsetzen. Die Geschäftsführung unterschreibt diese Entscheidung am Ende mit. Schreiben Sie auf, warum.",
+        "label": "Begründung",
+        "placeholder": "Zum Beispiel: Wir betreiben keine eigenen Server. Unsere Anwendungen laufen bei einem Dienstleister, der dafür zertifiziert ist.",
+        "hint": "Mindestens 20 Zeichen. Die Begründung steht mit Datum in Ihren Unterlagen.",
+        "confirm": "Entscheidung festhalten"
+      },
+      "training": {
+        "add": "Schulung eintragen",
+        "name": "Name",
+        "provider": "Anbieter",
+        "providerPlaceholder": "zum Beispiel ein Onlinekurs oder ein Bildungsträger",
+        "date": "Datum",
+        "proof": "Nachweis (freiwillig)",
+        "proofHint": "Teilnahmebescheinigung, Zertifikat oder Bildschirmfoto. Nach einem Webinar gibt es manchmal keinen.",
+        "uploading": "Wird hochgeladen …",
+        "uploadFailed": "Das Hochladen hat nicht geklappt. Bitte versuchen Sie es noch einmal.",
+        "removeProof": "Entfernen",
+        "save": "Hinzufügen",
+        "empty": "Noch keine Schulung eingetragen.",
+        "withProof": "Nachweis angehängt",
+        "withoutProof": "ohne Nachweis",
+        "remove": "Löschen",
+        "failed": "Das wurde nicht gespeichert. Bitte versuchen Sie es noch einmal."
+      },
+      "portals": {
+        "yours": "Ihr Land",
+        "others": "{count} weitere EU-Staaten",
+        "all": "Alle {count} EU-Staaten",
+        "noCountry": "Für Ihr Unternehmen ist noch kein Land hinterlegt. Dann stünde es hier oben.",
+        "setCountry": "Land eintragen",
+        "asOf": "Stand der Liste: {date}",
+        "noPortal": "Noch kein Portal",
+        "open": "Zum Portal",
+        "status": {
+          "operational": "Zum Portal",
+          "pre-registration": "Zur Vorregistrierung",
+          "planned": "Portal angekündigt",
+          "not-yet-available": "Noch kein Portal"
+        }
+      },
       "noStatus": "Für diesen Punkt fehlt noch der Eintrag in Ihrer Bewertung. Er erscheint, sobald Ihr Unternehmen eingerichtet ist.",
       "cirAnnex": "Anhang, Nr. {ref}",
       "cirNote": "Gilt unmittelbar nur für bestimmte digitale Dienste (Art. 1 der Verordnung).",
@@ -103,6 +148,7 @@
         "allFilledNote": "Die Geschäftsführung sieht sie durch und unterschreibt.",
         "yourWay": "Ihr Weg",
         "filled": "Ausgefüllt",
+        "declined": "Bewusst nicht umgesetzt",
         "signed": "Unterschrieben",
         "notApplicable": "Trifft nicht zu",
         "continueHere": "Jetzt weitermachen"
@@ -140,77 +186,6 @@
       "unclear": "Ich verstehe es noch nicht"
     },
     "items": {
-      "12_1": {
-        "headline": "Klären, ob und wie NIS 2 für Sie gilt",
-        "teaser": "Sektor und Größe entscheiden über die Stufe.",
-        "missed": [
-          "Trifft mehr als eine Einrichtungsart zu, halten Sie jede fest, nicht nur die Hauptbranche.",
-          "Gehört Ihr Unternehmen zu einer Gruppe, zählen die Zahlen von Partner- und verbundenen Unternehmen mit: Beschäftigte, Umsatz und Bilanzsumme. Das entfällt, wenn Ihr Unternehmen bei seiner IT und deren Betrieb rechtlich, wirtschaftlich und tatsächlich unabhängig von ihnen ist (§ 28 Abs. 4 BSIG).",
-          "Nebentätigkeiten, die für Ihr Geschäft insgesamt kaum ins Gewicht fallen, dürfen bei der Zuordnung außen vor bleiben (§ 28 Abs. 3 BSIG).",
-          "Für Betreiber öffentlicher Telekommunikationsnetze, Energieunternehmen unter dem Energiewirtschaftsgesetz und Finanzunternehmen unter DORA gelten die §§ 30, 32 und 38 BSIG in der Regel nicht (§ 28 Abs. 5 und 6 BSIG). Registrieren müssen sie sich trotzdem."
-        ],
-        "screens": {
-          "learn": {
-            "title": "Ob NIS 2 für Sie gilt",
-            "body": [
-              "NIS 2 gilt für Unternehmen bestimmter Branchen ab einer bestimmten Größe. Die Branchen stehen in zwei Anlagen zum BSI-Gesetz. Wer darunter fällt, ist eine besonders wichtige oder eine wichtige Einrichtung.",
-              "Einen Bescheid dafür gibt es nicht. Das Gesetz legt fest, wer darunter fällt, und Sie prüfen es selbst."
-            ],
-            "duty": "Ob und in welcher Stufe Ihr Unternehmen erfasst ist, ergibt sich aus seinem Sektor und seiner Größe."
-          },
-          "thresholds": {
-            "title": "Die Größe entscheidet mit",
-            "lead": "Es zählen die Beschäftigten oder Umsatz und Bilanzsumme zusammen. Die obere Grenze gilt nur für Branchen aus Anlage 1.",
-            "source": "§ 28 Abs. 1 Nr. 4 und Abs. 2 Nr. 3 BSIG. Für einige Einrichtungsarten zählt die Größe nicht, etwa für Betreiber kritischer Anlagen."
-          },
-          "data": {
-            "title": "Was Sie dafür brauchen",
-            "lead": "Die Zahlen stehen meist im letzten Jahresabschluss.",
-            "items": [
-              {
-                "name": "Beschäftigte",
-                "detail": "wie viele Menschen bei Ihnen arbeiten"
-              },
-              {
-                "name": "Jahresumsatz und Jahresbilanzsumme",
-                "detail": "aus dem letzten Jahresabschluss"
-              },
-              {
-                "name": "Ihre Tätigkeiten",
-                "detail": "womit Ihr Unternehmen Geld verdient, zum Abgleich mit den Anlagen 1 und 2"
-              },
-              {
-                "name": "Beteiligungen",
-                "detail": "ob Ihr Unternehmen zu einer Gruppe gehört"
-              }
-            ],
-            "source": "§ 28 Abs. 4 BSIG verweist für die Zählung auf die Empfehlung der EU-Kommission 2003/361/EG. Zur ersten Orientierung bietet das BSI online die NIS-2-Betroffenheitsprüfung an; ihr Ergebnis ist nach Angabe des BSI nicht rechtlich bindend."
-          },
-          "classification": {
-            "title": "Halten Sie Ihre Einstufung fest",
-            "lead": "Zwei Angaben. Die Geschäftsführung bestätigt sie am Ende mit ihrer Unterschrift.",
-            "document": "Ihre Einstufung"
-          },
-          "done": {
-            "title": "Einstufung erfasst",
-            "note": "Ändern sich Größe oder Geschäftsfelder, prüfen Sie die Einstufung erneut."
-          }
-        },
-        "fields": {
-          "entityClassification": {
-            "label": "Stufe",
-            "hint": "Maßgeblich sind Sektor und Größe (§ 28 BSIG).",
-            "options": {
-              "essential": "Besonders wichtige Einrichtung",
-              "important": "Wichtige Einrichtung"
-            }
-          },
-          "applicableSectors": {
-            "label": "Sektoren und Einrichtungsarten",
-            "hint": "Jede, die auf Ihr Unternehmen zutrifft, mit der Nummer aus Anlage 1 oder 2 des BSIG, zum Beispiel 1.1.1 für Stromlieferanten."
-          }
-        }
-      },
       "1_1": {
         "headline": "Die Geschäftsführung schulen lassen",
         "teaser": "Jedes Mitglied der Geschäftsführung, regelmäßig.",
@@ -223,46 +198,37 @@
             "title": "Die Schulung der Geschäftsführung",
             "body": [
               "Wer das Unternehmen leitet, nimmt regelmäßig an einer Schulung zur Informationssicherheit teil. Das gilt für jedes Mitglied der Geschäftsführung persönlich.",
-              "Einen Kurs dafür finden Sie auf dieser Plattform. Sie können auch jeden anderen Anbieter wählen; eine Zulassung für Anbieter schreibt das Gesetz nicht vor."
+              "Einen Kurs dafür bieten wir auf dieser Plattform an. Sie können auch jeden anderen Anbieter wählen; eine Zulassung für Anbieter schreibt das Gesetz nicht vor."
             ],
-            "duty": "Die Geschäftsführung muss regelmäßig an Schulungen teilnehmen. Wie oft und wie lange, legt das Gesetz nicht fest."
+            "duty": "Die Geschäftsführung muss regelmäßig an Schulungen teilnehmen. Wie oft und wie lange, legt das Gesetz nicht fest.",
+            "link": "Zum Kurs für die Geschäftsführung"
           },
           "record": {
-            "title": "So kann ein Nachweis aussehen",
-            "caption": "Halten Sie fest, wer wann was gelernt hat:",
+            "title": "So können Nachweise aussehen",
+            "caption": "Eine Zeile pro Person und Schulung:",
             "rows": [
-              { "name": "Teilnehmerin", "detail": "Anna Beispiel, Geschäftsführerin" },
-              { "name": "Datum", "detail": "12. März 2026" },
               {
-                "name": "Inhalte",
-                "detail": "Risiken erkennen und bewerten, Folgen für unsere Dienste"
+                "name": "Anna Beispiel, Geschäftsführerin",
+                "detail": "Präsenzschulung bei einem Bildungsträger, 12. März 2026, Teilnahmebescheinigung"
               },
-              { "name": "Anbieter", "detail": "wer die Schulung gehalten hat" }
-            ]
+              {
+                "name": "Jonas Muster, Geschäftsführer",
+                "detail": "Onlinekurs, 3. April 2026, Zertifikat als PDF"
+              },
+              {
+                "name": "Lea Probe, Geschäftsführerin",
+                "detail": "Webinar eines Branchenverbands, 20. Mai 2026, Bildschirmfoto der Teilnahme"
+              }
+            ],
+            "note": "Das Gesetz schreibt kein Format vor. Eine Präsenzschulung, ein Onlinekurs, ein Webinar oder eine interne Schulung kommen in Frage. Halten Sie fest, wer wann teilgenommen hat und was behandelt wurde."
           },
-          "training": {
-            "title": "Halten Sie die letzte Schulung fest",
-            "lead": "Wer geschult hat und wann. Gibt es noch keine, tragen Sie sie ein, sobald sie stattgefunden hat.",
-            "document": "Teilnahmebestätigung"
-          },
-          "certificates": {
-            "title": "Ein Nachweis pro Person",
-            "lead": "Legen Sie für jedes Mitglied der Geschäftsführung die Teilnahmebestätigung ab.",
-            "document": "Teilnahmebestätigungen der Geschäftsführung"
+          "trainings": {
+            "title": "Eine Zeile pro Person",
+            "lead": "Tragen Sie für jedes Mitglied der Geschäftsführung die letzte Schulung ein. Einen Nachweis können Sie anhängen; nach einem Webinar gibt es manchmal keinen."
           },
           "done": {
             "title": "Schulung erfasst",
             "note": "Am Ende sieht die Geschäftsführung alle Punkte durch und unterschreibt."
-          }
-        },
-        "fields": {
-          "managementTrainingProvider": {
-            "label": "Anbieter der Schulung",
-            "hint": "Wer die Schulung gehalten hat, zum Beispiel ein Bildungsträger, eine Beratung oder ein Onlinekurs."
-          },
-          "lastManagementTraining": {
-            "label": "Datum der letzten Schulung",
-            "hint": "Das Datum auf der Teilnahmebestätigung."
           }
         }
       },
@@ -597,44 +563,10 @@
             ],
             "duty": "Die Registrierung ist eine eigene Pflicht. Sie ist spätestens drei Monate fällig, nachdem Ihr Unternehmen als wichtige oder besonders wichtige Einrichtung gilt."
           },
-          "data": {
-            "title": "Das fragt das BSI ab",
-            "lead": "Diese Angaben verlangt das Gesetz. Legen Sie sie bereit, bevor Sie das Portal öffnen.",
-            "items": [
-              {
-                "name": "Name und Rechtsform",
-                "detail": "mit Handelsregisternummer, wenn Sie eine haben"
-              },
-              {
-                "name": "Anschrift und Kontaktdaten",
-                "detail": "E-Mail-Adresse, Telefonnummern und Ihre öffentlichen IP-Adressbereiche"
-              },
-              {
-                "name": "Sektor",
-                "detail": "aus Anlage 1 oder 2 des BSIG, dazu die Branche, falls eine passt"
-              },
-              {
-                "name": "EU-Staaten",
-                "detail": "in denen Ihr Unternehmen diese Dienste erbringt"
-              },
-              {
-                "name": "Aufsichtsbehörden",
-                "detail": "die bei Bund und Ländern für Ihre Tätigkeit zuständig sind"
-              }
-            ],
-            "source": "§ 33 Abs. 1 BSIG. Das Portal fragt außerdem nach einer Kontaktstelle und einer Kontaktperson (Anleitung des BSI zur Registrierung)."
-          },
-          "contact": {
-            "title": "So sieht es richtig aus",
-            "caption": "Die E-Mail-Adresse, die Sie dem BSI angeben",
-            "good": {
-              "value": "it-sicherheit@ihre-firma.de",
-              "note": "Ein Funktionspostfach, wie es das BSI in seiner Anleitung empfiehlt. Menschen wechseln, das Postfach bleibt."
-            },
-            "bad": {
-              "value": "m.mueller@ihre-firma.de",
-              "note": "Eine persönliche Adresse. Wechselt Frau Müller die Stelle, erreicht das BSI niemanden mehr."
-            }
+          "where": {
+            "title": "Wo Sie sich registrieren",
+            "lead": "Sie registrieren sich in dem EU-Staat, in dem Ihr Unternehmen niedergelassen ist. Für Deutschland ist das das BSI. Ihr Land steht oben.",
+            "source": "Art. 26 Abs. 1 NIS 2: Zuständig ist der Staat der Niederlassung. Wer öffentliche Telekommunikationsnetze betreibt oder Telekommunikationsdienste anbietet, registriert sich dort, wo er die Dienste erbringt. Anbieter von Clouddiensten, Rechenzentren, verwalteten Diensten und ähnliche digitale Anbieter registrieren sich dort, wo ihre Hauptniederlassung liegt."
           },
           "confirmation": {
             "title": "Halten Sie die Registrierung fest",
@@ -674,18 +606,26 @@
             "title": "Wie Sie Risiken einstufen",
             "body": [
               "Bevor Sie Risiken aufschreiben, legen Sie fest, wie Sie sie bewerten. Dann bewertet jeder im Unternehmen nach denselben Regeln.",
-              "Das BSI hat dafür eine fertige Methode, den Standard 200-3. Jedes Risiko bekommt zwei Einschätzungen: Wie oft kann es eintreten? Wie groß wäre der Schaden? Daraus ergibt sich eine von vier Stufen."
+              "Wir empfehlen dafür die fertige Methode des BSI, den Standard 200-3. Jedes Risiko bekommt zwei Einschätzungen: Wie oft kann es eintreten? Wie groß wäre der Schaden? Daraus ergibt sich eine von vier Stufen."
             ],
             "duty": "Das Gesetz verlangt Konzepte zur Risikoanalyse. Eine bestimmte Methode schreibt es nicht vor."
           },
           "matrix": {
-            "title": "Die Matrix des BSI",
+            "title": "So sieht eine Risikomatrix aus",
             "lead": "Waagerecht steht, wie oft etwas eintritt. Senkrecht, wie groß der Schaden wäre. Wo sich beides trifft, steht die Stufe.",
             "source": "BSI-Standard 200-3, Abbildung 3. Das BSI zeigt sie als Beispiel und schreibt, sie solle an die eigenen Bedürfnisse angepasst werden."
           },
           "reading": {
             "title": "So lesen Sie die Matrix",
-            "caption": "Ein Server fällt einmal im Jahr bis einmal im Monat aus. Der Schaden ist begrenzt und überschaubar."
+            "caption": "Sechs Beispiele, von gering bis sehr hoch. Wählen Sie eins aus, die Matrix zeigt, wo es landet.",
+            "examples": [
+              "Ein Firmenhandy geht verloren, das kommt einmal im Jahr bis einmal im Monat vor. Es ist verschlüsselt und lässt sich aus der Ferne sperren, der Schaden ist gering.",
+              "Ein Server fällt einmal im Jahr bis einmal im Monat aus. Der Schaden ist begrenzt und überschaubar.",
+              "Ein Brand zerstört den Serverraum samt aller Daten. Das kommt höchstens alle fünf Jahre vor, wäre aber existenzbedrohend.",
+              "Jemand fällt auf eine gefälschte E-Mail herein, und über das übernommene Postfach gehen Rechnungen mit falscher Bankverbindung hinaus. Das kommt einmal im Jahr bis einmal im Monat vor, der Schaden ist beträchtlich.",
+              "Erpressersoftware verschlüsselt alle Systeme und auch die Sicherungen. Das kommt einmal alle fünf Jahre bis einmal im Jahr vor und wäre existenzbedrohend.",
+              "Die Warenwirtschaft läuft ohne Wartung und fällt mehrmals im Monat aus. Jedes Mal steht der Versand einen Tag, der Schaden ist beträchtlich."
+            ]
           },
           "adopt": {
             "title": "Methode übernehmen",
@@ -701,8 +641,14 @@
           },
           "acceptance": {
             "title": "Welche Risiken Ihr Unternehmen hinnimmt",
-            "lead": "Bis zu welcher Stufe darf ein Risiko bleiben, ohne dass Sie etwas dagegen tun? Das entscheidet die Geschäftsführung. Wählen Sie hier den Vorschlag, den sie am Ende unterschreibt.",
-            "source": "Der BSI-Standard 200-3 geht in seinen Beispielen davon aus, dass eine Institution „‚geringe‘ Risiken grundsätzlich akzeptiert, ‚mittlere‘, ‚hohe‘ und ‚sehr hohe‘ Risiken jedoch nur in Ausnahmefällen“."
+            "lead": "Bis zu welcher Stufe darf ein Risiko bleiben, ohne dass Sie sofort etwas dagegen tun? Das entscheidet die Geschäftsführung. Wählen Sie den Vorschlag, den sie am Ende unterschreibt. Für Unternehmen Ihrer Größe empfehlen wir Mittel.",
+            "source": "Der BSI-Standard 200-3 geht in seinen Beispielen davon aus, dass eine Institution „‚geringe‘ Risiken grundsätzlich akzeptiert, ‚mittlere‘, ‚hohe‘ und ‚sehr hohe‘ Risiken jedoch nur in Ausnahmefällen“.",
+            "rationale": {
+              "low": "Wir nehmen nur geringe Risiken hin. Für jedes Risiko ab der Stufe Mittel planen wir Maßnahmen, oder die Geschäftsführung entscheidet einzeln, ob es bleiben darf. So sieht es der BSI-Standard 200-3 in seinen Beispielen vor. Es ist die strengste Wahl und bindet am meisten Zeit und Geld.",
+              "medium": "Wir nehmen Risiken bis zur Stufe Mittel hin. Für ein Unternehmen unserer Größe ist das verhältnismäßig: Wir setzen Zeit und Geld zuerst dort ein, wo ein Risiko hoch oder sehr hoch ist. Mittlere Risiken bewerten wir bei jeder Überprüfung neu und behandeln sie, sobald es mit vertretbarem Aufwand geht.",
+              "high": "Wir nehmen Risiken bis zur Stufe Hoch hin und behandeln zuerst nur, was sehr hoch ist. Bei hohen Risiken schützen die vorhandenen Maßnahmen nach dem BSI-Standard 200-3 nicht ausreichend. Die Geschäftsführung trägt diese Entscheidung bewusst und prüft sie bei jeder Überprüfung erneut.",
+              "very_high": "Wir nehmen auch sehr hohe Risiken hin. Nach dem BSI-Standard 200-3 geschieht das in der Praxis selten, weil die vorhandenen Maßnahmen dann keinen ausreichenden Schutz bieten. Die Geschäftsführung begründet jedes sehr hohe Risiko, das bleiben soll, einzeln und schriftlich."
+            }
           },
           "done": {
             "title": "Methode festgelegt",

@@ -1,19 +1,27 @@
 "use client";
 
-import { BookText, CheckCircle2, XCircle } from "lucide-react";
+import {
+  BookText,
+  CheckCircle2,
+  ExternalLink,
+  GraduationCap,
+  XCircle,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
-import type { ReactNode } from "react";
+import { type ReactNode, useRef, useState } from "react";
+import { Link } from "@/i18n/navigation";
 import {
   FREQUENCY_TEXT,
   IMPACT_TEXT,
   RISK_LEVEL_TEXT,
   riskLevel,
 } from "@/lib/compliance/bsi-200-3";
-import type { ResolvedScreen } from "@/lib/durchgang";
+import type { LearnLink, ResolvedScreen } from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
 import { Art } from "./Art";
+import { RegistrationPortals } from "./RegistrationPortals";
 import { ReportingClock } from "./ReportingClock";
-import { RiskMatrix } from "./RiskMatrix";
+import { LEVEL_FILL, RiskMatrix } from "./RiskMatrix";
 import { SizeThresholds } from "./SizeThresholds";
 import type { ItemView } from "./view";
 
@@ -62,7 +70,13 @@ function Duty({ text, cite }: { text: string; cite: string }) {
   );
 }
 
+/** The platform page each learn link opens. */
+const LEARN_HREF: Readonly<Record<LearnLink, "/training/nis2-ceo">> = {
+  ceo_course: "/training/nis2-ceo",
+};
+
 export function Learn({ item, entry }: { item: ItemView; entry: Of<"learn"> }) {
+  const { link } = entry.screen;
   return (
     <>
       {item.image && (
@@ -76,6 +90,17 @@ export function Learn({ item, entry }: { item: ItemView; entry: Of<"learn"> }) {
           <p key={paragraph}>{paragraph}</p>
         ))}
       </div>
+      {link && entry.copy.link && (
+        <Link
+          href={LEARN_HREF[link]}
+          target="_blank"
+          className="mt-6 inline-flex items-center gap-2 rounded-xl border border-primary/30 px-4 py-2.5 text-sm font-medium text-primary hover:bg-primary/[0.04]"
+        >
+          <GraduationCap className="size-4" />
+          {entry.copy.link}
+          <ExternalLink className="size-3.5" />
+        </Link>
+      )}
       <Duty text={entry.copy.duty} cite={item.duty} />
     </>
   );
@@ -192,30 +217,81 @@ export function Sample({ entry }: { entry: Of<"sample"> }) {
           </div>
         ))}
       </div>
+      {entry.copy.note && (
+        <p className="mt-5 max-w-[62ch] rounded-xl bg-muted/60 p-4 text-sm leading-6">
+          {entry.copy.note}
+        </p>
+      )}
     </>
   );
 }
 
+/**
+ * Several risks read off the matrix, low to very high. The person picks one and the matrix lights
+ * its cell; each level is computed from the example's two ratings, never written in the copy.
+ */
 export function Reading({ item, entry }: { item: ItemView; entry: Of<"reading"> }) {
   const t = useTranslations("durchgang.ui.matrix");
-  const { frequency, impact } = entry.screen;
-  const level = riskLevel(frequency, impact);
+  const [chosen, setChosen] = useState(0);
+  const matrix = useRef<HTMLDivElement>(null);
+  /** On a phone the matrix sits below the cards, so a pick brings it into view. */
+  const pick = (i: number) => {
+    setChosen(i);
+    matrix.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  };
+  const examples = entry.screen.examples.map((e, i) => ({
+    ...e,
+    level: riskLevel(e.frequency, e.impact),
+    text: entry.copy.examples[i] ?? "",
+  }));
+  const current = examples[chosen] ?? examples[0];
+  if (!current) return null;
   return (
     <>
       <Heading>{entry.copy.title}</Heading>
-      <blockquote className="mt-8 max-w-[60ch] border-l-2 border-primary/40 pl-4 text-[17px] leading-8">
-        {entry.copy.caption}
-      </blockquote>
-      <div className="mt-6 rounded-3xl border bg-card p-4 shadow-sm sm:p-6">
-        <RiskMatrix locale={item.locale} highlight={{ frequency, impact }} />
+      <Lead>{entry.copy.caption}</Lead>
+      <div className="mt-8 space-y-6">
+        <ul className="grid gap-2 sm:grid-cols-2" aria-label={entry.copy.title}>
+          {examples.map((e, i) => (
+            <li key={e.text}>
+              <button
+                type="button"
+                aria-pressed={i === chosen}
+                onClick={() => pick(i)}
+                className={cn(
+                  "h-full w-full rounded-xl border bg-card p-3.5 text-left text-sm leading-6 transition-colors",
+                  i === chosen ? "border-primary bg-primary/[0.04]" : "hover:bg-muted/50",
+                )}
+              >
+                <span
+                  className={cn(
+                    "mb-1.5 inline-block rounded-full px-2 py-0.5 text-xs font-semibold",
+                    LEVEL_FILL[e.level],
+                  )}
+                >
+                  {RISK_LEVEL_TEXT[item.locale][e.level].label}
+                </span>
+                <span className="block">{e.text}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+        <div ref={matrix} className="scroll-mb-28">
+          <div className="rounded-3xl border bg-card p-4 shadow-sm sm:p-6">
+            <RiskMatrix
+              locale={item.locale}
+              highlight={{ frequency: current.frequency, impact: current.impact }}
+            />
+          </div>
+          <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-sm font-semibold text-primary-foreground">
+            {t("reading", {
+              frequency: FREQUENCY_TEXT[item.locale][current.frequency].label,
+              impact: IMPACT_TEXT[item.locale][current.impact].label,
+              level: RISK_LEVEL_TEXT[item.locale][current.level].label,
+            })}
+          </p>
+        </div>
       </div>
-      <p className="mt-5 inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-sm font-semibold text-primary-foreground">
-        {t("reading", {
-          frequency: FREQUENCY_TEXT[item.locale][frequency].label,
-          impact: IMPACT_TEXT[item.locale][impact].label,
-          level: RISK_LEVEL_TEXT[item.locale][level].label,
-        })}
-      </p>
     </>
   );
 }
@@ -233,6 +309,10 @@ export function Provision({ item, entry }: { item: ItemView; entry: Of<"provisio
         return <ReportingClock locale={item.locale} />;
       case "bsig_28_thresholds":
         return <SizeThresholds />;
+      case "registration_portals":
+        return (
+          <RegistrationPortals registration={item.registration} locale={item.locale} />
+        );
       default:
         return entry.screen.provision satisfies never;
     }

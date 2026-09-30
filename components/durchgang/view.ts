@@ -2,13 +2,17 @@ import type { ItemState, RegisterModule, ResolvedScreen } from "@/lib/durchgang"
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
 import type { RouterOutputs } from "@/lib/trpc/client";
 
+interface RegisterRows {
+  supplier: RouterOutputs["supplier"]["list"];
+  team: RouterOutputs["team"]["listMembers"];
+  training_record: RouterOutputs["training"]["list"];
+}
+
 /** The registers an item's screens show, as their own routers return them. */
-export type Registers = Readonly<{
-  [M in RegisterModule]: {
-    supplier: RouterOutputs["supplier"]["list"];
-    team: RouterOutputs["team"]["listMembers"];
-  }[M];
-}>;
+export type Registers = Readonly<{ [M in RegisterModule]: RegisterRows[M] }>;
+
+/** Where a company registers, for the registration screen. */
+export type Registration = RouterOutputs["durchgang"]["portals"];
 
 export interface Citation {
   readonly label: string;
@@ -58,5 +62,7 @@ export interface ItemView {
   readonly listedAssets: readonly string[];
   /** When the company took over the BSI method in the walk; a second pass then writes nothing. */
   readonly adoptedAt: Date | null;
+  /** Loaded only for an item with the registration portals screen. */
+  readonly registration: Registration | null;
   readonly locale: "de" | "en";
 }

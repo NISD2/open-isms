@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
-import { changedAnswers, initialDraft, toAnswer, toDraft } from "./draft";
+import { changedAnswers, initialDraft, isAnswered, toAnswer, toDraft } from "./draft";
 
 const meta = (type: FieldMeta["type"]): FieldMeta => ({
   key: "k",
@@ -22,6 +22,15 @@ describe("the Durchgang draft", () => {
     expect(toAnswer(meta("number"), "24")).toBe(24);
     expect(toAnswer(meta("number"), "abc")).toBeUndefined();
     expect(toAnswer(meta("text"), "  Kontakt  ")).toBe("Kontakt");
+  });
+
+  test("counts a field as answered only with a real value of its kind", () => {
+    expect(isAnswered(meta("boolean"), false)).toBe(true);
+    expect(isAnswered(meta("boolean"), "")).toBe(false);
+    expect(isAnswered(meta("number"), "0")).toBe(true);
+    expect(isAnswered(meta("number"), "abc")).toBe(false);
+    expect(isAnswered(meta("text"), "   ")).toBe(false);
+    expect(isAnswered(meta("text"), "Kontakt")).toBe(true);
   });
 
   test("sends only what differs from the stored answers", () => {

@@ -31,6 +31,7 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
   const finish = trpc.durchgang.finish.useMutation();
   const resume = trpc.durchgang.resume.useMutation();
   const wait = trpc.durchgang.wait.useMutation();
+  const declineItem = trpc.durchgang.decline.useMutation();
 
   const answer = async (answers: Record<string, unknown>) => {
     if (Object.keys(answers).length === 0 || !item.assessmentId) return;
@@ -111,14 +112,24 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
       });
   };
 
-  /** Parks the item once the pending writes and the waiting row are stored. */
-  const park = (reason: WaitReason, note: string): Promise<void> => {
+  /** Runs a write after the pending ones; the returned promise tells whether it was stored. */
+  const after = (write: () => Promise<unknown>): Promise<void> => {
     const stored = queue.current.then(async () => {
-      await wait.mutateAsync({ code: item.code, reason, note: note.trim() || undefined });
+      await write();
     });
     queue.current = stored.catch(() => {});
     return stored;
   };
 
-  return { draft, setDraft, adoptedAt, leave, park } as const;
+  /** Parks the item: not possible yet, with a reason and an optional note. */
+  const park = (reason: WaitReason, note: string) =>
+    after(() =>
+      wait.mutateAsync({ code: item.code, reason, note: note.trim() || undefined }),
+    );
+
+  /** Closes the item as decided not to do, with the written reason for the signature. */
+  const decline = (reason: string) =>
+    after(() => declineItem.mutateAsync({ code: item.code, reason: reason.trim() }));
+
+  return { draft, setDraft, adoptedAt, leave, park, decline } as const;
 }

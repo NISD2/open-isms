@@ -16,7 +16,7 @@ import {
 import { cn } from "@/lib/utils";
 
 /** One hue, light to dark: magnitude, not identity. The level is also written in every cell. */
-const LEVEL_FILL: Readonly<Record<RiskLevel, string>> = {
+export const LEVEL_FILL: Readonly<Record<RiskLevel, string>> = {
   low: "bg-primary/10 text-foreground",
   medium: "bg-primary/30 text-foreground",
   high: "bg-primary/65 text-primary-foreground",
@@ -49,7 +49,7 @@ export function RiskMatrix({
             {t("impact")}
           </span>
         </div>
-        <div className="grid grid-cols-[4.5rem_repeat(4,minmax(0,1fr))] gap-1 sm:grid-cols-[minmax(5.75rem,auto)_repeat(4,minmax(0,1fr))]">
+        <div className="grid grid-cols-[4.5rem_repeat(4,minmax(0,1fr))] gap-1 sm:grid-cols-[7rem_repeat(4,minmax(0,1fr))]">
           {ROWS.map((impact) => (
             <div key={impact} className="contents">
               <span

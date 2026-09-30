@@ -95,9 +95,17 @@ test.describe("durchgang", () => {
 
     await page.goto(`/de/durchgang/${CODE}?s=${FIELDS_SCREEN}`);
     const name = page.locator("#dg-contactPersonName");
+    const next = page.getByRole("button", { name: "Weiter", exact: true });
     await expect(name).toBeVisible({ timeout: 30_000 });
+
+    // A required field left empty holds the screen and offers the way out instead.
+    await name.fill("");
+    await expect(next).toBeDisabled();
+    await expect(page.getByRole("button", { name: "Geht noch nicht" })).toBeVisible();
+
     await name.fill("Abgewiesene Eingabe");
-    await page.getByRole("button", { name: "Weiter", exact: true }).click();
+    await page.locator("#dg-contactPersonEmail").fill("abgewiesen@example.com");
+    await next.click();
 
     await expect(
       page.getByText("Das wurde nicht gespeichert.", { exact: false }),

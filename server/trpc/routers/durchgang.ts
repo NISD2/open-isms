@@ -11,6 +11,7 @@ import { getDefaultMethodology } from "@/lib/compliance/risk-methodology-default
 import { seedLocale } from "@/lib/compliance/seed-locale";
 import {
   acceptanceNote,
+  declinedNote,
   methodNote,
   noteLine,
   resolveItem,
@@ -20,9 +21,10 @@ import {
   WALK,
   waitingNote,
 } from "@/lib/durchgang";
+import { getRegistrationPortals } from "@/lib/registration-portals";
 import durchgangDe from "@/messages/durchgang/de.json";
 import durchgangEn from "@/messages/durchgang/en.json";
-import { asset, auditLog, companyRiskMethodology } from "@/schema";
+import { asset, auditLog, company, companyRiskMethodology } from "@/schema";
 import {
   appendNote,
   type DurchgangActor,
@@ -110,6 +112,31 @@ export const durchgangRouter = router({
       columns: { createdAt: true },
     });
     return { adoptedAt: row?.createdAt ?? null };
+  }),
+
+  /**
+   * Where a company registers: every member state's authority and portal, with the company's own
+   * country, which the screen puts first. The list is the one the wiki's portal page shows.
+   */
+  portals: durchgangProcedure.query(async ({ ctx }) => {
+    const [org, data] = await Promise.all([
+      ctx.db.query.company.findFirst({
+        where: eq(company.id, ctx.companyId),
+        columns: { country: true },
+      }),
+      Promise.resolve(getRegistrationPortals()),
+    ]);
+    return {
+      country: org?.country ?? null,
+      lastUpdated: data.lastUpdated,
+      portals: data.portals.map((p) => ({
+        countryCode: p.countryCode,
+        authority: p.authority,
+        portalName: p.portalName,
+        portalUrl: p.portalUrl,
+        status: p.status,
+      })),
+    };
   }),
 
   /** "Geht noch nicht": the reason goes into the audit row, the free text only into the notes. */
@@ -232,10 +259,20 @@ export const durchgangRouter = router({
     .mutation(async ({ ctx, input }) => {
       const ref = await durchgangItem(ctx.db, actorOf(ctx), "2.1");
       const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
+      const words = resolveItem(NAMESPACES[locale], itemOf("2.1"));
+      const decide = words.ok
+        ? words.value.screens.find((s) => s.kind === "decide")
+        : undefined;
+      if (decide?.kind !== "decide") {
+        throw new Error("2.1 has no acceptance copy; the script tests guard this.");
+      }
       await appendNote(
         ctx.db,
         ref.statusId,
-        noteLine(new Date(), acceptanceNote(locale, input.level)),
+        noteLine(
+          new Date(),
+          acceptanceNote(locale, input.level, decide.copy.rationale[input.level]),
+        ),
       );
       await logAudit({
         companyId: ctx.companyId,
@@ -245,6 +282,31 @@ export const durchgangRouter = router({
         entityId: ref.requirementId,
         description: "2.1 risk acceptance proposed",
         newValue: { decision: "risk_acceptance", level: input.level },
+      });
+    }),
+
+  /**
+   * "Wir haben entschieden, das nicht zu tun": finished without doing it, for the Geschäftsführung
+   * to sign. The written reason is the record of that decision and goes only into the notes; the
+   * audit row carries no free text.
+   */
+  decline: durchgangProcedure
+    .input(z.object({ code, reason: z.string().trim().min(20).max(2000) }))
+    .mutation(async ({ ctx, input }) => {
+      const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
+      const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
+      await appendNote(
+        ctx.db,
+        ref.statusId,
+        noteLine(new Date(), declinedNote(locale, input.reason)),
+      );
+      await logAudit({
+        companyId: ctx.companyId,
+        userId: ctx.userId,
+        action: "durchgang.declined",
+        entityType: "requirement",
+        entityId: ref.requirementId,
+        description: `${ref.code} decided not to do`,
       });
     }),
 
