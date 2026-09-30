@@ -20,6 +20,7 @@
     "legalFormPlaceholder": "np. GmbH, AG, KG",
     "employees": "Liczba pracowników",
     "contactEmail": "Adres e-mail kontaktu ds. zgodności",
+    "contactEmailHelp": "Dostawcy, których zaprosisz, widzą ten adres i wysyłają na niego zgłoszenia incydentów. Jeśli pole jest puste, używany jest adres osoby, która utworzyła organizację.",
     "cisoName": "CISO / Pełnomocnik ds. bezpieczeństwa IT",
     "cisoNamePlaceholder": "Jane Smith",
     "cisoReportsTo": "CISO podlega",

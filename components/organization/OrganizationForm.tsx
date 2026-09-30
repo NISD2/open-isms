@@ -1,18 +1,18 @@
 "use client";
 
-import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { trpc } from "@/lib/trpc/client";
-import { SchemaForm } from "@/lib/forms/schema-form";
-import type { FieldOverride } from "@/lib/forms/field-renderer";
 import { toast } from "sonner";
+import { useRouter } from "@/i18n/navigation";
+import type { FieldOverride } from "@/lib/forms/field-renderer";
+import { SchemaForm } from "@/lib/forms/schema-form";
 import {
-  companyFormSchema,
-  SECTORS,
   COMPANY_FORM_OMIT,
   type CompanyFormData,
+  companyFormSchema,
   parseCompanyFormData,
+  SECTORS,
 } from "@/lib/organization/constants";
+import { trpc } from "@/lib/trpc/client";
 
 interface OrganizationFormProps {
   mode: "create" | "edit";
@@ -28,8 +28,7 @@ export function OrganizationForm({
   const t = useTranslations("organization");
   const router = useRouter();
 
-  const createMutation =
-    trpc.assessment.createCompanyAndAssessment.useMutation();
+  const createMutation = trpc.assessment.createCompanyAndAssessment.useMutation();
   const updateMutation = trpc.assessment.updateCompany.useMutation();
 
   const fieldOverrides: Record<string, FieldOverride> = {
@@ -66,6 +65,7 @@ export function OrganizationForm({
     contactEmail: {
       label: t("contactEmail"),
       placeholder: "compliance@example.com",
+      description: t("contactEmailHelp"),
     },
     cisoName: {
       label: t("cisoName"),
@@ -147,9 +147,7 @@ export function OrganizationForm({
     entityType: initialData?.entityType ?? "important",
     legalForm: initialData?.legalForm ?? "",
     contactEmail: initialData?.contactEmail ?? "",
-    ...(initialData?.employeeCount
-      ? { employeeCount: initialData.employeeCount }
-      : {}),
+    ...(initialData?.employeeCount ? { employeeCount: initialData.employeeCount } : {}),
     cisoName: initialData?.cisoName ?? "",
     cisoReportsTo: initialData?.cisoReportsTo ?? "",
     bsiContactName: initialData?.bsiContactName ?? "",

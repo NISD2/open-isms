@@ -20,6 +20,7 @@
     "legalFormPlaceholder": "z.B. GmbH, AG, KG",
     "employees": "Mitarbeiterzahl",
     "contactEmail": "Compliance-Kontakt E-Mail",
+    "contactEmailHelp": "Lieferanten, die Sie einladen, sehen diese Adresse und senden ihre Vorfallsmeldungen dorthin. Ist das Feld leer, wird die Adresse der Person verwendet, die die Organisation angelegt hat.",
     "cisoName": "CISO / IT-Sicherheitsbeauftragter",
     "cisoNamePlaceholder": "Max Mustermann",
     "cisoReportsTo": "CISO berichtet an",

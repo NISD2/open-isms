@@ -78,6 +78,7 @@ export function OnboardingFlow({ roleAreas }: OnboardingFlowProps) {
     contactEmail: {
       label: tOrg("contactEmail"),
       placeholder: "compliance@example.com",
+      description: tOrg("contactEmailHelp"),
     },
   };
 

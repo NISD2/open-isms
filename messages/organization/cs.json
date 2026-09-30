@@ -20,6 +20,7 @@
     "legalFormPlaceholder": "např. GmbH, AG, KG",
     "employees": "Počet zaměstnanců",
     "contactEmail": "Kontaktní e-mail pro shodu",
+    "contactEmailHelp": "Dodavatelé, které pozvete, tuto adresu uvidí a budou na ni posílat oznámení o incidentech. Pokud pole zůstane prázdné, použije se adresa osoby, která organizaci založila.",
     "cisoName": "CISO / Pověřenec pro bezpečnost IT",
     "cisoNamePlaceholder": "Jana Nováková",
     "cisoReportsTo": "CISO se zodpovídá",
