@@ -1,9 +1,11 @@
 import { and, eq, isNull } from "drizzle-orm";
 import { after, NextResponse } from "next/server";
 import { OtpRateLimitedError, requestOtp } from "@/lib/auth/otp";
+import { getClientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
 import { isLocaleCode } from "@/lib/locale";
 import { sendAuthCode } from "@/lib/mail";
+import { rateLimit } from "@/lib/rate-limit";
 import type { Locale } from "@/lib/seo";
 import { user } from "@/schema";
 
@@ -24,6 +26,22 @@ import { user } from "@/schema";
  *   400:  { error: "..." }   // malformed body or address only
  */
 export async function POST(request: Request) {
+  // Per IP, as the other auth routes: the answer no longer says whether a code went out, so this is
+  // the only brake on using the route to mail pending addresses. It applies to every caller alike
+  // and reveals nothing about any address.
+  if (
+    !(await rateLimit(
+      `auth:resend-verification:${getClientIp(request.headers)}`,
+      10,
+      15 * 60_000,
+    ))
+  ) {
+    return NextResponse.json(
+      { error: "Too many attempts. Please try again later." },
+      { status: 429 },
+    );
+  }
+
   let body: Record<string, unknown>;
   try {
     body = await request.json();
