@@ -1331,7 +1331,7 @@
           },
           "training": {
             "title": "Školení (Schulung)",
-            "description": "Povinná osobní účast na školení kybernetické bezpečnosti nejméně každé 3 roky. Tuto povinnost nelze delegovat."
+            "description": "Povinná osobní účast na pravidelném školení kybernetické bezpečnosti; pevný interval §38 odst. 3 BSIG nestanoví. Tuto povinnost nelze delegovat."
           }
         },
         "liability": "Členové vedení nesou osobní odpovědnost vůči vlastní společnosti, pokud zaviněně poruší tyto povinnosti. Delegování provozních úkolů je přípustné, ale strategická odpovědnost a dohled zůstávají na vedení. Vedení se nemůže hájit nedostatkem technických znalostí.",
@@ -2000,7 +2000,7 @@
               "Žádných 10 dotazníků na dodavatele. Dodavatel obsluhující 10 zákazníků podléhajících NIS2 dnes vyplňuje 10 různých bezpečnostních dotazníků. S profilem dodavatele NIS2 (otevřený standard, nezávislý na GRC platformě) vyplní jeden. Největší jednotlivá úspora v této kategorii.",
               "Žádné psaní hlášení o incidentu pod tlakem termínu. Hlášení do 24 h / 72 h / 1 měsíce sledují šablony připravené ve formátu BSI namísto toho, aby se psala od nuly, když běží čas.",
               "Žádný samostatný cyklus přípravy na audit. Důkazy připravené pro audit se generují průběžně tak, jak práce probíhá, nikoli se v panice sestavují měsíc předem.",
-              "Žádná přirážka za nadměrné řešení. Konzultanti nadhodnocují rozsah, aby naúčtovali více hodin. Platforma omezuje na 'vhodná a přiměřená' (§30(1) BSIG), společnosti neplatí za zbytečné kontroly."
+              "Žádná přirážka za nadměrné řešení. Konzultanti nadhodnocují rozsah, aby naúčtovali více hodin. Platforma omezuje na 'vhodná, přiměřená a účinná' (§30(1) BSIG), společnosti neplatí za zbytečné kontroly."
             ]
           },
           "software": {
@@ -4006,7 +4006,7 @@
         "items": {
           "check": {
             "title": "1. Ověřte, že do působnosti skutečně spadáte",
-            "description": "Než se zaregistrujete, ověřte, že se na vaši firmu NIS2 vztahuje. Kritéria jsou v §28 BSIG: musíte působit v jednom z 18 uvedených odvětví A zároveň splňovat velikostní práh (50+ zaměstnanců nebo roční obrat 10+ mil. EUR). Pokud si nejste jistí, zkontrolujte odvětvové seznamy BSI v příloze I a příloze II směrnice NIS2. Mnoho firem se domnívá, že jsou mimo působnost, i když nejsou, a naopak. Pokud si opravdu nejste jistí, vyžádejte si před registrací právní stanovisko, ale nepoužívejte nejistotu jako výmluvu k odkladu."
+            "description": "Než se zaregistrujete, ověřte, že se na vaši firmu NIS2 vztahuje. Kritéria jsou v §28 BSIG: musíte působit v jednom z 18 uvedených odvětví A zároveň splňovat velikostní práh (nejméně 50 zaměstnanců, nebo roční obrat a bilanční suma, obojí nad 10 mil. EUR). Pokud si nejste jistí, zkontrolujte odvětvové seznamy BSI v příloze I a příloze II směrnice NIS2. Mnoho firem se domnívá, že jsou mimo působnost, i když nejsou, a naopak. Pokud si opravdu nejste jistí, vyžádejte si před registrací právní stanovisko, ale nepoužívejte nejistotu jako výmluvu k odkladu."
           },
           "register": {
             "title": "2. Okamžitě se zaregistrujte přes portál BSI",
@@ -4256,7 +4256,7 @@
         },
         "bsig": {
           "term": "BSIG (BSI-Gesetz)",
-          "definition": "Německý spolkový zákon upravující BSI (Spolkový úřad pro bezpečnost v informačních technologiích) a kyberbezpečnostní povinnosti. NIS2UmsuCG novelizoval BSIG tak, aby zahrnoval všechny požadavky NIS2. Když někdo řekne 'compliance NIS2 v Německu', myslí tím soulad s novelizovaným BSIG. To je zákon, který se na vás vztahuje, ne samotná směrnice NIS2.",
+          "definition": "Německý spolkový zákon upravující BSI (Spolkový úřad pro bezpečnost v informačních technologiích) a kyberbezpečnostní povinnosti. NIS2UmsuCG novelizoval BSIG a provádí NIS2 v Německu především jeho prostřednictvím. Když někdo řekne 'compliance NIS2 v Německu', myslí tím soulad s novelizovaným BSIG. To je zákon, který se na vás vztahuje, ne samotná směrnice NIS2.",
           "german": "Gesetz über das Bundesamt für Sicherheit in der Informationstechnik",
           "legalRef": "BSIG ve znění NIS2UmsuCG"
         },
@@ -4267,7 +4267,7 @@
         },
         "cir2024": {
           "term": "CIR 2024/2690",
-          "definition": "Prováděcí nařízení EU, které stanoví přesné technické a metodické požadavky pro subjekty NIS2. Na rozdíl od směrnice se uplatňuje přímo ve všech členských státech bez provedení. Upřesňuje, co 'vhodná kyberbezpečnostní opatření' v praxi skutečně znamenají. Berte ho jako technický předpis, který doplňuje detaily, které směrnice nechala otevřené.",
+          "definition": "Prováděcí nařízení EU, které stanoví technické a metodické požadavky na opatření podle čl. 21 odst. 2 NIS2, ale jen pro určité typy subjektů: provozovatele DNS, registry domén nejvyšší úrovně, poskytovatele služeb cloud computingu, poskytovatele služeb datových center, poskytovatele sítí pro doručování obsahu, poskytovatele řízených služeb, poskytovatele řízených bezpečnostních služeb, poskytovatele on-line tržišť, internetových vyhledávačů a služeb platforem sociálních sítí a poskytovatele služeb vytvářejících důvěru. Na rozdíl od směrnice se uplatňuje přímo ve všech členských státech bez provedení. Pro tyto subjekty upřesňuje, co 'vhodná kyberbezpečnostní opatření' v praxi skutečně znamenají. Berte ho jako technický předpis, který doplňuje detaily, které směrnice nechala otevřené.",
           "legalRef": "Prováděcí nařízení Komise (EU) 2024/2690"
         },
         "bsiRegistration": {
@@ -4284,7 +4284,7 @@
         },
         "riskManagement": {
           "term": "Opatření k řízení rizik",
-          "definition": "Deset kategorií kyberbezpečnostních opatření, která musí všechny subjekty NIS2 zavést podle §30 BSIG. Sahají od posouzení rizik a zvládání incidentů po bezpečnost dodavatelského řetězce a kryptografii. Musí být 'vhodná a přiměřená' vaší velikosti a rizikovému profilu. Od padesátičlenné odpadové firmy se neočekává, že zavede stejné kontroly jako Deutsche Telekom.",
+          "definition": "Deset kategorií kyberbezpečnostních opatření, která musí všechny subjekty NIS2 zavést podle §30 BSIG. Sahají od posouzení rizik a zvládání incidentů po bezpečnost dodavatelského řetězce a kryptografii. Musí být 'vhodná, přiměřená a účinná'; při posuzování přiměřenosti se zohledňuje mimo jiné vaše velikost a míra vystavení riziku. Od padesátičlenné odpadové firmy se neočekává, že zavede stejné kontroly jako Deutsche Telekom.",
           "german": "Risikomanagementmaßnahmen",
           "legalRef": "§30 odst. 2 BSIG"
         },
@@ -4317,7 +4317,7 @@
         },
         "section30": {
           "term": "§30 BSIG - kyberbezpečnostní opatření",
-          "definition": "Ústřední ustanovení NIS2 v německém právu. Vyjmenovává deset kategorií opatření k řízení kyberbezpečnostních rizik, která musí zavést všechny subjekty v působnosti. Pokrývá posouzení rizik, zvládání incidentů, kontinuitu provozu, bezpečnost dodavatelského řetězce, bezpečný vývoj, posouzení účinnosti, školení, kryptografii, řízení přístupu a vícefaktorovou autentizaci. Opatření musí být 'vhodná a přiměřená'. Ne pozlacená, ale skutečná.",
+          "definition": "Ústřední ustanovení NIS2 v německém právu. Vyjmenovává deset kategorií opatření k řízení kyberbezpečnostních rizik, která musí zavést všechny subjekty v působnosti. Pokrývá posouzení rizik, zvládání incidentů, kontinuitu provozu, bezpečnost dodavatelského řetězce, bezpečný vývoj, posouzení účinnosti, školení, kryptografii, řízení přístupu a vícefaktorovou autentizaci. Opatření musí být 'vhodná, přiměřená a účinná'. Ne pozlacená, ale skutečná.",
           "legalRef": "§30 BSIG"
         },
         "section32": {
@@ -4469,7 +4469,7 @@
         "heading": "Čím se firmy v odpadovém hospodářství liší",
         "p1": "Firmy v odpadovém hospodářství mají jedinečný rizikový profil. Na rozdíl od softwarové firmy, kde je téměř vše digitální, zahrnuje provoz v odpadech fyzické procesy: nákladní vozy na silnicích, materiál v pohybu, zařízení v provozech. Kybernetický útok na správu vozového parku má okamžité důsledky ve fyzickém světě. Tento rozměr provozní technologie znamená, že vaše posouzení rizik by mělo zvážit jak IT systémy, tak jakékoli průmyslové řízení.",
         "p2": "Většina firem v odpadovém hospodářství silně outsourcuje. Mnohé fungují s malým interním IT týmem (nebo bez vyhrazeného IT personálu vůbec) a spoléhají na externí poskytovatele všeho od e-mailu přes ERP po správu vozového parku. Podle NIS2 můžete outsourcovat provoz, ale ne odpovědnost. §30 BSIG činí vaši firmu odpovědnou za bezpečnostní opatření, i když je dodává dodavatel. Tím se správa dodavatelů stává vaší nejdůležitější pákou pro shodu.",
-        "p3": "Pozitivní stránka: IT prostředí firem v odpadovém hospodářství jsou obvykle přímočará. Firma se 100 zaměstnanci má snad 6 až 10 odlišných skupin systémů oproti 30 nebo více u banky nebo nemocnice podobné velikosti. To znamená, že úsilí na shodu je úměrné. Hledíte na týdny soustředěné práce, ne na víceletý program. Standard BSI \"přiměřená a úměrná\" zde hraje ve váš prospěch."
+        "p3": "Pozitivní stránka: IT prostředí firem v odpadovém hospodářství jsou obvykle přímočará. Firma se 100 zaměstnanci má snad 6 až 10 odlišných skupin systémů oproti 30 nebo více u banky nebo nemocnice podobné velikosti. To znamená, že úsilí na shodu je úměrné. Hledíte na týdny soustředěné práce, ne na víceletý program. Test přiměřenosti podle §30 odst. 1 BSIG zde hraje ve váš prospěch."
       },
       "faq": {
         "heading": "Časté dotazy",
@@ -6197,7 +6197,7 @@
       "penalties": {
         "q1": {
           "q": "Co se stane, pokud povinná firma ohlásí incident příslušnému orgánu pozdě nebo vůbec? Kdo kontroluje, zda byly ohlašovatelné incidenty řádně ohlášeny?",
-          "a": "Ohlašovací povinnost vyplývá z článku 23 směrnice NIS 2: včasné varování do 24 hodin, oznámení do 72 hodin a závěrečná zpráva do jednoho měsíce od významného incidentu (v Německu transponováno v §32 BSIG). Pozdní hlášení, nebo žádné hlášení vůbec, je porušením povinnosti, které příslušný orgán (BSI pro většinu subjektů) může postihnout podle dozorových a vymáhacích pravidel článků 31 až 34 (§§61 a násl. a §65 BSIG). Možnými opatřeními jsou pokyny, závazné příkazy a pokuty, jejichž výše závisí na typu subjektu: pro klíčové subjekty stanoví článek 34 horní hranici nejméně 10 milionů eur nebo 2 procenta celosvětového ročního obratu (podle toho, co je vyšší), a pro důležité subjekty nejméně 7 milionů eur nebo 1,4 procenta. Orgán posuzuje, zda bylo hlášení podáno řádně, na základě předloženého hlášení a může jej ověřit svými dozorovými pravomocemi podle článků 32 a 33 (jako žádosti o informace, audity, kontroly na místě). Včasné, úplné hlášení v předepsaném formátu je proto nejbezpečnější cestou. Postup krok za krokem k povinnosti a orgánu najdete na [Registrace a ohlašovací povinnost](/wiki/anwendungsbereich/nis2-registrierung)."
+          "a": "Ohlašovací povinnost vyplývá z článku 23 směrnice NIS 2: včasné varování do 24 hodin, oznámení do 72 hodin a závěrečná zpráva nejpozději jeden měsíc po tomto oznámení (v Německu transponováno v §32 BSIG). Pozdní hlášení, nebo žádné hlášení vůbec, je porušením povinnosti, které příslušný orgán (BSI pro většinu subjektů) může postihnout podle dozorových a vymáhacích pravidel článků 31 až 34 (§§61 a násl. a §65 BSIG). Možnými opatřeními jsou pokyny, závazné příkazy a pokuty, jejichž výše závisí na typu subjektu: pro klíčové subjekty stanoví článek 34 horní hranici nejméně 10 milionů eur nebo 2 procenta celosvětového ročního obratu (podle toho, co je vyšší), a pro důležité subjekty nejméně 7 milionů eur nebo 1,4 procenta. Orgán posuzuje, zda bylo hlášení podáno řádně, na základě předloženého hlášení a může jej ověřit svými dozorovými pravomocemi podle článků 32 a 33 (jako žádosti o informace, audity, kontroly na místě). Včasné, úplné hlášení v předepsaném formátu je proto nejbezpečnější cestou. Postup krok za krokem k povinnosti a orgánu najdete na [Registrace a ohlašovací povinnost](/wiki/anwendungsbereich/nis2-registrierung)."
         }
       },
       "liability": {
@@ -6211,7 +6211,7 @@
         },
         "q3": {
           "q": "Musí vedení absolvovat školení?",
-          "a": "Ano. Vedení klíčových a důležitých subjektů musí pravidelně absolvovat školení o kybernetické bezpečnosti (čl. 20 odst. 2 směrnice NIS 2, v Německu §38 odst. 3 BSIG). Cílem je, aby vedení dokázalo rozpoznat rizika, posoudit opatření k řízení rizik a odhadnout jejich dopad na služby. Směrnice nejmenuje žádný minimální počet hodin ani pevné intervaly; ve svých pokynech BSI doporučuje každoroční opakování a jako orientační údaj rozsahu uvádí zhruba čtyři hodiny. Tato povinnost se vztahuje na každou osobu, která je k řízení subjektu jmenována zákonem, stanovami nebo společenskou smlouvou, a nelze ji delegovat."
+          "a": "Ano. Vedení klíčových a důležitých subjektů musí pravidelně absolvovat školení o kybernetické bezpečnosti (čl. 20 odst. 2 směrnice NIS 2, v Německu §38 odst. 3 BSIG). Cílem je, aby vedení dokázalo rozpoznat rizika, posoudit opatření k řízení rizik a odhadnout jejich dopad na služby. Směrnice ani BSIG neuvádějí žádný minimální počet hodin ani pevné intervaly. BSI ve své příručce doporučuje důkladné úvodní školení s pravidelnými navazujícími školeními; délka a interval se řídí mírou vystavení subjektu riziku a schopnostmi vedení. Tato povinnost se vztahuje na každou osobu, která je k řízení subjektu jmenována zákonem, stanovami nebo společenskou smlouvou, a nelze ji delegovat."
         },
         "q4": {
           "q": "Může vedení delegovat svou povinnost školení?",
@@ -10030,7 +10030,7 @@
         "regulation": {
           "label": "Doporučení 2003/361/ES, příloha článek 2",
           "quote": "Kategorie mikropodniků, malých a středních podniků (MSP) je tvořena podniky, které zaměstnávají méně než 250 osob a jejichž roční obrat nepřesahuje 50 milionů EUR nebo jejichž bilanční suma roční rozvahy nepřesahuje 43 milionů EUR.",
-          "context": "Oficiální definice velikosti v EU. Střední podnik začíná na 50 zaměstnancích a alespoň 10 milionech EUR obratu a 10 milionech EUR bilanční sumy. NIS 2 vás zachycuje od středního výše. 'Překračuje stropy pro střední' v článku 2 odst. 1 znamená velký podnik podle téhož doporučení. Propojené a partnerské podniky se sčítají, takže malá dceřiná společnost velkého mateřského podniku se často počítá jako velká."
+          "context": "Oficiální definice velikosti v EU. Střední podnik začíná na 50 zaměstnancích, nebo při obratu a bilanční sumě, obojí nad 10 milionů EUR. NIS 2 vás zachycuje od středního výše. 'Překračuje stropy pro střední' v článku 2 odst. 1 znamená velký podnik podle téhož doporučení. Propojené a partnerské podniky se sčítají, takže malá dceřiná společnost velkého mateřského podniku se často počítá jako velká."
         },
         "transposition": {
           "label": "§ 28 BSIG (Německo)",
@@ -19676,7 +19676,7 @@
         "definition": {
           "label": "Čl. 2 + příloha I/II NIS 2 (odvětví + velikost)",
           "quote": "Tato směrnice se vztahuje na veřejné nebo soukromé subjekty typu uvedeného v příloze I nebo II, které se kvalifikují jako střední podniky podle článku 2 přílohy doporučení 2003/361/ES, nebo které překračují stropy pro střední podniky.",
-          "context": "O rozsahu rozhodují dvě otázky: jste typem v příloze I nebo II a jste alespoň střední velikosti (více než 50 zaměstnanců a buď obrat nad 10 mil. EUR, nebo bilanční suma nad 10 mil. EUR). Plus přepisy 'bez ohledu na velikost' pro služby vytvářející důvěru, DNS, registry TLD, veřejnou správu, výhradní poskytovatele v členském státě."
+          "context": "O rozsahu rozhodují dvě otázky: jste typem v příloze I nebo II a jste alespoň střední velikosti (nejméně 50 zaměstnanců, nebo obrat a bilanční suma, obojí nad 10 mil. EUR). Plus přepisy 'bez ohledu na velikost' pro služby vytvářející důvěru, DNS, registry TLD, veřejnou správu, výhradní poskytovatele v členském státě."
         }
       },
       "howItWorks": {

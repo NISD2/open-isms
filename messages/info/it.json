@@ -1331,7 +1331,7 @@
           },
           "training": {
             "title": "Formazione (Schulung)",
-            "description": "Partecipazione personale obbligatoria alla formazione in materia di cibersicurezza almeno ogni 3 anni. Questo obbligo non può essere delegato."
+            "description": "Partecipazione personale obbligatoria a una formazione periodica in materia di cibersicurezza; il §38, par. 3, BSIG non fissa alcun intervallo preciso. Questo obbligo non può essere delegato."
           }
         },
         "liability": "I dirigenti sono personalmente responsabili nei confronti della propria società quando violano colpevolmente tali obblighi. La delega dei compiti operativi è consentita, ma la responsabilità strategica e la vigilanza restano in capo alla direzione. La direzione non può invocare a propria difesa la mancanza di competenze tecniche.",
@@ -2000,7 +2000,7 @@
               "Nessun questionario decuplicato per fornitore. Un fornitore che serve 10 clienti NIS2 compila attualmente 10 diversi questionari di sicurezza. Con il Profilo Fornitore NIS2 - uno standard aperto, indipendente dalla piattaforma GRC - ne compila uno solo. Il maggior risparmio singolo di questa voce.",
               "Nessuna stesura di segnalazioni di incidente sotto pressione della scadenza. Le segnalazioni a 24h/72h/1 mese seguono modelli pronti nel formato BSI invece di essere scritte da zero mentre il tempo scorre.",
               "Nessun ciclo separato di preparazione all'audit. Le evidenze pronte per l'audit vengono generate in continuo mentre il lavoro avviene, non assemblate in preda al panico il mese prima.",
-              "Nessun ricarico da sovradimensionamento. I consulenti sovradimensionano per fatturare più ore. La piattaforma vincola a misure 'adeguate e proporzionate' (§30(1) BSIG) - le aziende non pagano per controlli non necessari."
+              "Nessun ricarico da sovradimensionamento. I consulenti sovradimensionano per fatturare più ore. La piattaforma vincola a misure 'adeguate, proporzionate ed efficaci' (§30(1) BSIG) - le aziende non pagano per controlli non necessari."
             ]
           },
           "software": {
@@ -4006,7 +4006,7 @@
         "items": {
           "check": {
             "title": "1. Confermate di rientrare effettivamente nell'ambito di applicazione",
-            "description": "Prima di registrarvi, verificate che la NIS2 si applichi alla vostra azienda. I criteri sono contenuti nel §28 BSIG: dovete operare in uno dei 18 settori elencati E soddisfare la soglia dimensionale (50 o più dipendenti oppure oltre 10 milioni di EUR di fatturato annuo). In caso di dubbio, consultate gli elenchi settoriali del BSI nell'Allegato I e nell'Allegato II della direttiva NIS2. Molte aziende presumono di essere fuori ambito quando non lo sono, e viceversa. Se siete realmente incerti, acquisite un parere legale prima di registrarvi, ma non usate l'incertezza come pretesto per rinviare."
+            "description": "Prima di registrarvi, verificate che la NIS2 si applichi alla vostra azienda. I criteri sono contenuti nel §28 BSIG: dovete operare in uno dei 18 settori elencati E soddisfare la soglia dimensionale (almeno 50 dipendenti oppure fatturato annuo e totale di bilancio annuo superiori ciascuno a 10 milioni di EUR). In caso di dubbio, consultate gli elenchi settoriali del BSI nell'Allegato I e nell'Allegato II della direttiva NIS2. Molte aziende presumono di essere fuori ambito quando non lo sono, e viceversa. Se siete realmente incerti, acquisite un parere legale prima di registrarvi, ma non usate l'incertezza come pretesto per rinviare."
           },
           "register": {
             "title": "2. Registratevi immediatamente tramite il portale del BSI",
@@ -4256,7 +4256,7 @@
         },
         "bsig": {
           "term": "BSIG (BSI-Gesetz)",
-          "definition": "La legge federale tedesca che disciplina il BSI (Ufficio federale per la sicurezza informatica) e gli obblighi di sicurezza informatica. La NIS2UmsuCG ha modificato il BSIG per includere tutti i requisiti di NIS2. Quando qualcuno dice 'conformità a NIS2 in Germania', intende la conformità al BSIG modificato. Questa è la legge che si applica a voi, non la direttiva NIS2 in quanto tale.",
+          "definition": "La legge federale tedesca che disciplina il BSI (Ufficio federale per la sicurezza informatica) e gli obblighi di sicurezza informatica. La NIS2UmsuCG ha modificato il BSIG e recepisce NIS2 in Germania principalmente attraverso di esso. Quando qualcuno dice 'conformità a NIS2 in Germania', intende la conformità al BSIG modificato. Questa è la legge che si applica a voi, non la direttiva NIS2 in quanto tale.",
           "german": "Gesetz über das Bundesamt für Sicherheit in der Informationstechnik",
           "legalRef": "BSIG modificato dalla NIS2UmsuCG"
         },
@@ -4267,7 +4267,7 @@
         },
         "cir2024": {
           "term": "CIR 2024/2690",
-          "definition": "Il regolamento di esecuzione dell'UE che specifica i requisiti tecnici e metodologici esatti per le entità soggette a NIS2. A differenza della direttiva, questo si applica direttamente in tutti gli Stati membri senza recepimento. Dettaglia cosa significhino effettivamente nella pratica le 'misure di sicurezza informatica adeguate': pensatelo come il regolamento tecnico che riempie i dettagli lasciati aperti dalla direttiva.",
+          "definition": "Il regolamento di esecuzione dell'UE che stabilisce i requisiti tecnici e metodologici delle misure di cui all'articolo 21, paragrafo 2, di NIS2, ma solo per determinati tipi di soggetti: fornitori di servizi DNS, registri dei nomi di dominio di primo livello, fornitori di servizi di cloud computing, fornitori di servizi di data center, fornitori di reti di distribuzione dei contenuti, fornitori di servizi gestiti, fornitori di servizi di sicurezza gestiti, fornitori di mercati online, di motori di ricerca online e di piattaforme di servizi di social network e prestatori di servizi fiduciari. A differenza della direttiva, questo si applica direttamente in tutti gli Stati membri senza recepimento. Per questi soggetti dettaglia cosa significhino effettivamente nella pratica le 'misure di sicurezza informatica adeguate': pensatelo come il regolamento tecnico che riempie i dettagli lasciati aperti dalla direttiva.",
           "legalRef": "Regolamento di esecuzione (UE) 2024/2690 della Commissione"
         },
         "bsiRegistration": {
@@ -4284,7 +4284,7 @@
         },
         "riskManagement": {
           "term": "Misure di gestione del rischio",
-          "definition": "Le dieci categorie di misure di sicurezza informatica che tutte le entità soggette a NIS2 devono attuare ai sensi del §30 BSIG. Spaziano dalla valutazione del rischio e dalla gestione degli incidenti alla sicurezza della catena di approvvigionamento e alla crittografia. Devono essere 'adeguate e proporzionate' alla vostra dimensione e al vostro profilo di rischio: non ci si aspetta che un'azienda di rifiuti di 50 persone attui gli stessi controlli di Deutsche Telekom.",
+          "definition": "Le dieci categorie di misure di sicurezza informatica che tutte le entità soggette a NIS2 devono attuare ai sensi del §30 BSIG. Spaziano dalla valutazione del rischio e dalla gestione degli incidenti alla sicurezza della catena di approvvigionamento e alla crittografia. Devono essere 'adeguate, proporzionate ed efficaci'; la proporzionalità tiene conto, tra l'altro, della vostra dimensione e della vostra esposizione al rischio: non ci si aspetta che un'azienda di rifiuti di 50 persone attui gli stessi controlli di Deutsche Telekom.",
           "german": "Risikomanagementmaßnahmen",
           "legalRef": "§30(2) BSIG"
         },
@@ -4317,7 +4317,7 @@
         },
         "section30": {
           "term": "§30 BSIG - Misure di sicurezza informatica",
-          "definition": "La disposizione centrale di NIS2 nel diritto tedesco. Elenca dieci categorie di misure di gestione del rischio di sicurezza informatica che tutte le entità incluse nell'ambito di applicazione devono attuare. Copre valutazione del rischio, gestione degli incidenti, continuità operativa, sicurezza della catena di approvvigionamento, sviluppo sicuro, valutazione dell'efficacia, formazione, crittografia, controllo degli accessi e autenticazione a più fattori. Le misure devono essere 'adeguate e proporzionate': non sovradimensionate, ma autentiche.",
+          "definition": "La disposizione centrale di NIS2 nel diritto tedesco. Elenca dieci categorie di misure di gestione del rischio di sicurezza informatica che tutte le entità incluse nell'ambito di applicazione devono attuare. Copre valutazione del rischio, gestione degli incidenti, continuità operativa, sicurezza della catena di approvvigionamento, sviluppo sicuro, valutazione dell'efficacia, formazione, crittografia, controllo degli accessi e autenticazione a più fattori. Le misure devono essere 'adeguate, proporzionate ed efficaci': non sovradimensionate, ma autentiche.",
           "legalRef": "§30 BSIG"
         },
         "section32": {
@@ -4469,7 +4469,7 @@
         "heading": "Cosa rende diverse le aziende di rifiuti",
         "p1": "Le aziende di rifiuti hanno un profilo di rischio peculiare. A differenza di una società di software dove quasi tutto è digitale, le operazioni nel settore rifiuti comportano processi fisici: camion sulle strade, materiali in movimento, attrezzature nei siti. Un attacco informatico alla gestione della flotta ha conseguenze immediate nel mondo fisico. Questa dimensione di operational technology fa sì che la tua valutazione dei rischi debba considerare sia i sistemi IT sia gli eventuali controlli industriali.",
         "p2": "La maggior parte delle aziende di rifiuti esternalizza pesantemente. Molte operano con un piccolo team IT interno (o senza alcun personale IT dedicato) e si affidano a fornitori esterni per tutto, dalla email all'ERP alla gestione della flotta. Ai sensi di NIS2 puoi esternalizzare le operazioni ma non la responsabilità: il §30 BSIG ritiene la tua azienda responsabile delle misure di sicurezza anche quando le eroga un fornitore. Questo rende la gestione dei fornitori la tua leva di conformità più importante.",
-        "p3": "Il lato positivo: gli ambienti IT delle aziende di rifiuti sono di norma lineari. Un'azienda di rifiuti di 100 persone ha forse da 6 a 10 gruppi di sistemi distinti, contro i 30 o più di una banca o di un ospedale di dimensioni simili. Questo significa che l'impegno di conformità è proporzionato: si parla di settimane di lavoro mirato, non di un programma pluriennale. Lo standard 'adeguato e proporzionato' del BSI gioca qui a tuo favore."
+        "p3": "Il lato positivo: gli ambienti IT delle aziende di rifiuti sono di norma lineari. Un'azienda di rifiuti di 100 persone ha forse da 6 a 10 gruppi di sistemi distinti, contro i 30 o più di una banca o di un ospedale di dimensioni simili. Questo significa che l'impegno di conformità è proporzionato: si parla di settimane di lavoro mirato, non di un programma pluriennale. Il criterio di proporzionalità del §30, par. 1, BSIG gioca qui a tuo favore."
       },
       "faq": {
         "heading": "Domande frequenti",
@@ -6197,7 +6197,7 @@
       "penalties": {
         "q1": {
           "q": "Cosa succede se un'azienda obbligata segnala un incidente in ritardo o non lo segnala affatto all'autorità competente? Chi verifica se gli incidenti soggetti a segnalazione siano stati segnalati correttamente?",
-          "a": "L'obbligo di segnalazione deriva dall'articolo 23 della direttiva NIS 2: un preallarme entro 24 ore, una notifica entro 72 ore e una relazione finale entro un mese dall'incidente significativo (recepito in Germania nel §32 BSIG). Una segnalazione tardiva, o nessuna segnalazione, è una violazione di un obbligo che l'autorità competente (il BSI per la maggior parte dei soggetti) può sanzionare ai sensi delle regole di vigilanza ed esecuzione degli articoli da 31 a 34 (§§61 e seguenti e §65 BSIG). Le misure possibili comprendono istruzioni, ordini vincolanti e sanzioni pecuniarie il cui livello dipende dal tipo di soggetto: per i soggetti essenziali, l'articolo 34 fissa un massimale di almeno 10 milioni di euro o del 2 per cento del fatturato annuo mondiale (se superiore), e per i soggetti importanti di almeno 7 milioni di euro o dell'1,4 per cento. L'autorità valuta se una segnalazione sia stata effettuata correttamente sulla base della segnalazione presentata e può verificarlo tramite i suoi poteri di vigilanza ai sensi degli articoli 32 e 33 (come richieste di informazioni, audit, ispezioni in loco). Una segnalazione tempestiva e completa nel formato prescritto è quindi la via più sicura. Troverete una guida passo passo all'obbligo e all'autorità in [Registrazione e obbligo di segnalazione](/wiki/anwendungsbereich/nis2-registrierung)."
+          "a": "L'obbligo di segnalazione deriva dall'articolo 23 della direttiva NIS 2: un preallarme entro 24 ore, una notifica entro 72 ore e una relazione finale entro un mese da tale notifica (recepito in Germania nel §32 BSIG). Una segnalazione tardiva, o nessuna segnalazione, è una violazione di un obbligo che l'autorità competente (il BSI per la maggior parte dei soggetti) può sanzionare ai sensi delle regole di vigilanza ed esecuzione degli articoli da 31 a 34 (§§61 e seguenti e §65 BSIG). Le misure possibili comprendono istruzioni, ordini vincolanti e sanzioni pecuniarie il cui livello dipende dal tipo di soggetto: per i soggetti essenziali, l'articolo 34 fissa un massimale di almeno 10 milioni di euro o del 2 per cento del fatturato annuo mondiale (se superiore), e per i soggetti importanti di almeno 7 milioni di euro o dell'1,4 per cento. L'autorità valuta se una segnalazione sia stata effettuata correttamente sulla base della segnalazione presentata e può verificarlo tramite i suoi poteri di vigilanza ai sensi degli articoli 32 e 33 (come richieste di informazioni, audit, ispezioni in loco). Una segnalazione tempestiva e completa nel formato prescritto è quindi la via più sicura. Troverete una guida passo passo all'obbligo e all'autorità in [Registrazione e obbligo di segnalazione](/wiki/anwendungsbereich/nis2-registrierung)."
         }
       },
       "liability": {
@@ -6211,7 +6211,7 @@
         },
         "q3": {
           "q": "La direzione deve partecipare a una formazione?",
-          "a": "Sì. La direzione dei soggetti essenziali e importanti deve partecipare regolarmente a formazioni sulla cybersicurezza (art. 20, par. 2, direttiva NIS 2, in Germania articolo 38, par. 3, BSIG). L'obiettivo è che la direzione sia in grado di individuare i rischi, valutare le misure di gestione dei rischi e stimarne l'impatto sui servizi. La direttiva non indica un numero minimo di ore né intervalli fissi; nei suoi orientamenti il BSI raccomanda un aggiornamento annuale e indica circa quattro ore come valore orientativo per la durata. Questo obbligo si applica a ogni persona che è preposta alla gestione del soggetto per legge, statuto o atto costitutivo, e non può essere delegato."
+          "a": "Sì. La direzione dei soggetti essenziali e importanti deve partecipare regolarmente a formazioni sulla cybersicurezza (art. 20, par. 2, direttiva NIS 2, in Germania articolo 38, par. 3, BSIG). L'obiettivo è che la direzione sia in grado di individuare i rischi, valutare le misure di gestione dei rischi e stimarne l'impatto sui servizi. Né la direttiva né il BSIG indicano un numero minimo di ore o intervalli fissi. Nei suoi orientamenti il BSI raccomanda una formazione iniziale approfondita seguita da formazioni periodiche di aggiornamento; durata e intervallo dipendono dall'esposizione al rischio del soggetto e dalle capacità della direzione. Questo obbligo si applica a ogni persona che è preposta alla gestione del soggetto per legge, statuto o atto costitutivo, e non può essere delegato."
         },
         "q4": {
           "q": "La direzione può delegare il proprio obbligo di formazione?",
@@ -10030,7 +10030,7 @@
         "regulation": {
           "label": "Raccomandazione 2003/361/CE, allegato articolo 2",
           "quote": "La categoria delle microimprese, delle piccole imprese e delle medie imprese (PMI) è costituita da imprese che occupano meno di 250 persone, il cui fatturato annuo non supera i 50 milioni di EUR e/o il cui totale di bilancio annuo non supera i 43 milioni di EUR.",
-          "context": "La definizione dimensionale ufficiale dell'UE. La media impresa parte da 50 dipendenti e da almeno 10 milioni di EUR di fatturato e 10 milioni di EUR di totale di bilancio. NIS 2 vi cattura a partire dalla media in su. 'Supera i massimali per le medie' nell'articolo 2(1) significa grande impresa ai sensi della stessa Raccomandazione. Le imprese collegate e associate si aggregano, quindi una piccola controllata di una grande capogruppo conta spesso come grande."
+          "context": "La definizione dimensionale ufficiale dell'UE. La media impresa parte da 50 dipendenti, oppure da fatturato e totale di bilancio superiori ciascuno a 10 milioni di EUR. NIS 2 vi cattura a partire dalla media in su. 'Supera i massimali per le medie' nell'articolo 2(1) significa grande impresa ai sensi della stessa Raccomandazione. Le imprese collegate e associate si aggregano, quindi una piccola controllata di una grande capogruppo conta spesso come grande."
         },
         "transposition": {
           "label": "§28 BSIG (Germania)",
@@ -19676,7 +19676,7 @@
         "definition": {
           "label": "Art. 2 + Allegato I/II NIS 2 (settore + dimensione)",
           "quote": "This Directive applies to public or private entities of a type referred to in Annex I or II which qualify as medium-sized enterprises under Article 2 of the Annex to Recommendation 2003/361/EC, or which exceed the ceilings for medium-sized enterprises.",
-          "context": "Due domande decidono se rientri nell'ambito: sei un tipo dell'Allegato I o II, e sei almeno di medie dimensioni (50+ dipendenti e fatturato >10 mln € o totale di bilancio >10 mln €). Più le deroghe 'indipendentemente dalle dimensioni' per i servizi fiduciari, DNS, registri di TLD, pubblica amministrazione, fornitori unici in uno Stato membro."
+          "context": "Due domande decidono se rientri nell'ambito: sei un tipo dell'Allegato I o II, e sei almeno di medie dimensioni (50+ dipendenti, oppure fatturato e totale di bilancio superiori ciascuno a 10 mln €). Più le deroghe 'indipendentemente dalle dimensioni' per i servizi fiduciari, DNS, registri di TLD, pubblica amministrazione, fornitori unici in uno Stato membro."
         }
       },
       "howItWorks": {

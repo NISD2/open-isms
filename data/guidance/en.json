@@ -224,7 +224,7 @@
     "summary": "Create a plan for handling cybersecurity incidents, including who is on the response team and how to communicate during a crisis. You're done when you have the plan documented, team named with backups, contact lists ready, and simple guides for common incidents.",
     "applicability": "Every company handling personal data or critical IT systems needs this; small firms without IT can skip if they outsource to a provider with their own plan.",
     "quickTip": "Start by listing 5-8 people from IT, legal, and management who can drop everything during a cyber emergency.",
-    "implementationSteps": "Pick your incident lead (usually your top IT or security person) and name their backup.\nBuild a team of 5-10 people total, including roles like IT ops, legal, HR, and a management rep; list names, roles, phone numbers, and deputies.\nSet up a secure way to talk during incidents, like an encrypted chat app or dedicated phone line.\nWrite escalation steps: who calls whom when, up to the board, with BSI reporting times (24 hours warning, 72 hours details, 1 month final).\nDraft simple playbooks for your top risks like ransomware, and schedule a yearly test run.",
+    "implementationSteps": "Pick your incident lead (usually your top IT or security person) and name their backup.\nBuild a team of 5-10 people total, including roles like IT ops, legal, HR, and a management rep; list names, roles, phone numbers, and deputies.\nSet up a secure way to talk during incidents, like an encrypted chat app or dedicated phone line.\nWrite escalation steps: who calls whom when, up to the board, with BSI reporting times (24 hours warning, 72 hours details, final report no later than one month after the 72-hour notification).\nDraft simple playbooks for your top risks like ransomware, and schedule a yearly test run.",
     "evidenceExample": "A single document or folder containing your incident response plan, team charter with roles/authorities/activation rules/contact lists, and basic playbooks for key scenarios. It should show clear steps, who's responsible, and how to escalate.",
     "fields": {
       "incidentLead": {
@@ -282,7 +282,7 @@
   },
   "3.3": {
     "summary": "Your company must set up a process to report major cybersecurity incidents to Germany's Federal Office for Information Security (BSI) within 24 hours for initial warnings, 72 hours for details, and 1 month for final reports. You'll know you're done when you have templates ready, your team has practiced it in a drill, and you've documented the full process with proof of registration and timelines.",
-    "applicability": "Required for any German company handling critical infrastructure or essential services that could face major cyber incidents; smaller companies without those roles can skip it.",
+    "applicability": "Required for every besonders wichtige Einrichtung (essential entity) and wichtige Einrichtung (important entity) under §32(1) BSIG, whatever its size.",
     "quickTip": "Talk to your IT or security lead today and ask: 'Do we have a plan to notify BSI about cyber incidents within 24 hours, even on weekends?'",
     "implementationSteps": "Write simple templates for the three reports: 24-hour early warning, 72-hour details, and 1-month final summary.\nSet up an on-call system so someone can send the early warning anytime, including nights and holidays.\nRun a practice drill at least once a year where your team simulates an incident and hits all deadlines.\nDocument your full reporting process, including who does what and how it's triggered.\nGet your management board to review and approve the process.",
     "evidenceExample": "Documents showing your reporting templates, a step-by-step process description with roles and responsibilities, and notes from a practice drill proving your team met the 24h/72h/1m deadlines.",
@@ -1117,7 +1117,7 @@
     "summary": "Figure out if your company falls under NIS2 rules by checking your sector and size, then classify it under §28 BSIG as a 'besonders wichtige Einrichtung' (essential), a 'wichtige Einrichtung' (important), or out of scope. You're done when you have a written document explaining your classification with legal reasons.",
     "applicability": "Managers at companies in key sectors like energy, transport, or health with 50+ employees or certain revenue need this; smaller companies outside those sectors can skip it.",
     "quickTip": "List what your company does and check if it matches the critical sectors in NIS2 Annex I or II.",
-    "implementationSteps": "List the sectors your company works in, like energy or banking.\nCheck your size against §28 BSIG, and note the \"and\": besonders wichtig means at least 250 employees, or annual turnover over 50 million euro AND a balance sheet total over 43 million euro. Wichtig means at least 50 employees, or turnover and balance sheet total each over 10 million euro. Turnover on its own is not enough.\nPick your classification: essential (high risk), important (medium risk), or required (special cases).\nWrite a short document explaining your sector, size, why you chose that class, and cite §28 BSIG.\nGet your legal team or external lawyer to review it if unsure.",
+    "implementationSteps": "List the sectors your company works in, like energy or banking.\nCheck your size against §28 BSIG, and note the \"and\": besonders wichtig means at least 250 employees, or annual turnover over 50 million euro AND a balance sheet total over 43 million euro. Wichtig means at least 50 employees, or turnover and balance sheet total each over 10 million euro. Turnover on its own is not enough.\nPick your classification: essential (high risk) or important (medium risk).\nWrite a short document explaining your sector, size, why you chose that class, and cite §28 BSIG.\nGet your legal team or external lawyer to review it if unsure.",
     "evidenceExample": "A document that lists your company's sectors, employee count, revenue, chosen classification, and legal reasons why it fits under §28 BSIG.",
     "fields": {
       "entityClassification": {
@@ -1135,42 +1135,42 @@
     }
   },
   "12.2": {
-    "summary": "Your company must register with Germany's Federal Office for Information Security (BSI) through their online portal to report critical IT operations. You're done when you get a confirmation with a registration number and upload proof of full registration.",
-    "applicability": "Companies in Germany that run critical infrastructure services like energy, water, health, or transport must register; smaller non-critical businesses can skip this.",
+    "summary": "Your company must register with Germany's Federal Office for Information Security (BSI) through their online portal to report critical IT operations. You're done when the registration appears in the overview of registered procedures ('registrierte Fachverfahren') in your company profile on the BSI portal and you have uploaded proof of it.",
+    "applicability": "Every besonders wichtige Einrichtung (essential entity) and wichtige Einrichtung (important entity) must register under §33(1) BSIG, whether or not it operates critical infrastructure. No company in scope under §28 BSIG can skip this.",
     "quickTip": "Go to the BSI website and start setting up a 'Mein Unternehmenskonto' (MUK) account today. It takes weeks to get the digital certificate needed.",
-    "implementationSteps": "Set up a MUK account on the BSI portal with an ELSTER certificate; add at least two people who can access it.\nGather your company details like name, legal form, 24/7 contact person, IP address ranges, sector, and services.\nSubmit the full registration form including company size and countries you operate in.\nSave the confirmation email or document with your BSI registration number.\nUpload the proof to your compliance platform.",
-    "evidenceExample": "A confirmation document or screenshot from BSI showing your registration number, submission date, and that all required company data was successfully submitted.",
+    "implementationSteps": "Set up a MUK account on the BSI portal with an ELSTER certificate; add at least two people who can access it.\nGather your company details like name, legal form, contact person, IP address ranges, sector, and services.\nSubmit the full registration form including company size and countries you operate in.\nCheck that the registration appears in the overview of registered procedures in your company profile on the BSI portal, and save a screenshot of it.\nUpload the proof to your compliance platform.",
+    "evidenceExample": "A screenshot of the overview of registered procedures in your company profile on the BSI portal, showing the completed registration.",
     "fields": {
       "mukAccountId": {
-        "label": "Muk Account Id",
-        "meaning": "This is the unique ID for your company's Mein Unternehmenskonto (MUK) account used to access BSI services.",
-        "example": "MUK-123456789",
+        "label": "User account ID of the organisation certificate",
+        "meaning": "Each ELSTER organisation certificate in Mein Unternehmenskonto carries its own certificate-specific number, the Benutzerkonto-ID (user account ID). Enter the ID of the certificate you used to register on the BSI portal.",
+        "example": "The Benutzerkonto-ID as shown for your certificate",
         "whereToFind": "In the confirmation email when you set up the MUK account or in the account dashboard on the BSI portal."
       },
       "bsiRegistrationDate": {
         "label": "Bsi Registration Date",
         "meaning": "The date when BSI confirmed your full registration submission.",
-        "example": "2024-05-15",
+        "example": "2026-02-16",
         "whereToFind": "On the BSI confirmation document, email, or in your MUK account under registration history."
       },
       "registrationProofUploaded": {
         "label": "Registration Proof Uploaded",
         "meaning": "The file upload spot for your BSI registration confirmation.",
-        "example": "PDF of BSI confirmation showing registration number and complete data submission.",
+        "example": "Screenshot of the registered procedures overview from the BSI portal (PDF or PNG).",
         "whereToFind": "Download from your MUK account or email from BSI after successful registration."
       }
     }
   },
   "12.3": {
-    "summary": "Keep your company's BSI registration info up to date by reviewing it every year and notifying them of changes within two weeks. You're done when you have records of your latest review, any change notifications with BSI confirmations, and proof your 24/7 contact person works with a backup.",
-    "applicability": "Every German critical infrastructure company registered with the BSI must do this; smaller non-critical companies skip it.",
+    "summary": "Keep your company's BSI registration info up to date: if a registered detail changes, notify the BSI without undue delay and at the latest within two weeks of learning of the change (§33(5) BSIG). A regular review, for example once a year, helps you not miss a change. You're done when you have records of your latest review, any change notifications with BSI confirmations, and a named backup for your contact person.",
+    "applicability": "Every company registered with the BSI must do this. Nobody can skip it.",
     "quickTip": "Log into your BSI account today and check if the contact person's details are still correct.",
-    "implementationSteps": "Assign a main contact person and a backup who can be reached anytime, day or night.\nReview all registration details once a year. Check names, emails, IP ranges, services, and company info.\nUpdate anything outdated right away and notify BSI within two weeks, saving their confirmation.\nDocument each review and change with the date and what you did.\nTest that your contact person and backup respond quickly to ensure 24/7 availability.",
-    "evidenceExample": "A dated note or meeting summary from your annual review showing you checked all fields and made updates if needed, plus emails or confirmations from BSI for any changes sent, and a simple test log proving your contact person and deputy are reachable anytime.",
+    "implementationSteps": "Assign a main contact person and a backup.\nReview all registration details regularly, for example once a year. Check names, emails, IP ranges, services, and company info.\nUpdate anything outdated right away and notify BSI within two weeks, saving their confirmation.\nDocument each review and change with the date and what you did.\nTest that your contact person and backup respond quickly.",
+    "evidenceExample": "A dated note or meeting summary from your latest review showing you checked all fields and made updates if needed, plus emails or confirmations from BSI for any changes sent, and a simple test log showing your contact person and deputy are reachable.",
     "fields": {
       "contactPersonName": {
         "label": "Contact Person Name",
-        "meaning": "The full name of the person at your company who the BSI contacts about security issues and must be reachable 24/7.",
+        "meaning": "The full name of the person at your company who the BSI contacts about security issues.",
         "example": "Anna Schmidt",
         "whereToFind": "Your current BSI registration account or ask your IT/security lead who handles BSI communications."
       },
@@ -1183,13 +1183,13 @@
       "lastRegistrationUpdate": {
         "label": "Last Registration Update",
         "meaning": "The date when you last reviewed and updated your BSI registration details.",
-        "example": "2024-03-15",
+        "example": "2026-06-15",
         "whereToFind": "Check your BSI account history, emails from BSI confirmations, or your internal review notes."
       },
       "nextRegistrationUpdate": {
         "label": "Next Registration Update",
-        "meaning": "The planned date for your next full annual review of the BSI registration.",
-        "example": "2025-03-15",
+        "meaning": "The planned date for your next full review of the BSI registration.",
+        "example": "2027-06-15",
         "whereToFind": "Set this one year after your last update, based on your company's annual compliance calendar."
       }
     }

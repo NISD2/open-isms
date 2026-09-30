@@ -1331,7 +1331,7 @@
           },
           "training": {
             "title": "Training (Schulung)",
-            "description": "Mandatory personal participation in cybersecurity training at minimum every 3 years. This duty cannot be delegated."
+            "description": "Mandatory personal participation in regular cybersecurity training; §38(3) BSIG sets no fixed interval. This duty cannot be delegated."
           }
         },
         "liability": "Executives are personally liable to their own company when they culpably violate these duties. Delegation of operational tasks is permitted, but strategic responsibility and oversight remain with management. Management cannot claim lack of technical knowledge as defense.",
@@ -2000,7 +2000,7 @@
               "No 10 questionnaires per supplier. A supplier serving 10 NIS2 customers currently fills 10 different security questionnaires. With the NIS2 Supplier Profile - an open standard, GRC-platform-agnostic - they fill one. The biggest single saving in this bucket.",
               "No incident report drafting under deadline pressure. The 24h/72h/1m reports follow BSI-format-ready templates instead of being written from scratch when the clock is running.",
               "No separate audit prep cycle. Audit-ready evidence is generated continuously as work happens, not assembled in a panic the month before.",
-              "No over-engineering markup. Consultants over-scope to bill more hours. The platform constrains to 'appropriate and proportionate' (§30(1) BSIG) - companies do not pay for unnecessary controls."
+              "No over-engineering markup. Consultants over-scope to bill more hours. The platform constrains to 'appropriate, proportionate and effective' (§30(1) BSIG) - companies do not pay for unnecessary controls."
             ]
           },
           "software": {
@@ -4002,7 +4002,7 @@
         "items": {
           "check": {
             "title": "1. Confirm you are actually in scope",
-            "description": "Before you register, verify that NIS2 applies to your company. The criteria are in §28 BSIG: you need to operate in one of 18 listed sectors AND meet the size threshold (50+ employees or €10M+ annual revenue). If you are unsure, check the BSI's sector lists in Annex I and Annex II of the NIS2 Directive. Many companies assume they are out of scope when they are not - and vice versa. If you are genuinely uncertain, get a legal opinion before registering, but do not use uncertainty as an excuse to delay."
+            "description": "Before you register, verify that NIS2 applies to your company. The criteria are in §28 BSIG: you need to operate in one of 18 listed sectors AND meet the size threshold (at least 50 employees, or annual turnover and balance sheet total each above €10M). If you are unsure, check the BSI's sector lists in Annex I and Annex II of the NIS2 Directive. Many companies assume they are out of scope when they are not - and vice versa. If you are genuinely uncertain, get a legal opinion before registering, but do not use uncertainty as an excuse to delay."
           },
           "register": {
             "title": "2. Register via the BSI portal immediately",
@@ -4252,7 +4252,7 @@
         },
         "bsig": {
           "term": "BSIG (BSI-Gesetz)",
-          "definition": "The German federal law governing the BSI (Federal Office for Information Security) and cybersecurity obligations. The NIS2UmsuCG amended the BSIG to include all NIS2 requirements. When someone says 'NIS2 compliance in Germany,' they mean compliance with the amended BSIG. This is the law that applies to you - not the NIS2 Directive itself.",
+          "definition": "The German federal law governing the BSI (Federal Office for Information Security) and cybersecurity obligations. The NIS2UmsuCG amended the BSIG and transposes NIS2 in Germany mainly through it. When someone says 'NIS2 compliance in Germany,' they mean compliance with the amended BSIG. This is the law that applies to you - not the NIS2 Directive itself.",
           "german": "Gesetz über das Bundesamt für Sicherheit in der Informationstechnik",
           "legalRef": "BSIG as amended by NIS2UmsuCG"
         },
@@ -4263,7 +4263,7 @@
         },
         "cir2024": {
           "term": "CIR 2024/2690",
-          "definition": "The EU Implementing Regulation that specifies the exact technical and methodological requirements for NIS2 entities. Unlike the Directive, this applies directly in all member states without transposition. It details what 'appropriate cybersecurity measures' actually means in practice - think of it as the technical rulebook that fills in the details the Directive left open.",
+          "definition": "The EU Implementing Regulation that sets the technical and methodological requirements for the Article 21(2) measures, but only for certain entity types: DNS service providers, TLD name registries, cloud computing service providers, data centre service providers, content delivery network providers, managed service providers, managed security service providers, providers of online marketplaces, online search engines and social networking services platforms, and trust service providers. Unlike the Directive, this applies directly in all member states without transposition. For those entities it details what 'appropriate cybersecurity measures' actually means in practice - think of it as the technical rulebook that fills in the details the Directive left open.",
           "legalRef": "Commission Implementing Regulation (EU) 2024/2690"
         },
         "bsiRegistration": {
@@ -4280,7 +4280,7 @@
         },
         "riskManagement": {
           "term": "Risk Management Measures",
-          "definition": "The ten categories of cybersecurity measures that all NIS2 entities must implement under §30 BSIG. These range from risk assessment and incident handling to supply chain security and cryptography. They must be 'appropriate and proportionate' to your size and risk profile - a 50-person waste company is not expected to implement the same controls as Deutsche Telekom.",
+          "definition": "The ten categories of cybersecurity measures that all NIS2 entities must implement under §30 BSIG. These range from risk assessment and incident handling to supply chain security and cryptography. They must be 'appropriate, proportionate and effective'; proportionality weighs, among other things, your size and risk exposure - a 50-person waste company is not expected to implement the same controls as Deutsche Telekom.",
           "german": "Risikomanagementmaßnahmen",
           "legalRef": "§30(2) BSIG"
         },
@@ -4313,7 +4313,7 @@
         },
         "section30": {
           "term": "§30 BSIG - Cybersecurity Measures",
-          "definition": "The central provision of NIS2 in German law. Lists ten categories of cybersecurity risk management measures that all in-scope entities must implement. Covers risk assessment, incident handling, business continuity, supply chain security, secure development, effectiveness assessment, training, cryptography, access control, and multi-factor authentication. The measures must be 'appropriate and proportionate' - not gold-plated, but genuine.",
+          "definition": "The central provision of NIS2 in German law. Lists ten categories of cybersecurity risk management measures that all in-scope entities must implement. Covers risk assessment, incident handling, business continuity, supply chain security, secure development, effectiveness assessment, training, cryptography, access control, and multi-factor authentication. The measures must be 'appropriate, proportionate and effective' - not gold-plated, but genuine.",
           "legalRef": "§30 BSIG"
         },
         "section32": {
@@ -4465,7 +4465,7 @@
         "heading": "What Makes Waste Companies Different",
         "p1": "Waste companies have a unique risk profile. Unlike a software company where almost everything is digital, waste operations involve physical processes: trucks on roads, materials in motion, equipment at sites. A cyberattack on fleet management has immediate physical-world consequences. This operational technology dimension means your risk assessment should consider both IT systems and any industrial controls.",
         "p2": "Most waste companies outsource heavily. Many operate with a small internal IT team (or no dedicated IT staff at all) and rely on external providers for everything from email to ERP to fleet management. Under NIS2, you can outsource operations but not accountability - §30 BSIG holds your company responsible for security measures even when a supplier delivers them. This makes supplier management your most important compliance lever.",
-        "p3": "The positive side: waste company IT environments are typically straightforward. A 100-person waste company has perhaps 6 to 10 distinct system groups, compared to 30 or more for a bank or hospital of similar size. This means the compliance effort is proportionate - you are looking at weeks of focused work, not a multi-year program. The BSI's 'appropriate and proportionate' standard works in your favor here."
+        "p3": "The positive side: waste company IT environments are typically straightforward. A 100-person waste company has perhaps 6 to 10 distinct system groups, compared to 30 or more for a bank or hospital of similar size. This means the compliance effort is proportionate - you are looking at weeks of focused work, not a multi-year program. The proportionality test in §30(1) BSIG works in your favor here."
       },
       "faq": {
         "heading": "Frequently Asked Questions",
@@ -6193,7 +6193,7 @@
       "penalties": {
         "q1": {
           "q": "Wat gebeurt er als een verplichte onderneming een incident te laat of helemaal niet meldt aan de bevoegde autoriteit? Wie controleert of meldingsplichtige incidenten correct zijn gemeld?",
-          "a": "De meldingsplicht volgt uit artikel 23 van de NIS2-richtlijn: een vroegtijdige waarschuwing binnen 24 uur, een melding binnen 72 uur en een eindverslag binnen een maand na het significante incident (in Duitsland omgezet in §32 BSIG). Wordt er te laat of helemaal niet gemeld, dan is dat een plichtsverzuim dat de bevoegde autoriteit (voor de meeste entiteiten het BSI) volgens de toezichts- en handhavingsregels van de artikelen 31 tot en met 34 kan bestraffen (§§61 e.v. en §65 BSIG). Mogelijk zijn aanwijzingen, bindende voorschriften en boetes waarvan de hoogte afhangt van het soort entiteit: voor essentiële entiteiten voorziet artikel 34 als bovengrens in minstens 10 miljoen euro of 2 procent van de wereldwijde jaaromzet (afhankelijk van wat hoger is), voor belangrijke entiteiten minstens 7 miljoen euro of 1,4 procent. Of een melding correct is gedaan, beoordeelt de autoriteit aan de hand van het ingediende verslag en kan zij verifiëren via haar toezichtsbevoegdheden uit de artikelen 32 en 33 (zoals verzoeken om informatie, controles, inspecties ter plaatse). Een tijdige, volledige melding in het voorgeschreven formaat is daarom de veiligste weg. Een stapsgewijze handleiding voor de plicht en de autoriteit vindt u onder [Registratie en meldingsplicht](/wiki/anwendungsbereich/nis2-registrierung)."
+          "a": "De meldingsplicht volgt uit artikel 23 van de NIS2-richtlijn: een vroegtijdige waarschuwing binnen 24 uur, een melding binnen 72 uur en een eindverslag uiterlijk een maand na die melding (in Duitsland omgezet in §32 BSIG). Wordt er te laat of helemaal niet gemeld, dan is dat een plichtsverzuim dat de bevoegde autoriteit (voor de meeste entiteiten het BSI) volgens de toezichts- en handhavingsregels van de artikelen 31 tot en met 34 kan bestraffen (§§61 e.v. en §65 BSIG). Mogelijk zijn aanwijzingen, bindende voorschriften en boetes waarvan de hoogte afhangt van het soort entiteit: voor essentiële entiteiten voorziet artikel 34 als bovengrens in minstens 10 miljoen euro of 2 procent van de wereldwijde jaaromzet (afhankelijk van wat hoger is), voor belangrijke entiteiten minstens 7 miljoen euro of 1,4 procent. Of een melding correct is gedaan, beoordeelt de autoriteit aan de hand van het ingediende verslag en kan zij verifiëren via haar toezichtsbevoegdheden uit de artikelen 32 en 33 (zoals verzoeken om informatie, controles, inspecties ter plaatse). Een tijdige, volledige melding in het voorgeschreven formaat is daarom de veiligste weg. Een stapsgewijze handleiding voor de plicht en de autoriteit vindt u onder [Registratie en meldingsplicht](/wiki/anwendungsbereich/nis2-registrierung)."
         }
       },
       "liability": {
@@ -6207,7 +6207,7 @@
         },
         "q3": {
           "q": "Moet de directie deelnemen aan trainingen?",
-          "a": "Ja. De directie van essentiële en belangrijke entiteiten moet regelmatig deelnemen aan cyberbeveiligingstrainingen (Art. 20 lid 2 NIS 2-richtlijn, in Duitsland Paragraaf 38 lid 3 BSIG). Het doel is dat de directie risico's kan herkennen, risicobeheersmaatregelen kan beoordelen en de gevolgen ervan voor de diensten kan inschatten. De richtlijn noemt geen minimumaantal uren of vaste intervallen; het BSI beveelt in zijn handreiking een jaarlijkse opfrissing aan en noemt als richtsnoer een omvang van ongeveer vier uur. Deze plicht geldt voor iedere persoon die krachtens wet, statuten of vennootschapsovereenkomst tot de leiding is benoemd, en is niet delegeerbaar."
+          "a": "Ja. De directie van essentiële en belangrijke entiteiten moet regelmatig deelnemen aan cyberbeveiligingstrainingen (Art. 20 lid 2 NIS 2-richtlijn, in Duitsland Paragraaf 38 lid 3 BSIG). Het doel is dat de directie risico's kan herkennen, risicobeheersmaatregelen kan beoordelen en de gevolgen ervan voor de diensten kan inschatten. Noch de richtlijn noch de BSIG noemt een minimumaantal uren of vaste intervallen. Het BSI beveelt in zijn handreiking een uitgebreide eerste training aan met regelmatige vervolgtrainingen; duur en interval hangen af van de risicoblootstelling van de entiteit en de vaardigheden van de directie. Deze plicht geldt voor iedere persoon die krachtens wet, statuten of vennootschapsovereenkomst tot de leiding is benoemd, en is niet delegeerbaar."
         },
         "q4": {
           "q": "Kan de directie haar trainingsplicht delegeren?",
@@ -9733,7 +9733,7 @@
         "regulation": {
           "label": "Recommendation 2003/361/EC, Annex Article 2",
           "quote": "The category of micro, small and medium-sized enterprises (SMEs) is made up of enterprises which employ fewer than 250 persons and which have an annual turnover not exceeding EUR 50 million, and/or an annual balance sheet total not exceeding EUR 43 million.",
-          "context": "The EU's official size definition. Medium starts at 50 staff and at least EUR 10 million turnover and EUR 10 million balance sheet. NIS 2 catches you from medium upwards. 'Exceeds the ceilings for medium' in Article 2(1) means large enterprise under the same Recommendation. Linked and partner enterprises aggregate, so a small subsidiary of a large parent often counts as large."
+          "context": "The EU's official size definition. Medium starts at 50 staff, or at turnover and balance sheet total each above EUR 10 million. NIS 2 catches you from medium upwards. 'Exceeds the ceilings for medium' in Article 2(1) means large enterprise under the same Recommendation. Linked and partner enterprises aggregate, so a small subsidiary of a large parent often counts as large."
         },
         "transposition": {
           "label": "§28 BSIG (Germany)",
@@ -19379,7 +19379,7 @@
         "definition": {
           "label": "Art. 2 + Bijlage I en II NIS 2 (sector + grootte)",
           "quote": "Deze richtlijn is van toepassing op publieke of particuliere entiteiten van een type bedoeld in bijlage I of II die kwalificeren als middelgrote ondernemingen in de zin van artikel 2 van de bijlage bij Aanbeveling 2003/361/EG of die de drempelwaarden voor middelgrote ondernemingen overschrijden.",
-          "context": "Twee vragen bepalen of u in scope bent: bent u een type uit bijlage I of II, en bent u ten minste middelgroot (vanaf 50 medewerkers en hetzij >10 mio EUR omzet hetzij >10 mio EUR balanstotaal). Plus 'ongeacht de grootte' overrides voor vertrouwensdiensten, DNS, TLD-registers, overheid, exclusieve aanbieders in een lidstaat."
+          "context": "Twee vragen bepalen of u in scope bent: bent u een type uit bijlage I of II, en bent u ten minste middelgroot (vanaf 50 medewerkers, of met een omzet en een balanstotaal van elk meer dan 10 mio EUR). Plus 'ongeacht de grootte' overrides voor vertrouwensdiensten, DNS, TLD-registers, overheid, exclusieve aanbieders in een lidstaat."
         }
       },
       "howItWorks": {

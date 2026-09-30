@@ -118,7 +118,7 @@
       },
       "criticalSystemsCount": {
         "label": "Anzahl kritischer Systeme",
-        "meaning": "Anzahl der Systeme, die für das Geschäft essenziell sind und ausfallen dürfen (z.B. Produktionssteuerung oder Zahlungssysteme).",
+        "meaning": "Anzahl der Systeme, die für das Geschäft essenziell sind und nicht ausfallen dürfen (z.B. Produktionssteuerung oder Zahlungssysteme).",
         "example": "12",
         "whereToFind": "Fragen Sie Ihren IT-Leiter oder Betriebsleiter nach Systemen, deren Ausfall das Geschäft stoppt."
       },
@@ -224,7 +224,7 @@
     "summary": "Erstellen Sie einen Plan, wie Ihr Unternehmen auf IT-Vorfälle wie Hackerangriffe reagiert, inklusive eines Teams mit klaren Rollen und Eskalationswegen. Sie sind fertig, wenn der Plan schriftlich festgehalten ist, das Team benannt wurde und es Beweise wie eine Team-Charta und Playbooks gibt.",
     "applicability": "Jedes Unternehmen, das unter das BSIG fällt, muss das umsetzen; kleine Firmen ohne IT-Vorfälle können es vereinfachen, aber ignorieren Sie es nicht.",
     "quickTip": "Rufen Sie Ihr IT-Team und den Chef zusammen und fragen Sie: 'Wer macht was, wenn wir gehackt werden?'",
-    "implementationSteps": "Nennen Sie einen Leiter für Vorfälle und definieren Sie das Incident Response Team mit Kontaktdaten und Stellvertretern.\nSchreiben Sie einen Plan mit Schritten: Erkennung, Analyse, Eindämmung, Beseitigung, Wiederherstellung und Nachbesprechung, inklusive Eskalation zur Geschäftsführung.\nErstellen Sie Playbooks für Ihre größten Risiken wie Ransomware oder DDoS und eine Liste mit BSI-Meldefristen (24h Frühwarnung, 72h Meldung).\nLegen Sie einen sicheren Kommunikationskanal fest und testen Sie den Plan jährlich in einer Übung.",
+    "implementationSteps": "Nennen Sie einen Leiter für Vorfälle und definieren Sie das Incident Response Team mit Kontaktdaten und Stellvertretern.\nSchreiben Sie einen Plan mit Schritten: Erkennung, Analyse, Eindämmung, Beseitigung, Wiederherstellung und Nachbesprechung, inklusive Eskalation zur Geschäftsführung.\nErstellen Sie Playbooks für Ihre größten Risiken wie Ransomware oder DDoS und eine Liste mit BSI-Meldefristen (24h Frühwarnung, 72h Meldung, Abschlussmeldung spätestens einen Monat nach der 72h Meldung).\nLegen Sie einen sicheren Kommunikationskanal fest und testen Sie den Plan jährlich in einer Übung.",
     "evidenceExample": "Ein Dokument, das den Vorfallbehandlungsplan zeigt, die Team-Charta mit Rollen, Aktivierungskriterien und Befugnissen, Playbooks für typische Vorfälle sowie eine Kontaktliste mit Rufbereitschaftsrotation.",
     "fields": {
       "incidentLead": {
@@ -282,7 +282,7 @@
   },
   "3.3": {
     "summary": "Ihr Unternehmen muss einen Prozess aufbauen, um schwere IT-Vorfälle innerhalb von 24 Stunden, 72 Stunden und einem Monat an das BSI zu melden. Sie sind fertig, wenn Vorlagen für alle drei Meldungen existieren, der Prozess getestet ist und alle verantwortlichen Personen wissen, was zu tun ist.",
-    "applicability": "Das gilt für jedes Unternehmen mit kritischen IT-Systemen in Deutschland, das unter das BSIG fällt. Kleine Firmen ohne wesentliche IT-Infrastruktur können es überspringen.",
+    "applicability": "Das gilt für jede besonders wichtige und jede wichtige Einrichtung (§32 Abs. 1 BSIG), unabhängig von ihrer Größe.",
     "quickTip": "Rufen Sie Ihren IT-Leiter an und fragen Sie: 'Haben wir schon Vorlagen für BSI-Meldungen?'",
     "implementationSteps": "Erstellen Sie Vorlagen für die drei Meldungen: 24-Stunden-Frühwarnung, 72-Stunden-Details und Monats-Abschlussbericht.\n\nRichten Sie einen Wachdienst ein, der auch nachts, am Wochenende und Feiertag die 24-Stunden-Meldung starten kann.\n\nSchreiben Sie auf, wer wann was macht, inklusive Eskalationswege.\n\nFühren Sie einmal im Jahr eine Trockenübung durch, um die Fristen zu testen.\n\nDokumentieren Sie den gesamten Prozess und die Übung.",
     "evidenceExample": "Dokumente, die zeigen, dass Vorlagen für alle drei Meldetypen existieren, der Prozess beschrieben ist und eine Übung erfolgreich durchgeführt wurde, zum Beispiel Übungsprotokolle mit Fristen-Einhaltung.",
@@ -1122,7 +1122,7 @@
     "fields": {
       "entityClassification": {
         "label": "Entity Classification",
-        "meaning": "Hier wählen Sie aus, ob Ihre Firma als 'essential' (wesentlich), 'important' (wichtig) oder 'required' (verpflichtet) klassifiziert wird.",
+        "meaning": "Hier wählen Sie aus, ob Ihre Firma als 'essential' (besonders wichtige Einrichtung) oder 'important' (wichtige Einrichtung) klassifiziert wird.",
         "example": "essential",
         "whereToFind": "In Ihrer Selbsteinschätzung nach Mitarbeiterzahl, Umsatz und Sektor. Fragen Sie Finanzleitung und Vorstand."
       },
@@ -1135,38 +1135,38 @@
     }
   },
   "12.2": {
-    "summary": "Ihr Unternehmen muss sich beim Bundesamt für Sicherheit in der Informationstechnik (BSI) registrieren, um gesetzliche Pflichten für IT-Sicherheit zu erfüllen. Sie wissen, dass Sie fertig sind, wenn Sie eine Bestätigung mit Registrierungsnummer haben und alle Pflichtdaten übermittelt wurden.",
-    "applicability": "Das müssen kritische Anbieter nach dem BSIG machen; kleine Unternehmen ohne diese Klassifizierung können es überspringen.",
+    "summary": "Ihr Unternehmen muss sich beim Bundesamt für Sicherheit in der Informationstechnik (BSI) registrieren, um gesetzliche Pflichten für IT-Sicherheit zu erfüllen. Sie wissen, dass Sie fertig sind, wenn alle Pflichtdaten übermittelt wurden und die Registrierung in Ihrem Unternehmensprofil im BSI-Portal in der Übersicht der registrierten Fachverfahren erscheint.",
+    "applicability": "Das müssen alle besonders wichtigen und wichtigen Einrichtungen machen (§33 Abs. 1 BSIG), unabhängig davon, ob sie kritische Anlagen betreiben. Wer nach §28 BSIG betroffen ist, kann das nicht überspringen.",
     "quickTip": "Gehen Sie auf mein-unternehmenskonto.de und richten Sie zuerst ein Konto mit ELSTER-Zertifikat ein. Das dauert Wochen.",
-    "implementationSteps": "Richten Sie ein Mein Unternehmenskonto (MUK) mit ELSTER-Zertifikat ein und autorisieren Sie mindestens zwei Personen.\nÜbermitteln Sie über das BSI-Portal alle Pflichtdaten wie Firmenname, Kontaktperson, IP-Bereiche und Sektor.\nLaden Sie die Bestätigung mit der BSI-Registrierungsnummer herunter und speichern Sie sie sicher.\nÜberprüfen Sie, ob alle Pflichtfelder wie Unternehmensgröße und EU-Staaten ausgefüllt sind.",
-    "evidenceExample": "Bestätigung des BSI mit Registrierungsnummer, die zeigt, dass alle Pflichtdaten vollständig übermittelt wurden.",
+    "implementationSteps": "Richten Sie ein Mein Unternehmenskonto (MUK) mit ELSTER-Zertifikat ein und autorisieren Sie mindestens zwei Personen.\nÜbermitteln Sie über das BSI-Portal alle Pflichtdaten wie Firmenname, Kontaktperson, IP-Bereiche und Sektor.\nPrüfen Sie in Ihrem Unternehmensprofil im BSI-Portal, dass die Registrierung in der Übersicht der registrierten Fachverfahren erscheint, und sichern Sie einen Screenshot davon.\nÜberprüfen Sie, ob alle Pflichtfelder wie Unternehmensgröße und EU-Staaten ausgefüllt sind.",
+    "evidenceExample": "Ein Screenshot der Übersicht der registrierten Fachverfahren in Ihrem Unternehmensprofil im BSI-Portal, der die abgeschlossene Registrierung zeigt.",
     "fields": {
       "mukAccountId": {
-        "label": "MUK Account Id",
-        "meaning": "Die eindeutige Kennung Ihres Mein-Unternehmenskonto-Kontos, das für die Kommunikation mit Behörden genutzt wird.",
-        "example": "MUK-123456789",
+        "label": "Benutzerkonto-ID des Organisationszertifikats",
+        "meaning": "Jedes ELSTER-Organisationszertifikat in Mein Unternehmenskonto trägt eine eigene zertifikatsbezogene Kennziffer, die Benutzerkonto-ID. Tragen Sie hier die ID des Zertifikats ein, mit dem Sie die Registrierung im BSI-Portal vorgenommen haben.",
+        "example": "Die Benutzerkonto-ID, wie sie zu Ihrem Zertifikat angegeben ist",
         "whereToFind": "Im Mein-Unternehmenskonto-Portal nach dem Einrichten des Kontos unter 'Kontoübersicht'."
       },
       "bsiRegistrationDate": {
-        "label": "BSI Registration Date",
+        "label": "Tag der Registrierung",
         "meaning": "Das Datum, an dem die BSI-Registrierung abgeschlossen und bestätigt wurde.",
-        "example": "2024-05-15",
+        "example": "2026-02-16",
         "whereToFind": "Auf der Bestätigungsseite oder E-Mail des BSI nach der Übermittlung der Daten."
       },
       "registrationProofUploaded": {
-        "label": "Registration Proof Uploaded",
+        "label": "Nachweis der Registrierung",
         "meaning": "Die hochgeladene Datei, die die vollständige Registrierung beim BSI nachweist.",
-        "example": "BSI-Bestätigungs-PDF mit Registrierungsnummer",
+        "example": "Screenshot der registrierten Fachverfahren aus dem BSI-Portal (PDF oder PNG)",
         "whereToFind": "Herunterladen aus dem BSI-Portal oder per E-Mail nach erfolgreicher Registrierung."
       }
     }
   },
   "12.3": {
-    "summary": "Halten Sie Ihre BSI-Registrierung aktuell, indem Sie sie jährlich prüfen und bei Änderungen innerhalb von zwei Wochen melden. Sie sind fertig, wenn Sie ein Protokoll über die Prüfung haben, alle Meldungen dokumentiert sind und Ihre Kontaktstelle rund um die Uhr erreichbar ist.",
+    "summary": "Halten Sie Ihre BSI-Registrierung aktuell: Ändern sich registrierte Angaben, melden Sie das dem BSI unverzüglich, spätestens zwei Wochen nachdem Sie von der Änderung erfahren haben (§33 Abs. 5 BSIG). Eine regelmäßige Prüfung, zum Beispiel einmal im Jahr, hilft, keine Änderung zu übersehen. Sie sind fertig, wenn Sie ein Protokoll über die Prüfung haben und alle Meldungen dokumentiert sind.",
     "applicability": "Das müssen alle Unternehmen machen, die beim BSI registriert sind. Niemand kann das überspringen.",
     "quickTip": "Schauen Sie zuerst in Ihrem BSI-Konto nach, ob die Kontaktdaten noch stimmen.",
-    "implementationSteps": "Überprüfen Sie jährlich alle Registrierungsdaten wie Kontakte, IP-Bereiche und Firmendetails auf Richtigkeit.\nMelden Sie Änderungen innerhalb von 2 Wochen beim BSI und speichern Sie die Bestätigung.\nStellen Sie sicher, dass Ihre BSI-Kontaktperson 24/7 erreichbar ist und einen Stellvertreter hat.\nProtokollieren Sie jede Prüfung und Meldung mit Datum.\nPlanen Sie den nächsten Review-Termin ein.",
-    "evidenceExample": "Ein Protokoll der jährlichen Überprüfung, das zeigt, welche Daten geprüft wurden und dass alles aktuell ist, plus Nachweise über gemeldete Änderungen mit BSI-Bestätigung und Beleg für die Erreichbarkeit der Kontaktstelle.",
+    "implementationSteps": "Überprüfen Sie regelmäßig, zum Beispiel einmal im Jahr, alle Registrierungsdaten wie Kontakte, IP-Bereiche und Firmendetails auf Richtigkeit.\nMelden Sie Änderungen innerhalb von 2 Wochen beim BSI und speichern Sie die Bestätigung.\nStellen Sie sicher, dass Ihre BSI-Kontaktperson einen Stellvertreter hat.\nProtokollieren Sie jede Prüfung und Meldung mit Datum.\nPlanen Sie den nächsten Review-Termin ein.",
+    "evidenceExample": "Ein Protokoll der letzten Überprüfung, das zeigt, welche Daten geprüft wurden und dass alles aktuell ist, plus Nachweise über gemeldete Änderungen mit BSI-Bestätigung und Beleg für die Erreichbarkeit der Kontaktstelle.",
     "fields": {
       "contactPersonName": {
         "label": "Contact Person Name",
@@ -1183,13 +1183,13 @@
       "lastRegistrationUpdate": {
         "label": "Last Registration Update",
         "meaning": "Das Datum der letzten Überprüfung oder Aktualisierung Ihrer BSI-Registrierung.",
-        "example": "2024-03-15",
+        "example": "2026-06-15",
         "whereToFind": "In Ihrem BSI-Konto unter Aktualisierungsprotokoll oder in internen Dokumenten"
       },
       "nextRegistrationUpdate": {
         "label": "Next Registration Update",
-        "meaning": "Das geplante Datum für die nächste jährliche Prüfung der Registrierung.",
-        "example": "2025-03-15",
+        "meaning": "Das geplante Datum für die nächste Prüfung der Registrierung.",
+        "example": "2027-06-15",
         "whereToFind": "Aus Ihrem internen Planungskalender oder dem letzten Review-Protokoll"
       }
     }

@@ -27,10 +27,10 @@ const quiz = quizSchema.parse({
       correctIndex: 1,
       explanation: {
         en: "Article 21(1) requires 'appropriate and proportionate' measures based on how likely a bad event is and how bad it would be - likelihood and impact.",
-        de: "Artikel 21 Absatz 1 verlangt 'angemessene und verhältnismäßige' Maßnahmen basierend auf der Wahrscheinlichkeit eines Vorfalls und dessen Schwere - Eintrittswahrscheinlichkeit und Auswirkung.",
+        de: "Artikel 21 Absatz 1 verlangt 'geeignete und verhältnismäßige' Maßnahmen basierend auf der Wahrscheinlichkeit eines Vorfalls und dessen Schwere - Eintrittswahrscheinlichkeit und Auswirkung.",
         nl: "Artikel 21(1) vereist 'passende en evenredige' maatregelen op basis van hoe waarschijnlijk een incident is en hoe ernstig de gevolgen zouden zijn - waarschijnlijkheid en impact.",
         fr: "L'article 21(1) exige des mesures 'appropriées et proportionnées' fondées sur la probabilité d'un événement néfaste et sur sa gravité : probabilité et impact.",
-        it: "L'articolo 21(1) richiede misure 'appropriate e proporzionate' basate sulla probabilità di un evento dannoso e sulla sua gravità: probabilità e impatto.",
+        it: "L'articolo 21(1) richiede misure 'adeguate e proporzionate' basate sulla probabilità di un evento dannoso e sulla sua gravità: probabilità e impatto.",
         es: "El artículo 21(1) exige medidas 'adecuadas y proporcionadas' basadas en la probabilidad de un suceso adverso y en su gravedad: probabilidad e impacto.",
         pl: "Artykuł 21(1) wymaga środków 'odpowiednich i proporcjonalnych' opartych na tym, jak prawdopodobne jest niekorzystne zdarzenie i jak poważne byłyby jego skutki: prawdopodobieństwo i skutek.",
         cs: "Článek 21(1) vyžaduje 'vhodná a přiměřená' opatření podle toho, jak pravděpodobná je nepříznivá událost a jak by byla závažná: pravděpodobnost a dopad.",

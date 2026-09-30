@@ -1331,7 +1331,7 @@
           },
           "training": {
             "title": "Szkolenie (Schulung)",
-            "description": "Obowiązkowy osobisty udział w szkoleniach z cyberbezpieczeństwa co najmniej raz na 3 lata. Tego obowiązku nie można delegować."
+            "description": "Obowiązkowy osobisty udział w regularnych szkoleniach z cyberbezpieczeństwa; §38 ust. 3 BSIG nie określa stałego odstępu. Tego obowiązku nie można delegować."
           }
         },
         "liability": "Członkowie kierownictwa ponoszą osobistą odpowiedzialność wobec własnej spółki, gdy w sposób zawiniony naruszają te obowiązki. Delegowanie zadań operacyjnych jest dozwolone, jednak odpowiedzialność strategiczna i nadzór pozostają przy kierownictwie. Kierownictwo nie może powoływać się na brak wiedzy technicznej jako linię obrony.",
@@ -2000,7 +2000,7 @@
               "Brak 10 kwestionariuszy na dostawcę. Dostawca obsługujący 10 klientów NIS2 wypełnia obecnie 10 różnych kwestionariuszy bezpieczeństwa. Dzięki Profilowi Dostawcy NIS2 - otwartemu standardowi, niezależnemu od platformy GRC - wypełnia jeden. Największa pojedyncza oszczędność w tej puli.",
               "Brak sporządzania zgłoszeń incydentów pod presją terminu. Zgłoszenia 24h/72h/1 miesiąca opierają się na szablonach gotowych do formatu BSI, zamiast być pisane od zera, gdy zegar tyka.",
               "Brak osobnego cyklu przygotowań do audytu. Dowody gotowe do audytu są generowane na bieżąco w miarę wykonywania pracy, a nie zbierane w panice na miesiąc przed.",
-              "Brak narzutu nadmiernej inżynierii. Konsultanci zawyżają zakres, aby naliczyć więcej godzin. Platforma ogranicza do 'odpowiednich i proporcjonalnych' (§30(1) BSIG) - firmy nie płacą za zbędne środki kontrolne."
+              "Brak narzutu nadmiernej inżynierii. Konsultanci zawyżają zakres, aby naliczyć więcej godzin. Platforma ogranicza do 'odpowiednich, proporcjonalnych i skutecznych' (§30(1) BSIG) - firmy nie płacą za zbędne środki kontrolne."
             ]
           },
           "software": {
@@ -4006,7 +4006,7 @@
         "items": {
           "check": {
             "title": "1. Potwierdź, że faktycznie podlegasz zakresowi",
-            "description": "Zanim się zarejestrujesz, zweryfikuj, czy NIS2 dotyczy Twojej firmy. Kryteria są w §28 BSIG: musisz działać w jednym z 18 wymienionych sektorów ORAZ spełniać próg wielkości (50+ pracowników lub 10 mln EUR+ rocznego obrotu). Jeśli nie masz pewności, sprawdź listy sektorów BSI w Załączniku I i Załączniku II do dyrektywy NIS2. Wiele firm zakłada, że są poza zakresem, podczas gdy nie są, i odwrotnie. Jeśli naprawdę masz wątpliwości, uzyskaj opinię prawną przed rejestracją, ale nie wykorzystuj niepewności jako wymówki do zwłoki."
+            "description": "Zanim się zarejestrujesz, zweryfikuj, czy NIS2 dotyczy Twojej firmy. Kryteria są w §28 BSIG: musisz działać w jednym z 18 wymienionych sektorów ORAZ spełniać próg wielkości (co najmniej 50 pracowników lub roczny obrót i roczna suma bilansowa, każde powyżej 10 mln EUR). Jeśli nie masz pewności, sprawdź listy sektorów BSI w Załączniku I i Załączniku II do dyrektywy NIS2. Wiele firm zakłada, że są poza zakresem, podczas gdy nie są, i odwrotnie. Jeśli naprawdę masz wątpliwości, uzyskaj opinię prawną przed rejestracją, ale nie wykorzystuj niepewności jako wymówki do zwłoki."
           },
           "register": {
             "title": "2. Zarejestruj się przez portal BSI niezwłocznie",
@@ -4256,7 +4256,7 @@
         },
         "bsig": {
           "term": "BSIG (BSI-Gesetz)",
-          "definition": "Niemiecka ustawa federalna regulująca BSI (Federalny Urząd Bezpieczeństwa Informacji) oraz obowiązki w zakresie cyberbezpieczeństwa. NIS2UmsuCG znowelizowała BSIG, włączając wszystkie wymogi NIS2. Gdy ktoś mówi 'zgodność z NIS2 w Niemczech', ma na myśli zgodność ze znowelizowaną BSIG. To jest prawo, które ma do Ciebie zastosowanie - nie sama dyrektywa NIS2.",
+          "definition": "Niemiecka ustawa federalna regulująca BSI (Federalny Urząd Bezpieczeństwa Informacji) oraz obowiązki w zakresie cyberbezpieczeństwa. NIS2UmsuCG znowelizowała BSIG i transponuje NIS2 w Niemczech głównie za jego pośrednictwem. Gdy ktoś mówi 'zgodność z NIS2 w Niemczech', ma na myśli zgodność ze znowelizowaną BSIG. To jest prawo, które ma do Ciebie zastosowanie - nie sama dyrektywa NIS2.",
           "german": "Gesetz über das Bundesamt für Sicherheit in der Informationstechnik",
           "legalRef": "BSIG w brzmieniu zmienionym przez NIS2UmsuCG"
         },
@@ -4267,7 +4267,7 @@
         },
         "cir2024": {
           "term": "CIR 2024/2690",
-          "definition": "Rozporządzenie wykonawcze UE, które określa dokładne wymogi techniczne i metodologiczne dla podmiotów NIS2. W przeciwieństwie do dyrektywy, ma ono bezpośrednie zastosowanie we wszystkich państwach członkowskich bez transpozycji. Szczegółowo opisuje, co 'odpowiednie środki cyberbezpieczeństwa' faktycznie oznaczają w praktyce - traktuj je jako techniczny zbiór zasad uzupełniający szczegóły, które dyrektywa pozostawiła otwarte.",
+          "definition": "Rozporządzenie wykonawcze UE, które określa wymogi techniczne i metodologiczne dotyczące środków z art. 21 ust. 2 NIS2, ale tylko dla określonych rodzajów podmiotów: dostawców usług DNS, rejestrów nazw TLD, dostawców usług chmurowych, dostawców usług ośrodka przetwarzania danych, dostawców sieci dostarczania treści, dostawców usług zarządzanych, dostawców usług zarządzanych w zakresie bezpieczeństwa, dostawców internetowych platform handlowych, wyszukiwarek internetowych oraz platform usług sieci społecznościowych i dostawców usług zaufania. W przeciwieństwie do dyrektywy, ma ono bezpośrednie zastosowanie we wszystkich państwach członkowskich bez transpozycji. Dla tych podmiotów szczegółowo opisuje, co 'odpowiednie środki cyberbezpieczeństwa' faktycznie oznaczają w praktyce - traktuj je jako techniczny zbiór zasad uzupełniający szczegóły, które dyrektywa pozostawiła otwarte.",
           "legalRef": "Rozporządzenie wykonawcze Komisji (UE) 2024/2690"
         },
         "bsiRegistration": {
@@ -4284,7 +4284,7 @@
         },
         "riskManagement": {
           "term": "Środki zarządzania ryzykiem",
-          "definition": "Dziesięć kategorii środków cyberbezpieczeństwa, które wszystkie podmioty NIS2 muszą wdrożyć na podstawie §30 BSIG. Obejmują one od oceny ryzyka i obsługi incydentów po bezpieczeństwo łańcucha dostaw i kryptografię. Muszą być 'odpowiednie i proporcjonalne' do Twojej wielkości i profilu ryzyka - od 50-osobowej firmy gospodarki odpadami nie oczekuje się wdrożenia tych samych zabezpieczeń co od Deutsche Telekom.",
+          "definition": "Dziesięć kategorii środków cyberbezpieczeństwa, które wszystkie podmioty NIS2 muszą wdrożyć na podstawie §30 BSIG. Obejmują one od oceny ryzyka i obsługi incydentów po bezpieczeństwo łańcucha dostaw i kryptografię. Muszą być 'odpowiednie, proporcjonalne i skuteczne'; przy ocenie proporcjonalności uwzględnia się m.in. Twoją wielkość i narażenie na ryzyko - od 50-osobowej firmy gospodarki odpadami nie oczekuje się wdrożenia tych samych zabezpieczeń co od Deutsche Telekom.",
           "german": "Risikomanagementmaßnahmen",
           "legalRef": "§30 ust. 2 BSIG"
         },
@@ -4317,7 +4317,7 @@
         },
         "section30": {
           "term": "§30 BSIG - środki cyberbezpieczeństwa",
-          "definition": "Centralny przepis NIS2 w prawie niemieckim. Wymienia dziesięć kategorii środków zarządzania ryzykiem cyberbezpieczeństwa, które wszystkie podmioty objęte zakresem muszą wdrożyć. Obejmuje ocenę ryzyka, obsługę incydentów, ciągłość działania, bezpieczeństwo łańcucha dostaw, bezpieczny rozwój, ocenę skuteczności, szkolenia, kryptografię, kontrolę dostępu oraz uwierzytelnianie wieloskładnikowe. Środki muszą być 'odpowiednie i proporcjonalne' - nie złocone ponad miarę, ale rzeczywiste.",
+          "definition": "Centralny przepis NIS2 w prawie niemieckim. Wymienia dziesięć kategorii środków zarządzania ryzykiem cyberbezpieczeństwa, które wszystkie podmioty objęte zakresem muszą wdrożyć. Obejmuje ocenę ryzyka, obsługę incydentów, ciągłość działania, bezpieczeństwo łańcucha dostaw, bezpieczny rozwój, ocenę skuteczności, szkolenia, kryptografię, kontrolę dostępu oraz uwierzytelnianie wieloskładnikowe. Środki muszą być 'odpowiednie, proporcjonalne i skuteczne' - nie złocone ponad miarę, ale rzeczywiste.",
           "legalRef": "§30 BSIG"
         },
         "section32": {
@@ -4469,7 +4469,7 @@
         "heading": "Co odróżnia firmy odpadowe",
         "p1": "Firmy odpadowe mają unikalny profil ryzyka. W przeciwieństwie do firmy programistycznej, gdzie niemal wszystko jest cyfrowe, operacje odpadowe obejmują procesy fizyczne: ciężarówki na drogach, materiały w ruchu, sprzęt w obiektach. Cyberatak na zarządzanie flotą ma natychmiastowe konsekwencje w świecie fizycznym. Ten wymiar technologii operacyjnej oznacza, że Twoja ocena ryzyka powinna uwzględniać zarówno systemy IT, jak i wszelkie sterowania przemysłowe.",
         "p2": "Większość firm odpadowych mocno zleca na zewnątrz. Wiele działa z małym wewnętrznym zespołem IT (albo całkowicie bez dedykowanego personelu IT) i polega na zewnętrznych dostawcach od poczty po ERP i zarządzanie flotą. W ramach NIS2 możesz zlecać operacje na zewnątrz, ale nie odpowiedzialność - §30 BSIG czyni Twoją firmę odpowiedzialną za środki bezpieczeństwa, nawet gdy dostarcza je dostawca. To czyni zarządzanie dostawcami Twoją najważniejszą dźwignią zgodności.",
-        "p3": "Pozytywna strona: środowiska IT firm odpadowych są zazwyczaj nieskomplikowane. 100-osobowa firma odpadowa ma być może od 6 do 10 odrębnych grup systemów, w porównaniu z 30 lub więcej dla banku czy szpitala podobnej wielkości. Oznacza to, że nakład pracy na zgodność jest proporcjonalny - mówimy o tygodniach skupionej pracy, a nie o wieloletnim programie. Standard 'odpowiednie i proporcjonalne' BSI działa tu na Twoją korzyść."
+        "p3": "Pozytywna strona: środowiska IT firm odpadowych są zazwyczaj nieskomplikowane. 100-osobowa firma odpadowa ma być może od 6 do 10 odrębnych grup systemów, w porównaniu z 30 lub więcej dla banku czy szpitala podobnej wielkości. Oznacza to, że nakład pracy na zgodność jest proporcjonalny - mówimy o tygodniach skupionej pracy, a nie o wieloletnim programie. Test proporcjonalności z §30 ust. 1 BSIG działa tu na Twoją korzyść."
       },
       "faq": {
         "heading": "Najczęściej zadawane pytania",
@@ -6197,7 +6197,7 @@
       "penalties": {
         "q1": {
           "q": "Co się dzieje, jeżeli zobowiązana firma zgłosi incydent z opóźnieniem lub w ogóle nie zgłosi go właściwemu organowi? Kto sprawdza, czy incydenty podlegające zgłoszeniu zostały prawidłowo zgłoszone?",
-          "a": "Obowiązek zgłaszania wynika z artykułu 23 dyrektywy NIS2: wczesne ostrzeżenie w ciągu 24 godzin, zgłoszenie w ciągu 72 godzin i sprawozdanie końcowe w ciągu jednego miesiąca od poważnego incydentu (transponowany w Niemczech w §32 BSIG). Spóźnione zgłoszenie, lub jego brak, jest naruszeniem obowiązku, które właściwy organ (BSI dla większości podmiotów) może sankcjonować na podstawie reguł nadzoru i egzekwowania z artykułów 31 do 34 (§§61 i nast. oraz §65 BSIG). Możliwe środki obejmują instrukcje, wiążące nakazy i kary pieniężne, których wysokość zależy od typu podmiotu: dla podmiotów kluczowych artykuł 34 ustala górną granicę na co najmniej 10 milionów euro lub 2 procent ogólnoświatowego rocznego obrotu (w zależności od tego, która wartość jest wyższa), a dla podmiotów ważnych co najmniej 7 milionów euro lub 1,4 procent. Organ ocenia, czy zgłoszenie zostało dokonane prawidłowo, na podstawie złożonego zgłoszenia i może je zweryfikować poprzez swoje uprawnienia nadzorcze z artykułów 32 i 33 (takie jak żądania informacji, audyty, kontrole na miejscu). Terminowe, kompletne zgłoszenie w przepisanym formacie jest zatem najbezpieczniejszą drogą. Przewodnik krok po kroku dotyczący obowiązku i organu znajdziesz pod [Rejestracja i obowiązek zgłaszania](/wiki/anwendungsbereich/nis2-registrierung)."
+          "a": "Obowiązek zgłaszania wynika z artykułu 23 dyrektywy NIS2: wczesne ostrzeżenie w ciągu 24 godzin, zgłoszenie w ciągu 72 godzin i sprawozdanie końcowe najpóźniej miesiąc po tym zgłoszeniu (transponowany w Niemczech w §32 BSIG). Spóźnione zgłoszenie, lub jego brak, jest naruszeniem obowiązku, które właściwy organ (BSI dla większości podmiotów) może sankcjonować na podstawie reguł nadzoru i egzekwowania z artykułów 31 do 34 (§§61 i nast. oraz §65 BSIG). Możliwe środki obejmują instrukcje, wiążące nakazy i kary pieniężne, których wysokość zależy od typu podmiotu: dla podmiotów kluczowych artykuł 34 ustala górną granicę na co najmniej 10 milionów euro lub 2 procent ogólnoświatowego rocznego obrotu (w zależności od tego, która wartość jest wyższa), a dla podmiotów ważnych co najmniej 7 milionów euro lub 1,4 procent. Organ ocenia, czy zgłoszenie zostało dokonane prawidłowo, na podstawie złożonego zgłoszenia i może je zweryfikować poprzez swoje uprawnienia nadzorcze z artykułów 32 i 33 (takie jak żądania informacji, audyty, kontrole na miejscu). Terminowe, kompletne zgłoszenie w przepisanym formacie jest zatem najbezpieczniejszą drogą. Przewodnik krok po kroku dotyczący obowiązku i organu znajdziesz pod [Rejestracja i obowiązek zgłaszania](/wiki/anwendungsbereich/nis2-registrierung)."
         }
       },
       "liability": {
@@ -6211,7 +6211,7 @@
         },
         "q3": {
           "q": "Czy zarząd musi uczestniczyć w szkoleniu?",
-          "a": "Tak. Zarząd podmiotów kluczowych i ważnych musi regularnie uczestniczyć w szkoleniach z cyberbezpieczeństwa (art. 20 ust. 2 dyrektywy NIS2, w Niemczech sekcja 38 ust. 3 BSIG). Celem jest, aby zarząd potrafił rozpoznawać ryzyka, oceniać środki zarządzania ryzykiem i szacować ich wpływ na usługi. Dyrektywa nie wymienia minimalnej liczby godzin ani stałych odstępów; w swoich wytycznych BSI zaleca coroczne odświeżenie i podaje około czterech godzin jako orientacyjną wartość zakresu. Ten obowiązek dotyczy każdej osoby powołanej do kierowania podmiotem na mocy ustawy, statutu lub umowy spółki, i nie może być delegowany."
+          "a": "Tak. Zarząd podmiotów kluczowych i ważnych musi regularnie uczestniczyć w szkoleniach z cyberbezpieczeństwa (art. 20 ust. 2 dyrektywy NIS2, w Niemczech sekcja 38 ust. 3 BSIG). Celem jest, aby zarząd potrafił rozpoznawać ryzyka, oceniać środki zarządzania ryzykiem i szacować ich wpływ na usługi. Ani dyrektywa, ani BSIG nie określają minimalnej liczby godzin ani stałych odstępów. W swoich wytycznych BSI zaleca gruntowne szkolenie wstępne, a następnie regularne szkolenia uzupełniające; czas trwania i odstępy zależą od narażenia podmiotu na ryzyko i umiejętności zarządu. Ten obowiązek dotyczy każdej osoby powołanej do kierowania podmiotem na mocy ustawy, statutu lub umowy spółki, i nie może być delegowany."
         },
         "q4": {
           "q": "Czy zarząd może delegować swój obowiązek szkoleniowy?",
@@ -10030,7 +10030,7 @@
         "regulation": {
           "label": "Zalecenie 2003/361/WE, załącznik artykuł 2",
           "quote": "Do kategorii mikroprzedsiębiorstw oraz małych i średnich przedsiębiorstw (MŚP) należą przedsiębiorstwa, które zatrudniają mniej niż 250 pracowników i których roczny obrót nie przekracza 50 milionów EUR lub roczna suma bilansowa nie przekracza 43 milionów EUR.",
-          "context": "Oficjalna unijna definicja wielkości. Średnie zaczyna się od 50 pracowników oraz co najmniej 10 milionów EUR obrotu i 10 milionów EUR sumy bilansowej. NIS 2 obejmuje cię od średniego wzwyż. 'Przekracza pułapy dla średnich' w artykule 2 ust. 1 oznacza duże przedsiębiorstwo wedle tego samego zalecenia. Przedsiębiorstwa powiązane i partnerskie sumuje się, więc mała spółka zależna dużej spółki dominującej często liczy się jako duża."
+          "context": "Oficjalna unijna definicja wielkości. Średnie zaczyna się od 50 pracowników albo od obrotu i sumy bilansowej, każde powyżej 10 milionów EUR. NIS 2 obejmuje cię od średniego wzwyż. 'Przekracza pułapy dla średnich' w artykule 2 ust. 1 oznacza duże przedsiębiorstwo wedle tego samego zalecenia. Przedsiębiorstwa powiązane i partnerskie sumuje się, więc mała spółka zależna dużej spółki dominującej często liczy się jako duża."
         },
         "transposition": {
           "label": "§28 BSIG (Niemcy)",
@@ -19676,7 +19676,7 @@
         "definition": {
           "label": "Art. 2 + Załącznik I/II NIS 2 (sektor + wielkość)",
           "quote": "This Directive applies to public or private entities of a type referred to in Annex I or II which qualify as medium-sized enterprises under Article 2 of the Annex to Recommendation 2003/361/EC, or which exceed the ceilings for medium-sized enterprises.",
-          "context": "Dwa pytania decydują o objęciu zakresem: czy jesteś typem z Załącznika I lub II oraz czy jesteś co najmniej średniej wielkości (50+ pracowników i albo >10 mln EUR obrotu, albo >10 mln EUR sumy bilansowej). Plus nadrzędne wyłączenia 'niezależnie od wielkości' dla usług zaufania, DNS, rejestrów TLD, administracji publicznej, jedynych dostawców w państwie członkowskim."
+          "context": "Dwa pytania decydują o objęciu zakresem: czy jesteś typem z Załącznika I lub II oraz czy jesteś co najmniej średniej wielkości (50+ pracowników albo obrót i suma bilansowa, każde powyżej 10 mln EUR). Plus nadrzędne wyłączenia 'niezależnie od wielkości' dla usług zaufania, DNS, rejestrów TLD, administracji publicznej, jedynych dostawców w państwie członkowskim."
         }
       },
       "howItWorks": {

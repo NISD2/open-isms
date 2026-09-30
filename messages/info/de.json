@@ -1577,7 +1577,7 @@
           },
           "training": {
             "title": "Schulung",
-            "description": "Verpflichtende persönliche Teilnahme an Cybersicherheitsschulungen mindestens alle 3 Jahre. Diese Pflicht ist nicht delegierbar."
+            "description": "Verpflichtende persönliche Teilnahme an regelmäßigen Cybersicherheitsschulungen; ein festes Intervall schreibt § 38 Abs. 3 BSIG nicht vor. Diese Pflicht ist nicht delegierbar."
           }
         },
         "liability": "Geschäftsführer haften persönlich gegenüber ihrem eigenen Unternehmen, wenn sie diese Pflichten schuldhaft verletzen. Die Delegation operativer Aufgaben ist zulässig, die strategische Verantwortung und Überwachung verbleibt bei der Geschäftsführung. Mangelnde technische Kenntnisse sind kein Enthaftungsgrund.",
@@ -2246,7 +2246,7 @@
               "Keine 10 Fragebögen pro Lieferant. Ein Lieferant, der 10 NIS2-Kunden bedient, füllt derzeit 10 verschiedene Sicherheitsfragebögen aus. Mit dem NIS2-Lieferantenprofil - ein offener Standard, GRC-Plattform-unabhängig - füllt er einen aus. Die größte Einzelersparnis in diesem Bereich.",
               "Kein Vorfallbericht-Schreiben unter Fristdruck. Die 24h/72h/1m-Berichte folgen BSI-formatfertigen Vorlagen, statt unter laufender Uhr von Grund auf geschrieben zu werden.",
               "Kein separater Audit-Vorbereitungszyklus. Auditfähige Nachweise entstehen kontinuierlich während der Arbeit - nicht in Panik im Monat davor.",
-              "Kein Übertechnik-Aufschlag. Berater übertechnisieren, um mehr Stunden abzurechnen. Die Plattform beschränkt sich auf 'angemessen und verhältnismäßig' (§30(1) BSIG) - Unternehmen zahlen nicht für unnötige Kontrollen."
+              "Kein Übertechnik-Aufschlag. Berater übertechnisieren, um mehr Stunden abzurechnen. Die Plattform beschränkt sich auf 'geeignet, verhältnismäßig und wirksam' (§30(1) BSIG) - Unternehmen zahlen nicht für unnötige Kontrollen."
             ]
           },
           "software": {
@@ -3197,7 +3197,7 @@
         "transposition": {
           "label": "ENISA Technical Implementation Guidance",
           "quote": "Die Leitlinie von ENISA bietet praktische Hinweise, Beispiele für Nachweise und Zuordnungen von Sicherheitsanforderungen, um Unternehmen bei der Umsetzung der Verordnung zu unterstützen.",
-          "context": "Der TIG ist freiwillig. Er wird von ENISA herausgegeben, nicht von der Kommission und nicht von den Mitgliedstaaten. Er schafft keine neuen Pflichten. Nationale Behörden und Prüfer zitieren ihn aber regelmäßig als sachgerechte Auslegung der Anforderung „angemessen und verhältnismäßig“ nach Artikel 21 Absatz 1. Wenn Sie davon abweichen, brauchen Sie dafür eine Begründung."
+          "context": "Der TIG ist freiwillig. Er wird von ENISA herausgegeben, nicht von der Kommission und nicht von den Mitgliedstaaten. Er schafft keine neuen Pflichten. Nationale Behörden und Prüfer zitieren ihn aber regelmäßig als sachgerechte Auslegung der Anforderung „geeignet und verhältnismäßig“ nach Artikel 21 Absatz 1. Wenn Sie davon abweichen, brauchen Sie dafür eine Begründung."
         }
       },
       "elements": {
@@ -4245,7 +4245,7 @@
         "items": {
           "check": {
             "title": "1. Bestätigen Sie, dass Sie tatsächlich betroffen sind",
-            "description": "Bevor Sie sich registrieren, prüfen Sie, ob NIS2 auf Ihr Unternehmen zutrifft. Die Kriterien stehen in §28 BSIG: Sie müssen in einem der 18 aufgelisteten Sektoren tätig sein UND die Größenschwelle erreichen (50+ Mitarbeiter oder 10 Mio. EUR+ Jahresumsatz). Bei Unsicherheit prüfen Sie die BSI-Sektorlisten in Anhang I und Anhang II der NIS2-Richtlinie. Viele Unternehmen nehmen an, dass sie nicht betroffen sind, obwohl sie es sind - und umgekehrt. Bei echter Unsicherheit holen Sie eine rechtliche Einschätzung ein, aber nutzen Sie Unsicherheit nicht als Vorwand zum Aufschieben."
+            "description": "Bevor Sie sich registrieren, prüfen Sie, ob NIS2 auf Ihr Unternehmen zutrifft. Die Kriterien stehen in §28 BSIG: Sie müssen in einem der 18 aufgelisteten Sektoren tätig sein UND die Größenschwelle erreichen (mindestens 50 Mitarbeiter oder jeweils über 10 Mio. EUR Jahresumsatz und Jahresbilanzsumme). Bei Unsicherheit prüfen Sie die BSI-Sektorlisten in Anhang I und Anhang II der NIS2-Richtlinie. Viele Unternehmen nehmen an, dass sie nicht betroffen sind, obwohl sie es sind - und umgekehrt. Bei echter Unsicherheit holen Sie eine rechtliche Einschätzung ein, aber nutzen Sie Unsicherheit nicht als Vorwand zum Aufschieben."
           },
           "register": {
             "title": "2. Sofort über das BSI-Portal registrieren",
@@ -4495,7 +4495,7 @@
         },
         "bsig": {
           "term": "BSIG (BSI-Gesetz)",
-          "definition": "Das Gesetz über das Bundesamt für Sicherheit in der Informationstechnik - die deutsche Umsetzung der NIS2-Richtlinie. Das NIS2UmsuCG hat das BSIG grundlegend novelliert und alle NIS2-Pflichten in deutsches Recht überführt. Wer in Deutschland von NIS2-Compliance spricht, meint die Einhaltung des novellierten BSIG - nicht der EU-Richtlinie selbst.",
+          "definition": "Das Gesetz über das Bundesamt für Sicherheit in der Informationstechnik - die deutsche Umsetzung der NIS2-Richtlinie. Das NIS2UmsuCG hat das BSIG grundlegend novelliert und setzt NIS2 in Deutschland im Wesentlichen über dieses Gesetz um. Wer in Deutschland von NIS2-Compliance spricht, meint die Einhaltung des novellierten BSIG - nicht der EU-Richtlinie selbst.",
           "german": "Gesetz über das Bundesamt für Sicherheit in der Informationstechnik",
           "legalRef": "BSIG in der Fassung des NIS2UmsuCG"
         },
@@ -4506,7 +4506,7 @@
         },
         "cir2024": {
           "term": "CIR 2024/2690",
-          "definition": "Die Durchführungsverordnung (EU) 2024/2690 der Europäischen Kommission, die die genauen technischen und methodischen Anforderungen an NIS2-Einrichtungen konkretisiert. Anders als die Richtlinie gilt sie unmittelbar in allen EU-Mitgliedstaaten ohne nationale Umsetzung. Sie definiert, was ‚angemessene Cybersicherheitsmaßnahmen' in der Praxis bedeuten - das technische Regelwerk, das die offenen Details der Richtlinie ausfüllt.",
+          "definition": "Die Durchführungsverordnung (EU) 2024/2690 der Europäischen Kommission. Sie legt die technischen und methodischen Anforderungen an die Maßnahmen nach Artikel 21 Absatz 2 NIS2 fest, aber nur für bestimmte Einrichtungsarten: DNS-Diensteanbieter, Top Level Domain Name Registries, Cloud-Computing-Dienstleister, Anbieter von Rechenzentrumsdiensten, Betreiber von Content Delivery Networks, Managed Service Provider, Managed Security Service Provider, Anbieter von Online-Marktplätzen, Online-Suchmaschinen und Plattformen für Dienste sozialer Netzwerke sowie Vertrauensdiensteanbieter. Anders als die Richtlinie gilt sie unmittelbar in allen EU-Mitgliedstaaten ohne nationale Umsetzung. Für diese Einrichtungen definiert sie, was ‚angemessene Cybersicherheitsmaßnahmen' in der Praxis bedeuten - das technische Regelwerk, das die offenen Details der Richtlinie ausfüllt.",
           "legalRef": "Durchführungsverordnung (EU) 2024/2690"
         },
         "bsiRegistration": {
@@ -4523,7 +4523,7 @@
         },
         "riskManagement": {
           "term": "Risikomanagementmaßnahmen",
-          "definition": "Die zehn Kategorien von Cybersicherheitsmaßnahmen, die alle NIS2-Einrichtungen nach §30 BSIG umsetzen müssen. Sie reichen von Risikoanalyse und Vorfallbehandlung bis zu Lieferkettensicherheit und Kryptografie. Die Maßnahmen müssen ‚angemessen und verhältnismäßig' zu Größe und Risikoprofil sein - von einem 50-Personen-Entsorgungsbetrieb werden nicht die gleichen Kontrollen erwartet wie von der Deutschen Telekom.",
+          "definition": "Die zehn Kategorien von Cybersicherheitsmaßnahmen, die alle NIS2-Einrichtungen nach §30 BSIG umsetzen müssen. Sie reichen von Risikoanalyse und Vorfallbehandlung bis zu Lieferkettensicherheit und Kryptografie. Die Maßnahmen müssen ‚geeignet, verhältnismäßig und wirksam' sein; für die Verhältnismäßigkeit zählen unter anderem Größe und Risikoexposition - von einem 50-Personen-Entsorgungsbetrieb werden nicht die gleichen Kontrollen erwartet wie von der Deutschen Telekom.",
           "german": "Risikomanagementmaßnahmen",
           "legalRef": "§30 Abs. 2 BSIG"
         },
@@ -4556,7 +4556,7 @@
         },
         "section30": {
           "term": "§30 BSIG - Risikomanagementmaßnahmen",
-          "definition": "Die zentrale Vorschrift der NIS2-Umsetzung im deutschen Recht. Listet zehn Kategorien von Cybersicherheits-Risikomanagementmaßnahmen, die alle betroffenen Einrichtungen umsetzen müssen: Risikoanalyse, Vorfallbehandlung, Business Continuity, Lieferkettensicherheit, sichere Entwicklung, Wirksamkeitsbewertung, Schulung, Kryptografie, Zugangskontrolle und Mehrstufige Authentifizierung. Die Maßnahmen müssen ‚angemessen und verhältnismäßig' sein - nicht vergoldet, aber ernsthaft.",
+          "definition": "Die zentrale Vorschrift der NIS2-Umsetzung im deutschen Recht. Listet zehn Kategorien von Cybersicherheits-Risikomanagementmaßnahmen, die alle betroffenen Einrichtungen umsetzen müssen: Risikoanalyse, Vorfallbehandlung, Business Continuity, Lieferkettensicherheit, sichere Entwicklung, Wirksamkeitsbewertung, Schulung, Kryptografie, Zugangskontrolle und Mehrstufige Authentifizierung. Die Maßnahmen müssen ‚geeignet, verhältnismäßig und wirksam' sein - nicht vergoldet, aber ernsthaft.",
           "legalRef": "§30 BSIG"
         },
         "section32": {
@@ -4708,7 +4708,7 @@
         "heading": "Was Entsorgungsunternehmen besonders macht",
         "p1": "Entsorgungsunternehmen haben ein einzigartiges Risikoprofil. Anders als bei einem Softwareunternehmen, wo fast alles digital ist, beinhaltet die Abfallwirtschaft physische Prozesse: Fahrzeuge auf der Straße, Material in Bewegung, Anlagen an Standorten. Ein Cyberangriff auf das Fuhrparkmanagement hat unmittelbare Auswirkungen in der physischen Welt. Diese OT-Dimension bedeutet, dass Ihre Risikobewertung sowohl IT-Systeme als auch Industriesteuerungen berücksichtigen sollte.",
         "p2": "Die meisten Entsorgungsunternehmen lagern umfangreich aus. Viele arbeiten mit einem kleinen internen IT-Team (oder ganz ohne eigene IT-Mitarbeiter) und setzen für alles von E-Mail über ERP bis Fuhrparkmanagement auf externe Dienstleister. Unter NIS2 können Sie den Betrieb auslagern, aber nicht die Verantwortung - §30 BSIG hält Ihr Unternehmen für Sicherheitsmaßnahmen verantwortlich, auch wenn ein Dienstleister sie erbringt. Das macht Lieferantenmanagement zu Ihrem wichtigsten Compliance-Hebel.",
-        "p3": "Die positive Seite: IT-Umgebungen von Entsorgungsunternehmen sind typischerweise überschaubar. Ein 100-Personen-Entsorgungsbetrieb hat vielleicht 6 bis 10 unterschiedliche Systemgruppen, verglichen mit 30 oder mehr bei einer Bank oder einem Krankenhaus ähnlicher Größe. Das bedeutet, der Compliance-Aufwand ist verhältnismäßig - Sie sprechen von Wochen konzentrierter Arbeit, nicht von einem Mehrjahresprogramm. Der BSI-Maßstab ‚angemessen und verhältnismäßig' kommt Ihnen hier zugute."
+        "p3": "Die positive Seite: IT-Umgebungen von Entsorgungsunternehmen sind typischerweise überschaubar. Ein 100-Personen-Entsorgungsbetrieb hat vielleicht 6 bis 10 unterschiedliche Systemgruppen, verglichen mit 30 oder mehr bei einer Bank oder einem Krankenhaus ähnlicher Größe. Das bedeutet, der Compliance-Aufwand ist verhältnismäßig - Sie sprechen von Wochen konzentrierter Arbeit, nicht von einem Mehrjahresprogramm. Der Maßstab der Verhältnismäßigkeit aus § 30 Abs. 1 BSIG kommt Ihnen hier zugute."
       },
       "faq": {
         "heading": "Häufig gestellte Fragen",
@@ -4925,7 +4925,7 @@
         "items": {
           "register": {
             "title": "Beim BSI registrieren",
-            "description": "Alle betroffenen Einrichtungen müssen sich über das BSI-Portal (muk.bsi.bund.de) selbst identifizieren und registrieren. Die Registrierungsfrist war der 17. März 2025 - wer das versäumt hat, sollte die Registrierung umgehend nachholen. Allein die Nichtregistrierung kann mit bis zu 500.000 EUR Bußgeld belegt werden."
+            "description": "Alle betroffenen Einrichtungen müssen sich über das BSI-Portal (muk.bsi.bund.de) selbst identifizieren und registrieren. Die Registrierungsfrist war der 6. März 2026 - wer das versäumt hat, sollte die Registrierung umgehend nachholen. Allein die Nichtregistrierung kann mit bis zu 500.000 EUR Bußgeld belegt werden."
           },
           "assess": {
             "title": "Risiken bewerten",
@@ -4933,7 +4933,7 @@
           },
           "implement": {
             "title": "Sicherheitsmaßnahmen umsetzen",
-            "description": "§30 BSIG schreibt zehn Kategorien von Maßnahmen vor: Risikoanalyse, Vorfallbewältigung, Betriebskontinuität, Lieferkettensicherheit, Zugangskontrolle, Kryptografie, Personalschulungen und mehr. Der Umfang muss „angemessen und verhältnismäßig“ sein - ein 80-Personen-Unternehmen braucht kein SOC, aber dokumentierte Prozesse."
+            "description": "§30 BSIG schreibt zehn Kategorien von Maßnahmen vor: Risikoanalyse, Vorfallbewältigung, Betriebskontinuität, Lieferkettensicherheit, Zugangskontrolle, Kryptografie, Personalschulungen und mehr. Der Umfang muss „geeignet, verhältnismäßig und wirksam“ sein - ein 80-Personen-Unternehmen braucht kein SOC, aber dokumentierte Prozesse."
           },
           "report": {
             "title": "Meldeprozess einrichten",
@@ -4966,7 +4966,7 @@
         },
         "q4": {
           "q": "Gibt es eine Übergangsfrist?",
-          "a": "Nein. Das BSIG ist seit dem 6. Dezember 2025 in Kraft und die Pflichten gelten sofort. Die Registrierungsfrist beim BSI war der 17. März 2025, die vollständige Umsetzung der Sicherheitsmaßnahmen wird bis zum 17. Oktober 2026 erwartet. Wer jetzt erst anfängt, sollte zumindest die Registrierung sofort nachholen und einen nachvollziehbaren Umsetzungsplan dokumentieren."
+          "a": "Nein. Das BSIG ist seit dem 6. Dezember 2025 in Kraft und die Pflichten gelten sofort. Die Registrierungsfrist beim BSI war der 6. März 2026, die vollständige Umsetzung der Sicherheitsmaßnahmen wird bis zum 17. Oktober 2026 erwartet. Wer jetzt erst anfängt, sollte zumindest die Registrierung sofort nachholen und einen nachvollziehbaren Umsetzungsplan dokumentieren."
         },
         "q5": {
           "q": "Kann ich die Umsetzung komplett an einen IT-Dienstleister auslagern?",
@@ -5096,7 +5096,7 @@
       "title": "BSI-Registrierung: Schritt-für-Schritt-Anleitung",
       "subtitle": "Alle NIS2-Einrichtungen müssen sich beim BSI registrieren (§33 BSIG). Die Registrierung erfolgt über das Mein-Unternehmenskonto-Portal mit ELSTER-Authentifizierung. Diese Anleitung führt Sie durch jeden Schritt.",
       "overview": {
-        "p1": "Die BSI-Registrierung ist eine Selbstidentifikationspflicht. Das BSI informiert Sie nicht, ob Sie betroffen sind - Sie müssen das selbst feststellen und sich aktiv registrieren. Die Frist war der 17. März 2025. Wer die Registrierung noch nicht abgeschlossen hat, sollte sie umgehend nachholen, denn allein die Nichtregistrierung ist ein eigenständiger Bußgeldtatbestand (bis 500.000 EUR).",
+        "p1": "Die BSI-Registrierung ist eine Selbstidentifikationspflicht. Das BSI informiert Sie nicht, ob Sie betroffen sind - Sie müssen das selbst feststellen und sich aktiv registrieren. Die Frist war der 6. März 2026. Wer die Registrierung noch nicht abgeschlossen hat, sollte sie umgehend nachholen, denn allein die Nichtregistrierung ist ein eigenständiger Bußgeldtatbestand (bis 500.000 EUR).",
         "p2": "Die Registrierung selbst dauert etwa 30 bis 45 Minuten, wenn Sie alle Unterlagen vorbereitet haben. Der häufigste Grund für Verzögerungen: Das ELSTER-Unternehmenskonto ist nicht vorhanden oder abgelaufen. Bereiten Sie sich vor, bevor Sie das Portal öffnen."
       },
       "prep": {
@@ -5263,7 +5263,7 @@
           },
           "overscoping": {
             "title": "Übertreiben beim Umfang",
-            "description": "Ein 80-Personen-Unternehmen braucht kein Security Operations Center, keinen eigenen CISO und keine zertifizierte ISO-27001-Umgebung. Das BSIG verlangt „angemessene und verhältnismäßige“ Maßnahmen. Dokumentierte Prozesse, regelmäßige Reviews und ein klarer Meldeprozess reichen für den Anfang."
+            "description": "Ein 80-Personen-Unternehmen braucht kein Security Operations Center, keinen eigenen CISO und keine zertifizierte ISO-27001-Umgebung. Das BSIG verlangt „geeignete, verhältnismäßige und wirksame“ Maßnahmen. Dokumentierte Prozesse, regelmäßige Reviews und ein klarer Meldeprozess reichen für den Anfang."
           },
           "noOwner": {
             "title": "Keinen Verantwortlichen benennen",
@@ -5291,7 +5291,7 @@
         },
         "q4": {
           "q": "Was ist, wenn wir die Registrierung verpasst haben?",
-          "a": "Sofort nachholen. Die Registrierungsfrist war der 17. März 2025, aber eine verspätete Registrierung ist immer besser als keine. Das BSI berücksichtigt bei der Bußgeldbemessung, ob ein Unternehmen kooperiert und Versäumnisse eigenständig korrigiert. Dokumentieren Sie den Zeitpunkt der Nachregistrierung."
+          "a": "Sofort nachholen. Die Registrierungsfrist war der 6. März 2026, aber eine verspätete Registrierung ist immer besser als keine. Das BSI berücksichtigt bei der Bußgeldbemessung, ob ein Unternehmen kooperiert und Versäumnisse eigenständig korrigiert. Dokumentieren Sie den Zeitpunkt der Nachregistrierung."
         },
         "q5": {
           "q": "Reichen vier Wochen für NIS2-Compliance?",
@@ -5378,7 +5378,7 @@
         "heading": "Was Lebensmittelunternehmen besonders macht",
         "p1": "Die Lebensmittelindustrie operiert an der Schnittstelle zwischen IT und physischer Produktion. Ein Ransomware-Angriff auf das ERP stoppt nicht nur die Buchhaltung - ohne Chargenrückverfolgung dürfen fertige Produkte nicht ausgeliefert werden. Ohne Kühlkettenmonitoring müssen Waren im Zweifel vernichtet werden. Die IT-Abhängigkeit ist höher, als viele Unternehmen denken.",
         "p2": "Die bestehenden Qualitätsmanagementsysteme (IFS, BRC, HACCP) sind ein Vorteil. Unternehmen, die bereits nach IFS Food oder BRC zertifiziert sind, haben Erfahrung mit dokumentierten Prozessen, internen Audits und kontinuierlicher Verbesserung. Diese Strukturen lassen sich direkt für NIS2 nutzen. Das Risikodenken ist bereits vorhanden - es muss nur auf IT-Sicherheit ausgedehnt werden.",
-        "p3": "Die IT-Landschaft ist typischerweise überschaubar. Ein 150-Personen-Lebensmittelbetrieb hat vielleicht 8 bis 12 Asset-Gruppen. Der BSI-Grundsatz „angemessen und verhältnismäßig“ kommt Ihnen zugute: Sie müssen keine Bankensicherheit implementieren, sondern Maßnahmen, die zu Ihrem Risikoprofil passen."
+        "p3": "Die IT-Landschaft ist typischerweise überschaubar. Ein 150-Personen-Lebensmittelbetrieb hat vielleicht 8 bis 12 Asset-Gruppen. Der Grundsatz der Verhältnismäßigkeit aus § 30 Abs. 1 BSIG kommt Ihnen zugute: Sie müssen keine Bankensicherheit implementieren, sondern Maßnahmen, die zu Ihrem Risikoprofil passen."
       },
       "faq": {
         "heading": "Häufig gestellte Fragen",
@@ -6436,7 +6436,7 @@
       "penalties": {
         "q1": {
           "q": "Was passiert, wenn ein verpflichtetes Unternehmen einen Vorfall nicht rechtzeitig oder gar nicht an die zuständige Behörde meldet? Wer überprüft, ob meldepflichtige Vorfälle ordnungsgemäß gemeldet wurden?",
-          "a": "Die Meldepflicht ergibt sich aus Artikel 23 der NIS-2-Richtlinie: eine Frühwarnung binnen 24 Stunden, eine Meldung binnen 72 Stunden und ein Abschlussbericht binnen eines Monats nach dem erheblichen Sicherheitsvorfall (in Deutschland umgesetzt in §32 BSIG). Wird verspätet oder gar nicht gemeldet, ist das eine Pflichtverletzung, die die zuständige Behörde (für die meisten Einrichtungen das BSI) nach den Aufsichts- und Durchsetzungsregeln der Artikel 31 bis 34 ahnden kann (§§61 ff. und §65 BSIG). Möglich sind Anweisungen, verbindliche Auflagen und Bußgelder, deren Höhe sich nach der Einrichtungsart richtet: für wesentliche Einrichtungen sieht Artikel 34 als Obergrenze mindestens 10 Millionen Euro oder 2 Prozent des weltweiten Jahresumsatzes vor (je nachdem, was höher ist), für wichtige Einrichtungen mindestens 7 Millionen Euro oder 1,4 Prozent. Eine ordnungsgemäße Meldung prüft die Behörde anhand des eingereichten Berichts und kann sie über ihre Aufsichtsbefugnisse aus Artikel 32 und 33 (etwa Auskunftsverlangen, Prüfungen, Vor-Ort-Kontrollen) verifizieren; eine zeitnahe, vollständige Meldung im vorgeschriebenen Format ist daher der sicherste Weg. Eine Schritt-für-Schritt-Anleitung zur Pflicht und zur Behörde finden Sie unter [Registrierung und Meldepflicht](/wiki/anwendungsbereich/nis2-registrierung)."
+          "a": "Die Meldepflicht ergibt sich aus Artikel 23 der NIS-2-Richtlinie: eine Frühwarnung binnen 24 Stunden, eine Meldung binnen 72 Stunden und ein Abschlussbericht spätestens einen Monat nach dieser Meldung (in Deutschland umgesetzt in §32 BSIG). Wird verspätet oder gar nicht gemeldet, ist das eine Pflichtverletzung, die die zuständige Behörde (für die meisten Einrichtungen das BSI) nach den Aufsichts- und Durchsetzungsregeln der Artikel 31 bis 34 ahnden kann (§§61 ff. und §65 BSIG). Möglich sind Anweisungen, verbindliche Auflagen und Bußgelder, deren Höhe sich nach der Einrichtungsart richtet: für wesentliche Einrichtungen sieht Artikel 34 als Obergrenze mindestens 10 Millionen Euro oder 2 Prozent des weltweiten Jahresumsatzes vor (je nachdem, was höher ist), für wichtige Einrichtungen mindestens 7 Millionen Euro oder 1,4 Prozent. Eine ordnungsgemäße Meldung prüft die Behörde anhand des eingereichten Berichts und kann sie über ihre Aufsichtsbefugnisse aus Artikel 32 und 33 (etwa Auskunftsverlangen, Prüfungen, Vor-Ort-Kontrollen) verifizieren; eine zeitnahe, vollständige Meldung im vorgeschriebenen Format ist daher der sicherste Weg. Eine Schritt-für-Schritt-Anleitung zur Pflicht und zur Behörde finden Sie unter [Registrierung und Meldepflicht](/wiki/anwendungsbereich/nis2-registrierung)."
         }
       },
       "liability": {
@@ -6450,7 +6450,7 @@
         },
         "q3": {
           "q": "Muss die Geschäftsleitung an Schulungen teilnehmen?",
-          "a": "Ja. Die Leitung besonders wichtiger und wichtiger Einrichtungen muss regelmäßig an Cybersicherheitsschulungen teilnehmen (Art. 20 Abs. 2 NIS-2-Richtlinie, in Deutschland Paragraf 38 Abs. 3 BSIG). Ziel ist, dass die Leitung Risiken erkennen, Risikomanagementmaßnahmen bewerten und deren Auswirkungen auf die Dienste einschätzen kann. Die Richtlinie nennt keine Mindeststunden oder festen Intervalle, das BSI empfiehlt in seiner Handreichung eine jährliche Auffrischung und nennt als Orientierung etwa vier Stunden Umfang. Diese Pflicht gilt für jede Person, die kraft Gesetzes, Satzung oder Gesellschaftsvertrag zur Leitung berufen ist, und ist nicht delegierbar."
+          "a": "Ja. Die Leitung besonders wichtiger und wichtiger Einrichtungen muss regelmäßig an Cybersicherheitsschulungen teilnehmen (Art. 20 Abs. 2 NIS-2-Richtlinie, in Deutschland Paragraf 38 Abs. 3 BSIG). Ziel ist, dass die Leitung Risiken erkennen, Risikomanagementmaßnahmen bewerten und deren Auswirkungen auf die Dienste einschätzen kann. Weder die Richtlinie noch das BSIG nennen Mindeststunden oder feste Intervalle. Das BSI empfiehlt in seiner Handreichung eine ausführliche erste Schulung mit regelmäßigen Folgeschulungen; Dauer und Intervall richten sich nach der Risikoexposition der Einrichtung und den Fähigkeiten der Geschäftsleitung. Diese Pflicht gilt für jede Person, die kraft Gesetzes, Satzung oder Gesellschaftsvertrag zur Leitung berufen ist, und ist nicht delegierbar."
         },
         "q4": {
           "q": "Kann die Geschäftsleitung ihre Schulungspflicht delegieren?",
@@ -7927,7 +7927,7 @@
         "items": {
           "allHazards": {
             "title": "Die Anlagenklassifizierung bestimmt die Kryptotiefe (Art. 21(1) Verhältnismäßigkeit)",
-            "body": "Niemand fährt AES-256 mit HSM-gestützten Schlüsseln für alles. Die Kryptografie passt zur Bedeutung und Exposition der Anlage. Kundendatenbank mit personenbezogenen Daten, Finanzunterlagen, Quellcode: hohe Stufe. Interne Vorlagen und Sitzungsnotizen: niedrige Stufe. Artikel 21(1) verlangt 'angemessene und verhältnismäßige' Maßnahmen. CIR §9.2(a) baut diese Verbindung ins Konzept ein."
+            "body": "Niemand fährt AES-256 mit HSM-gestützten Schlüsseln für alles. Die Kryptografie passt zur Bedeutung und Exposition der Anlage. Kundendatenbank mit personenbezogenen Daten, Finanzunterlagen, Quellcode: hohe Stufe. Interne Vorlagen und Sitzungsnotizen: niedrige Stufe. Artikel 21(1) verlangt 'geeignete und verhältnismäßige' Maßnahmen. CIR §9.2(a) baut diese Verbindung ins Konzept ein."
           },
           "proportionality": {
             "title": "Kryptoagilität: prüfen und ersetzen (CIR §9.3)",
@@ -10284,7 +10284,7 @@
         "regulation": {
           "label": "Empfehlung 2003/361/EG, Anhang Artikel 2",
           "quote": "Die Kategorie der Kleinstunternehmen sowie der kleinen und mittleren Unternehmen (KMU) umfasst Unternehmen, die weniger als 250 Personen beschäftigen und entweder einen Jahresumsatz von höchstens 50 Millionen Euro erzielen oder eine Jahresbilanzsumme von höchstens 43 Millionen Euro aufweisen.",
-          "context": "Die offizielle EU-Größendefinition. Mittel beginnt bei 50 Beschäftigten und mindestens 10 Millionen Euro Umsatz und 10 Millionen Euro Bilanzsumme. NIS 2 erfasst Sie ab mittel aufwärts. 'Überschreitet die Obergrenzen für mittlere Unternehmen' in Artikel 2(1) bedeutet großes Unternehmen nach derselben Empfehlung. Verbundene und Partnerunternehmen werden zusammengerechnet, sodass eine kleine Tochter einer großen Muttergesellschaft oft als groß zählt."
+          "context": "Die offizielle EU-Größendefinition. Mittel beginnt bei 50 Beschäftigten oder bei Umsatz und Bilanzsumme von jeweils über 10 Millionen Euro. NIS 2 erfasst Sie ab mittel aufwärts. 'Überschreitet die Obergrenzen für mittlere Unternehmen' in Artikel 2(1) bedeutet großes Unternehmen nach derselben Empfehlung. Verbundene und Partnerunternehmen werden zusammengerechnet, sodass eine kleine Tochter einer großen Muttergesellschaft oft als groß zählt."
         },
         "transposition": {
           "label": "§28 BSIG (Deutschland)",
@@ -19930,7 +19930,7 @@
         "definition": {
           "label": "Art. 2 + Anhang I und II NIS 2 (Sektor + Größe)",
           "quote": "Diese Richtlinie gilt für öffentliche oder private Einrichtungen einer in Anhang I oder II genannten Art, die mittlere Unternehmen im Sinne von Artikel 2 des Anhangs zur Empfehlung 2003/361/EG sind oder die Schwellenwerte für mittlere Unternehmen überschreiten.",
-          "context": "Zwei Fragen entscheiden in-scope: Sind Sie eine Art aus Anhang I oder II, und sind Sie mindestens mittleres Unternehmen (ab 50 Beschäftigten und entweder >10 Mio. EUR Umsatz oder >10 Mio. EUR Bilanzsumme). Plus die 'unabhängig von der Größe'-Übersteuerungen für Vertrauensdienste, DNS, TLD-Register, öffentliche Verwaltung, Alleinanbieter in einem Mitgliedstaat."
+          "context": "Zwei Fragen entscheiden in-scope: Sind Sie eine Art aus Anhang I oder II, und sind Sie mindestens mittleres Unternehmen (ab 50 Beschäftigten oder mit Umsatz und Bilanzsumme von jeweils über 10 Mio. EUR). Plus die 'unabhängig von der Größe'-Übersteuerungen für Vertrauensdienste, DNS, TLD-Register, öffentliche Verwaltung, Alleinanbieter in einem Mitgliedstaat."
         }
       },
       "howItWorks": {

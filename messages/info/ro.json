@@ -1331,7 +1331,7 @@
           },
           "training": {
             "title": "Instruire (Schulung)",
-            "description": "Participarea personală obligatorie la instruire în securitate cibernetică cel puțin o dată la 3 ani. Această obligație nu poate fi delegată."
+            "description": "Participarea personală obligatorie la instruiri periodice în securitate cibernetică; §38 alin. (3) BSIG nu stabilește un interval fix. Această obligație nu poate fi delegată."
           }
         },
         "liability": "Conducătorii răspund personal față de propria companie atunci când încalcă din culpă aceste obligații. Delegarea sarcinilor operaționale este permisă, însă responsabilitatea strategică și supravegherea rămân la nivelul conducerii. Conducerea nu poate invoca lipsa cunoștințelor tehnice drept apărare.",
@@ -2000,7 +2000,7 @@
               "Fara 10 chestionare per furnizor. Un furnizor care serveste 10 clienti NIS2 completeaza in prezent 10 chestionare de securitate diferite. Cu NIS2 Supplier Profile, un standard deschis, independent de platforma GRC, completeaza unul singur. Cea mai mare economie individuala din aceasta categorie.",
               "Fara redactarea rapoartelor de incident sub presiunea termenului. Rapoartele de la 24h/72h/1 luna urmeaza sabloane gata pentru formatul BSI, in loc sa fie scrise de la zero cand ceasul ticaie.",
               "Fara un ciclu separat de pregatire pentru audit. Dovezile gata de audit sunt generate continuu, pe masura ce munca se intampla, nu asamblate in panica in luna dinainte.",
-              "Fara supradimensionare. Consultantii supradimensioneaza ca sa factureze mai multe ore. Platforma limiteaza la 'adecvat si proportional' (§30(1) BSIG), companiile nu platesc pentru controale inutile."
+              "Fara supradimensionare. Consultantii supradimensioneaza ca sa factureze mai multe ore. Platforma limiteaza la 'adecvat, proporțional și eficace' (§30(1) BSIG), companiile nu platesc pentru controale inutile."
             ]
           },
           "software": {
@@ -4006,7 +4006,7 @@
         "items": {
           "check": {
             "title": "1. Confirmați că intrați efectiv în domeniul de aplicare",
-            "description": "Înainte de a vă înregistra, verificați dacă NIS2 se aplică firmei dumneavoastră. Criteriile se află în §28 BSIG: trebuie să operați într-unul dintre cele 18 sectoare enumerate ȘI să atingeți pragul de mărime (50 sau mai mulți angajați sau o cifră de afaceri anuală de cel puțin 10 milioane EUR). Dacă nu sunteți sigur, consultați listele de sectoare ale BSI din Anexa I și Anexa II la Directiva NIS2. Multe firme presupun că sunt în afara domeniului de aplicare când, de fapt, nu sunt, și invers. Dacă sunteți cu adevărat nesigur, obțineți o opinie juridică înainte de înregistrare, dar nu folosiți incertitudinea ca scuză pentru a amâna."
+            "description": "Înainte de a vă înregistra, verificați dacă NIS2 se aplică firmei dumneavoastră. Criteriile se află în §28 BSIG: trebuie să operați într-unul dintre cele 18 sectoare enumerate ȘI să atingeți pragul de mărime (cel puțin 50 de angajați sau o cifră de afaceri anuală și un bilanț anual total de peste 10 milioane EUR fiecare). Dacă nu sunteți sigur, consultați listele de sectoare ale BSI din Anexa I și Anexa II la Directiva NIS2. Multe firme presupun că sunt în afara domeniului de aplicare când, de fapt, nu sunt, și invers. Dacă sunteți cu adevărat nesigur, obțineți o opinie juridică înainte de înregistrare, dar nu folosiți incertitudinea ca scuză pentru a amâna."
           },
           "register": {
             "title": "2. Înregistrați-vă imediat prin portalul BSI",
@@ -4256,7 +4256,7 @@
         },
         "bsig": {
           "term": "BSIG (BSI-Gesetz)",
-          "definition": "Legea federală germană care reglementează BSI (Oficiul Federal pentru Securitatea Informației) și obligațiile de securitate cibernetică. NIS2UmsuCG a modificat BSIG pentru a include toate cerințele NIS2. Când cineva spune 'conformitate NIS2 în Germania', se referă la conformitatea cu BSIG modificat. Aceasta este legea care vi se aplică, nu Directiva NIS2 însăși.",
+          "definition": "Legea federală germană care reglementează BSI (Oficiul Federal pentru Securitatea Informației) și obligațiile de securitate cibernetică. NIS2UmsuCG a modificat BSIG și transpune NIS2 în Germania în principal prin intermediul acestuia. Când cineva spune 'conformitate NIS2 în Germania', se referă la conformitatea cu BSIG modificat. Aceasta este legea care vi se aplică, nu Directiva NIS2 însăși.",
           "german": "Gesetz über das Bundesamt für Sicherheit in der Informationstechnik",
           "legalRef": "BSIG astfel cum a fost modificat prin NIS2UmsuCG"
         },
@@ -4267,7 +4267,7 @@
         },
         "cir2024": {
           "term": "CIR 2024/2690",
-          "definition": "Regulamentul de punere în aplicare al UE care specifică cerințele tehnice și metodologice exacte pentru entitățile NIS2. Spre deosebire de Directivă, acesta se aplică direct în toate statele membre fără transpunere. El detaliază ce înseamnă de fapt în practică 'măsuri adecvate de securitate cibernetică': gândiți-vă la el ca la manualul tehnic care completează detaliile pe care Directiva le-a lăsat deschise.",
+          "definition": "Regulamentul de punere în aplicare al UE care stabilește cerințele tehnice și metodologice ale măsurilor prevăzute la articolul 21 alineatul (2) din NIS2, dar numai pentru anumite tipuri de entități: furnizorii de servicii DNS, registrele de nume TLD, furnizorii de servicii de cloud computing, furnizorii de servicii de centre de date, furnizorii de rețele de furnizare de conținut, furnizorii de servicii gestionate, furnizorii de servicii de securitate gestionate, furnizorii de piețe online, de motoare de căutare online și de platforme de servicii de socializare în rețea, precum și prestatorii de servicii de încredere. Spre deosebire de Directivă, acesta se aplică direct în toate statele membre fără transpunere. Pentru aceste entități, detaliază ce înseamnă de fapt în practică 'măsuri adecvate de securitate cibernetică': gândiți-vă la el ca la manualul tehnic care completează detaliile pe care Directiva le-a lăsat deschise.",
           "legalRef": "Regulamentul de punere în aplicare al Comisiei (UE) 2024/2690"
         },
         "bsiRegistration": {
@@ -4284,7 +4284,7 @@
         },
         "riskManagement": {
           "term": "Măsuri de gestionare a riscurilor",
-          "definition": "Cele zece categorii de măsuri de securitate cibernetică pe care toate entitățile NIS2 trebuie să le implementeze conform §30 BSIG. Acestea variază de la evaluarea riscurilor și gestionarea incidentelor până la securitatea lanțului de aprovizionare și criptografie. Ele trebuie să fie 'adecvate și proporționale' cu mărimea și profilul dumneavoastră de risc: nu se așteaptă ca o firmă de deșeuri cu 50 de persoane să implementeze aceleași controale ca Deutsche Telekom.",
+          "definition": "Cele zece categorii de măsuri de securitate cibernetică pe care toate entitățile NIS2 trebuie să le implementeze conform §30 BSIG. Acestea variază de la evaluarea riscurilor și gestionarea incidentelor până la securitatea lanțului de aprovizionare și criptografie. Ele trebuie să fie 'adecvate, proporționale și eficace'; proporționalitatea ține seama, printre altele, de mărimea și de expunerea dumneavoastră la risc: nu se așteaptă ca o firmă de deșeuri cu 50 de persoane să implementeze aceleași controale ca Deutsche Telekom.",
           "german": "Risikomanagementmaßnahmen",
           "legalRef": "§30(2) BSIG"
         },
@@ -4317,7 +4317,7 @@
         },
         "section30": {
           "term": "§30 BSIG - Măsuri de securitate cibernetică",
-          "definition": "Dispoziția centrală a NIS2 în dreptul german. Listează zece categorii de măsuri de gestionare a riscurilor de securitate cibernetică pe care toate entitățile din domeniul de aplicare trebuie să le implementeze. Acoperă evaluarea riscurilor, gestionarea incidentelor, continuitatea activității, securitatea lanțului de aprovizionare, dezvoltarea securizată, evaluarea eficacității, instruirea, criptografia, controlul accesului și autentificarea multifactor. Măsurile trebuie să fie 'adecvate și proporționale': nu exagerate, dar autentice.",
+          "definition": "Dispoziția centrală a NIS2 în dreptul german. Listează zece categorii de măsuri de gestionare a riscurilor de securitate cibernetică pe care toate entitățile din domeniul de aplicare trebuie să le implementeze. Acoperă evaluarea riscurilor, gestionarea incidentelor, continuitatea activității, securitatea lanțului de aprovizionare, dezvoltarea securizată, evaluarea eficacității, instruirea, criptografia, controlul accesului și autentificarea multifactor. Măsurile trebuie să fie 'adecvate, proporționale și eficace': nu exagerate, dar autentice.",
           "legalRef": "§30 BSIG"
         },
         "section32": {
@@ -4469,7 +4469,7 @@
         "heading": "Ce face companiile de deșeuri diferite",
         "p1": "Companiile de deșeuri au un profil de risc unic. Spre deosebire de o companie de software, unde aproape totul este digital, operațiunile de deșeuri implică procese fizice: camioane pe drumuri, materiale în mișcare, echipamente la amplasamente. Un atac cibernetic asupra managementului flotei are consecințe imediate în lumea fizică. Această dimensiune de tehnologie operațională înseamnă că evaluarea dumneavoastră a riscurilor trebuie să ia în considerare atât sistemele IT, cât și orice control industrial.",
         "p2": "Majoritatea companiilor de deșeuri externalizează masiv. Multe funcționează cu o echipă IT internă mică (sau fără personal IT dedicat deloc) și se bazează pe furnizori externi pentru tot, de la e-mail la ERP și la managementul flotei. Conform NIS2, puteți externaliza operațiunile, dar nu și răspunderea: §30 BSIG face firma dumneavoastră responsabilă pentru măsurile de securitate chiar și atunci când le furnizează un furnizor. Acest lucru face din managementul furnizorilor cea mai importantă pârghie de conformitate.",
-        "p3": "Partea pozitivă: mediile IT ale companiilor de deșeuri sunt de regulă simple. O companie de deșeuri de 100 de persoane are poate 6 până la 10 grupuri de sisteme distincte, comparativ cu 30 sau mai multe pentru o bancă sau un spital de dimensiune similară. Aceasta înseamnă că efortul de conformitate este proporțional: vorbim de săptămâni de muncă concentrată, nu de un program de mai mulți ani. Standardul BSI \"adecvat și proporțional\" lucrează în favoarea dumneavoastră aici."
+        "p3": "Partea pozitivă: mediile IT ale companiilor de deșeuri sunt de regulă simple. O companie de deșeuri de 100 de persoane are poate 6 până la 10 grupuri de sisteme distincte, comparativ cu 30 sau mai multe pentru o bancă sau un spital de dimensiune similară. Aceasta înseamnă că efortul de conformitate este proporțional: vorbim de săptămâni de muncă concentrată, nu de un program de mai mulți ani. Testul de proporționalitate din §30 alin. (1) BSIG lucrează în favoarea dumneavoastră aici."
       },
       "faq": {
         "heading": "Întrebări frecvente",
@@ -6197,7 +6197,7 @@
       "penalties": {
         "q1": {
           "q": "Ce se întâmplă dacă o companie obligată raportează un incident cu întârziere sau deloc către autoritatea competentă? Cine verifică dacă incidentele raportabile au fost raportate în mod corespunzător?",
-          "a": "Obligația de raportare decurge din articolul 23 din Directiva NIS 2: o avertizare timpurie în 24 de ore, o notificare în 72 de ore și un raport final în termen de o lună de la incidentul semnificativ (transpus în Germania în §32 BSIG). Un raport tardiv, sau niciun raport, este o încălcare a obligației pe care autoritatea competentă (BSI pentru majoritatea entităților) o poate sancționa în temeiul regulilor de supraveghere și de aplicare din articolele 31-34 (§§61 și urm. și §65 BSIG). Măsurile posibile includ instrucțiuni, ordine obligatorii și amenzi al căror nivel depinde de tipul de entitate: pentru entitățile esențiale, articolul 34 stabilește un plafon de cel puțin 10 milioane de euro sau 2 % din cifra de afaceri anuală mondială (oricare este mai mare), iar pentru entitățile importante cel puțin 7 milioane de euro sau 1,4 %. Autoritatea evaluează dacă un raport a fost făcut în mod corespunzător pe baza raportului transmis și îl poate verifica prin competențele sale de supraveghere în temeiul articolelor 32 și 33 (precum cereri de informații, audituri, inspecții la fața locului). Un raport în timp util, complet, în formatul prescris, este, prin urmare, calea cea mai sigură. Veți găsi un ghid pas cu pas privind obligația și autoritatea la [Înregistrare și obligație de raportare](/wiki/anwendungsbereich/nis2-registrierung)."
+          "a": "Obligația de raportare decurge din articolul 23 din Directiva NIS 2: o avertizare timpurie în 24 de ore, o notificare în 72 de ore și un raport final în cel mult o lună de la această notificare (transpus în Germania în §32 BSIG). Un raport tardiv, sau niciun raport, este o încălcare a obligației pe care autoritatea competentă (BSI pentru majoritatea entităților) o poate sancționa în temeiul regulilor de supraveghere și de aplicare din articolele 31-34 (§§61 și urm. și §65 BSIG). Măsurile posibile includ instrucțiuni, ordine obligatorii și amenzi al căror nivel depinde de tipul de entitate: pentru entitățile esențiale, articolul 34 stabilește un plafon de cel puțin 10 milioane de euro sau 2 % din cifra de afaceri anuală mondială (oricare este mai mare), iar pentru entitățile importante cel puțin 7 milioane de euro sau 1,4 %. Autoritatea evaluează dacă un raport a fost făcut în mod corespunzător pe baza raportului transmis și îl poate verifica prin competențele sale de supraveghere în temeiul articolelor 32 și 33 (precum cereri de informații, audituri, inspecții la fața locului). Un raport în timp util, complet, în formatul prescris, este, prin urmare, calea cea mai sigură. Veți găsi un ghid pas cu pas privind obligația și autoritatea la [Înregistrare și obligație de raportare](/wiki/anwendungsbereich/nis2-registrierung)."
         }
       },
       "liability": {
@@ -6211,7 +6211,7 @@
         },
         "q3": {
           "q": "Trebuie conducerea să participe la instruire?",
-          "a": "Da. Conducerea entităților esențiale și importante trebuie să participe regulat la instruirea privind securitatea cibernetică (art. 20 alin. (2) Directiva NIS 2, în Germania §38 alin. (3) BSIG). Scopul este ca conducerea să poată identifica riscurile, evalua măsurile de gestionare a riscurilor și aprecia impactul acestora asupra serviciilor. Directiva nu denumește un număr minim de ore sau intervale fixe; în orientările sale, BSI recomandă o actualizare anuală și indică aproximativ patru ore drept cifră de orientare pentru amploare. Această obligație se aplică fiecărei persoane numite să conducă entitatea prin lege, statut sau act constitutiv și nu poate fi delegată."
+          "a": "Da. Conducerea entităților esențiale și importante trebuie să participe regulat la instruirea privind securitatea cibernetică (art. 20 alin. (2) Directiva NIS 2, în Germania §38 alin. (3) BSIG). Scopul este ca conducerea să poată identifica riscurile, evalua măsurile de gestionare a riscurilor și aprecia impactul acestora asupra serviciilor. Nici directiva, nici BSIG nu stabilesc un număr minim de ore sau intervale fixe. În orientările sale, BSI recomandă o instruire inițială temeinică, urmată de instruiri periodice de actualizare; durata și intervalul depind de expunerea la risc a entității și de competențele conducerii. Această obligație se aplică fiecărei persoane numite să conducă entitatea prin lege, statut sau act constitutiv și nu poate fi delegată."
         },
         "q4": {
           "q": "Poate conducerea să delege obligația sa de instruire?",
@@ -10030,7 +10030,7 @@
         "regulation": {
           "label": "Recomandarea 2003/361/CE, anexă Articolul 2",
           "quote": "Categoria microîntreprinderilor și a întreprinderilor mici și mijlocii (IMM-uri) este formată din întreprinderi care au mai puțin de 250 de angajați și care au o cifră de afaceri anuală care nu depășește 50 de milioane EUR, și/sau un total al bilanțului anual care nu depășește 43 de milioane EUR.",
-          "context": "Definiția oficială de mărime a UE. Mijlocie începe de la 50 de angajați și cel puțin 10 milioane EUR cifră de afaceri și 10 milioane EUR bilanț. NIS 2 vă prinde de la mijlocie în sus. 'Depășește plafoanele pentru mijlocie' din articolul 2(1) înseamnă întreprindere mare conform aceleiași Recomandări. Întreprinderile legate și partenere se agregă, astfel încât o filială mică a unei societăți-mamă mari se califică adesea drept mare."
+          "context": "Definiția oficială de mărime a UE. Mijlocie începe de la 50 de angajați sau de la o cifră de afaceri și un bilanț de peste 10 milioane EUR fiecare. NIS 2 vă prinde de la mijlocie în sus. 'Depășește plafoanele pentru mijlocie' din articolul 2(1) înseamnă întreprindere mare conform aceleiași Recomandări. Întreprinderile legate și partenere se agregă, astfel încât o filială mică a unei societăți-mamă mari se califică adesea drept mare."
         },
         "transposition": {
           "label": "§28 BSIG (Germania)",
@@ -19676,7 +19676,7 @@
         "definition": {
           "label": "Art. 2 + Anexa I/II NIS 2 (sector + marime)",
           "quote": "Prezenta directiva se aplica entitatilor publice sau private de un tip mentionat in Anexa I sau II care se incadreaza ca intreprinderi mijlocii in temeiul articolului 2 din anexa la Recomandarea 2003/361/CE sau care depasesc plafoanele pentru intreprinderile mijlocii.",
-          "context": "Doua intrebari decid includerea in domeniul de aplicare: sunteti un tip din Anexa I sau II si sunteti cel putin de marime mijlocie (50+ angajati si fie >10 mil. EUR cifra de afaceri, fie >10 mil. EUR bilant). Plus suprascrierile 'indiferent de marime' pentru servicii de incredere, DNS, registre TLD, administratie publica, furnizori unici dintr-un stat membru."
+          "context": "Doua intrebari decid includerea in domeniul de aplicare: sunteti un tip din Anexa I sau II si sunteti cel putin de marime mijlocie (50+ angajați sau o cifră de afaceri și un bilanț de peste 10 mil. EUR fiecare). Plus suprascrierile 'indiferent de marime' pentru servicii de incredere, DNS, registre TLD, administratie publica, furnizori unici dintr-un stat membru."
         }
       },
       "howItWorks": {
