@@ -720,7 +720,7 @@ export const iso27001Nis2SatisfactionPairs: SatisfactionPair[] = [
   [
     "A.5.18",
     "10.4",
-    "Same periodic review: A.5.18 access-rights review is the documented review CIR 11.2.3 requires at planned intervals (quarterly is the platform default).",
+    "Same periodic review: A.5.18 access-rights review is the documented review CIR 11.2.3 requires at planned intervals (the platform default is yearly, quarterly for privileged accounts).",
   ],
   [
     "A.8.3",

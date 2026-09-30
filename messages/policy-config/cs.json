@@ -97,6 +97,7 @@
       "patchSla": "SLA pro záplaty podle závažnosti",
       "severity": "Závažnost",
       "slaHours": "SLA (hodiny)",
+      "slaNote": "Běžné hodnoty, nikoli požadavek BSI. BSI nestanovuje pevné lhůty; doporučuje instalovat bezpečnostní aktualizace automaticky (Grundschutz++ KONF.8.1.1).",
       "critical": "Kritická",
       "high": "Vysoká",
       "medium": "Střední",

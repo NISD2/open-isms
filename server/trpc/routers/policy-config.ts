@@ -1,13 +1,14 @@
+import { and, eq } from "drizzle-orm";
 import { z } from "zod";
-import { eq, and } from "drizzle-orm";
-import { router, companyProcedure } from "../init";
-import { companyPolicyConfig } from "@/schema";
 import {
-  POLICY_TYPES,
   getDefaultPolicyConfig,
-  type PolicyType,
+  POLICY_TYPES,
   type PolicyConfigMap,
+  type PolicyType,
 } from "@/lib/compliance/policy-config-defaults";
+import { seedLocale } from "@/lib/compliance/seed-locale";
+import { companyPolicyConfig } from "@/schema";
+import { companyProcedure, router } from "../init";
 
 const policyTypeSchema = z.enum(POLICY_TYPES);
 
@@ -110,8 +111,11 @@ export const policyConfigRouter = router({
       });
       if (existing) return existing;
 
-      // Lazy-init with defaults
-      const defaults = getDefaultPolicyConfig(input.policyType, "en");
+      // Lazy-init with defaults, in the account's language
+      const defaults = getDefaultPolicyConfig(
+        input.policyType,
+        await seedLocale(ctx.db, ctx.userId, ctx.companyId),
+      );
       const [row] = await ctx.db
         .insert(companyPolicyConfig)
         .values({

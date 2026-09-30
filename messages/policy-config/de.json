@@ -97,6 +97,7 @@
       "patchSla": "Patch-SLA nach Schweregrad",
       "severity": "Schweregrad",
       "slaHours": "SLA (Stunden)",
+      "slaNote": "Übliche Werte, keine Vorgabe des BSI. Das BSI nennt keine festen Fristen; es empfiehlt, Sicherheitsupdates automatisch einzuspielen (Grundschutz++ KONF.8.1.1).",
       "critical": "Kritisch",
       "high": "Hoch",
       "medium": "Mittel",

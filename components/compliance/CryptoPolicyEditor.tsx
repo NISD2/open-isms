@@ -1,9 +1,10 @@
 "use client";
 
+import { Plus, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -11,12 +12,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Plus, Trash2 } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { usePolicyEditor } from "./usePolicyEditor";
-import { PolicyEditorShell, SectionGuidance } from "./PolicyEditorShell";
-import type { CryptoAlgorithmEntry } from "@/lib/compliance/policy-config-defaults";
 import type { RequirementGuidanceData } from "@/lib/ai/guidance-types";
+import type { CryptoAlgorithmEntry } from "@/lib/compliance/policy-config-defaults";
+import { cn } from "@/lib/utils";
+import { PolicyEditorShell, SectionGuidance } from "./PolicyEditorShell";
+import { usePolicyEditor } from "./usePolicyEditor";
 
 const STATUS_COLORS = {
   approved: "text-emerald-600 dark:text-emerald-400",
@@ -24,7 +24,15 @@ const STATUS_COLORS = {
   prohibited: "text-red-600 dark:text-red-400",
 } as const;
 
-export function CryptoPolicyEditor({ disabled, guidance, initialData }: { disabled?: boolean; guidance?: RequirementGuidanceData | null; initialData?: Record<string, unknown> | null }) {
+export function CryptoPolicyEditor({
+  disabled,
+  guidance,
+  initialData,
+}: {
+  disabled?: boolean;
+  guidance?: RequirementGuidanceData | null;
+  initialData?: Record<string, unknown> | null;
+}) {
   const tc = useTranslations("policyConfig.crypto");
   const editor = usePolicyEditor("crypto", initialData);
   const { display, draft, setDraft } = editor;
@@ -38,7 +46,11 @@ export function CryptoPolicyEditor({ disabled, guidance, initialData }: { disabl
     tls: tc("tls"),
   };
 
-  function updateAlgorithm(idx: number, field: keyof CryptoAlgorithmEntry, value: string) {
+  function updateAlgorithm(
+    idx: number,
+    field: keyof CryptoAlgorithmEntry,
+    value: string,
+  ) {
     if (!draft) return;
     setDraft({
       ...draft,
@@ -90,25 +102,43 @@ export function CryptoPolicyEditor({ disabled, guidance, initialData }: { disabl
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-muted/50">
-                <th className="px-3 py-2 text-left font-medium text-muted-foreground">{tc("category")}</th>
-                <th className="px-3 py-2 text-left font-medium text-muted-foreground">{tc("algorithm")}</th>
-                <th className="px-3 py-2 text-left font-medium text-muted-foreground">{tc("keyLength")}</th>
-                <th className="px-3 py-2 text-left font-medium text-muted-foreground">{tc("status")}</th>
+                <th className="px-3 py-2 text-left font-medium text-muted-foreground">
+                  {tc("category")}
+                </th>
+                <th className="px-3 py-2 text-left font-medium text-muted-foreground">
+                  {tc("algorithm")}
+                </th>
+                <th className="px-3 py-2 text-left font-medium text-muted-foreground">
+                  {tc("keyLength")}
+                </th>
+                <th className="px-3 py-2 text-left font-medium text-muted-foreground">
+                  {tc("status")}
+                </th>
                 {!fieldsDisabled && <th className="w-10" />}
               </tr>
             </thead>
             <tbody>
               {display.algorithms.map((alg, idx) => (
+                // biome-ignore lint/suspicious/noArrayIndexKey: rows are edited in place; a key built from their content would remount the row on every keystroke
                 <tr key={idx} className="border-t">
                   <td className="px-3 py-2">
                     {fieldsDisabled ? (
-                      <span className="text-muted-foreground">{CATEGORY_LABELS[alg.category]}</span>
+                      <span className="text-muted-foreground">
+                        {CATEGORY_LABELS[alg.category]}
+                      </span>
                     ) : (
-                      <Select value={alg.category} onValueChange={(v) => updateAlgorithm(idx, "category", v)}>
-                        <SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger>
+                      <Select
+                        value={alg.category}
+                        onValueChange={(v) => updateAlgorithm(idx, "category", v)}
+                      >
+                        <SelectTrigger className="h-8 text-xs">
+                          <SelectValue />
+                        </SelectTrigger>
                         <SelectContent>
                           {Object.entries(CATEGORY_LABELS).map(([k, v]) => (
-                            <SelectItem key={k} value={k}>{v}</SelectItem>
+                            <SelectItem key={k} value={k}>
+                              {v}
+                            </SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
@@ -134,12 +164,19 @@ export function CryptoPolicyEditor({ disabled, guidance, initialData }: { disabl
                   </td>
                   <td className="px-3 py-2">
                     {fieldsDisabled ? (
-                      <span className={cn("text-xs font-medium", STATUS_COLORS[alg.status])}>
+                      <span
+                        className={cn("text-xs font-medium", STATUS_COLORS[alg.status])}
+                      >
                         {tc(alg.status)}
                       </span>
                     ) : (
-                      <Select value={alg.status} onValueChange={(v) => updateAlgorithm(idx, "status", v)}>
-                        <SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger>
+                      <Select
+                        value={alg.status}
+                        onValueChange={(v) => updateAlgorithm(idx, "status", v)}
+                      >
+                        <SelectTrigger className="h-8 text-xs">
+                          <SelectValue />
+                        </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="approved">{tc("approved")}</SelectItem>
                           <SelectItem value="deprecated">{tc("deprecated")}</SelectItem>
@@ -179,13 +216,19 @@ export function CryptoPolicyEditor({ disabled, guidance, initialData }: { disabl
         <SectionGuidance guidance={guidance} fieldKey="minTlsVersion" />
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-1.5">
-            <label className="text-sm font-medium">{tc("minTlsVersion")}</label>
+            <label htmlFor="crypto-min-tls" className="text-sm font-medium">
+              {tc("minTlsVersion")}
+            </label>
             <Select
               value={display.minTlsVersion}
-              onValueChange={(v) => draft && setDraft({ ...draft, minTlsVersion: v as "tls_1_2" | "tls_1_3" })}
+              onValueChange={(v) =>
+                draft && setDraft({ ...draft, minTlsVersion: v as "tls_1_2" | "tls_1_3" })
+              }
               disabled={fieldsDisabled}
             >
-              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectTrigger id="crypto-min-tls">
+                <SelectValue />
+              </SelectTrigger>
               <SelectContent>
                 <SelectItem value="tls_1_2">TLS 1.2</SelectItem>
                 <SelectItem value="tls_1_3">TLS 1.3</SelectItem>
@@ -194,27 +237,42 @@ export function CryptoPolicyEditor({ disabled, guidance, initialData }: { disabl
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-sm font-medium">{tc("keyRotation")}</label>
+            <label htmlFor="crypto-key-rotation" className="text-sm font-medium">
+              {tc("keyRotation")}
+            </label>
             <Input
+              id="crypto-key-rotation"
               type="number"
               data-testid="crypto-key-rotation"
               min={1}
               max={10}
               value={display.keyRotationFrequencyYears}
-              onChange={(e) => draft && setDraft({ ...draft, keyRotationFrequencyYears: Number(e.target.value) || 1 })}
+              onChange={(e) =>
+                draft &&
+                setDraft({
+                  ...draft,
+                  keyRotationFrequencyYears: Number(e.target.value) || 1,
+                })
+              }
               disabled={fieldsDisabled}
               className="max-w-24"
             />
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-sm font-medium">{tc("reviewCycle")}</label>
+            <label htmlFor="crypto-review-cycle" className="text-sm font-medium">
+              {tc("reviewCycle")}
+            </label>
             <Input
+              id="crypto-review-cycle"
               type="number"
               min={1}
               max={10}
               value={display.reviewCycleYears}
-              onChange={(e) => draft && setDraft({ ...draft, reviewCycleYears: Number(e.target.value) || 3 })}
+              onChange={(e) =>
+                draft &&
+                setDraft({ ...draft, reviewCycleYears: Number(e.target.value) || 1 })
+              }
               disabled={fieldsDisabled}
               className="max-w-24"
             />
@@ -226,20 +284,30 @@ export function CryptoPolicyEditor({ disabled, guidance, initialData }: { disabl
         <SectionGuidance guidance={guidance} fieldKey="keyRotation" />
         <div className="flex items-center gap-2">
           <Checkbox
+            id="crypto-trigger-on-compromise"
             checked={display.triggerRotationOnCompromise}
-            onCheckedChange={(v) => draft && setDraft({ ...draft, triggerRotationOnCompromise: !!v })}
+            onCheckedChange={(v) =>
+              draft && setDraft({ ...draft, triggerRotationOnCompromise: !!v })
+            }
             disabled={fieldsDisabled}
           />
-          <label className="text-sm">{tc("triggerOnCompromise")}</label>
+          <label htmlFor="crypto-trigger-on-compromise" className="text-sm">
+            {tc("triggerOnCompromise")}
+          </label>
         </div>
         <SectionGuidance guidance={guidance} fieldKey="postQuantumReadiness" />
         <div className="flex items-center gap-2">
           <Checkbox
+            id="crypto-post-quantum"
             checked={display.postQuantumReadiness}
-            onCheckedChange={(v) => draft && setDraft({ ...draft, postQuantumReadiness: !!v })}
+            onCheckedChange={(v) =>
+              draft && setDraft({ ...draft, postQuantumReadiness: !!v })
+            }
             disabled={fieldsDisabled}
           />
-          <label className="text-sm">{tc("postQuantum")}</label>
+          <label htmlFor="crypto-post-quantum" className="text-sm">
+            {tc("postQuantum")}
+          </label>
         </div>
       </div>
     </PolicyEditorShell>

@@ -2,13 +2,21 @@
 
 import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
-import { usePolicyEditor } from "./usePolicyEditor";
-import { PolicyEditorShell, SectionGuidance } from "./PolicyEditorShell";
 import type { RequirementGuidanceData } from "@/lib/ai/guidance-types";
+import { PolicyEditorShell, SectionGuidance } from "./PolicyEditorShell";
+import { usePolicyEditor } from "./usePolicyEditor";
 
 const SEVERITY_KEYS = ["critical", "high", "medium", "low"] as const;
 
-export function PatchPolicyEditor({ disabled, guidance, initialData }: { disabled?: boolean; guidance?: RequirementGuidanceData | null; initialData?: Record<string, unknown> | null }) {
+export function PatchPolicyEditor({
+  disabled,
+  guidance,
+  initialData,
+}: {
+  disabled?: boolean;
+  guidance?: RequirementGuidanceData | null;
+  initialData?: Record<string, unknown> | null;
+}) {
   const tc = useTranslations("policyConfig.patchMgmt");
   const editor = usePolicyEditor("patch_mgmt", initialData);
   const { display, draft, setDraft } = editor;
@@ -37,14 +45,20 @@ export function PatchPolicyEditor({ disabled, guidance, initialData }: { disable
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-muted/50">
-                <th className="px-3 py-2 text-left font-medium text-muted-foreground w-1/3">{tc("severity")}</th>
-                <th className="px-3 py-2 text-left font-medium text-muted-foreground">{tc("slaHours")}</th>
+                <th className="px-3 py-2 text-left font-medium text-muted-foreground w-1/3">
+                  {tc("severity")}
+                </th>
+                <th className="px-3 py-2 text-left font-medium text-muted-foreground">
+                  {tc("slaHours")}
+                </th>
               </tr>
             </thead>
             <tbody>
               {SEVERITY_KEYS.map((sev) => (
                 <tr key={sev} className="border-t">
-                  <td className="px-3 py-2 text-muted-foreground font-medium">{tc(sev)}</td>
+                  <td className="px-3 py-2 text-muted-foreground font-medium">
+                    {tc(sev)}
+                  </td>
                   <td className="px-3 py-2">
                     <Input
                       type="number"
@@ -53,9 +67,13 @@ export function PatchPolicyEditor({ disabled, guidance, initialData }: { disable
                       max={8760}
                       value={display.patchSlaHours[sev]}
                       onChange={(e) =>
-                        draft && setDraft({
+                        draft &&
+                        setDraft({
                           ...draft,
-                          patchSlaHours: { ...draft.patchSlaHours, [sev]: Number(e.target.value) || 24 },
+                          patchSlaHours: {
+                            ...draft.patchSlaHours,
+                            [sev]: Number(e.target.value) || 24,
+                          },
                         })
                       }
                       disabled={fieldsDisabled}
@@ -67,18 +85,24 @@ export function PatchPolicyEditor({ disabled, guidance, initialData }: { disable
             </tbody>
           </table>
         </div>
+        <p className="text-xs text-muted-foreground">{tc("slaNote")}</p>
       </div>
 
       {/* Review Cycle */}
       <div className="space-y-1.5">
-        <label className="text-sm font-medium">{tc("reviewCycle")}</label>
+        <label htmlFor="patch-review-cycle" className="text-sm font-medium">
+          {tc("reviewCycle")}
+        </label>
         <Input
+          id="patch-review-cycle"
           type="number"
           data-testid="patch-review-cycle"
           min={1}
           max={10}
           value={display.reviewCycleYears}
-          onChange={(e) => draft && setDraft({ ...draft, reviewCycleYears: Number(e.target.value) || 2 })}
+          onChange={(e) =>
+            draft && setDraft({ ...draft, reviewCycleYears: Number(e.target.value) || 1 })
+          }
           disabled={fieldsDisabled}
           className="max-w-24"
         />

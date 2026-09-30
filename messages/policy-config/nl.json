@@ -97,6 +97,7 @@
       "patchSla": "Patch-SLA per ernst",
       "severity": "Ernst",
       "slaHours": "SLA (uren)",
+      "slaNote": "Gangbare waarden, geen eis van het BSI. Het BSI noemt geen vaste termijnen; het raadt aan beveiligingsupdates automatisch te installeren (Grundschutz++ KONF.8.1.1).",
       "critical": "Kritiek",
       "high": "Hoog",
       "medium": "Gemiddeld",

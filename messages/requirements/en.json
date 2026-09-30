@@ -166,7 +166,7 @@
     },
     "10_4": {
       "title": "Access Reviews",
-      "description": "Review and document access rights including privileged accounts on a regular basis. Legally: at planned intervals; recommendation: quarterly."
+      "description": "Review and document access rights including privileged accounts on a regular basis. Legally: at planned intervals; recommendation: yearly, privileged accounts quarterly."
     },
     "11_1": {
       "title": "Authentication: where MFA is mandatory",

@@ -97,6 +97,7 @@
       "patchSla": "SLA pentru actualizări în funcție de severitate",
       "severity": "Severitate",
       "slaHours": "SLA (ore)",
+      "slaNote": "Valori uzuale, nu o cerință BSI. BSI nu stabilește termene fixe; recomandă instalarea automată a actualizărilor de securitate (Grundschutz++ KONF.8.1.1).",
       "critical": "Critică",
       "high": "Ridicată",
       "medium": "Medie",

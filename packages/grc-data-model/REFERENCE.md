@@ -92,7 +92,7 @@ BSI IT-Grundschutz module: `ORP.4`. Estimated effort: 40 minutes.
 | `10.1` | document | P1 | annual | Art. 21(2)(i) | §30(2) Nr. 9 BSIG, CIR 11.1 | G-TOM.1 |
 | `10.2` | technical | P1 | on-change | Art. 21(2)(i) | §30(2) Nr. 9 BSIG, CIR 11.2, CIR 11.3 | — |
 | `10.3` | document | P1 | annual | Art. 21(2)(i) | §30(2) Nr. 9 BSIG, CIR 10.2, 10.3, 11.3 | — |
-| `10.4` | proof | P1 | quarterly | Art. 21(2)(i) | §30(2) Nr. 9 BSIG, CIR 11.2.3, 11.3.3 | — |
+| `10.4` | proof | P1 | annual | Art. 21(2)(i) | §30(2) Nr. 9 BSIG, CIR 11.2.3, 11.3.3 | — |
 
 ### AUT — authentication
 

@@ -97,6 +97,7 @@
       "patchSla": "SLA de correctif par gravité",
       "severity": "Gravité",
       "slaHours": "SLA (heures)",
+      "slaNote": "Valeurs usuelles, pas une exigence du BSI. Le BSI ne fixe pas de délais ; il recommande d'installer automatiquement les mises à jour de sécurité (Grundschutz++ KONF.8.1.1).",
       "critical": "Critique",
       "high": "Élevée",
       "medium": "Moyenne",

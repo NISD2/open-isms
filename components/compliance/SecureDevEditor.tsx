@@ -1,8 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -10,14 +10,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { usePolicyEditor } from "./usePolicyEditor";
-import { PolicyEditorShell, SectionGuidance } from "./PolicyEditorShell";
-import type { SecureDevConfig } from "@/lib/compliance/policy-config-defaults";
 import type { RequirementGuidanceData } from "@/lib/ai/guidance-types";
+import type { SecureDevConfig } from "@/lib/compliance/policy-config-defaults";
+import { PolicyEditorShell, SectionGuidance } from "./PolicyEditorShell";
+import { usePolicyEditor } from "./usePolicyEditor";
 
 const TESTING_KEYS = ["sast", "dast", "sca", "pentest", "codeReview"] as const;
 
-export function SecureDevEditor({ disabled, guidance, initialData }: { disabled?: boolean; guidance?: RequirementGuidanceData | null; initialData?: Record<string, unknown> | null }) {
+export function SecureDevEditor({
+  disabled,
+  guidance,
+  initialData,
+}: {
+  disabled?: boolean;
+  guidance?: RequirementGuidanceData | null;
+  initialData?: Record<string, unknown> | null;
+}) {
   const tc = useTranslations("policyConfig.secureDev");
   const editor = usePolicyEditor("secure_dev", initialData);
   const { display, draft, setDraft } = editor;
@@ -43,15 +51,23 @@ export function SecureDevEditor({ disabled, guidance, initialData }: { disabled?
         <SectionGuidance guidance={guidance} fieldKey="sdlcFramework" />
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-1.5">
-            <label className="text-sm font-medium">{tc("sdlcFramework")}</label>
+            <label htmlFor="secure-dev-sdlc" className="text-sm font-medium">
+              {tc("sdlcFramework")}
+            </label>
             <Select
               value={display.sdlcFramework}
               onValueChange={(v) =>
-                draft && setDraft({ ...draft, sdlcFramework: v as SecureDevConfig["sdlcFramework"] })
+                draft &&
+                setDraft({
+                  ...draft,
+                  sdlcFramework: v as SecureDevConfig["sdlcFramework"],
+                })
               }
               disabled={fieldsDisabled}
             >
-              <SelectTrigger data-testid="sdlc-framework-select"><SelectValue /></SelectTrigger>
+              <SelectTrigger id="secure-dev-sdlc" data-testid="sdlc-framework-select">
+                <SelectValue />
+              </SelectTrigger>
               <SelectContent>
                 <SelectItem value="owasp_samm">{tc("owaspSamm")}</SelectItem>
                 <SelectItem value="bsimm">{tc("bsimm")}</SelectItem>
@@ -62,15 +78,26 @@ export function SecureDevEditor({ disabled, guidance, initialData }: { disabled?
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-sm font-medium">{tc("hardeningBaseline")}</label>
+            <label htmlFor="secure-dev-hardening" className="text-sm font-medium">
+              {tc("hardeningBaseline")}
+            </label>
             <Select
               value={display.hardeningBaseline}
               onValueChange={(v) =>
-                draft && setDraft({ ...draft, hardeningBaseline: v as SecureDevConfig["hardeningBaseline"] })
+                draft &&
+                setDraft({
+                  ...draft,
+                  hardeningBaseline: v as SecureDevConfig["hardeningBaseline"],
+                })
               }
               disabled={fieldsDisabled}
             >
-              <SelectTrigger data-testid="hardening-baseline-select"><SelectValue /></SelectTrigger>
+              <SelectTrigger
+                id="secure-dev-hardening"
+                data-testid="hardening-baseline-select"
+              >
+                <SelectValue />
+              </SelectTrigger>
               <SelectContent>
                 <SelectItem value="cis">{tc("cis")}</SelectItem>
                 <SelectItem value="bsi">{tc("bsi")}</SelectItem>
@@ -90,16 +117,20 @@ export function SecureDevEditor({ disabled, guidance, initialData }: { disabled?
           {TESTING_KEYS.map((key) => (
             <div key={key} className="flex items-center gap-2">
               <Checkbox
+                id={`secure-dev-test-${key}`}
                 checked={display.testingRequirements[key]}
                 onCheckedChange={(v) =>
-                  draft && setDraft({
+                  draft &&
+                  setDraft({
                     ...draft,
                     testingRequirements: { ...draft.testingRequirements, [key]: !!v },
                   })
                 }
                 disabled={fieldsDisabled}
               />
-              <label className="text-sm">{tc(key)}</label>
+              <label htmlFor={`secure-dev-test-${key}`} className="text-sm">
+                {tc(key)}
+              </label>
             </div>
           ))}
         </div>
@@ -108,6 +139,7 @@ export function SecureDevEditor({ disabled, guidance, initialData }: { disabled?
       {/* Environment Segregation — CIR 6(2) */}
       <div className="flex items-center gap-2">
         <Checkbox
+          id="secure-dev-segregation"
           data-testid="environment-segregation"
           checked={display.environmentSegregation}
           onCheckedChange={(v) =>
@@ -115,18 +147,25 @@ export function SecureDevEditor({ disabled, guidance, initialData }: { disabled?
           }
           disabled={fieldsDisabled}
         />
-        <label className="text-sm font-medium">{tc("environmentSegregation")}</label>
+        <label htmlFor="secure-dev-segregation" className="text-sm font-medium">
+          {tc("environmentSegregation")}
+        </label>
       </div>
 
       {/* Review Cycle */}
       <div className="space-y-1.5">
-        <label className="text-sm font-medium">{tc("reviewCycle")}</label>
+        <label htmlFor="secure-dev-review-cycle" className="text-sm font-medium">
+          {tc("reviewCycle")}
+        </label>
         <Input
+          id="secure-dev-review-cycle"
           type="number"
           min={1}
           max={10}
           value={display.reviewCycleYears}
-          onChange={(e) => draft && setDraft({ ...draft, reviewCycleYears: Number(e.target.value) || 2 })}
+          onChange={(e) =>
+            draft && setDraft({ ...draft, reviewCycleYears: Number(e.target.value) || 1 })
+          }
           disabled={fieldsDisabled}
           className="max-w-24"
         />
