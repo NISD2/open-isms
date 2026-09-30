@@ -1,4 +1,4 @@
-export { isOwnObjectKey, normalizeContentType, sanitizeFilename } from "./object-key";
+export { normalizeContentType, sanitizeFilename } from "./object-key";
 export {
   createPresignedGet,
   createPresignedPut,

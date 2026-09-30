@@ -8,7 +8,6 @@ import {
 import {
   createPresignedGet,
   createPresignedPut,
-  isOwnObjectKey,
   normalizeContentType,
   sanitizeFilename,
 } from "@/lib/storage";
@@ -109,7 +108,20 @@ export const trainingRouter = router({
     .input(trainingUpdateSchema.extend({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const { id, ...data } = input;
-      assertOwnObjectKey(certificatePrefix(ctx.companyId), data.certificateFileKey);
+      const current = data.certificateFileKey
+        ? await ctx.db.query.trainingRecord.findFirst({
+            where: and(
+              eq(trainingRecord.id, id),
+              eq(trainingRecord.companyId, ctx.companyId),
+            ),
+            columns: { certificateFileKey: true },
+          })
+        : undefined;
+      assertOwnObjectKey(
+        certificatePrefix(ctx.companyId),
+        data.certificateFileKey,
+        current?.certificateFileKey,
+      );
       await verifyMemberReferences(ctx.db, [data.userId], ctx.companyId);
       const [row] = await ctx.db
         .update(trainingRecord)
@@ -191,11 +203,10 @@ export const trainingRouter = router({
         columns: { certificateFileKey: true },
       });
       // Checked again here, because rows written before the key was checked on write may hold any
-      // key; one outside this company's prefix is treated as no certificate at all.
-      if (
-        !row?.certificateFileKey ||
-        !isOwnObjectKey(certificatePrefix(ctx.companyId), row.certificateFileKey)
-      ) {
+      // key; one outside this company's prefix is treated as no certificate at all. A prefix test,
+      // not isOwnObjectKey: keys issued before audit F-4 (2026-09-10) kept the raw filename, which
+      // may hold a backslash, and the stricter check applies to keys when they are written.
+      if (!row?.certificateFileKey?.startsWith(certificatePrefix(ctx.companyId))) {
         throw new TRPCError({
           code: "NOT_FOUND",
           message: "No certificate on this record",

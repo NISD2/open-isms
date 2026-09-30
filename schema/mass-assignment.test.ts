@@ -8,6 +8,8 @@
 import { describe, expect, test } from "bun:test";
 import {
   incidentUpdateSchema,
+  patchRecordUpdateSchema,
+  policyUpdateSchema,
   riskUpdateSchema,
   supplierUpdateSchema,
   trainingUpdateSchema,
@@ -87,5 +89,32 @@ describe("incidentUpdateSchema", () => {
     });
     expect(parsed).not.toHaveProperty("createdBy");
     expect(parsed.title).toBe("Phishing");
+  });
+});
+
+describe("policyUpdateSchema", () => {
+  // A member naming a real Geschäftsführer, back-dated, passes any membership check.
+  test("drops the approver, the approval date and the approver's role", () => {
+    const parsed = policyUpdateSchema.parse({
+      title: "IT-Sicherheitsleitlinie",
+      approvedBy: "66666666-6666-6666-6666-666666666666",
+      approvedAt: new Date("2026-01-01T00:00:00.000Z"),
+      approverRole: "geschaeftsfuehrer",
+    });
+    for (const k of ["approvedBy", "approvedAt", "approverRole"]) {
+      expect(parsed).not.toHaveProperty(k);
+    }
+    expect(parsed.title).toBe("IT-Sicherheitsleitlinie");
+  });
+});
+
+describe("patchRecordUpdateSchema", () => {
+  test("drops who approved the exception", () => {
+    const parsed = patchRecordUpdateSchema.parse({
+      exceptionReason: "Vendor patch breaks the SCADA client",
+      exceptionApprovedBy: "77777777-7777-7777-7777-777777777777",
+    });
+    expect(parsed).not.toHaveProperty("exceptionApprovedBy");
+    expect(parsed.exceptionReason).toBe("Vendor patch breaks the SCADA client");
   });
 });

@@ -359,7 +359,13 @@ export const policyInsertSchema = createInsertSchema(policy, {
   type: z.string().min(1).max(100),
 });
 export const policySelectSchema = createSelectSchema(policy);
-export const policyUpdateSchema = policyInsertSchema.partial().omit(omitTenantMeta);
+/**
+ * The approval columns are a sign-off, so they are never the client's to write: left writable, a
+ * member could name the Geschäftsführer as approver with any date. No client path sets them.
+ */
+export const policyUpdateSchema = policyInsertSchema
+  .partial()
+  .omit({ ...omitTenantMeta, approvedBy: true, approvedAt: true, approverRole: true });
 
 // ============================================================================
 // Audit Log (insert-only -- no update schema for append-only log)
@@ -611,9 +617,10 @@ export const patchRecordInsertSchema = createInsertSchema(patchRecord, {
   severity: z.string().min(1).max(50),
 });
 export const patchRecordSelectSchema = createSelectSchema(patchRecord);
+// Who approved an exception is a sign-off, never the client's to name; see policyUpdateSchema.
 export const patchRecordUpdateSchema = patchRecordInsertSchema
   .partial()
-  .omit(omitTenantMeta);
+  .omit({ ...omitTenantMeta, exceptionApprovedBy: true });
 
 // ============================================================================
 // Operations: Vulnerability Management

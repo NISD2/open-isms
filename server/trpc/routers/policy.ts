@@ -7,7 +7,7 @@ import {
 } from "@/lib/compliance/module-recheck";
 import { policy, policyAcknowledgment } from "@/schema";
 import { policyInsertSchema, policyUpdateSchema } from "@/schema/validators";
-import { assertOwnObjectKey, verifyMemberReferences } from "../guards";
+import { assertOwnObjectKey } from "../guards";
 import { companyProcedure, router } from "../init";
 
 /**
@@ -33,11 +33,13 @@ export const policyRouter = router({
         companyId: true,
         createdAt: true,
         updatedAt: true,
+        approvedBy: true,
+        approvedAt: true,
+        approverRole: true,
       }),
     )
     .mutation(async ({ ctx, input }) => {
       assertOwnObjectKey(policyFilePrefix(ctx.companyId), input.fileKey);
-      await verifyMemberReferences(ctx.db, [input.approvedBy], ctx.companyId);
       const [row] = await ctx.db
         .insert(policy)
         .values({ ...input, companyId: ctx.companyId })
@@ -53,7 +55,6 @@ export const policyRouter = router({
     .mutation(async ({ ctx, input }) => {
       const { id, ...data } = input;
       assertOwnObjectKey(policyFilePrefix(ctx.companyId), data.fileKey);
-      await verifyMemberReferences(ctx.db, [data.approvedBy], ctx.companyId);
       const [row] = await ctx.db
         .update(policy)
         .set({ ...data, updatedAt: new Date() })

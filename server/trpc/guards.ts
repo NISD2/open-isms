@@ -129,9 +129,18 @@ export async function verifyMemberReferences(
  * Verify that a stored-file key sent by the browser is one this company's upload path issued, under
  * `prefix` and without climbing out of it (isOwnObjectKey). Does nothing when no key is sent, so a
  * record can still be saved without a file or have its file cleared.
+ *
+ * Also does nothing when the key is `stored`, the one the record already holds. Sending it back
+ * changes nothing, and edit forms send it on every save: a key written before this check existed
+ * (training certificates kept the raw filename until audit F-4, 2026-09-10) must not block edits
+ * to the rest of the record.
  */
-export function assertOwnObjectKey(prefix: string, key: string | null | undefined): void {
-  if (key && !isOwnObjectKey(prefix, key)) {
+export function assertOwnObjectKey(
+  prefix: string,
+  key: string | null | undefined,
+  stored?: string | null,
+): void {
+  if (key && key !== stored && !isOwnObjectKey(prefix, key)) {
     throw new TRPCError({
       code: "FORBIDDEN",
       message: "The file was not uploaded for this company.",
