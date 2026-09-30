@@ -1333,7 +1333,7 @@
           },
           "training": {
             "title": "Szkolenie (Schulung)",
-            "description": "Obowiązkowy osobisty udział w szkoleniach z cyberbezpieczeństwa co najmniej raz na 3 lata. Tego obowiązku nie można delegować."
+            "description": "Obowiązkowy osobisty udział w regularnych szkoleniach z cyberbezpieczeństwa; §38 ust. 3 BSIG nie określa stałego odstępu. Tego obowiązku nie można delegować."
           }
         },
         "liability": "Członkowie kierownictwa ponoszą osobistą odpowiedzialność wobec własnej spółki, gdy w sposób zawiniony naruszają te obowiązki. Delegowanie zadań operacyjnych jest dozwolone, jednak odpowiedzialność strategiczna i nadzór pozostają przy kierownictwie. Kierownictwo nie może powoływać się na brak wiedzy technicznej jako linię obrony.",
@@ -2002,7 +2002,7 @@
               "Brak 10 kwestionariuszy na dostawcę. Dostawca obsługujący 10 klientów NIS2 wypełnia obecnie 10 różnych kwestionariuszy bezpieczeństwa. Dzięki Profilowi Dostawcy NIS2 - otwartemu standardowi, niezależnemu od platformy GRC - wypełnia jeden. Największa pojedyncza oszczędność w tej puli.",
               "Brak sporządzania zgłoszeń incydentów pod presją terminu. Zgłoszenia 24h/72h/1 miesiąca opierają się na szablonach gotowych do formatu BSI, zamiast być pisane od zera, gdy zegar tyka.",
               "Brak osobnego cyklu przygotowań do audytu. Dowody gotowe do audytu są generowane na bieżąco w miarę wykonywania pracy, a nie zbierane w panice na miesiąc przed.",
-              "Brak narzutu nadmiernej inżynierii. Konsultanci zawyżają zakres, aby naliczyć więcej godzin. Platforma ogranicza do 'odpowiednich i proporcjonalnych' (§30(1) BSIG) - firmy nie płacą za zbędne środki kontrolne."
+              "Brak narzutu nadmiernej inżynierii. Konsultanci zawyżają zakres, aby naliczyć więcej godzin. Platforma ogranicza do 'odpowiednich, proporcjonalnych i skutecznych' (§30(1) BSIG) - firmy nie płacą za zbędne środki kontrolne."
             ]
           },
           "software": {
@@ -2437,7 +2437,7 @@
         "items": {
           "awareness": {
             "title": "Brak świadomości",
-            "description": "Badanie G DATA przeprowadzone w 2024 r. wykazało, że 44% niemieckich firm średniej wielkości nie było świadomych, że NIS2 ich dotyczy. Kryteria zakresu - 50+ pracowników lub 10 mln EUR obrotu w 18 objętych sektorach - nie są oczywiste dla firm, które nigdy nie miały do czynienia z regulacją bezpieczeństwa IT. Wiele firm w sektorach takich jak gospodarka odpadami, produkcja żywności i produkcja chemiczna nie postrzega siebie jako 'infrastruktury krytycznej'."
+            "description": "Badanie G DATA przeprowadzone w 2024 r. wykazało, że 44% niemieckich firm średniej wielkości nie było świadomych, że NIS2 ich dotyczy. Kryteria zakresu - 50+ pracowników albo ponad 10 mln EUR zarówno obrotu, jak i sumy bilansowej, w 18 objętych sektorach - nie są oczywiste dla firm, które nigdy nie miały do czynienia z regulacją bezpieczeństwa IT. Wiele firm w sektorach takich jak gospodarka odpadami, produkcja żywności i produkcja chemiczna nie postrzega siebie jako 'infrastruktury krytycznej'."
           },
           "complexity": {
             "title": "Złożoność ustalania zakresu",
@@ -3414,7 +3414,7 @@
           "monitoring": {
             "section": "Test 2",
             "title": "Czy jesteś średnim przedsiębiorstwem lub większym?",
-            "body": "Próg to definicja MŚP z zalecenia Komisji 2003/361/WE: co najmniej 50 pracowników oraz co najmniej 10 milionów EUR obrotu lub sumy bilansowej, albo więcej. Jeśli jesteś poniżej tego, jesteś poza zakresem, chyba że mimo to obejmie Cię jeden z wyjątków obejmujących niezależnie od wielkości w artykule 2 ust. 2 do 4 (np. jesteś jedynym dostawcą usługi kluczowej, kwalifikowanym dostawcą usług zaufania lub dostawcą usług DNS)."
+            "body": "Próg to definicja MŚP z zalecenia Komisji 2003/361/WE: co najmniej 50 pracowników albo ponad 10 milionów EUR zarówno obrotu, jak i sumy bilansowej. Jeśli jesteś poniżej tego, jesteś poza zakresem, chyba że mimo to obejmie Cię jeden z wyjątków obejmujących niezależnie od wielkości w artykule 2 ust. 2 do 4 (np. jesteś jedynym dostawcą usługi kluczowej, kwalifikowanym dostawcą usług zaufania lub dostawcą usług DNS)."
           },
           "independent": {
             "section": "Test 3",
@@ -3491,7 +3491,7 @@
         "items": [
           "Dyrektywa (UE) 2022/2555 (NIS 2), artykuł 2 (zakres), załącznik I i załącznik II (sektory), artykuł 21 ust. 2 lit. d) (bezpieczeństwo łańcucha dostaw) oraz artykuł 21 ust. 3 (uwzględnienie podatności charakterystycznych dla dostawcy).",
           "Rozporządzenie wykonawcze Komisji (UE) 2024/2690 z dnia 17 października 2024 r., §5 (bezpieczeństwo łańcucha dostaw): polityka zakupowa z kryteriami wyboru, rejestr ryzyka dostawców, umowne obowiązki bezpieczeństwa.",
-          "Zalecenie Komisji 2003/361/WE, artykuł 2 załącznika (definicja średniego przedsiębiorstwa: co najmniej 50 pracowników oraz co najmniej 10 milionów EUR obrotu lub sumy bilansowej).",
+          "Zalecenie Komisji 2003/361/WE, artykuł 2 załącznika (próg średniego przedsiębiorstwa: co najmniej 50 pracowników albo ponad 10 milionów EUR zarówno obrotu, jak i sumy bilansowej).",
           "BSIG (Niemcy) §28 (Einrichtungsarten und Größenkriterien) oraz §30 (Risikomanagementmaßnahmen, w tym Lieferkettensicherheit), wdrażające NIS 2 art. 2 i 21.",
           "Wytyczne wdrożeniowe ENISA dotyczące NIS 2 oraz specyfikacja rejestru podmiotów z art. 27: zakres na podstawie art. 2 rozstrzyga, czy podmiot jest zarejestrowany; środki dotyczące łańcucha dostaw na podstawie art. 21 rozstrzygają, co podmiot objęty zakresem robi w odniesieniu do swoich dostawców."
         ]
@@ -3610,7 +3610,7 @@
       },
       "practitioner": {
         "heading": "Jak to wygląda w prawdziwych grupach Mittelstandu",
-        "p1": "W grupach, które widzimy, pytanie niemal zawsze ląduje na kroku 3. Spółka operacyjna wykonuje coś z Załącznika I lub II. Sama jest mała. Wewnątrz grupy plasuje się powyżej 50 pracowników lub powyżej 10 milionów euro obrotu. Zgodnie z 2003/361/WE to ją wciąga.",
+        "p1": "W grupach, które widzimy, pytanie niemal zawsze ląduje na kroku 3. Spółka operacyjna wykonuje coś z Załącznika I lub II. Sama jest mała. Wewnątrz grupy plasuje się powyżej 50 pracowników lub powyżej 10 milionów euro zarówno obrotu, jak i sumy bilansowej. Zgodnie z 2003/361/WE to ją wciąga.",
         "p2": "Dźwignią jest argument o niezależności z Motywu 16. Jeśli spółka zależna jest naprawdę niezależna w sposobie działania (własny organ zarządzający, własne umowy z klientami, własne decyzje, brak alokacji kosztów grupowych decydującej o jej modelu biznesowym), krajowy organ może potraktować ją jako samodzielną do testu wielkości. Spisz niezależność, zanim na niej polegniesz. Nie zakładaj jej."
       },
       "platform": {
@@ -4008,7 +4008,7 @@
         "items": {
           "check": {
             "title": "1. Potwierdź, że faktycznie podlegasz zakresowi",
-            "description": "Zanim się zarejestrujesz, zweryfikuj, czy NIS2 dotyczy Twojej firmy. Kryteria są w §28 BSIG: musisz działać w jednym z 18 wymienionych sektorów ORAZ spełniać próg wielkości (50+ pracowników lub 10 mln EUR+ rocznego obrotu). Jeśli nie masz pewności, sprawdź listy sektorów BSI w Załączniku I i Załączniku II do dyrektywy NIS2. Wiele firm zakłada, że są poza zakresem, podczas gdy nie są, i odwrotnie. Jeśli naprawdę masz wątpliwości, uzyskaj opinię prawną przed rejestracją, ale nie wykorzystuj niepewności jako wymówki do zwłoki."
+            "description": "Zanim się zarejestrujesz, zweryfikuj, czy NIS2 dotyczy Twojej firmy. Kryteria są w §28 BSIG: musisz działać w jednym z 18 wymienionych sektorów ORAZ spełniać próg wielkości (co najmniej 50 pracowników lub roczny obrót i roczna suma bilansowa, każde powyżej 10 mln EUR). Jeśli nie masz pewności, sprawdź listy sektorów BSI w Załączniku I i Załączniku II do dyrektywy NIS2. Wiele firm zakłada, że są poza zakresem, podczas gdy nie są, i odwrotnie. Jeśli naprawdę masz wątpliwości, uzyskaj opinię prawną przed rejestracją, ale nie wykorzystuj niepewności jako wymówki do zwłoki."
           },
           "register": {
             "title": "2. Zarejestruj się przez portal BSI niezwłocznie",
@@ -4024,7 +4024,7 @@
           },
           "legal": {
             "title": "5. Rozważ doradztwo prawne, jeśli zakres jest niejasny",
-            "description": "Jeśli Twoja firma znajduje się blisko progu (blisko 50 pracowników lub 10 mln EUR obrotu), działa w sektorze, który można interpretować na wiele sposobów, lub ma złożoną strukturę korporacyjną, skonsultuj się z prawnikiem specjalizującym się w regulacjach IT. Koszt opinii prawnej (2 000 do 5 000 EUR) jest znikomy w porównaniu z kosztem zarówno niezgodności, jak i zbędnej zgodności. Niektóre stowarzyszenia branżowe (jak Bitkom czy BDI) oferują również członkom wytyczne dotyczące zakresu NIS2."
+            "description": "Jeśli Twoja firma znajduje się blisko progu (blisko 50 pracowników lub 10 mln EUR obrotu i sumy bilansowej), działa w sektorze, który można interpretować na wiele sposobów, lub ma złożoną strukturę korporacyjną, skonsultuj się z prawnikiem specjalizującym się w regulacjach IT. Koszt opinii prawnej (2 000 do 5 000 EUR) jest znikomy w porównaniu z kosztem zarówno niezgodności, jak i zbędnej zgodności. Niektóre stowarzyszenia branżowe (jak Bitkom czy BDI) oferują również członkom wytyczne dotyczące zakresu NIS2."
           }
         }
       },
@@ -4118,12 +4118,12 @@
           "scope": {
             "aspect": "Zakres",
             "kritis": "Około 2 000 operatorów infrastruktury krytycznej w 10 sektorach, identyfikowanych przez przekroczenie określonych wartości progowych (np. 500 000 obsługiwanych osób)",
-            "nis2": "Około 30 000 podmiotów w 18 sektorach, z wykorzystaniem prostego progu wielkości: 50+ pracowników lub 10 mln EUR+ rocznego przychodu. Obejmuje obie kategorie: „kluczowe” i „ważne”"
+            "nis2": "Około 30 000 podmiotów w 18 sektorach, z wykorzystaniem prostego progu wielkości: 50+ pracowników lub ponad 10 mln EUR zarówno rocznego obrotu, jak i sumy bilansowej. Obejmuje obie kategorie: „kluczowe” i „ważne”"
           },
           "threshold": {
             "aspect": "Model progowy",
             "kritis": "Sektorowe progi ilościowe (np. 500 000 zaopatrywanych osób dla energetyki, 500 000 mieszkańców dla wody). Skomplikowane do obliczenia, wiele przypadków granicznych",
-            "nis2": "Jednolite kryteria wielkości: średnie przedsiębiorstwo (50+ pracowników lub 10 mln EUR+ przychodu) we wszystkich sektorach. Znacznie prostsze do ustalenia. Niektóre sektory mają dodatkowe kryteria niezależnie od wielkości"
+            "nis2": "Jednolite kryteria wielkości: średnie przedsiębiorstwo (50+ pracowników lub ponad 10 mln EUR zarówno obrotu, jak i sumy bilansowej) we wszystkich sektorach. Znacznie prostsze do ustalenia. Niektóre sektory mają dodatkowe kryteria niezależnie od wielkości"
           },
           "registration": {
             "aspect": "Rejestracja",
@@ -4258,7 +4258,7 @@
         },
         "bsig": {
           "term": "BSIG (BSI-Gesetz)",
-          "definition": "Niemiecka ustawa federalna regulująca BSI (Federalny Urząd Bezpieczeństwa Informacji) oraz obowiązki w zakresie cyberbezpieczeństwa. NIS2UmsuCG znowelizowała BSIG, włączając wszystkie wymogi NIS2. Gdy ktoś mówi 'zgodność z NIS2 w Niemczech', ma na myśli zgodność ze znowelizowaną BSIG. To jest prawo, które ma do Ciebie zastosowanie - nie sama dyrektywa NIS2.",
+          "definition": "Niemiecka ustawa federalna regulująca BSI (Federalny Urząd Bezpieczeństwa Informacji) oraz obowiązki w zakresie cyberbezpieczeństwa. NIS2UmsuCG znowelizowała BSIG i transponuje NIS2 w Niemczech głównie za jego pośrednictwem. Gdy ktoś mówi 'zgodność z NIS2 w Niemczech', ma na myśli zgodność ze znowelizowaną BSIG. To jest prawo, które ma do Ciebie zastosowanie - nie sama dyrektywa NIS2.",
           "german": "Gesetz über das Bundesamt für Sicherheit in der Informationstechnik",
           "legalRef": "BSIG w brzmieniu zmienionym przez NIS2UmsuCG"
         },
@@ -4269,7 +4269,7 @@
         },
         "cir2024": {
           "term": "CIR 2024/2690",
-          "definition": "Rozporządzenie wykonawcze UE, które określa dokładne wymogi techniczne i metodologiczne dla podmiotów NIS2. W przeciwieństwie do dyrektywy, ma ono bezpośrednie zastosowanie we wszystkich państwach członkowskich bez transpozycji. Szczegółowo opisuje, co 'odpowiednie środki cyberbezpieczeństwa' faktycznie oznaczają w praktyce - traktuj je jako techniczny zbiór zasad uzupełniający szczegóły, które dyrektywa pozostawiła otwarte.",
+          "definition": "Rozporządzenie wykonawcze UE, które określa wymogi techniczne i metodologiczne dotyczące środków z art. 21 ust. 2 NIS2, ale tylko dla określonych rodzajów podmiotów: dostawców usług DNS, rejestrów nazw TLD, dostawców usług chmurowych, dostawców usług ośrodka przetwarzania danych, dostawców sieci dostarczania treści, dostawców usług zarządzanych, dostawców usług zarządzanych w zakresie bezpieczeństwa, dostawców internetowych platform handlowych, wyszukiwarek internetowych oraz platform usług sieci społecznościowych i dostawców usług zaufania. W przeciwieństwie do dyrektywy, ma ono bezpośrednie zastosowanie we wszystkich państwach członkowskich bez transpozycji. Dla tych podmiotów szczegółowo opisuje, co odpowiednie środki cyberbezpieczeństwa faktycznie oznaczają w praktyce - traktuj je jako techniczny zbiór zasad uzupełniający szczegóły, które dyrektywa pozostawiła otwarte.",
           "legalRef": "Rozporządzenie wykonawcze Komisji (UE) 2024/2690"
         },
         "bsiRegistration": {
@@ -4286,7 +4286,7 @@
         },
         "riskManagement": {
           "term": "Środki zarządzania ryzykiem",
-          "definition": "Dziesięć kategorii środków cyberbezpieczeństwa, które wszystkie podmioty NIS2 muszą wdrożyć na podstawie §30 BSIG. Obejmują one od oceny ryzyka i obsługi incydentów po bezpieczeństwo łańcucha dostaw i kryptografię. Muszą być 'odpowiednie i proporcjonalne' do Twojej wielkości i profilu ryzyka - od 50-osobowej firmy gospodarki odpadami nie oczekuje się wdrożenia tych samych zabezpieczeń co od Deutsche Telekom.",
+          "definition": "Dziesięć kategorii środków cyberbezpieczeństwa, które wszystkie podmioty NIS2 muszą wdrożyć na podstawie §30 BSIG. Obejmują one od oceny ryzyka i obsługi incydentów po bezpieczeństwo łańcucha dostaw i kryptografię. Muszą być 'odpowiednie, proporcjonalne i skuteczne'; przy ocenie proporcjonalności uwzględnia się m.in. Twoją wielkość i narażenie na ryzyko - od 50-osobowej firmy gospodarki odpadami nie oczekuje się wdrożenia tych samych zabezpieczeń co od Deutsche Telekom.",
           "german": "Risikomanagementmaßnahmen",
           "legalRef": "§30 ust. 2 BSIG"
         },
@@ -4319,7 +4319,7 @@
         },
         "section30": {
           "term": "§30 BSIG - środki cyberbezpieczeństwa",
-          "definition": "Centralny przepis NIS2 w prawie niemieckim. Wymienia dziesięć kategorii środków zarządzania ryzykiem cyberbezpieczeństwa, które wszystkie podmioty objęte zakresem muszą wdrożyć. Obejmuje ocenę ryzyka, obsługę incydentów, ciągłość działania, bezpieczeństwo łańcucha dostaw, bezpieczny rozwój, ocenę skuteczności, szkolenia, kryptografię, kontrolę dostępu oraz uwierzytelnianie wieloskładnikowe. Środki muszą być 'odpowiednie i proporcjonalne' - nie złocone ponad miarę, ale rzeczywiste.",
+          "definition": "Centralny przepis NIS2 w prawie niemieckim. Wymienia dziesięć kategorii środków zarządzania ryzykiem cyberbezpieczeństwa, które wszystkie podmioty objęte zakresem muszą wdrożyć. Obejmuje ocenę ryzyka, obsługę incydentów, ciągłość działania, bezpieczeństwo łańcucha dostaw, bezpieczny rozwój, ocenę skuteczności, szkolenia, kryptografię, kontrolę dostępu oraz uwierzytelnianie wieloskładnikowe. Środki muszą być 'odpowiednie, proporcjonalne i skuteczne' - nie złocone ponad miarę, ale rzeczywiste.",
           "legalRef": "§30 BSIG"
         },
         "section32": {
@@ -4403,12 +4403,12 @@
         "description": "Gospodarka odpadami jest nowo objęta zakresem NIS2 (Załącznik II). Przewodnik dla firm odpadowych zatrudniających 50+ pracowników: wymagania prawne, zasoby i pierwsze kroki."
       },
       "title": "NIS2 dla firm gospodarki odpadami",
-      "subtitle": "Twój sektor jest nowo objęty zakresem w Załączniku II NIS2. Jeśli Twoja firma gospodarki odpadami zatrudnia 50+ pracowników lub osiąga 10 mln € przychodu, to jest Twój praktyczny przewodnik po tym, czego wymaga prawo i od czego zacząć.",
+      "subtitle": "Twój sektor jest nowo objęty zakresem w Załączniku II NIS2. Jeśli Twoja firma gospodarki odpadami zatrudnia 50+ pracowników lub osiąga ponad 10 mln € zarówno obrotu, jak i sumy bilansowej, to jest Twój praktyczny przewodnik po tym, czego wymaga prawo i od czego zacząć.",
       "badge": "Załącznik II - Podmiot ważny",
       "why": {
         "heading": "Dlaczego NIS2 dotyczy firm odpadowych?",
         "p1": "Gospodarka odpadami została dodana do NIS2, ponieważ nowoczesne operacje odpadowe są mocno zależne od systemów IT. Zarządzanie flotą, optymalizacja tras, systemy wag pomostowych, sterowanie zakładami sortowania, fakturowanie i raportowanie regulacyjne - wszystko działa na oprogramowaniu sieciowym. Atak ransomware, który wyłączy system zarządzania flotą firmy odpadowej, nie tylko zatrzymuje ciężarówki - tworzy zagrożenie dla zdrowia publicznego. Niewywiezione odpady w mieście liczącym 200 000 mieszkańców stają się kryzysem w ciągu kilku dni.",
-        "p2": "UE sklasyfikowała gospodarkę odpadami w Załączniku II dyrektywy NIS2, co oznacza, że firmy odpadowe spełniające próg wielkości (50+ pracowników lub 10 mln € rocznego przychodu) są kategoryzowane jako 'podmioty ważne' (wichtige Einrichtungen) zgodnie z §28(2) BSIG. Oznacza to, że stosuje się pełen zakres obowiązków NIS2: rejestracja w BSI, środki zarządzania ryzykiem cyberbezpieczeństwa, zgłaszanie incydentów, bezpieczeństwo łańcucha dostaw i odpowiedzialność kierownictwa.",
+        "p2": "UE sklasyfikowała gospodarkę odpadami w Załączniku II dyrektywy NIS2, co oznacza, że firmy odpadowe spełniające próg wielkości (50+ pracowników lub ponad 10 mln € zarówno rocznego obrotu, jak i sumy bilansowej) są kategoryzowane jako 'podmioty ważne' (wichtige Einrichtungen) zgodnie z §28(2) BSIG. Oznacza to, że stosuje się pełen zakres obowiązków NIS2: rejestracja w BSI, środki zarządzania ryzykiem cyberbezpieczeństwa, zgłaszanie incydentów, bezpieczeństwo łańcucha dostaw i odpowiedzialność kierownictwa.",
         "p3": "Większość firm odpadowych nigdy wcześniej nie miała do czynienia z regulacją cyberbezpieczeństwa. To nie jest krytyka - do NIS2 nie było ku temu powodu prawnego. Ale oznacza to bardziej stromą krzywą uczenia się w porównaniu z sektorami, które były już objęte KRITIS. Dobra wiadomość: środowiska IT firm odpadowych są zazwyczaj mniej złożone niż w bankowości czy energetyce, co oznacza, że nakład pracy na zgodność jest proporcjonalnie mniejszy."
       },
       "assets": {
@@ -4471,13 +4471,13 @@
         "heading": "Co odróżnia firmy odpadowe",
         "p1": "Firmy odpadowe mają unikalny profil ryzyka. W przeciwieństwie do firmy programistycznej, gdzie niemal wszystko jest cyfrowe, operacje odpadowe obejmują procesy fizyczne: ciężarówki na drogach, materiały w ruchu, sprzęt w obiektach. Cyberatak na zarządzanie flotą ma natychmiastowe konsekwencje w świecie fizycznym. Ten wymiar technologii operacyjnej oznacza, że Twoja ocena ryzyka powinna uwzględniać zarówno systemy IT, jak i wszelkie sterowania przemysłowe.",
         "p2": "Większość firm odpadowych mocno zleca na zewnątrz. Wiele działa z małym wewnętrznym zespołem IT (albo całkowicie bez dedykowanego personelu IT) i polega na zewnętrznych dostawcach od poczty po ERP i zarządzanie flotą. W ramach NIS2 możesz zlecać operacje na zewnątrz, ale nie odpowiedzialność - §30 BSIG czyni Twoją firmę odpowiedzialną za środki bezpieczeństwa, nawet gdy dostarcza je dostawca. To czyni zarządzanie dostawcami Twoją najważniejszą dźwignią zgodności.",
-        "p3": "Pozytywna strona: środowiska IT firm odpadowych są zazwyczaj nieskomplikowane. 100-osobowa firma odpadowa ma być może od 6 do 10 odrębnych grup systemów, w porównaniu z 30 lub więcej dla banku czy szpitala podobnej wielkości. Oznacza to, że nakład pracy na zgodność jest proporcjonalny - mówimy o tygodniach skupionej pracy, a nie o wieloletnim programie. Standard 'odpowiednie i proporcjonalne' BSI działa tu na Twoją korzyść."
+        "p3": "Pozytywna strona: środowiska IT firm odpadowych są zazwyczaj nieskomplikowane. 100-osobowa firma odpadowa ma być może od 6 do 10 odrębnych grup systemów, w porównaniu z 30 lub więcej dla banku czy szpitala podobnej wielkości. Oznacza to, że nakład pracy na zgodność jest proporcjonalny - mówimy o tygodniach skupionej pracy, a nie o wieloletnim programie. Test proporcjonalności z §30 ust. 1 BSIG działa tu na Twoją korzyść."
       },
       "faq": {
         "heading": "Najczęściej zadawane pytania",
         "q1": {
           "q": "Czy nasza firma odpadowa faktycznie jest objęta zakresem NIS2?",
-          "a": "Jeśli Twoja firma działa w zakresie zbierania, przetwarzania lub unieszkodliwiania odpadów i zatrudnia 50 lub więcej pracowników albo osiąga 10 mln € lub więcej rocznego przychodu, niemal na pewno jesteś objęty zakresem jako podmiot ważny zgodnie z Załącznikiem II NIS2. Definicja sektora obejmuje cały łańcuch gospodarki odpadami. Jeśli jesteś blisko progu, sprawdź, czy powiązane spółki grupy nie wypychają Cię ponad limit - NIS2 stosuje unijną definicję MŚP, która uwzględnia przedsiębiorstwa powiązane."
+          "a": "Jeśli Twoja firma działa w zakresie zbierania, przetwarzania lub unieszkodliwiania odpadów i zatrudnia 50 lub więcej pracowników albo osiąga ponad 10 mln € zarówno rocznego obrotu, jak i sumy bilansowej, niemal na pewno jesteś objęty zakresem jako podmiot ważny zgodnie z Załącznikiem II NIS2. Definicja sektora obejmuje cały łańcuch gospodarki odpadami. Jeśli jesteś blisko progu, sprawdź, czy powiązane spółki grupy nie wypychają Cię ponad limit - NIS2 stosuje unijną definicję MŚP, która uwzględnia przedsiębiorstwa powiązane."
         },
         "q2": {
           "q": "Zlecamy całe IT na zewnątrz - czy NIS2 nadal nas dotyczy?",
@@ -4650,7 +4650,7 @@
     "securityObligation": {
       "meta": {
         "title": "Obowiązek bezpieczeństwa IT - NIS2 i BSIG",
-        "description": "NIS2 to nowy obowiązek bezpieczeństwa IT dla niemieckich firm zatrudniających 50+ pracowników lub o przychodach 10M+ w sektorach krytycznych. Czego wymaga BSIG."
+        "description": "NIS2 to nowy obowiązek bezpieczeństwa IT dla niemieckich firm zatrudniających 50+ pracowników lub z obrotem i sumą bilansową powyżej 10 mln EUR w sektorach krytycznych. Czego wymaga BSIG."
       },
       "title": "Nowy obowiązek bezpieczeństwa IT dla niemieckich firm",
       "subtitle": "Jeżeli szukałeś 'IT Sicherheitspflicht', szukasz NIS2. Od grudnia 2025 r. znowelizowany BSIG czyni cyberbezpieczeństwo obowiązkiem prawnym dla około 29 500 niemieckich firm.",
@@ -4658,7 +4658,7 @@
         "heading": "NIS2 to obowiązek bezpieczeństwa IT, o którym słyszysz",
         "p1": "W Niemczech nie istnieje samodzielna 'ustawa o obowiązku bezpieczeństwa IT'. Istnieje dyrektywa NIS2 (EU 2022/2555), transponowana do prawa niemieckiego poprzez NIS2UmsuCG, która gruntownie zmieniła federalną ustawę o cyberbezpieczeństwie (BSIG). To prawo tworzy wiążące obowiązki bezpieczeństwa IT dla firm w 18 sektorach krytycznych.",
         "p2": "BSIG wszedł w życie 6 grudnia 2025 r. Wymaga on od dotkniętych firm wdrożenia 10 konkretnych środków zarządzania ryzykiem w cyberbezpieczeństwie (Sekcja 30 BSIG), rejestracji w BSI, zgłaszania istotnych incydentów w ścisłych terminach oraz zabezpieczenia łańcuchów dostaw. Zarząd ponosi osobistą odpowiedzialność na podstawie Sekcji 38 BSIG za zapewnienie zgodności.",
-        "p3": "Jeżeli twoja firma zatrudnia 50 lub więcej pracowników albo przekracza 10 milionów euro rocznego przychodu i działa w jednym z 18 sektorów NIS2, te obowiązki dotyczą cię już teraz. Termin rejestracji przypadał na 6 marca 2026 r. Wdrożenie wszystkich środków jest wymagane do 17 października 2026 r."
+        "p3": "Jeżeli twoja firma zatrudnia 50 lub więcej pracowników albo przekracza 10 milionów euro zarówno rocznego obrotu, jak i sumy bilansowej, i działa w jednym z 18 sektorów NIS2, te obowiązki dotyczą cię już teraz. Termin rejestracji przypadał na 6 marca 2026 r."
       },
       "check": {
         "heading": "Czy to dotyczy mojej firmy?",
@@ -4684,7 +4684,7 @@
       },
       "steps": {
         "heading": "Co musisz zrobić",
-        "description": "BSIG wymaga pięciu konkretnych kroków. Rejestracja powinna być już wykonana. Pozostałe środki muszą zostać wdrożone do października 2026 r.",
+        "description": "BSIG wymaga pięciu konkretnych kroków. Rejestracja powinna być już wykonana.",
         "items": {
           "register": {
             "title": "Zarejestruj się w BSI",
@@ -4814,7 +4814,7 @@
       },
       "scope": {
         "heading": "Kto podlega §30 BSIG",
-        "p1": "§30 BSIG ma zastosowanie do podmiotów kluczowych na podstawie §28 ust. 6 BSIG oraz podmiotów ważnych na podstawie §28 ust. 7 BSIG. Sektory są wymienione w załączniku 1 i załączniku 2 dyrektywy NIS 2. Próg wielkości to co najmniej 50 pracowników lub 10 milionów euro rocznego obrotu, ze szczególnymi zasadami dla KRITIS i dla sektorów objętych niezależnie od wielkości.",
+        "p1": "§30 BSIG ma zastosowanie do podmiotów kluczowych na podstawie §28 ust. 6 BSIG oraz podmiotów ważnych na podstawie §28 ust. 7 BSIG. Sektory są wymienione w załączniku 1 i załączniku 2 dyrektywy NIS 2. Próg wielkości to co najmniej 50 pracowników lub ponad 10 milionów euro zarówno rocznego obrotu, jak i sumy bilansowej, ze szczególnymi zasadami dla KRITIS i dla sektorów objętych niezależnie od wielkości.",
         "p2": "Jeśli nie masz pewności, zacznij od testu stosowalności na podstawie artykułu 2 NIS 2. Dostawcy podmiotów regulowanych również stykają się z §30 poprzez pkt 4 (łańcuch dostaw): obowiązki przechodzą umownie na bezpośrednich dostawców."
       },
       "penalties": {
@@ -4937,7 +4937,7 @@
         },
         "q3": {
           "q": "Nie jesteśmy pewni, czy klasyfikujemy się jako kluczowy czy ważny. Co wybrać?",
-          "a": "Podmioty kluczowe to duże firmy (250+ pracowników lub 50 mln+ obrotu) w sektorach z załącznika I, plus wszyscy operatorzy KRITIS. Podmioty ważne (wichtige Einrichtungen) to firmy średnie (50-249 pracowników lub 10-50 mln obrotu) w sektorach z załącznika I lub firmy średnie/duże w sektorach z załącznika II. Jeśli masz rzeczywistą wątpliwość, portal BSI zapewnia wskazówki dotyczące klasyfikacji w trakcie procesu rejestracji."
+          "a": "Podmioty kluczowe to duże firmy (250+ pracowników lub obrót powyżej 50 mln przy sumie bilansowej powyżej 43 mln) w sektorach z załącznika I, plus wszyscy operatorzy KRITIS. Podmioty ważne (wichtige Einrichtungen) to firmy średnie (50-249 pracowników lub obrót i suma bilansowa, każde powyżej 10 mln, poniżej progów dużego przedsiębiorstwa) w sektorach z załącznika I lub firmy średnie/duże w sektorach z załącznika II. Jeśli masz rzeczywistą wątpliwość, portal BSI zapewnia wskazówki dotyczące klasyfikacji w trakcie procesu rejestracji."
         },
         "q4": {
           "q": "Co dzieje się po rejestracji? Czy BSI się z nami kontaktuje?",
@@ -5074,11 +5074,11 @@
       },
       "badge": "Załącznik II - podmiot ważny",
       "title": "NIS2 dla firm produkujących i dystrybuujących żywność",
-      "subtitle": "Produkcja, przetwarzanie i hurtowa dystrybucja żywności są objęte zakresem załącznika II NIS2. Jeśli Twoja firma ma 50+ pracowników lub przekracza 10 mln euro przychodu, to jest Twój praktyczny przewodnik po tym, czego wymaga BSIG.",
+      "subtitle": "Produkcja, przetwarzanie i hurtowa dystrybucja żywności są objęte zakresem załącznika II NIS2. Jeśli Twoja firma ma 50+ pracowników lub przekracza 10 mln euro zarówno obrotu, jak i sumy bilansowej, to jest Twój praktyczny przewodnik po tym, czego wymaga BSIG.",
       "why": {
         "heading": "Dlaczego NIS2 dotyczy firm spożywczych?",
         "p1": "Nowoczesna produkcja żywności jest głęboko zależna od systemów IT. Systemy ERP zarządzają zamówieniami i fakturowaniem. Systemy sterowania produkcją (MES) planują i monitorują linie produkcyjne. Systemy monitorowania łańcucha chłodniczego śledzą temperatury od produkcji po dostawę. Laboratoryjne systemy informacyjne zarządzają badaniami jakości. Jeśli ransomware unieruchomi Twój ERP, nie możesz wysyłać. Jeśli zawiedzie monitorowanie łańcucha chłodniczego, nie możesz udowodnić bezpieczeństwa produktu. Dlatego UE sklasyfikowała żywność jako sektor krytyczny.",
-        "p2": "UE umieściła produkcję, przetwarzanie i hurtową dystrybucję żywności pod załącznikiem II dyrektywy NIS2. Firmy spełniające próg wielkości (50+ pracowników lub ponad 10 milionów euro rocznego przychodu) są klasyfikowane jako „wichtige Einrichtungen” (podmioty ważne) na podstawie Section 28(2) BSIG. Oznacza to, że stosuje się pełen zestaw obowiązków NIS2: rejestracja w BSI, 10 środków zarządzania ryzykiem cyberbezpieczeństwa, zgłaszanie incydentów, bezpieczeństwo łańcucha dostaw oraz odpowiedzialność kierownictwa.",
+        "p2": "UE umieściła produkcję, przetwarzanie i hurtową dystrybucję żywności pod załącznikiem II dyrektywy NIS2. Firmy spełniające próg wielkości (50+ pracowników lub ponad 10 milionów euro zarówno rocznego obrotu, jak i sumy bilansowej) są klasyfikowane jako „wichtige Einrichtungen” (podmioty ważne) na podstawie Section 28(2) BSIG. Oznacza to, że stosuje się pełen zestaw obowiązków NIS2: rejestracja w BSI, 10 środków zarządzania ryzykiem cyberbezpieczeństwa, zgłaszanie incydentów, bezpieczeństwo łańcucha dostaw oraz odpowiedzialność kierownictwa.",
         "p3": "Większość firm spożywczych nie miała wcześniej do czynienia z regulacją cyberbezpieczeństwa. Regulacje bezpieczeństwa żywności (HACCP, IFS, BRC) są znane, ale obowiązki bezpieczeństwa IT są nowe. Dobra wiadomość: jeśli Twoja firma już prowadzi ustrukturyzowany system zarządzania jakością, wiele koncepcji się przenosi. Ocena ryzyka, dokumentacja, audyty, działania korygujące - ramy są podobne, tylko zastosowane do IT zamiast higieny produkcji."
       },
       "assets": {
@@ -5179,7 +5179,7 @@
       "why": {
         "heading": "Dlaczego NIS2 dotyczy produkcji?",
         "p1": "Nowoczesna produkcja zależy od konwergencji IT i OT (technologii operacyjnej). Systemy ERP napędzają harmonogramowanie produkcji. Platformy MES zarządzają realizacją na hali produkcyjnej. Systemy SCADA sterują maszynami i automatyzacją procesów. Systemy CAD/CAM definiują, co jest produkowane. Gdy te systemy są ze sobą połączone - a w większości fabryk są - cyberatak na jeden z nich może kaskadowo objąć cały łańcuch produkcyjny. Infekcja ransomware w sieci biurowej, która dosięgnie MES, może zatrzymać linie produkcyjne.",
-        "p2": "UE sklasyfikowała produkcję w Załączniku II dyrektywy NIS2, obejmując: produkcję wyrobów medycznych, produkcję komputerów i elektroniki, produkcję sprzętu elektrycznego, produkcję maszyn i urządzeń, produkcję pojazdów silnikowych oraz produkcję pozostałego sprzętu transportowego. Firmy spełniające próg wielkości (50+ pracowników lub ponad 10 milionów euro rocznego przychodu) są 'wichtige Einrichtungen' (podmiotami ważnymi) zgodnie z Sekcją 28(2) BSIG.",
+        "p2": "UE sklasyfikowała produkcję w Załączniku II dyrektywy NIS2, obejmując: produkcję wyrobów medycznych, produkcję komputerów i elektroniki, produkcję sprzętu elektrycznego, produkcję maszyn i urządzeń, produkcję pojazdów silnikowych oraz produkcję pozostałego sprzętu transportowego. Firmy spełniające próg wielkości (50+ pracowników lub ponad 10 milionów euro zarówno rocznego obrotu, jak i sumy bilansowej) są 'wichtige Einrichtungen' (podmiotami ważnymi) zgodnie z Sekcją 28(2) BSIG.",
         "p3": "Produkcja ma unikalne wyzwanie, z którym większość innych sektorów NIS2 nie mierzy się w tej samej skali: bezpieczeństwo OT. Sprzęt produkcyjny często działa na wyspecjalizowanych systemach operacyjnych, używa zastrzeżonych protokołów i ma ograniczenia cyklu życia, które utrudniają łatanie. Maszyna CNC z 2015 roku może działać na Windows 7 Embedded i nie da się jej zaktualizować bez udziału producenta. NIS2 nie ignoruje tej rzeczywistości - Sekcja 30 BSIG wymaga środków, które są 'proporcjonalne' do ryzyka. Ale musisz udokumentować ryzyka i środki kompensacyjne."
       },
       "assets": {
@@ -5381,7 +5381,7 @@
       "why": {
         "heading": "Dlaczego NIS2 ma zastosowanie do firm logistycznych?",
         "p1": "Logistyka jest kręgosłupem gospodarki materialnej. Cyberatak, który zatrzymuje dużego dostawcę usług logistycznych, nie dotyka tylko jednej firmy - zakłóca łańcuchy dostaw dla dziesiątek lub setek klientów. Atak NotPetya z 2017 roku kosztował sam Maersk ponad 300 milionów euro i zakłócał globalny transport morski przez tygodnie. UE sklasyfikowała transport w załączniku I (sektory o wysokim stopniu krytyczności), ponieważ zakłócenia logistyki kaskadowo przenoszą się na całą gospodarkę.",
-        "p2": "NIS2 obejmuje wszystkie rodzaje transportu: drogowy transport towarów, transport kolejowy, śródlądowe drogi wodne, żeglugę morską i transport lotniczy. W zakresie znajdują się firmy spełniające próg wielkości (50+ pracowników lub ponad 10 milionów euro przychodu). Duże firmy (250+ pracowników) w sektorach załącznika I są sklasyfikowane jako podmioty kluczowe. Średnie firmy (50-249 pracowników) są podmiotami ważnymi (wichtige Einrichtungen). Obie kategorie podlegają pełnemu zestawowi obowiązków NIS2.",
+        "p2": "NIS2 obejmuje wszystkie rodzaje transportu: drogowy transport towarów, transport kolejowy, śródlądowe drogi wodne, żeglugę morską i transport lotniczy. W zakresie znajdują się firmy spełniające próg wielkości (50+ pracowników lub ponad 10 milionów euro zarówno obrotu, jak i sumy bilansowej). Duże firmy (250+ pracowników) w sektorach załącznika I są sklasyfikowane jako podmioty kluczowe. Średnie firmy (50-249 pracowników) są podmiotami ważnymi (wichtige Einrichtungen). Obie kategorie podlegają pełnemu zestawowi obowiązków NIS2.",
         "p3": "Nowoczesne firmy logistyczne działają na wzajemnie połączonych systemach informatycznych. Systemy zarządzania transportem (TMS) orkiestrują przesyłki. Zarządzanie flotą śledzi pojazdy w czasie rzeczywistym. Systemy zarządzania magazynem (WMS) sterują zapasami i kompletacją. Jednostki telematyczne w ciężarówkach przesyłają dane o pozycji, prędkości, temperaturze i kierowcy. Jeśli którykolwiek z tych systemów zawiedzie, operacje stają lub stają się niebezpiecznie nieefektywne. NIS2 wymaga, abyś identyfikował te zależności i systematycznie zarządzał ryzykami cyberbezpieczeństwa."
       },
       "assets": {
@@ -6199,7 +6199,7 @@
       "penalties": {
         "q1": {
           "q": "Co się dzieje, jeżeli zobowiązana firma zgłosi incydent z opóźnieniem lub w ogóle nie zgłosi go właściwemu organowi? Kto sprawdza, czy incydenty podlegające zgłoszeniu zostały prawidłowo zgłoszone?",
-          "a": "Obowiązek zgłaszania wynika z artykułu 23 dyrektywy NIS2: wczesne ostrzeżenie w ciągu 24 godzin, zgłoszenie w ciągu 72 godzin i sprawozdanie końcowe w ciągu jednego miesiąca od poważnego incydentu (transponowany w Niemczech w §32 BSIG). Spóźnione zgłoszenie, lub jego brak, jest naruszeniem obowiązku, które właściwy organ (BSI dla większości podmiotów) może sankcjonować na podstawie reguł nadzoru i egzekwowania z artykułów 31 do 34 (§§61 i nast. oraz §65 BSIG). Możliwe środki obejmują instrukcje, wiążące nakazy i kary pieniężne, których wysokość zależy od typu podmiotu: dla podmiotów kluczowych artykuł 34 ustala górną granicę na co najmniej 10 milionów euro lub 2 procent ogólnoświatowego rocznego obrotu (w zależności od tego, która wartość jest wyższa), a dla podmiotów ważnych co najmniej 7 milionów euro lub 1,4 procent. Organ ocenia, czy zgłoszenie zostało dokonane prawidłowo, na podstawie złożonego zgłoszenia i może je zweryfikować poprzez swoje uprawnienia nadzorcze z artykułów 32 i 33 (takie jak żądania informacji, audyty, kontrole na miejscu). Terminowe, kompletne zgłoszenie w przepisanym formacie jest zatem najbezpieczniejszą drogą. Przewodnik krok po kroku dotyczący obowiązku i organu znajdziesz pod [Rejestracja i obowiązek zgłaszania](/wiki/anwendungsbereich/nis2-registrierung)."
+          "a": "Obowiązek zgłaszania wynika z artykułu 23 dyrektywy NIS2: wczesne ostrzeżenie w ciągu 24 godzin, zgłoszenie w ciągu 72 godzin i sprawozdanie końcowe najpóźniej miesiąc po tym zgłoszeniu (transponowany w Niemczech w §32 BSIG). Spóźnione zgłoszenie, lub jego brak, jest naruszeniem obowiązku, które właściwy organ (BSI dla większości podmiotów) może sankcjonować na podstawie reguł nadzoru i egzekwowania z artykułów 31 do 34 (§§61 i nast. oraz §65 BSIG). Możliwe środki obejmują instrukcje, wiążące nakazy i kary pieniężne, których wysokość zależy od typu podmiotu: dla podmiotów kluczowych artykuł 34 ustala górną granicę na co najmniej 10 milionów euro lub 2 procent ogólnoświatowego rocznego obrotu (w zależności od tego, która wartość jest wyższa), a dla podmiotów ważnych co najmniej 7 milionów euro lub 1,4 procent. Organ ocenia, czy zgłoszenie zostało dokonane prawidłowo, na podstawie złożonego zgłoszenia i może je zweryfikować poprzez swoje uprawnienia nadzorcze z artykułów 32 i 33 (takie jak żądania informacji, audyty, kontrole na miejscu). Terminowe, kompletne zgłoszenie w przepisanym formacie jest zatem najbezpieczniejszą drogą. Przewodnik krok po kroku dotyczący obowiązku i organu znajdziesz pod [Rejestracja i obowiązek zgłaszania](/wiki/anwendungsbereich/nis2-registrierung)."
         }
       },
       "liability": {
@@ -6213,7 +6213,7 @@
         },
         "q3": {
           "q": "Czy zarząd musi uczestniczyć w szkoleniu?",
-          "a": "Tak. Zarząd podmiotów kluczowych i ważnych musi regularnie uczestniczyć w szkoleniach z cyberbezpieczeństwa (art. 20 ust. 2 dyrektywy NIS2, w Niemczech sekcja 38 ust. 3 BSIG). Celem jest, aby zarząd potrafił rozpoznawać ryzyka, oceniać środki zarządzania ryzykiem i szacować ich wpływ na usługi. Dyrektywa nie wymienia minimalnej liczby godzin ani stałych odstępów; w swoich wytycznych BSI zaleca coroczne odświeżenie i podaje około czterech godzin jako orientacyjną wartość zakresu. Ten obowiązek dotyczy każdej osoby powołanej do kierowania podmiotem na mocy ustawy, statutu lub umowy spółki, i nie może być delegowany."
+          "a": "Tak. Zarząd podmiotów kluczowych i ważnych musi regularnie uczestniczyć w szkoleniach z cyberbezpieczeństwa (art. 20 ust. 2 dyrektywy NIS2, w Niemczech sekcja 38 ust. 3 BSIG). Celem jest, aby zarząd potrafił rozpoznawać ryzyka, oceniać środki zarządzania ryzykiem i szacować ich wpływ na usługi. Ani dyrektywa, ani BSIG nie określają minimalnej liczby godzin ani stałych odstępów. W swoich wytycznych BSI zaleca gruntowne szkolenie wstępne, a następnie regularne szkolenia uzupełniające; czas trwania i odstępy zależą od narażenia podmiotu na ryzyko i umiejętności zarządu. Ten obowiązek dotyczy każdej osoby powołanej do kierowania podmiotem na mocy ustawy, statutu lub umowy spółki, i nie może być delegowany."
         },
         "q4": {
           "q": "Czy zarząd może delegować swój obowiązek szkoleniowy?",
@@ -6337,7 +6337,7 @@
         },
         "q24": {
           "q": "Czy wszyscy uczestnicy bezpiecznego łańcucha dostaw w obszarze bezpieczeństwa lotnictwa podlegają KRITIS, nawet jeżeli są małymi przedsiębiorstwami poniżej progów stosowania NIS2?",
-          "a": "Nie. Uczestnictwo w bezpiecznym łańcuchu dostaw na podstawie §9a LuftSiG nie czyni firmy automatycznie Infrastrukturą Krytyczną i nie czyni jej automatycznie podmiotem NIS2. Decydujące są dwa odrębne progi: operatorem KRITIS stajesz się dopiero wtedy, gdy przekroczysz progi wolumenowe BSI-KritisV dla usługi krytycznej (zazwyczaj w sektorze lotnictwa lub logistyki). Stosowanie NIS2 na podstawie załącznika I lub II do dyrektywy NIS2 (UE) 2022/2555 z kolei wymaga, abyś był aktywny w objętym sektorze i spełniał kryteria wielkości (co do zasady od 50 pracowników lub ponad 10 milionów EUR rocznego obrotu; BSIG transponuje to w §28). Kto jest poniżej obu progów, nie jest objęty ani KRITIS, ani NIS2 z samego tytułu uczestnictwa w łańcuchu dostaw. Pełny test znajdziesz pod [Kto jest objęty](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
+          "a": "Nie. Uczestnictwo w bezpiecznym łańcuchu dostaw na podstawie §9a LuftSiG nie czyni firmy automatycznie Infrastrukturą Krytyczną i nie czyni jej automatycznie podmiotem NIS2. Decydujące są dwa odrębne progi: operatorem KRITIS stajesz się dopiero wtedy, gdy przekroczysz progi wolumenowe BSI-KritisV dla usługi krytycznej (zazwyczaj w sektorze lotnictwa lub logistyki). Stosowanie NIS2 na podstawie załącznika I lub II do dyrektywy NIS2 (UE) 2022/2555 z kolei wymaga, abyś był aktywny w objętym sektorze i spełniał kryteria wielkości (co do zasady od 50 pracowników lub ponad 10 milionów EUR zarówno rocznego obrotu, jak i sumy bilansowej; BSIG transponuje to w §28). Kto jest poniżej obu progów, nie jest objęty ani KRITIS, ani NIS2 z samego tytułu uczestnictwa w łańcuchu dostaw. Pełny test znajdziesz pod [Kto jest objęty](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
         },
         "q25": {
           "q": "Które formy prawne mieszczą się w sektorze finansowym i podsektorze bankowym według NIS2?",
@@ -7258,7 +7258,7 @@
           },
           "check": {
             "title": "Sprawdź próg każdego kraju",
-            "description": "NIS2 ma zastosowanie do podmiotów średnich i dużych (50+ pracowników lub 10 mln+ EUR obrotu). Zastosuj test progowy dla każdego podmiotu prawnego, a nie dla całej grupy; mała spółka zależna może znaleźć się poniżej progu."
+            "description": "NIS2 ma zastosowanie do podmiotów średnich i dużych (50+ pracowników lub ponad 10 mln EUR zarówno obrotu, jak i sumy bilansowej). Zastosuj test progowy dla każdego podmiotu prawnego, a nie dla całej grupy; mała spółka zależna może znaleźć się poniżej progu."
           },
           "register": {
             "title": "Zarejestruj się w każdym krajowym organie",
@@ -7788,7 +7788,7 @@
           "framework": {
             "section": "§28 + §30 BSIG",
             "title": "Zakres i dziesięć środków",
-            "body": "§28 BSIG określa, kto jest objęty zakresem: podmioty „szczególnie ważne” i „ważne”, oceniane według sektora (załącznik I i II NIS 2) oraz wielkości (50+ osób zatrudnionych lub 10 mln EUR+ obrotu, z odstępstwami). §30 BSIG wymienia dziesięć środków cyberbezpieczeństwa, które każdy podmiot objęty zakresem musi wdrożyć. §30 transponuje Artykuł 21(2) dyrektywy."
+            "body": "§28 BSIG określa, kto jest objęty zakresem: podmioty „szczególnie ważne” i „ważne”, oceniane według sektora (załącznik I i II NIS 2) oraz wielkości (50+ osób zatrudnionych lub ponad 10 mln EUR zarówno obrotu, jak i sumy bilansowej, z odstępstwami). §30 BSIG wymienia dziesięć środków cyberbezpieczeństwa, które każdy podmiot objęty zakresem musi wdrożyć. §30 transponuje Artykuł 21(2) dyrektywy."
           },
           "monitoring": {
             "section": "§32 + §33 BSIG",
@@ -9477,7 +9477,7 @@
       "overview": {
         "heading": "Krótka wersja",
         "p1": "Szpitale znajdują się w sektorze 5 załącznika I NIS 2 (Gesundheitswesen). Dyrektywa obejmuje je jako 'Gesundheitsdienstleister' w rozumieniu artykułu 3 lit. g) dyrektywy 2011/24/UE. Lista sektorowa jest szersza niż same szpitale: unijne laboratoria referencyjne, badania i rozwój leków, producenci farmaceutyczni oraz producenci krytycznych wyrobów medycznych na potrzeby stanów zagrożenia zdrowia publicznego są w tym samym koszyku.",
-        "p2": "To, czy NIS 2 Cię wiąże, zależy od artykułu 2 ust. 1. Jesteś objęty zakresem, jeżeli jesteś średnim przedsiębiorstwem w rozumieniu zalecenia Komisji 2003/361/WE lub większym. Próg średniego przedsiębiorstwa to 50 pracowników albo 10 mln euro rocznego obrotu lub sumy bilansowej. 60-osobowa klinika regionalna jest objęta. 20-osobowa praktyka specjalistyczna zazwyczaj nie.",
+        "p2": "To, czy NIS 2 Cię wiąże, zależy od artykułu 2 ust. 1. Jesteś objęty zakresem, jeżeli jesteś średnim przedsiębiorstwem w rozumieniu zalecenia Komisji 2003/361/WE lub większym. Próg średniego przedsiębiorstwa to 50 pracowników albo ponad 10 mln euro zarówno rocznego obrotu, jak i sumy bilansowej. 60-osobowa klinika regionalna jest objęta. 20-osobowa praktyka specjalistyczna zazwyczaj nie.",
         "p3": "Niemcy mają drugi reżim działający równolegle: KRITIS. KRITIS-Verordnung ustanawia próg właściwy dla szpitali wynoszący 30 000 vollstationäre Krankenhausfälle rocznie. Szpitale o statusie KRITIS są nadal podmiotami NIS 2, ale dodatkowo dźwigają surowsze obowiązki wynikające z sekcji KRITIS BSIG. KRITIS nie jest progiem NIS 2. Dwa odrębne testy."
       },
       "legalAnchor": {
@@ -9491,7 +9491,7 @@
         "regulation": {
           "label": "Artykuł 2 ust. 1 NIS 2 + zalecenie 2003/361/WE",
           "quote": "Niniejszą dyrektywę stosuje się do podmiotów publicznych lub prywatnych rodzaju, o którym mowa w załączniku I lub II, które kwalifikują się jako średnie przedsiębiorstwa na podstawie artykułu 2 załącznika do zalecenia 2003/361/WE lub które przekraczają pułapy dla średnich przedsiębiorstw przewidziane w ustępie 1 tego artykułu.",
-          "context": "Artykuł 2 ust. 1 jest zasadą zakresu. Definicja wielkości z 2003/361/WE mówi, że średnie oznacza 50 lub więcej pracowników albo 10 mln euro lub więcej rocznego obrotu lub sumy bilansowej. Przekrocz którykolwiek próg, a jesteś objęty."
+          "context": "Artykuł 2 ust. 1 jest zasadą zakresu. Definicja wielkości z 2003/361/WE mówi, że średnie oznacza 50 lub więcej pracowników albo ponad 10 mln euro zarówno rocznego obrotu, jak i sumy bilansowej. Przekrocz którykolwiek próg, a jesteś objęty."
         },
         "transposition": {
           "label": "§28 BSIG plus KRITIS-Verordnung (Niemcy)",
@@ -9511,7 +9511,7 @@
           "size": {
             "section": "Test 2",
             "title": "Test wielkości (artykuł 2 ust. 1)",
-            "body": "Czy masz 50 lub więcej pracowników albo 10 mln euro lub więcej rocznego obrotu lub sumy bilansowej? Każdy z progów obejmuje Cię zakresem. Poniżej obu pozostajesz poza zakresem, z wąskimi wyjątkami w artykule 2 ust. 2 i 3 (nadrzędne objęcia niezależnie od wielkości dla jedynych dostawców, administracji publicznej, kwalifikowanych usług zaufania i kilku innych)."
+            "body": "Czy masz 50 lub więcej pracowników albo ponad 10 mln euro zarówno rocznego obrotu, jak i sumy bilansowej? Każdy z progów obejmuje Cię zakresem. Poniżej obu pozostajesz poza zakresem, z wąskimi wyjątkami w artykule 2 ust. 2 i 3 (nadrzędne objęcia niezależnie od wielkości dla jedynych dostawców, administracji publicznej, kwalifikowanych usług zaufania i kilku innych)."
           },
           "kritis": {
             "section": "Test 3",
@@ -9561,7 +9561,7 @@
         "items": {
           "kritisThreshold": {
             "myth": "Mamy poniżej 30 000 przypadków rocznie, więc jesteśmy poza zakresem.",
-            "reality": "To jest próg KRITIS, a nie próg NIS 2. NIS 2 stosuje artykuł 2 ust. 1: 50 pracowników albo 10 mln euro obrotu. 60-osobowa klinika regionalna z 8 000 przypadków rocznie jest objęta NIS 2 i poza KRITIS. Oba mogą być prawdą jednocześnie."
+            "reality": "To jest próg KRITIS, a nie próg NIS 2. NIS 2 stosuje artykuł 2 ust. 1: 50 pracowników albo ponad 10 mln euro zarówno obrotu, jak i sumy bilansowej. 60-osobowa klinika regionalna z 8 000 przypadków rocznie jest objęta NIS 2 i poza KRITIS. Oba mogą być prawdą jednocześnie."
           },
           "onlyIt": {
             "myth": "NIS 2 dotyczy tylko systemów IT, a nie reszty szpitala.",
@@ -9889,7 +9889,7 @@
         "directive": {
           "label": "Dyrektywa NIS 2 (2022/2555), załącznik I sektor 8 oraz art. 2 ust. 2 lit. a)",
           "quote": "Sektor 8 Infrastruktura cyfrowa: dostawcy publicznych sieci łączności elektronicznej; dostawcy publicznie dostępnych usług łączności elektronicznej. Niniejszą dyrektywę stosuje się również do podmiotów, niezależnie od ich wielkości, które spełniają którekolwiek z następujących kryteriów: a) dostawcy publicznych sieci łączności elektronicznej lub dostawcy publicznie dostępnych usług łączności elektronicznej.",
-          "context": "Dwa elementy trzeba czytać razem. Sektor 8 załącznika I wymienia telekomunikację jako infrastrukturę kluczową. Artykuł 2 ust. 2 lit. a) następnie tworzy włączenie niezależne od wielkości dla tych samych dostawców usług telekomunikacyjnych. Zwykły próg średniego przedsiębiorstwa (50 pracowników lub 10 mln EUR obrotu) nie ma tu zastosowania."
+          "context": "Dwa elementy trzeba czytać razem. Sektor 8 załącznika I wymienia telekomunikację jako infrastrukturę kluczową. Artykuł 2 ust. 2 lit. a) następnie tworzy włączenie niezależne od wielkości dla tych samych dostawców usług telekomunikacyjnych. Zwykły próg średniego przedsiębiorstwa (50 pracowników lub ponad 10 mln EUR zarówno obrotu, jak i sumy bilansowej) nie ma tu zastosowania."
         },
         "regulation": {
           "label": "Dyrektywa (UE) 2018/1972 (Europejski kodeks łączności elektronicznej), art. 2",
@@ -10032,7 +10032,7 @@
         "regulation": {
           "label": "Zalecenie 2003/361/WE, załącznik artykuł 2",
           "quote": "Do kategorii mikroprzedsiębiorstw oraz małych i średnich przedsiębiorstw (MŚP) należą przedsiębiorstwa, które zatrudniają mniej niż 250 pracowników i których roczny obrót nie przekracza 50 milionów EUR lub roczna suma bilansowa nie przekracza 43 milionów EUR.",
-          "context": "Oficjalna unijna definicja wielkości. Średnie zaczyna się od 50 pracowników oraz co najmniej 10 milionów EUR obrotu i 10 milionów EUR sumy bilansowej. NIS 2 obejmuje cię od średniego wzwyż. 'Przekracza pułapy dla średnich' w artykule 2 ust. 1 oznacza duże przedsiębiorstwo wedle tego samego zalecenia. Przedsiębiorstwa powiązane i partnerskie sumuje się, więc mała spółka zależna dużej spółki dominującej często liczy się jako duża."
+          "context": "Oficjalna unijna definicja wielkości. Średnie zaczyna się od 50 pracowników albo od obrotu i sumy bilansowej, każde powyżej 10 milionów EUR. NIS 2 obejmuje cię od średniego wzwyż. 'Przekracza pułapy dla średnich' w artykule 2 ust. 1 oznacza duże przedsiębiorstwo wedle tego samego zalecenia. Przedsiębiorstwa powiązane i partnerskie sumuje się, więc mała spółka zależna dużej spółki dominującej często liczy się jako duża."
         },
         "transposition": {
           "label": "§28 BSIG (Niemcy)",
@@ -10052,7 +10052,7 @@
           "size": {
             "section": "Wielkość",
             "title": "Średnie przedsiębiorstwo lub większe?",
-            "body": "Zalecenie 2003/361/WE definiuje średnie jako 50 pracowników lub więcej ALBO obrót na poziomie co najmniej 10 milionów EUR ORAZ sumę bilansową na poziomie co najmniej 10 milionów EUR. Artykuł 2 ust. 1 obejmuje cię od średniego wzwyż. Stosuje się sumowanie przedsiębiorstw powiązanych: jeżeli spółka dominująca kontroluje ponad 50 procent głosów, liczbę zatrudnionych i obrót łączy się. Spółka zależna licząca 30 osób, należąca do grupy liczącej 5000 osób, liczy się jako część danych tej grupy."
+            "body": "Zalecenie 2003/361/WE definiuje średnie jako 50 pracowników lub więcej ALBO obrót powyżej 10 milionów EUR ORAZ sumę bilansową powyżej 10 milionów EUR. Artykuł 2 ust. 1 obejmuje cię od średniego wzwyż. Stosuje się sumowanie przedsiębiorstw powiązanych: jeżeli spółka dominująca kontroluje ponad 50 procent głosów, liczbę zatrudnionych i obrót łączy się. Spółka zależna licząca 30 osób, należąca do grupy liczącej 5000 osób, liczy się jako część danych tej grupy."
           },
           "override": {
             "section": "Przesłanka obejmująca",
@@ -11094,7 +11094,7 @@
       "overview": {
         "heading": "Wersja skrócona",
         "p1": "Jeśli świadczycie usługę przetwarzania w chmurze klientom, jesteście w zakresie NIS 2, gdy tylko przekroczycie próg przedsiębiorstwa średniej wielkości. Sektor 8 załącznika I nazywa dostawców usług przetwarzania w chmurze bezpośrednio w ramach Infrastruktury cyfrowej. Definicja z artykułu 6(30) jest szeroka: IaaS, PaaS, SaaS, chmura publiczna, chmura prywatna sprzedawana jako usługa, oferty hybrydowe - wszystkie się liczą.",
-        "p2": "W przeciwieństwie do telekomunikacji czy DNS dostawcy chmury nie figurują na liście 'niezależnie od wielkości' w artykule 2(2). Stosuje się zwykły test z artykułu 2(1): średnia wielkość zgodnie z zaleceniem 2003/361/WE oznacza 50 pracowników lub więcej albo roczny obrót powyżej 10 milionów EUR. Przekroczcie którykolwiek próg, a wpadacie w zakres. Pozostańcie poniżej obu, a zwykle jesteście poza, z ograniczonymi wyjątkami w artykule 2(2) i (3), które nie dotyczą chmury jako takiej.",
+        "p2": "W przeciwieństwie do telekomunikacji czy DNS dostawcy chmury nie figurują na liście 'niezależnie od wielkości' w artykule 2(2). Stosuje się zwykły test z artykułu 2(1): średnia wielkość zgodnie z zaleceniem 2003/361/WE oznacza 50 pracowników lub więcej albo roczny obrót i sumę bilansową, każde powyżej 10 milionów EUR. Przekroczcie którykolwiek próg, a wpadacie w zakres. Pozostańcie poniżej obu, a zwykle jesteście poza, z ograniczonymi wyjątkami w artykule 2(2) i (3), które nie dotyczą chmury jako takiej.",
         "p3": "Niemcy umieszczają to w prawie krajowym poprzez §28 BSIG. BSI jest waszym organem. Oprócz dyrektywy rozporządzenie wykonawcze Komisji (UE) 2024/2690 wymienia dostawców chmury w swoim załączniku, więc jego wymagania techniczne i metodologiczne wiążą was bezpośrednio bez potrzeby dalszego prawa niemieckiego. Ta strona omawia dyrektywę, definicję UE oraz niemiecką transpozycję w tej kolejności."
       },
       "legalAnchor": {
@@ -11128,7 +11128,7 @@
           "sizeTest": {
             "section": "Test B",
             "title": "Czy przekraczacie próg wielkości?",
-            "body": "Dostawcy chmury podlegają zwykłemu testowi z artykułu 2(1). Zgodnie z zaleceniem 2003/361/WE średnia wielkość zaczyna się od 50 pracowników lub rocznego obrotu powyżej 10 milionów EUR (z roczną sumą bilansową powyżej 10 milionów EUR jako alternatywą). Przy 250 pracownikach lub obrocie powyżej 50 milionów EUR stajecie się dużym przedsiębiorstwem i jesteście klasyfikowani jako 'kluczowi'. Poniżej 50 pracowników i obrotu poniżej 10 milionów EUR jesteście zwykle poza zakresem jako dostawca chmury."
+            "body": "Dostawcy chmury podlegają zwykłemu testowi z artykułu 2(1). Zgodnie z zaleceniem 2003/361/WE średnia wielkość zaczyna się od 50 pracowników albo od rocznego obrotu i rocznej sumy bilansowej, każde powyżej 10 milionów EUR. Przy 250 pracownikach albo obrocie powyżej 50 milionów EUR przy jednoczesnej sumie bilansowej powyżej 43 milionów EUR stajecie się dużym przedsiębiorstwem i jesteście klasyfikowani jako 'kluczowi'. Poniżej 50 pracowników i obrotu poniżej 10 milionów EUR jesteście zwykle poza zakresem jako dostawca chmury."
           },
           "cirDirect": {
             "section": "Test C",
@@ -11187,7 +11187,7 @@
           },
           "nicheSaas": {
             "myth": "Jesteśmy małym SaaS, więc zasady chmurowe nas nie dotyczą.",
-            "reality": "Test prawny jest dwuczęściowy. Najpierw artykuł 6(30): wielodzierżawczy SaaS sprzedawany przez sieć na współdzielonej infrastrukturze spełnia definicję. Następnie artykuł 2(1): próg wielkości. Jeśli macie poniżej 50 pracowników i poniżej 10 milionów EUR obrotu, jesteście poza zakresem w wierszu chmury. Jeśli przekroczycie którykolwiek, jesteście w. 'Niszowy' nie jest kategorią prawną. Pracę wykonują liczby i definicja."
+            "reality": "Test prawny jest dwuczęściowy. Najpierw artykuł 6(30): wielodzierżawczy SaaS sprzedawany przez sieć na współdzielonej infrastrukturze spełnia definicję. Następnie artykuł 2(1): próg wielkości. Jeśli macie poniżej 50 pracowników i poniżej 10 milionów EUR obrotu, jesteście poza zakresem w wierszu chmury. Jeśli macie 50 lub więcej pracowników albo ponad 10 milionów EUR zarówno obrotu, jak i sumy bilansowej, jesteście w. 'Niszowy' nie jest kategorią prawną. Pracę wykonują liczby i definicja."
           },
           "privateCloud": {
             "myth": "Prowadzimy chmurę prywatną dla własnej grupy, więc jesteśmy dostawcą chmury w zakresie.",
@@ -11251,7 +11251,7 @@
         "transposition": {
           "label": "§28 BSIG (Niemcy) oraz KRITIS-Verordnung",
           "quote": "Anbieter von Rechenzentrumsdiensten gelten ab dem Schwellenwert für mittlere Unternehmen als wichtige Einrichtungen, ab dem Schwellenwert für große Unternehmen als besonders wichtige Einrichtungen im Sinne dieses Gesetzes.",
-          "context": "§28 BSIG transponuje obowiązki NIS 2 dotyczące centrów danych. Test wielkości z art. 2 ust. 1 (50 pracowników / 10 mln EUR obrotu) decyduje, czy podmiot jest „wichtig”, czy „besonders wichtig”. KRITIS-Verordnung to odrębna niemiecka warstwa z własnym progiem 3,5 MW obciążenia IT dla centrów danych. KRITIS dodaje obowiązki na wierzchu, nie jest warunkiem wejścia do NIS 2. Operator kolokacji 25 MW jest w obu reżimach. Obiekt kolokacyjny z 200 pracownikami przy 1 MW obciążenia IT jest w zakresie NIS 2, ale nie KRITIS."
+          "context": "§28 BSIG transponuje obowiązki NIS 2 dotyczące centrów danych. Test wielkości z art. 2 ust. 1 (50 pracowników albo ponad 10 mln EUR zarówno obrotu, jak i sumy bilansowej) decyduje, czy podmiot jest „wichtig”, czy „besonders wichtig”. KRITIS-Verordnung to odrębna niemiecka warstwa z własnym progiem 3,5 MW obciążenia IT dla centrów danych. KRITIS dodaje obowiązki na wierzchu, nie jest warunkiem wejścia do NIS 2. Operator kolokacji 25 MW jest w obu reżimach. Obiekt kolokacyjny z 200 pracownikami przy 1 MW obciążenia IT jest w zakresie NIS 2, ale nie KRITIS."
         }
       },
       "elements": {
@@ -11266,7 +11266,7 @@
           "sizeTest": {
             "section": "Test B",
             "title": "Czy jesteś powyżej progu wielkości?",
-            "body": "Art. 2 ust. 1 NIS 2 odsyła do zalecenia 2003/361/WE. Podmioty średnie (50 lub więcej pracowników albo roczny obrót i suma bilansowa powyżej 10 mln EUR) podlegają reżimowi jako „ważne”. Podmioty duże (powyżej 250 pracowników lub obrót powyżej 50 mln EUR) podlegają mu jako „kluczowe”. Dla centrów danych nie ma objęcia zakresem niezależnie od wielkości."
+            "body": "Art. 2 ust. 1 NIS 2 odsyła do zalecenia 2003/361/WE. Podmioty średnie (50 lub więcej pracowników albo roczny obrót i suma bilansowa powyżej 10 mln EUR) podlegają reżimowi jako „ważne”. Podmioty duże (powyżej 250 pracowników lub obrót powyżej 50 mln EUR przy sumie bilansowej powyżej 43 mln EUR) podlegają mu jako „kluczowe”. Dla centrów danych nie ma objęcia zakresem niezależnie od wielkości."
           },
           "kritisOverlap": {
             "section": "Test C",
@@ -11370,7 +11370,7 @@
       "overview": {
         "heading": "Wersja skrócona",
         "p1": "Producenci wyrobów medycznych pojawiają się jednocześnie w dwóch załącznikach NIS 2. Sektor 5 załącznika I wymienia ich w piątej podkategorii jako producentów wyrobów uznanych za krytyczne podczas stanu zagrożenia zdrowia publicznego na podstawie artykułu 22 rozporządzenia (UE) 2022/123. To lista wyrobów krytycznych EMA. Spółki na niej figurujące są podmiotami kluczowymi i sytuują się w wyższym przedziale kar.",
-        "p2": "Sektor 5 załącznika II obejmuje resztę branży. Podkategorie to producenci wyrobów medycznych na podstawie artykułu 2 pkt 1 rozporządzenia (UE) 2017/745 (MDR) oraz producenci wyrobów medycznych do diagnostyki in vitro na podstawie artykułu 2 pkt 2 rozporządzenia (UE) 2017/746 (IVDR). To podmioty ważne. Ten sam test wielkości z artykułu 2 ust. 1 co u wszystkich innych: 50 pracowników albo 10 milionów euro obrotu albo sumy bilansowej.",
+        "p2": "Sektor 5 załącznika II obejmuje resztę branży. Podkategorie to producenci wyrobów medycznych na podstawie artykułu 2 pkt 1 rozporządzenia (UE) 2017/745 (MDR) oraz producenci wyrobów medycznych do diagnostyki in vitro na podstawie artykułu 2 pkt 2 rozporządzenia (UE) 2017/746 (IVDR). To podmioty ważne. Ten sam test wielkości z artykułu 2 ust. 1 co u wszystkich innych: 50 pracowników albo ponad 10 milionów euro zarówno obrotu, jak i sumy bilansowej.",
         "p3": "MDR i IVDR działają równolegle, nie zastępują NIS 2. MDR obejmuje wyrób, NIS 2 obejmuje spółkę. Obowiązki w zakresie cyberbezpieczeństwa na podstawie MDR załącznik I pkt 17.2 sytuują się na poziomie produktu. Obowiązki NIS 2 na podstawie artykułu 21 sytuują się na poziomie podmiotu. Oba mają zastosowanie. Nie ma wyłączenia lex specialis w stylu DORA dla producentów wyrobów medycznych."
       },
       "legalAnchor": {
@@ -11388,7 +11388,7 @@
         },
         "transposition": {
           "label": "§28 BSIG i artykuł 2 ust. 1 NIS 2 (test wielkości)",
-          "quote": "§28 BSIG transponuje zakres z załącznika I i załącznika II do prawa niemieckiego. Artykuł 2 ust. 1 NIS 2 wraz z zaleceniem 2003/361/WE ustala próg wielkości: 50 lub więcej pracowników albo 10 milionów euro lub więcej rocznego obrotu lub sumy bilansowej.",
+          "quote": "§28 BSIG transponuje zakres z załącznika I i załącznika II do prawa niemieckiego. Artykuł 2 ust. 1 NIS 2 wraz z zaleceniem 2003/361/WE ustala próg wielkości: 50 lub więcej pracowników albo ponad 10 milionów euro zarówno rocznego obrotu, jak i sumy bilansowej.",
           "context": "Dwa progi, jeden z nich wystarczy. Reguła wielkości jest identyczna dla podmiotów z załącznika I i załącznika II. Jedyne, co zmienia się między nimi, to przedział kar i reżim nadzoru. BfArM pozostaje regulatorem dla MDR i IVDR; BSI jest regulatorem dla NIS 2. Dwa różne organy, jedna spółka."
         }
       },
@@ -11409,7 +11409,7 @@
           "size": {
             "section": "Test 3",
             "title": "Test wielkości (artykuł 2 ust. 1)",
-            "body": "Czy masz 50 lub więcej pracowników albo 10 milionów euro lub więcej rocznego obrotu lub sumy bilansowej? Każdy z progów obejmuje cię zakresem. Poniżej obu pozostajesz poza zakresem, z wąskimi przesłankami obejmującymi niezależnie od wielkości w artykule 2 ust. 2 i 3 (jedyni dostawcy, administracja publiczna, kwalifikowane usługi zaufania, kilka innych)."
+            "body": "Czy masz 50 lub więcej pracowników albo ponad 10 milionów euro zarówno rocznego obrotu, jak i sumy bilansowej? Każdy z progów obejmuje cię zakresem. Poniżej obu pozostajesz poza zakresem, z wąskimi przesłankami obejmującymi niezależnie od wielkości w artykule 2 ust. 2 i 3 (jedyni dostawcy, administracja publiczna, kwalifikowane usługi zaufania, kilka innych)."
           }
         }
       },
@@ -11501,7 +11501,7 @@
         "description": "Jeśli budujesz maszyny, instalacje lub sprzęt przemysłowy w UE, najprawdopodobniej jesteś w zakresie NIS 2 jako podmiot ważny na gruncie sektora 5 Załącznika II. Ta strona przechodzi przez test NACE, test wielkości i ślad OT, które o tym decydują."
       },
       "title": "Czy jestem producentem maszyn na gruncie NIS 2?",
-      "subtitle": "Sektor 5 Załącznika II dyrektywy NIS 2 wciąga produkcję w zakres. Producenci maszyn znajdują się w podkategorii (d), dział NACE C28. Jeśli masz 50 pracowników lub 10 milionów euro obrotu, jesteś podmiotem ważnym z tymi samymi dziesięcioma obowiązkami z artykułu 21(2) co więksi.",
+      "subtitle": "Sektor 5 Załącznika II dyrektywy NIS 2 wciąga produkcję w zakres. Producenci maszyn znajdują się w podkategorii (d), dział NACE C28. Jeśli masz 50 pracowników lub ponad 10 milionów euro zarówno obrotu, jak i sumy bilansowej, jesteś podmiotem ważnym z tymi samymi dziesięcioma obowiązkami z artykułu 21(2) co więksi.",
       "overview": {
         "heading": "Wersja skrócona",
         "p1": "NIS 2 obejmuje produkcję jako sektor ważny. Sektor 5 Załącznika II wymienia sześć podkategorii produkcji. Produkcja maszyn i sprzętu, dział NACE C28, jest jedną z nich. Jeśli tym się zajmujesz i jesteś powyżej progu wielkości, NIS 2 stosuje się do ciebie.",
@@ -11589,7 +11589,7 @@
         "items": {
           "onlyBigCompanies": {
             "myth": "NIS 2 jest dla dużych grup przemysłowych, a nie dla naszego 80-osobowego zakładu maszynowego.",
-            "reality": "Test wielkości to 50 pracowników lub 10 milionów euro obrotu. 80-osobowy zakład maszynowy z NACE C28 jest jednoznacznie w zakresie. Kategoria „podmiot ważny” z Załącznika II istnieje właśnie dla warstwy Mittelstand. Pułap kar jest niższy niż dla podmiotów kluczowych, lecz dziesięć obowiązków z artykułu 21(2) jest takich samych."
+            "reality": "Test wielkości to 50 pracowników lub ponad 10 milionów euro zarówno obrotu, jak i sumy bilansowej. 80-osobowy zakład maszynowy z NACE C28 jest jednoznacznie w zakresie. Kategoria „podmiot ważny” z Załącznika II istnieje właśnie dla warstwy Mittelstand. Pułap kar jest niższy niż dla podmiotów kluczowych, lecz dziesięć obowiązków z artykułu 21(2) jest takich samych."
           },
           "justAssembly": {
             "myth": "Robimy tylko montaż końcowy, prawdziwa produkcja jest u naszych dostawców.",
@@ -11770,7 +11770,7 @@
       "subtitle": "Na podstawie artykułu 2 ust. 1 NIS 2 dyrektywa ma zastosowanie tylko do podmiotów średnich i większych. To nagłówek. Rzeczywistość to trzystopniowy test: definicja wielkości z zalecenia 2003/361/WE, reguła przedsiębiorstw powiązanych oraz wyjątki z artykułu 2 ust. 2, które wciągają z powrotem mikroprzedsiębiorstwa i małe przedsiębiorstwa.",
       "overview": {
         "heading": "W skrócie",
-        "p1": "NIS 2 wyznacza dolny próg wielkości. Domyślnie dyrektywa ma zastosowanie tylko do podmiotów, które spełniają lub przekraczają próg średniego przedsiębiorstwa na podstawie zalecenia 2003/361/WE: 50 lub więcej pracowników, albo roczny obrót powyżej 10 milionów euro, albo suma bilansowa powyżej 10 milionów euro. Mikroprzedsiębiorstwa i małe przedsiębiorstwa mieszczą się poniżej tego progu.",
+        "p1": "NIS 2 wyznacza dolny próg wielkości. Domyślnie dyrektywa ma zastosowanie tylko do podmiotów, które spełniają lub przekraczają próg średniego przedsiębiorstwa na podstawie zalecenia 2003/361/WE: 50 lub więcej pracowników albo roczny obrót i suma bilansowa, każde powyżej 10 milionów euro. Mikroprzedsiębiorstwa i małe przedsiębiorstwa mieszczą się poniżej tego progu.",
         "p2": "Brzmi to prosto. Nie jest. Zalecenie ma własne reguły liczenia. Artykuł 3 ust. 3 jego załącznika mówi, że jeśli przedsiębiorstwo dominujące posiada ponad 50 procent praw głosu w spółce zależnej, musisz zsumować liczbę ich pracowników i obrót. Mała spółka zależna dużej grupy nie jest małym podmiotem w tym reżimie.",
         "p3": "Artykuł 2 ust. 2 NIS 2 wymienia następnie kategorie, które są objęte niezależnie od wielkości. Telekomunikacja, kwalifikowani dostawcy usług zaufania, DNS, rejestry nazw TLD, jedyni dostawcy usługi kluczowej w państwie członkowskim, podmioty administracji publicznej i kilka innych. Jeśli pasujesz do jednej z nich, test wielkości Cię nie ratuje. Wyłączenie jest początkiem analizy, a nie jej końcem."
       },
@@ -11785,7 +11785,7 @@
         "regulation": {
           "label": "Artykuł 2 ust. 2 i 3 załącznika do zalecenia 2003/361/WE",
           "quote": "The category of micro, small and medium-sized enterprises (SMEs) is made up of enterprises which employ fewer than 250 persons and which have an annual turnover not exceeding EUR 50 million, and/or an annual balance sheet total not exceeding EUR 43 million. Within the SME category, a small enterprise is defined as an enterprise which employs fewer than 50 persons and whose annual turnover and/or annual balance sheet total does not exceed EUR 10 million. Within the SME category, a microenterprise is defined as an enterprise which employs fewer than 10 persons and whose annual turnover and/or annual balance sheet total does not exceed EUR 2 million.",
-          "context": "Zalecenie podaje Ci liczby. Mikro: mniej niż 10 pracowników ORAZ obrót lub suma bilansowa do 2 milionów euro. Małe: mniej niż 50 pracowników ORAZ obrót lub suma bilansowa do 10 milionów euro. Średnie: od 50 pracowników do 249 ALBO obrót powyżej 10 milionów euro. Aby pozostać poniżej pasma wielkości, musisz być poniżej pod względem pracowników ORAZ poniżej pod względem obrotu lub sumy bilansowej. Przekrocz którekolwiek, a przesuwasz się w górę."
+          "context": "Zalecenie podaje Ci liczby. Mikro: mniej niż 10 pracowników ORAZ obrót lub suma bilansowa do 2 milionów euro. Małe: mniej niż 50 pracowników ORAZ obrót lub suma bilansowa do 10 milionów euro. Średnie: od 50 pracowników do 249 ALBO obrót i suma bilansowa, każde powyżej 10 milionów euro. Aby pozostać poniżej pasma wielkości, musisz być poniżej pod względem pracowników ORAZ poniżej pod względem obrotu lub sumy bilansowej. Przekrocz którekolwiek, a przesuwasz się w górę."
         },
         "transposition": {
           "label": "Artykuł 2 ust. 2 NIS 2 (niezależnie od wielkości)",
@@ -11859,7 +11859,7 @@
           },
           "staffOverThreshold": {
             "myth": "Mamy poniżej 50 pracowników, więc liczymy się jako mali.",
-            "reality": "Przeczytaj uważnie artykuł 2 ust. 2 załącznika do zalecenia. Małe wymaga mniej niż 50 pracowników ORAZ obrotu lub sumy bilansowej na poziomie 10 milionów euro lub poniżej. Przekrocz którykolwiek próg, a przesuwasz się do średniego. 45-osobowa firma doradcza z 12 milionami euro obrotu jest średnim przedsiębiorstwem na podstawie zalecenia, a to oznacza, że NIS 2 ma zastosowanie, jeśli sektor pasuje."
+            "reality": "Przeczytaj uważnie artykuł 2 ust. 2 załącznika do zalecenia. Małe wymaga mniej niż 50 pracowników ORAZ obrotu lub sumy bilansowej na poziomie 10 milionów euro lub poniżej. Przekrocz którykolwiek próg, a przesuwasz się do średniego. 45-osobowa firma doradcza z 12 milionami euro obrotu i sumą bilansową powyżej 10 milionów euro jest średnim przedsiębiorstwem na podstawie zalecenia, a to oznacza, że NIS 2 ma zastosowanie, jeśli sektor pasuje."
           },
           "parentIndependent": {
             "myth": "Nasze przedsiębiorstwo dominujące jest duże, ale działamy niezależnie, więc liczymy się samodzielnie.",
@@ -12041,7 +12041,7 @@
         "heading": "Wersja skrócona",
         "p1": "Dostawcą usług zaufania jest każdy, kto świadczy jedną lub więcej usług zaufania zdefiniowanych w art. 3 pkt 16 rozporządzenia eIDAS (UE) 910/2014: podpisy elektroniczne, pieczęcie elektroniczne, elektroniczne znaczniki czasu, rejestrowane doręczenie elektroniczne, certyfikaty uwierzytelniania witryn internetowych lub konserwację któregokolwiek z nich. Sektor 8 załącznika I NIS 2 wymienia dostawców usług zaufania wprost jako część infrastruktury cyfrowej.",
         "p2": "Art. 2 ust. 2 lit. b) NIS 2 uruchamia następnie dźwignię, która nie dotyczy większości innych sektorów. Kwalifikowani dostawcy usług zaufania, zdefiniowani w art. 3 pkt 17 eIDAS, są objęci zakresem niezależnie od wielkości. Dwuosobowy kwalifikowany dostawca usług zaufania, który wydaje kwalifikowane certyfikaty podpisów elektronicznych, jest związany tak samo jak 500-osobowy urząd certyfikacji. Próg średniego przedsiębiorstwa z art. 2 ust. 1 ich nie warunkuje.",
-        "p3": "Niekwalifikowani dostawcy usług zaufania podlegają zwykłemu testowi wielkości: co najmniej 50 pracowników albo powyżej 10 mln euro rocznego obrotu lub sumy bilansowej obejmuje ich zakresem. Poniżej tego znajdują się poza NIS 2, choć art. 19 eIDAS nadal wiąże ich poziomem bazowym bezpieczeństwa. Tak czy inaczej dwa reżimy działają równolegle: eIDAS dla samej usługi zaufania, NIS 2 dla obowiązków cybernetycznych obejmujących całą organizację (szkolenie kierownictwa z art. 20, zgłaszanie istotnych incydentów na podstawie §32 BSIG, środki zarządzania ryzykiem z art. 21)."
+        "p3": "Niekwalifikowani dostawcy usług zaufania podlegają zwykłemu testowi wielkości: co najmniej 50 pracowników albo powyżej 10 mln euro zarówno rocznego obrotu, jak i sumy bilansowej obejmuje ich zakresem. Poniżej tego znajdują się poza NIS 2, choć art. 19 eIDAS nadal wiąże ich poziomem bazowym bezpieczeństwa. Tak czy inaczej dwa reżimy działają równolegle: eIDAS dla samej usługi zaufania, NIS 2 dla obowiązków cybernetycznych obejmujących całą organizację (szkolenie kierownictwa z art. 20, zgłaszanie istotnych incydentów na podstawie §32 BSIG, środki zarządzania ryzykiem z art. 21)."
       },
       "legalAnchor": {
         "heading": "Źródło prawne",
@@ -15919,7 +15919,7 @@
       "overview": {
         "heading": "Przegląd",
         "p1": "NIS 1 to Directive (EU) 2016/1148. Obejmowała siedem sektorów i dzieliła adresatów na 'operatorów usług kluczowych' (OES) i 'dostawców usług cyfrowych' (DSP). Państwa członkowskie wyznaczały OES indywidualnie.",
-        "p2": "NIS 2 to Directive (EU) 2022/2555. Obejmuje 15 sektorów w Załączniku I i 7 sektorów w Załączniku II, zastępuje podział OES/DSP 'podmiotami kluczowymi' i 'podmiotami ważnymi' oraz stosuje wyraźne kryterium wielkości (50 lub więcej pracowników albo roczny obrót powyżej 10 milionów euro).",
+        "p2": "NIS 2 to Directive (EU) 2022/2555. Obejmuje 15 sektorów w Załączniku I i 7 sektorów w Załączniku II, zastępuje podział OES/DSP 'podmiotami kluczowymi' i 'podmiotami ważnymi' oraz stosuje wyraźne kryterium wielkości (50 lub więcej pracowników albo roczny obrót i suma bilansowa, każde powyżej 10 milionów euro).",
         "p3": "Artykuł 41 NIS 2 uchylił dyrektywę NIS 1 ze skutkiem od 18 października 2024. Tam, gdzie prawo państwa członkowskiego nadal odsyła do starej dyrektywy, te odniesienia wskazują teraz NIS 2. Krajowe ustawy transponujące (takie jak niemiecki BSIG w wersji NIS 2) zastępują wcześniejszą architekturę IT-Sicherheitsgesetz 2.0."
       },
       "legalAnchor": {
@@ -15948,7 +15948,7 @@
           "scope": {
             "section": "Zakres",
             "title": "Od 7 sektorów i wyznaczania OES do 15 plus 7 sektorów z regułą wielkości",
-            "body": "NIS 1 obejmowała siedem sektorów i wymagała od państw członkowskich wyznaczania OES jeden po drugim. NIS 2 wymienia 15 sektorów w Załączniku I (kluczowe) i 7 sektorów w Załączniku II (ważne) i ma zastosowanie automatycznie do podmiotów tych sektorów, które spełniają kryterium wielkości (50 lub więcej pracowników albo ponad 10 milionów euro obrotu). Kilka typów podmiotów jest objętych zakresem niezależnie od wielkości."
+            "body": "NIS 1 obejmowała siedem sektorów i wymagała od państw członkowskich wyznaczania OES jeden po drugim. NIS 2 wymienia 15 sektorów w Załączniku I (kluczowe) i 7 sektorów w Załączniku II (ważne) i ma zastosowanie automatycznie do podmiotów tych sektorów, które spełniają kryterium wielkości (50 lub więcej pracowników albo ponad 10 milionów euro zarówno obrotu, jak i sumy bilansowej). Kilka typów podmiotów jest objętych zakresem niezależnie od wielkości."
           },
           "obligations": {
             "section": "Obowiązki",
@@ -17161,7 +17161,7 @@
           "scope": {
             "section": "Zakres",
             "title": "Potwierdź, czy dyrektywa ma zastosowanie",
-            "body": "NIS 2 ma zastosowanie, jeżeli podmiot mieści się w jednym z sektorów wymienionych w załączniku I lub załączniku II i osiąga próg wielkości (średnie zdefiniowane w zaleceniu 2003/361/WE, więc 50 pracowników albo ponad 10 milionów euro obrotu). Garstka typów podmiotów jest objęta niezależnie od wielkości: kwalifikowani dostawcy usług zaufania, rejestry nazw domen najwyższego poziomu, dostawcy usług DNS, administracja publiczna, jedyni dostawcy w państwie członkowskim. Pierwszym zadaniem organu zarządzającego jest wiedzieć, który z tych przypadków ma zastosowanie."
+            "body": "NIS 2 ma zastosowanie, jeżeli podmiot mieści się w jednym z sektorów wymienionych w załączniku I lub załączniku II i osiąga próg wielkości (średnie zdefiniowane w zaleceniu 2003/361/WE, więc 50 pracowników albo ponad 10 milionów euro zarówno obrotu, jak i sumy bilansowej). Garstka typów podmiotów jest objęta niezależnie od wielkości: kwalifikowani dostawcy usług zaufania, rejestry nazw domen najwyższego poziomu, dostawcy usług DNS, administracja publiczna, jedyni dostawcy w państwie członkowskim. Pierwszym zadaniem organu zarządzającego jest wiedzieć, który z tych przypadków ma zastosowanie."
           },
           "duties": {
             "section": "Obowiązki",
@@ -19678,7 +19678,7 @@
         "definition": {
           "label": "Art. 2 + Załącznik I/II NIS 2 (sektor + wielkość)",
           "quote": "This Directive applies to public or private entities of a type referred to in Annex I or II which qualify as medium-sized enterprises under Article 2 of the Annex to Recommendation 2003/361/EC, or which exceed the ceilings for medium-sized enterprises.",
-          "context": "Dwa pytania decydują o objęciu zakresem: czy jesteś typem z Załącznika I lub II oraz czy jesteś co najmniej średniej wielkości (50+ pracowników i albo >10 mln EUR obrotu, albo >10 mln EUR sumy bilansowej). Plus nadrzędne wyłączenia 'niezależnie od wielkości' dla usług zaufania, DNS, rejestrów TLD, administracji publicznej, jedynych dostawców w państwie członkowskim."
+          "context": "Dwa pytania decydują o objęciu zakresem: czy jesteś typem z Załącznika I lub II oraz czy jesteś co najmniej średniej wielkości (50+ pracowników albo obrót i suma bilansowa, każde powyżej 10 mln EUR). Plus nadrzędne wyłączenia 'niezależnie od wielkości' dla usług zaufania, DNS, rejestrów TLD, administracji publicznej, jedynych dostawców w państwie członkowskim."
         }
       },
       "howItWorks": {

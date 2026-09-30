@@ -1333,7 +1333,7 @@
           },
           "training": {
             "title": "Instruire (Schulung)",
-            "description": "Participarea personală obligatorie la instruire în securitate cibernetică cel puțin o dată la 3 ani. Această obligație nu poate fi delegată."
+            "description": "Participarea personală obligatorie la instruiri periodice în securitate cibernetică; §38 alin. (3) BSIG nu stabilește un interval fix. Această obligație nu poate fi delegată."
           }
         },
         "liability": "Conducătorii răspund personal față de propria companie atunci când încalcă din culpă aceste obligații. Delegarea sarcinilor operaționale este permisă, însă responsabilitatea strategică și supravegherea rămân la nivelul conducerii. Conducerea nu poate invoca lipsa cunoștințelor tehnice drept apărare.",
@@ -2002,7 +2002,7 @@
               "Fara 10 chestionare per furnizor. Un furnizor care serveste 10 clienti NIS2 completeaza in prezent 10 chestionare de securitate diferite. Cu NIS2 Supplier Profile, un standard deschis, independent de platforma GRC, completeaza unul singur. Cea mai mare economie individuala din aceasta categorie.",
               "Fara redactarea rapoartelor de incident sub presiunea termenului. Rapoartele de la 24h/72h/1 luna urmeaza sabloane gata pentru formatul BSI, in loc sa fie scrise de la zero cand ceasul ticaie.",
               "Fara un ciclu separat de pregatire pentru audit. Dovezile gata de audit sunt generate continuu, pe masura ce munca se intampla, nu asamblate in panica in luna dinainte.",
-              "Fara supradimensionare. Consultantii supradimensioneaza ca sa factureze mai multe ore. Platforma limiteaza la 'adecvat si proportional' (§30(1) BSIG), companiile nu platesc pentru controale inutile."
+              "Fara supradimensionare. Consultantii supradimensioneaza ca sa factureze mai multe ore. Platforma limiteaza la 'adecvat, proporțional și eficace' (§30(1) BSIG), companiile nu platesc pentru controale inutile."
             ]
           },
           "software": {
@@ -2437,7 +2437,7 @@
         "items": {
           "awareness": {
             "title": "Lipsa de constientizare",
-            "description": "Un sondaj G DATA realizat in 2024 a constatat ca 44% dintre companiile germane din segmentul mediu nu erau constiente ca NIS2 li se aplica. Criteriile de includere in domeniu (50+ angajati sau 10 milioane EUR cifra de afaceri in 18 sectoare vizate) nu sunt evidente pentru companiile care nu au avut niciodata de-a face cu reglementari de securitate IT. Multe companii din sectoare precum gestionarea deseurilor, productia alimentara si fabricatia de produse chimice nu se considera 'infrastructura critica'."
+            "description": "Un sondaj G DATA realizat in 2024 a constatat ca 44% dintre companiile germane din segmentul mediu nu erau constiente ca NIS2 li se aplica. Criteriile de includere in domeniu (50+ angajati sau o cifră de afaceri și un bilanț de peste 10 milioane EUR fiecare, in 18 sectoare vizate) nu sunt evidente pentru companiile care nu au avut niciodata de-a face cu reglementari de securitate IT. Multe companii din sectoare precum gestionarea deseurilor, productia alimentara si fabricatia de produse chimice nu se considera 'infrastructura critica'."
           },
           "complexity": {
             "title": "Complexitatea includerii in domeniu",
@@ -3414,7 +3414,7 @@
           "monitoring": {
             "section": "Testul 2",
             "title": "Sunteți o întreprindere mijlocie sau mai mare?",
-            "body": "Pragul este definiția IMM-ului din Recomandarea 2003/361/CE a Comisiei: cel puțin 50 de angajați și cel puțin 10 milioane EUR cifră de afaceri sau bilanț, sau mai mare. Dacă sunteți sub acest prag, sunteți în afară, cu excepția cazului în care una dintre excepțiile independente de mărime din articolul 2(2) până la (4) vă prinde oricum (de exemplu, sunteți singurul furnizor al unui serviciu esențial, un furnizor calificat de servicii de încredere sau un furnizor de servicii DNS)."
+            "body": "Pragul este definiția IMM-ului din Recomandarea 2003/361/CE a Comisiei: cel puțin 50 de angajați sau o cifră de afaceri și un bilanț de peste 10 milioane EUR fiecare. Dacă sunteți sub acest prag, sunteți în afară, cu excepția cazului în care una dintre excepțiile independente de mărime din articolul 2(2) până la (4) vă prinde oricum (de exemplu, sunteți singurul furnizor al unui serviciu esențial, un furnizor calificat de servicii de încredere sau un furnizor de servicii DNS)."
           },
           "independent": {
             "section": "Testul 3",
@@ -3491,7 +3491,7 @@
         "items": [
           "Directiva (UE) 2022/2555 (NIS 2), articolul 2 (domeniul de aplicare), Anexa I și Anexa II (sectoare), articolul 21(2)(d) (securitatea lanțului de aprovizionare) și articolul 21(3) (luarea în considerare a vulnerabilităților specifice furnizorilor).",
           "Regulamentul de punere în aplicare al Comisiei (UE) 2024/2690 din 17 octombrie 2024, §5 (securitatea lanțului de aprovizionare): politică de achiziții cu criterii de selecție, registru al riscurilor furnizorilor, obligații de securitate contractuale.",
-          "Recomandarea 2003/361/CE a Comisiei, articolul 2 din Anexă (definiția întreprinderii mijlocii: cel puțin 50 de angajați și cel puțin 10 milioane EUR cifră de afaceri sau total bilanț).",
+          "Recomandarea 2003/361/CE a Comisiei, articolul 2 din Anexă (pragul întreprinderii mijlocii: cel puțin 50 de angajați sau o cifră de afaceri și un total al bilanțului de peste 10 milioane EUR fiecare).",
           "BSIG (Germania) §28 (Einrichtungsarten und Größenkriterien) și §30 (Risikomanagementmaßnahmen, inclusiv Lieferkettensicherheit), care pun în aplicare articolele 2 și 21 NIS 2.",
           "Ghidul de punere în aplicare NIS 2 al ENISA și specificația registrului entităților din articolul 27: domeniul de aplicare conform articolului 2 guvernează dacă o entitate este înregistrată; măsurile privind lanțul de aprovizionare conform articolului 21 guvernează ce face o entitate din domeniul de aplicare în privința furnizorilor săi."
         ]
@@ -3610,7 +3610,7 @@
       },
       "practitioner": {
         "heading": "Cum se desfășoară acest lucru în grupuri reale de Mittelstand",
-        "p1": "În grupurile pe care le vedem, întrebarea aterizează aproape întotdeauna la pasul 3. Filiala operațională desfășoară o activitate din anexa I sau II. Pe cont propriu este mică. În interiorul grupului se află peste 50 de angajați sau peste 10 milioane de euro cifră de afaceri. Conform 2003/361/CE, asta o atrage în domeniul de aplicare.",
+        "p1": "În grupurile pe care le vedem, întrebarea aterizează aproape întotdeauna la pasul 3. Filiala operațională desfășoară o activitate din anexa I sau II. Pe cont propriu este mică. În interiorul grupului se află peste 50 de angajați sau peste 10 milioane de euro atât la cifra de afaceri, cât și la bilanț. Conform 2003/361/CE, asta o atrage în domeniul de aplicare.",
         "p2": "Pârghia este argumentul independenței din considerentul 16. Dacă o filială este cu adevărat independentă în modul în care funcționează (organ propriu de conducere, contracte proprii cu clienții, decizii proprii, fără o alocare de costuri la nivel de grup care îi decide modelul de business), autoritatea națională o poate trata ca de sine stătătoare pentru testul de dimensiune. Consemnați independența în scris înainte de a vă baza pe ea. Nu o presupuneți."
       },
       "platform": {
@@ -4008,7 +4008,7 @@
         "items": {
           "check": {
             "title": "1. Confirmați că intrați efectiv în domeniul de aplicare",
-            "description": "Înainte de a vă înregistra, verificați dacă NIS2 se aplică firmei dumneavoastră. Criteriile se află în §28 BSIG: trebuie să operați într-unul dintre cele 18 sectoare enumerate ȘI să atingeți pragul de mărime (50 sau mai mulți angajați sau o cifră de afaceri anuală de cel puțin 10 milioane EUR). Dacă nu sunteți sigur, consultați listele de sectoare ale BSI din Anexa I și Anexa II la Directiva NIS2. Multe firme presupun că sunt în afara domeniului de aplicare când, de fapt, nu sunt, și invers. Dacă sunteți cu adevărat nesigur, obțineți o opinie juridică înainte de înregistrare, dar nu folosiți incertitudinea ca scuză pentru a amâna."
+            "description": "Înainte de a vă înregistra, verificați dacă NIS2 se aplică firmei dumneavoastră. Criteriile se află în §28 BSIG: trebuie să operați într-unul dintre cele 18 sectoare enumerate ȘI să atingeți pragul de mărime (cel puțin 50 de angajați sau o cifră de afaceri anuală și un bilanț anual total de peste 10 milioane EUR fiecare). Dacă nu sunteți sigur, consultați listele de sectoare ale BSI din Anexa I și Anexa II la Directiva NIS2. Multe firme presupun că sunt în afara domeniului de aplicare când, de fapt, nu sunt, și invers. Dacă sunteți cu adevărat nesigur, obțineți o opinie juridică înainte de înregistrare, dar nu folosiți incertitudinea ca scuză pentru a amâna."
           },
           "register": {
             "title": "2. Înregistrați-vă imediat prin portalul BSI",
@@ -4024,7 +4024,7 @@
           },
           "legal": {
             "title": "5. Luați în calcul consultanța juridică dacă domeniul de aplicare este neclar",
-            "description": "Dacă firma dumneavoastră se află aproape de prag (în jur de 50 de angajați sau 10 milioane EUR cifră de afaceri), operează într-un sector care poate fi interpretat în mai multe feluri sau are o structură corporativă complexă, consultați un avocat specializat în reglementarea IT. Costul unei opinii juridice (2.000 până la 5.000 EUR) este nesemnificativ în comparație cu costul fie al neconformității, fie al unei conformități inutile. Unele asociații sectoriale (precum Bitkom sau BDI) oferă, de asemenea, îndrumare privind domeniul de aplicare NIS2 pentru membri."
+            "description": "Dacă firma dumneavoastră se află aproape de prag (în jur de 50 de angajați sau 10 milioane EUR cifră de afaceri și bilanț), operează într-un sector care poate fi interpretat în mai multe feluri sau are o structură corporativă complexă, consultați un avocat specializat în reglementarea IT. Costul unei opinii juridice (2.000 până la 5.000 EUR) este nesemnificativ în comparație cu costul fie al neconformității, fie al unei conformități inutile. Unele asociații sectoriale (precum Bitkom sau BDI) oferă, de asemenea, îndrumare privind domeniul de aplicare NIS2 pentru membri."
           }
         }
       },
@@ -4118,12 +4118,12 @@
           "scope": {
             "aspect": "Domeniul de aplicare",
             "kritis": "Aproximativ 2.000 de operatori de infrastructură critică în 10 sectoare, identificați prin depășirea unor valori de prag specifice (de ex., 500.000 de persoane deservite)",
-            "nis2": "Aproximativ 30.000 de entități în 18 sectoare, folosind un prag de mărime simplu: 50 de angajați sau mai mulți ori o cifră de afaceri anuală de cel puțin 10 milioane EUR. Include atât categoria „esențială”, cât și categoria „importantă”"
+            "nis2": "Aproximativ 30.000 de entități în 18 sectoare, folosind un prag de mărime simplu: 50 de angajați sau mai mulți ori o cifră de afaceri anuală și un bilanț de peste 10 milioane EUR fiecare. Include atât categoria „esențială”, cât și categoria „importantă”"
           },
           "threshold": {
             "aspect": "Modelul de prag",
             "kritis": "Praguri cantitative specifice sectorului (de ex., 500.000 de persoane aprovizionate pentru energie, 500.000 de locuitori pentru apă). Complex de calculat, multe cazuri la limită",
-            "nis2": "Criterii uniforme de mărime: întreprindere mijlocie (50 de angajați sau mai mulți ori o cifră de afaceri de cel puțin 10 milioane EUR) în toate sectoarele. Mult mai simplu de stabilit. Unele sectoare au criterii suplimentare indiferent de mărime"
+            "nis2": "Criterii uniforme de mărime: întreprindere mijlocie (50 de angajați sau mai mulți ori o cifră de afaceri și un bilanț de peste 10 milioane EUR fiecare) în toate sectoarele. Mult mai simplu de stabilit. Unele sectoare au criterii suplimentare indiferent de mărime"
           },
           "registration": {
             "aspect": "Înregistrare",
@@ -4258,7 +4258,7 @@
         },
         "bsig": {
           "term": "BSIG (BSI-Gesetz)",
-          "definition": "Legea federală germană care reglementează BSI (Oficiul Federal pentru Securitatea Informației) și obligațiile de securitate cibernetică. NIS2UmsuCG a modificat BSIG pentru a include toate cerințele NIS2. Când cineva spune 'conformitate NIS2 în Germania', se referă la conformitatea cu BSIG modificat. Aceasta este legea care vi se aplică, nu Directiva NIS2 însăși.",
+          "definition": "Legea federală germană care reglementează BSI (Oficiul Federal pentru Securitatea Informației) și obligațiile de securitate cibernetică. NIS2UmsuCG a modificat BSIG și transpune NIS2 în Germania în principal prin intermediul acestuia. Când cineva spune 'conformitate NIS2 în Germania', se referă la conformitatea cu BSIG modificat. Aceasta este legea care vi se aplică, nu Directiva NIS2 însăși.",
           "german": "Gesetz über das Bundesamt für Sicherheit in der Informationstechnik",
           "legalRef": "BSIG astfel cum a fost modificat prin NIS2UmsuCG"
         },
@@ -4269,7 +4269,7 @@
         },
         "cir2024": {
           "term": "CIR 2024/2690",
-          "definition": "Regulamentul de punere în aplicare al UE care specifică cerințele tehnice și metodologice exacte pentru entitățile NIS2. Spre deosebire de Directivă, acesta se aplică direct în toate statele membre fără transpunere. El detaliază ce înseamnă de fapt în practică 'măsuri adecvate de securitate cibernetică': gândiți-vă la el ca la manualul tehnic care completează detaliile pe care Directiva le-a lăsat deschise.",
+          "definition": "Regulamentul de punere în aplicare al UE care stabilește cerințele tehnice și metodologice ale măsurilor prevăzute la articolul 21 alineatul (2) din NIS2, dar numai pentru anumite tipuri de entități: furnizorii de servicii DNS, registrele de nume TLD, furnizorii de servicii de cloud computing, furnizorii de servicii de centre de date, furnizorii de rețele de furnizare de conținut, furnizorii de servicii gestionate, furnizorii de servicii de securitate gestionate, furnizorii de piețe online, de motoare de căutare online și de platforme de servicii de socializare în rețea, precum și prestatorii de servicii de încredere. Spre deosebire de Directivă, acesta se aplică direct în toate statele membre fără transpunere. Pentru aceste entități, detaliază ce înseamnă de fapt în practică măsurile adecvate de securitate cibernetică: gândiți-vă la el ca la manualul tehnic care completează detaliile pe care Directiva le-a lăsat deschise.",
           "legalRef": "Regulamentul de punere în aplicare al Comisiei (UE) 2024/2690"
         },
         "bsiRegistration": {
@@ -4286,7 +4286,7 @@
         },
         "riskManagement": {
           "term": "Măsuri de gestionare a riscurilor",
-          "definition": "Cele zece categorii de măsuri de securitate cibernetică pe care toate entitățile NIS2 trebuie să le implementeze conform §30 BSIG. Acestea variază de la evaluarea riscurilor și gestionarea incidentelor până la securitatea lanțului de aprovizionare și criptografie. Ele trebuie să fie 'adecvate și proporționale' cu mărimea și profilul dumneavoastră de risc: nu se așteaptă ca o firmă de deșeuri cu 50 de persoane să implementeze aceleași controale ca Deutsche Telekom.",
+          "definition": "Cele zece categorii de măsuri de securitate cibernetică pe care toate entitățile NIS2 trebuie să le implementeze conform §30 BSIG. Acestea variază de la evaluarea riscurilor și gestionarea incidentelor până la securitatea lanțului de aprovizionare și criptografie. Ele trebuie să fie 'adecvate, proporționale și eficace'; proporționalitatea ține seama, printre altele, de mărimea și de expunerea dumneavoastră la risc: nu se așteaptă ca o firmă de deșeuri cu 50 de persoane să implementeze aceleași controale ca Deutsche Telekom.",
           "german": "Risikomanagementmaßnahmen",
           "legalRef": "§30(2) BSIG"
         },
@@ -4319,7 +4319,7 @@
         },
         "section30": {
           "term": "§30 BSIG - Măsuri de securitate cibernetică",
-          "definition": "Dispoziția centrală a NIS2 în dreptul german. Listează zece categorii de măsuri de gestionare a riscurilor de securitate cibernetică pe care toate entitățile din domeniul de aplicare trebuie să le implementeze. Acoperă evaluarea riscurilor, gestionarea incidentelor, continuitatea activității, securitatea lanțului de aprovizionare, dezvoltarea securizată, evaluarea eficacității, instruirea, criptografia, controlul accesului și autentificarea multifactor. Măsurile trebuie să fie 'adecvate și proporționale': nu exagerate, dar autentice.",
+          "definition": "Dispoziția centrală a NIS2 în dreptul german. Listează zece categorii de măsuri de gestionare a riscurilor de securitate cibernetică pe care toate entitățile din domeniul de aplicare trebuie să le implementeze. Acoperă evaluarea riscurilor, gestionarea incidentelor, continuitatea activității, securitatea lanțului de aprovizionare, dezvoltarea securizată, evaluarea eficacității, instruirea, criptografia, controlul accesului și autentificarea multifactor. Măsurile trebuie să fie 'adecvate, proporționale și eficace': nu exagerate, dar autentice.",
           "legalRef": "§30 BSIG"
         },
         "section32": {
@@ -4403,12 +4403,12 @@
         "description": "Gestionarea deșeurilor a intrat recent în domeniul de aplicare al NIS2 (anexa II). Ghid pentru companiile de deșeuri cu peste 50 de angajați: cerințe legale, active și primii pași."
       },
       "title": "NIS2 pentru companiile de gestionare a deșeurilor",
-      "subtitle": "Sectorul dumneavoastră a intrat recent în domeniul de aplicare conform anexei II a NIS2. Dacă firma dumneavoastră de gestionare a deșeurilor are peste 50 de angajați sau peste 10 milioane EUR cifră de afaceri, acesta este ghidul dumneavoastră practic privind ceea ce impune legea și de unde să începeți.",
+      "subtitle": "Sectorul dumneavoastră a intrat recent în domeniul de aplicare conform anexei II a NIS2. Dacă firma dumneavoastră de gestionare a deșeurilor are peste 50 de angajați sau o cifră de afaceri și un bilanț de peste 10 milioane EUR fiecare, acesta este ghidul dumneavoastră practic privind ceea ce impune legea și de unde să începeți.",
       "badge": "Anexa II - entitate importantă",
       "why": {
         "heading": "De ce se aplică NIS2 companiilor de deșeuri?",
         "p1": "Gestionarea deșeurilor a fost adăugată la NIS2 deoarece operațiunile moderne de deșeuri depind puternic de sistemele IT. Managementul flotei, optimizarea rutelor, sistemele de cântărire-bascule, controalele instalațiilor de sortare, facturarea și raportarea de reglementare rulează toate pe software în rețea. Un atac de tip ransomware care scoate din funcțiune sistemul de management al flotei al unei companii de deșeuri nu oprește doar camioanele: creează un risc de sănătate publică. Deșeurile necolectate într-un oraș de 200.000 de locuitori devin o criză în câteva zile.",
-        "p2": "UE a clasificat gestionarea deșeurilor în anexa II a Directivei NIS2, ceea ce înseamnă că firmele de deșeuri care îndeplinesc pragul de dimensiune (peste 50 de angajați sau peste 10 milioane EUR cifră de afaceri anuală) sunt categorisite drept \"entități importante\" (wichtige Einrichtungen) conform §28(2) BSIG. Aceasta înseamnă că se aplică întreaga gamă de obligații NIS2: înregistrarea la BSI, măsuri de management al riscurilor de securitate cibernetică, raportarea incidentelor, securitatea lanțului de aprovizionare și răspunderea conducerii.",
+        "p2": "UE a clasificat gestionarea deșeurilor în anexa II a Directivei NIS2, ceea ce înseamnă că firmele de deșeuri care îndeplinesc pragul de dimensiune (peste 50 de angajați sau o cifră de afaceri anuală și un bilanț de peste 10 milioane EUR fiecare) sunt categorisite drept \"entități importante\" (wichtige Einrichtungen) conform §28(2) BSIG. Aceasta înseamnă că se aplică întreaga gamă de obligații NIS2: înregistrarea la BSI, măsuri de management al riscurilor de securitate cibernetică, raportarea incidentelor, securitatea lanțului de aprovizionare și răspunderea conducerii.",
         "p3": "Majoritatea companiilor de deșeuri nu au avut niciodată de-a face cu reglementări de securitate cibernetică. Aceasta nu este o critică: până la NIS2, nu exista niciun motiv legal pentru asta. Dar înseamnă că există o curbă de învățare mai abruptă comparativ cu sectoarele care erau deja sub KRITIS. Vestea bună: mediile IT ale companiilor de deșeuri sunt de regulă mai puțin complexe decât cele din sectorul bancar sau energetic, ceea ce înseamnă că efortul de conformitate este proporțional mai redus."
       },
       "assets": {
@@ -4471,13 +4471,13 @@
         "heading": "Ce face companiile de deșeuri diferite",
         "p1": "Companiile de deșeuri au un profil de risc unic. Spre deosebire de o companie de software, unde aproape totul este digital, operațiunile de deșeuri implică procese fizice: camioane pe drumuri, materiale în mișcare, echipamente la amplasamente. Un atac cibernetic asupra managementului flotei are consecințe imediate în lumea fizică. Această dimensiune de tehnologie operațională înseamnă că evaluarea dumneavoastră a riscurilor trebuie să ia în considerare atât sistemele IT, cât și orice control industrial.",
         "p2": "Majoritatea companiilor de deșeuri externalizează masiv. Multe funcționează cu o echipă IT internă mică (sau fără personal IT dedicat deloc) și se bazează pe furnizori externi pentru tot, de la e-mail la ERP și la managementul flotei. Conform NIS2, puteți externaliza operațiunile, dar nu și răspunderea: §30 BSIG face firma dumneavoastră responsabilă pentru măsurile de securitate chiar și atunci când le furnizează un furnizor. Acest lucru face din managementul furnizorilor cea mai importantă pârghie de conformitate.",
-        "p3": "Partea pozitivă: mediile IT ale companiilor de deșeuri sunt de regulă simple. O companie de deșeuri de 100 de persoane are poate 6 până la 10 grupuri de sisteme distincte, comparativ cu 30 sau mai multe pentru o bancă sau un spital de dimensiune similară. Aceasta înseamnă că efortul de conformitate este proporțional: vorbim de săptămâni de muncă concentrată, nu de un program de mai mulți ani. Standardul BSI \"adecvat și proporțional\" lucrează în favoarea dumneavoastră aici."
+        "p3": "Partea pozitivă: mediile IT ale companiilor de deșeuri sunt de regulă simple. O companie de deșeuri de 100 de persoane are poate 6 până la 10 grupuri de sisteme distincte, comparativ cu 30 sau mai multe pentru o bancă sau un spital de dimensiune similară. Aceasta înseamnă că efortul de conformitate este proporțional: vorbim de săptămâni de muncă concentrată, nu de un program de mai mulți ani. Testul de proporționalitate din §30 alin. (1) BSIG lucrează în favoarea dumneavoastră aici."
       },
       "faq": {
         "heading": "Întrebări frecvente",
         "q1": {
           "q": "Compania noastră de deșeuri intră chiar în domeniul de aplicare al NIS2?",
-          "a": "Dacă firma dumneavoastră activează în colectarea, tratarea sau eliminarea deșeurilor și are 50 sau mai mulți angajați sau cel puțin 10 milioane EUR cifră de afaceri anuală, aproape sigur intrați în domeniul de aplicare ca entitate importantă conform anexei II a NIS2. Definiția sectorului acoperă întregul lanț de gestionare a deșeurilor. Dacă sunteți aproape de prag, verificați dacă firmele conectate din grup vă împing peste limită: NIS2 folosește definiția IMM a UE, care ține cont de întreprinderile afiliate."
+          "a": "Dacă firma dumneavoastră activează în colectarea, tratarea sau eliminarea deșeurilor și are 50 sau mai mulți angajați sau o cifră de afaceri anuală și un bilanț de peste 10 milioane EUR fiecare, aproape sigur intrați în domeniul de aplicare ca entitate importantă conform anexei II a NIS2. Definiția sectorului acoperă întregul lanț de gestionare a deșeurilor. Dacă sunteți aproape de prag, verificați dacă firmele conectate din grup vă împing peste limită: NIS2 folosește definiția IMM a UE, care ține cont de întreprinderile afiliate."
         },
         "q2": {
           "q": "Externalizăm tot IT-ul. Ni se aplică totuși NIS2?",
@@ -4650,7 +4650,7 @@
     "securityObligation": {
       "meta": {
         "title": "Obligatia de securitate IT - NIS2 si BSIG",
-        "description": "NIS2 este noua obligatie de securitate IT pentru companiile germane cu 50+ angajati sau 10M+ cifra de afaceri in sectoare critice. Ce cere BSIG."
+        "description": "NIS2 este noua obligatie de securitate IT pentru companiile germane cu 50+ angajati sau cu cifră de afaceri și bilanț de peste 10 mil. EUR in sectoare critice. Ce cere BSIG."
       },
       "title": "Noua obligatie de securitate IT pentru companiile germane",
       "subtitle": "Daca ati cautat 'IT Sicherheitspflicht', cautati NIS2. Din decembrie 2025, BSIG revizuit face din securitatea cibernetica o obligatie legala pentru aproximativ 29.500 de companii germane.",
@@ -4658,7 +4658,7 @@
         "heading": "NIS2 este obligatia de securitate IT despre care ati tot auzit",
         "p1": "Nu exista o 'lege de sine statatoare a obligatiei de securitate IT' in Germania. Ce exista este Directiva NIS2 (UE 2022/2555), transpusa in dreptul german prin NIS2UmsuCG, care a revizuit Legea federala privind securitatea cibernetica (BSIG). Aceasta este legea care creeaza obligatii obligatorii de securitate IT pentru companiile din 18 sectoare critice.",
         "p2": "BSIG a intrat in vigoare la 6 decembrie 2025. Cere companiilor afectate sa implementeze 10 masuri specifice de gestionare a riscurilor de securitate cibernetica (sectiunea 30 BSIG), sa se inregistreze la BSI, sa raporteze incidentele semnificative in termene stricte si sa isi securizeze lanturile de aprovizionare. Conducerea este personal raspunzatoare in temeiul sectiunii 38 BSIG pentru asigurarea conformitatii.",
-        "p3": "Daca firma voastra are 50 sau mai multi angajati sau depaseste 10 milioane de euro cifra de afaceri anuala si opereaza intr-unul dintre cele 18 sectoare NIS2, aceste obligatii vi se aplica chiar acum. Termenul de inregistrare a fost 6 martie 2026. Implementarea tuturor masurilor este obligatorie pana la 17 octombrie 2026."
+        "p3": "Daca firma voastra are 50 sau mai multi angajati sau depaseste 10 milioane de euro atât la cifra de afaceri anuală, cât și la bilanț, si opereaza intr-unul dintre cele 18 sectoare NIS2, aceste obligatii vi se aplica chiar acum. Termenul de inregistrare a fost 6 martie 2026."
       },
       "check": {
         "heading": "Mi se aplica acest lucru companiei?",
@@ -4684,7 +4684,7 @@
       },
       "steps": {
         "heading": "Ce trebuie sa faceti",
-        "description": "BSIG cere cinci pasi concreti. Inregistrarea ar trebui sa fie deja facuta. Masurile ramase trebuie implementate pana in octombrie 2026.",
+        "description": "BSIG cere cinci pasi concreti. Inregistrarea ar trebui sa fie deja facuta.",
         "items": {
           "register": {
             "title": "Inregistrati-va la BSI",
@@ -4814,7 +4814,7 @@
       },
       "scope": {
         "heading": "Cine intra sub incidenta Sectiunii 30 BSIG",
-        "p1": "Sectiunea 30 BSIG se aplica entitatilor esentiale in temeiul Sectiunii 28(6) BSIG si entitatilor importante in temeiul Sectiunii 28(7) BSIG. Sectoarele sunt enumerate in Anexa 1 si Anexa 2 ale Directivei NIS 2. Pragul de dimensiune este de cel putin 50 de angajati sau 10 milioane de euro cifra de afaceri anuala, cu reguli speciale pentru KRITIS si pentru sectoarele care se aplica indiferent de dimensiune.",
+        "p1": "Sectiunea 30 BSIG se aplica entitatilor esentiale in temeiul Sectiunii 28(6) BSIG si entitatilor importante in temeiul Sectiunii 28(7) BSIG. Sectoarele sunt enumerate in Anexa 1 si Anexa 2 ale Directivei NIS 2. Pragul de dimensiune este de cel putin 50 de angajati sau o cifră de afaceri anuală și un bilanț de peste 10 milioane de euro fiecare, cu reguli speciale pentru KRITIS si pentru sectoarele care se aplica indiferent de dimensiune.",
         "p2": "Daca aveti nelamuriri, incepeti cu testul de aplicabilitate prevazut de Articolul 2 NIS 2. Furnizorii catre entitatile reglementate intra de asemenea in contact cu Sectiunea 30 prin Nr. 4 (lant de aprovizionare): obligatiile se transmit contractual catre furnizorii directi."
       },
       "penalties": {
@@ -4937,7 +4937,7 @@
         },
         "q3": {
           "q": "Nu suntem siguri daca ne clasificam ca esentiali sau importanti. Ce selectam?",
-          "a": "Entitatile esentiale (essential entities) sunt firme mari (peste 250 de angajati sau peste 50 de milioane cifra de afaceri) din sectoarele Anexei I, plus toti operatorii KRITIS. Entitatile importante (wichtige Einrichtungen) sunt firme medii (50 pana la 249 de angajati sau 10 pana la 50 de milioane cifra de afaceri) din sectoarele Anexei I sau firme medii si mari din sectoarele Anexei II. Daca aveti cu adevarat nelamuriri, portalul BSI ofera indrumari de clasificare pe parcursul procesului de inregistrare."
+          "a": "Entitatile esentiale (essential entities) sunt firme mari (peste 250 de angajati sau peste 50 de milioane cifra de afaceri împreună cu un bilanț de peste 43 de milioane) din sectoarele Anexei I, plus toti operatorii KRITIS. Entitatile importante (wichtige Einrichtungen) sunt firme medii (50 pana la 249 de angajati sau o cifră de afaceri și un bilanț de peste 10 milioane fiecare, sub pragurile întreprinderii mari) din sectoarele Anexei I sau firme medii si mari din sectoarele Anexei II. Daca aveti cu adevarat nelamuriri, portalul BSI ofera indrumari de clasificare pe parcursul procesului de inregistrare."
         },
         "q4": {
           "q": "Ce se intampla dupa ce ne inregistram? Ne contacteaza BSI?",
@@ -5074,11 +5074,11 @@
       },
       "badge": "Anexa II - Entitate importantă",
       "title": "NIS2 pentru companiile de producție și distribuție de alimente",
-      "subtitle": "Producția, procesarea și distribuția cu ridicata a alimentelor intră în domeniul de aplicare al Anexei II la NIS2. Dacă firma dumneavoastră are 50 de angajați sau mai mulți ori depășește 10 milioane de euro în cifra de afaceri, acesta este ghidul dumneavoastră practic privind ceea ce impune BSIG.",
+      "subtitle": "Producția, procesarea și distribuția cu ridicata a alimentelor intră în domeniul de aplicare al Anexei II la NIS2. Dacă firma dumneavoastră are 50 de angajați sau mai mulți ori depășește 10 milioane de euro atât în cifra de afaceri, cât și în bilanț, acesta este ghidul dumneavoastră practic privind ceea ce impune BSIG.",
       "why": {
         "heading": "De ce se aplică NIS2 companiilor alimentare?",
         "p1": "Producția modernă de alimente depinde profund de sistemele IT. Sistemele ERP gestionează comenzile și facturarea. Sistemele de control al producției (MES) programează și monitorizează liniile de fabricație. Sistemele de monitorizare a lanțului frigorific urmăresc temperaturile de la producție până la livrare. Sistemele informatice de laborator gestionează testele de calitate. Dacă un ransomware vă scoate din funcțiune ERP-ul, nu puteți livra. Dacă monitorizarea lanțului frigorific cedează, nu puteți dovedi siguranța produsului. De aceea UE a clasificat alimentele drept un sector critic.",
-        "p2": "UE a plasat producția, procesarea și distribuția cu ridicata a alimentelor sub Anexa II la Directiva NIS2. Companiile care îndeplinesc pragul de mărime (50 de angajați sau mai mulți ori peste 10 milioane de euro în cifra de afaceri anuală) sunt clasificate drept „wichtige Einrichtungen” (entități importante) conform Secțiunii 28(2) BSIG. Aceasta înseamnă că se aplică întregul set de obligații NIS2: înregistrarea la BSI, cele 10 măsuri de management al riscului de securitate cibernetică, raportarea incidentelor, securitatea lanțului de aprovizionare și răspunderea conducerii.",
+        "p2": "UE a plasat producția, procesarea și distribuția cu ridicata a alimentelor sub Anexa II la Directiva NIS2. Companiile care îndeplinesc pragul de mărime (50 de angajați sau mai mulți ori peste 10 milioane de euro atât în cifra de afaceri anuală, cât și în bilanț) sunt clasificate drept „wichtige Einrichtungen” (entități importante) conform Secțiunii 28(2) BSIG. Aceasta înseamnă că se aplică întregul set de obligații NIS2: înregistrarea la BSI, cele 10 măsuri de management al riscului de securitate cibernetică, raportarea incidentelor, securitatea lanțului de aprovizionare și răspunderea conducerii.",
         "p3": "Majoritatea companiilor alimentare nu au avut de-a face înainte cu o reglementare de securitate cibernetică. Reglementările de siguranță alimentară (HACCP, IFS, BRC) sunt familiare, dar obligațiile de securitate IT sunt noi. Vestea bună: dacă firma dumneavoastră derulează deja un sistem structurat de management al calității, multe dintre concepte se transferă. Evaluarea riscurilor, documentarea, auditurile, acțiunile corective: cadrul este similar, doar că este aplicat IT-ului în loc de igienei producției."
       },
       "assets": {
@@ -5179,7 +5179,7 @@
       "why": {
         "heading": "De ce se aplică NIS2 producției?",
         "p1": "Producția modernă depinde de convergența IT și OT (tehnologie operațională). Sistemele ERP conduc programarea producției. Platformele MES gestionează execuția în hala de producție. Sistemele SCADA controlează mașinile și automatizarea proceselor. Sistemele CAD/CAM definesc ce se fabrică. Când aceste sisteme sunt interconectate, iar în majoritatea fabricilor așa este, un atac cibernetic asupra unuia se poate propaga în cascadă în întregul lanț de producție. O infecție ransomware în rețeaua de birou care ajunge la MES poate opri liniile de producție.",
-        "p2": "UE a clasificat producția în anexa II a Directivei NIS2, acoperind: fabricarea de dispozitive medicale, fabricarea de computere și produse electronice, fabricarea de echipamente electrice, fabricarea de mașini și echipamente, fabricarea de autovehicule și fabricarea altor echipamente de transport. Companiile care îndeplinesc pragul de dimensiune (peste 50 de angajați sau peste 10 milioane de euro cifră de afaceri anuală) sunt \"wichtige Einrichtungen\" (entități importante) conform articolului 28(2) BSIG.",
+        "p2": "UE a clasificat producția în anexa II a Directivei NIS2, acoperind: fabricarea de dispozitive medicale, fabricarea de computere și produse electronice, fabricarea de echipamente electrice, fabricarea de mașini și echipamente, fabricarea de autovehicule și fabricarea altor echipamente de transport. Companiile care îndeplinesc pragul de dimensiune (peste 50 de angajați sau o cifră de afaceri anuală și un bilanț de peste 10 milioane de euro fiecare) sunt \"wichtige Einrichtungen\" (entități importante) conform articolului 28(2) BSIG.",
         "p3": "Producția are o provocare unică pe care majoritatea celorlalte sectoare NIS2 nu o întâmpină la aceeași amploare: securitatea OT. Echipamentele de producție rulează adesea sisteme de operare specializate, folosesc protocoale proprietare și au constrângeri de ciclu de viață care fac dificilă aplicarea actualizărilor. O mașină CNC din 2015 poate rula Windows 7 Embedded și nu poate fi actualizată fără implicarea producătorului. NIS2 nu ignoră această realitate: articolul 30 BSIG impune măsuri \"proporționale\" cu riscul. Dar trebuie să documentați riscurile și controalele compensatorii."
       },
       "assets": {
@@ -5381,7 +5381,7 @@
       "why": {
         "heading": "De ce se aplică NIS2 companiilor de logistică?",
         "p1": "Logistica este coloana vertebrală a economiei fizice. Un atac cibernetic care oprește un furnizor major de logistică nu afectează doar o singură companie. El perturbă lanțurile de aprovizionare pentru zeci sau sute de clienți. Atacul NotPetya din 2017 a costat numai compania Maersk peste 300 de milioane de euro și a perturbat transportul maritim global timp de săptămâni. UE a clasificat transportul în Anexa I (sectoare de înaltă criticitate) pentru că perturbările logistice se propagă în cascadă prin întreaga economie.",
-        "p2": "NIS2 acoperă toate modurile de transport: transport rutier de marfă, transport feroviar, căi navigabile interioare, transport maritim și transport aerian de marfă. Companiile care ating pragul de mărime (50+ angajați sau peste 10 milioane de euro cifră de afaceri) intră în domeniul de aplicare. Companiile mari (250+ angajați) din sectoarele Anexei I sunt clasificate ca entități esențiale. Companiile mijlocii (50-249 angajați) sunt entități importante (wichtige Einrichtungen). Ambele se confruntă cu setul complet de obligații NIS2.",
+        "p2": "NIS2 acoperă toate modurile de transport: transport rutier de marfă, transport feroviar, căi navigabile interioare, transport maritim și transport aerian de marfă. Companiile care ating pragul de mărime (50+ angajați sau o cifră de afaceri și un bilanț de peste 10 milioane de euro fiecare) intră în domeniul de aplicare. Companiile mari (250+ angajați) din sectoarele Anexei I sunt clasificate ca entități esențiale. Companiile mijlocii (50-249 angajați) sunt entități importante (wichtige Einrichtungen). Ambele se confruntă cu setul complet de obligații NIS2.",
         "p3": "Companiile moderne de logistică funcționează pe sisteme IT interconectate. Sistemele de management al transportului (TMS) orchestrează expedierile. Managementul flotei urmărește vehiculele în timp real. Sistemele de management al depozitului (WMS) controlează inventarul și culegerea. Unitățile telematice din camioane transmit poziția, viteza, temperatura și datele șoferului. Dacă oricare dintre aceste sisteme cade, operațiunile se opresc sau devin periculos de ineficiente. NIS2 vă cere să identificați aceste dependențe și să gestionați sistematic riscurile de securitate cibernetică."
       },
       "assets": {
@@ -6199,7 +6199,7 @@
       "penalties": {
         "q1": {
           "q": "Ce se întâmplă dacă o companie obligată raportează un incident cu întârziere sau deloc către autoritatea competentă? Cine verifică dacă incidentele raportabile au fost raportate în mod corespunzător?",
-          "a": "Obligația de raportare decurge din articolul 23 din Directiva NIS 2: o avertizare timpurie în 24 de ore, o notificare în 72 de ore și un raport final în termen de o lună de la incidentul semnificativ (transpus în Germania în §32 BSIG). Un raport tardiv, sau niciun raport, este o încălcare a obligației pe care autoritatea competentă (BSI pentru majoritatea entităților) o poate sancționa în temeiul regulilor de supraveghere și de aplicare din articolele 31-34 (§§61 și urm. și §65 BSIG). Măsurile posibile includ instrucțiuni, ordine obligatorii și amenzi al căror nivel depinde de tipul de entitate: pentru entitățile esențiale, articolul 34 stabilește un plafon de cel puțin 10 milioane de euro sau 2 % din cifra de afaceri anuală mondială (oricare este mai mare), iar pentru entitățile importante cel puțin 7 milioane de euro sau 1,4 %. Autoritatea evaluează dacă un raport a fost făcut în mod corespunzător pe baza raportului transmis și îl poate verifica prin competențele sale de supraveghere în temeiul articolelor 32 și 33 (precum cereri de informații, audituri, inspecții la fața locului). Un raport în timp util, complet, în formatul prescris, este, prin urmare, calea cea mai sigură. Veți găsi un ghid pas cu pas privind obligația și autoritatea la [Înregistrare și obligație de raportare](/wiki/anwendungsbereich/nis2-registrierung)."
+          "a": "Obligația de raportare decurge din articolul 23 din Directiva NIS 2: o avertizare timpurie în 24 de ore, o notificare în 72 de ore și un raport final în cel mult o lună de la această notificare (transpus în Germania în §32 BSIG). Un raport tardiv, sau niciun raport, este o încălcare a obligației pe care autoritatea competentă (BSI pentru majoritatea entităților) o poate sancționa în temeiul regulilor de supraveghere și de aplicare din articolele 31-34 (§§61 și urm. și §65 BSIG). Măsurile posibile includ instrucțiuni, ordine obligatorii și amenzi al căror nivel depinde de tipul de entitate: pentru entitățile esențiale, articolul 34 stabilește un plafon de cel puțin 10 milioane de euro sau 2 % din cifra de afaceri anuală mondială (oricare este mai mare), iar pentru entitățile importante cel puțin 7 milioane de euro sau 1,4 %. Autoritatea evaluează dacă un raport a fost făcut în mod corespunzător pe baza raportului transmis și îl poate verifica prin competențele sale de supraveghere în temeiul articolelor 32 și 33 (precum cereri de informații, audituri, inspecții la fața locului). Un raport în timp util, complet, în formatul prescris, este, prin urmare, calea cea mai sigură. Veți găsi un ghid pas cu pas privind obligația și autoritatea la [Înregistrare și obligație de raportare](/wiki/anwendungsbereich/nis2-registrierung)."
         }
       },
       "liability": {
@@ -6213,7 +6213,7 @@
         },
         "q3": {
           "q": "Trebuie conducerea să participe la instruire?",
-          "a": "Da. Conducerea entităților esențiale și importante trebuie să participe regulat la instruirea privind securitatea cibernetică (art. 20 alin. (2) Directiva NIS 2, în Germania §38 alin. (3) BSIG). Scopul este ca conducerea să poată identifica riscurile, evalua măsurile de gestionare a riscurilor și aprecia impactul acestora asupra serviciilor. Directiva nu denumește un număr minim de ore sau intervale fixe; în orientările sale, BSI recomandă o actualizare anuală și indică aproximativ patru ore drept cifră de orientare pentru amploare. Această obligație se aplică fiecărei persoane numite să conducă entitatea prin lege, statut sau act constitutiv și nu poate fi delegată."
+          "a": "Da. Conducerea entităților esențiale și importante trebuie să participe regulat la instruirea privind securitatea cibernetică (art. 20 alin. (2) Directiva NIS 2, în Germania §38 alin. (3) BSIG). Scopul este ca conducerea să poată identifica riscurile, evalua măsurile de gestionare a riscurilor și aprecia impactul acestora asupra serviciilor. Nici directiva, nici BSIG nu stabilesc un număr minim de ore sau intervale fixe. În orientările sale, BSI recomandă o instruire inițială temeinică, urmată de instruiri periodice de actualizare; durata și intervalul depind de expunerea la risc a entității și de competențele conducerii. Această obligație se aplică fiecărei persoane numite să conducă entitatea prin lege, statut sau act constitutiv și nu poate fi delegată."
         },
         "q4": {
           "q": "Poate conducerea să delege obligația sa de instruire?",
@@ -6337,7 +6337,7 @@
         },
         "q24": {
           "q": "Intră toți participanții la un lanț de aprovizionare securizat în domeniul securității aviației sub KRITIS, chiar dacă sunt întreprinderi mici aflate sub pragurile de aplicabilitate a NIS 2?",
-          "a": "Nu. Participarea la lanțul de aprovizionare securizat în temeiul §9a LuftSiG nu transformă automat o companie într-o infrastructură critică și nu o transformă automat într-o entitate NIS 2. Două praguri separate sunt decisive: deveniți operator KRITIS numai dacă depășiți pragurile de volum ale BSI-KritisV pentru un serviciu critic (de obicei în sectoarele aviației sau logisticii). Aplicabilitatea NIS 2 în temeiul anexei I sau II la Directiva NIS 2 (UE) 2022/2555, la rândul ei, impune să fiți activ într-un sector acoperit și să îndepliniți criteriile de mărime (de regulă de la 50 de angajați sau peste 10 milioane EUR cifră de afaceri anuală; BSIG transpune acest lucru în §28). Oricine se află sub ambele praguri nu este acoperit nici de KRITIS, nici de NIS 2 prin simpla participare la lanțul de aprovizionare. Puteți găsi testul complet la [Cine este vizat](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
+          "a": "Nu. Participarea la lanțul de aprovizionare securizat în temeiul §9a LuftSiG nu transformă automat o companie într-o infrastructură critică și nu o transformă automat într-o entitate NIS 2. Două praguri separate sunt decisive: deveniți operator KRITIS numai dacă depășiți pragurile de volum ale BSI-KritisV pentru un serviciu critic (de obicei în sectoarele aviației sau logisticii). Aplicabilitatea NIS 2 în temeiul anexei I sau II la Directiva NIS 2 (UE) 2022/2555, la rândul ei, impune să fiți activ într-un sector acoperit și să îndepliniți criteriile de mărime (de regulă de la 50 de angajați sau o cifră de afaceri anuală și un bilanț de peste 10 milioane EUR fiecare; BSIG transpune acest lucru în §28). Oricine se află sub ambele praguri nu este acoperit nici de KRITIS, nici de NIS 2 prin simpla participare la lanțul de aprovizionare. Puteți găsi testul complet la [Cine este vizat](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
         },
         "q25": {
           "q": "Care forme juridice intră sub sectorul financiar și subsectorul bancar conform NIS 2?",
@@ -7258,7 +7258,7 @@
           },
           "check": {
             "title": "Verificati pragul fiecarei tari",
-            "description": "NIS2 se aplica entitatilor mijlocii si mari (50+ angajati sau 10M+ EUR cifra de afaceri). Aplicati testul de prag per entitate juridica, nu la nivel de grup, o filiala mica poate cadea sub prag."
+            "description": "NIS2 se aplica entitatilor mijlocii si mari (50+ angajati sau o cifră de afaceri și un bilanț de peste 10 mil. EUR fiecare). Aplicati testul de prag per entitate juridica, nu la nivel de grup, o filiala mica poate cadea sub prag."
           },
           "register": {
             "title": "Inregistrati-va la fiecare autoritate nationala",
@@ -7788,7 +7788,7 @@
           "framework": {
             "section": "§28 + §30 BSIG",
             "title": "Domeniul de aplicare și cele zece măsuri",
-            "body": "§28 BSIG stabilește cine intră în domeniul de aplicare: entitățile „deosebit de importante” și „importante”, evaluate după sector (Anexa I și II la NIS 2) și mărime (cel puțin 50 de angajați sau peste 10 milioane EUR cifră de afaceri, cu excepții). §30 BSIG enumeră cele zece măsuri de securitate cibernetică pe care fiecare entitate vizată trebuie să le pună în practică. §30 transpune Articolul 21(2) al directivei."
+            "body": "§28 BSIG stabilește cine intră în domeniul de aplicare: entitățile „deosebit de importante” și „importante”, evaluate după sector (Anexa I și II la NIS 2) și mărime (cel puțin 50 de angajați sau o cifră de afaceri și un bilanț de peste 10 milioane EUR fiecare, cu excepții). §30 BSIG enumeră cele zece măsuri de securitate cibernetică pe care fiecare entitate vizată trebuie să le pună în practică. §30 transpune Articolul 21(2) al directivei."
           },
           "monitoring": {
             "section": "§32 + §33 BSIG",
@@ -9477,7 +9477,7 @@
       "overview": {
         "heading": "Pe scurt",
         "p1": "Spitalele se află în anexa I sectorul 5 din NIS 2 (Gesundheitswesen). Directiva le include ca 'Gesundheitsdienstleister' în sensul articolului 3(g) din Directiva 2011/24/UE. Lista sectorului este mai largă decât spitalele singure: laboratoarele de referință ale UE, cercetarea și dezvoltarea de medicamente, producătorii de produse farmaceutice și producătorii de dispozitive medicale critice pentru situații de urgență în domeniul sănătății publice se află în aceeași categorie.",
-        "p2": "Dacă NIS 2 vă obligă depinde de articolul 2(1). Intrați în domeniul de aplicare dacă sunteți o întreprindere mijlocie în temeiul Recomandării 2003/361/CE a Comisiei, sau mai mare. Pragul de mijloc este de 50 de angajați sau 10 milioane EUR cifră de afaceri anuală sau total al bilanțului. O clinică regională cu 60 de angajați este inclusă. Un cabinet de specialitate cu 20 de angajați, în general, nu.",
+        "p2": "Dacă NIS 2 vă obligă depinde de articolul 2(1). Intrați în domeniul de aplicare dacă sunteți o întreprindere mijlocie în temeiul Recomandării 2003/361/CE a Comisiei, sau mai mare. Pragul de mijloc este de 50 de angajați sau o cifră de afaceri anuală și un total al bilanțului de peste 10 milioane EUR fiecare. O clinică regională cu 60 de angajați este inclusă. Un cabinet de specialitate cu 20 de angajați, în general, nu.",
         "p3": "Germania are un al doilea regim care rulează în paralel: KRITIS. KRITIS-Verordnung stabilește un prag specific spitalelor de 30.000 vollstationäre Krankenhausfälle pe an. Spitalele cu statut KRITIS sunt în continuare entități NIS 2, dar poartă și obligații mai stricte în temeiul secțiunilor KRITIS din BSIG. KRITIS nu este pragul NIS 2. Două teste separate."
       },
       "legalAnchor": {
@@ -9491,7 +9491,7 @@
         "regulation": {
           "label": "Articolul 2(1) NIS 2 + Recomandarea 2003/361/CE",
           "quote": "Prezenta directivă se aplică entităților publice sau private de un tip menționat în anexa I sau II care se califică drept întreprinderi mijlocii în temeiul articolului 2 din anexa la Recomandarea 2003/361/CE sau care depășesc plafoanele pentru întreprinderile mijlocii prevăzute la alineatul (1) din articolul respectiv.",
-          "context": "Articolul 2(1) este regula privind domeniul de aplicare. Definiția dimensiunii din 2003/361/CE spune că mijlociu înseamnă 50 sau mai mulți angajați sau 10 milioane EUR sau mai mult în cifră de afaceri anuală sau total al bilanțului. Depășiți oricare prag și sunteți inclus."
+          "context": "Articolul 2(1) este regula privind domeniul de aplicare. Definiția dimensiunii din 2003/361/CE spune că mijlociu înseamnă 50 sau mai mulți angajați sau o cifră de afaceri anuală și un total al bilanțului de peste 10 milioane EUR fiecare. Depășiți oricare prag și sunteți inclus."
         },
         "transposition": {
           "label": "§28 BSIG plus KRITIS-Verordnung (Germania)",
@@ -9511,7 +9511,7 @@
           "size": {
             "section": "Testul 2",
             "title": "Testul de dimensiune (articolul 2(1))",
-            "body": "Aveți 50 sau mai mulți angajați sau 10 milioane EUR sau mai mult în cifră de afaceri anuală sau total al bilanțului? Oricare prag vă plasează în domeniul de aplicare. Sub ambele, rămâneți în afară, cu excepții restrânse la articolul 2(2) și (3) (derogări indiferent de dimensiune pentru furnizorii unici, administrația publică, serviciile de încredere calificate și câteva altele)."
+            "body": "Aveți 50 sau mai mulți angajați sau o cifră de afaceri anuală și un total al bilanțului de peste 10 milioane EUR fiecare? Oricare prag vă plasează în domeniul de aplicare. Sub ambele, rămâneți în afară, cu excepții restrânse la articolul 2(2) și (3) (derogări indiferent de dimensiune pentru furnizorii unici, administrația publică, serviciile de încredere calificate și câteva altele)."
           },
           "kritis": {
             "section": "Testul 3",
@@ -9561,7 +9561,7 @@
         "items": {
           "kritisThreshold": {
             "myth": "Suntem sub 30.000 de cazuri pe an, deci suntem în afară.",
-            "reality": "Acesta este pragul KRITIS, nu pragul NIS 2. NIS 2 folosește articolul 2(1): 50 de angajați sau 10 milioane EUR cifră de afaceri. O clinică regională cu 60 de angajați și 8.000 de cazuri pe an este în NIS 2 și în afara KRITIS. Ambele pot fi adevărate în același timp."
+            "reality": "Acesta este pragul KRITIS, nu pragul NIS 2. NIS 2 folosește articolul 2(1): 50 de angajați sau o cifră de afaceri și un bilanț de peste 10 milioane EUR fiecare. O clinică regională cu 60 de angajați și 8.000 de cazuri pe an este în NIS 2 și în afara KRITIS. Ambele pot fi adevărate în același timp."
           },
           "onlyIt": {
             "myth": "NIS 2 se aplică doar sistemelor IT, nu și restului spitalului.",
@@ -9889,7 +9889,7 @@
         "directive": {
           "label": "Directiva NIS 2 (2022/2555), Anexa I Sectorul 8 și Art. 2(2)(a)",
           "quote": "Sectorul 8 Infrastructură digitală: furnizori de rețele publice de comunicații electronice; furnizori de servicii de comunicații electronice disponibile public. Prezenta directivă se aplică, de asemenea, entităților, indiferent de dimensiunea lor, care îndeplinesc oricare dintre următoarele criterii: (a) furnizori de rețele publice de comunicații electronice sau furnizori de servicii de comunicații electronice disponibile public.",
-          "context": "Două piese trebuie citite împreună. Anexa I sectorul 8 desemnează telecomunicațiile drept infrastructură esențială. Articolul 2(2)(a) creează apoi o includere indiferent de dimensiune pentru aceiași furnizori de telecomunicații. Pragul obișnuit pentru întreprinderi mijlocii (50 de angajați sau 10 mil. EUR cifră de afaceri) nu se aplică aici."
+          "context": "Două piese trebuie citite împreună. Anexa I sectorul 8 desemnează telecomunicațiile drept infrastructură esențială. Articolul 2(2)(a) creează apoi o includere indiferent de dimensiune pentru aceiași furnizori de telecomunicații. Pragul obișnuit pentru întreprinderi mijlocii (50 de angajați sau o cifră de afaceri și un bilanț de peste 10 mil. EUR fiecare) nu se aplică aici."
         },
         "regulation": {
           "label": "Directiva (UE) 2018/1972 (Codul european al comunicațiilor electronice), Art. 2",
@@ -10032,7 +10032,7 @@
         "regulation": {
           "label": "Recomandarea 2003/361/CE, anexă Articolul 2",
           "quote": "Categoria microîntreprinderilor și a întreprinderilor mici și mijlocii (IMM-uri) este formată din întreprinderi care au mai puțin de 250 de angajați și care au o cifră de afaceri anuală care nu depășește 50 de milioane EUR, și/sau un total al bilanțului anual care nu depășește 43 de milioane EUR.",
-          "context": "Definiția oficială de mărime a UE. Mijlocie începe de la 50 de angajați și cel puțin 10 milioane EUR cifră de afaceri și 10 milioane EUR bilanț. NIS 2 vă prinde de la mijlocie în sus. 'Depășește plafoanele pentru mijlocie' din articolul 2(1) înseamnă întreprindere mare conform aceleiași Recomandări. Întreprinderile legate și partenere se agregă, astfel încât o filială mică a unei societăți-mamă mari se califică adesea drept mare."
+          "context": "Definiția oficială de mărime a UE. Mijlocie începe de la 50 de angajați sau de la o cifră de afaceri și un bilanț de peste 10 milioane EUR fiecare. NIS 2 vă prinde de la mijlocie în sus. 'Depășește plafoanele pentru mijlocie' din articolul 2(1) înseamnă întreprindere mare conform aceleiași Recomandări. Întreprinderile legate și partenere se agregă, astfel încât o filială mică a unei societăți-mamă mari se califică adesea drept mare."
         },
         "transposition": {
           "label": "§28 BSIG (Germania)",
@@ -10052,7 +10052,7 @@
           "size": {
             "section": "Mărime",
             "title": "Întreprindere mijlocie sau mai mare?",
-            "body": "Recomandarea 2003/361/CE definește mijlocie ca 50 de angajați sau mai mult, SAU cifră de afaceri de cel puțin 10 milioane EUR ȘI bilanț de cel puțin 10 milioane EUR. Articolul 2(1) vă prinde de la mijlocie în sus. Se aplică agregarea întreprinderilor legate: dacă o societate-mamă controlează peste 50 la sută din voturi, numărul de angajați și cifra de afaceri se combină. O filială cu 30 de persoane a unui grup cu 5000 de persoane se contabilizează ca parte a cifrelor acelui grup."
+            "body": "Recomandarea 2003/361/CE definește mijlocie ca 50 de angajați sau mai mult, SAU cifră de afaceri de peste 10 milioane EUR ȘI bilanț de peste 10 milioane EUR. Articolul 2(1) vă prinde de la mijlocie în sus. Se aplică agregarea întreprinderilor legate: dacă o societate-mamă controlează peste 50 la sută din voturi, numărul de angajați și cifra de afaceri se combină. O filială cu 30 de persoane a unui grup cu 5000 de persoane se contabilizează ca parte a cifrelor acelui grup."
           },
           "override": {
             "section": "Excepție",
@@ -11094,7 +11094,7 @@
       "overview": {
         "heading": "Pe scurt",
         "p1": "Dacă furnizați un serviciu de cloud computing clienților, sunteți în domeniul de aplicare NIS 2 de îndată ce depășiți pragul de dimensiune al întreprinderii mijlocii. Anexa I sectorul 8 numește direct furnizorii de servicii de cloud computing în cadrul Infrastructurii digitale. Definiția din articolul 6(30) este largă: IaaS, PaaS, SaaS, cloud public, cloud privat vândut ca serviciu, oferte hibride, toate contează.",
-        "p2": "Spre deosebire de telecomunicații sau DNS, furnizorii de cloud nu sunt pe lista „indiferent de dimensiune” din articolul 2(2). Se aplică testul normal din articolul 2(1): mijlociu conform Recomandării 2003/361/CE înseamnă 50 de angajați sau mai mult, sau cifră de afaceri anuală peste 10 milioane EUR. Depășiți oricare prag și intrați în domeniul de aplicare. Rămâneți sub ambele și sunteți în mod normal în afară, cu excepțiile limitate din articolul 2(2) și (3) care nu se aplică cloudului ca atare.",
+        "p2": "Spre deosebire de telecomunicații sau DNS, furnizorii de cloud nu sunt pe lista „indiferent de dimensiune” din articolul 2(2). Se aplică testul normal din articolul 2(1): mijlociu conform Recomandării 2003/361/CE înseamnă 50 de angajați sau mai mult, sau cifră de afaceri anuală și bilanț peste 10 milioane EUR fiecare. Depășiți oricare prag și intrați în domeniul de aplicare. Rămâneți sub ambele și sunteți în mod normal în afară, cu excepțiile limitate din articolul 2(2) și (3) care nu se aplică cloudului ca atare.",
         "p3": "Germania transpune aceasta în dreptul național prin §28 BSIG. BSI este autoritatea dvs. Pe lângă directivă, Regulamentul de punere în aplicare al Comisiei (UE) 2024/2690 listează furnizorii de cloud în anexa sa, astfel încât cerințele sale tehnice și metodologice vă obligă direct, fără a fi nevoie de alt drept german. Această pagină parcurge directiva, definiția UE și transpunerea germană în această ordine."
       },
       "legalAnchor": {
@@ -11128,7 +11128,7 @@
           "sizeTest": {
             "section": "Testul B",
             "title": "Depășiți pragul de dimensiune?",
-            "body": "Furnizorii de cloud urmează testul normal din articolul 2(1). Conform Recomandării 2003/361/CE, nivelul mijlociu începe de la 50 de angajați sau cifră de afaceri anuală peste 10 milioane EUR (cu bilanț anual total peste 10 milioane EUR ca alternativă). La 250 de angajați sau cifră de afaceri peste 50 de milioane EUR deveniți o întreprindere mare și sunteți clasificați ca „esențiali”. Sub 50 de angajați și cifră de afaceri sub 10 milioane EUR, sunteți în mod normal în afara domeniului de aplicare ca furnizor de cloud."
+            "body": "Furnizorii de cloud urmează testul normal din articolul 2(1). Conform Recomandării 2003/361/CE, nivelul mijlociu începe de la 50 de angajați sau de la o cifră de afaceri anuală și un bilanț anual total de peste 10 milioane EUR fiecare. La 250 de angajați sau la o cifră de afaceri de peste 50 de milioane EUR împreună cu un bilanț de peste 43 de milioane EUR deveniți o întreprindere mare și sunteți clasificați ca „esențiali”. Sub 50 de angajați și cifră de afaceri sub 10 milioane EUR, sunteți în mod normal în afara domeniului de aplicare ca furnizor de cloud."
           },
           "cirDirect": {
             "section": "Testul C",
@@ -11187,7 +11187,7 @@
           },
           "nicheSaas": {
             "myth": "Suntem un SaaS mic, deci regulile pentru cloud nu ni se aplică.",
-            "reality": "Testul juridic este în două părți. Mai întâi articolul 6(30): un SaaS multi-tenant vândut prin rețea pe o infrastructură partajată îndeplinește definiția. Apoi articolul 2(1): pragul de dimensiune. Dacă aveți sub 50 de angajați și sub 10 milioane EUR cifră de afaceri, sunteți în afara domeniului de aplicare pe rândul cloud. Dacă depășiți oricare, sunteți înăuntru. „De nișă” nu este o categorie juridică. Cifrele și definiția fac treaba."
+            "reality": "Testul juridic este în două părți. Mai întâi articolul 6(30): un SaaS multi-tenant vândut prin rețea pe o infrastructură partajată îndeplinește definiția. Apoi articolul 2(1): pragul de dimensiune. Dacă aveți sub 50 de angajați și sub 10 milioane EUR cifră de afaceri, sunteți în afara domeniului de aplicare pe rândul cloud. Dacă aveți 50 sau mai mulți angajați ori o cifră de afaceri și un bilanț de peste 10 milioane EUR fiecare, sunteți înăuntru. „De nișă” nu este o categorie juridică. Cifrele și definiția fac treaba."
           },
           "privateCloud": {
             "myth": "Operăm un cloud privat pentru propriul nostru grup, deci suntem furnizor de cloud în domeniul de aplicare.",
@@ -11251,7 +11251,7 @@
         "transposition": {
           "label": "§28 BSIG (Germania) și KRITIS-Verordnung",
           "quote": "Anbieter von Rechenzentrumsdiensten gelten ab dem Schwellenwert für mittlere Unternehmen als wichtige Einrichtungen, ab dem Schwellenwert für große Unternehmen als besonders wichtige Einrichtungen im Sinne dieses Gesetzes.",
-          "context": "§28 BSIG transpune obligațiile NIS 2 privind centrele de date. Testul de mărime din articolul 2(1) (50 de angajați / 10 mil. EUR cifră de afaceri) decide dacă entitatea este „wichtig” sau „besonders wichtig”. KRITIS-Verordnung este un strat german separat cu propriul prag de 3,5 MW sarcină IT pentru centrele de date. KRITIS adaugă obligații deasupra, nu este condiția de intrare pentru NIS 2. Un operator de co-locație de 25 MW se află în ambele regimuri. Un sediu de co-locație cu 200 de angajați la 1 MW sarcină IT este în domeniul de aplicare al NIS 2, dar nu KRITIS."
+          "context": "§28 BSIG transpune obligațiile NIS 2 privind centrele de date. Testul de mărime din articolul 2(1) (50 de angajați sau o cifră de afaceri și un bilanț de peste 10 mil. EUR fiecare) decide dacă entitatea este „wichtig” sau „besonders wichtig”. KRITIS-Verordnung este un strat german separat cu propriul prag de 3,5 MW sarcină IT pentru centrele de date. KRITIS adaugă obligații deasupra, nu este condiția de intrare pentru NIS 2. Un operator de co-locație de 25 MW se află în ambele regimuri. Un sediu de co-locație cu 200 de angajați la 1 MW sarcină IT este în domeniul de aplicare al NIS 2, dar nu KRITIS."
         }
       },
       "elements": {
@@ -11266,7 +11266,7 @@
           "sizeTest": {
             "section": "Testul B",
             "title": "Sunteți peste pragul de mărime?",
-            "body": "Articolul 2(1) NIS 2 face trimitere la Recomandarea 2003/361/CE. Entitățile mijlocii (50 sau mai mulți angajați sau cifră de afaceri anuală și total al bilanțului peste 10 milioane EUR) intră sub regim ca „importante”. Entitățile mari (peste 250 de angajați sau cifră de afaceri peste 50 milioane EUR) intră sub regim ca „esențiale”. Nu există o includere indiferent de mărime pentru centrele de date."
+            "body": "Articolul 2(1) NIS 2 face trimitere la Recomandarea 2003/361/CE. Entitățile mijlocii (50 sau mai mulți angajați sau cifră de afaceri anuală și total al bilanțului peste 10 milioane EUR) intră sub regim ca „importante”. Entitățile mari (peste 250 de angajați sau cifră de afaceri peste 50 milioane EUR împreună cu un bilanț peste 43 milioane EUR) intră sub regim ca „esențiale”. Nu există o includere indiferent de mărime pentru centrele de date."
           },
           "kritisOverlap": {
             "section": "Testul C",
@@ -11370,7 +11370,7 @@
       "overview": {
         "heading": "Pe scurt",
         "p1": "Producătorii de dispozitive medicale apar în două anexe NIS 2 în același timp. Anexa I sectorul 5 îi enumeră în cadrul celei de-a cincea subcategorii ca producători de dispozitive considerate critice în timpul unei urgențe de sănătate publică în temeiul articolului 22 din Regulamentul (UE) 2022/123. Aceasta este lista de dispozitive critice EMA. Societățile de pe ea sunt entități esențiale și se află în banda superioară de sancțiuni.",
-        "p2": "Anexa II sectorul 5 prinde restul industriei. Subcategoriile sunt producătorii de dispozitive medicale în temeiul articolului 2(1) din Regulamentul (UE) 2017/745 (MDR) și producătorii de dispozitive medicale pentru diagnostic in vitro în temeiul articolului 2(2) din Regulamentul (UE) 2017/746 (IVDR). Acestea sunt entități importante. Același test de mărime din articolul 2(1) ca toți ceilalți: 50 de angajați sau 10 milioane de euro cifră de afaceri sau total al bilanțului.",
+        "p2": "Anexa II sectorul 5 prinde restul industriei. Subcategoriile sunt producătorii de dispozitive medicale în temeiul articolului 2(1) din Regulamentul (UE) 2017/745 (MDR) și producătorii de dispozitive medicale pentru diagnostic in vitro în temeiul articolului 2(2) din Regulamentul (UE) 2017/746 (IVDR). Acestea sunt entități importante. Același test de mărime din articolul 2(1) ca toți ceilalți: 50 de angajați sau o cifră de afaceri și un total al bilanțului de peste 10 milioane de euro fiecare.",
         "p3": "MDR și IVDR funcționează în paralel, nu înlocuiesc NIS 2. MDR acoperă dispozitivul, NIS 2 acoperă societatea. Obligațiile de securitate cibernetică din MDR Anexa I 17.2 se află la nivelul produsului. Obligațiile NIS 2 din articolul 21 se află la nivelul entității. Ambele se aplică. Nu există nicio excepție lex specialis de tip DORA pentru producătorii de dispozitive medicale."
       },
       "legalAnchor": {
@@ -11388,7 +11388,7 @@
         },
         "transposition": {
           "label": "§28 BSIG și Articolul 2(1) NIS 2 (testul de mărime)",
-          "quote": "§28 BSIG transpune domeniul de aplicare al Anexei I și Anexei II în dreptul german. Articolul 2(1) NIS 2 plus Recomandarea 2003/361/CE stabilesc pragul de mărime: 50 de angajați sau mai mulți, sau 10 milioane de euro sau mai mult cifră de afaceri anuală sau total al bilanțului.",
+          "quote": "§28 BSIG transpune domeniul de aplicare al Anexei I și Anexei II în dreptul german. Articolul 2(1) NIS 2 plus Recomandarea 2003/361/CE stabilesc pragul de mărime: 50 de angajați sau mai mulți, sau o cifră de afaceri anuală și un total al bilanțului de peste 10 milioane de euro fiecare.",
           "context": "Două praguri, oricare dintre ele este suficient. Regula de mărime este identică pentru entitățile din Anexa I și Anexa II. Singurul lucru care se schimbă între cele două este banda de sancțiuni și regimul de supraveghere. BfArM rămâne autoritatea de reglementare pentru MDR și IVDR; BSI este autoritatea de reglementare pentru NIS 2. Două autorități diferite, o singură societate."
         }
       },
@@ -11409,7 +11409,7 @@
           "size": {
             "section": "Testul 3",
             "title": "Testul de mărime (Articolul 2(1))",
-            "body": "Aveți 50 de angajați sau mai mulți, sau 10 milioane de euro sau mai mult cifră de afaceri anuală sau total al bilanțului? Oricare prag vă pune în domeniul de aplicare. Sub ambele, rămâneți în afară, cu excepțiile înguste indiferent de mărime din articolul 2(2) și (3) (furnizori unici, administrație publică, servicii de încredere calificate, câteva altele)."
+            "body": "Aveți 50 de angajați sau mai mulți, sau o cifră de afaceri anuală și un total al bilanțului de peste 10 milioane de euro fiecare? Oricare prag vă pune în domeniul de aplicare. Sub ambele, rămâneți în afară, cu excepțiile înguste indiferent de mărime din articolul 2(2) și (3) (furnizori unici, administrație publică, servicii de încredere calificate, câteva altele)."
           }
         }
       },
@@ -11501,7 +11501,7 @@
         "description": "Dacă construiești mașini, instalații sau echipamente industriale în UE, cel mai probabil ești în domeniul de aplicare NIS 2 ca entitate importantă conform Anexei II sectorul 5. Această pagină parcurge testul NACE, testul de mărime și amprenta OT care le decid."
       },
       "title": "Sunt un producător de mașini conform NIS 2?",
-      "subtitle": "Anexa II sectorul 5 a Directivei NIS 2 aduce producția în domeniul de aplicare. Constructorii de mașini se află în subcategoria (d), diviziunea NACE C28. Dacă ai 50 de angajați sau 10 milioane de euro cifră de afaceri, ești o entitate importantă cu aceleași zece obligații din articolul 21 alin. (2) ca și cele mari.",
+      "subtitle": "Anexa II sectorul 5 a Directivei NIS 2 aduce producția în domeniul de aplicare. Constructorii de mașini se află în subcategoria (d), diviziunea NACE C28. Dacă ai 50 de angajați sau o cifră de afaceri și un bilanț de peste 10 milioane de euro fiecare, ești o entitate importantă cu aceleași zece obligații din articolul 21 alin. (2) ca și cele mari.",
       "overview": {
         "heading": "Pe scurt",
         "p1": "NIS 2 acoperă producția ca sector important. Anexa II sectorul 5 numește șase subcategorii de producție. Fabricarea de mașini și echipamente, diviziunea NACE C28, este una dintre ele. Dacă asta faci și ești peste pragul de mărime, NIS 2 ți se aplică.",
@@ -11589,7 +11589,7 @@
         "items": {
           "onlyBigCompanies": {
             "myth": "NIS 2 este pentru marile grupuri industriale, nu pentru atelierul nostru de mașini cu 80 de persoane.",
-            "reality": "Testul de mărime este 50 de angajați sau 10 milioane de euro cifră de afaceri. Un atelier de mașini cu 80 de persoane cu NACE C28 este clar înăuntru. Categoria „entitate importantă” din Anexa II există tocmai pentru stratul Mittelstand. Plafonul de sancțiuni este mai redus decât pentru entitățile esențiale, dar cele zece obligații din articolul 21 alin. (2) sunt aceleași."
+            "reality": "Testul de mărime este 50 de angajați sau o cifră de afaceri și un bilanț de peste 10 milioane de euro fiecare. Un atelier de mașini cu 80 de persoane cu NACE C28 este clar înăuntru. Categoria „entitate importantă” din Anexa II există tocmai pentru stratul Mittelstand. Plafonul de sancțiuni este mai redus decât pentru entitățile esențiale, dar cele zece obligații din articolul 21 alin. (2) sunt aceleași."
           },
           "justAssembly": {
             "myth": "Facem doar asamblarea finală, producția reală este la furnizorii noștri.",
@@ -11770,7 +11770,7 @@
       "subtitle": "Conform articolului 2(1) NIS 2, directiva se aplică doar entităților mijlocii și mai mari. Acesta este titlul. Realitatea este un test în trei pași: definiția mărimii din Recomandarea 2003/361/CE, regula întreprinderilor legate și excepțiile din articolul 2(2) care aduc microîntreprinderile și întreprinderile mici înapoi în domeniul de aplicare.",
       "overview": {
         "heading": "Pe scurt",
-        "p1": "NIS 2 stabilește un prag minim de mărime. În mod implicit, directiva se aplică doar entităților care ating sau depășesc pragul de întreprindere mijlocie conform Recomandării 2003/361/CE: 50 sau mai mulți angajați, sau cifră de afaceri anuală peste 10 milioane de euro, sau total bilanț peste 10 milioane de euro. Microîntreprinderile și întreprinderile mici se află sub acel prag.",
+        "p1": "NIS 2 stabilește un prag minim de mărime. În mod implicit, directiva se aplică doar entităților care ating sau depășesc pragul de întreprindere mijlocie conform Recomandării 2003/361/CE: 50 sau mai mulți angajați, sau cifră de afaceri anuală și total bilanț peste 10 milioane de euro fiecare. Microîntreprinderile și întreprinderile mici se află sub acel prag.",
         "p2": "Asta sună simplu. Nu este. Recomandarea are propriile reguli de numărare. Articolul 3(3) din Anexa sa spune că, dacă o societate-mamă deține peste 50 la sută din drepturile de vot într-o filială, trebuie să agregați numărul de angajați și cifra de afaceri. O filială mică a unui grup mare nu este o entitate mică conform acestui regim.",
         "p3": "Articolul 2(2) NIS 2 numește apoi categorii care intră înăuntru indiferent de mărime. Telecomunicații, furnizori calificați de servicii de încredere, DNS, registre de nume TLD, furnizori unici ai unui serviciu esențial într-un stat membru, entități de administrație publică și câteva altele. Dacă vă încadrați într-una dintre acestea, testul de mărime nu vă salvează. Excepția este începutul analizei, nu sfârșitul."
       },
@@ -11785,7 +11785,7 @@
         "regulation": {
           "label": "Articolul 2(2) și (3), Anexa la Recomandarea 2003/361/CE",
           "quote": "The category of micro, small and medium-sized enterprises (SMEs) is made up of enterprises which employ fewer than 250 persons and which have an annual turnover not exceeding EUR 50 million, and/or an annual balance sheet total not exceeding EUR 43 million. Within the SME category, a small enterprise is defined as an enterprise which employs fewer than 50 persons and whose annual turnover and/or annual balance sheet total does not exceed EUR 10 million. Within the SME category, a microenterprise is defined as an enterprise which employs fewer than 10 persons and whose annual turnover and/or annual balance sheet total does not exceed EUR 2 million.",
-          "context": "Recomandarea vă dă cifrele. Micro: sub 10 angajați ȘI cifră de afaceri sau bilanț de până la 2 milioane de euro. Mică: sub 50 de angajați ȘI cifră de afaceri sau bilanț de până la 10 milioane de euro. Mijlocie: de la 50 de angajați până la 249 SAU cifră de afaceri peste 10 milioane de euro. Pentru a rămâne sub o categorie de mărime, trebuie să fiți sub la angajați ȘI sub la cifra de afaceri sau bilanț. Depășiți oricare dintre ele și ați urcat."
+          "context": "Recomandarea vă dă cifrele. Micro: sub 10 angajați ȘI cifră de afaceri sau bilanț de până la 2 milioane de euro. Mică: sub 50 de angajați ȘI cifră de afaceri sau bilanț de până la 10 milioane de euro. Mijlocie: de la 50 de angajați până la 249 SAU cifră de afaceri și bilanț peste 10 milioane de euro fiecare. Pentru a rămâne sub o categorie de mărime, trebuie să fiți sub la angajați ȘI sub la cifra de afaceri sau bilanț. Depășiți oricare dintre ele și ați urcat."
         },
         "transposition": {
           "label": "Articolul 2(2) NIS 2 (indiferent de mărime)",
@@ -11859,7 +11859,7 @@
           },
           "staffOverThreshold": {
             "myth": "Suntem sub 50 de angajați, deci ne încadrăm ca mici.",
-            "reality": "Citiți cu atenție articolul 2(2) din Anexa la Recomandare. Mică necesită sub 50 de angajați ȘI cifră de afaceri sau bilanț la 10 milioane de euro sau sub. Depășiți oricare dintre praguri și treceți în mijlocie. O consultanță de 45 de persoane cu 12 milioane de euro cifră de afaceri este de mărime mijlocie conform Recomandării, iar asta înseamnă că NIS 2 se aplică dacă sectorul se potrivește."
+            "reality": "Citiți cu atenție articolul 2(2) din Anexa la Recomandare. Mică necesită sub 50 de angajați ȘI cifră de afaceri sau bilanț la 10 milioane de euro sau sub. Depășiți oricare dintre praguri și treceți în mijlocie. O consultanță de 45 de persoane cu 12 milioane de euro cifră de afaceri și un bilanț de peste 10 milioane de euro este de mărime mijlocie conform Recomandării, iar asta înseamnă că NIS 2 se aplică dacă sectorul se potrivește."
           },
           "parentIndependent": {
             "myth": "Societatea noastră-mamă este mare, dar noi funcționăm independent, deci ne numărăm pe cont propriu.",
@@ -12041,7 +12041,7 @@
         "heading": "Pe scurt",
         "p1": "Un furnizor de servicii de încredere este oricine furnizează unul sau mai multe servicii de încredere conform definiției din articolul 3(16) din Regulamentul eIDAS (UE) 910/2014: semnături electronice, sigilii electronice, mărci temporale electronice, distribuție electronică înregistrată, certificate de autentificare a site-urilor web sau păstrarea oricăruia dintre acestea. Anexa I sectorul 8 din NIS 2 denumește furnizorii de servicii de încredere în mod explicit ca parte a Infrastructurii digitale.",
         "p2": "Articolul 2(2)(b) NIS 2 acționează apoi o pârghie care nu se aplică majorității celorlalte sectoare. Furnizorii calificați de servicii de încredere, astfel cum sunt definiți în articolul 3(17) eIDAS, sunt în domeniul de aplicare indiferent de mărime. Un TSP calificat de două persoane care emite certificate calificate pentru semnături electronice este obligat în același mod ca o autoritate de certificare de 500 de persoane. Pragul întreprinderii mijlocii din articolul 2(1) nu îi condiționează.",
-        "p3": "TSP-urile necalificate urmează testul obișnuit de mărime: cel puțin 50 de angajați sau peste 10 milioane de euro cifră de afaceri anuală sau bilanț îi pune în domeniul de aplicare. Sub acel prag se află în afara NIS 2, deși articolul 19 eIDAS îi obligă în continuare cu un prag de securitate. Două regimuri rulează în paralel în orice caz: eIDAS pentru serviciul de încredere în sine, NIS 2 pentru obligațiile cibernetice transorganizaționale (formarea conducerii conform articolului 20, raportarea incidentelor semnificative conform §32 BSIG, măsurile de gestionare a riscurilor conform articolului 21)."
+        "p3": "TSP-urile necalificate urmează testul obișnuit de mărime: cel puțin 50 de angajați sau peste 10 milioane de euro atât la cifra de afaceri anuală, cât și la bilanț îi pune în domeniul de aplicare. Sub acel prag se află în afara NIS 2, deși articolul 19 eIDAS îi obligă în continuare cu un prag de securitate. Două regimuri rulează în paralel în orice caz: eIDAS pentru serviciul de încredere în sine, NIS 2 pentru obligațiile cibernetice transorganizaționale (formarea conducerii conform articolului 20, raportarea incidentelor semnificative conform §32 BSIG, măsurile de gestionare a riscurilor conform articolului 21)."
       },
       "legalAnchor": {
         "heading": "Sursa juridică",
@@ -15919,7 +15919,7 @@
       "overview": {
         "heading": "Prezentare generală",
         "p1": "NIS 1 a fost Directiva (UE) 2016/1148. Acoperea șapte sectoare și împărțea destinatarii în „operatori de servicii esențiale” (OES) și „furnizori de servicii digitale” (DSP). Statele membre desemnau OES individual.",
-        "p2": "NIS 2 este Directiva (UE) 2022/2555. Acoperă 15 sectoare în Anexa I și 7 sectoare în Anexa II, înlocuiește împărțirea OES/DSP cu „entități esențiale” și „entități importante” și folosește un criteriu explicit de dimensiune (50 sau mai mulți angajați, ori cifră de afaceri anuală peste 10 milioane de euro).",
+        "p2": "NIS 2 este Directiva (UE) 2022/2555. Acoperă 15 sectoare în Anexa I și 7 sectoare în Anexa II, înlocuiește împărțirea OES/DSP cu „entități esențiale” și „entități importante” și folosește un criteriu explicit de dimensiune (50 sau mai mulți angajați, ori cifră de afaceri anuală și bilanț peste 10 milioane de euro fiecare).",
         "p3": "Articolul 41 din NIS 2 a abrogat Directiva NIS 1 cu efect de la 18 octombrie 2024. Acolo unde legislația unui stat membru încă face trimitere la vechea directivă, acele trimiteri indică acum NIS 2. Legile naționale de transpunere (precum BSIG german în versiunea sa NIS 2) înlocuiesc arhitectura anterioară IT-Sicherheitsgesetz 2.0."
       },
       "legalAnchor": {
@@ -15948,7 +15948,7 @@
           "scope": {
             "section": "Domeniul de aplicare",
             "title": "De la 7 sectoare și desemnarea OES la 15 plus 7 sectoare cu o regulă de dimensiune",
-            "body": "NIS 1 acoperea șapte sectoare și impunea statelor membre să desemneze OES unul câte unul. NIS 2 enumeră 15 sectoare în Anexa I (esențiale) și 7 sectoare în Anexa II (importante) și se aplică automat entităților din aceste sectoare care îndeplinesc criteriul de dimensiune (50 sau mai mulți angajați ori peste 10 milioane de euro cifră de afaceri). Mai multe tipuri de entități intră în domeniul de aplicare indiferent de dimensiune."
+            "body": "NIS 1 acoperea șapte sectoare și impunea statelor membre să desemneze OES unul câte unul. NIS 2 enumeră 15 sectoare în Anexa I (esențiale) și 7 sectoare în Anexa II (importante) și se aplică automat entităților din aceste sectoare care îndeplinesc criteriul de dimensiune (50 sau mai mulți angajați ori peste 10 milioane de euro atât cifră de afaceri, cât și bilanț). Mai multe tipuri de entități intră în domeniul de aplicare indiferent de dimensiune."
           },
           "obligations": {
             "section": "Obligații",
@@ -17161,7 +17161,7 @@
           "scope": {
             "section": "Domeniu de aplicare",
             "title": "Confirmați dacă directiva se aplică",
-            "body": "NIS 2 se aplică dacă entitatea se află în unul dintre sectoarele numite în Anexa I sau Anexa II și îndeplinește pragul de mărime (mijlocie astfel cum este definită în Recomandarea 2003/361/CE, deci 50 de angajați sau peste 10 milioane EUR cifră de afaceri). O mână de tipuri de entități sunt acoperite indiferent de mărime: prestatorii de servicii de încredere calificate, registrele de nume de domeniu de prim nivel, furnizorii de servicii DNS, administrația publică, furnizorii unici dintr-un stat membru. Prima sarcină a organului de conducere este să știe care dintre acestea se aplică."
+            "body": "NIS 2 se aplică dacă entitatea se află în unul dintre sectoarele numite în Anexa I sau Anexa II și îndeplinește pragul de mărime (mijlocie astfel cum este definită în Recomandarea 2003/361/CE, deci 50 de angajați sau peste 10 milioane EUR atât cifră de afaceri, cât și bilanț). O mână de tipuri de entități sunt acoperite indiferent de mărime: prestatorii de servicii de încredere calificate, registrele de nume de domeniu de prim nivel, furnizorii de servicii DNS, administrația publică, furnizorii unici dintr-un stat membru. Prima sarcină a organului de conducere este să știe care dintre acestea se aplică."
           },
           "duties": {
             "section": "Obligații",
@@ -19678,7 +19678,7 @@
         "definition": {
           "label": "Art. 2 + Anexa I/II NIS 2 (sector + marime)",
           "quote": "Prezenta directiva se aplica entitatilor publice sau private de un tip mentionat in Anexa I sau II care se incadreaza ca intreprinderi mijlocii in temeiul articolului 2 din anexa la Recomandarea 2003/361/CE sau care depasesc plafoanele pentru intreprinderile mijlocii.",
-          "context": "Doua intrebari decid includerea in domeniul de aplicare: sunteti un tip din Anexa I sau II si sunteti cel putin de marime mijlocie (50+ angajati si fie >10 mil. EUR cifra de afaceri, fie >10 mil. EUR bilant). Plus suprascrierile 'indiferent de marime' pentru servicii de incredere, DNS, registre TLD, administratie publica, furnizori unici dintr-un stat membru."
+          "context": "Doua intrebari decid includerea in domeniul de aplicare: sunteti un tip din Anexa I sau II si sunteti cel putin de marime mijlocie (50+ angajați sau o cifră de afaceri și un bilanț de peste 10 mil. EUR fiecare). Plus suprascrierile 'indiferent de marime' pentru servicii de incredere, DNS, registre TLD, administratie publica, furnizori unici dintr-un stat membru."
         }
       },
       "howItWorks": {
