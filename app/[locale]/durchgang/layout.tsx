@@ -13,6 +13,9 @@ import { mayWalkDurchgang } from "@/lib/billing/access";
  * grandfathered accounts go to the order page, where a grandfathered person
  * sees their price), and a company that has finished activation, since a draft
  * company has nothing to walk yet.
+ *
+ * The Durchgang is written in German and English only. Any other locale gets
+ * the English walk rather than English text around its own titles and terms.
  */
 export default async function DurchgangLayout({
   children,
@@ -24,6 +27,8 @@ export default async function DurchgangLayout({
   if (!mayWalkDurchgang(session.accessLevel, isPlatformAdmin(session.user.email)))
     redirect(getPathname({ href: "/bestellen", locale }));
   if (!session.companyActivated) redirect(getPathname({ href: "/journey", locale }));
+  if (locale !== "de" && locale !== "en")
+    redirect(getPathname({ href: "/durchgang", locale: "en" }));
 
   return <>{children}</>;
 }
