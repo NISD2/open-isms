@@ -100,6 +100,13 @@ export async function POST(request: Request) {
       // Reset proves the user controls the inbox, so mark verified if not
       // already. Pending-verify accounts can recover this way too.
       emailVerifiedAt: dbUser.emailVerifiedAt ?? now,
+      // Control of the mailbox outranks a Google link. The link is what locks
+      // an owner out when a stale Google account on the same address signed
+      // in first (lib/auth/google-link.ts), and a reset is how they recover,
+      // so it has to take that account's access away too. From here on the
+      // account signs in with this password; Google is refused as on any
+      // verified password account.
+      googleSubject: null,
       // Audit M-1 (2026-06-10): bump sessionVersion so every JWT
       // stamped before this rotation stops validating on the next
       // getSession() call. The increment runs inside the same update

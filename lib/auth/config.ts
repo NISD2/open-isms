@@ -11,11 +11,16 @@ import { cache } from "react";
 import { checkEmailQuality } from "@/lib/auth/email-quality";
 import {
   decideGoogleLink,
+  GOOGLE_SIGNIN_ERRORS,
   type GoogleSignInError,
   googleSignInErrorPath,
 } from "@/lib/auth/google-link";
 import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
-import { epochSeconds, isWithinAbsoluteSessionAge } from "@/lib/auth/session-age";
+import {
+  epochSeconds,
+  isSessionVersionCurrent,
+  isWithinAbsoluteSessionAge,
+} from "@/lib/auth/session-age";
 import { effectiveAccessLevel } from "@/lib/billing/access";
 import { isActivePromo, PROMO_COOKIE } from "@/lib/billing/promo";
 import { grandfatherByPromo } from "@/lib/billing/promo-grant";
@@ -142,10 +147,21 @@ async function admitGoogleAccount(google: {
 }): Promise<GoogleAdmission> {
   const now = new Date();
 
+  // A Google account already linked under another address changed its address at Google (a
+  // Workspace domain rename, say). Moving the account to the new address on Google's word alone
+  // would hand it to whoever holds that address next, so a person decides.
+  const linkedTo = await db.query.user.findFirst({
+    where: eq(user.googleSubject, google.subject),
+    columns: { email: true },
+  });
+  if (linkedTo && linkedTo.email !== google.email) {
+    return { admitted: false, error: GOOGLE_SIGNIN_ERRORS.emailChanged };
+  }
+
   // Atomic upsert: survives concurrent OAuth flows for the same new email (otherwise both lookups
   // miss, both inserts race, and the loser hits a unique-constraint 500 on /api/auth/callback). No
-  // conflict target, so it also stands down when this Google account is already linked to another
-  // address, which leaves the lookup below with no row.
+  // conflict target, so it also stands down when this Google account was linked to another
+  // address since the lookup above, which leaves the lookup below with no row.
   const [created] = await db
     .insert(user)
     .values({
@@ -170,12 +186,7 @@ async function admitGoogleAccount(google: {
     where: eq(user.email, google.email),
     columns: { id: true, googleSubject: true, passwordHash: true, emailVerifiedAt: true },
   });
-  if (!existing) {
-    console.warn(
-      "[auth] Google sign-in refused: that Google account is linked to another address",
-    );
-    return { admitted: false, error: null };
-  }
+  if (!existing) return { admitted: false, error: GOOGLE_SIGNIN_ERRORS.emailChanged };
 
   const decision = decideGoogleLink(existing, google.subject);
   if (decision.kind === "refuse") return { admitted: false, error: decision.error };
@@ -304,9 +315,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   // Audit EW-12 (2026-06-11): 8h dropped from 24h. This is an IDLE timeout,
   // not a lifetime: every read of /api/auth/session re-signs the JWT with a
   // fresh 8h expiry, so a session in use (or a copied cookie being polled)
-  // never reaches it. The lifetime is the absolute 12h from sign-in that
-  // getSession enforces (lib/auth/session-age.ts). Password reset and sign-out
-  // revoke before either (audit M-1, sessionVersion).
+  // never reaches it. The lifetime is the absolute 12h from sign-in that the
+  // jwt callback below enforces (lib/auth/session-age.ts). Password reset and
+  // sign-out revoke before either (audit M-1, sessionVersion).
   session: { strategy: "jwt", maxAge: 8 * 60 * 60 },
 
   pages: {
@@ -319,13 +330,28 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       // cannot be revoked on its own, and clearing this browser's cookie leaves
       // a copied one working, which is the session someone signing out most
       // wants gone.
-      const email = "token" in message ? message.token?.email : undefined;
-      if (email) {
+      //
+      // Only a token that is itself live may do it. Otherwise a copied cookie
+      // that was already revoked or had aged out could still be posted here
+      // and sign the owner out of the sessions that replaced it, again and
+      // again. The version match sits in the UPDATE so a check and a bump
+      // cannot interleave with another sign-out or a reset.
+      const token = "token" in message ? message.token : null;
+      if (
+        token?.email &&
+        token.sessionVersion !== undefined &&
+        isWithinAbsoluteSessionAge(token.authTime ?? null, epochSeconds(new Date()))
+      ) {
         try {
           await db
             .update(user)
             .set({ sessionVersion: sql`${user.sessionVersion} + 1` })
-            .where(eq(user.email, email));
+            .where(
+              and(
+                eq(user.email, token.email),
+                eq(user.sessionVersion, token.sessionVersion),
+              ),
+            );
         } catch (err) {
           console.error("[auth] sessions not revoked on sign-out:", err);
         }
@@ -432,12 +458,19 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
     /**
      * Audit M-1 (2026-06-10): stamp the user's current sessionVersion
-     * into the JWT at issue time so getSession() can detect revocation.
+     * into the JWT at issue time so revocation can be detected.
      * `user` is only supplied on first sign-in (Credentials authorize
      * or OAuth sign-in); on subsequent token refreshes the stamped
      * version is what was canonical at issue time, which is exactly
      * what we want — a stale token whose version is below the live
      * user.sessionVersion gets rejected.
+     *
+     * Every other call is a read of an existing session, and Auth.js answers
+     * it by re-signing the token with a fresh expiry. So this is where a stale
+     * token has to end, not only be refused in getSession: returning null
+     * makes Auth.js clear the cookie instead of renewing it, and auth() then
+     * reports no session to every reader (PublicNav reads it directly). A
+     * copied or revoked cookie can no longer be kept alive by polling.
      */
     async jwt({ token, user: authUser }) {
       if (authUser?.email) {
@@ -459,8 +492,22 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         // often the token is re-signed (lib/auth/session-age.ts).
         token.authTime = epochSeconds(new Date());
         await applyPromoFromCookie(authUser.email);
+        return token;
       }
-      return token;
+
+      // The age needs no query, so it goes first.
+      if (!isWithinAbsoluteSessionAge(token.authTime ?? null, epochSeconds(new Date()))) {
+        return null;
+      }
+      if (!token.email) return null;
+      const stored = await db.query.user.findFirst({
+        where: eq(user.email, token.email),
+        columns: { sessionVersion: true },
+      });
+      return stored &&
+        isSessionVersionCurrent(token.sessionVersion ?? null, stored.sessionVersion)
+        ? token
+        : null;
     },
 
     async session({ session, token }) {
@@ -512,7 +559,10 @@ const openMembership = async (userId: string, companyId: string) => {
 export const getSession = cache(async (): Promise<Session | null> => {
   const session = await auth();
   if (!session?.user?.email) return null;
-  // Before the row lookup: an expired sign-in needs no query to refuse.
+  // auth() has already ended a stale token in the jwt callback. Both rules are
+  // checked again here because this is the gate every data read goes through,
+  // and it should not rest on one callback staying as it is. The age first:
+  // an expired sign-in needs no query to refuse.
   if (!isWithinAbsoluteSessionAge(session.authTime, epochSeconds(new Date()))) {
     return null;
   }
@@ -539,7 +589,7 @@ export const getSession = cache(async (): Promise<Session | null> => {
   // `!= null && <` check short-circuited and they remained valid past
   // password reset. Forcing a re-sign-in on those tokens — once per
   // mid-session user — is the cost of M-1 actually working for everyone.
-  if (session.sessionVersion == null || session.sessionVersion < dbUser.sessionVersion) {
+  if (!isSessionVersionCurrent(session.sessionVersion, dbUser.sessionVersion)) {
     return null;
   }
 

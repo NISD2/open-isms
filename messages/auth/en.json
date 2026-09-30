@@ -26,6 +26,7 @@
     "errorRateLimited": "Too many attempts. Please wait a few minutes and try again.",
     "errorGooglePasswordAccount": "This address has an account with a password. Please sign in with your password.",
     "errorGoogleAccountMismatch": "This address is linked to a different Google account. Sign in with that account, or set a password with \"Forgot password?\".",
+    "errorGoogleEmailChanged": "The address of this Google account has changed. Please contact support at {email}.",
     "consentLabel": "I accept the <terms>Terms of Service</terms> and acknowledge the <privacy>Privacy Policy</privacy>.",
     "backToHome": "Back to nisd2.eu",
     "verifyTitle": "One last step: verify your email",

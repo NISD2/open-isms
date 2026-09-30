@@ -22,6 +22,8 @@ import type { user } from "@/schema";
 export const GOOGLE_SIGNIN_ERRORS = {
   passwordAccount: "GOOGLE_PASSWORD_ACCOUNT",
   subjectMismatch: "GOOGLE_ACCOUNT_MISMATCH",
+  /** The Google account is linked to an account under a different address. */
+  emailChanged: "GOOGLE_EMAIL_CHANGED",
 } as const;
 
 export type GoogleSignInError =

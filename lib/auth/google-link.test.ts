@@ -86,6 +86,13 @@ describe("the codes the sign-in card reads", () => {
     expect(isGoogleSignInError(code)).toBe(true);
   });
 
+  test("the changed-address refusal is one of them", () => {
+    const path = googleSignInErrorPath(GOOGLE_SIGNIN_ERRORS.emailChanged);
+    const code = new URL(path, "https://example.test").searchParams.get("error");
+    expect(code).toBe("GOOGLE_EMAIL_CHANGED");
+    expect(isGoogleSignInError(code)).toBe(true);
+  });
+
   test("anything else is not one of them", () => {
     expect(isGoogleSignInError("AccessDenied")).toBe(false);
     expect(isGoogleSignInError(null)).toBe(false);

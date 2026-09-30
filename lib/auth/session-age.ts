@@ -4,9 +4,21 @@
  * Auth.js re-signs the session JWT with a fresh expiry on every read of /api/auth/session, so its
  * maxAge is an idle timeout only: a copied cookie that something keeps polling never expires. The
  * sign-in time is stamped into the token once, when the session is established (the `jwt` callback
- * in lib/auth/config.ts), and getSession measures from it.
+ * in lib/auth/config.ts), and the same callback ends the token once it is too old or revoked.
  */
 export const SESSION_ABSOLUTE_MAX_AGE_S = 12 * 60 * 60;
+
+/**
+ * True while a token's revocation counter still matches the account's (audit M-1). A password
+ * reset, a removed password or a sign-out raises the stored one, which ends every token stamped
+ * before it. A token with no counter predates M-1 and counts as revoked (audit L-2).
+ */
+export function isSessionVersionCurrent(
+  tokenVersion: number | null,
+  storedVersion: number,
+): boolean {
+  return tokenVersion !== null && tokenVersion >= storedVersion;
+}
 
 /**
  * True while a token stamped at `authTime` (epoch seconds) is younger than the absolute limit. A

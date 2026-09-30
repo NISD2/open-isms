@@ -26,6 +26,7 @@
     "errorRateLimited": "Demasiadas tentativas. Aguarde alguns minutos e tente novamente.",
     "errorGooglePasswordAccount": "Já existe uma conta com palavra-passe para este endereço. Inicie sessão com a sua palavra-passe.",
     "errorGoogleAccountMismatch": "Este endereço está associado a outra conta Google. Inicie sessão com essa conta ou defina uma palavra-passe em \"Esqueceu-se da palavra-passe?\".",
+    "errorGoogleEmailChanged": "O endereço desta conta Google foi alterado. Contacte o apoio através de {email}.",
     "consentLabel": "Aceito os <terms>Termos de Serviço</terms> e tomo conhecimento da <privacy>Política de Privacidade</privacy>.",
     "backToHome": "Voltar a nisd2.eu",
     "verifyTitle": "Um último passo: verifique o seu email",

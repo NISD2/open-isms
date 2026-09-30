@@ -8,6 +8,10 @@ import { beforeEach, describe, expect, mock, test } from "bun:test";
  * halves: the response is identical for every kind of address and is made with
  * no lookup at all, and the work queued behind it does the right thing for each.
  *
+ * /api/auth/resend-verification follows the same rule. /api/auth/reset-password
+ * is here too because it shares these fixtures: it is the recovery path the
+ * Google linking rule relies on.
+ *
  * The routes live under app/, which `test:unit` does not scan, so the suite
  * sits here beside the auth code it exercises.
  */
@@ -42,9 +46,19 @@ const state: {
   account: Account | undefined;
   lookups: number;
   otpLimited: boolean;
+  otpValid: boolean;
   deferred: Array<() => unknown>;
   sent: Array<{ emailType: string; to: string | string[] }>;
-} = { account: undefined, lookups: 0, otpLimited: false, deferred: [], sent: [] };
+  updates: Array<Record<string, unknown>>;
+} = {
+  account: undefined,
+  lookups: 0,
+  otpLimited: false,
+  otpValid: true,
+  deferred: [],
+  sent: [],
+  updates: [],
+};
 
 // lib/mail and lib/db validate the environment at load, and CI runs this suite
 // without one. Same shape as lib/mail/footer.test.ts.
@@ -67,7 +81,12 @@ mock.module("@/lib/db", () => ({
         },
       },
     },
-    update: () => ({ set: () => ({ where: async () => undefined }) }),
+    update: () => ({
+      set: (values: Record<string, unknown>) => {
+        state.updates.push(values);
+        return { where: async () => undefined };
+      },
+    }),
     insert: () => ({ values: () => ({ onConflictDoNothing: async () => undefined }) }),
   },
 }));
@@ -100,6 +119,7 @@ mock.module("@/lib/auth/otp", () => ({
     if (state.otpLimited) throw new otp.OtpRateLimitedError();
     return { code: "123456" };
   },
+  verifyOtp: async () => state.otpValid,
 }));
 
 // Full module shape: bun module mocks are process-global (see lib/mail/auth-code.test.ts).
@@ -115,6 +135,8 @@ mock.module("@/lib/mail/send", () => ({
 
 const register = await import("@/app/api/auth/register/route");
 const forgotPassword = await import("@/app/api/auth/forgot-password/route");
+const resendVerification = await import("@/app/api/auth/resend-verification/route");
+const resetPassword = await import("@/app/api/auth/reset-password/route");
 
 const EMAIL = "it@customer.example";
 
@@ -139,8 +161,10 @@ beforeEach(() => {
   state.account = undefined;
   state.lookups = 0;
   state.otpLimited = false;
+  state.otpValid = true;
   state.deferred.splice(0);
   state.sent.splice(0);
+  state.updates.splice(0);
 });
 
 describe("POST /api/auth/register", () => {
@@ -250,5 +274,84 @@ describe("POST /api/auth/forgot-password", () => {
     await forgotAs(ACCOUNTS.verifiedPassword);
     await runDeferred();
     expect(state.sent).toEqual([]);
+  });
+});
+
+describe("POST /api/auth/resend-verification", () => {
+  const request = () =>
+    post("/api/auth/resend-verification", { email: EMAIL, locale: "de" });
+
+  // The route asks only for a PENDING row, so an unknown address and a verified
+  // one look the same to it: no row.
+  async function resendAs(pendingRow: Account | undefined) {
+    state.account = pendingRow;
+    return answer(await resendVerification.POST(request()));
+  }
+
+  test("answers a pending and an unknown or verified address identically, before any lookup", async () => {
+    const answers = [
+      await resendAs(ACCOUNTS.pendingVerify),
+      await resendAs(ACCOUNTS.none),
+    ];
+    for (const a of answers) {
+      expect(a).toEqual({
+        status: 200,
+        body: JSON.stringify({ success: true }),
+        lookups: 0,
+      });
+    }
+  });
+
+  test("only a pending address is sent a code, after the response", async () => {
+    await resendAs(ACCOUNTS.none);
+    await runDeferred();
+    expect(state.sent).toEqual([]);
+
+    await resendAs(ACCOUNTS.pendingVerify);
+    await runDeferred();
+    expect(state.sent).toEqual([{ emailType: "auth.verification_code", to: EMAIL }]);
+  });
+
+  test("past the per-email code limit the answer is the same 200 and no mail goes out", async () => {
+    state.otpLimited = true;
+    const limited = await resendAs(ACCOUNTS.pendingVerify);
+    expect(limited).toEqual({
+      status: 200,
+      body: JSON.stringify({ success: true }),
+      lookups: 0,
+    });
+    await runDeferred();
+    expect(state.sent).toEqual([]);
+  });
+});
+
+describe("POST /api/auth/reset-password", () => {
+  const request = () =>
+    post("/api/auth/reset-password", {
+      email: EMAIL,
+      code: "123456",
+      newPassword: "a new password",
+    });
+
+  // A stale Google account linked first and the owner recovers by mail: the
+  // reset has to take that Google account's access away, not only set a password.
+  test("a reset unlinks the Google account along with setting the password", async () => {
+    state.account = ACCOUNTS.googleOnly;
+    const response = await resetPassword.POST(request());
+    expect(response.status).toBe(200);
+    expect(state.updates).toHaveLength(1);
+    expect(state.updates[0]).toMatchObject({
+      googleSubject: null,
+      emailVerifiedAt: VERIFIED,
+    });
+    expect(typeof state.updates[0].passwordHash).toBe("string");
+  });
+
+  test("a wrong code changes nothing", async () => {
+    state.account = ACCOUNTS.googleOnly;
+    state.otpValid = false;
+    const response = await resetPassword.POST(request());
+    expect(response.status).toBe(400);
+    expect(state.updates).toEqual([]);
   });
 });

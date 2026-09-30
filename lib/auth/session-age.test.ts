@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import {
   epochSeconds,
+  isSessionVersionCurrent,
   isWithinAbsoluteSessionAge,
   SESSION_ABSOLUTE_MAX_AGE_S,
 } from "./session-age";
@@ -32,6 +33,20 @@ describe("the absolute session age", () => {
 
   test("rejects a token issued before the stamp existed", () => {
     expect(isWithinAbsoluteSessionAge(null, SIGNED_IN)).toBe(false);
+  });
+});
+
+describe("the revocation counter", () => {
+  test("a token at the stored version is current", () => {
+    expect(isSessionVersionCurrent(3, 3)).toBe(true);
+  });
+
+  test("a token below it was revoked by a reset or a sign-out", () => {
+    expect(isSessionVersionCurrent(2, 3)).toBe(false);
+  });
+
+  test("a token without one is revoked", () => {
+    expect(isSessionVersionCurrent(null, 1)).toBe(false);
   });
 });
 

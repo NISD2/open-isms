@@ -26,6 +26,7 @@
     "errorRateLimited": "Trop de tentatives. Veuillez patienter quelques minutes, puis réessayer.",
     "errorGooglePasswordAccount": "Un compte avec mot de passe existe déjà pour cette adresse. Veuillez vous connecter avec votre mot de passe.",
     "errorGoogleAccountMismatch": "Cette adresse est liée à un autre compte Google. Connectez-vous avec ce compte ou définissez un mot de passe via \"Mot de passe oublié ?\".",
+    "errorGoogleEmailChanged": "L'adresse de ce compte Google a changé. Veuillez contacter le support à l'adresse {email}.",
     "consentLabel": "J'accepte les <terms>Conditions d'utilisation</terms> et je prends connaissance de la <privacy>Politique de confidentialité</privacy>.",
     "backToHome": "Retour à nisd2.eu",
     "verifyTitle": "Une dernière étape : vérifiez votre adresse e-mail",

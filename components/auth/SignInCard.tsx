@@ -28,9 +28,15 @@ type Step = "auth" | "verify";
 const GOOGLE_ERROR_MESSAGE_KEYS = {
   GOOGLE_PASSWORD_ACCOUNT: "errorGooglePasswordAccount",
   GOOGLE_ACCOUNT_MISMATCH: "errorGoogleAccountMismatch",
+  GOOGLE_EMAIL_CHANGED: "errorGoogleEmailChanged",
 } as const satisfies Record<GoogleSignInError, string>;
 
-export function SignInCard() {
+export function SignInCard({
+  supportEmail,
+}: {
+  /** Where GOOGLE_EMAIL_CHANGED sends people: the same address outbound mail replies to. */
+  supportEmail: string;
+}) {
   const t = useTranslations("auth");
   const locale = useLocale();
   const router = useRouter();
@@ -51,7 +57,9 @@ export function SignInCard() {
   const [consent, setConsent] = useState(false);
   const [error, setError] = useState(() => {
     const code = searchParams.get("error");
-    return isGoogleSignInError(code) ? t(GOOGLE_ERROR_MESSAGE_KEYS[code]) : "";
+    return isGoogleSignInError(code)
+      ? t(GOOGLE_ERROR_MESSAGE_KEYS[code], { email: supportEmail })
+      : "";
   });
   const [info, setInfo] = useState("");
   const [loading, setLoading] = useState(false);
