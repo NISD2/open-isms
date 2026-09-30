@@ -104,9 +104,12 @@ function setup(opts: {
       ]
     : [];
 
+  /** The lock modes the stored answers were read under. */
+  const locks: string[] = [];
+
   // A select either locks status rows (all the save covers, or one before its
-  // signer rows are touched), reads who had signed, or becomes a subquery that
-  // is never awaited.
+  // signer rows are touched), locks the category's stored answers, reads who
+  // had signed, or becomes a subquery that is never awaited.
   const select = () => ({
     from: (table: unknown) => ({
       where: () =>
@@ -115,7 +118,16 @@ function setup(opts: {
               orderBy: () => ({ for: async () => statusRows }),
               for: async () => statusRows,
             }
-          : Promise.resolve([]),
+          : table === companyCategoryIntake
+            ? {
+                for: async (mode: string) => {
+                  locks.push(mode);
+                  return opts.storedAnswers
+                    ? [{ id: "intake-1", answers: opts.storedAnswers }]
+                    : [];
+                },
+              }
+            : Promise.resolve([]),
     }),
   });
 
@@ -133,12 +145,6 @@ function setup(opts: {
       requirementCategory: {
         findFirst: async () =>
           opts.categoryCode === null ? undefined : { code: opts.categoryCode },
-      },
-      companyCategoryIntake: {
-        findFirst: async () =>
-          opts.storedAnswers
-            ? { id: "intake-1", answers: opts.storedAnswers }
-            : undefined,
       },
       requirement: {
         findMany: async ({ where }: { where: SQL }) => {
@@ -202,7 +208,7 @@ function setup(opts: {
       answers: GOV_ANSWERS,
     });
 
-  return { caller, writes, requirementLookups, saveGovRequirement };
+  return { caller, writes, locks, requirementLookups, saveGovRequirement };
 }
 
 /** A member who owns GOV. */
@@ -279,6 +285,24 @@ describe("intake.saveRequirementAnswers", () => {
     await saveGovRequirement();
     const [stored] = writesTo(writes, companyCategoryIntake);
     expect(stored?.values).toMatchObject({ answers: GOV_ANSWERS });
+  });
+
+  // Two saves of one category used to read the same old answers, and the later
+  // write put back what the earlier one had changed.
+  test("merges into the stored answers it read under a row lock", async () => {
+    const stored = answering(GOV_SIBLING.fieldKeys);
+    const { saveGovRequirement, writes, locks } = setup({
+      ...GOV_OWNER,
+      storedAnswers: stored,
+    });
+    await saveGovRequirement();
+    expect(locks).toEqual(["update"]);
+    expect(writesTo(writes, companyCategoryIntake)).toEqual([
+      expect.objectContaining({
+        op: "update",
+        values: expect.objectContaining({ answers: { ...stored, ...GOV_ANSWERS } }),
+      }),
+    ]);
   });
 
   test("refuses a category outside the assessment's framework", async () => {
