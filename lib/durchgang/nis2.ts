@@ -49,9 +49,12 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
       { kind: "sample", id: "list" },
       { kind: "sources", id: "sources", sources: ["payables", "contracts", "provider"] },
       { kind: "register", id: "suppliers", module: "supplier" },
-      { kind: "fields", id: "dependence", fields: ["singlePointOfFailureCount"] },
       { kind: "done", id: "done" },
     ],
+    notAsked: {
+      singlePointOfFailureCount:
+        "Neither § 30 BSIG nor Art. 21 NIS 2 asks for a count of irreplaceable suppliers; only CIR 2.1.2(d) names single points of failure, for its digital providers. Each supplier is rated on its own row instead.",
+    },
   }),
   item({
     code: "12.3",
@@ -80,7 +83,6 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     reviewed: "2026-09-30",
     screens: [
       { kind: "learn", id: "learn" },
-      { kind: "compare", id: "who" },
       { kind: "register", id: "roles", module: "team" },
       { kind: "done", id: "done" },
     ],
@@ -92,13 +94,17 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     reviewed: "2026-09-30",
     screens: [
       { kind: "learn", id: "learn" },
-      { kind: "fields", id: "lead", fields: ["incidentLead", "irtTeamSize"] },
+      { kind: "fields", id: "lead", fields: ["incidentLead"] },
       { kind: "fields", id: "escalation", fields: ["incidentEscalationContacts"] },
       { kind: "compare", id: "second_way" },
       { kind: "fields", id: "channel", fields: ["secureCommsChannel"] },
       { kind: "evidence", id: "plan", field: null },
       { kind: "done", id: "done" },
     ],
+    notAsked: {
+      irtTeamSize:
+        "§ 30 Abs. 2 Nr. 2 BSIG and Art. 21(2)(b) NIS 2 require incident handling, not a team of a size; CIR 3.1.1 asks its digital providers for roles, not a headcount. A small company may handle incidents with one person.",
+    },
   }),
   item({
     code: "3.3",
@@ -109,13 +115,13 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
       { kind: "learn", id: "learn" },
       { kind: "provision", id: "clock", provision: "bsig_32_clock" },
       { kind: "prepare", id: "ready" },
-      {
-        kind: "fields",
-        id: "setup",
-        fields: ["earlyWarningSlaHours", "bsiReportingRegistered"],
-      },
+      { kind: "fields", id: "setup", fields: ["bsiReportingRegistered"] },
       { kind: "done", id: "done" },
     ],
+    notAsked: {
+      earlyWarningSlaHours:
+        "The law sets the deadline itself, 24 hours from becoming aware (§ 32 Abs. 1 Nr. 1 BSIG, Art. 23(4)(a) NIS 2); an internal target shorter than that is good practice, not a duty, so the walk does not ask for one.",
+    },
   }),
   item({
     code: "12.2",
@@ -155,12 +161,6 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
         ],
       },
       { kind: "adopt", id: "adopt", adopts: "bsi_200_3_method" },
-      {
-        kind: "decide",
-        id: "acceptance",
-        decision: "risk_acceptance",
-        recommended: "medium",
-      },
       { kind: "done", id: "done" },
     ],
   }),
@@ -189,8 +189,11 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
         id: "technology",
         groups: ["it-infrastructure", "endpoints", "network", "locations"],
       },
-      { kind: "fields", id: "protection", fields: ["classificationLevels"] },
       { kind: "done", id: "done" },
     ],
+    notAsked: {
+      classificationLevels:
+        "Protection levels (Schutzbedarf normal, hoch, sehr hoch) are the BSI 200-2 method; neither § 30 BSIG nor Art. 21 NIS 2 asks for them, and a small company rates each asset on its own before choosing a scale.",
+    },
   }),
 ];

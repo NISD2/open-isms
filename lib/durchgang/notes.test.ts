@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { acceptanceNote, declinedNote, noteLine, waitingNote } from "./notes";
+import { declinedNote, noteLine, waitingNote } from "./notes";
 
 describe("the notes trail", () => {
   test("dates a line by the Berlin calendar day, not the UTC one", () => {
@@ -14,15 +14,7 @@ describe("the notes trail", () => {
     );
   });
 
-  test("names the accepted level in the reader's language, from the 200-3 table", () => {
-    expect(acceptanceNote("de", "low", "Weil.")).toContain("„Gering“");
-    expect(acceptanceNote("en", "medium", "Because.")).toContain('"Medium"');
-  });
-
-  test("keeps the reason for the Geschäftsführung with the proposal", () => {
-    expect(acceptanceNote("en", "medium", "We treat high risks first.")).toContain(
-      "Reason: We treat high risks first.",
-    );
+  test("keeps the reason for a decision not to do an item with it", () => {
     expect(declinedNote("de", "Kein eigener Server im Haus.")).toContain(
       "Begründung: Kein eigener Server im Haus.",
     );

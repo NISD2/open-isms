@@ -11,7 +11,6 @@ export type { ResolvedItem, ResolvedScreen } from "./copy";
 export { itemKey, resolveItem } from "./copy";
 export type { NoteLocale } from "./notes";
 export {
-  acceptanceNote,
   declinedNote,
   methodNote,
   noteLine,
@@ -30,7 +29,6 @@ export type {
   Adoptable,
   AnyItem,
   AnyScreen,
-  Decision,
   LearnLink,
   Provision,
   RegisterModule,

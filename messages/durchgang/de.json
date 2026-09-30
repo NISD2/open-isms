@@ -15,7 +15,6 @@
         "fields": "Eintragen",
         "evidence": "Nachweis",
         "adopt": "Übernehmen",
-        "decide": "Entscheiden",
         "sources": "Wo Sie suchen",
         "assets": "Ihre Liste",
         "register": "Ihre Liste",
@@ -67,8 +66,6 @@
       "comesNext": "Als Nächstes",
       "saveFailed": "Das wurde nicht gespeichert. Ihre Eingaben sind noch da. Bitte versuchen Sie es noch einmal.",
       "uploadFirst": "Laden Sie die Datei hier hoch. Haben Sie sie noch nicht, wählen Sie „Geht noch nicht“.",
-      "recommended": "Unsere Empfehlung",
-      "inProposal": "So steht es im Vorschlag an die Geschäftsführung",
       "decline": {
         "tab": "Bewusst nicht umsetzen",
         "title": "Sie haben entschieden, das nicht zu tun?",
@@ -281,20 +278,9 @@
             "title": "Ihre Lieferanten",
             "lead": "Tragen Sie jeden ein und sagen Sie, wie wichtig er für Ihren Betrieb ist. Im Zweifel gilt: lieber aufschreiben als weglassen."
           },
-          "dependence": {
-            "title": "Wer Sie allein anhalten könnte",
-            "lead": "Wie viele Lieferanten gibt es, ohne die Ihr Betrieb stehen würde und für die kein zweiter bereitsteht?",
-            "document": "Ihre Lieferantenliste"
-          },
           "done": {
             "title": "Ihre Liste steht",
             "note": "Kommt ein Lieferant dazu, ergänzen Sie ihn. Am Ende sieht die Geschäftsführung die Liste durch."
-          }
-        },
-        "fields": {
-          "singlePointOfFailureCount": {
-            "label": "Anzahl solcher Lieferanten",
-            "hint": "Zählen Sie die Einträge, bei denen ein Ausfall Ihren Betrieb anhält und es keinen Ersatz gibt."
           }
         },
         "sources": {
@@ -383,36 +369,23 @@
       },
       "1_2": {
         "headline": "Festlegen, wer sich kümmert",
-        "teaser": "Eine koordinierende Rolle, mit Vertretung.",
+        "teaser": "Wer sich um die Informationssicherheit kümmert.",
         "missed": [
-          "Das BSI empfiehlt in seiner NIS-2-Checkliste mindestens zwei Personen für die koordinierende Rolle. Dann ist sie auch im Urlaub oder bei Krankheit besetzt.",
-          "Die Person braucht jederzeit direkten Zugang zur Geschäftsführung, um über Vorfälle und Risiken zu berichten (BSI-Standard 200-2).",
-          "Die Rolle muss nicht CISO heißen. Das BSI nennt sie Informationssicherheitsbeauftragte oder Informationssicherheitsbeauftragter (ISB)."
+          "Die Verantwortung bleibt bei der Geschäftsführung, auch wenn sie die Arbeit abgibt (§ 38 Abs. 1 BSIG).",
+          "Das Gesetz schreibt dafür keinen eigenen Posten vor. Das kann jemand neben seiner eigentlichen Aufgabe übernehmen. Das BSI nennt die Rolle Informationssicherheitsbeauftragte oder Informationssicherheitsbeauftragter (ISB)."
         ],
         "screens": {
           "learn": {
             "title": "Wer sich kümmert",
             "body": [
               "Die Verantwortung trägt die Geschäftsführung. Sie muss die Maßnahmen umsetzen und ihre Umsetzung überwachen (§ 38 Abs. 1 BSIG). Die Arbeit verteilt sie auf Personen im Unternehmen.",
-              "Im Mittelpunkt steht eine koordinierende Rolle. Sie treibt die Informationssicherheit voran und berät die Geschäftsführung."
+              "Legen Sie fest, wer sich darum kümmert. Das kann eine einzelne Person sein, die das neben ihrer Aufgabe übernimmt."
             ],
             "duty": "Ihr Unternehmen muss dokumentieren, dass es die Maßnahmen zur Informationssicherheit umsetzt."
           },
-          "who": {
-            "title": "So sieht es richtig aus",
-            "caption": "Wer die Informationssicherheit koordiniert",
-            "good": {
-              "value": "Frau Kaya aus der kaufmännischen Leitung, vertreten von Herrn Brandt, beide mit direktem Draht zur Geschäftsführung",
-              "note": "Zwei Personen, direkt bei der Leitung. So empfiehlt es das BSI."
-            },
-            "bad": {
-              "value": "Die IT-Leitung, allein",
-              "note": "Fällt sie aus, kümmert sich niemand. Und wer die Systeme betreibt, bewertet dann ihre Sicherheit selbst."
-            }
-          },
           "roles": {
             "title": "Holen Sie Ihr Team dazu",
-            "lead": "Laden Sie ein, wer koordiniert, wer vertritt und wer bei einem Vorfall entscheidet. Welchen Bereich jemand verantwortet, legen Sie auf der Teamseite fest."
+            "lead": "Laden Sie ein, wer sich kümmert und wer bei einem Vorfall entscheidet. Welchen Bereich jemand verantwortet, legen Sie auf der Teamseite fest."
           },
           "done": {
             "title": "Rollen verteilt",
@@ -438,7 +411,7 @@
           },
           "lead": {
             "title": "Wer im Ernstfall führt",
-            "lead": "Eine Person entscheidet, ein kleines Team hilft.",
+            "lead": "Eine Person entscheidet, was zu tun ist. Wer ihr hilft, legen Sie im Notfallplan fest.",
             "document": "Ihr Notfallplan"
           },
           "escalation": {
@@ -477,10 +450,6 @@
           "incidentLead": {
             "label": "Leitung bei einem Vorfall",
             "hint": "Die Person, die entscheidet, was zu tun ist, und die Geschäftsführung informiert."
-          },
-          "irtTeamSize": {
-            "label": "Größe des Teams",
-            "hint": "Wie viele Personen im Ernstfall mitarbeiten, auch externe wie Ihr IT-Dienstleister."
           },
           "incidentEscalationContacts": {
             "label": "Kontakte für die Eskalation",
@@ -535,7 +504,7 @@
           },
           "setup": {
             "title": "Halten Sie Ihren Meldeweg fest",
-            "lead": "Zwei Angaben. Ihre eigene Frist darf kürzer sein als die gesetzliche, nicht länger.",
+            "lead": "Eine Angabe: Können Sie melden, wenn es darauf ankommt?",
             "document": "Ihr Notfallplan"
           },
           "done": {
@@ -544,10 +513,6 @@
           }
         },
         "fields": {
-          "earlyWarningSlaHours": {
-            "label": "Ihre Frist für die frühe Erstmeldung, in Stunden",
-            "hint": "Das Gesetz verlangt die Meldung unverzüglich, spätestens 24 Stunden nach Kenntnis (§ 32 Abs. 1 Nr. 1 BSIG). Eine kürzere eigene Frist ist möglich."
-          },
           "bsiReportingRegistered": {
             "label": "Im {authority}-Portal registriert",
             "hint": "Ja, sobald die Registrierung beim {authority} abgeschlossen ist. Mit demselben Zugang melden Sie dort Vorfälle."
@@ -606,7 +571,7 @@
         "teaser": "Das BSI hat dafür eine fertige Methode.",
         "missed": [
           "Nicht nur Angriffe zählen. Das Gesetz verlangt einen gefahrenübergreifenden Ansatz (§ 30 Abs. 2 BSIG). Die EU-Richtlinie verlangt ausdrücklich, auch die physische Umgebung der Systeme zu schützen (Art. 21 Abs. 2 NIS 2), zum Beispiel vor Feuer, Wasser oder Stromausfall.",
-          "Welche Risiken hingenommen werden, entscheidet die Geschäftsführung. So sieht es auch der BSI-Standard 200-3 vor. Halten Sie diese Grenze mit Datum fest."
+          "Die Methode ist ein Anfang, kein Korsett. Passt eine Stufe für Ihr Unternehmen nicht, passen Sie sie an. Der BSI-Standard 200-3 sieht das ausdrücklich vor."
         ],
         "screens": {
           "learn": {
@@ -646,20 +611,9 @@
               { "label": "Matrix", "text": "Die Zuordnung aus Abbildung 3 des Standards" }
             ]
           },
-          "acceptance": {
-            "title": "Welche Risiken Ihr Unternehmen hinnimmt",
-            "lead": "Bis zu welcher Stufe darf ein Risiko bleiben, ohne dass Sie sofort etwas dagegen tun? Das entscheidet die Geschäftsführung. Wählen Sie den Vorschlag, den sie am Ende unterschreibt. Für Unternehmen Ihrer Größe empfehlen wir Mittel.",
-            "source": "Der BSI-Standard 200-3 geht in seinen Beispielen davon aus, dass eine Institution „‚geringe‘ Risiken grundsätzlich akzeptiert, ‚mittlere‘, ‚hohe‘ und ‚sehr hohe‘ Risiken jedoch nur in Ausnahmefällen“.",
-            "rationale": {
-              "low": "Wir nehmen nur geringe Risiken hin. Für jedes Risiko ab der Stufe Mittel planen wir Maßnahmen, oder die Geschäftsführung entscheidet einzeln, ob es bleiben darf. So sieht es der BSI-Standard 200-3 in seinen Beispielen vor. Es ist die strengste Wahl und bindet am meisten Zeit und Geld.",
-              "medium": "Wir nehmen Risiken bis zur Stufe Mittel hin. Für ein Unternehmen unserer Größe ist das verhältnismäßig: Wir setzen Zeit und Geld zuerst dort ein, wo ein Risiko hoch oder sehr hoch ist. Mittlere Risiken bewerten wir bei jeder Überprüfung neu und behandeln sie, sobald es mit vertretbarem Aufwand geht.",
-              "high": "Wir nehmen Risiken bis zur Stufe Hoch hin und behandeln zuerst nur, was sehr hoch ist. Bei hohen Risiken schützen die vorhandenen Maßnahmen nach dem BSI-Standard 200-3 nicht ausreichend. Die Geschäftsführung trägt diese Entscheidung bewusst und prüft sie bei jeder Überprüfung erneut.",
-              "very_high": "Wir nehmen auch sehr hohe Risiken hin. Nach dem BSI-Standard 200-3 geschieht das in der Praxis selten, weil die vorhandenen Maßnahmen dann keinen ausreichenden Schutz bieten. Die Geschäftsführung begründet jedes sehr hohe Risiko, das bleiben soll, einzeln und schriftlich."
-            }
-          },
           "done": {
             "title": "Methode festgelegt",
-            "note": "Am Ende sieht die Geschäftsführung Methode und Grenze durch und unterschreibt."
+            "note": "Mit der Methode bewerten Sie jedes Risiko einzeln, sobald Sie es aufschreiben. Am Ende sieht die Geschäftsführung die Methode durch und unterschreibt."
           }
         }
       },
@@ -708,25 +662,9 @@
             "title": "Technik und Räume",
             "lead": "Server, Geräte, Netz und die Orte, an denen gearbeitet wird."
           },
-          "protection": {
-            "title": "Wie viele Schutzstufen Sie nutzen",
-            "lead": "Die Schutzstufe sagt, wie schlimm es wäre, wenn etwas ausfällt, verfälscht wird oder nach außen gelangt.",
-            "document": "Ihre Liste"
-          },
           "done": {
             "title": "Ihre Liste steht",
             "note": "Kommt etwas dazu, ergänzen Sie es jederzeit. Am Ende sieht die Geschäftsführung die Liste durch."
-          }
-        },
-        "fields": {
-          "classificationLevels": {
-            "label": "Anzahl der Schutzstufen",
-            "hint": "Das BSI arbeitet mit drei Stufen: normal, hoch und sehr hoch (Standard 200-2, Kapitel 8.2.1). Wählen Sie eine andere Zahl nur, wenn Ihr Unternehmen schon anders einstuft.",
-            "options": {
-              "2_levels": "Zwei Stufen",
-              "3_levels": "Drei Stufen",
-              "4_levels": "Vier Stufen"
-            }
           }
         },
         "sources": {

@@ -15,7 +15,6 @@ import {
   ListChecks,
   type LucideIcon,
   PenLine,
-  Scale,
   ScrollText,
   Search,
   ShieldCheck,
@@ -42,16 +41,7 @@ import { useScreenComplete } from "./useScreenComplete";
 import { useWalkItem } from "./useWalkItem";
 import type { ItemView, WalkEntry } from "./view";
 import { WaitSheet } from "./WaitSheet";
-import {
-  Adopt,
-  Assets,
-  Decide,
-  Done,
-  Evidence,
-  Fields,
-  Register,
-  Sources,
-} from "./WorkScreens";
+import { Adopt, Assets, Done, Evidence, Fields, Register, Sources } from "./WorkScreens";
 
 /** Each kind of screen carries its own sign, so a person learns where they are at a glance. */
 const KIND_ICON: Readonly<Record<ScreenKind, LucideIcon>> = {
@@ -64,7 +54,6 @@ const KIND_ICON: Readonly<Record<ScreenKind, LucideIcon>> = {
   fields: PenLine,
   evidence: FileUp,
   adopt: ScrollText,
-  decide: Scale,
   sources: Search,
   assets: ListChecks,
   register: ListChecks,
@@ -193,8 +182,6 @@ export function DurchgangItem({
         return <Evidence {...work} entry={entry} />;
       case "adopt":
         return <Adopt item={item} entry={entry} adoptedAt={adoptedAt} />;
-      case "decide":
-        return <Decide {...work} entry={entry} />;
       case "sources":
         return <Sources {...work} entry={entry} />;
       case "assets":

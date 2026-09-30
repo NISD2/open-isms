@@ -40,12 +40,6 @@ const SCREEN_COPY = {
   evidence: z.object({ ...heading, document: text }),
   adopt: z.object({ ...heading, lines: z.array(z.object({ label: text, text })).min(1) }),
   register: z.object(heading),
-  /** `rationale` is what the proposal says, per level, in the notes the Geschäftsführung signs. */
-  decide: z.object({
-    ...heading,
-    source: text,
-    rationale: z.object({ low: text, medium: text, high: text, very_high: text }),
-  }),
   sources: z.object(heading),
   assets: z.object(heading),
   done: z.object({ title: text, note: text }),
@@ -262,8 +256,6 @@ function resolveScreen(
       return one(screen, SCREEN_COPY.adopt);
     case "register":
       return one(screen, SCREEN_COPY.register);
-    case "decide":
-      return one(screen, SCREEN_COPY.decide);
     case "assets":
       return one(screen, SCREEN_COPY.assets);
     case "done":

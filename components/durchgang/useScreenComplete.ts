@@ -5,7 +5,7 @@ import type { ItemView } from "./view";
 
 /**
  * Whether the person may move on from this screen: every field the schema requires is answered,
- * a file is in place, a choice is made, a management training is on the list. Screens that only
+ * a file is in place, a source is ticked, a management training is on the list. Screens that only
  * explain are always complete. Lists are read from the same queries their screens show, so the
  * answer follows each upload and each new line without a second copy of the count.
  */
@@ -30,8 +30,6 @@ export function useScreenComplete(
       );
     case "evidence":
       return (evidence.data?.length ?? 0) > 0;
-    case "decide":
-      return draft.acceptance !== null;
     case "sources":
       return draft.sources.length > 0;
     case "register":

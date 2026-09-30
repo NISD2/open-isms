@@ -26,7 +26,6 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
   const saveAnswers = trpc.intake.saveRequirementAnswers.useMutation();
   const sources = trpc.durchgang.sources.useMutation();
   const adopt = trpc.durchgang.adoptMethod.useMutation();
-  const decide = trpc.durchgang.decideAcceptance.useMutation();
   const addAssets = trpc.durchgang.addAssets.useMutation();
   const finish = trpc.durchgang.finish.useMutation();
   const resume = trpc.durchgang.resume.useMutation();
@@ -65,9 +64,6 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
         if (screen.field && snapshot.uploaded) {
           await answer({ [screen.field]: snapshot.uploaded });
         }
-        return;
-      case "decide":
-        if (snapshot.acceptance) await decide.mutateAsync({ level: snapshot.acceptance });
         return;
       case "sources":
         if (snapshot.sources.length > 0) {

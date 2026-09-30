@@ -5,8 +5,6 @@
  * leaves nothing of them here (the audit row that carries their id is redacted by the erasure).
  */
 
-import { RISK_LEVEL_TEXT, type RiskLevel } from "@/lib/compliance/bsi-200-3";
-
 export type NoteLocale = "de" | "en";
 
 /** A calendar day in Berlin, as the company reads its records: 2026-09-30. */
@@ -21,8 +19,6 @@ const TEXT = {
       `Geht noch nicht: ${reason}.${note ? ` Notiz: ${note}` : ""}`,
     sources: (labels: readonly string[]) => `Nachgesehen in: ${labels.join(", ")}.`,
     method: "Methode festgelegt: Risikoanalyse nach BSI-Standard 200-3.",
-    acceptance: (level: string, rationale: string) =>
-      `Vorschlag zur Unterschrift: Risiken bis zur Stufe „${level}“ werden hingenommen. Begründung: ${rationale}`,
     declined: (reason: string) =>
       `Bewusst nicht umgesetzt, zur Unterschrift. Begründung: ${reason}`,
   },
@@ -31,8 +27,6 @@ const TEXT = {
       `Not possible yet: ${reason}.${note ? ` Note: ${note}` : ""}`,
     sources: (labels: readonly string[]) => `Looked in: ${labels.join(", ")}.`,
     method: "Method set: risk analysis according to BSI Standard 200-3.",
-    acceptance: (level: string, rationale: string) =>
-      `Proposal for signature: risks up to the level "${level}" are accepted. Reason: ${rationale}`,
     declined: (reason: string) =>
       `Decided not to do this, for signature. Reason: ${reason}`,
   },
@@ -45,9 +39,6 @@ export const sourcesNote = (locale: NoteLocale, labels: readonly string[]) =>
   TEXT[locale].sources(labels);
 
 export const methodNote = (locale: NoteLocale) => TEXT[locale].method;
-
-export const acceptanceNote = (locale: NoteLocale, level: RiskLevel, rationale: string) =>
-  TEXT[locale].acceptance(RISK_LEVEL_TEXT[locale][level].label, rationale);
 
 export const declinedNote = (locale: NoteLocale, reason: string) =>
   TEXT[locale].declined(reason);

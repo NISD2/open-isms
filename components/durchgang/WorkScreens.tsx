@@ -24,7 +24,6 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { Link } from "@/i18n/navigation";
-import { RISK_LEVEL_TEXT, RISK_LEVELS } from "@/lib/compliance/bsi-200-3";
 import type { ResolvedScreen, SourceId } from "@/lib/durchgang";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
 import { cn } from "@/lib/utils";
@@ -48,7 +47,7 @@ const longDate = (locale: "de" | "en", date: Date) =>
     dateStyle: "long",
   }).format(date);
 
-/** Big choice cards on a real radio group: choice fields, yes or no, the acceptance limit. */
+/** Big choice cards on a real radio group: choice fields, yes or no. */
 function Choice({
   id,
   name,
@@ -58,13 +57,7 @@ function Choice({
 }: {
   id: string;
   name: string;
-  options: ReadonlyArray<{
-    value: string;
-    label: string;
-    detail?: string;
-    /** A short mark beside the label, such as our recommendation. */
-    badge?: string;
-  }>;
+  options: ReadonlyArray<{ value: string; label: string; detail?: string }>;
   value: string;
   onChange: (value: string) => void;
 }) {
@@ -87,14 +80,7 @@ function Choice({
             className="mt-0.5"
           />
           <span>
-            <span className="flex flex-wrap items-center gap-2 font-medium">
-              {option.label}
-              {option.badge && (
-                <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-900 dark:bg-emerald-950 dark:text-emerald-100">
-                  {option.badge}
-                </span>
-              )}
-            </span>
+            <span className="block font-medium">{option.label}</span>
             {option.detail && (
               <span className="mt-1 block text-sm leading-6 text-muted-foreground">
                 {option.detail}
@@ -325,52 +311,6 @@ export function Adopt({
           </div>
         </footer>
       </article>
-    </>
-  );
-}
-
-export function Decide({
-  item,
-  draft,
-  onDraft,
-  entry,
-}: WorkProps & { entry: Of<"decide"> }) {
-  const t = useTranslations("durchgang.ui");
-  return (
-    <>
-      <Heading>{entry.copy.title}</Heading>
-      <Lead>{entry.copy.lead}</Lead>
-      <div className="mt-8">
-        <Choice
-          id="dg-acceptance"
-          name={entry.copy.title}
-          value={draft.acceptance ?? ""}
-          onChange={(value) => {
-            const level = RISK_LEVELS.find((l) => l === value);
-            if (level) onDraft({ ...draft, acceptance: level });
-          }}
-          options={RISK_LEVELS.map((level) => ({
-            value: level,
-            label: RISK_LEVEL_TEXT[item.locale][level].label,
-            detail: RISK_LEVEL_TEXT[item.locale][level].description,
-            badge: level === entry.screen.recommended ? t("recommended") : undefined,
-          }))}
-        />
-      </div>
-      {draft.acceptance && (
-        <section className="mt-6 max-w-[62ch] rounded-2xl border border-primary/20 bg-primary/[0.04] p-5">
-          <p className="flex items-center gap-2 text-sm font-semibold">
-            <ScrollText className="size-4 text-primary" />
-            {t("inProposal")}
-          </p>
-          <p className="mt-2 text-sm leading-6">
-            {entry.copy.rationale[draft.acceptance]}
-          </p>
-        </section>
-      )}
-      <p className="mt-4 max-w-[62ch] text-xs leading-5 text-muted-foreground">
-        {entry.copy.source}
-      </p>
     </>
   );
 }
@@ -609,7 +549,6 @@ export function Done({
         : [],
     ),
     ...(draft.uploaded ? [draft.uploaded] : []),
-    ...(draft.acceptance ? [RISK_LEVEL_TEXT[item.locale][draft.acceptance].label] : []),
   ];
   return (
     <>

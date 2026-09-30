@@ -6,11 +6,9 @@ import { CATALOG_LABELS, catalogNames } from "@/lib/asset-inventory/catalog-labe
 import { logAudit } from "@/lib/audit";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { mayWalkDurchgang } from "@/lib/billing/access";
-import { RISK_LEVELS } from "@/lib/compliance/bsi-200-3";
 import { getDefaultMethodology } from "@/lib/compliance/risk-methodology-defaults";
 import { seedLocale } from "@/lib/compliance/seed-locale";
 import {
-  acceptanceNote,
   declinedNote,
   methodNote,
   noteLine,
@@ -252,38 +250,6 @@ export const durchgangRouter = router({
       newValue: { method: method.name },
     });
   }),
-
-  /** The 2.1 acceptance limit, as the proposal the Geschäftsführung signs. */
-  decideAcceptance: durchgangProcedure
-    .input(z.object({ level: z.enum(RISK_LEVELS) }))
-    .mutation(async ({ ctx, input }) => {
-      const ref = await durchgangItem(ctx.db, actorOf(ctx), "2.1");
-      const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
-      const words = resolveItem(NAMESPACES[locale], itemOf("2.1"));
-      const decide = words.ok
-        ? words.value.screens.find((s) => s.kind === "decide")
-        : undefined;
-      if (decide?.kind !== "decide") {
-        throw new Error("2.1 has no acceptance copy; the script tests guard this.");
-      }
-      await appendNote(
-        ctx.db,
-        ref.statusId,
-        noteLine(
-          new Date(),
-          acceptanceNote(locale, input.level, decide.copy.rationale[input.level]),
-        ),
-      );
-      await logAudit({
-        companyId: ctx.companyId,
-        userId: ctx.userId,
-        action: "durchgang.decided",
-        entityType: "requirement",
-        entityId: ref.requirementId,
-        description: "2.1 risk acceptance proposed",
-        newValue: { decision: "risk_acceptance", level: input.level },
-      });
-    }),
 
   /**
    * "Wir haben entschieden, das nicht zu tun": finished without doing it, for the Geschäftsführung

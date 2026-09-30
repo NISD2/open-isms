@@ -13,7 +13,7 @@
  */
 
 import type { FunctionalGroup } from "@/lib/asset-inventory/catalog";
-import type { Frequency, Impact, RiskLevel } from "@/lib/compliance/bsi-200-3";
+import type { Frequency, Impact } from "@/lib/compliance/bsi-200-3";
 import type { CategoryCode, CategoryField } from "@/lib/compliance/category-schemas";
 
 /**
@@ -32,9 +32,6 @@ export type Provision =
  * the list itself. The asset register has its own screen kind, because it is offered in slices.
  */
 export type RegisterModule = "supplier" | "team" | "training_record";
-
-/** A decision the person takes on the screen. Nothing is preselected. */
-export type Decision = "risk_acceptance";
 
 /** A page of the platform a learn screen points to. */
 export type LearnLink = "ceo_course";
@@ -86,13 +83,6 @@ export type Screen<C extends CategoryCode> =
     }
   | { readonly kind: "adopt"; readonly id: string; readonly adopts: Adoptable }
   | { readonly kind: "register"; readonly id: string; readonly module: RegisterModule }
-  | {
-      readonly kind: "decide";
-      readonly id: string;
-      readonly decision: Decision;
-      /** The level we suggest; marked on the screen, never preselected. */
-      readonly recommended: RiskLevel;
-    }
   | {
       readonly kind: "sources";
       readonly id: string;

@@ -1,5 +1,4 @@
 import type { AssetLayer } from "@/lib/asset-inventory/types";
-import type { RiskLevel } from "@/lib/compliance/bsi-200-3";
 import type { SourceId } from "@/lib/durchgang";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
 
@@ -8,7 +7,6 @@ export interface Draft {
   /** Intake field values, as the inputs hold them. */
   readonly values: Readonly<Record<string, unknown>>;
   readonly sources: readonly SourceId[];
-  readonly acceptance: RiskLevel | null;
   /** Ticked catalogue items on the asset screens. */
   readonly checked: readonly string[];
   readonly custom: ReadonlyArray<{ name: string; layer: AssetLayer }>;
@@ -59,7 +57,6 @@ export const initialDraft = (
     Object.entries(answers).map(([k, v]) => [k, toDraft(fields[k], v)]),
   ),
   sources: [],
-  acceptance: null,
   checked: [],
   custom: [],
   uploaded: null,
