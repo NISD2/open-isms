@@ -23,6 +23,7 @@
     "errorGeneric": "Algo ha fallado. Inténtelo de nuevo.",
     "errorConsentRequired": "Acepte las Condiciones y la Política de Privacidad para continuar.",
     "errorEmailNotVerified": "Verifique primero su correo electrónico. Revise su bandeja de entrada para ver el código que le hemos enviado.",
+    "errorRateLimited": "Demasiados intentos. Espere unos minutos y vuelva a intentarlo.",
     "consentLabel": "Acepto las <terms>Condiciones del servicio</terms> y declaro conocer la <privacy>Política de Privacidad</privacy>.",
     "backToHome": "Volver a nisd2.eu",
     "verifyTitle": "Un último paso: verifique su correo electrónico",

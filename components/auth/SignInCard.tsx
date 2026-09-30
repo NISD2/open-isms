@@ -71,7 +71,11 @@ export function SignInCard() {
 
         if (!res.ok) {
           const data = (await res.json()) as { error?: string };
-          setError(data.error ?? t("errorGeneric"));
+          setError(
+            res.status === 429
+              ? t("errorRateLimited")
+              : (data.error ?? t("errorGeneric")),
+          );
           setLoading(false);
           return;
         }
@@ -96,7 +100,9 @@ export function SignInCard() {
         // join both so EMAIL_NOT_VERIFIED is matched regardless of which
         // field carries it.
         const raw = `${result.error} ${result.code ?? ""}`;
-        if (raw.includes("EMAIL_NOT_VERIFIED")) {
+        if (raw.includes("RATE_LIMITED")) {
+          setError(t("errorRateLimited"));
+        } else if (raw.includes("EMAIL_NOT_VERIFIED")) {
           setError(t("errorEmailNotVerified"));
           // Pre-stage the verify step so the user can immediately enter a
           // code without retyping their email.
@@ -143,7 +149,9 @@ export function SignInCard() {
       });
 
       if (!res.ok) {
-        setError(t("verifyErrorInvalidCode"));
+        setError(
+          res.status === 429 ? t("errorRateLimited") : t("verifyErrorInvalidCode"),
+        );
         setLoading(false);
         return;
       }
@@ -155,6 +163,16 @@ export function SignInCard() {
         password,
         redirect: false,
       });
+
+      // Same joined match as the login branch above.
+      if (
+        result?.error &&
+        `${result.error} ${result.code ?? ""}`.includes("RATE_LIMITED")
+      ) {
+        setError(t("errorRateLimited"));
+        setLoading(false);
+        return;
+      }
 
       if (result?.error) {
         // The address is verified now, so a resend would send nothing and the

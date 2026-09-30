@@ -155,9 +155,8 @@ export async function POST(request: Request) {
   // First-time verification → fire admin + welcome notifications.
   // If the user was already verified somehow (shouldn't happen given the OTP
   // is single-use, but defensive), `updated` will be empty and we skip.
-  if (updated.length > 0) {
-    const userRow = updated[0]!;
-
+  const [userRow] = updated;
+  if (userRow) {
     // Auto-provision a draft company so the NIS2 journey renders at first login
     // (the user activates it in-journey). This is the correct provisioning
     // boundary: post-OTP the email is proven-owned and disposable signups never

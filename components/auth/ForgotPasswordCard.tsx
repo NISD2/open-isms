@@ -1,12 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { Loader2, Shield } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import { useTranslations, useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Card,
   CardContent,
@@ -14,7 +13,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Shield, Loader2 } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 type Step = "request" | "reset";
 
@@ -48,15 +48,20 @@ export function ForgotPasswordCard() {
     setInfo("");
     setLoading(true);
     try {
-      await fetch("/api/auth/forgot-password", {
+      const res = await fetch("/api/auth/forgot-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, locale }),
       });
-      // Always advance — the API returns success regardless of whether
-      // the email exists, so the UI does too.
-      setStep("reset");
-      setInfo(t("forgotPassword.codeSentInfo"));
+      // Rate limited means no code was sent, so the "code sent" step would be a lie.
+      if (res.status === 429) {
+        setError(t("errorRateLimited"));
+      } else {
+        // Always advance otherwise — the API returns success regardless of
+        // whether the email exists, so the UI does too.
+        setStep("reset");
+        setInfo(t("forgotPassword.codeSentInfo"));
+      }
     } catch {
       setError(t("errorGeneric"));
     }
@@ -76,7 +81,11 @@ export function ForgotPasswordCard() {
       });
       if (!res.ok) {
         const data = (await res.json()) as { error?: string };
-        setError(data.error ?? t("forgotPassword.errorResetFailed"));
+        setError(
+          res.status === 429
+            ? t("errorRateLimited")
+            : (data.error ?? t("forgotPassword.errorResetFailed")),
+        );
         setLoading(false);
         return;
       }

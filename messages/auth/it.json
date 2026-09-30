@@ -23,6 +23,7 @@
     "errorGeneric": "Si è verificato un errore. Riprova.",
     "errorConsentRequired": "Accetta i Termini e l'Informativa sulla privacy per continuare.",
     "errorEmailNotVerified": "Verifica prima la tua email. Controlla la casella di posta per il codice che ti abbiamo inviato.",
+    "errorRateLimited": "Troppi tentativi. Attendi qualche minuto e riprova.",
     "consentLabel": "Accetto i <terms>Termini di servizio</terms> e prendo atto dell''<privacy>Informativa sulla privacy</privacy>.",
     "backToHome": "Torna a nisd2.eu",
     "verifyTitle": "Un ultimo passaggio: verifica la tua email",
