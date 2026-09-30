@@ -8,7 +8,8 @@ import { ALL_ROLE_KEYS } from "@/lib/compliance/role-mapping";
 import { pendingSignersOf } from "@/lib/compliance/sign-off-roster";
 import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
 import { inviteEmail, memberRemovedEmail, sendMail } from "@/lib/mail";
-import { isSuppressedSendId, mailSuppressionReason } from "@/lib/mail/send";
+import { isSuppressedSendId } from "@/lib/mail/delivery";
+import { mailSuppressionReason } from "@/lib/mail/send";
 import { inviteRedirectPath } from "@/lib/organization/invite-redirect";
 import {
   asMembershipRole,
