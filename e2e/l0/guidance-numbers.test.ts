@@ -102,7 +102,7 @@ const ALLOWED: Record<string, { values: string[]; why: string }> = {
     why: "Suggests piloting the KPI dashboard for a month before fixing it. A trial period, not a duty.",
   },
   "3.1": {
-    values: ["24 hours", "72 hours", "1 month"],
+    values: ["24 hours", "72 hours", "1 month", "one month"],
     why: "§32(1) BSIG: Erstmeldung 24h, Meldung 72h, Abschlussmeldung one month. Verbatim in the statute.",
   },
   "3.3": {
