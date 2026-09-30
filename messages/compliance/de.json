@@ -80,6 +80,7 @@
       "signedOff": "Freigegeben",
       "signedOffByOn": "Freigegeben von {name} am {date}",
       "rejectionFeedback": "Prüfungshinweise",
+      "needsReview": "Überprüfung fällig: Die Frist ist abgelaufen, oder die operativen Daten, auf denen diese Anforderung beruht, haben sich geändert.",
       "moduleData": "Operative Daten",
       "goToRegister": "Zum Register",
       "requiredRole": "Diese Anforderung erfordert Freigabe durch: {role}",

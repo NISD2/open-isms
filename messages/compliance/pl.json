@@ -76,6 +76,7 @@
       "signedOff": "Zatwierdzone",
       "signedOffByOn": "Zatwierdzone przez {name} w dniu {date}",
       "rejectionFeedback": "Uwagi z przeglądu",
+      "needsReview": "Wymaga przeglądu: termin minął albo zmieniły się dane operacyjne, na których opiera się to wymaganie.",
       "moduleData": "Dane operacyjne",
       "goToRegister": "Przejdź do rejestru",
       "requiredRole": "To wymaganie wymaga zatwierdzenia przez: {role}",

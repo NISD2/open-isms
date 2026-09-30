@@ -1,7 +1,7 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import type { RequirementDetailProps } from "@/components/compliance/RequirementDetail";
 import type { GuidanceFile, RequirementGuidanceData } from "@/lib/ai/guidance-types";
-import { getSession, isReviewerRole } from "@/lib/auth";
+import { getSession, hasReviewAccess, isReviewerRole } from "@/lib/auth";
 import { canSeeCategory, getUserAccess } from "@/lib/compliance/access";
 import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
 import { PLATFORM_DEFAULTS } from "@/lib/compliance/platform-defaults";
@@ -274,6 +274,7 @@ export async function loadRequirementDetail(
     answers: { ...PLATFORM_DEFAULTS[req.code], ...intakeAnswers.answers },
     isReviewer,
     isAdmin,
+    reviewAccess: hasReviewAccess(role),
     currentUserId: session?.user.id ?? "",
     guidance,
     requiredSignOffRole:
