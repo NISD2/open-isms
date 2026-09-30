@@ -128,7 +128,11 @@ const providers: Provider[] = [
       if (!email || !password) return null;
       if (password.length > 128) return null;
 
-      if (!isLoginAllowed(email, getClientIp(request.headers))) return null;
+      // A coded error, not null: null reads as a wrong password, which sends
+      // someone who is only rate limited off to reset a password that works.
+      if (!isLoginAllowed(email, getClientIp(request.headers))) {
+        throw new CredentialsFlowError("RATE_LIMITED");
+      }
 
       const dbUser = await db.query.user.findFirst({
         where: eq(user.email, email),

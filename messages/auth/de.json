@@ -23,6 +23,7 @@
     "errorGeneric": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
     "errorConsentRequired": "Bitte akzeptieren Sie die Nutzungsbedingungen und Datenschutzerklärung, um fortzufahren.",
     "errorEmailNotVerified": "Bitte bestätigen Sie zuerst Ihre E-Mail-Adresse. Wir haben Ihnen einen Code geschickt.",
+    "errorRateLimited": "Zu viele Versuche. Bitte warten Sie ein paar Minuten und versuchen Sie es dann erneut.",
     "consentLabel": "Ich akzeptiere die <terms>Nutzungsbedingungen</terms> und habe die <privacy>Datenschutzerklärung</privacy> zur Kenntnis genommen.",
     "backToHome": "Zurück zu nisd2.eu",
     "verifyTitle": "Letzter Schritt: E-Mail bestätigen",

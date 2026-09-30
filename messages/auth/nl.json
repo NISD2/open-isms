@@ -23,6 +23,7 @@
     "errorGeneric": "Something went wrong. Please try again.",
     "errorConsentRequired": "Please accept the Terms and Privacy Policy to continue.",
     "errorEmailNotVerified": "Verifieer eerst je e-mailadres. Controleer je inbox voor de code.",
+    "errorRateLimited": "Te veel pogingen. Wacht een paar minuten en probeer het opnieuw.",
     "consentLabel": "I accept the <terms>Terms of Service</terms> and acknowledge the <privacy>Privacy Policy</privacy>.",
     "backToHome": "Back to nisd2.eu",
     "verifyTitle": "Laatste stap: e-mailadres bevestigen",

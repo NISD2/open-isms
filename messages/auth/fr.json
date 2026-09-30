@@ -23,6 +23,7 @@
     "errorGeneric": "Une erreur est survenue. Veuillez réessayer.",
     "errorConsentRequired": "Veuillez accepter les Conditions et la Politique de confidentialité pour continuer.",
     "errorEmailNotVerified": "Veuillez d'abord vérifier votre adresse e-mail. Consultez votre boîte de réception pour le code que nous avons envoyé.",
+    "errorRateLimited": "Trop de tentatives. Veuillez patienter quelques minutes, puis réessayer.",
     "consentLabel": "J'accepte les <terms>Conditions d'utilisation</terms> et je prends connaissance de la <privacy>Politique de confidentialité</privacy>.",
     "backToHome": "Retour à nisd2.eu",
     "verifyTitle": "Une dernière étape : vérifiez votre adresse e-mail",

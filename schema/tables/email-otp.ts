@@ -11,7 +11,7 @@ import { index, pgTable, smallint, timestamp, uuid, varchar } from "drizzle-orm/
  * Lifecycle:
  *  - INSERT on `requestOtp`
  *  - UPDATE attempts on each `verifyOtp`, before the code is compared
- *  - UPDATE consumedAt on success OR on attempt-limit lockout
+ *  - UPDATE consumedAt on success, or when a newer code replaces this one
  *  - DELETE on cleanup cron (rows older than 24h)
  */
 export const emailOtp = pgTable(
@@ -31,9 +31,9 @@ export const emailOtp = pgTable(
      * Validated at application level to avoid migration friction.
      */
     purpose: varchar("purpose", { length: 32 }).notNull(),
-    /** Wrong-code attempts. At MAX_ATTEMPTS the record is consumed. */
+    /** Verify attempts, counted before the compare. At MAX_ATTEMPTS the code is dead. */
     attempts: smallint("attempts").default(0).notNull(),
-    /** Set on successful verify OR on lockout. NULL = still active. */
+    /** Set on successful verify, or when a newer code replaces this one. NULL = not used. */
     consumedAt: timestamp("consumed_at"),
     /** Hard expiry irrespective of attempts. Default 10 minutes. */
     expiresAt: timestamp("expires_at").notNull(),
