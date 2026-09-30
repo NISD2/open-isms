@@ -31,6 +31,7 @@ const SCREEN_COPY = {
   fields: z.object({ ...heading, document: text }),
   evidence: z.object({ ...heading, document: text }),
   adopt: z.object({ ...heading, lines: z.array(z.object({ label: text, text })).min(1) }),
+  register: z.object(heading),
   decide: z.object({ ...heading, source: text }),
   sources: z.object(heading),
   assets: z.object(heading),
@@ -42,7 +43,17 @@ const ITEM_COPY = z.object({
   teaser: text,
   missed: z.array(text).min(1),
   screens: z.record(z.string(), z.unknown()),
-  fields: z.record(z.string(), z.object({ label: text, hint: text })).default({}),
+  fields: z
+    .record(
+      z.string(),
+      z.object({
+        label: text,
+        hint: text,
+        /** One label per value, for a field whose schema is a choice. A test checks the set. */
+        options: z.record(z.string(), text).optional(),
+      }),
+    )
+    .default({}),
   sources: z.record(z.string(), z.object({ label: text, text })).default({}),
 });
 
@@ -168,6 +179,8 @@ function resolveScreen(
       return one(screen, SCREEN_COPY.evidence);
     case "adopt":
       return one(screen, SCREEN_COPY.adopt);
+    case "register":
+      return one(screen, SCREEN_COPY.register);
     case "decide":
       return one(screen, SCREEN_COPY.decide);
     case "assets":

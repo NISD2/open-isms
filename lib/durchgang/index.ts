@@ -23,6 +23,7 @@ export type {
   AnyScreen,
   Decision,
   Provision,
+  RegisterModule,
   ScreenKind,
   SourceId,
 } from "./types";

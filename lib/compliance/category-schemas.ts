@@ -423,7 +423,7 @@ export const REG_SCHEMA = z.object({
   contactPersonName: z
     .string()
     .max(255)
-    .describe("BSI contact person name (§33(1) Nr. 6)"),
+    .describe("BSI contact person name, as entered in the BSI portal"),
   contactPersonEmail: z.string().max(255).describe("BSI contact person email"),
   lastRegistrationUpdate: z.coerce
     .date()

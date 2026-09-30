@@ -16,8 +16,23 @@ import type { FunctionalGroup } from "@/lib/asset-inventory/catalog";
 import type { Frequency, Impact } from "@/lib/compliance/bsi-200-3";
 import type { CategoryCode, CategoryField } from "@/lib/compliance/category-schemas";
 
-/** A BSI rule shown as it is, read-only. */
-export type Provision = "bsi_200_3_matrix";
+/**
+ * A rule shown as it is, read-only, rendered from the module that holds it: the 200-3 matrix
+ * (`bsi-200-3.ts`), the § 28 size thresholds (`applicability/classify.ts`), the § 32 reporting
+ * deadlines (`bsig-32.ts`).
+ */
+export type Provision = "bsi_200_3_matrix" | "bsig_28_thresholds" | "bsig_32_clock";
+
+/**
+ * A register the requirement page shows for the item (its `moduleRef`), which a screen shows as
+ * the list itself. The asset register has its own screen kind, because it is offered in slices.
+ */
+export type RegisterModule =
+  | "training_record"
+  | "supplier"
+  | "team"
+  | "policy"
+  | "incident";
 
 /** A decision the person takes on the screen. Nothing is preselected. */
 export type Decision = "risk_acceptance";
@@ -26,7 +41,7 @@ export type Decision = "risk_acceptance";
 export type Adoptable = "bsi_200_3_method";
 
 /** Where a list the company needs usually exists already. */
-export type SourceId = "ropa" | "ledger" | "provider";
+export type SourceId = "ropa" | "ledger" | "provider" | "payables" | "contracts";
 
 export type Screen<C extends CategoryCode> =
   | { readonly kind: "learn"; readonly id: string }
@@ -56,6 +71,7 @@ export type Screen<C extends CategoryCode> =
       readonly field: CategoryField<C> | null;
     }
   | { readonly kind: "adopt"; readonly id: string; readonly adopts: Adoptable }
+  | { readonly kind: "register"; readonly id: string; readonly module: RegisterModule }
   | { readonly kind: "decide"; readonly id: string; readonly decision: Decision }
   | {
       readonly kind: "sources";
@@ -88,6 +104,11 @@ export interface Item<C extends CategoryCode> {
    */
   readonly reviewed: IsoDate;
   readonly screens: readonly Screen<C>[];
+  /**
+   * Intake fields of the item the Durchgang deliberately does not ask, each with the reason. The
+   * requirement page keeps asking them; a test fails on any field that is neither asked nor here.
+   */
+  readonly notAsked?: Readonly<Partial<Record<CategoryField<C>, string>>>;
 }
 
 /** Any item, with its screens typed against its own category. */

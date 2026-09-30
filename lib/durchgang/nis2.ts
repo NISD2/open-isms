@@ -13,6 +13,118 @@ const item = <C extends CategoryCode>(i: Item<C>): Item<C> => i;
 
 export const NIS2_SCRIPT: readonly AnyItem[] = [
   item({
+    code: "12.1",
+    category: "REG",
+    glossary: [],
+    reviewed: "2026-09-30",
+    screens: [
+      { kind: "learn", id: "learn" },
+      { kind: "provision", id: "thresholds", provision: "bsig_28_thresholds" },
+      { kind: "prepare", id: "data" },
+      {
+        kind: "fields",
+        id: "classification",
+        fields: ["entityClassification", "applicableSectors"],
+      },
+      { kind: "done", id: "done" },
+    ],
+  }),
+  item({
+    code: "1.1",
+    category: "GOV",
+    glossary: [],
+    reviewed: "2026-09-30",
+    screens: [
+      { kind: "learn", id: "learn" },
+      { kind: "sample", id: "record" },
+      {
+        kind: "fields",
+        id: "training",
+        fields: ["managementTrainingProvider", "lastManagementTraining"],
+      },
+      { kind: "register", id: "certificates", module: "training_record" },
+      { kind: "done", id: "done" },
+    ],
+  }),
+  item({
+    code: "5.1",
+    category: "SUP",
+    glossary: [],
+    reviewed: "2026-09-30",
+    screens: [
+      { kind: "learn", id: "learn" },
+      { kind: "sample", id: "list" },
+      { kind: "sources", id: "sources", sources: ["payables", "contracts", "provider"] },
+      { kind: "register", id: "suppliers", module: "supplier" },
+      { kind: "fields", id: "dependence", fields: ["singlePointOfFailureCount"] },
+      { kind: "done", id: "done" },
+    ],
+  }),
+  item({
+    code: "12.3",
+    category: "REG",
+    glossary: ["bsiRegistration"],
+    reviewed: "2026-09-30",
+    screens: [
+      { kind: "learn", id: "learn" },
+      { kind: "prepare", id: "changes" },
+      {
+        kind: "fields",
+        id: "contact",
+        fields: ["contactPersonName", "contactPersonEmail", "lastRegistrationUpdate"],
+      },
+      { kind: "done", id: "done" },
+    ],
+    notAsked: {
+      nextRegistrationUpdate:
+        "§ 33 Abs. 5 BSIG sets no schedule, only 'unverzüglich, spätestens binnen zwei Wochen' after a change, so the Durchgang asks for no next date; the framework dropped the annual cadence for 12.3 for the same reason.",
+    },
+  }),
+  item({
+    code: "1.2",
+    category: "GOV",
+    glossary: [],
+    reviewed: "2026-09-30",
+    screens: [
+      { kind: "learn", id: "learn" },
+      { kind: "compare", id: "who" },
+      { kind: "register", id: "roles", module: "team" },
+      { kind: "done", id: "done" },
+    ],
+  }),
+  item({
+    code: "3.1",
+    category: "INC",
+    glossary: [],
+    reviewed: "2026-09-30",
+    screens: [
+      { kind: "learn", id: "learn" },
+      { kind: "fields", id: "lead", fields: ["incidentLead", "irtTeamSize"] },
+      { kind: "fields", id: "escalation", fields: ["incidentEscalationContacts"] },
+      { kind: "compare", id: "second_way" },
+      { kind: "fields", id: "channel", fields: ["secureCommsChannel"] },
+      { kind: "register", id: "plan", module: "policy" },
+      { kind: "done", id: "done" },
+    ],
+  }),
+  item({
+    code: "3.3",
+    category: "INC",
+    glossary: [],
+    reviewed: "2026-09-30",
+    screens: [
+      { kind: "learn", id: "learn" },
+      { kind: "provision", id: "clock", provision: "bsig_32_clock" },
+      { kind: "prepare", id: "ready" },
+      {
+        kind: "fields",
+        id: "setup",
+        fields: ["earlyWarningSlaHours", "bsiReportingRegistered"],
+      },
+      { kind: "done", id: "done" },
+    ],
+  }),
+  item({
     code: "12.2",
     category: "REG",
     glossary: ["bsiRegistration", "muk"],
