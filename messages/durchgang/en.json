@@ -1,6 +1,9 @@
 {
   "durchgang": {
     "title": "Walkthrough",
+    "terms": {
+      "authority": "your authority"
+    },
     "ui": {
       "kinds": {
         "learn": "Understand",
@@ -51,6 +54,10 @@
       "onList": "{count, plural, =0 {No entries on your list yet} one {# entry on your list} other {# entries on your list}}",
       "alreadyListed": "Already on your list",
       "registerHint": "Changes here go straight into your list.",
+      "assets": {
+        "title": "Your list already exists",
+        "lead": "Your company already has entries. Check them and add what is missing: processes, software, devices, data carriers, rooms and networks."
+      },
       "team": {
         "invite": "Bring someone in",
         "placeholder": "name@your-company.com",
@@ -301,7 +308,7 @@
       },
       "12_3": {
         "headline": "Keep the registration up to date",
-        "teaser": "When something changes, update it with your authority.",
+        "teaser": "When something changes, update it with {authority}.",
         "missed": [
           "The directive counts the two weeks from the date of the change (Art. 3(4) NIS 2). Germany counts them from when the company learns of the change (§ 33(5) BSIG). Neither sets a fixed review date.",
           "If your portal also records a contact person, add updating it to what happens when someone leaves the company.",
@@ -311,7 +318,7 @@
           "learn": {
             "title": "Keep the details up to date",
             "body": [
-              "When something changes in what you gave your authority at registration, update it in its portal.",
+              "When something changes in what you gave {authority} at registration, update it in its portal.",
               "The law does not require a fixed yearly check. It requires you to be quick when something changes."
             ],
             "duty": "Report changes without delay, and at the latest within two weeks."
@@ -344,8 +351,8 @@
             "source": "Art. 3(4) NIS 2. In Germany: § 33(1) and (5) BSIG, and the BSI asks for all changes to the registration data to be made in its portal."
           },
           "contact": {
-            "title": "Who is registered with your authority",
-            "lead": "So you know whom your authority reaches, and notice when that person leaves.",
+            "title": "Who is registered with {authority}",
+            "lead": "So you know whom {authority} reaches, and notice when that person leaves.",
             "document": "Your registration in the portal"
           },
           "done": {
@@ -412,7 +419,7 @@
         "teaser": "Who decides, whom you call, how you reach each other.",
         "missed": [
           "The law explicitly names secured voice, video and text communication and, where needed, secured emergency communication systems within the company (§ 30(2) no. 10 BSIG). A phone list on paper does not replace that; it is the fallback when everything else is down.",
-          "Decide who writes the report to the BSI. The first report is due at the latest 24 hours after you learn of a significant incident (§ 32(1) BSIG)."
+          "Decide who writes the report to {authority}. The first report, an early warning, is due at the latest 24 hours after you become aware of a significant incident (Art. 23(4)(a) NIS 2)."
         ],
         "screens": {
           "learn": {
@@ -481,33 +488,33 @@
       },
       "3_3": {
         "headline": "Know how to report an incident",
-        "teaser": "Three reports to the BSI, with fixed deadlines.",
+        "teaser": "Three reports to {authority}, with fixed deadlines.",
         "missed": [
           "The clock runs from when you learn of it, not from when everything is clear. Report early; the second report confirms or updates the first.",
-          "The BSI reads \"learning of it\" as the moment someone in the company finds out about the incident during working hours (BSI, Meldepflicht info pack).",
+          "In Germany the BSI reads \"becoming aware\" as the moment someone in the company finds out about the incident during working hours (BSI, Meldepflicht info pack).",
           "If it is a personal data breach, you usually also notify the data protection authority: without undue delay and, where feasible, within 72 hours, unless the breach is unlikely to result in a risk to the people affected (Art. 33 GDPR)."
         ],
         "screens": {
           "learn": {
             "title": "Reporting an incident",
             "body": [
-              "If a security incident is significant, you report it to the BSI. It is significant if it can seriously disrupt your operations or cause you financial losses, or if it can cause considerable damage to others.",
-              "Reports are made in the BSI portal, with the same access as for the registration."
+              "If a security incident is significant, you report it to your national CSIRT or {authority}. It is significant if it can seriously disrupt your operations or cause you financial losses, or if it can cause considerable damage to others.",
+              "Your country sets the channel. In Germany it is the BSI portal, with the same access as for the registration."
             ],
-            "duty": "You report significant incidents in three steps with fixed deadlines to the joint reporting office of the BSI and the Federal Office of Civil Protection and Disaster Assistance."
+            "duty": "You report significant incidents in three steps with fixed deadlines."
           },
           "clock": {
             "title": "The three deadlines",
             "lead": "The clock runs from the moment your company learns of the incident. The third deadline starts with the second report.",
-            "source": "§ 32(1) and (2) BSIG. If the BSI asks for one, an interim report comes in between. If the incident is still going on after a month, send a progress report instead of the final report, and the final report once it is dealt with."
+            "source": "Art. 23(4) NIS 2. If {authority} asks for one, an interim report comes in between. If the incident is still going on after a month, send a progress report instead of the final report, and the final report within a month of dealing with it."
           },
           "ready": {
             "title": "What you need for the first report",
             "lead": "Settle this now, not in the middle of an emergency:",
             "items": [
               {
-                "name": "Access to the BSI portal",
-                "detail": "you have it since the registration"
+                "name": "Access to the reporting channel",
+                "detail": "in Germany, the BSI portal you have since the registration"
               },
               {
                 "name": "Who reports",
@@ -518,7 +525,7 @@
                 "detail": "what is affected, since when, and whether an attack could be behind it"
               }
             ],
-            "source": "§ 32(1) no. 1 BSIG. A company that is not registered yet reports through the BSI's reporting and information portal (BSI, Meldepflicht info pack)."
+            "source": "Art. 23(1) and (4) NIS 2. In Germany, a company that is not registered yet reports through the BSI's reporting and information portal (BSI, Meldepflicht info pack)."
           },
           "setup": {
             "title": "Record your reporting setup",
@@ -533,26 +540,26 @@
         "fields": {
           "earlyWarningSlaHours": {
             "label": "Your deadline for the early warning, in hours",
-            "hint": "The law requires the report without undue delay, at the latest 24 hours after becoming aware (§ 32(1) no. 1 BSIG). A shorter internal deadline is possible."
+            "hint": "The directive requires the early warning without undue delay, at the latest 24 hours after becoming aware (Art. 23(4)(a) NIS 2). A shorter internal deadline is possible."
           },
           "bsiReportingRegistered": {
-            "label": "Registered in the BSI portal",
-            "hint": "Yes, once the registration with the BSI is complete. You report incidents there with the same access."
+            "label": "Set up to report to {authority}",
+            "hint": "Yes, once you can report through your country's channel. In Germany that is the BSI portal, with the same access as for the registration."
           }
         }
       },
       "12_2": {
-        "headline": "Register with your authority",
-        "teaser": "Your company registers once with the authority in charge.",
+        "headline": "Register with {authority}",
+        "teaser": "Your company registers once with {authority}.",
         "missed": [
           "The directive lists your IP ranges among the details you register (Art. 3(4)(b) NIS 2). Your IT provider knows them. Ask them beforehand.",
           "After registering, you report any change to these details within two weeks (Art. 3(4) NIS 2)."
         ],
         "screens": {
           "learn": {
-            "title": "Registering with your authority",
+            "title": "Registering with {authority}",
             "body": [
-              "Every company NIS 2 applies to registers once with the authority in charge in its country. You tell the authority who you are and how to reach you.",
+              "If NIS 2 applies to your company, it registers once with {authority}, the one in charge in your country. You tell it who you are and how to reach you.",
               "Each member state runs its own registration, usually online. The next screen shows where yours is."
             ],
             "duty": "Registration is a duty of its own, with a deadline set by your country's law. In Germany it is three months after your company first counts as an important or essential entity."
@@ -565,7 +572,7 @@
           "confirmation": {
             "title": "Record the registration",
             "lead": "Two details, so you know later which access was used and on which day.",
-            "document": "Your access to the registration portal"
+            "document": "Your access to the portal of {authority}"
           },
           "proof": {
             "title": "File a proof",
@@ -661,16 +668,16 @@
         "teaser": "A list of the processes, software and devices you work with.",
         "missed": [
           "Software you rent from the cloud belongs on the list too, for example email or accounting.",
-          "For processes and applications, the BSI expects a responsible person (Standard 200-2, section 8.1). Note who knows each one."
+          "For processes and applications, the BSI names a responsible person (Standard 200-2). Note who is responsible for each one."
         ],
         "screens": {
           "learn": {
             "title": "What your company works with",
             "body": [
-              "You can only protect what you know. So write down what your company works with: processes, information, software, devices, rooms and networks. The BSI calls this step the structure analysis (Standard 200-2, section 8.1).",
+              "You can only protect what you know. So write down what your company works with: processes, information, software, devices, data carriers, rooms and networks. Germany's BSI works the same way and calls this step the structure analysis (Standard 200-2).",
               "The list does not have to be perfect. When something new comes along, add it."
             ],
-            "duty": "The law requires concepts for risk analysis and for managing your IT systems, products and processes. Both start with this list."
+            "duty": "The law requires concepts for risk analysis and for managing your IT systems, products and processes. A list of what your company works with is the usual first step for both."
           },
           "list": {
             "title": "What your list can look like",

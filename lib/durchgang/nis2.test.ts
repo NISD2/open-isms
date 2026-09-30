@@ -170,6 +170,21 @@ describe("the NIS 2 script", () => {
 });
 
 describe("the words of the Durchgang", () => {
+  test("names the authority once per language, filled in wherever the copy says {authority}", () => {
+    const registration = NIS2_SCRIPT.find((i) => i.code === "12.2");
+    if (!registration) throw new Error("12.2 is scripted");
+    const headline = (namespace: unknown) => {
+      const resolved = resolveItem(namespace, registration);
+      return resolved.ok ? resolved.value.headline : resolved.errors.join("; ");
+    };
+    expect(headline(de.durchgang)).toBe("Beim BSI registrieren");
+    expect(headline(en.durchgang)).toBe("Register with your authority");
+
+    const unknown = structuredClone(en.durchgang);
+    unknown.items["12_2"].headline = "Register with {agency}";
+    expect(headline(unknown)).toContain("unknown placeholder");
+  });
+
   for (const [locale, namespace, glossary] of LOCALES) {
     test(`every item reads completely in ${locale}, with nothing left over`, () => {
       const errors = NIS2_SCRIPT.flatMap((item) => {

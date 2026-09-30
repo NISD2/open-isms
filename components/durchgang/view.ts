@@ -58,8 +58,12 @@ export interface ItemView {
   readonly fields: Readonly<Record<string, FieldMeta>>;
   /** Only the registers the item has a screen for are loaded. */
   readonly registers: Partial<Registers>;
-  /** Catalogue items whose name is already on the company's asset list. */
-  readonly listedAssets: readonly string[];
+  /**
+   * The company's asset register as it stood when the item opened, for an item with asset
+   * screens, else null. The catalogue only seeds an empty register: with rows in it, the asset
+   * screens become the register itself, so nothing is matched back to the catalogue by name.
+   */
+  readonly assets: RouterOutputs["asset"]["list"] | null;
   /** When the company took over the BSI method in the walk; a second pass then writes nothing. */
   readonly adoptedAt: Date | null;
   /** Loaded only for an item with the registration portals screen. */

@@ -451,29 +451,39 @@ export function Assets({
   entry,
 }: WorkProps & { entry: Of<"assets"> }) {
   const t = useTranslations("durchgang.ui");
+  // The catalogue seeds an empty register only; one that already has rows is shown as it is.
+  if (item.assets && item.assets.length > 0) {
+    return (
+      <>
+        <Heading>{t("assets.title")}</Heading>
+        <Lead>{t("assets.lead")}</Lead>
+        <div className="mt-8">
+          <InlineModulePanel
+            moduleRef="asset"
+            requirementCode={item.code}
+            items={item.assets}
+            isCompleted={false}
+          />
+        </div>
+        <p className="mt-4 text-sm text-muted-foreground">{t("registerHint")}</p>
+      </>
+    );
+  }
   return (
     <>
       <Heading>{entry.copy.title}</Heading>
       <Lead>{entry.copy.lead}</Lead>
       <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
         <ListChecks className="size-4" />
-        {t("onList", {
-          count:
-            new Set([...item.listedAssets, ...draft.checked]).size + draft.custom.length,
-        })}
+        {t("onList", { count: draft.checked.length + draft.custom.length })}
       </p>
       <div className="mt-6">
         <BigChecklist
           sectors={[]}
           groups={entry.screen.groups}
-          checked={[...draft.checked, ...item.listedAssets]}
+          checked={[...draft.checked]}
           custom={[...draft.custom]}
-          onCheckedChange={(checked) =>
-            onDraft({
-              ...draft,
-              checked: checked.filter((id) => !item.listedAssets.includes(id)),
-            })
-          }
+          onCheckedChange={(checked) => onDraft({ ...draft, checked })}
           onCustomChange={(custom) => onDraft({ ...draft, custom })}
         />
       </div>

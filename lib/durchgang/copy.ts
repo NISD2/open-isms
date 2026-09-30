@@ -108,6 +108,51 @@ type Result<T> =
 /** Message files cannot carry dots in keys. */
 export const itemKey = (code: string): string => code.split(".").join("_");
 
+/**
+ * Words each language defines once, under `terms`, and the copy names by placeholder. `authority`
+ * is the body a company registers with and reports to: "BSI" in German, "your authority" in
+ * English. Each language writes its own sentence around it ("beim {authority}", "with
+ * {authority}"), so a new language defines the term instead of rewording every string that names
+ * it. Guidance the BSI publishes stays attributed to the BSI; it is a source, not the authority.
+ */
+const TERMS = z.object({ authority: text });
+type Terms = z.infer<typeof TERMS>;
+const TERM_MARKERS: ReadonlyArray<readonly [string, keyof Terms]> = [
+  ["{authority}", "authority"],
+];
+
+/** The copy with every term filled in, and the path of any string that still holds a brace. */
+const fill = (
+  value: unknown,
+  terms: Terms,
+  where: string,
+): { readonly value: unknown; readonly errors: readonly string[] } => {
+  if (typeof value === "string") {
+    const filled = TERM_MARKERS.reduce(
+      (acc, [marker, key]) => acc.split(marker).join(terms[key]),
+      value,
+    );
+    return {
+      value: filled,
+      errors: filled.includes("{") ? [`${where}: unknown placeholder`] : [],
+    };
+  }
+  if (Array.isArray(value)) {
+    const parts = value.map((v, i) => fill(v, terms, `${where}.${i}`));
+    return { value: parts.map((p) => p.value), errors: parts.flatMap((p) => p.errors) };
+  }
+  if (typeof value === "object" && value !== null) {
+    const parts = Object.entries(value).map(
+      ([k, v]) => [k, fill(v, terms, `${where}.${k}`)] as const,
+    );
+    return {
+      value: Object.fromEntries(parts.map(([k, p]) => [k, p.value])),
+      errors: parts.flatMap(([, p]) => p.errors),
+    };
+  }
+  return { value, errors: [] };
+};
+
 const ok = <T>(value: T): Result<T> => ({ ok: true, value });
 
 const errorsOf = (...results: readonly Result<unknown>[]): readonly string[] =>
@@ -234,7 +279,11 @@ function resolveScreen(
  */
 export function resolveItem(namespace: unknown, item: AnyItem): Result<ResolvedItem> {
   const base = `items.${itemKey(item.code)}`;
-  const head = parse(ITEM_COPY, at(at(namespace, "items"), itemKey(item.code)), base);
+  const terms = parse(TERMS, at(namespace, "terms"), "terms");
+  if (!terms.ok) return terms;
+  const filled = fill(at(at(namespace, "items"), itemKey(item.code)), terms.value, base);
+  if (filled.errors.length > 0) return { ok: false, errors: filled.errors };
+  const head = parse(ITEM_COPY, filled.value, base);
   if (!head.ok) return head;
 
   const screens: readonly AnyScreen[] = item.screens;
