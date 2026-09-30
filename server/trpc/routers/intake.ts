@@ -239,11 +239,20 @@ function isAnswered(value: unknown): boolean {
   return value !== undefined && value !== null && value !== "";
 }
 
+/** Each category's required fields, read from its schema once rather than on every save. */
+const REQUIRED_KEYS: ReadonlyMap<string, readonly string[]> = new Map(
+  Object.entries(CATEGORY_SCHEMAS).map(([code, schema]) => [
+    code,
+    introspectSchema(schema, [])
+      .filter((f) => f.required)
+      .map((f) => f.key),
+  ]),
+);
+
 /** The share of the category's required fields that carry an answer, in percent. */
 function completionOf(categoryCode: string, answers: Record<string, unknown>): number {
-  const schema = CATEGORY_SCHEMAS[categoryCode];
-  const required = (schema ? introspectSchema(schema, []) : []).filter((f) => f.required);
-  const filled = required.filter((f) => isAnswered(answers[f.key]));
+  const required = REQUIRED_KEYS.get(categoryCode) ?? [];
+  const filled = required.filter((key) => isAnswered(answers[key]));
   return required.length > 0 ? Math.round((filled.length / required.length) * 100) : 0;
 }
 
@@ -256,9 +265,12 @@ function completionOf(categoryCode: string, answers: Record<string, unknown>): n
  * saves of one category in flight at once, from two tabs for instance, both
  * used to merge into the same old answers, and the later write put back what
  * the earlier one had changed. Now the second waits and merges into what the
- * first stored. The first save of a category
- * has no row to lock; there the unique index on (assessment, category) turns a
- * simultaneous second insert into an error instead of lost answers.
+ * first stored. The category's first save creates the row empty before
+ * locking it; a second first save meeting it on the unique index does nothing
+ * there and then waits on the lock, so it merges too instead of failing.
+ *
+ * Lock order: the intake row first, then the status rows (moveToInProgress).
+ * Anything that later locks both must take them in the same order.
  */
 async function writeAnswers(
   ctx: IntakeWriter,
@@ -274,7 +286,13 @@ async function writeAnswers(
   const now = new Date();
 
   const { withdrawn, completionPct } = await ctx.db.transaction(async (tx) => {
-    const [existing] = await tx
+    await tx
+      .insert(companyCategoryIntake)
+      .values({ assessmentId: args.assessmentId, categoryId: args.categoryId })
+      .onConflictDoNothing({
+        target: [companyCategoryIntake.assessmentId, companyCategoryIntake.categoryId],
+      });
+    const [stored] = await tx
       .select({ id: companyCategoryIntake.id, answers: companyCategoryIntake.answers })
       .from(companyCategoryIntake)
       .where(
@@ -284,9 +302,10 @@ async function writeAnswers(
         ),
       )
       .for("update");
+    if (!stored) throw new Error("The intake row just ensured is missing.");
 
     // Shallow merge: only the saved requirement's keys change.
-    const merged = { ...(existing?.answers ?? {}), ...args.answers };
+    const merged = { ...(stored.answers ?? {}), ...args.answers };
     const completionPct = completionOf(args.categoryCode, merged);
 
     // Only this requirement's answers changed (no intake field is shared
@@ -304,24 +323,10 @@ async function writeAnswers(
       now,
     });
 
-    const saved = {
-      answers: merged,
-      completionPct,
-      lastSavedBy: ctx.userId,
-      lastSavedAt: now,
-    };
-    if (existing) {
-      await tx
-        .update(companyCategoryIntake)
-        .set(saved)
-        .where(eq(companyCategoryIntake.id, existing.id));
-    } else {
-      await tx.insert(companyCategoryIntake).values({
-        ...saved,
-        assessmentId: args.assessmentId,
-        categoryId: args.categoryId,
-      });
-    }
+    await tx
+      .update(companyCategoryIntake)
+      .set({ answers: merged, completionPct, lastSavedBy: ctx.userId, lastSavedAt: now })
+      .where(eq(companyCategoryIntake.id, stored.id));
     return { withdrawn: reopened, completionPct };
   });
 
@@ -371,7 +376,8 @@ async function moveToInProgress(
 
   // Status rows are locked first and in id order, before withdrawSignOff
   // touches any signer rows, which is the order signOff, confirmModuleRef and
-  // reopenRequirement take them in (see lockStatusRow). The lock also keeps
+  // reopenRequirement take them in (see lockStatusRow). A save already holds
+  // its category's intake row by then (writeAnswers). The lock also keeps
   // an approval or a sign-off from landing between the checks below and the
   // writes after them.
   const rows = await tx
