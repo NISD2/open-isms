@@ -4,16 +4,16 @@ import { answerOf, useAgreementRows } from "./AgreementScreen";
 import { type Draft, isAnswered } from "./draft";
 import { mfaOf, useLoginRows } from "./LoginScreen";
 import { rowSettled, useRatingRows } from "./RatingScreens";
+import { inAudience } from "./TrainingRecords";
 import type { ItemView } from "./view";
 
 /**
  * Whether the person may move on from this screen: every field the schema requires is answered,
- * a file is in place, a source is ticked, a management training is on the list, every listed thing
- * is rated, every supplier's agreements and every sign-in are answered. Naming assets and their
- * providers is never
- * required. Screens that only
- * explain are always complete. Lists are read from the same queries their screens show, so the
- * answer follows each upload and each new line without a second copy of the count.
+ * a file is in place, a source is ticked, a training of the screen's audience is on the list,
+ * every listed thing is rated, every supplier's agreements and every sign-in are answered. Naming
+ * assets and their providers is never required. Screens that only explain are always complete.
+ * Lists are read from the same queries their screens show, so the answer follows each upload and
+ * each new line without a second copy of the count.
  */
 export function useScreenComplete(
   item: ItemView,
@@ -44,7 +44,7 @@ export function useScreenComplete(
     case "register":
       return (
         screen.module !== "training_record" ||
-        (trainings.data ?? []).some((row) => row.isManagement)
+        (trainings.data ?? []).some((row) => inAudience(row, screen.audience))
       );
     case "rate":
       return ratings?.every((row) => rowSettled(row, draft)) ?? false;

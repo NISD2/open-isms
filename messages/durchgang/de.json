@@ -127,7 +127,14 @@
         "withProof": "Nachweis angehängt",
         "withoutProof": "ohne Nachweis",
         "remove": "Löschen",
-        "failed": "Das wurde nicht gespeichert. Bitte versuchen Sie es noch einmal."
+        "failed": "Das wurde nicht gespeichert. Bitte versuchen Sie es noch einmal.",
+        "staff": {
+          "who": "Wer teilgenommen hat",
+          "what": "Thema",
+          "whatHint": "zum Beispiel Phishing erkennen, in der Teambesprechung",
+          "empty": "Noch keine Schulung oder Unterweisung eingetragen.",
+          "proofHint": "Teilnehmerliste, Folien oder ein Export aus dem Onlinekurs."
+        }
       },
       "portals": {
         "yours": "Ihr Land",
@@ -1775,6 +1782,52 @@
           "lastBackupTest": {
             "label": "Letzte erfolgreiche Wiederherstellung",
             "hint": "Der Tag, an dem zuletzt Daten aus einer Sicherung vollständig zurückkamen."
+          }
+        }
+      },
+      "8_2": {
+        "headline": "Die Schulung der Beschäftigten festhalten",
+        "teaser": "Wer wann worüber unterwiesen wurde.",
+        "missed": [
+          "Auch neue Beschäftigte brauchen die Unterweisung. Das BSI hält es für zweckmäßig, schon bei der Ersteinweisung zu schulen und einmal im Jahr über Neuerungen zu informieren.",
+          "Ohne Aufzeichnung lässt sich eine Schulung später nicht belegen. Das BSI nennt die Dokumentation der Maßnahmen eine notwendige Bedingung, um die Anforderung des BSI-Gesetzes zu erfüllen."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Was Ihre Beschäftigten wissen sollten",
+            "body": [
+              "Eine Phishing-E-Mail, ein Anruf vom angeblichen IT-Support, ein fremder USB-Stick: Solche Angriffe richten sich an Ihre Beschäftigten. Wer sie erkennt, meldet sie, statt zu klicken.",
+              "Das BSI hält es für zweckmäßig, neue Beschäftigte bei der Ersteinweisung zu schulen und einmal im Jahr über Neuerungen zu informieren. Auch das Erklären Ihrer Leitlinie und ein ausgehängtes Plakat wie die IT-Notfallkarte zählen; das BSI nennt die Vermittlung klarer Sicherheitsrichtlinien und Poster ausdrücklich. Wichtig ist, dass Sie festhalten, wer wann teilgenommen hat."
+            ],
+            "duty": "Das Gesetz verlangt grundlegende Schulungen und Sensibilisierungsmaßnahmen zur Informationssicherheit. Wie oft, in welcher Form und mit welchem Anbieter, legt es nicht fest.",
+            "link": "Zur Seite des BSI über Schulungen"
+          },
+          "record": {
+            "title": "So können Aufzeichnungen aussehen",
+            "caption": "Eine Zeile pro Schulung oder Unterweisung:",
+            "rows": [
+              {
+                "name": "Phishing erkennen, alle Beschäftigten",
+                "detail": "Teambesprechung, 14. Januar 2026, Teilnehmerliste mit Unterschriften"
+              },
+              {
+                "name": "Ersteinweisung, neue Kollegin im Vertrieb",
+                "detail": "erster Arbeitstag, 2. März 2026, Leitlinie erklärt und ausgehändigt"
+              },
+              {
+                "name": "Onlinekurs Informationssicherheit, Verwaltung",
+                "detail": "abgeschlossen bis 30. April 2026, Export aus dem Kurs"
+              }
+            ],
+            "note": "Das Gesetz schreibt kein Format vor. Halten Sie fest, worum es ging, wer teilgenommen hat und wann."
+          },
+          "trainings": {
+            "title": "Ihre Schulungen und Unterweisungen",
+            "lead": "Tragen Sie ein, was schon stattgefunden hat, eine Zeile pro Termin. Eine Teilnehmerliste oder einen Export können Sie anhängen."
+          },
+          "done": {
+            "title": "Ihre Schulungen sind festgehalten",
+            "note": "Tragen Sie künftige Schulungen auf der Seite Schulungen ein, auch die Unterweisung neuer Beschäftigter."
           }
         }
       }

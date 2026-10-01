@@ -69,6 +69,7 @@ export type {
   RegisterModule,
   ScreenKind,
   SourceId,
+  TrainingAudience,
 } from "./types";
 export { askedFields, SOURCE_IDS } from "./types";
 

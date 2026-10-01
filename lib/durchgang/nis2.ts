@@ -56,6 +56,14 @@ export const NOT_WALKED: Readonly<Record<string, string>> = {
     "Recovery after an emergency is the Wiederherstellung section of the plan 4.2 writes, where § 30 Abs. 2 Nr. 3 BSIG names it together with continuity and crisis management. An order of recovery and recovery objectives per system are CIR 2024/2690 Annex 4.1.2(e) and (f), for the digital providers the CIR covers, and the BSI's guide for small companies places the Wiederanlaufplan from its Aufbau level on. The requirement page keeps each system's RTO and RPO.",
   "4.5":
     "No statute asks for a test of the continuity plan: § 30 Abs. 2 Nr. 3 BSIG names the measures, and Nr. 6 asks for procedures to assess effectiveness in general, which 7.x carries. Tests at planned intervals are CIR 2024/2690 Annex 4.1.4, 4.2.6 and 4.3.4, for the digital providers the CIR covers. The plan 4.2 writes offers a yearly exercise as a clause, after BSI-Standard 200-4, and the exercise register stays on the requirement page.",
+  "8.1":
+    "The Leitlinie is written in 2.4, and its last screen says to give it to every employee. No statute asks for a separate acceptable-use policy or for staff acknowledgements: those are CIR 2024/2690 Annex 1.1.1(f) and 1.2.2 for the digital providers the CIR covers, and announcing the Leitlinie to staff is BSI advice (IT-Grundschutz ISMS.1.A3). Telling staff the rules is an awareness measure under § 30 Abs. 2 Nr. 7 BSIG, recorded in 8.2.",
+  "8.3":
+    "§ 30 Abs. 2 Nr. 7 BSIG asks for 'grundlegende Schulungen und Sensibilisierungsmaßnahmen', not for training by role. Role-specific security training, including on a change of role, is CIR 2024/2690 Annex 8.2, which binds only the digital providers the CIR covers. Management training is § 38 Abs. 3 BSIG, walked in 1.1, and any other training can be recorded in 8.2.",
+  "7.1":
+    "Neither § 30 BSIG nor Art. 21 NIS 2 asks for security KPIs, a dashboard or a trend tool: § 30 Abs. 2 Nr. 6 asks for Konzepte und Verfahren zur Bewertung der Wirksamkeit. Indicators are CIR 2024/2690 Annex 1.1.1(j) and 7.2, which bind only the digital providers the CIR covers, and the BSI suggests them as advice. The procedure runs in the management review (7.3); the requirement page keeps the KPI register.",
+  "7.2":
+    "No statute asks every entity for internal audits. Independent reviews are CIR 2024/2690 Annex 2.3, which binds only the digital providers the CIR covers; audits every three years bind operators of critical facilities (§ 39 Abs. 1 BSIG), and the BSI may order audits of particularly important entities (§ 61 Abs. 1 BSIG). Regular reviews of effectiveness are BSI advice (IT-Grundschutz ISMS.1.A11). Effectiveness is checked in the management review (7.3); the requirement page keeps the audit plan.",
 };
 
 export const NIS2_SCRIPT: readonly AnyItem[] = [
@@ -67,7 +75,12 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     screens: [
       { kind: "learn", id: "learn", link: "ceo_course" },
       { kind: "sample", id: "record" },
-      { kind: "register", id: "trainings", module: "training_record" },
+      {
+        kind: "register",
+        id: "trainings",
+        module: "training_record",
+        audience: "management",
+      },
       { kind: "done", id: "done" },
     ],
     notAsked: {
@@ -420,6 +433,35 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
         "No statute asks for encrypted backups; CIR 2024/2690 Annex 4.2.2(d) asks the digital providers it covers for access controls to backup copies, and encryption belongs to § 30 Abs. 2 Nr. 8 BSIG, which 9.1 walks (its Konzept offers an encrypted-backup clause).",
       backupRestoreSuccessRate:
         "No primary source names a restore success rate; the walk records the date of the last restore that worked.",
+    },
+  }),
+  item({
+    code: "8.2",
+    category: "TRN",
+    glossary: [],
+    reviewed: "2026-10-01",
+    screens: [
+      { kind: "learn", id: "learn", link: "bsi_nis2_schulungen" },
+      { kind: "sample", id: "record" },
+      {
+        kind: "register",
+        id: "trainings",
+        module: "training_record",
+        audience: "staff",
+      },
+      { kind: "done", id: "done" },
+    ],
+    notAsked: {
+      trainingPlatform:
+        "§ 30 Abs. 2 Nr. 7 BSIG names no format or provider; each training line records what it covered, and one platform field cannot hold several.",
+      trainingFrequency:
+        "The law sets no interval for staff training (§ 30 Abs. 2 Nr. 7 BSIG; Art. 20(2) NIS 2 only has Member States encourage regular staff training), and a fixed list of rhythms would pre-decide one. The BSI's suggestion (training at onboarding, an update every year) is shown on the learn screen as the BSI's.",
+      trainingCompletionRate:
+        "A completion rate is an effectiveness figure (CIR 2024/2690 Annex 8.1.3 for the digital providers the CIR covers, and BSI advice), not a duty, and a typed percentage would drift from the training lines.",
+      lastTrainingDate:
+        "The last training date is read off the training lines; a separate field would hold the same fact twice.",
+      newEmployeeOnboarding:
+        "Reaching new employees is CIR 2024/2690 Annex 8.1.2(a) for the digital providers the CIR covers, and the BSI's onboarding training is advice; a briefing on a new employee's first day is a training line like any other.",
     },
   }),
 ];

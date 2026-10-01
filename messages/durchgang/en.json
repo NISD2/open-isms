@@ -127,7 +127,14 @@
         "withProof": "Proof attached",
         "withoutProof": "no proof",
         "remove": "Delete",
-        "failed": "That was not saved. Please try again."
+        "failed": "That was not saved. Please try again.",
+        "staff": {
+          "who": "Who took part",
+          "what": "Topic",
+          "whatHint": "for example spotting phishing, at the team meeting",
+          "empty": "No training or briefing entered yet.",
+          "proofHint": "Attendance list, slides or an export from the online course."
+        }
       },
       "portals": {
         "yours": "Your country",
@@ -1775,6 +1782,52 @@
           "lastBackupTest": {
             "label": "Last successful restore",
             "hint": "The day data last came back complete from a backup."
+          }
+        }
+      },
+      "8_2": {
+        "headline": "Record your staff training",
+        "teaser": "Who was briefed on what, and when.",
+        "missed": [
+          "New staff need the briefing too. Germany's BSI considers it sensible to train people when they start and to inform everyone about what is new once a year.",
+          "Without a record, a training cannot be shown later. The BSI calls documenting the measures a necessary condition for meeting the requirement of the German act."
+        ],
+        "screens": {
+          "learn": {
+            "title": "What your staff should know",
+            "body": [
+              "A phishing email, a call from a supposed IT support desk, an unknown USB stick: attacks like these are aimed at your staff. Whoever recognises them reports them instead of clicking.",
+              "Germany's BSI considers it sensible to train new staff when they start and to inform everyone about what is new once a year. Explaining your security policy and putting up a poster such as an IT emergency card count too; the BSI names conveying clear security rules and posters explicitly. What matters is that you record who took part and when."
+            ],
+            "duty": "The law requires basic cyber hygiene practices and cybersecurity training. It does not say how often, in what form or with which provider.",
+            "link": "The BSI's page on training (in German)"
+          },
+          "record": {
+            "title": "What records can look like",
+            "caption": "One line per training or briefing:",
+            "rows": [
+              {
+                "name": "Spotting phishing, all staff",
+                "detail": "team meeting, 14 January 2026, attendance list with signatures"
+              },
+              {
+                "name": "First-day briefing, new colleague in sales",
+                "detail": "first working day, 2 March 2026, security policy explained and handed over"
+              },
+              {
+                "name": "Online course on information security, administration",
+                "detail": "completed by 30 April 2026, export from the course"
+              }
+            ],
+            "note": "The law prescribes no format. Record what it covered, who took part and when."
+          },
+          "trainings": {
+            "title": "Your trainings and briefings",
+            "lead": "Enter what has already taken place, one line per session. You can attach an attendance list or an export."
+          },
+          "done": {
+            "title": "Your training is recorded",
+            "note": "Enter future trainings on the Training page, including the briefing of new staff."
           }
         }
       }

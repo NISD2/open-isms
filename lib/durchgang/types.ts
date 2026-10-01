@@ -34,8 +34,18 @@ export type Provision =
  */
 export type RegisterModule = "supplier" | "team" | "training_record";
 
+/**
+ * Whose trainings a training screen lists and adds: management's, which § 38 Abs. 3 BSIG asks
+ * for, or the rest of the staff's, which § 30 Abs. 2 Nr. 7 asks for. One register holds both.
+ */
+export type TrainingAudience = "management" | "staff";
+
 /** A page a learn screen points to: one of the platform's, or one the BSI publishes. */
-export type LearnLink = "ceo_course" | "bsi_it_notfallkarte" | "bsi_tr_02102";
+export type LearnLink =
+  | "ceo_course"
+  | "bsi_it_notfallkarte"
+  | "bsi_tr_02102"
+  | "bsi_nis2_schulungen";
 
 /** A BSI default the person may take over with one click, as an explicit write. */
 export type Adoptable = "bsi_200_3_method";
@@ -105,7 +115,17 @@ export type Screen<C extends CategoryCode> =
       readonly field: CategoryField<C> | null;
     }
   | { readonly kind: "adopt"; readonly id: string; readonly adopts: Adoptable }
-  | { readonly kind: "register"; readonly id: string; readonly module: RegisterModule }
+  | {
+      readonly kind: "register";
+      readonly id: string;
+      readonly module: Exclude<RegisterModule, "training_record">;
+    }
+  | {
+      readonly kind: "register";
+      readonly id: string;
+      readonly module: "training_record";
+      readonly audience: TrainingAudience;
+    }
   | {
       readonly kind: "sources";
       readonly id: string;

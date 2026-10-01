@@ -435,13 +435,14 @@ export function Assets({
 
 export function Register({ item, entry }: { item: ItemView; entry: Of<"register"> }) {
   const t = useTranslations("durchgang.ui");
+  const { screen } = entry;
   return (
     <>
       <Heading>{entry.copy.title}</Heading>
       <Lead>{entry.copy.lead}</Lead>
       <div className="mt-8">
         {(() => {
-          switch (entry.screen.module) {
+          switch (screen.module) {
             case "team":
               return <Team rows={item.registers.team ?? []} />;
             case "training_record":
@@ -449,19 +450,20 @@ export function Register({ item, entry }: { item: ItemView; entry: Of<"register"
                 <TrainingRecords
                   initial={item.registers.training_record ?? []}
                   locale={item.locale}
+                  audience={screen.audience}
                 />
               );
             case "supplier":
               return (
                 <InlineModulePanel
-                  moduleRef={entry.screen.module}
+                  moduleRef={screen.module}
                   requirementCode={item.code}
                   items={item.registers.supplier ?? []}
                   isCompleted={false}
                 />
               );
             default:
-              return entry.screen.module satisfies never;
+              return screen satisfies never;
           }
         })()}
       </div>

@@ -94,6 +94,11 @@ const LEARN_HREF: Readonly<
     de: "https://www.bsi.bund.de/dok/TR-02102",
     en: "https://www.bsi.bund.de/EN/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/Technische-Richtlinien/TR-nach-Thema-sortiert/tr02102/tr02102_node.html",
   },
+  bsi_nis2_schulungen: {
+    kind: "bsi",
+    de: "https://www.bsi.bund.de/dok/nis-2-schulung-sensibilisierung",
+    en: "https://www.bsi.bund.de/dok/nis-2-schulung-sensibilisierung",
+  },
 };
 
 const LINK_STYLE =
