@@ -35,21 +35,15 @@ export default async function BestellenPage({
 
   const status = await api.billing.status();
   if (!status.open) notFound();
+  // Already paid: what they have, their invoices and how to cancel are on the billing page.
+  if (status.activeInvoice) redirect(getPathname({ href: "/billing", locale }));
 
   const t = await getTranslations("billing.order");
-  const blocked = status.activeInvoice
-    ? t("alreadyPaid", {
-        date: new Intl.DateTimeFormat(locale, {
-          dateStyle: "long",
-          timeZone: "UTC",
-        }).format(new Date(`${status.activeInvoice.periodEnd}T12:00:00Z`)),
-        number: status.activeInvoice.number,
-      })
-    : status.orderPending
-      ? t("pendingCheck")
-      : status.isPayer
-        ? null
-        : t("payerOnly");
+  const blocked = status.orderPending
+    ? t("pendingCheck")
+    : status.isPayer
+      ? null
+      : t("payerOnly");
 
   return (
     <div className="space-y-8">
