@@ -106,7 +106,7 @@ function dispatchNewsletter(opts: {
       for (const r of batch) {
         if (!r.email) continue;
         const unsubUrl = buildUnsubscribeUrl(r.id);
-        const email = newsletterEmail({
+        const email = await newsletterEmail({
           subject,
           preheader,
           bodyHtml,
@@ -275,7 +275,7 @@ export const newsletterRouter = router({
     .input(issueInput)
     .mutation(async ({ input }) => {
       const bodyHtml = await renderNewsletterMarkdown(input.bodyMarkdown);
-      const email = newsletterEmail({
+      const email = await newsletterEmail({
         subject: input.subject,
         preheader: input.preheader ?? null,
         bodyHtml,
@@ -387,7 +387,7 @@ export const newsletterRouter = router({
       // Archive a snapshot of exactly what went out (placeholder unsubscribe
       // link, since the real one is per-recipient) so the issue can be
       // reviewed later regardless of template changes.
-      const sentHtml = newsletterEmail({
+      const { html: sentHtml } = await newsletterEmail({
         subject: issue.subject,
         preheader: issue.preheader,
         bodyHtml,
@@ -396,7 +396,7 @@ export const newsletterRouter = router({
         forwardUrl,
         cta,
         viewInBrowserUrl,
-      }).html;
+      });
 
       // Mark sent up front so a second click cannot double-send while the
       // batch is in flight (mirrors the cron's pre-send dedup approach).
@@ -481,7 +481,7 @@ export const newsletterRouter = router({
       }
       const bodyHtml = await renderNewsletterMarkdown(input.bodyMarkdown);
       const unsubUrl = buildUnsubscribeUrl(ctx.userId);
-      const email = newsletterEmail({
+      const email = await newsletterEmail({
         subject: `[Test] ${input.subject}`,
         preheader: input.preheader ?? null,
         bodyHtml,

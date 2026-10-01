@@ -212,7 +212,7 @@ export async function GET(req: NextRequest) {
       if (courseList.length === 0) continue;
 
       const unsubUrl = buildUnsubscribeUrl(u.id);
-      const email = courseFollowupEmail({
+      const email = await courseFollowupEmail({
         recipientName: u.name,
         courses: courseList,
         unsubscribeUrl: unsubUrl,

@@ -72,7 +72,7 @@ const confirm = async (
   const result = await sendMail({
     emailType: "billing.refund_sent",
     to: [row.email, ...accounting],
-    ...documentEmail(wording),
+    ...(await documentEmail(wording)),
     idempotencyKey: `refund-sent-${row.creditNoteNumber}`,
   });
   return wasDelivered(result) ? "sent" : "not_sent";

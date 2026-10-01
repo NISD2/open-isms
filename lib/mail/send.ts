@@ -252,6 +252,6 @@ export async function sendWelcomeEmail(opts: { name: string; email: string }) {
   return sendMail({
     emailType: "auth.welcome",
     to: opts.email,
-    ...welcomeEmail({ name: opts.name }),
+    ...(await welcomeEmail({ name: opts.name })),
   });
 }

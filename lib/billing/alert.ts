@@ -23,6 +23,6 @@ export const alertOperators = async (subject: string, lines: readonly string[]) 
   await sendMail({
     emailType: "internal.billing_alert",
     to: admins,
-    ...billingAlertEmail({ subject, lines }),
+    ...(await billingAlertEmail({ subject, lines })),
   }).catch((err) => console.error("[billing] operator alert not sent", err));
 };

@@ -454,11 +454,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
               ? sendMail({
                   emailType: "internal.new_signup_alert",
                   to: admins,
-                  ...newUserSignupEmail({
+                  ...(await newUserSignupEmail({
                     userEmail: authUser.email,
                     userName: newName,
                     provider: account.provider,
-                  }),
+                  })),
                 }).catch((err) =>
                   console.error("[auth] Failed to send admin signup alert:", err),
                 )

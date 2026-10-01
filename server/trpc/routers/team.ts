@@ -239,12 +239,12 @@ export const teamRouter = router({
       sendMail({
         emailType: "account.invite",
         to: email,
-        ...inviteEmail({
+        ...(await inviteEmail({
           companyName: companyRow?.name ?? "your company",
           inviterName,
           inviteUrl,
           role: emailRole,
-        }),
+        })),
       }).then((r) => {
         // isSuppressedSendId, not r.success: a suppressed send also reports
         // success, and an audit trail claiming "invite email sent" for mail
@@ -539,10 +539,10 @@ export const teamRouter = router({
       sendMail({
         emailType: "account.member_removed",
         to: member.email,
-        ...memberRemovedEmail({
+        ...(await memberRemovedEmail({
           companyName: companyRow?.name ?? "your company",
           memberName: member.name,
-        }),
+        })),
       }).then((r) => {
         if (r.success) {
           logAudit({

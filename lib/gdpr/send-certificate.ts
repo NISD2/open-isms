@@ -42,7 +42,7 @@ const send = async (db: DbOrTx, erasure: Erasure): Promise<boolean> => {
   if (!row) throw new Error(`erasure record ${erasure.caseRef} not found`);
   const files = await erasureStoredFiles(db, row);
   const record = erasureRecord(row, files);
-  const content = documentEmail(
+  const content = await documentEmail(
     erasureConfirmationWording(row, files, erasure.locale, {
       html: await renderRecordMarkdown(record),
       text: record,

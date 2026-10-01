@@ -107,14 +107,14 @@ export async function broadcastIncidentBroadcast(broadcastId: string): Promise<b
     // (supplier.unsubscribedAt), checked when the relationship is selected.
     emailType: "supplier.incident_broadcast",
     to,
-    ...supplierIncidentBroadcastEmail({
+    ...(await supplierIncidentBroadcastEmail({
       supplierName,
       severity: severityForEmail(evt.severity),
       publishedAt: evt.createdAt,
       // The anchor SharedIncidentsSection gives each notice on the access page.
       incidentUrl: `${link}#incident-${evt.id}`,
       unsubscribeUrl: link,
-    }),
+    })),
   });
 
   await db
@@ -145,7 +145,7 @@ export async function notifyCustomerAdded(
   const supplierName = await getSupplierName(supplierCompanyId);
   const link = accessUrl(rel.unsubscribeToken);
 
-  const email = supplierAddedYouEmail({
+  const email = await supplierAddedYouEmail({
     supplierName,
     profileUrl: link,
     unsubscribeUrl: link,

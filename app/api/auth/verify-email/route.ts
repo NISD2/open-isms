@@ -176,11 +176,11 @@ export async function POST(request: Request) {
         ? sendMail({
             emailType: "internal.new_signup_alert",
             to: admins,
-            ...newUserSignupEmail({
+            ...(await newUserSignupEmail({
               userEmail: email,
               userName: userRow.name,
               provider: "credentials",
-            }),
+            })),
           }).catch((err) =>
             console.error("[verify-email] Failed to send admin signup alert:", err),
           )

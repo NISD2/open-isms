@@ -1,41 +1,54 @@
 /**
- * Email templates: plain functions returning { subject, html, text }
+ * Email builders: each returns { subject, html, text } for one message.
  *
- * Usage:
- *   const email = inviteEmail({ ... });
+ * The HTML is a React Email component in ./emails, rendered here with renderEmail; the subject
+ * and the plain-text twin are written here, next to it. Usage:
+ *   const email = await inviteEmail({ ... });
  *   await sendMail({ to: "user@co.com", ...email });
  */
 
 import { mailSupportEmail } from "@/lib/env";
 import type { Locale } from "@/lib/seo";
-// Shared scaffolding (brand tokens, layout, escaping) lives in ./layout so
-// email modules outside this file (lib/lifecycle) can reuse it.
+import { type DigestItem, type DigestNextStep, payoffLine, withUtm } from "./digest";
+import AccountSetupEmail, { ACCOUNT_SETUP_COPY } from "./emails/account-setup";
+import CategoryAssignedEmail from "./emails/category-assigned";
+import CategoryUnassignedEmail from "./emails/category-unassigned";
+import CodeEmail from "./emails/code";
+import ContactEmailChangedEmail from "./emails/contact-email-changed";
+import CourseFollowupEmail from "./emails/course-followup";
+import DailyDigestEmail from "./emails/daily-digest";
+import DocumentLetterEmail from "./emails/document-letter";
+import InviteEmail from "./emails/invite";
+import MemberRemovedEmail from "./emails/member-removed";
+import NewsletterEmail from "./emails/newsletter";
+import OperatorAlertEmail from "./emails/operator-alert";
+import { AdvisoryRequestEmail, NewSignupEmail } from "./emails/operator-notices";
+import RegistrationAttemptEmail from "./emails/registration-attempt";
+import ReviewDecisionEmail from "./emails/review-decision";
 import {
-  BRAND,
-  type EmailChrome,
+  SupplierAddedYouEmail,
+  SupplierIncidentEmail,
+  SupplierInviteEmail,
+} from "./emails/supplier-mails";
+import WeeklyDigestEmail from "./emails/weekly-digest";
+import WelcomeEmail from "./emails/welcome";
+import {
   type EmailContent,
-  emailLayout,
-  escapeHtml,
   letterReplyTo,
   letterSignOff,
   type PreferenceFooter,
   preferenceFooterText,
-  SEVERITY,
   safeHeader,
 } from "./layout";
 import { type EmailLocale, resolveEmailLocale } from "./locale";
+import { renderEmail } from "./render";
 import { companyNameForMail } from "./sender-name";
 
-/** The chrome of a message written only in English (most of the workflow mail, for now). */
-const ENGLISH_ONLY = { locale: "en" } as const satisfies EmailChrome;
+export type { DigestItem, DigestNextStep } from "./digest";
 
-/** The chrome of a message to our own operators, who read German. */
-const TO_OPERATORS = { locale: "de" } as const satisfies EmailChrome;
-
-/** The chrome for a template that takes a site locale: the email language closest to it. */
-const chromeFor = (locale: Locale | undefined): EmailChrome => ({
-  locale: resolveEmailLocale(locale ?? null, null),
-});
+/** The email language closest to a site locale. */
+const emailLocaleOf = (locale: Locale | undefined): EmailLocale =>
+  resolveEmailLocale(locale ?? null, null);
 
 // ---------------------------------------------------------------------------
 // Welcome
@@ -45,37 +58,14 @@ const chromeFor = (locale: Locale | undefined): EmailChrome => ({
  * After the first sign-in: a short note from the team and one place to start. It asks for
  * questions, so on nisd2.eu they go to the published contact address, not the no-reply sender.
  */
-export function welcomeEmail(opts: { name: string }): EmailContent & {
-  readonly replyTo?: string;
-} {
+export async function welcomeEmail(opts: {
+  name: string;
+}): Promise<EmailContent & { readonly replyTo?: string }> {
   const replyTo = letterReplyTo();
   const contact = replyTo ?? mailSupportEmail();
-  const supportEmail = escapeHtml(contact);
-  // The styles of the React Email version it replaced, so the first email reads as it always did.
-  const link = (href: string, label: string) =>
-    `<a href="${href}" style="color: ${BRAND.primary}; text-decoration: underline;">${label}</a>`;
-  const p = (html: string) =>
-    `<p style="color: ${BRAND.foreground}; font-size: 15px; line-height: 1.65; margin: 0 0 16px;">${html}</p>`;
   return {
     subject: "Your NISD2 account is ready",
-    html: emailLayout(
-      [
-        `<p style="color: ${BRAND.foreground}; font-size: 18px; font-weight: 600; margin: 0 0 16px;">Hey ${escapeHtml(opts.name)},</p>`,
-        p("thanks for signing up."),
-        p(
-          `Our mission is straightforward: NIS2 compliance costs European companies ${link("https://nisd2.eu", "€31 billion every year")}. We're cutting that in half by replacing expensive consultants with a platform that does the heavy lifting for you.`,
-        ),
-        p(
-          `A good first step is the ${link("https://nisd2.eu/training/courses/nis2-ceo", "CEO &amp; Management Training")}. It covers what NIS2 actually requires from leadership and satisfies the §38 BSIG training obligation, it takes about 4 hours.`,
-        ),
-        p(
-          `If you have any questions, write to me at ${link(`mailto:${supportEmail}`, supportEmail)}`,
-        ),
-        `<p style="color: ${BRAND.foreground}; font-size: 15px; line-height: 1.65; margin: 24px 0 0;">Cory Hisey<br /><a href="https://nisd2.eu" style="color: ${BRAND.mutedForeground}; text-decoration: none;">NISD2.eu</a></p>`,
-        `<p style="color: ${BRAND.mutedForeground}; font-size: 12px; margin: 24px 0 0;">You're receiving this because you created an account at nisd2.eu.</p>`,
-      ].join("\n"),
-      ENGLISH_ONLY,
-    ),
+    html: await renderEmail(WelcomeEmail, { name: opts.name, contact }),
     text: [
       `Hey ${opts.name},`,
       "thanks for signing up.",
@@ -93,37 +83,16 @@ export function welcomeEmail(opts: { name: string }): EmailContent & {
 // Invite
 // ---------------------------------------------------------------------------
 
-export function inviteEmail(opts: {
+export async function inviteEmail(opts: {
   companyName: string;
   inviterName: string;
   inviteUrl: string;
   role: string;
-}): EmailContent {
+}): Promise<EmailContent> {
   const { companyName, inviterName, inviteUrl, role } = opts;
-  const safeCo = escapeHtml(companyName);
-  const safeInviter = escapeHtml(inviterName);
-  const safeRole = escapeHtml(role);
-
   return {
     subject: `${safeHeader(inviterName)} invited you to ${safeHeader(companyName)} on NISD2`,
-    html: emailLayout(
-      `
-        <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">Join ${safeCo}</h2>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
-          ${safeInviter} has invited you to join <strong>${safeCo}</strong> as <strong>${safeRole}</strong> on the NIS2 Compliance Platform.
-        </p>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 24px;">
-          Click the button below to accept and get started.
-        </p>
-        <a href="${inviteUrl}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
-          Accept Invite
-        </a>
-        <p style="color: ${BRAND.mutedForeground}; font-size: 13px; margin: 24px 0 0; line-height: 1.5;">
-          This invite expires in 7 days. If you didn't expect this email, you can ignore it.
-        </p>
-    `,
-      ENGLISH_ONLY,
-    ),
+    html: await renderEmail(InviteEmail, opts),
     text: [
       `Join ${companyName}`,
       ``,
@@ -140,34 +109,15 @@ export function inviteEmail(opts: {
 // Contact Email Changed
 // ---------------------------------------------------------------------------
 
-export function contactEmailChangedEmail(opts: {
+export async function contactEmailChangedEmail(opts: {
   companyName: string;
   oldEmail: string;
   newEmail: string;
-}): EmailContent {
+}): Promise<EmailContent> {
   const { companyName, oldEmail, newEmail } = opts;
-  const safeCo = escapeHtml(companyName);
-  const safeOld = escapeHtml(oldEmail);
-  const safeNew = escapeHtml(newEmail);
-
   return {
     subject: `The compliance contact for ${safeHeader(companyName)} was changed`,
-    html: emailLayout(
-      `
-        <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">Contact Email Changed</h2>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
-          The compliance contact email for <strong>${safeCo}</strong> has been changed.
-        </p>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
-          Previous: <strong>${safeOld}</strong><br/>
-          New: <strong>${safeNew}</strong>
-        </p>
-        <p style="color: ${BRAND.mutedForeground}; font-size: 13px; margin: 24px 0 0; line-height: 1.5;">
-          If you did not make this change, please contact your team administrator.
-        </p>
-    `,
-      ENGLISH_ONLY,
-    ),
+    html: await renderEmail(ContactEmailChangedEmail, opts),
     text: [
       `Contact Email Changed`,
       ``,
@@ -185,7 +135,7 @@ export function contactEmailChangedEmail(opts: {
 // Category Assigned
 // ---------------------------------------------------------------------------
 
-export function categoryAssignedEmail(opts: {
+export async function categoryAssignedEmail(opts: {
   assigneeName: string;
   categoryName: string;
   categoryCode: string;
@@ -193,7 +143,7 @@ export function categoryAssignedEmail(opts: {
   assignerName: string;
   categoryUrl: string;
   footer: PreferenceFooter;
-}): EmailContent {
+}): Promise<EmailContent> {
   const {
     assigneeName,
     categoryName,
@@ -202,29 +152,9 @@ export function categoryAssignedEmail(opts: {
     assignerName,
     categoryUrl,
   } = opts;
-  const safeAssignee = escapeHtml(assigneeName);
-  const safeCatName = escapeHtml(categoryName);
-  const safeCatCode = escapeHtml(categoryCode);
-  const safeCo = escapeHtml(companyName);
-  const safeAssigner = escapeHtml(assignerName);
-
   return {
     subject: `${safeHeader(assignerName)} assigned you ${safeHeader(categoryName)}`,
-    html: emailLayout(
-      `
-        <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">New Assignment</h2>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
-          Hi ${safeAssignee}, ${safeAssigner} has assigned you to <strong>${safeCatName}</strong> (${safeCatCode}) in ${safeCo}.
-        </p>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 24px;">
-          You can now fill out the compliance requirements for this category.
-        </p>
-        <a href="${categoryUrl}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
-          Go to ${safeCatCode}
-        </a>
-    `,
-      opts.footer,
-    ),
+    html: await renderEmail(CategoryAssignedEmail, opts),
     text: [
       `New Assignment`,
       ``,
@@ -241,33 +171,17 @@ export function categoryAssignedEmail(opts: {
 // Category Unassigned
 // ---------------------------------------------------------------------------
 
-export function categoryUnassignedEmail(opts: {
+export async function categoryUnassignedEmail(opts: {
   assigneeName: string;
   categoryName: string;
   categoryCode: string;
   companyName: string;
   footer: PreferenceFooter;
-}): EmailContent {
+}): Promise<EmailContent> {
   const { assigneeName, categoryName, categoryCode, companyName } = opts;
-  const safeAssignee = escapeHtml(assigneeName);
-  const safeCatName = escapeHtml(categoryName);
-  const safeCatCode = escapeHtml(categoryCode);
-  const safeCo = escapeHtml(companyName);
-
   return {
     subject: `You are no longer assigned to ${safeHeader(categoryName)}`,
-    html: emailLayout(
-      `
-        <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">Assignment Removed</h2>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
-          Hi ${safeAssignee}, you have been unassigned from <strong>${safeCatName}</strong> (${safeCatCode}) in ${safeCo}.
-        </p>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0;">
-          If you believe this was a mistake, please contact your team administrator.
-        </p>
-    `,
-      opts.footer,
-    ),
+    html: await renderEmail(CategoryUnassignedEmail, opts),
     text: [
       `Assignment Removed`,
       ``,
@@ -284,37 +198,22 @@ export function categoryUnassignedEmail(opts: {
 // Review Decision (Approved / Rejected)
 // ---------------------------------------------------------------------------
 
-export function reviewDecisionEmail(opts: {
+export async function reviewDecisionEmail(opts: {
   submitterName: string;
   requirementCode: string;
   requirementTitle: string;
   decision: "approved" | "rejected";
   feedback?: string | null;
   footer: PreferenceFooter;
-}): EmailContent {
+}): Promise<EmailContent> {
   const { submitterName, requirementCode, requirementTitle, decision, feedback } = opts;
   const label = decision === "approved" ? "Approved" : "Rejected";
-  const color = decision === "approved" ? SEVERITY.success : SEVERITY.destructive;
-  const safeName = escapeHtml(submitterName);
-  const safeCode = escapeHtml(requirementCode);
-  const safeTitle = escapeHtml(requirementTitle);
-  const safeFeedback = feedback ? escapeHtml(feedback) : null;
-
   return {
     subject:
       decision === "approved"
         ? `${safeHeader(requirementCode)} was approved`
         : `${safeHeader(requirementCode)} needs another look`,
-    html: emailLayout(
-      `
-        <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">Submission ${label}</h2>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
-          Hi ${safeName}, your submission for <strong>${safeCode}</strong> (${safeTitle}) has been <span style="color: ${color}; font-weight: 600;">${decision}</span>.
-        </p>
-        ${safeFeedback ? `<p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 16px 0 0; padding: 12px; background: ${BRAND.muted}; border-radius: 6px;"><strong>Feedback:</strong> ${safeFeedback}</p>` : ""}
-    `,
-      opts.footer,
-    ),
+    html: await renderEmail(ReviewDecisionEmail, opts),
     text: [
       `Submission ${label}`,
       ``,
@@ -330,28 +229,14 @@ export function reviewDecisionEmail(opts: {
 // Member Removed
 // ---------------------------------------------------------------------------
 
-export function memberRemovedEmail(opts: {
+export async function memberRemovedEmail(opts: {
   companyName: string;
   memberName: string;
-}): EmailContent {
+}): Promise<EmailContent> {
   const { companyName, memberName } = opts;
-  const safeCo = escapeHtml(companyName);
-  const safeMember = escapeHtml(memberName);
-
   return {
     subject: `You no longer have access to ${safeHeader(companyName)}`,
-    html: emailLayout(
-      `
-        <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">Removed from ${safeCo}</h2>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
-          Hi ${safeMember}, you have been removed from <strong>${safeCo}</strong> on the NIS2 Compliance Platform.
-        </p>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0;">
-          If you believe this was a mistake, please contact your team administrator.
-        </p>
-    `,
-      ENGLISH_ONLY,
-    ),
+    html: await renderEmail(MemberRemovedEmail, opts),
     text: [
       `Removed from ${companyName}`,
       ``,
@@ -405,36 +290,6 @@ const QUESTIONS: Record<EmailLocale, string> = {
   nl: "Vragen? Beantwoord deze e-mail gewoon.",
 };
 
-const documentCard = ({ kind, reference, facts }: DocumentEmail["document"]): string => {
-  const cell = (last: boolean) =>
-    `padding: 10px 16px; vertical-align: top;${last ? "" : ` border-bottom: 1px solid ${BRAND.border};`}`;
-  const rows = facts
-    .map((fact, i) => {
-      const last = i === facts.length - 1;
-      const value = fact.emphasis
-        ? `<strong>${escapeHtml(fact.value)}</strong>`
-        : escapeHtml(fact.value);
-      const detail = fact.detail
-        ? `<br /><span style="color: ${BRAND.mutedForeground}; font-size: 13px;">${escapeHtml(fact.detail)}</span>`
-        : "";
-      return `
-        <tr>
-          <td style="${cell(last)} width: 38%; color: ${BRAND.mutedForeground}; font-size: 13px;">${escapeHtml(fact.label)}</td>
-          <td style="${cell(last)} color: ${BRAND.foreground}; font-size: 14px;">${value}${detail}</td>
-        </tr>`;
-    })
-    .join("");
-  return `
-    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border: 1px solid ${BRAND.border}; border-radius: 6px; border-collapse: separate; margin: 4px 0 20px;">
-      <tr>
-        <td colspan="2" style="padding: 14px 16px; background: ${BRAND.muted}; border-bottom: 1px solid ${BRAND.border}; border-radius: 6px 6px 0 0;">
-          <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: ${BRAND.mutedForeground};">${escapeHtml(kind)}</div>
-          <div style="font-size: 17px; font-weight: 700; color: ${BRAND.foreground}; margin-top: 2px;">${escapeHtml(reference)}</div>
-        </td>
-      </tr>${rows}
-    </table>`;
-};
-
 const documentCardText = ({
   kind,
   reference,
@@ -450,34 +305,16 @@ const documentCardText = ({
  * reply only where one reaches a person (letterReplyTo), and `replyTo` travels with the content
  * into sendMail.
  */
-export function documentEmail(
+export async function documentEmail(
   mail: DocumentEmail,
-): EmailContent & { readonly replyTo?: string } {
+): Promise<EmailContent & { readonly replyTo?: string }> {
   const replyTo = letterReplyTo();
-  const link = mail.link ? escapeHtml(mail.link) : null;
-  const paragraph = (p: string, muted = false) => {
-    const safe = escapeHtml(p);
-    const linked = link
-      ? safe.replace(
-          link,
-          `<a href="${link}" style="color: ${BRAND.primary};">${link}</a>`,
-        )
-      : safe;
-    return `<p style="color: ${muted ? BRAND.mutedForeground : BRAND.foreground}; font-size: 15px; line-height: 1.6; margin: 0 0 14px;">${linked}</p>`;
-  };
   const signOff = letterSignOff(mail.locale);
-  const html = [
-    `<h1 style="margin: 0 0 12px; color: ${BRAND.foreground}; font-size: 22px; line-height: 1.3; font-weight: 700;">${escapeHtml(mail.heading)}</h1>`,
-    paragraph(mail.greeting),
-    ...mail.intro.map((p) => paragraph(p)),
-    documentCard(mail.document),
-    ...mail.outro.map((p) => paragraph(p)),
-    replyTo ? paragraph(QUESTIONS[mail.locale], true) : "",
-    `<p style="color: ${BRAND.foreground}; font-size: 15px; line-height: 1.6; margin: 0;">${signOff.map(escapeHtml).join("<br />")}</p>`,
-    mail.appendix
-      ? `<div style="margin-top: 28px; padding-top: 20px; border-top: 1px solid ${BRAND.border};">${mail.appendix.html}</div>`
-      : "",
-  ].join("\n");
+  const html = await renderEmail(DocumentLetterEmail, {
+    mail,
+    questions: replyTo ? QUESTIONS[mail.locale] : null,
+    signOff,
+  });
   const text = [
     mail.greeting,
     ...mail.intro,
@@ -489,7 +326,7 @@ export function documentEmail(
   ].join("\n\n");
   return {
     subject: safeHeader(mail.subject),
-    html: emailLayout(html, { locale: mail.locale }),
+    html,
     text,
     ...(replyTo ? { replyTo } : {}),
   };
@@ -499,205 +336,81 @@ export function documentEmail(
  * The way into an account a platform admin opened on a sales call. Sent next to the invoice; the
  * link sets a first password, or the person continues with Google under the same address.
  */
-export function accountSetupEmail(opts: {
+export async function accountSetupEmail(opts: {
   readonly setupUrl: string;
   readonly locale: "de" | "en";
-}): EmailContent {
-  const url = escapeHtml(opts.setupUrl);
-  const copy =
-    opts.locale === "de"
-      ? {
-          subject: "Ihr Zugang zu nisd2.eu",
-          heading: "Ihr Zugang ist eingerichtet",
-          body: "Wir haben Ihr Konto für den NIS 2 Durchgang angelegt. Legen Sie über den Link ein Passwort fest, oder melden Sie sich mit Google unter dieser E-Mail-Adresse an.",
-          button: "Zugang einrichten",
-          note: "Der Link gilt sieben Tage und lässt sich einmal verwenden. Die Rechnung kommt in einer eigenen E-Mail.",
-        }
-      : {
-          subject: "Your access to nisd2.eu",
-          heading: "Your access is ready",
-          body: "We have set up your account for the NIS 2 guided pass. Use the link to set a password, or sign in with Google under this email address.",
-          button: "Set up access",
-          note: "The link is valid for seven days and works once. The invoice arrives in a separate email.",
-        };
+}): Promise<EmailContent> {
+  const copy = ACCOUNT_SETUP_COPY[opts.locale];
   return {
     subject: copy.subject,
-    html: emailLayout(
-      `
-        <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">${copy.heading}</h2>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 24px;">${copy.body}</p>
-        <a href="${url}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
-          ${copy.button}
-        </a>
-        <p style="color: ${BRAND.mutedForeground}; font-size: 13px; margin: 24px 0 0; line-height: 1.5;">${copy.note}</p>
-    `,
-      { locale: opts.locale },
-    ),
+    html: await renderEmail(AccountSetupEmail, opts),
     text: [copy.heading, "", copy.body, "", opts.setupUrl, "", copy.note].join("\n"),
   };
 }
 
 /** To the operators: an order or invoice that needs a person in Qonto. Plain facts, one per line. */
-export function billingAlertEmail(opts: {
+export async function billingAlertEmail(opts: {
   readonly subject: string;
   readonly lines: readonly string[];
-}): EmailContent {
-  const rows = opts.lines
-    .map(
-      (l) =>
-        `<p style="color: ${BRAND.foreground}; font-size: 14px; margin: 0 0 8px;">${escapeHtml(l)}</p>`,
-    )
-    .join("\n");
+}): Promise<EmailContent> {
   return {
     subject: `[RECHNUNG] ${safeHeader(opts.subject)}`,
-    html: emailLayout(rows, TO_OPERATORS),
+    html: await renderEmail(OperatorAlertEmail, { lines: opts.lines }),
     text: opts.lines.join("\n"),
   };
 }
 
 /** To the operators: a GDPR erasure that needs a person to finish it. Plain facts, one per line. */
-export function gdprAlertEmail(opts: {
+export async function gdprAlertEmail(opts: {
   readonly subject: string;
   readonly lines: readonly string[];
-}): EmailContent {
-  const rows = opts.lines
-    .map(
-      (l) =>
-        `<p style="color: ${BRAND.foreground}; font-size: 14px; margin: 0 0 8px;">${escapeHtml(l)}</p>`,
-    )
-    .join("\n");
+}): Promise<EmailContent> {
   return {
     subject: `[DSGVO] ${safeHeader(opts.subject)}`,
-    html: emailLayout(rows, TO_OPERATORS),
+    html: await renderEmail(OperatorAlertEmail, { lines: opts.lines }),
     text: opts.lines.join("\n"),
   };
 }
 
 // ---------------------------------------------------------------------------
-// Deadline Reminder
-// ---------------------------------------------------------------------------
-
-// ---------------------------------------------------------------------------
 // Daily Digest
 // ---------------------------------------------------------------------------
-
-export interface DigestItem {
-  requirementCode: string;
-  requirementTitle: string;
-  deadline: string;
-  daysRemaining: number;
-  urgency: "info" | "warning" | "urgent" | "critical";
-  categoryUrl: string;
-}
-
-function digestItemRow(item: DigestItem): string {
-  // Only the daily digest renders item tables, so the campaign is fixed here.
-  return `
-    <tr>
-      <td style="padding: 8px 12px; border-bottom: 1px solid ${BRAND.border};">
-        <a href="${withUtm(item.categoryUrl, "daily_digest")}" style="color: ${BRAND.primary}; font-weight: 500; text-decoration: none;">${escapeHtml(item.requirementCode)}</a>
-      </td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid ${BRAND.border}; color: ${BRAND.foreground};">${escapeHtml(item.requirementTitle)}</td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid ${BRAND.border}; color: ${BRAND.foreground}; white-space: nowrap;">${escapeHtml(item.deadline)}</td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid ${BRAND.border}; color: ${BRAND.foreground}; text-align: right;">${item.daysRemaining}d</td>
-    </tr>`;
-}
-
-function digestSection(title: string, accentColor: string, items: DigestItem[]): string {
-  if (items.length === 0) return "";
-  return `
-    <div style="margin: 0 0 24px;">
-      <h3 style="margin: 0 0 12px; color: ${accentColor}; font-size: 15px;">${escapeHtml(title)} (${items.length})</h3>
-      <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
-        <thead>
-          <tr style="background: ${BRAND.muted};">
-            <th style="padding: 8px 12px; text-align: left; border-bottom: 2px solid ${BRAND.border}; font-weight: 600; color: ${BRAND.foreground};">Code</th>
-            <th style="padding: 8px 12px; text-align: left; border-bottom: 2px solid ${BRAND.border}; font-weight: 600; color: ${BRAND.foreground};">Title</th>
-            <th style="padding: 8px 12px; text-align: left; border-bottom: 2px solid ${BRAND.border}; font-weight: 600; color: ${BRAND.foreground};">Deadline</th>
-            <th style="padding: 8px 12px; text-align: right; border-bottom: 2px solid ${BRAND.border}; font-weight: 600; color: ${BRAND.foreground};">Days</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${items.map(digestItemRow).join("")}
-        </tbody>
-      </table>
-    </div>`;
-}
 
 function digestItemText(item: DigestItem): string {
   return `  - ${item.requirementCode}: ${item.requirementTitle} (due ${item.deadline}, ${item.daysRemaining}d remaining)`;
 }
 
 /**
- * The reader's next open step on the journey, in the path view's order.
- * Every digest carries it so the mail always ends on a concrete action:
- * either "these reviews are overdue" or "this is next up" — never a bare
- * count with nothing to do about it. The progress numbers feed the payoff
- * line; assigneeName is for the management digest's "who owns it".
+ * Lead with the thing worth opening the mail for. "Daily Compliance Digest" told the reader only
+ * that a machine sent it on a schedule, which is the definition of a mail you archive unread.
+ * Its own function so the outbox can list a queued digest without rendering it.
  */
-export interface DigestNextStep {
-  requirementCode: string;
-  requirementTitle: string;
-  url: string;
-  /** Journey-wide progress: steps done of total. */
-  done: number;
-  total: number;
-  categoryName: string;
-  categoryDone: number;
-  categoryTotal: number;
-  /** First assigned owner of the step; null when nobody is assigned yet. */
-  assigneeName: string | null;
+export function dailyDigestSubject(d: {
+  readonly companyName: string;
+  readonly overdueItems: readonly DigestItem[];
+  readonly urgentItems: readonly DigestItem[];
+  readonly upcomingItems: readonly DigestItem[];
+}): string {
+  return safeHeader(
+    d.overdueItems.length > 0
+      ? `${d.overdueItems.length} overdue at ${d.companyName}`
+      : d.urgentItems.length > 0
+        ? `${d.urgentItems.length} due this week at ${d.companyName}`
+        : `${d.upcomingItems.length} deadlines coming up at ${d.companyName}`,
+  );
 }
 
-type DigestCampaign = "daily_digest" | "weekly_management_digest";
-
-/**
- * utm_* tags on digest links so Umami can attribute return visits to the
- * digest that caused them. The requirement deep links end in a #<code>
- * fragment, and the fragment must stay last, so the query is spliced in
- * before it.
- */
-function withUtm(url: string, campaign: DigestCampaign): string {
-  const [base, fragment] = url.split("#");
-  const sep = base.includes("?") ? "&" : "?";
-  const tagged = `${base}${sep}utm_source=email&utm_medium=digest&utm_campaign=${campaign}`;
-  return fragment ? `${tagged}#${fragment}` : tagged;
+/** The weekly report leads with the score; its own function for the same reason. */
+export function weeklyDigestSubject(d: {
+  readonly companyName: string;
+  readonly compliancePercentage: string;
+}): string {
+  return safeHeader(
+    `${d.companyName} is at ${d.compliancePercentage}% on NIS 2 this week`,
+  );
 }
 
-/**
- * What completing the next step does to the numbers the reader already
- * owns. When it is the category's last open step, say so: "completes
- * Registration" pulls harder than another fraction.
- */
-function payoffLine(nextStep: DigestNextStep): string {
-  const categoryLeft = nextStep.categoryTotal - nextStep.categoryDone;
-  const categoryPart =
-    categoryLeft === 1
-      ? `completes ${nextStep.categoryName}`
-      : `moves ${nextStep.categoryName} to ${nextStep.categoryDone + 1} of ${nextStep.categoryTotal}`;
-  return `You are at ${nextStep.done} of ${nextStep.total} steps. Finishing ${nextStep.requirementCode} makes it ${nextStep.done + 1} and ${categoryPart}.`;
-}
-
-function continueButtonHtml(nextStep: DigestNextStep, campaign: DigestCampaign): string {
-  return `
-    <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 16px;">${escapeHtml(payoffLine(nextStep))}</p>
-    <a href="${withUtm(nextStep.url, campaign)}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
-      Continue: ${escapeHtml(nextStep.requirementCode)} ${escapeHtml(nextStep.requirementTitle)}
-    </a>`;
-}
-
-function dashboardButtonHtml(
-  dashboardUrl: string,
-  campaign: DigestCampaign,
-  label: string,
-): string {
-  return `
-    <a href="${withUtm(dashboardUrl, campaign)}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
-      ${escapeHtml(label)}
-    </a>`;
-}
-
-export function dailyDigestEmail(opts: {
+export async function dailyDigestEmail(opts: {
   recipientName: string;
   companyName: string;
   overdueItems: DigestItem[];
@@ -707,7 +420,7 @@ export function dailyDigestEmail(opts: {
   compliancePercentage: string;
   dashboardUrl: string;
   footer: PreferenceFooter;
-}): EmailContent {
+}): Promise<EmailContent> {
   const {
     recipientName,
     companyName,
@@ -719,48 +432,10 @@ export function dailyDigestEmail(opts: {
     dashboardUrl,
     footer,
   } = opts;
-  const safeRecipient = escapeHtml(recipientName);
-  const safeCo = escapeHtml(companyName);
-  const safePct = escapeHtml(compliancePercentage);
 
   return {
-    // Lead with the thing worth opening the mail for. "Daily Compliance
-    // Digest" told the reader only that a machine sent it on a schedule,
-    // which is the definition of a mail you archive unread.
-    subject: safeHeader(
-      overdueItems.length > 0
-        ? `${overdueItems.length} overdue at ${companyName}`
-        : urgentItems.length > 0
-          ? `${urgentItems.length} due this week at ${companyName}`
-          : `${upcomingItems.length} deadlines coming up at ${companyName}`,
-    ),
-    html: emailLayout(
-      `
-        <h2 style="margin: 0 0 8px; color: ${BRAND.foreground};">Daily Compliance Digest</h2>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 4px;">
-          Hi ${safeRecipient}, here is your daily summary for <strong>${safeCo}</strong>.
-        </p>
-        <p style="margin: 0 0 24px;">
-          <span style="font-size: 28px; font-weight: 700; color: ${BRAND.primary};">${safePct}%</span>
-          <span style="color: ${BRAND.foreground}; font-size: 14px; margin-left: 8px;">overall compliance</span>
-        </p>
-        ${digestSection("Overdue", SEVERITY.destructive, overdueItems)}
-        ${digestSection("Due This Week", SEVERITY.warning, urgentItems)}
-        ${digestSection("Upcoming", BRAND.mutedForeground, upcomingItems)}
-        ${
-          nextStep
-            ? `${continueButtonHtml(nextStep, "daily_digest")}
-        <p style="font-size: 13px; margin: 12px 0 0;">
-          <a href="${withUtm(dashboardUrl, "daily_digest")}" style="color: ${BRAND.mutedForeground};">or open the dashboard</a>
-        </p>`
-            : dashboardButtonHtml(dashboardUrl, "daily_digest", "View Dashboard")
-        }
-        <p style="color: ${BRAND.mutedForeground}; font-size: 13px; margin: 24px 0 0; line-height: 1.5;">
-          You are receiving this digest because you are a member of ${safeCo}.
-        </p>
-    `,
-      footer,
-    ),
+    subject: dailyDigestSubject(opts),
+    html: await renderEmail(DailyDigestEmail, opts),
     text: [
       `Daily Compliance Digest: ${companyName}`,
       ``,
@@ -803,7 +478,7 @@ export function dailyDigestEmail(opts: {
 // Weekly Management Digest
 // ---------------------------------------------------------------------------
 
-export function weeklyManagementDigestEmail(opts: {
+export async function weeklyManagementDigestEmail(opts: {
   recipientName: string;
   companyName: string;
   compliancePercentage: string;
@@ -815,7 +490,7 @@ export function weeklyManagementDigestEmail(opts: {
   nextStep: DigestNextStep | null;
   dashboardUrl: string;
   footer: PreferenceFooter;
-}): EmailContent {
+}): Promise<EmailContent> {
   const {
     recipientName,
     companyName,
@@ -830,76 +505,14 @@ export function weeklyManagementDigestEmail(opts: {
     footer,
   } = opts;
 
-  const pct = Math.min(100, Math.max(0, parseFloat(compliancePercentage) || 0));
+  const pct = Math.min(100, Math.max(0, Number.parseFloat(compliancePercentage) || 0));
   const filledBlocks = Math.round(pct / 5);
   const emptyBlocks = 20 - filledBlocks;
   const progressBarText = `[${"#".repeat(filledBlocks)}${"-".repeat(emptyBlocks)}] ${compliancePercentage}%`;
-  const safeRecipient = escapeHtml(recipientName);
-  const safeCo = escapeHtml(companyName);
-  const safePct = escapeHtml(compliancePercentage);
 
   return {
-    subject: safeHeader(
-      `${companyName} is at ${compliancePercentage}% on NIS 2 this week`,
-    ),
-    html: emailLayout(
-      `
-        <h2 style="margin: 0 0 8px; color: ${BRAND.foreground};">Weekly Management Report</h2>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 24px;">
-          Hi ${safeRecipient}, here is the weekly compliance summary for <strong>${safeCo}</strong>.
-        </p>
-        <div style="text-align: center; margin: 0 0 24px;">
-          <span style="font-size: 36px; font-weight: 700; color: ${BRAND.primary};">${safePct}%</span>
-          <div style="color: ${BRAND.foreground}; font-size: 14px; margin-top: 4px;">Compliance Score</div>
-          <div style="background: ${BRAND.border}; border-radius: 4px; height: 8px; margin: 12px 0 0; overflow: hidden;">
-            <div style="background: ${BRAND.primary}; height: 100%; width: ${pct}%; border-radius: 4px;"></div>
-          </div>
-          <div style="color: ${BRAND.foreground}; font-size: 13px; margin-top: 4px;">${completedRequirements} of ${totalRequirements} requirements completed</div>
-        </div>
-        <table style="width: 100%; border-collapse: collapse; font-size: 14px; margin: 0 0 24px;">
-          <tr>
-            <td style="padding: 10px 12px; border-bottom: 1px solid ${BRAND.border}; color: ${BRAND.foreground};">Overdue Items</td>
-            <td style="padding: 10px 12px; border-bottom: 1px solid ${BRAND.border}; font-weight: 600; text-align: right; color: ${overdueCount > 0 ? SEVERITY.destructive : SEVERITY.success};">${overdueCount}</td>
-          </tr>
-          <tr>
-            <td style="padding: 10px 12px; border-bottom: 1px solid ${BRAND.border}; color: ${BRAND.foreground};">Urgent Items</td>
-            <td style="padding: 10px 12px; border-bottom: 1px solid ${BRAND.border}; font-weight: 600; text-align: right; color: ${urgentCount > 0 ? SEVERITY.warning : SEVERITY.success};">${urgentCount}</td>
-          </tr>
-          <tr>
-            <td style="padding: 10px 12px; border-bottom: 1px solid ${BRAND.border}; color: ${BRAND.foreground};">Escalations</td>
-            <td style="padding: 10px 12px; border-bottom: 1px solid ${BRAND.border}; font-weight: 600; text-align: right; color: ${escalationCount > 0 ? SEVERITY.destructive : SEVERITY.success};">${escalationCount}</td>
-          </tr>
-        </table>
-        ${
-          nextStep
-            ? `<p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
-          Next up: <a href="${withUtm(nextStep.url, "weekly_management_digest")}" style="color: ${BRAND.primary}; font-weight: 600; text-decoration: none;">${escapeHtml(nextStep.requirementCode)} ${escapeHtml(nextStep.requirementTitle)}</a> (${escapeHtml(nextStep.categoryName)}), ${nextStep.assigneeName ? `assigned to ${escapeHtml(nextStep.assigneeName)}` : "not yet assigned"}.
-        </p>`
-            : ""
-        }
-        ${
-          // Gate on nextStep, not the persisted assessment counters: nextStep
-          // is derived from the live status rows, so "there are open items"
-          // and "here is the next one" cannot contradict each other when the
-          // counters are stale.
-          nextStep
-            ? `<p style="color: ${BRAND.mutedForeground}; font-size: 13px; line-height: 1.6; margin: 0 0 16px;">
-          Open items return in every weekly report until they are done. Completed items land in the audit trail as evidence.
-        </p>`
-            : ""
-        }
-        ${dashboardButtonHtml(
-          dashboardUrl,
-          "weekly_management_digest",
-          nextStep ? "Review the open items" : "View Dashboard",
-        )}
-        <div style="margin: 24px 0 0; padding: 16px; background: ${BRAND.muted}; border: 1px solid ${BRAND.border}; border-radius: 6px; font-size: 12px; color: ${BRAND.mutedForeground}; line-height: 1.5;">
-          This email serves as documentation of management notification per Art. 20 NIS 2 / &sect;38 BSIG.<br/>
-          Diese E-Mail dient als Nachweis der Leitungsunterrichtung gem&auml;&szlig; Art. 20 NIS 2 / &sect;38 BSIG.
-        </div>
-    `,
-      footer,
-    ),
+    subject: weeklyDigestSubject(opts),
+    html: await renderEmail(WeeklyDigestEmail, opts),
     text: [
       `Weekly Management Report: ${companyName}`,
       ``,
@@ -948,48 +561,26 @@ export function weeklyManagementDigestEmail(opts: {
  * message, are read on nisd2.eu behind the link: a mail signed by our domain
  * must not be a free channel for someone else's links and instructions.
  */
-export function supplierIncidentBroadcastEmail(opts: {
+export async function supplierIncidentBroadcastEmail(opts: {
   supplierName: string | null;
   severity: string;
   publishedAt: Date;
   incidentUrl: string;
   unsubscribeUrl: string;
-}): EmailContent {
+}): Promise<EmailContent> {
   const { severity, publishedAt, incidentUrl, unsubscribeUrl } = opts;
   const name = companyNameForMail(opts.supplierName, "A supplier");
-  const severityColor =
-    severity === "critical"
-      ? SEVERITY.destructive
-      : severity === "warning"
-        ? SEVERITY.warning
-        : "#2563eb";
   const severityLabel = severity.charAt(0).toUpperCase() + severity.slice(1);
-  const safeSeverityLabel = escapeHtml(severityLabel);
-  const safeName = escapeHtml(name);
 
   return {
     subject: `${name} reported a security incident`,
-    html: emailLayout(
-      `
-        <div style="display: inline-block; background: ${severityColor}; color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">${safeSeverityLabel}</div>
-        <h2 style="margin: 16px 0 8px; color: ${BRAND.foreground};">${safeName} reported a security incident</h2>
-        <p style="color: ${BRAND.mutedForeground}; font-size: 13px; margin: 0 0 16px;">
-          Security notification · ${publishedAt.toLocaleString()}
-        </p>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 24px;">
-          <strong>${safeName}</strong> published an incident notice for you on nisd2.eu.
-          The details are on the notice page: we never copy a supplier's own text into email.
-        </p>
-        <a href="${incidentUrl}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 14px;">Read the incident notice</a>
-        <p style="color: ${BRAND.mutedForeground}; font-size: 12px; margin: 32px 0 0; line-height: 1.5; border-top: 1px solid ${BRAND.border}; padding-top: 16px;">
-          You received this because ${safeName} added your address as a recipient of their security updates on nisd2.eu.
-          Use this notification as evidence for your own NIS2 §30 supplier monitoring.
-          <br/><br/>
-          <a href="${unsubscribeUrl}" style="color: ${BRAND.mutedForeground};">Unsubscribe</a>
-        </p>
-    `,
-      ENGLISH_ONLY,
-    ),
+    html: await renderEmail(SupplierIncidentEmail, {
+      name,
+      severity,
+      publishedAt: publishedAt.toLocaleString(),
+      incidentUrl,
+      unsubscribeUrl,
+    }),
     text: [
       `${severityLabel}: ${name} reported a security incident`,
       ``,
@@ -1016,41 +607,18 @@ export function supplierIncidentBroadcastEmail(opts: {
  * Direction-B invite email: sent when a NIS2 entity invites a supplier to
  * fill out their security profile via magic-link.
  */
-export function entityInvitesSupplierEmail(opts: {
+export async function entityInvitesSupplierEmail(opts: {
   entityName: string | null;
   inviteUrl: string;
   /** Whether the invite carries a personal message; its text is read on the invite page. */
   hasMessage: boolean;
-}): EmailContent {
+}): Promise<EmailContent> {
   const { inviteUrl, hasMessage } = opts;
   const name = companyNameForMail(opts.entityName, "A NIS2 entity");
-  const safeName = escapeHtml(name);
 
   return {
     subject: `${name} requests your NIS2 supplier profile on NISD2`,
-    html: emailLayout(
-      `
-        <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">You're invited to share your security profile</h2>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 16px;">
-          <strong>${safeName}</strong> is a NIS2-regulated entity. Under the EU NIS2 Directive
-          (and its German transposition BSIG §30) they are required to assess the cybersecurity
-          practices of their suppliers, including yours.
-        </p>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 16px;">
-          Instead of sending you a 200-question PDF questionnaire, they are using nisd2.eu, where
-          you can fill out a single unified questionnaire (anchored to ENISA's NIS2 Technical
-          Implementation Guidance v1.0 and CIR 2024/2690) and share it with every customer who
-          asks. Fill it once. Use it forever. Free.
-        </p>
-        ${hasMessage ? `<p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 24px;">${safeName} added a personal message, which you can read on the invitation page after signing in.</p>` : ""}
-        <a href="${inviteUrl}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 14px;">Accept and create your free profile</a>
-        <p style="color: ${BRAND.mutedForeground}; font-size: 12px; margin: 32px 0 0; line-height: 1.5; border-top: 1px solid ${BRAND.border}; padding-top: 16px;">
-          This link is unique to you and expires in 30 days. You do not need to be a NIS2-regulated
-          entity yourself to use the supplier portal. Most suppliers aren't.
-        </p>
-    `,
-      ENGLISH_ONLY,
-    ),
+    html: await renderEmail(SupplierInviteEmail, { name, inviteUrl, hasMessage }),
     text: [
       `${name} would like to see your security profile`,
       ``,
@@ -1076,39 +644,26 @@ export function entityInvitesSupplierEmail(opts: {
 // Platform Admin: new user signup notification
 // ---------------------------------------------------------------------------
 
-export function newUserSignupEmail(opts: {
+export async function newUserSignupEmail(opts: {
   userEmail: string;
   userName: string;
   provider: string;
-}): EmailContent {
+}): Promise<EmailContent> {
   const { userEmail, userName, provider } = opts;
-  const safeEmail = escapeHtml(userEmail);
-  const safeName = escapeHtml(userName);
   const mailtoSubject = encodeURIComponent(`Welcome to NIS2: quick question`);
   const mailtoBody = encodeURIComponent(
     `Hi ${userName},\n\nI saw you just signed up on nisd2.eu. Welcome!\n\nI'd love to learn a bit about what you're looking for. Are you exploring NIS2 compliance for your company, or just researching the topic?\n\nHappy to help either way.\n\nBest,\n`,
   );
-  const mailtoUrl = escapeHtml(
-    `mailto:${encodeURIComponent(userEmail)}?subject=${mailtoSubject}&body=${mailtoBody}`,
-  );
 
   return {
     subject: `New signup: ${safeHeader(userEmail)}`,
-    html: emailLayout(
-      `
-        <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">New user signed up</h2>
-        <table style="color: ${BRAND.foreground}; line-height: 1.8; font-size: 14px; margin: 0 0 24px;">
-          <tr><td style="padding-right: 16px; font-weight: 600;">Email</td><td>${safeEmail}</td></tr>
-          <tr><td style="padding-right: 16px; font-weight: 600;">Name</td><td>${safeName}</td></tr>
-          <tr><td style="padding-right: 16px; font-weight: 600;">Provider</td><td>${escapeHtml(provider)}</td></tr>
-          <tr><td style="padding-right: 16px; font-weight: 600;">Time</td><td>${new Date().toLocaleString("de-DE", { timeZone: "Europe/Berlin" })}</td></tr>
-        </table>
-        <a href="${mailtoUrl}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
-          Reach out to ${safeEmail}
-        </a>
-    `,
-      ENGLISH_ONLY,
-    ),
+    html: await renderEmail(NewSignupEmail, {
+      userEmail,
+      userName,
+      provider,
+      at: new Date().toLocaleString("de-DE", { timeZone: "Europe/Berlin" }),
+      mailtoUrl: `mailto:${encodeURIComponent(userEmail)}?subject=${mailtoSubject}&body=${mailtoBody}`,
+    }),
     text: `New signup: ${userEmail} (${userName}) via ${provider}\n\nReply to them: ${userEmail}`,
   };
 }
@@ -1127,72 +682,41 @@ export function newUserSignupEmail(opts: {
  * list rather than in a second mail, because two mails per request trains you
  * to skim both.
  */
-export function advisoryRequestEmail(opts: {
+export async function advisoryRequestEmail(opts: {
   topic: string;
   email: string;
   sourcePath: string | null;
   requirementCode: string | null;
   adminUrl: string;
-}): EmailContent {
+}): Promise<EmailContent> {
   const { topic, email, sourcePath, requirementCode, adminUrl } = opts;
-  const safeEmail = escapeHtml(email);
-  const safeTopic = escapeHtml(topic);
   const origin = requirementCode ?? sourcePath ?? "direkt";
   const domain = email.split("@")[1] ?? email;
 
   return {
     subject: `[ANFRAGE] ${safeHeader(topic)} (${safeHeader(domain)})`,
-    html: emailLayout(
-      `
-        <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">Jemand hat um Unterstützung gebeten</h2>
-        <table style="color: ${BRAND.foreground}; line-height: 1.8; font-size: 14px; margin: 0 0 24px;">
-          <tr><td style="padding-right: 16px; font-weight: 600;">Thema</td><td>${safeTopic}</td></tr>
-          <tr><td style="padding-right: 16px; font-weight: 600;">Kontakt</td><td>${safeEmail}</td></tr>
-          <tr><td style="padding-right: 16px; font-weight: 600;">Herkunft</td><td>${escapeHtml(origin)}</td></tr>
-          <tr><td style="padding-right: 16px; font-weight: 600;">Eingegangen</td><td>${new Date().toLocaleString("de-DE", { timeZone: "Europe/Berlin" })}</td></tr>
-        </table>
-        <p style="color: ${BRAND.foreground}; font-size: 14px; margin: 0 0 24px;">
-          Heute antworten. Wer zuerst reagiert, bekommt die Arbeit.
-        </p>
-        <a href="${escapeHtml(adminUrl)}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
-          Anfrage öffnen
-        </a>
-    `,
-      TO_OPERATORS,
-    ),
+    html: await renderEmail(AdvisoryRequestEmail, {
+      topic,
+      email,
+      origin,
+      at: new Date().toLocaleString("de-DE", { timeZone: "Europe/Berlin" }),
+      adminUrl,
+    }),
     text: `[ANFRAGE] ${topic} von ${email}\n\nHerkunft: ${origin}\nHeute antworten. Wer zuerst reagiert, bekommt die Arbeit.\n\n${adminUrl}`,
   };
 }
 
-export function supplierAddedYouEmail(opts: {
+export async function supplierAddedYouEmail(opts: {
   supplierName: string | null;
   profileUrl: string | null;
   unsubscribeUrl: string;
-}): EmailContent {
+}): Promise<EmailContent> {
   const { profileUrl, unsubscribeUrl } = opts;
   const name = companyNameForMail(opts.supplierName, "A supplier");
-  const safeName = escapeHtml(name);
 
   return {
     subject: `${name} will send you their security updates`,
-    html: emailLayout(
-      `
-        <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">You've been added as a security update recipient</h2>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
-          <strong>${safeName}</strong> added your email address to their NIS2 supplier portal on nisd2.eu.
-          You will receive security incident notifications and certification updates from them.
-        </p>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 24px;">
-          These notifications are useful evidence for your own NIS2 §30 supplier monitoring obligation.
-          You can unsubscribe at any time.
-        </p>
-        ${profileUrl ? `<a href="${profileUrl}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 14px;">View supplier profile</a>` : ""}
-        <p style="color: ${BRAND.mutedForeground}; font-size: 12px; margin: 32px 0 0; line-height: 1.5; border-top: 1px solid ${BRAND.border}; padding-top: 16px;">
-          <a href="${unsubscribeUrl}" style="color: ${BRAND.mutedForeground};">Unsubscribe</a>
-        </p>
-    `,
-      ENGLISH_ONLY,
-    ),
+    html: await renderEmail(SupplierAddedYouEmail, { name, profileUrl, unsubscribeUrl }),
     text: [
       `${name} added you to their NIS2 supplier security updates`,
       ``,
@@ -1217,48 +741,24 @@ export function supplierAddedYouEmail(opts: {
 // email. Personal voice from Simon, Mom-Test question on what got in the way.
 // ---------------------------------------------------------------------------
 
-export function courseFollowupEmail(opts: {
+export async function courseFollowupEmail(opts: {
   recipientName: string | null;
   courses: Array<{ title: string; resumeUrl: string }>;
   unsubscribeUrl: string;
-}): EmailContent {
+}): Promise<EmailContent> {
   const { recipientName, courses, unsubscribeUrl } = opts;
   const single = courses.length === 1;
   const firstName = recipientName?.trim().split(" ")[0];
-  const greeting = firstName ? `Hi ${escapeHtml(firstName)}` : "Hi";
+  const greeting = firstName ? `Hi ${firstName}` : "Hi";
   const subject = single
     ? `Following up on the ${courses[0].title} course`
     : "Following up on your NISD2 courses";
 
-  const coursesHtml = courses
-    .map(
-      (c) =>
-        `<li style="margin: 0 0 6px;"><a href="${c.resumeUrl}" style="color: ${BRAND.primary}; text-decoration: none; font-weight: 500;">${escapeHtml(c.title)}</a></li>`,
-    )
-    .join("");
-
-  const html = emailLayout(
-    `
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 16px;">${greeting},</p>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 16px;">
-          Simon here, from NISD2. I noticed you started ${single ? "a course with us" : "some courses with us"} and haven't been back in a while:
-        </p>
-        <ul style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 20px; padding-left: 20px;">${coursesHtml}</ul>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 16px;">
-          Quick question: what got in the way of finishing? Was something unclear, did the format not fit, or did NIS 2 turn out to be less relevant than you expected? Even a one-line reply helps me make the next version better.
-        </p>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
-          If you want to pick up where you left off, the link${single ? "" : "s"} above ${single ? "takes" : "take"} you straight back.
-        </p>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 24px 0 0;">
-          Thanks,<br>Simon
-        </p>
-        <p style="color: ${BRAND.mutedForeground}; font-size: 12px; margin: 32px 0 0; line-height: 1.5; border-top: 1px solid ${BRAND.border}; padding-top: 16px;">
-          <a href="${unsubscribeUrl}" style="color: ${BRAND.mutedForeground};">Unsubscribe from follow-up emails</a>
-        </p>
-  `,
-    ENGLISH_ONLY,
-  );
+  const html = await renderEmail(CourseFollowupEmail, {
+    greeting,
+    courses,
+    unsubscribeUrl,
+  });
 
   const text = [
     `${greeting},`,
@@ -1372,34 +872,22 @@ const VERIFICATION_COPY: Record<
   },
 };
 
-export function emailVerificationCodeEmail(opts: {
+export async function emailVerificationCodeEmail(opts: {
   code: string;
   locale?: Locale;
-}): EmailContent {
-  // 6-digit code from OTP service. Defense-in-depth: still escape it.
-  const safeCode = escapeHtml(opts.code);
+}): Promise<EmailContent> {
   const copy = VERIFICATION_COPY[opts.locale ?? "de"];
-
-  const codeBlock = `
-    <div style="margin: 24px 0; padding: 20px; background: ${BRAND.muted}; border: 1px solid ${BRAND.border}; border-radius: 8px; text-align: center;">
-      <div style="font-family: 'SF Mono', Monaco, Consolas, monospace; font-size: 32px; font-weight: 700; letter-spacing: 0.25em; color: ${BRAND.foreground};">
-        ${safeCode}
-      </div>
-    </div>`;
 
   return {
     subject: safeHeader(`${copy.subjectPrefix}: ${opts.code}`),
-    html: emailLayout(
-      `
-        <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">${copy.heading}</h2>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">${copy.intro}</p>
-        ${codeBlock}
-        <p style="color: ${BRAND.mutedForeground}; font-size: 13px; margin: 16px 0 0; line-height: 1.5;">
-          ${copy.expiryNote} ${copy.ignoreNote}
-        </p>
-    `,
-      chromeFor(opts.locale),
-    ),
+    html: await renderEmail(CodeEmail, {
+      locale: emailLocaleOf(opts.locale),
+      heading: copy.heading,
+      intro: copy.intro,
+      code: opts.code,
+      expiryNote: copy.expiryNote,
+      ignoreNote: copy.ignoreNote,
+    }),
     text: [
       copy.heading,
       ``,
@@ -1650,30 +1138,26 @@ const REGISTRATION_ATTEMPT_COPY: Record<
   },
 };
 
-export function registrationAttemptEmail(opts: {
+export async function registrationAttemptEmail(opts: {
   signInUrl: string;
   resetUrl: string;
   locale?: Locale;
-}): EmailContent {
+}): Promise<EmailContent> {
   const copy = REGISTRATION_ATTEMPT_COPY[opts.locale ?? "de"];
-  const button = (href: string, label: string, background: string, color: string) =>
-    `<a href="${href}" style="display: inline-block; background: ${background}; color: ${color}; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500; margin: 0 8px 8px 0;">${label}</a>`;
 
   return {
     subject: safeHeader(copy.subject),
-    html: emailLayout(
-      `
-        <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">${copy.heading}</h2>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">${copy.intro}</p>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 24px;">${copy.action}</p>
-        ${button(opts.signInUrl, copy.signIn, BRAND.primary, "#fff")}
-        ${button(opts.resetUrl, copy.reset, BRAND.muted, BRAND.foreground)}
-        <p style="color: ${BRAND.mutedForeground}; font-size: 13px; margin: 16px 0 0; line-height: 1.5;">
-          ${copy.ignoreNote}
-        </p>
-    `,
-      chromeFor(opts.locale),
-    ),
+    html: await renderEmail(RegistrationAttemptEmail, {
+      locale: emailLocaleOf(opts.locale),
+      heading: copy.heading,
+      intro: copy.intro,
+      action: copy.action,
+      signIn: copy.signIn,
+      reset: copy.reset,
+      ignoreNote: copy.ignoreNote,
+      signInUrl: opts.signInUrl,
+      resetUrl: opts.resetUrl,
+    }),
     text: [
       copy.heading,
       ``,
@@ -1699,7 +1183,7 @@ export function registrationAttemptEmail(opts: {
 // lib/email/unsubscribe.ts) and a forward-to-a-friend mailto link.
 // ---------------------------------------------------------------------------
 
-export function newsletterEmail(opts: {
+export async function newsletterEmail(opts: {
   subject: string;
   preheader?: string | null;
   /** Body markdown already rendered to HTML by renderNewsletterMarkdown(). */
@@ -1712,57 +1196,11 @@ export function newsletterEmail(opts: {
   cta?: { url: string; label: string } | null;
   /** Public permalink for the "view in browser" link. */
   viewInBrowserUrl?: string | null;
-}): EmailContent {
-  const {
-    subject,
-    preheader,
-    bodyHtml,
-    bodyText,
-    unsubscribeUrl,
-    forwardUrl,
-    cta,
-    viewInBrowserUrl,
-  } = opts;
-
-  // Hidden preview text: shown by most clients next to the subject line,
-  // not rendered in the body. Kept short so following content does not leak in.
-  const preheaderBlock = preheader
-    ? `<div style="display: none; max-height: 0; overflow: hidden; opacity: 0;">${escapeHtml(preheader)}</div>`
-    : "";
-
-  const ctaBlock = cta
-    ? `<div style="margin: 28px 0 0; text-align: center;">
-          <a href="${cta.url}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 14px;">${escapeHtml(cta.label)}</a>
-        </div>`
-    : "";
-
-  const viewInBrowserBlock = viewInBrowserUrl
-    ? `<br/><br/><a href="${viewInBrowserUrl}" style="color: ${BRAND.mutedForeground};">View this issue in your browser.</a>`
-    : "";
-
-  // "Just reply" beats a mailto link here: the message is sent with
-  // Reply-To set to a real mailbox, so hitting reply pre-fills the address
-  // and keeps the thread, whereas a mailto opens an empty new message.
+}): Promise<EmailContent> {
+  const { subject, bodyText, unsubscribeUrl, cta, viewInBrowserUrl } = opts;
   return {
     subject: safeHeader(subject),
-    html: emailLayout(
-      `
-        ${preheaderBlock}
-        <div style="color: ${BRAND.foreground}; font-size: 15px; line-height: 1.65;">
-${bodyHtml}
-        </div>
-        ${ctaBlock}
-        <p style="color: ${BRAND.mutedForeground}; font-size: 12px; margin: 32px 0 0; line-height: 1.6; border-top: 1px solid ${BRAND.border}; padding-top: 16px;">
-          Questions or feedback? Just reply to this email, it comes straight to me.
-          <br/><br/>
-          Found this useful? <a href="${forwardUrl}" style="color: ${BRAND.primary};">Forward it to a colleague.</a>
-          <br/><br/>
-          You are receiving this because you have an account at nisd2.eu.
-          <a href="${unsubscribeUrl}" style="color: ${BRAND.mutedForeground};">Unsubscribe</a>.${viewInBrowserBlock}
-        </p>
-    `,
-      ENGLISH_ONLY,
-    ),
+    html: await renderEmail(NewsletterEmail, opts),
     text: [
       bodyText,
       ``,
@@ -1779,33 +1217,22 @@ ${bodyHtml}
   };
 }
 
-export function passwordResetCodeEmail(opts: {
+export async function passwordResetCodeEmail(opts: {
   code: string;
   locale?: Locale;
-}): EmailContent {
-  const safeCode = escapeHtml(opts.code);
+}): Promise<EmailContent> {
   const copy = PASSWORD_RESET_COPY[opts.locale ?? "de"];
-
-  const codeBlock = `
-    <div style="margin: 24px 0; padding: 20px; background: ${BRAND.muted}; border: 1px solid ${BRAND.border}; border-radius: 8px; text-align: center;">
-      <div style="font-family: 'SF Mono', Monaco, Consolas, monospace; font-size: 32px; font-weight: 700; letter-spacing: 0.25em; color: ${BRAND.foreground};">
-        ${safeCode}
-      </div>
-    </div>`;
 
   return {
     subject: safeHeader(`${copy.subjectPrefix}: ${opts.code}`),
-    html: emailLayout(
-      `
-        <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">${copy.heading}</h2>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">${copy.intro}</p>
-        ${codeBlock}
-        <p style="color: ${BRAND.mutedForeground}; font-size: 13px; margin: 16px 0 0; line-height: 1.5;">
-          ${copy.expiryNote} ${copy.ignoreNote}
-        </p>
-    `,
-      chromeFor(opts.locale),
-    ),
+    html: await renderEmail(CodeEmail, {
+      locale: emailLocaleOf(opts.locale),
+      heading: copy.heading,
+      intro: copy.intro,
+      code: opts.code,
+      expiryNote: copy.expiryNote,
+      ignoreNote: copy.ignoreNote,
+    }),
     text: [
       copy.heading,
       ``,

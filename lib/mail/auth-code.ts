@@ -56,8 +56,8 @@ function hasNoMailTransport(): boolean {
 export async function sendAuthCode({ to, code, locale, kind }: SendAuthCodeOptions) {
   const content =
     kind === "verification"
-      ? emailVerificationCodeEmail({ code, locale })
-      : passwordResetCodeEmail({ code, locale });
+      ? await emailVerificationCodeEmail({ code, locale })
+      : await passwordResetCodeEmail({ code, locale });
 
   const result = await sendMail({
     emailType:

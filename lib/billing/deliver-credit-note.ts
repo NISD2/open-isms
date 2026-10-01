@@ -95,7 +95,7 @@ export async function deliverCreditNote(input: DeliverCreditNoteInput): Promise<
   const result = await sendMail({
     emailType: "billing.canceled",
     to: [...input.recipients],
-    ...documentEmail(wording),
+    ...(await documentEmail(wording)),
     idempotencyKey: `credit-note-${input.creditNoteNumber}`,
     failureLabel: input.erasure?.failureLabel,
     ...(pdf

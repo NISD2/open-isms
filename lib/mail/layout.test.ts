@@ -16,8 +16,15 @@ mock.module("@/lib/env", () => ({
   mailSupportEmail: () => "support@example.test",
 }));
 
-const { emailLayout, letterReplyTo, letterSignOff } = await import("./layout");
+const { letterReplyTo, letterSignOff } = await import("./layout");
+const { EmailFrame } = await import("./components/frame");
+const { renderEmail } = await import("./render");
 const { isSellerInstance } = await import("@/lib/billing/seller");
+
+type Chrome = Parameters<typeof EmailFrame>[0]["chrome"];
+
+/** The shared frame around a one-word body, rendered the way every email is. */
+const frame = (chrome: Chrome) => renderEmail(EmailFrame, { chrome, children: "Body" });
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL;
 const servedFrom = (url: string) => {
@@ -45,34 +52,38 @@ describe("isSellerInstance", () => {
     expect(isSellerInstance("")).toBe(false);
   });
 
-  test("an install that never configured its address is not taken for nisd2.eu", () => {
+  test("an install that never configured its address is not taken for nisd2.eu", async () => {
     // lib/env fills the gap with nisd2.eu for links; the gate must not follow that default.
     delete process.env.NEXT_PUBLIC_APP_URL;
     expect(isSellerInstance()).toBe(false);
-    const html = emailLayout("<p>Body</p>", { locale: "de" });
-    expect(html).not.toContain("Kardashev");
+    expect(await frame({ locale: "de" })).not.toContain("Kardashev");
     expect(letterSignOff("de")).not.toContain("Simon Orzel");
   });
 });
 
-describe("emailLayout on nisd2.eu", () => {
-  test("names the company, its register entry and its managing director", () => {
+describe("the frame on nisd2.eu", () => {
+  test("names the company, its register entry and its managing director", async () => {
     servedFrom("https://www.nisd2.eu");
-    const html = emailLayout("<p>Body</p>", { locale: "de" });
+    const html = await frame({ locale: "de" });
     expect(html).toContain("Kardashev Catalyst UG (haftungsbeschränkt)");
     expect(html).toContain("Amtsgericht Köln, HRB 126993");
     expect(html).toContain("Geschäftsführer: Simon Orzel");
     expect(html).toContain("USt-IdNr. DE462889433");
   });
 
-  test("links the legal pages in the reader's language", () => {
+  test("links the legal pages in the reader's language", async () => {
     servedFrom("https://www.nisd2.eu");
-    const en = emailLayout("<p>Body</p>", { locale: "en" });
-    const nl = emailLayout("<p>Body</p>", { locale: "nl" });
+    const en = await frame({ locale: "en" });
+    const nl = await frame({ locale: "nl" });
     expect(en).toContain('href="https://www.nisd2.eu/en/imprint"');
     expect(en).toContain("Managing director: Simon Orzel");
     expect(nl).toContain('href="https://www.nisd2.eu/nl/colofon"');
     expect(nl).toContain('href="https://www.nisd2.eu/nl/voorwaarden"');
+  });
+
+  test("holds the card at 560px for Outlook, which ignores max-width", async () => {
+    servedFrom("https://www.nisd2.eu");
+    expect(await frame({ locale: "de" })).toContain('width="560"');
   });
 
   test("the managing director signs letters", () => {
@@ -89,16 +100,16 @@ describe("emailLayout on nisd2.eu", () => {
     expect(letterReplyTo()).toBe("contact@nisd2.eu");
   });
 
-  test("carries no slogan in the header", () => {
+  test("carries no slogan in the header", async () => {
     servedFrom("https://www.nisd2.eu");
-    expect(emailLayout("<p>Body</p>", { locale: "en" })).not.toContain("Halve Europe");
+    expect(await frame({ locale: "en" })).not.toContain("Halve Europe");
   });
 });
 
-describe("emailLayout on a self-hosted install", () => {
-  test("names no company and no person", () => {
+describe("the frame on a self-hosted install", () => {
+  test("names no company and no person", async () => {
     servedFrom("https://isms.example.org");
-    const html = emailLayout("<p>Body</p>", { locale: "de" });
+    const html = await frame({ locale: "de" });
     expect(html).not.toContain("Kardashev");
     expect(html).not.toContain("Simon Orzel");
     expect(html).toContain("Open NIS2 compliance platform");
@@ -109,10 +120,10 @@ describe("emailLayout on a self-hosted install", () => {
 });
 
 describe("opt-out links", () => {
-  test("optional mail carries them, essential mail does not", () => {
+  test("optional mail carries them, essential mail does not", async () => {
     servedFrom("https://www.nisd2.eu");
-    const optional = emailLayout("<p>Body</p>", OPT_OUT);
-    const essential = emailLayout("<p>Body</p>", { locale: "de" });
+    const optional = await frame(OPT_OUT);
+    const essential = await frame({ locale: "de" });
     expect(optional).toContain(OPT_OUT.unsubscribeUrl);
     expect(optional).toContain("E-Mails abbestellen");
     expect(essential).not.toContain("abbestellen");

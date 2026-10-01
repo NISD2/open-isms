@@ -305,12 +305,12 @@ export async function processTeamRoleAssignments(
       sendMail({
         emailType: "account.invite",
         to: email,
-        ...inviteEmail({
+        ...(await inviteEmail({
           companyName: opts.companyName,
           inviterName,
           inviteUrl,
           role: "member",
-        }),
+        })),
       }).then((r) => {
         if (r.success) {
           logAudit({

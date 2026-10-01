@@ -257,7 +257,7 @@ const cancelRenewal = async (
       const sent = await sendMail({
         emailType: "billing.canceled",
         to: contact.email,
-        ...documentEmail(wording),
+        ...(await documentEmail(wording)),
         idempotencyKey: `renewal-canceled-${input.billingAccountId}-${current.periodEnd}`,
         failureLabel: input.erasure?.failureLabel,
       }).catch(() => ({ success: false }));

@@ -145,11 +145,11 @@ export const supplierInviteRouter = router({
       sendMail({
         emailType: "supplier.invite",
         to: email,
-        ...entityInvitesSupplierEmail({
+        ...(await entityInvitesSupplierEmail({
           entityName: entity?.name ?? null,
           inviteUrl,
           hasMessage: message !== null && message.trim() !== "",
-        }),
+        })),
       }).catch((err) => console.error("[supplier-invite] email send failed:", err));
 
       return {

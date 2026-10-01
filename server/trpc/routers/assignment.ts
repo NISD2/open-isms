@@ -120,7 +120,7 @@ export const assignmentRouter = router({
             emailType: "work.category_assigned",
             recipientUserId: input.userId,
             to: assignee.email,
-            ...categoryAssignedEmail({
+            ...(await categoryAssignedEmail({
               assigneeName: assignee.name,
               categoryName: catName,
               categoryCode: category.code,
@@ -131,7 +131,7 @@ export const assignmentRouter = router({
                 input.userId,
                 resolveEmailLocale(assignee.locale, companyRow?.country ?? null),
               ),
-            }),
+            })),
           }).then((r) => {
             if (r.success) {
               logAudit({
@@ -224,7 +224,7 @@ export const assignmentRouter = router({
             emailType: "work.category_unassigned",
             recipientUserId: input.userId,
             to: assignee.email,
-            ...categoryUnassignedEmail({
+            ...(await categoryUnassignedEmail({
               assigneeName: assignee.name,
               categoryName: catName,
               categoryCode: category.code,
@@ -233,7 +233,7 @@ export const assignmentRouter = router({
                 input.userId,
                 resolveEmailLocale(assignee.locale, companyRow?.country ?? null),
               ),
-            }),
+            })),
           }).then((r) => {
             if (r.success) {
               logAudit({

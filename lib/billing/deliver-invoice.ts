@@ -123,7 +123,7 @@ const sendInvoice = async (
   pdf: Uint8Array | null,
   where: InvoiceWhere,
 ) => {
-  const content = documentEmail(
+  const content = await documentEmail(
     invoiceEmailWording({
       number: input.number,
       locale: input.locale,

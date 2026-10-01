@@ -53,13 +53,13 @@ export const advisoryRouter = router({
       await sendMail({
         emailType: "internal.advisory_request",
         to: admins,
-        ...advisoryRequestEmail({
+        ...(await advisoryRequestEmail({
           topic: input.topic,
           email: input.email,
           sourcePath: input.sourcePath ?? null,
           requirementCode: input.requirementCode ?? null,
           adminUrl: `${getAppUrl()}/platform-admin/advisory`,
-        }),
+        })),
       }).catch((err) => console.error("[advisory] Failed to send operator alert:", err));
     }
 

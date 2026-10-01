@@ -34,7 +34,12 @@ import type { UserConsentEmailTypeId } from "@/lib/mail/email-types";
 import { preferenceFooterFor } from "@/lib/mail/footer";
 import { type EmailLocale, resolveEmailLocale } from "@/lib/mail/locale";
 import { mailSuppressionReason, sendMail } from "@/lib/mail/send";
-import { dailyDigestEmail, weeklyManagementDigestEmail } from "@/lib/mail/templates";
+import {
+  dailyDigestEmail,
+  dailyDigestSubject,
+  weeklyDigestSubject,
+  weeklyManagementDigestEmail,
+} from "@/lib/mail/templates";
 import { listCompanyMembers } from "@/lib/organization/membership";
 import { company, notification } from "@/schema";
 
@@ -168,17 +173,7 @@ export async function buildDigestQueue(db: Database): Promise<QueuedDigest[]> {
             email: digest.recipientEmail,
             companyId: co.id,
             companyName: co.name,
-            subject: dailyDigestEmail({
-              recipientName: digest.recipientName,
-              companyName: digest.companyName,
-              overdueItems: digest.overdueItems,
-              urgentItems: digest.urgentItems,
-              upcomingItems: digest.upcomingItems,
-              nextStep: digest.nextStep,
-              compliancePercentage: digest.compliancePercentage,
-              dashboardUrl: digest.dashboardUrl,
-              footer: preferenceFooterFor(member.id, locale),
-            }).subject,
+            subject: dailyDigestSubject(digest),
             summary: `${digest.overdueItems.length} overdue, ${digest.urgentItems.length} urgent, ${digest.upcomingItems.length} upcoming`,
             locale,
           });
@@ -201,19 +196,7 @@ export async function buildDigestQueue(db: Database): Promise<QueuedDigest[]> {
             email: mgmt.recipientEmail,
             companyId: co.id,
             companyName: co.name,
-            subject: weeklyManagementDigestEmail({
-              recipientName: mgmt.recipientName,
-              companyName: mgmt.companyName,
-              compliancePercentage: mgmt.compliancePercentage,
-              overdueCount: mgmt.overdueCount,
-              urgentCount: mgmt.urgentCount,
-              escalationCount: mgmt.escalationCount,
-              totalRequirements: mgmt.totalRequirements,
-              completedRequirements: mgmt.completedRequirements,
-              nextStep: mgmt.nextStep,
-              dashboardUrl: mgmt.dashboardUrl,
-              footer: preferenceFooterFor(member.id, locale),
-            }).subject,
+            subject: weeklyDigestSubject(mgmt),
             summary: `${mgmt.compliancePercentage}% compliant, ${mgmt.overdueCount} overdue, ${mgmt.escalationCount} escalations`,
             locale,
           });
