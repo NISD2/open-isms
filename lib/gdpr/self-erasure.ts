@@ -122,10 +122,47 @@ export async function selfErasureCheck(
   return { allowed: true, organization: scope.owned?.name ?? null };
 }
 
-/** eraseUser's guard for a self-service erasure: the same rules, at the moment of erasure. */
+/**
+ * eraseUser's guard for a self-service erasure: the same rules, at the moment of erasure.
+ *
+ * The rows the rules count are locked first, so they hold until the erasure commits: the
+ * organizations the person owns (a membership insert takes KEY SHARE on its company, so an invite
+ * accepted meanwhile waits, then fails on the deleted company instead of being torn down with it),
+ * and the billing accounts they pay for.
+ *
+ * The billing lock does not wait. An order or a cancel holds its account (NO KEY UPDATE) across the
+ * Qonto call and then inserts an invoice or credit note naming this user, which needs KEY SHARE on
+ * the user row eraseUser already holds: waiting here would be a cycle, and Postgres would abort the
+ * order after Qonto had issued the invoice. A billing action in flight is a billing tie anyway.
+ */
 export const assertSelfErasureAllowed =
   (person: { readonly userId: string; readonly email: string }) =>
   async (tx: DbOrTx): Promise<void> => {
+    await tx
+      .select({ id: company.id })
+      .from(company)
+      .where(eq(company.ownerId, person.userId))
+      .for("update");
+    await tx
+      .select({ id: billingAccount.id })
+      .from(billingAccount)
+      .where(eq(billingAccount.ownerUserId, person.userId))
+      .for("share", { noWait: true })
+      .catch((err: unknown) => {
+        if (pgCodeOf(err) === LOCK_NOT_AVAILABLE) throw new SelfErasureRefused("billing");
+        throw err;
+      });
     const check = await selfErasureCheck(tx, person);
     if (!check.allowed) throw new SelfErasureRefused(check.reason);
   };
+
+/** Postgres lock_not_available, raised by NOWAIT when the row is locked. */
+const LOCK_NOT_AVAILABLE = "55P03";
+
+/** The Postgres error code on a driver error or the query error wrapping it. */
+const pgCodeOf = (err: unknown): string | undefined => {
+  const source = err instanceof Error && typeof err.cause === "object" ? err.cause : err;
+  return source && typeof source === "object" && "code" in source
+    ? String((source as { code: unknown }).code)
+    : undefined;
+};

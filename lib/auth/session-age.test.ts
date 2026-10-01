@@ -1,13 +1,12 @@
 import { describe, expect, test } from "bun:test";
 import {
-  ACCOUNT_CLOCK_SKEW_S,
   epochSeconds,
   isRecentSignIn,
   isSessionVersionCurrent,
+  issuedToAccount,
   isWithinAbsoluteSessionAge,
   RECENT_SIGN_IN_S,
   SESSION_ABSOLUTE_MAX_AGE_S,
-  signedInAfterAccountCreated,
 } from "./session-age";
 
 const SIGNED_IN = epochSeconds(new Date("2026-09-30T08:00:00Z"));
@@ -54,25 +53,20 @@ describe("the revocation counter", () => {
   });
 });
 
-describe("a sign-in and the account it opens", () => {
-  const created = new Date(SIGNED_IN * 1000);
+describe("a token and the account it opens", () => {
+  const account = "11111111-1111-4111-8111-111111111111";
+  const erased = "22222222-2222-4222-8222-222222222222";
 
-  test("a sign-in after the account was created opens it", () => {
-    expect(signedInAfterAccountCreated(SIGNED_IN + 5, created)).toBe(true);
+  test("a token issued to this account opens it", () => {
+    expect(issuedToAccount(account, account)).toBe(true);
   });
 
-  test("a sign-in a few seconds behind the database clock still opens it", () => {
-    expect(signedInAfterAccountCreated(SIGNED_IN - ACCOUNT_CLOCK_SKEW_S, created)).toBe(
-      true,
-    );
+  test("a token from an erased account under the same address does not", () => {
+    expect(issuedToAccount(erased, account)).toBe(false);
   });
 
-  test("a token from before the account existed belongs to an erased one", () => {
-    expect(signedInAfterAccountCreated(SIGNED_IN - 10 * 60, created)).toBe(false);
-  });
-
-  test("a token without a sign-in time opens nothing", () => {
-    expect(signedInAfterAccountCreated(null, created)).toBe(false);
+  test("a token from before the id was stamped is left to age out", () => {
+    expect(issuedToAccount(null, account)).toBe(true);
   });
 });
 

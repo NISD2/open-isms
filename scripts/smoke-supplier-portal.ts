@@ -95,6 +95,7 @@ async function main() {
       accessLevel: "full",
       sessionVersion: null,
       authTime: null,
+      accountId: null,
       hints: {
         journeyTourGuided: false,
         journeyTourTeam: false,

@@ -33,23 +33,17 @@ export function isWithinAbsoluteSessionAge(
 }
 
 /**
- * How far the database clock (which stamps user.created_at) may run ahead of the app's (which
- * stamps the sign-in) when an account is created and signed in within the same moment.
+ * True when the token was issued to this account. Sessions are found by email and a new account's
+ * revocation counter starts at 1, so without this a cookie from an erased account would open a new
+ * one registered under the same address. Compared by id, not by time: user.created_at is stored
+ * without a time zone in the database's clock, the sign-in time is the app's. A token from before
+ * the id was stamped carries none and ages out within the absolute limit.
  */
-export const ACCOUNT_CLOCK_SKEW_S = 60;
-
-/**
- * True when the sign-in is not older than the account. Sessions are found by email and a new
- * account's revocation counter starts at 1, so without this a token from an earlier account under the
- * same address (erased, then registered again) would open the new one.
- */
-export function signedInAfterAccountCreated(
-  authTime: number | null,
-  accountCreatedAt: Date,
+export function issuedToAccount(
+  tokenAccountId: string | null,
+  accountId: string,
 ): boolean {
-  return (
-    authTime !== null && authTime + ACCOUNT_CLOCK_SKEW_S >= epochSeconds(accountCreatedAt)
-  );
+  return tokenAccountId === null || tokenAccountId === accountId;
 }
 
 /**

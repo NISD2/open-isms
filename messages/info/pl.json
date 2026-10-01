@@ -858,7 +858,8 @@
       },
       "retention": {
         "heading": "Przechowywanie danych",
-        "p1": "Twoje dane są przechowywane tak długo, jak Twoje konto jest aktywne i jak jest to niezbędne do celów opisanych powyżej. Dane dotyczące zgodności (dane z formularzy, dowody, ścieżka audytu) są przechowywane przez prawnie wymagany okres. Po usunięciu konta dane osobowe zostają usunięte. Zanonimizowane wpisy ścieżki audytu mogą być zachowane."
+        "p1": "Twoje dane są przechowywane tak długo, jak Twoje konto jest aktywne i jak jest to niezbędne do celów opisanych powyżej. Dane dotyczące zgodności (dane z formularzy, dowody, ścieżka audytu) są przechowywane przez prawnie wymagany okres. Po usunięciu konta dane osobowe zostają usunięte. Zanonimizowane wpisy ścieżki audytu mogą być zachowane.",
+        "erasure": "Gdy Twoje konto zostanie usunięte, wysyłamy Ci e-mailem potwierdzenie, co zostało usunięte, za pośrednictwem naszego dostawcy poczty e-mail Resend (Art. 12(3) GDPR). Przechowujemy zapis usunięcia (imię i nazwisko, adres e-mail, organizacja, numer sprawy i to, co zostało usunięte), aby wykazać, że zrealizowaliśmy żądanie (Art. 5(2) GDPR). Po trzech latach usuwamy z niego adres e-mail."
       },
       "changes": {
         "heading": "Zmiany w niniejszej polityce",

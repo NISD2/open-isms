@@ -13,6 +13,26 @@
     "billing": "Facturare",
     "defaultUser": "Utilizator",
     "signOut": "Deconectare",
+    "deleteAccount": {
+      "menuItem": "Ștergere cont",
+      "title": "Ștergerea definitivă a contului",
+      "description": "Această acțiune nu poate fi anulată.",
+      "whatAccount": "Contul dvs. și toate datele personale din acesta sunt șterse.",
+      "whatOrganization": "Organizația dvs. {name} este ștearsă cu toate datele sale, inclusiv fișierele încărcate.",
+      "whatEmail": "Confirmarea ștergerii ajunge apoi la {email}.",
+      "confirmLabel": "Introduceți adresa dvs. de e-mail pentru confirmare:",
+      "confirm": "Șterge definitiv",
+      "cancel": "Anulează",
+      "signInAgain": "Autentificați-vă din nou",
+      "failed": "Contul nu a putut fi șters acum. Încercați din nou mai târziu sau scrieți la contact@nisd2.eu.",
+      "refused": {
+        "reauth": "Pentru siguranță, autentificați-vă din nou înainte de a vă șterge contul. Apoi veți reveni aici.",
+        "platform_admin": "Administratorii platformei nu își pot șterge contul aici.",
+        "several_organizations": "Dețineți mai multe organizații. Scrieți la contact@nisd2.eu și vom șterge contul împreună cu dvs.",
+        "billing": "Contul dvs. are facturi sau o comandă în curs de verificare, ori plătește pentru o altă organizație. Trebuie să păstrăm facturile. Scrieți la contact@nisd2.eu și vom șterge contul împreună cu dvs.",
+        "other_members": "Organizația dvs. are și alți membri, iar ștergerea contului dvs. ar șterge organizația împreună cu munca lor. Eliminați mai întâi ceilalți membri sau scrieți la contact@nisd2.eu."
+      }
+    },
     "organizations": "Organizații",
     "addOrganization": "Adaugă altă organizație",
     "untitledOrganization": "Organizație nouă (încă neconfigurată)",

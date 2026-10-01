@@ -19,8 +19,8 @@ import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
 import {
   epochSeconds,
   isSessionVersionCurrent,
+  issuedToAccount,
   isWithinAbsoluteSessionAge,
-  signedInAfterAccountCreated,
 } from "@/lib/auth/session-age";
 import { effectiveAccessLevel } from "@/lib/billing/access";
 import { isActivePromo, PROMO_COOKIE } from "@/lib/billing/promo";
@@ -310,22 +310,24 @@ if (process.env.NODE_ENV !== "production" && process.env.ENABLE_DEV_AUTH === "tr
   );
 }
 
-type StoredSessionVersion = { ok: true; version: number | null } | { ok: false };
+type StoredAccount =
+  | { ok: true; account: { id: string; sessionVersion: number } | null }
+  | { ok: false };
 
 /**
- * The stored session version for this email (null when the user is gone), or not ok when the
- * database could not be asked. Auth.js reads a throw in the jwt callback as "signed out" and clears
- * the cookie, so a database blip would otherwise end every session; getSession still refuses data
- * while the database is down. Only the error's name is logged, since a query error's message
- * carries its parameters, here the address.
+ * The account now holding this email, with its session version (null when there is none), or not
+ * ok when the database could not be asked. Auth.js reads a throw in the jwt callback as "signed out"
+ * and clears the cookie, so a database blip would otherwise end every session; getSession still
+ * refuses data while the database is down. Only the error's name is logged, since a query error's
+ * message carries its parameters, here the address.
  */
-async function storedSessionVersion(email: string): Promise<StoredSessionVersion> {
+async function storedAccount(email: string): Promise<StoredAccount> {
   try {
     const stored = await db.query.user.findFirst({
       where: eq(user.email, email),
-      columns: { sessionVersion: true },
+      columns: { id: true, sessionVersion: true },
     });
-    return { ok: true, version: stored?.sessionVersion ?? null };
+    return { ok: true, account: stored ?? null };
   } catch (err) {
     console.error(
       "[auth] session version lookup failed, keeping the token:",
@@ -512,8 +514,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           .update(user)
           .set({ loginCount: sql`${user.loginCount} + 1`, lastLoginAt: new Date() })
           .where(eq(user.email, authUser.email))
-          .returning({ sessionVersion: user.sessionVersion });
-        token.sessionVersion = dbUser?.sessionVersion ?? 1;
+          .returning({ id: user.id, sessionVersion: user.sessionVersion });
+        // The signIn callback creates or finds the row first, so none means something is wrong;
+        // refusing beats a token that no account owns and any later one under the address accepts.
+        if (!dbUser) return null;
+        token.sessionVersion = dbUser.sessionVersion;
+        // Which account this sign-in opened: the refresh below and getSession refuse the token for
+        // any other account that later holds the same address (session-age.ts issuedToAccount).
+        token.accountId = dbUser.id;
         // Stamped here and never again, so it stays the sign-in time however
         // often the token is re-signed (lib/auth/session-age.ts).
         token.authTime = epochSeconds(new Date());
@@ -526,10 +534,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         return null;
       }
       if (!token.email) return null;
-      const stored = await storedSessionVersion(token.email);
+      const stored = await storedAccount(token.email);
       if (!stored.ok) return token;
-      return stored.version !== null &&
-        isSessionVersionCurrent(token.sessionVersion ?? null, stored.version)
+      return stored.account !== null &&
+        issuedToAccount(token.accountId ?? null, stored.account.id) &&
+        isSessionVersionCurrent(
+          token.sessionVersion ?? null,
+          stored.account.sessionVersion,
+        )
         ? token
         : null;
     },
@@ -542,6 +554,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       session.accessLevel = null;
       session.sessionVersion = token.sessionVersion ?? null;
       session.authTime = token.authTime ?? null;
+      session.accountId = token.accountId ?? null;
       session.hints = {
         journeyTourGuided: false,
         journeyTourTeam: false,
@@ -598,7 +611,6 @@ export const getSession = cache(async (): Promise<Session | null> => {
       name: true,
       companyId: true,
       sessionVersion: true,
-      createdAt: true,
       loginCount: true,
       grandfatheredAt: true,
       journeyTourGuidedDismissedAt: true,
@@ -618,7 +630,7 @@ export const getSession = cache(async (): Promise<Session | null> => {
     return null;
   }
   // A cookie from an erased account must not open a new one registered under the same address.
-  if (!signedInAfterAccountCreated(session.authTime, dbUser.createdAt)) {
+  if (!issuedToAccount(session.accountId, dbUser.id)) {
     return null;
   }
 
