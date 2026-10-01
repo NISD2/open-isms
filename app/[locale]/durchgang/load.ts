@@ -22,6 +22,7 @@ import {
 } from "@/lib/durchgang";
 import { introspectSchema } from "@/lib/forms/schema-introspect";
 import { api } from "@/lib/trpc/server";
+import { glossary } from "./gloss";
 
 /** The step art on disk, read once per server process rather than on every render. */
 const ART: ReadonlySet<string> = (() => {
@@ -174,6 +175,14 @@ export async function loadItem(code: string): Promise<ItemView | null> {
         },
       ]
     : [];
+  // The running text that may explain a term in place: learn paragraphs, leads, missed lines.
+  const prose = [
+    ...words.missed,
+    ...words.screens.flatMap((s) => [
+      ...("body" in s.copy ? s.copy.body : []),
+      ...("lead" in s.copy && typeof s.copy.lead === "string" ? [s.copy.lead] : []),
+    ]),
+  ];
 
   return {
     code,
@@ -195,6 +204,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     // English. Both stay in the rail.
     duty: (locale === "de" ? req.legalRef : req.frameworkRef) ?? req.legalRef ?? "",
     dutyHref: dutyHref(item.law, locale),
+    gloss: glossary(prose, locale),
     screens: words.screens,
     statusId,
     assessmentId: assessment?.id ?? null,

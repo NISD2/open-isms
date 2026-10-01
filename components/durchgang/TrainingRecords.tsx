@@ -63,6 +63,10 @@ const AUDIENCE = {
   },
 } as const;
 
+/** The name a training line goes by: the person for management, the topic for staff. */
+export const headOf = (row: Row, audience: TrainingAudience): string | null =>
+  AUDIENCE[audience].line(row).head;
+
 /** A training day as the person entered it: a calendar date, shown back as that same date. */
 const dayOf = (locale: "de" | "en", date: Date) =>
   new Intl.DateTimeFormat(locale === "de" ? "de-DE" : "en-GB", {

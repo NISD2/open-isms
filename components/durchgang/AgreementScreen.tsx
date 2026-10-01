@@ -1,11 +1,12 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { RequestSupplierProfileButton } from "@/components/suppliers/RequestSupplierProfileButton";
 import type { RiskLevel } from "@/lib/compliance/bsi-200-3";
 import { byLevel, levelOfStanding, type RatingRow } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import type { Agreed, Draft } from "./draft";
-import { Heading, Lead } from "./ExplainScreens";
+import { Aside, Heading, Lead } from "./ExplainScreens";
 import { useRatingRows } from "./RatingScreens";
 import { RowLevel, Toggle } from "./RowParts";
 import type { Of, WorkProps } from "./WorkScreens";
@@ -117,6 +118,12 @@ export function Agreements({
             );
           })}
         </ul>
+      )}
+      {rows && rows.length > 0 && (
+        <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-3">
+          <Aside className="flex-1">{t("questionnaire")}</Aside>
+          <RequestSupplierProfileButton label={t("questionnaireButton")} />
+        </div>
       )}
     </>
   );

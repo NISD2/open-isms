@@ -21,6 +21,7 @@ import {
 import type { LearnLink, ResolvedScreen } from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
 import { Art } from "./Art";
+import { Glossed } from "./Glossed";
 import { RegistrationPortals } from "./RegistrationPortals";
 import { ReportingClock } from "./ReportingClock";
 import { LEVEL_FILL, RiskMatrix } from "./RiskMatrix";
@@ -40,7 +41,7 @@ export function Heading({ children }: { children: ReactNode }) {
 export function Lead({ children }: { children: ReactNode }) {
   return (
     <p className="mt-4 max-w-[60ch] text-lg leading-8 text-muted-foreground">
-      {children}
+      {typeof children === "string" ? <Glossed text={children} /> : children}
     </p>
   );
 }
@@ -172,7 +173,9 @@ export function Learn({ item, entry }: { item: ItemView; entry: Of<"learn"> }) {
       <Heading>{entry.copy.title}</Heading>
       <div className="mt-5 max-w-[62ch] space-y-4 text-[17px] leading-8 text-foreground/85">
         {entry.copy.body.map((paragraph) => (
-          <p key={paragraph}>{paragraph}</p>
+          <p key={paragraph}>
+            <Glossed text={paragraph} />
+          </p>
         ))}
       </div>
       {link && entry.copy.link && <LearnMore link={link} label={entry.copy.link} />}

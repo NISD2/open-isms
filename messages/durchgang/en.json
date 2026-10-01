@@ -88,7 +88,9 @@
       },
       "unrated": "Not rated",
       "agreements": {
-        "empty": "No supplier is on your list yet. You add your suppliers in step 5.1."
+        "empty": "No supplier is on your list yet. You add your suppliers in step 5.1.",
+        "questionnaire": "Nothing settled with a supplier? Send them our security questionnaire. They fill it in once in the supplier portal, and their answers are linked to your supplier list.",
+        "questionnaireButton": "Send the security questionnaire"
       },
       "logins": {
         "empty": "No software is on your list yet. You create your list in step 2.2."
@@ -123,6 +125,14 @@
         "areas": "Assign areas on the team page"
       },
       "recorded": "Recorded in your records",
+      "recordedSources": "Looked in",
+      "recordedIn": {
+        "training_record": "Trainings",
+        "management_review": "Management reviews",
+        "supplier": "Suppliers",
+        "team": "In the team"
+      },
+      "andMore": "{names} and {count} more",
       "comesNext": "Next",
       "saveFailed": "That was not saved. What you entered is still here. Please try again.",
       "uploadFirst": "Upload the file here. If you do not have it yet, choose \"Not possible yet\".",

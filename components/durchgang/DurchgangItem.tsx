@@ -37,6 +37,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { useRouter } from "@/i18n/navigation";
 import { CATALOG_BY_ID } from "@/lib/asset-inventory/catalog";
 import { type ItemState, resumeAt, type ScreenKind, sliceOf } from "@/lib/durchgang";
@@ -46,6 +47,7 @@ import { Agreements } from "./AgreementScreen";
 import { Approve } from "./ApproveScreen";
 import { CriticalScreen } from "./CriticalScreen";
 import { Compare, Learn, Prepare, Provision, Reading, Sample } from "./ExplainScreens";
+import { GlossProvider } from "./Glossed";
 import { Logins } from "./LoginScreen";
 import { PolicyScreen } from "./PolicyScreen";
 import { Rail } from "./Rail";
@@ -253,7 +255,7 @@ export function DurchgangItem({
     }
   })();
 
-  return (
+  const page = (
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-30 bg-background/90 backdrop-blur-md print:hidden">
         <div className="mx-auto flex h-16 max-w-7xl items-center gap-2 px-3 sm:px-6 lg:px-10">
@@ -390,5 +392,11 @@ export function DurchgangItem({
         onDecline={(reason) => settleAndGoHome(decline(reason))}
       />
     </div>
+  );
+
+  return (
+    <TooltipProvider delayDuration={150}>
+      <GlossProvider value={item.gloss}>{page}</GlossProvider>
+    </TooltipProvider>
   );
 }

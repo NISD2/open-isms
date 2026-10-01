@@ -33,6 +33,7 @@ import { Aside, Heading, Lead } from "./ExplainScreens";
 import { ManagementReviews } from "./ManagementReviews";
 import { SupplierList } from "./SupplierList";
 import { TrainingRecords } from "./TrainingRecords";
+import { useRecorded } from "./useRecorded";
 import type { ItemView, Registers, WalkEntry } from "./view";
 
 export type Of<K extends ResolvedScreen["kind"]> = Extract<ResolvedScreen, { kind: K }>;
@@ -529,28 +530,7 @@ export function Done({
   onNext: () => void;
 }) {
   const t = useTranslations("durchgang.ui");
-  const shown = (
-    value: unknown,
-    options: Readonly<Record<string, string>> | undefined,
-  ) =>
-    typeof value === "boolean"
-      ? t(value ? "yes" : "no")
-      : typeof value === "string"
-        ? (options?.[value] ?? value)
-        : String(value);
-  const recorded = [
-    ...item.screens.flatMap((s) =>
-      s.kind === "fields"
-        ? s.copy.fields.flatMap((f) => {
-            const value = draft.values[f.key];
-            return value === "" || value === undefined || value === null
-              ? []
-              : [`${f.label}: ${shown(value, f.options)}`];
-          })
-        : [],
-    ),
-    ...(draft.uploaded ? [draft.uploaded] : []),
-  ];
+  const recorded = useRecorded(item, draft);
   return (
     <>
       <section className="relative overflow-hidden rounded-3xl bg-primary p-8 text-primary-foreground sm:p-10">

@@ -39,6 +39,11 @@ export interface WalkEntry {
   readonly state: ItemState;
 }
 
+/** A piece of glossed text: plain, or a term with what it means. */
+export type Gloss =
+  | { readonly text: string }
+  | { readonly term: string; readonly definition: string };
+
 /** Everything one item's screens need, resolved on the server. */
 export interface ItemView {
   readonly code: string;
@@ -55,6 +60,11 @@ export interface ItemView {
    * category link, which can open a different paragraph (spec §0.7, correction 3).
    */
   readonly dutyHref: string;
+  /**
+   * The item's texts that explain a term in place, keyed by the text itself: learn paragraphs,
+   * leads and the "often missed" lines. Matched on the server, so the dictionary stays there.
+   */
+  readonly gloss: Readonly<Record<string, readonly Gloss[]>>;
   readonly screens: readonly ResolvedScreen[];
   readonly statusId: string | null;
   readonly assessmentId: string | null;

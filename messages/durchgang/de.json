@@ -88,7 +88,9 @@
       },
       "unrated": "Nicht bewertet",
       "agreements": {
-        "empty": "Noch steht kein Lieferant auf Ihrer Liste. Sie tragen Ihre Lieferanten in Schritt 5.1 ein."
+        "empty": "Noch steht kein Lieferant auf Ihrer Liste. Sie tragen Ihre Lieferanten in Schritt 5.1 ein.",
+        "questionnaire": "Ist mit einem Lieferanten nichts geregelt? Schicken Sie ihm unseren Sicherheitsfragebogen. Er füllt ihn einmal im Lieferantenportal aus, und seine Antworten werden mit Ihrer Lieferantenliste verknüpft.",
+        "questionnaireButton": "Sicherheitsfragebogen schicken"
       },
       "logins": {
         "empty": "Noch steht kein Programm auf Ihrer Liste. Sie legen Ihre Liste in Schritt 2.2 an."
@@ -123,6 +125,14 @@
         "areas": "Bereiche auf der Teamseite verteilen"
       },
       "recorded": "Festgehalten in Ihren Unterlagen",
+      "recordedSources": "Nachgesehen in",
+      "recordedIn": {
+        "training_record": "Schulungen",
+        "management_review": "Managementbewertungen",
+        "supplier": "Lieferanten",
+        "team": "Im Team"
+      },
+      "andMore": "{names} und {count} weitere",
       "comesNext": "Als Nächstes",
       "saveFailed": "Das wurde nicht gespeichert. Ihre Eingaben sind noch da. Bitte versuchen Sie es noch einmal.",
       "uploadFirst": "Laden Sie die Datei hier hoch. Haben Sie sie noch nicht, wählen Sie „Geht noch nicht“.",
