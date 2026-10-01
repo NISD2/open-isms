@@ -33,6 +33,7 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
   const recordLogins = trpc.durchgang.recordLogins.useMutation();
   const writePolicy = trpc.durchgang.writePolicy.useMutation();
   const approvePolicy = trpc.durchgang.approvePolicy.useMutation();
+  const approvePolicies = trpc.durchgang.approvePolicies.useMutation();
   const finish = trpc.durchgang.finish.useMutation();
   const utils = trpc.useUtils();
   const resume = trpc.durchgang.resume.useMutation();
@@ -155,6 +156,21 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
         if (rows.length > 0) {
           await recordLogins.mutateAsync({ code: item.code, rows });
           await utils.asset.list.invalidate();
+        }
+        return;
+      }
+      case "approve": {
+        const { types, day } = snapshot.approval;
+        if (types.length > 0 && day) {
+          await approvePolicies.mutateAsync({
+            code: item.code,
+            approvedOn: day,
+            types: [...types],
+          });
+          await Promise.all([
+            utils.durchgang.walkPolicies.invalidate(),
+            utils.policy.list.invalidate(),
+          ]);
         }
         return;
       }

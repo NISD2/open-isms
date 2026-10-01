@@ -64,6 +64,14 @@ export const NOT_WALKED: Readonly<Record<string, string>> = {
     "Neither § 30 BSIG nor Art. 21 NIS 2 asks for security KPIs, a dashboard or a trend tool: § 30 Abs. 2 Nr. 6 asks for Konzepte und Verfahren zur Bewertung der Wirksamkeit. Indicators are CIR 2024/2690 Annex 1.1.1(j) and 7.2, which bind only the digital providers the CIR covers, and the BSI suggests them as advice. The procedure runs in the management review (7.3); the requirement page keeps the KPI register.",
   "7.2":
     "No statute asks every entity for internal audits. Independent reviews are CIR 2024/2690 Annex 2.3, which binds only the digital providers the CIR covers; audits every three years bind operators of critical facilities (§ 39 Abs. 1 BSIG), and the BSI may order audits of particularly important entities (§ 61 Abs. 1 BSIG). Regular reviews of effectiveness are BSI advice (IT-Grundschutz ISMS.1.A11). Effectiveness is checked in the management review (7.3); the requirement page keeps the audit plan.",
+  "7.4":
+    "Art. 21(4) NIS 2 asks that an entity that finds it does not comply takes corrective measures without undue delay; the BSIG has no separate sentence for it, and neither text asks for a register, a tool, counts or closure times. The measures management decides are recorded with the review in 7.3, and the improvement register stays on the requirement page.",
+  "12.4":
+    "The one duty here that binds every entity is to document compliance (§ 30 Abs. 1 S. 3 BSIG), and the Durchgang as a whole is that documentation: each item's records and documents, which management reviews and approves in 7.3. Attack detection and three-yearly evidence bind operators of critical facilities only (§ 31 Abs. 2, § 39 BSIG), and the special registration binds only the § 60 Abs. 1 entity types (§ 34 BSIG). Handing documents over when the BSI asks follows from its supervisory powers (§ 61 Abs. 5, § 62 BSIG); a correspondence log and the BSI's information-sharing platform (§ 6 BSIG) are voluntary.",
+  "3.4":
+    "No statute requires an exercise. § 30 Abs. 2 Nr. 6 BSIG asks for concepts and procedures to assess whether the measures work, and an exercise is one way among others. Testing incident response at planned intervals is CIR 2024/2690 Annex 3.5.5 and 3.1.3, which bind only the digital providers the CIR covers. The 3.1 plan and the 4.2 plan each offer a yearly exercise as a clause.",
+  "8.4":
+    "No statute asks for phishing simulations or for testing training: CIR 2024/2690 Annex 8.1.3 and 8.2.3 ask the digital providers the CIR covers to test awareness and assess training, and the BSI names phishing-simulation results only as one example of an indicator. Whether awareness works can be raised in the management review (7.3); the requirement page keeps the simulation fields.",
 };
 
 export const NIS2_SCRIPT: readonly AnyItem[] = [
@@ -462,6 +470,26 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
         "The last training date is read off the training lines; a separate field would hold the same fact twice.",
       newEmployeeOnboarding:
         "Reaching new employees is CIR 2024/2690 Annex 8.1.2(a) for the digital providers the CIR covers, and the BSI's onboarding training is advice; a briefing on a new employee's first day is a training line like any other.",
+    },
+  }),
+  item({
+    code: "7.3",
+    category: "EFF",
+    glossary: [],
+    reviewed: "2026-10-01",
+    screens: [
+      { kind: "learn", id: "learn" },
+      { kind: "prepare", id: "inputs" },
+      { kind: "sample", id: "record" },
+      { kind: "register", id: "review", module: "management_review" },
+      { kind: "approve", id: "approve" },
+      { kind: "done", id: "done" },
+    ],
+    notAsked: {
+      lastManagementReview:
+        "The review's date is its line in the management review register; a second date field would hold the same fact twice.",
+      managementReviewReportUploaded:
+        "Neither § 38 Abs. 1 nor § 30 BSIG asks for signed minutes; the review is recorded in the register and the documents management approved are marked approved. The requirement page keeps the upload for a company that has minutes.",
     },
   }),
 ];

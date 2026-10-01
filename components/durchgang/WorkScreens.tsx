@@ -30,6 +30,7 @@ import { cn } from "@/lib/utils";
 import { ArtThumb } from "./Art";
 import { asInput, type Draft, type DraftUpdate } from "./draft";
 import { Heading, Lead } from "./ExplainScreens";
+import { ManagementReviews } from "./ManagementReviews";
 import { TrainingRecords } from "./TrainingRecords";
 import type { ItemView, Registers, WalkEntry } from "./view";
 
@@ -451,6 +452,13 @@ export function Register({ item, entry }: { item: ItemView; entry: Of<"register"
                   initial={item.registers.training_record ?? []}
                   locale={item.locale}
                   audience={screen.audience}
+                />
+              );
+            case "management_review":
+              return (
+                <ManagementReviews
+                  initial={item.registers.management_review ?? []}
+                  locale={item.locale}
                 />
               );
             case "supplier":

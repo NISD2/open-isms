@@ -23,6 +23,7 @@
         "agreements": "Check",
         "logins": "Mark",
         "policy": "Template",
+        "approve": "Approve",
         "done": "Done"
       },
       "where": "{section} · Step {step} of {total}",
@@ -92,6 +93,30 @@
       },
       "logins": {
         "empty": "No software is on your list yet. You create your list in step 2.2."
+      },
+      "review": {
+        "title": "Management review of {date}",
+        "add": "Enter a review",
+        "date": "Date",
+        "attendees": "Who took part",
+        "attendeesHint": "Names, separated by commas",
+        "decisions": "Decided",
+        "decisionsHint": "for example: policies approved, second factor for remote access",
+        "actions": "To do",
+        "actionsHint": "What, who, by when",
+        "actionsPrefix": "To do:",
+        "empty": "No management review entered yet.",
+        "save": "Add",
+        "remove": "Delete",
+        "failed": "That was not saved. Please try again."
+      },
+      "approve": {
+        "approved": "Approved",
+        "approvedOn": "Approved on {date}",
+        "approvedUndated": "Approved",
+        "view": "View and print",
+        "day": "Day of approval",
+        "none": "The walkthrough has not written any document yet."
       },
       "team": {
         "invite": "Bring someone in",
@@ -1026,7 +1051,7 @@
                 },
                 {
                   "heading": "Enforcement and review",
-                  "text": "Management enforces this policy and checks regularly whether the measures work. It reviews the policy itself regularly, after major changes in the company and after serious security incidents, and adapts it."
+                  "text": "Management enforces this policy and checks regularly whether the measures work. For this, the person who coordinates information security reports to management which measures are in place, where there were problems and what they propose. Management decides what changes, records the result and its decisions in writing, and makes sure gaps are closed. It reviews the policy itself regularly, after major changes in the company and after serious security incidents, and adapts it."
                 },
                 {
                   "heading": "Announcement and entry into force",
@@ -1075,6 +1100,18 @@
                   "label": "Annual review",
                   "heading": "Annual review",
                   "text": "Management reviews this policy at least once a year."
+                },
+                {
+                  "id": "indicators",
+                  "label": "Indicators",
+                  "heading": "Indicators",
+                  "text": "For the review we use a few figures, such as how many security updates are installed and how quickly we respond to incidents."
+                },
+                {
+                  "id": "independent_review",
+                  "label": "Independent check",
+                  "heading": "Independent check",
+                  "text": "At least once a year a qualified person who is not responsible for the measures checks whether they work."
                 }
               ],
               "signature": "For the management of {company}: place, date, signature"
@@ -1828,6 +1865,82 @@
           "done": {
             "title": "Your training is recorded",
             "note": "Enter future trainings on the Training page, including the briefing of new staff."
+          }
+        }
+      },
+      "7_3": {
+        "headline": "Record the management review",
+        "teaser": "Management checks whether the measures work and approves your documents.",
+        "missed": [
+          "Management can only oversee what it knows. Germany's BSI advises reports to management that cover above all problems, successes and opportunities for improvement (IT-Grundschutz ISMS.1.A12).",
+          "Decisions without an owner and a date stay undone. For every task, record who does it by when."
+        ],
+        "screens": {
+          "learn": {
+            "title": "What management sees and decides",
+            "body": [
+              "Sit down, look at where things stand, decide: that is the management review. The person who coordinates information security reports what is in place, where things are stuck and what they propose. Management decides what happens next and records it.",
+              "In this step you enter the review and approve the documents the walkthrough wrote, which are saved as drafts so far. The law does not say how often or in what form."
+            ],
+            "duty": "The law requires management bodies to approve the measures and oversee their implementation, and requires procedures to assess whether the measures are effective."
+          },
+          "inputs": {
+            "title": "What goes on the table",
+            "lead": "Have ready for the review:",
+            "items": [
+              {
+                "name": "What is in place",
+                "detail": "the finished steps of this walkthrough and what is still open"
+              },
+              {
+                "name": "Problems",
+                "detail": "incidents, outages and anything that did not work"
+              },
+              {
+                "name": "Risks",
+                "detail": "your rated risks, highest first"
+              },
+              {
+                "name": "Proposals",
+                "detail": "what the person who coordinates information security would change"
+              }
+            ],
+            "source": "Under IT-Grundschutz ISMS.1.A12 of Germany's BSI, reports to management cover in particular problems, successes and opportunities for improvement."
+          },
+          "record": {
+            "title": "What an entry can look like",
+            "caption": "A management review, made up:",
+            "rows": [
+              {
+                "name": "Date and participants",
+                "detail": "12 February 2026; management, information security coordinator, IT provider"
+              },
+              {
+                "name": "Looked at",
+                "detail": "walkthrough status, two incidents, the five highest risks"
+              },
+              {
+                "name": "Decided",
+                "detail": "policies approved; second factor for remote access"
+              },
+              {
+                "name": "To do",
+                "detail": "test a restore, IT provider, by the end of March; phishing briefing, coordinator, in April"
+              }
+            ],
+            "note": "The law prescribes neither a meeting nor minutes. Record the date, who took part, the decisions and the tasks."
+          },
+          "review": {
+            "title": "Your management review",
+            "lead": "Enter the review: when, who, what was decided and what has to be done."
+          },
+          "approve": {
+            "title": "Approve what the walkthrough wrote",
+            "lead": "These are the documents from this walkthrough. Open each one, print it and have management sign it. Tick what is approved and enter the day."
+          },
+          "done": {
+            "title": "Your management review is recorded",
+            "note": "The approved documents apply from the day entered and are listed under your policies. Hold the next review as your security policy sets out."
           }
         }
       }

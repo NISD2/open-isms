@@ -1,5 +1,5 @@
 import type { AssetLayer } from "@/lib/asset-inventory/types";
-import type { Rating, SourceId } from "@/lib/durchgang";
+import type { PolicyTemplate, Rating, SourceId } from "@/lib/durchgang";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
 
 /** An asset as the "which one exactly" screen edits it: its name and who provides it. */
@@ -33,6 +33,11 @@ export interface Draft {
   readonly agreements: Readonly<Record<string, Agreed>>;
   /** Whether signing in takes a second factor, by asset id, for the rows answered on this visit. */
   readonly logins: Readonly<Record<string, boolean>>;
+  /** The drafts management approved in this sitting, by template, and the day it approved them. */
+  readonly approval: {
+    readonly types: readonly PolicyTemplate[];
+    readonly day: string;
+  };
 }
 
 /** A supplier's answer on 5.2: neither ticked means the person found nothing agreed. */
@@ -93,6 +98,7 @@ export const initialDraft = (
   clauses: null,
   agreements: {},
   logins: {},
+  approval: { types: [], day: "" },
 });
 
 /** A rating with both scales chosen, or null. */

@@ -6,6 +6,7 @@ interface RegisterRows {
   supplier: RouterOutputs["supplier"]["list"];
   team: RouterOutputs["team"]["listMembers"];
   training_record: RouterOutputs["training"]["list"];
+  management_review: RouterOutputs["managementReview"]["list"];
 }
 
 /** The registers an item's screens show, as their own routers return them. */

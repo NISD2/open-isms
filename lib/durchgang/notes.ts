@@ -29,6 +29,8 @@ const TEXT = {
     logins: (lines: readonly string[]) => `Anmeldung geprüft: ${lines.join("; ")}.`,
     mfa: "mit zweitem Faktor",
     password: "nur Passwort",
+    approved: (day: string, titles: readonly string[]) =>
+      `Von der Geschäftsführung freigegeben am ${day}: ${titles.join("; ")}.`,
   },
   en: {
     waiting: (reason: string, note: string | null) =>
@@ -45,6 +47,8 @@ const TEXT = {
     logins: (lines: readonly string[]) => `Sign-in checked: ${lines.join("; ")}.`,
     mfa: "second factor",
     password: "password only",
+    approved: (day: string, titles: readonly string[]) =>
+      `Approved by management on ${day}: ${titles.join("; ")}.`,
   },
 } as const;
 
@@ -90,3 +94,10 @@ export const loginsNote = (
     rows.map((row) => `${row.name}: ${row.mfa ? text.mfa : text.password}`),
   );
 };
+
+/** The documents management approved in one sitting, by title, with the day as entered. */
+export const approvedNote = (
+  locale: NoteLocale,
+  day: string,
+  titles: readonly string[],
+) => TEXT[locale].approved(day, titles);

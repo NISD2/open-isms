@@ -23,6 +23,7 @@
         "agreements": "Abgleichen",
         "logins": "Ankreuzen",
         "policy": "Vorlage",
+        "approve": "Freigeben",
         "done": "Erledigt"
       },
       "where": "{section} · Schritt {step} von {total}",
@@ -92,6 +93,30 @@
       },
       "logins": {
         "empty": "Noch steht kein Programm auf Ihrer Liste. Sie legen Ihre Liste in Schritt 2.2 an."
+      },
+      "review": {
+        "title": "Managementbewertung vom {date}",
+        "add": "Bewertung eintragen",
+        "date": "Datum",
+        "attendees": "Wer teilgenommen hat",
+        "attendeesHint": "Namen, mit Komma getrennt",
+        "decisions": "Entschieden",
+        "decisionsHint": "zum Beispiel: Konzepte freigegeben, zweiter Faktor für den Fernzugriff",
+        "actions": "Zu erledigen",
+        "actionsHint": "Was, wer, bis wann",
+        "actionsPrefix": "Zu erledigen:",
+        "empty": "Noch keine Managementbewertung eingetragen.",
+        "save": "Hinzufügen",
+        "remove": "Löschen",
+        "failed": "Das wurde nicht gespeichert. Bitte versuchen Sie es noch einmal."
+      },
+      "approve": {
+        "approved": "Freigegeben",
+        "approvedOn": "Freigegeben am {date}",
+        "approvedUndated": "Freigegeben",
+        "view": "Ansehen und drucken",
+        "day": "Tag der Freigabe",
+        "none": "Der Durchgang hat noch kein Dokument geschrieben."
       },
       "team": {
         "invite": "Jemanden dazuholen",
@@ -1026,7 +1051,7 @@
                 },
                 {
                   "heading": "Durchsetzung und Überprüfung",
-                  "text": "Die Geschäftsführung setzt diese Leitlinie durch und prüft regelmäßig, ob die Maßnahmen wirken. Sie überprüft die Leitlinie selbst regelmäßig, nach größeren Änderungen im Unternehmen und nach schweren Sicherheitsvorfällen, und passt sie an."
+                  "text": "Die Geschäftsführung setzt diese Leitlinie durch und prüft regelmäßig, ob die Maßnahmen wirken. Dazu berichtet ihr die Person, die die Informationssicherheit koordiniert, welche Maßnahmen umgesetzt sind, wo es Probleme gab und was sie vorschlägt. Die Geschäftsführung entscheidet, was geändert wird, hält Ergebnis und Entscheidungen schriftlich fest und sorgt dafür, dass Lücken geschlossen werden. Sie überprüft die Leitlinie selbst regelmäßig, nach größeren Änderungen im Unternehmen und nach schweren Sicherheitsvorfällen, und passt sie an."
                 },
                 {
                   "heading": "Bekanntgabe und Inkrafttreten",
@@ -1075,6 +1100,18 @@
                   "label": "Jährliche Überprüfung",
                   "heading": "Jährliche Überprüfung",
                   "text": "Die Geschäftsführung überprüft diese Leitlinie mindestens einmal im Jahr."
+                },
+                {
+                  "id": "indicators",
+                  "label": "Kennzahlen",
+                  "heading": "Kennzahlen",
+                  "text": "Für die Überprüfung nutzen wir wenige Kennzahlen, etwa wie viele Sicherheitsupdates eingespielt sind und wie schnell wir auf Vorfälle reagieren."
+                },
+                {
+                  "id": "independent_review",
+                  "label": "Unabhängige Prüfung",
+                  "heading": "Unabhängige Prüfung",
+                  "text": "Mindestens einmal im Jahr prüft eine fachkundige Person, die die Maßnahmen nicht selbst verantwortet, ob sie wirken."
                 }
               ],
               "signature": "Für die Geschäftsführung der {company}: Ort, Datum, Unterschrift"
@@ -1828,6 +1865,82 @@
           "done": {
             "title": "Ihre Schulungen sind festgehalten",
             "note": "Tragen Sie künftige Schulungen auf der Seite Schulungen ein, auch die Unterweisung neuer Beschäftigter."
+          }
+        }
+      },
+      "7_3": {
+        "headline": "Die Managementbewertung festhalten",
+        "teaser": "Die Geschäftsführung prüft, ob die Maßnahmen wirken, und gibt Ihre Dokumente frei.",
+        "missed": [
+          "Überwachen kann die Geschäftsleitung nur, was sie kennt. Das BSI rät zu Berichten an die Leitung, die vor allem Probleme, Erfolge und Verbesserungsmöglichkeiten enthalten (IT-Grundschutz ISMS.1.A12).",
+          "Beschlüsse ohne Verantwortliche und Termin bleiben liegen. Halten Sie bei jeder Aufgabe fest, wer sie bis wann erledigt."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Was die Geschäftsführung sieht und entscheidet",
+            "body": [
+              "Zusammensetzen, auf den Stand schauen, entscheiden: Das ist die Managementbewertung. Die Person, die die Informationssicherheit koordiniert, berichtet, was umgesetzt ist, wo es hakt und was sie vorschlägt. Die Geschäftsführung entscheidet, was als Nächstes passiert, und hält es fest.",
+              "In diesem Schritt tragen Sie die Bewertung ein und geben die Dokumente frei, die der Durchgang geschrieben hat und die bisher als Entwurf gespeichert sind. Wie oft und in welcher Form, legt das Gesetz nicht fest."
+            ],
+            "duty": "Das Gesetz verpflichtet die Geschäftsleitung, die Maßnahmen umzusetzen und ihre Umsetzung zu überwachen, und verlangt Verfahren, mit denen Sie prüfen, ob die Maßnahmen wirken."
+          },
+          "inputs": {
+            "title": "Was auf den Tisch gehört",
+            "lead": "Legen Sie für die Bewertung bereit:",
+            "items": [
+              {
+                "name": "Was umgesetzt ist",
+                "detail": "die erledigten Schritte dieses Durchgangs und was noch aussteht"
+              },
+              {
+                "name": "Probleme",
+                "detail": "Vorfälle, Ausfälle und alles, was nicht geklappt hat"
+              },
+              {
+                "name": "Risiken",
+                "detail": "Ihre bewerteten Risiken, die höchsten zuerst"
+              },
+              {
+                "name": "Vorschläge",
+                "detail": "was die Person, die die Informationssicherheit koordiniert, ändern würde"
+              }
+            ],
+            "source": "Nach IT-Grundschutz ISMS.1.A12 des BSI enthalten Berichte an die Leitung „insbesondere Probleme, Erfolge und Verbesserungsmöglichkeiten“."
+          },
+          "record": {
+            "title": "So kann ein Eintrag aussehen",
+            "caption": "Eine Managementbewertung, ausgedacht:",
+            "rows": [
+              {
+                "name": "Datum und Teilnehmende",
+                "detail": "12. Februar 2026; Geschäftsführung, Koordination Informationssicherheit, IT-Dienstleister"
+              },
+              {
+                "name": "Angeschaut",
+                "detail": "Stand des Durchgangs, zwei Vorfälle, die fünf höchsten Risiken"
+              },
+              {
+                "name": "Entschieden",
+                "detail": "Konzepte freigegeben; zweiter Faktor für den Fernzugriff"
+              },
+              {
+                "name": "Zu erledigen",
+                "detail": "Wiederherstellung testen, IT-Dienstleister, bis Ende März; Unterweisung Phishing, Koordination, im April"
+              }
+            ],
+            "note": "Das Gesetz schreibt weder eine Sitzung noch ein Protokoll vor. Halten Sie Datum, Beteiligte, Entscheidungen und Aufgaben fest."
+          },
+          "review": {
+            "title": "Ihre Managementbewertung",
+            "lead": "Tragen Sie die Bewertung ein: wann, wer, was entschieden wurde und was zu tun ist."
+          },
+          "approve": {
+            "title": "Freigeben, was der Durchgang geschrieben hat",
+            "lead": "Das sind die Dokumente aus diesem Durchgang. Öffnen Sie jedes, drucken Sie es und lassen Sie es von der Geschäftsführung unterschreiben. Kreuzen Sie an, was freigegeben ist, und tragen Sie den Tag ein."
+          },
+          "done": {
+            "title": "Ihre Managementbewertung ist festgehalten",
+            "note": "Die freigegebenen Dokumente gelten ab dem eingetragenen Tag und stehen in Ihren Richtlinien. Die nächste Bewertung halten Sie so, wie Ihre Leitlinie es festlegt."
           }
         }
       }

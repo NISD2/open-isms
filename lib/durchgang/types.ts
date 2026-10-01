@@ -32,7 +32,11 @@ export type Provision =
  * A register the requirement page shows for the item (its `moduleRef`), which a screen shows as
  * the list itself. The asset register has its own screen kind, because it is offered in slices.
  */
-export type RegisterModule = "supplier" | "team" | "training_record";
+export type RegisterModule =
+  | "supplier"
+  | "team"
+  | "training_record"
+  | "management_review";
 
 /**
  * Whose trainings a training screen lists and adds: management's, which § 38 Abs. 3 BSIG asks
@@ -157,6 +161,11 @@ export type Screen<C extends CategoryCode> =
    * requirement.
    */
   | { readonly kind: "policy"; readonly id: string; readonly policy: PolicyTemplate }
+  /**
+   * Every policy the walk wrote, with its state: the drafts management approved in one sitting
+   * are marked approved from the day it approved them.
+   */
+  | { readonly kind: "approve"; readonly id: string }
   | { readonly kind: "done"; readonly id: string };
 
 export type AnyScreen = Screen<CategoryCode>;

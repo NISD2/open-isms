@@ -1,6 +1,7 @@
 import type { ResolvedScreen } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import { answerOf, useAgreementRows } from "./AgreementScreen";
+import { approvalReady } from "./ApproveScreen";
 import { type Draft, isAnswered } from "./draft";
 import { mfaOf, useLoginRows } from "./LoginScreen";
 import { rowSettled, useRatingRows } from "./RatingScreens";
@@ -9,11 +10,12 @@ import type { ItemView } from "./view";
 
 /**
  * Whether the person may move on from this screen: every field the schema requires is answered,
- * a file is in place, a source is ticked, a training of the screen's audience is on the list,
- * every listed thing is rated, every supplier's agreements and every sign-in are answered. Naming
- * assets and their providers is never required. Screens that only explain are always complete.
- * Lists are read from the same queries their screens show, so the answer follows each upload and
- * each new line without a second copy of the count.
+ * a file is in place, a source is ticked, a training of the screen's audience or a management
+ * review is on the list, every listed thing is rated, every supplier's agreements and every
+ * sign-in are answered, and the approval has its documents and its day. Naming assets and their
+ * providers is never required. Screens that only explain are always complete. Lists are read from
+ * the same queries their screens show, so the answer follows each upload and each new line
+ * without a second copy of the count.
  */
 export function useScreenComplete(
   item: ItemView,
@@ -27,6 +29,12 @@ export function useScreenComplete(
   );
   const trainings = trpc.training.list.useQuery(undefined, {
     enabled: screen?.kind === "register" && screen.module === "training_record",
+  });
+  const reviews = trpc.managementReview.list.useQuery(undefined, {
+    enabled: screen?.kind === "register" && screen.module === "management_review",
+  });
+  const policies = trpc.durchgang.walkPolicies.useQuery(undefined, {
+    enabled: screen?.kind === "approve",
   });
   const ratings = useRatingRows(screen?.kind === "rate" ? screen.targets : null);
   const agreements = useAgreementRows(screen?.kind === "agreements");
@@ -42,10 +50,16 @@ export function useScreenComplete(
     case "sources":
       return draft.sources.length > 0;
     case "register":
-      return (
-        screen.module !== "training_record" ||
-        (trainings.data ?? []).some((row) => inAudience(row, screen.audience))
-      );
+      switch (screen.module) {
+        case "training_record":
+          return (trainings.data ?? []).some((row) => inAudience(row, screen.audience));
+        case "management_review":
+          return (reviews.data ?? []).length > 0;
+        default:
+          return true;
+      }
+    case "approve":
+      return approvalReady(policies.data, draft);
     case "rate":
       return ratings?.every((row) => rowSettled(row, draft)) ?? false;
     case "agreements":

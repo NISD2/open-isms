@@ -13,6 +13,7 @@ import { seedLocale } from "@/lib/compliance/seed-locale";
 import {
   type AnyScreen,
   agreementsNote,
+  approvedNote,
   askedFields,
   declinedNote,
   levelOf,
@@ -33,6 +34,7 @@ import {
   treatmentFor,
   WAIT_REASONS,
   WALK,
+  WALK_POLICIES,
   waitingNote,
 } from "@/lib/durchgang";
 import { getRegistrationPortals } from "@/lib/registration-portals";
@@ -46,6 +48,7 @@ import {
   companyPolicyConfig,
   companyRiskMethodology,
   policy,
+  requirement,
   risk,
   riskAsset,
   riskSupplier,
@@ -199,6 +202,37 @@ const policyDraftOf = async (
     company: org.name,
     clauses: stored.success ? stored.data.clauses : [],
   };
+};
+
+/**
+ * The company's policies the walk wrote, in walk order: each one of an item's template on that
+ * item's requirement, so a policy of the same type added by hand elsewhere is not among them.
+ */
+const walkPolicyRows = async (db: TRPCContext["db"], companyId: string) => {
+  const rows = await db
+    .select({
+      code: requirement.code,
+      type: policy.type,
+      title: policy.title,
+      status: policy.status,
+      effectiveFrom: policy.effectiveFrom,
+    })
+    .from(policy)
+    .innerJoin(requirement, eq(requirement.id, policy.requirementId))
+    .where(
+      and(
+        eq(policy.companyId, companyId),
+        inArray(
+          policy.type,
+          WALK_POLICIES.map((p) => p.policy),
+        ),
+      ),
+    );
+  return WALK_POLICIES.flatMap((p) =>
+    rows
+      .filter((row) => row.code === p.code && row.type === p.policy)
+      .map((row) => ({ ...row, type: p.policy })),
+  );
 };
 
 export const durchgangRouter = router({
@@ -924,6 +958,89 @@ export const durchgangRouter = router({
       });
       if (changed.length > 0) recheck(ctx, "asset");
       return { changed: changed.length };
+    }),
+
+  /** The policies the walk wrote for the company, with their state, for the approval screen. */
+  walkPolicies: durchgangProcedure.query(({ ctx }) =>
+    walkPolicyRows(ctx.db, ctx.companyId),
+  ),
+
+  /**
+   * 7.3: the drafts management approved in one sitting become approved from that day. Each
+   * document is resolved through its own item, so approving it takes what writing it takes, and
+   * only drafts change: an approved document keeps its day. As on the signature screens, the
+   * approval columns (who, when, in which role) stay untouched. The review's trail names every
+   * document approved.
+   */
+  approvePolicies: durchgangWrite
+    .input(
+      z.object({
+        code,
+        approvedOn: z.iso.date(),
+        types: z.array(z.string().max(60)).min(1).max(20),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const screens: readonly AnyScreen[] = itemOf(input.code).screens;
+      if (!screens.some((s) => s.kind === "approve")) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: `${input.code} approves no policies.`,
+        });
+      }
+      const chosen = WALK_POLICIES.filter((p) => input.types.includes(p.policy));
+      if (chosen.length !== new Set(input.types).size) {
+        throw new TRPCError({ code: "BAD_REQUEST", message: "Not a walk policy." });
+      }
+      const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
+      const targets = await Promise.all(
+        chosen.map(async (p) => ({
+          type: p.policy,
+          owner: await durchgangItem(ctx.db, actorOf(ctx), p.code),
+        })),
+      );
+      const approved = await ctx.db.transaction(async (tx) => {
+        const titles: string[] = [];
+        for (const { type, owner } of targets) {
+          const rows = await tx
+            .update(policy)
+            .set({
+              status: "approved",
+              effectiveFrom: input.approvedOn,
+              updatedAt: new Date(),
+            })
+            .where(
+              and(
+                eq(policy.companyId, ctx.companyId),
+                eq(policy.requirementId, owner.requirementId),
+                eq(policy.type, type),
+                eq(policy.status, "draft"),
+              ),
+            )
+            .returning({ title: policy.title });
+          titles.push(...rows.map((r) => r.title));
+        }
+        return titles;
+      });
+      if (approved.length > 0) {
+        const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
+        await appendNote(
+          ctx.db,
+          ref.statusId,
+          noteLine(new Date(), approvedNote(locale, input.approvedOn, approved)),
+        );
+        await logAudit({
+          companyId: ctx.companyId,
+          userId: ctx.userId,
+          action: "durchgang.policies_approved",
+          entityType: "requirement",
+          entityId: ref.requirementId,
+          description: `${ref.code} management approved ${approved.length} walk documents`,
+          newValue: { approvedOn: input.approvedOn, count: approved.length },
+        });
+        recheck(ctx, "policy");
+      }
+      return { approved: approved.length };
     }),
 
   /** The policy an item writes, as its screen shows it and the server stores it. */

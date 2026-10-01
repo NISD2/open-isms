@@ -3,6 +3,7 @@
 import "./transitions.css";
 import {
   ArrowRight,
+  BadgeCheck,
   BookOpen,
   BookText,
   ChevronLeft,
@@ -38,6 +39,7 @@ import { useRouter } from "@/i18n/navigation";
 import { type ItemState, resumeAt, type ScreenKind } from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
 import { Agreements } from "./AgreementScreen";
+import { Approve } from "./ApproveScreen";
 import { Compare, Learn, Prepare, Provision, Reading, Sample } from "./ExplainScreens";
 import { Logins } from "./LoginScreen";
 import { PolicyScreen } from "./PolicyScreen";
@@ -69,6 +71,7 @@ const KIND_ICON: Readonly<Record<ScreenKind, LucideIcon>> = {
   agreements: Handshake,
   logins: KeyRound,
   policy: ScrollText,
+  approve: BadgeCheck,
   done: CircleCheckBig,
 };
 
@@ -210,6 +213,8 @@ export function DurchgangItem({
         return <Logins {...work} entry={entry} />;
       case "policy":
         return <PolicyScreen {...work} entry={entry} />;
+      case "approve":
+        return <Approve {...work} entry={entry} />;
       case "done":
         return <Done item={item} entry={entry} draft={draft} next={next} />;
       default:

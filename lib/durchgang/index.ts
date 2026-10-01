@@ -5,13 +5,14 @@
 
 import { JOURNEY_ORDER } from "@/lib/compliance/journey-position";
 import { NIS2_SCRIPT } from "./nis2";
-import type { AnyItem } from "./types";
+import type { AnyItem, AnyScreen, PolicyTemplate } from "./types";
 
 export type { ResolvedItem, ResolvedScreen } from "./copy";
 export { itemKey, resolveItem } from "./copy";
 export type { NoteLocale } from "./notes";
 export {
   agreementsNote,
+  approvedNote,
   declinedNote,
   loginsNote,
   methodNote,
@@ -81,4 +82,16 @@ const BY_CODE: ReadonlyMap<string, AnyItem> = new Map(
 export const WALK: readonly AnyItem[] = JOURNEY_ORDER.flatMap((code) => {
   const item = BY_CODE.get(code);
   return item ? [item] : [];
+});
+
+/** Every policy the walk writes: the item, its template and the index of its policy screen. */
+export const WALK_POLICIES: ReadonlyArray<{
+  readonly code: string;
+  readonly policy: PolicyTemplate;
+  readonly at: number;
+}> = WALK.flatMap((item) => {
+  const screens: readonly AnyScreen[] = item.screens;
+  return screens.flatMap((screen, at) =>
+    screen.kind === "policy" ? [{ code: item.code, policy: screen.policy, at }] : [],
+  );
 });

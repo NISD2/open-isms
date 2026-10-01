@@ -51,7 +51,7 @@ function setup(opts: {
   role?: "admin" | "member";
   assigned?: boolean;
   /** The walk's policy row of the item, if one was written before. */
-  storedPolicy?: { id: string; content: string };
+  storedPolicy?: { id: string; content: string; title?: string };
   /** The category's saved intake answers. */
   answers?: Record<string, unknown>;
   /** The company's suppliers a lookup finds, with their two contract columns. */
@@ -116,7 +116,9 @@ function setup(opts: {
       set: (values: unknown) => ({
         where: (where?: SQL) => {
           writes.push({ op: "update", table, values, where });
-          const matched = opts.storedPolicy ? [{ id: opts.storedPolicy.id }] : [];
+          const matched = opts.storedPolicy
+            ? [{ id: opts.storedPolicy.id, title: opts.storedPolicy.title ?? "" }]
+            : [];
           return Object.assign(Promise.resolve(), { returning: async () => matched });
         },
       }),
@@ -206,7 +208,8 @@ describe("durchgang router", () => {
 
   test("resolves only the codes the walk contains", async () => {
     const { caller, writes } = setup({ accessLevel: "full" });
-    await expect(caller.finish({ code: "7.3" })).rejects.toMatchObject({
+    // 7.1 is left out of the walk (NOT_WALKED), so it is not one of its codes.
+    await expect(caller.finish({ code: "7.1" })).rejects.toMatchObject({
       code: "BAD_REQUEST",
     });
     expect(writes).toEqual([]);
@@ -605,6 +608,64 @@ describe("the walk's sign-ins", () => {
     await expect(
       free.caller.recordLogins({ code: "11.1", rows: [row] }),
     ).rejects.toMatchObject({ code: "FORBIDDEN" });
+    expect(free.writes).toEqual([]);
+  });
+});
+
+describe("the management's approval of the walk's documents", () => {
+  const draft = {
+    id: "88888888-8888-4888-8888-888888888899",
+    content: "x",
+    title: "Kryptokonzept der Muster GmbH",
+  };
+  const approve = { code: "7.3", approvedOn: "2026-10-01", types: ["cryptography"] };
+
+  test("approves only drafts, only on the company's row of the item, from the day given", async () => {
+    const { caller, writes } = setup({ accessLevel: "full", storedPolicy: draft });
+    expect(await caller.approvePolicies(approve)).toEqual({ approved: 1 });
+    const updates = writes.filter((w) => w.op === "update" && w.table === policy);
+    expect(updates).toHaveLength(1);
+    expect(updates[0]?.values).toMatchObject({
+      status: "approved",
+      effectiveFrom: "2026-10-01",
+    });
+    expect(Object.keys(updates[0]?.values ?? {}).sort()).toEqual([
+      "effectiveFrom",
+      "status",
+      "updatedAt",
+    ]);
+    expect(updates[0]?.where && paramsOf(updates[0].where)).toEqual([
+      COMPANY,
+      REQUIREMENT,
+      "cryptography",
+      "draft",
+    ]);
+  });
+
+  test("names every approved document in the review's trail, and writes none when nothing was a draft", async () => {
+    const approved = setup({ accessLevel: "full", storedPolicy: draft });
+    await approved.caller.approvePolicies(approve);
+    expect(noteOf(approved.writes)).toContain(
+      "Von der Geschäftsführung freigegeben am 2026-10-01: Kryptokonzept der Muster GmbH",
+    );
+    const nothing = setup({ accessLevel: "full" });
+    expect(await nothing.caller.approvePolicies(approve)).toEqual({ approved: 0 });
+    expect(noteOf(nothing.writes)).toBe("");
+  });
+
+  test("refuses a type the walk does not write, an item without the screen, and accounts without the Durchgang", async () => {
+    const { caller, writes } = setup({ accessLevel: "full", storedPolicy: draft });
+    await expect(
+      caller.approvePolicies({ ...approve, types: ["crypto"] }),
+    ).rejects.toMatchObject({ code: "BAD_REQUEST" });
+    await expect(
+      caller.approvePolicies({ ...approve, code: "12.2" }),
+    ).rejects.toMatchObject({ code: "BAD_REQUEST" });
+    expect(writes).toEqual([]);
+    const free = setup({ accessLevel: "free", storedPolicy: draft });
+    await expect(free.caller.approvePolicies(approve)).rejects.toMatchObject({
+      code: "FORBIDDEN",
+    });
     expect(free.writes).toEqual([]);
   });
 });
