@@ -18,9 +18,9 @@ import {
   walkPolicy,
 } from "../lib/durchgang";
 
-// learn, inputs, example, review, approve, done.
-const REVIEW_SCREEN = 3;
-const APPROVE_SCREEN = 4;
+// learn, inputs, risk map, example, review, approve, done.
+const REVIEW_SCREEN = 4;
+const APPROVE_SCREEN = 5;
 const TYPE = "cryptography";
 const DECISION = "E2E Konzepte freigegeben";
 
