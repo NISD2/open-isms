@@ -802,13 +802,15 @@
         "account": "Údaje účtu: jméno a e-mailová adresa poskytnuté prostřednictvím Google OAuth při přihlášení",
         "forms": "Odeslané formuláře: údaje, které zadáváte do formulářů požadavků na shodu",
         "files": "Nahrané soubory: dokumenty s důkazy, které nahráváte na platformu",
-        "technical": "Technické údaje: IP adresa, typ prohlížeče a časové značky přístupu v serverových protokolech"
+        "technical": "Technické údaje: IP adresa, typ prohlížeče a časové značky přístupu v serverových protokolech",
+        "billing": "Fakturační údaje: pokud objednáte, název a adresa fakturované organizace, její DIČ, e-mailová adresa, na kterou jde faktura, a pokud je uvedete, druhá adresa pro kopii a vaše číslo objednávky. DIČ ověřujeme v registru VIES Evropské unie."
       },
       "purpose": {
         "heading": "Účel a právní základ",
         "p1": "Vaše údaje zpracováváme pro následující účely:",
         "items": {
           "contract": "Poskytování platformy pro shodu s NIS2 (čl. 6 odst. 1 písm. b) GDPR, plnění smlouvy)",
+          "billing": "Vyřizování objednávek, faktur a výpovědí (čl. 6 odst. 1 písm. b) GDPR) a uchovávání faktur po dobu, kterou vyžaduje daňové právo (čl. 6 odst. 1 písm. c) GDPR)",
           "auth": "Ověřování uživatelů a správa účtů (čl. 6 odst. 1 písm. b) GDPR)",
           "security": "Zajištění bezpečnosti a integrity naší platformy (čl. 6 odst. 1 písm. f) GDPR, oprávněný zájem)",
           "legal": "Plnění zákonných povinností (čl. 6 odst. 1 písm. c) GDPR)",
@@ -822,7 +824,8 @@
         "google": "Google (OAuth): ověřování, zpracovává vaše jméno a e-mailovou adresu pro přihlášení",
         "aws": "Amazon Web Services (S3): úložiště souborů, ukládá dokumenty s důkazy, které nahráváte",
         "resend": "Resend: transakční e-maily, doručuje oznámení a pozvánky",
-        "close": "Close (Elastic Inc., Jackson, Wyoming, USA): náš obchodní systém (CRM). U ověřených účtů zpracovává vaše jméno a e-mailovou adresu, údaje o vašem účtu a jeho používání (např. registrace, poslední přihlášení, postup v kurzu, postup při zavádění NIS 2, váš tarif a zda vám smíme posílat e-maily) a údaje o vaší firmě (např. název, odvětví, počet zaměstnanců, země). Předávání do USA probíhá na základě standardních smluvních doložek EU. Pokud je váš účet smazán, smažeme také váš kontakt v Close."
+        "close": "Close (Elastic Inc., Jackson, Wyoming, USA): náš obchodní systém (CRM). U ověřených účtů zpracovává vaše jméno a e-mailovou adresu, údaje o vašem účtu a jeho používání (např. registrace, poslední přihlášení, postup v kurzu, postup při zavádění NIS 2, váš tarif a zda vám smíme posílat e-maily) a údaje o vaší firmě (např. název, odvětví, počet zaměstnanců, země). Předávání do USA probíhá na základě standardních smluvních doložek EU. Pokud je váš účet smazán, smažeme také váš kontakt v Close.",
+        "qonto": "Qonto (Paříž, Francie): náš podnikatelský účet a fakturace. Když objednáte, obdrží Qonto fakturační údaje, vystaví faktury a dobropisy a uchovává je."
       },
       "analytics": {
         "heading": "Analytika",
@@ -859,11 +862,12 @@
       "retention": {
         "heading": "Doba uchovávání údajů",
         "p1": "Vaše údaje jsou uchovávány po dobu, kdy je váš účet aktivní a nezbytný pro výše uvedené účely. Údaje o shodě (odeslané formuláře, důkazy, auditní stopa) jsou uchovávány po zákonem požadovanou dobu. Při smazání účtu jsou osobní údaje odstraněny. Anonymizované záznamy auditní stopy mohou být uchovány.",
+        "invoices": "Faktury a dobropisy, včetně fakturačních údajů na nich, uchováváme nejméně osm let od konce kalendářního roku, v němž byly vystaveny, a déle, dokud je ještě otevřené vyměření daně, pro které mají význam (§ 14b Abs. 1 UStG, § 147 Abs. 3 und 4 AO). Smazáním účtu se nesmažou (čl. 17 odst. 3 písm. b) GDPR). Qonto je uchovává stejně dlouho.",
         "erasure": "Pokud je váš účet smazán, pošleme vám prostřednictvím našeho poskytovatele e-mailových služeb Resend e-mail s potvrzením, co bylo smazáno (čl. 12 odst. 3 GDPR). Uchováváme záznam o výmazu (jméno, e-mailová adresa, organizace, číslo případu a co bylo smazáno), abychom mohli doložit, že jsme žádosti vyhověli (čl. 5 odst. 2 GDPR). E-mailovou adresu z něj po třech letech odstraníme."
       },
       "changes": {
         "heading": "Změny těchto zásad",
-        "p1": "Tyto zásady ochrany osobních údajů můžeme čas od času aktualizovat. Aktuální verze je vždy k dispozici na této stránce. Naposledy aktualizováno: září 2026."
+        "p1": "Tyto zásady ochrany osobních údajů můžeme čas od času aktualizovat. Aktuální verze je vždy k dispozici na této stránce. Naposledy aktualizováno: říjen 2026."
       }
     },
     "avv": {

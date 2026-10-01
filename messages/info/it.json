@@ -802,13 +802,15 @@
         "account": "Dati dell'account: nome e indirizzo email forniti tramite Google OAuth durante l'accesso",
         "forms": "Invii di moduli: dati che inserisci nei moduli dei requisiti di conformità",
         "files": "File caricati: documenti probatori che carichi sulla piattaforma",
-        "technical": "Dati tecnici: indirizzo IP, tipo di browser e marche temporali di accesso nei log del server"
+        "technical": "Dati tecnici: indirizzo IP, tipo di browser e marche temporali di accesso nei log del server",
+        "billing": "Dati di fatturazione: se ordini, il nome e l'indirizzo dell'organizzazione fatturata, la sua partita IVA, l'indirizzo email a cui va la fattura e, se li indichi, un secondo indirizzo per una copia e il tuo numero d'ordine. Verifichiamo la partita IVA nel registro VIES dell'UE."
       },
       "purpose": {
         "heading": "Finalità e base giuridica",
         "p1": "Trattiamo i tuoi dati per le seguenti finalità:",
         "items": {
           "contract": "Fornitura della piattaforma di conformità NIS2 (art. 6(1)(b) GDPR - esecuzione di un contratto)",
+          "billing": "Gestione di ordini, fatture e disdette (art. 6(1)(b) GDPR) e conservazione delle fatture per il tempo richiesto dalla normativa fiscale (art. 6(1)(c) GDPR)",
           "auth": "Autenticazione dell'utente e gestione dell'account (art. 6(1)(b) GDPR)",
           "security": "Garanzia della sicurezza e dell'integrità della nostra piattaforma (art. 6(1)(f) GDPR - legittimo interesse)",
           "legal": "Rispetto degli obblighi di legge (art. 6(1)(c) GDPR)",
@@ -822,7 +824,8 @@
         "google": "Google (OAuth): autenticazione, tratta il tuo nome e indirizzo email per l'accesso",
         "aws": "Amazon Web Services (S3): archiviazione di file, conserva i documenti probatori che carichi",
         "resend": "Resend: email transazionali, recapita le email di notifica e di invito",
-        "close": "Close (Elastic Inc., Jackson, Wyoming, USA): il nostro sistema di vendita (CRM). Per gli account verificati tratta il tuo nome e indirizzo email, dati sul tuo account e sul tuo utilizzo (ad esempio registrazione, ultimo accesso, avanzamento nel corso, avanzamento nell'attuazione di NIS 2, il tuo piano e se possiamo inviarti email) e dati sulla tua azienda (ad esempio nome, settore, numero di dipendenti, paese). I trasferimenti verso gli USA si basano sulle clausole contrattuali tipo dell'UE. Se il tuo account viene eliminato, eliminiamo anche il tuo contatto in Close."
+        "close": "Close (Elastic Inc., Jackson, Wyoming, USA): il nostro sistema di vendita (CRM). Per gli account verificati tratta il tuo nome e indirizzo email, dati sul tuo account e sul tuo utilizzo (ad esempio registrazione, ultimo accesso, avanzamento nel corso, avanzamento nell'attuazione di NIS 2, il tuo piano e se possiamo inviarti email) e dati sulla tua azienda (ad esempio nome, settore, numero di dipendenti, paese). I trasferimenti verso gli USA si basano sulle clausole contrattuali tipo dell'UE. Se il tuo account viene eliminato, eliminiamo anche il tuo contatto in Close.",
+        "qonto": "Qonto (Parigi, Francia): il nostro conto aziendale e la nostra fatturazione. Quando ordini, Qonto riceve i dati di fatturazione, emette le fatture e le note di credito e le conserva."
       },
       "analytics": {
         "heading": "Analisi",
@@ -859,11 +862,12 @@
       "retention": {
         "heading": "Conservazione dei dati",
         "p1": "I tuoi dati sono conservati finché il tuo account è attivo e necessario per le finalità descritte sopra. I dati di conformità (invii di moduli, documenti probatori, audit trail) sono conservati per il periodo previsto dalla legge. Quando elimini il tuo account, i dati personali vengono rimossi. Le voci anonimizzate dell'audit trail possono essere conservate.",
+        "invoices": "Le fatture e le note di credito, con i dati di fatturazione che riportano, sono conservate per almeno otto anni dalla fine dell'anno solare in cui sono state emesse, e più a lungo finché resta aperto un accertamento fiscale per cui sono rilevanti (§ 14b Abs. 1 UStG, § 147 Abs. 3 und 4 AO). L'eliminazione del tuo account non le elimina (art. 17(3)(b) GDPR). Qonto le conserva per lo stesso periodo.",
         "erasure": "Quando il tuo account viene eliminato, ti inviamo via email una conferma di ciò che è stato eliminato, tramite il nostro fornitore di servizi email Resend (art. 12(3) GDPR). Conserviamo una registrazione della cancellazione (nome, indirizzo email, organizzazione, numero di pratica e ciò che è stato eliminato) per dimostrare di aver dato seguito alla richiesta (art. 5(2) GDPR). Dopo tre anni ne rimuoviamo l'indirizzo email."
       },
       "changes": {
         "heading": "Modifiche alla presente informativa",
-        "p1": "Potremmo aggiornare di tanto in tanto la presente informativa sulla privacy. La versione corrente è sempre disponibile su questa pagina. Ultimo aggiornamento: settembre 2026."
+        "p1": "Potremmo aggiornare di tanto in tanto la presente informativa sulla privacy. La versione corrente è sempre disponibile su questa pagina. Ultimo aggiornamento: ottobre 2026."
       }
     },
     "avv": {

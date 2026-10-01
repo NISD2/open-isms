@@ -803,6 +803,7 @@
         "forms": "Form submissions: data you enter in compliance requirement forms",
         "files": "Uploaded files: evidence documents you upload to the platform",
         "technical": "Technical data: IP address, browser type, and access timestamps in server logs",
+        "billing": "Billing data: if you order, the name and address of the organization billed, its VAT number, the email address the invoice goes to and, if you give them, a second address for a copy and your purchase order number. We check the VAT number against the EU's VIES register.",
         "advisory": "Referral requests: if you ask for support through the form on /hilfe, we store what you tell us (topic, email address, and optionally name, company, sector, size, what prompted it, your timeframe and your description), the page you opened the form from, and the page you visited before that (referrer). We pass your request to a specialist firm only if you explicitly agreed in the form, and we record when that consent was given. From the moment it is passed on, the firm is its own controller. If an engagement results, the firm pays us a referral fee. You can withdraw your consent at any time."
       },
       "purpose": {
@@ -810,6 +811,7 @@
         "p1": "We process your data for the following purposes:",
         "items": {
           "contract": "Providing the NIS2 compliance platform (Art. 6(1)(b) GDPR - performance of a contract)",
+          "billing": "Handling orders, invoices and cancellations (Art. 6(1)(b) GDPR) and keeping invoices for as long as tax law requires (Art. 6(1)(c) GDPR)",
           "auth": "User authentication and account management (Art. 6(1)(b) GDPR)",
           "security": "Ensuring the security and integrity of our platform (Art. 6(1)(f) GDPR - legitimate interest)",
           "legal": "Compliance with legal obligations (Art. 6(1)(c) GDPR)",
@@ -823,7 +825,8 @@
         "google": "Google (OAuth): authentication, processes your name and email address for sign-in",
         "aws": "Amazon Web Services (S3): file storage, stores evidence documents you upload",
         "resend": "Resend: transactional email, delivers notification and invitation emails",
-        "close": "Close (Elastic Inc., Jackson, Wyoming, USA): our sales system (CRM). For verified accounts it processes your name and email address, facts about your account and use (such as sign-up, last sign-in, course progress, progress in implementing NIS 2, your plan and whether we may email you) and facts about your company (such as name, sector, number of employees, country). Transfers to the USA are based on the EU Standard Contractual Clauses. When your account is deleted, we also delete your contact in Close."
+        "close": "Close (Elastic Inc., Jackson, Wyoming, USA): our sales system (CRM). For verified accounts it processes your name and email address, facts about your account and use (such as sign-up, last sign-in, course progress, progress in implementing NIS 2, your plan and whether we may email you) and facts about your company (such as name, sector, number of employees, country). Transfers to the USA are based on the EU Standard Contractual Clauses. When your account is deleted, we also delete your contact in Close.",
+        "qonto": "Qonto (Paris, France): our business account and invoicing. When you order, it receives the billing data, and it issues and keeps the invoices and credit notes."
       },
       "analytics": {
         "heading": "Analytics",
@@ -860,11 +863,12 @@
       "retention": {
         "heading": "Data Retention",
         "p1": "Your data is stored as long as your account is active and necessary for the purposes described above. Compliance data (form submissions, evidence, audit trail) is retained for the legally required period. When you delete your account, personal data is removed. Anonymized audit trail entries may be retained.",
+        "invoices": "Invoices and credit notes, with the billing data on them, are kept for at least eight years from the end of the calendar year in which they were issued, and longer while a tax assessment they matter for is still open (§ 14b Abs. 1 UStG, § 147 Abs. 3 and 4 AO). Deleting your account does not delete them (Art. 17(3)(b) GDPR). Qonto holds them for the same period.",
         "erasure": "When your account is deleted, we email you a confirmation of what was deleted, sent through our email provider Resend (Art. 12(3) GDPR). We keep a record of the erasure (name, email address, organization, case reference and what was deleted) to show that we honoured the request (Art. 5(2) GDPR). The email address is removed from it after three years."
       },
       "changes": {
         "heading": "Changes to This Policy",
-        "p1": "We may update this privacy policy from time to time. The current version is always available on this page. Last updated: September 2026."
+        "p1": "We may update this privacy policy from time to time. The current version is always available on this page. Last updated: October 2026."
       }
     },
     "avvContract": {

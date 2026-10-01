@@ -802,13 +802,15 @@
         "account": "Données de compte : nom et adresse e-mail fournis via Google OAuth lors de la connexion",
         "forms": "Saisies de formulaires : données que vous saisissez dans les formulaires d'exigences de conformité",
         "files": "Fichiers téléversés : documents de preuve que vous téléversez sur la plateforme",
-        "technical": "Données techniques : adresse IP, type de navigateur et horodatages d'accès dans les journaux serveur"
+        "technical": "Données techniques : adresse IP, type de navigateur et horodatages d'accès dans les journaux serveur",
+        "billing": "Données de facturation : si vous commandez, le nom et l'adresse de l'organisation facturée, son numéro de TVA, l'adresse e-mail à laquelle la facture est envoyée et, si vous les indiquez, une deuxième adresse pour une copie et votre numéro de bon de commande. Nous vérifions le numéro de TVA dans le registre VIES de l'UE."
       },
       "purpose": {
         "heading": "Finalité et base juridique",
         "p1": "Nous traitons vos données aux fins suivantes :",
         "items": {
           "contract": "Fourniture de la plateforme de conformité NIS2 (art. 6, paragraphe 1, point b, GDPR - exécution d'un contrat)",
+          "billing": "Traitement des commandes, des factures et des résiliations (art. 6, paragraphe 1, point b, GDPR) et conservation des factures aussi longtemps que le droit fiscal l'exige (art. 6, paragraphe 1, point c, GDPR)",
           "auth": "Authentification des utilisateurs et gestion des comptes (art. 6, paragraphe 1, point b, GDPR)",
           "security": "Garantie de la sécurité et de l'intégrité de notre plateforme (art. 6, paragraphe 1, point f, GDPR - intérêt légitime)",
           "legal": "Respect des obligations légales (art. 6, paragraphe 1, point c, GDPR)",
@@ -822,7 +824,8 @@
         "google": "Google (OAuth) : authentification, traite votre nom et votre adresse e-mail pour la connexion",
         "aws": "Amazon Web Services (S3) : stockage de fichiers, conserve les documents de preuve que vous téléversez",
         "resend": "Resend : e-mail transactionnel, envoie les e-mails de notification et d'invitation",
-        "close": "Close (Elastic Inc., Jackson, Wyoming, États-Unis) : notre outil de gestion commerciale (CRM). Pour les comptes vérifiés, il traite votre nom et votre adresse e-mail, des informations sur votre compte et votre utilisation (par exemple inscription, dernière connexion, progression dans le cours, avancement dans la mise en œuvre de NIS 2, votre formule et si nous pouvons vous envoyer des e-mails) ainsi que des informations sur votre entreprise (par exemple nom, secteur, effectif, pays). Les transferts vers les États-Unis reposent sur les clauses contractuelles types de l'UE. Si votre compte est supprimé, nous supprimons aussi votre contact dans Close."
+        "close": "Close (Elastic Inc., Jackson, Wyoming, États-Unis) : notre outil de gestion commerciale (CRM). Pour les comptes vérifiés, il traite votre nom et votre adresse e-mail, des informations sur votre compte et votre utilisation (par exemple inscription, dernière connexion, progression dans le cours, avancement dans la mise en œuvre de NIS 2, votre formule et si nous pouvons vous envoyer des e-mails) ainsi que des informations sur votre entreprise (par exemple nom, secteur, effectif, pays). Les transferts vers les États-Unis reposent sur les clauses contractuelles types de l'UE. Si votre compte est supprimé, nous supprimons aussi votre contact dans Close.",
+        "qonto": "Qonto (Paris, France) : notre compte professionnel et notre facturation. Lorsque vous commandez, Qonto reçoit les données de facturation, émet les factures et les avoirs et les conserve."
       },
       "analytics": {
         "heading": "Analyse d'audience",
@@ -859,11 +862,12 @@
       "retention": {
         "heading": "Conservation des données",
         "p1": "Vos données sont conservées tant que votre compte est actif et nécessaire aux finalités décrites ci-dessus. Les données de conformité (saisies de formulaires, preuves, piste d'audit) sont conservées pendant la durée légalement requise. Lorsque vous supprimez votre compte, les données à caractère personnel sont effacées. Les entrées anonymisées de la piste d'audit peuvent être conservées.",
+        "invoices": "Les factures et les avoirs, avec les données de facturation qu'ils contiennent, sont conservés au moins huit ans à compter de la fin de l'année civile au cours de laquelle ils ont été émis, et plus longtemps tant qu'une imposition pour laquelle ils comptent reste ouverte (§ 14b Abs. 1 UStG, § 147 Abs. 3 und 4 AO). La suppression de votre compte ne les supprime pas (art. 17, paragraphe 3, point b, GDPR). Qonto les conserve pendant la même durée.",
         "erasure": "Lorsque votre compte est supprimé, nous vous envoyons par e-mail une confirmation de ce qui a été supprimé, via notre prestataire de messagerie Resend (art. 12, paragraphe 3, GDPR). Nous conservons un enregistrement de l'effacement (nom, adresse e-mail, organisation, référence du dossier et ce qui a été supprimé) afin de démontrer que nous avons donné suite à la demande (art. 5, paragraphe 2, GDPR). L'adresse e-mail en est retirée au bout de trois ans."
       },
       "changes": {
         "heading": "Modifications de la présente politique",
-        "p1": "Nous pouvons mettre à jour la présente politique de confidentialité de temps à autre. La version actuelle est toujours disponible sur cette page. Dernière mise à jour : septembre 2026."
+        "p1": "Nous pouvons mettre à jour la présente politique de confidentialité de temps à autre. La version actuelle est toujours disponible sur cette page. Dernière mise à jour : octobre 2026."
       }
     },
     "avv": {
