@@ -1573,6 +1573,210 @@
             "hint": "Eine E-Mail-Adresse, etwa security@ mit Ihrer Domain, oder eine Webseite. Das BSI empfiehlt dazu eine Datei security.txt auf Ihrer Website (RFC 9116)."
           }
         }
+      },
+      "4_2": {
+        "headline": "Den Notfallplan für den Betrieb schreiben",
+        "teaser": "Wie Sie weiterarbeiten, wenn etwas ausfällt, und wer dann entscheidet.",
+        "missed": [
+          "Notbetrieb heißt nicht, dass alles läuft wie immer. Das BSI nennt für den Einstieg Ersatzabläufe wie Bestellungen von Hand und Dokumentation auf Papier (Einstieg in das BCM für KMU).",
+          "Der Plan hilft nur, wenn er im Ernstfall greifbar ist. Liegt er allein auf dem Server, ist er mit dem Server weg. Bewahren Sie eine gedruckte Fassung auf, eine davon außerhalb des Gebäudes."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Wenn der Betrieb steht",
+            "body": [
+              "Der Notfallplan für IT-Sicherheitsvorfälle sagt, wer bei einem Angriff anruft und entscheidet. Dieser Plan geht weiter: Er gilt für alles, was wichtige Arbeit unterbricht, auch Feuer, Wasser, Stromausfall oder den Ausfall eines wichtigen Dienstleisters. Er sagt, wie Sie weiterarbeiten, wer die Systeme wiederherstellt und wer die Krise leitet.",
+              "Für den Einstieg empfiehlt das BSI kleineren Unternehmen einen Plan, der den Betrieb auf einem Mindestniveau fortsetzt: Ersatzabläufe, Ersatzorte und die Information von Beschäftigten, Lieferanten und Kunden. Unsere Vorlage enthält diese Punkte."
+            ],
+            "duty": "Das Gesetz verlangt Maßnahmen, die den Betrieb aufrechterhalten, etwa Datensicherung und Wiederherstellung nach einem Notfall, und ein Krisenmanagement."
+          },
+          "fallback": {
+            "title": "Weiterarbeiten ohne IT",
+            "caption": "Eine Zeile Notbetrieb",
+            "good": {
+              "value": "Aufträge nehmen wir per Telefon und auf Papierformularen an, bis die Warenwirtschaft wieder läuft.",
+              "note": "Ein Ersatzablauf, wie ihn das BSI für den Einstieg nennt: Bestellungen von Hand, Dokumentation auf Papier."
+            },
+            "bad": {
+              "value": "Wir warten, bis die IT wieder geht.",
+              "note": "Bis dahin gehen keine Aufträge ein, und niemand weiß, wie lange das dauert."
+            }
+          },
+          "lead": {
+            "title": "Wer die Krise leitet",
+            "lead": "Wählen Sie eine Person, die auch über Geld, Kunden und Personal entscheiden darf, etwa aus der Geschäftsführung. Wer einen IT-Sicherheitsvorfall leitet, berichtet ihr, sobald der Betrieb steht.",
+            "document": "Ihr Notfallplan für den Betrieb"
+          },
+          "plan": {
+            "title": "Ihr Notfallplan für den Betrieb",
+            "lead": "Die Vorlage enthält feste Abschnitte zu Leitung, Notbetrieb, Wiederherstellung und Information, und Ihr Firmenname und die Leitung stehen schon darin. Zwei Zeilen füllen Sie von Hand aus: welche Abläufe weiterlaufen müssen und in welcher Reihenfolge die Systeme zurückkommen.",
+            "document": {
+              "title": "Notfallplan für den Betrieb der {company}",
+              "sections": [
+                {
+                  "heading": "Zweck und Geltungsbereich",
+                  "text": "Dieser Plan legt fest, wie die {company} weiterarbeitet, wenn ein Ereignis wichtige Arbeit unterbricht: ein Cyberangriff, ein Ausfall von IT oder Internet, Feuer, Wasser, Stromausfall oder der Ausfall eines wichtigen Dienstleisters. Er ergänzt den Notfallplan für IT-Sicherheitsvorfälle, der die Alarmierung und die ersten Schritte regelt."
+                },
+                {
+                  "heading": "Wann dieser Plan gilt",
+                  "text": "Dieser Plan gilt, wenn ein Ereignis wichtige Arbeit länger unterbricht, als die übliche Störungsbehebung braucht, oder wenn das droht. Im Zweifel entscheidet {crisisTeamLead}."
+                },
+                {
+                  "heading": "Leitung",
+                  "text": "{crisisTeamLead} leitet die Bewältigung, holt die nötigen Personen dazu, entscheidet und hält jede Entscheidung mit Uhrzeit fest. Wer nach dem Notfallplan für IT-Sicherheitsvorfälle einen Vorfall leitet, berichtet an {crisisTeamLead}. Ist {crisisTeamLead} nicht erreichbar, übernimmt ein anderes Mitglied der Geschäftsführung."
+                },
+                {
+                  "heading": "Alarmierung und Kontakte",
+                  "text": "Wen wir anrufen und wie wir uns erreichen, wenn die IT ausfällt, steht im Notfallplan für IT-Sicherheitsvorfälle, mit der Telefonliste auf Papier."
+                },
+                {
+                  "heading": "Notbetrieb",
+                  "text": "Diese Abläufe müssen weiterlaufen, auch ohne IT. Für jeden ist festgehalten, wie er weitergeht, etwa mit Telefon und Papier oder an einem anderen Ort: _______________"
+                },
+                {
+                  "heading": "Wiederherstellung",
+                  "text": "Unser IT-Dienstleister oder unsere eigene IT stellt die Systeme aus den Datensicherungen wieder her. Ein System geht erst wieder in Betrieb, wenn es geprüft ist. Reihenfolge der Wiederherstellung: _______________"
+                },
+                {
+                  "heading": "Informieren",
+                  "text": "{crisisTeamLead} oder jemand, den diese Person benennt, informiert Beschäftigte, Lieferanten und Kunden. Meldungen an das BSI laufen nach dem Notfallplan für IT-Sicherheitsvorfälle."
+                },
+                {
+                  "heading": "Zurück zum Normalbetrieb",
+                  "text": "{crisisTeamLead} erklärt den Notfall für beendet. Wir halten fest, was geschehen ist, und passen diesen Plan an."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "targets",
+                  "label": "Wiederherstellungsziele",
+                  "heading": "Wiederherstellungsziele",
+                  "text": "Für die wichtigsten Systeme legen wir fest, wie lange sie höchstens ausfallen dürfen und wie viele Daten höchstens verloren gehen dürfen. Die Werte stehen bei den Systemen in unserer Liste."
+                },
+                {
+                  "id": "practice",
+                  "label": "Jährliche Übung",
+                  "heading": "Übung",
+                  "text": "Einmal im Jahr spielen wir einen Ausfall am Tisch durch und prüfen, ob wir alle Beteiligten erreichen."
+                },
+                {
+                  "id": "workplace",
+                  "label": "Ausweicharbeitsplatz",
+                  "heading": "Ausweicharbeitsplatz",
+                  "text": "Ist das Büro nicht nutzbar, arbeiten wir mobil oder an einem Ausweichort weiter."
+                },
+                {
+                  "id": "power",
+                  "label": "Stromausfall",
+                  "heading": "Stromausfall",
+                  "text": "Für einen Stromausfall ist festgelegt, welche Geräte weiterlaufen müssen und wer über Notstrom entscheidet."
+                },
+                {
+                  "id": "providers",
+                  "label": "Dienstleister im Notfall",
+                  "heading": "Dienstleister im Notfall",
+                  "text": "Mit unseren wichtigen Dienstleistern haben wir abgesprochen, wie wir sie im Notfall erreichen und was sie dann für uns tun."
+                },
+                {
+                  "id": "paper",
+                  "label": "Gedruckte Fassung",
+                  "heading": "Gedruckte Fassung",
+                  "text": "Eine gedruckte Fassung dieses Plans liegt außerhalb des Gebäudes."
+                }
+              ],
+              "signature": "Für die Geschäftsführung der {company}: Ort, Datum, Unterschrift"
+            }
+          },
+          "done": {
+            "title": "Ihr Notfallplan für den Betrieb steht",
+            "note": "Füllen Sie die beiden offenen Zeilen aus und legen Sie eine gedruckte Fassung neben den Notfallplan für IT-Sicherheitsvorfälle. Der Plan ist als Entwurf gespeichert. Am Ende sieht die Geschäftsführung alle Konzepte durch und gibt sie frei."
+          }
+        },
+        "fields": {
+          "crisisTeamLead": {
+            "label": "Leitung im Ernstfall",
+            "hint": "Name und Funktion der Person, die entscheidet, wenn der Betrieb steht, zum Beispiel aus der Geschäftsführung."
+          }
+        }
+      },
+      "4_4": {
+        "headline": "Die Datensicherung festhalten",
+        "teaser": "Wie oft gesichert wird und wann eine Wiederherstellung zuletzt geklappt hat.",
+        "missed": [
+          "Eine Sicherung beim selben Dienstleister wie die Originaldaten zählt für das BSI nicht als getrennte Aufbewahrung, auch bei Clouddiensten (Grundschutz++ NOT.4.10).",
+          "Eine Sicherung im selben Netz kann ein Angreifer gleich mit verschlüsseln. Das BSI empfiehlt deshalb eine Kopie, die vom Netz getrennt ist (Grundschutz++ NOT.4.14)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Eine Sicherung, die sich zurückspielen lässt",
+            "body": [
+              "Eine Datensicherung ist eine Kopie Ihrer Daten, aus der Sie sie nach einem Ausfall, einem Angriff oder einem Fehler zurückholen. Sie hilft nur, wenn eine Kopie den Vorfall übersteht und sich wirklich zurückspielen lässt.",
+              "In diesem Schritt halten Sie fest, wie oft gesichert wird und wann eine Wiederherstellung zuletzt funktioniert hat. Die Einzelheiten je System, etwa wo die Sicherung liegt, bleiben auf der Seite der Anforderung."
+            ],
+            "duty": "Das Gesetz nennt Datensicherung und Wiederherstellung nach einem Notfall ausdrücklich als Teil der Maßnahmen, die den Betrieb aufrechterhalten."
+          },
+          "copy": {
+            "title": "Wo die Kopie liegt",
+            "caption": "Eine Kopie, die einen Angriff übersteht",
+            "good": {
+              "value": "Eine Kopie liegt getrennt vom Netz, etwa auf einer Festplatte im Schrank oder in einem Speicher, den niemand löschen oder verändern kann.",
+              "note": "Grundschutz++ empfiehlt, Sicherungen getrennt von den Originaldaten aufzubewahren und eine Kopie vom Netz getrennt zu halten (NOT.4.10, NOT.4.14)."
+            },
+            "bad": {
+              "value": "Die Sicherung liegt auf einem Laufwerk im selben Netz wie der Server.",
+              "note": "Verschlüsselt ein Angreifer den Server, verschlüsselt er die Sicherung gleich mit."
+            }
+          },
+          "rhythm": {
+            "title": "Wie oft gesichert wird",
+            "lead": "Wie oft die Daten Ihrer wichtigsten Systeme gesichert werden. Wissen Sie es nicht, fragen Sie, wer Ihre IT betreut.",
+            "document": "Ihre Datensicherung"
+          },
+          "ask": {
+            "title": "Fragen Sie nach der letzten Wiederherstellung",
+            "lead": "Fragen Sie Ihren IT-Dienstleister oder Ihre IT:",
+            "items": [
+              {
+                "name": "Wann zuletzt",
+                "detail": "wann zuletzt Daten aus einer Sicherung zurückgespielt wurden"
+              },
+              {
+                "name": "Was",
+                "detail": "welche Daten oder welches System; Stichproben genügen dem BSI"
+              },
+              {
+                "name": "Ob es geklappt hat",
+                "detail": "ob die Daten vollständig und lesbar zurückkamen"
+              }
+            ],
+            "source": "BSI, Maßnahmenkatalog Notfallmanagement: „Erstellen Sie regelmäßig Sicherheitskopien (Backups) Ihrer Daten, um vor Verlust geschützt zu sein und testen Sie regelmäßig deren Wiederherstellung.“ Prüfung anhand von Stichproben: Grundschutz++ NOT.4.16.1."
+          },
+          "test": {
+            "title": "Die letzte Wiederherstellung",
+            "lead": "Tragen Sie den Tag ein, an dem eine Wiederherstellung zuletzt geklappt hat. Das Gesetz verlangt wirksame Maßnahmen, und eine Sicherung, die nie zurückgespielt wurde, ist nicht als wirksam belegt. Das ist unsere Lesart, nicht der Wortlaut des Gesetzes. Gab es noch keine, lassen Sie das Feld leer und planen Sie eine.",
+            "document": "Ihre Datensicherung"
+          },
+          "done": {
+            "title": "Ihre Datensicherung ist festgehalten",
+            "note": "Das BSI rät, die Wiederherstellung regelmäßig zu testen. Tragen Sie nach jeder Probe das neue Datum ein."
+          }
+        },
+        "fields": {
+          "backupFrequency": {
+            "label": "Häufigkeit der Sicherung",
+            "hint": "Für Ihre wichtigsten Systeme.",
+            "options": {
+              "real_time": "laufend",
+              "hourly": "stündlich",
+              "daily": "täglich",
+              "weekly": "wöchentlich"
+            }
+          },
+          "lastBackupTest": {
+            "label": "Letzte erfolgreiche Wiederherstellung",
+            "hint": "Der Tag, an dem zuletzt Daten aus einer Sicherung vollständig zurückkamen."
+          }
+        }
       }
     }
   }

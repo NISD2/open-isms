@@ -73,6 +73,8 @@ const NO_SCREEN: Readonly<Record<string, string>> = {
     "the incident register fills when an incident happens; 3.3 prepares the reporting, and the register stays on the incidents page",
   "6.3:vulnerability":
     "the vulnerability register fills when a vulnerability is found; 6.3 writes the rules for handling one, and the register stays on the vulnerabilities page",
+  "4.4:asset":
+    "backup details per system (frequency, location, last test) stay on the requirement page; the walk records the company's backup rhythm and the date of its last working restore",
 };
 
 /** The value's own schema under any optional, nullable or default wrapper. */

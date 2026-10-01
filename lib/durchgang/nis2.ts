@@ -50,6 +50,12 @@ export const NOT_WALKED: Readonly<Record<string, string>> = {
     "Installing security updates is the 'Updates' section of the rules 6.3 writes, where § 30 Abs. 2 Nr. 5 BSIG puts maintenance together with vulnerability management. No statute sets patch deadlines; CIR 2024/2690 Annex 6.6 asks the digital providers it covers for 'a reasonable time' without a number, and the BSI recommends installing security updates automatically (Grundschutz++ KONF.8.1.1). The deadlines per severity and the patch register stay on the requirement page.",
   "6.5":
     "§ 30 Abs. 2 Nr. 5 BSIG and Art. 21(2)(e) NIS 2 name maintenance, not a change procedure; change management is CIR 2024/2690 Annex 6.4, for the digital providers the CIR covers. The BSI reads maintenance to include planned, documented changes (NIS-2 Infopaket on security measures), so the rules 6.3 writes offer that as a clause, and the change register stays on the requirement page.",
+  "4.1":
+    "No statute asks for a business impact analysis or for recovery time and point objectives: § 30 Abs. 2 Nr. 3 BSIG and Art. 21(2)(c) NIS 2 name Aufrechterhaltung des Betriebs, Backup-Management, Wiederherstellung nach einem Notfall and Krisenmanagement. The analysis is CIR 2024/2690 Annex 4.1.3, which binds only the digital providers the CIR covers, and BSI-Standard 200-4 recommends it. The plan 4.2 writes names what has to keep running and offers recovery targets as a clause; the requirement page keeps the analysis and its figures.",
+  "4.3":
+    "Recovery after an emergency is the Wiederherstellung section of the plan 4.2 writes, where § 30 Abs. 2 Nr. 3 BSIG names it together with continuity and crisis management. An order of recovery and recovery objectives per system are CIR 2024/2690 Annex 4.1.2(e) and (f), for the digital providers the CIR covers, and the BSI's guide for small companies places the Wiederanlaufplan from its Aufbau level on. The requirement page keeps each system's RTO and RPO.",
+  "4.5":
+    "No statute asks for a test of the continuity plan: § 30 Abs. 2 Nr. 3 BSIG names the measures, and Nr. 6 asks for procedures to assess effectiveness in general, which 7.x carries. Tests at planned intervals are CIR 2024/2690 Annex 4.1.4, 4.2.6 and 4.3.4, for the digital providers the CIR covers. The plan 4.2 writes offers a yearly exercise as a clause, after BSI-Standard 200-4, and the exercise register stays on the requirement page.",
 };
 
 export const NIS2_SCRIPT: readonly AnyItem[] = [
@@ -377,6 +383,43 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
         "The tool follows from a scan rhythm no statute sets (CIR 2024/2690 Annex 6.10.2(b)); the requirement page keeps it.",
       lastPentestDate:
         "Penetration tests are not named in § 30 BSIG or Art. 21 NIS 2; security testing is CIR 2024/2690 Annex 6.5, for the digital providers the CIR covers.",
+    },
+  }),
+  item({
+    code: "4.2",
+    category: "BCP",
+    glossary: [],
+    reviewed: "2026-10-01",
+    screens: [
+      { kind: "learn", id: "learn" },
+      { kind: "compare", id: "fallback" },
+      { kind: "fields", id: "lead", fields: ["crisisTeamLead"] },
+      { kind: "policy", id: "plan", policy: "business_continuity" },
+      { kind: "done", id: "done" },
+    ],
+    notAsked: {
+      bcpActivationCriteria:
+        "Conditions for activating the plan are CIR 2024/2690 Annex 4.1.2(d), which binds only the digital providers the CIR covers; no statute asks for them. The plan says in fixed words when it applies, and that the crisis lead decides in doubt.",
+    },
+  }),
+  item({
+    code: "4.4",
+    category: "BCP",
+    glossary: [],
+    reviewed: "2026-10-01",
+    screens: [
+      { kind: "learn", id: "learn" },
+      { kind: "compare", id: "copy" },
+      { kind: "fields", id: "rhythm", fields: ["backupFrequency"] },
+      { kind: "prepare", id: "ask" },
+      { kind: "fields", id: "test", fields: ["lastBackupTest"] },
+      { kind: "done", id: "done" },
+    ],
+    notAsked: {
+      backupEncryption:
+        "No statute asks for encrypted backups; CIR 2024/2690 Annex 4.2.2(d) asks the digital providers it covers for access controls to backup copies, and encryption belongs to § 30 Abs. 2 Nr. 8 BSIG, which 9.1 walks (its Konzept offers an encrypted-backup clause).",
+      backupRestoreSuccessRate:
+        "No primary source names a restore success rate; the walk records the date of the last restore that worked.",
     },
   }),
 ];

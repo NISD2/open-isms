@@ -1573,6 +1573,210 @@
             "hint": "An email address, for example security@ at your domain, or a web page. Germany's BSI recommends a security.txt file on your website for this (RFC 9116)."
           }
         }
+      },
+      "4_2": {
+        "headline": "Write the business continuity plan",
+        "teaser": "How you keep working when something fails, and who decides then.",
+        "missed": [
+          "Emergency operation does not mean everything runs as usual. For a start, Germany's BSI names fallback processes such as taking orders by hand and keeping records on paper (its guide to business continuity for small companies).",
+          "The plan only helps if it is at hand in an emergency. If it lives only on the server, it is gone with the server. Keep printed copies, one of them outside the building."
+        ],
+        "screens": {
+          "learn": {
+            "title": "When operations stop",
+            "body": [
+              "The IT security incident plan says who calls whom and who decides during an attack. This plan goes further: it covers anything that interrupts important work, including fire, water, power cuts or the failure of an important provider. It says how you keep working, who restores the systems and who leads the crisis.",
+              "For a start, Germany's BSI recommends that smaller companies have a plan that keeps operations going at a minimum level: fallback processes, fallback places, and informing staff, suppliers and customers. Our template covers these points."
+            ],
+            "duty": "The law requires business continuity, such as backup management and disaster recovery, and crisis management."
+          },
+          "fallback": {
+            "title": "Working without IT",
+            "caption": "One line of emergency operation",
+            "good": {
+              "value": "We take orders by phone and on paper forms until the order system runs again.",
+              "note": "A fallback process of the kind the BSI names for a start: orders by hand, records on paper."
+            },
+            "bad": {
+              "value": "We wait until the IT works again.",
+              "note": "Until then no orders come in, and nobody knows how long that takes."
+            }
+          },
+          "lead": {
+            "title": "Who leads the crisis",
+            "lead": "Choose a person who may also decide about money, customers and staff, for example from management. Whoever leads an IT security incident reports to this person once operations stop.",
+            "document": "Your business continuity plan"
+          },
+          "plan": {
+            "title": "Your business continuity plan",
+            "lead": "The template has fixed sections on leadership, emergency operation, recovery and informing people, and your company's name and the lead are already in it. You fill in two lines by hand: which processes must keep running, and in which order the systems come back.",
+            "document": {
+              "title": "Business continuity plan of {company}",
+              "sections": [
+                {
+                  "heading": "Purpose and scope",
+                  "text": "This plan sets out how {company} keeps working when an event interrupts important work: a cyber attack, an IT or internet outage, fire, water, a power cut or the failure of an important provider. It complements the IT security incident plan, which governs alerting and the first steps."
+                },
+                {
+                  "heading": "When this plan applies",
+                  "text": "This plan applies when an event interrupts important work for longer than normal troubleshooting takes, or threatens to. In doubt, {crisisTeamLead} decides."
+                },
+                {
+                  "heading": "Leadership",
+                  "text": "{crisisTeamLead} leads the response, brings in the people needed, decides, and records each decision with the time. Whoever leads an incident under the IT security incident plan reports to {crisisTeamLead}. If {crisisTeamLead} cannot be reached, another member of management takes over."
+                },
+                {
+                  "heading": "Alerting and contacts",
+                  "text": "Whom we call and how we reach each other when the IT fails is set out in the IT security incident plan, with the phone list on paper."
+                },
+                {
+                  "heading": "Emergency operation",
+                  "text": "These processes must keep running, even without IT. For each one it is recorded how it continues, for example by phone and on paper or at another place: _______________"
+                },
+                {
+                  "heading": "Recovery",
+                  "text": "Our IT provider or our own IT restores the systems from the backups. A system goes back into use only once it has been checked. Order of recovery: _______________"
+                },
+                {
+                  "heading": "Informing people",
+                  "text": "{crisisTeamLead} or someone they name informs staff, suppliers and customers. Reports to the competent CSIRT or authority follow the IT security incident plan."
+                },
+                {
+                  "heading": "Back to normal operation",
+                  "text": "{crisisTeamLead} declares the emergency over. We record what happened and adapt this plan."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "targets",
+                  "label": "Recovery targets",
+                  "heading": "Recovery targets",
+                  "text": "For our most important systems we set how long they may be down at most and how much data may be lost at most. The figures are recorded with the systems on our list."
+                },
+                {
+                  "id": "practice",
+                  "label": "Yearly exercise",
+                  "heading": "Exercise",
+                  "text": "Once a year we walk through an outage around the table and check that we can reach everyone involved."
+                },
+                {
+                  "id": "workplace",
+                  "label": "Fallback workplace",
+                  "heading": "Fallback workplace",
+                  "text": "If the office cannot be used, we keep working remotely or at a fallback location."
+                },
+                {
+                  "id": "power",
+                  "label": "Power cut",
+                  "heading": "Power cut",
+                  "text": "For a power cut it is set which devices must keep running and who decides about emergency power."
+                },
+                {
+                  "id": "providers",
+                  "label": "Providers in an emergency",
+                  "heading": "Providers in an emergency",
+                  "text": "We have agreed with our important providers how we reach them in an emergency and what they then do for us."
+                },
+                {
+                  "id": "paper",
+                  "label": "Printed copy",
+                  "heading": "Printed copy",
+                  "text": "A printed copy of this plan is kept outside the building."
+                }
+              ],
+              "signature": "For the management of {company}: place, date, signature"
+            }
+          },
+          "done": {
+            "title": "Your business continuity plan is in place",
+            "note": "Fill in the two open lines and keep a printed copy next to the IT security incident plan. The plan is saved as a draft. At the end, management reviews all policies and approves them."
+          }
+        },
+        "fields": {
+          "crisisTeamLead": {
+            "label": "Crisis lead",
+            "hint": "Name and role of the person who decides when operations stop, for example from management."
+          }
+        }
+      },
+      "4_4": {
+        "headline": "Record your backups",
+        "teaser": "How often you back up, and when a restore last worked.",
+        "missed": [
+          "A backup with the same provider that holds the original data does not count as separate storage for Germany's BSI, cloud services included (Grundschutz++ NOT.4.10).",
+          "An attacker can encrypt a backup on the same network along with everything else. The BSI therefore recommends a copy kept separate from the network (Grundschutz++ NOT.4.14)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "A backup you can restore",
+            "body": [
+              "A backup is a copy of your data that you bring back after an outage, an attack or a mistake. It only helps if a copy survives the incident and can really be restored.",
+              "In this step you record how often you back up and when a restore last worked. The details per system, such as where the backup is kept, stay on the requirement page."
+            ],
+            "duty": "The law names backup management and disaster recovery explicitly as part of business continuity."
+          },
+          "copy": {
+            "title": "Where the copy is kept",
+            "caption": "A copy that survives an attack",
+            "good": {
+              "value": "One copy is kept off the network, for example on a disk in a cupboard or in storage that nobody can delete or change.",
+              "note": "Grundschutz++ recommends keeping backups separate from the original data and one copy off the network (NOT.4.10, NOT.4.14)."
+            },
+            "bad": {
+              "value": "The backup sits on a drive in the same network as the server.",
+              "note": "If an attacker encrypts the server, the backup is encrypted along with it."
+            }
+          },
+          "rhythm": {
+            "title": "How often you back up",
+            "lead": "How often the data of your most important systems is backed up. If you do not know, ask whoever looks after your IT.",
+            "document": "Your backups"
+          },
+          "ask": {
+            "title": "Ask about the last restore",
+            "lead": "Ask your IT provider or your IT team:",
+            "items": [
+              {
+                "name": "When",
+                "detail": "when data was last restored from a backup"
+              },
+              {
+                "name": "What",
+                "detail": "which data or which system; samples are enough for the BSI"
+              },
+              {
+                "name": "Whether it worked",
+                "detail": "whether the data came back complete and readable"
+              }
+            ],
+            "source": "Germany's BSI, emergency management checklist: make backups regularly and test regularly that they can be restored. Checking by samples: Grundschutz++ NOT.4.16.1."
+          },
+          "test": {
+            "title": "The last restore",
+            "lead": "Enter the day a restore last worked. Germany's implementing act requires measures to be effective (§ 30(1) BSIG), and a backup that was never restored is not shown to be effective. That is our reading, not the wording of the law. If there has been none yet, leave the field empty and plan one.",
+            "document": "Your backups"
+          },
+          "done": {
+            "title": "Your backups are recorded",
+            "note": "Germany's BSI advises testing restores regularly. Enter the new date after each test."
+          }
+        },
+        "fields": {
+          "backupFrequency": {
+            "label": "Backup frequency",
+            "hint": "For your most important systems.",
+            "options": {
+              "real_time": "continuously",
+              "hourly": "hourly",
+              "daily": "daily",
+              "weekly": "weekly"
+            }
+          },
+          "lastBackupTest": {
+            "label": "Last successful restore",
+            "hint": "The day data last came back complete from a backup."
+          }
+        }
       }
     }
   }
