@@ -3,7 +3,7 @@
     "order": {
       "metaTitle": "Order",
       "title": "Order",
-      "intro": "The NIS 2 guided pass for one year, {price} net. One payment covers every organization and user on your account. You pay by invoice within 30 days, and access opens as soon as you order. If you cancel within 30 days of your first order, you get your money back.",
+      "intro": "The NIS 2 guided pass for one year, {price} net. One payment covers every organization and user on your account.",
       "sandboxNotice": "Test mode: this order creates an invoice in the Qonto sandbox and unlocks this account.",
       "alreadyPaid": "Your account is paid until {date}, invoice {number}.",
       "payerOnly": "The account holder can place the order. Usually that is whoever set up the organization.",
@@ -45,11 +45,18 @@
     },
     "legal": {
       "title": "Before you order",
+      "labels": {
+        "b2b": "Seller",
+        "term": "Term",
+        "moneyBack": "Money back",
+        "payment": "Payment",
+        "contract": "The contract"
+      },
       "b2b": "For businesses only. The seller is Kardashev Catalyst UG (haftungsbeschränkt), Trierer Str. 6, 50676 Köln, Germany, Amtsgericht Köln HRB 126993, VAT ID DE462889433.",
       "term": "The licence runs for one year from today and then renews for one year at a time. We remind you by email 14 days before we issue the invoice for the new year. You can cancel up to the renewal date.",
       "moneyBack": "If this is your account's first order, you can cancel within 30 days from today without giving a reason. If the invoice is still open, we cancel it with a credit note. If you have already paid, we transfer the amount back within 30 days of the cancellation. This does not apply to renewals or later orders.",
       "payment": "Payment by bank transfer within 30 days of the invoice date. If the invoice is not paid by then, we suspend access to the licence until the payment arrives.",
-      "contract": "How the contract is made: you check your details and the price, confirm the terms and click \"Place order\". We accept the order by opening access at once and sending the invoice by email. You correct input errors in the fields before you click. Which version of the terms you accepted is shown under Billing afterwards. You can save or print the terms and the DPA now. The contract language is German or English, depending on the language you order in."
+      "contract": "You check your details and the price, confirm the terms and click \"Place order\". We accept the order by opening access at once and sending the invoice by email. You correct input errors in the fields before you click. Which version of the terms you accepted is shown under Billing afterwards. You can save or print the terms and the DPA now. The contract language is German or English, depending on the language you order in."
     },
     "registry": {
       "valid": "Confirmed by the EU register",
@@ -66,6 +73,27 @@
       "net": "Net",
       "vat": "VAT {rate}%",
       "gross": "Total"
+    },
+    "preview": {
+      "caption": "Your invoice as it will arrive by email. It fills in as you type.",
+      "title": "Invoice",
+      "draft": "Preview",
+      "companyPlaceholder": "Your company",
+      "addressPlaceholder": "Street, postcode and city",
+      "vatId": "VAT ID {id}",
+      "date": "Invoice date",
+      "reference": "Your reference",
+      "period": "Service period {start} to {end}",
+      "vatLabel": "VAT",
+      "vatPending": "follows from your VAT number",
+      "totalPending": "{net} plus VAT",
+      "due": "Payable by {date} by bank transfer.",
+      "sentTo": "Sent as PDF to {email}."
+    },
+    "trust": {
+      "invoice": "Nothing is charged now. You pay the invoice within 30 days.",
+      "moneyBack": "First order: cancel within 30 days and get your money back.",
+      "access": "Access opens as soon as you order."
     },
     "treatment": {
       "reverse_charge": "Reverse charge: you account for the VAT yourself.",

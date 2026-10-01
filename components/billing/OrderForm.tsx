@@ -21,7 +21,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { type ReactNode, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -31,6 +31,7 @@ import { Link } from "@/i18n/navigation";
 import { orderSchemaWithVatCheck } from "@/lib/billing/order";
 import { TERMS_VERSION, termsVersionLabel } from "@/lib/billing/terms";
 import { trpc } from "@/lib/trpc/client";
+import { InvoicePreview } from "./InvoicePreview";
 import { OrderFields, type OrderValues, orderDefaults } from "./OrderFields";
 
 /** An ISO calendar day, shown as that same day in the reader's locale. */
@@ -56,22 +57,40 @@ const LEGAL_NOTES = ["b2b", "term", "moneyBack", "payment", "contract"] as const
 /**
  * What the customer should know before the button: who sells, for how long, the money back, when
  * to pay, and how the contract is made (§ 312i Abs. 1 Nr. 2 BGB). The full text is in /terms.
+ * Each point carries its name, so a buyer looking for the payment term finds it without reading
+ * the rest.
  */
 function OrderLegalNotes() {
   const t = useTranslations("billing.legal");
   return (
-    <div className="space-y-2 rounded-md border bg-muted/30 p-4 text-muted-foreground text-sm">
-      <p className="font-medium text-foreground">{t("title")}</p>
-      <ul className="list-disc space-y-1 pl-5">
+    <section aria-labelledby="order-legal-title" className="rounded-lg border p-5">
+      <h2
+        id="order-legal-title"
+        className="flex items-center gap-2 font-semibold text-base tracking-tight"
+      >
+        <span aria-hidden className="text-muted-foreground">
+          §
+        </span>
+        {t("title")}
+      </h2>
+      <dl className="mt-4 space-y-3 text-sm">
         {LEGAL_NOTES.map((key) => (
-          <li key={key}>{t(key)}</li>
+          <div key={key} className="grid gap-0.5 sm:grid-cols-[8.5rem_1fr] sm:gap-4">
+            <dt className="font-medium">{t(`labels.${key}`)}</dt>
+            <dd className="text-muted-foreground leading-relaxed">{t(key)}</dd>
+          </div>
         ))}
-      </ul>
-    </div>
+      </dl>
+    </section>
   );
 }
 
-export function OrderForm() {
+export function OrderForm({
+  netPrice,
+}: {
+  /** The holder's yearly net price, formatted, shown on the invoice before the VAT is known. */
+  readonly netPrice: string;
+}) {
   const t = useTranslations("billing");
   const locale = useLocale();
   const quote = trpc.billing.quote.useMutation();
@@ -91,6 +110,10 @@ export function OrderForm() {
     resolver: zodResolver(orderSchemaWithVatCheck),
     defaultValues: orderDefaults(locale),
   });
+  const values = useWatch({ control: form.control });
+  // A price quoted for another VAT number is not this invoice's price.
+  const quotedPrice =
+    quote.variables?.vatNumber === values.vatNumber ? quote.data?.price : undefined;
   // Outside the order schema, which the platform admin close shares: only a customer ticks it.
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [termsMissing, setTermsMissing] = useState(false);
@@ -167,17 +190,28 @@ export function OrderForm() {
                   : t("result.failed")
                 : null;
 
+  // One grid: on a phone the invoice sits between the fields and the terms; from lg it moves to a
+  // sticky column beside both, so the total stays in view while they type and when they click.
   return (
-    <div className="mx-auto max-w-2xl space-y-6">
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,25rem)] lg:gap-12"
+      >
+        <div className="space-y-6">
           <OrderFields
             form={form}
             quote={quote.data}
             quoting={quote.isPending}
             onVatBlur={checkVat}
           />
+        </div>
 
+        <aside className="lg:sticky lg:top-24 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start">
+          <InvoicePreview values={values} price={quotedPrice} netPrice={netPrice} />
+        </aside>
+
+        <div className="space-y-6">
           <OrderLegalNotes />
 
           <div className="space-y-2">
@@ -223,7 +257,7 @@ export function OrderForm() {
           <Button
             type="submit"
             size="lg"
-            className="w-full"
+            className="h-12 w-full text-base"
             disabled={place.isPending || quote.isPending || outcomeUnknown}
           >
             {place.isPending ? (
@@ -235,8 +269,8 @@ export function OrderForm() {
               t("form.submit")
             )}
           </Button>
-        </form>
-      </Form>
-    </div>
+        </div>
+      </form>
+    </Form>
   );
 }

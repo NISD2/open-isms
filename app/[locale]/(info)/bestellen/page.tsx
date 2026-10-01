@@ -53,9 +53,11 @@ export default async function BestellenPage({
 
   return (
     <div className="space-y-8">
-      <header className="space-y-2">
-        <h1 className="font-bold text-3xl tracking-tight">{t("title")}</h1>
-        <p className="text-muted-foreground">{t("intro", { price: status.netPrice })}</p>
+      <header className="max-w-2xl space-y-3">
+        <h1 className="font-bold text-4xl tracking-tight">{t("title")}</h1>
+        <p className="text-lg text-muted-foreground leading-relaxed">
+          {t("intro", { price: status.netPrice })}
+        </p>
       </header>
       {status.mode === "sandbox" ? (
         <Alert>
@@ -72,7 +74,7 @@ export default async function BestellenPage({
           </AlertDescription>
         </Alert>
       ) : (
-        <OrderForm />
+        <OrderForm netPrice={status.netPrice} />
       )}
     </div>
   );
