@@ -5,6 +5,7 @@
  */
 import "@/lib/server-guard";
 import { and, count, desc, eq, inArray, isNotNull, isNull, max, sql } from "drizzle-orm";
+import { isDeployedServer } from "@/lib/cron/in-app";
 import type { DbOrTx } from "@/lib/db";
 import { env } from "@/lib/env";
 import { auditLog, closeCrmSync, user } from "@/schema";
@@ -14,7 +15,6 @@ import {
   CLOSE_SYNC_INTERVAL_MS,
   type CloseSyncState,
   FIRST_RUN_DELAY_MS,
-  isDeployedServer,
 } from "./schedule";
 import { isSyncedAccount } from "./store";
 import { MAX_PER_RUN, MAX_REFUSALS } from "./sync";
