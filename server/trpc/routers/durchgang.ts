@@ -15,6 +15,8 @@ import {
   levelOf,
   methodNote,
   noteLine,
+  policyText,
+  policyTitle,
   ratingKey,
   ratingText,
   resolveItem,
@@ -35,12 +37,15 @@ import {
   asset,
   auditLog,
   company,
+  companyPolicyConfig,
   companyRiskMethodology,
+  policy,
   risk,
   riskAsset,
   riskSupplier,
   supplier,
 } from "@/schema";
+import { policyInsertSchema } from "@/schema/validators";
 import {
   appendNote,
   type DurchgangActor,
@@ -126,6 +131,18 @@ const itemOf = (c: string) => {
       message: `${c} is not in the Durchgang.`,
     });
   return item;
+};
+
+/** The item's policy screen with its words in `locale`; an item without one writes no policy. */
+const policyScreenOf = (c: string, locale: "de" | "en") => {
+  const words = resolveItem(NAMESPACES[locale], itemOf(c));
+  const screen = words.ok
+    ? words.value.screens.find((s) => s.kind === "policy")
+    : undefined;
+  if (screen?.kind !== "policy") {
+    throw new TRPCError({ code: "BAD_REQUEST", message: `${c} writes no policy.` });
+  }
+  return screen;
 };
 
 export const durchgangRouter = router({
@@ -681,5 +698,117 @@ export const durchgangRouter = router({
       if (written.length > 0) recheck(ctx, "risk");
       if (written.includes("supplier")) recheck(ctx, "supplier");
       return { written: written.length };
+    }),
+
+  /**
+   * A policy written from the walk's template (2.4, the Leitlinie): its sections and the clauses
+   * the person chose, in the record language, with the company's name. The choice is kept in the
+   * company's policy config and the text in one `policy` row of the requirement. A text that
+   * changes goes back to draft, because what management approved was the earlier one.
+   */
+  writePolicy: durchgangWrite
+    .input(z.object({ code, clauses: z.array(z.string().min(1).max(60)).max(50) }))
+    .mutation(async ({ ctx, input }) => {
+      const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
+      const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
+      const screen = policyScreenOf(input.code, locale);
+      const document = screen.copy.document;
+      const known = new Set(document.clauses.map((c) => c.id));
+      const clauses = input.clauses.filter((id) => known.has(id));
+      const org = await ctx.db.query.company.findFirst({
+        where: eq(company.id, ctx.companyId),
+        columns: { name: true },
+      });
+      if (!org) throw new TRPCError({ code: "NOT_FOUND" });
+      const title = policyTitle(document, org.name);
+      const content = policyText(document, clauses, org.name);
+      const type = screen.screen.policy;
+
+      const changed = await ctx.db.transaction(async (tx) => {
+        // One writer per company at a time, so two tabs add the policy once.
+        await tx
+          .select({ id: company.id })
+          .from(company)
+          .where(eq(company.id, ctx.companyId))
+          .for("update");
+        await tx
+          .insert(companyPolicyConfig)
+          .values({ companyId: ctx.companyId, policyType: type, config: { clauses } })
+          .onConflictDoUpdate({
+            target: [companyPolicyConfig.companyId, companyPolicyConfig.policyType],
+            set: { config: { clauses }, updatedAt: new Date() },
+          });
+        const [stored] = await tx
+          .select({ id: policy.id, content: policy.content })
+          .from(policy)
+          .where(
+            and(
+              eq(policy.companyId, ctx.companyId),
+              eq(policy.requirementId, ref.requirementId),
+              eq(policy.type, type),
+            ),
+          );
+        if (!stored) {
+          await tx.insert(policy).values({
+            companyId: ctx.companyId,
+            requirementId: ref.requirementId,
+            title,
+            type,
+            content,
+          });
+          return true;
+        }
+        if (stored.content === content) return false;
+        await tx
+          .update(policy)
+          .set({
+            title,
+            content,
+            status: "draft",
+            effectiveFrom: null,
+            updatedAt: new Date(),
+          })
+          .where(and(eq(policy.id, stored.id), eq(policy.companyId, ctx.companyId)));
+        return true;
+      });
+      if (changed) recheck(ctx, "policy");
+      return { changed };
+    }),
+
+  /**
+   * The signature page of a policy the walk wrote: the version and the day management signed
+   * become the policy's version and its start, and the policy is approved. The approval columns
+   * (who, when, in which role) stay untouched: they are a sign-off no client path writes.
+   */
+  approvePolicy: durchgangWrite
+    .input(
+      z.object({
+        code,
+        version: policyInsertSchema.shape.version.unwrap(),
+        approvedOn: z.iso.date(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
+      const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
+      const type = policyScreenOf(input.code, locale).screen.policy;
+      const approved = await ctx.db
+        .update(policy)
+        .set({
+          status: "approved",
+          version: input.version,
+          effectiveFrom: input.approvedOn,
+          updatedAt: new Date(),
+        })
+        .where(
+          and(
+            eq(policy.companyId, ctx.companyId),
+            eq(policy.requirementId, ref.requirementId),
+            eq(policy.type, type),
+          ),
+        )
+        .returning({ id: policy.id });
+      if (approved.length > 0) recheck(ctx, "policy");
+      return { approved: approved.length > 0 };
     }),
 });

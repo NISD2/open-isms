@@ -20,6 +20,7 @@
         "register": "Your list",
         "specify": "More precisely",
         "rate": "Rate",
+        "policy": "Template",
         "done": "Done"
       },
       "where": "{section} · Step {step} of {total}",
@@ -58,6 +59,12 @@
       "assets": {
         "title": "Your list already exists",
         "lead": "Your company already has entries. Check them and add what is missing: processes, software, devices, data carriers, rooms and networks."
+      },
+      "policy": {
+        "add": "Add what applies to you:",
+        "print": "Print",
+        "yourCompany": "your company",
+        "changedAfterApproval": "The changed version needs a new signature."
       },
       "specify": {
         "what": "What exactly",
@@ -753,6 +760,130 @@
           "done": {
             "title": "Your risks are rated",
             "note": "Low risks are marked \"Accept\": BSI Standard 200-3 calls it common practice to accept low risks and still monitor them. Everything from \"medium\" up is marked \"Mitigate\". You can change either in the risk register. At the end, management reviews the ratings."
+          }
+        }
+      },
+      "2_4": {
+        "headline": "Sign the security policy",
+        "teaser": "A short policy that management signs.",
+        "missed": [
+          "Everyone has to know the policy. Announce it to all staff and explain it to new staff before they get access to the systems; Germany's BSI asks for both (IT-Grundschutz ISMS.1.A3, Standard 200-2).",
+          "A policy goes out of date. Germany's BSI recommends reviewing it at least every two years (Standard 200-2). Digital providers covered by Implementing Regulation (EU) 2024/2690 review it at least annually (Annex, point 1.1.2)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Your information security policy",
+            "body": [
+              "The information security policy is a short document of principles: what it covers, which objectives your company pursues, who is responsible and how it goes about security. The BSI, Germany's Federal Office for Information Security, calls it the visible commitment of management.",
+              "Our template covers what the BSI names as the minimum content. You add what applies to your company, management signs it, and all staff receive it. According to the BSI, more than ten pages are rarely needed."
+            ],
+            "duty": "The law requires policies on information system security (Art. 21(2)(a) NIS 2), and management bodies approve the risk-management measures and oversee their implementation (Art. 20(1) NIS 2). The policy is the document in which management puts that in writing."
+          },
+          "leitlinie": {
+            "title": "Your policy",
+            "lead": "The template covers what the BSI names as the minimum content of a policy, and your company's name is already in it. Add what applies to your company.",
+            "document": {
+              "title": "Information security policy of {company}",
+              "sections": [
+                {
+                  "heading": "Scope",
+                  "text": "This policy applies to all of {company}: to all staff, all locations and all information, software, devices and services the company works with. It also applies where a service provider runs any of these for us."
+                },
+                {
+                  "heading": "Why information security matters to us",
+                  "text": "Our work depends on information and on the IT that processes it. If they fail, are altered or reach the wrong hands, we cannot deliver our services and we harm our customers. Information security is therefore part of management's responsibilities."
+                },
+                {
+                  "heading": "Objectives",
+                  "text": "We protect the availability, confidentiality and integrity of our information and systems. Our services should keep running when something goes wrong, data of customers, staff and partners should be accessible only to those authorised, and our records should stay accurate and complete. These objectives serve the company's aim of delivering reliably and keeping its customers' trust."
+                },
+                {
+                  "heading": "Approach",
+                  "text": "We work from the risks. We keep a list of our processes, software, devices and suppliers, assess the risks by a defined method and take measures that fit our size and the risks. In doing so we consider all hazards, including fire, water and power cuts."
+                },
+                {
+                  "heading": "Responsibility and organisation",
+                  "text": "Management is responsible for information security. It approves the measures and oversees their implementation. It decides who coordinates information security day to day and provides the time, money and staff for it. All staff follow the rules that derive from this policy and report anything unusual immediately."
+                },
+                {
+                  "heading": "Enforcement and review",
+                  "text": "Management enforces this policy and checks regularly whether the measures work. It reviews the policy itself regularly, after major changes in the company and after serious security incidents, and adapts it."
+                },
+                {
+                  "heading": "Announcement and entry into force",
+                  "text": "The policy takes effect when management signs it. All staff receive it. New staff get to know it before they are given access to our systems."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "laws",
+                  "label": "Laws and contracts",
+                  "heading": "Laws and contracts",
+                  "text": "We comply with the laws and contracts that concern our information security, in particular the national law implementing the NIS 2 Directive, the General Data Protection Regulation and our agreements with customers. All staff are required to observe them."
+                },
+                {
+                  "id": "contact",
+                  "label": "Contact person",
+                  "heading": "Contact person",
+                  "text": "Questions about information security and reports of incidents go to the person who coordinates information security. Who that is can be found in the current overview of roles."
+                },
+                {
+                  "id": "training",
+                  "label": "Training",
+                  "heading": "Training and awareness",
+                  "text": "All staff receive regular training in information security. Management itself takes part in training regularly."
+                },
+                {
+                  "id": "suppliers",
+                  "label": "Suppliers and service providers",
+                  "heading": "Suppliers and service providers",
+                  "text": "Anyone who works for us and has access to our systems or data also follows the rules of this policy. We agree this with our suppliers and service providers."
+                },
+                {
+                  "id": "reporting",
+                  "label": "Reporting security incidents",
+                  "heading": "Reporting security incidents",
+                  "text": "Staff report security incidents and suspected incidents internally and immediately. The company reports significant incidents to the competent CSIRT or authority within the legal deadlines."
+                },
+                {
+                  "id": "violations",
+                  "label": "Consequences of violations",
+                  "heading": "Violations",
+                  "text": "Violations of this policy and of the rules that derive from it may have consequences under employment law."
+                },
+                {
+                  "id": "yearly",
+                  "label": "Annual review",
+                  "heading": "Annual review",
+                  "text": "Management reviews this policy at least once a year."
+                }
+              ],
+              "signature": "For the management of {company}: place, date, signature"
+            }
+          },
+          "signed": {
+            "title": "Have it signed",
+            "lead": "Print the policy from the previous step and have management sign it. Then enter the version and the date here.",
+            "document": "Information security policy"
+          },
+          "proof": {
+            "title": "The signed version",
+            "lead": "Upload a scan or a photo of the signed policy.",
+            "document": "Signed policy"
+          },
+          "done": {
+            "title": "Your policy is in place",
+            "note": "Announce it to all staff, for example by email or on the intranet. When something important changes, update the policy and have it signed again."
+          }
+        },
+        "fields": {
+          "policyVersion": {
+            "label": "Version",
+            "hint": "For example 1.0. Raise it with every change."
+          },
+          "policyApprovalDate": {
+            "label": "Date of signature",
+            "hint": "The day management signed it."
           }
         }
       }

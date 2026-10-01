@@ -46,6 +46,12 @@ const EDITOR_SCREEN: Readonly<Record<string, ScreenKind>> = {
   "RSK:2.3": "rate",
 };
 
+/** Custom editors the flow deliberately leaves to the requirement page, each with the reason. */
+const NO_EDITOR_SCREEN: Readonly<Record<string, string>> = {
+  "RSK:2.4":
+    "the treatment view records accepted residual risks, a CIR 2.1.2(j) duty the walk does not ask (see notAsked); 2.3 proposes each risk's treatment, and the view stays on the requirement page",
+};
+
 /** Registers the flow deliberately leaves out, each with the reason. */
 const NO_SCREEN: Readonly<Record<string, string>> = {
   "12.2:bsi_registration":
@@ -158,7 +164,10 @@ describe("the NIS 2 script", () => {
         });
       }
       const editor = `${item.category}:${item.code}`;
-      if ((CUSTOM_EDITOR_KEYS as readonly string[]).includes(editor)) {
+      if (
+        (CUSTOM_EDITOR_KEYS as readonly string[]).includes(editor) &&
+        !NO_EDITOR_SCREEN[editor]
+      ) {
         const needed = EDITOR_SCREEN[editor];
         expect({ editor, screen: needed && kinds.has(needed) }).toEqual({
           editor,
@@ -205,6 +214,24 @@ describe("the words of the Durchgang", () => {
     const unknown = structuredClone(en.durchgang);
     unknown.items["12_2"].headline = "Register with {agency}";
     expect(headline(unknown)).toContain("unknown placeholder");
+  });
+
+  test("names the company only inside a policy, where the text is written with its name", () => {
+    for (const [, namespace] of LOCALES) {
+      for (const item of NIS2_SCRIPT) {
+        const resolved = resolveItem(namespace, item);
+        if (!resolved.ok) continue;
+        const outside = resolved.value.screens.map((s) =>
+          s.kind === "policy" ? { ...s.copy, document: null } : s.copy,
+        );
+        const head = [
+          resolved.value.headline,
+          resolved.value.teaser,
+          resolved.value.missed,
+        ];
+        expect(JSON.stringify([head, outside])).not.toContain("{company}");
+      }
+    }
   });
 
   for (const [locale, namespace, glossary] of LOCALES) {

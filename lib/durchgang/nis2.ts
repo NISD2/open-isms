@@ -27,6 +27,8 @@ export const NOT_WALKED: Readonly<Record<string, string>> = {
 export const AHEAD: Readonly<Record<string, string>> = {
   "2.3":
     "The risk ratings are made on the assets and suppliers listed in 2.2 and 5.1, so they are walked before 1.3 and 1.4 are scripted.",
+  "2.4":
+    "The Leitlinie states the approach the walk has just set up (method, lists, ratings), so it follows 2.3 before 1.3 and 1.4 are scripted.",
 };
 
 export const NIS2_SCRIPT: readonly AnyItem[] = [
@@ -216,5 +218,31 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
       { kind: "rate", id: "suppliers", targets: "suppliers" },
       { kind: "done", id: "done" },
     ],
+  }),
+  item({
+    code: "2.4",
+    category: "RSK",
+    glossary: [],
+    reviewed: "2026-10-01",
+    screens: [
+      { kind: "learn", id: "learn" },
+      { kind: "policy", id: "leitlinie", policy: "information_security" },
+      {
+        kind: "fields",
+        id: "signed",
+        fields: ["policyVersion", "policyApprovalDate"],
+        approves: {
+          policy: "information_security",
+          version: "policyVersion",
+          date: "policyApprovalDate",
+        },
+      },
+      { kind: "evidence", id: "proof", field: null },
+      { kind: "done", id: "done" },
+    ],
+    notAsked: {
+      residualRiskCount:
+        "Documenting why residual risks are accepted is CIR 2024/2690 Annex 2.1.2(j), which binds only the digital providers the CIR covers; neither § 30 BSIG nor Art. 21 NIS 2 asks for it. 2.3 proposes a treatment for each rated risk, and the requirement page keeps the acceptance.",
+    },
   }),
 ];

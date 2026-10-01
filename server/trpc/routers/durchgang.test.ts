@@ -8,13 +8,18 @@ import { describe, expect, mock, test } from "bun:test";
 import type { SQL } from "drizzle-orm";
 import { PgDialect } from "drizzle-orm/pg-core";
 import type { AuditEntry } from "@/lib/audit";
-import { asset, companyRequirementStatus } from "@/schema";
+import { asset, companyPolicyConfig, companyRequirementStatus, policy } from "@/schema";
 
 const audits: AuditEntry[] = [];
 mock.module("@/lib/audit", () => ({
   logAudit: async (entry: AuditEntry) => {
     audits.push(entry);
   },
+}));
+// Sign-off rechecks run in the background against the real tables; they are pinned elsewhere.
+mock.module("@/lib/compliance/module-recheck", () => ({
+  invalidateModuleSignOffs: async () => {},
+  recheckModuleRequirements: async () => {},
 }));
 
 const { createCallerFactory } = await import("../init");
@@ -39,6 +44,8 @@ function setup(opts: {
   existingAssets?: readonly string[];
   role?: "admin" | "member";
   assigned?: boolean;
+  /** The walk's policy row of the item, if one was written before. */
+  storedPolicy?: { id: string; content: string };
 }) {
   const writes: Write[] = [];
   const wheres: Array<{ table: string; where: SQL }> = [];
@@ -67,7 +74,13 @@ function setup(opts: {
         ),
         findMany: async () => [],
       },
-      company: { findFirst: async () => ({ activatedAt: new Date(), country: "DE" }) },
+      company: {
+        findFirst: async () => ({
+          activatedAt: new Date(),
+          country: "DE",
+          name: "Muster GmbH",
+        }),
+      },
       user: { findFirst: async () => ({ locale: "de" }) },
       asset: {
         findMany: captured(
@@ -78,8 +91,10 @@ function setup(opts: {
     },
     update: (table: unknown) => ({
       set: (values: unknown) => ({
-        where: async () => {
+        where: () => {
           writes.push({ op: "update", table, values });
+          const matched = opts.storedPolicy ? [{ id: opts.storedPolicy.id }] : [];
+          return Object.assign(Promise.resolve(), { returning: async () => matched });
         },
       }),
     }),
@@ -92,6 +107,17 @@ function setup(opts: {
     selectDistinctOn: () => ({
       from: () => ({ where: () => ({ orderBy: async () => [] }) }),
     }),
+    // The company lock and the lookup of the walk's policy row.
+    select: () => ({
+      from: (table: unknown) => {
+        const rows =
+          table === policy ? (opts.storedPolicy ? [opts.storedPolicy] : []) : [];
+        return {
+          where: () => Object.assign(Promise.resolve(rows), { for: async () => rows }),
+        };
+      },
+    }),
+    transaction: async <T>(work: (tx: unknown) => Promise<T>) => work(db),
   };
 
   const caller = createCallerFactory(durchgangRouter)({
@@ -255,5 +281,92 @@ describe("durchgang router", () => {
     expect(insert?.values).toEqual([
       { companyId: COMPANY, name: "Laborsoftware", type: "other" },
     ]);
+  });
+});
+
+/** The text a policy write stored, or nothing. */
+const contentOf = (write: Write | undefined): string => {
+  const values = write?.values;
+  return typeof values === "object" &&
+    values !== null &&
+    "content" in values &&
+    typeof values.content === "string"
+    ? values.content
+    : "";
+};
+
+describe("the walk's policy", () => {
+  test("writes the Leitlinie in the seed language with the company's name and only known clauses", async () => {
+    const { caller, writes } = setup({ accessLevel: "full" });
+    await caller.writePolicy({ code: "2.4", clauses: ["training", "made-up"] });
+    const config = writes.find((w) => w.table === companyPolicyConfig);
+    expect(config?.values).toMatchObject({
+      companyId: COMPANY,
+      policyType: "information_security",
+      config: { clauses: ["training"] },
+    });
+    const row = writes.find((w) => w.op === "insert" && w.table === policy);
+    expect(row?.values).toMatchObject({
+      companyId: COMPANY,
+      requirementId: REQUIREMENT,
+      title: "Leitlinie zur Informationssicherheit der Muster GmbH",
+      type: "information_security",
+    });
+    const content = contentOf(row);
+    expect(content).toContain("## 8. Schulung und Sensibilisierung");
+    expect(content).not.toContain("{company}");
+  });
+
+  test("puts a changed text back to draft, and leaves an unchanged one alone", async () => {
+    const changed = setup({
+      accessLevel: "full",
+      storedPolicy: { id: "policy-1", content: "an older text" },
+    });
+    await changed.caller.writePolicy({ code: "2.4", clauses: [] });
+    expect(
+      changed.writes.find((w) => w.op === "update" && w.table === policy)?.values,
+    ).toMatchObject({ status: "draft", effectiveFrom: null });
+
+    const first = setup({ accessLevel: "full" });
+    await first.caller.writePolicy({ code: "2.4", clauses: [] });
+    const written = first.writes.find((w) => w.op === "insert" && w.table === policy);
+    const same = setup({
+      accessLevel: "full",
+      storedPolicy: { id: "policy-1", content: contentOf(written) },
+    });
+    await same.caller.writePolicy({ code: "2.4", clauses: [] });
+    expect(same.writes.filter((w) => w.table === policy)).toEqual([]);
+  });
+
+  test("approves with the signed version and day, and never writes the sign-off columns", async () => {
+    const { caller, writes } = setup({
+      accessLevel: "full",
+      storedPolicy: { id: "policy-1", content: "text" },
+    });
+    const result = await caller.approvePolicy({
+      code: "2.4",
+      version: "1.0",
+      approvedOn: "2026-10-01",
+    });
+    expect(result).toEqual({ approved: true });
+    const update = writes.find((w) => w.op === "update" && w.table === policy);
+    expect(update?.values).toMatchObject({
+      status: "approved",
+      version: "1.0",
+      effectiveFrom: "2026-10-01",
+    });
+    expect(Object.keys(update?.values ?? {})).not.toContain("approvedBy");
+    expect(Object.keys(update?.values ?? {})).not.toContain("approvedAt");
+    expect(Object.keys(update?.values ?? {})).not.toContain("approverRole");
+  });
+
+  test("refuses an item without a policy screen, and accounts without the Durchgang", async () => {
+    const { caller } = setup({ accessLevel: "full" });
+    const refused = caller.writePolicy({ code: "12.2", clauses: [] });
+    await expect(refused).rejects.toMatchObject({ code: "BAD_REQUEST" });
+    const free = setup({ accessLevel: "free" });
+    const closed = free.caller.writePolicy({ code: "2.4", clauses: [] });
+    await expect(closed).rejects.toMatchObject({ code: "FORBIDDEN" });
+    expect(free.writes).toEqual([]);
   });
 });

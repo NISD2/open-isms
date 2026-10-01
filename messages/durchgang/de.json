@@ -20,6 +20,7 @@
         "register": "Ihre Liste",
         "specify": "Genauer",
         "rate": "Bewerten",
+        "policy": "Vorlage",
         "done": "Erledigt"
       },
       "where": "{section} · Schritt {step} von {total}",
@@ -58,6 +59,12 @@
       "assets": {
         "title": "Ihre Liste gibt es schon",
         "lead": "Ihr Unternehmen hat bereits Einträge. Prüfen Sie sie und ergänzen Sie, was fehlt: Abläufe, Programme, Geräte, Datenträger, Räume und Netze."
+      },
+      "policy": {
+        "add": "Ergänzen Sie, was für Sie gilt:",
+        "print": "Drucken",
+        "yourCompany": "Ihr Unternehmen",
+        "changedAfterApproval": "Die geänderte Fassung braucht eine neue Unterschrift."
       },
       "specify": {
         "what": "Was genau",
@@ -753,6 +760,130 @@
           "done": {
             "title": "Ihre Risiken sind bewertet",
             "note": "Geringe Risiken sind mit „Akzeptieren“ vorgemerkt: Der BSI-Standard 200-3 nennt es üblich, sie zu akzeptieren und weiter zu beobachten. Alles ab „mittel“ ist mit „Mindern“ vorgemerkt. Beides ändern Sie im Risikoregister. Am Ende sieht die Geschäftsführung die Bewertung durch."
+          }
+        }
+      },
+      "2_4": {
+        "headline": "Die Leitlinie unterschreiben",
+        "teaser": "Ein kurzes Grundsatzdokument, das die Geschäftsführung unterschreibt.",
+        "missed": [
+          "Alle Beschäftigten müssen die Leitlinie kennen. Das BSI verlangt, sie bekannt zu geben (IT-Grundschutz ISMS.1.A3), und rät, sie neuen Beschäftigten zu erklären, bevor sie Zugang zu den Systemen bekommen (Standard 200-2).",
+          "Eine Leitlinie veraltet. Das BSI empfiehlt, sie spätestens alle zwei Jahre zu überprüfen (Standard 200-2). Für die Anbieter digitaler Dienste, für die die Durchführungsverordnung (EU) 2024/2690 gilt, ist es mindestens jährlich (Anhang, Nr. 1.1.2)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Ihr Grundsatz zur Informationssicherheit",
+            "body": [
+              "Die Leitlinie zur Informationssicherheit ist ein kurzes Grundsatzdokument: wofür sie gilt, welche Ziele Ihr Unternehmen verfolgt, wer verantwortlich ist und wie es vorgeht. Das BSI nennt sie das sichtbare Bekenntnis der Leitung.",
+              "Unsere Vorlage enthält, was das BSI als Mindestinhalt nennt. Sie ergänzen, was für Ihr Unternehmen gilt, die Geschäftsführung unterschreibt, und alle Beschäftigten bekommen sie. Mehr als zehn Seiten sind nach dem BSI selten nötig."
+            ],
+            "duty": "Das Gesetz verlangt Konzepte zur Sicherheit in der Informationstechnik (§ 30 Abs. 2 Nr. 1 BSIG), und die Geschäftsleitung muss die Maßnahmen umsetzen und ihre Umsetzung überwachen. Die Leitlinie ist das Dokument, in dem sie das schriftlich festhält."
+          },
+          "leitlinie": {
+            "title": "Ihre Leitlinie",
+            "lead": "Die Vorlage enthält, was das BSI als Mindestinhalt einer Leitlinie nennt, und Ihr Firmenname steht schon darin. Fügen Sie hinzu, was für Ihr Unternehmen gilt.",
+            "document": {
+              "title": "Leitlinie zur Informationssicherheit der {company}",
+              "sections": [
+                {
+                  "heading": "Geltungsbereich",
+                  "text": "Diese Leitlinie gilt für die gesamte {company}: für alle Beschäftigten, alle Standorte und alle Informationen, Programme, Geräte und Dienste, mit denen das Unternehmen arbeitet. Sie gilt auch dann, wenn ein Dienstleister etwas davon für uns betreibt."
+                },
+                {
+                  "heading": "Stellenwert der Informationssicherheit",
+                  "text": "Unsere Arbeit hängt an Informationen und an der IT, die sie verarbeitet. Fallen sie aus, werden sie verfälscht oder gelangen sie in falsche Hände, können wir unsere Leistungen nicht erbringen und schaden unseren Kunden. Informationssicherheit gehört deshalb zu den Aufgaben der Geschäftsführung."
+                },
+                {
+                  "heading": "Ziele",
+                  "text": "Wir schützen die Verfügbarkeit, die Vertraulichkeit und die Integrität unserer Informationen und Systeme. Unsere Leistungen sollen auch bei Störungen weiterlaufen, Daten von Kunden, Beschäftigten und Partnern sollen nur Befugten zugänglich sein, und unsere Angaben sollen richtig und vollständig bleiben. Diese Ziele dienen dem Ziel des Unternehmens, verlässlich zu liefern und das Vertrauen seiner Kunden zu behalten."
+                },
+                {
+                  "heading": "Vorgehen",
+                  "text": "Wir gehen nach dem Risiko vor. Wir führen eine Liste unserer Abläufe, Programme, Geräte und Dienstleister, bewerten die Risiken nach einer festgelegten Methode und ergreifen Maßnahmen, die zu unserer Größe und zu den Risiken passen. Dabei betrachten wir alle Gefahren, auch Feuer, Wasser und Stromausfall."
+                },
+                {
+                  "heading": "Verantwortung und Organisation",
+                  "text": "Die Geschäftsführung trägt die Verantwortung für die Informationssicherheit. Sie setzt die Maßnahmen um und überwacht ihre Umsetzung. Sie legt fest, wer die Informationssicherheit im Alltag koordiniert, und stellt dafür Zeit, Geld und Personal bereit. Alle Beschäftigten halten die Regeln ein, die aus dieser Leitlinie folgen, und melden Auffälligkeiten sofort."
+                },
+                {
+                  "heading": "Durchsetzung und Überprüfung",
+                  "text": "Die Geschäftsführung setzt diese Leitlinie durch und prüft regelmäßig, ob die Maßnahmen wirken. Sie überprüft die Leitlinie selbst regelmäßig, nach größeren Änderungen im Unternehmen und nach schweren Sicherheitsvorfällen, und passt sie an."
+                },
+                {
+                  "heading": "Bekanntgabe und Inkrafttreten",
+                  "text": "Die Leitlinie gilt ab ihrer Unterschrift durch die Geschäftsführung. Alle Beschäftigten erhalten sie. Neue Beschäftigte lernen sie kennen, bevor sie Zugang zu unseren Systemen bekommen."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "laws",
+                  "label": "Gesetze und Verträge",
+                  "heading": "Gesetze und Verträge",
+                  "text": "Wir halten die Gesetze und Verträge ein, die unsere Informationssicherheit betreffen, insbesondere das BSI-Gesetz, mit dem Deutschland die NIS-2-Richtlinie umsetzt, die Datenschutz-Grundverordnung und die Vereinbarungen mit unseren Kunden. Alle Beschäftigten sind verpflichtet, sie zu beachten."
+                },
+                {
+                  "id": "contact",
+                  "label": "Ansprechperson",
+                  "heading": "Ansprechperson",
+                  "text": "Fragen zur Informationssicherheit und Hinweise auf Vorfälle gehen an die Person, die die Informationssicherheit koordiniert. Wer das ist, steht in der aktuellen Übersicht der Rollen."
+                },
+                {
+                  "id": "training",
+                  "label": "Schulungen",
+                  "heading": "Schulung und Sensibilisierung",
+                  "text": "Alle Beschäftigten werden regelmäßig zur Informationssicherheit geschult. Die Geschäftsführung nimmt selbst regelmäßig an Schulungen teil."
+                },
+                {
+                  "id": "suppliers",
+                  "label": "Lieferanten und Dienstleister",
+                  "heading": "Lieferanten und Dienstleister",
+                  "text": "Wer für uns arbeitet und dabei an unsere Systeme oder Daten kommt, hält die Regeln dieser Leitlinie ebenfalls ein. Wir vereinbaren das mit unseren Lieferanten und Dienstleistern."
+                },
+                {
+                  "id": "reporting",
+                  "label": "Sicherheitsvorfälle melden",
+                  "heading": "Sicherheitsvorfälle melden",
+                  "text": "Beschäftigte melden Sicherheitsvorfälle und Verdachtsfälle sofort intern. Erhebliche Sicherheitsvorfälle meldet das Unternehmen fristgerecht an das BSI."
+                },
+                {
+                  "id": "violations",
+                  "label": "Folgen von Verstößen",
+                  "heading": "Verstöße",
+                  "text": "Verstöße gegen diese Leitlinie und die Regeln, die aus ihr folgen, können arbeitsrechtliche Folgen haben."
+                },
+                {
+                  "id": "yearly",
+                  "label": "Jährliche Überprüfung",
+                  "heading": "Jährliche Überprüfung",
+                  "text": "Die Geschäftsführung überprüft diese Leitlinie mindestens einmal im Jahr."
+                }
+              ],
+              "signature": "Für die Geschäftsführung der {company}: Ort, Datum, Unterschrift"
+            }
+          },
+          "signed": {
+            "title": "Unterschreiben lassen",
+            "lead": "Drucken Sie die Leitlinie auf dem vorigen Schritt aus und lassen Sie sie von der Geschäftsführung unterschreiben. Dann tragen Sie hier Version und Datum ein.",
+            "document": "Leitlinie zur Informationssicherheit"
+          },
+          "proof": {
+            "title": "Die unterschriebene Fassung",
+            "lead": "Laden Sie einen Scan oder ein Foto der unterschriebenen Leitlinie hoch.",
+            "document": "Unterschriebene Leitlinie"
+          },
+          "done": {
+            "title": "Ihre Leitlinie steht",
+            "note": "Geben Sie sie allen Beschäftigten bekannt, etwa per E-Mail oder im Intranet. Ändert sich etwas Wesentliches, passen Sie die Leitlinie an und lassen sie erneut unterschreiben."
+          }
+        },
+        "fields": {
+          "policyVersion": {
+            "label": "Version",
+            "hint": "Zum Beispiel 1.0. Bei jeder Änderung zählt sie hoch."
+          },
+          "policyApprovalDate": {
+            "label": "Tag der Unterschrift",
+            "hint": "Der Tag, an dem die Geschäftsführung unterschrieben hat."
           }
         }
       }

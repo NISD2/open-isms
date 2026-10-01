@@ -91,12 +91,17 @@ const patchMgmtConfigSchema = z.object({
   reviewCycleYears: z.number().int().min(1).max(10),
 });
 
+const informationSecurityConfigSchema = z.object({
+  clauses: z.array(z.string().min(1).max(60)).max(50),
+});
+
 const CONFIG_VALIDATORS: { [K in PolicyType]: z.ZodType<PolicyConfigMap[K]> } = {
   crypto: cryptoConfigSchema,
   access_control: accessControlConfigSchema,
   procurement: procurementConfigSchema,
   secure_dev: secureDevConfigSchema,
   patch_mgmt: patchMgmtConfigSchema,
+  information_security: informationSecurityConfigSchema,
 };
 
 export const policyConfigRouter = router({

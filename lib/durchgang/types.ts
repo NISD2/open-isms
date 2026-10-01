@@ -40,6 +40,9 @@ export type LearnLink = "ceo_course";
 /** A BSI default the person may take over with one click, as an explicit write. */
 export type Adoptable = "bsi_200_3_method";
 
+/** A policy the walk writes from its own template; the text is in messages/durchgang. */
+export type PolicyTemplate = "information_security";
+
 /** Where a list the company needs usually exists already. */
 export const SOURCE_IDS = [
   "ropa",
@@ -75,6 +78,15 @@ export type Screen<C extends CategoryCode> =
       readonly kind: "fields";
       readonly id: string;
       readonly fields: readonly CategoryField<C>[];
+      /**
+       * The signature page of a policy the walk wrote: once its answers are saved, the policy is
+       * marked approved with the version and the day these two fields hold.
+       */
+      readonly approves?: {
+        readonly policy: PolicyTemplate;
+        readonly version: CategoryField<C>;
+        readonly date: CategoryField<C>;
+      };
     }
   | {
       readonly kind: "evidence";
@@ -99,6 +111,11 @@ export type Screen<C extends CategoryCode> =
   | { readonly kind: "specify"; readonly id: string; readonly slice: AssetSlice }
   /** Each listed asset or supplier rated on the two 200-3 scales, as a risk linked to it. */
   | { readonly kind: "rate"; readonly id: string; readonly targets: RatingTarget }
+  /**
+   * A policy written from our template: fixed sections, optional clauses the person adds, the
+   * company's name filled in. Stored as one `policy` row of the item's requirement.
+   */
+  | { readonly kind: "policy"; readonly id: string; readonly policy: PolicyTemplate }
   | { readonly kind: "done"; readonly id: string };
 
 export type AnyScreen = Screen<CategoryCode>;

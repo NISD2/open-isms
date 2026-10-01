@@ -27,6 +27,8 @@ export interface Draft {
   readonly specified: Readonly<Record<string, Specified>>;
   /** Ratings chosen on this visit, by `ratingKey`. */
   readonly ratings: Readonly<Record<string, RatingDraft>>;
+  /** The policy clauses chosen on this visit; null until the person changes the stored choice. */
+  readonly clauses: readonly string[] | null;
 }
 
 export type DraftUpdate = (next: Draft) => void;
@@ -78,6 +80,7 @@ export const initialDraft = (
   uploaded: null,
   specified: {},
   ratings: {},
+  clauses: null,
 });
 
 /** A rating with both scales chosen, or null. */

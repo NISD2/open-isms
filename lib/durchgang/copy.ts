@@ -44,6 +44,19 @@ const SCREEN_COPY = {
   assets: z.object(heading),
   specify: z.object(heading),
   rate: z.object(heading),
+  /**
+   * The policy itself: its fixed sections, the clauses the person may add, and the signature
+   * line. `{company}` stands for the company's name and is filled in when the text is written.
+   */
+  policy: z.object({
+    ...heading,
+    document: z.object({
+      title: text,
+      sections: z.array(z.object({ heading: text, text })).min(1),
+      clauses: z.array(z.object({ id: text, label: text, heading: text, text })),
+      signature: text,
+    }),
+  }),
   done: z.object({ title: text, note: text }),
 } as const satisfies Record<ScreenKind, z.ZodType>;
 
@@ -117,6 +130,9 @@ const TERM_MARKERS: ReadonlyArray<readonly [string, keyof Terms]> = [
   ["{authority}", "authority"],
 ];
 
+/** Stands for the company's name in a policy; filled in when the policy is written, not here. */
+export const COMPANY_MARKER = "{company}";
+
 /** The copy with every term filled in, and the path of any string that still holds a brace. */
 const fill = (
   value: unknown,
@@ -128,9 +144,10 @@ const fill = (
       (acc, [marker, key]) => acc.split(marker).join(terms[key]),
       value,
     );
+    const unknown = filled.split(COMPANY_MARKER).join("").includes("{");
     return {
       value: filled,
-      errors: filled.includes("{") ? [`${where}: unknown placeholder`] : [],
+      errors: unknown ? [`${where}: unknown placeholder`] : [],
     };
   }
   if (Array.isArray(value)) {
@@ -264,6 +281,14 @@ function resolveScreen(
       return one(screen, SCREEN_COPY.specify);
     case "rate":
       return one(screen, SCREEN_COPY.rate);
+    case "policy": {
+      // A clause is chosen and stored by its id, so two clauses may not share one.
+      const copy = one(screen, SCREEN_COPY.policy);
+      const ids = copy.ok ? copy.value.copy.document.clauses.map((c) => c.id) : [];
+      return new Set(ids).size !== ids.length
+        ? { ok: false, errors: [`${where}.document.clauses: duplicate id`] }
+        : copy;
+    }
     case "done":
       return one(screen, SCREEN_COPY.done);
     default:

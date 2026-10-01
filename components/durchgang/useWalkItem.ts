@@ -29,6 +29,8 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
   const addAssets = trpc.durchgang.addAssets.useMutation();
   const specify = trpc.durchgang.specifyAssets.useMutation();
   const rate = trpc.durchgang.rate.useMutation();
+  const writePolicy = trpc.durchgang.writePolicy.useMutation();
+  const approvePolicy = trpc.durchgang.approvePolicy.useMutation();
   const finish = trpc.durchgang.finish.useMutation();
   const utils = trpc.useUtils();
   const resume = trpc.durchgang.resume.useMutation();
@@ -61,8 +63,29 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
           ...saved.current,
           ...Object.fromEntries(Object.keys(answers).map((k) => [k, snapshot.values[k]])),
         };
+        // A changed signature page approves the policy it signs; an unchanged one says nothing new.
+        const signs = screen.approves;
+        const version = signs && String(snapshot.values[signs.version] ?? "").trim();
+        const approvedOn =
+          signs && String(snapshot.values[signs.date] ?? "").slice(0, 10);
+        if (signs && Object.keys(answers).length > 0 && version && approvedOn) {
+          await approvePolicy.mutateAsync({ code: item.code, version, approvedOn });
+          await utils.policy.list.invalidate();
+        }
         return;
       }
+      case "policy":
+        if (snapshot.clauses !== null) {
+          await writePolicy.mutateAsync({
+            code: item.code,
+            clauses: [...snapshot.clauses],
+          });
+          await Promise.all([
+            utils.policyConfig.get.invalidate(),
+            utils.policy.list.invalidate(),
+          ]);
+        }
+        return;
       case "evidence":
         if (screen.field && snapshot.uploaded) {
           await answer({ [screen.field]: snapshot.uploaded });

@@ -17,6 +17,8 @@ export {
   sourcesNote,
   waitingNote,
 } from "./notes";
+export type { PolicyDocument, PolicyPart } from "./policy";
+export { policyParts, policySignature, policyText, policyTitle } from "./policy";
 export type {
   AssetSlice,
   LinkedRisk,
@@ -51,6 +53,7 @@ export type {
   AnyItem,
   AnyScreen,
   LearnLink,
+  PolicyTemplate,
   Provision,
   RegisterModule,
   ScreenKind,

@@ -36,6 +36,7 @@ import { useRouter } from "@/i18n/navigation";
 import { type ItemState, resumeAt, type ScreenKind } from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
 import { Compare, Learn, Prepare, Provision, Reading, Sample } from "./ExplainScreens";
+import { PolicyScreen } from "./PolicyScreen";
 import { Rail } from "./Rail";
 import { Rate, Specify } from "./RatingScreens";
 import { type Direction, PROGRESS, STAGE, transition } from "./transition";
@@ -61,6 +62,7 @@ const KIND_ICON: Readonly<Record<ScreenKind, LucideIcon>> = {
   register: ListChecks,
   specify: PenLine,
   rate: Gauge,
+  policy: ScrollText,
   done: CircleCheckBig,
 };
 
@@ -196,6 +198,8 @@ export function DurchgangItem({
         return <Specify {...work} entry={entry} />;
       case "rate":
         return <Rate {...work} entry={entry} />;
+      case "policy":
+        return <PolicyScreen {...work} entry={entry} />;
       case "done":
         return <Done item={item} entry={entry} draft={draft} next={next} />;
       default:
@@ -205,7 +209,7 @@ export function DurchgangItem({
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-30 bg-background/90 backdrop-blur-md">
+      <header className="sticky top-0 z-30 bg-background/90 backdrop-blur-md print:hidden">
         <div className="mx-auto flex h-16 max-w-7xl items-center gap-2 px-3 sm:px-6 lg:px-10">
           <Button variant="ghost" size="icon" aria-label={t("back")} onClick={back}>
             <ChevronLeft className="size-5" />
@@ -253,7 +257,7 @@ export function DurchgangItem({
         <main style={STAGE} className="w-full max-w-3xl" key={`${item.code}-${index}`}>
           <span
             className={cn(
-              "mb-4 inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium",
+              "mb-4 inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium print:hidden",
               entry.screen.kind === "provision"
                 ? "bg-primary text-primary-foreground"
                 : "bg-muted text-muted-foreground",
@@ -273,14 +277,14 @@ export function DurchgangItem({
           )}
           {body}
         </main>
-        <aside className="hidden lg:block">
+        <aside className="hidden lg:block print:hidden">
           <div className="sticky top-28">
             <Rail item={item} />
           </div>
         </aside>
       </div>
 
-      <footer className="fixed inset-x-0 bottom-0 z-30 border-t bg-background/90 backdrop-blur-md">
+      <footer className="fixed inset-x-0 bottom-0 z-30 border-t bg-background/90 backdrop-blur-md print:hidden">
         <div className="mx-auto grid max-w-7xl px-4 py-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:px-10 xl:gap-20">
           <div className="flex max-w-3xl items-center justify-between gap-3">
             {/* Only a screen that cannot be completed offers the way out. */}
