@@ -90,33 +90,32 @@ export type StageProgress = {
 };
 
 /**
- * Per-window progress, in path order.
+ * Per-window progress: one stop per window, in window order.
  *
- * Derived from the sections rather than recomputed from the nodes, so the rail
- * and the path cannot disagree about which window a step belongs to. Windows
- * the path never reaches simply do not appear.
+ * Since the journey runs prerequisites first (#189), a window can come back
+ * several times along the path, so its steps are added up across every section
+ * in it. Grouping only neighbouring sections gave the rail a stop per run, with
+ * the same window several times, the same React key, and every copy lit as
+ * "here" at once. Derived from the sections rather than recomputed from the
+ * nodes, so the rail and the path cannot disagree about which window a step
+ * belongs to. Windows the path never reaches simply do not appear.
  */
 export function buildStageProgress(sections: SoloSection[]): StageProgress[] {
-  return sections.reduce<StageProgress[]>((acc, section) => {
-    const steps = section.steps;
-    const done = steps.filter((s) => s.node.status === "done").length;
-    const open = acc.at(-1);
-    if (open?.index === section.stage.index) {
-      open.total += steps.length;
-      open.done += done;
-      open.open += steps.length - done;
-      return acc;
-    }
-    acc.push({
+  const byWindow = sections.reduce((acc, section) => {
+    const steps = section.steps.length;
+    const done = section.steps.filter((s) => s.node.status === "done").length;
+    const sofar = acc.get(section.stage.index);
+    acc.set(section.stage.index, {
       index: section.stage.index,
       band: section.stage.band,
       label: section.stage.label,
-      total: steps.length,
-      done,
-      open: steps.length - done,
+      total: (sofar?.total ?? 0) + steps,
+      done: (sofar?.done ?? 0) + done,
+      open: (sofar?.open ?? 0) + steps - done,
     });
     return acc;
-  }, []);
+  }, new Map<number, StageProgress>());
+  return [...byWindow.values()].sort((a, b) => a.index - b.index);
 }
 
 export type SoloSection = {
@@ -135,11 +134,12 @@ const CATEGORY_BY_CODE = new Map(ORDERED_CATEGORIES.map((c) => [c.code, c]));
 /**
  * Group the flow nodes into the sections the solo path renders.
  *
- * The incoming nodes are already in journey order, which is deadline first,
+ * The incoming nodes are already in journey order, prerequisites first (#189),
  * so sections fall out as the runs of consecutive nodes sharing a category
- * within one window, and stages as the runs of sections sharing a window. A
- * category that spans two windows appears once in each, which is correct: its
- * urgent steps genuinely belong to a different block of work than its rest.
+ * within one window, and a window can recur along the path; the rail adds each
+ * window up across its runs (buildStageProgress). A category that spans two
+ * windows appears once in each, which is correct: its urgent steps genuinely
+ * belong to a different block of work than its rest.
  */
 export function buildSoloSections(nodes: FlowNode[], de: boolean): SoloSection[] {
   const sections = nodes.reduce<SoloSection[]>((acc, node, i) => {
@@ -148,15 +148,21 @@ export function buildSoloSections(nodes: FlowNode[], de: boolean): SoloSection[]
       step: i + 1,
       offsetPx: WAVE[i % WAVE.length],
     };
-    const key = `${node.band}-${node.categoryCode}`;
     const open = acc.at(-1);
-    if (open?.key === key) {
+    const previous = open?.steps.at(-1)?.node;
+    if (
+      open &&
+      previous?.band === node.band &&
+      previous.categoryCode === node.categoryCode
+    ) {
       open.steps.push(step);
       return acc;
     }
     const category = CATEGORY_BY_CODE.get(node.categoryCode);
     acc.push({
-      key,
+      // With the step it starts at: under prerequisite order the same window and category can
+      // run twice, and the key names a section for React and for the scroll observer.
+      key: `${node.band}-${node.categoryCode}-${step.step}`,
       stage: stageForBand(node.band, de),
       title: (de ? category?.nameDe : category?.name) ?? node.categoryCode,
       categorySlug: node.categorySlug,
