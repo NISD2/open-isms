@@ -26,6 +26,7 @@ export const DURCHGANG_ACTIONS = [
   "durchgang.waiting",
   "durchgang.resumed",
   "durchgang.item_done",
+  "durchgang.declined",
 ] as const;
 
 /**
@@ -55,6 +56,11 @@ export type ItemState =
   | { readonly kind: "open" }
   | { readonly kind: "waiting"; readonly reason: WaitReason | null; readonly since: Date }
   | { readonly kind: "filled"; readonly since: Date }
+  /**
+   * The company decided not to do this, with a written reason in the notes trail for the
+   * Geschäftsführung to sign. Finished for the walk, like "filled".
+   */
+  | { readonly kind: "declined"; readonly since: Date }
   | { readonly kind: "signed" }
   | { readonly kind: "not_applicable" };
 
@@ -89,6 +95,8 @@ function fromEvent(latest: DurchgangEvent | null): ItemState {
       };
     case "durchgang.item_done":
       return { kind: "filled", since: latest.createdAt };
+    case "durchgang.declined":
+      return { kind: "declined", since: latest.createdAt };
     default:
       return { kind: "open" };
   }
@@ -98,6 +106,7 @@ const POLICY_STATE: Readonly<Record<ItemState["kind"], PolicyState>> = {
   open: "open",
   waiting: "blocked",
   filled: "settled",
+  declined: "settled",
   signed: "settled",
   not_applicable: "settled",
 };

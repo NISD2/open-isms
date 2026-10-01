@@ -1,19 +1,20 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "@/i18n/navigation";
-import { trpc } from "@/lib/trpc/client";
-import { Button } from "@/components/ui/button";
 import {
   Bug,
   ChevronDown,
   ChevronUp,
   DatabaseZap,
   Globe,
+  RotateCcw,
   ShieldCheck,
   Trash2,
 } from "lucide-react";
+import { useState } from "react";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "@/i18n/navigation";
+import { trpc } from "@/lib/trpc/client";
 
 const ROLES = ["admin", "member", "reviewer", "legal_reviewer"] as const;
 
@@ -36,6 +37,17 @@ export function AdminTestPanel() {
     },
   });
 
+  const resetDurchgang = trpc.dev?.resetDurchgang.useMutation({
+    onSuccess: () => {
+      toast.success("Durchgang reset");
+      router.push("/durchgang");
+      router.refresh();
+    },
+    onError: (err) => {
+      toast.error(`Reset failed: ${err.message}`);
+    },
+  });
+
   const roleMutation = trpc.dev?.switchRole.useMutation({
     onSuccess: (data) => {
       toast.success(`Role → ${data.role}`);
@@ -49,11 +61,13 @@ export function AdminTestPanel() {
   if (process.env.NODE_ENV !== "development") return null;
 
   function toggleLocale() {
-    const current = document.cookie
-      .split("; ")
-      .find((c) => c.startsWith("locale="))
-      ?.split("=")[1] ?? "en";
+    const current =
+      document.cookie
+        .split("; ")
+        .find((c) => c.startsWith("locale="))
+        ?.split("=")[1] ?? "en";
     const next = current === "en" ? "de" : "en";
+    // biome-ignore lint/suspicious/noDocumentCookie: a dev-only toggle of the next-intl locale cookie; the Cookie Store API is not in every browser
     document.cookie = `locale=${next};path=/;max-age=${60 * 60 * 24 * 365}`;
     toast.success(`Locale → ${next.toUpperCase()}`);
     router.refresh();
@@ -84,16 +98,13 @@ export function AdminTestPanel() {
     <div className="fixed top-2 right-2 z-50">
       <div className="rounded-lg border border-destructive/30 bg-background shadow-lg">
         <button
+          type="button"
           onClick={() => setOpen(!open)}
           className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-destructive hover:bg-destructive/5 rounded-lg"
         >
           <Bug className="size-3.5" />
           Dev
-          {open ? (
-            <ChevronUp className="size-3" />
-          ) : (
-            <ChevronDown className="size-3" />
-          )}
+          {open ? <ChevronUp className="size-3" /> : <ChevronDown className="size-3" />}
         </button>
         {open && (
           <div className="border-t border-destructive/20 p-2 space-y-1.5 min-w-[160px]">
@@ -135,6 +146,18 @@ export function AdminTestPanel() {
             >
               <DatabaseZap className="mr-1.5 size-3" />
               {seeding ? "Seeding..." : "Re-seed DB"}
+            </Button>
+
+            {/* Durchgang back to a first visit */}
+            <Button
+              variant="outline"
+              size="sm"
+              className="w-full text-xs h-7"
+              disabled={resetDurchgang?.isPending}
+              onClick={() => resetDurchgang?.mutate()}
+            >
+              <RotateCcw className="mr-1.5 size-3" />
+              {resetDurchgang?.isPending ? "Resetting..." : "Reset Durchgang"}
             </Button>
 
             {/* Delete org */}

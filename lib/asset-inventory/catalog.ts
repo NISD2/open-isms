@@ -45,6 +45,7 @@ export interface CatalogItem {
   appliesToSectors?: string[];
 }
 
+// biome-ignore format: one row per catalogue item keeps the catalogue readable as a table
 export const CATALOG: CatalogItem[] = [
   // ─── Business processes (Geschäftsprozesse) ──────────────────────
   { id: "bp-sales-cs", group: "business-processes", layer: "geschaeftsprozess", category: "process", defaultChecked: true, defaultExposure: "internal" },
@@ -97,10 +98,12 @@ export const CATALOG: CatalogItem[] = [
   { id: "infra-cloud-platform", group: "it-infrastructure", layer: "it-system", category: "cloud_service", defaultChecked: true, defaultExposure: "internet" },
   { id: "infra-network-equipment", group: "it-infrastructure", layer: "it-system", category: "network", defaultChecked: true, defaultExposure: "internal" },
   { id: "infra-backup-system", group: "it-infrastructure", layer: "it-system", category: "data_store", defaultChecked: true, defaultExposure: "internal" },
+  { id: "infra-backup-media", group: "it-infrastructure", layer: "it-system", category: "data_store", defaultChecked: false, defaultExposure: "physical-only" },
 
   // ─── Endpoints ───────────────────────────────────────────────────
   { id: "ep-laptops", group: "endpoints", layer: "it-system", category: "endpoint", defaultChecked: true, defaultExposure: "internal" },
   { id: "ep-mobile", group: "endpoints", layer: "it-system", category: "endpoint", defaultChecked: true, defaultExposure: "internet" },
+  { id: "ep-removable-media", group: "endpoints", layer: "it-system", category: "endpoint", defaultChecked: false, defaultExposure: "physical-only" },
 
   // ─── Locations (Räume) ───────────────────────────────────────────
   { id: "loc-main-office", group: "locations", layer: "raum", category: "room", defaultChecked: true, defaultExposure: "physical-only" },

@@ -9,6 +9,35 @@ import type { AnyItem } from "./types";
 
 export type { ResolvedItem, ResolvedScreen } from "./copy";
 export { itemKey, resolveItem } from "./copy";
+export type { NoteLocale } from "./notes";
+export {
+  declinedNote,
+  methodNote,
+  noteLine,
+  sourcesNote,
+  waitingNote,
+} from "./notes";
+export type {
+  AssetSlice,
+  LinkedRisk,
+  Rating,
+  RatingRow,
+  RatingTarget,
+  Standing,
+  StoredRisk,
+} from "./ratings";
+export {
+  fromScale,
+  levelOf,
+  ratingKey,
+  ratingRows,
+  ratingText,
+  SUPPLIER_LEVEL,
+  sliceOf,
+  standingOf,
+  toScale,
+  treatmentFor,
+} from "./ratings";
 export type { DurchgangEvent, ItemState, StatusRow, WaitReason } from "./state";
 export {
   DURCHGANG_ACTIONS,
@@ -21,12 +50,13 @@ export type {
   Adoptable,
   AnyItem,
   AnyScreen,
-  Decision,
+  LearnLink,
   Provision,
   RegisterModule,
   ScreenKind,
   SourceId,
 } from "./types";
+export { SOURCE_IDS } from "./types";
 
 const BY_CODE: ReadonlyMap<string, AnyItem> = new Map(
   NIS2_SCRIPT.map((i) => [i.code, i]),
@@ -37,3 +67,9 @@ export const WALK: readonly AnyItem[] = JOURNEY_ORDER.flatMap((code) => {
   const item = BY_CODE.get(code);
   return item ? [item] : [];
 });
+
+/** The intake fields an item asks for: on its field screens, and the one its upload fills. */
+export const askedFields = (item: AnyItem): readonly string[] =>
+  item.screens.flatMap<string>((s) =>
+    s.kind === "fields" ? s.fields : s.kind === "evidence" && s.field ? [s.field] : [],
+  );

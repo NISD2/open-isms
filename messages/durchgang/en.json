@@ -1,86 +1,216 @@
 {
   "durchgang": {
     "title": "Walkthrough",
-    "stepOf": "Step {step} of {total}",
-    "overview": "To the overview",
-    "back": "Back",
-    "next": "Continue",
-    "finish": "Continue to the overview",
-    "who": "Who does it",
-    "ask": "Ask your team",
-    "missed": "Often missed",
+    "terms": {
+      "authority": "your authority"
+    },
+    "ui": {
+      "kinds": {
+        "learn": "Understand",
+        "prepare": "Have ready",
+        "compare": "Example",
+        "sample": "Example",
+        "reading": "Example",
+        "provision": "Reference",
+        "fields": "Record",
+        "evidence": "Proof",
+        "adopt": "Adopt",
+        "sources": "Where to look",
+        "assets": "Your list",
+        "register": "Your list",
+        "specify": "More precisely",
+        "rate": "Rate",
+        "done": "Done"
+      },
+      "where": "{section} · Step {step} of {total}",
+      "back": "Back",
+      "exit": "To the overview",
+      "lookUp": "Look up",
+      "next": "Continue",
+      "nextItem": "Next: {headline}",
+      "toOverview": "To the overview",
+      "adopt": "Adopt",
+      "notYet": "Not possible yet",
+      "missed": "Often missed",
+      "terms": "Terms",
+      "law": "Law",
+      "duty": "Why you have to do this",
+      "readLaw": "Read {cite} in the statute",
+      "copyFrom": "copy from",
+      "whereToFind": "Where do I find this?",
+      "choose": "Please choose",
+      "yes": "Yes",
+      "no": "No",
+      "good": "Like this",
+      "bad": "Better not",
+      "sampleWhat": "What",
+      "sampleDetail": "In short",
+      "record": "Entry in your records",
+      "adoptedOn": "Adopted on {date}",
+      "signLine": "Approval by management",
+      "pending": "pending",
+      "adopted": "Adopted",
+      "looked": "Looked",
+      "lookedNote": "What you tick is recorded with the date. That way it is clear later where your list came from.",
+      "onList": "{count, plural, =0 {No entries on your list yet} one {# entry on your list} other {# entries on your list}}",
+      "alreadyListed": "Already on your list",
+      "registerHint": "Changes here go straight into your list.",
+      "assets": {
+        "title": "Your list already exists",
+        "lead": "Your company already has entries. Check them and add what is missing: processes, software, devices, data carriers, rooms and networks."
+      },
+      "specify": {
+        "what": "What exactly",
+        "provider": "From whom",
+        "inHouse": "run in house",
+        "empty": "Nothing in this area is on your list.",
+        "hint": "Whoever you name as the provider goes onto your supplier list. An empty field means run in house or not known yet."
+      },
+      "rate": {
+        "frequency": "How often it happens",
+        "impact": "How big the damage would be",
+        "frequencyShort": "How often?",
+        "impactShort": "Damage?",
+        "open": "Level",
+        "matrix": "How the level follows from this",
+        "providedBy": "from {name}",
+        "provides": "provides {names}",
+        "kept": "{count, plural, one {# risk} other {# risks}} in the risk register",
+        "empty": "Nothing in this area is on your list."
+      },
+      "team": {
+        "invite": "Bring someone in",
+        "placeholder": "name@your-company.com",
+        "areas": "Assign areas on the team page"
+      },
+      "recorded": "Recorded in your records",
+      "comesNext": "Next",
+      "saveFailed": "That was not saved. What you entered is still here. Please try again.",
+      "uploadFirst": "Upload the file here. If you do not have it yet, choose \"Not possible yet\".",
+      "decline": {
+        "tab": "Decided not to do this",
+        "title": "You decided not to do this?",
+        "description": "Then the item counts as done without being implemented. Management signs this decision at the end. Write down why.",
+        "label": "Reason",
+        "placeholder": "For example: we run no servers of our own. Our applications run at a provider certified for this.",
+        "hint": "At least 20 characters. The reason is kept with its date in your records.",
+        "confirm": "Record the decision"
+      },
+      "training": {
+        "add": "Add a training",
+        "name": "Name",
+        "provider": "Provider",
+        "providerPlaceholder": "for example an online course or a training institute",
+        "date": "Date",
+        "proof": "Proof (optional)",
+        "proofHint": "Certificate of attendance, certificate or screenshot. After a webinar there is sometimes none.",
+        "uploading": "Uploading …",
+        "uploadFailed": "The upload did not work. Please try again.",
+        "removeProof": "Remove",
+        "save": "Add",
+        "empty": "No training entered yet.",
+        "withProof": "Proof attached",
+        "withoutProof": "no proof",
+        "remove": "Delete",
+        "failed": "That was not saved. Please try again."
+      },
+      "portals": {
+        "yours": "Your country",
+        "others": "{count} other EU member states",
+        "all": "All {count} EU member states",
+        "noCountry": "No country is set for your company yet. Once it is, it appears here at the top.",
+        "setCountry": "Set the country",
+        "asOf": "List as of {date}",
+        "noPortal": "No portal yet",
+        "open": "Open the portal",
+        "status": {
+          "operational": "Open the portal",
+          "pre-registration": "Open the pre-registration",
+          "planned": "Portal announced",
+          "not-yet-available": "No portal yet"
+        }
+      },
+      "noStatus": "This item is not in your assessment yet. It appears once your company is set up.",
+      "cirAnnex": "Annex, point {ref}",
+      "cirNote": "Applies directly only to certain digital services (Art. 1 of the Regulation).",
+      "matrix": {
+        "impact": "How big the damage would be",
+        "frequency": "How often it happens",
+        "legend": "Legend",
+        "reading": "{frequency} and {impact} gives the level {level}"
+      },
+      "thresholds": {
+        "important": "Important entity",
+        "essential": "Essential entity",
+        "employees": "from {count} employees",
+        "or": "or",
+        "money": "turnover above EUR {turnover} million and balance sheet above EUR {balanceSheet} million",
+        "annex": "sectors in Annex 1 and 2",
+        "annex1": "sectors in Annex 1 only"
+      },
+      "clock": {
+        "fromKnowledge": "from becoming aware",
+        "fromNotification": "after the notification",
+        "hours": "{count} hours",
+        "months": "{count, plural, one {# month} other {# months}}"
+      },
+      "wait": {
+        "title": "No problem. What is missing?",
+        "description": "The item goes on your waiting list. You carry on with the next one and come back when it works.",
+        "unclear": "Write to us and we will explain it.",
+        "ask": "Ask a question",
+        "noteLabel": "Note for later (optional)",
+        "notePlaceholder": "For example: ask the IT provider for the IP addresses",
+        "confirm": "Put on the waiting list"
+      },
+      "home": {
+        "title": "Your NIS 2 implementation",
+        "lead": "One item after the other. What you set aside waits for you on the right.",
+        "next": "Next",
+        "waiting": "Still waiting",
+        "continue": "Continue your NIS 2 implementation",
+        "allFilled": "Every item is filled in.",
+        "allFilledNote": "Management reviews them and signs.",
+        "yourWay": "Your path",
+        "filled": "Filled in",
+        "declined": "Decided not to do",
+        "signed": "Signed",
+        "notApplicable": "Does not apply",
+        "continueHere": "Continue now"
+      },
+      "intro": {
+        "eyebrow": "NIS 2 for companies with 50 to 150 employees",
+        "title": "You are in the right place.",
+        "lead": "You have been asked to take care of NIS 2 and do not know where to start? That is how almost everyone feels. We go through it with you, item by item.",
+        "points": [
+          {
+            "title": "One thing at a time",
+            "text": "You only ever see one item. We explain it before you enter anything."
+          },
+          {
+            "title": "Methods we recommend",
+            "text": "Where a proven method exists, we show it to you. You decide whether to adopt it."
+          },
+          {
+            "title": "Leaving things open is fine",
+            "text": "What cannot be done yet, you set aside and carry on with the next item."
+          },
+          {
+            "title": "A signature at the end",
+            "text": "Management reviews everything and signs."
+          }
+        ],
+        "start": "Let's start",
+        "firstItems": "The first items on your path"
+      }
+    },
     "waitReasons": {
-      "letter": "I'm waiting for a letter, for example the ELSTER activation letter",
+      "letter": "I'm waiting for a letter, for example an activation letter for the portal",
       "ask": "I need to ask someone first",
       "decide": "We have to decide this internally",
       "unclear": "I don't understand it yet"
     },
     "items": {
-      "12_1": {
-        "headline": "Find out whether and how NIS 2 applies to you",
-        "teaser": "Sector and size decide the level.",
-        "missed": [
-          "If more than one type of entity applies, record every one, not just your main line of business.",
-          "If your company belongs to a group, the figures of partner and linked enterprises count too: headcount, turnover and balance sheet total. That does not apply if your company is legally, economically and in fact independent of them as regards its IT and how it is run (§ 28(4) BSIG).",
-          "Side activities that hardly matter to your business as a whole may be left out of the assignment (§ 28(3) BSIG).",
-          "For operators of public telecommunications networks, energy companies under the Energy Industry Act (EnWG) and financial entities under DORA, §§ 30, 32 and 38 BSIG generally do not apply (§ 28(5) and (6) BSIG). They still have to register."
-        ],
-        "screens": {
-          "learn": {
-            "title": "Whether NIS 2 applies to you",
-            "body": [
-              "NIS 2 applies to companies in certain sectors above a certain size. The sectors are listed in two annexes to the BSI Act. A company that falls under it is either an essential or an important entity.",
-              "There is no official notice for this. The law decides who is covered, and you check it yourself."
-            ],
-            "duty": "Whether and at which level your company is covered follows from its sector and its size."
-          },
-          "thresholds": {
-            "title": "Size is part of it",
-            "lead": "What counts is headcount, or turnover and balance sheet together. The higher threshold applies only to sectors in Annex 1.",
-            "source": "§ 28(1) no. 4 and (2) no. 3 BSIG. For some types of entity size does not matter, for example operators of critical facilities."
-          },
-          "data": {
-            "title": "What you need for it",
-            "lead": "The figures are usually in your latest annual accounts.",
-            "items": [
-              { "name": "Employees", "detail": "how many people work for you" },
-              {
-                "name": "Annual turnover and balance sheet total",
-                "detail": "from your latest annual accounts"
-              },
-              {
-                "name": "Your activities",
-                "detail": "how your company earns its money, to compare with Annexes 1 and 2"
-              },
-              { "name": "Holdings", "detail": "whether your company belongs to a group" }
-            ],
-            "source": "§ 28(4) BSIG refers to Commission Recommendation 2003/361/EC for the counting. For a first orientation the BSI offers the online NIS-2-Betroffenheitsprüfung; according to the BSI its result is not legally binding."
-          },
-          "classification": {
-            "title": "Record your classification",
-            "lead": "Two details. Management confirms them with its signature at the end.",
-            "document": "Your classification"
-          },
-          "done": {
-            "title": "Classification recorded",
-            "note": "If your size or your lines of business change, check the classification again."
-          }
-        },
-        "fields": {
-          "entityClassification": {
-            "label": "Level",
-            "hint": "Sector and size decide (§ 28 BSIG).",
-            "options": {
-              "essential": "Essential entity",
-              "important": "Important entity"
-            }
-          },
-          "applicableSectors": {
-            "label": "Sectors and types of entity",
-            "hint": "Every one that applies to your company, with its number from Annex 1 or 2 of the BSIG, for example 1.1.1 for electricity suppliers."
-          }
-        }
-      },
       "1_1": {
         "headline": "Get management trained",
         "teaser": "Every member of management, regularly.",
@@ -93,45 +223,37 @@
             "title": "Training for management",
             "body": [
               "Whoever runs the company takes part in information security training regularly. This applies to every member of management personally.",
-              "You will find a course for this on this platform. You can also choose any other provider; the law does not require providers to be accredited."
+              "We offer a course for this on this platform. You can also choose any other provider; the law does not require providers to be accredited."
             ],
-            "duty": "Management has to take part in training regularly. How often and for how long, the law does not say."
+            "duty": "Management has to take part in training regularly. How often and for how long, the law does not say.",
+            "link": "Go to the course for management"
           },
           "record": {
-            "title": "What a record can look like",
-            "caption": "Write down who learned what, and when:",
+            "title": "What records can look like",
+            "caption": "One line per person and training:",
             "rows": [
-              { "name": "Participant", "detail": "Anna Example, managing director" },
-              { "name": "Date", "detail": "12 March 2026" },
               {
-                "name": "Content",
-                "detail": "recognising and assessing risks, effects on our services"
+                "name": "Anna Example, managing director",
+                "detail": "In-person training at a training institute, 12 March 2026, certificate of attendance"
               },
-              { "name": "Provider", "detail": "who gave the training" }
-            ]
+              {
+                "name": "Jonas Sample, managing director",
+                "detail": "Online course, 3 April 2026, certificate as a PDF"
+              },
+              {
+                "name": "Lea Specimen, managing director",
+                "detail": "Webinar by an industry association, 20 May 2026, screenshot of attendance"
+              }
+            ],
+            "note": "The law prescribes no format. In-person training, an online course, a webinar or an in-house session all come into question. Record who took part, when, and what it covered."
           },
-          "training": {
-            "title": "Record the latest training",
-            "lead": "Who gave it and when. If there has not been one yet, enter it once it has taken place.",
-            "document": "Certificate of attendance"
-          },
-          "certificates": {
-            "title": "One record per person",
-            "lead": "File the certificate of attendance for every member of management."
+          "trainings": {
+            "title": "One line per person",
+            "lead": "Enter the latest training for every member of management. You can attach proof; after a webinar there is sometimes none."
           },
           "done": {
             "title": "Training recorded",
             "note": "At the end, management reviews every item and signs."
-          }
-        },
-        "fields": {
-          "managementTrainingProvider": {
-            "label": "Training provider",
-            "hint": "Who gave the training, for example a training institute, a consultancy or an online course."
-          },
-          "lastManagementTraining": {
-            "label": "Date of the latest training",
-            "hint": "The date on the certificate of attendance."
           }
         }
       },
@@ -169,7 +291,7 @@
           },
           "suppliers": {
             "title": "Your suppliers",
-            "lead": "Enter each one and say how important it is to your business. When in doubt, write it down rather than leave it out."
+            "lead": "Whoever you named as the provider of your software and technology is already on it. Enter all the others and say how important each one is to your business. When in doubt, write it down rather than leave it out."
           },
           "dependence": {
             "title": "Who could stop you on their own",
@@ -204,20 +326,20 @@
       },
       "12_3": {
         "headline": "Keep the registration up to date",
-        "teaser": "When something changes, update it with the BSI.",
+        "teaser": "When something changes, update it with {authority}.",
         "missed": [
-          "The two weeks run from the moment your company learns of the change, not from a fixed review date.",
-          "The law names the company's contact details, not a contact person. But the BSI applies the two weeks to all data in the portal, so to that person too. So add the BSI portal to what happens when someone leaves the company.",
-          "Give a shared mailbox for the point of contact, as the BSI recommends. Then less changes."
+          "The directive counts the two weeks from the date of the change (Art. 3(4) NIS 2). Germany counts them from when the company learns of the change (§ 33(5) BSIG). Neither sets a fixed review date.",
+          "If your portal also records a contact person, add updating it to what happens when someone leaves the company.",
+          "Give a shared mailbox as the point of contact. Then less changes."
         ],
         "screens": {
           "learn": {
             "title": "Keep the details up to date",
             "body": [
-              "When something changes in what you gave the BSI at registration, update it in the BSI portal, under \"Ihre Registrierung\".",
+              "When something changes in what you gave {authority} at registration, update it in its portal.",
               "The law does not require a fixed yearly check. It requires you to be quick when something changes."
             ],
-            "duty": "Report changes without undue delay, and at the latest two weeks after your company learned of them."
+            "duty": "Report changes without delay, and at the latest within two weeks."
           },
           "changes": {
             "title": "When to update",
@@ -244,12 +366,12 @@
                 "detail": "a new line of business or services in another country"
               }
             ],
-            "source": "§ 33(1) and (5) BSIG. The BSI asks for \"all changes to the registration data\" to be made within two weeks in the BSI portal under \"Ihre Registrierung\" (BSI guide)."
+            "source": "Art. 3(4) NIS 2. In Germany: § 33(1) and (5) BSIG, and the BSI asks for all changes to the registration data to be made in its portal."
           },
           "contact": {
-            "title": "Who is registered with the BSI",
-            "lead": "So you know whom the BSI reaches, and notice when that person leaves.",
-            "document": "Your registration in the BSI portal"
+            "title": "Who is registered with {authority}",
+            "lead": "So you know whom {authority} reaches, and notice when that person leaves.",
+            "document": "Your registration in the portal"
           },
           "done": {
             "title": "Contact recorded",
@@ -259,50 +381,37 @@
         "fields": {
           "contactPersonName": {
             "label": "Contact person",
-            "hint": "The person entered in the BSI portal as the contact person for NIS 2."
+            "hint": "The person entered in the registration portal as the contact person for NIS 2."
           },
           "contactPersonEmail": {
             "label": "Contact person's email address",
-            "hint": "As it appears in the BSI portal."
+            "hint": "As it appears in the registration portal."
           },
           "lastRegistrationUpdate": {
             "label": "Last updated",
-            "hint": "The day you last changed the details in the BSI portal. Leave it empty if nothing has changed yet."
+            "hint": "The day you last changed the details in the portal. Leave it empty if nothing has changed yet."
           }
         }
       },
       "1_2": {
         "headline": "Decide who takes care of it",
-        "teaser": "One coordinating role, with a deputy.",
+        "teaser": "Who takes care of information security.",
         "missed": [
-          "In its NIS 2 checklist the BSI recommends at least two people for the coordinating role. Then it is covered during holidays or illness too.",
-          "The person needs direct access to management at any time, to report incidents and risks (BSI Standard 200-2).",
-          "The role does not have to be called CISO. The BSI calls it the information security officer (Informationssicherheitsbeauftragte, ISB)."
+          "Responsibility stays with management, even when it hands the work to someone else (Art. 20(1) NIS 2).",
+          "The law requires no dedicated post for this. Someone can take it on alongside their actual job. Germany's BSI calls the role the information security officer (ISB)."
         ],
         "screens": {
           "learn": {
             "title": "Who takes care of it",
             "body": [
-              "Management carries the responsibility. It has to implement the measures and oversee their implementation (§ 38(1) BSIG). It hands the work to people in the company.",
-              "At the centre is one coordinating role. It drives information security forward and advises management."
+              "Management carries the responsibility. It approves the measures and oversees their implementation (Art. 20(1) NIS 2). It hands the work to people in the company.",
+              "Decide who takes care of it. That can be a single person who does it alongside their job."
             ],
             "duty": "Your company has to document that it implements the information security measures."
           },
-          "who": {
-            "title": "What good looks like",
-            "caption": "Who coordinates information security",
-            "good": {
-              "value": "Ms Kaya from commercial management, with Mr Brandt as deputy, both with a direct line to management",
-              "note": "Two people, close to the top. That is what the BSI recommends."
-            },
-            "bad": {
-              "value": "The head of IT, alone",
-              "note": "If they are out, nobody takes care of it. And whoever runs the systems then judges their security themselves."
-            }
-          },
           "roles": {
-            "title": "Enter the roles",
-            "lead": "Who coordinates, who deputises and who decides in an incident."
+            "title": "Bring in your team",
+            "lead": "Invite whoever takes care of it and whoever decides in an incident. Which area each person owns, you set on the team page."
           },
           "done": {
             "title": "Roles assigned",
@@ -315,7 +424,7 @@
         "teaser": "Who decides, whom you call, how you reach each other.",
         "missed": [
           "The law explicitly names secured voice, video and text communication and, where needed, secured emergency communication systems within the company (§ 30(2) no. 10 BSIG). A phone list on paper does not replace that; it is the fallback when everything else is down.",
-          "Decide who writes the report to the BSI. The first report is due at the latest 24 hours after you learn of a significant incident (§ 32(1) BSIG)."
+          "Decide who writes the report to {authority}. The first report, an early warning, is due at the latest 24 hours after you become aware of a significant incident (Art. 23(4)(a) NIS 2)."
         ],
         "screens": {
           "learn": {
@@ -328,7 +437,7 @@
           },
           "lead": {
             "title": "Who leads in an emergency",
-            "lead": "One person decides, a small team helps.",
+            "lead": "One person decides what to do. Who helps them, you set in the emergency plan.",
             "document": "Your emergency plan"
           },
           "escalation": {
@@ -355,7 +464,8 @@
           },
           "plan": {
             "title": "File the plan",
-            "lead": "Upload your emergency plan, even if it is only one page. Management approves it."
+            "lead": "Upload your emergency plan, even if it is only one page. Management approves it.",
+            "document": "Your emergency plan"
           },
           "done": {
             "title": "Plan recorded",
@@ -366,10 +476,6 @@
           "incidentLead": {
             "label": "Incident lead",
             "hint": "The person who decides what to do and informs management."
-          },
-          "irtTeamSize": {
-            "label": "Team size",
-            "hint": "How many people work on it in an emergency, including external ones such as your IT provider."
           },
           "incidentEscalationContacts": {
             "label": "Escalation contacts",
@@ -383,33 +489,33 @@
       },
       "3_3": {
         "headline": "Know how to report an incident",
-        "teaser": "Three reports to the BSI, with fixed deadlines.",
+        "teaser": "Three reports to {authority}, with fixed deadlines.",
         "missed": [
           "The clock runs from when you learn of it, not from when everything is clear. Report early; the second report confirms or updates the first.",
-          "The BSI reads \"learning of it\" as the moment someone in the company finds out about the incident during working hours (BSI, Meldepflicht info pack).",
+          "In Germany the BSI reads \"becoming aware\" as the moment someone in the company finds out about the incident during working hours (BSI, Meldepflicht info pack).",
           "If it is a personal data breach, you usually also notify the data protection authority: without undue delay and, where feasible, within 72 hours, unless the breach is unlikely to result in a risk to the people affected (Art. 33 GDPR)."
         ],
         "screens": {
           "learn": {
             "title": "Reporting an incident",
             "body": [
-              "If a security incident is significant, you report it to the BSI. It is significant if it can seriously disrupt your operations or cause you financial losses, or if it can cause considerable damage to others.",
-              "Reports are made in the BSI portal, with the same access as for the registration."
+              "If a security incident is significant, you report it to your national CSIRT or {authority}. It is significant if it can seriously disrupt your operations or cause you financial losses, or if it can cause considerable damage to others.",
+              "Your country sets the channel. In Germany it is the BSI portal, with the same access as for the registration."
             ],
-            "duty": "You report significant incidents in three steps with fixed deadlines to the joint reporting office of the BSI and the Federal Office of Civil Protection and Disaster Assistance."
+            "duty": "You report significant incidents in three steps with fixed deadlines."
           },
           "clock": {
             "title": "The three deadlines",
             "lead": "The clock runs from the moment your company learns of the incident. The third deadline starts with the second report.",
-            "source": "§ 32(1) and (2) BSIG. If the BSI asks for one, an interim report comes in between. If the incident is still going on after a month, send a progress report instead of the final report, and the final report once it is dealt with."
+            "source": "Art. 23(4) NIS 2. If {authority} asks for one, an interim report comes in between. If the incident is still going on after a month, send a progress report instead of the final report, and the final report within a month of dealing with it."
           },
           "ready": {
             "title": "What you need for the first report",
             "lead": "Settle this now, not in the middle of an emergency:",
             "items": [
               {
-                "name": "Access to the BSI portal",
-                "detail": "you have it since the registration"
+                "name": "Access to the reporting channel",
+                "detail": "in Germany, the BSI portal you have since the registration"
               },
               {
                 "name": "Who reports",
@@ -420,11 +526,11 @@
                 "detail": "what is affected, since when, and whether an attack could be behind it"
               }
             ],
-            "source": "§ 32(1) no. 1 BSIG. A company that is not registered yet reports through the BSI's reporting and information portal (BSI, Meldepflicht info pack)."
+            "source": "Art. 23(1) and (4) NIS 2. In Germany, a company that is not registered yet reports through the BSI's reporting and information portal (BSI, Meldepflicht info pack)."
           },
           "setup": {
             "title": "Record your reporting setup",
-            "lead": "Two details. Your own deadline may be shorter than the legal one, not longer.",
+            "lead": "One detail: can you report when it matters?",
             "document": "Your emergency plan"
           },
           "done": {
@@ -433,80 +539,42 @@
           }
         },
         "fields": {
-          "earlyWarningSlaHours": {
-            "label": "Your deadline for the early warning, in hours",
-            "hint": "The law requires the report without undue delay, at the latest 24 hours after becoming aware (§ 32(1) no. 1 BSIG). A shorter internal deadline is possible."
-          },
           "bsiReportingRegistered": {
-            "label": "Registered in the BSI portal",
-            "hint": "Yes, once the registration with the BSI is complete. You report incidents there with the same access."
+            "label": "Set up to report to {authority}",
+            "hint": "Yes, once you can report through your country's channel. In Germany that is the BSI portal, with the same access as for the registration."
           }
         }
       },
       "12_2": {
-        "headline": "Register with the BSI",
-        "teaser": "Your company registers with the BSI once.",
+        "headline": "Register with {authority}",
+        "teaser": "Your company registers once with {authority}.",
         "missed": [
-          "The BSI asks for all of your company's public static IP address ranges (§ 33(1) no. 2 BSIG). Your IT provider knows them. Ask them beforehand. If you have none, say so.",
-          "A new organisation certificate needs an activation letter that comes by post. According to Mein Unternehmenskonto this takes at least five working days. Apply early."
+          "The directive lists your IP ranges among the details you register (Art. 3(4)(b) NIS 2). Your IT provider knows them. Ask them beforehand.",
+          "After registering, you report any change to these details within two weeks (Art. 3(4) NIS 2)."
         ],
         "screens": {
           "learn": {
-            "title": "Registering with the BSI",
+            "title": "Registering with {authority}",
             "body": [
-              "Every company NIS 2 applies to registers once with the Federal Office for Information Security (BSI). You tell the BSI who you are and how to reach you.",
-              "This is done online in the BSI portal. You log in with \"Mein Unternehmenskonto\" and an ELSTER organisation certificate. If your company already has one, for example from tax filings, use that one."
+              "If NIS 2 applies to your company, it registers once with {authority}, the one in charge in your country. You tell it who you are and how to reach you.",
+              "Each member state runs its own registration, usually online. The next screen shows where yours is."
             ],
-            "duty": "Registration is a duty of its own. It is due no later than three months after your company counts as an important or essential entity."
+            "duty": "Registration is a duty of its own, with a deadline set by your country's law. In Germany it is three months after your company first counts as an important or essential entity."
           },
-          "data": {
-            "title": "What the BSI asks for",
-            "lead": "The law requires these details. Have them ready before you open the portal.",
-            "items": [
-              {
-                "name": "Name and legal form",
-                "detail": "with the commercial register number, if you have one"
-              },
-              {
-                "name": "Address and contact details",
-                "detail": "email address, phone numbers and your public IP address ranges"
-              },
-              {
-                "name": "Sector",
-                "detail": "from Annex 1 or 2 of the BSIG, with the subsector where one applies"
-              },
-              {
-                "name": "EU member states",
-                "detail": "in which your company provides these services"
-              },
-              {
-                "name": "Supervisory authorities",
-                "detail": "those at federal and state level responsible for your activity"
-              }
-            ],
-            "source": "§ 33(1) BSIG. The portal also asks for a point of contact and a contact person (BSI registration guide)."
-          },
-          "contact": {
-            "title": "What good looks like",
-            "caption": "The email address you give the BSI",
-            "good": {
-              "value": "it-security@your-company.de",
-              "note": "A shared mailbox, as the BSI recommends in its guide. People move on, the mailbox stays."
-            },
-            "bad": {
-              "value": "m.mueller@your-company.de",
-              "note": "A personal address. If Ms Müller changes jobs, the BSI reaches nobody."
-            }
+          "where": {
+            "title": "Where you register",
+            "lead": "You register in the member state where your company is established. Your country is at the top.",
+            "source": "Art. 26(1) NIS 2: the member state of establishment is in charge. Providers of public electronic communications networks or services register where they provide their services. Providers of cloud computing, data centre and managed services, and similar digital providers, register where their main establishment is."
           },
           "confirmation": {
             "title": "Record the registration",
-            "lead": "Two details, so you know later which certificate was used and on which day.",
-            "document": "Your access to the BSI portal"
+            "lead": "Two details, so you know later which access was used and on which day.",
+            "document": "Your access to the portal of {authority}"
           },
           "proof": {
             "title": "File a proof",
-            "lead": "In the BSI portal, the overview of registered procedures (registrierte Fachverfahren) lists every completed registration. A screenshot or a printout of that page records that yours is done.",
-            "document": "Overview of registered procedures"
+            "lead": "Keep what the portal shows once the registration is complete: a confirmation, an overview page or an email. A screenshot or a printout records that yours is done.",
+            "document": "Confirmation of registration"
           },
           "done": {
             "title": "Registration recorded",
@@ -515,39 +583,47 @@
         },
         "fields": {
           "mukAccountId": {
-            "label": "User account ID of the organisation certificate",
-            "hint": "Every ELSTER organisation certificate carries its own number, the Benutzerkonto-ID. Whoever manages the certificate can tell you."
+            "label": "Account or reference at the portal",
+            "hint": "The ID of the account you registered with, or the reference number the portal gave you. In Germany it is the Benutzerkonto-ID of the ELSTER organisation certificate."
           },
           "bsiRegistrationDate": {
             "label": "Date of registration",
-            "hint": "The day someone clicked \"Registrierung abschließen\" (complete registration) in the BSI portal."
+            "hint": "The day the registration was submitted in the portal."
           }
         }
       },
       "2_1": {
         "headline": "Decide how you rate risks",
-        "teaser": "The BSI has a ready-made method for this.",
+        "teaser": "We recommend a ready-made method for this.",
         "missed": [
           "Attacks are not the only thing that counts. The law requires an all-hazards approach (§ 30(2) BSIG). The EU directive explicitly requires protecting the physical environment of the systems too (Art. 21(2) NIS 2), for example against fire, water or a power cut.",
-          "Which risks are accepted is decided by management, as BSI Standard 200-3 also provides. Record that limit with a date."
+          "The method is a start, not a straitjacket. If a level does not fit your company, adjust it. BSI Standard 200-3 explicitly allows for that."
         ],
         "screens": {
           "learn": {
             "title": "How you rate risks",
             "body": [
               "Before you write down risks, decide how you rate them. Then everyone in the company rates them by the same rules.",
-              "The BSI has a ready-made method for this, Standard 200-3. Every risk gets two ratings: how often can it happen, and how big would the damage be? Together they give one of four levels."
+              "nisd2.eu recommends a simple, ready-made method for this. Every risk gets two ratings: how often can it happen, and how big would the damage be? Together they give one of four levels. The method comes from BSI Standard 200-3, published by Germany's Federal Office for Information Security."
             ],
             "duty": "The law requires concepts for risk analysis. It does not prescribe a particular method."
           },
           "matrix": {
-            "title": "The BSI's matrix",
+            "title": "An example risk matrix",
             "lead": "Across: how often something happens. Down: how big the damage would be. Where the two meet is the level.",
-            "source": "BSI Standard 200-3, Figure 3. The BSI presents it as an example and says it should be adapted to the individual needs."
+            "source": "BSI Standard 200-3, Figure 3. It is given there as an example, to be adapted to the organisation's own needs."
           },
           "reading": {
             "title": "How to read the matrix",
-            "caption": "A server goes down once a year to once a month. The damage is limited and manageable."
+            "caption": "Six examples, from low to very high. Pick one and the matrix shows where it lands.",
+            "examples": [
+              "A company phone gets lost, which happens once a year to once a month. It is encrypted and can be locked remotely, so the damage is negligible.",
+              "A server goes down once a year to once a month. The damage is limited and manageable.",
+              "A fire destroys the server room and all data in it. That happens at most every five years, but it would threaten the existence of the company.",
+              "Someone falls for a fake email, and invoices with a wrong bank account go out from the hijacked mailbox. That happens once a year to once a month, and the damage is considerable.",
+              "Ransomware encrypts every system and the backups too. That happens once every five years to once a year and would threaten the existence of the company.",
+              "The unmaintained inventory system goes down several times a month. Each time shipping stops for a day, and the damage is considerable."
+            ]
           },
           "adopt": {
             "title": "Adopt the method",
@@ -567,14 +643,9 @@
               }
             ]
           },
-          "acceptance": {
-            "title": "Which risks your company accepts",
-            "lead": "Up to which level may a risk remain without you doing anything about it? Management decides this. Choose the proposal here that management signs at the end.",
-            "source": "In its examples, BSI Standard 200-3 assumes that an organisation \"accepts 'Low' risks as a matter of principle, but 'Medium', 'High' and 'Very high' risks only in exceptional cases\"."
-          },
           "done": {
             "title": "Method set",
-            "note": "At the end, management reviews the method and the limit and signs."
+            "note": "With the method you rate each risk on its own as you write it down. At the end, management reviews the method and signs."
           }
         }
       },
@@ -583,16 +654,16 @@
         "teaser": "A list of the processes, software and devices you work with.",
         "missed": [
           "Software you rent from the cloud belongs on the list too, for example email or accounting.",
-          "For processes and applications, the BSI expects a responsible person (Standard 200-2, section 8.1). Note who knows each one."
+          "For processes and applications, the BSI names a responsible person (Standard 200-2). Note who is responsible for each one."
         ],
         "screens": {
           "learn": {
             "title": "What your company works with",
             "body": [
-              "You can only protect what you know. So write down what your company works with: processes, information, software, devices, rooms and networks. The BSI calls this step the structure analysis (Standard 200-2, section 8.1).",
+              "You can only protect what you know. So write down what your company works with: processes, information, software, devices, data carriers, rooms and networks. Germany's BSI works the same way and calls this step the structure analysis (Standard 200-2).",
               "The list does not have to be perfect. When something new comes along, add it."
             ],
-            "duty": "The law requires concepts for risk analysis and for managing your IT systems, products and processes. Both start with this list."
+            "duty": "The law requires concepts for risk analysis and for managing your IT systems, products and processes. A list of what your company works with is the usual first step for both."
           },
           "list": {
             "title": "What your list can look like",
@@ -623,25 +694,17 @@
             "title": "Technology and rooms",
             "lead": "Servers, devices, network and the places where people work."
           },
-          "protection": {
-            "title": "How many protection levels you use",
-            "lead": "A protection level says how bad it would be if something failed, was altered or got out.",
-            "document": "Your list"
+          "which_software": {
+            "title": "Which software exactly, and from whom?",
+            "lead": "Write down what you actually use, for example \"DATEV Unternehmen online\" instead of the kind \"Accounting\". Next to it goes who provides it."
+          },
+          "which_technology": {
+            "title": "Which technology exactly, and from whom?",
+            "lead": "The same for devices, network and rooms, for example the name of your internet provider for the internet connection. What you run yourself has no provider."
           },
           "done": {
             "title": "Your list is in place",
-            "note": "When something new comes along, add it at any time. At the end, management reviews the list."
-          }
-        },
-        "fields": {
-          "classificationLevels": {
-            "label": "Number of protection levels",
-            "hint": "The BSI works with three levels: normal, high and very high (Standard 200-2, section 8.2.1). Choose a different number only if your company already classifies differently.",
-            "options": {
-              "2_levels": "Two levels",
-              "3_levels": "Three levels",
-              "4_levels": "Four levels"
-            }
+            "note": "When something new comes along, add it at any time. Later you rate each entry on its own. At the end, management reviews the list."
           }
         },
         "sources": {
@@ -658,97 +721,40 @@
             "text": "They know your servers, accounts and cloud services."
           }
         }
-      }
-    },
-    "steps": {
-      "12_1": {
-        "who": "Compliance or legal gathers sector, headcount and turnover. Management confirms the classification: with it, it decides which duties the company takes on.",
-        "ask": "Are we an essential or an important entity, and which entity types from Annex 1 and 2 apply to us?",
-        "missed": [
-          "Several sectors: the main one is not the only one that counts. Record every entity type that applies.",
-          "Groups: each company is classified on its own. Data of partner enterprises counts pro rata and of linked enterprises in full (Recommendation 2003/361/EC). That does not apply if the company is legally, economically and in fact independent of them as regards its IT and how it is run (§28(4) BSIG).",
-          "Negligible side activities may be left out of the classification (§28(3) BSIG). Re-check the classification after growth, new lines of business or acquisitions."
-        ]
       },
-      "12_2": {
-        "who": "Compliance or legal requests the organisation certificate and enters the details in the BSI portal. IT supplies contact details and public IP ranges. Management reviews the details before they are submitted.",
-        "ask": "Are we registered with the BSI, and when were the registered details last checked for accuracy?",
+      "2_3": {
+        "headline": "Rate your risks",
+        "teaser": "Place every piece of software, every device and every supplier on the matrix.",
         "missed": [
-          "Access runs through an ELSTER organisation certificate (Mein Unternehmenskonto). An existing certificate, for instance from tax filings, can be used; a new one arrives by post with an activation letter. Apply early.",
-          "Public IP ranges are part of the mandatory details (§33(1) Nr. 2 BSIG). Ask IT beforehand, or the registration stalls at this point.",
-          "Register a functional mailbox as the contact, not a personal one. People change; the reporting office must still reach someone."
-        ]
-      },
-      "1_1": {
-        "who": "Every member of the management body in person. The duty in §38(3) BSIG rests on management itself; nobody can attend on their behalf. IT or information security selects the content, HR or compliance archives the records.",
-        "ask": "Has every member of the management body taken part, and does the record show content, duration and date?",
-        "missed": [
-          "The training has to cover the learning goals in §38(3) BSIG: identifying and assessing risks, assessing risk management practices, and judging their impact on the company's own services.",
-          "The law sets neither an interval nor a minimum duration, only \"regularly\". Set your own rhythm and write down the reasoning. A change in the management body or a clearly changed risk situation is a trigger outside the calendar.",
-          "The record counts, not the provider: capture participants, content, duration and date. There is no accreditation requirement for training providers."
-        ]
-      },
-      "2_1": {
-        "who": "Information security (the ISB or CISO) picks the method and sets the scales. Management decides how much residual risk the company carries: that threshold is its decision, not IT's.",
-        "ask": "Show me the risk matrix and the top right corner. What is our threshold for acceptable risk, and did I approve it?",
-        "missed": [
-          "All-hazards means more than cyber. §30(2) BSIG requires an all-hazards approach, and Art. 21(2) NIS 2 explicitly requires protecting the physical environment of the systems too, for example against fire, water or a power cut.",
-          "The acceptance threshold is often never set explicitly. It belongs in the methodology as a dated management decision of its own, not buried in the risk register.",
-          "The threat landscape is part of the method: name a source of current threat intelligence, at minimum the BSI situation reports."
-        ]
-      },
-      "2_2": {
-        "who": "Every row has an owner in the business who knows the system and keeps the entry current. Information security consolidates the inventory and checks the protection needs. IT supplies the technical details, data protection flags systems holding personal data.",
-        "ask": "Show me the inventory. When was it last updated, and are cloud services and external access in it?",
-        "missed": [
-          "Every asset needs an owner. A list without that column does not survive an audit.",
-          "Cloud, SaaS and third-party access are assets. So is operational technology in production and buildings (OT), which brings requirements of its own.",
-          "The GDPR record of processing activities (RoPA, Art. 30) is a good starting stock: many systems are already listed there."
-        ]
-      },
-      "5_1": {
-        "who": "Procurement, or whoever holds the contract, adds the supplier. Information security rates risk and criticality, legal reviews the contract clauses. Management knows the list of critical suppliers.",
-        "ask": "Which suppliers could halt our operations or have access to our systems, data or premises, and who on our side is responsible for each of them?",
-        "missed": [
-          "Not only IT suppliers: §30(2) Nr. 4 BSIG means every direct supplier and service provider that touches the company's IT or data, the tax adviser included. Anyone who can disrupt operations that way belongs in the register.",
-          "Every row needs an owner and a rating. Without both, the register is a list of names in an audit.",
-          "Subcontractors do not end at the first link. For critical services, ask whom the supplier relies on in turn."
-        ]
-      },
-      "12_3": {
-        "who": "Compliance or legal reviews the registered details and reports changes. IT and information security speak up when contact details or IP ranges change.",
-        "ask": "Who at our company learns of a change of contact person, address or sector, and who updates it with the BSI?",
-        "missed": [
-          "The deadline is short: changes without undue delay, at the latest within two weeks of becoming aware of them (§33(5) BSIG). An annual check alone is not enough.",
-          "The data goes stale quietly: the contact person leaves, the mailbox is switched off. A functional mailbox and an item in the leaver process prevent that."
-        ]
-      },
-      "1_2": {
-        "who": "Information security drafts who carries which task. Management appoints the person responsible for information security and approves the division of tasks. Legal checks the lines of authority, HR supplies the org chart.",
-        "ask": "Who is responsible for information security here, does that person report directly to me, and have I seen the division of tasks for the remaining measures?",
-        "missed": [
-          "The role does not have to be called CISO. What matters is one person who is responsible for information security towards management; BSI Standard 200-2 calls this role the information security officer (ISB).",
-          "An ISB placed under the head of IT is a conflict of roles: whoever runs the systems should not be the only one judging their security. BSI Standard 200-2 provides for a direct reporting line to management.",
-          "Data protection officer and ISB in one person: then write down where one role ends and the other begins."
-        ]
-      },
-      "3_1": {
-        "who": "Information security writes the plan and names the lead of the incident team. Legal or compliance drafts the notification texts, data protection covers incidents involving personal data. Management approves the plan.",
-        "ask": "Who decides whether an incident is significant? By which route and from which threshold does the escalation reach me, and when did we last test the fallback communication channel?",
-        "missed": [
-          "A second communication channel in case email and chat are affected too. §30(2) Nr. 10 BSIG explicitly names secured communication and, where needed, secured emergency communication systems; a phone list on paper is only the fallback.",
-          "Detecting is not handling. Monitoring without a defined response, ownership and escalation is not a plan.",
-          "Whoever drafts the report to the BSI is rarely in the plan. Fill that role in advance; in smaller companies it sits with compliance or legal."
-        ]
-      },
-      "3_3": {
-        "who": "Information security classifies the incident and clears the report, compliance or legal drafts it, IT supplies the facts. Management is informed without delay. Data protection checks in parallel whether the supervisory authority has to be notified (Art. 33 GDPR).",
-        "ask": "Who decides what counts as significant, and when did we last exercise the reporting route, in a real incident or a drill?",
-        "missed": [
-          "Three reports with deadlines, one incident: an early warning within 24 hours, a notification within 72 hours, and a final report one month after the second report (§32(1) BSIG). If the BSI asks, an interim report comes in between. If the incident is still ongoing, a progress report takes the final report's place (§32(2) BSIG).",
-          "The recipient is the joint reporting office of the BSI and the BBK. Reports are filed through the BSI portal with the same access used for registration.",
-          "If it is a personal data breach, the notification to the data protection authority under Art. 33 GDPR runs in parallel: without undue delay and, where feasible, within 72 hours, unless the breach is unlikely to result in a risk to the people affected."
-        ]
+          "Suppliers count too. The directive requires supply chain security, including the relationships with each direct supplier or service provider (Art. 21(2)(d) NIS 2), taking into account the vulnerabilities specific to each of them (Art. 21(3) NIS 2).",
+          "Rare does not mean small. In the BSI matrix, damage that threatens the existence of the organisation is never low, even if it could occur every 5 years at the most."
+        ],
+        "screens": {
+          "learn": {
+            "title": "How big is which risk?",
+            "body": [
+              "Your list is in place: software, technology and suppliers. Now you rate each entry with the method you set. How often does the worst realistic case happen, and how big would the damage be? The matrix turns that into one of four levels.",
+              "That shows you where protection is needed first. Individual threats, for example from the BSI's list of elementary threats, can be added afterwards in the risk register."
+            ],
+            "duty": "The law requires policies on risk analysis. How much protection is proportionate depends, among other things, expressly on the likelihood of incidents and their severity (Art. 21(1) NIS 2)."
+          },
+          "software": {
+            "title": "Rate your software",
+            "lead": "For each one, think of the worst case that is realistic: it goes down, it is attacked or data is lost. How often does something like that happen, and how big would the damage be?"
+          },
+          "technology": {
+            "title": "Rate your technology and rooms",
+            "lead": "The same for servers, devices, network and rooms. Think of fire, water and power cuts too."
+          },
+          "suppliers": {
+            "title": "Rate your suppliers",
+            "lead": "Here the worst case is that the supplier fails or has a security incident of its own. The level then also shows in your supplier list."
+          },
+          "done": {
+            "title": "Your risks are rated",
+            "note": "Low risks are marked \"Accept\": BSI Standard 200-3 calls it common practice to accept low risks and still monitor them. Everything from \"medium\" up is marked \"Mitigate\". You can change either in the risk register. At the end, management reviews the ratings."
+          }
+        }
       }
     }
   }

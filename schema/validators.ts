@@ -382,11 +382,13 @@ export const auditLogSelectSchema = createSelectSchema(auditLog);
 // Assets
 // ============================================================================
 
+// The providing supplier is set only by code that checks the supplier is the company's own, so
+// neither the asset form nor a client can name another company's row.
 export const assetInsertSchema = createInsertSchema(asset, {
   ...isoDateColumns(asset),
   name: z.string().min(1).max(255),
   type: z.string().min(1).max(100),
-});
+}).omit({ supplierId: true });
 export const assetSelectSchema = createSelectSchema(asset);
 export const assetUpdateSchema = assetInsertSchema.partial().omit(omitTenantMeta);
 

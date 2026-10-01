@@ -42,15 +42,21 @@
       "health": { "name": "Health" },
       "drinking-water": { "name": "Drinking water" },
       "waste-water": { "name": "Waste water" },
-      "digital-infrastructure": { "name": "Digital infrastructure (DNS, TLD, cloud, data centre, CDN, trust services)" },
+      "digital-infrastructure": {
+        "name": "Digital infrastructure (DNS, TLD, cloud, data centre, CDN, trust services)"
+      },
       "ict-service-management": { "name": "ICT service management (MSP, MSSP)" },
       "space": { "name": "Space" },
       "postal-courier": { "name": "Postal and courier services" },
       "waste-management": { "name": "Waste management" },
       "chemicals": { "name": "Chemicals (manufacture, production, distribution)" },
       "food": { "name": "Food (production, processing, distribution)" },
-      "manufacturing": { "name": "Manufacturing (medical devices, machinery, vehicles, electronics)" },
-      "digital-providers": { "name": "Digital providers (marketplaces, search engines, social networks)" },
+      "manufacturing": {
+        "name": "Manufacturing (medical devices, machinery, vehicles, electronics)"
+      },
+      "digital-providers": {
+        "name": "Digital providers (marketplaces, search engines, social networks)"
+      },
       "research": { "name": "Research" }
     },
     "checklist": {
@@ -199,33 +205,51 @@
       "hr-personnel-files": { "label": "Digital personnel files" },
       "hr-lms": { "label": "Learning management system (LMS)" },
       "hr-performance": { "label": "Performance review tool" },
-      "fin-accounting": { "label": "Accounting software (DATEV, Lexware, sevDesk, lexoffice)" },
+      "fin-accounting": {
+        "label": "Accounting software (DATEV, Lexware, sevDesk, lexoffice)"
+      },
       "fin-erp": { "label": "ERP (SAP, Microsoft Dynamics, ProAlpha)" },
       "fin-online-banking": { "label": "Online banking portals" },
-      "fin-payment-processing": { "label": "Payment processing (Stripe, PayPal, Klarna)" },
+      "fin-payment-processing": {
+        "label": "Payment processing (Stripe, PayPal, Klarna)"
+      },
       "fin-expense": { "label": "Expense management (Pleo, Spendesk, Moss)" },
       "fin-procurement-system": { "label": "Procurement / purchase order system" },
       "fin-invoicing": { "label": "Invoicing system" },
       "it-email": { "label": "Email (Microsoft 365, Google Workspace, Exchange)" },
-      "it-file-storage": { "label": "Shared file storage (SharePoint, Google Drive, NAS)" },
+      "it-file-storage": {
+        "label": "Shared file storage (SharePoint, Google Drive, NAS)"
+      },
       "it-video-conferencing": { "label": "Video conferencing (Teams, Zoom, Meet)" },
       "it-internal-chat": { "label": "Internal chat (Slack, Teams)" },
       "it-document-mgmt": { "label": "Document management (DMS)" },
       "it-wiki-kb": { "label": "Wiki or internal knowledge base (Confluence, Notion)" },
-      "it-identity-provider": { "label": "Identity provider (Azure AD/Entra, Google Workspace, Okta)" },
-      "it-endpoint-protection": { "label": "Endpoint protection (Defender, CrowdStrike, SentinelOne)" },
+      "it-identity-provider": {
+        "label": "Identity provider (Azure AD/Entra, Google Workspace, Okta)"
+      },
+      "it-endpoint-protection": {
+        "label": "Endpoint protection (Defender, CrowdStrike, SentinelOne)"
+      },
       "it-monitoring": { "label": "Monitoring (Datadog, Grafana)" },
-      "it-password-manager": { "label": "Password manager (1Password, LastPass, Bitwarden)" },
+      "it-password-manager": {
+        "label": "Password manager (1Password, LastPass, Bitwarden)"
+      },
       "it-code-repos": { "label": "Code repositories (GitHub, GitLab, Bitbucket)" },
       "it-project-management": { "label": "Project management (Jira, Asana, Linear)" },
       "it-patch-rmm": { "label": "Patch management / RMM" },
       "infra-onprem-servers": { "label": "On-premise servers" },
       "infra-cloud-platform": { "label": "Cloud platform (AWS, Azure, GCP, Hetzner)" },
-      "infra-network-equipment": { "label": "Network equipment (firewall, switches, WiFi)" },
+      "infra-network-equipment": {
+        "label": "Network equipment (firewall, switches, WiFi)"
+      },
       "infra-backup-system": { "label": "Backup system (Veeam, NAS, cloud backup)" },
+      "infra-backup-media": {
+        "label": "Backup media (drives, tapes, including off-site)"
+      },
       "infra-printer-fleet": { "label": "Office printers / scanners" },
       "ep-laptops": { "label": "Laptops and desktops" },
       "ep-mobile": { "label": "Company mobile devices (phones, tablets)" },
+      "ep-removable-media": { "label": "USB sticks and external drives" },
       "ep-byod": { "label": "BYOD (employee personal devices accessing company data)" },
       "loc-main-office": { "label": "Main office" },
       "loc-branch-offices": { "label": "Additional offices / branches" },
@@ -247,7 +271,9 @@
       "sec-lab-instruments": { "label": "Networked lab instruments / LIMS" },
       "sec-energy-scada": { "label": "Energy SCADA / control system" },
       "sec-water-scada": { "label": "Water / wastewater SCADA" },
-      "sec-trading-platform": { "label": "Trading platform connection (SWIFT, SEPA, exchange)" },
+      "sec-trading-platform": {
+        "label": "Trading platform connection (SWIFT, SEPA, exchange)"
+      },
       "sec-atm-fleet": { "label": "ATM / self-service terminal fleet" },
       "sec-dns-tld": { "label": "DNS / TLD infrastructure" },
       "sec-citizen-portal": { "label": "Citizen portal (eGov, OZG)" }

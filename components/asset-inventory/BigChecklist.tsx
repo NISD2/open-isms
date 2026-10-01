@@ -1,11 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
 import { Check, ChevronDown, ChevronUp, Plus, X } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useMemo, useState } from "react";
 
 import {
-  CATALOG,
+  type CATALOG,
   FUNCTIONAL_GROUPS,
   type FunctionalGroup,
   visibleCatalog,
@@ -15,6 +15,8 @@ import { cn } from "@/lib/utils";
 
 interface BigChecklistProps {
   sectors: string[];
+  /** Show only these groups, e.g. one slice of the catalogue per guided screen. Defaults to all. */
+  groups?: readonly FunctionalGroup[];
   checked: string[];
   custom: Array<{ name: string; layer: AssetLayer }>;
   onCheckedChange: (next: string[]) => void;
@@ -42,6 +44,7 @@ const DEFAULT_COLLAPSED = new Set<FunctionalGroup>(["sector-specific"]);
 
 export function BigChecklist({
   sectors,
+  groups = FUNCTIONAL_GROUPS,
   checked,
   custom,
   onCheckedChange,
@@ -89,7 +92,7 @@ export function BigChecklist({
 
   return (
     <div className="space-y-8">
-      {FUNCTIONAL_GROUPS.map((group) => {
+      {groups.map((group) => {
         const items = byGroup.get(group);
         if (!items || items.length === 0) return null;
 
@@ -130,38 +133,40 @@ export function BigChecklist({
               </span>
             </button>
 
-            {isCollapsed ? null : <div className="grid gap-1.5 sm:grid-cols-2">
-              {items.map((item) => {
-                const isChecked = checked.includes(item.id);
-                return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => toggle(item.id)}
-                    className={cn(
-                      "flex items-start gap-3 rounded-md border px-3 py-2 text-left text-sm transition-colors",
-                      isChecked
-                        ? "border-primary/40 bg-primary/5"
-                        : "border-border hover:bg-muted/50 opacity-70",
-                    )}
-                  >
-                    <span
+            {isCollapsed ? null : (
+              <div className="grid gap-1.5 sm:grid-cols-2">
+                {items.map((item) => {
+                  const isChecked = checked.includes(item.id);
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => toggle(item.id)}
                       className={cn(
-                        "mt-0.5 flex h-4 w-4 flex-none items-center justify-center rounded border",
+                        "flex items-start gap-3 rounded-md border px-3 py-2 text-left text-sm transition-colors",
                         isChecked
-                          ? "border-primary bg-primary text-primary-foreground"
-                          : "border-muted-foreground/40",
+                          ? "border-primary/40 bg-primary/5"
+                          : "border-border hover:bg-muted/50 opacity-70",
                       )}
                     >
-                      {isChecked && <Check className="h-3 w-3" />}
-                    </span>
-                    <span className="leading-snug">
-                      {t(`catalog.${item.id}.label`)}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>}
+                      <span
+                        className={cn(
+                          "mt-0.5 flex h-4 w-4 flex-none items-center justify-center rounded border",
+                          isChecked
+                            ? "border-primary bg-primary text-primary-foreground"
+                            : "border-muted-foreground/40",
+                        )}
+                      >
+                        {isChecked && <Check className="h-3 w-3" />}
+                      </span>
+                      <span className="leading-snug">
+                        {t(`catalog.${item.id}.label`)}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
 
             {!isCollapsed && groupCustoms.length > 0 && (
               <ul className="space-y-1.5 mt-2">

@@ -10,6 +10,7 @@ import { changeRouter } from "./routers/change";
 import { companyRouter } from "./routers/company";
 import { dashboardRouter } from "./routers/dashboard";
 import { devRouter } from "./routers/dev";
+import { durchgangRouter } from "./routers/durchgang";
 import { evidenceRouter } from "./routers/evidence";
 import { exerciseRouter } from "./routers/exercise";
 import { gapAssessmentRouter } from "./routers/gap-assessment";
@@ -82,6 +83,7 @@ export const appRouter = router({
   platformAdmin: platformAdminRouter,
   gapAssessment: gapAssessmentRouter,
   journey: journeyRouter,
+  durchgang: durchgangRouter,
   newsletter: newsletterRouter,
   newsletterPublic: newsletterPublicRouter,
   user: userRouter,

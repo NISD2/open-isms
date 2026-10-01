@@ -6,7 +6,6 @@ import {
 import { z } from "zod";
 import { FUNCTIONAL_GROUPS } from "@/lib/asset-inventory/catalog";
 import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
-import { DURCHGANG_CODES } from "@/lib/compliance/durchgang";
 import { JOURNEY_ORDER } from "@/lib/compliance/journey-position";
 import {
   CUSTOM_EDITOR_KEYS,
@@ -17,11 +16,8 @@ import en from "@/messages/durchgang/en.json";
 import infoDe from "@/messages/info/de.json";
 import infoEn from "@/messages/info/en.json";
 import { resolveItem, WAIT_REASONS, WALK } from "./index";
-import { NIS2_SCRIPT } from "./nis2";
+import { AHEAD, NIS2_SCRIPT, NOT_WALKED } from "./nis2";
 import type { AnyScreen, ScreenKind } from "./types";
-
-/** v1 walks the items today's Durchgang walks (spec §0.7). */
-const V1 = DURCHGANG_CODES;
 
 const FRAMEWORK = new Map(
   nis2Categories.flatMap((c) =>
@@ -33,13 +29,22 @@ const FRAMEWORK = new Map(
 );
 
 /** Whether a screen stands in for the register the requirement page shows. */
-const coversModule = (screen: AnyScreen, moduleRef: string): boolean =>
-  moduleRef === "asset"
-    ? screen.kind === "assets"
-    : screen.kind === "register" && screen.module === moduleRef;
+const coversModule = (screen: AnyScreen, moduleRef: string): boolean => {
+  switch (moduleRef) {
+    case "asset":
+      return screen.kind === "assets";
+    case "risk":
+      return screen.kind === "rate";
+    default:
+      return screen.kind === "register" && screen.module === moduleRef;
+  }
+};
 
 /** The screen that stands in for a custom editor the requirement page shows. */
-const EDITOR_SCREEN: Readonly<Record<string, ScreenKind>> = { "RSK:2.1": "adopt" };
+const EDITOR_SCREEN: Readonly<Record<string, ScreenKind>> = {
+  "RSK:2.1": "adopt",
+  "RSK:2.3": "rate",
+};
 
 /** Registers the flow deliberately leaves out, each with the reason. */
 const NO_SCREEN: Readonly<Record<string, string>> = {
@@ -47,6 +52,8 @@ const NO_SCREEN: Readonly<Record<string, string>> = {
     "the register has no loader or router, so the page always shows 0 entries (spec §0.6); the flow records 12.2 through its fields and its evidence",
   "3.3:incident":
     "the incident register fills when an incident happens; 3.3 prepares the reporting, and the register stays on the incidents page",
+  "3.1:policy":
+    "the policy form has no upload and asks for type and status as free text; the screen asks for the plan itself, so 3.1 takes it as evidence on the item",
 };
 
 /** The value's own schema under any optional, nullable or default wrapper. */
@@ -66,19 +73,33 @@ const LOCALES = [
 ] as const;
 
 describe("the NIS 2 script", () => {
-  test("scripts each item once, and only v1 requirements of their declared category", () => {
+  test("scripts each item once, as a requirement of its declared category", () => {
     const codes = NIS2_SCRIPT.map((i) => i.code);
     expect(new Set(codes).size).toBe(codes.length);
     for (const item of NIS2_SCRIPT) {
       expect(FRAMEWORK.get(item.code)?.category).toBe(item.category);
-      expect(V1).toContain(item.code);
     }
   });
 
-  test("walks the scripted items in journey order", () => {
-    expect(WALK.map((i) => i.code)).toEqual(
-      JOURNEY_ORDER.filter((code) => NIS2_SCRIPT.some((i) => i.code === code)),
+  test("walks the start of the journey without a gap, in journey order", () => {
+    // Items are scripted from the front of the journey (spec §0.7), so the walk is always the
+    // first N codes: a later item scripted before an earlier one would leave a hole in the path.
+    // The only exceptions are listed with their reason: items left out, and items scripted ahead.
+    const ahead = Object.keys(AHEAD);
+    const front = JOURNEY_ORDER.slice(
+      0,
+      NIS2_SCRIPT.length - ahead.length + Object.keys(NOT_WALKED).length,
     );
+    expect(WALK.map((i) => i.code)).toEqual(
+      JOURNEY_ORDER.filter(
+        (code) => (front.includes(code) && !NOT_WALKED[code]) || ahead.includes(code),
+      ),
+    );
+    for (const code of Object.keys(NOT_WALKED)) expect(front).toContain(code);
+    for (const code of ahead) expect(front).not.toContain(code);
+    for (const reason of [...Object.values(NOT_WALKED), ...Object.values(AHEAD)]) {
+      expect(reason.trim().length).toBeGreaterThan(20);
+    }
   });
 
   test("opens every item with what it is and closes with what was recorded", () => {
@@ -158,15 +179,34 @@ describe("the NIS 2 script", () => {
   });
 
   test("dates every item's fact-check on a real day that has passed", () => {
+    // The check is dated in Berlin, where the fact-check document is written.
+    const today = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }).format(
+      new Date(),
+    );
     for (const item of NIS2_SCRIPT) {
       const day = new Date(`${item.reviewed}T00:00:00Z`);
       expect(day.toISOString().slice(0, 10)).toBe(item.reviewed);
-      expect(day.getTime()).toBeLessThanOrEqual(Date.now());
+      expect(item.reviewed <= today).toBe(true);
     }
   });
 });
 
 describe("the words of the Durchgang", () => {
+  test("names the authority once per language, filled in wherever the copy says {authority}", () => {
+    const registration = NIS2_SCRIPT.find((i) => i.code === "12.2");
+    if (!registration) throw new Error("12.2 is scripted");
+    const headline = (namespace: unknown) => {
+      const resolved = resolveItem(namespace, registration);
+      return resolved.ok ? resolved.value.headline : resolved.errors.join("; ");
+    };
+    expect(headline(de.durchgang)).toBe("Beim BSI registrieren");
+    expect(headline(en.durchgang)).toBe("Register with your authority");
+
+    const unknown = structuredClone(en.durchgang);
+    unknown.items["12_2"].headline = "Register with {agency}";
+    expect(headline(unknown)).toContain("unknown placeholder");
+  });
+
   for (const [locale, namespace, glossary] of LOCALES) {
     test(`every item reads completely in ${locale}, with nothing left over`, () => {
       const errors = NIS2_SCRIPT.flatMap((item) => {

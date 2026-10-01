@@ -1,0 +1,63 @@
+/*
+ * Screen transitions for the Durchgang, on the View Transitions API.
+ *
+ * Only the stage moves: the header, rail and footer stay put, so the eye keeps its place while
+ * the content changes. Forward slides the new screen in from the right while the old one drifts
+ * left and fades; back mirrors it. The progress fill is its own named element, so the browser
+ * morphs its width between screens. Everything is scoped to html[data-dg-dir], which is only set
+ * while a Durchgang transition runs, so no other page is affected.
+ */
+
+html[data-dg-dir]::view-transition-old(root),
+html[data-dg-dir]::view-transition-new(root) {
+  animation: none;
+}
+
+html[data-dg-dir]::view-transition-group(dg-stage),
+html[data-dg-dir]::view-transition-group(dg-progress) {
+  animation-duration: 420ms;
+  animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+html[data-dg-dir]::view-transition-old(dg-stage) {
+  animation: 220ms cubic-bezier(0.4, 0, 1, 1) both dg-out;
+}
+
+html[data-dg-dir]::view-transition-new(dg-stage) {
+  animation: 420ms cubic-bezier(0.32, 0.72, 0, 1) 60ms both dg-in;
+}
+
+html[data-dg-dir="forward"] {
+  --dg-out-x: -28px;
+  --dg-in-x: 56px;
+}
+
+html[data-dg-dir="back"] {
+  --dg-out-x: 28px;
+  --dg-in-x: -56px;
+}
+
+@keyframes dg-out {
+  to {
+    opacity: 0;
+    transform: translateX(var(--dg-out-x));
+    filter: blur(2px);
+  }
+}
+
+@keyframes dg-in {
+  from {
+    opacity: 0;
+    transform: translateX(var(--dg-in-x));
+    filter: blur(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-dg-dir]::view-transition-group(*),
+  html[data-dg-dir]::view-transition-old(*),
+  html[data-dg-dir]::view-transition-new(*) {
+    /* biome-ignore lint/complexity/noImportantStyles: reduced motion has to win over every transition rule above */
+    animation: none !important;
+  }
+}

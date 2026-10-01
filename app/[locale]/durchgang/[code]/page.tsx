@@ -1,64 +1,29 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import { RequirementDetail } from "@/components/compliance/RequirementDetail";
-import type { NavHref, NavLink } from "@/components/compliance/RequirementFooterNav";
-import { StepNotes } from "@/components/durchgang/StepNotes";
-import { Link } from "@/i18n/navigation";
-import { durchgangStep } from "@/lib/compliance/durchgang";
-import { loadRequirementDetail } from "@/lib/compliance/requirement-detail-data";
+import { DurchgangItem } from "@/components/durchgang/DurchgangItem";
+import { loadItem, loadWalk } from "../load";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("durchgang");
+  return { title: t("title"), robots: { index: false, follow: false } };
+}
 
 /**
- * One requirement per screen, walked in journey order. The body is the
- * requirement page's own: same editors, same register, same evidence upload,
- * same save on the way out. The walk collects data and decides nothing:
- * sign-off is a later flow for the people who sign. Only the neighbours
- * differ, and the explanation sits beside the input instead of above it.
+ * One item of the Durchgang, one screen at a time. The screen index is `?s=`, written by the
+ * client as the person moves, so a reload or the back button keeps the place.
  */
-export default async function DurchgangStepPage({
+export default async function DurchgangItemPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ code: string }>;
+  searchParams: Promise<{ s?: string }>;
 }) {
-  const { code } = await params;
-  const step = durchgangStep(code);
-  if (!step) notFound();
-
-  const [data, t] = await Promise.all([
-    loadRequirementDetail(code),
-    getTranslations("durchgang"),
-  ]);
-  if (!data) notFound();
-
-  const overview: NavHref = "/journey";
-  const stepHref = (to: string): NavHref => ({
-    pathname: "/durchgang/[code]",
-    params: { code: to },
-  });
-  const prev: NavLink = step.prevCode
-    ? { href: stepHref(step.prevCode), label: t("back") }
-    : { href: overview, label: t("overview") };
-  const next: NavLink = step.nextCode
-    ? { href: stepHref(step.nextCode), label: t("next") }
-    : { href: overview, label: t("finish") };
-
+  const [{ code }, { s }] = await Promise.all([params, searchParams]);
+  const [item, walk] = await Promise.all([loadItem(code), loadWalk()]);
+  if (!item) notFound();
   return (
-    <main className="mx-auto max-w-6xl px-6 py-6">
-      <div className="mb-6 flex items-center justify-between text-sm text-muted-foreground">
-        <p>
-          <span className="font-medium text-foreground">{t("title")}</span>
-          <span className="mx-1.5 text-muted-foreground/50">/</span>
-          {t("stepOf", { step: step.number, total: step.total })}
-        </p>
-        <Link href="/journey" className="transition-colors hover:text-foreground">
-          {t("overview")}
-        </Link>
-      </div>
-      <RequirementDetail
-        {...data}
-        prev={prev}
-        next={next}
-        durchgang={{ notes: <StepNotes code={code} /> }}
-      />
-    </main>
+    <DurchgangItem key={code} item={item} walk={walk} initialScreen={Number(s ?? 0)} />
   );
 }

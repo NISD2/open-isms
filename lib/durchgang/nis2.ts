@@ -2,8 +2,8 @@
  * The NIS 2 Durchgang: which screens each item shows, in which order. Data only.
  *
  * The walk follows the journey order (`JOURNEY_ORDER`), so the order of this list does not
- * matter. v1 walks the first ten items of that order; an item is added here only together with
- * its reviewed copy in messages/durchgang.
+ * matter. v1 walks the first ten items of that order, less the ones in `NOT_WALKED`, plus the ones
+ * in `AHEAD`; an item is added here only together with its reviewed copy in messages/durchgang.
  */
 
 import type { CategoryCode } from "@/lib/compliance/category-schemas";
@@ -11,40 +11,42 @@ import type { AnyItem, Item } from "./types";
 
 const item = <C extends CategoryCode>(i: Item<C>): Item<C> => i;
 
+/**
+ * Items of the first ten the walk leaves out, each with the reason. The requirement page keeps
+ * them.
+ */
+export const NOT_WALKED: Readonly<Record<string, string>> = {
+  "12.1":
+    "Whoever reaches the Durchgang already knows their entity type; the walk does not decide it for them.",
+};
+
+/**
+ * Items scripted ahead of the front of the journey, each with the reason. The walk still shows
+ * them in journey order; the unscripted items before them stay on the requirement page.
+ */
+export const AHEAD: Readonly<Record<string, string>> = {
+  "2.3":
+    "The risk ratings are made on the assets and suppliers listed in 2.2 and 5.1, so they are walked before 1.3 and 1.4 are scripted.",
+};
+
 export const NIS2_SCRIPT: readonly AnyItem[] = [
-  item({
-    code: "12.1",
-    category: "REG",
-    glossary: [],
-    reviewed: "2026-09-30",
-    screens: [
-      { kind: "learn", id: "learn" },
-      { kind: "provision", id: "thresholds", provision: "bsig_28_thresholds" },
-      { kind: "prepare", id: "data" },
-      {
-        kind: "fields",
-        id: "classification",
-        fields: ["entityClassification", "applicableSectors"],
-      },
-      { kind: "done", id: "done" },
-    ],
-  }),
   item({
     code: "1.1",
     category: "GOV",
     glossary: [],
     reviewed: "2026-09-30",
     screens: [
-      { kind: "learn", id: "learn" },
+      { kind: "learn", id: "learn", link: "ceo_course" },
       { kind: "sample", id: "record" },
-      {
-        kind: "fields",
-        id: "training",
-        fields: ["managementTrainingProvider", "lastManagementTraining"],
-      },
-      { kind: "register", id: "certificates", module: "training_record" },
+      { kind: "register", id: "trainings", module: "training_record" },
       { kind: "done", id: "done" },
     ],
+    notAsked: {
+      managementTrainingProvider:
+        "The walk records one training record per member of management, each with its provider; a single provider field on the intake cannot hold several.",
+      lastManagementTraining:
+        "The walk records one training record per member of management, each with its date; a single date on the intake cannot hold several.",
+    },
   }),
   item({
     code: "5.1",
@@ -63,7 +65,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
   item({
     code: "12.3",
     category: "REG",
-    glossary: ["bsiRegistration"],
+    glossary: [],
     reviewed: "2026-09-30",
     screens: [
       { kind: "learn", id: "learn" },
@@ -87,7 +89,6 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     reviewed: "2026-09-30",
     screens: [
       { kind: "learn", id: "learn" },
-      { kind: "compare", id: "who" },
       { kind: "register", id: "roles", module: "team" },
       { kind: "done", id: "done" },
     ],
@@ -99,13 +100,17 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     reviewed: "2026-09-30",
     screens: [
       { kind: "learn", id: "learn" },
-      { kind: "fields", id: "lead", fields: ["incidentLead", "irtTeamSize"] },
+      { kind: "fields", id: "lead", fields: ["incidentLead"] },
       { kind: "fields", id: "escalation", fields: ["incidentEscalationContacts"] },
       { kind: "compare", id: "second_way" },
       { kind: "fields", id: "channel", fields: ["secureCommsChannel"] },
-      { kind: "register", id: "plan", module: "policy" },
+      { kind: "evidence", id: "plan", field: null },
       { kind: "done", id: "done" },
     ],
+    notAsked: {
+      irtTeamSize:
+        "§ 30 Abs. 2 Nr. 2 BSIG and Art. 21(2)(b) NIS 2 require incident handling, not a team of a size; CIR 3.1.1 asks its digital providers for roles, not a headcount. A small company may handle incidents with one person.",
+    },
   }),
   item({
     code: "3.3",
@@ -116,23 +121,22 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
       { kind: "learn", id: "learn" },
       { kind: "provision", id: "clock", provision: "bsig_32_clock" },
       { kind: "prepare", id: "ready" },
-      {
-        kind: "fields",
-        id: "setup",
-        fields: ["earlyWarningSlaHours", "bsiReportingRegistered"],
-      },
+      { kind: "fields", id: "setup", fields: ["bsiReportingRegistered"] },
       { kind: "done", id: "done" },
     ],
+    notAsked: {
+      earlyWarningSlaHours:
+        "The law sets the deadline itself, 24 hours from becoming aware (§ 32 Abs. 1 Nr. 1 BSIG, Art. 23(4)(a) NIS 2); an internal target shorter than that is good practice, not a duty, so the walk does not ask for one.",
+    },
   }),
   item({
     code: "12.2",
     category: "REG",
-    glossary: ["bsiRegistration", "muk"],
+    glossary: [],
     reviewed: "2026-09-30",
     screens: [
       { kind: "learn", id: "learn" },
-      { kind: "prepare", id: "data" },
-      { kind: "compare", id: "contact" },
+      { kind: "provision", id: "where", provision: "registration_portals" },
       {
         kind: "fields",
         id: "confirmation",
@@ -150,9 +154,19 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     screens: [
       { kind: "learn", id: "learn" },
       { kind: "provision", id: "matrix", provision: "bsi_200_3_matrix" },
-      { kind: "reading", id: "reading", frequency: "frequent", impact: "limited" },
+      {
+        kind: "reading",
+        id: "reading",
+        examples: [
+          { frequency: "frequent", impact: "negligible" },
+          { frequency: "frequent", impact: "limited" },
+          { frequency: "rare", impact: "existential" },
+          { frequency: "frequent", impact: "considerable" },
+          { frequency: "medium", impact: "existential" },
+          { frequency: "very_frequent", impact: "considerable" },
+        ],
+      },
       { kind: "adopt", id: "adopt", adopts: "bsi_200_3_method" },
-      { kind: "decide", id: "acceptance", decision: "risk_acceptance" },
       { kind: "done", id: "done" },
     ],
   }),
@@ -181,7 +195,25 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
         id: "technology",
         groups: ["it-infrastructure", "endpoints", "network", "locations"],
       },
-      { kind: "fields", id: "protection", fields: ["classificationLevels"] },
+      { kind: "specify", id: "which_software", slice: "software" },
+      { kind: "specify", id: "which_technology", slice: "technology" },
+      { kind: "done", id: "done" },
+    ],
+    notAsked: {
+      classificationLevels:
+        "Protection levels (Schutzbedarf normal, hoch, sehr hoch) are the BSI 200-2 method; neither § 30 BSIG nor Art. 21 NIS 2 asks for them, and a small company rates each asset on its own before choosing a scale.",
+    },
+  }),
+  item({
+    code: "2.3",
+    category: "RSK",
+    glossary: [],
+    reviewed: "2026-10-01",
+    screens: [
+      { kind: "learn", id: "learn" },
+      { kind: "rate", id: "software", targets: "software" },
+      { kind: "rate", id: "technology", targets: "technology" },
+      { kind: "rate", id: "suppliers", targets: "suppliers" },
       { kind: "done", id: "done" },
     ],
   }),

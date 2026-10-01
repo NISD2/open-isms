@@ -136,16 +136,12 @@ async function loadGuidance(
   }
 }
 
-export type RequirementDetailData = Omit<
-  RequirementDetailProps,
-  "prev" | "next" | "durchgang"
->;
+export type RequirementDetailData = Omit<RequirementDetailProps, "prev" | "next">;
 
 /**
  * Everything one requirement screen needs, resolved once for whoever renders
- * it. The category page and the Durchgang both call this and differ only in
- * where prev and next lead. Null when the code is unknown or the viewer may
- * not see its category; the caller decides whether that is a 404.
+ * it. Null when the code is unknown or the viewer may not see its category;
+ * the caller decides whether that is a 404.
  */
 export async function loadRequirementDetail(
   code: string,

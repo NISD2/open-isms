@@ -1,4 +1,4 @@
-import { describe, test, expect } from "bun:test";
+import { describe, expect, test } from "bun:test";
 import { classify, computeSize } from "./classify";
 
 // ─── computeSize ──────────────────────────────────────────────
@@ -14,11 +14,15 @@ describe("computeSize", () => {
   });
 
   test("not large if only turnover exceeds (need BOTH)", () => {
-    expect(computeSize({ employees: 10, turnover: 100, balanceSheet: 40 })).toBe("medium");
+    expect(computeSize({ employees: 10, turnover: 100, balanceSheet: 40 })).toBe(
+      "medium",
+    );
   });
 
   test("not large if only balance exceeds (need BOTH)", () => {
-    expect(computeSize({ employees: 10, turnover: 30, balanceSheet: 100 })).toBe("medium");
+    expect(computeSize({ employees: 10, turnover: 30, balanceSheet: 100 })).toBe(
+      "medium",
+    );
   });
 
   test("medium by employee count (>= 50)", () => {
@@ -366,7 +370,11 @@ describe("classify", () => {
 
     test("Example 4: Cloud provider subsidiary (group-level large, Annex I) → besonders_wichtig", () => {
       // Group level: 50,000 employees → large
-      const size = computeSize({ employees: 50000, turnover: 30000, balanceSheet: 20000 });
+      const size = computeSize({
+        employees: 50000,
+        turnover: 30000,
+        balanceSheet: 20000,
+      });
       expect(size).toBe("large");
       const result = classify({
         excluded: false,

@@ -14,7 +14,13 @@ const heading = { title: text, lead: text };
 const pair = z.object({ value: text, note: text });
 
 const SCREEN_COPY = {
-  learn: z.object({ title: text, body: z.array(text).min(1), duty: text }),
+  /** `link` labels the platform page the screen points to, where the script gives it one. */
+  learn: z.object({
+    title: text,
+    body: z.array(text).min(1),
+    duty: text,
+    link: text.optional(),
+  }),
   prepare: z.object({
     ...heading,
     items: z.array(z.object({ name: text, detail: text })).min(1),
@@ -25,16 +31,19 @@ const SCREEN_COPY = {
     title: text,
     caption: text,
     rows: z.array(z.object({ name: text, detail: text })).min(1),
+    note: text.optional(),
   }),
-  reading: z.object({ title: text, caption: text }),
+  /** One text per example of the script's screen, in its order. */
+  reading: z.object({ title: text, caption: text, examples: z.array(text).min(1) }),
   provision: z.object({ ...heading, source: text }),
   fields: z.object({ ...heading, document: text }),
   evidence: z.object({ ...heading, document: text }),
   adopt: z.object({ ...heading, lines: z.array(z.object({ label: text, text })).min(1) }),
   register: z.object(heading),
-  decide: z.object({ ...heading, source: text }),
   sources: z.object(heading),
   assets: z.object(heading),
+  specify: z.object(heading),
+  rate: z.object(heading),
   done: z.object({ title: text, note: text }),
 } as const satisfies Record<ScreenKind, z.ZodType>;
 
@@ -70,8 +79,10 @@ interface Extras {
   };
 }
 
+/** A screen with its words. `kind` repeats `screen.kind` at the top, so a switch on it narrows. */
 export type ResolvedScreen = {
   readonly [K in ScreenKind]: {
+    readonly kind: K;
     readonly screen: Extract<AnyScreen, { kind: K }>;
     readonly copy: z.infer<(typeof SCREEN_COPY)[K]> &
       (K extends keyof Extras ? Extras[K] : unknown);
@@ -92,6 +103,51 @@ type Result<T> =
 
 /** Message files cannot carry dots in keys. */
 export const itemKey = (code: string): string => code.split(".").join("_");
+
+/**
+ * Words each language defines once, under `terms`, and the copy names by placeholder. `authority`
+ * is the body a company registers with and reports to: "BSI" in German, "your authority" in
+ * English. Each language writes its own sentence around it ("beim {authority}", "with
+ * {authority}"), so a new language defines the term instead of rewording every string that names
+ * it. Guidance the BSI publishes stays attributed to the BSI; it is a source, not the authority.
+ */
+const TERMS = z.object({ authority: text });
+type Terms = z.infer<typeof TERMS>;
+const TERM_MARKERS: ReadonlyArray<readonly [string, keyof Terms]> = [
+  ["{authority}", "authority"],
+];
+
+/** The copy with every term filled in, and the path of any string that still holds a brace. */
+const fill = (
+  value: unknown,
+  terms: Terms,
+  where: string,
+): { readonly value: unknown; readonly errors: readonly string[] } => {
+  if (typeof value === "string") {
+    const filled = TERM_MARKERS.reduce(
+      (acc, [marker, key]) => acc.split(marker).join(terms[key]),
+      value,
+    );
+    return {
+      value: filled,
+      errors: filled.includes("{") ? [`${where}: unknown placeholder`] : [],
+    };
+  }
+  if (Array.isArray(value)) {
+    const parts = value.map((v, i) => fill(v, terms, `${where}.${i}`));
+    return { value: parts.map((p) => p.value), errors: parts.flatMap((p) => p.errors) };
+  }
+  if (typeof value === "object" && value !== null) {
+    const parts = Object.entries(value).map(
+      ([k, v]) => [k, fill(v, terms, `${where}.${k}`)] as const,
+    );
+    return {
+      value: Object.fromEntries(parts.map(([k, p]) => [k, p.value])),
+      errors: parts.flatMap(([, p]) => p.errors),
+    };
+  }
+  return { value, errors: [] };
+};
 
 const ok = <T>(value: T): Result<T> => ({ ok: true, value });
 
@@ -144,35 +200,56 @@ function resolveScreen(
   const one = <S extends AnyScreen, Z extends z.ZodType>(
     s: S,
     schema: Z,
-  ): Result<{ readonly screen: S; readonly copy: z.infer<Z> }> => {
+  ): Result<{
+    readonly kind: S["kind"];
+    readonly screen: S;
+    readonly copy: z.infer<Z>;
+  }> => {
     const copy = parse(schema, raw, where);
-    return copy.ok ? ok({ screen: s, copy: copy.value }) : copy;
+    return copy.ok ? ok({ kind: s.kind, screen: s, copy: copy.value }) : copy;
   };
   switch (screen.kind) {
     case "fields": {
       const copy = parse(SCREEN_COPY.fields, raw, where);
       const fields = pick(head.fields, screen.fields, `${base}.fields`);
       return copy.ok && fields.ok
-        ? ok({ screen, copy: { ...copy.value, fields: fields.value } })
+        ? ok({ kind: screen.kind, screen, copy: { ...copy.value, fields: fields.value } })
         : { ok: false, errors: errorsOf(copy, fields) };
     }
     case "sources": {
       const copy = parse(SCREEN_COPY.sources, raw, where);
       const sources = pick(head.sources, screen.sources, `${base}.sources`);
       return copy.ok && sources.ok
-        ? ok({ screen, copy: { ...copy.value, sources: sources.value } })
+        ? ok({
+            kind: screen.kind,
+            screen,
+            copy: { ...copy.value, sources: sources.value },
+          })
         : { ok: false, errors: errorsOf(copy, sources) };
     }
-    case "learn":
-      return one(screen, SCREEN_COPY.learn);
+    case "learn": {
+      const copy = one(screen, SCREEN_COPY.learn);
+      return copy.ok && screen.link && !copy.value.copy.link
+        ? { ok: false, errors: [`${where}.link: missing`] }
+        : copy;
+    }
     case "prepare":
       return one(screen, SCREEN_COPY.prepare);
     case "compare":
       return one(screen, SCREEN_COPY.compare);
     case "sample":
       return one(screen, SCREEN_COPY.sample);
-    case "reading":
-      return one(screen, SCREEN_COPY.reading);
+    case "reading": {
+      const copy = one(screen, SCREEN_COPY.reading);
+      return copy.ok && copy.value.copy.examples.length !== screen.examples.length
+        ? {
+            ok: false,
+            errors: [
+              `${where}.examples: ${copy.value.copy.examples.length} texts for ${screen.examples.length} examples`,
+            ],
+          }
+        : copy;
+    }
     case "provision":
       return one(screen, SCREEN_COPY.provision);
     case "evidence":
@@ -181,10 +258,12 @@ function resolveScreen(
       return one(screen, SCREEN_COPY.adopt);
     case "register":
       return one(screen, SCREEN_COPY.register);
-    case "decide":
-      return one(screen, SCREEN_COPY.decide);
     case "assets":
       return one(screen, SCREEN_COPY.assets);
+    case "specify":
+      return one(screen, SCREEN_COPY.specify);
+    case "rate":
+      return one(screen, SCREEN_COPY.rate);
     case "done":
       return one(screen, SCREEN_COPY.done);
     default:
@@ -198,7 +277,11 @@ function resolveScreen(
  */
 export function resolveItem(namespace: unknown, item: AnyItem): Result<ResolvedItem> {
   const base = `items.${itemKey(item.code)}`;
-  const head = parse(ITEM_COPY, at(at(namespace, "items"), itemKey(item.code)), base);
+  const terms = parse(TERMS, at(namespace, "terms"), "terms");
+  if (!terms.ok) return terms;
+  const filled = fill(at(at(namespace, "items"), itemKey(item.code)), terms.value, base);
+  if (filled.errors.length > 0) return { ok: false, errors: filled.errors };
+  const head = parse(ITEM_COPY, filled.value, base);
   if (!head.ok) return head;
 
   const screens: readonly AnyScreen[] = item.screens;

@@ -123,7 +123,9 @@ export const companyRequirementStatus = pgTable(
     // Assignment
     assignedTo: uuid("assigned_to").references(() => user.id),
 
-    // Internal notes
+    // The customer's own dated trail from the Durchgang (lib/durchgang/notes.ts): why an item
+    // waits, where they looked, what was proposed for signature. Appended, never rewritten, and
+    // not a place for staff notes despite the name.
     internalNotes: text("internal_notes"),
 
     // Sign-off snapshot — captures derived operational data at sign-off time
