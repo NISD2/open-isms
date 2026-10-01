@@ -168,44 +168,13 @@ export const intakeRouter = router({
         throw new TRPCError({ code: "BAD_REQUEST", message: checked.message });
       }
 
-      // Load existing category-level answers
-      const existing = await ctx.db.query.companyCategoryIntake.findFirst({
-        where: and(
-          eq(companyCategoryIntake.assessmentId, input.assessmentId),
-          eq(companyCategoryIntake.categoryId, input.categoryId),
-        ),
-      });
-
-      // Shallow merge: only overwrite keys that belong to this requirement
-      const currentAnswers = (existing?.answers ?? {}) as Record<string, unknown>;
-      const merged = { ...currentAnswers, ...checked.answers };
-
-      // Recalculate completion for the full category
-      const schema = CATEGORY_SCHEMAS[categoryCode];
-      const fields = schema ? introspectSchema(schema, []) : [];
-      const requiredFields = fields.filter((f) => f.required);
-      const filledRequired = requiredFields.filter((f) => {
-        const val = merged[f.key];
-        return val !== undefined && val !== null && val !== "";
-      });
-      const completionPct =
-        requiredFields.length > 0
-          ? Math.round((filledRequired.length / requiredFields.length) * 100)
-          : 0;
-
-      // Only this requirement's answers changed (no intake field is shared
-      // between requirements), so only this requirement moves. Deriving from
-      // every answered field in the category used to reopen each signed
-      // sibling as well, clearing signatures nobody had touched.
-      await writeAnswers(ctx, {
+      const completionPct = await writeAnswers(ctx, {
         assessmentId: input.assessmentId,
         categoryId: input.categoryId,
-        existingId: existing?.id ?? null,
-        answers: merged,
-        completionPct,
-        requirementCodes: fieldInfo.fieldKeys.some((key) => isAnswered(merged[key]))
-          ? [input.requirementCode]
-          : [],
+        categoryCode,
+        requirementCode: input.requirementCode,
+        fieldKeys: fieldInfo.fieldKeys,
+        answers: checked.answers,
       });
 
       return { completionPct };
@@ -270,52 +239,98 @@ function isAnswered(value: unknown): boolean {
   return value !== undefined && value !== null && value !== "";
 }
 
+/** Each category's required fields, read from its schema once rather than on every save. */
+const REQUIRED_KEYS: ReadonlyMap<string, readonly string[]> = new Map(
+  Object.entries(CATEGORY_SCHEMAS).map(([code, schema]) => [
+    code,
+    introspectSchema(schema, [])
+      .filter((f) => f.required)
+      .map((f) => f.key),
+  ]),
+);
+
+/** The share of the category's required fields that carry an answer, in percent. */
+function completionOf(categoryCode: string, answers: Record<string, unknown>): number {
+  const required = REQUIRED_KEYS.get(categoryCode) ?? [];
+  const filled = required.filter((key) => isAnswered(answers[key]));
+  return required.length > 0 ? Math.round((filled.length / required.length) * 100) : 0;
+}
+
 /**
- * Store a category's intake answers and move the requirements the save covers
- * to in progress, in one transaction, so a refused move stores no answers.
+ * Merge one requirement's answers into its category's intake and move that
+ * requirement to in progress, in one transaction, so a refused move stores no
+ * answers.
+ *
+ * The stored answers are read under a row lock held until the commit. Two
+ * saves of one category in flight at once, from two tabs for instance, both
+ * used to merge into the same old answers, and the later write put back what
+ * the earlier one had changed. Now the second waits and merges into what the
+ * first stored. The category's first save creates the row empty before
+ * locking it; a second first save meeting it on the unique index does nothing
+ * there and then waits on the lock, so it merges too instead of failing.
+ *
+ * Lock order: the intake row first, then the status rows (moveToInProgress).
+ * Anything that later locks both must take them in the same order.
  */
 async function writeAnswers(
   ctx: IntakeWriter,
   args: {
     assessmentId: string;
     categoryId: string;
-    existingId: string | null;
+    categoryCode: string;
+    requirementCode: string;
+    fieldKeys: readonly string[];
     answers: Record<string, unknown>;
-    completionPct: number;
-    requirementCodes: readonly string[];
   },
-) {
+): Promise<number> {
   const now = new Date();
-  const saved = { answers: args.answers, completionPct: args.completionPct };
 
-  const withdrawn = await ctx.db.transaction(async (tx) => {
+  const { withdrawn, completionPct } = await ctx.db.transaction(async (tx) => {
+    await tx
+      .insert(companyCategoryIntake)
+      .values({ assessmentId: args.assessmentId, categoryId: args.categoryId })
+      .onConflictDoNothing({
+        target: [companyCategoryIntake.assessmentId, companyCategoryIntake.categoryId],
+      });
+    const [stored] = await tx
+      .select({ id: companyCategoryIntake.id, answers: companyCategoryIntake.answers })
+      .from(companyCategoryIntake)
+      .where(
+        and(
+          eq(companyCategoryIntake.assessmentId, args.assessmentId),
+          eq(companyCategoryIntake.categoryId, args.categoryId),
+        ),
+      )
+      .for("update");
+    if (!stored) throw new Error("The intake row just ensured is missing.");
+
+    // Shallow merge: only the saved requirement's keys change.
+    const merged = { ...(stored.answers ?? {}), ...args.answers };
+    const completionPct = completionOf(args.categoryCode, merged);
+
+    // Only this requirement's answers changed (no intake field is shared
+    // between requirements), so only this requirement moves. Deriving from
+    // every answered field in the category used to reopen each signed
+    // sibling as well, clearing signatures nobody had touched.
     const reopened = await moveToInProgress(tx, {
       companyId: ctx.companyId,
       userId: ctx.userId,
       role: ctx.session.role,
       assessmentId: args.assessmentId,
-      requirementCodes: args.requirementCodes,
+      requirementCodes: args.fieldKeys.some((key) => isAnswered(merged[key]))
+        ? [args.requirementCode]
+        : [],
       now,
     });
 
-    if (args.existingId) {
-      await tx
-        .update(companyCategoryIntake)
-        .set({ ...saved, lastSavedBy: ctx.userId, lastSavedAt: now })
-        .where(eq(companyCategoryIntake.id, args.existingId));
-    } else {
-      await tx.insert(companyCategoryIntake).values({
-        ...saved,
-        assessmentId: args.assessmentId,
-        categoryId: args.categoryId,
-        lastSavedBy: ctx.userId,
-        lastSavedAt: now,
-      });
-    }
-    return reopened;
+    await tx
+      .update(companyCategoryIntake)
+      .set({ answers: merged, completionPct, lastSavedBy: ctx.userId, lastSavedAt: now })
+      .where(eq(companyCategoryIntake.id, stored.id));
+    return { withdrawn: reopened, completionPct };
   });
 
-  if (withdrawn.length === 0) return;
+  if (withdrawn.length === 0) return completionPct;
   await recalculateProgress(ctx.db, args.assessmentId);
   for (const reopened of withdrawn) {
     announceWithdrawal(ctx.db, {
@@ -325,6 +340,7 @@ async function writeAnswers(
       now,
     });
   }
+  return completionPct;
 }
 
 /**
@@ -360,7 +376,8 @@ async function moveToInProgress(
 
   // Status rows are locked first and in id order, before withdrawSignOff
   // touches any signer rows, which is the order signOff, confirmModuleRef and
-  // reopenRequirement take them in (see lockStatusRow). The lock also keeps
+  // reopenRequirement take them in (see lockStatusRow). A save already holds
+  // its category's intake row by then (writeAnswers). The lock also keeps
   // an approval or a sign-off from landing between the checks below and the
   // writes after them.
   const rows = await tx
