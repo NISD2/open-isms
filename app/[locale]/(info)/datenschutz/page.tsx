@@ -213,8 +213,9 @@ export default async function DatenschutzPage() {
             <CardHeader>
               <CardTitle>{t("datenschutz.retention.heading")}</CardTitle>
             </CardHeader>
-            <CardContent className="text-sm text-muted-foreground">
+            <CardContent className="space-y-3 text-sm text-muted-foreground">
               <p>{t("datenschutz.retention.p1")}</p>
+              <p>{t("datenschutz.retention.erasure")}</p>
             </CardContent>
           </Card>
         </section>

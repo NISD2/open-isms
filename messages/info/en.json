@@ -859,7 +859,8 @@
       },
       "retention": {
         "heading": "Data Retention",
-        "p1": "Your data is stored as long as your account is active and necessary for the purposes described above. Compliance data (form submissions, evidence, audit trail) is retained for the legally required period. When you delete your account, personal data is removed. Anonymized audit trail entries may be retained."
+        "p1": "Your data is stored as long as your account is active and necessary for the purposes described above. Compliance data (form submissions, evidence, audit trail) is retained for the legally required period. When you delete your account, personal data is removed. Anonymized audit trail entries may be retained.",
+        "erasure": "When your account is deleted, we email you a confirmation of what was deleted, sent through our email provider Resend (Art. 12(3) GDPR). We keep a record of the erasure (name, email address, organization, case reference and what was deleted) to show that we honoured the request (Art. 5(2) GDPR). The email address is removed from it after three years."
       },
       "changes": {
         "heading": "Changes to This Policy",
