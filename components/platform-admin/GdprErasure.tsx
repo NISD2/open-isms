@@ -340,6 +340,7 @@ export function ErasuresPanel() {
                   <th className="pb-2 pr-4 font-medium">Case</th>
                   <th className="pb-2 pr-4 font-medium">Subject</th>
                   <th className="pb-2 pr-4 font-medium">Method</th>
+                  <th className="pb-2 pr-4 font-medium">People</th>
                   <th className="pb-2 pr-4 font-medium">By</th>
                   <th className="pb-2 pr-4 font-medium">When</th>
                   <th className="pb-2 font-medium">Proof</th>
@@ -360,6 +361,7 @@ export function ErasuresPanel() {
                       {r.method === "hard_delete" ? "deleted" : "anonymised"}
                       {r.companyTornDown ? " + company" : ""}
                     </td>
+                    <td className="py-2 pr-4 tabular-nums">{r.people}</td>
                     <td className="py-2 pr-4 text-xs text-muted-foreground">
                       {r.actorEmail}
                     </td>
