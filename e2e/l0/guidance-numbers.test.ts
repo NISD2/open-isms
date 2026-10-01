@@ -78,6 +78,10 @@ const ALLOWED: Record<string, { values: string[]; why: string }> = {
     values: ["drei Jahre", "three years"],
     why: "This platform's own default review interval, and the sentence says so: §38(3) BSIG says 'regelmäßig' and the text tells the reader to set and justify their own.",
   },
+  "2.4": {
+    values: ["zwei Jahre", "two years"],
+    why: "BSI-Standard 200-2 recommends reviewing the security policy 'spätestens alle zwei Jahre'; the sentence attributes it to the BSI and says a yearly cycle binds only CIR providers (CIR Annex 1.1.2).",
+  },
   "12.1": {
     values: [
       "50 Millionen Euro",
