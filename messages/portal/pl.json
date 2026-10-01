@@ -13,6 +13,26 @@
     "billing": "Rozliczenia",
     "defaultUser": "Użytkownik",
     "signOut": "Wyloguj się",
+    "deleteAccount": {
+      "menuItem": "Usuń konto",
+      "title": "Usuń konto na stałe",
+      "description": "Tej operacji nie można cofnąć.",
+      "whatAccount": "Twoje konto i wszystkie powiązane z nim dane osobowe zostaną usunięte.",
+      "whatOrganization": "Twoja organizacja {name} zostanie usunięta wraz ze wszystkimi danymi, łącznie z przesłanymi plikami.",
+      "whatEmail": "Potwierdzenie usunięcia trafi następnie na adres {email}.",
+      "confirmLabel": "Aby potwierdzić, wpisz swój adres e-mail:",
+      "confirm": "Usuń na stałe",
+      "cancel": "Anuluj",
+      "signInAgain": "Zaloguj się ponownie",
+      "failed": "Nie udało się teraz usunąć konta. Spróbuj ponownie później lub napisz na contact@nisd2.eu.",
+      "refused": {
+        "reauth": "Dla bezpieczeństwa zaloguj się ponownie, zanim usuniesz konto. Potem wrócisz tutaj.",
+        "platform_admin": "Administratorzy platformy nie mogą tutaj usunąć swojego konta.",
+        "several_organizations": "Do Ciebie należy kilka organizacji. Napisz na contact@nisd2.eu, a usuniemy konto razem z Tobą.",
+        "billing": "Do Twojego konta są przypisane faktury lub zamówienie w trakcie weryfikacji albo Twoje konto płaci za inną organizację. Faktury musimy przechowywać. Napisz na contact@nisd2.eu, a usuniemy konto razem z Tobą.",
+        "other_members": "Twoja organizacja ma innych członków, a usunięcie Twojego konta usunęłoby organizację wraz z ich pracą. Najpierw usuń pozostałych członków albo napisz na contact@nisd2.eu."
+      }
+    },
     "organizations": "Organizacje",
     "addOrganization": "Dodaj kolejną organizację",
     "untitledOrganization": "Nowa organizacja (jeszcze nieskonfigurowana)",

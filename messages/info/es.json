@@ -858,7 +858,8 @@
       },
       "retention": {
         "heading": "Conservación de los datos",
-        "p1": "Sus datos se almacenan mientras su cuenta esté activa y sea necesario para las finalidades descritas anteriormente. Los datos de cumplimiento (envíos de formularios, evidencias, registro de auditoría) se conservan durante el periodo legalmente exigido. Cuando elimina su cuenta, los datos personales se suprimen. Las entradas anonimizadas del registro de auditoría pueden conservarse."
+        "p1": "Sus datos se almacenan mientras su cuenta esté activa y sea necesario para las finalidades descritas anteriormente. Los datos de cumplimiento (envíos de formularios, evidencias, registro de auditoría) se conservan durante el periodo legalmente exigido. Cuando elimina su cuenta, los datos personales se suprimen. Las entradas anonimizadas del registro de auditoría pueden conservarse.",
+        "erasure": "Cuando se elimina su cuenta, le enviamos por correo electrónico una confirmación de lo que se ha eliminado, a través de nuestro proveedor de correo electrónico Resend (Art. 12(3) GDPR). Conservamos un registro de la supresión (nombre, dirección de correo electrónico, organización, número de expediente y lo que se ha eliminado) para demostrar que hemos atendido la solicitud (Art. 5(2) GDPR). La dirección de correo electrónico se borra de este registro al cabo de tres años."
       },
       "changes": {
         "heading": "Cambios en esta política",

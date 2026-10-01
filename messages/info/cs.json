@@ -858,7 +858,8 @@
       },
       "retention": {
         "heading": "Doba uchovávání údajů",
-        "p1": "Vaše údaje jsou uchovávány po dobu, kdy je váš účet aktivní a nezbytný pro výše uvedené účely. Údaje o shodě (odeslané formuláře, důkazy, auditní stopa) jsou uchovávány po zákonem požadovanou dobu. Při smazání účtu jsou osobní údaje odstraněny. Anonymizované záznamy auditní stopy mohou být uchovány."
+        "p1": "Vaše údaje jsou uchovávány po dobu, kdy je váš účet aktivní a nezbytný pro výše uvedené účely. Údaje o shodě (odeslané formuláře, důkazy, auditní stopa) jsou uchovávány po zákonem požadovanou dobu. Při smazání účtu jsou osobní údaje odstraněny. Anonymizované záznamy auditní stopy mohou být uchovány.",
+        "erasure": "Pokud je váš účet smazán, pošleme vám prostřednictvím našeho poskytovatele e-mailových služeb Resend e-mail s potvrzením, co bylo smazáno (čl. 12 odst. 3 GDPR). Uchováváme záznam o výmazu (jméno, e-mailová adresa, organizace, číslo případu a co bylo smazáno), abychom mohli doložit, že jsme žádosti vyhověli (čl. 5 odst. 2 GDPR). E-mailovou adresu z něj po třech letech odstraníme."
       },
       "changes": {
         "heading": "Změny těchto zásad",

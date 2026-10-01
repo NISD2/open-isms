@@ -13,6 +13,26 @@
     "billing": "Fakturace",
     "defaultUser": "Uživatel",
     "signOut": "Odhlásit se",
+    "deleteAccount": {
+      "menuItem": "Smazat účet",
+      "title": "Trvale smazat účet",
+      "description": "Tuto akci nelze vrátit zpět.",
+      "whatAccount": "Váš účet a všechny osobní údaje v něm budou smazány.",
+      "whatOrganization": "Vaše organizace {name} bude smazána se všemi svými daty, včetně nahraných souborů.",
+      "whatEmail": "Potvrzení o výmazu pak přijde na {email}.",
+      "confirmLabel": "Pro potvrzení zadejte svou e-mailovou adresu:",
+      "confirm": "Trvale smazat",
+      "cancel": "Zrušit",
+      "signInAgain": "Znovu se přihlásit",
+      "failed": "Účet se teď nepodařilo smazat. Zkuste to prosím později znovu nebo napište na contact@nisd2.eu.",
+      "refused": {
+        "reauth": "Z bezpečnostních důvodů se prosím před smazáním účtu znovu přihlaste. Poté se sem vrátíte.",
+        "platform_admin": "Administrátoři platformy zde nemohou smazat svůj účet.",
+        "several_organizations": "Vlastníte několik organizací. Napište na contact@nisd2.eu a účet smažeme společně s vámi.",
+        "billing": "Váš účet má faktury nebo objednávku, která se právě kontroluje, nebo platí za jinou organizaci. Faktury musíme uchovávat. Napište na contact@nisd2.eu a účet smažeme společně s vámi.",
+        "other_members": "Vaše organizace má další členy a smazáním vašeho účtu by se smazala i organizace s jejich prací. Nejprve odeberte ostatní členy nebo napište na contact@nisd2.eu."
+      }
+    },
     "organizations": "Organizace",
     "addOrganization": "Přidat další organizaci",
     "untitledOrganization": "Nová organizace (zatím nenastavená)",
