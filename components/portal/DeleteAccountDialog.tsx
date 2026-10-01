@@ -40,9 +40,23 @@ export function DeleteAccountDialog({
   });
   const matches = typed.trim().toLowerCase() === email.trim().toLowerCase();
   const answer = check.data;
+  // The rules are decided again at deletion; a refusal then names its reason like the check does.
+  const refusedNow =
+    remove.error?.data?.code === "FORBIDDEN" && t.has(`refused.${remove.error.message}`)
+      ? t(`refused.${remove.error.message}`)
+      : null;
+
+  const close = (next: boolean) => {
+    if (remove.isPending) return;
+    if (!next) {
+      setTyped("");
+      remove.reset();
+    }
+    onOpenChange(next);
+  };
 
   return (
-    <Dialog open={open} onOpenChange={(next) => !remove.isPending && onOpenChange(next)}>
+    <Dialog open={open} onOpenChange={close}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>{t("title")}</DialogTitle>
@@ -50,9 +64,16 @@ export function DeleteAccountDialog({
         </DialogHeader>
 
         {!answer ? (
-          <div className="flex justify-center py-6">
-            <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" aria-hidden />
-          </div>
+          check.isError ? (
+            <p className="text-muted-foreground text-sm">{t("failed")}</p>
+          ) : (
+            <div className="flex justify-center py-6">
+              <Loader2
+                className="h-5 w-5 animate-spin text-muted-foreground"
+                aria-hidden
+              />
+            </div>
+          )
         ) : answer.allowed ? (
           <div className="space-y-4 text-sm">
             <ul className="list-disc space-y-1.5 pl-5 text-muted-foreground">
@@ -79,7 +100,9 @@ export function DeleteAccountDialog({
                 disabled={remove.isPending}
               />
             </div>
-            {remove.error ? <p className="text-destructive">{t("failed")}</p> : null}
+            {remove.error ? (
+              <p className="text-destructive">{refusedNow ?? t("failed")}</p>
+            ) : null}
           </div>
         ) : (
           <p className="text-muted-foreground text-sm">{t(`refused.${answer.reason}`)}</p>
@@ -88,7 +111,7 @@ export function DeleteAccountDialog({
         <DialogFooter>
           <Button
             variant="outline"
-            onClick={() => onOpenChange(false)}
+            onClick={() => close(false)}
             disabled={remove.isPending}
           >
             {t("cancel")}

@@ -9,6 +9,7 @@ import { getAppUrl } from "@/lib/utils";
 import { loadEmailConsent } from "./consent";
 import type { UngatedEmailTypeId, UserConsentEmailTypeId } from "./email-types";
 import { recordEmailFailure } from "./failure-log";
+import { maskAddressesIn } from "./mask-address";
 import { FROM_EMAIL, FROM_NAME } from "./resend";
 import { WelcomeEmail } from "./templates/WelcomeEmail";
 import { configuredTransport, type MailAttachment, sendViaTransport } from "./transport";
@@ -47,6 +48,12 @@ interface BaseMailOptions {
   idempotencyKey?: string;
   /** Files sent with the message, such as an invoice PDF. */
   attachments?: readonly MailAttachment[];
+  /**
+   * What a failure record names instead of the recipient's address. For mail to a person whose
+   * data has just been erased: the record is written after the erasure, so the address in it would
+   * outlive the erasure.
+   */
+  failureLabel?: string;
 }
 
 /**
@@ -84,6 +91,12 @@ export type SendSkippedReason = "opted-out";
 
 const MAX_RETRIES = 2;
 const RETRY_DELAY_MS = 1000;
+
+/** A transport error for the log, with any address in it masked: refusals often quote it. */
+const maskedError = (error: unknown): string =>
+  maskAddressesIn(
+    error instanceof Error ? `${error.name}: ${error.message}` : String(error),
+  );
 
 function wait(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -188,7 +201,7 @@ export async function sendMail(opts: SendMailOptions) {
       if (!result.ok) {
         console.error(
           `[mail] Attempt ${attempt + 1}/${MAX_RETRIES + 1} failed:`,
-          result.error,
+          maskedError(result.error),
         );
         if (attempt < MAX_RETRIES) {
           await wait(RETRY_DELAY_MS * (attempt + 1));
@@ -199,7 +212,10 @@ export async function sendMail(opts: SendMailOptions) {
 
       return { success: true, id: result.id } as const;
     } catch (err) {
-      console.error(`[mail] Attempt ${attempt + 1}/${MAX_RETRIES + 1} threw:`, err);
+      console.error(
+        `[mail] Attempt ${attempt + 1}/${MAX_RETRIES + 1} threw:`,
+        maskedError(err),
+      );
       if (attempt < MAX_RETRIES) {
         await wait(RETRY_DELAY_MS * (attempt + 1));
         continue;
@@ -223,7 +239,8 @@ export async function sendMail(opts: SendMailOptions) {
 async function failed(opts: SendMailOptions, error: unknown) {
   await recordEmailFailure({
     emailType: opts.emailType,
-    recipient: Array.isArray(opts.to) ? opts.to.join(", ") : opts.to,
+    recipient:
+      opts.failureLabel ?? (Array.isArray(opts.to) ? opts.to.join(", ") : opts.to),
     error,
     userId: opts.recipientUserId ?? null,
   });

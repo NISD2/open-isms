@@ -136,4 +136,21 @@ describe("buildErasureCertificate", () => {
     const text = buildErasureCertificate(row(false), { kind: "not_applicable" });
     expect(text).toContain("the operator confirmed the target account");
   });
+
+  test("the operator's address never reaches the copy sent to the person", () => {
+    const text = buildErasureCertificate(row(false), { kind: "not_applicable" });
+    expect(text).not.toContain("operator@example.test");
+    expect(text).toContain("by an operator of nisd2.eu");
+  });
+
+  test("a company name cannot carry a link or an image into the file", () => {
+    const named = {
+      ...row(false),
+      companyName: "Kunde ![x](https://t.example/p.png) [klick](https://evil.example)",
+    };
+    const text = buildErasureCertificate(named, { kind: "not_applicable" });
+    // Only an unescaped "](" opens a link target.
+    expect(text).not.toMatch(/(?<!\\)\]\(/);
+    expect(text).toContain("\\[klick\\]");
+  });
 });

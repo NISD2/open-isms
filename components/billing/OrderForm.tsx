@@ -106,15 +106,19 @@ export function OrderForm({
     defaultValues: orderDefaults(locale),
   });
   const values = useWatch({ control: form.control });
-  // A price quoted for another VAT number is not this invoice's price.
+  // A price quoted for another VAT number is not this invoice's price. Numbers are compared trimmed,
+  // as they are quoted, so a pasted trailing space does not hide the price at the last click.
   const quotedPrice =
-    quote.variables?.vatNumber === values.vatNumber ? quote.data?.price : undefined;
+    quote.variables?.vatNumber === values.vatNumber?.trim()
+      ? quote.data?.price
+      : undefined;
   // Outside the order schema, which the platform admin close shares: only a customer ticks it.
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [termsMissing, setTermsMissing] = useState(false);
 
-  const checkVat = (vatNumber: string) => {
-    if (vatNumber.trim().length < 4) return;
+  const checkVat = (typed: string) => {
+    const vatNumber = typed.trim();
+    if (vatNumber.length < 4) return;
     // A register outage never surfaces: the quote still answers, only without a confirmation.
     // Only the quote call itself failing is shown (below), because ordering waits on it.
     quote.mutate({ vatNumber, countryCode: form.getValues("countryCode") });
@@ -126,14 +130,13 @@ export function OrderForm({
       return;
     }
     const order = orderSchemaWithVatCheck.parse(values);
+    const vatNumber = values.vatNumber.trim();
     // Only a price quoted for this very number counts as the one they saw.
     const quoted =
-      quote.variables?.vatNumber === values.vatNumber
-        ? quote.data?.price.grossCents
-        : undefined;
+      quote.variables?.vatNumber === vatNumber ? quote.data?.price.grossCents : undefined;
     // No price shown yet (Enter pressed inside the VAT field): show it first, order on the next click.
     if (quoted === undefined) {
-      quote.mutate({ vatNumber: values.vatNumber, countryCode: values.countryCode });
+      quote.mutate({ vatNumber, countryCode: values.countryCode });
       return;
     }
     place.mutate({

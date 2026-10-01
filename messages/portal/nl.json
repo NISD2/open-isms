@@ -27,7 +27,7 @@
       "refused": {
         "platform_admin": "Platformbeheerders kunnen hun account hier niet verwijderen.",
         "several_organizations": "U bent eigenaar van meerdere organisaties. Schrijf naar contact@nisd2.eu, dan verwijderen we het account samen met u.",
-        "running_licence": "Voor uw account loopt een betaalde licentie, of een bestelling wordt nog gecontroleerd. Schrijf naar contact@nisd2.eu, dan regelen wij account en factuur.",
+        "billing": "Bij uw account horen facturen, een bestelling die wordt gecontroleerd, of het betaalt voor een andere organisatie. Facturen moeten wij bewaren. Schrijf naar contact@nisd2.eu, dan verwijderen we het account samen met u.",
         "other_members": "Uw organisatie heeft andere leden, en met uw account zou de organisatie met hun werk worden verwijderd. Verwijder eerst de andere leden, of schrijf naar contact@nisd2.eu."
       }
     },

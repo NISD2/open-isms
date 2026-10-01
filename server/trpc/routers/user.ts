@@ -4,15 +4,24 @@ import { z } from "zod";
 import { logAudit } from "@/lib/audit";
 import type { DbOrTx } from "@/lib/db";
 import { SELF_SERVICE_ACTOR, SELF_SERVICE_CHANNEL } from "@/lib/gdpr/certificate";
-import { eraseUser } from "@/lib/gdpr/erase-user";
-import { selfErasureCheck } from "@/lib/gdpr/self-erasure";
+import { ErasureRefused, eraseUser } from "@/lib/gdpr/erase-user";
+import {
+  assertSelfErasureAllowed,
+  SelfErasureRefused,
+  selfErasureCheck,
+} from "@/lib/gdpr/self-erasure";
 import { sendErasureCertificate } from "@/lib/gdpr/send-certificate";
 import { isLocaleCode } from "@/lib/locale";
 import { HINT_COLUMN, HINTS } from "@/lib/onboarding/hints";
 import { rateLimit } from "@/lib/rate-limit";
 import { user } from "@/schema";
 import { userUpdateSchema } from "@/schema/validators";
-import { protectedProcedure, publicProcedure, router } from "../init";
+import {
+  protectedProcedure,
+  publicProcedure,
+  router,
+  selfErasureProcedure,
+} from "../init";
 
 export const userRouter = router({
   /**
@@ -105,9 +114,11 @@ export const userRouter = router({
   /**
    * Deletes the signed-in person's own account for good (Art. 17 GDPR) and emails them the
    * certificate. The typed email is the confirmation; the rules are decided again here, never taken
-   * from the dialog. No audit row names them: the user is gone, and the erasure record is the trail.
+   * from the dialog. The one audit row carries the case reference and nothing that identifies the
+   * person (no user id, address, IP or browser): it is written after the erasure has scrubbed the
+   * trail, and the erasure record is where they are named, for as long as that is kept.
    */
-  deleteAccount: protectedProcedure
+  deleteAccount: selfErasureProcedure
     .input(z.object({ confirmEmail: z.string().max(320) }))
     .mutation(async ({ ctx, input }) => {
       const email = await ownEmail(ctx.db, ctx.userId);
@@ -120,11 +131,6 @@ export const userRouter = router({
       if (!(await rateLimit(`self-erase:${ctx.userId}`, 3, 60 * 60 * 1000))) {
         throw new TRPCError({ code: "TOO_MANY_REQUESTS", message: "Too many attempts." });
       }
-      const check = await selfErasureCheck(ctx.db, { userId: ctx.userId, email });
-      if (!check.allowed) {
-        throw new TRPCError({ code: "FORBIDDEN", message: check.reason });
-      }
-
       const result = await eraseUser({
         userId: ctx.userId,
         actor: { userId: null, email: SELF_SERVICE_ACTOR },
@@ -134,16 +140,26 @@ export const userRouter = router({
           rightsInvoked: "Right to erasure (Art. 17)",
           notes: null,
         },
+        guard: assertSelfErasureAllowed({ userId: ctx.userId, email }),
+      }).catch((err: unknown) => {
+        // The reason is the dialog's message key (portal.deleteAccount.refused).
+        if (err instanceof SelfErasureRefused) {
+          throw new TRPCError({ code: "FORBIDDEN", message: err.reason });
+        }
+        if (err instanceof ErasureRefused) {
+          throw new TRPCError({ code: "FORBIDDEN", message: "several_organizations" });
+        }
+        throw err;
       });
       await logAudit({
         companyId: null,
         userId: null,
         action: "gdpr.erase_user",
         entityType: "user",
-        entityId: ctx.userId,
+        entityId: null,
         description: `Account holder erased their own account (case ${result.caseRef}, method ${result.method}${result.companyTornDown ? ", company torn down" : ""})`,
-        ipAddress: ctx.ip,
-        userAgent: ctx.userAgent,
+        ipAddress: null,
+        userAgent: null,
       });
       const certificateSent = await sendErasureCertificate(ctx.db, {
         logId: result.logId,
