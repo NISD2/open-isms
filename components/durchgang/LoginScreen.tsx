@@ -84,10 +84,10 @@ export function Logins({
                 className="grid gap-3 px-5 py-4 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:items-center lg:gap-6"
               >
                 <div className="flex min-w-0 items-center gap-3 lg:flex-col lg:items-start lg:gap-1.5">
-                  <div className="min-w-0">
-                    <p className="truncate font-medium">{row.name}</p>
+                  <div className="min-w-0 flex-1 lg:flex-none">
+                    <p className="font-medium break-words">{row.name}</p>
                     {row.provider && (
-                      <p className="truncate text-sm text-muted-foreground">
+                      <p className="text-sm break-words text-muted-foreground">
                         {t("rate.providedBy", { name: row.provider })}
                       </p>
                     )}

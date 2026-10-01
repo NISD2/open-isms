@@ -46,7 +46,7 @@ export function RowLevel({
   return level ? (
     <LevelChip level={level} locale={locale} />
   ) : (
-    <span className="inline-flex h-9 items-center gap-1.5 rounded-md border border-dashed px-3 text-sm text-muted-foreground">
+    <span className="inline-flex h-9 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-md border border-dashed px-3 text-sm text-muted-foreground">
       <Minus className="size-3.5" />
       {t("unrated")}
     </span>
