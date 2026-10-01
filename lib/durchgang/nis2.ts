@@ -415,6 +415,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     screens: [
       { kind: "learn", id: "learn" },
       { kind: "compare", id: "fallback" },
+      { kind: "critical", id: "keep" },
       { kind: "fields", id: "lead", fields: ["crisisTeamLead"] },
       { kind: "policy", id: "plan", policy: "business_continuity" },
       { kind: "done", id: "done" },

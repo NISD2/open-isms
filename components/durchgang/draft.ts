@@ -38,12 +38,20 @@ export interface Draft {
     readonly types: readonly PolicyTemplate[];
     readonly day: string;
   };
+  /** Which processes must keep running without IT, and how, by asset id, changed on this visit. */
+  readonly critical: Readonly<Record<string, Critical>>;
 }
 
 /** A supplier's answer on 5.2: neither ticked means the person found nothing agreed. */
 export interface Agreed {
   readonly security: boolean;
   readonly incidents: boolean;
+}
+
+/** A process on 4.2: whether it must keep running without IT, and the line on how. */
+export interface Critical {
+  readonly on: boolean;
+  readonly how: string;
 }
 
 export type DraftUpdate = (next: Draft) => void;
@@ -99,6 +107,7 @@ export const initialDraft = (
   agreements: {},
   logins: {},
   approval: { types: [], day: "" },
+  critical: {},
 });
 
 /** A rating with both scales chosen, or null. */

@@ -55,7 +55,7 @@ const CONCEPTS = [
   },
   {
     code: "4.2",
-    screen: 3,
+    screen: 4,
     type: "business_continuity",
     editors: [],
     title: "Notfallplan für den Betrieb der",

@@ -25,6 +25,7 @@
         "policy": "Vorlage",
         "approve": "Freigeben",
         "riskmap": "Überblick",
+        "critical": "Festlegen",
         "done": "Erledigt"
       },
       "where": "{section} · Schritt {step} von {total}",
@@ -192,6 +193,9 @@
         "byLevel": "Nach Stufe",
         "empty": "Noch ist nichts bewertet. Sie bewerten Ihre Programme, Technik und Lieferanten in Schritt 2.3.",
         "several": "{count, plural, one {Ein Eintrag hat} other {# Einträge haben}} mehrere Risiken im Risikoregister. Sie stehen nur in der Liste, mit ihrer höchsten Stufe."
+      },
+      "critical": {
+        "empty": "Noch steht kein Ablauf auf Ihrer Liste. Sie tragen Ihre Abläufe in Schritt 2.2 ein."
       },
       "thresholds": {
         "important": "Wichtige Einrichtung",
@@ -1657,6 +1661,13 @@
               "note": "Bis dahin gehen keine Aufträge ein, und niemand weiß, wie lange das dauert."
             }
           },
+          "keep": {
+            "title": "Was weiterlaufen muss",
+            "lead": "Das sind die Abläufe von Ihrer Liste. Kreuzen Sie an, was auch ohne IT weiterlaufen muss, und schreiben Sie in einem Satz dazu, wie. Beides steht dann in Ihrem Plan.",
+            "keep": "Muss weiterlaufen",
+            "how": "So geht es ohne IT weiter",
+            "example": "zum Beispiel: Aufträge per Telefon und auf Papierformularen"
+          },
           "lead": {
             "title": "Wer die Krise leitet",
             "lead": "Wählen Sie eine Person, die auch über Geld, Kunden und Personal entscheiden darf, etwa aus der Geschäftsführung. Wer einen IT-Sicherheitsvorfall leitet, berichtet ihr, sobald der Betrieb steht.",
@@ -1664,7 +1675,7 @@
           },
           "plan": {
             "title": "Ihr Notfallplan für den Betrieb",
-            "lead": "Die Vorlage enthält feste Abschnitte zu Leitung, Notbetrieb, Wiederherstellung und Information, und Ihr Firmenname und die Leitung stehen schon darin. Zwei Zeilen füllen Sie von Hand aus: welche Abläufe weiterlaufen müssen und in welcher Reihenfolge die Systeme zurückkommen.",
+            "lead": "Die Vorlage enthält feste Abschnitte zu Leitung, Notbetrieb, Wiederherstellung und Information. Ihr Firmenname, die Leitung, die Abläufe, die weiterlaufen müssen, und die Reihenfolge aus Ihrer Risikobewertung stehen schon darin.",
             "document": {
               "title": "Notfallplan für den Betrieb der {company}",
               "sections": [
@@ -1686,11 +1697,11 @@
                 },
                 {
                   "heading": "Notbetrieb",
-                  "text": "Diese Abläufe müssen weiterlaufen, auch ohne IT. Für jeden ist festgehalten, wie er weitergeht, etwa mit Telefon und Papier oder an einem anderen Ort: _______________"
+                  "text": "Diese Abläufe müssen weiterlaufen, auch ohne IT, und so gehen sie weiter: {criticalProcesses}"
                 },
                 {
                   "heading": "Wiederherstellung",
-                  "text": "Unser IT-Dienstleister oder unsere eigene IT stellt die Systeme aus den Datensicherungen wieder her. Ein System geht erst wieder in Betrieb, wenn es geprüft ist. Reihenfolge der Wiederherstellung: _______________"
+                  "text": "Unser IT-Dienstleister oder unsere eigene IT stellt die Systeme aus den Datensicherungen wieder her. Ein System geht erst wieder in Betrieb, wenn es geprüft ist. Die Reihenfolge folgt dem Schaden aus unserer Risikobewertung, der größte zuerst: {recoveryOrder}. Im Ernstfall kann die Leitung anders entscheiden."
                 },
                 {
                   "heading": "Informieren",
@@ -1744,7 +1755,7 @@
           },
           "done": {
             "title": "Ihr Notfallplan für den Betrieb steht",
-            "note": "Füllen Sie die beiden offenen Zeilen aus und legen Sie eine gedruckte Fassung neben den Notfallplan für IT-Sicherheitsvorfälle. Der Plan ist als Entwurf gespeichert. Am Ende sieht die Geschäftsführung alle Konzepte durch und gibt sie frei."
+            "note": "Legen Sie eine gedruckte Fassung neben den Notfallplan für IT-Sicherheitsvorfälle. Der Plan ist als Entwurf gespeichert. Am Ende sieht die Geschäftsführung alle Konzepte durch und gibt sie frei."
           }
         },
         "fields": {

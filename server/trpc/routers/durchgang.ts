@@ -10,21 +10,29 @@ import { FREQUENCIES, IMPACTS, type RiskLevel } from "@/lib/compliance/bsi-200-3
 import { invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
 import { getDefaultMethodology } from "@/lib/compliance/risk-methodology-defaults";
 import { seedLocale } from "@/lib/compliance/seed-locale";
+import type { DbOrTx } from "@/lib/db";
 import {
   type AnyScreen,
   agreementsNote,
   approvedNote,
   askedFields,
+  criticalNote,
+  criticalProcessesText,
   declinedNote,
   levelOf,
   loginsNote,
+  marker,
   methodNote,
   noteLine,
+  POLICY_LISTS,
+  type PolicyList,
   policyNames,
   policyText,
   policyTitle,
   ratingKey,
   ratingText,
+  recoveryOrder,
+  recoveryOrderText,
   resolveItem,
   SOURCE_IDS,
   SUPPLIER_LEVEL,
@@ -164,13 +172,82 @@ const policyScreenOf = (c: string, locale: "de" | "en") => {
   return screen;
 };
 
-/** The stored clause choice; the config column is JSON, so its shape is checked, not assumed. */
-const STORED_CLAUSES = z.object({ clauses: z.array(z.string()) });
+/**
+ * A walk-written policy's stored choices: the clauses, and for the continuity plan one line per
+ * process on how it goes on without IT, by asset id. The config column is JSON, so its shape is
+ * checked, not assumed; a part that does not parse reads as empty and leaves the rest.
+ */
+const STORED_CONFIG = z
+  .object({
+    clauses: z.array(z.string()).catch([]),
+    fallbacks: z.record(z.string(), z.string()).catch({}),
+  })
+  .catch({ clauses: [], fallbacks: {} });
+
+const storedConfigOf = async (db: DbOrTx, companyId: string, type: string) => {
+  const [row] = await db
+    .select({ config: companyPolicyConfig.config })
+    .from(companyPolicyConfig)
+    .where(
+      and(
+        eq(companyPolicyConfig.companyId, companyId),
+        eq(companyPolicyConfig.policyType, type),
+      ),
+    );
+  return STORED_CONFIG.parse(row?.config ?? {});
+};
+
+/**
+ * What a plan's list names stand for, read off the company's own rows: the processes marked
+ * `is_critical` with their line, and the systems in the order their 2.3 ratings give.
+ */
+const policyListsOf = async (
+  db: DbOrTx,
+  companyId: string,
+  fallbacks: Readonly<Record<string, string>>,
+): Promise<Record<PolicyList, string>> => {
+  const [assets, links] = await Promise.all([
+    db
+      .select({
+        id: asset.id,
+        name: asset.name,
+        type: asset.type,
+        isCritical: asset.isCritical,
+      })
+      .from(asset)
+      .where(eq(asset.companyId, companyId))
+      .orderBy(asset.name),
+    db
+      .select({
+        id: risk.id,
+        likelihood: risk.likelihood,
+        impact: risk.impact,
+        assetId: riskAsset.assetId,
+      })
+      .from(riskAsset)
+      .innerJoin(risk, eq(risk.id, riskAsset.riskId))
+      .where(eq(risk.companyId, companyId)),
+  ]);
+  return {
+    criticalProcesses: criticalProcessesText(
+      assets
+        .filter((a) => a.type === "process" && a.isCritical)
+        .map((a) => ({ name: a.name, how: fallbacks[a.id] ?? "" })),
+    ),
+    recoveryOrder: recoveryOrderText(
+      recoveryOrder(
+        assets,
+        links.map((l) => ({ ...l, linked: [l.assetId] })),
+      ),
+    ),
+  };
+};
 
 /**
  * A policy as the walk writes it for this company: the template in the record language, the
- * company's name and the clauses chosen so far. The screen shows exactly this, so the text that
- * is printed and signed is the text that is stored.
+ * company's name, the clauses chosen so far and, where the template names them, the lists read
+ * off the company's rows. The screen shows exactly this, so the text that is printed and signed
+ * is the text that is stored.
  */
 const policyDraftOf = async (
   ctx: { db: TRPCContext["db"]; companyId: string; userId: string },
@@ -179,28 +256,25 @@ const policyDraftOf = async (
   const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
   const screen = policyScreenOf(c, locale);
   const type = screen.screen.policy;
-  const [org, [config]] = await Promise.all([
+  const document = screen.copy.document;
+  const [org, stored] = await Promise.all([
     ctx.db.query.company.findFirst({
       where: eq(company.id, ctx.companyId),
       columns: { name: true },
     }),
-    ctx.db
-      .select({ config: companyPolicyConfig.config })
-      .from(companyPolicyConfig)
-      .where(
-        and(
-          eq(companyPolicyConfig.companyId, ctx.companyId),
-          eq(companyPolicyConfig.policyType, type),
-        ),
-      ),
+    storedConfigOf(ctx.db, ctx.companyId, type),
   ]);
   if (!org) throw new TRPCError({ code: "NOT_FOUND" });
-  const stored = STORED_CLAUSES.safeParse(config?.config);
+  const usesLists = POLICY_LISTS.some((name) =>
+    JSON.stringify(document).includes(marker(name)),
+  );
   return {
     type,
-    document: screen.copy.document,
+    document,
     company: org.name,
-    clauses: stored.success ? stored.data.clauses : [],
+    clauses: stored.clauses,
+    fallbacks: stored.fallbacks,
+    lists: usesLists ? await policyListsOf(ctx.db, ctx.companyId, stored.fallbacks) : {},
   };
 };
 
@@ -1048,7 +1122,117 @@ export const durchgangRouter = router({
     .input(z.object({ code }))
     .query(async ({ ctx, input }) => {
       const draft = await policyDraftOf(ctx, input.code);
-      return { document: draft.document, company: draft.company, clauses: draft.clauses };
+      return {
+        document: draft.document,
+        company: draft.company,
+        clauses: draft.clauses,
+        fallbacks: draft.fallbacks,
+        lists: draft.lists,
+      };
+    }),
+
+  /**
+   * 4.2: which of the company's business processes must keep running without IT. The mark is
+   * the asset's own column (`is_critical`), written only on the company's process assets and only
+   * where it changed. The one-line fallback per process has no column; it is kept with the plan's
+   * other choices in the plan's policy config, which the plan prints.
+   */
+  recordCritical: durchgangWrite
+    .input(
+      z.object({
+        code,
+        rows: z
+          .array(
+            z.object({
+              assetId: z.string().uuid(),
+              critical: z.boolean(),
+              how: z.string().trim().max(300),
+            }),
+          )
+          .min(1)
+          .max(200),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const screens: readonly AnyScreen[] = itemOf(input.code).screens;
+      if (!screens.some((s) => s.kind === "critical")) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: `${input.code} marks no processes.`,
+        });
+      }
+      const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
+      const type = policyTypeOf(input.code);
+      const rows = [...new Map(input.rows.map((r) => [r.assetId, r])).values()];
+      const ids = rows.map((r) => r.assetId);
+
+      const result = await ctx.db.transaction(async (tx) => {
+        const owned = await tx
+          .select({ id: asset.id, name: asset.name, isCritical: asset.isCritical })
+          .from(asset)
+          .where(
+            and(
+              eq(asset.companyId, ctx.companyId),
+              eq(asset.type, "process"),
+              inArray(asset.id, ids),
+            ),
+          )
+          .for("update");
+        if (owned.length !== ids.length) throw new TRPCError({ code: "NOT_FOUND" });
+
+        const before = new Map(owned.map((a) => [a.id, a]));
+        const changed = rows.filter(
+          (row) => row.critical !== Boolean(before.get(row.assetId)?.isCritical),
+        );
+        for (const row of changed) {
+          await tx
+            .update(asset)
+            .set({ isCritical: row.critical, updatedAt: new Date() })
+            .where(and(eq(asset.id, row.assetId), eq(asset.companyId, ctx.companyId)));
+        }
+
+        const stored = await storedConfigOf(tx, ctx.companyId, type);
+        const config = {
+          ...stored,
+          fallbacks: Object.fromEntries([
+            ...Object.entries(stored.fallbacks).filter(([id]) => !ids.includes(id)),
+            ...rows.flatMap((row) =>
+              row.critical && row.how ? [[row.assetId, row.how] as const] : [],
+            ),
+          ]),
+        };
+        await tx
+          .insert(companyPolicyConfig)
+          .values({ companyId: ctx.companyId, policyType: type, config })
+          .onConflictDoUpdate({
+            target: [companyPolicyConfig.companyId, companyPolicyConfig.policyType],
+            set: { config, updatedAt: new Date() },
+          });
+        return {
+          changed: changed.length,
+          critical: rows.flatMap((row) =>
+            row.critical ? [before.get(row.assetId)?.name ?? ""] : [],
+          ),
+        };
+      });
+
+      const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
+      await appendNote(
+        ctx.db,
+        ref.statusId,
+        noteLine(new Date(), criticalNote(locale, result.critical)),
+      );
+      await logAudit({
+        companyId: ctx.companyId,
+        userId: ctx.userId,
+        action: "durchgang.critical",
+        entityType: "requirement",
+        entityId: ref.requirementId,
+        description: `${ref.code} processes that must keep running checked`,
+        newValue: { checked: rows.length, changed: result.changed },
+      });
+      if (result.changed > 0) recheck(ctx, "asset");
+      return { changed: result.changed };
     }),
 
   /**
@@ -1081,14 +1265,18 @@ export const durchgangRouter = router({
       const known = new Set(draft.document.clauses.map((c) => c.id));
       const clauses = (input.clauses ?? draft.clauses).filter((id) => known.has(id));
       // The answers as saved: the queue stores a screen's answers before the policy after it.
-      const names = policyNames(
-        draft.company,
-        askedFields(itemOf(input.code)),
-        intake?.answers ?? {},
-      );
+      const names = {
+        ...policyNames(
+          draft.company,
+          askedFields(itemOf(input.code)),
+          intake?.answers ?? {},
+        ),
+        ...draft.lists,
+      };
       const title = policyTitle(draft.document, names);
       const content = policyText(draft.document, clauses, names);
       const { type } = draft;
+      const config = { clauses, fallbacks: draft.fallbacks };
 
       const changed = await ctx.db.transaction(async (tx) => {
         // One writer per company at a time, so two tabs add the policy once.
@@ -1100,10 +1288,10 @@ export const durchgangRouter = router({
         if (input.clauses !== null) {
           await tx
             .insert(companyPolicyConfig)
-            .values({ companyId: ctx.companyId, policyType: type, config: { clauses } })
+            .values({ companyId: ctx.companyId, policyType: type, config })
             .onConflictDoUpdate({
               target: [companyPolicyConfig.companyId, companyPolicyConfig.policyType],
-              set: { config: { clauses }, updatedAt: new Date() },
+              set: { config, updatedAt: new Date() },
             });
         }
         const [stored] = await tx

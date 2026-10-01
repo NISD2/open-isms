@@ -1,5 +1,28 @@
 import { expect, test } from "bun:test";
-import { BLANK, policyNames, policyParts, policyText, policyTitle } from "./policy";
+import {
+  BLANK,
+  criticalProcessesText,
+  policyNames,
+  policyParts,
+  policyText,
+  policyTitle,
+  recoveryOrderText,
+} from "./policy";
+
+test("prints the processes that must keep running with their line, and a blank for none", () => {
+  expect(
+    criticalProcessesText([
+      { name: "Vertrieb", how: " Aufträge per Telefon " },
+      { name: "Buchhaltung", how: "" },
+    ]),
+  ).toBe("Vertrieb: Aufträge per Telefon; Buchhaltung");
+  expect(criticalProcessesText([])).toBe(BLANK);
+});
+
+test("numbers the systems in recovery order, and a blank for none", () => {
+  expect(recoveryOrderText(["ERP", "E-Mail"])).toBe("1. ERP, 2. E-Mail");
+  expect(recoveryOrderText([])).toBe(BLANK);
+});
 
 const document = {
   title: "Leitlinie der {company}",

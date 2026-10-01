@@ -16,6 +16,7 @@ import {
   Grid3x3,
   Handshake,
   KeyRound,
+  LifeBuoy,
   Lightbulb,
   ListChecks,
   type LucideIcon,
@@ -41,6 +42,7 @@ import { type ItemState, resumeAt, type ScreenKind } from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
 import { Agreements } from "./AgreementScreen";
 import { Approve } from "./ApproveScreen";
+import { CriticalScreen } from "./CriticalScreen";
 import { Compare, Learn, Prepare, Provision, Reading, Sample } from "./ExplainScreens";
 import { Logins } from "./LoginScreen";
 import { PolicyScreen } from "./PolicyScreen";
@@ -75,6 +77,7 @@ const KIND_ICON: Readonly<Record<ScreenKind, LucideIcon>> = {
   policy: ScrollText,
   approve: BadgeCheck,
   riskmap: Grid3x3,
+  critical: LifeBuoy,
   done: CircleCheckBig,
 };
 
@@ -218,6 +221,8 @@ export function DurchgangItem({
         return <PolicyScreen {...work} entry={entry} />;
       case "approve":
         return <Approve {...work} entry={entry} />;
+      case "critical":
+        return <CriticalScreen {...work} entry={entry} />;
       case "riskmap":
         return <RiskMapScreen {...work} entry={entry} />;
       case "done":

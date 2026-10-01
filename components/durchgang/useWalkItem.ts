@@ -34,6 +34,7 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
   const writePolicy = trpc.durchgang.writePolicy.useMutation();
   const approvePolicy = trpc.durchgang.approvePolicy.useMutation();
   const approvePolicies = trpc.durchgang.approvePolicies.useMutation();
+  const recordCritical = trpc.durchgang.recordCritical.useMutation();
   const finish = trpc.durchgang.finish.useMutation();
   const utils = trpc.useUtils();
   const resume = trpc.durchgang.resume.useMutation();
@@ -170,6 +171,21 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
           await Promise.all([
             utils.durchgang.walkPolicies.invalidate(),
             utils.policy.list.invalidate(),
+          ]);
+        }
+        return;
+      }
+      case "critical": {
+        const rows = Object.entries(snapshot.critical).map(([assetId, value]) => ({
+          assetId,
+          critical: value.on,
+          how: value.how.trim(),
+        }));
+        if (rows.length > 0) {
+          await recordCritical.mutateAsync({ code: item.code, rows });
+          await Promise.all([
+            utils.asset.list.invalidate(),
+            utils.durchgang.policyDraft.invalidate(),
           ]);
         }
         return;

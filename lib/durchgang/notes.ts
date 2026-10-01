@@ -31,6 +31,10 @@ const TEXT = {
     password: "nur Passwort",
     approved: (day: string, titles: readonly string[]) =>
       `Von der Geschäftsführung freigegeben am ${day}: ${titles.join("; ")}.`,
+    critical: (names: readonly string[]) =>
+      names.length > 0
+        ? `Muss ohne IT weiterlaufen: ${names.join(", ")}.`
+        : "Abläufe geprüft: keiner muss ohne IT weiterlaufen.",
   },
   en: {
     waiting: (reason: string, note: string | null) =>
@@ -49,6 +53,10 @@ const TEXT = {
     password: "password only",
     approved: (day: string, titles: readonly string[]) =>
       `Approved by management on ${day}: ${titles.join("; ")}.`,
+    critical: (names: readonly string[]) =>
+      names.length > 0
+        ? `Must keep running without IT: ${names.join(", ")}.`
+        : "Processes checked: none must keep running without IT.",
   },
 } as const;
 
@@ -101,3 +109,7 @@ export const approvedNote = (
   day: string,
   titles: readonly string[],
 ) => TEXT[locale].approved(day, titles);
+
+/** The processes marked as having to keep running without IT, or that none was. */
+export const criticalNote = (locale: NoteLocale, names: readonly string[]) =>
+  TEXT[locale].critical(names);

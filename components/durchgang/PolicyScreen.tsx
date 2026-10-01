@@ -31,8 +31,11 @@ export function PolicyScreen({
   const policyDraft = trpc.durchgang.policyDraft.useQuery({ code: item.code });
   const policies = trpc.policy.list.useQuery();
   if (!policyDraft.data) return null;
-  const { document, company, clauses: stored } = policyDraft.data;
-  const names = policyNames(company, Object.keys(item.fields), draft.values);
+  const { document, company, clauses: stored, lists } = policyDraft.data;
+  const names = {
+    ...policyNames(company, Object.keys(item.fields), draft.values),
+    ...lists,
+  };
 
   const chosen = draft.clauses ?? stored;
   const approved = (policies.data ?? []).some(

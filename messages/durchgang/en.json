@@ -25,6 +25,7 @@
         "policy": "Template",
         "approve": "Approve",
         "riskmap": "Overview",
+        "critical": "Decide",
         "done": "Done"
       },
       "where": "{section} · Step {step} of {total}",
@@ -192,6 +193,9 @@
         "byLevel": "By level",
         "empty": "Nothing is rated yet. You rate your software, technology and suppliers in step 2.3.",
         "several": "{count, plural, one {One entry has} other {# entries have}} several risks in the risk register. They appear only in the list, at their highest level."
+      },
+      "critical": {
+        "empty": "No process is on your list yet. You add your processes in step 2.2."
       },
       "thresholds": {
         "important": "Important entity",
@@ -1657,6 +1661,13 @@
               "note": "Until then no orders come in, and nobody knows how long that takes."
             }
           },
+          "keep": {
+            "title": "What must keep running",
+            "lead": "These are the processes on your list. Tick what must keep running without IT too, and say in one sentence how. Both then appear in your plan.",
+            "keep": "Must keep running",
+            "how": "How it continues without IT",
+            "example": "for example: orders by phone and on paper forms"
+          },
           "lead": {
             "title": "Who leads the crisis",
             "lead": "Choose a person who may also decide about money, customers and staff, for example from management. Whoever leads an IT security incident reports to this person once operations stop.",
@@ -1664,7 +1675,7 @@
           },
           "plan": {
             "title": "Your business continuity plan",
-            "lead": "The template has fixed sections on leadership, emergency operation, recovery and informing people, and your company's name and the lead are already in it. You fill in two lines by hand: which processes must keep running, and in which order the systems come back.",
+            "lead": "The template has fixed sections on leadership, emergency operation, recovery and informing people. Your company's name, the lead, the processes that must keep running and the order from your risk assessment are already in it.",
             "document": {
               "title": "Business continuity plan of {company}",
               "sections": [
@@ -1686,11 +1697,11 @@
                 },
                 {
                   "heading": "Emergency operation",
-                  "text": "These processes must keep running, even without IT. For each one it is recorded how it continues, for example by phone and on paper or at another place: _______________"
+                  "text": "These processes must keep running, even without IT, and this is how they continue: {criticalProcesses}"
                 },
                 {
                   "heading": "Recovery",
-                  "text": "Our IT provider or our own IT restores the systems from the backups. A system goes back into use only once it has been checked. Order of recovery: _______________"
+                  "text": "Our IT provider or our own IT restores the systems from the backups. A system goes back into use only once it has been checked. The order follows the damage in our risk assessment, the largest first: {recoveryOrder}. In an emergency the lead can decide otherwise."
                 },
                 {
                   "heading": "Informing people",
@@ -1744,7 +1755,7 @@
           },
           "done": {
             "title": "Your business continuity plan is in place",
-            "note": "Fill in the two open lines and keep a printed copy next to the IT security incident plan. The plan is saved as a draft. At the end, management reviews all policies and approves them."
+            "note": "Keep a printed copy next to the IT security incident plan. The plan is saved as a draft. At the end, management reviews all policies and approves them."
           }
         },
         "fields": {

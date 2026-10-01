@@ -246,6 +246,36 @@ export const ratingKey = (kind: "asset" | "supplier", id: string): string =>
 const linkedTo = (risks: readonly LinkedRisk[], id: string) =>
   risks.filter((r) => r.linked.includes(id));
 
+/** Systems a company brings back after an outage: software and services, servers, the network. */
+const restores = (type: string): boolean =>
+  SOFTWARE.has(type) || type === "server" || type === "network";
+
+/**
+ * The systems in the order to bring them back, read off their 2.3 ratings: the largest damage
+ * first, then the more frequent, then by name. A system not rated with one 200-3 rating comes
+ * last, by name.
+ */
+export const recoveryOrder = (
+  assets: ReadonlyArray<Pick<ListedAsset, "id" | "name" | "type">>,
+  risks: readonly LinkedRisk[],
+): readonly string[] =>
+  assets
+    .filter((a) => restores(a.type))
+    .map((a) => {
+      const standing = standingOf(linkedTo(risks, a.id));
+      const rated = standing.kind === "rated" ? standing.rating : null;
+      return {
+        name: a.name,
+        impact: rated ? IMPACTS.indexOf(rated.impact) : -1,
+        frequency: rated ? FREQUENCIES.indexOf(rated.frequency) : -1,
+      };
+    })
+    .sort(
+      (a, b) =>
+        b.impact - a.impact || b.frequency - a.frequency || a.name.localeCompare(b.name),
+    )
+    .map((a) => a.name);
+
 /** The rows of one rating screen, each with who provides it or what it provides. */
 export function ratingRows(
   target: RatingTarget,

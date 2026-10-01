@@ -7,7 +7,13 @@
  */
 
 import { z } from "zod";
-import { type AnyItem, type AnyScreen, askedFields, type ScreenKind } from "./types";
+import {
+  type AnyItem,
+  type AnyScreen,
+  askedFields,
+  POLICY_LISTS,
+  type ScreenKind,
+} from "./types";
 
 const text = z.string().trim().min(1);
 const heading = { title: text, lead: text };
@@ -50,6 +56,8 @@ const SCREEN_COPY = {
   logins: z.object({ ...heading, mfa: text, password: text }),
   approve: z.object(heading),
   riskmap: z.object(heading),
+  /** The answer that a process must keep running, and the line for how it does without IT. */
+  critical: z.object({ ...heading, keep: text, how: text, example: text }),
   /**
    * The policy itself: its fixed sections, the clauses the person may add, and the signature
    * line. `{company}` stands for the company's name and `{<field>}` for the answer to one of the
@@ -303,6 +311,8 @@ function resolveScreen(
       return one(screen, SCREEN_COPY.approve);
     case "riskmap":
       return one(screen, SCREEN_COPY.riskmap);
+    case "critical":
+      return one(screen, SCREEN_COPY.critical);
     case "policy": {
       // A clause is chosen and stored by its id, so two clauses may not share one.
       const copy = one(screen, SCREEN_COPY.policy);
@@ -326,7 +336,11 @@ export function resolveItem(namespace: unknown, item: AnyItem): Result<ResolvedI
   const base = `items.${itemKey(item.code)}`;
   const terms = parse(TERMS, at(namespace, "terms"), "terms");
   if (!terms.ok) return terms;
-  const kept = [COMPANY_MARKER, ...askedFields(item).map(marker)];
+  const kept = [
+    COMPANY_MARKER,
+    ...askedFields(item).map(marker),
+    ...POLICY_LISTS.map(marker),
+  ];
   const filled = fill(
     at(at(namespace, "items"), itemKey(item.code)),
     terms.value,

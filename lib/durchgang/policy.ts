@@ -34,6 +34,18 @@ const answerText = (value: unknown): string =>
     ? BLANK
     : String(value).trim();
 
+/** The processes that must keep running as a plan prints them, each with how it goes on. */
+export const criticalProcessesText = (
+  rows: ReadonlyArray<{ readonly name: string; readonly how: string }>,
+): string =>
+  rows.length === 0
+    ? BLANK
+    : rows.map((r) => (r.how.trim() ? `${r.name}: ${r.how.trim()}` : r.name)).join("; ");
+
+/** The systems in the order a plan brings them back, numbered. */
+export const recoveryOrderText = (names: readonly string[]): string =>
+  names.length === 0 ? BLANK : names.map((name, i) => `${i + 1}. ${name}`).join(", ");
+
 /** The names a policy is written with: the company's, and every asked field's answer or a blank. */
 export const policyNames = (
   company: string,

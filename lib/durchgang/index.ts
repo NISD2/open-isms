@@ -8,11 +8,12 @@ import { NIS2_SCRIPT } from "./nis2";
 import type { AnyItem, AnyScreen, PolicyTemplate } from "./types";
 
 export type { ResolvedItem, ResolvedScreen } from "./copy";
-export { itemKey, resolveItem } from "./copy";
+export { itemKey, marker, resolveItem } from "./copy";
 export type { NoteLocale } from "./notes";
 export {
   agreementsNote,
   approvedNote,
+  criticalNote,
   declinedNote,
   loginsNote,
   methodNote,
@@ -22,11 +23,13 @@ export {
 } from "./notes";
 export type { PolicyDocument, PolicyPart } from "./policy";
 export {
+  criticalProcessesText,
   policyNames,
   policyParts,
   policySignature,
   policyText,
   policyTitle,
+  recoveryOrderText,
 } from "./policy";
 export type {
   AssetSlice,
@@ -48,6 +51,7 @@ export {
   ratingKey,
   ratingRows,
   ratingText,
+  recoveryOrder,
   SUPPLIER_LEVEL,
   signsIn,
   sliceOf,
@@ -68,6 +72,7 @@ export type {
   AnyItem,
   AnyScreen,
   LearnLink,
+  PolicyList,
   PolicyTemplate,
   Provision,
   RegisterModule,
@@ -75,7 +80,7 @@ export type {
   SourceId,
   TrainingAudience,
 } from "./types";
-export { askedFields, SOURCE_IDS } from "./types";
+export { askedFields, POLICY_LISTS, SOURCE_IDS } from "./types";
 
 const BY_CODE: ReadonlyMap<string, AnyItem> = new Map(
   NIS2_SCRIPT.map((i) => [i.code, i]),

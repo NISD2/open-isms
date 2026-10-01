@@ -55,6 +55,13 @@ export type LearnLink =
 export type Adoptable = "bsi_200_3_method";
 
 /**
+ * Names a policy may carry that the server reads off the company's own lists rather than off an
+ * answer: the processes that must keep running, and the order systems come back in.
+ */
+export const POLICY_LISTS = ["criticalProcesses", "recoveryOrder"] as const;
+export type PolicyList = (typeof POLICY_LISTS)[number];
+
+/**
  * A policy the walk writes from its own template; the text is in messages/durchgang. The name is
  * also the stored policy type, so it may not be one an editor keeps its settings under.
  */
@@ -168,6 +175,11 @@ export type Screen<C extends CategoryCode> =
   | { readonly kind: "approve"; readonly id: string }
   /** Every rated asset and supplier on the 200-3 matrix, and by level: the company's picture. */
   | { readonly kind: "riskmap"; readonly id: string }
+  /**
+   * The business processes on the company's list: which must keep running without IT
+   * (`asset.is_critical`), and in one sentence how, which the item's plan prints.
+   */
+  | { readonly kind: "critical"; readonly id: string }
   | { readonly kind: "done"; readonly id: string };
 
 export type AnyScreen = Screen<CategoryCode>;

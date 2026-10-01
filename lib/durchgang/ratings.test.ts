@@ -8,6 +8,7 @@ import {
   levelOfStanding,
   type MappedRisk,
   ratingRows,
+  recoveryOrder,
   signsIn,
   sliceOf,
   standingOf,
@@ -188,5 +189,44 @@ describe("the company's risks on the matrix", () => {
       { level: "medium", names: ["ERP", "DATEV"] },
       { level: "low", names: ["Website"] },
     ]);
+  });
+});
+
+describe("the order systems come back in", () => {
+  const assets = [
+    { id: "a", name: "Website", type: "application" },
+    { id: "b", name: "ERP", type: "application" },
+    { id: "c", name: "VPN", type: "network" },
+    { id: "d", name: "Laptops", type: "endpoint" },
+    { id: "e", name: "Büro", type: "room" },
+    { id: "f", name: "Ablage", type: "data_store" },
+    { id: "g", name: "Server", type: "server" },
+  ];
+  const risk = (id: string, likelihood: number, impact: number, linked: string) => ({
+    id,
+    likelihood,
+    impact,
+    linked: [linked],
+  });
+
+  test("puts the largest damage first, then the more frequent, then by name; unrated last", () => {
+    const risks = [
+      risk("r1", 1, 4, "a"), // rare, existential
+      risk("r2", 3, 4, "b"), // frequent, existential
+      risk("r3", 4, 2, "c"), // very frequent, limited
+      risk("r4", 3, 4, "d"), // a laptop: never in the order
+    ];
+    expect(recoveryOrder(assets, risks)).toEqual([
+      "ERP",
+      "Website",
+      "VPN",
+      "Ablage",
+      "Server",
+    ]);
+  });
+
+  test("leaves out devices and rooms, which are not brought back from a backup", () => {
+    expect(recoveryOrder(assets, [])).not.toContain("Laptops");
+    expect(recoveryOrder(assets, [])).not.toContain("Büro");
   });
 });

@@ -61,8 +61,13 @@ function setup(opts: {
     security: boolean | null;
     incidents: boolean | null;
   }>;
-  /** The company's assets a lookup finds, with their second-factor mark. */
-  assets?: ReadonlyArray<{ id: string; name: string; mfa: boolean | null }>;
+  /** The company's assets a lookup finds, with their second-factor and critical marks. */
+  assets?: ReadonlyArray<{
+    id: string;
+    name: string;
+    mfa?: boolean | null;
+    isCritical?: boolean | null;
+  }>;
 }) {
   const writes: Write[] = [];
   const wheres: Array<{ table: string; where: SQL }> = [];
@@ -666,6 +671,64 @@ describe("the management's approval of the walk's documents", () => {
     await expect(free.caller.approvePolicies(approve)).rejects.toMatchObject({
       code: "FORBIDDEN",
     });
+    expect(free.writes).toEqual([]);
+  });
+});
+
+describe("the processes that must keep running", () => {
+  const SALES = "99999999-9999-4999-8999-999999999981";
+  const BOOKS = "99999999-9999-4999-8999-999999999982";
+  const assets = [
+    { id: SALES, name: "Vertrieb", isCritical: false },
+    { id: BOOKS, name: "Buchhaltung", isCritical: true },
+  ];
+  const rows = [
+    { assetId: SALES, critical: true, how: "Aufträge per Telefon" },
+    { assetId: BOOKS, critical: true, how: "" },
+  ];
+
+  test("writes is_critical only where it changed, only on the company's process assets", async () => {
+    const { caller, writes, wheres } = setup({ accessLevel: "full", assets });
+    expect(await caller.recordCritical({ code: "4.2", rows })).toEqual({ changed: 1 });
+    const updates = writes.filter((w) => w.op === "update" && w.table === asset);
+    expect(updates).toHaveLength(1);
+    expect(Object.keys(updates[0]?.values ?? {}).sort()).toEqual([
+      "isCritical",
+      "updatedAt",
+    ]);
+    expect(updates[0]?.where && paramsOf(updates[0].where)).toEqual([SALES, COMPANY]);
+    const lookup = wheres.find((w) => w.table === "asset");
+    expect(lookup && paramsOf(lookup.where)).toEqual(
+      expect.arrayContaining([COMPANY, "process"]),
+    );
+  });
+
+  test("keeps each line with the plan's choices, and names the processes in the trail", async () => {
+    const { caller, writes } = setup({ accessLevel: "full", assets });
+    await caller.recordCritical({ code: "4.2", rows });
+    const config = writes.find((w) => w.table === companyPolicyConfig);
+    expect(config?.values).toMatchObject({
+      policyType: "business_continuity",
+      config: { clauses: [], fallbacks: { [SALES]: "Aufträge per Telefon" } },
+    });
+    expect(noteOf(writes)).toContain("Muss ohne IT weiterlaufen: Vertrieb, Buchhaltung");
+  });
+
+  test("refuses an asset that is not one of the company's processes, an item without the screen, and accounts without the Durchgang", async () => {
+    const one = setup({ accessLevel: "full", assets: assets.slice(0, 1) });
+    await expect(one.caller.recordCritical({ code: "4.2", rows })).rejects.toMatchObject({
+      code: "NOT_FOUND",
+    });
+    expect(one.writes.filter((w) => w.table === asset)).toEqual([]);
+    await expect(one.caller.recordCritical({ code: "12.2", rows })).rejects.toMatchObject(
+      { code: "BAD_REQUEST" },
+    );
+    const free = setup({ accessLevel: "free", assets });
+    await expect(free.caller.recordCritical({ code: "4.2", rows })).rejects.toMatchObject(
+      {
+        code: "FORBIDDEN",
+      },
+    );
     expect(free.writes).toEqual([]);
   });
 });
