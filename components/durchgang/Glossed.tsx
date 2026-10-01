@@ -20,7 +20,11 @@ function Term({ term, definition }: { term: string; definition: string }) {
       <TooltipTrigger asChild>
         <button
           type="button"
-          onClick={() => setOpen((o) => !o)}
+          // Radix closes a tooltip on click; a tap has to toggle it instead.
+          onClick={(e) => {
+            e.preventDefault();
+            setOpen((o) => !o);
+          }}
           className="cursor-help underline decoration-foreground/40 decoration-dotted underline-offset-4 hover:decoration-foreground"
         >
           {term}
