@@ -37,7 +37,6 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { useRouter } from "@/i18n/navigation";
 import { CATALOG_BY_ID } from "@/lib/asset-inventory/catalog";
 import { type ItemState, resumeAt, type ScreenKind, sliceOf } from "@/lib/durchgang";
@@ -394,9 +393,5 @@ export function DurchgangItem({
     </div>
   );
 
-  return (
-    <TooltipProvider delayDuration={150}>
-      <GlossProvider value={item.gloss}>{page}</GlossProvider>
-    </TooltipProvider>
-  );
+  return <GlossProvider value={item.gloss}>{page}</GlossProvider>;
 }
