@@ -63,11 +63,11 @@ const ORDER_COUNTRIES = [
 /** The countries by their name in the reader's language, sorted as they read them. */
 const countryOptions = (locale: string, current: string) => {
   const names = new Intl.DisplayNames([locale], { type: "region" });
-  const codes: readonly string[] = ORDER_COUNTRIES.includes(
-    current as (typeof ORDER_COUNTRIES)[number],
-  )
-    ? ORDER_COUNTRIES
-    : [...ORDER_COUNTRIES, current.toUpperCase()].filter((c) => c.length === 2);
+  const listed: readonly string[] = ORDER_COUNTRIES;
+  // Compared as the list spells codes, so "de" is not added a second time beside "DE".
+  const stored = current.trim().toUpperCase();
+  const codes =
+    listed.includes(stored) || stored.length !== 2 ? listed : [...listed, stored];
   return codes
     .map((code) => ({ code, name: names.of(code) ?? code }))
     .sort((a, b) => a.name.localeCompare(b.name, locale));

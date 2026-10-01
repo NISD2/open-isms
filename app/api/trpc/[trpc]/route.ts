@@ -33,7 +33,7 @@ const queryErrorIn = (error: unknown, depth = 0): DrizzleQueryError | null =>
       ? queryErrorIn(error.cause, depth + 1)
       : null;
 
-const fieldOf = (value: unknown, key: "code" | "constraint") =>
+const fieldOf = (value: unknown, key: "code" | "constraint" | "table" | "column") =>
   value && typeof value === "object" && key in value
     ? String((value as Record<string, unknown>)[key])
     : undefined;
@@ -51,7 +51,14 @@ const loggableFailure = (error: Error): unknown => {
         name: query.name,
         code: fieldOf(query.cause, "code"),
         constraint: fieldOf(query.cause, "constraint"),
+        table: fieldOf(query.cause, "table"),
+        column: fieldOf(query.cause, "column"),
         query: query.query,
+        // The call frames only: the stack's first lines repeat the message, parameters included.
+        frames: (query.stack ?? "")
+          .split("\n")
+          .filter((line) => line.trimStart().startsWith("at "))
+          .join("\n"),
       }
     : error;
 };
