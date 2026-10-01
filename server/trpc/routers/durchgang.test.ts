@@ -46,6 +46,8 @@ function setup(opts: {
   assigned?: boolean;
   /** The walk's policy row of the item, if one was written before. */
   storedPolicy?: { id: string; content: string };
+  /** The category's saved intake answers. */
+  answers?: Record<string, unknown>;
 }) {
   const writes: Write[] = [];
   const wheres: Array<{ table: string; where: SQL }> = [];
@@ -82,6 +84,12 @@ function setup(opts: {
         }),
       },
       user: { findFirst: async () => ({ locale: "de" }) },
+      companyCategoryIntake: {
+        findFirst: captured(
+          "companyCategoryIntake",
+          opts.answers ? { answers: opts.answers } : undefined,
+        ),
+      },
       asset: {
         findMany: captured(
           "asset",
@@ -326,6 +334,32 @@ describe("the walk's policy", () => {
     );
     expect(content).toContain("## 7. Bekanntgabe und Inkrafttreten");
     expect(content).not.toContain("## 8.");
+  });
+
+  test("writes the incident plan with the item's saved answers, and a line where one is open", async () => {
+    const { caller, writes, wheres } = setup({
+      accessLevel: "full",
+      answers: {
+        incidentLead: "Anna Weber",
+        secureCommsChannel: "Threema Work",
+        incidentEscalationContacts: "Geschäftsführung: Jonas Muster",
+      },
+    });
+    await caller.writePolicy({ code: "3.1", clauses: ["card"] });
+    const row = writes.find((w) => w.op === "insert" && w.table === policy);
+    expect(row?.values).toMatchObject({
+      title: "Notfallplan für IT-Sicherheitsvorfälle der Muster GmbH",
+      type: "incident_response",
+    });
+    const content = contentOf(row);
+    expect(content).toContain("Anna Weber leitet die Bewältigung");
+    expect(content).toContain("erreichen wir uns über: Threema Work.");
+    expect(content).toContain("IT-Notfallnummer _______________ an.");
+    expect(content).toContain("mit unserer Nummer _______________.");
+    expect(content).not.toContain("{");
+    // The answers are read from this company's assessment and the item's category, nowhere else.
+    const intake = wheres.find((w) => w.table === "companyCategoryIntake");
+    expect(intake && paramsOf(intake.where)).toEqual([ASSESSMENT, CATEGORY]);
   });
 
   test("shows the screen the document in the record language, with the company's name", async () => {

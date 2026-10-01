@@ -2,8 +2,8 @@
  * The NIS 2 Durchgang: which screens each item shows, in which order. Data only.
  *
  * The walk follows the journey order (`JOURNEY_ORDER`), so the order of this list does not
- * matter. v1 walks the first ten items of that order, less the ones in `NOT_WALKED`, plus the ones
- * in `AHEAD`; an item is added here only together with its reviewed copy in messages/durchgang.
+ * matter. It walks the front of that order, less the items in `NOT_WALKED`; an item is added here
+ * only together with its reviewed copy in messages/durchgang.
  */
 
 import type { CategoryCode } from "@/lib/compliance/category-schemas";
@@ -12,23 +12,16 @@ import type { AnyItem, Item } from "./types";
 const item = <C extends CategoryCode>(i: Item<C>): Item<C> => i;
 
 /**
- * Items of the first ten the walk leaves out, each with the reason. The requirement page keeps
- * them.
+ * Items at the front of the journey the walk leaves out, each with the reason. The requirement
+ * page keeps them.
  */
 export const NOT_WALKED: Readonly<Record<string, string>> = {
   "12.1":
     "Whoever reaches the Durchgang already knows their entity type; the walk does not decide it for them.",
-};
-
-/**
- * Items scripted ahead of the front of the journey, each with the reason. The walk still shows
- * them in journey order; the unscripted items before them stay on the requirement page.
- */
-export const AHEAD: Readonly<Record<string, string>> = {
-  "2.3":
-    "The risk ratings are made on the assets and suppliers listed in 2.2 and 5.1, so they are walked before 1.3 and 1.4 are scripted.",
-  "2.4":
-    "The Leitlinie states the approach the walk has just set up (method, lists, ratings), so it follows 2.3 before 1.3 and 1.4 are scripted.",
+  "1.3":
+    "No statute asks for a separately approved security budget: § 30 and § 38 BSIG ask management to implement and oversee the measures. The nearest rule, CIR 2024/2690 Annex 1.1.1(e), binds only the digital providers the CIR covers and asks for a commitment to provide resources inside the security policy; the Leitlinie (2.4) carries that commitment for everyone.",
+  "1.4":
+    "No statute asks management to sign an acknowledgement of liability; § 38 Abs. 2 BSIG sets the liability itself, which the CEO course behind 1.1 teaches. The acknowledgement is a platform record, so it stays on the requirement page.",
 };
 
 export const NIS2_SCRIPT: readonly AnyItem[] = [
@@ -99,14 +92,29 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     code: "3.1",
     category: "INC",
     glossary: [],
-    reviewed: "2026-09-30",
+    reviewed: "2026-10-01",
     screens: [
-      { kind: "learn", id: "learn" },
+      { kind: "learn", id: "learn", link: "bsi_it_notfallkarte" },
       { kind: "fields", id: "lead", fields: ["incidentLead"] },
-      { kind: "fields", id: "escalation", fields: ["incidentEscalationContacts"] },
+      {
+        kind: "fields",
+        id: "escalation",
+        fields: ["itEmergencyNumber", "incidentEscalationContacts"],
+      },
       { kind: "compare", id: "second_way" },
       { kind: "fields", id: "channel", fields: ["secureCommsChannel"] },
-      { kind: "evidence", id: "plan", field: null },
+      { kind: "policy", id: "plan", policy: "incident_response" },
+      {
+        kind: "fields",
+        id: "signed",
+        fields: ["incidentPlanVersion", "incidentPlanApprovalDate"],
+        approves: {
+          policy: "incident_response",
+          version: "incidentPlanVersion",
+          date: "incidentPlanApprovalDate",
+        },
+      },
+      { kind: "evidence", id: "proof", field: null },
       { kind: "done", id: "done" },
     ],
     notAsked: {
@@ -118,10 +126,11 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     code: "3.3",
     category: "INC",
     glossary: [],
-    reviewed: "2026-09-30",
+    reviewed: "2026-10-01",
     screens: [
       { kind: "learn", id: "learn" },
       { kind: "provision", id: "clock", provision: "bsig_32_clock" },
+      { kind: "sample", id: "first_report" },
       { kind: "prepare", id: "ready" },
       { kind: "fields", id: "setup", fields: ["bsiReportingRegistered"] },
       { kind: "done", id: "done" },

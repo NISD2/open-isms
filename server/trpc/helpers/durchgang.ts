@@ -12,6 +12,9 @@ export interface DurchgangItemRef {
   readonly code: string;
   readonly requirementId: string;
   readonly statusId: string;
+  /** Where the item's answers are kept: the intake row of this assessment and category. */
+  readonly assessmentId: string;
+  readonly categoryId: string;
 }
 
 /** Who writes: the session's company, the person, and their role in it. */
@@ -62,7 +65,13 @@ export async function durchgangItem(
     assessmentId: assessment.id,
     categoryId: req.categoryId,
   });
-  return { code, requirementId: req.id, statusId: status.id };
+  return {
+    code,
+    requirementId: req.id,
+    statusId: status.id,
+    assessmentId: assessment.id,
+    categoryId: req.categoryId,
+  };
 }
 
 /**

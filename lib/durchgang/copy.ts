@@ -7,7 +7,7 @@
  */
 
 import { z } from "zod";
-import type { AnyItem, AnyScreen, ScreenKind } from "./types";
+import { type AnyItem, type AnyScreen, askedFields, type ScreenKind } from "./types";
 
 const text = z.string().trim().min(1);
 const heading = { title: text, lead: text };
@@ -46,7 +46,8 @@ const SCREEN_COPY = {
   rate: z.object(heading),
   /**
    * The policy itself: its fixed sections, the clauses the person may add, and the signature
-   * line. `{company}` stands for the company's name and is filled in when the text is written.
+   * line. `{company}` stands for the company's name and `{<field>}` for the answer to one of the
+   * item's fields; both are filled in when the text is written.
    */
   policy: z.object({
     ...heading,
@@ -130,33 +131,40 @@ const TERM_MARKERS: ReadonlyArray<readonly [string, keyof Terms]> = [
   ["{authority}", "authority"],
 ];
 
-/** Stands for the company's name in a policy; filled in when the policy is written, not here. */
-export const COMPANY_MARKER = "{company}";
+/** How a policy names something it is written with: the company, or one of the item's answers. */
+export const marker = (name: string): string => `{${name}}`;
 
-/** The copy with every term filled in, and the path of any string that still holds a brace. */
+/** Stands for the company's name in a policy; filled in when the policy is written, not here. */
+export const COMPANY_MARKER = marker("company");
+
+/**
+ * The copy with every term filled in, and the path of any string that still holds a brace other
+ * than the markers a policy may carry, which are left for the policy to fill.
+ */
 const fill = (
   value: unknown,
   terms: Terms,
+  kept: readonly string[],
   where: string,
 ): { readonly value: unknown; readonly errors: readonly string[] } => {
   if (typeof value === "string") {
     const filled = TERM_MARKERS.reduce(
-      (acc, [marker, key]) => acc.split(marker).join(terms[key]),
+      (acc, [placeholder, key]) => acc.split(placeholder).join(terms[key]),
       value,
     );
-    const unknown = filled.split(COMPANY_MARKER).join("").includes("{");
+    const unknown = kept.reduce((acc, m) => acc.split(m).join(""), filled).includes("{");
     return {
       value: filled,
       errors: unknown ? [`${where}: unknown placeholder`] : [],
     };
   }
   if (Array.isArray(value)) {
-    const parts = value.map((v, i) => fill(v, terms, `${where}.${i}`));
+    const parts = value.map((v, i) => fill(v, terms, kept, `${where}.${i}`));
     return { value: parts.map((p) => p.value), errors: parts.flatMap((p) => p.errors) };
   }
   if (typeof value === "object" && value !== null) {
     const parts = Object.entries(value).map(
-      ([k, v]) => [k, fill(v, terms, `${where}.${k}`)] as const,
+      ([k, v]) => [k, fill(v, terms, kept, `${where}.${k}`)] as const,
     );
     return {
       value: Object.fromEntries(parts.map(([k, p]) => [k, p.value])),
@@ -304,7 +312,13 @@ export function resolveItem(namespace: unknown, item: AnyItem): Result<ResolvedI
   const base = `items.${itemKey(item.code)}`;
   const terms = parse(TERMS, at(namespace, "terms"), "terms");
   if (!terms.ok) return terms;
-  const filled = fill(at(at(namespace, "items"), itemKey(item.code)), terms.value, base);
+  const kept = [COMPANY_MARKER, ...askedFields(item).map(marker)];
+  const filled = fill(
+    at(at(namespace, "items"), itemKey(item.code)),
+    terms.value,
+    kept,
+    base,
+  );
   if (filled.errors.length > 0) return { ok: false, errors: filled.errors };
   const head = parse(ITEM_COPY, filled.value, base);
   if (!head.ok) return head;

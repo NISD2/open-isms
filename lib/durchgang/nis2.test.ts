@@ -15,8 +15,9 @@ import de from "@/messages/durchgang/de.json";
 import en from "@/messages/durchgang/en.json";
 import infoDe from "@/messages/info/de.json";
 import infoEn from "@/messages/info/en.json";
-import { resolveItem, WAIT_REASONS, WALK } from "./index";
-import { AHEAD, NIS2_SCRIPT, NOT_WALKED } from "./nis2";
+import { marker } from "./copy";
+import { askedFields, resolveItem, WAIT_REASONS, WALK } from "./index";
+import { NIS2_SCRIPT, NOT_WALKED } from "./nis2";
 import type { AnyScreen, ScreenKind } from "./types";
 
 const FRAMEWORK = new Map(
@@ -35,6 +36,8 @@ const coversModule = (screen: AnyScreen, moduleRef: string): boolean => {
       return screen.kind === "assets";
     case "risk":
       return screen.kind === "rate";
+    case "policy":
+      return screen.kind === "policy";
     default:
       return screen.kind === "register" && screen.module === moduleRef;
   }
@@ -58,8 +61,6 @@ const NO_SCREEN: Readonly<Record<string, string>> = {
     "the register has no loader or router, so the page always shows 0 entries (spec §0.6); the flow records 12.2 through its fields and its evidence",
   "3.3:incident":
     "the incident register fills when an incident happens; 3.3 prepares the reporting, and the register stays on the incidents page",
-  "3.1:policy":
-    "the policy form has no upload and asks for type and status as free text; the screen asks for the plan itself, so 3.1 takes it as evidence on the item",
 };
 
 /** The value's own schema under any optional, nullable or default wrapper. */
@@ -90,20 +91,14 @@ describe("the NIS 2 script", () => {
   test("walks the start of the journey without a gap, in journey order", () => {
     // Items are scripted from the front of the journey (spec §0.7), so the walk is always the
     // first N codes: a later item scripted before an earlier one would leave a hole in the path.
-    // The only exceptions are listed with their reason: items left out, and items scripted ahead.
-    const ahead = Object.keys(AHEAD);
+    // The only exceptions are the items left out, each listed with its reason.
     const front = JOURNEY_ORDER.slice(
       0,
-      NIS2_SCRIPT.length - ahead.length + Object.keys(NOT_WALKED).length,
+      NIS2_SCRIPT.length + Object.keys(NOT_WALKED).length,
     );
-    expect(WALK.map((i) => i.code)).toEqual(
-      JOURNEY_ORDER.filter(
-        (code) => (front.includes(code) && !NOT_WALKED[code]) || ahead.includes(code),
-      ),
-    );
+    expect(WALK.map((i) => i.code)).toEqual(front.filter((code) => !NOT_WALKED[code]));
     for (const code of Object.keys(NOT_WALKED)) expect(front).toContain(code);
-    for (const code of ahead) expect(front).not.toContain(code);
-    for (const reason of [...Object.values(NOT_WALKED), ...Object.values(AHEAD)]) {
+    for (const reason of Object.values(NOT_WALKED)) {
       expect(reason.trim().length).toBeGreaterThan(20);
     }
   });
@@ -216,7 +211,7 @@ describe("the words of the Durchgang", () => {
     expect(headline(unknown)).toContain("unknown placeholder");
   });
 
-  test("names the company only inside a policy, where the text is written with its name", () => {
+  test("names the company and the answers only inside a policy, where the text is written with them", () => {
     for (const [, namespace] of LOCALES) {
       for (const item of NIS2_SCRIPT) {
         const resolved = resolveItem(namespace, item);
@@ -229,7 +224,35 @@ describe("the words of the Durchgang", () => {
           resolved.value.teaser,
           resolved.value.missed,
         ];
-        expect(JSON.stringify([head, outside])).not.toContain("{company}");
+        const text = JSON.stringify([head, outside]);
+        for (const name of ["company", ...askedFields(item)]) {
+          expect(text).not.toContain(marker(name));
+        }
+      }
+    }
+  });
+
+  test("a policy names only text answers, which read the same on the screen and in the record", () => {
+    // A date or a number is held as input text on the screen and as JSON in the record, so the
+    // two would print it differently.
+    for (const [, namespace] of LOCALES) {
+      for (const item of NIS2_SCRIPT) {
+        const resolved = resolveItem(namespace, item);
+        if (!resolved.ok) continue;
+        const shape = CATEGORY_SCHEMAS[item.category]?.shape ?? {};
+        const documents = JSON.stringify(
+          resolved.value.screens.flatMap((s) =>
+            s.kind === "policy" ? [s.copy.document] : [],
+          ),
+        );
+        for (const field of askedFields(item)) {
+          const schema = shape[field];
+          if (schema && unwrap(schema) instanceof z.ZodString) continue;
+          expect({ field, named: documents.includes(marker(field)) }).toEqual({
+            field,
+            named: false,
+          });
+        }
       }
     }
   });

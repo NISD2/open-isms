@@ -430,25 +430,27 @@
         "teaser": "Who decides, whom you call, how you reach each other.",
         "missed": [
           "The law explicitly names secured voice, video and text communication and, where needed, secured emergency communication systems within the company (§ 30(2) no. 10 BSIG). A phone list on paper does not replace that; it is the fallback when everything else is down.",
-          "Decide who writes the report to {authority}. The first report, an early warning, is due at the latest 24 hours after you become aware of a significant incident (Art. 23(4)(a) NIS 2)."
+          "Decide who writes the report to {authority}. The first report, an early warning, is due at the latest 24 hours after you become aware of a significant incident (Art. 23(4)(a) NIS 2).",
+          "The plan only helps if it is at hand in an emergency. If it lives only on the server, it is gone with the server. Print it."
         ],
         "screens": {
           "learn": {
             "title": "When something happens",
             "body": [
               "During an incident there is no time to work out who does what. So write it down beforehand: who decides, whom you call, and how you reach each other when email and the network are down.",
-              "It does not have to be a thick manual. One page that everyone can find is enough to start with."
+              "At the end of this step you have your incident plan, written from your answers. For all staff, Germany's BSI publishes an IT emergency card to put up: it says what to do in an IT emergency and carries your IT emergency number."
             ],
-            "duty": "The law requires your company to be able to handle security incidents."
+            "duty": "The law requires your company to be able to handle security incidents.",
+            "link": "See the BSI's IT emergency card"
           },
           "lead": {
             "title": "Who leads in an emergency",
-            "lead": "One person decides what to do. Who helps them, you set in the emergency plan.",
+            "lead": "One person decides what to do and keeps management informed.",
             "document": "Your emergency plan"
           },
           "escalation": {
             "title": "Whom you call",
-            "lead": "Who gets told when, from IT up to management.",
+            "lead": "One number all staff call. Then: who gets told when, from IT up to management.",
             "document": "Your phone list"
           },
           "second_way": {
@@ -469,19 +471,108 @@
             "document": "Your emergency plan"
           },
           "plan": {
-            "title": "File the plan",
-            "lead": "Upload your emergency plan, even if it is only one page. Management approves it.",
-            "document": "Your emergency plan"
+            "title": "Your incident plan",
+            "lead": "The template is already filled in with your answers. It sets out who decides, whom you call, what to do first and how you report. Add what applies to your company. Anything still missing is shown as a line to fill in.",
+            "document": {
+              "title": "IT security incident plan of {company}",
+              "sections": [
+                {
+                  "heading": "Purpose and scope",
+                  "text": "This plan sets out what happens at {company} when an IT security incident occurs or is suspected: who decides, whom we call, how we reach each other and how we report. It applies to all staff. A printed copy is kept where it can be found without IT."
+                },
+                {
+                  "heading": "If you notice something",
+                  "text": "Anyone who notices or suspects an incident calls the IT emergency number {itEmergencyNumber} at once. If in doubt, call. On the phone, say who you are, which device or program is affected, what you saw, when it started and where the device is. Stop working on the affected device and do nothing further until you are told what to do. Write down what you saw."
+                },
+                {
+                  "heading": "Who leads",
+                  "text": "{incidentLead} leads the response to an incident. This person decides whether an event is a mere disruption or a security incident and whether it has to be reported, and notes every decision with the time. They keep management informed. If they cannot be reached, management takes over."
+                },
+                {
+                  "heading": "Whom we call",
+                  "text": "Depending on how serious the incident is, the lead calls: {incidentEscalationContacts}. A printed list with all phone numbers is kept with this plan, so we have the numbers without a computer or a digital address book. We keep it up to date."
+                },
+                {
+                  "heading": "How we reach each other when IT fails",
+                  "text": "If email, the phone system or the network fail, we reach each other through: {secureCommsChannel}. Everyone on the list knows this channel and has set it up before it is needed."
+                },
+                {
+                  "heading": "First steps",
+                  "text": "People's safety comes before everything else. Affected devices are taken off the network only on the lead's instruction. Before anyone examines or reinstalls a device, we secure logs, photos of the screen and notes. We write down everything that happens, with the time."
+                },
+                {
+                  "heading": "Reporting to the authority",
+                  "text": "If an incident is significant, {company} reports it to the competent CSIRT or authority: an early warning within 24 hours of becoming aware of it, an incident notification within 72 hours and a final report within one month of the notification (Art. 23(4) NIS 2). {incidentLead} makes sure the reports are made. The first report contains what we know; the details follow with the second. If personal data is affected, we usually also notify the data protection authority, where feasible within 72 hours (Art. 33 GDPR)."
+                },
+                {
+                  "heading": "After the incident",
+                  "text": "Once the incident is dealt with, the lead declares it over and records what happened. We discuss what went well and what did not, and change rules, measures and this plan where needed."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "provider",
+                  "label": "IT service provider",
+                  "heading": "IT service provider",
+                  "text": "Our IT service provider supports us in an incident. We have agreed with them how and when they can be reached, including outside business hours."
+                },
+                {
+                  "id": "hours",
+                  "label": "Outside business hours",
+                  "heading": "Outside business hours",
+                  "text": "The IT emergency number can also be reached outside business hours. Who answers it then is on the phone list."
+                },
+                {
+                  "id": "card",
+                  "label": "IT emergency card",
+                  "heading": "IT emergency card",
+                  "text": "A copy of the BSI's IT emergency card (IT-Notfallkarte) with our number {itEmergencyNumber} is posted at every workplace."
+                },
+                {
+                  "id": "police",
+                  "label": "Police",
+                  "heading": "Police",
+                  "text": "After an attack we consider reporting it to the police, through its cybercrime contact point for businesses where there is one."
+                },
+                {
+                  "id": "customers",
+                  "label": "Informing customers",
+                  "heading": "Informing customers",
+                  "text": "If an incident may affect our services to customers, management decides when and how we inform them."
+                },
+                {
+                  "id": "practice",
+                  "label": "Annual exercise",
+                  "heading": "Exercise",
+                  "text": "Once a year we walk through an incident using this plan and update the plan afterwards."
+                }
+              ],
+              "signature": "For the management of {company}: place, date, signature"
+            }
+          },
+          "signed": {
+            "title": "Have it signed",
+            "lead": "Print the plan from the previous step and have management sign it. Then enter the version and the date here.",
+            "document": "Incident plan"
+          },
+          "proof": {
+            "title": "The signed version",
+            "lead": "Upload a scan or a photo of the signed plan.",
+            "document": "Signed incident plan"
           },
           "done": {
-            "title": "Plan recorded",
-            "note": "At the end, management approves the plan with its signature."
+            "title": "Your incident plan is in place",
+            "note": "Keep a printed copy where it can be found without IT, and make sure all staff know the IT emergency number."
           }
         },
         "fields": {
           "incidentLead": {
             "label": "Incident lead",
             "hint": "The person who decides what to do and informs management."
+          },
+          "itEmergencyNumber": {
+            "label": "IT emergency number",
+            "hint": "The number everyone in the company calls in an IT emergency: your own IT support, or an IT service provider you have agreed this with. It is also the number you write on the BSI's IT emergency card."
           },
           "incidentEscalationContacts": {
             "label": "Escalation contacts",
@@ -490,6 +581,14 @@
           "secureCommsChannel": {
             "label": "Second communication channel",
             "hint": "How you reach each other securely when your own IT fails, for example an encrypted messenger on the company phones."
+          },
+          "incidentPlanVersion": {
+            "label": "Version",
+            "hint": "For example 1.0. Raise it with every change."
+          },
+          "incidentPlanApprovalDate": {
+            "label": "Date of signature",
+            "hint": "The day management signed it."
           }
         }
       },
@@ -515,6 +614,49 @@
             "lead": "The clock runs from the moment your company learns of the incident. The third deadline starts with the second report.",
             "source": "Art. 23(4) NIS 2. If {authority} asks for one, an interim report comes in between. If the incident is still going on after a month, send a progress report instead of the final report, and the final report within a month of dealing with it."
           },
+          "first_report": {
+            "title": "What a first report looks like",
+            "caption": "A made-up example. In Germany, these are the main details the BSI's form asks for in the early warning",
+            "rows": [
+              {
+                "name": "Classification",
+                "detail": "Significant incident; situation: orange, operations restricted"
+              },
+              {
+                "name": "Description",
+                "detail": "Files on the file server are encrypted and a ransom note was left. Accounting and order intake are down. Probably caused by an email attachment; duration still unknown."
+              },
+              {
+                "name": "Times",
+                "detail": "Probably started around 6:30, detected at 7:40, this report as of 10:15"
+              },
+              {
+                "name": "Affected areas",
+                "detail": "Manufacturing, machinery; no critical facility"
+              },
+              {
+                "name": "Suspected attack",
+                "detail": "Yes, the ransom note points to a deliberate attack"
+              },
+              {
+                "name": "Other countries",
+                "detail": "Possible: customers in Austria will receive their deliveries late"
+              },
+              {
+                "name": "Measures",
+                "detail": "File server taken off the network, IT service provider on site, yesterday's backup checked"
+              },
+              {
+                "name": "Under control",
+                "detail": "No, the investigation is ongoing"
+              },
+              {
+                "name": "Reporting person",
+                "detail": "Anna Weber, head of IT, with phone and email for questions"
+              }
+            ],
+            "note": "The law asks for only two things in the early warning: whether the incident is suspected of being caused by unlawful or malicious acts, and whether it could have a cross-border impact (Art. 23(4)(a) NIS 2). The rest is what the reporting form asks for. Whatever you do not know yet, you add with the second report."
+          },
           "ready": {
             "title": "What you need for the first report",
             "lead": "Settle this now, not in the middle of an emergency:",
@@ -526,10 +668,6 @@
               {
                 "name": "Who reports",
                 "detail": "one person and a deputy, written into the emergency plan"
-              },
-              {
-                "name": "What you know",
-                "detail": "what is affected, since when, and whether an attack could be behind it"
               }
             ],
             "source": "Art. 23(1) and (4) NIS 2. In Germany, a company that is not registered yet reports through the BSI's reporting and information portal (BSI, Meldepflicht info pack)."

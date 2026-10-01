@@ -4,6 +4,7 @@ import {
   BookText,
   CheckCircle2,
   ExternalLink,
+  FileText,
   GraduationCap,
   XCircle,
 } from "lucide-react";
@@ -70,10 +71,40 @@ function Duty({ text, cite }: { text: string; cite: string }) {
   );
 }
 
-/** The platform page each learn link opens. */
-const LEARN_HREF: Readonly<Record<LearnLink, "/training/nis2-ceo">> = {
-  ceo_course: "/training/nis2-ceo",
+/**
+ * The page each learn link opens: a platform route, or a BSI landing page. BSI material is linked
+ * at its landing page, never at the download, as the BSI's terms of use ask.
+ */
+const LEARN_HREF: Readonly<
+  Record<
+    LearnLink,
+    | { readonly kind: "platform"; readonly href: "/training/nis2-ceo" }
+    | { readonly kind: "bsi"; readonly href: string }
+  >
+> = {
+  ceo_course: { kind: "platform", href: "/training/nis2-ceo" },
+  bsi_it_notfallkarte: { kind: "bsi", href: "https://www.bsi.bund.de/dok/13035678" },
 };
+
+const LINK_STYLE =
+  "mt-6 inline-flex items-center gap-2 rounded-xl border border-primary/30 px-4 py-2.5 text-sm font-medium text-primary hover:bg-primary/[0.04]";
+
+function LearnMore({ link, label }: { link: LearnLink; label: string }) {
+  const target = LEARN_HREF[link];
+  return target.kind === "platform" ? (
+    <Link href={target.href} target="_blank" className={LINK_STYLE}>
+      <GraduationCap className="size-4" />
+      {label}
+      <ExternalLink className="size-3.5" />
+    </Link>
+  ) : (
+    <a href={target.href} target="_blank" rel="noreferrer" className={LINK_STYLE}>
+      <FileText className="size-4" />
+      {label}
+      <ExternalLink className="size-3.5" />
+    </a>
+  );
+}
 
 export function Learn({ item, entry }: { item: ItemView; entry: Of<"learn"> }) {
   const { link } = entry.screen;
@@ -90,17 +121,7 @@ export function Learn({ item, entry }: { item: ItemView; entry: Of<"learn"> }) {
           <p key={paragraph}>{paragraph}</p>
         ))}
       </div>
-      {link && entry.copy.link && (
-        <Link
-          href={LEARN_HREF[link]}
-          target="_blank"
-          className="mt-6 inline-flex items-center gap-2 rounded-xl border border-primary/30 px-4 py-2.5 text-sm font-medium text-primary hover:bg-primary/[0.04]"
-        >
-          <GraduationCap className="size-4" />
-          {entry.copy.link}
-          <ExternalLink className="size-3.5" />
-        </Link>
-      )}
+      {link && entry.copy.link && <LearnMore link={link} label={entry.copy.link} />}
       <Duty text={entry.copy.duty} cite={item.duty} />
     </>
   );

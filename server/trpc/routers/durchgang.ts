@@ -12,10 +12,12 @@ import { getDefaultMethodology } from "@/lib/compliance/risk-methodology-default
 import { seedLocale } from "@/lib/compliance/seed-locale";
 import {
   type AnyScreen,
+  askedFields,
   declinedNote,
   levelOf,
   methodNote,
   noteLine,
+  policyNames,
   policyText,
   policyTitle,
   ratingKey,
@@ -38,6 +40,7 @@ import {
   asset,
   auditLog,
   company,
+  companyCategoryIntake,
   companyPolicyConfig,
   companyRiskMethodology,
   policy,
@@ -760,10 +763,11 @@ export const durchgangRouter = router({
     }),
 
   /**
-   * A policy written from the walk's template (2.4, the Leitlinie): its sections and the clauses
-   * the person chose, in the record language, with the company's name. The choice is kept in the
-   * company's policy config and the text in one `policy` row of the requirement. A text that
-   * changes goes back to draft, because what management approved was the earlier one.
+   * A policy written from the walk's template (the 2.4 Leitlinie, the 3.1 incident plan): its
+   * sections and the clauses the person chose, in the record language, with the company's name
+   * and the item's saved answers. The choice is kept in the company's policy config and the text
+   * in one `policy` row of the requirement. A text that changes goes back to draft, because what
+   * management approved was the earlier one.
    */
   writePolicy: durchgangWrite
     .input(
@@ -775,11 +779,26 @@ export const durchgangRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
-      const draft = await policyDraftOf(ctx, input.code);
+      const [draft, intake] = await Promise.all([
+        policyDraftOf(ctx, input.code),
+        ctx.db.query.companyCategoryIntake.findFirst({
+          where: and(
+            eq(companyCategoryIntake.assessmentId, ref.assessmentId),
+            eq(companyCategoryIntake.categoryId, ref.categoryId),
+          ),
+          columns: { answers: true },
+        }),
+      ]);
       const known = new Set(draft.document.clauses.map((c) => c.id));
       const clauses = (input.clauses ?? draft.clauses).filter((id) => known.has(id));
-      const title = policyTitle(draft.document, draft.company);
-      const content = policyText(draft.document, clauses, draft.company);
+      // The answers as saved: the queue stores a screen's answers before the policy after it.
+      const names = policyNames(
+        draft.company,
+        askedFields(itemOf(input.code)),
+        intake?.answers ?? {},
+      );
+      const title = policyTitle(draft.document, names);
+      const content = policyText(draft.document, clauses, names);
       const { type } = draft;
 
       const changed = await ctx.db.transaction(async (tx) => {

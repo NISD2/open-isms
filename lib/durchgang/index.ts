@@ -18,7 +18,13 @@ export {
   waitingNote,
 } from "./notes";
 export type { PolicyDocument, PolicyPart } from "./policy";
-export { policyParts, policySignature, policyText, policyTitle } from "./policy";
+export {
+  policyNames,
+  policyParts,
+  policySignature,
+  policyText,
+  policyTitle,
+} from "./policy";
 export type {
   AssetSlice,
   LinkedRisk,
@@ -59,7 +65,7 @@ export type {
   ScreenKind,
   SourceId,
 } from "./types";
-export { SOURCE_IDS } from "./types";
+export { askedFields, SOURCE_IDS } from "./types";
 
 const BY_CODE: ReadonlyMap<string, AnyItem> = new Map(
   NIS2_SCRIPT.map((i) => [i.code, i]),
@@ -70,9 +76,3 @@ export const WALK: readonly AnyItem[] = JOURNEY_ORDER.flatMap((code) => {
   const item = BY_CODE.get(code);
   return item ? [item] : [];
 });
-
-/** The intake fields an item asks for: on its field screens, and the one its upload fills. */
-export const askedFields = (item: AnyItem): readonly string[] =>
-  item.screens.flatMap<string>((s) =>
-    s.kind === "fields" ? s.fields : s.kind === "evidence" && s.field ? [s.field] : [],
-  );

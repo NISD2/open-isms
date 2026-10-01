@@ -34,14 +34,14 @@ export type Provision =
  */
 export type RegisterModule = "supplier" | "team" | "training_record";
 
-/** A page of the platform a learn screen points to. */
-export type LearnLink = "ceo_course";
+/** A page a learn screen points to: one of the platform's, or one the BSI publishes. */
+export type LearnLink = "ceo_course" | "bsi_it_notfallkarte";
 
 /** A BSI default the person may take over with one click, as an explicit write. */
 export type Adoptable = "bsi_200_3_method";
 
 /** A policy the walk writes from its own template; the text is in messages/durchgang. */
-export type PolicyTemplate = "information_security";
+export type PolicyTemplate = "information_security" | "incident_response";
 
 /** Where a list the company needs usually exists already. */
 export const SOURCE_IDS = [
@@ -113,7 +113,8 @@ export type Screen<C extends CategoryCode> =
   | { readonly kind: "rate"; readonly id: string; readonly targets: RatingTarget }
   /**
    * A policy written from our template: fixed sections, optional clauses the person adds, the
-   * company's name filled in. Stored as one `policy` row of the item's requirement.
+   * company's name and the item's answers filled in. Stored as one `policy` row of the item's
+   * requirement.
    */
   | { readonly kind: "policy"; readonly id: string; readonly policy: PolicyTemplate }
   | { readonly kind: "done"; readonly id: string };
@@ -145,3 +146,9 @@ export interface Item<C extends CategoryCode> {
 
 /** Any item, with its screens typed against its own category. */
 export type AnyItem = { readonly [C in CategoryCode]: Item<C> }[CategoryCode];
+
+/** The intake fields an item asks for: on its field screens, and the one its upload fills. */
+export const askedFields = (item: AnyItem): readonly string[] =>
+  item.screens.flatMap<string>((s) =>
+    s.kind === "fields" ? s.fields : s.kind === "evidence" && s.field ? [s.field] : [],
+  );

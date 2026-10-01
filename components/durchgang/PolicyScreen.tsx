@@ -2,7 +2,7 @@
 
 import { Check, Plus, Printer, ScrollText } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { policyParts, policySignature, policyTitle } from "@/lib/durchgang";
+import { policyNames, policyParts, policySignature, policyTitle } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
 import { Heading, Lead } from "./ExplainScreens";
@@ -13,9 +13,11 @@ const sameChoice = (a: readonly string[], b: readonly string[]) =>
 
 /**
  * A policy written from the template, shown as the document it becomes: the clauses to add on
- * top, then the text with the company's name and the signature line. The document comes from the
- * server in the record language and is assembled by the function the server stores, so what is
- * shown, printed and signed is what is written. Printing leaves only the document.
+ * top, then the text with the company's name, the item's answers and the signature line. The
+ * document comes from the server in the record language and is assembled by the function the
+ * server stores, so what is shown, printed and signed is what is written. The answers are the
+ * ones on this item's earlier screens, which the queue saves before it writes the policy.
+ * Printing leaves only the document.
  */
 export function PolicyScreen({
   item,
@@ -30,6 +32,7 @@ export function PolicyScreen({
   const policies = trpc.policy.list.useQuery();
   if (!policyDraft.data) return null;
   const { document, company, clauses: stored } = policyDraft.data;
+  const names = policyNames(company, Object.keys(item.fields), draft.values);
 
   const chosen = draft.clauses ?? stored;
   const approved = (policies.data ?? []).some(
@@ -95,12 +98,12 @@ export function PolicyScreen({
         </header>
         <div className="space-y-6 px-5 py-6 sm:px-8 sm:py-8">
           <h2 className="text-xl font-semibold tracking-tight">
-            {policyTitle(document, company)}
+            {policyTitle(document, names)}
           </h2>
-          {policyParts(document, chosen, company).map((part) => (
+          {policyParts(document, chosen, names).map((part) => (
             <section key={part.heading}>
               <h3 className="font-semibold">{part.heading}</h3>
-              <p className="mt-2 max-w-[68ch] text-[15px] leading-7 text-muted-foreground print:text-foreground">
+              <p className="mt-2 max-w-[68ch] text-[15px] leading-7 whitespace-pre-line text-muted-foreground print:text-foreground">
                 {part.text}
               </p>
             </section>
@@ -111,7 +114,7 @@ export function PolicyScreen({
             <div className="flex-1">
               <div className="h-8 border-b border-dashed border-foreground/30" />
               <p className="mt-2 text-xs text-muted-foreground print:text-foreground">
-                {policySignature(document, company)}
+                {policySignature(document, names)}
               </p>
             </div>
             <span className="rounded-full bg-amber-100 px-2.5 py-1 text-xs font-medium text-amber-900 print:hidden dark:bg-amber-950 dark:text-amber-100">

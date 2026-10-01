@@ -436,25 +436,27 @@
         "teaser": "Wer entscheidet, wen Sie anrufen, wie Sie sich erreichen.",
         "missed": [
           "Das Gesetz nennt gesicherte Sprach-, Video- und Textkommunikation und, wo nötig, gesicherte Notfallkommunikationssysteme im Unternehmen (§ 30 Abs. 2 Nr. 10 BSIG). Eine Telefonliste auf Papier ersetzt das nicht; sie ist der Rückfall, wenn alles andere steht.",
-          "Legen Sie fest, wer die Meldung an das {authority} schreibt. Die erste Meldung ist spätestens 24 Stunden, nachdem Sie von einem erheblichen Vorfall erfahren haben, fällig (§ 32 Abs. 1 BSIG)."
+          "Legen Sie fest, wer die Meldung an das {authority} schreibt. Die erste Meldung ist spätestens 24 Stunden, nachdem Sie von einem erheblichen Vorfall erfahren haben, fällig (§ 32 Abs. 1 BSIG).",
+          "Der Plan hilft nur, wenn er im Ernstfall greifbar ist. Liegt er allein auf dem Server, ist er mit dem Server weg. Drucken Sie ihn aus."
         ],
         "screens": {
           "learn": {
             "title": "Wenn etwas passiert",
             "body": [
               "Während eines Vorfalls ist keine Zeit, zu überlegen, wer was tut. Deshalb halten Sie es vorher fest: wer entscheidet, wen Sie anrufen und wie Sie sich erreichen, wenn E-Mail und Netz nicht gehen.",
-              "Das muss kein dickes Handbuch sein. Eine Seite, die jeder findet, reicht für den Anfang."
+              "Am Ende dieses Schritts steht Ihr Notfallplan, aus Ihren Antworten geschrieben. Für alle Beschäftigten gibt das BSI dazu eine IT-Notfallkarte zum Aushängen heraus: Sie sagt, was bei einem IT-Notfall zu tun ist, und trägt Ihre IT-Notfallnummer."
             ],
-            "duty": "Das Gesetz verlangt, dass Ihr Unternehmen Sicherheitsvorfälle bewältigen kann."
+            "duty": "Das Gesetz verlangt, dass Ihr Unternehmen Sicherheitsvorfälle bewältigen kann.",
+            "link": "IT-Notfallkarte des BSI ansehen"
           },
           "lead": {
             "title": "Wer im Ernstfall führt",
-            "lead": "Eine Person entscheidet, was zu tun ist. Wer ihr hilft, legen Sie im Notfallplan fest.",
+            "lead": "Eine Person entscheidet, was zu tun ist, und hält die Geschäftsführung auf dem Laufenden.",
             "document": "Ihr Notfallplan"
           },
           "escalation": {
             "title": "Wen Sie anrufen",
-            "lead": "Wer wann Bescheid bekommt, von der IT bis zur Geschäftsführung.",
+            "lead": "Eine Nummer, die alle Beschäftigten anrufen. Dann: wer wann Bescheid bekommt, von der IT bis zur Geschäftsführung.",
             "document": "Ihre Telefonliste"
           },
           "second_way": {
@@ -475,19 +477,108 @@
             "document": "Ihr Notfallplan"
           },
           "plan": {
-            "title": "Legen Sie den Plan ab",
-            "lead": "Laden Sie Ihren Notfallplan hoch, auch wenn er nur eine Seite hat. Die Geschäftsführung gibt ihn frei.",
-            "document": "Ihr Notfallplan"
+            "title": "Ihr Notfallplan",
+            "lead": "Die Vorlage ist mit Ihren Antworten schon ausgefüllt. Sie hält fest, wer entscheidet, wen Sie anrufen, was sofort zu tun ist und wie Sie melden. Fügen Sie hinzu, was für Ihr Unternehmen gilt. Was noch fehlt, steht als Linie zum Ausfüllen da.",
+            "document": {
+              "title": "Notfallplan für IT-Sicherheitsvorfälle der {company}",
+              "sections": [
+                {
+                  "heading": "Zweck und Geltungsbereich",
+                  "text": "Dieser Plan legt fest, was bei der {company} geschieht, wenn ein IT-Sicherheitsvorfall eintritt oder vermutet wird: wer entscheidet, wen wir anrufen, wie wir uns erreichen und wie wir melden. Er gilt für alle Beschäftigten. Eine gedruckte Fassung liegt dort, wo sie auch ohne IT zu finden ist."
+                },
+                {
+                  "heading": "Wer etwas bemerkt",
+                  "text": "Wer einen Vorfall bemerkt oder vermutet, ruft sofort die IT-Notfallnummer {itEmergencyNumber} an. Im Zweifel rufen Sie an. Sagen Sie am Telefon, wer Sie sind, welches Gerät oder Programm betroffen ist, was Sie beobachtet haben, wann es angefangen hat und wo das Gerät steht. Arbeiten Sie mit dem betroffenen Gerät nicht weiter und unternehmen Sie nichts, bis Sie eine Anweisung bekommen. Schreiben Sie auf, was Sie gesehen haben."
+                },
+                {
+                  "heading": "Leitung",
+                  "text": "{incidentLead} leitet die Bewältigung eines Vorfalls. Diese Person entscheidet, ob ein Ereignis eine bloße Störung oder ein Sicherheitsvorfall ist und ob er gemeldet werden muss, und hält jede Entscheidung mit Uhrzeit fest. Sie informiert die Geschäftsführung. Ist sie nicht erreichbar, übernimmt die Geschäftsführung."
+                },
+                {
+                  "heading": "Wen wir anrufen",
+                  "text": "Je nach Schwere des Vorfalls ruft die Leitung an: {incidentEscalationContacts}. Eine gedruckte Liste mit allen Telefonnummern liegt bei diesem Plan, damit wir die Nummern auch ohne Computer und digitales Adressbuch haben. Wir halten sie aktuell."
+                },
+                {
+                  "heading": "Wie wir uns erreichen, wenn die IT ausfällt",
+                  "text": "Fallen E-Mail, Telefonanlage oder Netz aus, erreichen wir uns über: {secureCommsChannel}. Alle, die auf der Liste stehen, kennen diesen Weg und haben ihn eingerichtet, bevor er gebraucht wird."
+                },
+                {
+                  "heading": "Sofortmaßnahmen",
+                  "text": "Die Sicherheit von Menschen geht allem anderen vor. Betroffene Geräte nehmen wir nur auf Anweisung der Leitung vom Netz. Bevor jemand ein Gerät untersucht oder neu aufsetzt, sichern wir Protokolle, Fotos des Bildschirms und Notizen. Alles, was geschieht, schreiben wir mit Uhrzeit auf."
+                },
+                {
+                  "heading": "Meldung an das BSI",
+                  "text": "Ist ein Vorfall erheblich, meldet die {company} ihn im BSI-Portal: eine frühe Erstmeldung spätestens 24 Stunden, nachdem wir davon erfahren haben, eine Meldung spätestens nach 72 Stunden und eine Abschlussmeldung spätestens einen Monat nach der Meldung (§ 32 BSIG). {incidentLead} sorgt dafür, dass gemeldet wird. In die erste Meldung kommt, was wir wissen; Genaueres folgt mit der zweiten. Sind personenbezogene Daten betroffen, melden wir das in der Regel auch der Datenschutzaufsicht, möglichst binnen 72 Stunden (Art. 33 DSGVO)."
+                },
+                {
+                  "heading": "Nach dem Vorfall",
+                  "text": "Ist der Vorfall bewältigt, erklärt die Leitung ihn für beendet und hält fest, was geschehen ist. Wir besprechen, was gut lief und was nicht, und ändern Regeln, Maßnahmen und diesen Plan, wo es nötig ist."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "provider",
+                  "label": "IT-Dienstleister",
+                  "heading": "IT-Dienstleister",
+                  "text": "Unser IT-Dienstleister unterstützt uns bei einem Vorfall. Wir haben mit ihm abgesprochen, wie und wann er erreichbar ist, auch außerhalb der Geschäftszeiten."
+                },
+                {
+                  "id": "hours",
+                  "label": "Außerhalb der Geschäftszeiten",
+                  "heading": "Außerhalb der Geschäftszeiten",
+                  "text": "Die IT-Notfallnummer ist auch außerhalb der Geschäftszeiten erreichbar. Wer sie dann annimmt, steht in der Telefonliste."
+                },
+                {
+                  "id": "card",
+                  "label": "IT-Notfallkarte",
+                  "heading": "IT-Notfallkarte",
+                  "text": "An jedem Arbeitsplatz hängt die IT-Notfallkarte des BSI mit unserer Nummer {itEmergencyNumber}."
+                },
+                {
+                  "id": "police",
+                  "label": "Polizei",
+                  "heading": "Polizei",
+                  "text": "Nach einem Angriff prüfen wir, ob wir Anzeige erstatten. Ansprechpartner ist die Zentrale Ansprechstelle für Cybercrime (ZAC) beim Landeskriminalamt unseres Bundeslandes."
+                },
+                {
+                  "id": "customers",
+                  "label": "Kunden informieren",
+                  "heading": "Kunden informieren",
+                  "text": "Kann ein Vorfall unsere Leistungen für Kunden beeinträchtigen, entscheidet die Geschäftsführung, wann und wie wir sie informieren."
+                },
+                {
+                  "id": "practice",
+                  "label": "Jährliche Übung",
+                  "heading": "Übung",
+                  "text": "Einmal im Jahr spielen wir einen Vorfall nach diesem Plan durch und passen den Plan danach an."
+                }
+              ],
+              "signature": "Für die Geschäftsführung der {company}: Ort, Datum, Unterschrift"
+            }
+          },
+          "signed": {
+            "title": "Unterschreiben lassen",
+            "lead": "Drucken Sie den Plan auf dem vorigen Schritt aus und lassen Sie ihn von der Geschäftsführung unterschreiben. Dann tragen Sie hier Version und Datum ein.",
+            "document": "Notfallplan"
+          },
+          "proof": {
+            "title": "Die unterschriebene Fassung",
+            "lead": "Laden Sie einen Scan oder ein Foto des unterschriebenen Plans hoch.",
+            "document": "Unterschriebener Notfallplan"
           },
           "done": {
-            "title": "Plan erfasst",
-            "note": "Am Ende gibt die Geschäftsführung den Plan mit ihrer Unterschrift frei."
+            "title": "Ihr Notfallplan steht",
+            "note": "Legen Sie eine gedruckte Fassung dorthin, wo sie auch ohne IT zu finden ist, und geben Sie die IT-Notfallnummer allen Beschäftigten bekannt."
           }
         },
         "fields": {
           "incidentLead": {
             "label": "Leitung bei einem Vorfall",
             "hint": "Die Person, die entscheidet, was zu tun ist, und die Geschäftsführung informiert."
+          },
+          "itEmergencyNumber": {
+            "label": "IT-Notfallnummer",
+            "hint": "Die Nummer, die alle im Unternehmen bei einem IT-Notfall anrufen: Ihr eigener IT-Support oder ein IT-Dienstleister, mit dem Sie das abgesprochen haben. Diese Nummer tragen Sie auch in die IT-Notfallkarte des BSI ein."
           },
           "incidentEscalationContacts": {
             "label": "Kontakte für die Eskalation",
@@ -496,6 +587,14 @@
           "secureCommsChannel": {
             "label": "Zweiter Kommunikationsweg",
             "hint": "Wie Sie sich sicher erreichen, wenn die eigene IT ausfällt, zum Beispiel ein verschlüsselter Messenger auf den Diensthandys."
+          },
+          "incidentPlanVersion": {
+            "label": "Version",
+            "hint": "Zum Beispiel 1.0. Bei jeder Änderung zählt sie hoch."
+          },
+          "incidentPlanApprovalDate": {
+            "label": "Tag der Unterschrift",
+            "hint": "Der Tag, an dem die Geschäftsführung unterschrieben hat."
           }
         }
       },
@@ -521,6 +620,49 @@
             "lead": "Die Uhr läuft ab dem Moment, in dem Ihr Unternehmen von dem Vorfall erfährt. Die dritte Frist beginnt mit der zweiten Meldung.",
             "source": "§ 32 Abs. 1 und 2 BSIG. Verlangt das BSI es, kommt dazwischen eine Zwischenmeldung. Dauert der Vorfall nach einem Monat noch an, schicken Sie statt der Abschlussmeldung eine Fortschrittsmeldung und die Abschlussmeldung, sobald er bewältigt ist."
           },
+          "first_report": {
+            "title": "So sieht eine erste Meldung aus",
+            "caption": "Ein ausgedachtes Beispiel, mit den wichtigsten Angaben, die das BSI für die frühe Erstmeldung abfragt",
+            "rows": [
+              {
+                "name": "Einstufung",
+                "detail": "Erheblicher Sicherheitsvorfall; Lage: Orange, der Betrieb läuft eingeschränkt"
+              },
+              {
+                "name": "Beschreibung",
+                "detail": "Dateien auf dem Dateiserver sind verschlüsselt, ein Erpresserschreiben liegt bei. Buchhaltung und Auftragsannahme stehen. Ursache vermutlich ein E-Mail-Anhang, Dauer noch offen."
+              },
+              {
+                "name": "Zeitpunkte",
+                "detail": "Eingetreten vermutlich gegen 6:30 Uhr, erkannt um 7:40 Uhr, Stand dieser Meldung 10:15 Uhr"
+              },
+              {
+                "name": "Betroffene Bereiche",
+                "detail": "Verarbeitendes Gewerbe, Maschinenbau; keine kritische Anlage"
+              },
+              {
+                "name": "Verdacht auf Angriff",
+                "detail": "Ja, das Erpresserschreiben deutet auf einen gezielten Angriff hin"
+              },
+              {
+                "name": "Andere Länder",
+                "detail": "Möglich: Kunden in Österreich erhalten ihre Lieferungen später"
+              },
+              {
+                "name": "Maßnahmen",
+                "detail": "Dateiserver vom Netz getrennt, IT-Dienstleister vor Ort, Datensicherung von gestern geprüft"
+              },
+              {
+                "name": "Unter Kontrolle",
+                "detail": "Nein, die Untersuchung läuft"
+              },
+              {
+                "name": "Meldende Person",
+                "detail": "Anna Weber, IT-Leitung, mit Telefon und E-Mail für Rückfragen"
+              }
+            ],
+            "note": "Das Gesetz verlangt in der frühen Erstmeldung nur zwei Angaben: ob ein Angriff dahinterstecken könnte und ob sich der Vorfall auf andere Länder auswirken könnte (§ 32 Abs. 1 Nr. 1 BSIG). Die übrigen fragt das BSI in seinem Formular ab. Was Sie noch nicht wissen, ergänzen Sie mit der zweiten Meldung."
+          },
           "ready": {
             "title": "Was Sie für die erste Meldung brauchen",
             "lead": "Legen Sie das jetzt fest, nicht erst im Ernstfall:",
@@ -532,10 +674,6 @@
               {
                 "name": "Wer meldet",
                 "detail": "eine Person und ihre Vertretung, im Notfallplan festgehalten"
-              },
-              {
-                "name": "Was Sie wissen",
-                "detail": "was betroffen ist, seit wann, und ob ein Angriff dahinterstecken könnte"
               }
             ],
             "source": "§ 32 Abs. 1 Nr. 1 BSIG. Wer noch nicht registriert ist, meldet über das Melde- und Informationsportal des BSI (BSI, Infopaket Meldepflicht)."

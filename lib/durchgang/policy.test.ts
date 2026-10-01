@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import { policyParts, policyText, policyTitle } from "./policy";
+import { BLANK, policyNames, policyParts, policyText, policyTitle } from "./policy";
 
 const document = {
   title: "Leitlinie der {company}",
@@ -14,8 +14,10 @@ const document = {
   signature: "Für die Geschäftsführung der {company}",
 };
 
+const muster = policyNames("Muster GmbH", [], {});
+
 test("numbers the sections, then the chosen clauses in the template's order", () => {
-  expect(policyParts(document, ["suppliers", "training"], "Muster GmbH")).toEqual([
+  expect(policyParts(document, ["suppliers", "training"], muster)).toEqual([
     { heading: "1. Geltungsbereich", text: "Gilt für die Muster GmbH." },
     { heading: "2. Ziele", text: "Verfügbarkeit." },
     { heading: "3. Schulungen", text: "Wir schulen." },
@@ -24,15 +26,15 @@ test("numbers the sections, then the chosen clauses in the template's order", ()
 });
 
 test("ignores a clause the template does not have", () => {
-  expect(policyParts(document, ["unknown"], "X").map((p) => p.heading)).toEqual([
+  expect(policyParts(document, ["unknown"], muster).map((p) => p.heading)).toEqual([
     "1. Geltungsbereich",
     "2. Ziele",
   ]);
 });
 
 test("writes the stored text as the preview shows it, with the company named throughout", () => {
-  expect(policyTitle(document, "Muster GmbH")).toBe("Leitlinie der Muster GmbH");
-  expect(policyText(document, ["training"], "Muster GmbH")).toBe(
+  expect(policyTitle(document, muster)).toBe("Leitlinie der Muster GmbH");
+  expect(policyText(document, ["training"], muster)).toBe(
     [
       "# Leitlinie der Muster GmbH",
       "## 1. Geltungsbereich\n\nGilt für die Muster GmbH.",
@@ -40,5 +42,27 @@ test("writes the stored text as the preview shows it, with the company named thr
       "## 3. Schulungen\n\nWir schulen.",
       "Für die Geschäftsführung der Muster GmbH",
     ].join("\n\n"),
+  );
+});
+
+test("fills each answer in, and leaves a line to write on where one is still open", () => {
+  const plan = {
+    ...document,
+    sections: [
+      { heading: "Leitung", text: "{incidentLead} leitet; Nummer {itEmergencyNumber}." },
+    ],
+  };
+  const names = policyNames("Muster GmbH", ["incidentLead", "itEmergencyNumber"], {
+    incidentLead: "  Anna Weber ",
+    itEmergencyNumber: " ",
+  });
+  expect(policyParts(plan, [], names)[0]?.text).toBe(
+    `Anna Weber leitet; Nummer ${BLANK}.`,
+  );
+});
+
+test("a field called company cannot rename the company", () => {
+  expect(policyNames("Muster GmbH", ["company"], { company: "Andere AG" }).company).toBe(
+    "Muster GmbH",
   );
 });
