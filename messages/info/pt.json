@@ -808,11 +808,11 @@
         "heading": "Finalidade e Base Jurídica",
         "p1": "Tratamos os seus dados para as seguintes finalidades:",
         "items": {
-          "contract": "Fornecimento da plataforma de conformidade NIS2 (art. 6.o, n.o 1, alínea b), do GDPR. Execução de um contrato)",
-          "auth": "Autenticação de utilizadores e gestão de contas (art. 6.o, n.o 1, alínea b), do GDPR)",
-          "security": "Garantia da segurança e integridade da nossa plataforma (art. 6.o, n.o 1, alínea f), do GDPR. Interesse legítimo)",
-          "legal": "Cumprimento de obrigações legais (art. 6.o, n.o 1, alínea c), do GDPR)",
-          "crm": "Acompanhamento de clientes e interessados no nosso sistema de vendas, para o aconselhar sobre a nossa oferta e dar seguimento a pedidos (art. 6.o, n.o 1, alínea f), do GDPR, interesse legítimo). Pode opor-se a este tratamento a qualquer momento."
+          "contract": "Fornecimento da plataforma de conformidade NIS2 (art. 6.º, n.º 1, alínea b), do GDPR. Execução de um contrato)",
+          "auth": "Autenticação de utilizadores e gestão de contas (art. 6.º, n.º 1, alínea b), do GDPR)",
+          "security": "Garantia da segurança e integridade da nossa plataforma (art. 6.º, n.º 1, alínea f), do GDPR. Interesse legítimo)",
+          "legal": "Cumprimento de obrigações legais (art. 6.º, n.º 1, alínea c), do GDPR)",
+          "crm": "Acompanhamento de clientes e interessados no nosso sistema de vendas, para o aconselhar sobre a nossa oferta e dar seguimento a pedidos (art. 6.º, n.º 1, alínea f), do GDPR, interesse legítimo). Pode opor-se a este tratamento a qualquer momento."
         }
       },
       "processors": {
@@ -858,7 +858,8 @@
       },
       "retention": {
         "heading": "Conservação dos Dados",
-        "p1": "Os seus dados são conservados enquanto a sua conta estiver ativa e for necessário para as finalidades descritas acima. Os dados de conformidade (submissões de formulários, provas, registo de auditoria) são conservados durante o período legalmente exigido. Quando elimina a sua conta, os dados pessoais são removidos. As entradas anonimizadas do registo de auditoria podem ser conservadas."
+        "p1": "Os seus dados são conservados enquanto a sua conta estiver ativa e for necessário para as finalidades descritas acima. Os dados de conformidade (submissões de formulários, provas, registo de auditoria) são conservados durante o período legalmente exigido. Quando elimina a sua conta, os dados pessoais são removidos. As entradas anonimizadas do registo de auditoria podem ser conservadas.",
+        "erasure": "Quando a sua conta é eliminada, enviamos-lhe por email uma confirmação do que foi eliminado, através do nosso fornecedor de email Resend (art. 12.º, n.º 3, do GDPR). Conservamos um registo do apagamento (nome, endereço de email, organização, número de processo e o que foi eliminado) para demonstrar que demos seguimento ao pedido (art. 5.º, n.º 2, do GDPR). O endereço de email é removido desse registo ao fim de três anos."
       },
       "changes": {
         "heading": "Alterações a Esta Política",

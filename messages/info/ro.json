@@ -858,7 +858,8 @@
       },
       "retention": {
         "heading": "Păstrarea datelor",
-        "p1": "Datele dumneavoastră sunt stocate atât timp cât contul este activ și necesar pentru scopurile descrise mai sus. Datele de conformitate (trimiteri de formulare, probe, pista de audit) sunt păstrate pe perioada cerută de lege. Când vă ștergeți contul, datele cu caracter personal sunt eliminate. Înregistrările anonimizate din pista de audit pot fi păstrate."
+        "p1": "Datele dumneavoastră sunt stocate atât timp cât contul este activ și necesar pentru scopurile descrise mai sus. Datele de conformitate (trimiteri de formulare, probe, pista de audit) sunt păstrate pe perioada cerută de lege. Când vă ștergeți contul, datele cu caracter personal sunt eliminate. Înregistrările anonimizate din pista de audit pot fi păstrate.",
+        "erasure": "Când contul dumneavoastră este șters, vă trimitem prin e-mail o confirmare a ceea ce a fost șters, prin intermediul furnizorului nostru de e-mail Resend (Art. 12 alin. (3) GDPR). Păstrăm o evidență a ștergerii (nume, adresă de e-mail, organizație, număr de dosar și ce a fost șters) pentru a dovedi că am dat curs solicitării (Art. 5 alin. (2) GDPR). După trei ani, eliminăm adresa de e-mail din această evidență."
       },
       "changes": {
         "heading": "Modificări ale acestei politici",

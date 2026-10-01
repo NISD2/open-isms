@@ -858,7 +858,8 @@
       },
       "retention": {
         "heading": "Conservation des données",
-        "p1": "Vos données sont conservées tant que votre compte est actif et nécessaire aux finalités décrites ci-dessus. Les données de conformité (saisies de formulaires, preuves, piste d'audit) sont conservées pendant la durée légalement requise. Lorsque vous supprimez votre compte, les données à caractère personnel sont effacées. Les entrées anonymisées de la piste d'audit peuvent être conservées."
+        "p1": "Vos données sont conservées tant que votre compte est actif et nécessaire aux finalités décrites ci-dessus. Les données de conformité (saisies de formulaires, preuves, piste d'audit) sont conservées pendant la durée légalement requise. Lorsque vous supprimez votre compte, les données à caractère personnel sont effacées. Les entrées anonymisées de la piste d'audit peuvent être conservées.",
+        "erasure": "Lorsque votre compte est supprimé, nous vous envoyons par e-mail une confirmation de ce qui a été supprimé, via notre prestataire de messagerie Resend (art. 12, paragraphe 3, GDPR). Nous conservons un enregistrement de l'effacement (nom, adresse e-mail, organisation, référence du dossier et ce qui a été supprimé) afin de démontrer que nous avons donné suite à la demande (art. 5, paragraphe 2, GDPR). L'adresse e-mail en est retirée au bout de trois ans."
       },
       "changes": {
         "heading": "Modifications de la présente politique",

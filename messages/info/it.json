@@ -858,7 +858,8 @@
       },
       "retention": {
         "heading": "Conservazione dei dati",
-        "p1": "I tuoi dati sono conservati finché il tuo account è attivo e necessario per le finalità descritte sopra. I dati di conformità (invii di moduli, documenti probatori, audit trail) sono conservati per il periodo previsto dalla legge. Quando elimini il tuo account, i dati personali vengono rimossi. Le voci anonimizzate dell'audit trail possono essere conservate."
+        "p1": "I tuoi dati sono conservati finché il tuo account è attivo e necessario per le finalità descritte sopra. I dati di conformità (invii di moduli, documenti probatori, audit trail) sono conservati per il periodo previsto dalla legge. Quando elimini il tuo account, i dati personali vengono rimossi. Le voci anonimizzate dell'audit trail possono essere conservate.",
+        "erasure": "Quando il tuo account viene eliminato, ti inviamo via email una conferma di ciò che è stato eliminato, tramite il nostro fornitore di servizi email Resend (art. 12(3) GDPR). Conserviamo una registrazione della cancellazione (nome, indirizzo email, organizzazione, numero di pratica e ciò che è stato eliminato) per dimostrare di aver dato seguito alla richiesta (art. 5(2) GDPR). Dopo tre anni ne rimuoviamo l'indirizzo email."
       },
       "changes": {
         "heading": "Modifiche alla presente informativa",

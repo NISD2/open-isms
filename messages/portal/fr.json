@@ -13,6 +13,26 @@
     "billing": "Facturation",
     "defaultUser": "Utilisateur",
     "signOut": "Se déconnecter",
+    "deleteAccount": {
+      "menuItem": "Supprimer le compte",
+      "title": "Supprimer définitivement votre compte",
+      "description": "Cette action est irréversible.",
+      "whatAccount": "Votre compte et toutes les données personnelles qu'il contient sont supprimés.",
+      "whatOrganization": "Votre organisation {name} est supprimée avec toutes ses données, y compris les fichiers téléversés.",
+      "whatEmail": "La confirmation de l'effacement est ensuite envoyée à {email}.",
+      "confirmLabel": "Saisissez votre adresse e-mail pour confirmer :",
+      "confirm": "Supprimer définitivement",
+      "cancel": "Annuler",
+      "signInAgain": "Se reconnecter",
+      "failed": "Le compte n'a pas pu être supprimé pour le moment. Veuillez réessayer plus tard ou écrire à contact@nisd2.eu.",
+      "refused": {
+        "reauth": "Par sécurité, veuillez vous reconnecter avant de supprimer votre compte. Vous reviendrez ensuite ici.",
+        "platform_admin": "Les administrateurs de la plateforme ne peuvent pas supprimer leur compte ici.",
+        "several_organizations": "Vous êtes propriétaire de plusieurs organisations. Écrivez à contact@nisd2.eu et nous supprimerons le compte avec vous.",
+        "billing": "Votre compte a des factures ou une commande en cours de vérification, ou il paie pour une autre organisation. Nous devons conserver les factures. Écrivez à contact@nisd2.eu et nous supprimerons le compte avec vous.",
+        "other_members": "Votre organisation compte d'autres membres, et supprimer votre compte supprimerait l'organisation avec leur travail. Retirez d'abord les autres membres, ou écrivez à contact@nisd2.eu."
+      }
+    },
     "organizations": "Organisations",
     "addOrganization": "Ajouter une autre organisation",
     "untitledOrganization": "Nouvelle organisation (pas encore configurée)",

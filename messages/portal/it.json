@@ -13,6 +13,26 @@
     "billing": "Fatturazione",
     "defaultUser": "Utente",
     "signOut": "Esci",
+    "deleteAccount": {
+      "menuItem": "Elimina account",
+      "title": "Eliminare definitivamente l'account",
+      "description": "L'operazione non può essere annullata.",
+      "whatAccount": "Il vostro account e tutti i dati personali che contiene vengono eliminati.",
+      "whatOrganization": "La vostra organizzazione {name} viene eliminata con tutti i suoi dati, compresi i file caricati.",
+      "whatEmail": "La conferma della cancellazione arriva poi a {email}.",
+      "confirmLabel": "Per confermare, digitate il vostro indirizzo email:",
+      "confirm": "Elimina definitivamente",
+      "cancel": "Annulla",
+      "signInAgain": "Accedi di nuovo",
+      "failed": "Al momento non è stato possibile eliminare l'account. Riprovate più tardi o scrivete a contact@nisd2.eu.",
+      "refused": {
+        "reauth": "Per sicurezza, accedete di nuovo prima di eliminare il vostro account. Poi tornerete qui.",
+        "platform_admin": "Gli amministratori della piattaforma non possono eliminare il proprio account da qui.",
+        "several_organizations": "Siete titolari di più organizzazioni. Scrivete a contact@nisd2.eu ed elimineremo l'account insieme a voi.",
+        "billing": "Al vostro account sono collegate fatture o un ordine in verifica, oppure l'account paga per un'altra organizzazione. Dobbiamo conservare le fatture. Scrivete a contact@nisd2.eu ed elimineremo l'account insieme a voi.",
+        "other_members": "La vostra organizzazione ha altri membri, ed eliminando il vostro account verrebbe eliminata anche l'organizzazione con il loro lavoro. Rimuovete prima gli altri membri, oppure scrivete a contact@nisd2.eu."
+      }
+    },
     "organizations": "Organizzazioni",
     "addOrganization": "Aggiungi un'altra organizzazione",
     "untitledOrganization": "Nuova organizzazione (non ancora configurata)",
