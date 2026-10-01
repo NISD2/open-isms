@@ -20,6 +20,7 @@
       "whatAccount": "Contul dvs. și toate datele personale din acesta sunt șterse.",
       "whatOrganization": "Organizația dvs. {name} este ștearsă cu toate datele sale, inclusiv fișierele încărcate.",
       "whatEmail": "Confirmarea ștergerii ajunge apoi la {email}.",
+      "whatInvoices": "Facturile deja emise se păstrează atât timp cât cere legislația fiscală (§ 147 AO, § 14b UStG). Ștergerea contului nu le anulează.",
       "confirmLabel": "Introduceți adresa dvs. de e-mail pentru confirmare:",
       "confirm": "Șterge definitiv",
       "cancel": "Anulează",
@@ -29,7 +30,9 @@
         "reauth": "Pentru siguranță, autentificați-vă din nou înainte de a vă șterge contul. Apoi veți reveni aici.",
         "platform_admin": "Administratorii platformei nu își pot șterge contul aici.",
         "several_organizations": "Dețineți mai multe organizații. Scrieți la contact@nisd2.eu și vom șterge contul împreună cu dvs.",
-        "billing": "Contul dvs. are facturi sau o comandă în curs de verificare, ori plătește pentru o altă organizație. Trebuie să păstrăm facturile. Scrieți la contact@nisd2.eu și vom șterge contul împreună cu dvs.",
+        "pays_for_others": "Contul dvs. de facturare plătește și pentru o altă organizație, care ar rămâne fără nimeni care să poată plăti. Scrieți la contact@nisd2.eu și rezolvăm împreună cu dvs.",
+        "order_check": "O comandă a contului dvs. este încă în curs de verificare. Scrieți la contact@nisd2.eu și ștergem contul imediat ce este clarificată.",
+        "billing_busy": "Chiar acum se procesează o comandă sau o reziliere a contului dvs. Vă rugăm să încercați din nou peste un minut.",
         "other_members": "Organizația dvs. are și alți membri, iar ștergerea contului dvs. ar șterge organizația împreună cu munca lor. Eliminați mai întâi ceilalți membri sau scrieți la contact@nisd2.eu."
       }
     },

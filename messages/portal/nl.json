@@ -20,6 +20,7 @@
       "whatAccount": "Uw account en alle persoonsgegevens daarin worden verwijderd.",
       "whatOrganization": "Uw organisatie {name} wordt verwijderd met alle gegevens, ook de geüploade bestanden.",
       "whatEmail": "De bevestiging van de verwijdering gaat daarna naar {email}.",
+      "whatInvoices": "Facturen die al zijn uitgereikt, blijven bewaard zolang het belastingrecht dat eist (§ 147 AO, § 14b UStG). Het verwijderen van het account annuleert ze niet.",
       "confirmLabel": "Typ uw e-mailadres ter bevestiging:",
       "confirm": "Definitief verwijderen",
       "cancel": "Annuleren",
@@ -29,7 +30,9 @@
         "reauth": "Voor de veiligheid: meld u opnieuw aan voordat u uw account verwijdert. Daarna komt u hier terug.",
         "platform_admin": "Platformbeheerders kunnen hun account hier niet verwijderen.",
         "several_organizations": "U bent eigenaar van meerdere organisaties. Schrijf naar contact@nisd2.eu, dan verwijderen we het account samen met u.",
-        "billing": "Bij uw account horen facturen, een bestelling die wordt gecontroleerd, of het betaalt voor een andere organisatie. Facturen moeten wij bewaren. Schrijf naar contact@nisd2.eu, dan verwijderen we het account samen met u.",
+        "pays_for_others": "Uw facturatieaccount betaalt ook voor een andere organisatie, die dan niemand meer heeft die kan betalen. Schrijf naar contact@nisd2.eu, dan regelen we het samen met u.",
+        "order_check": "Een bestelling van uw account wordt nog gecontroleerd. Schrijf naar contact@nisd2.eu, dan verwijderen we het account zodra die is afgerond.",
+        "billing_busy": "Er wordt nu een bestelling of opzegging van uw account verwerkt. Probeer het over een minuut opnieuw.",
         "other_members": "Uw organisatie heeft andere leden, en met uw account zou de organisatie met hun werk worden verwijderd. Verwijder eerst de andere leden, of schrijf naar contact@nisd2.eu."
       }
     },

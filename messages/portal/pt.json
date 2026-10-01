@@ -20,6 +20,7 @@
       "whatAccount": "A sua conta e todos os dados pessoais nela contidos são eliminados.",
       "whatOrganization": "A sua organização {name} é eliminada com todos os seus dados, incluindo os ficheiros carregados.",
       "whatEmail": "A confirmação do apagamento é depois enviada para {email}.",
+      "whatInvoices": "As faturas já emitidas ficam guardadas durante o tempo que a lei fiscal exige (§ 147 AO, § 14b UStG). Eliminar a conta não as anula.",
       "confirmLabel": "Introduza o seu endereço de email para confirmar:",
       "confirm": "Eliminar definitivamente",
       "cancel": "Cancelar",
@@ -29,7 +30,9 @@
         "reauth": "Por segurança, inicie sessão novamente antes de eliminar a sua conta. Depois regressa a esta página.",
         "platform_admin": "Os administradores da plataforma não podem eliminar a própria conta aqui.",
         "several_organizations": "É titular de várias organizações. Escreva para contact@nisd2.eu e eliminamos a conta consigo.",
-        "billing": "A sua conta tem faturas ou uma encomenda em verificação, ou paga por outra organização. Temos de conservar as faturas. Escreva para contact@nisd2.eu e eliminamos a conta consigo.",
+        "pays_for_others": "A sua conta de faturação também paga por outra organização, que ficaria sem ninguém que possa pagar. Escreva para contact@nisd2.eu e resolvemos isso consigo.",
+        "order_check": "Uma encomenda da sua conta ainda está em verificação. Escreva para contact@nisd2.eu e eliminamos a conta assim que estiver resolvida.",
+        "billing_busy": "Neste momento está a ser processada uma encomenda ou um cancelamento da sua conta. Tente novamente dentro de um minuto.",
         "other_members": "A sua organização tem outros membros, e eliminar a sua conta eliminaria a organização com o trabalho deles. Remova primeiro os outros membros ou escreva para contact@nisd2.eu."
       }
     },

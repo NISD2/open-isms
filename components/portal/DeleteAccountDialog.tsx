@@ -91,6 +91,7 @@ export function DeleteAccountDialog({
                 <li>{t("whatOrganization", { name: answer.organization })}</li>
               ) : null}
               <li>{t("whatEmail", { email })}</li>
+              {answer.invoicesKept ? <li>{t("whatInvoices")}</li> : null}
             </ul>
             <div className="space-y-1.5">
               {/* block, not the Label's flex: the sentence and the address wrap as one line. */}

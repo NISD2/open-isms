@@ -51,6 +51,11 @@ export interface ErasureScope {
   companyTornDown: boolean;
   /** residual caveats worth recording (e.g. JSONB snapshot scrub was best-effort) */
   residualNotes: string[];
+  /**
+   * What was kept because a law requires it (the Art. 17(3)(b) exception), such as invoices under
+   * § 147 AO and § 14b UStG. Absent on records written before 01.10.2026, and empty when nothing was.
+   */
+  retainedUnderLegalDuty?: string[];
 }
 
 /** "hard_delete": subject had no retained-evidence footprint, everything was deleted.

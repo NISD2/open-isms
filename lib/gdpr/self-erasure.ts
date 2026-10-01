@@ -4,18 +4,21 @@
  * The same erasure as the platform admin's (./erase-user), with the cases one click must not decide
  * refused:
  *   - an owner whose organization has other members (those colleagues did not ask);
- *   - the payer of a billing account that has invoices, an order under check, or another
- *     organization on it (invoices are kept for § 14b UStG, which the certificate would have to
- *     explain, and another organization would be left without anyone who can pay);
+ *   - the payer of a billing account another set-up organization also uses (it would be left
+ *     without anyone who can order, pay or cancel);
+ *   - a payer with an order still under check in Qonto (its outcome is not known yet);
  *   - an owner of several organizations (the engine refuses that itself);
  *   - platform admins.
  * Those write to contact@nisd2.eu and are handled with the admin tool.
+ *
+ * Invoices do not stop it. They are kept for the statutory period (§ 147 AO, § 14b UStG), which
+ * Art. 17(3)(b) GDPR allows; the dialog says so beforehand and the certificate names them.
  *
  * The rules are checked twice: for the dialog, and again inside the erasure's transaction
  * (assertSelfErasureAllowed as eraseUser's guard), because the dialog's answer can be stale.
  */
 import "@/lib/server-guard";
-import { and, count, eq, isNotNull, ne } from "drizzle-orm";
+import { and, count, eq, inArray, isNotNull, ne, or } from "drizzle-orm";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { hasOrderCheck } from "@/lib/billing/order-check";
 import type { DbOrTx } from "@/lib/db";
@@ -25,7 +28,10 @@ import { ErasureRefused, erasureCompanyOf } from "./erase-user";
 export type SelfErasureRefusal =
   | "platform_admin"
   | "several_organizations"
-  | "billing"
+  | "pays_for_others"
+  | "order_check"
+  /** An order or cancel is running on the account right now; trying again in a minute works. */
+  | "billing_busy"
   | "other_members"
   /** Not a rule about the account: the sign-in is too old (decided in the router). */
   | "reauth";
@@ -35,6 +41,8 @@ export type SelfErasure =
       readonly allowed: true;
       /** The organization deleted with the account, when they own it; null otherwise. */
       readonly organization: string | null;
+      /** Invoices were issued, so they stay on record after the erasure. */
+      readonly invoicesKept: boolean;
     }
   | { readonly allowed: false; readonly reason: SelfErasureRefusal };
 
@@ -48,45 +56,59 @@ export class SelfErasureRefused extends Error {
 
 const exists = async (rows: Promise<readonly unknown[]>) => (await rows).length > 0;
 
-/** A billing account this person pays for that the erasure cannot simply leave behind. */
-const hasBillingTies = async (
+/** The billing accounts the erasure touches: the ones the person pays for and their own org's. */
+const accountsOf = async (db: DbOrTx, userId: string, ownedCompanyId: string | null) =>
+  (
+    await db
+      .select({ id: billingAccount.id })
+      .from(billingAccount)
+      .where(
+        or(
+          eq(billingAccount.ownerUserId, userId),
+          ownedCompanyId
+            ? inArray(
+                billingAccount.id,
+                db
+                  .select({ id: company.billingAccountId })
+                  .from(company)
+                  .where(eq(company.id, ownedCompanyId)),
+              )
+            : undefined,
+        ),
+      )
+  ).map((a) => a.id);
+
+/** Another set-up organization pays through one of these accounts; a draft is left ownerless. */
+const paysForOthers = (
   db: DbOrTx,
-  userId: string,
+  ids: readonly string[],
   ownedCompanyId: string | null,
-) => {
-  const accounts = await db
-    .select({ id: billingAccount.id })
-    .from(billingAccount)
-    .where(eq(billingAccount.ownerUserId, userId));
-  const tied = await Promise.all(
-    accounts.map(
-      async ({ id }) =>
-        (await exists(
-          db
-            .select({ id: invoice.id })
-            .from(invoice)
-            .where(eq(invoice.billingAccountId, id))
-            .limit(1),
-        )) ||
-        (await hasOrderCheck(db, id)) ||
-        // Another set-up organization on it; a never set-up draft is left ownerless by design.
-        (await exists(
-          db
-            .select({ id: company.id })
-            .from(company)
-            .where(
-              and(
-                eq(company.billingAccountId, id),
-                isNotNull(company.activatedAt),
-                ownedCompanyId ? ne(company.id, ownedCompanyId) : undefined,
-              ),
-            )
-            .limit(1),
-        )),
-    ),
+) =>
+  exists(
+    db
+      .select({ id: company.id })
+      .from(company)
+      .where(
+        and(
+          inArray(company.billingAccountId, [...ids]),
+          isNotNull(company.activatedAt),
+          ownedCompanyId ? ne(company.id, ownedCompanyId) : undefined,
+        ),
+      )
+      .limit(1),
   );
-  return tied.some(Boolean);
-};
+
+const anyOrderCheck = async (db: DbOrTx, ids: readonly string[]) =>
+  (await Promise.all(ids.map((id) => hasOrderCheck(db, id)))).some(Boolean);
+
+const anyInvoice = (db: DbOrTx, ids: readonly string[]) =>
+  exists(
+    db
+      .select({ id: invoice.id })
+      .from(invoice)
+      .where(inArray(invoice.billingAccountId, [...ids]))
+      .limit(1),
+  );
 
 const otherMemberCount = async (db: DbOrTx, companyId: string, userId: string) => {
   const [row] = await db
@@ -113,13 +135,19 @@ export async function selfErasureCheck(
   });
   if (!scope) return { allowed: false, reason: "several_organizations" };
   const ownedId = scope.owned?.id ?? null;
-  if (await hasBillingTies(db, person.userId, ownedId)) {
-    return { allowed: false, reason: "billing" };
+  const accounts = await accountsOf(db, person.userId, ownedId);
+  if (accounts.length > 0 && (await paysForOthers(db, accounts, ownedId))) {
+    return { allowed: false, reason: "pays_for_others" };
   }
+  if (await anyOrderCheck(db, accounts)) return { allowed: false, reason: "order_check" };
   if (ownedId && (await otherMemberCount(db, ownedId, person.userId)) > 0) {
     return { allowed: false, reason: "other_members" };
   }
-  return { allowed: true, organization: scope.owned?.name ?? null };
+  return {
+    allowed: true,
+    organization: scope.owned?.name ?? null,
+    invoicesKept: accounts.length > 0 && (await anyInvoice(db, accounts)),
+  };
 }
 
 /**
@@ -133,7 +161,7 @@ export async function selfErasureCheck(
  * The billing lock does not wait. An order or a cancel holds its account (NO KEY UPDATE) across the
  * Qonto call and then inserts an invoice or credit note naming this user, which needs KEY SHARE on
  * the user row eraseUser already holds: waiting here would be a cycle, and Postgres would abort the
- * order after Qonto had issued the invoice. A billing action in flight is a billing tie anyway.
+ * order after Qonto had issued the invoice. A billing action in flight refuses for now instead.
  */
 export const assertSelfErasureAllowed =
   (person: { readonly userId: string; readonly email: string }) =>
@@ -149,7 +177,9 @@ export const assertSelfErasureAllowed =
       .where(eq(billingAccount.ownerUserId, person.userId))
       .for("share", { noWait: true })
       .catch((err: unknown) => {
-        if (pgCodeOf(err) === LOCK_NOT_AVAILABLE) throw new SelfErasureRefused("billing");
+        if (pgCodeOf(err) === LOCK_NOT_AVAILABLE) {
+          throw new SelfErasureRefused("billing_busy");
+        }
         throw err;
       });
     const check = await selfErasureCheck(tx, person);

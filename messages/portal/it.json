@@ -20,6 +20,7 @@
       "whatAccount": "Il vostro account e tutti i dati personali che contiene vengono eliminati.",
       "whatOrganization": "La vostra organizzazione {name} viene eliminata con tutti i suoi dati, compresi i file caricati.",
       "whatEmail": "La conferma della cancellazione arriva poi a {email}.",
+      "whatInvoices": "Le fatture già emesse restano conservate per il tempo richiesto dalla normativa fiscale (§ 147 AO, § 14b UStG). L'eliminazione dell'account non le annulla.",
       "confirmLabel": "Per confermare, digitate il vostro indirizzo email:",
       "confirm": "Elimina definitivamente",
       "cancel": "Annulla",
@@ -29,7 +30,9 @@
         "reauth": "Per sicurezza, accedete di nuovo prima di eliminare il vostro account. Poi tornerete qui.",
         "platform_admin": "Gli amministratori della piattaforma non possono eliminare il proprio account da qui.",
         "several_organizations": "Siete titolari di più organizzazioni. Scrivete a contact@nisd2.eu ed elimineremo l'account insieme a voi.",
-        "billing": "Al vostro account sono collegate fatture o un ordine in verifica, oppure l'account paga per un'altra organizzazione. Dobbiamo conservare le fatture. Scrivete a contact@nisd2.eu ed elimineremo l'account insieme a voi.",
+        "pays_for_others": "Il vostro account di fatturazione paga anche per un'altra organizzazione, che resterebbe senza nessuno in grado di pagare. Scrivete a contact@nisd2.eu e lo risolveremo insieme a voi.",
+        "order_check": "Un ordine del vostro account è ancora in verifica. Scrivete a contact@nisd2.eu ed elimineremo l'account non appena sarà definito.",
+        "billing_busy": "In questo momento è in corso l'elaborazione di un ordine o di una disdetta del vostro account. Riprovate tra un minuto.",
         "other_members": "La vostra organizzazione ha altri membri, ed eliminando il vostro account verrebbe eliminata anche l'organizzazione con il loro lavoro. Rimuovete prima gli altri membri, oppure scrivete a contact@nisd2.eu."
       }
     },
