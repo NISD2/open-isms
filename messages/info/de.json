@@ -746,8 +746,11 @@
       "subtitle": "Angaben gemäß § 5 DDG (Digitale-Dienste-Gesetz).",
       "responsible": {
         "heading": "Angaben gemäß § 5 DDG",
-        "company": "Simon Orzel",
+        "company": "Kardashev Catalyst UG (haftungsbeschränkt)",
         "address": "Trierer Str. 6, 50676 Köln, Deutschland",
+        "representedBy": "Vertreten durch Simon Orzel, Geschäftsführer",
+        "register": "Registergericht: Amtsgericht Köln, Registernummer: HRB 126993 (EUID DER3306.HRB126993)",
+        "vatId": "Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: DE462889433",
         "emailLabel": "E-Mail",
         "email": "contact@nisd2.eu"
       },
@@ -788,7 +791,7 @@
       "responsible": {
         "heading": "Verantwortlicher",
         "p1": "Der Verantwortliche für die Datenverarbeitung auf dieser Website ist:",
-        "company": "Simon Orzel",
+        "company": "Kardashev Catalyst UG (haftungsbeschränkt)",
         "address": "Trierer Str. 6, 50676 Köln, Deutschland",
         "emailLabel": "E-Mail",
         "email": "contact@nisd2.eu"
@@ -876,7 +879,7 @@
         "clauses": {
           "heading": "1. Standardvertragsklauseln der EU Kommission",
           "paragraphs": [
-            "Dieser Vertrag gilt zwischen dem Kunden als Verantwortlichem und Simon Orzel als Auftragsverarbeiter (Anhang I) für jede Verarbeitung personenbezogener Daten, die der Auftragsverarbeiter bei der Nutzung der gehosteten Plattform nisd2.eu im Auftrag des Kunden durchführt.",
+            "Dieser Vertrag gilt zwischen dem Kunden als Verantwortlichem und der Kardashev Catalyst UG (haftungsbeschränkt) als Auftragsverarbeiter (Anhang I) für jede Verarbeitung personenbezogener Daten, die der Auftragsverarbeiter bei der Nutzung der gehosteten Plattform nisd2.eu im Auftrag des Kunden durchführt.",
             "Die Parteien vereinbaren die Standardvertragsklauseln zwischen Verantwortlichen und Auftragsverarbeitern aus dem Anhang des Durchführungsbeschlusses (EU) 2021/915 der Kommission vom 4. Juni 2021 (ABl. L 199 vom 7.6.2021, S. 18). Sie werden durch diesen Verweis in ihrem amtlichen Wortlaut Bestandteil dieses Vertrags. Die Anhänge I bis IV unten sind ihre Anhänge.",
             "Gewählt sind in Klausel 1 die Option 1 (Art. 28 Abs. 3 und 4 DSGVO) und in Klausel 7.7 die Option 2 (allgemeine schriftliche Genehmigung) mit einer Frist von 30 Tagen. Die fakultative Klausel 5 (Kopplungsklausel) ist nicht vereinbart.",
             "Nach Klausel 4 haben die Standardvertragsklauseln Vorrang vor den AGB und allen anderen Vereinbarungen der Parteien."
@@ -918,7 +921,7 @@
           "heading": "Anhang I: Liste der Parteien",
           "paragraphs": [
             "Verantwortlicher: der Kunde, mit Firma, Anschrift und USt-IdNr. aus seiner Bestellung. Kontaktperson ist die Person, der das Konto gehört. An die Stelle von Unterschrift und Datum tritt die gespeicherte Annahme (Fassung, Zeitpunkt, Person), die der Kunde unter Abrechnung sieht.",
-            "Auftragsverarbeiter: Simon Orzel, Trierer Str. 6, 50676 Köln, Deutschland. Kontakt für den Datenschutz: contact@nisd2.eu. Unterschrift und Datum: durch Bereitstellung dieses Vertrags in der oben genannten Fassung."
+            "Auftragsverarbeiter: Kardashev Catalyst UG (haftungsbeschränkt), Trierer Str. 6, 50676 Köln, Deutschland, vertreten durch den Geschäftsführer Simon Orzel. Kontakt für den Datenschutz: contact@nisd2.eu. Unterschrift und Datum: durch Bereitstellung dieses Vertrags in der oben genannten Fassung."
           ]
         },
         "annex2": {
@@ -973,7 +976,7 @@
       "revised": "Stand: 26.09.2026. Am Code geprüft und korrigiert; die Fassung ist Anhang III des Auftragsverarbeitungsvertrags.",
       "intro": {
         "heading": "Überblick",
-        "p1": "Dieses Dokument beschreibt die technischen und organisatorischen Maßnahmen, die Simon Orzel als Betreiber der NISD2.eu-Plattform tatsächlich umsetzt. Es ist eine ehrliche Bestandsaufnahme, keine Wunschliste - wir nennen nur, was bereits implementiert ist.",
+        "p1": "Dieses Dokument beschreibt die technischen und organisatorischen Maßnahmen, die die Kardashev Catalyst UG (haftungsbeschränkt) als Betreiberin der Plattform NISD2.eu tatsächlich umsetzt. Es ist eine ehrliche Bestandsaufnahme, keine Wunschliste - wir nennen nur, was bereits implementiert ist.",
         "p2": "Die Maßnahmen orientieren sich an IT-Grundschutz (BSI) und werden mit dem Wachstum der Plattform erweitert."
       },
       "hosting": {
@@ -1061,7 +1064,7 @@
         "provider": {
           "heading": "A1. Anbieter und Geltungsbereich",
           "paragraphs": [
-            "Anbieter der Plattform nisd2.eu („Plattform“) ist Simon Orzel, Trierer Str. 6, 50676 Köln, Deutschland („Anbieter“).",
+            "Anbieter der Plattform nisd2.eu („Plattform“) ist die Kardashev Catalyst UG (haftungsbeschränkt), Trierer Str. 6, 50676 Köln, Deutschland, vertreten durch den Geschäftsführer Simon Orzel, eingetragen beim Amtsgericht Köln unter HRB 126993, USt-IdNr. DE462889433 („Anbieter“).",
             "Diese Bedingungen gelten für die Nutzung der Plattform, die der Anbieter unter nisd2.eu betreibt, kostenlos wie mit Jahreslizenz. Teil A gilt für jede Nutzung, Teil B zusätzlich für die kostenpflichtige Jahreslizenz.",
             "Wer die Software selbst betreibt, nutzt sie unter der Open Source Lizenz AGPL 3.0. Für diesen Betrieb gelten diese Bedingungen nicht.",
             "Allgemeine Geschäftsbedingungen des Kunden gelten nur, wenn der Anbieter ihnen ausdrücklich in Textform zustimmt."
@@ -1249,7 +1252,7 @@
         "contact": {
           "heading": "C4. Kontakt",
           "paragraphs": [
-            "Fragen zu diesen AGB: Simon Orzel, Trierer Str. 6, 50676 Köln, Deutschland, contact@nisd2.eu."
+            "Fragen zu diesen AGB: Kardashev Catalyst UG (haftungsbeschränkt), Trierer Str. 6, 50676 Köln, Deutschland, contact@nisd2.eu."
           ]
         }
       }

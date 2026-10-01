@@ -40,6 +40,9 @@ export default async function ImpressumPage() {
               {t("impressum.responsible.company")}
             </p>
             <p>{t("impressum.responsible.address")}</p>
+            <p>{t("impressum.responsible.representedBy")}</p>
+            <p>{t("impressum.responsible.register")}</p>
+            <p>{t("impressum.responsible.vatId")}</p>
             <p>
               {t("impressum.responsible.emailLabel")}: {t("impressum.responsible.email")}
             </p>

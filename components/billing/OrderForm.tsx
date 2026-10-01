@@ -194,7 +194,11 @@ export function OrderForm() {
                   setTermsMissing(false);
                 }}
               />
-              <Label htmlFor="order-terms" className="font-normal text-sm leading-snug">
+              {/* block, not the Label's flex: rich text with links must wrap as one paragraph. */}
+              <Label
+                htmlFor="order-terms"
+                className="block font-normal text-sm leading-relaxed"
+              >
                 {t.rich("accept.label", {
                   date: termsVersionLabel(locale),
                   terms: (chunks) => legalLink("/terms", chunks),

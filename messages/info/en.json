@@ -746,8 +746,11 @@
       "subtitle": "Legal notice pursuant to Section 5 DDG (Digitale-Dienste-Gesetz).",
       "responsible": {
         "heading": "Information pursuant to Section 5 DDG",
-        "company": "Simon Orzel",
+        "company": "Kardashev Catalyst UG (haftungsbeschränkt)",
         "address": "Trierer Str. 6, 50676 Köln, Germany",
+        "representedBy": "Represented by Simon Orzel, managing director",
+        "register": "Register court: Amtsgericht Köln, register number HRB 126993 (EUID DER3306.HRB126993)",
+        "vatId": "VAT ID pursuant to Section 27a UStG: DE462889433",
         "emailLabel": "Email",
         "email": "contact@nisd2.eu"
       },
@@ -788,7 +791,7 @@
       "responsible": {
         "heading": "Responsible Party",
         "p1": "The responsible party for data processing on this website is:",
-        "company": "Simon Orzel",
+        "company": "Kardashev Catalyst UG (haftungsbeschränkt)",
         "address": "Trierer Str. 6, 50676 Köln, Germany",
         "emailLabel": "Email",
         "email": "contact@nisd2.eu"
@@ -876,7 +879,7 @@
         "clauses": {
           "heading": "1. The European Commission's standard contractual clauses",
           "paragraphs": [
-            "This agreement applies between the customer as controller and Simon Orzel as processor (Annex I) to every processing of personal data the processor carries out on the customer's behalf when the hosted platform nisd2.eu is used.",
+            "This agreement applies between the customer as controller and Kardashev Catalyst UG (haftungsbeschränkt) as processor (Annex I) to every processing of personal data the processor carries out on the customer's behalf when the hosted platform nisd2.eu is used.",
             "The parties agree the standard contractual clauses between controllers and processors in the annex to Commission Implementing Decision (EU) 2021/915 of 4 June 2021 (OJ L 199, 7.6.2021, p. 18). By this reference they become part of this agreement in their official wording. Annexes I to IV below are their annexes.",
             "In Clause 1, Option 1 (Art. 28(3) and (4) GDPR) is chosen, and in Clause 7.7 Option 2 (general written authorisation) with a period of 30 days. The optional Clause 5 (docking clause) is not agreed.",
             "Under Clause 4, the standard contractual clauses prevail over the terms and every other agreement between the parties."
@@ -918,7 +921,7 @@
           "heading": "Annex I: List of parties",
           "paragraphs": [
             "Controller: the customer, with the company name, address and VAT number from its order. The contact person is the person who holds the account. The stored acceptance (version, time, person), which the customer sees under Billing, takes the place of signature and date.",
-            "Processor: Simon Orzel, Trierer Str. 6, 50676 Köln, Germany. Data protection contact: contact@nisd2.eu. Signature and date: by providing this agreement in the version stated above."
+            "Processor: Kardashev Catalyst UG (haftungsbeschränkt), Trierer Str. 6, 50676 Köln, Germany, represented by its managing director Simon Orzel. Data protection contact: contact@nisd2.eu. Signature and date: by providing this agreement in the version stated above."
           ]
         },
         "annex2": {
@@ -973,7 +976,7 @@
       "revised": "As of 26 September 2026. Checked against the code and corrected; this version is Annex III of the data processing agreement.",
       "intro": {
         "heading": "Overview",
-        "p1": "This document describes the technical and organisational measures actually implemented by Simon Orzel as operator of the NISD2.eu platform. It is an honest inventory, not a wish list - we list only what is already in place.",
+        "p1": "This document describes the technical and organisational measures actually implemented by Kardashev Catalyst UG (haftungsbeschränkt) as operator of the NISD2.eu platform. It is an honest inventory, not a wish list - we list only what is already in place.",
         "p2": "The measures are aligned with IT-Grundschutz (BSI) and will be extended as the platform grows."
       },
       "hosting": {
@@ -1061,7 +1064,7 @@
         "provider": {
           "heading": "A1. Provider and scope",
           "paragraphs": [
-            "The platform nisd2.eu (\"Platform\") is provided by Simon Orzel, Trierer Str. 6, 50676 Köln, Germany (\"Provider\").",
+            "The platform nisd2.eu (\"Platform\") is provided by Kardashev Catalyst UG (haftungsbeschränkt), Trierer Str. 6, 50676 Köln, Germany, represented by its managing director Simon Orzel, registered at Amtsgericht Köln under HRB 126993, VAT ID DE462889433 (\"Provider\").",
             "These terms apply to the use of the Platform the Provider operates at nisd2.eu, free and with an annual licence. Part A applies to every use, Part B also to the paid annual licence.",
             "Anyone who runs the software themselves uses it under the open source licence AGPL 3.0. These terms do not apply to that.",
             "The customer's own general terms apply only if the Provider expressly agrees to them in text form."
@@ -1249,7 +1252,7 @@
         "contact": {
           "heading": "C4. Contact",
           "paragraphs": [
-            "Questions about these terms: Simon Orzel, Trierer Str. 6, 50676 Köln, Germany, contact@nisd2.eu."
+            "Questions about these terms: Kardashev Catalyst UG (haftungsbeschränkt), Trierer Str. 6, 50676 Köln, Germany, contact@nisd2.eu."
           ]
         }
       }

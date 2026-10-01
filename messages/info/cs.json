@@ -746,8 +746,11 @@
       "subtitle": "Právní informace podle § 5 DDG (Digitale-Dienste-Gesetz).",
       "responsible": {
         "heading": "Informace podle § 5 DDG",
-        "company": "Simon Orzel",
+        "company": "Kardashev Catalyst UG (haftungsbeschränkt)",
         "address": "Trierer Str. 6, 50676 Köln, Německo",
+        "representedBy": "Zastoupená jednatelem Simonem Orzelem",
+        "register": "Rejstříkový soud: Amtsgericht Köln, číslo zápisu: HRB 126993 (EUID DER3306.HRB126993)",
+        "vatId": "DIČ podle § 27a UStG: DE462889433",
         "emailLabel": "E-mail",
         "email": "contact@nisd2.eu"
       },
@@ -788,7 +791,7 @@
       "responsible": {
         "heading": "Správce údajů",
         "p1": "Správcem zpracování údajů na těchto webových stránkách je:",
-        "company": "Simon Orzel",
+        "company": "Kardashev Catalyst UG (haftungsbeschränkt)",
         "address": "Trierer Str. 6, 50676 Köln, Německo",
         "emailLabel": "E-mail",
         "email": "contact@nisd2.eu"
@@ -931,7 +934,7 @@
       "lastUpdated": "Naposledy aktualizováno: únor 2026.",
       "scope": {
         "heading": "1. Rozsah služby",
-        "p1": "NISD2.eu (\"platforma\") je nástroj pro řízení shody provozovaný Simonem Orzelem (\"poskytovatel\"). Platforma poskytuje strukturované pracovní postupy, formuláře, správu dokumentů a funkce pro sledování, které organizacím pomáhají řídit jejich povinnosti v oblasti shody s NIS2/BSIG.",
+        "p1": "NISD2.eu (\"platforma\") je nástroj pro řízení shody provozovaný společností Kardashev Catalyst UG (haftungsbeschränkt) (\"poskytovatel\"). Platforma poskytuje strukturované pracovní postupy, formuláře, správu dokumentů a funkce pro sledování, které organizacím pomáhají řídit jejich povinnosti v oblasti shody s NIS2/BSIG.",
         "p2": "Platforma je výhradně podpůrný nástroj pro oblasti, které spadají do výlučné odpovědnosti zákazníka. Poskytovatel nepřebírá žádnou odpovědnost za konkrétní výsledek nebo úspěch v oblasti shody."
       },
       "noLegalAdvice": {
@@ -1002,7 +1005,7 @@
       "contact": {
         "heading": "12. Kontakt",
         "p1": "S dotazy ohledně těchto podmínek se prosím obracejte na:",
-        "name": "Simon Orzel",
+        "name": "Kardashev Catalyst UG (haftungsbeschränkt)",
         "address": "Trierer Str. 6, 50676 Kolín nad Rýnem, Německo",
         "emailLabel": "E-mail",
         "email": "contact@nisd2.eu"

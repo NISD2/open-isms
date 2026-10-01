@@ -746,8 +746,11 @@
       "subtitle": "Note legali ai sensi dell'articolo 5 DDG (Digitale-Dienste-Gesetz).",
       "responsible": {
         "heading": "Informazioni ai sensi dell'articolo 5 DDG",
-        "company": "Simon Orzel",
+        "company": "Kardashev Catalyst UG (haftungsbeschränkt)",
         "address": "Trierer Str. 6, 50676 Köln, Germania",
+        "representedBy": "Rappresentata da Simon Orzel, amministratore",
+        "register": "Registro delle imprese: Amtsgericht Köln, numero HRB 126993 (EUID DER3306.HRB126993)",
+        "vatId": "Partita IVA ai sensi dell'articolo 27a UStG: DE462889433",
         "emailLabel": "Email",
         "email": "contact@nisd2.eu"
       },
@@ -788,7 +791,7 @@
       "responsible": {
         "heading": "Titolare del trattamento",
         "p1": "Il titolare del trattamento dei dati su questo sito web è:",
-        "company": "Simon Orzel",
+        "company": "Kardashev Catalyst UG (haftungsbeschränkt)",
         "address": "Trierer Str. 6, 50676 Köln, Germania",
         "emailLabel": "Email",
         "email": "contact@nisd2.eu"
@@ -931,7 +934,7 @@
       "lastUpdated": "Ultimo aggiornamento: febbraio 2026.",
       "scope": {
         "heading": "1. Ambito del servizio",
-        "p1": "NISD2.eu (\"Piattaforma\") è uno strumento di gestione della conformità gestito da Simon Orzel (\"Fornitore\"). La Piattaforma mette a disposizione flussi di lavoro strutturati, moduli, gestione documentale e funzioni di tracciamento per supportare le organizzazioni nella gestione dei loro obblighi di conformità NIS2/BSIG.",
+        "p1": "NISD2.eu (\"Piattaforma\") è uno strumento di gestione della conformità gestito da Kardashev Catalyst UG (haftungsbeschränkt) (\"Fornitore\"). La Piattaforma mette a disposizione flussi di lavoro strutturati, moduli, gestione documentale e funzioni di tracciamento per supportare le organizzazioni nella gestione dei loro obblighi di conformità NIS2/BSIG.",
         "p2": "La Piattaforma è esclusivamente uno strumento di supporto per ambiti che rientrano nell'esclusiva responsabilità del cliente. Il Fornitore non assume alcuna responsabilità per uno specifico risultato o esito di conformità."
       },
       "noLegalAdvice": {
@@ -1002,7 +1005,7 @@
       "contact": {
         "heading": "12. Contatto",
         "p1": "Per domande sui presenti termini, si prega di contattare:",
-        "name": "Simon Orzel",
+        "name": "Kardashev Catalyst UG (haftungsbeschränkt)",
         "address": "Trierer Str. 6, 50676 Colonia, Germania",
         "emailLabel": "Email",
         "email": "contact@nisd2.eu"

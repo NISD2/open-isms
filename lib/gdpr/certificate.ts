@@ -108,7 +108,7 @@ NISD2
 # Data Erasure Certificate
 
 **Case reference:** ${esc(row.caseRef)}
-**Controller:** Simon Orzel, Köln. Contact: contact@nisd2.eu
+**Controller:** Kardashev Catalyst UG (haftungsbeschränkt), Köln. Contact: contact@nisd2.eu
 
 This document records the erasure of personal data carried out under the EU
 General Data Protection Regulation (GDPR), Article 17 (right to erasure).

@@ -616,7 +616,8 @@ export function buildSiteGraphJsonLd(_locale: Locale): Record<string, unknown> {
         "@type": "Organization",
         "@id": `${baseUrl}/#organization`,
         name: "NISD2",
-        legalName: "Simon Orzel",
+        legalName: "Kardashev Catalyst UG (haftungsbeschränkt)",
+        vatID: "DE462889433",
         url: `${baseUrl}/`,
         logo: {
           "@type": "ImageObject" as const,
