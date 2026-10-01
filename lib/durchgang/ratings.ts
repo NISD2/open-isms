@@ -5,6 +5,8 @@
  * cannot disagree.
  */
 
+import type { supplierRiskLevelEnum } from "@nisd2/grc-data-model/enums";
+import type { z } from "zod";
 import {
   FREQUENCIES,
   type Frequency,
@@ -14,7 +16,14 @@ import {
   type RiskLevel,
   riskLevel,
 } from "@/lib/compliance/bsi-200-3";
+import type { riskInsertSchema } from "@/schema/validators";
 import type { NoteLocale } from "./notes";
+
+/** A risk's treatment, as the risk register's validator allows it. */
+type Treatment = z.infer<typeof riskInsertSchema>["treatment"];
+
+/** A supplier's level, as the database enum `supplier_risk_level` holds it. */
+type SupplierLevel = (typeof supplierRiskLevelEnum.enumValues)[number];
 
 /** What the company runs as software and services, or the technology and rooms under it. */
 export type AssetSlice = "software" | "technology";
@@ -123,11 +132,39 @@ export const byLevel = (
 };
 
 /**
+ * A listed thing as the risk map shows it: its one rating, which places it in a cell, and its
+ * level. A thing with several risks has a level but no single cell.
+ */
+export interface MappedRisk {
+  readonly name: string;
+  readonly rating: Rating | null;
+  readonly level: RiskLevel | null;
+}
+
+/** How many of the company's risks sit in one cell of the matrix. */
+export const cellCount = (
+  risks: readonly MappedRisk[],
+  frequency: Frequency,
+  impact: Impact,
+): number =>
+  risks.filter((r) => r.rating?.frequency === frequency && r.rating.impact === impact)
+    .length;
+
+/** The rated things by level, highest first, leaving out levels nothing sits at. */
+export const levelGroups = (
+  risks: readonly MappedRisk[],
+): ReadonlyArray<{ readonly level: RiskLevel; readonly names: readonly string[] }> =>
+  [...RISK_LEVELS].reverse().flatMap((level) => {
+    const names = risks.filter((r) => r.level === level).map((r) => r.name);
+    return names.length > 0 ? [{ level, names }] : [];
+  });
+
+/**
  * The treatment a new rating is written with. BSI 200-3 (Tabelle 10) calls it common practice to
  * accept low risks and keep watching them; anything higher is marked for measures. The acceptance
  * itself stays empty, because management gives it.
  */
-export const treatmentFor = (level: RiskLevel): "accept" | "mitigate" =>
+export const treatmentFor = (level: RiskLevel): Treatment =>
   level === "low" ? "accept" : "mitigate";
 
 /** The supplier register's own level for a rating; its top step is called critical. */
@@ -136,7 +173,7 @@ export const SUPPLIER_LEVEL = {
   medium: "medium",
   high: "high",
   very_high: "critical",
-} as const satisfies Record<RiskLevel, "low" | "medium" | "high" | "critical">;
+} as const satisfies Record<RiskLevel, SupplierLevel>;
 
 const TEXT = {
   de: {

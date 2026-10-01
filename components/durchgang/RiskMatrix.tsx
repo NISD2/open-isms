@@ -29,17 +29,22 @@ const ROWS: readonly Impact[] = [...IMPACTS].reverse();
 /**
  * The BSI's risk matrix, read-only, straight from lib/compliance/bsi-200-3 (Tabellen 8 and 9,
  * Abbildung 3). With `highlight`, every cell but one fades, to show how one risk is read off it.
+ * With `counts`, each cell shows how many of the company's own risks sit in it, and empty cells
+ * fade, so the company's picture reads at a glance.
  */
 export function RiskMatrix({
   locale,
   highlight,
+  counts,
 }: {
   locale: "de" | "en";
   highlight?: { readonly frequency: Frequency; readonly impact: Impact };
+  counts?: (frequency: Frequency, impact: Impact) => number;
 }) {
   const t = useTranslations("durchgang.ui.matrix");
   const lit = (f: Frequency, i: Impact) =>
-    !highlight || (highlight.frequency === f && highlight.impact === i);
+    (!highlight || (highlight.frequency === f && highlight.impact === i)) &&
+    (!counts || counts(f, i) > 0);
 
   return (
     <figure className="space-y-5">
@@ -65,10 +70,12 @@ export function RiskMatrix({
               {FREQUENCIES.map((frequency) => {
                 const level = riskLevel(frequency, impact);
                 const on = lit(frequency, impact);
+                const count = counts?.(frequency, impact) ?? 0;
+                const label = RISK_LEVEL_TEXT[locale][level].label;
                 return (
                   <span
                     key={frequency}
-                    title={`${IMPACT_TEXT[locale][impact].label}, ${FREQUENCY_TEXT[locale][frequency].label}: ${RISK_LEVEL_TEXT[locale][level].label}`}
+                    title={`${IMPACT_TEXT[locale][impact].label}, ${FREQUENCY_TEXT[locale][frequency].label}: ${label}${counts ? `, ${t("count", { count })}` : ""}`}
                     className={cn(
                       "flex h-14 items-center justify-center rounded-lg px-0.5 text-center text-[11px] leading-tight font-semibold transition-opacity sm:h-[4.5rem] sm:px-1 sm:text-sm",
                       LEVEL_FILL[level],
@@ -78,7 +85,18 @@ export function RiskMatrix({
                         "ring-2 ring-foreground ring-offset-2 ring-offset-background",
                     )}
                   >
-                    {RISK_LEVEL_TEXT[locale][level].label}
+                    {count > 0 ? (
+                      <span className="flex flex-col items-center">
+                        <span className="text-lg leading-none tabular-nums sm:text-2xl">
+                          {count}
+                        </span>
+                        <span className="mt-1 text-[10px] font-medium sm:text-xs">
+                          {label}
+                        </span>
+                      </span>
+                    ) : (
+                      label
+                    )}
                   </span>
                 );
               })}

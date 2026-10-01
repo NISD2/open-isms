@@ -24,6 +24,7 @@
         "logins": "Ankreuzen",
         "policy": "Vorlage",
         "approve": "Freigeben",
+        "riskmap": "Überblick",
         "done": "Erledigt"
       },
       "where": "{section} · Schritt {step} von {total}",
@@ -184,7 +185,13 @@
         "impact": "Wie groß der Schaden wäre",
         "frequency": "Wie oft es eintritt",
         "legend": "Legende",
-        "reading": "{frequency} und {impact} ergibt die Stufe {level}"
+        "reading": "{frequency} und {impact} ergibt die Stufe {level}",
+        "count": "{count, plural, =0 {kein Eintrag} one {# Eintrag} other {# Einträge}}"
+      },
+      "riskmap": {
+        "byLevel": "Nach Stufe",
+        "empty": "Noch ist nichts bewertet. Sie bewerten Ihre Programme, Technik und Lieferanten in Schritt 2.3.",
+        "several": "{count, plural, one {Ein Eintrag hat} other {# Einträge haben}} mehrere Risiken im Risikoregister. Sie stehen nur in der Liste, mit ihrer höchsten Stufe."
       },
       "thresholds": {
         "important": "Wichtige Einrichtung",
@@ -1000,6 +1007,10 @@
           "suppliers": {
             "title": "Ihre Lieferanten bewerten",
             "lead": "Hier ist der schlimmste Fall, dass der Lieferant ausfällt oder selbst einen Sicherheitsvorfall hat. Die Stufe steht danach auch in Ihrer Lieferantenliste."
+          },
+          "map": {
+            "title": "Ihre Risiken auf einen Blick",
+            "lead": "Jede Zahl zählt Ihre Einträge in diesem Feld der Matrix. Je weiter oben rechts, desto eher braucht ein Eintrag Schutz. Darunter stehen alle mit Namen, die höchste Stufe zuerst."
           },
           "done": {
             "title": "Ihre Risiken sind bewertet",
@@ -1898,7 +1909,7 @@
               },
               {
                 "name": "Risiken",
-                "detail": "Ihre bewerteten Risiken, die höchsten zuerst"
+                "detail": "Ihre bewerteten Risiken, die höchsten zuerst; sie stehen auf dem nächsten Schritt"
               },
               {
                 "name": "Vorschläge",
@@ -1906,6 +1917,10 @@
               }
             ],
             "source": "Nach IT-Grundschutz ISMS.1.A12 des BSI enthalten Berichte an die Leitung „insbesondere Probleme, Erfolge und Verbesserungsmöglichkeiten“."
+          },
+          "risks": {
+            "title": "Ihre Risiken für die Geschäftsführung",
+            "lead": "So stehen Ihre Programme, Technik und Lieferanten heute. Je weiter oben rechts, desto eher braucht ein Eintrag Schutz. Die Geschäftsführung entscheidet, wo sie zuerst handelt."
           },
           "record": {
             "title": "So kann ein Eintrag aussehen",

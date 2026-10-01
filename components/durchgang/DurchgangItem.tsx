@@ -13,6 +13,7 @@ import {
   Eye,
   FileUp,
   Gauge,
+  Grid3x3,
   Handshake,
   KeyRound,
   Lightbulb,
@@ -45,6 +46,7 @@ import { Logins } from "./LoginScreen";
 import { PolicyScreen } from "./PolicyScreen";
 import { Rail } from "./Rail";
 import { Rate, Specify } from "./RatingScreens";
+import { RiskMapScreen } from "./RiskMapScreen";
 import { type Direction, PROGRESS, STAGE, transition } from "./transition";
 import { useScreenComplete } from "./useScreenComplete";
 import { useWalkItem } from "./useWalkItem";
@@ -72,6 +74,7 @@ const KIND_ICON: Readonly<Record<ScreenKind, LucideIcon>> = {
   logins: KeyRound,
   policy: ScrollText,
   approve: BadgeCheck,
+  riskmap: Grid3x3,
   done: CircleCheckBig,
 };
 
@@ -215,6 +218,8 @@ export function DurchgangItem({
         return <PolicyScreen {...work} entry={entry} />;
       case "approve":
         return <Approve {...work} entry={entry} />;
+      case "riskmap":
+        return <RiskMapScreen {...work} entry={entry} />;
       case "done":
         return <Done item={item} entry={entry} draft={draft} next={next} />;
       default:

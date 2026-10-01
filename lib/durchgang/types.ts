@@ -166,6 +166,8 @@ export type Screen<C extends CategoryCode> =
    * are marked approved from the day it approved them.
    */
   | { readonly kind: "approve"; readonly id: string }
+  /** Every rated asset and supplier on the 200-3 matrix, and by level: the company's picture. */
+  | { readonly kind: "riskmap"; readonly id: string }
   | { readonly kind: "done"; readonly id: string };
 
 export type AnyScreen = Screen<CategoryCode>;

@@ -2,8 +2,11 @@ import { describe, expect, test } from "bun:test";
 import { FREQUENCIES, IMPACTS } from "@/lib/compliance/bsi-200-3";
 import {
   byLevel,
+  cellCount,
   fromScale,
+  levelGroups,
   levelOfStanding,
+  type MappedRisk,
   ratingRows,
   signsIn,
   sliceOf,
@@ -147,5 +150,43 @@ describe("where people sign in, and which gap comes first", () => {
       }),
     ).toBe("low");
     expect(levelOfStanding({ kind: "kept", count: 2, highest: "high" })).toBe("high");
+  });
+});
+
+describe("the company's risks on the matrix", () => {
+  const risks: readonly MappedRisk[] = [
+    {
+      name: "ERP",
+      rating: { frequency: "rare", impact: "existential" },
+      level: "medium",
+    },
+    {
+      name: "DATEV",
+      rating: { frequency: "rare", impact: "existential" },
+      level: "medium",
+    },
+    {
+      name: "Website",
+      rating: { frequency: "medium", impact: "negligible" },
+      level: "low",
+    },
+    { name: "Server", rating: null, level: "very_high" },
+    { name: "Drucker", rating: null, level: null },
+  ];
+
+  test("counts each rated thing in its cell, and a thing with several risks in none", () => {
+    expect(cellCount(risks, "rare", "existential")).toBe(2);
+    expect(cellCount(risks, "medium", "negligible")).toBe(1);
+    expect(cellCount(risks, "frequent", "existential")).toBe(0);
+    const total = FREQUENCIES.flatMap((f) => IMPACTS.map((i) => cellCount(risks, f, i)));
+    expect(total.reduce((a, b) => a + b, 0)).toBe(3);
+  });
+
+  test("lists every thing with a level by level, highest first, and skips empty levels", () => {
+    expect(levelGroups(risks)).toEqual([
+      { level: "very_high", names: ["Server"] },
+      { level: "medium", names: ["ERP", "DATEV"] },
+      { level: "low", names: ["Website"] },
+    ]);
   });
 });

@@ -31,6 +31,7 @@ export {
 export type {
   AssetSlice,
   LinkedRisk,
+  MappedRisk,
   Rating,
   RatingRow,
   RatingTarget,
@@ -39,7 +40,9 @@ export type {
 } from "./ratings";
 export {
   byLevel,
+  cellCount,
   fromScale,
+  levelGroups,
   levelOf,
   levelOfStanding,
   ratingKey,

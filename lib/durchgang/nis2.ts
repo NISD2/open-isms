@@ -292,6 +292,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
       { kind: "rate", id: "software", targets: "software" },
       { kind: "rate", id: "technology", targets: "technology" },
       { kind: "rate", id: "suppliers", targets: "suppliers" },
+      { kind: "riskmap", id: "map" },
       { kind: "done", id: "done" },
     ],
   }),
@@ -480,6 +481,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     screens: [
       { kind: "learn", id: "learn" },
       { kind: "prepare", id: "inputs" },
+      { kind: "riskmap", id: "risks" },
       { kind: "sample", id: "record" },
       { kind: "register", id: "review", module: "management_review" },
       { kind: "approve", id: "approve" },

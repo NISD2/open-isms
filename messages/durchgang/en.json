@@ -24,6 +24,7 @@
         "logins": "Mark",
         "policy": "Template",
         "approve": "Approve",
+        "riskmap": "Overview",
         "done": "Done"
       },
       "where": "{section} · Step {step} of {total}",
@@ -184,7 +185,13 @@
         "impact": "How big the damage would be",
         "frequency": "How often it happens",
         "legend": "Legend",
-        "reading": "{frequency} and {impact} gives the level {level}"
+        "reading": "{frequency} and {impact} gives the level {level}",
+        "count": "{count, plural, =0 {no entries} one {# entry} other {# entries}}"
+      },
+      "riskmap": {
+        "byLevel": "By level",
+        "empty": "Nothing is rated yet. You rate your software, technology and suppliers in step 2.3.",
+        "several": "{count, plural, one {One entry has} other {# entries have}} several risks in the risk register. They appear only in the list, at their highest level."
       },
       "thresholds": {
         "important": "Important entity",
@@ -1000,6 +1007,10 @@
           "suppliers": {
             "title": "Rate your suppliers",
             "lead": "Here the worst case is that the supplier fails or has a security incident of its own. The level then also shows in your supplier list."
+          },
+          "map": {
+            "title": "Your risks at a glance",
+            "lead": "Each number counts your entries in that field of the matrix. The further up and to the right, the sooner an entry needs protection. Below, all of them by name, highest level first."
           },
           "done": {
             "title": "Your risks are rated",
@@ -1898,7 +1909,7 @@
               },
               {
                 "name": "Risks",
-                "detail": "your rated risks, highest first"
+                "detail": "your rated risks, highest first; they are on the next step"
               },
               {
                 "name": "Proposals",
@@ -1906,6 +1917,10 @@
               }
             ],
             "source": "Under IT-Grundschutz ISMS.1.A12 of Germany's BSI, reports to management cover in particular problems, successes and opportunities for improvement."
+          },
+          "risks": {
+            "title": "Your risks for management",
+            "lead": "This is where your software, technology and suppliers stand today. The further up and to the right, the sooner an entry needs protection. Management decides where to act first."
           },
           "record": {
             "title": "What an entry can look like",
