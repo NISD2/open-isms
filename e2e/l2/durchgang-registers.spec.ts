@@ -14,8 +14,9 @@ import { E2E_USER_EMAIL } from "../lib/env";
 // With assets on the list, 2.2 collapses its catalogue slices into one register screen, so
 // "Welches Programm genau, und von wem?" is screen 4 (learn, list, sources, register, ...).
 const WHICH_SOFTWARE = 4;
-// 2.3: learn, then the software rating screen.
+// 2.3: learn, software, technology, suppliers, done.
 const RATE_SOFTWARE = 1;
+const RATE_SUPPLIERS = 3;
 
 const KIND = "E2E Buchhaltung";
 const PRODUCT = "E2E DATEV Unternehmen online";
@@ -27,14 +28,49 @@ interface Tenant {
   access_level: string;
 }
 
+interface StoredRisk {
+  likelihood: number;
+  impact: number;
+  risk_score: number;
+  treatment: string;
+  accepted_at: string | null;
+}
+
 const idsOf = async (sql: string, companyId: string) =>
   new Set((await e2eQuery<{ id: string }>(sql, [companyId])).map((r) => r.id));
+
+const assetRisks = (assetId: string) =>
+  e2eQuery<StoredRisk>(
+    `SELECT r.likelihood, r.impact, r.risk_score, r.treatment, r.accepted_at
+       FROM risk r JOIN risk_asset l ON l.risk_id = r.id
+      WHERE l.asset_id = $1`,
+    [assetId],
+  );
+
+/** Answers every rating row on the screen; Weiter waits until all are rated. */
+const rateAll = async (
+  page: import("@playwright/test").Page,
+  frequency: string,
+  impact: string,
+) => {
+  for (const select of await page
+    .getByRole("combobox", { name: /^Wie oft es eintritt:/ })
+    .all()) {
+    await select.selectOption(frequency);
+  }
+  for (const select of await page
+    .getByRole("combobox", { name: /^Wie groß der Schaden wäre:/ })
+    .all()) {
+    await select.selectOption(impact);
+  }
+};
 
 test.describe("durchgang registers", () => {
   test.describe.configure({ mode: "serial" });
   let tenant: Tenant;
   let assetId: string;
   let suppliersBefore: Set<string>;
+  let levelsBefore: ReadonlyArray<{ id: string; risk_level: string | null }>;
   let risksBefore: Set<string>;
 
   test.beforeAll(async () => {
@@ -48,10 +84,12 @@ test.describe("durchgang registers", () => {
     );
     if (!row) throw new Error("the e2e tenant has no billing account");
     tenant = row;
-    suppliersBefore = await idsOf(
-      `SELECT id FROM supplier WHERE customer_company_id = $1`,
-      tenant.company_id,
+    // Rating the suppliers sets the register level of every supplier the screen lists.
+    levelsBefore = await e2eQuery<{ id: string; risk_level: string | null }>(
+      `SELECT id, risk_level FROM supplier WHERE customer_company_id = $1`,
+      [tenant.company_id],
     );
+    suppliersBefore = new Set(levelsBefore.map((s) => s.id));
     risksBefore = await idsOf(
       `SELECT id FROM risk WHERE company_id = $1`,
       tenant.company_id,
@@ -84,6 +122,12 @@ test.describe("durchgang registers", () => {
     );
     for (const { id } of suppliers.filter((s) => !suppliersBefore.has(s.id))) {
       await e2eQuery(`DELETE FROM supplier WHERE id = $1`, [id]);
+    }
+    for (const { id, risk_level } of levelsBefore) {
+      await e2eQuery(`UPDATE supplier SET risk_level = $2 WHERE id = $1`, [
+        id,
+        risk_level,
+      ]);
     }
     await e2eQuery(`UPDATE billing_account SET access_level = $2 WHERE id = $1`, [
       tenant.billing_account_id,
@@ -133,36 +177,14 @@ test.describe("durchgang registers", () => {
     const next = page.getByRole("button", { name: "Weiter", exact: true });
     await expect(next).toBeDisabled();
 
-    for (const select of await page
-      .getByRole("combobox", { name: /^Wie oft es eintritt:/ })
-      .all()) {
-      await select.selectOption("frequent");
-    }
-    for (const select of await page
-      .getByRole("combobox", { name: /^Wie groß der Schaden wäre:/ })
-      .all()) {
-      await select.selectOption("considerable");
-    }
+    await rateAll(page, "frequent", "considerable");
     // Frequent and considerable meet at "hoch" in the 200-3 matrix.
     const row = page.getByRole("listitem").filter({ hasText: PRODUCT });
     await expect(row.getByText("Hoch", { exact: true })).toBeVisible();
     await next.click();
 
     await expect
-      .poll(async () =>
-        e2eQuery<{
-          likelihood: number;
-          impact: number;
-          risk_score: number;
-          treatment: string;
-          accepted_at: string | null;
-        }>(
-          `SELECT r.likelihood, r.impact, r.risk_score, r.treatment, r.accepted_at
-             FROM risk r JOIN risk_asset l ON l.risk_id = r.id
-            WHERE l.asset_id = $1`,
-          [assetId],
-        ),
-      )
+      .poll(() => assetRisks(assetId))
       .toEqual([
         {
           likelihood: 3,
@@ -172,5 +194,58 @@ test.describe("durchgang registers", () => {
           accepted_at: null,
         },
       ]);
+  });
+
+  test("a second rating updates the same risk instead of adding one (2.3)", async ({
+    page,
+  }) => {
+    await page.goto(`/de/durchgang/2.3?s=${RATE_SOFTWARE}`);
+    // The stored rating is shown, so the screen is already complete.
+    const frequency = page.getByRole("combobox", {
+      name: `Wie oft es eintritt: ${PRODUCT}`,
+    });
+    await expect(frequency).toHaveValue("frequent", { timeout: 30_000 });
+
+    await page
+      .getByRole("combobox", { name: `Wie groß der Schaden wäre: ${PRODUCT}` })
+      .selectOption("existential");
+    await page.getByRole("button", { name: "Weiter", exact: true }).click();
+
+    await expect
+      .poll(() => assetRisks(assetId))
+      .toEqual([
+        {
+          likelihood: 3,
+          impact: 4,
+          risk_score: 12,
+          treatment: "mitigate",
+          accepted_at: null,
+        },
+      ]);
+  });
+
+  test("rates the suppliers: one linked risk each, and the register level follows (2.3)", async ({
+    page,
+  }) => {
+    await page.goto(`/de/durchgang/2.3?s=${RATE_SUPPLIERS}`);
+    const provider = page.getByRole("listitem").filter({ hasText: PROVIDER });
+    await expect(provider).toBeVisible({ timeout: 30_000 });
+
+    // Frequent and existential meet at "sehr hoch", which the supplier register calls critical.
+    await rateAll(page, "frequent", "existential");
+    await page.getByRole("button", { name: "Weiter", exact: true }).click();
+
+    await expect
+      .poll(async () => {
+        const [row] = await e2eQuery<{ risk_level: string | null; links: number }>(
+          `SELECT s.risk_level, count(l.id)::int AS links
+             FROM supplier s LEFT JOIN risk_supplier l ON l.supplier_id = s.id
+            WHERE s.customer_company_id = $1 AND s.name = $2
+            GROUP BY s.risk_level`,
+          [tenant.company_id, PROVIDER],
+        );
+        return row ?? null;
+      })
+      .toEqual({ risk_level: "critical", links: 1 });
   });
 });
