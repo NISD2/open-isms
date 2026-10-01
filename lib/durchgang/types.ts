@@ -125,6 +125,11 @@ export type Screen<C extends CategoryCode> =
    */
   | { readonly kind: "agreements"; readonly id: string }
   /**
+   * Each listed program and remote access people sign in to, with its rating beside it: whether
+   * signing in takes a second factor.
+   */
+  | { readonly kind: "logins"; readonly id: string }
+  /**
    * A policy written from our template: fixed sections, optional clauses the person adds, the
    * company's name and the item's answers filled in. Stored as one `policy` row of the item's
    * requirement.

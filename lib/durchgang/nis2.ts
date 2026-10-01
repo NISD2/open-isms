@@ -40,6 +40,8 @@ export const NOT_WALKED: Readonly<Record<string, string>> = {
     "Sicherheit des Personals (§ 30 Abs. 2 Nr. 9 BSIG) is part of the 10.1 Konzept: joining, changing role and leaving, and outside staff. Background checks are CIR 2024/2690 Annex 10.2 and the management of privileged accounts Annex 11.3, which bind only the digital providers the CIR covers; the names of a joiner-mover-leaver tool and a privileged-access tool are tooling no statute asks for. The requirement page keeps those fields.",
   "10.4":
     "No statute sets when access rights are reviewed: CIR 2024/2690 Annex 11.2.3 and 11.3.3 say 'at planned intervals' and bind only the digital providers the CIR covers. The 10.1 Konzept offers the review as a clause (yearly, administrator accounts quarterly, from the values the BSI suggests in Grundschutz++ BER.4.4). A review is a dated proof that cannot exist on the day the walk runs, so the requirement page records each one when it happens.",
+  "11.3":
+    "Changing credentials, blocking after failed sign-ins and ending inactive sessions are CIR 2024/2690 Annex 11.6.2(c) to (e), which binds only the digital providers the CIR covers; no statute and no CIR point sets a password length, and NIST SP 800-63B is a US standard. § 30 Abs. 2 Nr. 10 BSIG names multi-factor or continuous authentication, which 11.1 walks. The BSI's password rules (IT-Grundschutz ORP.4.A8) are a clause of the 10.1 Konzept, and the requirement page keeps the fields.",
 };
 
 export const NIS2_SCRIPT: readonly AnyItem[] = [
@@ -305,5 +307,46 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
       { kind: "policy", id: "konzept", policy: "personnel_access" },
       { kind: "done", id: "done" },
     ],
+  }),
+  item({
+    code: "11.1",
+    category: "AUT",
+    glossary: [],
+    reviewed: "2026-10-01",
+    screens: [
+      { kind: "learn", id: "learn" },
+      { kind: "compare", id: "where_first" },
+      { kind: "logins", id: "logins" },
+      { kind: "fields", id: "tool", fields: ["mfaTool"] },
+      { kind: "done", id: "done" },
+    ],
+    notAsked: {
+      mfaMethods:
+        "§ 30 Abs. 2 Nr. 10 BSIG asks for multi-factor solutions, not a method; the BSI states that the German act sets no assurance level and the entity chooses from its risk analysis (#nis2know MFA page). The tool's name records what is used.",
+      mfaCoverage:
+        "Where a second factor is on is marked per program and remote access on the list from 2.2; one scope choice on top would state the same fact twice.",
+      mfaCoveragePct:
+        "A percentage is a progress figure no statute asks for, and it follows from the marks per program.",
+      adminMfaEnforced:
+        "A second factor for privileged accounts is CIR 2024/2690 Annex 11.3.2(a), which binds only the digital providers the CIR covers; the BSI recommends it (Grundschutz++ BER.5.9, IT-Grundschutz ORP.4.A10). The 10.1 Konzept offers it as a clause.",
+    },
+  }),
+  item({
+    code: "11.2",
+    category: "AUT",
+    glossary: [],
+    reviewed: "2026-10-01",
+    screens: [
+      { kind: "learn", id: "learn" },
+      { kind: "compare", id: "answer" },
+      { kind: "fields", id: "tools", fields: ["secureCommsTools"] },
+      { kind: "done", id: "done" },
+    ],
+    notAsked: {
+      emergencyCommsChannel:
+        "The way to reach each other when the company's IT fails is asked in 3.1 (secureCommsChannel) and written into the incident plan; asking the same fact twice would let the answers drift apart.",
+      lastEmergencyCommsTest:
+        "No statute sets a test of the emergency channel; the 3.1 plan offers a yearly run-through of the plan as a clause.",
+    },
   }),
 ];

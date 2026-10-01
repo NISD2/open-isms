@@ -30,6 +30,7 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
   const specify = trpc.durchgang.specifyAssets.useMutation();
   const rate = trpc.durchgang.rate.useMutation();
   const recordAgreements = trpc.durchgang.recordAgreements.useMutation();
+  const recordLogins = trpc.durchgang.recordLogins.useMutation();
   const writePolicy = trpc.durchgang.writePolicy.useMutation();
   const approvePolicy = trpc.durchgang.approvePolicy.useMutation();
   const finish = trpc.durchgang.finish.useMutation();
@@ -143,6 +144,17 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
         if (rows.length > 0) {
           await recordAgreements.mutateAsync({ code: item.code, rows });
           await utils.supplier.list.invalidate();
+        }
+        return;
+      }
+      case "logins": {
+        const rows = Object.entries(snapshot.logins).map(([assetId, mfa]) => ({
+          assetId,
+          mfa,
+        }));
+        if (rows.length > 0) {
+          await recordLogins.mutateAsync({ code: item.code, rows });
+          await utils.asset.list.invalidate();
         }
         return;
       }

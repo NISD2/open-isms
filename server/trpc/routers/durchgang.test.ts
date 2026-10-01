@@ -61,6 +61,8 @@ function setup(opts: {
     security: boolean | null;
     incidents: boolean | null;
   }>;
+  /** The company's assets a lookup finds, with their second-factor mark. */
+  assets?: ReadonlyArray<{ id: string; name: string; mfa: boolean | null }>;
 }) {
   const writes: Write[] = [];
   const wheres: Array<{ table: string; where: SQL }> = [];
@@ -128,7 +130,7 @@ function setup(opts: {
     selectDistinctOn: () => ({
       from: () => ({ where: () => ({ orderBy: async () => [] }) }),
     }),
-    // The company lock, the lookup of the walk's policy row, and the company's suppliers.
+    // The company lock, the lookup of the walk's policy row, the company's suppliers and assets.
     select: () => ({
       from: (table: unknown) => {
         const rows =
@@ -138,10 +140,13 @@ function setup(opts: {
               : []
             : table === supplier
               ? (opts.suppliers ?? [])
-              : [];
+              : table === asset
+                ? (opts.assets ?? [])
+                : [];
         return {
           where: (where: SQL) => {
             if (table === supplier) wheres.push({ table: "supplier", where });
+            if (table === asset) wheres.push({ table: "asset", where });
             return Object.assign(Promise.resolve(rows), { for: async () => rows });
           },
         };
@@ -530,6 +535,75 @@ describe("the walk's supplier agreements", () => {
     const free = setup({ accessLevel: "free", suppliers });
     await expect(
       free.caller.recordAgreements({ code: "5.2", rows: [row] }),
+    ).rejects.toMatchObject({ code: "FORBIDDEN" });
+    expect(free.writes).toEqual([]);
+  });
+});
+
+describe("the walk's sign-ins", () => {
+  const M365 = "99999999-9999-4999-8999-999999999991";
+  const VPN = "99999999-9999-4999-8999-999999999992";
+  const assets = [
+    { id: M365, name: "Microsoft 365", mfa: false },
+    { id: VPN, name: "VPN", mfa: null },
+  ];
+
+  test("writes only the rows that changed, only has_mfa, only on the company's assets", async () => {
+    const { caller, writes, wheres } = setup({ accessLevel: "full", assets });
+    const result = await caller.recordLogins({
+      code: "11.1",
+      rows: [
+        { assetId: M365, mfa: true },
+        { assetId: VPN, mfa: false },
+      ],
+    });
+    expect(result).toEqual({ changed: 1 });
+    const updates = writes.filter((w) => w.op === "update" && w.table === asset);
+    expect(updates).toHaveLength(1);
+    expect(Object.keys(updates[0]?.values ?? {}).sort()).toEqual(["hasMfa", "updatedAt"]);
+    expect(updates[0]?.where && paramsOf(updates[0].where)).toEqual([M365, COMPANY]);
+    const lookup = wheres.find((w) => w.table === "asset");
+    expect(lookup && paramsOf(lookup.where)).toContain(COMPANY);
+  });
+
+  test("names every sign-in checked in the trail, a password-only row included", async () => {
+    const { caller, writes } = setup({ accessLevel: "full", assets });
+    await caller.recordLogins({
+      code: "11.1",
+      rows: [
+        { assetId: M365, mfa: true },
+        { assetId: VPN, mfa: false },
+      ],
+    });
+    const note = noteOf(writes);
+    expect(note).toContain("Microsoft 365: mit zweitem Faktor");
+    expect(note).toContain("VPN: nur Passwort");
+  });
+
+  test("refuses an asset of another company, and writes nothing", async () => {
+    const { caller, writes } = setup({ accessLevel: "full", assets: assets.slice(0, 1) });
+    const refused = caller.recordLogins({
+      code: "11.1",
+      rows: [
+        { assetId: M365, mfa: true },
+        { assetId: VPN, mfa: true },
+      ],
+    });
+    await expect(refused).rejects.toMatchObject({ code: "NOT_FOUND" });
+    expect(writes.filter((w) => w.table === asset)).toEqual([]);
+  });
+
+  test("refuses an item without a sign-in screen, and accounts without the Durchgang", async () => {
+    const { caller } = setup({ accessLevel: "full", assets });
+    const row = { assetId: M365, mfa: true };
+    await expect(
+      caller.recordLogins({ code: "12.2", rows: [row] }),
+    ).rejects.toMatchObject({
+      code: "BAD_REQUEST",
+    });
+    const free = setup({ accessLevel: "free", assets });
+    await expect(
+      free.caller.recordLogins({ code: "11.1", rows: [row] }),
     ).rejects.toMatchObject({ code: "FORBIDDEN" });
     expect(free.writes).toEqual([]);
   });

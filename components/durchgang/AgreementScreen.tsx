@@ -1,14 +1,13 @@
 "use client";
 
-import { Check, Minus } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { RISK_LEVELS, type RiskLevel } from "@/lib/compliance/bsi-200-3";
-import { levelOf, type RatingRow, type Standing } from "@/lib/durchgang";
+import type { RiskLevel } from "@/lib/compliance/bsi-200-3";
+import { byLevel, levelOfStanding, type RatingRow } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
-import { cn } from "@/lib/utils";
 import type { Agreed, Draft } from "./draft";
 import { Heading, Lead } from "./ExplainScreens";
-import { LevelChip, useRatingRows } from "./RatingScreens";
+import { useRatingRows } from "./RatingScreens";
+import { RowLevel, Toggle } from "./RowParts";
 import type { Of, WorkProps } from "./WorkScreens";
 
 /** A supplier as 5.2 shows it: its rating from 2.3 and what is stored about its paper. */
@@ -19,20 +18,10 @@ export interface AgreementRow {
   readonly stored: Agreed;
 }
 
-const levelOfStanding = (standing: Standing): RiskLevel | null =>
-  standing.kind === "rated"
-    ? levelOf(standing.rating)
-    : standing.kind === "kept"
-      ? standing.highest
-      : null;
-
-/** Highest rated first, where an agreement matters most; unrated suppliers last. */
-const rank = (level: RiskLevel | null) => (level ? RISK_LEVELS.indexOf(level) : -1);
-
 /**
- * The suppliers with their rating, from the same queries 2.3 and the supplier page read. The
- * level comes from the linked risk, because the register's own level defaults to medium and
- * would make an unrated supplier look rated.
+ * The suppliers with their rating, from the same queries 2.3 and the supplier page read, highest
+ * rated first. The level comes from the linked risk, because the register's own level defaults to
+ * medium and would make an unrated supplier look rated.
  */
 export function useAgreementRows(enabled: boolean): readonly AgreementRow[] | undefined {
   const rated = useRatingRows(enabled ? "suppliers" : null);
@@ -56,7 +45,7 @@ export function useAgreementRows(enabled: boolean): readonly AgreementRow[] | un
           ]
         : [];
     })
-    .sort((a, b) => rank(b.level) - rank(a.level));
+    .sort(byLevel);
 }
 
 /**
@@ -67,33 +56,6 @@ export function useAgreementRows(enabled: boolean): readonly AgreementRow[] | un
 export const answerOf = (row: AgreementRow, draft: Draft): Agreed | null =>
   draft.agreements[row.id] ??
   (row.stored.security || row.stored.incidents ? row.stored : null);
-
-function Toggle({
-  on,
-  onClick,
-  children,
-}: {
-  on: boolean;
-  onClick: () => void;
-  children: string;
-}) {
-  return (
-    <button
-      type="button"
-      aria-pressed={on}
-      onClick={onClick}
-      className={cn(
-        "inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-left text-sm transition-colors",
-        on
-          ? "border-primary bg-primary/[0.06] text-foreground"
-          : "text-muted-foreground hover:border-primary/40 hover:text-foreground",
-      )}
-    >
-      {on && <Check className="size-3.5 shrink-0" />}
-      {children}
-    </button>
-  );
-}
 
 /** 5.2: per supplier, what its paper already settles, with its rating from 2.3 beside it. */
 export function Agreements({
@@ -127,14 +89,7 @@ export function Agreements({
               >
                 <div className="flex min-w-0 items-center gap-3 lg:flex-col lg:items-start lg:gap-1.5">
                   <p className="truncate font-medium">{row.name}</p>
-                  {row.level ? (
-                    <LevelChip level={row.level} locale={item.locale} />
-                  ) : (
-                    <span className="inline-flex h-9 items-center gap-1.5 rounded-md border border-dashed px-3 text-sm text-muted-foreground">
-                      <Minus className="size-3.5" />
-                      {t("unrated")}
-                    </span>
-                  )}
+                  <RowLevel level={row.level} locale={item.locale} />
                 </div>
                 <div className="flex flex-wrap gap-2">
                   <Toggle

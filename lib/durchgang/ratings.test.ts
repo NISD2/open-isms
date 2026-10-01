@@ -1,8 +1,11 @@
 import { describe, expect, test } from "bun:test";
 import { FREQUENCIES, IMPACTS } from "@/lib/compliance/bsi-200-3";
 import {
+  byLevel,
   fromScale,
+  levelOfStanding,
   ratingRows,
+  signsIn,
   sliceOf,
   standingOf,
   toScale,
@@ -106,5 +109,43 @@ describe("the rows of a rating screen", () => {
       [],
     ]);
     expect(rows.every((r) => r.standing.kind === "open")).toBe(true);
+  });
+});
+
+describe("where people sign in, and which gap comes first", () => {
+  test("asks about software and the network, never devices, rooms or processes", () => {
+    for (const type of [
+      "application",
+      "cloud_service",
+      "database",
+      "data_store",
+      "network",
+    ]) {
+      expect(signsIn(type)).toBe(true);
+    }
+    for (const type of ["endpoint", "room", "server", "process", "ot_ics"]) {
+      expect(signsIn(type)).toBe(false);
+    }
+  });
+
+  test("orders the highest level first and unrated rows last", () => {
+    const rows = [
+      { name: "a", level: null },
+      { name: "b", level: "medium" },
+      { name: "c", level: "very_high" },
+    ] as const;
+    expect([...rows].sort(byLevel).map((r) => r.name)).toEqual(["c", "b", "a"]);
+  });
+
+  test("reads a level off each standing", () => {
+    expect(levelOfStanding({ kind: "open" })).toBeNull();
+    expect(
+      levelOfStanding({
+        kind: "rated",
+        riskId: "r",
+        rating: { frequency: "rare", impact: "negligible" },
+      }),
+    ).toBe("low");
+    expect(levelOfStanding({ kind: "kept", count: 2, highest: "high" })).toBe("high");
   });
 });

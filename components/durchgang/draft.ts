@@ -31,6 +31,8 @@ export interface Draft {
   readonly clauses: readonly string[] | null;
   /** What each supplier has agreed, by supplier id, for the rows answered on this visit. */
   readonly agreements: Readonly<Record<string, Agreed>>;
+  /** Whether signing in takes a second factor, by asset id, for the rows answered on this visit. */
+  readonly logins: Readonly<Record<string, boolean>>;
 }
 
 /** A supplier's answer on 5.2: neither ticked means the person found nothing agreed. */
@@ -90,6 +92,7 @@ export const initialDraft = (
   ratings: {},
   clauses: null,
   agreements: {},
+  logins: {},
 });
 
 /** A rating with both scales chosen, or null. */

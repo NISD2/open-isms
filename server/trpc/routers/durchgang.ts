@@ -16,6 +16,7 @@ import {
   askedFields,
   declinedNote,
   levelOf,
+  loginsNote,
   methodNote,
   noteLine,
   policyNames,
@@ -851,6 +852,77 @@ export const durchgangRouter = router({
         newValue: { checked: rows.length, changed: changed.length },
       });
       if (changed.length > 0) recheck(ctx, "supplier");
+      return { changed: changed.length };
+    }),
+
+  /**
+   * 11.1: whether signing in to each listed program and remote access takes a second factor.
+   * Only `has_mfa` is written, only on the company's own assets, and only where it changed. The
+   * column defaults to false, so the item's trail is the record that a row was answered "no".
+   */
+  recordLogins: durchgangWrite
+    .input(
+      z.object({
+        code,
+        rows: z
+          .array(z.object({ assetId: z.string().uuid(), mfa: z.boolean() }))
+          .min(1)
+          .max(500),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const screens: readonly AnyScreen[] = itemOf(input.code).screens;
+      if (!screens.some((s) => s.kind === "logins")) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: `${input.code} records no sign-ins.`,
+        });
+      }
+      const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
+      const rows = [...new Map(input.rows.map((r) => [r.assetId, r])).values()];
+      const ids = rows.map((r) => r.assetId);
+      const owned = await ctx.db
+        .select({ id: asset.id, name: asset.name, mfa: asset.hasMfa })
+        .from(asset)
+        .where(and(eq(asset.companyId, ctx.companyId), inArray(asset.id, ids)));
+      if (owned.length !== ids.length) throw new TRPCError({ code: "NOT_FOUND" });
+
+      const before = new Map(owned.map((a) => [a.id, a]));
+      const changed = rows.filter((row) => {
+        const was = before.get(row.assetId);
+        return was !== undefined && row.mfa !== Boolean(was.mfa);
+      });
+      for (const row of changed) {
+        await ctx.db
+          .update(asset)
+          .set({ hasMfa: row.mfa, updatedAt: new Date() })
+          .where(and(eq(asset.id, row.assetId), eq(asset.companyId, ctx.companyId)));
+      }
+      const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
+      await appendNote(
+        ctx.db,
+        ref.statusId,
+        noteLine(
+          new Date(),
+          loginsNote(
+            locale,
+            rows.map((row) => ({
+              name: before.get(row.assetId)?.name ?? "",
+              mfa: row.mfa,
+            })),
+          ),
+        ),
+      );
+      await logAudit({
+        companyId: ctx.companyId,
+        userId: ctx.userId,
+        action: "durchgang.logins",
+        entityType: "requirement",
+        entityId: ref.requirementId,
+        description: `${ref.code} sign-ins checked`,
+        newValue: { checked: rows.length, changed: changed.length },
+      });
+      if (changed.length > 0) recheck(ctx, "asset");
       return { changed: changed.length };
     }),
 

@@ -21,6 +21,7 @@
         "specify": "More precisely",
         "rate": "Rate",
         "agreements": "Check",
+        "logins": "Mark",
         "policy": "Template",
         "done": "Done"
       },
@@ -85,9 +86,12 @@
         "kept": "{count, plural, one {# risk} other {# risks}} in the risk register",
         "empty": "Nothing in this area is on your list."
       },
+      "unrated": "Not rated",
       "agreements": {
-        "unrated": "Not rated",
         "empty": "No supplier is on your list yet. You add your suppliers in step 5.1."
+      },
+      "logins": {
+        "empty": "No software is on your list yet. You create your list in step 2.2."
       },
       "team": {
         "invite": "Bring someone in",
@@ -1330,6 +1334,101 @@
           "done": {
             "title": "Your policy is in place",
             "note": "Use it whenever someone starts, changes role or leaves. It is saved as a draft. At the end, management reviews all policies and approves them."
+          }
+        }
+      },
+      "11_1": {
+        "headline": "Record where a second factor protects",
+        "teaser": "For each program on your list: password alone, or with a second factor.",
+        "missed": [
+          "Your IT provider's remote maintenance access is also access from outside. Grundschutz++ of Germany's BSI recommends a second factor that also resists phishing for everything reachable from outside (BER.5.8).",
+          "Administrator accounts first: Grundschutz++ recommends the second factor explicitly for access with far-reaching rights (BER.5.9)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "A password and something you hold",
+            "body": [
+              "A password can be guessed, intercepted or found in someone else's data leak. A second factor is something you hold as well: an app on the work phone that shows a code or confirms the sign-in, or a security key. Anyone who only knows the password then cannot get in.",
+              "The law sets no particular assurance level, says Germany's BSI; you decide from your risk analysis. In this step you mark, for each program on your list, whether signing in already takes a second factor."
+            ],
+            "duty": "The law requires solutions where signing in takes more than a password (multi-factor authentication) or is checked continuously (continuous authentication)."
+          },
+          "where_first": {
+            "title": "Where first",
+            "caption": "Which sign-ins need a second factor first",
+            "good": {
+              "value": "Email, remote access and administrator accounts with an app or a security key",
+              "note": "Grundschutz++ recommends the second factor for everything reachable from outside and for access with far-reaching rights (BER.5.8, BER.5.9)."
+            },
+            "bad": {
+              "value": "Remote access from home with a password only",
+              "note": "Then a guessed or intercepted password is enough to get into your network."
+            }
+          },
+          "logins": {
+            "title": "Where a second factor protects",
+            "lead": "For each program and access on your list, mark how people sign in. Where several are reached through one company account, for example with Microsoft, they share the same answer. Whoever looks after your IT can tell you what you do not know.",
+            "mfa": "Second factor",
+            "password": "Password only"
+          },
+          "tool": {
+            "title": "What you use",
+            "lead": "Which app or device you use for the second factor.",
+            "document": "Your sign-in"
+          },
+          "done": {
+            "title": "Your sign-ins are recorded",
+            "note": "Where only a password is marked, decide from the risk whether to switch on a second factor. Start with what is reachable from outside."
+          }
+        },
+        "fields": {
+          "mfaTool": {
+            "label": "Second-factor solution",
+            "hint": "For example Microsoft Authenticator, another app on the work phone or a security key. If you use several, name them all."
+          }
+        }
+      },
+      "11_2": {
+        "headline": "Record secured communication",
+        "teaser": "What you use for calls, meetings and messages.",
+        "missed": [
+          "Encrypted transfer protects the way, not the message on the server. For especially confidential content Germany's BSI advises encryption that only sender and recipient can read as well, for example S/MIME or PGP for email."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Phone, video, chat",
+            "body": [
+              "For calls, meetings and messages you use programs and services. Secured here means: the transfer is encrypted, and only authorised people get in. The BSI names the TLS protocol as the standard for securing the transfer.",
+              "How you reach each other when your own IT fails is already in your incident plan. In this step you record what you use to talk and write day to day."
+            ],
+            "duty": "The law requires secured voice, video and text communication within the company and, where appropriate, secured emergency communication."
+          },
+          "answer": {
+            "title": "An answer that holds",
+            "caption": "How to record what you communicate with",
+            "good": {
+              "value": "Email and chat in Microsoft 365, meetings in Teams, phone calls over the provider's cloud phone system, all transferred encrypted",
+              "note": "Names every tool and says how it is secured."
+            },
+            "bad": {
+              "value": "All secure",
+              "note": "Says nothing about what you use, and cannot be checked."
+            }
+          },
+          "tools": {
+            "title": "Your tools",
+            "lead": "What you use for calls, meetings and messages, and how it is secured.",
+            "document": "Secured communication"
+          },
+          "done": {
+            "title": "Your communication is recorded",
+            "note": "When a new tool comes in, add it to this answer."
+          }
+        },
+        "fields": {
+          "secureCommsTools": {
+            "label": "Tools for phone, video and chat",
+            "hint": "For example: Microsoft Teams for meetings and chat, phone calls over the provider's cloud phone system, all transferred encrypted."
           }
         }
       }

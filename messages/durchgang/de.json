@@ -21,6 +21,7 @@
         "specify": "Genauer",
         "rate": "Bewerten",
         "agreements": "Abgleichen",
+        "logins": "Ankreuzen",
         "policy": "Vorlage",
         "done": "Erledigt"
       },
@@ -85,9 +86,12 @@
         "kept": "{count, plural, one {# Risiko} other {# Risiken}} im Risikoregister",
         "empty": "In diesem Bereich steht nichts auf Ihrer Liste."
       },
+      "unrated": "Nicht bewertet",
       "agreements": {
-        "unrated": "Nicht bewertet",
         "empty": "Noch steht kein Lieferant auf Ihrer Liste. Sie tragen Ihre Lieferanten in Schritt 5.1 ein."
+      },
+      "logins": {
+        "empty": "Noch steht kein Programm auf Ihrer Liste. Sie legen Ihre Liste in Schritt 2.2 an."
       },
       "team": {
         "invite": "Jemanden dazuholen",
@@ -1330,6 +1334,101 @@
           "done": {
             "title": "Ihr Konzept steht",
             "note": "Nehmen Sie es zur Hand, wenn jemand anfängt, die Aufgabe wechselt oder geht. Es ist als Entwurf gespeichert. Am Ende sieht die Geschäftsführung alle Konzepte durch und gibt sie frei."
+          }
+        }
+      },
+      "11_1": {
+        "headline": "Festhalten, wo ein zweiter Faktor schützt",
+        "teaser": "Für jedes Programm auf Ihrer Liste: Passwort allein oder mit zweitem Faktor.",
+        "missed": [
+          "Der Fernzugang Ihres IT-Dienstleisters zur Wartung ist auch ein Zugang von außen. Grundschutz++ des BSI empfiehlt für alles, was von außen erreichbar ist, einen zweiten Faktor, der auch gegen Phishing schützt (BER.5.8).",
+          "Konten mit Administratorrechten zuerst: Grundschutz++ empfiehlt den zweiten Faktor ausdrücklich für Zugänge mit weitreichenden Berechtigungen (BER.5.9)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Passwort und etwas, das Sie in der Hand haben",
+            "body": [
+              "Ein Passwort lässt sich erraten, abfangen oder in einem fremden Datenleck finden. Ein zweiter Faktor ist etwas, das Sie zusätzlich in der Hand haben: eine App auf dem Diensthandy, die einen Code zeigt oder die Anmeldung bestätigt, oder einen Sicherheitsschlüssel. Wer nur das Passwort kennt, kommt dann nicht hinein.",
+              "Ein bestimmtes Sicherheitsniveau schreibt das Gesetz nicht vor, sagt das BSI; Sie entscheiden nach Ihrer Risikoanalyse. In diesem Schritt kreuzen Sie für jedes Programm auf Ihrer Liste an, ob die Anmeldung schon einen zweiten Faktor braucht."
+            ],
+            "duty": "Das Gesetz verlangt Lösungen, bei denen die Anmeldung mehr als ein Passwort braucht (mehrere Faktoren) oder laufend geprüft wird (kontinuierliche Authentifizierung)."
+          },
+          "where_first": {
+            "title": "Wo zuerst",
+            "caption": "Welche Anmeldungen einen zweiten Faktor zuerst brauchen",
+            "good": {
+              "value": "E-Mail, Fernzugriff und Administratorkonten mit App oder Sicherheitsschlüssel",
+              "note": "Grundschutz++ empfiehlt den zweiten Faktor für alles, was von außen erreichbar ist, und für Zugänge mit weitreichenden Rechten (BER.5.8, BER.5.9)."
+            },
+            "bad": {
+              "value": "Fernzugriff von zu Hause nur mit Passwort",
+              "note": "Dann reicht ein erratenes oder abgefangenes Passwort, um in Ihr Netz zu kommen."
+            }
+          },
+          "logins": {
+            "title": "Wo ein zweiter Faktor schützt",
+            "lead": "Kreuzen Sie für jedes Programm und jeden Zugang auf Ihrer Liste an, wie man sich anmeldet. Melden Sie sich bei mehreren über ein Firmenkonto an, etwa bei Microsoft, gilt für sie dieselbe Antwort. Was Sie nicht wissen, kann Ihnen sagen, wer Ihre IT betreut.",
+            "mfa": "Mit zweitem Faktor",
+            "password": "Nur Passwort"
+          },
+          "tool": {
+            "title": "Womit Sie es tun",
+            "lead": "Welche App oder welches Gerät Sie für den zweiten Faktor nutzen.",
+            "document": "Ihre Anmeldung"
+          },
+          "done": {
+            "title": "Ihre Anmeldungen sind festgehalten",
+            "note": "Wo nur ein Passwort steht, entscheiden Sie nach dem Risiko, ob Sie einen zweiten Faktor einschalten. Fangen Sie bei dem an, was von außen erreichbar ist."
+          }
+        },
+        "fields": {
+          "mfaTool": {
+            "label": "Lösung für den zweiten Faktor",
+            "hint": "Zum Beispiel Microsoft Authenticator, eine andere App auf dem Diensthandy oder ein Sicherheitsschlüssel. Nutzen Sie mehrere, nennen Sie alle."
+          }
+        }
+      },
+      "11_2": {
+        "headline": "Gesicherte Kommunikation festhalten",
+        "teaser": "Womit Sie telefonieren, Besprechungen halten und Nachrichten schreiben.",
+        "missed": [
+          "Eine verschlüsselte Übertragung schützt den Weg, nicht die Nachricht auf dem Server. Für besonders vertrauliche Inhalte rät das BSI zusätzlich zu einer Verschlüsselung, die nur Absender und Empfänger lesen können, etwa mit S/MIME oder PGP bei E-Mails."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Telefon, Video, Chat",
+            "body": [
+              "Für Gespräche, Besprechungen und Nachrichten nutzen Sie Programme und Dienste. Gesichert heißt hier: Die Übertragung ist verschlüsselt, und nur Befugte kommen hinein. Als Standard für die Absicherung der Übertragung nennt das BSI das Protokoll TLS.",
+              "Wie Sie sich erreichen, wenn Ihre eigene IT ausfällt, steht schon in Ihrem Notfallplan. In diesem Schritt halten Sie fest, womit Sie im Alltag sprechen und schreiben."
+            ],
+            "duty": "Das Gesetz verlangt, dass Gespräche, Videokonferenzen und Textnachrichten im Unternehmen gesichert sind, und wo nötig auch die Kommunikation im Notfall."
+          },
+          "answer": {
+            "title": "Eine Antwort, die trägt",
+            "caption": "Wie Sie festhalten, womit Sie kommunizieren",
+            "good": {
+              "value": "E-Mail und Chat über Microsoft 365, Besprechungen in Teams, Telefonie über die Telefonanlage des Anbieters in der Cloud, alles verschlüsselt übertragen",
+              "note": "Nennt jedes Werkzeug und sagt, wie es gesichert ist."
+            },
+            "bad": {
+              "value": "Alles sicher",
+              "note": "Sagt nicht, womit Sie kommunizieren, und lässt sich nicht prüfen."
+            }
+          },
+          "tools": {
+            "title": "Ihre Werkzeuge",
+            "lead": "Womit Sie telefonieren, Besprechungen halten und Nachrichten schreiben, und wie es gesichert ist.",
+            "document": "Gesicherte Kommunikation"
+          },
+          "done": {
+            "title": "Ihre Kommunikation ist festgehalten",
+            "note": "Kommt ein neues Werkzeug dazu, ergänzen Sie diese Angabe."
+          }
+        },
+        "fields": {
+          "secureCommsTools": {
+            "label": "Werkzeuge für Telefon, Video und Chat",
+            "hint": "Zum Beispiel: Microsoft Teams für Besprechungen und Chat, Telefonie über die Telefonanlage des Anbieters in der Cloud, alles verschlüsselt übertragen."
           }
         }
       }

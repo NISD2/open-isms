@@ -26,6 +26,9 @@ const TEXT = {
     security: "Sicherheit",
     incidents: "Vorfallmeldung",
     nothing: "nichts geregelt",
+    logins: (lines: readonly string[]) => `Anmeldung geprüft: ${lines.join("; ")}.`,
+    mfa: "mit zweitem Faktor",
+    password: "nur Passwort",
   },
   en: {
     waiting: (reason: string, note: string | null) =>
@@ -39,6 +42,9 @@ const TEXT = {
     security: "security",
     incidents: "incident reporting",
     nothing: "nothing agreed",
+    logins: (lines: readonly string[]) => `Sign-in checked: ${lines.join("; ")}.`,
+    mfa: "second factor",
+    password: "password only",
   },
 } as const;
 
@@ -71,5 +77,16 @@ export const agreementsNote = (
       ];
       return `${row.name}: ${agreed.length > 0 ? agreed.join(", ") : text.nothing}`;
     }),
+  );
+};
+
+/** One entry per sign-in checked: the program's name and whether it takes a second factor. */
+export const loginsNote = (
+  locale: NoteLocale,
+  rows: ReadonlyArray<{ readonly name: string; readonly mfa: boolean }>,
+) => {
+  const text = TEXT[locale];
+  return text.logins(
+    rows.map((row) => `${row.name}: ${row.mfa ? text.mfa : text.password}`),
   );
 };

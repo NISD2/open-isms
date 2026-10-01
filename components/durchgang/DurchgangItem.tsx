@@ -13,6 +13,7 @@ import {
   FileUp,
   Gauge,
   Handshake,
+  KeyRound,
   Lightbulb,
   ListChecks,
   type LucideIcon,
@@ -38,6 +39,7 @@ import { type ItemState, resumeAt, type ScreenKind } from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
 import { Agreements } from "./AgreementScreen";
 import { Compare, Learn, Prepare, Provision, Reading, Sample } from "./ExplainScreens";
+import { Logins } from "./LoginScreen";
 import { PolicyScreen } from "./PolicyScreen";
 import { Rail } from "./Rail";
 import { Rate, Specify } from "./RatingScreens";
@@ -65,6 +67,7 @@ const KIND_ICON: Readonly<Record<ScreenKind, LucideIcon>> = {
   specify: PenLine,
   rate: Gauge,
   agreements: Handshake,
+  logins: KeyRound,
   policy: ScrollText,
   done: CircleCheckBig,
 };
@@ -203,6 +206,8 @@ export function DurchgangItem({
         return <Rate {...work} entry={entry} />;
       case "agreements":
         return <Agreements {...work} entry={entry} />;
+      case "logins":
+        return <Logins {...work} entry={entry} />;
       case "policy":
         return <PolicyScreen {...work} entry={entry} />;
       case "done":

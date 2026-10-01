@@ -34,6 +34,15 @@ const SOFTWARE: ReadonlySet<string> = new Set([
 export const sliceOf = (type: string): AssetSlice | null =>
   type === "process" ? null : SOFTWARE.has(type) ? "software" : "technology";
 
+/**
+ * Whether people sign in to an asset of this type: software and services, and the network, which
+ * holds the remote access. Devices, rooms and machines are left out, because a second factor
+ * guards an account, and the accounts people sign in with live in the software and the remote
+ * access.
+ */
+export const signsIn = (type: string): boolean =>
+  SOFTWARE.has(type) || type === "network";
+
 export interface Rating {
   readonly frequency: Frequency;
   readonly impact: Impact;
@@ -94,6 +103,23 @@ export const standingOf = (risks: readonly StoredRisk[]): Standing => {
       }),
     ),
   };
+};
+
+/** The level a listed thing stands at: its one rating, the highest of several, or none yet. */
+export const levelOfStanding = (standing: Standing): RiskLevel | null =>
+  standing.kind === "rated"
+    ? levelOf(standing.rating)
+    : standing.kind === "kept"
+      ? standing.highest
+      : null;
+
+/** Orders rows highest level first, where a gap matters most; unrated rows last. */
+export const byLevel = (
+  a: { readonly level: RiskLevel | null },
+  b: { readonly level: RiskLevel | null },
+): number => {
+  const rank = (level: RiskLevel | null) => (level ? RISK_LEVELS.indexOf(level) : -1);
+  return rank(b.level) - rank(a.level);
 };
 
 /**

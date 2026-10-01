@@ -13,6 +13,7 @@ export type { NoteLocale } from "./notes";
 export {
   agreementsNote,
   declinedNote,
+  loginsNote,
   methodNote,
   noteLine,
   sourcesNote,
@@ -36,12 +37,15 @@ export type {
   StoredRisk,
 } from "./ratings";
 export {
+  byLevel,
   fromScale,
   levelOf,
+  levelOfStanding,
   ratingKey,
   ratingRows,
   ratingText,
   SUPPLIER_LEVEL,
+  signsIn,
   sliceOf,
   standingOf,
   toScale,
