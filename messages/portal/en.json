@@ -13,6 +13,24 @@
     "billing": "Billing",
     "defaultUser": "User",
     "signOut": "Sign Out",
+    "deleteAccount": {
+      "menuItem": "Delete account",
+      "title": "Delete your account for good",
+      "description": "This cannot be undone.",
+      "whatAccount": "Your account and all personal data in it are deleted.",
+      "whatOrganization": "Your organization {name} is deleted with all its data, including uploaded files.",
+      "whatEmail": "The erasure confirmation then goes to {email}.",
+      "confirmLabel": "Type your email address to confirm:",
+      "confirm": "Permanently delete",
+      "cancel": "Cancel",
+      "failed": "The account could not be deleted just now. Please try again later or write to contact@nisd2.eu.",
+      "refused": {
+        "platform_admin": "Platform admins cannot delete their account here.",
+        "several_organizations": "You own several organizations. Write to contact@nisd2.eu and we will delete the account with you.",
+        "running_licence": "Your account has a paid licence running, or an order is still being checked. Write to contact@nisd2.eu and we will take care of the account and the invoice.",
+        "other_members": "Your organization has other members, and deleting your account would delete the organization with their work. Remove the other members first, or write to contact@nisd2.eu."
+      }
+    },
     "organizations": "Organizations",
     "addOrganization": "Add another organization",
     "untitledOrganization": "New organization (not set up yet)",

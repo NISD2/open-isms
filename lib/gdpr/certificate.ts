@@ -11,6 +11,21 @@ import { ERASURE_FILE_RETRY_DAYS, type StoredFileState } from "./stored-files";
 
 export type ErasureLogRow = InferSelectModel<typeof dataErasureLog>;
 
+/** The request channel of an erasure the account holder started from their own user menu. */
+export const SELF_SERVICE_CHANNEL = "self_service";
+
+/** Who erased it, as the record names them when the account holder did it themselves. */
+export const SELF_SERVICE_ACTOR = "the account holder (self-service)";
+
+/** How the request was confirmed: by the account holder signed in, or by an operator at intake. */
+const verification = (row: Pick<ErasureLogRow, "requestChannel">): string =>
+  row.requestChannel === SELF_SERVICE_CHANNEL
+    ? `The account holder requested the erasure while signed in to the account and
+confirmed it by re-entering the account's email, which matched our records.`
+    : `Before execution, the operator confirmed the target account by re-entering its
+email, which matched our records. Requester identity is verified by the operator
+at intake per our procedure.`;
+
 export function erasureCertificateFilename(row: Pick<ErasureLogRow, "caseRef">): string {
   return `${row.caseRef}-erasure-certificate.md`;
 }
@@ -132,9 +147,7 @@ General Data Protection Regulation (GDPR), Article 17 (right to erasure).
 | Rights invoked | ${esc(row.rightsInvoked)} |
 | Legal basis applied | ${esc(row.legalBasis)} |
 
-Before execution, the operator confirmed the target account by re-entering its
-email, which matched our records. Requester identity is verified by the operator
-at intake per our procedure. No fee was charged (Art. 12(5)).
+${verification(row)} No fee was charged (Art. 12(5)).
 
 ## Action taken
 

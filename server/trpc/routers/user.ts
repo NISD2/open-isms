@@ -1,8 +1,15 @@
 import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
+import { logAudit } from "@/lib/audit";
+import type { DbOrTx } from "@/lib/db";
+import { SELF_SERVICE_ACTOR, SELF_SERVICE_CHANNEL } from "@/lib/gdpr/certificate";
+import { eraseUser } from "@/lib/gdpr/erase-user";
+import { selfErasureCheck } from "@/lib/gdpr/self-erasure";
+import { sendErasureCertificate } from "@/lib/gdpr/send-certificate";
 import { isLocaleCode } from "@/lib/locale";
 import { HINT_COLUMN, HINTS } from "@/lib/onboarding/hints";
+import { rateLimit } from "@/lib/rate-limit";
 import { user } from "@/schema";
 import { userUpdateSchema } from "@/schema/validators";
 import { protectedProcedure, publicProcedure, router } from "../init";
@@ -88,4 +95,72 @@ export const userRouter = router({
 
       return { hint: input.hint };
     }),
+
+  /** Whether the signed-in person may delete their own account here, and what goes with it. */
+  deletionCheck: protectedProcedure.query(async ({ ctx }) => {
+    const email = await ownEmail(ctx.db, ctx.userId);
+    return selfErasureCheck(ctx.db, { userId: ctx.userId, email });
+  }),
+
+  /**
+   * Deletes the signed-in person's own account for good (Art. 17 GDPR) and emails them the
+   * certificate. The typed email is the confirmation; the rules are decided again here, never taken
+   * from the dialog. No audit row names them: the user is gone, and the erasure record is the trail.
+   */
+  deleteAccount: protectedProcedure
+    .input(z.object({ confirmEmail: z.string().max(320) }))
+    .mutation(async ({ ctx, input }) => {
+      const email = await ownEmail(ctx.db, ctx.userId);
+      if (input.confirmEmail.trim().toLowerCase() !== email.trim().toLowerCase()) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "The email does not match this account.",
+        });
+      }
+      if (!(await rateLimit(`self-erase:${ctx.userId}`, 3, 60 * 60 * 1000))) {
+        throw new TRPCError({ code: "TOO_MANY_REQUESTS", message: "Too many attempts." });
+      }
+      const check = await selfErasureCheck(ctx.db, { userId: ctx.userId, email });
+      if (!check.allowed) {
+        throw new TRPCError({ code: "FORBIDDEN", message: check.reason });
+      }
+
+      const result = await eraseUser({
+        userId: ctx.userId,
+        actor: { userId: null, email: SELF_SERVICE_ACTOR },
+        request: {
+          requestReceivedAt: new Date(),
+          requestChannel: SELF_SERVICE_CHANNEL,
+          rightsInvoked: "Right to erasure (Art. 17)",
+          notes: null,
+        },
+      });
+      await logAudit({
+        companyId: null,
+        userId: null,
+        action: "gdpr.erase_user",
+        entityType: "user",
+        entityId: ctx.userId,
+        description: `Account holder erased their own account (case ${result.caseRef}, method ${result.method}${result.companyTornDown ? ", company torn down" : ""})`,
+        ipAddress: ctx.ip,
+        userAgent: ctx.userAgent,
+      });
+      const certificateSent = await sendErasureCertificate(ctx.db, {
+        logId: result.logId,
+        caseRef: result.caseRef,
+        to: email,
+      });
+      return { caseRef: result.caseRef, certificateSent };
+    }),
 });
+
+/** The account's own address from the database, not the session snapshot. */
+const ownEmail = async (db: DbOrTx, userId: string) => {
+  const [row] = await db
+    .select({ email: user.email })
+    .from(user)
+    .where(eq(user.id, userId))
+    .limit(1);
+  if (!row) throw new TRPCError({ code: "NOT_FOUND", message: "Account not found." });
+  return row.email;
+};
