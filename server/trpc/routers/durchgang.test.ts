@@ -8,7 +8,13 @@ import { describe, expect, mock, test } from "bun:test";
 import type { SQL } from "drizzle-orm";
 import { PgDialect } from "drizzle-orm/pg-core";
 import type { AuditEntry } from "@/lib/audit";
-import { asset, companyPolicyConfig, companyRequirementStatus, policy } from "@/schema";
+import {
+  asset,
+  companyPolicyConfig,
+  companyRequirementStatus,
+  policy,
+  supplier,
+} from "@/schema";
 
 const audits: AuditEntry[] = [];
 mock.module("@/lib/audit", () => ({
@@ -36,7 +42,7 @@ const CATEGORY = "77777777-7777-4777-8777-777777777777";
 const dialect = new PgDialect();
 const paramsOf = (where: SQL) => dialect.sqlToQuery(where).params;
 
-type Write = { op: "insert" | "update"; table: unknown; values: unknown };
+type Write = { op: "insert" | "update"; table: unknown; values: unknown; where?: SQL };
 
 function setup(opts: {
   accessLevel: "full" | "grandfathered" | "free";
@@ -48,6 +54,13 @@ function setup(opts: {
   storedPolicy?: { id: string; content: string };
   /** The category's saved intake answers. */
   answers?: Record<string, unknown>;
+  /** The company's suppliers a lookup finds, with their two contract columns. */
+  suppliers?: ReadonlyArray<{
+    id: string;
+    name: string;
+    security: boolean | null;
+    incidents: boolean | null;
+  }>;
 }) {
   const writes: Write[] = [];
   const wheres: Array<{ table: string; where: SQL }> = [];
@@ -99,8 +112,8 @@ function setup(opts: {
     },
     update: (table: unknown) => ({
       set: (values: unknown) => ({
-        where: () => {
-          writes.push({ op: "update", table, values });
+        where: (where?: SQL) => {
+          writes.push({ op: "update", table, values, where });
           const matched = opts.storedPolicy ? [{ id: opts.storedPolicy.id }] : [];
           return Object.assign(Promise.resolve(), { returning: async () => matched });
         },
@@ -115,13 +128,22 @@ function setup(opts: {
     selectDistinctOn: () => ({
       from: () => ({ where: () => ({ orderBy: async () => [] }) }),
     }),
-    // The company lock and the lookup of the walk's policy row.
+    // The company lock, the lookup of the walk's policy row, and the company's suppliers.
     select: () => ({
       from: (table: unknown) => {
         const rows =
-          table === policy ? (opts.storedPolicy ? [opts.storedPolicy] : []) : [];
+          table === policy
+            ? opts.storedPolicy
+              ? [opts.storedPolicy]
+              : []
+            : table === supplier
+              ? (opts.suppliers ?? [])
+              : [];
         return {
-          where: () => Object.assign(Promise.resolve(rows), { for: async () => rows }),
+          where: (where: SQL) => {
+            if (table === supplier) wheres.push({ table: "supplier", where });
+            return Object.assign(Promise.resolve(rows), { for: async () => rows });
+          },
         };
       },
     }),
@@ -422,6 +444,93 @@ describe("the walk's policy", () => {
     const free = setup({ accessLevel: "free" });
     const closed = free.caller.writePolicy({ code: "2.4", clauses: [] });
     await expect(closed).rejects.toMatchObject({ code: "FORBIDDEN" });
+    expect(free.writes).toEqual([]);
+  });
+});
+
+const DATEV = "88888888-8888-4888-8888-888888888881";
+const TELEKOM = "88888888-8888-4888-8888-888888888882";
+
+/** The text of the trail line an update appended, read from its SQL parameters. */
+const noteOf = (writes: readonly Write[]): string => {
+  const values = writes.find(
+    (w) => w.op === "update" && w.table === companyRequirementStatus,
+  )?.values;
+  const notes =
+    typeof values === "object" && values !== null && "internalNotes" in values
+      ? values.internalNotes
+      : undefined;
+  return notes ? paramsOf(notes as SQL).join(" ") : "";
+};
+
+describe("the walk's supplier agreements", () => {
+  const suppliers = [
+    { id: DATEV, name: "DATEV", security: false, incidents: false },
+    { id: TELEKOM, name: "Telekom", security: true, incidents: null },
+  ];
+
+  test("writes only the rows that changed, only the two columns, only on the company's rows", async () => {
+    const { caller, writes, wheres } = setup({ accessLevel: "full", suppliers });
+    const result = await caller.recordAgreements({
+      code: "5.2",
+      rows: [
+        { supplierId: DATEV, security: true, incidents: true },
+        { supplierId: TELEKOM, security: true, incidents: false },
+      ],
+    });
+    expect(result).toEqual({ changed: 1 });
+    const updates = writes.filter((w) => w.op === "update" && w.table === supplier);
+    expect(updates).toHaveLength(1);
+    expect(Object.keys(updates[0]?.values ?? {}).sort()).toEqual([
+      "hasIncidentNotificationClause",
+      "hasSecurityClauses",
+      "updatedAt",
+    ]);
+    expect(updates[0]?.where && paramsOf(updates[0].where)).toEqual([DATEV, COMPANY]);
+    const lookup = wheres.find((w) => w.table === "supplier");
+    expect(lookup && paramsOf(lookup.where)).toContain(COMPANY);
+  });
+
+  test("names every supplier checked in the trail, a row with neither agreement included", async () => {
+    const { caller, writes } = setup({ accessLevel: "full", suppliers });
+    await caller.recordAgreements({
+      code: "5.2",
+      rows: [
+        { supplierId: DATEV, security: true, incidents: true },
+        { supplierId: TELEKOM, security: false, incidents: false },
+      ],
+    });
+    const note = noteOf(writes);
+    expect(note).toContain("DATEV: Sicherheit, Vorfallmeldung");
+    expect(note).toContain("Telekom: nichts geregelt");
+  });
+
+  test("refuses a supplier of another company, and writes nothing", async () => {
+    const { caller, writes } = setup({
+      accessLevel: "full",
+      suppliers: suppliers.slice(0, 1),
+    });
+    const refused = caller.recordAgreements({
+      code: "5.2",
+      rows: [
+        { supplierId: DATEV, security: true, incidents: false },
+        { supplierId: TELEKOM, security: true, incidents: false },
+      ],
+    });
+    await expect(refused).rejects.toMatchObject({ code: "NOT_FOUND" });
+    expect(writes.filter((w) => w.table === supplier)).toEqual([]);
+  });
+
+  test("refuses an item without an agreements screen, and accounts without the Durchgang", async () => {
+    const { caller } = setup({ accessLevel: "full", suppliers });
+    const row = { supplierId: DATEV, security: true, incidents: false };
+    await expect(
+      caller.recordAgreements({ code: "12.2", rows: [row] }),
+    ).rejects.toMatchObject({ code: "BAD_REQUEST" });
+    const free = setup({ accessLevel: "free", suppliers });
+    await expect(
+      free.caller.recordAgreements({ code: "5.2", rows: [row] }),
+    ).rejects.toMatchObject({ code: "FORBIDDEN" });
     expect(free.writes).toEqual([]);
   });
 });

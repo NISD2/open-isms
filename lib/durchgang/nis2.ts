@@ -22,6 +22,14 @@ export const NOT_WALKED: Readonly<Record<string, string>> = {
     "No statute asks for a separately approved security budget: § 30 and § 38 BSIG ask management to implement and oversee the measures. The nearest rule, CIR 2024/2690 Annex 1.1.1(e), binds only the digital providers the CIR covers and asks for a commitment to provide resources inside the security policy; the Leitlinie (2.4) carries that commitment for everyone.",
   "1.4":
     "No statute asks management to sign an acknowledgement of liability; § 38 Abs. 2 BSIG sets the liability itself, which the CEO course behind 1.1 teaches. The acknowledgement is a platform record, so it stays on the requirement page.",
+  "5.3":
+    "§ 30 Abs. 2 Nr. 4 BSIG sets no review cycle for suppliers. What every entity owes is to weigh each direct supplier's specific vulnerabilities and the quality of its products and security practice when it chooses the measures (Art. 21(3) NIS 2, carried into § 30 by the Begründung, BT-Drs. 21/1501 p. 148): 2.3 rates each supplier, and 5.2 records the agreements beside that rating. Monitoring and reviewing suppliers at planned intervals is CIR 2024/2690 Annex 5.1.6 and 5.1.7, which binds only the digital providers the CIR covers. The supplier risk register stays on the requirement page.",
+  "5.4":
+    "Whether a supplier must report incidents to the company is one of the two points 5.2 records per supplier, where the Begründung to § 30 BSIG puts it (agreements on handling cyber incidents, BT-Drs. 21/1501 p. 148). No statute sets a notification deadline in hours; CIR 2024/2690 Annex 5.1.4(d), which binds only the digital providers it covers, says 'without undue delay'. The requirement page keeps the field.",
+  "3.2":
+    "Telling an incident from a disruption, and deciding whether to report it, is written into the 3.1 plan (whoever notices calls the IT emergency number, the lead decides), and 3.3 explains when an incident is significant, which § 2 Nr. 11 BSIG defines itself. Classification schemes, detection tooling, logging and the quarterly check for recurring incidents are CIR 2024/2690 Annex 3.2 to 3.4 and Art. 4, which bind only the digital providers the CIR covers; attack detection systems are a duty of operators of critical facilities only (§ 31 Abs. 2 BSIG). The incident register fills when an incident happens.",
+  "3.5":
+    "No statute asks for a named review owner or for customer messages written in advance. After a significant incident the final report states the cause and the measures taken (§ 32 Abs. 1 Nr. 4 BSIG), which 3.3 shows, and the 3.1 plan commits to reviewing each incident and offers informing customers as a clause. In Germany, telling the recipients of a service is a duty only when the BSI orders it (§ 35 Abs. 1 BSIG) or for the sectors § 35 Abs. 2 lists. Post-incident reviews are CIR 2024/2690 Annex 3.6, which binds only the digital providers the CIR covers.",
 };
 
 export const NIS2_SCRIPT: readonly AnyItem[] = [
@@ -54,6 +62,19 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
       { kind: "sources", id: "sources", sources: ["payables", "contracts", "provider"] },
       { kind: "register", id: "suppliers", module: "supplier" },
       { kind: "fields", id: "dependence", fields: ["singlePointOfFailureCount"] },
+      { kind: "done", id: "done" },
+    ],
+  }),
+  item({
+    code: "5.2",
+    category: "SUP",
+    glossary: [],
+    reviewed: "2026-10-01",
+    screens: [
+      { kind: "learn", id: "learn" },
+      { kind: "sources", id: "sources", sources: ["contracts", "dpa", "terms"] },
+      { kind: "sample", id: "clause" },
+      { kind: "agreements", id: "contracts" },
       { kind: "done", id: "done" },
     ],
   }),

@@ -38,6 +38,11 @@ const coversModule = (screen: AnyScreen, moduleRef: string): boolean => {
       return screen.kind === "rate";
     case "policy":
       return screen.kind === "policy";
+    case "supplier":
+      return (
+        (screen.kind === "register" && screen.module === "supplier") ||
+        screen.kind === "agreements"
+      );
     default:
       return screen.kind === "register" && screen.module === moduleRef;
   }

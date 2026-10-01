@@ -21,6 +21,11 @@ const TEXT = {
     method: "Methode festgelegt: Risikoanalyse nach BSI-Standard 200-3.",
     declined: (reason: string) =>
       `Bewusst nicht umgesetzt, zur Unterschrift. Begründung: ${reason}`,
+    agreements: (lines: readonly string[]) =>
+      `Vereinbarungen mit Lieferanten geprüft: ${lines.join("; ")}.`,
+    security: "Sicherheit",
+    incidents: "Vorfallmeldung",
+    nothing: "nichts geregelt",
   },
   en: {
     waiting: (reason: string, note: string | null) =>
@@ -29,6 +34,11 @@ const TEXT = {
     method: "Method set: risk analysis according to BSI Standard 200-3.",
     declined: (reason: string) =>
       `Decided not to do this, for signature. Reason: ${reason}`,
+    agreements: (lines: readonly string[]) =>
+      `Agreements with suppliers checked: ${lines.join("; ")}.`,
+    security: "security",
+    incidents: "incident reporting",
+    nothing: "nothing agreed",
   },
 } as const;
 
@@ -42,3 +52,24 @@ export const methodNote = (locale: NoteLocale) => TEXT[locale].method;
 
 export const declinedNote = (locale: NoteLocale, reason: string) =>
   TEXT[locale].declined(reason);
+
+/** One entry per supplier checked: its name and what is agreed with it, in the record language. */
+export const agreementsNote = (
+  locale: NoteLocale,
+  rows: ReadonlyArray<{
+    readonly name: string;
+    readonly security: boolean;
+    readonly incidents: boolean;
+  }>,
+) => {
+  const text = TEXT[locale];
+  return text.agreements(
+    rows.map((row) => {
+      const agreed = [
+        ...(row.security ? [text.security] : []),
+        ...(row.incidents ? [text.incidents] : []),
+      ];
+      return `${row.name}: ${agreed.length > 0 ? agreed.join(", ") : text.nothing}`;
+    }),
+  );
+};

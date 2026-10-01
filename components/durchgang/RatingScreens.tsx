@@ -157,7 +157,7 @@ const chosen = (row: RatingRow, draft: Draft): Partial<Rating> =>
 export const rowSettled = (row: RatingRow, draft: Draft): boolean =>
   row.standing.kind === "kept" || fullRating(chosen(row, draft)) !== null;
 
-function LevelChip({ level, locale }: { level: RiskLevel; locale: "de" | "en" }) {
+export function LevelChip({ level, locale }: { level: RiskLevel; locale: "de" | "en" }) {
   return (
     <span
       className={cn(

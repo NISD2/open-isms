@@ -29,6 +29,7 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
   const addAssets = trpc.durchgang.addAssets.useMutation();
   const specify = trpc.durchgang.specifyAssets.useMutation();
   const rate = trpc.durchgang.rate.useMutation();
+  const recordAgreements = trpc.durchgang.recordAgreements.useMutation();
   const writePolicy = trpc.durchgang.writePolicy.useMutation();
   const approvePolicy = trpc.durchgang.approvePolicy.useMutation();
   const finish = trpc.durchgang.finish.useMutation();
@@ -131,6 +132,17 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
             utils.risk.listWithSuppliers.invalidate(),
             utils.supplier.list.invalidate(),
           ]);
+        }
+        return;
+      }
+      case "agreements": {
+        const rows = Object.entries(snapshot.agreements).map(([supplierId, agreed]) => ({
+          supplierId,
+          ...agreed,
+        }));
+        if (rows.length > 0) {
+          await recordAgreements.mutateAsync({ code: item.code, rows });
+          await utils.supplier.list.invalidate();
         }
         return;
       }

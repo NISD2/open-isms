@@ -12,6 +12,7 @@ import { getDefaultMethodology } from "@/lib/compliance/risk-methodology-default
 import { seedLocale } from "@/lib/compliance/seed-locale";
 import {
   type AnyScreen,
+  agreementsNote,
   askedFields,
   declinedNote,
   levelOf,
@@ -752,6 +753,105 @@ export const durchgangRouter = router({
       if (written.length > 0) recheck(ctx, "risk");
       if (written.includes("supplier")) recheck(ctx, "supplier");
       return { written: written.length };
+    }),
+
+  /**
+   * 5.2: what each supplier's contract, AVV or terms already settle about security and about
+   * reporting incidents to the company. Only the customer's own two columns are written, only on
+   * the company's own rows, and only where a value changed. The item's trail names every supplier
+   * checked, which is also the record that a row with neither agreement was looked at.
+   */
+  recordAgreements: durchgangWrite
+    .input(
+      z.object({
+        code,
+        rows: z
+          .array(
+            z.object({
+              supplierId: z.string().uuid(),
+              security: z.boolean(),
+              incidents: z.boolean(),
+            }),
+          )
+          .min(1)
+          .max(500),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const screens: readonly AnyScreen[] = itemOf(input.code).screens;
+      if (!screens.some((s) => s.kind === "agreements")) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: `${input.code} records no agreements.`,
+        });
+      }
+      const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
+      const rows = [...new Map(input.rows.map((r) => [r.supplierId, r])).values()];
+      const ids = rows.map((r) => r.supplierId);
+      const owned = await ctx.db
+        .select({
+          id: supplier.id,
+          name: supplier.name,
+          security: supplier.hasSecurityClauses,
+          incidents: supplier.hasIncidentNotificationClause,
+        })
+        .from(supplier)
+        .where(
+          and(eq(supplier.customerCompanyId, ctx.companyId), inArray(supplier.id, ids)),
+        );
+      if (owned.length !== ids.length) throw new TRPCError({ code: "NOT_FOUND" });
+
+      const before = new Map(owned.map((s) => [s.id, s]));
+      const changed = rows.filter((row) => {
+        const was = before.get(row.supplierId);
+        return (
+          was !== undefined &&
+          (row.security !== Boolean(was.security) ||
+            row.incidents !== Boolean(was.incidents))
+        );
+      });
+      for (const row of changed) {
+        await ctx.db
+          .update(supplier)
+          .set({
+            hasSecurityClauses: row.security,
+            hasIncidentNotificationClause: row.incidents,
+            updatedAt: new Date(),
+          })
+          .where(
+            and(
+              eq(supplier.id, row.supplierId),
+              eq(supplier.customerCompanyId, ctx.companyId),
+            ),
+          );
+      }
+      const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
+      await appendNote(
+        ctx.db,
+        ref.statusId,
+        noteLine(
+          new Date(),
+          agreementsNote(
+            locale,
+            rows.map((row) => ({
+              name: before.get(row.supplierId)?.name ?? "",
+              security: row.security,
+              incidents: row.incidents,
+            })),
+          ),
+        ),
+      );
+      await logAudit({
+        companyId: ctx.companyId,
+        userId: ctx.userId,
+        action: "durchgang.agreements",
+        entityType: "requirement",
+        entityId: ref.requirementId,
+        description: `${ref.code} supplier agreements checked`,
+        newValue: { checked: rows.length, changed: changed.length },
+      });
+      if (changed.length > 0) recheck(ctx, "supplier");
+      return { changed: changed.length };
     }),
 
   /** The policy an item writes, as its screen shows it and the server stores it. */

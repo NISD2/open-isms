@@ -20,6 +20,7 @@
         "register": "Your list",
         "specify": "More precisely",
         "rate": "Rate",
+        "agreements": "Check",
         "policy": "Template",
         "done": "Done"
       },
@@ -83,6 +84,10 @@
         "provides": "provides {names}",
         "kept": "{count, plural, one {# risk} other {# risks}} in the risk register",
         "empty": "Nothing in this area is on your list."
+      },
+      "agreements": {
+        "unrated": "Not rated",
+        "empty": "No supplier is on your list yet. You add your suppliers in step 5.1."
       },
       "team": {
         "invite": "Bring someone in",
@@ -327,6 +332,72 @@
           "provider": {
             "label": "Your IT provider",
             "text": "They know which vendors they use on your behalf."
+          }
+        }
+      },
+      "5_2": {
+        "headline": "Record what you have agreed with your suppliers",
+        "teaser": "For each supplier: what does the contract say about security?",
+        "missed": [
+          "If a service provider processes personal data on your behalf, part of this is already settled in the data processing agreement: it must take the measures of Art. 32 GDPR and notify you of personal data breaches without undue delay (Art. 28(3)(c) and Art. 33(2) GDPR). A security incident that does not involve personal data is not covered.",
+          "Large providers rarely negotiate. Then what counts is their standard terms. Read them before you choose \"None of this is agreed\"."
+        ],
+        "screens": {
+          "learn": {
+            "title": "What is agreed with each one",
+            "body": [
+              "Your suppliers are on the list, and you have rated the risk at each one. Now it is about the relationship itself: what is agreed with each of them so that they work securely for you?",
+              "When you choose the measures, the law asks you to take into account each supplier's vulnerabilities and the quality of its products and security practice. Contracts are the usual place: in Germany, the explanatory memorandum names contracts on security measures, incident handling and updates as examples. They are one way, not the only one; you can also, for example, limit a service provider's access."
+            ],
+            "duty": "The law requires supply chain security, including the security aspects of your relationships with your direct suppliers and service providers."
+          },
+          "sources": {
+            "title": "Where such terms usually are",
+            "lead": "Tick where you looked:"
+          },
+          "clause": {
+            "title": "What such terms can look like",
+            "caption": "A made-up example from a maintenance contract with an IT service provider:",
+            "rows": [
+              {
+                "name": "Security measures",
+                "detail": "The provider protects access to our systems according to the state of the art and gives it only to the staff who need it for the job."
+              },
+              {
+                "name": "Incidents",
+                "detail": "It tells us without undue delay of every security incident that may affect our systems or data, and helps us deal with it."
+              },
+              {
+                "name": "Updates",
+                "detail": "It installs security updates for the systems it looks after promptly and tells us when a system no longer receives updates."
+              }
+            ],
+            "note": "In Germany, the legislator names these three topics as examples (explanatory memorandum to § 30 BSIG, Bundestag printed paper 21/1501, p. 148). The law prescribes no particular wording."
+          },
+          "contracts": {
+            "title": "What each one has agreed",
+            "lead": "Tick what the contract, the data processing agreement or the terms settle. Next to each name is your rating from the risk assessment.",
+            "security": "Security requirements, for example on access and updates",
+            "incidents": "Reporting security incidents to you",
+            "none": "None of this is agreed"
+          },
+          "done": {
+            "title": "Your agreements are recorded",
+            "note": "Where nothing is agreed, you decide whether to raise it, for example at the next renewal. At the end, management reviews every item and signs."
+          }
+        },
+        "sources": {
+          "contracts": {
+            "label": "Contracts and service descriptions",
+            "text": "Maintenance contracts, service contracts, service descriptions."
+          },
+          "dpa": {
+            "label": "Data processing agreements",
+            "text": "With everyone who processes personal data for you. They settle security measures and how personal data breaches are reported."
+          },
+          "terms": {
+            "label": "Large providers' terms",
+            "text": "For cloud and software, usually the provider's standard terms, which you find online."
           }
         }
       },

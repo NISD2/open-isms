@@ -321,6 +321,8 @@ const SOURCE_ICON: Readonly<Record<SourceId, LucideIcon>> = {
   payables: Calculator,
   contracts: FileText,
   provider: Wrench,
+  dpa: FileSignature,
+  terms: ScrollText,
 };
 
 export function Sources({ draft, onDraft, entry }: WorkProps & { entry: Of<"sources"> }) {

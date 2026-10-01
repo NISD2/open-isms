@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { declinedNote, noteLine, waitingNote } from "./notes";
+import { agreementsNote, declinedNote, noteLine, waitingNote } from "./notes";
 
 describe("the notes trail", () => {
   test("dates a line by the Berlin calendar day, not the UTC one", () => {
@@ -23,6 +23,17 @@ describe("the notes trail", () => {
   test("leaves the note out when there is none", () => {
     expect(waitingNote("de", "Ich muss erst jemanden fragen", null)).toBe(
       "Geht noch nicht: Ich muss erst jemanden fragen.",
+    );
+  });
+
+  test("names each supplier checked with what is agreed, or that nothing is", () => {
+    expect(
+      agreementsNote("en", [
+        { name: "DATEV", security: false, incidents: true },
+        { name: "Telekom", security: false, incidents: false },
+      ]),
+    ).toBe(
+      "Agreements with suppliers checked: DATEV: incident reporting; Telekom: nothing agreed.",
     );
   });
 });

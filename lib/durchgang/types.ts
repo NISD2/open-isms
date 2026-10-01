@@ -50,6 +50,8 @@ export const SOURCE_IDS = [
   "provider",
   "payables",
   "contracts",
+  "dpa",
+  "terms",
 ] as const;
 export type SourceId = (typeof SOURCE_IDS)[number];
 
@@ -110,6 +112,11 @@ export type Screen<C extends CategoryCode> =
   | { readonly kind: "specify"; readonly id: string; readonly slice: AssetSlice }
   /** Each listed asset or supplier rated on the two 200-3 scales, as a risk linked to it. */
   | { readonly kind: "rate"; readonly id: string; readonly targets: RatingTarget }
+  /**
+   * Each supplier, with its rating beside it: what the contract, the AVV or the provider's terms
+   * already settle about security and about reporting incidents.
+   */
+  | { readonly kind: "agreements"; readonly id: string }
   /**
    * A policy written from our template: fixed sections, optional clauses the person adds, the
    * company's name and the item's answers filled in. Stored as one `policy` row of the item's

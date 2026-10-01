@@ -29,6 +29,14 @@ export interface Draft {
   readonly ratings: Readonly<Record<string, RatingDraft>>;
   /** The policy clauses chosen on this visit; null until the person changes the stored choice. */
   readonly clauses: readonly string[] | null;
+  /** What each supplier has agreed, by supplier id, for the rows answered on this visit. */
+  readonly agreements: Readonly<Record<string, Agreed>>;
+}
+
+/** A supplier's answer on 5.2: neither ticked means the person found nothing agreed. */
+export interface Agreed {
+  readonly security: boolean;
+  readonly incidents: boolean;
 }
 
 export type DraftUpdate = (next: Draft) => void;
@@ -81,6 +89,7 @@ export const initialDraft = (
   specified: {},
   ratings: {},
   clauses: null,
+  agreements: {},
 });
 
 /** A rating with both scales chosen, or null. */

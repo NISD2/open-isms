@@ -20,6 +20,7 @@
         "register": "Ihre Liste",
         "specify": "Genauer",
         "rate": "Bewerten",
+        "agreements": "Abgleichen",
         "policy": "Vorlage",
         "done": "Erledigt"
       },
@@ -83,6 +84,10 @@
         "provides": "liefert {names}",
         "kept": "{count, plural, one {# Risiko} other {# Risiken}} im Risikoregister",
         "empty": "In diesem Bereich steht nichts auf Ihrer Liste."
+      },
+      "agreements": {
+        "unrated": "Nicht bewertet",
+        "empty": "Noch steht kein Lieferant auf Ihrer Liste. Sie tragen Ihre Lieferanten in Schritt 5.1 ein."
       },
       "team": {
         "invite": "Jemanden dazuholen",
@@ -333,6 +338,72 @@
           "provider": {
             "label": "Ihr IT-Dienstleister",
             "text": "Er weiß, welche Anbieter er selbst für Sie einsetzt."
+          }
+        }
+      },
+      "5_2": {
+        "headline": "Festhalten, was Sie mit Ihren Lieferanten vereinbart haben",
+        "teaser": "Für jeden Lieferanten: Was regelt der Vertrag zur Sicherheit?",
+        "missed": [
+          "Verarbeitet ein Dienstleister personenbezogene Daten in Ihrem Auftrag, ist ein Teil schon im Vertrag zur Auftragsverarbeitung geregelt: Er muss die Maßnahmen nach Art. 32 DSGVO ergreifen und Ihnen Verletzungen des Schutzes personenbezogener Daten unverzüglich melden (Art. 28 Abs. 3 Buchst. c und Art. 33 Abs. 2 DSGVO). Ein Sicherheitsvorfall, der keine personenbezogenen Daten betrifft, fällt nicht darunter.",
+          "Große Anbieter verhandeln selten. Dann zählt, was in ihren Standardbedingungen steht. Lesen Sie dort nach, bevor Sie „Nichts davon geregelt“ wählen."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Was mit jedem vereinbart ist",
+            "body": [
+              "Ihre Lieferanten stehen auf der Liste, und Sie haben das Risiko bei jedem eingeschätzt. Jetzt geht es um die Beziehung selbst: Was ist mit jedem vereinbart, damit er sicher für Sie arbeitet?",
+              "Als Beispiel nennt der Gesetzgeber Verträge, die Sicherheitsmaßnahmen, den Umgang mit Sicherheitsvorfällen und Updates regeln. Was angemessen ist, richtet sich nach dem Lieferanten: nach seinen Schwachstellen und danach, wie gut seine Produkte und seine Sicherheitspraxis sind. Verträge sind ein Weg, nicht der einzige; Sie können etwa auch den Zugang eines Dienstleisters begrenzen."
+            ],
+            "duty": "Das Gesetz verlangt Maßnahmen für die Sicherheit der Lieferkette, auch für die sicherheitsbezogenen Aspekte der Beziehungen zu Ihren direkten Anbietern und Dienstleistern."
+          },
+          "sources": {
+            "title": "Wo die Regelungen meist stehen",
+            "lead": "Haken Sie ab, wo Sie nachgesehen haben:"
+          },
+          "clause": {
+            "title": "So kann eine Regelung aussehen",
+            "caption": "Ein ausgedachtes Beispiel aus einem Wartungsvertrag mit einem IT-Dienstleister:",
+            "rows": [
+              {
+                "name": "Sicherheitsmaßnahmen",
+                "detail": "Der Dienstleister schützt die Zugänge zu unseren Systemen nach dem Stand der Technik und gibt sie nur den Beschäftigten, die sie für den Auftrag brauchen."
+              },
+              {
+                "name": "Vorfälle",
+                "detail": "Er meldet uns unverzüglich jeden Sicherheitsvorfall, der unsere Systeme oder Daten betreffen kann, und unterstützt uns bei der Bewältigung."
+              },
+              {
+                "name": "Updates",
+                "detail": "Er spielt Sicherheitsupdates für die Systeme, die er betreut, zeitnah ein und sagt uns, wenn ein System keine Updates mehr bekommt."
+              }
+            ],
+            "note": "Diese drei Themen nennt der Gesetzgeber als Beispiele (Begründung zu § 30 BSIG, BT-Drucksache 21/1501, S. 148). Bestimmte Formulierungen schreibt das Gesetz nicht vor."
+          },
+          "contracts": {
+            "title": "Was mit jedem geregelt ist",
+            "lead": "Haken Sie an, was der Vertrag, die Auftragsverarbeitung oder die Bedingungen regeln. Neben jedem Namen steht Ihre Einschätzung aus der Risikobewertung.",
+            "security": "Sicherheitsanforderungen, etwa an Zugänge und Updates",
+            "incidents": "Meldung von Sicherheitsvorfällen an Sie",
+            "none": "Nichts davon geregelt"
+          },
+          "done": {
+            "title": "Ihre Vereinbarungen sind festgehalten",
+            "note": "Wo nichts geregelt ist, entscheiden Sie, ob Sie es ansprechen, etwa bei der nächsten Verlängerung. Am Ende sieht die Geschäftsführung alle Punkte durch und unterschreibt."
+          }
+        },
+        "sources": {
+          "contracts": {
+            "label": "Verträge und Leistungsbeschreibungen",
+            "text": "Wartungsverträge, Serviceverträge, Leistungsbeschreibungen."
+          },
+          "dpa": {
+            "label": "Verträge zur Auftragsverarbeitung",
+            "text": "Bei allen, die personenbezogene Daten für Sie verarbeiten. Sie regeln Sicherheitsmaßnahmen und Meldungen bei Datenschutzverletzungen."
+          },
+          "terms": {
+            "label": "Bedingungen großer Anbieter",
+            "text": "Bei Cloud und Software meist die Standardbedingungen des Anbieters, die Sie online finden."
           }
         }
       },

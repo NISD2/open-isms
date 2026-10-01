@@ -44,6 +44,8 @@ const SCREEN_COPY = {
   assets: z.object(heading),
   specify: z.object(heading),
   rate: z.object(heading),
+  /** The two things a row can say is agreed, and the answer that neither is. */
+  agreements: z.object({ ...heading, security: text, incidents: text, none: text }),
   /**
    * The policy itself: its fixed sections, the clauses the person may add, and the signature
    * line. `{company}` stands for the company's name and `{<field>}` for the answer to one of the
@@ -289,6 +291,8 @@ function resolveScreen(
       return one(screen, SCREEN_COPY.specify);
     case "rate":
       return one(screen, SCREEN_COPY.rate);
+    case "agreements":
+      return one(screen, SCREEN_COPY.agreements);
     case "policy": {
       // A clause is chosen and stored by its id, so two clauses may not share one.
       const copy = one(screen, SCREEN_COPY.policy);

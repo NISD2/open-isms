@@ -1,5 +1,6 @@
 import type { ResolvedScreen } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
+import { answerOf, useAgreementRows } from "./AgreementScreen";
 import { type Draft, isAnswered } from "./draft";
 import { rowSettled, useRatingRows } from "./RatingScreens";
 import type { ItemView } from "./view";
@@ -7,7 +8,8 @@ import type { ItemView } from "./view";
 /**
  * Whether the person may move on from this screen: every field the schema requires is answered,
  * a file is in place, a source is ticked, a management training is on the list, every listed thing
- * is rated. Naming assets and their providers is never required. Screens that only
+ * is rated, every supplier's agreements are answered. Naming assets and their providers is never
+ * required. Screens that only
  * explain are always complete. Lists are read from the same queries their screens show, so the
  * answer follows each upload and each new line without a second copy of the count.
  */
@@ -25,6 +27,7 @@ export function useScreenComplete(
     enabled: screen?.kind === "register" && screen.module === "training_record",
   });
   const ratings = useRatingRows(screen?.kind === "rate" ? screen.targets : null);
+  const agreements = useAgreementRows(screen?.kind === "agreements");
   switch (screen?.kind) {
     case "fields":
       return screen.fields.every(
@@ -42,6 +45,8 @@ export function useScreenComplete(
       );
     case "rate":
       return ratings?.every((row) => rowSettled(row, draft)) ?? false;
+    case "agreements":
+      return agreements?.every((row) => answerOf(row, draft) !== null) ?? false;
     default:
       return true;
   }

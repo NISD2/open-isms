@@ -11,6 +11,7 @@ export type { ResolvedItem, ResolvedScreen } from "./copy";
 export { itemKey, resolveItem } from "./copy";
 export type { NoteLocale } from "./notes";
 export {
+  agreementsNote,
   declinedNote,
   methodNote,
   noteLine,
