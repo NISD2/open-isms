@@ -1470,7 +1470,7 @@ export function verifyErasureRecord(row: ErasureLogRow): boolean {
 
 /** Retention-policy step (Art. 5(1)(e)): minimise the raw email on erasure
  *  records past retentionUntil, leaving only the pseudonymous fingerprint.
- *  Not yet wired to a cron — call from a scheduled job. */
+ *  Runs daily as phase 7 of /api/cron/deadlines. */
 export async function purgeExpiredErasureRecords(now: Date): Promise<number> {
   const rows = await db
     .update(dataErasureLog)

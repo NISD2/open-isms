@@ -46,6 +46,15 @@ export function DeleteAccountDialog({
       ? t(`refused.${remove.error.message}`)
       : null;
 
+  // Deleting asks for a sign-in from the last few minutes; this comes back to the same page after.
+  const needsSignIn =
+    (answer && !answer.allowed && answer.reason === "reauth") ||
+    remove.error?.message === "reauth";
+  const signInAgain = () =>
+    signOut({
+      callbackUrl: `/auth/signin?callbackUrl=${encodeURIComponent(window.location.pathname)}`,
+    });
+
   const close = (next: boolean) => {
     if (remove.isPending) return;
     if (!next) {
@@ -128,6 +137,7 @@ export function DeleteAccountDialog({
               {t("confirm")}
             </Button>
           ) : null}
+          {needsSignIn ? <Button onClick={signInAgain}>{t("signInAgain")}</Button> : null}
         </DialogFooter>
       </DialogContent>
     </Dialog>

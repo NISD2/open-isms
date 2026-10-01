@@ -23,8 +23,10 @@
       "confirmLabel": "Typ uw e-mailadres ter bevestiging:",
       "confirm": "Definitief verwijderen",
       "cancel": "Annuleren",
+      "signInAgain": "Opnieuw aanmelden",
       "failed": "Het account kon nu niet worden verwijderd. Probeer het later opnieuw of schrijf naar contact@nisd2.eu.",
       "refused": {
+        "reauth": "Voor de veiligheid: meld u opnieuw aan voordat u uw account verwijdert. Daarna komt u hier terug.",
         "platform_admin": "Platformbeheerders kunnen hun account hier niet verwijderen.",
         "several_organizations": "U bent eigenaar van meerdere organisaties. Schrijf naar contact@nisd2.eu, dan verwijderen we het account samen met u.",
         "billing": "Bij uw account horen facturen, een bestelling die wordt gecontroleerd, of het betaalt voor een andere organisatie. Facturen moeten wij bewaren. Schrijf naar contact@nisd2.eu, dan verwijderen we het account samen met u.",

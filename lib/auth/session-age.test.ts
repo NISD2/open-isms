@@ -2,8 +2,10 @@ import { describe, expect, test } from "bun:test";
 import {
   ACCOUNT_CLOCK_SKEW_S,
   epochSeconds,
+  isRecentSignIn,
   isSessionVersionCurrent,
   isWithinAbsoluteSessionAge,
+  RECENT_SIGN_IN_S,
   SESSION_ABSOLUTE_MAX_AGE_S,
   signedInAfterAccountCreated,
 } from "./session-age";
@@ -71,6 +73,20 @@ describe("a sign-in and the account it opens", () => {
 
   test("a token without a sign-in time opens nothing", () => {
     expect(signedInAfterAccountCreated(null, created)).toBe(false);
+  });
+});
+
+describe("a recent sign-in, for acts that cannot be undone", () => {
+  test("a sign-in a few minutes ago counts", () => {
+    expect(isRecentSignIn(SIGNED_IN, SIGNED_IN + 5 * 60)).toBe(true);
+  });
+
+  test("one older than the window does not", () => {
+    expect(isRecentSignIn(SIGNED_IN, SIGNED_IN + RECENT_SIGN_IN_S)).toBe(false);
+  });
+
+  test("a token without a sign-in time does not", () => {
+    expect(isRecentSignIn(null, SIGNED_IN)).toBe(false);
   });
 });
 

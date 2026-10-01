@@ -52,6 +52,16 @@ export function signedInAfterAccountCreated(
   );
 }
 
+/**
+ * How recent a sign-in must be for an act that cannot be undone, such as deleting the account: an
+ * unattended or copied session is older than this, the person at the keyboard just signed in.
+ */
+export const RECENT_SIGN_IN_S = 15 * 60;
+
+export function isRecentSignIn(authTime: number | null, nowS: number): boolean {
+  return authTime !== null && nowS - authTime < RECENT_SIGN_IN_S;
+}
+
 export function epochSeconds(date: Date): number {
   return Math.floor(date.getTime() / 1000);
 }
