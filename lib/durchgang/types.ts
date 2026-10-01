@@ -35,13 +35,19 @@ export type Provision =
 export type RegisterModule = "supplier" | "team" | "training_record";
 
 /** A page a learn screen points to: one of the platform's, or one the BSI publishes. */
-export type LearnLink = "ceo_course" | "bsi_it_notfallkarte";
+export type LearnLink = "ceo_course" | "bsi_it_notfallkarte" | "bsi_tr_02102";
 
 /** A BSI default the person may take over with one click, as an explicit write. */
 export type Adoptable = "bsi_200_3_method";
 
-/** A policy the walk writes from its own template; the text is in messages/durchgang. */
-export type PolicyTemplate = "information_security" | "incident_response";
+/**
+ * A policy the walk writes from its own template; the text is in messages/durchgang. The name is
+ * also the stored policy type, so it may not be one an editor keeps its settings under.
+ */
+export type PolicyTemplate =
+  | "information_security"
+  | "incident_response"
+  | "cryptography";
 
 /** Where a list the company needs usually exists already. */
 export const SOURCE_IDS = [

@@ -30,6 +30,10 @@ export const NOT_WALKED: Readonly<Record<string, string>> = {
     "Telling an incident from a disruption, and deciding whether to report it, is written into the 3.1 plan (whoever notices calls the IT emergency number, the lead decides), and 3.3 explains when an incident is significant, which § 2 Nr. 11 BSIG defines itself. Classification schemes, detection tooling, logging and the quarterly check for recurring incidents are CIR 2024/2690 Annex 3.2 to 3.4 and Art. 4, which bind only the digital providers the CIR covers; attack detection systems are a duty of operators of critical facilities only (§ 31 Abs. 2 BSIG). The incident register fills when an incident happens.",
   "3.5":
     "No statute asks for a named review owner or for customer messages written in advance. After a significant incident the final report states the cause and the measures taken (§ 32 Abs. 1 Nr. 4 BSIG), which 3.3 shows, and the 3.1 plan commits to reviewing each incident and offers informing customers as a clause. In Germany, telling the recipients of a service is a duty only when the BSI orders it (§ 35 Abs. 1 BSIG) or for the sectors § 35 Abs. 2 lists. Post-incident reviews are CIR 2024/2690 Annex 3.6, which binds only the digital providers the CIR covers.",
+  "9.2":
+    "Recording, per asset, the type and strength of encryption for data at rest and in transit is CIR 2024/2690 Annex 9.2(a), which binds only the digital providers the CIR covers; the BSI's Krypto-Kataster (IT-Grundschutz CON.1.A19) is a recommendation. § 30 Abs. 2 Nr. 8 BSIG asks for Konzepte und Prozesse, and the 9.1 Kryptokonzept says where the company encrypts, as clauses the person chooses. The per-asset table stays on the requirement page.",
+  "9.3":
+    "Key-management methods are CIR 2024/2690 Annex 9.2(c), which binds only the digital providers the CIR covers. The process § 30 Abs. 2 Nr. 8 BSIG asks for includes how keys and certificates are kept, renewed and replaced, and the 9.1 Kryptokonzept carries that as a fixed section. A key vault, a monitoring tool and an alert threshold in days are tooling no statute names, so the requirement page keeps those fields.",
 };
 
 export const NIS2_SCRIPT: readonly AnyItem[] = [
@@ -272,5 +276,16 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
       residualRiskCount:
         "Documenting why residual risks are accepted is CIR 2024/2690 Annex 2.1.2(j), which binds only the digital providers the CIR covers; neither § 30 BSIG nor Art. 21 NIS 2 asks for it. 2.3 proposes a treatment for each rated risk, and the requirement page keeps the acceptance.",
     },
+  }),
+  item({
+    code: "9.1",
+    category: "CRY",
+    glossary: [],
+    reviewed: "2026-10-01",
+    screens: [
+      { kind: "learn", id: "learn", link: "bsi_tr_02102" },
+      { kind: "policy", id: "konzept", policy: "cryptography" },
+      { kind: "done", id: "done" },
+    ],
   }),
 ];

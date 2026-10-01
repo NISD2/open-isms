@@ -7,6 +7,7 @@ import { z } from "zod";
 import { FUNCTIONAL_GROUPS } from "@/lib/asset-inventory/catalog";
 import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
 import { JOURNEY_ORDER } from "@/lib/compliance/journey-position";
+import { POLICY_TYPES } from "@/lib/compliance/policy-config-defaults";
 import {
   CUSTOM_EDITOR_KEYS,
   REQUIREMENT_FIELD_MAP,
@@ -58,6 +59,8 @@ const EDITOR_SCREEN: Readonly<Record<string, ScreenKind>> = {
 const NO_EDITOR_SCREEN: Readonly<Record<string, string>> = {
   "RSK:2.4":
     "the treatment view records accepted residual risks, a CIR 2.1.2(j) duty the walk does not ask (see notAsked); 2.3 proposes each risk's treatment, and the view stays on the requirement page",
+  "CRY:9.1":
+    "the algorithm table, TLS minimum, rotation interval and post-quantum flag are CIR 2024/2690 Annex 9.2(b) and (c) and BSI TR-02102 detail; the walk writes the Kryptokonzept § 30 Abs. 2 Nr. 8 BSIG asks for, and the table stays on the requirement page",
 };
 
 /** Registers the flow deliberately leaves out, each with the reason. */
@@ -137,6 +140,17 @@ describe("the NIS 2 script", () => {
           code: item.code,
           after: true,
         });
+      }
+    }
+  });
+
+  test("writes no policy under a type an editor keeps its settings in", () => {
+    // The walk stores its clause choice in company_policy_config under the template's name, which
+    // would replace an editor's settings of the same type.
+    for (const item of NIS2_SCRIPT) {
+      for (const screen of screensOf(item)) {
+        if (screen.kind !== "policy") continue;
+        expect(POLICY_TYPES as readonly string[]).not.toContain(screen.policy);
       }
     }
   });

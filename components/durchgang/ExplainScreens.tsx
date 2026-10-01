@@ -8,7 +8,7 @@ import {
   GraduationCap,
   XCircle,
 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { type ReactNode, useRef, useState } from "react";
 import { Link } from "@/i18n/navigation";
 import {
@@ -73,23 +73,34 @@ function Duty({ text, cite }: { text: string; cite: string }) {
 
 /**
  * The page each learn link opens: a platform route, or a BSI landing page. BSI material is linked
- * at its landing page, never at the download, as the BSI's terms of use ask.
+ * at its landing page, never at the download, as the BSI's terms of use ask. A BSI page has an
+ * English twin only where its English page lists the English editions; the others are German.
  */
 const LEARN_HREF: Readonly<
   Record<
     LearnLink,
     | { readonly kind: "platform"; readonly href: "/training/nis2-ceo" }
-    | { readonly kind: "bsi"; readonly href: string }
+    | { readonly kind: "bsi"; readonly de: string; readonly en: string }
   >
 > = {
   ceo_course: { kind: "platform", href: "/training/nis2-ceo" },
-  bsi_it_notfallkarte: { kind: "bsi", href: "https://www.bsi.bund.de/dok/13035678" },
+  bsi_it_notfallkarte: {
+    kind: "bsi",
+    de: "https://www.bsi.bund.de/dok/13035678",
+    en: "https://www.bsi.bund.de/dok/13035678",
+  },
+  bsi_tr_02102: {
+    kind: "bsi",
+    de: "https://www.bsi.bund.de/dok/TR-02102",
+    en: "https://www.bsi.bund.de/EN/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/Technische-Richtlinien/TR-nach-Thema-sortiert/tr02102/tr02102_node.html",
+  },
 };
 
 const LINK_STYLE =
   "mt-6 inline-flex items-center gap-2 rounded-xl border border-primary/30 px-4 py-2.5 text-sm font-medium text-primary hover:bg-primary/[0.04]";
 
 function LearnMore({ link, label }: { link: LearnLink; label: string }) {
+  const locale = useLocale();
   const target = LEARN_HREF[link];
   return target.kind === "platform" ? (
     <Link href={target.href} target="_blank" className={LINK_STYLE}>
@@ -98,7 +109,12 @@ function LearnMore({ link, label }: { link: LearnLink; label: string }) {
       <ExternalLink className="size-3.5" />
     </Link>
   ) : (
-    <a href={target.href} target="_blank" rel="noreferrer" className={LINK_STYLE}>
+    <a
+      href={locale === "de" ? target.de : target.en}
+      target="_blank"
+      rel="noreferrer"
+      className={LINK_STYLE}
+    >
       <FileText className="size-4" />
       {label}
       <ExternalLink className="size-3.5" />

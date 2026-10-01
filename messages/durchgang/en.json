@@ -1094,6 +1094,116 @@
             "hint": "The day management signed it."
           }
         }
+      },
+      "9_1": {
+        "headline": "Write the cryptography policy",
+        "teaser": "Where you encrypt, and who keeps the keys.",
+        "missed": [
+          "The recovery key of an encrypted disk does not belong on the same device. The IT-Grundschutz of Germany's BSI requires long-lived keys to be kept offline, outside the systems in use (CON.1.A2).",
+          "An encrypted backup only helps while the key exists. If the key is lost with the server, so is the backup. The IT-Grundschutz requires encrypted data to stay accessible over long periods (CON.1.A2).",
+          "Certificates expire. When your website's certificate has expired, browsers warn your visitors. The IT-Grundschutz requires time-limited certificates to be renewed in time (CON.1.A4)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Where you encrypt, and who holds the keys",
+            "body": [
+              "Encryption protects data where it can slip out of your hands: on a lost laptop, on its way across the internet, in a backup kept off site. Without the key, nobody can read it.",
+              "The cryptography policy records which methods you use, where you encrypt and how you handle keys and certificates, such as your website's. Our template has fixed sections on methods, keys and responsibility; you choose where you encrypt. Which methods count as secure is set out in Technical Guideline TR-02102, which Germany's BSI updates every year."
+            ],
+            "duty": "The law requires policies and procedures for the use of cryptography and, where appropriate, encryption. It does not say which methods; the measures take the state of the art into account.",
+            "link": "BSI TR-02102, English editions"
+          },
+          "konzept": {
+            "title": "Your cryptography policy",
+            "lead": "The template has fixed sections on methods, keys and responsibility, and your company's name is already in it. Add where you encrypt. Whoever looks after your IT can tell you what is already set up.",
+            "document": {
+              "title": "Cryptography policy of {company}",
+              "sections": [
+                {
+                  "heading": "Purpose and scope",
+                  "text": "This policy sets out how {company} uses encryption and other cryptographic methods, so that unauthorised people can neither read information nor change it unnoticed. It applies to all devices, software and services the company works with, including those a service provider runs for us."
+                },
+                {
+                  "heading": "Methods",
+                  "text": "We use only established methods and currently recommended key lengths with no known vulnerabilities. When we buy devices, software or services, we make sure they use such methods."
+                },
+                {
+                  "heading": "Keys and certificates",
+                  "text": "We keep secret keys and recovery keys where unauthorised people cannot reach them, and apart from the devices they unlock. We renew certificates, such as our website's, before they expire. If a key has fallen into the wrong hands, or we suspect it has, we replace it. We securely delete keys we no longer need."
+                },
+                {
+                  "heading": "Responsibility",
+                  "text": "Management decides who implements this policy and who manages keys and certificates. Where a service provider runs systems for us, we agree with them that they follow this policy. Everyone who sets up or looks after encrypted systems knows it."
+                },
+                {
+                  "heading": "Review",
+                  "text": "We review this policy regularly. If a method we use becomes known to be insecure, we secure it or replace it."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "tr02102",
+                  "label": "TR-02102 as the benchmark",
+                  "heading": "Benchmark",
+                  "text": "Which methods and key lengths count as secure we take from Technical Guideline TR-02102 of Germany's BSI, in its current version."
+                },
+                {
+                  "id": "laptops",
+                  "label": "Laptops",
+                  "heading": "Laptops",
+                  "text": "The disks of all laptops are encrypted."
+                },
+                {
+                  "id": "mobile",
+                  "label": "Work phones and tablets",
+                  "heading": "Work phones and tablets",
+                  "text": "Work phones and tablets are protected by a screen lock, and their storage is encrypted."
+                },
+                {
+                  "id": "removable",
+                  "label": "USB sticks",
+                  "heading": "USB sticks and external drives",
+                  "text": "Anyone who takes company data along on a USB stick or an external drive encrypts it."
+                },
+                {
+                  "id": "backups",
+                  "label": "Backups",
+                  "heading": "Backups",
+                  "text": "Backups kept off site or with a service provider are encrypted. We keep the key separately, so that we can still read the backup after an outage."
+                },
+                {
+                  "id": "remote",
+                  "label": "Website and remote access",
+                  "heading": "Website and remote access",
+                  "text": "Our website and remote access to our systems can be reached only over encrypted connections."
+                },
+                {
+                  "id": "confidential_mail",
+                  "label": "Confidential email",
+                  "heading": "Confidential email",
+                  "text": "We send especially confidential content by email only when it is encrypted so that only the recipient can read it, for example with S/MIME or PGP."
+                },
+                {
+                  "id": "yearly",
+                  "label": "Annual review",
+                  "heading": "Annual review",
+                  "text": "At least once a year we check whether the methods and key lengths we use are still secure enough."
+                },
+                {
+                  "id": "post_quantum",
+                  "label": "Quantum-safe methods",
+                  "heading": "Quantum-safe methods",
+                  "text": "For data that must stay confidential for many years, we plan the move to quantum-safe methods following the BSI's recommendations."
+                }
+              ],
+              "signature": "For the management of {company}: place, date, signature"
+            }
+          },
+          "done": {
+            "title": "Your cryptography policy is in place",
+            "note": "Give it to everyone who sets up your devices and services, including your IT service provider. It is saved as a draft. At the end, management reviews all policies and approves them."
+          }
+        }
       }
     }
   }

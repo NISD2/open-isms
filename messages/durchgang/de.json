@@ -1094,6 +1094,116 @@
             "hint": "Der Tag, an dem die Geschäftsführung unterschrieben hat."
           }
         }
+      },
+      "9_1": {
+        "headline": "Das Kryptokonzept schreiben",
+        "teaser": "Wo Sie verschlüsseln und wer die Schlüssel verwahrt.",
+        "missed": [
+          "Der Wiederherstellungsschlüssel einer verschlüsselten Festplatte gehört nicht auf dasselbe Gerät. Der IT-Grundschutz des BSI verlangt, langlebige Schlüssel offline und außerhalb der eingesetzten Systeme aufzubewahren (CON.1.A2).",
+          "Eine verschlüsselte Datensicherung hilft nur, solange der Schlüssel da ist. Geht er mit dem Server verloren, ist auch die Sicherung verloren. Der IT-Grundschutz verlangt, dass verschlüsselte Daten auch nach längerer Zeit zugänglich bleiben (CON.1.A2).",
+          "Zertifikate laufen ab. Ist das Zertifikat Ihrer Website abgelaufen, warnt der Browser Ihre Besucher. Der IT-Grundschutz verlangt, befristete Zertifikate rechtzeitig zu erneuern (CON.1.A4)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Wo Sie verschlüsseln und wer die Schlüssel hat",
+            "body": [
+              "Verschlüsselung schützt Daten dort, wo sie Ihnen aus der Hand geraten können: auf einem verlorenen Laptop, auf dem Weg durchs Internet, in einer Datensicherung außer Haus. Wer den Schlüssel nicht hat, kann sie nicht lesen.",
+              "Das Kryptokonzept hält fest, welche Verfahren Sie einsetzen, wo Sie verschlüsseln und wie Sie mit Schlüsseln und Zertifikaten umgehen, etwa mit dem Ihrer Website. Unsere Vorlage enthält feste Abschnitte zu Verfahren, Schlüsseln und Verantwortung; wo Sie verschlüsseln, wählen Sie selbst. Welche Verfahren als sicher gelten, steht in der Technischen Richtlinie TR-02102, die das BSI jedes Jahr aktualisiert."
+            ],
+            "duty": "Das Gesetz verlangt Konzepte und Prozesse für den Einsatz kryptografischer Verfahren, etwa der Verschlüsselung. Welche Verfahren, schreibt es nicht vor; die Maßnahmen sollen den Stand der Technik einhalten.",
+            "link": "Zur TR-02102 des BSI"
+          },
+          "konzept": {
+            "title": "Ihr Kryptokonzept",
+            "lead": "Die Vorlage enthält feste Abschnitte zu Verfahren, Schlüsseln und Verantwortung, und Ihr Firmenname steht schon darin. Fügen Sie hinzu, wo Sie verschlüsseln. Was davon schon eingerichtet ist, kann Ihnen sagen, wer Ihre IT betreut.",
+            "document": {
+              "title": "Kryptokonzept der {company}",
+              "sections": [
+                {
+                  "heading": "Zweck und Geltungsbereich",
+                  "text": "Dieses Konzept legt fest, wie die {company} Verschlüsselung und andere kryptografische Verfahren einsetzt, damit Unbefugte Informationen weder lesen noch unbemerkt verändern können. Es gilt für alle Geräte, Programme und Dienste, mit denen das Unternehmen arbeitet, auch wenn ein Dienstleister sie für uns betreibt."
+                },
+                {
+                  "heading": "Verfahren",
+                  "text": "Wir setzen nur etablierte Verfahren und aktuell empfohlene Schlüssellängen ein, für die keine Sicherheitslücken bekannt sind. Beim Kauf von Geräten, Programmen und Diensten achten wir darauf, dass sie solche Verfahren verwenden."
+                },
+                {
+                  "heading": "Schlüssel und Zertifikate",
+                  "text": "Geheime Schlüssel und Wiederherstellungsschlüssel bewahren wir so auf, dass Unbefugte nicht darauf zugreifen können, und getrennt von den Geräten, die sie entschlüsseln. Zertifikate, etwa das unserer Website, erneuern wir, bevor sie ablaufen. Ist ein Schlüssel in falsche Hände geraten oder besteht der Verdacht, ersetzen wir ihn. Schlüssel, die wir nicht mehr brauchen, löschen wir sicher."
+                },
+                {
+                  "heading": "Verantwortung",
+                  "text": "Die Geschäftsführung legt fest, wer dieses Konzept umsetzt und wer Schlüssel und Zertifikate verwaltet. Betreibt ein Dienstleister Systeme für uns, vereinbaren wir mit ihm, dass er sich an dieses Konzept hält. Alle, die verschlüsselte Systeme einrichten oder betreuen, kennen es."
+                },
+                {
+                  "heading": "Überprüfung",
+                  "text": "Wir überprüfen dieses Konzept regelmäßig. Wird ein Verfahren, das wir einsetzen, als unsicher bekannt, sichern wir es ab oder ersetzen es."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "tr02102",
+                  "label": "Maßstab TR-02102",
+                  "heading": "Maßstab",
+                  "text": "Welche Verfahren und Schlüssellängen als sicher gelten, entnehmen wir der Technischen Richtlinie TR-02102 des BSI in ihrer jeweils aktuellen Fassung."
+                },
+                {
+                  "id": "laptops",
+                  "label": "Laptops",
+                  "heading": "Laptops",
+                  "text": "Die Festplatten aller Laptops sind verschlüsselt."
+                },
+                {
+                  "id": "mobile",
+                  "label": "Diensthandys und Tablets",
+                  "heading": "Diensthandys und Tablets",
+                  "text": "Diensthandys und Tablets sind mit einer Bildschirmsperre gesichert, und ihr Speicher ist verschlüsselt."
+                },
+                {
+                  "id": "removable",
+                  "label": "USB-Sticks",
+                  "heading": "USB-Sticks und externe Festplatten",
+                  "text": "Wer Daten des Unternehmens auf einem USB-Stick oder einer externen Festplatte mitnimmt, verschlüsselt sie."
+                },
+                {
+                  "id": "backups",
+                  "label": "Datensicherungen",
+                  "heading": "Datensicherungen",
+                  "text": "Datensicherungen, die außer Haus oder bei einem Dienstleister liegen, sind verschlüsselt. Den Schlüssel dazu bewahren wir getrennt auf, damit wir die Sicherung auch nach einem Ausfall lesen können."
+                },
+                {
+                  "id": "remote",
+                  "label": "Website und Fernzugriff",
+                  "heading": "Website und Fernzugriff",
+                  "text": "Unsere Website und der Fernzugriff auf unsere Systeme sind nur über verschlüsselte Verbindungen erreichbar."
+                },
+                {
+                  "id": "confidential_mail",
+                  "label": "Vertrauliche E-Mails",
+                  "heading": "Vertrauliche E-Mails",
+                  "text": "Besonders vertrauliche Inhalte verschicken wir per E-Mail nur so verschlüsselt, dass allein der Empfänger sie lesen kann, zum Beispiel mit S/MIME oder PGP."
+                },
+                {
+                  "id": "yearly",
+                  "label": "Jährliche Prüfung",
+                  "heading": "Jährliche Prüfung",
+                  "text": "Mindestens einmal im Jahr prüfen wir, ob die eingesetzten Verfahren und Schlüssellängen noch ausreichend sicher sind."
+                },
+                {
+                  "id": "post_quantum",
+                  "label": "Quantensichere Verfahren",
+                  "heading": "Quantensichere Verfahren",
+                  "text": "Für Daten, die viele Jahre vertraulich bleiben müssen, planen wir den Wechsel auf quantensichere Verfahren nach den Empfehlungen des BSI."
+                }
+              ],
+              "signature": "Für die Geschäftsführung der {company}: Ort, Datum, Unterschrift"
+            }
+          },
+          "done": {
+            "title": "Ihr Kryptokonzept steht",
+            "note": "Geben Sie es allen, die Ihre Geräte und Dienste einrichten, auch Ihrem IT-Dienstleister. Es ist als Entwurf gespeichert. Am Ende sieht die Geschäftsführung alle Konzepte durch und gibt sie frei."
+          }
+        }
       }
     }
   }
