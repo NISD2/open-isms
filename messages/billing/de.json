@@ -3,7 +3,7 @@
     "order": {
       "metaTitle": "Bestellen",
       "title": "Bestellung",
-      "intro": "NIS 2 Durchgang für ein Jahr, {price} netto. Eine Zahlung gilt für alle Organisationen und Nutzer Ihres Kontos. Sie zahlen auf Rechnung mit 30 Tagen Zahlungsziel, und der Zugang ist ab der Bestellung freigeschaltet. Wenn Sie innerhalb von 30 Tagen ab Ihrer ersten Bestellung kündigen, bekommen Sie Ihr Geld zurück.",
+      "intro": "NIS 2 Durchgang für ein Jahr, {price} netto. Eine Zahlung gilt für alle Organisationen und Nutzer Ihres Kontos.",
       "sandboxNotice": "Testmodus: Diese Bestellung erzeugt eine Rechnung in der Qonto Sandbox und schaltet dieses Konto frei.",
       "alreadyPaid": "Ihr Konto ist bis {date} bezahlt, Rechnung {number}.",
       "payerOnly": "Bestellen kann die Person, der das Konto gehört. In der Regel ist das, wer die Organisation angelegt hat.",
@@ -45,11 +45,18 @@
     },
     "legal": {
       "title": "Vor der Bestellung",
+      "labels": {
+        "b2b": "Verkäuferin",
+        "term": "Laufzeit",
+        "moneyBack": "Geld zurück",
+        "payment": "Zahlung",
+        "contract": "Vertragsschluss"
+      },
       "b2b": "Nur für Unternehmen. Verkäuferin ist die Kardashev Catalyst UG (haftungsbeschränkt), Trierer Str. 6, 50676 Köln, Amtsgericht Köln HRB 126993, USt-IdNr. DE462889433.",
       "term": "Die Lizenz gilt ein Jahr ab heute und verlängert sich danach jeweils um ein Jahr. 14 Tage bevor wir die Rechnung für das neue Jahr stellen, erinnern wir Sie per E-Mail. Kündigen können Sie bis zum Tag der Verlängerung.",
       "moneyBack": "Ist dies die erste Bestellung Ihres Kontos, können Sie innerhalb von 30 Tagen ab heute ohne Angabe von Gründen kündigen. Ist die Rechnung noch offen, stornieren wir sie mit einer Gutschrift. Haben Sie schon gezahlt, überweisen wir den Betrag innerhalb von 30 Tagen nach der Kündigung zurück. Für Verlängerungen und spätere Bestellungen gilt das nicht.",
       "payment": "Zahlung per Überweisung innerhalb von 30 Tagen ab Rechnungsdatum. Ist die Rechnung bis dahin nicht bezahlt, sperren wir den Zugang zur Lizenz, bis die Zahlung eingeht.",
-      "contract": "So kommt der Vertrag zustande: Sie prüfen Ihre Angaben und den Preis, bestätigen die AGB und klicken auf „Kostenpflichtig bestellen“. Wir nehmen die Bestellung an, indem wir den Zugang sofort freischalten und die Rechnung per E-Mail senden. Eingabefehler korrigieren Sie vor dem Klick direkt in den Feldern. Welche Fassung der AGB Sie angenommen haben, steht danach unter Abrechnung. AGB und AVV können Sie jetzt speichern oder drucken. Vertragssprache ist Deutsch oder Englisch, je nachdem, in welcher Sprache Sie bestellen."
+      "contract": "Sie prüfen Ihre Angaben und den Preis, bestätigen die AGB und klicken auf „Kostenpflichtig bestellen“. Wir nehmen die Bestellung an, indem wir den Zugang sofort freischalten und die Rechnung per E-Mail senden. Eingabefehler korrigieren Sie vor dem Klick direkt in den Feldern. Welche Fassung der AGB Sie angenommen haben, steht danach unter Abrechnung. AGB und AVV können Sie jetzt speichern oder drucken. Vertragssprache ist Deutsch oder Englisch, je nachdem, in welcher Sprache Sie bestellen."
     },
     "registry": {
       "valid": "Im Register der EU bestätigt",
@@ -66,6 +73,27 @@
       "net": "Netto",
       "vat": "USt. {rate} %",
       "gross": "Gesamt"
+    },
+    "preview": {
+      "caption": "Ihre Rechnung, so wie sie per E-Mail kommt. Sie füllt sich, während Sie tippen.",
+      "title": "Rechnung",
+      "draft": "Vorschau",
+      "companyPlaceholder": "Ihr Unternehmen",
+      "addressPlaceholder": "Straße, PLZ und Ort",
+      "vatId": "USt-IdNr. {id}",
+      "date": "Rechnungsdatum",
+      "reference": "Ihre Referenz",
+      "period": "Leistungszeitraum {start} bis {end}",
+      "vatLabel": "Umsatzsteuer",
+      "vatPending": "folgt aus Ihrer USt-IdNr.",
+      "totalPending": "{net} zzgl. USt.",
+      "due": "Zahlbar bis {date} per Überweisung.",
+      "sentTo": "Als PDF an {email}."
+    },
+    "trust": {
+      "invoice": "Jetzt wird nichts abgebucht. Sie zahlen die Rechnung innerhalb von 30 Tagen.",
+      "moneyBack": "Erste Bestellung: innerhalb von 30 Tagen kündigen und das Geld zurückbekommen.",
+      "access": "Der Zugang ist sofort mit der Bestellung freigeschaltet."
     },
     "treatment": {
       "reverse_charge": "Steuerschuldnerschaft des Leistungsempfängers (Reverse Charge): Sie führen die Umsatzsteuer selbst ab.",

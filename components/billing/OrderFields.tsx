@@ -201,13 +201,12 @@ export function OrderFields({
           })}
         </CardContent>
       </Card>
-
-      {quote ? <PriceCard price={quote.price} /> : null}
     </>
   );
 }
 
-function PriceCard({ price }: { readonly price: Quote["price"] }) {
+/** The quoted price as a plain card, for the platform admin close (the order page draws the invoice). */
+export function PriceCard({ price }: { readonly price: Quote["price"] }) {
   const t = useTranslations("billing");
   return (
     <Card className="border-primary/30 bg-primary/5">

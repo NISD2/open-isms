@@ -16,6 +16,7 @@ import {
   OrderFields,
   type OrderValues,
   orderDefaults,
+  PriceCard,
 } from "@/components/billing/OrderFields";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -202,6 +203,7 @@ export function DemoCloseForm() {
               quoting={quote.isPending}
               onVatBlur={requote}
             />
+            {quote.data ? <PriceCard price={quote.data.price} /> : null}
 
             <div className="flex items-start gap-2 rounded-md border p-3">
               <Checkbox
