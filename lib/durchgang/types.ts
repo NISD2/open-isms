@@ -48,7 +48,8 @@ export type PolicyTemplate =
   | "information_security"
   | "incident_response"
   | "cryptography"
-  | "personnel_access";
+  | "personnel_access"
+  | "it_rules";
 
 /** Where a list the company needs usually exists already. */
 export const SOURCE_IDS = [

@@ -1431,6 +1431,148 @@
             "hint": "For example: Microsoft Teams for meetings and chat, phone calls over the provider's cloud phone system, all transferred encrypted."
           }
         }
+      },
+      "6_3": {
+        "headline": "Write the rules for buying, updates and vulnerabilities",
+        "teaser": "What you check when buying, how updates arrive and who closes gaps.",
+        "missed": [
+          "Software that no longer gets security updates stays vulnerable, even while it still runs. Check when buying how long the maker supplies updates.",
+          "Remote maintenance access that stays open all the time is a way in. Germany's BSI names switching it off in its NIS 2 information package on security measures."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Buy, update, close gaps",
+            "body": [
+              "A vulnerability is a property of software or a device that an outsider can exploit to get in or to disrupt it. That is how the law describes it. Examples: software that no longer gets updates, an update left waiting, a default password never changed.",
+              "The rules in this step set out what you check when buying, how updates are installed, how you handle vulnerabilities and where people can report one to you. Where an IT provider looks after your systems, the rules tell them what you expect."
+            ],
+            "duty": "The law requires security when you acquire, develop and maintain your IT, including handling and disclosing vulnerabilities."
+          },
+          "updates": {
+            "title": "How updates arrive",
+            "caption": "Security updates day to day",
+            "good": {
+              "value": "Security updates install automatically, and the IT provider checks every month that everything is up to date.",
+              "note": "Grundschutz++ of Germany's BSI recommends installing security updates automatically (KONF.8.1.1)."
+            },
+            "bad": {
+              "value": "Updates when someone has time.",
+              "note": "Until then a known gap stays open that an attacker can exploit."
+            }
+          },
+          "sources": {
+            "title": "Where vulnerabilities become known",
+            "lead": "You do not have to hunt for gaps yourself. New vulnerabilities are announced, for example here:",
+            "items": [
+              {
+                "name": "Makers' notices",
+                "detail": "security notices from the companies whose software and devices you use"
+              },
+              {
+                "name": "Your national CSIRT's warnings",
+                "detail": "in Germany, the BSI's warning and information service on vulnerabilities in widely used products"
+              },
+              {
+                "name": "Your IT provider",
+                "detail": "whoever looks after your systems should tell you when you are affected"
+              }
+            ],
+            "source": "In its NIS 2 information package on security measures, Germany's BSI recommends checking systems regularly for known gaps and handling vulnerabilities by risk."
+          },
+          "report": {
+            "title": "Where people report a vulnerability to you",
+            "lead": "If someone finds a gap in your systems, for example on your website, they need an address for it. Germany's BSI recommends naming it publicly. If you have none yet, leave the field empty: your rules then get a line to fill in.",
+            "document": "Your rules"
+          },
+          "rules": {
+            "title": "Your rules",
+            "lead": "The template has fixed sections on buying, updates, vulnerabilities and reports, and your company's name is already in it. Add what applies to you.",
+            "document": {
+              "title": "Rules for buying, maintaining and securing the IT of {company}",
+              "sections": [
+                {
+                  "heading": "Scope",
+                  "text": "These rules apply to all software, devices, cloud services and networks {company} works with, including those a service provider runs for us."
+                },
+                {
+                  "heading": "When buying",
+                  "text": "Before we buy software, a device or a cloud service, we check whether the provider supplies security updates and for how long. Where we can, we buy nothing with known, exploitable vulnerabilities and nothing whose support ends soon. At set-up we change default passwords."
+                },
+                {
+                  "heading": "Updates",
+                  "text": "We install security updates as soon as they are available, automatically where possible. If an update cannot be installed, we record why and what we do instead."
+                },
+                {
+                  "heading": "Finding and fixing vulnerabilities",
+                  "text": "We follow the security notices of the makers of our software and devices, the warnings of our national CSIRT and our IT provider's notices. If a vulnerability affects us, the person who coordinates information security decides with the IT provider what to do, serious vulnerabilities first. We record what we found and what we did."
+                },
+                {
+                  "heading": "Reporting vulnerabilities",
+                  "text": "We take reports of vulnerabilities in our systems at {vulnerabilityDisclosureUrl}. If we find a vulnerability in a product we use, we report it to the maker. If the maker does not respond, we can report it to our national CSIRT."
+                },
+                {
+                  "heading": "Review",
+                  "text": "We review these rules regularly and after major changes to our IT."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "hardening",
+                  "label": "Only what is needed",
+                  "heading": "Set-up",
+                  "text": "We set up devices and software with only the functions we need. Services and accounts we do not need are switched off."
+                },
+                {
+                  "id": "remote",
+                  "label": "Remote maintenance",
+                  "heading": "Remote maintenance",
+                  "text": "Remote maintenance access is open only while maintenance is being done."
+                },
+                {
+                  "id": "providers",
+                  "label": "Providers' duties",
+                  "heading": "Providers' duties",
+                  "text": "We agree with our IT providers that they fix vulnerabilities affecting us without delay."
+                },
+                {
+                  "id": "scans",
+                  "label": "Regular checks",
+                  "heading": "Regular checks",
+                  "text": "We have our systems checked regularly for known vulnerabilities."
+                },
+                {
+                  "id": "changes",
+                  "label": "Major changes",
+                  "heading": "Major changes",
+                  "text": "We plan major changes to important systems beforehand, record them and keep a way back in case something goes wrong."
+                },
+                {
+                  "id": "development",
+                  "label": "Our own software",
+                  "heading": "Our own software",
+                  "text": "If we develop software ourselves or have it developed, we set the security requirements beforehand and have it checked before it goes into use."
+                },
+                {
+                  "id": "securitytxt",
+                  "label": "security.txt",
+                  "heading": "Reporting address on the website",
+                  "text": "Our website has a security.txt file under RFC 9116 that says where to report vulnerabilities."
+                }
+              ],
+              "signature": "For the management of {company}: place, date, signature"
+            }
+          },
+          "done": {
+            "title": "Your rules are in place",
+            "note": "Give them to everyone who sets up and maintains your IT, including your IT provider. They are saved as a draft. At the end, management reviews all policies and approves them."
+          }
+        },
+        "fields": {
+          "vulnerabilityDisclosureUrl": {
+            "label": "Address for vulnerability reports",
+            "hint": "An email address, for example security@ at your domain, or a web page. Germany's BSI recommends a security.txt file on your website for this (RFC 9116)."
+          }
+        }
       }
     }
   }

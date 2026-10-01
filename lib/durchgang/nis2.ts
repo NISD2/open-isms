@@ -42,6 +42,14 @@ export const NOT_WALKED: Readonly<Record<string, string>> = {
     "No statute sets when access rights are reviewed: CIR 2024/2690 Annex 11.2.3 and 11.3.3 say 'at planned intervals' and bind only the digital providers the CIR covers. The 10.1 Konzept offers the review as a clause (yearly, administrator accounts quarterly, from the values the BSI suggests in Grundschutz++ BER.4.4). A review is a dated proof that cannot exist on the day the walk runs, so the requirement page records each one when it happens.",
   "11.3":
     "Changing credentials, blocking after failed sign-ins and ending inactive sessions are CIR 2024/2690 Annex 11.6.2(c) to (e), which binds only the digital providers the CIR covers; no statute and no CIR point sets a password length, and NIST SP 800-63B is a US standard. § 30 Abs. 2 Nr. 10 BSIG names multi-factor or continuous authentication, which 11.1 walks. The BSI's password rules (IT-Grundschutz ORP.4.A8) are a clause of the 10.1 Konzept, and the requirement page keeps the fields.",
+  "6.1":
+    "Security when buying IT is the 'Beim Kauf' section of the rules 6.3 writes, where § 30 Abs. 2 Nr. 5 BSIG names it together with development, maintenance and vulnerabilities. The editor's threshold, eight contract clauses and weighted criteria are CIR 2024/2690 detail (Annex 5.1.4 and 6.1) for the digital providers the CIR covers, with defaults no source sets; the requirement page keeps them.",
+  "6.2":
+    "Development applies only to a company that develops software or has it developed, so the rules 6.3 writes offer it as a clause, and secure set-up (changing default passwords, switching off what is not needed) is a section and a clause there too. The editor's framework, hardening baseline and test types are CIR 2024/2690 Annex 6.2, 6.3 and 6.5 detail for the digital providers the CIR covers; the requirement page keeps them.",
+  "6.4":
+    "Installing security updates is the 'Updates' section of the rules 6.3 writes, where § 30 Abs. 2 Nr. 5 BSIG puts maintenance together with vulnerability management. No statute sets patch deadlines; CIR 2024/2690 Annex 6.6 asks the digital providers it covers for 'a reasonable time' without a number, and the BSI recommends installing security updates automatically (Grundschutz++ KONF.8.1.1). The deadlines per severity and the patch register stay on the requirement page.",
+  "6.5":
+    "§ 30 Abs. 2 Nr. 5 BSIG and Art. 21(2)(e) NIS 2 name maintenance, not a change procedure; change management is CIR 2024/2690 Annex 6.4, for the digital providers the CIR covers. The BSI reads maintenance to include planned, documented changes (NIS-2 Infopaket on security measures), so the rules 6.3 writes offer that as a clause, and the change register stays on the requirement page.",
 };
 
 export const NIS2_SCRIPT: readonly AnyItem[] = [
@@ -347,6 +355,28 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
         "The way to reach each other when the company's IT fails is asked in 3.1 (secureCommsChannel) and written into the incident plan; asking the same fact twice would let the answers drift apart.",
       lastEmergencyCommsTest:
         "No statute sets a test of the emergency channel; the 3.1 plan offers a yearly run-through of the plan as a clause.",
+    },
+  }),
+  item({
+    code: "6.3",
+    category: "PRO",
+    glossary: [],
+    reviewed: "2026-10-01",
+    screens: [
+      { kind: "learn", id: "learn" },
+      { kind: "compare", id: "updates" },
+      { kind: "prepare", id: "sources" },
+      { kind: "fields", id: "report", fields: ["vulnerabilityDisclosureUrl"] },
+      { kind: "policy", id: "rules", policy: "it_rules" },
+      { kind: "done", id: "done" },
+    ],
+    notAsked: {
+      vulnerabilityScanningFrequency:
+        "Scans are CIR 2024/2690 Annex 6.10.2(b), 'where appropriate', for the digital providers the CIR covers, and a BSI recommendation (NIS-2 Infopaket on security measures); no statute sets a scan rhythm. The rules 6.3 writes offer regular checks as a clause.",
+      vulnerabilityScanTool:
+        "The tool follows from a scan rhythm no statute sets (CIR 2024/2690 Annex 6.10.2(b)); the requirement page keeps it.",
+      lastPentestDate:
+        "Penetration tests are not named in § 30 BSIG or Art. 21 NIS 2; security testing is CIR 2024/2690 Annex 6.5, for the digital providers the CIR covers.",
     },
   }),
 ];

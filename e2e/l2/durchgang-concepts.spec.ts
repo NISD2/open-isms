@@ -1,8 +1,9 @@
 /**
- * L2 Durchgang concepts: each Konzept the walk writes without a signature screen (9.1, 10.1) is
- * written from its template with a chosen clause, as a draft of its requirement, through the real
- * UI against real Postgres. The requirement page's editor for the same item keeps its settings in
- * the same table under its own type, so this file also proves the walk leaves them as they were.
+ * L2 Durchgang concepts: each Konzept the walk writes without a signature screen (9.1, 10.1, 6.3)
+ * is written from its template with a chosen clause, as a draft of its requirement, through the
+ * real UI against real Postgres. A requirement page's editor for the same measure keeps its
+ * settings in the same table under its own type, so this file also proves the walk leaves them as
+ * they were.
  *
  * Cleanup removes the policies and clause choices this file wrote, and the editor settings it
  * seeded, because later layers sign off against this tenant (`e2e/lib/durchgang.ts`).
@@ -38,6 +39,16 @@ const CONCEPTS = [
     title: "Konzept für Personal, Zugänge und IT der",
     clause: "Vertretung",
     added: "8. Vertretung",
+  },
+  {
+    // The rules absorb 6.4, whose patch editor keeps its deadlines under `patch_mgmt`.
+    code: "6.3",
+    screen: 4,
+    type: "it_rules",
+    editorType: "patch_mgmt",
+    title: "Regeln für Kauf, Wartung und Schwachstellen der IT der",
+    clause: "Fernwartung",
+    added: "7. Fernwartung",
   },
 ] as const;
 

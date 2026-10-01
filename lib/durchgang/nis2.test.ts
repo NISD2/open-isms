@@ -71,6 +71,8 @@ const NO_SCREEN: Readonly<Record<string, string>> = {
     "the register has no loader or router, so the page always shows 0 entries (spec §0.6); the flow records 12.2 through its fields and its evidence",
   "3.3:incident":
     "the incident register fills when an incident happens; 3.3 prepares the reporting, and the register stays on the incidents page",
+  "6.3:vulnerability":
+    "the vulnerability register fills when a vulnerability is found; 6.3 writes the rules for handling one, and the register stays on the vulnerabilities page",
 };
 
 /** The value's own schema under any optional, nullable or default wrapper. */
