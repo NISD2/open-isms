@@ -25,6 +25,7 @@
       "confirm": "Supprimer définitivement",
       "cancel": "Annuler",
       "signInAgain": "Se reconnecter",
+      "toBilling": "Aller à Facturation",
       "failed": "Le compte n'a pas pu être supprimé pour le moment. Veuillez réessayer plus tard ou écrire à contact@nisd2.eu.",
       "refused": {
         "reauth": "Par sécurité, veuillez vous reconnecter avant de supprimer votre compte. Vous reviendrez ensuite ici.",
@@ -32,6 +33,7 @@
         "several_organizations": "Vous êtes propriétaire de plusieurs organisations. Écrivez à contact@nisd2.eu et nous supprimerons le compte avec vous.",
         "pays_for_others": "Votre compte de facturation paie aussi pour une autre organisation, qui n'aurait alors plus personne pour payer. Écrivez à contact@nisd2.eu et nous réglerons cela avec vous.",
         "order_check": "Une commande de votre compte est encore en cours de vérification. Écrivez à contact@nisd2.eu et nous supprimerons le compte dès qu'elle sera réglée.",
+        "cancel_first": "Votre licence payante peut encore être résiliée. Résiliez-la d'abord dans Facturation (pour une première commande, vous êtes remboursé dans les 30 jours), puis supprimez le compte ici.",
         "billing_busy": "Une commande ou une résiliation de votre compte est en cours de traitement. Veuillez réessayer dans une minute.",
         "other_members": "Votre organisation compte d'autres membres, et supprimer votre compte supprimerait l'organisation avec leur travail. Retirez d'abord les autres membres, ou écrivez à contact@nisd2.eu."
       }

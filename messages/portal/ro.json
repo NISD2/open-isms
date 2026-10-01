@@ -25,6 +25,7 @@
       "confirm": "Șterge definitiv",
       "cancel": "Anulează",
       "signInAgain": "Autentificați-vă din nou",
+      "toBilling": "Mergeți la Facturare",
       "failed": "Contul nu a putut fi șters acum. Încercați din nou mai târziu sau scrieți la contact@nisd2.eu.",
       "refused": {
         "reauth": "Pentru siguranță, autentificați-vă din nou înainte de a vă șterge contul. Apoi veți reveni aici.",
@@ -32,6 +33,7 @@
         "several_organizations": "Dețineți mai multe organizații. Scrieți la contact@nisd2.eu și vom șterge contul împreună cu dvs.",
         "pays_for_others": "Contul dvs. de facturare plătește și pentru o altă organizație, care ar rămâne fără nimeni care să poată plăti. Scrieți la contact@nisd2.eu și rezolvăm împreună cu dvs.",
         "order_check": "O comandă a contului dvs. este încă în curs de verificare. Scrieți la contact@nisd2.eu și ștergem contul imediat ce este clarificată.",
+        "cancel_first": "Licența dvs. plătită poate fi încă reziliată. Reziliați-o mai întâi în Facturare (la o primă comandă, în 30 de zile primiți banii înapoi), apoi ștergeți contul aici.",
         "billing_busy": "Chiar acum se procesează o comandă sau o reziliere a contului dvs. Vă rugăm să încercați din nou peste un minut.",
         "other_members": "Organizația dvs. are și alți membri, iar ștergerea contului dvs. ar șterge organizația împreună cu munca lor. Eliminați mai întâi ceilalți membri sau scrieți la contact@nisd2.eu."
       }

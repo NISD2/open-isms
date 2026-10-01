@@ -7,6 +7,8 @@
  *   - the payer of a billing account another set-up organization also uses (it would be left
  *     without anyone who can order, pay or cancel);
  *   - a payer with an order still under check in Qonto (its outcome is not known yet);
+ *   - a payer whose licence can still be cancelled (they cancel under Billing first: once the
+ *     holder is gone, nobody may cancel it, and the money back or the stopped renewal is lost);
  *   - an owner of several organizations (the engine refuses that itself);
  *   - platform admins.
  * Those write to contact@nisd2.eu and are handled with the admin tool.
@@ -20,6 +22,7 @@
 import "@/lib/server-guard";
 import { and, count, eq, inArray, isNotNull, ne, or } from "drizzle-orm";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
+import { hasOpenCancel } from "@/lib/billing/cancel";
 import { hasOrderCheck } from "@/lib/billing/order-check";
 import type { DbOrTx } from "@/lib/db";
 import { billingAccount, company, companyMembership, invoice } from "@/schema";
@@ -30,6 +33,8 @@ export type SelfErasureRefusal =
   | "several_organizations"
   | "pays_for_others"
   | "order_check"
+  /** A paid licence that can still be cancelled: cancel under Billing first, then delete. */
+  | "cancel_first"
   /** An order or cancel is running on the account right now; trying again in a minute works. */
   | "billing_busy"
   | "other_members"
@@ -110,6 +115,21 @@ const anyInvoice = (db: DbOrTx, ids: readonly string[]) =>
       .limit(1),
   );
 
+/**
+ * A licence the person pays for that can still be cancelled (money back, or a renewal not yet
+ * stopped). Erasing the holder would leave it running with nobody who may cancel it, so they cancel
+ * first, through the one cancel path that issues the credit note and the emails.
+ */
+const anyOpenCancel = async (db: DbOrTx, userId: string, now: Date) => {
+  const held = await db
+    .select({ id: billingAccount.id })
+    .from(billingAccount)
+    .where(eq(billingAccount.ownerUserId, userId));
+  return (await Promise.all(held.map(({ id }) => hasOpenCancel(db, id, now)))).some(
+    Boolean,
+  );
+};
+
 const otherMemberCount = async (db: DbOrTx, companyId: string, userId: string) => {
   const [row] = await db
     .select({ n: count() })
@@ -140,6 +160,9 @@ export async function selfErasureCheck(
     return { allowed: false, reason: "pays_for_others" };
   }
   if (await anyOrderCheck(db, accounts)) return { allowed: false, reason: "order_check" };
+  if (await anyOpenCancel(db, person.userId, new Date())) {
+    return { allowed: false, reason: "cancel_first" };
+  }
   if (ownedId && (await otherMemberCount(db, ownedId, person.userId)) > 0) {
     return { allowed: false, reason: "other_members" };
   }
@@ -171,10 +194,22 @@ export const assertSelfErasureAllowed =
       .from(company)
       .where(eq(company.ownerId, person.userId))
       .for("update");
+    // Every account the check reads: the ones they pay for and the ones their organizations use.
     await tx
       .select({ id: billingAccount.id })
       .from(billingAccount)
-      .where(eq(billingAccount.ownerUserId, person.userId))
+      .where(
+        or(
+          eq(billingAccount.ownerUserId, person.userId),
+          inArray(
+            billingAccount.id,
+            tx
+              .select({ id: company.billingAccountId })
+              .from(company)
+              .where(eq(company.ownerId, person.userId)),
+          ),
+        ),
+      )
       .for("share", { noWait: true })
       .catch((err: unknown) => {
         if (pgCodeOf(err) === LOCK_NOT_AVAILABLE) {

@@ -25,6 +25,7 @@
       "confirm": "Usuń na stałe",
       "cancel": "Anuluj",
       "signInAgain": "Zaloguj się ponownie",
+      "toBilling": "Przejdź do Rozliczeń",
       "failed": "Nie udało się teraz usunąć konta. Spróbuj ponownie później lub napisz na contact@nisd2.eu.",
       "refused": {
         "reauth": "Dla bezpieczeństwa zaloguj się ponownie, zanim usuniesz konto. Potem wrócisz tutaj.",
@@ -32,6 +33,7 @@
         "several_organizations": "Do Ciebie należy kilka organizacji. Napisz na contact@nisd2.eu, a usuniemy konto razem z Tobą.",
         "pays_for_others": "Twoje konto rozliczeniowe płaci także za inną organizację, która zostałaby bez nikogo, kto może płacić. Napisz na contact@nisd2.eu, a załatwimy to razem z Tobą.",
         "order_check": "Zamówienie Twojego konta jest jeszcze weryfikowane. Napisz na contact@nisd2.eu, a usuniemy konto, gdy tylko zostanie rozliczone.",
+        "cancel_first": "Twoją płatną licencję można jeszcze wypowiedzieć. Najpierw wypowiedz ją w Rozliczeniach (przy pierwszym zamówieniu w ciągu 30 dni otrzymasz zwrot pieniędzy), a potem usuń tutaj konto.",
         "billing_busy": "Właśnie przetwarzane jest zamówienie lub wypowiedzenie Twojego konta. Spróbuj ponownie za minutę.",
         "other_members": "Twoja organizacja ma innych członków, a usunięcie Twojego konta usunęłoby organizację wraz z ich pracą. Najpierw usuń pozostałych członków albo napisz na contact@nisd2.eu."
       }

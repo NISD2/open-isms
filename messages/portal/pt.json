@@ -25,6 +25,7 @@
       "confirm": "Eliminar definitivamente",
       "cancel": "Cancelar",
       "signInAgain": "Iniciar sessão novamente",
+      "toBilling": "Ir para Faturação",
       "failed": "Não foi possível eliminar a conta neste momento. Tente novamente mais tarde ou escreva para contact@nisd2.eu.",
       "refused": {
         "reauth": "Por segurança, inicie sessão novamente antes de eliminar a sua conta. Depois regressa a esta página.",
@@ -32,6 +33,7 @@
         "several_organizations": "É titular de várias organizações. Escreva para contact@nisd2.eu e eliminamos a conta consigo.",
         "pays_for_others": "A sua conta de faturação também paga por outra organização, que ficaria sem ninguém que possa pagar. Escreva para contact@nisd2.eu e resolvemos isso consigo.",
         "order_check": "Uma encomenda da sua conta ainda está em verificação. Escreva para contact@nisd2.eu e eliminamos a conta assim que estiver resolvida.",
+        "cancel_first": "A sua licença paga ainda pode ser cancelada. Cancele-a primeiro em Faturação (numa primeira encomenda, dentro de 30 dias recebe o dinheiro de volta) e depois elimine aqui a conta.",
         "billing_busy": "Neste momento está a ser processada uma encomenda ou um cancelamento da sua conta. Tente novamente dentro de um minuto.",
         "other_members": "A sua organização tem outros membros, e eliminar a sua conta eliminaria a organização com o trabalho deles. Remova primeiro os outros membros ou escreva para contact@nisd2.eu."
       }

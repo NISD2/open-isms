@@ -136,12 +136,12 @@ export function buildErasureCertificate(
   const exceptions =
     keptByLaw.length > 0
       ? `Assessed. One exception applies, Art. 17(3)(b) GDPR (compliance with a legal
-obligation). The following is kept because a law requires it, and only for as
-long as it does:
+obligation). The following is kept because a law requires it, for the period
+stated:
 
 ${keptByLaw.map((item) => `- ${esc(item)}`).join("\n")}
 
-Everything else was erased. ${inFull}`
+Everything else is as recorded above.${filesDone ? "" : ' The stored files are as described under "Stored files".'}`
       : `Assessed. No exception applies: the account was not processed for journalism,
 public-interest, or scientific-research purposes, and no legal-retention duty
 attaches to it. ${inFull}`;
@@ -201,7 +201,7 @@ ${fmtCounts(scope.deleted)}
 ${fmtCounts(scope.anonymized)}
 ${storedFilesSection(files)}
 ### Processors and sub-processors
-Your data was processed only within our own systems and standard operational logs. Beyond the sub-processors listed below, which hold copies under our Article 28 agreements and delete it as part of this erasure and on their standard backup-retention cycle, it was not disclosed to any separate third-party recipient, so no separate Article 19 recipient notification was required.
+Your data was processed only within our own systems and standard operational logs. Beyond the sub-processors listed below, which hold copies under our Article 28 agreements and delete it as part of this erasure and on their standard backup-retention cycle, it was not disclosed to any separate third-party recipient, so no separate Article 19 recipient notification was required.${keptByLaw.length > 0 ? ' Our invoicing provider Qonto keeps what is listed under "Article 17(3) exceptions" for that period; this erasure does not delete it there.' : ""}
 ${scope.processorsInScope.length ? scope.processorsInScope.map((p) => `- ${esc(p)}`).join("\n") : "_none_"}
 
 ${scope.residualNotes.length ? `### Notes\n${scope.residualNotes.map((n) => `- ${esc(n)}`).join("\n")}\n` : ""}

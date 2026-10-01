@@ -588,7 +588,7 @@ async function eraseUserInTx(
   // Read before the person's row goes, which nulls billing_account.owner_user_id.
   if (await invoicesIssuedTo(tx, userId, owned?.billingAccountId ?? null)) {
     scope.retainedUnderLegalDuty = [
-      "Invoices issued to the organization, with the billing address and invoice email on them, kept for the statutory retention period (§ 147 AO, § 14b UStG). Our invoicing provider Qonto holds them as well.",
+      "Invoices and credit notes issued to the organization, with the billing address and invoice email on them, and the client record at our invoicing provider Qonto: kept for eight years from the end of the calendar year in which they were issued (§ 14b Abs. 1 UStG, § 147 Abs. 3 and 4 AO).",
     ];
   }
 

@@ -170,6 +170,9 @@ describe("buildErasureCertificate", () => {
     expect(text).not.toContain("no legal-retention duty");
     expect(text).toContain("Art. 17(3)(b) GDPR");
     expect(text).toContain("- Invoices issued to the organization");
-    expect(text).toContain(IN_FULL);
+    // Nothing kept by law is claimed as erased "in full", and Qonto's copy is named.
+    expect(text).not.toContain(IN_FULL);
+    expect(text).toContain("Everything else is as recorded above.");
+    expect(text).toContain("Qonto keeps what is listed");
   });
 });
