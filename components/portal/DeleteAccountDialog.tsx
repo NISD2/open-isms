@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Link } from "@/i18n/navigation";
 import { trpc } from "@/lib/trpc/client";
 
 export function DeleteAccountDialog({
@@ -50,6 +51,10 @@ export function DeleteAccountDialog({
   const needsSignIn =
     (answer && !answer.allowed && answer.reason === "reauth") ||
     remove.error?.message === "reauth";
+  // A licence still open to cancel is cancelled first, under Billing, the one place a cancel is made.
+  const needsCancel =
+    (answer && !answer.allowed && answer.reason === "cancel_first") ||
+    remove.error?.message === "cancel_first";
   const signInAgain = () =>
     signOut({
       callbackUrl: `/auth/signin?callbackUrl=${encodeURIComponent(window.location.pathname)}`,
@@ -91,6 +96,7 @@ export function DeleteAccountDialog({
                 <li>{t("whatOrganization", { name: answer.organization })}</li>
               ) : null}
               <li>{t("whatEmail", { email })}</li>
+              {answer.invoicesKept ? <li>{t("whatInvoices")}</li> : null}
             </ul>
             <div className="space-y-1.5">
               {/* block, not the Label's flex: the sentence and the address wrap as one line. */}
@@ -138,6 +144,13 @@ export function DeleteAccountDialog({
             </Button>
           ) : null}
           {needsSignIn ? <Button onClick={signInAgain}>{t("signInAgain")}</Button> : null}
+          {needsCancel ? (
+            <Button asChild>
+              <Link href="/billing" onClick={() => close(false)}>
+                {t("toBilling")}
+              </Link>
+            </Button>
+          ) : null}
         </DialogFooter>
       </DialogContent>
     </Dialog>

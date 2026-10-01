@@ -53,7 +53,11 @@ export function CancelDialog({
           : t("doneRenewal", { date: day(r.periodEnd) }),
       );
       onOpenChange(false);
-      await utils.billing.status.invalidate();
+      // The delete-account dialog asks the same question; a cancel is what unblocks it.
+      await Promise.all([
+        utils.billing.status.invalidate(),
+        utils.user.deletionCheck.invalidate(),
+      ]);
       router.refresh();
     },
     onError: (e) => {

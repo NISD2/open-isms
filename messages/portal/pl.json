@@ -20,16 +20,22 @@
       "whatAccount": "Twoje konto i wszystkie powiązane z nim dane osobowe zostaną usunięte.",
       "whatOrganization": "Twoja organizacja {name} zostanie usunięta wraz ze wszystkimi danymi, łącznie z przesłanymi plikami.",
       "whatEmail": "Potwierdzenie usunięcia trafi następnie na adres {email}.",
+      "whatInvoices": "Wystawione już faktury pozostają zachowane tak długo, jak wymaga tego prawo podatkowe (§ 147 AO, § 14b UStG). Usunięcie konta ich nie anuluje.",
       "confirmLabel": "Aby potwierdzić, wpisz swój adres e-mail:",
       "confirm": "Usuń na stałe",
       "cancel": "Anuluj",
       "signInAgain": "Zaloguj się ponownie",
+      "toBilling": "Przejdź do Rozliczeń",
       "failed": "Nie udało się teraz usunąć konta. Spróbuj ponownie później lub napisz na contact@nisd2.eu.",
       "refused": {
         "reauth": "Dla bezpieczeństwa zaloguj się ponownie, zanim usuniesz konto. Potem wrócisz tutaj.",
         "platform_admin": "Administratorzy platformy nie mogą tutaj usunąć swojego konta.",
         "several_organizations": "Do Ciebie należy kilka organizacji. Napisz na contact@nisd2.eu, a usuniemy konto razem z Tobą.",
-        "billing": "Do Twojego konta są przypisane faktury lub zamówienie w trakcie weryfikacji albo Twoje konto płaci za inną organizację. Faktury musimy przechowywać. Napisz na contact@nisd2.eu, a usuniemy konto razem z Tobą.",
+        "pays_for_others": "Twoje konto rozliczeniowe płaci także za inną organizację, która zostałaby bez nikogo, kto może płacić. Napisz na contact@nisd2.eu, a załatwimy to razem z Tobą.",
+        "order_check": "Zamówienie Twojego konta jest jeszcze weryfikowane. Napisz na contact@nisd2.eu, a usuniemy konto, gdy tylko zostanie rozliczone.",
+        "cancel_first": "Twoją płatną licencję można jeszcze wypowiedzieć. Najpierw wypowiedz ją w Rozliczeniach, a potem usuń tutaj konto. Jeśli wypowiesz ją w ciągu 30 dni od pierwszej faktury, otrzymasz zwrot pieniędzy.",
+        "cancel_by_us": "Twoja płatna licencja nadal działa i można ją jeszcze wypowiedzieć. Napisz na contact@nisd2.eu, a wypowiemy ją i usuniemy konto razem z Tobą.",
+        "billing_busy": "Właśnie przetwarzane jest zamówienie lub wypowiedzenie Twojego konta. Spróbuj ponownie za minutę.",
         "other_members": "Twoja organizacja ma innych członków, a usunięcie Twojego konta usunęłoby organizację wraz z ich pracą. Najpierw usuń pozostałych członków albo napisz na contact@nisd2.eu."
       }
     },

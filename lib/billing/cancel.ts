@@ -111,6 +111,62 @@ export const cancelWindowFor = async (
   );
 };
 
+/**
+ * Which cancel the holder is offered, if any: money back inside the thirty days of the first
+ * invoice, otherwise no renewal, once. Only a full account with a running, uncredited invoice has
+ * anything to cancel.
+ */
+export const cancelOption = async (
+  db: DbOrTx,
+  account: {
+    readonly id: string;
+    readonly accessLevel: AccessLevel;
+    readonly renewalCanceledAt: Date | null;
+  },
+  active: {
+    readonly id: string;
+    readonly issueDate: string;
+    readonly periodEnd: string;
+  } | null,
+  now: Date,
+) => {
+  if (account.accessLevel !== "full" || !active) return null;
+  const window = await cancelWindowFor(db, account.id, active, now);
+  if (window.kind === "money_back") {
+    return {
+      kind: "money_back",
+      lastDay: window.lastDay,
+      periodEnd: active.periodEnd,
+    } as const;
+  }
+  return account.renewalCanceledAt
+    ? null
+    : ({ kind: "renewal", reason: window.reason, periodEnd: active.periodEnd } as const);
+};
+
+/**
+ * Whether the account still has a cancel open (money back, or a renewal not yet stopped). Deleting
+ * the holder's account would leave it running with nobody left who may cancel it.
+ */
+export const hasOpenCancel = async (
+  db: DbOrTx,
+  billingAccountId: string,
+  now: Date,
+): Promise<boolean> => {
+  const [account] = await db
+    .select({
+      id: billingAccount.id,
+      accessLevel: billingAccount.accessLevel,
+      renewalCanceledAt: billingAccount.renewalCanceledAt,
+    })
+    .from(billingAccount)
+    .where(eq(billingAccount.id, billingAccountId))
+    .limit(1);
+  if (!account) return false;
+  const active = await findActiveInvoice(db, account.id, now);
+  return (await cancelOption(db, account, active, now)) !== null;
+};
+
 /** The invoice paying for the account right now, with the facts a credit note mirrors. */
 const currentInvoice = async (db: DbOrTx, billingAccountId: string, now: Date) => {
   const active = await findActiveInvoice(db, billingAccountId, now);

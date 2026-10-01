@@ -20,16 +20,22 @@
       "whatAccount": "Se eliminan su cuenta y todos los datos personales que contiene.",
       "whatOrganization": "Se elimina su organización {name} con todos sus datos, incluidos los archivos subidos.",
       "whatEmail": "Después, la confirmación de la supresión se envía a {email}.",
+      "whatInvoices": "Las facturas ya emitidas se conservan durante el tiempo que exige la normativa fiscal (§ 147 AO, § 14b UStG). Eliminar la cuenta no las anula.",
       "confirmLabel": "Introduzca su dirección de correo electrónico para confirmar:",
       "confirm": "Eliminar definitivamente",
       "cancel": "Cancelar",
       "signInAgain": "Volver a iniciar sesión",
+      "toBilling": "Ir a Facturación",
       "failed": "No se ha podido eliminar la cuenta en este momento. Inténtelo de nuevo más tarde o escriba a contact@nisd2.eu.",
       "refused": {
         "reauth": "Por seguridad, vuelva a iniciar sesión antes de eliminar su cuenta. Después volverá a esta página.",
         "platform_admin": "Los administradores de la plataforma no pueden eliminar su cuenta aquí.",
         "several_organizations": "Es titular de varias organizaciones. Escriba a contact@nisd2.eu y eliminaremos la cuenta junto con usted.",
-        "billing": "Su cuenta tiene facturas o un pedido en revisión, o paga por otra organización. Tenemos que conservar las facturas. Escriba a contact@nisd2.eu y eliminaremos la cuenta junto con usted.",
+        "pays_for_others": "Su cuenta de facturación también paga por otra organización, que se quedaría sin nadie que pueda pagar. Escriba a contact@nisd2.eu y lo resolveremos con usted.",
+        "order_check": "Un pedido de su cuenta todavía está en revisión. Escriba a contact@nisd2.eu y eliminaremos la cuenta en cuanto se haya resuelto.",
+        "cancel_first": "Su licencia de pago todavía se puede cancelar. Cancélela primero en Facturación y después elimine aquí la cuenta. Si la cancela dentro de los 30 días siguientes a su primera factura, se le devuelve el dinero.",
+        "cancel_by_us": "Su licencia de pago sigue activa y todavía se puede cancelar. Escriba a contact@nisd2.eu y la cancelaremos y eliminaremos la cuenta junto con usted.",
+        "billing_busy": "Ahora mismo se está procesando un pedido o una cancelación de su cuenta. Vuelva a intentarlo dentro de un minuto.",
         "other_members": "Su organización tiene otros miembros, y eliminar su cuenta eliminaría la organización junto con el trabajo de ellos. Elimine primero a los demás miembros o escriba a contact@nisd2.eu."
       }
     },

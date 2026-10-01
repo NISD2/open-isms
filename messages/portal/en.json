@@ -20,16 +20,22 @@
       "whatAccount": "Your account and all personal data in it are deleted.",
       "whatOrganization": "Your organization {name} is deleted with all its data, including uploaded files.",
       "whatEmail": "The erasure confirmation then goes to {email}.",
+      "whatInvoices": "Invoices already issued stay on record for as long as tax law requires (§ 147 AO, § 14b UStG). Deleting the account does not cancel them.",
       "confirmLabel": "Type your email address to confirm:",
       "confirm": "Permanently delete",
       "cancel": "Cancel",
       "signInAgain": "Sign in again",
+      "toBilling": "Go to Billing",
       "failed": "The account could not be deleted just now. Please try again later or write to contact@nisd2.eu.",
       "refused": {
         "reauth": "To be safe, please sign in again before deleting your account. You come back here afterwards.",
         "platform_admin": "Platform admins cannot delete their account here.",
         "several_organizations": "You own several organizations. Write to contact@nisd2.eu and we will delete the account with you.",
-        "billing": "Your account has invoices, an order being checked, or pays for another organization. We have to keep invoices. Write to contact@nisd2.eu and we will delete the account with you.",
+        "pays_for_others": "Your billing account also pays for another organization, which would be left without anyone who can pay. Write to contact@nisd2.eu and we will sort it out with you.",
+        "order_check": "An order on your account is still being checked. Write to contact@nisd2.eu and we will delete the account once it is settled.",
+        "cancel_first": "Your paid licence can still be cancelled. Cancel it under Billing first, then delete the account here. If you cancel within 30 days of your first invoice, you get your money back.",
+        "cancel_by_us": "Your paid licence is still running and can still be cancelled. Write to contact@nisd2.eu and we will cancel it and delete the account with you.",
+        "billing_busy": "An order or cancellation is being processed on your account right now. Please try again in a minute.",
         "other_members": "Your organization has other members, and deleting your account would delete the organization with their work. Remove the other members first, or write to contact@nisd2.eu."
       }
     },
