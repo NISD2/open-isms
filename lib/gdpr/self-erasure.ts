@@ -7,25 +7,33 @@
  *   - the payer of a billing account another set-up organization also uses (it would be left
  *     without anyone who can order, pay or cancel);
  *   - a payer with an order still under check in Qonto (its outcome is not known yet);
- *   - a payer whose licence can still be cancelled (they cancel under Billing first: once the
- *     holder is gone, nobody may cancel it, and the money back or the stopped renewal is lost);
+ *   - a payer whose licence can still be cancelled while billing is not open for them (the cancel
+ *     cannot be made from here, so we make it);
  *   - an owner of several organizations (the engine refuses that itself);
  *   - platform admins.
  * Those write to contact@nisd2.eu and are handled with the admin tool.
  *
- * Invoices do not stop it. They are kept for the statutory period (§ 147 AO, § 14b UStG), which
+ * A licence that can still be cancelled does not stop it otherwise: deleting the account cancels it
+ * first (cancelLicencesForErasure), because once the holder is gone nobody may cancel it. Invoices
+ * do not stop it either. They are kept for the statutory period (§ 147 AO, § 14b UStG), which
  * Art. 17(3)(b) GDPR allows; the dialog says so beforehand and the certificate names them.
  *
- * The rules are checked twice: for the dialog, and again inside the erasure's transaction
- * (assertSelfErasureAllowed as eraseUser's guard), because the dialog's answer can be stale.
+ * The rules are checked three times: for the dialog, before the cancel, and again inside the
+ * erasure's transaction (assertSelfErasureAllowed as eraseUser's guard), because each earlier
+ * answer can be stale by the next step.
  */
 import "@/lib/server-guard";
 import { and, count, eq, inArray, isNotNull, ne, or } from "drizzle-orm";
+import { logAudit } from "@/lib/audit";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
-import { hasOpenCancel } from "@/lib/billing/cancel";
+import {
+  cancelAuditDescription,
+  cancelSubscription,
+  openCancel,
+} from "@/lib/billing/cancel";
 import { hasOrderCheck } from "@/lib/billing/order-check";
 import { billingFor } from "@/lib/billing/ordering-access";
-import type { DbOrTx } from "@/lib/db";
+import type { Database, DbOrTx } from "@/lib/db";
 import { billingAccount, company, companyMembership, invoice } from "@/schema";
 import { ErasureRefused, erasureCompanyOf } from "./erase-user";
 
@@ -34,15 +42,20 @@ export type SelfErasureRefusal =
   | "several_organizations"
   | "pays_for_others"
   | "order_check"
-  /** A paid licence that can still be cancelled: cancel under Billing first, then delete. */
+  /** A licence still open at the erasure itself: the cancel made just before did not take. */
   | "cancel_first"
-  /** The same, while billing is not open for them: the cancel goes through contact@nisd2.eu. */
+  /** A licence still open while billing is not open for them: the cancel goes through us. */
   | "cancel_by_us"
+  /** The cancel made before the erasure failed in Qonto; nothing was deleted. */
+  | "cancel_failed"
   /** An order or cancel is running on the account right now; trying again in a minute works. */
   | "billing_busy"
   | "other_members"
   /** Not a rule about the account: the sign-in is too old (decided in the router). */
   | "reauth";
+
+/** What deleting the account cancels first: money back inside the thirty days, else the renewal. */
+export type LicenceCancel = "money_back" | "renewal";
 
 export type SelfErasure =
   | {
@@ -51,6 +64,22 @@ export type SelfErasure =
       readonly organization: string | null;
       /** Invoices were issued, so they stay on record after the erasure. */
       readonly invoicesKept: boolean;
+      /** The paid licence the deletion cancels first; null when none is open. */
+      readonly licence: LicenceCancel | null;
+    }
+  | { readonly allowed: false; readonly reason: SelfErasureRefusal };
+
+type Person = { readonly userId: string; readonly email: string };
+
+type OpenCancel = { readonly billingAccountId: string; readonly kind: LicenceCancel };
+
+/** The check's answer, with the licences to cancel named by account for the server's own use. */
+type Decision =
+  | {
+      readonly allowed: true;
+      readonly organization: string | null;
+      readonly invoicesKept: boolean;
+      readonly cancels: readonly OpenCancel[];
     }
   | { readonly allowed: false; readonly reason: SelfErasureRefusal };
 
@@ -119,19 +148,31 @@ const anyInvoice = (db: DbOrTx, ids: readonly string[]) =>
   );
 
 /**
- * A licence the person pays for that can still be cancelled (money back, or a renewal not yet
- * stopped). Erasing the holder would leave it running with nobody who may cancel it, so they cancel
- * first, through the one cancel path that issues the credit note and the emails.
+ * The licences the person pays for that can still be cancelled (money back, or a renewal not yet
+ * stopped), with the cancel each gets. Erasing the holder would leave them running with nobody who
+ * may cancel them.
  */
-const anyOpenCancel = async (db: DbOrTx, userId: string, now: Date) => {
+const openCancelsOf = async (
+  db: DbOrTx,
+  userId: string,
+  now: Date,
+): Promise<OpenCancel[]> => {
   const held = await db
     .select({ id: billingAccount.id })
     .from(billingAccount)
     .where(eq(billingAccount.ownerUserId, userId));
-  return (await Promise.all(held.map(({ id }) => hasOpenCancel(db, id, now)))).some(
-    Boolean,
+  const options = await Promise.all(
+    held.map(async ({ id }) => ({ id, option: await openCancel(db, id, now) })),
+  );
+  return options.flatMap(({ id, option }) =>
+    option ? [{ billingAccountId: id, kind: option.kind }] : [],
   );
 };
+
+const licenceOf = (cancels: readonly OpenCancel[]): LicenceCancel | null =>
+  cancels.some((c) => c.kind === "money_back")
+    ? "money_back"
+    : (cancels[0]?.kind ?? null);
 
 const otherMemberCount = async (db: DbOrTx, companyId: string, userId: string) => {
   const [row] = await db
@@ -147,10 +188,7 @@ const otherMemberCount = async (db: DbOrTx, companyId: string, userId: string) =
 };
 
 /** Decides from the database, every time. */
-export async function selfErasureCheck(
-  db: DbOrTx,
-  person: { readonly userId: string; readonly email: string },
-): Promise<SelfErasure> {
+const decide = async (db: DbOrTx, person: Person): Promise<Decision> => {
   if (isPlatformAdmin(person.email)) return { allowed: false, reason: "platform_admin" };
   const scope = await erasureCompanyOf(db, person.userId).catch((err: unknown) => {
     if (err instanceof ErasureRefused) return null;
@@ -166,18 +204,74 @@ export async function selfErasureCheck(
   if (ownedId && (await otherMemberCount(db, ownedId, person.userId)) > 0) {
     return { allowed: false, reason: "other_members" };
   }
-  // Last: a cancel cannot be undone, so it is asked for only when nothing else stands in the way.
-  if (await anyOpenCancel(db, person.userId, new Date())) {
-    // The Billing page offers the cancel only while billing is open for this person; otherwise
-    // sending them there is a dead end, so they write to us instead.
-    const { open } = await billingFor(db, person.email);
-    return { allowed: false, reason: open ? "cancel_first" : "cancel_by_us" };
+  // Last: a cancel cannot be undone, so it is made only when nothing else stands in the way. It
+  // goes through the Billing page's cancel, which runs only while billing is open for this person.
+  const cancels = await openCancelsOf(db, person.userId, new Date());
+  if (cancels.length > 0 && !(await billingFor(db, person.email)).open) {
+    return { allowed: false, reason: "cancel_by_us" };
   }
   return {
     allowed: true,
     organization: scope.owned?.name ?? null,
     invoicesKept: accounts.length > 0 && (await anyInvoice(db, accounts)),
+    cancels,
   };
+};
+
+/** The dialog's answer: whether they may, and what goes with the account. */
+export async function selfErasureCheck(db: DbOrTx, person: Person): Promise<SelfErasure> {
+  const decision = await decide(db, person);
+  if (!decision.allowed) return decision;
+  const { organization, invoicesKept, cancels } = decision;
+  return { allowed: true, organization, invoicesKept, licence: licenceOf(cancels) };
+}
+
+/**
+ * Cancels every licence the person pays for that is still open, just before their erasure, through
+ * the cancel the Billing page uses (the credit note or the stopped renewal, and its email). Once the
+ * holder is gone nobody may cancel it, and the money back or the stopped renewal would be lost.
+ *
+ * It cancels only when every other rule allows the erasure, so a refused deletion cancels nothing,
+ * and a cancel that fails refuses the erasure with nothing deleted. The cancel calls Qonto, so it
+ * runs before the erasure's transaction, never inside it; the guard there refuses if one is still
+ * open. The audit row names no IP or browser: the erasure would clear them a moment later.
+ */
+export async function cancelLicencesForErasure(
+  db: Database,
+  person: Person,
+): Promise<void> {
+  const decision = await decide(db, person);
+  if (!decision.allowed) throw new SelfErasureRefused(decision.reason);
+  if (decision.cancels.length === 0) return;
+  const { mode, open } = await billingFor(db, person.email);
+  if (!open || mode.kind === "off") throw new SelfErasureRefused("cancel_by_us");
+  // One after the other: each cancel holds its account across the Qonto call.
+  for (const { billingAccountId } of decision.cancels) {
+    const outcome = await cancelSubscription({
+      db,
+      mode,
+      billingAccountId,
+      userId: person.userId,
+    });
+    if (outcome.ok) {
+      await logAudit({
+        companyId: null,
+        userId: person.userId,
+        action: "billing.cancel",
+        entityType: "billing_account",
+        entityId: billingAccountId,
+        description: `${cancelAuditDescription(outcome)}, as the holder deleted their account`,
+        ipAddress: null,
+        userAgent: null,
+      });
+    } else if (outcome.reason !== "no_invoice") {
+      // no_invoice means it was cancelled meanwhile, so there is nothing left to do for it.
+      console.error(`[self-erasure] cancel before erasure failed: ${outcome.message}`);
+      throw new SelfErasureRefused(
+        outcome.reason === "pending" ? "billing_busy" : "cancel_failed",
+      );
+    }
+  }
 }
 
 /**
@@ -194,7 +288,7 @@ export async function selfErasureCheck(
  * order after Qonto had issued the invoice. A billing action in flight refuses for now instead.
  */
 export const assertSelfErasureAllowed =
-  (person: { readonly userId: string; readonly email: string }) =>
+  (person: Person) =>
   async (tx: DbOrTx): Promise<void> => {
     await tx
       .select({ id: company.id })
@@ -224,8 +318,10 @@ export const assertSelfErasureAllowed =
         }
         throw err;
       });
-    const check = await selfErasureCheck(tx, person);
-    if (!check.allowed) throw new SelfErasureRefused(check.reason);
+    const decision = await decide(tx, person);
+    if (!decision.allowed) throw new SelfErasureRefused(decision.reason);
+    // cancelLicencesForErasure ran just before: a licence still open here did not get cancelled.
+    if (decision.cancels.length > 0) throw new SelfErasureRefused("cancel_first");
   };
 
 /** Postgres lock_not_available, raised by NOWAIT when the row is locked. */

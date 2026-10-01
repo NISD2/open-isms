@@ -16,7 +16,11 @@ import { TRPCError } from "@trpc/server";
 import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
-import { cancelOption, cancelSubscription } from "@/lib/billing/cancel";
+import {
+  cancelAuditDescription,
+  cancelOption,
+  cancelSubscription,
+} from "@/lib/billing/cancel";
 import { holderNetCents } from "@/lib/billing/holder-price";
 import { formatEuro, orderSchemaWithVatCheck } from "@/lib/billing/order";
 import { hasOrderCheck } from "@/lib/billing/order-check";
@@ -156,10 +160,7 @@ export const billingRouter = router({
         action: "billing.cancel",
         entityType: "billing_account",
         entityId: ctx.account.id,
-        description:
-          outcome.kind === "money_back"
-            ? `Canceled inside the thirty days: credit note ${outcome.creditNoteNumber}${outcome.refundOwed ? ", refund owed" : ""}, access ${outcome.accessLevel}`
-            : `Renewal canceled, access until ${outcome.periodEnd}${outcome.alreadyCanceled ? " (already canceled)" : ""}`,
+        description: cancelAuditDescription(outcome),
         ipAddress: ctx.ip,
         userAgent: ctx.userAgent,
       });

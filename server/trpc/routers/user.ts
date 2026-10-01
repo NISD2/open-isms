@@ -8,6 +8,7 @@ import { SELF_SERVICE_ACTOR, SELF_SERVICE_CHANNEL } from "@/lib/gdpr/certificate
 import { ErasureRefused, eraseUser } from "@/lib/gdpr/erase-user";
 import {
   assertSelfErasureAllowed,
+  cancelLicencesForErasure,
   type SelfErasure,
   SelfErasureRefused,
   selfErasureCheck,
@@ -119,9 +120,11 @@ export const userRouter = router({
   /**
    * Deletes the signed-in person's own account for good (Art. 17 GDPR) and emails them the
    * certificate. The typed email is the confirmation; the rules are decided again here, never taken
-   * from the dialog. The one audit row carries the case reference and nothing that identifies the
-   * person (no user id, address, IP or browser): it is written after the erasure has scrubbed the
-   * trail, and the erasure record is where they are named, for as long as that is kept.
+   * from the dialog. A paid licence still open is cancelled first, and a cancel that fails stops
+   * the deletion (lib/gdpr/self-erasure.ts). The erasure's audit row carries the case reference
+   * and nothing that identifies the person (no user id, address, IP or browser): it is written
+   * after the erasure has scrubbed the trail, and the erasure record is where they are named, for
+   * as long as that is kept.
    */
   deleteAccount: selfErasureProcedure
     .input(z.object({ confirmEmail: z.string().max(320) }))
@@ -139,26 +142,31 @@ export const userRouter = router({
       if (!(await rateLimit(`self-erase:${ctx.userId}`, 3, 60 * 60 * 1000))) {
         throw new TRPCError({ code: "TOO_MANY_REQUESTS", message: "Too many attempts." });
       }
-      const result = await eraseUser({
-        userId: ctx.userId,
-        actor: { userId: null, email: SELF_SERVICE_ACTOR },
-        request: {
-          requestReceivedAt: new Date(),
-          requestChannel: SELF_SERVICE_CHANNEL,
-          rightsInvoked: "Right to erasure (Art. 17)",
-          notes: null,
-        },
-        guard: assertSelfErasureAllowed({ userId: ctx.userId, email }),
-      }).catch((err: unknown) => {
-        // The reason is the dialog's message key (portal.deleteAccount.refused).
-        if (err instanceof SelfErasureRefused) {
-          throw new TRPCError({ code: "FORBIDDEN", message: err.reason });
-        }
-        if (err instanceof ErasureRefused) {
-          throw new TRPCError({ code: "FORBIDDEN", message: "several_organizations" });
-        }
-        throw err;
-      });
+      const person = { userId: ctx.userId, email };
+      const result = await cancelLicencesForErasure(ctx.db, person)
+        .then(() =>
+          eraseUser({
+            userId: ctx.userId,
+            actor: { userId: null, email: SELF_SERVICE_ACTOR },
+            request: {
+              requestReceivedAt: new Date(),
+              requestChannel: SELF_SERVICE_CHANNEL,
+              rightsInvoked: "Right to erasure (Art. 17)",
+              notes: null,
+            },
+            guard: assertSelfErasureAllowed(person),
+          }),
+        )
+        .catch((err: unknown) => {
+          // The reason is the dialog's message key (portal.deleteAccount.refused).
+          if (err instanceof SelfErasureRefused) {
+            throw new TRPCError({ code: "FORBIDDEN", message: err.reason });
+          }
+          if (err instanceof ErasureRefused) {
+            throw new TRPCError({ code: "FORBIDDEN", message: "several_organizations" });
+          }
+          throw err;
+        });
       await logAudit({
         companyId: null,
         userId: null,
