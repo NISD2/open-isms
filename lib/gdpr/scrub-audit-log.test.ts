@@ -127,9 +127,14 @@ describe("scrubAuditTrail", () => {
     await scrubAuditTrail(tx, { userId: SUBJECT, email: EMAIL }, redact);
     expect(updates[0]?.values).toMatchObject({
       userId: null,
+      ipAddress: null,
+      userAgent: null,
       previousValue: { owner: "[erased]" },
     });
     expect(updates[1]?.values).not.toHaveProperty("userId");
+    // The IP address and browser on a row about them are its author's.
+    expect(updates[1]?.values).not.toHaveProperty("ipAddress");
+    expect(updates[1]?.values).not.toHaveProperty("userAgent");
     expect(updates[1]?.values.description).toBe("Invited [erased]");
   });
 

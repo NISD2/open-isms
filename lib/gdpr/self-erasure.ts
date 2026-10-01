@@ -26,7 +26,9 @@ export type SelfErasureRefusal =
   | "platform_admin"
   | "several_organizations"
   | "billing"
-  | "other_members";
+  | "other_members"
+  /** Not a rule about the account: the sign-in is too old (decided in the router). */
+  | "reauth";
 
 export type SelfErasure =
   | {

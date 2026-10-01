@@ -21,8 +21,9 @@ import { mentionsAddress } from "./address-match";
 
 /**
  * Redact every audit row by or mentioning the person, and return how many.
- * The user id is cleared only on rows that were the person's: a row about
- * them written by someone else still names its author.
+ * The user id, IP address and browser are cleared only on rows that were the
+ * person's: a row about them written by someone else still names its author,
+ * and that address and browser are the author's.
  */
 export async function scrubAuditTrail(
   tx: DbOrTx,
@@ -62,7 +63,9 @@ export async function scrubAuditTrail(
     await tx
       .update(auditLog)
       .set({
-        ...(row.userId === person.userId ? { userId: null } : {}),
+        ...(row.userId === person.userId
+          ? { userId: null, ipAddress: null, userAgent: null }
+          : {}),
         description: redact(row.description),
         previousValue: redact(row.previousValue),
         newValue: redact(row.newValue),

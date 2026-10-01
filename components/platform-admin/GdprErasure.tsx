@@ -6,13 +6,11 @@
  * with downloadable certificates. Backed by platformAdmin.{previewErasure,
  * eraseUser, listErasures, erasureCertificate}.
  */
-import { useState } from "react";
 import { AlertTriangle, Download, Loader2, Trash2 } from "lucide-react";
-import { trpc } from "@/lib/trpc/client";
-import { useRouter } from "@/i18n/navigation";
+import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -21,7 +19,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { useRouter } from "@/i18n/navigation";
+import { trpc } from "@/lib/trpc/client";
 
 function triggerDownload(filename: string, markdown: string) {
   const blob = new Blob([markdown], { type: "text/markdown;charset=utf-8" });
@@ -48,12 +48,22 @@ export function EraseUserButton({ userId, email }: { userId: string; email: stri
         <Trash2 className="h-3.5 w-3.5" />
         Erase
       </Button>
-      {open && <EraseDialog userId={userId} email={email} onClose={() => setOpen(false)} />}
+      {open && (
+        <EraseDialog userId={userId} email={email} onClose={() => setOpen(false)} />
+      )}
     </>
   );
 }
 
-function EraseDialog({ userId, email, onClose }: { userId: string; email: string; onClose: () => void }) {
+function EraseDialog({
+  userId,
+  email,
+  onClose,
+}: {
+  userId: string;
+  email: string;
+  onClose: () => void;
+}) {
   const router = useRouter();
   const utils = trpc.useUtils();
   const preview = trpc.platformAdmin.previewErasure.useQuery(
@@ -71,12 +81,24 @@ function EraseDialog({ userId, email, onClose }: { userId: string; email: string
 
   const erase = trpc.platformAdmin.eraseUser.useMutation({
     onSuccess: async (res) => {
-      toast.success(`Account erased. Case ${res.caseRef}. Downloading certificate.`);
+      if (res.certificateSent) {
+        toast.success(
+          `Account erased. Case ${res.caseRef}. Certificate emailed to the person; a copy is downloading.`,
+        );
+      } else {
+        toast.error(
+          `Account erased. Case ${res.caseRef}. The certificate email did not go out: send the downloaded copy by hand.`,
+        );
+      }
       try {
-        const cert = await utils.platformAdmin.erasureCertificate.fetch({ id: res.logId });
+        const cert = await utils.platformAdmin.erasureCertificate.fetch({
+          id: res.logId,
+        });
         triggerDownload(cert.filename, cert.markdown);
       } catch {
-        toast.error("Erased, but the certificate download failed. Grab it from the Erasures tab.");
+        toast.error(
+          "Erased, but the certificate download failed. Grab it from the Erasures tab.",
+        );
       }
       await utils.platformAdmin.listErasures.invalidate();
       onClose();
@@ -88,7 +110,8 @@ function EraseDialog({ userId, email, onClose }: { userId: string; email: string
   const p = preview.data;
   const emailMatches = confirmEmail.trim().toLowerCase() === email.trim().toLowerCase();
   const orgName = p?.company?.name ?? "";
-  const orgConfirmed = !p?.isOwner || confirmOrgName.trim().toLowerCase() === orgName.trim().toLowerCase();
+  const orgConfirmed =
+    !p?.isOwner || confirmOrgName.trim().toLowerCase() === orgName.trim().toLowerCase();
   const canErase = Boolean(p) && emailMatches && orgConfirmed;
 
   return (
@@ -100,8 +123,8 @@ function EraseDialog({ userId, email, onClose }: { userId: string; email: string
             Erase account and all personal data
           </DialogTitle>
           <DialogDescription>
-            Irreversible. This fulfils a GDPR Art. 17 erasure request and writes a durable,
-            downloadable record you can send to the requester.
+            Irreversible. This fulfils a GDPR Art. 17 erasure request, writes a durable
+            record and emails its certificate to the account's address (Art. 12(3)).
           </DialogDescription>
         </DialogHeader>
 
@@ -114,7 +137,12 @@ function EraseDialog({ userId, email, onClose }: { userId: string; email: string
         {preview.isError && (
           <div className="flex items-center justify-between gap-2 rounded-md border border-red-300 bg-red-50 p-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950 dark:text-red-300">
             <span>Could not load the preview: {preview.error.message}</span>
-            <Button size="sm" variant="outline" className="h-7" onClick={() => preview.refetch()}>
+            <Button
+              size="sm"
+              variant="outline"
+              className="h-7"
+              onClick={() => preview.refetch()}
+            >
               Retry
             </Button>
           </div>
@@ -126,17 +154,26 @@ function EraseDialog({ userId, email, onClose }: { userId: string; email: string
               <div className="font-medium">{p.subject.name}</div>
               <div className="text-muted-foreground">{p.subject.email}</div>
               <div className="mt-1 text-xs text-muted-foreground">
-                Role {p.subject.role} · {p.company ? `company: ${p.company.name}` : "no company"}
+                Role {p.subject.role} ·{" "}
+                {p.company ? `company: ${p.company.name}` : "no company"}
               </div>
             </div>
 
             <ul className="space-y-1 text-muted-foreground">
-              <li>Personal records to delete: <b className="text-foreground">{p.personalRecordCount}</b></li>
-              <li>Sign-off entries by this user: <b className="text-foreground">{p.signOffCount}</b></li>
+              <li>
+                Personal records to delete:{" "}
+                <b className="text-foreground">{p.personalRecordCount}</b>
+              </li>
+              <li>
+                Sign-off entries by this user:{" "}
+                <b className="text-foreground">{p.signOffCount}</b>
+              </li>
               <li>
                 Method:{" "}
                 <b className="text-foreground">
-                  {p.predictedMethod === "hard_delete" ? "complete deletion" : "deletion + anonymisation"}
+                  {p.predictedMethod === "hard_delete"
+                    ? "complete deletion"
+                    : "deletion + anonymisation"}
                 </b>
               </li>
             </ul>
@@ -144,16 +181,19 @@ function EraseDialog({ userId, email, onClose }: { userId: string; email: string
             {p.company && !p.isOwner && (
               <p className="rounded-md bg-amber-50 p-2 text-xs text-amber-800 dark:bg-amber-950 dark:text-amber-200">
                 This person is a member of <b>{p.company.name}</b>
-                {p.memberCount > 1 ? ` (${p.memberCount - 1} other member${p.memberCount - 1 === 1 ? "" : "s"})` : ""}.
-                Only their own account and data are removed. The organization and everyone else&apos;s work stay intact.
+                {p.memberCount > 1
+                  ? ` (${p.memberCount - 1} other member${p.memberCount - 1 === 1 ? "" : "s"})`
+                  : ""}
+                . Only their own account and data are removed. The organization and
+                everyone else&apos;s work stay intact.
               </p>
             )}
 
             {p.isOwner && p.orgData && (
               <div className="rounded-md border border-red-300 bg-red-50 p-3 text-xs text-red-800 dark:border-red-900 dark:bg-red-950 dark:text-red-200">
                 <div className="mb-1 font-semibold">
-                  This person OWNS {p.company?.name}. Erasing deletes the ENTIRE organization, including
-                  everyone else on it:
+                  This person OWNS {p.company?.name}. Erasing deletes the ENTIRE
+                  organization, including everyone else on it:
                 </div>
                 <div className="grid grid-cols-2 gap-x-4">
                   <span>Member accounts: {p.orgData.memberAccounts}</span>
@@ -169,26 +209,40 @@ function EraseDialog({ userId, email, onClose }: { userId: string; email: string
             )}
 
             <div className="space-y-2 border-t pt-3">
-              <label className="block text-xs font-medium">
+              <label htmlFor="erase-request-date" className="block text-xs font-medium">
                 Request received (optional)
-                <Input type="date" value={requestDate} onChange={(e) => setRequestDate(e.target.value)} className="mt-1" />
+                <Input
+                  id="erase-request-date"
+                  type="date"
+                  value={requestDate}
+                  onChange={(e) => setRequestDate(e.target.value)}
+                  className="mt-1"
+                />
               </label>
-              <label className="block text-xs font-medium">
+              <label htmlFor="erase-rights" className="block text-xs font-medium">
                 Rights invoked
-                <Input value={rightsInvoked} onChange={(e) => setRightsInvoked(e.target.value)} className="mt-1" />
+                <Input
+                  id="erase-rights"
+                  value={rightsInvoked}
+                  onChange={(e) => setRightsInvoked(e.target.value)}
+                  className="mt-1"
+                />
               </label>
-              <label className="block text-xs font-medium">
+              <label htmlFor="erase-notes" className="block text-xs font-medium">
                 Notes (optional)
                 <textarea
+                  id="erase-notes"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   rows={2}
                   className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-sm"
                 />
               </label>
-              <label className="block text-xs font-medium">
-                Type the account email to confirm: <span className="font-mono text-foreground">{email}</span>
+              <label htmlFor="erase-confirm-email" className="block text-xs font-medium">
+                Type the account email to confirm:{" "}
+                <span className="font-mono text-foreground">{email}</span>
                 <Input
+                  id="erase-confirm-email"
                   value={confirmEmail}
                   onChange={(e) => setConfirmEmail(e.target.value)}
                   placeholder={email}
@@ -197,10 +251,14 @@ function EraseDialog({ userId, email, onClose }: { userId: string; email: string
                 />
               </label>
               {p.isOwner && (
-                <label className="block text-xs font-medium text-red-700 dark:text-red-300">
+                <label
+                  htmlFor="erase-confirm-org"
+                  className="block text-xs font-medium text-red-700 dark:text-red-300"
+                >
                   This deletes the whole organization. Type its name to confirm:{" "}
                   <span className="font-mono">{p.company?.name}</span>
                   <Input
+                    id="erase-confirm-org"
                     value={confirmOrgName}
                     onChange={(e) => setConfirmOrgName(e.target.value)}
                     placeholder={p.company?.name ?? ""}
@@ -247,7 +305,9 @@ function EraseDialog({ userId, email, onClose }: { userId: string; email: string
 
 export function ErasuresPanel() {
   const utils = trpc.useUtils();
-  const list = trpc.platformAdmin.listErasures.useQuery(undefined, { refetchOnWindowFocus: false });
+  const list = trpc.platformAdmin.listErasures.useQuery(undefined, {
+    refetchOnWindowFocus: false,
+  });
   const [downloadingId, setDownloadingId] = useState<string | null>(null);
 
   const download = async (id: string) => {
@@ -300,7 +360,9 @@ export function ErasuresPanel() {
                       {r.method === "hard_delete" ? "deleted" : "anonymised"}
                       {r.companyTornDown ? " + company" : ""}
                     </td>
-                    <td className="py-2 pr-4 text-xs text-muted-foreground">{r.actorEmail}</td>
+                    <td className="py-2 pr-4 text-xs text-muted-foreground">
+                      {r.actorEmail}
+                    </td>
                     <td className="py-2 pr-4 text-muted-foreground">
                       {new Date(r.erasedAt).toLocaleDateString("de-DE")}
                     </td>

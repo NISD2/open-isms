@@ -2,11 +2,13 @@ import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
+import { epochSeconds, isRecentSignIn } from "@/lib/auth/session-age";
 import type { DbOrTx } from "@/lib/db";
 import { SELF_SERVICE_ACTOR, SELF_SERVICE_CHANNEL } from "@/lib/gdpr/certificate";
 import { ErasureRefused, eraseUser } from "@/lib/gdpr/erase-user";
 import {
   assertSelfErasureAllowed,
+  type SelfErasure,
   SelfErasureRefused,
   selfErasureCheck,
 } from "@/lib/gdpr/self-erasure";
@@ -106,7 +108,10 @@ export const userRouter = router({
     }),
 
   /** Whether the signed-in person may delete their own account here, and what goes with it. */
-  deletionCheck: protectedProcedure.query(async ({ ctx }) => {
+  deletionCheck: protectedProcedure.query(async ({ ctx }): Promise<SelfErasure> => {
+    if (!signedInJustNow(ctx.session.authTime)) {
+      return { allowed: false, reason: "reauth" };
+    }
     const email = await ownEmail(ctx.db, ctx.userId);
     return selfErasureCheck(ctx.db, { userId: ctx.userId, email });
   }),
@@ -127,6 +132,9 @@ export const userRouter = router({
           code: "BAD_REQUEST",
           message: "The email does not match this account.",
         });
+      }
+      if (!signedInJustNow(ctx.session.authTime)) {
+        throw new TRPCError({ code: "FORBIDDEN", message: "reauth" });
       }
       if (!(await rateLimit(`self-erase:${ctx.userId}`, 3, 60 * 60 * 1000))) {
         throw new TRPCError({ code: "TOO_MANY_REQUESTS", message: "Too many attempts." });
@@ -169,6 +177,10 @@ export const userRouter = router({
       return { caseRef: result.caseRef, certificateSent };
     }),
 });
+
+/** Deleting the account cannot be undone, so it asks for a sign-in from the last few minutes. */
+const signedInJustNow = (authTime: number | null | undefined) =>
+  isRecentSignIn(authTime ?? null, epochSeconds(new Date()));
 
 /** The account's own address from the database, not the session snapshot. */
 const ownEmail = async (db: DbOrTx, userId: string) => {

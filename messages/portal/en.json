@@ -23,8 +23,10 @@
       "confirmLabel": "Type your email address to confirm:",
       "confirm": "Permanently delete",
       "cancel": "Cancel",
+      "signInAgain": "Sign in again",
       "failed": "The account could not be deleted just now. Please try again later or write to contact@nisd2.eu.",
       "refused": {
+        "reauth": "To be safe, please sign in again before deleting your account. You come back here afterwards.",
         "platform_admin": "Platform admins cannot delete their account here.",
         "several_organizations": "You own several organizations. Write to contact@nisd2.eu and we will delete the account with you.",
         "billing": "Your account has invoices, an order being checked, or pays for another organization. We have to keep invoices. Write to contact@nisd2.eu and we will delete the account with you.",

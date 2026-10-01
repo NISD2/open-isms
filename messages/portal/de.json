@@ -23,8 +23,10 @@
       "confirmLabel": "Geben Sie zur Bestätigung Ihre E-Mail-Adresse ein:",
       "confirm": "Endgültig löschen",
       "cancel": "Abbrechen",
+      "signInAgain": "Neu anmelden",
       "failed": "Das Konto konnte gerade nicht gelöscht werden. Bitte versuchen Sie es später noch einmal oder schreiben Sie an contact@nisd2.eu.",
       "refused": {
+        "reauth": "Zur Sicherheit: Melden Sie sich bitte noch einmal an, bevor Sie Ihr Konto löschen. Danach kommen Sie hierher zurück.",
         "platform_admin": "Plattformadmins können ihr Konto hier nicht löschen.",
         "several_organizations": "Ihnen gehören mehrere Organisationen. Schreiben Sie an contact@nisd2.eu, dann löschen wir das Konto gemeinsam mit Ihnen.",
         "billing": "Zu Ihrem Konto gibt es Rechnungen, eine Bestellung in Prüfung, oder es bezahlt für eine weitere Organisation. Rechnungen müssen wir aufbewahren. Schreiben Sie an contact@nisd2.eu, dann löschen wir das Konto mit Ihnen gemeinsam.",
