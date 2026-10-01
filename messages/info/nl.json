@@ -802,13 +802,15 @@
         "account": "Account data: name and email address provided via Google OAuth during sign-in",
         "forms": "Form submissions: data you enter in compliance requirement forms",
         "files": "Uploaded files: evidence documents you upload to the platform",
-        "technical": "Technical data: IP address, browser type, and access timestamps in server logs"
+        "technical": "Technical data: IP address, browser type, and access timestamps in server logs",
+        "billing": "Factuurgegevens: als u bestelt, de naam en het adres van de organisatie die de factuur krijgt, haar btw-nummer, het e-mailadres waar de factuur naartoe gaat en, als u die opgeeft, een tweede adres voor een kopie en uw inkoopordernummer. Het btw-nummer controleren wij in het VIES-register van de EU."
       },
       "purpose": {
         "heading": "Purpose and Legal Basis",
         "p1": "We process your data for the following purposes:",
         "items": {
           "contract": "Providing the NIS2 compliance platform (Art. 6(1)(b) GDPR - performance of a contract)",
+          "billing": "Afhandeling van bestellingen, facturen en opzeggingen (art. 6, lid 1, onder b, GDPR) en bewaring van facturen zolang het belastingrecht dat eist (art. 6, lid 1, onder c, GDPR)",
           "auth": "User authentication and account management (Art. 6(1)(b) GDPR)",
           "security": "Ensuring the security and integrity of our platform (Art. 6(1)(f) GDPR - legitimate interest)",
           "legal": "Compliance with legal obligations (Art. 6(1)(c) GDPR)",
@@ -822,7 +824,8 @@
         "google": "Google (OAuth): authenticatie, verwerkt uw naam en e-mailadres voor het inloggen",
         "aws": "Amazon Web Services (S3): bestandsopslag, slaat door u geüploade bewijsdocumenten op",
         "resend": "Resend: transactionele e-mail, levert notificatie- en uitnodigings-e-mails",
-        "close": "Close (Elastic Inc., Jackson, Wyoming, VS): ons verkoopsysteem (CRM). Voor geverifieerde accounts verwerkt het uw naam en e-mailadres, gegevens over uw account en gebruik (zoals registratie, laatste aanmelding, voortgang in de cursus, voortgang bij de invoering van NIS 2, uw abonnement en of wij u e-mail mogen sturen) en gegevens over uw bedrijf (zoals naam, sector, aantal medewerkers, land). De doorgifte naar de VS gebeurt op basis van de EU-standaardcontractbepalingen. Wordt uw account verwijderd, dan verwijderen wij ook uw contact in Close."
+        "close": "Close (Elastic Inc., Jackson, Wyoming, VS): ons verkoopsysteem (CRM). Voor geverifieerde accounts verwerkt het uw naam en e-mailadres, gegevens over uw account en gebruik (zoals registratie, laatste aanmelding, voortgang in de cursus, voortgang bij de invoering van NIS 2, uw abonnement en of wij u e-mail mogen sturen) en gegevens over uw bedrijf (zoals naam, sector, aantal medewerkers, land). De doorgifte naar de VS gebeurt op basis van de EU-standaardcontractbepalingen. Wordt uw account verwijderd, dan verwijderen wij ook uw contact in Close.",
+        "qonto": "Qonto (Parijs, Frankrijk): onze zakelijke rekening en facturatie. Als u bestelt, ontvangt Qonto de factuurgegevens en maakt het de facturen en creditnota's op en bewaart ze."
       },
       "analytics": {
         "heading": "Analytics",
@@ -858,11 +861,12 @@
       },
       "retention": {
         "heading": "Data Retention",
-        "p1": "Your data is stored as long as your account is active and necessary for the purposes described above. Compliance data (form submissions, evidence, audit trail) is retained for the legally required period. When you delete your account, personal data is removed. Anonymized audit trail entries may be retained."
+        "p1": "Your data is stored as long as your account is active and necessary for the purposes described above. Compliance data (form submissions, evidence, audit trail) is retained for the legally required period. When you delete your account, personal data is removed. Anonymized audit trail entries may be retained.",
+        "invoices": "Facturen en creditnota's, met de factuurgegevens erop, bewaren wij ten minste acht jaar vanaf het einde van het kalenderjaar waarin ze zijn uitgereikt, en langer zolang een belastingaanslag waarvoor ze van belang zijn nog openstaat (§ 14b Abs. 1 UStG, § 147 Abs. 3 und 4 AO). Het verwijderen van uw account verwijdert ze niet (art. 17, lid 3, onder b, GDPR). Qonto bewaart ze even lang."
       },
       "changes": {
         "heading": "Changes to This Policy",
-        "p1": "We may update this privacy policy from time to time. The current version is always available on this page. Last updated: September 2026."
+        "p1": "We may update this privacy policy from time to time. The current version is always available on this page. Last updated: October 2026."
       }
     },
     "avv": {
@@ -4634,7 +4638,7 @@
         "heading": "Sources",
         "items": [
           "BSIG - §38 (Management liability), §65 (Administrative fines and penalty framework)",
-          "NIS2 Directive (EU) 2022/2555 - Article 34 (Supervisory measures for essential entities), Article 35 (Supervisory measures for important entities), Article 36 (Penalties)",
+          "NIS2 Directive (EU) 2022/2555 - Article 32 (Supervisory and enforcement measures for essential entities), Article 33 (Supervisory and enforcement measures for important entities), Article 34 (Administrative fines), Article 36 (Penalties)",
           "NIS2UmsuCG - Gesetz zur Umsetzung der NIS-2-Richtlinie und zur Stärkung der Cybersicherheit",
           "BMI - Parliamentary documentation on penalty framework design and proportionality considerations",
           "GDV (Gesamtverband der Deutschen Versicherungswirtschaft) - D&O insurance coverage analysis for regulatory liability (2025)"

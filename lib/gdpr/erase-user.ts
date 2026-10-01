@@ -60,6 +60,7 @@ import {
   assetSupplierOffering,
   auditFinding,
   auditLog,
+  billingAccount,
   bsiIncidentReport,
   bsiRegistration,
   categoryAssignment,
@@ -87,6 +88,7 @@ import {
   incident,
   incidentBroadcast,
   internalAudit,
+  invoice,
   kpiMeasurement,
   lead,
   managementReview,
@@ -467,6 +469,32 @@ export async function eraseUser(
   return result;
 }
 
+/**
+ * Whether any invoice was issued to a billing account this erasure touches: the one of the
+ * organization being torn down, and the ones the person pays for. Invoices outlive the erasure
+ * (§ 147 AO, § 14b UStG), and the certificate has to say so.
+ */
+async function invoicesIssuedTo(
+  tx: Tx,
+  userId: string,
+  tornDownBillingAccountId: string | null,
+): Promise<boolean> {
+  const [row] = await tx
+    .select({ id: invoice.id })
+    .from(invoice)
+    .innerJoin(billingAccount, eq(billingAccount.id, invoice.billingAccountId))
+    .where(
+      or(
+        eq(billingAccount.ownerUserId, userId),
+        tornDownBillingAccountId
+          ? eq(billingAccount.id, tornDownBillingAccountId)
+          : undefined,
+      ),
+    )
+    .limit(1);
+  return row !== undefined;
+}
+
 async function eraseUserInTx(
   tx: Tx,
   input: EraseUserInput,
@@ -557,6 +585,15 @@ async function eraseUserInTx(
   // Read before the rows holding the keys are deleted; the files themselves
   // are deleted by eraseUser once this transaction has committed.
   const files = owned ? await collectCompanyFiles(tx, owned.id) : null;
+  // Read before the person's row goes, which nulls billing_account.owner_user_id.
+  if (await invoicesIssuedTo(tx, userId, owned?.billingAccountId ?? null)) {
+    scope.retainedUnderLegalDuty = [
+      "Invoices and credit notes issued to the organization, with the billing address and invoice email on them: kept for at least eight years from the end of the calendar year in which they were issued, and longer while a tax assessment they matter for is still open (§ 14b Abs. 1 UStG, § 147 Abs. 3 and 4 AO). Our invoicing provider Qonto holds them, and the client record they were issued to, for the same period.",
+    ];
+    scope.processorsInScope.push(
+      "Qonto (invoicing): keeps the invoices, credit notes and client record for the period under Article 17(3) exceptions; not deleted by this erasure",
+    );
+  }
 
   if (owned && teardown) {
     const { erased, kept } = teardown;

@@ -114,7 +114,9 @@ export default async function PortalLayout({ children }: { children: React.React
   // steers the draft to activation. /team is intentionally absent — a draft must
   // not manage a team before activating. Gating on companyActivated (not merely
   // companyId) is what makes a draft see the banner here instead of an empty,
-  // 403-on-write shell.
+  // 403-on-write shell. /billing is here because ordering only needs the draft:
+  // someone who paid before setting up their organization must still see their
+  // invoices and be able to cancel.
   const billing = await billingFor(db, session.user.email);
   const ALLOWED_WITHOUT_COMPANY = [
     "/dashboard",
@@ -124,6 +126,7 @@ export default async function PortalLayout({ children }: { children: React.React
     "/notifications",
     "/settings",
     "/gap-assessment",
+    "/billing",
   ];
   const needsCompany = !ALLOWED_WITHOUT_COMPANY.some(
     (p) => pathname === p || pathname.startsWith(`${p}/`),

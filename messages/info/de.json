@@ -803,6 +803,7 @@
         "forms": "Formulareingaben: Daten, die Sie in Compliance-Anforderungsformulare eingeben",
         "files": "Hochgeladene Dateien: Nachweisdokumente, die Sie auf die Plattform hochladen",
         "technical": "Technische Daten: IP-Adresse, Browsertyp und Zugriffszeitstempel in Server-Logs",
+        "billing": "Rechnungsdaten: Wenn Sie bestellen, Name und Anschrift der Organisation, an die die Rechnung geht, ihre USt-IdNr., die E-Mail-Adresse für die Rechnung und, falls angegeben, eine zweite Adresse für eine Kopie und Ihre Bestellnummer. Die USt-IdNr. prüfen wir im VIES-Register der EU.",
       "advisory": "Vermittlungsanfragen: Wenn Sie über das Formular auf /hilfe um Unterstützung bitten, speichern wir Ihre Angaben (Thema, E-Mail-Adresse, auf Wunsch Name, Firma, Branche, Größe, Anlass, Zeitrahmen und Ihre Beschreibung), die Seite, von der aus Sie das Formular geöffnet haben, sowie die zuvor besuchte Seite (Referrer). Ihre Anfrage geben wir nur an einen Fachbetrieb weiter, wenn Sie im Formular ausdrücklich zugestimmt haben; wir speichern den Zeitpunkt dieser Einwilligung. Der Fachbetrieb ist ab der Weitergabe eigenständig verantwortlich. Für eine zustande gekommene Beauftragung erhalten wir vom Fachbetrieb eine Vermittlungsgebühr. Sie können die Einwilligung jederzeit widerrufen."
       },
       "purpose": {
@@ -810,6 +811,7 @@
         "p1": "Wir verarbeiten Ihre Daten zu folgenden Zwecken:",
         "items": {
           "contract": "Bereitstellung der NIS2-Compliance-Plattform (Art. 6 Abs. 1 lit. b DSGVO - Vertragserfüllung)",
+          "billing": "Abwicklung von Bestellungen, Rechnungen und Kündigungen (Art. 6 Abs. 1 lit. b DSGVO) und Aufbewahrung der Rechnungen, solange das Steuerrecht es verlangt (Art. 6 Abs. 1 lit. c DSGVO)",
           "auth": "Benutzerauthentifizierung und Kontoverwaltung (Art. 6 Abs. 1 lit. b DSGVO)",
           "security": "Gewährleistung der Sicherheit und Integrität unserer Plattform (Art. 6 Abs. 1 lit. f DSGVO - berechtigtes Interesse)",
           "legal": "Erfüllung rechtlicher Verpflichtungen (Art. 6 Abs. 1 lit. c DSGVO)",
@@ -823,7 +825,8 @@
         "google": "Google (OAuth): Authentifizierung, verarbeitet Ihren Namen und Ihre E-Mail-Adresse für die Anmeldung",
         "aws": "Amazon Web Services (S3): Dateispeicherung, speichert von Ihnen hochgeladene Nachweisdokumente",
         "resend": "Resend: Transaktions-E-Mail, versendet Benachrichtigungs- und Einladungs-E-Mails",
-        "close": "Close (Elastic Inc., Jackson, Wyoming, USA): unser Vertriebssystem (CRM). Für verifizierte Konten verarbeitet es Name und E-Mail-Adresse, Angaben zu Konto und Nutzung (etwa Registrierung, letzte Anmeldung, Kursfortschritt, Fortschritt bei der Umsetzung von NIS 2, Tarif und ob wir Ihnen E-Mails senden dürfen) sowie Angaben zu Ihrem Unternehmen (etwa Name, Branche, Mitarbeiterzahl, Land). Die Übermittlung in die USA erfolgt auf Grundlage der EU-Standardvertragsklauseln. Wird Ihr Konto gelöscht, löschen wir auch Ihren Kontakt in Close."
+        "close": "Close (Elastic Inc., Jackson, Wyoming, USA): unser Vertriebssystem (CRM). Für verifizierte Konten verarbeitet es Name und E-Mail-Adresse, Angaben zu Konto und Nutzung (etwa Registrierung, letzte Anmeldung, Kursfortschritt, Fortschritt bei der Umsetzung von NIS 2, Tarif und ob wir Ihnen E-Mails senden dürfen) sowie Angaben zu Ihrem Unternehmen (etwa Name, Branche, Mitarbeiterzahl, Land). Die Übermittlung in die USA erfolgt auf Grundlage der EU-Standardvertragsklauseln. Wird Ihr Konto gelöscht, löschen wir auch Ihren Kontakt in Close.",
+        "qonto": "Qonto (Paris, Frankreich): unser Geschäftskonto und unsere Rechnungsstellung. Wenn Sie bestellen, erhält Qonto die Rechnungsdaten, stellt die Rechnungen und Gutschriften aus und bewahrt sie auf."
       },
       "analytics": {
         "heading": "Analyse",
@@ -860,11 +863,12 @@
       "retention": {
         "heading": "Datenspeicherung",
         "p1": "Ihre Daten werden gespeichert, solange Ihr Konto aktiv ist und für die oben beschriebenen Zwecke erforderlich ist. Compliance-Daten (Formulareingaben, Nachweise, Audit-Trail) werden für den gesetzlich vorgeschriebenen Zeitraum aufbewahrt. Bei Löschung Ihres Kontos werden personenbezogene Daten entfernt. Anonymisierte Audit-Trail-Einträge können erhalten bleiben.",
+        "invoices": "Rechnungen und Gutschriften mit den Rechnungsdaten darauf bewahren wir mindestens acht Jahre ab dem Ende des Kalenderjahres auf, in dem sie ausgestellt wurden, und länger, solange die Festsetzungsfrist einer Steuer noch läuft, für die sie von Bedeutung sind (§ 14b Abs. 1 UStG, § 147 Abs. 3 und 4 AO). Das Löschen Ihres Kontos löscht sie nicht (Art. 17 Abs. 3 lit. b DSGVO). Qonto bewahrt sie ebenso lange auf.",
         "erasure": "Wird Ihr Konto gelöscht, schicken wir Ihnen über unseren E-Mail-Dienstleister Resend eine Bestätigung, was gelöscht wurde (Art. 12 Abs. 3 DSGVO). Einen Nachweis der Löschung (Name, E-Mail-Adresse, Organisation, Vorgangsnummer und was gelöscht wurde) bewahren wir auf, um belegen zu können, dass wir der Anfrage nachgekommen sind (Art. 5 Abs. 2 DSGVO). Die E-Mail-Adresse entfernen wir daraus nach drei Jahren."
       },
       "changes": {
         "heading": "Änderungen dieser Erklärung",
-        "p1": "Wir können diese Datenschutzerklärung von Zeit zu Zeit aktualisieren. Die aktuelle Version ist immer auf dieser Seite verfügbar. Letztes Update: September 2026."
+        "p1": "Wir können diese Datenschutzerklärung von Zeit zu Zeit aktualisieren. Die aktuelle Version ist immer auf dieser Seite verfügbar. Letztes Update: Oktober 2026."
       }
     },
     "avvContract": {
@@ -4878,7 +4882,7 @@
         "heading": "Quellen",
         "items": [
           "BSIG - §38 (Umsetzung, Überwachung und Schulung), §65 (Bußgeldvorschriften)",
-          "NIS2-Richtlinie (EU) 2022/2555 - Artikel 34 und 36 (Durchsetzung und Sanktionen)",
+          "NIS2-Richtlinie (EU) 2022/2555 - Artikel 32 und 33 (Aufsichts- und Durchsetzungsmaßnahmen), Artikel 34 (Geldbußen), Artikel 36 (Sanktionen)",
           "BMI - Gesetzentwurf NIS2UmsuCG, Begründung zu §38 und §65",
           "GDV (Gesamtverband der Deutschen Versicherungswirtschaft) - Hinweise zu D&O-Deckung und Cyber-Regulierungsrisiken",
           "Noerr LLP - NIS2 Management Liability: §38 BSIG Analysis (2025)"

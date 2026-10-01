@@ -14,6 +14,7 @@
  */
 import "@/lib/server-guard";
 import { logAudit } from "@/lib/audit";
+import { isDeployedServer, withAdvisoryLock } from "@/lib/cron/in-app";
 import { db } from "@/lib/db";
 import { env } from "@/lib/env";
 import { closeSettings } from "./close";
@@ -33,65 +34,13 @@ export const CLOSE_SYNC_ACTION = {
   skipped: "cron.close_sync.skipped",
 } as const;
 
-const LOCAL_HOSTS = new Set(["localhost", "127.0.0.1", "0.0.0.0", "[::1]"]);
-
-/** A production build serving a public address: not `next dev`, not a local container. */
-export const isDeployedServer = (): boolean => {
-  if (process.env.NODE_ENV !== "production") return false;
-  try {
-    return !LOCAL_HOSTS.has(new URL(env.NEXT_PUBLIC_APP_URL).hostname);
-  } catch {
-    return false;
-  }
-};
-
-type Locked<T> =
-  | { readonly locked: true; readonly value: T }
-  | { readonly locked: false };
-
-/**
- * Run fn while holding the advisory lock on a connection of its own. A checked-out
- * pg client has no pool error listener, so one is attached here: without it a
- * dropped connection would surface as an unhandled 'error' event and take the
- * server down. A connection that failed is destroyed rather than pooled, and its
- * session lock goes with it.
- */
-const withCloseSyncLock = async <T>(fn: () => Promise<T>): Promise<Locked<T>> => {
-  const client = await db.$client.connect();
-  const onError = (err: Error) =>
-    console.error(`[close] lock connection lost: ${err.message}`);
-  client.on("error", onError);
-  const attempt = async (): Promise<Locked<T>> => {
-    const { rows } = await client.query<{ locked: boolean }>(
-      "SELECT pg_try_advisory_lock($1) AS locked",
-      [CLOSE_SYNC_LOCK],
-    );
-    if (!rows[0]?.locked) return { locked: false };
-    try {
-      return { locked: true, value: await fn() };
-    } finally {
-      await client.query("SELECT pg_advisory_unlock($1)", [CLOSE_SYNC_LOCK]);
-    }
-  };
-  try {
-    const result = await attempt();
-    client.release();
-    return result;
-  } catch (err) {
-    client.release(err instanceof Error ? err : true);
-    throw err;
-  } finally {
-    client.off("error", onError);
-  }
-};
-
 const runLocked = async (): Promise<CloseSyncRunResult> => {
   const settings = closeSettings(env);
   if (!settings) return { skipped: "CLOSE_API_KEY is not set" };
   if (!isDeployedServer()) {
     return { skipped: "not a deployed production server (NODE_ENV or a local app URL)" };
   }
-  const locked = await withCloseSyncLock(() =>
+  const locked = await withAdvisoryLock(CLOSE_SYNC_LOCK, "close", () =>
     runCloseSync(closeSyncStore(db), settings),
   );
   return locked.locked

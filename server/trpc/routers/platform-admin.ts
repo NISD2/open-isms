@@ -42,6 +42,7 @@ import { computeScores } from "@/lib/gap-assessment/scoring";
 import {
   buildErasureCertificate,
   erasureCertificateFilename,
+  SELF_SERVICE_CHANNEL,
 } from "@/lib/gdpr/certificate";
 import {
   ErasureRefused,
@@ -831,6 +832,7 @@ export const platformAdminRouter = router({
       totalAssessmentsRow,
       ceoFinishedRows,
       ceoStartedRow,
+      erasureRow,
     ] = await Promise.all([
       ctx.db.select({ count: count() }).from(user),
       ctx.db
@@ -871,6 +873,15 @@ export const platformAdminRouter = router({
         })
         .from(trainingLessonProgress)
         .where(eq(trainingLessonProgress.courseId, "nis2-ceo")),
+      // People, not requests: an owner's erasure takes colleagues who belong nowhere else with it,
+      // and every erased person deletes one user row, counted in the record's scope.
+      ctx.db
+        .select({
+          requests: count(),
+          people: sql<number>`coalesce(sum((${dataErasureLog.scope}->'deleted'->>'user')::int), 0)::int`,
+          selfService: sql<number>`(count(*) filter (where ${dataErasureLog.requestChannel} = ${SELF_SERVICE_CHANNEL}))::int`,
+        })
+        .from(dataErasureLog),
     ]);
 
     const totalCompanies = totalCompaniesRow[0]?.count ?? 0;
@@ -888,6 +899,11 @@ export const platformAdminRouter = router({
       totalAssessments: totalAssessmentsRow[0]?.count ?? 0,
       ceoCourseFinished: ceoFinishedRows.length,
       ceoCourseStarted: ceoStartedRow[0]?.count ?? 0,
+      erasures: {
+        requests: erasureRow[0]?.requests ?? 0,
+        people: erasureRow[0]?.people ?? 0,
+        selfService: erasureRow[0]?.selfService ?? 0,
+      },
     };
   }),
 
@@ -2064,6 +2080,8 @@ export const platformAdminRouter = router({
         erasedAt: dataErasureLog.erasedAt,
         actorEmail: dataErasureLog.actorEmail,
         retentionUntil: dataErasureLog.retentionUntil,
+        /** Accounts deleted by this erasure: the person, and colleagues torn down with their org. */
+        people: sql<number>`coalesce((${dataErasureLog.scope}->'deleted'->>'user')::int, 0)`,
       })
       .from(dataErasureLog)
       .orderBy(desc(dataErasureLog.erasedAt));

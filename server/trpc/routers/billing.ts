@@ -16,8 +16,11 @@ import { TRPCError } from "@trpc/server";
 import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
-import type { AccessLevel } from "@/lib/billing/accounts";
-import { cancelSubscription, cancelWindowFor } from "@/lib/billing/cancel";
+import {
+  cancelAuditDescription,
+  cancelOption,
+  cancelSubscription,
+} from "@/lib/billing/cancel";
 import { holderNetCents } from "@/lib/billing/holder-price";
 import { formatEuro, orderSchemaWithVatCheck } from "@/lib/billing/order";
 import { hasOrderCheck } from "@/lib/billing/order-check";
@@ -75,39 +78,6 @@ const limited = async (key: string, limit: number): Promise<void> => {
       message: "Too many requests. Please wait a minute and try again.",
     });
   }
-};
-
-/**
- * Which cancel the holder is offered, if any: money back inside the thirty days of the first
- * invoice, otherwise no renewal, once. Only a full account with a running, uncredited invoice has
- * anything to cancel.
- */
-const cancelOption = async (
-  db: DbOrTx,
-  account: {
-    readonly id: string;
-    readonly accessLevel: AccessLevel;
-    readonly renewalCanceledAt: Date | null;
-  },
-  active: {
-    readonly id: string;
-    readonly issueDate: string;
-    readonly periodEnd: string;
-  } | null,
-  now: Date,
-) => {
-  if (account.accessLevel !== "full" || !active) return null;
-  const window = await cancelWindowFor(db, account.id, active, now);
-  if (window.kind === "money_back") {
-    return {
-      kind: "money_back",
-      lastDay: window.lastDay,
-      periodEnd: active.periodEnd,
-    } as const;
-  }
-  return account.renewalCanceledAt
-    ? null
-    : ({ kind: "renewal", reason: window.reason, periodEnd: active.periodEnd } as const);
 };
 
 /**
@@ -190,10 +160,7 @@ export const billingRouter = router({
         action: "billing.cancel",
         entityType: "billing_account",
         entityId: ctx.account.id,
-        description:
-          outcome.kind === "money_back"
-            ? `Canceled inside the thirty days: credit note ${outcome.creditNoteNumber}${outcome.refundOwed ? ", refund owed" : ""}, access ${outcome.accessLevel}`
-            : `Renewal canceled, access until ${outcome.periodEnd}${outcome.alreadyCanceled ? " (already canceled)" : ""}`,
+        description: cancelAuditDescription(outcome),
         ipAddress: ctx.ip,
         userAgent: ctx.userAgent,
       });

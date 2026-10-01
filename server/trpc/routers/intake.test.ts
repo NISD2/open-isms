@@ -104,18 +104,30 @@ function setup(opts: {
       ]
     : [];
 
+  /** How the category's intake row was locked, and which row each intake update hit. */
+  const intakeLocks: Array<{ mode: string; where: SQL }> = [];
+  const intakeUpdates: SQL[] = [];
+
   // A select either locks status rows (all the save covers, or one before its
-  // signer rows are touched), reads who had signed, or becomes a subquery that
+  // signer rows are touched), locks the category's intake row (which the save
+  // has just ensured exists), reads who had signed, or becomes a subquery that
   // is never awaited.
   const select = () => ({
     from: (table: unknown) => ({
-      where: () =>
+      where: (where: SQL) =>
         table === companyRequirementStatus
           ? {
               orderBy: () => ({ for: async () => statusRows }),
               for: async () => statusRows,
             }
-          : Promise.resolve([]),
+          : table === companyCategoryIntake
+            ? {
+                for: async (mode: string) => {
+                  intakeLocks.push({ mode, where });
+                  return [{ id: "intake-1", answers: opts.storedAnswers ?? {} }];
+                },
+              }
+            : Promise.resolve([]),
     }),
   });
 
@@ -133,12 +145,6 @@ function setup(opts: {
       requirementCategory: {
         findFirst: async () =>
           opts.categoryCode === null ? undefined : { code: opts.categoryCode },
-      },
-      companyCategoryIntake: {
-        findFirst: async () =>
-          opts.storedAnswers
-            ? { id: "intake-1", answers: opts.storedAnswers }
-            : undefined,
       },
       requirement: {
         findMany: async ({ where }: { where: SQL }) => {
@@ -159,14 +165,16 @@ function setup(opts: {
     },
     select,
     insert: (table: unknown) => ({
-      values: async (values: unknown) => {
+      values: (values: unknown) => {
         writes.push({ op: "insert", table, values });
+        return Object.assign(Promise.resolve(), { onConflictDoNothing: async () => {} });
       },
     }),
     update: (table: unknown) => ({
       set: (values: unknown) => ({
-        where: () => {
+        where: (where: SQL) => {
           writes.push({ op: "update", table, values });
+          if (table === companyCategoryIntake) intakeUpdates.push(where);
           return Object.assign(Promise.resolve(), {
             returning: async () => [{ id: "status-1", status: "in_progress" }],
           });
@@ -178,7 +186,16 @@ function setup(opts: {
         writes.push({ op: "delete", table });
       },
     }),
-    transaction: async <T>(fn: (tx: unknown) => Promise<T>) => fn(db),
+    // Like a real transaction, a throw inside leaves none of its writes behind.
+    transaction: async <T>(fn: (tx: unknown) => Promise<T>) => {
+      const before = writes.length;
+      try {
+        return await fn(db);
+      } catch (err) {
+        writes.length = before;
+        throw err;
+      }
+    },
   };
 
   const caller = createCallerFactory(intakeRouter)({
@@ -202,7 +219,14 @@ function setup(opts: {
       answers: GOV_ANSWERS,
     });
 
-  return { caller, writes, requirementLookups, saveGovRequirement };
+  return {
+    caller,
+    writes,
+    intakeLocks,
+    intakeUpdates,
+    requirementLookups,
+    saveGovRequirement,
+  };
 }
 
 /** A member who owns GOV. */
@@ -210,6 +234,12 @@ const GOV_OWNER = { role: "member", ownsCategory: true, categoryCode: "GOV" } as
 
 const writesTo = (writes: Write[], table: unknown) =>
   writes.filter((w) => w.table === table);
+
+/** The write that stores the category's merged answers. */
+const answersWrite = (writes: Write[]) =>
+  writesTo(writes, companyCategoryIntake).find((w) => w.op === "update");
+
+const paramsOf = (where: SQL) => new PgDialect().sqlToQuery(where).params;
 
 describe("intake.saveRequirementAnswers", () => {
   test.each(["reviewer", "legal_reviewer", "member"] as const)(
@@ -228,7 +258,7 @@ describe("intake.saveRequirementAnswers", () => {
   test("lets the category owner save", async () => {
     const { saveGovRequirement, writes } = setup(GOV_OWNER);
     await saveGovRequirement();
-    expect(writesTo(writes, companyCategoryIntake)).toHaveLength(1);
+    expect(answersWrite(writes)).toBeDefined();
   });
 
   // The answers are rendered into the report PDF, and nine megabytes in one
@@ -277,8 +307,42 @@ describe("intake.saveRequirementAnswers", () => {
   test("stores only the checked answers of the saved requirement", async () => {
     const { saveGovRequirement, writes } = setup(GOV_OWNER);
     await saveGovRequirement();
-    const [stored] = writesTo(writes, companyCategoryIntake);
-    expect(stored?.values).toMatchObject({ answers: GOV_ANSWERS });
+    expect(answersWrite(writes)?.values).toMatchObject({ answers: GOV_ANSWERS });
+  });
+
+  // Two saves of one category used to read the same old answers, and the later
+  // write put back what the earlier one had changed.
+  test("merges into the stored answers it read under a row lock", async () => {
+    const stored = answering(GOV_SIBLING.fieldKeys);
+    const { saveGovRequirement, writes, intakeLocks, intakeUpdates } = setup({
+      ...GOV_OWNER,
+      storedAnswers: stored,
+    });
+    await saveGovRequirement();
+    expect(intakeLocks.map((l) => l.mode)).toEqual(["update"]);
+    expect(intakeLocks[0] && paramsOf(intakeLocks[0].where)).toEqual([
+      ASSESSMENT,
+      CATEGORY,
+    ]);
+    expect(answersWrite(writes)?.values).toMatchObject({
+      answers: { ...stored, ...GOV_ANSWERS },
+    });
+    expect(intakeUpdates.map(paramsOf)).toEqual([["intake-1"]]);
+  });
+
+  // The first save of a category had no row to lock, and a second first save
+  // in flight at the same time failed on the unique index.
+  test("creates the category's row before locking it, so a first save merges too", async () => {
+    const { saveGovRequirement, writes, intakeLocks } = setup(GOV_OWNER);
+    await saveGovRequirement();
+    expect(writesTo(writes, companyCategoryIntake)).toEqual([
+      expect.objectContaining({
+        op: "insert",
+        values: { assessmentId: ASSESSMENT, categoryId: CATEGORY },
+      }),
+      expect.objectContaining({ op: "update" }),
+    ]);
+    expect(intakeLocks).toHaveLength(1);
   });
 
   test("refuses a category outside the assessment's framework", async () => {
@@ -330,7 +394,7 @@ describe("intake.saveRequirementAnswers", () => {
     });
     await saveGovRequirement();
     expect(requirementLookups).toHaveLength(1);
-    expect(new PgDialect().sqlToQuery(requirementLookups[0]).params).toEqual([
+    expect(requirementLookups[0] && paramsOf(requirementLookups[0])).toEqual([
       GOV_REQUIREMENT.code,
     ]);
   });
@@ -375,7 +439,7 @@ describe("intake.saveRequirementAnswers", () => {
         values: expect.objectContaining({ status: "in_progress", signedOffBy: null }),
       }),
     ]);
-    expect(writesTo(writes, companyCategoryIntake)).toHaveLength(1);
+    expect(answersWrite(writes)).toBeDefined();
   });
 
   // Clearing only the row's signature left each signer's own row signed, so

@@ -92,6 +92,38 @@ describe("canceledEmailWording", () => {
     expect(passed.paragraphs.join(" ")).toContain("sind vorbei");
   });
 
+  test("a cancel made by deleting the account promises neither access nor kept data", () => {
+    const renewal = {
+      kind: "renewal",
+      invoiceNumber: "RE-2026-0001",
+      periodEnd: "2027-08-31",
+      reason: "window_passed",
+    } as const;
+    const moneyBack = {
+      kind: "money_back",
+      invoiceNumber: "RE-2026-0001",
+      creditNoteNumber: "GS-2026-0001",
+      refundOwed: true,
+      attached: true,
+    } as const;
+    for (const locale of ["de", "en", "nl"] as const) {
+      for (const mail of [renewal, moneyBack]) {
+        const kept = canceledEmailWording(mail, locale).paragraphs.join(" ");
+        const erased = canceledEmailWording(
+          { ...mail, accountErased: true },
+          locale,
+        ).paragraphs.join(" ");
+        expect(erased).not.toEqual(kept);
+        expect(erased).not.toMatch(
+          /bleiben in Ihrem Konto|stay in your account|blijven in uw/,
+        );
+        expect(erased).not.toMatch(
+          /Ihr Zugang bleibt|Your access stays|Uw toegang blijft/,
+        );
+      }
+    }
+  });
+
   test("carries no em dash in any language", () => {
     for (const locale of ["de", "en", "nl"] as const) {
       const texts = [

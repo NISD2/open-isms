@@ -50,6 +50,8 @@ interface Overview {
   totalAssessments: number;
   ceoCourseFinished: number;
   ceoCourseStarted: number;
+  /** GDPR erasures: requests carried out, accounts deleted by them, and how many the person did. */
+  erasures: { requests: number; people: number; selfService: number };
 }
 
 interface UserRow {
@@ -293,7 +295,7 @@ export function PlatformAdminPage({
       </div>
 
       {/* KPI cards */}
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-7">
         <StatCard
           label="Total Users"
           value={overview.totalUsers}
@@ -319,6 +321,11 @@ export function PlatformAdminPage({
           label="Not Activated"
           value={overview.totalUsers - overview.usersWithActivatedCompany}
           sub="draft shell only"
+        />
+        <StatCard
+          label="Erased"
+          value={overview.erasures.people}
+          sub={`${overview.erasures.requests} requests, ${overview.erasures.selfService} self-service`}
         />
       </div>
 
@@ -366,7 +373,7 @@ export function PlatformAdminPage({
             key: "erasures" as const,
             label: "Erasures",
             icon: Trash2,
-            count: undefined as number | undefined,
+            count: overview.erasures.requests as number | undefined,
           },
           {
             key: "pricing" as const,

@@ -119,9 +119,32 @@ export function buildErasureCertificate(
       ? "Complete deletion (no retained-evidence footprint)"
       : "Deletion with anonymisation of tamper-evident and tenant records";
   const filesDone = files.kind === "not_applicable" || files.kind === "complete";
-  const confirmation = filesDone
-    ? "Confirming that your account and all associated personal data have been deleted,\nas you requested."
+  // What a law requires us to keep (invoices): the record says so instead of claiming "all".
+  const keptByLaw = scope.retainedUnderLegalDuty ?? [];
+  const deleted = filesDone
+    ? keptByLaw.length > 0
+      ? "Confirming that your account and its personal data have been deleted, as you\nrequested."
+      : "Confirming that your account and all associated personal data have been deleted,\nas you requested."
     : 'Confirming that your account and the associated personal data in our database\nhave been deleted, as you requested. The organization\'s stored files are covered\nunder "Stored files" below, because their deletion is not recorded as complete.';
+  const confirmation =
+    keptByLaw.length > 0
+      ? `${deleted} What the law requires us to keep, such as invoices, is listed\nunder "Article 17(3) exceptions" below.`
+      : deleted;
+  const inFull = filesDone
+    ? "Erasure was carried out in full."
+    : 'Erasure of the database records was carried out in full; the stored files are as\ndescribed under "Stored files".';
+  const exceptions =
+    keptByLaw.length > 0
+      ? `Assessed. One exception applies, Art. 17(3)(b) GDPR (compliance with a legal
+obligation). The following is kept because a law requires it, for the period
+stated:
+
+${keptByLaw.map((item) => `- ${esc(item)}`).join("\n")}
+
+Everything else is as recorded above.${filesDone ? "" : ' The stored files are as described under "Stored files".'}`
+      : `Assessed. No exception applies: the account was not processed for journalism,
+public-interest, or scientific-research purposes, and no legal-retention duty
+attaches to it. ${inFull}`;
 
   return `Hello,
 
@@ -178,16 +201,14 @@ ${fmtCounts(scope.deleted)}
 ${fmtCounts(scope.anonymized)}
 ${storedFilesSection(files)}
 ### Processors and sub-processors
-Your data was processed only within our own systems and standard operational logs. Beyond the sub-processors listed below, which hold copies under our Article 28 agreements and delete it as part of this erasure and on their standard backup-retention cycle, it was not disclosed to any separate third-party recipient, so no separate Article 19 recipient notification was required.
+Your data was processed only within our own systems and standard operational logs. Beyond the sub-processors listed below, which hold copies under our Article 28 agreements and delete it as part of this erasure and on their standard backup-retention cycle, it was not disclosed to any separate third-party recipient, so no separate Article 19 recipient notification was required.${keptByLaw.length > 0 ? ' Our invoicing provider Qonto keeps what is listed under "Article 17(3) exceptions" for that period; this erasure does not delete it there.' : ""}
 ${scope.processorsInScope.length ? scope.processorsInScope.map((p) => `- ${esc(p)}`).join("\n") : "_none_"}
 
 ${scope.residualNotes.length ? `### Notes\n${scope.residualNotes.map((n) => `- ${esc(n)}`).join("\n")}\n` : ""}
 
 ## Article 17(3) exceptions
 
-Assessed. No exception applies: the account was not processed for journalism,
-public-interest, or scientific-research purposes, and no legal-retention duty
-attaches to it. ${filesDone ? "Erasure was carried out in full." : 'Erasure of the database records was carried out in full; the stored files are as\ndescribed under "Stored files".'}
+${exceptions}
 
 ## What was retained, and why
 

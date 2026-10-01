@@ -188,10 +188,10 @@
     }
   },
   "2.4": {
-    "summary": "Ihr Unternehmen muss Risiken, die Sie akzeptieren, klar dokumentieren und die Informationssicherheitsrichtlinie von der gesamten Geschäftsführung unterschreiben lassen. Sie sind fertig, wenn die Akzeptanz der Restrisiken festgehalten und die Richtlinie genehmigt ist.",
-    "applicability": "Jedes Unternehmen mit kritischen Diensten nach BSIG muss das umsetzen; kleinere Firmen ohne solche Dienste können es überspringen.",
+    "summary": "Ihr Unternehmen muss Risiken, die Sie akzeptieren, klar dokumentieren und die Informationssicherheitsrichtlinie von der Geschäftsleitung unterschreiben lassen. Sie sind fertig, wenn die Akzeptanz der Restrisiken festgehalten und die Richtlinie genehmigt ist.",
+    "applicability": "Jede besonders wichtige und wichtige Einrichtung muss das umsetzen (§ 30 Abs. 2 Nr. 1 und § 38 Abs. 1 BSIG). Die Größe bestimmt nur den Umfang (§ 30 Abs. 1 Satz 2 BSIG).",
     "quickTip": "Lassen Sie die Geschäftsführung die aktuelle Sicherheitsrichtlinie unterschreiben. Das ist der einfachste erste Schritt.",
-    "implementationSteps": "Erstellen Sie eine Liste aller Restrisiken mit Beschreibung, Bewertung und Begründung für die Akzeptanz.\nLassen Sie die Geschäftsführung diese Risikoakzeptanz und die Informationssicherheitsrichtlinie unterschreiben.\nNotieren Sie die Anzahl der akzeptierten Restrisiken.\nÜberprüfen Sie das vierteljährlich oder nach großen Änderungen.",
+    "implementationSteps": "Erstellen Sie eine Liste aller Restrisiken mit Beschreibung, Bewertung und Begründung für die Akzeptanz.\nLassen Sie die Geschäftsführung diese Risikoakzeptanz und die Informationssicherheitsrichtlinie unterschreiben.\nNotieren Sie die Anzahl der akzeptierten Restrisiken.\nÜberprüfen Sie das jährlich und nach großen Änderungen. Gesetzlich fest ist der Jahresrhythmus nur für Anbieter, für die die DVO gilt; das BSI empfiehlt, die Leitlinie spätestens alle zwei Jahre zu überprüfen.",
     "evidenceExample": "Unterschriebene Erklärung der Geschäftsführung, die die akzeptierten Restrisiken auflistet und die genehmigte Informationssicherheitsrichtlinie bestätigt.",
     "fields": {
       "riskAppetiteDocumented": {

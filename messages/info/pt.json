@@ -802,13 +802,15 @@
         "account": "Dados da conta: nome e endereço de email fornecidos através do Google OAuth durante o início de sessão",
         "forms": "Submissões de formulários: dados que introduz nos formulários de requisitos de conformidade",
         "files": "Ficheiros carregados: documentos de prova que carrega para a plataforma",
-        "technical": "Dados técnicos: endereço IP, tipo de navegador e datas e horas de acesso nos registos do servidor"
+        "technical": "Dados técnicos: endereço IP, tipo de navegador e datas e horas de acesso nos registos do servidor",
+        "billing": "Dados de faturação: se fizer uma encomenda, o nome e a morada da organização faturada, o seu número de IVA, o endereço de email para onde vai a fatura e, se os indicar, um segundo endereço para uma cópia e o seu número de encomenda. Verificamos o número de IVA no registo VIES da UE."
       },
       "purpose": {
         "heading": "Finalidade e Base Jurídica",
         "p1": "Tratamos os seus dados para as seguintes finalidades:",
         "items": {
           "contract": "Fornecimento da plataforma de conformidade NIS2 (art. 6.º, n.º 1, alínea b), do GDPR. Execução de um contrato)",
+          "billing": "Tratamento de encomendas, faturas e cancelamentos (art. 6.º, n.º 1, alínea b), do GDPR) e conservação das faturas durante o tempo que a lei fiscal exige (art. 6.º, n.º 1, alínea c), do GDPR)",
           "auth": "Autenticação de utilizadores e gestão de contas (art. 6.º, n.º 1, alínea b), do GDPR)",
           "security": "Garantia da segurança e integridade da nossa plataforma (art. 6.º, n.º 1, alínea f), do GDPR. Interesse legítimo)",
           "legal": "Cumprimento de obrigações legais (art. 6.º, n.º 1, alínea c), do GDPR)",
@@ -822,7 +824,8 @@
         "google": "Google (OAuth): autenticação, trata o seu nome e endereço de email para o início de sessão",
         "aws": "Amazon Web Services (S3): armazenamento de ficheiros, guarda os documentos de prova que carrega",
         "resend": "Resend: email transacional, entrega emails de notificação e de convite",
-        "close": "Close (Elastic Inc., Jackson, Wyoming, EUA): o nosso sistema de vendas (CRM). Para contas verificadas, trata o seu nome e endereço de email, dados sobre a sua conta e utilização (por exemplo registo, último início de sessão, progresso no curso, progresso na implementação da NIS 2, o seu plano e se lhe podemos enviar emails) e dados sobre a sua empresa (por exemplo nome, setor, número de colaboradores, país). As transferências para os EUA baseiam-se nas cláusulas contratuais-tipo da UE. Se a sua conta for eliminada, eliminamos também o seu contacto no Close."
+        "close": "Close (Elastic Inc., Jackson, Wyoming, EUA): o nosso sistema de vendas (CRM). Para contas verificadas, trata o seu nome e endereço de email, dados sobre a sua conta e utilização (por exemplo registo, último início de sessão, progresso no curso, progresso na implementação da NIS 2, o seu plano e se lhe podemos enviar emails) e dados sobre a sua empresa (por exemplo nome, setor, número de colaboradores, país). As transferências para os EUA baseiam-se nas cláusulas contratuais-tipo da UE. Se a sua conta for eliminada, eliminamos também o seu contacto no Close.",
+        "qonto": "Qonto (Paris, França): a nossa conta empresarial e a nossa faturação. Quando faz uma encomenda, a Qonto recebe os dados de faturação, emite as faturas e as notas de crédito e conserva-as."
       },
       "analytics": {
         "heading": "Análise de Utilização",
@@ -859,11 +862,12 @@
       "retention": {
         "heading": "Conservação dos Dados",
         "p1": "Os seus dados são conservados enquanto a sua conta estiver ativa e for necessário para as finalidades descritas acima. Os dados de conformidade (submissões de formulários, provas, registo de auditoria) são conservados durante o período legalmente exigido. Quando elimina a sua conta, os dados pessoais são removidos. As entradas anonimizadas do registo de auditoria podem ser conservadas.",
+        "invoices": "As faturas e as notas de crédito, com os dados de faturação que contêm, são conservadas durante pelo menos oito anos a contar do fim do ano civil em que foram emitidas, e mais tempo enquanto estiver em aberto uma liquidação de imposto para a qual sejam relevantes (§ 14b Abs. 1 UStG, § 147 Abs. 3 und 4 AO). Eliminar a sua conta não as elimina (art. 17.º, n.º 3, alínea b), do GDPR). A Qonto conserva-as durante o mesmo período.",
         "erasure": "Quando a sua conta é eliminada, enviamos-lhe por email uma confirmação do que foi eliminado, através do nosso fornecedor de email Resend (art. 12.º, n.º 3, do GDPR). Conservamos um registo do apagamento (nome, endereço de email, organização, número de processo e o que foi eliminado) para demonstrar que demos seguimento ao pedido (art. 5.º, n.º 2, do GDPR). O endereço de email é removido desse registo ao fim de três anos."
       },
       "changes": {
         "heading": "Alterações a Esta Política",
-        "p1": "Podemos atualizar esta política de privacidade periodicamente. A versão atual está sempre disponível nesta página. Última atualização: setembro de 2026."
+        "p1": "Podemos atualizar esta política de privacidade periodicamente. A versão atual está sempre disponível nesta página. Última atualização: outubro de 2026."
       }
     },
     "avv": {

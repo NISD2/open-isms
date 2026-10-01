@@ -191,8 +191,8 @@
     "summary": "Your management board needs to officially approve the information security policy and formally accept any risks your company won't fully eliminate. You're done when you have their signed approvals and a count of remaining accepted risks.",
     "applicability": "Every company in scope must do this; no one skips because leadership sign-off is required for all.",
     "quickTip": "Ask your management board to review and sign the information security policy at their next meeting.",
-    "implementationSteps": "Write a clear information security policy that fits your company's size and risks.\nDocument all identified risks in a simple list, noting which ones you'll accept after mitigation.\nGet every management board member to sign both the policy and the risk acceptance statement.\nCount the number of risks you're accepting (residual risks) and note the policy version and approval date.\nReview and update this quarterly or after big changes.",
-    "evidenceExample": "Signed document from the management board showing they reviewed, approved, and accepted the information security policy and any residual risks, with all members' signatures.",
+    "implementationSteps": "Write a clear information security policy that fits your company's size and risks.\nDocument all identified risks in a simple list, noting which ones you'll accept after mitigation.\nGet the management board to approve and sign both the policy and the risk acceptance statement.\nCount the number of risks you're accepting (residual risks) and note the policy version and approval date.\nReview and update this yearly and after big changes. A yearly cycle is a legal duty only for providers covered by the CIR; the BSI recommends reviewing the policy at least every two years.",
+    "evidenceExample": "Signed document from the management board showing they reviewed, approved, and accepted the information security policy and any residual risks, with the management board's signature.",
     "fields": {
       "riskAppetiteDocumented": {
         "label": "Risk Appetite Documented",

@@ -153,4 +153,26 @@ describe("buildErasureCertificate", () => {
     expect(text).not.toMatch(/(?<!\\)\]\(/);
     expect(text).toContain("\\[klick\\]");
   });
+
+  test("a payer's certificate names the invoices kept by law instead of claiming all is gone", () => {
+    const base = row(true);
+    const payer = {
+      ...base,
+      scope: {
+        ...base.scope,
+        retainedUnderLegalDuty: [
+          "Invoices issued to the organization (§ 147 AO, § 14b UStG).",
+        ],
+      },
+    };
+    const text = buildErasureCertificate(payer, { kind: "complete", deleted: 2 });
+    expect(text).not.toContain(ALL_DELETED);
+    expect(text).not.toContain("no legal-retention duty");
+    expect(text).toContain("Art. 17(3)(b) GDPR");
+    expect(text).toContain("- Invoices issued to the organization");
+    // Nothing kept by law is claimed as erased "in full", and Qonto's copy is named.
+    expect(text).not.toContain(IN_FULL);
+    expect(text).toContain("Everything else is as recorded above.");
+    expect(text).toContain("Qonto keeps what is listed");
+  });
 });
