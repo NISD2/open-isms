@@ -18,27 +18,22 @@
  */
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
+import { AlertCircle, Loader2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { type ReactNode, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Form } from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
 import { Link } from "@/i18n/navigation";
-import { orderSchemaWithVatCheck } from "@/lib/billing/order";
+import { formatInvoiceDay, orderSchemaWithVatCheck } from "@/lib/billing/order";
 import { TERMS_VERSION, termsVersionLabel } from "@/lib/billing/terms";
 import { trpc } from "@/lib/trpc/client";
 import { InvoicePreview } from "./InvoicePreview";
 import { OrderFields, type OrderValues, orderDefaults } from "./OrderFields";
-
-/** An ISO calendar day, shown as that same day in the reader's locale. */
-const formatDay = (isoDay: string, locale: string) =>
-  new Intl.DateTimeFormat(locale, { dateStyle: "long", timeZone: "UTC" }).format(
-    new Date(`${isoDay}T12:00:00Z`),
-  );
+import { OrderPlaced } from "./OrderPlaced";
 
 /** A legal page, opened in a new tab so the filled form is not lost. */
 const legalLink = (href: "/terms" | "/avv", chunks: ReactNode) => (
@@ -150,23 +145,12 @@ export function OrderForm({
 
   if (place.data) {
     return (
-      <Alert>
-        <CheckCircle2 className="h-4 w-4" />
-        <AlertTitle>{t("result.title")}</AlertTitle>
-        <AlertDescription className="space-y-3">
-          <p>
-            {t("result.body", {
-              number: place.data.number,
-              gross: place.data.gross,
-              email: form.getValues("invoiceEmail"),
-              dueDate: formatDay(place.data.dueDate, locale),
-            })}
-          </p>
-          <Link href="/billing" className="font-medium underline underline-offset-4">
-            {t("order.toInvoices")}
-          </Link>
-        </AlertDescription>
-      </Alert>
+      <OrderPlaced
+        number={place.data.number}
+        gross={place.data.gross}
+        email={form.getValues("invoiceEmail")}
+        dueDate={formatInvoiceDay(place.data.dueDate, locale)}
+      />
     );
   }
 

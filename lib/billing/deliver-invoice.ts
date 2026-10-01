@@ -14,7 +14,7 @@ import { invoiceEmail, sendMail } from "@/lib/mail";
 import { putObject } from "@/lib/storage";
 import { invoice } from "@/schema";
 import { alertOperators } from "./alert";
-import { invoiceEmailWording } from "./order";
+import { type InvoiceWhere, invoiceEmailWording } from "./order";
 import { downloadPdf, getAttachment, getInvoice, type QontoConfig } from "./qonto";
 import { httpsHostOf } from "./sandbox-gate";
 
@@ -97,27 +97,40 @@ const archivePdf = async (input: DeliverInvoiceInput, pdf: Uint8Array) => {
   }
 };
 
-const sendInvoice = async (input: DeliverInvoiceInput, document: InvoiceDocument) => {
-  // With the PDF attached the link is left out, so the email names one place the invoice is.
-  const invoiceUrl = document.pdf ? null : document.invoiceUrl;
+/**
+ * Where the email can point: the PDF with Qonto's page linked beside it, so the payer can open it
+ * without the attachment, or the page alone. Null when Qonto had neither.
+ */
+const invoiceWhere = ({ pdf, invoiceUrl }: InvoiceDocument): InvoiceWhere | null =>
+  pdf
+    ? { attached: true, invoiceUrl }
+    : invoiceUrl
+      ? { attached: false, invoiceUrl }
+      : null;
+
+const sendInvoice = async (
+  input: DeliverInvoiceInput,
+  pdf: Uint8Array | null,
+  where: InvoiceWhere,
+) => {
   const wording = invoiceEmailWording({
     number: input.number,
     locale: input.locale,
-    invoiceUrl,
+    where,
     termsVersion: input.termsVersion,
   });
-  const content = invoiceEmail({ ...wording, invoiceUrl });
+  const content = invoiceEmail({ ...wording, invoiceUrl: where.invoiceUrl });
   const result = await sendMail({
     emailType: "billing.invoice",
     to: [...input.recipients],
     ...content,
     idempotencyKey: `invoice-${input.number}`,
-    ...(document.pdf
+    ...(pdf
       ? {
           attachments: [
             {
               filename: `${input.number}.pdf`,
-              content: document.pdf,
+              content: pdf,
               contentType: "application/pdf",
             },
           ],
@@ -140,9 +153,10 @@ export async function deliverInvoice(input: DeliverInvoiceInput): Promise<void> 
     input.wait ?? sleep,
   );
   if (document.pdf) await archivePdf(input, document.pdf);
-  if (!document.pdf && !document.invoiceUrl) {
+  const where = invoiceWhere(document);
+  if (!where) {
     await notSent(input, "Qonto had neither a PDF nor a link for it");
     return;
   }
-  await sendInvoice(input, document);
+  await sendInvoice(input, document.pdf, where);
 }

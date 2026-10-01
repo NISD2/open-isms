@@ -163,6 +163,13 @@ export interface InvoiceDates {
   readonly performanceEndDate: string;
 }
 
+/** An ISO calendar day as the reader writes it, British in English, as the terms are: "1 October 2026". */
+export const formatInvoiceDay = (isoDay: string, locale: string): string =>
+  new Intl.DateTimeFormat(locale === "en" ? "en-GB" : locale, {
+    dateStyle: "long",
+    timeZone: "UTC",
+  }).format(new Date(`${isoDay}T12:00:00Z`));
+
 /**
  * Dates for the invoice, as ISO calendar days, which is what the Qonto endpoint wants. Thirty days
  * to pay, and the service period is the year that starts the day they order, because access starts
@@ -230,15 +237,30 @@ export const invoiceWording = (
  * two things repeated here are the ones a payer acts on without opening it: the term, and the
  * number to quote.
  */
+/**
+ * Where the email puts the invoice: the PDF attached, with Qonto's public invoice page linked as
+ * well when there is one, or only that page when the PDF never rendered.
+ */
+export type InvoiceWhere =
+  | { readonly attached: true; readonly invoiceUrl: string | null }
+  | { readonly attached: false; readonly invoiceUrl: string };
+
 export const invoiceEmailWording = (opts: {
   readonly number: string;
   readonly locale: "de" | "en";
-  /** Where the invoice is when the PDF could not be attached: Qonto's public invoice page. */
-  readonly invoiceUrl: string | null;
+  readonly where: InvoiceWhere;
   /** The AGB version the order accepted; the email names it when there is one. */
   readonly termsVersion: string | null;
 }): { readonly subject: string; readonly paragraphs: readonly string[] } => {
-  const { number, locale, invoiceUrl, termsVersion } = opts;
+  const { number, locale, where, termsVersion } = opts;
+  const online =
+    where.attached && where.invoiceUrl
+      ? [
+          locale === "de"
+            ? `Online ansehen und herunterladen: ${where.invoiceUrl}`
+            : `View and download it online: ${where.invoiceUrl}`,
+        ]
+      : [];
   const terms = termsVersion
     ? locale === "de"
       ? [
@@ -251,9 +273,10 @@ export const invoiceEmailWording = (opts: {
         subject: `Rechnung ${number}: NIS 2 Durchgang, Jahreslizenz`,
         paragraphs: [
           "Guten Tag,",
-          invoiceUrl
-            ? `die Rechnung ${number} für die Jahreslizenz NIS 2 Durchgang finden Sie hier: ${invoiceUrl}`
-            : `anbei erhalten Sie die Rechnung ${number} für die Jahreslizenz NIS 2 Durchgang.`,
+          where.attached
+            ? `anbei erhalten Sie die Rechnung ${number} für die Jahreslizenz NIS 2 Durchgang.`
+            : `die Rechnung ${number} für die Jahreslizenz NIS 2 Durchgang finden Sie hier: ${where.invoiceUrl}`,
+          ...online,
           "Zahlbar innerhalb von 30 Tagen. Bitte geben Sie bei der Überweisung die Rechnungsnummer als Verwendungszweck an. 30 Tage Geld zurück ab Bestelldatum.",
           ...terms,
           "Mit freundlichen Grüßen",
@@ -264,9 +287,10 @@ export const invoiceEmailWording = (opts: {
         subject: `Invoice ${number}: NIS 2 guided pass, annual licence`,
         paragraphs: [
           "Hello,",
-          invoiceUrl
-            ? `invoice ${number} for the NIS 2 guided pass annual licence is here: ${invoiceUrl}`
-            : `please find attached invoice ${number} for the NIS 2 guided pass annual licence.`,
+          where.attached
+            ? `please find attached invoice ${number} for the NIS 2 guided pass annual licence.`
+            : `invoice ${number} for the NIS 2 guided pass annual licence is here: ${where.invoiceUrl}`,
+          ...online,
           "Payable within 30 days. Please quote the invoice number as the payment reference. Thirty days money back from the order date.",
           ...terms,
           "Kind regards",
