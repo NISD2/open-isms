@@ -11,7 +11,7 @@
 
 import { type NextRequest, NextResponse } from "next/server";
 import { verifyCronBearer } from "@/lib/cron/auth";
-import { deadlinesOnce } from "@/lib/cron/deadlines-schedule";
+import { deadlinesOnce, skipReason } from "@/lib/cron/deadlines-schedule";
 import { env } from "@/lib/env";
 
 export const dynamic = "force-dynamic";
@@ -36,7 +36,7 @@ export async function GET(req: NextRequest) {
         stats: outcome.stats,
       });
     case "skipped":
-      return NextResponse.json({ ok: true, skipped: outcome.reason });
+      return NextResponse.json({ ok: true, skipped: skipReason(outcome) });
     case "failed":
       // Don't echo internal error details to the response — even though the
       // endpoint is CRON_SECRET-gated, leaking schema/connection-string snippets
