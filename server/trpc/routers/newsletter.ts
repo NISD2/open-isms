@@ -105,8 +105,10 @@ function dispatchNewsletter(opts: {
       const batch = recipients.slice(i, i + BURST_SIZE);
       for (const r of batch) {
         if (!r.email) continue;
+        const to = r.email;
         const unsubUrl = buildUnsubscribeUrl(r.id);
-        const email = await newsletterEmail({
+        // One recipient's render or send failing must not stop the rest of the issue.
+        newsletterEmail({
           subject,
           preheader,
           bodyHtml,
@@ -115,17 +117,20 @@ function dispatchNewsletter(opts: {
           forwardUrl,
           cta,
           viewInBrowserUrl,
-        });
-        sendMail({
-          emailType: "newsletter.issue",
-          recipientUserId: r.id,
-          to: r.email,
-          subject: email.subject,
-          html: email.html,
-          text: email.text,
-          replyTo: REPLY_TO,
-          fromEmail: NEWS_FROM_EMAIL,
-        }).catch(() => {});
+        })
+          .then((email) =>
+            sendMail({
+              emailType: "newsletter.issue",
+              recipientUserId: r.id,
+              to,
+              subject: email.subject,
+              html: email.html,
+              text: email.text,
+              replyTo: REPLY_TO,
+              fromEmail: NEWS_FROM_EMAIL,
+            }),
+          )
+          .catch(() => {});
       }
       if (i + BURST_SIZE < recipients.length) {
         await sleep(BURST_INTERVAL_MS);

@@ -1,4 +1,4 @@
-import { randomBytes } from "crypto";
+import { randomBytes } from "node:crypto";
 import { eq, inArray } from "drizzle-orm";
 import { logAudit } from "@/lib/audit";
 import {
@@ -302,27 +302,28 @@ export async function processTeamRoleAssignments(
       const inviteUrl = `${appUrl}/invite/${token}`;
       const inviterName = opts.userName ?? "Your team admin";
 
-      sendMail({
-        emailType: "account.invite",
-        to: email,
-        ...(await inviteEmail({
-          companyName: opts.companyName,
-          inviterName,
-          inviteUrl,
-          role: "member",
-        })),
-      }).then((r) => {
-        if (r.success) {
-          logAudit({
-            companyId: opts.companyId,
-            userId: opts.userId,
-            action: "email.invite_sent",
-            entityType: "email",
-            entityId: r.id ?? null,
-            description: `Team role invite sent to ${email} (${roleKeys.join(", ")})`,
-          });
-        }
-      });
+      inviteEmail({
+        companyName: opts.companyName,
+        inviterName,
+        inviteUrl,
+        role: "member",
+      })
+        .then((content) =>
+          sendMail({ emailType: "account.invite", to: email, ...content }),
+        )
+        .then((r) => {
+          if (r.success) {
+            logAudit({
+              companyId: opts.companyId,
+              userId: opts.userId,
+              action: "email.invite_sent",
+              entityType: "email",
+              entityId: r.id ?? null,
+              description: `Team role invite sent to ${email} (${roleKeys.join(", ")})`,
+            });
+          }
+        })
+        .catch((err) => console.error("[setup] invite email not sent", err));
     }
   }
 }

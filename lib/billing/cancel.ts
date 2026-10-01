@@ -254,13 +254,18 @@ const cancelRenewal = async (
         },
         contact.locale,
       );
-      const sent = await sendMail({
-        emailType: "billing.canceled",
-        to: contact.email,
-        ...(await documentEmail(wording)),
-        idempotencyKey: `renewal-canceled-${input.billingAccountId}-${current.periodEnd}`,
-        failureLabel: input.erasure?.failureLabel,
-      }).catch(() => ({ success: false }));
+      // The renewal is already stopped: a failed render, like a failed send, only alerts.
+      const sent = await documentEmail(wording)
+        .then((content) =>
+          sendMail({
+            emailType: "billing.canceled",
+            to: contact.email,
+            ...content,
+            idempotencyKey: `renewal-canceled-${input.billingAccountId}-${current.periodEnd}`,
+            failureLabel: input.erasure?.failureLabel,
+          }),
+        )
+        .catch(() => ({ success: false }));
       if (!sent.success) {
         await alertOperators("Kündigungsbestätigung nicht zugestellt", [
           `Die Verlängerung für billing account ${input.billingAccountId} ist gekündigt, die Bestätigung an ${contact.email} ging aber nicht raus.`,

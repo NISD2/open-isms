@@ -50,17 +50,17 @@ export const advisoryRouter = router({
     // and not the only revenue event this company has.
     const admins = [...getPlatformAdminEmails()];
     if (admins.length > 0) {
-      await sendMail({
-        emailType: "internal.advisory_request",
-        to: admins,
-        ...(await advisoryRequestEmail({
-          topic: input.topic,
-          email: input.email,
-          sourcePath: input.sourcePath ?? null,
-          requirementCode: input.requirementCode ?? null,
-          adminUrl: `${getAppUrl()}/platform-admin/advisory`,
-        })),
-      }).catch((err) => console.error("[advisory] Failed to send operator alert:", err));
+      await advisoryRequestEmail({
+        topic: input.topic,
+        email: input.email,
+        sourcePath: input.sourcePath ?? null,
+        requirementCode: input.requirementCode ?? null,
+        adminUrl: `${getAppUrl()}/platform-admin/advisory`,
+      })
+        .then((content) =>
+          sendMail({ emailType: "internal.advisory_request", to: admins, ...content }),
+        )
+        .catch((err) => console.error("[advisory] Failed to send operator alert:", err));
     }
 
     return { id: row.id };

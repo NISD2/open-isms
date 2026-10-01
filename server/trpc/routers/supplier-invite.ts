@@ -142,15 +142,15 @@ export const supplierInviteRouter = router({
       // The personal message stays on the row: the supplier reads it on the
       // invite page, never in the mail (lib/mail/templates.ts).
       const inviteUrl = `${getAppUrl()}/supplier-invite/${row.token}`;
-      sendMail({
-        emailType: "supplier.invite",
-        to: email,
-        ...(await entityInvitesSupplierEmail({
-          entityName: entity?.name ?? null,
-          inviteUrl,
-          hasMessage: message !== null && message.trim() !== "",
-        })),
-      }).catch((err) => console.error("[supplier-invite] email send failed:", err));
+      entityInvitesSupplierEmail({
+        entityName: entity?.name ?? null,
+        inviteUrl,
+        hasMessage: message !== null && message.trim() !== "",
+      })
+        .then((content) =>
+          sendMail({ emailType: "supplier.invite", to: email, ...content }),
+        )
+        .catch((err) => console.error("[supplier-invite] email send failed:", err));
 
       return {
         id: row.id,

@@ -304,6 +304,10 @@ async function executeDigestBatch(
 
   for (const [index, item] of batch.entries()) {
     const footer = preferenceFooterFor(item.userId, item.locale);
+    const renderFailed = (err: unknown) => {
+      console.error(`[digest] ${item.kind} digest not rendered`, err);
+      return "render_failed" as const;
+    };
     const content =
       item.kind === "daily"
         ? await compileDailyDigest(db, item.userId, item.companyId).then((d) =>
@@ -318,7 +322,7 @@ async function executeDigestBatch(
                   compliancePercentage: d.compliancePercentage,
                   dashboardUrl: d.dashboardUrl,
                   footer,
-                })
+                }).catch(renderFailed)
               : null,
           )
         : await compileManagementDigest(db, item.userId, item.companyId).then((d) =>
@@ -335,12 +339,17 @@ async function executeDigestBatch(
                   nextStep: d.nextStep,
                   dashboardUrl: d.dashboardUrl,
                   footer,
-                })
+                }).catch(renderFailed)
               : null,
           );
 
     // Emptied out between queueing and sending: nothing left to say.
     if (!content) continue;
+    // Counted like a failed send. Nothing is claimed yet, so the next batch tries this person again.
+    if (content === "render_failed") {
+      result.failed++;
+      continue;
+    }
 
     // Claim before sending, exactly as the lifecycle dispatcher does. The
     // partial unique index arbitrates, so a second press or a second tab

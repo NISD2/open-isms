@@ -173,17 +173,21 @@ export async function POST(request: Request) {
     const admins = [...getPlatformAdminEmails()];
     await Promise.all([
       admins.length > 0
-        ? sendMail({
-            emailType: "internal.new_signup_alert",
-            to: admins,
-            ...(await newUserSignupEmail({
-              userEmail: email,
-              userName: userRow.name,
-              provider: "credentials",
-            })),
-          }).catch((err) =>
-            console.error("[verify-email] Failed to send admin signup alert:", err),
-          )
+        ? newUserSignupEmail({
+            userEmail: email,
+            userName: userRow.name,
+            provider: "credentials",
+          })
+            .then((content) =>
+              sendMail({
+                emailType: "internal.new_signup_alert",
+                to: admins,
+                ...content,
+              }),
+            )
+            .catch((err) =>
+              console.error("[verify-email] Failed to send admin signup alert:", err),
+            )
         : Promise.resolve(),
       sendWelcomeEmail({ name: userRow.name, email }).catch((err) =>
         console.error("[verify-email] Failed to send welcome email:", err),

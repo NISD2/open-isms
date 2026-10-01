@@ -451,17 +451,21 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           const admins = [...getPlatformAdminEmails()];
           await Promise.all([
             admins.length > 0
-              ? sendMail({
-                  emailType: "internal.new_signup_alert",
-                  to: admins,
-                  ...(await newUserSignupEmail({
-                    userEmail: authUser.email,
-                    userName: newName,
-                    provider: account.provider,
-                  })),
-                }).catch((err) =>
-                  console.error("[auth] Failed to send admin signup alert:", err),
-                )
+              ? newUserSignupEmail({
+                  userEmail: authUser.email,
+                  userName: newName,
+                  provider: account.provider,
+                })
+                  .then((content) =>
+                    sendMail({
+                      emailType: "internal.new_signup_alert",
+                      to: admins,
+                      ...content,
+                    }),
+                  )
+                  .catch((err) =>
+                    console.error("[auth] Failed to send admin signup alert:", err),
+                  )
               : Promise.resolve(),
             sendWelcomeEmail({ name: newName, email: authUser.email }).catch((err) =>
               console.error("[auth] Failed to send welcome email:", err),

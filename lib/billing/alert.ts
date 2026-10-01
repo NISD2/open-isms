@@ -20,9 +20,10 @@ export const alertOperators = async (subject: string, lines: readonly string[]) 
   console.error(maskAddressesIn(`[billing] ${subject}\n${lines.join("\n")}`));
   const admins = [...getPlatformAdminEmails()];
   if (admins.length === 0) return;
-  await sendMail({
-    emailType: "internal.billing_alert",
-    to: admins,
-    ...(await billingAlertEmail({ subject, lines })),
-  }).catch((err) => console.error("[billing] operator alert not sent", err));
+  // Rendered inside the chain, so a failed render is caught like a failed send.
+  await billingAlertEmail({ subject, lines })
+    .then((content) =>
+      sendMail({ emailType: "internal.billing_alert", to: admins, ...content }),
+    )
+    .catch((err) => console.error("[billing] operator alert not sent", err));
 };
