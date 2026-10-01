@@ -63,7 +63,11 @@ export function DeleteAccountDialog({
               <li>{t("whatEmail", { email })}</li>
             </ul>
             <div className="space-y-1.5">
-              <Label htmlFor="delete-account-email" className="font-normal">
+              {/* block, not the Label's flex: the sentence and the address wrap as one line. */}
+              <Label
+                htmlFor="delete-account-email"
+                className="block font-normal leading-relaxed"
+              >
                 {t("confirmLabel")} <span className="font-medium font-mono">{email}</span>
               </Label>
               <Input
