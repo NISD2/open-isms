@@ -94,7 +94,7 @@ const dayFormat = (iso: string, locale: EmailLocale) =>
     { dateStyle: "long", timeZone: "UTC" },
   ).format(new Date(`${iso}T12:00:00Z`));
 
-export type CanceledEmail =
+export type CanceledEmail = (
   | {
       readonly kind: "money_back";
       readonly invoiceNumber: string;
@@ -108,13 +108,41 @@ export type CanceledEmail =
       readonly invoiceNumber: string;
       readonly periodEnd: string;
       readonly reason: Extract<CancelWindow, { kind: "renewal" }>["reason"];
-    };
+    }
+) & {
+  /** The holder is deleting their account with this cancel, so nothing stays in it. */
+  readonly accountErased?: boolean;
+};
+
+/** The line before the sign-off: what becomes of their account. */
+const ACCOUNT_LINE = {
+  de: {
+    kept: "Ihre Organisationen und alles, was Sie eingetragen haben, bleiben in Ihrem Konto erhalten.",
+    erased:
+      "Ihr Konto wird gerade gelöscht. Die Bestätigung der Löschung kommt in einer eigenen E-Mail.",
+  },
+  nl: {
+    kept: "Uw organisaties en alles wat u heeft ingevoerd, blijven in uw account bewaard.",
+    erased:
+      "Uw account wordt nu verwijderd. De bevestiging van de verwijdering komt in een aparte e-mail.",
+  },
+  en: {
+    kept: "Your organizations and everything you entered stay in your account.",
+    erased:
+      "Your account is being deleted now. The erasure confirmation follows in a separate email.",
+  },
+} as const satisfies Record<
+  EmailLocale,
+  { readonly kept: string; readonly erased: string }
+>;
 
 /** The confirmation a customer gets for either cancel, in their language. */
 export const canceledEmailWording = (
   mail: CanceledEmail,
   locale: EmailLocale,
 ): { readonly subject: string; readonly paragraphs: readonly string[] } => {
+  const erased = mail.accountErased === true;
+  const accountLine = ACCOUNT_LINE[locale][erased ? "erased" : "kept"];
   if (mail.kind === "renewal") {
     const end = dayFormat(mail.periodEnd, locale);
     const inv = mail.invoiceNumber;
@@ -126,8 +154,8 @@ export const canceledEmailWording = (
           paragraphs: [
             "Guten Tag,",
             "Sie haben die Jahreslizenz NIS 2 Durchgang gekündigt. Sie wird nicht verlängert.",
-            `Ihr Zugang bleibt bis zum Ende des bezahlten Jahres am ${end} bestehen. ${firstOnly ? "Die 30 Tage Geld zurück gelten nur für die erste Bestellung eines Kontos" : "Die 30 Tage Geld zurück sind vorbei"}, deshalb bleibt die Rechnung ${inv} gültig. Ist sie noch offen, zahlen Sie sie bitte wie vereinbart.`,
-            "Ihre Organisationen und alles, was Sie eingetragen haben, bleiben in Ihrem Konto erhalten.",
+            `${erased ? "" : `Ihr Zugang bleibt bis zum Ende des bezahlten Jahres am ${end} bestehen. `}${firstOnly ? "Die 30 Tage Geld zurück gelten nur für die erste Bestellung eines Kontos" : "Die 30 Tage Geld zurück sind vorbei"}, deshalb bleibt die Rechnung ${inv} gültig. Ist sie noch offen, zahlen Sie sie bitte wie vereinbart.`,
+            accountLine,
             "Mit freundlichen Grüßen",
             "nisd2.eu",
           ],
@@ -138,8 +166,8 @@ export const canceledEmailWording = (
           paragraphs: [
             "Goedendag,",
             "U heeft de jaarlicentie NIS 2 begeleide doorloop opgezegd. Deze wordt niet verlengd.",
-            `Uw toegang blijft tot het einde van het betaalde jaar op ${end} bestaan. ${firstOnly ? "De 30 dagen geld terug gelden alleen voor de eerste bestelling van een account" : "De 30 dagen geld terug zijn voorbij"}, daarom blijft factuur ${inv} geldig. Staat die nog open, betaal deze dan zoals afgesproken.`,
-            "Uw organisaties en alles wat u heeft ingevoerd, blijven in uw account bewaard.",
+            `${erased ? "" : `Uw toegang blijft tot het einde van het betaalde jaar op ${end} bestaan. `}${firstOnly ? "De 30 dagen geld terug gelden alleen voor de eerste bestelling van een account" : "De 30 dagen geld terug zijn voorbij"}, daarom blijft factuur ${inv} geldig. Staat die nog open, betaal deze dan zoals afgesproken.`,
+            accountLine,
             "Met vriendelijke groet",
             "nisd2.eu",
           ],
@@ -150,8 +178,8 @@ export const canceledEmailWording = (
           paragraphs: [
             "Hello,",
             "You have canceled the NIS 2 guided pass annual licence. It will not renew.",
-            `Your access stays open until the end of the paid year on ${end}. ${firstOnly ? "The thirty days money back apply only to an account's first order" : "The thirty days money back have passed"}, so invoice ${inv} stands. If it is still open, please pay it as agreed.`,
-            "Your organizations and everything you entered stay in your account.",
+            `${erased ? "" : `Your access stays open until the end of the paid year on ${end}. `}${firstOnly ? "The thirty days money back apply only to an account's first order" : "The thirty days money back have passed"}, so invoice ${inv} stands. If it is still open, please pay it as agreed.`,
+            accountLine,
             "Kind regards",
             "nisd2.eu",
           ],
@@ -170,7 +198,7 @@ export const canceledEmailWording = (
           refundOwed
             ? "Sie hatten die Rechnung schon bezahlt. Wir überweisen Ihnen den Betrag innerhalb von 30 Tagen nach der Kündigung zurück, auf das Konto, von dem Ihre Zahlung kam."
             : "Bei uns ist noch keine Zahlung eingegangen, und die Rechnung müssen Sie nicht mehr bezahlen. Haben Sie den Betrag schon überwiesen, erstatten wir ihn innerhalb von 30 Tagen nach ihrem Eingang.",
-          "Ihre Organisationen und alles, was Sie eingetragen haben, bleiben in Ihrem Konto erhalten.",
+          accountLine,
           "Mit freundlichen Grüßen",
           "nisd2.eu",
         ],
@@ -184,7 +212,7 @@ export const canceledEmailWording = (
           refundOwed
             ? "U had de factuur al betaald. Wij maken het bedrag binnen 30 dagen na de opzegging terug over naar de rekening waarvan uw betaling kwam."
             : "Bij ons is nog geen betaling binnengekomen, en de factuur hoeft u niet meer te betalen. Heeft u het bedrag al overgemaakt, dan betalen wij het binnen 30 dagen na ontvangst terug.",
-          "Uw organisaties en alles wat u heeft ingevoerd, blijven in uw account bewaard.",
+          accountLine,
           "Met vriendelijke groet",
           "nisd2.eu",
         ],
@@ -198,7 +226,7 @@ export const canceledEmailWording = (
           refundOwed
             ? "You had already paid the invoice. We will transfer the amount back within 30 days of the cancellation, to the account your payment came from."
             : "No payment has reached us yet, and you no longer need to pay the invoice. If you have already transferred the amount, we refund it within 30 days of its arrival.",
-          "Your organizations and everything you entered stay in your account.",
+          accountLine,
           "Kind regards",
           "nisd2.eu",
         ],

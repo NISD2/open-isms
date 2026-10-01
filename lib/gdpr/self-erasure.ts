@@ -27,6 +27,7 @@ import { and, count, eq, inArray, isNotNull, ne, or } from "drizzle-orm";
 import { logAudit } from "@/lib/audit";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import {
+  type CancelOutcome,
   cancelAuditDescription,
   cancelSubscription,
   openCancel,
@@ -48,6 +49,8 @@ export type SelfErasureRefusal =
   | "cancel_by_us"
   /** The cancel made before the erasure failed in Qonto; nothing was deleted. */
   | "cancel_failed"
+  /** Qonto did not answer the cancel clearly; nothing was deleted and the operators check it. */
+  | "cancel_unclear"
   /** An order or cancel is running on the account right now; trying again in a minute works. */
   | "billing_busy"
   | "other_members"
@@ -252,6 +255,7 @@ export async function cancelLicencesForErasure(
       mode,
       billingAccountId,
       userId: person.userId,
+      erasure: { failureLabel: `self-erasure, billing account ${billingAccountId}` },
     });
     if (outcome.ok) {
       await logAudit({
@@ -267,9 +271,7 @@ export async function cancelLicencesForErasure(
     } else if (outcome.reason !== "no_invoice") {
       // no_invoice means it was cancelled meanwhile, so there is nothing left to do for it.
       console.error(`[self-erasure] cancel before erasure failed: ${outcome.message}`);
-      throw new SelfErasureRefused(
-        outcome.reason === "pending" ? "billing_busy" : "cancel_failed",
-      );
+      throw new SelfErasureRefused(REFUSAL_FOR[outcome.reason]);
     }
   }
 }
@@ -323,6 +325,17 @@ export const assertSelfErasureAllowed =
     // cancelLicencesForErasure ran just before: a licence still open here did not get cancelled.
     if (decision.cancels.length > 0) throw new SelfErasureRefused("cancel_first");
   };
+
+/** What the dialog says when the cancel before the erasure did not go through. */
+const REFUSAL_FOR = {
+  pending: "billing_busy",
+  qonto: "cancel_failed",
+  // The credit note may exist; the order-check mark refuses a retry until an operator has looked.
+  qonto_unknown: "cancel_unclear",
+} as const satisfies Record<
+  Exclude<Extract<CancelOutcome, { ok: false }>["reason"], "no_invoice">,
+  SelfErasureRefusal
+>;
 
 /** Postgres lock_not_available, raised by NOWAIT when the row is locked. */
 const LOCK_NOT_AVAILABLE = "55P03";
