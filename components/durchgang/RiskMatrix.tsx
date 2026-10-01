@@ -80,7 +80,7 @@ export function RiskMatrix({
                       "flex h-14 items-center justify-center rounded-lg px-0.5 text-center text-[11px] leading-tight font-semibold transition-opacity sm:h-[4.5rem] sm:px-1 sm:text-sm",
                       LEVEL_FILL[level],
                       !on && "opacity-20",
-                      highlight &&
+                      (highlight || counts) &&
                         on &&
                         "ring-2 ring-foreground ring-offset-2 ring-offset-background",
                     )}
