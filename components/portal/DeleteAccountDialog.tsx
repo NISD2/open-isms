@@ -35,9 +35,16 @@ export function DeleteAccountDialog({
 }) {
   const t = useTranslations("portal.deleteAccount");
   const check = trpc.user.deletionCheck.useQuery(undefined, { enabled: open });
+  const utils = trpc.useUtils();
   const [typed, setTyped] = useState("");
   const remove = trpc.user.deleteAccount.useMutation({
     onSuccess: () => signOut({ callbackUrl: "/" }),
+    // The licence may have been cancelled before the erasure was refused.
+    onError: () =>
+      Promise.all([
+        utils.user.deletionCheck.invalidate(),
+        utils.billing.status.invalidate(),
+      ]),
   });
   const matches = typed.trim().toLowerCase() === email.trim().toLowerCase();
   const answer = check.data;
@@ -51,7 +58,7 @@ export function DeleteAccountDialog({
   const needsSignIn =
     (answer && !answer.allowed && answer.reason === "reauth") ||
     remove.error?.message === "reauth";
-  // A licence still open to cancel is cancelled first, under Billing, the one place a cancel is made.
+  // A licence the deletion could not cancel itself is cancelled under Billing.
   const needsCancel =
     (answer && !answer.allowed && answer.reason === "cancel_first") ||
     remove.error?.message === "cancel_first";
@@ -94,6 +101,11 @@ export function DeleteAccountDialog({
               <li>{t("whatAccount")}</li>
               {answer.organization ? (
                 <li>{t("whatOrganization", { name: answer.organization })}</li>
+              ) : null}
+              {answer.licence === "money_back" ? (
+                <li>{t("whatLicenceMoneyBack")}</li>
+              ) : answer.licence === "renewal" ? (
+                <li>{t("whatLicenceRenewal")}</li>
               ) : null}
               <li>{t("whatEmail", { email })}</li>
               {answer.invoicesKept ? <li>{t("whatInvoices")}</li> : null}

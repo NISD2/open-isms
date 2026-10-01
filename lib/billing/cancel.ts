@@ -81,6 +81,12 @@ export interface CancelInput {
   /** The account holder, who asked for it. */
   readonly userId: string;
   readonly now?: Date;
+  /**
+   * Set when the holder's account is erased right after (lib/gdpr/self-erasure.ts): the email says
+   * so instead of promising that their data stays, and a failed send is recorded under this label
+   * instead of the address, which must not outlive the erasure (lib/mail/send.ts failureLabel).
+   */
+  readonly erasure?: { readonly failureLabel: string };
 }
 
 const failure = (
@@ -145,14 +151,10 @@ export const cancelOption = async (
 };
 
 /**
- * Whether the account still has a cancel open (money back, or a renewal not yet stopped). Deleting
- * the holder's account would leave it running with nobody left who may cancel it.
+ * The cancel the account still has open (money back, or a renewal not yet stopped), or null.
+ * Deleting the holder's account makes it first: afterwards nobody would be left who may cancel it.
  */
-export const hasOpenCancel = async (
-  db: DbOrTx,
-  billingAccountId: string,
-  now: Date,
-): Promise<boolean> => {
+export const openCancel = async (db: DbOrTx, billingAccountId: string, now: Date) => {
   const [account] = await db
     .select({
       id: billingAccount.id,
@@ -162,10 +164,15 @@ export const hasOpenCancel = async (
     .from(billingAccount)
     .where(eq(billingAccount.id, billingAccountId))
     .limit(1);
-  if (!account) return false;
-  const active = await findActiveInvoice(db, account.id, now);
-  return (await cancelOption(db, account, active, now)) !== null;
+  if (!account) return null;
+  return cancelOption(db, account, await findActiveInvoice(db, account.id, now), now);
 };
+
+/** The audit line for a cancel that went through, wherever it was asked for. */
+export const cancelAuditDescription = (outcome: Extract<CancelOutcome, { ok: true }>) =>
+  outcome.kind === "money_back"
+    ? `Canceled inside the thirty days: credit note ${outcome.creditNoteNumber}${outcome.refundOwed ? ", refund owed" : ""}, access ${outcome.accessLevel}`
+    : `Renewal canceled, access until ${outcome.periodEnd}${outcome.alreadyCanceled ? " (already canceled)" : ""}`;
 
 /** The invoice paying for the account right now, with the facts a credit note mirrors. */
 const currentInvoice = async (db: DbOrTx, billingAccountId: string, now: Date) => {
@@ -240,6 +247,7 @@ const cancelRenewal = async (
           invoiceNumber: current.number,
           periodEnd: current.periodEnd,
           reason,
+          accountErased: input.erasure !== undefined,
         },
         contact.locale,
       );
@@ -248,6 +256,7 @@ const cancelRenewal = async (
         to: contact.email,
         ...invoiceEmail({ ...wording, invoiceUrl: null }),
         idempotencyKey: `renewal-canceled-${input.billingAccountId}-${current.periodEnd}`,
+        failureLabel: input.erasure?.failureLabel,
       }).catch(() => ({ success: false }));
       if (!sent.success) {
         await alertOperators("Kündigungsbestätigung nicht zugestellt", [
@@ -432,6 +441,7 @@ const creditInvoice = async (
       refundOwed,
       recipients: [contact.email, ...accountingCopy(outcome.clientEmail, contact.email)],
       locale: contact.locale,
+      erasure: input.erasure,
     }).catch((err: unknown) =>
       alertOperators(`${outcome.number} nicht zugestellt`, [
         `Die Zustellung der Gutschrift ${outcome.number} ist abgebrochen: ${err instanceof Error ? err.message : String(err)}.`,

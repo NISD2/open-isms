@@ -23,6 +23,8 @@ export interface DeliverCreditNoteInput {
   readonly refundOwed: boolean;
   readonly recipients: readonly string[];
   readonly locale: EmailLocale;
+  /** The holder's account is erased with this cancel (./cancel CancelInput.erasure). */
+  readonly erasure?: { readonly failureLabel: string };
   /** Replaced in tests, so the polling does not really wait. */
   readonly wait?: (ms: number) => Promise<void>;
 }
@@ -77,6 +79,7 @@ export async function deliverCreditNote(input: DeliverCreditNoteInput): Promise<
       creditNoteNumber: input.creditNoteNumber,
       refundOwed: input.refundOwed,
       attached: pdf !== null,
+      accountErased: input.erasure !== undefined,
     },
     input.locale,
   );
@@ -85,6 +88,7 @@ export async function deliverCreditNote(input: DeliverCreditNoteInput): Promise<
     to: [...input.recipients],
     ...invoiceEmail({ ...wording, invoiceUrl: null }),
     idempotencyKey: `credit-note-${input.creditNoteNumber}`,
+    failureLabel: input.erasure?.failureLabel,
     ...(pdf
       ? {
           attachments: [
