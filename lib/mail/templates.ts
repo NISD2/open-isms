@@ -389,6 +389,26 @@ export function gdprAlertEmail(opts: {
   };
 }
 
+/**
+ * To the person whose account was erased: the Art. 12(3) GDPR confirmation. The certificate
+ * (lib/gdpr/certificate.ts) is written in English, so one German line above it says what it is.
+ */
+export function erasureConfirmationEmail(opts: {
+  readonly caseRef: string;
+  readonly certificate: string;
+}): EmailContent {
+  const intro =
+    "Ihre Löschanfrage ist ausgeführt. Die förmliche Bestätigung mit allen Einzelheiten steht unten auf Englisch und hängt als Datei an.";
+  return {
+    subject: safeHeader(`Löschbestätigung / Erasure confirmation ${opts.caseRef}`),
+    html: emailLayout(
+      `<p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 16px;">${escapeHtml(intro)}</p>
+<pre style="color: ${BRAND.foreground}; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 13px; line-height: 1.5; white-space: pre-wrap; margin: 0;">${escapeHtml(opts.certificate)}</pre>`,
+    ),
+    text: `${intro}\n\n${opts.certificate}`,
+  };
+}
+
 // ---------------------------------------------------------------------------
 // Deadline Reminder
 // ---------------------------------------------------------------------------
