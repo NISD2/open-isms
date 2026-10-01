@@ -1,8 +1,8 @@
-Five endpoints do scheduled work. Four of them run only when something calls them: nothing inside the container has a timer for them, so an instance where they are never called simply never does any of it. The fifth, the Close CRM sync, runs by itself inside the app every 30 minutes once `CLOSE_API_KEY` is set, and its endpoint is only for running it by hand.
+Five endpoints do scheduled work. Two of them run by themselves inside the app on a production build with a public `NEXT_PUBLIC_APP_URL`: the daily heartbeat (once a day, from 06:00 Berlin time) and the Close CRM sync (every 30 minutes once `CLOSE_API_KEY` is set). Their endpoints are for running them by hand. The other three run only when something calls them: nothing inside the container has a timer for them, so an instance where they are never called simply never does any of it.
 
 | Path | Suggested schedule (UTC) | |
 |---|---|---|
-| `/api/cron/deadlines` | `0 6 * * *` | the daily heartbeat, eight phases |
+| `/api/cron/deadlines` | none, runs itself | the daily heartbeat, eight phases; an outside call runs it only if it has not run that day |
 | `/api/cron/course-reminders` | `0 7 * * *` | follow-ups for people who started a course and have not finished |
 | `/api/cron/lifecycle` | `0 8 * * *` | one-time re-engagement emails, e.g. the activation nudge for quiet accounts with open path steps |
 | `/api/cron/indexnow` | `0 5 * * *` | only if you set an IndexNow key: tells Bing and others which public pages changed |
@@ -104,8 +104,6 @@ CRON_SECRET=   # openssl rand -hex 32
 Anything that can make an HTTP request will do. From the host's crontab:
 
 ```bash
-0 6 * * * curl -fsS -H "Authorization: Bearer $CRON_SECRET" \
-  https://isms.example.com/api/cron/deadlines > /dev/null
 0 7 * * * curl -fsS -H "Authorization: Bearer $CRON_SECRET" \
   https://isms.example.com/api/cron/course-reminders > /dev/null
 0 8 * * * curl -fsS -H "Authorization: Bearer $CRON_SECRET" \
@@ -114,7 +112,7 @@ Anything that can make an HTTP request will do. From the host's crontab:
   https://isms.example.com/api/cron/indexnow > /dev/null
 ```
 
-The Close sync needs no line here; it schedules itself.
+The daily heartbeat and the Close sync need no line here; they schedule themselves. An instance that is not a production build with a public address (a local container, `next dev`) does not schedule the heartbeat, so call its endpoint there if you need it.
 
 Use the public URL rather than `localhost`, so the request passes through the same proxy a browser would, and keep `-f` so a failing job shows up as a failing cron line rather than a silent 500.
 
@@ -122,7 +120,7 @@ All five are safe to run more than once a day. Work is selected by what is due a
 
 ## Checking that it ran
 
-The response body is a JSON summary with a count per phase, which is worth logging somewhere you will see it:
+The heartbeat records each run in the audit log (`cron.deadlines`, with the day and a count per phase in its value) and prints a `[deadlines]` line to the container log. A call to its endpoint answers with the counts when it ran, or `{"ok":true,"skipped":"already ran for …"}` when that day's run is already done:
 
 ```bash
 curl -fsS -H "Authorization: Bearer $CRON_SECRET" \

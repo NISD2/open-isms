@@ -62,12 +62,20 @@ supported.
 
 ## Cron schedules
 
-Configure as Coolify "Scheduled tasks" or external cron pointing at the
-public URL with the `Authorization: Bearer ${CRON_SECRET}` header.
+Two jobs run inside the app and need no scheduled task: the daily deadline
+run (`lib/cron/deadlines-schedule.ts`, once per Berlin day from 06:00 Berlin)
+and the Close CRM sync (`lib/crm/schedule.ts`, every 30 minutes when
+`CLOSE_API_KEY` is set). Both start from `instrumentation.ts` on a production
+build with a public `NEXT_PUBLIC_APP_URL`, and hold a Postgres advisory lock so
+one server runs them at a time.
+
+The rest are configured as Coolify "Scheduled tasks" or an external cron
+pointing at the public URL with the `Authorization: Bearer ${CRON_SECRET}`
+header.
 
 | Path | Schedule (UTC) | What it does |
 |---|---|---|
-| `/api/cron/deadlines` | `0 6 * * *` (06:00 daily) | Sends NIS 2 deadline reminders to assigned users |
+| `/api/cron/deadlines` | in the app (optional outside call) | NIS 2 deadline transitions, reminders, escalations and the GDPR retention steps. An outside call runs it only if it has not run for today's Berlin day |
 | `/api/cron/course-reminders` | `0 7 * * *` (07:00 daily) | Sends CEO course follow-up reminders to enrolled users |
 | `/api/cron/lifecycle` | `0 8 * * *` (08:00 daily) | Sends one-time re-engagement emails (activation nudge) to quiet accounts |
 
