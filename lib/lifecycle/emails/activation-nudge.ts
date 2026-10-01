@@ -154,7 +154,8 @@ export function renderActivationNudge(input: ActivationNudgeInput): EmailContent
     input.done > 0 ? copy.introProgress(input.done, input.total) : copy.introFresh;
   const subject = safeHeader(`${copy.subjectPrefix}: ${input.nextStepTitle}`);
 
-  const html = emailLayout(`
+  const html = emailLayout(
+    `
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 16px;">${escapeHtml(greeting)}</p>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 16px;">${escapeHtml(intro)}</p>
         <div style="background: ${BRAND.muted}; border-left: 3px solid ${BRAND.primary}; padding: 12px 16px; margin: 0 0 20px;">
@@ -167,7 +168,9 @@ export function renderActivationNudge(input: ActivationNudgeInput): EmailContent
         <p style="color: ${BRAND.mutedForeground}; font-size: 12px; margin: 32px 0 0; line-height: 1.5; border-top: 1px solid ${BRAND.border}; padding-top: 16px;">
           <a href="${input.unsubscribeUrl}" style="color: ${BRAND.mutedForeground};">${escapeHtml(copy.unsubscribe)}</a>
         </p>
-  `);
+  `,
+    { locale: input.locale },
+  );
 
   const text = [
     greeting,

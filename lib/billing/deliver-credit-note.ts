@@ -7,10 +7,11 @@
  * every failure a person must act on goes to the operators.
  */
 import "@/lib/server-guard";
-import { invoiceEmail, sendMail } from "@/lib/mail";
+import { documentEmail, sendMail } from "@/lib/mail";
+import type { EmailLocale } from "@/lib/mail/locale";
 import { putObject } from "@/lib/storage";
 import { alertOperators } from "./alert";
-import { canceledEmailWording, type EmailLocale } from "./cancel-terms";
+import { canceledEmailWording } from "./cancel-terms";
 import { pdfFromAttachment } from "./deliver-invoice";
 import { getCreditNote, type QontoConfig } from "./qonto";
 
@@ -18,7 +19,12 @@ export interface DeliverCreditNoteInput {
   readonly qonto: QontoConfig;
   readonly qontoCreditNoteId: string;
   readonly creditNoteNumber: string;
+  /** The credit note's issue date, the day of the cancel. */
+  readonly creditNoteDate: string;
   readonly invoiceNumber: string;
+  readonly invoiceIssueDate: string;
+  /** The credited invoice's amounts, which the credit note cancels in full. */
+  readonly amounts: { readonly netCents: number; readonly vatCents: number };
   readonly billingAccountId: string;
   readonly refundOwed: boolean;
   readonly recipients: readonly string[];
@@ -76,7 +82,10 @@ export async function deliverCreditNote(input: DeliverCreditNoteInput): Promise<
     {
       kind: "money_back",
       invoiceNumber: input.invoiceNumber,
+      invoiceIssueDate: input.invoiceIssueDate,
       creditNoteNumber: input.creditNoteNumber,
+      creditNoteDate: input.creditNoteDate,
+      amounts: input.amounts,
       refundOwed: input.refundOwed,
       attached: pdf !== null,
       accountErased: input.erasure !== undefined,
@@ -86,7 +95,7 @@ export async function deliverCreditNote(input: DeliverCreditNoteInput): Promise<
   const result = await sendMail({
     emailType: "billing.canceled",
     to: [...input.recipients],
-    ...invoiceEmail({ ...wording, invoiceUrl: null }),
+    ...documentEmail(wording),
     idempotencyKey: `credit-note-${input.creditNoteNumber}`,
     failureLabel: input.erasure?.failureLabel,
     ...(pdf

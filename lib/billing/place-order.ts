@@ -439,6 +439,8 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
     recipients: [order.invoiceEmail, ...(order.copyToEmail ? [order.copyToEmail] : [])],
     locale,
     termsVersion: input.terms?.version ?? null,
+    amounts: outcome.money,
+    dates: outcome.dates,
   }).catch((err) =>
     alertOperators(`${outcome.number} nicht zugestellt`, [
       `Die Zustellung der Rechnung ${outcome.number} ist abgebrochen: ${err instanceof Error ? err.message : String(err)}.`,

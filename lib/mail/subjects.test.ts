@@ -21,7 +21,7 @@ mock.module("../env", () => ({
 
 const t = await import("./templates");
 
-/** The digests render the shared preference footer; the subject ignores it. */
+/** Optional mail renders the shared preference footer; the subject ignores it. */
 const FOOTER = {
   unsubscribeUrl: "https://nisd2.eu/u",
   preferencesUrl: "https://nisd2.eu/p",
@@ -39,6 +39,7 @@ const ITEM = {
 
 /** One entry per live template: its name and a rendered subject. */
 const SUBJECTS: Array<[string, string]> = [
+  ["welcome", t.welcomeEmail({ name: "Anna" }).subject],
   [
     "invite",
     t.inviteEmail({
@@ -65,6 +66,7 @@ const SUBJECTS: Array<[string, string]> = [
       companyName: "Stadtwerke",
       assignerName: "Anna Schmidt",
       categoryUrl: "https://nisd2.eu/x",
+      footer: FOOTER,
     }).subject,
   ],
   [
@@ -74,6 +76,7 @@ const SUBJECTS: Array<[string, string]> = [
       categoryName: "Governance",
       categoryCode: "GOV",
       companyName: "Stadtwerke",
+      footer: FOOTER,
     }).subject,
   ],
   [
@@ -83,6 +86,7 @@ const SUBJECTS: Array<[string, string]> = [
       requirementCode: "GOV-1",
       requirementTitle: "x",
       decision: "approved",
+      footer: FOOTER,
     }).subject,
   ],
   [
@@ -92,6 +96,7 @@ const SUBJECTS: Array<[string, string]> = [
       requirementCode: "GOV-1",
       requirementTitle: "x",
       decision: "rejected",
+      footer: FOOTER,
     }).subject,
   ],
   [

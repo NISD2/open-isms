@@ -6,20 +6,78 @@
  *   await sendMail({ to: "user@co.com", ...email });
  */
 
+import { mailSupportEmail } from "@/lib/env";
 import type { Locale } from "@/lib/seo";
 // Shared scaffolding (brand tokens, layout, escaping) lives in ./layout so
 // email modules outside this file (lib/lifecycle) can reuse it.
 import {
   BRAND,
+  type EmailChrome,
   type EmailContent,
   emailLayout,
   escapeHtml,
+  letterSignOff,
   type PreferenceFooter,
   preferenceFooterText,
   SEVERITY,
   safeHeader,
 } from "./layout";
+import { type EmailLocale, resolveEmailLocale } from "./locale";
 import { companyNameForMail } from "./sender-name";
+
+/** The chrome of a message written only in English (most of the workflow mail, for now). */
+const ENGLISH_ONLY = { locale: "en" } as const satisfies EmailChrome;
+
+/** The chrome of a message to our own operators, who read German. */
+const TO_OPERATORS = { locale: "de" } as const satisfies EmailChrome;
+
+/** The chrome for a template that takes a site locale: the email language closest to it. */
+const chromeFor = (locale: Locale | undefined): EmailChrome => ({
+  locale: resolveEmailLocale(locale ?? null, null),
+});
+
+// ---------------------------------------------------------------------------
+// Welcome
+// ---------------------------------------------------------------------------
+
+/** After the first sign-in: a short note from the team and one place to start. */
+export function welcomeEmail(opts: { name: string }): EmailContent {
+  const supportEmail = escapeHtml(mailSupportEmail());
+  const link = (href: string, label: string) =>
+    `<a href="${href}" style="color: ${BRAND.primary};">${label}</a>`;
+  const p = (html: string) =>
+    `<p style="color: ${BRAND.foreground}; font-size: 15px; line-height: 1.6; margin: 0 0 14px;">${html}</p>`;
+  return {
+    subject: "Your NISD2 account is ready",
+    html: emailLayout(
+      [
+        p(`Hey ${escapeHtml(opts.name)},`),
+        p("thanks for signing up."),
+        p(
+          `Our mission is straightforward: NIS2 compliance costs European companies ${link("https://nisd2.eu", "€31 billion every year")}. We're cutting that in half by replacing expensive consultants with a platform that does the heavy lifting for you.`,
+        ),
+        p(
+          `A good first step is the ${link("https://nisd2.eu/training/courses/nis2-ceo", "CEO &amp; Management Training")}. It covers what NIS2 actually requires from leadership and satisfies the §38 BSIG training obligation, it takes about 4 hours.`,
+        ),
+        p(
+          `If you have any questions, write to me at ${link(`mailto:${supportEmail}`, supportEmail)}`,
+        ),
+        p(`Cory Hisey<br />${link("https://nisd2.eu", "NISD2.eu")}`),
+        `<p style="color: ${BRAND.mutedForeground}; font-size: 12px; margin: 24px 0 0;">You're receiving this because you created an account at nisd2.eu.</p>`,
+      ].join("\n"),
+      ENGLISH_ONLY,
+    ),
+    text: [
+      `Hey ${opts.name},`,
+      "thanks for signing up.",
+      "Our mission is straightforward: NIS2 compliance costs European companies €31 billion every year. We're cutting that in half by replacing expensive consultants with a platform that does the heavy lifting for you.",
+      "A good first step is the CEO & Management Training (https://nisd2.eu/training/courses/nis2-ceo). It covers what NIS2 actually requires from leadership and satisfies the §38 BSIG training obligation, it takes about 4 hours.",
+      `If you have any questions, write to me at ${mailSupportEmail()}`,
+      "Cory Hisey\nNISD2.eu",
+      "You're receiving this because you created an account at nisd2.eu.",
+    ].join("\n\n"),
+  };
+}
 
 // ---------------------------------------------------------------------------
 // Invite
@@ -38,7 +96,8 @@ export function inviteEmail(opts: {
 
   return {
     subject: `${safeHeader(inviterName)} invited you to ${safeHeader(companyName)} on NISD2`,
-    html: emailLayout(`
+    html: emailLayout(
+      `
         <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">Join ${safeCo}</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
           ${safeInviter} has invited you to join <strong>${safeCo}</strong> as <strong>${safeRole}</strong> on the NIS2 Compliance Platform.
@@ -52,7 +111,9 @@ export function inviteEmail(opts: {
         <p style="color: ${BRAND.mutedForeground}; font-size: 13px; margin: 24px 0 0; line-height: 1.5;">
           This invite expires in 7 days. If you didn't expect this email, you can ignore it.
         </p>
-    `),
+    `,
+      ENGLISH_ONLY,
+    ),
     text: [
       `Join ${companyName}`,
       ``,
@@ -81,7 +142,8 @@ export function contactEmailChangedEmail(opts: {
 
   return {
     subject: `The compliance contact for ${safeHeader(companyName)} was changed`,
-    html: emailLayout(`
+    html: emailLayout(
+      `
         <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">Contact Email Changed</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
           The compliance contact email for <strong>${safeCo}</strong> has been changed.
@@ -93,7 +155,9 @@ export function contactEmailChangedEmail(opts: {
         <p style="color: ${BRAND.mutedForeground}; font-size: 13px; margin: 24px 0 0; line-height: 1.5;">
           If you did not make this change, please contact your team administrator.
         </p>
-    `),
+    `,
+      ENGLISH_ONLY,
+    ),
     text: [
       `Contact Email Changed`,
       ``,
@@ -118,7 +182,7 @@ export function categoryAssignedEmail(opts: {
   companyName: string;
   assignerName: string;
   categoryUrl: string;
-  footer?: PreferenceFooter;
+  footer: PreferenceFooter;
 }): EmailContent {
   const {
     assigneeName,
@@ -157,7 +221,8 @@ export function categoryAssignedEmail(opts: {
       `Hi ${assigneeName}, ${assignerName} has assigned you to ${categoryName} (${categoryCode}) in ${companyName}.`,
       ``,
       `Go to category: ${categoryUrl}`,
-      ...(opts.footer ? ["", preferenceFooterText(opts.footer)] : []),
+      "",
+      preferenceFooterText(opts.footer),
     ].join("\n"),
   };
 }
@@ -171,7 +236,7 @@ export function categoryUnassignedEmail(opts: {
   categoryName: string;
   categoryCode: string;
   companyName: string;
-  footer?: PreferenceFooter;
+  footer: PreferenceFooter;
 }): EmailContent {
   const { assigneeName, categoryName, categoryCode, companyName } = opts;
   const safeAssignee = escapeHtml(assigneeName);
@@ -199,7 +264,8 @@ export function categoryUnassignedEmail(opts: {
       `Hi ${assigneeName}, you have been unassigned from ${categoryName} (${categoryCode}) in ${companyName}.`,
       ``,
       `If you believe this was a mistake, please contact your team administrator.`,
-      ...(opts.footer ? ["", preferenceFooterText(opts.footer)] : []),
+      "",
+      preferenceFooterText(opts.footer),
     ].join("\n"),
   };
 }
@@ -214,7 +280,7 @@ export function reviewDecisionEmail(opts: {
   requirementTitle: string;
   decision: "approved" | "rejected";
   feedback?: string | null;
-  footer?: PreferenceFooter;
+  footer: PreferenceFooter;
 }): EmailContent {
   const { submitterName, requirementCode, requirementTitle, decision, feedback } = opts;
   const label = decision === "approved" ? "Approved" : "Rejected";
@@ -244,7 +310,8 @@ export function reviewDecisionEmail(opts: {
       ``,
       `Hi ${submitterName}, your submission for ${requirementCode} (${requirementTitle}) has been ${decision}.`,
       feedback ? `\nFeedback: ${feedback}` : "",
-      ...(opts.footer ? ["", preferenceFooterText(opts.footer)] : []),
+      "",
+      preferenceFooterText(opts.footer),
     ].join("\n"),
   };
 }
@@ -263,7 +330,8 @@ export function memberRemovedEmail(opts: {
 
   return {
     subject: `You no longer have access to ${safeHeader(companyName)}`,
-    html: emailLayout(`
+    html: emailLayout(
+      `
         <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">Removed from ${safeCo}</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
           Hi ${safeMember}, you have been removed from <strong>${safeCo}</strong> on the NIS2 Compliance Platform.
@@ -271,7 +339,9 @@ export function memberRemovedEmail(opts: {
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0;">
           If you believe this was a mistake, please contact your team administrator.
         </p>
-    `),
+    `,
+      ENGLISH_ONLY,
+    ),
     text: [
       `Removed from ${companyName}`,
       ``,
@@ -283,21 +353,97 @@ export function memberRemovedEmail(opts: {
 }
 
 // ---------------------------------------------------------------------------
-// Invoice
+// Business documents: invoice, credit note, cancellation, refund, erasure
 // ---------------------------------------------------------------------------
 
+/** One fact on a document card. `detail` is a quieter line under the value. */
+export interface DocumentFact {
+  readonly label: string;
+  readonly value: string;
+  readonly detail?: string;
+  /** What the reader acts on, an amount or a date: set in bold. */
+  readonly emphasis?: boolean;
+}
+
 /**
- * The invoice for an order. The wording lives with the invoice in lib/billing/order.ts, so the
- * email and the invoice say the same thing; this only lays it out. The invoice link is made
- * clickable, because when the PDF could not be attached it is where the invoice is.
+ * A letter about one business document. The wording lives with the document (lib/billing,
+ * lib/gdpr), so the email and the document say the same thing; this lays it out the way the
+ * document reads: a card with its name, its number and the facts someone acts on, and the letter
+ * around it.
  */
-export function invoiceEmail(wording: {
+export interface DocumentEmail {
+  readonly locale: EmailLocale;
   readonly subject: string;
-  readonly paragraphs: readonly string[];
-  readonly invoiceUrl: string | null;
-}): EmailContent {
-  const link = wording.invoiceUrl ? escapeHtml(wording.invoiceUrl) : null;
-  const paragraph = (p: string) => {
+  readonly heading: string;
+  readonly greeting: string;
+  readonly intro: readonly string[];
+  readonly document: {
+    readonly kind: string;
+    readonly reference: string;
+    readonly facts: readonly DocumentFact[];
+  };
+  readonly outro: readonly string[];
+  /** A URL inside the intro or outro, made clickable: Qonto's page when the PDF is missing. */
+  readonly link?: string | null;
+  /** Safe HTML and its text twin, shown below the signature: the formal erasure record. */
+  readonly appendix?: { readonly html: string; readonly text: string };
+}
+
+const QUESTIONS: Record<EmailLocale, string> = {
+  de: "Fragen dazu? Antworten Sie einfach auf diese E-Mail.",
+  en: "Questions? Just reply to this email.",
+  nl: "Vragen? Beantwoord deze e-mail gewoon.",
+};
+
+const documentCard = ({ kind, reference, facts }: DocumentEmail["document"]): string => {
+  const cell = (last: boolean) =>
+    `padding: 10px 16px; vertical-align: top;${last ? "" : ` border-bottom: 1px solid ${BRAND.border};`}`;
+  const rows = facts
+    .map((fact, i) => {
+      const last = i === facts.length - 1;
+      const value = fact.emphasis
+        ? `<strong>${escapeHtml(fact.value)}</strong>`
+        : escapeHtml(fact.value);
+      const detail = fact.detail
+        ? `<br /><span style="color: ${BRAND.mutedForeground}; font-size: 13px;">${escapeHtml(fact.detail)}</span>`
+        : "";
+      return `
+        <tr>
+          <td style="${cell(last)} width: 38%; color: ${BRAND.mutedForeground}; font-size: 13px;">${escapeHtml(fact.label)}</td>
+          <td style="${cell(last)} color: ${BRAND.foreground}; font-size: 14px;">${value}${detail}</td>
+        </tr>`;
+    })
+    .join("");
+  return `
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border: 1px solid ${BRAND.border}; border-radius: 6px; border-collapse: separate; margin: 4px 0 20px;">
+      <tr>
+        <td colspan="2" style="padding: 14px 16px; background: ${BRAND.muted}; border-bottom: 1px solid ${BRAND.border}; border-radius: 6px 6px 0 0;">
+          <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: ${BRAND.mutedForeground};">${escapeHtml(kind)}</div>
+          <div style="font-size: 17px; font-weight: 700; color: ${BRAND.foreground}; margin-top: 2px;">${escapeHtml(reference)}</div>
+        </td>
+      </tr>${rows}
+    </table>`;
+};
+
+const documentCardText = ({
+  kind,
+  reference,
+  facts,
+}: DocumentEmail["document"]): string =>
+  [
+    `${kind} ${reference}`,
+    ...facts.map((f) => `${f.label}: ${f.value}${f.detail ? ` (${f.detail})` : ""}`),
+  ].join("\n");
+
+/**
+ * Lay out a business document letter. The letter asks for replies, so it routes them: the default
+ * sender takes none, and `replyTo` travels with the content into sendMail.
+ */
+export function documentEmail(
+  mail: DocumentEmail,
+): EmailContent & { readonly replyTo: string } {
+  const link = mail.link ? escapeHtml(mail.link) : null;
+  const paragraph = (p: string, muted = false) => {
     const safe = escapeHtml(p);
     const linked = link
       ? safe.replace(
@@ -305,12 +451,35 @@ export function invoiceEmail(wording: {
           `<a href="${link}" style="color: ${BRAND.primary};">${link}</a>`,
         )
       : safe;
-    return `<p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 12px;">${linked}</p>`;
+    return `<p style="color: ${muted ? BRAND.mutedForeground : BRAND.foreground}; font-size: 15px; line-height: 1.6; margin: 0 0 14px;">${linked}</p>`;
   };
+  const signOff = letterSignOff(mail.locale);
+  const html = [
+    `<h1 style="margin: 0 0 12px; color: ${BRAND.foreground}; font-size: 22px; line-height: 1.3; font-weight: 700;">${escapeHtml(mail.heading)}</h1>`,
+    paragraph(mail.greeting),
+    ...mail.intro.map((p) => paragraph(p)),
+    documentCard(mail.document),
+    ...mail.outro.map((p) => paragraph(p)),
+    paragraph(QUESTIONS[mail.locale], true),
+    `<p style="color: ${BRAND.foreground}; font-size: 15px; line-height: 1.6; margin: 0;">${signOff.map(escapeHtml).join("<br />")}</p>`,
+    mail.appendix
+      ? `<div style="margin-top: 28px; padding-top: 20px; border-top: 1px solid ${BRAND.border};">${mail.appendix.html}</div>`
+      : "",
+  ].join("\n");
+  const text = [
+    mail.greeting,
+    ...mail.intro,
+    documentCardText(mail.document),
+    ...mail.outro,
+    QUESTIONS[mail.locale],
+    signOff.join("\n"),
+    ...(mail.appendix ? ["---", mail.appendix.text] : []),
+  ].join("\n\n");
   return {
-    subject: safeHeader(wording.subject),
-    html: emailLayout(wording.paragraphs.map(paragraph).join("\n")),
-    text: wording.paragraphs.join("\n\n"),
+    subject: safeHeader(mail.subject),
+    html: emailLayout(html, { locale: mail.locale }),
+    text,
+    replyTo: mailSupportEmail(),
   };
 }
 
@@ -341,14 +510,17 @@ export function accountSetupEmail(opts: {
         };
   return {
     subject: copy.subject,
-    html: emailLayout(`
+    html: emailLayout(
+      `
         <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">${copy.heading}</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 24px;">${copy.body}</p>
         <a href="${url}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
           ${copy.button}
         </a>
         <p style="color: ${BRAND.mutedForeground}; font-size: 13px; margin: 24px 0 0; line-height: 1.5;">${copy.note}</p>
-    `),
+    `,
+      { locale: opts.locale },
+    ),
     text: [copy.heading, "", copy.body, "", opts.setupUrl, "", copy.note].join("\n"),
   };
 }
@@ -366,7 +538,7 @@ export function billingAlertEmail(opts: {
     .join("\n");
   return {
     subject: `[RECHNUNG] ${safeHeader(opts.subject)}`,
-    html: emailLayout(rows),
+    html: emailLayout(rows, TO_OPERATORS),
     text: opts.lines.join("\n"),
   };
 }
@@ -384,28 +556,8 @@ export function gdprAlertEmail(opts: {
     .join("\n");
   return {
     subject: `[DSGVO] ${safeHeader(opts.subject)}`,
-    html: emailLayout(rows),
+    html: emailLayout(rows, TO_OPERATORS),
     text: opts.lines.join("\n"),
-  };
-}
-
-/**
- * To the person whose account was erased: the Art. 12(3) GDPR confirmation. The certificate
- * (lib/gdpr/certificate.ts) is written in English, so one German line above it says what it is.
- */
-export function erasureConfirmationEmail(opts: {
-  readonly caseRef: string;
-  readonly certificate: string;
-}): EmailContent {
-  const intro =
-    "Ihre Löschanfrage ist ausgeführt. Die förmliche Bestätigung mit allen Einzelheiten steht unten auf Englisch und hängt als Datei an.";
-  return {
-    subject: safeHeader(`Löschbestätigung / Erasure confirmation ${opts.caseRef}`),
-    html: emailLayout(
-      `<p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 16px;">${escapeHtml(intro)}</p>
-<pre style="color: ${BRAND.foreground}; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 13px; line-height: 1.5; white-space: pre-wrap; margin: 0;">${escapeHtml(opts.certificate)}</pre>`,
-    ),
-    text: `${intro}\n\n${opts.certificate}`,
   };
 }
 
@@ -805,7 +957,8 @@ export function supplierIncidentBroadcastEmail(opts: {
 
   return {
     subject: `${name} reported a security incident`,
-    html: emailLayout(`
+    html: emailLayout(
+      `
         <div style="display: inline-block; background: ${severityColor}; color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">${safeSeverityLabel}</div>
         <h2 style="margin: 16px 0 8px; color: ${BRAND.foreground};">${safeName} reported a security incident</h2>
         <p style="color: ${BRAND.mutedForeground}; font-size: 13px; margin: 0 0 16px;">
@@ -822,7 +975,9 @@ export function supplierIncidentBroadcastEmail(opts: {
           <br/><br/>
           <a href="${unsubscribeUrl}" style="color: ${BRAND.mutedForeground};">Unsubscribe</a>
         </p>
-    `),
+    `,
+      ENGLISH_ONLY,
+    ),
     text: [
       `${severityLabel}: ${name} reported a security incident`,
       ``,
@@ -861,7 +1016,8 @@ export function entityInvitesSupplierEmail(opts: {
 
   return {
     subject: `${name} requests your NIS2 supplier profile on NISD2`,
-    html: emailLayout(`
+    html: emailLayout(
+      `
         <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">You're invited to share your security profile</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 16px;">
           <strong>${safeName}</strong> is a NIS2-regulated entity. Under the EU NIS2 Directive
@@ -880,7 +1036,9 @@ export function entityInvitesSupplierEmail(opts: {
           This link is unique to you and expires in 30 days. You do not need to be a NIS2-regulated
           entity yourself to use the supplier portal. Most suppliers aren't.
         </p>
-    `),
+    `,
+      ENGLISH_ONLY,
+    ),
     text: [
       `${name} would like to see your security profile`,
       ``,
@@ -924,7 +1082,8 @@ export function newUserSignupEmail(opts: {
 
   return {
     subject: `New signup: ${safeHeader(userEmail)}`,
-    html: emailLayout(`
+    html: emailLayout(
+      `
         <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">New user signed up</h2>
         <table style="color: ${BRAND.foreground}; line-height: 1.8; font-size: 14px; margin: 0 0 24px;">
           <tr><td style="padding-right: 16px; font-weight: 600;">Email</td><td>${safeEmail}</td></tr>
@@ -935,7 +1094,9 @@ export function newUserSignupEmail(opts: {
         <a href="${mailtoUrl}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
           Reach out to ${safeEmail}
         </a>
-    `),
+    `,
+      ENGLISH_ONLY,
+    ),
     text: `New signup: ${userEmail} (${userName}) via ${provider}\n\nReply to them: ${userEmail}`,
   };
 }
@@ -969,7 +1130,8 @@ export function advisoryRequestEmail(opts: {
 
   return {
     subject: `[ANFRAGE] ${safeHeader(topic)} (${safeHeader(domain)})`,
-    html: emailLayout(`
+    html: emailLayout(
+      `
         <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">Jemand hat um Unterstützung gebeten</h2>
         <table style="color: ${BRAND.foreground}; line-height: 1.8; font-size: 14px; margin: 0 0 24px;">
           <tr><td style="padding-right: 16px; font-weight: 600;">Thema</td><td>${safeTopic}</td></tr>
@@ -983,7 +1145,9 @@ export function advisoryRequestEmail(opts: {
         <a href="${escapeHtml(adminUrl)}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
           Anfrage öffnen
         </a>
-    `),
+    `,
+      TO_OPERATORS,
+    ),
     text: `[ANFRAGE] ${topic} von ${email}\n\nHerkunft: ${origin}\nHeute antworten. Wer zuerst reagiert, bekommt die Arbeit.\n\n${adminUrl}`,
   };
 }
@@ -999,7 +1163,8 @@ export function supplierAddedYouEmail(opts: {
 
   return {
     subject: `${name} will send you their security updates`,
-    html: emailLayout(`
+    html: emailLayout(
+      `
         <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">You've been added as a security update recipient</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
           <strong>${safeName}</strong> added your email address to their NIS2 supplier portal on nisd2.eu.
@@ -1013,7 +1178,9 @@ export function supplierAddedYouEmail(opts: {
         <p style="color: ${BRAND.mutedForeground}; font-size: 12px; margin: 32px 0 0; line-height: 1.5; border-top: 1px solid ${BRAND.border}; padding-top: 16px;">
           <a href="${unsubscribeUrl}" style="color: ${BRAND.mutedForeground};">Unsubscribe</a>
         </p>
-    `),
+    `,
+      ENGLISH_ONLY,
+    ),
     text: [
       `${name} added you to their NIS2 supplier security updates`,
       ``,
@@ -1058,7 +1225,8 @@ export function courseFollowupEmail(opts: {
     )
     .join("");
 
-  const html = emailLayout(`
+  const html = emailLayout(
+    `
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 16px;">${greeting},</p>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 16px;">
           Simon here, from NISD2. I noticed you started ${single ? "a course with us" : "some courses with us"} and haven't been back in a while:
@@ -1076,7 +1244,9 @@ export function courseFollowupEmail(opts: {
         <p style="color: ${BRAND.mutedForeground}; font-size: 12px; margin: 32px 0 0; line-height: 1.5; border-top: 1px solid ${BRAND.border}; padding-top: 16px;">
           <a href="${unsubscribeUrl}" style="color: ${BRAND.mutedForeground};">Unsubscribe from follow-up emails</a>
         </p>
-  `);
+  `,
+    ENGLISH_ONLY,
+  );
 
   const text = [
     `${greeting},`,
@@ -1207,14 +1377,17 @@ export function emailVerificationCodeEmail(opts: {
 
   return {
     subject: safeHeader(`${copy.subjectPrefix}: ${opts.code}`),
-    html: emailLayout(`
+    html: emailLayout(
+      `
         <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">${copy.heading}</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">${copy.intro}</p>
         ${codeBlock}
         <p style="color: ${BRAND.mutedForeground}; font-size: 13px; margin: 16px 0 0; line-height: 1.5;">
           ${copy.expiryNote} ${copy.ignoreNote}
         </p>
-    `),
+    `,
+      chromeFor(opts.locale),
+    ),
     text: [
       copy.heading,
       ``,
@@ -1476,7 +1649,8 @@ export function registrationAttemptEmail(opts: {
 
   return {
     subject: safeHeader(copy.subject),
-    html: emailLayout(`
+    html: emailLayout(
+      `
         <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">${copy.heading}</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">${copy.intro}</p>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 24px;">${copy.action}</p>
@@ -1485,7 +1659,9 @@ export function registrationAttemptEmail(opts: {
         <p style="color: ${BRAND.mutedForeground}; font-size: 13px; margin: 16px 0 0; line-height: 1.5;">
           ${copy.ignoreNote}
         </p>
-    `),
+    `,
+      chromeFor(opts.locale),
+    ),
     text: [
       copy.heading,
       ``,
@@ -1557,7 +1733,8 @@ export function newsletterEmail(opts: {
   // and keeps the thread, whereas a mailto opens an empty new message.
   return {
     subject: safeHeader(subject),
-    html: emailLayout(`
+    html: emailLayout(
+      `
         ${preheaderBlock}
         <div style="color: ${BRAND.foreground}; font-size: 15px; line-height: 1.65;">
 ${bodyHtml}
@@ -1571,7 +1748,9 @@ ${bodyHtml}
           You are receiving this because you have an account at nisd2.eu.
           <a href="${unsubscribeUrl}" style="color: ${BRAND.mutedForeground};">Unsubscribe</a>.${viewInBrowserBlock}
         </p>
-    `),
+    `,
+      ENGLISH_ONLY,
+    ),
     text: [
       bodyText,
       ``,
@@ -1604,14 +1783,17 @@ export function passwordResetCodeEmail(opts: {
 
   return {
     subject: safeHeader(`${copy.subjectPrefix}: ${opts.code}`),
-    html: emailLayout(`
+    html: emailLayout(
+      `
         <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">${copy.heading}</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">${copy.intro}</p>
         ${codeBlock}
         <p style="color: ${BRAND.mutedForeground}; font-size: 13px; margin: 16px 0 0; line-height: 1.5;">
           ${copy.expiryNote} ${copy.ignoreNote}
         </p>
-    `),
+    `,
+      chromeFor(opts.locale),
+    ),
     text: [
       copy.heading,
       ``,

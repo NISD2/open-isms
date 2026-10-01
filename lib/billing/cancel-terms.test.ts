@@ -1,5 +1,35 @@
 import { describe, expect, test } from "bun:test";
-import { canceledEmailWording, cancelWindow, creditNoteLine } from "./cancel-terms";
+import type { DocumentEmail } from "@/lib/mail/templates";
+import {
+  canceledEmailWording,
+  cancelWindow,
+  creditNoteLine,
+  refundDueDay,
+  refundSentWording,
+} from "./cancel-terms";
+
+/** Every word a reader sees, in reading order, for checks that do not care where a phrase sits. */
+const wordsOf = (mail: DocumentEmail): string =>
+  [
+    mail.subject,
+    mail.heading,
+    mail.greeting,
+    ...mail.intro,
+    mail.document.kind,
+    mail.document.reference,
+    ...mail.document.facts.flatMap((f) => [f.label, f.value, f.detail ?? ""]),
+    ...mail.outro,
+  ].join(" ");
+
+const moneyBack = {
+  kind: "money_back",
+  invoiceNumber: "RE-2026-0001",
+  invoiceIssueDate: "2026-09-15",
+  creditNoteNumber: "GS-2026-0001",
+  creditNoteDate: "2026-10-01",
+  amounts: { netCents: 480_000, vatCents: 91_200 },
+  attached: true,
+} as const;
 
 describe("cancelWindow", () => {
   const first = { issueDate: "2026-09-01", firstInvoice: true } as const;
@@ -62,22 +92,34 @@ describe("creditNoteLine", () => {
   });
 });
 
+describe("refundDueDay", () => {
+  test("is thirty days after the cancel, as the terms promise", () => {
+    expect(refundDueDay("2026-10-01")).toBe("2026-10-31");
+    expect(refundDueDay("2026-12-15")).toBe("2027-01-14");
+  });
+});
+
 describe("canceledEmailWording", () => {
-  test("says a refund is coming only when the invoice was paid", () => {
-    const base = {
-      kind: "money_back",
-      invoiceNumber: "RE-2026-0001",
-      creditNoteNumber: "GS-2026-0001",
-      attached: true,
-    } as const;
-    const paid = canceledEmailWording({ ...base, refundOwed: true }, "de").paragraphs;
-    const unpaid = canceledEmailWording({ ...base, refundOwed: false }, "de").paragraphs;
-    expect(paid.join(" ")).toContain("überweisen");
-    expect(paid.join(" ")).toContain("innerhalb von 30 Tagen nach der Kündigung");
-    expect(unpaid.join(" ")).not.toContain("überweisen");
+  test("says a refund is coming, and by when, only when the invoice was paid", () => {
+    const paid = wordsOf(canceledEmailWording({ ...moneyBack, refundOwed: true }, "de"));
+    const unpaid = wordsOf(
+      canceledEmailWording({ ...moneyBack, refundOwed: false }, "de"),
+    );
+    expect(paid).toContain("Rückzahlung bis 31. Oktober 2026");
+    expect(paid).toContain("auf das Konto, von dem Ihre Zahlung kam");
+    expect(unpaid).not.toContain("Rückzahlung");
     // Unpaid in Qonto is not proof that no transfer is on its way.
-    expect(unpaid.join(" ")).toContain("innerhalb von 30 Tagen nach ihrem Eingang");
-    expect(unpaid.join(" ")).not.toContain("nichts weiter");
+    expect(unpaid).toContain("innerhalb von 30 Tagen nach seinem Eingang");
+    expect(unpaid).not.toContain("nichts weiter");
+  });
+
+  test("the card names the credit note, the invoice it cancels and the amount", () => {
+    const { document } = canceledEmailWording({ ...moneyBack, refundOwed: false }, "de");
+    expect(document.reference).toBe("GS-2026-0001 · 1. Oktober 2026");
+    expect(document.facts.map((f) => f.value)).toContain(
+      "Rechnung RE-2026-0001 vom 15. September 2026",
+    );
+    expect(document.facts.find((f) => f.label === "Betrag")?.value).toBe("5.712,00 €");
   });
 
   test("a later invoice's renewal cancel says why there is no money back", () => {
@@ -88,55 +130,44 @@ describe("canceledEmailWording", () => {
     } as const;
     const later = canceledEmailWording({ ...mail, reason: "not_first_invoice" }, "de");
     const passed = canceledEmailWording({ ...mail, reason: "window_passed" }, "de");
-    expect(later.paragraphs.join(" ")).toContain("nur für die erste Bestellung");
-    expect(passed.paragraphs.join(" ")).toContain("sind vorbei");
+    expect(wordsOf(later)).toContain("nur für die erste Bestellung");
+    expect(wordsOf(passed)).toContain("sind vorbei");
   });
 
-  test("a cancel made by deleting the account promises neither access nor kept data", () => {
+  test("a cancel made by deleting the account promises neither access, kept data nor a later email", () => {
     const renewal = {
       kind: "renewal",
       invoiceNumber: "RE-2026-0001",
       periodEnd: "2027-08-31",
       reason: "window_passed",
     } as const;
-    const moneyBack = {
-      kind: "money_back",
-      invoiceNumber: "RE-2026-0001",
-      creditNoteNumber: "GS-2026-0001",
-      refundOwed: true,
-      attached: true,
-    } as const;
+    const paidBack = { ...moneyBack, refundOwed: true } as const;
     for (const locale of ["de", "en", "nl"] as const) {
-      for (const mail of [renewal, moneyBack]) {
-        const kept = canceledEmailWording(mail, locale).paragraphs.join(" ");
-        const erased = canceledEmailWording(
-          { ...mail, accountErased: true },
-          locale,
-        ).paragraphs.join(" ");
+      for (const mail of [renewal, paidBack]) {
+        const kept = wordsOf(canceledEmailWording(mail, locale));
+        const erased = wordsOf(
+          canceledEmailWording({ ...mail, accountErased: true }, locale),
+        );
         expect(erased).not.toEqual(kept);
         expect(erased).not.toMatch(
           /bleiben in Ihrem Konto|stay in your account|blijven in uw/,
         );
-        expect(erased).not.toMatch(
-          /Ihr Zugang bleibt|Your access stays|Uw toegang blijft/,
-        );
+        expect(erased).not.toMatch(/Zugang bis|Access until|Toegang tot/);
+        // Nobody is left to send the refund confirmation to.
+        expect(erased).not.toMatch(/kurzen E-Mail|short email|korte e-mail/);
       }
     }
   });
 
+  test("a paid cancel announces the refund confirmation while the account stays", () => {
+    const words = wordsOf(canceledEmailWording({ ...moneyBack, refundOwed: true }, "en"));
+    expect(words).toContain("we confirm it in a short email");
+  });
+
   test("carries no em dash in any language", () => {
     for (const locale of ["de", "en", "nl"] as const) {
-      const texts = [
-        canceledEmailWording(
-          {
-            kind: "money_back",
-            invoiceNumber: "RE-2026-0001",
-            creditNoteNumber: "GS-2026-0001",
-            refundOwed: true,
-            attached: false,
-          },
-          locale,
-        ),
+      const mails = [
+        canceledEmailWording({ ...moneyBack, refundOwed: true, attached: false }, locale),
         canceledEmailWording(
           {
             kind: "renewal",
@@ -146,10 +177,36 @@ describe("canceledEmailWording", () => {
           },
           locale,
         ),
+        refundSentWording(
+          {
+            creditNoteNumber: "GS-2026-0001",
+            invoiceNumber: "RE-2026-0001",
+            amounts: moneyBack.amounts,
+          },
+          locale,
+        ),
       ];
-      for (const t of texts) {
-        expect(`${t.subject} ${t.paragraphs.join(" ")}`).not.toContain("—");
-      }
+      for (const mail of mails) expect(wordsOf(mail)).not.toContain("—");
     }
+  });
+});
+
+describe("refundSentWording", () => {
+  test("names the credit note, the invoice and the gross amount refunded", () => {
+    const mail = refundSentWording(
+      {
+        creditNoteNumber: "GS-2026-0001",
+        invoiceNumber: "RE-2026-0001",
+        amounts: moneyBack.amounts,
+      },
+      "de",
+    );
+    expect(mail.subject).toBe(
+      "Erstattung zur Gutschrift GS-2026-0001: Betrag überwiesen",
+    );
+    expect(wordsOf(mail)).toContain("Rechnung RE-2026-0001");
+    expect(mail.document.facts.find((f) => f.label === "Erstattet")?.value).toBe(
+      "5.712,00 €",
+    );
   });
 });
