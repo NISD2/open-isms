@@ -122,10 +122,29 @@ export async function selfErasureCheck(
   return { allowed: true, organization: scope.owned?.name ?? null };
 }
 
-/** eraseUser's guard for a self-service erasure: the same rules, at the moment of erasure. */
+/**
+ * eraseUser's guard for a self-service erasure: the same rules, at the moment of erasure.
+ *
+ * The rows the rules count are locked first, so they hold until the erasure commits: the
+ * organizations the person owns (a membership insert takes KEY SHARE on its company, so an invite
+ * accepted meanwhile waits, then fails on the deleted company instead of being torn down with it),
+ * and the billing accounts they pay for (an order takes NO KEY UPDATE on its account). The order is
+ * the subject's user row (locked by eraseUser), then companies, then billing accounts; placeOrder
+ * locks only its billing account, so the two cannot wait on each other in a cycle.
+ */
 export const assertSelfErasureAllowed =
   (person: { readonly userId: string; readonly email: string }) =>
   async (tx: DbOrTx): Promise<void> => {
+    await tx
+      .select({ id: company.id })
+      .from(company)
+      .where(eq(company.ownerId, person.userId))
+      .for("update");
+    await tx
+      .select({ id: billingAccount.id })
+      .from(billingAccount)
+      .where(eq(billingAccount.ownerUserId, person.userId))
+      .for("share");
     const check = await selfErasureCheck(tx, person);
     if (!check.allowed) throw new SelfErasureRefused(check.reason);
   };

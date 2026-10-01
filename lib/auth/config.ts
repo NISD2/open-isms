@@ -19,8 +19,8 @@ import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
 import {
   epochSeconds,
   isSessionVersionCurrent,
+  issuedToAccount,
   isWithinAbsoluteSessionAge,
-  signedInAfterAccountCreated,
 } from "@/lib/auth/session-age";
 import { effectiveAccessLevel } from "@/lib/billing/access";
 import { isActivePromo, PROMO_COOKIE } from "@/lib/billing/promo";
@@ -512,8 +512,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           .update(user)
           .set({ loginCount: sql`${user.loginCount} + 1`, lastLoginAt: new Date() })
           .where(eq(user.email, authUser.email))
-          .returning({ sessionVersion: user.sessionVersion });
+          .returning({ id: user.id, sessionVersion: user.sessionVersion });
         token.sessionVersion = dbUser?.sessionVersion ?? 1;
+        // Which account this sign-in opened: getSession refuses the token for any other account
+        // that later holds the same address (lib/auth/session-age.ts issuedToAccount).
+        if (dbUser) token.accountId = dbUser.id;
         // Stamped here and never again, so it stays the sign-in time however
         // often the token is re-signed (lib/auth/session-age.ts).
         token.authTime = epochSeconds(new Date());
@@ -542,6 +545,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       session.accessLevel = null;
       session.sessionVersion = token.sessionVersion ?? null;
       session.authTime = token.authTime ?? null;
+      session.accountId = token.accountId ?? null;
       session.hints = {
         journeyTourGuided: false,
         journeyTourTeam: false,
@@ -598,7 +602,6 @@ export const getSession = cache(async (): Promise<Session | null> => {
       name: true,
       companyId: true,
       sessionVersion: true,
-      createdAt: true,
       loginCount: true,
       grandfatheredAt: true,
       journeyTourGuidedDismissedAt: true,
@@ -618,7 +621,7 @@ export const getSession = cache(async (): Promise<Session | null> => {
     return null;
   }
   // A cookie from an erased account must not open a new one registered under the same address.
-  if (!signedInAfterAccountCreated(session.authTime, dbUser.createdAt)) {
+  if (!issuedToAccount(session.accountId, dbUser.id)) {
     return null;
   }
 

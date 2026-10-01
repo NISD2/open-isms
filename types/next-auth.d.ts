@@ -8,8 +8,8 @@ import type { Hint } from "@/lib/onboarding/hints";
  *
  * companyId / role / jobTitle are resolved from the DB in getSession()
  * — not via JWT callbacks. The JWT only holds the email, the
- * session revocation marker (audit M-1, 2026-06-10) and the sign-in
- * time; everything else is always fresh from DB.
+ * session revocation marker (audit M-1, 2026-06-10), the sign-in
+ * time and the account id; everything else is always fresh from DB.
  */
 declare module "next-auth" {
   interface Session {
@@ -42,6 +42,12 @@ declare module "next-auth" {
      */
     authTime: number | null;
     /**
+     * The account this sign-in was issued to, copied from the JWT. getSession rejects a session
+     * whose account no longer holds the address (erased, then registered again). null on tokens
+     * from before it was stamped; those age out within the absolute limit.
+     */
+    accountId: string | null;
+    /**
      * One-time onboarding surfaces this user still has coming, derived in
      * getSession() from the already-loaded user row (see
      * lib/onboarding/hints.ts). Always false on the raw NextAuth session
@@ -61,5 +67,6 @@ declare module "next-auth/jwt" {
   interface JWT {
     sessionVersion?: number;
     authTime?: number;
+    accountId?: string;
   }
 }

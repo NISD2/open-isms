@@ -1,4 +1,5 @@
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
+import { DrizzleQueryError } from "drizzle-orm";
 import { TRPC_MAX_BATCH_SIZE } from "@/lib/trpc/batch";
 import { checkTransport } from "@/lib/trpc/request-guard";
 import { createTRPCContext } from "@/server/trpc/init";
@@ -24,6 +25,37 @@ import { appRouter } from "@/server/trpc/router";
  * error's text: the errorFormatter (packages/isms-trpc/src/error-formatter.ts) drops the one and
  * replaces the other, so this log line is the only place the original survives.
  */
+/** The first database error in a cause chain, if there is one within a few links. */
+const queryErrorIn = (error: unknown, depth = 0): DrizzleQueryError | null =>
+  error instanceof DrizzleQueryError
+    ? error
+    : depth < 4 && error instanceof Error
+      ? queryErrorIn(error.cause, depth + 1)
+      : null;
+
+const fieldOf = (value: unknown, key: "code" | "constraint") =>
+  value && typeof value === "object" && key in value
+    ? String((value as Record<string, unknown>)[key])
+    : undefined;
+
+/**
+ * An unexpected error as the log keeps it. A database failure is logged by name, Postgres code,
+ * constraint and query text, never by message: drizzle's message carries the bound parameters, and
+ * tRPC copies it onto its own error, so an erasure's failing query would print the address being
+ * erased. Anything else keeps its stack, which is the point of this line.
+ */
+const loggableFailure = (error: Error): unknown => {
+  const query = queryErrorIn(error);
+  return query
+    ? {
+        name: query.name,
+        code: fieldOf(query.cause, "code"),
+        constraint: fieldOf(query.cause, "constraint"),
+        query: query.query,
+      }
+    : error;
+};
+
 async function handler(req: Request): Promise<Response> {
   const verdict = checkTransport(req.method, req.headers);
   if (!verdict.ok) {
@@ -41,7 +73,7 @@ async function handler(req: Request): Promise<Response> {
     onError: ({ error, path, type }) => {
       const where = `${type} ${path ?? "<no path>"}`;
       if (error.code === "INTERNAL_SERVER_ERROR") {
-        console.error(`[trpc] ${where} failed:`, error);
+        console.error(`[trpc] ${where} failed:`, loggableFailure(error));
         return;
       }
       console.warn(`[trpc] ${where} refused: ${error.code} — ${error.message}`);
