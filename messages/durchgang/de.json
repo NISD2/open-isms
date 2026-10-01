@@ -1204,6 +1204,134 @@
             "note": "Geben Sie es allen, die Ihre Geräte und Dienste einrichten, auch Ihrem IT-Dienstleister. Es ist als Entwurf gespeichert. Am Ende sieht die Geschäftsführung alle Konzepte durch und gibt sie frei."
           }
         }
+      },
+      "10_1": {
+        "headline": "Das Konzept für Personal, Zugänge und IT schreiben",
+        "teaser": "Wer an was kommt, und was passiert, wenn jemand geht.",
+        "missed": [
+          "Konten in Clouddiensten, die nicht am Firmenlogin hängen, werden beim Austritt leicht vergessen. Das BSI zählt eine fehlende zentrale Übersicht zu den wichtigen Risiken, weil sich dann im Notfall nicht alle Konten gleichzeitig sperren lassen.",
+          "Der Fernwartungszugang Ihres IT-Dienstleisters ist ein Zugang wie jeder andere: nur so weit, wie der Auftrag ihn braucht, und er endet mit dem Auftrag. Der IT-Grundschutz verlangt, dass Externe ihre Zugangsberechtigungen zurückgeben, wenn sie gehen (ORP.2.A4)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Wer an was kommt",
+            "body": [
+              "Zugänge entstehen, wenn jemand anfängt. Zum Risiko werden sie, wenn sie bleiben, nachdem sie nicht mehr gebraucht werden: nach einem Wechsel der Aufgabe, nach dem Austritt, nach dem Ende eines Auftrags. Das BSI zählt genau das zu den wichtigen Risiken.",
+              "Dieses Konzept regelt in einem Dokument die drei Dinge, die das Gesetz hier nennt: die Sicherheit des Personals, wer auf was zugreifen darf, und wie Sie Ihre IT verwalten. Für den IT-Teil ist Ihre Liste der Programme, Geräte und Dienstleister die Grundlage."
+            ],
+            "duty": "Das Gesetz verlangt Konzepte für die Sicherheit des Personals, für die Zugriffskontrolle und für die Verwaltung Ihrer IT, also Ihrer Systeme, Programme und Abläufe."
+          },
+          "leaver": {
+            "title": "Der letzte Arbeitstag",
+            "caption": "Was mit den Zugängen passiert, wenn jemand geht",
+            "good": {
+              "value": "Am letzten Arbeitstag sperrt die IT alle Konten, auch die in Clouddiensten. Laptop, Schlüssel und Ausweis kommen zurück.",
+              "note": "Der IT-Grundschutz verlangt beides: Kennungen entfernen und Unterlagen, Schlüssel, Geräte und Ausweise einziehen (ORP.4.A2, ORP.2.A2)."
+            },
+            "bad": {
+              "value": "Das Konto bleibt offen, bis jemand daran denkt.",
+              "note": "Konten ausgeschiedener Mitarbeitender, die nicht gelöscht werden, zählt das BSI zu den wichtigen Risiken."
+            }
+          },
+          "konzept": {
+            "title": "Ihr Konzept",
+            "lead": "Die Vorlage enthält feste Abschnitte zu Eintritt, Wechsel und Austritt, zu Externen, zu Zugängen und zur Verwaltung Ihrer IT, und Ihr Firmenname steht schon darin. Fügen Sie hinzu, was bei Ihnen gilt.",
+            "document": {
+              "title": "Konzept für Personal, Zugänge und IT der {company}",
+              "sections": [
+                {
+                  "heading": "Zweck",
+                  "text": "Dieses Konzept legt fest, wie die {company} dafür sorgt, dass Beschäftigte sicher mit Informationen umgehen, dass nur Befugte an Programme und Daten kommen und dass wir wissen, welche Systeme und Programme wir haben."
+                },
+                {
+                  "heading": "Neue Beschäftigte",
+                  "text": "Neue Beschäftigte werden auf die Vertraulichkeit verpflichtet und lernen die Leitlinie zur Informationssicherheit und die Regeln kennen, die für ihre Arbeit gelten. Erst dann bekommen sie Zugang zu unseren Systemen, und nur die Zugänge, die ihre Aufgabe braucht."
+                },
+                {
+                  "heading": "Wechsel und Austritt",
+                  "text": "Wechselt jemand die Aufgabe, passen wir die Zugänge an und entziehen, was nicht mehr gebraucht wird. Verlässt jemand das Unternehmen, sperren wir seine Zugänge unverzüglich, holen Unterlagen, Geräte, Schlüssel und Ausweise zurück und weisen darauf hin, dass die Verschwiegenheit weiter gilt."
+                },
+                {
+                  "heading": "Dienstleister und andere Externe",
+                  "text": "Externe bekommen nur die Zugänge, die ihr Auftrag braucht, und nur für seine Dauer. Bevor sie an vertrauliche Informationen kommen, verpflichten wir sie schriftlich zur Vertraulichkeit."
+                },
+                {
+                  "heading": "Zugänge und Rechte",
+                  "text": "Jede Kennung gehört genau einer Person. Rechte vergeben wir nur, soweit die Aufgabe sie braucht. Die Geschäftsführung legt fest, wer Zugänge genehmigt und wer sie einrichtet."
+                },
+                {
+                  "heading": "Verwaltung unserer IT",
+                  "text": "Wir führen eine Liste unserer Abläufe, Programme, Geräte und Dienstleister und halten sie aktuell. Was neu dazukommt, kommt auf die Liste, bevor wir es nutzen. Geräte und Datenträger, die wir ausmustern, löschen wir sicher oder lassen sie vernichten und streichen sie von der Liste."
+                },
+                {
+                  "heading": "Überprüfung",
+                  "text": "Wir überprüfen dieses Konzept regelmäßig und nach größeren Änderungen im Unternehmen."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "access_review",
+                  "label": "Rechte prüfen",
+                  "heading": "Überprüfung der Rechte",
+                  "text": "Einmal im Jahr prüfen wir, wer auf welche Programme und Daten zugreifen darf, und entziehen, was nicht mehr gebraucht wird. Konten mit Administratorrechten prüfen wir vierteljährlich. Das Ergebnis halten wir fest."
+                },
+                {
+                  "id": "admin_accounts",
+                  "label": "Getrennte Administratorkonten",
+                  "heading": "Administratorkonten",
+                  "text": "Administratorrechte haben nur eigene Administratorkonten. Für E-Mail und Internet nutzen auch Administratoren ein Konto ohne diese Rechte."
+                },
+                {
+                  "id": "admin_mfa",
+                  "label": "Zweiter Faktor für Administratoren",
+                  "heading": "Zweiter Faktor für Administratoren",
+                  "text": "Konten mit Administratorrechten melden sich nur mit einem zweiten Faktor an, etwa einer App auf dem Diensthandy oder einem Sicherheitsschlüssel."
+                },
+                {
+                  "id": "roles",
+                  "label": "Rechte über Rollen",
+                  "heading": "Rollen",
+                  "text": "Rechte vergeben wir über Rollen, etwa Buchhaltung oder Vertrieb, und nicht an einzelne Konten."
+                },
+                {
+                  "id": "shared",
+                  "label": "Gemeinsame Konten",
+                  "heading": "Gemeinsame Konten",
+                  "text": "Konten, die mehrere Personen gemeinsam nutzen, gibt es nur als begründete Ausnahme und mit Zustimmung der Geschäftsführung."
+                },
+                {
+                  "id": "inactive",
+                  "label": "Ungenutzte Konten",
+                  "heading": "Ungenutzte Konten",
+                  "text": "Konten, die längere Zeit nicht genutzt werden, sperren wir."
+                },
+                {
+                  "id": "passwords",
+                  "label": "Passwörter",
+                  "heading": "Passwörter",
+                  "text": "Jedes Passwort gilt nur für ein System, bleibt geheim und wird geändert, sobald der Verdacht besteht, dass es bekannt geworden ist."
+                },
+                {
+                  "id": "visitors",
+                  "label": "Besucher",
+                  "heading": "Besucher",
+                  "text": "Besucher, Handwerker und andere Externe, die nur kurz im Haus sind, kommen in Räume mit Servern oder Netztechnik nur in Begleitung."
+                },
+                {
+                  "id": "deputies",
+                  "label": "Vertretung",
+                  "heading": "Vertretung",
+                  "text": "Für wichtige Aufgaben ist eine Vertretung festgelegt, die weiß, was zu tun ist."
+                }
+              ],
+              "signature": "Für die Geschäftsführung der {company}: Ort, Datum, Unterschrift"
+            }
+          },
+          "done": {
+            "title": "Ihr Konzept steht",
+            "note": "Nehmen Sie es zur Hand, wenn jemand anfängt, die Aufgabe wechselt oder geht. Es ist als Entwurf gespeichert. Am Ende sieht die Geschäftsführung alle Konzepte durch und gibt sie frei."
+          }
+        }
       }
     }
   }

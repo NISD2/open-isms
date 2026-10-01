@@ -1204,6 +1204,134 @@
             "note": "Give it to everyone who sets up your devices and services, including your IT service provider. It is saved as a draft. At the end, management reviews all policies and approves them."
           }
         }
+      },
+      "10_1": {
+        "headline": "Write the staff, access and asset policy",
+        "teaser": "Who gets into what, and what happens when someone leaves.",
+        "missed": [
+          "Accounts in cloud services that do not hang off the company login are easily forgotten when someone leaves. Germany's BSI counts a missing central overview among the important risks, because then not all accounts can be blocked at once in an emergency.",
+          "Your IT provider's remote maintenance access is an access like any other: only as far as the job needs it, and it ends with the job. The IT-Grundschutz of Germany's BSI requires outside staff to hand back their access when they leave (ORP.2.A4)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Who gets into what",
+            "body": [
+              "Access is created when someone starts. It becomes a risk when it stays after it is no longer needed: after a change of role, after someone leaves, after a contract ends. Germany's BSI counts exactly that among the important risks.",
+              "This policy covers, in one document, the three things the law names here: the security of your staff, who may access what, and how you manage your IT. For the IT part, your list of software, devices and suppliers is the basis."
+            ],
+            "duty": "The law requires human resources security, access control policies and asset management."
+          },
+          "leaver": {
+            "title": "The last working day",
+            "caption": "What happens to the access when someone leaves",
+            "good": {
+              "value": "On the last working day, IT blocks every account, including those in cloud services. Laptop, keys and badge come back.",
+              "note": "The IT-Grundschutz asks for both: remove the user IDs, and collect documents, keys, devices and badges (ORP.4.A2, ORP.2.A2)."
+            },
+            "bad": {
+              "value": "The account stays open until someone remembers it.",
+              "note": "The BSI counts accounts of former staff that are not deleted among the important risks."
+            }
+          },
+          "konzept": {
+            "title": "Your policy",
+            "lead": "The template has fixed sections on joining, changing role and leaving, on outside staff, on access and on managing your IT, and your company's name is already in it. Add what applies to you.",
+            "document": {
+              "title": "Staff, access and asset policy of {company}",
+              "sections": [
+                {
+                  "heading": "Purpose",
+                  "text": "This policy sets out how {company} makes sure that staff handle information securely, that only authorised people get into software and data, and that we know which systems and software we have."
+                },
+                {
+                  "heading": "New staff",
+                  "text": "New staff are bound to confidentiality and learn the information security policy and the rules that apply to their work. Only then do they get access to our systems, and only the access their job needs."
+                },
+                {
+                  "heading": "Change of role and leaving",
+                  "text": "When someone changes role, we adjust their access and remove what is no longer needed. When someone leaves the company, we block their access without delay, take back documents, devices, keys and badges, and remind them that confidentiality still applies."
+                },
+                {
+                  "heading": "Service providers and other outside staff",
+                  "text": "Outside staff get only the access their job needs, and only for as long as it lasts. Before they see confidential information, we bind them to confidentiality in writing."
+                },
+                {
+                  "heading": "Access and rights",
+                  "text": "Every user ID belongs to exactly one person. We grant rights only as far as the job needs them. Management decides who approves access and who sets it up."
+                },
+                {
+                  "heading": "Managing our IT",
+                  "text": "We keep a list of our processes, software, devices and suppliers and keep it up to date. Anything new goes on the list before we use it. Devices and storage media we retire are securely wiped or destroyed, and taken off the list."
+                },
+                {
+                  "heading": "Review",
+                  "text": "We review this policy regularly and after major changes in the company."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "access_review",
+                  "label": "Reviewing rights",
+                  "heading": "Review of access rights",
+                  "text": "Once a year we check who may access which software and data, and remove what is no longer needed. Accounts with administrator rights are checked every quarter. We record the result."
+                },
+                {
+                  "id": "admin_accounts",
+                  "label": "Separate administrator accounts",
+                  "heading": "Administrator accounts",
+                  "text": "Administrator rights sit only on separate administrator accounts. For email and the internet, administrators also use an account without those rights."
+                },
+                {
+                  "id": "admin_mfa",
+                  "label": "Second factor for administrators",
+                  "heading": "Second factor for administrators",
+                  "text": "Accounts with administrator rights sign in only with a second factor, such as an app on the work phone or a security key."
+                },
+                {
+                  "id": "roles",
+                  "label": "Rights through roles",
+                  "heading": "Roles",
+                  "text": "We grant rights through roles, such as accounting or sales, and not to individual accounts."
+                },
+                {
+                  "id": "shared",
+                  "label": "Shared accounts",
+                  "heading": "Shared accounts",
+                  "text": "Accounts that several people use together exist only as a justified exception and with management's approval."
+                },
+                {
+                  "id": "inactive",
+                  "label": "Unused accounts",
+                  "heading": "Unused accounts",
+                  "text": "Accounts that have not been used for a long time are blocked."
+                },
+                {
+                  "id": "passwords",
+                  "label": "Passwords",
+                  "heading": "Passwords",
+                  "text": "Each password is used for one system only, kept secret, and changed as soon as there is a suspicion that it has become known."
+                },
+                {
+                  "id": "visitors",
+                  "label": "Visitors",
+                  "heading": "Visitors",
+                  "text": "Visitors, tradespeople and other outsiders who are only briefly on site enter rooms with servers or network equipment only when accompanied."
+                },
+                {
+                  "id": "deputies",
+                  "label": "Deputies",
+                  "heading": "Deputies",
+                  "text": "For important tasks a deputy is named who knows what to do."
+                }
+              ],
+              "signature": "For the management of {company}: place, date, signature"
+            }
+          },
+          "done": {
+            "title": "Your policy is in place",
+            "note": "Use it whenever someone starts, changes role or leaves. It is saved as a draft. At the end, management reviews all policies and approves them."
+          }
+        }
       }
     }
   }

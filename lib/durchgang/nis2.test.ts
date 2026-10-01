@@ -61,6 +61,8 @@ const NO_EDITOR_SCREEN: Readonly<Record<string, string>> = {
     "the treatment view records accepted residual risks, a CIR 2.1.2(j) duty the walk does not ask (see notAsked); 2.3 proposes each risk's treatment, and the view stays on the requirement page",
   "CRY:9.1":
     "the algorithm table, TLS minimum, rotation interval and post-quantum flag are CIR 2024/2690 Annex 9.2(b) and (c) and BSI TR-02102 detail; the walk writes the Kryptokonzept § 30 Abs. 2 Nr. 8 BSIG asks for, and the table stays on the requirement page",
+  "ACC:10.1":
+    "the access model, review cadence, deprovisioning hours, shared-account rule and authentication review cycle are CIR 2024/2690 Annex 11 and BSI detail; the walk writes the Konzept § 30 Abs. 2 Nr. 9 BSIG asks for, offers the review cadence as a clause, and the settings stay on the requirement page",
 };
 
 /** Registers the flow deliberately leaves out, each with the reason. */

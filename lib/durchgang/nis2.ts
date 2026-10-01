@@ -34,6 +34,12 @@ export const NOT_WALKED: Readonly<Record<string, string>> = {
     "Recording, per asset, the type and strength of encryption for data at rest and in transit is CIR 2024/2690 Annex 9.2(a), which binds only the digital providers the CIR covers; the BSI's Krypto-Kataster (IT-Grundschutz CON.1.A19) is a recommendation. § 30 Abs. 2 Nr. 8 BSIG asks for Konzepte und Prozesse, and the 9.1 Kryptokonzept says where the company encrypts, as clauses the person chooses. The per-asset table stays on the requirement page.",
   "9.3":
     "Key-management methods are CIR 2024/2690 Annex 9.2(c), which binds only the digital providers the CIR covers. The process § 30 Abs. 2 Nr. 8 BSIG asks for includes how keys and certificates are kept, renewed and replaced, and the 9.1 Kryptokonzept carries that as a fixed section. A key vault, a monitoring tool and an alert threshold in days are tooling no statute names, so the requirement page keeps those fields.",
+  "10.2":
+    "A register of the access rights granted is CIR 2024/2690 Annex 11.2.2(e), and the rules for privileged accounts are Annex 11.3; both bind only the digital providers the CIR covers. § 30 Abs. 2 Nr. 9 BSIG asks for a Konzept for access control, which 10.1 writes. The owner, access method and number of administrator accounts per asset stay on the requirement page.",
+  "10.3":
+    "Sicherheit des Personals (§ 30 Abs. 2 Nr. 9 BSIG) is part of the 10.1 Konzept: joining, changing role and leaving, and outside staff. Background checks are CIR 2024/2690 Annex 10.2 and the management of privileged accounts Annex 11.3, which bind only the digital providers the CIR covers; the names of a joiner-mover-leaver tool and a privileged-access tool are tooling no statute asks for. The requirement page keeps those fields.",
+  "10.4":
+    "No statute sets when access rights are reviewed: CIR 2024/2690 Annex 11.2.3 and 11.3.3 say 'at planned intervals' and bind only the digital providers the CIR covers. The 10.1 Konzept offers the review as a clause (yearly, administrator accounts quarterly, from the values the BSI suggests in Grundschutz++ BER.4.4). A review is a dated proof that cannot exist on the day the walk runs, so the requirement page records each one when it happens.",
 };
 
 export const NIS2_SCRIPT: readonly AnyItem[] = [
@@ -285,6 +291,18 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     screens: [
       { kind: "learn", id: "learn", link: "bsi_tr_02102" },
       { kind: "policy", id: "konzept", policy: "cryptography" },
+      { kind: "done", id: "done" },
+    ],
+  }),
+  item({
+    code: "10.1",
+    category: "ACC",
+    glossary: [],
+    reviewed: "2026-10-01",
+    screens: [
+      { kind: "learn", id: "learn" },
+      { kind: "compare", id: "leaver" },
+      { kind: "policy", id: "konzept", policy: "personnel_access" },
       { kind: "done", id: "done" },
     ],
   }),

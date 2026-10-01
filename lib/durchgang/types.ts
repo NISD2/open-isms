@@ -47,7 +47,8 @@ export type Adoptable = "bsi_200_3_method";
 export type PolicyTemplate =
   | "information_security"
   | "incident_response"
-  | "cryptography";
+  | "cryptography"
+  | "personnel_access";
 
 /** Where a list the company needs usually exists already. */
 export const SOURCE_IDS = [
