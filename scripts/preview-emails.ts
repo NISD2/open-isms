@@ -139,6 +139,7 @@ const mails: readonly (readonly [string, () => EmailContent | Promise<EmailConte
                 termsVersion: "2026-10-01",
                 amounts,
                 dates,
+                firstOrder: true,
               }),
             ),
         ] as const,

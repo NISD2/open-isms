@@ -36,7 +36,9 @@ const RECORD_STYLES: Readonly<Record<string, string>> = {
 
 /**
  * Render a formal record written in markdown (the erasure certificate) for the body of an email,
- * with its tables, headings and lists styled the way the email around them is.
+ * with its tables, headings and lists styled the way the email around them is. It carries no
+ * links: the record quotes names a tenant typed, and GFM would turn "www.example.org/login" in a
+ * company name into a live link in an email sent from our address.
  */
 export function renderRecordMarkdown(markdown: string): Promise<string> {
   return render(markdown, RECORD_STYLES);
@@ -44,28 +46,30 @@ export function renderRecordMarkdown(markdown: string): Promise<string> {
 
 async function render(
   markdown: string,
-  styles: Readonly<Record<string, string>> | null,
+  record: Readonly<Record<string, string>> | null,
 ): Promise<string> {
   const result = await unified()
     .use(remarkParse)
     .use(remarkGfm)
     .use(remarkRehype)
     .use(rehypeSafeUrls)
-    .use(() => (tree: Root) => (styles ? styleElements(tree, styles) : undefined))
+    .use(() => (tree: Root) => (record ? asRecord(tree, record) : undefined))
     .use(rehypeStringify)
     .process(markdown);
   return String(result);
 }
 
-function styleElements(
-  node: Root | Element,
-  styles: Readonly<Record<string, string>>,
-): void {
+/** Style every element inline, and turn every link into plain text. */
+function asRecord(node: Root | Element, styles: Readonly<Record<string, string>>): void {
   for (const child of node.children) {
     if (child.type !== "element") continue;
+    if (child.tagName === "a") {
+      child.tagName = "span";
+      child.properties = {};
+    }
     const style = styles[child.tagName];
     if (style) child.properties.style = style;
-    styleElements(child, styles);
+    asRecord(child, styles);
   }
 }
 

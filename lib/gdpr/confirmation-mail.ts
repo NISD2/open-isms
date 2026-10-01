@@ -27,7 +27,7 @@ const COPY: Record<
     readonly organization: string;
     readonly organizationDetail: Record<Outcome, string>;
     readonly kept: string;
-    readonly keptValue: Record<"record_only" | "by_law", string>;
+    readonly keptValue: Record<Outcome, string>;
     readonly recordUntil: (day: string) => string;
     readonly outro: string;
   }
@@ -54,8 +54,10 @@ const COPY: Record<
     },
     kept: "Aufbewahrt",
     keptValue: {
-      record_only: "Nur dieser Nachweis",
-      by_law: "Was ein Gesetz verlangt, siehe unten",
+      all: "Nur dieser Nachweis",
+      kept_by_law: "Was ein Gesetz verlangt, siehe unten",
+      files_pending:
+        "Dieser Nachweis, dazu Dateien, deren Löschung noch läuft, siehe unten",
     },
     recordUntil: (day) => `Nachweis bis ${day}`,
     outro:
@@ -83,8 +85,9 @@ const COPY: Record<
     },
     kept: "Kept",
     keptValue: {
-      record_only: "Only this record",
-      by_law: "What a law requires, see below",
+      all: "Only this record",
+      kept_by_law: "What a law requires, see below",
+      files_pending: "This record, and files still being deleted, see below",
     },
     recordUntil: (day) => `Record kept until ${day}`,
     outro: "The formal record with every detail follows below and is attached as a file.",
@@ -111,8 +114,9 @@ const COPY: Record<
     },
     kept: "Bewaard",
     keptValue: {
-      record_only: "Alleen dit bewijs",
-      by_law: "Wat een wet vereist, zie hieronder",
+      all: "Alleen dit bewijs",
+      kept_by_law: "Wat een wet vereist, zie hieronder",
+      files_pending: "Dit bewijs, en bestanden die nog worden verwijderd, zie hieronder",
     },
     recordUntil: (day) => `Bewijs bewaard tot ${day}`,
     outro:
@@ -149,7 +153,7 @@ export function erasureConfirmationWording(
       : []),
     {
       label: copy.kept,
-      value: copy.keptValue[keptByLaw.length > 0 ? "by_law" : "record_only"],
+      value: copy.keptValue[outcome],
       detail: copy.recordUntil(day(row.retentionUntil)),
     },
   ];

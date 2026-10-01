@@ -24,7 +24,8 @@ const servedFrom = (url: string) => {
   process.env.NEXT_PUBLIC_APP_URL = url;
 };
 afterEach(() => {
-  process.env.NEXT_PUBLIC_APP_URL = APP_URL;
+  if (APP_URL === undefined) delete process.env.NEXT_PUBLIC_APP_URL;
+  else process.env.NEXT_PUBLIC_APP_URL = APP_URL;
 });
 
 const OPT_OUT = {
@@ -41,6 +42,16 @@ describe("isSellerInstance", () => {
     expect(isSellerInstance("https://isms.example.org")).toBe(false);
     expect(isSellerInstance("https://nisd2.eu.example.org")).toBe(false);
     expect(isSellerInstance("not a url")).toBe(false);
+    expect(isSellerInstance("")).toBe(false);
+  });
+
+  test("an install that never configured its address is not taken for nisd2.eu", () => {
+    // lib/env fills the gap with nisd2.eu for links; the gate must not follow that default.
+    delete process.env.NEXT_PUBLIC_APP_URL;
+    expect(isSellerInstance()).toBe(false);
+    const html = emailLayout("<p>Body</p>", { locale: "de" });
+    expect(html).not.toContain("Kardashev");
+    expect(letterSignOff("de")).not.toContain("Simon Orzel");
   });
 });
 

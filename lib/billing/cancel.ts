@@ -273,7 +273,7 @@ const cancelRenewal = async (
 };
 
 /** The client email Qonto answered with, when it really is an address and not the holder's. */
-const accountingCopy = (candidate: string | null | undefined, holder: string) =>
+export const accountingCopy = (candidate: string | null | undefined, holder: string) =>
   candidate &&
   z.email().safeParse(candidate).success &&
   candidate.toLowerCase() !== holder.toLowerCase()

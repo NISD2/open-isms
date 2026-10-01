@@ -37,6 +37,8 @@ export interface DeliverInvoiceInput {
   /** What the invoice charges and when, repeated on the email's card. */
   readonly amounts: Pick<Money, "netCents" | "vatCents">;
   readonly dates: InvoiceDates;
+  /** The account's first invoice, the only one that carries money back. */
+  readonly firstOrder: boolean;
   /** Replaced in tests, so the polling does not really wait. */
   readonly wait?: (ms: number) => Promise<void>;
 }
@@ -129,6 +131,7 @@ const sendInvoice = async (
       termsVersion: input.termsVersion,
       amounts: input.amounts,
       dates: input.dates,
+      firstOrder: input.firstOrder,
     }),
   );
   const result = await sendMail({

@@ -195,6 +195,24 @@ export const invoiceDates = (
 export const licenceTitle = (locale: "de" | "en"): string =>
   locale === "de" ? "NIS 2 Durchgang, Jahreslizenz" : "NIS 2 guided pass, annual licence";
 
+/** What makes the automatic payment match work: the invoice number as the payment reference. */
+const PAYMENT_REFERENCE = {
+  de: "Bitte geben Sie bei der Überweisung die Rechnungsnummer als Verwendungszweck an.",
+  en: "Please quote the invoice number as the payment reference.",
+} as const;
+
+/**
+ * The money-back promise, on the account's first invoice only: a renewal or a new order after a
+ * cancel never has it (AGB B7, cancelWindowFor), so a later invoice must not say it does.
+ */
+const moneyBack = (locale: "de" | "en", firstOrder: boolean): string =>
+  firstOrder
+    ? {
+        de: "30 Tage Geld zurück ab Bestelldatum.",
+        en: "Thirty days money back from the order date.",
+      }[locale]
+    : "";
+
 /**
  * The line item and the footer, in the customer's language.
  *
@@ -206,21 +224,12 @@ export const invoiceWording = (
   dates: InvoiceDates,
   money: Money,
   locale: "de" | "en",
+  firstOrder: boolean,
 ): { readonly title: string; readonly description: string; readonly footer: string } => {
   const period =
     locale === "de"
       ? `Leistungszeitraum ${dates.performanceStartDate} bis ${dates.performanceEndDate}`
       : `Service period ${dates.performanceStartDate} to ${dates.performanceEndDate}`;
-
-  const guarantee =
-    locale === "de"
-      ? "30 Tage Geld zurück ab Bestelldatum."
-      : "Thirty days money back from the order date.";
-
-  const reference =
-    locale === "de"
-      ? "Bitte geben Sie bei der Überweisung die Rechnungsnummer als Verwendungszweck an."
-      : "Please quote the invoice number as the payment reference.";
 
   const taxNote =
     money.treatment.kind === "reverse_charge" || money.treatment.kind === "outside_eu"
@@ -230,7 +239,9 @@ export const invoiceWording = (
   return {
     title: licenceTitle(locale),
     description: period,
-    footer: [taxNote, guarantee, reference].filter(Boolean).join(" "),
+    footer: [taxNote, moneyBack(locale, firstOrder), PAYMENT_REFERENCE[locale]]
+      .filter(Boolean)
+      .join(" "),
   };
 };
 
@@ -287,9 +298,14 @@ export const invoiceEmailWording = (opts: {
   readonly termsVersion: string | null;
   readonly amounts: Pick<Money, "netCents" | "vatCents">;
   readonly dates: InvoiceDates;
+  /** The account's first invoice, the only one that carries money back. */
+  readonly firstOrder: boolean;
 }): DocumentEmail => {
-  const { number, locale, where, termsVersion, amounts, dates } = opts;
+  const { number, locale, where, termsVersion, amounts, dates, firstOrder } = opts;
   const day = (iso: string) => formatInvoiceDay(iso, locale);
+  const payment = [PAYMENT_REFERENCE[locale], moneyBack(locale, firstOrder)]
+    .filter(Boolean)
+    .join(" ");
   const online =
     where.attached && where.invoiceUrl
       ? [
@@ -332,10 +348,7 @@ export const invoiceEmailWording = (opts: {
             { label: "Verwendungszweck", value: number },
           ],
         },
-        outro: [
-          "Bitte geben Sie bei der Überweisung die Rechnungsnummer als Verwendungszweck an. 30 Tage Geld zurück ab Bestelldatum.",
-          ...terms,
-        ],
+        outro: [payment, ...terms],
       }
     : {
         ...common,
@@ -362,9 +375,6 @@ export const invoiceEmailWording = (opts: {
             { label: "Payment reference", value: number },
           ],
         },
-        outro: [
-          "Please quote the invoice number as the payment reference. Thirty days money back from the order date.",
-          ...terms,
-        ],
+        outro: [payment, ...terms],
       };
 };

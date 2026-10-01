@@ -91,6 +91,9 @@ describe("erasureConfirmationWording", () => {
     });
     expect(pending).toContain("noch nicht vollständig gelöscht");
     expect(pending).not.toContain("alle personenbezogenen Daten");
+    // Every line agrees, the "kept" line included.
+    expect(pending).not.toContain("Nur dieser Nachweis");
+    expect(pending).toContain("Dateien, deren Löschung noch läuft");
   });
 
   test("names the case, the day and the account, in each language", () => {
@@ -121,5 +124,13 @@ describe("renderRecordMarkdown", () => {
     expect(html).toContain("<table style=");
     expect(html).toContain("<td style=");
     expect(html).not.toContain("<style");
+  });
+
+  test("a company name cannot become a link in an email sent from our address", async () => {
+    const planted = { ...row(), companyName: "Kunde GmbH www.phish.example/login" };
+    const html = await renderRecordMarkdown(erasureRecord(planted, DONE));
+    expect(html).toContain("www.phish.example/login");
+    expect(html).not.toContain("<a ");
+    expect(html).not.toContain("href=");
   });
 });

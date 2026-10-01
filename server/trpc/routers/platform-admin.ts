@@ -649,7 +649,11 @@ export const platformAdminRouter = router({
         ipAddress: ctx.ip,
         userAgent: ctx.userAgent,
       });
-      const confirmation = await sendRefundConfirmation(ctx.db, input.creditNoteId);
+      const confirmation = await sendRefundConfirmation(
+        ctx.db,
+        orderingMode(env),
+        input.creditNoteId,
+      );
       return { number, confirmation };
     }),
 

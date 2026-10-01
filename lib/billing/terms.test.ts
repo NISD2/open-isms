@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { invoiceDates, invoiceEmailWording } from "./order";
+import { invoiceDates, invoiceEmailWording, invoiceWording, priceFor } from "./order";
 import { TERMS_VERSION, termsVersionLabel } from "./terms";
 
 describe("terms version", () => {
@@ -18,6 +18,7 @@ const order = {
   number: "RE-2026-0001",
   amounts: { netCents: 480_000, vatCents: 91_200 },
   dates: invoiceDates(new Date("2026-09-15T09:00:00Z")),
+  firstOrder: true,
 } as const;
 
 describe("invoice email names the accepted terms", () => {
@@ -102,5 +103,31 @@ describe("invoice email card", () => {
 
   test("the payment reference is the invoice number", () => {
     expect(fact("de", "Verwendungszweck")?.value).toBe("RE-2026-0001");
+  });
+});
+
+describe("money back is promised on the account's first invoice only", () => {
+  const PROMISE = /Geld zurück|money back/;
+  const email = (firstOrder: boolean) =>
+    invoiceEmailWording({
+      ...order,
+      firstOrder,
+      locale: "de",
+      where: { attached: true, invoiceUrl: null },
+      termsVersion: null,
+    }).outro.join(" ");
+  const pdfFooter = (firstOrder: boolean) =>
+    invoiceWording(order.dates, priceFor("DE", null, 480_000), "en", firstOrder).footer;
+
+  test("the first invoice and its email promise it", () => {
+    expect(email(true)).toMatch(PROMISE);
+    expect(pdfFooter(true)).toMatch(PROMISE);
+  });
+
+  test("a renewal or a new order after a cancel does not", () => {
+    expect(email(false)).not.toMatch(PROMISE);
+    expect(pdfFooter(false)).not.toMatch(PROMISE);
+    expect(email(false)).toContain("als Verwendungszweck");
+    expect(pdfFooter(false)).toContain("payment reference");
   });
 });

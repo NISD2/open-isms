@@ -18,8 +18,14 @@ export const SELLER = {
 const SELLER_HOSTS: ReadonlySet<string> = new Set(["nisd2.eu", "www.nisd2.eu"]);
 
 /**
- * Whether this install is nisd2.eu itself, judged by its public address. Self-hosters run the same
- * code, and their mail must not carry this company's name, register entry and signature.
+ * Whether this install is nisd2.eu itself, judged by the public address it was configured with.
+ * Self-hosters run the same code, and their mail must not carry this company's name, register
+ * entry and signature. lib/env fills an unset address with nisd2.eu so links still work, so this
+ * reads the configured value instead: an install that never set one is not taken for us.
  */
-export const isSellerInstance = (appUrl: string): boolean =>
-  URL.canParse(appUrl) && SELLER_HOSTS.has(new URL(appUrl).hostname);
+export const isSellerInstance = (
+  configuredUrl: string | undefined = process.env.NEXT_PUBLIC_APP_URL,
+): boolean => {
+  const url = configuredUrl?.trim() ?? "";
+  return URL.canParse(url) && SELLER_HOSTS.has(new URL(url).hostname);
+};

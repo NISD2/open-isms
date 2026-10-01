@@ -1,10 +1,11 @@
 /**
  * The customer's confirmation that a refund owed under a credit note went out, sent when a platform
  * admin records the transfer in the Subscriptions tab. It closes the promise the credit note email
- * made ("we confirm it in a short email").
+ * made ("we confirm it in a short email"), so it goes to the same readers: the billing account's
+ * holder, in their language, and the accounting address the credit note was issued to in Qonto.
  *
- * It goes to the billing account's holder, in their language. A holder who deleted their account
- * is gone, and so is their address: nothing is sent, and the transfer itself reaches them.
+ * A holder who deleted their account is gone, and nothing is sent: the transfer itself reaches
+ * them. Never throws, because the refund is already recorded by the time this runs.
  */
 import "@/lib/server-guard";
 import { eq } from "drizzle-orm";
@@ -13,18 +14,34 @@ import { documentEmail, sendMail } from "@/lib/mail";
 import { wasDelivered } from "@/lib/mail/delivery";
 import { resolveEmailLocale } from "@/lib/mail/locale";
 import { billingAccount, creditNote, invoice, user } from "@/schema";
+import { accountingCopy } from "./cancel";
 import { refundSentWording } from "./cancel-terms";
+import type { OrderingMode } from "./ordering";
+import { getCreditNote } from "./qonto";
 
 /** What became of the confirmation, for the admin who recorded the transfer. */
 export type RefundConfirmation = "sent" | "no_holder" | "not_sent";
 
-export async function sendRefundConfirmation(
+/** The credit note's Qonto client address, when it is a second reader. Qonto unreachable: none. */
+const accountingAddress = async (
+  mode: OrderingMode,
+  qontoCreditNoteId: string,
+  holder: string,
+): Promise<readonly string[]> => {
+  if (mode.kind === "off") return [];
+  const res = await getCreditNote(mode.qonto, qontoCreditNoteId);
+  return res.ok ? accountingCopy(res.data.credit_note?.client?.email, holder) : [];
+};
+
+const confirm = async (
   db: DbOrTx,
+  mode: OrderingMode,
   creditNoteId: string,
-): Promise<RefundConfirmation> {
+): Promise<RefundConfirmation> => {
   const [row] = await db
     .select({
       creditNoteNumber: creditNote.number,
+      qontoCreditNoteId: creditNote.qontoCreditNoteId,
       invoiceNumber: invoice.number,
       netCents: invoice.netCents,
       vatCents: invoice.vatCents,
@@ -47,11 +64,29 @@ export async function sendRefundConfirmation(
     },
     resolveEmailLocale(row.locale, null),
   );
+  const accounting = await accountingAddress(
+    mode,
+    row.qontoCreditNoteId,
+    row.email,
+  ).catch(() => []);
   const result = await sendMail({
     emailType: "billing.refund_sent",
-    to: row.email,
+    to: [row.email, ...accounting],
     ...documentEmail(wording),
     idempotencyKey: `refund-sent-${row.creditNoteNumber}`,
-  }).catch(() => ({ success: false }) as const);
+  });
   return wasDelivered(result) ? "sent" : "not_sent";
-}
+};
+
+export const sendRefundConfirmation = (
+  db: DbOrTx,
+  mode: OrderingMode,
+  creditNoteId: string,
+): Promise<RefundConfirmation> =>
+  confirm(db, mode, creditNoteId).catch((err: unknown) => {
+    console.error(
+      `[billing] refund confirmation for credit note ${creditNoteId} failed`,
+      err,
+    );
+    return "not_sent" as const;
+  });

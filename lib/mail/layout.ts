@@ -126,7 +126,7 @@ const CLOSING: Record<EmailLocale, string> = {
  * the legal footer names; a self-hosted install signs as the software it runs.
  */
 export function letterSignOff(locale: EmailLocale): readonly string[] {
-  return isSellerInstance(getAppUrl())
+  return isSellerInstance()
     ? [CLOSING[locale], SELLER.director, `${LEGAL_COPY[locale].director}, nisd2.eu`]
     : [CLOSING[locale], "nisd2.eu"];
 }
@@ -136,14 +136,14 @@ const footerLink = (href: string, label: string) =>
 
 /**
  * Who sends this, at the bottom of every email. On nisd2.eu that is the company, with what
- * § 35a Abs. 1 GmbHG asks of a business letter in any form: legal form, seat, register court and
- * number, and the managing director. A self-hosted install is someone else's business, so its
- * mail only says what software it runs.
+ * § 35a Abs. 1 GmbHG asks of a business letter in any form: legal form, register court and
+ * number, and the managing director. A self-hosted install, or one that never configured its
+ * address, is someone else's business, so its mail only says what software it runs.
  */
 function legalFooter(locale: EmailLocale): string {
   const appUrl = getAppUrl();
   const style = `background: ${BRAND.muted}; padding: 16px 32px; color: ${BRAND.mutedForeground}; font-size: 11px; line-height: 1.7;`;
-  if (!isSellerInstance(appUrl)) {
+  if (!isSellerInstance()) {
     return `
     <div style="${style}">
       <a href="https://nisd2.eu" style="color: ${BRAND.primary}; text-decoration: none; font-weight: 600;">nisd2.eu</a>
