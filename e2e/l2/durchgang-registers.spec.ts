@@ -11,10 +11,10 @@ import { expect, test } from "@playwright/test";
 import { e2eQuery } from "../lib/db";
 import { E2E_USER_EMAIL } from "../lib/env";
 
-// With assets on the list, 2.2 collapses its catalogue slices into one register screen, so
-// "Welches Programm genau, und von wem?" is screen 4 (learn, list, sources, register, ...).
-const WHICH_SOFTWARE = 4;
-// 2.3: learn, software, technology, suppliers, done.
+// 2.2 keeps its four catalogue checklists whether or not the register has entries, so "Welches
+// Programm genau, und von wem?" is screen 7 (learn, list, sources, four checklists, ...).
+const WHICH_SOFTWARE = 7;
+// 2.3: learn, software, technology, suppliers, map, done.
 const RATE_SOFTWARE = 1;
 const RATE_SUPPLIERS = 3;
 
