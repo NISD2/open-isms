@@ -50,6 +50,7 @@ import {
   erasureStoredFiles,
   previewUserErasure,
 } from "@/lib/gdpr/erase-user";
+import { sendErasureCertificate } from "@/lib/gdpr/send-certificate";
 import { runLifecycleEmails } from "@/lib/lifecycle/dispatch";
 import { prepareActivationNudgeSample } from "@/lib/lifecycle/emails/activation-nudge";
 import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
@@ -2039,7 +2040,14 @@ export const platformAdminRouter = router({
         userAgent: ctx.userAgent,
       });
 
-      return result;
+      // Art. 12(3) GDPR: the person is told what was done, by email, as they asked by email.
+      const certificateSent = await sendErasureCertificate(ctx.db, {
+        logId: result.logId,
+        caseRef: result.caseRef,
+        to: target.email,
+      });
+
+      return { ...result, certificateSent };
     }),
 
   /** Erasure records, newest first, for the accountability log view. */
