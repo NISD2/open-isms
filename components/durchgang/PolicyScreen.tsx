@@ -2,21 +2,20 @@
 
 import { Check, Plus, Printer, ScrollText } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { z } from "zod";
 import { policyParts, policySignature, policyTitle } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
 import { Heading, Lead } from "./ExplainScreens";
 import type { Of, WorkProps } from "./WorkScreens";
 
-/** The stored choice; the config column is JSON, so its shape is checked, not assumed. */
-const STORED = z.object({ clauses: z.array(z.string()) });
+const sameChoice = (a: readonly string[], b: readonly string[]) =>
+  a.length === b.length && a.every((id) => b.includes(id));
 
 /**
  * A policy written from the template, shown as the document it becomes: the clauses to add on
- * top, then the text with the company's name and the signature line. The preview is assembled by
- * the same function the server stores, so what is shown is what is written. Printing leaves only
- * the document, for management to sign on paper.
+ * top, then the text with the company's name and the signature line. The document comes from the
+ * server in the record language and is assembled by the function the server stores, so what is
+ * shown, printed and signed is what is written. Printing leaves only the document.
  */
 export function PolicyScreen({
   item,
@@ -27,16 +26,16 @@ export function PolicyScreen({
   const t = useTranslations("durchgang.ui.policy");
   const tUi = useTranslations("durchgang.ui");
   const policyType = entry.screen.policy;
-  const config = trpc.policyConfig.get.useQuery({ policyType });
+  const policyDraft = trpc.durchgang.policyDraft.useQuery({ code: item.code });
   const policies = trpc.policy.list.useQuery();
-  const document = entry.copy.document;
-  const company = item.companyName ?? t("yourCompany");
+  if (!policyDraft.data) return null;
+  const { document, company, clauses: stored } = policyDraft.data;
 
-  const stored = STORED.safeParse(config.data?.config);
-  const chosen = draft.clauses ?? (stored.success ? stored.data.clauses : []);
+  const chosen = draft.clauses ?? stored;
   const approved = (policies.data ?? []).some(
     (p) => p.type === policyType && p.status === "approved",
   );
+  const changed = draft.clauses !== null && !sameChoice(draft.clauses, stored);
   const toggle = (id: string) =>
     onDraft({
       ...draft,
@@ -74,7 +73,7 @@ export function PolicyScreen({
             );
           })}
         </div>
-        {approved && draft.clauses !== null && (
+        {approved && changed && (
           <p className="mt-3 text-sm text-muted-foreground">
             {t("changedAfterApproval")}
           </p>

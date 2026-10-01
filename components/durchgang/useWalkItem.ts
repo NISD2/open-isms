@@ -59,10 +59,6 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
           item.fields,
         );
         await answer(answers);
-        saved.current = {
-          ...saved.current,
-          ...Object.fromEntries(Object.keys(answers).map((k) => [k, snapshot.values[k]])),
-        };
         // A changed signature page approves the policy it signs; an unchanged one says nothing new.
         const signs = screen.approves;
         const version = signs && String(snapshot.values[signs.version] ?? "").trim();
@@ -72,19 +68,23 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
           await approvePolicy.mutateAsync({ code: item.code, version, approvedOn });
           await utils.policy.list.invalidate();
         }
+        // Only now is the screen stored: a refused approval sends both writes again on retry.
+        saved.current = {
+          ...saved.current,
+          ...Object.fromEntries(Object.keys(answers).map((k) => [k, snapshot.values[k]])),
+        };
         return;
       }
       case "policy":
-        if (snapshot.clauses !== null) {
-          await writePolicy.mutateAsync({
-            code: item.code,
-            clauses: [...snapshot.clauses],
-          });
-          await Promise.all([
-            utils.policyConfig.get.invalidate(),
-            utils.policy.list.invalidate(),
-          ]);
-        }
+        // Always written, so the base text is stored even when no clause is added.
+        await writePolicy.mutateAsync({
+          code: item.code,
+          clauses: snapshot.clauses ? [...snapshot.clauses] : null,
+        });
+        await Promise.all([
+          utils.durchgang.policyDraft.invalidate(),
+          utils.policy.list.invalidate(),
+        ]);
         return;
       case "evidence":
         if (screen.field && snapshot.uploaded) {

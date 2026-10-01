@@ -63,7 +63,6 @@
       "policy": {
         "add": "Add what applies to you:",
         "print": "Print",
-        "yourCompany": "your company",
         "changedAfterApproval": "The changed version needs a new signature."
       },
       "specify": {

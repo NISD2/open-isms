@@ -68,7 +68,5 @@ export interface ItemView {
   readonly adoptedAt: Date | null;
   /** Loaded only for an item with the registration portals screen. */
   readonly registration: Registration | null;
-  /** The company's name, which a policy screen fills into its template. Null elsewhere. */
-  readonly companyName: string | null;
   readonly locale: "de" | "en";
 }

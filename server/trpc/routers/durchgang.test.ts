@@ -317,6 +317,27 @@ describe("the walk's policy", () => {
     expect(content).not.toContain("{company}");
   });
 
+  test("writes the base text when no clause is added, and keeps the stored choice untouched", async () => {
+    const { caller, writes } = setup({ accessLevel: "full" });
+    await caller.writePolicy({ code: "2.4", clauses: null });
+    expect(writes.find((w) => w.table === companyPolicyConfig)).toBeUndefined();
+    const content = contentOf(
+      writes.find((w) => w.op === "insert" && w.table === policy),
+    );
+    expect(content).toContain("## 7. Bekanntgabe und Inkrafttreten");
+    expect(content).not.toContain("## 8.");
+  });
+
+  test("shows the screen the document in the record language, with the company's name", async () => {
+    const { caller } = setup({ accessLevel: "full" });
+    const draft = await caller.policyDraft({ code: "2.4" });
+    expect(draft.company).toBe("Muster GmbH");
+    expect(draft.document.title).toBe(
+      "Leitlinie zur Informationssicherheit der {company}",
+    );
+    expect(draft.clauses).toEqual([]);
+  });
+
   test("puts a changed text back to draft, and leaves an unchanged one alone", async () => {
     const changed = setup({
       accessLevel: "full",

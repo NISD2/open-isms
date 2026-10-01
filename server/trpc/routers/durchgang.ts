@@ -11,6 +11,7 @@ import { invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
 import { getDefaultMethodology } from "@/lib/compliance/risk-methodology-defaults";
 import { seedLocale } from "@/lib/compliance/seed-locale";
 import {
+  type AnyScreen,
   declinedNote,
   levelOf,
   methodNote,
@@ -133,6 +134,16 @@ const itemOf = (c: string) => {
   return item;
 };
 
+/** The policy an item writes, from its script; an item without a policy screen writes none. */
+const policyTypeOf = (c: string) => {
+  const screens: readonly AnyScreen[] = itemOf(c).screens;
+  const screen = screens.find((s) => s.kind === "policy");
+  if (screen?.kind !== "policy") {
+    throw new TRPCError({ code: "BAD_REQUEST", message: `${c} writes no policy.` });
+  }
+  return screen.policy;
+};
+
 /** The item's policy screen with its words in `locale`; an item without one writes no policy. */
 const policyScreenOf = (c: string, locale: "de" | "en") => {
   const words = resolveItem(NAMESPACES[locale], itemOf(c));
@@ -143,6 +154,46 @@ const policyScreenOf = (c: string, locale: "de" | "en") => {
     throw new TRPCError({ code: "BAD_REQUEST", message: `${c} writes no policy.` });
   }
   return screen;
+};
+
+/** The stored clause choice; the config column is JSON, so its shape is checked, not assumed. */
+const STORED_CLAUSES = z.object({ clauses: z.array(z.string()) });
+
+/**
+ * A policy as the walk writes it for this company: the template in the record language, the
+ * company's name and the clauses chosen so far. The screen shows exactly this, so the text that
+ * is printed and signed is the text that is stored.
+ */
+const policyDraftOf = async (
+  ctx: { db: TRPCContext["db"]; companyId: string; userId: string },
+  c: string,
+) => {
+  const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
+  const screen = policyScreenOf(c, locale);
+  const type = screen.screen.policy;
+  const [org, [config]] = await Promise.all([
+    ctx.db.query.company.findFirst({
+      where: eq(company.id, ctx.companyId),
+      columns: { name: true },
+    }),
+    ctx.db
+      .select({ config: companyPolicyConfig.config })
+      .from(companyPolicyConfig)
+      .where(
+        and(
+          eq(companyPolicyConfig.companyId, ctx.companyId),
+          eq(companyPolicyConfig.policyType, type),
+        ),
+      ),
+  ]);
+  if (!org) throw new TRPCError({ code: "NOT_FOUND" });
+  const stored = STORED_CLAUSES.safeParse(config?.config);
+  return {
+    type,
+    document: screen.copy.document,
+    company: org.name,
+    clauses: stored.success ? stored.data.clauses : [],
+  };
 };
 
 export const durchgangRouter = router({
@@ -700,6 +751,14 @@ export const durchgangRouter = router({
       return { written: written.length };
     }),
 
+  /** The policy an item writes, as its screen shows it and the server stores it. */
+  policyDraft: durchgangProcedure
+    .input(z.object({ code }))
+    .query(async ({ ctx, input }) => {
+      const draft = await policyDraftOf(ctx, input.code);
+      return { document: draft.document, company: draft.company, clauses: draft.clauses };
+    }),
+
   /**
    * A policy written from the walk's template (2.4, the Leitlinie): its sections and the clauses
    * the person chose, in the record language, with the company's name. The choice is kept in the
@@ -707,22 +766,21 @@ export const durchgangRouter = router({
    * changes goes back to draft, because what management approved was the earlier one.
    */
   writePolicy: durchgangWrite
-    .input(z.object({ code, clauses: z.array(z.string().min(1).max(60)).max(50) }))
+    .input(
+      z.object({
+        code,
+        /** Null keeps the stored choice: the text is still written, with no clause or the old ones. */
+        clauses: z.array(z.string().min(1).max(60)).max(50).nullable(),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
-      const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
-      const screen = policyScreenOf(input.code, locale);
-      const document = screen.copy.document;
-      const known = new Set(document.clauses.map((c) => c.id));
-      const clauses = input.clauses.filter((id) => known.has(id));
-      const org = await ctx.db.query.company.findFirst({
-        where: eq(company.id, ctx.companyId),
-        columns: { name: true },
-      });
-      if (!org) throw new TRPCError({ code: "NOT_FOUND" });
-      const title = policyTitle(document, org.name);
-      const content = policyText(document, clauses, org.name);
-      const type = screen.screen.policy;
+      const draft = await policyDraftOf(ctx, input.code);
+      const known = new Set(draft.document.clauses.map((c) => c.id));
+      const clauses = (input.clauses ?? draft.clauses).filter((id) => known.has(id));
+      const title = policyTitle(draft.document, draft.company);
+      const content = policyText(draft.document, clauses, draft.company);
+      const { type } = draft;
 
       const changed = await ctx.db.transaction(async (tx) => {
         // One writer per company at a time, so two tabs add the policy once.
@@ -731,13 +789,15 @@ export const durchgangRouter = router({
           .from(company)
           .where(eq(company.id, ctx.companyId))
           .for("update");
-        await tx
-          .insert(companyPolicyConfig)
-          .values({ companyId: ctx.companyId, policyType: type, config: { clauses } })
-          .onConflictDoUpdate({
-            target: [companyPolicyConfig.companyId, companyPolicyConfig.policyType],
-            set: { config: { clauses }, updatedAt: new Date() },
-          });
+        if (input.clauses !== null) {
+          await tx
+            .insert(companyPolicyConfig)
+            .values({ companyId: ctx.companyId, policyType: type, config: { clauses } })
+            .onConflictDoUpdate({
+              target: [companyPolicyConfig.companyId, companyPolicyConfig.policyType],
+              set: { config: { clauses }, updatedAt: new Date() },
+            });
+        }
         const [stored] = await tx
           .select({ id: policy.id, content: policy.content })
           .from(policy)
@@ -790,8 +850,7 @@ export const durchgangRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
-      const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
-      const type = policyScreenOf(input.code, locale).screen.policy;
+      const type = policyTypeOf(input.code);
       const approved = await ctx.db
         .update(policy)
         .set({

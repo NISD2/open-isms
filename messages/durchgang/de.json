@@ -63,7 +63,6 @@
       "policy": {
         "add": "Ergänzen Sie, was für Sie gilt:",
         "print": "Drucken",
-        "yourCompany": "Ihr Unternehmen",
         "changedAfterApproval": "Die geänderte Fassung braucht eine neue Unterschrift."
       },
       "specify": {

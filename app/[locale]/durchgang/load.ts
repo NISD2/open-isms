@@ -98,7 +98,6 @@ export async function loadItem(code: string): Promise<ItemView | null> {
   const showsPortals = screens.some(
     (s) => s.kind === "provision" && s.provision === "registration_portals",
   );
-  const writesPolicy = screens.some((s) => s.kind === "policy");
 
   const [
     words,
@@ -114,7 +113,6 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     assets,
     adoption,
     registration,
-    org,
   ] = await Promise.all([
     wordsOf(item),
     getTranslations("compliance"),
@@ -140,7 +138,6 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     asksAssets ? api.asset.list() : Promise.resolve(null),
     asksAdopt ? api.durchgang.adoption() : Promise.resolve({ adoptedAt: null }),
     showsPortals ? api.durchgang.portals() : Promise.resolve(null),
-    writesPolicy ? api.assessment.getCompany() : Promise.resolve(null),
   ]);
 
   const statusId = statuses.find((s) => s.requirementId === req.id)?.status?.id ?? null;
@@ -210,7 +207,6 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     assets,
     adoptedAt: adoption.adoptedAt,
     registration,
-    companyName: org?.name ?? null,
     locale,
   };
 }
