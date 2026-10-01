@@ -11,18 +11,11 @@
  */
 import { CircleCheck } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { invoiceDates, licenceTitle } from "@/lib/billing/order";
+import { formatInvoiceDay, invoiceDates, licenceTitle } from "@/lib/billing/order";
 import { SELLER } from "@/lib/billing/seller";
 import type { OrderValues, Quote } from "./OrderFields";
 
 const TRUST_POINTS = ["invoice", "moneyBack", "access"] as const;
-
-/** British dates in English, as in the terms checkbox (termsVersionLabel): "1 October 2026". */
-const formatDay = (isoDay: string, locale: string) =>
-  new Intl.DateTimeFormat(locale === "en" ? "en-GB" : locale, {
-    dateStyle: "long",
-    timeZone: "UTC",
-  }).format(new Date(`${isoDay}T12:00:00Z`));
 
 const filled = (value: string | undefined) => (value ?? "").trim();
 
@@ -98,7 +91,7 @@ export function InvoicePreview({
           <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-muted-foreground text-xs">
             <dt>{t("preview.date")}</dt>
             <dd className="text-right tabular-nums">
-              {formatDay(dates.issueDate, locale)}
+              {formatInvoiceDay(dates.issueDate, locale)}
             </dd>
             {reference ? (
               <>
@@ -116,8 +109,8 @@ export function InvoicePreview({
                 </p>
                 <p className="text-muted-foreground text-xs">
                   {t("preview.period", {
-                    start: formatDay(dates.performanceStartDate, locale),
-                    end: formatDay(dates.performanceEndDate, locale),
+                    start: formatInvoiceDay(dates.performanceStartDate, locale),
+                    end: formatInvoiceDay(dates.performanceEndDate, locale),
                   })}
                 </p>
               </div>
@@ -160,7 +153,7 @@ export function InvoicePreview({
           </div>
 
           <div className="space-y-1 text-muted-foreground text-xs">
-            <p>{t("preview.due", { date: formatDay(dates.dueDate, locale) })}</p>
+            <p>{t("preview.due", { date: formatInvoiceDay(dates.dueDate, locale) })}</p>
             {invoiceEmail ? <p>{t("preview.sentTo", { email: invoiceEmail })}</p> : null}
           </div>
         </div>
