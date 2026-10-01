@@ -802,13 +802,15 @@
         "account": "Dane konta: imię i nazwisko oraz adres e-mail przekazane za pośrednictwem Google OAuth podczas logowania",
         "forms": "Dane z formularzy: dane, które wprowadzasz w formularzach wymagań zgodności",
         "files": "Przesłane pliki: dokumenty dowodowe, które przesyłasz na platformę",
-        "technical": "Dane techniczne: adres IP, typ przeglądarki oraz znaczniki czasu dostępu w logach serwera"
+        "technical": "Dane techniczne: adres IP, typ przeglądarki oraz znaczniki czasu dostępu w logach serwera",
+        "billing": "Dane rozliczeniowe: jeśli składasz zamówienie, nazwa i adres organizacji, na którą wystawiana jest faktura, jej numer VAT, adres e-mail, na który trafia faktura, oraz, jeśli je podasz, drugi adres do kopii i Twój numer zamówienia. Numer VAT sprawdzamy w unijnym rejestrze VIES."
       },
       "purpose": {
         "heading": "Cel i podstawa prawna",
         "p1": "Przetwarzamy Twoje dane w następujących celach:",
         "items": {
           "contract": "Udostępnianie platformy zgodności NIS2 (Art. 6(1)(b) GDPR - wykonanie umowy)",
+          "billing": "Obsługa zamówień, faktur i wypowiedzeń (Art. 6(1)(b) GDPR) oraz przechowywanie faktur tak długo, jak wymaga tego prawo podatkowe (Art. 6(1)(c) GDPR)",
           "auth": "Uwierzytelnianie użytkownika i zarządzanie kontem (Art. 6(1)(b) GDPR)",
           "security": "Zapewnienie bezpieczeństwa i integralności naszej platformy (Art. 6(1)(f) GDPR - prawnie uzasadniony interes)",
           "legal": "Wypełnianie obowiązków prawnych (Art. 6(1)(c) GDPR)",
@@ -822,7 +824,8 @@
         "google": "Google (OAuth): uwierzytelnianie, przetwarza Twoje imię, nazwisko i adres e-mail na potrzeby logowania",
         "aws": "Amazon Web Services (S3): przechowywanie plików, przechowuje przesyłane przez Ciebie dokumenty dowodowe",
         "resend": "Resend: transakcyjna poczta e-mail, dostarcza wiadomości z powiadomieniami i zaproszeniami",
-        "close": "Close (Elastic Inc., Jackson, Wyoming, USA): nasz system sprzedaży (CRM). W przypadku zweryfikowanych kont przetwarza Twoje imię, nazwisko i adres e-mail, dane o Twoim koncie i korzystaniu z platformy (np. rejestracja, ostatnie logowanie, postęp w kursie, postęp we wdrażaniu NIS 2, Twój plan oraz to, czy możemy wysyłać Ci e-maile) oraz dane o Twojej firmie (np. nazwa, sektor, liczba pracowników, kraj). Przekazywanie danych do USA odbywa się na podstawie standardowych klauzul umownych UE. Jeśli Twoje konto zostanie usunięte, usuwamy również Twój kontakt w Close."
+        "close": "Close (Elastic Inc., Jackson, Wyoming, USA): nasz system sprzedaży (CRM). W przypadku zweryfikowanych kont przetwarza Twoje imię, nazwisko i adres e-mail, dane o Twoim koncie i korzystaniu z platformy (np. rejestracja, ostatnie logowanie, postęp w kursie, postęp we wdrażaniu NIS 2, Twój plan oraz to, czy możemy wysyłać Ci e-maile) oraz dane o Twojej firmie (np. nazwa, sektor, liczba pracowników, kraj). Przekazywanie danych do USA odbywa się na podstawie standardowych klauzul umownych UE. Jeśli Twoje konto zostanie usunięte, usuwamy również Twój kontakt w Close.",
+        "qonto": "Qonto (Paryż, Francja): nasze konto firmowe i fakturowanie. Gdy składasz zamówienie, Qonto otrzymuje dane rozliczeniowe, wystawia faktury i faktury korygujące oraz je przechowuje."
       },
       "analytics": {
         "heading": "Analityka",
@@ -859,11 +862,12 @@
       "retention": {
         "heading": "Przechowywanie danych",
         "p1": "Twoje dane są przechowywane tak długo, jak Twoje konto jest aktywne i jak jest to niezbędne do celów opisanych powyżej. Dane dotyczące zgodności (dane z formularzy, dowody, ścieżka audytu) są przechowywane przez prawnie wymagany okres. Po usunięciu konta dane osobowe zostają usunięte. Zanonimizowane wpisy ścieżki audytu mogą być zachowane.",
+        "invoices": "Faktury i faktury korygujące, wraz z danymi rozliczeniowymi na nich, przechowujemy co najmniej osiem lat od końca roku kalendarzowego, w którym zostały wystawione, i dłużej, dopóki otwarte jest ustalenie podatku, dla którego mają znaczenie (§ 14b Abs. 1 UStG, § 147 Abs. 3 und 4 AO). Usunięcie konta ich nie usuwa (Art. 17(3)(b) GDPR). Qonto przechowuje je przez ten sam okres.",
         "erasure": "Gdy Twoje konto zostanie usunięte, wysyłamy Ci e-mailem potwierdzenie, co zostało usunięte, za pośrednictwem naszego dostawcy poczty e-mail Resend (Art. 12(3) GDPR). Przechowujemy zapis usunięcia (imię i nazwisko, adres e-mail, organizacja, numer sprawy i to, co zostało usunięte), aby wykazać, że zrealizowaliśmy żądanie (Art. 5(2) GDPR). Po trzech latach usuwamy z niego adres e-mail."
       },
       "changes": {
         "heading": "Zmiany w niniejszej polityce",
-        "p1": "Niniejszą politykę prywatności możemy od czasu do czasu aktualizować. Aktualna wersja jest zawsze dostępna na tej stronie. Ostatnia aktualizacja: wrzesień 2026."
+        "p1": "Niniejszą politykę prywatności możemy od czasu do czasu aktualizować. Aktualna wersja jest zawsze dostępna na tej stronie. Ostatnia aktualizacja: październik 2026."
       }
     },
     "avv": {

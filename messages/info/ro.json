@@ -802,13 +802,15 @@
         "account": "Date de cont: numele și adresa de e-mail furnizate prin Google OAuth la autentificare",
         "forms": "Trimiteri de formulare: datele pe care le introduceți în formularele cerințelor de conformitate",
         "files": "Fișiere încărcate: documentele probatorii pe care le încărcați pe platformă",
-        "technical": "Date tehnice: adresa IP, tipul de browser și marcajele de timp ale accesului în jurnalele serverului"
+        "technical": "Date tehnice: adresa IP, tipul de browser și marcajele de timp ale accesului în jurnalele serverului",
+        "billing": "Date de facturare: dacă plasați o comandă, numele și adresa organizației facturate, codul său de TVA, adresa de e-mail la care merge factura și, dacă le indicați, o a doua adresă pentru o copie și numărul dumneavoastră de comandă. Verificăm codul de TVA în registrul VIES al UE."
       },
       "purpose": {
         "heading": "Scop și temei juridic",
         "p1": "Prelucrăm datele dumneavoastră în următoarele scopuri:",
         "items": {
           "contract": "Furnizarea platformei de conformitate NIS2 (Art. 6 alin. (1) lit. (b) GDPR, executarea unui contract)",
+          "billing": "Gestionarea comenzilor, facturilor și rezilierilor (Art. 6 alin. (1) lit. (b) GDPR) și păstrarea facturilor atât timp cât cere legislația fiscală (Art. 6 alin. (1) lit. (c) GDPR)",
           "auth": "Autentificarea utilizatorilor și gestionarea conturilor (Art. 6 alin. (1) lit. (b) GDPR)",
           "security": "Asigurarea securității și integrității platformei noastre (Art. 6 alin. (1) lit. (f) GDPR, interes legitim)",
           "legal": "Respectarea obligațiilor legale (Art. 6 alin. (1) lit. (c) GDPR)",
@@ -822,7 +824,8 @@
         "google": "Google (OAuth): autentificare, prelucrează numele și adresa de e-mail pentru conectare",
         "aws": "Amazon Web Services (S3): stocarea fișierelor, păstrează documentele probatorii pe care le încărcați",
         "resend": "Resend: e-mail tranzacțional, livrează e-mailurile de notificare și de invitație",
-        "close": "Close (Elastic Inc., Jackson, Wyoming, SUA): sistemul nostru de vânzări (CRM). Pentru conturile verificate prelucrează numele și adresa dumneavoastră de e-mail, date despre cont și utilizare (de exemplu înregistrarea, ultima autentificare, progresul în curs, progresul în implementarea NIS 2, planul dumneavoastră și dacă vă putem trimite e-mailuri) și date despre compania dumneavoastră (de exemplu nume, sector, număr de angajați, țară). Transferurile către SUA se bazează pe clauzele contractuale standard ale UE. Dacă contul dumneavoastră este șters, ștergem și contactul dumneavoastră din Close."
+        "close": "Close (Elastic Inc., Jackson, Wyoming, SUA): sistemul nostru de vânzări (CRM). Pentru conturile verificate prelucrează numele și adresa dumneavoastră de e-mail, date despre cont și utilizare (de exemplu înregistrarea, ultima autentificare, progresul în curs, progresul în implementarea NIS 2, planul dumneavoastră și dacă vă putem trimite e-mailuri) și date despre compania dumneavoastră (de exemplu nume, sector, număr de angajați, țară). Transferurile către SUA se bazează pe clauzele contractuale standard ale UE. Dacă contul dumneavoastră este șters, ștergem și contactul dumneavoastră din Close.",
+        "qonto": "Qonto (Paris, Franța): contul nostru de firmă și facturarea noastră. Când plasați o comandă, Qonto primește datele de facturare, emite facturile și facturile de stornare și le păstrează."
       },
       "analytics": {
         "heading": "Analiză",
@@ -859,11 +862,12 @@
       "retention": {
         "heading": "Păstrarea datelor",
         "p1": "Datele dumneavoastră sunt stocate atât timp cât contul este activ și necesar pentru scopurile descrise mai sus. Datele de conformitate (trimiteri de formulare, probe, pista de audit) sunt păstrate pe perioada cerută de lege. Când vă ștergeți contul, datele cu caracter personal sunt eliminate. Înregistrările anonimizate din pista de audit pot fi păstrate.",
+        "invoices": "Facturile și facturile de stornare, cu datele de facturare de pe ele, se păstrează cel puțin opt ani de la sfârșitul anului calendaristic în care au fost emise și mai mult, cât timp o stabilire a impozitului pentru care sunt relevante este încă deschisă (§ 14b Abs. 1 UStG, § 147 Abs. 3 und 4 AO). Ștergerea contului dumneavoastră nu le șterge (Art. 17 alin. (3) lit. (b) GDPR). Qonto le păstrează pe aceeași perioadă.",
         "erasure": "Când contul dumneavoastră este șters, vă trimitem prin e-mail o confirmare a ceea ce a fost șters, prin intermediul furnizorului nostru de e-mail Resend (Art. 12 alin. (3) GDPR). Păstrăm o evidență a ștergerii (nume, adresă de e-mail, organizație, număr de dosar și ce a fost șters) pentru a dovedi că am dat curs solicitării (Art. 5 alin. (2) GDPR). După trei ani, eliminăm adresa de e-mail din această evidență."
       },
       "changes": {
         "heading": "Modificări ale acestei politici",
-        "p1": "Putem actualiza din când în când această politică de confidențialitate. Versiunea curentă este disponibilă întotdeauna pe această pagină. Ultima actualizare: septembrie 2026."
+        "p1": "Putem actualiza din când în când această politică de confidențialitate. Versiunea curentă este disponibilă întotdeauna pe această pagină. Ultima actualizare: octombrie 2026."
       }
     },
     "avv": {
