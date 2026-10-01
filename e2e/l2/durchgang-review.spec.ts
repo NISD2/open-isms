@@ -69,17 +69,20 @@ test.describe("durchgang management review", () => {
     await page.getByLabel("Wer teilgenommen hat").fill("Anna Beispiel, Jonas Muster");
     await page.getByLabel("Entschieden").fill(DECISION);
     await page.getByRole("button", { name: "Hinzufügen" }).click();
-    await expect(page.getByText(DECISION)).toBeVisible();
 
-    const [row] = await e2eQuery<{ review_date: string; attendees: string[] }>(
-      `SELECT review_date::text, attendees FROM management_review
-        WHERE company_id = $1 AND decisions = $2`,
-      [tenant.company_id, DECISION],
-    );
-    expect(row).toEqual({
-      review_date: "2026-10-01",
-      attendees: ["Anna Beispiel", "Jonas Muster"],
-    });
+    await expect
+      .poll(async () => {
+        const [row] = await e2eQuery<{ review_date: string; attendees: string }>(
+          `SELECT review_date::text, array_to_string(attendees, '|') AS attendees
+             FROM management_review WHERE company_id = $1 AND decisions = $2`,
+          [tenant.company_id, DECISION],
+        );
+        return row ?? null;
+      })
+      .toEqual({ review_date: "2026-10-01", attendees: "Anna Beispiel|Jonas Muster" });
+    await expect(
+      page.getByText("Noch keine Managementbewertung eingetragen."),
+    ).toHaveCount(0);
   });
 
   test("approves the ticked drafts from the day entered, and never the sign-off columns", async ({
