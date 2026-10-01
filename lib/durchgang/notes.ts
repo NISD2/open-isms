@@ -18,7 +18,8 @@ const TEXT = {
     waiting: (reason: string, note: string | null) =>
       `Geht noch nicht: ${reason}.${note ? ` Notiz: ${note}` : ""}`,
     sources: (labels: readonly string[]) => `Nachgesehen in: ${labels.join(", ")}.`,
-    method: "Methode festgelegt: Risikoanalyse nach BSI-Standard 200-3.",
+    method:
+      "Methode zur Risikobewertung festgelegt: Risikoanalyse nach BSI-Standard 200-3.",
     declined: (reason: string) =>
       `Bewusst nicht umgesetzt, zur Unterschrift. Begründung: ${reason}`,
     agreements: (lines: readonly string[]) =>
@@ -40,7 +41,7 @@ const TEXT = {
     waiting: (reason: string, note: string | null) =>
       `Not possible yet: ${reason}.${note ? ` Note: ${note}` : ""}`,
     sources: (labels: readonly string[]) => `Looked in: ${labels.join(", ")}.`,
-    method: "Method set: risk analysis according to BSI Standard 200-3.",
+    method: "Risk assessment method set: risk analysis according to BSI Standard 200-3.",
     declined: (reason: string) =>
       `Decided not to do this, for signature. Reason: ${reason}`,
     agreements: (lines: readonly string[]) =>

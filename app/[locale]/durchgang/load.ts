@@ -3,6 +3,7 @@ import { readdirSync } from "node:fs";
 import path from "node:path";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import type { ItemView, WalkEntry } from "@/components/durchgang/view";
+import { onRegister } from "@/lib/asset-inventory/catalog-labels";
 import { getSession } from "@/lib/auth";
 import { canSeeCategory, getUserAccess } from "@/lib/compliance/access";
 import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
@@ -12,6 +13,7 @@ import {
   type AnyItem,
   type AnyScreen,
   askedFields,
+  dutyHref,
   itemKey,
   type RegisterModule,
   type ResolvedItem,
@@ -150,13 +152,6 @@ export async function loadItem(code: string): Promise<ItemView | null> {
       .filter((f) => asked.has(f.key))
       .map((f) => [f.key, f]),
   );
-  // A company that already has a register sees it once, in place of the catalogue slices.
-  const firstAssets = words.screens.findIndex((s) => s.kind === "assets");
-  const shown =
-    assets && assets.length > 0
-      ? words.screens.filter((s, i) => s.kind !== "assets" || i === firstAssets)
-      : words.screens;
-
   const law = buildCitationRows({
     frameworkCode: "nis2",
     frameworkRef: req.frameworkRef,
@@ -199,7 +194,8 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     // The duty card cites what its text is written from: the BSIG in German, the directive in
     // English. Both stay in the rail.
     duty: (locale === "de" ? req.legalRef : req.frameworkRef) ?? req.legalRef ?? "",
-    screens: shown,
+    dutyHref: dutyHref(item.law, locale),
+    screens: words.screens,
     statusId,
     assessmentId: assessment?.id ?? null,
     categoryId: req.category.id,
@@ -211,7 +207,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
       training_record: trainings,
       management_review: reviews,
     },
-    assets,
+    register: assets ? onRegister(assets.map((a) => a.name)) : null,
     adoptedAt: adoption.adoptedAt,
     registration,
     locale,

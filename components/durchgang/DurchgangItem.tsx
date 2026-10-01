@@ -38,7 +38,9 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { useRouter } from "@/i18n/navigation";
-import { type ItemState, resumeAt, type ScreenKind } from "@/lib/durchgang";
+import { CATALOG_BY_ID } from "@/lib/asset-inventory/catalog";
+import { type ItemState, resumeAt, type ScreenKind, sliceOf } from "@/lib/durchgang";
+import { trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
 import { Agreements } from "./AgreementScreen";
 import { Approve } from "./ApproveScreen";
@@ -112,6 +114,21 @@ export function DurchgangItem({
   );
   const complete = useScreenComplete(item, item.screens[index], draft);
 
+  // A "which exactly" screen is passed over when nothing of its kind is on the list, saved or
+  // ticked on this visit: asking which software you use when you listed none is a dead end.
+  const specifies = item.screens.some((s) => s.kind === "specify");
+  const assets = trpc.asset.list.useQuery(undefined, { enabled: specifies });
+  const passedOver = (target: number): boolean => {
+    const screen = item.screens[target]?.screen;
+    if (screen?.kind !== "specify" || !assets.data) return false;
+    const types = [
+      ...assets.data.map((a) => a.type),
+      ...draft.checked.flatMap((id) => CATALOG_BY_ID.get(id)?.category ?? []),
+      ...draft.custom.map(() => "other"),
+    ];
+    return !types.some((type) => sliceOf(type) === screen.slice);
+  };
+
   // The screen lives in the URL, so the browser's back button and a reload keep the place.
   const show = useCallback((target: number, direction: Direction, push = true) => {
     transition(direction, () => {
@@ -153,12 +170,14 @@ export function DurchgangItem({
       setError(at);
       show(at, "back");
     });
-    show(Math.min(at + 1, total - 1), "forward");
+    const following = item.screens.findIndex((_, i) => i > at && !passedOver(i));
+    show(following === -1 ? total - 1 : following, "forward");
   };
 
   const back = () => {
-    if (index === 0) router.push("/durchgang");
-    else show(index - 1, "back");
+    const previous = item.screens.findLastIndex((_, i) => i < index && !passedOver(i));
+    if (previous === -1) router.push("/durchgang");
+    else show(previous, "back");
   };
 
   /** Sets the item aside or closes it as decided, then goes home once that is stored. */
@@ -226,7 +245,9 @@ export function DurchgangItem({
       case "riskmap":
         return <RiskMapScreen {...work} entry={entry} />;
       case "done":
-        return <Done item={item} entry={entry} draft={draft} next={next} />;
+        return (
+          <Done item={item} entry={entry} draft={draft} next={next} onNext={forward} />
+        );
       default:
         return entry satisfies never;
     }
@@ -317,7 +338,7 @@ export function DurchgangItem({
               <button
                 type="button"
                 onClick={() => setWaitOpen(true)}
-                className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+                className="inline-flex cursor-pointer items-center gap-2 text-sm font-medium text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
               >
                 <Clock className="size-4" />
                 {t("notYet")}

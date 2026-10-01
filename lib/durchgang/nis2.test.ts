@@ -25,7 +25,12 @@ const FRAMEWORK = new Map(
   nis2Categories.flatMap((c) =>
     getNis2RequirementsForCategory(c.slug).map((r) => [
       r.code,
-      { category: c.code, moduleRef: r.moduleRef ?? null },
+      {
+        category: c.code,
+        moduleRef: r.moduleRef ?? null,
+        legalRef: r.legalRef,
+        frameworkRef: r.frameworkRef,
+      },
     ]),
   ),
 );
@@ -99,6 +104,14 @@ describe("the NIS 2 script", () => {
     expect(new Set(codes).size).toBe(codes.length);
     for (const item of NIS2_SCRIPT) {
       expect(FRAMEWORK.get(item.code)?.category).toBe(item.category);
+    }
+  });
+
+  test("opens the duty card at the provision the requirement cites first", () => {
+    for (const item of NIS2_SCRIPT) {
+      const cited = FRAMEWORK.get(item.code);
+      expect(cited?.legalRef.startsWith(`§${item.law.bsig}(`)).toBe(true);
+      expect(cited?.frameworkRef?.startsWith(`Art. ${item.law.article}(`)).toBe(true);
     }
   });
 

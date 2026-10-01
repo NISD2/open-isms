@@ -22,7 +22,7 @@ export function Toggle({
       aria-pressed={on}
       onClick={onClick}
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-left text-sm transition-colors",
+        "inline-flex cursor-pointer items-center gap-1.5 rounded-full border px-3 py-1.5 text-left text-sm transition-colors",
         on
           ? "border-primary bg-primary/[0.06] text-foreground"
           : "text-muted-foreground hover:border-primary/40 hover:text-foreground",

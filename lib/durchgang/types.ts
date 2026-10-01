@@ -187,11 +187,23 @@ export type ScreenKind = AnyScreen["kind"];
 
 type IsoDate = `${number}-${number}-${number}`;
 
+/**
+ * Where the duty card's sentence comes from, so the card opens that exact text: the BSIG paragraph
+ * for German readers, the directive's article for everyone else. The requirement's own citations
+ * name several provisions and its category link is per category (spec §0.7, correction 3), so
+ * neither can serve. A test checks both against the requirement's first citation.
+ */
+export interface DutyLaw {
+  readonly bsig: number;
+  readonly article: number;
+}
+
 export interface Item<C extends CategoryCode> {
   /** Requirement code in the NIS 2 framework. */
   readonly code: string;
   /** The requirement's category, which types its fields. A test checks it against the framework. */
   readonly category: C;
+  readonly law: DutyLaw;
   /** Keys under `info.glossary.terms`. */
   readonly glossary: readonly string[];
   /**

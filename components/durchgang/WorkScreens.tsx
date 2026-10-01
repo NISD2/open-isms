@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  ArrowRight,
   Calculator,
   Check,
   CheckCircle2,
@@ -17,7 +18,6 @@ import {
 import { useTranslations } from "next-intl";
 import { BigChecklist } from "@/components/asset-inventory/BigChecklist";
 import { FileUpload } from "@/components/compliance/FileUpload";
-import { InlineModulePanel } from "@/components/compliance/InlineModulePanel";
 import { InlineInvite } from "@/components/team/InlineInvite";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -29,8 +29,9 @@ import type { FieldMeta } from "@/lib/forms/schema-introspect";
 import { cn } from "@/lib/utils";
 import { ArtThumb } from "./Art";
 import { asInput, type Draft, type DraftUpdate } from "./draft";
-import { Heading, Lead } from "./ExplainScreens";
+import { Aside, Heading, Lead } from "./ExplainScreens";
 import { ManagementReviews } from "./ManagementReviews";
+import { SupplierList } from "./SupplierList";
 import { TrainingRecords } from "./TrainingRecords";
 import type { ItemView, Registers, WalkEntry } from "./view";
 
@@ -352,8 +353,8 @@ export function Sources({ draft, onDraft, entry }: WorkProps & { entry: Of<"sour
                 })
               }
               className={cn(
-                "grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-4 rounded-2xl border bg-card p-4 text-left shadow-sm transition-colors sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:p-5",
-                looked && "border-primary/40 bg-primary/[0.04]",
+                "grid cursor-pointer grid-cols-[auto_minmax(0,1fr)] items-center gap-x-4 rounded-2xl border bg-card p-4 text-left shadow-sm transition-colors hover:border-primary/40 sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:p-5",
+                looked ? "border-primary/40 bg-primary/[0.04]" : "hover:bg-muted/40",
               )}
             >
               <span className="row-span-2 flex size-12 shrink-0 items-center justify-center rounded-xl bg-muted sm:row-span-1">
@@ -394,39 +395,31 @@ export function Assets({
   entry,
 }: WorkProps & { entry: Of<"assets"> }) {
   const t = useTranslations("durchgang.ui");
-  // The catalogue seeds an empty register only; one that already has rows is shown as it is.
-  if (item.assets && item.assets.length > 0) {
-    return (
-      <>
-        <Heading>{t("assets.title")}</Heading>
-        <Lead>{t("assets.lead")}</Lead>
-        <div className="mt-8">
-          <InlineModulePanel
-            moduleRef="asset"
-            requirementCode={item.code}
-            items={item.assets}
-            isCompleted={false}
-          />
-        </div>
-        <p className="mt-4 text-sm text-muted-foreground">{t("registerHint")}</p>
-      </>
-    );
-  }
+  // What is already on the register shows ticked and stays: the walk only ever adds.
+  const listed = item.register?.listed ?? [];
+  const others = item.register?.others ?? [];
+  const count =
+    listed.length + others.length + draft.checked.length + draft.custom.length;
   return (
     <>
       <Heading>{entry.copy.title}</Heading>
       <Lead>{entry.copy.lead}</Lead>
       <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
         <ListChecks className="size-4" />
-        {t("onList", { count: draft.checked.length + draft.custom.length })}
+        {t("onList", { count })}
       </p>
+      {others.length > 0 && (
+        <Aside className="mt-3">{t("alsoListed", { names: others.join(", ") })}</Aside>
+      )}
       <div className="mt-6">
         <BigChecklist
           sectors={[]}
           groups={entry.screen.groups}
-          checked={[...draft.checked]}
+          checked={[...listed, ...draft.checked]}
           custom={[...draft.custom]}
-          onCheckedChange={(checked) => onDraft({ ...draft, checked })}
+          onCheckedChange={(checked) =>
+            onDraft({ ...draft, checked: checked.filter((id) => !listed.includes(id)) })
+          }
           onCustomChange={(custom) => onDraft({ ...draft, custom })}
         />
       </div>
@@ -462,14 +455,7 @@ export function Register({ item, entry }: { item: ItemView; entry: Of<"register"
                 />
               );
             case "supplier":
-              return (
-                <InlineModulePanel
-                  moduleRef={screen.module}
-                  requirementCode={item.code}
-                  items={item.registers.supplier ?? []}
-                  isCompleted={false}
-                />
-              );
+              return <SupplierList initial={item.registers.supplier ?? []} />;
             default:
               return screen satisfies never;
           }
@@ -533,11 +519,14 @@ export function Done({
   entry,
   draft,
   next,
+  onNext,
 }: {
   item: ItemView;
   entry: Of<"done">;
   draft: Draft;
   next: WalkEntry | null;
+  /** The footer's primary action; the card for what comes next does the same. */
+  onNext: () => void;
 }) {
   const t = useTranslations("durchgang.ui");
   const shown = (
@@ -583,16 +572,21 @@ export function Done({
           </>
         )}
       </section>
-      <p className="mt-6 max-w-[60ch] text-muted-foreground">{entry.copy.note}</p>
+      <Aside className="mt-6">{entry.copy.note}</Aside>
       {next && next.code !== item.code && (
-        <div className="mt-8 flex items-center gap-5 rounded-2xl border bg-card p-4 shadow-sm">
+        <button
+          type="button"
+          onClick={onNext}
+          className="group mt-8 flex w-full cursor-pointer items-center gap-5 rounded-2xl border bg-card p-4 text-left shadow-sm transition-colors hover:border-primary/40 hover:bg-primary/[0.03]"
+        >
           <ArtThumb src={next.image} />
-          <div className="min-w-0">
+          <div className="min-w-0 flex-1">
             <p className="text-xs font-medium text-muted-foreground">{t("comesNext")}</p>
             <p className="text-lg font-semibold">{next.headline}</p>
             <p className="text-sm text-muted-foreground">{next.teaser}</p>
           </div>
-        </div>
+          <ArrowRight className="size-5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-foreground" />
+        </button>
       )}
     </>
   );

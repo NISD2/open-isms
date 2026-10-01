@@ -9,6 +9,7 @@ import type { AnyItem, AnyScreen, PolicyTemplate } from "./types";
 
 export type { ResolvedItem, ResolvedScreen } from "./copy";
 export { itemKey, marker, resolveItem } from "./copy";
+export { dutyHref } from "./law";
 export type { NoteLocale } from "./notes";
 export {
   agreementsNote,

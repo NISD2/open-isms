@@ -2,7 +2,11 @@ import { TRPCError } from "@trpc/server";
 import { and, desc, eq, inArray } from "drizzle-orm";
 import { z } from "zod";
 import { CATALOG_BY_ID } from "@/lib/asset-inventory/catalog";
-import { CATALOG_LABELS, catalogNames } from "@/lib/asset-inventory/catalog-labels";
+import {
+  CATALOG_LABELS,
+  catalogNames,
+  nameKey,
+} from "@/lib/asset-inventory/catalog-labels";
 import { logAudit } from "@/lib/audit";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { mayWalkDurchgang } from "@/lib/billing/access";
@@ -120,9 +124,6 @@ const recheck = (
   invalidateModuleSignOffs(ctx.db, ctx.companyId, module, ctx.userId).catch((err) =>
     console.error(`[background] ${module} recheck:`, err),
   );
-
-/** Names compared as a person reads them, so "Datev " and "DATEV" are one supplier. */
-const nameKey = (name: string) => name.trim().toLowerCase();
 
 /** How many steps a stored scale has; the column is JSON, so its shape is checked, not assumed. */
 const steps = (levels: unknown) => (Array.isArray(levels) ? levels.length : 0);

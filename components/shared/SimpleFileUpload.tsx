@@ -83,8 +83,10 @@ export function SimpleFileUpload({
 }: SimpleFileUploadProps) {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [fileName, setFileName] = useState<string | null>(currentFileName ?? null);
-  const [hasFile, setHasFile] = useState(!!currentFileKey);
+  // The parent owns which file is attached, so clearing it there clears it here. This only keeps
+  // the name of the file uploaded here, for parents that hold the key but not the name.
+  const [uploadedName, setUploadedName] = useState<string | null>(null);
+  const shownName = currentFileKey ? (currentFileName ?? uploadedName) : null;
   const inputRef = useRef<HTMLInputElement>(null);
 
   async function handleFile(file: File) {
@@ -117,8 +119,7 @@ export function SimpleFileUpload({
           `Upload failed: ${res.status} ${res.statusText} ${body.slice(0, 200)}`,
         );
       }
-      setFileName(file.name);
-      setHasFile(true);
+      setUploadedName(file.name);
       onUploaded(fileKey, file.name);
     } catch (err) {
       console.error("[file upload]", err);
@@ -133,13 +134,13 @@ export function SimpleFileUpload({
       );
     } finally {
       setUploading(false);
+      // The same file can then be chosen again for the next record.
+      if (inputRef.current) inputRef.current.value = "";
     }
   }
 
   function handleRemove() {
-    setFileName(null);
-    setHasFile(false);
-    if (inputRef.current) inputRef.current.value = "";
+    setUploadedName(null);
     onRemoved?.();
   }
 
@@ -152,10 +153,10 @@ export function SimpleFileUpload({
   return (
     <div className="space-y-1.5">
       {label && <p className="text-sm font-medium">{label}</p>}
-      {hasFile && fileName ? (
+      {shownName ? (
         <div className="flex items-center gap-2 rounded-md border bg-muted/30 px-3 py-2">
           <FileText className="h-4 w-4 text-muted-foreground shrink-0" />
-          <span className="text-sm truncate flex-1">{fileName}</span>
+          <span className="text-sm truncate flex-1">{shownName}</span>
           {!disabled && (
             <Button
               variant="ghost"

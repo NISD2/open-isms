@@ -6,6 +6,7 @@ import {
   ExternalLink,
   FileText,
   GraduationCap,
+  Info,
   XCircle,
 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
@@ -44,6 +45,27 @@ export function Lead({ children }: { children: ReactNode }) {
   );
 }
 
+/** Good to know, not needed to go on: one quiet line behind an info sign. */
+export function Aside({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <p
+      className={cn(
+        "flex max-w-[62ch] gap-2.5 text-sm leading-6 text-muted-foreground",
+        className,
+      )}
+    >
+      <Info className="mt-1 size-4 shrink-0" />
+      <span>{children}</span>
+    </p>
+  );
+}
+
 /** Where a BSI rule or a statute list comes from, in small type under it. */
 function Source({ children }: { children: ReactNode }) {
   return (
@@ -54,20 +76,31 @@ function Source({ children }: { children: ReactNode }) {
   );
 }
 
-/** The legal duty: a paragraph sign, one plain sentence, and the citation it rests on. */
-function Duty({ text, cite }: { text: string; cite: string }) {
+/**
+ * The legal duty: a paragraph sign, one plain sentence, and the citation it rests on. The whole
+ * card opens that provision.
+ */
+function Duty({ text, cite, href }: { text: string; cite: string; href: string }) {
   const t = useTranslations("durchgang.ui");
   return (
-    <aside className="mt-10 flex max-w-[62ch] gap-4 rounded-2xl border border-primary/15 bg-primary/[0.04] p-5">
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className="group mt-10 flex max-w-[62ch] gap-4 rounded-2xl border border-primary/15 bg-primary/[0.04] p-5 transition-colors hover:border-primary/40 hover:bg-primary/[0.07]"
+    >
       <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary font-serif text-xl text-primary-foreground">
         §
       </span>
       <div>
         <p className="text-sm font-semibold">{t("duty")}</p>
         <p className="mt-1 text-sm leading-6 text-foreground/80">{text}</p>
-        <p className="mt-3 text-xs font-medium text-primary">{cite}</p>
+        <p className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-primary group-hover:underline">
+          {cite}
+          <ExternalLink className="size-3" />
+        </p>
       </div>
-    </aside>
+    </a>
   );
 }
 
@@ -143,7 +176,7 @@ export function Learn({ item, entry }: { item: ItemView; entry: Of<"learn"> }) {
         ))}
       </div>
       {link && entry.copy.link && <LearnMore link={link} label={entry.copy.link} />}
-      <Duty text={entry.copy.duty} cite={item.duty} />
+      <Duty text={entry.copy.duty} cite={item.duty} href={item.dutyHref} />
     </>
   );
 }
@@ -259,11 +292,7 @@ export function Sample({ entry }: { entry: Of<"sample"> }) {
           </div>
         ))}
       </div>
-      {entry.copy.note && (
-        <p className="mt-5 max-w-[62ch] rounded-xl bg-muted/60 p-4 text-sm leading-6">
-          {entry.copy.note}
-        </p>
-      )}
+      {entry.copy.note && <Aside className="mt-5">{entry.copy.note}</Aside>}
     </>
   );
 }
@@ -301,7 +330,7 @@ export function Reading({ item, entry }: { item: ItemView; entry: Of<"reading"> 
                 aria-pressed={i === chosen}
                 onClick={() => pick(i)}
                 className={cn(
-                  "h-full w-full rounded-xl border bg-card p-3.5 text-left text-sm leading-6 transition-colors",
+                  "h-full w-full cursor-pointer rounded-xl border bg-card p-3.5 text-left text-sm leading-6 transition-colors",
                   i === chosen ? "border-primary bg-primary/[0.04]" : "hover:bg-muted/50",
                 )}
               >

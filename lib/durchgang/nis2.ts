@@ -78,6 +78,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
   item({
     code: "1.1",
     category: "GOV",
+    law: { bsig: 38, article: 20 },
     glossary: [],
     reviewed: "2026-09-30",
     screens: [
@@ -101,6 +102,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
   item({
     code: "5.1",
     category: "SUP",
+    law: { bsig: 30, article: 21 },
     glossary: [],
     reviewed: "2026-09-30",
     screens: [
@@ -108,13 +110,17 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
       { kind: "sample", id: "list" },
       { kind: "sources", id: "sources", sources: ["payables", "contracts", "provider"] },
       { kind: "register", id: "suppliers", module: "supplier" },
-      { kind: "fields", id: "dependence", fields: ["singlePointOfFailureCount"] },
       { kind: "done", id: "done" },
     ],
+    notAsked: {
+      singlePointOfFailureCount:
+        "No statute asks for a count of critical suppliers: Art. 21(2)(d) and (3) NIS 2 and § 30 Abs. 2 Nr. 4 BSIG ask for supply chain security and for the vulnerabilities of each direct supplier to be taken into account. Identifying single points of failure is CIR 2024/2690 Annex 2.1.2(d), which binds only the digital providers the CIR covers, and tiering suppliers is ENISA guidance. 2.3 rates each supplier's risk on its own, which is where a supplier the business cannot do without shows up.",
+    },
   }),
   item({
     code: "5.2",
     category: "SUP",
+    law: { bsig: 30, article: 21 },
     glossary: [],
     reviewed: "2026-10-01",
     screens: [
@@ -128,19 +134,21 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
   item({
     code: "12.3",
     category: "REG",
+    law: { bsig: 33, article: 3 },
     glossary: [],
     reviewed: "2026-09-30",
     screens: [
       { kind: "learn", id: "learn" },
       { kind: "prepare", id: "changes" },
-      {
-        kind: "fields",
-        id: "contact",
-        fields: ["contactPersonName", "contactPersonEmail", "lastRegistrationUpdate"],
-      },
       { kind: "done", id: "done" },
     ],
     notAsked: {
+      contactPersonName:
+        "Art. 3(4) NIS 2 and § 33 Abs. 1 BSIG ask for the company's contact details, not a named person; the duty is to report changes within two weeks (§ 33 Abs. 5 BSIG), and the walk shows what can change. The person registering knows who is in the portal, so the walk does not copy it.",
+      contactPersonEmail:
+        "The registration holds the company's email addresses (Art. 3(4)(b) NIS 2, § 33 Abs. 1 Nr. 2 BSIG); keeping a copy of the portal's contact here is not a duty and would go stale on its own.",
+      lastRegistrationUpdate:
+        "Neither text asks the company to keep its own record of when it last updated the registration; § 33 Abs. 5 BSIG asks for the update itself, within two weeks of learning of a change.",
       nextRegistrationUpdate:
         "§ 33 Abs. 5 BSIG sets no schedule, only 'unverzüglich, spätestens binnen zwei Wochen' after a change, so the Durchgang asks for no next date; the framework dropped the annual cadence for 12.3 for the same reason.",
     },
@@ -148,6 +156,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
   item({
     code: "1.2",
     category: "GOV",
+    law: { bsig: 30, article: 21 },
     glossary: [],
     reviewed: "2026-09-30",
     screens: [
@@ -159,6 +168,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
   item({
     code: "3.1",
     category: "INC",
+    law: { bsig: 30, article: 21 },
     glossary: [],
     reviewed: "2026-10-01",
     screens: [
@@ -192,6 +202,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
   item({
     code: "3.3",
     category: "INC",
+    law: { bsig: 32, article: 23 },
     glossary: [],
     reviewed: "2026-10-01",
     screens: [
@@ -210,6 +221,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
   item({
     code: "12.2",
     category: "REG",
+    law: { bsig: 33, article: 3 },
     glossary: [],
     reviewed: "2026-09-30",
     screens: [
@@ -227,6 +239,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
   item({
     code: "2.1",
     category: "RSK",
+    law: { bsig: 30, article: 21 },
     glossary: [],
     reviewed: "2026-09-30",
     screens: [
@@ -251,6 +264,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
   item({
     code: "2.2",
     category: "RSK",
+    law: { bsig: 30, article: 21 },
     glossary: [],
     reviewed: "2026-09-30",
     screens: [
@@ -285,6 +299,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
   item({
     code: "2.3",
     category: "RSK",
+    law: { bsig: 30, article: 21 },
     glossary: [],
     reviewed: "2026-10-01",
     screens: [
@@ -299,6 +314,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
   item({
     code: "2.4",
     category: "RSK",
+    law: { bsig: 38, article: 20 },
     glossary: [],
     reviewed: "2026-10-01",
     screens: [
@@ -324,6 +340,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
   item({
     code: "9.1",
     category: "CRY",
+    law: { bsig: 30, article: 21 },
     glossary: [],
     reviewed: "2026-10-01",
     screens: [
@@ -335,6 +352,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
   item({
     code: "10.1",
     category: "ACC",
+    law: { bsig: 30, article: 21 },
     glossary: [],
     reviewed: "2026-10-01",
     screens: [
@@ -347,6 +365,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
   item({
     code: "11.1",
     category: "AUT",
+    law: { bsig: 30, article: 21 },
     glossary: [],
     reviewed: "2026-10-01",
     screens: [
@@ -370,6 +389,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
   item({
     code: "11.2",
     category: "AUT",
+    law: { bsig: 30, article: 21 },
     glossary: [],
     reviewed: "2026-10-01",
     screens: [
@@ -388,6 +408,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
   item({
     code: "6.3",
     category: "PRO",
+    law: { bsig: 30, article: 21 },
     glossary: [],
     reviewed: "2026-10-01",
     screens: [
@@ -410,6 +431,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
   item({
     code: "4.2",
     category: "BCP",
+    law: { bsig: 30, article: 21 },
     glossary: [],
     reviewed: "2026-10-01",
     screens: [
@@ -428,6 +450,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
   item({
     code: "4.4",
     category: "BCP",
+    law: { bsig: 30, article: 21 },
     glossary: [],
     reviewed: "2026-10-01",
     screens: [
@@ -448,6 +471,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
   item({
     code: "8.2",
     category: "TRN",
+    law: { bsig: 30, article: 21 },
     glossary: [],
     reviewed: "2026-10-01",
     screens: [
@@ -477,6 +501,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
   item({
     code: "7.3",
     category: "EFF",
+    law: { bsig: 30, article: 21 },
     glossary: [],
     reviewed: "2026-10-01",
     screens: [

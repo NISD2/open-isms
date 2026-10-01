@@ -67,7 +67,7 @@ export function PolicyScreen({
                 aria-pressed={on}
                 onClick={() => toggle(clause.id)}
                 className={cn(
-                  "inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm transition-colors",
+                  "inline-flex cursor-pointer items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm transition-colors",
                   on
                     ? "border-primary bg-primary/[0.06] text-foreground"
                     : "text-muted-foreground hover:border-primary/40 hover:text-foreground",
@@ -93,7 +93,7 @@ export function PolicyScreen({
           <button
             type="button"
             onClick={() => window.print()}
-            className="ml-auto inline-flex items-center gap-1.5 text-sm font-medium text-primary underline-offset-4 hover:underline"
+            className="ml-auto inline-flex cursor-pointer items-center gap-1.5 text-sm font-medium text-primary underline-offset-4 hover:underline"
           >
             <Printer className="size-4" />
             {t("print")}

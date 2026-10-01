@@ -108,7 +108,7 @@ export function BigChecklist({
             <button
               type="button"
               onClick={() => toggleGroup(group)}
-              className="w-full flex items-baseline justify-between gap-2 sticky top-0 bg-background/95 backdrop-blur-sm py-2 border-b border-border z-10 text-left hover:bg-muted/30 px-1 -mx-1 rounded transition-colors"
+              className="w-full flex cursor-pointer items-baseline justify-between gap-2 sticky top-0 bg-background/95 backdrop-blur-sm py-2 border-b border-border z-10 text-left hover:bg-muted/30 px-1 -mx-1 rounded transition-colors"
               aria-expanded={!isCollapsed}
             >
               <div className="flex items-center gap-2 flex-1 min-w-0">
@@ -141,9 +141,10 @@ export function BigChecklist({
                     <button
                       key={item.id}
                       type="button"
+                      aria-pressed={isChecked}
                       onClick={() => toggle(item.id)}
                       className={cn(
-                        "flex items-start gap-3 rounded-md border px-3 py-2 text-left text-sm transition-colors",
+                        "flex cursor-pointer items-start gap-3 rounded-md border px-3 py-2 text-left text-sm transition-colors",
                         isChecked
                           ? "border-primary/40 bg-primary/5"
                           : "border-border hover:bg-muted/50 opacity-70",

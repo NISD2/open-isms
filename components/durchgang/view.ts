@@ -48,8 +48,13 @@ export interface ItemView {
   readonly missed: readonly string[];
   readonly terms: readonly Term[];
   readonly citations: readonly Citation[];
-  /** The requirement's own legal reference, shown without a link (spec §0.7, correction 3). */
+  /** The requirement's own legal reference, as the duty card prints it. */
   readonly duty: string;
+  /**
+   * The provision the duty card's sentence rests on, which the whole card opens. Never the
+   * category link, which can open a different paragraph (spec §0.7, correction 3).
+   */
+  readonly dutyHref: string;
   readonly screens: readonly ResolvedScreen[];
   readonly statusId: string | null;
   readonly assessmentId: string | null;
@@ -61,10 +66,14 @@ export interface ItemView {
   readonly registers: Partial<Registers>;
   /**
    * The company's asset register as it stood when the item opened, for an item with asset
-   * screens, else null. The catalogue only seeds an empty register: with rows in it, the asset
-   * screens become the register itself, so nothing is matched back to the catalogue by name.
+   * screens, else null: the catalogue items already on it, which the checklists show ticked, and
+   * the entries that are no catalogue item. A returning company gets the same short checklists
+   * as a new one, never the full register.
    */
-  readonly assets: RouterOutputs["asset"]["list"] | null;
+  readonly register: {
+    readonly listed: readonly string[];
+    readonly others: readonly string[];
+  } | null;
   /** When the company took over the BSI method in the walk; a second pass then writes nothing. */
   readonly adoptedAt: Date | null;
   /** Loaded only for an item with the registration portals screen. */
