@@ -5,7 +5,12 @@
  * as complete.
  */
 import { describe, expect, test } from "bun:test";
-import { buildErasureCertificate, type ErasureLogRow } from "./certificate";
+import {
+  buildErasureCertificate,
+  type ErasureLogRow,
+  SELF_SERVICE_ACTOR,
+  SELF_SERVICE_CHANNEL,
+} from "./certificate";
 
 const erasedAt = new Date("2026-09-30T10:00:00.000Z");
 
@@ -113,5 +118,39 @@ describe("buildErasureCertificate", () => {
     expect(text).toContain("Their deletion is not complete.");
     expect(text).not.toContain("passed to an operator");
     expect(text).not.toContain("retried daily");
+  });
+
+  test("a self-service erasure says the account holder confirmed it, not an operator", () => {
+    const selfService = {
+      ...row(false),
+      requestChannel: SELF_SERVICE_CHANNEL,
+      actorEmail: SELF_SERVICE_ACTOR,
+    };
+    const text = buildErasureCertificate(selfService, { kind: "not_applicable" });
+    expect(text).toContain("The account holder requested the erasure while signed in");
+    expect(text).not.toContain("the operator confirmed");
+    expect(text).toContain(`by ${SELF_SERVICE_ACTOR}`);
+  });
+
+  test("an operator erasure keeps the operator's confirmation", () => {
+    const text = buildErasureCertificate(row(false), { kind: "not_applicable" });
+    expect(text).toContain("the operator confirmed the target account");
+  });
+
+  test("the operator's address never reaches the copy sent to the person", () => {
+    const text = buildErasureCertificate(row(false), { kind: "not_applicable" });
+    expect(text).not.toContain("operator@example.test");
+    expect(text).toContain("by an operator of nisd2.eu");
+  });
+
+  test("a company name cannot carry a link or an image into the file", () => {
+    const named = {
+      ...row(false),
+      companyName: "Kunde ![x](https://t.example/p.png) [klick](https://evil.example)",
+    };
+    const text = buildErasureCertificate(named, { kind: "not_applicable" });
+    // Only an unescaped "](" opens a link target.
+    expect(text).not.toMatch(/(?<!\\)\]\(/);
+    expect(text).toContain("\\[klick\\]");
   });
 });

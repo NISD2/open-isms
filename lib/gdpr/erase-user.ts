@@ -171,6 +171,12 @@ export interface EraseUserInput {
   userId: string;
   actor: { userId: string | null; email: string };
   request?: ErasureRequestMeta;
+  /**
+   * Runs inside the erasure's transaction, after the subject's row is locked and before anything is
+   * deleted; throwing rolls the erasure back. For rules that must hold at the moment of erasure,
+   * not at the moment someone looked (the self-service rules in ./self-erasure).
+   */
+  guard?: (tx: Tx) => Promise<void>;
 }
 
 // ── Blast-radius preview (read-only) ────────────────────────────────────────
@@ -467,6 +473,8 @@ async function eraseUserInTx(
 ): Promise<{ result: ErasureResult; files: StoredFiles | null }> {
   const { userId, actor, request } = input;
 
+  // Locked, so a second erasure of the same person waits for this one and then finds no row,
+  // instead of both proceeding and writing two records.
   const [subject] = await tx
     .select({
       id: user.id,
@@ -476,10 +484,12 @@ async function eraseUserInTx(
     })
     .from(user)
     .where(eq(user.id, userId))
-    .limit(1);
+    .limit(1)
+    .for("update");
   if (!subject) throw new Error(`User ${userId} not found`);
   if (subject.email === TOMBSTONE_EMAIL)
     throw new Error("Refusing to erase the erasure tombstone user");
+  await input.guard?.(tx);
 
   const scope: ErasureScope = {
     deleted: {},

@@ -13,6 +13,24 @@
     "billing": "Facturatie",
     "defaultUser": "Gebruiker",
     "signOut": "Afmelden",
+    "deleteAccount": {
+      "menuItem": "Account verwijderen",
+      "title": "Account definitief verwijderen",
+      "description": "Dit kan niet ongedaan worden gemaakt.",
+      "whatAccount": "Uw account en alle persoonsgegevens daarin worden verwijderd.",
+      "whatOrganization": "Uw organisatie {name} wordt verwijderd met alle gegevens, ook de geüploade bestanden.",
+      "whatEmail": "De bevestiging van de verwijdering gaat daarna naar {email}.",
+      "confirmLabel": "Typ uw e-mailadres ter bevestiging:",
+      "confirm": "Definitief verwijderen",
+      "cancel": "Annuleren",
+      "failed": "Het account kon nu niet worden verwijderd. Probeer het later opnieuw of schrijf naar contact@nisd2.eu.",
+      "refused": {
+        "platform_admin": "Platformbeheerders kunnen hun account hier niet verwijderen.",
+        "several_organizations": "U bent eigenaar van meerdere organisaties. Schrijf naar contact@nisd2.eu, dan verwijderen we het account samen met u.",
+        "billing": "Bij uw account horen facturen, een bestelling die wordt gecontroleerd, of het betaalt voor een andere organisatie. Facturen moeten wij bewaren. Schrijf naar contact@nisd2.eu, dan verwijderen we het account samen met u.",
+        "other_members": "Uw organisatie heeft andere leden, en met uw account zou de organisatie met hun werk worden verwijderd. Verwijder eerst de andere leden, of schrijf naar contact@nisd2.eu."
+      }
+    },
     "organizations": "Organisaties",
     "addOrganization": "Nog een organisatie toevoegen",
     "untitledOrganization": "Nieuwe organisatie (nog niet ingericht)",

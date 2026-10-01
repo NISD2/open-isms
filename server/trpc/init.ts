@@ -41,6 +41,18 @@ export const publicProcedure = setup.publicProcedure;
 export const protectedProcedure = setup.protectedProcedure;
 
 /**
+ * Signed in, with no automatic audit row. Only for the mutation that erases its own caller
+ * (user.deleteAccount): protectedProcedure's row would name a user who no longer exists, fail on
+ * its foreign key, and log the request's details. The handler keeps the erasure record instead.
+ */
+export const selfErasureProcedure = setup.publicProcedure.use(({ ctx, next }) => {
+  if (!ctx.userId || !ctx.session) {
+    throw new TRPCError({ code: "UNAUTHORIZED", message: "Not authenticated" });
+  }
+  return next({ ctx: { ...ctx, userId: ctx.userId, session: ctx.session } });
+});
+
+/**
  * The platform operator (PLATFORM_ADMIN_EMAILS, lib/auth/platform-admin), across every company.
  * Never build it on protectedProcedure: that files every mutation, with inputs naming other
  * customers, under the operator's own open company, where that company's reviewers can read it.

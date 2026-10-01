@@ -67,9 +67,26 @@ export function createLogAudit(db: AuditDb) {
         action: entry.action,
         entityType: entry.entityType,
         entityId: entry.entityId,
-        error: err instanceof Error ? err.message : String(err),
+        error: describeInsertError(err),
       });
     }
+  };
+}
+
+/**
+ * What a failed insert is, without its message: the driver quotes the query's parameters there,
+ * which carry IP addresses, user agents and the audited values themselves.
+ */
+function describeInsertError(err: unknown) {
+  const cause = err instanceof Error && typeof err.cause === "object" ? err.cause : err;
+  const field = (key: "code" | "constraint") =>
+    cause && typeof cause === "object" && key in cause
+      ? String((cause as Record<string, unknown>)[key])
+      : undefined;
+  return {
+    name: err instanceof Error ? err.name : "unknown",
+    code: field("code"),
+    constraint: field("constraint"),
   };
 }
 

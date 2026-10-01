@@ -859,7 +859,8 @@
       },
       "retention": {
         "heading": "Datenspeicherung",
-        "p1": "Ihre Daten werden gespeichert, solange Ihr Konto aktiv ist und für die oben beschriebenen Zwecke erforderlich ist. Compliance-Daten (Formulareingaben, Nachweise, Audit-Trail) werden für den gesetzlich vorgeschriebenen Zeitraum aufbewahrt. Bei Löschung Ihres Kontos werden personenbezogene Daten entfernt. Anonymisierte Audit-Trail-Einträge können erhalten bleiben."
+        "p1": "Ihre Daten werden gespeichert, solange Ihr Konto aktiv ist und für die oben beschriebenen Zwecke erforderlich ist. Compliance-Daten (Formulareingaben, Nachweise, Audit-Trail) werden für den gesetzlich vorgeschriebenen Zeitraum aufbewahrt. Bei Löschung Ihres Kontos werden personenbezogene Daten entfernt. Anonymisierte Audit-Trail-Einträge können erhalten bleiben.",
+        "erasure": "Wird Ihr Konto gelöscht, schicken wir Ihnen über unseren E-Mail-Dienstleister Resend eine Bestätigung, was gelöscht wurde (Art. 12 Abs. 3 DSGVO). Einen Nachweis der Löschung (Name, E-Mail-Adresse, Organisation, Vorgangsnummer und was gelöscht wurde) bewahren wir auf, um belegen zu können, dass wir der Anfrage nachgekommen sind (Art. 5 Abs. 2 DSGVO). Die E-Mail-Adresse entfernen wir daraus nach drei Jahren."
       },
       "changes": {
         "heading": "Änderungen dieser Erklärung",

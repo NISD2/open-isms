@@ -1,6 +1,14 @@
 "use client";
 
-import { Check, ChevronsUpDown, CircleX, Globe, LogOut, Shield } from "lucide-react";
+import {
+  Check,
+  ChevronsUpDown,
+  CircleX,
+  Globe,
+  LogOut,
+  Shield,
+  Trash2,
+} from "lucide-react";
 import { useParams } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
@@ -28,6 +36,7 @@ import { usePathname, useRouter } from "@/i18n/navigation";
 import { LOCALES, type LocaleCode } from "@/lib/locale";
 import { trpc } from "@/lib/trpc/client";
 import { getInitials } from "@/lib/utils";
+import { DeleteAccountDialog } from "./DeleteAccountDialog";
 import { OrganizationSubmenu } from "./OrganizationSubmenu";
 
 interface UserNavProps {
@@ -48,6 +57,7 @@ export function UserNav({ user }: UserNavProps) {
   const { isMobile } = useSidebar();
   const tCancel = useTranslations("billing.cancel");
   const [cancelOpen, setCancelOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
   // Only the holder of a full account gets an option back. Without an open company (training or
   // supplier portal) the query fails quietly and there is simply no item.
   const billing = trpc.billing.status.useQuery(undefined, { retry: false });
@@ -165,6 +175,18 @@ export function UserNav({ user }: UserNavProps) {
               <LogOut className="mr-2 h-4 w-4" />
               {t("signOut")}
             </DropdownMenuItem>
+            {user.email && (
+              <>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onSelect={() => setDeleteOpen(true)}
+                  className="text-destructive focus:text-destructive"
+                >
+                  <Trash2 className="mr-2 h-4 w-4" />
+                  {t("deleteAccount.menuItem")}
+                </DropdownMenuItem>
+              </>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
         {cancelOption && (
@@ -172,6 +194,13 @@ export function UserNav({ user }: UserNavProps) {
             option={cancelOption}
             open={cancelOpen}
             onOpenChange={setCancelOpen}
+          />
+        )}
+        {user.email && (
+          <DeleteAccountDialog
+            email={user.email}
+            open={deleteOpen}
+            onOpenChange={setDeleteOpen}
           />
         )}
       </SidebarMenuItem>

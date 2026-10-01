@@ -13,6 +13,24 @@
     "billing": "Abrechnung",
     "defaultUser": "Benutzer",
     "signOut": "Abmelden",
+    "deleteAccount": {
+      "menuItem": "Konto löschen",
+      "title": "Konto endgültig löschen",
+      "description": "Das lässt sich nicht rückgängig machen.",
+      "whatAccount": "Ihr Konto und alle personenbezogenen Daten dazu werden gelöscht.",
+      "whatOrganization": "Ihre Organisation {name} wird mit allen Daten darin gelöscht, auch mit den hochgeladenen Dateien.",
+      "whatEmail": "Die Löschbestätigung kommt danach per E-Mail an {email}.",
+      "confirmLabel": "Geben Sie zur Bestätigung Ihre E-Mail-Adresse ein:",
+      "confirm": "Endgültig löschen",
+      "cancel": "Abbrechen",
+      "failed": "Das Konto konnte gerade nicht gelöscht werden. Bitte versuchen Sie es später noch einmal oder schreiben Sie an contact@nisd2.eu.",
+      "refused": {
+        "platform_admin": "Plattformadmins können ihr Konto hier nicht löschen.",
+        "several_organizations": "Ihnen gehören mehrere Organisationen. Schreiben Sie an contact@nisd2.eu, dann löschen wir das Konto gemeinsam mit Ihnen.",
+        "billing": "Zu Ihrem Konto gibt es Rechnungen, eine Bestellung in Prüfung, oder es bezahlt für eine weitere Organisation. Rechnungen müssen wir aufbewahren. Schreiben Sie an contact@nisd2.eu, dann löschen wir das Konto mit Ihnen gemeinsam.",
+        "other_members": "Ihre Organisation hat weitere Mitglieder, und mit Ihrem Konto würde die Organisation samt deren Arbeit gelöscht. Entfernen Sie die anderen Mitglieder zuerst, oder schreiben Sie an contact@nisd2.eu."
+      }
+    },
     "organizations": "Organisationen",
     "addOrganization": "Weitere Organisation anlegen",
     "untitledOrganization": "Neue Organisation (noch nicht eingerichtet)",
