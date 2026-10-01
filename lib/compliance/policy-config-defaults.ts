@@ -15,7 +15,6 @@ export const POLICY_TYPES = [
   "procurement",
   "secure_dev",
   "patch_mgmt",
-  "information_security",
 ] as const;
 export type PolicyType = (typeof POLICY_TYPES)[number];
 
@@ -122,18 +121,6 @@ export interface PatchMgmtConfig {
 }
 
 // ============================================================================
-// Information security policy (2.4): the Durchgang's Leitlinie template
-// ============================================================================
-
-/**
- * Which optional clauses the company added to the walk's Leitlinie. The text itself is the
- * template in messages/durchgang and the written `policy` row; this only remembers the choice.
- */
-export interface InformationSecurityConfig {
-  clauses: string[];
-}
-
-// ============================================================================
 // Union type for all configs
 // ============================================================================
 
@@ -142,8 +129,7 @@ export type PolicyConfigData =
   | AccessControlConfig
   | ProcurementConfig
   | SecureDevConfig
-  | PatchMgmtConfig
-  | InformationSecurityConfig;
+  | PatchMgmtConfig;
 
 export type PolicyConfigMap = {
   crypto: CryptoPolicyConfig;
@@ -151,7 +137,6 @@ export type PolicyConfigMap = {
   procurement: ProcurementConfig;
   secure_dev: SecureDevConfig;
   patch_mgmt: PatchMgmtConfig;
-  information_security: InformationSecurityConfig;
 };
 
 // ============================================================================
@@ -330,8 +315,6 @@ export function getDefaultPolicyConfig<T extends PolicyType>(
     procurement: getDefaultProcurement,
     secure_dev: getDefaultSecureDev,
     patch_mgmt: getDefaultPatchMgmt,
-    // No clause is chosen for the company: each is added on purpose.
-    information_security: () => ({ clauses: [] }),
   };
   return factories[policyType](locale) as PolicyConfigMap[T];
 }
