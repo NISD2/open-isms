@@ -114,6 +114,28 @@ describe("the NIS 2 script", () => {
     }
   });
 
+  test("signs only the item's one policy, after it is written", () => {
+    // The server approves the policy of the item's policy screen, so there must be one, before.
+    for (const item of NIS2_SCRIPT) {
+      const screens = screensOf(item);
+      const policies = screens.flatMap((s, i) => (s.kind === "policy" ? [i] : []));
+      const signs = screens.flatMap((s, i) =>
+        s.kind === "fields" && s.approves ? [i] : [],
+      );
+      expect({ code: item.code, policies: policies.length <= 1 }).toEqual({
+        code: item.code,
+        policies: true,
+      });
+      for (const at of signs) {
+        const written = policies[0] ?? Number.POSITIVE_INFINITY;
+        expect({ code: item.code, after: written < at }).toEqual({
+          code: item.code,
+          after: true,
+        });
+      }
+    }
+  });
+
   test("places every intake field of the item exactly once, and no other", () => {
     for (const item of NIS2_SCRIPT) {
       const onScreens = screensOf(item).flatMap((s): readonly string[] => {

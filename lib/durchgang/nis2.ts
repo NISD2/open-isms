@@ -109,7 +109,6 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
         id: "signed",
         fields: ["incidentPlanVersion", "incidentPlanApprovalDate"],
         approves: {
-          policy: "incident_response",
           version: "incidentPlanVersion",
           date: "incidentPlanApprovalDate",
         },
@@ -241,7 +240,6 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
         id: "signed",
         fields: ["policyVersion", "policyApprovalDate"],
         approves: {
-          policy: "information_security",
           version: "policyVersion",
           date: "policyApprovalDate",
         },

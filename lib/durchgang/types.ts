@@ -79,11 +79,10 @@ export type Screen<C extends CategoryCode> =
       readonly id: string;
       readonly fields: readonly CategoryField<C>[];
       /**
-       * The signature page of a policy the walk wrote: once its answers are saved, the policy is
-       * marked approved with the version and the day these two fields hold.
+       * The signature page of the policy the item's policy screen wrote: once its answers are
+       * saved, that policy is marked approved with the version and the day these two fields hold.
        */
       readonly approves?: {
-        readonly policy: PolicyTemplate;
         readonly version: CategoryField<C>;
         readonly date: CategoryField<C>;
       };

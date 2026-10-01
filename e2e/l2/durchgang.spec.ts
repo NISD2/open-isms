@@ -9,31 +9,18 @@
  */
 import { expect, test } from "@playwright/test";
 import { e2eQuery } from "../lib/db";
-import { E2E_USER_EMAIL } from "../lib/env";
+import {
+  e2eTenant,
+  intakeRows,
+  keepAnswers,
+  payFor,
+  type Tenant,
+  type Undo,
+  undoAll,
+} from "../lib/durchgang";
 
 const CODE = "12.3";
 const FIELDS_SCREEN = 2;
-
-interface Tenant {
-  company_id: string;
-  billing_account_id: string;
-  access_level: string;
-}
-
-interface IntakeRow {
-  id: string;
-  answers: Record<string, unknown> | null;
-}
-
-const intakeRows = (companyId: string) =>
-  e2eQuery<IntakeRow>(
-    `SELECT i.id, i.answers
-       FROM company_category_intake i
-       JOIN company_assessment a ON a.id = i.assessment_id
-       JOIN requirement_category rc ON rc.id = i.category_id
-      WHERE a.company_id = $1 AND rc.code = 'REG'`,
-    [companyId],
-  );
 
 const itemDoneCount = async (companyId: string) => {
   const [row] = await e2eQuery<{ n: string }>(
@@ -46,43 +33,14 @@ const itemDoneCount = async (companyId: string) => {
 test.describe("durchgang", () => {
   test.describe.configure({ mode: "serial" });
   let tenant: Tenant;
-  let answersBefore: readonly IntakeRow[];
+  let undos: readonly Undo[] = [];
 
   test.beforeAll(async () => {
-    const [row] = await e2eQuery<Tenant>(
-      `SELECT c.id AS company_id, b.id AS billing_account_id, b.access_level
-         FROM "user" u
-         JOIN company c ON c.id = u.company_id
-         JOIN billing_account b ON b.id = c.billing_account_id
-        WHERE u.email = $1`,
-      [E2E_USER_EMAIL],
-    );
-    if (!row) throw new Error("the e2e tenant has no billing account");
-    tenant = row;
-    answersBefore = await intakeRows(tenant.company_id);
-    await e2eQuery(`UPDATE billing_account SET access_level = 'full' WHERE id = $1`, [
-      tenant.billing_account_id,
-    ]);
+    tenant = await e2eTenant();
+    undos = [await keepAnswers(tenant, "REG"), await payFor(tenant)];
   });
 
-  test.afterAll(async () => {
-    await e2eQuery(`UPDATE billing_account SET access_level = $2 WHERE id = $1`, [
-      tenant.billing_account_id,
-      tenant.access_level,
-    ]);
-    const kept = new Set(answersBefore.map((r) => r.id));
-    for (const row of answersBefore) {
-      await e2eQuery(`UPDATE company_category_intake SET answers = $2 WHERE id = $1`, [
-        row.id,
-        JSON.stringify(row.answers ?? {}),
-      ]);
-    }
-    for (const row of await intakeRows(tenant.company_id)) {
-      if (!kept.has(row.id)) {
-        await e2eQuery(`DELETE FROM company_category_intake WHERE id = $1`, [row.id]);
-      }
-    }
-  });
+  test.afterAll(() => undoAll(undos));
 
   test("a refused save brings the person back to its screen, input kept", async ({
     page,
@@ -113,7 +71,7 @@ test.describe("durchgang", () => {
     await expect(page).toHaveURL(new RegExp(`[?&]s=${FIELDS_SCREEN}\\b`));
     await expect(name).toHaveValue("Abgewiesene Eingabe");
 
-    const rows = await intakeRows(tenant.company_id);
+    const rows = await intakeRows(tenant, "REG");
     expect(rows.some((r) => r.answers?.contactPersonName === "Abgewiesene Eingabe")).toBe(
       false,
     );
@@ -141,7 +99,7 @@ test.describe("durchgang", () => {
 
     await expect
       .poll(async () => {
-        const rows = await intakeRows(tenant.company_id);
+        const rows = await intakeRows(tenant, "REG");
         return rows.find((r) => r.answers?.contactPersonEmail)?.answers ?? null;
       })
       .toMatchObject({
