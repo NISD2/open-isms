@@ -33,7 +33,8 @@
         "several_organizations": "U bent eigenaar van meerdere organisaties. Schrijf naar contact@nisd2.eu, dan verwijderen we het account samen met u.",
         "pays_for_others": "Uw facturatieaccount betaalt ook voor een andere organisatie, die dan niemand meer heeft die kan betalen. Schrijf naar contact@nisd2.eu, dan regelen we het samen met u.",
         "order_check": "Een bestelling van uw account wordt nog gecontroleerd. Schrijf naar contact@nisd2.eu, dan verwijderen we het account zodra die is afgerond.",
-        "cancel_first": "Uw betaalde licentie kan nog worden opgezegd. Zeg die eerst op onder Facturatie (bij een eerste bestelling krijgt u binnen 30 dagen uw geld terug) en verwijder daarna hier het account.",
+        "cancel_first": "Uw betaalde licentie kan nog worden opgezegd. Zeg die eerst op onder Facturatie en verwijder daarna hier het account. Zegt u op binnen 30 dagen na uw eerste factuur, dan krijgt u uw geld terug.",
+        "cancel_by_us": "Uw betaalde licentie loopt nog en kan nog worden opgezegd. Schrijf naar contact@nisd2.eu, dan zeggen wij die op en verwijderen we het account samen met u.",
         "billing_busy": "Er wordt nu een bestelling of opzegging van uw account verwerkt. Probeer het over een minuut opnieuw.",
         "other_members": "Uw organisatie heeft andere leden, en met uw account zou de organisatie met hun werk worden verwijderd. Verwijder eerst de andere leden, of schrijf naar contact@nisd2.eu."
       }

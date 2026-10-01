@@ -24,6 +24,7 @@ import { and, count, eq, inArray, isNotNull, ne, or } from "drizzle-orm";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { hasOpenCancel } from "@/lib/billing/cancel";
 import { hasOrderCheck } from "@/lib/billing/order-check";
+import { billingFor } from "@/lib/billing/ordering-access";
 import type { DbOrTx } from "@/lib/db";
 import { billingAccount, company, companyMembership, invoice } from "@/schema";
 import { ErasureRefused, erasureCompanyOf } from "./erase-user";
@@ -35,6 +36,8 @@ export type SelfErasureRefusal =
   | "order_check"
   /** A paid licence that can still be cancelled: cancel under Billing first, then delete. */
   | "cancel_first"
+  /** The same, while billing is not open for them: the cancel goes through contact@nisd2.eu. */
+  | "cancel_by_us"
   /** An order or cancel is running on the account right now; trying again in a minute works. */
   | "billing_busy"
   | "other_members"
@@ -160,11 +163,15 @@ export async function selfErasureCheck(
     return { allowed: false, reason: "pays_for_others" };
   }
   if (await anyOrderCheck(db, accounts)) return { allowed: false, reason: "order_check" };
-  if (await anyOpenCancel(db, person.userId, new Date())) {
-    return { allowed: false, reason: "cancel_first" };
-  }
   if (ownedId && (await otherMemberCount(db, ownedId, person.userId)) > 0) {
     return { allowed: false, reason: "other_members" };
+  }
+  // Last: a cancel cannot be undone, so it is asked for only when nothing else stands in the way.
+  if (await anyOpenCancel(db, person.userId, new Date())) {
+    // The Billing page offers the cancel only while billing is open for this person; otherwise
+    // sending them there is a dead end, so they write to us instead.
+    const { open } = await billingFor(db, person.email);
+    return { allowed: false, reason: open ? "cancel_first" : "cancel_by_us" };
   }
   return {
     allowed: true,

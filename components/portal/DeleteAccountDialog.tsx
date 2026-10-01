@@ -51,7 +51,7 @@ export function DeleteAccountDialog({
   const needsSignIn =
     (answer && !answer.allowed && answer.reason === "reauth") ||
     remove.error?.message === "reauth";
-  // A licence still open to cancel is cancelled first, under Billing, where the credit note is made.
+  // A licence still open to cancel is cancelled first, under Billing, the one place a cancel is made.
   const needsCancel =
     (answer && !answer.allowed && answer.reason === "cancel_first") ||
     remove.error?.message === "cancel_first";

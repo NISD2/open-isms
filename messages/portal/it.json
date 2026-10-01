@@ -33,7 +33,8 @@
         "several_organizations": "Siete titolari di più organizzazioni. Scrivete a contact@nisd2.eu ed elimineremo l'account insieme a voi.",
         "pays_for_others": "Il vostro account di fatturazione paga anche per un'altra organizzazione, che resterebbe senza nessuno in grado di pagare. Scrivete a contact@nisd2.eu e lo risolveremo insieme a voi.",
         "order_check": "Un ordine del vostro account è ancora in verifica. Scrivete a contact@nisd2.eu ed elimineremo l'account non appena sarà definito.",
-        "cancel_first": "La vostra licenza a pagamento può ancora essere disdetta. Disdetela prima in Fatturazione (per un primo ordine, entro 30 giorni vi rimborsiamo) e poi eliminate qui l'account.",
+        "cancel_first": "La vostra licenza a pagamento può ancora essere disdetta. Disdetela prima in Fatturazione e poi eliminate qui l'account. Se la disdite entro 30 giorni dalla vostra prima fattura, vi rimborsiamo.",
+        "cancel_by_us": "La vostra licenza a pagamento è ancora attiva e può ancora essere disdetta. Scrivete a contact@nisd2.eu: la disdiremo ed elimineremo l'account insieme a voi.",
         "billing_busy": "In questo momento è in corso l'elaborazione di un ordine o di una disdetta del vostro account. Riprovate tra un minuto.",
         "other_members": "La vostra organizzazione ha altri membri, ed eliminando il vostro account verrebbe eliminata anche l'organizzazione con il loro lavoro. Rimuovete prima gli altri membri, oppure scrivete a contact@nisd2.eu."
       }

@@ -588,8 +588,11 @@ async function eraseUserInTx(
   // Read before the person's row goes, which nulls billing_account.owner_user_id.
   if (await invoicesIssuedTo(tx, userId, owned?.billingAccountId ?? null)) {
     scope.retainedUnderLegalDuty = [
-      "Invoices and credit notes issued to the organization, with the billing address and invoice email on them, and the client record at our invoicing provider Qonto: kept for eight years from the end of the calendar year in which they were issued (§ 14b Abs. 1 UStG, § 147 Abs. 3 and 4 AO).",
+      "Invoices and credit notes issued to the organization, with the billing address and invoice email on them: kept for at least eight years from the end of the calendar year in which they were issued, and longer while a tax assessment they matter for is still open (§ 14b Abs. 1 UStG, § 147 Abs. 3 and 4 AO). Our invoicing provider Qonto holds them, and the client record they were issued to, for the same period.",
     ];
+    scope.processorsInScope.push(
+      "Qonto (invoicing): keeps the invoices, credit notes and client record for the period under Article 17(3) exceptions; not deleted by this erasure",
+    );
   }
 
   if (owned && teardown) {

@@ -33,7 +33,8 @@
         "several_organizations": "Do Ciebie należy kilka organizacji. Napisz na contact@nisd2.eu, a usuniemy konto razem z Tobą.",
         "pays_for_others": "Twoje konto rozliczeniowe płaci także za inną organizację, która zostałaby bez nikogo, kto może płacić. Napisz na contact@nisd2.eu, a załatwimy to razem z Tobą.",
         "order_check": "Zamówienie Twojego konta jest jeszcze weryfikowane. Napisz na contact@nisd2.eu, a usuniemy konto, gdy tylko zostanie rozliczone.",
-        "cancel_first": "Twoją płatną licencję można jeszcze wypowiedzieć. Najpierw wypowiedz ją w Rozliczeniach (przy pierwszym zamówieniu w ciągu 30 dni otrzymasz zwrot pieniędzy), a potem usuń tutaj konto.",
+        "cancel_first": "Twoją płatną licencję można jeszcze wypowiedzieć. Najpierw wypowiedz ją w Rozliczeniach, a potem usuń tutaj konto. Jeśli wypowiesz ją w ciągu 30 dni od pierwszej faktury, otrzymasz zwrot pieniędzy.",
+        "cancel_by_us": "Twoja płatna licencja nadal działa i można ją jeszcze wypowiedzieć. Napisz na contact@nisd2.eu, a wypowiemy ją i usuniemy konto razem z Tobą.",
         "billing_busy": "Właśnie przetwarzane jest zamówienie lub wypowiedzenie Twojego konta. Spróbuj ponownie za minutę.",
         "other_members": "Twoja organizacja ma innych członków, a usunięcie Twojego konta usunęłoby organizację wraz z ich pracą. Najpierw usuń pozostałych członków albo napisz na contact@nisd2.eu."
       }

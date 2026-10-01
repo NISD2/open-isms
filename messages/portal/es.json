@@ -33,7 +33,8 @@
         "several_organizations": "Es titular de varias organizaciones. Escriba a contact@nisd2.eu y eliminaremos la cuenta junto con usted.",
         "pays_for_others": "Su cuenta de facturación también paga por otra organización, que se quedaría sin nadie que pueda pagar. Escriba a contact@nisd2.eu y lo resolveremos con usted.",
         "order_check": "Un pedido de su cuenta todavía está en revisión. Escriba a contact@nisd2.eu y eliminaremos la cuenta en cuanto se haya resuelto.",
-        "cancel_first": "Su licencia de pago todavía se puede cancelar. Cancélela primero en Facturación (en un primer pedido, dentro de los 30 días se le devuelve el dinero) y después elimine aquí la cuenta.",
+        "cancel_first": "Su licencia de pago todavía se puede cancelar. Cancélela primero en Facturación y después elimine aquí la cuenta. Si la cancela dentro de los 30 días siguientes a su primera factura, se le devuelve el dinero.",
+        "cancel_by_us": "Su licencia de pago sigue activa y todavía se puede cancelar. Escriba a contact@nisd2.eu y la cancelaremos y eliminaremos la cuenta junto con usted.",
         "billing_busy": "Ahora mismo se está procesando un pedido o una cancelación de su cuenta. Vuelva a intentarlo dentro de un minuto.",
         "other_members": "Su organización tiene otros miembros, y eliminar su cuenta eliminaría la organización junto con el trabajo de ellos. Elimine primero a los demás miembros o escriba a contact@nisd2.eu."
       }

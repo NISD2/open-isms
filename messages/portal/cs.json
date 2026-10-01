@@ -33,7 +33,8 @@
         "several_organizations": "Vlastníte několik organizací. Napište na contact@nisd2.eu a účet smažeme společně s vámi.",
         "pays_for_others": "Váš fakturační účet platí také za jinou organizaci, která by pak neměla nikoho, kdo může platit. Napište na contact@nisd2.eu a vyřešíme to s vámi.",
         "order_check": "Objednávka vašeho účtu se ještě kontroluje. Napište na contact@nisd2.eu a účet smažeme, jakmile bude vyřízena.",
-        "cancel_first": "Vaši placenou licenci lze ještě vypovědět. Nejprve ji vypovězte v sekci Fakturace (u první objednávky do 30 dnů dostanete peníze zpět) a pak zde účet smažte.",
+        "cancel_first": "Vaši placenou licenci lze ještě vypovědět. Nejprve ji vypovězte v sekci Fakturace a pak zde účet smažte. Pokud ji vypovíte do 30 dnů od své první faktury, dostanete peníze zpět.",
+        "cancel_by_us": "Vaše placená licence stále běží a lze ji ještě vypovědět. Napište na contact@nisd2.eu a my ji vypovíme a účet smažeme společně s vámi.",
         "billing_busy": "Právě se zpracovává objednávka nebo výpověď vašeho účtu. Zkuste to prosím znovu za minutu.",
         "other_members": "Vaše organizace má další členy a smazáním vašeho účtu by se smazala i organizace s jejich prací. Nejprve odeberte ostatní členy nebo napište na contact@nisd2.eu."
       }
