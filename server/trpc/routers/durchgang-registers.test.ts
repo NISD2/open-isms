@@ -36,7 +36,13 @@ const dialect = new PgDialect();
 const paramsOf = (where: SQL) => dialect.sqlToQuery(where).params;
 
 type Write = { op: "insert" | "update"; table: unknown; values: unknown };
-type Link = { id: string; likelihood: number; impact: number; target: string };
+type Link = {
+  id: string;
+  likelihood: number;
+  impact: number;
+  treatment: string;
+  target: string;
+};
 
 interface World {
   readonly assets: ReadonlyArray<{
@@ -276,10 +282,10 @@ describe("rating assets and suppliers", () => {
       assets: catalogueAssets,
       suppliers: [],
       assetLinks: [
-        { id: "r1", likelihood: 2, impact: 2, target: A1 },
-        { id: "r2", likelihood: 3, impact: 3, target: A2 },
-        { id: "r3", likelihood: 1, impact: 1, target: A3 },
-        { id: "r4", likelihood: 2, impact: 4, target: A3 },
+        { id: "r1", likelihood: 2, impact: 2, treatment: "accept", target: A1 },
+        { id: "r2", likelihood: 3, impact: 3, treatment: "mitigate", target: A2 },
+        { id: "r3", likelihood: 1, impact: 1, treatment: "accept", target: A3 },
+        { id: "r4", likelihood: 2, impact: 4, treatment: "mitigate", target: A3 },
       ],
     });
     const result = await caller.rate({
@@ -294,6 +300,46 @@ describe("rating assets and suppliers", () => {
     expect(writesTo(risk).map((w) => w.values)).toEqual([
       expect.objectContaining({ likelihood: 4, impact: 3, riskScore: 12 }),
     ]);
+  });
+
+  test("moves the walk's own treatment with the new level, and keeps one chosen in the register", async () => {
+    const { caller, writesTo } = setup({
+      assets: catalogueAssets,
+      suppliers: [],
+      assetLinks: [
+        // Low, still on the proposed "accept".
+        { id: "r1", likelihood: 1, impact: 1, treatment: "accept", target: A1 },
+        // Low, but someone chose "transfer" in the risk register.
+        { id: "r2", likelihood: 1, impact: 1, treatment: "transfer", target: A2 },
+      ],
+    });
+    await caller.rate({
+      rows: [
+        { kind: "asset", id: A1, frequency: "frequent", impact: "existential" },
+        { kind: "asset", id: A2, frequency: "frequent", impact: "existential" },
+      ],
+    });
+    expect(
+      writesTo(risk).map((w) => (w.values as { treatment: unknown }).treatment),
+    ).toEqual(["mitigate", "transfer"]);
+  });
+
+  test("rechecks no supplier sign-off when no supplier rating changed", async () => {
+    const { caller, writesTo } = setup({
+      assets: catalogueAssets,
+      suppliers: [{ id: S1, name: "Microsoft" }],
+      supplierLinks: [
+        { id: "r9", likelihood: 2, impact: 2, treatment: "accept", target: S1 },
+      ],
+    });
+    await caller.rate({
+      rows: [
+        { kind: "supplier", id: S1, frequency: "medium", impact: "limited" },
+        { kind: "asset", id: A1, frequency: "rare", impact: "limited" },
+      ],
+    });
+    expect(writesTo(supplier)).toEqual([]);
+    expect(rechecked).toEqual(["risk"]);
   });
 
   test("links a supplier's risk and sets its register level, the top step as critical", async () => {

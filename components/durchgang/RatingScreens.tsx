@@ -18,24 +18,15 @@ import {
   type Rating,
   type RatingRow,
   type RatingTarget,
-  type ResolvedScreen,
   ratingRows,
   sliceOf,
 } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
-import { type Draft, type DraftUpdate, fullRating, type Specified } from "./draft";
+import { type Draft, fullRating, type Specified } from "./draft";
 import { Heading, Lead } from "./ExplainScreens";
 import { LEVEL_FILL, RiskMatrix } from "./RiskMatrix";
-import type { ItemView } from "./view";
-
-type Of<K extends ResolvedScreen["kind"]> = Extract<ResolvedScreen, { kind: K }>;
-
-interface WorkProps {
-  readonly item: ItemView;
-  readonly draft: Draft;
-  readonly onDraft: DraftUpdate;
-}
+import type { Of, WorkProps } from "./WorkScreens";
 
 function Quiet({ children }: { children: string }) {
   return <p className="mt-8 text-muted-foreground">{children}</p>;

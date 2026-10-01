@@ -33,9 +33,9 @@ import { Heading, Lead } from "./ExplainScreens";
 import { TrainingRecords } from "./TrainingRecords";
 import type { ItemView, Registers, WalkEntry } from "./view";
 
-type Of<K extends ResolvedScreen["kind"]> = Extract<ResolvedScreen, { kind: K }>;
+export type Of<K extends ResolvedScreen["kind"]> = Extract<ResolvedScreen, { kind: K }>;
 
-interface WorkProps {
+export interface WorkProps {
   readonly item: ItemView;
   readonly draft: Draft;
   readonly onDraft: DraftUpdate;

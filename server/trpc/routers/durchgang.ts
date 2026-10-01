@@ -6,7 +6,7 @@ import { CATALOG_LABELS, catalogNames } from "@/lib/asset-inventory/catalog-labe
 import { logAudit } from "@/lib/audit";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { mayWalkDurchgang } from "@/lib/billing/access";
-import { FREQUENCIES, IMPACTS } from "@/lib/compliance/bsi-200-3";
+import { FREQUENCIES, IMPACTS, type RiskLevel } from "@/lib/compliance/bsi-200-3";
 import { invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
 import { getDefaultMethodology } from "@/lib/compliance/risk-methodology-defaults";
 import { seedLocale } from "@/lib/compliance/seed-locale";
@@ -483,8 +483,9 @@ export const durchgangRouter = router({
   /**
    * 2.3: one rating per listed asset or supplier on the two 200-3 scales. A thing with no risk
    * yet gets one, linked to it, with the treatment its level suggests; a thing with exactly one
-   * risk on these scales has that risk re-rated; anything else is worked on in the risk register
-   * and left alone here. A supplier's own register level follows its rating.
+   * risk on these scales has that risk re-rated, and its treatment follows only while it is still
+   * the walk's proposal; anything else is worked on in the risk register and left alone here. A
+   * supplier's own register level follows its rating.
    */
   rate: durchgangWrite
     .input(
@@ -511,6 +512,7 @@ export const durchgangRouter = router({
       const assetIds = rows.filter((r) => r.kind === "asset").map((r) => r.id);
       const supplierIds = rows.filter((r) => r.kind === "supplier").map((r) => r.id);
 
+      /** The kind of each thing a rating was written for. */
       const written = await ctx.db.transaction(async (tx) => {
         const method = await tx.query.companyRiskMethodology.findFirst({
           where: eq(companyRiskMethodology.companyId, ctx.companyId),
@@ -558,7 +560,12 @@ export const durchgangRouter = router({
           throw new TRPCError({ code: "NOT_FOUND" });
         }
 
-        const risks = { id: risk.id, likelihood: risk.likelihood, impact: risk.impact };
+        const risks = {
+          id: risk.id,
+          likelihood: risk.likelihood,
+          impact: risk.impact,
+          treatment: risk.treatment,
+        };
         const assetLinks =
           assetIds.length > 0
             ? await tx
@@ -588,33 +595,55 @@ export const durchgangRouter = router({
 
         const names = new Map([...assets, ...suppliers].map((t) => [t.id, t.name]));
         const links = { asset: assetLinks, supplier: supplierLinks };
-        const plan = rows.flatMap((row) => {
+        /** One write: a new risk (`riskId` null) or a re-rated one, with the treatment to store. */
+        type Step = {
+          readonly row: (typeof rows)[number];
+          readonly level: RiskLevel;
+          readonly scale: ReturnType<typeof toScale>;
+          readonly riskId: string | null;
+          readonly treatment: string;
+        };
+        const plan = rows.flatMap((row): Step[] => {
           const rating = { frequency: row.frequency, impact: row.impact };
           const scale = toScale(rating);
-          const standing = standingOf(links[row.kind].filter((l) => l.target === row.id));
+          const level = levelOf(rating);
+          const linked = links[row.kind].filter((l) => l.target === row.id);
+          const standing = standingOf(linked);
+          if (standing.kind === "kept") return [];
+          if (standing.kind === "open") {
+            return [{ row, level, scale, riskId: null, treatment: treatmentFor(level) }];
+          }
           const unchanged =
-            standing.kind === "rated" &&
             standing.rating.frequency === rating.frequency &&
             standing.rating.impact === rating.impact;
-          if (standing.kind === "kept" || unchanged) return [];
+          if (unchanged) return [];
+          // A treatment someone chose in the risk register stays; the walk's own proposal follows
+          // the new level.
+          const stored = linked[0]?.treatment;
+          const proposed = stored === treatmentFor(levelOf(standing.rating));
           return [
             {
               row,
-              level: levelOf(rating),
+              level,
               scale,
-              // Scored as the risk register scores every risk.
-              riskScore: scale.likelihood * scale.impact,
-              riskId: standing.kind === "rated" ? standing.riskId : null,
+              riskId: standing.riskId,
+              treatment: proposed || !stored ? treatmentFor(level) : stored,
             },
           ];
         });
 
         for (const step of plan) {
           const { row } = step;
+          const values = {
+            ...step.scale,
+            // Scored as the risk register scores every risk.
+            riskScore: step.scale.likelihood * step.scale.impact,
+            treatment: step.treatment,
+          };
           if (step.riskId) {
             await tx
               .update(risk)
-              .set({ ...step.scale, riskScore: step.riskScore, updatedAt: new Date() })
+              .set({ ...values, updatedAt: new Date() })
               .where(and(eq(risk.id, step.riskId), eq(risk.companyId, ctx.companyId)));
           } else {
             const [added] = await tx
@@ -622,9 +651,7 @@ export const durchgangRouter = router({
               .values({
                 companyId: ctx.companyId,
                 ...ratingText(locale, row.kind, names.get(row.id) ?? ""),
-                ...step.scale,
-                riskScore: step.riskScore,
-                treatment: treatmentFor(step.level),
+                ...values,
               })
               .returning({ id: risk.id });
             if (!added) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
@@ -648,12 +675,11 @@ export const durchgangRouter = router({
               );
           }
         }
-        return plan.length;
+        return plan.map((step) => step.row.kind);
       });
-      if (written > 0) {
-        recheck(ctx, "risk");
-        if (supplierIds.length > 0) recheck(ctx, "supplier");
-      }
-      return { written };
+      // Only a register that changed has its sign-offs rechecked.
+      if (written.length > 0) recheck(ctx, "risk");
+      if (written.includes("supplier")) recheck(ctx, "supplier");
+      return { written: written.length };
     }),
 });
