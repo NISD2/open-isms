@@ -16,6 +16,7 @@ import {
   type EmailContent,
   emailLayout,
   escapeHtml,
+  letterReplyTo,
   letterSignOff,
   type PreferenceFooter,
   preferenceFooterText,
@@ -40,18 +41,26 @@ const chromeFor = (locale: Locale | undefined): EmailChrome => ({
 // Welcome
 // ---------------------------------------------------------------------------
 
-/** After the first sign-in: a short note from the team and one place to start. */
-export function welcomeEmail(opts: { name: string }): EmailContent {
-  const supportEmail = escapeHtml(mailSupportEmail());
+/**
+ * After the first sign-in: a short note from the team and one place to start. It asks for
+ * questions, so on nisd2.eu they go to the published contact address, not the no-reply sender.
+ */
+export function welcomeEmail(opts: { name: string }): EmailContent & {
+  readonly replyTo?: string;
+} {
+  const replyTo = letterReplyTo();
+  const contact = replyTo ?? mailSupportEmail();
+  const supportEmail = escapeHtml(contact);
+  // The styles of the React Email version it replaced, so the first email reads as it always did.
   const link = (href: string, label: string) =>
-    `<a href="${href}" style="color: ${BRAND.primary};">${label}</a>`;
+    `<a href="${href}" style="color: ${BRAND.primary}; text-decoration: underline;">${label}</a>`;
   const p = (html: string) =>
-    `<p style="color: ${BRAND.foreground}; font-size: 15px; line-height: 1.6; margin: 0 0 14px;">${html}</p>`;
+    `<p style="color: ${BRAND.foreground}; font-size: 15px; line-height: 1.65; margin: 0 0 16px;">${html}</p>`;
   return {
     subject: "Your NISD2 account is ready",
     html: emailLayout(
       [
-        p(`Hey ${escapeHtml(opts.name)},`),
+        `<p style="color: ${BRAND.foreground}; font-size: 18px; font-weight: 600; margin: 0 0 16px;">Hey ${escapeHtml(opts.name)},</p>`,
         p("thanks for signing up."),
         p(
           `Our mission is straightforward: NIS2 compliance costs European companies ${link("https://nisd2.eu", "€31 billion every year")}. We're cutting that in half by replacing expensive consultants with a platform that does the heavy lifting for you.`,
@@ -62,7 +71,7 @@ export function welcomeEmail(opts: { name: string }): EmailContent {
         p(
           `If you have any questions, write to me at ${link(`mailto:${supportEmail}`, supportEmail)}`,
         ),
-        p(`Cory Hisey<br />${link("https://nisd2.eu", "NISD2.eu")}`),
+        `<p style="color: ${BRAND.foreground}; font-size: 15px; line-height: 1.65; margin: 24px 0 0;">Cory Hisey<br /><a href="https://nisd2.eu" style="color: ${BRAND.mutedForeground}; text-decoration: none;">NISD2.eu</a></p>`,
         `<p style="color: ${BRAND.mutedForeground}; font-size: 12px; margin: 24px 0 0;">You're receiving this because you created an account at nisd2.eu.</p>`,
       ].join("\n"),
       ENGLISH_ONLY,
@@ -72,10 +81,11 @@ export function welcomeEmail(opts: { name: string }): EmailContent {
       "thanks for signing up.",
       "Our mission is straightforward: NIS2 compliance costs European companies €31 billion every year. We're cutting that in half by replacing expensive consultants with a platform that does the heavy lifting for you.",
       "A good first step is the CEO & Management Training (https://nisd2.eu/training/courses/nis2-ceo). It covers what NIS2 actually requires from leadership and satisfies the §38 BSIG training obligation, it takes about 4 hours.",
-      `If you have any questions, write to me at ${mailSupportEmail()}`,
+      `If you have any questions, write to me at ${contact}`,
       "Cory Hisey\nNISD2.eu",
       "You're receiving this because you created an account at nisd2.eu.",
     ].join("\n\n"),
+    ...(replyTo ? { replyTo } : {}),
   };
 }
 
@@ -436,12 +446,14 @@ const documentCardText = ({
   ].join("\n");
 
 /**
- * Lay out a business document letter. The letter asks for replies, so it routes them: the default
- * sender takes none, and `replyTo` travels with the content into sendMail.
+ * Lay out a business document letter. The sending address takes no mail, so the letter invites a
+ * reply only where one reaches a person (letterReplyTo), and `replyTo` travels with the content
+ * into sendMail.
  */
 export function documentEmail(
   mail: DocumentEmail,
-): EmailContent & { readonly replyTo: string } {
+): EmailContent & { readonly replyTo?: string } {
+  const replyTo = letterReplyTo();
   const link = mail.link ? escapeHtml(mail.link) : null;
   const paragraph = (p: string, muted = false) => {
     const safe = escapeHtml(p);
@@ -460,7 +472,7 @@ export function documentEmail(
     ...mail.intro.map((p) => paragraph(p)),
     documentCard(mail.document),
     ...mail.outro.map((p) => paragraph(p)),
-    paragraph(QUESTIONS[mail.locale], true),
+    replyTo ? paragraph(QUESTIONS[mail.locale], true) : "",
     `<p style="color: ${BRAND.foreground}; font-size: 15px; line-height: 1.6; margin: 0;">${signOff.map(escapeHtml).join("<br />")}</p>`,
     mail.appendix
       ? `<div style="margin-top: 28px; padding-top: 20px; border-top: 1px solid ${BRAND.border};">${mail.appendix.html}</div>`
@@ -471,7 +483,7 @@ export function documentEmail(
     ...mail.intro,
     documentCardText(mail.document),
     ...mail.outro,
-    QUESTIONS[mail.locale],
+    ...(replyTo ? [QUESTIONS[mail.locale]] : []),
     signOff.join("\n"),
     ...(mail.appendix ? ["---", mail.appendix.text] : []),
   ].join("\n\n");
@@ -479,7 +491,7 @@ export function documentEmail(
     subject: safeHeader(mail.subject),
     html: emailLayout(html, { locale: mail.locale }),
     text,
-    replyTo: mailSupportEmail(),
+    ...(replyTo ? { replyTo } : {}),
   };
 }
 

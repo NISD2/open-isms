@@ -12,6 +12,11 @@ export const SELLER = {
   vatId: "DE462889433",
   /** § 35a Abs. 1 GmbHG names every managing director on business letters, email included. */
   director: "Simon Orzel",
+  /**
+   * The contact address the legal notice and privacy policy publish. Replies to our letters go
+   * here: the sending address and SUPPORT_EMAIL take no mail.
+   */
+  email: "contact@nisd2.eu",
 } as const;
 
 /** Where the company serves nisd2.eu. A self-hosted install answers on its own address. */

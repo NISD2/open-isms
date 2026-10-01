@@ -16,7 +16,7 @@ mock.module("@/lib/env", () => ({
   mailSupportEmail: () => "support@example.test",
 }));
 
-const { emailLayout, letterSignOff } = await import("./layout");
+const { emailLayout, letterReplyTo, letterSignOff } = await import("./layout");
 const { isSellerInstance } = await import("@/lib/billing/seller");
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL;
@@ -84,6 +84,11 @@ describe("emailLayout on nisd2.eu", () => {
     ]);
   });
 
+  test("replies go to the published contact address, never the no-reply sender", () => {
+    servedFrom("https://nisd2.eu");
+    expect(letterReplyTo()).toBe("contact@nisd2.eu");
+  });
+
   test("carries no slogan in the header", () => {
     servedFrom("https://www.nisd2.eu");
     expect(emailLayout("<p>Body</p>", { locale: "en" })).not.toContain("Halve Europe");
@@ -98,6 +103,8 @@ describe("emailLayout on a self-hosted install", () => {
     expect(html).not.toContain("Simon Orzel");
     expect(html).toContain("Open NIS2 compliance platform");
     expect(letterSignOff("de")).toEqual(["Mit freundlichen Grüßen", "nisd2.eu"]);
+    // No address we know is read, so its letters invite no reply.
+    expect(letterReplyTo()).toBeNull();
   });
 });
 
