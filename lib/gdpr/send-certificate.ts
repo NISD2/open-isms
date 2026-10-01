@@ -9,7 +9,9 @@
 import "@/lib/server-guard";
 import { eq } from "drizzle-orm";
 import type { DbOrTx } from "@/lib/db";
+import { mailSupportEmail } from "@/lib/env";
 import { erasureConfirmationEmail, sendMail } from "@/lib/mail";
+import { wasDelivered } from "@/lib/mail/delivery";
 import { dataErasureLog } from "@/schema";
 import { alertGdprOperators } from "./alert";
 import { buildErasureCertificate, erasureCertificateFilename } from "./certificate";
@@ -34,7 +36,11 @@ const send = async (db: DbOrTx, erasure: Erasure): Promise<boolean> => {
     emailType: "gdpr.erasure_confirmation",
     to: erasure.to,
     ...erasureConfirmationEmail({ caseRef: row.caseRef, certificate }),
+    // The certificate says "reply here"; the default sender takes no replies.
+    replyTo: mailSupportEmail(),
     idempotencyKey: `erasure-${row.caseRef}`,
+    // The address must not outlive the erasure in a failure record.
+    failureLabel: `erasure ${row.caseRef}`,
     attachments: [
       {
         filename: erasureCertificateFilename(row),
@@ -43,7 +49,8 @@ const send = async (db: DbOrTx, erasure: Erasure): Promise<boolean> => {
       },
     ],
   });
-  return result.success;
+  // A send suppressed by configuration (mail off, no transport) reports success but went nowhere.
+  return wasDelivered(result);
 };
 
 /** Sends the certificate to the erased person. Resolves to whether it went out. */

@@ -213,6 +213,10 @@ const AUDIT_REDACT_KEYS = new Set([
  */
 const PLATFORM_AUDIT_REDACT_KEYS = new Set([
   ...AUDIT_REDACT_KEYS,
+  // An erasure's free text (platformAdmin.eraseUser) can name the requester, and this row outlives
+  // the erasure; the erasure record keeps both.
+  "notes",
+  "rightsinvoked",
   "confirmorgname",
   "customeremail",
   "customername",

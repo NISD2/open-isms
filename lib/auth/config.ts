@@ -20,6 +20,7 @@ import {
   epochSeconds,
   isSessionVersionCurrent,
   isWithinAbsoluteSessionAge,
+  signedInAfterAccountCreated,
 } from "@/lib/auth/session-age";
 import { effectiveAccessLevel } from "@/lib/billing/access";
 import { isActivePromo, PROMO_COOKIE } from "@/lib/billing/promo";
@@ -597,6 +598,7 @@ export const getSession = cache(async (): Promise<Session | null> => {
       name: true,
       companyId: true,
       sessionVersion: true,
+      createdAt: true,
       loginCount: true,
       grandfatheredAt: true,
       journeyTourGuidedDismissedAt: true,
@@ -613,6 +615,10 @@ export const getSession = cache(async (): Promise<Session | null> => {
   // password reset. Forcing a re-sign-in on those tokens — once per
   // mid-session user — is the cost of M-1 actually working for everyone.
   if (!isSessionVersionCurrent(session.sessionVersion, dbUser.sessionVersion)) {
+    return null;
+  }
+  // A cookie from an erased account must not open a new one registered under the same address.
+  if (!signedInAfterAccountCreated(session.authTime, dbUser.createdAt)) {
     return null;
   }
 

@@ -7,7 +7,7 @@
  * same things in the same words.
  */
 import { AlertCircle, Loader2 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import type { UseFormReturn } from "react-hook-form";
 import type { z } from "zod";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -28,6 +28,7 @@ import {
   useFormField,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
 import { Separator } from "@/components/ui/separator";
 import type { orderSchemaWithVatCheck } from "@/lib/billing/order";
 import type { quoteFor } from "@/lib/billing/quote";
@@ -46,6 +47,31 @@ export const orderDefaults = (locale: string): OrderValues => ({
   copyToEmail: "",
   purchaseOrder: "",
 });
+
+/**
+ * The countries offered: the EU, the rest of the EEA, Switzerland and the UK, where NIS 2 buyers
+ * and their suppliers sit. The schema takes any two-letter code, so a stored code outside the list is
+ * kept as an option rather than silently changed.
+ */
+// biome-ignore format: thirty-two country codes read as one block, not a column.
+const ORDER_COUNTRIES = [
+  "AT", "BE", "BG", "CY", "CZ", "DE", "DK", "EE", "ES", "FI", "FR", "GR", "HR", "HU",
+  "IE", "IT", "LT", "LU", "LV", "MT", "NL", "PL", "PT", "RO", "SE", "SI", "SK",
+  "IS", "LI", "NO", "CH", "GB",
+] as const;
+
+/** The countries by their name in the reader's language, sorted as they read them. */
+const countryOptions = (locale: string, current: string) => {
+  const names = new Intl.DisplayNames([locale], { type: "region" });
+  const codes: readonly string[] = ORDER_COUNTRIES.includes(
+    current as (typeof ORDER_COUNTRIES)[number],
+  )
+    ? ORDER_COUNTRIES
+    : [...ORDER_COUNTRIES, current.toUpperCase()].filter((c) => c.length === 2);
+  return codes
+    .map((code) => ({ code, name: names.of(code) ?? code }))
+    .sort((a, b) => a.name.localeCompare(b.name, locale));
+};
 
 /** The schema's messages are codes (lib/billing/order.ts); this says them in the page's language. */
 export function FieldMessage() {
@@ -73,6 +99,7 @@ export function OrderFields({
   readonly onVatBlur: (vatNumber: string) => void;
 }) {
   const t = useTranslations("billing");
+  const locale = useLocale();
   const registry = quote?.attempt?.outcome ?? null;
   const gate = quote?.gate ?? null;
   const warning =
@@ -128,10 +155,16 @@ export function OrderFields({
               control={form.control}
               name="countryCode"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="[&_[data-slot=native-select-wrapper]]:w-full">
                   <FormLabel>{t("form.countryCode")}</FormLabel>
                   <FormControl>
-                    <Input placeholder="DE" maxLength={2} {...field} />
+                    <NativeSelect {...field}>
+                      {countryOptions(locale, field.value).map(({ code, name }) => (
+                        <NativeSelectOption key={code} value={code}>
+                          {name}
+                        </NativeSelectOption>
+                      ))}
+                    </NativeSelect>
                   </FormControl>
                   <FieldMessage />
                 </FormItem>

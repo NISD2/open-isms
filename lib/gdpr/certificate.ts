@@ -11,6 +11,31 @@ import { ERASURE_FILE_RETRY_DAYS, type StoredFileState } from "./stored-files";
 
 export type ErasureLogRow = InferSelectModel<typeof dataErasureLog>;
 
+/** The request channel of an erasure the account holder started from their own user menu. */
+export const SELF_SERVICE_CHANNEL = "self_service";
+
+/** Who erased it, as the record names them when the account holder did it themselves. */
+export const SELF_SERVICE_ACTOR = "the account holder (self-service)";
+
+/** How the request was confirmed: by the account holder signed in, or by an operator at intake. */
+const verification = (row: Pick<ErasureLogRow, "requestChannel">): string =>
+  row.requestChannel === SELF_SERVICE_CHANNEL
+    ? `The account holder requested the erasure while signed in to the account and
+confirmed it by re-entering the account's email, which matched our records.`
+    : `Before execution, the operator confirmed the target account by re-entering its
+email, which matched our records. Requester identity is verified by the operator
+at intake per our procedure.`;
+
+/**
+ * Who carried it out, as the person reads it. The operator's address stays in the record and the
+ * Erasures tab; printed on a copy that goes to every requester it would name the account that holds
+ * platform-admin rights.
+ */
+const executedBy = (row: Pick<ErasureLogRow, "requestChannel">): string =>
+  row.requestChannel === SELF_SERVICE_CHANNEL
+    ? SELF_SERVICE_ACTOR
+    : "an operator of nisd2.eu";
+
 export function erasureCertificateFilename(row: Pick<ErasureLogRow, "caseRef">): string {
   return `${row.caseRef}-erasure-certificate.md`;
 }
@@ -23,7 +48,9 @@ function fmtDate(d: Date | string | null | undefined): string {
 
 /** Neutralise markdown / table / HTML control chars in interpolated values so a
  *  crafted name, company, or free-text field cannot break the table layout or
- *  inject markup into the rendered certificate. */
+ *  inject markup into the rendered certificate. Square brackets too: without
+ *  them there is no link or image syntax, so a company name set by its admin
+ *  cannot carry one into the file. */
 function esc(v: string | null | undefined): string {
   if (v == null || String(v).trim() === "") return "n/a";
   return String(v)
@@ -31,7 +58,8 @@ function esc(v: string | null | undefined): string {
     .replace(/\|/g, "\\|")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/`/g, "'");
+    .replace(/`/g, "'")
+    .replace(/[[\]]/g, "\\$&");
 }
 
 function fmtCounts(rec: Record<string, number>): string {
@@ -132,14 +160,12 @@ General Data Protection Regulation (GDPR), Article 17 (right to erasure).
 | Rights invoked | ${esc(row.rightsInvoked)} |
 | Legal basis applied | ${esc(row.legalBasis)} |
 
-Before execution, the operator confirmed the target account by re-entering its
-email, which matched our records. Requester identity is verified by the operator
-at intake per our procedure. No fee was charged (Art. 12(5)).
+${verification(row)} No fee was charged (Art. 12(5)).
 
 ## Action taken
 
 **Method:** ${methodLabel}
-**Executed:** ${fmtDate(row.erasedAt)} by ${esc(row.actorEmail)}
+**Executed:** ${fmtDate(row.erasedAt)} by ${executedBy(row)}
 **Company teardown:** ${row.companyTornDown ? `Yes. The subject owned the organization, so it and all its tenant data${filesDone ? "" : " in our database"} were deleted, together with every member account that belonged to no other organization.` : "No"}
 
 ### Data categories and systems cleared

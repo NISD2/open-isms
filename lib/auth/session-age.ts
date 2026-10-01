@@ -32,6 +32,36 @@ export function isWithinAbsoluteSessionAge(
   return authTime !== null && nowS - authTime < SESSION_ABSOLUTE_MAX_AGE_S;
 }
 
+/**
+ * How far the database clock (which stamps user.created_at) may run ahead of the app's (which
+ * stamps the sign-in) when an account is created and signed in within the same moment.
+ */
+export const ACCOUNT_CLOCK_SKEW_S = 60;
+
+/**
+ * True when the sign-in is not older than the account. Sessions are found by email and a new
+ * account's revocation counter starts at 1, so without this a token from an earlier account under the
+ * same address (erased, then registered again) would open the new one.
+ */
+export function signedInAfterAccountCreated(
+  authTime: number | null,
+  accountCreatedAt: Date,
+): boolean {
+  return (
+    authTime !== null && authTime + ACCOUNT_CLOCK_SKEW_S >= epochSeconds(accountCreatedAt)
+  );
+}
+
+/**
+ * How recent a sign-in must be for an act that cannot be undone, such as deleting the account: an
+ * unattended or copied session is older than this, the person at the keyboard just signed in.
+ */
+export const RECENT_SIGN_IN_S = 15 * 60;
+
+export function isRecentSignIn(authTime: number | null, nowS: number): boolean {
+  return authTime !== null && nowS - authTime < RECENT_SIGN_IN_S;
+}
+
 export function epochSeconds(date: Date): number {
   return Math.floor(date.getTime() / 1000);
 }

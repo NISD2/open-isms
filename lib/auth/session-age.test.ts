@@ -1,9 +1,13 @@
 import { describe, expect, test } from "bun:test";
 import {
+  ACCOUNT_CLOCK_SKEW_S,
   epochSeconds,
+  isRecentSignIn,
   isSessionVersionCurrent,
   isWithinAbsoluteSessionAge,
+  RECENT_SIGN_IN_S,
   SESSION_ABSOLUTE_MAX_AGE_S,
+  signedInAfterAccountCreated,
 } from "./session-age";
 
 const SIGNED_IN = epochSeconds(new Date("2026-09-30T08:00:00Z"));
@@ -47,6 +51,42 @@ describe("the revocation counter", () => {
 
   test("a token without one is revoked", () => {
     expect(isSessionVersionCurrent(null, 1)).toBe(false);
+  });
+});
+
+describe("a sign-in and the account it opens", () => {
+  const created = new Date(SIGNED_IN * 1000);
+
+  test("a sign-in after the account was created opens it", () => {
+    expect(signedInAfterAccountCreated(SIGNED_IN + 5, created)).toBe(true);
+  });
+
+  test("a sign-in a few seconds behind the database clock still opens it", () => {
+    expect(signedInAfterAccountCreated(SIGNED_IN - ACCOUNT_CLOCK_SKEW_S, created)).toBe(
+      true,
+    );
+  });
+
+  test("a token from before the account existed belongs to an erased one", () => {
+    expect(signedInAfterAccountCreated(SIGNED_IN - 10 * 60, created)).toBe(false);
+  });
+
+  test("a token without a sign-in time opens nothing", () => {
+    expect(signedInAfterAccountCreated(null, created)).toBe(false);
+  });
+});
+
+describe("a recent sign-in, for acts that cannot be undone", () => {
+  test("a sign-in a few minutes ago counts", () => {
+    expect(isRecentSignIn(SIGNED_IN, SIGNED_IN + 5 * 60)).toBe(true);
+  });
+
+  test("one older than the window does not", () => {
+    expect(isRecentSignIn(SIGNED_IN, SIGNED_IN + RECENT_SIGN_IN_S)).toBe(false);
+  });
+
+  test("a token without a sign-in time does not", () => {
+    expect(isRecentSignIn(null, SIGNED_IN)).toBe(false);
   });
 });
 
