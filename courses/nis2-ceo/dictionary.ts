@@ -673,14 +673,14 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     },
   },
 
-  // ─── Lesson 1.3: Penalties and the Article 34 Manager Ban ─────
+  // ─── Lesson 1.3: Penalties and the Manager Ban ─────
   {
     term: "Administrative fine",
     type: "defined",
     definition: {
-      en: "The penalty the regulator imposes on the company under Article 32 of the NIS2 Directive.",
+      en: "The penalty the regulator imposes on the company under Article 34 of the NIS2 Directive.",
       nl: "De straf die de toezichthouder het bedrijf oplegt op grond van Artikel 32 van de NIS2-richtlijn.",
-      de: "Das Bußgeld, das die Aufsichtsbehörde dem Unternehmen gemäß Artikel 32 der NIS-2-Richtlinie auferlegt.",
+      de: "Das Bußgeld, das die Aufsichtsbehörde dem Unternehmen gemäß Artikel 34 der NIS-2-Richtlinie auferlegt.",
       fr: "La sanction que l'autorité de régulation impose à l'entreprise au titre de l'article 32 de la directive NIS2.",
       it: "La sanzione che l'autorità di vigilanza impone all'azienda ai sensi dell'articolo 32 della direttiva NIS2.",
       es: "La sanción que el regulador impone a la empresa conforme al artículo 32 de la Directiva NIS2.",
@@ -695,9 +695,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     term: "Manager ban",
     type: "defined",
     definition: {
-      en: "The power under Article 34 to prohibit an individual from holding management positions for repeated or serious violations.",
+      en: "The power under Article 32(5)(b), for Essential entities only, to have the person at CEO or legal representative level temporarily banned from management functions in that entity when the regulator's orders are ignored past a deadline.",
       nl: "De bevoegdheid op grond van Artikel 34 om een persoon te verbieden leidinggevende functies te bekleden wegens herhaalde of ernstige overtredingen.",
-      de: "Die Befugnis gemäß Artikel 34, einer Person bei wiederholten oder schwerwiegenden Verstößen die Ausübung von Leitungsfunktionen zu untersagen.",
+      de: "Die Befugnis nach Artikel 32 Absatz 5 Buchstabe b, nur bei wesentlichen Einrichtungen, der Person auf Ebene der Geschäftsführung oder gesetzlichen Vertretung vorübergehend untersagen zu lassen, Leitungsaufgaben in dieser Einrichtung wahrzunehmen, wenn Anordnungen der Aufsicht trotz Frist missachtet werden.",
       fr: "Le pouvoir, au titre de l'article 34, d'interdire à une personne d'occuper des fonctions de direction en cas de violations répétées ou graves.",
       it: "Il potere, ai sensi dell'articolo 34, di vietare a una persona di ricoprire incarichi dirigenziali in caso di violazioni ripetute o gravi.",
       es: "La facultad, conforme al artículo 34, de prohibir a una persona ocupar cargos directivos por infracciones reiteradas o graves.",
@@ -1998,9 +1998,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     term: "Self-executing notification",
     type: "defined",
     definition: {
-      en: "The Article 23(2) duty to notify service recipients without undue delay when a significant incident is likely to adversely affect the provision of services; triggered automatically, not by regulator order.",
+      en: "The Article 23(1) duty to notify service recipients, where appropriate and without undue delay, of a significant incident likely to adversely affect the provision of services; the entity acts on it itself. National law can change that: in Germany, § 35(1) BSIG makes it an order of the BSI.",
       nl: "De plicht van Artikel 23(2) om dienstverleners onverwijld te melden wanneer een significant incident de dienstverlening waarschijnlijk nadelig zal beïnvloeden; automatisch geactiveerd, niet op bevel van de toezichthouder.",
-      de: "Die Pflicht nach Artikel 23 Absatz 2, Dienstleistungsempfänger unverzüglich zu benachrichtigen, wenn ein erheblicher Sicherheitsvorfall die Erbringung der Dienste voraussichtlich beeinträchtigt; automatisch ausgelöst, nicht auf Anordnung der Aufsichtsbehörde.",
+      de: "Die Pflicht nach Artikel 23 Absatz 1, Dienstempfänger gegebenenfalls unverzüglich über einen erheblichen Sicherheitsvorfall zu unterrichten, der die Erbringung der Dienste beeinträchtigen könnte; die Einrichtung handelt selbst. Das nationale Recht kann das ändern: In Deutschland macht § 35 Abs. 1 BSIG daraus eine Anordnung des BSI.",
       fr: "L'obligation prévue à l'article 23(2) de notifier les destinataires des services sans retard injustifié lorsqu'un incident important est susceptible de nuire à la fourniture des services ; déclenchée automatiquement, et non sur ordre de l'autorité de régulation.",
       it: "L'obbligo di cui all'articolo 23(2) di notificare ai destinatari dei servizi senza indebito ritardo quando un incidente significativo rischia di pregiudicare la fornitura dei servizi; attivato automaticamente, non su ordine dell'autorità di vigilanza.",
       es: "La obligación del artículo 23(2) de notificar a los destinatarios de los servicios sin demora indebida cuando un incidente significativo pueda afectar negativamente a la prestación de los servicios; se activa automáticamente, no por orden del regulador.",
@@ -2014,9 +2014,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     term: "Regulator-ordered notification",
     type: "defined",
     definition: {
-      en: "The Article 36 power of the competent authority to instruct the entity to inform its customers about a significant incident.",
+      en: "The power of the CSIRT or competent authority to inform the public about a significant incident or require the entity to do so (Article 23(7)), and to order the entity to inform those affected by a significant cyber threat (Article 32(4)(e), Article 33(4)(e)). In Germany, § 35(1) BSIG lets the BSI order the entity to inform the recipients of its services.",
       nl: "De bevoegdheid van Artikel 36 van de bevoegde autoriteit om de entiteit te instrueren haar klanten te informeren over een significant incident.",
-      de: "Die Befugnis der zuständigen Behörde gemäß Artikel 36, die Einrichtung anzuweisen, ihre Kunden über einen erheblichen Sicherheitsvorfall zu informieren.",
+      de: "Die Befugnis des CSIRT oder der zuständigen Behörde, die Öffentlichkeit über einen erheblichen Sicherheitsvorfall zu informieren oder die Einrichtung dazu zu verpflichten (Artikel 23 Absatz 7), und die Einrichtung anzuweisen, die von einer erheblichen Cyberbedrohung Betroffenen zu unterrichten (Artikel 32 Absatz 4 Buchstabe e, Artikel 33 Absatz 4 Buchstabe e). In Deutschland kann das BSI nach § 35 Abs. 1 BSIG anordnen, die Empfänger der Dienste zu unterrichten.",
       fr: "Le pouvoir, au titre de l'article 36, de l'autorité compétente d'enjoindre à l'entité d'informer ses clients d'un incident important.",
       it: "Il potere, ai sensi dell'articolo 36, dell'autorità competente di ordinare al soggetto di informare i propri clienti di un incidente significativo.",
       es: "La facultad, conforme al artículo 36, de la autoridad competente para ordenar a la entidad que informe a sus clientes sobre un incidente significativo.",
@@ -2078,9 +2078,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     term: "Ongoing threat",
     type: "vocabulary",
     definition: {
-      en: "An active risk to customers that triggers the self-executing notification duty.",
+      en: "An active risk to customers; for a significant cyber threat, Article 23(2) asks you to tell those potentially affected what they can do about it.",
       nl: "Een actief risico voor klanten dat de automatisch geactiveerde meldingsplicht triggert.",
-      de: "Eine aktive Bedrohung für Kunden, die die automatisch ausgelöste Benachrichtigungspflicht auslöst.",
+      de: "Eine aktive Bedrohung für Kunden; bei einer erheblichen Cyberbedrohung verlangt Artikel 23 Absatz 2, den potenziell Betroffenen mitzuteilen, was sie dagegen tun können.",
       fr: "Un risque actif pour les clients qui déclenche l'obligation de notification automatique.",
       it: "Un rischio attivo per i clienti che fa scattare l'obbligo di notifica automatica.",
       es: "Un riesgo activo para los clientes que activa la obligación de notificación automática.",
@@ -2110,9 +2110,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     term: "Public interest",
     type: "vocabulary",
     definition: {
-      en: "The regulator's basis for ordering customer notification under Article 36.",
+      en: "One ground on which the CSIRT or competent authority can inform the public about a significant incident, or require the entity to do so (Article 23(7)).",
       nl: "De basis van de toezichthouder voor het bevelen van klantmelding op grond van Artikel 36.",
-      de: "Die Grundlage der Aufsichtsbehörde für die Anordnung einer Kundenbenachrichtigung gemäß Artikel 36.",
+      de: "Ein Grund, aus dem das CSIRT oder die zuständige Behörde die Öffentlichkeit über einen erheblichen Sicherheitsvorfall informieren oder die Einrichtung dazu verpflichten kann (Artikel 23 Absatz 7).",
       fr: "Le fondement sur lequel l'autorité de régulation ordonne la notification des clients au titre de l'article 36.",
       it: "Il fondamento in base al quale l'autorità di vigilanza ordina la notifica ai clienti ai sensi dell'articolo 36.",
       es: "El fundamento del regulador para ordenar la notificación a los clientes conforme al artículo 36.",
@@ -2477,9 +2477,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     term: "Risk analysis methodology",
     type: "defined",
     definition: {
-      en: "The documented procedure for identifying and scoring risks; one of the eleven required policies.",
+      en: "The documented procedure for identifying and scoring risks; part of the Measure 1 policies under Article 21(2)(a).",
       nl: "De gedocumenteerde procedure voor het identificeren en scoren van risico's; een van de elf vereiste beleidslijnen.",
-      de: "Das dokumentierte Verfahren zur Identifikation und Bewertung von Risiken; eine der elf erforderlichen Richtlinien.",
+      de: "Das dokumentierte Verfahren zur Identifikation und Bewertung von Risiken; Teil der Konzepte für Maßnahme 1 nach Artikel 21(2)(a).",
       fr: "La procédure documentée d'identification et de notation des risques ; l'une des onze politiques requises.",
       it: "La procedura documentata per l'individuazione e la valutazione dei rischi; una delle undici politiche richieste.",
       es: "El procedimiento documentado para identificar y puntuar riesgos; una de las once políticas requeridas.",
@@ -3871,9 +3871,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     term: "On-site inspection",
     type: "defined",
     definition: {
-      en: "The physical visit by the regulator's audit team to your premises, authorised under Article 32(4) for Essential entities and Article 33(3) for Important entities.",
+      en: "The physical visit by the regulator's audit team to your premises, authorised under Article 32(2)(a) for Essential entities and Article 33(2)(a) for Important entities.",
       nl: "Het fysieke bezoek van het auditteam van de toezichthouder aan uw locatie, gemachtigd op grond van Artikel 32(4) voor essentiële entiteiten en Artikel 33(3) voor belangrijke entiteiten.",
-      de: "Der physische Besuch des Auditteams der Aufsichtsbehörde in Ihren Räumlichkeiten, genehmigt gemäß Artikel 32(4) für wesentliche Einrichtungen und Artikel 33(3) für wichtige Einrichtungen.",
+      de: "Der physische Besuch des Auditteams der Aufsichtsbehörde in Ihren Räumlichkeiten, genehmigt gemäß Artikel 32 Absatz 2 Buchstabe a für wesentliche Einrichtungen und Artikel 33 Absatz 2 Buchstabe a für wichtige Einrichtungen.",
       fr: "La visite physique de l'équipe d'audit de l'autorité de régulation dans vos locaux, autorisée par l'article 32(4) pour les entités essentielles et l'article 33(3) pour les entités importantes.",
       it: "La visita fisica del team di audit dell'autorità di vigilanza presso i vostri locali, autorizzata dall'articolo 32(4) per i soggetti essenziali e dall'articolo 33(3) per i soggetti importanti.",
       es: "La visita física del equipo de auditoría del regulador a sus instalaciones, autorizada por el artículo 32(4) para las entidades esenciales y el artículo 33(3) para las entidades importantes.",
@@ -4100,9 +4100,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     term: "Customer notification",
     type: "defined",
     definition: {
-      en: "Your direct duty under Article 36 to tell affected customers about an incident, separate from your reporting duty to the regulator.",
+      en: "Your duty under Article 23(1) to tell affected customers, where appropriate, about a significant incident, separate from your reporting duty to the regulator.",
       nl: "Uw directe plicht op grond van Artikel 36 om getroffen klanten te informeren over een incident, los van uw meldingsplicht aan de toezichthouder.",
-      de: "Ihre direkte Pflicht gemäß Artikel 36, betroffene Kunden über einen Vorfall zu informieren, getrennt von Ihrer Meldepflicht gegenüber der Aufsichtsbehörde.",
+      de: "Ihre Pflicht nach Artikel 23 Absatz 1, betroffene Kunden gegebenenfalls über einen erheblichen Sicherheitsvorfall zu unterrichten, getrennt von Ihrer Meldepflicht gegenüber der Aufsichtsbehörde.",
       fr: "Votre obligation directe, au titre de l'article 36, d'informer les clients concernés d'un incident, distincte de votre obligation de notification à l'autorité de régulation.",
       it: "Il vostro obbligo diretto, ai sensi dell'articolo 36, di informare i clienti interessati di un incidente, distinto dall'obbligo di notifica all'autorità di vigilanza.",
       es: "Su obligación directa, conforme al artículo 36, de informar a los clientes afectados sobre un incidente, distinta de su obligación de notificación al regulador.",

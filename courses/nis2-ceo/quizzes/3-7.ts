@@ -128,8 +128,8 @@ const quiz = quizSchema.parse({
       ],
       correctIndex: 1,
       explanation: {
-        en: "If remediation is incomplete, the regulator escalates: binding instructions under Article 32(5), public disclosure, or fines.",
-        de: "Wenn die Abhilfe unvollständig ist, eskaliert die Aufsichtsbehörde: verbindliche Anweisungen gemäß Artikel 32 Absatz 5, öffentliche Bekanntmachung oder Bußgelder.",
+        en: "If remediation is incomplete, the regulator escalates: binding instructions under Article 32(4), public disclosure, or fines.",
+        de: "Wenn die Abhilfe unvollständig ist, eskaliert die Aufsichtsbehörde: verbindliche Anweisungen gemäß Artikel 32 Absatz 4, öffentliche Bekanntmachung oder Bußgelder.",
         nl: "Als het herstel onvolledig is, escaleert de toezichthouder: bindende instructies op grond van Artikel 32(5), openbare bekendmaking of boetes.",
         fr: "Si la remédiation est incomplète, l'autorité de régulation escalade : instructions contraignantes au titre de l'article 32(5), divulgation publique ou amendes.",
         it: "Se la correzione è incompleta, l'autorità di regolamentazione intensifica: istruzioni vincolanti ai sensi dell'articolo 32(5), divulgazione pubblica o sanzioni.",

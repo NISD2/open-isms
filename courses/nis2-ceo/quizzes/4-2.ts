@@ -123,8 +123,8 @@ const quiz = quizSchema.parse({
       ],
       correctIndex: 2,
       explanation: {
-        en: "Ask three questions: does the policy contain a cyber liability exclusion, does it pay for personal defence under Article 32(5), and what does it say about statutory duty breaches. Get all three answers in writing.",
-        de: "Stellen Sie drei Fragen: Enthaelt die Police einen Cyber-Haftungsausschluss, zahlt sie für die persönliche Verteidigung gemäß Artikel 32 Absatz 5, und was sagt sie zu Verletzungen gesetzlicher Pflichten. Lassen Sie sich alle drei Antworten schriftlich geben.",
+        en: "Ask three questions: does the policy contain a cyber liability exclusion, does it pay for your defence when you are held personally liable for your NIS2 duties (Article 32(6) and the national rules behind it), and what does it say about statutory duty breaches. Get all three answers in writing.",
+        de: "Stellen Sie drei Fragen: Enthält die Police einen Cyber-Haftungsausschluss, zahlt sie für Ihre Verteidigung, wenn Sie persönlich für Ihre NIS2-Pflichten haften (Artikel 32 Absatz 6 und die nationalen Regeln dahinter), und was sagt sie zu Verletzungen gesetzlicher Pflichten. Lassen Sie sich alle drei Antworten schriftlich geben.",
         fr: "Posez trois questions : la police contient-elle une exclusion de responsabilité cyber, paie-t-elle la défense personnelle au titre de l'article 32(5), et que dit-elle des manquements aux obligations légales. Obtenez les trois réponses par écrit.",
         it: "Ponete tre domande: la polizza contiene un'esclusione della responsabilità cyber, paga la difesa personale ai sensi dell'articolo 32(5), e cosa dice sugli inadempimenti di obblighi di legge. Ottenete tutte e tre le risposte per iscritto.",
         es: "Haga tres preguntas: ¿contiene la póliza una exclusión de responsabilidad cibernética, paga la defensa personal con arreglo al artículo 32(5), y qué dice sobre los incumplimientos de obligaciones legales? Obtenga las tres respuestas por escrito.",

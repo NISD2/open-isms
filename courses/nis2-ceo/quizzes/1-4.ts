@@ -110,8 +110,8 @@ const quiz = quizSchema.parse({
           ro: "Nu, o încălcare necesită ca un incident cibernetic să fi survenit",
         },
         {
-          en: "Yes, it is a separate violation sanctioned under Article 32, independent of any incident",
-          de: "Ja, es handelt sich um einen eigenständigen Verstoß nach Artikel 32, unabhängig von einem Vorfall",
+          en: "Yes, it is a separate violation sanctioned under national law, independent of any incident",
+          de: "Ja, es handelt sich um einen eigenständigen Verstoß nach nationalem Recht, unabhängig von einem Vorfall",
           nl: "Ja, het is een afzonderlijke overtreding die wordt gesanctioneerd op grond van Artikel 32, onafhankelijk van enig incident",
           fr: "Oui, il s'agit d'une violation distincte sanctionnée au titre de l'article 32, indépendamment de tout incident",
           it: "Sì, si tratta di una violazione distinta sanzionata ai sensi dell'articolo 32, indipendentemente da qualsiasi incidente",
@@ -148,8 +148,8 @@ const quiz = quizSchema.parse({
       ],
       correctIndex: 1,
       explanation: {
-        en: "Late or incorrect registration is sanctioned separately under Article 32 and does not require a cyber incident to trigger it.",
-        de: "Verspätete oder fehlerhafte Registrierung wird nach Artikel 32 eigenständig sanktioniert und erfordert keinen Cybervorfall als Auslöser.",
+        en: "Late or incorrect registration is sanctioned separately under national law (Article 36 leaves the penalty to the Member States; in Germany § 65(2) no. 6 BSIG) and does not require a cyber incident to trigger it.",
+        de: "Verspätete oder fehlerhafte Registrierung wird nach nationalem Recht eigenständig sanktioniert (Artikel 36 überlässt die Sanktion den Mitgliedstaaten; in Deutschland § 65 Abs. 2 Nr. 6 BSIG) und erfordert keinen Cybervorfall als Auslöser.",
         nl: "Te late of onjuiste registratie wordt afzonderlijk gesanctioneerd op grond van Artikel 32 en vereist geen cyberincident als aanleiding.",
         fr: "Un enregistrement tardif ou incorrect est sanctionné séparément au titre de l'article 32 et ne nécessite pas d'incident cyber pour être déclenché.",
         it: "Una registrazione tardiva o errata è sanzionata separatamente ai sensi dell'articolo 32 e non richiede un incidente informatico per essere attivata.",

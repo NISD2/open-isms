@@ -94,8 +94,8 @@ const quiz = quizSchema.parse({
       ],
       correctIndex: 1,
       explanation: {
-        en: "Insurance does not remove regulatory fines under Article 32, the manager ban under Article 34, or the customer notification duty under Article 36.",
-        de: "Versicherung beseitigt weder regulatorische Bußgelder gemäß Artikel 32, noch das Geschäftsführungsverbot gemäß Artikel 34, noch die Kundenbenachrichtigungspflicht gemäß Artikel 36.",
+        en: "Insurance does not remove regulatory fines under Article 34, the manager ban under Article 32(5)(b), or the customer notification duty under Article 23(1).",
+        de: "Versicherung beseitigt weder regulatorische Bußgelder gemäß Artikel 34, noch das Leitungsverbot gemäß Artikel 32 Absatz 5 Buchstabe b, noch die Kundenbenachrichtigungspflicht gemäß Artikel 23 Absatz 1.",
         nl: "Verzekering neemt regulatoire boetes op grond van artikel 32, het beheerdersverbod op grond van artikel 34 en de klantmeldingsplicht op grond van artikel 36 niet weg.",
         fr: "L'assurance ne supprime pas les amendes réglementaires au titre de l'article 32, l'interdiction de gérer au titre de l'article 34, ni l'obligation de notification aux clients au titre de l'article 36.",
         it: "L'assicurazione non elimina le sanzioni normative ai sensi dell'articolo 32, l'interdizione dalla carica di dirigente ai sensi dell'articolo 34, né l'obbligo di notifica ai clienti ai sensi dell'articolo 36.",

@@ -94,8 +94,8 @@ const quiz = quizSchema.parse({
       ],
       correctIndex: 1,
       explanation: {
-        en: "The reporting duty under Article 23 and the customer notification duty under Article 36 both land on you - the supplier's report does not cover you.",
-        de: "Die Meldepflicht gemäß Artikel 23 und die Kundenbenachrichtigungspflicht gemäß Artikel 36 liegen beide bei Ihnen - die Meldung des Lieferanten deckt Sie nicht ab.",
+        en: "The reporting duty and the customer notification under Article 23 both land on you - the supplier's report does not cover you.",
+        de: "Die Meldepflicht und die Kundenbenachrichtigung nach Artikel 23 liegen beide bei Ihnen - die Meldung des Lieferanten deckt Sie nicht ab.",
         nl: "De meldingsplicht uit Artikel 23 en de klantenkennisgevingsplicht uit Artikel 36 liggen allebei bij u - de melding van de leverancier dekt u niet.",
         fr: "L'obligation de signalement au titre de l'article 23 et l'obligation de notification aux clients au titre de l'article 36 vous incombent toutes deux : le signalement du fournisseur ne vous couvre pas.",
         it: "L'obbligo di segnalazione ai sensi dell'articolo 23 e l'obbligo di notifica ai clienti ai sensi dell'articolo 36 spettano entrambi a voi: la segnalazione del fornitore non vi copre.",

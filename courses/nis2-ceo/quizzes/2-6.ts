@@ -7,8 +7,8 @@ const quiz = quizSchema.parse({
     {
       id: "2.6.1",
       question: {
-        en: "How many distinct policies does the CIR require for Measure 1?",
-        de: "Wie viele separate Richtlinien verlangt die CIR für Maßnahme 1?",
+        en: "For a company outside the CIR's digital providers, how many policy documents does Article 21(2)(a) require for Measure 1?",
+        de: "Wie viele Richtliniendokumente verlangt Artikel 21(2)(a) für Maßnahme 1 von einem Unternehmen, das nicht zu den digitalen Anbietern der DVO gehört?",
         nl: "Hoeveel afzonderlijke beleidslijnen vereist de CIR voor Maatregel 1?",
         fr: "Combien de politiques distinctes la CIR exige-t-elle pour la mesure 1 ?",
         it: "Quante politiche distinte richiede la CIR per la misura 1?",
@@ -19,15 +19,15 @@ const quiz = quizSchema.parse({
         ro: "Câte politici distincte impune CIR pentru Măsura 1?",
       },
       options: [
-        { en: "One comprehensive security policy", de: "Eine umfassende Sicherheitsrichtlinie", nl: "Één uitgebreid beveiligingsbeleid", fr: "Une politique de sécurité globale", it: "Un'unica politica di sicurezza completa", es: "Una política de seguridad integral", pl: "Jedną kompleksową politykę bezpieczeństwa", cs: "Jednu komplexní bezpečnostní politiku", pt: "Uma política de segurança abrangente", ro: "O politică de securitate cuprinzătoare" },
-        { en: "Five core policies", de: "Fünf Kernrichtlinien", nl: "Vijf kernbeleidslijnen", fr: "Cinq politiques fondamentales", it: "Cinque politiche fondamentali", es: "Cinco políticas fundamentales", pl: "Pięć podstawowych polityk", cs: "Pět základních politik", pt: "Cinco políticas fundamentais", ro: "Cinci politici de bază" },
-        { en: "Eleven (one top-level plus ten topic-specific)", de: "Elf (eine übergeordnete plus zehn themenspezifische)", nl: "Elf (één overkoepelend plus tien onderwerpspecifieke)", fr: "Onze (une de haut niveau plus dix thématiques)", it: "Undici (una di livello superiore più dieci tematiche)", es: "Once (una de nivel superior más diez temáticas)", pl: "Jedenaście (jedną nadrzędną plus dziesięć tematycznych)", cs: "Jedenáct (jednu nadřazenou a deset tematických)", pt: "Onze (uma de nível superior mais dez específicas por tema)", ro: "Unsprezece (una de nivel superior plus zece specifice pe teme)" },
-        { en: "Three (risk, incident, access)", de: "Drei (Risiko, Vorfall, Zugang)", nl: "Drie (risico, incident, toegang)", fr: "Trois (risque, incident, accès)", it: "Tre (rischio, incidente, accesso)", es: "Tres (riesgo, incidente, acceso)", pl: "Trzy (ryzyko, incydent, dostęp)", cs: "Tři (riziko, incident, přístup)", pt: "Três (risco, incidente, acesso)", ro: "Trei (risc, incident, acces)" },
+        { en: "Exactly one comprehensive security policy", de: "Genau eine umfassende Sicherheitsrichtlinie", nl: "Één uitgebreid beveiligingsbeleid", fr: "Une politique de sécurité globale", it: "Un'unica politica di sicurezza completa", es: "Una política de seguridad integral", pl: "Jedną kompleksową politykę bezpieczeństwa", cs: "Jednu komplexní bezpečnostní politiku", pt: "Uma política de segurança abrangente", ro: "O politică de securitate cuprinzătoare" },
+        { en: "Exactly five core policies", de: "Genau fünf Kernrichtlinien", nl: "Vijf kernbeleidslijnen", fr: "Cinq politiques fondamentales", it: "Cinque politiche fondamentali", es: "Cinco políticas fundamentales", pl: "Pięć podstawowych polityk", cs: "Pět základních politik", pt: "Cinco políticas fundamentais", ro: "Cinci politici de bază" },
+        { en: "No fixed number: policies on risk analysis and information system security", de: "Keine feste Zahl: Konzepte zur Risikoanalyse und zur Sicherheit der Informationssysteme", nl: "Elf (één overkoepelend plus tien onderwerpspecifieke)", fr: "Onze (une de haut niveau plus dix thématiques)", it: "Undici (una di livello superiore più dieci tematiche)", es: "Once (una de nivel superior más diez temáticas)", pl: "Jedenaście (jedną nadrzędną plus dziesięć tematycznych)", cs: "Jedenáct (jednu nadřazenou a deset tematických)", pt: "Onze (uma de nível superior mais dez específicas por tema)", ro: "Unsprezece (una de nivel superior plus zece specifice pe teme)" },
+        { en: "Exactly eleven: one top-level plus ten topic-specific", de: "Genau elf: eine übergeordnete plus zehn themenspezifische", nl: "Drie (risico, incident, toegang)", fr: "Trois (risque, incident, accès)", it: "Tre (rischio, incidente, accesso)", es: "Tres (riesgo, incidente, acceso)", pl: "Trzy (ryzyko, incydent, dostęp)", cs: "Tři (riziko, incident, přístup)", pt: "Três (risco, incidente, acesso)", ro: "Trei (risc, incident, acces)" },
       ],
       correctIndex: 2,
       explanation: {
-        en: "The CIR requires a top-level information security policy plus ten topic-specific policies - eleven in total.",
-        de: "Die CIR verlangt eine übergeordnete Informationssicherheitsrichtlinie plus zehn themenspezifische Richtlinien - insgesamt elf.",
+        en: "Article 21(2)(a) asks for policies on risk analysis and information system security and sets no number of documents. Only the digital providers the CIR covers must have the top-level policy plus the topic-specific policies its Annex lists.",
+        de: "Artikel 21(2)(a) verlangt Konzepte zur Risikoanalyse und zur Sicherheit der Informationssysteme und nennt keine Zahl von Dokumenten. Nur die digitalen Anbieter, für die die DVO gilt, brauchen die übergeordnete Richtlinie und die themenspezifischen Richtlinien aus ihrem Anhang.",
         nl: "De CIR vereist één overkoepelend informatiebeveiligingsbeleid plus tien onderwerpspecifieke beleidslijnen - elf in totaal.",
         fr: "La CIR exige une politique de sécurité de l'information de haut niveau plus dix politiques thématiques, soit onze au total.",
         it: "La CIR richiede una politica di sicurezza delle informazioni di livello superiore più dieci politiche tematiche, undici in totale.",
@@ -60,8 +60,8 @@ const quiz = quizSchema.parse({
       ],
       correctIndex: 1,
       explanation: {
-        en: "Security testing, privileged accounts, and removable media are three niche policies the CIR Annex explicitly requires - worth double-checking against an existing ISO policy set.",
-        de: "Sicherheitstests, privilegierte Konten und Wechseldatenträger sind drei Nischenrichtlinien, die der DVO-Anhang explizit verlangt - bei einem bestehenden ISO-Richtlinienkanon zur Gegenkontrolle empfehlenswert.",
+        en: "Security testing, privileged accounts (as part of access control), and removable media are three topics the CIR Annex names explicitly and a generic ISO policy set often misses - worth double-checking.",
+        de: "Sicherheitstests, privilegierte Konten (als Teil der Zugangskontrolle) und Wechseldatenträger sind drei Themen, die der DVO-Anhang ausdrücklich nennt und die ein generischer ISO-Richtlinienkanon oft übersieht - zur Gegenkontrolle empfehlenswert.",
         nl: "Beveiligingstesten, geprivilegieerde accounts en verwijderbare media zijn drie nichebeleidsregels die de CIR-bijlage uitdrukkelijk vereist - aanbevolen om dubbel te controleren tegen een bestaande ISO-set.",
         fr: "Les tests de sécurité, les comptes à privilèges et les supports amovibles sont trois politiques de niche que l'Annexe de la CIR exige explicitement, à double vérifier par rapport à un ensemble de politiques ISO existant.",
         it: "I test di sicurezza, gli account con privilegi e i supporti rimovibili sono tre politiche di nicchia che l'Allegato della CIR richiede esplicitamente, da verificare due volte rispetto a un set di politiche ISO esistente.",
@@ -94,8 +94,8 @@ const quiz = quizSchema.parse({
       ],
       correctIndex: 1,
       explanation: {
-        en: "The CIR requires the top-level policy to carry the date of formal approval by the management body - without it, the approval cannot be proven.",
-        de: "Die CIR verlangt, dass die übergeordnete Richtlinie das Datum der formellen Genehmigung durch die Geschäftsleitung trägt - ohne dieses kann die Genehmigung nicht nachgewiesen werden.",
+        en: "Without a signature and a date, management cannot prove it approved the security approach. CIR providers must also state the approval date in the policy itself (CIR Annex 1.1.1(k)).",
+        de: "Ohne Unterschrift und Datum kann die Geschäftsleitung nicht nachweisen, dass sie den Sicherheitsansatz mitgetragen hat. DVO-Anbieter müssen das Datum der Genehmigung zudem in der Richtlinie selbst angeben (DVO Anhang 1.1.1 Buchstabe k).",
         nl: "De CIR vereist dat het overkoepelende beleid de datum van formele goedkeuring door het leidinggevend orgaan bevat - zonder die datum kan de goedkeuring niet worden aangetoond.",
         fr: "La CIR exige que la politique de haut niveau porte la date d'approbation formelle par l'organe de direction : sans elle, l'approbation ne peut pas être prouvée.",
         it: "La CIR richiede che la politica di livello superiore rechi la data di approvazione formale da parte dell'organo di gestione: senza di essa, l'approvazione non può essere dimostrata.",
@@ -109,8 +109,8 @@ const quiz = quizSchema.parse({
     {
       id: "2.6.4",
       question: {
-        en: "How often must the top-level information security policy be reviewed?",
-        de: "Wie oft muss die übergeordnete Informationssicherheitsrichtlinie überprüft werden?",
+        en: "How often must a provider covered by the CIR review its top-level information security policy?",
+        de: "Wie oft muss ein Anbieter, für den die DVO gilt, seine übergeordnete Informationssicherheitsrichtlinie überprüfen?",
         nl: "Hoe vaak moet het overkoepelende informatiebeveiligingsbeleid worden herzien?",
         fr: "À quelle fréquence la politique de sécurité de l'information de haut niveau doit-elle être réexaminée ?",
         it: "Con quale frequenza deve essere riesaminata la politica di sicurezza delle informazioni di livello superiore?",
@@ -128,8 +128,8 @@ const quiz = quizSchema.parse({
       ],
       correctIndex: 1,
       explanation: {
-        en: "The top-level policy must be reviewed annually with a dated management body approval.",
-        de: "Die übergeordnete Richtlinie muss jährlich überprüft werden, mit datierter Genehmigung durch die Geschäftsleitung.",
+        en: "CIR Annex 1.1.2: at least annually, and after significant incidents or significant changes. Outside the CIR the law sets no interval; the BSI recommends reviewing it at least every two years.",
+        de: "DVO Anhang 1.1.2: mindestens jährlich und nach erheblichen Vorfällen oder wesentlichen Änderungen. Außerhalb der DVO nennt das Gesetz kein Intervall; das BSI empfiehlt, sie spätestens alle zwei Jahre zu überprüfen.",
         nl: "Het overkoepelende beleid moet jaarlijks worden herzien met een gedateerde goedkeuring van het leidinggevend orgaan.",
         fr: "La politique de haut niveau doit être réexaminée chaque année avec une approbation datée de l'organe de direction.",
         it: "La politica di livello superiore deve essere riesaminata annualmente con un'approvazione datata dell'organo di gestione.",
