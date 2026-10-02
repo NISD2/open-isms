@@ -46,7 +46,7 @@ export default async function JourneyForkPreviewPage() {
         frameworks={SAMPLE_FRAMEWORKS}
         showBilling={false}
         showAuditTrail
-        showDurchgang
+        durchgangOpen={false}
       />
       <SidebarInset>
         <header className="sticky top-0 z-20 flex h-12 items-center gap-3 border-b bg-background/80 px-4 backdrop-blur-sm">
