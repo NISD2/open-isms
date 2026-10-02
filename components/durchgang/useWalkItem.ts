@@ -30,6 +30,11 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
   /** A visit resumes a waiting item once. */
   const resumed = useRef(false);
   const queue = useRef<Promise<void>>(Promise.resolve());
+  /**
+   * The screens whose save was refused and not yet stored again. The queue goes on after a
+   * refusal, so later screens still save, but the item is not finished while one is missing.
+   */
+  const refused = useRef(new Set<number>());
 
   const saveAnswers = trpc.intake.saveRequirementAnswers.useMutation();
   const adopt = trpc.durchgang.adoptMethod.useMutation();
@@ -233,11 +238,15 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
         if (resuming) await resume.mutateAsync({ code: item.code });
         if (adopting) await adopt.mutateAsync();
         await record(at, snapshot);
-        if (finishing) await finish.mutateAsync({ code: item.code });
+        refused.current.delete(at);
+        if (finishing && refused.current.size === 0) {
+          await finish.mutateAsync({ code: item.code });
+        }
       })
       .catch(() => {
         if (resuming) resumed.current = false;
         if (adopting) setAdoptedAt(null);
+        refused.current.add(at);
         onRefused();
       });
   };
@@ -251,15 +260,33 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
     return stored;
   };
 
+  /**
+   * Stores what screen `at` holds so far, on the way out of the item: what was entered before
+   * leaving, parking or declining stays. A refused write fails the whole step, so the person
+   * is told rather than losing it.
+   */
+  const keep = (at: number) => {
+    const snapshot = draft;
+    return after(() => record(at, snapshot));
+  };
+
   /** Parks the item: not possible yet, with a reason and an optional note. */
-  const park = (reason: WaitReason, note: string) =>
-    after(() =>
-      wait.mutateAsync({ code: item.code, reason, note: note.trim() || undefined }),
-    );
+  const park = (at: number, reason: WaitReason, note: string) => {
+    const snapshot = draft;
+    return after(async () => {
+      await record(at, snapshot);
+      await wait.mutateAsync({ code: item.code, reason, note: note.trim() || undefined });
+    });
+  };
 
   /** Closes the item as decided not to do, with the written reason for the signature. */
-  const decline = (reason: string) =>
-    after(() => declineItem.mutateAsync({ code: item.code, reason: reason.trim() }));
+  const decline = (at: number, reason: string) => {
+    const snapshot = draft;
+    return after(async () => {
+      await record(at, snapshot);
+      await declineItem.mutateAsync({ code: item.code, reason: reason.trim() });
+    });
+  };
 
-  return { draft, setDraft, adoptedAt, leave, park, decline } as const;
+  return { draft, setDraft, adoptedAt, leave, keep, park, decline } as const;
 }

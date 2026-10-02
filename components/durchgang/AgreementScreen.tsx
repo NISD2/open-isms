@@ -17,6 +17,8 @@ export interface AgreementRow {
   readonly name: string;
   readonly level: RiskLevel | null;
   readonly stored: Agreed;
+  /** Whether 5.2 recorded this row before, so a stored "nothing agreed" is an answer. */
+  readonly checked: boolean;
   /** Whether the supplier answers through the supplier portal already. */
   readonly linked: boolean;
 }
@@ -44,6 +46,7 @@ export function useAgreementRows(enabled: boolean): readonly AgreementRow[] | un
                 security: Boolean(s.hasSecurityClauses),
                 incidents: Boolean(s.hasIncidentNotificationClause),
               },
+              checked: s.agreementsCheckedAt !== null,
               linked: s.supplierCompanyId !== null,
             },
           ]
@@ -54,12 +57,12 @@ export function useAgreementRows(enabled: boolean): readonly AgreementRow[] | un
 
 /**
  * The answer a row shows: what was chosen on this visit, else what is stored. A stored row with
- * neither agreement shows no answer, because the columns cannot tell "nothing agreed" from
- * "never looked"; the item's trail keeps that record.
+ * neither agreement is an answer only once 5.2 recorded it, because the two columns alone cannot
+ * tell "nothing agreed" from "never looked".
  */
 export const answerOf = (row: AgreementRow, draft: Draft): Agreed | null =>
   draft.agreements[row.id] ??
-  (row.stored.security || row.stored.incidents ? row.stored : null);
+  (row.checked || row.stored.security || row.stored.incidents ? row.stored : null);
 
 /** 5.2: per supplier, what its paper already settles, with its rating from 2.3 beside it. */
 export function Agreements({

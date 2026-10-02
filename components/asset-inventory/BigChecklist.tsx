@@ -11,6 +11,7 @@ import {
   visibleCatalog,
 } from "@/lib/asset-inventory/catalog";
 import type { AssetLayer } from "@/lib/asset-inventory/types";
+import { typesetCitation } from "@/lib/compliance/citations";
 import { cn } from "@/lib/utils";
 
 interface BigChecklistProps {
@@ -123,7 +124,7 @@ export function BigChecklist({
                   </h3>
                   {!isCollapsed && (
                     <p className="text-xs text-muted-foreground">
-                      {t(`groups.${group}.description`)}
+                      {typesetCitation(t(`groups.${group}.description`))}
                     </p>
                   )}
                 </div>
@@ -233,7 +234,7 @@ function AddCustomRow({
           }
         }}
         placeholder={t(`checklist.addPlaceholder.${layer}`)}
-        className="flex-1 rounded-md border border-border bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40"
+        className="flex-1 rounded-md border border-border bg-background px-3 py-2 text-base placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40 sm:text-sm"
       />
       <button
         type="button"

@@ -117,7 +117,7 @@ export function DurchgangItem({
   const self = walk.find((w) => w.code === item.code);
   const filled: ItemState = { kind: "filled", since: new Date() };
   const next = resumeAt(walk, (w) => (w.code === item.code ? filled : w.state));
-  const { draft, setDraft, adoptedAt, leave, park, decline } = useWalkItem(
+  const { draft, setDraft, adoptedAt, leave, keep, park, decline } = useWalkItem(
     item,
     self?.state.kind === "waiting",
   );
@@ -192,11 +192,14 @@ export function DurchgangItem({
 
   const back = () => {
     const previous = item.screens.findLastIndex((_, i) => i < index && !passedOver(i));
-    if (previous === -1) router.push("/durchgang");
+    if (previous === -1) settleAndGoHome(keep(index));
     else show(previous, "back");
   };
 
-  /** Sets the item aside or closes it as decided, then goes home once that is stored. */
+  /**
+   * Stores what this screen holds, then goes home once that is stored: on exit, and when the item
+   * is set aside or closes as decided. A refused save keeps the person here, input intact.
+   */
   const settleAndGoHome = (stored: Promise<void>) => {
     setWaitOpen(false);
     stored.then(
@@ -311,7 +314,7 @@ export function DurchgangItem({
             size="icon"
             className={PHONE_ICON_TARGET}
             aria-label={t("exit")}
-            onClick={() => router.push("/durchgang")}
+            onClick={() => settleAndGoHome(keep(index))}
           >
             <X className="size-5" />
           </Button>
@@ -422,8 +425,8 @@ export function DurchgangItem({
       <WaitSheet
         open={waitOpen}
         onOpenChange={setWaitOpen}
-        onWait={(reason, note) => settleAndGoHome(park(reason, note))}
-        onDecline={(reason) => settleAndGoHome(decline(reason))}
+        onWait={(reason, note) => settleAndGoHome(park(index, reason, note))}
+        onDecline={(reason) => settleAndGoHome(decline(index, reason))}
       />
     </div>
   );

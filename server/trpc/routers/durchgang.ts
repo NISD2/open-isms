@@ -1085,8 +1085,8 @@ export const durchgangRouter = router({
   /**
    * 5.2: what each supplier's contract, AVV or terms already settle about security and about
    * reporting incidents to the company. Only the customer's own two columns are written, only on
-   * the company's own rows, and only where a value changed. The item's trail names every supplier
-   * checked, which is also the record that a row with neither agreement was looked at.
+   * the company's own rows, and only where a value changed; every row sent gets
+   * `agreements_checked_at`, the record that a row with neither agreement was looked at.
    */
   recordAgreements: durchgangWrite
     .input(
@@ -1152,6 +1152,13 @@ export const durchgangRouter = router({
             ),
           );
       }
+      // Every row sent was looked at, also one with nothing agreed, whose answers equal the defaults.
+      await ctx.db
+        .update(supplier)
+        .set({ agreementsCheckedAt: new Date() })
+        .where(
+          and(eq(supplier.customerCompanyId, ctx.companyId), inArray(supplier.id, ids)),
+        );
       const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
       await appendNote(
         ctx.db,

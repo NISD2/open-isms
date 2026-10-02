@@ -1,0 +1,1 @@
+ALTER TABLE "supplier" ADD COLUMN "agreements_checked_at" timestamp;

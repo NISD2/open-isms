@@ -545,15 +545,43 @@ describe("the walk's supplier agreements", () => {
     });
     expect(result).toEqual({ changed: 1 });
     const updates = writes.filter((w) => w.op === "update" && w.table === supplier);
-    expect(updates).toHaveLength(1);
-    expect(Object.keys(updates[0]?.values ?? {}).sort()).toEqual([
+    const clauses = updates.filter(
+      (u) => !Object.hasOwn(u.values ?? {}, "agreementsCheckedAt"),
+    );
+    expect(clauses).toHaveLength(1);
+    expect(Object.keys(clauses[0]?.values ?? {}).sort()).toEqual([
       "hasIncidentNotificationClause",
       "hasSecurityClauses",
       "updatedAt",
     ]);
-    expect(updates[0]?.where && paramsOf(updates[0].where)).toEqual([DATEV, COMPANY]);
+    expect(clauses[0]?.where && paramsOf(clauses[0].where)).toEqual([DATEV, COMPANY]);
     const lookup = wheres.find((w) => w.table === "supplier");
     expect(lookup && paramsOf(lookup.where)).toContain(COMPANY);
+  });
+
+  test("marks every row sent as checked, so nothing agreed reads as answered on the next visit", async () => {
+    const { caller, writes } = setup({ accessLevel: "full", suppliers });
+    // Nothing changes: both answers equal what is stored, DATEV's "nothing agreed" included.
+    const result = await caller.recordAgreements({
+      code: "5.2",
+      rows: [
+        { supplierId: DATEV, security: false, incidents: false },
+        { supplierId: TELEKOM, security: true, incidents: false },
+      ],
+    });
+    expect(result).toEqual({ changed: 0 });
+    const stamps = writes.filter(
+      (w) =>
+        w.op === "update" &&
+        w.table === supplier &&
+        Object.hasOwn(w.values ?? {}, "agreementsCheckedAt"),
+    );
+    expect(stamps).toHaveLength(1);
+    expect(stamps[0]?.where && paramsOf(stamps[0].where)).toEqual([
+      COMPANY,
+      DATEV,
+      TELEKOM,
+    ]);
   });
 
   test("names every supplier checked in the trail, a row with neither agreement included", async () => {

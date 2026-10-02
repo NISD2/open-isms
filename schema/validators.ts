@@ -509,13 +509,14 @@ export const incidentUpdateSchema = incidentInsertSchema
 // to prevent mass-assignment of the row to a different customer.
 // ============================================================================
 
+// When the walk last recorded a row's clause answers is the walk's to set, never a form field.
 export const supplierInsertSchema = createInsertSchema(supplier, {
   ...isoDateColumns(supplier),
   name: z.string().min(1).max(255),
   // Per-customer contract clauses
   subprocessorList: z.string().max(2000).nullish(),
   incidentSlaHours: z.number().int().positive().max(168).nullish(),
-});
+}).omit({ agreementsCheckedAt: true });
 export const supplierSelectSchema = createSelectSchema(supplier);
 /**
  * Note what is omitted beyond the usual meta, and why.

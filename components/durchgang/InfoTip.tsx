@@ -19,7 +19,8 @@ export function InfoTip({ label, children }: { label: string; children: string }
           aria-label={label}
           onPointerEnter={(e) => e.pointerType === "mouse" && setOpen(true)}
           onPointerLeave={(e) => e.pointerType === "mouse" && setOpen(false)}
-          className="inline-flex size-6 shrink-0 cursor-help items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground"
+          // The sign stays 24 px; an invisible ring around it makes the tap target 44 px.
+          className="relative inline-flex size-6 shrink-0 cursor-help items-center justify-center rounded-full text-muted-foreground after:absolute after:-inset-2.5 hover:bg-muted hover:text-foreground"
         >
           <Info className="size-4" />
         </button>

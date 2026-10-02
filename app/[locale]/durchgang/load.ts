@@ -173,9 +173,9 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     ? [
         {
           label: "CIR 2024/2690",
-          citation: tUi("cirAnnex", { ref: req.cirReference }),
+          citation: typesetCitation(tUi("cirAnnex", { ref: req.cirReference })),
           href: legislation("cir-2024-2690").url,
-          note: tUi("cirNote"),
+          note: typesetCitation(tUi("cirNote")),
         },
       ]
     : [];
