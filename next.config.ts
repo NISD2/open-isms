@@ -82,6 +82,26 @@ const nextConfig: NextConfig = {
   // runs as its own CI step; tsc inside `next build` doubled memory use and
   // triggered SIGKILL on the Coolify build host.
   typescript: { ignoreBuildErrors: true },
+  // No persistent webpack cache in production builds. The Next.js memory guide
+  // names it as a build-memory cost and gives this exact override, and the
+  // Coolify build shares its host with production: the 02.10 deploys were
+  // OOM-killed (exit 137) mid-compile. Compile-only builds of ecc0f3e3 on one
+  // machine, peak RSS of the whole build process tree:
+  //
+  //   filesystem cache:  3.5 to 4.6GB over seven runs
+  //   memory cache:      2.7 to 3.6GB over three runs
+  //
+  // The seven include runs with experimental.webpackBuildWorker,
+  // experimental.webpackMemoryOptimizations and a 3GB heap; none moved the
+  // peak outside the run-to-run spread. The price is the warm-cache speedup
+  // the Dockerfile's cache mount used to buy.
+  //
+  // Declaring this hook does not cost the webpack build worker: next-intl's
+  // plugin already adds a webpack hook, and that is what switched it off.
+  webpack: (config, { dev }) => {
+    if (config.cache && !dev) config.cache = Object.freeze({ type: "memory" });
+    return config;
+  },
   async headers() {
     // Baseline security headers — applied to every response.
     // CSP intentionally permissive on script-src to accommodate Next.js
