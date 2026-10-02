@@ -23,6 +23,22 @@ export const catalogNames = (id: string): readonly string[] =>
 /** Names compared as a person reads them, so "Datev " and "DATEV" are one. */
 export const nameKey = (name: string) => name.trim().toLowerCase();
 
+const NO_SIGN_IN: ReadonlySet<string> = new Set(
+  CATALOG.flatMap((item) =>
+    item.signIn === false ? catalogNames(item.id).map(nameKey) : [],
+  ),
+);
+
+/**
+ * Whether a listed thing is a catalogue line nobody signs in to, read off its name or, once 2.2
+ * renamed it, the catalogue name kept in its description.
+ */
+export const noSignIn = (asset: {
+  readonly name: string;
+  readonly description: string | null;
+}): boolean =>
+  [asset.name, asset.description].some((n) => n !== null && NO_SIGN_IN.has(nameKey(n)));
+
 /**
  * A register read against the catalogue: the items already on it, by id, and the entries that
  * are no catalogue item, by name. The same comparison decides which ticked items are added.

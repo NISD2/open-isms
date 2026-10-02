@@ -45,6 +45,11 @@ export interface CatalogItem {
   defaultExposure: Exposure;
   /** Optional sector gate: hidden unless user picked one of these sectors. */
   appliesToSectors?: string[];
+  /**
+   * False for a line nobody signs in to with an account (the internet line, the LAN, a phone
+   * line), which the second-factor screen leaves out although its type is a network.
+   */
+  signIn?: false;
 }
 
 // biome-ignore format: one row per catalogue item keeps the catalogue readable as a table
@@ -180,15 +185,15 @@ export const CATALOG: CatalogItem[] = [
   { id: "loc-archive", group: "locations", layer: "raum", category: "room", defaultChecked: false, defaultExposure: "physical-only" },
 
   // ─── Network connections (Kommunikationsverbindungen) ───────────
-  { id: "net-internet", group: "network", layer: "kommunikation", category: "network", defaultChecked: true, defaultExposure: "internet" },
+  { id: "net-internet", group: "network", layer: "kommunikation", category: "network", defaultChecked: true, defaultExposure: "internet", signIn: false },
   { id: "net-vpn", group: "network", layer: "kommunikation", category: "network", defaultChecked: true, defaultExposure: "internet" },
-  { id: "net-lan", group: "network", layer: "kommunikation", category: "network", defaultChecked: false, defaultExposure: "internal" },
-  { id: "net-wifi", group: "network", layer: "kommunikation", category: "network", defaultChecked: false, defaultExposure: "internal" },
-  { id: "net-mobile", group: "network", layer: "kommunikation", category: "network", defaultChecked: false, defaultExposure: "internet" },
-  { id: "net-site-to-site", group: "network", layer: "kommunikation", category: "network", defaultChecked: false, defaultExposure: "partner" },
+  { id: "net-lan", group: "network", layer: "kommunikation", category: "network", defaultChecked: false, defaultExposure: "internal", signIn: false },
+  { id: "net-wifi", group: "network", layer: "kommunikation", category: "network", defaultChecked: false, defaultExposure: "internal", signIn: false },
+  { id: "net-mobile", group: "network", layer: "kommunikation", category: "network", defaultChecked: false, defaultExposure: "internet", signIn: false },
+  { id: "net-site-to-site", group: "network", layer: "kommunikation", category: "network", defaultChecked: false, defaultExposure: "partner", signIn: false },
   { id: "net-remote-maintenance", group: "network", layer: "kommunikation", category: "network", defaultChecked: false, defaultExposure: "partner" },
-  { id: "net-third-party-api", group: "network", layer: "kommunikation", category: "network", defaultChecked: false, defaultExposure: "partner" },
-  { id: "net-phone-line", group: "network", layer: "kommunikation", category: "network", defaultChecked: false, defaultExposure: "internet" },
+  { id: "net-third-party-api", group: "network", layer: "kommunikation", category: "network", defaultChecked: false, defaultExposure: "partner", signIn: false },
+  { id: "net-phone-line", group: "network", layer: "kommunikation", category: "network", defaultChecked: false, defaultExposure: "internet", signIn: false },
 
   // ─── Sector-specific add-ons (gated by sector selection) ─────────
   { id: "sec-plc-scada", group: "sector-specific", layer: "it-system", category: "ot_ics", defaultChecked: false, defaultExposure: "internal",

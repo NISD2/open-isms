@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { noSignIn } from "@/lib/asset-inventory/catalog-labels";
 import type { RiskLevel } from "@/lib/compliance/bsi-200-3";
 import { byLevel, levelOfStanding, type RatingRow, signsIn } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
@@ -35,7 +36,7 @@ export function useLoginRows(enabled: boolean): readonly LoginRow[] | undefined 
   return [...software, ...technology]
     .flatMap((row: RatingRow) => {
       const a = stored.get(row.id);
-      return row.kind === "asset" && a && signsIn(a.type)
+      return row.kind === "asset" && a && signsIn(a.type) && !noSignIn(a)
         ? [
             {
               id: row.id,
