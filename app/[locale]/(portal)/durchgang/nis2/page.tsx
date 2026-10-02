@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { DurchgangHome } from "@/components/durchgang/DurchgangHome";
-import { loadWalk } from "./load";
+import { loadWalk } from "../../../durchgang/nis2/load";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("durchgang");

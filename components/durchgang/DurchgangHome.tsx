@@ -30,11 +30,8 @@ function Intro({ walk, onStart }: { walk: readonly WalkEntry[]; onStart: () => v
   const t = useTranslations("durchgang.ui.intro");
   const points = t.raw("points") as ReadonlyArray<{ title: string; text: string }>;
   return (
-    <main
-      style={STAGE}
-      className="grid min-h-screen lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]"
-    >
-      <div className="flex w-full max-w-[42rem] flex-col justify-center justify-self-end px-6 py-14 sm:px-10 lg:py-20 lg:pr-16">
+    <main style={STAGE} className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+      <div className="flex w-full max-w-[42rem] flex-col justify-center justify-self-end py-14 sm:px-10 lg:py-20 lg:pr-16">
         <p className="text-sm font-medium text-primary">{t("eyebrow")}</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
           {t("title")}
@@ -62,7 +59,7 @@ function Intro({ walk, onStart }: { walk: readonly WalkEntry[]; onStart: () => v
           <ArrowRight />
         </Button>
       </div>
-      <div className="relative hidden overflow-hidden bg-primary/[0.06] lg:block">
+      <div className="relative hidden overflow-hidden rounded-3xl bg-primary/[0.06] lg:block">
         <div className="absolute inset-y-0 left-0 flex w-full max-w-[42rem] flex-col justify-center gap-5 px-16">
           <p className="text-sm font-medium text-muted-foreground">{t("firstItems")}</p>
           {walk.slice(0, 4).map((item, i) => (
@@ -113,7 +110,7 @@ function Home({ walk }: { walk: readonly WalkEntry[] }) {
   return (
     <main
       style={STAGE}
-      className="mx-auto grid max-w-7xl gap-12 px-4 py-12 sm:px-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:px-10 lg:py-16 xl:gap-20"
+      className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[minmax(0,1fr)_22rem] xl:gap-20"
     >
       <div className="max-w-3xl">
         <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">

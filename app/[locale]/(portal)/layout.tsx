@@ -9,12 +9,7 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { redirect as localeRedirect } from "@/i18n/navigation";
 import { getSession, hasReviewAccess } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
-import {
-  mayOpenPortalPath,
-  mayWalkDurchgang,
-  OFFER_PATH,
-  ORDER_PATHS,
-} from "@/lib/billing/access";
+import { mayOpenPortalPath, OFFER_PATH, ORDER_PATHS } from "@/lib/billing/access";
 import { billingFor } from "@/lib/billing/ordering-access";
 import {
   type CategoryInfo,
@@ -157,8 +152,9 @@ export default async function PortalLayout({ children }: { children: React.React
         frameworks={frameworks}
         showBilling={billing.open}
         showAuditTrail={hasReviewAccess(session.role)}
-        // The same check as the walkthrough's route and API, so the sidebar can never disagree.
-        durchgangOpen={mayWalkDurchgang(session.accessLevel, platformAdmin)}
+        // Until the walkthrough launches, only platform admins get the link (Simon, 02.10.2026).
+        // Its route and API still let a paid account in (mayWalkDurchgang).
+        durchgangOpen={platformAdmin}
       />
       <SidebarInset>
         <PortalHeader
