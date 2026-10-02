@@ -10,6 +10,7 @@ export const SEGMENT_LABELS = {
   billing: "billing",
   changes: "changes",
   dashboard: "dashboard",
+  durchgang: "durchgang",
   exercises: "exercises",
   export: "export",
   "gap-assessment": "gapAssessment",
@@ -30,6 +31,7 @@ export const SEGMENT_LABELS = {
   team: "team",
   training: "training",
   vulnerabilities: "vulnerabilities",
+  walkthrough: "durchgang",
 } as const;
 
 export const isLabelledSegment = (

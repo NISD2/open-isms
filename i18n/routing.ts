@@ -251,10 +251,17 @@ export const routing = defineRouting({
     "/compliance/[categorySlug]": "/compliance/[categorySlug]",
     "/compliance/[categorySlug]/[requirementCode]":
       "/compliance/[categorySlug]/[requirementCode]",
-    // The NIS 2 walkthrough; /durchgang and its two old children only redirect here.
-    "/durchgang/nis2": "/durchgang/nis2",
-    "/durchgang/nis2/[code]": "/durchgang/nis2/[code]",
-    "/durchgang/nis2/freigabe": "/durchgang/nis2/freigabe",
+    // The NIS 2 walkthrough; /durchgang and its two old children only redirect here. Its slug
+    // is a German word, so unlike the rest of this tier it is translated.
+    "/durchgang/nis2": { de: "/durchgang/nis2", en: "/walkthrough/nis2" },
+    "/durchgang/nis2/[code]": {
+      de: "/durchgang/nis2/[code]",
+      en: "/walkthrough/nis2/[code]",
+    },
+    "/durchgang/nis2/freigabe": {
+      de: "/durchgang/nis2/freigabe",
+      en: "/walkthrough/nis2/approval",
+    },
     "/exercises": "/exercises",
     "/export": "/export",
     "/gap-assessment": "/gap-assessment",
