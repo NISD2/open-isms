@@ -21,6 +21,7 @@ import {
   RISK_LEVEL_TEXT,
   riskLevel,
 } from "@/lib/compliance/bsi-200-3";
+import { typesetCitation } from "@/lib/compliance/citations";
 import type { LearnLink, ResolvedScreen } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
@@ -77,7 +78,7 @@ export function Source({ children }: { children: ReactNode }) {
   return (
     <p className="mt-4 flex max-w-[62ch] gap-2 text-xs leading-5 text-muted-foreground">
       <BookText className="mt-0.5 size-3.5 shrink-0" />
-      {children}
+      {typeof children === "string" ? typesetCitation(children) : children}
     </p>
   );
 }
