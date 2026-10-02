@@ -84,7 +84,9 @@
     "phaseAdmin": "Administrace",
     "blockedBy": "Nejprve dokončete: {codes}",
     "journey": "Cesta",
+    "durchgang": "Průvodce NIS 2",
     "administration": "Správa",
+    "comingSoon": "Již brzy",
     "journeyBoard": {
       "hero": {
         "title": "Vaše zavádění NIS2",

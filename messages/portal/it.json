@@ -84,7 +84,9 @@
     "phaseAdmin": "Amministrazione",
     "blockedBy": "Completa prima: {codes}",
     "journey": "Percorso",
+    "durchgang": "Percorso guidato NIS 2",
     "administration": "Amministrazione",
+    "comingSoon": "Prossimamente",
     "journeyBoard": {
       "hero": {
         "title": "La vostra attuazione NIS2",
