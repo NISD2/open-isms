@@ -2,6 +2,7 @@ import type { Session } from "next-auth";
 import { getLocale } from "next-intl/server";
 import { AdminTestPanel } from "@/components/portal/AdminTestPanel";
 import { AppSidebar, type FrameworkGroup } from "@/components/portal/AppSidebar";
+import { PortalHeader } from "@/components/portal/PortalHeader";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { hasReviewAccess } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
@@ -14,6 +15,7 @@ import {
   myRequirementCount,
 } from "@/lib/compliance/access";
 import { db } from "@/lib/db";
+import { env } from "@/lib/env";
 import {
   type ComplianceMessages,
   getCategoryName,
@@ -61,16 +63,15 @@ function buildSteps(
 }
 
 /**
- * The compliance portal's frame: its sidebar, a header, and the page beside them. Gates (the
- * paywall, the activation banner) belong to the portal layout, not here.
+ * The compliance portal's frame: its sidebar, its header, and the page beside them. Gates (the
+ * paywall, the activation banner) belong to the portal layout, not here, so the offer's own
+ * layout draws the same frame without them.
  */
 export async function PortalShell({
   session,
-  header,
   children,
 }: {
   session: Session;
-  header: React.ReactNode;
   children: React.ReactNode;
 }) {
   const mustOrder = session.accessLevel === "free";
@@ -126,7 +127,14 @@ export async function PortalShell({
         durchgangOpen={platformAdmin}
       />
       <SidebarInset>
-        {header}
+        <PortalHeader
+          journeyHome
+          guide={{
+            hints: session.hints,
+            calLink: env.CAL_LINK,
+            supportEmail: env.SUPPORT_EMAIL,
+          }}
+        />
         <div className="flex-1 px-6 py-6">{children}</div>
       </SidebarInset>
       <AdminTestPanel />

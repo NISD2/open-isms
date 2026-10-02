@@ -2,21 +2,20 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getLocale } from "next-intl/server";
 import { OnboardingBanner } from "@/components/dashboard/OnboardingBanner";
-import { PortalHeader } from "@/components/portal/PortalHeader";
 import { PortalShell } from "@/components/portal/PortalShell";
 import { redirect as localeRedirect } from "@/i18n/navigation";
 import { getSession } from "@/lib/auth";
 import { mayOpenPortalPath, OFFER_PATH, ORDER_PATHS } from "@/lib/billing/access";
-import { env } from "@/lib/env";
 
 export default async function PortalLayout({ children }: { children: React.ReactNode }) {
   const session = await getSession();
   if (!session) redirect("/auth/signin");
 
   // The access gate (lib/billing/access.ts): an account that must order first reaches only the few
-  // pages that let it do so, and is sent to the offer, inside the portal, for anything else. A
-  // redirect rather than the offer in the page's place: Next.js renders a page alongside its layout
-  // and sends it with the response even when the layout leaves it out.
+  // pages that let it do so, and is sent to the offer for anything else. A redirect rather than the
+  // offer in the page's place: Next.js renders a page alongside its layout and sends it with the
+  // response even when the layout leaves it out. The offer has its own layout ((offer)/layout.tsx),
+  // never this one, because a layout must not redirect to a page under itself.
   const h = await headers();
   const pathname = h.get("x-pathname") ?? "";
   const mustOrder = session.accessLevel === "free";
@@ -51,19 +50,7 @@ export default async function PortalLayout({ children }: { children: React.React
   const showOnboarding = !session.companyActivated && needsCompany;
 
   return (
-    <PortalShell
-      session={session}
-      header={
-        <PortalHeader
-          journeyHome
-          guide={{
-            hints: session.hints,
-            calLink: env.CAL_LINK,
-            supportEmail: env.SUPPORT_EMAIL,
-          }}
-        />
-      }
-    >
+    <PortalShell session={session}>
       {showOnboarding ? <OnboardingBanner /> : children}
     </PortalShell>
   );
