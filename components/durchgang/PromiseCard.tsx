@@ -1,22 +1,27 @@
 "use client";
 
 import { Eye, type LucideIcon } from "lucide-react";
-import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
-import { useState } from "react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { ImagePreview, type PreviewImage } from "@/components/shared/ImagePreview";
+
+/** The screenshots: the app at 1600×900, captured at twice the size, one per language. */
+const SHOT_SIZE = { width: 3200, height: 1800 } as const;
 
 /**
- * The screenshots are the walk's own screens at 1280×800 less the sidebar, and less the portal
- * header except for the sheet (shot 3), whose heading sits at the very top.
+ * Each promise's screenshot in `public/images/durchgang/promises/` and the point its preview
+ * zooms into, as fractions of the image: the path's green ticks, the matrix, the sheet's reasons,
+ * the document and the approve button.
  */
-const shotSize = (shot: number) =>
-  shot === 3 ? { width: 1024, height: 800 } : { width: 1024, height: 752 };
+const SHOTS: Readonly<Partial<Record<number, Omit<PreviewImage, "src" | "alt">>>> = {
+  1: { ...SHOT_SIZE, focus: { x: 0.84, y: 0.3, scale: 2.4 } },
+  2: { ...SHOT_SIZE, focus: { x: 0.445, y: 0.6, scale: 2 } },
+  3: { ...SHOT_SIZE, focus: { x: 0.86, y: 0.33, scale: 2.4 } },
+  4: { ...SHOT_SIZE, focus: { x: 0.445, y: 0.6, scale: 2 } },
+};
 
 /**
- * One promise of the walk on its front door, with a screenshot of how the walk keeps it: on hover
- * with a mouse, on a tap on touch, since a tooltip never opens on touch (Simon, 03.10.2026).
- * `shot` is the screenshot's number in `public/images/durchgang/promises/`, one per language.
+ * One promise of the walk on its front door, with a screenshot of how the walk keeps it (Simon,
+ * 03.10.2026). The card says "So sieht es aus" so a phone user knows a tap opens it.
  */
 export function PromiseCard({
   icon: Icon,
@@ -31,48 +36,40 @@ export function PromiseCard({
 }) {
   const t = useTranslations("durchgang.ui.intro");
   const locale = useLocale() === "de" ? "de" : "en";
-  const [open, setOpen] = useState(false);
+  const size = SHOTS[shot];
+  const card = (
+    <button
+      type="button"
+      className="flex h-full w-full cursor-pointer flex-col rounded-2xl border bg-card p-5 text-left shadow-xs transition-colors hover:border-primary/40 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+    >
+      {Icon && (
+        <span className="flex size-9 items-center justify-center rounded-xl bg-primary/[0.08] text-primary">
+          <Icon className="size-[1.125rem]" />
+        </span>
+      )}
+      <span className="mt-3 font-semibold">{title}</span>
+      <span className="mt-1 text-sm leading-6 text-muted-foreground">{text}</span>
+      <span className="mt-auto inline-flex items-center gap-1.5 pt-3 text-xs font-medium text-primary">
+        <Eye className="size-3.5" />
+        {t("example")}
+      </span>
+    </button>
+  );
   return (
     <li>
-      <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          <button
-            type="button"
-            onPointerEnter={(e) => e.pointerType === "mouse" && setOpen(true)}
-            onPointerLeave={(e) => e.pointerType === "mouse" && setOpen(false)}
-            className="flex h-full w-full cursor-pointer flex-col rounded-2xl border bg-card p-5 text-left shadow-xs transition-colors hover:border-primary/40 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-          >
-            {Icon && (
-              <span className="flex size-9 items-center justify-center rounded-xl bg-primary/[0.08] text-primary">
-                <Icon className="size-[1.125rem]" />
-              </span>
-            )}
-            <span className="mt-3 font-semibold">{title}</span>
-            <span className="mt-1 text-sm leading-6 text-muted-foreground">{text}</span>
-            <span className="mt-auto inline-flex items-center gap-1.5 pt-3 text-xs font-medium text-primary">
-              <Eye className="size-3.5" />
-              {t("example")}
-            </span>
-          </button>
-        </PopoverTrigger>
-        <PopoverContent
-          side="right"
-          align="start"
-          sideOffset={12}
-          collisionPadding={16}
-          onOpenAutoFocus={(e) => e.preventDefault()}
-          onCloseAutoFocus={(e) => e.preventDefault()}
-          className="w-[min(36rem,calc(100vw-2rem))] overflow-hidden p-0"
+      {size ? (
+        <ImagePreview
+          image={{
+            ...size,
+            src: `/images/durchgang/promises/${locale}-${shot}.webp`,
+            alt: title,
+          }}
         >
-          <Image
-            src={`/images/durchgang/promises/${locale}-${shot}.png`}
-            alt={title}
-            {...shotSize(shot)}
-            sizes="36rem"
-            className="h-auto w-full"
-          />
-        </PopoverContent>
-      </Popover>
+          {card}
+        </ImagePreview>
+      ) : (
+        card
+      )}
     </li>
   );
 }
