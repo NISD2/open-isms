@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { declinedNote, noteLine, waitingNote } from "./notes";
+import { agreementsNote, declinedNote, loginsNote, noteLine, waitingNote } from "./notes";
 
 describe("the notes trail", () => {
   test("dates a line by the Berlin calendar day, not the UTC one", () => {
@@ -23,6 +23,30 @@ describe("the notes trail", () => {
   test("leaves the note out when there is none", () => {
     expect(waitingNote("de", "Ich muss erst jemanden fragen", null)).toBe(
       "Geht noch nicht: Ich muss erst jemanden fragen.",
+    );
+  });
+
+  test("names each supplier checked with what is agreed, or that nothing is", () => {
+    expect(
+      agreementsNote("en", [
+        { name: "DATEV", security: false, incidents: true },
+        { name: "Telekom", security: false, incidents: false },
+      ]),
+    ).toBe(
+      "Agreements with suppliers checked: DATEV: incident reporting; Telekom: nothing agreed.",
+    );
+  });
+
+  test("names each sign-in checked with whether it takes a second factor", () => {
+    const rows = [
+      { name: "Microsoft 365", mfa: true },
+      { name: "VPN", mfa: false },
+    ];
+    expect(loginsNote("de", rows)).toBe(
+      "Anmeldung geprüft: Microsoft 365: mit zweitem Faktor; VPN: nur Passwort.",
+    );
+    expect(loginsNote("en", rows)).toBe(
+      "Sign-in checked: Microsoft 365: second factor; VPN: password only.",
     );
   });
 });

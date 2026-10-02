@@ -600,15 +600,16 @@ async function main() {
 
   await joinCompany(db, { userId: gf.id, companyId: co.id, role: "admin" });
   await joinCompany(db, { userId: itLead.id, companyId: co.id, role: "member" });
+  // Role keys, as the team page sets them: "ceo" is management, who approves the walk's documents.
   await setMembershipJobTitle(db, {
     userId: gf.id,
     companyId: co.id,
-    jobTitle: "Geschäftsführer",
+    jobTitle: "ceo",
   });
   await setMembershipJobTitle(db, {
     userId: itLead.id,
     companyId: co.id,
-    jobTitle: "IT-Leitung",
+    jobTitle: "cto",
   });
 
   console.log("company", co.id);

@@ -13,20 +13,29 @@
 // Schutzbedarf, Konfiguration, Anwendungen, Netzanbindung, Administration,
 // and Raumkategorie. "45 identische Notebooks" = 1 asset entry.
 
-export type AssetLayer =
-  | "geschaeftsprozess"
-  | "anwendung"
-  | "it-system"
-  | "raum"
-  | "kommunikation";
+import type { AssetType } from "@/lib/compliance/asset-types";
 
-export const ASSET_LAYERS: AssetLayer[] = [
+export const ASSET_LAYERS = [
   "geschaeftsprozess",
   "anwendung",
   "it-system",
   "raum",
   "kommunikation",
-];
+] as const;
+
+export type AssetLayer = (typeof ASSET_LAYERS)[number];
+
+/**
+ * The type a person's own entry gets from the layer it was added under: the one the catalogue
+ * gives most of that layer's items, so it lands on the same screens as its neighbours.
+ */
+export const CUSTOM_ASSET_TYPE = {
+  geschaeftsprozess: "process",
+  anwendung: "application",
+  "it-system": "endpoint",
+  raum: "room",
+  kommunikation: "network",
+} as const satisfies Record<AssetLayer, AssetType>;
 
 export function isAssetLayer(value: unknown): value is AssetLayer {
   return ASSET_LAYERS.some((layer) => layer === value);

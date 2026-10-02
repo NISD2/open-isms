@@ -250,6 +250,12 @@
         "meaning": "Die Kontaktdaten der Personen, an die ein Vorfall eskaliert wird, wenn das Team es nicht allein handhaben kann, z.B. CISO oder Geschäftsführung.",
         "example": "CISO: Peter Schmidt, Tel: 030-123456, peter@ihre-firma.de | Geschäftsführung: Max Mustermann, Tel: 030-789012, max@ihre-firma.de",
         "whereToFind": "Schauen Sie in Ihr Adressbuch oder Organigramm nach den Hierarchie-Stufen über dem IT-Team."
+      },
+      "itEmergencyNumber": {
+        "label": "IT-Notfallnummer",
+        "meaning": "Die eine Nummer, die alle Beschäftigten bei einem IT-Notfall anrufen. Sie gehört auf die IT-Notfallkarte des BSI.",
+        "example": "Durchwahl 400 (IT-Support), außerhalb der Geschäftszeiten das Bereitschaftshandy",
+        "whereToFind": "Ihr eigener IT-Support oder Ihr IT-Dienstleister. Sprechen Sie vorher ab, dass er unter dieser Nummer Notfälle annimmt."
       }
     }
   },

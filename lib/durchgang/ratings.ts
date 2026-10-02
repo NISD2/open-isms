@@ -5,6 +5,10 @@
  * cannot disagree.
  */
 
+import type { supplierRiskLevelEnum } from "@nisd2/grc-data-model/enums";
+import type { z } from "zod";
+import { catalogIdOf, ownDescription } from "@/lib/asset-inventory/catalog-labels";
+import type { AssetType } from "@/lib/compliance/asset-types";
 import {
   FREQUENCIES,
   type Frequency,
@@ -14,7 +18,15 @@ import {
   type RiskLevel,
   riskLevel,
 } from "@/lib/compliance/bsi-200-3";
-import type { NoteLocale } from "./notes";
+import type { Asset, AssetProvider, Risk, Supplier } from "@/schema/types";
+import type { riskInsertSchema } from "@/schema/validators";
+import type { WalkLocale } from "./types";
+
+/** A risk's treatment, as the risk register's validator allows it. */
+type Treatment = z.infer<typeof riskInsertSchema>["treatment"];
+
+/** A supplier's level, as the database enum `supplier_risk_level` holds it. */
+type SupplierLevel = (typeof supplierRiskLevelEnum.enumValues)[number];
 
 /** What the company runs as software and services, or the technology and rooms under it. */
 export type AssetSlice = "software" | "technology";
@@ -25,7 +37,7 @@ const SOFTWARE: ReadonlySet<string> = new Set([
   "cloud_service",
   "database",
   "data_store",
-]);
+] satisfies AssetType[]);
 
 /**
  * The screen an asset appears on, by its type. Business processes appear on neither: the walk
@@ -33,6 +45,15 @@ const SOFTWARE: ReadonlySet<string> = new Set([
  */
 export const sliceOf = (type: string): AssetSlice | null =>
   type === "process" ? null : SOFTWARE.has(type) ? "software" : "technology";
+
+/**
+ * Whether people sign in to an asset of this type: software and services, and the network, which
+ * holds the remote access. Devices, rooms and machines are left out, because a second factor
+ * guards an account, and the accounts people sign in with live in the software and the remote
+ * access.
+ */
+export const signsIn = (type: string): boolean =>
+  SOFTWARE.has(type) || type === "network";
 
 export interface Rating {
   readonly frequency: Frequency;
@@ -63,14 +84,19 @@ export const fromScale = (likelihood: number, impact: number): Rating | null => 
  */
 export type Standing =
   | { readonly kind: "open" }
-  | { readonly kind: "rated"; readonly riskId: string; readonly rating: Rating }
+  | {
+      readonly kind: "rated";
+      readonly riskId: string;
+      readonly rating: Rating;
+      /** The person's own line on the risk, kept as its treatment description. */
+      readonly note: string;
+    }
   | { readonly kind: "kept"; readonly count: number; readonly highest: RiskLevel | null };
 
-export interface StoredRisk {
-  readonly id: string;
-  readonly likelihood: number;
-  readonly impact: number;
-}
+/** A risk as a rating reads it; the note is its treatment description. */
+export type StoredRisk = Readonly<Pick<Risk, "id" | "likelihood" | "impact">> & {
+  readonly note?: string | null;
+};
 
 const highestOf = (levels: readonly RiskLevel[]): RiskLevel | null =>
   levels.reduce<RiskLevel | null>(
@@ -83,7 +109,9 @@ export const standingOf = (risks: readonly StoredRisk[]): Standing => {
   const [only, ...rest] = risks;
   if (!only) return { kind: "open" };
   const rating = fromScale(only.likelihood, only.impact);
-  if (rest.length === 0 && rating) return { kind: "rated", riskId: only.id, rating };
+  if (rest.length === 0 && rating) {
+    return { kind: "rated", riskId: only.id, rating, note: only.note ?? "" };
+  }
   return {
     kind: "kept",
     count: risks.length,
@@ -96,12 +124,65 @@ export const standingOf = (risks: readonly StoredRisk[]): Standing => {
   };
 };
 
+/** The level a listed thing stands at: its one rating, the highest of several, or none yet. */
+export const levelOfStanding = (standing: Standing): RiskLevel | null =>
+  standing.kind === "rated"
+    ? levelOf(standing.rating)
+    : standing.kind === "kept"
+      ? standing.highest
+      : null;
+
+/** Orders rows highest level first, where a gap matters most; unrated rows last. */
+export const byLevel = (
+  a: { readonly level: RiskLevel | null },
+  b: { readonly level: RiskLevel | null },
+): number => {
+  const rank = (level: RiskLevel | null) => (level ? RISK_LEVELS.indexOf(level) : -1);
+  return rank(b.level) - rank(a.level);
+};
+
+/**
+ * A listed thing as the risk map shows it: its one rating, which places it in a cell, and its
+ * level. A thing with several risks has a level but no single cell.
+ */
+export interface MappedRisk {
+  /** The rating row's key, so a name or a cell on the map opens that row to re-rate. */
+  readonly key: string;
+  readonly name: string;
+  readonly rating: Rating | null;
+  readonly level: RiskLevel | null;
+}
+
+/** The company's risks that sit in one cell of the matrix. */
+export const inCell = (
+  risks: readonly MappedRisk[],
+  frequency: Frequency,
+  impact: Impact,
+): readonly MappedRisk[] =>
+  risks.filter((r) => r.rating?.frequency === frequency && r.rating.impact === impact);
+
+/** How many of the company's risks sit in one cell of the matrix. */
+export const cellCount = (
+  risks: readonly MappedRisk[],
+  frequency: Frequency,
+  impact: Impact,
+): number => inCell(risks, frequency, impact).length;
+
+/** The rated things by level, highest first, leaving out levels nothing sits at. */
+export const levelGroups = (
+  risks: readonly MappedRisk[],
+): ReadonlyArray<{ readonly level: RiskLevel; readonly risks: readonly MappedRisk[] }> =>
+  [...RISK_LEVELS].reverse().flatMap((level) => {
+    const at = risks.filter((r) => r.level === level);
+    return at.length > 0 ? [{ level, risks: at }] : [];
+  });
+
 /**
  * The treatment a new rating is written with. BSI 200-3 (Tabelle 10) calls it common practice to
  * accept low risks and keep watching them; anything higher is marked for measures. The acceptance
  * itself stays empty, because management gives it.
  */
-export const treatmentFor = (level: RiskLevel): "accept" | "mitigate" =>
+export const treatmentFor = (level: RiskLevel): Treatment =>
   level === "low" ? "accept" : "mitigate";
 
 /** The supplier register's own level for a rating; its top step is called critical. */
@@ -110,7 +191,7 @@ export const SUPPLIER_LEVEL = {
   medium: "medium",
   high: "high",
   very_high: "critical",
-} as const satisfies Record<RiskLevel, "low" | "medium" | "high" | "critical">;
+} as const satisfies Record<RiskLevel, SupplierLevel>;
 
 const TEXT = {
   de: {
@@ -135,24 +216,37 @@ const TEXT = {
   },
 } as const;
 
+/** What a rating screen rates: the company's assets, or its suppliers. */
+export const RATED_KINDS = ["asset", "supplier"] as const;
+export type RatedKind = (typeof RATED_KINDS)[number];
+
 /** The title and description of the risk a rating adds, in the record language. */
 export const ratingText = (
-  locale: NoteLocale,
-  kind: "asset" | "supplier",
+  locale: WalkLocale,
+  kind: RatedKind,
   name: string,
 ): { readonly title: string; readonly description: string } => TEXT[locale][kind](name);
 
-interface ListedAsset {
-  readonly id: string;
-  readonly name: string;
-  readonly type: string;
-  readonly supplierId: string | null;
-}
+type ListedAsset = Readonly<
+  Pick<Asset, "id" | "catalogId" | "name" | "type" | "description">
+>;
 
-interface ListedSupplier {
-  readonly id: string;
-  readonly name: string;
-}
+type ListedSupplier = Readonly<Pick<Supplier, "id" | "name">>;
+
+/** One supplier that provides one asset (`asset_provider`); an asset can have several. */
+export type ProviderLink = Readonly<Pick<AssetProvider, "assetId" | "supplierId">>;
+
+/** The names of an asset's providers, in the order of the supplier list. */
+export const providersOf = (
+  assetId: string,
+  links: readonly ProviderLink[],
+  suppliers: readonly ListedSupplier[],
+): readonly string[] => {
+  const linked = new Set(
+    links.flatMap((l) => (l.assetId === assetId ? [l.supplierId] : [])),
+  );
+  return suppliers.flatMap((s) => (linked.has(s.id) ? [s.name] : []));
+};
 
 /** A risk with the ids of what it is linked to. */
 export interface LinkedRisk extends StoredRisk {
@@ -165,7 +259,11 @@ export type RatingRow =
       readonly key: string;
       readonly id: string;
       readonly name: string;
-      readonly provider: string | null;
+      /** What the company wrote it is for, in 2.2. */
+      readonly about: string | null;
+      /** The catalogue item it was listed as, which says what kind of thing it is. */
+      readonly catalogId: string | null;
+      readonly providers: readonly string[];
       readonly standing: Standing;
     }
   | {
@@ -177,11 +275,40 @@ export type RatingRow =
       readonly standing: Standing;
     };
 
-export const ratingKey = (kind: "asset" | "supplier", id: string): string =>
-  `${kind}:${id}`;
+export const ratingKey = (kind: RatedKind, id: string): string => `${kind}:${id}`;
 
 const linkedTo = (risks: readonly LinkedRisk[], id: string) =>
   risks.filter((r) => r.linked.includes(id));
+
+/** Systems a company brings back after an outage: software and services, servers, the network. */
+const restores = (type: string): boolean =>
+  SOFTWARE.has(type) || type === "server" || type === "network";
+
+/**
+ * The systems in the order to bring them back, read off their 2.3 ratings: the largest damage
+ * first, then the more frequent, then by name. A system not rated with one 200-3 rating comes
+ * last, by name.
+ */
+export const recoveryOrder = (
+  assets: ReadonlyArray<Pick<ListedAsset, "id" | "name" | "type">>,
+  risks: readonly LinkedRisk[],
+): readonly string[] =>
+  assets
+    .filter((a) => restores(a.type))
+    .map((a) => {
+      const standing = standingOf(linkedTo(risks, a.id));
+      const rated = standing.kind === "rated" ? standing.rating : null;
+      return {
+        name: a.name,
+        impact: rated ? IMPACTS.indexOf(rated.impact) : -1,
+        frequency: rated ? FREQUENCIES.indexOf(rated.frequency) : -1,
+      };
+    })
+    .sort(
+      (a, b) =>
+        b.impact - a.impact || b.frequency - a.frequency || a.name.localeCompare(b.name),
+    )
+    .map((a) => a.name);
 
 /** The rows of one rating screen, each with who provides it or what it provides. */
 export function ratingRows(
@@ -189,21 +316,26 @@ export function ratingRows(
   lists: {
     readonly assets: readonly ListedAsset[];
     readonly suppliers: readonly ListedSupplier[];
+    readonly links: readonly ProviderLink[];
     readonly assetRisks: readonly LinkedRisk[];
     readonly supplierRisks: readonly LinkedRisk[];
   },
 ): readonly RatingRow[] {
   if (target === "suppliers") {
-    return lists.suppliers.map((s) => ({
-      kind: "supplier",
-      key: ratingKey("supplier", s.id),
-      id: s.id,
-      name: s.name,
-      provides: lists.assets.filter((a) => a.supplierId === s.id).map((a) => a.name),
-      standing: standingOf(linkedTo(lists.supplierRisks, s.id)),
-    }));
+    return lists.suppliers.map((s) => {
+      const provided = new Set(
+        lists.links.flatMap((l) => (l.supplierId === s.id ? [l.assetId] : [])),
+      );
+      return {
+        kind: "supplier",
+        key: ratingKey("supplier", s.id),
+        id: s.id,
+        name: s.name,
+        provides: lists.assets.filter((a) => provided.has(a.id)).map((a) => a.name),
+        standing: standingOf(linkedTo(lists.supplierRisks, s.id)),
+      };
+    });
   }
-  const names = new Map(lists.suppliers.map((s) => [s.id, s.name]));
   return lists.assets
     .filter((a) => sliceOf(a.type) === target)
     .map((a) => ({
@@ -211,7 +343,9 @@ export function ratingRows(
       key: ratingKey("asset", a.id),
       id: a.id,
       name: a.name,
-      provider: a.supplierId ? (names.get(a.supplierId) ?? null) : null,
+      about: ownDescription(a),
+      catalogId: catalogIdOf(a),
+      providers: providersOf(a.id, lists.links, lists.suppliers),
       standing: standingOf(linkedTo(lists.assetRisks, a.id)),
     }));
 }

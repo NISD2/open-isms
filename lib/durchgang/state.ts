@@ -18,9 +18,9 @@ export const WAIT_REASONS = ["letter", "ask", "decide", "unclear"] as const;
 export type WaitReason = (typeof WAIT_REASONS)[number];
 
 /**
- * The audit actions the flow writes. They are logged the way `announceWithdrawal` logs a withdrawn
- * sign-off: entity type "requirement", the requirement's id and the company. One query then finds
- * both.
+ * The audit actions that move an item. They are logged the way `announceWithdrawal` logs a
+ * withdrawn sign-off: entity type "requirement", the requirement's id and the company. One query
+ * then finds both.
  */
 export const DURCHGANG_ACTIONS = [
   "durchgang.waiting",
@@ -28,6 +28,22 @@ export const DURCHGANG_ACTIONS = [
   "durchgang.item_done",
   "durchgang.declined",
 ] as const;
+
+/** The audit actions that record what a screen did, without moving the item. */
+const RECORD_ACTIONS = [
+  "durchgang.adopted",
+  "durchgang.agreements",
+  "durchgang.logins",
+  "durchgang.backups",
+  "durchgang.crypto_adopted",
+  "durchgang.policies_approved",
+  "durchgang.critical",
+] as const;
+
+/** Every audit action the walk writes, so a misspelt one fails the build, not the walk's state. */
+export type DurchgangAction =
+  | (typeof DURCHGANG_ACTIONS)[number]
+  | (typeof RECORD_ACTIONS)[number];
 
 /**
  * Every action that moves an item: the ones the query picking `latest` reads. A withdrawn

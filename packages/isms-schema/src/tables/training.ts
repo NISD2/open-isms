@@ -7,18 +7,20 @@
  *
  * References: companies, users
  */
+
+import { sql } from "drizzle-orm";
 import {
-  pgTable,
-  uuid,
-  varchar,
-  text,
   boolean,
-  integer,
-  timestamp,
+  check,
   date,
   index,
+  integer,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+  varchar,
 } from "drizzle-orm/pg-core";
-import { sql } from "drizzle-orm";
 import { company, user } from "./organization";
 
 export const trainingRecord = pgTable(
@@ -51,12 +53,14 @@ export const trainingRecord = pgTable(
     durationMinutes: integer("duration_minutes"),
 
     // Content
-    topicsCovered: text("topics_covered")
-      .array()
-      .default(sql`'{}'::text[]`),
+    topicsCovered: text("topics_covered").array().default(sql`'{}'::text[]`),
 
     // Certification
     certificateFileKey: varchar("certificate_file_key", { length: 500 }),
+    // Where the training provider keeps its own record (an e-learning platform's completion
+    // report), for staff trained outside the company: the proof stays with the provider. Shown
+    // as a link, so the database itself takes only web addresses (chk_training_source_url).
+    sourceUrl: varchar("source_url", { length: 2048 }),
     nextTrainingDue: date("next_training_due"),
 
     createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -65,5 +69,9 @@ export const trainingRecord = pgTable(
     index("idx_training_company").on(table.companyId),
     index("idx_training_user").on(table.userId),
     index("idx_training_management").on(table.isManagement),
-  ]
+    check(
+      "chk_training_source_url",
+      sql`${table.sourceUrl} IS NULL OR ${table.sourceUrl} ILIKE 'https://%' OR ${table.sourceUrl} ILIKE 'http://%'`,
+    ),
+  ],
 );

@@ -46,6 +46,11 @@ export const COMPANY_SCOPED_MODULE_TABLES = [
  */
 export const CUSTOM_COUNT_MODULES = ["team", "bsi_incident_report"] as const;
 
+/** A moduleRef with a counter, so a caller cannot name one that would fail silently. */
+export type CountableModule =
+  | (typeof COMPANY_SCOPED_MODULE_TABLES)[number]
+  | (typeof CUSTOM_COUNT_MODULES)[number];
+
 /** Every moduleRef `recheckModuleRequirements` knows how to count. */
 export const COUNTABLE_MODULES: ReadonlySet<string> = new Set<string>([
   ...COMPANY_SCOPED_MODULE_TABLES,

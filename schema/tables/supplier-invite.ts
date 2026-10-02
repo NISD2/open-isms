@@ -18,16 +18,18 @@
  *
  * References: companies, users
  */
+
+import { supplier } from "@nisd2/grc-data-model/schema";
+import { company } from "@nisd2/isms-schema/tables/organization";
 import {
+  index,
   pgTable,
-  uuid,
-  varchar,
   text,
   timestamp,
-  index,
   uniqueIndex,
+  uuid,
+  varchar,
 } from "drizzle-orm/pg-core";
-import { company } from "@nisd2/isms-schema/tables/organization";
 
 export const supplierInvite = pgTable(
   "supplier_invite",
@@ -41,6 +43,15 @@ export const supplierInvite = pgTable(
 
     /** Supplier email (lowercased). May or may not exist as a Sorzel user. */
     toEmail: varchar("to_email", { length: 255 }).notNull(),
+
+    /**
+     * The row on the sender's own supplier list this invite was sent for, so the reply links that
+     * row instead of adding a second one; null when the row is deleted. Accepting re-checks that
+     * the row belongs to the sender and is unlinked.
+     */
+    supplierId: uuid("supplier_id").references(() => supplier.id, {
+      onDelete: "set null",
+    }),
 
     /**
      * 64-char hex magic-link token. Knowledge of this token grants the right
@@ -58,18 +69,14 @@ export const supplierInvite = pgTable(
     /** Set in the same transaction as supplier signup. Null = pending. */
     acceptedAt: timestamp("accepted_at"),
     /** The supplier company that accepted (after acceptance only). */
-    acceptedByCompanyId: uuid("accepted_by_company_id").references(
-      () => company.id,
-      { onDelete: "set null" },
-    ),
+    acceptedByCompanyId: uuid("accepted_by_company_id").references(() => company.id, {
+      onDelete: "set null",
+    }),
   },
   (table) => [
     // Prevent duplicate active invites for the same (entity, email) pair —
     // re-invites just bump the existing row's timestamps.
-    uniqueIndex("uq_supplier_invite_pair").on(
-      table.fromCompanyId,
-      table.toEmail,
-    ),
+    uniqueIndex("uq_supplier_invite_pair").on(table.fromCompanyId, table.toEmail),
     // Fast lookup when a supplier signs up — we look for pending invites
     // matching their email.
     index("idx_supplier_invite_to_email").on(table.toEmail),

@@ -1,4 +1,5 @@
 export * from "./asset";
+export * from "./asset-provider";
 export * from "./asset-supplier-offering";
 export * from "./control";
 export * from "./framework";

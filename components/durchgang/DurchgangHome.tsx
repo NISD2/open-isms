@@ -168,17 +168,21 @@ function Home({ walk }: { walk: readonly WalkEntry[] }) {
         <h2 className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">
           {t("ui.home.yourWay")}
         </h2>
-        <ol className="relative mt-5 space-y-1">
-          <span
-            aria-hidden
-            className="absolute top-4 bottom-4 left-[15px] w-px bg-border"
-          />
-          {walk.map((entry) => {
+        <ol className="mt-5 space-y-1">
+          {walk.map((entry, index) => {
             const settled = entry.state.kind !== "open" && entry.state.kind !== "waiting";
             const waiting = entry.state.kind === "waiting";
             const isNext = next?.code === entry.code;
             return (
               <li key={entry.code} className="relative flex gap-4 rounded-xl p-2">
+                {index < walk.length - 1 && (
+                  // From 6px under this circle to 6px above the next one, on the circles' centre
+                  // line: the 8px padding plus half the 32px circle.
+                  <span
+                    aria-hidden
+                    className="absolute top-[46px] -bottom-1.5 left-6 w-px -translate-x-1/2 bg-border"
+                  />
+                )}
                 <span
                   className={cn(
                     "relative z-10 flex size-8 shrink-0 items-center justify-center rounded-full border-2 bg-background",

@@ -11,6 +11,7 @@ import {
   visibleCatalog,
 } from "@/lib/asset-inventory/catalog";
 import type { AssetLayer } from "@/lib/asset-inventory/types";
+import { typesetCitation } from "@/lib/compliance/citations";
 import { cn } from "@/lib/utils";
 
 interface BigChecklistProps {
@@ -108,7 +109,7 @@ export function BigChecklist({
             <button
               type="button"
               onClick={() => toggleGroup(group)}
-              className="w-full flex items-baseline justify-between gap-2 sticky top-0 bg-background/95 backdrop-blur-sm py-2 border-b border-border z-10 text-left hover:bg-muted/30 px-1 -mx-1 rounded transition-colors"
+              className="w-full flex cursor-pointer items-baseline justify-between gap-2 sticky top-0 bg-background/95 backdrop-blur-sm py-2 border-b border-border z-10 text-left hover:bg-muted/30 px-1 -mx-1 rounded transition-colors"
               aria-expanded={!isCollapsed}
             >
               <div className="flex items-center gap-2 flex-1 min-w-0">
@@ -123,7 +124,7 @@ export function BigChecklist({
                   </h3>
                   {!isCollapsed && (
                     <p className="text-xs text-muted-foreground">
-                      {t(`groups.${group}.description`)}
+                      {typesetCitation(t(`groups.${group}.description`))}
                     </p>
                   )}
                 </div>
@@ -141,9 +142,10 @@ export function BigChecklist({
                     <button
                       key={item.id}
                       type="button"
+                      aria-pressed={isChecked}
                       onClick={() => toggle(item.id)}
                       className={cn(
-                        "flex items-start gap-3 rounded-md border px-3 py-2 text-left text-sm transition-colors",
+                        "flex cursor-pointer items-start gap-3 rounded-md border px-3 py-2 text-left text-sm transition-colors",
                         isChecked
                           ? "border-primary/40 bg-primary/5"
                           : "border-border hover:bg-muted/50 opacity-70",
@@ -232,7 +234,7 @@ function AddCustomRow({
           }
         }}
         placeholder={t(`checklist.addPlaceholder.${layer}`)}
-        className="flex-1 rounded-md border border-border bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40"
+        className="flex-1 rounded-md border border-border bg-background px-3 py-2 text-base placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40 sm:text-sm"
       />
       <button
         type="button"

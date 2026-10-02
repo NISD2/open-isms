@@ -100,6 +100,11 @@ export const INC_SCHEMA = z.object({
     .string()
     .max(500)
     .describe("Escalation contacts by severity level (e.g., P1: CISO, P2: IT Lead)"),
+  itEmergencyNumber: z
+    .string()
+    .max(50)
+    .optional()
+    .describe("IT emergency number every employee calls (BSI IT-Notfallkarte)"),
   postIncidentReviewOwner: z
     .string()
     .max(255)
@@ -518,6 +523,7 @@ export const CATEGORY_FIELD_MAPPING: Record<string, Record<string, string[]>> = 
     secureCommsChannel: ["3.1"],
     detectionTools: ["3.2"],
     incidentEscalationContacts: ["3.1"],
+    itEmergencyNumber: ["3.1"],
     postIncidentReviewOwner: ["3.5"],
     significantIncidentCriteria: ["3.2"],
   },

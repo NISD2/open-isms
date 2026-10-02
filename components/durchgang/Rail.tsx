@@ -2,6 +2,7 @@
 
 import { Eye } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { Glossed } from "./Glossed";
 import type { ItemView } from "./view";
 
 /** The same three places on every screen of an item: often missed, terms, law. */
@@ -24,7 +25,9 @@ export function Rail({ item }: { item: ItemView }) {
                 <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-amber-200 text-[11px] font-semibold text-amber-950 dark:bg-amber-800 dark:text-amber-50">
                   {i + 1}
                 </span>
-                {text}
+                <span>
+                  <Glossed text={text} />
+                </span>
               </li>
             ))}
           </ol>

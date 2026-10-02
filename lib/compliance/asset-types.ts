@@ -21,3 +21,6 @@ export const NIS2_ASSET_TYPES = [
 ] as const;
 
 export type NIS2AssetType = (typeof NIS2_ASSET_TYPES)[number];
+
+/** Every type the platform writes itself: the presets, and the catalogue's processes and rooms. */
+export type AssetType = NIS2AssetType | "process" | "room";

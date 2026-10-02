@@ -5,21 +5,45 @@
 
 import { JOURNEY_ORDER } from "@/lib/compliance/journey-position";
 import { NIS2_SCRIPT } from "./nis2";
-import type { AnyItem } from "./types";
+import type { AnyItem, AnyScreen, PolicyTemplate } from "./types";
 
 export type { ResolvedItem, ResolvedScreen } from "./copy";
-export { itemKey, resolveItem } from "./copy";
-export type { NoteLocale } from "./notes";
+export { itemKey, marker, resolveItem } from "./copy";
+export { dutyHref } from "./law";
 export {
+  agreementsNote,
+  approvedNote,
+  backupsNote,
+  criticalNote,
+  cryptoNote,
   declinedNote,
+  enteredDay,
+  loginsNote,
   methodNote,
   noteLine,
-  sourcesNote,
+  recordDay,
+  recordedDay,
   waitingNote,
 } from "./notes";
+export type { CryptoLabels, PolicyDocument, PolicyPart } from "./policy";
+export {
+  acceptedCryptoText,
+  criticalProcessesText,
+  personText,
+  policyNames,
+  policyParts,
+  policySignature,
+  policyText,
+  policyTitle,
+  recoveryOrderText,
+  reportingChannelText,
+} from "./policy";
 export type {
   AssetSlice,
   LinkedRisk,
+  MappedRisk,
+  ProviderLink,
+  RatedKind,
   Rating,
   RatingRow,
   RatingTarget,
@@ -27,18 +51,33 @@ export type {
   StoredRisk,
 } from "./ratings";
 export {
+  byLevel,
+  cellCount,
   fromScale,
+  inCell,
+  levelGroups,
   levelOf,
+  levelOfStanding,
+  providersOf,
+  RATED_KINDS,
   ratingKey,
   ratingRows,
   ratingText,
+  recoveryOrder,
   SUPPLIER_LEVEL,
+  signsIn,
   sliceOf,
   standingOf,
   toScale,
   treatmentFor,
 } from "./ratings";
-export type { DurchgangEvent, ItemState, StatusRow, WaitReason } from "./state";
+export type {
+  DurchgangAction,
+  DurchgangEvent,
+  ItemState,
+  StatusRow,
+  WaitReason,
+} from "./state";
 export {
   DURCHGANG_ACTIONS,
   itemState,
@@ -46,17 +85,31 @@ export {
   STATE_ACTIONS,
   WAIT_REASONS,
 } from "./state";
+export { contactSuggestions } from "./suggest";
 export type {
   Adoptable,
   AnyItem,
   AnyScreen,
+  BackupFrequency,
   LearnLink,
+  MfaMethod,
+  PolicyList,
+  PolicyTemplate,
   Provision,
   RegisterModule,
   ScreenKind,
-  SourceId,
+  SuggestSource,
+  TrainingAudience,
+  WalkLocale,
 } from "./types";
-export { SOURCE_IDS } from "./types";
+export {
+  askedFields,
+  BACKUP_FREQUENCIES,
+  MANAGEMENT_ROLE,
+  MFA_METHODS,
+  POLICY_LISTS,
+  POLICY_TEMPLATES,
+} from "./types";
 
 const BY_CODE: ReadonlyMap<string, AnyItem> = new Map(
   NIS2_SCRIPT.map((i) => [i.code, i]),
@@ -68,8 +121,22 @@ export const WALK: readonly AnyItem[] = JOURNEY_ORDER.flatMap((code) => {
   return item ? [item] : [];
 });
 
-/** The intake fields an item asks for: on its field screens, and the one its upload fills. */
-export const askedFields = (item: AnyItem): readonly string[] =>
-  item.screens.flatMap<string>((s) =>
-    s.kind === "fields" ? s.fields : s.kind === "evidence" && s.field ? [s.field] : [],
+/** Where management approves the walk's documents: the item and the index of its screen. */
+export const APPROVAL_SCREEN: { readonly code: string; readonly at: number } | null =
+  WALK.flatMap((item) => {
+    const screens: readonly AnyScreen[] = item.screens;
+    const at = screens.findIndex((s) => s.kind === "approve");
+    return at === -1 ? [] : [{ code: item.code, at }];
+  })[0] ?? null;
+
+/** Every policy the walk writes: the item, its template and the index of its policy screen. */
+export const WALK_POLICIES: ReadonlyArray<{
+  readonly code: string;
+  readonly policy: PolicyTemplate;
+  readonly at: number;
+}> = WALK.flatMap((item) => {
+  const screens: readonly AnyScreen[] = item.screens;
+  return screens.flatMap((screen, at) =>
+    screen.kind === "policy" ? [{ code: item.code, policy: screen.policy, at }] : [],
   );
+});

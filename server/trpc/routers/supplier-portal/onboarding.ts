@@ -100,32 +100,80 @@ const draftReplacedBySupplierSignup = async (db: DbOrTx, userId: string) => {
  * a second inviting company reached at an address already bound collides, and its invite stays
  * pending rather than being accepted with no relationship. Returns whether the invite was bound.
  */
+/** Links the customer's own listed row, unless the pair is held already; the rows it updated. */
+const linkListed = async (
+  tx: DbOrTx,
+  listedSupplierId: string,
+  input: {
+    readonly supplierCompanyId: string;
+    readonly customerCompanyId: string;
+    readonly customerEmail: string | null;
+  },
+  link: Partial<typeof supplier.$inferInsert>,
+): Promise<ReadonlyArray<{ readonly id: string }>> => {
+  const held =
+    input.customerEmail !== null &&
+    (await tx.query.supplier.findFirst({
+      where: and(
+        eq(supplier.supplierCompanyId, input.supplierCompanyId),
+        eq(supplier.customerEmail, input.customerEmail),
+      ),
+      columns: { id: true },
+    })) !== undefined;
+  if (held) return [];
+  return tx
+    .update(supplier)
+    .set(link)
+    .where(
+      and(
+        eq(supplier.id, listedSupplierId),
+        eq(supplier.customerCompanyId, input.customerCompanyId),
+        isNull(supplier.supplierCompanyId),
+      ),
+    )
+    .returning({ id: supplier.id });
+};
+
 const bindInvite = async (
   tx: DbOrTx,
   input: {
     readonly inviteId: string;
+    /** The row on the customer's list the invite was sent for, if any. */
+    readonly listedSupplierId: string | null;
     readonly supplierCompanyId: string;
     readonly supplierName: string;
     readonly customerCompanyId: string;
     readonly customerEmail: string | null;
   },
 ): Promise<boolean> => {
-  const [row] = await tx
-    .insert(supplier)
-    .values({
-      name: input.supplierName,
-      supplierCompanyId: input.supplierCompanyId,
-      customerCompanyId: input.customerCompanyId,
-      customerEmail: input.customerEmail,
-      status: "active" as const,
-      unsubscribeToken: generateOpaqueToken(),
-      source: "claim_token",
-      confirmedAt: new Date(),
-    })
-    .onConflictDoNothing({
-      target: [supplier.supplierCompanyId, supplier.customerEmail],
-    })
-    .returning({ id: supplier.id });
+  const link = {
+    supplierCompanyId: input.supplierCompanyId,
+    customerEmail: input.customerEmail,
+    status: "active" as const,
+    unsubscribeToken: generateOpaqueToken(),
+    source: "claim_token" as const,
+    confirmedAt: new Date(),
+  };
+  // Sent for a row the customer already lists: that row becomes the link, with everything already
+  // recorded on it, so the supplier does not stand twice. A row deleted, linked meanwhile or not
+  // the customer's own falls back to a new row, as does a pair an earlier invite in this signup
+  // already holds (uq_supplier_portal_share), which the update would otherwise break on.
+  const [listed] = input.listedSupplierId
+    ? await linkListed(tx, input.listedSupplierId, input, link)
+    : [];
+  const [row] = listed
+    ? [listed]
+    : await tx
+        .insert(supplier)
+        .values({
+          ...link,
+          name: input.supplierName,
+          customerCompanyId: input.customerCompanyId,
+        })
+        .onConflictDoNothing({
+          target: [supplier.supplierCompanyId, supplier.customerEmail],
+        })
+        .returning({ id: supplier.id });
   if (!row) return false;
   await tx
     .update(supplierInvite)
@@ -300,6 +348,7 @@ export const supplierOnboardingRouter = router({
         for (const pending of invites) {
           const bound = await bindInvite(tx, {
             inviteId: pending.id,
+            listedSupplierId: pending.supplierId,
             supplierCompanyId: newCompany.id,
             supplierName: input.name,
             customerCompanyId: pending.fromCompanyId,

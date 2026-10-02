@@ -86,7 +86,8 @@ export function InlineInvite({
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className={compact ? "h-8 text-sm" : undefined}
+          // The input's own size: 16 px on a phone, so iOS Safari does not zoom in, 14 px from md.
+          className={compact ? "h-8" : undefined}
         />
         <Button
           type="submit"

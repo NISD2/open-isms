@@ -3,21 +3,27 @@
 import "./transitions.css";
 import {
   ArrowRight,
+  BadgeCheck,
   BookOpen,
   BookText,
   ChevronLeft,
   CircleCheckBig,
   ClipboardList,
   Clock,
+  DatabaseBackup,
   Eye,
   FileUp,
   Gauge,
+  Grid3x3,
+  Handshake,
+  KeyRound,
+  LifeBuoy,
   Lightbulb,
   ListChecks,
+  LockKeyhole,
   type LucideIcon,
   PenLine,
   ScrollText,
-  Search,
   ShieldCheck,
   X,
 } from "lucide-react";
@@ -33,17 +39,29 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { useRouter } from "@/i18n/navigation";
-import { type ItemState, resumeAt, type ScreenKind } from "@/lib/durchgang";
+import { CATALOG_BY_ID } from "@/lib/asset-inventory/catalog";
+import { CUSTOM_ASSET_TYPE } from "@/lib/asset-inventory/types";
+import { type ItemState, resumeAt, type ScreenKind, sliceOf } from "@/lib/durchgang";
+import { trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
+import { Agreements } from "./AgreementScreen";
+import { Approve } from "./ApproveScreen";
+import { BackupsScreen } from "./BackupsScreen";
+import { CriticalScreen } from "./CriticalScreen";
+import { CryptoScreen } from "./CryptoScreen";
 import { Compare, Learn, Prepare, Provision, Reading, Sample } from "./ExplainScreens";
+import { GlossProvider } from "./Glossed";
+import { Logins } from "./LoginScreen";
+import { PolicyScreen } from "./PolicyScreen";
 import { Rail } from "./Rail";
 import { Rate, Specify } from "./RatingScreens";
-import { type Direction, PROGRESS, STAGE, transition } from "./transition";
+import { RiskMapScreen } from "./RiskMapScreen";
+import { type Direction, PROGRESS, STAGE, transition, transitionTo } from "./transition";
 import { useScreenComplete } from "./useScreenComplete";
 import { useWalkItem } from "./useWalkItem";
 import type { ItemView, WalkEntry } from "./view";
 import { WaitSheet } from "./WaitSheet";
-import { Adopt, Assets, Done, Evidence, Fields, Register, Sources } from "./WorkScreens";
+import { Adopt, Assets, Done, Evidence, Fields, Register } from "./WorkScreens";
 
 /** Each kind of screen carries its own sign, so a person learns where they are at a glance. */
 const KIND_ICON: Readonly<Record<ScreenKind, LucideIcon>> = {
@@ -56,15 +74,25 @@ const KIND_ICON: Readonly<Record<ScreenKind, LucideIcon>> = {
   fields: PenLine,
   evidence: FileUp,
   adopt: ScrollText,
-  sources: Search,
   assets: ListChecks,
   register: ListChecks,
   specify: PenLine,
   rate: Gauge,
+  agreements: Handshake,
+  logins: KeyRound,
+  policy: ScrollText,
+  approve: BadgeCheck,
+  riskmap: Grid3x3,
+  critical: LifeBuoy,
+  backups: DatabaseBackup,
+  crypto: LockKeyhole,
   done: CircleCheckBig,
 };
 
 const SCREEN_PARAM = "s";
+
+/** A header icon button: 44 px to tap on a phone, the button's own 36 px from `sm` up. */
+const PHONE_ICON_TARGET = "size-11 sm:size-9";
 
 const clampScreen = (value: number, total: number) =>
   Number.isInteger(value) && value >= 0 && value < total ? value : 0;
@@ -89,11 +117,26 @@ export function DurchgangItem({
   const self = walk.find((w) => w.code === item.code);
   const filled: ItemState = { kind: "filled", since: new Date() };
   const next = resumeAt(walk, (w) => (w.code === item.code ? filled : w.state));
-  const { draft, setDraft, adoptedAt, leave, park, decline } = useWalkItem(
+  const { draft, setDraft, adoptedAt, leave, keep, park, decline } = useWalkItem(
     item,
     self?.state.kind === "waiting",
   );
   const complete = useScreenComplete(item, item.screens[index], draft);
+
+  // A "which exactly" screen is passed over when nothing of its kind is on the list, saved or
+  // ticked on this visit: asking which software you use when you listed none is a dead end.
+  const specifies = item.screens.some((s) => s.kind === "specify");
+  const assets = trpc.asset.list.useQuery(undefined, { enabled: specifies });
+  const passedOver = (target: number): boolean => {
+    const screen = item.screens[target]?.screen;
+    if (screen?.kind !== "specify" || !assets.data) return false;
+    const types = [
+      ...assets.data.map((a) => a.type),
+      ...draft.checked.flatMap((id) => CATALOG_BY_ID.get(id)?.category ?? []),
+      ...draft.custom.map((c) => CUSTOM_ASSET_TYPE[c.layer]),
+    ];
+    return !types.some((type) => sliceOf(type) === screen.slice);
+  };
 
   // The screen lives in the URL, so the browser's back button and a reload keep the place.
   const show = useCallback((target: number, direction: Direction, push = true) => {
@@ -124,7 +167,13 @@ export function DurchgangItem({
   const forward = () => {
     if (entry.screen.kind === "done") {
       if (next) {
-        router.push({ pathname: "/durchgang/[code]", params: { code: next.code } });
+        // The next section slides in like the next screen of this one.
+        transitionTo(
+          "forward",
+          () =>
+            router.push({ pathname: "/durchgang/[code]", params: { code: next.code } }),
+          () => document.querySelector(`main[data-dg-item="${next.code}"]`) !== null,
+        );
       } else {
         router.push("/durchgang");
       }
@@ -132,19 +181,25 @@ export function DurchgangItem({
     }
     setError(null);
     const at = index;
-    leave(at, () => {
+    const following = item.screens.findIndex((_, i) => i > at && !passedOver(i));
+    const to = following === -1 ? total - 1 : following;
+    leave(at, to, () => {
       setError(at);
       show(at, "back");
     });
-    show(Math.min(at + 1, total - 1), "forward");
+    show(to, "forward");
   };
 
   const back = () => {
-    if (index === 0) router.push("/durchgang");
-    else show(index - 1, "back");
+    const previous = item.screens.findLastIndex((_, i) => i < index && !passedOver(i));
+    if (previous === -1) settleAndGoHome(keep(index));
+    else show(previous, "back");
   };
 
-  /** Sets the item aside or closes it as decided, then goes home once that is stored. */
+  /**
+   * Stores what this screen holds, then goes home once that is stored: on exit, and when the item
+   * is set aside or closes as decided. A refused save keeps the person here, input intact.
+   */
   const settleAndGoHome = (stored: Promise<void>) => {
     setWaitOpen(false);
     stored.then(
@@ -171,7 +226,13 @@ export function DurchgangItem({
       case "learn":
         return <Learn item={item} entry={entry} />;
       case "prepare":
-        return <Prepare entry={entry} />;
+        return (
+          <Prepare
+            entry={entry}
+            ready={draft.ready}
+            onReady={(ready) => setDraft({ ...draft, ready })}
+          />
+        );
       case "compare":
         return <Compare entry={entry} />;
       case "sample":
@@ -186,8 +247,6 @@ export function DurchgangItem({
         return <Evidence {...work} entry={entry} />;
       case "adopt":
         return <Adopt item={item} entry={entry} adoptedAt={adoptedAt} />;
-      case "sources":
-        return <Sources {...work} entry={entry} />;
       case "assets":
         return <Assets {...work} entry={entry} />;
       case "register":
@@ -196,18 +255,42 @@ export function DurchgangItem({
         return <Specify {...work} entry={entry} />;
       case "rate":
         return <Rate {...work} entry={entry} />;
+      case "agreements":
+        return <Agreements {...work} entry={entry} />;
+      case "logins":
+        return <Logins {...work} entry={entry} />;
+      case "policy":
+        return <PolicyScreen {...work} entry={entry} />;
+      case "approve":
+        return <Approve item={item} entry={entry} />;
+      case "critical":
+        return <CriticalScreen {...work} entry={entry} />;
+      case "backups":
+        return <BackupsScreen {...work} entry={entry} />;
+      case "crypto":
+        return <CryptoScreen {...work} entry={entry} />;
+      case "riskmap":
+        return <RiskMapScreen {...work} entry={entry} />;
       case "done":
-        return <Done item={item} entry={entry} draft={draft} next={next} />;
+        return (
+          <Done item={item} entry={entry} draft={draft} next={next} onNext={forward} />
+        );
       default:
         return entry satisfies never;
     }
   })();
 
-  return (
+  const page = (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-30 bg-background/90 backdrop-blur-md">
+      <header className="sticky top-0 z-30 bg-background/90 backdrop-blur-md print:hidden">
         <div className="mx-auto flex h-16 max-w-7xl items-center gap-2 px-3 sm:px-6 lg:px-10">
-          <Button variant="ghost" size="icon" aria-label={t("back")} onClick={back}>
+          <Button
+            variant="ghost"
+            size="icon"
+            className={PHONE_ICON_TARGET}
+            aria-label={t("back")}
+            onClick={back}
+          >
             <ChevronLeft className="size-5" />
           </Button>
           <div className="min-w-0 flex-1">
@@ -219,7 +302,7 @@ export function DurchgangItem({
           <Button
             variant="ghost"
             size="sm"
-            className="lg:hidden"
+            className="h-11 min-w-11 sm:h-8 sm:min-w-0 lg:hidden"
             aria-label={t("lookUp")}
             onClick={() => setRailOpen(true)}
           >
@@ -229,8 +312,9 @@ export function DurchgangItem({
           <Button
             variant="ghost"
             size="icon"
+            className={PHONE_ICON_TARGET}
             aria-label={t("exit")}
-            onClick={() => router.push("/durchgang")}
+            onClick={() => settleAndGoHome(keep(index))}
           >
             <X className="size-5" />
           </Button>
@@ -250,10 +334,15 @@ export function DurchgangItem({
       </header>
 
       <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)] gap-12 px-4 pt-8 pb-40 sm:px-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:px-10 lg:pt-14 xl:gap-20">
-        <main style={STAGE} className="w-full max-w-3xl" key={`${item.code}-${index}`}>
+        <main
+          style={STAGE}
+          className="w-full max-w-3xl"
+          key={`${item.code}-${index}`}
+          data-dg-item={item.code}
+        >
           <span
             className={cn(
-              "mb-4 inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium",
+              "mb-4 inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium print:hidden",
               entry.screen.kind === "provision"
                 ? "bg-primary text-primary-foreground"
                 : "bg-muted text-muted-foreground",
@@ -273,14 +362,14 @@ export function DurchgangItem({
           )}
           {body}
         </main>
-        <aside className="hidden lg:block">
+        <aside className="hidden lg:block print:hidden">
           <div className="sticky top-28">
             <Rail item={item} />
           </div>
         </aside>
       </div>
 
-      <footer className="fixed inset-x-0 bottom-0 z-30 border-t bg-background/90 backdrop-blur-md">
+      <footer className="fixed inset-x-0 bottom-0 z-30 border-t bg-background/90 backdrop-blur-md print:hidden">
         <div className="mx-auto grid max-w-7xl px-4 py-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:px-10 xl:gap-20">
           <div className="flex max-w-3xl items-center justify-between gap-3">
             {/* Only a screen that cannot be completed offers the way out. */}
@@ -288,7 +377,7 @@ export function DurchgangItem({
               <button
                 type="button"
                 onClick={() => setWaitOpen(true)}
-                className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+                className="inline-flex min-h-11 cursor-pointer items-center gap-2 text-sm font-medium text-muted-foreground underline-offset-4 hover:text-foreground hover:underline sm:min-h-0"
               >
                 <Clock className="size-4" />
                 {t("notYet")}
@@ -301,7 +390,7 @@ export function DurchgangItem({
                 variant="outline"
                 size="lg"
                 onClick={back}
-                className="rounded-xl"
+                className="h-11 rounded-xl sm:h-10"
                 aria-label={t("back")}
               >
                 <ChevronLeft />
@@ -311,7 +400,7 @@ export function DurchgangItem({
                 size="lg"
                 onClick={forward}
                 disabled={!complete}
-                className="min-w-0 rounded-xl px-6"
+                className="h-11 min-w-0 rounded-xl px-6 sm:h-10"
               >
                 <span className="max-w-[12rem] truncate sm:max-w-[24rem]">{primary}</span>
                 <ArrowRight />
@@ -336,9 +425,11 @@ export function DurchgangItem({
       <WaitSheet
         open={waitOpen}
         onOpenChange={setWaitOpen}
-        onWait={(reason, note) => settleAndGoHome(park(reason, note))}
-        onDecline={(reason) => settleAndGoHome(decline(reason))}
+        onWait={(reason, note) => settleAndGoHome(park(index, reason, note))}
+        onDecline={(reason) => settleAndGoHome(decline(index, reason))}
       />
     </div>
   );
+
+  return <GlossProvider value={item.gloss}>{page}</GlossProvider>;
 }

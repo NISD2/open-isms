@@ -7,6 +7,7 @@
  * two can never disagree.
  */
 import { and, asc, eq, inArray } from "drizzle-orm";
+import type { RoleKey } from "@/lib/compliance/role-keys";
 import type { DbOrTx } from "@/lib/db";
 import { company, companyMembership, membershipRoleEnum, user } from "@/schema";
 
@@ -179,7 +180,8 @@ export const setMembershipJobTitle = async (
   input: {
     readonly userId: string;
     readonly companyId: string;
-    readonly jobTitle: string;
+    /** A compliance role key: the walk and the approval read it as one, never as free text. */
+    readonly jobTitle: RoleKey;
   },
 ): Promise<void> => {
   await db

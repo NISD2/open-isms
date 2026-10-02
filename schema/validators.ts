@@ -383,12 +383,14 @@ export const auditLogSelectSchema = createSelectSchema(auditLog);
 // ============================================================================
 
 // The providing supplier is set only by code that checks the supplier is the company's own, so
-// neither the asset form nor a client can name another company's row.
+// neither the asset form nor a client can name another company's row. The second factor's kind is
+// answered per program in the walk (11.1), from a fixed list the form has no labels for. The
+// catalogue item is set by the walk from its own catalogue, never by a client.
 export const assetInsertSchema = createInsertSchema(asset, {
   ...isoDateColumns(asset),
   name: z.string().min(1).max(255),
   type: z.string().min(1).max(100),
-}).omit({ supplierId: true });
+}).omit({ supplierId: true, mfaMethod: true, catalogId: true });
 export const assetSelectSchema = createSelectSchema(asset);
 export const assetUpdateSchema = assetInsertSchema.partial().omit(omitTenantMeta);
 
@@ -507,13 +509,14 @@ export const incidentUpdateSchema = incidentInsertSchema
 // to prevent mass-assignment of the row to a different customer.
 // ============================================================================
 
+// When the walk last recorded a row's clause answers is the walk's to set, never a form field.
 export const supplierInsertSchema = createInsertSchema(supplier, {
   ...isoDateColumns(supplier),
   name: z.string().min(1).max(255),
   // Per-customer contract clauses
   subprocessorList: z.string().max(2000).nullish(),
   incidentSlaHours: z.number().int().positive().max(168).nullish(),
-});
+}).omit({ agreementsCheckedAt: true });
 export const supplierSelectSchema = createSelectSchema(supplier);
 /**
  * Note what is omitted beyond the usual meta, and why.
@@ -629,12 +632,20 @@ export const customerSupplierAssessmentSchema = supplierLinkedUpdateSchema.omit(
 // Training
 // ============================================================================
 
+const WEB_PROTOCOLS: ReadonlySet<string> = new Set(["http:", "https:"]);
+
 export const trainingInsertSchema = createInsertSchema(trainingRecord, {
   ...isoDateColumns(trainingRecord),
   trainingType: z.string().min(1).max(255),
   title: z.string().min(1).max(500),
   participantName: z.string().min(1).max(255),
   durationMinutes: z.number().int().positive().nullish(),
+  // Shown as a link, so only a web address: no javascript: or data: scheme reaches the page.
+  sourceUrl: z
+    .url()
+    .max(2048)
+    .refine((value) => WEB_PROTOCOLS.has(new URL(value).protocol))
+    .nullish(),
 });
 export const trainingSelectSchema = createSelectSchema(trainingRecord);
 // companyId must be stripped here too. omitAudit alone leaves it in the
@@ -856,6 +867,14 @@ export const supplierInviteCustomerSchema = z.object({
 export const supplierInviteRequestSchema = z.object({
   toEmail: z.string().email().max(255),
   message: z.string().max(2000).optional(),
+});
+
+/**
+ * The same request sent for one row of the sender's supplier list, so the reply links that row.
+ * Kept apart from the form schema above, which the invite form renders field by field.
+ */
+export const supplierInviteCreateSchema = supplierInviteRequestSchema.extend({
+  supplierId: z.string().uuid().optional(),
 });
 
 /** Company certification create input. storageKey + fileName come from S3 upload. */

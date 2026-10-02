@@ -8,7 +8,7 @@
 import { describe, expect, mock, test } from "bun:test";
 import type { SQL } from "drizzle-orm";
 import { PgDialect } from "drizzle-orm/pg-core";
-import { asset, risk, riskAsset, riskSupplier, supplier } from "@/schema";
+import { asset, assetProvider, risk, riskAsset, riskSupplier, supplier } from "@/schema";
 
 mock.module("@/lib/audit", () => ({ logAudit: async () => {} }));
 const rechecked: string[] = [];
@@ -35,7 +35,7 @@ const FOREIGN = "f0f0f0f0-0000-4000-8000-000000000009";
 const dialect = new PgDialect();
 const paramsOf = (where: SQL) => dialect.sqlToQuery(where).params;
 
-type Write = { op: "insert" | "update"; table: unknown; values: unknown };
+type Write = { op: "insert" | "update" | "delete"; table: unknown; values: unknown };
 type Link = {
   id: string;
   likelihood: number;
@@ -47,11 +47,13 @@ type Link = {
 interface World {
   readonly assets: ReadonlyArray<{
     id: string;
+    catalogId: string | null;
     name: string;
     description: string | null;
-    supplierId: string | null;
   }>;
   readonly suppliers: ReadonlyArray<{ id: string; name: string }>;
+  /** Who provides which asset (`asset_provider`). */
+  readonly providers?: ReadonlyArray<{ assetId: string; supplierId: string }>;
   readonly assetLinks?: readonly Link[];
   readonly supplierLinks?: readonly Link[];
   /** Steps of the stored method's two scales; none stored when absent. */
@@ -70,6 +72,9 @@ function setup(world: World) {
 
   // `params` is the company followed by the ids a query names; the company alone lists them all.
   const rowsOf = (table: unknown, params: readonly unknown[]): readonly unknown[] => {
+    // Links are read by asset id alone: the assets were checked to be the company's first.
+    if (table === assetProvider)
+      return (world.providers ?? []).filter((l) => params.includes(l.assetId));
     const ids = params.slice(1);
     const named = <T extends { id: string }>(rows: readonly T[]) =>
       ids.length === 0 ? rows : rows.filter((r) => ids.includes(r.id));
@@ -121,7 +126,10 @@ function setup(world: World) {
           };
         return {};
       });
-      return Object.assign(Promise.resolve(), { returning: async () => rows });
+      return Object.assign(Promise.resolve(), {
+        returning: async () => rows,
+        onConflictDoNothing: async () => {},
+      });
     },
   });
   const update = (table: unknown) => ({
@@ -132,11 +140,17 @@ function setup(world: World) {
       },
     }),
   });
+  const remove = (table: unknown) => ({
+    where: async (where: SQL) => {
+      writes.push({ op: "delete", table, values: paramsOf(where) });
+    },
+  });
 
   const tx = {
     select,
     insert,
     update,
+    delete: remove,
     query: {
       companyRiskMethodology: {
         findFirst: async () =>
@@ -177,59 +191,138 @@ function setup(world: World) {
 }
 
 const catalogueAssets = [
-  { id: A1, name: "Buchhaltung", description: null, supplierId: null },
-  { id: A2, name: "E-Mail", description: null, supplierId: S1 },
-  { id: A3, name: "Server", description: "Im Keller", supplierId: null },
+  { id: A1, catalogId: null, name: "Buchhaltung", description: null },
+  { id: A2, catalogId: null, name: "E-Mail", description: null },
+  { id: A3, catalogId: null, name: "Server", description: "Im Keller" },
 ];
 
+/** What an update set, without the time it was made. */
+const setOf = (values: unknown) => {
+  const { updatedAt: _, ...rest } = values as Record<string, unknown>;
+  return rest;
+};
+
 describe("naming assets and their providers", () => {
-  test("renames, keeps the kind in an empty description, and links a known supplier by name", async () => {
+  test("renames to the product, keeps the catalogue item it was listed as, and keeps a provider already linked", async () => {
     const { caller, writesTo } = setup({
-      assets: catalogueAssets,
+      assets: [
+        {
+          id: A1,
+          catalogId: null,
+          name: "Buchhaltung (DATEV, Lexware, sevDesk, lexoffice)",
+          description: null,
+        },
+        { id: A2, catalogId: null, name: "E-Mail", description: null },
+        { id: A3, catalogId: null, name: "Server", description: "Im Keller" },
+      ],
       suppliers: [{ id: S1, name: "Microsoft" }],
+      providers: [{ assetId: A2, supplierId: S1 }],
     });
     await caller.specifyAssets({
       rows: [
-        { id: A1, name: "DATEV Unternehmen online", provider: "" },
-        { id: A2, name: "E-Mail", provider: " microsoft " },
-        { id: A3, name: "Dell PowerEdge", provider: "" },
+        { id: A1, name: "DATEV Unternehmen online", providers: [] },
+        { id: A2, name: "E-Mail", providers: [" microsoft "] },
+        { id: A3, name: "Dell PowerEdge", providers: [] },
       ],
     });
     expect(writesTo(supplier)).toEqual([]);
-    expect(writesTo(asset).map((w) => w.values)).toEqual([
-      expect.objectContaining({
-        name: "DATEV Unternehmen online",
-        description: "Buchhaltung",
-        supplierId: null,
-      }),
-      expect.objectContaining({ name: "Dell PowerEdge", description: "Im Keller" }),
+    expect(writesTo(assetProvider)).toEqual([]);
+    // The description is the company's own; a rename leaves it alone.
+    expect(writesTo(asset).map((w) => setOf(w.values))).toEqual([
+      { name: "DATEV Unternehmen online", catalogId: "fin-accounting" },
+      { name: "Dell PowerEdge", catalogId: null },
     ]);
   });
 
-  test("adds a provider named on two rows once, and unlinks an emptied one", async () => {
+  test("writes what the company says a thing is for, only where it changed", async () => {
     const { caller, writesTo } = setup({
-      assets: catalogueAssets,
-      suppliers: [{ id: S1, name: "Microsoft" }],
+      assets: [
+        // Renamed by the previous release, which kept the catalogue name in the description.
+        {
+          id: A1,
+          catalogId: null,
+          name: "Salesforce",
+          description: "CRM (Salesforce, HubSpot, Pipedrive)",
+        },
+        {
+          id: A2,
+          catalogId: null,
+          name: "E-Mail",
+          description: "Postfächer aller Mitarbeitenden",
+        },
+        {
+          id: A3,
+          catalogId: null,
+          name: "HubSpot",
+          description: "CRM (Salesforce, HubSpot, Pipedrive)",
+        },
+      ],
+      suppliers: [],
     });
     await caller.specifyAssets({
       rows: [
-        { id: A1, name: "Buchhaltung", provider: "DATEV eG" },
-        { id: A3, name: "Server", provider: "datev eg" },
-        { id: A2, name: "E-Mail", provider: "" },
+        {
+          id: A1,
+          name: "Salesforce",
+          description: "Kontakte und Angebote im Vertrieb",
+          providers: [],
+        },
+        {
+          id: A2,
+          name: "E-Mail",
+          description: " Postfächer aller Mitarbeitenden ",
+          providers: [],
+        },
+        // Nothing typed: the catalogue name stays where the previous release reads it.
+        { id: A3, name: "HubSpot", description: "", providers: [] },
+      ],
+    });
+    expect(writesTo(asset).map((w) => setOf(w.values))).toEqual([
+      {
+        name: "Salesforce",
+        catalogId: "sales-crm",
+        description: "Kontakte und Angebote im Vertrieb",
+      },
+    ]);
+  });
+
+  test("links several providers, adds one named on two rows once, and unlinks a dropped one", async () => {
+    const { caller, writesTo } = setup({
+      assets: catalogueAssets,
+      suppliers: [{ id: S1, name: "Microsoft" }],
+      providers: [{ assetId: A2, supplierId: S1 }],
+    });
+    await caller.specifyAssets({
+      rows: [
+        { id: A1, name: "Buchhaltung", providers: ["DATEV eG", "Microsoft"] },
+        { id: A3, name: "Server", providers: ["datev eg"] },
+        { id: A2, name: "E-Mail", providers: [] },
       ],
     });
     expect(writesTo(supplier).map((w) => w.values)).toEqual([
       [{ name: "DATEV eG", customerCompanyId: COMPANY }],
     ]);
-    expect(
-      writesTo(asset).map((w) => (w.values as { supplierId: unknown }).supplierId),
-    ).toEqual(["new-supplier-1", "new-supplier-1", null]);
+    expect(writesTo(assetProvider).filter((w) => w.op === "insert")).toEqual([
+      {
+        op: "insert",
+        table: assetProvider,
+        values: [
+          { assetId: A1, supplierId: "new-supplier-1" },
+          { assetId: A1, supplierId: S1 },
+          { assetId: A3, supplierId: "new-supplier-1" },
+        ],
+      },
+    ]);
+    expect(writesTo(assetProvider).filter((w) => w.op === "delete")).toEqual([
+      { op: "delete", table: assetProvider, values: [A2, S1] },
+    ]);
+    expect(writesTo(asset)).toEqual([]);
   });
 
   test("touches no asset of another company", async () => {
     const { caller, writes } = setup({ assets: catalogueAssets, suppliers: [] });
     await expect(
-      caller.specifyAssets({ rows: [{ id: FOREIGN, name: "Fremd", provider: "X" }] }),
+      caller.specifyAssets({ rows: [{ id: FOREIGN, name: "Fremd", providers: ["X"] }] }),
     ).rejects.toMatchObject({ code: "NOT_FOUND" });
     expect(writes).toEqual([]);
   });

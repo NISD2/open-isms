@@ -29,6 +29,8 @@ type Invite = {
   readonly expiresAt: Date;
   readonly acceptedAt: null;
   readonly acceptedByCompanyId: null;
+  /** The row on the customer's own list the invite was sent for. */
+  readonly supplierId?: string;
 };
 
 type Customer = {
@@ -46,7 +48,8 @@ type Write =
       readonly customerEmail: unknown;
       readonly created: boolean;
     }
-  | { readonly op: "accept"; readonly values: Record<string, unknown> };
+  | { readonly op: "accept"; readonly values: Record<string, unknown> }
+  | { readonly op: "link"; readonly values: Record<string, unknown> };
 
 const inviteFrom = (id: string, fromCompanyId: string, token: string): Invite => ({
   id,
@@ -86,6 +89,8 @@ function fakeDb(
         findFirst: async () => clicked,
         findMany: async () => others,
       },
+      // No earlier invite of this signup holds the pair yet.
+      supplier: { findFirst: async () => undefined },
     },
     select: () => ({
       from: () => ({
@@ -137,6 +142,11 @@ function fakeDb(
         // The claim sets acceptedAt alone and reads back what it updated; the
         // acceptance also records the supplier company and is only awaited.
         where: () => {
+          // A listed row of the customer's that becomes the link.
+          if (table === supplier) {
+            writes.push({ op: "link", values });
+            return { returning: async () => [{ id: clicked?.supplierId }] };
+          }
           const claim = table === supplierInvite && !("acceptedByCompanyId" in values);
           if (claim) writes.push({ op: "claim", won: claimable });
           else if (table === supplierInvite) writes.push({ op: "accept", values });
@@ -191,6 +201,31 @@ const relationships = (writes: readonly Write[]) =>
 const acceptances = (writes: readonly Write[]) => writes.filter((w) => w.op === "accept");
 
 describe("supplierOnboarding.acceptInvite", () => {
+  test("an invite sent for a supplier already on the customer's list links that row, adding none", async () => {
+    const { result, writes } = await accept(
+      [{ ...inviteFrom("invite-a", "customer-a", TOKEN), supplierId: "listed-row" }],
+      [{ id: "customer-a", contactEmail: "isb@kunde-a.test", ownerEmail: null }],
+    );
+
+    expect(writes.filter((w) => w.op === "relationship")).toEqual([]);
+    expect(writes.filter((w) => w.op === "link")).toEqual([
+      {
+        op: "link",
+        values: expect.objectContaining({
+          supplierCompanyId: SUPPLIER_CO,
+          customerEmail: "isb@kunde-a.test",
+          status: "active",
+        }),
+      },
+    ]);
+    expect(acceptances(writes)).toHaveLength(1);
+    expect(result).toEqual({
+      companyId: SUPPLIER_CO,
+      boundEntities: 1,
+      unboundInvites: 0,
+    });
+  });
+
   test("one invite binds the customer at the customer's contact address, not the supplier's", async () => {
     const { result, writes } = await accept(
       [inviteFrom("invite-a", "customer-a", TOKEN)],

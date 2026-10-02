@@ -7,6 +7,7 @@ import { z } from "zod";
 import { FUNCTIONAL_GROUPS } from "@/lib/asset-inventory/catalog";
 import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
 import { JOURNEY_ORDER } from "@/lib/compliance/journey-position";
+import { POLICY_TYPES } from "@/lib/compliance/policy-config-defaults";
 import {
   CUSTOM_EDITOR_KEYS,
   REQUIREMENT_FIELD_MAP,
@@ -15,15 +16,21 @@ import de from "@/messages/durchgang/de.json";
 import en from "@/messages/durchgang/en.json";
 import infoDe from "@/messages/info/de.json";
 import infoEn from "@/messages/info/en.json";
-import { resolveItem, WAIT_REASONS, WALK } from "./index";
-import { AHEAD, NIS2_SCRIPT, NOT_WALKED } from "./nis2";
-import type { AnyScreen, ScreenKind } from "./types";
+import { marker } from "./copy";
+import { askedFields, resolveItem, WAIT_REASONS, WALK } from "./index";
+import { NIS2_SCRIPT, NOT_WALKED } from "./nis2";
+import type { AnyItem, AnyScreen, ScreenKind } from "./types";
 
 const FRAMEWORK = new Map(
   nis2Categories.flatMap((c) =>
     getNis2RequirementsForCategory(c.slug).map((r) => [
       r.code,
-      { category: c.code, moduleRef: r.moduleRef ?? null },
+      {
+        category: c.code,
+        moduleRef: r.moduleRef ?? null,
+        legalRef: r.legalRef,
+        frameworkRef: r.frameworkRef,
+      },
     ]),
   ),
 );
@@ -35,6 +42,13 @@ const coversModule = (screen: AnyScreen, moduleRef: string): boolean => {
       return screen.kind === "assets";
     case "risk":
       return screen.kind === "rate";
+    case "policy":
+      return screen.kind === "policy";
+    case "supplier":
+      return (
+        (screen.kind === "register" && screen.module === "supplier") ||
+        screen.kind === "agreements"
+      );
     default:
       return screen.kind === "register" && screen.module === moduleRef;
   }
@@ -46,14 +60,26 @@ const EDITOR_SCREEN: Readonly<Record<string, ScreenKind>> = {
   "RSK:2.3": "rate",
 };
 
+/** Custom editors the flow deliberately leaves to the requirement page, each with the reason. */
+const NO_EDITOR_SCREEN: Readonly<Record<string, string>> = {
+  "RSK:2.4":
+    "the treatment view records accepted residual risks, a CIR 2.1.2(j) duty the walk does not ask (see notAsked); 2.3 proposes each risk's treatment, and the view stays on the requirement page",
+  "CRY:9.1":
+    "the algorithm table, TLS minimum, rotation interval and post-quantum flag are CIR 2024/2690 Annex 9.2(b) and (c) and BSI TR-02102 detail; the walk writes the Kryptokonzept § 30 Abs. 2 Nr. 8 BSIG asks for, and the table stays on the requirement page",
+  "ACC:10.1":
+    "the access model, review cadence, deprovisioning hours, shared-account rule and authentication review cycle are CIR 2024/2690 Annex 11 and BSI detail; the walk writes the Konzept § 30 Abs. 2 Nr. 9 BSIG asks for, offers the review cadence as a clause, and the settings stay on the requirement page",
+};
+
 /** Registers the flow deliberately leaves out, each with the reason. */
 const NO_SCREEN: Readonly<Record<string, string>> = {
   "12.2:bsi_registration":
     "the register has no loader or router, so the page always shows 0 entries (spec §0.6); the flow records 12.2 through its fields and its evidence",
   "3.3:incident":
     "the incident register fills when an incident happens; 3.3 prepares the reporting, and the register stays on the incidents page",
-  "3.1:policy":
-    "the policy form has no upload and asks for type and status as free text; the screen asks for the plan itself, so 3.1 takes it as evidence on the item",
+  "6.3:vulnerability":
+    "the vulnerability register fills when a vulnerability is found; 6.3 writes the rules for handling one, and the register stays on the vulnerabilities page",
+  "4.4:asset":
+    "backup details per system (frequency, location, last test) stay on the requirement page; the walk records the company's backup rhythm and the date of its last working restore",
 };
 
 /** The value's own schema under any optional, nullable or default wrapper. */
@@ -81,23 +107,25 @@ describe("the NIS 2 script", () => {
     }
   });
 
+  test("opens the duty card at the provision the requirement cites first", () => {
+    for (const item of NIS2_SCRIPT) {
+      const cited = FRAMEWORK.get(item.code);
+      expect(cited?.legalRef.startsWith(`§${item.law.bsig}(`)).toBe(true);
+      expect(cited?.frameworkRef?.startsWith(`Art. ${item.law.article}(`)).toBe(true);
+    }
+  });
+
   test("walks the start of the journey without a gap, in journey order", () => {
     // Items are scripted from the front of the journey (spec §0.7), so the walk is always the
     // first N codes: a later item scripted before an earlier one would leave a hole in the path.
-    // The only exceptions are listed with their reason: items left out, and items scripted ahead.
-    const ahead = Object.keys(AHEAD);
+    // The only exceptions are the items left out, each listed with its reason.
     const front = JOURNEY_ORDER.slice(
       0,
-      NIS2_SCRIPT.length - ahead.length + Object.keys(NOT_WALKED).length,
+      NIS2_SCRIPT.length + Object.keys(NOT_WALKED).length,
     );
-    expect(WALK.map((i) => i.code)).toEqual(
-      JOURNEY_ORDER.filter(
-        (code) => (front.includes(code) && !NOT_WALKED[code]) || ahead.includes(code),
-      ),
-    );
+    expect(WALK.map((i) => i.code)).toEqual(front.filter((code) => !NOT_WALKED[code]));
     for (const code of Object.keys(NOT_WALKED)) expect(front).toContain(code);
-    for (const code of ahead) expect(front).not.toContain(code);
-    for (const reason of [...Object.values(NOT_WALKED), ...Object.values(AHEAD)]) {
+    for (const reason of Object.values(NOT_WALKED)) {
       expect(reason.trim().length).toBeGreaterThan(20);
     }
   });
@@ -110,6 +138,39 @@ describe("the NIS 2 script", () => {
       expect(screens.filter((s) => s.kind === "done")).toHaveLength(1);
       const ids = screens.map((s) => s.id);
       expect(new Set(ids).size).toBe(ids.length);
+    }
+  });
+
+  test("signs only the item's one policy, after it is written", () => {
+    // The server approves the policy of the item's policy screen, so there must be one, before.
+    for (const item of NIS2_SCRIPT) {
+      const screens = screensOf(item);
+      const policies = screens.flatMap((s, i) => (s.kind === "policy" ? [i] : []));
+      const signs = screens.flatMap((s, i) =>
+        s.kind === "fields" && s.approves ? [i] : [],
+      );
+      expect({ code: item.code, policies: policies.length <= 1 }).toEqual({
+        code: item.code,
+        policies: true,
+      });
+      for (const at of signs) {
+        const written = policies[0] ?? Number.POSITIVE_INFINITY;
+        expect({ code: item.code, after: written < at }).toEqual({
+          code: item.code,
+          after: true,
+        });
+      }
+    }
+  });
+
+  test("writes no policy under a type an editor keeps its settings in", () => {
+    // The walk stores its clause choice in company_policy_config under the template's name, which
+    // would replace an editor's settings of the same type.
+    for (const item of NIS2_SCRIPT) {
+      for (const screen of screensOf(item)) {
+        if (screen.kind !== "policy") continue;
+        expect(POLICY_TYPES as readonly string[]).not.toContain(screen.policy);
+      }
     }
   });
 
@@ -158,7 +219,10 @@ describe("the NIS 2 script", () => {
         });
       }
       const editor = `${item.category}:${item.code}`;
-      if ((CUSTOM_EDITOR_KEYS as readonly string[]).includes(editor)) {
+      if (
+        (CUSTOM_EDITOR_KEYS as readonly string[]).includes(editor) &&
+        !NO_EDITOR_SCREEN[editor]
+      ) {
         const needed = EDITOR_SCREEN[editor];
         expect({ editor, screen: needed && kinds.has(needed) }).toEqual({
           editor,
@@ -192,6 +256,14 @@ describe("the NIS 2 script", () => {
 });
 
 describe("the words of the Durchgang", () => {
+  test("tags every kind of screen the walk shows, in each language", () => {
+    const shown = [...new Set(WALK.flatMap((item) => item.screens.map((s) => s.kind)))];
+    for (const words of [de.durchgang.ui.kinds, en.durchgang.ui.kinds]) {
+      const tagged: Readonly<Record<string, string>> = words;
+      expect(shown.filter((kind) => !tagged[kind]?.trim())).toEqual([]);
+    }
+  });
+
   test("names the authority once per language, filled in wherever the copy says {authority}", () => {
     const registration = NIS2_SCRIPT.find((i) => i.code === "12.2");
     if (!registration) throw new Error("12.2 is scripted");
@@ -205,6 +277,72 @@ describe("the words of the Durchgang", () => {
     const unknown = structuredClone(en.durchgang);
     unknown.items["12_2"].headline = "Register with {agency}";
     expect(headline(unknown)).toContain("unknown placeholder");
+  });
+
+  test("names the company and the answers only inside a policy, where the text is written with them", () => {
+    for (const [, namespace] of LOCALES) {
+      for (const item of NIS2_SCRIPT) {
+        const resolved = resolveItem(namespace, item);
+        if (!resolved.ok) continue;
+        const outside = resolved.value.screens.map((s) =>
+          s.kind === "policy" ? { ...s.copy, document: null } : s.copy,
+        );
+        const head = [
+          resolved.value.headline,
+          resolved.value.teaser,
+          resolved.value.missed,
+        ];
+        const text = JSON.stringify([head, outside]);
+        for (const name of ["company", ...askedFields(item)]) {
+          expect(text).not.toContain(marker(name));
+        }
+      }
+    }
+  });
+
+  test("a policy names only text answers, which read the same on the screen and in the record", () => {
+    // A date or a number is held as input text on the screen and as JSON in the record, so the
+    // two would print it differently.
+    for (const [, namespace] of LOCALES) {
+      for (const item of NIS2_SCRIPT) {
+        const resolved = resolveItem(namespace, item);
+        if (!resolved.ok) continue;
+        const shape = CATEGORY_SCHEMAS[item.category]?.shape ?? {};
+        const documents = JSON.stringify(
+          resolved.value.screens.flatMap((s) =>
+            s.kind === "policy" ? [s.copy.document] : [],
+          ),
+        );
+        for (const field of askedFields(item)) {
+          const schema = shape[field];
+          if (schema && unwrap(schema) instanceof z.ZodString) continue;
+          expect({ field, named: documents.includes(marker(field)) }).toEqual({
+            field,
+            named: false,
+          });
+        }
+      }
+    }
+  });
+
+  test("a policy offers the same clauses in both languages, in the same order", () => {
+    // A clause is stored by its id in the record language and offered by that id in the
+    // reader's, so the two lists may not drift apart.
+    const clausesIn = (namespace: (typeof LOCALES)[number][1], item: AnyItem) => {
+      const resolved = resolveItem(namespace, item);
+      return resolved.ok
+        ? resolved.value.screens.flatMap((s) =>
+            s.kind === "policy" ? [s.copy.document.clauses.map((c) => c.id)] : [],
+          )
+        : [];
+    };
+    const [[, first], [, second]] = LOCALES;
+    for (const item of NIS2_SCRIPT) {
+      expect({ code: item.code, clauses: clausesIn(first, item) }).toEqual({
+        code: item.code,
+        clauses: clausesIn(second, item),
+      });
+    }
   });
 
   for (const [locale, namespace, glossary] of LOCALES) {

@@ -3,37 +3,26 @@
  * refuses. The walk moves ahead before the write settles, so the refused save has to bring the
  * person back to the screen that failed, with what they typed still there (spec §0.7).
  *
- * Target: 12.3, the shortest item with a form. The Durchgang is for paid accounts only, so the
- * tenant is lifted to "full" for this file and put back afterwards, together with the 12.3
+ * Target: 11.2, the shortest item with a form. The Durchgang is for paid accounts only, so the
+ * tenant is lifted to "full" for this file and put back afterwards, together with the 11.2
  * answers, because later layers sign off against this tenant.
  */
 import { expect, test } from "@playwright/test";
 import { e2eQuery } from "../lib/db";
-import { E2E_USER_EMAIL } from "../lib/env";
+import {
+  e2eTenant,
+  intakeRows,
+  keepAnswers,
+  payFor,
+  type Tenant,
+  type Undo,
+  undoAll,
+} from "../lib/durchgang";
 
-const CODE = "12.3";
+const CODE = "11.2";
+const CATEGORY = "AUT";
 const FIELDS_SCREEN = 2;
-
-interface Tenant {
-  company_id: string;
-  billing_account_id: string;
-  access_level: string;
-}
-
-interface IntakeRow {
-  id: string;
-  answers: Record<string, unknown> | null;
-}
-
-const intakeRows = (companyId: string) =>
-  e2eQuery<IntakeRow>(
-    `SELECT i.id, i.answers
-       FROM company_category_intake i
-       JOIN company_assessment a ON a.id = i.assessment_id
-       JOIN requirement_category rc ON rc.id = i.category_id
-      WHERE a.company_id = $1 AND rc.code = 'REG'`,
-    [companyId],
-  );
+const TOOLS = "#dg-secureCommsTools";
 
 const itemDoneCount = async (companyId: string) => {
   const [row] = await e2eQuery<{ n: string }>(
@@ -46,43 +35,14 @@ const itemDoneCount = async (companyId: string) => {
 test.describe("durchgang", () => {
   test.describe.configure({ mode: "serial" });
   let tenant: Tenant;
-  let answersBefore: readonly IntakeRow[];
+  let undos: readonly Undo[] = [];
 
   test.beforeAll(async () => {
-    const [row] = await e2eQuery<Tenant>(
-      `SELECT c.id AS company_id, b.id AS billing_account_id, b.access_level
-         FROM "user" u
-         JOIN company c ON c.id = u.company_id
-         JOIN billing_account b ON b.id = c.billing_account_id
-        WHERE u.email = $1`,
-      [E2E_USER_EMAIL],
-    );
-    if (!row) throw new Error("the e2e tenant has no billing account");
-    tenant = row;
-    answersBefore = await intakeRows(tenant.company_id);
-    await e2eQuery(`UPDATE billing_account SET access_level = 'full' WHERE id = $1`, [
-      tenant.billing_account_id,
-    ]);
+    tenant = await e2eTenant();
+    undos = [await keepAnswers(tenant, CATEGORY), await payFor(tenant)];
   });
 
-  test.afterAll(async () => {
-    await e2eQuery(`UPDATE billing_account SET access_level = $2 WHERE id = $1`, [
-      tenant.billing_account_id,
-      tenant.access_level,
-    ]);
-    const kept = new Set(answersBefore.map((r) => r.id));
-    for (const row of answersBefore) {
-      await e2eQuery(`UPDATE company_category_intake SET answers = $2 WHERE id = $1`, [
-        row.id,
-        JSON.stringify(row.answers ?? {}),
-      ]);
-    }
-    for (const row of await intakeRows(tenant.company_id)) {
-      if (!kept.has(row.id)) {
-        await e2eQuery(`DELETE FROM company_category_intake WHERE id = $1`, [row.id]);
-      }
-    }
-  });
+  test.afterAll(() => undoAll(undos));
 
   test("a refused save brings the person back to its screen, input kept", async ({
     page,
@@ -94,32 +54,31 @@ test.describe("durchgang", () => {
     );
 
     await page.goto(`/de/durchgang/${CODE}?s=${FIELDS_SCREEN}`);
-    const name = page.locator("#dg-contactPersonName");
+    const tools = page.locator(TOOLS);
     const next = page.getByRole("button", { name: "Weiter", exact: true });
-    await expect(name).toBeVisible({ timeout: 30_000 });
+    await expect(tools).toBeVisible({ timeout: 30_000 });
 
     // A required field left empty holds the screen and offers the way out instead.
-    await name.fill("");
+    await tools.fill("");
     await expect(next).toBeDisabled();
     await expect(page.getByRole("button", { name: "Geht noch nicht" })).toBeVisible();
 
-    await name.fill("Abgewiesene Eingabe");
-    await page.locator("#dg-contactPersonEmail").fill("abgewiesen@example.com");
+    await tools.fill("Abgewiesene Eingabe");
     await next.click();
 
     await expect(
       page.getByText("Das wurde nicht gespeichert.", { exact: false }),
     ).toBeVisible();
     await expect(page).toHaveURL(new RegExp(`[?&]s=${FIELDS_SCREEN}\\b`));
-    await expect(name).toHaveValue("Abgewiesene Eingabe");
+    await expect(tools).toHaveValue("Abgewiesene Eingabe");
 
-    const rows = await intakeRows(tenant.company_id);
-    expect(rows.some((r) => r.answers?.contactPersonName === "Abgewiesene Eingabe")).toBe(
+    const rows = await intakeRows(tenant, CATEGORY);
+    expect(rows.some((r) => r.answers?.secureCommsTools === "Abgewiesene Eingabe")).toBe(
       false,
     );
   });
 
-  test("walks 12.3 to its done screen and records the answers", async ({ page }) => {
+  test("walks 11.2 to its done screen and records the answers", async ({ page }) => {
     const doneBefore = await itemDoneCount(tenant.company_id);
 
     await page.goto(`/de/durchgang/${CODE}`);
@@ -128,25 +87,20 @@ test.describe("durchgang", () => {
     await next.click();
     await next.click();
 
-    await page
-      .locator("#dg-contactPersonName")
-      .fill("Kontaktstelle Informationssicherheit");
-    await page
-      .locator("#dg-contactPersonEmail")
-      .fill("it-sicherheit@stadtwerk-musterstadt.de");
-    await page.locator("#dg-lastRegistrationUpdate").fill("2026-09-01");
+    await page.locator(TOOLS).fill("Signal für Notfälle, Microsoft Teams im Alltag");
     await next.click();
 
-    await expect(page.getByRole("heading", { name: "Kontakt erfasst" })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "Ihre Kommunikation ist festgehalten" }),
+    ).toBeVisible();
 
     await expect
       .poll(async () => {
-        const rows = await intakeRows(tenant.company_id);
-        return rows.find((r) => r.answers?.contactPersonEmail)?.answers ?? null;
+        const rows = await intakeRows(tenant, CATEGORY);
+        return rows.find((r) => r.answers?.secureCommsTools)?.answers ?? null;
       })
       .toMatchObject({
-        contactPersonName: "Kontaktstelle Informationssicherheit",
-        contactPersonEmail: "it-sicherheit@stadtwerk-musterstadt.de",
+        secureCommsTools: "Signal für Notfälle, Microsoft Teams im Alltag",
       });
     await expect.poll(() => itemDoneCount(tenant.company_id)).toBe(doneBefore + 1);
   });

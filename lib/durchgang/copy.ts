@@ -7,7 +7,19 @@
  */
 
 import { z } from "zod";
-import type { AnyItem, AnyScreen, ScreenKind } from "./types";
+import {
+  CRYPTO_CATEGORIES,
+  CRYPTO_STATUSES,
+} from "@/lib/compliance/policy-config-schemas";
+import {
+  type AnyItem,
+  type AnyScreen,
+  askedFields,
+  BACKUP_FREQUENCIES,
+  MFA_METHODS,
+  POLICY_LISTS,
+  type ScreenKind,
+} from "./types";
 
 const text = z.string().trim().min(1);
 const heading = { title: text, lead: text };
@@ -21,12 +33,21 @@ const SCREEN_COPY = {
     duty: text,
     link: text.optional(),
   }),
+  /** `confirm` labels the tick that the person has it at hand, where the script asks for one. */
   prepare: z.object({
     ...heading,
     items: z.array(z.object({ name: text, detail: text })).min(1),
     source: text,
+    confirm: text.optional(),
   }),
-  compare: z.object({ title: text, caption: text, good: pair, bad: pair }),
+  /** The first pair, then any further pairs, each its own do and don't. */
+  compare: z.object({
+    title: text,
+    caption: text,
+    good: pair,
+    bad: pair,
+    more: z.array(z.object({ good: pair, bad: pair })).optional(),
+  }),
   sample: z.object({
     title: text,
     caption: text,
@@ -36,15 +57,93 @@ const SCREEN_COPY = {
   /** One text per example of the script's screen, in its order. */
   reading: z.object({ title: text, caption: text, examples: z.array(text).min(1) }),
   provision: z.object({ ...heading, source: text }),
-  fields: z.object({ ...heading, document: text }),
+  /** `steps`: what to do, numbered, before answering; `source` sits under a provision shown. */
+  fields: z.object({
+    ...heading,
+    document: text,
+    steps: z.array(text).min(1).optional(),
+    source: text.optional(),
+  }),
   evidence: z.object({ ...heading, document: text }),
   adopt: z.object({ ...heading, lines: z.array(z.object({ label: text, text })).min(1) }),
   register: z.object(heading),
-  sources: z.object(heading),
   assets: z.object(heading),
   specify: z.object(heading),
   rate: z.object(heading),
-  done: z.object({ title: text, note: text }),
+  /** The two things a row can say is agreed, and the answer that neither is. */
+  agreements: z.object({ ...heading, security: text, incidents: text, none: text }),
+  /**
+   * The answers a sign-in can have; `unknown` until someone has checked. `which` asks for the kind
+   * of second factor, one label per kind.
+   */
+  logins: z.object({
+    ...heading,
+    mfa: text,
+    password: text,
+    unknown: text,
+    which: text,
+    // Every method asset.mfa_method takes needs its label, and no other.
+    methods: z.record(z.enum(MFA_METHODS), text),
+  }),
+  approve: z.object(heading),
+  riskmap: z.object(heading),
+  /**
+   * The answer that a process must keep running, the line for how it does without IT, and common
+   * answers for that line.
+   */
+  critical: z.object({
+    ...heading,
+    keep: text,
+    how: text,
+    example: text,
+    suggestions: z.array(text).min(1).optional(),
+  }),
+  /**
+   * The policy itself: its fixed sections, the clauses the person may add, and the signature
+   * line. `{company}` stands for the company's name and `{<field>}` for the answer to one of the
+   * item's fields; both are filled in when the text is written.
+   */
+  policy: z.object({
+    ...heading,
+    document: z.object({
+      title: text,
+      sections: z.array(z.object({ heading: text, text })).min(1),
+      clauses: z.array(z.object({ id: text, label: text, heading: text, text })),
+      /** The heading the company's own addition is printed under. */
+      own: text,
+      signature: text,
+    }),
+  }),
+  /**
+   * The backup systems: the two answers per system, one label per frequency (a test checks the
+   * set against the schema's), the line when none is listed and the button that lists one.
+   */
+  backups: z.object({
+    ...heading,
+    frequency: text,
+    options: z.record(z.string(), text),
+    lastRestore: text,
+    lastRestoreHint: text,
+    empty: text,
+    add: text,
+  }),
+  /**
+   * The crypto list: the heading of each kind and status, where it comes from, the tick that it
+   * applies, and the link to change single entries.
+   */
+  crypto: z.object({
+    ...heading,
+    document: text,
+    // Every kind and status the list's schema allows needs its label, and no other.
+    categories: z.record(z.enum(CRYPTO_CATEGORIES), text),
+    status: z.record(z.enum(CRYPTO_STATUSES), text),
+    bsi: text,
+    own: text,
+    applies: text,
+    change: text,
+  }),
+  /** `note` only where there is something the person still needs to know. */
+  done: z.object({ title: text, note: text.optional() }),
 } as const satisfies Record<ScreenKind, z.ZodType>;
 
 const ITEM_COPY = z.object({
@@ -60,10 +159,11 @@ const ITEM_COPY = z.object({
         hint: text,
         /** One label per value, for a field whose schema is a choice. A test checks the set. */
         options: z.record(z.string(), text).optional(),
+        /** Common answers to a text field, which a tap adds to what is written. */
+        suggestions: z.array(text).min(1).optional(),
       }),
     )
     .default({}),
-  sources: z.record(z.string(), z.object({ label: text, text })).default({}),
 });
 
 type ItemCopy = z.infer<typeof ITEM_COPY>;
@@ -73,9 +173,6 @@ type Keyed<K extends string, V> = V & { readonly key: K };
 interface Extras {
   readonly fields: {
     readonly fields: readonly Keyed<string, ItemCopy["fields"][string]>[];
-  };
-  readonly sources: {
-    readonly sources: readonly Keyed<string, ItemCopy["sources"][string]>[];
   };
 }
 
@@ -117,29 +214,40 @@ const TERM_MARKERS: ReadonlyArray<readonly [string, keyof Terms]> = [
   ["{authority}", "authority"],
 ];
 
-/** The copy with every term filled in, and the path of any string that still holds a brace. */
+/** How a policy names something it is written with: the company, or one of the item's answers. */
+export const marker = (name: string): string => `{${name}}`;
+
+/** Stands for the company's name in a policy; filled in when the policy is written, not here. */
+export const COMPANY_MARKER = marker("company");
+
+/**
+ * The copy with every term filled in, and the path of any string that still holds a brace other
+ * than the markers a policy may carry, which are left for the policy to fill.
+ */
 const fill = (
   value: unknown,
   terms: Terms,
+  kept: readonly string[],
   where: string,
 ): { readonly value: unknown; readonly errors: readonly string[] } => {
   if (typeof value === "string") {
     const filled = TERM_MARKERS.reduce(
-      (acc, [marker, key]) => acc.split(marker).join(terms[key]),
+      (acc, [placeholder, key]) => acc.split(placeholder).join(terms[key]),
       value,
     );
+    const unknown = kept.reduce((acc, m) => acc.split(m).join(""), filled).includes("{");
     return {
       value: filled,
-      errors: filled.includes("{") ? [`${where}: unknown placeholder`] : [],
+      errors: unknown ? [`${where}: unknown placeholder`] : [],
     };
   }
   if (Array.isArray(value)) {
-    const parts = value.map((v, i) => fill(v, terms, `${where}.${i}`));
+    const parts = value.map((v, i) => fill(v, terms, kept, `${where}.${i}`));
     return { value: parts.map((p) => p.value), errors: parts.flatMap((p) => p.errors) };
   }
   if (typeof value === "object" && value !== null) {
     const parts = Object.entries(value).map(
-      ([k, v]) => [k, fill(v, terms, `${where}.${k}`)] as const,
+      ([k, v]) => [k, fill(v, terms, kept, `${where}.${k}`)] as const,
     );
     return {
       value: Object.fromEntries(parts.map(([k, p]) => [k, p.value])),
@@ -216,25 +324,18 @@ function resolveScreen(
         ? ok({ kind: screen.kind, screen, copy: { ...copy.value, fields: fields.value } })
         : { ok: false, errors: errorsOf(copy, fields) };
     }
-    case "sources": {
-      const copy = parse(SCREEN_COPY.sources, raw, where);
-      const sources = pick(head.sources, screen.sources, `${base}.sources`);
-      return copy.ok && sources.ok
-        ? ok({
-            kind: screen.kind,
-            screen,
-            copy: { ...copy.value, sources: sources.value },
-          })
-        : { ok: false, errors: errorsOf(copy, sources) };
-    }
     case "learn": {
       const copy = one(screen, SCREEN_COPY.learn);
       return copy.ok && screen.link && !copy.value.copy.link
         ? { ok: false, errors: [`${where}.link: missing`] }
         : copy;
     }
-    case "prepare":
-      return one(screen, SCREEN_COPY.prepare);
+    case "prepare": {
+      const copy = one(screen, SCREEN_COPY.prepare);
+      return copy.ok && screen.confirm && !copy.value.copy.confirm
+        ? { ok: false, errors: [`${where}.confirm: missing`] }
+        : copy;
+    }
     case "compare":
       return one(screen, SCREEN_COPY.compare);
     case "sample":
@@ -264,6 +365,34 @@ function resolveScreen(
       return one(screen, SCREEN_COPY.specify);
     case "rate":
       return one(screen, SCREEN_COPY.rate);
+    case "agreements":
+      return one(screen, SCREEN_COPY.agreements);
+    case "logins":
+      return one(screen, SCREEN_COPY.logins);
+    case "approve":
+      return one(screen, SCREEN_COPY.approve);
+    case "riskmap":
+      return one(screen, SCREEN_COPY.riskmap);
+    case "critical":
+      return one(screen, SCREEN_COPY.critical);
+    case "backups": {
+      // Every frequency the asset column takes needs its label, and no other.
+      const copy = one(screen, SCREEN_COPY.backups);
+      const labelled = copy.ok ? Object.keys(copy.value.copy.options).sort() : [];
+      return copy.ok && labelled.join() !== [...BACKUP_FREQUENCIES].sort().join()
+        ? { ok: false, errors: [`${where}.options: ${labelled.join()}`] }
+        : copy;
+    }
+    case "crypto":
+      return one(screen, SCREEN_COPY.crypto);
+    case "policy": {
+      // A clause is chosen and stored by its id, so two clauses may not share one.
+      const copy = one(screen, SCREEN_COPY.policy);
+      const ids = copy.ok ? copy.value.copy.document.clauses.map((c) => c.id) : [];
+      return new Set(ids).size !== ids.length
+        ? { ok: false, errors: [`${where}.document.clauses: duplicate id`] }
+        : copy;
+    }
     case "done":
       return one(screen, SCREEN_COPY.done);
     default:
@@ -279,7 +408,17 @@ export function resolveItem(namespace: unknown, item: AnyItem): Result<ResolvedI
   const base = `items.${itemKey(item.code)}`;
   const terms = parse(TERMS, at(namespace, "terms"), "terms");
   if (!terms.ok) return terms;
-  const filled = fill(at(at(namespace, "items"), itemKey(item.code)), terms.value, base);
+  const kept = [
+    COMPANY_MARKER,
+    ...askedFields(item).map(marker),
+    ...POLICY_LISTS.map(marker),
+  ];
+  const filled = fill(
+    at(at(namespace, "items"), itemKey(item.code)),
+    terms.value,
+    kept,
+    base,
+  );
   if (filled.errors.length > 0) return { ok: false, errors: filled.errors };
   const head = parse(ITEM_COPY, filled.value, base);
   if (!head.ok) return head;
@@ -297,11 +436,6 @@ export function resolveItem(namespace: unknown, item: AnyItem): Result<ResolvedI
       Object.keys(head.value.fields),
       screens.flatMap((s) => (s.kind === "fields" ? s.fields : [])),
       `${base}.fields`,
-    ),
-    ...unused(
-      Object.keys(head.value.sources),
-      screens.flatMap((s) => (s.kind === "sources" ? s.sources : [])),
-      `${base}.sources`,
     ),
   ];
   if (errors.length > 0) return { ok: false, errors };

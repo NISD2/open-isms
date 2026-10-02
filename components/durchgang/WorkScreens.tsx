@@ -1,37 +1,40 @@
 "use client";
 
 import {
-  Calculator,
+  ArrowRight,
   Check,
   CheckCircle2,
-  ExternalLink,
   FileSignature,
   FileText,
   ListChecks,
-  type LucideIcon,
   ScrollText,
-  Search,
-  ShieldCheck,
-  Wrench,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { BigChecklist } from "@/components/asset-inventory/BigChecklist";
 import { FileUpload } from "@/components/compliance/FileUpload";
-import { InlineModulePanel } from "@/components/compliance/InlineModulePanel";
-import { InlineInvite } from "@/components/team/InlineInvite";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
-import { Link } from "@/i18n/navigation";
-import type { ResolvedScreen, SourceId } from "@/lib/durchgang";
+import {
+  type ResolvedScreen,
+  recordedDay,
+  type SuggestSource,
+  sliceOf,
+} from "@/lib/durchgang";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
-import { cn } from "@/lib/utils";
+import { trpc } from "@/lib/trpc/client";
 import { ArtThumb } from "./Art";
 import { asInput, type Draft, type DraftUpdate } from "./draft";
-import { Heading, Lead } from "./ExplainScreens";
+import { Aside, Heading, Lead, ProvisionView, Source } from "./ExplainScreens";
+import { InfoTip } from "./InfoTip";
+import { ManagementReviews } from "./ManagementReviews";
+import { PersonPick } from "./PersonPick";
+import { Suggestions } from "./Suggestions";
+import { SupplierList } from "./SupplierList";
 import { TrainingRecords } from "./TrainingRecords";
-import type { ItemView, Registers, WalkEntry } from "./view";
+import { useRecorded } from "./useRecorded";
+import type { ItemView, WalkEntry } from "./view";
 
 export type Of<K extends ResolvedScreen["kind"]> = Extract<ResolvedScreen, { kind: K }>;
 
@@ -40,12 +43,6 @@ export interface WorkProps {
   readonly draft: Draft;
   readonly onDraft: DraftUpdate;
 }
-
-const longDate = (locale: "de" | "en", date: Date) =>
-  new Intl.DateTimeFormat(locale === "de" ? "de-DE" : "en-GB", {
-    timeZone: "Europe/Berlin",
-    dateStyle: "long",
-  }).format(date);
 
 /** Big choice cards on a real radio group: choice fields, yes or no. */
 function Choice({
@@ -181,6 +178,18 @@ function FieldInput({
   }
 }
 
+/** A field's common answers from the company's own data: its software, or its contact domain. */
+function useOwnSuggestions(from: SuggestSource | undefined): readonly string[] {
+  const assets = trpc.asset.list.useQuery(undefined, { enabled: from === "software" });
+  const contact = trpc.durchgang.contactSuggestions.useQuery(undefined, {
+    enabled: from === "contact",
+  });
+  if (from === "contact") return contact.data ?? [];
+  return (assets.data ?? []).flatMap((a) =>
+    sliceOf(a.type) === "software" ? [a.name] : [],
+  );
+}
+
 export function Fields({
   item,
   draft,
@@ -188,45 +197,92 @@ export function Fields({
   entry,
 }: WorkProps & { entry: Of<"fields"> }) {
   const t = useTranslations("durchgang.ui");
+  const suggest = entry.screen.suggest;
+  const own = useOwnSuggestions(suggest?.from);
+  const { steps, source } = entry.copy;
   return (
     <>
       <Heading>{entry.copy.title}</Heading>
       <Lead>{entry.copy.lead}</Lead>
+      {steps && (
+        <ol className="mt-6 max-w-[62ch] space-y-3">
+          {steps.map((step, i) => (
+            <li key={step} className="flex gap-3 text-[15px] leading-7">
+              <span className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground tabular-nums">
+                {i + 1}
+              </span>
+              <span>{step}</span>
+            </li>
+          ))}
+        </ol>
+      )}
+      {entry.screen.provision && (
+        <div className="mt-6">
+          <ProvisionView item={item} provision={entry.screen.provision} />
+        </div>
+      )}
       <div className="mt-8 overflow-hidden rounded-2xl border bg-card shadow-sm">
         <div className="flex items-center gap-3 border-b bg-muted/40 px-5 py-3">
           <FileText className="size-4 text-muted-foreground" />
           <p className="text-sm font-medium">{entry.copy.document}</p>
-          <span className="ml-auto text-xs text-muted-foreground">{t("copyFrom")}</span>
+          {!entry.screen.person && !steps && (
+            <span className="ml-auto text-xs text-muted-foreground">{t("copyFrom")}</span>
+          )}
         </div>
         <div className="space-y-7 p-5 sm:p-6">
-          {entry.copy.fields.map((field) => (
-            <div key={field.key} className="space-y-1.5">
-              <Label htmlFor={`dg-${field.key}`} className="text-[15px] font-semibold">
-                {field.label}
-              </Label>
-              <FieldInput
-                id={`dg-${field.key}`}
-                meta={item.fields[field.key]}
-                label={field.label}
-                options={field.options}
-                value={draft.values[field.key]}
-                onChange={(value) =>
-                  onDraft({ ...draft, values: { ...draft.values, [field.key]: value } })
-                }
-              />
-              <details className="group pt-1 text-sm">
-                <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 font-medium text-primary">
-                  <Search className="size-3.5" />
-                  {t("whereToFind")}
-                </summary>
-                <p className="mt-2 max-w-[60ch] rounded-lg bg-muted/60 p-3 text-muted-foreground">
-                  {field.hint}
-                </p>
-              </details>
-            </div>
-          ))}
+          {entry.copy.fields.map((field) => {
+            const id = `dg-${field.key}`;
+            const value = draft.values[field.key];
+            const onChange = (next: unknown) =>
+              onDraft({ ...draft, values: { ...draft.values, [field.key]: next } });
+            return (
+              <div key={field.key} className="space-y-1.5">
+                <div className="flex items-center gap-1.5">
+                  <Label htmlFor={id} className="text-[15px] font-semibold">
+                    {field.label}
+                  </Label>
+                  <InfoTip label={t("fieldHelp", { label: field.label })}>
+                    {field.hint}
+                  </InfoTip>
+                </div>
+                {entry.screen.person === field.key ? (
+                  <PersonPick
+                    id={id}
+                    label={field.label}
+                    value={typeof value === "string" ? value : ""}
+                    onChange={onChange}
+                    team={item.team}
+                    viewer={item.viewer}
+                  />
+                ) : (
+                  <FieldInput
+                    id={id}
+                    meta={item.fields[field.key]}
+                    label={field.label}
+                    options={field.options}
+                    value={value}
+                    onChange={onChange}
+                  />
+                )}
+                {suggest?.field === field.key && (
+                  <Suggestions
+                    own
+                    items={own}
+                    value={typeof value === "string" ? value : ""}
+                    onChange={onChange}
+                  />
+                )}
+                <Suggestions
+                  items={field.suggestions ?? []}
+                  value={typeof value === "string" ? value : ""}
+                  onChange={onChange}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
+      {source && <Source>{source}</Source>}
     </>
   );
 }
@@ -284,8 +340,8 @@ export function Adopt({
           <p className="text-sm font-medium">{t("record")}</p>
           <p className="ml-auto text-xs text-muted-foreground">
             {adoptedAt
-              ? t("adoptedOn", { date: longDate(item.locale, adoptedAt) })
-              : longDate(item.locale, new Date())}
+              ? t("adoptedOn", { date: recordedDay(item.locale, adoptedAt) })
+              : recordedDay(item.locale, new Date())}
           </p>
         </header>
         <dl className="divide-y">
@@ -315,75 +371,6 @@ export function Adopt({
   );
 }
 
-const SOURCE_ICON: Readonly<Record<SourceId, LucideIcon>> = {
-  ropa: ShieldCheck,
-  ledger: Calculator,
-  payables: Calculator,
-  contracts: FileText,
-  provider: Wrench,
-};
-
-export function Sources({ draft, onDraft, entry }: WorkProps & { entry: Of<"sources"> }) {
-  const t = useTranslations("durchgang.ui");
-  return (
-    <>
-      <Heading>{entry.copy.title}</Heading>
-      <Lead>{entry.copy.lead}</Lead>
-      <div className="mt-8 grid gap-3">
-        {entry.screen.sources.map((id) => {
-          const source = entry.copy.sources.find((s) => s.key === id);
-          if (!source) return null;
-          const Icon = SOURCE_ICON[id];
-          const looked = draft.sources.includes(id);
-          return (
-            <button
-              key={id}
-              type="button"
-              aria-pressed={looked}
-              onClick={() =>
-                onDraft({
-                  ...draft,
-                  sources: looked
-                    ? draft.sources.filter((s) => s !== id)
-                    : [...draft.sources, id],
-                })
-              }
-              className={cn(
-                "grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-4 rounded-2xl border bg-card p-4 text-left shadow-sm transition-colors sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:p-5",
-                looked && "border-primary/40 bg-primary/[0.04]",
-              )}
-            >
-              <span className="row-span-2 flex size-12 shrink-0 items-center justify-center rounded-xl bg-muted sm:row-span-1">
-                <Icon className="size-5 text-foreground/70" />
-              </span>
-              <span className="min-w-0 flex-1">
-                <span className="block font-semibold break-words hyphens-auto">
-                  {source.label}
-                </span>
-                <span className="mt-0.5 block text-sm text-muted-foreground">
-                  {source.text}
-                </span>
-              </span>
-              <span
-                className={cn(
-                  "col-start-2 mt-3 flex items-center gap-1.5 justify-self-start rounded-full border px-3 py-1 text-xs font-medium sm:col-start-3 sm:mt-0",
-                  looked
-                    ? "border-primary bg-primary text-primary-foreground"
-                    : "text-muted-foreground",
-                )}
-              >
-                {looked && <Check className="size-3.5" />}
-                {t("looked")}
-              </span>
-            </button>
-          );
-        })}
-      </div>
-      <p className="mt-4 text-sm text-muted-foreground">{t("lookedNote")}</p>
-    </>
-  );
-}
-
 export function Assets({
   item,
   draft,
@@ -391,39 +378,31 @@ export function Assets({
   entry,
 }: WorkProps & { entry: Of<"assets"> }) {
   const t = useTranslations("durchgang.ui");
-  // The catalogue seeds an empty register only; one that already has rows is shown as it is.
-  if (item.assets && item.assets.length > 0) {
-    return (
-      <>
-        <Heading>{t("assets.title")}</Heading>
-        <Lead>{t("assets.lead")}</Lead>
-        <div className="mt-8">
-          <InlineModulePanel
-            moduleRef="asset"
-            requirementCode={item.code}
-            items={item.assets}
-            isCompleted={false}
-          />
-        </div>
-        <p className="mt-4 text-sm text-muted-foreground">{t("registerHint")}</p>
-      </>
-    );
-  }
+  // What is already on the register shows ticked and stays: the walk only ever adds.
+  const listed = item.register?.listed ?? [];
+  const others = item.register?.others ?? [];
+  const count =
+    listed.length + others.length + draft.checked.length + draft.custom.length;
   return (
     <>
       <Heading>{entry.copy.title}</Heading>
       <Lead>{entry.copy.lead}</Lead>
       <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
         <ListChecks className="size-4" />
-        {t("onList", { count: draft.checked.length + draft.custom.length })}
+        {t("onList", { count })}
       </p>
+      {others.length > 0 && (
+        <Aside className="mt-3">{t("alsoListed", { names: others.join(", ") })}</Aside>
+      )}
       <div className="mt-6">
         <BigChecklist
           sectors={[]}
           groups={entry.screen.groups}
-          checked={[...draft.checked]}
+          checked={[...listed, ...draft.checked]}
           custom={[...draft.custom]}
-          onCheckedChange={(checked) => onDraft({ ...draft, checked })}
+          onCheckedChange={(checked) =>
+            onDraft({ ...draft, checked: checked.filter((id) => !listed.includes(id)) })
+          }
           onCustomChange={(custom) => onDraft({ ...draft, custom })}
         />
       </div>
@@ -433,33 +412,33 @@ export function Assets({
 
 export function Register({ item, entry }: { item: ItemView; entry: Of<"register"> }) {
   const t = useTranslations("durchgang.ui");
+  const { screen } = entry;
   return (
     <>
       <Heading>{entry.copy.title}</Heading>
       <Lead>{entry.copy.lead}</Lead>
       <div className="mt-8">
         {(() => {
-          switch (entry.screen.module) {
-            case "team":
-              return <Team rows={item.registers.team ?? []} />;
+          switch (screen.module) {
             case "training_record":
               return (
                 <TrainingRecords
                   initial={item.registers.training_record ?? []}
                   locale={item.locale}
+                  audience={screen.audience}
+                />
+              );
+            case "management_review":
+              return (
+                <ManagementReviews
+                  initial={item.registers.management_review ?? []}
+                  locale={item.locale}
                 />
               );
             case "supplier":
-              return (
-                <InlineModulePanel
-                  moduleRef={entry.screen.module}
-                  requirementCode={item.code}
-                  items={item.registers.supplier ?? []}
-                  isCompleted={false}
-                />
-              );
+              return <SupplierList initial={item.registers.supplier ?? []} />;
             default:
-              return entry.screen.module satisfies never;
+              return screen satisfies never;
           }
         })()}
       </div>
@@ -468,88 +447,22 @@ export function Register({ item, entry }: { item: ItemView; entry: Of<"register"
   );
 }
 
-/**
- * The team register is the company's accounts and which area each one owns; it has no field
- * for "coordinator" or "deputy". So the screen shows who is in, invites without leaving, and
- * hands the area assignment to the team page.
- */
-function Team({ rows }: { rows: Registers["team"] }) {
-  const t = useTranslations("durchgang.ui.team");
-  const members = rows.map((row) => {
-    const name = row.name?.trim() || row.email;
-    return {
-      id: row.id,
-      name,
-      detail: row.jobTitle?.trim() || (row.name ? row.email : null),
-    };
-  });
-  return (
-    <div className="overflow-hidden rounded-2xl border bg-card shadow-sm">
-      <ul className="divide-y">
-        {members.map((member) => (
-          <li key={member.id} className="flex items-center gap-3 px-5 py-3">
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
-              {member.name.charAt(0).toUpperCase()}
-            </span>
-            <div className="min-w-0">
-              <p className="truncate text-sm font-medium">{member.name}</p>
-              {member.detail && (
-                <p className="truncate text-xs text-muted-foreground">{member.detail}</p>
-              )}
-            </div>
-          </li>
-        ))}
-      </ul>
-      <div className="space-y-3 border-t bg-muted/30 px-5 py-4">
-        <p className="text-sm font-medium">{t("invite")}</p>
-        <InlineInvite compact placeholder={t("placeholder")} />
-        <Link
-          href="/team"
-          target="_blank"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-primary"
-        >
-          {t("areas")}
-          <ExternalLink className="size-3.5" />
-        </Link>
-      </div>
-    </div>
-  );
-}
-
 export function Done({
   item,
   entry,
   draft,
   next,
+  onNext,
 }: {
   item: ItemView;
   entry: Of<"done">;
   draft: Draft;
   next: WalkEntry | null;
+  /** The footer's primary action; the card for what comes next does the same. */
+  onNext: () => void;
 }) {
   const t = useTranslations("durchgang.ui");
-  const shown = (
-    value: unknown,
-    options: Readonly<Record<string, string>> | undefined,
-  ) =>
-    typeof value === "boolean"
-      ? t(value ? "yes" : "no")
-      : typeof value === "string"
-        ? (options?.[value] ?? value)
-        : String(value);
-  const recorded = [
-    ...item.screens.flatMap((s) =>
-      s.kind === "fields"
-        ? s.copy.fields.flatMap((f) => {
-            const value = draft.values[f.key];
-            return value === "" || value === undefined || value === null
-              ? []
-              : [`${f.label}: ${shown(value, f.options)}`];
-          })
-        : [],
-    ),
-    ...(draft.uploaded ? [draft.uploaded] : []),
-  ];
+  const recorded = useRecorded(item, draft);
   return (
     <>
       <section className="relative overflow-hidden rounded-3xl bg-primary p-8 text-primary-foreground sm:p-10">
@@ -571,16 +484,21 @@ export function Done({
           </>
         )}
       </section>
-      <p className="mt-6 max-w-[60ch] text-muted-foreground">{entry.copy.note}</p>
+      {entry.copy.note && <Aside className="mt-6">{entry.copy.note}</Aside>}
       {next && next.code !== item.code && (
-        <div className="mt-8 flex items-center gap-5 rounded-2xl border bg-card p-4 shadow-sm">
+        <button
+          type="button"
+          onClick={onNext}
+          className="group mt-8 flex w-full cursor-pointer items-center gap-5 rounded-2xl border bg-card p-4 text-left shadow-sm transition-colors hover:border-primary/40 hover:bg-primary/[0.03]"
+        >
           <ArtThumb src={next.image} />
-          <div className="min-w-0">
+          <div className="min-w-0 flex-1">
             <p className="text-xs font-medium text-muted-foreground">{t("comesNext")}</p>
             <p className="text-lg font-semibold">{next.headline}</p>
             <p className="text-sm text-muted-foreground">{next.teaser}</p>
           </div>
-        </div>
+          <ArrowRight className="size-5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-foreground" />
+        </button>
       )}
     </>
   );

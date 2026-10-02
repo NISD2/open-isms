@@ -8,36 +8,42 @@
  * Insert types = what you send TO the database (defaults omitted)
  */
 
-// --- Shared table imports (alphabetical by file) ---
-import { policyAcknowledgment } from "@nisd2/isms-schema/tables/acknowledgment";
-import { companyAssessment, companyRequirementStatus } from "@nisd2/isms-schema/tables/assessments";
-import { asset } from "@nisd2/grc-data-model/schema";
-import { internalAudit, auditFinding } from "@nisd2/isms-schema/tables/audit";
-import { auditLog } from "@nisd2/isms-schema/tables/audit-log";
-import { changeRequest } from "@nisd2/isms-schema/tables/change-management";
-import { evidence } from "@nisd2/isms-schema/tables/evidence";
-import { exercise } from "@nisd2/isms-schema/tables/exercise";
-
-import { complianceFramework, requirementCategory } from "@nisd2/grc-data-model/schema";
-import { improvementItem } from "@nisd2/isms-schema/tables/improvement";
-import { incident } from "@nisd2/grc-data-model/schema";
-import { kpiMeasurement } from "@nisd2/isms-schema/tables/kpi";
-import { notification } from "@nisd2/isms-schema/tables/notification";
-import { company, user } from "@nisd2/isms-schema/tables/organization";
-import { patchRecord } from "@nisd2/isms-schema/tables/patch-management";
-import { policy } from "@nisd2/isms-schema/tables/policies";
-import { requirement, requirementPrerequisite } from "@nisd2/grc-data-model/schema";
-import { managementReview } from "@nisd2/isms-schema/tables/review";
-import { risk, riskAsset, riskSupplier } from "@nisd2/grc-data-model/schema";
-import { riskTreatment } from "@nisd2/isms-schema/tables/risk-treatment";
-import { supplier } from "@nisd2/grc-data-model/schema";
-import { trainingRecord } from "@nisd2/isms-schema/tables/training";
-
-import { newsletterIssue } from "./tables/newsletter-issue";
-import { newsletterGroup, newsletterGroupMember } from "./tables/newsletter-group";
-
-// --- Module imports ---
-import { bsiRegistration, bsiIncidentReport } from "./modules/bsig";
+// Type-only: the tables are read here for their inferred row types and nothing else.
+import type {
+  asset,
+  assetProvider,
+  complianceFramework,
+  incident,
+  requirement,
+  requirementCategory,
+  requirementPrerequisite,
+  risk,
+  riskAsset,
+  riskSupplier,
+  supplier,
+} from "@nisd2/grc-data-model/schema";
+import type { policyAcknowledgment } from "@nisd2/isms-schema/tables/acknowledgment";
+import type {
+  companyAssessment,
+  companyRequirementStatus,
+} from "@nisd2/isms-schema/tables/assessments";
+import type { auditFinding, internalAudit } from "@nisd2/isms-schema/tables/audit";
+import type { auditLog } from "@nisd2/isms-schema/tables/audit-log";
+import type { changeRequest } from "@nisd2/isms-schema/tables/change-management";
+import type { evidence } from "@nisd2/isms-schema/tables/evidence";
+import type { exercise } from "@nisd2/isms-schema/tables/exercise";
+import type { improvementItem } from "@nisd2/isms-schema/tables/improvement";
+import type { kpiMeasurement } from "@nisd2/isms-schema/tables/kpi";
+import type { notification } from "@nisd2/isms-schema/tables/notification";
+import type { company, user } from "@nisd2/isms-schema/tables/organization";
+import type { patchRecord } from "@nisd2/isms-schema/tables/patch-management";
+import type { policy } from "@nisd2/isms-schema/tables/policies";
+import type { managementReview } from "@nisd2/isms-schema/tables/review";
+import type { riskTreatment } from "@nisd2/isms-schema/tables/risk-treatment";
+import type { trainingRecord } from "@nisd2/isms-schema/tables/training";
+import type { bsiIncidentReport, bsiRegistration } from "./modules/bsig";
+import type { newsletterGroup, newsletterGroupMember } from "./tables/newsletter-group";
+import type { newsletterIssue } from "./tables/newsletter-issue";
 
 // ============================================================================
 // Organization
@@ -102,6 +108,7 @@ export type NewAuditLog = typeof auditLog.$inferInsert;
 
 export type Asset = typeof asset.$inferSelect;
 export type NewAsset = typeof asset.$inferInsert;
+export type AssetProvider = typeof assetProvider.$inferSelect;
 
 // ============================================================================
 // Risks

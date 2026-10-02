@@ -4,11 +4,16 @@ import {
   BookText,
   CheckCircle2,
   ExternalLink,
+  FileText,
   GraduationCap,
+  Info,
+  ScrollText,
   XCircle,
 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { type ReactNode, useRef, useState } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 import { Link } from "@/i18n/navigation";
 import {
   FREQUENCY_TEXT,
@@ -16,10 +21,14 @@ import {
   RISK_LEVEL_TEXT,
   riskLevel,
 } from "@/lib/compliance/bsi-200-3";
+import { typesetCitation } from "@/lib/compliance/citations";
 import type { LearnLink, ResolvedScreen } from "@/lib/durchgang";
+import { trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
 import { Art } from "./Art";
+import { Glossed } from "./Glossed";
 import { RegistrationPortals } from "./RegistrationPortals";
+import { ReportingChannels } from "./ReportingChannels";
 import { ReportingClock } from "./ReportingClock";
 import { LEVEL_FILL, RiskMatrix } from "./RiskMatrix";
 import { SizeThresholds } from "./SizeThresholds";
@@ -38,42 +47,125 @@ export function Heading({ children }: { children: ReactNode }) {
 export function Lead({ children }: { children: ReactNode }) {
   return (
     <p className="mt-4 max-w-[60ch] text-lg leading-8 text-muted-foreground">
-      {children}
+      {typeof children === "string" ? <Glossed text={children} /> : children}
+    </p>
+  );
+}
+
+/** Good to know, not needed to go on: one quiet line behind an info sign. */
+export function Aside({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <p
+      className={cn(
+        "flex max-w-[62ch] gap-2.5 text-sm leading-6 text-muted-foreground",
+        className,
+      )}
+    >
+      <Info className="mt-1 size-4 shrink-0" />
+      <span>{children}</span>
     </p>
   );
 }
 
 /** Where a BSI rule or a statute list comes from, in small type under it. */
-function Source({ children }: { children: ReactNode }) {
+export function Source({ children }: { children: ReactNode }) {
   return (
     <p className="mt-4 flex max-w-[62ch] gap-2 text-xs leading-5 text-muted-foreground">
       <BookText className="mt-0.5 size-3.5 shrink-0" />
-      {children}
+      {typeof children === "string" ? typesetCitation(children) : children}
     </p>
   );
 }
 
-/** The legal duty: a paragraph sign, one plain sentence, and the citation it rests on. */
-function Duty({ text, cite }: { text: string; cite: string }) {
+/**
+ * The legal duty: a paragraph sign, one plain sentence, and the citation it rests on. The whole
+ * card opens that provision.
+ */
+function Duty({ text, cite, href }: { text: string; cite: string; href: string }) {
   const t = useTranslations("durchgang.ui");
   return (
-    <aside className="mt-10 flex max-w-[62ch] gap-4 rounded-2xl border border-primary/15 bg-primary/[0.04] p-5">
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className="group mt-10 flex max-w-[62ch] gap-4 rounded-2xl border border-primary/15 bg-primary/[0.04] p-5 transition-colors hover:border-primary/40 hover:bg-primary/[0.07]"
+    >
       <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary font-serif text-xl text-primary-foreground">
         §
       </span>
       <div>
         <p className="text-sm font-semibold">{t("duty")}</p>
         <p className="mt-1 text-sm leading-6 text-foreground/80">{text}</p>
-        <p className="mt-3 text-xs font-medium text-primary">{cite}</p>
+        <p className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-primary group-hover:underline">
+          {cite}
+          <ExternalLink className="size-3" />
+        </p>
       </div>
-    </aside>
+    </a>
   );
 }
 
-/** The platform page each learn link opens. */
-const LEARN_HREF: Readonly<Record<LearnLink, "/training/nis2-ceo">> = {
-  ceo_course: "/training/nis2-ceo",
+/**
+ * The page each learn link opens: a platform route, or a BSI landing page. BSI material is linked
+ * at its landing page, never at the download, as the BSI's terms of use ask. A BSI page has an
+ * English twin only where its English page lists the English editions; the others are German.
+ */
+const LEARN_HREF: Readonly<
+  Record<
+    LearnLink,
+    | { readonly kind: "platform"; readonly href: "/training/nis2-ceo" }
+    | { readonly kind: "bsi"; readonly de: string; readonly en: string }
+  >
+> = {
+  ceo_course: { kind: "platform", href: "/training/nis2-ceo" },
+  bsi_it_notfallkarte: {
+    kind: "bsi",
+    de: "https://www.bsi.bund.de/dok/13035678",
+    en: "https://www.bsi.bund.de/dok/13035678",
+  },
+  bsi_tr_02102: {
+    kind: "bsi",
+    de: "https://www.bsi.bund.de/dok/TR-02102",
+    en: "https://www.bsi.bund.de/EN/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/Technische-Richtlinien/TR-nach-Thema-sortiert/tr02102/tr02102_node.html",
+  },
+  bsi_nis2_schulungen: {
+    kind: "bsi",
+    de: "https://www.bsi.bund.de/dok/nis-2-schulung-sensibilisierung",
+    en: "https://www.bsi.bund.de/dok/nis-2-schulung-sensibilisierung",
+  },
 };
+
+const LINK_STYLE =
+  "mt-6 inline-flex items-center gap-2 rounded-xl border border-primary/30 px-4 py-2.5 text-sm font-medium text-primary hover:bg-primary/[0.04]";
+
+function LearnMore({ link, label }: { link: LearnLink; label: string }) {
+  const locale = useLocale();
+  const target = LEARN_HREF[link];
+  return target.kind === "platform" ? (
+    <Link href={target.href} target="_blank" className={LINK_STYLE}>
+      <GraduationCap className="size-4" />
+      {label}
+      <ExternalLink className="size-3.5" />
+    </Link>
+  ) : (
+    <a
+      href={locale === "de" ? target.de : target.en}
+      target="_blank"
+      rel="noreferrer"
+      className={LINK_STYLE}
+    >
+      <FileText className="size-4" />
+      {label}
+      <ExternalLink className="size-3.5" />
+    </a>
+  );
+}
 
 export function Learn({ item, entry }: { item: ItemView; entry: Of<"learn"> }) {
   const { link } = entry.screen;
@@ -87,26 +179,30 @@ export function Learn({ item, entry }: { item: ItemView; entry: Of<"learn"> }) {
       <Heading>{entry.copy.title}</Heading>
       <div className="mt-5 max-w-[62ch] space-y-4 text-[17px] leading-8 text-foreground/85">
         {entry.copy.body.map((paragraph) => (
-          <p key={paragraph}>{paragraph}</p>
+          <p key={paragraph}>
+            <Glossed text={paragraph} />
+          </p>
         ))}
       </div>
-      {link && entry.copy.link && (
-        <Link
-          href={LEARN_HREF[link]}
-          target="_blank"
-          className="mt-6 inline-flex items-center gap-2 rounded-xl border border-primary/30 px-4 py-2.5 text-sm font-medium text-primary hover:bg-primary/[0.04]"
-        >
-          <GraduationCap className="size-4" />
-          {entry.copy.link}
-          <ExternalLink className="size-3.5" />
-        </Link>
-      )}
-      <Duty text={entry.copy.duty} cite={item.duty} />
+      {link && entry.copy.link && <LearnMore link={link} label={entry.copy.link} />}
+      <Duty text={entry.copy.duty} cite={item.duty} href={item.dutyHref} />
     </>
   );
 }
 
-export function Prepare({ entry }: { entry: Of<"prepare"> }) {
+/**
+ * What to have ready, numbered. Where the next step needs it, one large tick says the person has
+ * it at hand; without it they go on through "Not possible yet".
+ */
+export function Prepare({
+  entry,
+  ready,
+  onReady,
+}: {
+  entry: Of<"prepare">;
+  ready: boolean;
+  onReady: (ready: boolean) => void;
+}) {
   return (
     <>
       <Heading>{entry.copy.title}</Heading>
@@ -124,6 +220,20 @@ export function Prepare({ entry }: { entry: Of<"prepare"> }) {
           </li>
         ))}
       </ol>
+      {entry.screen.confirm && entry.copy.confirm && (
+        <Label
+          htmlFor="dg-ready"
+          className="mt-6 flex cursor-pointer items-center gap-4 rounded-2xl border-2 p-5 text-base font-semibold transition-colors hover:border-primary/40 has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:bg-primary/[0.05]"
+        >
+          <Checkbox
+            id="dg-ready"
+            className="size-6"
+            checked={ready}
+            onCheckedChange={(on) => onReady(on === true)}
+          />
+          {entry.copy.confirm}
+        </Label>
+      )}
       <Source>{entry.copy.source}</Source>
     </>
   );
@@ -175,19 +285,24 @@ function Specimen({
   );
 }
 
+/** Do and don't, one pair per row; more pairs show more of what good looks like. */
 export function Compare({ entry }: { entry: Of<"compare"> }) {
+  const pairs = [
+    { good: entry.copy.good, bad: entry.copy.bad },
+    ...(entry.copy.more ?? []),
+  ];
   return (
     <>
       <Heading>{entry.copy.title}</Heading>
       <div className="mt-8">
         <p className="text-sm font-medium text-muted-foreground">{entry.copy.caption}</p>
-        <div className="mt-4 grid gap-4 sm:grid-cols-2">
-          <Specimen
-            tone="good"
-            value={entry.copy.good.value}
-            note={entry.copy.good.note}
-          />
-          <Specimen tone="bad" value={entry.copy.bad.value} note={entry.copy.bad.note} />
+        <div className="mt-4 space-y-6">
+          {pairs.map(({ good, bad }) => (
+            <div key={good.value} className="grid gap-4 sm:grid-cols-2">
+              <Specimen tone="good" value={good.value} note={good.note} />
+              <Specimen tone="bad" value={bad.value} note={bad.note} />
+            </div>
+          ))}
         </div>
       </div>
     </>
@@ -196,32 +311,51 @@ export function Compare({ entry }: { entry: Of<"compare"> }) {
 
 export function Sample({ entry }: { entry: Of<"sample"> }) {
   const t = useTranslations("durchgang.ui");
+  const beside = entry.screen.beside;
+  const policies = trpc.durchgang.walkPolicies.useQuery(undefined, {
+    enabled: beside !== undefined,
+  });
+  const own = (policies.data ?? []).find((p) => p.type === beside);
   return (
     <>
       <Heading>{entry.copy.title}</Heading>
       <p className="mt-8 text-sm font-medium text-muted-foreground">
         {entry.copy.caption}
       </p>
-      <div className="mt-4 overflow-hidden rounded-2xl border bg-card shadow-sm">
-        <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] border-b bg-muted/40 px-5 py-2.5 text-xs font-medium text-muted-foreground">
-          <span>{t("sampleWhat")}</span>
-          <span>{t("sampleDetail")}</span>
-        </div>
-        {entry.copy.rows.map((row) => (
-          <div
-            key={row.name}
-            className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] border-b px-5 py-3.5 text-sm last:border-b-0"
-          >
-            <span className="font-medium">{row.name}</span>
-            <span className="text-muted-foreground">{row.detail}</span>
+      <div className={cn("mt-4 grid gap-4", own && "lg:grid-cols-2 lg:items-start")}>
+        <div className="overflow-hidden rounded-2xl border bg-card shadow-sm">
+          <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] border-b bg-muted/40 px-5 py-2.5 text-xs font-medium text-muted-foreground">
+            <span>{t("sampleWhat")}</span>
+            <span>{t("sampleDetail")}</span>
           </div>
-        ))}
+          {entry.copy.rows.map((row) => (
+            <div
+              key={row.name}
+              className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] border-b px-5 py-3.5 text-sm last:border-b-0"
+            >
+              <span className="font-medium">{row.name}</span>
+              <span className="text-muted-foreground">{row.detail}</span>
+            </div>
+          ))}
+        </div>
+        {own && (
+          <article className="overflow-hidden rounded-2xl border bg-card shadow-sm">
+            <header className="flex items-center gap-3 border-b bg-muted/40 px-5 py-2.5">
+              <ScrollText className="size-4 text-muted-foreground" />
+              <p className="text-xs font-medium text-muted-foreground">
+                {t("sampleBeside", { title: own.title })}
+              </p>
+            </header>
+            <div
+              className="prose prose-sm max-h-[32rem] max-w-none overflow-y-auto px-5 py-4 dark:prose-invert prose-h1:text-lg prose-h2:text-base"
+              // Rendered on the server from the stored text, without raw HTML.
+              // biome-ignore lint/security/noDangerouslySetInnerHtml: see above
+              dangerouslySetInnerHTML={{ __html: own.html }}
+            />
+          </article>
+        )}
       </div>
-      {entry.copy.note && (
-        <p className="mt-5 max-w-[62ch] rounded-xl bg-muted/60 p-4 text-sm leading-6">
-          {entry.copy.note}
-        </p>
-      )}
+      {entry.copy.note && <Aside className="mt-5">{entry.copy.note}</Aside>}
     </>
   );
 }
@@ -259,7 +393,7 @@ export function Reading({ item, entry }: { item: ItemView; entry: Of<"reading"> 
                 aria-pressed={i === chosen}
                 onClick={() => pick(i)}
                 className={cn(
-                  "h-full w-full rounded-xl border bg-card p-3.5 text-left text-sm leading-6 transition-colors",
+                  "h-full w-full cursor-pointer rounded-xl border bg-card p-3.5 text-left text-sm leading-6 transition-colors",
                   i === chosen ? "border-primary bg-primary/[0.04]" : "hover:bg-muted/50",
                 )}
               >
@@ -296,32 +430,44 @@ export function Reading({ item, entry }: { item: ItemView; entry: Of<"reading"> 
   );
 }
 
+/** A rule or list as it is, from the module that holds it. */
+export function ProvisionView({
+  item,
+  provision,
+}: {
+  item: ItemView;
+  provision: Of<"provision">["screen"]["provision"];
+}) {
+  switch (provision) {
+    case "bsi_200_3_matrix":
+      return (
+        <div className="rounded-3xl border bg-card p-4 shadow-sm sm:p-6">
+          <RiskMatrix locale={item.locale} />
+        </div>
+      );
+    case "bsig_32_clock":
+      return <ReportingClock locale={item.locale} />;
+    case "bsig_28_thresholds":
+      return <SizeThresholds />;
+    case "registration_portals":
+      return (
+        <RegistrationPortals registration={item.registration} locale={item.locale} />
+      );
+    case "reporting_channels":
+      return <ReportingChannels registration={item.registration} locale={item.locale} />;
+    default:
+      return provision satisfies never;
+  }
+}
+
 export function Provision({ item, entry }: { item: ItemView; entry: Of<"provision"> }) {
-  const shown = (() => {
-    switch (entry.screen.provision) {
-      case "bsi_200_3_matrix":
-        return (
-          <div className="rounded-3xl border bg-card p-4 shadow-sm sm:p-6">
-            <RiskMatrix locale={item.locale} />
-          </div>
-        );
-      case "bsig_32_clock":
-        return <ReportingClock locale={item.locale} />;
-      case "bsig_28_thresholds":
-        return <SizeThresholds />;
-      case "registration_portals":
-        return (
-          <RegistrationPortals registration={item.registration} locale={item.locale} />
-        );
-      default:
-        return entry.screen.provision satisfies never;
-    }
-  })();
   return (
     <>
       <Heading>{entry.copy.title}</Heading>
       <Lead>{entry.copy.lead}</Lead>
-      <div className="mt-8">{shown}</div>
+      <div className="mt-8">
+        <ProvisionView item={item} provision={entry.screen.provision} />
+      </div>
       <Source>{entry.copy.source}</Source>
     </>
   );

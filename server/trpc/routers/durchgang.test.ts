@@ -8,13 +8,24 @@ import { describe, expect, mock, test } from "bun:test";
 import type { SQL } from "drizzle-orm";
 import { PgDialect } from "drizzle-orm/pg-core";
 import type { AuditEntry } from "@/lib/audit";
-import { asset, companyRequirementStatus } from "@/schema";
+import {
+  asset,
+  companyPolicyConfig,
+  companyRequirementStatus,
+  policy,
+  supplier,
+} from "@/schema";
 
 const audits: AuditEntry[] = [];
 mock.module("@/lib/audit", () => ({
   logAudit: async (entry: AuditEntry) => {
     audits.push(entry);
   },
+}));
+// Sign-off rechecks run in the background against the real tables; they are pinned elsewhere.
+mock.module("@/lib/compliance/module-recheck", () => ({
+  invalidateModuleSignOffs: async () => {},
+  recheckModuleRequirements: async () => {},
 }));
 
 const { createCallerFactory } = await import("../init");
@@ -31,14 +42,48 @@ const CATEGORY = "77777777-7777-4777-8777-777777777777";
 const dialect = new PgDialect();
 const paramsOf = (where: SQL) => dialect.sqlToQuery(where).params;
 
-type Write = { op: "insert" | "update"; table: unknown; values: unknown };
+type Write = { op: "insert" | "update"; table: unknown; values: unknown; where?: SQL };
 
 function setup(opts: {
   accessLevel: "full" | "grandfathered" | "free";
   statusRow?: boolean;
-  existingAssets?: readonly string[];
+  /** By name, or with the catalogue item 2.2 kept when it renamed one. */
+  existingAssets?: ReadonlyArray<string | { name: string; catalogId: string }>;
   role?: "admin" | "member";
+  /** The compliance role in the company; "ceo" stands for management. */
+  jobTitle?: string | null;
   assigned?: boolean;
+  /** The risks linked to the rated things, as the rating's lookup joins them. */
+  riskLinks?: ReadonlyArray<{
+    id: string;
+    likelihood: number;
+    impact: number;
+    treatment: string;
+    note: string | null;
+    target: string;
+  }>;
+  /** The walk's policy row of the item, if one was written before. */
+  storedPolicy?: { id: string; content: string; title?: string };
+  /** The category's saved intake answers. */
+  answers?: Record<string, unknown>;
+  /** The company's suppliers a lookup finds, with their two contract columns. */
+  suppliers?: ReadonlyArray<{
+    id: string;
+    name: string;
+    security: boolean | null;
+    incidents: boolean | null;
+  }>;
+  /** The company's assets a lookup finds, with their second-factor and critical marks. */
+  assets?: ReadonlyArray<{
+    id: string;
+    name: string;
+    description?: string | null;
+    mfa?: boolean | null;
+    method?: string | null;
+    isCritical?: boolean | null;
+    frequency?: string | null;
+    lastRestore?: string | null;
+  }>;
 }) {
   const writes: Write[] = [];
   const wheres: Array<{ table: string; where: SQL }> = [];
@@ -67,19 +112,40 @@ function setup(opts: {
         ),
         findMany: async () => [],
       },
-      company: { findFirst: async () => ({ activatedAt: new Date(), country: "DE" }) },
+      company: {
+        findFirst: async () => ({
+          activatedAt: new Date(),
+          country: "DE",
+          name: "Muster GmbH",
+        }),
+      },
       user: { findFirst: async () => ({ locale: "de" }) },
+      companyRiskMethodology: { findFirst: async () => undefined },
+      companyCategoryIntake: {
+        findFirst: captured(
+          "companyCategoryIntake",
+          opts.answers ? { answers: opts.answers } : undefined,
+        ),
+      },
       asset: {
         findMany: captured(
           "asset",
-          (opts.existingAssets ?? []).map((name) => ({ name })),
+          (opts.existingAssets ?? []).map((a) =>
+            typeof a === "string"
+              ? { catalogId: null, name: a, description: null }
+              : { ...a, description: null },
+          ),
         ),
       },
     },
     update: (table: unknown) => ({
       set: (values: unknown) => ({
-        where: async () => {
-          writes.push({ op: "update", table, values });
+        where: (where?: SQL) => {
+          writes.push({ op: "update", table, values, where });
+          const matched = opts.storedPolicy
+            ? [{ id: opts.storedPolicy.id, title: opts.storedPolicy.title ?? "" }]
+            : [];
+          return Object.assign(Promise.resolve(), { returning: async () => matched });
         },
       }),
     }),
@@ -92,12 +158,37 @@ function setup(opts: {
     selectDistinctOn: () => ({
       from: () => ({ where: () => ({ orderBy: async () => [] }) }),
     }),
+    // The company lock, the lookup of the walk's policy row, the company's suppliers and assets.
+    select: () => ({
+      from: (table: unknown) => {
+        const rows =
+          table === policy
+            ? opts.storedPolicy
+              ? [opts.storedPolicy]
+              : []
+            : table === supplier
+              ? (opts.suppliers ?? [])
+              : table === asset
+                ? (opts.assets ?? [])
+                : [];
+        return {
+          where: (where: SQL) => {
+            if (table === supplier) wheres.push({ table: "supplier", where });
+            if (table === asset) wheres.push({ table: "asset", where });
+            return Object.assign(Promise.resolve(rows), { for: async () => rows });
+          },
+          innerJoin: () => ({ where: async () => opts.riskLinks ?? [] }),
+        };
+      },
+    }),
+    transaction: async <T>(work: (tx: unknown) => Promise<T>) => work(db),
   };
 
   const caller = createCallerFactory(durchgangRouter)({
     db: db as unknown as TRPCContext["db"],
     session: {
       role: opts.role ?? "admin",
+      jobTitle: opts.jobTitle ?? null,
       accessLevel: opts.accessLevel,
       user: { id: USER, email: "someone@example.com" },
     } as TRPCContext["session"],
@@ -145,7 +236,8 @@ describe("durchgang router", () => {
 
   test("resolves only the codes the walk contains", async () => {
     const { caller, writes } = setup({ accessLevel: "full" });
-    await expect(caller.finish({ code: "7.3" })).rejects.toMatchObject({
+    // 7.1 is left out of the walk (NOT_WALKED), so it is not one of its codes.
+    await expect(caller.finish({ code: "7.1" })).rejects.toMatchObject({
       code: "BAD_REQUEST",
     });
     expect(writes).toEqual([]);
@@ -223,7 +315,11 @@ describe("durchgang router", () => {
     expect(result).toEqual({ added: 1 });
     const insert = writes.find((w) => w.op === "insert" && w.table === asset);
     expect(insert?.values).toEqual([
-      expect.objectContaining({ companyId: COMPANY, type: expect.any(String) }),
+      expect.objectContaining({
+        companyId: COMPANY,
+        type: expect.any(String),
+        catalogId: "bp-production-service",
+      }),
     ]);
     const lookup = wheres.find((w) => w.table === "asset");
     expect(lookup && paramsOf(lookup.where)).toContain(COMPANY);
@@ -244,16 +340,642 @@ describe("durchgang router", () => {
     ]);
   });
 
-  test("keeps the person's own entries, once each, as type other", async () => {
+  test("keeps the person's own entries, once each, typed by the layer they were added under", async () => {
     const { caller, writes } = setup({ accessLevel: "full", existingAssets: ["Kasse"] });
     const result = await caller.addAssets({
       catalogIds: [],
-      custom: [{ name: "Laborsoftware" }, { name: " laborsoftware " }, { name: "kasse" }],
+      custom: [
+        { name: "Laborsoftware", layer: "anwendung" },
+        { name: " laborsoftware ", layer: "anwendung" },
+        { name: "kasse", layer: "it-system" },
+        { name: "Telefonanlage", layer: "it-system" },
+        { name: "Reklamationen", layer: "geschaeftsprozess" },
+      ],
     });
-    expect(result).toEqual({ added: 1 });
+    expect(result).toEqual({ added: 3 });
     const insert = writes.find((w) => w.op === "insert" && w.table === asset);
     expect(insert?.values).toEqual([
-      { companyId: COMPANY, name: "Laborsoftware", type: "other" },
+      { companyId: COMPANY, name: "Laborsoftware", type: "application", catalogId: null },
+      { companyId: COMPANY, name: "Telefonanlage", type: "endpoint", catalogId: null },
+      { companyId: COMPANY, name: "Reklamationen", type: "process", catalogId: null },
     ]);
+  });
+
+  test("skips an item already listed under the product it was renamed to", async () => {
+    const { caller, writes } = setup({
+      accessLevel: "full",
+      existingAssets: [{ name: "Salesforce", catalogId: "sales-crm" }],
+    });
+    const result = await caller.addAssets({ catalogIds: ["sales-crm"] });
+    expect(result).toEqual({ added: 0 });
+    expect(writes.filter((w) => w.op === "insert" && w.table === asset)).toEqual([]);
+  });
+});
+
+/** The text a policy write stored, or nothing. */
+const contentOf = (write: Write | undefined): string => {
+  const values = write?.values;
+  return typeof values === "object" &&
+    values !== null &&
+    "content" in values &&
+    typeof values.content === "string"
+    ? values.content
+    : "";
+};
+
+describe("the walk's policy", () => {
+  test("writes the Leitlinie in the seed language with the company's name and only known clauses", async () => {
+    const { caller, writes } = setup({ accessLevel: "full" });
+    await caller.writePolicy({
+      code: "2.4",
+      clauses: ["training", "made-up"],
+      own: null,
+    });
+    const config = writes.find((w) => w.table === companyPolicyConfig);
+    expect(config?.values).toMatchObject({
+      companyId: COMPANY,
+      policyType: "information_security",
+      config: { clauses: ["training"] },
+    });
+    const row = writes.find((w) => w.op === "insert" && w.table === policy);
+    expect(row?.values).toMatchObject({
+      companyId: COMPANY,
+      requirementId: REQUIREMENT,
+      title: "Leitlinie zur Informationssicherheit der Muster GmbH",
+      type: "information_security",
+    });
+    const content = contentOf(row);
+    expect(content).toContain("## 8. Schulung und Sensibilisierung");
+    expect(content).not.toContain("{company}");
+  });
+
+  test("writes the base text when no clause is added, and keeps the stored choice untouched", async () => {
+    const { caller, writes } = setup({ accessLevel: "full" });
+    await caller.writePolicy({ code: "2.4", clauses: null, own: null });
+    expect(writes.find((w) => w.table === companyPolicyConfig)).toBeUndefined();
+    const content = contentOf(
+      writes.find((w) => w.op === "insert" && w.table === policy),
+    );
+    expect(content).toContain("## 7. Bekanntgabe und Inkrafttreten");
+    expect(content).not.toContain("## 8.");
+  });
+
+  test("writes the incident plan with the item's saved answers, and a line where one is open", async () => {
+    const { caller, writes, wheres } = setup({
+      accessLevel: "full",
+      answers: {
+        incidentLead: "Anna Weber",
+        secureCommsChannel: "Threema Work",
+        incidentEscalationContacts: "Geschäftsführung: Jonas Muster",
+      },
+    });
+    await caller.writePolicy({ code: "3.1", clauses: ["card"], own: null });
+    const row = writes.find((w) => w.op === "insert" && w.table === policy);
+    expect(row?.values).toMatchObject({
+      title: "Notfallplan für IT-Sicherheitsvorfälle der Muster GmbH",
+      type: "incident_response",
+    });
+    const content = contentOf(row);
+    expect(content).toContain("Anna Weber leitet die Bewältigung");
+    expect(content).toContain("erreichen wir uns über: Threema Work.");
+    expect(content).toContain("IT-Notfallnummer _______________ an.");
+    expect(content).toContain("mit unserer Nummer _______________.");
+    expect(content).not.toContain("{");
+    // The answers are read from this company's assessment and the item's category, nowhere else.
+    const intake = wheres.find((w) => w.table === "companyCategoryIntake");
+    expect(intake && paramsOf(intake.where)).toEqual([ASSESSMENT, CATEGORY]);
+  });
+
+  test("shows the screen the document in the record language, with the company's name", async () => {
+    const { caller } = setup({ accessLevel: "full" });
+    const draft = await caller.policyDraft({ code: "2.4" });
+    expect(draft.company).toBe("Muster GmbH");
+    expect(draft.document.title).toBe(
+      "Leitlinie zur Informationssicherheit der {company}",
+    );
+    expect(draft.clauses).toEqual([]);
+  });
+
+  test("puts a changed text back to draft, and leaves an unchanged one alone", async () => {
+    const changed = setup({
+      accessLevel: "full",
+      storedPolicy: { id: "policy-1", content: "an older text" },
+    });
+    await changed.caller.writePolicy({ code: "2.4", clauses: [], own: null });
+    expect(
+      changed.writes.find((w) => w.op === "update" && w.table === policy)?.values,
+    ).toMatchObject({
+      status: "draft",
+      effectiveFrom: null,
+      approvedBy: null,
+      approvedAt: null,
+      approverRole: null,
+    });
+
+    const first = setup({ accessLevel: "full" });
+    await first.caller.writePolicy({ code: "2.4", clauses: [], own: null });
+    const written = first.writes.find((w) => w.op === "insert" && w.table === policy);
+    const same = setup({
+      accessLevel: "full",
+      storedPolicy: { id: "policy-1", content: contentOf(written) },
+    });
+    await same.caller.writePolicy({ code: "2.4", clauses: [], own: null });
+    expect(same.writes.filter((w) => w.table === policy)).toEqual([]);
+  });
+
+  test("prints the company's own words as the last section, and keeps them with the choice", async () => {
+    const { caller, writes } = setup({ accessLevel: "full" });
+    await caller.writePolicy({
+      code: "3.1",
+      clauses: [],
+      own: "  Notfallhandy der IT: 0170 1234567 ",
+    });
+    const config = writes.find((w) => w.table === companyPolicyConfig);
+    expect(config?.values).toMatchObject({
+      config: { clauses: [], own: "Notfallhandy der IT: 0170 1234567" },
+    });
+    const content = contentOf(
+      writes.find((w) => w.op === "insert" && w.table === policy),
+    );
+    expect(content).toContain(
+      "## 10. Weitere Regelungen\n\nNotfallhandy der IT: 0170 1234567",
+    );
+  });
+
+  test("refuses an item without a policy screen, and accounts without the Durchgang", async () => {
+    const { caller } = setup({ accessLevel: "full" });
+    const refused = caller.writePolicy({ code: "12.2", clauses: [], own: null });
+    await expect(refused).rejects.toMatchObject({ code: "BAD_REQUEST" });
+    const free = setup({ accessLevel: "free" });
+    const closed = free.caller.writePolicy({ code: "2.4", clauses: [], own: null });
+    await expect(closed).rejects.toMatchObject({ code: "FORBIDDEN" });
+    expect(free.writes).toEqual([]);
+  });
+});
+
+const DATEV = "88888888-8888-4888-8888-888888888881";
+const TELEKOM = "88888888-8888-4888-8888-888888888882";
+
+/** The text of the trail line an update appended, read from its SQL parameters. */
+const noteOf = (writes: readonly Write[]): string => {
+  const values = writes.find(
+    (w) => w.op === "update" && w.table === companyRequirementStatus,
+  )?.values;
+  const notes =
+    typeof values === "object" && values !== null && "internalNotes" in values
+      ? values.internalNotes
+      : undefined;
+  return notes ? paramsOf(notes as SQL).join(" ") : "";
+};
+
+describe("the walk's supplier agreements", () => {
+  const suppliers = [
+    { id: DATEV, name: "DATEV", security: false, incidents: false },
+    { id: TELEKOM, name: "Telekom", security: true, incidents: null },
+  ];
+
+  test("writes only the rows that changed, only the two columns, only on the company's rows", async () => {
+    const { caller, writes, wheres } = setup({ accessLevel: "full", suppliers });
+    const result = await caller.recordAgreements({
+      code: "5.2",
+      rows: [
+        { supplierId: DATEV, security: true, incidents: true },
+        { supplierId: TELEKOM, security: true, incidents: false },
+      ],
+    });
+    expect(result).toEqual({ changed: 1 });
+    const updates = writes.filter((w) => w.op === "update" && w.table === supplier);
+    const clauses = updates.filter(
+      (u) => !Object.hasOwn(u.values ?? {}, "agreementsCheckedAt"),
+    );
+    expect(clauses).toHaveLength(1);
+    expect(Object.keys(clauses[0]?.values ?? {}).sort()).toEqual([
+      "hasIncidentNotificationClause",
+      "hasSecurityClauses",
+      "updatedAt",
+    ]);
+    expect(clauses[0]?.where && paramsOf(clauses[0].where)).toEqual([DATEV, COMPANY]);
+    const lookup = wheres.find((w) => w.table === "supplier");
+    expect(lookup && paramsOf(lookup.where)).toContain(COMPANY);
+  });
+
+  test("marks every row sent as checked, so nothing agreed reads as answered on the next visit", async () => {
+    const { caller, writes } = setup({ accessLevel: "full", suppliers });
+    // Nothing changes: both answers equal what is stored, DATEV's "nothing agreed" included.
+    const result = await caller.recordAgreements({
+      code: "5.2",
+      rows: [
+        { supplierId: DATEV, security: false, incidents: false },
+        { supplierId: TELEKOM, security: true, incidents: false },
+      ],
+    });
+    expect(result).toEqual({ changed: 0 });
+    const stamps = writes.filter(
+      (w) =>
+        w.op === "update" &&
+        w.table === supplier &&
+        Object.hasOwn(w.values ?? {}, "agreementsCheckedAt"),
+    );
+    expect(stamps).toHaveLength(1);
+    expect(stamps[0]?.where && paramsOf(stamps[0].where)).toEqual([
+      COMPANY,
+      DATEV,
+      TELEKOM,
+    ]);
+  });
+
+  test("names every supplier checked in the trail, a row with neither agreement included", async () => {
+    const { caller, writes } = setup({ accessLevel: "full", suppliers });
+    await caller.recordAgreements({
+      code: "5.2",
+      rows: [
+        { supplierId: DATEV, security: true, incidents: true },
+        { supplierId: TELEKOM, security: false, incidents: false },
+      ],
+    });
+    const note = noteOf(writes);
+    expect(note).toContain("DATEV: Sicherheit, Vorfallmeldung");
+    expect(note).toContain("Telekom: nichts geregelt");
+  });
+
+  test("refuses a supplier of another company, and writes nothing", async () => {
+    const { caller, writes } = setup({
+      accessLevel: "full",
+      suppliers: suppliers.slice(0, 1),
+    });
+    const refused = caller.recordAgreements({
+      code: "5.2",
+      rows: [
+        { supplierId: DATEV, security: true, incidents: false },
+        { supplierId: TELEKOM, security: true, incidents: false },
+      ],
+    });
+    await expect(refused).rejects.toMatchObject({ code: "NOT_FOUND" });
+    expect(writes.filter((w) => w.table === supplier)).toEqual([]);
+  });
+
+  test("refuses an item without an agreements screen, and accounts without the Durchgang", async () => {
+    const { caller } = setup({ accessLevel: "full", suppliers });
+    const row = { supplierId: DATEV, security: true, incidents: false };
+    await expect(
+      caller.recordAgreements({ code: "12.2", rows: [row] }),
+    ).rejects.toMatchObject({ code: "BAD_REQUEST" });
+    const free = setup({ accessLevel: "free", suppliers });
+    await expect(
+      free.caller.recordAgreements({ code: "5.2", rows: [row] }),
+    ).rejects.toMatchObject({ code: "FORBIDDEN" });
+    expect(free.writes).toEqual([]);
+  });
+});
+
+describe("the walk's sign-ins", () => {
+  const M365 = "99999999-9999-4999-8999-999999999991";
+  const VPN = "99999999-9999-4999-8999-999999999992";
+  const assets = [
+    { id: M365, name: "Microsoft 365", mfa: false, method: null },
+    { id: VPN, name: "VPN", mfa: null, method: null },
+  ];
+
+  test("writes only the rows that changed, only the sign-in columns, only on the company's assets", async () => {
+    const { caller, writes, wheres } = setup({ accessLevel: "full", assets });
+    const result = await caller.recordLogins({
+      code: "11.1",
+      rows: [
+        { assetId: M365, mfa: true },
+        { assetId: VPN, mfa: null },
+      ],
+    });
+    expect(result).toEqual({ changed: 1 });
+    const updates = writes.filter((w) => w.op === "update" && w.table === asset);
+    expect(updates).toHaveLength(1);
+    expect(Object.keys(updates[0]?.values ?? {}).sort()).toEqual([
+      "hasMfa",
+      "mfaMethod",
+      "updatedAt",
+    ]);
+    expect(updates[0]?.where && paramsOf(updates[0].where)).toEqual([M365, COMPANY]);
+    const lookup = wheres.find((w) => w.table === "asset");
+    expect(lookup && paramsOf(lookup.where)).toContain(COMPANY);
+  });
+
+  test("records the kind of second factor per program, and none where there is no second factor", async () => {
+    const { caller, writes } = setup({ accessLevel: "full", assets });
+    await caller.recordLogins({
+      code: "11.1",
+      rows: [
+        { assetId: M365, mfa: true, method: "app" },
+        { assetId: VPN, mfa: false, method: "sms" },
+      ],
+    });
+    const updates = writes.filter((w) => w.op === "update" && w.table === asset);
+    expect(updates.map((u) => u.values)).toEqual([
+      expect.objectContaining({ hasMfa: true, mfaMethod: "app" }),
+      expect.objectContaining({ hasMfa: false, mfaMethod: null }),
+    ]);
+    expect(noteOf(writes)).toContain("Microsoft 365: mit zweitem Faktor (App)");
+  });
+
+  test("keeps 'not known yet' apart from 'password only', so finding out is a change", async () => {
+    const { caller, writes } = setup({ accessLevel: "full", assets: assets.slice(1) });
+    const result = await caller.recordLogins({
+      code: "11.1",
+      rows: [{ assetId: VPN, mfa: false }],
+    });
+    expect(result).toEqual({ changed: 1 });
+    const updates = writes.filter((w) => w.op === "update" && w.table === asset);
+    expect(updates.map((u) => (u.values as { hasMfa: unknown }).hasMfa)).toEqual([false]);
+  });
+
+  test("names every sign-in checked in the trail, a password-only row included", async () => {
+    const { caller, writes } = setup({ accessLevel: "full", assets });
+    await caller.recordLogins({
+      code: "11.1",
+      rows: [
+        { assetId: M365, mfa: true },
+        { assetId: VPN, mfa: false },
+      ],
+    });
+    const note = noteOf(writes);
+    expect(note).toContain("Microsoft 365: mit zweitem Faktor");
+    expect(note).toContain("VPN: nur Passwort");
+  });
+
+  test("refuses an asset of another company, and writes nothing", async () => {
+    const { caller, writes } = setup({ accessLevel: "full", assets: assets.slice(0, 1) });
+    const refused = caller.recordLogins({
+      code: "11.1",
+      rows: [
+        { assetId: M365, mfa: true },
+        { assetId: VPN, mfa: true },
+      ],
+    });
+    await expect(refused).rejects.toMatchObject({ code: "NOT_FOUND" });
+    expect(writes.filter((w) => w.table === asset)).toEqual([]);
+  });
+
+  test("refuses an item without a sign-in screen, and accounts without the Durchgang", async () => {
+    const { caller } = setup({ accessLevel: "full", assets });
+    const row = { assetId: M365, mfa: true };
+    await expect(
+      caller.recordLogins({ code: "12.2", rows: [row] }),
+    ).rejects.toMatchObject({
+      code: "BAD_REQUEST",
+    });
+    const free = setup({ accessLevel: "free", assets });
+    await expect(
+      free.caller.recordLogins({ code: "11.1", rows: [row] }),
+    ).rejects.toMatchObject({ code: "FORBIDDEN" });
+    expect(free.writes).toEqual([]);
+  });
+});
+
+describe("the walk's backup systems", () => {
+  const VEEAM = "99999999-9999-4999-8999-999999999993";
+  const M365 = "99999999-9999-4999-8999-999999999991";
+  const veeam = {
+    id: VEEAM,
+    name: "Veeam",
+    description: "Backup-System (Veeam, NAS, Cloud-Backup)",
+    frequency: "daily",
+    lastRestore: null,
+  };
+
+  test("records how often each backup system backs up and its last restore, where they changed", async () => {
+    const { caller, writes } = setup({ accessLevel: "full", assets: [veeam] });
+    const result = await caller.recordBackups({
+      code: "4.4",
+      rows: [{ assetId: VEEAM, frequency: "daily", lastRestore: "2026-09-30" }],
+    });
+    expect(result).toEqual({ changed: 1 });
+    const updates = writes.filter((w) => w.op === "update" && w.table === asset);
+    expect(updates.map((u) => u.values)).toEqual([
+      expect.objectContaining({
+        backupFrequency: "daily",
+        lastBackupTestDate: "2026-09-30",
+      }),
+    ]);
+    expect(noteOf(writes)).toContain(
+      "Veeam, täglich, letzte geglückte Wiederherstellung 2026-09-30",
+    );
+  });
+
+  test("keeps a frequency the asset page wrote as free text when the walk leaves it out", async () => {
+    const { caller, writes } = setup({
+      accessLevel: "full",
+      assets: [{ ...veeam, frequency: "jede Nacht um 2 Uhr" }],
+    });
+    await caller.recordBackups({
+      code: "4.4",
+      rows: [{ assetId: VEEAM, lastRestore: "2026-09-30" }],
+    });
+    const updates = writes.filter((w) => w.op === "update" && w.table === asset);
+    expect(updates.map((u) => u.values)).toEqual([
+      expect.objectContaining({
+        backupFrequency: "jede Nacht um 2 Uhr",
+        lastBackupTestDate: "2026-09-30",
+      }),
+    ]);
+    expect(noteOf(writes)).toContain("Veeam, jede Nacht um 2 Uhr");
+  });
+
+  test("refuses an asset that is no backup system, and writes nothing", async () => {
+    const { caller, writes } = setup({
+      accessLevel: "full",
+      assets: [{ id: M365, name: "Microsoft 365", description: null }],
+    });
+    await expect(
+      caller.recordBackups({
+        code: "4.4",
+        rows: [{ assetId: M365, frequency: "daily", lastRestore: null }],
+      }),
+    ).rejects.toMatchObject({ code: "NOT_FOUND" });
+    expect(writes.filter((w) => w.table === asset)).toEqual([]);
+  });
+});
+
+describe("the management's approval of the walk's documents", () => {
+  const draft = {
+    id: "88888888-8888-4888-8888-888888888899",
+    content: "x",
+    title: "Kryptokonzept der Muster GmbH",
+  };
+  const approve = { code: "7.3", types: ["cryptography"] };
+  const management = {
+    accessLevel: "full",
+    jobTitle: "ceo",
+    storedPolicy: draft,
+  } as const;
+  /** Today in Berlin, the day an approval starts. */
+  const today = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }).format(
+    new Date(),
+  );
+
+  test("approves only drafts, only on the company's row of the item, as the person signed in", async () => {
+    const { caller, writes } = setup(management);
+    expect(await caller.approvePolicies(approve)).toEqual({ approved: 1 });
+    const updates = writes.filter((w) => w.op === "update" && w.table === policy);
+    expect(updates).toHaveLength(1);
+    expect(updates[0]?.values).toMatchObject({
+      status: "approved",
+      version: today,
+      effectiveFrom: today,
+      approvedBy: USER,
+      approverRole: "ceo",
+    });
+    expect(Object.keys(updates[0]?.values ?? {}).sort()).toEqual([
+      "approvedAt",
+      "approvedBy",
+      "approverRole",
+      "effectiveFrom",
+      "status",
+      "updatedAt",
+      "version",
+    ]);
+    expect(updates[0]?.where && paramsOf(updates[0].where)).toEqual([
+      COMPANY,
+      REQUIREMENT,
+      "cryptography",
+      "draft",
+    ]);
+  });
+
+  test("takes management's role, not a category: a member of management assigned nothing approves", async () => {
+    const member = setup({ ...management, role: "member", assigned: false });
+    expect(await member.caller.approvePolicies(approve)).toEqual({ approved: 1 });
+  });
+
+  test("refuses anyone who is not management, an admin included, and writes nothing", async () => {
+    for (const role of ["admin", "member"] as const) {
+      const other = setup({ ...management, role, jobTitle: "ciso", assigned: true });
+      await expect(other.caller.approvePolicies(approve)).rejects.toMatchObject({
+        code: "FORBIDDEN",
+      });
+      expect(other.writes).toEqual([]);
+    }
+  });
+
+  test("names every approved document in the review's trail, and writes none when nothing was a draft", async () => {
+    const approved = setup(management);
+    await approved.caller.approvePolicies(approve);
+    expect(noteOf(approved.writes)).toContain(
+      `Von der Geschäftsführung freigegeben am ${today}: Kryptokonzept der Muster GmbH`,
+    );
+    const nothing = setup({ ...management, storedPolicy: undefined });
+    expect(await nothing.caller.approvePolicies(approve)).toEqual({ approved: 0 });
+    expect(noteOf(nothing.writes)).toBe("");
+  });
+
+  test("refuses a type the walk does not write, an item without the screen, and accounts without the Durchgang", async () => {
+    const { caller, writes } = setup(management);
+    await expect(
+      caller.approvePolicies({ ...approve, types: ["crypto"] }),
+    ).rejects.toMatchObject({ code: "BAD_REQUEST" });
+    await expect(
+      caller.approvePolicies({ ...approve, code: "12.2" }),
+    ).rejects.toMatchObject({ code: "BAD_REQUEST" });
+    expect(writes).toEqual([]);
+    const free = setup({ ...management, accessLevel: "free" });
+    await expect(free.caller.approvePolicies(approve)).rejects.toMatchObject({
+      code: "FORBIDDEN",
+    });
+    expect(free.writes).toEqual([]);
+  });
+});
+
+describe("the walk's ratings", () => {
+  const DATEV_APP = "99999999-9999-4999-8999-999999999971";
+  const assets = [{ id: DATEV_APP, name: "DATEV" }];
+  const link = {
+    id: "99999999-9999-4999-8999-999999999972",
+    likelihood: 2,
+    impact: 3,
+    treatment: "mitigate",
+    note: "Backups every night",
+    target: DATEV_APP,
+  };
+  const row = {
+    kind: "asset",
+    id: DATEV_APP,
+    frequency: "medium",
+    impact: "considerable",
+  } as const;
+
+  test("keeps a changed note as the risk's treatment description, and an emptied one as none", async () => {
+    const changed = setup({ accessLevel: "full", assets, riskLinks: [link] });
+    await changed.caller.rate({ rows: [{ ...row, note: "Backups twice a day" }] });
+    const update = changed.writes.find((w) => w.op === "update");
+    expect(update?.values).toMatchObject({ treatmentDescription: "Backups twice a day" });
+
+    const emptied = setup({ accessLevel: "full", assets, riskLinks: [link] });
+    await emptied.caller.rate({ rows: [{ ...row, note: "" }] });
+    expect(emptied.writes.find((w) => w.op === "update")?.values).toMatchObject({
+      treatmentDescription: null,
+    });
+  });
+
+  test("writes nothing for the same rating with the same note, or with no note sent", async () => {
+    for (const sent of [{ ...row, note: "Backups every night" }, row]) {
+      const same = setup({ accessLevel: "full", assets, riskLinks: [link] });
+      expect(await same.caller.rate({ rows: [sent] })).toEqual({ written: 0 });
+      expect(same.writes).toEqual([]);
+    }
+  });
+});
+
+describe("the processes that must keep running", () => {
+  const SALES = "99999999-9999-4999-8999-999999999981";
+  const BOOKS = "99999999-9999-4999-8999-999999999982";
+  const assets = [
+    { id: SALES, name: "Vertrieb", isCritical: false },
+    { id: BOOKS, name: "Buchhaltung", isCritical: true },
+  ];
+  const rows = [
+    { assetId: SALES, critical: true, how: "Aufträge per Telefon" },
+    { assetId: BOOKS, critical: true, how: "" },
+  ];
+
+  test("writes is_critical only where it changed, only on the company's process assets", async () => {
+    const { caller, writes, wheres } = setup({ accessLevel: "full", assets });
+    expect(await caller.recordCritical({ code: "4.2", rows })).toEqual({ changed: 1 });
+    const updates = writes.filter((w) => w.op === "update" && w.table === asset);
+    expect(updates).toHaveLength(1);
+    expect(Object.keys(updates[0]?.values ?? {}).sort()).toEqual([
+      "isCritical",
+      "updatedAt",
+    ]);
+    expect(updates[0]?.where && paramsOf(updates[0].where)).toEqual([SALES, COMPANY]);
+    const lookup = wheres.find((w) => w.table === "asset");
+    expect(lookup && paramsOf(lookup.where)).toEqual(
+      expect.arrayContaining([COMPANY, "process"]),
+    );
+  });
+
+  test("keeps each line with the plan's choices, and names the processes in the trail", async () => {
+    const { caller, writes } = setup({ accessLevel: "full", assets });
+    await caller.recordCritical({ code: "4.2", rows });
+    const config = writes.find((w) => w.table === companyPolicyConfig);
+    expect(config?.values).toMatchObject({
+      policyType: "business_continuity",
+      config: { clauses: [], fallbacks: { [SALES]: "Aufträge per Telefon" } },
+    });
+    expect(noteOf(writes)).toContain("Muss ohne IT weiterlaufen: Vertrieb, Buchhaltung");
+  });
+
+  test("refuses an asset that is not one of the company's processes, an item without the screen, and accounts without the Durchgang", async () => {
+    const one = setup({ accessLevel: "full", assets: assets.slice(0, 1) });
+    await expect(one.caller.recordCritical({ code: "4.2", rows })).rejects.toMatchObject({
+      code: "NOT_FOUND",
+    });
+    expect(one.writes.filter((w) => w.table === asset)).toEqual([]);
+    await expect(one.caller.recordCritical({ code: "12.2", rows })).rejects.toMatchObject(
+      { code: "BAD_REQUEST" },
+    );
+    const free = setup({ accessLevel: "free", assets });
+    await expect(free.caller.recordCritical({ code: "4.2", rows })).rejects.toMatchObject(
+      {
+        code: "FORBIDDEN",
+      },
+    );
+    expect(free.writes).toEqual([]);
   });
 });

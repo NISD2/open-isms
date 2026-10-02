@@ -1,20 +1,20 @@
 import {
-  pgTable,
-  uuid,
-  varchar,
-  text,
   boolean,
-  integer,
-  timestamp,
   date,
   index,
+  integer,
+  pgTable,
+  text,
+  timestamp,
   uniqueIndex,
+  uuid,
+  varchar,
 } from "drizzle-orm/pg-core";
 import {
-  supplierRiskLevelEnum,
   supplierAuditFrequencyEnum,
   supplierRelationshipStatusEnum,
   supplierRelationshipTypeEnum,
+  supplierRiskLevelEnum,
   transferMechanismEnum,
 } from "../enums";
 
@@ -81,13 +81,14 @@ export const supplier = pgTable(
     contractStartDate: date("contract_start_date"),
     contractEndDate: date("contract_end_date"),
     hasSecurityClauses: boolean("has_security_clauses").default(false),
-    hasIncidentNotificationClause: boolean(
-      "has_incident_notification_clause"
-    ).default(false),
-    hasAuditRights: boolean("has_audit_rights").default(false),
-    hasSubcontractorFlowDown: boolean("has_subcontractor_flow_down").default(
-      false
+    hasIncidentNotificationClause: boolean("has_incident_notification_clause").default(
+      false,
     ),
+    // When the walk's 5.2 last recorded the two clause answers for this row. Both default to
+    // false, so without it "nothing agreed" and "never looked" read the same. Server-set only.
+    agreementsCheckedAt: timestamp("agreements_checked_at"),
+    hasAuditRights: boolean("has_audit_rights").default(false),
+    hasSubcontractorFlowDown: boolean("has_subcontractor_flow_down").default(false),
 
     // CIR 5.2 — Per-supplier contract & monitoring details
     contractSecurityClauses: text("contract_security_clauses"),

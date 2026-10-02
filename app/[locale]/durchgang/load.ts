@@ -3,16 +3,19 @@ import { readdirSync } from "node:fs";
 import path from "node:path";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import type { ItemView, WalkEntry } from "@/components/durchgang/view";
+import { onRegister } from "@/lib/asset-inventory/catalog-labels";
 import { getSession } from "@/lib/auth";
 import { canSeeCategory, getUserAccess } from "@/lib/compliance/access";
 import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
-import { buildCitationRows } from "@/lib/compliance/citations";
+import { buildCitationRows, typesetCitation } from "@/lib/compliance/citations";
 import { legislation } from "@/lib/content/citations";
 import {
   type AnyItem,
   type AnyScreen,
   askedFields,
+  dutyHref,
   itemKey,
+  MANAGEMENT_ROLE,
   type RegisterModule,
   type ResolvedItem,
   resolveItem,
@@ -20,6 +23,7 @@ import {
 } from "@/lib/durchgang";
 import { introspectSchema } from "@/lib/forms/schema-introspect";
 import { api } from "@/lib/trpc/server";
+import { glossary } from "./gloss";
 
 /** The step art on disk, read once per server process rather than on every render. */
 const ART: ReadonlySet<string> = (() => {
@@ -96,8 +100,11 @@ export async function loadItem(code: string): Promise<ItemView | null> {
   const asksAssets = screens.some((s) => s.kind === "assets");
   const asksAdopt = screens.some((s) => s.kind === "adopt");
   const showsPortals = screens.some(
-    (s) => s.kind === "provision" && s.provision === "registration_portals",
+    (s) =>
+      (s.kind === "provision" || s.kind === "fields") &&
+      (s.provision === "registration_portals" || s.provision === "reporting_channels"),
   );
+  const asksPerson = screens.some((s) => s.kind === "fields" && s.person);
 
   const [
     words,
@@ -110,6 +117,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     supplier,
     team,
     trainings,
+    reviews,
     assets,
     adoption,
     registration,
@@ -133,8 +141,9 @@ export async function loadItem(code: string): Promise<ItemView | null> {
         })
       : Promise.resolve({ answers: {} as Record<string, unknown> }),
     shows("supplier") ? api.supplier.list() : Promise.resolve(undefined),
-    shows("team") ? api.team.listMembers() : Promise.resolve(undefined),
+    asksPerson ? api.team.listMembers() : Promise.resolve([]),
     shows("training_record") ? api.training.list() : Promise.resolve(undefined),
+    shows("management_review") ? api.managementReview.list() : Promise.resolve(undefined),
     asksAssets ? api.asset.list() : Promise.resolve(null),
     asksAdopt ? api.durchgang.adoption() : Promise.resolve({ adoptedAt: null }),
     showsPortals ? api.durchgang.portals() : Promise.resolve(null),
@@ -148,13 +157,6 @@ export async function loadItem(code: string): Promise<ItemView | null> {
       .filter((f) => asked.has(f.key))
       .map((f) => [f.key, f]),
   );
-  // A company that already has a register sees it once, in place of the catalogue slices.
-  const firstAssets = words.screens.findIndex((s) => s.kind === "assets");
-  const shown =
-    assets && assets.length > 0
-      ? words.screens.filter((s, i) => s.kind !== "assets" || i === firstAssets)
-      : words.screens;
-
   const law = buildCitationRows({
     frameworkCode: "nis2",
     frameworkRef: req.frameworkRef,
@@ -171,12 +173,20 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     ? [
         {
           label: "CIR 2024/2690",
-          citation: tUi("cirAnnex", { ref: req.cirReference }),
+          citation: typesetCitation(tUi("cirAnnex", { ref: req.cirReference })),
           href: legislation("cir-2024-2690").url,
-          note: tUi("cirNote"),
+          note: typesetCitation(tUi("cirNote")),
         },
       ]
     : [];
+  // The running text that may explain a term in place: learn paragraphs, leads, missed lines.
+  const prose = [
+    ...words.missed,
+    ...words.screens.flatMap((s) => [
+      ...("body" in s.copy ? s.copy.body : []),
+      ...("lead" in s.copy && typeof s.copy.lead === "string" ? [s.copy.lead] : []),
+    ]),
+  ];
 
   return {
     code,
@@ -196,17 +206,32 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     citations: [...law, ...cir],
     // The duty card cites what its text is written from: the BSIG in German, the directive in
     // English. Both stay in the rail.
-    duty: (locale === "de" ? req.legalRef : req.frameworkRef) ?? req.legalRef ?? "",
-    screens: shown,
+    duty: typesetCitation(
+      (locale === "de" ? req.legalRef : req.frameworkRef) ?? req.legalRef ?? "",
+    ),
+    dutyHref: dutyHref(item.law, locale),
+    gloss: glossary(prose, locale),
+    screens: words.screens,
     statusId,
     assessmentId: assessment?.id ?? null,
     categoryId: req.category.id,
+    categorySlug: req.category.slug,
     answers: intake.answers,
     fields,
-    registers: { supplier, team, training_record: trainings },
-    assets,
+    registers: {
+      supplier,
+      training_record: trainings,
+      management_review: reviews,
+    },
+    team,
+    register: assets ? onRegister(assets) : null,
     adoptedAt: adoption.adoptedAt,
     registration,
+    viewer: {
+      id: session?.user.id ?? "",
+      management: session?.jobTitle === MANAGEMENT_ROLE,
+      admin: session?.role === "admin",
+    },
     locale,
   };
 }

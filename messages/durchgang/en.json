@@ -15,11 +15,18 @@
         "fields": "Record",
         "evidence": "Proof",
         "adopt": "Adopt",
-        "sources": "Where to look",
         "assets": "Your list",
         "register": "Your list",
         "specify": "More precisely",
         "rate": "Rate",
+        "agreements": "Check",
+        "logins": "Mark",
+        "policy": "Template",
+        "approve": "Approve",
+        "riskmap": "Overview",
+        "critical": "Decide",
+        "backups": "Record",
+        "crypto": "Your list",
         "done": "Done"
       },
       "where": "{section} · Step {step} of {total}",
@@ -37,7 +44,7 @@
       "duty": "Why you have to do this",
       "readLaw": "Read {cite} in the statute",
       "copyFrom": "copy from",
-      "whereToFind": "Where do I find this?",
+      "fieldHelp": "Help for {label}",
       "choose": "Please choose",
       "yes": "Yes",
       "no": "No",
@@ -45,45 +52,122 @@
       "bad": "Better not",
       "sampleWhat": "What",
       "sampleDetail": "In short",
+      "sampleBeside": "Beside it, as you wrote it: {title}",
       "record": "Entry in your records",
       "adoptedOn": "Adopted on {date}",
       "signLine": "Approval by management",
       "pending": "pending",
       "adopted": "Adopted",
-      "looked": "Looked",
-      "lookedNote": "What you tick is recorded with the date. That way it is clear later where your list came from.",
       "onList": "{count, plural, =0 {No entries on your list yet} one {# entry on your list} other {# entries on your list}}",
       "alreadyListed": "Already on your list",
       "registerHint": "Changes here go straight into your list.",
-      "assets": {
-        "title": "Your list already exists",
-        "lead": "Your company already has entries. Check them and add what is missing: processes, software, devices, data carriers, rooms and networks."
+      "alsoListed": "Also on your list: {names}",
+      "policy": {
+        "question": "Which of these does your company have or do?",
+        "questionHint": "Each one you pick adds a section to the document above, lit up for a moment. Pick it again to take it out.",
+        "read": "I have read the document, and it fits our company",
+        "ownLabel": "Anything else that applies at your company (optional)",
+        "ownHint": "For example a number, a rule of your own or a contact. It is added as the last section, as you write it.",
+        "approvedLater": "Management approves the document at the end of the walkthrough, signed in with its own account.",
+        "changedAfterApproval": "The changed version needs management's approval again.",
+        "recordLanguage": {
+          "de": "The document itself is written in German, like the rest of your company's records.",
+          "en": "The document itself is written in English, like the rest of your company's records."
+        }
       },
+      "person": {
+        "you": "you",
+        "other": "Someone else",
+        "otherName": "Name of the person",
+        "invite": "Not in the team yet? Invite them by email",
+        "placeholder": "name@your-company.com"
+      },
+      "suggestions": "Common answers:",
+      "suggestionsOwn": "From your records:",
       "specify": {
         "what": "What exactly",
         "provider": "From whom",
         "inHouse": "run in house",
+        "addProvider": "Add another provider, then press Enter",
+        "another": "Another of this kind",
+        "about": "What it does at your company",
+        "aboutHint": "What for, who works with it, and what data it holds",
         "empty": "Nothing in this area is on your list.",
-        "hint": "Whoever you name as the provider goes onto your supplier list. An empty field means run in house or not known yet."
+        "hint": "Whoever you name as a provider goes onto your supplier list. A program can have several, for example its maker and your IT provider. None means run in house or not known yet. Two of one kind used for different work, for example two CRMs, get a row each; alike things used alike may stay one row (BSI-Standard 200-2, 8.1.1)."
       },
       "rate": {
-        "frequency": "How often it happens",
-        "impact": "How big the damage would be",
-        "frequencyShort": "How often?",
-        "impactShort": "Damage?",
         "open": "Level",
-        "matrix": "How the level follows from this",
+        "scales": "Show the BSI's risk matrix",
+        "note": "Note",
+        "notePlaceholder": "Note (optional), for example what you already do about it",
         "providedBy": "from {name}",
         "provides": "provides {names}",
         "kept": "{count, plural, one {# risk} other {# risks}} in the risk register",
         "empty": "Nothing in this area is on your list."
       },
-      "team": {
-        "invite": "Bring someone in",
+      "unrated": "Not rated",
+      "agreements": {
+        "empty": "No supplier is on your list yet. You add your suppliers in step 5.1.",
+        "questionnaire": "Nothing settled with a supplier? Send them our security questionnaire from their row. Once they have filled it in in the supplier portal, their answers are linked to that row on your supplier list, with what you recorded there.",
+        "questionnaireButton": "Send the security questionnaire",
+        "linked": "Answers through the supplier portal"
+      },
+      "logins": {
+        "empty": "No software is on your list yet. You create your list in step 2.2."
+      },
+      "review": {
+        "title": "Management review of {date}",
+        "add": "Enter a review",
+        "date": "Date",
+        "attendees": "Who took part",
+        "attendeesHint": "Names, separated by commas",
+        "decisions": "Decided",
+        "decisionsHint": "for example: policies approved, second factor for remote access",
+        "actions": "To do",
+        "actionsHint": "What, who, by when",
+        "actionsPrefix": "To do:",
+        "empty": "No management review entered yet.",
+        "save": "Add",
+        "remove": "Delete",
+        "failed": "That was not saved. Please try again."
+      },
+      "approve": {
+        "approve": "Approve",
+        "approvedOn": "Approved on {date}",
+        "approvedBy": "Approved on {date} by {name}",
+        "approvedUndated": "Approved",
+        "waiting": "Waiting for management",
+        "read": "Read the document",
+        "asManagement": "You approve as management. Your name and today's date are recorded on each document you approve.",
+        "approveCount": "{count, plural, =0 {Nothing selected} one {Approve # document} other {Approve # documents}}",
+        "done": "Approved. Each document now applies from today.",
+        "failed": "That did not work. Please try again.",
+        "none": "The walkthrough has not written any document yet.",
+        "sendTitle": "Send it to management",
+        "sendLead": "Management approves these documents itself, signed in with its own account. It reads each one on its page and approves it there.",
+        "managers": "In management: {names}. Send them the link to their page:",
+        "copyLink": "Copy the link",
+        "inviteLabel": "Invite someone from management by email",
         "placeholder": "name@your-company.com",
-        "areas": "Assign areas on the team page"
+        "send": "Send",
+        "invited": "Invitation sent to {email}. After signing in they land on the page with the documents.",
+        "notEmailed": "The invitation for {email} was created but no email could be sent. Copy the link from the team page.",
+        "askAdmin": "Ask an admin of your company to invite someone from management.",
+        "itsMe": "I am part of management myself",
+        "pageTitle": "Approval by management",
+        "pageHeading": "Approve the documents",
+        "pageLead": "These documents were written in your company's NIS 2 walkthrough. Read each one and approve it. Your approval is recorded with your name and today's date.",
+        "pageLeadOthers": "These documents were written in your company's NIS 2 walkthrough. Management approves them here, signed in with its own account.",
+        "close": "Close"
       },
       "recorded": "Recorded in your records",
+      "recordedPolicy": "{title}: saved as a draft. Management approves it at the end of the walkthrough.",
+      "recordedIn": {
+        "training_record": "Trainings",
+        "management_review": "Management reviews",
+        "supplier": "Suppliers"
+      },
+      "andMore": "{names} and {count} more",
       "comesNext": "Next",
       "saveFailed": "That was not saved. What you entered is still here. Please try again.",
       "uploadFirst": "Upload the file here. If you do not have it yet, choose \"Not possible yet\".",
@@ -95,6 +179,16 @@
         "placeholder": "For example: we run no servers of our own. Our applications run at a provider certified for this.",
         "hint": "At least 20 characters. The reason is kept with its date in your records.",
         "confirm": "Record the decision"
+      },
+      "suppliers": {
+        "name": "Supplier",
+        "namePlaceholder": "for example Muster IT GmbH",
+        "what": "What they do for you",
+        "whatPlaceholder": "for example looks after the servers, has remote access",
+        "add": "Add",
+        "empty": "No supplier on your list yet.",
+        "failed": "That was not saved. Please try again.",
+        "details": "Contracts and contacts on the supplier page"
       },
       "training": {
         "add": "Add a training",
@@ -111,8 +205,21 @@
         "empty": "No training entered yet.",
         "withProof": "Proof attached",
         "withoutProof": "no proof",
+        "atProvider": "Record at the provider",
+        "onPlatform": "Course completed on nisd2.eu, recorded there",
+        "link": "Link to the provider's record (optional)",
+        "linkHint": "Where an online course or a training provider keeps who took part, for example its completion report. Then the proof stays with them, also for many people.",
         "remove": "Delete",
-        "failed": "That was not saved. Please try again."
+        "failed": "That was not saved. Check the link and try again.",
+        "staff": {
+          "who": "Who took part",
+          "what": "Topic",
+          "whatHint": "for example spotting phishing, at the team meeting",
+          "provider": "Provider (optional)",
+          "providerHint": "for example the online course or training institute",
+          "empty": "No training or briefing entered yet.",
+          "proofHint": "List of who took part, slides or an export from the online course."
+        }
       },
       "portals": {
         "yours": "Your country",
@@ -137,7 +244,32 @@
         "impact": "How big the damage would be",
         "frequency": "How often it happens",
         "legend": "Legend",
-        "reading": "{frequency} and {impact} gives the level {level}"
+        "reading": "{frequency} and {impact} gives the level {level}",
+        "count": "{count, plural, =0 {no entries} one {# entry} other {# entries}}",
+        "damageAxis": "damage",
+        "oftenAxis": "how often"
+      },
+      "reporting": {
+        "yours": "Your country",
+        "csirt": "Its CSIRT: {name}",
+        "checked": "You report in the same portal as the registration, with the same access. On its start page, the red button \"Sicherheitsvorfall melden\" (report a security incident) opens the form.",
+        "unchecked": "Your authority's website says which channel to use. Look it up now, not during an incident.",
+        "openPortal": "Open the {name}",
+        "website": "Authority's website",
+        "noCountry": "No country is set for your company yet. Once it is, your authority appears here at the top.",
+        "setCountry": "Set the country",
+        "others": "The authorities in the other {count} EU member states"
+      },
+      "riskmap": {
+        "byLevel": "By level",
+        "editHint": "Tap a name or a filled field to change its rating here.",
+        "sheetTitle": "{count, plural, one {Change the rating} other {Change # ratings}}",
+        "sheetDescription": "Pick another field. The map behind follows at once, and the change is saved when you go on.",
+        "empty": "Nothing is rated yet. You rate your software, technology and suppliers in step 2.3.",
+        "several": "{count, plural, one {One entry has} other {# entries have}} several risks in the risk register. They appear only in the list, at their highest level."
+      },
+      "critical": {
+        "empty": "No process is on your list yet. You add your processes in step 2.2."
       },
       "thresholds": {
         "important": "Important entity",
@@ -170,7 +302,7 @@
         "waiting": "Still waiting",
         "continue": "Continue your NIS 2 implementation",
         "allFilled": "Every item is filled in.",
-        "allFilledNote": "Management reviews them and signs.",
+        "allFilledNote": "When something in your company changes, open the item and change it there. A changed document goes to management for approval again.",
         "yourWay": "Your path",
         "filled": "Filled in",
         "declined": "Decided not to do",
@@ -216,7 +348,7 @@
         "teaser": "Every member of management, regularly.",
         "missed": [
           "The training should cover the goals of § 38(3) BSIG: recognising and assessing risks and risk management, and judging what they mean for your company's services.",
-          "The law says \"regularly\" and names neither an interval nor a duration. The BSI recommends a thorough first training followed by refresher trainings, with duration and interval set by your risk exposure."
+          "The law says only \"regularly\". How long a training lasts and how often it is repeated, it leaves to you."
         ],
         "screens": {
           "learn": {
@@ -226,7 +358,7 @@
               "We offer a course for this on this platform. You can also choose any other provider; the law does not require providers to be accredited."
             ],
             "duty": "Management has to take part in training regularly. How often and for how long, the law does not say.",
-            "link": "Go to the course for management"
+            "link": "Go to the free course for management"
           },
           "record": {
             "title": "What records can look like",
@@ -252,8 +384,7 @@
             "lead": "Enter the latest training for every member of management. You can attach proof; after a webinar there is sometimes none."
           },
           "done": {
-            "title": "Training recorded",
-            "note": "At the end, management reviews every item and signs."
+            "title": "Training recorded"
           }
         }
       },
@@ -261,66 +392,130 @@
         "headline": "Write down who works for you",
         "teaser": "A list of your suppliers and service providers.",
         "missed": [
-          "It is not only IT firms that count. It covers every direct supplier and service provider that touches your IT or your data, including for example the tax adviser with access to staff data (§ 30(1) and (2) no. 4 BSIG).",
-          "The EU Agency for Cybersecurity (ENISA) suggests classifying suppliers, for example as critical, strategic and routine."
+          "It is not only IT firms that count. It covers every direct supplier and service provider that touches your IT or your data, including for example the tax adviser with access to staff data (§ 30(1) and (2) no. 4 BSIG)."
         ],
         "screens": {
           "learn": {
             "title": "Who works for your company",
             "body": [
-              "The security of your IT also covers whoever works on it from outside or can reach your data: service providers, software vendors, suppliers. The first step is a list of who they are and what they do for you.",
+              "The security of your IT also covers whoever works on it from outside or can reach your data: service providers, software vendors, suppliers. The law calls them your direct suppliers and service providers. The first step is a list of who they are and what they do for you.",
               "Start with the ones your business could not run without. The list grows over time."
             ],
             "duty": "The law requires measures for supply chain security, including in your relationships with your direct suppliers and service providers."
           },
           "list": {
             "title": "What your list can look like",
-            "caption": "One line per supplier, with what they do for you:",
+            "caption": "One line per supplier, with what they do for you. These are the usual kinds:",
             "rows": [
               {
-                "name": "IT provider",
-                "detail": "looks after servers and accounts, has remote access"
+                "name": "IT service provider",
+                "detail": "looks after servers, accounts and backups, has remote access"
               },
-              { "name": "Tax adviser", "detail": "runs payroll, sees staff data" },
-              { "name": "Microsoft", "detail": "email and files for all staff" }
+              {
+                "name": "Software and cloud providers",
+                "detail": "for example Microsoft for email and files, DATEV for the books"
+              },
+              {
+                "name": "Telecom provider",
+                "detail": "internet connection, phones, mobile contracts"
+              },
+              {
+                "name": "Web agency or host",
+                "detail": "runs the website or the webshop"
+              },
+              {
+                "name": "Tax adviser or payroll office",
+                "detail": "runs payroll, sees staff data"
+              },
+              {
+                "name": "Machine or equipment maintenance",
+                "detail": "services machines and connects remotely for diagnostics"
+              },
+              {
+                "name": "Building and security services",
+                "detail": "alarm system, access cards, cleaning with keys"
+              },
+              {
+                "name": "Logistics and couriers",
+                "detail": "ship to your customers, see order and address data"
+              }
             ]
           },
-          "sources": {
-            "title": "Where the names already are",
-            "lead": "Your company usually knows its suppliers already. Tick where you have looked:"
+          "ready": {
+            "title": "For the next step: your list of creditors",
+            "lead": "Almost everyone who works for you sends you invoices. So the quickest start is the list from your accounting.",
+            "items": [
+              {
+                "name": "List of creditors",
+                "detail": "your bookkeeping can export it, for example from DATEV or your accounting software, or your tax adviser sends it; the last twelve months are enough"
+              },
+              {
+                "name": "Contracts and subscriptions",
+                "detail": "what you pay by card or direct debit: maintenance contracts, software licences, cloud accounts"
+              },
+              {
+                "name": "Your IT service provider",
+                "detail": "knows which vendors it uses on your behalf"
+              }
+            ],
+            "source": "Building on overviews that already exist is how the BSI advises compiling any inventory (BSI-Standard 200-2).",
+            "confirm": "I have the list of creditors at hand"
           },
           "suppliers": {
             "title": "Your suppliers",
-            "lead": "Whoever you named as the provider of your software and technology is already on it. Enter all the others and say how important each one is to your business. When in doubt, write it down rather than leave it out."
-          },
-          "dependence": {
-            "title": "Who could stop you on their own",
-            "lead": "How many suppliers are there without whom your business would stop, and for whom no second one is ready?",
-            "document": "Your supplier list"
+            "lead": "Whoever you named as the provider of your software and technology is already on it. Add the others, one line each with what they do for you. When in doubt, write it down rather than leave it out."
           },
           "done": {
             "title": "Your list is in place",
-            "note": "When a supplier comes along, add it. At the end, management reviews the list."
+            "note": "When a new supplier comes along, add it to the list."
           }
-        },
-        "fields": {
-          "singlePointOfFailureCount": {
-            "label": "Number of such suppliers",
-            "hint": "Count the entries where a failure stops your business and there is no replacement."
-          }
-        },
-        "sources": {
-          "payables": {
-            "label": "Accounts payable list",
-            "text": "From accounting. Whoever sends you invoices works for you."
+        }
+      },
+      "5_2": {
+        "headline": "Record what you have agreed with your suppliers",
+        "teaser": "For each supplier: what does the contract say about security?",
+        "missed": [
+          "If a service provider processes personal data on your behalf, part of this is already settled in the data processing agreement: it must take the measures of Art. 32 GDPR and notify you of personal data breaches without undue delay (Art. 28(3)(c) and Art. 33(2) GDPR). A security incident that does not involve personal data is not covered.",
+          "Large providers rarely negotiate. Then what counts is their standard terms. Read them before you choose \"None of this is agreed\"."
+        ],
+        "screens": {
+          "learn": {
+            "title": "What is agreed with each one",
+            "body": [
+              "Your suppliers are on the list, and you have rated the risk at each one. Now it is about the relationship itself: what is agreed with each of them so that they work securely for you?",
+              "When you choose the measures, the law asks you to take into account each supplier's vulnerabilities and the quality of its products and security practice. Contracts are the usual place: in Germany, the explanatory memorandum names contracts on security measures, incident handling and updates as examples. They are one way, not the only one; you can also, for example, limit a service provider's access."
+            ],
+            "duty": "The law requires supply chain security, including the security aspects of your relationships with your direct suppliers and service providers."
+          },
+          "clause": {
+            "title": "What such terms can look like",
+            "caption": "A made-up example from a maintenance contract with an IT service provider:",
+            "rows": [
+              {
+                "name": "Security measures",
+                "detail": "The provider protects access to our systems according to the state of the art and gives it only to the staff who need it for the job."
+              },
+              {
+                "name": "Incidents",
+                "detail": "It tells us without undue delay of every security incident that may affect our systems or data, and helps us deal with it."
+              },
+              {
+                "name": "Updates",
+                "detail": "It installs security updates for the systems it looks after promptly and tells us when a system no longer receives updates."
+              }
+            ],
+            "note": "In Germany, the legislator names these three topics as examples (explanatory memorandum to § 30 BSIG, Bundestag printed paper 21/1501, p. 148). The law prescribes no particular wording."
           },
           "contracts": {
-            "label": "Contracts and subscriptions",
-            "text": "Maintenance contracts, software licences, cloud accounts."
+            "title": "What each one has agreed",
+            "lead": "Tick what the contract, the data processing agreement or the terms settle. Next to each name is your rating from the risk assessment.",
+            "security": "Security requirements, for example on access and updates",
+            "incidents": "Reporting security incidents to you",
+            "none": "None of this is agreed"
           },
-          "provider": {
-            "label": "Your IT provider",
-            "text": "They know which vendors they use on your behalf."
+          "done": {
+            "title": "Your agreements are recorded",
+            "note": "Where nothing is agreed, you decide whether to raise it, for example at the next renewal."
           }
         }
       },
@@ -368,54 +563,8 @@
             ],
             "source": "Art. 3(4) NIS 2. In Germany: § 33(1) and (5) BSIG, and the BSI asks for all changes to the registration data to be made in its portal."
           },
-          "contact": {
-            "title": "Who is registered with {authority}",
-            "lead": "So you know whom {authority} reaches, and notice when that person leaves.",
-            "document": "Your registration in the portal"
-          },
           "done": {
-            "title": "Contact recorded",
-            "note": "At the end, management reviews every item and signs."
-          }
-        },
-        "fields": {
-          "contactPersonName": {
-            "label": "Contact person",
-            "hint": "The person entered in the registration portal as the contact person for NIS 2."
-          },
-          "contactPersonEmail": {
-            "label": "Contact person's email address",
-            "hint": "As it appears in the registration portal."
-          },
-          "lastRegistrationUpdate": {
-            "label": "Last updated",
-            "hint": "The day you last changed the details in the portal. Leave it empty if nothing has changed yet."
-          }
-        }
-      },
-      "1_2": {
-        "headline": "Decide who takes care of it",
-        "teaser": "Who takes care of information security.",
-        "missed": [
-          "Responsibility stays with management, even when it hands the work to someone else (Art. 20(1) NIS 2).",
-          "The law requires no dedicated post for this. Someone can take it on alongside their actual job. Germany's BSI calls the role the information security officer (ISB)."
-        ],
-        "screens": {
-          "learn": {
-            "title": "Who takes care of it",
-            "body": [
-              "Management carries the responsibility. It approves the measures and oversees their implementation (Art. 20(1) NIS 2). It hands the work to people in the company.",
-              "Decide who takes care of it. That can be a single person who does it alongside their job."
-            ],
-            "duty": "Your company has to document that it implements the information security measures."
-          },
-          "roles": {
-            "title": "Bring in your team",
-            "lead": "Invite whoever takes care of it and whoever decides in an incident. Which area each person owns, you set on the team page."
-          },
-          "done": {
-            "title": "Roles assigned",
-            "note": "At the end, management reviews every item and signs."
+            "title": "You know when to update"
           }
         }
       },
@@ -424,66 +573,143 @@
         "teaser": "Who decides, whom you call, how you reach each other.",
         "missed": [
           "The law explicitly names secured voice, video and text communication and, where needed, secured emergency communication systems within the company (§ 30(2) no. 10 BSIG). A phone list on paper does not replace that; it is the fallback when everything else is down.",
-          "Decide who writes the report to {authority}. The first report, an early warning, is due at the latest 24 hours after you become aware of a significant incident (Art. 23(4)(a) NIS 2)."
+          "Decide who writes the report to {authority}. The first report, an early warning, is due at the latest 24 hours after you become aware of a significant incident (Art. 23(4)(a) NIS 2).",
+          "The plan only helps if it is at hand in an emergency. If it lives only on the server, it is gone with the server. Keep a copy where it can be found without IT, for example on paper or on a phone."
         ],
         "screens": {
           "learn": {
             "title": "When something happens",
             "body": [
               "During an incident there is no time to work out who does what. So write it down beforehand: who decides, whom you call, and how you reach each other when email and the network are down.",
-              "It does not have to be a thick manual. One page that everyone can find is enough to start with."
+              "A significant incident also has to be reported to {authority}, the first report within 24 hours. Your plan names who makes sure that happens; the next step, 3.3, shows how reporting works.",
+              "At the end of this step you have your incident response plan, written from your answers. For all staff, Germany's BSI publishes an IT emergency card to put up: it says what to do in an IT emergency and carries your IT emergency number."
             ],
-            "duty": "The law requires your company to be able to handle security incidents."
+            "duty": "The law requires your company to be able to handle security incidents.",
+            "link": "See the BSI's IT emergency card (in German)"
           },
           "lead": {
-            "title": "Who leads in an emergency",
-            "lead": "One person decides what to do. Who helps them, you set in the emergency plan.",
-            "document": "Your emergency plan"
-          },
-          "escalation": {
-            "title": "Whom you call",
-            "lead": "Who gets told when, from IT up to management.",
-            "document": "Your phone list"
-          },
-          "second_way": {
-            "title": "The second way",
-            "caption": "How you reach each other when email and the network fail",
-            "good": {
-              "value": "An encrypted messenger on the company phones, plus a phone list on paper",
-              "note": "Works even when your own IT is down."
-            },
-            "bad": {
-              "value": "An email to everyone",
-              "note": "If email itself is affected, the message never arrives."
-            }
-          },
-          "channel": {
-            "title": "Your second way",
-            "lead": "How you reach each other when your own IT is not working.",
-            "document": "Your emergency plan"
+            "title": "Your emergency contacts",
+            "lead": "One person leads in an emergency (a security incident). Everyone calls one number. You know how to reach each other when email and the network are down, and whom the person leading calls next.",
+            "document": "Your incident response plan"
           },
           "plan": {
-            "title": "File the plan",
-            "lead": "Upload your emergency plan, even if it is only one page. Management approves it.",
-            "document": "Your emergency plan"
+            "title": "Your incident response plan",
+            "lead": "Written from your answers: who decides, whom you call, what to do first, how you report to {authority} and how you get back to normal. Read it, then add below what fits your company. An answer still missing shows as a line.",
+            "document": {
+              "title": "Incident response plan of {company}",
+              "sections": [
+                {
+                  "heading": "Purpose and scope",
+                  "text": "This plan sets out what happens at {company} when an IT security incident occurs or is suspected: who decides, whom we call, how we reach each other, how we report and how we get back to normal. It applies to all staff. A copy is kept where it can be found without IT, for example on paper."
+                },
+                {
+                  "heading": "If you notice something",
+                  "text": "Anyone who notices or suspects an incident calls the IT emergency number {itEmergencyNumber} at once. If in doubt, call. On the phone, say who you are, which device or program is affected, what you saw, when it started and where the device is. Stop working on the affected device and do nothing further until you are told what to do. Write down what you saw."
+                },
+                {
+                  "heading": "Who leads",
+                  "text": "{incidentLead} leads the response to an incident. This person decides whether an event is a mere disruption or a security incident and whether it has to be reported, and notes every decision with the time. They keep management informed. If they cannot be reached, management takes over."
+                },
+                {
+                  "heading": "Whom we call",
+                  "text": "Depending on how serious the incident is, the lead calls: {incidentEscalationContacts}. A printed list with all phone numbers is kept with this plan, so we have the numbers without a computer or a digital address book. We keep it up to date."
+                },
+                {
+                  "heading": "How we reach each other when IT fails",
+                  "text": "If email, the phone system or the network fail, we reach each other through: {secureCommsChannel}. Everyone on the list knows this channel and has set it up before it is needed."
+                },
+                {
+                  "heading": "First steps",
+                  "text": "People's safety comes before everything else. Affected devices are taken off the network only on the lead's instruction. Before anyone examines or reinstalls a device, we secure logs, photos of the screen and notes. We write down everything that happens, with the time."
+                },
+                {
+                  "heading": "Reporting to the authority",
+                  "text": "If an incident is significant, {company} reports it to the competent CSIRT or authority, through {reportingChannel}: an early warning within 24 hours of becoming aware of it, an incident notification within 72 hours and a final report within one month of the notification (Art. 23(4) NIS 2). {incidentLead} makes sure the reports are made. The early warning says whether we suspect an unlawful or malicious act and whether the incident could affect other countries; everything else we know so far follows with the notification. If personal data is affected, we usually also notify the data protection authority, where feasible within 72 hours (Art. 33 GDPR)."
+                },
+                {
+                  "heading": "Getting back to normal",
+                  "text": "Affected systems go back into use only once the lead agrees: when the cause has been found and removed, restored from backups we know are clean. Afterwards we check that they work as before."
+                },
+                {
+                  "heading": "After the incident",
+                  "text": "Once the incident is dealt with, the lead declares it over and records what happened. We discuss what went well and what did not, and change rules, measures and this plan where needed."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "provider",
+                  "label": "IT service provider",
+                  "heading": "IT service provider",
+                  "text": "Our IT service provider supports us in an incident. We have agreed with them how and when they can be reached, including outside business hours."
+                },
+                {
+                  "id": "hours",
+                  "label": "Outside business hours",
+                  "heading": "Outside business hours",
+                  "text": "The IT emergency number can also be reached outside business hours. Who answers it then is on the phone list."
+                },
+                {
+                  "id": "card",
+                  "label": "IT emergency card",
+                  "heading": "IT emergency card",
+                  "text": "A copy of the BSI's IT emergency card (IT-Notfallkarte) with our number {itEmergencyNumber} is posted at every workplace."
+                },
+                {
+                  "id": "police",
+                  "label": "Police",
+                  "heading": "Police",
+                  "text": "After an attack we consider reporting it to the police, through its cybercrime contact point for businesses where there is one."
+                },
+                {
+                  "id": "customers",
+                  "label": "Informing customers",
+                  "heading": "Informing customers",
+                  "text": "If an incident may affect our services to customers, management decides when and how we inform them."
+                },
+                {
+                  "id": "practice",
+                  "label": "Annual exercise",
+                  "heading": "Exercise",
+                  "text": "Once a year we walk through an incident using this plan and update the plan afterwards."
+                }
+              ],
+              "own": "Further rules",
+              "signature": "Approval by the management of {company}"
+            }
           },
           "done": {
-            "title": "Plan recorded",
-            "note": "At the end, management approves the plan with its signature."
+            "title": "Your incident response plan is written",
+            "note": "Make sure all staff know the emergency number, for example on the BSI's IT emergency card."
           }
         },
         "fields": {
           "incidentLead": {
-            "label": "Incident lead",
-            "hint": "The person who decides what to do and informs management."
+            "label": "Who leads in an emergency (incident)",
+            "hint": "The person who decides what to do and keeps management informed. In a small company this is often whoever looks after NIS 2."
           },
-          "incidentEscalationContacts": {
-            "label": "Escalation contacts",
-            "hint": "Names and phone numbers, by severity of the incident. Include your IT provider's emergency number."
+          "itEmergencyNumber": {
+            "label": "Emergency number everyone calls",
+            "hint": "Usually the mobile number of the person who leads. If an IT service provider takes these calls for you, their number. It is also the number on the BSI's IT emergency card."
           },
           "secureCommsChannel": {
-            "label": "Second communication channel",
-            "hint": "How you reach each other securely when your own IT fails, for example an encrypted messenger on the company phones."
+            "label": "How you reach each other when email and the network are down (at least two ways)",
+            "hint": "Name at least two ways that do not depend on your own IT. Email, and a chat that runs on the same accounts as your email, can fail together with it.",
+            "suggestions": [
+              "Phone calls to mobile numbers",
+              "SMS",
+              "Messenger group on the company phones",
+              "Phone list on paper"
+            ]
+          },
+          "incidentEscalationContacts": {
+            "label": "Whom the person leading calls next",
+            "hint": "Names and phone numbers, by how serious the incident is. Tap an answer, then add the name and number. No law asks for a second person; the plan already says management takes over if the person leading cannot be reached.",
+            "suggestions": [
+              "Deputy",
+              "IT service provider",
+              "Management",
+              "Data protection officer"
+            ]
           }
         }
       },
@@ -509,39 +735,69 @@
             "lead": "The clock runs from the moment your company learns of the incident. The third deadline starts with the second report.",
             "source": "Art. 23(4) NIS 2. If {authority} asks for one, an interim report comes in between. If the incident is still going on after a month, send a progress report instead of the final report, and the final report within a month of dealing with it."
           },
-          "ready": {
-            "title": "What you need for the first report",
-            "lead": "Settle this now, not in the middle of an emergency:",
-            "items": [
+          "first_report": {
+            "title": "What the reporting form will ask",
+            "caption": "You report in {authority}'s portal, never here. In Germany the BSI's form asks for these details in the early warning, one after the other. Answered here for a made-up case, so nothing on the form surprises you",
+            "rows": [
               {
-                "name": "Access to the reporting channel",
-                "detail": "in Germany, the BSI portal you have since the registration"
+                "name": "Classification",
+                "detail": "Significant incident; situation: orange, operations restricted"
               },
               {
-                "name": "Who reports",
-                "detail": "one person and a deputy, written into the emergency plan"
+                "name": "Description",
+                "detail": "Files on the file server are encrypted and a ransom note was left. Accounting and order intake are down. Probably caused by an email attachment; duration still unknown."
               },
               {
-                "name": "What you know",
-                "detail": "what is affected, since when, and whether an attack could be behind it"
+                "name": "Times",
+                "detail": "Probably started around 6:30, detected at 7:40, this report as of 10:15"
+              },
+              {
+                "name": "Affected areas",
+                "detail": "Manufacturing, machinery; no critical facility"
+              },
+              {
+                "name": "Suspected attack",
+                "detail": "Yes, the ransom note points to a deliberate attack"
+              },
+              {
+                "name": "Other countries",
+                "detail": "Possible: customers in Austria will receive their deliveries late"
+              },
+              {
+                "name": "Measures",
+                "detail": "File server taken off the network, IT service provider on site, yesterday's backup checked"
+              },
+              {
+                "name": "Under control",
+                "detail": "No, the investigation is ongoing"
+              },
+              {
+                "name": "Reporting person",
+                "detail": "Anna Weber, head of IT, with phone and email for questions"
               }
             ],
-            "source": "Art. 23(1) and (4) NIS 2. In Germany, a company that is not registered yet reports through the BSI's reporting and information portal (BSI, Meldepflicht info pack)."
+            "note": "The law asks for only two things in the early warning: whether the incident is suspected of being caused by unlawful or malicious acts, and whether it could have a cross-border impact (Art. 23(4)(a) NIS 2). The rest is what the reporting form asks for. Whatever you do not know yet, you add with the second report."
           },
           "setup": {
-            "title": "Record your reporting setup",
-            "lead": "One detail: can you report when it matters?",
-            "document": "Your emergency plan"
+            "title": "Can you report today?",
+            "lead": "Check it now, not during an incident. You report to your country's CSIRT or competent authority; yours is below.",
+            "steps": [
+              "Open the portal of {authority} below. In Germany that is the BSI portal.",
+              "Sign in with the access from your registration. In Germany that is the ELSTER organisation certificate file and its password.",
+              "Check that you can see where to report. In the BSI portal it is the red button \"Sicherheitsvorfall melden\" on the start page. Do not send anything.",
+              "Answer below: yes if the person who leads in an emergency, or their deputy, can do this."
+            ],
+            "document": "Your incident response plan",
+            "source": "Art. 23(1) NIS 2. In Germany, § 32(1) BSIG: reports go to the reporting office the BSI runs together with the BBK, reached through the BSI portal (BSI, instructions for reporting in the BSI portal). A company that is not registered yet reports through an online form in the BSI's reporting and information portal (MIP)."
           },
           "done": {
-            "title": "Reporting prepared",
-            "note": "At the end, management reviews every item and signs."
+            "title": "Reporting prepared"
           }
         },
         "fields": {
           "bsiReportingRegistered": {
-            "label": "Set up to report to {authority}",
-            "hint": "Yes, once you can report through your country's channel. In Germany that is the BSI portal, with the same access as for the registration."
+            "label": "We can sign in to the portal and report",
+            "hint": "No, for example, if only one person has the login and is away, if the certificate file sits on the computer of someone who has left, or if nobody remembers its password. Sort that out first, then come back."
           }
         }
       },
@@ -549,7 +805,6 @@
         "headline": "Register with {authority}",
         "teaser": "Your company registers once with {authority}.",
         "missed": [
-          "The directive lists your IP ranges among the details you register (Art. 3(4)(b) NIS 2). Your IT provider knows them. Ask them beforehand.",
           "After registering, you report any change to these details within two weeks (Art. 3(4) NIS 2)."
         ],
         "screens": {
@@ -568,17 +823,11 @@
           },
           "confirmation": {
             "title": "Record the registration",
-            "lead": "Two details, so you know later which access was used and on which day.",
+            "lead": "Two details, so you know later which access was used and on which day. In Germany the access needs an ELSTER organisation certificate: its activation code comes by letter, a few days after you apply, to the address your tax office has. If the letter has not arrived yet, choose \"Not possible yet\".",
             "document": "Your access to the portal of {authority}"
           },
-          "proof": {
-            "title": "File a proof",
-            "lead": "Keep what the portal shows once the registration is complete: a confirmation, an overview page or an email. A screenshot or a printout records that yours is done.",
-            "document": "Confirmation of registration"
-          },
           "done": {
-            "title": "Registration recorded",
-            "note": "At the end, management reviews every item and signs."
+            "title": "Registration recorded"
           }
         },
         "fields": {
@@ -594,17 +843,16 @@
       },
       "2_1": {
         "headline": "Decide how you rate risks",
-        "teaser": "We recommend a ready-made method for this.",
+        "teaser": "We recommend a ready-made risk assessment method.",
         "missed": [
-          "Attacks are not the only thing that counts. The law requires an all-hazards approach (§ 30(2) BSIG). The EU directive explicitly requires protecting the physical environment of the systems too (Art. 21(2) NIS 2), for example against fire, water or a power cut.",
-          "The method is a start, not a straitjacket. If a level does not fit your company, adjust it. BSI Standard 200-3 explicitly allows for that."
+          "Attacks are not the only thing that counts. The law requires an all-hazards approach (§ 30(2) BSIG). The EU directive explicitly requires protecting the physical environment of the systems too (Art. 21(2) NIS 2), for example against fire, water or a power cut."
         ],
         "screens": {
           "learn": {
             "title": "How you rate risks",
             "body": [
               "Before you write down risks, decide how you rate them. Then everyone in the company rates them by the same rules.",
-              "nisd2.eu recommends a simple, ready-made method for this. Every risk gets two ratings: how often can it happen, and how big would the damage be? Together they give one of four levels. The method comes from BSI Standard 200-3, published by Germany's Federal Office for Information Security."
+              "nisd2.eu recommends a simple, ready-made risk assessment method. Every risk gets two ratings: how often can it happen, and how big would the damage be? Together they give one of four levels. The method comes from BSI Standard 200-3, published by Germany's Federal Office for Information Security."
             ],
             "duty": "The law requires concepts for risk analysis. It does not prescribe a particular method."
           },
@@ -626,11 +874,11 @@
             ]
           },
           "adopt": {
-            "title": "Adopt the method",
-            "lead": "One click records the method. This is how it will then appear in your records:",
+            "title": "Adopt the risk assessment method",
+            "lead": "We give you the ready-made method from BSI Standard 200-3 as your template. One click makes it your company's risk assessment method, and from then on you rate every risk by it. This is how it appears in your records:",
             "lines": [
               {
-                "label": "Method",
+                "label": "Risk assessment method",
                 "text": "Risk analysis according to BSI Standard 200-3"
               },
               {
@@ -644,8 +892,7 @@
             ]
           },
           "done": {
-            "title": "Method set",
-            "note": "With the method you rate each risk on its own as you write it down. At the end, management reviews the method and signs."
+            "title": "Risk assessment method set"
           }
         }
       },
@@ -653,8 +900,7 @@
         "headline": "Write down what your company has",
         "teaser": "A list of the processes, software and devices you work with.",
         "missed": [
-          "Software you rent from the cloud belongs on the list too, for example email or accounting.",
-          "For processes and applications, the BSI names a responsible person (Standard 200-2). Note who is responsible for each one."
+          "Software you rent from the cloud belongs on the list too, for example email or accounting."
         ],
         "screens": {
           "learn": {
@@ -674,10 +920,6 @@
               { "name": "Office PCs", "detail": "twelve, at the main office" }
             ]
           },
-          "sources": {
-            "title": "Where your list already exists",
-            "lead": "The BSI advises looking for existing overviews. Tick where you have looked:"
-          },
           "processes": {
             "title": "What your company does every day",
             "lead": "Tick what runs at your company. When in doubt, write it down rather than leave it out."
@@ -696,7 +938,7 @@
           },
           "which_software": {
             "title": "Which software exactly, and from whom?",
-            "lead": "Write down what you actually use, for example \"DATEV Unternehmen online\" instead of the kind \"Accounting\". Next to it goes who provides it."
+            "lead": "Write down what you actually use, for example \"DATEV Unternehmen online\" instead of the kind \"Accounting\". Next to it goes who provides it: whoever sends you the invoice for it. Your bookkeeping, for example in DATEV, lists everyone you pay."
           },
           "which_technology": {
             "title": "Which technology exactly, and from whom?",
@@ -704,21 +946,7 @@
           },
           "done": {
             "title": "Your list is in place",
-            "note": "When something new comes along, add it at any time. Later you rate each entry on its own. At the end, management reviews the list."
-          }
-        },
-        "sources": {
-          "ropa": {
-            "label": "Record of processing activities",
-            "text": "From data protection (Art. 30 GDPR). It describes what you process personal data for, and often names the software too."
-          },
-          "ledger": {
-            "label": "Fixed asset register or inventory list",
-            "text": "From accounting. It lists devices and other equipment your company has bought."
-          },
-          "provider": {
-            "label": "Your IT provider",
-            "text": "They know your servers, accounts and cloud services."
+            "note": "When something new comes along, add it to the list at any time."
           }
         }
       },
@@ -733,14 +961,14 @@
           "learn": {
             "title": "How big is which risk?",
             "body": [
-              "Your list is in place: software, technology and suppliers. Now you rate each entry with the method you set. How often does the worst realistic case happen, and how big would the damage be? The matrix turns that into one of four levels.",
+              "Your list is in place: software, technology and suppliers. Now you rate each entry with the risk assessment method you set. How often does the worst realistic case happen, and how big would the damage be? The matrix turns that into one of four levels.",
               "That shows you where protection is needed first. Individual threats, for example from the BSI's list of elementary threats, can be added afterwards in the risk register."
             ],
             "duty": "The law requires policies on risk analysis. How much protection is proportionate depends, among other things, expressly on the likelihood of incidents and their severity (Art. 21(1) NIS 2)."
           },
           "software": {
             "title": "Rate your software",
-            "lead": "For each one, think of the worst case that is realistic: it goes down, it is attacked or data is lost. How often does something like that happen, and how big would the damage be?"
+            "lead": "Each program on your list has its own row. Think of its worst realistic case: it goes down, it is attacked or data is lost. Then tap the field in its matrix: further right, the more often it happens; further up, the bigger the damage."
           },
           "technology": {
             "title": "Rate your technology and rooms",
@@ -750,9 +978,990 @@
             "title": "Rate your suppliers",
             "lead": "Here the worst case is that the supplier fails or has a security incident of its own. The level then also shows in your supplier list."
           },
+          "map": {
+            "title": "Your risks at a glance",
+            "lead": "Each number counts your entries in that field of the matrix. The further up and to the right, the sooner an entry needs protection. Below, all of them by name, highest level first."
+          },
           "done": {
-            "title": "Your risks are rated",
-            "note": "Low risks are marked \"Accept\": BSI Standard 200-3 calls it common practice to accept low risks and still monitor them. Everything from \"medium\" up is marked \"Mitigate\". You can change either in the risk register. At the end, management reviews the ratings."
+            "title": "Your risks are rated"
+          }
+        }
+      },
+      "2_4": {
+        "headline": "Write the security policy",
+        "teaser": "A short policy that management approves.",
+        "missed": [
+          "Everyone has to know the policy. Announce it to all staff and explain it to new staff before they get access to the systems; Germany's BSI asks for both (IT-Grundschutz ISMS.1.A3, Standard 200-2).",
+          "A policy goes out of date. Germany's BSI recommends reviewing it at least every two years (Standard 200-2). Digital providers covered by Implementing Regulation (EU) 2024/2690 review it at least annually (Annex, point 1.1.2)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Your information security policy",
+            "body": [
+              "The information security policy is a short document of principles: what it covers, which objectives your company pursues, who is responsible and how it goes about security. The BSI, Germany's Federal Office for Information Security, calls it the visible commitment of management.",
+              "Our template covers what the BSI names as the minimum content. You add what applies to your company, management approves it, and all staff receive it. According to the BSI, more than ten pages are rarely needed."
+            ],
+            "duty": "The law requires policies on information system security (Art. 21(2)(a) NIS 2), and management bodies approve the risk-management measures and oversee their implementation (Art. 20(1) NIS 2). The policy is the document in which management puts that in writing."
+          },
+          "leitlinie": {
+            "title": "Your policy",
+            "lead": "The template covers what the BSI names as the minimum content of a policy, and your company's name is already in it. Read it, then add below what fits your company.",
+            "document": {
+              "title": "Information security policy of {company}",
+              "sections": [
+                {
+                  "heading": "Scope",
+                  "text": "This policy applies to all of {company}: to all staff, all locations and all information, software, devices and services the company works with. It also applies where a service provider runs any of these for us."
+                },
+                {
+                  "heading": "Why information security matters to us",
+                  "text": "Our work depends on information and on the IT that processes it. If they fail, are altered or reach the wrong hands, we cannot deliver our services and we harm our customers. Information security is therefore part of management's responsibilities."
+                },
+                {
+                  "heading": "Objectives",
+                  "text": "We protect the availability, confidentiality and integrity of our information and systems. Our services should keep running when something goes wrong, data of customers, staff and partners should be accessible only to those authorised, and our records should stay accurate and complete. These objectives serve the company's aim of delivering reliably and keeping its customers' trust."
+                },
+                {
+                  "heading": "Approach",
+                  "text": "We work from the risks. We keep a list of our processes, software, devices and suppliers, assess the risks by a defined method and take measures that fit our size and the risks. In doing so we consider all hazards, including fire, water and power cuts."
+                },
+                {
+                  "heading": "Responsibility and organisation",
+                  "text": "Management is responsible for information security. It approves the measures and oversees their implementation. It decides who coordinates information security day to day and provides the time, money and staff for it. All staff follow the rules that derive from this policy and report anything unusual immediately."
+                },
+                {
+                  "heading": "Enforcement and review",
+                  "text": "Management enforces this policy and checks regularly whether the measures work. For this, the person who coordinates information security reports to management which measures are in place, where there were problems and what they propose. Management decides what changes, records the result and its decisions in writing, and makes sure gaps are closed. It reviews the policy itself regularly, after major changes in the company and after serious security incidents, and adapts it."
+                },
+                {
+                  "heading": "Announcement and entry into force",
+                  "text": "The policy takes effect when management approves it. All staff receive it. New staff get to know it before they are given access to our systems."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "laws",
+                  "label": "Laws and contracts",
+                  "heading": "Laws and contracts",
+                  "text": "We comply with the laws and contracts that concern our information security, in particular the national law implementing the NIS 2 Directive, the General Data Protection Regulation and our agreements with customers. All staff are required to observe them."
+                },
+                {
+                  "id": "contact",
+                  "label": "Contact person",
+                  "heading": "Contact person",
+                  "text": "Questions about information security and reports of incidents go to the person who coordinates information security. Who that is can be found in the current overview of roles."
+                },
+                {
+                  "id": "training",
+                  "label": "Training",
+                  "heading": "Training and awareness",
+                  "text": "All staff receive regular training in information security. Management itself takes part in training regularly."
+                },
+                {
+                  "id": "suppliers",
+                  "label": "Suppliers and service providers",
+                  "heading": "Suppliers and service providers",
+                  "text": "Anyone who works for us and has access to our systems or data also follows the rules of this policy. We agree this with our suppliers and service providers."
+                },
+                {
+                  "id": "reporting",
+                  "label": "Reporting security incidents",
+                  "heading": "Reporting security incidents",
+                  "text": "Staff report security incidents and suspected incidents internally and immediately. The company reports significant incidents to the competent CSIRT or authority within the legal deadlines."
+                },
+                {
+                  "id": "violations",
+                  "label": "Consequences of violations",
+                  "heading": "Violations",
+                  "text": "Violations of this policy and of the rules that derive from it may have consequences under employment law."
+                },
+                {
+                  "id": "yearly",
+                  "label": "Annual review",
+                  "heading": "Annual review",
+                  "text": "Management reviews this policy at least once a year."
+                },
+                {
+                  "id": "indicators",
+                  "label": "Indicators",
+                  "heading": "Indicators",
+                  "text": "For the review we use a few figures, such as how many security updates are installed and how quickly we respond to incidents."
+                },
+                {
+                  "id": "independent_review",
+                  "label": "Independent check",
+                  "heading": "Independent check",
+                  "text": "At least once a year a qualified person who is not responsible for the measures checks whether they work."
+                }
+              ],
+              "own": "Further rules",
+              "signature": "Approval by the management of {company}"
+            }
+          },
+          "done": {
+            "title": "Your policy is written",
+            "note": "Once management has approved it, announce it to all staff, for example by email or on the intranet."
+          }
+        }
+      },
+      "9_1": {
+        "headline": "Write the cryptography policy",
+        "teaser": "Where you encrypt, and who keeps the keys.",
+        "missed": [
+          "The recovery key of an encrypted disk does not belong on the same device. The IT-Grundschutz of Germany's BSI requires long-lived keys to be kept offline, outside the systems in use (CON.1.A2).",
+          "An encrypted backup only helps while the key exists. If the key is lost with the server, so is the backup. The IT-Grundschutz requires encrypted data to stay accessible over long periods (CON.1.A2).",
+          "Certificates expire. When your website's certificate has expired, browsers warn your visitors. The IT-Grundschutz requires time-limited certificates to be renewed in time (CON.1.A4)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Where you encrypt, and who holds the keys",
+            "body": [
+              "Encryption protects data where it can slip out of your hands: on a lost laptop, on its way across the internet, in a backup kept off site. Without the key, nobody can read it.",
+              "Two things record it: your list of accepted methods, and the cryptography policy, which says where you encrypt and how you handle keys and certificates, such as your website's, and prints the list. Which methods count as secure is set out in Technical Guideline TR-02102, which Germany's BSI updates every year."
+            ],
+            "duty": "The law requires policies and procedures for the use of cryptography and, where appropriate, encryption. It does not say which methods; the measures take the state of the art into account.",
+            "link": "BSI TR-02102, English editions"
+          },
+          "list": {
+            "title": "Your accepted methods",
+            "lead": "The methods your company uses for encryption, signatures and secure connections, and the ones it no longer uses. Until you keep a list of your own, this is what Germany's BSI recommends in TR-02102; your policy on the next screen prints it.",
+            "document": "Crypto list",
+            "categories": {
+              "symmetric": "Encryption",
+              "hash": "Hash functions",
+              "asymmetric": "Signatures and keys",
+              "key_exchange": "Key exchange",
+              "tls": "TLS"
+            },
+            "status": {
+              "approved": "Accepted",
+              "deprecated": "Only for what exists, not for anything new",
+              "prohibited": "Not to be used"
+            },
+            "bsi": "BSI TR-02102, version 2026-01",
+            "own": "Your own list",
+            "applies": "This list applies to us",
+            "change": "Change single entries on the requirement page"
+          },
+          "konzept": {
+            "title": "Your cryptography policy",
+            "lead": "The template has fixed sections on methods, keys and responsibility, and your company's name is already in it. Read it, then add below where you encrypt. Whoever looks after your IT can tell you what is already set up.",
+            "document": {
+              "title": "Cryptography policy of {company}",
+              "sections": [
+                {
+                  "heading": "Purpose and scope",
+                  "text": "This policy sets out how {company} uses encryption and other cryptographic methods, so that unauthorised people can neither read information nor change it unnoticed. It applies to all devices, software and services the company works with, including those a service provider runs for us."
+                },
+                {
+                  "heading": "Methods",
+                  "text": "We use only established methods and currently recommended key lengths with no known vulnerabilities. When we buy devices, software or services, we make sure they use such methods. Our list of methods:\n{acceptedCrypto}"
+                },
+                {
+                  "heading": "Keys and certificates",
+                  "text": "We keep secret keys and recovery keys where unauthorised people cannot reach them, and apart from the devices they unlock. We renew certificates, such as our website's, before they expire. If a key has fallen into the wrong hands, or we suspect it has, we replace it. We securely delete keys we no longer need."
+                },
+                {
+                  "heading": "Responsibility",
+                  "text": "Management decides who implements this policy and who manages keys and certificates. Where a service provider runs systems for us, we agree with them that they follow this policy. Everyone who sets up or looks after encrypted systems knows it."
+                },
+                {
+                  "heading": "Review",
+                  "text": "We review this policy regularly. If a method we use becomes known to be insecure, we secure it or replace it."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "tr02102",
+                  "label": "TR-02102 as the benchmark",
+                  "heading": "Benchmark",
+                  "text": "Which methods and key lengths count as secure we take from Technical Guideline TR-02102 of Germany's BSI, in its current version."
+                },
+                {
+                  "id": "laptops",
+                  "label": "Laptops",
+                  "heading": "Laptops",
+                  "text": "The disks of all laptops are encrypted."
+                },
+                {
+                  "id": "mobile",
+                  "label": "Work phones and tablets",
+                  "heading": "Work phones and tablets",
+                  "text": "Work phones and tablets are protected by a screen lock, and their storage is encrypted."
+                },
+                {
+                  "id": "removable",
+                  "label": "USB sticks",
+                  "heading": "USB sticks and external drives",
+                  "text": "Anyone who takes company data along on a USB stick or an external drive encrypts it."
+                },
+                {
+                  "id": "backups",
+                  "label": "Backups",
+                  "heading": "Backups",
+                  "text": "Backups kept off site or with a service provider are encrypted. We keep the key separately, so that we can still read the backup after an outage."
+                },
+                {
+                  "id": "remote",
+                  "label": "Website and remote access",
+                  "heading": "Website and remote access",
+                  "text": "Our website and remote access to our systems can be reached only over encrypted connections."
+                },
+                {
+                  "id": "confidential_mail",
+                  "label": "Confidential email",
+                  "heading": "Confidential email",
+                  "text": "We send especially confidential content by email only when it is encrypted so that only the recipient can read it, for example with S/MIME or PGP."
+                },
+                {
+                  "id": "yearly",
+                  "label": "Annual review",
+                  "heading": "Annual review",
+                  "text": "At least once a year we check whether the methods and key lengths we use are still secure enough."
+                },
+                {
+                  "id": "post_quantum",
+                  "label": "Quantum-safe methods",
+                  "heading": "Quantum-safe methods",
+                  "text": "For data that must stay confidential for many years, we plan the move to quantum-safe methods following the BSI's recommendations."
+                }
+              ],
+              "own": "Further rules",
+              "signature": "Approval by the management of {company}"
+            }
+          },
+          "done": {
+            "title": "Your cryptography policy is written",
+            "note": "Give it to everyone who sets up your devices and services, including your IT service provider."
+          }
+        }
+      },
+      "10_1": {
+        "headline": "Write the staff, access and asset policy",
+        "teaser": "Who gets into what, and what happens when someone leaves.",
+        "missed": [
+          "Accounts in cloud services that do not hang off the company login are easily forgotten when someone leaves. Germany's BSI counts a missing central overview among the important risks, because then not all accounts can be blocked at once in an emergency.",
+          "Your IT provider's remote maintenance access is an access like any other: only as far as the job needs it, and it ends with the job. The IT-Grundschutz of Germany's BSI requires outside staff to hand back their access when they leave (ORP.2.A4)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Who gets into what",
+            "body": [
+              "Access is created when someone starts. It becomes a risk when it stays after it is no longer needed: after a change of role, after someone leaves, after a contract ends. Germany's BSI counts exactly that among the important risks.",
+              "This policy covers, in one document, the three things the law names here: the security of your staff, who may access what, and how you manage your IT. For the IT part, your list of software, devices and suppliers is the basis."
+            ],
+            "duty": "The law requires human resources security, access control policies and asset management."
+          },
+          "leaver": {
+            "title": "The last working day",
+            "caption": "What happens to the access when someone leaves",
+            "good": {
+              "value": "On the last working day, IT blocks every account, including those in cloud services. Laptop, keys and badge come back.",
+              "note": "The IT-Grundschutz asks for both: remove the user IDs, and collect documents, keys, devices and badges (ORP.4.A2, ORP.2.A2)."
+            },
+            "bad": {
+              "value": "The account stays open until someone remembers it.",
+              "note": "The BSI counts accounts of former staff that are not deleted among the important risks."
+            }
+          },
+          "konzept": {
+            "title": "Your policy for staff, access and IT",
+            "lead": "The template has fixed sections on joining, changing role and leaving, on outside staff, on access and on managing your IT, and your company's name is already in it. Read it, then add below what applies to you.",
+            "document": {
+              "title": "Staff, access and asset policy of {company}",
+              "sections": [
+                {
+                  "heading": "Purpose",
+                  "text": "This policy sets out how {company} makes sure that staff handle information securely, that only authorised people get into software and data, and that we know which systems and software we have."
+                },
+                {
+                  "heading": "New staff",
+                  "text": "New staff are bound to confidentiality and learn the information security policy and the rules that apply to their work. Only then do they get access to our systems, and only the access their job needs."
+                },
+                {
+                  "heading": "Change of role and leaving",
+                  "text": "When someone changes role, we adjust their access and remove what is no longer needed. When someone leaves the company, we block their access without delay, take back documents, devices, keys and badges, and remind them that confidentiality still applies."
+                },
+                {
+                  "heading": "Service providers and other outside staff",
+                  "text": "Outside staff get only the access their job needs, and only for as long as it lasts. Before they see confidential information, we bind them to confidentiality in writing."
+                },
+                {
+                  "heading": "Access and rights",
+                  "text": "Every user ID belongs to exactly one person. We grant rights only as far as the job needs them. Management decides who approves access and who sets it up."
+                },
+                {
+                  "heading": "Managing our IT",
+                  "text": "We keep a list of our processes, software, devices and suppliers and keep it up to date. Anything new goes on the list before we use it. Devices and storage media we retire are securely wiped or destroyed, and taken off the list."
+                },
+                {
+                  "heading": "Review",
+                  "text": "We review this policy regularly and after major changes in the company."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "access_review",
+                  "label": "Reviewing rights",
+                  "heading": "Review of access rights",
+                  "text": "Once a year we check who may access which software and data, and remove what is no longer needed. Accounts with administrator rights are checked every quarter. We record the result."
+                },
+                {
+                  "id": "admin_accounts",
+                  "label": "Separate administrator accounts",
+                  "heading": "Administrator accounts",
+                  "text": "Administrator rights sit only on separate administrator accounts. For email and the internet, administrators also use an account without those rights."
+                },
+                {
+                  "id": "admin_mfa",
+                  "label": "Second factor for administrators",
+                  "heading": "Second factor for administrators",
+                  "text": "Accounts with administrator rights sign in only with a second factor, such as an app on the work phone or a security key."
+                },
+                {
+                  "id": "roles",
+                  "label": "Rights through roles",
+                  "heading": "Roles",
+                  "text": "We grant rights through roles, such as accounting or sales, and not to individual accounts."
+                },
+                {
+                  "id": "shared",
+                  "label": "Shared accounts",
+                  "heading": "Shared accounts",
+                  "text": "Accounts that several people use together exist only as a justified exception and with management's approval."
+                },
+                {
+                  "id": "inactive",
+                  "label": "Unused accounts",
+                  "heading": "Unused accounts",
+                  "text": "Accounts that have not been used for a long time are blocked."
+                },
+                {
+                  "id": "passwords",
+                  "label": "Passwords",
+                  "heading": "Passwords",
+                  "text": "Each password is used for one system only, kept secret, and changed as soon as there is a suspicion that it has become known."
+                },
+                {
+                  "id": "visitors",
+                  "label": "Visitors",
+                  "heading": "Visitors",
+                  "text": "Visitors, tradespeople and other outsiders who are only briefly on site enter rooms with servers or network equipment only when accompanied."
+                },
+                {
+                  "id": "deputies",
+                  "label": "Deputies",
+                  "heading": "Deputies",
+                  "text": "For important tasks a deputy is named who knows what to do."
+                }
+              ],
+              "own": "Further rules",
+              "signature": "Approval by the management of {company}"
+            }
+          },
+          "done": {
+            "title": "Your policy is written",
+            "note": "Use it whenever someone starts, changes role or leaves."
+          }
+        }
+      },
+      "11_1": {
+        "headline": "Record where a second factor protects",
+        "teaser": "For each program on your list: password alone, or with a second factor.",
+        "missed": [
+          "Your IT provider's remote maintenance access is also access from outside. Grundschutz++ of Germany's BSI recommends a second factor that also resists phishing for everything reachable from outside (BER.5.8).",
+          "Administrator accounts first: Grundschutz++ recommends the second factor explicitly for access with far-reaching rights (BER.5.9)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "A password and something you hold",
+            "body": [
+              "A password can be guessed, intercepted or found in someone else's data leak. A second factor is something you hold as well: an app on the work phone that shows a code or confirms the sign-in, or a security key. Anyone who only knows the password then cannot get in.",
+              "The law sets no particular assurance level, says Germany's BSI; you decide from your risk analysis. In this step you mark, for each program on your list, whether signing in already takes a second factor."
+            ],
+            "duty": "The law requires solutions where signing in takes more than a password (multi-factor authentication) or is checked continuously (continuous authentication)."
+          },
+          "where_first": {
+            "title": "Where first",
+            "caption": "Which sign-ins need a second factor first",
+            "good": {
+              "value": "Email, remote access and administrator accounts with an app or a security key",
+              "note": "Grundschutz++ recommends the second factor for everything reachable from outside and for access with far-reaching rights (BER.5.8, BER.5.9)."
+            },
+            "bad": {
+              "value": "Remote access from home with a password only",
+              "note": "Then a guessed or intercepted password is enough to get into your network."
+            },
+            "more": [
+              {
+                "good": {
+                  "value": "Every user of the company's cloud account with an authenticator app",
+                  "note": "One account usually opens email, files and chat at once, so one stolen password would open all three."
+                },
+                "bad": {
+                  "value": "A second factor for management only",
+                  "note": "A phishing email reaches every inbox, and attackers use whichever account is easiest."
+                }
+              },
+              {
+                "good": {
+                  "value": "Administrator accounts with a security key",
+                  "note": "A security key checks which website it signs in to, so a fake sign-in page cannot use it."
+                },
+                "bad": {
+                  "value": "Administrator accounts with codes by SMS",
+                  "note": "A text message can be redirected to another SIM card. For accounts with full rights, choose an app or a key."
+                }
+              }
+            ]
+          },
+          "logins": {
+            "title": "Where a second factor protects",
+            "lead": "For each program and access on your list, mark how people sign in, and where a second factor is on, which one: it can differ from program to program. Each row starts at \"Password only\", the safe assumption; change it where you know better, or mark \"Not known yet\". Where several are reached through one company account, for example with Microsoft, they share the same answer. Whoever looks after your IT can tell you what you do not know.",
+            "mfa": "Second factor",
+            "password": "Password only",
+            "unknown": "Not known yet",
+            "which": "Which one:",
+            "methods": {
+              "app": "App on the phone",
+              "security_key": "Security key",
+              "company_account": "Through the company account",
+              "sms": "Code by SMS",
+              "email": "Code by email"
+            }
+          },
+          "done": {
+            "title": "Your sign-ins are recorded",
+            "note": "Where only a password is marked, decide from the risk whether to switch on a second factor. Start with what is reachable from outside."
+          }
+        }
+      },
+      "11_2": {
+        "headline": "Record secured communication",
+        "teaser": "What you use for calls, meetings and messages.",
+        "missed": [
+          "Encrypted transfer protects the way, not the message on the server. For especially confidential content Germany's BSI advises encryption that only sender and recipient can read as well, for example S/MIME or PGP for email."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Phone, video, chat",
+            "body": [
+              "For calls, meetings and messages you use programs and services. Secured here means: the transfer is encrypted, and only authorised people get in. The BSI names the TLS protocol as the standard for securing the transfer.",
+              "How you reach each other when your own IT fails is already in your incident response plan. In this step you record what you use to talk and write day to day."
+            ],
+            "duty": "The law requires secured voice, video and text communication within the company and, where appropriate, secured emergency communication."
+          },
+          "answer": {
+            "title": "An answer that holds",
+            "caption": "How to record what you communicate with",
+            "good": {
+              "value": "Email and chat in Microsoft 365, meetings in Teams, phone calls over the provider's cloud phone system, all transferred encrypted",
+              "note": "Names every tool and says how it is secured."
+            },
+            "bad": {
+              "value": "All secure",
+              "note": "Says nothing about what you use, and cannot be checked."
+            }
+          },
+          "tools": {
+            "title": "Your tools",
+            "lead": "What you use for calls, meetings and messages, and how it is secured. The law names voice, video and text together as one measure, so one answer covers all three. Tap the programs from your list that you use for this, then say how they are secured.",
+            "document": "Secured communication"
+          },
+          "done": {
+            "title": "Your communication is recorded",
+            "note": "When a new tool comes in, add it to this answer."
+          }
+        },
+        "fields": {
+          "secureCommsTools": {
+            "label": "Tools for phone, video and chat",
+            "hint": "For example: Microsoft Teams for meetings and chat, phone calls over the provider's cloud phone system, all transferred encrypted.",
+            "suggestions": [
+              "All transferred encrypted",
+              "Sign-in only with a company account",
+              "Sign-in with a second factor",
+              "Guests join meetings only when let in"
+            ]
+          }
+        }
+      },
+      "6_3": {
+        "headline": "Write the rules for buying, updates and vulnerabilities",
+        "teaser": "What you check when buying, how updates arrive and who closes gaps.",
+        "missed": [
+          "Software that no longer gets security updates stays vulnerable, even while it still runs. Check when buying how long the maker supplies updates.",
+          "Remote maintenance access that stays open all the time is a way in. Germany's BSI names switching it off in its NIS 2 information package on security measures."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Buy, update, close gaps",
+            "body": [
+              "A vulnerability is a property of software or a device that an outsider can exploit to get in or to disrupt it. That is how the law describes it. Examples: software that no longer gets updates, an update left waiting, a default password never changed.",
+              "The rules in this step set out what you check when buying, how updates are installed, how you handle vulnerabilities and where people can report one to you. Where an IT provider looks after your systems, the rules tell them what you expect."
+            ],
+            "duty": "The law requires security when you acquire, develop and maintain your IT, including handling and disclosing vulnerabilities."
+          },
+          "updates": {
+            "title": "How updates arrive",
+            "caption": "Security updates day to day",
+            "good": {
+              "value": "Security updates install automatically, and the IT provider checks every month that everything is up to date.",
+              "note": "Grundschutz++ of Germany's BSI recommends installing security updates automatically (KONF.8.1.1)."
+            },
+            "bad": {
+              "value": "Updates when someone has time.",
+              "note": "Until then a known gap stays open that an attacker can exploit."
+            }
+          },
+          "sources": {
+            "title": "Where vulnerabilities become known",
+            "lead": "You do not have to hunt for gaps yourself. New vulnerabilities are announced publicly, and your list of software from step 2.2 tells you which announcements concern you. These are the places to watch:",
+            "items": [
+              {
+                "name": "Makers' security notices",
+                "detail": "the companies whose software and devices you use publish them on their website, and many send them by email if you sign up"
+              },
+              {
+                "name": "The BSI's warning and information service",
+                "detail": "CERT-Bund, part of Germany's BSI, publishes new vulnerabilities in widely used products at wid.cert-bund.de; you can subscribe by email free of charge"
+              },
+              {
+                "name": "The European vulnerability database",
+                "detail": "ENISA, the EU's cybersecurity agency, lists published vulnerabilities at euvd.enisa.europa.eu"
+              },
+              {
+                "name": "Your IT provider",
+                "detail": "whoever looks after your systems usually follows these sources already; agree in writing that they tell you when you are affected"
+              }
+            ],
+            "source": "In its NIS 2 information package on security measures, Germany's BSI recommends checking systems regularly for known gaps and handling vulnerabilities by risk. The warning service: bsi.bund.de, Warning and Information Service (WID)."
+          },
+          "report": {
+            "title": "Where people report a vulnerability to you",
+            "lead": "If someone finds a gap in your systems, for example on your website, they need an address for it. Germany's BSI recommends naming it publicly. Where your company has a contact email, the common answers below use its domain. If you have none yet, leave the field empty: your rules then get a line to fill in.",
+            "document": "Your rules for buying, updates and vulnerabilities"
+          },
+          "rules": {
+            "title": "Your rules for buying, updates and vulnerabilities",
+            "lead": "The template has fixed sections on buying, updates, vulnerabilities and reports, and your company's name is already in it. Read it, then add below what applies to you.",
+            "document": {
+              "title": "Rules for buying, maintaining and securing the IT of {company}",
+              "sections": [
+                {
+                  "heading": "Scope",
+                  "text": "These rules apply to all software, devices, cloud services and networks {company} works with, including those a service provider runs for us."
+                },
+                {
+                  "heading": "When buying",
+                  "text": "Before we buy software, a device or a cloud service, we check whether the provider supplies security updates and for how long. Where we can, we buy nothing with known, exploitable vulnerabilities and nothing whose support ends soon. At set-up we change default passwords."
+                },
+                {
+                  "heading": "Updates",
+                  "text": "We install security updates as soon as they are available, automatically where possible. If an update cannot be installed, we record why and what we do instead."
+                },
+                {
+                  "heading": "Finding and fixing vulnerabilities",
+                  "text": "We follow the security notices of the makers of our software and devices, the warnings of our national CSIRT and our IT provider's notices. If a vulnerability affects us, the person who coordinates information security decides with the IT provider what to do, serious vulnerabilities first. We record what we found and what we did."
+                },
+                {
+                  "heading": "Reporting vulnerabilities",
+                  "text": "We take reports of vulnerabilities in our systems at {vulnerabilityDisclosureUrl}. If we find a vulnerability in a product we use, we report it to the maker. If the maker does not respond, we can report it to our national CSIRT."
+                },
+                {
+                  "heading": "Review",
+                  "text": "We review these rules regularly and after major changes to our IT."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "hardening",
+                  "label": "Only what is needed",
+                  "heading": "Set-up",
+                  "text": "We set up devices and software with only the functions we need. Services and accounts we do not need are switched off."
+                },
+                {
+                  "id": "remote",
+                  "label": "Remote maintenance",
+                  "heading": "Remote maintenance",
+                  "text": "Remote maintenance access is open only while maintenance is being done."
+                },
+                {
+                  "id": "providers",
+                  "label": "Providers' duties",
+                  "heading": "Providers' duties",
+                  "text": "We agree with our IT providers that they fix vulnerabilities affecting us without delay."
+                },
+                {
+                  "id": "scans",
+                  "label": "Regular checks",
+                  "heading": "Regular checks",
+                  "text": "We have our systems checked regularly for known vulnerabilities."
+                },
+                {
+                  "id": "changes",
+                  "label": "Major changes",
+                  "heading": "Major changes",
+                  "text": "We plan major changes to important systems beforehand, record them and keep a way back in case something goes wrong."
+                },
+                {
+                  "id": "development",
+                  "label": "Our own software",
+                  "heading": "Our own software",
+                  "text": "If we develop software ourselves or have it developed, we set the security requirements beforehand and have it checked before it goes into use."
+                },
+                {
+                  "id": "securitytxt",
+                  "label": "security.txt",
+                  "heading": "Reporting address on the website",
+                  "text": "Our website has a security.txt file under RFC 9116 that says where to report vulnerabilities."
+                }
+              ],
+              "own": "Further rules",
+              "signature": "Approval by the management of {company}"
+            }
+          },
+          "done": {
+            "title": "Your rules are written",
+            "note": "Give them to everyone who sets up and maintains your IT, including your IT provider."
+          }
+        },
+        "fields": {
+          "vulnerabilityDisclosureUrl": {
+            "label": "Address for vulnerability reports",
+            "hint": "An email address, for example security@ at your domain, or a web page. Germany's BSI recommends a security.txt file on your website for this (RFC 9116).",
+            "suggestions": [
+              "security.txt file on our website",
+              "Contact form on our website"
+            ]
+          }
+        }
+      },
+      "4_2": {
+        "headline": "Write the business continuity plan",
+        "teaser": "How you keep working when something fails, and who decides then.",
+        "missed": [
+          "Emergency operation does not mean everything runs as usual. For a start, Germany's BSI names fallback processes such as taking orders by hand and keeping records on paper (its guide to business continuity for small companies).",
+          "The plan only helps if it is at hand in an emergency. If it lives only on the server, it is gone with the server. Keep printed copies, one of them outside the building."
+        ],
+        "screens": {
+          "learn": {
+            "title": "When operations stop",
+            "body": [
+              "The incident response plan says who calls whom and who decides during an attack. This plan goes further: it covers anything that interrupts important work, including fire, water, power cuts or the failure of an important provider. It says how you keep working, who restores the systems and who leads the crisis.",
+              "For a start, Germany's BSI recommends that smaller companies have a plan that keeps operations going at a minimum level: fallback processes, fallback places, and informing staff, suppliers and customers. Our template covers these points."
+            ],
+            "duty": "The law requires business continuity, such as backup management and disaster recovery, and crisis management."
+          },
+          "fallback": {
+            "title": "Working without IT",
+            "caption": "One line of emergency operation",
+            "good": {
+              "value": "We take orders by phone and on paper forms until the order system runs again.",
+              "note": "A fallback process of the kind the BSI names for a start: orders by hand, records on paper."
+            },
+            "bad": {
+              "value": "We wait until the IT works again.",
+              "note": "Until then no orders come in, and nobody knows how long that takes."
+            }
+          },
+          "keep": {
+            "title": "What must keep running",
+            "lead": "These are the processes on your list. Ask of each one: if IT were gone for a whole day, could we simply wait, or would customers, safety or a deadline suffer? Tick the ones that cannot wait, and say in one sentence how they continue. Both then appear in your plan.",
+            "keep": "Must keep running",
+            "how": "How it continues without IT",
+            "example": "for example: orders by phone and on paper forms",
+            "suggestions": [
+              "on paper forms",
+              "by phone",
+              "from a printed list",
+              "by hand, entered later",
+              "from another site",
+              "the provider takes over"
+            ]
+          },
+          "plan": {
+            "title": "Your business continuity plan",
+            "lead": "The template has fixed sections on leadership, emergency operation, recovery and informing people. Your company's name, the person who leads in an emergency (from step 3.1), the processes that must keep running and the order from your risk assessment are already in it. Read it, then add below what applies to you.",
+            "document": {
+              "title": "Business continuity plan of {company}",
+              "sections": [
+                {
+                  "heading": "Purpose and scope",
+                  "text": "This plan sets out how {company} keeps working when an event interrupts important work: a cyber attack, an IT or internet outage, fire, water, a power cut or the failure of an important provider. It complements the incident response plan, which governs alerting and the first steps."
+                },
+                {
+                  "heading": "When this plan applies",
+                  "text": "This plan applies when an event interrupts important work for longer than normal troubleshooting takes, or threatens to. In doubt, {emergencyLead} decides."
+                },
+                {
+                  "heading": "Leadership",
+                  "text": "{emergencyLead}, who also leads under the incident response plan, leads the response, brings in the people needed, decides, and records each decision with the time. Decisions about money, customers and staff are taken together with management. If {emergencyLead} cannot be reached, management takes over."
+                },
+                {
+                  "heading": "Alerting and contacts",
+                  "text": "Whom we call and how we reach each other when the IT fails is set out in the incident response plan, with the phone list on paper."
+                },
+                {
+                  "heading": "Emergency operation",
+                  "text": "These processes must keep running, even without IT, and this is how they continue: {criticalProcesses}"
+                },
+                {
+                  "heading": "Recovery",
+                  "text": "Our IT provider or our own IT restores the systems from the backups. A system goes back into use only once it has been checked. The order follows the damage in our risk assessment, the largest first: {recoveryOrder}. In an emergency the lead can decide otherwise."
+                },
+                {
+                  "heading": "Informing people",
+                  "text": "{emergencyLead} or someone they name informs staff, suppliers and customers. Reports to the competent CSIRT or authority follow the incident response plan."
+                },
+                {
+                  "heading": "Back to normal operation",
+                  "text": "{emergencyLead} declares the emergency over. We record what happened and adapt this plan."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "targets",
+                  "label": "Recovery targets",
+                  "heading": "Recovery targets",
+                  "text": "For our most important systems we set how long they may be down at most and how much data may be lost at most. The figures are recorded with the systems on our list."
+                },
+                {
+                  "id": "practice",
+                  "label": "Yearly exercise",
+                  "heading": "Exercise",
+                  "text": "Once a year we walk through an outage around the table and check that we can reach everyone involved."
+                },
+                {
+                  "id": "workplace",
+                  "label": "Fallback workplace",
+                  "heading": "Fallback workplace",
+                  "text": "If the office cannot be used, we keep working remotely or at a fallback location."
+                },
+                {
+                  "id": "power",
+                  "label": "Power cut",
+                  "heading": "Power cut",
+                  "text": "For a power cut it is set which devices must keep running and who decides about emergency power."
+                },
+                {
+                  "id": "providers",
+                  "label": "Providers in an emergency",
+                  "heading": "Providers in an emergency",
+                  "text": "We have agreed with our important providers how we reach them in an emergency and what they then do for us."
+                },
+                {
+                  "id": "paper",
+                  "label": "Printed copy",
+                  "heading": "Printed copy",
+                  "text": "A printed copy of this plan is kept outside the building."
+                }
+              ],
+              "own": "Further rules",
+              "signature": "Approval by the management of {company}"
+            }
+          },
+          "done": {
+            "title": "Your business continuity plan is written",
+            "note": "Keep a copy that works without IT next to the incident response plan, for example on paper."
+          }
+        }
+      },
+      "4_4": {
+        "headline": "Record your backups",
+        "teaser": "How often you back up, and when a restore last worked.",
+        "missed": [
+          "A backup with the same provider that holds the original data does not count as separate storage for Germany's BSI, cloud services included (Grundschutz++ NOT.4.10).",
+          "An attacker can encrypt a backup on the same network along with everything else. The BSI therefore recommends a copy kept separate from the network (Grundschutz++ NOT.4.14)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "A backup you can restore",
+            "body": [
+              "A backup is a copy of your data that you bring back after an outage, an attack or a mistake. It only helps if a copy survives the incident and can really be restored.",
+              "In this step you record, for each backup system on your list, how often it backs up and when a restore from it last worked. Where the copies are kept stays on the requirement page."
+            ],
+            "duty": "The law names backup management and disaster recovery explicitly as part of business continuity."
+          },
+          "copy": {
+            "title": "Where the copy is kept",
+            "caption": "A copy that survives an attack",
+            "good": {
+              "value": "One copy is kept off the network, for example on a disk in a cupboard or in storage that nobody can delete or change.",
+              "note": "Grundschutz++ recommends keeping backups separate from the original data and one copy off the network (NOT.4.10, NOT.4.14)."
+            },
+            "bad": {
+              "value": "The backup sits on a drive in the same network as the server.",
+              "note": "If an attacker encrypts the server, the backup is encrypted along with it."
+            }
+          },
+          "ask": {
+            "title": "What to ask first",
+            "lead": "Ask whoever looks after your IT, before you answer on the next screen:",
+            "items": [
+              {
+                "name": "Which backup systems",
+                "detail": "what makes your backups, for example backup software, a NAS or a cloud backup service; each one is a line on the next screen"
+              },
+              {
+                "name": "How often each one backs up",
+                "detail": "continuously, hourly, daily or weekly, for the systems it backs up: servers, file storage, databases"
+              },
+              {
+                "name": "The last restore from each",
+                "detail": "when data last came back from it, and whether it was complete and readable; one sample is enough for the BSI"
+              },
+              {
+                "name": "Your cloud and software providers, separately",
+                "detail": "they back up their own systems; ask each one what they keep for you and how you would get your data back. Their answers do not go on the next screen"
+              }
+            ],
+            "source": "Germany's BSI, emergency management checklist: make backups regularly and test regularly that they can be restored. Checking by samples: Grundschutz++ NOT.4.16.1. The law names backup management, not figures per system (§ 30(2) no. 3 BSIG)."
+          },
+          "systems": {
+            "title": "Your backup systems",
+            "lead": "Each backup system on your list, with what you were told. A backup that was never restored is not shown to work: the law asks for effective measures (§ 30(1) BSIG). That is our reading, not the wording of the law.",
+            "frequency": "How often it backs up",
+            "options": {
+              "real_time": "continuously",
+              "hourly": "hourly",
+              "daily": "daily",
+              "weekly": "weekly"
+            },
+            "lastRestore": "Last restore from it that worked",
+            "lastRestoreHint": "The day data last came back from it complete, as a test or for real. If none has worked yet, leave it empty and plan one.",
+            "empty": "No backup system is on your list yet.",
+            "add": "Add a backup system to your list"
+          },
+          "done": {
+            "title": "Your backups are recorded",
+            "note": "Germany's BSI advises testing restores regularly. Enter the new date after each test."
+          }
+        }
+      },
+      "8_2": {
+        "headline": "Record your staff training",
+        "teaser": "Who was briefed on what, and when.",
+        "missed": [
+          "New staff need the briefing too. Germany's BSI considers it sensible to train people when they start and to inform everyone about what is new once a year.",
+          "Without a record, a training cannot be shown later. The BSI calls documenting the measures a necessary condition for meeting the requirement of the German act."
+        ],
+        "screens": {
+          "learn": {
+            "title": "What your staff should know",
+            "body": [
+              "A phishing email, a call from a supposed IT support desk, an unknown USB stick: attacks like these are aimed at your staff. Whoever recognises them reports them instead of clicking.",
+              "Germany's BSI considers it sensible to train new staff when they start and to inform everyone about what is new once a year. Explaining your security policy and putting up a poster such as an IT emergency card count too; the BSI names conveying clear security rules and posters explicitly. What matters is that you record who took part and when."
+            ],
+            "duty": "The law requires basic cyber hygiene practices and cybersecurity training. It does not say how often, in what form or with which provider.",
+            "link": "The BSI's page on training (in German)"
+          },
+          "record": {
+            "title": "What records can look like",
+            "caption": "One line per training or briefing:",
+            "rows": [
+              {
+                "name": "Spotting phishing, all staff",
+                "detail": "team meeting, 14 January 2026, list of who was there"
+              },
+              {
+                "name": "First-day briefing, new colleague in sales",
+                "detail": "first working day, 2 March 2026, security policy explained and handed over"
+              },
+              {
+                "name": "Online course on information security, administration",
+                "detail": "completed by 30 April 2026, export from the course"
+              }
+            ],
+            "note": "The law prescribes no format. Record what it covered, who took part and when."
+          },
+          "trainings": {
+            "title": "Your trainings and briefings",
+            "lead": "Enter what has already taken place, one line per session. Attach a list of who took part or an export, or link the record at the provider, for example an online course's completion report. That works for many staff at once too."
+          },
+          "done": {
+            "title": "Your training is recorded",
+            "note": "Enter future trainings on the Training page, including the briefing of new staff."
+          }
+        }
+      },
+      "7_3": {
+        "headline": "Record the management review",
+        "teaser": "Management checks whether the measures work and approves your documents.",
+        "missed": [
+          "Management can only oversee what it knows. Germany's BSI advises reports to management that cover above all problems, successes and opportunities for improvement (IT-Grundschutz ISMS.1.A12).",
+          "Decisions without an owner and a date stay undone. For every task, record who does it by when."
+        ],
+        "screens": {
+          "learn": {
+            "title": "What management sees and decides",
+            "body": [
+              "Sit down, look at where things stand, decide: that is the management review. The person who coordinates information security reports what is in place, where things are stuck and what they propose. Management decides what happens next and records it.",
+              "In this step you enter the review and approve the documents the walkthrough wrote, which are saved as drafts so far. The law does not say how often or in what form."
+            ],
+            "duty": "The law requires management bodies to approve the measures and oversee their implementation, and requires procedures to assess whether the measures are effective."
+          },
+          "inputs": {
+            "title": "What goes on the table",
+            "lead": "Have ready for the review:",
+            "items": [
+              {
+                "name": "What is in place",
+                "detail": "the finished steps of this walkthrough and what is still open"
+              },
+              {
+                "name": "Problems",
+                "detail": "incidents, outages and anything that did not work"
+              },
+              {
+                "name": "Risks",
+                "detail": "your rated risks, highest first; they are on the next step"
+              },
+              {
+                "name": "Proposals",
+                "detail": "what the person who coordinates information security would change"
+              }
+            ],
+            "source": "Under IT-Grundschutz ISMS.1.A12 of Germany's BSI, reports to management cover in particular problems, successes and opportunities for improvement."
+          },
+          "risks": {
+            "title": "Your risks for management",
+            "lead": "This is where your software, technology and suppliers stand today. The further up and to the right, the sooner an entry needs protection. Management decides where to act first."
+          },
+          "record": {
+            "title": "What an entry can look like",
+            "caption": "A management review, made up:",
+            "rows": [
+              {
+                "name": "Date and participants",
+                "detail": "12 February 2026; management, information security coordinator, IT provider"
+              },
+              {
+                "name": "Looked at",
+                "detail": "walkthrough status, two incidents, the five highest risks"
+              },
+              {
+                "name": "Decided",
+                "detail": "policies approved; second factor for remote access"
+              },
+              {
+                "name": "To do",
+                "detail": "test a restore, IT provider, by the end of March; phishing briefing, coordinator, in April"
+              }
+            ],
+            "note": "The law prescribes neither a meeting nor minutes. Record the date, who took part, the decisions and the tasks."
+          },
+          "review": {
+            "title": "Your management review",
+            "lead": "Enter the review: when, who, what was decided and what has to be done."
+          },
+          "approve": {
+            "title": "Management approves the documents",
+            "lead": "These are the documents this walkthrough wrote. Management reads each one and approves it here, signed in with its own account. Nothing is printed or scanned."
+          },
+          "done": {
+            "title": "Your management review is recorded",
+            "note": "The approved documents apply from the day management approved them and are listed under your policies. Hold the next review as your security policy sets out."
           }
         }
       }
