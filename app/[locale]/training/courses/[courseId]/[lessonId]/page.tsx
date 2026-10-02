@@ -4,6 +4,7 @@ import { CertificateDownload } from "@/components/training-portal/CertificateDow
 import { LessonViewerPage } from "@/components/training-portal/LessonViewerPage";
 import { StartJourneyCta } from "@/components/training-portal/StartJourneyCta";
 import { getSession } from "@/lib/auth";
+import { lessonArt } from "@/lib/training/art";
 import { journeyCategoryForLesson } from "@/lib/training/lesson-journey-map";
 import { api } from "@/lib/trpc/server";
 
@@ -58,6 +59,7 @@ export default async function LessonRoute({
         quiz={quizData}
         progress={lessonData.progress}
         courseId={courseId}
+        image={lessonArt(courseId, lessonId)}
         journeyCategory={journeyCategory}
         onSubmitQuiz={handleSubmitQuiz}
         onCompleteLesson={handleCompleteLesson}

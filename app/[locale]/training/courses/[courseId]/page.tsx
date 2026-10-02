@@ -1,5 +1,6 @@
 import { Check, ChevronDown, Clock, PlayCircle } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
+import { Art } from "@/components/durchgang/Art";
 import { CertificateDownload } from "@/components/training-portal/CertificateDownload";
 import {
   Collapsible,
@@ -7,6 +8,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Link } from "@/i18n/navigation";
+import { courseArt } from "@/lib/training/art";
 import { api } from "@/lib/trpc/server";
 
 export default async function CourseOverviewRoute({
@@ -21,6 +23,8 @@ export default async function CourseOverviewRoute({
     api.trainingPortal.getCourse({ courseId }),
     api.trainingCertificate.getCourseCompletion({ courseId }),
   ]);
+
+  const image = courseArt(courseId);
 
   const completedSet = new Set(
     progress.filter((p) => p.completed).map((p) => p.lessonId),
@@ -41,7 +45,12 @@ export default async function CourseOverviewRoute({
     <div className="max-w-3xl mx-auto space-y-8">
       {/* Hero */}
       <div className="space-y-3">
-        <h1 className="text-3xl font-bold tracking-tight">
+        {image && (
+          <div className="mb-6 flex h-48 items-end justify-center overflow-hidden rounded-3xl bg-primary/[0.06] sm:h-56">
+            <Art src={image} className="h-44 translate-y-2 sm:h-52" />
+          </div>
+        )}
+        <h1 className="text-3xl font-semibold tracking-tight">
           {course.title[locale] ?? course.title.en}
         </h1>
         <p className="text-muted-foreground leading-relaxed">

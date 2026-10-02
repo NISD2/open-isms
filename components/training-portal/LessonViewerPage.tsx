@@ -1,16 +1,17 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
-import { useTranslations, useLocale } from "next-intl";
-import { useRouter } from "@/i18n/navigation";
+import { BookOpen, Check, ChevronLeft, ChevronRight, Video } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Art } from "@/components/durchgang/Art";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BookOpen, Video, ChevronLeft, ChevronRight, Check } from "lucide-react";
-import { DictionarySidebar } from "./DictionarySidebar";
-import { TermHoverProvider, useTermHover } from "./TermHoverContext";
-import { QuizForm } from "./QuizForm";
-import { JourneyLink } from "./JourneyLink";
+import { useRouter } from "@/i18n/navigation";
 import type { Lesson } from "@/lib/training/schemas";
+import { DictionarySidebar } from "./DictionarySidebar";
+import { JourneyLink } from "./JourneyLink";
+import { QuizForm } from "./QuizForm";
+import { TermHoverProvider, useTermHover } from "./TermHoverContext";
 
 interface SidebarTerm {
   term: string;
@@ -31,6 +32,8 @@ interface LessonViewerPageProps {
   quiz: QuizData | null;
   progress: { completed: boolean; quizPassed: boolean | null } | null;
   courseId: string;
+  /** The lesson's picture (lib/training/art.ts), or null where none is drawn. */
+  image: string | null;
   /** NIS2 journey category this lesson maps to, or null (gated server-side). */
   journeyCategory: string | null;
   onSubmitQuiz: (answers: number[]) => Promise<{
@@ -98,10 +101,12 @@ function LessonArticle({ html }: { html: string }) {
     });
   }, [activeTermSlug]);
 
+  // Every lesson text opens with its own "Lesson x.y: title" heading, which repeats the page's.
   return (
     <article
       ref={articleRef}
-      className="prose prose-sm max-w-none dark:prose-invert lesson-content"
+      className="prose prose-sm max-w-none dark:prose-invert lesson-content [&>h1:first-child]:hidden"
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: the lesson HTML is rendered on the server from the course markdown in this repo, not from user input
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );
@@ -114,6 +119,7 @@ export function LessonViewerPage({
   quiz,
   progress,
   courseId,
+  image,
   journeyCategory,
   onSubmitQuiz,
   onCompleteLesson,
@@ -134,20 +140,22 @@ export function LessonViewerPage({
   return (
     <TermHoverProvider>
       <div className="space-y-8">
-        {/* Header */}
-        <div>
-          <p className="text-sm text-muted-foreground mb-1">
-            {t("lesson")} {lesson.id} · {t("estimatedTime", { minutes: lesson.estimatedMinutes })}
-          </p>
-          <h1 className="text-2xl font-bold">
-            {lesson.title[locale] ?? lesson.title.en}
-          </h1>
-        </div>
-
-        {/* Content + Dictionary layout */}
+        {/* Content + Dictionary layout: the rail starts level with the lesson's picture */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left: Content (2/3) */}
           <div className="lg:col-span-2">
+            {image && (
+              <div className="mb-8 flex h-44 items-end justify-center overflow-hidden rounded-3xl bg-primary/[0.06] sm:h-52">
+                <Art src={image} className="h-40 translate-y-2 sm:h-48" />
+              </div>
+            )}
+            <p className="text-sm text-muted-foreground mb-1">
+              {t("lesson")} {lesson.id} ·{" "}
+              {t("estimatedTime", { minutes: lesson.estimatedMinutes })}
+            </p>
+            <h1 className="mb-6 text-2xl font-semibold tracking-tight sm:text-3xl">
+              {lesson.title[locale] ?? lesson.title.en}
+            </h1>
             <Tabs defaultValue={defaultTab}>
               {lesson.videoUrl && (
                 <TabsList className="mb-4">
@@ -199,7 +207,11 @@ export function LessonViewerPage({
           <QuizForm
             questions={quiz.questions}
             passingScore={quiz.passingScore}
-            nextLessonHref={lesson.nextLessonId ? `/training/courses/${courseId}/${lesson.nextLessonId}` : undefined}
+            nextLessonHref={
+              lesson.nextLessonId
+                ? `/training/courses/${courseId}/${lesson.nextLessonId}`
+                : undefined
+            }
             onSubmit={async (answers) => {
               const result = await onSubmitQuiz(answers);
               if (result.passed) {
