@@ -1,5 +1,13 @@
 {
   "billing": {
+    "offer": {
+      "title": "Wie möchten Sie weitermachen?",
+      "lead": "Das Compliance Portal öffnet sich mit der Bestellung. Lieferantenportal und Schulungsportal nutzen Sie ohne Bestellung.",
+      "paidName": "Compliance Portal",
+      "withoutOrder": "Ohne Bestellung",
+      "supplier": "Füllen Sie Ihr Sicherheitsprofil einmal aus und laden Sie jeden Kunden, der danach fragt, per E-Mail darauf ein.",
+      "training": "Alle Kurse zu NIS 2 und zum CRA, darunter die Schulung für die Geschäftsleitung."
+    },
     "order": {
       "metaTitle": "Bestellen",
       "title": "Bestellung",

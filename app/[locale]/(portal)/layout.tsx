@@ -6,9 +6,10 @@ import { AdminTestPanel } from "@/components/portal/AdminTestPanel";
 import { AppSidebar, type FrameworkGroup } from "@/components/portal/AppSidebar";
 import { PortalHeader } from "@/components/portal/PortalHeader";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { redirect as localeRedirect } from "@/i18n/navigation";
 import { getSession, hasReviewAccess } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
-import { mayOpenPortalPath, mayWalkDurchgang } from "@/lib/billing/access";
+import { mayOpenPortalPath, mayWalkDurchgang, ORDER_PATHS } from "@/lib/billing/access";
 import { billingFor } from "@/lib/billing/ordering-access";
 import {
   type CategoryInfo,
@@ -70,11 +71,15 @@ export default async function PortalLayout({ children }: { children: React.React
   if (!session) redirect("/auth/signin");
 
   // The access gate (lib/billing/access.ts): an account that must order first reaches only the few
-  // pages that let it do so, and is sent to /bestellen before any journey data is loaded.
+  // pages that let it do so, and is sent to the offer, inside the portal, for anything else. A
+  // redirect rather than the offer in the page's place: Next.js renders a page alongside its layout
+  // and sends it with the response even when the layout leaves it out.
   const h = await headers();
   const pathname = h.get("x-pathname") ?? "";
   const mustOrder = session.accessLevel === "free";
-  if (mustOrder && !mayOpenPortalPath("free", pathname)) redirect("/bestellen");
+  if (mustOrder && !mayOpenPortalPath("free", pathname)) {
+    localeRedirect({ href: "/billing/offer", locale: await getLocale() });
+  }
 
   // Always load framework structure so the sidebar shows NIS2 / GDPR groups
   // even before the user has set up their company. Pre-onboarding the
@@ -114,9 +119,9 @@ export default async function PortalLayout({ children }: { children: React.React
   // steers the draft to activation. /team is intentionally absent — a draft must
   // not manage a team before activating. Gating on companyActivated (not merely
   // companyId) is what makes a draft see the banner here instead of an empty,
-  // 403-on-write shell. /billing is here because ordering only needs the draft:
-  // someone who paid before setting up their organization must still see their
-  // invoices and be able to cancel.
+  // 403-on-write shell. /billing and the order page are here because ordering
+  // only needs the draft: someone may order before setting up their
+  // organization, and must still see their invoices and be able to cancel.
   const billing = await billingFor(db, session.user.email);
   const ALLOWED_WITHOUT_COMPANY = [
     "/dashboard",
@@ -127,6 +132,7 @@ export default async function PortalLayout({ children }: { children: React.React
     "/settings",
     "/gap-assessment",
     "/billing",
+    ...ORDER_PATHS,
   ];
   const needsCompany = !ALLOWED_WITHOUT_COMPANY.some(
     (p) => pathname === p || pathname.startsWith(`${p}/`),

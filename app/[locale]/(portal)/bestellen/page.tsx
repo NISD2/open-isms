@@ -13,7 +13,8 @@ import { api } from "@/lib/trpc/server";
  * The page exists only while ordering is open to the visitor (lib/billing/ordering.ts): never
  * while Qonto is unconfigured, and only for platform admins against the sandbox. Everyone else gets
  * a 404, so a closed door is indistinguishable from none. Not indexed: nobody should arrive here
- * from a search result without an account behind them.
+ * from a search result without an account behind them. It sits in the portal, sidebar and all,
+ * because the offer a free account sees there (components/billing/PortalOffer) leads here.
  */
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("billing.order");
@@ -46,7 +47,7 @@ export default async function BestellenPage({
       : t("payerOnly");
 
   return (
-    <div className="space-y-8">
+    <div className="mx-auto max-w-5xl space-y-8">
       <header className="max-w-2xl space-y-3">
         <h1 className="font-bold text-4xl tracking-tight">{t("title")}</h1>
         <p className="text-lg text-muted-foreground leading-relaxed">

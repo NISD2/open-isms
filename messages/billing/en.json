@@ -1,5 +1,13 @@
 {
   "billing": {
+    "offer": {
+      "title": "How would you like to continue?",
+      "lead": "The Compliance Portal opens with the order. The supplier portal and the training portal need no order.",
+      "paidName": "Compliance Portal",
+      "withoutOrder": "No order needed",
+      "supplier": "Fill in your security profile once, then invite each customer who asks for it by email.",
+      "training": "Every course on NIS 2 and the CRA, including the training for management."
+    },
     "order": {
       "metaTitle": "Order",
       "title": "Order",

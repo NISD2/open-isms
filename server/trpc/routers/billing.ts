@@ -120,6 +120,8 @@ export const billingRouter = router({
     const active = await findActiveInvoice(ctx.db, account.id, now);
     const isPayer = account.ownerUserId === ctx.userId;
     const pending = await hasOrderCheck(ctx.db, account.id);
+    // The holder's price: what this account pays, whoever is looking.
+    const netCents = await holderNetCents(ctx.db, account.ownerUserId);
     return {
       mode: mode.kind,
       open,
@@ -128,8 +130,8 @@ export const billingRouter = router({
       /** An earlier order is being checked in Qonto; ordering waits for that. */
       orderPending: pending,
       accessLevel: account.accessLevel,
-      // The holder's price: what this account pays, whoever is looking.
-      netPrice: formatEuro(await holderNetCents(ctx.db, account.ownerUserId)),
+      netCents,
+      netPrice: formatEuro(netCents),
       activeInvoice: active,
       contract: active ? await contractOf(ctx.db, active.id) : null,
       renewalCanceledAt: account.renewalCanceledAt,

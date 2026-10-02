@@ -6,6 +6,7 @@
  * stored, and every new account is grandfathered, because everyone who gets in before the paywall
  * keeps the current journey free.
  */
+import { ORDER_SLUGS } from "@/i18n/slugs";
 import type { AccessLevel } from "./accounts";
 
 /**
@@ -69,15 +70,23 @@ export const unpaidAccessLevel = (holderGrandfathered: boolean): AccessLevel =>
   holderGrandfathered ? "grandfathered" : "free";
 
 /**
- * The portal pages an account without a paid or grandfathered level still reaches. Everything else
- * in the portal sends it to /bestellen. The course and /bestellen live outside the portal.
+ * The order page as the portal layout sees it. It is the one portal page with a translated slug,
+ * and the layout reads the path as the visitor typed it, so every locale's slug is listed.
  */
-export const FREE_PORTAL_PATHS = [
+export const ORDER_PATHS: readonly string[] = [...new Set(Object.values(ORDER_SLUGS))];
+
+/**
+ * The portal pages an account without a paid or grandfathered level still reaches, the offer at
+ * /billing/offer among them. Everything else in the portal sends it to the offer. The course and
+ * the supplier portal live outside the portal and stay open.
+ */
+export const FREE_PORTAL_PATHS: readonly string[] = [
   "/billing",
   "/settings",
   "/organization",
   "/notifications",
-] as const;
+  ...ORDER_PATHS,
+];
 
 /** Whether an effective level may open this portal path. */
 export const mayOpenPortalPath = (level: AccessLevel, pathname: string): boolean =>
