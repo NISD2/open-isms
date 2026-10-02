@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Link } from "@/i18n/navigation";
 import { resumeAt } from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
@@ -40,7 +41,8 @@ export function DurchgangHome({ walk }: { walk: readonly WalkEntry[] }) {
   const untouched = walk.every((w) => w.state.kind === "open");
   const next = resumeAt(walk, (w) => w.state);
 
-  const statusLine = (entry: WalkEntry): string => {
+  /** The state a step's circle names on hover; the card's top line stays its area. */
+  const stateLabel = (entry: WalkEntry): string => {
     switch (entry.state.kind) {
       case "filled":
         return t("ui.home.filled");
@@ -55,7 +57,7 @@ export function DurchgangHome({ walk }: { walk: readonly WalkEntry[] }) {
           ? t(`waitReasons.${entry.state.reason}`)
           : t("ui.home.waiting");
       case "open":
-        return entry.code === next?.code ? t("ui.home.next") : entry.section;
+        return entry.code === next?.code ? t("ui.home.next") : t("ui.home.open");
       default:
         return entry.state satisfies never;
     }
@@ -125,8 +127,13 @@ export function DurchgangHome({ walk }: { walk: readonly WalkEntry[] }) {
         <ol className="mt-4 space-y-2">
           {walk.map((entry, index) => {
             const settled = entry.state.kind !== "open" && entry.state.kind !== "waiting";
+            const signedOff = entry.state.kind === "signed";
             const waiting = entry.state.kind === "waiting";
             const isNext = next?.code === entry.code;
+            const href = {
+              pathname: "/durchgang/nis2/[code]",
+              params: { code: entry.code },
+            } as const;
             return (
               <li key={entry.code} className="relative">
                 {index < walk.length - 1 && (
@@ -143,21 +150,32 @@ export function DurchgangHome({ walk }: { walk: readonly WalkEntry[] }) {
                     isNext && "border-primary/60 ring-4 ring-primary/10",
                   )}
                 >
-                  <span
-                    aria-hidden
-                    className={cn(
-                      "flex size-6 shrink-0 items-center justify-center rounded-full border-2 border-muted-foreground/25",
-                      settled && "border-primary bg-primary text-primary-foreground",
-                      waiting && "border-amber-400 text-amber-600",
-                      isNext && !waiting && "border-primary ring-4 ring-primary/15",
-                    )}
-                  >
-                    {settled ? (
-                      <Check className="size-3.5" />
-                    ) : waiting ? (
-                      <Clock className="size-3.5" />
-                    ) : null}
-                  </span>
+                  {/* Blue when filled in and waiting for management, green once signed off.
+                      Above the card's stretched link so it can show its tooltip, and itself a
+                      link to the same step, out of the tab order, so a click on it opens it. */}
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link
+                        href={href}
+                        tabIndex={-1}
+                        aria-hidden
+                        className={cn(
+                          "relative z-10 flex size-6 shrink-0 items-center justify-center rounded-full border-2 border-muted-foreground/25",
+                          settled && "border-primary bg-primary text-primary-foreground",
+                          signedOff && "border-emerald-600 bg-emerald-600 text-white",
+                          waiting && "border-amber-400 text-amber-600",
+                          isNext && !waiting && "border-primary ring-4 ring-primary/15",
+                        )}
+                      >
+                        {settled ? (
+                          <Check className="size-3.5" />
+                        ) : waiting ? (
+                          <Clock className="size-3.5" />
+                        ) : null}
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent>{stateLabel(entry)}</TooltipContent>
+                  </Tooltip>
                   <div className="flex h-12 w-14 shrink-0 items-end justify-center sm:h-14 sm:w-16">
                     <Art
                       src={entry.image}
@@ -165,25 +183,16 @@ export function DurchgangHome({ walk }: { walk: readonly WalkEntry[] }) {
                     />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p
-                      className={cn(
-                        "text-xs text-muted-foreground",
-                        isNext && "font-medium text-primary",
-                      )}
-                    >
-                      {statusLine(entry)}
-                    </p>
+                    <p className="text-xs text-muted-foreground">{entry.section}</p>
                     <Link
-                      href={{
-                        pathname: "/durchgang/nis2/[code]",
-                        params: { code: entry.code },
-                      }}
+                      href={href}
                       className={cn(
                         "text-sm font-semibold leading-snug after:absolute after:inset-0 focus-visible:outline-none",
                         settled && "text-muted-foreground",
                       )}
                     >
                       {entry.headline}
+                      <span className="sr-only">: {stateLabel(entry)}</span>
                     </Link>
                   </div>
                   <ChevronRight className="size-4 shrink-0 text-muted-foreground" />

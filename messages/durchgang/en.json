@@ -304,6 +304,7 @@
         "confirm": "Put on the waiting list"
       },
       "home": {
+        "open": "Open",
         "next": "Next",
         "waiting": "Still waiting",
         "continue": "Continue your NIS 2 implementation",
@@ -317,7 +318,7 @@
         "continueHere": "Continue now"
       },
       "intro": {
-        "eyebrow": "NIS 2 for companies with 50 to 150 employees",
+        "eyebrow": "NIS 2 for mid-sized companies",
         "title": "You are in the right place.",
         "lead": "You have been asked to take care of NIS 2 and do not know where to start? That is how almost everyone feels. We go through it with you, item by item.",
         "points": [

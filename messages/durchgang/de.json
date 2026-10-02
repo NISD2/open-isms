@@ -304,6 +304,7 @@
         "confirm": "Auf die Warteliste"
       },
       "home": {
+        "open": "Offen",
         "next": "Als Nächstes",
         "waiting": "Wartet noch",
         "continue": "NIS 2 Umsetzung fortsetzen",
@@ -317,7 +318,7 @@
         "continueHere": "Jetzt weitermachen"
       },
       "intro": {
-        "eyebrow": "NIS 2 für Unternehmen mit 50 bis 150 Beschäftigten",
+        "eyebrow": "NIS 2 für den Mittelstand",
         "title": "Sie sind hier richtig.",
         "lead": "Sie sollen sich um NIS 2 kümmern und wissen nicht, wo Sie anfangen? Das geht fast allen so. Wir gehen es mit Ihnen durch, Punkt für Punkt.",
         "points": [
