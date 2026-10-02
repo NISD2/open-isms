@@ -1,29 +1,28 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { getTranslations } from "next-intl/server";
-import { DurchgangItem } from "@/components/durchgang/DurchgangItem";
-import { loadItem, loadWalk } from "../load";
+import { redirect } from "next/navigation";
+import { getLocale } from "next-intl/server";
+import { getPathname } from "@/i18n/navigation";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("durchgang");
-  return { title: t("title"), robots: { index: false, follow: false } };
-}
-
-/**
- * One item of the Durchgang, one screen at a time. The screen index is `?s=`, written by the
- * client as the person moves, so a reload or the back button keeps the place.
- */
-export default async function DurchgangItemPage({
+/** An item's old address: the same item and screen in the NIS 2 walkthrough. */
+export default async function DurchgangItemRedirect({
   params,
   searchParams,
 }: {
   params: Promise<{ code: string }>;
   searchParams: Promise<{ s?: string }>;
 }) {
-  const [{ code }, { s }] = await Promise.all([params, searchParams]);
-  const [item, walk] = await Promise.all([loadItem(code), loadWalk()]);
-  if (!item) notFound();
-  return (
-    <DurchgangItem key={code} item={item} walk={walk} initialScreen={Number(s ?? 0)} />
+  const [{ code }, { s }, locale] = await Promise.all([
+    params,
+    searchParams,
+    getLocale(),
+  ]);
+  redirect(
+    getPathname({
+      href: {
+        pathname: "/durchgang/nis2/[code]",
+        params: { code },
+        ...(s === undefined ? {} : { query: { s } }),
+      },
+      locale,
+    }),
   );
 }

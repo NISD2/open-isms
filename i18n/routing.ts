@@ -250,9 +250,10 @@ export const routing = defineRouting({
     "/compliance/[categorySlug]": "/compliance/[categorySlug]",
     "/compliance/[categorySlug]/[requirementCode]":
       "/compliance/[categorySlug]/[requirementCode]",
-    "/durchgang": "/durchgang",
-    "/durchgang/[code]": "/durchgang/[code]",
-    "/durchgang/freigabe": "/durchgang/freigabe",
+    // The NIS 2 walkthrough; /durchgang and its two old children only redirect here.
+    "/durchgang/nis2": "/durchgang/nis2",
+    "/durchgang/nis2/[code]": "/durchgang/nis2/[code]",
+    "/durchgang/nis2/freigabe": "/durchgang/nis2/freigabe",
     "/exercises": "/exercises",
     "/export": "/export",
     "/gap-assessment": "/gap-assessment",

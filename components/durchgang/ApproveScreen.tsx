@@ -24,7 +24,7 @@ import type { Of } from "./WorkScreens";
 type Viewer = ItemView["viewer"];
 
 /** Where management approves, for the link and the invite. */
-export const APPROVAL_PATH = "/durchgang/freigabe";
+export const APPROVAL_PATH = "/durchgang/nis2/freigabe";
 
 /** Whether the approval screen holds what it needs: nothing is left waiting for management. */
 export const approvalReady = (

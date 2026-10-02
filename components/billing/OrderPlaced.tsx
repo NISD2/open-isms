@@ -84,7 +84,7 @@ export function OrderPlaced({
           {t("order.toInvoices")}
         </Link>
         <Button asChild size="lg" className="h-12 w-full px-8 text-base sm:w-auto">
-          <Link href="/durchgang">
+          <Link href="/durchgang/nis2">
             {t("result.start")}
             <ArrowRight className="ml-1 h-4 w-4" aria-hidden />
           </Link>

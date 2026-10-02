@@ -114,7 +114,7 @@ test.describe("durchgang concepts", () => {
       page,
     }) => {
       const before = await editorConfigs(tenant, concept.editors);
-      await page.goto(`/de/durchgang/${concept.code}?s=${concept.screen}`);
+      await page.goto(`/de/durchgang/nis2/${concept.code}?s=${concept.screen}`);
       const clause = page.getByRole("button", { name: concept.clause, exact: true });
       await expect(clause).toBeVisible({ timeout: 30_000 });
 

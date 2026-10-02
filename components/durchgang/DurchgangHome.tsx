@@ -148,7 +148,10 @@ function Home({ walk }: { walk: readonly WalkEntry[] }) {
                 className="mt-6 h-12 w-full rounded-xl text-base sm:w-auto sm:px-7"
               >
                 <Link
-                  href={{ pathname: "/durchgang/[code]", params: { code: next.code } }}
+                  href={{
+                    pathname: "/durchgang/nis2/[code]",
+                    params: { code: next.code },
+                  }}
                 >
                   {t("ui.home.continue")}
                   <ArrowRight />
@@ -199,7 +202,10 @@ function Home({ walk }: { walk: readonly WalkEntry[] }) {
                 </span>
                 <div className="min-w-0 pt-1">
                   <Link
-                    href={{ pathname: "/durchgang/[code]", params: { code: entry.code } }}
+                    href={{
+                      pathname: "/durchgang/nis2/[code]",
+                      params: { code: entry.code },
+                    }}
                     className={cn(
                       "text-sm font-medium hover:underline",
                       settled && "text-muted-foreground",

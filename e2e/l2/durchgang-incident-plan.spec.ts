@@ -53,7 +53,7 @@ test.describe("durchgang incident plan", () => {
     page,
   }) => {
     const next = page.getByRole("button", { name: "Weiter", exact: true });
-    await page.goto(`/de/durchgang/3.1?s=${LEAD_SCREEN}`);
+    await page.goto(`/de/durchgang/nis2/3.1?s=${LEAD_SCREEN}`);
     const someoneElse = page.getByRole("radio", { name: "Jemand anderes" });
     await expect(someoneElse).toBeVisible({ timeout: 30_000 });
     // The person walking is picked until someone else is chosen.
@@ -102,7 +102,7 @@ test.describe("durchgang incident plan", () => {
   });
 
   test("the company's own words go in as the last section", async ({ page }) => {
-    await page.goto(`/de/durchgang/3.1?s=${PLAN_SCREEN}`);
+    await page.goto(`/de/durchgang/nis2/3.1?s=${PLAN_SCREEN}`);
     const own = page.locator("#dg-policy-own");
     await expect(own).toBeVisible({ timeout: 30_000 });
     await own.fill("Notfallhandy der IT: 0170 1234567");

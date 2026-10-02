@@ -42,7 +42,7 @@ export function AdminTestPanel() {
     onSuccess: async () => {
       toast.success("Implementation reset");
       await utils.invalidate();
-      router.push("/durchgang");
+      router.push("/durchgang/nis2");
       router.refresh();
     },
     onError: (err) => {

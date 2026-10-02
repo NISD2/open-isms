@@ -1,6 +1,6 @@
 {
   "durchgang": {
-    "title": "Durchgang",
+    "title": "NIS 2 Durchgang",
     "terms": {
       "authority": "BSI"
     },
@@ -156,8 +156,8 @@
         "itsMe": "Ich gehöre selbst zur Geschäftsführung",
         "pageTitle": "Freigabe durch die Geschäftsführung",
         "pageHeading": "Dokumente freigeben",
-        "pageLead": "Diese Dokumente sind im NIS-2-Durchgang Ihres Unternehmens entstanden. Lesen Sie jedes und geben Sie es frei. Ihre Freigabe wird mit Ihrem Namen und dem heutigen Datum festgehalten.",
-        "pageLeadOthers": "Diese Dokumente sind im NIS-2-Durchgang Ihres Unternehmens entstanden. Die Geschäftsführung gibt sie hier frei, angemeldet mit ihrem eigenen Zugang.",
+        "pageLead": "Diese Dokumente sind im NIS 2 Durchgang Ihres Unternehmens entstanden. Lesen Sie jedes und geben Sie es frei. Ihre Freigabe wird mit Ihrem Namen und dem heutigen Datum festgehalten.",
+        "pageLeadOthers": "Diese Dokumente sind im NIS 2 Durchgang Ihres Unternehmens entstanden. Die Geschäftsführung gibt sie hier frei, angemeldet mit ihrem eigenen Zugang.",
         "close": "Schließen"
       },
       "recorded": "Festgehalten in Ihren Unterlagen",

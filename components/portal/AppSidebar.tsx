@@ -148,7 +148,7 @@ export function AppSidebar({
   const overviewItems: NavItem[] = [
     { href: "/journey", label: t("journey"), icon: Compass },
     ...(showDurchgang
-      ? [{ href: "/durchgang", label: t("durchgang"), icon: Footprints }]
+      ? [{ href: "/durchgang/nis2", label: t("durchgang"), icon: Footprints }]
       : []),
   ];
 

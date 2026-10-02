@@ -43,7 +43,7 @@ test.describe("durchgang leitlinie", () => {
   const leitlinie = () => walkPolicy(tenant, TYPE);
 
   test("stores the base text when no clause is added", async ({ page }) => {
-    await page.goto(`/de/durchgang/2.4?s=${POLICY_SCREEN}`);
+    await page.goto(`/de/durchgang/nis2/2.4?s=${POLICY_SCREEN}`);
     await expect(page.getByRole("button", { name: "Schulungen" })).toBeVisible({
       timeout: 30_000,
     });
@@ -64,7 +64,7 @@ test.describe("durchgang leitlinie", () => {
   });
 
   test("a chosen clause is added to the text and remembered", async ({ page }) => {
-    await page.goto(`/de/durchgang/2.4?s=${POLICY_SCREEN}`);
+    await page.goto(`/de/durchgang/nis2/2.4?s=${POLICY_SCREEN}`);
     const training = page.getByRole("button", { name: "Schulungen" });
     await expect(training).toBeVisible({ timeout: 30_000 });
 
@@ -99,7 +99,7 @@ test.describe("durchgang leitlinie", () => {
         WHERE company_id = $1 AND type = $2`,
       [tenant.company_id, TYPE, await e2eUserId()],
     );
-    await page.goto(`/de/durchgang/2.4?s=${POLICY_SCREEN}`);
+    await page.goto(`/de/durchgang/nis2/2.4?s=${POLICY_SCREEN}`);
     const training = page.getByRole("button", { name: "Schulungen" });
     await expect(training).toHaveAttribute("aria-pressed", "true", { timeout: 30_000 });
 

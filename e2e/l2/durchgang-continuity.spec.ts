@@ -76,7 +76,7 @@ test.describe("durchgang continuity lists", () => {
   test.afterAll(() => undoAll(undos));
 
   test("marks a process that must keep running on the asset itself", async ({ page }) => {
-    await page.goto(`/de/durchgang/4.2?s=${KEEP_SCREEN}`);
+    await page.goto(`/de/durchgang/nis2/4.2?s=${KEEP_SCREEN}`);
     const row = page.getByRole("listitem").filter({ hasText: PROCESS });
     await expect(row).toBeVisible({ timeout: 30_000 });
 
@@ -98,7 +98,7 @@ test.describe("durchgang continuity lists", () => {
   test("prints the process with its line and the recovery order in the plan", async ({
     page,
   }) => {
-    await page.goto(`/de/durchgang/4.2?s=${PLAN_SCREEN}`);
+    await page.goto(`/de/durchgang/nis2/4.2?s=${PLAN_SCREEN}`);
     await expect(page.getByText(`${PROCESS}: ${HOW}`)).toBeVisible({ timeout: 30_000 });
     await page.locator("#dg-policy-read").click();
     await page.getByRole("button", { name: "Weiter", exact: true }).click();
