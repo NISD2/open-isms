@@ -250,6 +250,17 @@ export function requirementHref(node: Pick<FlowNode, "categorySlug" | "code">) {
   };
 }
 
+/**
+ * The call to action on the live step: whether work has already begun on it, or only the
+ * sign-off is left. The hero, the pinned bar and the pill over the node all say this, and must
+ * agree.
+ */
+export function startLabel(state: DotState, de: boolean): string {
+  if (state === "awaiting") return de ? "Freigeben" : "Sign off";
+  if (state === "started") return de ? "Weiter" : "Continue";
+  return de ? "Anfangen" : "Start";
+}
+
 /** Tailwind text colour for a state, so a status reads the same in every view. */
 export function statusTone(state: DotState): string {
   if (state === "signed") return "text-primary";

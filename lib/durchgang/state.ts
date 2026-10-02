@@ -156,18 +156,20 @@ export function awaitingSignature<T>(args: {
 
 /**
  * Whether the company's management reviews include one that counts for the approval: dated
- * within the last year, the cycle the management review runs on. `days` and `today` are calendar
- * days in Berlin as ISO dates (`recordDay`), which compare as text. The review screen and the
- * approval read this one rule.
+ * within the last year up to today, the cycle the management review runs on. `days` and `today`
+ * are calendar days in Berlin as ISO dates (`recordDay`), which compare as text. The review
+ * screen and the approval read this one rule.
  */
 export function reviewedWithinYear(days: readonly string[], today: string): boolean {
   const day = new Date(`${today}T00:00:00Z`);
-  const yearAgo = new Date(
-    Date.UTC(day.getUTCFullYear() - 1, day.getUTCMonth(), day.getUTCDate()),
-  )
+  const year = day.getUTCFullYear() - 1;
+  const month = day.getUTCMonth();
+  // 29 February a year back is the 28th, not 1 March.
+  const lastOfMonth = new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
+  const yearAgo = new Date(Date.UTC(year, month, Math.min(day.getUTCDate(), lastOfMonth)))
     .toISOString()
     .slice(0, 10);
-  return days.some((d) => d >= yearAgo);
+  return days.some((d) => d >= yearAgo && d <= today);
 }
 
 const POLICY_STATE: Readonly<Record<ItemState["kind"], PolicyState>> = {

@@ -113,14 +113,15 @@ export async function appendNote(
 
 /**
  * The newest audit row per requirement among the actions that move a walk item, for the company:
- * what `itemState` reads beside the status row. The journey reads it for its own rows.
+ * what `itemState` reads beside the status row. Without `requirementIds` it reads every
+ * requirement of the company, so the journey can run it beside its own rows.
  */
 export async function latestWalkEvents(
   db: DbOrTx,
   companyId: string,
-  requirementIds: readonly string[],
+  requirementIds?: readonly string[],
 ): Promise<ReadonlyMap<string | null, DurchgangEvent>> {
-  if (requirementIds.length === 0) return new Map();
+  if (requirementIds?.length === 0) return new Map();
   const events = await db
     .selectDistinctOn([auditLog.entityId], {
       entityId: auditLog.entityId,
@@ -133,7 +134,7 @@ export async function latestWalkEvents(
       and(
         eq(auditLog.companyId, companyId),
         eq(auditLog.entityType, "requirement"),
-        inArray(auditLog.entityId, [...requirementIds]),
+        requirementIds ? inArray(auditLog.entityId, [...requirementIds]) : undefined,
         inArray(auditLog.action, [...STATE_ACTIONS]),
       ),
     )

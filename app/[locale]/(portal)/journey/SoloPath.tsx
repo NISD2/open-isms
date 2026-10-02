@@ -25,6 +25,7 @@ import {
   frequencyLabel,
   requirementHref,
   reviewLabel,
+  startLabel,
   statusLabel,
   statusTone,
 } from "./path-nodes";
@@ -38,16 +39,6 @@ import {
 } from "./solo-path";
 
 type Locale = "en" | "de" | "nl";
-
-/**
- * The call to action on the live step: whether work has already begun on it, or only the
- * sign-off is left. Used by the pinned bar and by the pill over the node, which must agree.
- */
-function startLabel(state: DotState, de: boolean): string {
-  if (state === "awaiting") return de ? "Freigeben" : "Sign off";
-  if (state === "started") return de ? "Weiter" : "Continue";
-  return de ? "Anfangen" : "Start";
-}
 
 function categoryHref(categorySlug: string) {
   return {

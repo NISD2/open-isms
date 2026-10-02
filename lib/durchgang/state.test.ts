@@ -7,6 +7,7 @@ import {
   type ItemState,
   itemState,
   resumeAt,
+  reviewedWithinYear,
   type StatusRow,
   WAIT_REASONS,
 } from "./index";
@@ -263,5 +264,20 @@ describe("awaiting management's signature", () => {
       reviewed: false,
     });
     expect(result).toEqual([{ code: "4.2", drafts: [] }]);
+  });
+});
+
+describe("a management review that counts", () => {
+  test("is dated within the last year, up to today", () => {
+    expect(reviewedWithinYear(["2026-10-02"], "2026-10-02")).toBe(true);
+    expect(reviewedWithinYear(["2025-10-02"], "2026-10-02")).toBe(true);
+    expect(reviewedWithinYear(["2025-10-01"], "2026-10-02")).toBe(false);
+    expect(reviewedWithinYear(["2026-10-03"], "2026-10-02")).toBe(false);
+    expect(reviewedWithinYear([], "2026-10-02")).toBe(false);
+  });
+
+  test("a year back from 29 February is 28 February", () => {
+    expect(reviewedWithinYear(["2027-02-28"], "2028-02-29")).toBe(true);
+    expect(reviewedWithinYear(["2027-02-27"], "2028-02-29")).toBe(false);
   });
 });

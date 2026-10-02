@@ -515,7 +515,11 @@ const signWaiting = async (
       .filter((item) => item.drafts.length === 0 && shown.includes(item.code))
       .map((item) => item.row),
     source: "editor",
-    chainData: (row) => ({ code: row.code, bulkOf: "walk" }),
+    chainData: (row) => ({
+      code: row.code,
+      bulkOf: "walk",
+      walkApproval: APPROVAL_SCREEN?.code ?? null,
+    }),
   });
   if (!assessmentId || signed.length === 0) return signed;
 
@@ -1657,9 +1661,10 @@ export const durchgangRouter = router({
           description: `${ref.code} management approved ${approved.length} walk documents`,
           newValue: { approvedOn, count: approved.length },
         });
-        // Awaited, not in the background as elsewhere: the recheck moves signed items behind the
-        // policies to needs_review, and it must not land on the signatures given below.
-        await recheck(ctx, "policy");
+        // No policy recheck here, unlike the walk's other writes: approving changes no text a
+        // signature vouched for, and the recheck reverts every signed policy-backed requirement,
+        // so it would undo signatures on documents this click never touched. Writing a policy
+        // (writePolicy) still rechecks.
       }
 
       const signed = await signWaiting(ctx, input.sign, now);

@@ -40,9 +40,14 @@ describe("the journey's next step", () => {
     expect(liveNode(items)?.code).toBe("1.1");
   });
 
-  test("moves past an item due to be signed again, like one filled in", () => {
+  test("moves past an item due to be signed again, like one filled in, unless it is overdue", () => {
     const items = [item("12.2", "needs_review"), item("1.1", "in_progress")];
     expect(liveNode(items)?.code).toBe("1.1");
+    const overdue = [
+      { ...item("12.2", "needs_review"), dueInDays: -40 },
+      item("1.1", "in_progress"),
+    ];
+    expect(liveNode(overdue)?.code).toBe("12.2");
   });
 
   test("falls back to the first item waiting for sign-off when nothing else is left", () => {
@@ -67,6 +72,14 @@ describe("a requirement's state on the journey", () => {
     expect(journeyState("in_progress", filled)).toBe("awaiting");
     expect(journeyState("rejected", filled)).toBe("awaiting");
     expect(journeyState("needs_review", null)).toBe("awaiting");
+    // Set aside in the walkthrough since: the approval does not list it, so neither does this.
+    expect(
+      journeyState("needs_review", {
+        kind: "waiting",
+        reason: "ask",
+        since: new Date(0),
+      }),
+    ).toBe("todo");
     expect(journeyState("completed", filled)).toBe("signed");
     expect(journeyState("not_applicable", null)).toBe("na");
     expect(journeyState("in_progress", { kind: "open" })).toBe("started");

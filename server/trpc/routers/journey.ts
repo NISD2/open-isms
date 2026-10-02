@@ -95,7 +95,7 @@ export const journeyRouter = router({
         };
       }
 
-      const [rows, signOffRows, currentUserRow, lastAuditRows] = await Promise.all([
+      const [rows, signOffRows, currentUserRow, lastAuditRows, walk] = await Promise.all([
         ctx.db
           .select({
             statusId: companyRequirementStatus.id,
@@ -169,14 +169,10 @@ export const journeyRouter = router({
           .where(and(eq(auditLog.companyId, cid), isNotNull(auditLog.userId)))
           .orderBy(desc(auditLog.createdAt))
           .limit(1),
+        // Where the walkthrough has each item, read from these rows and the walk's own events
+        // the way the walkthrough reads it, so an item filled in there waits for sign-off here.
+        latestWalkEvents(ctx.db, cid),
       ]);
-      // Where the walkthrough has each item, read from these rows and the walk's own events the
-      // way the walkthrough reads it, so an item filled in there waits for sign-off here too.
-      const walkEvents = await latestWalkEvents(
-        ctx.db,
-        cid,
-        rows.map((r) => r.requirementId),
-      );
 
       // statusId → { signed, total } sign-off progress.
       const signOffByStatusId = new Map<string, { signed: number; total: number }>();
@@ -222,7 +218,7 @@ export const journeyRouter = router({
           signOff: signOffByStatusId.get(r.statusId) ?? { signed: 0, total: 0 },
           state: journeyState(
             status,
-            itemState({ ...r, status }, walkEvents.get(r.requirementId) ?? null),
+            itemState({ ...r, status }, walk.get(r.requirementId) ?? null),
           ),
         };
       });

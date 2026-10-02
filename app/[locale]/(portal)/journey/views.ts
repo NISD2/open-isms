@@ -49,13 +49,15 @@ function journeyOrder(item: JourneyItem): number {
 
 /**
  * The single live node for the path view: the first requirement in journey
- * order that is neither done nor waiting for management's sign-off, else the
- * first one waiting for it, the order the walkthrough resumes in. Returns null
+ * order that still needs work, which is anything not done and not waiting for
+ * management's sign-off, plus a review that is overdue. Else the first one
+ * waiting for sign-off, the order the walkthrough resumes in. Returns null
  * when everything is done.
  */
 export function liveNode(items: readonly JourneyItem[]): JourneyItem | null {
   const left = items
     .filter((i) => !isDone(i))
     .toSorted((a, b) => journeyOrder(a) - journeyOrder(b));
-  return left.find((i) => i.state !== "awaiting") ?? left[0] ?? null;
+  const overdue = (i: JourneyItem) => i.dueInDays !== null && i.dueInDays < 0;
+  return left.find((i) => i.state !== "awaiting" || overdue(i)) ?? left[0] ?? null;
 }
