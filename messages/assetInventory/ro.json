@@ -35,22 +35,32 @@
       "annexIIDescription": "Alte sectoare critice. Supraveghere reactivă, amenzi de până la 7 mil. EUR."
     },
     "sectors": {
-      "energy": { "name": "Energie (electricitate, termoficare, petrol, gaze, hidrogen)" },
+      "energy": {
+        "name": "Energie (electricitate, termoficare, petrol, gaze, hidrogen)"
+      },
       "transport": { "name": "Transport (aerian, feroviar, naval, rutier)" },
       "banking": { "name": "Sector bancar" },
-      "financial-market-infrastructure": { "name": "Infrastructuri ale pieței financiare" },
+      "financial-market-infrastructure": {
+        "name": "Infrastructuri ale pieței financiare"
+      },
       "health": { "name": "Sănătate" },
       "drinking-water": { "name": "Apă potabilă" },
       "waste-water": { "name": "Ape uzate" },
-      "digital-infrastructure": { "name": "Infrastructură digitală (DNS, TLD, cloud, centru de date, CDN, servicii de încredere)" },
+      "digital-infrastructure": {
+        "name": "Infrastructură digitală (DNS, TLD, cloud, centru de date, CDN, servicii de încredere)"
+      },
       "ict-service-management": { "name": "Gestionarea serviciilor TIC (MSP, MSSP)" },
       "space": { "name": "Spațiu cosmic" },
       "postal-courier": { "name": "Servicii poștale și de curierat" },
       "waste-management": { "name": "Gestionarea deșeurilor" },
       "chemicals": { "name": "Produse chimice (fabricare, producție, distribuție)" },
       "food": { "name": "Alimente (producție, prelucrare, distribuție)" },
-      "manufacturing": { "name": "Fabricație (dispozitive medicale, utilaje, vehicule, electronice)" },
-      "digital-providers": { "name": "Furnizori digitali (piețe online, motoare de căutare, rețele sociale)" },
+      "manufacturing": {
+        "name": "Fabricație (dispozitive medicale, utilaje, vehicule, electronice)"
+      },
+      "digital-providers": {
+        "name": "Furnizori digitali (piețe online, motoare de căutare, rețele sociale)"
+      },
       "research": { "name": "Cercetare" }
     },
     "checklist": {
@@ -175,23 +185,48 @@
       "bp-marketing": { "label": "Marketing și comunicare externă" },
       "bp-it-operations": { "label": "Operațiuni IT" },
       "bp-legal-compliance": { "label": "Juridic și conformitate" },
+      "bp-logistics": { "label": "Logistică, transport și expediere" },
+      "bp-warehousing": { "label": "Depozitare și gestionarea stocurilor" },
+      "bp-maintenance": { "label": "Mentenanță și reparații" },
+      "bp-quality": { "label": "Managementul calității" },
+      "bp-rnd": { "label": "Cercetare și dezvoltare" },
+      "bp-facility-management": { "label": "Administrarea clădirilor și instalațiilor" },
       "cf-website": { "label": "Site-ul companiei" },
       "cf-webshop": { "label": "Magazin online sau comenzi online" },
       "cf-customer-portal": { "label": "Portal pentru clienți (cu autentificare)" },
       "cf-mobile-app": { "label": "Aplicație mobilă" },
       "cf-newsletter": { "label": "Sistem de newsletter (Mailchimp, Brevo)" },
       "cf-contact-form": { "label": "Formular de contact pe site" },
+      "cf-social-media": {
+        "label": "Conturile companiei pe rețelele sociale (LinkedIn, Instagram)"
+      },
       "sales-crm": { "label": "CRM (Salesforce, HubSpot, Pipedrive)" },
-      "sales-lead-gen": { "label": "Instrument de generare de lead-uri / prospectare (Apollo, ZoomInfo)" },
-      "sales-quote-proposal": { "label": "Generator de oferte / propuneri (PandaDoc)" },
+      "sales-lead-gen": {
+        "label": "Instrument de generare de lead-uri / prospectare (Apollo, ZoomInfo)"
+      },
+      "sales-quote-proposal": { "label": "Întocmirea ofertelor și calculul prețurilor" },
       "sales-e-signature": { "label": "Semnătură electronică (DocuSign, Adobe Sign)" },
-      "sales-demo-meeting": { "label": "Instrument pentru întâlniri video / demo (Teams, Zoom, Meet)" },
+      "sales-demo-meeting": {
+        "label": "Instrument pentru întâlniri video / demo (Teams, Zoom, Meet)"
+      },
       "sales-analytics": { "label": "Analize de vânzări sau dashboard BI" },
+      "sales-contract-mgmt": { "label": "Gestionarea contractelor" },
+      "sales-marketplace": { "label": "Marketplace-uri online (eMAG, Amazon)" },
       "cs-helpdesk": { "label": "Helpdesk / sistem de tichete (Zendesk, Intercom)" },
       "cs-voip": { "label": "Sistem de telefonie / VoIP" },
       "cs-live-chat": { "label": "Chat live pe site" },
-      "cs-knowledge-base": { "label": "Bază de cunoștințe sau sistem de întrebări frecvente" },
+      "cs-knowledge-base": {
+        "label": "Bază de cunoștințe sau sistem de întrebări frecvente"
+      },
       "cs-feedback": { "label": "Instrument de sondaj sau de feedback" },
+      "cs-shared-mailbox": {
+        "label": "Căsuță de e-mail comună pentru clienți (info@, service@)"
+      },
+      "cs-messenger": {
+        "label": "Mesagerie pentru contactul cu clienții (WhatsApp Business)"
+      },
+      "cs-appointment-booking": { "label": "Programări online pentru clienți" },
+      "cs-field-service": { "label": "Software pentru service pe teren (tehnicieni)" },
       "hr-hris": { "label": "HRIS (Personio, BambooHR, Workday)" },
       "hr-payroll": { "label": "Salarizare (DATEV Lohn, Lexware, sage)" },
       "hr-recruiting": { "label": "Recrutare / urmărire candidați" },
@@ -199,44 +234,108 @@
       "hr-personnel-files": { "label": "Dosare de personal digitale" },
       "hr-lms": { "label": "Sistem de management al învățării (LMS)" },
       "hr-performance": { "label": "Instrument de evaluare a performanței" },
-      "fin-accounting": { "label": "Software de contabilitate (DATEV, Lexware, sevDesk, lexoffice)" },
+      "hr-scheduling": { "label": "Planificarea turelor și a personalului" },
+      "hr-safety": { "label": "Securitatea muncii (instruiri, evaluarea riscurilor)" },
+      "fin-accounting": {
+        "label": "Software de contabilitate (DATEV, Lexware, sevDesk, lexoffice)"
+      },
       "fin-erp": { "label": "ERP (SAP, Microsoft Dynamics, ProAlpha)" },
       "fin-online-banking": { "label": "Portaluri de online banking" },
-      "fin-payment-processing": { "label": "Procesare de plăți (Stripe, PayPal, Klarna)" },
+      "fin-payment-processing": {
+        "label": "Procesare de plăți (Stripe, PayPal, Klarna)"
+      },
       "fin-expense": { "label": "Gestionarea cheltuielilor (Pleo, Spendesk, Moss)" },
       "fin-procurement-system": { "label": "Sistem de achiziții / comenzi de cumpărare" },
       "fin-invoicing": { "label": "Sistem de facturare" },
+      "fin-tax-advisor": { "label": "Schimb de date cu consultantul fiscal" },
+      "fin-tax-portal": { "label": "Portalul administrației fiscale" },
+      "fin-receipt-archive": { "label": "Arhiva documentelor contabile" },
+      "fin-budgeting": { "label": "Bugetare și controlling" },
       "it-email": { "label": "E-mail (Microsoft 365, Google Workspace, Exchange)" },
-      "it-file-storage": { "label": "Stocare partajată de fișiere (SharePoint, Google Drive, NAS)" },
+      "it-file-storage": {
+        "label": "Stocare partajată de fișiere (SharePoint, Google Drive, NAS)"
+      },
       "it-video-conferencing": { "label": "Conferințe video (Teams, Zoom, Meet)" },
       "it-internal-chat": { "label": "Chat intern (Slack, Teams)" },
       "it-document-mgmt": { "label": "Gestionarea documentelor (DMS)" },
-      "it-wiki-kb": { "label": "Wiki sau bază de cunoștințe internă (Confluence, Notion)" },
-      "it-identity-provider": { "label": "Furnizor de identitate (Azure AD/Entra, Google Workspace, Okta)" },
-      "it-endpoint-protection": { "label": "Protecția dispozitivelor de capăt (Defender, CrowdStrike, SentinelOne)" },
+      "it-wiki-kb": { "label": "Intranet sau wiki (Confluence, Notion)" },
+      "it-identity-provider": {
+        "label": "Furnizor de identitate (Azure AD/Entra, Google Workspace, Okta)"
+      },
+      "it-endpoint-protection": {
+        "label": "Protecția dispozitivelor de capăt (Defender, CrowdStrike, SentinelOne)"
+      },
       "it-monitoring": { "label": "Monitorizare (Datadog, Grafana)" },
-      "it-password-manager": { "label": "Manager de parole (1Password, LastPass, Bitwarden)" },
+      "it-password-manager": {
+        "label": "Manager de parole (1Password, LastPass, Bitwarden)"
+      },
       "it-code-repos": { "label": "Depozite de cod (GitHub, GitLab, Bitbucket)" },
       "it-project-management": { "label": "Management de proiect (Jira, Asana, Linear)" },
       "it-patch-rmm": { "label": "Gestionarea actualizărilor / RMM" },
+      "it-office-suite": { "label": "Suită de birou (Word, Excel, LibreOffice)" },
+      "it-remote-support": { "label": "Asistență la distanță (TeamViewer, AnyDesk)" },
+      "it-mdm": { "label": "Gestionarea dispozitivelor mobile (Intune, Jamf)" },
+      "it-ticketing": { "label": "Sistem de tichete IT pentru solicitări interne" },
+      "it-ai-assistants": { "label": "Asistenți AI (ChatGPT, Microsoft Copilot)" },
+      "it-email-security": { "label": "Filtru antispam și antimalware pentru e-mail" },
       "infra-onprem-servers": { "label": "Servere on-premise" },
       "infra-cloud-platform": { "label": "Platformă cloud (AWS, Azure, GCP, Hetzner)" },
-      "infra-network-equipment": { "label": "Echipamente de rețea (firewall, switch-uri, WiFi)" },
-      "infra-backup-system": { "label": "Sistem de backup (Veeam, NAS, backup în cloud)" },
+      "infra-network-equipment": {
+        "label": "Echipamente de rețea (firewall, switch-uri, WiFi)"
+      },
+      "infra-backup-system": {
+        "label": "Sistem de backup (Veeam, NAS, backup în cloud)"
+      },
+      "infra-backup-media": {
+        "label": "Suporturi de backup (discuri, benzi, inclusiv în afara sediului)"
+      },
       "infra-printer-fleet": { "label": "Imprimante / scanere de birou" },
+      "infra-virtualisation": { "label": "Virtualizare (VMware, Hyper-V, Proxmox)" },
+      "infra-terminal-server": { "label": "Servere terminal (Remote Desktop, Citrix)" },
+      "infra-directory": {
+        "label": "Serviciu de director și controlere de domeniu (Active Directory)"
+      },
+      "infra-database": { "label": "Servere de baze de date (SQL Server, PostgreSQL)" },
+      "infra-storage": { "label": "Stocare în rețea (NAS, SAN)" },
+      "infra-dns-domains": { "label": "Domenii și DNS (registrar)" },
+      "infra-ups": { "label": "UPS și alimentare de urgență" },
       "ep-laptops": { "label": "Laptopuri și desktopuri" },
       "ep-mobile": { "label": "Dispozitive mobile ale companiei (telefoane, tablete)" },
-      "ep-byod": { "label": "BYOD (dispozitive personale ale angajaților care accesează datele companiei)" },
+      "ep-removable-media": { "label": "Stick-uri USB și hard diskuri externe" },
+      "ep-byod": {
+        "label": "BYOD (dispozitive personale ale angajaților care accesează datele companiei)"
+      },
+      "ep-shared-pcs": { "label": "Stații de lucru comune (producție, recepție)" },
+      "ep-thin-clients": { "label": "Terminale de tip thin client" },
+      "ep-handheld-scanners": { "label": "Scanere portabile și terminale mobile" },
+      "ep-meeting-rooms": {
+        "label": "Echipamente pentru săli de ședință (ecrane, sisteme de conferință)"
+      },
+      "ep-cameras": { "label": "Camere de supraveghere video" },
+      "ep-access-control": { "label": "Control acces (carduri, cititoare)" },
+      "ep-building-tech": {
+        "label": "Instalațiile clădirii (încălzire, ventilație, alarmă)"
+      },
       "loc-main-office": { "label": "Sediu principal" },
       "loc-branch-offices": { "label": "Birouri / filiale suplimentare" },
       "loc-server-room": { "label": "Sală de servere (on-premise)" },
       "loc-datacenter": { "label": "Centru de date (rack propriu sau închiriat)" },
       "loc-employee-homes": { "label": "Birouri la domiciliul angajaților" },
       "loc-warehouse": { "label": "Depozit sau spațiu de stocare" },
+      "loc-production": { "label": "Hală de producție sau atelier" },
+      "loc-technical-rooms": { "label": "Încăperi tehnice și rack-uri de rețea" },
+      "loc-archive": { "label": "Arhivă (documente pe hârtie)" },
       "net-internet": { "label": "Conexiune la internet (ISP)" },
       "net-vpn": { "label": "VPN sau acces la distanță Zero Trust" },
       "net-third-party-api": { "label": "Integrări API cu terți" },
-      "net-site-to-site": { "label": "Legături site-to-site (furnizor, client)" },
+      "net-site-to-site": { "label": "Legături site-to-site (filiale, parteneri)" },
+      "net-lan": { "label": "Rețea internă (LAN, segmente)" },
+      "net-wifi": { "label": "Wi-Fi (rețeaua companiei și pentru vizitatori)" },
+      "net-mobile": { "label": "Date mobile și routere mobile (LTE, 5G)" },
+      "net-phone-line": { "label": "Linie telefonică (trunk SIP)" },
+      "net-remote-maintenance": {
+        "label": "Acces de mentenanță la distanță pentru furnizori"
+      },
       "sec-plc-scada": { "label": "Controlere PLC / SCADA" },
       "sec-mes": { "label": "MES (sistem de execuție a producției)" },
       "sec-cad-plm": { "label": "CAD / PLM (date de inginerie)" },
@@ -244,10 +343,14 @@
       "sec-fleet-vehicles": { "label": "Vehicule cu telematică / GPS" },
       "sec-medical-devices": { "label": "Dispozitive medicale conectate în rețea" },
       "sec-ehr-his": { "label": "Sistem informatic spitalicesc (KIS / HIS / EHR)" },
-      "sec-lab-instruments": { "label": "Instrumente de laborator conectate în rețea / LIMS" },
+      "sec-lab-instruments": {
+        "label": "Instrumente de laborator conectate în rețea / LIMS"
+      },
       "sec-energy-scada": { "label": "SCADA energetic / sistem de control" },
       "sec-water-scada": { "label": "SCADA pentru apă / ape uzate" },
-      "sec-trading-platform": { "label": "Conexiune la platformă de tranzacționare (SWIFT, SEPA, bursă)" },
+      "sec-trading-platform": {
+        "label": "Conexiune la platformă de tranzacționare (SWIFT, SEPA, bursă)"
+      },
       "sec-atm-fleet": { "label": "Parc de bancomate / terminale de autoservire" },
       "sec-dns-tld": { "label": "Infrastructură DNS / TLD" },
       "sec-citizen-portal": { "label": "Portal pentru cetățeni (eGov, OZG)" }
