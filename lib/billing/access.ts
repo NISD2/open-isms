@@ -69,6 +69,9 @@ export const isGrandfatheredPerson = (
 export const unpaidAccessLevel = (holderGrandfathered: boolean): AccessLevel =>
   holderGrandfathered ? "grandfathered" : "free";
 
+/** Where an account that must order first is sent from any portal page it may not open. */
+export const OFFER_PATH = "/billing/offer";
+
 /**
  * The order page as the portal layout sees it. It is the one portal page with a translated slug,
  * and the layout reads the path as the visitor typed it, so every locale's slug is listed.

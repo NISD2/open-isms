@@ -9,7 +9,12 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { redirect as localeRedirect } from "@/i18n/navigation";
 import { getSession, hasReviewAccess } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
-import { mayOpenPortalPath, mayWalkDurchgang, ORDER_PATHS } from "@/lib/billing/access";
+import {
+  mayOpenPortalPath,
+  mayWalkDurchgang,
+  OFFER_PATH,
+  ORDER_PATHS,
+} from "@/lib/billing/access";
 import { billingFor } from "@/lib/billing/ordering-access";
 import {
   type CategoryInfo,
@@ -78,7 +83,7 @@ export default async function PortalLayout({ children }: { children: React.React
   const pathname = h.get("x-pathname") ?? "";
   const mustOrder = session.accessLevel === "free";
   if (mustOrder && !mayOpenPortalPath("free", pathname)) {
-    localeRedirect({ href: "/billing/offer", locale: await getLocale() });
+    localeRedirect({ href: OFFER_PATH, locale: await getLocale() });
   }
 
   // Always load framework structure so the sidebar shows NIS2 / GDPR groups
