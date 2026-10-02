@@ -48,12 +48,13 @@ function journeyOrder(item: JourneyItem): number {
 
 /**
  * The single live node for the path view: the first requirement in journey
- * order that is neither done nor waiting for management's sign-off. Returns
- * null when nothing is left to work on.
+ * order that is neither done nor waiting for management's sign-off, else the
+ * first one waiting for it, the order the walkthrough resumes in. Returns null
+ * when everything is done.
  */
-export function liveNode(items: JourneyItem[]): JourneyItem | null {
-  const open = items
-    .filter((i) => !isDone(i) && !i.awaitingSignOff)
-    .sort((a, b) => journeyOrder(a) - journeyOrder(b));
-  return open[0] ?? null;
+export function liveNode(items: readonly JourneyItem[]): JourneyItem | null {
+  const left = items
+    .filter((i) => !isDone(i))
+    .toSorted((a, b) => journeyOrder(a) - journeyOrder(b));
+  return left.find((i) => !i.awaitingSignOff) ?? left[0] ?? null;
 }

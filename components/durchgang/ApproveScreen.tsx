@@ -62,9 +62,12 @@ export function Approval({ viewer, locale }: { viewer: Viewer; locale: WalkLocal
         utils.durchgang.awaitingSignature.invalidate(),
         utils.policy.list.invalidate(),
       ]);
-      toast.success(
-        result.approved > 0 ? t("done") : t("signedDone", { count: result.signed }),
-      );
+      const said = [
+        ...(result.approved > 0 ? [t("done")] : []),
+        ...(result.signed > 0 ? [t("signedDone", { count: result.signed })] : []),
+      ];
+      if (said.length > 0) toast.success(said.join(" "));
+      else toast.info(t("unchanged"));
     },
     onError: (err) => toast.error(userFacingError(err, t("failed"))),
   });
@@ -143,6 +146,7 @@ export function Approval({ viewer, locale }: { viewer: Viewer; locale: WalkLocal
                 approve.mutate({
                   code: APPROVAL_SCREEN.code,
                   types: chosen.map((row) => row.type),
+                  sign: signing.map((item) => item.code),
                 })
               }
             >

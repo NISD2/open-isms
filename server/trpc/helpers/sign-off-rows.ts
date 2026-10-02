@@ -16,14 +16,35 @@ export type SignableRow = {
 export type SignedRow = SignableRow & { readonly snapshot: SignOffSnapshot };
 
 /**
+ * The status rows among these whose assigned signers still owe a signature: the SQL spelling of
+ * pendingSignersOf in lib/compliance/sign-off-roster. A receipt from a past sign-off is not a
+ * roster. Those rows are signed one by one through the assignment flow, never in a batch.
+ */
+export async function rosteredOf(
+  db: Database,
+  statusIds: readonly string[],
+): Promise<ReadonlySet<string>> {
+  if (statusIds.length === 0) return new Set();
+  const rows = await db
+    .select({ statusId: requirementAssignment.statusId })
+    .from(requirementAssignment)
+    .where(
+      and(
+        inArray(requirementAssignment.statusId, [...statusIds]),
+        isNull(requirementAssignment.signedOffAt),
+      ),
+    );
+  return new Set(rows.map((a) => a.statusId));
+}
+
+/**
  * Sign several requirements at once, as one person: the category bulk sign-off and the walk's
  * approval both do this. The caller decides who may sign which row; this leaves out the rows
- * whose assigned signers still owe a signature, because those are signed one by one through the
- * assignment flow.
+ * `rosteredOf` names.
  *
  * Every row gets its chain entry in the same transaction as its status, and the status guard is
- * repeated on the write, so a row another writer completed between the read and the write is
- * skipped rather than re-signed under this caller's name.
+ * repeated on the write, so a row another writer completed or marked not applicable between the
+ * read and the write is skipped rather than signed under this caller's name.
  */
 export async function signOffRows(
   db: Database,
@@ -36,25 +57,9 @@ export async function signOffRows(
     readonly chainData: (row: SignableRow) => Record<string, unknown>;
   },
 ): Promise<readonly SignedRow[]> {
-  if (args.rows.length === 0) return [];
-
-  // Rows still owed a signature, the SQL spelling of pendingSignersOf in
-  // lib/compliance/sign-off-roster. A receipt from a past sign-off is not a roster.
-  const pending = new Set(
-    (
-      await db
-        .select({ statusId: requirementAssignment.statusId })
-        .from(requirementAssignment)
-        .where(
-          and(
-            inArray(
-              requirementAssignment.statusId,
-              args.rows.map((r) => r.statusId),
-            ),
-            isNull(requirementAssignment.signedOffAt),
-          ),
-        )
-    ).map((a) => a.statusId),
+  const pending = await rosteredOf(
+    db,
+    args.rows.map((r) => r.statusId),
   );
   // A stable lock order, the one bulkConfirmModuleRef takes.
   const rows = args.rows
@@ -85,7 +90,7 @@ export async function signOffRows(
         .where(
           and(
             eq(companyRequirementStatus.id, row.statusId),
-            sql`${companyRequirementStatus.status} NOT IN ('completed', 'approved')`,
+            sql`${companyRequirementStatus.status} NOT IN ('completed', 'approved', 'not_applicable')`,
           ),
         )
         .returning({ id: companyRequirementStatus.id });

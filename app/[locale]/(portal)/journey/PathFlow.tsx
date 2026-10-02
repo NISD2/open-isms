@@ -20,6 +20,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { Link } from "@/i18n/navigation";
+import { isDoneStatus } from "@/lib/compliance/journey-position";
 import { cn } from "@/lib/utils";
 import { journeyDisclaimer, journeyDisclaimerLabel } from "./disclaimer";
 import {
@@ -84,14 +85,6 @@ const ORDER_OPTS: {
     sub_de: "Sortiert nach dem natürlichen Prozess, Kategorie für Kategorie.",
   },
 ];
-
-function isDoneStatus(rawStatus: string): boolean {
-  return (
-    rawStatus === "completed" ||
-    rawStatus === "approved" ||
-    rawStatus === "not_applicable"
-  );
-}
 
 function buildSections(reqNodes: FlowNode[], order: Order, de: boolean): Section[] {
   if (order === "chrono") {

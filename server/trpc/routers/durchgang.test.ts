@@ -806,7 +806,7 @@ describe("the management's approval of the walk's documents", () => {
     content: "x",
     title: "Kryptokonzept der Muster GmbH",
   };
-  const approve = { code: "7.3", types: ["cryptography"] };
+  const approve = { code: "7.3", types: ["cryptography"], sign: [] };
   const management = {
     accessLevel: "full",
     jobTitle: "ceo",

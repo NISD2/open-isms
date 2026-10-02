@@ -81,15 +81,26 @@ describe("item state", () => {
     });
   });
 
-  test("a signed item that needs signing again waits for management, whatever the event", () => {
+  test("a signed item that needs signing again waits for management, unless the walk set it aside since", () => {
     // The deadlines cron and the module recheck move a signed row to needs_review and keep its
     // signature, so the walk would otherwise still show it finished.
+    const due = row("needs_review", at);
     for (const latest of Object.values(EVENTS)) {
-      expect(itemState(row("needs_review", at), latest)).toEqual({
-        kind: "filled",
-        since: at,
-      });
+      expect(itemState(due, latest)).toEqual({ kind: "filled", since: at });
     }
+    expect(itemState(due, event("durchgang.waiting", { reason: "ask" }, after))).toEqual({
+      kind: "waiting",
+      reason: "ask",
+      since: after,
+    });
+    expect(itemState(due, event("durchgang.declined", null, after))).toEqual({
+      kind: "declined",
+      since: after,
+    });
+    expect(itemState(due, event("durchgang.resumed", null, after))).toEqual({
+      kind: "filled",
+      since: at,
+    });
   });
 
   test("a rejected item is open again, although review.reject keeps the old signature", () => {

@@ -92,7 +92,8 @@ export type ItemState =
  *
  * `needs_review` is a signed item that has to be signed again: its review date passed (the
  * deadlines cron) or the register behind it changed (the module recheck). Both keep the old
- * signature, so it is read before the signature too, as filled in and waiting for management.
+ * signature, so it is read before the signature too: filled in and waiting for management,
+ * unless the walk set it aside or declined it after that signature.
  */
 export function itemState(row: StatusRow, latest: DurchgangEvent | null): ItemState {
   if (row.status === "not_applicable") return { kind: "not_applicable" };
@@ -103,7 +104,11 @@ export function itemState(row: StatusRow, latest: DurchgangEvent | null): ItemSt
     );
   }
   if (row.status === "needs_review" && row.signedOffAt) {
-    return { kind: "filled", since: row.signedOffAt };
+    const { signedOffAt } = row;
+    const after = latest && latest.createdAt > signedOffAt ? fromEvent(latest) : null;
+    return after && after.kind !== "open"
+      ? after
+      : { kind: "filled", since: signedOffAt };
   }
   if (hasSignOffToWithdraw(row)) return { kind: "signed" };
   return fromEvent(latest);

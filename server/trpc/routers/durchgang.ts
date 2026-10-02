@@ -1,5 +1,5 @@
 import { TRPCError } from "@trpc/server";
-import { and, desc, eq, inArray } from "drizzle-orm";
+import { and, desc, eq, inArray, sql } from "drizzle-orm";
 import { z } from "zod";
 import { CATALOG_BY_ID } from "@/lib/asset-inventory/catalog";
 import {
@@ -113,7 +113,7 @@ import {
   walkStates,
 } from "../helpers/durchgang";
 import { getNis2Assessment } from "../helpers/nis2-scope";
-import { signOffRows } from "../helpers/sign-off-rows";
+import { rosteredOf, signOffRows } from "../helpers/sign-off-rows";
 import {
   activatedCompanyProcedure,
   companyProcedure,
@@ -445,24 +445,105 @@ const walkPolicyRows = async (db: TRPCContext["db"], companyId: string) => {
   );
 };
 
-/** The company's walk items waiting for management's signature (see `awaitingSignature`). */
-const awaitingSignatureOf = async (db: TRPCContext["db"], companyId: string) => {
+/**
+ * The company's walk items waiting for management's signature (see `awaitingSignature`), each
+ * with its status row: what the approval screen lists and what the approval may sign, from one
+ * computation. The management review counts when it is dated within the last year, the cycle
+ * 7.3 runs on. Items whose assigned signers still owe a signature are left to them.
+ */
+const waitingForManagement = async (db: TRPCContext["db"], companyId: string) => {
   const [states, policies, reviews] = await Promise.all([
     walkStates(db, companyId),
     walkPolicyRows(db, companyId),
     db
       .select({ id: managementReview.id })
       .from(managementReview)
-      .where(eq(managementReview.companyId, companyId))
+      .where(
+        and(
+          eq(managementReview.companyId, companyId),
+          sql`${managementReview.reviewDate} >= (now() at time zone 'Europe/Berlin')::date - interval '1 year'`,
+        ),
+      )
       .limit(1),
   ]);
-  return awaitingSignature({
+  const waiting = awaitingSignature({
     codes: WALK.map((item) => item.code),
     stateOf: (code) => states.get(code) ?? { kind: "open" },
     drafts: policies.filter((p) => p.status === "draft"),
     approvalCode: APPROVAL_SCREEN?.code ?? null,
     reviewed: reviews.length > 0,
   });
+  const { assessmentId, rows } = await signableRowsOf(
+    db,
+    companyId,
+    waiting.map((item) => item.code),
+  );
+  const rostered = await rosteredOf(
+    db,
+    rows.map((r) => r.statusId),
+  );
+  const rowOf = new Map(rows.map((r) => [r.code, r]));
+  return {
+    assessmentId,
+    items: waiting.flatMap((item) => {
+      const row = rowOf.get(item.code);
+      return row && !rostered.has(row.statusId) ? [{ ...item, row }] : [];
+    }),
+  };
+};
+
+/**
+ * Management signs off the waiting items it was shown whose documents are now all approved, as
+ * the category bulk sign-off signs (snapshot and chain entry per row), then sets each one's
+ * review date and credits linked frameworks as a single sign-off does. One row after another:
+ * two rows can credit the same linked requirement, and that write checks its target outside a
+ * transaction.
+ *
+ * Management signs every walk item, whatever role the requirement names for a single sign-off:
+ * § 38 Abs. 1 BSIG has management implement and oversee the measures, and the walk was built for
+ * its one signature at the end.
+ */
+const signWaiting = async (
+  ctx: {
+    db: TRPCContext["db"];
+    companyId: string;
+    userId: string;
+    session: Parameters<typeof signerRoleOf>[0];
+  },
+  approvalCode: string,
+  shown: readonly string[],
+  now: Date,
+) => {
+  const { assessmentId, items } = await waitingForManagement(ctx.db, ctx.companyId);
+  const signedOffRole = signerRoleOf(ctx.session);
+  const signed = await signOffRows(ctx.db, {
+    companyId: ctx.companyId,
+    userId: ctx.userId,
+    signedOffRole,
+    rows: items
+      .filter((item) => item.drafts.length === 0 && shown.includes(item.code))
+      .map((item) => item.row),
+    chainData: (row) => ({ code: row.code, walkApproval: approvalCode }),
+  });
+  if (!assessmentId || signed.length === 0) return signed;
+
+  await recalculateProgress(ctx.db, assessmentId);
+  for (const row of signed) {
+    await propagateSatisfaction(ctx.db, {
+      sourceRequirementId: row.requirementId,
+      companyId: ctx.companyId,
+      userId: ctx.userId,
+      signedOffRole,
+      snapshot: row.snapshot,
+    }).catch((err) => console.error("[durchgang] propagate:", err));
+    await scheduleDeadlineReminders(ctx.db, {
+      statusId: row.statusId,
+      anchorDate: now,
+      companyId: ctx.companyId,
+      userId: ctx.userId,
+    }).catch((err) => console.error("[durchgang] deadlines:", err));
+  }
+  return signed;
 };
 
 /** The NIS 2 status rows of these items, ready for `signOffRows`. */
@@ -1512,10 +1593,12 @@ export const durchgangRouter = router({
   awaitingSignature: durchgangProcedure
     .input(z.object({ locale: z.enum(["de", "en"]) }))
     .query(async ({ ctx, input }) =>
-      (await awaitingSignatureOf(ctx.db, ctx.companyId)).map((item) => {
-        const words = resolveItem(NAMESPACES[input.locale], itemOf(item.code));
-        return { ...item, headline: words.ok ? words.value.headline : item.code };
-      }),
+      (await waitingForManagement(ctx.db, ctx.companyId)).items.map(
+        ({ code, drafts }) => {
+          const words = resolveItem(NAMESPACES[input.locale], itemOf(code));
+          return { code, drafts, headline: words.ok ? words.value.headline : code };
+        },
+      ),
     ),
 
   /**
@@ -1525,16 +1608,16 @@ export const durchgangRouter = router({
    * approving it takes what writing it takes, and only drafts change: an approved document keeps
    * its day. The review's trail names every document approved.
    *
-   * The same click signs off every item waiting for management whose documents are now all
-   * approved, as the category bulk sign-off does (snapshot and chain entry per row), and then sets
-   * each one's review date as a single sign-off does, so the journey, the register and the review
-   * cycle see them done. It needs no document to approve when only signatures are left.
+   * The same click signs off the items waiting for management that the screen showed (`sign`),
+   * once their documents are approved (see `signWaiting`), so the journey, the register and the
+   * review cycle see them done. It needs no document to approve when only signatures are left.
    */
   approvePolicies: durchgangWrite
     .input(
       z.object({
         code,
         types: z.array(z.enum(POLICY_TEMPLATES)).max(POLICY_TEMPLATES.length),
+        sign: z.array(code).max(WALK.length),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -1610,50 +1693,11 @@ export const durchgangRouter = router({
         });
         // Awaited, not in the background as elsewhere: the recheck moves signed items behind the
         // policies to needs_review, and it must not land on the signatures given below.
-        await invalidateModuleSignOffs(ctx.db, ctx.companyId, "policy", ctx.userId).catch(
-          (err) => console.error("[durchgang] policy recheck:", err),
-        );
+        await recheck(ctx, "policy");
       }
 
-      const ready = (await awaitingSignatureOf(ctx.db, ctx.companyId)).filter(
-        (item) => item.drafts.length === 0,
-      );
-      const { assessmentId, rows } = await signableRowsOf(
-        ctx.db,
-        ctx.companyId,
-        ready.map((item) => item.code),
-      );
-      // Management signs every walk item, whatever role the requirement names for a single
-      // sign-off: § 38 Abs. 1 BSIG has management implement and oversee the measures, and the
-      // walk was built for its one signature at the end.
-      const signedOffRole = signerRoleOf(ctx.session);
-      const signed = await signOffRows(ctx.db, {
-        companyId: ctx.companyId,
-        userId: ctx.userId,
-        signedOffRole,
-        rows,
-        chainData: (row) => ({ code: row.code, walkApproval: ref.code }),
-      });
-      if (assessmentId && signed.length > 0) {
-        await recalculateProgress(ctx.db, assessmentId);
-        // What a single sign-off does after it signs: credit linked frameworks, set the review date.
-        await Promise.all(
-          signed.flatMap((row) => [
-            propagateSatisfaction(ctx.db, {
-              sourceRequirementId: row.requirementId,
-              companyId: ctx.companyId,
-              userId: ctx.userId,
-              signedOffRole,
-              snapshot: row.snapshot,
-            }).catch((err) => console.error("[durchgang] propagate:", err)),
-            scheduleDeadlineReminders(ctx.db, {
-              statusId: row.statusId,
-              anchorDate: now,
-              companyId: ctx.companyId,
-              userId: ctx.userId,
-            }).catch((err) => console.error("[durchgang] deadlines:", err)),
-          ]),
-        );
+      const signed = await signWaiting(ctx, ref.code, input.sign, now);
+      if (signed.length > 0) {
         await logWalk({
           companyId: ctx.companyId,
           userId: ctx.userId,

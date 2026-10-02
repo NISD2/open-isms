@@ -1,6 +1,10 @@
 import { nis2Categories } from "@nisd2/grc-data-model/frameworks";
-import { journeyIndex, priorityRank } from "@/lib/compliance/journey-position";
-import type { JourneyItem } from "./views";
+import {
+  isDoneStatus,
+  journeyIndex,
+  priorityRank,
+} from "@/lib/compliance/journey-position";
+import { type JourneyItem, liveNode } from "./views";
 
 export type NodeStatus = "done" | "current" | "upcoming";
 export type ColumnKey = "leadership" | "security" | "it" | "operations";
@@ -322,28 +326,13 @@ function bandForPriority(priority: string | null): Band {
   return (["minimum", "year", "later"] as const)[priorityRank(priority)];
 }
 
-function isDone(status: string): boolean {
-  // "completed" is the normal user sign-off result; "approved" adds the legal
-  // review. Both, plus not_applicable, are terminal.
-  return status === "completed" || status === "approved" || status === "not_applicable";
-}
-
-/** The single live node: lowest-order requirement neither done nor waiting for sign-off. */
-function liveCode(items: JourneyItem[]): string | null {
-  return (
-    [...items]
-      .sort((a, b) => globalOrder(a) - globalOrder(b))
-      .find((i) => !isDone(i.status) && !i.awaitingSignOff)?.code ?? null
-  );
-}
-
 /**
  * Requirement-level nodes (all 49, coded like "2.2"), pre-sorted into the
  * canonical chronological (process) order. The flow re-groups them per the
  * active ordering. CEO sign-off items move to the Management column.
  */
 export function buildRequirementNodes(items: JourneyItem[]): FlowNode[] {
-  const live = liveCode(items);
+  const live = liveNode(items)?.code ?? null;
   return [...items]
     .sort((a, b) => globalOrder(a) - globalOrder(b))
     .map((it) => {
@@ -351,7 +340,7 @@ export function buildRequirementNodes(items: JourneyItem[]): FlowNode[] {
         it.requiredSignOffRole === "ceo"
           ? "ceo"
           : (CATEGORY_ROLE[it.categoryCode] ?? "ciso");
-      const done = isDone(it.status);
+      const done = isDoneStatus(it.status);
       const status: NodeStatus = done
         ? "done"
         : it.code === live
