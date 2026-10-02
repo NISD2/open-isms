@@ -38,7 +38,11 @@ const ARRIVAL_LIMIT_MS = 4000;
  * while the next page renders, then slides the new one in. `arrived` says when the new stage is
  * in the document; a page that takes too long switches without waiting further.
  */
-export function transitionTo(direction: Direction, go: () => void, arrived: () => boolean): void {
+export function transitionTo(
+  direction: Direction,
+  go: () => void,
+  arrived: () => boolean,
+): void {
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduced || !("startViewTransition" in document)) {
     go();

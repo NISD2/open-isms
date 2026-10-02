@@ -21,7 +21,9 @@ export function ApprovalPage({
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-30 border-b bg-background/90 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-3xl items-center gap-2 px-4 sm:px-6">
-          <p className="min-w-0 flex-1 truncate text-sm font-semibold">{t("pageTitle")}</p>
+          <p className="min-w-0 flex-1 truncate text-sm font-semibold">
+            {t("pageTitle")}
+          </p>
           <Button variant="ghost" size="icon" aria-label={t("close")} asChild>
             <Link href="/durchgang">
               <X className="size-5" />
