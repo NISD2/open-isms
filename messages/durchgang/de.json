@@ -340,7 +340,8 @@
             "text": "Die Geschäftsführung sieht alles durch und unterschreibt."
           }
         ],
-        "start": "Los geht's"
+        "start": "Los geht's",
+        "example": "So sieht es aus"
       }
     },
     "waitReasons": {

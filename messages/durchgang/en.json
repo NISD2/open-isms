@@ -340,7 +340,8 @@
             "text": "Management reviews everything and signs."
           }
         ],
-        "start": "Let's start"
+        "start": "Let's start",
+        "example": "What it looks like"
       }
     },
     "waitReasons": {

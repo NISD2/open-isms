@@ -18,6 +18,7 @@ import { Link } from "@/i18n/navigation";
 import { APPROVAL_SCREEN, resumeAt } from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
 import { Art } from "./Art";
+import { PromiseCard } from "./PromiseCard";
 import { STAGE } from "./transition";
 import type { WalkEntry } from "./view";
 
@@ -97,22 +98,15 @@ export function DurchgangHome({ walk }: { walk: readonly WalkEntry[] }) {
           {t("ui.intro.lead")}
         </p>
         <ul className="mt-10 grid gap-3 sm:grid-cols-2">
-          {points.map((point, i) => {
-            const Icon = POINT_ICONS[i];
-            return (
-              <li key={point.title} className="rounded-2xl border bg-card p-5 shadow-xs">
-                {Icon && (
-                  <span className="flex size-9 items-center justify-center rounded-xl bg-primary/[0.08] text-primary">
-                    <Icon className="size-[1.125rem]" />
-                  </span>
-                )}
-                <p className="mt-3 font-semibold">{point.title}</p>
-                <p className="mt-1 text-sm leading-6 text-muted-foreground">
-                  {point.text}
-                </p>
-              </li>
-            );
-          })}
+          {points.map((point, i) => (
+            <PromiseCard
+              key={point.title}
+              icon={POINT_ICONS[i]}
+              title={point.title}
+              text={point.text}
+              shot={i + 1}
+            />
+          ))}
         </ul>
         {next ? (
           <Button
