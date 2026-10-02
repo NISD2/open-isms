@@ -69,7 +69,11 @@
         "ownLabel": "Anything else that applies at your company (optional)",
         "ownHint": "For example a number, a rule of your own or a contact. It is added as the last section, as you write it.",
         "approvedLater": "Management approves the document at the end of the walkthrough, signed in with its own account.",
-        "changedAfterApproval": "The changed version needs management's approval again."
+        "changedAfterApproval": "The changed version needs management's approval again.",
+        "recordLanguage": {
+          "de": "The document itself is written in German, like the rest of your company's records.",
+          "en": "The document itself is written in English, like the rest of your company's records."
+        }
       },
       "person": {
         "you": "you",
@@ -86,6 +90,8 @@
         "inHouse": "run in house",
         "addProvider": "Add another provider, then press Enter",
         "another": "Another of this kind",
+        "about": "What it does at your company",
+        "aboutHint": "For example: sales contacts and quotes, with customers' names and email addresses",
         "empty": "Nothing in this area is on your list.",
         "hint": "Whoever you name as a provider goes onto your supplier list. A program can have several, for example its maker and your IT provider. None means run in house or not known yet. Two of one kind used for different work, for example two CRMs, get a row each; alike things used alike may stay one row (BSI-Standard 200-2, 8.1.1)."
       },
@@ -200,6 +206,7 @@
         "withProof": "Proof attached",
         "withoutProof": "no proof",
         "atProvider": "Record at the provider",
+        "onPlatform": "Course completed on nisd2.eu, recorded there",
         "link": "Link to the provider's record (optional)",
         "linkHint": "Where an online course or a training provider keeps who took part, for example its completion report. Then the proof stays with them, also for many people.",
         "remove": "Delete",

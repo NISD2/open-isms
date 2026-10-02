@@ -19,7 +19,7 @@ import infoEn from "@/messages/info/en.json";
 import { marker } from "./copy";
 import { askedFields, resolveItem, WAIT_REASONS, WALK } from "./index";
 import { NIS2_SCRIPT, NOT_WALKED } from "./nis2";
-import type { AnyScreen, ScreenKind } from "./types";
+import type { AnyItem, AnyScreen, ScreenKind } from "./types";
 
 const FRAMEWORK = new Map(
   nis2Categories.flatMap((c) =>
@@ -322,6 +322,26 @@ describe("the words of the Durchgang", () => {
           });
         }
       }
+    }
+  });
+
+  test("a policy offers the same clauses in both languages, in the same order", () => {
+    // A clause is stored by its id in the record language and offered by that id in the
+    // reader's, so the two lists may not drift apart.
+    const clausesIn = (namespace: (typeof LOCALES)[number][1], item: AnyItem) => {
+      const resolved = resolveItem(namespace, item);
+      return resolved.ok
+        ? resolved.value.screens.flatMap((s) =>
+            s.kind === "policy" ? [s.copy.document.clauses.map((c) => c.id)] : [],
+          )
+        : [];
+    };
+    const [[, first], [, second]] = LOCALES;
+    for (const item of NIS2_SCRIPT) {
+      expect({ code: item.code, clauses: clausesIn(first, item) }).toEqual({
+        code: item.code,
+        clauses: clausesIn(second, item),
+      });
     }
   });
 

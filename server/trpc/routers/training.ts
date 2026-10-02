@@ -15,6 +15,8 @@ import {
 } from "@/lib/storage";
 import { MAX_UPLOAD_BYTES } from "@/lib/storage/limits";
 import { removeReleasedObject } from "@/lib/storage/released-object";
+import type { CourseId } from "@/lib/training/catalog";
+import { courseGraduates } from "@/lib/training/company-course";
 import { trainingRecord } from "@/schema";
 import { trainingInsertSchema, trainingUpdateSchema } from "@/schema/validators";
 import { assertOwnObjectKey, verifyMemberReferences } from "../guards";
@@ -46,6 +48,9 @@ const batchCreateSchema = z.object({
   participants: z.array(trainingInsertSchema.pick(participantColumns)).min(1),
 });
 
+/** The platform's course for management, which § 38 Abs. 3 BSIG training can be. */
+const MANAGEMENT_COURSE: CourseId = "nis2-ceo";
+
 /** Where getCertificateUploadUrl puts a company's certificates; the only keys a record may hold. */
 const certificatePrefix = companyUploadPrefixes.trainingCertificates;
 
@@ -57,6 +62,11 @@ export const trainingRouter = router({
       orderBy: [desc(trainingRecord.createdAt)],
     });
   }),
+
+  /** The company's members who finished the platform's course for management, read off their progress. */
+  managementCourse: companyProcedure.query(({ ctx }) =>
+    courseGraduates(ctx.db, ctx.companyId, MANAGEMENT_COURSE),
+  ),
 
   create: companyProcedure
     .input(trainingInsertSchema.omit({ id: true, companyId: true, createdAt: true }))

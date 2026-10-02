@@ -20,7 +20,12 @@ export const asset = pgTable(
 
     name: varchar("name", { length: 255 }).notNull(),
     type: varchar("type", { length: 100 }).notNull(),
+    // What the company says the thing is and does, in its own words.
     description: text("description"),
+    // The catalogue item the asset was listed as (lib/asset-inventory/catalog.ts), kept when 2.2
+    // renames it to the product, so the walk still knows a backup system or a line nobody signs
+    // in to. Null for an asset of the company's own. Migration 0006 filled it from the names.
+    catalogId: varchar("catalog_id", { length: 80 }),
 
     // BSI-200-2 §8.1 — identical assets grouped, e.g. "45 laptops"
     quantity: integer("quantity").default(1).notNull(),

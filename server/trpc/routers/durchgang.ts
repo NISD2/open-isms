@@ -4,10 +4,13 @@ import { z } from "zod";
 import { CATALOG_BY_ID } from "@/lib/asset-inventory/catalog";
 import {
   CATALOG_LABELS,
-  catalogNames,
+  catalogIdByName,
+  catalogIdOf,
+  catalogLabel,
   isBackupSystem,
-  isCatalogName,
   nameKey,
+  onRegister,
+  ownDescription,
 } from "@/lib/asset-inventory/catalog-labels";
 import { logAudit } from "@/lib/audit";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
@@ -357,6 +360,7 @@ const policyDraftOf = async (
   return {
     type,
     document,
+    language: locale,
     company: org.name,
     clauses: stored.clauses,
     own: stored.own,
@@ -584,9 +588,9 @@ export const durchgangRouter = router({
 
   /**
    * 2.2: the ticked catalogue items and the person's own entries become asset rows, named in the
-   * seed language like every other default the platform writes. An item already listed under any
-   * of its names is skipped, so a second pass adds only what is new, and nothing is ever deleted
-   * here.
+   * seed language like every other default the platform writes, each with the catalogue item it
+   * is. An item already listed, under any name, is skipped, so a second pass adds only what is
+   * new, and nothing is ever deleted here.
    */
   addAssets: durchgangWrite
     .input(
@@ -605,28 +609,39 @@ export const durchgangRouter = router({
           const item = CATALOG_BY_ID.get(id);
           const label = labels[id]?.label;
           return item && label
-            ? [{ name: label, type: item.category, names: catalogNames(id) }]
+            ? [{ name: label, type: item.category, catalogId: id }]
             : [];
         }),
-        ...input.custom.map((c) => ({ name: c.name, type: "other", names: [c.name] })),
+        ...input.custom.map((c) => ({
+          name: c.name,
+          type: "other",
+          catalogId: catalogIdByName(c.name),
+        })),
       ];
       const existing = await ctx.db.query.asset.findMany({
         where: eq(asset.companyId, ctx.companyId),
-        columns: { name: true },
+        columns: { catalogId: true, name: true, description: true },
       });
-      const taken = new Set(existing.map((a) => nameKey(a.name)));
-      // The first spelling of a name wins, and an item already on the list is left alone.
+      const { listed } = onRegister(existing);
+      const takenIds = new Set(listed);
+      const takenNames = new Set(existing.map((a) => nameKey(a.name)));
+      const keyOf = (a: (typeof wanted)[number]) => a.catalogId ?? nameKey(a.name);
+      // The first spelling of a thing wins, and a thing already on the list is left alone.
       const fresh = wanted.filter(
         (a, i) =>
-          !a.names.some((n) => taken.has(nameKey(n))) &&
-          wanted.findIndex((b) => nameKey(b.name) === nameKey(a.name)) === i,
+          !(a.catalogId !== null && takenIds.has(a.catalogId)) &&
+          !takenNames.has(nameKey(a.name)) &&
+          wanted.findIndex((b) => keyOf(b) === keyOf(a)) === i,
       );
       if (fresh.length > 0) {
-        await ctx.db
-          .insert(asset)
-          .values(
-            fresh.map((a) => ({ companyId: ctx.companyId, name: a.name, type: a.type })),
-          );
+        await ctx.db.insert(asset).values(
+          fresh.map((a) => ({
+            companyId: ctx.companyId,
+            name: a.name,
+            type: a.type,
+            catalogId: a.catalogId,
+          })),
+        );
         recheck(ctx, "asset");
       }
       return { added: fresh.length };
@@ -645,11 +660,12 @@ export const durchgangRouter = router({
   ),
 
   /**
-   * 2.2, which one exactly and from whom. Each row gives the asset the name the company knows it
-   * by and its providers, each found on the company's supplier list by name or added to it; the
-   * asset's links then match exactly the names sent, so a name left out unlinks that provider and
-   * leaves it listed. The first rename moves the old name into an empty description, so the list
-   * still says what kind of thing it is.
+   * 2.2, which one exactly, what it is for and from whom. Each row gives the asset the name the
+   * company knows it by, what it does there in the company's words, and its providers, each found
+   * on the company's supplier list by name or added to it; the asset's links then match exactly
+   * the names sent, so a name left out unlinks that provider and leaves it listed. A row that
+   * changes keeps the catalogue item it was listed as in `catalog_id`, so a rename does not lose
+   * what kind of thing it is. An omitted description keeps the stored one.
    */
   specifyAssets: durchgangWrite
     .input(
@@ -659,6 +675,7 @@ export const durchgangRouter = router({
             z.object({
               id: z.string().uuid(),
               name: z.string().trim().min(1).max(255),
+              description: z.string().trim().max(2000).optional(),
               providers: z.array(z.string().trim().min(1).max(255)).max(20),
             }),
           )
@@ -676,7 +693,12 @@ export const durchgangRouter = router({
           .where(eq(company.id, ctx.companyId))
           .for("update");
         const owned = await tx
-          .select({ id: asset.id, name: asset.name, description: asset.description })
+          .select({
+            id: asset.id,
+            catalogId: asset.catalogId,
+            name: asset.name,
+            description: asset.description,
+          })
           .from(asset)
           .where(and(eq(asset.companyId, ctx.companyId), inArray(asset.id, ids)));
         if (owned.length !== ids.length) throw new TRPCError({ code: "NOT_FOUND" });
@@ -741,24 +763,32 @@ export const durchgangRouter = router({
         }
 
         const before = new Map(owned.map((a) => [a.id, a]));
-        const renames = input.rows.flatMap((row) => {
+        const changes = input.rows.flatMap((row) => {
           const was = before.get(row.id);
-          if (!was || row.name === was.name) return [];
-          const description = was.description?.trim() ? was.description : was.name;
-          return [{ id: row.id, name: row.name, description }];
+          if (!was) return [];
+          const description =
+            row.description === undefined ? undefined : row.description || null;
+          const described =
+            description !== undefined && description !== ownDescription(was);
+          if (row.name === was.name && !described) return [];
+          return [
+            {
+              id: row.id,
+              name: row.name,
+              // Read before the name or description that told it changes.
+              catalogId: catalogIdOf(was),
+              ...(described ? { description } : {}),
+            },
+          ];
         });
-        for (const change of renames) {
+        for (const { id, ...change } of changes) {
           await tx
             .update(asset)
-            .set({
-              name: change.name,
-              description: change.description,
-              updatedAt: new Date(),
-            })
-            .where(and(eq(asset.id, change.id), eq(asset.companyId, ctx.companyId)));
+            .set({ ...change, updatedAt: new Date() })
+            .where(and(eq(asset.id, id), eq(asset.companyId, ctx.companyId)));
         }
         const touched = new Set([
-          ...renames.map((r) => r.id),
+          ...changes.map((r) => r.id),
           ...[...unlink, ...link].map((l) => l.assetId),
         ]);
         return { updated: touched.size, suppliersAdded: added.length };
@@ -771,20 +801,20 @@ export const durchgangRouter = router({
   /**
    * 2.2: a second thing of the same kind, for example a second CRM used for other work, since
    * BSI-Standard 200-2 (8.1.1) groups only alike things used alike. It takes the kind's type and
-   * description and a numbered name the person then replaces.
+   * catalogue item and a numbered name the person then replaces; what it is for is its own, so the
+   * first one's description is not copied.
    */
   addAnotherAsset: durchgangWrite
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const source = await ctx.db.query.asset.findFirst({
         where: and(eq(asset.id, input.id), eq(asset.companyId, ctx.companyId)),
-        columns: { name: true, type: true, description: true },
+        columns: { catalogId: true, name: true, type: true, description: true },
       });
       if (!source) throw new TRPCError({ code: "NOT_FOUND" });
-      // 2.2 keeps the catalogue name in the description; a description of one's own is no kind.
-      const kind = (
-        isCatalogName(source.description) ? source.description.trim() : source.name
-      ).slice(0, 240);
+      const catalogId = catalogIdOf(source);
+      const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
+      const kind = (catalogLabel(catalogId, locale) ?? source.name).slice(0, 240);
       const existing = await ctx.db.query.asset.findMany({
         where: eq(asset.companyId, ctx.companyId),
         columns: { name: true },
@@ -800,7 +830,7 @@ export const durchgangRouter = router({
           companyId: ctx.companyId,
           name: `${kind} ${number ?? existing.length + 2}`,
           type: source.type,
-          description: kind,
+          catalogId,
         })
         .returning({ id: asset.id });
       recheck(ctx, "asset");
@@ -1252,6 +1282,7 @@ export const durchgangRouter = router({
       const owned = await ctx.db
         .select({
           id: asset.id,
+          catalogId: asset.catalogId,
           name: asset.name,
           description: asset.description,
           frequency: asset.backupFrequency,
@@ -1474,6 +1505,7 @@ export const durchgangRouter = router({
       const draft = await policyDraftOf(ctx, input.code);
       return {
         document: draft.document,
+        language: draft.language,
         company: draft.company,
         clauses: draft.clauses,
         own: draft.own,

@@ -3,11 +3,13 @@ import type { MfaMethod, Rating } from "@/lib/durchgang";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
 
 /**
- * An asset as the "which one exactly" screen edits it: its name and who provides it, any number of
- * suppliers by name; none is run in house or not known yet.
+ * An asset as the "which one exactly" screen edits it: its name, what it is for in the company's
+ * words, and who provides it, any number of suppliers by name; none is run in house or not known
+ * yet.
  */
 export interface Specified {
   readonly name: string;
+  readonly description: string;
   readonly providers: readonly string[];
 }
 

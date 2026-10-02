@@ -1,6 +1,13 @@
 "use client";
 
-import { ExternalLink, Loader2, Paperclip, Plus, Trash2 } from "lucide-react";
+import {
+  ExternalLink,
+  GraduationCap,
+  Loader2,
+  Paperclip,
+  Plus,
+  Trash2,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -87,10 +94,13 @@ const AUDIENCE = {
 export const headOf = (row: Row, audience: TrainingAudience): string | null =>
   AUDIENCE[audience].line(row).head;
 
-/** A training day as the person entered it: a calendar date, shown back as that same date. */
-const dayOf = (locale: "de" | "en", date: Date) =>
+/**
+ * A training day as the person entered it: a calendar date, shown back as that same date. A
+ * moment the platform recorded, such as a course's last lesson, is shown as its day in Berlin.
+ */
+const dayOf = (locale: "de" | "en", date: Date, timeZone = "UTC") =>
   new Intl.DateTimeFormat(locale === "de" ? "de-DE" : "en-GB", {
-    timeZone: "UTC",
+    timeZone,
     dateStyle: "long",
   }).format(date);
 
@@ -115,6 +125,12 @@ export function TrainingRecords({
     initialData: initial,
   });
   const rows = data.filter((row) => inAudience(row, audience));
+  // Management also counts the platform's own course, read off each member's progress.
+  const course = trpc.training.managementCourse.useQuery(undefined, {
+    enabled: audience === "management",
+  });
+  const graduates = audience === "management" ? (course.data?.graduates ?? []) : [];
+  const courseTitle = course.data?.title[locale] ?? course.data?.title.en ?? "";
   const refresh = () => utils.training.list.invalidate();
   const create = trpc.training.create.useMutation({ onSuccess: refresh });
   const remove = trpc.training.delete.useMutation({ onSuccess: refresh });
@@ -148,10 +164,30 @@ export function TrainingRecords({
 
   return (
     <div className="overflow-hidden rounded-2xl border bg-card shadow-sm">
-      {rows.length === 0 ? (
+      {rows.length === 0 && graduates.length === 0 ? (
         <p className="px-5 py-6 text-sm text-muted-foreground">{t(labels.empty)}</p>
       ) : (
         <ul className="divide-y">
+          {graduates.map((g) => (
+            <li key={g.userId} className="flex items-start gap-3 px-5 py-3.5">
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-medium">{g.name}</p>
+                <p className="text-sm text-muted-foreground">
+                  {[
+                    courseTitle,
+                    g.completedAt &&
+                      dayOf(locale, new Date(g.completedAt), "Europe/Berlin"),
+                  ]
+                    .filter(Boolean)
+                    .join(", ")}
+                </p>
+                <p className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
+                  <GraduationCap className="size-3" />
+                  {t("onPlatform")}
+                </p>
+              </div>
+            </li>
+          ))}
           {rows.map((row) => {
             const { head, detail } = line(row);
             return (

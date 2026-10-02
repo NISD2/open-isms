@@ -85,9 +85,15 @@ test("puts processes on no screen, software and technology on their own", () => 
 describe("the rows of a rating screen", () => {
   const lists = {
     assets: [
-      { id: "a1", name: "DATEV", type: "application", description: "Accounting" },
-      { id: "a2", name: "Server room", type: "room", description: null },
-      { id: "a3", name: "Sales", type: "process", description: null },
+      {
+        id: "a1",
+        catalogId: "fin-accounting",
+        name: "DATEV",
+        type: "application",
+        description: "Accounting and payroll, with every employee's salary",
+      },
+      { id: "a2", catalogId: null, name: "Server room", type: "room", description: null },
+      { id: "a3", catalogId: null, name: "Sales", type: "process", description: null },
     ],
     suppliers: [
       { id: "s1", name: "DATEV eG" },
@@ -103,14 +109,15 @@ describe("the rows of a rating screen", () => {
     supplierRisks: [],
   };
 
-  test("names each asset's kind and every provider, and carries what the register holds", () => {
+  test("names what each asset is for, its kind and every provider, and carries what the register holds", () => {
     expect(ratingRows("software", lists)).toEqual([
       {
         kind: "asset",
         key: "asset:a1",
         id: "a1",
         name: "DATEV",
-        kindOf: "Accounting",
+        about: "Accounting and payroll, with every employee's salary",
+        catalogId: "fin-accounting",
         providers: ["DATEV eG", "Systemhaus Muster"],
         standing: {
           kind: "rated",

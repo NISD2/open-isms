@@ -222,7 +222,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
       management_review: reviews,
     },
     team,
-    register: assets ? onRegister(assets.map((a) => a.name)) : null,
+    register: assets ? onRegister(assets) : null,
     adoptedAt: adoption.adoptedAt,
     registration,
     viewer: {

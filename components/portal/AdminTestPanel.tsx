@@ -37,9 +37,11 @@ export function AdminTestPanel() {
     },
   });
 
-  const resetDurchgang = trpc.dev?.resetDurchgang.useMutation({
-    onSuccess: () => {
-      toast.success("Durchgang reset");
+  const utils = trpc.useUtils();
+  const resetImplementation = trpc.dev?.resetImplementation.useMutation({
+    onSuccess: async () => {
+      toast.success("Implementation reset");
+      await utils.invalidate();
       router.push("/durchgang");
       router.refresh();
     },
@@ -47,6 +49,15 @@ export function AdminTestPanel() {
       toast.error(`Reset failed: ${err.message}`);
     },
   });
+  const confirmReset = () => {
+    if (
+      window.confirm(
+        "Delete this company's whole NIS 2 implementation? Assets, suppliers, risks, documents, answers, evidence, training records, sign-offs and the audit log go; every requirement starts over. The company, its team, course progress and billing stay. This cannot be undone.",
+      )
+    ) {
+      resetImplementation?.mutate();
+    }
+  };
 
   const roleMutation = trpc.dev?.switchRole.useMutation({
     onSuccess: (data) => {
@@ -148,16 +159,16 @@ export function AdminTestPanel() {
               {seeding ? "Seeding..." : "Re-seed DB"}
             </Button>
 
-            {/* Durchgang back to a first visit */}
+            {/* The whole implementation back to the start; the company and its team stay */}
             <Button
               variant="outline"
               size="sm"
               className="w-full text-xs h-7"
-              disabled={resetDurchgang?.isPending}
-              onClick={() => resetDurchgang?.mutate()}
+              disabled={resetImplementation?.isPending}
+              onClick={confirmReset}
             >
               <RotateCcw className="mr-1.5 size-3" />
-              {resetDurchgang?.isPending ? "Resetting..." : "Reset Durchgang"}
+              {resetImplementation?.isPending ? "Resetting..." : "Reset implementation"}
             </Button>
 
             {/* Delete org */}

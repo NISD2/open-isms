@@ -5,7 +5,12 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { nameKey } from "@/lib/asset-inventory/catalog-labels";
+import {
+  catalogIdOf,
+  catalogLabel,
+  nameKey,
+  ownDescription,
+} from "@/lib/asset-inventory/catalog-labels";
 import { RISK_LEVEL_TEXT, type RiskLevel } from "@/lib/compliance/bsi-200-3";
 import {
   levelOf,
@@ -114,8 +119,17 @@ function Providers({
   );
 }
 
-/** 2.2: each listed thing gets the name the company knows it by, and who provides it. */
-export function Specify({ draft, onDraft, entry }: WorkProps & { entry: Of<"specify"> }) {
+/**
+ * 2.2: each listed thing gets the name the company knows it by, what it is for there, and who
+ * provides it. The catalogue item it was listed as stays under the name, so "Salesforce" still
+ * reads as the CRM.
+ */
+export function Specify({
+  item,
+  draft,
+  onDraft,
+  entry,
+}: WorkProps & { entry: Of<"specify"> }) {
   const t = useTranslations("durchgang.ui.specify");
   const utils = trpc.useUtils();
   const assets = trpc.asset.list.useQuery();
@@ -134,7 +148,11 @@ export function Specify({ draft, onDraft, entry }: WorkProps & { entry: Of<"spec
   ].slice(0, 5);
 
   const shown = (row: (typeof rows)[number]): Specified =>
-    draft.specified[row.id] ?? { name: row.name, providers: storedOf(row.id) };
+    draft.specified[row.id] ?? {
+      name: row.name,
+      description: ownDescription(row) ?? "",
+      providers: storedOf(row.id),
+    };
   const edit = (row: (typeof rows)[number], change: Partial<Specified>) =>
     onDraft({
       ...draft,
@@ -161,6 +179,7 @@ export function Specify({ draft, onDraft, entry }: WorkProps & { entry: Of<"spec
           <ul className="divide-y">
             {rows.map((row) => {
               const value = shown(row);
+              const kind = catalogLabel(catalogIdOf(row), item.locale);
               return (
                 <li key={row.id} className="grid gap-3 px-5 py-4 sm:grid-cols-2 sm:gap-4">
                   <div className="min-w-0">
@@ -175,9 +194,9 @@ export function Specify({ draft, onDraft, entry }: WorkProps & { entry: Of<"spec
                       value={value.name}
                       onChange={(e) => edit(row, { name: e.target.value })}
                     />
-                    {row.description && (
+                    {kind && kind !== value.name.trim() && (
                       <p className="mt-1.5 line-clamp-1 text-xs text-muted-foreground">
-                        {row.description}
+                        {kind}
                       </p>
                     )}
                     <button
@@ -203,6 +222,21 @@ export function Specify({ draft, onDraft, entry }: WorkProps & { entry: Of<"spec
                       common={common}
                       value={value.providers}
                       onChange={(providers) => edit(row, { providers })}
+                    />
+                  </div>
+                  <div className="min-w-0 sm:col-span-2">
+                    <Label
+                      htmlFor={`about-${row.id}`}
+                      className="mb-1.5 text-xs text-muted-foreground"
+                    >
+                      {t("about")}
+                    </Label>
+                    <Input
+                      id={`about-${row.id}`}
+                      value={value.description}
+                      maxLength={2000}
+                      placeholder={t("aboutHint")}
+                      onChange={(e) => edit(row, { description: e.target.value })}
                     />
                   </div>
                 </li>
@@ -307,7 +341,7 @@ export function RateRow({
   const about =
     row.kind === "asset"
       ? [
-          row.kindOf,
+          row.about ?? catalogLabel(row.catalogId, locale),
           row.providers.length > 0 && t("providedBy", { name: row.providers.join(", ") }),
         ]
           .filter(Boolean)

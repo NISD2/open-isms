@@ -47,6 +47,7 @@ type Link = {
 interface World {
   readonly assets: ReadonlyArray<{
     id: string;
+    catalogId: string | null;
     name: string;
     description: string | null;
   }>;
@@ -190,15 +191,30 @@ function setup(world: World) {
 }
 
 const catalogueAssets = [
-  { id: A1, name: "Buchhaltung", description: null },
-  { id: A2, name: "E-Mail", description: null },
-  { id: A3, name: "Server", description: "Im Keller" },
+  { id: A1, catalogId: null, name: "Buchhaltung", description: null },
+  { id: A2, catalogId: null, name: "E-Mail", description: null },
+  { id: A3, catalogId: null, name: "Server", description: "Im Keller" },
 ];
 
+/** What an update set, without the time it was made. */
+const setOf = (values: unknown) => {
+  const { updatedAt: _, ...rest } = values as Record<string, unknown>;
+  return rest;
+};
+
 describe("naming assets and their providers", () => {
-  test("renames, keeps the kind in an empty description, and keeps a provider already linked", async () => {
+  test("renames to the product, keeps the catalogue item it was listed as, and keeps a provider already linked", async () => {
     const { caller, writesTo } = setup({
-      assets: catalogueAssets,
+      assets: [
+        {
+          id: A1,
+          catalogId: null,
+          name: "Buchhaltung (DATEV, Lexware, sevDesk, lexoffice)",
+          description: null,
+        },
+        { id: A2, catalogId: null, name: "E-Mail", description: null },
+        { id: A3, catalogId: null, name: "Server", description: "Im Keller" },
+      ],
       suppliers: [{ id: S1, name: "Microsoft" }],
       providers: [{ assetId: A2, supplierId: S1 }],
     });
@@ -211,12 +227,62 @@ describe("naming assets and their providers", () => {
     });
     expect(writesTo(supplier)).toEqual([]);
     expect(writesTo(assetProvider)).toEqual([]);
-    expect(writesTo(asset).map((w) => w.values)).toEqual([
-      expect.objectContaining({
-        name: "DATEV Unternehmen online",
-        description: "Buchhaltung",
-      }),
-      expect.objectContaining({ name: "Dell PowerEdge", description: "Im Keller" }),
+    // The description is the company's own; a rename leaves it alone.
+    expect(writesTo(asset).map((w) => setOf(w.values))).toEqual([
+      { name: "DATEV Unternehmen online", catalogId: "fin-accounting" },
+      { name: "Dell PowerEdge", catalogId: null },
+    ]);
+  });
+
+  test("writes what the company says a thing is for, only where it changed", async () => {
+    const { caller, writesTo } = setup({
+      assets: [
+        // Renamed by the previous release, which kept the catalogue name in the description.
+        {
+          id: A1,
+          catalogId: null,
+          name: "Salesforce",
+          description: "CRM (Salesforce, HubSpot, Pipedrive)",
+        },
+        {
+          id: A2,
+          catalogId: null,
+          name: "E-Mail",
+          description: "Postfächer aller Mitarbeitenden",
+        },
+        {
+          id: A3,
+          catalogId: null,
+          name: "HubSpot",
+          description: "CRM (Salesforce, HubSpot, Pipedrive)",
+        },
+      ],
+      suppliers: [],
+    });
+    await caller.specifyAssets({
+      rows: [
+        {
+          id: A1,
+          name: "Salesforce",
+          description: "Kontakte und Angebote im Vertrieb",
+          providers: [],
+        },
+        {
+          id: A2,
+          name: "E-Mail",
+          description: " Postfächer aller Mitarbeitenden ",
+          providers: [],
+        },
+        // Nothing typed: the catalogue name stays where the previous release reads it.
+        { id: A3, name: "HubSpot", description: "", providers: [] },
+      ],
+    });
+    expect(writesTo(asset).map((w) => setOf(w.values))).toEqual([
+      {
+        name: "Salesforce",
+        catalogId: "sales-crm",
+        description: "Kontakte und Angebote im Vertrieb",
+      },
     ]);
   });
 

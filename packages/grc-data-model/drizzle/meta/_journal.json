@@ -43,6 +43,13 @@
       "when": 1790946351054,
       "tag": "0005_asset_provider_and_mfa_method",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1790948515955,
+      "tag": "0006_asset_catalog_id",
+      "breakpoints": true
     }
   ]
 }

@@ -23,29 +23,46 @@ export const catalogNames = (id: string): readonly string[] =>
 /** Names compared as a person reads them, so "Datev " and "DATEV" are one. */
 export const nameKey = (name: string) => name.trim().toLowerCase();
 
-const CATALOG_NAMES: ReadonlySet<string> = new Set(
-  CATALOG.flatMap((item) => catalogNames(item.id).map(nameKey)),
+const ID_BY_NAME: ReadonlyMap<string, string> = new Map(
+  CATALOG.flatMap((item) =>
+    catalogNames(item.id).map((n) => [nameKey(n), item.id] as const),
+  ),
 );
 
-/** Whether a text is a catalogue item's name, in either language. */
-export const isCatalogName = (text: string | null): text is string =>
-  text !== null && CATALOG_NAMES.has(nameKey(text));
+/** The catalogue item a text names, in either language. */
+export const catalogIdByName = (text: string | null): string | null =>
+  text === null ? null : (ID_BY_NAME.get(nameKey(text)) ?? null);
+
+/** A catalogue item's name in one language. */
+export const catalogLabel = (id: string | null, locale: "de" | "en"): string | null =>
+  id === null ? null : (CATALOG_LABELS[locale][id]?.label ?? null);
 
 interface Listed {
+  readonly catalogId: string | null;
   readonly name: string;
   readonly description: string | null;
 }
 
 /**
- * Whether a listed thing is one of the catalogue items a test picks, read off its name or, once
- * 2.2 renamed it, the catalogue name kept in its description.
+ * The catalogue item a listed thing is: its `catalog_id`, or for a row written without one, its
+ * name, or the catalogue name 2.2 used to move into the description on a rename.
  */
+export const catalogIdOf = (asset: Listed): string | null =>
+  asset.catalogId ?? catalogIdByName(asset.name) ?? catalogIdByName(asset.description);
+
+/** What the company wrote about a listed thing; a catalogue name left there by 2.2 is not that. */
+export const ownDescription = (asset: Pick<Listed, "description">): string | null =>
+  catalogIdByName(asset.description) === null ? asset.description?.trim() || null : null;
+
+/** Whether a listed thing is one of the catalogue items a test picks. */
 const listedAs = (pick: (item: CatalogItem) => boolean) => {
-  const names: ReadonlySet<string> = new Set(
-    CATALOG.flatMap((item) => (pick(item) ? catalogNames(item.id).map(nameKey) : [])),
+  const ids: ReadonlySet<string> = new Set(
+    CATALOG.flatMap((item) => (pick(item) ? [item.id] : [])),
   );
-  return (asset: Listed): boolean =>
-    [asset.name, asset.description].some((n) => n !== null && names.has(nameKey(n)));
+  return (asset: Listed): boolean => {
+    const id = catalogIdOf(asset);
+    return id !== null && ids.has(id);
+  };
 };
 
 /** A catalogue line nobody signs in to, which the second-factor screen leaves out. */
@@ -55,17 +72,17 @@ export const noSignIn = listedAs((item) => item.signIn === false);
 export const isBackupSystem = listedAs((item) => item.backup === true);
 
 /**
- * A register read against the catalogue: the items already on it, by id, and the entries that
- * are no catalogue item, by name. The same comparison decides which ticked items are added.
+ * A register read against the catalogue: the items already on it, by id, also once 2.2 renamed
+ * them to the product, and the entries that are no catalogue item, by name. addAssets skips an
+ * item by the same reading.
  */
-export function onRegister(names: readonly string[]): {
+export function onRegister(assets: readonly Listed[]): {
   listed: readonly string[];
   others: readonly string[];
 } {
-  const taken = new Set(names.map(nameKey));
-  const listed = CATALOG.flatMap((item) =>
-    catalogNames(item.id).some((n) => taken.has(nameKey(n))) ? [item.id] : [],
-  );
-  const known = new Set(listed.flatMap((id) => catalogNames(id).map(nameKey)));
-  return { listed, others: names.filter((n) => !known.has(nameKey(n))) };
+  const read = assets.map((a) => ({ id: catalogIdOf(a), name: a.name }));
+  return {
+    listed: [...new Set(read.flatMap((a) => (a.id === null ? [] : [a.id])))],
+    others: read.flatMap((a) => (a.id === null ? [a.name] : [])),
+  };
 }

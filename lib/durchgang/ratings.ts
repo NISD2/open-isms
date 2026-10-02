@@ -7,6 +7,7 @@
 
 import type { supplierRiskLevelEnum } from "@nisd2/grc-data-model/enums";
 import type { z } from "zod";
+import { catalogIdOf, ownDescription } from "@/lib/asset-inventory/catalog-labels";
 import {
   FREQUENCIES,
   type Frequency,
@@ -224,6 +225,7 @@ export const ratingText = (
 
 interface ListedAsset {
   readonly id: string;
+  readonly catalogId: string | null;
   readonly name: string;
   readonly type: string;
   readonly description: string | null;
@@ -263,8 +265,10 @@ export type RatingRow =
       readonly key: string;
       readonly id: string;
       readonly name: string;
-      /** What kind of thing it is, kept in the description when 2.2 named it. */
-      readonly kindOf: string | null;
+      /** What the company wrote it is for, in 2.2. */
+      readonly about: string | null;
+      /** The catalogue item it was listed as, which says what kind of thing it is. */
+      readonly catalogId: string | null;
       readonly providers: readonly string[];
       readonly standing: Standing;
     }
@@ -346,7 +350,8 @@ export function ratingRows(
       key: ratingKey("asset", a.id),
       id: a.id,
       name: a.name,
-      kindOf: a.description?.trim() || null,
+      about: ownDescription(a),
+      catalogId: catalogIdOf(a),
       providers: providersOf(a.id, lists.links, lists.suppliers),
       standing: standingOf(linkedTo(lists.assetRisks, a.id)),
     }));

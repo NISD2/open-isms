@@ -102,7 +102,18 @@ export function PolicyScreen({
   }, [lit]);
 
   if (!policyDraft.data) return null;
-  const { document, company, clauses: stored, own: storedOwn, lists } = policyDraft.data;
+  const {
+    document,
+    language,
+    company,
+    clauses: stored,
+    own: storedOwn,
+    lists,
+  } = policyDraft.data;
+  // The document stays in the record language it is written in; the choices under it speak the
+  // reader's, matched by the clause's id.
+  const read = entry.copy.document;
+  const readClause = new Map(read.clauses.map((c) => [c.id, c]));
   const names = {
     ...policyNames(company, Object.keys(item.fields), draft.values),
     ...lists,
@@ -128,7 +139,9 @@ export function PolicyScreen({
     setLit(on ? id : null);
   };
   const preview = (id: string) =>
-    policyParts(document, [id], names, "").find((p) => p.clause === id)?.text ?? "";
+    policyParts(readClause.has(id) ? read : document, [id], names, "").find(
+      (p) => p.clause === id,
+    )?.text ?? "";
 
   return (
     <>
@@ -179,13 +192,18 @@ export function PolicyScreen({
           {document.clauses.map((clause) => (
             <ClauseChip
               key={clause.id}
-              label={clause.label}
+              label={readClause.get(clause.id)?.label ?? clause.label}
               preview={preview(clause.id)}
               on={chosen.includes(clause.id)}
               onToggle={() => toggle(clause.id)}
             />
           ))}
         </div>
+        {language !== item.locale && (
+          <p className="mt-3 text-sm text-muted-foreground">
+            {t(`recordLanguage.${language}`)}
+          </p>
+        )}
 
         <div className="mt-6 space-y-1.5">
           <Label htmlFor="dg-policy-own" className="text-sm font-semibold">

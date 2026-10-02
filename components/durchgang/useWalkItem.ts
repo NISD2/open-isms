@@ -115,6 +115,7 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
                 {
                   id,
                   name: s.name.trim(),
+                  description: s.description,
                   providers: s.providers.map((p) => p.trim()).filter(Boolean),
                 },
               ]

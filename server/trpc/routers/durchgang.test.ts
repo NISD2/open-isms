@@ -47,7 +47,8 @@ type Write = { op: "insert" | "update"; table: unknown; values: unknown; where?:
 function setup(opts: {
   accessLevel: "full" | "grandfathered" | "free";
   statusRow?: boolean;
-  existingAssets?: readonly string[];
+  /** By name, or with the catalogue item 2.2 kept when it renamed one. */
+  existingAssets?: ReadonlyArray<string | { name: string; catalogId: string }>;
   role?: "admin" | "member";
   /** The compliance role in the company; "ceo" stands for management. */
   jobTitle?: string | null;
@@ -129,7 +130,11 @@ function setup(opts: {
       asset: {
         findMany: captured(
           "asset",
-          (opts.existingAssets ?? []).map((name) => ({ name })),
+          (opts.existingAssets ?? []).map((a) =>
+            typeof a === "string"
+              ? { catalogId: null, name: a, description: null }
+              : { ...a, description: null },
+          ),
         ),
       },
     },
@@ -310,7 +315,11 @@ describe("durchgang router", () => {
     expect(result).toEqual({ added: 1 });
     const insert = writes.find((w) => w.op === "insert" && w.table === asset);
     expect(insert?.values).toEqual([
-      expect.objectContaining({ companyId: COMPANY, type: expect.any(String) }),
+      expect.objectContaining({
+        companyId: COMPANY,
+        type: expect.any(String),
+        catalogId: "bp-production-service",
+      }),
     ]);
     const lookup = wheres.find((w) => w.table === "asset");
     expect(lookup && paramsOf(lookup.where)).toContain(COMPANY);
@@ -340,8 +349,18 @@ describe("durchgang router", () => {
     expect(result).toEqual({ added: 1 });
     const insert = writes.find((w) => w.op === "insert" && w.table === asset);
     expect(insert?.values).toEqual([
-      { companyId: COMPANY, name: "Laborsoftware", type: "other" },
+      { companyId: COMPANY, name: "Laborsoftware", type: "other", catalogId: null },
     ]);
+  });
+
+  test("skips an item already listed under the product it was renamed to", async () => {
+    const { caller, writes } = setup({
+      accessLevel: "full",
+      existingAssets: [{ name: "Salesforce", catalogId: "sales-crm" }],
+    });
+    const result = await caller.addAssets({ catalogIds: ["sales-crm"] });
+    expect(result).toEqual({ added: 0 });
+    expect(writes.filter((w) => w.op === "insert" && w.table === asset)).toEqual([]);
   });
 });
 

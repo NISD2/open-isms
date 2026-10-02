@@ -69,7 +69,11 @@
         "ownLabel": "Was sonst noch bei Ihnen gilt (freiwillig)",
         "ownHint": "Zum Beispiel eine Nummer, eine eigene Regel oder einen Ansprechpartner. Es kommt als letzter Abschnitt ins Dokument, so wie Sie es schreiben.",
         "approvedLater": "Die Geschäftsführung gibt das Dokument am Ende des Durchgangs frei, angemeldet mit ihrem eigenen Zugang.",
-        "changedAfterApproval": "Die geänderte Fassung muss die Geschäftsführung noch einmal freigeben."
+        "changedAfterApproval": "Die geänderte Fassung muss die Geschäftsführung noch einmal freigeben.",
+        "recordLanguage": {
+          "de": "Das Dokument selbst ist auf Deutsch geschrieben, wie die übrigen Unterlagen Ihres Unternehmens.",
+          "en": "Das Dokument selbst ist auf Englisch geschrieben, wie die übrigen Unterlagen Ihres Unternehmens."
+        }
       },
       "person": {
         "you": "Sie",
@@ -86,6 +90,8 @@
         "inHouse": "selbst betrieben",
         "addProvider": "Weiteren Anbieter eintragen, mit Enter",
         "another": "Noch eins dieser Art",
+        "about": "Wofür es bei Ihnen da ist",
+        "aboutHint": "Zum Beispiel: Kontakte und Angebote im Vertrieb, mit Namen und E-Mail-Adressen der Kunden",
         "empty": "In diesem Bereich steht nichts auf Ihrer Liste.",
         "hint": "Wen Sie als Anbieter nennen, kommt auf Ihre Lieferantenliste. Ein Programm kann mehrere haben, etwa den Hersteller und Ihr Systemhaus. Keiner heißt: selbst betrieben oder noch nicht bekannt. Zwei Dinge einer Art für verschiedene Arbeit, etwa zwei CRM, bekommen je eine Zeile; Gleiches, gleich genutzt, darf eine Zeile bleiben (BSI-Standard 200-2, 8.1.1)."
       },
@@ -200,6 +206,7 @@
         "withProof": "Nachweis angehängt",
         "withoutProof": "ohne Nachweis",
         "atProvider": "Nachweis beim Anbieter",
+        "onPlatform": "Kurs auf nisd2.eu abgeschlossen, dort festgehalten",
         "link": "Link zum Nachweis beim Anbieter (freiwillig)",
         "linkHint": "Wo ein Onlinekurs oder ein Schulungsanbieter festhält, wer teilgenommen hat, etwa sein Abschlussbericht. Dann bleibt der Nachweis dort, auch für viele Personen.",
         "remove": "Löschen",
