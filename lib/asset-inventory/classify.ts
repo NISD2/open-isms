@@ -28,10 +28,7 @@ interface ResolveOpts {
   resolveCatalogName: (catalogId: string) => string;
 }
 
-function nextId(
-  layer: AssetLayer,
-  counters: Record<AssetLayer, number>,
-): string {
+function nextId(layer: AssetLayer, counters: Record<AssetLayer, number>): string {
   counters[layer]++;
   return `${ID_PREFIX[layer]}${String(counters[layer]).padStart(3, "0")}`;
 }
