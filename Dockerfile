@@ -106,35 +106,16 @@ ENV NODE_OPTIONS=--max-old-space-size=4096
 # above and gets OOM-killed (exit 137) on the Coolify builder. The 4GB
 # tuning and this app's Tailwind v4 setup target webpack; keep it there.
 #
-# The cache mount is what makes a redeploy cheaper than a first build.
-# webpack keeps a filesystem cache of compiled modules under
-# .next/cache/webpack/{client,server,edge-server}-production, and until now
-# every container build started with none of it: the 17.09 deploy spent 67
-# of its 123 build seconds compiling from cold.
+# No cache mount for .next/cache. One used to carry webpack's filesystem
+# cache between deploys (#177), which cut a warm compile from 75s to 33s,
+# but that cache costs memory during the compile and this build shares its
+# host with production: the 02.10 deploys were OOM-killed mid-compile.
+# next.config.ts now keeps webpack's cache in memory for production builds,
+# with the measurements, so a mount here would only hold an empty directory.
 #
-# Two full builds of this branch on one machine, the second with a one-line
-# change to a component most public pages import, so the build re-ran
-# rather than being skipped as a cached layer:
-#
-#   cache empty:  compile 75.0s, whole build step 133.5s
-#   cache warm:   compile 33.1s, whole build step  74.1s
-#
-# A cache mount rather than a layer, because .next/cache is the one part of
-# .next the runner stage deliberately does not want — it recreates the
-# directory empty for the node user instead — so keeping it out of the
-# image costs nothing and leaves the image exactly the size it was.
-#
-# sharing=locked serialises concurrent builds instead of letting two of
-# them write one webpack cache. Coolify deploys a resource one at a time,
-# so nothing normally waits; the release workflow builds each architecture
-# on its own runner, where the mount starts empty and this is a no-op
-# (type=gha cache does not carry cache mounts between runs).
-#
-# It costs disk on the build host: this cache reaches ~1.5GB for this app.
-# `docker builder prune --filter type=exec.cachemount` reclaims it, at the
-# price of one cold build afterwards.
-RUN --mount=type=cache,target=/app/.next/cache,sharing=locked \
-    node node_modules/next/dist/bin/next build --webpack
+# The old mount's data stays on the build host (~1.5GB) until
+# `docker builder prune --filter type=exec.cachemount` removes it.
+RUN node node_modules/next/dist/bin/next build --webpack
 
 # -----------------------------------------------------------------------------
 # Stage 3: runner
