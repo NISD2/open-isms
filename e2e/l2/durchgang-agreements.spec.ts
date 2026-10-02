@@ -10,8 +10,8 @@ import { expect, test } from "@playwright/test";
 import { e2eQuery } from "../lib/db";
 import { e2eTenant, payFor, type Tenant, type Undo, undoAll } from "../lib/durchgang";
 
-// learn, sources, example, contracts, done.
-const CONTRACTS_SCREEN = 3;
+// learn, example, contracts, done.
+const CONTRACTS_SCREEN = 2;
 const NAME = "E2E Wartung GmbH";
 
 interface AgreementColumns {

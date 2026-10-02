@@ -12,8 +12,8 @@ import { e2eQuery } from "../lib/db";
 import { E2E_USER_EMAIL } from "../lib/env";
 
 // 2.2 keeps its four catalogue checklists whether or not the register has entries, so "Welches
-// Programm genau, und von wem?" is screen 7 (learn, list, sources, four checklists, ...).
-const WHICH_SOFTWARE = 7;
+// Programm genau, und von wem?" is screen 6 (learn, list, four checklists, ...).
+const WHICH_SOFTWARE = 6;
 // 2.3: learn, software, technology, suppliers, map, done.
 const RATE_SOFTWARE = 1;
 const RATE_SUPPLIERS = 3;

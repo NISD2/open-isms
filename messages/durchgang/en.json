@@ -98,7 +98,7 @@
       "unrated": "Not rated",
       "agreements": {
         "empty": "No supplier is on your list yet. You add your suppliers in step 5.1.",
-        "questionnaire": "Nothing settled with a supplier? Send them our security questionnaire. They fill it in once in the supplier portal, and their answers are linked to your supplier list.",
+        "questionnaire": "Nothing settled with a supplier? Send them our security questionnaire. Once they have filled it in in the supplier portal, they appear on your supplier list as an entry of their own, with their answers.",
         "questionnaireButton": "Send the security questionnaire"
       },
       "logins": {

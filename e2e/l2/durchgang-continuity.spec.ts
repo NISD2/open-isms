@@ -18,9 +18,9 @@ import {
   walkPolicy,
 } from "../lib/durchgang";
 
-// learn, example, keep running, lead, plan, done.
+// learn, example, keep running, plan, done. The plan's lead is the one 3.1 names.
 const KEEP_SCREEN = 2;
-const PLAN_SCREEN = 4;
+const PLAN_SCREEN = 3;
 const TYPE = "business_continuity";
 const PROCESS = "E2E Auftragsannahme";
 const SYSTEM = "E2E Warenwirtschaft";
@@ -100,6 +100,7 @@ test.describe("durchgang continuity lists", () => {
   }) => {
     await page.goto(`/de/durchgang/4.2?s=${PLAN_SCREEN}`);
     await expect(page.getByText(`${PROCESS}: ${HOW}`)).toBeVisible({ timeout: 30_000 });
+    await page.locator("#dg-policy-read").click();
     await page.getByRole("button", { name: "Weiter", exact: true }).click();
 
     await expect

@@ -55,7 +55,7 @@ const CONCEPTS = [
   },
   {
     code: "4.2",
-    screen: 4,
+    screen: 3,
     type: "business_continuity",
     editors: [],
     title: "Notfallplan für den Betrieb der",
@@ -118,10 +118,10 @@ test.describe("durchgang concepts", () => {
       await expect(clause).toBeVisible({ timeout: 30_000 });
 
       await clause.click();
-      // In the document; the card under the chips repeats it, as a paragraph.
       await expect(
         page.getByRole("heading", { name: concept.added, exact: true }),
       ).toBeVisible();
+      await page.locator("#dg-policy-read").click();
       await page.getByRole("button", { name: "Weiter", exact: true }).click();
 
       await expect

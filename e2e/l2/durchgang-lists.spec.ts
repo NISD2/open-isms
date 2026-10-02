@@ -10,9 +10,9 @@ import { expect, test } from "@playwright/test";
 import { e2eQuery } from "../lib/db";
 import { e2eTenant, payFor, type Tenant, type Undo, undoAll } from "../lib/durchgang";
 
-// 2.2: learn, example, sources, then the processes checklist.
-const PROCESSES_SCREEN = 3;
-// 5.1: learn, example, sources, then the supplier list.
+// 2.2: learn, example, then the processes checklist.
+const PROCESSES_SCREEN = 2;
+// 5.1: learn, example, the list of creditors at hand, then the supplier list.
 const SUPPLIERS_SCREEN = 3;
 const LISTED = "Beschaffung";
 const TICKED = "Vertrieb und Kundenservice";

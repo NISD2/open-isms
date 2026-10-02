@@ -98,7 +98,7 @@
       "unrated": "Nicht bewertet",
       "agreements": {
         "empty": "Noch steht kein Lieferant auf Ihrer Liste. Sie tragen Ihre Lieferanten in Schritt 5.1 ein.",
-        "questionnaire": "Ist mit einem Lieferanten nichts geregelt? Schicken Sie ihm unseren Sicherheitsfragebogen. Er füllt ihn einmal im Lieferantenportal aus, und seine Antworten werden mit Ihrer Lieferantenliste verknüpft.",
+        "questionnaire": "Ist mit einem Lieferanten nichts geregelt? Schicken Sie ihm unseren Sicherheitsfragebogen. Sobald er ihn im Lieferantenportal ausgefüllt hat, steht er mit seinen Antworten als eigener Eintrag in Ihrer Lieferantenliste.",
         "questionnaireButton": "Sicherheitsfragebogen schicken"
       },
       "logins": {

@@ -66,12 +66,13 @@ test.describe("durchgang sign-ins", () => {
     await expect(ours.getByText("Nicht bewertet")).toBeVisible();
 
     const next = page.getByRole("button", { name: "Weiter", exact: true });
-    await expect(next).toBeDisabled();
-    for (const password of await page
-      .getByRole("button", { name: "Nur Passwort" })
-      .all()) {
-      await password.click();
-    }
+    // Every row starts at what is stored, here "password only", so the screen is answered.
+    await expect(ours.getByRole("button", { name: "Nur Passwort" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    await expect(ours.getByRole("button", { name: "Noch nicht bekannt" })).toBeVisible();
+    await expect(next).toBeEnabled();
     await ours.getByRole("button", { name: "Mit zweitem Faktor" }).click();
     await expect(ours.getByRole("button", { name: "Nur Passwort" })).toHaveAttribute(
       "aria-pressed",

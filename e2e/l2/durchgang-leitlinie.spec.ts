@@ -47,7 +47,11 @@ test.describe("durchgang leitlinie", () => {
     await expect(page.getByRole("button", { name: "Schulungen" })).toBeVisible({
       timeout: 30_000,
     });
-    await page.getByRole("button", { name: "Weiter", exact: true }).click();
+    const next = page.getByRole("button", { name: "Weiter", exact: true });
+    // Weiter waits until the person says they have read the document.
+    await expect(next).toBeDisabled();
+    await page.locator("#dg-policy-read").click();
+    await next.click();
 
     await expect.poll(async () => (await leitlinie())?.status ?? null).toBe("draft");
     const policy = await leitlinie();
@@ -72,7 +76,7 @@ test.describe("durchgang leitlinie", () => {
         exact: true,
       }),
     ).toBeVisible();
-    await expect(page.getByText("Ins Dokument aufgenommen")).toBeVisible();
+    await page.locator("#dg-policy-read").click();
     await page.getByRole("button", { name: "Weiter", exact: true }).click();
 
     await expect
@@ -105,6 +109,7 @@ test.describe("durchgang leitlinie", () => {
         "Die geänderte Fassung muss die Geschäftsführung noch einmal freigeben.",
       ),
     ).toBeVisible();
+    await page.locator("#dg-policy-read").click();
     await page.getByRole("button", { name: "Weiter", exact: true }).click();
 
     await expect.poll(async () => (await leitlinie())?.status ?? null).toBe("draft");

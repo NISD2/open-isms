@@ -20,9 +20,9 @@ import {
   walkPolicy,
 } from "../lib/durchgang";
 
-// learn, emergency contact, who else gets told, plan, done.
+// learn, emergency contacts (the lead, the number, the channel, who else gets told), plan, done.
 const LEAD_SCREEN = 1;
-const PLAN_SCREEN = 3;
+const PLAN_SCREEN = 2;
 const TYPE = "incident_response";
 
 test.describe("durchgang incident plan", () => {
@@ -70,21 +70,22 @@ test.describe("durchgang incident plan", () => {
     await expect(page.locator("#dg-secureCommsChannel")).toHaveValue(
       "SMS; Telefonliste auf Papier",
     );
-    await next.click();
-
     await page
       .locator("#dg-incidentEscalationContacts")
       .fill("Geschäftsführung: Jonas Muster");
     await next.click();
 
-    // The preview is filled in from this visit's answers, before the save has landed.
+    // The document is filled in from this visit's answers, before the save has landed.
     await expect(
       page.getByText("Anna Weber leitet die Bewältigung", { exact: false }),
     ).toBeVisible();
     const card = page.getByRole("button", { name: "IT-Notfallkarte" });
     await card.click();
     await expect(card).toHaveAttribute("aria-pressed", "true");
-    await expect(page.getByText("Ins Dokument aufgenommen")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "IT-Notfallkarte" })).toBeVisible();
+    // Weiter waits until the person has read the document.
+    await expect(next).toBeDisabled();
+    await page.locator("#dg-policy-read").click();
     await next.click();
 
     await expect
@@ -105,6 +106,7 @@ test.describe("durchgang incident plan", () => {
     const own = page.locator("#dg-policy-own");
     await expect(own).toBeVisible({ timeout: 30_000 });
     await own.fill("Notfallhandy der IT: 0170 1234567");
+    await page.locator("#dg-policy-read").click();
     await page.getByRole("button", { name: "Weiter", exact: true }).click();
 
     await expect
