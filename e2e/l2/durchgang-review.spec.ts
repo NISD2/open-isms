@@ -10,7 +10,6 @@
  * undoes the sign-offs, because later layers read this tenant (`e2e/lib/durchgang.ts`).
  */
 import { expect, test } from "@playwright/test";
-import { APPROVAL_SCREEN, WALK } from "@/lib/durchgang";
 import { e2eQuery } from "../lib/db";
 import {
   e2eTenant,
@@ -36,7 +35,7 @@ const DECISION = "E2E Konzepte freigegeben";
 const FILLED = "12.2";
 const FILLED_HEADLINE = "Beim BSI registrieren";
 /** The item that holds the approval: the management review, signed last. */
-const REVIEW_CODE = APPROVAL_SCREEN?.code ?? "7.3";
+const REVIEW_CODE = "7.3";
 const REVIEW_HEADLINE = "Die Managementbewertung festhalten";
 /** Today in Berlin: the review must be within the last year to count, and an approval starts today. */
 const TODAY = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }).format(
@@ -164,14 +163,15 @@ test.describe("durchgang management review", () => {
   test("signs the management review last, once no other walk item is open", async ({
     page,
   }) => {
-    // Everything else finished: not applicable stands in for signed off, both count.
+    // Everything else finished: not applicable stands in for signed off, both count. Every NIS 2
+    // requirement but the review, so every walk item is among them.
     await e2eQuery(
       `UPDATE company_requirement_status s SET status = 'not_applicable'
          FROM company_assessment a, compliance_framework f, requirement r
         WHERE a.id = s.assessment_id AND f.id = a.framework_id AND r.id = s.requirement_id
           AND a.company_id = $1 AND f.code = 'nis2'
-          AND r.code = ANY($2::text[]) AND s.status <> 'completed'`,
-      [tenant.company_id, WALK.map((item) => item.code).filter((c) => c !== REVIEW_CODE)],
+          AND r.code <> $2 AND s.status <> 'completed'`,
+      [tenant.company_id, REVIEW_CODE],
     );
 
     await page.goto(`/de/durchgang/nis2/7.3?s=${APPROVE_SCREEN}`);
