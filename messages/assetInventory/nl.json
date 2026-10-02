@@ -35,22 +35,34 @@
       "annexIIDescription": "Overige kritische sectoren. Reactief toezicht, boetes tot €7M."
     },
     "sectors": {
-      "energy": { "name": "Energie (elektriciteit, stadsverwarming, olie, gas, waterstof)" },
+      "energy": {
+        "name": "Energie (elektriciteit, stadsverwarming, olie, gas, waterstof)"
+      },
       "transport": { "name": "Vervoer (lucht, spoor, water, weg)" },
       "banking": { "name": "Bankwezen" },
-      "financial-market-infrastructure": { "name": "Infrastructuur voor de financiële markt" },
+      "financial-market-infrastructure": {
+        "name": "Infrastructuur voor de financiële markt"
+      },
       "health": { "name": "Gezondheidszorg" },
       "drinking-water": { "name": "Drinkwater" },
       "waste-water": { "name": "Afvalwater" },
-      "digital-infrastructure": { "name": "Digitale infrastructuur (DNS, TLD, cloud, datacenter, CDN, vertrouwensdiensten)" },
+      "digital-infrastructure": {
+        "name": "Digitale infrastructuur (DNS, TLD, cloud, datacenter, CDN, vertrouwensdiensten)"
+      },
       "ict-service-management": { "name": "Beheer van ICT-diensten (MSP, MSSP)" },
       "space": { "name": "Ruimtevaart" },
       "postal-courier": { "name": "Post- en koeriersdiensten" },
       "waste-management": { "name": "Afvalstoffenbeheer" },
-      "chemicals": { "name": "Chemische stoffen (productie, vervaardiging, distributie)" },
+      "chemicals": {
+        "name": "Chemische stoffen (productie, vervaardiging, distributie)"
+      },
       "food": { "name": "Levensmiddelen (productie, verwerking, distributie)" },
-      "manufacturing": { "name": "Vervaardiging (medische apparaten, machines, voertuigen, elektronica)" },
-      "digital-providers": { "name": "Digitale aanbieders (marktplaatsen, zoekmachines, sociale netwerken)" },
+      "manufacturing": {
+        "name": "Vervaardiging (medische apparaten, machines, voertuigen, elektronica)"
+      },
+      "digital-providers": {
+        "name": "Digitale aanbieders (marktplaatsen, zoekmachines, sociale netwerken)"
+      },
       "research": { "name": "Onderzoek" }
     },
     "checklist": {
@@ -175,23 +187,40 @@
       "bp-marketing": { "label": "Marketing en externe communicatie" },
       "bp-it-operations": { "label": "IT-operaties" },
       "bp-legal-compliance": { "label": "Juridisch en compliance" },
+      "bp-logistics": { "label": "Logistiek, transport en verzending" },
+      "bp-warehousing": { "label": "Opslag en voorraadbeheer" },
+      "bp-maintenance": { "label": "Onderhoud en reparatie" },
+      "bp-quality": { "label": "Kwaliteitsmanagement" },
+      "bp-rnd": { "label": "Onderzoek en ontwikkeling" },
+      "bp-facility-management": { "label": "Facilitair beheer en gebouwbeheer" },
       "cf-website": { "label": "Bedrijfswebsite" },
       "cf-webshop": { "label": "Webshop of online bestellen" },
       "cf-customer-portal": { "label": "Klantportaal (login)" },
       "cf-mobile-app": { "label": "Mobiele app" },
       "cf-newsletter": { "label": "Nieuwsbriefsysteem (Mailchimp, Brevo)" },
       "cf-contact-form": { "label": "Contactformulier op de website" },
+      "cf-social-media": {
+        "label": "Bedrijfsaccounts op sociale media (LinkedIn, Instagram)"
+      },
       "sales-crm": { "label": "CRM (Salesforce, HubSpot, Pipedrive)" },
       "sales-lead-gen": { "label": "Leadgeneratie / prospecting (Apollo, ZoomInfo)" },
-      "sales-quote-proposal": { "label": "Offerte- / voorstelgenerator (PandaDoc)" },
+      "sales-quote-proposal": { "label": "Offertes en calculatie" },
       "sales-e-signature": { "label": "E-handtekening (DocuSign, Adobe Sign)" },
-      "sales-demo-meeting": { "label": "Video-vergader- / demo-tool (Teams, Zoom, Meet)" },
+      "sales-demo-meeting": {
+        "label": "Video-vergader- / demo-tool (Teams, Zoom, Meet)"
+      },
       "sales-analytics": { "label": "Sales-analytics of BI-dashboard" },
+      "sales-contract-mgmt": { "label": "Contractbeheer" },
+      "sales-marketplace": { "label": "Online marktplaatsen (bol.com, Amazon)" },
       "cs-helpdesk": { "label": "Helpdesk / ticketing (Zendesk, Intercom)" },
       "cs-voip": { "label": "Telefonie / VoIP" },
       "cs-live-chat": { "label": "Live chat op de website" },
       "cs-knowledge-base": { "label": "Kennisbank of FAQ-systeem" },
       "cs-feedback": { "label": "Enquête- of feedbacktool" },
+      "cs-shared-mailbox": { "label": "Gedeelde servicemailbox (info@, service@)" },
+      "cs-messenger": { "label": "Messenger voor klantcontact (WhatsApp Business)" },
+      "cs-appointment-booking": { "label": "Online afspraken plannen" },
+      "cs-field-service": { "label": "Buitendienstsoftware (servicemonteurs)" },
       "hr-hris": { "label": "HRIS (Personio, BambooHR, Workday)" },
       "hr-payroll": { "label": "Loonsoftware (DATEV Lohn, Lexware, sage)" },
       "hr-recruiting": { "label": "Recruitment / ATS" },
@@ -199,44 +228,104 @@
       "hr-personnel-files": { "label": "Digitale personeelsdossiers" },
       "hr-lms": { "label": "Leerplatform (LMS)" },
       "hr-performance": { "label": "Performance review tool" },
-      "fin-accounting": { "label": "Boekhoudsoftware (DATEV, Lexware, sevDesk, lexoffice)" },
+      "hr-scheduling": { "label": "Rooster- en personeelsplanning" },
+      "hr-safety": { "label": "Arbeidsveiligheid (instructies, RI&E)" },
+      "fin-accounting": {
+        "label": "Boekhoudsoftware (DATEV, Lexware, sevDesk, lexoffice)"
+      },
       "fin-erp": { "label": "ERP (SAP, Microsoft Dynamics, ProAlpha)" },
       "fin-online-banking": { "label": "Online bankportals" },
-      "fin-payment-processing": { "label": "Betalingsverwerking (Stripe, PayPal, Klarna)" },
+      "fin-payment-processing": {
+        "label": "Betalingsverwerking (Stripe, PayPal, Klarna)"
+      },
       "fin-expense": { "label": "Spendmanagement (Pleo, Spendesk, Moss)" },
       "fin-procurement-system": { "label": "Inkoop- of bestelsysteem" },
       "fin-invoicing": { "label": "Facturatiesysteem" },
+      "fin-tax-advisor": { "label": "Gegevensuitwisseling met de accountant" },
+      "fin-tax-portal": { "label": "Belastingportaal" },
+      "fin-receipt-archive": { "label": "Digitaal archief voor bonnen en facturen" },
+      "fin-budgeting": { "label": "Budgettering en controlling" },
       "it-email": { "label": "E-mail (Microsoft 365, Google Workspace, Exchange)" },
-      "it-file-storage": { "label": "Gedeelde bestandsopslag (SharePoint, Google Drive, NAS)" },
+      "it-file-storage": {
+        "label": "Gedeelde bestandsopslag (SharePoint, Google Drive, NAS)"
+      },
       "it-video-conferencing": { "label": "Videoconferentie (Teams, Zoom, Meet)" },
       "it-internal-chat": { "label": "Interne chat (Slack, Teams)" },
       "it-document-mgmt": { "label": "Documentbeheer (DMS)" },
-      "it-wiki-kb": { "label": "Wiki of interne kennisbank (Confluence, Notion)" },
-      "it-identity-provider": { "label": "Identity provider (Azure AD/Entra, Google Workspace, Okta)" },
-      "it-endpoint-protection": { "label": "Endpoint-beveiliging (Defender, CrowdStrike, SentinelOne)" },
+      "it-wiki-kb": { "label": "Intranet of wiki (Confluence, Notion)" },
+      "it-identity-provider": {
+        "label": "Identity provider (Azure AD/Entra, Google Workspace, Okta)"
+      },
+      "it-endpoint-protection": {
+        "label": "Endpoint-beveiliging (Defender, CrowdStrike, SentinelOne)"
+      },
       "it-monitoring": { "label": "Monitoring (Datadog, Grafana)" },
-      "it-password-manager": { "label": "Wachtwoordmanager (1Password, LastPass, Bitwarden)" },
+      "it-password-manager": {
+        "label": "Wachtwoordmanager (1Password, LastPass, Bitwarden)"
+      },
       "it-code-repos": { "label": "Code-repositories (GitHub, GitLab, Bitbucket)" },
       "it-project-management": { "label": "Projectmanagement (Jira, Asana, Linear)" },
       "it-patch-rmm": { "label": "Patchmanagement / RMM" },
+      "it-office-suite": { "label": "Kantoorsoftware (Word, Excel, LibreOffice)" },
+      "it-remote-support": { "label": "Ondersteuning op afstand (TeamViewer, AnyDesk)" },
+      "it-mdm": { "label": "Beheer van mobiele apparaten (Intune, Jamf)" },
+      "it-ticketing": { "label": "IT-ticketsysteem voor interne verzoeken" },
+      "it-ai-assistants": { "label": "AI-assistenten (ChatGPT, Microsoft Copilot)" },
+      "it-email-security": { "label": "Spam- en malwarefilter voor e-mail" },
       "infra-onprem-servers": { "label": "On-premise servers" },
       "infra-cloud-platform": { "label": "Cloudplatform (AWS, Azure, GCP, Hetzner)" },
-      "infra-network-equipment": { "label": "Netwerkapparatuur (firewall, switches, wifi)" },
+      "infra-network-equipment": {
+        "label": "Netwerkapparatuur (firewall, switches, wifi)"
+      },
       "infra-backup-system": { "label": "Backup-systeem (Veeam, NAS, cloud-backup)" },
+      "infra-backup-media": {
+        "label": "Back-upmedia (schijven, tapes, ook extern bewaard)"
+      },
       "infra-printer-fleet": { "label": "Kantoorprinters / scanners" },
+      "infra-virtualisation": { "label": "Virtualisatie (VMware, Hyper-V, Proxmox)" },
+      "infra-terminal-server": { "label": "Terminalservers (Remote Desktop, Citrix)" },
+      "infra-directory": {
+        "label": "Directoryservice en domeincontrollers (Active Directory)"
+      },
+      "infra-database": { "label": "Databaseservers (SQL Server, PostgreSQL)" },
+      "infra-storage": { "label": "Netwerkopslag (NAS, SAN)" },
+      "infra-dns-domains": { "label": "Domeinnamen en DNS (registrar)" },
+      "infra-ups": { "label": "UPS en noodstroom" },
       "ep-laptops": { "label": "Laptops en desktops" },
       "ep-mobile": { "label": "Mobiele apparaten van het bedrijf (telefoons, tablets)" },
+      "ep-removable-media": { "label": "USB-sticks en externe schijven" },
       "ep-byod": { "label": "BYOD (privé-apparaten met bedrijfs­toegang)" },
+      "ep-shared-pcs": { "label": "Gedeelde werkplekken (productie, receptie)" },
+      "ep-thin-clients": { "label": "Thin clients" },
+      "ep-handheld-scanners": { "label": "Handscanners en mobiele terminals" },
+      "ep-meeting-rooms": {
+        "label": "Vergaderruimteapparatuur (schermen, conferentiesystemen)"
+      },
+      "ep-cameras": { "label": "Camerabewaking" },
+      "ep-access-control": { "label": "Toegangscontrole (passen, kaartlezers)" },
+      "ep-building-tech": {
+        "label": "Gebouwinstallaties (verwarming, ventilatie, alarm)"
+      },
       "loc-main-office": { "label": "Hoofdkantoor" },
       "loc-branch-offices": { "label": "Extra kantoren / vestigingen" },
       "loc-server-room": { "label": "Serverruimte (on-premise)" },
       "loc-datacenter": { "label": "Datacenter (eigen of gehuurd rack)" },
       "loc-employee-homes": { "label": "Thuiswerkplekken van medewerkers" },
       "loc-warehouse": { "label": "Magazijn of opslaglocatie" },
+      "loc-production": { "label": "Productiehal of werkplaats" },
+      "loc-technical-rooms": { "label": "Technische ruimtes en netwerkkasten" },
+      "loc-archive": { "label": "Archiefruimte (papieren dossiers)" },
       "net-internet": { "label": "Internetverbinding (ISP)" },
       "net-vpn": { "label": "VPN of Zero Trust remote access" },
       "net-third-party-api": { "label": "Externe API-integraties" },
-      "net-site-to-site": { "label": "Site-to-site verbindingen (leverancier, klant)" },
+      "net-site-to-site": {
+        "label": "Site-to-site verbindingen (vestigingen, partners)"
+      },
+      "net-lan": { "label": "Intern netwerk (LAN, segmenten)" },
+      "net-wifi": { "label": "Wifi (bedrijfsnetwerk en gastnetwerk)" },
+      "net-mobile": { "label": "Mobiele data en mobiele routers (LTE, 5G)" },
+      "net-phone-line": { "label": "Telefoonlijn (SIP-trunk)" },
+      "net-remote-maintenance": { "label": "Toegang op afstand voor onderhoudspartijen" },
       "sec-plc-scada": { "label": "PLC / SCADA-besturingen" },
       "sec-mes": { "label": "MES (Manufacturing Execution System)" },
       "sec-cad-plm": { "label": "CAD / PLM (engineering-data)" },
@@ -247,7 +336,9 @@
       "sec-lab-instruments": { "label": "Netwerkverbonden labapparatuur / LIMS" },
       "sec-energy-scada": { "label": "Energie-SCADA / regelsysteem" },
       "sec-water-scada": { "label": "Water- / afvalwater-SCADA" },
-      "sec-trading-platform": { "label": "Trading-platform aansluiting (SWIFT, SEPA, beurs)" },
+      "sec-trading-platform": {
+        "label": "Trading-platform aansluiting (SWIFT, SEPA, beurs)"
+      },
       "sec-atm-fleet": { "label": "Geldautomaten / self-service terminals" },
       "sec-dns-tld": { "label": "DNS / TLD-infrastructuur" },
       "sec-citizen-portal": { "label": "Burgerportaal (eGov, OZG)" }

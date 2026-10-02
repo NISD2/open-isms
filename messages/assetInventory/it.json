@@ -35,22 +35,36 @@
       "annexIIDescription": "Altri settori critici. Vigilanza reattiva, sanzioni fino a 7 milioni di euro."
     },
     "sectors": {
-      "energy": { "name": "Energia (elettricità, teleriscaldamento, petrolio, gas, idrogeno)" },
-      "transport": { "name": "Trasporti (aereo, ferroviario, per vie navigabili, su strada)" },
+      "energy": {
+        "name": "Energia (elettricità, teleriscaldamento, petrolio, gas, idrogeno)"
+      },
+      "transport": {
+        "name": "Trasporti (aereo, ferroviario, per vie navigabili, su strada)"
+      },
       "banking": { "name": "Settore bancario" },
-      "financial-market-infrastructure": { "name": "Infrastrutture dei mercati finanziari" },
+      "financial-market-infrastructure": {
+        "name": "Infrastrutture dei mercati finanziari"
+      },
       "health": { "name": "Sanità" },
       "drinking-water": { "name": "Acqua potabile" },
       "waste-water": { "name": "Acque reflue" },
-      "digital-infrastructure": { "name": "Infrastruttura digitale (DNS, TLD, cloud, data center, CDN, servizi fiduciari)" },
+      "digital-infrastructure": {
+        "name": "Infrastruttura digitale (DNS, TLD, cloud, data center, CDN, servizi fiduciari)"
+      },
       "ict-service-management": { "name": "Gestione dei servizi ICT (MSP, MSSP)" },
       "space": { "name": "Spazio" },
       "postal-courier": { "name": "Servizi postali e di corriere" },
       "waste-management": { "name": "Gestione dei rifiuti" },
-      "chemicals": { "name": "Sostanze chimiche (fabbricazione, produzione, distribuzione)" },
+      "chemicals": {
+        "name": "Sostanze chimiche (fabbricazione, produzione, distribuzione)"
+      },
       "food": { "name": "Alimenti (produzione, trasformazione, distribuzione)" },
-      "manufacturing": { "name": "Fabbricazione (dispositivi medici, macchinari, veicoli, elettronica)" },
-      "digital-providers": { "name": "Fornitori digitali (mercati online, motori di ricerca, social network)" },
+      "manufacturing": {
+        "name": "Fabbricazione (dispositivi medici, macchinari, veicoli, elettronica)"
+      },
+      "digital-providers": {
+        "name": "Fornitori digitali (mercati online, motori di ricerca, social network)"
+      },
       "research": { "name": "Ricerca" }
     },
     "checklist": {
@@ -175,23 +189,44 @@
       "bp-marketing": { "label": "Marketing e comunicazioni esterne" },
       "bp-it-operations": { "label": "Operazioni IT" },
       "bp-legal-compliance": { "label": "Affari legali e conformità" },
+      "bp-logistics": { "label": "Logistica, trasporti e spedizioni" },
+      "bp-warehousing": { "label": "Gestione del magazzino e delle scorte" },
+      "bp-maintenance": { "label": "Manutenzione e riparazioni" },
+      "bp-quality": { "label": "Gestione della qualità" },
+      "bp-rnd": { "label": "Ricerca e sviluppo" },
+      "bp-facility-management": { "label": "Gestione degli edifici e servizi generali" },
       "cf-website": { "label": "Sito web aziendale" },
       "cf-webshop": { "label": "Negozio online o ordinazione online" },
       "cf-customer-portal": { "label": "Portale clienti (login)" },
       "cf-mobile-app": { "label": "App mobile" },
       "cf-newsletter": { "label": "Sistema di newsletter (Mailchimp, Brevo)" },
       "cf-contact-form": { "label": "Modulo di contatto sul sito web" },
+      "cf-social-media": {
+        "label": "Account aziendali sui social network (LinkedIn, Instagram)"
+      },
       "sales-crm": { "label": "CRM (Salesforce, HubSpot, Pipedrive)" },
-      "sales-lead-gen": { "label": "Strumento di lead generation / prospecting (Apollo, ZoomInfo)" },
-      "sales-quote-proposal": { "label": "Generatore di preventivi / proposte (PandaDoc)" },
+      "sales-lead-gen": {
+        "label": "Strumento di lead generation / prospecting (Apollo, ZoomInfo)"
+      },
+      "sales-quote-proposal": { "label": "Preventivi e calcolo dei prezzi" },
       "sales-e-signature": { "label": "Firma elettronica (DocuSign, Adobe Sign)" },
-      "sales-demo-meeting": { "label": "Strumento di videoconferenza / demo (Teams, Zoom, Meet)" },
+      "sales-demo-meeting": {
+        "label": "Strumento di videoconferenza / demo (Teams, Zoom, Meet)"
+      },
       "sales-analytics": { "label": "Analisi vendite o dashboard BI" },
+      "sales-contract-mgmt": { "label": "Gestione dei contratti" },
+      "sales-marketplace": { "label": "Marketplace online (Amazon, eBay)" },
       "cs-helpdesk": { "label": "Helpdesk / ticketing (Zendesk, Intercom)" },
       "cs-voip": { "label": "Sistema telefonico / VoIP" },
       "cs-live-chat": { "label": "Live chat sul sito web" },
       "cs-knowledge-base": { "label": "Knowledge base o sistema FAQ" },
       "cs-feedback": { "label": "Strumento di sondaggio o feedback" },
+      "cs-shared-mailbox": { "label": "Casella di posta condivisa (info@, service@)" },
+      "cs-messenger": {
+        "label": "Messaggistica per il contatto con i clienti (WhatsApp Business)"
+      },
+      "cs-appointment-booking": { "label": "Prenotazione appuntamenti online" },
+      "cs-field-service": { "label": "Software per l'assistenza tecnica sul campo" },
       "hr-hris": { "label": "HRIS (Personio, BambooHR, Workday)" },
       "hr-payroll": { "label": "Buste paga (DATEV Lohn, Lexware, sage)" },
       "hr-recruiting": { "label": "Recruiting / gestione candidature" },
@@ -199,44 +234,108 @@
       "hr-personnel-files": { "label": "Fascicoli del personale digitali" },
       "hr-lms": { "label": "Sistema di gestione dell'apprendimento (LMS)" },
       "hr-performance": { "label": "Strumento di valutazione delle prestazioni" },
-      "fin-accounting": { "label": "Software di contabilità (DATEV, Lexware, sevDesk, lexoffice)" },
+      "hr-scheduling": { "label": "Pianificazione di turni e personale" },
+      "hr-safety": {
+        "label": "Sicurezza sul lavoro (formazione, valutazione dei rischi)"
+      },
+      "fin-accounting": {
+        "label": "Software di contabilità (DATEV, Lexware, sevDesk, lexoffice)"
+      },
       "fin-erp": { "label": "ERP (SAP, Microsoft Dynamics, ProAlpha)" },
       "fin-online-banking": { "label": "Portali di online banking" },
-      "fin-payment-processing": { "label": "Elaborazione dei pagamenti (Stripe, PayPal, Klarna)" },
+      "fin-payment-processing": {
+        "label": "Elaborazione dei pagamenti (Stripe, PayPal, Klarna)"
+      },
       "fin-expense": { "label": "Gestione delle note spese (Pleo, Spendesk, Moss)" },
-      "fin-procurement-system": { "label": "Sistema di approvvigionamento / ordini d'acquisto" },
+      "fin-procurement-system": {
+        "label": "Sistema di approvvigionamento / ordini d'acquisto"
+      },
       "fin-invoicing": { "label": "Sistema di fatturazione" },
+      "fin-tax-advisor": { "label": "Scambio di dati con il commercialista" },
+      "fin-tax-portal": { "label": "Portale dell'amministrazione fiscale" },
+      "fin-receipt-archive": { "label": "Archivio dei documenti contabili" },
+      "fin-budgeting": { "label": "Budget e controllo di gestione" },
       "it-email": { "label": "Email (Microsoft 365, Google Workspace, Exchange)" },
-      "it-file-storage": { "label": "Archiviazione file condivisa (SharePoint, Google Drive, NAS)" },
+      "it-file-storage": {
+        "label": "Archiviazione file condivisa (SharePoint, Google Drive, NAS)"
+      },
       "it-video-conferencing": { "label": "Videoconferenza (Teams, Zoom, Meet)" },
       "it-internal-chat": { "label": "Chat interna (Slack, Teams)" },
       "it-document-mgmt": { "label": "Gestione documentale (DMS)" },
-      "it-wiki-kb": { "label": "Wiki o knowledge base interna (Confluence, Notion)" },
-      "it-identity-provider": { "label": "Identity provider (Azure AD/Entra, Google Workspace, Okta)" },
-      "it-endpoint-protection": { "label": "Protezione degli endpoint (Defender, CrowdStrike, SentinelOne)" },
+      "it-wiki-kb": { "label": "Intranet o wiki (Confluence, Notion)" },
+      "it-identity-provider": {
+        "label": "Identity provider (Azure AD/Entra, Google Workspace, Okta)"
+      },
+      "it-endpoint-protection": {
+        "label": "Protezione degli endpoint (Defender, CrowdStrike, SentinelOne)"
+      },
       "it-monitoring": { "label": "Monitoraggio (Datadog, Grafana)" },
-      "it-password-manager": { "label": "Password manager (1Password, LastPass, Bitwarden)" },
+      "it-password-manager": {
+        "label": "Password manager (1Password, LastPass, Bitwarden)"
+      },
       "it-code-repos": { "label": "Repository di codice (GitHub, GitLab, Bitbucket)" },
       "it-project-management": { "label": "Gestione progetti (Jira, Asana, Linear)" },
       "it-patch-rmm": { "label": "Gestione delle patch / RMM" },
+      "it-office-suite": { "label": "Suite per l'ufficio (Word, Excel, LibreOffice)" },
+      "it-remote-support": { "label": "Assistenza remota (TeamViewer, AnyDesk)" },
+      "it-mdm": { "label": "Gestione dei dispositivi mobili (Intune, Jamf)" },
+      "it-ticketing": { "label": "Sistema di ticketing IT per le richieste interne" },
+      "it-ai-assistants": { "label": "Assistenti AI (ChatGPT, Microsoft Copilot)" },
+      "it-email-security": { "label": "Filtro antispam e antimalware per la posta" },
       "infra-onprem-servers": { "label": "Server on-premise" },
       "infra-cloud-platform": { "label": "Piattaforma cloud (AWS, Azure, GCP, Hetzner)" },
-      "infra-network-equipment": { "label": "Apparecchiature di rete (firewall, switch, WiFi)" },
+      "infra-network-equipment": {
+        "label": "Apparecchiature di rete (firewall, switch, WiFi)"
+      },
       "infra-backup-system": { "label": "Sistema di backup (Veeam, NAS, backup cloud)" },
+      "infra-backup-media": {
+        "label": "Supporti di backup (dischi, nastri, anche fuori sede)"
+      },
       "infra-printer-fleet": { "label": "Stampanti / scanner d'ufficio" },
+      "infra-virtualisation": { "label": "Virtualizzazione (VMware, Hyper-V, Proxmox)" },
+      "infra-terminal-server": { "label": "Terminal server (Remote Desktop, Citrix)" },
+      "infra-directory": {
+        "label": "Servizio di directory e domain controller (Active Directory)"
+      },
+      "infra-database": { "label": "Server di database (SQL Server, PostgreSQL)" },
+      "infra-storage": { "label": "Storage di rete (NAS, SAN)" },
+      "infra-dns-domains": { "label": "Domini e DNS (registrar)" },
+      "infra-ups": { "label": "UPS e alimentazione di emergenza" },
       "ep-laptops": { "label": "Laptop e desktop" },
       "ep-mobile": { "label": "Dispositivi mobili aziendali (telefoni, tablet)" },
-      "ep-byod": { "label": "BYOD (dispositivi personali dei dipendenti che accedono ai dati aziendali)" },
+      "ep-removable-media": { "label": "Chiavette USB e dischi esterni" },
+      "ep-byod": {
+        "label": "BYOD (dispositivi personali dei dipendenti che accedono ai dati aziendali)"
+      },
+      "ep-shared-pcs": { "label": "Postazioni condivise (produzione, reception)" },
+      "ep-thin-clients": { "label": "Thin client" },
+      "ep-handheld-scanners": { "label": "Scanner palmari e terminali mobili" },
+      "ep-meeting-rooms": {
+        "label": "Dotazioni delle sale riunioni (schermi, sistemi di conferenza)"
+      },
+      "ep-cameras": { "label": "Telecamere di videosorveglianza" },
+      "ep-access-control": { "label": "Controllo accessi (badge, lettori)" },
+      "ep-building-tech": {
+        "label": "Impianti dell'edificio (riscaldamento, ventilazione, allarme)"
+      },
       "loc-main-office": { "label": "Sede principale" },
       "loc-branch-offices": { "label": "Uffici / filiali aggiuntivi" },
       "loc-server-room": { "label": "Sala server (on-premise)" },
       "loc-datacenter": { "label": "Data center (proprio o rack in affitto)" },
       "loc-employee-homes": { "label": "Home office dei dipendenti" },
       "loc-warehouse": { "label": "Magazzino o struttura di stoccaggio" },
+      "loc-production": { "label": "Capannone di produzione o officina" },
+      "loc-technical-rooms": { "label": "Locali tecnici e armadi di rete" },
+      "loc-archive": { "label": "Archivio (documenti cartacei)" },
       "net-internet": { "label": "Connessione internet (ISP)" },
       "net-vpn": { "label": "Accesso remoto VPN o Zero Trust" },
       "net-third-party-api": { "label": "Integrazioni API di terze parti" },
-      "net-site-to-site": { "label": "Collegamenti site-to-site (fornitore, cliente)" },
+      "net-site-to-site": { "label": "Collegamenti site-to-site (filiali, partner)" },
+      "net-lan": { "label": "Rete interna (LAN, segmenti)" },
+      "net-wifi": { "label": "Wi-Fi (rete aziendale e rete ospiti)" },
+      "net-mobile": { "label": "Dati mobili e router mobili (LTE, 5G)" },
+      "net-phone-line": { "label": "Linea telefonica (trunk SIP)" },
+      "net-remote-maintenance": { "label": "Accessi di teleassistenza per i fornitori" },
       "sec-plc-scada": { "label": "Controllori PLC / SCADA" },
       "sec-mes": { "label": "MES (Manufacturing Execution System)" },
       "sec-cad-plm": { "label": "CAD / PLM (dati di progettazione)" },
@@ -247,7 +346,9 @@
       "sec-lab-instruments": { "label": "Strumenti di laboratorio in rete / LIMS" },
       "sec-energy-scada": { "label": "SCADA energetico / sistema di controllo" },
       "sec-water-scada": { "label": "SCADA acqua / acque reflue" },
-      "sec-trading-platform": { "label": "Connessione a piattaforma di trading (SWIFT, SEPA, borsa)" },
+      "sec-trading-platform": {
+        "label": "Connessione a piattaforma di trading (SWIFT, SEPA, borsa)"
+      },
       "sec-atm-fleet": { "label": "Parco ATM / terminali self-service" },
       "sec-dns-tld": { "label": "Infrastruttura DNS / TLD" },
       "sec-citizen-portal": { "label": "Portale per i cittadini (eGov, OZG)" }

@@ -42,15 +42,21 @@
       "health": { "name": "Zdravotnictví" },
       "drinking-water": { "name": "Pitná voda" },
       "waste-water": { "name": "Odpadní voda" },
-      "digital-infrastructure": { "name": "Digitální infrastruktura (DNS, TLD, cloud, datové centrum, CDN, služby vytvářející důvěru)" },
+      "digital-infrastructure": {
+        "name": "Digitální infrastruktura (DNS, TLD, cloud, datové centrum, CDN, služby vytvářející důvěru)"
+      },
       "ict-service-management": { "name": "Správa služeb IKT (MSP, MSSP)" },
       "space": { "name": "Vesmír" },
       "postal-courier": { "name": "Poštovní a kurýrní služby" },
       "waste-management": { "name": "Nakládání s odpady" },
       "chemicals": { "name": "Chemické látky (výroba, produkce, distribuce)" },
       "food": { "name": "Potraviny (produkce, zpracování, distribuce)" },
-      "manufacturing": { "name": "Výroba (zdravotnické prostředky, strojní zařízení, vozidla, elektronika)" },
-      "digital-providers": { "name": "Poskytovatelé digitálních služeb (tržiště, vyhledávače, sociální sítě)" },
+      "manufacturing": {
+        "name": "Výroba (zdravotnické prostředky, strojní zařízení, vozidla, elektronika)"
+      },
+      "digital-providers": {
+        "name": "Poskytovatelé digitálních služeb (tržiště, vyhledávače, sociální sítě)"
+      },
       "research": { "name": "Výzkum" }
     },
     "checklist": {
@@ -175,23 +181,44 @@
       "bp-marketing": { "label": "Marketing a vnější komunikace" },
       "bp-it-operations": { "label": "Provoz IT" },
       "bp-legal-compliance": { "label": "Právo a compliance" },
+      "bp-logistics": { "label": "Logistika, doprava a expedice" },
+      "bp-warehousing": { "label": "Skladování a správa zásob" },
+      "bp-maintenance": { "label": "Údržba a opravy" },
+      "bp-quality": { "label": "Řízení kvality" },
+      "bp-rnd": { "label": "Výzkum a vývoj" },
+      "bp-facility-management": { "label": "Správa budov a technické zázemí" },
       "cf-website": { "label": "Firemní web" },
       "cf-webshop": { "label": "Webshop nebo online objednávky" },
       "cf-customer-portal": { "label": "Zákaznický portál (přihlášení)" },
       "cf-mobile-app": { "label": "Mobilní aplikace" },
       "cf-newsletter": { "label": "Systém newsletteru (Mailchimp, Brevo)" },
       "cf-contact-form": { "label": "Kontaktní formulář na webu" },
+      "cf-social-media": {
+        "label": "Firemní účty na sociálních sítích (LinkedIn, Instagram)"
+      },
       "sales-crm": { "label": "CRM (Salesforce, HubSpot, Pipedrive)" },
-      "sales-lead-gen": { "label": "Nástroj na generování a vyhledávání kontaktů (Apollo, ZoomInfo)" },
-      "sales-quote-proposal": { "label": "Generátor nabídek a cenových návrhů (PandaDoc)" },
+      "sales-lead-gen": {
+        "label": "Nástroj na generování a vyhledávání kontaktů (Apollo, ZoomInfo)"
+      },
+      "sales-quote-proposal": { "label": "Tvorba nabídek a kalkulace" },
       "sales-e-signature": { "label": "Elektronický podpis (DocuSign, Adobe Sign)" },
-      "sales-demo-meeting": { "label": "Nástroj pro videoschůzky a dema (Teams, Zoom, Meet)" },
+      "sales-demo-meeting": {
+        "label": "Nástroj pro videoschůzky a dema (Teams, Zoom, Meet)"
+      },
       "sales-analytics": { "label": "Obchodní analytika nebo BI dashboard" },
+      "sales-contract-mgmt": { "label": "Správa smluv" },
+      "sales-marketplace": { "label": "Online tržiště (Amazon, eBay)" },
       "cs-helpdesk": { "label": "Helpdesk / ticketing (Zendesk, Intercom)" },
       "cs-voip": { "label": "Telefonní / VoIP systém" },
       "cs-live-chat": { "label": "Živý chat na webu" },
       "cs-knowledge-base": { "label": "Znalostní báze nebo systém FAQ" },
       "cs-feedback": { "label": "Nástroj na ankety nebo zpětnou vazbu" },
+      "cs-shared-mailbox": { "label": "Sdílená servisní schránka (info@, service@)" },
+      "cs-messenger": {
+        "label": "Messenger pro kontakt se zákazníky (WhatsApp Business)"
+      },
+      "cs-appointment-booking": { "label": "Online rezervace termínů" },
+      "cs-field-service": { "label": "Software pro servisní techniky v terénu" },
       "hr-hris": { "label": "HRIS (Personio, BambooHR, Workday)" },
       "hr-payroll": { "label": "Mzdy (DATEV Lohn, Lexware, sage)" },
       "hr-recruiting": { "label": "Nábor / sledování uchazečů" },
@@ -199,44 +226,104 @@
       "hr-personnel-files": { "label": "Digitální osobní složky" },
       "hr-lms": { "label": "Systém pro řízení vzdělávání (LMS)" },
       "hr-performance": { "label": "Nástroj na hodnocení výkonu" },
-      "fin-accounting": { "label": "Účetní software (DATEV, Lexware, sevDesk, lexoffice)" },
+      "hr-scheduling": { "label": "Plánování směn a služeb" },
+      "hr-safety": { "label": "Bezpečnost práce (školení, hodnocení rizik)" },
+      "fin-accounting": {
+        "label": "Účetní software (DATEV, Lexware, sevDesk, lexoffice)"
+      },
       "fin-erp": { "label": "ERP (SAP, Microsoft Dynamics, ProAlpha)" },
       "fin-online-banking": { "label": "Portály internetového bankovnictví" },
       "fin-payment-processing": { "label": "Zpracování plateb (Stripe, PayPal, Klarna)" },
       "fin-expense": { "label": "Správa výdajů (Pleo, Spendesk, Moss)" },
       "fin-procurement-system": { "label": "Systém nákupu / objednávek" },
       "fin-invoicing": { "label": "Fakturační systém" },
+      "fin-tax-advisor": { "label": "Výměna dat s daňovým poradcem" },
+      "fin-tax-portal": { "label": "Daňový portál finanční správy" },
+      "fin-receipt-archive": { "label": "Archiv účetních dokladů" },
+      "fin-budgeting": { "label": "Rozpočtování a controlling" },
       "it-email": { "label": "E-mail (Microsoft 365, Google Workspace, Exchange)" },
-      "it-file-storage": { "label": "Sdílené úložiště souborů (SharePoint, Google Drive, NAS)" },
+      "it-file-storage": {
+        "label": "Sdílené úložiště souborů (SharePoint, Google Drive, NAS)"
+      },
       "it-video-conferencing": { "label": "Videokonference (Teams, Zoom, Meet)" },
       "it-internal-chat": { "label": "Interní chat (Slack, Teams)" },
       "it-document-mgmt": { "label": "Správa dokumentů (DMS)" },
-      "it-wiki-kb": { "label": "Wiki nebo interní znalostní báze (Confluence, Notion)" },
-      "it-identity-provider": { "label": "Poskytovatel identity (Azure AD/Entra, Google Workspace, Okta)" },
-      "it-endpoint-protection": { "label": "Ochrana koncových bodů (Defender, CrowdStrike, SentinelOne)" },
+      "it-wiki-kb": { "label": "Intranet nebo wiki (Confluence, Notion)" },
+      "it-identity-provider": {
+        "label": "Poskytovatel identity (Azure AD/Entra, Google Workspace, Okta)"
+      },
+      "it-endpoint-protection": {
+        "label": "Ochrana koncových bodů (Defender, CrowdStrike, SentinelOne)"
+      },
       "it-monitoring": { "label": "Monitoring (Datadog, Grafana)" },
-      "it-password-manager": { "label": "Správce hesel (1Password, LastPass, Bitwarden)" },
+      "it-password-manager": {
+        "label": "Správce hesel (1Password, LastPass, Bitwarden)"
+      },
       "it-code-repos": { "label": "Repozitáře kódu (GitHub, GitLab, Bitbucket)" },
       "it-project-management": { "label": "Řízení projektů (Jira, Asana, Linear)" },
       "it-patch-rmm": { "label": "Správa záplat / RMM" },
+      "it-office-suite": { "label": "Kancelářský balík (Word, Excel, LibreOffice)" },
+      "it-remote-support": { "label": "Vzdálená podpora (TeamViewer, AnyDesk)" },
+      "it-mdm": { "label": "Správa mobilních zařízení (Intune, Jamf)" },
+      "it-ticketing": { "label": "IT ticketovací systém pro interní požadavky" },
+      "it-ai-assistants": { "label": "AI asistenti (ChatGPT, Microsoft Copilot)" },
+      "it-email-security": { "label": "Filtr spamu a malwaru pro e-mail" },
       "infra-onprem-servers": { "label": "Servery v místě (on-premise)" },
-      "infra-cloud-platform": { "label": "Cloudová platforma (AWS, Azure, GCP, Hetzner)" },
+      "infra-cloud-platform": {
+        "label": "Cloudová platforma (AWS, Azure, GCP, Hetzner)"
+      },
       "infra-network-equipment": { "label": "Síťové prvky (firewall, přepínače, WiFi)" },
-      "infra-backup-system": { "label": "Zálohovací systém (Veeam, NAS, cloudové zálohy)" },
+      "infra-backup-system": {
+        "label": "Zálohovací systém (Veeam, NAS, cloudové zálohy)"
+      },
+      "infra-backup-media": {
+        "label": "Zálohovací média (disky, pásky, včetně uložení mimo firmu)"
+      },
       "infra-printer-fleet": { "label": "Kancelářské tiskárny / skenery" },
+      "infra-virtualisation": { "label": "Virtualizace (VMware, Hyper-V, Proxmox)" },
+      "infra-terminal-server": {
+        "label": "Terminálové servery (Remote Desktop, Citrix)"
+      },
+      "infra-directory": {
+        "label": "Adresářová služba a řadiče domény (Active Directory)"
+      },
+      "infra-database": { "label": "Databázové servery (SQL Server, PostgreSQL)" },
+      "infra-storage": { "label": "Síťové úložiště (NAS, SAN)" },
+      "infra-dns-domains": { "label": "Domény a DNS (registrátor)" },
+      "infra-ups": { "label": "UPS a nouzové napájení" },
       "ep-laptops": { "label": "Notebooky a stolní počítače" },
       "ep-mobile": { "label": "Firemní mobilní zařízení (telefony, tablety)" },
-      "ep-byod": { "label": "BYOD (osobní zařízení zaměstnanců s přístupem k firemním datům)" },
+      "ep-removable-media": { "label": "USB flash disky a externí disky" },
+      "ep-byod": {
+        "label": "BYOD (osobní zařízení zaměstnanců s přístupem k firemním datům)"
+      },
+      "ep-shared-pcs": { "label": "Sdílené počítače (výroba, recepce)" },
+      "ep-thin-clients": { "label": "Tencí klienti" },
+      "ep-handheld-scanners": { "label": "Ruční skenery a mobilní terminály" },
+      "ep-meeting-rooms": {
+        "label": "Vybavení zasedacích místností (obrazovky, konferenční systémy)"
+      },
+      "ep-cameras": { "label": "Kamerový dohled" },
+      "ep-access-control": { "label": "Kontrola vstupu (karty, čtečky)" },
+      "ep-building-tech": { "label": "Technika budovy (vytápění, větrání, alarm)" },
       "loc-main-office": { "label": "Hlavní kancelář" },
       "loc-branch-offices": { "label": "Další kanceláře / pobočky" },
       "loc-server-room": { "label": "Serverovna (v místě)" },
       "loc-datacenter": { "label": "Datové centrum (vlastní nebo pronajatý rack)" },
       "loc-employee-homes": { "label": "Domácí kanceláře zaměstnanců" },
       "loc-warehouse": { "label": "Sklad nebo skladovací zařízení" },
+      "loc-production": { "label": "Výrobní hala nebo dílna" },
+      "loc-technical-rooms": { "label": "Technické místnosti a síťové rozvaděče" },
+      "loc-archive": { "label": "Archiv (papírové dokumenty)" },
       "net-internet": { "label": "Připojení k internetu (ISP)" },
       "net-vpn": { "label": "VPN nebo vzdálený přístup Zero Trust" },
       "net-third-party-api": { "label": "Integrace API třetích stran" },
-      "net-site-to-site": { "label": "Spojení mezi lokalitami (dodavatel, zákazník)" },
+      "net-site-to-site": { "label": "Spojení mezi lokalitami (pobočky, partneři)" },
+      "net-lan": { "label": "Interní síť (LAN, segmenty)" },
+      "net-wifi": { "label": "Wi-Fi (firemní a hostovská síť)" },
+      "net-mobile": { "label": "Mobilní data a mobilní routery (LTE, 5G)" },
+      "net-phone-line": { "label": "Telefonní linka (SIP trunk)" },
+      "net-remote-maintenance": { "label": "Vzdálený přístup pro servisní dodavatele" },
       "sec-plc-scada": { "label": "Řídicí jednotky PLC / SCADA" },
       "sec-mes": { "label": "MES (systém řízení výroby)" },
       "sec-cad-plm": { "label": "CAD / PLM (konstrukční data)" },
@@ -247,7 +334,9 @@
       "sec-lab-instruments": { "label": "Síťové laboratorní přístroje / LIMS" },
       "sec-energy-scada": { "label": "Energetický řídicí systém SCADA" },
       "sec-water-scada": { "label": "SCADA pro vodu / odpadní vodu" },
-      "sec-trading-platform": { "label": "Připojení obchodní platformy (SWIFT, SEPA, burza)" },
+      "sec-trading-platform": {
+        "label": "Připojení obchodní platformy (SWIFT, SEPA, burza)"
+      },
       "sec-atm-fleet": { "label": "Síť bankomatů / samoobslužných terminálů" },
       "sec-dns-tld": { "label": "Infrastruktura DNS / TLD" },
       "sec-citizen-portal": { "label": "Občanský portál (eGov, OZG)" }
