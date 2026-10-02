@@ -62,10 +62,11 @@ describe("isSellerInstance", () => {
 });
 
 describe("the frame on nisd2.eu", () => {
-  test("names the company, its register entry and its managing director", async () => {
+  test("names the company, its seat, its register entry and its managing director", async () => {
     servedFrom("https://www.nisd2.eu");
     const html = await frame({ locale: "de" });
     expect(html).toContain("Kardashev Catalyst UG (haftungsbeschränkt)");
+    expect(html).toContain("Sitz: Köln");
     expect(html).toContain("Amtsgericht Köln, HRB 126993");
     expect(html).toContain("Geschäftsführer: Simon Orzel");
     expect(html).toContain("USt-IdNr. DE462889433");

@@ -130,7 +130,7 @@ function LegalFooter({ locale }: { locale: EmailLocale }) {
     <>
       {`${SELLER.name} · ${SELLER.street} · ${SELLER.city}`}
       <br />
-      {`${SELLER.register} · ${copy.director}: ${SELLER.director} · ${copy.vatId} ${SELLER.vatId}`}
+      {`${copy.seat}: ${SELLER.seat} · ${SELLER.register} · ${copy.director}: ${SELLER.director} · ${copy.vatId} ${SELLER.vatId}`}
       <br />
       {copy.links.map(([href, label], i) => (
         <Fragment key={href}>

@@ -8,6 +8,8 @@ export const SELLER = {
   name: "Kardashev Catalyst UG (haftungsbeschränkt)",
   street: "Trierer Str. 6",
   city: "50676 Köln",
+  /** Sitz der Gesellschaft, which § 35a Abs. 1 GmbHG puts on business letters (Simon, 02.10.2026). */
+  seat: "Köln",
   register: "Amtsgericht Köln, HRB 126993",
   vatId: "DE462889433",
   /** § 35a Abs. 1 GmbHG names every managing director on business letters, email included. */
