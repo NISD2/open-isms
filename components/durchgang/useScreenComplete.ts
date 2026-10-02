@@ -1,4 +1,4 @@
-import type { ResolvedScreen } from "@/lib/durchgang";
+import { type ResolvedScreen, recordDay, reviewedWithinYear } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import { answerOf, useAgreementRows } from "./AgreementScreen";
 import { approvalReady } from "./ApproveScreen";
@@ -58,7 +58,10 @@ export function useScreenComplete(
         case "training_record":
           return (trainings.data ?? []).some((row) => inAudience(row, screen.audience));
         case "management_review":
-          return (reviews.data ?? []).length > 0;
+          return reviewedWithinYear(
+            (reviews.data ?? []).map((r) => r.reviewDate),
+            recordDay(new Date()),
+          );
         default:
           return true;
       }

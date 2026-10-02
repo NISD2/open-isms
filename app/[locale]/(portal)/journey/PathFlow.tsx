@@ -20,6 +20,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { Link } from "@/i18n/navigation";
+import { isDoneStatus } from "@/lib/compliance/journey-position";
 import { cn } from "@/lib/utils";
 import { journeyDisclaimer, journeyDisclaimerLabel } from "./disclaimer";
 import {
@@ -28,7 +29,6 @@ import {
   type Band,
   COLUMNS,
   type DotState,
-  dotStateOf,
   type FlowNode,
   frequencyLabel,
   ORDERED_CATEGORIES,
@@ -85,14 +85,6 @@ const ORDER_OPTS: {
   },
 ];
 
-function isDoneStatus(rawStatus: string): boolean {
-  return (
-    rawStatus === "completed" ||
-    rawStatus === "approved" ||
-    rawStatus === "not_applicable"
-  );
-}
-
 function buildSections(reqNodes: FlowNode[], order: Order, de: boolean): Section[] {
   if (order === "chrono") {
     const byProcess = [...reqNodes].sort((a, b) => processOrder(a) - processOrder(b));
@@ -123,7 +115,7 @@ function matchesFilter(node: FlowNode, filter: StatusFilter): boolean {
   if (filter === "overdue") return node.isOverdue;
   if (filter === "duesoon")
     return node.dueInDays !== null && node.dueInDays >= 0 && node.dueInDays <= 30;
-  return node.rawStatus === "needs_review";
+  return node.state === "awaiting";
 }
 
 export function PathFlow({
@@ -233,7 +225,7 @@ export function PathFlow({
                   >
                     <Rail
                       index={index}
-                      state={dotStateOf(node.rawStatus)}
+                      state={node.state}
                       current={node.status === "current"}
                       isFirst={i === 0}
                       isLast={i === section.rows.length - 1}
@@ -623,7 +615,7 @@ function NodeCard({
   const owner = ROLE_LABEL[node.ownerRole] ?? { en: node.ownerRole, de: node.ownerRole };
   const ownerLabel = de ? owner.de : owner.en;
   const freqLabel = frequencyLabel(node.frequency, de);
-  const state = dotStateOf(node.rawStatus);
+  const { state } = node;
   // Only the action-needing states get a card corner pip, so the at-a-glance
   // signal survives the horizontal distance to the rail dot without re-cluttering.
   const cornerTone =
@@ -728,7 +720,7 @@ function NodeCard({
           )}
         >
           <Dot state={state} current={node.status === "current"} size="sm" />
-          {statusLabel(node.rawStatus, de)}
+          {statusLabel(node, de)}
         </p>
         {(so.total >= 2 || isDoneStatus(node.rawStatus)) &&
         node.rawStatus !== "rejected" &&

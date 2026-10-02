@@ -1,10 +1,17 @@
 import { TRPCError } from "@trpc/server";
 import { and, desc, eq, inArray, sql } from "drizzle-orm";
 import type { Database, DbOrTx } from "@/lib/db";
-import { type ItemState, itemState, STATE_ACTIONS, WALK } from "@/lib/durchgang";
+import {
+  type DurchgangEvent,
+  type ItemState,
+  itemState,
+  STATE_ACTIONS,
+  WALK,
+} from "@/lib/durchgang";
 import { auditLog, companyRequirementStatus, requirement } from "@/schema";
 import { enforceAssignment } from "../guards";
 import { getNis2Assessment } from "./nis2-scope";
+import type { SignableRow } from "./sign-off-rows";
 
 const WALK_CODES: readonly string[] = WALK.map((item) => item.code);
 
@@ -105,21 +112,63 @@ export async function appendNote(
 }
 
 /**
- * Where every item of the walk stands for one company: its status row and the newest audit row
- * among the actions that move an item, one query each. An item without a status row is open.
+ * The newest audit row per requirement among the actions that move a walk item, for the company:
+ * what `itemState` reads beside the status row. Without `requirementIds` it reads every
+ * requirement of the company, so the journey can run it beside its own rows.
  */
-export async function walkStates(
+export async function latestWalkEvents(
   db: DbOrTx,
   companyId: string,
-): Promise<ReadonlyMap<string, ItemState>> {
-  const open: ItemState = { kind: "open" };
+  requirementIds?: readonly string[],
+): Promise<ReadonlyMap<string | null, DurchgangEvent>> {
+  if (requirementIds?.length === 0) return new Map();
+  const events = await db
+    .selectDistinctOn([auditLog.entityId], {
+      entityId: auditLog.entityId,
+      action: auditLog.action,
+      newValue: auditLog.newValue,
+      createdAt: auditLog.createdAt,
+    })
+    .from(auditLog)
+    .where(
+      and(
+        eq(auditLog.companyId, companyId),
+        eq(auditLog.entityType, "requirement"),
+        requirementIds ? inArray(auditLog.entityId, [...requirementIds]) : undefined,
+        inArray(auditLog.action, [...STATE_ACTIONS]),
+      ),
+    )
+    .orderBy(auditLog.entityId, desc(auditLog.createdAt));
+  return new Map(events.map((e) => [e.entityId, e]));
+}
+
+/** One item of the walk for a company: where it stands, and its NIS 2 status row if it has one. */
+export interface WalkRow {
+  readonly state: ItemState;
+  readonly row: SignableRow | null;
+}
+
+/**
+ * Every item of the walk for one company: its status row and the newest audit row among the
+ * actions that move an item. An item without a status row is open.
+ */
+export async function walkRows(
+  db: DbOrTx,
+  companyId: string,
+): Promise<{
+  readonly assessmentId: string | null;
+  readonly items: ReadonlyMap<string, WalkRow>;
+}> {
+  const none: WalkRow = { state: { kind: "open" }, row: null };
   const assessment = await getNis2Assessment(db, companyId);
   const reqs = await db.query.requirement.findMany({
     where: inArray(requirement.code, [...WALK_CODES]),
-    columns: { id: true, code: true },
+    columns: { id: true, code: true, templateVersion: true },
   });
   const ids = reqs.map((r) => r.id);
-  if (!assessment || ids.length === 0) return new Map(WALK_CODES.map((c) => [c, open]));
+  if (!assessment || ids.length === 0) {
+    return { assessmentId: null, items: new Map(WALK_CODES.map((c) => [c, none])) };
+  }
 
   const [rows, events] = await Promise.all([
     db.query.companyRequirementStatus.findMany({
@@ -127,33 +176,47 @@ export async function walkStates(
         eq(companyRequirementStatus.assessmentId, assessment.id),
         inArray(companyRequirementStatus.requirementId, ids),
       ),
-      columns: { requirementId: true, status: true, signedOffAt: true, reviewedAt: true },
+      columns: {
+        id: true,
+        requirementId: true,
+        status: true,
+        signedOffAt: true,
+        reviewedAt: true,
+      },
     }),
-    db
-      .selectDistinctOn([auditLog.entityId], {
-        entityId: auditLog.entityId,
-        action: auditLog.action,
-        newValue: auditLog.newValue,
-        createdAt: auditLog.createdAt,
-      })
-      .from(auditLog)
-      .where(
-        and(
-          eq(auditLog.companyId, companyId),
-          eq(auditLog.entityType, "requirement"),
-          inArray(auditLog.entityId, ids),
-          inArray(auditLog.action, [...STATE_ACTIONS]),
-        ),
-      )
-      .orderBy(auditLog.entityId, desc(auditLog.createdAt)),
+    latestWalkEvents(db, companyId, ids),
   ]);
 
   const rowOf = new Map(rows.map((r) => [r.requirementId, r]));
-  const eventOf = new Map(events.map((e) => [e.entityId, e]));
-  return new Map(
-    reqs.map((r) => {
-      const row = rowOf.get(r.id);
-      return [r.code, row ? itemState(row, eventOf.get(r.id) ?? null) : open];
-    }),
-  );
+  return {
+    assessmentId: assessment.id,
+    items: new Map(
+      reqs.map((r): [string, WalkRow] => {
+        const status = rowOf.get(r.id);
+        return [
+          r.code,
+          status
+            ? {
+                state: itemState(status, events.get(r.id) ?? null),
+                row: {
+                  statusId: status.id,
+                  requirementId: r.id,
+                  code: r.code,
+                  templateVersion: r.templateVersion,
+                },
+              }
+            : none,
+        ];
+      }),
+    ),
+  };
+}
+
+/** Where every item of the walk stands for one company (see `walkRows`). */
+export async function walkStates(
+  db: DbOrTx,
+  companyId: string,
+): Promise<ReadonlyMap<string, ItemState>> {
+  const { items } = await walkRows(db, companyId);
+  return new Map([...items].map(([code, item]) => [code, item.state]));
 }

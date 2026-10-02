@@ -2,6 +2,7 @@ import { ArrowRight, Boxes, Building2, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
+import { startLabel } from "./path-nodes";
 import type { JourneyItem } from "./views";
 
 type Locale = "en" | "de" | "nl";
@@ -123,7 +124,7 @@ export function PathHero({
               params: { categorySlug: liveNode.categorySlug },
             }}
           >
-            {de ? "Weiter" : "Continue"}
+            {startLabel(liveNode.state, de)}
             <ArrowRight className="ml-1 h-3.5 w-3.5" />
           </Link>
         </Button>

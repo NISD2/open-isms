@@ -158,7 +158,15 @@
         "pageHeading": "Dokumente freigeben",
         "pageLead": "Diese Dokumente sind im NIS 2 Durchgang Ihres Unternehmens entstanden. Lesen Sie jedes und geben Sie es frei. Ihre Freigabe wird mit Ihrem Namen und dem heutigen Datum festgehalten.",
         "pageLeadOthers": "Diese Dokumente sind im NIS 2 Durchgang Ihres Unternehmens entstanden. Die Geschäftsführung gibt sie hier frei, angemeldet mit ihrem eigenen Zugang.",
-        "close": "Schließen"
+        "close": "Schließen",
+        "signTitle": "Diese Punkte geben Sie mit frei",
+        "signLead": "Diese Punkte des Durchgangs sind ausgefüllt. Mit Ihrer Freigabe gelten sie überall in der App als erledigt, mit Ihrem Namen und dem heutigen Datum. Ein Punkt, dessen Dokument Sie nicht freigeben, bleibt offen.",
+        "signTitleOthers": "Diese Punkte warten auf Freigabe",
+        "signLeadOthers": "Diese Punkte sind ausgefüllt. Die Geschäftsführung gibt sie hier zusammen mit den Dokumenten frei.",
+        "staysOpen": "Bleibt offen, bis sein Dokument freigegeben ist",
+        "signCount": "{count, plural, =0 {Nichts ausgewählt} one {# Punkt freigeben} other {# Punkte freigeben}}",
+        "signedDone": "{count, plural, one {# Punkt freigegeben.} other {# Punkte freigegeben.}}",
+        "unchanged": "Es hat sich nichts geändert. Laden Sie die Seite neu, um den aktuellen Stand zu sehen."
       },
       "recorded": "Festgehalten in Ihren Unterlagen",
       "recordedPolicy": "{title}: als Entwurf gespeichert. Die Geschäftsführung gibt es am Ende des Durchgangs frei.",
@@ -304,9 +312,9 @@
         "allFilled": "Alle Punkte sind ausgefüllt.",
         "allFilledNote": "Ändert sich etwas in Ihrem Unternehmen, öffnen Sie den Punkt und ändern es dort. Ein geändertes Dokument geht noch einmal zur Freigabe an die Geschäftsführung.",
         "yourWay": "Ihr Weg",
-        "filled": "Ausgefüllt",
+        "filled": "Wartet auf Freigabe",
         "declined": "Bewusst nicht umgesetzt",
-        "signed": "Unterschrieben",
+        "signed": "Freigegeben",
         "notApplicable": "Trifft nicht zu",
         "continueHere": "Jetzt weitermachen"
       },

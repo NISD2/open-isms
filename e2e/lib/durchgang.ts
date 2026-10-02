@@ -146,6 +146,108 @@ export async function keepPolicies(tenant: Tenant, type: string): Promise<Undo> 
   };
 }
 
+/**
+ * Keeps the tenant's requirement rows as they are, for a spec whose approval signs them off, and
+ * puts back everything a sign-off writes: the status columns, the sign-off chain rows and the
+ * reminders it schedules or cancels.
+ */
+export async function keepSignOffs(tenant: Tenant): Promise<Undo> {
+  const [statuses] = await e2eQuery<{ rows: unknown }>(
+    `SELECT coalesce(json_agg(s), '[]'::json) AS rows
+       FROM company_requirement_status s
+       JOIN company_assessment a ON a.id = s.assessment_id
+      WHERE a.company_id = $1`,
+    [tenant.company_id],
+  );
+  const chain = (
+    await e2eQuery<{ id: string }>(
+      `SELECT id FROM sign_off_history WHERE company_id = $1`,
+      [tenant.company_id],
+    )
+  ).map((r) => r.id);
+  const reminders = await e2eQuery<{ id: string; status: string }>(
+    `SELECT id, status FROM notification WHERE company_id = $1`,
+    [tenant.company_id],
+  );
+  return async () => {
+    await e2eQuery(
+      `DELETE FROM sign_off_history WHERE company_id = $1 AND NOT (id = ANY($2::uuid[]))`,
+      [tenant.company_id, chain],
+    );
+    await e2eQuery(
+      `DELETE FROM notification WHERE company_id = $1 AND NOT (id = ANY($2::uuid[]))`,
+      [tenant.company_id, reminders.map((r) => r.id)],
+    );
+    for (const { id, status } of reminders) {
+      await e2eQuery(`UPDATE notification SET status = $2 WHERE id = $1`, [id, status]);
+    }
+    await e2eQuery(
+      `UPDATE company_requirement_status t
+          SET status = r.status, completed_at = r.completed_at, completed_by = r.completed_by,
+              signed_off_by = r.signed_off_by, signed_off_at = r.signed_off_at,
+              signed_off_role = r.signed_off_role,
+              signed_off_template_version = r.signed_off_template_version,
+              sign_off_snapshot = r.sign_off_snapshot, next_review_date = r.next_review_date,
+              last_reviewed_at = r.last_reviewed_at, updated_at = r.updated_at
+         FROM json_populate_recordset(NULL::company_requirement_status, $1::json) r
+        WHERE t.id = r.id`,
+      [JSON.stringify(statuses?.rows ?? [])],
+    );
+  };
+}
+
+/**
+ * Puts the walk item `code` where a finished walk leaves it: unsigned, in progress, with the
+ * walk's "filled in" event as its newest. Run after `keepSignOffs`, which puts the status row
+ * back; the undo removes the event.
+ */
+export async function fillWalkItem(tenant: Tenant, code: string): Promise<Undo> {
+  const [row] = await e2eQuery<{ status_id: string; requirement_id: string }>(
+    `SELECT s.id AS status_id, s.requirement_id
+       FROM company_requirement_status s
+       JOIN company_assessment a ON a.id = s.assessment_id
+       JOIN compliance_framework f ON f.id = a.framework_id
+       JOIN requirement r ON r.id = s.requirement_id
+      WHERE a.company_id = $1 AND f.code = 'nis2' AND r.code = $2`,
+    [tenant.company_id, code],
+  );
+  if (!row) throw new Error(`the e2e tenant has no status row for ${code}`);
+  await e2eQuery(
+    `UPDATE company_requirement_status
+        SET status = 'in_progress', signed_off_at = NULL, signed_off_by = NULL,
+            signed_off_role = NULL, sign_off_snapshot = NULL, completed_at = NULL,
+            completed_by = NULL
+      WHERE id = $1`,
+    [row.status_id],
+  );
+  const [event] = await e2eQuery<{ id: string }>(
+    `INSERT INTO audit_log (company_id, user_id, action, entity_type, entity_id, description)
+     VALUES ($1, $2, 'durchgang.item_done', 'requirement', $3, $4)
+     RETURNING id`,
+    [tenant.company_id, await e2eUserId(), row.requirement_id, `${code} filled in (e2e)`],
+  );
+  return async () => {
+    if (event) await e2eQuery(`DELETE FROM audit_log WHERE id = $1`, [event.id]);
+  };
+}
+
+/** The requirement row of `code` in the tenant's NIS 2 assessment. */
+export async function requirementStatus(
+  tenant: Tenant,
+  code: string,
+): Promise<{ status: string; signed_off_role: string | null } | null> {
+  const [row] = await e2eQuery<{ status: string; signed_off_role: string | null }>(
+    `SELECT s.status, s.signed_off_role
+       FROM company_requirement_status s
+       JOIN company_assessment a ON a.id = s.assessment_id
+       JOIN compliance_framework f ON f.id = a.framework_id
+       JOIN requirement r ON r.id = s.requirement_id
+      WHERE a.company_id = $1 AND f.code = 'nis2' AND r.code = $2`,
+    [tenant.company_id, code],
+  );
+  return row ?? null;
+}
+
 /** The policy of `type` the walk wrote for the tenant, or null. */
 export async function walkPolicy(
   tenant: Tenant,

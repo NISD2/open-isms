@@ -23,14 +23,17 @@ import type { CountableModule } from "@/lib/compliance/module-tables";
 import { getDefaultPolicyConfig } from "@/lib/compliance/policy-config-defaults";
 import { POLICY_CONFIG_SCHEMAS } from "@/lib/compliance/policy-config-schemas";
 import { getDefaultMethodology } from "@/lib/compliance/risk-methodology-defaults";
+import { scheduleDeadlineReminders } from "@/lib/compliance/schedule-notifications";
 import { seedLocale } from "@/lib/compliance/seed-locale";
 import type { DbOrTx } from "@/lib/db";
 import {
   type AnyScreen,
+  APPROVAL_SCREEN,
   acceptedCryptoText,
   agreementsNote,
   approvedNote,
   askedFields,
+  awaitingSignature,
   BACKUP_FREQUENCIES,
   backupsNote,
   type CryptoLabels,
@@ -64,6 +67,7 @@ import {
   recoveryOrderText,
   reportingChannelText,
   resolveItem,
+  reviewedWithinYear,
   SUPPLIER_LEVEL,
   standingOf,
   toScale,
@@ -86,6 +90,7 @@ import {
   companyCategoryIntake,
   companyPolicyConfig,
   companyRiskMethodology,
+  managementReview,
   policy,
   requirement,
   risk,
@@ -95,13 +100,20 @@ import {
   user,
 } from "@/schema";
 import { riskInsertSchema } from "@/schema/validators";
+import { signerRoleOf } from "../guards";
+import {
+  propagateSatisfaction,
+  recalculateProgress,
+} from "../helpers/assessment-helpers";
 import {
   appendNote,
   type DurchgangActor,
   durchgangItem,
   walkItemRef,
+  walkRows,
   walkStates,
 } from "../helpers/durchgang";
+import { rosteredOf, signOffRows } from "../helpers/sign-off-rows";
 import {
   activatedCompanyProcedure,
   companyProcedure,
@@ -431,6 +443,103 @@ const walkPolicyRows = async (db: TRPCContext["db"], companyId: string) => {
       .filter((row) => row.code === p.code && row.type === p.policy)
       .map((row) => ({ ...row, type: p.policy })),
   );
+};
+
+/**
+ * The company's walk items waiting for management's signature (see `awaitingSignature`), each
+ * with its status row: what the approval screen lists and what the approval may sign, from one
+ * computation. Items whose assigned signers still owe a signature are left to them.
+ */
+const waitingForManagement = async (db: TRPCContext["db"], companyId: string) => {
+  const [walk, policies, reviews] = await Promise.all([
+    walkRows(db, companyId),
+    walkPolicyRows(db, companyId),
+    db
+      .select({ day: managementReview.reviewDate })
+      .from(managementReview)
+      .where(eq(managementReview.companyId, companyId)),
+  ]);
+  const waiting = awaitingSignature({
+    codes: WALK.map((item) => item.code),
+    stateOf: (code) => walk.items.get(code)?.state ?? { kind: "open" },
+    drafts: policies.filter((p) => p.status === "draft"),
+    approvalCode: APPROVAL_SCREEN?.code ?? null,
+    reviewed: reviewedWithinYear(
+      reviews.map((r) => r.day),
+      recordDay(new Date()),
+    ),
+  });
+  const rows = waiting.flatMap((item) => {
+    const row = walk.items.get(item.code)?.row;
+    return row ? [{ ...item, row }] : [];
+  });
+  const rostered = await rosteredOf(
+    db,
+    rows.map((item) => item.row.statusId),
+  );
+  return {
+    assessmentId: walk.assessmentId,
+    items: rows.filter((item) => !rostered.has(item.row.statusId)),
+  };
+};
+
+/**
+ * Management signs off the waiting items it was shown whose documents are now all approved, as
+ * the category bulk sign-off signs (snapshot and chain entry per row), then sets each one's
+ * review date and credits linked frameworks as a single sign-off does. One row after another:
+ * two rows can credit the same linked requirement, and that write checks its target outside a
+ * transaction.
+ *
+ * Management signs every walk item, whatever role the requirement names for a single sign-off:
+ * § 38 Abs. 1 BSIG has management implement and oversee the measures, and the walk was built for
+ * its one signature at the end.
+ */
+const signWaiting = async (
+  ctx: {
+    db: TRPCContext["db"];
+    companyId: string;
+    userId: string;
+    session: Parameters<typeof signerRoleOf>[0];
+  },
+  shown: readonly string[],
+  now: Date,
+) => {
+  if (shown.length === 0) return [];
+  const { assessmentId, items } = await waitingForManagement(ctx.db, ctx.companyId);
+  const signedOffRole = signerRoleOf(ctx.session);
+  const signed = await signOffRows(ctx.db, {
+    companyId: ctx.companyId,
+    userId: ctx.userId,
+    signedOffRole,
+    rows: items
+      .filter((item) => item.drafts.length === 0 && shown.includes(item.code))
+      .map((item) => item.row),
+    source: "editor",
+    chainData: (row) => ({
+      code: row.code,
+      bulkOf: "walk",
+      walkApproval: APPROVAL_SCREEN?.code ?? null,
+    }),
+  });
+  if (!assessmentId || signed.length === 0) return signed;
+
+  await recalculateProgress(ctx.db, assessmentId);
+  for (const row of signed) {
+    await propagateSatisfaction(ctx.db, {
+      sourceRequirementId: row.requirementId,
+      companyId: ctx.companyId,
+      userId: ctx.userId,
+      signedOffRole,
+      snapshot: row.snapshot,
+    }).catch((err) => console.error("[durchgang] propagate:", err));
+    await scheduleDeadlineReminders(ctx.db, {
+      statusId: row.statusId,
+      anchorDate: now,
+      companyId: ctx.companyId,
+      userId: ctx.userId,
+    }).catch((err) => console.error("[durchgang] deadlines:", err));
+  }
+  return signed;
 };
 
 export const durchgangRouter = router({
@@ -1448,17 +1557,37 @@ export const durchgangRouter = router({
   }),
 
   /**
+   * The items management's approval also signs off, for the approval screen to list, each with
+   * its headline in the viewer's language, resolved as the walk resolves it.
+   */
+  awaitingSignature: durchgangProcedure
+    .input(z.object({ locale: z.enum(["de", "en"]) }))
+    .query(async ({ ctx, input }) =>
+      (await waitingForManagement(ctx.db, ctx.companyId)).items.map(
+        ({ code, drafts }) => {
+          const words = resolveItem(NAMESPACES[input.locale], itemOf(code));
+          return { code, drafts, headline: words.ok ? words.value.headline : code };
+        },
+      ),
+    ),
+
+  /**
    * 7.3: management approves the drafts it ticked, signed in with its own account. The approval
    * is that person's, now: who, when and in which role go on each policy, and the day in Berlin
    * becomes its start and its version. Each document is resolved through its own item, so
    * approving it takes what writing it takes, and only drafts change: an approved document keeps
    * its day. The review's trail names every document approved.
+   *
+   * The same click signs off the items waiting for management that the screen showed (`sign`),
+   * once their documents are approved (see `signWaiting`), so the journey, the register and the
+   * review cycle see them done. It needs no document to approve when only signatures are left.
    */
   approvePolicies: durchgangWrite
     .input(
       z.object({
         code,
-        types: z.array(z.enum(POLICY_TEMPLATES)).min(1).max(POLICY_TEMPLATES.length),
+        types: z.array(z.enum(POLICY_TEMPLATES)).max(POLICY_TEMPLATES.length),
+        sign: z.array(code).max(WALK.length),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -1532,9 +1661,25 @@ export const durchgangRouter = router({
           description: `${ref.code} management approved ${approved.length} walk documents`,
           newValue: { approvedOn, count: approved.length },
         });
-        recheck(ctx, "policy");
+        // No policy recheck here, unlike the walk's other writes: approving changes no text a
+        // signature vouched for, and the recheck reverts every signed policy-backed requirement,
+        // so it would undo signatures on documents this click never touched. Writing a policy
+        // (writePolicy) still rechecks.
       }
-      return { approved: approved.length };
+
+      const signed = await signWaiting(ctx, input.sign, now);
+      if (signed.length > 0) {
+        await logWalk({
+          companyId: ctx.companyId,
+          userId: ctx.userId,
+          action: "durchgang.requirements_signed",
+          entityType: "requirement",
+          entityId: ref.requirementId,
+          description: `${ref.code} management signed off ${signed.map((r) => r.code).join(", ")}`,
+          newValue: { codes: signed.map((r) => r.code) },
+        });
+      }
+      return { approved: approved.length, signed: signed.length };
     }),
 
   /** The policy an item writes, as its screen shows it and the server stores it. */

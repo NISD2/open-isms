@@ -79,9 +79,11 @@ export type {
   WaitReason,
 } from "./state";
 export {
+  awaitingSignature,
   DURCHGANG_ACTIONS,
   itemState,
   resumeAt,
+  reviewedWithinYear,
   STATE_ACTIONS,
   WAIT_REASONS,
 } from "./state";

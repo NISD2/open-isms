@@ -1,6 +1,13 @@
 import { nis2Categories } from "@nisd2/grc-data-model/frameworks";
-import { journeyIndex, priorityRank } from "@/lib/compliance/journey-position";
-import type { JourneyItem } from "./views";
+import {
+  type DotState,
+  isDoneStatus,
+  journeyIndex,
+  priorityRank,
+} from "@/lib/compliance/journey-position";
+import { type JourneyItem, liveNode } from "./views";
+
+export type { DotState };
 
 export type NodeStatus = "done" | "current" | "upcoming";
 export type ColumnKey = "leadership" | "security" | "it" | "operations";
@@ -21,6 +28,8 @@ export type FlowNode = {
   status: NodeStatus;
   /** Raw companyRequirementStatus, for the aggregate filter chips. */
   rawStatus: string;
+  /** Where the requirement stands (`journeyState`); every view draws and labels from it. */
+  state: DotState;
   /** Recurring-review cycle: the next review (nextReviewDate) is in the past. */
   isOverdue: boolean;
   /** Days until the next review (negative = overdue). null = no review date. */
@@ -241,18 +250,15 @@ export function requirementHref(node: Pick<FlowNode, "categorySlug" | "code">) {
   };
 }
 
-/** The six visual states a requirement can be in, shared by every view. */
-export type DotState = "todo" | "started" | "awaiting" | "signed" | "na" | "rejected";
-
-/** Raw companyRequirementStatus to visual state. */
-export function dotStateOf(rawStatus: string): DotState {
-  // "completed" = user sign-off done; "approved" adds legal review. Both done.
-  if (rawStatus === "completed" || rawStatus === "approved") return "signed";
-  if (rawStatus === "not_applicable") return "na";
-  if (rawStatus === "needs_review") return "awaiting";
-  if (rawStatus === "rejected") return "rejected";
-  if (rawStatus === "in_progress") return "started";
-  return "todo";
+/**
+ * The call to action on the live step: whether work has already begun on it, or only the
+ * sign-off is left. The hero, the pinned bar and the pill over the node all say this, and must
+ * agree.
+ */
+export function startLabel(state: DotState, de: boolean): string {
+  if (state === "awaiting") return de ? "Freigeben" : "Sign off";
+  if (state === "started") return de ? "Weiter" : "Continue";
+  return de ? "Anfangen" : "Start";
 }
 
 /** Tailwind text colour for a state, so a status reads the same in every view. */
@@ -292,22 +298,27 @@ export function reviewLabel(dueInDays: number | null, de: boolean): string | nul
     : `Next review in ${dueInDays} ${dueInDays === 1 ? "day" : "days"}`;
 }
 
-/** Localized status wording. One vocabulary so the views cannot drift apart. */
-export function statusLabel(rawStatus: string, de: boolean): string {
-  switch (rawStatus) {
-    case "completed":
+/**
+ * Localized status wording. One vocabulary so the views cannot drift apart. The raw status only
+ * tells a signature from a reviewer's approval; everything else is the node's state.
+ */
+export function statusLabel(
+  node: Pick<FlowNode, "rawStatus" | "state">,
+  de: boolean,
+): string {
+  switch (node.state) {
+    case "signed":
+      if (node.rawStatus === "approved") return de ? "Geprüft" : "Reviewed";
       return de ? "Freigegeben" : "Signed off";
-    case "approved":
-      return de ? "Geprüft" : "Reviewed";
-    case "not_applicable":
+    case "na":
       return de ? "Nicht zutreffend" : "Not applicable";
-    case "needs_review":
+    case "awaiting":
       return de ? "Wartet auf Freigabe" : "Awaiting sign-off";
-    case "in_progress":
+    case "started":
       return de ? "In Arbeit" : "In progress";
     case "rejected":
       return de ? "Abgelehnt" : "Rejected";
-    default:
+    case "todo":
       return de ? "Offen" : "Open";
   }
 }
@@ -317,28 +328,13 @@ function bandForPriority(priority: string | null): Band {
   return (["minimum", "year", "later"] as const)[priorityRank(priority)];
 }
 
-function isDone(status: string): boolean {
-  // "completed" is the normal user sign-off result; "approved" adds the legal
-  // review. Both, plus not_applicable, are terminal.
-  return status === "completed" || status === "approved" || status === "not_applicable";
-}
-
-/** The single live node: lowest-order requirement not yet done. */
-function liveCode(items: JourneyItem[]): string | null {
-  return (
-    [...items]
-      .sort((a, b) => globalOrder(a) - globalOrder(b))
-      .find((i) => !isDone(i.status))?.code ?? null
-  );
-}
-
 /**
  * Requirement-level nodes (all 49, coded like "2.2"), pre-sorted into the
  * canonical chronological (process) order. The flow re-groups them per the
  * active ordering. CEO sign-off items move to the Management column.
  */
 export function buildRequirementNodes(items: JourneyItem[]): FlowNode[] {
-  const live = liveCode(items);
+  const live = liveNode(items)?.code ?? null;
   return [...items]
     .sort((a, b) => globalOrder(a) - globalOrder(b))
     .map((it) => {
@@ -346,7 +342,7 @@ export function buildRequirementNodes(items: JourneyItem[]): FlowNode[] {
         it.requiredSignOffRole === "ceo"
           ? "ceo"
           : (CATEGORY_ROLE[it.categoryCode] ?? "ciso");
-      const done = isDone(it.status);
+      const done = isDoneStatus(it.status);
       const status: NodeStatus = done
         ? "done"
         : it.code === live
@@ -363,6 +359,7 @@ export function buildRequirementNodes(items: JourneyItem[]): FlowNode[] {
         ownerRole,
         status,
         rawStatus: it.status,
+        state: it.state,
         // Recurring review (server-computed, calendar days, review-status-gated).
         isOverdue: it.dueInDays !== null && it.dueInDays < 0,
         dueInDays: it.dueInDays,

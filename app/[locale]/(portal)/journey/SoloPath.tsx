@@ -21,11 +21,11 @@ import { cn } from "@/lib/utils";
 import { PathTimeline, RAIL_WIDTH } from "./PathTimeline";
 import {
   type DotState,
-  dotStateOf,
   type FlowNode,
   frequencyLabel,
   requirementHref,
   reviewLabel,
+  startLabel,
   statusLabel,
   statusTone,
 } from "./path-nodes";
@@ -39,15 +39,6 @@ import {
 } from "./solo-path";
 
 type Locale = "en" | "de" | "nl";
-
-/**
- * The call to action on the live step: whether work has already begun on it.
- * Used by the pinned bar and by the pill over the node, which must agree.
- */
-function startLabel(rawStatus: string, de: boolean): string {
-  if (rawStatus === "in_progress") return de ? "Weiter" : "Continue";
-  return de ? "Anfangen" : "Start";
-}
 
 function categoryHref(categorySlug: string) {
   return {
@@ -258,7 +249,7 @@ function StickyPathBar({
             href={requirementHref(liveNode)}
             className="inline-flex shrink-0 items-center gap-1 rounded-md bg-primary px-2.5 py-1 text-xs font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
           >
-            {startLabel(liveNode.rawStatus, de)}
+            {startLabel(liveNode.state, de)}
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
@@ -286,7 +277,7 @@ function SectionDivider({ title }: { title: string }) {
 
 function StepNode({ step, total, de }: { step: SoloStep; total: number; de: boolean }) {
   const { node } = step;
-  const state = dotStateOf(node.rawStatus);
+  const { state } = node;
   const current = node.status === "current";
   const Icon = iconFor(node);
 
@@ -300,7 +291,7 @@ function StepNode({ step, total, de }: { step: SoloStep; total: number; de: bool
       className="flex flex-col items-center"
       style={{ transform: `translateX(${step.offsetPx}px)` }}
     >
-      {current ? <StartPill rawStatus={node.rawStatus} de={de} /> : null}
+      {current ? <StartPill state={state} de={de} /> : null}
       <HoverCard openDelay={120} closeDelay={60}>
         <HoverCardTrigger asChild>
           <Link
@@ -333,7 +324,7 @@ function StepNode({ step, total, de }: { step: SoloStep; total: number; de: bool
           <div className="space-y-1 border-t pt-2 text-xs text-muted-foreground">
             <p>
               {de ? "Schritt" : "Step"} {step.step} {de ? "von" : "of"} {total} ·{" "}
-              <span className={statusTone(state)}>{statusLabel(node.rawStatus, de)}</span>
+              <span className={statusTone(state)}>{statusLabel(node, de)}</span>
             </p>
             {node.legalRef ? (
               <p className="flex items-center gap-1.5">
@@ -376,11 +367,11 @@ function StepNode({ step, total, de }: { step: SoloStep; total: number; de: bool
 }
 
 /** Speech-bubble call-out over the one live step. */
-function StartPill({ rawStatus, de }: { rawStatus: string; de: boolean }) {
+function StartPill({ state, de }: { state: DotState; de: boolean }) {
   return (
     <div className="relative mb-2">
       <div className="rounded-lg border-2 border-primary bg-background px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary shadow-sm">
-        {startLabel(rawStatus, de)}
+        {startLabel(state, de)}
       </div>
       <div className="absolute left-1/2 top-full h-2.5 w-2.5 -translate-x-1/2 -translate-y-[60%] rotate-45 border-b-2 border-r-2 border-primary bg-background" />
     </div>

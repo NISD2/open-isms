@@ -11,7 +11,7 @@ import {
   getNis2RequirementsForCategory,
   nis2Categories,
 } from "@nisd2/grc-data-model/frameworks";
-import { journeyIndex } from "@/lib/compliance/journey-position";
+import { journeyIndex, journeyState } from "@/lib/compliance/journey-position";
 import {
   getRequirementDescription,
   getRequirementsMessages,
@@ -84,5 +84,6 @@ export async function buildFullJourneyItems(locale: string): Promise<JourneyItem
       signedOffAt: null,
       sortOrder: indexInCategory,
       signOff: { signed: 0, total: 0 },
+      state: journeyState(sampleStatus(step), null),
     }));
 }

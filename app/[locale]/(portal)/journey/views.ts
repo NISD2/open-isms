@@ -6,7 +6,11 @@
  * and liveNode (the first not-done requirement in journey order).
  */
 
-import { isDoneStatus, journeyIndex } from "@/lib/compliance/journey-position";
+import {
+  type DotState,
+  isDoneStatus,
+  journeyIndex,
+} from "@/lib/compliance/journey-position";
 
 export type JourneyItem = {
   id: string;
@@ -30,6 +34,8 @@ export type JourneyItem = {
   sortOrder: number;
   /** Assigned sign-offs done vs required, for N-of-M management sign-off. */
   signOff: { signed: number; total: number };
+  /** Where the item stands on the journey, from its status and the walkthrough (`journeyState`). */
+  state: DotState;
 };
 
 function isDone(item: JourneyItem): boolean {
@@ -42,12 +48,16 @@ function journeyOrder(item: JourneyItem): number {
 }
 
 /**
- * The single live node for the path view: the first not-done requirement in
- * journey order. Returns null when the path is complete.
+ * The single live node for the path view: the first requirement in journey
+ * order that still needs work, which is anything not done and not waiting for
+ * management's sign-off, plus a review that is overdue. Else the first one
+ * waiting for sign-off, the order the walkthrough resumes in. Returns null
+ * when everything is done.
  */
-export function liveNode(items: JourneyItem[]): JourneyItem | null {
-  const open = items
+export function liveNode(items: readonly JourneyItem[]): JourneyItem | null {
+  const left = items
     .filter((i) => !isDone(i))
-    .sort((a, b) => journeyOrder(a) - journeyOrder(b));
-  return open[0] ?? null;
+    .toSorted((a, b) => journeyOrder(a) - journeyOrder(b));
+  const overdue = (i: JourneyItem) => i.dueInDays !== null && i.dueInDays < 0;
+  return left.find((i) => i.state !== "awaiting" || overdue(i)) ?? left[0] ?? null;
 }

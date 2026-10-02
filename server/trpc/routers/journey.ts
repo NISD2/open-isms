@@ -1,7 +1,8 @@
 import { and, asc, count, desc, eq, isNotNull } from "drizzle-orm";
 import { z } from "zod";
 import { daysUntilDeadline } from "@/lib/compliance/deadlines";
-import { isDoneStatus } from "@/lib/compliance/journey-position";
+import { isDoneStatus, journeyState } from "@/lib/compliance/journey-position";
+import { itemState } from "@/lib/durchgang";
 import {
   getRequirementDescription,
   getRequirementsMessages,
@@ -17,6 +18,7 @@ import {
   requirementCategory,
   user,
 } from "@/schema";
+import { latestWalkEvents } from "../helpers/durchgang";
 import { getNis2Assessment } from "../helpers/nis2-scope";
 import { companyProcedure, router } from "../init";
 
@@ -93,13 +95,14 @@ export const journeyRouter = router({
         };
       }
 
-      const [rows, signOffRows, currentUserRow, lastAuditRows] = await Promise.all([
+      const [rows, signOffRows, currentUserRow, lastAuditRows, walk] = await Promise.all([
         ctx.db
           .select({
             statusId: companyRequirementStatus.id,
             requirementId: companyRequirementStatus.requirementId,
             status: companyRequirementStatus.status,
             signedOffAt: companyRequirementStatus.signedOffAt,
+            reviewedAt: companyRequirementStatus.reviewedAt,
             nextReviewDate: companyRequirementStatus.nextReviewDate,
             code: requirement.code,
             priority: requirement.priority,
@@ -166,6 +169,9 @@ export const journeyRouter = router({
           .where(and(eq(auditLog.companyId, cid), isNotNull(auditLog.userId)))
           .orderBy(desc(auditLog.createdAt))
           .limit(1),
+        // Where the walkthrough has each item, read from these rows and the walk's own events
+        // the way the walkthrough reads it, so an item filled in there waits for sign-off here.
+        latestWalkEvents(ctx.db, cid),
       ]);
 
       // statusId → { signed, total } sign-off progress.
@@ -210,6 +216,10 @@ export const journeyRouter = router({
           signedOffAt: r.signedOffAt,
           sortOrder: r.sortOrder ?? 999,
           signOff: signOffByStatusId.get(r.statusId) ?? { signed: 0, total: 0 },
+          state: journeyState(
+            status,
+            itemState({ ...r, status }, walk.get(r.requirementId) ?? null),
+          ),
         };
       });
 
@@ -221,8 +231,7 @@ export const journeyRouter = router({
         // counts as overdue below, so "awaiting" holds only the ones whose
         // review is not (yet) late.
         awaitingSignoff: items.filter(
-          (i) =>
-            i.status === "needs_review" && (i.dueInDays === null || i.dueInDays >= 0),
+          (i) => i.state === "awaiting" && (i.dueInDays === null || i.dueInDays >= 0),
         ).length,
         // Recurring-review cycle (only on review-status items, so a never-done
         // item past its initial deadline is NOT mislabelled "review overdue").

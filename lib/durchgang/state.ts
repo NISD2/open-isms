@@ -37,6 +37,7 @@ const RECORD_ACTIONS = [
   "durchgang.backups",
   "durchgang.crypto_adopted",
   "durchgang.policies_approved",
+  "durchgang.requirements_signed",
   "durchgang.critical",
 ] as const;
 
@@ -88,6 +89,11 @@ export type ItemState =
  * A rejection is read before the signature: `review.reject` keeps `signedOffAt` and writes no
  * audit row, so its only trace is the status and `reviewedAt`. Work in the flow counts only when
  * it provably came after the rejection.
+ *
+ * `needs_review` is a signed item that has to be signed again: its review date passed (the
+ * deadlines cron) or the register behind it changed (the module recheck). Both keep the old
+ * signature, so it is read before the signature too: filled in and waiting for management,
+ * unless the walk set it aside or declined it after that signature.
  */
 export function itemState(row: StatusRow, latest: DurchgangEvent | null): ItemState {
   if (row.status === "not_applicable") return { kind: "not_applicable" };
@@ -96,6 +102,11 @@ export function itemState(row: StatusRow, latest: DurchgangEvent | null): ItemSt
     return fromEvent(
       latest && reviewedAt && latest.createdAt > reviewedAt ? latest : null,
     );
+  }
+  if (row.status === "needs_review" && row.signedOffAt) {
+    const { signedOffAt } = row;
+    const after = fromEvent(latest && latest.createdAt > signedOffAt ? latest : null);
+    return after.kind === "open" ? { kind: "filled", since: signedOffAt } : after;
   }
   if (hasSignOffToWithdraw(row)) return { kind: "signed" };
   return fromEvent(latest);
@@ -116,6 +127,49 @@ function fromEvent(latest: DurchgangEvent | null): ItemState {
     default:
       return { kind: "open" };
   }
+}
+
+/**
+ * The items waiting for management's signature, in walk order, each with the drafts of the
+ * documents it wrote: an item is signed only once its documents are approved. Filled in counts,
+ * and so does a signed item that has to be signed again (see `itemState`).
+ *
+ * The item that holds the approval counts once its review is recorded (`reviewedWithinYear`).
+ * The approval is that item's own last working step, so the item can only be finished after it,
+ * and its review screen lets nobody on without such a review.
+ */
+export function awaitingSignature<T>(args: {
+  readonly codes: readonly string[];
+  readonly stateOf: (code: string) => ItemState;
+  readonly drafts: ReadonlyArray<{ readonly code: string; readonly type: T }>;
+  readonly approvalCode: string | null;
+  readonly reviewed: boolean;
+}): Array<{ code: string; drafts: T[] }> {
+  return args.codes.flatMap((code) => {
+    const { kind } = args.stateOf(code);
+    const approving = code === args.approvalCode && kind === "open" && args.reviewed;
+    if (kind !== "filled" && !approving) return [];
+    const drafts = args.drafts.filter((d) => d.code === code).map((d) => d.type);
+    return [{ code, drafts }];
+  });
+}
+
+/**
+ * Whether the company's management reviews include one that counts for the approval: dated
+ * within the last year up to today, the cycle the management review runs on. `days` and `today`
+ * are calendar days in Berlin as ISO dates (`recordDay`), which compare as text. The review
+ * screen and the approval read this one rule.
+ */
+export function reviewedWithinYear(days: readonly string[], today: string): boolean {
+  const day = new Date(`${today}T00:00:00Z`);
+  const year = day.getUTCFullYear() - 1;
+  const month = day.getUTCMonth();
+  // 29 February a year back is the 28th, not 1 March.
+  const lastOfMonth = new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
+  const yearAgo = new Date(Date.UTC(year, month, Math.min(day.getUTCDate(), lastOfMonth)))
+    .toISOString()
+    .slice(0, 10);
+  return days.some((d) => d >= yearAgo && d <= today);
 }
 
 const POLICY_STATE: Readonly<Record<ItemState["kind"], PolicyState>> = {
