@@ -107,7 +107,7 @@ function Providers({
         list={listId}
         value={typed}
         placeholder={t("addProvider")}
-        className="h-9 text-sm"
+        className="h-9"
         onChange={(e) => setTyped(e.target.value)}
         onBlur={add}
         onKeyDown={(e) => {
@@ -388,7 +388,7 @@ export function RateRow({
           aria-label={`${t("note")}: ${row.name}`}
           placeholder={t("notePlaceholder")}
           maxLength={1000}
-          className="mt-3 h-9 text-sm"
+          className="mt-3 h-9"
           value={value.note ?? ""}
           onChange={(e) => set({ note: e.target.value })}
         />

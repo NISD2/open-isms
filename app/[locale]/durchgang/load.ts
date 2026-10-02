@@ -7,7 +7,7 @@ import { onRegister } from "@/lib/asset-inventory/catalog-labels";
 import { getSession } from "@/lib/auth";
 import { canSeeCategory, getUserAccess } from "@/lib/compliance/access";
 import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
-import { buildCitationRows } from "@/lib/compliance/citations";
+import { buildCitationRows, typesetCitation } from "@/lib/compliance/citations";
 import { legislation } from "@/lib/content/citations";
 import {
   type AnyItem,
@@ -206,7 +206,9 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     citations: [...law, ...cir],
     // The duty card cites what its text is written from: the BSIG in German, the directive in
     // English. Both stay in the rail.
-    duty: (locale === "de" ? req.legalRef : req.frameworkRef) ?? req.legalRef ?? "",
+    duty: typesetCitation(
+      (locale === "de" ? req.legalRef : req.frameworkRef) ?? req.legalRef ?? "",
+    ),
     dutyHref: dutyHref(item.law, locale),
     gloss: glossary(prose, locale),
     screens: words.screens,

@@ -55,7 +55,10 @@ export const FRAMEWORK_CITATION_STYLE: Record<FrameworkCode, FrameworkCitationSt
   eu_cra: { label: { kind: "message", key: "cra" }, nationalLaw: null },
   arbeitsschutz: { label: { kind: "literal", text: "Arbeitsschutz" }, nationalLaw: null },
   brandschutz: { label: { kind: "literal", text: "Brandschutz" }, nationalLaw: null },
-  bsi_grundschutz: { label: { kind: "literal", text: "BSI IT-Grundschutz" }, nationalLaw: null },
+  bsi_grundschutz: {
+    label: { kind: "literal", text: "BSI IT-Grundschutz" },
+    nationalLaw: null,
+  },
 };
 
 export interface CitationSource {
@@ -92,12 +95,30 @@ const nonEmpty = (value: string | null): string | null => {
 const isFrameworkCode = (code: string | null): code is FrameworkCode =>
   code !== null && Object.hasOwn(FRAMEWORK_CITATION_STYLE, code);
 
+const NBSP = " ";
+
+/**
+ * A legal citation as German typography sets it: "§ 38 Abs. 3 BSIG", with a non-breaking space
+ * after "§" and inside "Abs. 3", "Nr. 1" and "Art. 21", so no sign or abbreviation ends a line
+ * alone (DIN 5008 recommends the protected space after "§"). The framework data writes
+ * "§38(3)", which becomes "§ 38 Abs. 3". Free text, so a pattern is the right tool here.
+ */
+export const typesetCitation = (text: string): string =>
+  text
+    .replace(/§\s*(\d+[a-z]?)\((\d+)\)/g, `§${NBSP}$1 Abs.${NBSP}$2`)
+    .replace(/§[ \t]*(?=\d)/g, `§${NBSP}`)
+    .replace(/\b(Abs\.|Nr\.|Art\.)[ \t]+(?=\d)/g, `$1${NBSP}`);
+
 export function buildCitationRows(source: CitationSource): readonly CitationRow[] {
   if (!isFrameworkCode(source.frameworkCode)) return [];
 
   const style = FRAMEWORK_CITATION_STYLE[source.frameworkCode];
-  const frameworkRef = nonEmpty(source.frameworkRef);
-  const legalRef = nonEmpty(source.legalRef);
+  const typeset = (value: string | null) => {
+    const text = nonEmpty(value);
+    return text === null ? null : typesetCitation(text);
+  };
+  const frameworkRef = typeset(source.frameworkRef);
+  const legalRef = typeset(source.legalRef);
 
   // With a national transposition the two columns cite different texts, so each
   // gets its own labelled row. Without one they cite the same text and the

@@ -2,6 +2,7 @@
 
 import { createContext, Fragment, useContext, useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { typesetCitation } from "@/lib/compliance/citations";
 import type { ItemView } from "./view";
 
 const GlossContext = createContext<ItemView["gloss"]>({});
@@ -40,9 +41,10 @@ function Term({ term, definition }: { term: string; definition: string }) {
   );
 }
 
+/** A text with its terms explained in place and its legal citations set as one format. */
 export function Glossed({ text }: { text: string }) {
   const chunks = useContext(GlossContext)[text];
-  if (!chunks) return text;
+  if (!chunks) return typesetCitation(text);
   return chunks.map((c, i) =>
     "term" in c ? (
       // Chunks are positional and never reordered.
@@ -50,7 +52,7 @@ export function Glossed({ text }: { text: string }) {
       <Term key={i} term={c.term} definition={c.definition} />
     ) : (
       // biome-ignore lint/suspicious/noArrayIndexKey: see above
-      <Fragment key={i}>{c.text}</Fragment>
+      <Fragment key={i}>{typesetCitation(c.text)}</Fragment>
     ),
   );
 }

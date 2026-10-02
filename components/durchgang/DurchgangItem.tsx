@@ -91,6 +91,9 @@ const KIND_ICON: Readonly<Record<ScreenKind, LucideIcon>> = {
 
 const SCREEN_PARAM = "s";
 
+/** A header icon button: 44 px to tap on a phone, the button's own 36 px from `sm` up. */
+const PHONE_ICON_TARGET = "size-11 sm:size-9";
+
 const clampScreen = (value: number, total: number) =>
   Number.isInteger(value) && value >= 0 && value < total ? value : 0;
 
@@ -278,7 +281,13 @@ export function DurchgangItem({
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-30 bg-background/90 backdrop-blur-md print:hidden">
         <div className="mx-auto flex h-16 max-w-7xl items-center gap-2 px-3 sm:px-6 lg:px-10">
-          <Button variant="ghost" size="icon" aria-label={t("back")} onClick={back}>
+          <Button
+            variant="ghost"
+            size="icon"
+            className={PHONE_ICON_TARGET}
+            aria-label={t("back")}
+            onClick={back}
+          >
             <ChevronLeft className="size-5" />
           </Button>
           <div className="min-w-0 flex-1">
@@ -290,7 +299,7 @@ export function DurchgangItem({
           <Button
             variant="ghost"
             size="sm"
-            className="lg:hidden"
+            className="h-11 min-w-11 sm:h-8 sm:min-w-0 lg:hidden"
             aria-label={t("lookUp")}
             onClick={() => setRailOpen(true)}
           >
@@ -300,6 +309,7 @@ export function DurchgangItem({
           <Button
             variant="ghost"
             size="icon"
+            className={PHONE_ICON_TARGET}
             aria-label={t("exit")}
             onClick={() => router.push("/durchgang")}
           >
@@ -364,7 +374,7 @@ export function DurchgangItem({
               <button
                 type="button"
                 onClick={() => setWaitOpen(true)}
-                className="inline-flex cursor-pointer items-center gap-2 text-sm font-medium text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+                className="inline-flex min-h-11 cursor-pointer items-center gap-2 text-sm font-medium text-muted-foreground underline-offset-4 hover:text-foreground hover:underline sm:min-h-0"
               >
                 <Clock className="size-4" />
                 {t("notYet")}
@@ -377,7 +387,7 @@ export function DurchgangItem({
                 variant="outline"
                 size="lg"
                 onClick={back}
-                className="rounded-xl"
+                className="h-11 rounded-xl sm:h-10"
                 aria-label={t("back")}
               >
                 <ChevronLeft />
@@ -387,7 +397,7 @@ export function DurchgangItem({
                 size="lg"
                 onClick={forward}
                 disabled={!complete}
-                className="min-w-0 rounded-xl px-6"
+                className="h-11 min-w-0 rounded-xl px-6 sm:h-10"
               >
                 <span className="max-w-[12rem] truncate sm:max-w-[24rem]">{primary}</span>
                 <ArrowRight />

@@ -17,12 +17,26 @@ import {
 import type { WalkLocale } from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
 
-/** One hue, light to dark: magnitude, not identity. The level is also written in every cell. */
+/**
+ * One hue, light to dark: magnitude, not identity. The level is also written in every cell, at
+ * 4.5:1 or more: "high" stops at 75 %, where white text still reads (65 % measured 3.6:1).
+ */
 export const LEVEL_FILL: Readonly<Record<RiskLevel, string>> = {
   low: "bg-primary/10 text-foreground",
   medium: "bg-primary/30 text-foreground",
-  high: "bg-primary/65 text-primary-foreground",
+  high: "bg-primary/75 text-primary-foreground",
   very_high: "bg-primary text-primary-foreground",
+};
+
+/**
+ * The same hue, faint, for a cell that is not the point. Only the fill fades: the label keeps
+ * 5:1 or more, because a label not worth reading is not worth drawing.
+ */
+const FADED_FILL: Readonly<Record<RiskLevel, string>> = {
+  low: "bg-primary/5 text-foreground/80",
+  medium: "bg-primary/10 text-foreground/80",
+  high: "bg-primary/15 text-foreground/80",
+  very_high: "bg-primary/20 text-foreground/80",
 };
 
 /** Top row first, as in Abbildung 3. */
@@ -72,7 +86,7 @@ export function RiskPicker({
                 key={`${impact}:${frequency}`}
                 title={label}
                 className={cn(
-                  "relative size-7 rounded-[5px] transition-[opacity,box-shadow] hover:opacity-100 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-1 has-[:focus-visible]:outline-foreground",
+                  "relative size-7 rounded-sm transition-[opacity,box-shadow] hover:opacity-100 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-1 has-[:focus-visible]:outline-foreground",
                   LEVEL_FILL[level],
                   picked && !on && "opacity-35",
                   on && "ring-2 ring-foreground ring-offset-1 ring-offset-background",
@@ -160,9 +174,8 @@ export function RiskMatrix({
                 const label = RISK_LEVEL_TEXT[locale][level].label;
                 const title = `${IMPACT_TEXT[locale][impact].label}, ${FREQUENCY_TEXT[locale][frequency].label}: ${label}${counts ? `, ${t("count", { count })}` : ""}`;
                 const className = cn(
-                  "flex h-14 items-center justify-center rounded-lg px-0.5 text-center text-[11px] leading-tight font-semibold transition-opacity sm:h-[4.5rem] sm:px-1 sm:text-sm",
-                  LEVEL_FILL[level],
-                  !on && "opacity-20",
+                  "flex h-14 items-center justify-center rounded-lg px-0.5 text-center text-[11px] leading-tight font-semibold transition-colors sm:h-[4.5rem] sm:px-1 sm:text-sm",
+                  on ? LEVEL_FILL[level] : FADED_FILL[level],
                   (highlight || counts) &&
                     on &&
                     "ring-2 ring-foreground ring-offset-2 ring-offset-background",
