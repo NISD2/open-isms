@@ -77,6 +77,7 @@
         "placeholder": "name@ihre-firma.de"
       },
       "suggestions": "Häufige Antworten:",
+      "suggestionsOwn": "Aus Ihren Angaben:",
       "specify": {
         "what": "Was genau",
         "provider": "Von wem",
@@ -1514,7 +1515,7 @@
           },
           "report": {
             "title": "Wo man Ihnen eine Schwachstelle meldet",
-            "lead": "Findet jemand eine Lücke in Ihren Systemen, etwa auf Ihrer Website, braucht er eine Adresse dafür. Das BSI empfiehlt, sie öffentlich zu nennen. Die Vorschläge unten stammen aus der Kontaktadresse Ihres Unternehmens. Haben Sie noch keine, lassen Sie das Feld leer: Ihre Regeln bekommen dann eine Zeile zum Ausfüllen.",
+            "lead": "Findet jemand eine Lücke in Ihren Systemen, etwa auf Ihrer Website, braucht er eine Adresse dafür. Das BSI empfiehlt, sie öffentlich zu nennen. Hat Ihr Unternehmen eine Kontaktadresse, nutzen die Vorschläge unten deren Domain. Haben Sie noch keine, lassen Sie das Feld leer: Ihre Regeln bekommen dann eine Zeile zum Ausfüllen.",
             "document": "Ihre Regeln für Kauf, Updates und Schwachstellen"
           },
           "rules": {
@@ -1604,7 +1605,11 @@
         "fields": {
           "vulnerabilityDisclosureUrl": {
             "label": "Meldeadresse für Schwachstellen",
-            "hint": "Eine E-Mail-Adresse, etwa security@ mit Ihrer Domain, oder eine Webseite. Das BSI empfiehlt dazu eine Datei security.txt auf Ihrer Website (RFC 9116)."
+            "hint": "Eine E-Mail-Adresse, etwa security@ mit Ihrer Domain, oder eine Webseite. Das BSI empfiehlt dazu eine Datei security.txt auf Ihrer Website (RFC 9116).",
+            "suggestions": [
+              "Datei security.txt auf unserer Website",
+              "Kontaktformular auf unserer Website"
+            ]
           }
         }
       },

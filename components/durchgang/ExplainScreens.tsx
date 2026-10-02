@@ -346,7 +346,7 @@ export function Sample({ entry }: { entry: Of<"sample"> }) {
               </p>
             </header>
             <div
-              className="prose prose-sm max-h-[32rem] max-w-none overflow-y-auto px-5 py-4 dark:prose-invert"
+              className="prose prose-sm max-h-[32rem] max-w-none overflow-y-auto px-5 py-4 dark:prose-invert prose-h1:text-lg prose-h2:text-base"
               // Rendered on the server from the stored text, without raw HTML.
               // biome-ignore lint/security/noDangerouslySetInnerHtml: see above
               dangerouslySetInnerHTML={{ __html: own.html }}

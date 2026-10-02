@@ -12,17 +12,22 @@ export function Suggestions({
   items,
   value,
   onChange,
+  own = false,
 }: {
   items: readonly string[];
   value: string;
   onChange: (value: string) => void;
+  /** The answers come from the company's own records, and the row says so. */
+  own?: boolean;
 }) {
   const t = useTranslations("durchgang.ui");
   const written = value.split(";").map((part) => part.trim());
   if (items.length === 0) return null;
   return (
     <div className="flex flex-wrap items-center gap-2 pt-1">
-      <span className="text-xs text-muted-foreground">{t("suggestions")}</span>
+      <span className="text-xs text-muted-foreground">
+        {own ? t("suggestionsOwn") : t("suggestions")}
+      </span>
       {items.map((s) => {
         const on = written.includes(s);
         return (

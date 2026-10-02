@@ -77,6 +77,7 @@
         "placeholder": "name@your-company.com"
       },
       "suggestions": "Common answers:",
+      "suggestionsOwn": "From your records:",
       "specify": {
         "what": "What exactly",
         "provider": "From whom",
@@ -1517,7 +1518,7 @@
           },
           "report": {
             "title": "Where people report a vulnerability to you",
-            "lead": "If someone finds a gap in your systems, for example on your website, they need an address for it. Germany's BSI recommends naming it publicly. The common answers below are read off your company's contact email. If you have none yet, leave the field empty: your rules then get a line to fill in.",
+            "lead": "If someone finds a gap in your systems, for example on your website, they need an address for it. Germany's BSI recommends naming it publicly. Where your company has a contact email, the common answers below use its domain. If you have none yet, leave the field empty: your rules then get a line to fill in.",
             "document": "Your rules for buying, updates and vulnerabilities"
           },
           "rules": {
@@ -1607,7 +1608,11 @@
         "fields": {
           "vulnerabilityDisclosureUrl": {
             "label": "Address for vulnerability reports",
-            "hint": "An email address, for example security@ at your domain, or a web page. Germany's BSI recommends a security.txt file on your website for this (RFC 9116)."
+            "hint": "An email address, for example security@ at your domain, or a web page. Germany's BSI recommends a security.txt file on your website for this (RFC 9116).",
+            "suggestions": [
+              "security.txt file on our website",
+              "Contact form on our website"
+            ]
           }
         }
       },

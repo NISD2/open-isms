@@ -266,13 +266,16 @@ export function Fields({
                     onChange={onChange}
                   />
                 )}
+                {suggest?.field === field.key && (
+                  <Suggestions
+                    own
+                    items={own}
+                    value={typeof value === "string" ? value : ""}
+                    onChange={onChange}
+                  />
+                )}
                 <Suggestions
-                  items={[
-                    ...new Set([
-                      ...(suggest?.field === field.key ? own : []),
-                      ...(field.suggestions ?? []),
-                    ]),
-                  ]}
+                  items={field.suggestions ?? []}
                   value={typeof value === "string" ? value : ""}
                   onChange={onChange}
                 />
