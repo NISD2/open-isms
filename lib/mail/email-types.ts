@@ -73,6 +73,8 @@ export const EMAIL_TYPES = {
   "billing.invoice": { category: "account", consent: "essential" },
   /** The confirmation of a cancel the account holder just made, with the credit note if any. */
   "billing.canceled": { category: "account", consent: "essential" },
+  /** The refund a credit note promised has been transferred: closes that promise. */
+  "billing.refund_sent": { category: "account", consent: "essential" },
   /** The erasure certificate, to the person whose account was just erased (Art. 12(3) GDPR). */
   "gdpr.erasure_confirmation": { category: "account", consent: "essential" },
 

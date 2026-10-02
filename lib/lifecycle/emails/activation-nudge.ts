@@ -24,9 +24,10 @@ import type { DbOrTx } from "@/lib/db";
 import { unsubscribeUrl as buildUnsubscribeUrl } from "@/lib/email/unsubscribe";
 import { categoryScope, SCOPE_ALL, typeScope } from "@/lib/mail/consent-rules";
 import { emailTypeCategory } from "@/lib/mail/email-types";
-import type { EmailContent } from "@/lib/mail/layout";
-import { BRAND, emailLayout, escapeHtml, safeHeader } from "@/lib/mail/layout";
+import ActivationNudgeEmail from "@/lib/mail/emails/activation-nudge";
+import { type EmailContent, safeHeader } from "@/lib/mail/layout";
 import { type EmailLocale, resolveEmailLocale } from "@/lib/mail/locale";
+import { renderEmail } from "@/lib/mail/render";
 import { getRequirementsMessages, getRequirementTitle } from "@/lib/messages";
 import { getAppUrl } from "@/lib/utils";
 import {
@@ -147,27 +148,26 @@ export interface ActivationNudgeInput {
   unsubscribeUrl: string;
 }
 
-export function renderActivationNudge(input: ActivationNudgeInput): EmailContent {
+export async function renderActivationNudge(
+  input: ActivationNudgeInput,
+): Promise<EmailContent> {
   const copy = COPY[input.locale];
   const greeting = copy.greeting(displayableFirstName(input.name));
   const intro =
     input.done > 0 ? copy.introProgress(input.done, input.total) : copy.introFresh;
   const subject = safeHeader(`${copy.subjectPrefix}: ${input.nextStepTitle}`);
 
-  const html = emailLayout(`
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 16px;">${escapeHtml(greeting)}</p>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 16px;">${escapeHtml(intro)}</p>
-        <div style="background: ${BRAND.muted}; border-left: 3px solid ${BRAND.primary}; padding: 12px 16px; margin: 0 0 20px;">
-          <a href="${input.journeyUrl}" style="color: ${BRAND.primary}; text-decoration: none; font-weight: 600;">${escapeHtml(input.nextStepTitle)}</a>
-        </div>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 24px;">${escapeHtml(copy.mechanism)}</p>
-        <p style="margin: 0 0 8px;">
-          <a href="${input.journeyUrl}" style="display: inline-block; background: ${BRAND.primary}; color: ${BRAND.primaryForeground}; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600;">${escapeHtml(copy.cta)}</a>
-        </p>
-        <p style="color: ${BRAND.mutedForeground}; font-size: 12px; margin: 32px 0 0; line-height: 1.5; border-top: 1px solid ${BRAND.border}; padding-top: 16px;">
-          <a href="${input.unsubscribeUrl}" style="color: ${BRAND.mutedForeground};">${escapeHtml(copy.unsubscribe)}</a>
-        </p>
-  `);
+  const html = await renderEmail(ActivationNudgeEmail, {
+    locale: input.locale,
+    greeting,
+    intro,
+    nextStepTitle: input.nextStepTitle,
+    journeyUrl: input.journeyUrl,
+    mechanism: copy.mechanism,
+    cta: copy.cta,
+    unsubscribeLabel: copy.unsubscribe,
+    unsubscribeUrl: input.unsubscribeUrl,
+  });
 
   const text = [
     greeting,
@@ -273,7 +273,7 @@ export async function prepareActivationNudgeSample(
   const journeyUrl =
     locale === "de" ? `${appUrl}/journey` : `${appUrl}/${locale}/journey`;
   const unsubUrl = buildUnsubscribeUrl(userId);
-  const email = renderActivationNudge({
+  const email = await renderActivationNudge({
     name: target.name,
     locale,
     done,
@@ -436,7 +436,7 @@ export const activationNudge: LifecycleEmailType = {
       const requirementsMessages = await getRequirementsMessages(locale);
       const nextStepTitle = getRequirementTitle(requirementsMessages, journey.nextCode);
       const unsubscribeUrl = buildUnsubscribeUrl(candidate.userId);
-      const email = renderActivationNudge({
+      const email = await renderActivationNudge({
         name: candidate.name,
         locale,
         done: journey.done,

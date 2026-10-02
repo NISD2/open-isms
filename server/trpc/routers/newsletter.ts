@@ -105,8 +105,10 @@ function dispatchNewsletter(opts: {
       const batch = recipients.slice(i, i + BURST_SIZE);
       for (const r of batch) {
         if (!r.email) continue;
+        const to = r.email;
         const unsubUrl = buildUnsubscribeUrl(r.id);
-        const email = newsletterEmail({
+        // One recipient's render or send failing must not stop the rest of the issue.
+        newsletterEmail({
           subject,
           preheader,
           bodyHtml,
@@ -115,17 +117,20 @@ function dispatchNewsletter(opts: {
           forwardUrl,
           cta,
           viewInBrowserUrl,
-        });
-        sendMail({
-          emailType: "newsletter.issue",
-          recipientUserId: r.id,
-          to: r.email,
-          subject: email.subject,
-          html: email.html,
-          text: email.text,
-          replyTo: REPLY_TO,
-          fromEmail: NEWS_FROM_EMAIL,
-        }).catch(() => {});
+        })
+          .then((email) =>
+            sendMail({
+              emailType: "newsletter.issue",
+              recipientUserId: r.id,
+              to,
+              subject: email.subject,
+              html: email.html,
+              text: email.text,
+              replyTo: REPLY_TO,
+              fromEmail: NEWS_FROM_EMAIL,
+            }),
+          )
+          .catch(() => {});
       }
       if (i + BURST_SIZE < recipients.length) {
         await sleep(BURST_INTERVAL_MS);
@@ -275,7 +280,7 @@ export const newsletterRouter = router({
     .input(issueInput)
     .mutation(async ({ input }) => {
       const bodyHtml = await renderNewsletterMarkdown(input.bodyMarkdown);
-      const email = newsletterEmail({
+      const email = await newsletterEmail({
         subject: input.subject,
         preheader: input.preheader ?? null,
         bodyHtml,
@@ -387,7 +392,7 @@ export const newsletterRouter = router({
       // Archive a snapshot of exactly what went out (placeholder unsubscribe
       // link, since the real one is per-recipient) so the issue can be
       // reviewed later regardless of template changes.
-      const sentHtml = newsletterEmail({
+      const { html: sentHtml } = await newsletterEmail({
         subject: issue.subject,
         preheader: issue.preheader,
         bodyHtml,
@@ -396,7 +401,7 @@ export const newsletterRouter = router({
         forwardUrl,
         cta,
         viewInBrowserUrl,
-      }).html;
+      });
 
       // Mark sent up front so a second click cannot double-send while the
       // batch is in flight (mirrors the cron's pre-send dedup approach).
@@ -481,7 +486,7 @@ export const newsletterRouter = router({
       }
       const bodyHtml = await renderNewsletterMarkdown(input.bodyMarkdown);
       const unsubUrl = buildUnsubscribeUrl(ctx.userId);
-      const email = newsletterEmail({
+      const email = await newsletterEmail({
         subject: `[Test] ${input.subject}`,
         preheader: input.preheader ?? null,
         bodyHtml,

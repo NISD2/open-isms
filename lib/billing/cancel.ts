@@ -6,7 +6,9 @@
  *     invoice whether it was paid or not. Our credit_note row is written, the account falls back
  *     to the level it has without payment (./access unpaidAccessLevel), and if the invoice had been
  *     paid the refund is marked owed: a credit note moves no money, and our key cannot send a
- *     transfer, so a person makes it in Qonto and records it in the Subscriptions tab.
+ *     transfer, so the operators are told the amount and the last day, a person makes it in Qonto
+ *     and records it in the Subscriptions tab, and recording it emails the customer
+ *     (./refund-sent).
  *   - After them, or on any later invoice: `renewal_canceled_at` is set and access runs to the
  *     end of the paid year.
  *
@@ -20,7 +22,7 @@ import "@/lib/server-guard";
 import { and, asc, eq, isNull } from "drizzle-orm";
 import { z } from "zod";
 import type { Database, DbOrTx } from "@/lib/db";
-import { invoiceEmail, sendMail } from "@/lib/mail";
+import { documentEmail, sendMail } from "@/lib/mail";
 import { resolveEmailLocale } from "@/lib/mail/locale";
 import { billingAccount, creditNote, invoice, user } from "@/schema";
 import { unpaidAccessLevel } from "./access";
@@ -32,12 +34,13 @@ import {
   cancelWindow,
   creditNoteLine,
   creditNoteReason,
+  refundDueDay,
 } from "./cancel-terms";
 import { deliverCreditNote } from "./deliver-credit-note";
 import { takeDocumentNumber } from "./document-number";
 import { isGrandfatheredHolder } from "./holder-price";
 import { sandboxInvoiceNumber } from "./invoice-number";
-import { invoiceToday } from "./order";
+import { formatEuro, formatInvoiceDay, invoiceToday } from "./order";
 import { clearOrderCheck, hasOrderCheck, markOrderCheck } from "./order-check";
 import type { OrderingMode } from "./ordering";
 import { findActiveInvoice } from "./place-order";
@@ -251,13 +254,18 @@ const cancelRenewal = async (
         },
         contact.locale,
       );
-      const sent = await sendMail({
-        emailType: "billing.canceled",
-        to: contact.email,
-        ...invoiceEmail({ ...wording, invoiceUrl: null }),
-        idempotencyKey: `renewal-canceled-${input.billingAccountId}-${current.periodEnd}`,
-        failureLabel: input.erasure?.failureLabel,
-      }).catch(() => ({ success: false }));
+      // The renewal is already stopped: a failed render, like a failed send, only alerts.
+      const sent = await documentEmail(wording)
+        .then((content) =>
+          sendMail({
+            emailType: "billing.canceled",
+            to: contact.email,
+            ...content,
+            idempotencyKey: `renewal-canceled-${input.billingAccountId}-${current.periodEnd}`,
+            failureLabel: input.erasure?.failureLabel,
+          }),
+        )
+        .catch(() => ({ success: false }));
       if (!sent.success) {
         await alertOperators("Kündigungsbestätigung nicht zugestellt", [
           `Die Verlängerung für billing account ${input.billingAccountId} ist gekündigt, die Bestätigung an ${contact.email} ging aber nicht raus.`,
@@ -270,7 +278,7 @@ const cancelRenewal = async (
 };
 
 /** The client email Qonto answered with, when it really is an address and not the holder's. */
-const accountingCopy = (candidate: string | null | undefined, holder: string) =>
+export const accountingCopy = (candidate: string | null | undefined, holder: string) =>
   candidate &&
   z.email().safeParse(candidate).success &&
   candidate.toLowerCase() !== holder.toLowerCase()
@@ -385,6 +393,7 @@ const creditInvoice = async (
         return {
           ok: true,
           number,
+          issueDate,
           qontoCreditNoteId,
           clientEmail: issued.ok ? issued.data.credit_note?.client?.email : undefined,
           level,
@@ -428,6 +437,15 @@ const creditInvoice = async (
       `In Qonto auf eine eingehende Überweisung mit ${current.number} im Verwendungszweck achten. Kommt eine, den Betrag zurücküberweisen und im Subscriptions Tab "Payment arrived, refund owed" setzen.`,
       `Billing account ${input.billingAccountId}.`,
     ]);
+  } else {
+    // The customer's email names the last day, so the person who makes the transfer hears it too.
+    const amount = formatEuro(current.netCents + current.vatCents);
+    const due = formatInvoiceDay(refundDueDay(outcome.issueDate), "de");
+    void alertOperators(`Erstattung offen: ${amount} zu ${outcome.number}, bis ${due}`, [
+      `Die Rechnung ${current.number} war bezahlt und ist mit der Gutschrift ${outcome.number} storniert.`,
+      `${amount} bis ${due} in Qonto auf das Konto zurücküberweisen, von dem die Zahlung kam. So steht es in der E-Mail an den Kunden.`,
+      `Danach im Subscriptions Tab "Mark refund done" klicken. Besteht sein Konto noch, bekommt der Kunde dann eine Bestätigung. Billing account ${input.billingAccountId}.`,
+    ]);
   }
 
   const contact = await holderContact(db, input.userId);
@@ -436,7 +454,10 @@ const creditInvoice = async (
       qonto: mode.qonto,
       qontoCreditNoteId: outcome.qontoCreditNoteId,
       creditNoteNumber: outcome.number,
+      creditNoteDate: outcome.issueDate,
       invoiceNumber: current.number,
+      invoiceIssueDate: current.issueDate,
+      amounts: { netCents: current.netCents, vatCents: current.vatCents },
       billingAccountId: input.billingAccountId,
       refundOwed,
       recipients: [contact.email, ...accountingCopy(outcome.clientEmail, contact.email)],

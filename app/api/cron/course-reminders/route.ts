@@ -212,11 +212,17 @@ export async function GET(req: NextRequest) {
       if (courseList.length === 0) continue;
 
       const unsubUrl = buildUnsubscribeUrl(u.id);
-      const email = courseFollowupEmail({
+      // A render that fails skips this person, before any dedup row is written, and leaves the
+      // rest of the run alone.
+      const email = await courseFollowupEmail({
         recipientName: u.name,
         courses: courseList,
         unsubscribeUrl: unsubUrl,
+      }).catch((err: unknown) => {
+        console.error("[course-reminders] follow-up not rendered", err);
+        return null;
       });
+      if (!email) continue;
 
       // Insert one notification row PER COURSE before sending. Each row is
       // the dedup record for that (user, course) pair — once present, this

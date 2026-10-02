@@ -21,7 +21,7 @@ mock.module("../env", () => ({
 
 const t = await import("./templates");
 
-/** The digests render the shared preference footer; the subject ignores it. */
+/** Optional mail renders the shared preference footer; the subject ignores it. */
 const FOOTER = {
   unsubscribeUrl: "https://nisd2.eu/u",
   preferencesUrl: "https://nisd2.eu/p",
@@ -39,142 +39,174 @@ const ITEM = {
 
 /** One entry per live template: its name and a rendered subject. */
 const SUBJECTS: Array<[string, string]> = [
+  ["welcome", (await t.welcomeEmail({ name: "Anna" })).subject],
   [
     "invite",
-    t.inviteEmail({
-      companyName: "Stadtwerke Musterstadt",
-      inviterName: "Anna Schmidt",
-      inviteUrl: "https://nisd2.eu/invite/x",
-      role: "member",
-    }).subject,
+    (
+      await t.inviteEmail({
+        companyName: "Stadtwerke Musterstadt",
+        inviterName: "Anna Schmidt",
+        inviteUrl: "https://nisd2.eu/invite/x",
+        role: "member",
+      })
+    ).subject,
   ],
   [
     "contactEmailChanged",
-    t.contactEmailChangedEmail({
-      companyName: "Stadtwerke Musterstadt",
-      oldEmail: "a@x.de",
-      newEmail: "b@x.de",
-    }).subject,
+    (
+      await t.contactEmailChangedEmail({
+        companyName: "Stadtwerke Musterstadt",
+        oldEmail: "a@x.de",
+        newEmail: "b@x.de",
+      })
+    ).subject,
   ],
   [
     "categoryAssigned",
-    t.categoryAssignedEmail({
-      assigneeName: "Jan",
-      categoryName: "Governance",
-      categoryCode: "GOV",
-      companyName: "Stadtwerke",
-      assignerName: "Anna Schmidt",
-      categoryUrl: "https://nisd2.eu/x",
-    }).subject,
+    (
+      await t.categoryAssignedEmail({
+        assigneeName: "Jan",
+        categoryName: "Governance",
+        categoryCode: "GOV",
+        companyName: "Stadtwerke",
+        assignerName: "Anna Schmidt",
+        categoryUrl: "https://nisd2.eu/x",
+        footer: FOOTER,
+      })
+    ).subject,
   ],
   [
     "categoryUnassigned",
-    t.categoryUnassignedEmail({
-      assigneeName: "Jan",
-      categoryName: "Governance",
-      categoryCode: "GOV",
-      companyName: "Stadtwerke",
-    }).subject,
+    (
+      await t.categoryUnassignedEmail({
+        assigneeName: "Jan",
+        categoryName: "Governance",
+        categoryCode: "GOV",
+        companyName: "Stadtwerke",
+        footer: FOOTER,
+      })
+    ).subject,
   ],
   [
     "reviewApproved",
-    t.reviewDecisionEmail({
-      submitterName: "Jan",
-      requirementCode: "GOV-1",
-      requirementTitle: "x",
-      decision: "approved",
-    }).subject,
+    (
+      await t.reviewDecisionEmail({
+        submitterName: "Jan",
+        requirementCode: "GOV-1",
+        requirementTitle: "x",
+        decision: "approved",
+        footer: FOOTER,
+      })
+    ).subject,
   ],
   [
     "reviewRejected",
-    t.reviewDecisionEmail({
-      submitterName: "Jan",
-      requirementCode: "GOV-1",
-      requirementTitle: "x",
-      decision: "rejected",
-    }).subject,
+    (
+      await t.reviewDecisionEmail({
+        submitterName: "Jan",
+        requirementCode: "GOV-1",
+        requirementTitle: "x",
+        decision: "rejected",
+        footer: FOOTER,
+      })
+    ).subject,
   ],
   [
     "memberRemoved",
-    t.memberRemovedEmail({ companyName: "Stadtwerke", memberName: "Jan" }).subject,
+    (await t.memberRemovedEmail({ companyName: "Stadtwerke", memberName: "Jan" }))
+      .subject,
   ],
   [
     "dailyDigestOverdue",
-    t.dailyDigestEmail({
-      recipientName: "Jan",
-      companyName: "Stadtwerke",
-      overdueItems: [ITEM],
-      urgentItems: [],
-      upcomingItems: [],
-      nextStep: null,
-      compliancePercentage: "42.0",
-      dashboardUrl: "https://nisd2.eu/",
-      footer: FOOTER,
-    }).subject,
+    (
+      await t.dailyDigestEmail({
+        recipientName: "Jan",
+        companyName: "Stadtwerke",
+        overdueItems: [ITEM],
+        urgentItems: [],
+        upcomingItems: [],
+        nextStep: null,
+        compliancePercentage: "42.0",
+        dashboardUrl: "https://nisd2.eu/",
+        footer: FOOTER,
+      })
+    ).subject,
   ],
   [
     "dailyDigestUpcoming",
-    t.dailyDigestEmail({
-      recipientName: "Jan",
-      companyName: "Stadtwerke",
-      overdueItems: [],
-      urgentItems: [],
-      upcomingItems: [ITEM],
-      nextStep: null,
-      compliancePercentage: "42.0",
-      dashboardUrl: "https://nisd2.eu/",
-      footer: FOOTER,
-    }).subject,
+    (
+      await t.dailyDigestEmail({
+        recipientName: "Jan",
+        companyName: "Stadtwerke",
+        overdueItems: [],
+        urgentItems: [],
+        upcomingItems: [ITEM],
+        nextStep: null,
+        compliancePercentage: "42.0",
+        dashboardUrl: "https://nisd2.eu/",
+        footer: FOOTER,
+      })
+    ).subject,
   ],
   [
     "weeklyManagement",
-    t.weeklyManagementDigestEmail({
-      recipientName: "Jan",
-      companyName: "Stadtwerke",
-      compliancePercentage: "42.0",
-      overdueCount: 1,
-      urgentCount: 2,
-      escalationCount: 0,
-      totalRequirements: 49,
-      completedRequirements: 20,
-      nextStep: null,
-      dashboardUrl: "https://nisd2.eu/",
-      footer: FOOTER,
-    }).subject,
+    (
+      await t.weeklyManagementDigestEmail({
+        recipientName: "Jan",
+        companyName: "Stadtwerke",
+        compliancePercentage: "42.0",
+        overdueCount: 1,
+        urgentCount: 2,
+        escalationCount: 0,
+        totalRequirements: 49,
+        completedRequirements: 20,
+        nextStep: null,
+        dashboardUrl: "https://nisd2.eu/",
+        footer: FOOTER,
+      })
+    ).subject,
   ],
   [
     "supplierIncident",
-    t.supplierIncidentBroadcastEmail({
-      supplierName: "ACME GmbH",
-      severity: "high",
-      publishedAt: new Date("2026-09-08"),
-      incidentUrl: "https://nisd2.eu/s#incident-1",
-      unsubscribeUrl: "https://nisd2.eu/u",
-    }).subject,
+    (
+      await t.supplierIncidentBroadcastEmail({
+        supplierName: "ACME GmbH",
+        severity: "high",
+        publishedAt: new Date("2026-09-08"),
+        incidentUrl: "https://nisd2.eu/s#incident-1",
+        unsubscribeUrl: "https://nisd2.eu/u",
+      })
+    ).subject,
   ],
   [
     "supplierAddedYou",
-    t.supplierAddedYouEmail({
-      supplierName: "ACME GmbH",
-      profileUrl: "https://nisd2.eu/s",
-      unsubscribeUrl: "https://nisd2.eu/u",
-    }).subject,
+    (
+      await t.supplierAddedYouEmail({
+        supplierName: "ACME GmbH",
+        profileUrl: "https://nisd2.eu/s",
+        unsubscribeUrl: "https://nisd2.eu/u",
+      })
+    ).subject,
   ],
   [
     "entityInvitesSupplier",
-    t.entityInvitesSupplierEmail({
-      entityName: "Stadtwerke",
-      inviteUrl: "https://nisd2.eu/i",
-      hasMessage: false,
-    }).subject,
+    (
+      await t.entityInvitesSupplierEmail({
+        entityName: "Stadtwerke",
+        inviteUrl: "https://nisd2.eu/i",
+        hasMessage: false,
+      })
+    ).subject,
   ],
   [
     "courseFollowup",
-    t.courseFollowupEmail({
-      recipientName: "Jan Müller",
-      courses: [{ title: "NIS 2 for CEOs", resumeUrl: "https://nisd2.eu/c" }],
-      unsubscribeUrl: "https://nisd2.eu/u",
-    }).subject,
+    (
+      await t.courseFollowupEmail({
+        recipientName: "Jan Müller",
+        courses: [{ title: "NIS 2 for CEOs", resumeUrl: "https://nisd2.eu/c" }],
+        unsubscribeUrl: "https://nisd2.eu/u",
+      })
+    ).subject,
   ],
 ];
 

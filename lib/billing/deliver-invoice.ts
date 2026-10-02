@@ -10,11 +10,16 @@
  */
 import { eq } from "drizzle-orm";
 import type { Database } from "@/lib/db";
-import { invoiceEmail, sendMail } from "@/lib/mail";
+import { documentEmail, sendMail } from "@/lib/mail";
 import { putObject } from "@/lib/storage";
 import { invoice } from "@/schema";
 import { alertOperators } from "./alert";
-import { type InvoiceWhere, invoiceEmailWording } from "./order";
+import {
+  type InvoiceDates,
+  type InvoiceWhere,
+  invoiceEmailWording,
+  type Money,
+} from "./order";
 import { downloadPdf, getAttachment, getInvoice, type QontoConfig } from "./qonto";
 import { httpsHostOf } from "./sandbox-gate";
 
@@ -29,6 +34,11 @@ export interface DeliverInvoiceInput {
   readonly locale: "de" | "en";
   /** The AGB version the order accepted (invoice.terms_version); null when none was recorded. */
   readonly termsVersion: string | null;
+  /** What the invoice charges and when, repeated on the email's card. */
+  readonly amounts: Pick<Money, "netCents" | "vatCents">;
+  readonly dates: InvoiceDates;
+  /** The account's first invoice, the only one that carries money back. */
+  readonly firstOrder: boolean;
   /** Replaced in tests, so the polling does not really wait. */
   readonly wait?: (ms: number) => Promise<void>;
 }
@@ -113,13 +123,17 @@ const sendInvoice = async (
   pdf: Uint8Array | null,
   where: InvoiceWhere,
 ) => {
-  const wording = invoiceEmailWording({
-    number: input.number,
-    locale: input.locale,
-    where,
-    termsVersion: input.termsVersion,
-  });
-  const content = invoiceEmail({ ...wording, invoiceUrl: where.invoiceUrl });
+  const content = await documentEmail(
+    invoiceEmailWording({
+      number: input.number,
+      locale: input.locale,
+      where,
+      termsVersion: input.termsVersion,
+      amounts: input.amounts,
+      dates: input.dates,
+      firstOrder: input.firstOrder,
+    }),
+  );
   const result = await sendMail({
     emailType: "billing.invoice",
     to: [...input.recipients],

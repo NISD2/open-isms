@@ -15,6 +15,7 @@ import {
 } from "@/lib/gdpr/self-erasure";
 import { sendErasureCertificate } from "@/lib/gdpr/send-certificate";
 import { isLocaleCode } from "@/lib/locale";
+import { resolveEmailLocale } from "@/lib/mail/locale";
 import { HINT_COLUMN, HINTS } from "@/lib/onboarding/hints";
 import { rateLimit } from "@/lib/rate-limit";
 import { user } from "@/schema";
@@ -113,7 +114,7 @@ export const userRouter = router({
     if (!signedInJustNow(ctx.session.authTime)) {
       return { allowed: false, reason: "reauth" };
     }
-    const email = await ownEmail(ctx.db, ctx.userId);
+    const { email } = await ownAccount(ctx.db, ctx.userId);
     return selfErasureCheck(ctx.db, { userId: ctx.userId, email });
   }),
 
@@ -129,7 +130,8 @@ export const userRouter = router({
   deleteAccount: selfErasureProcedure
     .input(z.object({ confirmEmail: z.string().max(320) }))
     .mutation(async ({ ctx, input }) => {
-      const email = await ownEmail(ctx.db, ctx.userId);
+      const account = await ownAccount(ctx.db, ctx.userId);
+      const email = account.email;
       if (input.confirmEmail.trim().toLowerCase() !== email.trim().toLowerCase()) {
         throw new TRPCError({
           code: "BAD_REQUEST",
@@ -181,6 +183,7 @@ export const userRouter = router({
         logId: result.logId,
         caseRef: result.caseRef,
         to: email,
+        locale: resolveEmailLocale(account.locale, null),
       });
       return { caseRef: result.caseRef, certificateSent };
     }),
@@ -190,13 +193,13 @@ export const userRouter = router({
 const signedInJustNow = (authTime: number | null | undefined) =>
   isRecentSignIn(authTime ?? null, epochSeconds(new Date()));
 
-/** The account's own address from the database, not the session snapshot. */
-const ownEmail = async (db: DbOrTx, userId: string) => {
+/** The account's own address and language from the database, not the session snapshot. */
+const ownAccount = async (db: DbOrTx, userId: string) => {
   const [row] = await db
-    .select({ email: user.email })
+    .select({ email: user.email, locale: user.locale })
     .from(user)
     .where(eq(user.id, userId))
     .limit(1);
   if (!row) throw new TRPCError({ code: "NOT_FOUND", message: "Account not found." });
-  return row.email;
+  return row;
 };

@@ -5,6 +5,8 @@
  * be tested without a network, which is most of what can go wrong on an invoice.
  */
 import { z } from "zod";
+import type { EmailLocale } from "@/lib/mail/locale";
+import type { DocumentEmail, DocumentFact } from "@/lib/mail/templates";
 import { termsVersionLabel } from "./terms";
 import { checkStructure } from "./vat-checksum";
 import { type VatCheck, type VatTreatment, vatTreatment } from "./vies";
@@ -193,6 +195,24 @@ export const invoiceDates = (
 export const licenceTitle = (locale: "de" | "en"): string =>
   locale === "de" ? "NIS 2 Durchgang, Jahreslizenz" : "NIS 2 guided pass, annual licence";
 
+/** What makes the automatic payment match work: the invoice number as the payment reference. */
+const PAYMENT_REFERENCE = {
+  de: "Bitte geben Sie bei der Überweisung die Rechnungsnummer als Verwendungszweck an.",
+  en: "Please quote the invoice number as the payment reference.",
+} as const;
+
+/**
+ * The money-back promise, on the account's first invoice only: a renewal or a new order after a
+ * cancel never has it (AGB B7, cancelWindowFor), so a later invoice must not say it does.
+ */
+const moneyBack = (locale: "de" | "en", firstOrder: boolean): string =>
+  firstOrder
+    ? {
+        de: "30 Tage Geld zurück ab Bestelldatum.",
+        en: "Thirty days money back from the order date.",
+      }[locale]
+    : "";
+
 /**
  * The line item and the footer, in the customer's language.
  *
@@ -204,21 +224,12 @@ export const invoiceWording = (
   dates: InvoiceDates,
   money: Money,
   locale: "de" | "en",
+  firstOrder: boolean,
 ): { readonly title: string; readonly description: string; readonly footer: string } => {
   const period =
     locale === "de"
       ? `Leistungszeitraum ${dates.performanceStartDate} bis ${dates.performanceEndDate}`
       : `Service period ${dates.performanceStartDate} to ${dates.performanceEndDate}`;
-
-  const guarantee =
-    locale === "de"
-      ? "30 Tage Geld zurück ab Bestelldatum."
-      : "Thirty days money back from the order date.";
-
-  const reference =
-    locale === "de"
-      ? "Bitte geben Sie bei der Überweisung die Rechnungsnummer als Verwendungszweck an."
-      : "Please quote the invoice number as the payment reference.";
 
   const taxNote =
     money.treatment.kind === "reverse_charge" || money.treatment.kind === "outside_eu"
@@ -228,15 +239,45 @@ export const invoiceWording = (
   return {
     title: licenceTitle(locale),
     description: period,
-    footer: [taxNote, guarantee, reference].filter(Boolean).join(" "),
+    footer: [taxNote, moneyBack(locale, firstOrder), PAYMENT_REFERENCE[locale]]
+      .filter(Boolean)
+      .join(" "),
   };
 };
 
+const NUMBER_LOCALE: Record<EmailLocale, string> = {
+  de: "de-DE",
+  en: "en-GB",
+  nl: "nl-NL",
+};
+
 /**
- * The email the invoice travels in. Short, because the PDF carries everything that matters; the
- * two things repeated here are the ones a payer acts on without opening it: the term, and the
- * number to quote.
+ * An amount on a document card: what is paid, with net and VAT under it the way the document
+ * states them. The rate comes from the amounts, so it shows what was charged, not today's rate.
  */
+export const amountFact = (
+  label: string,
+  amounts: { readonly netCents: number; readonly vatCents: number },
+  locale: EmailLocale,
+): DocumentFact => {
+  const euro = (cents: number) => formatEuro(cents, NUMBER_LOCALE[locale]);
+  const { netCents, vatCents } = amounts;
+  const percent = Math.round((vatCents * 100) / netCents);
+  const detail =
+    vatCents === 0
+      ? {
+          de: "netto, ohne Umsatzsteuer",
+          en: "net, no VAT charged",
+          nl: "netto, zonder btw",
+        }[locale]
+      : {
+          de: `${euro(netCents)} netto zzgl. ${euro(vatCents)} USt (${percent} %)`,
+          en: `${euro(netCents)} net plus ${euro(vatCents)} VAT (${percent}%)`,
+          nl: `${euro(netCents)} excl. ${euro(vatCents)} btw (${percent}%)`,
+        }[locale];
+  return { label, value: euro(netCents + vatCents), detail, emphasis: true };
+};
+
 /**
  * Where the email puts the invoice: the PDF attached, with Qonto's public invoice page linked as
  * well when there is one, or only that page when the PDF never rendered.
@@ -245,14 +286,26 @@ export type InvoiceWhere =
   | { readonly attached: true; readonly invoiceUrl: string | null }
   | { readonly attached: false; readonly invoiceUrl: string };
 
+/**
+ * The email the invoice travels in. The PDF carries everything that matters; the card repeats
+ * what a payer acts on without opening it: the amount, the due date and the number to quote.
+ */
 export const invoiceEmailWording = (opts: {
   readonly number: string;
   readonly locale: "de" | "en";
   readonly where: InvoiceWhere;
   /** The AGB version the order accepted; the email names it when there is one. */
   readonly termsVersion: string | null;
-}): { readonly subject: string; readonly paragraphs: readonly string[] } => {
-  const { number, locale, where, termsVersion } = opts;
+  readonly amounts: Pick<Money, "netCents" | "vatCents">;
+  readonly dates: InvoiceDates;
+  /** The account's first invoice, the only one that carries money back. */
+  readonly firstOrder: boolean;
+}): DocumentEmail => {
+  const { number, locale, where, termsVersion, amounts, dates, firstOrder } = opts;
+  const day = (iso: string) => formatInvoiceDay(iso, locale);
+  const payment = [PAYMENT_REFERENCE[locale], moneyBack(locale, firstOrder)]
+    .filter(Boolean)
+    .join(" ");
   const online =
     where.attached && where.invoiceUrl
       ? [
@@ -268,33 +321,60 @@ export const invoiceEmailWording = (opts: {
         ]
       : [`Our terms as of ${termsVersionLabel("en", termsVersion)} apply.`]
     : [];
+  const common = { locale, link: where.invoiceUrl } as const;
   return locale === "de"
     ? {
+        ...common,
         subject: `Rechnung ${number}: NIS 2 Durchgang, Jahreslizenz`,
-        paragraphs: [
-          "Guten Tag,",
+        heading: "Ihre Rechnung",
+        greeting: "Guten Tag,",
+        intro: [
           where.attached
-            ? `anbei erhalten Sie die Rechnung ${number} für die Jahreslizenz NIS 2 Durchgang.`
-            : `die Rechnung ${number} für die Jahreslizenz NIS 2 Durchgang finden Sie hier: ${where.invoiceUrl}`,
+            ? "anbei erhalten Sie die Rechnung für die Jahreslizenz NIS 2 Durchgang."
+            : `die Rechnung für die Jahreslizenz NIS 2 Durchgang finden Sie hier: ${where.invoiceUrl}`,
           ...online,
-          "Zahlbar innerhalb von 30 Tagen. Bitte geben Sie bei der Überweisung die Rechnungsnummer als Verwendungszweck an. 30 Tage Geld zurück ab Bestelldatum.",
-          ...terms,
-          "Mit freundlichen Grüßen",
-          "nisd2.eu",
         ],
+        document: {
+          kind: "Rechnung",
+          reference: `${number} · ${day(dates.issueDate)}`,
+          facts: [
+            { label: "Leistung", value: licenceTitle("de") },
+            {
+              label: "Leistungszeitraum",
+              value: `${day(dates.performanceStartDate)} bis ${day(dates.performanceEndDate)}`,
+            },
+            amountFact("Betrag", amounts, "de"),
+            { label: "Zahlbar bis", value: day(dates.dueDate), emphasis: true },
+            { label: "Verwendungszweck", value: number },
+          ],
+        },
+        outro: [payment, ...terms],
       }
     : {
+        ...common,
         subject: `Invoice ${number}: NIS 2 guided pass, annual licence`,
-        paragraphs: [
-          "Hello,",
+        heading: "Your invoice",
+        greeting: "Hello,",
+        intro: [
           where.attached
-            ? `please find attached invoice ${number} for the NIS 2 guided pass annual licence.`
-            : `invoice ${number} for the NIS 2 guided pass annual licence is here: ${where.invoiceUrl}`,
+            ? "Please find attached the invoice for the NIS 2 guided pass annual licence."
+            : `The invoice for the NIS 2 guided pass annual licence is here: ${where.invoiceUrl}`,
           ...online,
-          "Payable within 30 days. Please quote the invoice number as the payment reference. Thirty days money back from the order date.",
-          ...terms,
-          "Kind regards",
-          "nisd2.eu",
         ],
+        document: {
+          kind: "Invoice",
+          reference: `${number} · ${day(dates.issueDate)}`,
+          facts: [
+            { label: "Item", value: licenceTitle("en") },
+            {
+              label: "Service period",
+              value: `${day(dates.performanceStartDate)} to ${day(dates.performanceEndDate)}`,
+            },
+            amountFact("Amount", amounts, "en"),
+            { label: "Due by", value: day(dates.dueDate), emphasis: true },
+            { label: "Payment reference", value: number },
+          ],
+        },
+        outro: [payment, ...terms],
       };
 };

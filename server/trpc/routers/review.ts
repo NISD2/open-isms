@@ -382,7 +382,7 @@ async function notifySubmitter(
       emailType: "work.review_decision",
       recipientUserId: userId,
       to: submitter.email,
-      ...reviewDecisionEmail({
+      ...(await reviewDecisionEmail({
         submitterName: submitter.name ?? "",
         requirementCode,
         requirementTitle: reqTitle,
@@ -392,7 +392,7 @@ async function notifySubmitter(
           userId,
           resolveEmailLocale(submitter.locale, country),
         ),
-      }),
+      })),
     });
   } catch (error) {
     // Email is non-critical: it must not fail the mutation. It must also not

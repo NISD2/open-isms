@@ -3,7 +3,7 @@
  * switch off all optional mail, one to the preference centre.
  *
  * Kept apart from the consent rules so those stay free of URL and env
- * concerns, and apart from the layout so the layout stays a pure renderer.
+ * concerns, and apart from the layout, which only frames what it is given.
  */
 import "@/lib/server-guard";
 import { preferenceCentreUrl, unsubscribeUrl } from "@/lib/email/unsubscribe";

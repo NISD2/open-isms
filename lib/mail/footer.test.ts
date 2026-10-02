@@ -23,10 +23,15 @@ mock.module("@/lib/env", () => ({
 }));
 
 const { preferenceFooterFor } = await import("./footer");
-const { preferenceFooterHtml, preferenceFooterText } = await import("./layout");
+const { preferenceFooterText } = await import("./layout");
+const { PreferenceLinks } = await import("./components/frame");
+const { renderEmail } = await import("./render");
 const { dailyDigestEmail } = await import("./templates");
 
 const LOCALES = ["de", "en", "nl"] as const;
+
+const footerHtml = (footer: ReturnType<typeof preferenceFooterFor>) =>
+  renderEmail(PreferenceLinks, { footer });
 
 describe("preferenceFooterFor", () => {
   for (const locale of LOCALES) {
@@ -39,15 +44,16 @@ describe("preferenceFooterFor", () => {
     });
   }
 
-  test("each language renders its own footer copy, in HTML and in text", () => {
+  test("each language renders its own footer copy, in HTML and in text", async () => {
     const footers = LOCALES.map((locale) => preferenceFooterFor("user-1", locale));
+    const html = await Promise.all(footers.map(footerHtml));
 
-    expect(new Set(footers.map(preferenceFooterHtml)).size).toBe(LOCALES.length);
+    expect(new Set(html).size).toBe(LOCALES.length);
     expect(new Set(footers.map(preferenceFooterText)).size).toBe(LOCALES.length);
   });
 
-  test("an English footer says nothing in German", () => {
-    const english = preferenceFooterHtml(preferenceFooterFor("user-1", "en"));
+  test("an English footer says nothing in German", async () => {
+    const english = await footerHtml(preferenceFooterFor("user-1", "en"));
 
     expect(english).toContain("Unsubscribe from emails");
     expect(english).not.toContain("E-Mails abbestellen");
@@ -75,20 +81,21 @@ describe("digest emails render the shared footer", () => {
       footer: preferenceFooterFor("user-1", locale),
     });
 
-  test("the opt-out line follows the footer language", () => {
-    expect(digest("de").html).toContain("E-Mails abbestellen");
-    expect(digest("nl").html).toContain("Afmelden voor e-mails");
-    expect(digest("en").html).toContain("Unsubscribe from emails");
+  test("the opt-out line follows the footer language", async () => {
+    expect((await digest("de")).html).toContain("E-Mails abbestellen");
+    expect((await digest("nl")).html).toContain("Afmelden voor e-mails");
+    expect((await digest("en")).html).toContain("Unsubscribe from emails");
   });
 
-  test("the old hard-coded English line is gone from both parts", () => {
+  test("the old hard-coded English line is gone from both parts", async () => {
     for (const locale of LOCALES) {
-      expect(digest(locale).html).not.toContain("Unsubscribe from digest emails");
-      expect(digest(locale).text).not.toContain("Unsubscribe from digest emails");
+      const email = await digest(locale);
+      expect(email.html).not.toContain("Unsubscribe from digest emails");
+      expect(email.text).not.toContain("Unsubscribe from digest emails");
     }
   });
 
-  test("the preference-centre link reaches the digest, which it never used to", () => {
-    expect(digest("de").html).toContain("lang=de");
+  test("the preference-centre link reaches the digest, which it never used to", async () => {
+    expect((await digest("de")).html).toContain("lang=de");
   });
 });

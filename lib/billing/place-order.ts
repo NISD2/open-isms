@@ -109,6 +109,16 @@ const failure = (
   message: string,
 ) => ({ ok: false, reason, message }) as const;
 
+/** Whether the account was ever invoiced, credited or not: the next invoice is then not its first. */
+const hasInvoice = async (db: DbOrTx, billingAccountId: string): Promise<boolean> => {
+  const [any] = await db
+    .select({ id: invoice.id })
+    .from(invoice)
+    .where(eq(invoice.billingAccountId, billingAccountId))
+    .limit(1);
+  return any !== undefined;
+};
+
 /**
  * The invoice that pays for the account right now: its year has not ended and it was not credited.
  * One definition for the order's refusal and the billing page, so they cannot disagree.
@@ -293,7 +303,10 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
         mode.kind === "live"
           ? await takeDocumentNumber(db, "invoice", input.invoicePrefix, year)
           : sandboxInvoiceNumber(input.invoicePrefix, year, now);
-      const wording = invoiceWording(dates, money, locale);
+      // Money back belongs to the account's first invoice only (cancelWindowFor, AGB B7), so only
+      // that invoice and its email may promise it. Read under the account lock, like the rest.
+      const firstOrder = !(await hasInvoice(tx, account.id));
+      const wording = invoiceWording(dates, money, locale, firstOrder);
 
       // Committed on its own before Qonto is asked, so it survives whatever happens to this
       // transaction; removed below, inside the transaction, once Qonto has answered clearly.
@@ -392,6 +405,7 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
           qontoInvoiceId,
           money,
           dates,
+          firstOrder,
         } as const;
       } catch (err) {
         // Qonto has issued an invoice we could not record. It needs a person: credit it in Qonto or
@@ -439,6 +453,9 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
     recipients: [order.invoiceEmail, ...(order.copyToEmail ? [order.copyToEmail] : [])],
     locale,
     termsVersion: input.terms?.version ?? null,
+    amounts: outcome.money,
+    dates: outcome.dates,
+    firstOrder: outcome.firstOrder,
   }).catch((err) =>
     alertOperators(`${outcome.number} nicht zugestellt`, [
       `Die Zustellung der Rechnung ${outcome.number} ist abgebrochen: ${err instanceof Error ? err.message : String(err)}.`,

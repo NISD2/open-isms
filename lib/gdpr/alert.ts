@@ -18,11 +18,11 @@ export const alertGdprOperators = async (
   console.error(`[gdpr] ${subject}\n${lines.join("\n")}`);
   return deliverToOperators(
     getPlatformAdminEmails(),
-    (to) =>
+    async (to) =>
       sendMail({
         emailType: "internal.gdpr_alert",
         to,
-        ...gdprAlertEmail({ subject, lines }),
+        ...(await gdprAlertEmail({ subject, lines })),
       }),
     "gdpr operator alert",
   );

@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { invoiceEmailWording } from "./order";
+import { invoiceDates, invoiceEmailWording, invoiceWording, priceFor } from "./order";
 import { TERMS_VERSION, termsVersionLabel } from "./terms";
 
 describe("terms version", () => {
@@ -14,28 +14,32 @@ describe("terms version", () => {
   });
 });
 
+const order = {
+  number: "RE-2026-0001",
+  amounts: { netCents: 480_000, vatCents: 91_200 },
+  dates: invoiceDates(new Date("2026-09-15T09:00:00Z")),
+  firstOrder: true,
+} as const;
+
 describe("invoice email names the accepted terms", () => {
-  const base = {
-    number: "RE-2026-0001",
-    where: { attached: true, invoiceUrl: null },
-  } as const;
+  const base = { ...order, where: { attached: true, invoiceUrl: null } } as const;
 
   test("German email carries the version line", () => {
-    const { paragraphs } = invoiceEmailWording({
+    const { outro } = invoiceEmailWording({
       ...base,
       locale: "de",
       termsVersion: "2026-09-26",
     });
-    expect(paragraphs).toContain("Es gelten unsere AGB in der Fassung vom 26.09.2026.");
+    expect(outro).toContain("Es gelten unsere AGB in der Fassung vom 26.09.2026.");
   });
 
   test("no line when no acceptance was recorded", () => {
-    const { paragraphs } = invoiceEmailWording({
+    const { outro } = invoiceEmailWording({
       ...base,
       locale: "de",
       termsVersion: null,
     });
-    expect(paragraphs.some((p) => p.includes("AGB"))).toBe(false);
+    expect(outro.some((p) => p.includes("AGB"))).toBe(false);
   });
 });
 
@@ -43,26 +47,87 @@ describe("invoice email links the invoice", () => {
   const url = "https://pay.example.invalid/invoices/abc";
 
   test("an attached PDF still comes with the online link", () => {
-    const { paragraphs } = invoiceEmailWording({
-      number: "RE-2026-0001",
+    const { intro, link } = invoiceEmailWording({
+      ...order,
       locale: "de",
       where: { attached: true, invoiceUrl: url },
       termsVersion: null,
     });
-    expect(paragraphs[1]).toStartWith("anbei erhalten Sie die Rechnung RE-2026-0001");
-    expect(paragraphs).toContain(`Online ansehen und herunterladen: ${url}`);
+    expect(intro[0]).toStartWith("anbei erhalten Sie die Rechnung");
+    expect(intro).toContain(`Online ansehen und herunterladen: ${url}`);
+    expect(link).toBe(url);
   });
 
   test("without the PDF the link is where the invoice is", () => {
-    const { paragraphs } = invoiceEmailWording({
-      number: "RE-2026-0001",
+    const { intro } = invoiceEmailWording({
+      ...order,
       locale: "en",
       where: { attached: false, invoiceUrl: url },
       termsVersion: null,
     });
-    expect(paragraphs[1]).toBe(
-      `invoice RE-2026-0001 for the NIS 2 guided pass annual licence is here: ${url}`,
+    expect(intro[0]).toBe(
+      `The invoice for the NIS 2 guided pass annual licence is here: ${url}`,
     );
-    expect(paragraphs.filter((p) => p.includes(url))).toHaveLength(1);
+    expect(intro.filter((p) => p.includes(url))).toHaveLength(1);
+  });
+});
+
+describe("invoice email card", () => {
+  const card = (locale: "de" | "en") =>
+    invoiceEmailWording({
+      ...order,
+      locale,
+      where: { attached: true, invoiceUrl: null },
+      termsVersion: null,
+    }).document;
+  const fact = (locale: "de" | "en", label: string) =>
+    card(locale).facts.find((f) => f.label === label);
+
+  test("names the invoice by number and date", () => {
+    expect(card("de").reference).toBe("RE-2026-0001 · 15. September 2026");
+    expect(card("en").reference).toBe("RE-2026-0001 · 15 September 2026");
+  });
+
+  test("states the gross amount with net and VAT, as the invoice does", () => {
+    expect(fact("de", "Betrag")?.value).toBe("5.712,00 €");
+    expect(fact("de", "Betrag")?.detail).toBe(
+      "4.800,00 € netto zzgl. 912,00 € USt (19 %)",
+    );
+    expect(fact("en", "Amount")?.value).toBe("€5,712.00");
+  });
+
+  test("the due date is thirty days after the invoice date, as the terms say", () => {
+    expect(fact("de", "Zahlbar bis")?.value).toBe("15. Oktober 2026");
+    expect(fact("en", "Due by")?.value).toBe("15 October 2026");
+  });
+
+  test("the payment reference is the invoice number", () => {
+    expect(fact("de", "Verwendungszweck")?.value).toBe("RE-2026-0001");
+  });
+});
+
+describe("money back is promised on the account's first invoice only", () => {
+  const PROMISE = /Geld zurück|money back/;
+  const email = (firstOrder: boolean) =>
+    invoiceEmailWording({
+      ...order,
+      firstOrder,
+      locale: "de",
+      where: { attached: true, invoiceUrl: null },
+      termsVersion: null,
+    }).outro.join(" ");
+  const pdfFooter = (firstOrder: boolean) =>
+    invoiceWording(order.dates, priceFor("DE", null, 480_000), "en", firstOrder).footer;
+
+  test("the first invoice and its email promise it", () => {
+    expect(email(true)).toMatch(PROMISE);
+    expect(pdfFooter(true)).toMatch(PROMISE);
+  });
+
+  test("a renewal or a new order after a cancel does not", () => {
+    expect(email(false)).not.toMatch(PROMISE);
+    expect(pdfFooter(false)).not.toMatch(PROMISE);
+    expect(email(false)).toContain("als Verwendungszweck");
+    expect(pdfFooter(false)).toContain("payment reference");
   });
 });

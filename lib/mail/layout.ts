@@ -1,25 +1,15 @@
 /**
- * Shared email scaffolding: brand tokens, HTML layout, and header/content
- * escaping. Extracted from templates.ts so email modules outside that file
- * (lib/lifecycle) can compose on-brand emails without templates.ts growing
- * a new export for every campaign.
+ * What every email shares besides its markup: brand tokens, the footer and legal copy, the
+ * letter sign-off, and header escaping. The markup itself is React Email (./components, ./emails);
+ * this module stays free of JSX so the plain-text builders and lib/lifecycle can use it too.
  */
+import { isSellerInstance, SELLER } from "@/lib/billing/seller";
 import type { EmailLocale } from "./locale";
 
 export interface EmailContent {
   subject: string;
   html: string;
   text: string;
-}
-
-/** Minimal HTML escape for user content interpolated into email HTML. */
-export function escapeHtml(s: string): string {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
 }
 
 /**
@@ -56,41 +46,76 @@ export const SEVERITY = {
   success: "#16a34a",
 } as const;
 
-const BRAND_LOGO_URL = "https://nisd2.eu/nisd2-logo.png";
-const BRAND_TAGLINE = "Halve Europe's NIS2 bill.";
+export const FONT =
+  "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
 
-function brandHeader(): string {
-  return `
-    <div style="background: ${BRAND.primary}; padding: 20px 32px;">
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
-        <tr>
-          <td style="vertical-align: middle; padding-right: 12px;">
-            <img src="${BRAND_LOGO_URL}" alt="NISD2" width="40" height="40" style="display: block; border-radius: 8px;" />
-          </td>
-          <td style="vertical-align: middle;">
-            <div style="color: ${BRAND.primaryForeground}; font-size: 16px; font-weight: 700; letter-spacing: 0.05em; line-height: 1.2;">NISD2</div>
-            <div style="color: ${BRAND.primaryMuted}; font-size: 12px; line-height: 1.4; margin-top: 2px;">${BRAND_TAGLINE}</div>
-          </td>
-        </tr>
-      </table>
-    </div>`;
-}
+export const LEGAL_COPY: Record<
+  EmailLocale,
+  {
+    readonly director: string;
+    readonly vatId: string;
+    readonly links: readonly (readonly [
+      "/impressum" | "/datenschutz" | "/terms",
+      string,
+    ])[];
+  }
+> = {
+  de: {
+    director: "Geschäftsführer",
+    vatId: "USt-IdNr.",
+    links: [
+      ["/impressum", "Impressum"],
+      ["/datenschutz", "Datenschutzerklärung"],
+      ["/terms", "Nutzungsbedingungen"],
+    ],
+  },
+  en: {
+    director: "Managing director",
+    vatId: "VAT ID",
+    links: [
+      ["/impressum", "Legal Notice"],
+      ["/datenschutz", "Privacy Policy"],
+      ["/terms", "Terms of Service"],
+    ],
+  },
+  nl: {
+    director: "Bestuurder",
+    vatId: "Btw-id",
+    links: [
+      ["/impressum", "Colofon"],
+      ["/datenschutz", "Privacyverklaring"],
+      ["/terms", "Voorwaarden"],
+    ],
+  },
+};
 
-function brandFooter(): string {
-  return `
-    <div style="border-top: 1px solid ${BRAND.border}; padding: 16px 32px; color: ${BRAND.mutedForeground}; font-size: 11px; line-height: 1.6;">
-      <a href="https://nisd2.eu" style="color: ${BRAND.primary}; text-decoration: none; font-weight: 600;">nisd2.eu</a>
-      &nbsp;·&nbsp; Open NIS2 compliance platform
-    </div>`;
+const CLOSING: Record<EmailLocale, string> = {
+  de: "Mit freundlichen Grüßen",
+  en: "Kind regards",
+  nl: "Met vriendelijke groet",
+};
+
+/**
+ * The close of a letter, one line each. On nisd2.eu the managing director signs, the same person
+ * the legal footer names; a self-hosted install signs as the software it runs.
+ */
+export function letterSignOff(locale: EmailLocale): readonly string[] {
+  return isSellerInstance()
+    ? [CLOSING[locale], SELLER.director, `${LEGAL_COPY[locale].director}, nisd2.eu`]
+    : [CLOSING[locale], "nisd2.eu"];
 }
 
 /**
- * The consent footer every optional email carries: one link to switch off
- * this kind of message, one to the preference centre for everything else.
- * Rendered by the layout rather than hand-written per template, so the two
- * links cannot drift apart or go missing from a new email.
- *
- * Essential mail (sign-in codes, security notices) passes no footer: there
+ * Where a reply to a letter reaches a person: on nisd2.eu the published contact address, which
+ * someone reads. A self-hosted install has no address we know is read, so its letters ask for none.
+ */
+export function letterReplyTo(): string | null {
+  return isSellerInstance() ? SELLER.email : null;
+}
+
+/**
+ * The links every optional email carries, to switch off all optional mail or open the
+ * preference centre. Essential mail (sign-in codes, security notices) passes no footer: there
  * is nothing to opt out of, and offering it would be a lie.
  */
 export interface PreferenceFooter {
@@ -105,7 +130,7 @@ export interface PreferenceFooter {
   locale: EmailLocale;
 }
 
-const FOOTER_COPY: Record<
+export const FOOTER_COPY: Record<
   EmailLocale,
   { unsubscribe: string; manage: string; separator: string }
 > = {
@@ -126,16 +151,6 @@ const FOOTER_COPY: Record<
   },
 };
 
-export function preferenceFooterHtml(footer: PreferenceFooter): string {
-  const copy = FOOTER_COPY[footer.locale];
-  return `
-        <p style="color: ${BRAND.mutedForeground}; font-size: 12px; margin: 32px 0 0; line-height: 1.5; border-top: 1px solid ${BRAND.border}; padding-top: 16px;">
-          <a href="${footer.unsubscribeUrl}" style="color: ${BRAND.mutedForeground};">${copy.unsubscribe}</a>
-          &nbsp;${copy.separator}&nbsp;
-          <a href="${footer.preferencesUrl}" style="color: ${BRAND.mutedForeground};">${copy.manage}</a>
-        </p>`;
-}
-
 /** Plain-text twin of the footer, for the text/plain alternative. */
 export function preferenceFooterText(footer: PreferenceFooter): string {
   const copy = FOOTER_COPY[footer.locale];
@@ -146,25 +161,15 @@ export function preferenceFooterText(footer: PreferenceFooter): string {
 }
 
 /**
- * Wrap an inner HTML body in the shared brand layout (header + footer +
- * card container). Inner content is rendered inside a 24px-padded white
- * panel below the header. Pass `footer` for any message the recipient is
- * allowed to switch off; omit it for essential mail.
+ * What frames a message besides its body. Optional mail passes its preference footer, which
+ * carries the language. Mail nobody can switch off (sign-in codes, invoices, confirmations of
+ * what the person just did) passes only its language: it has no opt-out, and offering one
+ * would be a lie. The language is required either way, because the legal footer is written in it.
  */
-export function emailLayout(innerHtml: string, footer?: PreferenceFooter): string {
-  const body = footer ? `${innerHtml}\n${preferenceFooterHtml(footer)}` : innerHtml;
-  return renderLayout(body);
-}
+export type EmailChrome = PreferenceFooter | { readonly locale: EmailLocale };
 
-function renderLayout(innerHtml: string): string {
-  return `
-    <div style="background: ${BRAND.pageBackground}; padding: 24px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-      <div style="max-width: 560px; margin: 0 auto; background: ${BRAND.background}; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
-        ${brandHeader()}
-        <div style="padding: 24px 32px;">
-${innerHtml}
-        </div>
-        ${brandFooter()}
-      </div>
-    </div>`.trim();
-}
+/** The chrome of a message written only in English (most of the workflow mail, for now). */
+export const ENGLISH_ONLY = { locale: "en" } as const satisfies EmailChrome;
+
+/** The chrome of a message to our own operators, who read German. */
+export const TO_OPERATORS = { locale: "de" } as const satisfies EmailChrome;
