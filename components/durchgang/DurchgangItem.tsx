@@ -40,6 +40,7 @@ import {
 } from "@/components/ui/sheet";
 import { useRouter } from "@/i18n/navigation";
 import { CATALOG_BY_ID } from "@/lib/asset-inventory/catalog";
+import { CUSTOM_ASSET_TYPE } from "@/lib/asset-inventory/types";
 import { type ItemState, resumeAt, type ScreenKind, sliceOf } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
@@ -129,7 +130,7 @@ export function DurchgangItem({
     const types = [
       ...assets.data.map((a) => a.type),
       ...draft.checked.flatMap((id) => CATALOG_BY_ID.get(id)?.category ?? []),
-      ...draft.custom.map(() => "other"),
+      ...draft.custom.map((c) => CUSTOM_ASSET_TYPE[c.layer]),
     ];
     return !types.some((type) => sliceOf(type) === screen.slice);
   };

@@ -10,7 +10,6 @@ import type { AnyItem, AnyScreen, PolicyTemplate } from "./types";
 export type { ResolvedItem, ResolvedScreen } from "./copy";
 export { itemKey, marker, resolveItem } from "./copy";
 export { dutyHref } from "./law";
-export type { NoteLocale } from "./notes";
 export {
   agreementsNote,
   approvedNote,
@@ -18,13 +17,15 @@ export {
   criticalNote,
   cryptoNote,
   declinedNote,
+  enteredDay,
   loginsNote,
   methodNote,
   noteLine,
   recordDay,
+  recordedDay,
   waitingNote,
 } from "./notes";
-export type { PolicyDocument, PolicyPart } from "./policy";
+export type { CryptoLabels, PolicyDocument, PolicyPart } from "./policy";
 export {
   acceptedCryptoText,
   criticalProcessesText,
@@ -42,6 +43,7 @@ export type {
   LinkedRisk,
   MappedRisk,
   ProviderLink,
+  RatedKind,
   Rating,
   RatingRow,
   RatingTarget,
@@ -57,6 +59,7 @@ export {
   levelOf,
   levelOfStanding,
   providersOf,
+  RATED_KINDS,
   ratingKey,
   ratingRows,
   ratingText,
@@ -68,7 +71,13 @@ export {
   toScale,
   treatmentFor,
 } from "./ratings";
-export type { DurchgangEvent, ItemState, StatusRow, WaitReason } from "./state";
+export type {
+  DurchgangAction,
+  DurchgangEvent,
+  ItemState,
+  StatusRow,
+  WaitReason,
+} from "./state";
 export {
   DURCHGANG_ACTIONS,
   itemState,
@@ -91,6 +100,7 @@ export type {
   ScreenKind,
   SuggestSource,
   TrainingAudience,
+  WalkLocale,
 } from "./types";
 export {
   askedFields,
@@ -98,6 +108,7 @@ export {
   MANAGEMENT_ROLE,
   MFA_METHODS,
   POLICY_LISTS,
+  POLICY_TEMPLATES,
 } from "./types";
 
 const BY_CODE: ReadonlyMap<string, AnyItem> = new Map(

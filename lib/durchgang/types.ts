@@ -20,8 +20,12 @@ import {
   type CategoryCode,
   type CategoryField,
 } from "@/lib/compliance/category-schemas";
+import type { CountableModule } from "@/lib/compliance/module-tables";
 import type { RoleKey } from "@/lib/compliance/role-keys";
 import type { AssetSlice, RatingTarget } from "./ratings";
+
+/** The languages the walk is written in: its screens, and the notes and documents it writes. */
+export type WalkLocale = "de" | "en";
 
 /**
  * A rule shown as it is, read-only, rendered from the module that holds it: the 200-3 matrix
@@ -40,7 +44,12 @@ export type Provision =
  * A register the requirement page shows for the item (its `moduleRef`), which a screen shows as
  * the list itself. The asset register has its own screen kind, because it is offered in slices.
  */
-export type RegisterModule = "supplier" | "training_record" | "management_review";
+const REGISTER_MODULES = [
+  "supplier",
+  "training_record",
+  "management_review",
+] as const satisfies readonly CountableModule[];
+export type RegisterModule = (typeof REGISTER_MODULES)[number];
 
 /**
  * Whose trainings a training screen lists and adds: management's, which § 38 Abs. 3 BSIG asks
@@ -105,13 +114,15 @@ export type PolicyList = (typeof POLICY_LISTS)[number];
  * A policy the walk writes from its own template; the text is in messages/durchgang. The name is
  * also the stored policy type, so it may not be one an editor keeps its settings under.
  */
-export type PolicyTemplate =
-  | "information_security"
-  | "incident_response"
-  | "cryptography"
-  | "personnel_access"
-  | "it_rules"
-  | "business_continuity";
+export const POLICY_TEMPLATES = [
+  "information_security",
+  "incident_response",
+  "cryptography",
+  "personnel_access",
+  "it_rules",
+  "business_continuity",
+] as const;
+export type PolicyTemplate = (typeof POLICY_TEMPLATES)[number];
 
 export type Screen<C extends CategoryCode> =
   | { readonly kind: "learn"; readonly id: string; readonly link?: LearnLink }

@@ -16,7 +16,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
-import { type ResolvedScreen, type SuggestSource, sliceOf } from "@/lib/durchgang";
+import {
+  type ResolvedScreen,
+  recordedDay,
+  type SuggestSource,
+  sliceOf,
+} from "@/lib/durchgang";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
 import { trpc } from "@/lib/trpc/client";
 import { ArtThumb } from "./Art";
@@ -38,12 +43,6 @@ export interface WorkProps {
   readonly draft: Draft;
   readonly onDraft: DraftUpdate;
 }
-
-const longDate = (locale: "de" | "en", date: Date) =>
-  new Intl.DateTimeFormat(locale === "de" ? "de-DE" : "en-GB", {
-    timeZone: "Europe/Berlin",
-    dateStyle: "long",
-  }).format(date);
 
 /** Big choice cards on a real radio group: choice fields, yes or no. */
 function Choice({
@@ -341,8 +340,8 @@ export function Adopt({
           <p className="text-sm font-medium">{t("record")}</p>
           <p className="ml-auto text-xs text-muted-foreground">
             {adoptedAt
-              ? t("adoptedOn", { date: longDate(item.locale, adoptedAt) })
-              : longDate(item.locale, new Date())}
+              ? t("adoptedOn", { date: recordedDay(item.locale, adoptedAt) })
+              : recordedDay(item.locale, new Date())}
           </p>
         </header>
         <dl className="divide-y">

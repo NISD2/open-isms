@@ -3,6 +3,7 @@
 import { ExternalLink } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import type { WalkLocale } from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
 import type { Registration } from "./view";
 
@@ -25,7 +26,7 @@ export function ReportingChannels({
   locale,
 }: {
   registration: Registration | null;
-  locale: "de" | "en";
+  locale: WalkLocale;
 }) {
   const t = useTranslations("durchgang.ui.reporting");
   if (!registration) return null;

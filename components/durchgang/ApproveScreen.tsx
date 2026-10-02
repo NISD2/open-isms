@@ -7,7 +7,13 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getPathname, useRouter } from "@/i18n/navigation";
-import { APPROVAL_SCREEN, MANAGEMENT_ROLE, type PolicyTemplate } from "@/lib/durchgang";
+import {
+  APPROVAL_SCREEN,
+  enteredDay,
+  MANAGEMENT_ROLE,
+  type PolicyTemplate,
+  type WalkLocale,
+} from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import { userFacingError } from "@/lib/trpc/error-message";
 import { Heading, Lead } from "./ExplainScreens";
@@ -16,17 +22,9 @@ import type { ItemView } from "./view";
 import type { Of } from "./WorkScreens";
 
 type Viewer = ItemView["viewer"];
-type Locale = ItemView["locale"];
 
 /** Where management approves, for the link and the invite. */
 export const APPROVAL_PATH = "/durchgang/freigabe";
-
-/** A day as stored, shown as the person reads it. */
-const dayOf = (locale: Locale, day: string) =>
-  new Intl.DateTimeFormat(locale === "de" ? "de-DE" : "en-GB", {
-    timeZone: "UTC",
-    dateStyle: "long",
-  }).format(new Date(`${day}T00:00:00Z`));
 
 /** Whether the approval screen holds what it needs: nothing is left waiting for management. */
 export const approvalReady = (
@@ -49,7 +47,7 @@ export function Approve({ item, entry }: { item: ItemView; entry: Of<"approve"> 
  * here, signed in with its own account, which records who approved and when; anyone else sends
  * management the page. The same list is the whole of the page management is invited to.
  */
-export function Approval({ viewer, locale }: { viewer: Viewer; locale: Locale }) {
+export function Approval({ viewer, locale }: { viewer: Viewer; locale: WalkLocale }) {
   const t = useTranslations("durchgang.ui.approve");
   const utils = trpc.useUtils();
   const { data: rows } = trpc.durchgang.walkPolicies.useQuery();
@@ -87,7 +85,7 @@ export function Approval({ viewer, locale }: { viewer: Viewer; locale: Locale })
                   <Check className="size-4 text-primary" />
                   {row.effectiveFrom
                     ? t(row.approver ? "approvedBy" : "approvedOn", {
-                        date: dayOf(locale, row.effectiveFrom),
+                        date: enteredDay(locale, row.effectiveFrom),
                         name: row.approver ?? "",
                       })
                     : t("approvedUndated")}
@@ -147,7 +145,7 @@ export function Approval({ viewer, locale }: { viewer: Viewer; locale: Locale })
  * them, an invite for someone not in the team yet, and for an admin who is management
  * themselves, one click to say so.
  */
-function SendToManagement({ viewer, locale }: { viewer: Viewer; locale: Locale }) {
+function SendToManagement({ viewer, locale }: { viewer: Viewer; locale: WalkLocale }) {
   const t = useTranslations("durchgang.ui.approve");
   const router = useRouter();
   const [email, setEmail] = useState("");

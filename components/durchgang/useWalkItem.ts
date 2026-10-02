@@ -102,7 +102,7 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
         if (snapshot.checked.length > 0 || snapshot.custom.length > 0) {
           await addAssets.mutateAsync({
             catalogIds: [...snapshot.checked],
-            custom: snapshot.custom.map((c) => ({ name: c.name })),
+            custom: snapshot.custom.map((c) => ({ name: c.name, layer: c.layer })),
           });
           await utils.asset.list.invalidate();
         }

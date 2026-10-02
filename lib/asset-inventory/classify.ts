@@ -1,8 +1,9 @@
 import { CATALOG_BY_ID } from "./catalog";
-import type {
-  AssetLayer,
-  InformationsverbundOutput,
-  InventoryAsset,
+import {
+  type AssetLayer,
+  CUSTOM_ASSET_TYPE,
+  type InformationsverbundOutput,
+  type InventoryAsset,
 } from "./types";
 
 // BSI-200-2 §8.1 — turn the catalog selection into the structured
@@ -68,12 +69,7 @@ export function classifyChecklist(
       id: nextId(c.layer, counters),
       layer: c.layer,
       name: c.name,
-      category:
-        c.layer === "geschaeftsprozess"
-          ? "process"
-          : c.layer === "raum"
-            ? "room"
-            : "application",
+      category: CUSTOM_ASSET_TYPE[c.layer],
       defaultExposure: "internal",
       source: null,
     });

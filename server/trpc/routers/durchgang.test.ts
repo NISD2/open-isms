@@ -340,16 +340,24 @@ describe("durchgang router", () => {
     ]);
   });
 
-  test("keeps the person's own entries, once each, as type other", async () => {
+  test("keeps the person's own entries, once each, typed by the layer they were added under", async () => {
     const { caller, writes } = setup({ accessLevel: "full", existingAssets: ["Kasse"] });
     const result = await caller.addAssets({
       catalogIds: [],
-      custom: [{ name: "Laborsoftware" }, { name: " laborsoftware " }, { name: "kasse" }],
+      custom: [
+        { name: "Laborsoftware", layer: "anwendung" },
+        { name: " laborsoftware ", layer: "anwendung" },
+        { name: "kasse", layer: "it-system" },
+        { name: "Telefonanlage", layer: "it-system" },
+        { name: "Reklamationen", layer: "geschaeftsprozess" },
+      ],
     });
-    expect(result).toEqual({ added: 1 });
+    expect(result).toEqual({ added: 3 });
     const insert = writes.find((w) => w.op === "insert" && w.table === asset);
     expect(insert?.values).toEqual([
-      { companyId: COMPANY, name: "Laborsoftware", type: "other", catalogId: null },
+      { companyId: COMPANY, name: "Laborsoftware", type: "application", catalogId: null },
+      { companyId: COMPANY, name: "Telefonanlage", type: "endpoint", catalogId: null },
+      { companyId: COMPANY, name: "Reklamationen", type: "process", catalogId: null },
     ]);
   });
 

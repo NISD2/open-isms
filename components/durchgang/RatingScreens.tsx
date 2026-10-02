@@ -20,6 +20,7 @@ import {
   type RatingTarget,
   ratingRows,
   sliceOf,
+  type WalkLocale,
 } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
@@ -299,7 +300,7 @@ const chosen = (row: RatingRow, draft: Draft): Partial<Rating> & { note?: string
 export const rowSettled = (row: RatingRow, draft: Draft): boolean =>
   row.standing.kind === "kept" || fullRating(chosen(row, draft)) !== null;
 
-export function LevelChip({ level, locale }: { level: RiskLevel; locale: "de" | "en" }) {
+export function LevelChip({ level, locale }: { level: RiskLevel; locale: WalkLocale }) {
   return (
     <span
       className={cn(
@@ -325,7 +326,7 @@ export function RateRow({
   row: RatingRow;
   draft: Draft;
   onDraft: WorkProps["onDraft"];
-  locale: "de" | "en";
+  locale: WalkLocale;
 }) {
   const t = useTranslations("durchgang.ui.rate");
   const value = chosen(row, draft);

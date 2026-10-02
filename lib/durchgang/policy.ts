@@ -9,7 +9,14 @@ import type {
   CryptoAlgorithmEntry,
   CryptoPolicyConfig,
 } from "@/lib/compliance/policy-config-defaults";
+import {
+  CRYPTO_CATEGORIES,
+  type CryptoCategory,
+  type CryptoStatus,
+} from "@/lib/compliance/policy-config-schemas";
+import type { RegistrationPortal } from "@/lib/registration-portals/schema";
 import { marker } from "./copy";
+import type { WalkLocale } from "./types";
 
 export interface PolicyDocument {
   readonly title: string;
@@ -60,64 +67,60 @@ export const personText = (value: unknown): string => answerText(value);
 
 const CRYPTO_TEXT = {
   de: {
-    categories: {
-      symmetric: "Verschlüsselung",
-      hash: "Hashfunktionen",
-      asymmetric: "Signaturen und Schlüssel",
-      key_exchange: "Schlüsselaustausch",
-      tls: "TLS",
-    },
-    approved: "Zugelassen",
-    deprecated: "Nur noch für Bestehendes, nicht für Neues",
-    prohibited: "Nicht verwenden",
     bits: "Bit",
     tls: (version: string) => `TLS mindestens in Version ${version}, bevorzugt 1.3.`,
   },
   en: {
-    categories: {
-      symmetric: "Encryption",
-      hash: "Hash functions",
-      asymmetric: "Signatures and keys",
-      key_exchange: "Key exchange",
-      tls: "TLS",
-    },
-    approved: "Accepted",
-    deprecated: "Only for what exists, not for anything new",
-    prohibited: "Not to be used",
     bits: "bits",
     tls: (version: string) => `TLS at least in version ${version}, preferably 1.3.`,
   },
 } as const;
 
-const TLS_VERSION = { tls_1_2: "1.2", tls_1_3: "1.3" } as const;
+const TLS_VERSION = { tls_1_2: "1.2", tls_1_3: "1.3" } as const satisfies Record<
+  CryptoPolicyConfig["minTlsVersion"],
+  string
+>;
+
+/** The 9.1 list screen's own names for the kinds and statuses, so the policy prints the same. */
+export interface CryptoLabels {
+  readonly categories: Readonly<Record<CryptoCategory, string>>;
+  readonly status: Readonly<Record<CryptoStatus, string>>;
+}
 
 /**
  * The company's crypto list as its cryptography policy prints it: the accepted methods by kind,
  * then what is only kept for what exists and what is not used at all, then the TLS floor.
  */
 export const acceptedCryptoText = (
-  locale: "de" | "en",
+  locale: WalkLocale,
+  labels: CryptoLabels,
   list: Pick<CryptoPolicyConfig, "algorithms" | "minTlsVersion"> | null,
 ): string => {
   if (!list) return BLANK;
   const text = CRYPTO_TEXT[locale];
   const named = (e: CryptoAlgorithmEntry) =>
     e.keyLength ? `${e.algorithm} (${e.keyLength} ${text.bits})` : e.algorithm;
-  const approved = Object.entries(text.categories).flatMap(([category, label]) => {
+  const approved = CRYPTO_CATEGORIES.flatMap((category) => {
     const names = list.algorithms
       .filter((e) => e.status === "approved" && e.category === category)
       .map(named);
-    return names.length > 0 ? [`- ${label}: ${names.join(", ")}`] : [];
+    return names.length > 0
+      ? [`- ${labels.categories[category]}: ${names.join(", ")}`]
+      : [];
   });
-  const of = (status: CryptoAlgorithmEntry["status"]) =>
+  const of = (status: CryptoStatus) =>
     list.algorithms.filter((e) => e.status === status).map(named);
   const deprecated = of("deprecated");
   const prohibited = of("prohibited");
   return [
-    `${text.approved}:`,
+    `${labels.status.approved}:`,
     ...approved,
-    ...(deprecated.length > 0 ? [`${text.deprecated}: ${deprecated.join(", ")}`] : []),
-    ...(prohibited.length > 0 ? [`${text.prohibited}: ${prohibited.join(", ")}`] : []),
+    ...(deprecated.length > 0
+      ? [`${labels.status.deprecated}: ${deprecated.join(", ")}`]
+      : []),
+    ...(prohibited.length > 0
+      ? [`${labels.status.prohibited}: ${prohibited.join(", ")}`]
+      : []),
     text.tls(TLS_VERSION[list.minTlsVersion]),
   ].join("\n");
 };
@@ -136,13 +139,11 @@ const BUTTON = {
  * website, which says how; a blank where the country is not set.
  */
 export const reportingChannelText = (
-  locale: "de" | "en",
-  portal: {
-    readonly countryCode: string;
-    readonly authority: string;
-    readonly authorityUrl: string | null;
-    readonly portalUrl: string | null;
-  } | null,
+  locale: WalkLocale,
+  portal: Pick<
+    RegistrationPortal,
+    "countryCode" | "authority" | "authorityUrl" | "portalUrl"
+  > | null,
 ): string => {
   if (!portal) return BLANK;
   if (portal.countryCode === CHECKED_COUNTRY && portal.portalUrl) {

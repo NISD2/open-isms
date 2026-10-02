@@ -15,7 +15,13 @@ import { SimpleFileUpload } from "@/components/shared/SimpleFileUpload";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { recordDay, type TrainingAudience } from "@/lib/durchgang";
+import {
+  enteredDay,
+  recordDay,
+  recordedDay,
+  type TrainingAudience,
+  type WalkLocale,
+} from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import type { Registers } from "./view";
 
@@ -95,16 +101,6 @@ export const headOf = (row: Row, audience: TrainingAudience): string | null =>
   AUDIENCE[audience].line(row).head;
 
 /**
- * A training day as the person entered it: a calendar date, shown back as that same date. A
- * moment the platform recorded, such as a course's last lesson, is shown as its day in Berlin.
- */
-const dayOf = (locale: "de" | "en", date: Date, timeZone = "UTC") =>
-  new Intl.DateTimeFormat(locale === "de" ? "de-DE" : "en-GB", {
-    timeZone,
-    dateStyle: "long",
-  }).format(date);
-
-/**
  * The training register's own rows (`training_record`) for one audience, with a form to add a
  * line and attach its proof: a certificate for a member of management, an attendance list for a
  * staff session. The requirement page and the training page show the same list.
@@ -115,7 +111,7 @@ export function TrainingRecords({
   audience,
 }: {
   initial: Registers["training_record"];
-  locale: "de" | "en";
+  locale: WalkLocale;
   audience: TrainingAudience;
 }) {
   const t = useTranslations("durchgang.ui.training");
@@ -175,8 +171,7 @@ export function TrainingRecords({
                 <p className="text-sm text-muted-foreground">
                   {[
                     courseTitle,
-                    g.completedAt &&
-                      dayOf(locale, new Date(g.completedAt), "Europe/Berlin"),
+                    g.completedAt && recordedDay(locale, new Date(g.completedAt)),
                   ]
                     .filter(Boolean)
                     .join(", ")}
@@ -195,7 +190,7 @@ export function TrainingRecords({
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-medium">{head}</p>
                   <p className="text-sm text-muted-foreground">
-                    {[detail, row.completedAt && dayOf(locale, row.completedAt)]
+                    {[detail, row.completedAt && enteredDay(locale, row.completedAt)]
                       .filter(Boolean)
                       .join(", ")}
                   </p>

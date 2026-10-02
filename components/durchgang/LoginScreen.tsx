@@ -33,9 +33,6 @@ export interface LoginRow {
   readonly storedMethod: MfaMethod | null;
 }
 
-const isMfaMethod = (value: string | null): value is MfaMethod =>
-  MFA_METHODS.some((m) => m === value);
-
 /**
  * Everything on the list people sign in to, from the same queries 2.3 and the asset page read,
  * highest rated first, so the sign-ins that matter most are answered first.
@@ -57,7 +54,7 @@ export function useLoginRows(enabled: boolean): readonly LoginRow[] | undefined 
               providers: row.providers,
               level: levelOfStanding(row.standing),
               stored: a.hasMfa,
-              storedMethod: isMfaMethod(a.mfaMethod) ? a.mfaMethod : null,
+              storedMethod: a.mfaMethod,
             },
           ]
         : [];

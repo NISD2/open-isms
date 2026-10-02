@@ -8,6 +8,7 @@
 import type { supplierRiskLevelEnum } from "@nisd2/grc-data-model/enums";
 import type { z } from "zod";
 import { catalogIdOf, ownDescription } from "@/lib/asset-inventory/catalog-labels";
+import type { AssetType } from "@/lib/compliance/asset-types";
 import {
   FREQUENCIES,
   type Frequency,
@@ -17,8 +18,9 @@ import {
   type RiskLevel,
   riskLevel,
 } from "@/lib/compliance/bsi-200-3";
+import type { Asset, AssetProvider, Risk, Supplier } from "@/schema/types";
 import type { riskInsertSchema } from "@/schema/validators";
-import type { NoteLocale } from "./notes";
+import type { WalkLocale } from "./types";
 
 /** A risk's treatment, as the risk register's validator allows it. */
 type Treatment = z.infer<typeof riskInsertSchema>["treatment"];
@@ -35,7 +37,7 @@ const SOFTWARE: ReadonlySet<string> = new Set([
   "cloud_service",
   "database",
   "data_store",
-]);
+] satisfies AssetType[]);
 
 /**
  * The screen an asset appears on, by its type. Business processes appear on neither: the walk
@@ -91,12 +93,10 @@ export type Standing =
     }
   | { readonly kind: "kept"; readonly count: number; readonly highest: RiskLevel | null };
 
-export interface StoredRisk {
-  readonly id: string;
-  readonly likelihood: number;
-  readonly impact: number;
+/** A risk as a rating reads it; the note is its treatment description. */
+export type StoredRisk = Readonly<Pick<Risk, "id" | "likelihood" | "impact">> & {
   readonly note?: string | null;
-}
+};
 
 const highestOf = (levels: readonly RiskLevel[]): RiskLevel | null =>
   levels.reduce<RiskLevel | null>(
@@ -216,31 +216,25 @@ const TEXT = {
   },
 } as const;
 
+/** What a rating screen rates: the company's assets, or its suppliers. */
+export const RATED_KINDS = ["asset", "supplier"] as const;
+export type RatedKind = (typeof RATED_KINDS)[number];
+
 /** The title and description of the risk a rating adds, in the record language. */
 export const ratingText = (
-  locale: NoteLocale,
-  kind: "asset" | "supplier",
+  locale: WalkLocale,
+  kind: RatedKind,
   name: string,
 ): { readonly title: string; readonly description: string } => TEXT[locale][kind](name);
 
-interface ListedAsset {
-  readonly id: string;
-  readonly catalogId: string | null;
-  readonly name: string;
-  readonly type: string;
-  readonly description: string | null;
-}
+type ListedAsset = Readonly<
+  Pick<Asset, "id" | "catalogId" | "name" | "type" | "description">
+>;
 
-interface ListedSupplier {
-  readonly id: string;
-  readonly name: string;
-}
+type ListedSupplier = Readonly<Pick<Supplier, "id" | "name">>;
 
 /** One supplier that provides one asset (`asset_provider`); an asset can have several. */
-export interface ProviderLink {
-  readonly assetId: string;
-  readonly supplierId: string;
-}
+export type ProviderLink = Readonly<Pick<AssetProvider, "assetId" | "supplierId">>;
 
 /** The names of an asset's providers, in the order of the supplier list. */
 export const providersOf = (
@@ -281,8 +275,7 @@ export type RatingRow =
       readonly standing: Standing;
     };
 
-export const ratingKey = (kind: "asset" | "supplier", id: string): string =>
-  `${kind}:${id}`;
+export const ratingKey = (kind: RatedKind, id: string): string => `${kind}:${id}`;
 
 const linkedTo = (risks: readonly LinkedRisk[], id: string) =>
   risks.filter((r) => r.linked.includes(id));

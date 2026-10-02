@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { recordDay } from "@/lib/durchgang";
+import { enteredDay, recordDay, type WalkLocale } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import type { Registers } from "./view";
 
@@ -20,13 +20,6 @@ const blank = () => ({
   actions: "",
 });
 
-/** A review day as entered: a calendar date, shown back as that same date. */
-const dayOf = (locale: "de" | "en", day: string) =>
-  new Intl.DateTimeFormat(locale === "de" ? "de-DE" : "en-GB", {
-    timeZone: "UTC",
-    dateStyle: "long",
-  }).format(new Date(`${day}T00:00:00Z`));
-
 /**
  * The management review register's own rows (`management_review`): when management looked at
  * how security stands, who took part, what it decided and what has to be done. The requirement
@@ -37,7 +30,7 @@ export function ManagementReviews({
   locale,
 }: {
   initial: Registers["management_review"];
-  locale: "de" | "en";
+  locale: WalkLocale;
 }) {
   const t = useTranslations("durchgang.ui.review");
   const utils = trpc.useUtils();
@@ -54,7 +47,7 @@ export function ManagementReviews({
     if (!ready) return;
     create.mutate(
       {
-        title: t("title", { date: dayOf(locale, form.date) }),
+        title: t("title", { date: enteredDay(locale, form.date) }),
         reviewDate: form.date,
         attendees: form.attendees
           .split(",")

@@ -3,6 +3,7 @@
 import { Check, Minus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { RiskLevel } from "@/lib/compliance/bsi-200-3";
+import type { WalkLocale } from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
 import { LevelChip } from "./RatingScreens";
 
@@ -40,7 +41,7 @@ export function RowLevel({
   locale,
 }: {
   level: RiskLevel | null;
-  locale: "de" | "en";
+  locale: WalkLocale;
 }) {
   const t = useTranslations("durchgang.ui");
   return level ? (

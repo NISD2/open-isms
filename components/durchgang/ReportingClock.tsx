@@ -7,9 +7,10 @@ import {
   REPORTS,
   type Report,
 } from "@/lib/compliance/bsig-32";
+import type { WalkLocale } from "@/lib/durchgang";
 
 /** The § 32 Abs. 1 BSIG reporting deadlines, as a timeline read from lib/compliance/bsig-32. */
-export function ReportingClock({ locale }: { locale: "de" | "en" }) {
+export function ReportingClock({ locale }: { locale: WalkLocale }) {
   const t = useTranslations("durchgang.ui.clock");
   const when: Readonly<Record<Report, { value: string; from: string }>> = {
     early_warning: {

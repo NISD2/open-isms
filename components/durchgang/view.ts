@@ -1,4 +1,9 @@
-import type { ItemState, RegisterModule, ResolvedScreen } from "@/lib/durchgang";
+import type {
+  ItemState,
+  RegisterModule,
+  ResolvedScreen,
+  WalkLocale,
+} from "@/lib/durchgang";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
 import type { RouterOutputs } from "@/lib/trpc/client";
 
@@ -103,5 +108,5 @@ export interface ItemView {
     readonly management: boolean;
     readonly admin: boolean;
   };
-  readonly locale: "de" | "en";
+  readonly locale: WalkLocale;
 }

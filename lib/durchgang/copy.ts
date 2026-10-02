@@ -8,10 +8,15 @@
 
 import { z } from "zod";
 import {
+  CRYPTO_CATEGORIES,
+  CRYPTO_STATUSES,
+} from "@/lib/compliance/policy-config-schemas";
+import {
   type AnyItem,
   type AnyScreen,
   askedFields,
   BACKUP_FREQUENCIES,
+  MFA_METHODS,
   POLICY_LISTS,
   type ScreenKind,
 } from "./types";
@@ -77,13 +82,8 @@ const SCREEN_COPY = {
     password: text,
     unknown: text,
     which: text,
-    methods: z.object({
-      app: text,
-      security_key: text,
-      company_account: text,
-      sms: text,
-      email: text,
-    }),
+    // Every method asset.mfa_method takes needs its label, and no other.
+    methods: z.record(z.enum(MFA_METHODS), text),
   }),
   approve: z.object(heading),
   riskmap: z.object(heading),
@@ -134,14 +134,9 @@ const SCREEN_COPY = {
   crypto: z.object({
     ...heading,
     document: text,
-    categories: z.object({
-      symmetric: text,
-      hash: text,
-      asymmetric: text,
-      key_exchange: text,
-      tls: text,
-    }),
-    status: z.object({ approved: text, deprecated: text, prohibited: text }),
+    // Every kind and status the list's schema allows needs its label, and no other.
+    categories: z.record(z.enum(CRYPTO_CATEGORIES), text),
+    status: z.record(z.enum(CRYPTO_STATUSES), text),
     bsi: text,
     own: text,
     applies: text,

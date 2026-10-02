@@ -1,5 +1,6 @@
 import de from "@/messages/assetInventory/de.json";
 import en from "@/messages/assetInventory/en.json";
+import type { Asset } from "@/schema/types";
 import { CATALOG, type CatalogItem } from "./catalog";
 
 type Labels = Readonly<Record<string, { readonly label: string }>>;
@@ -37,11 +38,7 @@ export const catalogIdByName = (text: string | null): string | null =>
 export const catalogLabel = (id: string | null, locale: "de" | "en"): string | null =>
   id === null ? null : (CATALOG_LABELS[locale][id]?.label ?? null);
 
-interface Listed {
-  readonly catalogId: string | null;
-  readonly name: string;
-  readonly description: string | null;
-}
+type Listed = Readonly<Pick<Asset, "catalogId" | "name" | "description">>;
 
 /**
  * The catalogue item a listed thing is: its `catalog_id`, or for a row written without one, its

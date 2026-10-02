@@ -1,3 +1,4 @@
+import type { AssetType } from "@/lib/compliance/asset-types";
 import type { AssetLayer, Exposure } from "./types";
 
 // The catalog, organised by FUNCTIONAL group (how the user thinks about
@@ -7,21 +8,7 @@ import type { AssetLayer, Exposure } from "./types";
 // as examples in a label. Niche tools stay out; users add anything missing
 // via the per-layer "Add custom" input.
 
-export type FunctionalGroup =
-  | "business-processes"
-  | "customer-facing"
-  | "sales"
-  | "customer-service"
-  | "hr-payroll"
-  | "finance"
-  | "it-applications"
-  | "it-infrastructure"
-  | "endpoints"
-  | "locations"
-  | "network"
-  | "sector-specific";
-
-export const FUNCTIONAL_GROUPS: FunctionalGroup[] = [
+export const FUNCTIONAL_GROUPS = [
   "business-processes",
   "customer-facing",
   "sales",
@@ -34,13 +21,15 @@ export const FUNCTIONAL_GROUPS: FunctionalGroup[] = [
   "locations",
   "network",
   "sector-specific",
-];
+] as const;
+
+export type FunctionalGroup = (typeof FUNCTIONAL_GROUPS)[number];
 
 export interface CatalogItem {
   id: string;
   group: FunctionalGroup;
   layer: AssetLayer;
-  category: string;
+  category: AssetType;
   defaultChecked: boolean;
   defaultExposure: Exposure;
   /** Optional sector gate: hidden unless user picked one of these sectors. */

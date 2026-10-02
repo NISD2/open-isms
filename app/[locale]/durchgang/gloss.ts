@@ -1,6 +1,7 @@
 import "@/lib/server-guard";
 import type { Gloss } from "@/components/durchgang/view";
 import { glossText } from "@/lib/dictionary/matcher";
+import type { WalkLocale } from "@/lib/durchgang";
 
 /**
  * The dictionary terms the walk explains in place, and only these: each definition was checked
@@ -31,7 +32,7 @@ export const WALK_TERMS: ReadonlySet<string> = new Set([
 ]);
 
 /** A text with only the walk's terms explained, or null when it has none of them. */
-export function glossOf(text: string, locale: "de" | "en"): readonly Gloss[] | null {
+export function glossOf(text: string, locale: WalkLocale): readonly Gloss[] | null {
   const chunks = glossText(text, locale).map(
     (c): Gloss =>
       c.kind === "term" && WALK_TERMS.has(c.slug)
@@ -55,7 +56,7 @@ export function glossOf(text: string, locale: "de" | "en"): readonly Gloss[] | n
 /** The glossed form of every text that has a term, keyed by the text. */
 export const glossary = (
   texts: readonly string[],
-  locale: "de" | "en",
+  locale: WalkLocale,
 ): Readonly<Record<string, readonly Gloss[]>> =>
   Object.fromEntries(
     texts.flatMap((text) => {

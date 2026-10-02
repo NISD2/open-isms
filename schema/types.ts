@@ -11,7 +11,7 @@
 // --- Shared table imports (alphabetical by file) ---
 import { policyAcknowledgment } from "@nisd2/isms-schema/tables/acknowledgment";
 import { companyAssessment, companyRequirementStatus } from "@nisd2/isms-schema/tables/assessments";
-import { asset } from "@nisd2/grc-data-model/schema";
+import { asset, assetProvider } from "@nisd2/grc-data-model/schema";
 import { internalAudit, auditFinding } from "@nisd2/isms-schema/tables/audit";
 import { auditLog } from "@nisd2/isms-schema/tables/audit-log";
 import { changeRequest } from "@nisd2/isms-schema/tables/change-management";
@@ -102,6 +102,7 @@ export type NewAuditLog = typeof auditLog.$inferInsert;
 
 export type Asset = typeof asset.$inferSelect;
 export type NewAsset = typeof asset.$inferInsert;
+export type AssetProvider = typeof assetProvider.$inferSelect;
 
 // ============================================================================
 // Risks

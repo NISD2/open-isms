@@ -1,5 +1,5 @@
 import type { AssetLayer } from "@/lib/asset-inventory/types";
-import type { MfaMethod, Rating } from "@/lib/durchgang";
+import type { MfaMethod, RatedKind, Rating } from "@/lib/durchgang";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
 
 /**
@@ -25,7 +25,7 @@ export interface Backup {
  * the person's own line on it, undefined until they write one.
  */
 export type RatingDraft = Partial<Rating> & {
-  readonly kind: "asset" | "supplier";
+  readonly kind: RatedKind;
   readonly id: string;
   readonly note?: string;
 };

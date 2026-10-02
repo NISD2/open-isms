@@ -3,6 +3,7 @@
 import { ExternalLink } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import type { WalkLocale } from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
 import type { Registration } from "./view";
 
@@ -18,7 +19,7 @@ export function RegistrationPortals({
   locale,
 }: {
   registration: Registration | null;
-  locale: "de" | "en";
+  locale: WalkLocale;
 }) {
   const t = useTranslations("durchgang.ui.portals");
   if (!registration) return null;

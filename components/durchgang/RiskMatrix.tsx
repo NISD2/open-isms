@@ -14,6 +14,7 @@ import {
   type RiskLevel,
   riskLevel,
 } from "@/lib/compliance/bsi-200-3";
+import type { WalkLocale } from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
 
 /** One hue, light to dark: magnitude, not identity. The level is also written in every cell. */
@@ -45,7 +46,7 @@ export function RiskPicker({
   value,
   onPick,
 }: {
-  locale: "de" | "en";
+  locale: WalkLocale;
   /** What is being rated, the group's name. */
   name: string;
   value: { readonly frequency?: Frequency; readonly impact?: Impact };
@@ -120,7 +121,7 @@ export function RiskMatrix({
   counts,
   onCell,
 }: {
-  locale: "de" | "en";
+  locale: WalkLocale;
   highlight?: { readonly frequency: Frequency; readonly impact: Impact };
   counts?: (frequency: Frequency, impact: Impact) => number;
   /** Opens what sits in a cell; only cells that hold something become buttons. */

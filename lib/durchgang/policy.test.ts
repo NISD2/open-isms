@@ -1,4 +1,5 @@
 import { expect, test } from "bun:test";
+import de from "@/messages/durchgang/de.json";
 import {
   acceptedCryptoText,
   BLANK,
@@ -51,7 +52,9 @@ test("prints the crypto list by status and kind, with the TLS floor, and a blank
     ],
     minTlsVersion: "tls_1_2",
   } as const;
-  expect(acceptedCryptoText("de", list)).toBe(
+  // The names come from the 9.1 list screen itself, so screen and policy print the same.
+  const labels = de.durchgang.items["9_1"].screens.list;
+  expect(acceptedCryptoText("de", labels, list)).toBe(
     [
       "Zugelassen:",
       "- Verschlüsselung: AES-256-GCM (256 Bit), AES-128-GCM (128 Bit)",
@@ -61,7 +64,7 @@ test("prints the crypto list by status and kind, with the TLS floor, and a blank
       "TLS mindestens in Version 1.2, bevorzugt 1.3.",
     ].join("\n"),
   );
-  expect(acceptedCryptoText("en", null)).toBe(BLANK);
+  expect(acceptedCryptoText("en", labels, null)).toBe(BLANK);
 });
 
 const document = {

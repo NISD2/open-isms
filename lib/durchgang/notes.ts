@@ -5,14 +5,31 @@
  * leaves nothing of them here (the audit row that carries their id is redacted by the erasure).
  */
 
-import type { MfaMethod } from "./types";
-
-export type NoteLocale = "de" | "en";
+import type { MfaMethod, WalkLocale } from "./types";
 
 const berlinDay = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" });
 
 /** A calendar day in Berlin, as the company reads its records: 2026-09-30. */
 export const recordDay = (at: Date): string => berlinDay.format(at);
+
+const longDay = (locale: WalkLocale, timeZone: string) =>
+  new Intl.DateTimeFormat(locale === "de" ? "de-DE" : "en-GB", {
+    timeZone,
+    dateStyle: "long",
+  });
+
+/**
+ * A day someone entered, shown back as that same day: `2026-09-30`, or a date column read back
+ * at midnight UTC.
+ */
+export const enteredDay = (locale: WalkLocale, day: string | Date): string =>
+  longDay(locale, "UTC").format(
+    typeof day === "string" ? new Date(`${day}T00:00:00Z`) : day,
+  );
+
+/** A moment the platform recorded, shown as its day in Berlin, where the walk keeps its calendar. */
+export const recordedDay = (locale: WalkLocale, at: Date): string =>
+  longDay(locale, "Europe/Berlin").format(at);
 
 export const noteLine = (at: Date, text: string): string =>
   `${recordDay(at)} ${text.replace(/\s+/g, " ").trim()}`;
@@ -40,7 +57,7 @@ const TEXT = {
       company_account: "über das Firmenkonto",
       sms: "Code per SMS",
       email: "Code per E-Mail",
-    },
+    } satisfies Record<MfaMethod, string>,
     backups: (lines: readonly string[]) =>
       `Datensicherung festgehalten: ${lines.join("; ")}.`,
     restoredOn: (day: string) => `letzte geglückte Wiederherstellung ${day}`,
@@ -74,7 +91,7 @@ const TEXT = {
       company_account: "through the company account",
       sms: "code by SMS",
       email: "code by email",
-    },
+    } satisfies Record<MfaMethod, string>,
     backups: (lines: readonly string[]) => `Backups recorded: ${lines.join("; ")}.`,
     restoredOn: (day: string) => `last restore that worked ${day}`,
     noRestore: "no restore that worked yet",
@@ -88,17 +105,17 @@ const TEXT = {
   },
 } as const;
 
-export const waitingNote = (locale: NoteLocale, reason: string, note: string | null) =>
+export const waitingNote = (locale: WalkLocale, reason: string, note: string | null) =>
   TEXT[locale].waiting(reason, note);
 
-export const methodNote = (locale: NoteLocale) => TEXT[locale].method;
+export const methodNote = (locale: WalkLocale) => TEXT[locale].method;
 
-export const declinedNote = (locale: NoteLocale, reason: string) =>
+export const declinedNote = (locale: WalkLocale, reason: string) =>
   TEXT[locale].declined(reason);
 
 /** One entry per supplier checked: its name and what is agreed with it, in the record language. */
 export const agreementsNote = (
-  locale: NoteLocale,
+  locale: WalkLocale,
   rows: ReadonlyArray<{
     readonly name: string;
     readonly security: boolean;
@@ -122,7 +139,7 @@ export const agreementsNote = (
  * which one where that is known, or that this is not known yet.
  */
 export const loginsNote = (
-  locale: NoteLocale,
+  locale: WalkLocale,
   rows: ReadonlyArray<{
     readonly name: string;
     readonly mfa: boolean | null;
@@ -143,7 +160,7 @@ export const loginsNote = (
 
 /** One entry per backup system: how often it backs up, and its last restore that worked. */
 export const backupsNote = (
-  locale: NoteLocale,
+  locale: WalkLocale,
   rows: ReadonlyArray<{
     readonly name: string;
     readonly frequency: string | null;
@@ -165,15 +182,15 @@ export const backupsNote = (
 };
 
 /** The crypto list was taken over from the BSI's recommendations. */
-export const cryptoNote = (locale: NoteLocale) => TEXT[locale].crypto;
+export const cryptoNote = (locale: WalkLocale) => TEXT[locale].crypto;
 
 /** The documents management approved in one sitting, by title, on the day of the approval. */
 export const approvedNote = (
-  locale: NoteLocale,
+  locale: WalkLocale,
   day: string,
   titles: readonly string[],
 ) => TEXT[locale].approved(day, titles);
 
 /** The processes marked as having to keep running without IT, or that none was. */
-export const criticalNote = (locale: NoteLocale, names: readonly string[]) =>
+export const criticalNote = (locale: WalkLocale, names: readonly string[]) =>
   TEXT[locale].critical(names);

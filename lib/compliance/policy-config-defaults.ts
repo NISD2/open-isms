@@ -1,9 +1,13 @@
 /**
  * Policy Config Defaults — BSI/CIR-sourced defaults for structured policy editors
  *
- * Each policy type has a TypeScript interface and a locale-aware factory.
- * Config is stored as JSONB — these interfaces type it at the app level.
+ * Each policy type has a locale-aware factory. Config is stored as JSONB; its types are inferred
+ * from the Zod schemas in policy-config-schemas.ts, the one place its shape is written.
  */
+
+import type { PolicyConfigMap } from "./policy-config-schemas";
+
+export type { PolicyConfigMap } from "./policy-config-schemas";
 
 // ============================================================================
 // Policy type enum
@@ -19,125 +23,19 @@ export const POLICY_TYPES = [
 export type PolicyType = (typeof POLICY_TYPES)[number];
 
 // ============================================================================
-// Crypto (9.1) — BSI TR-02102
+// Config types, inferred from policy-config-schemas.ts
 // ============================================================================
 
-export interface CryptoAlgorithmEntry {
-  category: "symmetric" | "hash" | "asymmetric" | "key_exchange" | "tls";
-  algorithm: string;
-  keyLength?: string;
-  status: "approved" | "deprecated" | "prohibited";
-}
-
-export interface CryptoPolicyConfig {
-  algorithms: CryptoAlgorithmEntry[];
-  minTlsVersion: "tls_1_2" | "tls_1_3";
-  keyRotationFrequencyYears: number;
-  triggerRotationOnCompromise: boolean;
-  reviewCycleYears: number;
-  postQuantumReadiness: boolean;
-}
-
-// ============================================================================
-// Access Control (10.1) — CIR 11.1, ORP.4
-// ============================================================================
-
-export interface AccessControlConfig {
-  /** RBAC / ABAC / hybrid — CIR 11.1.1 */
-  model: "rbac" | "abac" | "hybrid";
-  /** Standard + privileged review cadence — CIR 11.2.3, ORP.4.A4 */
-  reviewFrequency: { standard: string; privileged: string };
-  /** Max hours to revoke access on termination — CIR 11.2.1, ORP.4.A6 */
-  deprovisioningSlaHours: number;
-  /** Shared/generic account policy — CIR 11.5.3, ORP.4.A3 */
-  sharedAccountPolicy: "prohibited" | "documented_exceptions";
-  /** How often to review auth methods — CIR 11.6.4 */
-  authReviewCycleYears: number;
-}
-
-// ============================================================================
-// Procurement (6.1) — CIR Art. 5
-// ============================================================================
-
-export interface ProcurementEvalCriterion {
-  criterion: string;
-  weight: number;
-}
-
-export interface ProcurementCustomClause {
-  clause: string;
-  enabled: boolean;
-}
-
-export interface ProcurementConfig {
-  thresholdEur: number;
-  requiredClauses: {
-    cybersecurityRequirements: boolean;
-    trainingCertification: boolean;
-    backgroundChecks: boolean;
-    incidentNotification: boolean;
-    auditRights: boolean;
-    vulnerabilityDisclosure: boolean;
-    subcontractorFlowdown: boolean;
-    secureDecommissioning: boolean;
-  };
-  customClauses: ProcurementCustomClause[];
-  evaluationCriteria: ProcurementEvalCriterion[];
-  reviewFrequency: string;
-}
-
-// ============================================================================
-// Secure Dev (6.2) — CIR Art. 6
-// ============================================================================
-
-export interface SecureDevConfig {
-  sdlcFramework: "owasp_samm" | "bsimm" | "ms_sdl" | "custom";
-  hardeningBaseline: "cis" | "bsi" | "disa_stig" | "custom";
-  testingRequirements: {
-    sast: boolean;
-    dast: boolean;
-    sca: boolean;
-    pentest: boolean;
-    codeReview: boolean;
-  };
-  environmentSegregation: boolean;
-  reviewCycleYears: number;
-}
-
-// ============================================================================
-// Patch Management (6.4) — CIR Art. 6(6), OPS.1.1.3
-// ============================================================================
-
-export interface PatchSlaHours {
-  critical: number;
-  high: number;
-  medium: number;
-  low: number;
-}
-
-export interface PatchMgmtConfig {
-  patchSlaHours: PatchSlaHours;
-  reviewCycleYears: number;
-}
-
-// ============================================================================
-// Union type for all configs
-// ============================================================================
-
-export type PolicyConfigData =
-  | CryptoPolicyConfig
-  | AccessControlConfig
-  | ProcurementConfig
-  | SecureDevConfig
-  | PatchMgmtConfig;
-
-export type PolicyConfigMap = {
-  crypto: CryptoPolicyConfig;
-  access_control: AccessControlConfig;
-  procurement: ProcurementConfig;
-  secure_dev: SecureDevConfig;
-  patch_mgmt: PatchMgmtConfig;
-};
+export type CryptoPolicyConfig = PolicyConfigMap["crypto"];
+export type CryptoAlgorithmEntry = CryptoPolicyConfig["algorithms"][number];
+export type AccessControlConfig = PolicyConfigMap["access_control"];
+export type ProcurementConfig = PolicyConfigMap["procurement"];
+export type ProcurementEvalCriterion = ProcurementConfig["evaluationCriteria"][number];
+export type ProcurementCustomClause = ProcurementConfig["customClauses"][number];
+export type SecureDevConfig = PolicyConfigMap["secure_dev"];
+export type PatchMgmtConfig = PolicyConfigMap["patch_mgmt"];
+export type PatchSlaHours = PatchMgmtConfig["patchSlaHours"];
+export type PolicyConfigData = PolicyConfigMap[PolicyType];
 
 // ============================================================================
 // Default factories — BSI/CIR sourced

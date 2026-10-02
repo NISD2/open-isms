@@ -5,12 +5,13 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Link } from "@/i18n/navigation";
 import type { CryptoAlgorithmEntry } from "@/lib/compliance/policy-config-defaults";
+import {
+  CRYPTO_CATEGORIES,
+  CRYPTO_STATUSES,
+} from "@/lib/compliance/policy-config-schemas";
 import { trpc } from "@/lib/trpc/client";
 import { Heading, Lead } from "./ExplainScreens";
 import type { Of, WorkProps } from "./WorkScreens";
-
-const CATEGORIES = ["symmetric", "hash", "asymmetric", "key_exchange", "tls"] as const;
-const STATUSES = ["approved", "deprecated", "prohibited"] as const;
 
 const named = (e: CryptoAlgorithmEntry) =>
   e.keyLength ? `${e.algorithm} (${e.keyLength})` : e.algorithm;
@@ -44,14 +45,14 @@ export function CryptoScreen({
           </p>
         </header>
         <div className="divide-y">
-          {STATUSES.map((status) => {
+          {CRYPTO_STATUSES.map((status) => {
             const entries = list.algorithms.filter((e) => e.status === status);
             if (entries.length === 0) return null;
             return (
               <section key={status} className="px-5 py-4">
                 <h3 className="text-sm font-semibold">{entry.copy.status[status]}</h3>
                 <dl className="mt-2 space-y-1.5 text-sm">
-                  {CATEGORIES.map((category) => {
+                  {CRYPTO_CATEGORIES.map((category) => {
                     const names = entries
                       .filter((e) => e.category === category)
                       .map(named);

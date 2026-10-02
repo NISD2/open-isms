@@ -12,11 +12,14 @@ import {
   onRegister,
   ownDescription,
 } from "@/lib/asset-inventory/catalog-labels";
+import { ASSET_LAYERS, CUSTOM_ASSET_TYPE } from "@/lib/asset-inventory/types";
 import { logAudit } from "@/lib/audit";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { mayWalkDurchgang } from "@/lib/billing/access";
 import { FREQUENCIES, IMPACTS, type RiskLevel } from "@/lib/compliance/bsi-200-3";
+import type { CategoryField } from "@/lib/compliance/category-schemas";
 import { invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
+import type { CountableModule } from "@/lib/compliance/module-tables";
 import { getDefaultPolicyConfig } from "@/lib/compliance/policy-config-defaults";
 import { POLICY_CONFIG_SCHEMAS } from "@/lib/compliance/policy-config-schemas";
 import { getDefaultMethodology } from "@/lib/compliance/risk-methodology-defaults";
@@ -30,10 +33,12 @@ import {
   askedFields,
   BACKUP_FREQUENCIES,
   backupsNote,
+  type CryptoLabels,
   contactSuggestions,
   criticalNote,
   criticalProcessesText,
   cryptoNote,
+  type DurchgangAction,
   declinedNote,
   levelOf,
   loginsNote,
@@ -43,12 +48,15 @@ import {
   methodNote,
   noteLine,
   POLICY_LISTS,
+  POLICY_TEMPLATES,
   type PolicyList,
+  type PolicyTemplate,
   type ProviderLink,
   personText,
   policyNames,
   policyText,
   policyTitle,
+  RATED_KINDS,
   ratingKey,
   ratingText,
   recordDay,
@@ -63,6 +71,7 @@ import {
   WAIT_REASONS,
   WALK,
   WALK_POLICIES,
+  type WalkLocale,
   waitingNote,
 } from "@/lib/durchgang";
 import { renderDocumentMarkdown } from "@/lib/mail/markdown";
@@ -139,11 +148,15 @@ const durchgangWrite = activatedCompanyProcedure.use(({ ctx, next }) => {
  */
 const recheck = (
   ctx: { db: TRPCContext["db"]; companyId: string; userId: string },
-  module: string,
+  module: CountableModule,
 ) =>
   invalidateModuleSignOffs(ctx.db, ctx.companyId, module, ctx.userId).catch((err) =>
     console.error(`[background] ${module} recheck:`, err),
   );
+
+/** The walk's audit entry: its action is one the walk's state and overview know. */
+const logWalk = (entry: Parameters<typeof logAudit>[0] & { action: DurchgangAction }) =>
+  logAudit(entry);
 
 /** How many steps a stored scale has; the column is JSON, so its shape is checked, not assumed. */
 const steps = (levels: unknown) => (Array.isArray(levels) ? levels.length : 0);
@@ -182,7 +195,7 @@ const policyTypeOf = (c: string) => {
 };
 
 /** The item's policy screen with its words in `locale`; an item without one writes no policy. */
-const policyScreenOf = (c: string, locale: "de" | "en") => {
+const policyScreenOf = (c: string, locale: WalkLocale) => {
   const words = resolveItem(NAMESPACES[locale], itemOf(c));
   const screen = words.ok
     ? words.value.screens.find((s) => s.kind === "policy")
@@ -191,6 +204,17 @@ const policyScreenOf = (c: string, locale: "de" | "en") => {
     throw new TRPCError({ code: "BAD_REQUEST", message: `${c} writes no policy.` });
   }
   return screen;
+};
+
+/** The crypto list screen's names for kinds and statuses in `locale`, which the policy prints. */
+const cryptoLabelsOf = (locale: WalkLocale): CryptoLabels => {
+  const item = WALK.find((i) => i.screens.some((s) => s.kind === "crypto"));
+  const words = item ? resolveItem(NAMESPACES[locale], item) : undefined;
+  const screen = words?.ok
+    ? words.value.screens.find((s) => s.kind === "crypto")
+    : undefined;
+  if (screen?.kind !== "crypto") throw new Error("The walk has no crypto list screen.");
+  return screen.copy;
 };
 
 /**
@@ -210,7 +234,7 @@ const STORED_CONFIG = z
 /** The longest addition a company writes into a walk policy in its own words. */
 const OWN_MAX = 2000;
 
-const storedConfigOf = async (db: DbOrTx, companyId: string, type: string) => {
+const storedConfigOf = async (db: DbOrTx, companyId: string, type: PolicyTemplate) => {
   const [row] = await db
     .select({ config: companyPolicyConfig.config })
     .from(companyPolicyConfig)
@@ -242,7 +266,10 @@ const cryptoListOf = async (db: DbOrTx, companyId: string) => {
 };
 
 /** Where the walk asks who leads in an emergency, which the continuity plan names too. */
-const EMERGENCY_LEAD = { code: "3.1", field: "incidentLead" } as const;
+const EMERGENCY_LEAD = { code: "3.1", field: "incidentLead" } as const satisfies {
+  code: string;
+  field: CategoryField<"INC">;
+};
 
 /** Who leads in an emergency, as 3.1 saved it, or nothing when 3.1 has no answer yet. */
 const emergencyLeadOf = async (db: TRPCContext["db"], companyId: string) => {
@@ -273,7 +300,7 @@ const policyListsOf = async (
   companyId: string,
   used: readonly PolicyList[],
   fallbacks: Readonly<Record<string, string>>,
-  locale: "de" | "en",
+  locale: WalkLocale,
 ): Promise<Partial<Record<PolicyList, string>>> => {
   const needs = (...names: readonly PolicyList[]) => names.some((n) => used.includes(n));
   const [assets, links, org, lead, crypto] = await Promise.all([
@@ -328,7 +355,7 @@ const policyListsOf = async (
           links.map((l) => ({ ...l, linked: [l.assetId] })),
         ),
       ),
-    acceptedCrypto: () => acceptedCryptoText(locale, crypto),
+    acceptedCrypto: () => acceptedCryptoText(locale, cryptoLabelsOf(locale), crypto),
   };
   return Object.fromEntries(used.map((name) => [name, text[name]()]));
 };
@@ -424,7 +451,7 @@ export const durchgangRouter = router({
     const row = await ctx.db.query.auditLog.findFirst({
       where: and(
         eq(auditLog.companyId, ctx.companyId),
-        eq(auditLog.action, "durchgang.adopted"),
+        eq(auditLog.action, "durchgang.adopted" satisfies DurchgangAction),
       ),
       orderBy: desc(auditLog.createdAt),
       columns: { createdAt: true },
@@ -486,7 +513,7 @@ export const durchgangRouter = router({
         ref.statusId,
         noteLine(new Date(), waitingNote(locale, reason, input.note || null)),
       );
-      await logAudit({
+      await logWalk({
         companyId: ctx.companyId,
         userId: ctx.userId,
         action: "durchgang.waiting",
@@ -501,7 +528,7 @@ export const durchgangRouter = router({
     .input(z.object({ code }))
     .mutation(async ({ ctx, input }) => {
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
-      await logAudit({
+      await logWalk({
         companyId: ctx.companyId,
         userId: ctx.userId,
         action: "durchgang.resumed",
@@ -535,7 +562,7 @@ export const durchgangRouter = router({
       })
       .onConflictDoUpdate({ target: companyRiskMethodology.companyId, set: values });
     await appendNote(ctx.db, ref.statusId, noteLine(new Date(), methodNote(locale)));
-    await logAudit({
+    await logWalk({
       companyId: ctx.companyId,
       userId: ctx.userId,
       action: "durchgang.adopted",
@@ -561,7 +588,7 @@ export const durchgangRouter = router({
         ref.statusId,
         noteLine(new Date(), declinedNote(locale, input.reason)),
       );
-      await logAudit({
+      await logWalk({
         companyId: ctx.companyId,
         userId: ctx.userId,
         action: "durchgang.declined",
@@ -576,7 +603,7 @@ export const durchgangRouter = router({
     .input(z.object({ code }))
     .mutation(async ({ ctx, input }) => {
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
-      await logAudit({
+      await logWalk({
         companyId: ctx.companyId,
         userId: ctx.userId,
         action: "durchgang.item_done",
@@ -597,7 +624,12 @@ export const durchgangRouter = router({
       z.object({
         catalogIds: z.array(z.string().max(80)).max(CATALOG_BY_ID.size),
         custom: z
-          .array(z.object({ name: z.string().trim().min(1).max(255) }))
+          .array(
+            z.object({
+              name: z.string().trim().min(1).max(255),
+              layer: z.enum(ASSET_LAYERS),
+            }),
+          )
           .max(50)
           .default([]),
       }),
@@ -614,7 +646,7 @@ export const durchgangRouter = router({
         }),
         ...input.custom.map((c) => ({
           name: c.name,
-          type: "other",
+          type: CUSTOM_ASSET_TYPE[c.layer],
           catalogId: catalogIdByName(c.name),
         })),
       ];
@@ -851,7 +883,7 @@ export const durchgangRouter = router({
         rows: z
           .array(
             z.object({
-              kind: z.enum(["asset", "supplier"]),
+              kind: z.enum(RATED_KINDS),
               id: z.string().uuid(),
               frequency: z.enum(FREQUENCIES),
               impact: z.enum(IMPACTS),
@@ -1136,7 +1168,7 @@ export const durchgangRouter = router({
           ),
         ),
       );
-      await logAudit({
+      await logWalk({
         companyId: ctx.companyId,
         userId: ctx.userId,
         action: "durchgang.agreements",
@@ -1226,7 +1258,7 @@ export const durchgangRouter = router({
           ),
         ),
       );
-      await logAudit({
+      await logWalk({
         companyId: ctx.companyId,
         userId: ctx.userId,
         action: "durchgang.logins",
@@ -1331,7 +1363,7 @@ export const durchgangRouter = router({
           ),
         ),
       );
-      await logAudit({
+      await logWalk({
         companyId: ctx.companyId,
         userId: ctx.userId,
         action: "durchgang.backups",
@@ -1381,7 +1413,7 @@ export const durchgangRouter = router({
         .returning({ id: companyPolicyConfig.id });
       if (!row) return { adopted: false };
       await appendNote(ctx.db, ref.statusId, noteLine(new Date(), cryptoNote(locale)));
-      await logAudit({
+      await logWalk({
         companyId: ctx.companyId,
         userId: ctx.userId,
         action: "durchgang.crypto_adopted",
@@ -1419,7 +1451,7 @@ export const durchgangRouter = router({
     .input(
       z.object({
         code,
-        types: z.array(z.string().max(60)).min(1).max(20),
+        types: z.array(z.enum(POLICY_TEMPLATES)).min(1).max(POLICY_TEMPLATES.length),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -1484,7 +1516,7 @@ export const durchgangRouter = router({
           ref.statusId,
           noteLine(now, approvedNote(locale, approvedOn, approved)),
         );
-        await logAudit({
+        await logWalk({
           companyId: ctx.companyId,
           userId: ctx.userId,
           action: "durchgang.policies_approved",
@@ -1605,7 +1637,7 @@ export const durchgangRouter = router({
         ref.statusId,
         noteLine(new Date(), criticalNote(locale, result.critical)),
       );
-      await logAudit({
+      await logWalk({
         companyId: ctx.companyId,
         userId: ctx.userId,
         action: "durchgang.critical",
