@@ -1,5 +1,5 @@
 import { TRPCError } from "@trpc/server";
-import { and, desc, eq, inArray, sql } from "drizzle-orm";
+import { and, desc, eq, inArray } from "drizzle-orm";
 import { z } from "zod";
 import { CATALOG_BY_ID } from "@/lib/asset-inventory/catalog";
 import {
@@ -67,6 +67,7 @@ import {
   recoveryOrderText,
   reportingChannelText,
   resolveItem,
+  reviewedWithinYear,
   SUPPLIER_LEVEL,
   standingOf,
   toScale,
@@ -88,7 +89,6 @@ import {
   company,
   companyCategoryIntake,
   companyPolicyConfig,
-  companyRequirementStatus,
   companyRiskMethodology,
   managementReview,
   policy,
@@ -110,9 +110,9 @@ import {
   type DurchgangActor,
   durchgangItem,
   walkItemRef,
+  walkRows,
   walkStates,
 } from "../helpers/durchgang";
-import { getNis2Assessment } from "../helpers/nis2-scope";
 import { rosteredOf, signOffRows } from "../helpers/sign-off-rows";
 import {
   activatedCompanyProcedure,
@@ -448,47 +448,38 @@ const walkPolicyRows = async (db: TRPCContext["db"], companyId: string) => {
 /**
  * The company's walk items waiting for management's signature (see `awaitingSignature`), each
  * with its status row: what the approval screen lists and what the approval may sign, from one
- * computation. The management review counts when it is dated within the last year, the cycle
- * 7.3 runs on. Items whose assigned signers still owe a signature are left to them.
+ * computation. Items whose assigned signers still owe a signature are left to them.
  */
 const waitingForManagement = async (db: TRPCContext["db"], companyId: string) => {
-  const [states, policies, reviews] = await Promise.all([
-    walkStates(db, companyId),
+  const [walk, policies, reviews] = await Promise.all([
+    walkRows(db, companyId),
     walkPolicyRows(db, companyId),
     db
-      .select({ id: managementReview.id })
+      .select({ day: managementReview.reviewDate })
       .from(managementReview)
-      .where(
-        and(
-          eq(managementReview.companyId, companyId),
-          sql`${managementReview.reviewDate} >= (now() at time zone 'Europe/Berlin')::date - interval '1 year'`,
-        ),
-      )
-      .limit(1),
+      .where(eq(managementReview.companyId, companyId)),
   ]);
   const waiting = awaitingSignature({
     codes: WALK.map((item) => item.code),
-    stateOf: (code) => states.get(code) ?? { kind: "open" },
+    stateOf: (code) => walk.items.get(code)?.state ?? { kind: "open" },
     drafts: policies.filter((p) => p.status === "draft"),
     approvalCode: APPROVAL_SCREEN?.code ?? null,
-    reviewed: reviews.length > 0,
+    reviewed: reviewedWithinYear(
+      reviews.map((r) => r.day),
+      recordDay(new Date()),
+    ),
   });
-  const { assessmentId, rows } = await signableRowsOf(
-    db,
-    companyId,
-    waiting.map((item) => item.code),
-  );
+  const rows = waiting.flatMap((item) => {
+    const row = walk.items.get(item.code)?.row;
+    return row ? [{ ...item, row }] : [];
+  });
   const rostered = await rosteredOf(
     db,
-    rows.map((r) => r.statusId),
+    rows.map((item) => item.row.statusId),
   );
-  const rowOf = new Map(rows.map((r) => [r.code, r]));
   return {
-    assessmentId,
-    items: waiting.flatMap((item) => {
-      const row = rowOf.get(item.code);
-      return row && !rostered.has(row.statusId) ? [{ ...item, row }] : [];
-    }),
+    assessmentId: walk.assessmentId,
+    items: rows.filter((item) => !rostered.has(item.row.statusId)),
   };
 };
 
@@ -510,10 +501,10 @@ const signWaiting = async (
     userId: string;
     session: Parameters<typeof signerRoleOf>[0];
   },
-  approvalCode: string,
   shown: readonly string[],
   now: Date,
 ) => {
+  if (shown.length === 0) return [];
   const { assessmentId, items } = await waitingForManagement(ctx.db, ctx.companyId);
   const signedOffRole = signerRoleOf(ctx.session);
   const signed = await signOffRows(ctx.db, {
@@ -523,7 +514,8 @@ const signWaiting = async (
     rows: items
       .filter((item) => item.drafts.length === 0 && shown.includes(item.code))
       .map((item) => item.row),
-    chainData: (row) => ({ code: row.code, walkApproval: approvalCode }),
+    source: "editor",
+    chainData: (row) => ({ code: row.code, bulkOf: "walk" }),
   });
   if (!assessmentId || signed.length === 0) return signed;
 
@@ -544,32 +536,6 @@ const signWaiting = async (
     }).catch((err) => console.error("[durchgang] deadlines:", err));
   }
   return signed;
-};
-
-/** The NIS 2 status rows of these items, ready for `signOffRows`. */
-const signableRowsOf = async (
-  db: TRPCContext["db"],
-  companyId: string,
-  codes: readonly string[],
-) => {
-  const assessment = codes.length > 0 ? await getNis2Assessment(db, companyId) : null;
-  if (!assessment) return { assessmentId: null, rows: [] };
-  const rows = await db
-    .select({
-      statusId: companyRequirementStatus.id,
-      requirementId: requirement.id,
-      code: requirement.code,
-      templateVersion: requirement.templateVersion,
-    })
-    .from(companyRequirementStatus)
-    .innerJoin(requirement, eq(requirement.id, companyRequirementStatus.requirementId))
-    .where(
-      and(
-        eq(companyRequirementStatus.assessmentId, assessment.id),
-        inArray(requirement.code, [...codes]),
-      ),
-    );
-  return { assessmentId: assessment.id, rows };
 };
 
 export const durchgangRouter = router({
@@ -1696,7 +1662,7 @@ export const durchgangRouter = router({
         await recheck(ctx, "policy");
       }
 
-      const signed = await signWaiting(ctx, ref.code, input.sign, now);
+      const signed = await signWaiting(ctx, input.sign, now);
       if (signed.length > 0) {
         await logWalk({
           companyId: ctx.companyId,

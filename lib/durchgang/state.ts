@@ -105,10 +105,8 @@ export function itemState(row: StatusRow, latest: DurchgangEvent | null): ItemSt
   }
   if (row.status === "needs_review" && row.signedOffAt) {
     const { signedOffAt } = row;
-    const after = latest && latest.createdAt > signedOffAt ? fromEvent(latest) : null;
-    return after && after.kind !== "open"
-      ? after
-      : { kind: "filled", since: signedOffAt };
+    const after = fromEvent(latest && latest.createdAt > signedOffAt ? latest : null);
+    return after.kind === "open" ? { kind: "filled", since: signedOffAt } : after;
   }
   if (hasSignOffToWithdraw(row)) return { kind: "signed" };
   return fromEvent(latest);
@@ -136,9 +134,9 @@ function fromEvent(latest: DurchgangEvent | null): ItemState {
  * documents it wrote: an item is signed only once its documents are approved. Filled in counts,
  * and so does a signed item that has to be signed again (see `itemState`).
  *
- * The item that holds the approval counts once its review is recorded. The approval is that
- * item's own last working step, so the item can only be finished after it, and its review screen
- * lets nobody on without a line in the management review register.
+ * The item that holds the approval counts once its review is recorded (`reviewedWithinYear`).
+ * The approval is that item's own last working step, so the item can only be finished after it,
+ * and its review screen lets nobody on without such a review.
  */
 export function awaitingSignature<T>(args: {
   readonly codes: readonly string[];
@@ -154,6 +152,22 @@ export function awaitingSignature<T>(args: {
     const drafts = args.drafts.filter((d) => d.code === code).map((d) => d.type);
     return [{ code, drafts }];
   });
+}
+
+/**
+ * Whether the company's management reviews include one that counts for the approval: dated
+ * within the last year, the cycle the management review runs on. `days` and `today` are calendar
+ * days in Berlin as ISO dates (`recordDay`), which compare as text. The review screen and the
+ * approval read this one rule.
+ */
+export function reviewedWithinYear(days: readonly string[], today: string): boolean {
+  const day = new Date(`${today}T00:00:00Z`);
+  const yearAgo = new Date(
+    Date.UTC(day.getUTCFullYear() - 1, day.getUTCMonth(), day.getUTCDate()),
+  )
+    .toISOString()
+    .slice(0, 10);
+  return days.some((d) => d >= yearAgo);
 }
 
 const POLICY_STATE: Readonly<Record<ItemState["kind"], PolicyState>> = {

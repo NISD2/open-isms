@@ -1,6 +1,6 @@
 import { TRPCError } from "@trpc/server";
 import { addYears } from "date-fns";
-import { and, asc, eq, inArray, isNull, ne, or, sql } from "drizzle-orm";
+import { and, asc, eq, inArray, ne, or, sql } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
 import { hasReviewAccess } from "@/lib/auth";
@@ -48,9 +48,8 @@ import {
   completedSignOffValues,
   effectiveSignOffRole,
   signerMeetsRequiredRole,
-  snapshotForVersion,
 } from "../helpers/sign-off-completion";
-import { signOffRows } from "../helpers/sign-off-rows";
+import { rosteredOf, signOffRows } from "../helpers/sign-off-rows";
 import { lockStatusRow } from "../helpers/status-lock";
 import {
   announceWithdrawal,
@@ -1005,7 +1004,7 @@ export const assessmentRouter = router({
         .select({
           statusId: companyRequirementStatus.id,
           requirementId: requirement.id,
-          requirementCode: requirement.code,
+          code: requirement.code,
           moduleRef: requirement.moduleRef,
           categoryId: requirement.categoryId,
           currentStatus: companyRequirementStatus.status,
@@ -1041,41 +1040,23 @@ export const assessmentRouter = router({
           r.currentStatus !== "not_applicable",
       );
       if (moduleRows.length === 0) return { confirmed: 0 };
-      // Rows still owed a signature, the SQL spelling of pendingSignersOf in
-      // lib/compliance/sign-off-roster. Without the isNull the set also caught
-      // requirements carrying only a receipt from a past sign-off, so a bulk
-      // confirm silently skipped every requirement anyone had ever signed.
-      const confirmAssignedIds = new Set(
-        (
-          await ctx.db
-            .select({ statusId: requirementAssignment.statusId })
-            .from(requirementAssignment)
-            .where(
-              and(
-                inArray(
-                  requirementAssignment.statusId,
-                  moduleRows.map((r) => r.statusId),
-                ),
-                isNull(requirementAssignment.signedOffAt),
-              ),
-            )
-        ).map((a) => a.statusId),
+      // Filtered before the category check below, so a category whose only rows
+      // are left to their assigned signers is not checked at all.
+      const rostered = await rosteredOf(
+        ctx.db,
+        moduleRows.map((r) => r.statusId),
       );
-      const toConfirm = moduleRows.filter((r) => {
-        if (confirmAssignedIds.has(r.statusId)) return false;
-        // Bulk path: skip, don't throw. See signerMeetsRequiredRole.
-        return signerMeetsRequiredRole({
-          sessionRole: ctx.session.role,
-          signerRole: confirmerRole,
-          requiredSignOffRole: r.requiredSignOffRole,
-        });
-      });
+      const toConfirm = moduleRows.filter(
+        (r) =>
+          !rostered.has(r.statusId) &&
+          // Bulk path: skip, don't throw. See signerMeetsRequiredRole.
+          signerMeetsRequiredRole({
+            sessionRole: ctx.session.role,
+            signerRole: confirmerRole,
+            requiredSignOffRole: r.requiredSignOffRole,
+          }),
+      );
       if (toConfirm.length === 0) return { confirmed: 0 };
-
-      // Rows are locked in a stable order so two overlapping bulk calls, or a
-      // concurrent sign-off propagating cross-framework credits, cannot take
-      // the same two locks in opposite orders and deadlock.
-      toConfirm.sort((a, b) => a.statusId.localeCompare(b.statusId));
 
       const categoryIds = [...new Set(toConfirm.map((r) => r.categoryId))];
       for (const categoryId of categoryIds) {
@@ -1087,61 +1068,13 @@ export const assessmentRouter = router({
         });
       }
 
-      const now = new Date();
-      const signedOffRole = confirmerRole;
-      // Company-scoped half of the snapshot, built once; each row re-stamps
-      // its own templateVersion below.
-      const baseSnapshot = await buildSignOffSnapshot(
-        ctx.db,
-        ctx.companyId,
-        toConfirm[0].templateVersion,
-      );
-
-      // Audit B-2 (2026-06-10): status writes + per-row chain entries inside
-      // one tx. Each row is written individually and only chained if its own
-      // update returned, so a row another writer already moved to
-      // completed/approved is skipped rather than re-signed.
-      const updated = await ctx.db.transaction(async (tx) => {
-        const confirmed: string[] = [];
-        for (const row of toConfirm) {
-          const rowSnapshot = snapshotForVersion(baseSnapshot, row.templateVersion);
-          const [updatedRow] = await tx
-            .update(companyRequirementStatus)
-            .set(
-              completedSignOffValues({
-                userId: ctx.userId,
-                signedOffRole,
-                templateVersion: row.templateVersion,
-                snapshot: rowSnapshot,
-                now,
-              }),
-            )
-            .where(
-              and(
-                eq(companyRequirementStatus.id, row.statusId),
-                sql`${companyRequirementStatus.status} NOT IN ('completed', 'approved', 'not_applicable')`,
-              ),
-            )
-            .returning({ id: companyRequirementStatus.id });
-
-          if (!updatedRow) continue;
-
-          await recordSignOffChainEntry(tx as unknown as Database, {
-            companyId: ctx.companyId,
-            statusId: row.statusId,
-            requirementId: row.requirementId,
-            signedOffBy: ctx.userId,
-            signedOffRole,
-            source: "module_confirm",
-            templateVersion: row.templateVersion,
-            companyProfile: rowSnapshot.companyProfile ?? {},
-            data: { moduleRef: row.moduleRef, code: row.requirementCode },
-          });
-
-          confirmed.push(updatedRow.id);
-        }
-
-        return confirmed;
+      const updated = await signOffRows(ctx.db, {
+        companyId: ctx.companyId,
+        userId: ctx.userId,
+        signedOffRole: confirmerRole,
+        rows: toConfirm,
+        source: "module_confirm",
+        chainData: (row) => ({ moduleRef: row.moduleRef, code: row.code }),
       });
 
       await recalculateProgress(ctx.db, input.assessmentId);
@@ -1223,6 +1156,7 @@ export const assessmentRouter = router({
           userId: ctx.userId,
           signedOffRole,
           rows: permitted,
+          source: "editor",
           chainData: (row) => ({
             code: row.code,
             bulkOf: "category",

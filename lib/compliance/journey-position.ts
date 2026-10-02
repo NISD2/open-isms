@@ -15,6 +15,7 @@ import {
   NIS2_PREREQUISITES,
   nis2Categories,
 } from "@nisd2/grc-data-model/frameworks";
+import type { ItemState } from "@/lib/durchgang";
 
 /**
  * Terminal-success statuses of the `item_status` enum. "completed" is the
@@ -35,6 +36,25 @@ export const DONE_STATUSES: ReadonlySet<string> = new Set([
 
 export function isDoneStatus(status: string | null | undefined): boolean {
   return DONE_STATUSES.has(status ?? "not_started");
+}
+
+/** The six visual states a requirement can be in on the journey, shared by every view. */
+export type DotState = "todo" | "started" | "awaiting" | "signed" | "na" | "rejected";
+
+/**
+ * A requirement's state on the journey, from its status and where the walkthrough has it, so the
+ * dot, the label, the filter, the counts and the next step all read one value. Waiting for
+ * management's sign-off means filled in through the walkthrough, or signed once and due to be
+ * signed again.
+ */
+export function journeyState(status: string, walk: ItemState | null): DotState {
+  // "completed" = user sign-off done; "approved" adds legal review. Both done.
+  if (status === "completed" || status === "approved") return "signed";
+  if (status === "not_applicable") return "na";
+  if (status === "needs_review" || walk?.kind === "filled") return "awaiting";
+  if (status === "rejected") return "rejected";
+  if (status === "in_progress") return "started";
+  return "todo";
 }
 
 /**

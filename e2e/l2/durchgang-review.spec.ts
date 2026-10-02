@@ -28,6 +28,10 @@ const REVIEW_SCREEN = 4;
 const APPROVE_SCREEN = 5;
 const TYPE = "cryptography";
 const DECISION = "E2E Konzepte freigegeben";
+/** Today in Berlin: the review must be within the last year to count, and an approval starts today. */
+const TODAY = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }).format(
+  new Date(),
+);
 
 /** A draft Kryptokonzept on 9.1, as the walk would have written it. */
 async function seedDraft(tenant: Tenant): Promise<void> {
@@ -78,7 +82,7 @@ test.describe("durchgang management review", () => {
     const date = page.getByLabel("Datum");
     await expect(date).toBeVisible({ timeout: 30_000 });
 
-    await date.fill("2026-10-01");
+    await date.fill(TODAY);
     await page.getByLabel("Wer teilgenommen hat").fill("Anna Beispiel, Jonas Muster");
     await page.getByLabel("Entschieden").fill(DECISION);
     await page.getByRole("button", { name: "Hinzufügen" }).click();
@@ -92,7 +96,7 @@ test.describe("durchgang management review", () => {
         );
         return row ?? null;
       })
-      .toEqual({ review_date: "2026-10-01", attendees: "Anna Beispiel|Jonas Muster" });
+      .toEqual({ review_date: TODAY, attendees: "Anna Beispiel|Jonas Muster" });
     await expect(
       page.getByText("Noch keine Managementbewertung eingetragen."),
     ).toHaveCount(0);
@@ -124,12 +128,9 @@ test.describe("durchgang management review", () => {
     await expect
       .poll(async () => (await walkPolicy(tenant, TYPE))?.status ?? null)
       .toBe("approved");
-    const today = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }).format(
-      new Date(),
-    );
     expect(await walkPolicy(tenant, TYPE)).toMatchObject({
-      effective_from: today,
-      version: today,
+      effective_from: TODAY,
+      version: TODAY,
       approved_by: await e2eUserId(),
       approver_role: "ceo",
     });

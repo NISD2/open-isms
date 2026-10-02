@@ -4,6 +4,7 @@
 // (sample-titles.ts) so the preview can be screenshotted per locale.
 
 import type { FrameworkGroup } from "@/components/portal/AppSidebar";
+import { journeyState } from "@/lib/compliance/journey-position";
 import type { Aggregate, FlowNode } from "../(portal)/journey/path-nodes";
 
 type Seed = {
@@ -224,7 +225,7 @@ export function buildSampleNodes(titles: Record<string, string>): FlowNode[] {
       ownerRole: s.ownerRole,
       status: s.status,
       rawStatus,
-      awaitingSignOff: false,
+      state: journeyState(rawStatus, null),
       isOverdue: s.dueInDays != null && s.dueInDays < 0,
       dueInDays: s.dueInDays ?? null,
       priority: s.priority ?? null,

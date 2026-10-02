@@ -3,7 +3,7 @@ import { and, eq, inArray, isNull, sql } from "drizzle-orm";
 import type { Database } from "@/lib/db";
 import { companyRequirementStatus, requirementAssignment } from "@/schema";
 import { buildSignOffSnapshot } from "./assessment-helpers";
-import { recordSignOffChainEntry } from "./sign-off-chain";
+import { type RecordSignOffParams, recordSignOffChainEntry } from "./sign-off-chain";
 import { completedSignOffValues, snapshotForVersion } from "./sign-off-completion";
 
 export type SignableRow = {
@@ -13,7 +13,8 @@ export type SignableRow = {
   readonly templateVersion: number;
 };
 
-export type SignedRow = SignableRow & { readonly snapshot: SignOffSnapshot };
+/** A row as signed: the snapshot it was signed against comes back with it. */
+export type Signed<R extends SignableRow> = R & { readonly snapshot: SignOffSnapshot };
 
 /**
  * The status rows among these whose assigned signers still owe a signature: the SQL spelling of
@@ -38,25 +39,26 @@ export async function rosteredOf(
 }
 
 /**
- * Sign several requirements at once, as one person: the category bulk sign-off and the walk's
- * approval both do this. The caller decides who may sign which row; this leaves out the rows
- * `rosteredOf` names.
+ * Sign several requirements at once, as one person: the category bulk sign-off, the bulk module
+ * confirmation and the walk's approval all do this. The caller decides who may sign which row;
+ * this leaves out the rows `rosteredOf` names.
  *
  * Every row gets its chain entry in the same transaction as its status, and the status guard is
  * repeated on the write, so a row another writer completed or marked not applicable between the
  * read and the write is skipped rather than signed under this caller's name.
  */
-export async function signOffRows(
+export async function signOffRows<R extends SignableRow>(
   db: Database,
   args: {
     readonly companyId: string;
     readonly userId: string;
     readonly signedOffRole: string;
-    readonly rows: readonly SignableRow[];
+    readonly rows: readonly R[];
+    readonly source: RecordSignOffParams["source"];
     /** What the chain entry records about how this row came to be signed. */
-    readonly chainData: (row: SignableRow) => Record<string, unknown>;
+    readonly chainData: (row: R) => Record<string, unknown>;
   },
-): Promise<readonly SignedRow[]> {
+): Promise<readonly Signed<R>[]> {
   const pending = await rosteredOf(
     db,
     args.rows.map((r) => r.statusId),
@@ -73,7 +75,7 @@ export async function signOffRows(
   const base = await buildSignOffSnapshot(db, args.companyId, first.templateVersion);
 
   return db.transaction(async (tx) => {
-    const signed: SignedRow[] = [];
+    const signed: Signed<R>[] = [];
     for (const row of rows) {
       const snapshot = snapshotForVersion(base, row.templateVersion);
       const [updated] = await tx
@@ -102,7 +104,7 @@ export async function signOffRows(
         requirementId: row.requirementId,
         signedOffBy: args.userId,
         signedOffRole: args.signedOffRole,
-        source: "editor",
+        source: args.source,
         templateVersion: row.templateVersion,
         companyProfile: snapshot.companyProfile ?? {},
         data: args.chainData(row),

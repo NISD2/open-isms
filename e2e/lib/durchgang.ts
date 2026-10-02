@@ -159,14 +159,12 @@ export async function keepSignOffs(tenant: Tenant): Promise<Undo> {
       WHERE a.company_id = $1`,
     [tenant.company_id],
   );
-  const chain = new Set(
-    (
-      await e2eQuery<{ id: string }>(
-        `SELECT id FROM sign_off_history WHERE company_id = $1`,
-        [tenant.company_id],
-      )
-    ).map((r) => r.id),
-  );
+  const chain = (
+    await e2eQuery<{ id: string }>(
+      `SELECT id FROM sign_off_history WHERE company_id = $1`,
+      [tenant.company_id],
+    )
+  ).map((r) => r.id);
   const reminders = await e2eQuery<{ id: string; status: string }>(
     `SELECT id, status FROM notification WHERE company_id = $1`,
     [tenant.company_id],
@@ -174,7 +172,7 @@ export async function keepSignOffs(tenant: Tenant): Promise<Undo> {
   return async () => {
     await e2eQuery(
       `DELETE FROM sign_off_history WHERE company_id = $1 AND NOT (id = ANY($2::uuid[]))`,
-      [tenant.company_id, [...chain]],
+      [tenant.company_id, chain],
     );
     await e2eQuery(
       `DELETE FROM notification WHERE company_id = $1 AND NOT (id = ANY($2::uuid[]))`,

@@ -6,7 +6,11 @@
  * and liveNode (the first not-done requirement in journey order).
  */
 
-import { isDoneStatus, journeyIndex } from "@/lib/compliance/journey-position";
+import {
+  type DotState,
+  isDoneStatus,
+  journeyIndex,
+} from "@/lib/compliance/journey-position";
 
 export type JourneyItem = {
   id: string;
@@ -30,11 +34,8 @@ export type JourneyItem = {
   sortOrder: number;
   /** Assigned sign-offs done vs required, for N-of-M management sign-off. */
   signOff: { signed: number; total: number };
-  /**
-   * Filled in through the walkthrough and waiting for management's sign-off there. The work is
-   * done, the signature is management's step, so the path moves on past it.
-   */
-  awaitingSignOff: boolean;
+  /** Where the item stands on the journey, from its status and the walkthrough (`journeyState`). */
+  state: DotState;
 };
 
 function isDone(item: JourneyItem): boolean {
@@ -56,5 +57,5 @@ export function liveNode(items: readonly JourneyItem[]): JourneyItem | null {
   const left = items
     .filter((i) => !isDone(i))
     .toSorted((a, b) => journeyOrder(a) - journeyOrder(b));
-  return left.find((i) => !i.awaitingSignOff) ?? left[0] ?? null;
+  return left.find((i) => i.state !== "awaiting") ?? left[0] ?? null;
 }

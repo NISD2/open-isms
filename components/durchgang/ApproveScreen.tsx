@@ -14,7 +14,7 @@ import {
   type PolicyTemplate,
   type WalkLocale,
 } from "@/lib/durchgang";
-import { trpc } from "@/lib/trpc/client";
+import { type RouterOutputs, trpc } from "@/lib/trpc/client";
 import { userFacingError } from "@/lib/trpc/error-message";
 import { Heading, Lead } from "./ExplainScreens";
 import { Toggle } from "./RowParts";
@@ -22,6 +22,8 @@ import type { ItemView } from "./view";
 import type { Of } from "./WorkScreens";
 
 type Viewer = ItemView["viewer"];
+/** An item waiting for management's signature, as the approval screen lists it. */
+type Waiting = RouterOutputs["durchgang"]["awaitingSignature"][number];
 
 /** Where management approves, for the link and the invite. */
 export const APPROVAL_PATH = "/durchgang/nis2/freigabe";
@@ -81,10 +83,9 @@ export function Approval({ viewer, locale }: { viewer: Viewer; locale: WalkLocal
   const chosen = drafts.filter((row) => !left.includes(row.type));
   const toggle = (type: PolicyTemplate) =>
     setLeft(left.includes(type) ? left.filter((x) => x !== type) : [...left, type]);
-  /** An item is signed with this approval unless one of its drafts is left out. */
-  const signing = items.filter(
-    (item) => !item.drafts.some((type) => left.includes(type)),
-  );
+  /** An item stays open when one of its drafts is left out of this approval. */
+  const staysOpen = (item: Waiting) => item.drafts.some((type) => left.includes(type));
+  const signing = items.filter((item) => !staysOpen(item));
 
   return (
     <>
@@ -129,7 +130,7 @@ export function Approval({ viewer, locale }: { viewer: Viewer; locale: WalkLocal
         </ul>
       )}
       {items.length > 0 && (
-        <SignedWith items={items} signing={signing} management={viewer.management} />
+        <SignedWith items={items} staysOpen={staysOpen} management={viewer.management} />
       )}
       {(drafts.length > 0 || items.length > 0) &&
         (viewer.management ? (
@@ -169,11 +170,11 @@ export function Approval({ viewer, locale }: { viewer: Viewer; locale: WalkLocal
  */
 function SignedWith({
   items,
-  signing,
+  staysOpen,
   management,
 }: {
-  items: ReadonlyArray<{ readonly code: string; readonly headline: string }>;
-  signing: ReadonlyArray<{ readonly code: string }>;
+  items: readonly Waiting[];
+  staysOpen: (item: Waiting) => boolean;
   management: boolean;
 }) {
   const t = useTranslations("durchgang.ui.approve");
@@ -191,7 +192,7 @@ function SignedWith({
             </span>
             <span className="min-w-0 flex-1">
               <span className="font-medium break-words">{item.headline}</span>
-              {!signing.some((s) => s.code === item.code) && (
+              {staysOpen(item) && (
                 <span className="block text-sm text-muted-foreground">
                   {t("staysOpen")}
                 </span>

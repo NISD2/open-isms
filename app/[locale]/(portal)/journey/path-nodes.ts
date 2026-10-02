@@ -1,10 +1,13 @@
 import { nis2Categories } from "@nisd2/grc-data-model/frameworks";
 import {
+  type DotState,
   isDoneStatus,
   journeyIndex,
   priorityRank,
 } from "@/lib/compliance/journey-position";
 import { type JourneyItem, liveNode } from "./views";
+
+export type { DotState };
 
 export type NodeStatus = "done" | "current" | "upcoming";
 export type ColumnKey = "leadership" | "security" | "it" | "operations";
@@ -25,8 +28,8 @@ export type FlowNode = {
   status: NodeStatus;
   /** Raw companyRequirementStatus, for the aggregate filter chips. */
   rawStatus: string;
-  /** Filled in through the walkthrough, waiting for management's sign-off there. */
-  awaitingSignOff: boolean;
+  /** Where the requirement stands (`journeyState`); every view draws and labels from it. */
+  state: DotState;
   /** Recurring-review cycle: the next review (nextReviewDate) is in the past. */
   isOverdue: boolean;
   /** Days until the next review (negative = overdue). null = no review date. */
@@ -247,23 +250,6 @@ export function requirementHref(node: Pick<FlowNode, "categorySlug" | "code">) {
   };
 }
 
-/** The six visual states a requirement can be in, shared by every view. */
-export type DotState = "todo" | "started" | "awaiting" | "signed" | "na" | "rejected";
-
-/** A requirement's status, and whether the walkthrough has it waiting for management. */
-type StatusOf = Pick<FlowNode, "rawStatus" | "awaitingSignOff">;
-
-/** Raw companyRequirementStatus to visual state. */
-export function dotStateOf({ rawStatus, awaitingSignOff }: StatusOf): DotState {
-  // "completed" = user sign-off done; "approved" adds legal review. Both done.
-  if (rawStatus === "completed" || rawStatus === "approved") return "signed";
-  if (rawStatus === "not_applicable") return "na";
-  if (rawStatus === "needs_review" || awaitingSignOff) return "awaiting";
-  if (rawStatus === "rejected") return "rejected";
-  if (rawStatus === "in_progress") return "started";
-  return "todo";
-}
-
 /** Tailwind text colour for a state, so a status reads the same in every view. */
 export function statusTone(state: DotState): string {
   if (state === "signed") return "text-primary";
@@ -301,22 +287,27 @@ export function reviewLabel(dueInDays: number | null, de: boolean): string | nul
     : `Next review in ${dueInDays} ${dueInDays === 1 ? "day" : "days"}`;
 }
 
-/** Localized status wording. One vocabulary so the views cannot drift apart. */
-export function statusLabel(node: StatusOf, de: boolean): string {
-  if (dotStateOf(node) === "awaiting")
-    return de ? "Wartet auf Freigabe" : "Awaiting sign-off";
-  switch (node.rawStatus) {
-    case "completed":
+/**
+ * Localized status wording. One vocabulary so the views cannot drift apart. The raw status only
+ * tells a signature from a reviewer's approval; everything else is the node's state.
+ */
+export function statusLabel(
+  node: Pick<FlowNode, "rawStatus" | "state">,
+  de: boolean,
+): string {
+  switch (node.state) {
+    case "signed":
+      if (node.rawStatus === "approved") return de ? "Geprüft" : "Reviewed";
       return de ? "Freigegeben" : "Signed off";
-    case "approved":
-      return de ? "Geprüft" : "Reviewed";
-    case "not_applicable":
+    case "na":
       return de ? "Nicht zutreffend" : "Not applicable";
-    case "in_progress":
+    case "awaiting":
+      return de ? "Wartet auf Freigabe" : "Awaiting sign-off";
+    case "started":
       return de ? "In Arbeit" : "In progress";
     case "rejected":
       return de ? "Abgelehnt" : "Rejected";
-    default:
+    case "todo":
       return de ? "Offen" : "Open";
   }
 }
@@ -357,7 +348,7 @@ export function buildRequirementNodes(items: JourneyItem[]): FlowNode[] {
         ownerRole,
         status,
         rawStatus: it.status,
-        awaitingSignOff: it.awaitingSignOff,
+        state: it.state,
         // Recurring review (server-computed, calendar days, review-status-gated).
         isOverdue: it.dueInDays !== null && it.dueInDays < 0,
         dueInDays: it.dueInDays,
