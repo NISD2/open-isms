@@ -28,8 +28,8 @@ function titleCase(slug: string) {
 /**
  * `guide` is optional because this header is reused by two surfaces that
  * should not carry the product tour: the external supplier portal, whose
- * visitors are not our users at all, and the course reader, which is a
- * focused surface with nothing to tour. Leaving it off renders no trigger.
+ * visitors are not our users at all, and the courses, where the offer of help
+ * would open over the lesson. Leaving it off renders no trigger.
  */
 export function PortalHeader({
   guide,
@@ -44,9 +44,9 @@ export function PortalHeader({
   };
   /**
    * Root the trail at the journey. Only the entity portal does. The supplier
-   * portal's visitors are external and have no journey to be sent to, and the
-   * course reader is a focused surface reached from outside the portal, so
-   * both keep a trail that starts where they are.
+   * portal's visitors are external and have no journey to be sent to, and many
+   * who take a course have not set up a company, so both keep a trail that
+   * starts where they are.
    */
   journeyHome?: boolean;
 }) {
