@@ -36,6 +36,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Link, usePathname } from "@/i18n/navigation";
 import { PortalSwitcher } from "./PortalSwitcher";
 import { UserNav } from "./UserNav";
@@ -79,8 +80,35 @@ interface AppSidebarProps {
   showBilling: boolean;
   /** Whether this person's role may read the audit trail (hasReviewAccess, server/trpc/routers/audit.ts). */
   showAuditTrail: boolean;
-  /** Whether this person may walk the paid guided path (mayWalkDurchgang, lib/billing/access.ts). */
+  /**
+   * Whether the walkthrough opens from the sidebar: platform admins until it launches. Everyone
+   * else sees it in its place, not clickable, marked as coming soon.
+   */
   showDurchgang: boolean;
+}
+
+/** A destination that exists but is not open yet: in its place, not clickable, why on hover. */
+function SoonItem({ label, note, icon: Icon }: Omit<NavItem, "href"> & { note: string }) {
+  return (
+    <SidebarMenu>
+      <SidebarMenuItem>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            {/* The sidebar's own aria-disabled style turns pointer events off, which would
+                also stop the hover that shows why; this one keeps them on. */}
+            <SidebarMenuButton
+              aria-disabled
+              className="cursor-not-allowed text-sidebar-foreground/50 hover:bg-transparent hover:text-sidebar-foreground/50 active:bg-transparent aria-disabled:pointer-events-auto"
+            >
+              <Icon />
+              <span>{label}</span>
+            </SidebarMenuButton>
+          </TooltipTrigger>
+          <TooltipContent side="right">{note}</TooltipContent>
+        </Tooltip>
+      </SidebarMenuItem>
+    </SidebarMenu>
+  );
 }
 
 function NavMenu({ items, pathname }: { items: NavItem[]; pathname: string }) {
@@ -153,6 +181,9 @@ export function AppSidebar({
           <SidebarGroupLabel>{t("overview")}</SidebarGroupLabel>
           <SidebarGroupContent>
             <NavMenu items={overviewItems} pathname={pathname} />
+            {!showDurchgang && (
+              <SoonItem label={t("durchgang")} note={t("comingSoon")} icon={Footprints} />
+            )}
             {/* Registers — collapsible sub-section within Overview */}
             <Collapsible data-tour="sidebar-registers" className="group/registers">
               <CollapsibleTrigger className="flex w-full items-center px-2 py-1.5 text-xs font-medium text-sidebar-foreground/70 hover:text-sidebar-foreground">

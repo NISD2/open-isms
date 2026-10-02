@@ -8,7 +8,7 @@ import { PortalHeader } from "@/components/portal/PortalHeader";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { getSession, hasReviewAccess } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
-import { mayOpenPortalPath, mayWalkDurchgang } from "@/lib/billing/access";
+import { mayOpenPortalPath } from "@/lib/billing/access";
 import { billingFor } from "@/lib/billing/ordering-access";
 import {
   type CategoryInfo,
@@ -146,7 +146,9 @@ export default async function PortalLayout({ children }: { children: React.React
         frameworks={frameworks}
         showBilling={billing.open}
         showAuditTrail={hasReviewAccess(session.role)}
-        showDurchgang={mayWalkDurchgang(session.accessLevel, platformAdmin)}
+        // Until the walkthrough launches only platform admins open it from here; paid accounts
+        // see it as coming soon. The route itself keeps its own gate (durchgang/layout.tsx).
+        showDurchgang={platformAdmin}
       />
       <SidebarInset>
         <PortalHeader
