@@ -5,8 +5,7 @@
  * the accountability proof (Art. 5(2)/24) that the request was honoured.
  */
 import type { InferSelectModel } from "drizzle-orm";
-import type { ErasureScope } from "@/schema";
-import { dataErasureLog } from "@/schema";
+import type { dataErasureLog, ErasureScope } from "@/schema";
 import { ERASURE_FILE_RETRY_DAYS, type StoredFileState } from "./stored-files";
 
 export type ErasureLogRow = InferSelectModel<typeof dataErasureLog>;
@@ -43,7 +42,7 @@ export function erasureCertificateFilename(row: Pick<ErasureLogRow, "caseRef">):
 function fmtDate(d: Date | string | null | undefined): string {
   if (!d) return "n/a";
   const date = typeof d === "string" ? new Date(d) : d;
-  return date.toISOString().replace("T", " ").slice(0, 19) + " UTC";
+  return `${date.toISOString().replace("T", " ").slice(0, 19)} UTC`;
 }
 
 /** Neutralise markdown / table / HTML control chars in interpolated values so a
@@ -104,23 +103,27 @@ function storedFilesSection(files: StoredFileState): string {
 }
 
 /**
- * Render the certificate. `files` is what happened to a torn-down
- * organization's stored files, read at render time: they are deleted after
- * the checksummed record is written, so the record alone cannot say whether
- * that finished, and the certificate claims complete deletion only when it did.
+ * What the letter, the record and the email all depend on, decided once. `files` is what happened
+ * to a torn-down organization's stored files, read at render time: they are deleted after the
+ * checksummed record is written, so the record alone cannot say whether that finished, and
+ * nothing claims complete deletion unless it did.
  */
-export function buildErasureCertificate(
-  row: ErasureLogRow,
-  files: StoredFileState,
-): string {
+export const certificateFacts = (row: ErasureLogRow, files: StoredFileState) => {
   const scope = row.scope as ErasureScope;
-  const methodLabel =
-    row.method === "hard_delete"
-      ? "Complete deletion (no retained-evidence footprint)"
-      : "Deletion with anonymisation of tamper-evident and tenant records";
-  const filesDone = files.kind === "not_applicable" || files.kind === "complete";
-  // What a law requires us to keep (invoices): the record says so instead of claiming "all".
-  const keptByLaw = scope.retainedUnderLegalDuty ?? [];
+  return {
+    scope,
+    filesDone: files.kind === "not_applicable" || files.kind === "complete",
+    // What a law requires us to keep (invoices): the record says so instead of claiming "all".
+    keptByLaw: scope.retainedUnderLegalDuty ?? [],
+  };
+};
+
+/**
+ * The short letter above the record in the certificate file. The email writes its own summary in
+ * the person's language instead, and shows only the record below it.
+ */
+export function erasureCoverLetter(row: ErasureLogRow, files: StoredFileState): string {
+  const { filesDone, keptByLaw } = certificateFacts(row, files);
   const deleted = filesDone
     ? keptByLaw.length > 0
       ? "Confirming that your account and its personal data have been deleted, as you\nrequested."
@@ -130,6 +133,23 @@ export function buildErasureCertificate(
     keptByLaw.length > 0
       ? `${deleted} What the law requires us to keep, such as invoices, is listed\nunder "Article 17(3) exceptions" below.`
       : deleted;
+  return `Hello,
+
+${confirmation} The formal record is below. If anything's unclear, reply here
+or to contact@nisd2.eu quoting the case reference (${esc(row.caseRef)}).
+
+Best regards,
+NISD2
+`;
+}
+
+/** The formal record of the erasure, in Markdown: the part the email shows under its summary. */
+export function erasureRecord(row: ErasureLogRow, files: StoredFileState): string {
+  const { scope, filesDone, keptByLaw } = certificateFacts(row, files);
+  const methodLabel =
+    row.method === "hard_delete"
+      ? "Complete deletion (no retained-evidence footprint)"
+      : "Deletion with anonymisation of tamper-evident and tenant records";
   const inFull = filesDone
     ? "Erasure was carried out in full."
     : 'Erasure of the database records was carried out in full; the stored files are as\ndescribed under "Stored files".';
@@ -146,20 +166,10 @@ Everything else is as recorded above.${filesDone ? "" : ' The stored files are a
 public-interest, or scientific-research purposes, and no legal-retention duty
 attaches to it. ${inFull}`;
 
-  return `Hello,
+  return `# Data Erasure Certificate
 
-${confirmation} The formal record is below. If anything's unclear, reply here
-or to contact@nisd2.eu quoting the case reference (${esc(row.caseRef)}).
-
-Best regards,
-NISD2
-
----
-
-# Data Erasure Certificate
-
-**Case reference:** ${esc(row.caseRef)}
-**Controller:** Kardashev Catalyst UG (haftungsbeschränkt), Köln. Contact: contact@nisd2.eu
+- **Case reference:** ${esc(row.caseRef)}
+- **Controller:** Kardashev Catalyst UG (haftungsbeschränkt), Köln. Contact: contact@nisd2.eu
 
 This document records the erasure of personal data carried out under the EU
 General Data Protection Regulation (GDPR), Article 17 (right to erasure).
@@ -187,9 +197,9 @@ ${verification(row)} No fee was charged (Art. 12(5)).
 
 ## Action taken
 
-**Method:** ${methodLabel}
-**Executed:** ${fmtDate(row.erasedAt)} by ${executedBy(row)}
-**Company teardown:** ${row.companyTornDown ? `Yes. The subject owned the organization, so it and all its tenant data${filesDone ? "" : " in our database"} were deleted, together with every member account that belonged to no other organization.` : "No"}
+- **Method:** ${methodLabel}
+- **Executed:** ${fmtDate(row.erasedAt)} by ${executedBy(row)}
+- **Company teardown:** ${row.companyTornDown ? `Yes. The subject owned the organization, so it and all its tenant data${filesDone ? "" : " in our database"} were deleted, together with every member account that belonged to no other organization.` : "No"}
 
 ### Data categories and systems cleared
 ${scope.systemsCleared.length ? scope.systemsCleared.map((s) => `- ${esc(s)}`).join("\n") : "_none recorded_"}
@@ -232,4 +242,12 @@ https://www.ldi.nrw.de), and you have the right to a judicial remedy
 (Art. 12(4), Art. 77). For any follow-up, contact contact@nisd2.eu quoting the
 case reference above.
 `;
+}
+
+/** The certificate file: the letter, then the record. Attached to the email, and the Erasures tab's copy. */
+export function buildErasureCertificate(
+  row: ErasureLogRow,
+  files: StoredFileState,
+): string {
+  return `${erasureCoverLetter(row, files)}\n---\n\n${erasureRecord(row, files)}`;
 }

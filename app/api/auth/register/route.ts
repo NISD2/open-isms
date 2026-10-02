@@ -198,10 +198,10 @@ async function notifyOwner(email: string, locale: Locale): Promise<void> {
   await sendMail({
     emailType: "auth.registration_attempt",
     to: email,
-    ...registrationAttemptEmail({
+    ...(await registrationAttemptEmail({
       signInUrl: localizedAbsoluteUrl("/auth/signin", locale),
       resetUrl: localizedAbsoluteUrl("/auth/forgot-password", locale),
       locale,
-    }),
+    })),
   });
 }

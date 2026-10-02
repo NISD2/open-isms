@@ -3,7 +3,15 @@
  * can be tested without either.
  */
 
-import { invoiceToday, licenceTitle, shiftDay } from "./order";
+import type { EmailLocale } from "@/lib/mail/locale";
+import type { DocumentEmail } from "@/lib/mail/templates";
+import {
+  amountFact,
+  formatInvoiceDay,
+  invoiceToday,
+  licenceTitle,
+  shiftDay,
+} from "./order";
 import type { InvoiceLine } from "./qonto";
 
 /** Money back for thirty days from the order, the same thirty days the invoice gives to pay. */
@@ -86,19 +94,25 @@ export const creditNoteReason = (invoiceNumber: string, locale: "de" | "en"): st
     ? `Storno der Rechnung ${invoiceNumber}: Kündigung innerhalb der 30 Tage Geld zurück.`
     : `Cancellation of invoice ${invoiceNumber}: canceled within the thirty days money back.`;
 
-export type EmailLocale = "de" | "en" | "nl";
+/** Days to transfer money back after a cancel inside the thirty days, as the AGB promise. */
+export const REFUND_DAYS = 30;
 
-const dayFormat = (iso: string, locale: EmailLocale) =>
-  new Intl.DateTimeFormat(
-    locale === "de" ? "de-DE" : locale === "nl" ? "nl-NL" : "en-GB",
-    { dateStyle: "long", timeZone: "UTC" },
-  ).format(new Date(`${iso}T12:00:00Z`));
+/** The last day a refund owed for a cancel on `cancelDay` may go out, as a Berlin calendar day. */
+export const refundDueDay = (cancelDay: string): string =>
+  shiftDay(cancelDay, { days: REFUND_DAYS });
+
+const licenceName = (locale: EmailLocale): string =>
+  locale === "nl" ? "NIS 2 begeleide doorloop, jaarlicentie" : licenceTitle(locale);
 
 export type CanceledEmail = (
   | {
       readonly kind: "money_back";
       readonly invoiceNumber: string;
+      readonly invoiceIssueDate: string;
       readonly creditNoteNumber: string;
+      /** The credit note's issue date, which is the day of the cancel. */
+      readonly creditNoteDate: string;
+      readonly amounts: { readonly netCents: number; readonly vatCents: number };
       readonly refundOwed: boolean;
       /** Whether the credit note PDF travels with the email. */
       readonly attached: boolean;
@@ -110,126 +124,331 @@ export type CanceledEmail = (
       readonly reason: Extract<CancelWindow, { kind: "renewal" }>["reason"];
     }
 ) & {
-  /** The holder is deleting their account with this cancel, so nothing stays in it. */
+  /**
+   * The holder is deleting their account with this cancel, so nothing stays in it. They read the
+   * cancel inside the erasure confirmation, and the accounting copy has no account to speak of, so
+   * the line about the account is left out.
+   */
   readonly accountErased?: boolean;
 };
 
-/** The line before the sign-off: what becomes of their account. */
-const ACCOUNT_LINE = {
-  de: {
-    kept: "Ihre Organisationen und alles, was Sie eingetragen haben, bleiben in Ihrem Konto erhalten.",
-    erased:
-      "Ihr Konto wird gerade gelöscht. Die Bestätigung der Löschung kommt in einer eigenen E-Mail.",
-  },
-  nl: {
-    kept: "Uw organisaties en alles wat u heeft ingevoerd, blijven in uw account bewaard.",
-    erased:
-      "Uw account wordt nu verwijderd. De bevestiging van de verwijdering komt in een aparte e-mail.",
-  },
-  en: {
-    kept: "Your organizations and everything you entered stay in your account.",
-    erased:
-      "Your account is being deleted now. The erasure confirmation follows in a separate email.",
-  },
-} as const satisfies Record<
-  EmailLocale,
-  { readonly kept: string; readonly erased: string }
->;
+/** The line before the sign-off, while the account stays: what becomes of it. */
+const ACCOUNT_KEPT: Record<EmailLocale, string> = {
+  de: "Ihre Organisationen und alles, was Sie eingetragen haben, bleiben in Ihrem Konto erhalten.",
+  nl: "Uw organisaties en alles wat u heeft ingevoerd, blijven in uw account bewaard.",
+  en: "Your organizations and everything you entered stay in your account.",
+};
+
+const accountLine = (locale: EmailLocale, erased: boolean): readonly string[] =>
+  erased ? [] : [ACCOUNT_KEPT[locale]];
+
+const GREETING: Record<EmailLocale, string> = {
+  de: "Guten Tag,",
+  en: "Hello,",
+  nl: "Goedendag,",
+};
+
+/** The confirmation of a cancel that only stops the renewal, in the holder's language. */
+const renewalWording = (
+  mail: Extract<CanceledEmail, { kind: "renewal" }>,
+  locale: EmailLocale,
+): DocumentEmail => {
+  const erased = mail.accountErased === true;
+  const account = accountLine(locale, erased);
+  const end = formatInvoiceDay(mail.periodEnd, locale);
+  const inv = mail.invoiceNumber;
+  const firstOnly = mail.reason === "not_first_invoice";
+  const common = { locale, greeting: GREETING[locale] } as const;
+  switch (locale) {
+    case "de":
+      return {
+        ...common,
+        subject: `Kündigung bestätigt: Ihre Lizenz läuft am ${end} aus`,
+        heading: "Ihre Kündigung ist bestätigt",
+        intro: [
+          "Sie haben die Jahreslizenz NIS 2 Durchgang gekündigt. Sie wird nicht verlängert.",
+        ],
+        document: {
+          kind: "Kündigung",
+          reference: licenceName(locale),
+          facts: [
+            erased
+              ? { label: "Zugang", value: "Endet mit der Löschung Ihres Kontos" }
+              : { label: "Zugang bis", value: end, emphasis: true },
+            { label: "Verlängerung", value: "Keine" },
+            { label: "Rechnung", value: inv, detail: "bleibt gültig" },
+          ],
+        },
+        outro: [
+          `${firstOnly ? "Die 30 Tage Geld zurück gelten nur für die erste Bestellung eines Kontos" : "Die 30 Tage Geld zurück sind vorbei"}, deshalb bleibt die Rechnung ${inv} gültig. Ist sie noch offen, zahlen Sie sie bitte wie vereinbart.`,
+          ...account,
+        ],
+      };
+    case "nl":
+      return {
+        ...common,
+        subject: `Opzegging bevestigd: uw licentie loopt af op ${end}`,
+        heading: "Uw opzegging is bevestigd",
+        intro: [
+          "U heeft de jaarlicentie NIS 2 begeleide doorloop opgezegd. Deze wordt niet verlengd.",
+        ],
+        document: {
+          kind: "Opzegging",
+          reference: licenceName(locale),
+          facts: [
+            erased
+              ? { label: "Toegang", value: "Eindigt met de verwijdering van uw account" }
+              : { label: "Toegang tot", value: end, emphasis: true },
+            { label: "Verlenging", value: "Geen" },
+            { label: "Factuur", value: inv, detail: "blijft geldig" },
+          ],
+        },
+        outro: [
+          `${firstOnly ? "De 30 dagen geld terug gelden alleen voor de eerste bestelling van een account" : "De 30 dagen geld terug zijn voorbij"}, daarom blijft factuur ${inv} geldig. Staat die nog open, betaal deze dan zoals afgesproken.`,
+          ...account,
+        ],
+      };
+    case "en":
+      return {
+        ...common,
+        subject: `Cancellation confirmed: your licence ends on ${end}`,
+        heading: "Your cancellation is confirmed",
+        intro: [
+          "You have canceled the NIS 2 guided pass annual licence. It will not renew.",
+        ],
+        document: {
+          kind: "Cancellation",
+          reference: licenceName(locale),
+          facts: [
+            erased
+              ? { label: "Access", value: "Ends with the deletion of your account" }
+              : { label: "Access until", value: end, emphasis: true },
+            { label: "Renewal", value: "None" },
+            { label: "Invoice", value: inv, detail: "stands" },
+          ],
+        },
+        outro: [
+          `${firstOnly ? "The thirty days money back apply only to an account's first order" : "The thirty days money back have passed"}, so invoice ${inv} stands. If it is still open, please pay it as agreed.`,
+          ...account,
+        ],
+      };
+  }
+};
+
+/** The confirmation of a cancel inside the thirty days, with the credit note, in the holder's language. */
+const moneyBackWording = (
+  mail: Extract<CanceledEmail, { kind: "money_back" }>,
+  locale: EmailLocale,
+): DocumentEmail => {
+  const erased = mail.accountErased === true;
+  const account = accountLine(locale, erased);
+  const day = (iso: string) => formatInvoiceDay(iso, locale);
+  const {
+    invoiceNumber: inv,
+    creditNoteNumber: cn,
+    refundOwed,
+    attached,
+    amounts,
+  } = mail;
+  const due = day(refundDueDay(mail.creditNoteDate));
+  const reference = `${cn} · ${day(mail.creditNoteDate)}`;
+  const common = { locale, greeting: GREETING[locale] } as const;
+  switch (locale) {
+    case "de":
+      return {
+        ...common,
+        subject: `Gutschrift ${cn}: Ihre Bestellung ist storniert`,
+        heading: "Ihre Bestellung ist storniert",
+        intro: [
+          `Sie haben die Jahreslizenz NIS 2 Durchgang innerhalb der 30 Tage gekündigt. Die Rechnung ist mit einer Gutschrift storniert${attached ? ", die Sie im Anhang finden" : ""}.`,
+        ],
+        document: {
+          kind: "Gutschrift",
+          reference,
+          facts: [
+            {
+              label: "Storniert",
+              value: `Rechnung ${inv} vom ${day(mail.invoiceIssueDate)}`,
+            },
+            { label: "Leistung", value: licenceName(locale) },
+            amountFact("Betrag", amounts, locale),
+            refundOwed
+              ? {
+                  label: "Rückzahlung",
+                  value: `bis ${due}`,
+                  detail: "auf das Konto, von dem Ihre Zahlung kam",
+                  emphasis: true,
+                }
+              : {
+                  label: "Zahlung",
+                  value: "Nicht mehr nötig",
+                  detail: "Die Rechnung ist storniert.",
+                },
+          ],
+        },
+        outro: [
+          refundOwed
+            ? `Sie hatten die Rechnung schon bezahlt.${erased ? "" : " Sobald der Betrag überwiesen ist, bestätigen wir es Ihnen in einer kurzen E-Mail."}`
+            : "Bei uns ist noch keine Zahlung eingegangen. Haben Sie den Betrag schon überwiesen, erstatten wir ihn innerhalb von 30 Tagen nach seinem Eingang.",
+          ...account,
+        ],
+      };
+    case "nl":
+      return {
+        ...common,
+        subject: `Creditnota ${cn}: uw bestelling is geannuleerd`,
+        heading: "Uw bestelling is geannuleerd",
+        intro: [
+          `U heeft de jaarlicentie NIS 2 begeleide doorloop binnen de 30 dagen opgezegd. De factuur is geannuleerd met een creditnota${attached ? ", die u in de bijlage vindt" : ""}.`,
+        ],
+        document: {
+          kind: "Creditnota",
+          reference,
+          facts: [
+            {
+              label: "Annuleert",
+              value: `Factuur ${inv} van ${day(mail.invoiceIssueDate)}`,
+            },
+            { label: "Product", value: licenceName(locale) },
+            amountFact("Bedrag", amounts, locale),
+            refundOwed
+              ? {
+                  label: "Terugbetaling",
+                  value: `uiterlijk ${due}`,
+                  detail: "naar de rekening waarvan uw betaling kwam",
+                  emphasis: true,
+                }
+              : {
+                  label: "Betaling",
+                  value: "Niet meer nodig",
+                  detail: "De factuur is geannuleerd.",
+                },
+          ],
+        },
+        outro: [
+          refundOwed
+            ? `U had de factuur al betaald.${erased ? "" : " Zodra het bedrag is overgemaakt, bevestigen wij dat in een korte e-mail."}`
+            : "Bij ons is nog geen betaling binnengekomen. Heeft u het bedrag al overgemaakt, dan betalen wij het binnen 30 dagen na ontvangst terug.",
+          ...account,
+        ],
+      };
+    case "en":
+      return {
+        ...common,
+        subject: `Credit note ${cn}: your order is canceled`,
+        heading: "Your order is canceled",
+        intro: [
+          `You canceled the NIS 2 guided pass annual licence within the thirty days. The invoice is canceled by a credit note${attached ? ", attached as a PDF" : ""}.`,
+        ],
+        document: {
+          kind: "Credit note",
+          reference,
+          facts: [
+            {
+              label: "Cancels",
+              value: `Invoice ${inv} of ${day(mail.invoiceIssueDate)}`,
+            },
+            { label: "Item", value: licenceName(locale) },
+            amountFact("Amount", amounts, locale),
+            refundOwed
+              ? {
+                  label: "Refund",
+                  value: `by ${due}`,
+                  detail: "to the account your payment came from",
+                  emphasis: true,
+                }
+              : {
+                  label: "Payment",
+                  value: "No longer needed",
+                  detail: "The invoice is canceled.",
+                },
+          ],
+        },
+        outro: [
+          refundOwed
+            ? `You had already paid the invoice.${erased ? "" : " Once the amount is transferred, we confirm it in a short email."}`
+            : "No payment has reached us yet. If you have already transferred the amount, we refund it within 30 days of its arrival.",
+          ...account,
+        ],
+      };
+  }
+};
 
 /** The confirmation a customer gets for either cancel, in their language. */
 export const canceledEmailWording = (
   mail: CanceledEmail,
   locale: EmailLocale,
-): { readonly subject: string; readonly paragraphs: readonly string[] } => {
-  const erased = mail.accountErased === true;
-  const accountLine = ACCOUNT_LINE[locale][erased ? "erased" : "kept"];
-  if (mail.kind === "renewal") {
-    const end = dayFormat(mail.periodEnd, locale);
-    const inv = mail.invoiceNumber;
-    const firstOnly = mail.reason === "not_first_invoice";
-    switch (locale) {
-      case "de":
-        return {
-          subject: `Kündigung bestätigt: Ihre Lizenz läuft am ${end} aus`,
-          paragraphs: [
-            "Guten Tag,",
-            "Sie haben die Jahreslizenz NIS 2 Durchgang gekündigt. Sie wird nicht verlängert.",
-            `${erased ? "" : `Ihr Zugang bleibt bis zum Ende des bezahlten Jahres am ${end} bestehen. `}${firstOnly ? "Die 30 Tage Geld zurück gelten nur für die erste Bestellung eines Kontos" : "Die 30 Tage Geld zurück sind vorbei"}, deshalb bleibt die Rechnung ${inv} gültig. Ist sie noch offen, zahlen Sie sie bitte wie vereinbart.`,
-            accountLine,
-            "Mit freundlichen Grüßen",
-            "nisd2.eu",
-          ],
-        };
-      case "nl":
-        return {
-          subject: `Opzegging bevestigd: uw licentie loopt af op ${end}`,
-          paragraphs: [
-            "Goedendag,",
-            "U heeft de jaarlicentie NIS 2 begeleide doorloop opgezegd. Deze wordt niet verlengd.",
-            `${erased ? "" : `Uw toegang blijft tot het einde van het betaalde jaar op ${end} bestaan. `}${firstOnly ? "De 30 dagen geld terug gelden alleen voor de eerste bestelling van een account" : "De 30 dagen geld terug zijn voorbij"}, daarom blijft factuur ${inv} geldig. Staat die nog open, betaal deze dan zoals afgesproken.`,
-            accountLine,
-            "Met vriendelijke groet",
-            "nisd2.eu",
-          ],
-        };
-      default:
-        return {
-          subject: `Cancellation confirmed: your licence ends on ${end}`,
-          paragraphs: [
-            "Hello,",
-            "You have canceled the NIS 2 guided pass annual licence. It will not renew.",
-            `${erased ? "" : `Your access stays open until the end of the paid year on ${end}. `}${firstOnly ? "The thirty days money back apply only to an account's first order" : "The thirty days money back have passed"}, so invoice ${inv} stands. If it is still open, please pay it as agreed.`,
-            accountLine,
-            "Kind regards",
-            "nisd2.eu",
-          ],
-        };
-    }
-  }
+): DocumentEmail =>
+  mail.kind === "renewal" ? renewalWording(mail, locale) : moneyBackWording(mail, locale);
 
-  const { invoiceNumber: inv, creditNoteNumber: cn, refundOwed, attached } = mail;
+/**
+ * The note that a refund owed under a credit note has gone out, sent when an operator records the
+ * transfer. It closes the promise the credit note email made.
+ */
+export const refundSentWording = (
+  refund: {
+    readonly creditNoteNumber: string;
+    readonly invoiceNumber: string;
+    readonly amounts: { readonly netCents: number; readonly vatCents: number };
+  },
+  locale: EmailLocale,
+): DocumentEmail => {
+  const { creditNoteNumber: cn, invoiceNumber: inv, amounts } = refund;
+  const common = { locale, greeting: GREETING[locale], outro: [] } as const;
   switch (locale) {
     case "de":
       return {
-        subject: `Gutschrift ${cn}: Ihre Bestellung ist storniert`,
-        paragraphs: [
-          "Guten Tag,",
-          `Sie haben die Jahreslizenz NIS 2 Durchgang innerhalb der 30 Tage gekündigt. Die Rechnung ${inv} ist mit der Gutschrift ${cn} storniert${attached ? ", die Sie im Anhang finden" : ""}.`,
-          refundOwed
-            ? "Sie hatten die Rechnung schon bezahlt. Wir überweisen Ihnen den Betrag innerhalb von 30 Tagen nach der Kündigung zurück, auf das Konto, von dem Ihre Zahlung kam."
-            : "Bei uns ist noch keine Zahlung eingegangen, und die Rechnung müssen Sie nicht mehr bezahlen. Haben Sie den Betrag schon überwiesen, erstatten wir ihn innerhalb von 30 Tagen nach ihrem Eingang.",
-          accountLine,
-          "Mit freundlichen Grüßen",
-          "nisd2.eu",
+        ...common,
+        subject: `Erstattung zur Gutschrift ${cn}: Betrag überwiesen`,
+        heading: "Der Betrag ist erstattet",
+        intro: [
+          "wie angekündigt haben wir Ihnen den Betrag der stornierten Rechnung zurücküberwiesen. Damit ist Ihre Bestellung vollständig abgewickelt.",
         ],
+        document: {
+          kind: "Erstattung zur Gutschrift",
+          reference: cn,
+          facts: [
+            { label: "Storniert", value: `Rechnung ${inv}` },
+            amountFact("Erstattet", amounts, locale),
+            { label: "Überwiesen an", value: "das Konto, von dem Ihre Zahlung kam" },
+          ],
+        },
       };
     case "nl":
       return {
-        subject: `Creditnota ${cn}: uw bestelling is geannuleerd`,
-        paragraphs: [
-          "Goedendag,",
-          `U heeft de jaarlicentie NIS 2 begeleide doorloop binnen de 30 dagen opgezegd. Factuur ${inv} is geannuleerd met creditnota ${cn}${attached ? ", die u in de bijlage vindt" : ""}.`,
-          refundOwed
-            ? "U had de factuur al betaald. Wij maken het bedrag binnen 30 dagen na de opzegging terug over naar de rekening waarvan uw betaling kwam."
-            : "Bij ons is nog geen betaling binnengekomen, en de factuur hoeft u niet meer te betalen. Heeft u het bedrag al overgemaakt, dan betalen wij het binnen 30 dagen na ontvangst terug.",
-          accountLine,
-          "Met vriendelijke groet",
-          "nisd2.eu",
+        ...common,
+        subject: `Terugbetaling bij creditnota ${cn}: bedrag overgemaakt`,
+        heading: "Het bedrag is terugbetaald",
+        intro: [
+          "Zoals aangekondigd hebben wij het bedrag van de geannuleerde factuur aan u teruggestort. Daarmee is uw bestelling volledig afgehandeld.",
         ],
+        document: {
+          kind: "Terugbetaling bij creditnota",
+          reference: cn,
+          facts: [
+            { label: "Annuleert", value: `Factuur ${inv}` },
+            amountFact("Terugbetaald", amounts, locale),
+            { label: "Overgemaakt naar", value: "de rekening waarvan uw betaling kwam" },
+          ],
+        },
       };
-    default:
+    case "en":
       return {
-        subject: `Credit note ${cn}: your order is canceled`,
-        paragraphs: [
-          "Hello,",
-          `You canceled the NIS 2 guided pass annual licence within the thirty days. Invoice ${inv} is canceled by credit note ${cn}${attached ? ", attached to this email" : ""}.`,
-          refundOwed
-            ? "You had already paid the invoice. We will transfer the amount back within 30 days of the cancellation, to the account your payment came from."
-            : "No payment has reached us yet, and you no longer need to pay the invoice. If you have already transferred the amount, we refund it within 30 days of its arrival.",
-          accountLine,
-          "Kind regards",
-          "nisd2.eu",
+        ...common,
+        subject: `Refund for credit note ${cn}: amount transferred`,
+        heading: "Your refund is complete",
+        intro: [
+          "As announced, we have transferred the amount of the canceled invoice back to you. This completes your order.",
         ],
+        document: {
+          kind: "Refund for credit note",
+          reference: cn,
+          facts: [
+            { label: "Cancels", value: `Invoice ${inv}` },
+            amountFact("Refunded", amounts, locale),
+            { label: "Transferred to", value: "the account your payment came from" },
+          ],
+        },
       };
   }
 };

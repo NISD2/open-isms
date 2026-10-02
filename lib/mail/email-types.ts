@@ -73,6 +73,8 @@ export const EMAIL_TYPES = {
   "billing.invoice": { category: "account", consent: "essential" },
   /** The confirmation of a cancel the account holder just made, with the credit note if any. */
   "billing.canceled": { category: "account", consent: "essential" },
+  /** The refund a credit note promised has been transferred: closes that promise. */
+  "billing.refund_sent": { category: "account", consent: "essential" },
   /** The erasure certificate, to the person whose account was just erased (Art. 12(3) GDPR). */
   "gdpr.erasure_confirmation": { category: "account", consent: "essential" },
 
@@ -104,6 +106,8 @@ export const EMAIL_TYPES = {
   "internal.test_send": { category: "internal", consent: "operator" },
   /** An order or invoice that a person has to look at in Qonto: never routine, always acted on. */
   "internal.billing_alert": { category: "internal", consent: "operator" },
+  /** Every invoice issued, told the moment Qonto has issued it: a sale, not a problem. */
+  "internal.new_sale": { category: "internal", consent: "operator" },
   /** An erasure whose stored files could not be deleted automatically: a person has to finish it. */
   "internal.gdpr_alert": { category: "internal", consent: "operator" },
 } as const satisfies Record<string, EmailTypeDefinition>;
@@ -120,10 +124,6 @@ export type UngatedEmailTypeId = Exclude<EmailTypeId, UserConsentEmailTypeId>;
 
 export function emailTypeCategory(id: EmailTypeId): EmailCategory {
   return EMAIL_TYPES[id].category;
-}
-
-export function emailTypeConsent(id: EmailTypeId): ConsentMode {
-  return EMAIL_TYPES[id].consent;
 }
 
 export function isUserConsentEmailType(id: EmailTypeId): id is UserConsentEmailTypeId {

@@ -1,17 +1,14 @@
 import "@/lib/server-guard";
-import { render } from "@react-email/render";
-import * as React from "react";
 import type { DbOrTx } from "@/lib/db";
 import { db } from "@/lib/db";
 import { unsubscribeUrl as buildUnsubscribeUrl } from "@/lib/email/unsubscribe";
 import { env } from "@/lib/env";
-import { getAppUrl } from "@/lib/utils";
 import { loadEmailConsent } from "./consent";
 import type { UngatedEmailTypeId, UserConsentEmailTypeId } from "./email-types";
 import { recordEmailFailure } from "./failure-log";
 import { maskAddressesIn } from "./mask-address";
 import { FROM_EMAIL, FROM_NAME } from "./resend";
-import { WelcomeEmail } from "./templates/WelcomeEmail";
+import { welcomeEmail } from "./templates";
 import { configuredTransport, type MailAttachment, sendViaTransport } from "./transport";
 
 interface BaseMailOptions {
@@ -252,14 +249,9 @@ async function failed(opts: SendMailOptions, error: unknown) {
 // ---------------------------------------------------------------------------
 
 export async function sendWelcomeEmail(opts: { name: string; email: string }) {
-  const dashboardUrl = `${getAppUrl()}/dashboard`;
-  const html = await render(
-    React.createElement(WelcomeEmail, { name: opts.name, dashboardUrl }),
-  );
   return sendMail({
     emailType: "auth.welcome",
     to: opts.email,
-    subject: "Your NISD2 account is ready",
-    html,
+    ...(await welcomeEmail({ name: opts.name })),
   });
 }

@@ -31,7 +31,7 @@ import "@/lib/server-guard";
 import { eq } from "drizzle-orm";
 import { logAudit } from "@/lib/audit";
 import type { DbOrTx } from "@/lib/db";
-import { mailSupportEmail } from "@/lib/env";
+import { replyAddress } from "@/lib/mail";
 import { loadEmailConsent } from "@/lib/mail/consent";
 import { isSuppressedSendId } from "@/lib/mail/delivery";
 import { FROM_NAME_PERSONAL } from "@/lib/mail/resend";
@@ -151,7 +151,7 @@ async function deliverOne(
     subject: email.subject,
     html: email.html,
     text: email.text,
-    replyTo: mailSupportEmail(),
+    replyTo: replyAddress(),
     // Keyed on the claim row: sendMail's retry loop re-POSTs on ambiguous
     // network failures, and without this a request Resend accepted (response
     // lost) would deliver a second copy on the retry — the one double-send

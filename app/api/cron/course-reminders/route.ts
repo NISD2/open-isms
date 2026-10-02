@@ -25,8 +25,8 @@ import { logAudit } from "@/lib/audit";
 import { verifyCronBearer } from "@/lib/cron/auth";
 import { db } from "@/lib/db";
 import { unsubscribeUrl as buildUnsubscribeUrl } from "@/lib/email/unsubscribe";
-import { env, mailSupportEmail } from "@/lib/env";
-import { courseFollowupEmail, sendMail } from "@/lib/mail";
+import { env } from "@/lib/env";
+import { courseFollowupEmail, replyAddress, sendMail } from "@/lib/mail";
 import { maskAddressesIn } from "@/lib/mail/mask-address";
 import { FROM_NAME_PERSONAL } from "@/lib/mail/resend";
 import { loadCourse } from "@/lib/training/course-loader";
@@ -38,7 +38,7 @@ export const dynamic = "force-dynamic";
 const STALL_DAYS = 7;
 const ENTITY_TYPE = "course_followup";
 const TRIGGER_PREFIX = "stalled_7d:";
-const REPLY_TO = mailSupportEmail();
+const REPLY_TO = replyAddress();
 
 type StalledRow = {
   user_id: string;
@@ -212,11 +212,17 @@ export async function GET(req: NextRequest) {
       if (courseList.length === 0) continue;
 
       const unsubUrl = buildUnsubscribeUrl(u.id);
-      const email = courseFollowupEmail({
+      // A render that fails skips this person, before any dedup row is written, and leaves the
+      // rest of the run alone.
+      const email = await courseFollowupEmail({
         recipientName: u.name,
         courses: courseList,
         unsubscribeUrl: unsubUrl,
+      }).catch((err: unknown) => {
+        console.error("[course-reminders] follow-up not rendered", err);
+        return null;
       });
+      if (!email) continue;
 
       // Insert one notification row PER COURSE before sending. Each row is
       // the dedup record for that (user, course) pair — once present, this

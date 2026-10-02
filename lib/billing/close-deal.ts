@@ -151,14 +151,14 @@ const sendSetupLink = async (
   // The invoice exists by now, so nothing here may fail the close: a failure is told to the
   // operators and the close still reports its invoice.
   const sent = await createSetupToken(input.db, email)
-    .then((token) =>
+    .then(async (token) =>
       sendMail({
         emailType: "account.setup",
         to: email,
-        ...accountSetupEmail({
+        ...(await accountSetupEmail({
           setupUrl: `${input.appUrl}/auth/setup?token=${encodeURIComponent(token)}`,
           locale,
-        }),
+        })),
       }),
     )
     .then((r) => r.success)

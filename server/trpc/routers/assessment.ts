@@ -132,7 +132,7 @@ export const assessmentRouter = router({
         prev.contactEmail &&
         input.contactEmail !== prev.contactEmail
       ) {
-        const template = contactEmailChangedEmail({
+        const template = await contactEmailChangedEmail({
           companyName: updated.name,
           oldEmail: prev.contactEmail,
           newEmail: input.contactEmail,

@@ -34,7 +34,12 @@ import type { UserConsentEmailTypeId } from "@/lib/mail/email-types";
 import { preferenceFooterFor } from "@/lib/mail/footer";
 import { type EmailLocale, resolveEmailLocale } from "@/lib/mail/locale";
 import { mailSuppressionReason, sendMail } from "@/lib/mail/send";
-import { dailyDigestEmail, weeklyManagementDigestEmail } from "@/lib/mail/templates";
+import {
+  dailyDigestEmail,
+  dailyDigestSubject,
+  weeklyDigestSubject,
+  weeklyManagementDigestEmail,
+} from "@/lib/mail/templates";
 import { listCompanyMembers } from "@/lib/organization/membership";
 import { company, notification } from "@/schema";
 
@@ -168,17 +173,7 @@ export async function buildDigestQueue(db: Database): Promise<QueuedDigest[]> {
             email: digest.recipientEmail,
             companyId: co.id,
             companyName: co.name,
-            subject: dailyDigestEmail({
-              recipientName: digest.recipientName,
-              companyName: digest.companyName,
-              overdueItems: digest.overdueItems,
-              urgentItems: digest.urgentItems,
-              upcomingItems: digest.upcomingItems,
-              nextStep: digest.nextStep,
-              compliancePercentage: digest.compliancePercentage,
-              dashboardUrl: digest.dashboardUrl,
-              footer: preferenceFooterFor(member.id, locale),
-            }).subject,
+            subject: dailyDigestSubject(digest),
             summary: `${digest.overdueItems.length} overdue, ${digest.urgentItems.length} urgent, ${digest.upcomingItems.length} upcoming`,
             locale,
           });
@@ -201,19 +196,7 @@ export async function buildDigestQueue(db: Database): Promise<QueuedDigest[]> {
             email: mgmt.recipientEmail,
             companyId: co.id,
             companyName: co.name,
-            subject: weeklyManagementDigestEmail({
-              recipientName: mgmt.recipientName,
-              companyName: mgmt.companyName,
-              compliancePercentage: mgmt.compliancePercentage,
-              overdueCount: mgmt.overdueCount,
-              urgentCount: mgmt.urgentCount,
-              escalationCount: mgmt.escalationCount,
-              totalRequirements: mgmt.totalRequirements,
-              completedRequirements: mgmt.completedRequirements,
-              nextStep: mgmt.nextStep,
-              dashboardUrl: mgmt.dashboardUrl,
-              footer: preferenceFooterFor(member.id, locale),
-            }).subject,
+            subject: weeklyDigestSubject(mgmt),
             summary: `${mgmt.compliancePercentage}% compliant, ${mgmt.overdueCount} overdue, ${mgmt.escalationCount} escalations`,
             locale,
           });
@@ -321,6 +304,10 @@ async function executeDigestBatch(
 
   for (const [index, item] of batch.entries()) {
     const footer = preferenceFooterFor(item.userId, item.locale);
+    const renderFailed = (err: unknown) => {
+      console.error(`[digest] ${item.kind} digest not rendered`, err);
+      return "render_failed" as const;
+    };
     const content =
       item.kind === "daily"
         ? await compileDailyDigest(db, item.userId, item.companyId).then((d) =>
@@ -335,7 +322,7 @@ async function executeDigestBatch(
                   compliancePercentage: d.compliancePercentage,
                   dashboardUrl: d.dashboardUrl,
                   footer,
-                })
+                }).catch(renderFailed)
               : null,
           )
         : await compileManagementDigest(db, item.userId, item.companyId).then((d) =>
@@ -352,12 +339,17 @@ async function executeDigestBatch(
                   nextStep: d.nextStep,
                   dashboardUrl: d.dashboardUrl,
                   footer,
-                })
+                }).catch(renderFailed)
               : null,
           );
 
     // Emptied out between queueing and sending: nothing left to say.
     if (!content) continue;
+    // Counted like a failed send. Nothing is claimed yet, so the next batch tries this person again.
+    if (content === "render_failed") {
+      result.failed++;
+      continue;
+    }
 
     // Claim before sending, exactly as the lifecycle dispatcher does. The
     // partial unique index arbitrates, so a second press or a second tab

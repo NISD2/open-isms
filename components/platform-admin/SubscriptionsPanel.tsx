@@ -98,7 +98,16 @@ export function SubscriptionsPanel() {
   const refundDone = trpc.platformAdmin.markRefundDone.useMutation({
     onSuccess: async (r) => {
       await subs.refetch();
-      toast.success(`Refund for ${r.number} recorded as transferred.`);
+      const recorded = `Refund for ${r.number} recorded as transferred.`;
+      if (r.confirmation === "sent") {
+        toast.success(`${recorded} The customer was emailed a confirmation.`);
+      } else if (r.confirmation === "no_holder") {
+        toast.success(`${recorded} No email: the account holder deleted their account.`);
+      } else {
+        toast.warning(
+          `${recorded} The confirmation email did not go out; write to them by hand.`,
+        );
+      }
     },
     onError: (e) => toast.error(e.message),
   });

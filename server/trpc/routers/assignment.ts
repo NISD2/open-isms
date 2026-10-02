@@ -116,34 +116,39 @@ export const assignmentRouter = router({
             categoriesEn[category.code as keyof typeof categoriesEn]?.name ??
             category.code;
 
-          sendMail({
-            emailType: "work.category_assigned",
-            recipientUserId: input.userId,
-            to: assignee.email,
-            ...categoryAssignedEmail({
-              assigneeName: assignee.name,
-              categoryName: catName,
-              categoryCode: category.code,
-              companyName: companyRow?.name ?? "your company",
-              assignerName: ctx.session.user.name ?? "Your admin",
-              categoryUrl: `${getAppUrl()}/compliance/${category.slug}`,
-              footer: preferenceFooterFor(
-                input.userId,
-                resolveEmailLocale(assignee.locale, companyRow?.country ?? null),
-              ),
-            }),
-          }).then((r) => {
-            if (r.success) {
-              logAudit({
-                companyId: ctx.companyId,
-                userId: ctx.userId,
-                action: "email.assignment_assigned",
-                entityType: "email",
-                entityId: r.id ?? null,
-                description: `Assignment email sent to ${assignee.email} for ${category.code}`,
-              });
-            }
-          });
+          categoryAssignedEmail({
+            assigneeName: assignee.name,
+            categoryName: catName,
+            categoryCode: category.code,
+            companyName: companyRow?.name ?? "your company",
+            assignerName: ctx.session.user.name ?? "Your admin",
+            categoryUrl: `${getAppUrl()}/compliance/${category.slug}`,
+            footer: preferenceFooterFor(
+              input.userId,
+              resolveEmailLocale(assignee.locale, companyRow?.country ?? null),
+            ),
+          })
+            .then((content) =>
+              sendMail({
+                emailType: "work.category_assigned",
+                recipientUserId: input.userId,
+                to: assignee.email,
+                ...content,
+              }),
+            )
+            .then((r) => {
+              if (r.success) {
+                logAudit({
+                  companyId: ctx.companyId,
+                  userId: ctx.userId,
+                  action: "email.assignment_assigned",
+                  entityType: "email",
+                  entityId: r.id ?? null,
+                  description: `Assignment email sent to ${assignee.email} for ${category.code}`,
+                });
+              }
+            })
+            .catch((err) => console.error("[assignment] assigned email not sent", err));
         }
       }
 
@@ -220,32 +225,37 @@ export const assignmentRouter = router({
             categoriesEn[category.code as keyof typeof categoriesEn]?.name ??
             category.code;
 
-          sendMail({
-            emailType: "work.category_unassigned",
-            recipientUserId: input.userId,
-            to: assignee.email,
-            ...categoryUnassignedEmail({
-              assigneeName: assignee.name,
-              categoryName: catName,
-              categoryCode: category.code,
-              companyName: companyRow?.name ?? "your company",
-              footer: preferenceFooterFor(
-                input.userId,
-                resolveEmailLocale(assignee.locale, companyRow?.country ?? null),
-              ),
-            }),
-          }).then((r) => {
-            if (r.success) {
-              logAudit({
-                companyId: ctx.companyId,
-                userId: ctx.userId,
-                action: "email.assignment_unassigned",
-                entityType: "email",
-                entityId: r.id ?? null,
-                description: `Unassignment email sent to ${assignee.email} for ${category.code}`,
-              });
-            }
-          });
+          categoryUnassignedEmail({
+            assigneeName: assignee.name,
+            categoryName: catName,
+            categoryCode: category.code,
+            companyName: companyRow?.name ?? "your company",
+            footer: preferenceFooterFor(
+              input.userId,
+              resolveEmailLocale(assignee.locale, companyRow?.country ?? null),
+            ),
+          })
+            .then((content) =>
+              sendMail({
+                emailType: "work.category_unassigned",
+                recipientUserId: input.userId,
+                to: assignee.email,
+                ...content,
+              }),
+            )
+            .then((r) => {
+              if (r.success) {
+                logAudit({
+                  companyId: ctx.companyId,
+                  userId: ctx.userId,
+                  action: "email.assignment_unassigned",
+                  entityType: "email",
+                  entityId: r.id ?? null,
+                  description: `Unassignment email sent to ${assignee.email} for ${category.code}`,
+                });
+              }
+            })
+            .catch((err) => console.error("[assignment] unassigned email not sent", err));
         }
       }
 

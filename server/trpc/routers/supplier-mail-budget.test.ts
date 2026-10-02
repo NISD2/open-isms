@@ -159,7 +159,7 @@ const refusedWith = (budget: keyof typeof SUPPLIER_MAIL_BUDGET) => ({
   message: SUPPLIER_MAIL_BUDGET[budget].refusal,
 });
 
-/** notifyCustomerAdded is fire and forget, behind two lookups. */
+/** Both paths send fire and forget: notifyCustomerAdded behind two lookups, an invite behind its render. */
 const settle = () => new Promise((resolve) => setTimeout(resolve, 0));
 
 const publish = (
@@ -280,6 +280,7 @@ describe("a customer inviting suppliers", () => {
   test("the mail says a message exists; the message itself stays on the invite", async () => {
     const message = "Bitte hier einloggen: https://x.test/login, Passwort ablaufend";
     await invites("customer-a").create({ toEmail: "security@lieferant.test", message });
+    await settle();
 
     expect(mails).toHaveLength(1);
     const [mail] = mails;
@@ -301,6 +302,7 @@ describe("a customer inviting suppliers", () => {
     for (let i = 0; i < limit; i++) {
       await invites("customer-a").create({ toEmail: address(i) });
     }
+    await settle();
     expect(mails).toHaveLength(limit);
     await expect(
       invites("customer-a").create({ toEmail: address(limit) }),
@@ -392,6 +394,7 @@ describe("sending an invite again", () => {
       INVITE_LIFETIME_MS - INVITE_RESEND_COOLDOWN_MS - HOUR_MS,
     );
     await invites("customer-a").create({ toEmail: address(0) });
+    await settle();
 
     expect(writes).toEqual([
       expect.objectContaining({
@@ -406,6 +409,7 @@ describe("sending an invite again", () => {
   test("an invite that ran out or was revoked goes out again at once", async () => {
     state.invite = inviteExpiringIn(-HOUR_MS);
     await invites("customer-a").create({ toEmail: address(0) });
+    await settle();
     expect(mails).toHaveLength(1);
   });
 
@@ -419,6 +423,7 @@ describe("sending an invite again", () => {
     await expect(
       invites("customer-a").create({ toEmail: address(0) }),
     ).rejects.toMatchObject(refusedWith("mailsPerInbox"));
+    await settle();
     expect(mails).toHaveLength(limit);
   });
 

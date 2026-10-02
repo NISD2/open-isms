@@ -24,6 +24,7 @@ import { orderingMode } from "@/lib/billing/ordering";
 import { promoSummary } from "@/lib/billing/promo";
 import { PROMO_GRANT_ACTION } from "@/lib/billing/promo-grant";
 import { quoteFor } from "@/lib/billing/quote";
+import { sendRefundConfirmation } from "@/lib/billing/refund-sent";
 import {
   listSubscriptions,
   markPaymentArrived,
@@ -67,7 +68,11 @@ import { EMAIL_FAILURE_ACTION } from "@/lib/mail/failure-log";
 import { preferenceFooterFor } from "@/lib/mail/footer";
 import { resolveEmailLocale } from "@/lib/mail/locale";
 import { sendMail } from "@/lib/mail/send";
-import { dailyDigestEmail, weeklyManagementDigestEmail } from "@/lib/mail/templates";
+import {
+  dailyDigestEmail,
+  replyAddress,
+  weeklyManagementDigestEmail,
+} from "@/lib/mail/templates";
 import { HINT_COLUMN, HINTS, resolveHints } from "@/lib/onboarding/hints";
 import { loadGrowthData } from "@/lib/platform-admin/growth";
 import { rateLimit } from "@/lib/rate-limit";
@@ -624,7 +629,10 @@ export const platformAdminRouter = router({
       return { number };
     }),
 
-  /** Record that a refund was transferred in Qonto, with who and when. Audited. */
+  /**
+   * Record that a refund was transferred in Qonto, with who and when, and tell the customer.
+   * Audited. The answer says whether the confirmation went out, so the admin knows to write by hand.
+   */
   markRefundDone: platformAdminProcedure
     .input(z.object({ creditNoteId: z.uuid() }))
     .mutation(async ({ ctx, input }) => {
@@ -645,7 +653,12 @@ export const platformAdminRouter = router({
         ipAddress: ctx.ip,
         userAgent: ctx.userAgent,
       });
-      return { number };
+      const confirmation = await sendRefundConfirmation(
+        ctx.db,
+        orderingMode(env),
+        input.creditNoteId,
+      );
+      return { number, confirmation };
     }),
 
   /** Accounts blocked after an unclear order, waiting for someone to check Qonto. */
@@ -1438,7 +1451,7 @@ export const platformAdminRouter = router({
       subject: `[Test] ${sample.subject}`,
       html: sample.html,
       text: sample.text,
-      replyTo: mailSupportEmail(),
+      replyTo: replyAddress(),
     });
     if (!res.success) {
       throw new TRPCError({
@@ -1997,7 +2010,12 @@ export const platformAdminRouter = router({
         });
       }
       const [target] = await ctx.db
-        .select({ id: user.id, email: user.email, companyId: user.companyId })
+        .select({
+          id: user.id,
+          email: user.email,
+          companyId: user.companyId,
+          locale: user.locale,
+        })
         .from(user)
         .where(eq(user.id, input.userId))
         .limit(1);
@@ -2061,6 +2079,7 @@ export const platformAdminRouter = router({
         logId: result.logId,
         caseRef: result.caseRef,
         to: target.email,
+        locale: resolveEmailLocale(target.locale, null),
       });
 
       return { ...result, certificateSent };

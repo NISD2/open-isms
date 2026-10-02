@@ -3,7 +3,9 @@ import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
 import { epochSeconds, isRecentSignIn } from "@/lib/auth/session-age";
+import { encloseCancelNotice, sendCancelNotice } from "@/lib/billing/cancel-notice";
 import type { DbOrTx } from "@/lib/db";
+import { alertGdprOperators } from "@/lib/gdpr/alert";
 import { SELF_SERVICE_ACTOR, SELF_SERVICE_CHANNEL } from "@/lib/gdpr/certificate";
 import { ErasureRefused, eraseUser } from "@/lib/gdpr/erase-user";
 import {
@@ -15,6 +17,7 @@ import {
 } from "@/lib/gdpr/self-erasure";
 import { sendErasureCertificate } from "@/lib/gdpr/send-certificate";
 import { isLocaleCode } from "@/lib/locale";
+import { resolveEmailLocale } from "@/lib/mail/locale";
 import { HINT_COLUMN, HINTS } from "@/lib/onboarding/hints";
 import { rateLimit } from "@/lib/rate-limit";
 import { user } from "@/schema";
@@ -113,7 +116,7 @@ export const userRouter = router({
     if (!signedInJustNow(ctx.session.authTime)) {
       return { allowed: false, reason: "reauth" };
     }
-    const email = await ownEmail(ctx.db, ctx.userId);
+    const { email } = await ownAccount(ctx.db, ctx.userId);
     return selfErasureCheck(ctx.db, { userId: ctx.userId, email });
   }),
 
@@ -125,11 +128,18 @@ export const userRouter = router({
    * and nothing that identifies the person (no user id, address, IP or browser): it is written
    * after the erasure has scrubbed the trail, and the erasure record is where they are named, for
    * as long as that is kept.
+   *
+   * The cancel's confirmation travels in the erasure confirmation, so the person gets one letter.
+   * With a credit note it waits for the PDF, which Qonto is polled for, so it is sent after the
+   * answer; a process stopped in that wait (a deploy) sends nothing, and the Erasures tab still
+   * holds the certificate. If the erasure fails after the cancel, the cancel stands and its
+   * confirmation goes out on its own.
    */
   deleteAccount: selfErasureProcedure
     .input(z.object({ confirmEmail: z.string().max(320) }))
     .mutation(async ({ ctx, input }) => {
-      const email = await ownEmail(ctx.db, ctx.userId);
+      const account = await ownAccount(ctx.db, ctx.userId);
+      const email = account.email;
       if (input.confirmEmail.trim().toLowerCase() !== email.trim().toLowerCase()) {
         throw new TRPCError({
           code: "BAD_REQUEST",
@@ -144,7 +154,7 @@ export const userRouter = router({
       }
       const person = { userId: ctx.userId, email };
       const result = await cancelLicencesForErasure(ctx.db, person)
-        .then(() =>
+        .then((notices) =>
           eraseUser({
             userId: ctx.userId,
             actor: { userId: null, email: SELF_SERVICE_ACTOR },
@@ -155,7 +165,13 @@ export const userRouter = router({
               notes: null,
             },
             guard: assertSelfErasureAllowed(person),
-          }),
+          }).then(
+            (erased) => ({ ...erased, notices }),
+            (err: unknown) =>
+              Promise.all(notices.map(sendCancelNotice)).then(() => {
+                throw err;
+              }),
+          ),
         )
         .catch((err: unknown) => {
           // The reason is the dialog's message key (portal.deleteAccount.refused).
@@ -177,12 +193,27 @@ export const userRouter = router({
         ipAddress: null,
         userAgent: null,
       });
-      const certificateSent = await sendErasureCertificate(ctx.db, {
-        logId: result.logId,
-        caseRef: result.caseRef,
-        to: email,
-      });
-      return { caseRef: result.caseRef, certificateSent };
+      const letter = Promise.all(
+        result.notices.map((notice) => encloseCancelNotice(notice)),
+      )
+        .then((enclosures) =>
+          sendErasureCertificate(ctx.db, {
+            logId: result.logId,
+            caseRef: result.caseRef,
+            to: email,
+            locale: resolveEmailLocale(account.locale, null),
+            enclosures,
+          }),
+        )
+        .catch((err: unknown) =>
+          alertGdprOperators(`${result.caseRef}: Bestätigung von Hand senden`, [
+            `Die Löschbestätigung zum Vorgang ${result.caseRef} wurde nicht erstellt: ${err instanceof Error ? err.message : String(err)}.`,
+            "Bitte das Zertifikat im Tab Erasures herunterladen und von Hand senden, mit der Gutschrift aus Qonto, falls die Löschung eine Lizenz gekündigt hat.",
+          ]),
+        );
+      // Without a cancelled licence nothing is waited for, so the letter goes before the answer.
+      if (result.notices.length === 0) await letter;
+      return { caseRef: result.caseRef };
     }),
 });
 
@@ -190,13 +221,13 @@ export const userRouter = router({
 const signedInJustNow = (authTime: number | null | undefined) =>
   isRecentSignIn(authTime ?? null, epochSeconds(new Date()));
 
-/** The account's own address from the database, not the session snapshot. */
-const ownEmail = async (db: DbOrTx, userId: string) => {
+/** The account's own address and language from the database, not the session snapshot. */
+const ownAccount = async (db: DbOrTx, userId: string) => {
   const [row] = await db
-    .select({ email: user.email })
+    .select({ email: user.email, locale: user.locale })
     .from(user)
     .where(eq(user.id, userId))
     .limit(1);
   if (!row) throw new TRPCError({ code: "NOT_FOUND", message: "Account not found." });
-  return row.email;
+  return row;
 };

@@ -235,30 +235,31 @@ export const teamRouter = router({
       // instead of reporting a send that did not happen.
       const emailed = mailSuppressionReason() === null;
 
-      sendMail({
-        emailType: "account.invite",
-        to: email,
-        ...inviteEmail({
-          companyName: companyRow?.name ?? "your company",
-          inviterName,
-          inviteUrl,
-          role: emailRole,
-        }),
-      }).then((r) => {
-        // isSuppressedSendId, not r.success: a suppressed send also reports
-        // success, and an audit trail claiming "invite email sent" for mail
-        // that never left the box is worse than no line at all.
-        if (r.success && "id" in r && !isSuppressedSendId(r.id)) {
-          logAudit({
-            companyId: ctx.companyId,
-            userId: ctx.userId,
-            action: "email.invite_sent",
-            entityType: "email",
-            entityId: r.id ?? null,
-            description: `Invite email sent to ${email}`,
-          });
-        }
-      });
+      inviteEmail({
+        companyName: companyRow?.name ?? "your company",
+        inviterName,
+        inviteUrl,
+        role: emailRole,
+      })
+        .then((content) =>
+          sendMail({ emailType: "account.invite", to: email, ...content }),
+        )
+        .then((r) => {
+          // isSuppressedSendId, not r.success: a suppressed send also reports
+          // success, and an audit trail claiming "invite email sent" for mail
+          // that never left the box is worse than no line at all.
+          if (r.success && "id" in r && !isSuppressedSendId(r.id)) {
+            logAudit({
+              companyId: ctx.companyId,
+              userId: ctx.userId,
+              action: "email.invite_sent",
+              entityType: "email",
+              entityId: r.id ?? null,
+              description: `Invite email sent to ${email}`,
+            });
+          }
+        })
+        .catch((err) => console.error("[team] invite email not sent", err));
 
       return { inviteId: invite.id, token, inviteUrl, emailed };
     }),
@@ -545,25 +546,26 @@ export const teamRouter = router({
         columns: { name: true },
       });
 
-      sendMail({
-        emailType: "account.member_removed",
-        to: member.email,
-        ...memberRemovedEmail({
-          companyName: companyRow?.name ?? "your company",
-          memberName: member.name,
-        }),
-      }).then((r) => {
-        if (r.success) {
-          logAudit({
-            companyId: ctx.companyId,
-            userId: ctx.userId,
-            action: "email.member_removed",
-            entityType: "email",
-            entityId: r.id ?? null,
-            description: `Removal email sent to ${member.email}`,
-          });
-        }
-      });
+      memberRemovedEmail({
+        companyName: companyRow?.name ?? "your company",
+        memberName: member.name,
+      })
+        .then((content) =>
+          sendMail({ emailType: "account.member_removed", to: member.email, ...content }),
+        )
+        .then((r) => {
+          if (r.success) {
+            logAudit({
+              companyId: ctx.companyId,
+              userId: ctx.userId,
+              action: "email.member_removed",
+              entityType: "email",
+              entityId: r.id ?? null,
+              description: `Removal email sent to ${member.email}`,
+            });
+          }
+        })
+        .catch((err) => console.error("[team] removal email not sent", err));
 
       // Losing a member changes who holds which role, which is the evidence
       // behind requirement 1.2. Every other module reverts its requirements
