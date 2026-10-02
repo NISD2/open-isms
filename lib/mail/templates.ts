@@ -57,6 +57,13 @@ const emailLocaleOf = (locale: Locale | undefined): EmailLocale =>
 // ---------------------------------------------------------------------------
 
 /**
+ * Where a reply to mail written in a person's voice reaches one: on nisd2.eu the published contact
+ * address (letterReplyTo), since the sender and SUPPORT_EMAIL take no mail; elsewhere the
+ * instance's own SUPPORT_EMAIL.
+ */
+export const replyAddress = (): string => letterReplyTo() ?? mailSupportEmail();
+
+/**
  * After the first sign-in: a short note from the team and one place to start. It asks for
  * questions, so on nisd2.eu they go to the published contact address, not the no-reply sender.
  */
@@ -64,7 +71,7 @@ export async function welcomeEmail(opts: {
   name: string;
 }): Promise<EmailContent & { readonly replyTo?: string }> {
   const replyTo = letterReplyTo();
-  const contact = replyTo ?? mailSupportEmail();
+  const contact = replyAddress();
   return {
     subject: "Your NISD2 account is ready",
     html: await renderEmail(WelcomeEmail, { name: opts.name, contact }),

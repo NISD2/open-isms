@@ -23,6 +23,7 @@ export {
   newUserSignupEmail,
   passwordResetCodeEmail,
   registrationAttemptEmail,
+  replyAddress,
   reviewDecisionEmail,
   supplierAddedYouEmail,
   supplierIncidentBroadcastEmail,

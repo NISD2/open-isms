@@ -22,8 +22,7 @@ import { getTranslations } from "next-intl/server";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
 import { unsubscribeUrl as buildUnsubscribeUrl } from "@/lib/email/unsubscribe";
-import { mailSupportEmail } from "@/lib/env";
-import { newsletterEmail, sendMail } from "@/lib/mail";
+import { newsletterEmail, replyAddress, sendMail } from "@/lib/mail";
 import { renderNewsletterMarkdown } from "@/lib/mail/markdown";
 import { getNewsletterCta, NEWSLETTER_CTA_KEYS } from "@/lib/newsletter/cta";
 import { getAppUrl } from "@/lib/utils";
@@ -38,8 +37,8 @@ import { platformAdminProcedure, publicProcedure, router } from "../init";
 
 // Replies to the broadcast route to a real Workspace mailbox (cory@nisd2.eu),
 // configured via env so no real address is committed to the public repo. Set
-// NEWSLETTER_REPLY_TO in .env / prod env; falls back to the support inbox.
-const REPLY_TO = process.env.NEWSLETTER_REPLY_TO || mailSupportEmail();
+// NEWSLETTER_REPLY_TO in .env / prod env; falls back to replyAddress().
+const REPLY_TO = process.env.NEWSLETTER_REPLY_TO || replyAddress();
 
 // Newsletter sends from a distinct mailbox (e.g. newsletter@nisd2.eu) when
 // RESEND_FROM_EMAIL_NEWS is set; otherwise sendMail uses the default
