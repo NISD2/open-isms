@@ -7,18 +7,19 @@
  *
  * References: companies, users
  */
+
+import { sql } from "drizzle-orm";
 import {
-  pgTable,
-  uuid,
-  varchar,
-  text,
   boolean,
-  integer,
-  timestamp,
   date,
   index,
+  integer,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+  varchar,
 } from "drizzle-orm/pg-core";
-import { sql } from "drizzle-orm";
 import { company, user } from "./organization";
 
 export const trainingRecord = pgTable(
@@ -51,9 +52,7 @@ export const trainingRecord = pgTable(
     durationMinutes: integer("duration_minutes"),
 
     // Content
-    topicsCovered: text("topics_covered")
-      .array()
-      .default(sql`'{}'::text[]`),
+    topicsCovered: text("topics_covered").array().default(sql`'{}'::text[]`),
 
     // Certification
     certificateFileKey: varchar("certificate_file_key", { length: 500 }),
@@ -68,5 +67,5 @@ export const trainingRecord = pgTable(
     index("idx_training_company").on(table.companyId),
     index("idx_training_user").on(table.userId),
     index("idx_training_management").on(table.isManagement),
-  ]
+  ],
 );

@@ -18,16 +18,17 @@
  *
  * References: companies, users
  */
+
+import { company } from "@nisd2/isms-schema/tables/organization";
 import {
+  index,
   pgTable,
-  uuid,
-  varchar,
   text,
   timestamp,
-  index,
   uniqueIndex,
+  uuid,
+  varchar,
 } from "drizzle-orm/pg-core";
-import { company } from "@nisd2/isms-schema/tables/organization";
 
 export const supplierInvite = pgTable(
   "supplier_invite",
@@ -65,18 +66,14 @@ export const supplierInvite = pgTable(
     /** Set in the same transaction as supplier signup. Null = pending. */
     acceptedAt: timestamp("accepted_at"),
     /** The supplier company that accepted (after acceptance only). */
-    acceptedByCompanyId: uuid("accepted_by_company_id").references(
-      () => company.id,
-      { onDelete: "set null" },
-    ),
+    acceptedByCompanyId: uuid("accepted_by_company_id").references(() => company.id, {
+      onDelete: "set null",
+    }),
   },
   (table) => [
     // Prevent duplicate active invites for the same (entity, email) pair —
     // re-invites just bump the existing row's timestamps.
-    uniqueIndex("uq_supplier_invite_pair").on(
-      table.fromCompanyId,
-      table.toEmail,
-    ),
+    uniqueIndex("uq_supplier_invite_pair").on(table.fromCompanyId, table.toEmail),
     // Fast lookup when a supplier signs up — we look for pending invites
     // matching their email.
     index("idx_supplier_invite_to_email").on(table.toEmail),

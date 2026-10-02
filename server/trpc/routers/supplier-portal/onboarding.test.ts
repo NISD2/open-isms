@@ -219,7 +219,11 @@ describe("supplierOnboarding.acceptInvite", () => {
       },
     ]);
     expect(acceptances(writes)).toHaveLength(1);
-    expect(result).toEqual({ companyId: SUPPLIER_CO, boundEntities: 1, unboundInvites: 0 });
+    expect(result).toEqual({
+      companyId: SUPPLIER_CO,
+      boundEntities: 1,
+      unboundInvites: 0,
+    });
   });
 
   test("one invite binds the customer at the customer's contact address, not the supplier's", async () => {

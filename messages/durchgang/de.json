@@ -25,6 +25,8 @@
         "approve": "Freigeben",
         "riskmap": "Überblick",
         "critical": "Festlegen",
+        "backups": "Eintragen",
+        "crypto": "Ihre Liste",
         "done": "Erledigt"
       },
       "where": "{section} · Schritt {step} von {total}",

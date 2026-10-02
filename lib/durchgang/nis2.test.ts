@@ -256,6 +256,14 @@ describe("the NIS 2 script", () => {
 });
 
 describe("the words of the Durchgang", () => {
+  test("tags every kind of screen the walk shows, in each language", () => {
+    const shown = [...new Set(WALK.flatMap((item) => item.screens.map((s) => s.kind)))];
+    for (const words of [de.durchgang.ui.kinds, en.durchgang.ui.kinds]) {
+      const tagged: Readonly<Record<string, string>> = words;
+      expect(shown.filter((kind) => !tagged[kind]?.trim())).toEqual([]);
+    }
+  });
+
   test("names the authority once per language, filled in wherever the copy says {authority}", () => {
     const registration = NIS2_SCRIPT.find((i) => i.code === "12.2");
     if (!registration) throw new Error("12.2 is scripted");

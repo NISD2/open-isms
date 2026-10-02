@@ -25,6 +25,8 @@
         "approve": "Approve",
         "riskmap": "Overview",
         "critical": "Decide",
+        "backups": "Record",
+        "crypto": "Your list",
         "done": "Done"
       },
       "where": "{section} · Step {step} of {total}",

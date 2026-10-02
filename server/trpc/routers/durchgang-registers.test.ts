@@ -8,14 +8,7 @@
 import { describe, expect, mock, test } from "bun:test";
 import type { SQL } from "drizzle-orm";
 import { PgDialect } from "drizzle-orm/pg-core";
-import {
-  asset,
-  assetProvider,
-  risk,
-  riskAsset,
-  riskSupplier,
-  supplier,
-} from "@/schema";
+import { asset, assetProvider, risk, riskAsset, riskSupplier, supplier } from "@/schema";
 
 mock.module("@/lib/audit", () => ({ logAudit: async () => {} }));
 const rechecked: string[] = [];

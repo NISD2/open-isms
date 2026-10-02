@@ -149,7 +149,19 @@ export type PolicyConfigMap = {
  * "prohibited" are the company's own line below it. ChaCha20-Poly1305, Ed25519 and X25519 alone are
  * not in the TR (TR-1 §3.2: "keine dedizierten Stromchiffren"), so a policy cannot cite it for them.
  */
-function getDefaultCrypto(_locale: "en" | "de"): CryptoPolicyConfig {
+function getDefaultCrypto(locale: "en" | "de"): CryptoPolicyConfig {
+  const words =
+    locale === "de"
+      ? {
+          passwords: "Argon2id (für Passwörter)",
+          padding: "RSA mit PKCS#1-v1.5-Padding",
+          hybrid: "ML-KEM-768 zusammen mit ECDHE",
+        }
+      : {
+          passwords: "Argon2id (for passwords)",
+          padding: "RSA with PKCS#1 v1.5 padding",
+          hybrid: "ML-KEM-768 together with ECDHE",
+        };
   return {
     algorithms: [
       // Symmetric: TR-1 Tab. 3.1 and 3.2 (AES with GCM; 256-bit keys for long-term protection)
@@ -179,7 +191,7 @@ function getDefaultCrypto(_locale: "en" | "de"): CryptoPolicyConfig {
       { category: "hash", algorithm: "SHA-512", status: "approved" },
       { category: "hash", algorithm: "SHA3-256", status: "approved" },
       // Passwords: TR-1 B.1.2
-      { category: "hash", algorithm: "Argon2id (passwords)", status: "approved" },
+      { category: "hash", algorithm: words.passwords, status: "approved" },
       { category: "hash", algorithm: "MD5", status: "prohibited" },
       { category: "hash", algorithm: "SHA-1", status: "prohibited" },
       // Asymmetric: RSA modulus at least 3000 bits (TR-1 §5.3.1) with PSS or OAEP; PKCS#1 v1.5
@@ -215,11 +227,7 @@ function getDefaultCrypto(_locale: "en" | "de"): CryptoPolicyConfig {
         keyLength: "384",
         status: "approved",
       },
-      {
-        category: "asymmetric",
-        algorithm: "RSA PKCS#1 v1.5 padding",
-        status: "deprecated",
-      },
+      { category: "asymmetric", algorithm: words.padding, status: "deprecated" },
       {
         category: "asymmetric",
         algorithm: "RSA",
@@ -234,15 +242,19 @@ function getDefaultCrypto(_locale: "en" | "de"): CryptoPolicyConfig {
       },
       // Key exchange: ECDHE alone until the end of 2031 (TR-2 Tab. 6 and 10); ML-KEM used
       // together with it (TR-1 Tab. 2.7, §2.2)
-      { category: "key_exchange", algorithm: "ECDHE brainpoolP256r1", status: "approved" },
-      { category: "key_exchange", algorithm: "ECDHE brainpoolP384r1", status: "approved" },
-      { category: "key_exchange", algorithm: "ECDHE P-256", status: "approved" },
-      { category: "key_exchange", algorithm: "ECDHE P-384", status: "approved" },
       {
         category: "key_exchange",
-        algorithm: "ML-KEM-768 together with ECDHE",
+        algorithm: "ECDHE brainpoolP256r1",
         status: "approved",
       },
+      {
+        category: "key_exchange",
+        algorithm: "ECDHE brainpoolP384r1",
+        status: "approved",
+      },
+      { category: "key_exchange", algorithm: "ECDHE P-256", status: "approved" },
+      { category: "key_exchange", algorithm: "ECDHE P-384", status: "approved" },
+      { category: "key_exchange", algorithm: words.hybrid, status: "approved" },
       // TLS 1.3 suites (TR-2 Tab. 13) and TLS 1.2 with forward secrecy until 2031 (TR-2 Tab. 3)
       { category: "tls", algorithm: "TLS_AES_256_GCM_SHA384", status: "approved" },
       { category: "tls", algorithm: "TLS_AES_128_GCM_SHA256", status: "approved" },
