@@ -80,7 +80,7 @@ test.describe("durchgang lists", () => {
   test("shows what the register holds ticked, and adds what is ticked next", async ({
     page,
   }) => {
-    await page.goto(`/de/durchgang/2.2?s=${PROCESSES_SCREEN}`);
+    await page.goto(`/de/durchgang/nis2/2.2?s=${PROCESSES_SCREEN}`);
     const listed = page.getByRole("button", { name: LISTED, exact: true });
     await expect(listed).toHaveAttribute("aria-pressed", "true", { timeout: 30_000 });
 
@@ -97,7 +97,7 @@ test.describe("durchgang lists", () => {
   });
 
   test("adds a supplier as one line with what it does", async ({ page }) => {
-    await page.goto(`/de/durchgang/5.1?s=${SUPPLIERS_SCREEN}`);
+    await page.goto(`/de/durchgang/nis2/5.1?s=${SUPPLIERS_SCREEN}`);
     const name = page.getByLabel("Lieferant", { exact: true });
     await expect(name).toBeVisible({ timeout: 30_000 });
 

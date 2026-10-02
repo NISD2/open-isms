@@ -50,7 +50,7 @@ test.describe("durchgang staff training", () => {
   test("records a staff session as an awareness line, apart from management's", async ({
     page,
   }) => {
-    await page.goto(`/de/durchgang/8.2?s=${TRAININGS_SCREEN}`);
+    await page.goto(`/de/durchgang/nis2/8.2?s=${TRAININGS_SCREEN}`);
     const who = page.getByLabel("Wer teilgenommen hat");
     await expect(who).toBeVisible({ timeout: 30_000 });
 
@@ -68,7 +68,7 @@ test.describe("durchgang staff training", () => {
       training_type: "awareness",
     });
 
-    await page.goto("/de/durchgang/1.1?s=2");
+    await page.goto("/de/durchgang/nis2/1.1?s=2");
     await expect(page.getByLabel("Name")).toBeVisible({ timeout: 30_000 });
     await expect(page.getByText(TOPIC)).toHaveCount(0);
   });

@@ -63,7 +63,7 @@ test.describe("durchgang sign-ins", () => {
   test("marks per sign-in whether a second factor is on, and names each one in the trail", async ({
     page,
   }) => {
-    await page.goto(`/de/durchgang/11.1?s=${LOGINS_SCREEN}`);
+    await page.goto(`/de/durchgang/nis2/11.1?s=${LOGINS_SCREEN}`);
     const ours = page.getByRole("listitem").filter({ hasText: NAME });
     await expect(ours).toBeVisible({ timeout: 30_000 });
     await expect(ours.getByText("Nicht bewertet")).toBeVisible();

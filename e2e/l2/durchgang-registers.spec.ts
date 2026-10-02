@@ -143,7 +143,7 @@ test.describe("durchgang registers", () => {
   test("names an asset, says what it is for and adds its providers to the supplier list (2.2)", async ({
     page,
   }) => {
-    await page.goto(`/de/durchgang/2.2?s=${WHICH_SOFTWARE}`);
+    await page.goto(`/de/durchgang/nis2/2.2?s=${WHICH_SOFTWARE}`);
     const what = page.locator(`#what-${assetId}`);
     await expect(what).toBeVisible({ timeout: 30_000 });
 
@@ -196,7 +196,7 @@ test.describe("durchgang registers", () => {
   test("rates every listed program and stores one risk linked to each (2.3)", async ({
     page,
   }) => {
-    await page.goto(`/de/durchgang/2.3?s=${RATE_SOFTWARE}`);
+    await page.goto(`/de/durchgang/nis2/2.3?s=${RATE_SOFTWARE}`);
     await expect(page.getByRole("group", { name: PRODUCT })).toBeVisible({
       timeout: 30_000,
     });
@@ -227,7 +227,7 @@ test.describe("durchgang registers", () => {
   test("a second rating updates the same risk instead of adding one (2.3)", async ({
     page,
   }) => {
-    await page.goto(`/de/durchgang/2.3?s=${RATE_SOFTWARE}`);
+    await page.goto(`/de/durchgang/nis2/2.3?s=${RATE_SOFTWARE}`);
     // The stored rating and note are shown, so the screen is already complete.
     const matrix = page.getByRole("group", { name: PRODUCT });
     await expect(
@@ -259,7 +259,7 @@ test.describe("durchgang registers", () => {
   test("rates the suppliers: one linked risk each, and the register level follows (2.3)", async ({
     page,
   }) => {
-    await page.goto(`/de/durchgang/2.3?s=${RATE_SUPPLIERS}`);
+    await page.goto(`/de/durchgang/nis2/2.3?s=${RATE_SUPPLIERS}`);
     const provider = page.getByRole("listitem").filter({ hasText: PROVIDER });
     await expect(provider).toBeVisible({ timeout: 30_000 });
 

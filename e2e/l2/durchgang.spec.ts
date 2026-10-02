@@ -53,7 +53,7 @@ test.describe("durchgang", () => {
         route.fulfill({ status: 500, contentType: "application/json", body: "{}" }),
     );
 
-    await page.goto(`/de/durchgang/${CODE}?s=${FIELDS_SCREEN}`);
+    await page.goto(`/de/durchgang/nis2/${CODE}?s=${FIELDS_SCREEN}`);
     const tools = page.locator(TOOLS);
     const next = page.getByRole("button", { name: "Weiter", exact: true });
     await expect(tools).toBeVisible({ timeout: 30_000 });
@@ -81,7 +81,10 @@ test.describe("durchgang", () => {
   test("walks 11.2 to its done screen and records the answers", async ({ page }) => {
     const doneBefore = await itemDoneCount(tenant.company_id);
 
+    // The item's old address, from before the walk moved under /durchgang/nis2, still leads to it.
+    // German is the default locale, so the redirect may drop the /de prefix.
     await page.goto(`/de/durchgang/${CODE}`);
+    await expect(page).toHaveURL(new RegExp(`/durchgang/nis2/${CODE}$`));
     const next = page.getByRole("button", { name: "Weiter", exact: true });
     await expect(next).toBeVisible({ timeout: 30_000 });
     await next.click();

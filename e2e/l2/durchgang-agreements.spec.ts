@@ -65,7 +65,7 @@ test.describe("durchgang supplier agreements", () => {
   test("records per supplier what is agreed, and names each one in the trail", async ({
     page,
   }) => {
-    await page.goto(`/de/durchgang/5.2?s=${CONTRACTS_SCREEN}`);
+    await page.goto(`/de/durchgang/nis2/5.2?s=${CONTRACTS_SCREEN}`);
     const ours = page.getByRole("listitem").filter({ hasText: NAME });
     await expect(ours).toBeVisible({ timeout: 30_000 });
     await expect(ours.getByText("Nicht bewertet")).toBeVisible();

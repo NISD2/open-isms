@@ -1,14 +1,11 @@
-import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
-import { DurchgangHome } from "@/components/durchgang/DurchgangHome";
-import { loadWalk } from "./load";
+import { redirect } from "next/navigation";
+import { getLocale } from "next-intl/server";
+import { getPathname } from "@/i18n/navigation";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("durchgang");
-  return { title: t("title"), robots: { index: false, follow: false } };
-}
-
-/** The Durchgang's front door: the introduction on a first visit, then "Ihr Weg". */
-export default async function DurchgangHomePage() {
-  return <DurchgangHome walk={await loadWalk()} />;
+/**
+ * The NIS 2 walkthrough lives at /durchgang/nis2, so a walkthrough for another framework can sit
+ * beside it. This address, and the two below it, keep working for links already sent.
+ */
+export default async function DurchgangRedirect() {
+  redirect(getPathname({ href: "/durchgang/nis2", locale: await getLocale() }));
 }

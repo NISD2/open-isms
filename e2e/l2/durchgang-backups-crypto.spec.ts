@@ -75,7 +75,7 @@ test.describe("durchgang backup systems and crypto list", () => {
   test("records how often a backup system backs up and its last restore (4.4)", async ({
     page,
   }) => {
-    await page.goto(`/de/durchgang/4.4?s=${SYSTEMS_SCREEN}`);
+    await page.goto(`/de/durchgang/nis2/4.4?s=${SYSTEMS_SCREEN}`);
     const row = page.getByRole("listitem").filter({ hasText: SYSTEM });
     await expect(row).toBeVisible({ timeout: 30_000 });
 
@@ -101,7 +101,7 @@ test.describe("durchgang backup systems and crypto list", () => {
   test("shows the BSI list and takes it over once the company says it applies (9.1)", async ({
     page,
   }) => {
-    await page.goto(`/de/durchgang/9.1?s=${LIST_SCREEN}`);
+    await page.goto(`/de/durchgang/nis2/9.1?s=${LIST_SCREEN}`);
     await expect(page.getByText("BSI TR-02102, Version 2026-01")).toBeVisible({
       timeout: 30_000,
     });

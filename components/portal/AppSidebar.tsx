@@ -168,7 +168,7 @@ export function AppSidebar({
   const overviewItems: NavItem[] = [
     { href: "/journey", label: t("journey"), icon: Compass },
     {
-      href: "/durchgang",
+      href: "/durchgang/nis2",
       label: t("durchgang"),
       icon: Footprints,
       ...(durchgangOpen ? {} : { soon: t("comingSoon") }),

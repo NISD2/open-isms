@@ -70,7 +70,7 @@ test.describe("durchgang management review", () => {
   test.afterAll(() => undoAll(undos));
 
   test("enters the review in the management review register", async ({ page }) => {
-    await page.goto(`/de/durchgang/7.3?s=${REVIEW_SCREEN}`);
+    await page.goto(`/de/durchgang/nis2/7.3?s=${REVIEW_SCREEN}`);
     const date = page.getByLabel("Datum");
     await expect(date).toBeVisible({ timeout: 30_000 });
 
@@ -97,7 +97,7 @@ test.describe("durchgang management review", () => {
   test("outside management the screen sends the documents on; management approves them as itself", async ({
     page,
   }) => {
-    await page.goto(`/de/durchgang/7.3?s=${APPROVE_SCREEN}`);
+    await page.goto(`/de/durchgang/nis2/7.3?s=${APPROVE_SCREEN}`);
     const row = page
       .getByRole("listitem")
       .filter({ hasText: `Kryptokonzept der ${tenant.company_name}` });
@@ -134,7 +134,7 @@ test.describe("durchgang management review", () => {
   test("management's own page lists the documents with who approved them", async ({
     page,
   }) => {
-    await page.goto("/de/durchgang/freigabe");
+    await page.goto("/de/durchgang/nis2/freigabe");
     const row = page
       .getByRole("listitem")
       .filter({ hasText: `Kryptokonzept der ${tenant.company_name}` });

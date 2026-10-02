@@ -171,11 +171,14 @@ export function DurchgangItem({
         transitionTo(
           "forward",
           () =>
-            router.push({ pathname: "/durchgang/[code]", params: { code: next.code } }),
+            router.push({
+              pathname: "/durchgang/nis2/[code]",
+              params: { code: next.code },
+            }),
           () => document.querySelector(`main[data-dg-item="${next.code}"]`) !== null,
         );
       } else {
-        router.push("/durchgang");
+        router.push("/durchgang/nis2");
       }
       return;
     }
@@ -203,7 +206,7 @@ export function DurchgangItem({
   const settleAndGoHome = (stored: Promise<void>) => {
     setWaitOpen(false);
     stored.then(
-      () => router.push("/durchgang"),
+      () => router.push("/durchgang/nis2"),
       () => {
         toast.error(t("saveFailed"));
       },

@@ -25,7 +25,7 @@ export function ApprovalPage({
             {t("pageTitle")}
           </p>
           <Button variant="ghost" size="icon" aria-label={t("close")} asChild>
-            <Link href="/durchgang">
+            <Link href="/durchgang/nis2">
               <X className="size-5" />
             </Link>
           </Button>

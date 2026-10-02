@@ -29,7 +29,7 @@ export default async function DurchgangLayout({
     redirect(getPathname({ href: "/bestellen", locale }));
   if (!session.companyActivated) redirect(getPathname({ href: "/journey", locale }));
   if (locale !== "de" && locale !== "en")
-    redirect(getPathname({ href: "/durchgang", locale: "en" }));
+    redirect(getPathname({ href: "/durchgang/nis2", locale: "en" }));
 
   return (
     <>
