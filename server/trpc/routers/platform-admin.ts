@@ -68,7 +68,11 @@ import { EMAIL_FAILURE_ACTION } from "@/lib/mail/failure-log";
 import { preferenceFooterFor } from "@/lib/mail/footer";
 import { resolveEmailLocale } from "@/lib/mail/locale";
 import { sendMail } from "@/lib/mail/send";
-import { dailyDigestEmail, weeklyManagementDigestEmail } from "@/lib/mail/templates";
+import {
+  dailyDigestEmail,
+  replyAddress,
+  weeklyManagementDigestEmail,
+} from "@/lib/mail/templates";
 import { HINT_COLUMN, HINTS, resolveHints } from "@/lib/onboarding/hints";
 import { loadGrowthData } from "@/lib/platform-admin/growth";
 import { rateLimit } from "@/lib/rate-limit";
@@ -1447,7 +1451,7 @@ export const platformAdminRouter = router({
       subject: `[Test] ${sample.subject}`,
       html: sample.html,
       text: sample.text,
-      replyTo: mailSupportEmail(),
+      replyTo: replyAddress(),
     });
     if (!res.success) {
       throw new TRPCError({
