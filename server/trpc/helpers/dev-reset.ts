@@ -123,16 +123,17 @@ export async function resetImplementation(
             .where(inArray(companyRequirementStatus.assessmentId, assessmentIds)),
         )
       : [];
-  const [riskIds, incidentIds, auditIds, policyIds] = await Promise.all(
-    [risk, incident, internalAudit, policy].map(async (table) =>
-      idsOf(
-        await tx
-          .select({ id: table.id })
-          .from(table)
-          .where(eq(table.companyId, companyId)),
-      ),
-    ),
-  );
+  // One query at a time: a transaction is one connection.
+  const idsIn = async (
+    table: typeof risk | typeof incident | typeof internalAudit | typeof policy,
+  ) =>
+    idsOf(
+      await tx.select({ id: table.id }).from(table).where(eq(table.companyId, companyId)),
+    );
+  const riskIds = await idsIn(risk);
+  const incidentIds = await idsIn(incident);
+  const auditIds = await idsIn(internalAudit);
+  const policyIds = await idsIn(policy);
 
   if (statusIds.length > 0) {
     await tx.delete(evidence).where(inArray(evidence.requirementStatusId, statusIds));
@@ -179,7 +180,10 @@ export async function resetImplementation(
       await tx
         .select({ id: requirement.id })
         .from(requirement)
-        .innerJoin(requirementCategory, eq(requirement.categoryId, requirementCategory.id))
+        .innerJoin(
+          requirementCategory,
+          eq(requirement.categoryId, requirementCategory.id),
+        )
         .where(eq(requirementCategory.frameworkId, a.frameworkId)),
     );
     if (ids.length > 0) {
