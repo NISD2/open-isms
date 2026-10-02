@@ -304,8 +304,6 @@
         "confirm": "Put on the waiting list"
       },
       "home": {
-        "title": "Your NIS 2 implementation",
-        "lead": "One item after the other. What you set aside waits for you on the right.",
         "next": "Next",
         "waiting": "Still waiting",
         "continue": "Continue your NIS 2 implementation",
@@ -340,8 +338,7 @@
             "text": "Management reviews everything and signs."
           }
         ],
-        "start": "Let's start",
-        "firstItems": "The first items on your path"
+        "start": "Let's start"
       }
     },
     "waitReasons": {

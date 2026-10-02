@@ -13,6 +13,7 @@ import {
   Mail,
   Rocket,
   Shield,
+  ToggleRight,
   Trash2,
   Truck,
   Users,
@@ -30,6 +31,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Link, useRouter } from "@/i18n/navigation";
 import { CloseSyncPanel } from "./CloseSyncPanel";
 import { DevPanel } from "./DevPanel";
+import { FeatureFlagsPanel } from "./FeatureFlagsPanel";
 import { EraseUserButton, ErasuresPanel } from "./GdprErasure";
 import { GraphsPanel } from "./GraphsPanel";
 import { median } from "./graphs/derive";
@@ -241,6 +243,7 @@ type Tab =
   | "pricing"
   | "subscriptions"
   | "close"
+  | "flags"
   | "dev";
 
 /** Human-readable label for a notification.entityType value. */
@@ -394,6 +397,12 @@ export function PlatformAdminPage({
             count: undefined as number | undefined,
           },
           {
+            key: "flags" as const,
+            label: "Feature Flags",
+            icon: ToggleRight,
+            count: undefined as number | undefined,
+          },
+          {
             key: "dev" as const,
             label: "Dev",
             icon: FlaskConical,
@@ -431,6 +440,7 @@ export function PlatformAdminPage({
       {tab === "pricing" && <PricingPanel />}
       {tab === "subscriptions" && <SubscriptionsPanel />}
       {tab === "close" && <CloseSyncPanel />}
+      {tab === "flags" && <FeatureFlagsPanel />}
       {tab === "dev" && <DevPanel />}
     </div>
   );

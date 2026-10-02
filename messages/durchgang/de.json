@@ -304,8 +304,6 @@
         "confirm": "Auf die Warteliste"
       },
       "home": {
-        "title": "Ihre Umsetzung von NIS 2",
-        "lead": "Ein Punkt nach dem anderen. Was Sie zur Seite legen, wartet rechts auf Sie.",
         "next": "Als Nächstes",
         "waiting": "Wartet noch",
         "continue": "NIS 2 Umsetzung fortsetzen",
@@ -340,8 +338,7 @@
             "text": "Die Geschäftsführung sieht alles durch und unterschreibt."
           }
         ],
-        "start": "Los geht's",
-        "firstItems": "Die ersten Punkte auf Ihrem Weg"
+        "start": "Los geht's"
       }
     },
     "waitReasons": {

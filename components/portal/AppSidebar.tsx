@@ -85,9 +85,10 @@ interface AppSidebarProps {
   /** Whether this person's role may read the audit trail (hasReviewAccess, server/trpc/routers/audit.ts). */
   showAuditTrail: boolean;
   /**
-   * Whether the Durchgang shows as a link. Until its launch only platform admins get one; its
-   * route and API still let a paid account in (mayWalkDurchgang, lib/billing/access.ts).
-   * Everyone else sees it in its place, not clickable, marked as coming soon.
+   * Whether the Durchgang shows as a link. While the `walkthrough` feature flag is off only
+   * platform admins get one, once it is on every account that may walk it (mayWalkDurchgang,
+   * lib/billing/access.ts). Everyone else sees it in its place, not clickable, marked as coming
+   * soon.
    */
   durchgangOpen: boolean;
 }

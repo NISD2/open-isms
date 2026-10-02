@@ -7,8 +7,7 @@ import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { mayWalkDurchgang } from "@/lib/billing/access";
 
 /**
- * The walk's own gates, shared by its home inside the portal and its items beside it: signed
- * in, paid (mayWalkDurchgang; free and grandfathered accounts go to the order page, where a
+ * The walk's own gates, for its home, its items and management's approval page: signed in, paid (mayWalkDurchgang; free and grandfathered accounts go to the order page, where a
  * grandfathered person sees their price), and a company that has finished activation, since a
  * draft company has nothing to walk yet.
  *

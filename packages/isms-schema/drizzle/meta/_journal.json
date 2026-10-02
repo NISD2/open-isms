@@ -183,6 +183,13 @@
       "when": 1790946351489,
       "tag": "0025_training_source_url",
       "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "7",
+      "when": 1790979454774,
+      "tag": "0026_walkthrough_flag",
+      "breakpoints": true
     }
   ]
 }

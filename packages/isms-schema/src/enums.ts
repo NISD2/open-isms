@@ -11,8 +11,11 @@ export const accessLevelEnum = pgEnum("access_level", ["free", "grandfathered", 
 /** Which door an order came through: the customer's own order page, or platform admin. */
 export const invoiceSourceEnum = pgEnum("invoice_source", ["self_serve", "admin"]);
 
-/** Platform switches a platform admin flips at runtime. One value per switch; absent means off. */
-export const featureFlagKeyEnum = pgEnum("feature_flag_key", ["billing"]);
+/**
+ * Platform switches a platform admin flips at runtime. One value per switch; absent means off.
+ * What each one does is in lib/feature-flags.ts (FEATURE_FLAGS).
+ */
+export const featureFlagKeyEnum = pgEnum("feature_flag_key", ["billing", "walkthrough"]);
 
 /** Each series has its own counter, because invoice and credit note numbers never share. */
 export const documentSeriesEnum = pgEnum("document_series", ["invoice", "credit_note"]);

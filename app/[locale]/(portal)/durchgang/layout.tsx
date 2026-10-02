@@ -1,8 +1,9 @@
-import { guardWalk } from "../../durchgang/gate";
+import { guardWalk } from "./gate";
 
 /**
- * The walk's home, in the portal so it opens in the main area like the journey. Its items open
- * full screen from the layout beside the (portal) group, behind the same gate.
+ * The whole walk sits in the portal: its home, every item and the approval page open in the main
+ * area beside the sidebar, like the journey (Simon, 03.10.2026: "I want it to all be inside of
+ * the portal").
  */
 export default async function PortalDurchgangLayout({
   children,

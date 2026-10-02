@@ -6,6 +6,7 @@ import { PortalHeader } from "@/components/portal/PortalHeader";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { hasReviewAccess } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
+import { mayWalkDurchgang } from "@/lib/billing/access";
 import { billingFor } from "@/lib/billing/ordering-access";
 import {
   type CategoryInfo,
@@ -16,6 +17,7 @@ import {
 } from "@/lib/compliance/access";
 import { db } from "@/lib/db";
 import { env } from "@/lib/env";
+import { isFeatureOn } from "@/lib/feature-flags";
 import {
   type ComplianceMessages,
   getCategoryName,
@@ -79,12 +81,14 @@ export async function PortalShell({
   // Always load framework structure so the sidebar shows NIS2 / GDPR groups
   // even before the user has set up their company. Pre-onboarding the
   // category links work as a preview — clicking lands on the onboarding banner.
-  const [allFrameworks, compliance, assessments, billing] = await Promise.all([
-    getAllActiveCategories(),
-    getLocale().then(getComplianceMessages),
-    session.companyId ? api.assessment.listAssessments() : [],
-    billingFor(db, session.user.email),
-  ]);
+  const [allFrameworks, compliance, assessments, billing, walkthroughOn] =
+    await Promise.all([
+      getAllActiveCategories(),
+      getLocale().then(getComplianceMessages),
+      session.companyId ? api.assessment.listAssessments() : [],
+      billingFor(db, session.user.email),
+      isFeatureOn(db, "walkthrough"),
+    ]);
 
   const frameworks: FrameworkGroup[] = await Promise.all(
     [...allFrameworks.entries()].map(([code, { framework, categories }]) => {
@@ -122,9 +126,14 @@ export async function PortalShell({
         frameworks={frameworks}
         showBilling={billing.open}
         showAuditTrail={hasReviewAccess(session.role)}
-        // Until the walkthrough launches, only platform admins get the link (Simon, 02.10.2026).
-        // Its route and API still let a paid account in (mayWalkDurchgang).
-        durchgangOpen={platformAdmin}
+        // The `walkthrough` switch in platform admin opens the link to paid accounts; until then
+        // only platform admins get one (Simon, 02.10.2026). The route and API let a paid account
+        // in either way (mayWalkDurchgang).
+        durchgangOpen={
+          walkthroughOn
+            ? mayWalkDurchgang(session.accessLevel, platformAdmin)
+            : platformAdmin
+        }
       />
       <SidebarInset>
         <PortalHeader
