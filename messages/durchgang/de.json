@@ -304,6 +304,7 @@
         "confirm": "Auf die Warteliste"
       },
       "home": {
+        "unlock": "Durchgang freischalten",
         "open": "Offen",
         "toSignOff": "Noch nicht freigegeben. Zur Freigabe springen",
         "next": "Als Nächstes",

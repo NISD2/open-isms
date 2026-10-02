@@ -378,8 +378,9 @@ export function DurchgangItem({
       <footer className="sticky bottom-0 z-10 border-t bg-background/90 backdrop-blur-md print:hidden">
         <div className="mx-auto grid max-w-7xl px-4 py-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:px-10 xl:gap-20">
           <div className="flex max-w-3xl items-center justify-between gap-3">
-            {/* Only a screen that cannot be completed offers the way out. */}
-            {!complete ? (
+            {/* The way out is always there, a peer of answering (ui-design principle 6; Simon,
+                03.10.2026). Only the done screen, where the item is recorded, has none. */}
+            {entry.screen.kind !== "done" ? (
               <button
                 type="button"
                 onClick={() => setWaitOpen(true)}

@@ -14,7 +14,7 @@ const SHOT_SIZE = { width: 3200, height: 1800 } as const;
  */
 const SHOTS: Readonly<Partial<Record<number, Omit<PreviewImage, "src" | "alt">>>> = {
   1: { ...SHOT_SIZE, focus: { x: 0.84, y: 0.3, scale: 2.4 } },
-  2: { ...SHOT_SIZE, focus: { x: 0.445, y: 0.6, scale: 2 } },
+  2: { ...SHOT_SIZE, focus: { x: 0.445, y: 0.66, scale: 1.9 } },
   3: { ...SHOT_SIZE, focus: { x: 0.86, y: 0.33, scale: 2.4 } },
   4: { ...SHOT_SIZE, focus: { x: 0.445, y: 0.6, scale: 2 } },
 };

@@ -37,8 +37,17 @@ const stepId = (code: string) => `dg-step-${code}`;
  * one way on (the next open item, else the first one waiting); "Ihr Weg" on the right, step by
  * step, each step a card with its status circle and its picture. There is no separate
  * introduction screen; this page is it (Simon, 03.10.2026).
+ *
+ * `locked`: an account that has not paid sees the same page with the way to order in place of
+ * the way in, and steps that show but do not open.
  */
-export function DurchgangHome({ walk }: { walk: readonly WalkEntry[] }) {
+export function DurchgangHome({
+  walk,
+  locked,
+}: {
+  walk: readonly WalkEntry[];
+  locked: boolean;
+}) {
   const t = useTranslations("durchgang");
   const points = t.raw("ui.intro.points") as ReadonlyArray<{
     title: string;
@@ -108,7 +117,18 @@ export function DurchgangHome({ walk }: { walk: readonly WalkEntry[] }) {
             />
           ))}
         </ul>
-        {next ? (
+        {locked ? (
+          <Button
+            asChild
+            size="lg"
+            className="mt-10 h-12 self-start rounded-xl px-7 text-base"
+          >
+            <Link href="/bestellen">
+              {t("ui.home.unlock")}
+              <ArrowRight />
+            </Link>
+          </Button>
+        ) : next ? (
           <Button
             asChild
             size="lg"
@@ -146,6 +166,18 @@ export function DurchgangHome({ walk }: { walk: readonly WalkEntry[] }) {
               pathname: "/durchgang/nis2/[code]",
               params: { code: entry.code },
             } as const;
+            const circle = cn(
+              "flex size-7 items-center justify-center rounded-full border-2 border-muted-foreground/25",
+              settled && "border-primary bg-primary text-primary-foreground",
+              signedOff && "border-emerald-600 bg-emerald-600 text-white",
+              waiting && "border-amber-400 text-amber-600",
+              isNext && !waiting && "border-primary ring-4 ring-primary/15",
+            );
+            const mark = settled ? (
+              <Check className="size-4" />
+            ) : waiting ? (
+              <Clock className="size-4" />
+            ) : null;
             return (
               <li key={entry.code} className="relative">
                 {index < walk.length - 1 && (
@@ -159,7 +191,9 @@ export function DurchgangHome({ walk }: { walk: readonly WalkEntry[] }) {
                 <div
                   id={stepId(entry.code)}
                   className={cn(
-                    "relative flex items-center gap-3 rounded-2xl border bg-card p-3 pr-4 pl-5 shadow-xs transition duration-500 sm:gap-4 hover:border-primary/40 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-ring",
+                    "relative flex items-center gap-3 rounded-2xl border bg-card p-3 pr-4 pl-5 shadow-xs transition duration-500 sm:gap-4",
+                    !locked &&
+                      "hover:border-primary/40 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-ring",
                     isNext && "border-primary/60 ring-4 ring-primary/10",
                     flash === entry.code &&
                       "border-emerald-600 ring-4 ring-emerald-600/25",
@@ -173,44 +207,41 @@ export function DurchgangHome({ walk }: { walk: readonly WalkEntry[] }) {
                       tab order, so a click on it opens it; the small tick leads to the step
                       where management signs. */}
                   <span className="relative z-10 shrink-0">
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Link
-                          href={href}
-                          tabIndex={-1}
-                          aria-hidden
-                          className={cn(
-                            "flex size-7 items-center justify-center rounded-full border-2 border-muted-foreground/25",
-                            settled &&
-                              "border-primary bg-primary text-primary-foreground",
-                            signedOff && "border-emerald-600 bg-emerald-600 text-white",
-                            waiting && "border-amber-400 text-amber-600",
-                            isNext && !waiting && "border-primary ring-4 ring-primary/15",
-                          )}
-                        >
-                          {settled ? (
-                            <Check className="size-4" />
-                          ) : waiting ? (
-                            <Clock className="size-4" />
-                          ) : null}
-                        </Link>
-                      </TooltipTrigger>
-                      <TooltipContent>{stateLabel(entry)}</TooltipContent>
-                    </Tooltip>
-                    {!signedOff && (
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <button
-                            type="button"
-                            aria-label={t("ui.home.toSignOff")}
-                            onClick={showSignOff}
-                            className="absolute -right-1.5 -bottom-1.5 flex size-4 cursor-pointer items-center justify-center rounded-full border border-muted-foreground/30 bg-card text-muted-foreground/60 ring-2 ring-card hover:border-emerald-600 hover:text-emerald-600"
-                          >
-                            <Check className="size-2.5" strokeWidth={3} />
-                          </button>
-                        </TooltipTrigger>
-                        <TooltipContent>{t("ui.home.toSignOff")}</TooltipContent>
-                      </Tooltip>
+                    {locked ? (
+                      <span aria-hidden className={circle}>
+                        {mark}
+                      </span>
+                    ) : (
+                      <>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Link
+                              href={href}
+                              tabIndex={-1}
+                              aria-hidden
+                              className={circle}
+                            >
+                              {mark}
+                            </Link>
+                          </TooltipTrigger>
+                          <TooltipContent>{stateLabel(entry)}</TooltipContent>
+                        </Tooltip>
+                        {!signedOff && (
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <button
+                                type="button"
+                                aria-label={t("ui.home.toSignOff")}
+                                onClick={showSignOff}
+                                className="absolute -right-1.5 -bottom-1.5 flex size-4 cursor-pointer items-center justify-center rounded-full border border-muted-foreground/30 bg-card text-muted-foreground/60 ring-2 ring-card hover:border-emerald-600 hover:text-emerald-600"
+                              >
+                                <Check className="size-2.5" strokeWidth={3} />
+                              </button>
+                            </TooltipTrigger>
+                            <TooltipContent>{t("ui.home.toSignOff")}</TooltipContent>
+                          </Tooltip>
+                        )}
+                      </>
                     )}
                   </span>
                   <div className="flex h-12 w-14 shrink-0 items-end justify-center sm:h-14 sm:w-16">
@@ -221,18 +252,26 @@ export function DurchgangHome({ walk }: { walk: readonly WalkEntry[] }) {
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="text-xs text-muted-foreground">{entry.section}</p>
-                    <Link
-                      href={href}
-                      className={cn(
-                        "text-sm font-semibold leading-snug after:absolute after:inset-0 focus-visible:outline-none",
-                        settled && "text-muted-foreground",
-                      )}
-                    >
-                      {entry.headline}
-                      <span className="sr-only">: {stateLabel(entry)}</span>
-                    </Link>
+                    {locked ? (
+                      <p className="text-sm font-semibold leading-snug">
+                        {entry.headline}
+                      </p>
+                    ) : (
+                      <Link
+                        href={href}
+                        className={cn(
+                          "text-sm font-semibold leading-snug after:absolute after:inset-0 focus-visible:outline-none",
+                          settled && "text-muted-foreground",
+                        )}
+                      >
+                        {entry.headline}
+                        <span className="sr-only">: {stateLabel(entry)}</span>
+                      </Link>
+                    )}
                   </div>
-                  <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
+                  {!locked && (
+                    <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
+                  )}
                 </div>
               </li>
             );

@@ -24,7 +24,7 @@ export const FEATURE_FLAGS = {
   walkthrough: {
     label: "Walkthrough",
     description:
-      "The NIS 2 walkthrough in the sidebar. On: a link for paid accounts and platform admins. Off: a link for platform admins only, everyone else sees it as coming soon. The route itself stays open to paid accounts either way.",
+      "The NIS 2 walkthrough as the portal's front. On, for everyone: the main page after sign-in, first in the sidebar, the journey behind a one-time notice that it is the more detailed view, registers always open, the framework tree out of the sidebar; an unpaid account sees the walkthrough locked with the way to order and has no journey. Off: platform admins see all that, everyone else the journey as before with the walkthrough marked coming soon. Paid accounts can open the walkthrough's address either way.",
     toggle: true,
   },
 } as const satisfies Record<

@@ -51,10 +51,18 @@ async function wordsOf(item: AnyItem): Promise<ResolvedItem> {
   return resolved.value;
 }
 
-/** Every item of the walk with its state, for the home screen and the "Als Nächstes" card. */
-export async function loadWalk(): Promise<readonly WalkEntry[]> {
+/**
+ * Every item of the walk with its state, for the home screen and the "Als Nächstes" card. Locked
+ * (an account that has not paid), every item is open: such a company has walked nothing, and the
+ * walk's own data is for paid accounts only.
+ */
+export async function loadWalk({
+  locked,
+}: {
+  locked: boolean;
+}): Promise<readonly WalkEntry[]> {
   const [states, tc] = await Promise.all([
-    api.durchgang.walk(),
+    locked ? [] : api.durchgang.walk(),
     getTranslations("compliance"),
   ]);
   const stateOf = new Map(states.map((s) => [s.code, s.state]));

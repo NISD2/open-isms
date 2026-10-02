@@ -6,7 +6,6 @@ import { PortalHeader } from "@/components/portal/PortalHeader";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { hasReviewAccess } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
-import { mayWalkDurchgang } from "@/lib/billing/access";
 import { billingFor } from "@/lib/billing/ordering-access";
 import {
   type CategoryInfo,
@@ -17,13 +16,13 @@ import {
 } from "@/lib/compliance/access";
 import { db } from "@/lib/db";
 import { env } from "@/lib/env";
-import { isFeatureOn } from "@/lib/feature-flags";
 import {
   type ComplianceMessages,
   getCategoryName,
   getComplianceMessages,
 } from "@/lib/messages";
 import { api } from "@/lib/trpc/server";
+import { walkthroughLive } from "@/lib/walkthrough";
 
 /** Map sortOrder ranges to i18n phase keys.
  * REG(0) | GOV(1) RSK(2) SUP(3) INC(4) | CRY(5) ACC(6) AUT(7) | PRO(8) BCP(9) | TRN(10) EFF(11)
@@ -65,32 +64,21 @@ function buildSteps(
 }
 
 /**
- * The compliance portal's frame: its sidebar, its header, and the page beside them. Gates (the
- * paywall, the activation banner) belong to the portal layout, not here, so the offer's own
- * layout draws the same frame without them.
+ * The framework trees for the sidebar. Always loaded in the journey's portal, so the sidebar shows
+ * the NIS2 / GDPR groups even before the user has set up their company: pre-onboarding the
+ * category links work as a preview, and clicking lands on the onboarding banner.
  */
-export async function PortalShell({
-  session,
-  children,
-}: {
-  session: Session;
-  children: React.ReactNode;
-}) {
-  const mustOrder = session.accessLevel === "free";
+async function sidebarFrameworks(
+  session: Session,
+  mustOrder: boolean,
+): Promise<FrameworkGroup[]> {
+  const [allFrameworks, compliance, assessments] = await Promise.all([
+    getAllActiveCategories(),
+    getLocale().then(getComplianceMessages),
+    session.companyId ? api.assessment.listAssessments() : [],
+  ]);
 
-  // Always load framework structure so the sidebar shows NIS2 / GDPR groups
-  // even before the user has set up their company. Pre-onboarding the
-  // category links work as a preview — clicking lands on the onboarding banner.
-  const [allFrameworks, compliance, assessments, billing, walkthroughOn] =
-    await Promise.all([
-      getAllActiveCategories(),
-      getLocale().then(getComplianceMessages),
-      session.companyId ? api.assessment.listAssessments() : [],
-      billingFor(db, session.user.email),
-      isFeatureOn(db, "walkthrough"),
-    ]);
-
-  const frameworks: FrameworkGroup[] = await Promise.all(
+  return Promise.all(
     [...allFrameworks.entries()].map(([code, { framework, categories }]) => {
       const assessment = assessments.find((a) => a.framework?.code === code);
       return Promise.all([
@@ -111,6 +99,28 @@ export async function PortalShell({
       });
     }),
   );
+}
+
+/**
+ * The compliance portal's frame: its sidebar, its header, and the page beside them. Gates (the
+ * paywall, the activation banner) belong to the portal layout, not here, so the offer's own
+ * layout draws the same frame without them.
+ */
+export async function PortalShell({
+  session,
+  children,
+}: {
+  session: Session;
+  children: React.ReactNode;
+}) {
+  const mustOrder = session.accessLevel === "free";
+  // Once the walkthrough is the portal's front, the framework tree leaves the sidebar: the walk
+  // and the journey both lead to every item (Simon, 03.10.2026).
+  const live = await walkthroughLive(session.user.email);
+  const [frameworks, billing] = await Promise.all([
+    live ? [] : sidebarFrameworks(session, mustOrder),
+    billingFor(db, session.user.email),
+  ]);
 
   const platformAdmin = isPlatformAdmin(session.user.email);
 
@@ -126,18 +136,14 @@ export async function PortalShell({
         frameworks={frameworks}
         showBilling={billing.open}
         showAuditTrail={hasReviewAccess(session.role)}
-        // The `walkthrough` switch in platform admin opens the link to paid accounts; until then
-        // only platform admins get one (Simon, 02.10.2026). The route and API let a paid account
-        // in either way (mayWalkDurchgang).
-        durchgangOpen={
-          walkthroughOn
-            ? mayWalkDurchgang(session.accessLevel, platformAdmin)
-            : platformAdmin
-        }
+        walkthroughLive={live}
+        // An account that has not paid has no journey once the walkthrough is the front.
+        showJourney={!mustOrder}
+        journeyNotice={live && session.hints.journeyNotice}
       />
       <SidebarInset>
         <PortalHeader
-          journeyHome
+          home={live ? "walkthrough" : "journey"}
           guide={{
             hints: session.hints,
             calLink: env.CAL_LINK,

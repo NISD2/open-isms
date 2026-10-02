@@ -304,6 +304,7 @@
         "confirm": "Put on the waiting list"
       },
       "home": {
+        "unlock": "Unlock the walkthrough",
         "open": "Open",
         "toSignOff": "Not signed off yet. Jump to sign-off",
         "next": "Next",

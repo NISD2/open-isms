@@ -759,6 +759,7 @@ export const platformAdminRouter = router({
         journeyTourTeamDismissedAt: true,
         requirementTourDismissedAt: true,
         helpOfferDismissedAt: true,
+        journeyNoticeDismissedAt: true,
       },
     });
     if (!row) throw new TRPCError({ code: "NOT_FOUND", message: "User row missing" });

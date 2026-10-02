@@ -564,6 +564,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         journeyTourTeam: false,
         requirementTour: false,
         helpOffer: false,
+        journeyNotice: false,
       };
       return session;
     },
@@ -621,6 +622,7 @@ export const getSession = cache(async (): Promise<Session | null> => {
       journeyTourTeamDismissedAt: true,
       requirementTourDismissedAt: true,
       helpOfferDismissedAt: true,
+      journeyNoticeDismissedAt: true,
     },
   });
   if (!dbUser) return null;

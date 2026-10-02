@@ -67,6 +67,7 @@ export function PortalGuide({
     journeyTourTeam: false,
     requirementTour: false,
     helpOffer: false,
+    journeyNotice: false,
   });
   const [helpManual, setHelpManual] = useState(false);
   const [steps, setSteps] = useState<readonly TourStep[]>(NO_STEPS);

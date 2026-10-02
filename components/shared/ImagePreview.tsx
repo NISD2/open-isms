@@ -19,8 +19,8 @@ export interface PreviewImage {
 
 /** How wide the preview shows, in CSS pixels, before any zoom. */
 const PREVIEW_WIDTH = 640;
-/** Long enough to see the whole image first, so the zoom reads as moving into it. */
-const ZOOM_DELAY_MS = 450;
+/** Long enough to take in the whole image first, so the zoom reads as moving into it. */
+const ZOOM_DELAY_MS = 950;
 
 /**
  * The zoom that brings `focus` to the middle of the frame. The middle is held far enough from the

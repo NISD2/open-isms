@@ -19,6 +19,16 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
@@ -39,7 +49,8 @@ import {
   SidebarRail,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { Link, usePathname } from "@/i18n/navigation";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import { trpc } from "@/lib/trpc/client";
 import { PortalSwitcher } from "./PortalSwitcher";
 import { UserNav } from "./UserNav";
 
@@ -85,12 +96,16 @@ interface AppSidebarProps {
   /** Whether this person's role may read the audit trail (hasReviewAccess, server/trpc/routers/audit.ts). */
   showAuditTrail: boolean;
   /**
-   * Whether the Durchgang shows as a link. While the `walkthrough` feature flag is off only
-   * platform admins get one, once it is on every account that may walk it (mayWalkDurchgang,
-   * lib/billing/access.ts). Everyone else sees it in its place, not clickable, marked as coming
-   * soon.
+   * Whether the walkthrough is the portal's front for this person (lib/walkthrough.ts): it comes
+   * first and is a link (its home shows an unpaid account the way to order), the journey follows
+   * behind a one-time notice, the registers stand open and the framework tree is gone. Otherwise
+   * the journey comes first and the walkthrough sits in its place marked as coming soon.
    */
-  durchgangOpen: boolean;
+  walkthroughLive: boolean;
+  /** Whether the journey shows at all: not for an account that has not paid. */
+  showJourney: boolean;
+  /** Whether opening the journey still asks once whether to stay in the walkthrough. */
+  journeyNotice: boolean;
 }
 
 /**
@@ -128,6 +143,65 @@ function SoonButton({ item }: { item: NavItem & { soon: string } }) {
   );
 }
 
+/**
+ * The journey, once the walkthrough is the portal's front. The first click asks once whether to
+ * stay in the walkthrough, the simpler way through, and records the answer either way, so it never
+ * asks again (Simon, 03.10.2026). Closing the question without an answer asks again next time.
+ */
+function JourneyItem({
+  item,
+  notice,
+  pathname,
+}: {
+  item: NavItem;
+  notice: boolean;
+  pathname: string;
+}) {
+  const t = useTranslations("portal.journeyNotice");
+  const router = useRouter();
+  const [asking, setAsking] = useState(false);
+  const [pending, setPending] = useState(notice);
+  const dismiss = trpc.user.dismissHint.useMutation();
+  const answer = (go: boolean) => {
+    setAsking(false);
+    setPending(false);
+    dismiss.mutate({ hint: "journeyNotice" });
+    if (go) router.push("/journey");
+  };
+  return (
+    <SidebarMenuItem>
+      <SidebarMenuButton asChild isActive={pathname === item.href} tooltip={item.label}>
+        <Link
+          href="/journey"
+          prefetch={false}
+          onClick={(e) => {
+            if (!pending) return;
+            e.preventDefault();
+            setAsking(true);
+          }}
+        >
+          <item.icon />
+          <span>{item.label}</span>
+        </Link>
+      </SidebarMenuButton>
+      <AlertDialog open={asking} onOpenChange={setAsking}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{t("title")}</AlertDialogTitle>
+            <AlertDialogDescription>{t("text")}</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => answer(true)}>{t("go")}</AlertDialogCancel>
+            <AlertDialogAction onClick={() => answer(false)}>
+              {t("stay")}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </SidebarMenuItem>
+  );
+}
+
 function NavMenu({ items, pathname }: { items: NavItem[]; pathname: string }) {
   return (
     <SidebarMenu>
@@ -158,7 +232,9 @@ export function AppSidebar({
   frameworks,
   showBilling,
   showAuditTrail,
-  durchgangOpen,
+  walkthroughLive,
+  showJourney,
+  journeyNotice,
 }: AppSidebarProps) {
   const t = useTranslations("portal");
   const pathname = usePathname();
@@ -166,15 +242,13 @@ export function AppSidebar({
   // so active-state must compare the resolved params, not concrete URL strings.
   const params = useParams<{ categorySlug?: string; requirementCode?: string }>();
 
-  const overviewItems: NavItem[] = [
-    { href: "/journey", label: t("journey"), icon: Compass },
-    {
-      href: "/durchgang/nis2",
-      label: t("durchgang"),
-      icon: Footprints,
-      ...(durchgangOpen ? {} : { soon: t("comingSoon") }),
-    },
-  ];
+  const journey: NavItem = { href: "/journey", label: t("journey"), icon: Compass };
+  const walkthrough: NavItem = {
+    href: "/durchgang/nis2",
+    label: t("durchgang"),
+    icon: Footprints,
+    ...(walkthroughLive ? {} : { soon: t("comingSoon") }),
+  };
 
   // Living registers the journey strands: /assets only appears in the journey
   // until 5 assets exist, and the all-policies overview has no swim-lane equivalent.
@@ -204,17 +278,42 @@ export function AppSidebar({
         <SidebarGroup>
           <SidebarGroupLabel>{t("overview")}</SidebarGroupLabel>
           <SidebarGroupContent>
-            <NavMenu items={overviewItems} pathname={pathname} />
-            {/* Registers — collapsible sub-section within Overview */}
-            <Collapsible data-tour="sidebar-registers" className="group/registers">
-              <CollapsibleTrigger className="flex w-full items-center px-2 py-1.5 text-xs font-medium text-sidebar-foreground/70 hover:text-sidebar-foreground">
-                {t("registers")}
-                <ChevronRight className="ml-auto size-3.5 transition-transform group-data-[state=open]/registers:rotate-90" />
-              </CollapsibleTrigger>
-              <CollapsibleContent>
+            {walkthroughLive ? (
+              <>
+                <NavMenu items={[walkthrough]} pathname={pathname} />
+                {showJourney && (
+                  <SidebarMenu>
+                    <JourneyItem
+                      item={journey}
+                      notice={journeyNotice}
+                      pathname={pathname}
+                    />
+                  </SidebarMenu>
+                )}
+                {/* Registers stand open: one click to the register, nothing to unfold. */}
+                <p
+                  data-tour="sidebar-registers"
+                  className="px-2 pt-2 pb-1 text-xs font-medium text-sidebar-foreground/70 group-data-[collapsible=icon]:hidden"
+                >
+                  {t("registers")}
+                </p>
                 <NavMenu items={registerItems} pathname={pathname} />
-              </CollapsibleContent>
-            </Collapsible>
+              </>
+            ) : (
+              <>
+                <NavMenu items={[journey, walkthrough]} pathname={pathname} />
+                {/* Registers — collapsible sub-section within Overview */}
+                <Collapsible data-tour="sidebar-registers" className="group/registers">
+                  <CollapsibleTrigger className="flex w-full items-center px-2 py-1.5 text-xs font-medium text-sidebar-foreground/70 hover:text-sidebar-foreground">
+                    {t("registers")}
+                    <ChevronRight className="ml-auto size-3.5 transition-transform group-data-[state=open]/registers:rotate-90" />
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <NavMenu items={registerItems} pathname={pathname} />
+                  </CollapsibleContent>
+                </Collapsible>
+              </>
+            )}
           </SidebarGroupContent>
         </SidebarGroup>
 
