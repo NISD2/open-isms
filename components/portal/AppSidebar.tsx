@@ -16,12 +16,14 @@ import {
 } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
   Sidebar,
   SidebarContent,
@@ -35,6 +37,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { Link, usePathname } from "@/i18n/navigation";
 import { PortalSwitcher } from "./PortalSwitcher";
@@ -65,6 +68,8 @@ interface NavItem {
   href: string;
   label: string;
   icon: LucideIcon;
+  /** Set when the destination is not open to this person yet: why, shown instead of a link. */
+  soon?: string;
 }
 
 interface AppSidebarProps {
@@ -79,8 +84,47 @@ interface AppSidebarProps {
   showBilling: boolean;
   /** Whether this person's role may read the audit trail (hasReviewAccess, server/trpc/routers/audit.ts). */
   showAuditTrail: boolean;
-  /** Whether this person may walk the paid guided path (mayWalkDurchgang, lib/billing/access.ts). */
-  showDurchgang: boolean;
+  /**
+   * Whether this person may walk the Durchgang (mayWalkDurchgang, lib/billing/access.ts): the
+   * same check as its route and its API. Everyone else sees it in its place, not clickable,
+   * marked as coming soon.
+   */
+  durchgangOpen: boolean;
+}
+
+/**
+ * A destination not open to this person yet: in its place, not clickable, with why. The note
+ * opens on hover with a mouse and on a tap, since a tooltip never opens on touch; collapsed to
+ * icons it also names the item.
+ */
+function SoonButton({ item }: { item: NavItem & { soon: string } }) {
+  const [open, setOpen] = useState(false);
+  const { state } = useSidebar();
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        {/* The sidebar's own aria-disabled style dims the item and turns pointer events off,
+            which would also stop the hover and the tap that show why; this one keeps them. */}
+        <SidebarMenuButton
+          aria-disabled
+          onPointerEnter={(e) => e.pointerType === "mouse" && setOpen(true)}
+          onPointerLeave={(e) => e.pointerType === "mouse" && setOpen(false)}
+          className="cursor-not-allowed hover:bg-transparent hover:text-sidebar-foreground active:bg-transparent active:text-sidebar-foreground aria-disabled:pointer-events-auto"
+        >
+          <item.icon />
+          <span>{item.label}</span>
+        </SidebarMenuButton>
+      </PopoverTrigger>
+      <PopoverContent
+        side="right"
+        sideOffset={8}
+        onOpenAutoFocus={(e) => e.preventDefault()}
+        className="w-auto max-w-64 px-3 py-1.5 text-xs"
+      >
+        {state === "collapsed" ? `${item.label}: ${item.soon}` : item.soon}
+      </PopoverContent>
+    </Popover>
+  );
 }
 
 function NavMenu({ items, pathname }: { items: NavItem[]; pathname: string }) {
@@ -88,16 +132,20 @@ function NavMenu({ items, pathname }: { items: NavItem[]; pathname: string }) {
     <SidebarMenu>
       {items.map((item) => (
         <SidebarMenuItem key={item.href}>
-          <SidebarMenuButton
-            asChild
-            isActive={pathname === item.href}
-            tooltip={item.label}
-          >
-            <Link href={item.href as never} prefetch={false}>
-              <item.icon />
-              <span>{item.label}</span>
-            </Link>
-          </SidebarMenuButton>
+          {item.soon === undefined ? (
+            <SidebarMenuButton
+              asChild
+              isActive={pathname === item.href}
+              tooltip={item.label}
+            >
+              <Link href={item.href as never} prefetch={false}>
+                <item.icon />
+                <span>{item.label}</span>
+              </Link>
+            </SidebarMenuButton>
+          ) : (
+            <SoonButton item={{ ...item, soon: item.soon }} />
+          )}
         </SidebarMenuItem>
       ))}
     </SidebarMenu>
@@ -109,7 +157,7 @@ export function AppSidebar({
   frameworks,
   showBilling,
   showAuditTrail,
-  showDurchgang,
+  durchgangOpen,
 }: AppSidebarProps) {
   const t = useTranslations("portal");
   const pathname = usePathname();
@@ -119,9 +167,12 @@ export function AppSidebar({
 
   const overviewItems: NavItem[] = [
     { href: "/journey", label: t("journey"), icon: Compass },
-    ...(showDurchgang
-      ? [{ href: "/durchgang", label: t("durchgang"), icon: Footprints }]
-      : []),
+    {
+      href: "/durchgang",
+      label: t("durchgang"),
+      icon: Footprints,
+      ...(durchgangOpen ? {} : { soon: t("comingSoon") }),
+    },
   ];
 
   // Living registers the journey strands: /assets only appears in the journey

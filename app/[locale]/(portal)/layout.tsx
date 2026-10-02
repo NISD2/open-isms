@@ -146,7 +146,8 @@ export default async function PortalLayout({ children }: { children: React.React
         frameworks={frameworks}
         showBilling={billing.open}
         showAuditTrail={hasReviewAccess(session.role)}
-        showDurchgang={mayWalkDurchgang(session.accessLevel, platformAdmin)}
+        // The same check as the walkthrough's route and API, so the sidebar can never disagree.
+        durchgangOpen={mayWalkDurchgang(session.accessLevel, platformAdmin)}
       />
       <SidebarInset>
         <PortalHeader
