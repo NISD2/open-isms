@@ -2,17 +2,12 @@
 
 import { Check, Plus, ScrollText } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  type PolicyPart,
-  policyNames,
-  policyParts,
-  policySignature,
-  policyTitle,
-} from "@/lib/durchgang";
+import { policyNames, policyParts, policySignature, policyTitle } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
 import { Heading, Lead } from "./ExplainScreens";
@@ -24,12 +19,9 @@ const sameChoice = (a: readonly string[], b: readonly string[]) =>
 /** How long a section just added stays lit in the document. */
 const LIT_MS = 2400;
 
-/** The last clause the person switched, so the screen can show what changed. */
-type Change = { readonly id: string; readonly on: boolean };
-
 /**
  * One clause to add. A mouse sees the clause's text on hover before adding it; a tap adds it at
- * once, and the screen then shows the text that went in, so a phone loses nothing.
+ * once, and it appears lit in the document right above the choices.
  */
 function ClauseChip({
   label,
@@ -82,12 +74,13 @@ function ClauseChip({
 }
 
 /**
- * A policy written from the template, shown as the document it becomes: the clauses to add on
- * top, a line of the company's own, then the text with the company's name, the item's answers
- * and the approval line. The document comes from the server in the record language and is
+ * A policy written from the template, shown as the document it becomes and read first: the text
+ * with the company's name, the item's answers and the approval line. Below it, the clauses to add,
+ * a section in the company's own words, and the confirmation that the person has read it, which
+ * the screen waits for. The document comes from the server in the record language and is
  * assembled by the function the server stores, so what is shown and approved is what is written.
  * The answers are the ones on this item's earlier screens, which the queue saves before it writes
- * the policy. Switching a clause shows at once what it put in or took out.
+ * the policy. A clause switched on lights up in the document, which sits right above the choices.
  */
 export function PolicyScreen({
   item,
@@ -100,9 +93,7 @@ export function PolicyScreen({
   const policyType = entry.screen.policy;
   const policyDraft = trpc.durchgang.policyDraft.useQuery({ code: item.code });
   const policies = trpc.policy.list.useQuery();
-  const [change, setChange] = useState<Change | null>(null);
   const [lit, setLit] = useState<string | null>(null);
-  const sections = useRef(new Map<string, HTMLElement>());
 
   useEffect(() => {
     if (!lit) return;
@@ -132,82 +123,15 @@ export function PolicyScreen({
       ...draft,
       clauses: on ? [...chosen, id] : chosen.filter((c) => c !== id),
     });
-    setChange({ id, on });
     setLit(on ? id : null);
   };
   const preview = (id: string) =>
     policyParts(document, [id], names, "").find((p) => p.clause === id)?.text ?? "";
-  const added = change?.on ? parts.find((p) => p.clause === change.id) : undefined;
-  const removed =
-    change && !change.on ? document.clauses.find((c) => c.id === change.id) : undefined;
-  const show = (part: PolicyPart) =>
-    sections.current
-      .get(part.heading)
-      ?.scrollIntoView({ behavior: "smooth", block: "center" });
 
   return (
     <>
       <Heading>{entry.copy.title}</Heading>
       <Lead>{entry.copy.lead}</Lead>
-
-      <section className="mt-8">
-        <p className="text-sm font-semibold">{t("question")}</p>
-        <p className="mt-1 text-sm text-muted-foreground">{t("questionHint")}</p>
-        <div className="mt-3 flex flex-wrap gap-2">
-          {document.clauses.map((clause) => (
-            <ClauseChip
-              key={clause.id}
-              label={clause.label}
-              preview={preview(clause.id)}
-              on={chosen.includes(clause.id)}
-              onToggle={() => toggle(clause.id)}
-            />
-          ))}
-        </div>
-        <div aria-live="polite">
-          {added && (
-            <div className="mt-4 rounded-xl border border-primary/30 bg-primary/[0.04] p-4">
-              <p className="flex items-center gap-1.5 text-xs font-medium text-primary">
-                <Check className="size-3.5" />
-                {t("added")}
-              </p>
-              <p className="mt-1.5 text-sm font-semibold">{added.heading}</p>
-              <p className="mt-1 text-sm leading-6 text-muted-foreground">{added.text}</p>
-              <button
-                type="button"
-                onClick={() => show(added)}
-                className="mt-2 cursor-pointer text-sm font-medium text-primary underline-offset-4 hover:underline"
-              >
-                {t("showInPlan")}
-              </button>
-            </div>
-          )}
-          {removed && (
-            <p className="mt-4 text-sm text-muted-foreground">
-              {t("removed", { label: removed.label })}
-            </p>
-          )}
-        </div>
-
-        <div className="mt-6 space-y-1.5">
-          <Label htmlFor="dg-policy-own" className="text-sm font-semibold">
-            {t("ownLabel")}
-          </Label>
-          <p className="text-sm text-muted-foreground">{t("ownHint")}</p>
-          <Textarea
-            id="dg-policy-own"
-            className="mt-2 min-h-20 rounded-xl text-base"
-            maxLength={2000}
-            value={own}
-            onChange={(e) => onDraft({ ...draft, own: e.target.value })}
-          />
-        </div>
-        {approved && changed && (
-          <p className="mt-3 text-sm text-muted-foreground">
-            {t("changedAfterApproval")}
-          </p>
-        )}
-      </section>
 
       <article className="mt-8 overflow-hidden rounded-2xl border bg-card shadow-sm">
         <header className="flex items-center gap-3 border-b bg-muted/40 px-5 py-3">
@@ -221,12 +145,8 @@ export function PolicyScreen({
           {parts.map((part) => (
             <section
               key={part.heading}
-              ref={(el) => {
-                if (el) sections.current.set(part.heading, el);
-                else sections.current.delete(part.heading);
-              }}
               className={cn(
-                "scroll-mt-24 rounded-xl px-2 py-3 transition-colors duration-700",
+                "rounded-xl px-2 py-3 transition-colors duration-700",
                 part.clause !== null && part.clause === lit && "bg-primary/[0.08]",
               )}
             >
@@ -249,6 +169,54 @@ export function PolicyScreen({
           </div>
         </footer>
       </article>
+
+      <section className="mt-8">
+        <p className="text-sm font-semibold">{t("question")}</p>
+        <p className="mt-1 text-sm text-muted-foreground">{t("questionHint")}</p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          {document.clauses.map((clause) => (
+            <ClauseChip
+              key={clause.id}
+              label={clause.label}
+              preview={preview(clause.id)}
+              on={chosen.includes(clause.id)}
+              onToggle={() => toggle(clause.id)}
+            />
+          ))}
+        </div>
+
+        <div className="mt-6 space-y-1.5">
+          <Label htmlFor="dg-policy-own" className="text-sm font-semibold">
+            {t("ownLabel")}
+          </Label>
+          <p className="text-sm text-muted-foreground">{t("ownHint")}</p>
+          <Textarea
+            id="dg-policy-own"
+            className="mt-2 min-h-20 rounded-xl text-base"
+            maxLength={2000}
+            value={own}
+            onChange={(e) => onDraft({ ...draft, own: e.target.value })}
+          />
+        </div>
+        {approved && changed && (
+          <p className="mt-3 text-sm text-muted-foreground">
+            {t("changedAfterApproval")}
+          </p>
+        )}
+
+        <Label
+          htmlFor="dg-policy-read"
+          className="mt-6 flex cursor-pointer items-start gap-3 rounded-xl border p-4 font-normal transition-colors hover:border-primary/40 has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:bg-primary/[0.05]"
+        >
+          <Checkbox
+            id="dg-policy-read"
+            className="mt-0.5"
+            checked={draft.read}
+            onCheckedChange={(on) => onDraft({ ...draft, read: on === true })}
+          />
+          <span className="text-[15px] font-medium">{t("read")}</span>
+        </Label>
+      </section>
     </>
   );
 }

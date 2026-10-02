@@ -583,7 +583,7 @@ describe("the walk's sign-ins", () => {
       code: "11.1",
       rows: [
         { assetId: M365, mfa: true },
-        { assetId: VPN, mfa: false },
+        { assetId: VPN, mfa: null },
       ],
     });
     expect(result).toEqual({ changed: 1 });
@@ -593,6 +593,17 @@ describe("the walk's sign-ins", () => {
     expect(updates[0]?.where && paramsOf(updates[0].where)).toEqual([M365, COMPANY]);
     const lookup = wheres.find((w) => w.table === "asset");
     expect(lookup && paramsOf(lookup.where)).toContain(COMPANY);
+  });
+
+  test("keeps 'not known yet' apart from 'password only', so finding out is a change", async () => {
+    const { caller, writes } = setup({ accessLevel: "full", assets: assets.slice(1) });
+    const result = await caller.recordLogins({
+      code: "11.1",
+      rows: [{ assetId: VPN, mfa: false }],
+    });
+    expect(result).toEqual({ changed: 1 });
+    const updates = writes.filter((w) => w.op === "update" && w.table === asset);
+    expect(updates.map((u) => (u.values as { hasMfa: unknown }).hasMfa)).toEqual([false]);
   });
 
   test("names every sign-in checked in the trail, a password-only row included", async () => {

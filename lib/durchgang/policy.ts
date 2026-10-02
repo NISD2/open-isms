@@ -51,6 +51,40 @@ export const criticalProcessesText = (
 export const recoveryOrderText = (names: readonly string[]): string =>
   names.length === 0 ? BLANK : names.map((name, i) => `${i + 1}. ${name}`).join(", ");
 
+/** The person an answer names, or a blank. */
+export const personText = (value: unknown): string => answerText(value);
+
+/** The country whose reporting channel and its button we have checked: Germany's BSI portal. */
+const CHECKED_COUNTRY = "DE";
+
+const BUTTON = {
+  de: (url: string) => `BSI-Portal (${url}), Schaltfläche „Sicherheitsvorfall melden“`,
+  en: (url: string) => `the BSI portal (${url}), button "Sicherheitsvorfall melden"`,
+} as const;
+
+/**
+ * Where a plan says incidents are reported, from the company's country: in Germany the BSI portal
+ * and its button, checked against the BSI's instructions; elsewhere the authority and its
+ * website, which says how; a blank where the country is not set.
+ */
+export const reportingChannelText = (
+  locale: "de" | "en",
+  portal: {
+    readonly countryCode: string;
+    readonly authority: string;
+    readonly authorityUrl: string | null;
+    readonly portalUrl: string | null;
+  } | null,
+): string => {
+  if (!portal) return BLANK;
+  if (portal.countryCode === CHECKED_COUNTRY && portal.portalUrl) {
+    return BUTTON[locale](portal.portalUrl);
+  }
+  return portal.authorityUrl
+    ? `${portal.authority} (${portal.authorityUrl})`
+    : portal.authority;
+};
+
 /** The names a policy is written with: the company's, and every asked field's answer or a blank. */
 export const policyNames = (
   company: string,

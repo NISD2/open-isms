@@ -35,11 +35,7 @@ export type Provision =
  * A register the requirement page shows for the item (its `moduleRef`), which a screen shows as
  * the list itself. The asset register has its own screen kind, because it is offered in slices.
  */
-export type RegisterModule =
-  | "supplier"
-  | "team"
-  | "training_record"
-  | "management_review";
+export type RegisterModule = "supplier" | "training_record" | "management_review";
 
 /**
  * Whose trainings a training screen lists and adds: management's, which § 38 Abs. 3 BSIG asks
@@ -63,11 +59,20 @@ export const MANAGEMENT_ROLE = "ceo" as const satisfies RoleKey;
 /** A BSI default the person may take over with one click, as an explicit write. */
 export type Adoptable = "bsi_200_3_method";
 
+/** Where a field's common answers are read from: the software list, or the contact email. */
+export type SuggestSource = "software" | "contact";
+
 /**
- * Names a policy may carry that the server reads off the company's own lists rather than off an
- * answer: the processes that must keep running, and the order systems come back in.
+ * Names a policy may carry that the server reads off the company's own records rather than off
+ * an answer: the processes that must keep running, the order systems come back in, where
+ * incidents are reported (from the company's country), and who leads in an emergency (from 3.1).
  */
-export const POLICY_LISTS = ["criticalProcesses", "recoveryOrder"] as const;
+export const POLICY_LISTS = [
+  "criticalProcesses",
+  "recoveryOrder",
+  "reportingChannel",
+  "emergencyLead",
+] as const;
 export type PolicyList = (typeof POLICY_LISTS)[number];
 
 /**
@@ -82,26 +87,22 @@ export type PolicyTemplate =
   | "it_rules"
   | "business_continuity";
 
-/** Where a list the company needs usually exists already. */
-export const SOURCE_IDS = [
-  "ropa",
-  "ledger",
-  "provider",
-  "payables",
-  "contracts",
-  "dpa",
-  "terms",
-] as const;
-export type SourceId = (typeof SOURCE_IDS)[number];
-
 export type Screen<C extends CategoryCode> =
   | { readonly kind: "learn"; readonly id: string; readonly link?: LearnLink }
-  /** What to have ready before starting, as the law or the BSI lists it. */
-  | { readonly kind: "prepare"; readonly id: string }
+  /**
+   * What to have ready before starting, as the law or the BSI lists it. With `confirm`, the next
+   * step needs it: the person ticks that they have it at hand, or leaves the item open.
+   */
+  | { readonly kind: "prepare"; readonly id: string; readonly confirm?: true }
   /** Example: a good and a bad value side by side. */
   | { readonly kind: "compare"; readonly id: string }
   /** Example: a few lines of what the finished list looks like. */
-  | { readonly kind: "sample"; readonly id: string }
+  | {
+      readonly kind: "sample";
+      readonly id: string;
+      /** The company's own document the sample is read against, shown beside it once written. */
+      readonly beside?: PolicyTemplate;
+    }
   /**
    * Examples read off the 200-3 matrix, from low to high. Each level is computed from its two
    * ratings, never written; the copy gives each example its words, in the same order.
@@ -124,6 +125,16 @@ export type Screen<C extends CategoryCode> =
        * person walking first, and an invite for someone not in it yet.
        */
       readonly person?: CategoryField<C>;
+      /** A rule or list shown above the fields, which the answers are read off. */
+      readonly provision?: Provision;
+      /**
+       * A text field whose common answers come from the company's own data, so a tap names what
+       * it already has: its software from the list, or addresses at its contact email's domain.
+       */
+      readonly suggest?: {
+        readonly field: CategoryField<C>;
+        readonly from: SuggestSource;
+      };
     }
   | {
       readonly kind: "evidence";
@@ -142,11 +153,6 @@ export type Screen<C extends CategoryCode> =
       readonly id: string;
       readonly module: "training_record";
       readonly audience: TrainingAudience;
-    }
-  | {
-      readonly kind: "sources";
-      readonly id: string;
-      readonly sources: readonly SourceId[];
     }
   /** One slice of the asset catalogue, so no screen is a wall of checkboxes. */
   | {

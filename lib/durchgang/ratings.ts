@@ -145,27 +145,35 @@ export const byLevel = (
  * level. A thing with several risks has a level but no single cell.
  */
 export interface MappedRisk {
+  /** The rating row's key, so a name or a cell on the map opens that row to re-rate. */
+  readonly key: string;
   readonly name: string;
   readonly rating: Rating | null;
   readonly level: RiskLevel | null;
 }
+
+/** The company's risks that sit in one cell of the matrix. */
+export const inCell = (
+  risks: readonly MappedRisk[],
+  frequency: Frequency,
+  impact: Impact,
+): readonly MappedRisk[] =>
+  risks.filter((r) => r.rating?.frequency === frequency && r.rating.impact === impact);
 
 /** How many of the company's risks sit in one cell of the matrix. */
 export const cellCount = (
   risks: readonly MappedRisk[],
   frequency: Frequency,
   impact: Impact,
-): number =>
-  risks.filter((r) => r.rating?.frequency === frequency && r.rating.impact === impact)
-    .length;
+): number => inCell(risks, frequency, impact).length;
 
 /** The rated things by level, highest first, leaving out levels nothing sits at. */
 export const levelGroups = (
   risks: readonly MappedRisk[],
-): ReadonlyArray<{ readonly level: RiskLevel; readonly names: readonly string[] }> =>
+): ReadonlyArray<{ readonly level: RiskLevel; readonly risks: readonly MappedRisk[] }> =>
   [...RISK_LEVELS].reverse().flatMap((level) => {
-    const names = risks.filter((r) => r.level === level).map((r) => r.name);
-    return names.length > 0 ? [{ level, names }] : [];
+    const at = risks.filter((r) => r.level === level);
+    return at.length > 0 ? [{ level, risks: at }] : [];
   });
 
 /**
@@ -218,6 +226,7 @@ interface ListedAsset {
   readonly id: string;
   readonly name: string;
   readonly type: string;
+  readonly description: string | null;
   readonly supplierId: string | null;
 }
 
@@ -237,6 +246,8 @@ export type RatingRow =
       readonly key: string;
       readonly id: string;
       readonly name: string;
+      /** What kind of thing it is, kept in the description when 2.2 named it. */
+      readonly kindOf: string | null;
       readonly provider: string | null;
       readonly standing: Standing;
     }
@@ -313,6 +324,7 @@ export function ratingRows(
       key: ratingKey("asset", a.id),
       id: a.id,
       name: a.name,
+      kindOf: a.description?.trim() || null,
       provider: a.supplierId ? (names.get(a.supplierId) ?? null) : null,
       standing: standingOf(linkedTo(lists.assetRisks, a.id)),
     }));

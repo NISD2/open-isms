@@ -97,6 +97,17 @@ export function RiskPicker({
   );
 }
 
+/** A cell's level, with how many of the company's risks sit in it when there are any. */
+function CellBody({ count, label }: { count: number; label: string }) {
+  if (count === 0) return label;
+  return (
+    <span className="flex flex-col items-center">
+      <span className="text-lg leading-none tabular-nums sm:text-2xl">{count}</span>
+      <span className="mt-1 text-[10px] font-medium sm:text-xs">{label}</span>
+    </span>
+  );
+}
+
 /**
  * The BSI's risk matrix, read-only, straight from lib/compliance/bsi-200-3 (Tabellen 8 and 9,
  * Abbildung 3). With `highlight`, every cell but one fades, to show how one risk is read off it.
@@ -107,10 +118,13 @@ export function RiskMatrix({
   locale,
   highlight,
   counts,
+  onCell,
 }: {
   locale: "de" | "en";
   highlight?: { readonly frequency: Frequency; readonly impact: Impact };
   counts?: (frequency: Frequency, impact: Impact) => number;
+  /** Opens what sits in a cell; only cells that hold something become buttons. */
+  onCell?: (frequency: Frequency, impact: Impact) => void;
 }) {
   const t = useTranslations("durchgang.ui.matrix");
   const lit = (f: Frequency, i: Impact) =>
@@ -143,31 +157,31 @@ export function RiskMatrix({
                 const on = lit(frequency, impact);
                 const count = counts?.(frequency, impact) ?? 0;
                 const label = RISK_LEVEL_TEXT[locale][level].label;
-                return (
-                  <span
+                const title = `${IMPACT_TEXT[locale][impact].label}, ${FREQUENCY_TEXT[locale][frequency].label}: ${label}${counts ? `, ${t("count", { count })}` : ""}`;
+                const className = cn(
+                  "flex h-14 items-center justify-center rounded-lg px-0.5 text-center text-[11px] leading-tight font-semibold transition-opacity sm:h-[4.5rem] sm:px-1 sm:text-sm",
+                  LEVEL_FILL[level],
+                  !on && "opacity-20",
+                  (highlight || counts) &&
+                    on &&
+                    "ring-2 ring-foreground ring-offset-2 ring-offset-background",
+                );
+                return onCell && count > 0 ? (
+                  <button
                     key={frequency}
-                    title={`${IMPACT_TEXT[locale][impact].label}, ${FREQUENCY_TEXT[locale][frequency].label}: ${label}${counts ? `, ${t("count", { count })}` : ""}`}
+                    type="button"
+                    title={title}
+                    onClick={() => onCell(frequency, impact)}
                     className={cn(
-                      "flex h-14 items-center justify-center rounded-lg px-0.5 text-center text-[11px] leading-tight font-semibold transition-opacity sm:h-[4.5rem] sm:px-1 sm:text-sm",
-                      LEVEL_FILL[level],
-                      !on && "opacity-20",
-                      (highlight || counts) &&
-                        on &&
-                        "ring-2 ring-foreground ring-offset-2 ring-offset-background",
+                      className,
+                      "cursor-pointer hover:brightness-95 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground",
                     )}
                   >
-                    {count > 0 ? (
-                      <span className="flex flex-col items-center">
-                        <span className="text-lg leading-none tabular-nums sm:text-2xl">
-                          {count}
-                        </span>
-                        <span className="mt-1 text-[10px] font-medium sm:text-xs">
-                          {label}
-                        </span>
-                      </span>
-                    ) : (
-                      label
-                    )}
+                    <CellBody count={count} label={label} />
+                  </button>
+                ) : (
+                  <span key={frequency} title={title} className={className}>
+                    <CellBody count={count} label={label} />
                   </span>
                 );
               })}

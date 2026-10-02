@@ -58,13 +58,6 @@ export function useRecorded(item: ItemView, draft: Draft): readonly string[] {
             ? []
             : [`${f.label}: ${shown(value, f.options)}`];
         });
-      case "sources":
-        return listed(
-          t("recordedSources"),
-          entry.copy.sources
-            .filter((s) => draft.sources.some((id) => id === s.key))
-            .map((s) => s.label),
-        );
       case "register":
         switch (entry.screen.module) {
           case "training_record": {
@@ -85,11 +78,6 @@ export function useRecorded(item: ItemView, draft: Draft): readonly string[] {
             return listed(
               t("recordedIn.supplier"),
               (suppliers.data ?? []).map((row) => row.name),
-            );
-          case "team":
-            return listed(
-              t("recordedIn.team"),
-              (item.registers.team ?? []).map((row) => row.name?.trim() || row.email),
             );
           default:
             return entry.screen satisfies never;

@@ -8,13 +8,14 @@ import { SimpleFileUpload } from "@/components/shared/SimpleFileUpload";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import type { TrainingAudience } from "@/lib/durchgang";
+import { recordDay, type TrainingAudience } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import type { Registers } from "./view";
 
 type Row = Registers["training_record"][number];
 
-const EMPTY = { who: "", what: "", date: "" };
+/** A new row starts on today's Berlin day: a training is usually entered the day it is held. */
+const blank = () => ({ who: "", what: "", date: recordDay(new Date()) });
 
 /** Whether a training register row belongs to the audience a screen lists. */
 export const inAudience = (
@@ -99,7 +100,7 @@ export function TrainingRecords({
   const create = trpc.training.create.useMutation({ onSuccess: refresh });
   const remove = trpc.training.delete.useMutation({ onSuccess: refresh });
   const certUpload = trpc.training.getCertificateUploadUrl.useMutation();
-  const [form, setForm] = useState(EMPTY);
+  const [form, setForm] = useState(blank);
   const [cert, setCert] = useState<{ key: string; name: string } | null>(null);
   const ready = form.who.trim() && form.what.trim() && form.date;
 
@@ -113,7 +114,7 @@ export function TrainingRecords({
       },
       {
         onSuccess: () => {
-          setForm(EMPTY);
+          setForm(blank());
           setCert(null);
         },
         onError: () => toast.error(t("failed")),

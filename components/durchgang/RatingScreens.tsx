@@ -1,17 +1,10 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
+import { Check, ChevronDown, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  FREQUENCIES,
-  FREQUENCY_TEXT,
-  IMPACT_TEXT,
-  IMPACTS,
-  RISK_LEVEL_TEXT,
-  type RiskLevel,
-} from "@/lib/compliance/bsi-200-3";
+import { RISK_LEVEL_TEXT, type RiskLevel } from "@/lib/compliance/bsi-200-3";
 import {
   levelOf,
   type Rating,
@@ -24,21 +17,75 @@ import { trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
 import { type Draft, fullRating, type RatingDraft, type Specified } from "./draft";
 import { Heading, Lead } from "./ExplainScreens";
-import { LEVEL_FILL, RiskPicker } from "./RiskMatrix";
+import { LEVEL_FILL, RiskMatrix, RiskPicker } from "./RiskMatrix";
 import type { Of, WorkProps } from "./WorkScreens";
 
 function Quiet({ children }: { children: string }) {
   return <p className="mt-8 text-muted-foreground">{children}</p>;
 }
 
+/** A row of answers of which one is chosen: a tap sets it, the field stays free to type in. */
+function OneOf({
+  items,
+  value,
+  onChange,
+}: {
+  items: ReadonlyArray<{ readonly label: string; readonly value: string }>;
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  return (
+    <div className="mt-2 flex flex-wrap gap-1.5">
+      {items.map((item) => {
+        const on = item.value.trim().toLowerCase() === value.trim().toLowerCase();
+        return (
+          <button
+            key={item.label}
+            type="button"
+            aria-pressed={on}
+            onClick={() => onChange(item.value)}
+            className={cn(
+              "inline-flex cursor-pointer items-center gap-1 rounded-full border px-2.5 py-1 text-xs transition-colors",
+              on
+                ? "border-primary bg-primary/[0.06] text-foreground"
+                : "text-muted-foreground hover:border-primary/40 hover:text-foreground",
+            )}
+          >
+            {on && <Check className="size-3" />}
+            {item.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 /** 2.2: each listed thing gets the name the company knows it by, and who provides it. */
 export function Specify({ draft, onDraft, entry }: WorkProps & { entry: Of<"specify"> }) {
   const t = useTranslations("durchgang.ui.specify");
+  const utils = trpc.useUtils();
   const assets = trpc.asset.list.useQuery();
   const suppliers = trpc.supplier.list.useQuery();
+  const another = trpc.durchgang.addAnotherAsset.useMutation({
+    onSuccess: () => utils.asset.list.invalidate(),
+  });
   const providerOf = new Map((suppliers.data ?? []).map((s) => [s.id, s.name]));
   const rows = (assets.data ?? []).filter((a) => sliceOf(a.type) === entry.screen.slice);
   const listId = `providers-${entry.screen.id}`;
+  // Run in house, then the providers already named on this screen, then the rest of the list.
+  const common = [
+    { label: t("inHouse"), value: "" },
+    ...[
+      ...new Set([
+        ...rows.flatMap((r) =>
+          r.supplierId ? (providerOf.get(r.supplierId) ?? []) : [],
+        ),
+        ...(suppliers.data ?? []).map((s) => s.name),
+      ]),
+    ]
+      .slice(0, 4)
+      .map((name) => ({ label: name, value: name })),
+  ];
 
   const shown = (row: (typeof rows)[number]): Specified =>
     draft.specified[row.id] ?? {
@@ -90,6 +137,15 @@ export function Specify({ draft, onDraft, entry }: WorkProps & { entry: Of<"spec
                         {row.description}
                       </p>
                     )}
+                    <button
+                      type="button"
+                      disabled={another.isPending}
+                      onClick={() => another.mutate({ id: row.id })}
+                      className="mt-1.5 inline-flex cursor-pointer items-center gap-1 text-xs font-medium text-primary hover:underline disabled:opacity-50"
+                    >
+                      <Plus className="size-3" />
+                      {t("another")}
+                    </button>
                   </div>
                   <div className="min-w-0">
                     <Label
@@ -104,6 +160,11 @@ export function Specify({ draft, onDraft, entry }: WorkProps & { entry: Of<"spec
                       value={value.provider}
                       placeholder={t("inHouse")}
                       onChange={(e) => edit(row, { provider: e.target.value })}
+                    />
+                    <OneOf
+                      items={common}
+                      value={value.provider}
+                      onChange={(provider) => edit(row, { provider })}
                     />
                   </div>
                 </li>
@@ -174,36 +235,84 @@ export function LevelChip({ level, locale }: { level: RiskLevel; locale: "de" | 
   );
 }
 
-/** The two scales in the BSI's words, one tap away: a label alone is too vague to rate by. */
-function Scales({ locale }: { locale: "de" | "en" }) {
+/**
+ * One thing to rate: its name and what it is, a small 200-3 matrix to pick the field in, the level
+ * that follows, and a line for a note. A thing worked on in the risk register is shown, not rated.
+ */
+export function RateRow({
+  row,
+  draft,
+  onDraft,
+  locale,
+}: {
+  row: RatingRow;
+  draft: Draft;
+  onDraft: WorkProps["onDraft"];
+  locale: "de" | "en";
+}) {
   const t = useTranslations("durchgang.ui.rate");
-  const scale = (
-    title: string,
-    lines: ReadonlyArray<{ readonly label: string; readonly description: string }>,
-  ) => (
-    <div>
-      <p className="text-sm font-semibold">{title}</p>
-      <dl className="mt-2 space-y-1.5 text-sm">
-        {lines.map((line) => (
-          <div key={line.label} className="grid gap-x-3 sm:grid-cols-[9.5rem_1fr]">
-            <dt className="font-medium">{line.label}</dt>
-            <dd className="text-muted-foreground">{line.description}</dd>
-          </div>
-        ))}
-      </dl>
-    </div>
-  );
+  const value = chosen(row, draft);
+  const rating = fullRating(value);
+  const set = (change: Partial<RatingDraft>) =>
+    onDraft({
+      ...draft,
+      ratings: {
+        ...draft.ratings,
+        [row.key]: { ...value, ...change, kind: row.kind, id: row.id },
+      },
+    });
+  const about =
+    row.kind === "asset"
+      ? [row.kindOf, row.provider && t("providedBy", { name: row.provider })]
+          .filter(Boolean)
+          .join(" · ")
+      : row.provides.length > 0 && t("provides", { names: row.provides.join(", ") });
+
   return (
-    <div className="mt-4 grid gap-6 rounded-2xl border bg-muted/30 p-5 md:grid-cols-2">
-      {scale(
-        t("frequency"),
-        FREQUENCIES.map((f) => FREQUENCY_TEXT[locale][f]),
+    <>
+      <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:gap-6">
+        <div className="min-w-0">
+          <p className="font-medium break-words">{row.name}</p>
+          {about && <p className="text-sm text-muted-foreground">{about}</p>}
+        </div>
+        {row.standing.kind === "kept" ? (
+          <div className="flex items-center gap-3">
+            <span className="text-sm text-muted-foreground">
+              {t("kept", { count: row.standing.count })}
+            </span>
+            {row.standing.highest && (
+              <LevelChip level={row.standing.highest} locale={locale} />
+            )}
+          </div>
+        ) : (
+          <div className="flex items-center gap-4">
+            <RiskPicker
+              locale={locale}
+              name={row.name}
+              value={value}
+              onPick={(frequency, impact) => set({ frequency, impact })}
+            />
+            {rating ? (
+              <LevelChip level={levelOf(rating)} locale={locale} />
+            ) : (
+              <span className="inline-flex h-9 min-w-24 items-center justify-center rounded-md border border-dashed px-3 text-sm text-muted-foreground">
+                {t("open")}
+              </span>
+            )}
+          </div>
+        )}
+      </div>
+      {row.standing.kind !== "kept" && (
+        <Input
+          aria-label={`${t("note")}: ${row.name}`}
+          placeholder={t("notePlaceholder")}
+          maxLength={1000}
+          className="mt-3 h-9 text-sm"
+          value={value.note ?? ""}
+          onChange={(e) => set({ note: e.target.value })}
+        />
       )}
-      {scale(
-        t("impact"),
-        IMPACTS.map((i) => IMPACT_TEXT[locale][i]),
-      )}
-    </div>
+    </>
   );
 }
 
@@ -216,20 +325,6 @@ export function Rate({ item, draft, onDraft, entry }: WorkProps & { entry: Of<"r
   const rows = useRatingRows(entry.screen.targets);
   const locale = item.locale;
 
-  const set = (row: RatingRow, change: Partial<RatingDraft>) =>
-    onDraft({
-      ...draft,
-      ratings: {
-        ...draft.ratings,
-        [row.key]: { ...chosen(row, draft), ...change, kind: row.kind, id: row.id },
-      },
-    });
-
-  const detail = (row: RatingRow) =>
-    row.kind === "asset"
-      ? row.provider && t("providedBy", { name: row.provider })
-      : row.provides.length > 0 && t("provides", { names: row.provides.join(", ") });
-
   return (
     <>
       <Heading>{entry.copy.title}</Heading>
@@ -239,63 +334,19 @@ export function Rate({ item, draft, onDraft, entry }: WorkProps & { entry: Of<"r
           <ChevronDown className="size-4 transition-transform group-open:rotate-180" />
           {t("scales")}
         </summary>
-        <Scales locale={locale} />
+        <div className="mt-4 rounded-3xl border bg-card p-4 shadow-sm sm:p-6">
+          <RiskMatrix locale={locale} />
+        </div>
       </details>
       {rows === undefined ? null : rows.length === 0 ? (
         <Quiet>{t("empty")}</Quiet>
       ) : (
         <ul className="mt-6 divide-y overflow-hidden rounded-2xl border bg-card shadow-sm">
-          {rows.map((row) => {
-            const value = chosen(row, draft);
-            const rating = fullRating(value);
-            const about = detail(row);
-            return (
-              <li key={row.key} className="px-5 py-4">
-                <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:gap-6">
-                  <div className="min-w-0">
-                    <p className="font-medium break-words">{row.name}</p>
-                    {about && <p className="text-sm text-muted-foreground">{about}</p>}
-                  </div>
-                  {row.standing.kind === "kept" ? (
-                    <div className="flex items-center gap-3">
-                      <span className="text-sm text-muted-foreground">
-                        {t("kept", { count: row.standing.count })}
-                      </span>
-                      {row.standing.highest && (
-                        <LevelChip level={row.standing.highest} locale={locale} />
-                      )}
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-4">
-                      <RiskPicker
-                        locale={locale}
-                        name={row.name}
-                        value={value}
-                        onPick={(frequency, impact) => set(row, { frequency, impact })}
-                      />
-                      {rating ? (
-                        <LevelChip level={levelOf(rating)} locale={locale} />
-                      ) : (
-                        <span className="inline-flex h-9 min-w-24 items-center justify-center rounded-md border border-dashed px-3 text-sm text-muted-foreground">
-                          {t("open")}
-                        </span>
-                      )}
-                    </div>
-                  )}
-                </div>
-                {row.standing.kind !== "kept" && (
-                  <Input
-                    aria-label={`${t("note")}: ${row.name}`}
-                    placeholder={t("notePlaceholder")}
-                    maxLength={1000}
-                    className="mt-3 h-9 text-sm"
-                    value={value.note ?? ""}
-                    onChange={(e) => set(row, { note: e.target.value })}
-                  />
-                )}
-              </li>
-            );
-          })}
+          {rows.map((row) => (
+            <li key={row.key} className="px-5 py-4">
+              <RateRow row={row} draft={draft} onDraft={onDraft} locale={locale} />
+            </li>
+          ))}
         </ul>
       )}
     </>

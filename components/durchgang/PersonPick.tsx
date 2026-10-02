@@ -6,10 +6,10 @@ import { InlineInvite } from "@/components/team/InlineInvite";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import type { ItemView, Registers } from "./view";
+import type { ItemView, Team } from "./view";
 
 /** How a person is written into the record: their name, or their email where they have none. */
-const nameOf = (member: Registers["team"][number]) => member.name?.trim() || member.email;
+const nameOf = (member: Team[number]) => member.name?.trim() || member.email;
 
 const OTHER = "__other";
 
@@ -30,7 +30,7 @@ export function PersonPick({
   label: string;
   value: string;
   onChange: (value: string) => void;
-  team: Registers["team"];
+  team: Team;
   viewer: ItemView["viewer"];
 }) {
   const t = useTranslations("durchgang.ui.person");

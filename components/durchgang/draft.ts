@@ -1,5 +1,5 @@
 import type { AssetLayer } from "@/lib/asset-inventory/types";
-import type { Rating, SourceId } from "@/lib/durchgang";
+import type { Rating } from "@/lib/durchgang";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
 
 /** An asset as the "which one exactly" screen edits it: its name and who provides it. */
@@ -22,7 +22,8 @@ export type RatingDraft = Partial<Rating> & {
 export interface Draft {
   /** Intake field values, as the inputs hold them. */
   readonly values: Readonly<Record<string, unknown>>;
-  readonly sources: readonly SourceId[];
+  /** Whether the person ticked that they have at hand what the next step needs. */
+  readonly ready: boolean;
   /** Ticked catalogue items on the asset screens. */
   readonly checked: readonly string[];
   readonly custom: ReadonlyArray<{ name: string; layer: AssetLayer }>;
@@ -35,10 +36,15 @@ export interface Draft {
   readonly clauses: readonly string[] | null;
   /** The policy's addition in the company's own words; null until the person edits it. */
   readonly own: string | null;
+  /** Whether the person confirmed on this visit that they have read the policy. */
+  readonly read: boolean;
   /** What each supplier has agreed, by supplier id, for the rows answered on this visit. */
   readonly agreements: Readonly<Record<string, Agreed>>;
-  /** Whether signing in takes a second factor, by asset id, for the rows answered on this visit. */
-  readonly logins: Readonly<Record<string, boolean>>;
+  /**
+   * Whether signing in takes a second factor, by asset id, for the rows answered on this visit;
+   * null is "not known yet".
+   */
+  readonly logins: Readonly<Record<string, boolean | null>>;
   /** Which processes must keep running without IT, and how, by asset id, changed on this visit. */
   readonly critical: Readonly<Record<string, Critical>>;
 }
@@ -98,7 +104,7 @@ export const initialDraft = (
   values: Object.fromEntries(
     Object.entries(answers).map(([k, v]) => [k, toDraft(fields[k], v)]),
   ),
-  sources: [],
+  ready: false,
   checked: [],
   custom: [],
   uploaded: null,
@@ -106,6 +112,7 @@ export const initialDraft = (
   ratings: {},
   clauses: null,
   own: null,
+  read: false,
   agreements: {},
   logins: {},
   critical: {},

@@ -18,6 +18,8 @@ const item = <C extends CategoryCode>(i: Item<C>): Item<C> => i;
 export const NOT_WALKED: Readonly<Record<string, string>> = {
   "12.1":
     "Whoever reaches the Durchgang already knows their entity type; the walk does not decide it for them.",
+  "1.2":
+    "No statute asks every entity to name roles: § 38 Abs. 1 BSIG and Art. 20(1) NIS 2 have management implement and oversee the measures. Roles, responsibilities and authorities are CIR 2024/2690 Annex 1.2, which binds only the digital providers the CIR covers, and a security officer is BSI advice (BSI-Standard 200-2). The walk names the people it needs where it needs them: whoever leads in an emergency in 3.1, with an invite for someone not in the team yet, and management for the approval in 7.3. The requirement page keeps the team and its roles.",
   "1.3":
     "No statute asks for a separately approved security budget: § 30 and § 38 BSIG ask management to implement and oversee the measures. The nearest rule, CIR 2024/2690 Annex 1.1.1(e), binds only the digital providers the CIR covers and asks for a commitment to provide resources inside the security policy; the Leitlinie (2.4) carries that commitment for everyone.",
   "1.4":
@@ -108,7 +110,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     screens: [
       { kind: "learn", id: "learn" },
       { kind: "sample", id: "list" },
-      { kind: "sources", id: "sources", sources: ["payables", "contracts", "provider"] },
+      { kind: "prepare", id: "ready", confirm: true },
       { kind: "register", id: "suppliers", module: "supplier" },
       { kind: "done", id: "done" },
     ],
@@ -125,7 +127,6 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     reviewed: "2026-10-01",
     screens: [
       { kind: "learn", id: "learn" },
-      { kind: "sources", id: "sources", sources: ["contracts", "dpa", "terms"] },
       { kind: "sample", id: "clause" },
       { kind: "agreements", id: "contracts" },
       { kind: "done", id: "done" },
@@ -154,18 +155,6 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     },
   }),
   item({
-    code: "1.2",
-    category: "GOV",
-    law: { bsig: 30, article: 21 },
-    glossary: [],
-    reviewed: "2026-09-30",
-    screens: [
-      { kind: "learn", id: "learn" },
-      { kind: "register", id: "roles", module: "team" },
-      { kind: "done", id: "done" },
-    ],
-  }),
-  item({
     code: "3.1",
     category: "INC",
     law: { bsig: 30, article: 21 },
@@ -176,10 +165,14 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
       {
         kind: "fields",
         id: "lead",
-        fields: ["incidentLead", "itEmergencyNumber", "secureCommsChannel"],
+        fields: [
+          "incidentLead",
+          "itEmergencyNumber",
+          "secureCommsChannel",
+          "incidentEscalationContacts",
+        ],
         person: "incidentLead",
       },
-      { kind: "fields", id: "escalation", fields: ["incidentEscalationContacts"] },
       { kind: "policy", id: "plan", policy: "incident_response" },
       { kind: "done", id: "done" },
     ],
@@ -197,9 +190,13 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     screens: [
       { kind: "learn", id: "learn" },
       { kind: "provision", id: "clock", provision: "bsig_32_clock" },
-      { kind: "provision", id: "where", provision: "reporting_channels" },
-      { kind: "sample", id: "first_report" },
-      { kind: "fields", id: "setup", fields: ["bsiReportingRegistered"] },
+      { kind: "sample", id: "first_report", beside: "incident_response" },
+      {
+        kind: "fields",
+        id: "setup",
+        fields: ["bsiReportingRegistered"],
+        provision: "reporting_channels",
+      },
       { kind: "done", id: "done" },
     ],
     notAsked: {
@@ -259,7 +256,6 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     screens: [
       { kind: "learn", id: "learn" },
       { kind: "sample", id: "list" },
-      { kind: "sources", id: "sources", sources: ["ropa", "ledger", "provider"] },
       { kind: "assets", id: "processes", groups: ["business-processes"] },
       {
         kind: "assets",
@@ -378,7 +374,12 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     screens: [
       { kind: "learn", id: "learn" },
       { kind: "compare", id: "answer" },
-      { kind: "fields", id: "tools", fields: ["secureCommsTools"] },
+      {
+        kind: "fields",
+        id: "tools",
+        fields: ["secureCommsTools"],
+        suggest: { field: "secureCommsTools", from: "software" },
+      },
       { kind: "done", id: "done" },
     ],
     notAsked: {
@@ -398,7 +399,12 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
       { kind: "learn", id: "learn" },
       { kind: "compare", id: "updates" },
       { kind: "prepare", id: "sources" },
-      { kind: "fields", id: "report", fields: ["vulnerabilityDisclosureUrl"] },
+      {
+        kind: "fields",
+        id: "report",
+        fields: ["vulnerabilityDisclosureUrl"],
+        suggest: { field: "vulnerabilityDisclosureUrl", from: "contact" },
+      },
       { kind: "policy", id: "rules", policy: "it_rules" },
       { kind: "done", id: "done" },
     ],
@@ -421,13 +427,14 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
       { kind: "learn", id: "learn" },
       { kind: "compare", id: "fallback" },
       { kind: "critical", id: "keep" },
-      { kind: "fields", id: "lead", fields: ["crisisTeamLead"] },
       { kind: "policy", id: "plan", policy: "business_continuity" },
       { kind: "done", id: "done" },
     ],
     notAsked: {
+      crisisTeamLead:
+        "In a company of this size the crisis is led by whoever leads in an emergency, asked in 3.1, and the plan names that person from there; asking again would let the two answers drift apart. No statute asks for a separate crisis lead. The requirement page keeps the field for a company that has one.",
       bcpActivationCriteria:
-        "Conditions for activating the plan are CIR 2024/2690 Annex 4.1.2(d), which binds only the digital providers the CIR covers; no statute asks for them. The plan says in fixed words when it applies, and that the crisis lead decides in doubt.",
+        "Conditions for activating the plan are CIR 2024/2690 Annex 4.1.2(d), which binds only the digital providers the CIR covers; no statute asks for them. The plan says in fixed words when it applies, and that the person who leads in an emergency decides in doubt.",
     },
   }),
   item({
@@ -439,9 +446,8 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     screens: [
       { kind: "learn", id: "learn" },
       { kind: "compare", id: "copy" },
-      { kind: "fields", id: "rhythm", fields: ["backupFrequency"] },
       { kind: "prepare", id: "ask" },
-      { kind: "fields", id: "test", fields: ["lastBackupTest"] },
+      { kind: "fields", id: "backups", fields: ["backupFrequency", "lastBackupTest"] },
       { kind: "done", id: "done" },
     ],
     notAsked: {

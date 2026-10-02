@@ -4,13 +4,15 @@ import type { RouterOutputs } from "@/lib/trpc/client";
 
 interface RegisterRows {
   supplier: RouterOutputs["supplier"]["list"];
-  team: RouterOutputs["team"]["listMembers"];
   training_record: RouterOutputs["training"]["list"];
   management_review: RouterOutputs["managementReview"]["list"];
 }
 
 /** The registers an item's screens show, as their own routers return them. */
 export type Registers = Readonly<{ [M in RegisterModule]: RegisterRows[M] }>;
+
+/** The company's members, for a field that names a person. */
+export type Team = RouterOutputs["team"]["listMembers"];
 
 /** Where a company registers, for the registration screen. */
 export type Registration = RouterOutputs["durchgang"]["portals"];
@@ -74,6 +76,8 @@ export interface ItemView {
   readonly fields: Readonly<Record<string, FieldMeta>>;
   /** Only the registers the item has a screen for are loaded. */
   readonly registers: Partial<Registers>;
+  /** Loaded only for an item with a field that names a person. */
+  readonly team: Team;
   /**
    * The company's asset register as it stood when the item opened, for an item with asset
    * screens, else null: the catalogue items already on it, which the checklists show ticked, and

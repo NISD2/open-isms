@@ -19,7 +19,6 @@ const TEXT = {
   de: {
     waiting: (reason: string, note: string | null) =>
       `Geht noch nicht: ${reason}.${note ? ` Notiz: ${note}` : ""}`,
-    sources: (labels: readonly string[]) => `Nachgesehen in: ${labels.join(", ")}.`,
     method:
       "Methode zur Risikobewertung festgelegt: Risikoanalyse nach BSI-Standard 200-3.",
     declined: (reason: string) =>
@@ -32,6 +31,7 @@ const TEXT = {
     logins: (lines: readonly string[]) => `Anmeldung geprüft: ${lines.join("; ")}.`,
     mfa: "mit zweitem Faktor",
     password: "nur Passwort",
+    unknown: "noch nicht bekannt",
     approved: (day: string, titles: readonly string[]) =>
       `Von der Geschäftsführung freigegeben am ${day}: ${titles.join("; ")}.`,
     critical: (names: readonly string[]) =>
@@ -42,7 +42,6 @@ const TEXT = {
   en: {
     waiting: (reason: string, note: string | null) =>
       `Not possible yet: ${reason}.${note ? ` Note: ${note}` : ""}`,
-    sources: (labels: readonly string[]) => `Looked in: ${labels.join(", ")}.`,
     method: "Risk assessment method set: risk analysis according to BSI Standard 200-3.",
     declined: (reason: string) =>
       `Decided not to do this, for signature. Reason: ${reason}`,
@@ -54,6 +53,7 @@ const TEXT = {
     logins: (lines: readonly string[]) => `Sign-in checked: ${lines.join("; ")}.`,
     mfa: "second factor",
     password: "password only",
+    unknown: "not known yet",
     approved: (day: string, titles: readonly string[]) =>
       `Approved by management on ${day}: ${titles.join("; ")}.`,
     critical: (names: readonly string[]) =>
@@ -65,9 +65,6 @@ const TEXT = {
 
 export const waitingNote = (locale: NoteLocale, reason: string, note: string | null) =>
   TEXT[locale].waiting(reason, note);
-
-export const sourcesNote = (locale: NoteLocale, labels: readonly string[]) =>
-  TEXT[locale].sources(labels);
 
 export const methodNote = (locale: NoteLocale) => TEXT[locale].method;
 
@@ -95,18 +92,21 @@ export const agreementsNote = (
   );
 };
 
-/** One entry per sign-in checked: the program's name and whether it takes a second factor. */
+/**
+ * One entry per sign-in checked: the program's name and whether it takes a second factor, or that
+ * this is not known yet.
+ */
 export const loginsNote = (
   locale: NoteLocale,
-  rows: ReadonlyArray<{ readonly name: string; readonly mfa: boolean }>,
+  rows: ReadonlyArray<{ readonly name: string; readonly mfa: boolean | null }>,
 ) => {
   const text = TEXT[locale];
-  return text.logins(
-    rows.map((row) => `${row.name}: ${row.mfa ? text.mfa : text.password}`),
-  );
+  const answer = (mfa: boolean | null) =>
+    mfa === null ? text.unknown : mfa ? text.mfa : text.password;
+  return text.logins(rows.map((row) => `${row.name}: ${answer(row.mfa)}`));
 };
 
-/** The documents management approved in one sitting, by title, with the day as entered. */
+/** The documents management approved in one sitting, by title, on the day of the approval. */
 export const approvedNote = (
   locale: NoteLocale,
   day: string,

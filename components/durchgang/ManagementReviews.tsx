@@ -8,10 +8,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { recordDay } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import type { Registers } from "./view";
 
-const EMPTY = { date: "", attendees: "", decisions: "", actions: "" };
+/** A new row starts on today's Berlin day: a review is usually entered the day it is held. */
+const blank = () => ({
+  date: recordDay(new Date()),
+  attendees: "",
+  decisions: "",
+  actions: "",
+});
 
 /** A review day as entered: a calendar date, shown back as that same date. */
 const dayOf = (locale: "de" | "en", day: string) =>
@@ -40,7 +47,7 @@ export function ManagementReviews({
   const refresh = () => utils.managementReview.list.invalidate();
   const create = trpc.managementReview.create.useMutation({ onSuccess: refresh });
   const remove = trpc.managementReview.delete.useMutation({ onSuccess: refresh });
-  const [form, setForm] = useState(EMPTY);
+  const [form, setForm] = useState(blank);
   const ready = form.date && form.decisions.trim();
 
   const add = () => {
@@ -57,7 +64,7 @@ export function ManagementReviews({
         actionItems: form.actions.trim() || null,
       },
       {
-        onSuccess: () => setForm(EMPTY),
+        onSuccess: () => setForm(blank()),
         onError: () => toast.error(t("failed")),
       },
     );

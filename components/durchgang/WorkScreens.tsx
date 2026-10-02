@@ -2,41 +2,34 @@
 
 import {
   ArrowRight,
-  Calculator,
   Check,
   CheckCircle2,
-  ExternalLink,
   FileSignature,
   FileText,
   ListChecks,
-  type LucideIcon,
-  Plus,
   ScrollText,
-  Search,
-  ShieldCheck,
-  Wrench,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { BigChecklist } from "@/components/asset-inventory/BigChecklist";
 import { FileUpload } from "@/components/compliance/FileUpload";
-import { InlineInvite } from "@/components/team/InlineInvite";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
-import { Link } from "@/i18n/navigation";
-import type { ResolvedScreen, SourceId } from "@/lib/durchgang";
+import { type ResolvedScreen, type SuggestSource, sliceOf } from "@/lib/durchgang";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
-import { cn } from "@/lib/utils";
+import { trpc } from "@/lib/trpc/client";
 import { ArtThumb } from "./Art";
 import { asInput, type Draft, type DraftUpdate } from "./draft";
-import { Aside, Heading, Lead } from "./ExplainScreens";
+import { Aside, Heading, Lead, ProvisionView, Source } from "./ExplainScreens";
+import { InfoTip } from "./InfoTip";
 import { ManagementReviews } from "./ManagementReviews";
 import { PersonPick } from "./PersonPick";
+import { Suggestions } from "./Suggestions";
 import { SupplierList } from "./SupplierList";
 import { TrainingRecords } from "./TrainingRecords";
 import { useRecorded } from "./useRecorded";
-import type { ItemView, Registers, WalkEntry } from "./view";
+import type { ItemView, WalkEntry } from "./view";
 
 export type Of<K extends ResolvedScreen["kind"]> = Extract<ResolvedScreen, { kind: K }>;
 
@@ -186,48 +179,16 @@ function FieldInput({
   }
 }
 
-/** Common answers under a text field: a tap adds one to what is written, a second one after it. */
-function Suggestions({
-  items,
-  value,
-  onChange,
-}: {
-  items: readonly string[];
-  value: string;
-  onChange: (value: string) => void;
-}) {
-  const t = useTranslations("durchgang.ui");
-  const written = value.split(";").map((part) => part.trim());
-  return (
-    <div className="flex flex-wrap items-center gap-2 pt-1">
-      <span className="text-xs text-muted-foreground">{t("suggestions")}</span>
-      {items.map((s) => {
-        const on = written.includes(s);
-        return (
-          <button
-            key={s}
-            type="button"
-            aria-pressed={on}
-            onClick={() =>
-              onChange(
-                on
-                  ? written.filter((w) => w && w !== s).join("; ")
-                  : [...written.filter(Boolean), s].join("; "),
-              )
-            }
-            className={cn(
-              "inline-flex cursor-pointer items-center gap-1 rounded-full border px-2.5 py-1 text-xs transition-colors",
-              on
-                ? "border-primary bg-primary/[0.06] text-foreground"
-                : "text-muted-foreground hover:border-primary/40 hover:text-foreground",
-            )}
-          >
-            {on ? <Check className="size-3" /> : <Plus className="size-3" />}
-            {s}
-          </button>
-        );
-      })}
-    </div>
+/** The names of the company's software and services, from its list. */
+/** A field's common answers from the company's own data: its software, or its contact domain. */
+function useOwnSuggestions(from: SuggestSource | undefined): readonly string[] {
+  const assets = trpc.asset.list.useQuery(undefined, { enabled: from === "software" });
+  const contact = trpc.durchgang.contactSuggestions.useQuery(undefined, {
+    enabled: from === "contact",
+  });
+  if (from === "contact") return contact.data ?? [];
+  return (assets.data ?? []).flatMap((a) =>
+    sliceOf(a.type) === "software" ? [a.name] : [],
   );
 }
 
@@ -238,15 +199,35 @@ export function Fields({
   entry,
 }: WorkProps & { entry: Of<"fields"> }) {
   const t = useTranslations("durchgang.ui");
+  const suggest = entry.screen.suggest;
+  const own = useOwnSuggestions(suggest?.from);
+  const { steps, source } = entry.copy;
   return (
     <>
       <Heading>{entry.copy.title}</Heading>
       <Lead>{entry.copy.lead}</Lead>
+      {steps && (
+        <ol className="mt-6 max-w-[62ch] space-y-3">
+          {steps.map((step, i) => (
+            <li key={step} className="flex gap-3 text-[15px] leading-7">
+              <span className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground tabular-nums">
+                {i + 1}
+              </span>
+              <span>{step}</span>
+            </li>
+          ))}
+        </ol>
+      )}
+      {entry.screen.provision && (
+        <div className="mt-6">
+          <ProvisionView item={item} provision={entry.screen.provision} />
+        </div>
+      )}
       <div className="mt-8 overflow-hidden rounded-2xl border bg-card shadow-sm">
         <div className="flex items-center gap-3 border-b bg-muted/40 px-5 py-3">
           <FileText className="size-4 text-muted-foreground" />
           <p className="text-sm font-medium">{entry.copy.document}</p>
-          {!entry.screen.person && (
+          {!entry.screen.person && !steps && (
             <span className="ml-auto text-xs text-muted-foreground">{t("copyFrom")}</span>
           )}
         </div>
@@ -258,16 +239,21 @@ export function Fields({
               onDraft({ ...draft, values: { ...draft.values, [field.key]: next } });
             return (
               <div key={field.key} className="space-y-1.5">
-                <Label htmlFor={id} className="text-[15px] font-semibold">
-                  {field.label}
-                </Label>
+                <div className="flex items-center gap-1.5">
+                  <Label htmlFor={id} className="text-[15px] font-semibold">
+                    {field.label}
+                  </Label>
+                  <InfoTip label={t("fieldHelp", { label: field.label })}>
+                    {field.hint}
+                  </InfoTip>
+                </div>
                 {entry.screen.person === field.key ? (
                   <PersonPick
                     id={id}
                     label={field.label}
                     value={typeof value === "string" ? value : ""}
                     onChange={onChange}
-                    team={item.registers.team ?? []}
+                    team={item.team}
                     viewer={item.viewer}
                   />
                 ) : (
@@ -280,27 +266,22 @@ export function Fields({
                     onChange={onChange}
                   />
                 )}
-                {field.suggestions && (
-                  <Suggestions
-                    items={field.suggestions}
-                    value={typeof value === "string" ? value : ""}
-                    onChange={onChange}
-                  />
-                )}
-                <details className="group pt-1 text-sm">
-                  <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 font-medium text-primary">
-                    <Search className="size-3.5" />
-                    {t("whereToFind")}
-                  </summary>
-                  <p className="mt-2 max-w-[60ch] rounded-lg bg-muted/60 p-3 text-muted-foreground">
-                    {field.hint}
-                  </p>
-                </details>
+                <Suggestions
+                  items={[
+                    ...new Set([
+                      ...(suggest?.field === field.key ? own : []),
+                      ...(field.suggestions ?? []),
+                    ]),
+                  ]}
+                  value={typeof value === "string" ? value : ""}
+                  onChange={onChange}
+                />
               </div>
             );
           })}
         </div>
       </div>
+      {source && <Source>{source}</Source>}
     </>
   );
 }
@@ -389,77 +370,6 @@ export function Adopt({
   );
 }
 
-const SOURCE_ICON: Readonly<Record<SourceId, LucideIcon>> = {
-  ropa: ShieldCheck,
-  ledger: Calculator,
-  payables: Calculator,
-  contracts: FileText,
-  provider: Wrench,
-  dpa: FileSignature,
-  terms: ScrollText,
-};
-
-export function Sources({ draft, onDraft, entry }: WorkProps & { entry: Of<"sources"> }) {
-  const t = useTranslations("durchgang.ui");
-  return (
-    <>
-      <Heading>{entry.copy.title}</Heading>
-      <Lead>{entry.copy.lead}</Lead>
-      <div className="mt-8 grid gap-3">
-        {entry.screen.sources.map((id) => {
-          const source = entry.copy.sources.find((s) => s.key === id);
-          if (!source) return null;
-          const Icon = SOURCE_ICON[id];
-          const looked = draft.sources.includes(id);
-          return (
-            <button
-              key={id}
-              type="button"
-              aria-pressed={looked}
-              onClick={() =>
-                onDraft({
-                  ...draft,
-                  sources: looked
-                    ? draft.sources.filter((s) => s !== id)
-                    : [...draft.sources, id],
-                })
-              }
-              className={cn(
-                "grid cursor-pointer grid-cols-[auto_minmax(0,1fr)] items-center gap-x-4 rounded-2xl border bg-card p-4 text-left shadow-sm transition-colors hover:border-primary/40 sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:p-5",
-                looked ? "border-primary/40 bg-primary/[0.04]" : "hover:bg-muted/40",
-              )}
-            >
-              <span className="row-span-2 flex size-12 shrink-0 items-center justify-center rounded-xl bg-muted sm:row-span-1">
-                <Icon className="size-5 text-foreground/70" />
-              </span>
-              <span className="min-w-0 flex-1">
-                <span className="block font-semibold break-words hyphens-auto">
-                  {source.label}
-                </span>
-                <span className="mt-0.5 block text-sm text-muted-foreground">
-                  {source.text}
-                </span>
-              </span>
-              <span
-                className={cn(
-                  "col-start-2 mt-3 flex items-center gap-1.5 justify-self-start rounded-full border px-3 py-1 text-xs font-medium sm:col-start-3 sm:mt-0",
-                  looked
-                    ? "border-primary bg-primary text-primary-foreground"
-                    : "text-muted-foreground",
-                )}
-              >
-                {looked && <Check className="size-3.5" />}
-                {t("looked")}
-              </span>
-            </button>
-          );
-        })}
-      </div>
-      <p className="mt-4 text-sm text-muted-foreground">{t("lookedNote")}</p>
-    </>
-  );
-}
-
 export function Assets({
   item,
   draft,
@@ -509,8 +419,6 @@ export function Register({ item, entry }: { item: ItemView; entry: Of<"register"
       <div className="mt-8">
         {(() => {
           switch (screen.module) {
-            case "team":
-              return <Team rows={item.registers.team ?? []} />;
             case "training_record":
               return (
                 <TrainingRecords
@@ -535,54 +443,6 @@ export function Register({ item, entry }: { item: ItemView; entry: Of<"register"
       </div>
       <p className="mt-4 text-sm text-muted-foreground">{t("registerHint")}</p>
     </>
-  );
-}
-
-/**
- * The team register is the company's accounts and which area each one owns; it has no field
- * for "coordinator" or "deputy". So the screen shows who is in, invites without leaving, and
- * hands the area assignment to the team page.
- */
-function Team({ rows }: { rows: Registers["team"] }) {
-  const t = useTranslations("durchgang.ui.team");
-  const members = rows.map((row) => {
-    const name = row.name?.trim() || row.email;
-    return {
-      id: row.id,
-      name,
-      detail: row.jobTitle?.trim() || (row.name ? row.email : null),
-    };
-  });
-  return (
-    <div className="overflow-hidden rounded-2xl border bg-card shadow-sm">
-      <ul className="divide-y">
-        {members.map((member) => (
-          <li key={member.id} className="flex items-center gap-3 px-5 py-3">
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
-              {member.name.charAt(0).toUpperCase()}
-            </span>
-            <div className="min-w-0">
-              <p className="truncate text-sm font-medium">{member.name}</p>
-              {member.detail && (
-                <p className="truncate text-xs text-muted-foreground">{member.detail}</p>
-              )}
-            </div>
-          </li>
-        ))}
-      </ul>
-      <div className="space-y-3 border-t bg-muted/30 px-5 py-4">
-        <p className="text-sm font-medium">{t("invite")}</p>
-        <InlineInvite compact placeholder={t("placeholder")} />
-        <Link
-          href="/team"
-          target="_blank"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-primary"
-        >
-          {t("areas")}
-          <ExternalLink className="size-3.5" />
-        </Link>
-      </div>
-    </div>
   );
 }
 

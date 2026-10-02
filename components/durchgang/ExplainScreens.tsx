@@ -7,10 +7,13 @@ import {
   FileText,
   GraduationCap,
   Info,
+  ScrollText,
   XCircle,
 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { type ReactNode, useRef, useState } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 import { Link } from "@/i18n/navigation";
 import {
   FREQUENCY_TEXT,
@@ -19,6 +22,7 @@ import {
   riskLevel,
 } from "@/lib/compliance/bsi-200-3";
 import type { LearnLink, ResolvedScreen } from "@/lib/durchgang";
+import { trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
 import { Art } from "./Art";
 import { Glossed } from "./Glossed";
@@ -69,7 +73,7 @@ export function Aside({
 }
 
 /** Where a BSI rule or a statute list comes from, in small type under it. */
-function Source({ children }: { children: ReactNode }) {
+export function Source({ children }: { children: ReactNode }) {
   return (
     <p className="mt-4 flex max-w-[62ch] gap-2 text-xs leading-5 text-muted-foreground">
       <BookText className="mt-0.5 size-3.5 shrink-0" />
@@ -185,7 +189,19 @@ export function Learn({ item, entry }: { item: ItemView; entry: Of<"learn"> }) {
   );
 }
 
-export function Prepare({ entry }: { entry: Of<"prepare"> }) {
+/**
+ * What to have ready, numbered. Where the next step needs it, one large tick says the person has
+ * it at hand; without it they go on through "Not possible yet".
+ */
+export function Prepare({
+  entry,
+  ready,
+  onReady,
+}: {
+  entry: Of<"prepare">;
+  ready: boolean;
+  onReady: (ready: boolean) => void;
+}) {
   return (
     <>
       <Heading>{entry.copy.title}</Heading>
@@ -203,6 +219,20 @@ export function Prepare({ entry }: { entry: Of<"prepare"> }) {
           </li>
         ))}
       </ol>
+      {entry.screen.confirm && entry.copy.confirm && (
+        <Label
+          htmlFor="dg-ready"
+          className="mt-6 flex cursor-pointer items-center gap-4 rounded-2xl border-2 p-5 text-base font-semibold transition-colors hover:border-primary/40 has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:bg-primary/[0.05]"
+        >
+          <Checkbox
+            id="dg-ready"
+            className="size-6"
+            checked={ready}
+            onCheckedChange={(on) => onReady(on === true)}
+          />
+          {entry.copy.confirm}
+        </Label>
+      )}
       <Source>{entry.copy.source}</Source>
     </>
   );
@@ -254,19 +284,24 @@ function Specimen({
   );
 }
 
+/** Do and don't, one pair per row; more pairs show more of what good looks like. */
 export function Compare({ entry }: { entry: Of<"compare"> }) {
+  const pairs = [
+    { good: entry.copy.good, bad: entry.copy.bad },
+    ...(entry.copy.more ?? []),
+  ];
   return (
     <>
       <Heading>{entry.copy.title}</Heading>
       <div className="mt-8">
         <p className="text-sm font-medium text-muted-foreground">{entry.copy.caption}</p>
-        <div className="mt-4 grid gap-4 sm:grid-cols-2">
-          <Specimen
-            tone="good"
-            value={entry.copy.good.value}
-            note={entry.copy.good.note}
-          />
-          <Specimen tone="bad" value={entry.copy.bad.value} note={entry.copy.bad.note} />
+        <div className="mt-4 space-y-6">
+          {pairs.map(({ good, bad }) => (
+            <div key={good.value} className="grid gap-4 sm:grid-cols-2">
+              <Specimen tone="good" value={good.value} note={good.note} />
+              <Specimen tone="bad" value={bad.value} note={bad.note} />
+            </div>
+          ))}
         </div>
       </div>
     </>
@@ -275,26 +310,49 @@ export function Compare({ entry }: { entry: Of<"compare"> }) {
 
 export function Sample({ entry }: { entry: Of<"sample"> }) {
   const t = useTranslations("durchgang.ui");
+  const beside = entry.screen.beside;
+  const policies = trpc.durchgang.walkPolicies.useQuery(undefined, {
+    enabled: beside !== undefined,
+  });
+  const own = (policies.data ?? []).find((p) => p.type === beside);
   return (
     <>
       <Heading>{entry.copy.title}</Heading>
       <p className="mt-8 text-sm font-medium text-muted-foreground">
         {entry.copy.caption}
       </p>
-      <div className="mt-4 overflow-hidden rounded-2xl border bg-card shadow-sm">
-        <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] border-b bg-muted/40 px-5 py-2.5 text-xs font-medium text-muted-foreground">
-          <span>{t("sampleWhat")}</span>
-          <span>{t("sampleDetail")}</span>
-        </div>
-        {entry.copy.rows.map((row) => (
-          <div
-            key={row.name}
-            className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] border-b px-5 py-3.5 text-sm last:border-b-0"
-          >
-            <span className="font-medium">{row.name}</span>
-            <span className="text-muted-foreground">{row.detail}</span>
+      <div className={cn("mt-4 grid gap-4", own && "lg:grid-cols-2 lg:items-start")}>
+        <div className="overflow-hidden rounded-2xl border bg-card shadow-sm">
+          <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] border-b bg-muted/40 px-5 py-2.5 text-xs font-medium text-muted-foreground">
+            <span>{t("sampleWhat")}</span>
+            <span>{t("sampleDetail")}</span>
           </div>
-        ))}
+          {entry.copy.rows.map((row) => (
+            <div
+              key={row.name}
+              className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] border-b px-5 py-3.5 text-sm last:border-b-0"
+            >
+              <span className="font-medium">{row.name}</span>
+              <span className="text-muted-foreground">{row.detail}</span>
+            </div>
+          ))}
+        </div>
+        {own && (
+          <article className="overflow-hidden rounded-2xl border bg-card shadow-sm">
+            <header className="flex items-center gap-3 border-b bg-muted/40 px-5 py-2.5">
+              <ScrollText className="size-4 text-muted-foreground" />
+              <p className="text-xs font-medium text-muted-foreground">
+                {t("sampleBeside", { title: own.title })}
+              </p>
+            </header>
+            <div
+              className="prose prose-sm max-h-[32rem] max-w-none overflow-y-auto px-5 py-4 dark:prose-invert"
+              // Rendered on the server from the stored text, without raw HTML.
+              // biome-ignore lint/security/noDangerouslySetInnerHtml: see above
+              dangerouslySetInnerHTML={{ __html: own.html }}
+            />
+          </article>
+        )}
       </div>
       {entry.copy.note && <Aside className="mt-5">{entry.copy.note}</Aside>}
     </>
@@ -371,36 +429,44 @@ export function Reading({ item, entry }: { item: ItemView; entry: Of<"reading"> 
   );
 }
 
+/** A rule or list as it is, from the module that holds it. */
+export function ProvisionView({
+  item,
+  provision,
+}: {
+  item: ItemView;
+  provision: Of<"provision">["screen"]["provision"];
+}) {
+  switch (provision) {
+    case "bsi_200_3_matrix":
+      return (
+        <div className="rounded-3xl border bg-card p-4 shadow-sm sm:p-6">
+          <RiskMatrix locale={item.locale} />
+        </div>
+      );
+    case "bsig_32_clock":
+      return <ReportingClock locale={item.locale} />;
+    case "bsig_28_thresholds":
+      return <SizeThresholds />;
+    case "registration_portals":
+      return (
+        <RegistrationPortals registration={item.registration} locale={item.locale} />
+      );
+    case "reporting_channels":
+      return <ReportingChannels registration={item.registration} locale={item.locale} />;
+    default:
+      return provision satisfies never;
+  }
+}
+
 export function Provision({ item, entry }: { item: ItemView; entry: Of<"provision"> }) {
-  const shown = (() => {
-    switch (entry.screen.provision) {
-      case "bsi_200_3_matrix":
-        return (
-          <div className="rounded-3xl border bg-card p-4 shadow-sm sm:p-6">
-            <RiskMatrix locale={item.locale} />
-          </div>
-        );
-      case "bsig_32_clock":
-        return <ReportingClock locale={item.locale} />;
-      case "bsig_28_thresholds":
-        return <SizeThresholds />;
-      case "registration_portals":
-        return (
-          <RegistrationPortals registration={item.registration} locale={item.locale} />
-        );
-      case "reporting_channels":
-        return (
-          <ReportingChannels registration={item.registration} locale={item.locale} />
-        );
-      default:
-        return entry.screen.provision satisfies never;
-    }
-  })();
   return (
     <>
       <Heading>{entry.copy.title}</Heading>
       <Lead>{entry.copy.lead}</Lead>
-      <div className="mt-8">{shown}</div>
+      <div className="mt-8">
+        <ProvisionView item={item} provision={entry.screen.provision} />
+      </div>
       <Source>{entry.copy.source}</Source>
     </>
   );

@@ -6,6 +6,7 @@ import { trpc } from "@/lib/trpc/client";
 import type { Critical } from "./draft";
 import { Heading, Lead } from "./ExplainScreens";
 import { Toggle } from "./RowParts";
+import { Suggestions } from "./Suggestions";
 import type { Of, WorkProps } from "./WorkScreens";
 
 /**
@@ -65,6 +66,13 @@ export function CriticalScreen({
                       placeholder={entry.copy.example}
                       onChange={(e) => set(process.id, { ...value, how: e.target.value })}
                     />
+                    {entry.copy.suggestions && (
+                      <Suggestions
+                        items={entry.copy.suggestions}
+                        value={value.how}
+                        onChange={(how) => set(process.id, { ...value, how })}
+                      />
+                    )}
                   </div>
                 )}
               </li>

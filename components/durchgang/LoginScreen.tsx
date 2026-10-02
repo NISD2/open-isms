@@ -10,13 +10,16 @@ import { useRatingRows } from "./RatingScreens";
 import { RowLevel, Toggle } from "./RowParts";
 import type { Of, WorkProps } from "./WorkScreens";
 
-/** A program or remote access as 11.1 shows it: its rating from 2.3 and its stored mark. */
+/**
+ * A program or remote access as 11.1 shows it: its rating from 2.3 and its stored mark, where
+ * null means nobody knows yet.
+ */
 export interface LoginRow {
   readonly id: string;
   readonly name: string;
   readonly provider: string | null;
   readonly level: RiskLevel | null;
-  readonly stored: boolean;
+  readonly stored: boolean | null;
 }
 
 /**
@@ -39,7 +42,7 @@ export function useLoginRows(enabled: boolean): readonly LoginRow[] | undefined 
               name: row.name,
               provider: row.provider,
               level: levelOfStanding(row.standing),
-              stored: Boolean(a.hasMfa),
+              stored: a.hasMfa,
             },
           ]
         : [];
@@ -48,14 +51,17 @@ export function useLoginRows(enabled: boolean): readonly LoginRow[] | undefined 
 }
 
 /**
- * The answer a row shows: what was chosen on this visit, else what is stored. A stored "no" shows
- * no answer, because the column cannot tell "password only" from "never asked"; the item's trail
- * keeps that record.
+ * The answer a row shows: what was chosen on this visit, else what is stored. A row never asked
+ * holds the column's default, no, and so shows "password only", the safe assumption; null is
+ * "not known yet".
  */
 export const mfaOf = (row: LoginRow, draft: Draft): boolean | null =>
-  draft.logins[row.id] ?? (row.stored ? true : null);
+  Object.hasOwn(draft.logins, row.id) ? (draft.logins[row.id] ?? null) : row.stored;
 
-/** 11.1: per program and remote access, whether signing in takes a second factor. */
+/**
+ * 11.1: per program and remote access, whether signing in takes a second factor, or that it is not
+ * known yet. Every row starts with an answer, so the screen is never blocked.
+ */
 export function Logins({
   item,
   draft,
@@ -65,7 +71,7 @@ export function Logins({
   const t = useTranslations("durchgang.ui");
   const rows = useLoginRows(true);
 
-  const set = (row: LoginRow, mfa: boolean) =>
+  const set = (row: LoginRow, mfa: boolean | null) =>
     onDraft({ ...draft, logins: { ...draft.logins, [row.id]: mfa } });
 
   return (
@@ -100,6 +106,9 @@ export function Logins({
                   </Toggle>
                   <Toggle on={mfa === false} onClick={() => set(row, false)}>
                     {entry.copy.password}
+                  </Toggle>
+                  <Toggle on={mfa === null} onClick={() => set(row, null)}>
+                    {entry.copy.unknown}
                   </Toggle>
                 </div>
               </li>

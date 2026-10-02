@@ -3,19 +3,19 @@ import { trpc } from "@/lib/trpc/client";
 import { answerOf, useAgreementRows } from "./AgreementScreen";
 import { approvalReady } from "./ApproveScreen";
 import { type Draft, isAnswered } from "./draft";
-import { mfaOf, useLoginRows } from "./LoginScreen";
+import { useLoginRows } from "./LoginScreen";
 import { rowSettled, useRatingRows } from "./RatingScreens";
 import { inAudience } from "./TrainingRecords";
 import type { ItemView } from "./view";
 
 /**
  * Whether the person may move on from this screen: every field the schema requires is answered,
- * a file is in place, a source is ticked, a training of the screen's audience or a management
- * review is on the list, every listed thing is rated, every supplier's agreements and every
- * sign-in are answered, and management has approved every document. Naming assets and their
- * providers is never required. Screens that only explain are always complete. Lists are read from
- * the same queries their screens show, so the answer follows each upload and each new line
- * without a second copy of the count.
+ * a file is in place, what the next step needs is at hand, a training of the screen's audience or
+ * a management review is on the list, every listed thing is rated, every supplier's agreements
+ * are answered, a policy has been read, and management has approved every document. Sign-ins
+ * start answered, and naming assets and their providers is never required. Screens that only
+ * explain are always complete. Lists are read from the same queries their screens show, so the
+ * answer follows each upload and each new line without a second copy of the count.
  */
 export function useScreenComplete(
   item: ItemView,
@@ -47,8 +47,8 @@ export function useScreenComplete(
       );
     case "evidence":
       return (evidence.data?.length ?? 0) > 0;
-    case "sources":
-      return draft.sources.length > 0;
+    case "prepare":
+      return !screen.confirm || draft.ready;
     case "register":
       switch (screen.module) {
         case "training_record":
@@ -60,12 +60,14 @@ export function useScreenComplete(
       }
     case "approve":
       return approvalReady(policies.data);
+    case "policy":
+      return draft.read;
     case "rate":
       return ratings?.every((row) => rowSettled(row, draft)) ?? false;
     case "agreements":
       return agreements?.every((row) => answerOf(row, draft) !== null) ?? false;
     case "logins":
-      return logins?.every((row) => mfaOf(row, draft) !== null) ?? false;
+      return logins !== undefined;
     default:
       return true;
   }

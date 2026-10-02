@@ -20,6 +20,7 @@ import {
   agreementsNote,
   approvedNote,
   askedFields,
+  contactSuggestions,
   criticalNote,
   criticalProcessesText,
   declinedNote,
@@ -31,6 +32,7 @@ import {
   noteLine,
   POLICY_LISTS,
   type PolicyList,
+  personText,
   policyNames,
   policyText,
   policyTitle,
@@ -39,10 +41,9 @@ import {
   recordDay,
   recoveryOrder,
   recoveryOrderText,
+  reportingChannelText,
   resolveItem,
-  SOURCE_IDS,
   SUPPLIER_LEVEL,
-  sourcesNote,
   standingOf,
   toScale,
   treatmentFor,
@@ -208,50 +209,89 @@ const storedConfigOf = async (db: DbOrTx, companyId: string, type: string) => {
   return STORED_CONFIG.parse(row?.config ?? {});
 };
 
+/** Where the walk asks who leads in an emergency, which the continuity plan names too. */
+const EMERGENCY_LEAD = { code: "3.1", field: "incidentLead" } as const;
+
+/** Who leads in an emergency, as 3.1 saved it, or nothing when 3.1 has no answer yet. */
+const emergencyLeadOf = async (db: TRPCContext["db"], companyId: string) => {
+  const ref = await walkItemRef(db, companyId, EMERGENCY_LEAD.code).catch(() => null);
+  if (!ref) return null;
+  const row = await db.query.companyCategoryIntake.findFirst({
+    where: and(
+      eq(companyCategoryIntake.assessmentId, ref.assessmentId),
+      eq(companyCategoryIntake.categoryId, ref.categoryId),
+    ),
+    columns: { answers: true },
+  });
+  return row?.answers?.[EMERGENCY_LEAD.field] ?? null;
+};
+
 /**
- * What a plan's list names stand for, read off the company's own rows: the processes marked
- * `is_critical` with their line, and the systems in the order their 2.3 ratings give.
+ * What a plan's list names stand for, read off the company's own records: the processes marked
+ * `is_critical` with their line, the systems in the order their 2.3 ratings give, where incidents
+ * are reported from the company's country, and who leads in an emergency from 3.1.
  */
 const policyListsOf = async (
-  db: DbOrTx,
+  db: TRPCContext["db"],
   companyId: string,
+  used: readonly PolicyList[],
   fallbacks: Readonly<Record<string, string>>,
-): Promise<Record<PolicyList, string>> => {
-  const [assets, links] = await Promise.all([
-    db
-      .select({
-        id: asset.id,
-        name: asset.name,
-        type: asset.type,
-        isCritical: asset.isCritical,
-      })
-      .from(asset)
-      .where(eq(asset.companyId, companyId))
-      .orderBy(asset.name),
-    db
-      .select({
-        id: risk.id,
-        likelihood: risk.likelihood,
-        impact: risk.impact,
-        assetId: riskAsset.assetId,
-      })
-      .from(riskAsset)
-      .innerJoin(risk, eq(risk.id, riskAsset.riskId))
-      .where(eq(risk.companyId, companyId)),
+  locale: "de" | "en",
+): Promise<Partial<Record<PolicyList, string>>> => {
+  const needs = (...names: readonly PolicyList[]) => names.some((n) => used.includes(n));
+  const [assets, links, org, lead] = await Promise.all([
+    needs("criticalProcesses", "recoveryOrder")
+      ? db
+          .select({
+            id: asset.id,
+            name: asset.name,
+            type: asset.type,
+            isCritical: asset.isCritical,
+          })
+          .from(asset)
+          .where(eq(asset.companyId, companyId))
+          .orderBy(asset.name)
+      : [],
+    needs("recoveryOrder")
+      ? db
+          .select({
+            id: risk.id,
+            likelihood: risk.likelihood,
+            impact: risk.impact,
+            assetId: riskAsset.assetId,
+          })
+          .from(riskAsset)
+          .innerJoin(risk, eq(risk.id, riskAsset.riskId))
+          .where(eq(risk.companyId, companyId))
+      : [],
+    needs("reportingChannel")
+      ? db.query.company.findFirst({
+          where: eq(company.id, companyId),
+          columns: { country: true },
+        })
+      : undefined,
+    needs("emergencyLead") ? emergencyLeadOf(db, companyId) : null,
   ]);
-  return {
-    criticalProcesses: criticalProcessesText(
-      assets
-        .filter((a) => a.type === "process" && a.isCritical)
-        .map((a) => ({ name: a.name, how: fallbacks[a.id] ?? "" })),
-    ),
-    recoveryOrder: recoveryOrderText(
-      recoveryOrder(
-        assets,
-        links.map((l) => ({ ...l, linked: [l.assetId] })),
+  const portal =
+    getRegistrationPortals().portals.find((p) => p.countryCode === org?.country) ?? null;
+  const text: Record<PolicyList, () => string> = {
+    reportingChannel: () => reportingChannelText(locale, portal),
+    emergencyLead: () => personText(lead),
+    criticalProcesses: () =>
+      criticalProcessesText(
+        assets
+          .filter((a) => a.type === "process" && a.isCritical)
+          .map((a) => ({ name: a.name, how: fallbacks[a.id] ?? "" })),
       ),
-    ),
+    recoveryOrder: () =>
+      recoveryOrderText(
+        recoveryOrder(
+          assets,
+          links.map((l) => ({ ...l, linked: [l.assetId] })),
+        ),
+      ),
   };
+  return Object.fromEntries(used.map((name) => [name, text[name]()]));
 };
 
 /**
@@ -276,9 +316,8 @@ const policyDraftOf = async (
     storedConfigOf(ctx.db, ctx.companyId, type),
   ]);
   if (!org) throw new TRPCError({ code: "NOT_FOUND" });
-  const usesLists = POLICY_LISTS.some((name) =>
-    JSON.stringify(document).includes(marker(name)),
-  );
+  const text = JSON.stringify(document);
+  const used = POLICY_LISTS.filter((name) => text.includes(marker(name)));
   return {
     type,
     document,
@@ -286,7 +325,10 @@ const policyDraftOf = async (
     clauses: stored.clauses,
     own: stored.own,
     fallbacks: stored.fallbacks,
-    lists: usesLists ? await policyListsOf(ctx.db, ctx.companyId, stored.fallbacks) : {},
+    lists:
+      used.length > 0
+        ? await policyListsOf(ctx.db, ctx.companyId, used, stored.fallbacks, locale)
+        : {},
   };
 };
 
@@ -377,6 +419,15 @@ export const durchgangRouter = router({
     };
   }),
 
+  /** Common answers for the vulnerability report address, read off the company's contact email. */
+  contactSuggestions: durchgangProcedure.query(async ({ ctx }) => {
+    const org = await ctx.db.query.company.findFirst({
+      where: eq(company.id, ctx.companyId),
+      columns: { contactEmail: true },
+    });
+    return contactSuggestions(org?.contactEmail ?? null);
+  }),
+
   /** "Geht noch nicht": the reason goes into the audit row, the free text only into the notes. */
   wait: durchgangProcedure
     .input(
@@ -417,42 +468,6 @@ export const durchgangRouter = router({
         entityType: "requirement",
         entityId: ref.requirementId,
         description: `${ref.code} resumed`,
-      });
-    }),
-
-  /** "Nachgesehen": where the person looked, recorded with the day, for the report. */
-  sources: durchgangProcedure
-    .input(
-      z.object({
-        code,
-        sources: z.array(z.enum(SOURCE_IDS)).min(1).max(SOURCE_IDS.length),
-      }),
-    )
-    .mutation(async ({ ctx, input }) => {
-      const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
-      const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
-      const copy = resolveItem(NAMESPACES[locale], itemOf(input.code));
-      const chosen = new Set<string>(input.sources);
-      const labels = copy.ok
-        ? copy.value.screens.flatMap((s) =>
-            "sources" in s.copy
-              ? s.copy.sources.filter((x) => chosen.has(x.key)).map((x) => x.label)
-              : [],
-          )
-        : [...input.sources];
-      await appendNote(
-        ctx.db,
-        ref.statusId,
-        noteLine(new Date(), sourcesNote(locale, labels)),
-      );
-      await logAudit({
-        companyId: ctx.companyId,
-        userId: ctx.userId,
-        action: "durchgang.sources",
-        entityType: "requirement",
-        entityId: ref.requirementId,
-        description: `${ref.code} sources consulted`,
-        newValue: { sources: input.sources },
       });
     }),
 
@@ -676,6 +691,42 @@ export const durchgangRouter = router({
       if (result.updated > 0) recheck(ctx, "asset");
       if (result.suppliersAdded > 0) recheck(ctx, "supplier");
       return result;
+    }),
+
+  /**
+   * 2.2: a second thing of the same kind, for example a second CRM used for other work, since
+   * BSI-Standard 200-2 (8.1.1) groups only alike things used alike. It takes the kind's type and
+   * description and a numbered name the person then replaces.
+   */
+  addAnotherAsset: durchgangWrite
+    .input(z.object({ id: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const source = await ctx.db.query.asset.findFirst({
+        where: and(eq(asset.id, input.id), eq(asset.companyId, ctx.companyId)),
+        columns: { name: true, type: true, description: true },
+      });
+      if (!source) throw new TRPCError({ code: "NOT_FOUND" });
+      const kind = (source.description?.trim() || source.name).slice(0, 240);
+      const existing = await ctx.db.query.asset.findMany({
+        where: eq(asset.companyId, ctx.companyId),
+        columns: { name: true },
+      });
+      const taken = new Set(existing.map((a) => nameKey(a.name)));
+      // One more candidate than there are names, so one is always free.
+      const number = Array.from({ length: existing.length + 1 }, (_, i) => i + 2).find(
+        (n) => !taken.has(nameKey(`${kind} ${n}`)),
+      );
+      const [added] = await ctx.db
+        .insert(asset)
+        .values({
+          companyId: ctx.companyId,
+          name: `${kind} ${number ?? existing.length + 2}`,
+          type: source.type,
+          description: kind,
+        })
+        .returning({ id: asset.id });
+      recheck(ctx, "asset");
+      return { id: added?.id ?? null };
     }),
 
   /**
@@ -991,16 +1042,17 @@ export const durchgangRouter = router({
     }),
 
   /**
-   * 11.1: whether signing in to each listed program and remote access takes a second factor.
-   * Only `has_mfa` is written, only on the company's own assets, and only where it changed. The
-   * column defaults to false, so the item's trail is the record that a row was answered "no".
+   * 11.1: whether signing in to each listed program and remote access takes a second factor, or
+   * that nobody knows yet (null). Only `has_mfa` is written, only on the company's own assets, and
+   * only where it changed. The column defaults to false, so the item's trail is the record that a
+   * row was actually answered "no".
    */
   recordLogins: durchgangWrite
     .input(
       z.object({
         code,
         rows: z
-          .array(z.object({ assetId: z.string().uuid(), mfa: z.boolean() }))
+          .array(z.object({ assetId: z.string().uuid(), mfa: z.boolean().nullable() }))
           .min(1)
           .max(500),
       }),
@@ -1023,9 +1075,10 @@ export const durchgangRouter = router({
       if (owned.length !== ids.length) throw new TRPCError({ code: "NOT_FOUND" });
 
       const before = new Map(owned.map((a) => [a.id, a]));
+      // Null is "not known yet", a value of its own, so it is compared as it is stored.
       const changed = rows.filter((row) => {
         const was = before.get(row.assetId);
-        return was !== undefined && row.mfa !== Boolean(was.mfa);
+        return was !== undefined && row.mfa !== was.mfa;
       });
       for (const row of changed) {
         await ctx.db

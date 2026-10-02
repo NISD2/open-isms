@@ -101,7 +101,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
   const asksAdopt = screens.some((s) => s.kind === "adopt");
   const showsPortals = screens.some(
     (s) =>
-      s.kind === "provision" &&
+      (s.kind === "provision" || s.kind === "fields") &&
       (s.provision === "registration_portals" || s.provision === "reporting_channels"),
   );
   const asksPerson = screens.some((s) => s.kind === "fields" && s.person);
@@ -141,7 +141,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
         })
       : Promise.resolve({ answers: {} as Record<string, unknown> }),
     shows("supplier") ? api.supplier.list() : Promise.resolve(undefined),
-    shows("team") || asksPerson ? api.team.listMembers() : Promise.resolve(undefined),
+    asksPerson ? api.team.listMembers() : Promise.resolve([]),
     shows("training_record") ? api.training.list() : Promise.resolve(undefined),
     shows("management_review") ? api.managementReview.list() : Promise.resolve(undefined),
     asksAssets ? api.asset.list() : Promise.resolve(null),
@@ -217,10 +217,10 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     fields,
     registers: {
       supplier,
-      team,
       training_record: trainings,
       management_review: reviews,
     },
+    team,
     register: assets ? onRegister(assets.map((a) => a.name)) : null,
     adoptedAt: adoption.adoptedAt,
     registration,

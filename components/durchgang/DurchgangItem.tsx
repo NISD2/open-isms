@@ -22,7 +22,6 @@ import {
   type LucideIcon,
   PenLine,
   ScrollText,
-  Search,
   ShieldCheck,
   X,
 } from "lucide-react";
@@ -57,7 +56,7 @@ import { useScreenComplete } from "./useScreenComplete";
 import { useWalkItem } from "./useWalkItem";
 import type { ItemView, WalkEntry } from "./view";
 import { WaitSheet } from "./WaitSheet";
-import { Adopt, Assets, Done, Evidence, Fields, Register, Sources } from "./WorkScreens";
+import { Adopt, Assets, Done, Evidence, Fields, Register } from "./WorkScreens";
 
 /** Each kind of screen carries its own sign, so a person learns where they are at a glance. */
 const KIND_ICON: Readonly<Record<ScreenKind, LucideIcon>> = {
@@ -70,7 +69,6 @@ const KIND_ICON: Readonly<Record<ScreenKind, LucideIcon>> = {
   fields: PenLine,
   evidence: FileUp,
   adopt: ScrollText,
-  sources: Search,
   assets: ListChecks,
   register: ListChecks,
   specify: PenLine,
@@ -173,12 +171,13 @@ export function DurchgangItem({
     }
     setError(null);
     const at = index;
-    leave(at, () => {
+    const following = item.screens.findIndex((_, i) => i > at && !passedOver(i));
+    const to = following === -1 ? total - 1 : following;
+    leave(at, to, () => {
       setError(at);
       show(at, "back");
     });
-    const following = item.screens.findIndex((_, i) => i > at && !passedOver(i));
-    show(following === -1 ? total - 1 : following, "forward");
+    show(to, "forward");
   };
 
   const back = () => {
@@ -214,7 +213,13 @@ export function DurchgangItem({
       case "learn":
         return <Learn item={item} entry={entry} />;
       case "prepare":
-        return <Prepare entry={entry} />;
+        return (
+          <Prepare
+            entry={entry}
+            ready={draft.ready}
+            onReady={(ready) => setDraft({ ...draft, ready })}
+          />
+        );
       case "compare":
         return <Compare entry={entry} />;
       case "sample":
@@ -229,8 +234,6 @@ export function DurchgangItem({
         return <Evidence {...work} entry={entry} />;
       case "adopt":
         return <Adopt item={item} entry={entry} adoptedAt={adoptedAt} />;
-      case "sources":
-        return <Sources {...work} entry={entry} />;
       case "assets":
         return <Assets {...work} entry={entry} />;
       case "register":

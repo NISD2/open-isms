@@ -15,7 +15,6 @@
         "fields": "Eintragen",
         "evidence": "Nachweis",
         "adopt": "Übernehmen",
-        "sources": "Wo Sie suchen",
         "assets": "Ihre Liste",
         "register": "Ihre Liste",
         "specify": "Genauer",
@@ -43,7 +42,7 @@
       "duty": "Warum Sie das tun müssen",
       "readLaw": "{cite} im Gesetz lesen",
       "copyFrom": "abschreiben",
-      "whereToFind": "Wo finde ich das?",
+      "fieldHelp": "Hilfe zu {label}",
       "choose": "Bitte wählen",
       "yes": "Ja",
       "no": "Nein",
@@ -51,23 +50,20 @@
       "bad": "So besser nicht",
       "sampleWhat": "Was",
       "sampleDetail": "Kurz dazu",
+      "sampleBeside": "Daneben, wie Sie es geschrieben haben: {title}",
       "record": "Eintrag in Ihren Unterlagen",
       "adoptedOn": "Übernommen am {date}",
       "signLine": "Freigabe durch die Geschäftsführung",
       "pending": "steht aus",
       "adopted": "Übernommen",
-      "looked": "Nachgesehen",
-      "lookedNote": "Was Sie abhaken, wird mit Datum festgehalten. So ist später klar, woher Ihre Liste stammt.",
       "onList": "{count, plural, =0 {Noch keine Einträge auf Ihrer Liste} one {# Eintrag auf Ihrer Liste} other {# Einträge auf Ihrer Liste}}",
       "alreadyListed": "Schon auf Ihrer Liste",
       "registerHint": "Änderungen hier landen sofort in Ihrer Liste.",
       "alsoListed": "Außerdem auf Ihrer Liste: {names}",
       "policy": {
         "question": "Was davon gibt es in Ihrem Unternehmen?",
-        "questionHint": "Jeder Punkt, den Sie wählen, kommt als Abschnitt in das Dokument unten. Ein zweites Antippen nimmt ihn wieder heraus.",
-        "added": "Ins Dokument aufgenommen",
-        "showInPlan": "Im Dokument zeigen",
-        "removed": "Aus dem Dokument genommen: {label}",
+        "questionHint": "Jeder Punkt, den Sie wählen, kommt als Abschnitt in das Dokument oben und leuchtet kurz auf. Ein zweites Antippen nimmt ihn wieder heraus.",
+        "read": "Ich habe das Dokument gelesen, und es passt zu unserem Unternehmen",
         "ownLabel": "Was sonst noch bei Ihnen gilt (freiwillig)",
         "ownHint": "Zum Beispiel eine Nummer, eine eigene Regel oder einen Ansprechpartner. Es kommt als letzter Abschnitt ins Dokument, so wie Sie es schreiben.",
         "approvedLater": "Die Geschäftsführung gibt das Dokument am Ende des Durchgangs frei, angemeldet mit ihrem eigenen Zugang.",
@@ -85,14 +81,13 @@
         "what": "Was genau",
         "provider": "Von wem",
         "inHouse": "selbst betrieben",
+        "another": "Noch eins dieser Art",
         "empty": "In diesem Bereich steht nichts auf Ihrer Liste.",
-        "hint": "Wen Sie als Anbieter nennen, kommt auf Ihre Lieferantenliste. Ein leeres Feld heißt: selbst betrieben oder noch nicht bekannt."
+        "hint": "Wen Sie als Anbieter nennen, kommt auf Ihre Lieferantenliste. Ein leeres Feld heißt: selbst betrieben oder noch nicht bekannt. Zwei Dinge einer Art für verschiedene Arbeit, etwa zwei CRM, bekommen je eine Zeile; Gleiches, gleich genutzt, darf eine Zeile bleiben (BSI-Standard 200-2, 8.1.1)."
       },
       "rate": {
-        "frequency": "Wie oft es eintritt",
-        "impact": "Wie groß der Schaden wäre",
         "open": "Stufe",
-        "scales": "Was die Stufen bedeuten, in den Worten des BSI",
+        "scales": "Die Risikomatrix des BSI zeigen",
         "note": "Notiz",
         "notePlaceholder": "Notiz (freiwillig), zum Beispiel was Sie schon dagegen tun",
         "providedBy": "von {name}",
@@ -154,19 +149,12 @@
         "pageLeadOthers": "Diese Dokumente sind im NIS-2-Durchgang Ihres Unternehmens entstanden. Die Geschäftsführung gibt sie hier frei, angemeldet mit ihrem eigenen Zugang.",
         "close": "Schließen"
       },
-      "team": {
-        "invite": "Jemanden dazuholen",
-        "placeholder": "name@ihre-firma.de",
-        "areas": "Bereiche auf der Teamseite verteilen"
-      },
       "recorded": "Festgehalten in Ihren Unterlagen",
       "recordedPolicy": "{title}: als Entwurf gespeichert. Die Geschäftsführung gibt es am Ende des Durchgangs frei.",
-      "recordedSources": "Nachgesehen in",
       "recordedIn": {
         "training_record": "Schulungen",
         "management_review": "Managementbewertungen",
-        "supplier": "Lieferanten",
-        "team": "Im Team"
+        "supplier": "Lieferanten"
       },
       "andMore": "{names} und {count} weitere",
       "comesNext": "Als Nächstes",
@@ -257,6 +245,9 @@
       },
       "riskmap": {
         "byLevel": "Nach Stufe",
+        "editHint": "Tippen Sie auf einen Namen oder ein gefülltes Feld, um die Bewertung hier zu ändern.",
+        "sheetTitle": "{count, plural, one {Bewertung ändern} other {# Bewertungen ändern}}",
+        "sheetDescription": "Wählen Sie ein anderes Feld. Die Karte dahinter folgt sofort, gespeichert wird, wenn Sie weitergehen.",
         "empty": "Noch ist nichts bewertet. Sie bewerten Ihre Programme, Technik und Lieferanten in Schritt 2.3.",
         "several": "{count, plural, one {Ein Eintrag hat} other {# Einträge haben}} mehrere Risiken im Risikoregister. Sie stehen nur in der Liste, mit ihrer höchsten Stufe."
       },
@@ -294,7 +285,7 @@
         "waiting": "Wartet noch",
         "continue": "NIS 2 Umsetzung fortsetzen",
         "allFilled": "Alle Punkte sind ausgefüllt.",
-        "allFilledNote": "Die Geschäftsführung sieht sie durch und unterschreibt.",
+        "allFilledNote": "Ändert sich etwas in Ihrem Unternehmen, öffnen Sie den Punkt und ändern es dort. Ein geändertes Dokument geht noch einmal zur Freigabe an die Geschäftsführung.",
         "yourWay": "Ihr Weg",
         "filled": "Ausgefüllt",
         "declined": "Bewusst nicht umgesetzt",
@@ -397,25 +388,61 @@
           },
           "list": {
             "title": "So kann Ihre Liste aussehen",
-            "caption": "Eine Zeile pro Lieferant, mit dem, was er für Sie tut:",
+            "caption": "Eine Zeile pro Lieferant, mit dem, was er für Sie tut. Das sind die üblichen Arten:",
             "rows": [
               {
                 "name": "IT-Dienstleister",
-                "detail": "betreut Server und Konten, hat Fernzugriff"
+                "detail": "betreut Server, Konten und Datensicherungen, hat Fernzugriff"
               },
               {
-                "name": "Steuerbüro",
+                "name": "Software- und Cloudanbieter",
+                "detail": "etwa Microsoft für E-Mail und Dateien, DATEV für die Buchhaltung"
+              },
+              {
+                "name": "Telekommunikationsanbieter",
+                "detail": "Internetanschluss, Telefone, Mobilfunkverträge"
+              },
+              {
+                "name": "Webagentur oder Hoster",
+                "detail": "betreibt die Website oder den Webshop"
+              },
+              {
+                "name": "Steuerbüro oder Lohnbüro",
                 "detail": "macht die Lohnabrechnung, sieht Personaldaten"
               },
               {
-                "name": "Microsoft",
-                "detail": "E-Mail und Dateien für alle Beschäftigten"
+                "name": "Wartung von Maschinen und Anlagen",
+                "detail": "wartet Maschinen und schaltet sich zur Diagnose aus der Ferne auf"
+              },
+              {
+                "name": "Gebäude- und Sicherheitsdienste",
+                "detail": "Alarmanlage, Zutrittskarten, Reinigung mit Schlüsseln"
+              },
+              {
+                "name": "Logistik und Kurierdienste",
+                "detail": "liefern an Ihre Kunden, sehen Bestell- und Adressdaten"
               }
             ]
           },
-          "sources": {
-            "title": "Wo die Namen schon stehen",
-            "lead": "Meist kennt Ihr Unternehmen seine Lieferanten schon. Haken Sie ab, wo Sie nachgesehen haben:"
+          "ready": {
+            "title": "Für den nächsten Schritt: Ihre Kreditorenliste",
+            "lead": "Fast alle, die für Sie arbeiten, schicken Ihnen Rechnungen. Am schnellsten beginnen Sie deshalb mit der Liste aus Ihrer Buchhaltung.",
+            "items": [
+              {
+                "name": "Kreditorenliste",
+                "detail": "Ihre Buchhaltung kann sie ausgeben, etwa aus DATEV oder Ihrem Buchhaltungsprogramm, oder Ihr Steuerbüro schickt sie Ihnen; die letzten zwölf Monate reichen"
+              },
+              {
+                "name": "Verträge und Abonnements",
+                "detail": "was Sie per Karte oder Lastschrift zahlen: Wartungsverträge, Softwarelizenzen, Cloudkonten"
+              },
+              {
+                "name": "Ihr IT-Dienstleister",
+                "detail": "weiß, welche Anbieter er selbst für Sie einsetzt"
+              }
+            ],
+            "source": "Auf vorhandenen Übersichten aufzubauen, empfiehlt das BSI für jede Bestandsaufnahme (BSI-Standard 200-2).",
+            "confirm": "Ich habe die Kreditorenliste zur Hand"
           },
           "suppliers": {
             "title": "Ihre Lieferanten",
@@ -424,20 +451,6 @@
           "done": {
             "title": "Ihre Liste steht",
             "note": "Kommt ein neuer Lieferant dazu, ergänzen Sie ihn auf der Liste."
-          }
-        },
-        "sources": {
-          "payables": {
-            "label": "Kreditorenliste",
-            "text": "Aus der Buchhaltung. Wer Ihnen Rechnungen schickt, arbeitet für Sie."
-          },
-          "contracts": {
-            "label": "Verträge und Abonnements",
-            "text": "Wartungsverträge, Softwarelizenzen, Cloudkonten."
-          },
-          "provider": {
-            "label": "Ihr IT-Dienstleister",
-            "text": "Er weiß, welche Anbieter er selbst für Sie einsetzt."
           }
         }
       },
@@ -456,10 +469,6 @@
               "Als Beispiel nennt der Gesetzgeber Verträge, die Sicherheitsmaßnahmen, den Umgang mit Sicherheitsvorfällen und Updates regeln. Was angemessen ist, richtet sich nach dem Lieferanten: nach seinen Schwachstellen und danach, wie gut seine Produkte und seine Sicherheitspraxis sind. Verträge sind ein Weg, nicht der einzige; Sie können etwa auch den Zugang eines Dienstleisters begrenzen."
             ],
             "duty": "Das Gesetz verlangt Maßnahmen für die Sicherheit der Lieferkette, auch für die sicherheitsbezogenen Aspekte der Beziehungen zu Ihren direkten Anbietern und Dienstleistern."
-          },
-          "sources": {
-            "title": "Wo die Regelungen meist stehen",
-            "lead": "Haken Sie ab, wo Sie nachgesehen haben:"
           },
           "clause": {
             "title": "So kann eine Regelung aussehen",
@@ -490,20 +499,6 @@
           "done": {
             "title": "Ihre Vereinbarungen sind festgehalten",
             "note": "Wo nichts geregelt ist, entscheiden Sie, ob Sie es ansprechen, etwa bei der nächsten Verlängerung."
-          }
-        },
-        "sources": {
-          "contracts": {
-            "label": "Verträge und Leistungsbeschreibungen",
-            "text": "Wartungsverträge, Serviceverträge, Leistungsbeschreibungen."
-          },
-          "dpa": {
-            "label": "Verträge zur Auftragsverarbeitung",
-            "text": "Bei allen, die personenbezogene Daten für Sie verarbeiten. Sie regeln Sicherheitsmaßnahmen und Meldungen bei Datenschutzverletzungen."
-          },
-          "terms": {
-            "label": "Bedingungen großer Anbieter",
-            "text": "Bei Cloud und Software meist die Standardbedingungen des Anbieters, die Sie online finden."
           }
         }
       },
@@ -556,31 +551,6 @@
           }
         }
       },
-      "1_2": {
-        "headline": "Festlegen, wer sich kümmert",
-        "teaser": "Wer sich um die Informationssicherheit kümmert.",
-        "missed": [
-          "Die Verantwortung bleibt bei der Geschäftsführung, auch wenn sie die Arbeit abgibt (§ 38 Abs. 1 BSIG).",
-          "Das Gesetz schreibt dafür keinen eigenen Posten vor. Das kann jemand neben seiner eigentlichen Aufgabe übernehmen. Das BSI nennt die Rolle Informationssicherheitsbeauftragte oder Informationssicherheitsbeauftragter (ISB)."
-        ],
-        "screens": {
-          "learn": {
-            "title": "Wer sich kümmert",
-            "body": [
-              "Die Verantwortung trägt die Geschäftsführung. Sie muss die Maßnahmen umsetzen und ihre Umsetzung überwachen (§ 38 Abs. 1 BSIG). Die Arbeit verteilt sie auf Personen im Unternehmen.",
-              "Legen Sie fest, wer sich darum kümmert. Das kann eine einzelne Person sein, die das neben ihrer Aufgabe übernimmt."
-            ],
-            "duty": "Ihr Unternehmen muss dokumentieren, dass es die Maßnahmen zur Informationssicherheit umsetzt."
-          },
-          "roles": {
-            "title": "Holen Sie Ihr Team dazu",
-            "lead": "Laden Sie ein, wer sich kümmert und wer bei einem Vorfall entscheidet. Welchen Bereich jemand verantwortet, legen Sie auf der Teamseite fest."
-          },
-          "done": {
-            "title": "Rollen verteilt"
-          }
-        }
-      },
       "3_1": {
         "headline": "Planen, was bei einem Vorfall passiert",
         "teaser": "Wer entscheidet, wen Sie anrufen, wie Sie sich erreichen.",
@@ -601,18 +571,13 @@
             "link": "IT-Notfallkarte des BSI ansehen"
           },
           "lead": {
-            "title": "Ihr Kontakt im Ernstfall",
-            "lead": "Eine Person führt im Ernstfall. Alle rufen eine Nummer an. Und Sie wissen, wie Sie sich erreichen, wenn E-Mail und Netz ausfallen.",
+            "title": "Ihre Kontakte im Ernstfall",
+            "lead": "Eine Person führt im Ernstfall (bei einem Sicherheitsvorfall). Alle rufen eine Nummer an. Sie wissen, wie Sie sich erreichen, wenn E-Mail und Netz ausfallen, und wen die Person, die führt, als Nächstes anruft.",
             "document": "Ihr Notfallplan"
-          },
-          "escalation": {
-            "title": "Wer außerdem Bescheid bekommt",
-            "lead": "Wen die Person, die führt, als Nächstes anruft, je nach Schwere: zum Beispiel Ihren IT-Dienstleister und die Geschäftsführung.",
-            "document": "Ihre Telefonliste"
           },
           "plan": {
             "title": "Ihr Notfallplan",
-            "lead": "Aus Ihren Antworten geschrieben: wer entscheidet, wen Sie anrufen, was sofort zu tun ist, wie Sie dem {authority} melden und wie Sie wieder in den Normalbetrieb kommen. Darunter ergänzen Sie, was zu Ihrem Unternehmen passt. Eine noch fehlende Antwort steht als Linie da.",
+            "lead": "Aus Ihren Antworten geschrieben: wer entscheidet, wen Sie anrufen, was sofort zu tun ist, wie Sie dem {authority} melden und wie Sie wieder in den Normalbetrieb kommen. Lesen Sie ihn, und ergänzen Sie darunter, was zu Ihrem Unternehmen passt. Eine noch fehlende Antwort steht als Linie da.",
             "document": {
               "title": "Notfallplan für IT-Sicherheitsvorfälle der {company}",
               "sections": [
@@ -642,7 +607,7 @@
                 },
                 {
                   "heading": "Meldung an das BSI",
-                  "text": "Ist ein Vorfall erheblich, meldet die {company} ihn im BSI-Portal: eine frühe Erstmeldung spätestens 24 Stunden, nachdem wir davon erfahren haben, eine Meldung spätestens nach 72 Stunden und eine Abschlussmeldung spätestens einen Monat nach der Meldung (§ 32 BSIG). {incidentLead} sorgt dafür, dass gemeldet wird. Die frühe Erstmeldung sagt, ob wir eine rechtswidrige oder böswillige Handlung vermuten und ob sich der Vorfall auf andere Länder auswirken könnte; alles Weitere, was wir bis dahin wissen, folgt mit der zweiten Meldung. Sind personenbezogene Daten betroffen, melden wir das in der Regel auch der Datenschutzaufsicht, möglichst binnen 72 Stunden (Art. 33 DSGVO)."
+                  "text": "Ist ein Vorfall erheblich, meldet die {company} ihn über {reportingChannel}: eine frühe Erstmeldung spätestens 24 Stunden, nachdem wir davon erfahren haben, eine Meldung spätestens nach 72 Stunden und eine Abschlussmeldung spätestens einen Monat nach der Meldung (§ 32 BSIG). {incidentLead} sorgt dafür, dass gemeldet wird. Die frühe Erstmeldung sagt, ob wir eine rechtswidrige oder böswillige Handlung vermuten und ob sich der Vorfall auf andere Länder auswirken könnte; alles Weitere, was wir bis dahin wissen, folgt mit der zweiten Meldung. Sind personenbezogene Daten betroffen, melden wir das in der Regel auch der Datenschutzaufsicht, möglichst binnen 72 Stunden (Art. 33 DSGVO)."
                 },
                 {
                   "heading": "Zurück zum Normalbetrieb",
@@ -702,7 +667,7 @@
         },
         "fields": {
           "incidentLead": {
-            "label": "Wer im Ernstfall führt",
+            "label": "Wer im Ernstfall (Sicherheitsvorfall) führt",
             "hint": "Die Person, die entscheidet, was zu tun ist, und die Geschäftsführung auf dem Laufenden hält. In einem kleinen Unternehmen ist das oft, wer sich um NIS 2 kümmert."
           },
           "itEmergencyNumber": {
@@ -710,7 +675,7 @@
             "hint": "Meist die Handynummer der Person, die führt. Nimmt ein IT-Dienstleister diese Anrufe für Sie an, dessen Nummer. Es ist auch die Nummer auf der IT-Notfallkarte des BSI."
           },
           "secureCommsChannel": {
-            "label": "Wie Sie sich erreichen, wenn E-Mail und Netz ausfallen",
+            "label": "Wie Sie sich erreichen, wenn E-Mail und Netz ausfallen (mindestens zwei Wege)",
             "hint": "Nennen Sie mindestens zwei Wege, die nicht an Ihrer eigenen IT hängen. Die E-Mail, und ein Chat, der über dieselben Konten läuft wie die E-Mail, können zusammen mit ihr ausfallen.",
             "suggestions": [
               "Anrufe auf die Handynummern",
@@ -720,8 +685,14 @@
             ]
           },
           "incidentEscalationContacts": {
-            "label": "Wer außerdem Bescheid bekommt",
-            "hint": "Namen und Telefonnummern, nach Schwere des Vorfalls. Zum Beispiel: IT-Dienstleister mit seiner Notrufnummer, dann die Geschäftsführung."
+            "label": "Wen die Person, die führt, als Nächstes anruft",
+            "hint": "Namen und Telefonnummern, nach Schwere des Vorfalls. Tippen Sie eine Antwort an und ergänzen Sie Name und Nummer. Eine zweite Person verlangt kein Gesetz; der Plan sagt schon, dass die Geschäftsführung übernimmt, wenn die Person, die führt, nicht erreichbar ist.",
+            "suggestions": [
+              "Vertretung",
+              "IT-Dienstleister",
+              "Geschäftsführung",
+              "Datenschutzbeauftragte"
+            ]
           }
         }
       },
@@ -790,15 +761,17 @@
             ],
             "note": "Das Gesetz verlangt in der frühen Erstmeldung nur zwei Angaben: ob ein Angriff dahinterstecken könnte und ob sich der Vorfall auf andere Länder auswirken könnte (§ 32 Abs. 1 Nr. 1 BSIG). Die übrigen fragt das BSI in seinem Formular ab. Was Sie noch nicht wissen, ergänzen Sie mit der zweiten Meldung."
           },
-          "where": {
-            "title": "Wo Sie melden",
-            "lead": "Das Gesetz nennt den Empfänger: das CSIRT oder die zuständige Behörde Ihres Landes. Ihre steht oben.",
-            "source": "§ 32 Abs. 1 BSIG: Gemeldet wird an die gemeinsame Meldestelle von BSI und Bundesamt für Bevölkerungsschutz und Katastrophenhilfe, erreichbar über das BSI-Portal (BSI, Anleitung zur Meldung im BSI-Portal). Wer noch nicht registriert ist, meldet über ein Onlineformular im Melde- und Informationsportal des BSI (MIP). Für die anderen EU-Staaten Art. 23 Abs. 1 NIS 2."
-          },
           "setup": {
             "title": "Können Sie heute melden?",
-            "lead": "Prüfen Sie es jetzt, nicht erst im Ernstfall. Ja heißt: Die Person, die im Ernstfall führt, oder ihre Vertretung hat den Zugang zum Portal des {authority} und hat ihn ausprobiert. Das ist der Zugang, mit dem Sie sich registriert haben: die Zertifikatsdatei des ELSTER-Organisationszertifikats und ihr Passwort.",
-            "document": "Ihr Notfallplan"
+            "lead": "Prüfen Sie es jetzt, nicht erst im Ernstfall. Sie melden an das CSIRT oder die zuständige Behörde Ihres Landes; Ihre steht unten.",
+            "steps": [
+              "Öffnen Sie unten das Portal des {authority}.",
+              "Melden Sie sich mit dem Zugang aus Ihrer Registrierung an: der Zertifikatsdatei des ELSTER-Organisationszertifikats und ihrem Passwort.",
+              "Prüfen Sie, ob Sie sehen, wo Sie melden: im BSI-Portal der rote Knopf „Sicherheitsvorfall melden“ auf der Startseite. Schicken Sie nichts ab.",
+              "Antworten Sie unten: Ja, wenn die Person, die im Ernstfall führt, oder ihre Vertretung das kann."
+            ],
+            "document": "Ihr Notfallplan",
+            "source": "§ 32 Abs. 1 BSIG: Gemeldet wird an die gemeinsame Meldestelle von BSI und Bundesamt für Bevölkerungsschutz und Katastrophenhilfe, erreichbar über das BSI-Portal (BSI, Anleitung zur Meldung im BSI-Portal). Wer noch nicht registriert ist, meldet über ein Onlineformular im Melde- und Informationsportal des BSI (MIP). Für die anderen EU-Staaten Art. 23 Abs. 1 NIS 2."
           },
           "done": {
             "title": "Meldeweg vorbereitet"
@@ -932,10 +905,6 @@
               { "name": "Büro-PCs", "detail": "zwölf Stück, im Hauptbüro" }
             ]
           },
-          "sources": {
-            "title": "Wo Ihre Liste schon steht",
-            "lead": "Das BSI rät, nach vorhandenen Übersichten zu suchen. Haken Sie ab, wo Sie nachgesehen haben:"
-          },
           "processes": {
             "title": "Was Ihr Unternehmen jeden Tag tut",
             "lead": "Haken Sie an, was bei Ihnen läuft. Im Zweifel gilt: lieber aufschreiben als weglassen."
@@ -963,20 +932,6 @@
           "done": {
             "title": "Ihre Liste steht",
             "note": "Kommt etwas dazu, ergänzen Sie es jederzeit auf der Liste."
-          }
-        },
-        "sources": {
-          "ropa": {
-            "label": "Verzeichnis der Verarbeitungstätigkeiten",
-            "text": "Aus dem Datenschutz (Art. 30 DSGVO). Es beschreibt, wofür Sie personenbezogene Daten verarbeiten, und nennt oft auch die Programme dafür."
-          },
-          "ledger": {
-            "label": "Anlagenverzeichnis oder Inventarliste",
-            "text": "Aus der Buchhaltung. Darin stehen Geräte und andere Technik, die Ihr Unternehmen gekauft hat. Führt Ihr Steuerberater die Bücher, liegt es oft in DATEV: Fragen Sie ihn nach einem Auszug."
-          },
-          "provider": {
-            "label": "Ihr IT-Dienstleister",
-            "text": "Er kennt Ihre Server, Konten und Clouddienste."
           }
         }
       },
@@ -1035,7 +990,7 @@
           },
           "leitlinie": {
             "title": "Ihre Leitlinie",
-            "lead": "Die Vorlage enthält, was das BSI als Mindestinhalt einer Leitlinie nennt, und Ihr Firmenname steht schon darin. Darunter ergänzen Sie, was zu Ihrem Unternehmen passt.",
+            "lead": "Die Vorlage enthält, was das BSI als Mindestinhalt einer Leitlinie nennt, und Ihr Firmenname steht schon darin. Lesen Sie sie, und ergänzen Sie darunter, was zu Ihrem Unternehmen passt.",
             "document": {
               "title": "Leitlinie zur Informationssicherheit der {company}",
               "sections": [
@@ -1154,7 +1109,7 @@
           },
           "konzept": {
             "title": "Ihr Kryptokonzept",
-            "lead": "Die Vorlage enthält feste Abschnitte zu Verfahren, Schlüsseln und Verantwortung, und Ihr Firmenname steht schon darin. Fügen Sie hinzu, wo Sie verschlüsseln. Was davon schon eingerichtet ist, kann Ihnen sagen, wer Ihre IT betreut.",
+            "lead": "Die Vorlage enthält feste Abschnitte zu Verfahren, Schlüsseln und Verantwortung, und Ihr Firmenname steht schon darin. Lesen Sie es, und ergänzen Sie darunter, wo Sie verschlüsseln. Was davon schon eingerichtet ist, kann Ihnen sagen, wer Ihre IT betreut.",
             "document": {
               "title": "Kryptokonzept der {company}",
               "sections": [
@@ -1274,8 +1229,8 @@
             }
           },
           "konzept": {
-            "title": "Ihr Konzept",
-            "lead": "Die Vorlage enthält feste Abschnitte zu Eintritt, Wechsel und Austritt, zu Externen, zu Zugängen und zur Verwaltung Ihrer IT, und Ihr Firmenname steht schon darin. Fügen Sie hinzu, was bei Ihnen gilt.",
+            "title": "Ihr Konzept für Personal, Zugänge und IT",
+            "lead": "Die Vorlage enthält feste Abschnitte zu Eintritt, Wechsel und Austritt, zu Externen, zu Zugängen und zur Verwaltung Ihrer IT, und Ihr Firmenname steht schon darin. Lesen Sie es, und ergänzen Sie darunter, was bei Ihnen gilt.",
             "document": {
               "title": "Konzept für Personal, Zugänge und IT der {company}",
               "sections": [
@@ -1400,17 +1355,40 @@
             "bad": {
               "value": "Fernzugriff von zu Hause nur mit Passwort",
               "note": "Dann reicht ein erratenes oder abgefangenes Passwort, um in Ihr Netz zu kommen."
-            }
+            },
+            "more": [
+              {
+                "good": {
+                  "value": "Alle Nutzer des Firmenkontos in der Cloud mit einer Authentifizierungsapp",
+                  "note": "Ein Konto öffnet meist E-Mail, Dateien und Chat zugleich. Ein gestohlenes Passwort öffnet dann alle drei."
+                },
+                "bad": {
+                  "value": "Zweiter Faktor nur für die Geschäftsführung",
+                  "note": "Eine Phishing-Mail erreicht jedes Postfach, und Angreifer nehmen das Konto, das am leichtesten ist."
+                }
+              },
+              {
+                "good": {
+                  "value": "Administratorkonten mit Sicherheitsschlüssel",
+                  "note": "Ein Sicherheitsschlüssel prüft, bei welcher Website er sich anmeldet. Eine gefälschte Anmeldeseite kann ihn nicht nutzen."
+                },
+                "bad": {
+                  "value": "Administratorkonten mit Codes per SMS",
+                  "note": "Eine SMS lässt sich auf eine andere SIM-Karte umleiten. Für Konten mit allen Rechten nehmen Sie eine App oder einen Schlüssel."
+                }
+              }
+            ]
           },
           "logins": {
             "title": "Wo ein zweiter Faktor schützt",
-            "lead": "Kreuzen Sie für jedes Programm und jeden Zugang auf Ihrer Liste an, wie man sich anmeldet. Melden Sie sich bei mehreren über ein Firmenkonto an, etwa bei Microsoft, gilt für sie dieselbe Antwort. Was Sie nicht wissen, kann Ihnen sagen, wer Ihre IT betreut.",
+            "lead": "Kreuzen Sie für jedes Programm und jeden Zugang auf Ihrer Liste an, wie man sich anmeldet. Jede Zeile beginnt bei „Nur Passwort“, der sicheren Annahme; ändern Sie, was Sie besser wissen, oder wählen Sie „Noch nicht bekannt“. Melden Sie sich bei mehreren über ein Firmenkonto an, etwa bei Microsoft, gilt für sie dieselbe Antwort. Was Sie nicht wissen, kann Ihnen sagen, wer Ihre IT betreut.",
             "mfa": "Mit zweitem Faktor",
-            "password": "Nur Passwort"
+            "password": "Nur Passwort",
+            "unknown": "Noch nicht bekannt"
           },
           "tool": {
             "title": "Womit Sie es tun",
-            "lead": "Welche App oder welches Gerät Sie für den zweiten Faktor nutzen.",
+            "lead": "Welche App oder welches Gerät Sie für den zweiten Faktor nutzen. Ist es je nach Programm verschieden, nennen Sie alle.",
             "document": "Ihre Anmeldung"
           },
           "done": {
@@ -1421,7 +1399,15 @@
         "fields": {
           "mfaTool": {
             "label": "Lösung für den zweiten Faktor",
-            "hint": "Zum Beispiel Microsoft Authenticator, eine andere App auf dem Diensthandy oder ein Sicherheitsschlüssel. Nutzen Sie mehrere, nennen Sie alle."
+            "hint": "Zum Beispiel Microsoft Authenticator, eine andere App auf dem Diensthandy oder ein Sicherheitsschlüssel. Nutzen Sie mehrere, nennen Sie alle.",
+            "suggestions": [
+              "Microsoft Authenticator",
+              "Google Authenticator",
+              "Andere Authentifizierungsapp auf dem Diensthandy",
+              "Sicherheitsschlüssel (FIDO2)",
+              "Codes per SMS",
+              "Codes per E-Mail"
+            ]
           }
         }
       },
@@ -1454,7 +1440,7 @@
           },
           "tools": {
             "title": "Ihre Werkzeuge",
-            "lead": "Womit Sie telefonieren, Besprechungen halten und Nachrichten schreiben, und wie es gesichert ist.",
+            "lead": "Womit Sie telefonieren, Besprechungen halten und Nachrichten schreiben, und wie es gesichert ist. Das Gesetz nennt Sprache, Video und Text zusammen als eine Maßnahme, darum deckt eine Antwort alle drei ab. Tippen Sie die Programme aus Ihrer Liste an, die Sie dafür nutzen, und sagen Sie dann, wie sie gesichert sind.",
             "document": "Gesicherte Kommunikation"
           },
           "done": {
@@ -1465,7 +1451,13 @@
         "fields": {
           "secureCommsTools": {
             "label": "Werkzeuge für Telefon, Video und Chat",
-            "hint": "Zum Beispiel: Microsoft Teams für Besprechungen und Chat, Telefonie über die Telefonanlage des Anbieters in der Cloud, alles verschlüsselt übertragen."
+            "hint": "Zum Beispiel: Microsoft Teams für Besprechungen und Chat, Telefonie über die Telefonanlage des Anbieters in der Cloud, alles verschlüsselt übertragen.",
+            "suggestions": [
+              "Alles verschlüsselt übertragen",
+              "Anmeldung nur mit Firmenkonto",
+              "Anmeldung mit zweitem Faktor",
+              "Gäste kommen nur nach Freigabe in Besprechungen"
+            ]
           }
         }
       },
@@ -1499,31 +1491,35 @@
           },
           "sources": {
             "title": "Wo Schwachstellen bekannt werden",
-            "lead": "Sie müssen Lücken nicht selbst suchen. Neue Schwachstellen werden angekündigt, etwa hier:",
+            "lead": "Sie müssen Lücken nicht selbst suchen. Neue Schwachstellen werden öffentlich angekündigt, und Ihre Liste der Programme aus Schritt 2.2 zeigt, welche Meldungen Sie betreffen. Hier lohnt der Blick:",
             "items": [
               {
-                "name": "Hinweise der Hersteller",
-                "detail": "Sicherheitsmitteilungen der Firmen, deren Programme und Geräte Sie nutzen"
+                "name": "Sicherheitshinweise der Hersteller",
+                "detail": "die Firmen, deren Programme und Geräte Sie nutzen, veröffentlichen sie auf ihrer Website, viele schicken sie nach Anmeldung auch per E-Mail"
               },
               {
-                "name": "Warnungen des BSI",
-                "detail": "der Warn- und Informationsdienst des BSI zu Sicherheitslücken in verbreiteten Produkten"
+                "name": "Der Warn- und Informationsdienst des BSI",
+                "detail": "CERT-Bund, ein Teil des BSI, veröffentlicht unter wid.cert-bund.de neue Schwachstellen in verbreiteten Produkten; per E-Mail kostenlos zu abonnieren"
+              },
+              {
+                "name": "Die europäische Schwachstellendatenbank",
+                "detail": "die ENISA, die Cybersicherheitsagentur der EU, führt veröffentlichte Schwachstellen unter euvd.enisa.europa.eu"
               },
               {
                 "name": "Ihr IT-Dienstleister",
-                "detail": "wer Ihre Systeme betreut, sollte Ihnen Bescheid geben, wenn Sie betroffen sind"
+                "detail": "wer Ihre Systeme betreut, verfolgt diese Quellen meist ohnehin; vereinbaren Sie schriftlich, dass er Ihnen Bescheid gibt, wenn Sie betroffen sind"
               }
             ],
-            "source": "Das BSI empfiehlt im NIS-2-Infopaket zu Sicherheitsmaßnahmen, Systeme regelmäßig auf bekannte Lücken zu prüfen und Schwachstellen nach Risiko zu behandeln."
+            "source": "Das BSI empfiehlt im NIS-2-Infopaket zu Sicherheitsmaßnahmen, Systeme regelmäßig auf bekannte Lücken zu prüfen und Schwachstellen nach Risiko zu behandeln. Der Warndienst: bsi.bund.de, Warn- und Informationsdienst (WID)."
           },
           "report": {
             "title": "Wo man Ihnen eine Schwachstelle meldet",
-            "lead": "Findet jemand eine Lücke in Ihren Systemen, etwa auf Ihrer Website, braucht er eine Adresse dafür. Das BSI empfiehlt, sie öffentlich zu nennen. Haben Sie noch keine, lassen Sie das Feld leer: Ihre Regeln bekommen dann eine Zeile zum Ausfüllen.",
-            "document": "Ihre Regeln"
+            "lead": "Findet jemand eine Lücke in Ihren Systemen, etwa auf Ihrer Website, braucht er eine Adresse dafür. Das BSI empfiehlt, sie öffentlich zu nennen. Die Vorschläge unten stammen aus der Kontaktadresse Ihres Unternehmens. Haben Sie noch keine, lassen Sie das Feld leer: Ihre Regeln bekommen dann eine Zeile zum Ausfüllen.",
+            "document": "Ihre Regeln für Kauf, Updates und Schwachstellen"
           },
           "rules": {
-            "title": "Ihre Regeln",
-            "lead": "Die Vorlage enthält feste Abschnitte zu Kauf, Updates, Schwachstellen und Meldungen, und Ihr Firmenname steht schon darin. Fügen Sie hinzu, was bei Ihnen gilt.",
+            "title": "Ihre Regeln für Kauf, Updates und Schwachstellen",
+            "lead": "Die Vorlage enthält feste Abschnitte zu Kauf, Updates, Schwachstellen und Meldungen, und Ihr Firmenname steht schon darin. Lesen Sie sie, und ergänzen Sie darunter, was bei Ihnen gilt.",
             "document": {
               "title": "Regeln für Kauf, Wartung und Schwachstellen der IT der {company}",
               "sections": [
@@ -1642,19 +1638,22 @@
           },
           "keep": {
             "title": "Was weiterlaufen muss",
-            "lead": "Das sind die Abläufe von Ihrer Liste. Kreuzen Sie an, was auch ohne IT weiterlaufen muss, und schreiben Sie in einem Satz dazu, wie. Beides steht dann in Ihrem Plan.",
+            "lead": "Das sind die Abläufe von Ihrer Liste. Fragen Sie bei jedem: Wäre die IT einen ganzen Tag weg, könnten wir einfach warten, oder litten Kunden, Sicherheit oder eine Frist? Kreuzen Sie an, was nicht warten kann, und schreiben Sie in einem Satz dazu, wie es weitergeht. Beides steht dann in Ihrem Plan.",
             "keep": "Muss weiterlaufen",
             "how": "So geht es ohne IT weiter",
-            "example": "zum Beispiel: Aufträge per Telefon und auf Papierformularen"
-          },
-          "lead": {
-            "title": "Wer die Krise leitet",
-            "lead": "Wählen Sie eine Person, die auch über Geld, Kunden und Personal entscheiden darf, etwa aus der Geschäftsführung. Wer nach dem Notfallplan für IT-Sicherheitsvorfälle führt, berichtet ihr, sobald der Betrieb steht.",
-            "document": "Ihr Notfallplan für den Betrieb"
+            "example": "zum Beispiel: Aufträge per Telefon und auf Papierformularen",
+            "suggestions": [
+              "auf Papierformularen",
+              "per Telefon",
+              "nach einer gedruckten Liste",
+              "von Hand, später nachgetragen",
+              "von einem anderen Standort",
+              "der Dienstleister übernimmt"
+            ]
           },
           "plan": {
             "title": "Ihr Notfallplan für den Betrieb",
-            "lead": "Die Vorlage enthält feste Abschnitte zu Leitung, Notbetrieb, Wiederherstellung und Information. Ihr Firmenname, die Leitung, die Abläufe, die weiterlaufen müssen, und die Reihenfolge aus Ihrer Risikobewertung stehen schon darin.",
+            "lead": "Die Vorlage enthält feste Abschnitte zu Leitung, Notbetrieb, Wiederherstellung und Information. Ihr Firmenname, die Person, die im Ernstfall führt (aus Schritt 3.1), die Abläufe, die weiterlaufen müssen, und die Reihenfolge aus Ihrer Risikobewertung stehen schon darin. Lesen Sie ihn, und ergänzen Sie darunter, was bei Ihnen gilt.",
             "document": {
               "title": "Notfallplan für den Betrieb der {company}",
               "sections": [
@@ -1664,11 +1663,11 @@
                 },
                 {
                   "heading": "Wann dieser Plan gilt",
-                  "text": "Dieser Plan gilt, wenn ein Ereignis wichtige Arbeit länger unterbricht, als die übliche Störungsbehebung braucht, oder wenn das droht. Im Zweifel entscheidet {crisisTeamLead}."
+                  "text": "Dieser Plan gilt, wenn ein Ereignis wichtige Arbeit länger unterbricht, als die übliche Störungsbehebung braucht, oder wenn das droht. Im Zweifel entscheidet {emergencyLead}."
                 },
                 {
                   "heading": "Leitung",
-                  "text": "{crisisTeamLead} leitet die Bewältigung, holt die nötigen Personen dazu, entscheidet und hält jede Entscheidung mit Uhrzeit fest. Wer nach dem Notfallplan für IT-Sicherheitsvorfälle einen Vorfall leitet, berichtet an {crisisTeamLead}. Ist {crisisTeamLead} nicht erreichbar, übernimmt ein anderes Mitglied der Geschäftsführung."
+                  "text": "{emergencyLead}, die Person, die auch nach dem Notfallplan für IT-Sicherheitsvorfälle führt, leitet die Bewältigung, holt die nötigen Personen dazu, entscheidet und hält jede Entscheidung mit Uhrzeit fest. Entscheidungen über Geld, Kunden und Personal trifft sie gemeinsam mit der Geschäftsführung. Ist {emergencyLead} nicht erreichbar, übernimmt die Geschäftsführung."
                 },
                 {
                   "heading": "Alarmierung und Kontakte",
@@ -1684,11 +1683,11 @@
                 },
                 {
                   "heading": "Informieren",
-                  "text": "{crisisTeamLead} oder jemand, den diese Person benennt, informiert Beschäftigte, Lieferanten und Kunden. Meldungen an das BSI laufen nach dem Notfallplan für IT-Sicherheitsvorfälle."
+                  "text": "{emergencyLead} oder jemand, den diese Person benennt, informiert Beschäftigte, Lieferanten und Kunden. Meldungen an das BSI laufen nach dem Notfallplan für IT-Sicherheitsvorfälle."
                 },
                 {
                   "heading": "Zurück zum Normalbetrieb",
-                  "text": "{crisisTeamLead} erklärt den Notfall für beendet. Wir halten fest, was geschehen ist, und passen diesen Plan an."
+                  "text": "{emergencyLead} erklärt den Notfall für beendet. Wir halten fest, was geschehen ist, und passen diesen Plan an."
                 }
               ],
               "clauses": [
@@ -1737,12 +1736,6 @@
             "title": "Ihr Notfallplan für den Betrieb ist geschrieben",
             "note": "Legen Sie eine Fassung, die ohne IT funktioniert, neben den Notfallplan für IT-Sicherheitsvorfälle, zum Beispiel auf Papier."
           }
-        },
-        "fields": {
-          "crisisTeamLead": {
-            "label": "Leitung im Ernstfall",
-            "hint": "Name und Funktion der Person, die entscheidet, wenn der Betrieb steht, zum Beispiel aus der Geschäftsführung."
-          }
         }
       },
       "4_4": {
@@ -1773,33 +1766,28 @@
               "note": "Verschlüsselt ein Angreifer den Server, verschlüsselt er die Sicherung gleich mit."
             }
           },
-          "rhythm": {
-            "title": "Wie oft gesichert wird",
-            "lead": "Wie oft die Daten Ihrer wichtigsten Systeme gesichert werden. Wissen Sie es nicht, fragen Sie, wer Ihre IT betreut.",
-            "document": "Ihre Datensicherung"
-          },
           "ask": {
-            "title": "Fragen Sie nach der letzten Wiederherstellung",
-            "lead": "Fragen Sie Ihren IT-Dienstleister oder Ihre IT:",
+            "title": "Was Sie zuerst fragen",
+            "lead": "Fragen Sie, wer Ihre IT betreut, bevor Sie auf dem nächsten Bildschirm antworten:",
             "items": [
               {
-                "name": "Wann zuletzt",
-                "detail": "wann zuletzt Daten aus einer Sicherung zurückgespielt wurden"
+                "name": "Wie oft",
+                "detail": "wie oft die Daten der Systeme gesichert werden, die Sie selbst betreiben: Server, Dateiablage, Datenbanken"
               },
               {
-                "name": "Was",
-                "detail": "welche Daten oder welches System; Stichproben genügen dem BSI"
+                "name": "Die letzte Wiederherstellung",
+                "detail": "wann zuletzt Daten aus einer Sicherung zurückkamen, von welchem System, und ob vollständig und lesbar; eine Stichprobe genügt dem BSI"
               },
               {
-                "name": "Ob es geklappt hat",
-                "detail": "ob die Daten vollständig und lesbar zurückkamen"
+                "name": "Ihre Cloud- und Softwareanbieter, getrennt davon",
+                "detail": "sie sichern ihre eigenen Systeme; fragen Sie jeden, was er für Sie aufbewahrt und wie Sie Ihre Daten zurückbekämen. Diese Antworten gehören nicht auf den nächsten Bildschirm"
               }
             ],
-            "source": "BSI, Maßnahmenkatalog Notfallmanagement: „Erstellen Sie regelmäßig Sicherheitskopien (Backups) Ihrer Daten, um vor Verlust geschützt zu sein und testen Sie regelmäßig deren Wiederherstellung.“ Prüfung anhand von Stichproben: Grundschutz++ NOT.4.16.1."
+            "source": "BSI, Maßnahmenkatalog Notfallmanagement: „Erstellen Sie regelmäßig Sicherheitskopien (Backups) Ihrer Daten, um vor Verlust geschützt zu sein und testen Sie regelmäßig deren Wiederherstellung.“ Prüfung anhand von Stichproben: Grundschutz++ NOT.4.16.1. Das Gesetz nennt das Backup-Management, keine Angaben je System (§ 30 Abs. 2 Nr. 3 BSIG)."
           },
-          "test": {
-            "title": "Die letzte Wiederherstellung",
-            "lead": "Tragen Sie den Tag ein, an dem eine Wiederherstellung zuletzt geklappt hat. Das Gesetz verlangt wirksame Maßnahmen, und eine Sicherung, die nie zurückgespielt wurde, ist nicht als wirksam belegt. Das ist unsere Lesart, nicht der Wortlaut des Gesetzes. Gab es noch keine, lassen Sie das Feld leer und planen Sie eine.",
+          "backups": {
+            "title": "Ihre Datensicherung",
+            "lead": "Was man Ihnen gesagt hat, für die Systeme, die Sie selbst betreiben. Eine Sicherung, die nie zurückgespielt wurde, ist nicht als wirksam belegt: Das Gesetz verlangt wirksame Maßnahmen (§ 30 Abs. 1 BSIG). Das ist unsere Lesart, nicht der Wortlaut des Gesetzes. Hat noch keine Wiederherstellung geklappt, lassen Sie das Datum leer und planen Sie eine.",
             "document": "Ihre Datensicherung"
           },
           "done": {
@@ -1809,8 +1797,8 @@
         },
         "fields": {
           "backupFrequency": {
-            "label": "Häufigkeit der Sicherung",
-            "hint": "Für Ihre wichtigsten Systeme.",
+            "label": "Wie oft Ihre eigenen Systeme gesichert werden",
+            "hint": "Für die wichtigsten der Systeme, die Sie selbst betreiben. Sind sie verschieden, das seltenste.",
             "options": {
               "real_time": "laufend",
               "hourly": "stündlich",
@@ -1819,8 +1807,8 @@
             }
           },
           "lastBackupTest": {
-            "label": "Letzte erfolgreiche Wiederherstellung",
-            "hint": "Der Tag, an dem zuletzt Daten aus einer Sicherung vollständig zurückkamen."
+            "label": "Letzte geglückte Wiederherstellung eines Ihrer eigenen Systeme",
+            "hint": "Der Tag, an dem zuletzt Daten eines Systems, das Sie selbst betreiben, vollständig aus einer Sicherung zurückkamen, zur Probe oder im Ernstfall. Ein System genügt."
           }
         }
       },

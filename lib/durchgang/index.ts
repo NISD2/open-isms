@@ -20,18 +20,19 @@ export {
   methodNote,
   noteLine,
   recordDay,
-  sourcesNote,
   waitingNote,
 } from "./notes";
 export type { PolicyDocument, PolicyPart } from "./policy";
 export {
   criticalProcessesText,
+  personText,
   policyNames,
   policyParts,
   policySignature,
   policyText,
   policyTitle,
   recoveryOrderText,
+  reportingChannelText,
 } from "./policy";
 export type {
   AssetSlice,
@@ -47,6 +48,7 @@ export {
   byLevel,
   cellCount,
   fromScale,
+  inCell,
   levelGroups,
   levelOf,
   levelOfStanding,
@@ -69,6 +71,7 @@ export {
   STATE_ACTIONS,
   WAIT_REASONS,
 } from "./state";
+export { contactSuggestions } from "./suggest";
 export type {
   Adoptable,
   AnyItem,
@@ -79,10 +82,10 @@ export type {
   Provision,
   RegisterModule,
   ScreenKind,
-  SourceId,
+  SuggestSource,
   TrainingAudience,
 } from "./types";
-export { askedFields, MANAGEMENT_ROLE, POLICY_LISTS, SOURCE_IDS } from "./types";
+export { askedFields, MANAGEMENT_ROLE, POLICY_LISTS } from "./types";
 
 const BY_CODE: ReadonlyMap<string, AnyItem> = new Map(
   NIS2_SCRIPT.map((i) => [i.code, i]),

@@ -4,6 +4,7 @@ import {
   byLevel,
   cellCount,
   fromScale,
+  inCell,
   levelGroups,
   levelOfStanding,
   type MappedRisk,
@@ -84,9 +85,21 @@ test("puts processes on no screen, software and technology on their own", () => 
 describe("the rows of a rating screen", () => {
   const lists = {
     assets: [
-      { id: "a1", name: "DATEV", type: "application", supplierId: "s1" },
-      { id: "a2", name: "Server room", type: "room", supplierId: null },
-      { id: "a3", name: "Sales", type: "process", supplierId: null },
+      {
+        id: "a1",
+        name: "DATEV",
+        type: "application",
+        description: "Accounting",
+        supplierId: "s1",
+      },
+      {
+        id: "a2",
+        name: "Server room",
+        type: "room",
+        description: null,
+        supplierId: null,
+      },
+      { id: "a3", name: "Sales", type: "process", description: null, supplierId: null },
     ],
     suppliers: [
       { id: "s1", name: "DATEV eG" },
@@ -96,13 +109,14 @@ describe("the rows of a rating screen", () => {
     supplierRisks: [],
   };
 
-  test("names each asset's provider and carries what the register holds for it", () => {
+  test("names each asset's kind and provider and carries what the register holds for it", () => {
     expect(ratingRows("software", lists)).toEqual([
       {
         kind: "asset",
         key: "asset:a1",
         id: "a1",
         name: "DATEV",
+        kindOf: "Accounting",
         provider: "DATEV eG",
         standing: {
           kind: "rated",
@@ -166,25 +180,30 @@ describe("where people sign in, and which gap comes first", () => {
 describe("the company's risks on the matrix", () => {
   const risks: readonly MappedRisk[] = [
     {
+      key: "asset:erp",
       name: "ERP",
       rating: { frequency: "rare", impact: "existential" },
       level: "medium",
     },
     {
+      key: "asset:datev",
       name: "DATEV",
       rating: { frequency: "rare", impact: "existential" },
       level: "medium",
     },
     {
+      key: "asset:web",
       name: "Website",
       rating: { frequency: "medium", impact: "negligible" },
       level: "low",
     },
-    { name: "Server", rating: null, level: "very_high" },
-    { name: "Drucker", rating: null, level: null },
+    { key: "asset:server", name: "Server", rating: null, level: "very_high" },
+    { key: "asset:printer", name: "Drucker", rating: null, level: null },
   ];
+  const names = (list: readonly MappedRisk[]) => list.map((r) => r.name);
 
   test("counts each rated thing in its cell, and a thing with several risks in none", () => {
+    expect(names(inCell(risks, "rare", "existential"))).toEqual(["ERP", "DATEV"]);
     expect(cellCount(risks, "rare", "existential")).toBe(2);
     expect(cellCount(risks, "medium", "negligible")).toBe(1);
     expect(cellCount(risks, "frequent", "existential")).toBe(0);
@@ -193,7 +212,9 @@ describe("the company's risks on the matrix", () => {
   });
 
   test("lists every thing with a level by level, highest first, and skips empty levels", () => {
-    expect(levelGroups(risks)).toEqual([
+    expect(
+      levelGroups(risks).map((g) => ({ level: g.level, names: names(g.risks) })),
+    ).toEqual([
       { level: "very_high", names: ["Server"] },
       { level: "medium", names: ["ERP", "DATEV"] },
       { level: "low", names: ["Website"] },

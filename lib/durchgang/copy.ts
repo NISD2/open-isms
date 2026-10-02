@@ -27,12 +27,21 @@ const SCREEN_COPY = {
     duty: text,
     link: text.optional(),
   }),
+  /** `confirm` labels the tick that the person has it at hand, where the script asks for one. */
   prepare: z.object({
     ...heading,
     items: z.array(z.object({ name: text, detail: text })).min(1),
     source: text,
+    confirm: text.optional(),
   }),
-  compare: z.object({ title: text, caption: text, good: pair, bad: pair }),
+  /** The first pair, then any further pairs, each its own do and don't. */
+  compare: z.object({
+    title: text,
+    caption: text,
+    good: pair,
+    bad: pair,
+    more: z.array(z.object({ good: pair, bad: pair })).optional(),
+  }),
   sample: z.object({
     title: text,
     caption: text,
@@ -42,22 +51,36 @@ const SCREEN_COPY = {
   /** One text per example of the script's screen, in its order. */
   reading: z.object({ title: text, caption: text, examples: z.array(text).min(1) }),
   provision: z.object({ ...heading, source: text }),
-  fields: z.object({ ...heading, document: text }),
+  /** `steps`: what to do, numbered, before answering; `source` sits under a provision shown. */
+  fields: z.object({
+    ...heading,
+    document: text,
+    steps: z.array(text).min(1).optional(),
+    source: text.optional(),
+  }),
   evidence: z.object({ ...heading, document: text }),
   adopt: z.object({ ...heading, lines: z.array(z.object({ label: text, text })).min(1) }),
   register: z.object(heading),
-  sources: z.object(heading),
   assets: z.object(heading),
   specify: z.object(heading),
   rate: z.object(heading),
   /** The two things a row can say is agreed, and the answer that neither is. */
   agreements: z.object({ ...heading, security: text, incidents: text, none: text }),
-  /** The two answers a sign-in can have. */
-  logins: z.object({ ...heading, mfa: text, password: text }),
+  /** The answers a sign-in can have; `unknown` until someone has checked. */
+  logins: z.object({ ...heading, mfa: text, password: text, unknown: text }),
   approve: z.object(heading),
   riskmap: z.object(heading),
-  /** The answer that a process must keep running, and the line for how it does without IT. */
-  critical: z.object({ ...heading, keep: text, how: text, example: text }),
+  /**
+   * The answer that a process must keep running, the line for how it does without IT, and common
+   * answers for that line.
+   */
+  critical: z.object({
+    ...heading,
+    keep: text,
+    how: text,
+    example: text,
+    suggestions: z.array(text).min(1).optional(),
+  }),
   /**
    * The policy itself: its fixed sections, the clauses the person may add, and the signature
    * line. `{company}` stands for the company's name and `{<field>}` for the answer to one of the
@@ -96,7 +119,6 @@ const ITEM_COPY = z.object({
       }),
     )
     .default({}),
-  sources: z.record(z.string(), z.object({ label: text, text })).default({}),
 });
 
 type ItemCopy = z.infer<typeof ITEM_COPY>;
@@ -106,9 +128,6 @@ type Keyed<K extends string, V> = V & { readonly key: K };
 interface Extras {
   readonly fields: {
     readonly fields: readonly Keyed<string, ItemCopy["fields"][string]>[];
-  };
-  readonly sources: {
-    readonly sources: readonly Keyed<string, ItemCopy["sources"][string]>[];
   };
 }
 
@@ -260,25 +279,18 @@ function resolveScreen(
         ? ok({ kind: screen.kind, screen, copy: { ...copy.value, fields: fields.value } })
         : { ok: false, errors: errorsOf(copy, fields) };
     }
-    case "sources": {
-      const copy = parse(SCREEN_COPY.sources, raw, where);
-      const sources = pick(head.sources, screen.sources, `${base}.sources`);
-      return copy.ok && sources.ok
-        ? ok({
-            kind: screen.kind,
-            screen,
-            copy: { ...copy.value, sources: sources.value },
-          })
-        : { ok: false, errors: errorsOf(copy, sources) };
-    }
     case "learn": {
       const copy = one(screen, SCREEN_COPY.learn);
       return copy.ok && screen.link && !copy.value.copy.link
         ? { ok: false, errors: [`${where}.link: missing`] }
         : copy;
     }
-    case "prepare":
-      return one(screen, SCREEN_COPY.prepare);
+    case "prepare": {
+      const copy = one(screen, SCREEN_COPY.prepare);
+      return copy.ok && screen.confirm && !copy.value.copy.confirm
+        ? { ok: false, errors: [`${where}.confirm: missing`] }
+        : copy;
+    }
     case "compare":
       return one(screen, SCREEN_COPY.compare);
     case "sample":
@@ -369,11 +381,6 @@ export function resolveItem(namespace: unknown, item: AnyItem): Result<ResolvedI
       Object.keys(head.value.fields),
       screens.flatMap((s) => (s.kind === "fields" ? s.fields : [])),
       `${base}.fields`,
-    ),
-    ...unused(
-      Object.keys(head.value.sources),
-      screens.flatMap((s) => (s.kind === "sources" ? s.sources : [])),
-      `${base}.sources`,
     ),
   ];
   if (errors.length > 0) return { ok: false, errors };

@@ -24,7 +24,6 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
   const queue = useRef<Promise<void>>(Promise.resolve());
 
   const saveAnswers = trpc.intake.saveRequirementAnswers.useMutation();
-  const sources = trpc.durchgang.sources.useMutation();
   const adopt = trpc.durchgang.adoptMethod.useMutation();
   const addAssets = trpc.durchgang.addAssets.useMutation();
   const specify = trpc.durchgang.specifyAssets.useMutation();
@@ -87,11 +86,6 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
           await answer({ [screen.field]: snapshot.uploaded });
         }
         return;
-      case "sources":
-        if (snapshot.sources.length > 0) {
-          await sources.mutateAsync({ code: item.code, sources: [...snapshot.sources] });
-        }
-        return;
       case "assets":
         if (snapshot.checked.length > 0 || snapshot.custom.length > 0) {
           await addAssets.mutateAsync({
@@ -115,7 +109,8 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
         }
         return;
       }
-      case "rate": {
+      case "rate":
+      case "riskmap": {
         const rows = Object.values(snapshot.ratings).flatMap((r) => {
           const rating = fullRating(r);
           const note = r.note === undefined ? {} : { note: r.note.trim() };
@@ -174,14 +169,16 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
   };
 
   /**
-   * Stores what screen `at` recorded, after every earlier write. The choices are made now, from
-   * this screen's state; `onRefused` runs when any of the writes is refused.
+   * Stores what screen `at` recorded, after every earlier write, on the way to screen `to`. The
+   * choices are made now, from this screen's state; `onRefused` runs when any of the writes is
+   * refused. Arriving at the done screen finishes the item, also when the screens between were
+   * passed over.
    */
-  const leave = (at: number, onRefused: () => void) => {
+  const leave = (at: number, to: number, onRefused: () => void) => {
     const snapshot = draft;
     const resuming = at === 0 && waiting && !resumed.current;
     const adopting = item.screens[at]?.screen.kind === "adopt" && adoptedAt === null;
-    const finishing = item.screens[at + 1]?.screen.kind === "done";
+    const finishing = item.screens[to]?.screen.kind === "done";
     if (resuming) resumed.current = true;
     if (adopting) setAdoptedAt(new Date());
     queue.current = queue.current
