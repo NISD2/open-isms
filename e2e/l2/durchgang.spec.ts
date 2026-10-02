@@ -82,8 +82,9 @@ test.describe("durchgang", () => {
     const doneBefore = await itemDoneCount(tenant.company_id);
 
     // The item's old address, from before the walk moved under /durchgang/nis2, still leads to it.
+    // German is the default locale, so the redirect may drop the /de prefix.
     await page.goto(`/de/durchgang/${CODE}`);
-    await expect(page).toHaveURL(new RegExp(`/de/durchgang/nis2/${CODE}$`));
+    await expect(page).toHaveURL(new RegExp(`/durchgang/nis2/${CODE}$`));
     const next = page.getByRole("button", { name: "Weiter", exact: true });
     await expect(next).toBeVisible({ timeout: 30_000 });
     await next.click();
