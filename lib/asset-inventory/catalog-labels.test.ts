@@ -20,7 +20,9 @@ test("finds the line by the catalogue name 2.2 kept in the description after a r
 });
 
 test("keeps remote access, network equipment and anything not in the catalogue", () => {
-  expect(noSignIn({ name: "VPN oder Zero-Trust-Fernzugriff", description: null })).toBe(false);
+  expect(noSignIn({ name: "VPN oder Zero-Trust-Fernzugriff", description: null })).toBe(
+    false,
+  );
   expect(
     noSignIn({ name: "Network equipment (firewall, switches, WiFi)", description: null }),
   ).toBe(false);
