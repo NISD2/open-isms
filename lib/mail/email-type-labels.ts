@@ -8,7 +8,7 @@
  * de / en / nl only, matching the languages our email copy exists in.
  */
 import type { EmailCategory, UserConsentEmailTypeId } from "./email-types";
-import { EMAIL_LOCALES, type EmailLocale } from "./locale";
+import type { EmailLocale } from "./locale";
 
 /**
  * Alias of EmailLocale. The preference centre and the mail templates answer the
@@ -17,8 +17,6 @@ import { EMAIL_LOCALES, type EmailLocale } from "./locale";
  * added in two places to take effect in both.
  */
 export type PreferenceLocale = EmailLocale;
-
-export const PREFERENCE_LOCALES: readonly PreferenceLocale[] = EMAIL_LOCALES;
 
 export function parsePreferenceLocale(raw: string | null | undefined): PreferenceLocale {
   return raw === "en" || raw === "nl" ? raw : "de";

@@ -126,10 +126,6 @@ export function emailTypeCategory(id: EmailTypeId): EmailCategory {
   return EMAIL_TYPES[id].category;
 }
 
-export function emailTypeConsent(id: EmailTypeId): ConsentMode {
-  return EMAIL_TYPES[id].consent;
-}
-
 export function isUserConsentEmailType(id: EmailTypeId): id is UserConsentEmailTypeId {
   return EMAIL_TYPES[id].consent === "user";
 }
