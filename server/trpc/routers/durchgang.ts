@@ -52,7 +52,7 @@ import {
   WALK_POLICIES,
   waitingNote,
 } from "@/lib/durchgang";
-import { renderNewsletterMarkdown } from "@/lib/mail/markdown";
+import { renderDocumentMarkdown } from "@/lib/mail/markdown";
 import { getRegistrationPortals } from "@/lib/registration-portals";
 import durchgangDe from "@/messages/durchgang/de.json";
 import durchgangEn from "@/messages/durchgang/en.json";
@@ -1117,14 +1117,15 @@ export const durchgangRouter = router({
   /**
    * The policies the walk wrote for the company, with their state, for the approval screen. The
    * stored text comes as HTML, so management reads exactly what it approves without needing the
-   * category each document belongs to. It is rendered like a newsletter: no raw HTML, safe links.
+   * category each document belongs to. It is rendered as a document: no raw HTML, safe links,
+   * nothing loaded from outside, and every link's address in view.
    */
   walkPolicies: durchgangProcedure.query(async ({ ctx }) => {
     const rows = await walkPolicyRows(ctx.db, ctx.companyId);
     return Promise.all(
       rows.map(async ({ content, ...row }) => ({
         ...row,
-        html: await renderNewsletterMarkdown(content ?? ""),
+        html: await renderDocumentMarkdown(content ?? ""),
       })),
     );
   }),
