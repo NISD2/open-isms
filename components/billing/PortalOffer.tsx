@@ -127,7 +127,10 @@ export async function PortalOffer() {
 
         {/* order-first: on a phone the paid card's feature list would push both doors off the
             first screen, and they are as much an answer to the question as the order is. */}
-        <section aria-labelledby="offer-free" className="order-first space-y-3 lg:order-none">
+        <section
+          aria-labelledby="offer-free"
+          className="order-first space-y-3 lg:order-none"
+        >
           <h2 id="offer-free" className="font-medium text-muted-foreground text-sm">
             {t("withoutOrder")}
           </h2>
