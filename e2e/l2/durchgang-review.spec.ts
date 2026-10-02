@@ -2,8 +2,9 @@
  * L2 Durchgang management review (7.3): the review is entered in the management review register,
  * and management approves the drafts the walk wrote, signed in with its own account, through the
  * real UI against real Postgres. The approval records who approved, when and in which role, and
- * signs off the items waiting for it as management, so the journey sees them done: 7.3, and 12.2,
- * filled in through the walk, whose single sign-off on its page names the CISO.
+ * signs off the items waiting for it as management, so the journey sees them done: 12.2, filled in
+ * through the walk, whose single sign-off on its page names the CISO. The management review itself
+ * (7.3) is signed last, only by the approval that leaves no other walk item open.
  *
  * Cleanup removes the review and the draft this file adds, puts back the e2e user's role and
  * undoes the sign-offs, because later layers read this tenant (`e2e/lib/durchgang.ts`).
@@ -33,6 +34,9 @@ const DECISION = "E2E Konzepte freigegeben";
 /** A walk item filled in and waiting, whose own sign-off role is the CISO, not management. */
 const FILLED = "12.2";
 const FILLED_HEADLINE = "Beim BSI registrieren";
+/** The item that holds the approval: the management review, signed last. */
+const REVIEW_CODE = "7.3";
+const REVIEW_HEADLINE = "Die Managementbewertung festhalten";
 /** Today in Berlin: the review must be within the last year to count, and an approval starts today. */
 const TODAY = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }).format(
   new Date(),
@@ -118,8 +122,8 @@ test.describe("durchgang management review", () => {
       .filter({ hasText: `Kryptokonzept der ${tenant.company_name}` });
     await expect(row).toBeVisible({ timeout: 30_000 });
     await expect(row.getByText("Wartet auf die Geschäftsführung")).toBeVisible();
-    // The review is recorded, so 7.3 waits for management's sign-off with the documents, and so
-    // does the item the walk filled in.
+    // The item the walk filled in waits for management's sign-off with the documents. 7.3 does
+    // not: other walk items are still open in this tenant.
     await expect(page.getByText("Diese Punkte warten auf Freigabe")).toBeVisible();
     await expect(
       page.getByRole("listitem").filter({ hasText: FILLED_HEADLINE }),
@@ -146,16 +150,39 @@ test.describe("durchgang management review", () => {
       approver_role: "ceo",
     });
     expect((await walkPolicy(tenant, TYPE))?.approved_at).not.toBeNull();
-    // The same click signed off 7.3 as management, so the journey counts it done. The documents
-    // commit first, the signatures after them.
-    await expect
-      .poll(async () => await requirementStatus(tenant, "7.3"))
-      .toEqual({ status: "completed", signed_off_role: "ceo" });
-    // Management signs the CISO's item too: the walk's one signature at the end.
+    // Management signs the CISO's item in the same click: the walk's one signature at the end.
+    // The documents commit first, the signatures after them.
     await expect
       .poll(async () => await requirementStatus(tenant, FILLED))
       .toEqual({ status: "completed", signed_off_role: "ceo" });
+    // The management review is signed last, and other walk items are still open.
+    expect((await requirementStatus(tenant, "7.3"))?.status).not.toBe("completed");
     await expect(page.getByRole("button", { name: "Weiter", exact: true })).toBeEnabled();
+  });
+
+  test("signs the management review last, once no other walk item is open", async ({
+    page,
+  }) => {
+    // Everything else finished: not applicable stands in for signed off, both count. Every NIS 2
+    // requirement but the review, so every walk item is among them.
+    await e2eQuery(
+      `UPDATE company_requirement_status s SET status = 'not_applicable'
+         FROM company_assessment a, compliance_framework f, requirement r
+        WHERE a.id = s.assessment_id AND f.id = a.framework_id AND r.id = s.requirement_id
+          AND a.company_id = $1 AND f.code = 'nis2'
+          AND r.code <> $2 AND s.status <> 'completed'`,
+      [tenant.company_id, REVIEW_CODE],
+    );
+
+    await page.goto(`/de/durchgang/nis2/7.3?s=${APPROVE_SCREEN}`);
+    await expect(
+      page.getByRole("listitem").filter({ hasText: REVIEW_HEADLINE }),
+    ).toBeVisible({ timeout: 30_000 });
+    await page.getByRole("button", { name: /Punkte? freigeben/ }).click();
+
+    await expect
+      .poll(async () => await requirementStatus(tenant, REVIEW_CODE))
+      .toEqual({ status: "completed", signed_off_role: "ceo" });
   });
 
   test("management's own page lists the documents with who approved them", async ({

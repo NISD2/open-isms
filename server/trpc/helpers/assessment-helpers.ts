@@ -1,11 +1,14 @@
+import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
 import { and, eq, inArray, sql } from "drizzle-orm";
+import type { Database } from "@/lib/db";
 import {
   company,
   companyAssessment,
   companyRequirementStatus,
+  requirement,
+  requirementCategory,
 } from "@/schema";
-import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
-import type { Database } from "@/lib/db";
+import { satisfactionTargets } from "./satisfaction-targets";
 import { recordSignOffChainEntry } from "./sign-off-chain";
 import { completedSignOffValues, snapshotForVersion } from "./sign-off-completion";
 
@@ -55,15 +58,15 @@ export async function buildSignOffSnapshot(
 }
 
 /** Recalculate and persist assessment progress counters */
-export async function recalculateProgress(
-  db: Database,
-  assessmentId: string,
-) {
+export async function recalculateProgress(db: Database, assessmentId: string) {
   const allStatuses = await db.query.companyRequirementStatus.findMany({
     where: eq(companyRequirementStatus.assessmentId, assessmentId),
   });
   const completed = allStatuses.filter(
-    (s) => s.status === "completed" || s.status === "approved" || s.status === "not_applicable"
+    (s) =>
+      s.status === "completed" ||
+      s.status === "approved" ||
+      s.status === "not_applicable",
   ).length;
   const total = allStatuses.length;
   const percentage = total > 0 ? ((completed / total) * 100).toFixed(2) : "0";
@@ -81,7 +84,9 @@ export async function recalculateProgress(
 /**
  * Propagate a sign-off across linked requirements (cross-framework
  * satisfaction). When the user signs requirement X, BFS through the
- * satisfaction graph and credit every reachable requirement Y.
+ * satisfaction graph and credit every reachable requirement Y in another
+ * framework (satisfactionTargets): never one in X's own framework, which a
+ * walk out through one link and back through another used to reach.
  *
  * Edge kinds:
  *   - `equivalent` pairs share the same underlying artefact (same supplier
@@ -122,41 +127,29 @@ export async function propagateSatisfaction(
   const allEdges = await db.query.requirementSatisfaction.findMany();
   if (allEdges.length === 0) return [];
 
-  const adjacency = new Map<
-    string,
-    Array<{ neighbor: string; kind: "equivalent" | "overlapping" }>
-  >();
-  for (const edge of allEdges) {
-    const aList = adjacency.get(edge.requirementAId) ?? [];
-    aList.push({ neighbor: edge.requirementBId, kind: edge.equivalenceKind });
-    adjacency.set(edge.requirementAId, aList);
+  const linked = [
+    ...new Set([
+      sourceRequirementId,
+      ...allEdges.flatMap((e) => [e.requirementAId, e.requirementBId]),
+    ]),
+  ];
+  const frameworks = new Map(
+    (
+      await db
+        .select({ id: requirement.id, frameworkId: requirementCategory.frameworkId })
+        .from(requirement)
+        .innerJoin(
+          requirementCategory,
+          eq(requirementCategory.id, requirement.categoryId),
+        )
+        .where(inArray(requirement.id, linked))
+    ).map((r) => [r.id, r.frameworkId]),
+  );
+  const toCredit = satisfactionTargets(allEdges, sourceRequirementId, (id) =>
+    frameworks.get(id),
+  );
 
-    const bList = adjacency.get(edge.requirementBId) ?? [];
-    bList.push({ neighbor: edge.requirementAId, kind: edge.equivalenceKind });
-    adjacency.set(edge.requirementBId, bList);
-  }
-
-  const visited = new Set<string>([sourceRequirementId]);
-  const toCredit = new Set<string>();
-  const queue: string[] = [sourceRequirementId];
-
-  while (queue.length > 0) {
-    const current = queue.shift();
-    if (!current) break;
-    const neighbors = adjacency.get(current);
-    if (!neighbors) continue;
-
-    for (const { neighbor, kind } of neighbors) {
-      if (visited.has(neighbor)) continue;
-      visited.add(neighbor);
-      toCredit.add(neighbor);
-      if (kind === "equivalent") {
-        queue.push(neighbor);
-      }
-    }
-  }
-
-  if (toCredit.size === 0) return [];
+  if (toCredit.length === 0) return [];
 
   const tenantAssessments = await db
     .select({ id: companyAssessment.id })
@@ -202,7 +195,10 @@ export async function propagateSatisfaction(
       // own version: the column below already recorded the target's, and a
       // row whose snapshot claims a different version than its column escapes
       // invalidation when the target requirement is later bumped.
-      const targetSnapshot = snapshotForVersion(snapshot, target.requirement.templateVersion);
+      const targetSnapshot = snapshotForVersion(
+        snapshot,
+        target.requirement.templateVersion,
+      );
 
       await tx
         .update(companyRequirementStatus)
