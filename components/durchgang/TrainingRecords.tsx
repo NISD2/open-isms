@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader2, Paperclip, Plus, Trash2 } from "lucide-react";
+import { ExternalLink, Loader2, Paperclip, Plus, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -14,8 +14,21 @@ import type { Registers } from "./view";
 
 type Row = Registers["training_record"][number];
 
+/** A line as the form holds it, trimmed. */
+interface Entered {
+  readonly who: string;
+  readonly what: string;
+  readonly provider: string;
+}
+
 /** A new row starts on today's Berlin day: a training is usually entered the day it is held. */
-const blank = () => ({ who: "", what: "", date: recordDay(new Date()) });
+const blank = () => ({
+  who: "",
+  what: "",
+  provider: "",
+  link: "",
+  date: recordDay(new Date()),
+});
 
 /** Whether a training register row belongs to the audience a screen lists. */
 export const inAudience = (
@@ -36,12 +49,14 @@ const AUDIENCE = {
       empty: "empty",
       proofHint: "proofHint",
     },
-    row: (who: string, what: string) => ({
+    // The provider is the line's own second answer, so it is not asked twice.
+    asksProvider: false,
+    row: (entered: Entered) => ({
       trainingType: "management",
       isManagement: true,
-      participantName: who,
-      title: what,
-      providerName: what,
+      participantName: entered.who,
+      title: entered.what,
+      providerName: entered.what,
     }),
     line: (row: Row) => ({ head: row.participantName, detail: row.providerName }),
   },
@@ -53,14 +68,18 @@ const AUDIENCE = {
       empty: "staff.empty",
       proofHint: "staff.proofHint",
     },
-    row: (who: string, what: string) => ({
+    asksProvider: true,
+    row: (entered: Entered) => ({
       trainingType: "awareness",
       isManagement: false,
-      participantName: who,
-      title: what,
-      providerName: null,
+      participantName: entered.who,
+      title: entered.what,
+      providerName: entered.provider || null,
     }),
-    line: (row: Row) => ({ head: row.title, detail: row.participantName }),
+    line: (row: Row) => ({
+      head: row.title,
+      detail: [row.participantName, row.providerName].filter(Boolean).join(", "),
+    }),
   },
 } as const;
 
@@ -90,7 +109,7 @@ export function TrainingRecords({
   audience: TrainingAudience;
 }) {
   const t = useTranslations("durchgang.ui.training");
-  const { labels, row: rowOf, line } = AUDIENCE[audience];
+  const { labels, row: rowOf, line, asksProvider } = AUDIENCE[audience];
   const utils = trpc.useUtils();
   const { data = initial } = trpc.training.list.useQuery(undefined, {
     initialData: initial,
@@ -108,9 +127,14 @@ export function TrainingRecords({
     if (!ready) return;
     create.mutate(
       {
-        ...rowOf(form.who.trim(), form.what.trim()),
+        ...rowOf({
+          who: form.who.trim(),
+          what: form.what.trim(),
+          provider: form.provider.trim(),
+        }),
         completedAt: new Date(form.date),
         certificateFileKey: cert?.key ?? null,
+        sourceUrl: form.link.trim() || null,
       },
       {
         onSuccess: () => {
@@ -139,9 +163,23 @@ export function TrainingRecords({
                       .filter(Boolean)
                       .join(", ")}
                   </p>
-                  <p className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
-                    <Paperclip className="size-3" />
-                    {row.certificateFileKey ? t("withProof") : t("withoutProof")}
+                  <p className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+                    <span className="flex items-center gap-1.5">
+                      <Paperclip className="size-3" />
+                      {row.certificateFileKey ? t("withProof") : t("withoutProof")}
+                    </span>
+                    {row.sourceUrl && (
+                      // The address is checked as http or https when it is saved.
+                      <a
+                        href={row.sourceUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 font-medium text-primary hover:underline"
+                      >
+                        <ExternalLink className="size-3" />
+                        {t("atProvider")}
+                      </a>
+                    )}
                   </p>
                 </div>
                 <Button
@@ -180,6 +218,18 @@ export function TrainingRecords({
               onChange={(e) => setForm({ ...form, what: e.target.value })}
             />
           </div>
+          {asksProvider && (
+            <div className="space-y-1.5">
+              <Label htmlFor="dg-training-provider">{t("staff.provider")}</Label>
+              <Input
+                id="dg-training-provider"
+                value={form.provider}
+                maxLength={255}
+                placeholder={t("staff.providerHint")}
+                onChange={(e) => setForm({ ...form, provider: e.target.value })}
+              />
+            </div>
+          )}
           <div className="space-y-1.5">
             <Label htmlFor="dg-training-date">{t("date")}</Label>
             <Input
@@ -189,6 +239,19 @@ export function TrainingRecords({
               value={form.date}
               onChange={(e) => setForm({ ...form, date: e.target.value })}
             />
+          </div>
+          <div className="space-y-1.5 sm:col-span-2">
+            <Label htmlFor="dg-training-link">{t("link")}</Label>
+            <Input
+              id="dg-training-link"
+              type="url"
+              inputMode="url"
+              value={form.link}
+              maxLength={2048}
+              placeholder="https://"
+              onChange={(e) => setForm({ ...form, link: e.target.value })}
+            />
+            <p className="text-xs text-muted-foreground">{t("linkHint")}</p>
           </div>
         </div>
         <SimpleFileUpload

@@ -43,6 +43,13 @@ export const supplierInvite = pgTable(
     toEmail: varchar("to_email", { length: 255 }).notNull(),
 
     /**
+     * The row on the sender's own supplier list this invite was sent for, so the reply links that
+     * row instead of adding a second one. No foreign key: the supplier table lives in the GRC
+     * migration history. Accepting re-checks that the row belongs to the sender and is unlinked.
+     */
+    supplierId: uuid("supplier_id"),
+
+    /**
      * 64-char hex magic-link token. Knowledge of this token grants the right
      * to accept the invite and create a supplier company bound to the inviting
      * entity. The token IS the credential for the magic-link signup flow.

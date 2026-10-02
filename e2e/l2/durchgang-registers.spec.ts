@@ -21,6 +21,7 @@ const RATE_SUPPLIERS = 3;
 const KIND = "E2E Buchhaltung";
 const PRODUCT = "E2E DATEV Unternehmen online";
 const PROVIDER = "E2E DATEV eG";
+const SECOND_PROVIDER = "E2E Systemhaus Muster";
 
 interface Tenant {
   company_id: string;
@@ -138,7 +139,7 @@ test.describe("durchgang registers", () => {
     ]);
   });
 
-  test("names an asset and adds its provider to the supplier list (2.2)", async ({
+  test("names an asset and adds its providers to the supplier list (2.2)", async ({
     page,
   }) => {
     await page.goto(`/de/durchgang/2.2?s=${WHICH_SOFTWARE}`);
@@ -146,24 +147,42 @@ test.describe("durchgang registers", () => {
     await expect(what).toBeVisible({ timeout: 30_000 });
 
     await what.fill(PRODUCT);
-    await page.locator(`#provider-${assetId}`).fill(PROVIDER);
+    // Two providers: the maker, and the IT provider that looks after it.
+    const addProvider = page.locator(`#provider-${assetId}`);
+    await addProvider.fill(PROVIDER);
+    await addProvider.press("Enter");
+    await addProvider.fill(SECOND_PROVIDER);
+    await addProvider.press("Enter");
+    const row = page.getByRole("listitem").filter({ has: what });
+    await expect(
+      row.getByRole("button", { name: PROVIDER, exact: true }),
+    ).toHaveAttribute("aria-pressed", "true");
     await page.getByRole("button", { name: "Weiter", exact: true }).click();
 
     await expect
       .poll(async () => {
-        const [row] = await e2eQuery<{
+        const [stored] = await e2eQuery<{
           name: string;
           description: string | null;
-          supplier: string | null;
+          providers: string[];
         }>(
-          `SELECT a.name, a.description, s.name AS supplier
-             FROM asset a LEFT JOIN supplier s ON s.id = a.supplier_id
-            WHERE a.id = $1`,
+          `SELECT a.name, a.description,
+                  coalesce(array_agg(s.name ORDER BY s.name) FILTER (WHERE s.id IS NOT NULL), '{}')
+                    AS providers
+             FROM asset a
+             LEFT JOIN asset_provider p ON p.asset_id = a.id
+             LEFT JOIN supplier s ON s.id = p.supplier_id
+            WHERE a.id = $1
+            GROUP BY a.name, a.description`,
           [assetId],
         );
-        return row ?? null;
+        return stored ?? null;
       })
-      .toEqual({ name: PRODUCT, description: KIND, supplier: PROVIDER });
+      .toEqual({
+        name: PRODUCT,
+        description: KIND,
+        providers: [PROVIDER, SECOND_PROVIDER].sort(),
+      });
 
     const [provider] = await e2eQuery<{ customer_company_id: string }>(
       `SELECT customer_company_id FROM supplier WHERE name = $1`,

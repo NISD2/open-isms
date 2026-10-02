@@ -82,9 +82,10 @@
         "what": "Was genau",
         "provider": "Von wem",
         "inHouse": "selbst betrieben",
+        "addProvider": "Weiteren Anbieter eintragen, mit Enter",
         "another": "Noch eins dieser Art",
         "empty": "In diesem Bereich steht nichts auf Ihrer Liste.",
-        "hint": "Wen Sie als Anbieter nennen, kommt auf Ihre Lieferantenliste. Ein leeres Feld heißt: selbst betrieben oder noch nicht bekannt. Zwei Dinge einer Art für verschiedene Arbeit, etwa zwei CRM, bekommen je eine Zeile; Gleiches, gleich genutzt, darf eine Zeile bleiben (BSI-Standard 200-2, 8.1.1)."
+        "hint": "Wen Sie als Anbieter nennen, kommt auf Ihre Lieferantenliste. Ein Programm kann mehrere haben, etwa den Hersteller und Ihr Systemhaus. Keiner heißt: selbst betrieben oder noch nicht bekannt. Zwei Dinge einer Art für verschiedene Arbeit, etwa zwei CRM, bekommen je eine Zeile; Gleiches, gleich genutzt, darf eine Zeile bleiben (BSI-Standard 200-2, 8.1.1)."
       },
       "rate": {
         "open": "Stufe",
@@ -99,8 +100,9 @@
       "unrated": "Nicht bewertet",
       "agreements": {
         "empty": "Noch steht kein Lieferant auf Ihrer Liste. Sie tragen Ihre Lieferanten in Schritt 5.1 ein.",
-        "questionnaire": "Ist mit einem Lieferanten nichts geregelt? Schicken Sie ihm unseren Sicherheitsfragebogen. Sobald er ihn im Lieferantenportal ausgefüllt hat, steht er mit seinen Antworten als eigener Eintrag in Ihrer Lieferantenliste.",
-        "questionnaireButton": "Sicherheitsfragebogen schicken"
+        "questionnaire": "Ist mit einem Lieferanten nichts geregelt? Schicken Sie ihm unseren Sicherheitsfragebogen aus seiner Zeile. Sobald er ihn im Lieferantenportal ausgefüllt hat, hängen seine Antworten an dieser Zeile Ihrer Lieferantenliste, mit allem, was Sie dort festgehalten haben.",
+        "questionnaireButton": "Sicherheitsfragebogen schicken",
+        "linked": "Antwortet über das Lieferantenportal"
       },
       "logins": {
         "empty": "Noch steht kein Programm auf Ihrer Liste. Sie legen Ihre Liste in Schritt 2.2 an."
@@ -195,12 +197,17 @@
         "empty": "Noch keine Schulung eingetragen.",
         "withProof": "Nachweis angehängt",
         "withoutProof": "ohne Nachweis",
+        "atProvider": "Nachweis beim Anbieter",
+        "link": "Link zum Nachweis beim Anbieter (freiwillig)",
+        "linkHint": "Wo ein Onlinekurs oder ein Schulungsanbieter festhält, wer teilgenommen hat, etwa sein Abschlussbericht. Dann bleibt der Nachweis dort, auch für viele Personen.",
         "remove": "Löschen",
-        "failed": "Das wurde nicht gespeichert. Bitte versuchen Sie es noch einmal.",
+        "failed": "Das wurde nicht gespeichert. Prüfen Sie den Link und versuchen Sie es noch einmal.",
         "staff": {
           "who": "Wer teilgenommen hat",
           "what": "Thema",
           "whatHint": "zum Beispiel Phishing erkennen, in der Teambesprechung",
+          "provider": "Anbieter (freiwillig)",
+          "providerHint": "zum Beispiel der Onlinekurs oder Bildungsträger",
           "empty": "Noch keine Schulung oder Unterweisung eingetragen.",
           "proofHint": "Teilnehmerliste, Folien oder ein Export aus dem Onlinekurs."
         }
@@ -810,11 +817,6 @@
             "lead": "Zwei Angaben. Damit wissen Sie später, mit welchem Zertifikat und an welchem Tag registriert wurde. Für den Zugang brauchen Sie ein ELSTER-Organisationszertifikat: Den Aktivierungscode schickt ELSTER einige Tage nach dem Antrag per Brief an die Adresse, die beim Finanzamt hinterlegt ist. Ist der Brief noch nicht da, wählen Sie „Geht noch nicht“.",
             "document": "Ihr Zugang zum {authority}-Portal"
           },
-          "proof": {
-            "title": "Legen Sie einen Nachweis ab",
-            "lead": "Im BSI-Portal zeigt die Übersicht der registrierten Fachverfahren jede abgeschlossene Registrierung. Ein Bildschirmfoto oder ein Ausdruck dieser Seite hält fest, dass Ihre erledigt ist.",
-            "document": "Übersicht der registrierten Fachverfahren"
-          },
           "done": {
             "title": "Registrierung erfasst"
           }
@@ -1103,10 +1105,31 @@
             "title": "Wo Sie verschlüsseln und wer die Schlüssel hat",
             "body": [
               "Verschlüsselung schützt Daten dort, wo sie Ihnen aus der Hand geraten können: auf einem verlorenen Laptop, auf dem Weg durchs Internet, in einer Datensicherung außer Haus. Wer den Schlüssel nicht hat, kann sie nicht lesen.",
-              "Das Kryptokonzept hält fest, welche Verfahren Sie einsetzen, wo Sie verschlüsseln und wie Sie mit Schlüsseln und Zertifikaten umgehen, etwa mit dem Ihrer Website. Unsere Vorlage enthält feste Abschnitte zu Verfahren, Schlüsseln und Verantwortung; wo Sie verschlüsseln, wählen Sie selbst. Welche Verfahren als sicher gelten, steht in der Technischen Richtlinie TR-02102, die das BSI jedes Jahr aktualisiert."
+              "Zwei Dinge halten es fest: Ihre Liste der zugelassenen Verfahren, und das Kryptokonzept, das sagt, wo Sie verschlüsseln und wie Sie mit Schlüsseln und Zertifikaten umgehen, etwa mit dem Ihrer Website, und die Liste abdruckt. Welche Verfahren als sicher gelten, steht in der Technischen Richtlinie TR-02102, die das BSI jedes Jahr aktualisiert."
             ],
             "duty": "Das Gesetz verlangt Konzepte und Prozesse für den Einsatz kryptografischer Verfahren, etwa der Verschlüsselung. Welche Verfahren, schreibt es nicht vor; die Maßnahmen sollen den Stand der Technik einhalten.",
             "link": "Zur TR-02102 des BSI"
+          },
+          "list": {
+            "title": "Ihre zugelassenen Verfahren",
+            "lead": "Die Verfahren, die Ihr Unternehmen für Verschlüsselung, Signaturen und sichere Verbindungen einsetzt, und die, die es nicht mehr nutzt. Solange Sie keine eigene Liste führen, ist es die Empfehlung des BSI aus der TR-02102; Ihr Kryptokonzept auf dem nächsten Bildschirm druckt sie ab.",
+            "document": "Kryptoliste",
+            "categories": {
+              "symmetric": "Verschlüsselung",
+              "hash": "Hashfunktionen",
+              "asymmetric": "Signaturen und Schlüssel",
+              "key_exchange": "Schlüsselaustausch",
+              "tls": "TLS"
+            },
+            "status": {
+              "approved": "Zugelassen",
+              "deprecated": "Nur noch für Bestehendes, nicht für Neues",
+              "prohibited": "Nicht verwenden"
+            },
+            "bsi": "BSI TR-02102, Version 2026-01",
+            "own": "Ihre eigene Liste",
+            "applies": "Diese Liste gilt für uns",
+            "change": "Einzelne Einträge auf der Seite der Anforderung ändern"
           },
           "konzept": {
             "title": "Ihr Kryptokonzept",
@@ -1120,7 +1143,7 @@
                 },
                 {
                   "heading": "Verfahren",
-                  "text": "Wir setzen nur etablierte Verfahren und aktuell empfohlene Schlüssellängen ein, für die keine Sicherheitslücken bekannt sind. Beim Kauf von Geräten, Programmen und Diensten achten wir darauf, dass sie solche Verfahren verwenden."
+                  "text": "Wir setzen nur etablierte Verfahren und aktuell empfohlene Schlüssellängen ein, für die keine Sicherheitslücken bekannt sind. Beim Kauf von Geräten, Programmen und Diensten achten wir darauf, dass sie solche Verfahren verwenden. Unsere Liste der Verfahren:\n{acceptedCrypto}"
                 },
                 {
                   "heading": "Schlüssel und Zertifikate",
@@ -1382,33 +1405,22 @@
           },
           "logins": {
             "title": "Wo ein zweiter Faktor schützt",
-            "lead": "Kreuzen Sie für jedes Programm und jeden Zugang auf Ihrer Liste an, wie man sich anmeldet. Jede Zeile beginnt bei „Nur Passwort“, der sicheren Annahme; ändern Sie, was Sie besser wissen, oder wählen Sie „Noch nicht bekannt“. Melden Sie sich bei mehreren über ein Firmenkonto an, etwa bei Microsoft, gilt für sie dieselbe Antwort. Was Sie nicht wissen, kann Ihnen sagen, wer Ihre IT betreut.",
+            "lead": "Kreuzen Sie für jedes Programm und jeden Zugang auf Ihrer Liste an, wie man sich anmeldet, und wo ein zweiter Faktor an ist, welcher: Er kann von Programm zu Programm verschieden sein. Jede Zeile beginnt bei „Nur Passwort“, der sicheren Annahme; ändern Sie, was Sie besser wissen, oder wählen Sie „Noch nicht bekannt“. Melden Sie sich bei mehreren über ein Firmenkonto an, etwa bei Microsoft, gilt für sie dieselbe Antwort. Was Sie nicht wissen, kann Ihnen sagen, wer Ihre IT betreut.",
             "mfa": "Mit zweitem Faktor",
             "password": "Nur Passwort",
-            "unknown": "Noch nicht bekannt"
-          },
-          "tool": {
-            "title": "Womit Sie es tun",
-            "lead": "Welche App oder welches Gerät Sie für den zweiten Faktor nutzen. Ist es je nach Programm verschieden, nennen Sie alle.",
-            "document": "Ihre Anmeldung"
+            "unknown": "Noch nicht bekannt",
+            "which": "Welcher:",
+            "methods": {
+              "app": "App auf dem Handy",
+              "security_key": "Sicherheitsschlüssel",
+              "company_account": "Über das Firmenkonto",
+              "sms": "Code per SMS",
+              "email": "Code per E-Mail"
+            }
           },
           "done": {
             "title": "Ihre Anmeldungen sind festgehalten",
             "note": "Wo nur ein Passwort steht, entscheiden Sie nach dem Risiko, ob Sie einen zweiten Faktor einschalten. Fangen Sie bei dem an, was von außen erreichbar ist."
-          }
-        },
-        "fields": {
-          "mfaTool": {
-            "label": "Lösung für den zweiten Faktor",
-            "hint": "Zum Beispiel Microsoft Authenticator, eine andere App auf dem Diensthandy oder ein Sicherheitsschlüssel. Nutzen Sie mehrere, nennen Sie alle.",
-            "suggestions": [
-              "Microsoft Authenticator",
-              "Google Authenticator",
-              "Andere Authentifizierungsapp auf dem Diensthandy",
-              "Sicherheitsschlüssel (FIDO2)",
-              "Codes per SMS",
-              "Codes per E-Mail"
-            ]
           }
         }
       },
@@ -1755,7 +1767,7 @@
             "title": "Eine Sicherung, die sich zurückspielen lässt",
             "body": [
               "Eine Datensicherung ist eine Kopie Ihrer Daten, aus der Sie sie nach einem Ausfall, einem Angriff oder einem Fehler zurückholen. Sie hilft nur, wenn eine Kopie den Vorfall übersteht und sich wirklich zurückspielen lässt.",
-              "In diesem Schritt halten Sie fest, wie oft gesichert wird und wann eine Wiederherstellung zuletzt funktioniert hat. Die Einzelheiten je System, etwa wo die Sicherung liegt, bleiben auf der Seite der Anforderung."
+              "In diesem Schritt halten Sie für jedes Sicherungssystem auf Ihrer Liste fest, wie oft es sichert und wann eine Wiederherstellung daraus zuletzt funktioniert hat. Wo die Kopien liegen, bleibt auf der Seite der Anforderung."
             ],
             "duty": "Das Gesetz nennt Datensicherung und Wiederherstellung nach einem Notfall ausdrücklich als Teil der Maßnahmen, die den Betrieb aufrechterhalten."
           },
@@ -1776,12 +1788,16 @@
             "lead": "Fragen Sie, wer Ihre IT betreut, bevor Sie auf dem nächsten Bildschirm antworten:",
             "items": [
               {
-                "name": "Wie oft",
-                "detail": "wie oft die Daten der Systeme gesichert werden, die Sie selbst betreiben: Server, Dateiablage, Datenbanken"
+                "name": "Welche Sicherungssysteme",
+                "detail": "was Ihre Sicherungen macht, etwa eine Sicherungssoftware, ein NAS oder ein Cloud-Backup; jedes ist eine Zeile auf dem nächsten Bildschirm"
               },
               {
-                "name": "Die letzte Wiederherstellung",
-                "detail": "wann zuletzt Daten aus einer Sicherung zurückkamen, von welchem System, und ob vollständig und lesbar; eine Stichprobe genügt dem BSI"
+                "name": "Wie oft jedes sichert",
+                "detail": "laufend, stündlich, täglich oder wöchentlich, für die Systeme, die es sichert: Server, Dateiablage, Datenbanken"
+              },
+              {
+                "name": "Die letzte Wiederherstellung aus jedem",
+                "detail": "wann zuletzt Daten daraus zurückkamen, und ob vollständig und lesbar; eine Stichprobe genügt dem BSI"
               },
               {
                 "name": "Ihre Cloud- und Softwareanbieter, getrennt davon",
@@ -1790,30 +1806,24 @@
             ],
             "source": "BSI, Maßnahmenkatalog Notfallmanagement: „Erstellen Sie regelmäßig Sicherheitskopien (Backups) Ihrer Daten, um vor Verlust geschützt zu sein und testen Sie regelmäßig deren Wiederherstellung.“ Prüfung anhand von Stichproben: Grundschutz++ NOT.4.16.1. Das Gesetz nennt das Backup-Management, keine Angaben je System (§ 30 Abs. 2 Nr. 3 BSIG)."
           },
-          "backups": {
-            "title": "Ihre Datensicherung",
-            "lead": "Was man Ihnen gesagt hat, für die Systeme, die Sie selbst betreiben. Eine Sicherung, die nie zurückgespielt wurde, ist nicht als wirksam belegt: Das Gesetz verlangt wirksame Maßnahmen (§ 30 Abs. 1 BSIG). Das ist unsere Lesart, nicht der Wortlaut des Gesetzes. Hat noch keine Wiederherstellung geklappt, lassen Sie das Datum leer und planen Sie eine.",
-            "document": "Ihre Datensicherung"
-          },
-          "done": {
-            "title": "Ihre Datensicherung ist festgehalten",
-            "note": "Das BSI rät, die Wiederherstellung regelmäßig zu testen. Tragen Sie nach jeder Probe das neue Datum ein."
-          }
-        },
-        "fields": {
-          "backupFrequency": {
-            "label": "Wie oft Ihre eigenen Systeme gesichert werden",
-            "hint": "Für die wichtigsten der Systeme, die Sie selbst betreiben. Sind sie verschieden, das seltenste.",
+          "systems": {
+            "title": "Ihre Sicherungssysteme",
+            "lead": "Jedes Sicherungssystem auf Ihrer Liste, mit dem, was man Ihnen gesagt hat. Eine Sicherung, die nie zurückgespielt wurde, ist nicht als wirksam belegt: Das Gesetz verlangt wirksame Maßnahmen (§ 30 Abs. 1 BSIG). Das ist unsere Lesart, nicht der Wortlaut des Gesetzes.",
+            "frequency": "Wie oft es sichert",
             "options": {
               "real_time": "laufend",
               "hourly": "stündlich",
               "daily": "täglich",
               "weekly": "wöchentlich"
-            }
+            },
+            "lastRestore": "Letzte geglückte Wiederherstellung daraus",
+            "lastRestoreHint": "Der Tag, an dem zuletzt Daten daraus vollständig zurückkamen, zur Probe oder im Ernstfall. Hat noch keine geklappt, lassen Sie das Feld leer und planen Sie eine.",
+            "empty": "Auf Ihrer Liste steht noch kein Sicherungssystem.",
+            "add": "Ein Sicherungssystem auf die Liste setzen"
           },
-          "lastBackupTest": {
-            "label": "Letzte geglückte Wiederherstellung eines Ihrer eigenen Systeme",
-            "hint": "Der Tag, an dem zuletzt Daten eines Systems, das Sie selbst betreiben, vollständig aus einer Sicherung zurückkamen, zur Probe oder im Ernstfall. Ein System genügt."
+          "done": {
+            "title": "Ihre Datensicherung ist festgehalten",
+            "note": "Das BSI rät, die Wiederherstellung regelmäßig zu testen. Tragen Sie nach jeder Probe das neue Datum ein."
           }
         }
       },
@@ -1840,7 +1850,7 @@
             "rows": [
               {
                 "name": "Phishing erkennen, alle Beschäftigten",
-                "detail": "Teambesprechung, 14. Januar 2026, Teilnehmerliste mit Unterschriften"
+                "detail": "Teambesprechung, 14. Januar 2026, Liste, wer dabei war"
               },
               {
                 "name": "Ersteinweisung, neue Kollegin im Vertrieb",
@@ -1855,7 +1865,7 @@
           },
           "trainings": {
             "title": "Ihre Schulungen und Unterweisungen",
-            "lead": "Tragen Sie ein, was schon stattgefunden hat, eine Zeile pro Termin. Eine Teilnehmerliste oder einen Export können Sie anhängen."
+            "lead": "Tragen Sie ein, was schon stattgefunden hat, eine Zeile pro Termin. Hängen Sie eine Teilnehmerliste oder einen Export an, oder verlinken Sie den Nachweis beim Anbieter, etwa den Abschlussbericht eines Onlinekurses. Das geht auch für viele Beschäftigte auf einmal."
           },
           "done": {
             "title": "Ihre Schulungen sind festgehalten",

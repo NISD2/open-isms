@@ -1,5 +1,6 @@
 import { expect, test } from "bun:test";
 import {
+  acceptedCryptoText,
   BLANK,
   criticalProcessesText,
   policyNames,
@@ -22,6 +23,45 @@ test("prints the processes that must keep running with their line, and a blank f
 test("numbers the systems in recovery order, and a blank for none", () => {
   expect(recoveryOrderText(["ERP", "E-Mail"])).toBe("1. ERP, 2. E-Mail");
   expect(recoveryOrderText([])).toBe(BLANK);
+});
+
+test("prints the crypto list by status and kind, with the TLS floor, and a blank without one", () => {
+  const list = {
+    algorithms: [
+      {
+        category: "symmetric",
+        algorithm: "AES-256-GCM",
+        keyLength: "256",
+        status: "approved",
+      },
+      { category: "hash", algorithm: "SHA-256", status: "approved" },
+      {
+        category: "symmetric",
+        algorithm: "AES-128-GCM",
+        keyLength: "128",
+        status: "approved",
+      },
+      {
+        category: "asymmetric",
+        algorithm: "RSA",
+        keyLength: "2048-2999",
+        status: "deprecated",
+      },
+      { category: "hash", algorithm: "SHA-1", status: "prohibited" },
+    ],
+    minTlsVersion: "tls_1_2",
+  } as const;
+  expect(acceptedCryptoText("de", list)).toBe(
+    [
+      "Zugelassen:",
+      "- Verschlüsselung: AES-256-GCM (256 Bit), AES-128-GCM (128 Bit)",
+      "- Hashfunktionen: SHA-256",
+      "Nur noch für Bestehendes, nicht für Neues: RSA (2048-2999 Bit)",
+      "Nicht verwenden: SHA-1",
+      "TLS mindestens in Version 1.2, bevorzugt 1.3.",
+    ].join("\n"),
+  );
+  expect(acceptedCryptoText("en", null)).toBe(BLANK);
 });
 
 const document = {

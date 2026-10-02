@@ -14,7 +14,9 @@ export type { NoteLocale } from "./notes";
 export {
   agreementsNote,
   approvedNote,
+  backupsNote,
   criticalNote,
+  cryptoNote,
   declinedNote,
   loginsNote,
   methodNote,
@@ -24,6 +26,7 @@ export {
 } from "./notes";
 export type { PolicyDocument, PolicyPart } from "./policy";
 export {
+  acceptedCryptoText,
   criticalProcessesText,
   personText,
   policyNames,
@@ -38,6 +41,7 @@ export type {
   AssetSlice,
   LinkedRisk,
   MappedRisk,
+  ProviderLink,
   Rating,
   RatingRow,
   RatingTarget,
@@ -52,6 +56,7 @@ export {
   levelGroups,
   levelOf,
   levelOfStanding,
+  providersOf,
   ratingKey,
   ratingRows,
   ratingText,
@@ -76,7 +81,9 @@ export type {
   Adoptable,
   AnyItem,
   AnyScreen,
+  BackupFrequency,
   LearnLink,
+  MfaMethod,
   PolicyList,
   PolicyTemplate,
   Provision,
@@ -85,7 +92,13 @@ export type {
   SuggestSource,
   TrainingAudience,
 } from "./types";
-export { askedFields, MANAGEMENT_ROLE, POLICY_LISTS } from "./types";
+export {
+  askedFields,
+  BACKUP_FREQUENCIES,
+  MANAGEMENT_ROLE,
+  MFA_METHODS,
+  POLICY_LISTS,
+} from "./types";
 
 const BY_CODE: ReadonlyMap<string, AnyItem> = new Map(
   NIS2_SCRIPT.map((i) => [i.code, i]),

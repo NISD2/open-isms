@@ -14,7 +14,11 @@
 
 import type { FunctionalGroup } from "@/lib/asset-inventory/catalog";
 import type { Frequency, Impact } from "@/lib/compliance/bsi-200-3";
-import type { CategoryCode, CategoryField } from "@/lib/compliance/category-schemas";
+import {
+  BCP_SCHEMA,
+  type CategoryCode,
+  type CategoryField,
+} from "@/lib/compliance/category-schemas";
 import type { RoleKey } from "@/lib/compliance/role-keys";
 import type { AssetSlice, RatingTarget } from "./ratings";
 
@@ -63,15 +67,34 @@ export type Adoptable = "bsi_200_3_method";
 export type SuggestSource = "software" | "contact";
 
 /**
+ * The kinds of second factor 11.1 tells apart per program, stored in `asset.mfa_method`. Signing
+ * in through the company's own account (Microsoft, Google) takes whatever factor that account has.
+ */
+export const MFA_METHODS = [
+  "app",
+  "security_key",
+  "company_account",
+  "sms",
+  "email",
+] as const;
+export type MfaMethod = (typeof MFA_METHODS)[number];
+
+/** How often a backup system backs up: the values the intake already offers for 4.4. */
+export const BACKUP_FREQUENCIES = BCP_SCHEMA.shape.backupFrequency.options;
+export type BackupFrequency = (typeof BACKUP_FREQUENCIES)[number];
+
+/**
  * Names a policy may carry that the server reads off the company's own records rather than off
  * an answer: the processes that must keep running, the order systems come back in, where
- * incidents are reported (from the company's country), and who leads in an emergency (from 3.1).
+ * incidents are reported (from the company's country), who leads in an emergency (from 3.1), and
+ * the cryptographic methods the company accepts (its crypto list, 9.1).
  */
 export const POLICY_LISTS = [
   "criticalProcesses",
   "recoveryOrder",
   "reportingChannel",
   "emergencyLead",
+  "acceptedCrypto",
 ] as const;
 export type PolicyList = (typeof POLICY_LISTS)[number];
 
@@ -192,6 +215,16 @@ export type Screen<C extends CategoryCode> =
    * (`asset.is_critical`), and in one sentence how, which the item's plan prints.
    */
   | { readonly kind: "critical"; readonly id: string }
+  /**
+   * The company's backup systems from its list, each with how often it backs up and its last
+   * restore that worked (`asset.backup_frequency`, `asset.last_backup_test_date`).
+   */
+  | { readonly kind: "backups"; readonly id: string }
+  /**
+   * The cryptographic methods the company accepts: its crypto list (`company_policy_config`
+   * type `crypto`), or the BSI TR-02102 list until it has one, which the item's policy prints.
+   */
+  | { readonly kind: "crypto"; readonly id: string }
   | { readonly kind: "done"; readonly id: string };
 
 export type AnyScreen = Screen<CategoryCode>;

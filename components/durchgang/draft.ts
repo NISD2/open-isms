@@ -1,11 +1,21 @@
 import type { AssetLayer } from "@/lib/asset-inventory/types";
-import type { Rating } from "@/lib/durchgang";
+import type { MfaMethod, Rating } from "@/lib/durchgang";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
 
-/** An asset as the "which one exactly" screen edits it: its name and who provides it. */
+/**
+ * An asset as the "which one exactly" screen edits it: its name and who provides it, any number of
+ * suppliers by name; none is run in house or not known yet.
+ */
 export interface Specified {
   readonly name: string;
-  readonly provider: string;
+  readonly providers: readonly string[];
+}
+
+/** A backup system as 4.4 records it: how often it backs up, and its last restore that worked. */
+export interface Backup {
+  readonly frequency: string | null;
+  /** A calendar day, YYYY-MM-DD, or empty while no restore has worked yet. */
+  readonly lastRestore: string;
 }
 
 /**
@@ -24,6 +34,8 @@ export interface Draft {
   readonly values: Readonly<Record<string, unknown>>;
   /** Whether the person ticked that they have at hand what the next step needs. */
   readonly ready: boolean;
+  /** Whether the person ticked that the BSI's crypto list applies to them, so it is taken over. */
+  readonly adopt: boolean;
   /** Ticked catalogue items on the asset screens. */
   readonly checked: readonly string[];
   readonly custom: ReadonlyArray<{ name: string; layer: AssetLayer }>;
@@ -45,8 +57,12 @@ export interface Draft {
    * null is "not known yet".
    */
   readonly logins: Readonly<Record<string, boolean | null>>;
+  /** Which second factor each sign-in takes, by asset id, chosen on this visit. */
+  readonly methods: Readonly<Record<string, MfaMethod | null>>;
   /** Which processes must keep running without IT, and how, by asset id, changed on this visit. */
   readonly critical: Readonly<Record<string, Critical>>;
+  /** The backup systems' answers, by asset id, changed on this visit. */
+  readonly backups: Readonly<Record<string, Backup>>;
 }
 
 /** A supplier's answer on 5.2: neither ticked means the person found nothing agreed. */
@@ -105,6 +121,7 @@ export const initialDraft = (
     Object.entries(answers).map(([k, v]) => [k, toDraft(fields[k], v)]),
   ),
   ready: false,
+  adopt: false,
   checked: [],
   custom: [],
   uploaded: null,
@@ -115,7 +132,9 @@ export const initialDraft = (
   read: false,
   agreements: {},
   logins: {},
+  methods: {},
   critical: {},
+  backups: {},
 });
 
 /** A rating with both scales chosen, or null. */

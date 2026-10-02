@@ -57,6 +57,9 @@ export const trainingRecord = pgTable(
 
     // Certification
     certificateFileKey: varchar("certificate_file_key", { length: 500 }),
+    // Where the training provider keeps its own record (an e-learning platform's completion
+    // report), for staff trained outside the company: the proof stays with the provider.
+    sourceUrl: varchar("source_url", { length: 2048 }),
     nextTrainingDue: date("next_training_due"),
 
     createdAt: timestamp("created_at").defaultNow().notNull(),

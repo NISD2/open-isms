@@ -213,6 +213,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     statusId,
     assessmentId: assessment?.id ?? null,
     categoryId: req.category.id,
+    categorySlug: req.category.slug,
     answers: intake.answers,
     fields,
     registers: {

@@ -155,6 +155,13 @@
       "when": 1790785838403,
       "tag": "0021_rate_limit_window",
       "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "7",
+      "when": 1790943217867,
+      "tag": "0022_goofy_doctor_faustus",
+      "breakpoints": true
     }
   ]
 }

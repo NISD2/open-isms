@@ -5,6 +5,7 @@ import { CATALOG_BY_ID } from "@/lib/asset-inventory/catalog";
 import {
   CATALOG_LABELS,
   catalogNames,
+  isBackupSystem,
   isCatalogName,
   nameKey,
 } from "@/lib/asset-inventory/catalog-labels";
@@ -13,26 +14,33 @@ import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { mayWalkDurchgang } from "@/lib/billing/access";
 import { FREQUENCIES, IMPACTS, type RiskLevel } from "@/lib/compliance/bsi-200-3";
 import { invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
+import { getDefaultPolicyConfig } from "@/lib/compliance/policy-config-defaults";
 import { getDefaultMethodology } from "@/lib/compliance/risk-methodology-defaults";
 import { seedLocale } from "@/lib/compliance/seed-locale";
 import type { DbOrTx } from "@/lib/db";
 import {
   type AnyScreen,
+  acceptedCryptoText,
   agreementsNote,
   approvedNote,
   askedFields,
+  BACKUP_FREQUENCIES,
+  backupsNote,
   contactSuggestions,
   criticalNote,
   criticalProcessesText,
+  cryptoNote,
   declinedNote,
   levelOf,
   loginsNote,
   MANAGEMENT_ROLE,
+  MFA_METHODS,
   marker,
   methodNote,
   noteLine,
   POLICY_LISTS,
   type PolicyList,
+  type ProviderLink,
   personText,
   policyNames,
   policyText,
@@ -59,6 +67,7 @@ import durchgangDe from "@/messages/durchgang/de.json";
 import durchgangEn from "@/messages/durchgang/en.json";
 import {
   asset,
+  assetProvider,
   auditLog,
   company,
   companyCategoryIntake,
@@ -86,6 +95,7 @@ import {
   router,
   type TRPCContext,
 } from "../init";
+import { cryptoConfigSchema } from "./policy-config";
 
 /**
  * The Durchgang's own writes: what the existing procedures cannot record. Field answers, uploads
@@ -210,6 +220,24 @@ const storedConfigOf = async (db: DbOrTx, companyId: string, type: string) => {
   return STORED_CONFIG.parse(row?.config ?? {});
 };
 
+/** The editor's policy type the crypto list is kept under (the requirement page edits it too). */
+const CRYPTO_LIST = "crypto";
+
+/** The company's crypto list as the editor stored it, or null while it has none or a broken one. */
+const cryptoListOf = async (db: DbOrTx, companyId: string) => {
+  const [row] = await db
+    .select({ config: companyPolicyConfig.config })
+    .from(companyPolicyConfig)
+    .where(
+      and(
+        eq(companyPolicyConfig.companyId, companyId),
+        eq(companyPolicyConfig.policyType, CRYPTO_LIST),
+      ),
+    );
+  const parsed = cryptoConfigSchema.safeParse(row?.config);
+  return parsed.success ? parsed.data : null;
+};
+
 /** Where the walk asks who leads in an emergency, which the continuity plan names too. */
 const EMERGENCY_LEAD = { code: "3.1", field: "incidentLead" } as const;
 
@@ -234,7 +262,8 @@ const emergencyLeadOf = async (db: TRPCContext["db"], companyId: string) => {
 /**
  * What a plan's list names stand for, read off the company's own records: the processes marked
  * `is_critical` with their line, the systems in the order their 2.3 ratings give, where incidents
- * are reported from the company's country, and who leads in an emergency from 3.1.
+ * are reported from the company's country, who leads in an emergency from 3.1, and the methods
+ * the company's crypto list accepts.
  */
 const policyListsOf = async (
   db: TRPCContext["db"],
@@ -244,7 +273,7 @@ const policyListsOf = async (
   locale: "de" | "en",
 ): Promise<Partial<Record<PolicyList, string>>> => {
   const needs = (...names: readonly PolicyList[]) => names.some((n) => used.includes(n));
-  const [assets, links, org, lead] = await Promise.all([
+  const [assets, links, org, lead, crypto] = await Promise.all([
     needs("criticalProcesses", "recoveryOrder")
       ? db
           .select({
@@ -276,6 +305,7 @@ const policyListsOf = async (
         })
       : undefined,
     needs("emergencyLead") ? emergencyLeadOf(db, companyId) : null,
+    needs("acceptedCrypto") ? cryptoListOf(db, companyId) : null,
   ]);
   const portal =
     getRegistrationPortals().portals.find((p) => p.countryCode === org?.country) ?? null;
@@ -295,6 +325,7 @@ const policyListsOf = async (
           links.map((l) => ({ ...l, linked: [l.assetId] })),
         ),
       ),
+    acceptedCrypto: () => acceptedCryptoText(locale, crypto),
   };
   return Object.fromEntries(used.map((name) => [name, text[name]()]));
 };
@@ -602,10 +633,23 @@ export const durchgangRouter = router({
     }),
 
   /**
+   * Who provides each of the company's assets (`asset_provider`), any number per asset. The
+   * tenant filter runs through the asset, so a link is only ever read for the company's own.
+   */
+  providers: durchgangProcedure.query(({ ctx }) =>
+    ctx.db
+      .select({ assetId: assetProvider.assetId, supplierId: assetProvider.supplierId })
+      .from(assetProvider)
+      .innerJoin(asset, eq(asset.id, assetProvider.assetId))
+      .where(eq(asset.companyId, ctx.companyId)),
+  ),
+
+  /**
    * 2.2, which one exactly and from whom. Each row gives the asset the name the company knows it
-   * by and its provider, found on the company's supplier list by name or added to it. An emptied
-   * provider unlinks the asset and leaves the supplier listed. The first rename moves the old
-   * name into an empty description, so the list still says what kind of thing it is.
+   * by and its providers, each found on the company's supplier list by name or added to it; the
+   * asset's links then match exactly the names sent, so a name left out unlinks that provider and
+   * leaves it listed. The first rename moves the old name into an empty description, so the list
+   * still says what kind of thing it is.
    */
   specifyAssets: durchgangWrite
     .input(
@@ -615,7 +659,7 @@ export const durchgangRouter = router({
             z.object({
               id: z.string().uuid(),
               name: z.string().trim().min(1).max(255),
-              provider: z.string().trim().max(255),
+              providers: z.array(z.string().trim().min(1).max(255)).max(20),
             }),
           )
           .max(500),
@@ -632,12 +676,7 @@ export const durchgangRouter = router({
           .where(eq(company.id, ctx.companyId))
           .for("update");
         const owned = await tx
-          .select({
-            id: asset.id,
-            name: asset.name,
-            description: asset.description,
-            supplierId: asset.supplierId,
-          })
+          .select({ id: asset.id, name: asset.name, description: asset.description })
           .from(asset)
           .where(and(eq(asset.companyId, ctx.companyId), inArray(asset.id, ids)));
         if (owned.length !== ids.length) throw new TRPCError({ code: "NOT_FOUND" });
@@ -649,10 +688,9 @@ export const durchgangRouter = router({
         const known = new Map(listed.map((s) => [nameKey(s.name), s.id]));
         // The first spelling of a new provider wins.
         const fresh = input.rows
-          .map((r) => r.provider)
+          .flatMap((r) => r.providers)
           .filter(
             (name, i, all) =>
-              name !== "" &&
               !known.has(nameKey(name)) &&
               all.findIndex((n) => nameKey(n) === nameKey(name)) === i,
           );
@@ -668,30 +706,62 @@ export const durchgangRouter = router({
           ...added.map((s) => [nameKey(s.name), s.id] as const),
         ]);
 
+        // The assets are the company's (checked above), so their links are too.
+        const linked = await tx
+          .select({
+            assetId: assetProvider.assetId,
+            supplierId: assetProvider.supplierId,
+          })
+          .from(assetProvider)
+          .where(inArray(assetProvider.assetId, ids));
+        const wanted = input.rows.flatMap((row) =>
+          [
+            ...new Set(
+              row.providers.flatMap((name) => supplierOf.get(nameKey(name)) ?? []),
+            ),
+          ].map((supplierId) => ({ assetId: row.id, supplierId })),
+        );
+        const pair = (l: ProviderLink) => `${l.assetId}:${l.supplierId}`;
+        const keep = new Set(wanted.map(pair));
+        const had = new Set(linked.map(pair));
+        const unlink = linked.filter((l) => !keep.has(pair(l)));
+        const link = wanted.filter((l) => !had.has(pair(l)));
+        for (const l of unlink) {
+          await tx
+            .delete(assetProvider)
+            .where(
+              and(
+                eq(assetProvider.assetId, l.assetId),
+                eq(assetProvider.supplierId, l.supplierId),
+              ),
+            );
+        }
+        if (link.length > 0) {
+          await tx.insert(assetProvider).values(link).onConflictDoNothing();
+        }
+
         const before = new Map(owned.map((a) => [a.id, a]));
-        const changes = input.rows.flatMap((row) => {
+        const renames = input.rows.flatMap((row) => {
           const was = before.get(row.id);
-          if (!was) return [];
-          const supplierId =
-            row.provider === "" ? null : (supplierOf.get(nameKey(row.provider)) ?? null);
-          const renamed = row.name !== was.name;
-          if (!renamed && supplierId === was.supplierId) return [];
-          const description =
-            renamed && !was.description?.trim() ? was.name : was.description;
-          return [{ id: row.id, name: row.name, supplierId, description }];
+          if (!was || row.name === was.name) return [];
+          const description = was.description?.trim() ? was.description : was.name;
+          return [{ id: row.id, name: row.name, description }];
         });
-        for (const change of changes) {
+        for (const change of renames) {
           await tx
             .update(asset)
             .set({
               name: change.name,
-              supplierId: change.supplierId,
               description: change.description,
               updatedAt: new Date(),
             })
             .where(and(eq(asset.id, change.id), eq(asset.companyId, ctx.companyId)));
         }
-        return { updated: changes.length, suppliersAdded: added.length };
+        const touched = new Set([
+          ...renames.map((r) => r.id),
+          ...[...unlink, ...link].map((l) => l.assetId),
+        ]);
+        return { updated: touched.size, suppliersAdded: added.length };
       });
       if (result.updated > 0) recheck(ctx, "asset");
       if (result.suppliersAdded > 0) recheck(ctx, "supplier");
@@ -1060,7 +1130,13 @@ export const durchgangRouter = router({
       z.object({
         code,
         rows: z
-          .array(z.object({ assetId: z.string().uuid(), mfa: z.boolean().nullable() }))
+          .array(
+            z.object({
+              assetId: z.string().uuid(),
+              mfa: z.boolean().nullable(),
+              method: z.enum(MFA_METHODS).nullable().default(null),
+            }),
+          )
           .min(1)
           .max(500),
       }),
@@ -1074,10 +1150,20 @@ export const durchgangRouter = router({
         });
       }
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
-      const rows = [...new Map(input.rows.map((r) => [r.assetId, r])).values()];
+      // A factor is only recorded where signing in takes one.
+      const rows = [
+        ...new Map(
+          input.rows.map((r) => [r.assetId, { ...r, method: r.mfa ? r.method : null }]),
+        ).values(),
+      ];
       const ids = rows.map((r) => r.assetId);
       const owned = await ctx.db
-        .select({ id: asset.id, name: asset.name, mfa: asset.hasMfa })
+        .select({
+          id: asset.id,
+          name: asset.name,
+          mfa: asset.hasMfa,
+          method: asset.mfaMethod,
+        })
         .from(asset)
         .where(and(eq(asset.companyId, ctx.companyId), inArray(asset.id, ids)));
       if (owned.length !== ids.length) throw new TRPCError({ code: "NOT_FOUND" });
@@ -1086,12 +1172,12 @@ export const durchgangRouter = router({
       // Null is "not known yet", a value of its own, so it is compared as it is stored.
       const changed = rows.filter((row) => {
         const was = before.get(row.assetId);
-        return was !== undefined && row.mfa !== was.mfa;
+        return was !== undefined && (row.mfa !== was.mfa || row.method !== was.method);
       });
       for (const row of changed) {
         await ctx.db
           .update(asset)
-          .set({ hasMfa: row.mfa, updatedAt: new Date() })
+          .set({ hasMfa: row.mfa, mfaMethod: row.method, updatedAt: new Date() })
           .where(and(eq(asset.id, row.assetId), eq(asset.companyId, ctx.companyId)));
       }
       const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
@@ -1105,6 +1191,7 @@ export const durchgangRouter = router({
             rows.map((row) => ({
               name: before.get(row.assetId)?.name ?? "",
               mfa: row.mfa,
+              method: row.method,
             })),
           ),
         ),
@@ -1120,6 +1207,155 @@ export const durchgangRouter = router({
       });
       if (changed.length > 0) recheck(ctx, "asset");
       return { changed: changed.length };
+    }),
+
+  /**
+   * 4.4: per backup system on the company's list, how often it backs up and the day of its last
+   * restore that worked, in the asset's own columns, which the requirement page shows too. Only
+   * the company's own backup systems are written, and only where an answer changed; an emptied
+   * day clears it.
+   */
+  recordBackups: durchgangWrite
+    .input(
+      z.object({
+        code,
+        rows: z
+          .array(
+            z.object({
+              assetId: z.string().uuid(),
+              frequency: z.enum(BACKUP_FREQUENCIES).nullable(),
+              lastRestore: z.iso.date().nullable(),
+            }),
+          )
+          .min(1)
+          .max(100),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const words = resolveItem(
+        NAMESPACES[await seedLocale(ctx.db, ctx.userId, ctx.companyId)],
+        itemOf(input.code),
+      );
+      const screen = words.ok
+        ? words.value.screens.find((s) => s.kind === "backups")
+        : undefined;
+      if (screen?.kind !== "backups") {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: `${input.code} records no backups.`,
+        });
+      }
+      const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
+      const rows = [...new Map(input.rows.map((r) => [r.assetId, r])).values()];
+      const ids = rows.map((r) => r.assetId);
+      const owned = await ctx.db
+        .select({
+          id: asset.id,
+          name: asset.name,
+          description: asset.description,
+          frequency: asset.backupFrequency,
+          lastRestore: asset.lastBackupTestDate,
+        })
+        .from(asset)
+        .where(and(eq(asset.companyId, ctx.companyId), inArray(asset.id, ids)));
+      if (owned.length !== ids.length || !owned.every(isBackupSystem)) {
+        throw new TRPCError({ code: "NOT_FOUND" });
+      }
+      const before = new Map(owned.map((a) => [a.id, a]));
+      const changed = rows.filter((row) => {
+        const was = before.get(row.assetId);
+        return (
+          was !== undefined &&
+          (row.frequency !== was.frequency || row.lastRestore !== was.lastRestore)
+        );
+      });
+      for (const row of changed) {
+        await ctx.db
+          .update(asset)
+          .set({
+            backupFrequency: row.frequency,
+            lastBackupTestDate: row.lastRestore,
+            updatedAt: new Date(),
+          })
+          .where(and(eq(asset.id, row.assetId), eq(asset.companyId, ctx.companyId)));
+      }
+      const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
+      await appendNote(
+        ctx.db,
+        ref.statusId,
+        noteLine(
+          new Date(),
+          backupsNote(
+            locale,
+            rows.map((row) => ({
+              name: before.get(row.assetId)?.name ?? "",
+              frequency: row.frequency
+                ? (screen.copy.options[row.frequency] ?? null)
+                : null,
+              lastRestore: row.lastRestore,
+            })),
+          ),
+        ),
+      );
+      await logAudit({
+        companyId: ctx.companyId,
+        userId: ctx.userId,
+        action: "durchgang.backups",
+        entityType: "requirement",
+        entityId: ref.requirementId,
+        description: `${ref.code} backups recorded`,
+        newValue: { systems: rows.length, changed: changed.length },
+      });
+      if (changed.length > 0) recheck(ctx, "asset");
+      return { changed: changed.length };
+    }),
+
+  /** 9.1: the company's crypto list, or the BSI TR-02102 list while it has not taken one over. */
+  cryptoList: durchgangProcedure.query(async ({ ctx }) => {
+    const stored = await cryptoListOf(ctx.db, ctx.companyId);
+    if (stored) return { stored: true as const, list: stored };
+    const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
+    return { stored: false as const, list: getDefaultPolicyConfig(CRYPTO_LIST, locale) };
+  }),
+
+  /**
+   * 9.1: takes the BSI TR-02102 list over as the company's crypto list, as an explicit write. A
+   * list the company keeps already, edited on the requirement page, is never overwritten.
+   */
+  adoptCrypto: durchgangWrite
+    .input(z.object({ code }))
+    .mutation(async ({ ctx, input }) => {
+      const screens: readonly AnyScreen[] = itemOf(input.code).screens;
+      if (!screens.some((s) => s.kind === "crypto")) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: `${input.code} keeps no crypto list.`,
+        });
+      }
+      const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
+      const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
+      const [row] = await ctx.db
+        .insert(companyPolicyConfig)
+        .values({
+          companyId: ctx.companyId,
+          policyType: CRYPTO_LIST,
+          config: getDefaultPolicyConfig(CRYPTO_LIST, locale),
+        })
+        .onConflictDoNothing({
+          target: [companyPolicyConfig.companyId, companyPolicyConfig.policyType],
+        })
+        .returning({ id: companyPolicyConfig.id });
+      if (!row) return { adopted: false };
+      await appendNote(ctx.db, ref.statusId, noteLine(new Date(), cryptoNote(locale)));
+      await logAudit({
+        companyId: ctx.companyId,
+        userId: ctx.userId,
+        action: "durchgang.crypto_adopted",
+        entityType: "requirement",
+        entityId: ref.requirementId,
+        description: `${ref.code} BSI TR-02102 crypto list adopted`,
+      });
+      return { adopted: true };
     }),
 
   /**

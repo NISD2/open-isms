@@ -1,0 +1,1 @@
+ALTER TABLE "training_record" ADD COLUMN "source_url" varchar(2048);

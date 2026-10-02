@@ -12,8 +12,8 @@ import { companyProcedure, router } from "../init";
 
 const policyTypeSchema = z.enum(POLICY_TYPES);
 
-// Per-type Zod validators for the JSONB config
-const cryptoConfigSchema = z.object({
+// Per-type Zod validators for the JSONB config. The walk reads the crypto list with the same one.
+export const cryptoConfigSchema = z.object({
   algorithms: z.array(
     z.object({
       category: z.enum(["symmetric", "hash", "asymmetric", "key_exchange", "tls"]),

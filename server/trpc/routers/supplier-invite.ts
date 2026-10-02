@@ -20,8 +20,8 @@ import { and, desc, eq, gt, isNull } from "drizzle-orm";
 import { z } from "zod";
 import { entityInvitesSupplierEmail, sendMail } from "@/lib/mail";
 import { getAppUrl } from "@/lib/utils";
-import { company, supplierInvite } from "@/schema";
-import { supplierInviteRequestSchema } from "@/schema/validators";
+import { company, supplier, supplierInvite } from "@/schema";
+import { supplierInviteCreateSchema } from "@/schema/validators";
 import {
   requireInboxBudget,
   requireSupplierMailBudget,
@@ -67,11 +67,25 @@ export const supplierInviteRouter = router({
    * new token and expiry once the cooldown is over. Returns the invite token
    * so the caller could surface a copy-link UX in addition to the email.
    *
-   * One row per (fromCompanyId, toEmail); never duplicated.
+   * One row per (fromCompanyId, toEmail); never duplicated. Sent for a row of the sender's own
+   * supplier list (`supplierId`), the reply links that row instead of adding a second one; the
+   * row must be the sender's and not linked to a supplier company yet.
    */
   create: companyProcedure
-    .input(supplierInviteRequestSchema)
+    .input(supplierInviteCreateSchema)
     .mutation(async ({ ctx, input }) => {
+      const listed = input.supplierId
+        ? await ctx.db.query.supplier.findFirst({
+            where: and(
+              eq(supplier.id, input.supplierId),
+              eq(supplier.customerCompanyId, ctx.companyId),
+              isNull(supplier.supplierCompanyId),
+            ),
+            columns: { id: true },
+          })
+        : null;
+      if (input.supplierId && !listed) throw new TRPCError({ code: "NOT_FOUND" });
+      const supplierId = listed?.id ?? null;
       await requireSupplierMailBudget("supplierInvites", ctx.companyId);
       const email = input.toEmail.toLowerCase();
       const now = new Date();
@@ -97,6 +111,7 @@ export const supplierInviteRouter = router({
               token,
               message,
               expiresAt,
+              supplierId,
               // Reset the acceptance state so a previously-revoked invite can
               // be re-issued. Defensive — entity wants to re-invite.
               acceptedAt: null,
@@ -121,6 +136,7 @@ export const supplierInviteRouter = router({
                 token,
                 message,
                 expiresAt,
+                supplierId,
               }),
             )
             .onConflictDoNothing({

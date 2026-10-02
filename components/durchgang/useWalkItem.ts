@@ -1,9 +1,16 @@
 import { useRef, useState } from "react";
-import type { WaitReason } from "@/lib/durchgang";
+import {
+  BACKUP_FREQUENCIES,
+  type BackupFrequency,
+  type WaitReason,
+} from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import { changedAnswers, type Draft, fullRating, initialDraft } from "./draft";
-import { mfaOf, useLoginRows } from "./LoginScreen";
+import { methodOf, mfaOf, useLoginRows } from "./LoginScreen";
 import type { ItemView } from "./view";
+
+const isBackupFrequency = (value: string | null): value is BackupFrequency =>
+  BACKUP_FREQUENCIES.some((f) => f === value);
 
 /**
  * One item's working state and how it is stored: the draft its screens edit, and the writes that
@@ -33,6 +40,8 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
   const recordLogins = trpc.durchgang.recordLogins.useMutation();
   const writePolicy = trpc.durchgang.writePolicy.useMutation();
   const recordCritical = trpc.durchgang.recordCritical.useMutation();
+  const recordBackups = trpc.durchgang.recordBackups.useMutation();
+  const adoptCrypto = trpc.durchgang.adoptCrypto.useMutation();
   // Every sign-in shown starts with an answer, so 11.1 records them all, not only the touched ones.
   const loginRows = useLoginRows(item.screens.some((s) => s.screen.kind === "logins"));
   const finish = trpc.durchgang.finish.useMutation();
@@ -101,13 +110,22 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
       case "specify": {
         // An emptied name keeps the stored one, and the server writes only what changed.
         const rows = Object.entries(snapshot.specified).flatMap(([id, s]) =>
-          s.name.trim() ? [{ id, name: s.name.trim(), provider: s.provider.trim() }] : [],
+          s.name.trim()
+            ? [
+                {
+                  id,
+                  name: s.name.trim(),
+                  providers: s.providers.map((p) => p.trim()).filter(Boolean),
+                },
+              ]
+            : [],
         );
         if (rows.length > 0) {
           await specify.mutateAsync({ rows });
           await Promise.all([
             utils.asset.list.invalidate(),
             utils.supplier.list.invalidate(),
+            utils.durchgang.providers.invalidate(),
           ]);
         }
         return;
@@ -144,6 +162,7 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
         const rows = (loginRows ?? []).map((row) => ({
           assetId: row.id,
           mfa: mfaOf(row, snapshot),
+          method: methodOf(row, snapshot),
         }));
         if (rows.length > 0) {
           await recordLogins.mutateAsync({ code: item.code, rows });
@@ -166,6 +185,27 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
         }
         return;
       }
+      case "backups": {
+        const rows = Object.entries(snapshot.backups).map(([assetId, b]) => ({
+          assetId,
+          frequency: isBackupFrequency(b.frequency) ? b.frequency : null,
+          lastRestore: b.lastRestore || null,
+        }));
+        if (rows.length > 0) {
+          await recordBackups.mutateAsync({ code: item.code, rows });
+          await utils.asset.list.invalidate();
+        }
+        return;
+      }
+      case "crypto":
+        if (snapshot.adopt) {
+          await adoptCrypto.mutateAsync({ code: item.code });
+          await Promise.all([
+            utils.durchgang.cryptoList.invalidate(),
+            utils.durchgang.policyDraft.invalidate(),
+          ]);
+        }
+        return;
       default:
         return;
     }

@@ -76,8 +76,12 @@ function setup(opts: {
   assets?: ReadonlyArray<{
     id: string;
     name: string;
+    description?: string | null;
     mfa?: boolean | null;
+    method?: string | null;
     isCritical?: boolean | null;
+    frequency?: string | null;
+    lastRestore?: string | null;
   }>;
 }) {
   const writes: Write[] = [];
@@ -573,11 +577,11 @@ describe("the walk's sign-ins", () => {
   const M365 = "99999999-9999-4999-8999-999999999991";
   const VPN = "99999999-9999-4999-8999-999999999992";
   const assets = [
-    { id: M365, name: "Microsoft 365", mfa: false },
-    { id: VPN, name: "VPN", mfa: null },
+    { id: M365, name: "Microsoft 365", mfa: false, method: null },
+    { id: VPN, name: "VPN", mfa: null, method: null },
   ];
 
-  test("writes only the rows that changed, only has_mfa, only on the company's assets", async () => {
+  test("writes only the rows that changed, only the sign-in columns, only on the company's assets", async () => {
     const { caller, writes, wheres } = setup({ accessLevel: "full", assets });
     const result = await caller.recordLogins({
       code: "11.1",
@@ -589,10 +593,31 @@ describe("the walk's sign-ins", () => {
     expect(result).toEqual({ changed: 1 });
     const updates = writes.filter((w) => w.op === "update" && w.table === asset);
     expect(updates).toHaveLength(1);
-    expect(Object.keys(updates[0]?.values ?? {}).sort()).toEqual(["hasMfa", "updatedAt"]);
+    expect(Object.keys(updates[0]?.values ?? {}).sort()).toEqual([
+      "hasMfa",
+      "mfaMethod",
+      "updatedAt",
+    ]);
     expect(updates[0]?.where && paramsOf(updates[0].where)).toEqual([M365, COMPANY]);
     const lookup = wheres.find((w) => w.table === "asset");
     expect(lookup && paramsOf(lookup.where)).toContain(COMPANY);
+  });
+
+  test("records the kind of second factor per program, and none where there is no second factor", async () => {
+    const { caller, writes } = setup({ accessLevel: "full", assets });
+    await caller.recordLogins({
+      code: "11.1",
+      rows: [
+        { assetId: M365, mfa: true, method: "app" },
+        { assetId: VPN, mfa: false, method: "sms" },
+      ],
+    });
+    const updates = writes.filter((w) => w.op === "update" && w.table === asset);
+    expect(updates.map((u) => u.values)).toEqual([
+      expect.objectContaining({ hasMfa: true, mfaMethod: "app" }),
+      expect.objectContaining({ hasMfa: false, mfaMethod: null }),
+    ]);
+    expect(noteOf(writes)).toContain("Microsoft 365: mit zweitem Faktor (App)");
   });
 
   test("keeps 'not known yet' apart from 'password only', so finding out is a change", async () => {
@@ -646,6 +671,51 @@ describe("the walk's sign-ins", () => {
       free.caller.recordLogins({ code: "11.1", rows: [row] }),
     ).rejects.toMatchObject({ code: "FORBIDDEN" });
     expect(free.writes).toEqual([]);
+  });
+});
+
+describe("the walk's backup systems", () => {
+  const VEEAM = "99999999-9999-4999-8999-999999999993";
+  const M365 = "99999999-9999-4999-8999-999999999991";
+  const veeam = {
+    id: VEEAM,
+    name: "Veeam",
+    description: "Backup-System (Veeam, NAS, Cloud-Backup)",
+    frequency: "daily",
+    lastRestore: null,
+  };
+
+  test("records how often each backup system backs up and its last restore, where they changed", async () => {
+    const { caller, writes } = setup({ accessLevel: "full", assets: [veeam] });
+    const result = await caller.recordBackups({
+      code: "4.4",
+      rows: [{ assetId: VEEAM, frequency: "daily", lastRestore: "2026-09-30" }],
+    });
+    expect(result).toEqual({ changed: 1 });
+    const updates = writes.filter((w) => w.op === "update" && w.table === asset);
+    expect(updates.map((u) => u.values)).toEqual([
+      expect.objectContaining({
+        backupFrequency: "daily",
+        lastBackupTestDate: "2026-09-30",
+      }),
+    ]);
+    expect(noteOf(writes)).toContain(
+      "Veeam, täglich, letzte geglückte Wiederherstellung 2026-09-30",
+    );
+  });
+
+  test("refuses an asset that is no backup system, and writes nothing", async () => {
+    const { caller, writes } = setup({
+      accessLevel: "full",
+      assets: [{ id: M365, name: "Microsoft 365", description: null }],
+    });
+    await expect(
+      caller.recordBackups({
+        code: "4.4",
+        rows: [{ assetId: M365, frequency: "daily", lastRestore: null }],
+      }),
+    ).rejects.toMatchObject({ code: "NOT_FOUND" });
+    expect(writes.filter((w) => w.table === asset)).toEqual([]);
   });
 });
 

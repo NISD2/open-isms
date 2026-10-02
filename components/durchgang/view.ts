@@ -71,6 +71,8 @@ export interface ItemView {
   readonly statusId: string | null;
   readonly assessmentId: string | null;
   readonly categoryId: string;
+  /** The requirement page's category, where the full editors and registers live. */
+  readonly categorySlug: string;
   /** What the company already saved for this requirement. No platform defaults. */
   readonly answers: Readonly<Record<string, unknown>>;
   readonly fields: Readonly<Record<string, FieldMeta>>;

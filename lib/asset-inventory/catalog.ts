@@ -50,6 +50,8 @@ export interface CatalogItem {
    * line), which the second-factor screen leaves out although its type is a network.
    */
   signIn?: false;
+  /** A system that makes the company's backups, which 4.4 records per system. */
+  backup?: true;
 }
 
 // biome-ignore format: one row per catalogue item keeps the catalogue readable as a table
@@ -149,7 +151,7 @@ export const CATALOG: CatalogItem[] = [
   { id: "infra-onprem-servers", group: "it-infrastructure", layer: "it-system", category: "server", defaultChecked: false, defaultExposure: "internal" },
   { id: "infra-cloud-platform", group: "it-infrastructure", layer: "it-system", category: "cloud_service", defaultChecked: true, defaultExposure: "internet" },
   { id: "infra-network-equipment", group: "it-infrastructure", layer: "it-system", category: "network", defaultChecked: true, defaultExposure: "internal" },
-  { id: "infra-backup-system", group: "it-infrastructure", layer: "it-system", category: "data_store", defaultChecked: true, defaultExposure: "internal" },
+  { id: "infra-backup-system", group: "it-infrastructure", layer: "it-system", category: "data_store", defaultChecked: true, defaultExposure: "internal", backup: true },
   { id: "infra-backup-media", group: "it-infrastructure", layer: "it-system", category: "data_store", defaultChecked: false, defaultExposure: "physical-only" },
   { id: "infra-virtualisation", group: "it-infrastructure", layer: "it-system", category: "server", defaultChecked: false, defaultExposure: "internal" },
   { id: "infra-terminal-server", group: "it-infrastructure", layer: "it-system", category: "server", defaultChecked: false, defaultExposure: "internal" },

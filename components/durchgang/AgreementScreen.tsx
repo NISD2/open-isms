@@ -17,6 +17,8 @@ export interface AgreementRow {
   readonly name: string;
   readonly level: RiskLevel | null;
   readonly stored: Agreed;
+  /** Whether the supplier answers through the supplier portal already. */
+  readonly linked: boolean;
 }
 
 /**
@@ -42,6 +44,7 @@ export function useAgreementRows(enabled: boolean): readonly AgreementRow[] | un
                 security: Boolean(s.hasSecurityClauses),
                 incidents: Boolean(s.hasIncidentNotificationClause),
               },
+              linked: s.supplierCompanyId !== null,
             },
           ]
         : [];
@@ -92,39 +95,46 @@ export function Agreements({
                   <p className="truncate font-medium">{row.name}</p>
                   <RowLevel level={row.level} locale={item.locale} />
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  <Toggle
-                    on={current.security}
-                    onClick={() => set(row, { ...current, security: !current.security })}
-                  >
-                    {entry.copy.security}
-                  </Toggle>
-                  <Toggle
-                    on={current.incidents}
-                    onClick={() =>
-                      set(row, { ...current, incidents: !current.incidents })
-                    }
-                  >
-                    {entry.copy.incidents}
-                  </Toggle>
-                  <Toggle
-                    on={none}
-                    onClick={() => set(row, { security: false, incidents: false })}
-                  >
-                    {entry.copy.none}
-                  </Toggle>
+                <div className="space-y-2.5">
+                  <div className="flex flex-wrap gap-2">
+                    <Toggle
+                      on={current.security}
+                      onClick={() =>
+                        set(row, { ...current, security: !current.security })
+                      }
+                    >
+                      {entry.copy.security}
+                    </Toggle>
+                    <Toggle
+                      on={current.incidents}
+                      onClick={() =>
+                        set(row, { ...current, incidents: !current.incidents })
+                      }
+                    >
+                      {entry.copy.incidents}
+                    </Toggle>
+                    <Toggle
+                      on={none}
+                      onClick={() => set(row, { security: false, incidents: false })}
+                    >
+                      {entry.copy.none}
+                    </Toggle>
+                  </div>
+                  {row.linked ? (
+                    <p className="text-xs text-muted-foreground">{t("linked")}</p>
+                  ) : (
+                    <RequestSupplierProfileButton
+                      label={t("questionnaireButton")}
+                      supplierId={row.id}
+                    />
+                  )}
                 </div>
               </li>
             );
           })}
         </ul>
       )}
-      {rows && rows.length > 0 && (
-        <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-3">
-          <Aside className="flex-1">{t("questionnaire")}</Aside>
-          <RequestSupplierProfileButton label={t("questionnaireButton")} />
-        </div>
-      )}
+      {rows && rows.length > 0 && <Aside className="mt-6">{t("questionnaire")}</Aside>}
     </>
   );
 }

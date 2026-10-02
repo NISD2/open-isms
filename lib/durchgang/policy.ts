@@ -5,6 +5,10 @@
  * and the screen's preview cannot differ.
  */
 
+import type {
+  CryptoAlgorithmEntry,
+  CryptoPolicyConfig,
+} from "@/lib/compliance/policy-config-defaults";
 import { marker } from "./copy";
 
 export interface PolicyDocument {
@@ -53,6 +57,70 @@ export const recoveryOrderText = (names: readonly string[]): string =>
 
 /** The person an answer names, or a blank. */
 export const personText = (value: unknown): string => answerText(value);
+
+const CRYPTO_TEXT = {
+  de: {
+    categories: {
+      symmetric: "Verschlüsselung",
+      hash: "Hashfunktionen",
+      asymmetric: "Signaturen und Schlüssel",
+      key_exchange: "Schlüsselaustausch",
+      tls: "TLS",
+    },
+    approved: "Zugelassen",
+    deprecated: "Nur noch für Bestehendes, nicht für Neues",
+    prohibited: "Nicht verwenden",
+    bits: "Bit",
+    tls: (version: string) => `TLS mindestens in Version ${version}, bevorzugt 1.3.`,
+  },
+  en: {
+    categories: {
+      symmetric: "Encryption",
+      hash: "Hash functions",
+      asymmetric: "Signatures and keys",
+      key_exchange: "Key exchange",
+      tls: "TLS",
+    },
+    approved: "Accepted",
+    deprecated: "Only for what exists, not for anything new",
+    prohibited: "Not to be used",
+    bits: "bits",
+    tls: (version: string) => `TLS at least in version ${version}, preferably 1.3.`,
+  },
+} as const;
+
+const TLS_VERSION = { tls_1_2: "1.2", tls_1_3: "1.3" } as const;
+
+/**
+ * The company's crypto list as its cryptography policy prints it: the accepted methods by kind,
+ * then what is only kept for what exists and what is not used at all, then the TLS floor.
+ */
+export const acceptedCryptoText = (
+  locale: "de" | "en",
+  list: Pick<CryptoPolicyConfig, "algorithms" | "minTlsVersion"> | null,
+): string => {
+  if (!list) return BLANK;
+  const text = CRYPTO_TEXT[locale];
+  const named = (e: CryptoAlgorithmEntry) =>
+    e.keyLength ? `${e.algorithm} (${e.keyLength} ${text.bits})` : e.algorithm;
+  const approved = Object.entries(text.categories).flatMap(([category, label]) => {
+    const names = list.algorithms
+      .filter((e) => e.status === "approved" && e.category === category)
+      .map(named);
+    return names.length > 0 ? [`- ${label}: ${names.join(", ")}`] : [];
+  });
+  const of = (status: CryptoAlgorithmEntry["status"]) =>
+    list.algorithms.filter((e) => e.status === status).map(named);
+  const deprecated = of("deprecated");
+  const prohibited = of("prohibited");
+  return [
+    `${text.approved}:`,
+    ...approved,
+    ...(deprecated.length > 0 ? [`${text.deprecated}: ${deprecated.join(", ")}`] : []),
+    ...(prohibited.length > 0 ? [`${text.prohibited}: ${prohibited.join(", ")}`] : []),
+    text.tls(TLS_VERSION[list.minTlsVersion]),
+  ].join("\n");
+};
 
 /** The country whose reporting channel and its button we have checked: Germany's BSI portal. */
 const CHECKED_COUNTRY = "DE";

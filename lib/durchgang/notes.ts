@@ -5,6 +5,8 @@
  * leaves nothing of them here (the audit row that carries their id is redacted by the erasure).
  */
 
+import type { MfaMethod } from "./types";
+
 export type NoteLocale = "de" | "en";
 
 const berlinDay = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" });
@@ -32,6 +34,18 @@ const TEXT = {
     mfa: "mit zweitem Faktor",
     password: "nur Passwort",
     unknown: "noch nicht bekannt",
+    methods: {
+      app: "App",
+      security_key: "Sicherheitsschlüssel",
+      company_account: "über das Firmenkonto",
+      sms: "Code per SMS",
+      email: "Code per E-Mail",
+    },
+    backups: (lines: readonly string[]) =>
+      `Datensicherung festgehalten: ${lines.join("; ")}.`,
+    restoredOn: (day: string) => `letzte geglückte Wiederherstellung ${day}`,
+    noRestore: "noch keine geglückte Wiederherstellung",
+    crypto: "Kryptoliste nach BSI TR-02102 übernommen.",
     approved: (day: string, titles: readonly string[]) =>
       `Von der Geschäftsführung freigegeben am ${day}: ${titles.join("; ")}.`,
     critical: (names: readonly string[]) =>
@@ -54,6 +68,17 @@ const TEXT = {
     mfa: "second factor",
     password: "password only",
     unknown: "not known yet",
+    methods: {
+      app: "app",
+      security_key: "security key",
+      company_account: "through the company account",
+      sms: "code by SMS",
+      email: "code by email",
+    },
+    backups: (lines: readonly string[]) => `Backups recorded: ${lines.join("; ")}.`,
+    restoredOn: (day: string) => `last restore that worked ${day}`,
+    noRestore: "no restore that worked yet",
+    crypto: "Crypto list adopted from BSI TR-02102.",
     approved: (day: string, titles: readonly string[]) =>
       `Approved by management on ${day}: ${titles.join("; ")}.`,
     critical: (names: readonly string[]) =>
@@ -93,18 +118,54 @@ export const agreementsNote = (
 };
 
 /**
- * One entry per sign-in checked: the program's name and whether it takes a second factor, or that
- * this is not known yet.
+ * One entry per sign-in checked: the program's name and whether it takes a second factor, and
+ * which one where that is known, or that this is not known yet.
  */
 export const loginsNote = (
   locale: NoteLocale,
-  rows: ReadonlyArray<{ readonly name: string; readonly mfa: boolean | null }>,
+  rows: ReadonlyArray<{
+    readonly name: string;
+    readonly mfa: boolean | null;
+    readonly method?: MfaMethod | null;
+  }>,
 ) => {
   const text = TEXT[locale];
-  const answer = (mfa: boolean | null) =>
-    mfa === null ? text.unknown : mfa ? text.mfa : text.password;
-  return text.logins(rows.map((row) => `${row.name}: ${answer(row.mfa)}`));
+  const answer = (row: (typeof rows)[number]) =>
+    row.mfa === null
+      ? text.unknown
+      : row.mfa
+        ? row.method
+          ? `${text.mfa} (${text.methods[row.method]})`
+          : text.mfa
+        : text.password;
+  return text.logins(rows.map((row) => `${row.name}: ${answer(row)}`));
 };
+
+/** One entry per backup system: how often it backs up, and its last restore that worked. */
+export const backupsNote = (
+  locale: NoteLocale,
+  rows: ReadonlyArray<{
+    readonly name: string;
+    readonly frequency: string | null;
+    readonly lastRestore: string | null;
+  }>,
+) => {
+  const text = TEXT[locale];
+  return text.backups(
+    rows.map((row) =>
+      [
+        row.name,
+        row.frequency,
+        row.lastRestore ? text.restoredOn(row.lastRestore) : text.noRestore,
+      ]
+        .filter(Boolean)
+        .join(", "),
+    ),
+  );
+};
+
+/** The crypto list was taken over from the BSI's recommendations. */
+export const cryptoNote = (locale: NoteLocale) => TEXT[locale].crypto;
 
 /** The documents management approved in one sitting, by title, on the day of the approval. */
 export const approvedNote = (

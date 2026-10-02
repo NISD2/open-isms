@@ -27,7 +27,8 @@ import {
 const CONCEPTS = [
   {
     code: "9.1",
-    screen: 1,
+    // learn, the crypto list, then the policy.
+    screen: 2,
     type: "cryptography",
     editors: ["crypto"],
     title: "Kryptokonzept der",

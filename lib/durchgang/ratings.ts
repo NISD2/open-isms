@@ -227,13 +227,30 @@ interface ListedAsset {
   readonly name: string;
   readonly type: string;
   readonly description: string | null;
-  readonly supplierId: string | null;
 }
 
 interface ListedSupplier {
   readonly id: string;
   readonly name: string;
 }
+
+/** One supplier that provides one asset (`asset_provider`); an asset can have several. */
+export interface ProviderLink {
+  readonly assetId: string;
+  readonly supplierId: string;
+}
+
+/** The names of an asset's providers, in the order of the supplier list. */
+export const providersOf = (
+  assetId: string,
+  links: readonly ProviderLink[],
+  suppliers: readonly ListedSupplier[],
+): readonly string[] => {
+  const linked = new Set(
+    links.flatMap((l) => (l.assetId === assetId ? [l.supplierId] : [])),
+  );
+  return suppliers.flatMap((s) => (linked.has(s.id) ? [s.name] : []));
+};
 
 /** A risk with the ids of what it is linked to. */
 export interface LinkedRisk extends StoredRisk {
@@ -248,7 +265,7 @@ export type RatingRow =
       readonly name: string;
       /** What kind of thing it is, kept in the description when 2.2 named it. */
       readonly kindOf: string | null;
-      readonly provider: string | null;
+      readonly providers: readonly string[];
       readonly standing: Standing;
     }
   | {
@@ -302,21 +319,26 @@ export function ratingRows(
   lists: {
     readonly assets: readonly ListedAsset[];
     readonly suppliers: readonly ListedSupplier[];
+    readonly links: readonly ProviderLink[];
     readonly assetRisks: readonly LinkedRisk[];
     readonly supplierRisks: readonly LinkedRisk[];
   },
 ): readonly RatingRow[] {
   if (target === "suppliers") {
-    return lists.suppliers.map((s) => ({
-      kind: "supplier",
-      key: ratingKey("supplier", s.id),
-      id: s.id,
-      name: s.name,
-      provides: lists.assets.filter((a) => a.supplierId === s.id).map((a) => a.name),
-      standing: standingOf(linkedTo(lists.supplierRisks, s.id)),
-    }));
+    return lists.suppliers.map((s) => {
+      const provided = new Set(
+        lists.links.flatMap((l) => (l.supplierId === s.id ? [l.assetId] : [])),
+      );
+      return {
+        kind: "supplier",
+        key: ratingKey("supplier", s.id),
+        id: s.id,
+        name: s.name,
+        provides: lists.assets.filter((a) => provided.has(a.id)).map((a) => a.name),
+        standing: standingOf(linkedTo(lists.supplierRisks, s.id)),
+      };
+    });
   }
-  const names = new Map(lists.suppliers.map((s) => [s.id, s.name]));
   return lists.assets
     .filter((a) => sliceOf(a.type) === target)
     .map((a) => ({
@@ -325,7 +347,7 @@ export function ratingRows(
       id: a.id,
       name: a.name,
       kindOf: a.description?.trim() || null,
-      provider: a.supplierId ? (names.get(a.supplierId) ?? null) : null,
+      providers: providersOf(a.id, lists.links, lists.suppliers),
       standing: standingOf(linkedTo(lists.assetRisks, a.id)),
     }));
 }

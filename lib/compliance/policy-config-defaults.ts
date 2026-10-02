@@ -143,10 +143,16 @@ export type PolicyConfigMap = {
 // Default factories — BSI/CIR sourced
 // ============================================================================
 
+/**
+ * What BSI TR-02102 recommends, read in Version 2026-01 (TR-02102-1 of 23.01.2026, TR-02102-2 of
+ * 27.01.2026). "approved" is recommended by the TR; the TR bans nothing, so "deprecated" and
+ * "prohibited" are the company's own line below it. ChaCha20-Poly1305, Ed25519 and X25519 alone are
+ * not in the TR (TR-1 §3.2: "keine dedizierten Stromchiffren"), so a policy cannot cite it for them.
+ */
 function getDefaultCrypto(_locale: "en" | "de"): CryptoPolicyConfig {
   return {
     algorithms: [
-      // Symmetric — BSI TR-02102-1
+      // Symmetric: TR-1 Tab. 3.1 and 3.2 (AES with GCM; 256-bit keys for long-term protection)
       {
         category: "symmetric",
         algorithm: "AES-256-GCM",
@@ -159,12 +165,6 @@ function getDefaultCrypto(_locale: "en" | "de"): CryptoPolicyConfig {
         keyLength: "128",
         status: "approved",
       },
-      {
-        category: "symmetric",
-        algorithm: "ChaCha20-Poly1305",
-        keyLength: "256",
-        status: "approved",
-      },
       { category: "symmetric", algorithm: "DES", keyLength: "56", status: "prohibited" },
       {
         category: "symmetric",
@@ -173,18 +173,34 @@ function getDefaultCrypto(_locale: "en" | "de"): CryptoPolicyConfig {
         status: "prohibited",
       },
       { category: "symmetric", algorithm: "RC4", status: "prohibited" },
-      // Hash — BSI TR-02102-1
+      // Hash: TR-1 Tab. 4.1; SHA-1 "sollte daher niemals ... verwendet werden" (Bem. 4.2)
       { category: "hash", algorithm: "SHA-256", status: "approved" },
       { category: "hash", algorithm: "SHA-384", status: "approved" },
       { category: "hash", algorithm: "SHA-512", status: "approved" },
-      { category: "hash", algorithm: "SHA-3-256", status: "approved" },
+      { category: "hash", algorithm: "SHA3-256", status: "approved" },
+      // Passwords: TR-1 B.1.2
+      { category: "hash", algorithm: "Argon2id (passwords)", status: "approved" },
       { category: "hash", algorithm: "MD5", status: "prohibited" },
       { category: "hash", algorithm: "SHA-1", status: "prohibited" },
-      // Asymmetric — BSI TR-02102-1
+      // Asymmetric: RSA modulus at least 3000 bits (TR-1 §5.3.1) with PSS or OAEP; PKCS#1 v1.5
+      // is not recommended (TR-1 §1.5). Brainpool curves first, NIST curves where those are
+      // unavailable (TR-1 Tab. B.3, TR-2 §3.6.2).
       {
         category: "asymmetric",
-        algorithm: "RSA",
+        algorithm: "RSA-PSS / RSA-OAEP",
         keyLength: "3072+",
+        status: "approved",
+      },
+      {
+        category: "asymmetric",
+        algorithm: "ECDSA brainpoolP256r1",
+        keyLength: "256",
+        status: "approved",
+      },
+      {
+        category: "asymmetric",
+        algorithm: "ECDSA brainpoolP384r1",
+        keyLength: "384",
         status: "approved",
       },
       {
@@ -199,22 +215,60 @@ function getDefaultCrypto(_locale: "en" | "de"): CryptoPolicyConfig {
         keyLength: "384",
         status: "approved",
       },
-      { category: "asymmetric", algorithm: "Ed25519", status: "approved" },
+      {
+        category: "asymmetric",
+        algorithm: "RSA PKCS#1 v1.5 padding",
+        status: "deprecated",
+      },
+      {
+        category: "asymmetric",
+        algorithm: "RSA",
+        keyLength: "2048-2999",
+        status: "deprecated",
+      },
       {
         category: "asymmetric",
         algorithm: "RSA",
         keyLength: "<2048",
         status: "prohibited",
       },
-      // Key Exchange — BSI TR-02102-1
+      // Key exchange: ECDHE alone until the end of 2031 (TR-2 Tab. 6 and 10); ML-KEM used
+      // together with it (TR-1 Tab. 2.7, §2.2)
+      { category: "key_exchange", algorithm: "ECDHE brainpoolP256r1", status: "approved" },
+      { category: "key_exchange", algorithm: "ECDHE brainpoolP384r1", status: "approved" },
       { category: "key_exchange", algorithm: "ECDHE P-256", status: "approved" },
       { category: "key_exchange", algorithm: "ECDHE P-384", status: "approved" },
-      { category: "key_exchange", algorithm: "X25519", status: "approved" },
-      // TLS — BSI TR-02102-2
+      {
+        category: "key_exchange",
+        algorithm: "ML-KEM-768 together with ECDHE",
+        status: "approved",
+      },
+      // TLS 1.3 suites (TR-2 Tab. 13) and TLS 1.2 with forward secrecy until 2031 (TR-2 Tab. 3)
       { category: "tls", algorithm: "TLS_AES_256_GCM_SHA384", status: "approved" },
       { category: "tls", algorithm: "TLS_AES_128_GCM_SHA256", status: "approved" },
-      { category: "tls", algorithm: "TLS_CHACHA20_POLY1305_SHA256", status: "approved" },
+      { category: "tls", algorithm: "TLS_AES_128_CCM_SHA256", status: "approved" },
+      {
+        category: "tls",
+        algorithm: "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
+        status: "approved",
+      },
+      {
+        category: "tls",
+        algorithm: "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
+        status: "approved",
+      },
+      {
+        category: "tls",
+        algorithm: "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        status: "approved",
+      },
+      {
+        category: "tls",
+        algorithm: "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+        status: "approved",
+      },
     ],
+    // TLS 1.2 is recommended only until the end of 2031; TLS 1.3 should be preferred (TR-2 Tab. 2)
     minTlsVersion: "tls_1_2",
     keyRotationFrequencyYears: 1,
     triggerRotationOnCompromise: true,

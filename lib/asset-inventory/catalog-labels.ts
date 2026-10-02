@@ -1,6 +1,6 @@
 import de from "@/messages/assetInventory/de.json";
 import en from "@/messages/assetInventory/en.json";
-import { CATALOG } from "./catalog";
+import { CATALOG, type CatalogItem } from "./catalog";
 
 type Labels = Readonly<Record<string, { readonly label: string }>>;
 
@@ -31,21 +31,28 @@ const CATALOG_NAMES: ReadonlySet<string> = new Set(
 export const isCatalogName = (text: string | null): text is string =>
   text !== null && CATALOG_NAMES.has(nameKey(text));
 
-const NO_SIGN_IN: ReadonlySet<string> = new Set(
-  CATALOG.flatMap((item) =>
-    item.signIn === false ? catalogNames(item.id).map(nameKey) : [],
-  ),
-);
-
-/**
- * Whether a listed thing is a catalogue line nobody signs in to, read off its name or, once 2.2
- * renamed it, the catalogue name kept in its description.
- */
-export const noSignIn = (asset: {
+interface Listed {
   readonly name: string;
   readonly description: string | null;
-}): boolean =>
-  [asset.name, asset.description].some((n) => n !== null && NO_SIGN_IN.has(nameKey(n)));
+}
+
+/**
+ * Whether a listed thing is one of the catalogue items a test picks, read off its name or, once
+ * 2.2 renamed it, the catalogue name kept in its description.
+ */
+const listedAs = (pick: (item: CatalogItem) => boolean) => {
+  const names: ReadonlySet<string> = new Set(
+    CATALOG.flatMap((item) => (pick(item) ? catalogNames(item.id).map(nameKey) : [])),
+  );
+  return (asset: Listed): boolean =>
+    [asset.name, asset.description].some((n) => n !== null && names.has(nameKey(n)));
+};
+
+/** A catalogue line nobody signs in to, which the second-factor screen leaves out. */
+export const noSignIn = listedAs((item) => item.signIn === false);
+
+/** A system that makes the company's backups, which 4.4 records per system. */
+export const isBackupSystem = listedAs((item) => item.backup === true);
 
 /**
  * A register read against the catalogue: the items already on it, by id, and the entries that

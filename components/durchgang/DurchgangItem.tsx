@@ -10,6 +10,7 @@ import {
   CircleCheckBig,
   ClipboardList,
   Clock,
+  DatabaseBackup,
   Eye,
   FileUp,
   Gauge,
@@ -19,6 +20,7 @@ import {
   LifeBuoy,
   Lightbulb,
   ListChecks,
+  LockKeyhole,
   type LucideIcon,
   PenLine,
   ScrollText,
@@ -43,7 +45,9 @@ import { trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
 import { Agreements } from "./AgreementScreen";
 import { Approve } from "./ApproveScreen";
+import { BackupsScreen } from "./BackupsScreen";
 import { CriticalScreen } from "./CriticalScreen";
+import { CryptoScreen } from "./CryptoScreen";
 import { Compare, Learn, Prepare, Provision, Reading, Sample } from "./ExplainScreens";
 import { GlossProvider } from "./Glossed";
 import { Logins } from "./LoginScreen";
@@ -79,6 +83,8 @@ const KIND_ICON: Readonly<Record<ScreenKind, LucideIcon>> = {
   approve: BadgeCheck,
   riskmap: Grid3x3,
   critical: LifeBuoy,
+  backups: DatabaseBackup,
+  crypto: LockKeyhole,
   done: CircleCheckBig,
 };
 
@@ -252,6 +258,10 @@ export function DurchgangItem({
         return <Approve item={item} entry={entry} />;
       case "critical":
         return <CriticalScreen {...work} entry={entry} />;
+      case "backups":
+        return <BackupsScreen {...work} entry={entry} />;
+      case "crypto":
+        return <CryptoScreen {...work} entry={entry} />;
       case "riskmap":
         return <RiskMapScreen {...work} entry={entry} />;
       case "done":

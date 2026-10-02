@@ -85,31 +85,25 @@ test("puts processes on no screen, software and technology on their own", () => 
 describe("the rows of a rating screen", () => {
   const lists = {
     assets: [
-      {
-        id: "a1",
-        name: "DATEV",
-        type: "application",
-        description: "Accounting",
-        supplierId: "s1",
-      },
-      {
-        id: "a2",
-        name: "Server room",
-        type: "room",
-        description: null,
-        supplierId: null,
-      },
-      { id: "a3", name: "Sales", type: "process", description: null, supplierId: null },
+      { id: "a1", name: "DATEV", type: "application", description: "Accounting" },
+      { id: "a2", name: "Server room", type: "room", description: null },
+      { id: "a3", name: "Sales", type: "process", description: null },
     ],
     suppliers: [
       { id: "s1", name: "DATEV eG" },
       { id: "s2", name: "Cleaning company" },
+      { id: "s3", name: "Systemhaus Muster" },
+    ],
+    // DATEV is sold by its maker and looked after by the IT provider: two providers.
+    links: [
+      { assetId: "a1", supplierId: "s1" },
+      { assetId: "a1", supplierId: "s3" },
     ],
     assetRisks: [{ id: "r1", likelihood: 2, impact: 3, linked: ["a1"] }],
     supplierRisks: [],
   };
 
-  test("names each asset's kind and provider and carries what the register holds for it", () => {
+  test("names each asset's kind and every provider, and carries what the register holds", () => {
     expect(ratingRows("software", lists)).toEqual([
       {
         kind: "asset",
@@ -117,7 +111,7 @@ describe("the rows of a rating screen", () => {
         id: "a1",
         name: "DATEV",
         kindOf: "Accounting",
-        provider: "DATEV eG",
+        providers: ["DATEV eG", "Systemhaus Muster"],
         standing: {
           kind: "rated",
           riskId: "r1",
@@ -134,6 +128,7 @@ describe("the rows of a rating screen", () => {
     expect(rows.map((r) => (r.kind === "supplier" ? r.provides : null))).toEqual([
       ["DATEV"],
       [],
+      ["DATEV"],
     ]);
     expect(rows.every((r) => r.standing.kind === "open")).toBe(true);
   });

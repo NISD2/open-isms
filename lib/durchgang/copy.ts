@@ -11,6 +11,7 @@ import {
   type AnyItem,
   type AnyScreen,
   askedFields,
+  BACKUP_FREQUENCIES,
   POLICY_LISTS,
   type ScreenKind,
 } from "./types";
@@ -66,8 +67,24 @@ const SCREEN_COPY = {
   rate: z.object(heading),
   /** The two things a row can say is agreed, and the answer that neither is. */
   agreements: z.object({ ...heading, security: text, incidents: text, none: text }),
-  /** The answers a sign-in can have; `unknown` until someone has checked. */
-  logins: z.object({ ...heading, mfa: text, password: text, unknown: text }),
+  /**
+   * The answers a sign-in can have; `unknown` until someone has checked. `which` asks for the kind
+   * of second factor, one label per kind.
+   */
+  logins: z.object({
+    ...heading,
+    mfa: text,
+    password: text,
+    unknown: text,
+    which: text,
+    methods: z.object({
+      app: text,
+      security_key: text,
+      company_account: text,
+      sms: text,
+      email: text,
+    }),
+  }),
   approve: z.object(heading),
   riskmap: z.object(heading),
   /**
@@ -96,6 +113,39 @@ const SCREEN_COPY = {
       own: text,
       signature: text,
     }),
+  }),
+  /**
+   * The backup systems: the two answers per system, one label per frequency (a test checks the
+   * set against the schema's), the line when none is listed and the button that lists one.
+   */
+  backups: z.object({
+    ...heading,
+    frequency: text,
+    options: z.record(z.string(), text),
+    lastRestore: text,
+    lastRestoreHint: text,
+    empty: text,
+    add: text,
+  }),
+  /**
+   * The crypto list: the heading of each kind and status, where it comes from, the tick that it
+   * applies, and the link to change single entries.
+   */
+  crypto: z.object({
+    ...heading,
+    document: text,
+    categories: z.object({
+      symmetric: text,
+      hash: text,
+      asymmetric: text,
+      key_exchange: text,
+      tls: text,
+    }),
+    status: z.object({ approved: text, deprecated: text, prohibited: text }),
+    bsi: text,
+    own: text,
+    applies: text,
+    change: text,
   }),
   /** `note` only where there is something the person still needs to know. */
   done: z.object({ title: text, note: text.optional() }),
@@ -330,6 +380,16 @@ function resolveScreen(
       return one(screen, SCREEN_COPY.riskmap);
     case "critical":
       return one(screen, SCREEN_COPY.critical);
+    case "backups": {
+      // Every frequency the asset column takes needs its label, and no other.
+      const copy = one(screen, SCREEN_COPY.backups);
+      const labelled = copy.ok ? Object.keys(copy.value.copy.options).sort() : [];
+      return copy.ok && labelled.join() !== [...BACKUP_FREQUENCIES].sort().join()
+        ? { ok: false, errors: [`${where}.options: ${labelled.join()}`] }
+        : copy;
+    }
+    case "crypto":
+      return one(screen, SCREEN_COPY.crypto);
     case "policy": {
       // A clause is chosen and stored by its id, so two clauses may not share one.
       const copy = one(screen, SCREEN_COPY.policy);

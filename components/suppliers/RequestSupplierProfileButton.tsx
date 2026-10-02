@@ -34,9 +34,12 @@ type InviteRequestValues = z.infer<typeof supplierInviteRequestSchema>;
 
 export function RequestSupplierProfileButton({
   label = "Request security profile from a supplier",
+  supplierId,
 }: {
   /** The button's text, for a page that shows it in its own language. */
   label?: string;
+  /** The row of the supplier list it is sent for, which the reply then links. */
+  supplierId?: string;
 } = {}) {
   const [open, setOpen] = useState(false);
   const [inviteUrl, setInviteUrl] = useState<string | null>(null);
@@ -114,7 +117,7 @@ export function RequestSupplierProfileButton({
             defaultValues={{ toEmail: "", message: "" }}
             fieldOverrides={fieldOverrides}
             onSubmit={async (data) => {
-              await create.mutateAsync(data as InviteRequestValues);
+              await create.mutateAsync({ ...(data as InviteRequestValues), supplierId });
             }}
             submitLabel="Send invite"
             isSubmitting={create.isPending}

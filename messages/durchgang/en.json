@@ -82,9 +82,10 @@
         "what": "What exactly",
         "provider": "From whom",
         "inHouse": "run in house",
+        "addProvider": "Add another provider, then press Enter",
         "another": "Another of this kind",
         "empty": "Nothing in this area is on your list.",
-        "hint": "Whoever you name as the provider goes onto your supplier list. An empty field means run in house or not known yet. Two of one kind used for different work, for example two CRMs, get a row each; alike things used alike may stay one row (BSI-Standard 200-2, 8.1.1)."
+        "hint": "Whoever you name as a provider goes onto your supplier list. A program can have several, for example its maker and your IT provider. None means run in house or not known yet. Two of one kind used for different work, for example two CRMs, get a row each; alike things used alike may stay one row (BSI-Standard 200-2, 8.1.1)."
       },
       "rate": {
         "open": "Level",
@@ -99,8 +100,9 @@
       "unrated": "Not rated",
       "agreements": {
         "empty": "No supplier is on your list yet. You add your suppliers in step 5.1.",
-        "questionnaire": "Nothing settled with a supplier? Send them our security questionnaire. Once they have filled it in in the supplier portal, they appear on your supplier list as an entry of their own, with their answers.",
-        "questionnaireButton": "Send the security questionnaire"
+        "questionnaire": "Nothing settled with a supplier? Send them our security questionnaire from their row. Once they have filled it in in the supplier portal, their answers are linked to that row on your supplier list, with what you recorded there.",
+        "questionnaireButton": "Send the security questionnaire",
+        "linked": "Answers through the supplier portal"
       },
       "logins": {
         "empty": "No software is on your list yet. You create your list in step 2.2."
@@ -195,14 +197,19 @@
         "empty": "No training entered yet.",
         "withProof": "Proof attached",
         "withoutProof": "no proof",
+        "atProvider": "Record at the provider",
+        "link": "Link to the provider's record (optional)",
+        "linkHint": "Where an online course or a training provider keeps who took part, for example its completion report. Then the proof stays with them, also for many people.",
         "remove": "Delete",
-        "failed": "That was not saved. Please try again.",
+        "failed": "That was not saved. Check the link and try again.",
         "staff": {
           "who": "Who took part",
           "what": "Topic",
           "whatHint": "for example spotting phishing, at the team meeting",
+          "provider": "Provider (optional)",
+          "providerHint": "for example the online course or training institute",
           "empty": "No training or briefing entered yet.",
-          "proofHint": "Attendance list, slides or an export from the online course."
+          "proofHint": "List of who took part, slides or an export from the online course."
         }
       },
       "portals": {
@@ -810,11 +817,6 @@
             "lead": "Two details, so you know later which access was used and on which day. In Germany the access needs an ELSTER organisation certificate: its activation code comes by letter, a few days after you apply, to the address your tax office has. If the letter has not arrived yet, choose \"Not possible yet\".",
             "document": "Your access to the portal of {authority}"
           },
-          "proof": {
-            "title": "File a proof",
-            "lead": "Keep what the portal shows once the registration is complete: a confirmation, an overview page or an email. A screenshot or a printout records that yours is done.",
-            "document": "Confirmation of registration"
-          },
           "done": {
             "title": "Registration recorded"
           }
@@ -1106,10 +1108,31 @@
             "title": "Where you encrypt, and who holds the keys",
             "body": [
               "Encryption protects data where it can slip out of your hands: on a lost laptop, on its way across the internet, in a backup kept off site. Without the key, nobody can read it.",
-              "The cryptography policy records which methods you use, where you encrypt and how you handle keys and certificates, such as your website's. Our template has fixed sections on methods, keys and responsibility; you choose where you encrypt. Which methods count as secure is set out in Technical Guideline TR-02102, which Germany's BSI updates every year."
+              "Two things record it: your list of accepted methods, and the cryptography policy, which says where you encrypt and how you handle keys and certificates, such as your website's, and prints the list. Which methods count as secure is set out in Technical Guideline TR-02102, which Germany's BSI updates every year."
             ],
             "duty": "The law requires policies and procedures for the use of cryptography and, where appropriate, encryption. It does not say which methods; the measures take the state of the art into account.",
             "link": "BSI TR-02102, English editions"
+          },
+          "list": {
+            "title": "Your accepted methods",
+            "lead": "The methods your company uses for encryption, signatures and secure connections, and the ones it no longer uses. Until you keep a list of your own, this is what Germany's BSI recommends in TR-02102; your policy on the next screen prints it.",
+            "document": "Crypto list",
+            "categories": {
+              "symmetric": "Encryption",
+              "hash": "Hash functions",
+              "asymmetric": "Signatures and keys",
+              "key_exchange": "Key exchange",
+              "tls": "TLS"
+            },
+            "status": {
+              "approved": "Accepted",
+              "deprecated": "Only for what exists, not for anything new",
+              "prohibited": "Not to be used"
+            },
+            "bsi": "BSI TR-02102, version 2026-01",
+            "own": "Your own list",
+            "applies": "This list applies to us",
+            "change": "Change single entries on the requirement page"
           },
           "konzept": {
             "title": "Your cryptography policy",
@@ -1123,7 +1146,7 @@
                 },
                 {
                   "heading": "Methods",
-                  "text": "We use only established methods and currently recommended key lengths with no known vulnerabilities. When we buy devices, software or services, we make sure they use such methods."
+                  "text": "We use only established methods and currently recommended key lengths with no known vulnerabilities. When we buy devices, software or services, we make sure they use such methods. Our list of methods:\n{acceptedCrypto}"
                 },
                 {
                   "heading": "Keys and certificates",
@@ -1385,33 +1408,22 @@
           },
           "logins": {
             "title": "Where a second factor protects",
-            "lead": "For each program and access on your list, mark how people sign in. Each row starts at \"Password only\", the safe assumption; change it where you know better, or mark \"Not known yet\". Where several are reached through one company account, for example with Microsoft, they share the same answer. Whoever looks after your IT can tell you what you do not know.",
+            "lead": "For each program and access on your list, mark how people sign in, and where a second factor is on, which one: it can differ from program to program. Each row starts at \"Password only\", the safe assumption; change it where you know better, or mark \"Not known yet\". Where several are reached through one company account, for example with Microsoft, they share the same answer. Whoever looks after your IT can tell you what you do not know.",
             "mfa": "Second factor",
             "password": "Password only",
-            "unknown": "Not known yet"
-          },
-          "tool": {
-            "title": "What you use",
-            "lead": "Which app or device you use for the second factor. If it differs from program to program, name them all.",
-            "document": "Your sign-in"
+            "unknown": "Not known yet",
+            "which": "Which one:",
+            "methods": {
+              "app": "App on the phone",
+              "security_key": "Security key",
+              "company_account": "Through the company account",
+              "sms": "Code by SMS",
+              "email": "Code by email"
+            }
           },
           "done": {
             "title": "Your sign-ins are recorded",
             "note": "Where only a password is marked, decide from the risk whether to switch on a second factor. Start with what is reachable from outside."
-          }
-        },
-        "fields": {
-          "mfaTool": {
-            "label": "Second-factor solution",
-            "hint": "For example Microsoft Authenticator, another app on the work phone or a security key. If you use several, name them all.",
-            "suggestions": [
-              "Microsoft Authenticator",
-              "Google Authenticator",
-              "Another authenticator app on the work phone",
-              "Security key (FIDO2)",
-              "Codes by SMS",
-              "Codes by email"
-            ]
           }
         }
       },
@@ -1758,7 +1770,7 @@
             "title": "A backup you can restore",
             "body": [
               "A backup is a copy of your data that you bring back after an outage, an attack or a mistake. It only helps if a copy survives the incident and can really be restored.",
-              "In this step you record how often you back up and when a restore last worked. The details per system, such as where the backup is kept, stay on the requirement page."
+              "In this step you record, for each backup system on your list, how often it backs up and when a restore from it last worked. Where the copies are kept stays on the requirement page."
             ],
             "duty": "The law names backup management and disaster recovery explicitly as part of business continuity."
           },
@@ -1779,12 +1791,16 @@
             "lead": "Ask whoever looks after your IT, before you answer on the next screen:",
             "items": [
               {
-                "name": "How often",
-                "detail": "how often the data of the systems you run yourself is backed up: servers, file storage, databases"
+                "name": "Which backup systems",
+                "detail": "what makes your backups, for example backup software, a NAS or a cloud backup service; each one is a line on the next screen"
               },
               {
-                "name": "The last restore",
-                "detail": "when data last came back from a backup, of which system, and whether it was complete and readable; one sample is enough for the BSI"
+                "name": "How often each one backs up",
+                "detail": "continuously, hourly, daily or weekly, for the systems it backs up: servers, file storage, databases"
+              },
+              {
+                "name": "The last restore from each",
+                "detail": "when data last came back from it, and whether it was complete and readable; one sample is enough for the BSI"
               },
               {
                 "name": "Your cloud and software providers, separately",
@@ -1793,30 +1809,24 @@
             ],
             "source": "Germany's BSI, emergency management checklist: make backups regularly and test regularly that they can be restored. Checking by samples: Grundschutz++ NOT.4.16.1. The law names backup management, not figures per system (§ 30(2) no. 3 BSIG)."
           },
-          "backups": {
-            "title": "Your backups",
-            "lead": "What you were told, for the systems you run yourself. A backup that was never restored is not shown to work: the law asks for effective measures (§ 30(1) BSIG). That is our reading, not the wording of the law. If no restore has worked yet, leave the date empty and plan one.",
-            "document": "Your backups"
-          },
-          "done": {
-            "title": "Your backups are recorded",
-            "note": "Germany's BSI advises testing restores regularly. Enter the new date after each test."
-          }
-        },
-        "fields": {
-          "backupFrequency": {
-            "label": "How often your own systems are backed up",
-            "hint": "For the most important of the systems you run yourself. If they differ, the least frequent of them.",
+          "systems": {
+            "title": "Your backup systems",
+            "lead": "Each backup system on your list, with what you were told. A backup that was never restored is not shown to work: the law asks for effective measures (§ 30(1) BSIG). That is our reading, not the wording of the law.",
+            "frequency": "How often it backs up",
             "options": {
               "real_time": "continuously",
               "hourly": "hourly",
               "daily": "daily",
               "weekly": "weekly"
-            }
+            },
+            "lastRestore": "Last restore from it that worked",
+            "lastRestoreHint": "The day data last came back from it complete, as a test or for real. If none has worked yet, leave it empty and plan one.",
+            "empty": "No backup system is on your list yet.",
+            "add": "Add a backup system to your list"
           },
-          "lastBackupTest": {
-            "label": "Last restore that worked, of any of your own systems",
-            "hint": "The day data from one of the systems you run yourself last came back complete from a backup, as a test or for real. One system is enough."
+          "done": {
+            "title": "Your backups are recorded",
+            "note": "Germany's BSI advises testing restores regularly. Enter the new date after each test."
           }
         }
       },
@@ -1843,7 +1853,7 @@
             "rows": [
               {
                 "name": "Spotting phishing, all staff",
-                "detail": "team meeting, 14 January 2026, attendance list with signatures"
+                "detail": "team meeting, 14 January 2026, list of who was there"
               },
               {
                 "name": "First-day briefing, new colleague in sales",
@@ -1858,7 +1868,7 @@
           },
           "trainings": {
             "title": "Your trainings and briefings",
-            "lead": "Enter what has already taken place, one line per session. You can attach an attendance list or an export."
+            "lead": "Enter what has already taken place, one line per session. Attach a list of who took part or an export, or link the record at the provider, for example an online course's completion report. That works for many staff at once too."
           },
           "done": {
             "title": "Your training is recorded",

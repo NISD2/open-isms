@@ -218,9 +218,12 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
         id: "confirmation",
         fields: ["mukAccountId", "bsiRegistrationDate"],
       },
-      { kind: "evidence", id: "proof", field: "registrationProofUploaded" },
       { kind: "done", id: "done" },
     ],
+    notAsked: {
+      registrationProofUploaded:
+        "No statute asks a company to keep a proof of its registration: § 33 BSIG asks it to register, and the BSI documents neither a confirmation nor a registration number; the portal's overview of registered procedures shows it. The walk adds no evidence the law does not need (Simon, 02.10). The requirement page still takes an upload.",
+    },
   }),
   item({
     code: "2.1",
@@ -324,6 +327,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     reviewed: "2026-10-01",
     screens: [
       { kind: "learn", id: "learn", link: "bsi_tr_02102" },
+      { kind: "crypto", id: "list" },
       { kind: "policy", id: "konzept", policy: "cryptography" },
       { kind: "done", id: "done" },
     ],
@@ -351,12 +355,13 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
       { kind: "learn", id: "learn" },
       { kind: "compare", id: "where_first" },
       { kind: "logins", id: "logins" },
-      { kind: "fields", id: "tool", fields: ["mfaTool"] },
       { kind: "done", id: "done" },
     ],
     notAsked: {
+      mfaTool:
+        "The factor can differ per program (an app here, codes by email there), so the logins screen records it per program in asset.mfa_method; one company-wide answer would contradict those rows.",
       mfaMethods:
-        "§ 30 Abs. 2 Nr. 10 BSIG asks for multi-factor solutions, not a method; the BSI states that the German act sets no assurance level and the entity chooses from its risk analysis (#nis2know MFA page). The tool's name records what is used.",
+        "§ 30 Abs. 2 Nr. 10 BSIG asks for multi-factor solutions, not a method; the BSI states that the German act sets no assurance level and the entity chooses from its risk analysis (#nis2know MFA page). Which factor each program takes is recorded per program on the logins screen.",
       mfaCoverage:
         "Where a second factor is on is marked per program and remote access on the list from 2.2; one scope choice on top would state the same fact twice.",
       mfaCoveragePct:
@@ -447,10 +452,14 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
       { kind: "learn", id: "learn" },
       { kind: "compare", id: "copy" },
       { kind: "prepare", id: "ask" },
-      { kind: "fields", id: "backups", fields: ["backupFrequency", "lastBackupTest"] },
+      { kind: "backups", id: "systems" },
       { kind: "done", id: "done" },
     ],
     notAsked: {
+      backupFrequency:
+        "Recorded per backup system on the company's list (asset.backup_frequency), where the requirement page keeps it too; a company with two backup systems has two answers.",
+      lastBackupTest:
+        "Recorded per backup system on the company's list (asset.last_backup_test_date): the last restore that worked from that system.",
       backupEncryption:
         "No statute asks for encrypted backups; CIR 2024/2690 Annex 4.2.2(d) asks the digital providers it covers for access controls to backup copies, and encryption belongs to § 30 Abs. 2 Nr. 8 BSIG, which 9.1 walks (its Konzept offers an encrypted-backup clause).",
       backupRestoreSuccessRate:

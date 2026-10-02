@@ -2,11 +2,14 @@
 
 import { Check, ChevronDown, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { nameKey } from "@/lib/asset-inventory/catalog-labels";
 import { RISK_LEVEL_TEXT, type RiskLevel } from "@/lib/compliance/bsi-200-3";
 import {
   levelOf,
+  providersOf,
   type Rating,
   type RatingRow,
   type RatingTarget,
@@ -25,37 +28,88 @@ function Quiet({ children }: { children: string }) {
 }
 
 /** A row of answers of which one is chosen: a tap sets it, the field stays free to type in. */
-function OneOf({
-  items,
+function Chip({
+  on,
+  onClick,
+  children,
+}: {
+  on: boolean;
+  onClick: () => void;
+  children: string;
+}) {
+  return (
+    <button
+      type="button"
+      aria-pressed={on}
+      onClick={onClick}
+      className={cn(
+        "inline-flex cursor-pointer items-center gap-1 rounded-full border px-2.5 py-1 text-xs transition-colors",
+        on
+          ? "border-primary bg-primary/[0.06] text-foreground"
+          : "text-muted-foreground hover:border-primary/40 hover:text-foreground",
+      )}
+    >
+      {on && <Check className="size-3" />}
+      {children}
+    </button>
+  );
+}
+
+/**
+ * Who provides one thing: any number of suppliers, each a tap on or off, a name of one's own added
+ * with Enter, and "run in house" for none at all.
+ */
+function Providers({
+  id,
+  listId,
+  common,
   value,
   onChange,
 }: {
-  items: ReadonlyArray<{ readonly label: string; readonly value: string }>;
-  value: string;
-  onChange: (value: string) => void;
+  id: string;
+  listId: string;
+  common: readonly string[];
+  value: readonly string[];
+  onChange: (value: readonly string[]) => void;
 }) {
+  const t = useTranslations("durchgang.ui.specify");
+  const [typed, setTyped] = useState("");
+  const has = (name: string) => value.some((v) => nameKey(v) === nameKey(name));
+  const toggle = (name: string) =>
+    onChange(
+      has(name) ? value.filter((v) => nameKey(v) !== nameKey(name)) : [...value, name],
+    );
+  const add = () => {
+    const name = typed.trim();
+    if (name && !has(name)) onChange([...value, name]);
+    setTyped("");
+  };
   return (
-    <div className="mt-2 flex flex-wrap gap-1.5">
-      {items.map((item) => {
-        const on = item.value.trim().toLowerCase() === value.trim().toLowerCase();
-        return (
-          <button
-            key={item.label}
-            type="button"
-            aria-pressed={on}
-            onClick={() => onChange(item.value)}
-            className={cn(
-              "inline-flex cursor-pointer items-center gap-1 rounded-full border px-2.5 py-1 text-xs transition-colors",
-              on
-                ? "border-primary bg-primary/[0.06] text-foreground"
-                : "text-muted-foreground hover:border-primary/40 hover:text-foreground",
-            )}
-          >
-            {on && <Check className="size-3" />}
-            {item.label}
-          </button>
-        );
-      })}
+    <div className="space-y-2">
+      <div className="flex flex-wrap gap-1.5">
+        <Chip on={value.length === 0} onClick={() => onChange([])}>
+          {t("inHouse")}
+        </Chip>
+        {[...new Set([...value, ...common])].map((name) => (
+          <Chip key={nameKey(name)} on={has(name)} onClick={() => toggle(name)}>
+            {name}
+          </Chip>
+        ))}
+      </div>
+      <Input
+        id={id}
+        list={listId}
+        value={typed}
+        placeholder={t("addProvider")}
+        className="h-9 text-sm"
+        onChange={(e) => setTyped(e.target.value)}
+        onBlur={add}
+        onKeyDown={(e) => {
+          if (e.key !== "Enter") return;
+          e.preventDefault();
+          add();
+        }}
+      />
     </div>
   );
 }
@@ -66,32 +120,21 @@ export function Specify({ draft, onDraft, entry }: WorkProps & { entry: Of<"spec
   const utils = trpc.useUtils();
   const assets = trpc.asset.list.useQuery();
   const suppliers = trpc.supplier.list.useQuery();
+  const links = trpc.durchgang.providers.useQuery();
   const another = trpc.durchgang.addAnotherAsset.useMutation({
     onSuccess: () => utils.asset.list.invalidate(),
   });
-  const providerOf = new Map((suppliers.data ?? []).map((s) => [s.id, s.name]));
+  const listed = suppliers.data ?? [];
   const rows = (assets.data ?? []).filter((a) => sliceOf(a.type) === entry.screen.slice);
+  const storedOf = (id: string) => providersOf(id, links.data ?? [], listed);
   const listId = `providers-${entry.screen.id}`;
-  // Run in house, then the providers already named on this screen, then the rest of the list.
+  // The providers already named on this screen first, then the rest of the list.
   const common = [
-    { label: t("inHouse"), value: "" },
-    ...[
-      ...new Set([
-        ...rows.flatMap((r) =>
-          r.supplierId ? (providerOf.get(r.supplierId) ?? []) : [],
-        ),
-        ...(suppliers.data ?? []).map((s) => s.name),
-      ]),
-    ]
-      .slice(0, 4)
-      .map((name) => ({ label: name, value: name })),
-  ];
+    ...new Set([...rows.flatMap((r) => storedOf(r.id)), ...listed.map((s) => s.name)]),
+  ].slice(0, 5);
 
   const shown = (row: (typeof rows)[number]): Specified =>
-    draft.specified[row.id] ?? {
-      name: row.name,
-      provider: row.supplierId ? (providerOf.get(row.supplierId) ?? "") : "",
-    };
+    draft.specified[row.id] ?? { name: row.name, providers: storedOf(row.id) };
   const edit = (row: (typeof rows)[number], change: Partial<Specified>) =>
     onDraft({
       ...draft,
@@ -154,17 +197,12 @@ export function Specify({ draft, onDraft, entry }: WorkProps & { entry: Of<"spec
                     >
                       {t("provider")}
                     </Label>
-                    <Input
+                    <Providers
                       id={`provider-${row.id}`}
-                      list={listId}
-                      value={value.provider}
-                      placeholder={t("inHouse")}
-                      onChange={(e) => edit(row, { provider: e.target.value })}
-                    />
-                    <OneOf
-                      items={common}
-                      value={value.provider}
-                      onChange={(provider) => edit(row, { provider })}
+                      listId={listId}
+                      common={common}
+                      value={value.providers}
+                      onChange={(providers) => edit(row, { providers })}
                     />
                   </div>
                 </li>
@@ -189,11 +227,16 @@ export function useRatingRows(
   const supplierRisks = trpc.risk.listWithSuppliers.useQuery(undefined, {
     enabled: target === "suppliers",
   });
+  const links = trpc.durchgang.providers.useQuery(undefined, {
+    enabled: target !== null,
+  });
   const risks = onAssets ? assetRisks.data : supplierRisks.data;
-  if (!target || !assets.data || !suppliers.data || !risks) return undefined;
+  if (!target || !assets.data || !suppliers.data || !links.data || !risks)
+    return undefined;
   return ratingRows(target, {
     assets: assets.data,
     suppliers: suppliers.data,
+    links: links.data,
     assetRisks: (assetRisks.data ?? []).map((r) => ({
       id: r.id,
       likelihood: r.likelihood,
@@ -263,7 +306,10 @@ export function RateRow({
     });
   const about =
     row.kind === "asset"
-      ? [row.kindOf, row.provider && t("providedBy", { name: row.provider })]
+      ? [
+          row.kindOf,
+          row.providers.length > 0 && t("providedBy", { name: row.providers.join(", ") }),
+        ]
           .filter(Boolean)
           .join(" · ")
       : row.provides.length > 0 && t("provides", { names: row.provides.join(", ") });

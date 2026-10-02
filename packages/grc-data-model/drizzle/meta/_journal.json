@@ -36,6 +36,13 @@
       "when": 1790807070149,
       "tag": "0004_asset_supplier",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1790943216982,
+      "tag": "0005_quiet_onslaught",
+      "breakpoints": true
     }
   ]
 }
