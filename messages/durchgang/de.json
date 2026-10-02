@@ -305,6 +305,7 @@
       },
       "home": {
         "open": "Offen",
+        "toSignOff": "Noch nicht freigegeben. Zur Freigabe springen",
         "next": "Als Nächstes",
         "waiting": "Wartet noch",
         "continue": "NIS 2 Umsetzung fortsetzen",

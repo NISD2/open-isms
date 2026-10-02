@@ -305,6 +305,7 @@
       },
       "home": {
         "open": "Open",
+        "toSignOff": "Not signed off yet. Jump to sign-off",
         "next": "Next",
         "waiting": "Still waiting",
         "continue": "Continue your NIS 2 implementation",
