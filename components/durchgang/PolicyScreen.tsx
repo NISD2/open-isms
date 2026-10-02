@@ -52,8 +52,10 @@ function ClauseChip({
           onPointerEnter={(e) => e.pointerType === "mouse" && setOpen(true)}
           onPointerLeave={(e) => e.pointerType === "mouse" && setOpen(false)}
           onClick={(e) => {
-            // The popover is the hover preview only; a click toggles the clause.
+            // The popover is the hover preview only; a click toggles the clause, and the card
+            // under the chips then shows what went in.
             e.preventDefault();
+            setOpen(false);
             onToggle();
           }}
           className={cn(

@@ -245,7 +245,7 @@
         "oftenAxis": "wie oft"
       },
       "reporting": {
-        "yours": "Hier melden Sie",
+        "yours": "Ihr Land",
         "csirt": "Das CSIRT dort: {name}",
         "checked": "Sie melden im selben Portal wie bei der Registrierung, mit demselben Zugang. Auf der Startseite öffnet der rote Knopf „Sicherheitsvorfall melden“ das Formular.",
         "unchecked": "Auf der Website Ihrer Behörde steht, über welchen Weg Sie melden. Schlagen Sie es jetzt nach, nicht erst im Ernstfall.",
@@ -797,7 +797,7 @@
           },
           "setup": {
             "title": "Können Sie heute melden?",
-            "lead": "Prüfen Sie es jetzt, nicht erst im Ernstfall: Die Person, die melden würde, kann sich im Portal des {authority} anmelden.",
+            "lead": "Prüfen Sie es jetzt, nicht erst im Ernstfall. Ja heißt: Die Person, die im Ernstfall führt, oder ihre Vertretung hat den Zugang zum Portal des {authority} und hat ihn ausprobiert. Das ist der Zugang, mit dem Sie sich registriert haben: die Zertifikatsdatei des ELSTER-Organisationszertifikats und ihr Passwort.",
             "document": "Ihr Notfallplan"
           },
           "done": {
@@ -807,7 +807,7 @@
         "fields": {
           "bsiReportingRegistered": {
             "label": "Wir können uns im Portal anmelden und melden",
-            "hint": "Ja, wenn die Person, die im Ernstfall führt, oder ihre Vertretung den Zugang hat und ihn ausprobiert hat. Das ist der Zugang, mit dem Sie sich im BSI-Portal registriert haben: die Zertifikatsdatei des ELSTER-Organisationszertifikats und ihr Passwort. Nein, wenn nur eine Person ihn hat oder niemand weiß, wo das Zertifikat liegt."
+            "hint": "Nein zum Beispiel, wenn nur eine Person den Zugang hat und gerade weg ist, wenn die Zertifikatsdatei auf dem Rechner von jemandem liegt, der nicht mehr da ist, oder niemand das Passwort mehr weiß. Klären Sie das zuerst und kommen Sie dann zurück."
           }
         }
       },

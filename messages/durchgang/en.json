@@ -245,7 +245,7 @@
         "oftenAxis": "how often"
       },
       "reporting": {
-        "yours": "Where you report",
+        "yours": "Your country",
         "csirt": "Its CSIRT: {name}",
         "checked": "You report in the same portal as the registration, with the same access. On its start page, the red button \"Sicherheitsvorfall melden\" (report a security incident) opens the form.",
         "unchecked": "Your authority's website says which channel to use. Look it up now, not during an incident.",
@@ -791,7 +791,7 @@
           },
           "setup": {
             "title": "Can you report today?",
-            "lead": "Check it now, not during an incident: the person who would report can sign in to the portal of {authority}.",
+            "lead": "Check it now, not during an incident. Yes means: the person who leads in an emergency, or their deputy, has the login to the portal of {authority} and has tried it. In Germany that is the access you registered with: the ELSTER organisation certificate file and its password.",
             "document": "Your incident response plan"
           },
           "done": {
@@ -801,7 +801,7 @@
         "fields": {
           "bsiReportingRegistered": {
             "label": "We can sign in to the portal and report",
-            "hint": "Yes, if the person who leads in an emergency, or their deputy, has the login and has tried it. In Germany that is the access you registered with in the BSI portal: the ELSTER organisation certificate file and its password. No, if only one person has it, or nobody knows where the certificate is."
+            "hint": "No, for example, if only one person has the login and is away, if the certificate file sits on the computer of someone who has left, or if nobody remembers its password. Sort that out first, then come back."
           }
         }
       },
