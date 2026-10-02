@@ -8,7 +8,6 @@ import {
   Compass,
   FileText,
   Footprints,
-  GraduationCap,
   Receipt,
   ScrollText,
   Server,
@@ -136,7 +135,7 @@ function NavMenu({ items, pathname }: { items: NavItem[]; pathname: string }) {
           {item.soon === undefined ? (
             <SidebarMenuButton
               asChild
-              isActive={pathname === item.href || pathname.startsWith(`${item.href}/`)}
+              isActive={pathname === item.href}
               tooltip={item.label}
             >
               <Link href={item.href as never} prefetch={false}>
@@ -161,7 +160,6 @@ export function AppSidebar({
   durchgangOpen,
 }: AppSidebarProps) {
   const t = useTranslations("portal");
-  const tTraining = useTranslations("trainingPortal");
   const pathname = usePathname();
   // `usePathname()` returns the route template (e.g. `/compliance/[categorySlug]`),
   // so active-state must compare the resolved params, not concrete URL strings.
@@ -175,7 +173,6 @@ export function AppSidebar({
       icon: Footprints,
       ...(durchgangOpen ? {} : { soon: t("comingSoon") }),
     },
-    { href: "/training/courses", label: tTraining("courses"), icon: GraduationCap },
   ];
 
   // Living registers the journey strands: /assets only appears in the journey

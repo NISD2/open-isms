@@ -61,10 +61,8 @@ function buildSteps(
 }
 
 /**
- * The signed-in app's frame: the one sidebar, a header, and the page beside them. The portal
- * and the courses both render inside it, so moving between them never changes the navigation.
- * Gates (the paywall, the activation banner) belong to the caller's layout, not here: the
- * courses stay open to every account.
+ * The compliance portal's frame: its sidebar, a header, and the page beside them. Gates (the
+ * paywall, the activation banner) belong to the portal layout, not here.
  */
 export async function PortalShell({
   session,

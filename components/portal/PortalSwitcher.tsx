@@ -15,7 +15,7 @@
  * the unavailable portal still navigates — the destination's onboarding flow
  * handles the role-flag flip on first save.
  */
-import { Check, ChevronsUpDown, Shield, ShieldCheck } from "lucide-react";
+import { BookOpen, Check, ChevronsUpDown, Shield, ShieldCheck } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -32,7 +32,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Link } from "@/i18n/navigation";
 
-export type PortalKey = "compliance" | "supplier";
+export type PortalKey = "compliance" | "supplier" | "training";
 
 interface PortalDef {
   key: PortalKey;
@@ -56,6 +56,13 @@ const PORTALS: PortalDef[] = [
     tagline: "Share security data",
     href: "/portal/supplier",
     Icon: ShieldCheck,
+  },
+  {
+    key: "training",
+    name: "Training Portal",
+    tagline: "CEO & management courses",
+    href: "/training/courses",
+    Icon: BookOpen,
   },
 ];
 
