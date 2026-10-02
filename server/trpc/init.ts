@@ -65,6 +65,17 @@ export const platformAdminProcedure = setup.platformProcedure.use(({ ctx, next }
 });
 
 /**
+ * The access gate's refusal as its own class, so the Server Component caller (lib/trpc/server.ts)
+ * can tell it from any other FORBIDDEN and send the person to the offer instead. Over HTTP it is an
+ * ordinary FORBIDDEN with the same message.
+ */
+export class MustOrderFirstError extends TRPCError {
+  constructor() {
+    super({ code: "FORBIDDEN", message: "Order the NIS 2 Durchgang first." });
+  }
+}
+
+/**
  * The access gate (NIS2 plan, slice 5). Every company tier below (companyProcedure, adminProcedure,
  * reviewerProcedure, and activatedCompanyProcedure built on them) refuses an account whose
  * effective level is free, which only exists once billing is launched (lib/billing/access.ts). A
@@ -76,12 +87,7 @@ export const platformAdminProcedure = setup.platformProcedure.use(({ ctx, next }
  * account through the API, though the layout hides their pages. None of them is the journey.
  */
 const assertNotFree = (session: TRPCContext["session"]) => {
-  if (session?.accessLevel === "free") {
-    throw new TRPCError({
-      code: "FORBIDDEN",
-      message: "Order the NIS 2 Durchgang first.",
-    });
-  }
+  if (session?.accessLevel === "free") throw new MustOrderFirstError();
 };
 
 export const companyProcedure = setup.companyProcedure.use(({ ctx, next }) => {

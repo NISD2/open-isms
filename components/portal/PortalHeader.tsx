@@ -15,6 +15,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import type { Hint } from "@/lib/onboarding/hints";
+import { isLabelledSegment, SEGMENT_LABELS } from "./segment-labels";
 import { usePortalPath } from "./use-portal-path";
 
 function titleCase(slug: string) {
@@ -96,12 +97,14 @@ export function PortalHeader({
           crumbs.push({ label: requirementCode, href: undefined });
         }
       }
-    } else if (segments[0] === "audit") {
-      crumbs.push({ label: t("auditTrail"), href: undefined });
-    } else if (segments[0] === "journey") {
-      crumbs.push({ label: t("journey"), href: undefined });
     } else {
-      crumbs.push({ label: titleCase(segments[0]), href: undefined });
+      const segment = segments[0];
+      crumbs.push({
+        label: isLabelledSegment(segment)
+          ? t(SEGMENT_LABELS[segment])
+          : titleCase(segment),
+        href: undefined,
+      });
     }
 
     return crumbs;
