@@ -71,7 +71,7 @@ export function RiskPicker({
                 key={`${impact}:${frequency}`}
                 title={label}
                 className={cn(
-                  "size-7 cursor-pointer rounded-[5px] transition-[opacity,box-shadow] hover:opacity-100 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-1 has-[:focus-visible]:outline-foreground",
+                  "relative size-7 rounded-[5px] transition-[opacity,box-shadow] hover:opacity-100 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-1 has-[:focus-visible]:outline-foreground",
                   LEVEL_FILL[level],
                   picked && !on && "opacity-35",
                   on && "ring-2 ring-foreground ring-offset-1 ring-offset-background",
@@ -80,7 +80,7 @@ export function RiskPicker({
                 <input
                   type="radio"
                   name={group}
-                  className="sr-only"
+                  className="absolute inset-0 m-0 cursor-pointer appearance-none opacity-0"
                   aria-label={label}
                   checked={on}
                   onChange={() => onPick(frequency, impact)}
