@@ -138,10 +138,10 @@ export function DurchgangHome({ walk }: { walk: readonly WalkEntry[] }) {
               <li key={entry.code} className="relative">
                 {index < walk.length - 1 && (
                   // Joins this card to the next across the 8px gap, under the status circle's
-                  // centre (1px border, 20px padding, half the 24px circle).
+                  // centre (1px border, 20px padding, half the 28px circle).
                   <span
                     aria-hidden
-                    className="absolute top-full left-[33px] h-2 w-px -translate-x-1/2 bg-primary/25"
+                    className="absolute top-full left-[35px] h-2 w-px -translate-x-1/2 bg-primary/25"
                   />
                 )}
                 <div
@@ -150,9 +150,12 @@ export function DurchgangHome({ walk }: { walk: readonly WalkEntry[] }) {
                     isNext && "border-primary/60 ring-4 ring-primary/10",
                   )}
                 >
-                  {/* Blue when filled in and waiting for management, green once signed off.
-                      Above the card's stretched link so it can show its tooltip, and itself a
-                      link to the same step, out of the tab order, so a click on it opens it. */}
+                  {/* Two marks, two questions. The big circle: is the step filled in (empty, or
+                      a blue tick)? The small grey tick at its bottom right: signed off yet? Once
+                      signed off the small one goes and the whole circle turns green (Simon,
+                      03.10.2026). Above the card's stretched link so it can show its tooltip,
+                      and itself a link to the same step, out of the tab order, so a click on it
+                      opens it. */}
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Link
@@ -160,7 +163,7 @@ export function DurchgangHome({ walk }: { walk: readonly WalkEntry[] }) {
                         tabIndex={-1}
                         aria-hidden
                         className={cn(
-                          "relative z-10 flex size-6 shrink-0 items-center justify-center rounded-full border-2 border-muted-foreground/25",
+                          "relative z-10 flex size-7 shrink-0 items-center justify-center rounded-full border-2 border-muted-foreground/25",
                           settled && "border-primary bg-primary text-primary-foreground",
                           signedOff && "border-emerald-600 bg-emerald-600 text-white",
                           waiting && "border-amber-400 text-amber-600",
@@ -168,10 +171,15 @@ export function DurchgangHome({ walk }: { walk: readonly WalkEntry[] }) {
                         )}
                       >
                         {settled ? (
-                          <Check className="size-3.5" />
+                          <Check className="size-4" />
                         ) : waiting ? (
-                          <Clock className="size-3.5" />
+                          <Clock className="size-4" />
                         ) : null}
+                        {!signedOff && (
+                          <span className="absolute -right-1.5 -bottom-1.5 flex size-4 items-center justify-center rounded-full border border-muted-foreground/30 bg-card text-muted-foreground/60 ring-2 ring-card">
+                            <Check className="size-2.5" strokeWidth={3} />
+                          </span>
+                        )}
                       </Link>
                     </TooltipTrigger>
                     <TooltipContent>{stateLabel(entry)}</TooltipContent>
