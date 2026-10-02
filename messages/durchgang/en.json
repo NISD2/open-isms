@@ -91,7 +91,7 @@
         "addProvider": "Add another provider, then press Enter",
         "another": "Another of this kind",
         "about": "What it does at your company",
-        "aboutHint": "For example: sales contacts and quotes, with customers' names and email addresses",
+        "aboutHint": "What for, who works with it, and what data it holds",
         "empty": "Nothing in this area is on your list.",
         "hint": "Whoever you name as a provider goes onto your supplier list. A program can have several, for example its maker and your IT provider. None means run in house or not known yet. Two of one kind used for different work, for example two CRMs, get a row each; alike things used alike may stay one row (BSI-Standard 200-2, 8.1.1)."
       },

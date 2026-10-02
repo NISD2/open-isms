@@ -20,6 +20,7 @@ const RATE_SUPPLIERS = 3;
 
 const KIND = "E2E Buchhaltung";
 const PRODUCT = "E2E DATEV Unternehmen online";
+const PURPOSE = "Buchhaltung und Lohn, mit den Gehältern aller Mitarbeitenden";
 const PROVIDER = "E2E DATEV eG";
 const SECOND_PROVIDER = "E2E Systemhaus Muster";
 
@@ -139,7 +140,7 @@ test.describe("durchgang registers", () => {
     ]);
   });
 
-  test("names an asset and adds its providers to the supplier list (2.2)", async ({
+  test("names an asset, says what it is for and adds its providers to the supplier list (2.2)", async ({
     page,
   }) => {
     await page.goto(`/de/durchgang/2.2?s=${WHICH_SOFTWARE}`);
@@ -147,6 +148,7 @@ test.describe("durchgang registers", () => {
     await expect(what).toBeVisible({ timeout: 30_000 });
 
     await what.fill(PRODUCT);
+    await page.locator(`#about-${assetId}`).fill(PURPOSE);
     // Two providers: the maker, and the IT provider that looks after it.
     const addProvider = page.locator(`#provider-${assetId}`);
     await addProvider.fill(PROVIDER);
@@ -180,7 +182,7 @@ test.describe("durchgang registers", () => {
       })
       .toEqual({
         name: PRODUCT,
-        description: KIND,
+        description: PURPOSE,
         providers: [PROVIDER, SECOND_PROVIDER].sort(),
       });
 
