@@ -19,6 +19,7 @@
  * References: companies, users
  */
 
+import { supplier } from "@nisd2/grc-data-model/schema";
 import { company } from "@nisd2/isms-schema/tables/organization";
 import {
   index,
@@ -45,10 +46,12 @@ export const supplierInvite = pgTable(
 
     /**
      * The row on the sender's own supplier list this invite was sent for, so the reply links that
-     * row instead of adding a second one. No foreign key: the supplier table lives in the GRC
-     * migration history. Accepting re-checks that the row belongs to the sender and is unlinked.
+     * row instead of adding a second one; null when the row is deleted. Accepting re-checks that
+     * the row belongs to the sender and is unlinked.
      */
-    supplierId: uuid("supplier_id"),
+    supplierId: uuid("supplier_id").references(() => supplier.id, {
+      onDelete: "set null",
+    }),
 
     /**
      * 64-char hex magic-link token. Knowledge of this token grants the right

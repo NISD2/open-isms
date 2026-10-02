@@ -1,5 +1,5 @@
 {
-  "id": "259c77f9-6b84-4f6e-afa0-48be23069788",
+  "id": "41f93e63-2398-4603-ae90-a7fbb2cdafa8",
   "prevId": "31fce41f-e8e3-47cc-8295-37c52c9fa169",
   "version": "7",
   "dialect": "postgresql",
@@ -6476,7 +6476,12 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "policies": {},
-      "checkConstraints": {},
+      "checkConstraints": {
+        "chk_training_source_url": {
+          "name": "chk_training_source_url",
+          "value": "\"training_record\".\"source_url\" IS NULL OR \"training_record\".\"source_url\" ILIKE 'https://%' OR \"training_record\".\"source_url\" ILIKE 'http://%'"
+        }
+      },
       "isRLSEnabled": false
     },
     "public.vulnerability": {

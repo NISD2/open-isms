@@ -12,6 +12,7 @@
  * BSI wrote it.
  */
 
+import type { assetMfaMethodEnum } from "@nisd2/grc-data-model/enums";
 import type { FunctionalGroup } from "@/lib/asset-inventory/catalog";
 import type { Frequency, Impact } from "@/lib/compliance/bsi-200-3";
 import {
@@ -66,9 +67,12 @@ export type Adoptable = "bsi_200_3_method";
 /** Where a field's common answers are read from: the software list, or the contact email. */
 export type SuggestSource = "software" | "contact";
 
+/** A kind of second factor, as the database enum on `asset.mfa_method` defines it. */
+export type MfaMethod = (typeof assetMfaMethodEnum.enumValues)[number];
+
 /**
- * The kinds of second factor 11.1 tells apart per program, stored in `asset.mfa_method`. Signing
- * in through the company's own account (Microsoft, Google) takes whatever factor that account has.
+ * The kinds of second factor 11.1 tells apart per program, in the order the screen offers them.
+ * Listed here so client code does not load the enum's runtime; a test pins it to the enum.
  */
 export const MFA_METHODS = [
   "app",
@@ -76,8 +80,7 @@ export const MFA_METHODS = [
   "company_account",
   "sms",
   "email",
-] as const;
-export type MfaMethod = (typeof MFA_METHODS)[number];
+] as const satisfies readonly MfaMethod[];
 
 /** How often a backup system backs up: the values the intake already offers for 4.4. */
 export const BACKUP_FREQUENCIES = BCP_SCHEMA.shape.backupFrequency.options;

@@ -57,6 +57,7 @@ import type { ErasureMethod, ErasureScope } from "@/schema";
 // Remaining table objects, kept in a second import to keep the list readable.
 import {
   asset,
+  assetProvider,
   assetSupplierOffering,
   auditFinding,
   auditLog,
@@ -1252,6 +1253,12 @@ async function tearDownCompany(
         .delete(assetSupplierOffering)
         .where(inArray(assetSupplierOffering.assetId, l))
         .returning(),
+    assetIds,
+  );
+  // Deleted here rather than left to the cascade from asset, so the certificate counts them.
+  await byIds(
+    "asset_provider",
+    (l) => tx.delete(assetProvider).where(inArray(assetProvider.assetId, l)).returning(),
     assetIds,
   );
   await byIds(

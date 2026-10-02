@@ -15,6 +15,7 @@ import { mayWalkDurchgang } from "@/lib/billing/access";
 import { FREQUENCIES, IMPACTS, type RiskLevel } from "@/lib/compliance/bsi-200-3";
 import { invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
 import { getDefaultPolicyConfig } from "@/lib/compliance/policy-config-defaults";
+import { POLICY_CONFIG_SCHEMAS } from "@/lib/compliance/policy-config-schemas";
 import { getDefaultMethodology } from "@/lib/compliance/risk-methodology-defaults";
 import { seedLocale } from "@/lib/compliance/seed-locale";
 import type { DbOrTx } from "@/lib/db";
@@ -95,7 +96,6 @@ import {
   router,
   type TRPCContext,
 } from "../init";
-import { cryptoConfigSchema } from "./policy-config";
 
 /**
  * The Durchgang's own writes: what the existing procedures cannot record. Field answers, uploads
@@ -234,7 +234,7 @@ const cryptoListOf = async (db: DbOrTx, companyId: string) => {
         eq(companyPolicyConfig.policyType, CRYPTO_LIST),
       ),
     );
-  const parsed = cryptoConfigSchema.safeParse(row?.config);
+  const parsed = POLICY_CONFIG_SCHEMAS[CRYPTO_LIST].safeParse(row?.config);
   return parsed.success ? parsed.data : null;
 };
 
@@ -1213,7 +1213,8 @@ export const durchgangRouter = router({
    * 4.4: per backup system on the company's list, how often it backs up and the day of its last
    * restore that worked, in the asset's own columns, which the requirement page shows too. Only
    * the company's own backup systems are written, and only where an answer changed; an emptied
-   * day clears it.
+   * day clears it. An omitted frequency keeps the stored one, which the asset page may have
+   * written as free text that none of the walk's options name.
    */
   recordBackups: durchgangWrite
     .input(
@@ -1223,7 +1224,7 @@ export const durchgangRouter = router({
           .array(
             z.object({
               assetId: z.string().uuid(),
-              frequency: z.enum(BACKUP_FREQUENCIES).nullable(),
+              frequency: z.enum(BACKUP_FREQUENCIES).nullable().optional(),
               lastRestore: z.iso.date().nullable(),
             }),
           )
@@ -1262,18 +1263,22 @@ export const durchgangRouter = router({
         throw new TRPCError({ code: "NOT_FOUND" });
       }
       const before = new Map(owned.map((a) => [a.id, a]));
+      const kept = (row: (typeof rows)[number]) =>
+        row.frequency === undefined
+          ? (before.get(row.assetId)?.frequency ?? null)
+          : row.frequency;
       const changed = rows.filter((row) => {
         const was = before.get(row.assetId);
         return (
           was !== undefined &&
-          (row.frequency !== was.frequency || row.lastRestore !== was.lastRestore)
+          (kept(row) !== was.frequency || row.lastRestore !== was.lastRestore)
         );
       });
       for (const row of changed) {
         await ctx.db
           .update(asset)
           .set({
-            backupFrequency: row.frequency,
+            backupFrequency: kept(row),
             lastBackupTestDate: row.lastRestore,
             updatedAt: new Date(),
           })
@@ -1289,9 +1294,7 @@ export const durchgangRouter = router({
             locale,
             rows.map((row) => ({
               name: before.get(row.assetId)?.name ?? "",
-              frequency: row.frequency
-                ? (screen.copy.options[row.frequency] ?? null)
-                : null,
+              frequency: row.frequency ? screen.copy.options[row.frequency] : kept(row),
               lastRestore: row.lastRestore,
             })),
           ),

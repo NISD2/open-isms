@@ -1,1 +1,0 @@
-ALTER TABLE "supplier_invite" ADD COLUMN "supplier_id" uuid;

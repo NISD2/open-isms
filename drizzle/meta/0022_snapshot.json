@@ -1,5 +1,5 @@
 {
-  "id": "a6427660-2987-425b-86dd-7e8cb0bf9613",
+  "id": "56eafb0a-2abf-4463-959d-38620acdc3df",
   "prevId": "9c8ee637-9a1e-4fd6-9453-2686b74cf478",
   "version": "7",
   "dialect": "postgresql",
@@ -1541,6 +1541,19 @@
             "id"
           ],
           "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "supplier_invite_supplier_id_supplier_id_fk": {
+          "name": "supplier_invite_supplier_id_supplier_id_fk",
+          "tableFrom": "supplier_invite",
+          "tableTo": "supplier",
+          "columnsFrom": [
+            "supplier_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
           "onUpdate": "no action"
         },
         "supplier_invite_accepted_by_company_id_company_id_fk": {

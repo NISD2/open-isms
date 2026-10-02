@@ -1,5 +1,5 @@
 {
-  "id": "5caee5f1-dd19-4a7e-8b31-ad690955f49c",
+  "id": "e42bb7e8-651a-49ab-859d-a05d922a3cf8",
   "prevId": "b7afa1d2-dac0-4084-a761-f472b6a8e43b",
   "version": "7",
   "dialect": "postgresql",
@@ -431,7 +431,8 @@
         },
         "mfa_method": {
           "name": "mfa_method",
-          "type": "varchar(30)",
+          "type": "asset_mfa_method",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": false
         },
@@ -2705,6 +2706,17 @@
         "critical_installation",
         "service_type_60_1",
         "sector_35_2"
+      ]
+    },
+    "public.asset_mfa_method": {
+      "name": "asset_mfa_method",
+      "schema": "public",
+      "values": [
+        "app",
+        "security_key",
+        "company_account",
+        "sms",
+        "email"
       ]
     },
     "public.asset_service_type": {

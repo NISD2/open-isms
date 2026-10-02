@@ -11,6 +11,7 @@
 import { sql } from "drizzle-orm";
 import {
   boolean,
+  check,
   date,
   index,
   integer,
@@ -57,7 +58,8 @@ export const trainingRecord = pgTable(
     // Certification
     certificateFileKey: varchar("certificate_file_key", { length: 500 }),
     // Where the training provider keeps its own record (an e-learning platform's completion
-    // report), for staff trained outside the company: the proof stays with the provider.
+    // report), for staff trained outside the company: the proof stays with the provider. Shown
+    // as a link, so the database itself takes only web addresses (chk_training_source_url).
     sourceUrl: varchar("source_url", { length: 2048 }),
     nextTrainingDue: date("next_training_due"),
 
@@ -67,5 +69,9 @@ export const trainingRecord = pgTable(
     index("idx_training_company").on(table.companyId),
     index("idx_training_user").on(table.userId),
     index("idx_training_management").on(table.isManagement),
+    check(
+      "chk_training_source_url",
+      sql`${table.sourceUrl} IS NULL OR ${table.sourceUrl} ILIKE 'https://%' OR ${table.sourceUrl} ILIKE 'http://%'`,
+    ),
   ],
 );

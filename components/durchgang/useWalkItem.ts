@@ -188,7 +188,10 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
       case "backups": {
         const rows = Object.entries(snapshot.backups).map(([assetId, b]) => ({
           assetId,
-          frequency: isBackupFrequency(b.frequency) ? b.frequency : null,
+          frequency:
+            b.frequency === null || isBackupFrequency(b.frequency)
+              ? b.frequency
+              : undefined,
           lastRestore: b.lastRestore || null,
         }));
         if (rows.length > 0) {

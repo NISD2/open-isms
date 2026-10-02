@@ -704,6 +704,25 @@ describe("the walk's backup systems", () => {
     );
   });
 
+  test("keeps a frequency the asset page wrote as free text when the walk leaves it out", async () => {
+    const { caller, writes } = setup({
+      accessLevel: "full",
+      assets: [{ ...veeam, frequency: "jede Nacht um 2 Uhr" }],
+    });
+    await caller.recordBackups({
+      code: "4.4",
+      rows: [{ assetId: VEEAM, lastRestore: "2026-09-30" }],
+    });
+    const updates = writes.filter((w) => w.op === "update" && w.table === asset);
+    expect(updates.map((u) => u.values)).toEqual([
+      expect.objectContaining({
+        backupFrequency: "jede Nacht um 2 Uhr",
+        lastBackupTestDate: "2026-09-30",
+      }),
+    ]);
+    expect(noteOf(writes)).toContain("Veeam, jede Nacht um 2 Uhr");
+  });
+
   test("refuses an asset that is no backup system, and writes nothing", async () => {
     const { caller, writes } = setup({
       accessLevel: "full",

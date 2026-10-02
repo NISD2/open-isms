@@ -130,6 +130,18 @@ export const transferMechanismEnum = pgEnum("transfer_mechanism", [
   "none",
 ]);
 
+/**
+ * Which second factor signing in to an asset takes. Signing in through the company's own account
+ * (Microsoft, Google) takes whatever factor that account has.
+ */
+export const assetMfaMethodEnum = pgEnum("asset_mfa_method", [
+  "app",
+  "security_key",
+  "company_account",
+  "sms",
+  "email",
+]);
+
 export const assetServiceTypeEnum = pgEnum("asset_service_type", [
   "saas",
   "on_prem",

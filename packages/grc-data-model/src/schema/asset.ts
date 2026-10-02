@@ -9,6 +9,7 @@ import {
   uuid,
   varchar,
 } from "drizzle-orm/pg-core";
+import { assetMfaMethodEnum } from "../enums";
 import { supplier } from "./supplier";
 
 export const asset = pgTable(
@@ -29,8 +30,9 @@ export const asset = pgTable(
     owner: varchar("owner", { length: 255 }),
     location: varchar("location", { length: 255 }),
 
-    // The supplier on the company's own list that provides it; null when it is run in house or
-    // the provider is not recorded.
+    // Superseded by asset_provider, which allows several providers per asset and was backfilled
+    // from this column (migration 0005). No code reads or writes it any more; it is dropped once
+    // no running release does either.
     supplierId: uuid("supplier_id").references(() => supplier.id, {
       onDelete: "set null",
     }),
@@ -45,9 +47,9 @@ export const asset = pgTable(
     privilegedAccountCount: integer("privileged_account_count").default(0),
 
     hasMfa: boolean("has_mfa").default(false),
-    // Which second factor signing in takes, where it takes one: it can differ per program
-    // (an app here, codes by email there). Values in MFA_METHODS (lib/durchgang).
-    mfaMethod: varchar("mfa_method", { length: 30 }),
+    // Which second factor signing in takes; it can differ per program (an app here, codes by
+    // email there). It means something only while has_mfa is true, and readers ignore it otherwise.
+    mfaMethod: assetMfaMethodEnum("mfa_method"),
     encryptionAtRest: varchar("encryption_at_rest", { length: 100 }),
     encryptionInTransit: varchar("encryption_in_transit", { length: 100 }),
     cryptoImplementation: varchar("crypto_implementation", { length: 255 }),
