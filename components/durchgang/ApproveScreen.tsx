@@ -51,76 +51,93 @@ export function Approval({ viewer, locale }: { viewer: Viewer; locale: WalkLocal
   const t = useTranslations("durchgang.ui.approve");
   const utils = trpc.useUtils();
   const { data: rows } = trpc.durchgang.walkPolicies.useQuery();
+  const { data: items } = trpc.durchgang.awaitingSignature.useQuery({ locale });
   /** The drafts left out of this approval; every other draft is approved. */
   const [left, setLeft] = useState<readonly PolicyTemplate[]>([]);
   const approve = trpc.durchgang.approvePolicies.useMutation({
-    onSuccess: async () => {
+    onSuccess: async (result) => {
       setLeft([]);
       await Promise.all([
         utils.durchgang.walkPolicies.invalidate(),
+        utils.durchgang.awaitingSignature.invalidate(),
         utils.policy.list.invalidate(),
       ]);
-      toast.success(t("done"));
+      toast.success(
+        result.approved > 0 ? t("done") : t("signedDone", { count: result.signed }),
+      );
     },
     onError: (err) => toast.error(userFacingError(err, t("failed"))),
   });
 
-  if (rows === undefined) return null;
-  if (rows.length === 0) return <p className="mt-8 text-muted-foreground">{t("none")}</p>;
+  if (rows === undefined || items === undefined) return null;
+  if (rows.length === 0 && items.length === 0) {
+    return <p className="mt-8 text-muted-foreground">{t("none")}</p>;
+  }
 
   const drafts = rows.filter((row) => row.status === "draft");
   const chosen = drafts.filter((row) => !left.includes(row.type));
   const toggle = (type: PolicyTemplate) =>
     setLeft(left.includes(type) ? left.filter((x) => x !== type) : [...left, type]);
+  /** An item is signed with this approval unless one of its drafts is left out. */
+  const signing = items.filter(
+    (item) => !item.drafts.some((type) => left.includes(type)),
+  );
 
   return (
     <>
-      <ul className="mt-8 divide-y overflow-hidden rounded-2xl border bg-card shadow-sm">
-        {rows.map((row) => (
-          <li key={`${row.code}:${row.type}`} className="px-5 py-4">
-            <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-6">
-              <p className="font-medium break-words">{row.title}</p>
-              {row.status !== "draft" ? (
-                <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                  <Check className="size-4 text-primary" />
-                  {row.effectiveFrom
-                    ? t(row.approver ? "approvedBy" : "approvedOn", {
-                        date: enteredDay(locale, row.effectiveFrom),
-                        name: row.approver ?? "",
-                      })
-                    : t("approvedUndated")}
-                </p>
-              ) : viewer.management ? (
-                <Toggle on={!left.includes(row.type)} onClick={() => toggle(row.type)}>
-                  {t("approve")}
-                </Toggle>
-              ) : (
-                <span className="text-sm text-muted-foreground">{t("waiting")}</span>
-              )}
-            </div>
-            <details className="group mt-2">
-              <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 text-sm font-medium text-primary">
-                <ChevronDown className="size-4 transition-transform group-open:rotate-180" />
-                {t("read")}
-              </summary>
-              <div
-                className="prose prose-sm mt-4 max-w-[68ch] dark:prose-invert"
-                // Rendered on the server from the stored text, without raw HTML.
-                // biome-ignore lint/security/noDangerouslySetInnerHtml: see above
-                dangerouslySetInnerHTML={{ __html: row.html }}
-              />
-            </details>
-          </li>
-        ))}
-      </ul>
-      {drafts.length > 0 &&
+      {rows.length > 0 && (
+        <ul className="mt-8 divide-y overflow-hidden rounded-2xl border bg-card shadow-sm">
+          {rows.map((row) => (
+            <li key={`${row.code}:${row.type}`} className="px-5 py-4">
+              <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-6">
+                <p className="font-medium break-words">{row.title}</p>
+                {row.status !== "draft" ? (
+                  <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                    <Check className="size-4 text-primary" />
+                    {row.effectiveFrom
+                      ? t(row.approver ? "approvedBy" : "approvedOn", {
+                          date: enteredDay(locale, row.effectiveFrom),
+                          name: row.approver ?? "",
+                        })
+                      : t("approvedUndated")}
+                  </p>
+                ) : viewer.management ? (
+                  <Toggle on={!left.includes(row.type)} onClick={() => toggle(row.type)}>
+                    {t("approve")}
+                  </Toggle>
+                ) : (
+                  <span className="text-sm text-muted-foreground">{t("waiting")}</span>
+                )}
+              </div>
+              <details className="group mt-2">
+                <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 text-sm font-medium text-primary">
+                  <ChevronDown className="size-4 transition-transform group-open:rotate-180" />
+                  {t("read")}
+                </summary>
+                <div
+                  className="prose prose-sm mt-4 max-w-[68ch] dark:prose-invert"
+                  // Rendered on the server from the stored text, without raw HTML.
+                  // biome-ignore lint/security/noDangerouslySetInnerHtml: see above
+                  dangerouslySetInnerHTML={{ __html: row.html }}
+                />
+              </details>
+            </li>
+          ))}
+        </ul>
+      )}
+      {items.length > 0 && (
+        <SignedWith items={items} signing={signing} management={viewer.management} />
+      )}
+      {(drafts.length > 0 || items.length > 0) &&
         (viewer.management ? (
           <section className="mt-6 rounded-2xl border border-primary/30 bg-primary/[0.04] p-5 sm:p-6">
             <p className="text-sm leading-6">{t("asManagement")}</p>
             <Button
               size="lg"
               className="mt-4 rounded-xl"
-              disabled={chosen.length === 0 || approve.isPending}
+              disabled={
+                (chosen.length === 0 && signing.length === 0) || approve.isPending
+              }
               onClick={() =>
                 APPROVAL_SCREEN &&
                 approve.mutate({
@@ -130,13 +147,56 @@ export function Approval({ viewer, locale }: { viewer: Viewer; locale: WalkLocal
               }
             >
               <UserCheck />
-              {t("approveCount", { count: chosen.length })}
+              {chosen.length > 0
+                ? t("approveCount", { count: chosen.length })
+                : t("signCount", { count: signing.length })}
             </Button>
           </section>
         ) : (
           <SendToManagement viewer={viewer} locale={locale} />
         ))}
     </>
+  );
+}
+
+/**
+ * The items of the walk this approval signs off, so management sees what its click finishes
+ * besides the documents. An item whose document is left out stays open and says why.
+ */
+function SignedWith({
+  items,
+  signing,
+  management,
+}: {
+  items: ReadonlyArray<{ readonly code: string; readonly headline: string }>;
+  signing: ReadonlyArray<{ readonly code: string }>;
+  management: boolean;
+}) {
+  const t = useTranslations("durchgang.ui.approve");
+  return (
+    <section className="mt-8">
+      <p className="font-semibold">{t(management ? "signTitle" : "signTitleOthers")}</p>
+      <p className="mt-1 max-w-[60ch] text-sm leading-6 text-muted-foreground">
+        {t(management ? "signLead" : "signLeadOthers")}
+      </p>
+      <ul className="mt-4 divide-y overflow-hidden rounded-2xl border bg-card shadow-sm">
+        {items.map((item) => (
+          <li key={item.code} className="flex items-baseline gap-3 px-5 py-3">
+            <span className="w-10 shrink-0 text-sm tabular-nums text-muted-foreground">
+              {item.code}
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="font-medium break-words">{item.headline}</span>
+              {!signing.some((s) => s.code === item.code) && (
+                <span className="block text-sm text-muted-foreground">
+                  {t("staysOpen")}
+                </span>
+              )}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }
 

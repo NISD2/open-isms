@@ -175,9 +175,16 @@ function setup(opts: {
           where: (where: SQL) => {
             if (table === supplier) wheres.push({ table: "supplier", where });
             if (table === asset) wheres.push({ table: "asset", where });
-            return Object.assign(Promise.resolve(rows), { for: async () => rows });
+            return Object.assign(Promise.resolve(rows), {
+              for: async () => rows,
+              limit: async () => rows,
+            });
           },
-          innerJoin: () => ({ where: async () => opts.riskLinks ?? [] }),
+          // The rated things' risks; the walk's documents join their approver too.
+          innerJoin: () => ({
+            where: async () => opts.riskLinks ?? [],
+            leftJoin: () => ({ where: async () => [] }),
+          }),
         };
       },
     }),
@@ -812,7 +819,7 @@ describe("the management's approval of the walk's documents", () => {
 
   test("approves only drafts, only on the company's row of the item, as the person signed in", async () => {
     const { caller, writes } = setup(management);
-    expect(await caller.approvePolicies(approve)).toEqual({ approved: 1 });
+    expect(await caller.approvePolicies(approve)).toEqual({ approved: 1, signed: 0 });
     const updates = writes.filter((w) => w.op === "update" && w.table === policy);
     expect(updates).toHaveLength(1);
     expect(updates[0]?.values).toMatchObject({
@@ -841,7 +848,10 @@ describe("the management's approval of the walk's documents", () => {
 
   test("takes management's role, not a category: a member of management assigned nothing approves", async () => {
     const member = setup({ ...management, role: "member", assigned: false });
-    expect(await member.caller.approvePolicies(approve)).toEqual({ approved: 1 });
+    expect(await member.caller.approvePolicies(approve)).toEqual({
+      approved: 1,
+      signed: 0,
+    });
   });
 
   test("refuses anyone who is not management, an admin included, and writes nothing", async () => {
@@ -861,7 +871,10 @@ describe("the management's approval of the walk's documents", () => {
       `Von der Geschäftsführung freigegeben am ${today}: Kryptokonzept der Muster GmbH`,
     );
     const nothing = setup({ ...management, storedPolicy: undefined });
-    expect(await nothing.caller.approvePolicies(approve)).toEqual({ approved: 0 });
+    expect(await nothing.caller.approvePolicies(approve)).toEqual({
+      approved: 0,
+      signed: 0,
+    });
     expect(noteOf(nothing.writes)).toBe("");
   });
 

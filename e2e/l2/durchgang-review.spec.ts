@@ -1,10 +1,11 @@
 /**
  * L2 Durchgang management review (7.3): the review is entered in the management review register,
  * and management approves the drafts the walk wrote, signed in with its own account, through the
- * real UI against real Postgres. The approval records who approved, when and in which role.
+ * real UI against real Postgres. The approval records who approved, when and in which role, and
+ * signs off the items waiting for it, 7.3 among them, so the journey sees them done.
  *
- * Cleanup removes the review and the draft this file adds and puts back the e2e user's role,
- * because later layers read this tenant (`e2e/lib/durchgang.ts`).
+ * Cleanup removes the review and the draft this file adds, puts back the e2e user's role and
+ * undoes the sign-offs, because later layers read this tenant (`e2e/lib/durchgang.ts`).
  */
 import { expect, test } from "@playwright/test";
 import { e2eQuery } from "../lib/db";
@@ -13,7 +14,9 @@ import {
   e2eUserId,
   keepJobTitle,
   keepPolicies,
+  keepSignOffs,
   payFor,
+  requirementStatus,
   type Tenant,
   type Undo,
   undoAll,
@@ -57,6 +60,7 @@ test.describe("durchgang management review", () => {
       await removeReviews(tenant),
       await keepJobTitle(tenant),
       await payFor(tenant),
+      await keepSignOffs(tenant),
     ];
     await seedDraft(tenant);
     // Start outside management, so the screen offers to send the documents on.
@@ -103,6 +107,8 @@ test.describe("durchgang management review", () => {
       .filter({ hasText: `Kryptokonzept der ${tenant.company_name}` });
     await expect(row).toBeVisible({ timeout: 30_000 });
     await expect(row.getByText("Wartet auf die Geschäftsführung")).toBeVisible();
+    // The review is recorded, so 7.3 waits for management's sign-off with the documents.
+    await expect(page.getByText("Diese Punkte warten auf Freigabe")).toBeVisible();
     await expect(page.getByText("An die Geschäftsführung schicken")).toBeVisible();
     await expect(
       page.getByRole("button", { name: "Weiter", exact: true }),
@@ -128,6 +134,11 @@ test.describe("durchgang management review", () => {
       approver_role: "ceo",
     });
     expect((await walkPolicy(tenant, TYPE))?.approved_at).not.toBeNull();
+    // The same click signed off 7.3 as management, so the journey counts it done. The documents
+    // commit first, the signatures after them.
+    await expect
+      .poll(async () => await requirementStatus(tenant, "7.3"))
+      .toEqual({ status: "completed", signed_off_role: "ceo" });
     await expect(page.getByRole("button", { name: "Weiter", exact: true })).toBeEnabled();
   });
 

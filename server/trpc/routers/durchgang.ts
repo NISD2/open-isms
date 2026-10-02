@@ -23,14 +23,17 @@ import type { CountableModule } from "@/lib/compliance/module-tables";
 import { getDefaultPolicyConfig } from "@/lib/compliance/policy-config-defaults";
 import { POLICY_CONFIG_SCHEMAS } from "@/lib/compliance/policy-config-schemas";
 import { getDefaultMethodology } from "@/lib/compliance/risk-methodology-defaults";
+import { scheduleDeadlineReminders } from "@/lib/compliance/schedule-notifications";
 import { seedLocale } from "@/lib/compliance/seed-locale";
 import type { DbOrTx } from "@/lib/db";
 import {
   type AnyScreen,
+  APPROVAL_SCREEN,
   acceptedCryptoText,
   agreementsNote,
   approvedNote,
   askedFields,
+  awaitingSignature,
   BACKUP_FREQUENCIES,
   backupsNote,
   type CryptoLabels,
@@ -85,7 +88,9 @@ import {
   company,
   companyCategoryIntake,
   companyPolicyConfig,
+  companyRequirementStatus,
   companyRiskMethodology,
+  managementReview,
   policy,
   requirement,
   risk,
@@ -95,6 +100,11 @@ import {
   user,
 } from "@/schema";
 import { riskInsertSchema } from "@/schema/validators";
+import { signerRoleOf } from "../guards";
+import {
+  propagateSatisfaction,
+  recalculateProgress,
+} from "../helpers/assessment-helpers";
 import {
   appendNote,
   type DurchgangActor,
@@ -102,6 +112,8 @@ import {
   walkItemRef,
   walkStates,
 } from "../helpers/durchgang";
+import { getNis2Assessment } from "../helpers/nis2-scope";
+import { signOffRows } from "../helpers/sign-off-rows";
 import {
   activatedCompanyProcedure,
   companyProcedure,
@@ -431,6 +443,52 @@ const walkPolicyRows = async (db: TRPCContext["db"], companyId: string) => {
       .filter((row) => row.code === p.code && row.type === p.policy)
       .map((row) => ({ ...row, type: p.policy })),
   );
+};
+
+/** The company's walk items waiting for management's signature (see `awaitingSignature`). */
+const awaitingSignatureOf = async (db: TRPCContext["db"], companyId: string) => {
+  const [states, policies, reviews] = await Promise.all([
+    walkStates(db, companyId),
+    walkPolicyRows(db, companyId),
+    db
+      .select({ id: managementReview.id })
+      .from(managementReview)
+      .where(eq(managementReview.companyId, companyId))
+      .limit(1),
+  ]);
+  return awaitingSignature({
+    codes: WALK.map((item) => item.code),
+    stateOf: (code) => states.get(code) ?? { kind: "open" },
+    drafts: policies.filter((p) => p.status === "draft"),
+    approvalCode: APPROVAL_SCREEN?.code ?? null,
+    reviewed: reviews.length > 0,
+  });
+};
+
+/** The NIS 2 status rows of these items, ready for `signOffRows`. */
+const signableRowsOf = async (
+  db: TRPCContext["db"],
+  companyId: string,
+  codes: readonly string[],
+) => {
+  const assessment = codes.length > 0 ? await getNis2Assessment(db, companyId) : null;
+  if (!assessment) return { assessmentId: null, rows: [] };
+  const rows = await db
+    .select({
+      statusId: companyRequirementStatus.id,
+      requirementId: requirement.id,
+      code: requirement.code,
+      templateVersion: requirement.templateVersion,
+    })
+    .from(companyRequirementStatus)
+    .innerJoin(requirement, eq(requirement.id, companyRequirementStatus.requirementId))
+    .where(
+      and(
+        eq(companyRequirementStatus.assessmentId, assessment.id),
+        inArray(requirement.code, [...codes]),
+      ),
+    );
+  return { assessmentId: assessment.id, rows };
 };
 
 export const durchgangRouter = router({
@@ -1448,17 +1506,35 @@ export const durchgangRouter = router({
   }),
 
   /**
+   * The items management's approval also signs off, for the approval screen to list, each with
+   * its headline in the viewer's language, resolved as the walk resolves it.
+   */
+  awaitingSignature: durchgangProcedure
+    .input(z.object({ locale: z.enum(["de", "en"]) }))
+    .query(async ({ ctx, input }) =>
+      (await awaitingSignatureOf(ctx.db, ctx.companyId)).map((item) => {
+        const words = resolveItem(NAMESPACES[input.locale], itemOf(item.code));
+        return { ...item, headline: words.ok ? words.value.headline : item.code };
+      }),
+    ),
+
+  /**
    * 7.3: management approves the drafts it ticked, signed in with its own account. The approval
    * is that person's, now: who, when and in which role go on each policy, and the day in Berlin
    * becomes its start and its version. Each document is resolved through its own item, so
    * approving it takes what writing it takes, and only drafts change: an approved document keeps
    * its day. The review's trail names every document approved.
+   *
+   * The same click signs off every item waiting for management whose documents are now all
+   * approved, as the category bulk sign-off does (snapshot and chain entry per row), and then sets
+   * each one's review date as a single sign-off does, so the journey, the register and the review
+   * cycle see them done. It needs no document to approve when only signatures are left.
    */
   approvePolicies: durchgangWrite
     .input(
       z.object({
         code,
-        types: z.array(z.enum(POLICY_TEMPLATES)).min(1).max(POLICY_TEMPLATES.length),
+        types: z.array(z.enum(POLICY_TEMPLATES)).max(POLICY_TEMPLATES.length),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -1532,9 +1608,63 @@ export const durchgangRouter = router({
           description: `${ref.code} management approved ${approved.length} walk documents`,
           newValue: { approvedOn, count: approved.length },
         });
-        recheck(ctx, "policy");
+        // Awaited, not in the background as elsewhere: the recheck moves signed items behind the
+        // policies to needs_review, and it must not land on the signatures given below.
+        await invalidateModuleSignOffs(ctx.db, ctx.companyId, "policy", ctx.userId).catch(
+          (err) => console.error("[durchgang] policy recheck:", err),
+        );
       }
-      return { approved: approved.length };
+
+      const ready = (await awaitingSignatureOf(ctx.db, ctx.companyId)).filter(
+        (item) => item.drafts.length === 0,
+      );
+      const { assessmentId, rows } = await signableRowsOf(
+        ctx.db,
+        ctx.companyId,
+        ready.map((item) => item.code),
+      );
+      // Management signs every walk item, whatever role the requirement names for a single
+      // sign-off: § 38 Abs. 1 BSIG has management implement and oversee the measures, and the
+      // walk was built for its one signature at the end.
+      const signedOffRole = signerRoleOf(ctx.session);
+      const signed = await signOffRows(ctx.db, {
+        companyId: ctx.companyId,
+        userId: ctx.userId,
+        signedOffRole,
+        rows,
+        chainData: (row) => ({ code: row.code, walkApproval: ref.code }),
+      });
+      if (assessmentId && signed.length > 0) {
+        await recalculateProgress(ctx.db, assessmentId);
+        // What a single sign-off does after it signs: credit linked frameworks, set the review date.
+        await Promise.all(
+          signed.flatMap((row) => [
+            propagateSatisfaction(ctx.db, {
+              sourceRequirementId: row.requirementId,
+              companyId: ctx.companyId,
+              userId: ctx.userId,
+              signedOffRole,
+              snapshot: row.snapshot,
+            }).catch((err) => console.error("[durchgang] propagate:", err)),
+            scheduleDeadlineReminders(ctx.db, {
+              statusId: row.statusId,
+              anchorDate: now,
+              companyId: ctx.companyId,
+              userId: ctx.userId,
+            }).catch((err) => console.error("[durchgang] deadlines:", err)),
+          ]),
+        );
+        await logWalk({
+          companyId: ctx.companyId,
+          userId: ctx.userId,
+          action: "durchgang.requirements_signed",
+          entityType: "requirement",
+          entityId: ref.requirementId,
+          description: `${ref.code} management signed off ${signed.map((r) => r.code).join(", ")}`,
+          newValue: { codes: signed.map((r) => r.code) },
+        });
+      }
+      return { approved: approved.length, signed: signed.length };
     }),
 
   /** The policy an item writes, as its screen shows it and the server stores it. */

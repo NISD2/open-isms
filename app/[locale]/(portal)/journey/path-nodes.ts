@@ -21,6 +21,8 @@ export type FlowNode = {
   status: NodeStatus;
   /** Raw companyRequirementStatus, for the aggregate filter chips. */
   rawStatus: string;
+  /** Filled in through the walkthrough, waiting for management's sign-off there. */
+  awaitingSignOff: boolean;
   /** Recurring-review cycle: the next review (nextReviewDate) is in the past. */
   isOverdue: boolean;
   /** Days until the next review (negative = overdue). null = no review date. */
@@ -244,12 +246,15 @@ export function requirementHref(node: Pick<FlowNode, "categorySlug" | "code">) {
 /** The six visual states a requirement can be in, shared by every view. */
 export type DotState = "todo" | "started" | "awaiting" | "signed" | "na" | "rejected";
 
+/** A requirement's status, and whether the walkthrough has it waiting for management. */
+type StatusOf = Pick<FlowNode, "rawStatus" | "awaitingSignOff">;
+
 /** Raw companyRequirementStatus to visual state. */
-export function dotStateOf(rawStatus: string): DotState {
+export function dotStateOf({ rawStatus, awaitingSignOff }: StatusOf): DotState {
   // "completed" = user sign-off done; "approved" adds legal review. Both done.
   if (rawStatus === "completed" || rawStatus === "approved") return "signed";
   if (rawStatus === "not_applicable") return "na";
-  if (rawStatus === "needs_review") return "awaiting";
+  if (rawStatus === "needs_review" || awaitingSignOff) return "awaiting";
   if (rawStatus === "rejected") return "rejected";
   if (rawStatus === "in_progress") return "started";
   return "todo";
@@ -293,16 +298,16 @@ export function reviewLabel(dueInDays: number | null, de: boolean): string | nul
 }
 
 /** Localized status wording. One vocabulary so the views cannot drift apart. */
-export function statusLabel(rawStatus: string, de: boolean): string {
-  switch (rawStatus) {
+export function statusLabel(node: StatusOf, de: boolean): string {
+  if (dotStateOf(node) === "awaiting")
+    return de ? "Wartet auf Freigabe" : "Awaiting sign-off";
+  switch (node.rawStatus) {
     case "completed":
       return de ? "Freigegeben" : "Signed off";
     case "approved":
       return de ? "Geprüft" : "Reviewed";
     case "not_applicable":
       return de ? "Nicht zutreffend" : "Not applicable";
-    case "needs_review":
-      return de ? "Wartet auf Freigabe" : "Awaiting sign-off";
     case "in_progress":
       return de ? "In Arbeit" : "In progress";
     case "rejected":
@@ -323,12 +328,12 @@ function isDone(status: string): boolean {
   return status === "completed" || status === "approved" || status === "not_applicable";
 }
 
-/** The single live node: lowest-order requirement not yet done. */
+/** The single live node: lowest-order requirement neither done nor waiting for sign-off. */
 function liveCode(items: JourneyItem[]): string | null {
   return (
     [...items]
       .sort((a, b) => globalOrder(a) - globalOrder(b))
-      .find((i) => !isDone(i.status))?.code ?? null
+      .find((i) => !isDone(i.status) && !i.awaitingSignOff)?.code ?? null
   );
 }
 
@@ -363,6 +368,7 @@ export function buildRequirementNodes(items: JourneyItem[]): FlowNode[] {
         ownerRole,
         status,
         rawStatus: it.status,
+        awaitingSignOff: it.awaitingSignOff,
         // Recurring review (server-computed, calendar days, review-status-gated).
         isOverdue: it.dueInDays !== null && it.dueInDays < 0,
         dueInDays: it.dueInDays,

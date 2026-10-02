@@ -17,6 +17,7 @@ import {
   requirementCategory,
   user,
 } from "@/schema";
+import { walkStates } from "../helpers/durchgang";
 import { getNis2Assessment } from "../helpers/nis2-scope";
 import { companyProcedure, router } from "../init";
 
@@ -93,7 +94,7 @@ export const journeyRouter = router({
         };
       }
 
-      const [rows, signOffRows, currentUserRow, lastAuditRows] = await Promise.all([
+      const [rows, signOffRows, currentUserRow, lastAuditRows, walk] = await Promise.all([
         ctx.db
           .select({
             statusId: companyRequirementStatus.id,
@@ -166,6 +167,9 @@ export const journeyRouter = router({
           .where(and(eq(auditLog.companyId, cid), isNotNull(auditLog.userId)))
           .orderBy(desc(auditLog.createdAt))
           .limit(1),
+        // Where the walkthrough has each of its items, so an item filled in there shows as
+        // waiting for management's sign-off here too. Read the same way the walkthrough reads it.
+        walkStates(ctx.db, cid),
       ]);
 
       // statusId → { signed, total } sign-off progress.
@@ -210,6 +214,9 @@ export const journeyRouter = router({
           signedOffAt: r.signedOffAt,
           sortOrder: r.sortOrder ?? 999,
           signOff: signOffByStatusId.get(r.statusId) ?? { signed: 0, total: 0 },
+          // needs_review already reads as awaiting; this is the item never signed yet.
+          awaitingSignOff:
+            status !== "needs_review" && walk.get(r.code)?.kind === "filled",
         };
       });
 
@@ -222,7 +229,8 @@ export const journeyRouter = router({
         // review is not (yet) late.
         awaitingSignoff: items.filter(
           (i) =>
-            i.status === "needs_review" && (i.dueInDays === null || i.dueInDays >= 0),
+            i.awaitingSignOff ||
+            (i.status === "needs_review" && (i.dueInDays === null || i.dueInDays >= 0)),
         ).length,
         // Recurring-review cycle (only on review-status items, so a never-done
         // item past its initial deadline is NOT mislabelled "review overdue").

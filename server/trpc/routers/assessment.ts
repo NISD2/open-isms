@@ -50,6 +50,7 @@ import {
   signerMeetsRequiredRole,
   snapshotForVersion,
 } from "../helpers/sign-off-completion";
+import { signOffRows } from "../helpers/sign-off-rows";
 import { lockStatusRow } from "../helpers/status-lock";
 import {
   announceWithdrawal,
@@ -1204,96 +1205,32 @@ export const assessmentRouter = router({
       // guards the single signOff path enforces. Two things it cannot
       // shortcut: (1) a required signer role (e.g. CEO for the §38 duties) —
       // same admin-bypass rule as signOff; (2) N-of-M requirements, whose
-      // assigned signers must each sign through the assignment flow. Rows
-      // failing either check are left untouched, not silently completed.
-      // Rows still owed a signature, the SQL spelling of pendingSignersOf in
-      // lib/compliance/sign-off-roster. Without the isNull this also skipped
-      // every requirement that merely carried a receipt from a past sign-off.
-      const assignedStatusIds = new Set(
-        (
-          await ctx.db
-            .select({ statusId: requirementAssignment.statusId })
-            .from(requirementAssignment)
-            .where(
-              and(
-                inArray(
-                  requirementAssignment.statusId,
-                  rows.map((r) => r.statusId),
-                ),
-                isNull(requirementAssignment.signedOffAt),
-              ),
-            )
-        ).map((a) => a.statusId),
-      );
-      const signableRows = rows.filter((row) => {
-        if (assignedStatusIds.has(row.statusId)) return false;
+      // assigned signers must each sign through the assignment flow
+      // (signOffRows leaves those out). Rows failing either check are left
+      // untouched, not silently completed.
+      const permitted = rows.filter((row) =>
         // Bulk path: skip, don't throw. See signerMeetsRequiredRole.
-        return signerMeetsRequiredRole({
+        signerMeetsRequiredRole({
           sessionRole: ctx.session.role,
           signerRole: signedOffRole,
           requiredSignOffRole: row.requiredSignOffRole,
-        });
-      });
-
-      if (signableRows.length === 0) return { signedOff: 0 };
-
-      // Same stable lock order as bulkConfirmModuleRef.
-      signableRows.sort((a, b) => a.statusId.localeCompare(b.statusId));
-
-      const now = new Date();
-      // Company-scoped half of the snapshot, built once; each row re-stamps
-      // its own templateVersion below.
-      const baseSnapshot = await buildSignOffSnapshot(
-        ctx.db,
-        ctx.companyId,
-        signableRows[0].templateVersion,
+        }),
       );
 
-      // Audit B-2 (2026-06-10): per-row chain entry inside one tx. The status
-      // guard is repeated on the write, not just in the read above, so a row
-      // another writer completed between the two is skipped rather than
-      // re-signed under this caller's name.
-      const signedOff = await ctx.db.transaction(async (tx) => {
-        const completed: string[] = [];
-        for (const row of signableRows) {
-          const rowSnapshot = snapshotForVersion(baseSnapshot, row.templateVersion);
-          const [updatedRow] = await tx
-            .update(companyRequirementStatus)
-            .set(
-              completedSignOffValues({
-                userId: ctx.userId,
-                signedOffRole,
-                templateVersion: row.templateVersion,
-                snapshot: rowSnapshot,
-                now,
-              }),
-            )
-            .where(
-              and(
-                eq(companyRequirementStatus.id, row.statusId),
-                sql`${companyRequirementStatus.status} NOT IN ('completed', 'approved')`,
-              ),
-            )
-            .returning({ id: companyRequirementStatus.id });
-
-          if (!updatedRow) continue;
-
-          await recordSignOffChainEntry(tx as unknown as Database, {
-            companyId: ctx.companyId,
-            statusId: row.statusId,
-            requirementId: row.requirementId,
-            signedOffBy: ctx.userId,
-            signedOffRole,
-            source: "editor",
-            templateVersion: row.templateVersion,
-            companyProfile: rowSnapshot.companyProfile ?? {},
-            data: { code: row.code, bulkOf: "category", categoryId: input.categoryId },
-          });
-
-          completed.push(updatedRow.id);
-        }
-        return completed.length;
-      });
+      const signedOff = (
+        await signOffRows(ctx.db, {
+          companyId: ctx.companyId,
+          userId: ctx.userId,
+          signedOffRole,
+          rows: permitted,
+          chainData: (row) => ({
+            code: row.code,
+            bulkOf: "category",
+            categoryId: input.categoryId,
+          }),
+        })
+      ).length;
+      if (signedOff === 0) return { signedOff: 0 };
 
       await recalculateProgress(ctx.db, input.assessmentId);
 

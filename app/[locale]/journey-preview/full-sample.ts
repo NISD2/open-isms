@@ -84,5 +84,6 @@ export async function buildFullJourneyItems(locale: string): Promise<JourneyItem
       signedOffAt: null,
       sortOrder: indexInCategory,
       signOff: { signed: 0, total: 0 },
+      awaitingSignOff: false,
     }));
 }

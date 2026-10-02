@@ -30,6 +30,11 @@ export type JourneyItem = {
   sortOrder: number;
   /** Assigned sign-offs done vs required, for N-of-M management sign-off. */
   signOff: { signed: number; total: number };
+  /**
+   * Filled in through the walkthrough and waiting for management's sign-off there. The work is
+   * done, the signature is management's step, so the path moves on past it.
+   */
+  awaitingSignOff: boolean;
 };
 
 function isDone(item: JourneyItem): boolean {
@@ -42,12 +47,13 @@ function journeyOrder(item: JourneyItem): number {
 }
 
 /**
- * The single live node for the path view: the first not-done requirement in
- * journey order. Returns null when the path is complete.
+ * The single live node for the path view: the first requirement in journey
+ * order that is neither done nor waiting for management's sign-off. Returns
+ * null when nothing is left to work on.
  */
 export function liveNode(items: JourneyItem[]): JourneyItem | null {
   const open = items
-    .filter((i) => !isDone(i))
+    .filter((i) => !isDone(i) && !i.awaitingSignOff)
     .sort((a, b) => journeyOrder(a) - journeyOrder(b));
   return open[0] ?? null;
 }

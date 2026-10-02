@@ -158,7 +158,14 @@
         "pageHeading": "Approve the documents",
         "pageLead": "These documents were written in your company's NIS 2 walkthrough. Read each one and approve it. Your approval is recorded with your name and today's date.",
         "pageLeadOthers": "These documents were written in your company's NIS 2 walkthrough. Management approves them here, signed in with its own account.",
-        "close": "Close"
+        "close": "Close",
+        "signTitle": "You sign off these items with it",
+        "signLead": "These items of the walkthrough are filled in. Your approval signs them off, so they count as done everywhere in the app, with your name and today's date. An item whose document you leave out stays open.",
+        "signTitleOthers": "These items are awaiting sign-off",
+        "signLeadOthers": "These items are filled in. Management signs them off here, together with the documents.",
+        "staysOpen": "Stays open until its document is approved",
+        "signCount": "{count, plural, =0 {Nothing selected} one {Sign off # item} other {Sign off # items}}",
+        "signedDone": "{count, plural, one {# item signed off.} other {# items signed off.}}"
       },
       "recorded": "Recorded in your records",
       "recordedPolicy": "{title}: saved as a draft. Management approves it at the end of the walkthrough.",
@@ -304,9 +311,9 @@
         "allFilled": "Every item is filled in.",
         "allFilledNote": "When something in your company changes, open the item and change it there. A changed document goes to management for approval again.",
         "yourWay": "Your path",
-        "filled": "Filled in",
+        "filled": "Awaiting sign-off",
         "declined": "Decided not to do",
-        "signed": "Signed",
+        "signed": "Signed off",
         "notApplicable": "Does not apply",
         "continueHere": "Continue now"
       },

@@ -286,7 +286,7 @@ function SectionDivider({ title }: { title: string }) {
 
 function StepNode({ step, total, de }: { step: SoloStep; total: number; de: boolean }) {
   const { node } = step;
-  const state = dotStateOf(node.rawStatus);
+  const state = dotStateOf(node);
   const current = node.status === "current";
   const Icon = iconFor(node);
 
@@ -333,7 +333,7 @@ function StepNode({ step, total, de }: { step: SoloStep; total: number; de: bool
           <div className="space-y-1 border-t pt-2 text-xs text-muted-foreground">
             <p>
               {de ? "Schritt" : "Step"} {step.step} {de ? "von" : "of"} {total} ·{" "}
-              <span className={statusTone(state)}>{statusLabel(node.rawStatus, de)}</span>
+              <span className={statusTone(state)}>{statusLabel(node, de)}</span>
             </p>
             {node.legalRef ? (
               <p className="flex items-center gap-1.5">

@@ -2,6 +2,7 @@ import { describe, expect, test } from "bun:test";
 import { redactPiiInJson } from "@/lib/gdpr/redact-pii";
 import { itemStatusEnum } from "@/schema";
 import {
+  awaitingSignature,
   type DurchgangEvent,
   type ItemState,
   itemState,
@@ -75,9 +76,20 @@ describe("item state", () => {
     expect(itemState(row("in_progress", at), EVENTS.itemDone)).toEqual({
       kind: "signed",
     });
-    expect(itemState(row("needs_review", at), EVENTS.waiting)).toEqual({
+    expect(itemState(row("completed", at), EVENTS.waiting)).toEqual({
       kind: "signed",
     });
+  });
+
+  test("a signed item that needs signing again waits for management, whatever the event", () => {
+    // The deadlines cron and the module recheck move a signed row to needs_review and keep its
+    // signature, so the walk would otherwise still show it finished.
+    for (const latest of Object.values(EVENTS)) {
+      expect(itemState(row("needs_review", at), latest)).toEqual({
+        kind: "filled",
+        since: at,
+      });
+    }
   });
 
   test("a rejected item is open again, although review.reject keeps the old signature", () => {
@@ -169,5 +181,76 @@ describe("resume", () => {
 
   test("goes nowhere when everything is filled in or signed", () => {
     expect(resumeAt([state("filled"), state("signed")], (s) => s)).toBeNull();
+  });
+});
+
+describe("awaiting management's signature", () => {
+  const STATES: Readonly<Record<string, ItemState>> = {
+    "2.2": { kind: "filled", since: at },
+    "2.4": { kind: "filled", since: at },
+    "3.1": { kind: "signed" },
+    "4.4": { kind: "waiting", reason: "ask", since: at },
+    "5.2": { kind: "declined", since: at },
+    "6.3": { kind: "open" },
+    "7.3": { kind: "open" },
+  };
+  const awaiting = (opts: {
+    drafts?: ReadonlyArray<{ code: string; type: string }>;
+    reviewed?: boolean;
+    approval?: ItemState;
+  }) =>
+    awaitingSignature({
+      codes: Object.keys(STATES),
+      stateOf: (code) =>
+        code === "7.3" && opts.approval
+          ? opts.approval
+          : (STATES[code] ?? { kind: "open" }),
+      drafts: opts.drafts ?? [],
+      approvalCode: "7.3",
+      reviewed: opts.reviewed ?? false,
+    });
+
+  test("takes the filled-in items only: not open, waiting, declined or already signed", () => {
+    expect(awaiting({}).map((i) => i.code)).toEqual(["2.2", "2.4"]);
+  });
+
+  test("names the drafts each item still waits on, so it is signed only with its document", () => {
+    const drafts = [
+      { code: "2.4", type: "information_security" },
+      { code: "6.3", type: "it_rules" },
+    ];
+    expect(awaiting({ drafts })).toEqual([
+      { code: "2.2", drafts: [] },
+      { code: "2.4", drafts: ["information_security"] },
+    ]);
+  });
+
+  test("takes the item holding the approval once its review is recorded, before it is finished", () => {
+    expect(awaiting({ reviewed: true }).map((i) => i.code)).toEqual([
+      "2.2",
+      "2.4",
+      "7.3",
+    ]);
+    // Without a review line the walk has not reached the approval yet.
+    expect(awaiting({ reviewed: false }).map((i) => i.code)).not.toContain("7.3");
+    // Set aside or decided against, it is not signed by the approval either.
+    expect(
+      awaiting({
+        reviewed: true,
+        approval: { kind: "waiting", reason: "decide", since: at },
+      }).map((i) => i.code),
+    ).not.toContain("7.3");
+  });
+
+  test("takes a signed item due to be signed again, as the walk shows it", () => {
+    const state = itemState(row("needs_review", before), EVENTS.none);
+    const result = awaitingSignature({
+      codes: ["4.2"],
+      stateOf: () => state,
+      drafts: [],
+      approvalCode: "7.3",
+      reviewed: false,
+    });
+    expect(result).toEqual([{ code: "4.2", drafts: [] }]);
   });
 });

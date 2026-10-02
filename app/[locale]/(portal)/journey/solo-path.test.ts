@@ -24,6 +24,7 @@ const node = (
   ownerRole: "ciso",
   status,
   rawStatus: status === "done" ? "signed" : "todo",
+  awaitingSignOff: false,
   isOverdue: false,
   dueInDays: null,
   priority: null,
