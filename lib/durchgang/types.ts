@@ -15,18 +15,21 @@
 import type { FunctionalGroup } from "@/lib/asset-inventory/catalog";
 import type { Frequency, Impact } from "@/lib/compliance/bsi-200-3";
 import type { CategoryCode, CategoryField } from "@/lib/compliance/category-schemas";
+import type { RoleKey } from "@/lib/compliance/role-keys";
 import type { AssetSlice, RatingTarget } from "./ratings";
 
 /**
  * A rule shown as it is, read-only, rendered from the module that holds it: the 200-3 matrix
  * (`bsi-200-3.ts`), the § 28 size thresholds (`applicability/classify.ts`), the § 32 reporting
- * deadlines (`bsig-32.ts`), the national registration portals (`data/nis2-registration-portals`).
+ * deadlines (`bsig-32.ts`), the national registration portals and the authorities incidents are
+ * reported to (`data/nis2-registration-portals`).
  */
 export type Provision =
   | "bsi_200_3_matrix"
   | "bsig_28_thresholds"
   | "bsig_32_clock"
-  | "registration_portals";
+  | "registration_portals"
+  | "reporting_channels";
 
 /**
  * A register the requirement page shows for the item (its `moduleRef`), which a screen shows as
@@ -50,6 +53,12 @@ export type LearnLink =
   | "bsi_it_notfallkarte"
   | "bsi_tr_02102"
   | "bsi_nis2_schulungen";
+
+/**
+ * The compliance role that stands for management, which approves the documents the walk writes
+ * (Art. 20(1) NIS 2, § 38 Abs. 1 BSIG). The requirement sign-off reads the same role.
+ */
+export const MANAGEMENT_ROLE = "ceo" as const satisfies RoleKey;
 
 /** A BSI default the person may take over with one click, as an explicit write. */
 export type Adoptable = "bsi_200_3_method";
@@ -111,13 +120,10 @@ export type Screen<C extends CategoryCode> =
       readonly id: string;
       readonly fields: readonly CategoryField<C>[];
       /**
-       * The signature page of the policy the item's policy screen wrote: once its answers are
-       * saved, that policy is marked approved with the version and the day these two fields hold.
+       * The field that names a person in the company, offered as a pick from the team with the
+       * person walking first, and an invite for someone not in it yet.
        */
-      readonly approves?: {
-        readonly version: CategoryField<C>;
-        readonly date: CategoryField<C>;
-      };
+      readonly person?: CategoryField<C>;
     }
   | {
       readonly kind: "evidence";
@@ -169,8 +175,8 @@ export type Screen<C extends CategoryCode> =
    */
   | { readonly kind: "policy"; readonly id: string; readonly policy: PolicyTemplate }
   /**
-   * Every policy the walk wrote, with its state: the drafts management approved in one sitting
-   * are marked approved from the day it approved them.
+   * Every policy the walk wrote, with its state. Management approves the drafts here, signed in
+   * with its own account; anyone else sends them the page.
    */
   | { readonly kind: "approve"; readonly id: string }
   /** Every rated asset and supplier on the 200-3 matrix, and by level: the company's picture. */

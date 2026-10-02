@@ -11,8 +11,8 @@ const SHOWN_NAMES = 4;
 
 /**
  * What an item's done screen lists as recorded, read off the item's own screens: each kind that
- * puts something in the records says so in one line. Explanations, and documents shown on a
- * screen of their own, add nothing.
+ * puts something in the records says so in one line, a document with where its approval
+ * happens. Explanations add nothing.
  */
 export function useRecorded(item: ItemView, draft: Draft): readonly string[] {
   const t = useTranslations("durchgang.ui");
@@ -94,6 +94,8 @@ export function useRecorded(item: ItemView, draft: Draft): readonly string[] {
           default:
             return entry.screen satisfies never;
         }
+      case "policy":
+        return [t("recordedPolicy", { title: entry.copy.title })];
       default:
         return [];
     }

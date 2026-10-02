@@ -15,6 +15,7 @@ import {
   askedFields,
   dutyHref,
   itemKey,
+  MANAGEMENT_ROLE,
   type RegisterModule,
   type ResolvedItem,
   resolveItem,
@@ -99,8 +100,11 @@ export async function loadItem(code: string): Promise<ItemView | null> {
   const asksAssets = screens.some((s) => s.kind === "assets");
   const asksAdopt = screens.some((s) => s.kind === "adopt");
   const showsPortals = screens.some(
-    (s) => s.kind === "provision" && s.provision === "registration_portals",
+    (s) =>
+      s.kind === "provision" &&
+      (s.provision === "registration_portals" || s.provision === "reporting_channels"),
   );
+  const asksPerson = screens.some((s) => s.kind === "fields" && s.person);
 
   const [
     words,
@@ -137,7 +141,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
         })
       : Promise.resolve({ answers: {} as Record<string, unknown> }),
     shows("supplier") ? api.supplier.list() : Promise.resolve(undefined),
-    shows("team") ? api.team.listMembers() : Promise.resolve(undefined),
+    shows("team") || asksPerson ? api.team.listMembers() : Promise.resolve(undefined),
     shows("training_record") ? api.training.list() : Promise.resolve(undefined),
     shows("management_review") ? api.managementReview.list() : Promise.resolve(undefined),
     asksAssets ? api.asset.list() : Promise.resolve(null),
@@ -220,6 +224,11 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     register: assets ? onRegister(assets.map((a) => a.name)) : null,
     adoptedAt: adoption.adoptedAt,
     registration,
+    viewer: {
+      id: session?.user.id ?? "",
+      management: session?.jobTitle === MANAGEMENT_ROLE,
+      admin: session?.role === "admin",
+    },
     locale,
   };
 }

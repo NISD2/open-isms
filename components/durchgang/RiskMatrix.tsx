@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { useId } from "react";
 import {
   FREQUENCIES,
   FREQUENCY_TEXT,
@@ -25,6 +26,76 @@ export const LEVEL_FILL: Readonly<Record<RiskLevel, string>> = {
 
 /** Top row first, as in Abbildung 3. */
 const ROWS: readonly Impact[] = [...IMPACTS].reverse();
+
+/** The picker's fields in reading order: top row first, rare to very frequent. */
+const CELLS = ROWS.flatMap((impact) =>
+  FREQUENCIES.map((frequency) => ({ frequency, impact })),
+);
+
+/**
+ * The matrix small enough for one row of a list: sixteen fields to pick from, more often to the
+ * right, more damage further up, each in its level's colour. The picked field stays lit; the
+ * others fade once one is picked. The fields are native radio buttons of one group per row, so
+ * the arrow keys move the pick and a row is one tab stop; each names its two steps and its level
+ * for a screen reader and on hover.
+ */
+export function RiskPicker({
+  locale,
+  name,
+  value,
+  onPick,
+}: {
+  locale: "de" | "en";
+  /** What is being rated, the group's name. */
+  name: string;
+  value: { readonly frequency?: Frequency; readonly impact?: Impact };
+  onPick: (frequency: Frequency, impact: Impact) => void;
+}) {
+  const t = useTranslations("durchgang.ui.matrix");
+  const group = useId();
+  const picked = value.frequency !== undefined && value.impact !== undefined;
+  return (
+    <div className="flex items-stretch gap-1">
+      <span className="flex rotate-180 items-center text-[10px] text-muted-foreground [writing-mode:vertical-rl]">
+        {t("damageAxis")}
+      </span>
+      <div>
+        <fieldset className="grid grid-cols-4 gap-0.5">
+          <legend className="sr-only">{name}</legend>
+          {CELLS.map(({ frequency, impact }) => {
+            const level = riskLevel(frequency, impact);
+            const on = value.frequency === frequency && value.impact === impact;
+            const label = `${IMPACT_TEXT[locale][impact].label}, ${FREQUENCY_TEXT[locale][frequency].label}: ${RISK_LEVEL_TEXT[locale][level].label}`;
+            return (
+              <label
+                key={`${impact}:${frequency}`}
+                title={label}
+                className={cn(
+                  "size-7 cursor-pointer rounded-[5px] transition-[opacity,box-shadow] hover:opacity-100 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-1 has-[:focus-visible]:outline-foreground",
+                  LEVEL_FILL[level],
+                  picked && !on && "opacity-35",
+                  on && "ring-2 ring-foreground ring-offset-1 ring-offset-background",
+                )}
+              >
+                <input
+                  type="radio"
+                  name={group}
+                  className="sr-only"
+                  aria-label={label}
+                  checked={on}
+                  onChange={() => onPick(frequency, impact)}
+                />
+              </label>
+            );
+          })}
+        </fieldset>
+        <p className="mt-0.5 text-center text-[10px] text-muted-foreground">
+          {t("oftenAxis")}
+        </p>
+      </div>
+    </div>
+  );
+}
 
 /**
  * The BSI's risk matrix, read-only, straight from lib/compliance/bsi-200-3 (Tabellen 8 and 9,

@@ -10,6 +10,7 @@ import {
   FileText,
   ListChecks,
   type LucideIcon,
+  Plus,
   ScrollText,
   Search,
   ShieldCheck,
@@ -31,6 +32,7 @@ import { ArtThumb } from "./Art";
 import { asInput, type Draft, type DraftUpdate } from "./draft";
 import { Aside, Heading, Lead } from "./ExplainScreens";
 import { ManagementReviews } from "./ManagementReviews";
+import { PersonPick } from "./PersonPick";
 import { SupplierList } from "./SupplierList";
 import { TrainingRecords } from "./TrainingRecords";
 import { useRecorded } from "./useRecorded";
@@ -184,6 +186,51 @@ function FieldInput({
   }
 }
 
+/** Common answers under a text field: a tap adds one to what is written, a second one after it. */
+function Suggestions({
+  items,
+  value,
+  onChange,
+}: {
+  items: readonly string[];
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  const t = useTranslations("durchgang.ui");
+  const written = value.split(";").map((part) => part.trim());
+  return (
+    <div className="flex flex-wrap items-center gap-2 pt-1">
+      <span className="text-xs text-muted-foreground">{t("suggestions")}</span>
+      {items.map((s) => {
+        const on = written.includes(s);
+        return (
+          <button
+            key={s}
+            type="button"
+            aria-pressed={on}
+            onClick={() =>
+              onChange(
+                on
+                  ? written.filter((w) => w && w !== s).join("; ")
+                  : [...written.filter(Boolean), s].join("; "),
+              )
+            }
+            className={cn(
+              "inline-flex cursor-pointer items-center gap-1 rounded-full border px-2.5 py-1 text-xs transition-colors",
+              on
+                ? "border-primary bg-primary/[0.06] text-foreground"
+                : "text-muted-foreground hover:border-primary/40 hover:text-foreground",
+            )}
+          >
+            {on ? <Check className="size-3" /> : <Plus className="size-3" />}
+            {s}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 export function Fields({
   item,
   draft,
@@ -199,35 +246,59 @@ export function Fields({
         <div className="flex items-center gap-3 border-b bg-muted/40 px-5 py-3">
           <FileText className="size-4 text-muted-foreground" />
           <p className="text-sm font-medium">{entry.copy.document}</p>
-          <span className="ml-auto text-xs text-muted-foreground">{t("copyFrom")}</span>
+          {!entry.screen.person && (
+            <span className="ml-auto text-xs text-muted-foreground">{t("copyFrom")}</span>
+          )}
         </div>
         <div className="space-y-7 p-5 sm:p-6">
-          {entry.copy.fields.map((field) => (
-            <div key={field.key} className="space-y-1.5">
-              <Label htmlFor={`dg-${field.key}`} className="text-[15px] font-semibold">
-                {field.label}
-              </Label>
-              <FieldInput
-                id={`dg-${field.key}`}
-                meta={item.fields[field.key]}
-                label={field.label}
-                options={field.options}
-                value={draft.values[field.key]}
-                onChange={(value) =>
-                  onDraft({ ...draft, values: { ...draft.values, [field.key]: value } })
-                }
-              />
-              <details className="group pt-1 text-sm">
-                <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 font-medium text-primary">
-                  <Search className="size-3.5" />
-                  {t("whereToFind")}
-                </summary>
-                <p className="mt-2 max-w-[60ch] rounded-lg bg-muted/60 p-3 text-muted-foreground">
-                  {field.hint}
-                </p>
-              </details>
-            </div>
-          ))}
+          {entry.copy.fields.map((field) => {
+            const id = `dg-${field.key}`;
+            const value = draft.values[field.key];
+            const onChange = (next: unknown) =>
+              onDraft({ ...draft, values: { ...draft.values, [field.key]: next } });
+            return (
+              <div key={field.key} className="space-y-1.5">
+                <Label htmlFor={id} className="text-[15px] font-semibold">
+                  {field.label}
+                </Label>
+                {entry.screen.person === field.key ? (
+                  <PersonPick
+                    id={id}
+                    label={field.label}
+                    value={typeof value === "string" ? value : ""}
+                    onChange={onChange}
+                    team={item.registers.team ?? []}
+                    viewer={item.viewer}
+                  />
+                ) : (
+                  <FieldInput
+                    id={id}
+                    meta={item.fields[field.key]}
+                    label={field.label}
+                    options={field.options}
+                    value={value}
+                    onChange={onChange}
+                  />
+                )}
+                {field.suggestions && (
+                  <Suggestions
+                    items={field.suggestions}
+                    value={typeof value === "string" ? value : ""}
+                    onChange={onChange}
+                  />
+                )}
+                <details className="group pt-1 text-sm">
+                  <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 font-medium text-primary">
+                    <Search className="size-3.5" />
+                    {t("whereToFind")}
+                  </summary>
+                  <p className="mt-2 max-w-[60ch] rounded-lg bg-muted/60 p-3 text-muted-foreground">
+                    {field.hint}
+                  </p>
+                </details>
+              </div>
+            );
+          })}
         </div>
       </div>
     </>
@@ -552,7 +623,7 @@ export function Done({
           </>
         )}
       </section>
-      <Aside className="mt-6">{entry.copy.note}</Aside>
+      {entry.copy.note && <Aside className="mt-6">{entry.copy.note}</Aside>}
       {next && next.code !== item.code && (
         <button
           type="button"

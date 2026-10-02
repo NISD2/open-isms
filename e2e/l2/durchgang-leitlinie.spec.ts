@@ -1,6 +1,7 @@
 /**
  * L2 Durchgang Leitlinie (2.4): the walk writes the company's Leitlinie from the template with a
- * chosen clause, and the signature page approves it, through the real UI against real Postgres.
+ * chosen clause, and a text changed after management approved it goes back to draft, through the
+ * real UI against real Postgres. Management approves it at 7.3 (`durchgang-review.spec.ts`).
  *
  * Cleanup removes the policy and the clause choice this file wrote and restores the RSK answers,
  * because later layers sign off against this tenant (`e2e/lib/durchgang.ts`).
@@ -9,6 +10,7 @@ import { expect, test } from "@playwright/test";
 import { e2eQuery } from "../lib/db";
 import {
   e2eTenant,
+  e2eUserId,
   keepAnswers,
   keepPolicies,
   payFor,
@@ -18,9 +20,8 @@ import {
   walkPolicy,
 } from "../lib/durchgang";
 
-// learn, Leitlinie, signature, signed copy, done.
+// learn, Leitlinie, done.
 const POLICY_SCREEN = 1;
-const SIGNATURE_SCREEN = 2;
 const TYPE = "information_security";
 
 test.describe("durchgang leitlinie", () => {
@@ -78,62 +79,34 @@ test.describe("durchgang leitlinie", () => {
     expect(config?.config.clauses).toEqual(["training"]);
   });
 
-  test("a refused approval is sent again on retry, and never writes the sign-off columns", async ({
+  test("a text changed after approval goes back to draft and loses the approval", async ({
     page,
   }) => {
-    const refusal = { once: true };
-    await page.route(
-      (url) => url.pathname.includes("durchgang.approvePolicy"),
-      async (route) => {
-        if (refusal.once) {
-          refusal.once = false;
-          await route.fulfill({
-            status: 500,
-            contentType: "application/json",
-            body: "{}",
-          });
-        } else {
-          await route.continue();
-        }
-      },
+    // As management's approval at 7.3 leaves it.
+    await e2eQuery(
+      `UPDATE policy SET status = 'approved', effective_from = '2026-10-01',
+              approved_by = $3, approved_at = now(), approver_role = 'ceo'
+        WHERE company_id = $1 AND type = $2`,
+      [tenant.company_id, TYPE, await e2eUserId()],
     );
-
-    await page.goto(`/de/durchgang/2.4?s=${SIGNATURE_SCREEN}`);
-    const version = page.locator("#dg-policyVersion");
-    await expect(version).toBeVisible({ timeout: 30_000 });
-    await version.fill("1.0");
-    await page.locator("#dg-policyApprovalDate").fill("2026-10-01");
-    const next = page.getByRole("button", { name: "Weiter", exact: true });
-    await next.click();
-
-    await expect(
-      page.getByText("Das wurde nicht gespeichert.", { exact: false }),
-    ).toBeVisible();
-    expect((await leitlinie())?.status).toBe("draft");
-
-    await next.click();
-    await expect.poll(async () => (await leitlinie())?.status ?? null).toBe("approved");
-    expect(await leitlinie()).toMatchObject({
-      version: "1.0",
-      effective_from: "2026-10-01",
-      approved_by: null,
-      approved_at: null,
-      approver_role: null,
-    });
-  });
-
-  test("a text changed after approval goes back to draft", async ({ page }) => {
     await page.goto(`/de/durchgang/2.4?s=${POLICY_SCREEN}`);
     const training = page.getByRole("button", { name: "Schulungen" });
     await expect(training).toHaveAttribute("aria-pressed", "true", { timeout: 30_000 });
 
     await training.click();
     await expect(
-      page.getByText("Die geänderte Fassung braucht eine neue Unterschrift."),
+      page.getByText(
+        "Die geänderte Fassung muss die Geschäftsführung noch einmal freigeben.",
+      ),
     ).toBeVisible();
     await page.getByRole("button", { name: "Weiter", exact: true }).click();
 
     await expect.poll(async () => (await leitlinie())?.status ?? null).toBe("draft");
-    expect((await leitlinie())?.effective_from).toBeNull();
+    expect(await leitlinie()).toMatchObject({
+      effective_from: null,
+      approved_by: null,
+      approved_at: null,
+      approver_role: null,
+    });
   });
 });

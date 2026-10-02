@@ -63,10 +63,24 @@
       "registerHint": "Changes here go straight into your list.",
       "alsoListed": "Also on your list: {names}",
       "policy": {
-        "add": "Add what applies to you:",
-        "print": "Print",
-        "changedAfterApproval": "The changed version needs a new signature."
+        "question": "Which of these does your company have or do?",
+        "questionHint": "Each one you pick adds a section to the document below. Pick it again to take it out.",
+        "added": "Added to the document",
+        "showInPlan": "Show it in the document",
+        "removed": "Taken out of the document: {label}",
+        "ownLabel": "Anything else that applies at your company (optional)",
+        "ownHint": "For example a number, a rule of your own or a contact. It is added as the last section, as you write it.",
+        "approvedLater": "Management approves the document at the end of the walkthrough, signed in with its own account.",
+        "changedAfterApproval": "The changed version needs management's approval again."
       },
+      "person": {
+        "you": "you",
+        "other": "Someone else",
+        "otherName": "Name of the person",
+        "invite": "Not in the team yet? Invite them by email",
+        "placeholder": "name@your-company.com"
+      },
+      "suggestions": "Common answers:",
       "specify": {
         "what": "What exactly",
         "provider": "From whom",
@@ -77,10 +91,10 @@
       "rate": {
         "frequency": "How often it happens",
         "impact": "How big the damage would be",
-        "frequencyShort": "How often?",
-        "impactShort": "Damage?",
         "open": "Level",
-        "matrix": "How the level follows from this",
+        "scales": "What the steps mean, in the BSI's words",
+        "note": "Note",
+        "notePlaceholder": "Note (optional), for example what you already do about it",
         "providedBy": "from {name}",
         "provides": "provides {names}",
         "kept": "{count, plural, one {# risk} other {# risks}} in the risk register",
@@ -112,12 +126,33 @@
         "failed": "That was not saved. Please try again."
       },
       "approve": {
-        "approved": "Approved",
+        "approve": "Approve",
         "approvedOn": "Approved on {date}",
+        "approvedBy": "Approved on {date} by {name}",
         "approvedUndated": "Approved",
-        "view": "View and print",
-        "day": "Day of approval",
-        "none": "The walkthrough has not written any document yet."
+        "waiting": "Waiting for management",
+        "read": "Read the document",
+        "asManagement": "You approve as management. Your name and today's date are recorded on each document you approve.",
+        "approveCount": "{count, plural, =0 {Nothing selected} one {Approve # document} other {Approve # documents}}",
+        "done": "Approved. Each document now applies from today.",
+        "failed": "That did not work. Please try again.",
+        "none": "The walkthrough has not written any document yet.",
+        "sendTitle": "Send it to management",
+        "sendLead": "Management approves these documents itself, signed in with its own account. It reads each one on its page and approves it there.",
+        "managers": "In management: {names}. Send them the link to their page:",
+        "copyLink": "Copy the link",
+        "inviteLabel": "Invite someone from management by email",
+        "placeholder": "name@your-company.com",
+        "send": "Send",
+        "invited": "Invitation sent to {email}. After signing in they land on the page with the documents.",
+        "notEmailed": "The invitation for {email} was created but no email could be sent. Copy the link from the team page.",
+        "askAdmin": "Ask an admin of your company to invite someone from management.",
+        "itsMe": "I am part of management myself",
+        "pageTitle": "Approval by management",
+        "pageHeading": "Approve the documents",
+        "pageLead": "These documents were written in your company's NIS 2 walkthrough. Read each one and approve it. Your approval is recorded with your name and today's date.",
+        "pageLeadOthers": "These documents were written in your company's NIS 2 walkthrough. Management approves them here, signed in with its own account.",
+        "close": "Close"
       },
       "team": {
         "invite": "Bring someone in",
@@ -125,6 +160,7 @@
         "areas": "Assign areas on the team page"
       },
       "recorded": "Recorded in your records",
+      "recordedPolicy": "{title}: saved as a draft. Management approves it at the end of the walkthrough.",
       "recordedSources": "Looked in",
       "recordedIn": {
         "training_record": "Trainings",
@@ -204,7 +240,20 @@
         "frequency": "How often it happens",
         "legend": "Legend",
         "reading": "{frequency} and {impact} gives the level {level}",
-        "count": "{count, plural, =0 {no entries} one {# entry} other {# entries}}"
+        "count": "{count, plural, =0 {no entries} one {# entry} other {# entries}}",
+        "damageAxis": "damage",
+        "oftenAxis": "how often"
+      },
+      "reporting": {
+        "yours": "Where you report",
+        "csirt": "Its CSIRT: {name}",
+        "checked": "You report in the same portal as the registration, with the same access. On its start page, the red button \"Sicherheitsvorfall melden\" (report a security incident) opens the form.",
+        "unchecked": "Your authority's website says which channel to use. Look it up now, not during an incident.",
+        "openPortal": "Open the {name}",
+        "website": "Authority's website",
+        "noCountry": "No country is set for your company yet. Once it is, your authority appears here at the top.",
+        "setCountry": "Set the country",
+        "others": "The authorities in the other {count} EU member states"
       },
       "riskmap": {
         "byLevel": "By level",
@@ -327,8 +376,7 @@
             "lead": "Enter the latest training for every member of management. You can attach proof; after a webinar there is sometimes none."
           },
           "done": {
-            "title": "Training recorded",
-            "note": "At the end, management reviews every item and signs."
+            "title": "Training recorded"
           }
         }
       },
@@ -369,7 +417,7 @@
           },
           "done": {
             "title": "Your list is in place",
-            "note": "When a supplier comes along, add it. At the end, management reviews the list."
+            "note": "When a new supplier comes along, add it to the list."
           }
         },
         "sources": {
@@ -435,7 +483,7 @@
           },
           "done": {
             "title": "Your agreements are recorded",
-            "note": "Where nothing is agreed, you decide whether to raise it, for example at the next renewal. At the end, management reviews every item and signs."
+            "note": "Where nothing is agreed, you decide whether to raise it, for example at the next renewal."
           }
         },
         "sources": {
@@ -498,8 +546,7 @@
             "source": "Art. 3(4) NIS 2. In Germany: § 33(1) and (5) BSIG, and the BSI asks for all changes to the registration data to be made in its portal."
           },
           "done": {
-            "title": "You know when to update",
-            "note": "At the end, management reviews every item and signs."
+            "title": "You know when to update"
           }
         }
       },
@@ -524,8 +571,7 @@
             "lead": "Invite whoever takes care of it and whoever decides in an incident. Which area each person owns, you set on the team page."
           },
           "done": {
-            "title": "Roles assigned",
-            "note": "At the end, management reviews every item and signs."
+            "title": "Roles assigned"
           }
         }
       },
@@ -535,54 +581,38 @@
         "missed": [
           "The law explicitly names secured voice, video and text communication and, where needed, secured emergency communication systems within the company (§ 30(2) no. 10 BSIG). A phone list on paper does not replace that; it is the fallback when everything else is down.",
           "Decide who writes the report to {authority}. The first report, an early warning, is due at the latest 24 hours after you become aware of a significant incident (Art. 23(4)(a) NIS 2).",
-          "The plan only helps if it is at hand in an emergency. If it lives only on the server, it is gone with the server. Print it."
+          "The plan only helps if it is at hand in an emergency. If it lives only on the server, it is gone with the server. Keep a copy where it can be found without IT, for example on paper or on a phone."
         ],
         "screens": {
           "learn": {
             "title": "When something happens",
             "body": [
               "During an incident there is no time to work out who does what. So write it down beforehand: who decides, whom you call, and how you reach each other when email and the network are down.",
-              "At the end of this step you have your incident plan, written from your answers. For all staff, Germany's BSI publishes an IT emergency card to put up: it says what to do in an IT emergency and carries your IT emergency number."
+              "A significant incident also has to be reported to {authority}, the first report within 24 hours. Your plan names who makes sure that happens; the next step, 3.3, shows how reporting works.",
+              "At the end of this step you have your incident response plan, written from your answers. For all staff, Germany's BSI publishes an IT emergency card to put up: it says what to do in an IT emergency and carries your IT emergency number."
             ],
             "duty": "The law requires your company to be able to handle security incidents.",
             "link": "See the BSI's IT emergency card (in German)"
           },
           "lead": {
-            "title": "Who leads in an emergency",
-            "lead": "One person decides what to do and keeps management informed.",
-            "document": "Your emergency plan"
+            "title": "Your emergency contact",
+            "lead": "One person leads in an emergency. Everyone calls one number. And you know how to reach each other when email and the network are down.",
+            "document": "Your incident response plan"
           },
           "escalation": {
-            "title": "Whom you call",
-            "lead": "One number all staff call. Then: who gets told when, from IT up to management.",
+            "title": "Who else gets told",
+            "lead": "Who the person leading calls next, depending on how serious it is: for example your IT service provider and management.",
             "document": "Your phone list"
           },
-          "second_way": {
-            "title": "The second way",
-            "caption": "How you reach each other when email and the network fail",
-            "good": {
-              "value": "An encrypted messenger on the company phones, plus a phone list on paper",
-              "note": "Works even when your own IT is down."
-            },
-            "bad": {
-              "value": "An email to everyone",
-              "note": "If email itself is affected, the message never arrives."
-            }
-          },
-          "channel": {
-            "title": "Your second way",
-            "lead": "How you reach each other when your own IT is not working.",
-            "document": "Your emergency plan"
-          },
           "plan": {
-            "title": "Your incident plan",
-            "lead": "The template is already filled in with your answers. It sets out who decides, whom you call, what to do first and how you report. Add what applies to your company. Anything still missing is shown as a line to fill in.",
+            "title": "Your incident response plan",
+            "lead": "Written from your answers: who decides, whom you call, what to do first, how you report to {authority} and how you get back to normal. Below, add what fits your company. An answer still missing shows as a line.",
             "document": {
-              "title": "IT security incident plan of {company}",
+              "title": "Incident response plan of {company}",
               "sections": [
                 {
                   "heading": "Purpose and scope",
-                  "text": "This plan sets out what happens at {company} when an IT security incident occurs or is suspected: who decides, whom we call, how we reach each other and how we report. It applies to all staff. A printed copy is kept where it can be found without IT."
+                  "text": "This plan sets out what happens at {company} when an IT security incident occurs or is suspected: who decides, whom we call, how we reach each other, how we report and how we get back to normal. It applies to all staff. A copy is kept where it can be found without IT, for example on paper."
                 },
                 {
                   "heading": "If you notice something",
@@ -606,7 +636,11 @@
                 },
                 {
                   "heading": "Reporting to the authority",
-                  "text": "If an incident is significant, {company} reports it to the competent CSIRT or authority: an early warning within 24 hours of becoming aware of it, an incident notification within 72 hours and a final report within one month of the notification (Art. 23(4) NIS 2). {incidentLead} makes sure the reports are made. The first report contains what we know; the details follow with the second. If personal data is affected, we usually also notify the data protection authority, where feasible within 72 hours (Art. 33 GDPR)."
+                  "text": "If an incident is significant, {company} reports it to the competent CSIRT or authority: an early warning within 24 hours of becoming aware of it, an incident notification within 72 hours and a final report within one month of the notification (Art. 23(4) NIS 2). {incidentLead} makes sure the reports are made. The early warning says whether we suspect an unlawful or malicious act and whether the incident could affect other countries; everything else we know so far follows with the notification. If personal data is affected, we usually also notify the data protection authority, where feasible within 72 hours (Art. 33 GDPR)."
+                },
+                {
+                  "heading": "Getting back to normal",
+                  "text": "Affected systems go back into use only once the lead agrees: when the cause has been found and removed, restored from backups we know are clean. Afterwards we check that they work as before."
                 },
                 {
                   "heading": "After the incident",
@@ -651,48 +685,37 @@
                   "text": "Once a year we walk through an incident using this plan and update the plan afterwards."
                 }
               ],
-              "signature": "For the management of {company}: place, date, signature"
+              "own": "Further rules",
+              "signature": "Approval by the management of {company}"
             }
           },
-          "signed": {
-            "title": "Have it signed",
-            "lead": "Print the plan from the previous step and have management sign it. Then enter the version and the date here.",
-            "document": "Incident plan"
-          },
-          "proof": {
-            "title": "The signed version",
-            "lead": "Upload a scan or a photo of the signed plan.",
-            "document": "Signed incident plan"
-          },
           "done": {
-            "title": "Your incident plan is in place",
-            "note": "Keep a printed copy where it can be found without IT, and make sure all staff know the IT emergency number."
+            "title": "Your incident response plan is written",
+            "note": "Make sure all staff know the emergency number, for example on the BSI's IT emergency card."
           }
         },
         "fields": {
           "incidentLead": {
-            "label": "Incident lead",
-            "hint": "The person who decides what to do and informs management."
+            "label": "Who leads in an emergency",
+            "hint": "The person who decides what to do and keeps management informed. In a small company this is often whoever looks after NIS 2."
           },
           "itEmergencyNumber": {
-            "label": "IT emergency number",
-            "hint": "The number everyone in the company calls in an IT emergency: your own IT support, or an IT service provider you have agreed this with. It is also the number you write on the BSI's IT emergency card."
-          },
-          "incidentEscalationContacts": {
-            "label": "Escalation contacts",
-            "hint": "Names and phone numbers, by severity of the incident. Include your IT provider's emergency number."
+            "label": "Emergency number everyone calls",
+            "hint": "Usually the mobile number of the person who leads. If an IT service provider takes these calls for you, their number. It is also the number on the BSI's IT emergency card."
           },
           "secureCommsChannel": {
-            "label": "Second communication channel",
-            "hint": "How you reach each other securely when your own IT fails, for example an encrypted messenger on the company phones."
+            "label": "How you reach each other when email and the network are down",
+            "hint": "Name at least two ways that do not depend on your own IT. Email, and a chat that runs on the same accounts as your email, can fail together with it.",
+            "suggestions": [
+              "Phone calls to mobile numbers",
+              "SMS",
+              "Messenger group on the company phones",
+              "Phone list on paper"
+            ]
           },
-          "incidentPlanVersion": {
-            "label": "Version",
-            "hint": "For example 1.0. Raise it with every change."
-          },
-          "incidentPlanApprovalDate": {
-            "label": "Date of signature",
-            "hint": "The day management signed it."
+          "incidentEscalationContacts": {
+            "label": "Who else gets told",
+            "hint": "Names and phone numbers, by how serious the incident is. For example: IT service provider and its emergency number, then management."
           }
         }
       },
@@ -719,8 +742,8 @@
             "source": "Art. 23(4) NIS 2. If {authority} asks for one, an interim report comes in between. If the incident is still going on after a month, send a progress report instead of the final report, and the final report within a month of dealing with it."
           },
           "first_report": {
-            "title": "What a first report looks like",
-            "caption": "A made-up example. In Germany, these are the main details the BSI's form asks for in the early warning",
+            "title": "What the reporting form will ask",
+            "caption": "You report in {authority}'s portal, never here. In Germany the BSI's form asks for these details in the early warning, one after the other. Answered here for a made-up case, so nothing on the form surprises you",
             "rows": [
               {
                 "name": "Classification",
@@ -761,35 +784,24 @@
             ],
             "note": "The law asks for only two things in the early warning: whether the incident is suspected of being caused by unlawful or malicious acts, and whether it could have a cross-border impact (Art. 23(4)(a) NIS 2). The rest is what the reporting form asks for. Whatever you do not know yet, you add with the second report."
           },
-          "ready": {
-            "title": "What you need for the first report",
-            "lead": "Settle this now, not in the middle of an emergency:",
-            "items": [
-              {
-                "name": "Access to the reporting channel",
-                "detail": "in Germany, the BSI portal you have since the registration"
-              },
-              {
-                "name": "Who reports",
-                "detail": "one person and a deputy, written into the emergency plan"
-              }
-            ],
-            "source": "Art. 23(1) and (4) NIS 2. In Germany, a company that is not registered yet reports through the BSI's reporting and information portal (BSI, Meldepflicht info pack)."
+          "where": {
+            "title": "Where you report",
+            "lead": "The law names the receiver: your country's CSIRT or its competent authority. Yours is at the top.",
+            "source": "Art. 23(1) NIS 2. In Germany, § 32(1) BSIG: reports go to the reporting office the BSI runs together with the BBK, reached through the BSI portal (BSI, instructions for reporting in the BSI portal). A company that is not registered yet reports through an online form in the BSI's reporting and information portal (MIP)."
           },
           "setup": {
-            "title": "Record your reporting setup",
-            "lead": "One detail: can you report when it matters?",
-            "document": "Your emergency plan"
+            "title": "Can you report today?",
+            "lead": "Check it now, not during an incident: the person who would report can sign in to the portal of {authority}.",
+            "document": "Your incident response plan"
           },
           "done": {
-            "title": "Reporting prepared",
-            "note": "At the end, management reviews every item and signs."
+            "title": "Reporting prepared"
           }
         },
         "fields": {
           "bsiReportingRegistered": {
-            "label": "Set up to report to {authority}",
-            "hint": "Yes, once you can report through your country's channel. In Germany that is the BSI portal, with the same access as for the registration."
+            "label": "We can sign in to the portal and report",
+            "hint": "Yes, if the person who leads in an emergency, or their deputy, has the login and has tried it. In Germany that is the access you registered with in the BSI portal: the ELSTER organisation certificate file and its password. No, if only one person has it, or nobody knows where the certificate is."
           }
         }
       },
@@ -815,7 +827,7 @@
           },
           "confirmation": {
             "title": "Record the registration",
-            "lead": "Two details, so you know later which access was used and on which day.",
+            "lead": "Two details, so you know later which access was used and on which day. In Germany the access needs an ELSTER organisation certificate: its activation code comes by letter, a few days after you apply, to the address your tax office has. If the letter has not arrived yet, choose \"Not possible yet\".",
             "document": "Your access to the portal of {authority}"
           },
           "proof": {
@@ -824,8 +836,7 @@
             "document": "Confirmation of registration"
           },
           "done": {
-            "title": "Registration recorded",
-            "note": "At the end, management reviews every item and signs."
+            "title": "Registration recorded"
           }
         },
         "fields": {
@@ -890,8 +901,7 @@
             ]
           },
           "done": {
-            "title": "Risk assessment method set",
-            "note": "With the risk assessment method you rate each risk on its own as you write it down. At the end, management reviews it and signs."
+            "title": "Risk assessment method set"
           }
         }
       },
@@ -949,7 +959,7 @@
           },
           "done": {
             "title": "Your list is in place",
-            "note": "When something new comes along, add it at any time. Later you rate each entry on its own. At the end, management reviews the list."
+            "note": "When something new comes along, add it to the list at any time."
           }
         },
         "sources": {
@@ -985,7 +995,7 @@
           },
           "software": {
             "title": "Rate your software",
-            "lead": "For each one, think of the worst case that is realistic: it goes down, it is attacked or data is lost. How often does something like that happen, and how big would the damage be?"
+            "lead": "Each program on your list has its own row. Think of its worst realistic case: it goes down, it is attacked or data is lost. Then tap the field in its matrix: further right, the more often it happens; further up, the bigger the damage."
           },
           "technology": {
             "title": "Rate your technology and rooms",
@@ -1000,14 +1010,13 @@
             "lead": "Each number counts your entries in that field of the matrix. The further up and to the right, the sooner an entry needs protection. Below, all of them by name, highest level first."
           },
           "done": {
-            "title": "Your risks are rated",
-            "note": "Low risks are marked \"Accept\": BSI Standard 200-3 calls it common practice to accept low risks and still monitor them. Everything from \"medium\" up is marked \"Mitigate\". You can change either in the risk register. At the end, management reviews the ratings."
+            "title": "Your risks are rated"
           }
         }
       },
       "2_4": {
-        "headline": "Sign the security policy",
-        "teaser": "A short policy that management signs.",
+        "headline": "Write the security policy",
+        "teaser": "A short policy that management approves.",
         "missed": [
           "Everyone has to know the policy. Announce it to all staff and explain it to new staff before they get access to the systems; Germany's BSI asks for both (IT-Grundschutz ISMS.1.A3, Standard 200-2).",
           "A policy goes out of date. Germany's BSI recommends reviewing it at least every two years (Standard 200-2). Digital providers covered by Implementing Regulation (EU) 2024/2690 review it at least annually (Annex, point 1.1.2)."
@@ -1017,13 +1026,13 @@
             "title": "Your information security policy",
             "body": [
               "The information security policy is a short document of principles: what it covers, which objectives your company pursues, who is responsible and how it goes about security. The BSI, Germany's Federal Office for Information Security, calls it the visible commitment of management.",
-              "Our template covers what the BSI names as the minimum content. You add what applies to your company, management signs it, and all staff receive it. According to the BSI, more than ten pages are rarely needed."
+              "Our template covers what the BSI names as the minimum content. You add what applies to your company, management approves it, and all staff receive it. According to the BSI, more than ten pages are rarely needed."
             ],
             "duty": "The law requires policies on information system security (Art. 21(2)(a) NIS 2), and management bodies approve the risk-management measures and oversee their implementation (Art. 20(1) NIS 2). The policy is the document in which management puts that in writing."
           },
           "leitlinie": {
             "title": "Your policy",
-            "lead": "The template covers what the BSI names as the minimum content of a policy, and your company's name is already in it. Add what applies to your company.",
+            "lead": "The template covers what the BSI names as the minimum content of a policy, and your company's name is already in it. Below, add what fits your company.",
             "document": {
               "title": "Information security policy of {company}",
               "sections": [
@@ -1053,7 +1062,7 @@
                 },
                 {
                   "heading": "Announcement and entry into force",
-                  "text": "The policy takes effect when management signs it. All staff receive it. New staff get to know it before they are given access to our systems."
+                  "text": "The policy takes effect when management approves it. All staff receive it. New staff get to know it before they are given access to our systems."
                 }
               ],
               "clauses": [
@@ -1112,32 +1121,13 @@
                   "text": "At least once a year a qualified person who is not responsible for the measures checks whether they work."
                 }
               ],
-              "signature": "For the management of {company}: place, date, signature"
+              "own": "Further rules",
+              "signature": "Approval by the management of {company}"
             }
           },
-          "signed": {
-            "title": "Have it signed",
-            "lead": "Print the policy from the previous step and have management sign it. Then enter the version and the date here.",
-            "document": "Information security policy"
-          },
-          "proof": {
-            "title": "The signed version",
-            "lead": "Upload a scan or a photo of the signed policy.",
-            "document": "Signed policy"
-          },
           "done": {
-            "title": "Your policy is in place",
-            "note": "Announce it to all staff, for example by email or on the intranet. When something important changes, update the policy and have it signed again."
-          }
-        },
-        "fields": {
-          "policyVersion": {
-            "label": "Version",
-            "hint": "For example 1.0. Raise it with every change."
-          },
-          "policyApprovalDate": {
-            "label": "Date of signature",
-            "hint": "The day management signed it."
+            "title": "Your policy is written",
+            "note": "Once management has approved it, announce it to all staff, for example by email or on the intranet."
           }
         }
       },
@@ -1242,12 +1232,13 @@
                   "text": "For data that must stay confidential for many years, we plan the move to quantum-safe methods following the BSI's recommendations."
                 }
               ],
-              "signature": "For the management of {company}: place, date, signature"
+              "own": "Further rules",
+              "signature": "Approval by the management of {company}"
             }
           },
           "done": {
-            "title": "Your cryptography policy is in place",
-            "note": "Give it to everyone who sets up your devices and services, including your IT service provider. It is saved as a draft. At the end, management reviews all policies and approves them."
+            "title": "Your cryptography policy is written",
+            "note": "Give it to everyone who sets up your devices and services, including your IT service provider."
           }
         }
       },
@@ -1370,12 +1361,13 @@
                   "text": "For important tasks a deputy is named who knows what to do."
                 }
               ],
-              "signature": "For the management of {company}: place, date, signature"
+              "own": "Further rules",
+              "signature": "Approval by the management of {company}"
             }
           },
           "done": {
-            "title": "Your policy is in place",
-            "note": "Use it whenever someone starts, changes role or leaves. It is saved as a draft. At the end, management reviews all policies and approves them."
+            "title": "Your policy is written",
+            "note": "Use it whenever someone starts, changes role or leaves."
           }
         }
       },
@@ -1441,7 +1433,7 @@
             "title": "Phone, video, chat",
             "body": [
               "For calls, meetings and messages you use programs and services. Secured here means: the transfer is encrypted, and only authorised people get in. The BSI names the TLS protocol as the standard for securing the transfer.",
-              "How you reach each other when your own IT fails is already in your incident plan. In this step you record what you use to talk and write day to day."
+              "How you reach each other when your own IT fails is already in your incident response plan. In this step you record what you use to talk and write day to day."
             ],
             "duty": "The law requires secured voice, video and text communication within the company and, where appropriate, secured emergency communication."
           },
@@ -1601,12 +1593,13 @@
                   "text": "Our website has a security.txt file under RFC 9116 that says where to report vulnerabilities."
                 }
               ],
-              "signature": "For the management of {company}: place, date, signature"
+              "own": "Further rules",
+              "signature": "Approval by the management of {company}"
             }
           },
           "done": {
-            "title": "Your rules are in place",
-            "note": "Give them to everyone who sets up and maintains your IT, including your IT provider. They are saved as a draft. At the end, management reviews all policies and approves them."
+            "title": "Your rules are written",
+            "note": "Give them to everyone who sets up and maintains your IT, including your IT provider."
           }
         },
         "fields": {
@@ -1627,7 +1620,7 @@
           "learn": {
             "title": "When operations stop",
             "body": [
-              "The IT security incident plan says who calls whom and who decides during an attack. This plan goes further: it covers anything that interrupts important work, including fire, water, power cuts or the failure of an important provider. It says how you keep working, who restores the systems and who leads the crisis.",
+              "The incident response plan says who calls whom and who decides during an attack. This plan goes further: it covers anything that interrupts important work, including fire, water, power cuts or the failure of an important provider. It says how you keep working, who restores the systems and who leads the crisis.",
               "For a start, Germany's BSI recommends that smaller companies have a plan that keeps operations going at a minimum level: fallback processes, fallback places, and informing staff, suppliers and customers. Our template covers these points."
             ],
             "duty": "The law requires business continuity, such as backup management and disaster recovery, and crisis management."
@@ -1653,7 +1646,7 @@
           },
           "lead": {
             "title": "Who leads the crisis",
-            "lead": "Choose a person who may also decide about money, customers and staff, for example from management. Whoever leads an IT security incident reports to this person once operations stop.",
+            "lead": "Choose a person who may also decide about money, customers and staff, for example from management. Whoever leads under the incident response plan reports to this person once operations stop.",
             "document": "Your business continuity plan"
           },
           "plan": {
@@ -1664,7 +1657,7 @@
               "sections": [
                 {
                   "heading": "Purpose and scope",
-                  "text": "This plan sets out how {company} keeps working when an event interrupts important work: a cyber attack, an IT or internet outage, fire, water, a power cut or the failure of an important provider. It complements the IT security incident plan, which governs alerting and the first steps."
+                  "text": "This plan sets out how {company} keeps working when an event interrupts important work: a cyber attack, an IT or internet outage, fire, water, a power cut or the failure of an important provider. It complements the incident response plan, which governs alerting and the first steps."
                 },
                 {
                   "heading": "When this plan applies",
@@ -1672,11 +1665,11 @@
                 },
                 {
                   "heading": "Leadership",
-                  "text": "{crisisTeamLead} leads the response, brings in the people needed, decides, and records each decision with the time. Whoever leads an incident under the IT security incident plan reports to {crisisTeamLead}. If {crisisTeamLead} cannot be reached, another member of management takes over."
+                  "text": "{crisisTeamLead} leads the response, brings in the people needed, decides, and records each decision with the time. Whoever leads an incident under the incident response plan reports to {crisisTeamLead}. If {crisisTeamLead} cannot be reached, another member of management takes over."
                 },
                 {
                   "heading": "Alerting and contacts",
-                  "text": "Whom we call and how we reach each other when the IT fails is set out in the IT security incident plan, with the phone list on paper."
+                  "text": "Whom we call and how we reach each other when the IT fails is set out in the incident response plan, with the phone list on paper."
                 },
                 {
                   "heading": "Emergency operation",
@@ -1688,7 +1681,7 @@
                 },
                 {
                   "heading": "Informing people",
-                  "text": "{crisisTeamLead} or someone they name informs staff, suppliers and customers. Reports to the competent CSIRT or authority follow the IT security incident plan."
+                  "text": "{crisisTeamLead} or someone they name informs staff, suppliers and customers. Reports to the competent CSIRT or authority follow the incident response plan."
                 },
                 {
                   "heading": "Back to normal operation",
@@ -1733,12 +1726,13 @@
                   "text": "A printed copy of this plan is kept outside the building."
                 }
               ],
-              "signature": "For the management of {company}: place, date, signature"
+              "own": "Further rules",
+              "signature": "Approval by the management of {company}"
             }
           },
           "done": {
-            "title": "Your business continuity plan is in place",
-            "note": "Keep a printed copy next to the IT security incident plan. The plan is saved as a draft. At the end, management reviews all policies and approves them."
+            "title": "Your business continuity plan is written",
+            "note": "Keep a copy that works without IT next to the incident response plan, for example on paper."
           }
         },
         "fields": {
@@ -1944,12 +1938,12 @@
             "lead": "Enter the review: when, who, what was decided and what has to be done."
           },
           "approve": {
-            "title": "Approve what the walkthrough wrote",
-            "lead": "These are the documents from this walkthrough. Open each one, print it and have management sign it. Tick what is approved and enter the day."
+            "title": "Management approves the documents",
+            "lead": "These are the documents this walkthrough wrote. Management reads each one and approves it here, signed in with its own account. Nothing is printed or scanned."
           },
           "done": {
             "title": "Your management review is recorded",
-            "note": "The approved documents apply from the day entered and are listed under your policies. Hold the next review as your security policy sets out."
+            "note": "The approved documents apply from the day management approved them and are listed under your policies. Hold the next review as your security policy sets out."
           }
         }
       }

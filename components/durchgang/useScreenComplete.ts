@@ -12,7 +12,7 @@ import type { ItemView } from "./view";
  * Whether the person may move on from this screen: every field the schema requires is answered,
  * a file is in place, a source is ticked, a training of the screen's audience or a management
  * review is on the list, every listed thing is rated, every supplier's agreements and every
- * sign-in are answered, and the approval has its documents and its day. Naming assets and their
+ * sign-in are answered, and management has approved every document. Naming assets and their
  * providers is never required. Screens that only explain are always complete. Lists are read from
  * the same queries their screens show, so the answer follows each upload and each new line
  * without a second copy of the count.
@@ -59,7 +59,7 @@ export function useScreenComplete(
           return true;
       }
     case "approve":
-      return approvalReady(policies.data, draft);
+      return approvalReady(policies.data);
     case "rate":
       return ratings?.every((row) => rowSettled(row, draft)) ?? false;
     case "agreements":

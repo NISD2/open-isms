@@ -86,7 +86,16 @@ export interface ItemView {
   } | null;
   /** When the company took over the BSI method in the walk; a second pass then writes nothing. */
   readonly adoptedAt: Date | null;
-  /** Loaded only for an item with the registration portals screen. */
+  /** Loaded only for an item with a registration portals or reporting channels screen. */
   readonly registration: Registration | null;
+  /**
+   * Who is walking: the default for a person the item names, and whether they may approve the
+   * walk's documents as management or invite someone who does.
+   */
+  readonly viewer: {
+    readonly id: string;
+    readonly management: boolean;
+    readonly admin: boolean;
+  };
   readonly locale: "de" | "en";
 }

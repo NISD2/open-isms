@@ -173,6 +173,7 @@ export const teamRouter = router({
       let resolvedAssignment: Record<string, unknown> | null =
         input.assignmentContext ?? null;
 
+      // Kept even when the role owns no category: accepting gives a new member the role itself.
       if (input.complianceRole) {
         const rows = await resolveRoleAssignments(
           ctx.db,
@@ -180,12 +181,10 @@ export const teamRouter = router({
           input.complianceRole,
           ctx.userId,
         );
-        if (rows.length > 0) {
-          resolvedAssignment = {
-            roleKeys: [input.complianceRole],
-            categoryIds: rows.map((r) => r.categoryId),
-          };
-        }
+        resolvedAssignment = {
+          roleKeys: [input.complianceRole],
+          categoryIds: rows.map((r) => r.categoryId),
+        };
       }
 
       const token = generateToken();
@@ -338,7 +337,9 @@ export const teamRouter = router({
 
       await ctx.db.transaction(async (tx) => {
         // An existing member keeps their role; the invite does not change it. Otherwise the invite
-        // row's free-text role falls back to the least privileged one a membership can hold.
+        // row's free-text role falls back to the least privileged one a membership can hold, and
+        // an invite for a compliance role (management, asked to approve the walk's documents)
+        // gives that role.
         if (existingRole) {
           await openCompany(tx, { userId: ctx.userId, companyId: invite.companyId });
         } else {
@@ -347,6 +348,14 @@ export const teamRouter = router({
             companyId: invite.companyId,
             role: asMembershipRole(invite.role) ?? "member",
           });
+          const invitedRole = invitedRoleOf(invite.assignmentContext);
+          if (invitedRole) {
+            await setMembershipJobTitle(tx, {
+              userId: ctx.userId,
+              companyId: invite.companyId,
+              jobTitle: invitedRole,
+            });
+          }
         }
 
         await tx
@@ -726,6 +735,14 @@ const batchAssignmentSchema = z.object({
   categoryIds: z.array(z.string().uuid()),
 });
 
+/** The one compliance role an invite was sent for, or null. */
+const invitedRoleOf = (raw: unknown) => {
+  const batch = batchAssignmentSchema.safeParse(raw);
+  const [only, ...rest] = batch.success ? batch.data.roleKeys : [];
+  const role = z.enum(ALL_ROLE_KEYS).safeParse(only);
+  return role.success && rest.length === 0 ? role.data : null;
+};
+
 const singleAssignmentSchema = z.object({
   assessmentId: z.string().uuid(),
   categoryId: z.string().uuid(),
@@ -741,6 +758,7 @@ async function applyAssignmentContext(
   // Try batch format: { roleKeys, categoryIds }
   const batch = batchAssignmentSchema.safeParse(raw);
   if (batch.success) {
+    if (batch.data.categoryIds.length === 0) return;
     const categories = await db.query.requirementCategory.findMany({
       where: inArray(requirementCategory.id, batch.data.categoryIds),
       columns: { id: true, frameworkId: true },

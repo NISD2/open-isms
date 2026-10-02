@@ -1,5 +1,5 @@
 import type { AssetLayer } from "@/lib/asset-inventory/types";
-import type { PolicyTemplate, Rating, SourceId } from "@/lib/durchgang";
+import type { Rating, SourceId } from "@/lib/durchgang";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
 
 /** An asset as the "which one exactly" screen edits it: its name and who provides it. */
@@ -8,10 +8,14 @@ export interface Specified {
   readonly provider: string;
 }
 
-/** A rating being chosen for one asset or supplier; either scale may still be open. */
+/**
+ * A rating being chosen for one asset or supplier; either scale may still be open. The note is
+ * the person's own line on it, undefined until they write one.
+ */
 export type RatingDraft = Partial<Rating> & {
   readonly kind: "asset" | "supplier";
   readonly id: string;
+  readonly note?: string;
 };
 
 /** What the person has entered on this item so far, kept while they move between its screens. */
@@ -29,15 +33,12 @@ export interface Draft {
   readonly ratings: Readonly<Record<string, RatingDraft>>;
   /** The policy clauses chosen on this visit; null until the person changes the stored choice. */
   readonly clauses: readonly string[] | null;
+  /** The policy's addition in the company's own words; null until the person edits it. */
+  readonly own: string | null;
   /** What each supplier has agreed, by supplier id, for the rows answered on this visit. */
   readonly agreements: Readonly<Record<string, Agreed>>;
   /** Whether signing in takes a second factor, by asset id, for the rows answered on this visit. */
   readonly logins: Readonly<Record<string, boolean>>;
-  /** The drafts management approved in this sitting, by template, and the day it approved them. */
-  readonly approval: {
-    readonly types: readonly PolicyTemplate[];
-    readonly day: string;
-  };
   /** Which processes must keep running without IT, and how, by asset id, changed on this visit. */
   readonly critical: Readonly<Record<string, Critical>>;
 }
@@ -104,9 +105,9 @@ export const initialDraft = (
   specified: {},
   ratings: {},
   clauses: null,
+  own: null,
   agreements: {},
   logins: {},
-  approval: { types: [], day: "" },
   critical: {},
 });
 

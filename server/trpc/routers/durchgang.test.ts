@@ -49,7 +49,18 @@ function setup(opts: {
   statusRow?: boolean;
   existingAssets?: readonly string[];
   role?: "admin" | "member";
+  /** The compliance role in the company; "ceo" stands for management. */
+  jobTitle?: string | null;
   assigned?: boolean;
+  /** The risks linked to the rated things, as the rating's lookup joins them. */
+  riskLinks?: ReadonlyArray<{
+    id: string;
+    likelihood: number;
+    impact: number;
+    treatment: string;
+    note: string | null;
+    target: string;
+  }>;
   /** The walk's policy row of the item, if one was written before. */
   storedPolicy?: { id: string; content: string; title?: string };
   /** The category's saved intake answers. */
@@ -104,6 +115,7 @@ function setup(opts: {
         }),
       },
       user: { findFirst: async () => ({ locale: "de" }) },
+      companyRiskMethodology: { findFirst: async () => undefined },
       companyCategoryIntake: {
         findFirst: captured(
           "companyCategoryIntake",
@@ -156,6 +168,7 @@ function setup(opts: {
             if (table === asset) wheres.push({ table: "asset", where });
             return Object.assign(Promise.resolve(rows), { for: async () => rows });
           },
+          innerJoin: () => ({ where: async () => opts.riskLinks ?? [] }),
         };
       },
     }),
@@ -166,6 +179,7 @@ function setup(opts: {
     db: db as unknown as TRPCContext["db"],
     session: {
       role: opts.role ?? "admin",
+      jobTitle: opts.jobTitle ?? null,
       accessLevel: opts.accessLevel,
       user: { id: USER, email: "someone@example.com" },
     } as TRPCContext["session"],
@@ -341,7 +355,11 @@ const contentOf = (write: Write | undefined): string => {
 describe("the walk's policy", () => {
   test("writes the Leitlinie in the seed language with the company's name and only known clauses", async () => {
     const { caller, writes } = setup({ accessLevel: "full" });
-    await caller.writePolicy({ code: "2.4", clauses: ["training", "made-up"] });
+    await caller.writePolicy({
+      code: "2.4",
+      clauses: ["training", "made-up"],
+      own: null,
+    });
     const config = writes.find((w) => w.table === companyPolicyConfig);
     expect(config?.values).toMatchObject({
       companyId: COMPANY,
@@ -362,7 +380,7 @@ describe("the walk's policy", () => {
 
   test("writes the base text when no clause is added, and keeps the stored choice untouched", async () => {
     const { caller, writes } = setup({ accessLevel: "full" });
-    await caller.writePolicy({ code: "2.4", clauses: null });
+    await caller.writePolicy({ code: "2.4", clauses: null, own: null });
     expect(writes.find((w) => w.table === companyPolicyConfig)).toBeUndefined();
     const content = contentOf(
       writes.find((w) => w.op === "insert" && w.table === policy),
@@ -380,7 +398,7 @@ describe("the walk's policy", () => {
         incidentEscalationContacts: "Geschäftsführung: Jonas Muster",
       },
     });
-    await caller.writePolicy({ code: "3.1", clauses: ["card"] });
+    await caller.writePolicy({ code: "3.1", clauses: ["card"], own: null });
     const row = writes.find((w) => w.op === "insert" && w.table === policy);
     expect(row?.values).toMatchObject({
       title: "Notfallplan für IT-Sicherheitsvorfälle der Muster GmbH",
@@ -412,50 +430,53 @@ describe("the walk's policy", () => {
       accessLevel: "full",
       storedPolicy: { id: "policy-1", content: "an older text" },
     });
-    await changed.caller.writePolicy({ code: "2.4", clauses: [] });
+    await changed.caller.writePolicy({ code: "2.4", clauses: [], own: null });
     expect(
       changed.writes.find((w) => w.op === "update" && w.table === policy)?.values,
-    ).toMatchObject({ status: "draft", effectiveFrom: null });
+    ).toMatchObject({
+      status: "draft",
+      effectiveFrom: null,
+      approvedBy: null,
+      approvedAt: null,
+      approverRole: null,
+    });
 
     const first = setup({ accessLevel: "full" });
-    await first.caller.writePolicy({ code: "2.4", clauses: [] });
+    await first.caller.writePolicy({ code: "2.4", clauses: [], own: null });
     const written = first.writes.find((w) => w.op === "insert" && w.table === policy);
     const same = setup({
       accessLevel: "full",
       storedPolicy: { id: "policy-1", content: contentOf(written) },
     });
-    await same.caller.writePolicy({ code: "2.4", clauses: [] });
+    await same.caller.writePolicy({ code: "2.4", clauses: [], own: null });
     expect(same.writes.filter((w) => w.table === policy)).toEqual([]);
   });
 
-  test("approves with the signed version and day, and never writes the sign-off columns", async () => {
-    const { caller, writes } = setup({
-      accessLevel: "full",
-      storedPolicy: { id: "policy-1", content: "text" },
+  test("prints the company's own words as the last section, and keeps them with the choice", async () => {
+    const { caller, writes } = setup({ accessLevel: "full" });
+    await caller.writePolicy({
+      code: "3.1",
+      clauses: [],
+      own: "  Notfallhandy der IT: 0170 1234567 ",
     });
-    const result = await caller.approvePolicy({
-      code: "2.4",
-      version: "1.0",
-      approvedOn: "2026-10-01",
+    const config = writes.find((w) => w.table === companyPolicyConfig);
+    expect(config?.values).toMatchObject({
+      config: { clauses: [], own: "Notfallhandy der IT: 0170 1234567" },
     });
-    expect(result).toEqual({ approved: true });
-    const update = writes.find((w) => w.op === "update" && w.table === policy);
-    expect(update?.values).toMatchObject({
-      status: "approved",
-      version: "1.0",
-      effectiveFrom: "2026-10-01",
-    });
-    expect(Object.keys(update?.values ?? {})).not.toContain("approvedBy");
-    expect(Object.keys(update?.values ?? {})).not.toContain("approvedAt");
-    expect(Object.keys(update?.values ?? {})).not.toContain("approverRole");
+    const content = contentOf(
+      writes.find((w) => w.op === "insert" && w.table === policy),
+    );
+    expect(content).toContain(
+      "## 10. Weitere Regelungen\n\nNotfallhandy der IT: 0170 1234567",
+    );
   });
 
   test("refuses an item without a policy screen, and accounts without the Durchgang", async () => {
     const { caller } = setup({ accessLevel: "full" });
-    const refused = caller.writePolicy({ code: "12.2", clauses: [] });
+    const refused = caller.writePolicy({ code: "12.2", clauses: [], own: null });
     await expect(refused).rejects.toMatchObject({ code: "BAD_REQUEST" });
     const free = setup({ accessLevel: "free" });
-    const closed = free.caller.writePolicy({ code: "2.4", clauses: [] });
+    const closed = free.caller.writePolicy({ code: "2.4", clauses: [], own: null });
     await expect(closed).rejects.toMatchObject({ code: "FORBIDDEN" });
     expect(free.writes).toEqual([]);
   });
@@ -623,21 +644,37 @@ describe("the management's approval of the walk's documents", () => {
     content: "x",
     title: "Kryptokonzept der Muster GmbH",
   };
-  const approve = { code: "7.3", approvedOn: "2026-10-01", types: ["cryptography"] };
+  const approve = { code: "7.3", types: ["cryptography"] };
+  const management = {
+    accessLevel: "full",
+    jobTitle: "ceo",
+    storedPolicy: draft,
+  } as const;
+  /** Today in Berlin, the day an approval starts. */
+  const today = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }).format(
+    new Date(),
+  );
 
-  test("approves only drafts, only on the company's row of the item, from the day given", async () => {
-    const { caller, writes } = setup({ accessLevel: "full", storedPolicy: draft });
+  test("approves only drafts, only on the company's row of the item, as the person signed in", async () => {
+    const { caller, writes } = setup(management);
     expect(await caller.approvePolicies(approve)).toEqual({ approved: 1 });
     const updates = writes.filter((w) => w.op === "update" && w.table === policy);
     expect(updates).toHaveLength(1);
     expect(updates[0]?.values).toMatchObject({
       status: "approved",
-      effectiveFrom: "2026-10-01",
+      version: today,
+      effectiveFrom: today,
+      approvedBy: USER,
+      approverRole: "ceo",
     });
     expect(Object.keys(updates[0]?.values ?? {}).sort()).toEqual([
+      "approvedAt",
+      "approvedBy",
+      "approverRole",
       "effectiveFrom",
       "status",
       "updatedAt",
+      "version",
     ]);
     expect(updates[0]?.where && paramsOf(updates[0].where)).toEqual([
       COMPANY,
@@ -647,19 +684,34 @@ describe("the management's approval of the walk's documents", () => {
     ]);
   });
 
+  test("takes management's role, not a category: a member of management assigned nothing approves", async () => {
+    const member = setup({ ...management, role: "member", assigned: false });
+    expect(await member.caller.approvePolicies(approve)).toEqual({ approved: 1 });
+  });
+
+  test("refuses anyone who is not management, an admin included, and writes nothing", async () => {
+    for (const role of ["admin", "member"] as const) {
+      const other = setup({ ...management, role, jobTitle: "ciso", assigned: true });
+      await expect(other.caller.approvePolicies(approve)).rejects.toMatchObject({
+        code: "FORBIDDEN",
+      });
+      expect(other.writes).toEqual([]);
+    }
+  });
+
   test("names every approved document in the review's trail, and writes none when nothing was a draft", async () => {
-    const approved = setup({ accessLevel: "full", storedPolicy: draft });
+    const approved = setup(management);
     await approved.caller.approvePolicies(approve);
     expect(noteOf(approved.writes)).toContain(
-      "Von der Geschäftsführung freigegeben am 2026-10-01: Kryptokonzept der Muster GmbH",
+      `Von der Geschäftsführung freigegeben am ${today}: Kryptokonzept der Muster GmbH`,
     );
-    const nothing = setup({ accessLevel: "full" });
+    const nothing = setup({ ...management, storedPolicy: undefined });
     expect(await nothing.caller.approvePolicies(approve)).toEqual({ approved: 0 });
     expect(noteOf(nothing.writes)).toBe("");
   });
 
   test("refuses a type the walk does not write, an item without the screen, and accounts without the Durchgang", async () => {
-    const { caller, writes } = setup({ accessLevel: "full", storedPolicy: draft });
+    const { caller, writes } = setup(management);
     await expect(
       caller.approvePolicies({ ...approve, types: ["crypto"] }),
     ).rejects.toMatchObject({ code: "BAD_REQUEST" });
@@ -667,11 +719,51 @@ describe("the management's approval of the walk's documents", () => {
       caller.approvePolicies({ ...approve, code: "12.2" }),
     ).rejects.toMatchObject({ code: "BAD_REQUEST" });
     expect(writes).toEqual([]);
-    const free = setup({ accessLevel: "free", storedPolicy: draft });
+    const free = setup({ ...management, accessLevel: "free" });
     await expect(free.caller.approvePolicies(approve)).rejects.toMatchObject({
       code: "FORBIDDEN",
     });
     expect(free.writes).toEqual([]);
+  });
+});
+
+describe("the walk's ratings", () => {
+  const DATEV_APP = "99999999-9999-4999-8999-999999999971";
+  const assets = [{ id: DATEV_APP, name: "DATEV" }];
+  const link = {
+    id: "99999999-9999-4999-8999-999999999972",
+    likelihood: 2,
+    impact: 3,
+    treatment: "mitigate",
+    note: "Backups every night",
+    target: DATEV_APP,
+  };
+  const row = {
+    kind: "asset",
+    id: DATEV_APP,
+    frequency: "medium",
+    impact: "considerable",
+  } as const;
+
+  test("keeps a changed note as the risk's treatment description, and an emptied one as none", async () => {
+    const changed = setup({ accessLevel: "full", assets, riskLinks: [link] });
+    await changed.caller.rate({ rows: [{ ...row, note: "Backups twice a day" }] });
+    const update = changed.writes.find((w) => w.op === "update");
+    expect(update?.values).toMatchObject({ treatmentDescription: "Backups twice a day" });
+
+    const emptied = setup({ accessLevel: "full", assets, riskLinks: [link] });
+    await emptied.caller.rate({ rows: [{ ...row, note: "" }] });
+    expect(emptied.writes.find((w) => w.op === "update")?.values).toMatchObject({
+      treatmentDescription: null,
+    });
+  });
+
+  test("writes nothing for the same rating with the same note, or with no note sent", async () => {
+    for (const sent of [{ ...row, note: "Backups every night" }, row]) {
+      const same = setup({ accessLevel: "full", assets, riskLinks: [link] });
+      expect(await same.caller.rate({ rows: [sent] })).toEqual({ written: 0 });
+      expect(same.writes).toEqual([]);
+    }
   });
 });
 

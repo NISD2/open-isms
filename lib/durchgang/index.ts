@@ -19,6 +19,7 @@ export {
   loginsNote,
   methodNote,
   noteLine,
+  recordDay,
   sourcesNote,
   waitingNote,
 } from "./notes";
@@ -81,7 +82,7 @@ export type {
   SourceId,
   TrainingAudience,
 } from "./types";
-export { askedFields, POLICY_LISTS, SOURCE_IDS } from "./types";
+export { askedFields, MANAGEMENT_ROLE, POLICY_LISTS, SOURCE_IDS } from "./types";
 
 const BY_CODE: ReadonlyMap<string, AnyItem> = new Map(
   NIS2_SCRIPT.map((i) => [i.code, i]),
@@ -92,6 +93,14 @@ export const WALK: readonly AnyItem[] = JOURNEY_ORDER.flatMap((code) => {
   const item = BY_CODE.get(code);
   return item ? [item] : [];
 });
+
+/** Where management approves the walk's documents: the item and the index of its screen. */
+export const APPROVAL_SCREEN: { readonly code: string; readonly at: number } | null =
+  WALK.flatMap((item) => {
+    const screens: readonly AnyScreen[] = item.screens;
+    const at = screens.findIndex((s) => s.kind === "approve");
+    return at === -1 ? [] : [{ code: item.code, at }];
+  })[0] ?? null;
 
 /** Every policy the walk writes: the item, its template and the index of its policy screen. */
 export const WALK_POLICIES: ReadonlyArray<{

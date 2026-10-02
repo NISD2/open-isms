@@ -173,25 +173,14 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     reviewed: "2026-10-01",
     screens: [
       { kind: "learn", id: "learn", link: "bsi_it_notfallkarte" },
-      { kind: "fields", id: "lead", fields: ["incidentLead"] },
       {
         kind: "fields",
-        id: "escalation",
-        fields: ["itEmergencyNumber", "incidentEscalationContacts"],
+        id: "lead",
+        fields: ["incidentLead", "itEmergencyNumber", "secureCommsChannel"],
+        person: "incidentLead",
       },
-      { kind: "compare", id: "second_way" },
-      { kind: "fields", id: "channel", fields: ["secureCommsChannel"] },
+      { kind: "fields", id: "escalation", fields: ["incidentEscalationContacts"] },
       { kind: "policy", id: "plan", policy: "incident_response" },
-      {
-        kind: "fields",
-        id: "signed",
-        fields: ["incidentPlanVersion", "incidentPlanApprovalDate"],
-        approves: {
-          version: "incidentPlanVersion",
-          date: "incidentPlanApprovalDate",
-        },
-      },
-      { kind: "evidence", id: "proof", field: null },
       { kind: "done", id: "done" },
     ],
     notAsked: {
@@ -208,8 +197,8 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     screens: [
       { kind: "learn", id: "learn" },
       { kind: "provision", id: "clock", provision: "bsig_32_clock" },
+      { kind: "provision", id: "where", provision: "reporting_channels" },
       { kind: "sample", id: "first_report" },
-      { kind: "prepare", id: "ready" },
       { kind: "fields", id: "setup", fields: ["bsiReportingRegistered"] },
       { kind: "done", id: "done" },
     ],
@@ -320,19 +309,13 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     screens: [
       { kind: "learn", id: "learn" },
       { kind: "policy", id: "leitlinie", policy: "information_security" },
-      {
-        kind: "fields",
-        id: "signed",
-        fields: ["policyVersion", "policyApprovalDate"],
-        approves: {
-          version: "policyVersion",
-          date: "policyApprovalDate",
-        },
-      },
-      { kind: "evidence", id: "proof", field: null },
       { kind: "done", id: "done" },
     ],
     notAsked: {
+      policyVersion:
+        "Management approves the policy in the app at 7.3, together with every other document the walk wrote; the day of that approval is stored on the policy as its version and its start, so no one types a version.",
+      policyApprovalDate:
+        "The approval day is the day management approves the policy in the app at 7.3, stored on the policy itself; a typed date would be a second copy of it.",
       residualRiskCount:
         "Documenting why residual risks are accepted is CIR 2024/2690 Annex 2.1.2(j), which binds only the digital providers the CIR covers; neither § 30 BSIG nor Art. 21 NIS 2 asks for it. 2.3 proposes a treatment for each rated risk, and the requirement page keeps the acceptance.",
     },

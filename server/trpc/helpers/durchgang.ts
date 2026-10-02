@@ -35,13 +35,32 @@ export async function durchgangItem(
   actor: DurchgangActor,
   code: string,
 ): Promise<DurchgangItemRef> {
+  const ref = await walkItemRef(db, actor.companyId, code);
+  await enforceAssignment(db, {
+    role: actor.role,
+    userId: actor.userId,
+    assessmentId: ref.assessmentId,
+    categoryId: ref.categoryId,
+  });
+  return ref;
+}
+
+/**
+ * The same item without the category check, for an act whose authority is a role rather than a
+ * category: management approving the walk's documents, which the caller checks first.
+ */
+export async function walkItemRef(
+  db: Database,
+  companyId: string,
+  code: string,
+): Promise<DurchgangItemRef> {
   if (!WALK_CODES.includes(code)) {
     throw new TRPCError({
       code: "BAD_REQUEST",
       message: `${code} is not in the Durchgang.`,
     });
   }
-  const assessment = await getNis2Assessment(db, actor.companyId);
+  const assessment = await getNis2Assessment(db, companyId);
   const req = await db.query.requirement.findFirst({
     where: eq(requirement.code, code),
     columns: { id: true, categoryId: true },
@@ -59,12 +78,6 @@ export async function durchgangItem(
   if (!assessment || !req || !status) {
     throw new TRPCError({ code: "NOT_FOUND", message: `No status row for ${code}.` });
   }
-  await enforceAssignment(db, {
-    role: actor.role,
-    userId: actor.userId,
-    assessmentId: assessment.id,
-    categoryId: req.categoryId,
-  });
   return {
     code,
     requirementId: req.id,

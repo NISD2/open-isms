@@ -7,11 +7,13 @@
 
 export type NoteLocale = "de" | "en";
 
-/** A calendar day in Berlin, as the company reads its records: 2026-09-30. */
 const berlinDay = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" });
 
+/** A calendar day in Berlin, as the company reads its records: 2026-09-30. */
+export const recordDay = (at: Date): string => berlinDay.format(at);
+
 export const noteLine = (at: Date, text: string): string =>
-  `${berlinDay.format(at)} ${text.replace(/\s+/g, " ").trim()}`;
+  `${recordDay(at)} ${text.replace(/\s+/g, " ").trim()}`;
 
 const TEXT = {
   de: {

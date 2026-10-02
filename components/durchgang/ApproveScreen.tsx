@@ -1,120 +1,247 @@
 "use client";
 
-import { ExternalLink } from "lucide-react";
+import { Check, ChevronDown, Copy, Send, UserCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Link } from "@/i18n/navigation";
-import { type PolicyTemplate, WALK_POLICIES } from "@/lib/durchgang";
+import { getPathname, useRouter } from "@/i18n/navigation";
+import { APPROVAL_SCREEN, MANAGEMENT_ROLE, type PolicyTemplate } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
-import type { Draft } from "./draft";
+import { userFacingError } from "@/lib/trpc/error-message";
 import { Heading, Lead } from "./ExplainScreens";
 import { Toggle } from "./RowParts";
-import type { Of, WorkProps } from "./WorkScreens";
+import type { ItemView } from "./view";
+import type { Of } from "./WorkScreens";
+
+type Viewer = ItemView["viewer"];
+type Locale = ItemView["locale"];
+
+/** Where management approves, for the link and the invite. */
+export const APPROVAL_PATH = "/durchgang/freigabe";
 
 /** A day as stored, shown as the person reads it. */
-const dayOf = (locale: "de" | "en", day: string) =>
+const dayOf = (locale: Locale, day: string) =>
   new Intl.DateTimeFormat(locale === "de" ? "de-DE" : "en-GB", {
     timeZone: "UTC",
     dateStyle: "long",
   }).format(new Date(`${day}T00:00:00Z`));
 
-/** Where a document's policy screen is, so it can be read and printed before it is approved. */
-const screenOf = (code: string, type: string) =>
-  WALK_POLICIES.find((p) => p.code === code && p.policy === type)?.at ?? 0;
-
-/** Whether the approval screen holds what it needs: nothing left to approve, or a choice and a day. */
+/** Whether the approval screen holds what it needs: nothing is left waiting for management. */
 export const approvalReady = (
   rows: ReadonlyArray<{ readonly status: string }> | undefined,
-  draft: Draft,
-): boolean =>
-  rows !== undefined &&
-  (rows.every((row) => row.status !== "draft") ||
-    (draft.approval.types.length > 0 && draft.approval.day !== ""));
+): boolean => rows?.every((row) => row.status !== "draft") ?? false;
 
-/**
- * 7.3: every document the walk wrote, with its state. The person ticks the drafts management
- * approved in this sitting and enters the day; each one can be opened to read and print first.
- */
-export function Approve({
-  item,
-  draft,
-  onDraft,
-  entry,
-}: WorkProps & { entry: Of<"approve"> }) {
-  const t = useTranslations("durchgang.ui.approve");
-  const { data: rows } = trpc.durchgang.walkPolicies.useQuery();
-  const { types, day } = draft.approval;
-  const toggle = (type: PolicyTemplate) =>
-    onDraft({
-      ...draft,
-      approval: {
-        ...draft.approval,
-        types: types.includes(type) ? types.filter((x) => x !== type) : [...types, type],
-      },
-    });
-  const drafts = (rows ?? []).filter((row) => row.status === "draft");
-
+/** 7.3: every document the walk wrote, and who approves them. */
+export function Approve({ item, entry }: { item: ItemView; entry: Of<"approve"> }) {
   return (
     <>
       <Heading>{entry.copy.title}</Heading>
       <Lead>{entry.copy.lead}</Lead>
-      {rows === undefined ? null : rows.length === 0 ? (
-        <p className="mt-8 text-muted-foreground">{t("none")}</p>
-      ) : (
-        <ul className="mt-8 divide-y overflow-hidden rounded-2xl border bg-card shadow-sm">
-          {rows.map((row) => {
-            const { type } = row;
-            return (
-              <li
-                key={`${row.code}:${row.type}`}
-                className="grid gap-3 px-5 py-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-6"
-              >
-                <div className="min-w-0">
-                  <p className="font-medium break-words">{row.title}</p>
-                  <Link
-                    href={{
-                      pathname: "/durchgang/[code]",
-                      params: { code: row.code },
-                      query: { s: screenOf(row.code, row.type) },
-                    }}
-                    target="_blank"
-                    className="mt-1 inline-flex items-center gap-1.5 text-sm text-primary underline-offset-4 hover:underline"
-                  >
-                    {t("view")}
-                    <ExternalLink className="size-3.5" />
-                  </Link>
-                </div>
-                {row.status === "draft" ? (
-                  <Toggle on={types.includes(type)} onClick={() => toggle(type)}>
-                    {t("approved")}
-                  </Toggle>
-                ) : (
-                  <p className="text-sm text-muted-foreground">
-                    {row.effectiveFrom
-                      ? t("approvedOn", { date: dayOf(item.locale, row.effectiveFrom) })
-                      : t("approvedUndated")}
-                  </p>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-      )}
-      {drafts.length > 0 && (
-        <div className="mt-6 space-y-1.5">
-          <Label htmlFor="dg-approval-day">{t("day")}</Label>
-          <Input
-            id="dg-approval-day"
-            type="date"
-            className="max-w-48"
-            value={day}
-            onChange={(e) =>
-              onDraft({ ...draft, approval: { ...draft.approval, day: e.target.value } })
-            }
-          />
+      <Approval viewer={item.viewer} locale={item.locale} />
+    </>
+  );
+}
+
+/**
+ * The documents the walk wrote, each readable in place, and the approval. Management approves
+ * here, signed in with its own account, which records who approved and when; anyone else sends
+ * management the page. The same list is the whole of the page management is invited to.
+ */
+export function Approval({ viewer, locale }: { viewer: Viewer; locale: Locale }) {
+  const t = useTranslations("durchgang.ui.approve");
+  const utils = trpc.useUtils();
+  const { data: rows } = trpc.durchgang.walkPolicies.useQuery();
+  /** The drafts left out of this approval; every other draft is approved. */
+  const [left, setLeft] = useState<readonly PolicyTemplate[]>([]);
+  const approve = trpc.durchgang.approvePolicies.useMutation({
+    onSuccess: async () => {
+      setLeft([]);
+      await Promise.all([
+        utils.durchgang.walkPolicies.invalidate(),
+        utils.policy.list.invalidate(),
+      ]);
+      toast.success(t("done"));
+    },
+    onError: (err) => toast.error(userFacingError(err, t("failed"))),
+  });
+
+  if (rows === undefined) return null;
+  if (rows.length === 0) return <p className="mt-8 text-muted-foreground">{t("none")}</p>;
+
+  const drafts = rows.filter((row) => row.status === "draft");
+  const chosen = drafts.filter((row) => !left.includes(row.type));
+  const toggle = (type: PolicyTemplate) =>
+    setLeft(left.includes(type) ? left.filter((x) => x !== type) : [...left, type]);
+
+  return (
+    <>
+      <ul className="mt-8 divide-y overflow-hidden rounded-2xl border bg-card shadow-sm">
+        {rows.map((row) => (
+          <li key={`${row.code}:${row.type}`} className="px-5 py-4">
+            <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-6">
+              <p className="font-medium break-words">{row.title}</p>
+              {row.status !== "draft" ? (
+                <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                  <Check className="size-4 text-primary" />
+                  {row.effectiveFrom
+                    ? t(row.approver ? "approvedBy" : "approvedOn", {
+                        date: dayOf(locale, row.effectiveFrom),
+                        name: row.approver ?? "",
+                      })
+                    : t("approvedUndated")}
+                </p>
+              ) : viewer.management ? (
+                <Toggle on={!left.includes(row.type)} onClick={() => toggle(row.type)}>
+                  {t("approve")}
+                </Toggle>
+              ) : (
+                <span className="text-sm text-muted-foreground">{t("waiting")}</span>
+              )}
+            </div>
+            <details className="group mt-2">
+              <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 text-sm font-medium text-primary">
+                <ChevronDown className="size-4 transition-transform group-open:rotate-180" />
+                {t("read")}
+              </summary>
+              <div
+                className="prose prose-sm mt-4 max-w-[68ch] dark:prose-invert"
+                // Rendered on the server from the stored text, without raw HTML.
+                // biome-ignore lint/security/noDangerouslySetInnerHtml: see above
+                dangerouslySetInnerHTML={{ __html: row.html }}
+              />
+            </details>
+          </li>
+        ))}
+      </ul>
+      {drafts.length > 0 &&
+        (viewer.management ? (
+          <section className="mt-6 rounded-2xl border border-primary/30 bg-primary/[0.04] p-5 sm:p-6">
+            <p className="text-sm leading-6">{t("asManagement")}</p>
+            <Button
+              size="lg"
+              className="mt-4 rounded-xl"
+              disabled={chosen.length === 0 || approve.isPending}
+              onClick={() =>
+                APPROVAL_SCREEN &&
+                approve.mutate({
+                  code: APPROVAL_SCREEN.code,
+                  types: chosen.map((row) => row.type),
+                })
+              }
+            >
+              <UserCheck />
+              {t("approveCount", { count: chosen.length })}
+            </Button>
+          </section>
+        ) : (
+          <SendToManagement viewer={viewer} locale={locale} />
+        ))}
+    </>
+  );
+}
+
+/**
+ * When the person walking is not management: who in the team is, with the page's link to send
+ * them, an invite for someone not in the team yet, and for an admin who is management
+ * themselves, one click to say so.
+ */
+function SendToManagement({ viewer, locale }: { viewer: Viewer; locale: Locale }) {
+  const t = useTranslations("durchgang.ui.approve");
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [copied, setCopied] = useState(false);
+  const members = trpc.team.listMembers.useQuery();
+  const managers = (members.data ?? []).filter(
+    (m) => m.jobTitle === MANAGEMENT_ROLE && m.id !== viewer.id,
+  );
+  const path = getPathname({ href: APPROVAL_PATH, locale });
+  const invite = trpc.team.invite.useMutation({
+    onSuccess: (data, input) => {
+      setEmail("");
+      if (data.emailed) toast.success(t("invited", { email: input.email }));
+      else toast.warning(t("notEmailed", { email: input.email }));
+    },
+    onError: (err) => toast.error(userFacingError(err, t("failed"))),
+  });
+  const claim = trpc.team.assignRole.useMutation({
+    onSuccess: () => router.refresh(),
+    onError: (err) => toast.error(userFacingError(err, t("failed"))),
+  });
+  const copy = () => {
+    navigator.clipboard.writeText(`${window.location.origin}${path}`);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <section className="mt-6 space-y-5 rounded-2xl border bg-muted/30 p-5 sm:p-6">
+      <div>
+        <p className="font-semibold">{t("sendTitle")}</p>
+        <p className="mt-1 max-w-[60ch] text-sm leading-6 text-muted-foreground">
+          {t("sendLead")}
+        </p>
+      </div>
+      {managers.length > 0 && (
+        <div className="space-y-2">
+          <p className="text-sm">
+            {t("managers", {
+              names: managers.map((m) => m.name?.trim() || m.email).join(", "),
+            })}
+          </p>
+          <Button variant="outline" size="sm" onClick={copy}>
+            {copied ? <Check /> : <Copy />}
+            {t("copyLink")}
+          </Button>
         </div>
       )}
-    </>
+      {viewer.admin && (
+        <form
+          className="space-y-2"
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (email.trim()) {
+              invite.mutate({
+                email: email.trim(),
+                complianceRole: MANAGEMENT_ROLE,
+                redirectPath: path,
+              });
+            }
+          }}
+        >
+          <label htmlFor="dg-management-email" className="text-sm font-medium">
+            {t("inviteLabel")}
+          </label>
+          <div className="flex max-w-md gap-2">
+            <Input
+              id="dg-management-email"
+              type="email"
+              required
+              placeholder={t("placeholder")}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Button type="submit" disabled={invite.isPending}>
+              <Send />
+              {t("send")}
+            </Button>
+          </div>
+        </form>
+      )}
+      {!viewer.admin && managers.length === 0 && (
+        <p className="text-sm text-muted-foreground">{t("askAdmin")}</p>
+      )}
+      {viewer.admin && (
+        <button
+          type="button"
+          disabled={claim.isPending}
+          onClick={() => claim.mutate({ userId: viewer.id, roleKey: MANAGEMENT_ROLE })}
+          className="cursor-pointer text-sm font-medium text-primary underline-offset-4 hover:underline"
+        >
+          {t("itsMe")}
+        </button>
+      )}
+    </section>
   );
 }

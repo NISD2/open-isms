@@ -33,35 +33,38 @@ interface StoredRisk {
   impact: number;
   risk_score: number;
   treatment: string;
+  treatment_description: string | null;
   accepted_at: string | null;
 }
+
+/** A field of a row's matrix, as a screen reader names it: damage, frequency, then the level. */
+const field = (impact: string, frequency: string) =>
+  new RegExp(`^${impact}, ${frequency}:`);
 
 const idsOf = async (sql: string, companyId: string) =>
   new Set((await e2eQuery<{ id: string }>(sql, [companyId])).map((r) => r.id));
 
 const assetRisks = (assetId: string) =>
   e2eQuery<StoredRisk>(
-    `SELECT r.likelihood, r.impact, r.risk_score, r.treatment, r.accepted_at
+    `SELECT r.likelihood, r.impact, r.risk_score, r.treatment, r.treatment_description,
+            r.accepted_at
        FROM risk r JOIN risk_asset l ON l.risk_id = r.id
       WHERE l.asset_id = $1`,
     [assetId],
   );
 
-/** Answers every rating row on the screen; Weiter waits until all are rated. */
+/**
+ * Answers every rating row on the screen by its matrix field; Weiter waits until all are rated.
+ * Labels as the German screen writes them, damage first.
+ */
 const rateAll = async (
   page: import("@playwright/test").Page,
-  frequency: string,
   impact: string,
+  frequency: string,
 ) => {
-  for (const select of await page
-    .getByRole("combobox", { name: /^Wie oft es eintritt:/ })
-    .all()) {
-    await select.selectOption(frequency);
-  }
-  for (const select of await page
-    .getByRole("combobox", { name: /^Wie groß der Schaden wäre:/ })
-    .all()) {
-    await select.selectOption(impact);
+  const matrices = page.getByRole("group").filter({ has: page.getByRole("radio") });
+  for (const matrix of await matrices.all()) {
+    await matrix.getByRole("radio", { name: field(impact, frequency) }).check();
   }
 };
 
@@ -177,10 +180,11 @@ test.describe("durchgang registers", () => {
     const next = page.getByRole("button", { name: "Weiter", exact: true });
     await expect(next).toBeDisabled();
 
-    await rateAll(page, "frequent", "considerable");
+    await rateAll(page, "Beträchtlich", "Häufig");
     // Frequent and considerable meet at "hoch" in the 200-3 matrix.
     const row = page.getByRole("listitem").filter({ hasText: PRODUCT });
     await expect(row.getByText("Hoch", { exact: true })).toBeVisible();
+    await row.getByLabel(`Notiz: ${PRODUCT}`).fill("Datensicherung jede Nacht");
     await next.click();
 
     await expect
@@ -191,6 +195,7 @@ test.describe("durchgang registers", () => {
           impact: 3,
           risk_score: 9,
           treatment: "mitigate",
+          treatment_description: "Datensicherung jede Nacht",
           accepted_at: null,
         },
       ]);
@@ -200,15 +205,18 @@ test.describe("durchgang registers", () => {
     page,
   }) => {
     await page.goto(`/de/durchgang/2.3?s=${RATE_SOFTWARE}`);
-    // The stored rating is shown, so the screen is already complete.
-    const frequency = page.getByRole("combobox", {
-      name: `Wie oft es eintritt: ${PRODUCT}`,
-    });
-    await expect(frequency).toHaveValue("frequent", { timeout: 30_000 });
+    // The stored rating and note are shown, so the screen is already complete.
+    const matrix = page.getByRole("group", { name: PRODUCT });
+    await expect(
+      matrix.getByRole("radio", { name: field("Beträchtlich", "Häufig") }),
+    ).toBeChecked({ timeout: 30_000 });
+    await expect(page.getByLabel(`Notiz: ${PRODUCT}`)).toHaveValue(
+      "Datensicherung jede Nacht",
+    );
 
-    await page
-      .getByRole("combobox", { name: `Wie groß der Schaden wäre: ${PRODUCT}` })
-      .selectOption("existential");
+    await matrix
+      .getByRole("radio", { name: field("Existenzbedrohend", "Häufig") })
+      .check();
     await page.getByRole("button", { name: "Weiter", exact: true }).click();
 
     await expect
@@ -219,6 +227,7 @@ test.describe("durchgang registers", () => {
           impact: 4,
           risk_score: 12,
           treatment: "mitigate",
+          treatment_description: "Datensicherung jede Nacht",
           accepted_at: null,
         },
       ]);
@@ -232,7 +241,7 @@ test.describe("durchgang registers", () => {
     await expect(provider).toBeVisible({ timeout: 30_000 });
 
     // Frequent and existential meet at "sehr hoch", which the supplier register calls critical.
-    await rateAll(page, "frequent", "existential");
+    await rateAll(page, "Existenzbedrohend", "Häufig");
     await page.getByRole("button", { name: "Weiter", exact: true }).click();
 
     await expect

@@ -1,7 +1,8 @@
 /**
  * A policy as the walk writes it: the template's fixed sections, then the clauses the person
- * chose, in the template's order, numbered, with the company's name and the item's answers filled
- * in. Plain string assembly, so the stored text and the screen's preview cannot differ.
+ * chose, in the template's order, then the company's own words if it wrote any, numbered, with
+ * the company's name and the item's answers filled in. Plain string assembly, so the stored text
+ * and the screen's preview cannot differ.
  */
 
 import { marker } from "./copy";
@@ -15,10 +16,14 @@ export interface PolicyDocument {
     readonly heading: string;
     readonly text: string;
   }>;
+  /** The heading of the company's own addition. */
+  readonly own: string;
   readonly signature: string;
 }
 
 export interface PolicyPart {
+  /** The clause a part comes from, or null for a fixed section and the company's own words. */
+  readonly clause: string | null;
   readonly heading: string;
   readonly text: string;
 }
@@ -68,27 +73,43 @@ export const policyTitle = (document: PolicyDocument, names: PolicyNames): strin
 export const policySignature = (document: PolicyDocument, names: PolicyNames): string =>
   named(document.signature, names);
 
-/** The policy's numbered parts: every section, then each chosen clause. */
+/**
+ * The policy's numbered parts: every section, then each chosen clause, then the company's own
+ * words, which are printed as written.
+ */
 export const policyParts = (
   document: PolicyDocument,
   chosen: readonly string[],
   names: PolicyNames,
+  own: string,
 ): readonly PolicyPart[] =>
-  [...document.sections, ...document.clauses.filter((c) => chosen.includes(c.id))].map(
-    (part, i) => ({
-      heading: `${i + 1}. ${named(part.heading, names)}`,
-      text: named(part.text, names),
-    }),
-  );
+  [
+    ...document.sections.map((s) => ({
+      clause: null,
+      heading: named(s.heading, names),
+      text: named(s.text, names),
+    })),
+    ...document.clauses
+      .filter((c) => chosen.includes(c.id))
+      .map((c) => ({
+        clause: c.id,
+        heading: named(c.heading, names),
+        text: named(c.text, names),
+      })),
+    ...(own.trim() ? [{ clause: null, heading: document.own, text: own.trim() }] : []),
+  ].map((part, i) => ({ ...part, heading: `${i + 1}. ${part.heading}` }));
 
 /** The policy as the `policy` row stores it, in Markdown. */
 export const policyText = (
   document: PolicyDocument,
   chosen: readonly string[],
   names: PolicyNames,
+  own: string,
 ): string =>
   [
     `# ${policyTitle(document, names)}`,
-    ...policyParts(document, chosen, names).map((p) => `## ${p.heading}\n\n${p.text}`),
+    ...policyParts(document, chosen, names, own).map(
+      (p) => `## ${p.heading}\n\n${p.text}`,
+    ),
     policySignature(document, names),
   ].join("\n\n");

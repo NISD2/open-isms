@@ -256,18 +256,6 @@
         "meaning": "The one number all staff call in an IT emergency. It goes on the BSI's IT emergency card.",
         "example": "Extension 400 (IT support), outside business hours the on-call phone",
         "whereToFind": "Your own IT support or your IT service provider. Agree with them beforehand that they take emergencies on this number."
-      },
-      "incidentPlanVersion": {
-        "label": "Incident plan version",
-        "meaning": "The version of the incident plan that management signed.",
-        "example": "1.0",
-        "whereToFind": "On the signed plan. Raise it with every change."
-      },
-      "incidentPlanApprovalDate": {
-        "label": "Incident plan approval",
-        "meaning": "The day management signed the incident plan.",
-        "example": "2026-10-01",
-        "whereToFind": "The date next to the signature on the plan."
       }
     }
   },

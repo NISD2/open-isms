@@ -81,13 +81,20 @@ export const fromScale = (likelihood: number, impact: number): Rating | null => 
  */
 export type Standing =
   | { readonly kind: "open" }
-  | { readonly kind: "rated"; readonly riskId: string; readonly rating: Rating }
+  | {
+      readonly kind: "rated";
+      readonly riskId: string;
+      readonly rating: Rating;
+      /** The person's own line on the risk, kept as its treatment description. */
+      readonly note: string;
+    }
   | { readonly kind: "kept"; readonly count: number; readonly highest: RiskLevel | null };
 
 export interface StoredRisk {
   readonly id: string;
   readonly likelihood: number;
   readonly impact: number;
+  readonly note?: string | null;
 }
 
 const highestOf = (levels: readonly RiskLevel[]): RiskLevel | null =>
@@ -101,7 +108,9 @@ export const standingOf = (risks: readonly StoredRisk[]): Standing => {
   const [only, ...rest] = risks;
   if (!only) return { kind: "open" };
   const rating = fromScale(only.likelihood, only.impact);
-  if (rest.length === 0 && rating) return { kind: "rated", riskId: only.id, rating };
+  if (rest.length === 0 && rating) {
+    return { kind: "rated", riskId: only.id, rating, note: only.note ?? "" };
+  }
   return {
     kind: "kept",
     count: risks.length,

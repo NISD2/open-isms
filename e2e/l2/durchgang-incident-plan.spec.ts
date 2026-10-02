@@ -1,7 +1,7 @@
 /**
  * L2 Durchgang incident plan (3.1): the walk writes the company's incident plan from the template,
- * filled in with the answers given on the screens before it, and the signature page approves it,
- * through the real UI against real Postgres.
+ * filled in with the answers given on the screens before it, with a clause and the company's own
+ * words, through the real UI against real Postgres. Management approves it later, at 7.3.
  *
  * Cleanup removes the policy and the clause choice this file wrote and restores the INC answers,
  * because later layers sign off against this tenant (`e2e/lib/durchgang.ts`).
@@ -18,9 +18,9 @@ import {
   walkPolicy,
 } from "../lib/durchgang";
 
-// learn, lead, whom you call, second way example, second way, plan, signature, signed copy, done.
+// learn, emergency contact, who else gets told, plan, done.
 const LEAD_SCREEN = 1;
-const SIGNATURE_SCREEN = 6;
+const PLAN_SCREEN = 3;
 const TYPE = "incident_response";
 
 test.describe("durchgang incident plan", () => {
@@ -46,18 +46,25 @@ test.describe("durchgang incident plan", () => {
   }) => {
     const next = page.getByRole("button", { name: "Weiter", exact: true });
     await page.goto(`/de/durchgang/3.1?s=${LEAD_SCREEN}`);
-    const lead = page.locator("#dg-incidentLead");
-    await expect(lead).toBeVisible({ timeout: 30_000 });
-    await lead.fill("Anna Weber");
+    const someoneElse = page.getByRole("radio", { name: "Jemand anderes" });
+    await expect(someoneElse).toBeVisible({ timeout: 30_000 });
+    // The person walking is picked until someone else is chosen.
+    await expect(page.getByRole("radio", { checked: true })).not.toHaveAccessibleName(
+      "Jemand anderes",
+    );
+    await someoneElse.click();
+    await page.locator("#dg-incidentLead").fill("Anna Weber");
+    await page.locator("#dg-itEmergencyNumber").fill("Durchwahl 400");
+    await page.getByRole("button", { name: "SMS" }).click();
+    await page.getByRole("button", { name: "Telefonliste auf Papier" }).click();
+    await expect(page.locator("#dg-secureCommsChannel")).toHaveValue(
+      "SMS; Telefonliste auf Papier",
+    );
     await next.click();
 
-    await page.locator("#dg-itEmergencyNumber").fill("Durchwahl 400");
     await page
       .locator("#dg-incidentEscalationContacts")
       .fill("Geschäftsführung: Jonas Muster");
-    await next.click();
-    await next.click();
-    await page.locator("#dg-secureCommsChannel").fill("Threema Work");
     await next.click();
 
     // The preview is filled in from this visit's answers, before the save has landed.
@@ -67,37 +74,31 @@ test.describe("durchgang incident plan", () => {
     const card = page.getByRole("button", { name: "IT-Notfallkarte" });
     await card.click();
     await expect(card).toHaveAttribute("aria-pressed", "true");
+    await expect(page.getByText("Ins Dokument aufgenommen")).toBeVisible();
     await next.click();
 
     await expect
       .poll(async () => (await plan())?.content ?? "")
-      .toContain("## 9. IT-Notfallkarte");
+      .toContain("## 10. IT-Notfallkarte");
     const content = (await plan())?.content ?? "";
     expect(content).toContain("Anna Weber leitet die Bewältigung eines Vorfalls.");
     expect(content).toContain("ruft sofort die IT-Notfallnummer Durchwahl 400 an.");
     expect(content).toContain("ruft die Leitung an: Geschäftsführung: Jonas Muster.");
-    expect(content).toContain("erreichen wir uns über: Threema Work.");
+    expect(content).toContain("erreichen wir uns über: SMS; Telefonliste auf Papier.");
     expect(content).toContain("mit unserer Nummer Durchwahl 400.");
     expect(content).not.toContain("{");
+    expect((await plan())?.status).toBe("draft");
   });
 
-  test("the signature approves the plan, without the sign-off columns", async ({
-    page,
-  }) => {
-    await page.goto(`/de/durchgang/3.1?s=${SIGNATURE_SCREEN}`);
-    const version = page.locator("#dg-incidentPlanVersion");
-    await expect(version).toBeVisible({ timeout: 30_000 });
-    await version.fill("1.0");
-    await page.locator("#dg-incidentPlanApprovalDate").fill("2026-10-01");
+  test("the company's own words go in as the last section", async ({ page }) => {
+    await page.goto(`/de/durchgang/3.1?s=${PLAN_SCREEN}`);
+    const own = page.locator("#dg-policy-own");
+    await expect(own).toBeVisible({ timeout: 30_000 });
+    await own.fill("Notfallhandy der IT: 0170 1234567");
     await page.getByRole("button", { name: "Weiter", exact: true }).click();
 
-    await expect.poll(async () => (await plan())?.status ?? null).toBe("approved");
-    expect(await plan()).toMatchObject({
-      version: "1.0",
-      effective_from: "2026-10-01",
-      approved_by: null,
-      approved_at: null,
-      approver_role: null,
-    });
+    await expect
+      .poll(async () => (await plan())?.content ?? "")
+      .toContain("## 11. Weitere Regelungen\n\nNotfallhandy der IT: 0170 1234567");
   });
 });

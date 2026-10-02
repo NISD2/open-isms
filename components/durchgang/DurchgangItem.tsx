@@ -52,7 +52,7 @@ import { PolicyScreen } from "./PolicyScreen";
 import { Rail } from "./Rail";
 import { Rate, Specify } from "./RatingScreens";
 import { RiskMapScreen } from "./RiskMapScreen";
-import { type Direction, PROGRESS, STAGE, transition } from "./transition";
+import { type Direction, PROGRESS, STAGE, transition, transitionTo } from "./transition";
 import { useScreenComplete } from "./useScreenComplete";
 import { useWalkItem } from "./useWalkItem";
 import type { ItemView, WalkEntry } from "./view";
@@ -159,7 +159,13 @@ export function DurchgangItem({
   const forward = () => {
     if (entry.screen.kind === "done") {
       if (next) {
-        router.push({ pathname: "/durchgang/[code]", params: { code: next.code } });
+        // The next section slides in like the next screen of this one.
+        transitionTo(
+          "forward",
+          () =>
+            router.push({ pathname: "/durchgang/[code]", params: { code: next.code } }),
+          () => document.querySelector(`main[data-dg-item="${next.code}"]`) !== null,
+        );
       } else {
         router.push("/durchgang");
       }
@@ -240,7 +246,7 @@ export function DurchgangItem({
       case "policy":
         return <PolicyScreen {...work} entry={entry} />;
       case "approve":
-        return <Approve {...work} entry={entry} />;
+        return <Approve item={item} entry={entry} />;
       case "critical":
         return <CriticalScreen {...work} entry={entry} />;
       case "riskmap":
@@ -301,7 +307,12 @@ export function DurchgangItem({
       </header>
 
       <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)] gap-12 px-4 pt-8 pb-40 sm:px-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:px-10 lg:pt-14 xl:gap-20">
-        <main style={STAGE} className="w-full max-w-3xl" key={`${item.code}-${index}`}>
+        <main
+          style={STAGE}
+          className="w-full max-w-3xl"
+          key={`${item.code}-${index}`}
+          data-dg-item={item.code}
+        >
           <span
             className={cn(
               "mb-4 inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium print:hidden",

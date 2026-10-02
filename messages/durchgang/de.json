@@ -63,10 +63,24 @@
       "registerHint": "Änderungen hier landen sofort in Ihrer Liste.",
       "alsoListed": "Außerdem auf Ihrer Liste: {names}",
       "policy": {
-        "add": "Ergänzen Sie, was für Sie gilt:",
-        "print": "Drucken",
-        "changedAfterApproval": "Die geänderte Fassung braucht eine neue Unterschrift."
+        "question": "Was davon gibt es in Ihrem Unternehmen?",
+        "questionHint": "Jeder Punkt, den Sie wählen, kommt als Abschnitt in das Dokument unten. Ein zweites Antippen nimmt ihn wieder heraus.",
+        "added": "Ins Dokument aufgenommen",
+        "showInPlan": "Im Dokument zeigen",
+        "removed": "Aus dem Dokument genommen: {label}",
+        "ownLabel": "Was sonst noch bei Ihnen gilt (freiwillig)",
+        "ownHint": "Zum Beispiel eine Nummer, eine eigene Regel oder einen Ansprechpartner. Es kommt als letzter Abschnitt ins Dokument, so wie Sie es schreiben.",
+        "approvedLater": "Die Geschäftsführung gibt das Dokument am Ende des Durchgangs frei, angemeldet mit ihrem eigenen Zugang.",
+        "changedAfterApproval": "Die geänderte Fassung muss die Geschäftsführung noch einmal freigeben."
       },
+      "person": {
+        "you": "Sie",
+        "other": "Jemand anderes",
+        "otherName": "Name der Person",
+        "invite": "Noch nicht im Team? Per E-Mail einladen",
+        "placeholder": "name@ihre-firma.de"
+      },
+      "suggestions": "Häufige Antworten:",
       "specify": {
         "what": "Was genau",
         "provider": "Von wem",
@@ -77,10 +91,10 @@
       "rate": {
         "frequency": "Wie oft es eintritt",
         "impact": "Wie groß der Schaden wäre",
-        "frequencyShort": "Wie oft?",
-        "impactShort": "Schaden?",
         "open": "Stufe",
-        "matrix": "Wie sich daraus die Stufe ergibt",
+        "scales": "Was die Stufen bedeuten, in den Worten des BSI",
+        "note": "Notiz",
+        "notePlaceholder": "Notiz (freiwillig), zum Beispiel was Sie schon dagegen tun",
         "providedBy": "von {name}",
         "provides": "liefert {names}",
         "kept": "{count, plural, one {# Risiko} other {# Risiken}} im Risikoregister",
@@ -112,12 +126,33 @@
         "failed": "Das wurde nicht gespeichert. Bitte versuchen Sie es noch einmal."
       },
       "approve": {
-        "approved": "Freigegeben",
+        "approve": "Freigeben",
         "approvedOn": "Freigegeben am {date}",
+        "approvedBy": "Freigegeben am {date} von {name}",
         "approvedUndated": "Freigegeben",
-        "view": "Ansehen und drucken",
-        "day": "Tag der Freigabe",
-        "none": "Der Durchgang hat noch kein Dokument geschrieben."
+        "waiting": "Wartet auf die Geschäftsführung",
+        "read": "Dokument lesen",
+        "asManagement": "Sie geben als Geschäftsführung frei. Ihr Name und das heutige Datum werden bei jedem Dokument festgehalten, das Sie freigeben.",
+        "approveCount": "{count, plural, =0 {Nichts ausgewählt} one {# Dokument freigeben} other {# Dokumente freigeben}}",
+        "done": "Freigegeben. Jedes Dokument gilt ab heute.",
+        "failed": "Das hat nicht geklappt. Bitte versuchen Sie es noch einmal.",
+        "none": "Der Durchgang hat noch kein Dokument geschrieben.",
+        "sendTitle": "An die Geschäftsführung schicken",
+        "sendLead": "Die Geschäftsführung gibt diese Dokumente selbst frei, angemeldet mit ihrem eigenen Zugang. Sie liest jedes auf ihrer Seite und gibt es dort frei.",
+        "managers": "In der Geschäftsführung: {names}. Schicken Sie den Link zu ihrer Seite:",
+        "copyLink": "Link kopieren",
+        "inviteLabel": "Jemanden aus der Geschäftsführung per E-Mail einladen",
+        "placeholder": "name@ihre-firma.de",
+        "send": "Senden",
+        "invited": "Einladung an {email} verschickt. Nach der Anmeldung landet die Person auf der Seite mit den Dokumenten.",
+        "notEmailed": "Die Einladung für {email} ist angelegt, aber es konnte keine E-Mail verschickt werden. Den Link finden Sie auf der Teamseite.",
+        "askAdmin": "Bitten Sie einen Admin Ihres Unternehmens, jemanden aus der Geschäftsführung einzuladen.",
+        "itsMe": "Ich gehöre selbst zur Geschäftsführung",
+        "pageTitle": "Freigabe durch die Geschäftsführung",
+        "pageHeading": "Dokumente freigeben",
+        "pageLead": "Diese Dokumente sind im NIS-2-Durchgang Ihres Unternehmens entstanden. Lesen Sie jedes und geben Sie es frei. Ihre Freigabe wird mit Ihrem Namen und dem heutigen Datum festgehalten.",
+        "pageLeadOthers": "Diese Dokumente sind im NIS-2-Durchgang Ihres Unternehmens entstanden. Die Geschäftsführung gibt sie hier frei, angemeldet mit ihrem eigenen Zugang.",
+        "close": "Schließen"
       },
       "team": {
         "invite": "Jemanden dazuholen",
@@ -125,6 +160,7 @@
         "areas": "Bereiche auf der Teamseite verteilen"
       },
       "recorded": "Festgehalten in Ihren Unterlagen",
+      "recordedPolicy": "{title}: als Entwurf gespeichert. Die Geschäftsführung gibt es am Ende des Durchgangs frei.",
       "recordedSources": "Nachgesehen in",
       "recordedIn": {
         "training_record": "Schulungen",
@@ -204,7 +240,20 @@
         "frequency": "Wie oft es eintritt",
         "legend": "Legende",
         "reading": "{frequency} und {impact} ergibt die Stufe {level}",
-        "count": "{count, plural, =0 {kein Eintrag} one {# Eintrag} other {# Einträge}}"
+        "count": "{count, plural, =0 {kein Eintrag} one {# Eintrag} other {# Einträge}}",
+        "damageAxis": "Schaden",
+        "oftenAxis": "wie oft"
+      },
+      "reporting": {
+        "yours": "Hier melden Sie",
+        "csirt": "Das CSIRT dort: {name}",
+        "checked": "Sie melden im selben Portal wie bei der Registrierung, mit demselben Zugang. Auf der Startseite öffnet der rote Knopf „Sicherheitsvorfall melden“ das Formular.",
+        "unchecked": "Auf der Website Ihrer Behörde steht, über welchen Weg Sie melden. Schlagen Sie es jetzt nach, nicht erst im Ernstfall.",
+        "openPortal": "Zum {name}",
+        "website": "Website der Behörde",
+        "noCountry": "Für Ihr Unternehmen ist noch kein Land hinterlegt. Dann stünde Ihre Behörde hier oben.",
+        "setCountry": "Land eintragen",
+        "others": "Die Behörden der {count} anderen EU-Staaten"
       },
       "riskmap": {
         "byLevel": "Nach Stufe",
@@ -327,8 +376,7 @@
             "lead": "Tragen Sie für jedes Mitglied der Geschäftsführung die letzte Schulung ein. Einen Nachweis können Sie anhängen; nach einem Webinar gibt es manchmal keinen."
           },
           "done": {
-            "title": "Schulung erfasst",
-            "note": "Am Ende sieht die Geschäftsführung alle Punkte durch und unterschreibt."
+            "title": "Schulung erfasst"
           }
         }
       },
@@ -375,7 +423,7 @@
           },
           "done": {
             "title": "Ihre Liste steht",
-            "note": "Kommt ein Lieferant dazu, ergänzen Sie ihn. Am Ende sieht die Geschäftsführung die Liste durch."
+            "note": "Kommt ein neuer Lieferant dazu, ergänzen Sie ihn auf der Liste."
           }
         },
         "sources": {
@@ -441,7 +489,7 @@
           },
           "done": {
             "title": "Ihre Vereinbarungen sind festgehalten",
-            "note": "Wo nichts geregelt ist, entscheiden Sie, ob Sie es ansprechen, etwa bei der nächsten Verlängerung. Am Ende sieht die Geschäftsführung alle Punkte durch und unterschreibt."
+            "note": "Wo nichts geregelt ist, entscheiden Sie, ob Sie es ansprechen, etwa bei der nächsten Verlängerung."
           }
         },
         "sources": {
@@ -504,8 +552,7 @@
             "source": "§ 33 Abs. 1 und 5 BSIG. Das BSI verlangt, „alle Änderungen an den Registrierungsdaten“ binnen zwei Wochen im BSI-Portal unter „Ihre Registrierung“ nachzutragen (Anleitung des BSI)."
           },
           "done": {
-            "title": "Sie wissen, wann Sie nachtragen",
-            "note": "Am Ende sieht die Geschäftsführung alle Punkte durch und unterschreibt."
+            "title": "Sie wissen, wann Sie nachtragen"
           }
         }
       },
@@ -530,8 +577,7 @@
             "lead": "Laden Sie ein, wer sich kümmert und wer bei einem Vorfall entscheidet. Welchen Bereich jemand verantwortet, legen Sie auf der Teamseite fest."
           },
           "done": {
-            "title": "Rollen verteilt",
-            "note": "Am Ende sieht die Geschäftsführung alle Punkte durch und unterschreibt."
+            "title": "Rollen verteilt"
           }
         }
       },
@@ -541,54 +587,38 @@
         "missed": [
           "Das Gesetz nennt gesicherte Sprach-, Video- und Textkommunikation und, wo nötig, gesicherte Notfallkommunikationssysteme im Unternehmen (§ 30 Abs. 2 Nr. 10 BSIG). Eine Telefonliste auf Papier ersetzt das nicht; sie ist der Rückfall, wenn alles andere steht.",
           "Legen Sie fest, wer die Meldung an das {authority} schreibt. Die erste Meldung ist spätestens 24 Stunden, nachdem Sie von einem erheblichen Vorfall erfahren haben, fällig (§ 32 Abs. 1 BSIG).",
-          "Der Plan hilft nur, wenn er im Ernstfall greifbar ist. Liegt er allein auf dem Server, ist er mit dem Server weg. Drucken Sie ihn aus."
+          "Der Plan hilft nur, wenn er im Ernstfall greifbar ist. Liegt er allein auf dem Server, ist er mit dem Server weg. Legen Sie eine Fassung dorthin, wo sie auch ohne IT zu finden ist, zum Beispiel auf Papier oder auf einem Handy."
         ],
         "screens": {
           "learn": {
             "title": "Wenn etwas passiert",
             "body": [
               "Während eines Vorfalls ist keine Zeit, zu überlegen, wer was tut. Deshalb halten Sie es vorher fest: wer entscheidet, wen Sie anrufen und wie Sie sich erreichen, wenn E-Mail und Netz nicht gehen.",
+              "Einen erheblichen Vorfall müssen Sie außerdem dem {authority} melden, die erste Meldung binnen 24 Stunden. Ihr Plan legt fest, wer dafür sorgt; wie das Melden geht, zeigt der nächste Schritt, 3.3.",
               "Am Ende dieses Schritts steht Ihr Notfallplan, aus Ihren Antworten geschrieben. Für alle Beschäftigten gibt das BSI dazu eine IT-Notfallkarte zum Aushängen heraus: Sie sagt, was bei einem IT-Notfall zu tun ist, und trägt Ihre IT-Notfallnummer."
             ],
             "duty": "Das Gesetz verlangt, dass Ihr Unternehmen Sicherheitsvorfälle bewältigen kann.",
             "link": "IT-Notfallkarte des BSI ansehen"
           },
           "lead": {
-            "title": "Wer im Ernstfall führt",
-            "lead": "Eine Person entscheidet, was zu tun ist, und hält die Geschäftsführung auf dem Laufenden.",
+            "title": "Ihr Kontakt im Ernstfall",
+            "lead": "Eine Person führt im Ernstfall. Alle rufen eine Nummer an. Und Sie wissen, wie Sie sich erreichen, wenn E-Mail und Netz ausfallen.",
             "document": "Ihr Notfallplan"
           },
           "escalation": {
-            "title": "Wen Sie anrufen",
-            "lead": "Eine Nummer, die alle Beschäftigten anrufen. Dann: wer wann Bescheid bekommt, von der IT bis zur Geschäftsführung.",
+            "title": "Wer außerdem Bescheid bekommt",
+            "lead": "Wen die Person, die führt, als Nächstes anruft, je nach Schwere: zum Beispiel Ihren IT-Dienstleister und die Geschäftsführung.",
             "document": "Ihre Telefonliste"
-          },
-          "second_way": {
-            "title": "Der zweite Weg",
-            "caption": "Wie Sie sich erreichen, wenn E-Mail und Netz ausfallen",
-            "good": {
-              "value": "Verschlüsselter Messenger auf den Diensthandys, dazu eine Telefonliste auf Papier",
-              "note": "Funktioniert auch, wenn Ihre eigene IT steht."
-            },
-            "bad": {
-              "value": "Rundmail an alle",
-              "note": "Ist die E-Mail selbst betroffen, kommt die Nachricht nicht an."
-            }
-          },
-          "channel": {
-            "title": "Ihr zweiter Weg",
-            "lead": "Wie Sie sich erreichen, wenn die eigene IT nicht geht.",
-            "document": "Ihr Notfallplan"
           },
           "plan": {
             "title": "Ihr Notfallplan",
-            "lead": "Die Vorlage ist mit Ihren Antworten schon ausgefüllt. Sie hält fest, wer entscheidet, wen Sie anrufen, was sofort zu tun ist und wie Sie melden. Fügen Sie hinzu, was für Ihr Unternehmen gilt. Was noch fehlt, steht als Linie zum Ausfüllen da.",
+            "lead": "Aus Ihren Antworten geschrieben: wer entscheidet, wen Sie anrufen, was sofort zu tun ist, wie Sie dem {authority} melden und wie Sie wieder in den Normalbetrieb kommen. Darunter ergänzen Sie, was zu Ihrem Unternehmen passt. Eine noch fehlende Antwort steht als Linie da.",
             "document": {
               "title": "Notfallplan für IT-Sicherheitsvorfälle der {company}",
               "sections": [
                 {
                   "heading": "Zweck und Geltungsbereich",
-                  "text": "Dieser Plan legt fest, was bei der {company} geschieht, wenn ein IT-Sicherheitsvorfall eintritt oder vermutet wird: wer entscheidet, wen wir anrufen, wie wir uns erreichen und wie wir melden. Er gilt für alle Beschäftigten. Eine gedruckte Fassung liegt dort, wo sie auch ohne IT zu finden ist."
+                  "text": "Dieser Plan legt fest, was bei der {company} geschieht, wenn ein IT-Sicherheitsvorfall eintritt oder vermutet wird: wer entscheidet, wen wir anrufen, wie wir uns erreichen, wie wir melden und wie wir zum Normalbetrieb zurückkehren. Er gilt für alle Beschäftigten. Eine Fassung liegt dort, wo sie auch ohne IT zu finden ist, zum Beispiel auf Papier."
                 },
                 {
                   "heading": "Wer etwas bemerkt",
@@ -612,7 +642,11 @@
                 },
                 {
                   "heading": "Meldung an das BSI",
-                  "text": "Ist ein Vorfall erheblich, meldet die {company} ihn im BSI-Portal: eine frühe Erstmeldung spätestens 24 Stunden, nachdem wir davon erfahren haben, eine Meldung spätestens nach 72 Stunden und eine Abschlussmeldung spätestens einen Monat nach der Meldung (§ 32 BSIG). {incidentLead} sorgt dafür, dass gemeldet wird. In die erste Meldung kommt, was wir wissen; Genaueres folgt mit der zweiten. Sind personenbezogene Daten betroffen, melden wir das in der Regel auch der Datenschutzaufsicht, möglichst binnen 72 Stunden (Art. 33 DSGVO)."
+                  "text": "Ist ein Vorfall erheblich, meldet die {company} ihn im BSI-Portal: eine frühe Erstmeldung spätestens 24 Stunden, nachdem wir davon erfahren haben, eine Meldung spätestens nach 72 Stunden und eine Abschlussmeldung spätestens einen Monat nach der Meldung (§ 32 BSIG). {incidentLead} sorgt dafür, dass gemeldet wird. Die frühe Erstmeldung sagt, ob wir eine rechtswidrige oder böswillige Handlung vermuten und ob sich der Vorfall auf andere Länder auswirken könnte; alles Weitere, was wir bis dahin wissen, folgt mit der zweiten Meldung. Sind personenbezogene Daten betroffen, melden wir das in der Regel auch der Datenschutzaufsicht, möglichst binnen 72 Stunden (Art. 33 DSGVO)."
+                },
+                {
+                  "heading": "Zurück zum Normalbetrieb",
+                  "text": "Betroffene Systeme gehen erst wieder in Betrieb, wenn die Leitung zustimmt: wenn die Ursache gefunden und beseitigt ist, wiederhergestellt aus Datensicherungen, die nachweislich sauber sind. Danach prüfen wir, ob sie wie vorher funktionieren."
                 },
                 {
                   "heading": "Nach dem Vorfall",
@@ -657,48 +691,37 @@
                   "text": "Einmal im Jahr spielen wir einen Vorfall nach diesem Plan durch und passen den Plan danach an."
                 }
               ],
-              "signature": "Für die Geschäftsführung der {company}: Ort, Datum, Unterschrift"
+              "own": "Weitere Regelungen",
+              "signature": "Freigabe durch die Geschäftsführung der {company}"
             }
           },
-          "signed": {
-            "title": "Unterschreiben lassen",
-            "lead": "Drucken Sie den Plan auf dem vorigen Schritt aus und lassen Sie ihn von der Geschäftsführung unterschreiben. Dann tragen Sie hier Version und Datum ein.",
-            "document": "Notfallplan"
-          },
-          "proof": {
-            "title": "Die unterschriebene Fassung",
-            "lead": "Laden Sie einen Scan oder ein Foto des unterschriebenen Plans hoch.",
-            "document": "Unterschriebener Notfallplan"
-          },
           "done": {
-            "title": "Ihr Notfallplan steht",
-            "note": "Legen Sie eine gedruckte Fassung dorthin, wo sie auch ohne IT zu finden ist, und geben Sie die IT-Notfallnummer allen Beschäftigten bekannt."
+            "title": "Ihr Notfallplan ist geschrieben",
+            "note": "Geben Sie die Notfallnummer allen Beschäftigten bekannt, zum Beispiel mit der IT-Notfallkarte des BSI."
           }
         },
         "fields": {
           "incidentLead": {
-            "label": "Leitung bei einem Vorfall",
-            "hint": "Die Person, die entscheidet, was zu tun ist, und die Geschäftsführung informiert."
+            "label": "Wer im Ernstfall führt",
+            "hint": "Die Person, die entscheidet, was zu tun ist, und die Geschäftsführung auf dem Laufenden hält. In einem kleinen Unternehmen ist das oft, wer sich um NIS 2 kümmert."
           },
           "itEmergencyNumber": {
-            "label": "IT-Notfallnummer",
-            "hint": "Die Nummer, die alle im Unternehmen bei einem IT-Notfall anrufen: Ihr eigener IT-Support oder ein IT-Dienstleister, mit dem Sie das abgesprochen haben. Diese Nummer tragen Sie auch in die IT-Notfallkarte des BSI ein."
-          },
-          "incidentEscalationContacts": {
-            "label": "Kontakte für die Eskalation",
-            "hint": "Namen und Telefonnummern, nach Schwere des Vorfalls. Auch die Notrufnummer Ihres IT-Dienstleisters."
+            "label": "Notfallnummer, die alle anrufen",
+            "hint": "Meist die Handynummer der Person, die führt. Nimmt ein IT-Dienstleister diese Anrufe für Sie an, dessen Nummer. Es ist auch die Nummer auf der IT-Notfallkarte des BSI."
           },
           "secureCommsChannel": {
-            "label": "Zweiter Kommunikationsweg",
-            "hint": "Wie Sie sich sicher erreichen, wenn die eigene IT ausfällt, zum Beispiel ein verschlüsselter Messenger auf den Diensthandys."
+            "label": "Wie Sie sich erreichen, wenn E-Mail und Netz ausfallen",
+            "hint": "Nennen Sie mindestens zwei Wege, die nicht an Ihrer eigenen IT hängen. Die E-Mail, und ein Chat, der über dieselben Konten läuft wie die E-Mail, können zusammen mit ihr ausfallen.",
+            "suggestions": [
+              "Anrufe auf die Handynummern",
+              "SMS",
+              "Messengergruppe auf den Diensthandys",
+              "Telefonliste auf Papier"
+            ]
           },
-          "incidentPlanVersion": {
-            "label": "Version",
-            "hint": "Zum Beispiel 1.0. Bei jeder Änderung zählt sie hoch."
-          },
-          "incidentPlanApprovalDate": {
-            "label": "Tag der Unterschrift",
-            "hint": "Der Tag, an dem die Geschäftsführung unterschrieben hat."
+          "incidentEscalationContacts": {
+            "label": "Wer außerdem Bescheid bekommt",
+            "hint": "Namen und Telefonnummern, nach Schwere des Vorfalls. Zum Beispiel: IT-Dienstleister mit seiner Notrufnummer, dann die Geschäftsführung."
           }
         }
       },
@@ -725,8 +748,8 @@
             "source": "§ 32 Abs. 1 und 2 BSIG. Verlangt das BSI es, kommt dazwischen eine Zwischenmeldung. Dauert der Vorfall nach einem Monat noch an, schicken Sie statt der Abschlussmeldung eine Fortschrittsmeldung und die Abschlussmeldung, sobald er bewältigt ist."
           },
           "first_report": {
-            "title": "So sieht eine erste Meldung aus",
-            "caption": "Ein ausgedachtes Beispiel, mit den wichtigsten Angaben, die das BSI für die frühe Erstmeldung abfragt",
+            "title": "Was das Meldeformular fragt",
+            "caption": "Sie melden im Portal des {authority}, nie hier. Für die frühe Erstmeldung fragt das Formular diese Angaben nacheinander ab. Hier für einen ausgedachten Fall beantwortet, damit Sie im Formular nichts überrascht",
             "rows": [
               {
                 "name": "Einstufung",
@@ -767,35 +790,24 @@
             ],
             "note": "Das Gesetz verlangt in der frühen Erstmeldung nur zwei Angaben: ob ein Angriff dahinterstecken könnte und ob sich der Vorfall auf andere Länder auswirken könnte (§ 32 Abs. 1 Nr. 1 BSIG). Die übrigen fragt das BSI in seinem Formular ab. Was Sie noch nicht wissen, ergänzen Sie mit der zweiten Meldung."
           },
-          "ready": {
-            "title": "Was Sie für die erste Meldung brauchen",
-            "lead": "Legen Sie das jetzt fest, nicht erst im Ernstfall:",
-            "items": [
-              {
-                "name": "Zugang zum {authority}-Portal",
-                "detail": "den haben Sie seit der Registrierung"
-              },
-              {
-                "name": "Wer meldet",
-                "detail": "eine Person und ihre Vertretung, im Notfallplan festgehalten"
-              }
-            ],
-            "source": "§ 32 Abs. 1 Nr. 1 BSIG. Wer noch nicht registriert ist, meldet über das Melde- und Informationsportal des BSI (BSI, Infopaket Meldepflicht)."
+          "where": {
+            "title": "Wo Sie melden",
+            "lead": "Das Gesetz nennt den Empfänger: das CSIRT oder die zuständige Behörde Ihres Landes. Ihre steht oben.",
+            "source": "§ 32 Abs. 1 BSIG: Gemeldet wird an die gemeinsame Meldestelle von BSI und Bundesamt für Bevölkerungsschutz und Katastrophenhilfe, erreichbar über das BSI-Portal (BSI, Anleitung zur Meldung im BSI-Portal). Wer noch nicht registriert ist, meldet über ein Onlineformular im Melde- und Informationsportal des BSI (MIP). Für die anderen EU-Staaten Art. 23 Abs. 1 NIS 2."
           },
           "setup": {
-            "title": "Halten Sie Ihren Meldeweg fest",
-            "lead": "Eine Angabe: Können Sie melden, wenn es darauf ankommt?",
+            "title": "Können Sie heute melden?",
+            "lead": "Prüfen Sie es jetzt, nicht erst im Ernstfall: Die Person, die melden würde, kann sich im Portal des {authority} anmelden.",
             "document": "Ihr Notfallplan"
           },
           "done": {
-            "title": "Meldeweg vorbereitet",
-            "note": "Am Ende sieht die Geschäftsführung alle Punkte durch und unterschreibt."
+            "title": "Meldeweg vorbereitet"
           }
         },
         "fields": {
           "bsiReportingRegistered": {
-            "label": "Im {authority}-Portal registriert",
-            "hint": "Ja, sobald die Registrierung beim {authority} abgeschlossen ist. Mit demselben Zugang melden Sie dort Vorfälle."
+            "label": "Wir können uns im Portal anmelden und melden",
+            "hint": "Ja, wenn die Person, die im Ernstfall führt, oder ihre Vertretung den Zugang hat und ihn ausprobiert hat. Das ist der Zugang, mit dem Sie sich im BSI-Portal registriert haben: die Zertifikatsdatei des ELSTER-Organisationszertifikats und ihr Passwort. Nein, wenn nur eine Person ihn hat oder niemand weiß, wo das Zertifikat liegt."
           }
         }
       },
@@ -821,7 +833,7 @@
           },
           "confirmation": {
             "title": "Halten Sie die Registrierung fest",
-            "lead": "Zwei Angaben. Damit wissen Sie später, mit welchem Zertifikat und an welchem Tag registriert wurde.",
+            "lead": "Zwei Angaben. Damit wissen Sie später, mit welchem Zertifikat und an welchem Tag registriert wurde. Für den Zugang brauchen Sie ein ELSTER-Organisationszertifikat: Den Aktivierungscode schickt ELSTER einige Tage nach dem Antrag per Brief an die Adresse, die beim Finanzamt hinterlegt ist. Ist der Brief noch nicht da, wählen Sie „Geht noch nicht“.",
             "document": "Ihr Zugang zum {authority}-Portal"
           },
           "proof": {
@@ -830,8 +842,7 @@
             "document": "Übersicht der registrierten Fachverfahren"
           },
           "done": {
-            "title": "Registrierung erfasst",
-            "note": "Am Ende sieht die Geschäftsführung alle Punkte durch und unterschreibt."
+            "title": "Registrierung erfasst"
           }
         },
         "fields": {
@@ -893,8 +904,7 @@
             ]
           },
           "done": {
-            "title": "Methode zur Risikobewertung festgelegt",
-            "note": "Mit der Methode zur Risikobewertung bewerten Sie jedes Risiko einzeln, sobald Sie es aufschreiben. Am Ende sieht die Geschäftsführung sie durch und unterschreibt."
+            "title": "Methode zur Risikobewertung festgelegt"
           }
         }
       },
@@ -952,7 +962,7 @@
           },
           "done": {
             "title": "Ihre Liste steht",
-            "note": "Kommt etwas dazu, ergänzen Sie es jederzeit. Später bewerten Sie jeden Eintrag einzeln. Am Ende sieht die Geschäftsführung die Liste durch."
+            "note": "Kommt etwas dazu, ergänzen Sie es jederzeit auf der Liste."
           }
         },
         "sources": {
@@ -988,7 +998,7 @@
           },
           "software": {
             "title": "Ihre Programme bewerten",
-            "lead": "Denken Sie bei jedem an den schlimmsten Fall, der realistisch ist: Es fällt aus, wird angegriffen oder Daten gehen verloren. Wie oft kommt so etwas vor, und wie groß wäre der Schaden?"
+            "lead": "Jedes Programm auf Ihrer Liste hat eine eigene Zeile. Denken Sie an seinen schlimmsten realistischen Fall: Es fällt aus, wird angegriffen oder Daten gehen verloren. Dann tippen Sie das Feld in seiner Matrix an: je weiter rechts, desto öfter kommt es vor; je weiter oben, desto größer der Schaden."
           },
           "technology": {
             "title": "Ihre Technik und Räume bewerten",
@@ -1003,14 +1013,13 @@
             "lead": "Jede Zahl zählt Ihre Einträge in diesem Feld der Matrix. Je weiter oben rechts, desto eher braucht ein Eintrag Schutz. Darunter stehen alle mit Namen, die höchste Stufe zuerst."
           },
           "done": {
-            "title": "Ihre Risiken sind bewertet",
-            "note": "Geringe Risiken sind mit „Akzeptieren“ vorgemerkt: Der BSI-Standard 200-3 nennt es üblich, sie zu akzeptieren und weiter zu beobachten. Alles ab „mittel“ ist mit „Mindern“ vorgemerkt. Beides ändern Sie im Risikoregister. Am Ende sieht die Geschäftsführung die Bewertung durch."
+            "title": "Ihre Risiken sind bewertet"
           }
         }
       },
       "2_4": {
-        "headline": "Die Leitlinie unterschreiben",
-        "teaser": "Ein kurzes Grundsatzdokument, das die Geschäftsführung unterschreibt.",
+        "headline": "Die Leitlinie schreiben",
+        "teaser": "Ein kurzes Grundsatzdokument, das die Geschäftsführung freigibt.",
         "missed": [
           "Alle Beschäftigten müssen die Leitlinie kennen. Das BSI verlangt, sie bekannt zu geben (IT-Grundschutz ISMS.1.A3), und rät, sie neuen Beschäftigten zu erklären, bevor sie Zugang zu den Systemen bekommen (Standard 200-2).",
           "Eine Leitlinie veraltet. Das BSI empfiehlt, sie spätestens alle zwei Jahre zu überprüfen (Standard 200-2). Für die Anbieter digitaler Dienste, für die die Durchführungsverordnung (EU) 2024/2690 gilt, ist es mindestens jährlich (Anhang, Nr. 1.1.2)."
@@ -1020,13 +1029,13 @@
             "title": "Ihr Grundsatz zur Informationssicherheit",
             "body": [
               "Die Leitlinie zur Informationssicherheit ist ein kurzes Grundsatzdokument: wofür sie gilt, welche Ziele Ihr Unternehmen verfolgt, wer verantwortlich ist und wie es vorgeht. Das BSI nennt sie das sichtbare Bekenntnis der Leitung.",
-              "Unsere Vorlage enthält, was das BSI als Mindestinhalt nennt. Sie ergänzen, was für Ihr Unternehmen gilt, die Geschäftsführung unterschreibt, und alle Beschäftigten bekommen sie. Mehr als zehn Seiten sind nach dem BSI selten nötig."
+              "Unsere Vorlage enthält, was das BSI als Mindestinhalt nennt. Sie ergänzen, was für Ihr Unternehmen gilt, die Geschäftsführung gibt sie frei, und alle Beschäftigten bekommen sie. Mehr als zehn Seiten sind nach dem BSI selten nötig."
             ],
             "duty": "Das Gesetz verlangt Konzepte zur Sicherheit in der Informationstechnik (§ 30 Abs. 2 Nr. 1 BSIG), und die Geschäftsleitung muss die Maßnahmen umsetzen und ihre Umsetzung überwachen. Die Leitlinie ist das Dokument, in dem sie das schriftlich festhält."
           },
           "leitlinie": {
             "title": "Ihre Leitlinie",
-            "lead": "Die Vorlage enthält, was das BSI als Mindestinhalt einer Leitlinie nennt, und Ihr Firmenname steht schon darin. Fügen Sie hinzu, was für Ihr Unternehmen gilt.",
+            "lead": "Die Vorlage enthält, was das BSI als Mindestinhalt einer Leitlinie nennt, und Ihr Firmenname steht schon darin. Darunter ergänzen Sie, was zu Ihrem Unternehmen passt.",
             "document": {
               "title": "Leitlinie zur Informationssicherheit der {company}",
               "sections": [
@@ -1056,7 +1065,7 @@
                 },
                 {
                   "heading": "Bekanntgabe und Inkrafttreten",
-                  "text": "Die Leitlinie gilt ab ihrer Unterschrift durch die Geschäftsführung. Alle Beschäftigten erhalten sie. Neue Beschäftigte lernen sie kennen, bevor sie Zugang zu unseren Systemen bekommen."
+                  "text": "Die Leitlinie gilt ab ihrer Freigabe durch die Geschäftsführung. Alle Beschäftigten erhalten sie. Neue Beschäftigte lernen sie kennen, bevor sie Zugang zu unseren Systemen bekommen."
                 }
               ],
               "clauses": [
@@ -1115,32 +1124,13 @@
                   "text": "Mindestens einmal im Jahr prüft eine fachkundige Person, die die Maßnahmen nicht selbst verantwortet, ob sie wirken."
                 }
               ],
-              "signature": "Für die Geschäftsführung der {company}: Ort, Datum, Unterschrift"
+              "own": "Weitere Regelungen",
+              "signature": "Freigabe durch die Geschäftsführung der {company}"
             }
           },
-          "signed": {
-            "title": "Unterschreiben lassen",
-            "lead": "Drucken Sie die Leitlinie auf dem vorigen Schritt aus und lassen Sie sie von der Geschäftsführung unterschreiben. Dann tragen Sie hier Version und Datum ein.",
-            "document": "Leitlinie zur Informationssicherheit"
-          },
-          "proof": {
-            "title": "Die unterschriebene Fassung",
-            "lead": "Laden Sie einen Scan oder ein Foto der unterschriebenen Leitlinie hoch.",
-            "document": "Unterschriebene Leitlinie"
-          },
           "done": {
-            "title": "Ihre Leitlinie steht",
-            "note": "Geben Sie sie allen Beschäftigten bekannt, etwa per E-Mail oder im Intranet. Ändert sich etwas Wesentliches, passen Sie die Leitlinie an und lassen sie erneut unterschreiben."
-          }
-        },
-        "fields": {
-          "policyVersion": {
-            "label": "Version",
-            "hint": "Zum Beispiel 1.0. Bei jeder Änderung zählt sie hoch."
-          },
-          "policyApprovalDate": {
-            "label": "Tag der Unterschrift",
-            "hint": "Der Tag, an dem die Geschäftsführung unterschrieben hat."
+            "title": "Ihre Leitlinie ist geschrieben",
+            "note": "Sobald die Geschäftsführung sie freigegeben hat, geben Sie sie allen Beschäftigten bekannt, etwa per E-Mail oder im Intranet."
           }
         }
       },
@@ -1245,12 +1235,13 @@
                   "text": "Für Daten, die viele Jahre vertraulich bleiben müssen, planen wir den Wechsel auf quantensichere Verfahren nach den Empfehlungen des BSI."
                 }
               ],
-              "signature": "Für die Geschäftsführung der {company}: Ort, Datum, Unterschrift"
+              "own": "Weitere Regelungen",
+              "signature": "Freigabe durch die Geschäftsführung der {company}"
             }
           },
           "done": {
-            "title": "Ihr Kryptokonzept steht",
-            "note": "Geben Sie es allen, die Ihre Geräte und Dienste einrichten, auch Ihrem IT-Dienstleister. Es ist als Entwurf gespeichert. Am Ende sieht die Geschäftsführung alle Konzepte durch und gibt sie frei."
+            "title": "Ihr Kryptokonzept ist geschrieben",
+            "note": "Geben Sie es allen, die Ihre Geräte und Dienste einrichten, auch Ihrem IT-Dienstleister."
           }
         }
       },
@@ -1373,12 +1364,13 @@
                   "text": "Für wichtige Aufgaben ist eine Vertretung festgelegt, die weiß, was zu tun ist."
                 }
               ],
-              "signature": "Für die Geschäftsführung der {company}: Ort, Datum, Unterschrift"
+              "own": "Weitere Regelungen",
+              "signature": "Freigabe durch die Geschäftsführung der {company}"
             }
           },
           "done": {
-            "title": "Ihr Konzept steht",
-            "note": "Nehmen Sie es zur Hand, wenn jemand anfängt, die Aufgabe wechselt oder geht. Es ist als Entwurf gespeichert. Am Ende sieht die Geschäftsführung alle Konzepte durch und gibt sie frei."
+            "title": "Ihr Konzept ist geschrieben",
+            "note": "Nehmen Sie es zur Hand, wenn jemand anfängt, die Aufgabe wechselt oder geht."
           }
         }
       },
@@ -1604,12 +1596,13 @@
                   "text": "Auf unserer Website steht eine Datei security.txt nach RFC 9116, die sagt, wohin man Schwachstellen meldet."
                 }
               ],
-              "signature": "Für die Geschäftsführung der {company}: Ort, Datum, Unterschrift"
+              "own": "Weitere Regelungen",
+              "signature": "Freigabe durch die Geschäftsführung der {company}"
             }
           },
           "done": {
-            "title": "Ihre Regeln stehen",
-            "note": "Geben Sie sie allen, die Ihre IT einrichten und warten, auch Ihrem IT-Dienstleister. Sie sind als Entwurf gespeichert. Am Ende sieht die Geschäftsführung alle Konzepte durch und gibt sie frei."
+            "title": "Ihre Regeln sind geschrieben",
+            "note": "Geben Sie sie allen, die Ihre IT einrichten und warten, auch Ihrem IT-Dienstleister."
           }
         },
         "fields": {
@@ -1656,7 +1649,7 @@
           },
           "lead": {
             "title": "Wer die Krise leitet",
-            "lead": "Wählen Sie eine Person, die auch über Geld, Kunden und Personal entscheiden darf, etwa aus der Geschäftsführung. Wer einen IT-Sicherheitsvorfall leitet, berichtet ihr, sobald der Betrieb steht.",
+            "lead": "Wählen Sie eine Person, die auch über Geld, Kunden und Personal entscheiden darf, etwa aus der Geschäftsführung. Wer nach dem Notfallplan für IT-Sicherheitsvorfälle führt, berichtet ihr, sobald der Betrieb steht.",
             "document": "Ihr Notfallplan für den Betrieb"
           },
           "plan": {
@@ -1736,12 +1729,13 @@
                   "text": "Eine gedruckte Fassung dieses Plans liegt außerhalb des Gebäudes."
                 }
               ],
-              "signature": "Für die Geschäftsführung der {company}: Ort, Datum, Unterschrift"
+              "own": "Weitere Regelungen",
+              "signature": "Freigabe durch die Geschäftsführung der {company}"
             }
           },
           "done": {
-            "title": "Ihr Notfallplan für den Betrieb steht",
-            "note": "Legen Sie eine gedruckte Fassung neben den Notfallplan für IT-Sicherheitsvorfälle. Der Plan ist als Entwurf gespeichert. Am Ende sieht die Geschäftsführung alle Konzepte durch und gibt sie frei."
+            "title": "Ihr Notfallplan für den Betrieb ist geschrieben",
+            "note": "Legen Sie eine Fassung, die ohne IT funktioniert, neben den Notfallplan für IT-Sicherheitsvorfälle, zum Beispiel auf Papier."
           }
         },
         "fields": {
@@ -1947,12 +1941,12 @@
             "lead": "Tragen Sie die Bewertung ein: wann, wer, was entschieden wurde und was zu tun ist."
           },
           "approve": {
-            "title": "Freigeben, was der Durchgang geschrieben hat",
-            "lead": "Das sind die Dokumente aus diesem Durchgang. Öffnen Sie jedes, drucken Sie es und lassen Sie es von der Geschäftsführung unterschreiben. Kreuzen Sie an, was freigegeben ist, und tragen Sie den Tag ein."
+            "title": "Die Geschäftsführung gibt die Dokumente frei",
+            "lead": "Das sind die Dokumente, die dieser Durchgang geschrieben hat. Die Geschäftsführung liest jedes und gibt es hier frei, angemeldet mit ihrem eigenen Zugang. Gedruckt oder eingescannt wird nichts."
           },
           "done": {
             "title": "Ihre Managementbewertung ist festgehalten",
-            "note": "Die freigegebenen Dokumente gelten ab dem eingetragenen Tag und stehen in Ihren Richtlinien. Die nächste Bewertung halten Sie so, wie Ihre Leitlinie es festlegt."
+            "note": "Die freigegebenen Dokumente gelten ab dem Tag, an dem die Geschäftsführung sie freigegeben hat, und stehen in Ihren Richtlinien. Die nächste Bewertung halten Sie so, wie Ihre Leitlinie es festlegt."
           }
         }
       }

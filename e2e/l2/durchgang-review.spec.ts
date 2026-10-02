@@ -1,15 +1,17 @@
 /**
  * L2 Durchgang management review (7.3): the review is entered in the management review register,
- * and the drafts the walk wrote are approved in one sitting, through the real UI against real
- * Postgres. The approval sets status and start day only, never the sign-off columns.
+ * and management approves the drafts the walk wrote, signed in with its own account, through the
+ * real UI against real Postgres. The approval records who approved, when and in which role.
  *
- * Cleanup removes the review and the draft this file adds, because later layers read this tenant
- * (`e2e/lib/durchgang.ts`).
+ * Cleanup removes the review and the draft this file adds and puts back the e2e user's role,
+ * because later layers read this tenant (`e2e/lib/durchgang.ts`).
  */
 import { expect, test } from "@playwright/test";
 import { e2eQuery } from "../lib/db";
 import {
   e2eTenant,
+  e2eUserId,
+  keepJobTitle,
   keepPolicies,
   payFor,
   type Tenant,
@@ -53,9 +55,16 @@ test.describe("durchgang management review", () => {
     undos = [
       await keepPolicies(tenant, TYPE),
       await removeReviews(tenant),
+      await keepJobTitle(tenant),
       await payFor(tenant),
     ];
     await seedDraft(tenant);
+    // Start outside management, so the screen offers to send the documents on.
+    await e2eQuery(
+      `UPDATE company_membership m SET job_title = NULL FROM "user" u
+        WHERE u.id = m.user_id AND m.company_id = $1 AND u.id = $2`,
+      [tenant.company_id, await e2eUserId()],
+    );
   });
 
   test.afterAll(() => undoAll(undos));
@@ -85,7 +94,7 @@ test.describe("durchgang management review", () => {
     ).toHaveCount(0);
   });
 
-  test("approves the ticked drafts from the day entered, and never the sign-off columns", async ({
+  test("outside management the screen sends the documents on; management approves them as itself", async ({
     page,
   }) => {
     await page.goto(`/de/durchgang/7.3?s=${APPROVE_SCREEN}`);
@@ -93,20 +102,43 @@ test.describe("durchgang management review", () => {
       .getByRole("listitem")
       .filter({ hasText: `Kryptokonzept der ${tenant.company_name}` });
     await expect(row).toBeVisible({ timeout: 30_000 });
+    await expect(row.getByText("Wartet auf die Geschäftsführung")).toBeVisible();
+    await expect(page.getByText("An die Geschäftsführung schicken")).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: "Weiter", exact: true }),
+    ).toBeDisabled();
 
-    const next = page.getByRole("button", { name: "Weiter", exact: true });
-    await row.getByRole("button", { name: "Freigegeben" }).click();
-    await expect(next).toBeDisabled();
-    await page.getByLabel("Tag der Freigabe").fill("2026-10-01");
-    await next.click();
+    await page
+      .getByRole("button", { name: "Ich gehöre selbst zur Geschäftsführung" })
+      .click();
+    const approve = page.getByRole("button", { name: /Dokumente? freigeben/ });
+    await expect(approve).toBeVisible({ timeout: 30_000 });
+    await approve.click();
 
     await expect
       .poll(async () => (await walkPolicy(tenant, TYPE))?.status ?? null)
       .toBe("approved");
-    const policy = await walkPolicy(tenant, TYPE);
-    expect(policy?.effective_from).toBe("2026-10-01");
-    expect(policy?.approved_by).toBeNull();
-    expect(policy?.approved_at).toBeNull();
-    expect(policy?.approver_role).toBeNull();
+    const today = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }).format(
+      new Date(),
+    );
+    expect(await walkPolicy(tenant, TYPE)).toMatchObject({
+      effective_from: today,
+      version: today,
+      approved_by: await e2eUserId(),
+      approver_role: "ceo",
+    });
+    expect((await walkPolicy(tenant, TYPE))?.approved_at).not.toBeNull();
+    await expect(page.getByRole("button", { name: "Weiter", exact: true })).toBeEnabled();
+  });
+
+  test("management's own page lists the documents with who approved them", async ({
+    page,
+  }) => {
+    await page.goto("/de/durchgang/freigabe");
+    const row = page
+      .getByRole("listitem")
+      .filter({ hasText: `Kryptokonzept der ${tenant.company_name}` });
+    await expect(row).toBeVisible({ timeout: 30_000 });
+    await expect(row.getByText(/Freigegeben am/)).toBeVisible();
   });
 });

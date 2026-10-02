@@ -23,6 +23,7 @@ import { cn } from "@/lib/utils";
 import { Art } from "./Art";
 import { Glossed } from "./Glossed";
 import { RegistrationPortals } from "./RegistrationPortals";
+import { ReportingChannels } from "./ReportingChannels";
 import { ReportingClock } from "./ReportingClock";
 import { LEVEL_FILL, RiskMatrix } from "./RiskMatrix";
 import { SizeThresholds } from "./SizeThresholds";
@@ -386,6 +387,10 @@ export function Provision({ item, entry }: { item: ItemView; entry: Of<"provisio
       case "registration_portals":
         return (
           <RegistrationPortals registration={item.registration} locale={item.locale} />
+        );
+      case "reporting_channels":
+        return (
+          <ReportingChannels registration={item.registration} locale={item.locale} />
         );
       default:
         return entry.screen.provision satisfies never;

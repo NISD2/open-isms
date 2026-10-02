@@ -4,7 +4,6 @@ import { ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
 import {
   FREQUENCIES,
   FREQUENCY_TEXT,
@@ -23,9 +22,9 @@ import {
 } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
-import { type Draft, fullRating, type Specified } from "./draft";
+import { type Draft, fullRating, type RatingDraft, type Specified } from "./draft";
 import { Heading, Lead } from "./ExplainScreens";
-import { LEVEL_FILL, RiskMatrix } from "./RiskMatrix";
+import { LEVEL_FILL, RiskPicker } from "./RiskMatrix";
 import type { Of, WorkProps } from "./WorkScreens";
 
 function Quiet({ children }: { children: string }) {
@@ -138,20 +137,25 @@ export function useRatingRows(
       id: r.id,
       likelihood: r.likelihood,
       impact: r.impact,
+      note: r.treatmentDescription,
       linked: r.riskAssets.map((l) => l.assetId),
     })),
     supplierRisks: (supplierRisks.data ?? []).map((r) => ({
       id: r.id,
       likelihood: r.likelihood,
       impact: r.impact,
+      note: r.treatmentDescription,
       linked: r.riskSuppliers.map((l) => l.supplierId),
     })),
   });
 }
 
-/** The rating a row shows: what was chosen on this visit, else what is stored. */
-const chosen = (row: RatingRow, draft: Draft): Partial<Rating> =>
-  draft.ratings[row.key] ?? (row.standing.kind === "rated" ? row.standing.rating : {});
+/** The rating and note a row shows: what was chosen on this visit, else what is stored. */
+const chosen = (row: RatingRow, draft: Draft): Partial<Rating> & { note?: string } =>
+  draft.ratings[row.key] ??
+  (row.standing.kind === "rated"
+    ? { ...row.standing.rating, note: row.standing.note }
+    : {});
 
 /** Whether a row needs nothing more: rated now, rated before, or worked on in the register. */
 export const rowSettled = (row: RatingRow, draft: Draft): boolean =>
@@ -170,7 +174,7 @@ export function LevelChip({ level, locale }: { level: RiskLevel; locale: "de" | 
   );
 }
 
-/** The two scales in the BSI's words, always in view: a label alone is too vague to rate by. */
+/** The two scales in the BSI's words, one tap away: a label alone is too vague to rate by. */
 function Scales({ locale }: { locale: "de" | "en" }) {
   const t = useTranslations("durchgang.ui.rate");
   const scale = (
@@ -190,7 +194,7 @@ function Scales({ locale }: { locale: "de" | "en" }) {
     </div>
   );
   return (
-    <div className="mt-8 grid gap-6 rounded-2xl border bg-muted/30 p-5 md:grid-cols-2">
+    <div className="mt-4 grid gap-6 rounded-2xl border bg-muted/30 p-5 md:grid-cols-2">
       {scale(
         t("frequency"),
         FREQUENCIES.map((f) => FREQUENCY_TEXT[locale][f]),
@@ -203,13 +207,16 @@ function Scales({ locale }: { locale: "de" | "en" }) {
   );
 }
 
-/** 2.3: each listed asset or supplier rated on the two 200-3 scales; the matrix gives the level. */
+/**
+ * 2.3: every listed asset or supplier on its own row, each rated by picking one field of a small
+ * 200-3 matrix, with a line of its own for a note. The level follows from the field.
+ */
 export function Rate({ item, draft, onDraft, entry }: WorkProps & { entry: Of<"rate"> }) {
   const t = useTranslations("durchgang.ui.rate");
   const rows = useRatingRows(entry.screen.targets);
   const locale = item.locale;
 
-  const set = (row: RatingRow, change: Partial<Rating>) =>
+  const set = (row: RatingRow, change: Partial<RatingDraft>) =>
     onDraft({
       ...draft,
       ratings: {
@@ -227,90 +234,64 @@ export function Rate({ item, draft, onDraft, entry }: WorkProps & { entry: Of<"r
     <>
       <Heading>{entry.copy.title}</Heading>
       <Lead>{entry.copy.lead}</Lead>
-      <Scales locale={locale} />
       <details className="group mt-4">
         <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 text-sm font-medium text-primary">
           <ChevronDown className="size-4 transition-transform group-open:rotate-180" />
-          {t("matrix")}
+          {t("scales")}
         </summary>
-        <div className="mt-4">
-          <RiskMatrix locale={locale} />
-        </div>
+        <Scales locale={locale} />
       </details>
       {rows === undefined ? null : rows.length === 0 ? (
         <Quiet>{t("empty")}</Quiet>
       ) : (
-        <ul className="mt-8 divide-y overflow-hidden rounded-2xl border bg-card shadow-sm">
+        <ul className="mt-6 divide-y overflow-hidden rounded-2xl border bg-card shadow-sm">
           {rows.map((row) => {
             const value = chosen(row, draft);
             const rating = fullRating(value);
             const about = detail(row);
             return (
-              <li
-                key={row.key}
-                className="grid gap-3 px-5 py-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-6"
-              >
-                <div className="min-w-0">
-                  <p className="truncate font-medium">{row.name}</p>
-                  {about && (
-                    <p className="truncate text-sm text-muted-foreground">{about}</p>
+              <li key={row.key} className="px-5 py-4">
+                <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:gap-6">
+                  <div className="min-w-0">
+                    <p className="font-medium break-words">{row.name}</p>
+                    {about && <p className="text-sm text-muted-foreground">{about}</p>}
+                  </div>
+                  {row.standing.kind === "kept" ? (
+                    <div className="flex items-center gap-3">
+                      <span className="text-sm text-muted-foreground">
+                        {t("kept", { count: row.standing.count })}
+                      </span>
+                      {row.standing.highest && (
+                        <LevelChip level={row.standing.highest} locale={locale} />
+                      )}
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-4">
+                      <RiskPicker
+                        locale={locale}
+                        name={row.name}
+                        value={value}
+                        onPick={(frequency, impact) => set(row, { frequency, impact })}
+                      />
+                      {rating ? (
+                        <LevelChip level={levelOf(rating)} locale={locale} />
+                      ) : (
+                        <span className="inline-flex h-9 min-w-24 items-center justify-center rounded-md border border-dashed px-3 text-sm text-muted-foreground">
+                          {t("open")}
+                        </span>
+                      )}
+                    </div>
                   )}
                 </div>
-                {row.standing.kind === "kept" ? (
-                  <div className="flex items-center gap-3">
-                    <span className="text-sm text-muted-foreground">
-                      {t("kept", { count: row.standing.count })}
-                    </span>
-                    {row.standing.highest && (
-                      <LevelChip level={row.standing.highest} locale={locale} />
-                    )}
-                  </div>
-                ) : (
-                  <div className="flex flex-wrap items-center gap-2">
-                    <NativeSelect
-                      aria-label={`${t("frequency")}: ${row.name}`}
-                      value={value.frequency ?? ""}
-                      onChange={(e) => {
-                        const frequency = FREQUENCIES.find((f) => f === e.target.value);
-                        if (frequency) set(row, { frequency });
-                      }}
-                      className="min-w-36"
-                    >
-                      <NativeSelectOption value="" disabled>
-                        {t("frequencyShort")}
-                      </NativeSelectOption>
-                      {FREQUENCIES.map((f) => (
-                        <NativeSelectOption key={f} value={f}>
-                          {FREQUENCY_TEXT[locale][f].label}
-                        </NativeSelectOption>
-                      ))}
-                    </NativeSelect>
-                    <NativeSelect
-                      aria-label={`${t("impact")}: ${row.name}`}
-                      value={value.impact ?? ""}
-                      onChange={(e) => {
-                        const impact = IMPACTS.find((i) => i === e.target.value);
-                        if (impact) set(row, { impact });
-                      }}
-                      className="min-w-36"
-                    >
-                      <NativeSelectOption value="" disabled>
-                        {t("impactShort")}
-                      </NativeSelectOption>
-                      {IMPACTS.map((i) => (
-                        <NativeSelectOption key={i} value={i}>
-                          {IMPACT_TEXT[locale][i].label}
-                        </NativeSelectOption>
-                      ))}
-                    </NativeSelect>
-                    {rating ? (
-                      <LevelChip level={levelOf(rating)} locale={locale} />
-                    ) : (
-                      <span className="inline-flex h-9 min-w-24 items-center justify-center rounded-md border border-dashed px-3 text-sm text-muted-foreground">
-                        {t("open")}
-                      </span>
-                    )}
-                  </div>
+                {row.standing.kind !== "kept" && (
+                  <Input
+                    aria-label={`${t("note")}: ${row.name}`}
+                    placeholder={t("notePlaceholder")}
+                    maxLength={1000}
+                    className="mt-3 h-9 text-sm"
+                    value={value.note ?? ""}
+                    onChange={(e) => set(row, { note: e.target.value })}
+                  />
                 )}
               </li>
             );

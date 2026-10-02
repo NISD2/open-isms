@@ -40,7 +40,15 @@ describe("what a listed thing already has", () => {
       kind: "rated",
       riskId: "r1",
       rating: { frequency: "frequent", impact: "limited" },
+      note: "",
     });
+  });
+
+  test("carries the risk's own note with its one rating", () => {
+    const rated = standingOf([
+      { id: "r1", likelihood: 3, impact: 2, note: "Backups every night" },
+    ]);
+    expect(rated.kind === "rated" && rated.note).toBe("Backups every night");
   });
 
   test("is kept for the register with several risks, or one on another scale", () => {
@@ -100,6 +108,7 @@ describe("the rows of a rating screen", () => {
           kind: "rated",
           riskId: "r1",
           rating: { frequency: "medium", impact: "considerable" },
+          note: "",
         },
       },
     ]);

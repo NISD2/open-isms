@@ -25,6 +25,7 @@ import {
   declinedNote,
   levelOf,
   loginsNote,
+  MANAGEMENT_ROLE,
   marker,
   methodNote,
   noteLine,
@@ -35,6 +36,7 @@ import {
   policyTitle,
   ratingKey,
   ratingText,
+  recordDay,
   recoveryOrder,
   recoveryOrderText,
   resolveItem,
@@ -49,6 +51,7 @@ import {
   WALK_POLICIES,
   waitingNote,
 } from "@/lib/durchgang";
+import { renderNewsletterMarkdown } from "@/lib/mail/markdown";
 import { getRegistrationPortals } from "@/lib/registration-portals";
 import durchgangDe from "@/messages/durchgang/de.json";
 import durchgangEn from "@/messages/durchgang/en.json";
@@ -65,12 +68,14 @@ import {
   riskAsset,
   riskSupplier,
   supplier,
+  user,
 } from "@/schema";
-import { policyInsertSchema } from "@/schema/validators";
+import { riskInsertSchema } from "@/schema/validators";
 import {
   appendNote,
   type DurchgangActor,
   durchgangItem,
+  walkItemRef,
   walkStates,
 } from "../helpers/durchgang";
 import {
@@ -174,16 +179,21 @@ const policyScreenOf = (c: string, locale: "de" | "en") => {
 };
 
 /**
- * A walk-written policy's stored choices: the clauses, and for the continuity plan one line per
- * process on how it goes on without IT, by asset id. The config column is JSON, so its shape is
- * checked, not assumed; a part that does not parse reads as empty and leaves the rest.
+ * A walk-written policy's stored choices: the clauses, the company's own words, and for the
+ * continuity plan one line per process on how it goes on without IT, by asset id. The config
+ * column is JSON, so its shape is checked, not assumed; a part that does not parse reads as empty
+ * and leaves the rest.
  */
 const STORED_CONFIG = z
   .object({
     clauses: z.array(z.string()).catch([]),
+    own: z.string().catch(""),
     fallbacks: z.record(z.string(), z.string()).catch({}),
   })
-  .catch({ clauses: [], fallbacks: {} });
+  .catch({ clauses: [], own: "", fallbacks: {} });
+
+/** The longest addition a company writes into a walk policy in its own words. */
+const OWN_MAX = 2000;
 
 const storedConfigOf = async (db: DbOrTx, companyId: string, type: string) => {
   const [row] = await db
@@ -274,6 +284,7 @@ const policyDraftOf = async (
     document,
     company: org.name,
     clauses: stored.clauses,
+    own: stored.own,
     fallbacks: stored.fallbacks,
     lists: usesLists ? await policyListsOf(ctx.db, ctx.companyId, stored.fallbacks) : {},
   };
@@ -289,11 +300,14 @@ const walkPolicyRows = async (db: TRPCContext["db"], companyId: string) => {
       code: requirement.code,
       type: policy.type,
       title: policy.title,
+      content: policy.content,
       status: policy.status,
       effectiveFrom: policy.effectiveFrom,
+      approver: user.name,
     })
     .from(policy)
     .innerJoin(requirement, eq(requirement.id, policy.requirementId))
+    .leftJoin(user, eq(user.id, policy.approvedBy))
     .where(
       and(
         eq(policy.companyId, companyId),
@@ -354,6 +368,8 @@ export const durchgangRouter = router({
       portals: data.portals.map((p) => ({
         countryCode: p.countryCode,
         authority: p.authority,
+        authorityUrl: p.authorityUrl,
+        csirt: p.csirt,
         portalName: p.portalName,
         portalUrl: p.portalUrl,
         status: p.status,
@@ -667,7 +683,8 @@ export const durchgangRouter = router({
    * yet gets one, linked to it, with the treatment its level suggests; a thing with exactly one
    * risk on these scales has that risk re-rated, and its treatment follows only while it is still
    * the walk's proposal; anything else is worked on in the risk register and left alone here. A
-   * supplier's own register level follows its rating.
+   * supplier's own register level follows its rating. A row's note, where one is sent, becomes
+   * the risk's treatment description; an emptied note clears it.
    */
   rate: durchgangWrite
     .input(
@@ -679,6 +696,12 @@ export const durchgangRouter = router({
               id: z.string().uuid(),
               frequency: z.enum(FREQUENCIES),
               impact: z.enum(IMPACTS),
+              note: riskInsertSchema.shape.treatmentDescription
+                .unwrap()
+                .unwrap()
+                .trim()
+                .max(1000)
+                .optional(),
             }),
           )
           .max(1000),
@@ -747,6 +770,7 @@ export const durchgangRouter = router({
           likelihood: risk.likelihood,
           impact: risk.impact,
           treatment: risk.treatment,
+          note: risk.treatmentDescription,
         };
         const assetLinks =
           assetIds.length > 0
@@ -797,7 +821,8 @@ export const durchgangRouter = router({
           }
           const unchanged =
             standing.rating.frequency === rating.frequency &&
-            standing.rating.impact === rating.impact;
+            standing.rating.impact === rating.impact &&
+            (row.note === undefined || row.note === standing.note);
           if (unchanged) return [];
           // A treatment someone chose in the risk register stays; the walk's own proposal follows
           // the new level.
@@ -821,6 +846,7 @@ export const durchgangRouter = router({
             // Scored as the risk register scores every risk.
             riskScore: step.scale.likelihood * step.scale.impact,
             treatment: step.treatment,
+            ...(row.note === undefined ? {} : { treatmentDescription: row.note || null }),
           };
           if (step.riskId) {
             await tx
@@ -1035,23 +1061,32 @@ export const durchgangRouter = router({
       return { changed: changed.length };
     }),
 
-  /** The policies the walk wrote for the company, with their state, for the approval screen. */
-  walkPolicies: durchgangProcedure.query(({ ctx }) =>
-    walkPolicyRows(ctx.db, ctx.companyId),
-  ),
+  /**
+   * The policies the walk wrote for the company, with their state, for the approval screen. The
+   * stored text comes as HTML, so management reads exactly what it approves without needing the
+   * category each document belongs to. It is rendered like a newsletter: no raw HTML, safe links.
+   */
+  walkPolicies: durchgangProcedure.query(async ({ ctx }) => {
+    const rows = await walkPolicyRows(ctx.db, ctx.companyId);
+    return Promise.all(
+      rows.map(async ({ content, ...row }) => ({
+        ...row,
+        html: await renderNewsletterMarkdown(content ?? ""),
+      })),
+    );
+  }),
 
   /**
-   * 7.3: the drafts management approved in one sitting become approved from that day. Each
-   * document is resolved through its own item, so approving it takes what writing it takes, and
-   * only drafts change: an approved document keeps its day. As on the signature screens, the
-   * approval columns (who, when, in which role) stay untouched. The review's trail names every
-   * document approved.
+   * 7.3: management approves the drafts it ticked, signed in with its own account. The approval
+   * is that person's, now: who, when and in which role go on each policy, and the day in Berlin
+   * becomes its start and its version. Each document is resolved through its own item, so
+   * approving it takes what writing it takes, and only drafts change: an approved document keeps
+   * its day. The review's trail names every document approved.
    */
   approvePolicies: durchgangWrite
     .input(
       z.object({
         code,
-        approvedOn: z.iso.date(),
         types: z.array(z.string().max(60)).min(1).max(20),
       }),
     )
@@ -1063,15 +1098,24 @@ export const durchgangRouter = router({
           message: `${input.code} approves no policies.`,
         });
       }
+      if (ctx.session.jobTitle !== MANAGEMENT_ROLE) {
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "Only management approves these documents.",
+        });
+      }
+      const now = new Date();
+      const approvedOn = recordDay(now);
       const chosen = WALK_POLICIES.filter((p) => input.types.includes(p.policy));
       if (chosen.length !== new Set(input.types).size) {
         throw new TRPCError({ code: "BAD_REQUEST", message: "Not a walk policy." });
       }
-      const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
+      // Management's authority is its role, not a category, so no category is checked.
+      const ref = await walkItemRef(ctx.db, ctx.companyId, input.code);
       const targets = await Promise.all(
         chosen.map(async (p) => ({
           type: p.policy,
-          owner: await durchgangItem(ctx.db, actorOf(ctx), p.code),
+          owner: await walkItemRef(ctx.db, ctx.companyId, p.code),
         })),
       );
       const approved = await ctx.db.transaction(async (tx) => {
@@ -1081,8 +1125,12 @@ export const durchgangRouter = router({
             .update(policy)
             .set({
               status: "approved",
-              effectiveFrom: input.approvedOn,
-              updatedAt: new Date(),
+              version: approvedOn,
+              effectiveFrom: approvedOn,
+              approvedBy: ctx.userId,
+              approvedAt: now,
+              approverRole: MANAGEMENT_ROLE,
+              updatedAt: now,
             })
             .where(
               and(
@@ -1102,7 +1150,7 @@ export const durchgangRouter = router({
         await appendNote(
           ctx.db,
           ref.statusId,
-          noteLine(new Date(), approvedNote(locale, input.approvedOn, approved)),
+          noteLine(now, approvedNote(locale, approvedOn, approved)),
         );
         await logAudit({
           companyId: ctx.companyId,
@@ -1111,7 +1159,7 @@ export const durchgangRouter = router({
           entityType: "requirement",
           entityId: ref.requirementId,
           description: `${ref.code} management approved ${approved.length} walk documents`,
-          newValue: { approvedOn: input.approvedOn, count: approved.length },
+          newValue: { approvedOn, count: approved.length },
         });
         recheck(ctx, "policy");
       }
@@ -1127,6 +1175,7 @@ export const durchgangRouter = router({
         document: draft.document,
         company: draft.company,
         clauses: draft.clauses,
+        own: draft.own,
         fallbacks: draft.fallbacks,
         lists: draft.lists,
       };
@@ -1238,10 +1287,10 @@ export const durchgangRouter = router({
 
   /**
    * A policy written from the walk's template (the 2.4 Leitlinie, the 3.1 incident plan): its
-   * sections and the clauses the person chose, in the record language, with the company's name
-   * and the item's saved answers. The choice is kept in the company's policy config and the text
-   * in one `policy` row of the requirement. A text that changes goes back to draft, because what
-   * management approved was the earlier one.
+   * sections, the clauses the person chose and their own addition, in the record language, with
+   * the company's name and the item's saved answers. The choice is kept in the company's policy
+   * config and the text in one `policy` row of the requirement. A text that changes goes back to
+   * draft and loses its approval, because what management approved was the earlier one.
    */
   writePolicy: durchgangWrite
     .input(
@@ -1249,6 +1298,8 @@ export const durchgangRouter = router({
         code,
         /** Null keeps the stored choice: the text is still written, with no clause or the old ones. */
         clauses: z.array(z.string().min(1).max(60)).max(50).nullable(),
+        /** The company's own words; null keeps the stored ones. */
+        own: z.string().trim().max(OWN_MAX).nullable(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -1274,10 +1325,11 @@ export const durchgangRouter = router({
         ),
         ...draft.lists,
       };
+      const own = input.own ?? draft.own;
       const title = policyTitle(draft.document, names);
-      const content = policyText(draft.document, clauses, names);
+      const content = policyText(draft.document, clauses, names, own);
       const { type } = draft;
-      const config = { clauses, fallbacks: draft.fallbacks };
+      const config = { clauses, own, fallbacks: draft.fallbacks };
 
       const changed = await ctx.db.transaction(async (tx) => {
         // One writer per company at a time, so two tabs add the policy once.
@@ -1286,7 +1338,7 @@ export const durchgangRouter = router({
           .from(company)
           .where(eq(company.id, ctx.companyId))
           .for("update");
-        if (input.clauses !== null) {
+        if (input.clauses !== null || input.own !== null) {
           await tx
             .insert(companyPolicyConfig)
             .values({ companyId: ctx.companyId, policyType: type, config })
@@ -1323,6 +1375,9 @@ export const durchgangRouter = router({
             content,
             status: "draft",
             effectiveFrom: null,
+            approvedBy: null,
+            approvedAt: null,
+            approverRole: null,
             updatedAt: new Date(),
           })
           .where(and(eq(policy.id, stored.id), eq(policy.companyId, ctx.companyId)));
@@ -1330,41 +1385,5 @@ export const durchgangRouter = router({
       });
       if (changed) recheck(ctx, "policy");
       return { changed };
-    }),
-
-  /**
-   * The signature page of a policy the walk wrote: the version and the day management signed
-   * become the policy's version and its start, and the policy is approved. The approval columns
-   * (who, when, in which role) stay untouched: they are a sign-off no client path writes.
-   */
-  approvePolicy: durchgangWrite
-    .input(
-      z.object({
-        code,
-        version: policyInsertSchema.shape.version.unwrap(),
-        approvedOn: z.iso.date(),
-      }),
-    )
-    .mutation(async ({ ctx, input }) => {
-      const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
-      const type = policyTypeOf(input.code);
-      const approved = await ctx.db
-        .update(policy)
-        .set({
-          status: "approved",
-          version: input.version,
-          effectiveFrom: input.approvedOn,
-          updatedAt: new Date(),
-        })
-        .where(
-          and(
-            eq(policy.companyId, ctx.companyId),
-            eq(policy.requirementId, ref.requirementId),
-            eq(policy.type, type),
-          ),
-        )
-        .returning({ id: policy.id });
-      if (approved.length > 0) recheck(ctx, "policy");
-      return { approved: approved.length > 0 };
     }),
 });

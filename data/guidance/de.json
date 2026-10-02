@@ -256,18 +256,6 @@
         "meaning": "Die eine Nummer, die alle Beschäftigten bei einem IT-Notfall anrufen. Sie gehört auf die IT-Notfallkarte des BSI.",
         "example": "Durchwahl 400 (IT-Support), außerhalb der Geschäftszeiten das Bereitschaftshandy",
         "whereToFind": "Ihr eigener IT-Support oder Ihr IT-Dienstleister. Sprechen Sie vorher ab, dass er unter dieser Nummer Notfälle annimmt."
-      },
-      "incidentPlanVersion": {
-        "label": "Version des Notfallplans",
-        "meaning": "Die Version des Notfallplans, die die Geschäftsführung unterschrieben hat.",
-        "example": "1.0",
-        "whereToFind": "Steht auf dem unterschriebenen Plan. Zählen Sie sie bei jeder Änderung hoch."
-      },
-      "incidentPlanApprovalDate": {
-        "label": "Freigabe des Notfallplans",
-        "meaning": "Der Tag, an dem die Geschäftsführung den Notfallplan unterschrieben hat.",
-        "example": "2026-10-01",
-        "whereToFind": "Das Datum neben der Unterschrift auf dem Plan."
       }
     }
   },

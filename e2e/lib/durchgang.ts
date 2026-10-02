@@ -46,6 +46,34 @@ export async function e2eTenant(): Promise<Tenant> {
   return row;
 }
 
+/**
+ * Keeps the e2e user's compliance role in the tenant, which a spec may change (management is
+ * `ceo`), and puts it back.
+ */
+export async function keepJobTitle(tenant: Tenant): Promise<Undo> {
+  const [before] = await e2eQuery<{ job_title: string | null }>(
+    `SELECT m.job_title FROM company_membership m JOIN "user" u ON u.id = m.user_id
+      WHERE u.email = $1 AND m.company_id = $2`,
+    [E2E_USER_EMAIL, tenant.company_id],
+  );
+  return async () => {
+    await e2eQuery(
+      `UPDATE company_membership m SET job_title = $3 FROM "user" u
+        WHERE u.id = m.user_id AND u.email = $1 AND m.company_id = $2`,
+      [E2E_USER_EMAIL, tenant.company_id, before?.job_title ?? null],
+    );
+  };
+}
+
+/** The e2e user's id, which an approval records. */
+export async function e2eUserId(): Promise<string> {
+  const [row] = await e2eQuery<{ id: string }>(`SELECT id FROM "user" WHERE email = $1`, [
+    E2E_USER_EMAIL,
+  ]);
+  if (!row) throw new Error("the e2e user does not exist");
+  return row.id;
+}
+
 /** Lifts the tenant to a paid account, which the Durchgang requires. */
 export async function payFor(tenant: Tenant): Promise<Undo> {
   await e2eQuery(`UPDATE billing_account SET access_level = 'full' WHERE id = $1`, [

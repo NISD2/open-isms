@@ -32,8 +32,6 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
   const recordAgreements = trpc.durchgang.recordAgreements.useMutation();
   const recordLogins = trpc.durchgang.recordLogins.useMutation();
   const writePolicy = trpc.durchgang.writePolicy.useMutation();
-  const approvePolicy = trpc.durchgang.approvePolicy.useMutation();
-  const approvePolicies = trpc.durchgang.approvePolicies.useMutation();
   const recordCritical = trpc.durchgang.recordCritical.useMutation();
   const finish = trpc.durchgang.finish.useMutation();
   const utils = trpc.useUtils();
@@ -51,7 +49,10 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
     });
   };
 
-  /** What a screen records when the person leaves it forward. The method is adopted separately. */
+  /**
+   * What a screen records when the person leaves it forward. The method is adopted separately,
+   * and management's approval is a signature, saved before anything moves on.
+   */
   const record = async (at: number, snapshot: Draft) => {
     const screen = item.screens[at]?.screen;
     switch (screen?.kind) {
@@ -63,16 +64,6 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
           item.fields,
         );
         await answer(answers);
-        // A changed signature page approves the policy it signs; an unchanged one says nothing new.
-        const signs = screen.approves;
-        const version = signs && String(snapshot.values[signs.version] ?? "").trim();
-        const approvedOn =
-          signs && String(snapshot.values[signs.date] ?? "").slice(0, 10);
-        if (signs && Object.keys(answers).length > 0 && version && approvedOn) {
-          await approvePolicy.mutateAsync({ code: item.code, version, approvedOn });
-          await utils.policy.list.invalidate();
-        }
-        // Only now is the screen stored: a refused approval sends both writes again on retry.
         saved.current = {
           ...saved.current,
           ...Object.fromEntries(Object.keys(answers).map((k) => [k, snapshot.values[k]])),
@@ -84,6 +75,7 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
         await writePolicy.mutateAsync({
           code: item.code,
           clauses: snapshot.clauses ? [...snapshot.clauses] : null,
+          own: snapshot.own,
         });
         await Promise.all([
           utils.durchgang.policyDraft.invalidate(),
@@ -126,7 +118,8 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
       case "rate": {
         const rows = Object.values(snapshot.ratings).flatMap((r) => {
           const rating = fullRating(r);
-          return rating ? [{ kind: r.kind, id: r.id, ...rating }] : [];
+          const note = r.note === undefined ? {} : { note: r.note.trim() };
+          return rating ? [{ kind: r.kind, id: r.id, ...rating, ...note }] : [];
         });
         if (rows.length > 0) {
           await rate.mutateAsync({ rows });
@@ -157,21 +150,6 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
         if (rows.length > 0) {
           await recordLogins.mutateAsync({ code: item.code, rows });
           await utils.asset.list.invalidate();
-        }
-        return;
-      }
-      case "approve": {
-        const { types, day } = snapshot.approval;
-        if (types.length > 0 && day) {
-          await approvePolicies.mutateAsync({
-            code: item.code,
-            approvedOn: day,
-            types: [...types],
-          });
-          await Promise.all([
-            utils.durchgang.walkPolicies.invalidate(),
-            utils.policy.list.invalidate(),
-          ]);
         }
         return;
       }

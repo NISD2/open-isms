@@ -69,10 +69,13 @@ const SCREEN_COPY = {
       title: text,
       sections: z.array(z.object({ heading: text, text })).min(1),
       clauses: z.array(z.object({ id: text, label: text, heading: text, text })),
+      /** The heading the company's own addition is printed under. */
+      own: text,
       signature: text,
     }),
   }),
-  done: z.object({ title: text, note: text }),
+  /** `note` only where there is something the person still needs to know. */
+  done: z.object({ title: text, note: text.optional() }),
 } as const satisfies Record<ScreenKind, z.ZodType>;
 
 const ITEM_COPY = z.object({
@@ -88,6 +91,8 @@ const ITEM_COPY = z.object({
         hint: text,
         /** One label per value, for a field whose schema is a choice. A test checks the set. */
         options: z.record(z.string(), text).optional(),
+        /** Common answers to a text field, which a tap adds to what is written. */
+        suggestions: z.array(text).min(1).optional(),
       }),
     )
     .default({}),

@@ -34,30 +34,41 @@ const document = {
     { id: "training", label: "Schulungen", heading: "Schulungen", text: "Wir schulen." },
     { id: "suppliers", label: "Lieferanten", heading: "Lieferanten", text: "Auch sie." },
   ],
+  own: "Weitere Regelungen",
   signature: "Für die Geschäftsführung der {company}",
 };
 
 const muster = policyNames("Muster GmbH", [], {});
 
 test("numbers the sections, then the chosen clauses in the template's order", () => {
-  expect(policyParts(document, ["suppliers", "training"], muster)).toEqual([
-    { heading: "1. Geltungsbereich", text: "Gilt für die Muster GmbH." },
-    { heading: "2. Ziele", text: "Verfügbarkeit." },
-    { heading: "3. Schulungen", text: "Wir schulen." },
-    { heading: "4. Lieferanten", text: "Auch sie." },
+  expect(policyParts(document, ["suppliers", "training"], muster, "")).toEqual([
+    { clause: null, heading: "1. Geltungsbereich", text: "Gilt für die Muster GmbH." },
+    { clause: null, heading: "2. Ziele", text: "Verfügbarkeit." },
+    { clause: "training", heading: "3. Schulungen", text: "Wir schulen." },
+    { clause: "suppliers", heading: "4. Lieferanten", text: "Auch sie." },
   ]);
 });
 
 test("ignores a clause the template does not have", () => {
-  expect(policyParts(document, ["unknown"], muster).map((p) => p.heading)).toEqual([
+  expect(policyParts(document, ["unknown"], muster, "").map((p) => p.heading)).toEqual([
     "1. Geltungsbereich",
     "2. Ziele",
   ]);
 });
 
+test("adds the company's own words last, as written, and nothing for blank ones", () => {
+  const own = "Notfallhandy der IT bei der {company}: 0170 1234567";
+  expect(policyParts(document, ["training"], muster, `  ${own} `).at(-1)).toEqual({
+    clause: null,
+    heading: "4. Weitere Regelungen",
+    text: own,
+  });
+  expect(policyParts(document, [], muster, "  \n ")).toHaveLength(2);
+});
+
 test("writes the stored text as the preview shows it, with the company named throughout", () => {
   expect(policyTitle(document, muster)).toBe("Leitlinie der Muster GmbH");
-  expect(policyText(document, ["training"], muster)).toBe(
+  expect(policyText(document, ["training"], muster, "")).toBe(
     [
       "# Leitlinie der Muster GmbH",
       "## 1. Geltungsbereich\n\nGilt für die Muster GmbH.",
@@ -79,7 +90,7 @@ test("fills each answer in, and leaves a line to write on where one is still ope
     incidentLead: "  Anna Weber ",
     itEmergencyNumber: " ",
   });
-  expect(policyParts(plan, [], names)[0]?.text).toBe(
+  expect(policyParts(plan, [], names, "")[0]?.text).toBe(
     `Anna Weber leitet; Nummer ${BLANK}.`,
   );
 });
