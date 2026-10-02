@@ -13,6 +13,8 @@ import { e2eTenant, payFor, type Tenant, type Undo, undoAll } from "../lib/durch
 // learn, where first, sign-ins, tool, done.
 const LOGINS_SCREEN = 2;
 const NAME = "E2E Fernzugang";
+// Left as it starts, so the trail must still name it.
+const UNTOUCHED = "E2E Wartungszugang";
 
 interface Mark {
   id: string;
@@ -24,13 +26,13 @@ const marksOf = (tenant: Tenant) =>
     tenant.company_id,
   ]);
 
-/** Puts every asset's mark back, and removes the asset this file adds. */
+/** Puts every asset's mark back, and removes the assets this file adds. */
 async function keepMarks(tenant: Tenant): Promise<Undo> {
   const before = await marksOf(tenant);
   return async () => {
-    await e2eQuery(`DELETE FROM asset WHERE company_id = $1 AND name = $2`, [
+    await e2eQuery(`DELETE FROM asset WHERE company_id = $1 AND name = ANY($2)`, [
       tenant.company_id,
-      NAME,
+      [NAME, UNTOUCHED],
     ]);
     for (const row of before) {
       await e2eQuery(`UPDATE asset SET has_mfa = $2 WHERE id = $1`, [
@@ -50,8 +52,9 @@ test.describe("durchgang sign-ins", () => {
     tenant = await e2eTenant();
     undos = [await keepMarks(tenant), await payFor(tenant)];
     await e2eQuery(
-      `INSERT INTO asset (company_id, name, type, has_mfa) VALUES ($1, $2, 'network', false)`,
-      [tenant.company_id, NAME],
+      `INSERT INTO asset (company_id, name, type, has_mfa)
+       VALUES ($1, $2, 'network', false), ($1, $3, 'network', false)`,
+      [tenant.company_id, NAME, UNTOUCHED],
     );
   });
 
@@ -99,5 +102,7 @@ test.describe("durchgang sign-ins", () => {
       [tenant.company_id],
     );
     expect(status?.internal_notes).toContain(`${NAME}: mit zweitem Faktor`);
+    // A row accepted as it started is an answer too, and the trail says so.
+    expect(status?.internal_notes).toContain(`${UNTOUCHED}: nur Passwort`);
   });
 });

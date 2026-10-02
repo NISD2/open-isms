@@ -179,7 +179,6 @@ function FieldInput({
   }
 }
 
-/** The names of the company's software and services, from its list. */
 /** A field's common answers from the company's own data: its software, or its contact domain. */
 function useOwnSuggestions(from: SuggestSource | undefined): readonly string[] {
   const assets = trpc.asset.list.useQuery(undefined, { enabled: from === "software" });

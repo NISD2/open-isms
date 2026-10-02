@@ -5,6 +5,7 @@ import { CATALOG_BY_ID } from "@/lib/asset-inventory/catalog";
 import {
   CATALOG_LABELS,
   catalogNames,
+  isCatalogName,
   nameKey,
 } from "@/lib/asset-inventory/catalog-labels";
 import { logAudit } from "@/lib/audit";
@@ -214,7 +215,11 @@ const EMERGENCY_LEAD = { code: "3.1", field: "incidentLead" } as const;
 
 /** Who leads in an emergency, as 3.1 saved it, or nothing when 3.1 has no answer yet. */
 const emergencyLeadOf = async (db: TRPCContext["db"], companyId: string) => {
-  const ref = await walkItemRef(db, companyId, EMERGENCY_LEAD.code).catch(() => null);
+  // Only "3.1 has no row yet" means no lead; any other failure must not print a blank plan.
+  const ref = await walkItemRef(db, companyId, EMERGENCY_LEAD.code).catch((error) => {
+    if (error instanceof TRPCError && error.code === "NOT_FOUND") return null;
+    throw error;
+  });
   if (!ref) return null;
   const row = await db.query.companyCategoryIntake.findFirst({
     where: and(
@@ -706,7 +711,10 @@ export const durchgangRouter = router({
         columns: { name: true, type: true, description: true },
       });
       if (!source) throw new TRPCError({ code: "NOT_FOUND" });
-      const kind = (source.description?.trim() || source.name).slice(0, 240);
+      // 2.2 keeps the catalogue name in the description; a description of one's own is no kind.
+      const kind = (
+        isCatalogName(source.description) ? source.description.trim() : source.name
+      ).slice(0, 240);
       const existing = await ctx.db.query.asset.findMany({
         where: eq(asset.companyId, ctx.companyId),
         columns: { name: true },

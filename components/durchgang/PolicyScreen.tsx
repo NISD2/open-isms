@@ -119,9 +119,11 @@ export function PolicyScreen({
     (draft.own !== null && draft.own.trim() !== storedOwn.trim());
   const toggle = (id: string) => {
     const on = !chosen.includes(id);
+    // A changed text has to be read again.
     onDraft({
       ...draft,
       clauses: on ? [...chosen, id] : chosen.filter((c) => c !== id),
+      read: false,
     });
     setLit(on ? id : null);
   };
@@ -195,7 +197,7 @@ export function PolicyScreen({
             className="mt-2 min-h-20 rounded-xl text-base"
             maxLength={2000}
             value={own}
-            onChange={(e) => onDraft({ ...draft, own: e.target.value })}
+            onChange={(e) => onDraft({ ...draft, own: e.target.value, read: false })}
           />
         </div>
         {approved && changed && (

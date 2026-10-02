@@ -46,6 +46,10 @@ function useAllRows(): readonly RatingRow[] | undefined {
   return [...software, ...technology, ...suppliers];
 }
 
+/** A thing with several risks in the register has a level but no one rating to change here. */
+const rateable = (risk: MappedRisk): boolean =>
+  risk.rating !== null || risk.level === null;
+
 /** Names that open their row to re-rate, comma separated so the list still reads on paper. */
 function Names({
   risks,
@@ -59,13 +63,17 @@ function Names({
       {risks.map((risk, i) => (
         <Fragment key={risk.key}>
           {i > 0 && ", "}
-          <button
-            type="button"
-            onClick={() => onOpen([risk.key])}
-            className="cursor-pointer underline decoration-muted-foreground/40 decoration-dotted underline-offset-4 hover:text-primary hover:decoration-primary"
-          >
-            {risk.name}
-          </button>
+          {rateable(risk) ? (
+            <button
+              type="button"
+              onClick={() => onOpen([risk.key])}
+              className="cursor-pointer underline decoration-muted-foreground/40 decoration-dotted underline-offset-4 hover:text-primary hover:decoration-primary"
+            >
+              {risk.name}
+            </button>
+          ) : (
+            risk.name
+          )}
         </Fragment>
       ))}
     </p>

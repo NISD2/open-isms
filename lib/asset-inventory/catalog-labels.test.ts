@@ -1,5 +1,12 @@
 import { expect, test } from "bun:test";
-import { noSignIn } from "./catalog-labels";
+import { isCatalogName, noSignIn } from "./catalog-labels";
+
+test("knows a catalogue name in either language, and nothing else", () => {
+  expect(isCatalogName("Internes Netzwerk (LAN, Netzsegmente)")).toBe(true);
+  expect(isCatalogName(" internal network (lan, network segments) ")).toBe(true);
+  expect(isCatalogName("CRM for the sales team, hosted in the EU")).toBe(false);
+  expect(isCatalogName(null)).toBe(false);
+});
 
 test("leaves out a line nobody signs in to, by its name in either language", () => {
   expect(

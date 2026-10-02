@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import type { WaitReason } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import { changedAnswers, type Draft, fullRating, initialDraft } from "./draft";
+import { mfaOf, useLoginRows } from "./LoginScreen";
 import type { ItemView } from "./view";
 
 /**
@@ -32,6 +33,8 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
   const recordLogins = trpc.durchgang.recordLogins.useMutation();
   const writePolicy = trpc.durchgang.writePolicy.useMutation();
   const recordCritical = trpc.durchgang.recordCritical.useMutation();
+  // Every sign-in shown starts with an answer, so 11.1 records them all, not only the touched ones.
+  const loginRows = useLoginRows(item.screens.some((s) => s.screen.kind === "logins"));
   const finish = trpc.durchgang.finish.useMutation();
   const utils = trpc.useUtils();
   const resume = trpc.durchgang.resume.useMutation();
@@ -138,9 +141,9 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
         return;
       }
       case "logins": {
-        const rows = Object.entries(snapshot.logins).map(([assetId, mfa]) => ({
-          assetId,
-          mfa,
+        const rows = (loginRows ?? []).map((row) => ({
+          assetId: row.id,
+          mfa: mfaOf(row, snapshot),
         }));
         if (rows.length > 0) {
           await recordLogins.mutateAsync({ code: item.code, rows });

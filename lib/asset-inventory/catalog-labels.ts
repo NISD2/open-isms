@@ -23,6 +23,14 @@ export const catalogNames = (id: string): readonly string[] =>
 /** Names compared as a person reads them, so "Datev " and "DATEV" are one. */
 export const nameKey = (name: string) => name.trim().toLowerCase();
 
+const CATALOG_NAMES: ReadonlySet<string> = new Set(
+  CATALOG.flatMap((item) => catalogNames(item.id).map(nameKey)),
+);
+
+/** Whether a text is a catalogue item's name, in either language. */
+export const isCatalogName = (text: string | null): text is string =>
+  text !== null && CATALOG_NAMES.has(nameKey(text));
+
 const NO_SIGN_IN: ReadonlySet<string> = new Set(
   CATALOG.flatMap((item) =>
     item.signIn === false ? catalogNames(item.id).map(nameKey) : [],
