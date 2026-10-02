@@ -1,19 +1,35 @@
 "use client";
 
 import "./transitions.css";
-import { ArrowRight, Check, Clock } from "lucide-react";
+import {
+  ArrowRight,
+  BadgeCheck,
+  Check,
+  ChevronRight,
+  Clock,
+  Footprints,
+  ShieldCheck,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { resumeAt } from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
+import { Art } from "./Art";
 import { STAGE } from "./transition";
 import type { WalkEntry } from "./view";
 
 /**
- * The Durchgang's front door: what the walk is on the left, with one way on (the next open item,
- * else the first one waiting), and "Ihr Weg" on the right. There is no separate introduction
- * screen; this page is it (Simon, 03.10.2026).
+ * Each promise carries the sign the person meets for it in the walk: the walk's own footprints,
+ * the BSI default's shield, the clock of an item set aside, management's approval.
+ */
+const POINT_ICONS = [Footprints, ShieldCheck, Clock, BadgeCheck] as const;
+
+/**
+ * The Durchgang's front door: what the walk is on the left, pinned while the path scrolls, with
+ * one way on (the next open item, else the first one waiting); "Ihr Weg" on the right, step by
+ * step, each step a card with its status circle and its picture. There is no separate
+ * introduction screen; this page is it (Simon, 03.10.2026).
  */
 export function DurchgangHome({ walk }: { walk: readonly WalkEntry[] }) {
   const t = useTranslations("durchgang");
@@ -48,33 +64,41 @@ export function DurchgangHome({ walk }: { walk: readonly WalkEntry[] }) {
   return (
     <div
       style={STAGE}
-      className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[minmax(0,1fr)_22rem] xl:gap-20"
+      className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)] gap-12 lg:grid-cols-[minmax(0,1fr)_28rem] xl:gap-16"
     >
-      <div className="flex max-w-3xl flex-col lg:py-6">
-        <p className="text-sm font-medium text-primary">{t("ui.intro.eyebrow")}</p>
-        <h1 className="mt-3 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
+      <div className="flex flex-col lg:sticky lg:top-18 lg:self-start lg:py-6">
+        <p className="self-start rounded-full bg-primary/[0.08] px-3 py-1 text-sm font-medium text-primary">
+          {t("ui.intro.eyebrow")}
+        </p>
+        <h1 className="mt-5 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
           {t("ui.intro.title")}
         </h1>
         <p className="mt-5 max-w-[52ch] text-lg leading-8 text-muted-foreground">
           {t("ui.intro.lead")}
         </p>
-        <ol className="mt-10 grid gap-x-8 gap-y-6 sm:grid-cols-2">
-          {points.map((point, i) => (
-            <li key={point.title}>
-              <span className="text-sm font-semibold text-primary tabular-nums">
-                0{i + 1}
-              </span>
-              <p className="mt-1 font-semibold">{point.title}</p>
-              <p className="mt-1 text-sm leading-6 text-muted-foreground">{point.text}</p>
-            </li>
-          ))}
-        </ol>
-
+        <ul className="mt-10 grid gap-3 sm:grid-cols-2">
+          {points.map((point, i) => {
+            const Icon = POINT_ICONS[i];
+            return (
+              <li key={point.title} className="rounded-2xl border bg-card p-5 shadow-xs">
+                {Icon && (
+                  <span className="flex size-9 items-center justify-center rounded-xl bg-primary/[0.08] text-primary">
+                    <Icon className="size-[1.125rem]" />
+                  </span>
+                )}
+                <p className="mt-3 font-semibold">{point.title}</p>
+                <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                  {point.text}
+                </p>
+              </li>
+            );
+          })}
+        </ul>
         {next ? (
           <Button
             asChild
             size="lg"
-            className="sticky bottom-6 mt-12 h-12 self-start rounded-xl px-7 text-base shadow-lg lg:static lg:shadow-none"
+            className="mt-10 h-12 self-start rounded-xl px-7 text-base"
           >
             <Link
               href={{
@@ -87,60 +111,82 @@ export function DurchgangHome({ walk }: { walk: readonly WalkEntry[] }) {
             </Link>
           </Button>
         ) : (
-          <section className="mt-12 rounded-3xl border bg-card p-8">
+          <div className="mt-10 rounded-3xl border bg-card p-8">
             <p className="text-xl font-semibold">{t("ui.home.allFilled")}</p>
             <p className="mt-2 text-muted-foreground">{t("ui.home.allFilledNote")}</p>
-          </section>
+          </div>
         )}
       </div>
 
-      <aside>
-        <h2 className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">
+      <aside className="self-start rounded-3xl bg-primary/[0.06] p-3 sm:p-4">
+        <h2 className="px-2 pt-2 text-xs font-semibold tracking-wider text-muted-foreground uppercase">
           {t("ui.home.yourWay")}
         </h2>
-        <ol className="mt-5 space-y-1">
+        <ol className="mt-4 space-y-2">
           {walk.map((entry, index) => {
             const settled = entry.state.kind !== "open" && entry.state.kind !== "waiting";
             const waiting = entry.state.kind === "waiting";
             const isNext = next?.code === entry.code;
             return (
-              <li key={entry.code} className="relative flex gap-4 rounded-xl p-2">
+              <li key={entry.code} className="relative">
                 {index < walk.length - 1 && (
-                  // From 6px under this circle to 6px above the next one, on the circles' centre
-                  // line: the 8px padding plus half the 32px circle.
+                  // Joins this card to the next across the 8px gap, under the status circle's
+                  // centre (1px border, 20px padding, half the 24px circle).
                   <span
                     aria-hidden
-                    className="absolute top-[46px] -bottom-1.5 left-6 w-px -translate-x-1/2 bg-border"
+                    className="absolute top-full left-[33px] h-2 w-px -translate-x-1/2 bg-primary/25"
                   />
                 )}
-                <span
+                <div
                   className={cn(
-                    "relative z-10 flex size-8 shrink-0 items-center justify-center rounded-full border-2 bg-background",
-                    settled && "border-primary bg-primary text-primary-foreground",
-                    waiting && "border-amber-400 text-amber-600",
-                    isNext && !waiting && "border-primary ring-4 ring-primary/15",
+                    "relative flex items-center gap-3 rounded-2xl border bg-card p-3 pr-4 pl-5 shadow-xs sm:gap-4 transition-colors hover:border-primary/40 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-ring",
+                    isNext && "border-primary/60 ring-4 ring-primary/10",
                   )}
                 >
-                  {settled ? (
-                    <Check className="size-4" />
-                  ) : waiting ? (
-                    <Clock className="size-4" />
-                  ) : null}
-                </span>
-                <div className="min-w-0 pt-1">
-                  <Link
-                    href={{
-                      pathname: "/durchgang/nis2/[code]",
-                      params: { code: entry.code },
-                    }}
+                  <span
+                    aria-hidden
                     className={cn(
-                      "text-sm font-medium hover:underline",
-                      settled && "text-muted-foreground",
+                      "flex size-6 shrink-0 items-center justify-center rounded-full border-2 border-muted-foreground/25",
+                      settled && "border-primary bg-primary text-primary-foreground",
+                      waiting && "border-amber-400 text-amber-600",
+                      isNext && !waiting && "border-primary ring-4 ring-primary/15",
                     )}
                   >
-                    {entry.headline}
-                  </Link>
-                  <p className="text-xs text-muted-foreground">{statusLine(entry)}</p>
+                    {settled ? (
+                      <Check className="size-3.5" />
+                    ) : waiting ? (
+                      <Clock className="size-3.5" />
+                    ) : null}
+                  </span>
+                  <div className="flex h-12 w-14 shrink-0 items-end justify-center sm:h-14 sm:w-16">
+                    <Art
+                      src={entry.image}
+                      className={cn("h-full", settled && "opacity-40")}
+                    />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p
+                      className={cn(
+                        "text-xs text-muted-foreground",
+                        isNext && "font-medium text-primary",
+                      )}
+                    >
+                      {statusLine(entry)}
+                    </p>
+                    <Link
+                      href={{
+                        pathname: "/durchgang/nis2/[code]",
+                        params: { code: entry.code },
+                      }}
+                      className={cn(
+                        "text-sm font-semibold leading-snug after:absolute after:inset-0 focus-visible:outline-none",
+                        settled && "text-muted-foreground",
+                      )}
+                    >
+                      {entry.headline}
+                    </Link>
+                  </div>
+                  <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
                 </div>
               </li>
             );
