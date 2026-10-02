@@ -196,6 +196,41 @@ export async function keepSignOffs(tenant: Tenant): Promise<Undo> {
   };
 }
 
+/**
+ * Puts the walk item `code` where a finished walk leaves it: unsigned, in progress, with the
+ * walk's "filled in" event as its newest. Run after `keepSignOffs`, which puts the status row
+ * back; the undo removes the event.
+ */
+export async function fillWalkItem(tenant: Tenant, code: string): Promise<Undo> {
+  const [row] = await e2eQuery<{ status_id: string; requirement_id: string }>(
+    `SELECT s.id AS status_id, s.requirement_id
+       FROM company_requirement_status s
+       JOIN company_assessment a ON a.id = s.assessment_id
+       JOIN compliance_framework f ON f.id = a.framework_id
+       JOIN requirement r ON r.id = s.requirement_id
+      WHERE a.company_id = $1 AND f.code = 'nis2' AND r.code = $2`,
+    [tenant.company_id, code],
+  );
+  if (!row) throw new Error(`the e2e tenant has no status row for ${code}`);
+  await e2eQuery(
+    `UPDATE company_requirement_status
+        SET status = 'in_progress', signed_off_at = NULL, signed_off_by = NULL,
+            signed_off_role = NULL, sign_off_snapshot = NULL, completed_at = NULL,
+            completed_by = NULL
+      WHERE id = $1`,
+    [row.status_id],
+  );
+  const [event] = await e2eQuery<{ id: string }>(
+    `INSERT INTO audit_log (company_id, user_id, action, entity_type, entity_id, description)
+     VALUES ($1, $2, 'durchgang.item_done', 'requirement', $3, $4)
+     RETURNING id`,
+    [tenant.company_id, await e2eUserId(), row.requirement_id, `${code} filled in (e2e)`],
+  );
+  return async () => {
+    if (event) await e2eQuery(`DELETE FROM audit_log WHERE id = $1`, [event.id]);
+  };
+}
+
 /** The requirement row of `code` in the tenant's NIS 2 assessment. */
 export async function requirementStatus(
   tenant: Tenant,

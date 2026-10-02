@@ -2,7 +2,8 @@
  * L2 Durchgang management review (7.3): the review is entered in the management review register,
  * and management approves the drafts the walk wrote, signed in with its own account, through the
  * real UI against real Postgres. The approval records who approved, when and in which role, and
- * signs off the items waiting for it, 7.3 among them, so the journey sees them done.
+ * signs off the items waiting for it as management, so the journey sees them done: 7.3, and 12.2,
+ * filled in through the walk, whose single sign-off on its page names the CISO.
  *
  * Cleanup removes the review and the draft this file adds, puts back the e2e user's role and
  * undoes the sign-offs, because later layers read this tenant (`e2e/lib/durchgang.ts`).
@@ -12,6 +13,7 @@ import { e2eQuery } from "../lib/db";
 import {
   e2eTenant,
   e2eUserId,
+  fillWalkItem,
   keepJobTitle,
   keepPolicies,
   keepSignOffs,
@@ -28,6 +30,9 @@ const REVIEW_SCREEN = 4;
 const APPROVE_SCREEN = 5;
 const TYPE = "cryptography";
 const DECISION = "E2E Konzepte freigegeben";
+/** A walk item filled in and waiting, whose own sign-off role is the CISO, not management. */
+const FILLED = "12.2";
+const FILLED_HEADLINE = "Beim BSI registrieren";
 /** Today in Berlin: the review must be within the last year to count, and an approval starts today. */
 const TODAY = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }).format(
   new Date(),
@@ -65,6 +70,8 @@ test.describe("durchgang management review", () => {
       await keepJobTitle(tenant),
       await payFor(tenant),
       await keepSignOffs(tenant),
+      // After keepSignOffs, so its snapshot holds 12.2 as it was.
+      await fillWalkItem(tenant, FILLED),
     ];
     await seedDraft(tenant);
     // Start outside management, so the screen offers to send the documents on.
@@ -111,8 +118,12 @@ test.describe("durchgang management review", () => {
       .filter({ hasText: `Kryptokonzept der ${tenant.company_name}` });
     await expect(row).toBeVisible({ timeout: 30_000 });
     await expect(row.getByText("Wartet auf die Geschäftsführung")).toBeVisible();
-    // The review is recorded, so 7.3 waits for management's sign-off with the documents.
+    // The review is recorded, so 7.3 waits for management's sign-off with the documents, and so
+    // does the item the walk filled in.
     await expect(page.getByText("Diese Punkte warten auf Freigabe")).toBeVisible();
+    await expect(
+      page.getByRole("listitem").filter({ hasText: FILLED_HEADLINE }),
+    ).toBeVisible();
     await expect(page.getByText("An die Geschäftsführung schicken")).toBeVisible();
     await expect(
       page.getByRole("button", { name: "Weiter", exact: true }),
@@ -139,6 +150,10 @@ test.describe("durchgang management review", () => {
     // commit first, the signatures after them.
     await expect
       .poll(async () => await requirementStatus(tenant, "7.3"))
+      .toEqual({ status: "completed", signed_off_role: "ceo" });
+    // Management signs the CISO's item too: the walk's one signature at the end.
+    await expect
+      .poll(async () => await requirementStatus(tenant, FILLED))
       .toEqual({ status: "completed", signed_off_role: "ceo" });
     await expect(page.getByRole("button", { name: "Weiter", exact: true })).toBeEnabled();
   });
