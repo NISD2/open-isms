@@ -127,9 +127,9 @@ function DocumentCard({ document }: { readonly document: DocumentEmail["document
 }
 
 /**
- * A letter about one business document: invoice, credit note, cancellation, refund, erasure.
- * The wording lives with the document (lib/billing, lib/gdpr); this lays it out the way the
- * document reads.
+ * A letter about a business document: invoice, credit note, cancellation, refund, erasure, and
+ * any documents enclosed with it. The wording lives with the document (lib/billing, lib/gdpr);
+ * this lays it out the way the document reads.
  */
 export default function DocumentLetterEmail({
   mail,
@@ -157,6 +157,21 @@ export default function DocumentLetterEmail({
         </p>
       ))}
       <DocumentCard document={mail.document} />
+      {(mail.enclosed ?? []).map((part) => (
+        <Fragment key={part.document.reference}>
+          {part.intro.map((text) => (
+            <p key={text} style={paragraph()}>
+              <WithLink text={text} link={link} />
+            </p>
+          ))}
+          <DocumentCard document={part.document} />
+          {part.outro.map((text) => (
+            <p key={text} style={paragraph()}>
+              <WithLink text={text} link={link} />
+            </p>
+          ))}
+        </Fragment>
+      ))}
       {mail.outro.map((text) => (
         <p key={text} style={paragraph()}>
           <WithLink text={text} link={link} />

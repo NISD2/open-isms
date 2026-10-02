@@ -8,7 +8,7 @@
  */
 import { formatInvoiceDay, invoiceToday } from "@/lib/billing/order";
 import type { EmailLocale } from "@/lib/mail/locale";
-import type { DocumentEmail, DocumentFact } from "@/lib/mail/templates";
+import type { DocumentEmail, DocumentFact, DocumentSection } from "@/lib/mail/templates";
 import { certificateFacts, type ErasureLogRow } from "./certificate";
 import type { StoredFileState } from "./stored-files";
 
@@ -124,12 +124,16 @@ const COPY: Record<
   },
 };
 
-/** The erasure confirmation, with `record` (the rendered formal record) under the signature. */
+/**
+ * The erasure confirmation, with `record` (the rendered formal record) under the signature, and
+ * `enclosed` (the confirmation of a licence the deletion cancelled) after its card.
+ */
 export function erasureConfirmationWording(
   row: ErasureLogRow,
   files: StoredFileState,
   locale: EmailLocale,
   record: { readonly html: string; readonly text: string },
+  enclosed: readonly DocumentSection[] = [],
 ): DocumentEmail {
   const copy = COPY[locale];
   const { filesDone, keptByLaw } = certificateFacts(row, files);
@@ -164,6 +168,7 @@ export function erasureConfirmationWording(
     greeting: copy.greeting,
     intro: [copy.intro[outcome]],
     document: { kind: copy.kind, reference: row.caseRef, facts },
+    enclosed,
     outro: [copy.outro],
     appendix: record,
   };

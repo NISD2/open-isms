@@ -29,9 +29,10 @@ import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import {
   type CancelOutcome,
   cancelAuditDescription,
-  cancelSubscription,
+  cancelForErasure,
   openCancel,
 } from "@/lib/billing/cancel";
+import { type CancelNotice, sendCancelNotice } from "@/lib/billing/cancel-notice";
 import { hasOrderCheck } from "@/lib/billing/order-check";
 import { billingFor } from "@/lib/billing/ordering-access";
 import type { Database, DbOrTx } from "@/lib/db";
@@ -231,32 +232,35 @@ export async function selfErasureCheck(db: DbOrTx, person: Person): Promise<Self
 
 /**
  * Cancels every licence the person pays for that is still open, just before their erasure, through
- * the cancel the Billing page uses (the credit note or the stopped renewal, and its email). Once the
- * holder is gone nobody may cancel it, and the money back or the stopped renewal would be lost.
+ * the cancel the Billing page uses (the credit note or the stopped renewal). Once the holder is
+ * gone nobody may cancel it, and the money back or the stopped renewal would be lost. The
+ * confirmations come back unsent, for the erasure confirmation to carry (./send-certificate).
  *
  * It cancels only when every other rule allows the erasure, so a refused deletion cancels nothing,
- * and a cancel that fails refuses the erasure with nothing deleted. The cancel calls Qonto, so it
- * runs before the erasure's transaction, never inside it; the guard there refuses if one is still
- * open. The audit row names no IP or browser: the erasure would clear them a moment later.
+ * and a cancel that fails refuses the erasure with nothing deleted; the cancels made before it
+ * stand, so their confirmations go out on their own. The cancel calls Qonto, so it runs before the
+ * erasure's transaction, never inside it; the guard there refuses if one is still open. The audit
+ * row names no IP or browser: the erasure would clear them a moment later.
  */
 export async function cancelLicencesForErasure(
   db: Database,
   person: Person,
-): Promise<void> {
+): Promise<readonly CancelNotice[]> {
   const decision = await decide(db, person);
   if (!decision.allowed) throw new SelfErasureRefused(decision.reason);
-  if (decision.cancels.length === 0) return;
+  if (decision.cancels.length === 0) return [];
   const { mode, open } = await billingFor(db, person.email);
   if (!open || mode.kind === "off") throw new SelfErasureRefused("cancel_by_us");
+  const notices: CancelNotice[] = [];
   // One after the other: each cancel holds its account across the Qonto call.
   for (const { billingAccountId } of decision.cancels) {
-    const outcome = await cancelSubscription({
+    const { outcome, notice } = await cancelForErasure({
       db,
       mode,
       billingAccountId,
       userId: person.userId,
-      erasure: { failureLabel: `self-erasure, billing account ${billingAccountId}` },
     });
+    if (notice) notices.push(notice);
     if (outcome.ok) {
       await logAudit({
         companyId: null,
@@ -271,9 +275,11 @@ export async function cancelLicencesForErasure(
     } else if (outcome.reason !== "no_invoice") {
       // no_invoice means it was cancelled meanwhile, so there is nothing left to do for it.
       console.error(`[self-erasure] cancel before erasure failed: ${outcome.message}`);
+      await Promise.all(notices.map(sendCancelNotice));
       throw new SelfErasureRefused(REFUSAL_FOR[outcome.reason]);
     }
   }
+  return notices;
 }
 
 /**

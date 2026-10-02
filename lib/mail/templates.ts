@@ -20,6 +20,7 @@ import DailyDigestEmail from "./emails/daily-digest";
 import DocumentLetterEmail from "./emails/document-letter";
 import InviteEmail from "./emails/invite";
 import MemberRemovedEmail from "./emails/member-removed";
+import NewSaleEmail, { type NewSaleProps } from "./emails/new-sale";
 import NewsletterEmail from "./emails/newsletter";
 import OperatorAlertEmail from "./emails/operator-alert";
 import { AdvisoryRequestEmail, NewSignupEmail } from "./emails/operator-notices";
@@ -43,6 +44,7 @@ import {
 import { type EmailLocale, resolveEmailLocale } from "./locale";
 import { renderEmail } from "./render";
 import { companyNameForMail } from "./sender-name";
+import type { MailAttachment } from "./transport";
 
 export type { DigestItem, DigestNextStep } from "./digest";
 
@@ -278,10 +280,24 @@ export interface DocumentEmail {
     readonly facts: readonly DocumentFact[];
   };
   readonly outro: readonly string[];
+  /**
+   * Further documents the letter carries, each with its own lines and card, after the main card:
+   * the credit note inside the erasure confirmation.
+   */
+  readonly enclosed?: readonly DocumentSection[];
   /** A URL inside the intro or outro, made clickable: Qonto's page when the PDF is missing. */
   readonly link?: string | null;
   /** Safe HTML and its text twin, shown below the signature: the formal erasure record. */
   readonly appendix?: { readonly html: string; readonly text: string };
+}
+
+/** One document's part of a letter: the lines before its card, the card, the lines after. */
+export type DocumentSection = Pick<DocumentEmail, "intro" | "document" | "outro">;
+
+/** A document that travels inside another letter, with its file when there is one. */
+export interface Enclosure {
+  readonly section: DocumentSection;
+  readonly attachment: MailAttachment | null;
 }
 
 const QUESTIONS: Record<EmailLocale, string> = {
@@ -319,6 +335,11 @@ export async function documentEmail(
     mail.greeting,
     ...mail.intro,
     documentCardText(mail.document),
+    ...(mail.enclosed ?? []).flatMap((part) => [
+      ...part.intro,
+      documentCardText(part.document),
+      ...part.outro,
+    ]),
     ...mail.outro,
     ...(replyTo ? [QUESTIONS[mail.locale]] : []),
     signOff.join("\n"),
@@ -369,6 +390,24 @@ export async function gdprAlertEmail(opts: {
     subject: `[DSGVO] ${safeHeader(opts.subject)}`,
     html: await renderEmail(OperatorAlertEmail, { lines: opts.lines }),
     text: opts.lines.join("\n"),
+  };
+}
+
+/** To the operators: an invoice was issued. The facts come from lib/billing/sale-notice. */
+export async function newSaleEmail(
+  opts: NewSaleProps & { readonly subject: string },
+): Promise<EmailContent> {
+  const { subject, title, rows, adminUrl } = opts;
+  return {
+    subject: safeHeader(subject),
+    html: await renderEmail(NewSaleEmail, { title, rows, adminUrl }),
+    text: [
+      title,
+      "",
+      ...rows.map(([label, value]) => `${label}: ${value}`),
+      "",
+      adminUrl,
+    ].join("\n"),
   };
 }
 

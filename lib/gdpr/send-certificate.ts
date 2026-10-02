@@ -2,7 +2,8 @@
  * The Art. 12(3) GDPR confirmation, sent the moment an erasure is done, at the address the account
  * had: a summary in the person's language with the formal record under it (./confirmation-mail),
  * and the certificate (./certificate) attached as a Markdown file. That address is kept in the
- * erasure record for exactly this, so nothing erased is needed.
+ * erasure record for exactly this, so nothing erased is needed. A licence the deletion cancelled
+ * travels in the same letter, with its credit note attached (lib/billing/cancel-notice).
  *
  * Never throws, because the erasure has already happened by the time this runs. A failed send
  * tells the operators, who still have the certificate in the Erasures tab to send by hand.
@@ -14,6 +15,7 @@ import { documentEmail, sendMail } from "@/lib/mail";
 import { wasDelivered } from "@/lib/mail/delivery";
 import type { EmailLocale } from "@/lib/mail/locale";
 import { renderRecordMarkdown } from "@/lib/mail/markdown";
+import type { Enclosure } from "@/lib/mail/templates";
 import { dataErasureLog } from "@/schema";
 import { alertGdprOperators } from "./alert";
 import {
@@ -31,6 +33,8 @@ interface Erasure {
   readonly to: string;
   /** The language the account read the platform in, read before the erasure with the address. */
   readonly locale: EmailLocale;
+  /** Documents that go in the same letter: the confirmation of a licence the deletion cancelled. */
+  readonly enclosures?: readonly Enclosure[];
 }
 
 const send = async (db: DbOrTx, erasure: Erasure): Promise<boolean> => {
@@ -42,11 +46,15 @@ const send = async (db: DbOrTx, erasure: Erasure): Promise<boolean> => {
   if (!row) throw new Error(`erasure record ${erasure.caseRef} not found`);
   const files = await erasureStoredFiles(db, row);
   const record = erasureRecord(row, files);
+  const enclosures = erasure.enclosures ?? [];
   const content = await documentEmail(
-    erasureConfirmationWording(row, files, erasure.locale, {
-      html: await renderRecordMarkdown(record),
-      text: record,
-    }),
+    erasureConfirmationWording(
+      row,
+      files,
+      erasure.locale,
+      { html: await renderRecordMarkdown(record), text: record },
+      enclosures.map((e) => e.section),
+    ),
   );
   const result = await sendMail({
     emailType: "gdpr.erasure_confirmation",
@@ -62,6 +70,7 @@ const send = async (db: DbOrTx, erasure: Erasure): Promise<boolean> => {
         content: new TextEncoder().encode(buildErasureCertificate(row, files)),
         contentType: "text/markdown; charset=utf-8",
       },
+      ...enclosures.flatMap((e) => (e.attachment ? [e.attachment] : [])),
     ],
   });
   // A send suppressed by configuration (mail off, no transport) reports success but went nowhere.
@@ -78,9 +87,15 @@ export async function sendErasureCertificate(
     return false;
   });
   if (!sent) {
+    const enclosed = (erasure.enclosures ?? []).map(
+      ({ section }) => `${section.document.kind} ${section.document.reference}`,
+    );
     await alertGdprOperators(`${erasure.caseRef}: Bestätigung von Hand senden`, [
       `Die Löschbestätigung zum Vorgang ${erasure.caseRef} ging nicht an die betroffene Person.`,
       "Bitte das Zertifikat im Tab Erasures herunterladen und von Hand senden.",
+      ...(enclosed.length > 0
+        ? [`Sie enthielt auch: ${enclosed.join(", ")}. Das bitte aus Qonto mitsenden.`]
+        : []),
     ]);
   }
   return sent;

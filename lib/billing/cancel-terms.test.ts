@@ -134,7 +134,7 @@ describe("canceledEmailWording", () => {
     expect(wordsOf(passed)).toContain("sind vorbei");
   });
 
-  test("a cancel made by deleting the account promises neither access, kept data nor a later email", () => {
+  test("a cancel made by deleting the account promises neither access, kept data nor another email", () => {
     const renewal = {
       kind: "renewal",
       invoiceNumber: "RE-2026-0001",
@@ -155,6 +155,8 @@ describe("canceledEmailWording", () => {
         expect(erased).not.toMatch(/Zugang bis|Access until|Toegang tot/);
         // Nobody is left to send the refund confirmation to.
         expect(erased).not.toMatch(/kurzen E-Mail|short email|korte e-mail/);
+        // The holder reads it inside the erasure confirmation, the accounting copy needs no word of it.
+        expect(erased).not.toMatch(/eigenen E-Mail|separate email|aparte e-mail/);
       }
     }
   });

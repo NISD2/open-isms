@@ -18,6 +18,7 @@ export {
   gdprAlertEmail,
   inviteEmail,
   memberRemovedEmail,
+  newSaleEmail,
   newsletterEmail,
   newUserSignupEmail,
   passwordResetCodeEmail,

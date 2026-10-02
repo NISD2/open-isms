@@ -124,31 +124,23 @@ export type CanceledEmail = (
       readonly reason: Extract<CancelWindow, { kind: "renewal" }>["reason"];
     }
 ) & {
-  /** The holder is deleting their account with this cancel, so nothing stays in it. */
+  /**
+   * The holder is deleting their account with this cancel, so nothing stays in it. They read the
+   * cancel inside the erasure confirmation, and the accounting copy has no account to speak of, so
+   * the line about the account is left out.
+   */
   readonly accountErased?: boolean;
 };
 
-/** The line before the sign-off: what becomes of their account. */
-const ACCOUNT_LINE = {
-  de: {
-    kept: "Ihre Organisationen und alles, was Sie eingetragen haben, bleiben in Ihrem Konto erhalten.",
-    erased:
-      "Ihr Konto wird gerade gelöscht. Die Bestätigung der Löschung kommt in einer eigenen E-Mail.",
-  },
-  nl: {
-    kept: "Uw organisaties en alles wat u heeft ingevoerd, blijven in uw account bewaard.",
-    erased:
-      "Uw account wordt nu verwijderd. De bevestiging van de verwijdering komt in een aparte e-mail.",
-  },
-  en: {
-    kept: "Your organizations and everything you entered stay in your account.",
-    erased:
-      "Your account is being deleted now. The erasure confirmation follows in a separate email.",
-  },
-} as const satisfies Record<
-  EmailLocale,
-  { readonly kept: string; readonly erased: string }
->;
+/** The line before the sign-off, while the account stays: what becomes of it. */
+const ACCOUNT_KEPT: Record<EmailLocale, string> = {
+  de: "Ihre Organisationen und alles, was Sie eingetragen haben, bleiben in Ihrem Konto erhalten.",
+  nl: "Uw organisaties en alles wat u heeft ingevoerd, blijven in uw account bewaard.",
+  en: "Your organizations and everything you entered stay in your account.",
+};
+
+const accountLine = (locale: EmailLocale, erased: boolean): readonly string[] =>
+  erased ? [] : [ACCOUNT_KEPT[locale]];
 
 const GREETING: Record<EmailLocale, string> = {
   de: "Guten Tag,",
@@ -162,7 +154,7 @@ const renewalWording = (
   locale: EmailLocale,
 ): DocumentEmail => {
   const erased = mail.accountErased === true;
-  const accountLine = ACCOUNT_LINE[locale][erased ? "erased" : "kept"];
+  const account = accountLine(locale, erased);
   const end = formatInvoiceDay(mail.periodEnd, locale);
   const inv = mail.invoiceNumber;
   const firstOnly = mail.reason === "not_first_invoice";
@@ -189,7 +181,7 @@ const renewalWording = (
         },
         outro: [
           `${firstOnly ? "Die 30 Tage Geld zurück gelten nur für die erste Bestellung eines Kontos" : "Die 30 Tage Geld zurück sind vorbei"}, deshalb bleibt die Rechnung ${inv} gültig. Ist sie noch offen, zahlen Sie sie bitte wie vereinbart.`,
-          accountLine,
+          ...account,
         ],
       };
     case "nl":
@@ -213,7 +205,7 @@ const renewalWording = (
         },
         outro: [
           `${firstOnly ? "De 30 dagen geld terug gelden alleen voor de eerste bestelling van een account" : "De 30 dagen geld terug zijn voorbij"}, daarom blijft factuur ${inv} geldig. Staat die nog open, betaal deze dan zoals afgesproken.`,
-          accountLine,
+          ...account,
         ],
       };
     case "en":
@@ -237,7 +229,7 @@ const renewalWording = (
         },
         outro: [
           `${firstOnly ? "The thirty days money back apply only to an account's first order" : "The thirty days money back have passed"}, so invoice ${inv} stands. If it is still open, please pay it as agreed.`,
-          accountLine,
+          ...account,
         ],
       };
   }
@@ -249,7 +241,7 @@ const moneyBackWording = (
   locale: EmailLocale,
 ): DocumentEmail => {
   const erased = mail.accountErased === true;
-  const accountLine = ACCOUNT_LINE[locale][erased ? "erased" : "kept"];
+  const account = accountLine(locale, erased);
   const day = (iso: string) => formatInvoiceDay(iso, locale);
   const {
     invoiceNumber: inv,
@@ -298,7 +290,7 @@ const moneyBackWording = (
           refundOwed
             ? `Sie hatten die Rechnung schon bezahlt.${erased ? "" : " Sobald der Betrag überwiesen ist, bestätigen wir es Ihnen in einer kurzen E-Mail."}`
             : "Bei uns ist noch keine Zahlung eingegangen. Haben Sie den Betrag schon überwiesen, erstatten wir ihn innerhalb von 30 Tagen nach seinem Eingang.",
-          accountLine,
+          ...account,
         ],
       };
     case "nl":
@@ -337,7 +329,7 @@ const moneyBackWording = (
           refundOwed
             ? `U had de factuur al betaald.${erased ? "" : " Zodra het bedrag is overgemaakt, bevestigen wij dat in een korte e-mail."}`
             : "Bij ons is nog geen betaling binnengekomen. Heeft u het bedrag al overgemaakt, dan betalen wij het binnen 30 dagen na ontvangst terug.",
-          accountLine,
+          ...account,
         ],
       };
     case "en":
@@ -376,7 +368,7 @@ const moneyBackWording = (
           refundOwed
             ? `You had already paid the invoice.${erased ? "" : " Once the amount is transferred, we confirm it in a short email."}`
             : "No payment has reached us yet. If you have already transferred the amount, we refund it within 30 days of its arrival.",
-          accountLine,
+          ...account,
         ],
       };
   }
