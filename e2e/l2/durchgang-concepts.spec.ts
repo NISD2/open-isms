@@ -118,7 +118,10 @@ test.describe("durchgang concepts", () => {
       await expect(clause).toBeVisible({ timeout: 30_000 });
 
       await clause.click();
-      await expect(page.getByText(concept.added)).toBeVisible();
+      // In the document; the card under the chips repeats it, as a paragraph.
+      await expect(
+        page.getByRole("heading", { name: concept.added, exact: true }),
+      ).toBeVisible();
       await page.getByRole("button", { name: "Weiter", exact: true }).click();
 
       await expect

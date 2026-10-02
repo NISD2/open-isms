@@ -7,8 +7,10 @@
  * because later layers sign off against this tenant (`e2e/lib/durchgang.ts`).
  */
 import { expect, test } from "@playwright/test";
+import { e2eQuery } from "../lib/db";
 import {
   e2eTenant,
+  intakeRows,
   keepAnswers,
   keepPolicies,
   payFor,
@@ -35,6 +37,12 @@ test.describe("durchgang incident plan", () => {
       await keepPolicies(tenant, TYPE),
       await payFor(tenant),
     ];
+    // Earlier specs leave a lead in the answers; without one, the person walking is preselected.
+    const rows = await intakeRows(tenant, "INC");
+    await e2eQuery(
+      `UPDATE company_category_intake SET answers = answers - 'incidentLead' WHERE id = ANY($1)`,
+      [rows.map((r) => r.id)],
+    );
   });
 
   test.afterAll(() => undoAll(undos));
@@ -55,6 +63,8 @@ test.describe("durchgang incident plan", () => {
     await someoneElse.click();
     await page.locator("#dg-incidentLead").fill("Anna Weber");
     await page.locator("#dg-itEmergencyNumber").fill("Durchwahl 400");
+    // A tapped answer is added to what is written; start from an empty field.
+    await page.locator("#dg-secureCommsChannel").fill("");
     await page.getByRole("button", { name: "SMS" }).click();
     await page.getByRole("button", { name: "Telefonliste auf Papier" }).click();
     await expect(page.locator("#dg-secureCommsChannel")).toHaveValue(

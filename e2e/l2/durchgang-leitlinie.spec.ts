@@ -66,7 +66,13 @@ test.describe("durchgang leitlinie", () => {
 
     await training.click();
     await expect(training).toHaveAttribute("aria-pressed", "true");
-    await expect(page.getByText("8. Schulung und Sensibilisierung")).toBeVisible();
+    await expect(
+      page.getByRole("heading", {
+        name: "8. Schulung und Sensibilisierung",
+        exact: true,
+      }),
+    ).toBeVisible();
+    await expect(page.getByText("Ins Dokument aufgenommen")).toBeVisible();
     await page.getByRole("button", { name: "Weiter", exact: true }).click();
 
     await expect

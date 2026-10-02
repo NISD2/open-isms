@@ -176,7 +176,9 @@ test.describe("durchgang registers", () => {
     page,
   }) => {
     await page.goto(`/de/durchgang/2.3?s=${RATE_SOFTWARE}`);
-    await expect(page.getByText(PRODUCT)).toBeVisible({ timeout: 30_000 });
+    await expect(page.getByRole("group", { name: PRODUCT })).toBeVisible({
+      timeout: 30_000,
+    });
     const next = page.getByRole("button", { name: "Weiter", exact: true });
     await expect(next).toBeDisabled();
 
