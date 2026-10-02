@@ -245,6 +245,7 @@ export const routing = defineRouting({
     "/audit": "/audit",
     "/audit-readiness": "/audit-readiness",
     "/billing": "/billing",
+    "/billing/offer": "/billing/offer",
     "/changes": "/changes",
     "/compliance": "/compliance",
     "/compliance/[categorySlug]": "/compliance/[categorySlug]",

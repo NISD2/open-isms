@@ -129,8 +129,9 @@ export function PricingPanel() {
           <CardDescription>
             Once, and for good. Everyone who has ever got in is grandfathered: they keep
             the current journey free in every company they belong to or start later. From
-            then on a new signup without a paid or grandfathered account is sent to
-            /bestellen.
+            then on a new signup without a paid or grandfathered account is sent from
+            every journey page to the offer: order, or open the supplier or training
+            portal.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-2 text-sm">

@@ -67,6 +67,9 @@ const LICENCES = [
 const moneyBackPoints = ["first", "cancel", "refund", "data"] as const;
 const unlimitedPoints = ["structure", "users", "payment"] as const;
 
+const externalLink =
+  "underline decoration-primary/30 underline-offset-4 hover:decoration-primary";
+
 /**
  * A tooltip styled like the app's popovers (popover tokens, border, shadow) rather than the
  * default dark chip: the popover pair keeps full contrast in both themes, and a longer
@@ -144,6 +147,85 @@ function FeatureItem({
   );
 }
 
+/** The thirty days money back as a chip; hover or focus explains AGB B7. */
+export function MoneyBackBadge() {
+  const t = useTranslations("pricing.tiers");
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <button
+          type="button"
+          className="inline-flex cursor-help items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-sm font-medium text-emerald-700 ring-1 ring-emerald-600/20 ring-inset transition-colors hover:bg-emerald-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600/40 dark:bg-emerald-500/10 dark:text-emerald-400 dark:ring-emerald-400/20 dark:hover:bg-emerald-500/15"
+        >
+          <ShieldCheck className="size-4" />
+          {t("paid.moneyBack")}
+          <Info className="size-3.5 opacity-60" />
+        </button>
+      </TooltipTrigger>
+      <InfoPanel
+        title={t("paid.moneyBackTip.title")}
+        icon={<ShieldCheck className="size-4 text-emerald-600 dark:text-emerald-400" />}
+        note={t("paid.moneyBackTip.note")}
+      >
+        <PanelPoints
+          points={moneyBackPoints.map((key) => t(`paid.moneyBackTip.points.${key}`))}
+        />
+      </InfoPanel>
+    </Tooltip>
+  );
+}
+
+/** What the paid offer includes. Every line is checked against the code or the AGB (above). */
+export function PaidFeatureList() {
+  const t = useTranslations("pricing.tiers");
+  return (
+    <ul className="space-y-3">
+      {paidFeatures.map((key) => (
+        <FeatureItem key={key} highlighted>
+          {key === "unlimited" ? (
+            // Who counts as one customer is AGB B1: the customer's own group, not the
+            // clients of an MSP or a consultant.
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  type="button"
+                  className="cursor-help text-left font-semibold underline decoration-foreground/30 decoration-dotted underline-offset-4 hover:decoration-foreground"
+                >
+                  {t(`paid.features.${key}`)}
+                </button>
+              </TooltipTrigger>
+              <InfoPanel
+                title={t("paid.unlimitedTip.title")}
+                icon={<Building2 className="size-4 text-primary" />}
+                note={t("paid.unlimitedTip.note")}
+              >
+                <PanelPoints
+                  points={unlimitedPoints.map((point) =>
+                    t(`paid.unlimitedTip.points.${point}`),
+                  )}
+                />
+              </InfoPanel>
+            </Tooltip>
+          ) : (
+            t.rich(`paid.features.${key}`, {
+              cal: (chunks) => (
+                <a
+                  href={BOOKING_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={externalLink}
+                >
+                  {chunks}
+                </a>
+              ),
+            })
+          )}
+        </FeatureItem>
+      ))}
+    </ul>
+  );
+}
+
 function SideTier({
   name,
   description,
@@ -207,9 +289,6 @@ export function PaidPricingCards({
   const t = useTranslations("pricing.tiers");
   const tp = useTranslations("pricing");
 
-  const externalLink =
-    "underline decoration-primary/30 underline-offset-4 hover:decoration-primary";
-
   const tiers = (
     <div className="mx-auto max-w-6xl space-y-10">
       {/* group/tiers: hovering or focusing the self-host link to the paid tier lights the
@@ -268,33 +347,8 @@ export function PaidPricingCards({
               <span className="text-sm text-muted-foreground">{t("paid.priceSub")}</span>
             </div>
             <div className="mt-3 flex flex-wrap gap-2">
-              {/* Hover or focus explains AGB B7; on touch the terms line under the button says
-                  the same in short. */}
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <button
-                    type="button"
-                    className="inline-flex cursor-help items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-sm font-medium text-emerald-700 ring-1 ring-emerald-600/20 ring-inset transition-colors hover:bg-emerald-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600/40 dark:bg-emerald-500/10 dark:text-emerald-400 dark:ring-emerald-400/20 dark:hover:bg-emerald-500/15"
-                  >
-                    <ShieldCheck className="size-4" />
-                    {t("paid.moneyBack")}
-                    <Info className="size-3.5 opacity-60" />
-                  </button>
-                </TooltipTrigger>
-                <InfoPanel
-                  title={t("paid.moneyBackTip.title")}
-                  icon={
-                    <ShieldCheck className="size-4 text-emerald-600 dark:text-emerald-400" />
-                  }
-                  note={t("paid.moneyBackTip.note")}
-                >
-                  <PanelPoints
-                    points={moneyBackPoints.map((key) =>
-                      t(`paid.moneyBackTip.points.${key}`),
-                    )}
-                  />
-                </InfoPanel>
-              </Tooltip>
+              {/* On touch the terms line under the button says the same in short. */}
+              <MoneyBackBadge />
               {grandfathered ? (
                 <Badge variant="secondary" className="rounded-full px-3 py-1 text-sm">
                   {t("paid.grandfatheredBadge")}
@@ -326,50 +380,7 @@ export function PaidPricingCards({
               </p>
             </div>
             <Separator />
-            <ul className="space-y-3">
-              {paidFeatures.map((key) => (
-                <FeatureItem key={key} highlighted>
-                  {key === "unlimited" ? (
-                    // Who counts as one customer is AGB B1: the customer's own group, not the
-                    // clients of an MSP or a consultant.
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <button
-                          type="button"
-                          className="cursor-help text-left font-semibold underline decoration-foreground/30 decoration-dotted underline-offset-4 hover:decoration-foreground"
-                        >
-                          {t(`paid.features.${key}`)}
-                        </button>
-                      </TooltipTrigger>
-                      <InfoPanel
-                        title={t("paid.unlimitedTip.title")}
-                        icon={<Building2 className="size-4 text-primary" />}
-                        note={t("paid.unlimitedTip.note")}
-                      >
-                        <PanelPoints
-                          points={unlimitedPoints.map((point) =>
-                            t(`paid.unlimitedTip.points.${point}`),
-                          )}
-                        />
-                      </InfoPanel>
-                    </Tooltip>
-                  ) : (
-                    t.rich(`paid.features.${key}`, {
-                      cal: (chunks) => (
-                        <a
-                          href={BOOKING_URL}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={externalLink}
-                        >
-                          {chunks}
-                        </a>
-                      ),
-                    })
-                  )}
-                </FeatureItem>
-              ))}
-            </ul>
+            <PaidFeatureList />
           </CardContent>
         </Card>
 

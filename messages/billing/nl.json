@@ -1,5 +1,13 @@
 {
   "billing": {
+    "offer": {
+      "title": "Hoe wilt u verdergaan?",
+      "lead": "Het Compliance Portal gaat open met de bestelling. Het leveranciersportaal en het trainingsportaal gebruikt u zonder bestelling.",
+      "paidName": "Compliance Portal",
+      "withoutOrder": "Zonder bestelling",
+      "supplier": "Vul uw beveiligingsprofiel één keer in en nodig elke klant die erom vraagt per e-mail uit om het te bekijken.",
+      "training": "Alle cursussen over NIS 2 en de CRA, waaronder de training voor het bestuur."
+    },
     "order": {
       "metaTitle": "Bestellen",
       "title": "Bestelling",

@@ -109,8 +109,21 @@ describe("mayOpenPortalPath", () => {
     }
   });
 
+  test("a free account reaches the order page under every locale's slug", () => {
+    for (const p of ["/bestellen", "/order", "/commander", "/zamowic"]) {
+      expect(mayOpenPortalPath("free", p)).toBe(true);
+    }
+  });
+
   test("a free account does not reach the journey or the registers", () => {
-    for (const p of ["/journey", "/dashboard", "/assets", "/compliance/x", "/billingx"]) {
+    for (const p of [
+      "/journey",
+      "/dashboard",
+      "/assets",
+      "/compliance/x",
+      "/billingx",
+      "/orders",
+    ]) {
       expect(mayOpenPortalPath("free", p)).toBe(false);
     }
   });
