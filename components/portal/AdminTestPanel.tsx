@@ -106,7 +106,8 @@ export function AdminTestPanel() {
   }
 
   return (
-    <div className="fixed top-2 right-2 z-50">
+    // data-dev-only: measuring tools (the polish skill's measure step) leave this panel out.
+    <div data-dev-only className="fixed top-2 right-2 z-50">
       <div className="rounded-lg border border-destructive/30 bg-background shadow-lg">
         <button
           type="button"
