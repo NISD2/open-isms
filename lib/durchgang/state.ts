@@ -155,6 +155,43 @@ export function awaitingSignature<T>(args: {
 }
 
 /**
+ * What counts as finished for signing the approval item last: signed off, not applicable, or
+ * decided not to do. Nothing signs a decline, so a decline must not hold the review back (Simon,
+ * 03.10.2026).
+ */
+const FINISHED_BEFORE_REVIEW: ReadonlySet<ItemState["kind"]> = new Set([
+  "signed",
+  "not_applicable",
+  "declined",
+]);
+
+/**
+ * The item that holds the approval, the management review, is signed last: only in an approval
+ * that leaves every other walk item finished once it has signed `batch`. Until then it stays
+ * filled in and waiting for management. Simon, 03.10.2026: "the record management review should
+ * never be done until everything's signed off".
+ */
+export function signLast<T extends { readonly code: string }>(
+  batch: readonly T[],
+  args: {
+    readonly codes: readonly string[];
+    readonly stateOf: (code: string) => ItemState;
+    readonly approvalCode: string | null;
+  },
+): T[] {
+  const { approvalCode } = args;
+  if (!approvalCode) return [...batch];
+  const signing = new Set(batch.map((item) => item.code));
+  const othersFinished = args.codes.every(
+    (code) =>
+      code === approvalCode ||
+      signing.has(code) ||
+      FINISHED_BEFORE_REVIEW.has(args.stateOf(code).kind),
+  );
+  return othersFinished ? [...batch] : batch.filter((item) => item.code !== approvalCode);
+}
+
+/**
  * Whether the company's management reviews include one that counts for the approval: dated
  * within the last year up to today, the cycle the management review runs on. `days` and `today`
  * are calendar days in Berlin as ISO dates (`recordDay`), which compare as text. The review
