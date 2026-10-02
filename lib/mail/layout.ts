@@ -52,6 +52,7 @@ export const FONT =
 export const LEGAL_COPY: Record<
   EmailLocale,
   {
+    readonly seat: string;
     readonly director: string;
     readonly vatId: string;
     readonly links: readonly (readonly [
@@ -61,6 +62,7 @@ export const LEGAL_COPY: Record<
   }
 > = {
   de: {
+    seat: "Sitz",
     director: "Geschäftsführer",
     vatId: "USt-IdNr.",
     links: [
@@ -70,6 +72,7 @@ export const LEGAL_COPY: Record<
     ],
   },
   en: {
+    seat: "Registered office",
     director: "Managing director",
     vatId: "VAT ID",
     links: [
@@ -79,6 +82,7 @@ export const LEGAL_COPY: Record<
     ],
   },
   nl: {
+    seat: "Statutaire zetel",
     director: "Bestuurder",
     vatId: "Btw-id",
     links: [
