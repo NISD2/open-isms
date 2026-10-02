@@ -24,7 +24,7 @@ export default async function CoursesRoute() {
   ]);
 
   return (
-    <div className="px-6 py-6 space-y-8">
+    <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold">{t("title")}</h1>
         <p className="text-muted-foreground mt-1">{t("courses")}</p>

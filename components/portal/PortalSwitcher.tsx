@@ -15,8 +15,7 @@
  * the unavailable portal still navigates — the destination's onboarding flow
  * handles the role-flag flip on first save.
  */
-import { Link } from "@/i18n/navigation";
-import { BookOpen, Check, ChevronsUpDown, Shield, ShieldCheck } from "lucide-react";
+import { Check, ChevronsUpDown, Shield, ShieldCheck } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,8 +30,9 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { Link } from "@/i18n/navigation";
 
-export type PortalKey = "compliance" | "supplier" | "training";
+export type PortalKey = "compliance" | "supplier";
 
 interface PortalDef {
   key: PortalKey;
@@ -57,13 +57,6 @@ const PORTALS: PortalDef[] = [
     href: "/portal/supplier",
     Icon: ShieldCheck,
   },
-  {
-    key: "training",
-    name: "Training Portal",
-    tagline: "CEO & management courses",
-    href: "/training/courses",
-    Icon: BookOpen,
-  },
 ];
 
 export function PortalSwitcher({ current }: { current: PortalKey }) {
@@ -85,9 +78,7 @@ export function PortalSwitcher({ current }: { current: PortalKey }) {
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">{active.name}</span>
-                <span className="truncate text-xs text-muted-foreground">
-                  nisd2.eu
-                </span>
+                <span className="truncate text-xs text-muted-foreground">nisd2.eu</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4 text-muted-foreground" />
             </SidebarMenuButton>
@@ -123,9 +114,8 @@ export function PortalSwitcher({ current }: { current: PortalKey }) {
             })}
             <DropdownMenuSeparator />
             <div className="px-2 py-1.5 text-xs text-muted-foreground">
-              Use the supplier portal to share your security profile with
-              customers. Use the compliance portal to assess your own NIS2
-              obligations.
+              Use the supplier portal to share your security profile with customers. Use
+              the compliance portal to assess your own NIS2 obligations.
             </div>
           </DropdownMenuContent>
         </DropdownMenu>
