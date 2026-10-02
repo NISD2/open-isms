@@ -19,6 +19,7 @@ const { buildErasureCertificate, erasureCoverLetter, erasureRecord } = await imp
 );
 const { erasureConfirmationWording } = await import("./confirmation-mail");
 const { renderRecordMarkdown } = await import("@/lib/mail/markdown");
+const { documentEmail } = await import("@/lib/mail/templates");
 
 type Row = Parameters<typeof erasureRecord>[0];
 type Files = Parameters<typeof erasureRecord>[1];
@@ -107,6 +108,28 @@ describe("erasureConfirmationWording", () => {
     expect(erasureConfirmationWording(row(), DONE, "de", RECORD).appendix).toEqual(
       RECORD,
     );
+  });
+
+  test("carries a licence the deletion cancelled after its own card, in the html and the text", async () => {
+    const creditNote = {
+      intro: [
+        "Sie haben die Jahreslizenz NIS 2 Durchgang innerhalb der 30 Tage gekündigt.",
+      ],
+      document: {
+        kind: "Gutschrift",
+        reference: "GS-2026-0002",
+        facts: [{ label: "Zahlung", value: "Nicht mehr nötig" }],
+      },
+      outro: ["Bei uns ist noch keine Zahlung eingegangen."],
+    };
+    const mail = erasureConfirmationWording(row(), DONE, "de", RECORD, [creditNote]);
+    const { html, text } = await documentEmail(mail);
+    for (const body of [html, text]) {
+      const at = (s: string) => body.indexOf(s);
+      expect(at("ERASURE-2026-0007")).toBeGreaterThan(-1);
+      expect(at("ERASURE-2026-0007")).toBeLessThan(at("GS-2026-0002"));
+      expect(at("GS-2026-0002")).toBeLessThan(at("steht unten auf Englisch"));
+    }
   });
 });
 

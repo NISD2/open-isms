@@ -10,7 +10,8 @@
  *   4. Qonto issues the invoice; our row is written and the account gets full access, because
  *      access starts at order, not at payment.
  *   5. The PDF, the email and the archive copy follow in the background (./deliver-invoice), since
- *      the PDF takes about ten seconds to exist.
+ *      the PDF takes about ten seconds to exist. The operators hear of the sale at once
+ *      (./sale-notice).
  *
  * The whole order runs under a lock on the account row, so a double click, or two people ordering
  * for the same account, produces one invoice: the second waits, then finds the first.
@@ -40,6 +41,7 @@ import {
   listBankAccounts,
   type QontoConfig,
 } from "./qonto";
+import { notifySale } from "./sale-notice";
 import { checkVatNumber, splitVatNumber, type ViesConfig } from "./vies";
 
 export type OrderOutcome =
@@ -461,6 +463,19 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
       `Die Zustellung der Rechnung ${outcome.number} ist abgebrochen: ${err instanceof Error ? err.message : String(err)}.`,
       "Aus Qonto von Hand senden.",
     ]),
+  );
+  void notifySale(
+    {
+      sandbox: mode.kind !== "live",
+      number: outcome.number,
+      companyName: order.companyName,
+      invoiceEmail: order.invoiceEmail,
+      source: input.source,
+      firstOrder: outcome.firstOrder,
+      amounts: outcome.money,
+      dates: outcome.dates,
+    },
+    now,
   );
 
   return {

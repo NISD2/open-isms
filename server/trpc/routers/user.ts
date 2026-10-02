@@ -3,7 +3,9 @@ import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
 import { epochSeconds, isRecentSignIn } from "@/lib/auth/session-age";
+import { encloseCancelNotice, sendCancelNotice } from "@/lib/billing/cancel-notice";
 import type { DbOrTx } from "@/lib/db";
+import { alertGdprOperators } from "@/lib/gdpr/alert";
 import { SELF_SERVICE_ACTOR, SELF_SERVICE_CHANNEL } from "@/lib/gdpr/certificate";
 import { ErasureRefused, eraseUser } from "@/lib/gdpr/erase-user";
 import {
@@ -126,6 +128,12 @@ export const userRouter = router({
    * and nothing that identifies the person (no user id, address, IP or browser): it is written
    * after the erasure has scrubbed the trail, and the erasure record is where they are named, for
    * as long as that is kept.
+   *
+   * The cancel's confirmation travels in the erasure confirmation, so the person gets one letter.
+   * With a credit note it waits for the PDF, which Qonto is polled for, so it is sent after the
+   * answer; a process stopped in that wait (a deploy) sends nothing, and the Erasures tab still
+   * holds the certificate. If the erasure fails after the cancel, the cancel stands and its
+   * confirmation goes out on its own.
    */
   deleteAccount: selfErasureProcedure
     .input(z.object({ confirmEmail: z.string().max(320) }))
@@ -146,7 +154,7 @@ export const userRouter = router({
       }
       const person = { userId: ctx.userId, email };
       const result = await cancelLicencesForErasure(ctx.db, person)
-        .then(() =>
+        .then((notices) =>
           eraseUser({
             userId: ctx.userId,
             actor: { userId: null, email: SELF_SERVICE_ACTOR },
@@ -157,7 +165,13 @@ export const userRouter = router({
               notes: null,
             },
             guard: assertSelfErasureAllowed(person),
-          }),
+          }).then(
+            (erased) => ({ ...erased, notices }),
+            (err: unknown) =>
+              Promise.all(notices.map(sendCancelNotice)).then(() => {
+                throw err;
+              }),
+          ),
         )
         .catch((err: unknown) => {
           // The reason is the dialog's message key (portal.deleteAccount.refused).
@@ -179,13 +193,27 @@ export const userRouter = router({
         ipAddress: null,
         userAgent: null,
       });
-      const certificateSent = await sendErasureCertificate(ctx.db, {
-        logId: result.logId,
-        caseRef: result.caseRef,
-        to: email,
-        locale: resolveEmailLocale(account.locale, null),
-      });
-      return { caseRef: result.caseRef, certificateSent };
+      const letter = Promise.all(
+        result.notices.map((notice) => encloseCancelNotice(notice)),
+      )
+        .then((enclosures) =>
+          sendErasureCertificate(ctx.db, {
+            logId: result.logId,
+            caseRef: result.caseRef,
+            to: email,
+            locale: resolveEmailLocale(account.locale, null),
+            enclosures,
+          }),
+        )
+        .catch((err: unknown) =>
+          alertGdprOperators(`${result.caseRef}: Bestätigung von Hand senden`, [
+            `Die Löschbestätigung zum Vorgang ${result.caseRef} wurde nicht erstellt: ${err instanceof Error ? err.message : String(err)}.`,
+            "Bitte das Zertifikat im Tab Erasures herunterladen und von Hand senden, mit der Gutschrift aus Qonto, falls die Löschung eine Lizenz gekündigt hat.",
+          ]),
+        );
+      // Without a cancelled licence nothing is waited for, so the letter goes before the answer.
+      if (result.notices.length === 0) await letter;
+      return { caseRef: result.caseRef };
     }),
 });
 

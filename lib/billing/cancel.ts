@@ -17,26 +17,27 @@
  * locked, and an `order_check` mark is committed just before the call and removed once Qonto has
  * answered clearly. An unclear answer leaves the mark, which blocks further orders and cancels for
  * the account until a platform admin has checked Qonto, and the operators are told.
+ *
+ * Either cancel ends in a confirmation to the holder (./cancel-notice): sent at once when they
+ * cancel under Billing, carried by the erasure confirmation when they delete their account.
  */
 import "@/lib/server-guard";
 import { and, asc, eq, isNull } from "drizzle-orm";
 import { z } from "zod";
 import type { Database, DbOrTx } from "@/lib/db";
-import { documentEmail, sendMail } from "@/lib/mail";
 import { resolveEmailLocale } from "@/lib/mail/locale";
 import { billingAccount, creditNote, invoice, user } from "@/schema";
 import { unpaidAccessLevel } from "./access";
 import type { AccessLevel } from "./accounts";
 import { AlreadyAlerted, alertOperators } from "./alert";
+import { type CancelNotice, type HolderContact, sendCancelNotice } from "./cancel-notice";
 import {
   type CancelWindow,
-  canceledEmailWording,
   cancelWindow,
   creditNoteLine,
   creditNoteReason,
   refundDueDay,
 } from "./cancel-terms";
-import { deliverCreditNote } from "./deliver-credit-note";
 import { takeDocumentNumber } from "./document-number";
 import { isGrandfatheredHolder } from "./holder-price";
 import { sandboxInvoiceNumber } from "./invoice-number";
@@ -84,18 +85,20 @@ export interface CancelInput {
   /** The account holder, who asked for it. */
   readonly userId: string;
   readonly now?: Date;
-  /**
-   * Set when the holder's account is erased right after (lib/gdpr/self-erasure.ts): the email says
-   * so instead of promising that their data stays, and a failed send is recorded under this label
-   * instead of the address, which must not outlive the erasure (lib/mail/send.ts failureLabel).
-   */
-  readonly erasure?: { readonly failureLabel: string };
+}
+
+/** A cancel and its confirmation, not sent yet: null when nothing changed or nobody is left to tell. */
+export interface CancelMade {
+  readonly outcome: CancelOutcome;
+  readonly notice: CancelNotice | null;
 }
 
 const failure = (
   reason: Extract<CancelOutcome, { ok: false }>["reason"],
   message: string,
 ) => ({ ok: false, reason, message }) as const;
+
+const unsent = (outcome: CancelOutcome): CancelMade => ({ outcome, notice: null });
 
 /**
  * Which cancel applies to one of the account's invoices today: the one place the thirty days are
@@ -201,8 +204,10 @@ const currentInvoice = async (db: DbOrTx, billingAccountId: string, now: Date) =
 
 type CurrentInvoice = NonNullable<Awaited<ReturnType<typeof currentInvoice>>>;
 
-/** Where the confirmation goes, and in which language: the holder, as they read the platform. */
-const holderContact = async (db: DbOrTx, userId: string) => {
+const holderContact = async (
+  db: DbOrTx,
+  userId: string,
+): Promise<HolderContact | null> => {
   const [row] = await db
     .select({ email: user.email, locale: user.locale })
     .from(user)
@@ -216,7 +221,7 @@ const cancelRenewal = async (
   current: CurrentInvoice,
   reason: Extract<CancelWindow, { kind: "renewal" }>["reason"],
   now: Date,
-): Promise<CancelOutcome> => {
+): Promise<CancelMade> => {
   // The same lock an order and a money-back cancel take, and the same refusal while an earlier
   // order or cancel is still being checked in Qonto.
   const marked = await input.db.transaction(async (tx) => {
@@ -238,43 +243,25 @@ const cancelRenewal = async (
       .returning({ id: billingAccount.id });
   });
   if (!marked) {
-    return failure("pending", "An earlier order or cancel is still being checked.");
+    return unsent(
+      failure("pending", "An earlier order or cancel is still being checked."),
+    );
   }
   const alreadyCanceled = marked.length === 0;
-  if (!alreadyCanceled) {
-    const contact = await holderContact(input.db, input.userId);
-    if (contact) {
-      const wording = canceledEmailWording(
-        {
+  const holder = alreadyCanceled ? null : await holderContact(input.db, input.userId);
+  return {
+    outcome: { ok: true, kind: "renewal", periodEnd: current.periodEnd, alreadyCanceled },
+    notice: holder
+      ? {
           kind: "renewal",
+          billingAccountId: input.billingAccountId,
+          holder,
           invoiceNumber: current.number,
           periodEnd: current.periodEnd,
           reason,
-          accountErased: input.erasure !== undefined,
-        },
-        contact.locale,
-      );
-      // The renewal is already stopped: a failed render, like a failed send, only alerts.
-      const sent = await documentEmail(wording)
-        .then((content) =>
-          sendMail({
-            emailType: "billing.canceled",
-            to: contact.email,
-            ...content,
-            idempotencyKey: `renewal-canceled-${input.billingAccountId}-${current.periodEnd}`,
-            failureLabel: input.erasure?.failureLabel,
-          }),
-        )
-        .catch(() => ({ success: false }));
-      if (!sent.success) {
-        await alertOperators("Kündigungsbestätigung nicht zugestellt", [
-          `Die Verlängerung für billing account ${input.billingAccountId} ist gekündigt, die Bestätigung an ${contact.email} ging aber nicht raus.`,
-          `Zugang bis ${current.periodEnd}, Rechnung ${current.number}. Von Hand bestätigen.`,
-        ]);
-      }
-    }
-  }
-  return { ok: true, kind: "renewal", periodEnd: current.periodEnd, alreadyCanceled };
+        }
+      : null,
+  };
 };
 
 /** The client email Qonto answered with, when it really is an address and not the holder's. */
@@ -289,7 +276,7 @@ const creditInvoice = async (
   input: CancelInput,
   current: CurrentInvoice,
   now: Date,
-): Promise<CancelOutcome> => {
+): Promise<CancelMade> => {
   const { db, mode } = input;
 
   // Whether it was paid decides whether money is owed back, and the credit note makes Qonto's
@@ -298,13 +285,13 @@ const creditInvoice = async (
   const status = live.ok ? live.data.client_invoice?.status : undefined;
   if (status !== "paid" && status !== "unpaid") {
     if (status === undefined) {
-      return failure("qonto", "Qonto could not be read. Nothing was canceled.");
+      return unsent(failure("qonto", "Qonto could not be read. Nothing was canceled."));
     }
     void alertOperators(`${current.number} ist in Qonto ${status}`, [
       `Der Kunde will ${current.number} innerhalb der 30 Tage kündigen. Bei uns ist die Rechnung aktiv, in Qonto hat sie den Status ${status}.`,
       `Billing account ${input.billingAccountId}. In Qonto nachsehen, die Gutschrift von Hand anlegen oder die Zeile nachtragen, und den Zugang von Hand setzen.`,
     ]);
-    return failure("qonto_unknown", `Qonto reports the invoice as ${status}.`);
+    return unsent(failure("qonto_unknown", `Qonto reports the invoice as ${status}.`));
   }
   const refundOwed = status === "paid";
   const docLocale = current.vatTreatment === "domestic" ? "de" : "en";
@@ -426,7 +413,7 @@ const creditInvoice = async (
       return failure("qonto_unknown", "The cancel stopped part way.");
     });
 
-  if (!outcome.ok) return outcome;
+  if (!outcome.ok) return unsent(outcome);
 
   // "Unpaid" only means Qonto has not matched a transfer yet. Customers pay by transfer, and a
   // credited invoice can never turn "paid" afterwards, so a transfer already on its way would go
@@ -448,44 +435,58 @@ const creditInvoice = async (
     ]);
   }
 
-  const contact = await holderContact(db, input.userId);
-  if (contact) {
-    deliverCreditNote({
-      qonto: mode.qonto,
-      qontoCreditNoteId: outcome.qontoCreditNoteId,
-      creditNoteNumber: outcome.number,
-      creditNoteDate: outcome.issueDate,
-      invoiceNumber: current.number,
-      invoiceIssueDate: current.issueDate,
-      amounts: { netCents: current.netCents, vatCents: current.vatCents },
-      billingAccountId: input.billingAccountId,
-      refundOwed,
-      recipients: [contact.email, ...accountingCopy(outcome.clientEmail, contact.email)],
-      locale: contact.locale,
-      erasure: input.erasure,
-    }).catch((err: unknown) =>
-      alertOperators(`${outcome.number} nicht zugestellt`, [
-        `Die Zustellung der Gutschrift ${outcome.number} ist abgebrochen: ${err instanceof Error ? err.message : String(err)}.`,
-        "Aus Qonto von Hand senden.",
-      ]),
-    );
-  }
-
+  const holder = await holderContact(db, input.userId);
   return {
-    ok: true,
-    kind: "money_back",
-    creditNoteNumber: outcome.number,
-    refundOwed,
-    accessLevel: outcome.level,
+    outcome: {
+      ok: true,
+      kind: "money_back",
+      creditNoteNumber: outcome.number,
+      refundOwed,
+      accessLevel: outcome.level,
+    },
+    notice: holder
+      ? {
+          kind: "money_back",
+          holder,
+          accounting: accountingCopy(outcome.clientEmail, holder.email),
+          creditNote: {
+            qonto: mode.qonto,
+            qontoCreditNoteId: outcome.qontoCreditNoteId,
+            creditNoteNumber: outcome.number,
+            creditNoteDate: outcome.issueDate,
+            invoiceNumber: current.number,
+            invoiceIssueDate: current.issueDate,
+            amounts: { netCents: current.netCents, vatCents: current.vatCents },
+            billingAccountId: input.billingAccountId,
+            refundOwed,
+          },
+        }
+      : null,
   };
 };
 
-export async function cancelSubscription(input: CancelInput): Promise<CancelOutcome> {
+const makeCancel = async (input: CancelInput): Promise<CancelMade> => {
   const now = input.now ?? new Date();
   const current = await currentInvoice(input.db, input.billingAccountId, now);
-  if (!current) return failure("no_invoice", "Nothing to cancel.");
+  if (!current) return unsent(failure("no_invoice", "Nothing to cancel."));
   const window = await cancelWindowFor(input.db, input.billingAccountId, current, now);
   return window.kind === "money_back"
     ? creditInvoice(input, current, now)
     : cancelRenewal(input, current, window.reason, now);
+};
+
+/** The cancel the holder asks for under Billing: the confirmation goes out at once. */
+export async function cancelSubscription(input: CancelInput): Promise<CancelOutcome> {
+  const { outcome, notice } = await makeCancel(input);
+  if (notice) await sendCancelNotice(notice);
+  return outcome;
+}
+
+/**
+ * The cancel made because the holder deletes their account (lib/gdpr/self-erasure). Nothing is
+ * sent: the erasure confirmation carries the notice, or it goes out on its own if the erasure does
+ * not happen.
+ */
+export async function cancelForErasure(input: CancelInput): Promise<CancelMade> {
+  return makeCancel(input);
 }
