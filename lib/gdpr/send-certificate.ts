@@ -94,7 +94,9 @@ export async function sendErasureCertificate(
       `Die Löschbestätigung zum Vorgang ${erasure.caseRef} ging nicht an die betroffene Person.`,
       "Bitte das Zertifikat im Tab Erasures herunterladen und von Hand senden.",
       ...(enclosed.length > 0
-        ? [`Sie enthielt auch: ${enclosed.join(", ")}. Das bitte aus Qonto mitsenden.`]
+        ? [
+            `Sie enthielt auch: ${enclosed.join(", ")}. Das bitte mitsenden, eine Gutschrift als PDF aus Qonto.`,
+          ]
         : []),
     ]);
   }

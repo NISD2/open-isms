@@ -88,8 +88,8 @@ export async function creditNotePdf(
   if (pdf) await archive(note, pdf);
   else {
     await alertOperators(`${note.creditNoteNumber} ohne PDF`, [
-      `Qonto hat für die Gutschrift ${note.creditNoteNumber} kein PDF geliefert. Die Bestätigung geht ohne Anhang raus.`,
-      "Das PDF aus Qonto von Hand senden und ablegen.",
+      `Qonto hat für die Gutschrift ${note.creditNoteNumber} (Rechnung ${note.invoiceNumber}, billing account ${note.billingAccountId}) kein PDF geliefert. Die Bestätigung geht ohne Anhang raus.`,
+      "Das PDF aus Qonto von Hand an die Rechnungsadresse des Qonto Kunden senden und ablegen.",
     ]);
   }
   return pdf;

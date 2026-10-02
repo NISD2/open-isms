@@ -252,32 +252,37 @@ export async function cancelLicencesForErasure(
   const { mode, open } = await billingFor(db, person.email);
   if (!open || mode.kind === "off") throw new SelfErasureRefused("cancel_by_us");
   const notices: CancelNotice[] = [];
-  // One after the other: each cancel holds its account across the Qonto call.
-  for (const { billingAccountId } of decision.cancels) {
-    const { outcome, notice } = await cancelForErasure({
-      db,
-      mode,
-      billingAccountId,
-      userId: person.userId,
-    });
-    if (notice) notices.push(notice);
-    if (outcome.ok) {
-      await logAudit({
-        companyId: null,
+  try {
+    // One after the other: each cancel holds its account across the Qonto call.
+    for (const { billingAccountId } of decision.cancels) {
+      const { outcome, notice } = await cancelForErasure({
+        db,
+        mode,
+        billingAccountId,
         userId: person.userId,
-        action: "billing.cancel",
-        entityType: "billing_account",
-        entityId: billingAccountId,
-        description: `${cancelAuditDescription(outcome)}, as the holder deleted their account`,
-        ipAddress: null,
-        userAgent: null,
       });
-    } else if (outcome.reason !== "no_invoice") {
-      // no_invoice means it was cancelled meanwhile, so there is nothing left to do for it.
-      console.error(`[self-erasure] cancel before erasure failed: ${outcome.message}`);
-      await Promise.all(notices.map(sendCancelNotice));
-      throw new SelfErasureRefused(REFUSAL_FOR[outcome.reason]);
+      if (notice) notices.push(notice);
+      if (outcome.ok) {
+        await logAudit({
+          companyId: null,
+          userId: person.userId,
+          action: "billing.cancel",
+          entityType: "billing_account",
+          entityId: billingAccountId,
+          description: `${cancelAuditDescription(outcome)}, as the holder deleted their account`,
+          ipAddress: null,
+          userAgent: null,
+        });
+      } else if (outcome.reason !== "no_invoice") {
+        // no_invoice means it was cancelled meanwhile, so there is nothing left to do for it.
+        console.error(`[self-erasure] cancel before erasure failed: ${outcome.message}`);
+        throw new SelfErasureRefused(REFUSAL_FOR[outcome.reason]);
+      }
     }
+  } catch (err) {
+    // A refusal or an error part way: the cancels made so far stand, and so does the account.
+    await Promise.all(notices.map(sendCancelNotice));
+    throw err;
   }
   return notices;
 }

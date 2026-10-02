@@ -5,6 +5,7 @@ import { logAudit } from "@/lib/audit";
 import { epochSeconds, isRecentSignIn } from "@/lib/auth/session-age";
 import { encloseCancelNotice, sendCancelNotice } from "@/lib/billing/cancel-notice";
 import type { DbOrTx } from "@/lib/db";
+import { alertGdprOperators } from "@/lib/gdpr/alert";
 import { SELF_SERVICE_ACTOR, SELF_SERVICE_CHANNEL } from "@/lib/gdpr/certificate";
 import { ErasureRefused, eraseUser } from "@/lib/gdpr/erase-user";
 import {
@@ -129,8 +130,9 @@ export const userRouter = router({
    * as long as that is kept.
    *
    * The cancel's confirmation travels in the erasure confirmation, so the person gets one letter.
-   * It waits for the credit note's PDF, polled from Qonto for up to half a minute, so it is sent
-   * after the answer. If the erasure fails after the cancel, the cancel stands and its
+   * With a credit note it waits for the PDF, which Qonto is polled for, so it is sent after the
+   * answer; a process stopped in that wait (a deploy) sends nothing, and the Erasures tab still
+   * holds the certificate. If the erasure fails after the cancel, the cancel stands and its
    * confirmation goes out on its own.
    */
   deleteAccount: selfErasureProcedure
@@ -191,7 +193,9 @@ export const userRouter = router({
         ipAddress: null,
         userAgent: null,
       });
-      void Promise.all(result.notices.map((notice) => encloseCancelNotice(notice)))
+      const letter = Promise.all(
+        result.notices.map((notice) => encloseCancelNotice(notice)),
+      )
         .then((enclosures) =>
           sendErasureCertificate(ctx.db, {
             logId: result.logId,
@@ -202,8 +206,13 @@ export const userRouter = router({
           }),
         )
         .catch((err: unknown) =>
-          console.error(`[gdpr] erasure ${result.caseRef}: confirmation not sent`, err),
+          alertGdprOperators(`${result.caseRef}: Bestätigung von Hand senden`, [
+            `Die Löschbestätigung zum Vorgang ${result.caseRef} wurde nicht erstellt: ${err instanceof Error ? err.message : String(err)}.`,
+            "Bitte das Zertifikat im Tab Erasures herunterladen und von Hand senden, mit der Gutschrift aus Qonto, falls die Löschung eine Lizenz gekündigt hat.",
+          ]),
         );
+      // Without a cancelled licence nothing is waited for, so the letter goes before the answer.
+      if (result.notices.length === 0) await letter;
       return { caseRef: result.caseRef };
     }),
 });
