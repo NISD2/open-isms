@@ -36,7 +36,8 @@
       "residualLikelihood": "Restrisiko-Wahrscheinlichkeit",
       "residualImpact": "Restrisiko-Auswirkung",
       "riskOwner": "Risikoverantwortlicher",
-      "nextReviewDate": "Nächstes Überprüfungsdatum"
+      "nextReviewDate": "Nächstes Überprüfungsdatum",
+      "acceptedAt": "Akzeptiert am"
     },
     "fieldDescriptions": {
       "title": "Geben Sie eine prägnante Bezeichnung für dieses Risiko an (z. B. 'Ransomware-Angriff auf ERP-System').",

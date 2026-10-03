@@ -46,7 +46,8 @@
       "processesOnlyOnInstructions": "Processes Only on Documented Instructions",
       "assistsWithDataSubjectRights": "Assists with Data Subject Rights",
       "internationalTransfer": "Transfers Data Outside EEA",
-      "transferMechanism": "Transfer Mechanism"
+      "transferMechanism": "Transfer Mechanism",
+      "dpaAvailable": "Data Processing Agreement in Place"
     },
     "auditFrequency": {
       "annual": "Annual",

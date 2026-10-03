@@ -31,7 +31,8 @@
       "requiresGdprNotification": "GDPR Breach Notification Required",
       "dataSubjectsAffected": "Data Subjects Affected",
       "gdprNotifiedAt": "GDPR Authority Notified",
-      "notifiedDataSubjectsAt": "Data Subjects Notified"
+      "notifiedDataSubjectsAt": "Data Subjects Notified",
+      "internalRef": "Reference"
     },
     "bsiDeadlines": {
       "title": "BSI Reporting Deadlines",

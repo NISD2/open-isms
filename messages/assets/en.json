@@ -65,7 +65,8 @@
       "rpo": "RPO (hours)",
       "endOfLife": "End of Life",
       "quantity": "Quantity",
-      "processesPersonalData": "Processes Personal Data"
+      "processesPersonalData": "Processes Personal Data",
+      "mfaMethod": "Kind of Second Factor"
     },
     "fieldDescriptions": {
       "name": "Unique name identifying this asset in your organization's inventory.",

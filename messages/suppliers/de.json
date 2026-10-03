@@ -46,7 +46,8 @@
       "processesOnlyOnInstructions": "Verarbeitung nur nach dokumentierter Weisung",
       "assistsWithDataSubjectRights": "Unterstützung bei Betroffenenrechten",
       "internationalTransfer": "Datenübermittlung außerhalb EWR",
-      "transferMechanism": "Übermittlungsmechanismus"
+      "transferMechanism": "Übermittlungsmechanismus",
+      "dpaAvailable": "Auftragsverarbeitungsvertrag vorhanden"
     },
     "auditFrequency": {
       "annual": "Jährlich",

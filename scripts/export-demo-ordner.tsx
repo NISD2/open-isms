@@ -24,7 +24,7 @@ import { renderToBuffer } from "@react-pdf/renderer";
 import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { loadCompanyExport } from "@/lib/export/company-export";
-import { valueNames } from "@/lib/export/value-names";
+import { exportNames } from "@/lib/export/value-names";
 import { DocumentsDocument, RegistersDocument } from "@/lib/pdf/company-export";
 import { ComplianceReport } from "@/lib/pdf/compliance-report";
 import { loadReportData } from "@/lib/pdf/load-report-data";
@@ -53,7 +53,7 @@ async function main(): Promise<readonly string[]> {
   const [report, data, names] = await Promise.all([
     loadReportData(assessment.id, "de"),
     loadCompanyExport(db, gf.companyId),
-    valueNames("de"),
+    exportNames("de"),
   ]);
   const files: ReadonlyArray<readonly [string, Buffer | string]> = [
     [

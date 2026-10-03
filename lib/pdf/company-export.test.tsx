@@ -5,11 +5,11 @@
 import { describe, expect, test } from "bun:test";
 import { renderToBuffer } from "@react-pdf/renderer";
 import { extractText, getDocumentProxy } from "unpdf";
-import type { CompanyExport } from "@/lib/export/company-export";
-import { valueNames } from "@/lib/export/value-names";
+import { type CompanyExport, EXPORT_FIELDS } from "@/lib/export/company-export";
+import { exportNames, type Register } from "@/lib/export/value-names";
 import { DocumentsDocument, RegistersDocument } from "./company-export";
 
-const NAMES = { de: await valueNames("de"), en: await valueNames("en") };
+const NAMES = { de: await exportNames("de"), en: await exportNames("en") };
 
 async function pagesOf(node: React.ReactElement): Promise<string[]> {
   const buffer = await renderToBuffer(node);
@@ -137,11 +137,33 @@ const registers = (locale: "de" | "en") =>
 const documents = (data: CompanyExport = FIXTURE) =>
   DocumentsDocument({ data, locale: "de", names: NAMES.de });
 
+describe("the export names fields the way the app's forms do", () => {
+  const registers: readonly Register[] = [
+    "asset",
+    "supplier",
+    "risk",
+    "training",
+    "managementReview",
+    "incident",
+  ];
+  for (const locale of ["de", "en"] as const) {
+    test(`every exported register field has its form's label (${locale})`, () => {
+      const unlabelled = registers.flatMap((record) =>
+        EXPORT_FIELDS[record]
+          .filter((field) => !Object.hasOwn(NAMES[locale].fields[record], field))
+          .map((field) => `${record}.${field}`),
+      );
+      expect(unlabelled).toEqual([]);
+    });
+  }
+});
+
 describe("the registers PDF", () => {
-  test("says what each asset is for and who provides it", async () => {
+  test("says what each asset is and who provides it", async () => {
     const text = await textOf(registers("de"));
-    expect(text).toContain("Wofür es da ist");
-    expect(text).toContain("Kundenanfragen, WordPress auf einem gemieteten Server");
+    expect(text).toContain(
+      "Beschreibung Kundenanfragen, WordPress auf einem gemieteten Server",
+    );
     expect(text).toContain("Anbieter Hetzner");
     expect(text).toContain("Betreut unsere Server und Arbeitsplätze");
   });
@@ -152,8 +174,8 @@ describe("the registers PDF", () => {
     expect(text).toContain("Sektor Verarbeitendes Gewerbe");
     expect(text).toContain("Typ Anwendung");
     expect(text).toContain("Art des zweiten Faktors Sicherheitsschlüssel");
-    expect(text).toContain("Sicherungsrhythmus täglich");
-    expect(text).toContain("Risiko Hoch");
+    expect(text).toContain("Backup-Häufigkeit täglich");
+    expect(text).toContain("Risikostufe Hoch");
     for (const code of ["important", "manufacturing", "application", "security_key"]) {
       expect(text).not.toContain(code);
     }

@@ -5,7 +5,7 @@ import {
   EXPORT_FIELDS,
   type ExportRecord,
 } from "@/lib/export/company-export";
-import type { CodedField, ValueNames } from "@/lib/export/value-names";
+import type { CodedField, ExportNames } from "@/lib/export/value-names";
 import {
   BrandBands,
   CoverFooter,
@@ -25,15 +25,15 @@ import {
 import { MarkdownBlocks } from "./markdown";
 import { styles } from "./styles";
 
-/** How the export prints: its own words, and the app's names for stored codes. */
+/** How the export prints: its own words, and the app's names for fields and stored codes. */
 interface Words {
   readonly labels: ExportLabels;
-  readonly names: ValueNames;
+  readonly names: ExportNames;
   readonly locale: PdfLocale;
 }
 
-const isCoded = (field: string, names: ValueNames): field is CodedField =>
-  Object.hasOwn(names, field);
+const isCoded = (field: string, names: ExportNames): field is CodedField =>
+  Object.hasOwn(names.values, field);
 
 /** A stored value as printed, or null when there is nothing to print. */
 function shown(
@@ -46,7 +46,7 @@ function shown(
   if (value instanceof Date) return formatReportDate(value, locale);
   if (typeof value === "boolean") return value ? labels.yes : labels.no;
   if (typeof value === "string" && isCoded(field, names)) {
-    return names[field][value] ?? value;
+    return names.values[field][value] ?? value;
   }
   return formatFieldValue(value, "text", locale);
 }
@@ -157,7 +157,8 @@ function fieldRows(
   words: Words,
 ): (readonly [string, string | null])[] {
   const values = new Map(Object.entries(row));
-  const names: Readonly<Record<string, string>> = words.labels.fields[record];
+  const names: Readonly<Record<string, string>> =
+    record === "company" ? words.labels.company : words.names.fields[record];
   return EXPORT_FIELDS[record].map(
     (field) => [names[field] ?? field, shown(field, values.get(field), words)] as const,
   );
@@ -188,7 +189,7 @@ export function RegistersDocument({
 }: {
   data: CompanyExport;
   locale: PdfLocale;
-  names: ValueNames;
+  names: ExportNames;
 }) {
   const words: Words = { labels: exportLabels(locale), names, locale };
   const { labels } = words;
@@ -254,7 +255,7 @@ export function DocumentsDocument({
 }: {
   data: CompanyExport;
   locale: PdfLocale;
-  names: ValueNames;
+  names: ExportNames;
 }) {
   const words: Words = { labels: exportLabels(locale), names, locale };
   const t = words.labels.documents;
