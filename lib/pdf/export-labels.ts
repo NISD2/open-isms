@@ -2,7 +2,9 @@ import type { EXPORT_FIELDS, ExportRecord } from "@/lib/export/company-export";
 import type { PdfLocale } from "./format";
 
 type FieldLabels = {
-  readonly [R in ExportRecord]: Readonly<Record<(typeof EXPORT_FIELDS)[R][number], string>>;
+  readonly [R in ExportRecord]: Readonly<
+    Record<(typeof EXPORT_FIELDS)[R][number], string>
+  >;
 };
 
 export interface ExportLabels {
@@ -306,4 +308,5 @@ const EN: ExportLabels = {
   },
 };
 
-export const exportLabels = (locale: PdfLocale): ExportLabels => (locale === "de" ? DE : EN);
+export const exportLabels = (locale: PdfLocale): ExportLabels =>
+  locale === "de" ? DE : EN;

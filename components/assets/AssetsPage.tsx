@@ -1,33 +1,55 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { useRouter } from "@/i18n/navigation";
+import { Pencil, Server, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { trpc } from "@/lib/trpc/client";
-import { assetInsertSchema } from "@/schema/validators";
+import { useMemo, useState } from "react";
+import { CrudPage } from "@/components/shared/CrudPage";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { useRouter } from "@/i18n/navigation";
 import { NIS2_ASSET_TYPES } from "@/lib/compliance/asset-types";
 import type { CryptoPolicyConfig } from "@/lib/compliance/policy-config-defaults";
 import type { FieldOverride } from "@/lib/forms/field-renderer";
-import { CrudPage } from "@/components/shared/CrudPage";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import {
-  Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
-} from "@/components/ui/table";
-import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
-} from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-import { Server, Pencil, Trash2 } from "lucide-react";
+import { trpc } from "@/lib/trpc/client";
+import { assetInsertSchema } from "@/schema/validators";
 
 const OTHER_VALUE = "__other__";
 
 const DEFAULT_OMIT = [
-  "id", "companyId", "createdAt", "updatedAt",
-  "ipAddress", "hostname", "operatingSystem", "softwareVersion",
+  "id",
+  "companyId",
+  "createdAt",
+  "updatedAt",
+  "ipAddress",
+  "hostname",
+  "operatingSystem",
+  "softwareVersion",
   "hasMfa",
-  "encryptionAtRest", "encryptionInTransit", "cryptoImplementation",
-  "hasBackup", "backupFrequency", "backupLocation", "lastBackupTestDate", "rto", "rpo",
+  "encryptionAtRest",
+  "encryptionInTransit",
+  "cryptoImplementation",
+  "hasBackup",
+  "backupFrequency",
+  "backupLocation",
+  "lastBackupTestDate",
+  "rto",
+  "rpo",
   "lastVulnScanDate",
 ];
 
@@ -36,7 +58,13 @@ interface SelectOption {
   label: React.ReactNode;
 }
 
-function SelectWithOther({ value, onChange, options, otherLabel, otherPlaceholder }: {
+function SelectWithOther({
+  value,
+  onChange,
+  options,
+  otherLabel,
+  otherPlaceholder,
+}: {
   value: string;
   onChange: (v: string) => void;
   options: SelectOption[];
@@ -66,7 +94,9 @@ function SelectWithOther({ value, onChange, options, otherLabel, otherPlaceholde
         </SelectTrigger>
         <SelectContent>
           {options.map((opt) => (
-            <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+            <SelectItem key={opt.value} value={opt.value}>
+              {opt.label}
+            </SelectItem>
           ))}
           <SelectItem value={OTHER_VALUE}>{otherLabel}</SelectItem>
         </SelectContent>
@@ -153,17 +183,21 @@ export function AssetsPage({ items, inline, focus, policyData }: AssetsPageProps
     return Object.keys(assetInsertSchema.shape).filter((k) => !focusSet.has(k));
   }, [focus]);
 
-  const typeOptions = useMemo((): SelectOption[] =>
-    NIS2_ASSET_TYPES.map((type) => ({
-      value: type,
-      label: (
-        <>
-          <span className="font-medium">{t(`types.${type}`)}</span>
-          <span className="ml-1.5 text-xs text-muted-foreground">{t(`typeDescriptions.${type}`)}</span>
-        </>
-      ),
-    })),
-  [t]);
+  const typeOptions = useMemo(
+    (): SelectOption[] =>
+      NIS2_ASSET_TYPES.map((type) => ({
+        value: type,
+        label: (
+          <>
+            <span className="font-medium">{t(`types.${type}`)}</span>
+            <span className="ml-1.5 text-xs text-muted-foreground">
+              {t(`typeDescriptions.${type}`)}
+            </span>
+          </>
+        ),
+      })),
+    [t],
+  );
 
   const fieldOverrides = useMemo((): Record<string, FieldOverride> => {
     const base: Record<string, FieldOverride> = {
@@ -225,16 +259,30 @@ export function AssetsPage({ items, inline, focus, policyData }: AssetsPageProps
                   ) : null}
                 </TableCell>
                 <TableCell>{a.type as string}</TableCell>
-                <TableCell className="text-right tabular-nums">{(a.quantity as number) ?? 1}</TableCell>
-                <TableCell>{(a.owner as string) ?? "\u2014"}</TableCell>
-                <TableCell>{(a.location as string) ?? "\u2014"}</TableCell>
+                <TableCell className="text-right tabular-nums">
+                  {(a.quantity as number) ?? 1}
+                </TableCell>
+                <TableCell>{(a.owner as string) ?? "—"}</TableCell>
+                <TableCell>{(a.location as string) ?? "—"}</TableCell>
                 <TableCell className="space-x-1">
-                  {Boolean(a.isCritical) && <Badge variant="destructive">{t("critical")}</Badge>}
+                  {Boolean(a.isCritical) && (
+                    <Badge variant="destructive">{t("critical")}</Badge>
+                  )}
                   {Boolean(a.isOT) && <Badge variant="secondary">{t("ot")}</Badge>}
                 </TableCell>
                 <TableCell className="text-right">
-                  <Button variant="ghost" size="icon" onClick={() => onEdit(a)}><Pencil className="h-4 w-4" /></Button>
-                  {!focus && <Button variant="ghost" size="icon" onClick={() => onDelete(a.id as string)}><Trash2 className="h-4 w-4" /></Button>}
+                  <Button variant="ghost" size="icon" onClick={() => onEdit(a)}>
+                    <Pencil className="h-4 w-4" />
+                  </Button>
+                  {!focus && (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => onDelete(a.id as string)}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  )}
                 </TableCell>
               </TableRow>
             ))}

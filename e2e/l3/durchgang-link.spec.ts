@@ -36,7 +36,7 @@ async function journeyState(page: Page): Promise<string> {
   const node = page.locator(`a[href$="/${CODE}"]`).first();
   await node.scrollIntoViewIfNeeded();
   await node.hover();
-  const card = page.getByText(new RegExp(`^Schritt \\d+ von \\d+ · `));
+  const card = page.getByText(/^Schritt \d+ von \d+ · /);
   await expect(card).toBeVisible({ timeout: 20_000 });
   return (await card.textContent())?.split(" · ").at(-1)?.trim() ?? "";
 }
@@ -59,12 +59,16 @@ test.describe("walk and journey link", () => {
 
   test.afterAll(() => undoAll(undos));
 
-  test("a step filled in through the walk waits for sign-off in both", async ({ page }) => {
+  test("a step filled in through the walk waits for sign-off in both", async ({
+    page,
+  }) => {
     expect(await walkState(page)).toBe("Wartet auf Freigabe");
     expect(await journeyState(page)).toBe("Wartet auf Freigabe");
   });
 
-  test("signed off on its requirement page, it shows signed in both", async ({ page }) => {
+  test("signed off on its requirement page, it shows signed in both", async ({
+    page,
+  }) => {
     await signOffViaUi(page, CODE);
     await expect
       .poll(async () => (await requirementStatus(tenant, CODE))?.status)

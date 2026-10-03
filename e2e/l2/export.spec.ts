@@ -42,7 +42,9 @@ test.describe("export", () => {
     ]);
   });
 
-  test("the data file holds every record of the company, and no secret", async ({ page }) => {
+  test("the data file holds every record of the company, and no secret", async ({
+    page,
+  }) => {
     const res = await page.request.get("/api/export/data");
     expect(res.status()).toBe(200);
     const text = await res.text();

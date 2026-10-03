@@ -12,7 +12,10 @@ export type ExportAccess =
  * audit log follows, a few times a minute per person and kind. Not behind the paywall: a
  * company's own records always leave with it.
  */
-export async function exportAccess(kind: string, perMinute: number): Promise<ExportAccess> {
+export async function exportAccess(
+  kind: string,
+  perMinute: number,
+): Promise<ExportAccess> {
   const session = await getSession();
   if (!session?.companyId) {
     return { ok: false, response: new Response("Unauthorized", { status: 401 }) };

@@ -15,6 +15,9 @@ async function pagesOf(node: React.ReactElement): Promise<string[]> {
   return (text as string[]).map((page) => page.replace(/\s+/g, " ").trim());
 }
 
+const textOf = async (node: React.ReactElement): Promise<string> =>
+  (await pagesOf(node)).join(" ");
+
 const none = {
   quantity: 1,
   isCritical: false,
@@ -111,9 +114,13 @@ const FIXTURE: CompanyExport = {
   incidents: [],
 };
 
+const registers = (locale: "de" | "en") => RegistersDocument({ data: FIXTURE, locale });
+const documents = (data: CompanyExport = FIXTURE) =>
+  DocumentsDocument({ data, locale: "de" });
+
 describe("the registers PDF", () => {
   test("says what each asset is for and who provides it", async () => {
-    const text = (await pagesOf(RegistersDocument({ data: FIXTURE, locale: "de" }))).join(" ");
+    const text = await textOf(registers("de"));
     expect(text).toContain("Wofür es da ist");
     expect(text).toContain("Kundenanfragen, WordPress auf einem gemieteten Server");
     expect(text).toContain("Anbieter Hetzner");
@@ -121,19 +128,18 @@ describe("the registers PDF", () => {
   });
 
   test("names coded values instead of printing the code", async () => {
-    const text = (await pagesOf(RegistersDocument({ data: FIXTURE, locale: "de" }))).join(" ");
+    const text = await textOf(registers("de"));
     expect(text).toContain("Wichtige Einrichtung");
     expect(text).toContain("Risiko hoch");
     expect(text).not.toContain("important");
   });
 
   test("an empty register says so", async () => {
-    const text = (await pagesOf(RegistersDocument({ data: FIXTURE, locale: "en" }))).join(" ");
-    expect(text).toContain("No entries.");
+    expect(await textOf(registers("en"))).toContain("No entries.");
   });
 
   test("every body page carries the company and its page number", async () => {
-    const pages = await pagesOf(RegistersDocument({ data: FIXTURE, locale: "en" }));
+    const pages = await pagesOf(registers("en"));
     for (const page of pages.slice(1)) {
       expect(page).toContain("Beispielwerke GmbH");
       expect(page).toMatch(/Page \d+ of \d+/);
@@ -143,29 +149,26 @@ describe("the registers PDF", () => {
 
 describe("the documents PDF", () => {
   test("prints who approved a document, in which role, and when", async () => {
-    const text = (await pagesOf(DocumentsDocument({ data: FIXTURE, locale: "de" }))).join(" ");
+    const text = await textOf(documents());
     expect(text).toContain("Freigegeben von Anna Beispiel (Geschäftsführung)");
     expect(text).toContain("Freigegeben am 1.10.2026");
     expect(text).toContain("Erster Punkt");
   });
 
   test("a draft says it is one", async () => {
-    const text = (await pagesOf(DocumentsDocument({ data: FIXTURE, locale: "de" }))).join(" ");
-    expect(text).toContain("Entwurf, noch nicht freigegeben");
+    expect(await textOf(documents())).toContain("Entwurf, noch nicht freigegeben");
   });
 
   test("the document's own top heading is not printed under the page title again", async () => {
-    const pages = await pagesOf(DocumentsDocument({ data: FIXTURE, locale: "de" }));
+    const pages = await pagesOf(documents());
     const page = pages.find((p) => p.includes("Geltungsbereich")) ?? "";
-    expect(page.split("Leitlinie zur Informationssicherheit der Beispielwerke GmbH")).toHaveLength(
-      2,
-    );
+    expect(
+      page.split("Leitlinie zur Informationssicherheit der Beispielwerke GmbH"),
+    ).toHaveLength(2);
   });
 
   test("without documents it says the walk has written none yet", async () => {
-    const text = (
-      await pagesOf(DocumentsDocument({ data: { ...FIXTURE, documents: [] }, locale: "en" }))
-    ).join(" ");
-    expect(text).toContain("The walkthrough has not written any documents yet.");
+    const text = await textOf(documents({ ...FIXTURE, documents: [] }));
+    expect(text).toContain("Der Durchgang hat noch keine Dokumente geschrieben.");
   });
 });

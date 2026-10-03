@@ -1,8 +1,8 @@
 import { Document, Page, Text, View } from "@react-pdf/renderer";
 import type React from "react";
 import {
-  EXPORT_FIELDS,
   type CompanyExport,
+  EXPORT_FIELDS,
   type ExportRecord,
 } from "@/lib/export/company-export";
 import {
@@ -15,7 +15,12 @@ import {
   SectionHeading,
 } from "./chrome";
 import { type ExportLabels, exportLabels } from "./export-labels";
-import { formatFieldValue, formatReportDate, formatSigner, type PdfLocale } from "./format";
+import {
+  formatFieldValue,
+  formatReportDate,
+  formatSigner,
+  type PdfLocale,
+} from "./format";
 import { MarkdownBlocks } from "./markdown";
 import { styles } from "./styles";
 
@@ -145,7 +150,8 @@ function fieldRows(
   const values = new Map(Object.entries(row));
   const names: Readonly<Record<string, string>> = labels.fields[record];
   return EXPORT_FIELDS[record].map(
-    (field) => [names[field] ?? field, shown(field, values.get(field), labels, locale)] as const,
+    (field) =>
+      [names[field] ?? field, shown(field, values.get(field), labels, locale)] as const,
   );
 }
 
@@ -159,10 +165,19 @@ const titleOf = (row: object): string => {
  * The registers the walk writes into, one section each: the company's master data, assets with
  * their providers, suppliers, risks, trainings, management reviews and incidents.
  */
-export function RegistersDocument({ data, locale }: { data: CompanyExport; locale: PdfLocale }) {
+export function RegistersDocument({
+  data,
+  locale,
+}: {
+  data: CompanyExport;
+  locale: PdfLocale;
+}) {
   const labels = exportLabels(locale);
   return (
-    <Document title={`${labels.registers.title}: ${data.company.name}`} author={data.company.name}>
+    <Document
+      title={`${labels.registers.title}: ${data.company.name}`}
+      author={data.company.name}
+    >
       <Cover
         eyebrow={labels.registers.eyebrow}
         title={labels.registers.title}
@@ -174,7 +189,12 @@ export function RegistersDocument({ data, locale }: { data: CompanyExport; local
           value: String(rows(data).length),
         }))}
       />
-      <Sheet title={labels.records.company} label={labels.registers.title} data={data} labels={labels}>
+      <Sheet
+        title={labels.records.company}
+        label={labels.registers.title}
+        data={data}
+        labels={labels}
+      >
         <Record
           title={data.company.name}
           rows={fieldRows("company", data.company, labels, locale)}
@@ -200,7 +220,12 @@ export function RegistersDocument({ data, locale }: { data: CompanyExport; local
                   rows={[
                     ...fieldRows(record, row, labels, locale),
                     ...(Array.isArray(providers)
-                      ? [[labels.providers, shown("providers", providers, labels, locale)] as const]
+                      ? [
+                          [
+                            labels.providers,
+                            shown("providers", providers, labels, locale),
+                          ] as const,
+                        ]
                       : []),
                   ]}
                 />
@@ -217,7 +242,13 @@ export function RegistersDocument({ data, locale }: { data: CompanyExport; local
  * The documents the walk wrote, each as management approved it: who approved it, when, in which
  * role and version, then the text itself. A draft says it is one.
  */
-export function DocumentsDocument({ data, locale }: { data: CompanyExport; locale: PdfLocale }) {
+export function DocumentsDocument({
+  data,
+  locale,
+}: {
+  data: CompanyExport;
+  locale: PdfLocale;
+}) {
   const labels = exportLabels(locale);
   const t = labels.documents;
   return (
@@ -245,11 +276,17 @@ export function DocumentsDocument({ data, locale }: { data: CompanyExport; local
               rows={[
                 [
                   t.approvedBy,
-                  formatSigner(d.approver, shown("approverRole", d.approverRole, labels, locale)),
+                  formatSigner(
+                    d.approver,
+                    shown("approverRole", d.approverRole, labels, locale),
+                  ),
                 ],
                 [t.approvedAt, shown("approvedAt", d.approvedAt, labels, locale)],
                 [t.version, d.status === "approved" ? d.version : null],
-                [t.effectiveFrom, shown("effectiveFrom", d.effectiveFrom, labels, locale)],
+                [
+                  t.effectiveFrom,
+                  shown("effectiveFrom", d.effectiveFrom, labels, locale),
+                ],
               ]}
             />
             <View style={{ marginTop: 8 }}>

@@ -54,9 +54,18 @@ async function main(): Promise<readonly string[]> {
     loadCompanyExport(db, gf.companyId),
   ]);
   const files: ReadonlyArray<readonly [string, Buffer | string]> = [
-    ["pruefordner-1-bericht.pdf", await renderToBuffer(ComplianceReport({ data: report, locale: "de" }))],
-    ["pruefordner-2-register.pdf", await renderToBuffer(RegistersDocument({ data, locale: "de" }))],
-    ["pruefordner-3-dokumente.pdf", await renderToBuffer(DocumentsDocument({ data, locale: "de" }))],
+    [
+      "pruefordner-1-bericht.pdf",
+      await renderToBuffer(ComplianceReport({ data: report, locale: "de" })),
+    ],
+    [
+      "pruefordner-2-register.pdf",
+      await renderToBuffer(RegistersDocument({ data, locale: "de" })),
+    ],
+    [
+      "pruefordner-3-dokumente.pdf",
+      await renderToBuffer(DocumentsDocument({ data, locale: "de" })),
+    ],
     ["pruefordner-4-daten.json", JSON.stringify(data, null, 2)],
   ];
   mkdirSync(OUT_DIR, { recursive: true });

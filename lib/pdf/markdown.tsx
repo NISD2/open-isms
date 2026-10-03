@@ -6,7 +6,11 @@ import { unified } from "unified";
 import { styles } from "./styles";
 import { BRAND, TYPE } from "./theme";
 
-const HEADING_SIZE: Readonly<Record<number, number>> = { 1: TYPE.h3, 2: TYPE.h4, 3: TYPE.body };
+const HEADING_SIZE: Readonly<Record<number, number>> = {
+  1: TYPE.h3,
+  2: TYPE.h4,
+  3: TYPE.body,
+};
 
 /** The words of an inline run, with bold, italic and code kept. A link prints its text. */
 function Inline({ nodes }: { nodes: readonly PhrasingContent[] }) {
@@ -97,7 +101,9 @@ function Block({ node, tight = false }: { node: RootContent; tight?: boolean }) 
       );
     case "blockquote":
       return (
-        <View style={{ paddingLeft: 10, borderLeftWidth: 2, borderLeftColor: BRAND.rule }}>
+        <View
+          style={{ paddingLeft: 10, borderLeftWidth: 2, borderLeftColor: BRAND.rule }}
+        >
           {node.children.map((child, i) => (
             <Block key={i} node={child} />
           ))}
@@ -106,14 +112,19 @@ function Block({ node, tight = false }: { node: RootContent; tight?: boolean }) 
     case "code":
       return <Text style={[styles.tdMono, { marginBottom: 6 }]}>{node.value}</Text>;
     case "thematicBreak":
-      return <View style={{ height: 1, backgroundColor: BRAND.rule, marginVertical: 8 }} />;
+      return (
+        <View style={{ height: 1, backgroundColor: BRAND.rule, marginVertical: 8 }} />
+      );
     case "table":
       return (
         <View style={{ marginBottom: 6 }}>
           {node.children.map((row, r) => (
             <View key={r} style={styles.tableRow}>
               {row.children.map((cell, c) => (
-                <Text key={c} style={[styles.td, { flex: 1 }, r === 0 ? { fontWeight: 600 } : {}]}>
+                <Text
+                  key={c}
+                  style={[styles.td, { flex: 1 }, r === 0 ? { fontWeight: 600 } : {}]}
+                >
                   <Inline nodes={cell.children} />
                 </Text>
               ))}
@@ -130,10 +141,17 @@ function Block({ node, tight = false }: { node: RootContent; tight?: boolean }) 
  * A document stored as Markdown, set in the PDF's type: headings, paragraphs, lists, tables.
  * `titled`: the page already prints the document's title, so its own top heading is left out.
  */
-export function MarkdownBlocks({ source, titled = false }: { source: string; titled?: boolean }) {
+export function MarkdownBlocks({
+  source,
+  titled = false,
+}: {
+  source: string;
+  titled?: boolean;
+}) {
   const { children } = unified().use(remarkParse).use(remarkGfm).parse(source);
   const [first, ...rest] = children;
-  const blocks = titled && first?.type === "heading" && first.depth === 1 ? rest : children;
+  const blocks =
+    titled && first?.type === "heading" && first.depth === 1 ? rest : children;
   return (
     <>
       {blocks.map((node, i) => (

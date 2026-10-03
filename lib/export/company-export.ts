@@ -120,8 +120,10 @@ export const EXPORT_FIELDS = {
 
 export type ExportRecord = keyof typeof EXPORT_FIELDS;
 
-const pick = <T extends object, K extends keyof T>(row: T, keys: readonly K[]): Pick<T, K> =>
-  Object.fromEntries(keys.map((k) => [k, row[k]])) as Pick<T, K>;
+const pick = <T extends object, K extends keyof T>(
+  row: T,
+  keys: readonly K[],
+): Pick<T, K> => Object.fromEntries(keys.map((k) => [k, row[k]])) as Pick<T, K>;
 
 /**
  * Everything one company recorded, for its export: master data, the registers the walk writes
@@ -184,7 +186,10 @@ export async function loadCompanyExport(db: DbOrTx, companyId: string) {
             notes: companyRequirementStatus.internalNotes,
           })
           .from(companyRequirementStatus)
-          .innerJoin(requirement, eq(requirement.id, companyRequirementStatus.requirementId))
+          .innerJoin(
+            requirement,
+            eq(requirement.id, companyRequirementStatus.requirementId),
+          )
           .where(eq(companyRequirementStatus.assessmentId, assessment.id))
       : [],
   ]);
@@ -192,14 +197,19 @@ export async function loadCompanyExport(db: DbOrTx, companyId: string) {
   return {
     exportedAt: new Date(),
     company: { name: co.name, ...pick(co, EXPORT_FIELDS.company) },
-    requirements: statuses.toSorted((a, b) => journeyIndex(a.code) - journeyIndex(b.code)),
+    requirements: statuses.toSorted(
+      (a, b) => journeyIndex(a.code) - journeyIndex(b.code),
+    ),
     documents,
     assets: assets.map((a) => ({
       name: a.name,
       ...pick(a, EXPORT_FIELDS.asset),
       providers: providers.filter((p) => p.assetId === a.id).map((p) => p.name),
     })),
-    suppliers: suppliers.map((s) => ({ name: s.name, ...pick(s, EXPORT_FIELDS.supplier) })),
+    suppliers: suppliers.map((s) => ({
+      name: s.name,
+      ...pick(s, EXPORT_FIELDS.supplier),
+    })),
     risks: risks.map((r) => pick(r, EXPORT_FIELDS.risk)),
     trainings: trainings.map((t) => pick(t, EXPORT_FIELDS.training)),
     managementReviews: reviews.map((r) => pick(r, EXPORT_FIELDS.managementReview)),

@@ -1,6 +1,6 @@
 import { renderToBuffer } from "@react-pdf/renderer";
 import { eq } from "drizzle-orm";
-import { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import { db } from "@/lib/db";
 import { attachment, exportAccess } from "@/lib/export/access";
 import { ComplianceReport } from "@/lib/pdf/compliance-report";

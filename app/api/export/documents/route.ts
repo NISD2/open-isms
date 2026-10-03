@@ -15,6 +15,10 @@ export async function GET(request: NextRequest) {
   const data = await loadCompanyExport(db, access.companyId);
   const buffer = await renderToBuffer(DocumentsDocument({ data, locale }));
   return new Response(new Uint8Array(buffer), {
-    headers: attachment("application/pdf", locale === "de" ? "nis2-dokumente" : "nis2-documents", "pdf"),
+    headers: attachment(
+      "application/pdf",
+      locale === "de" ? "nis2-dokumente" : "nis2-documents",
+      "pdf",
+    ),
   });
 }
