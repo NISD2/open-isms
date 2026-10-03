@@ -81,6 +81,18 @@ export async function loadWalk({
   );
 }
 
+/** The walk's own headline of each of these items, for links into the walk from elsewhere. */
+export async function headlinesOf(
+  codes: readonly string[],
+): Promise<ReadonlyMap<string, string>> {
+  const items = WALK.filter((item) => codes.includes(item.code));
+  return new Map(
+    await Promise.all(
+      items.map(async (item) => [item.code, (await wordsOf(item)).headline] as const),
+    ),
+  );
+}
+
 /** One item, resolved for its screens. Null when it is not in the walk or not visible to the caller. */
 export async function loadItem(code: string): Promise<ItemView | null> {
   const item = WALK.find((i) => i.code === code);

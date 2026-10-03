@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 import {
   AlertDialog,
@@ -165,6 +165,7 @@ function JourneyItem({
   const router = useRouter();
   const [asking, setAsking] = useState(false);
   const [pending, setPending] = useState(notice);
+  const stay = useRef<HTMLButtonElement>(null);
   const dismiss = trpc.user.dismissHint.useMutation();
   const answer = (go: boolean) => {
     setAsking(false);
@@ -189,14 +190,21 @@ function JourneyItem({
         </Link>
       </SidebarMenuButton>
       <AlertDialog open={asking} onOpenChange={setAsking}>
-        <AlertDialogContent>
+        {/* The recommended answer holds the focus, so Enter stays in the walkthrough; Radix
+            would otherwise focus the cancel button, which here leaves for the journey. */}
+        <AlertDialogContent
+          onOpenAutoFocus={(e) => {
+            e.preventDefault();
+            stay.current?.focus();
+          }}
+        >
           <AlertDialogHeader>
             <AlertDialogTitle>{t("title")}</AlertDialogTitle>
             <AlertDialogDescription>{t("text")}</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel onClick={() => answer(true)}>{t("go")}</AlertDialogCancel>
-            <AlertDialogAction onClick={() => answer(false)}>
+            <AlertDialogAction ref={stay} onClick={() => answer(false)}>
               {t("stay")}
             </AlertDialogAction>
           </AlertDialogFooter>

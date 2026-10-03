@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 export interface PreviewImage {
@@ -52,6 +52,7 @@ export function ImagePreview({
 }) {
   const [open, setOpen] = useState(false);
   const [zoomed, setZoomed] = useState(false);
+  const pointer = useRef("");
   const { focus } = image;
 
   useEffect(() => {
@@ -70,6 +71,14 @@ export function ImagePreview({
         asChild
         onPointerEnter={(e) => e.pointerType === "mouse" && setOpen(true)}
         onPointerLeave={(e) => e.pointerType === "mouse" && setOpen(false)}
+        onPointerDown={(e) => {
+          pointer.current = e.pointerType;
+        }}
+        // With a mouse the hover owns the preview, so a click must not toggle it shut. A click from
+        // the keyboard (detail 0) still toggles it.
+        onClick={(e) => {
+          if (e.detail > 0 && pointer.current === "mouse") e.preventDefault();
+        }}
       >
         {children}
       </PopoverTrigger>

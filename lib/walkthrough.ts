@@ -17,7 +17,10 @@ export const walkthroughLive = cache(
     isPlatformAdmin(email) || (await isFeatureOn(db, "walkthrough")),
 );
 
-/** The walk's home as a visitor types it, in every locale: the one walk page an unpaid account opens. */
+/**
+ * The walk's home as a visitor types it, in every locale: the one walk page an unpaid account
+ * opens. `/durchgang` is its old address, which only redirects here and is in links already sent.
+ */
 export const WALK_HOME_PATHS: readonly string[] = [
-  ...new Set(Object.values(routing.pathnames["/durchgang/nis2"])),
+  ...new Set(["/durchgang", ...Object.values(routing.pathnames["/durchgang/nis2"])]),
 ];

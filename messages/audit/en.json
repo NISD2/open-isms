@@ -18,11 +18,17 @@
         "adopted": "Method adopted",
         "adoptMethod": "Method adopted"
       },
+      "assessment": {
+        "signOff": "Requirement signed off",
+        "updateRequirementStatus": "Status changed"
+      },
       "requirement": {
         "signoff": "Requirement signed off",
         "status_change": "Status changed"
       },
       "evidence": {
+        "confirmUpload": "Evidence uploaded",
+        "deleteEvidence": "Evidence deleted",
         "upload": "Evidence uploaded",
         "delete": "Evidence deleted"
       },

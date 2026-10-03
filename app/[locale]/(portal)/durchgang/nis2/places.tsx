@@ -7,7 +7,7 @@ import { mayWalkDurchgang } from "@/lib/billing/access";
 import { WALK } from "@/lib/durchgang";
 import { placesOf, type WalkRegister } from "@/lib/durchgang/places";
 import { walkthroughLive } from "@/lib/walkthrough";
-import { loadWalk } from "./load";
+import { headlinesOf } from "./load";
 
 /**
  * Above a register the walk writes into: the steps of the walk where it is filled, each a link to
@@ -25,12 +25,10 @@ export async function WalkPlaces({ register }: { register: WalkRegister }) {
   const places = placesOf(WALK, register);
   if (places.length === 0) return null;
 
-  // Locked: only the titles are read, never the company's walk state.
-  const [t, entries] = await Promise.all([
+  const [t, headlineOf] = await Promise.all([
     getTranslations("durchgang.ui.places"),
-    loadWalk({ locked: true }),
+    headlinesOf(places.map((p) => p.code)),
   ]);
-  const headlineOf = new Map(entries.map((e) => [e.code, e.headline]));
 
   return (
     <nav

@@ -175,7 +175,7 @@ export function DurchgangItem({
               pathname: "/durchgang/nis2/[code]",
               params: { code: next.code },
             }),
-          () => document.querySelector(`main[data-dg-item="${next.code}"]`) !== null,
+          () => document.querySelector(`[data-dg-item="${next.code}"]`) !== null,
         );
       } else {
         router.push("/durchgang/nis2");

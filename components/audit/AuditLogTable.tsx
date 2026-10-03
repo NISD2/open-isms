@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
+import { recordDay } from "@/lib/durchgang";
 import { AuditDiffView } from "./AuditDiffView";
 
 interface AuditRow {
@@ -42,6 +43,7 @@ interface AuditLogTableProps {
 /** The sign of the area an action belongs to, by the first part of its name. */
 const AREA_ICON: Readonly<Record<string, LucideIcon>> = {
   durchgang: Footprints,
+  assessment: BadgeCheck,
   requirement: BadgeCheck,
   review: BadgeCheck,
   policy: FileText,
@@ -61,20 +63,20 @@ const AREA_ICON: Readonly<Record<string, LucideIcon>> = {
 
 const BERLIN = "Europe/Berlin";
 
-/** The calendar day in Berlin, as an ISO date that compares and groups as text. */
-const dayOf = (date: Date) =>
-  new Intl.DateTimeFormat("en-CA", { timeZone: BERLIN }).format(date);
+/** The calendar day before an ISO date, counted on the calendar so a DST switch cannot skip one. */
+const dayBefore = (day: string) =>
+  new Date(Date.parse(`${day}T00:00:00Z`) - 86_400_000).toISOString().slice(0, 10);
 
 /** A stored description says something only when it is a sentence, not the action's own name. */
 const isSentence = (row: AuditRow) =>
   row.description !== row.action && row.description.includes(" ");
 
-/** The rows, newest first as they come, in one group per Berlin day. */
+/** The rows, newest first as they come, in one group per Berlin day (`recordDay`). */
 const byDay = (rows: readonly AuditRow[]) => {
-  const dayOfRow = (row: AuditRow) => dayOf(new Date(row.createdAt));
-  return [...new Set(rows.map(dayOfRow))].map((day) => ({
+  const dated = rows.map((row) => ({ row, day: recordDay(new Date(row.createdAt)) }));
+  return [...new Set(dated.map((d) => d.day))].map((day) => ({
     day,
-    rows: rows.filter((row) => dayOfRow(row) === day),
+    rows: dated.filter((d) => d.day === day).map((d) => d.row),
   }));
 };
 
@@ -95,8 +97,8 @@ export function AuditLogTable({ rows }: AuditLogTableProps) {
     );
   }
 
-  const today = dayOf(new Date());
-  const yesterday = dayOf(new Date(Date.now() - 86_400_000));
+  const today = recordDay(new Date());
+  const yesterday = dayBefore(today);
   const dateLabel = new Intl.DateTimeFormat(locale, {
     weekday: "long",
     day: "numeric",

@@ -88,7 +88,15 @@ export function PortalHeader({
           ? { label: t("journey"), href: "/journey", at: ["journey"] }
           : null;
     if (root && segments[0] !== undefined && root.at.includes(segments[0])) {
-      return [{ label: root.label, href: undefined }];
+      // Below the walk's home (/durchgang/nis2/<item>, its approval page): back to the home, and
+      // where you are.
+      const below = home === "walkthrough" ? segments.slice(2).at(-1) : undefined;
+      return below === undefined
+        ? [{ label: root.label, href: undefined }]
+        : [
+            { label: root.label, href: root.href },
+            { label: titleCase(below), href: undefined },
+          ];
     }
 
     const crumbs: { label: string; href?: string }[] = root

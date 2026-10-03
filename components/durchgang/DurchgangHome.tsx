@@ -160,6 +160,8 @@ export function DurchgangHome({
           {walk.map((entry, index) => {
             const settled = entry.state.kind !== "open" && entry.state.kind !== "waiting";
             const signedOff = entry.state.kind === "signed";
+            // A step that does not apply is never put to management, so it has no sign-off to show.
+            const awaitsSignOff = !signedOff && entry.state.kind !== "not_applicable";
             const waiting = entry.state.kind === "waiting";
             const isNext = next?.code === entry.code;
             const href = {
@@ -226,7 +228,7 @@ export function DurchgangHome({
                           </TooltipTrigger>
                           <TooltipContent>{stateLabel(entry)}</TooltipContent>
                         </Tooltip>
-                        {!signedOff && (
+                        {awaitsSignOff && (
                           <Tooltip>
                             <TooltipTrigger asChild>
                               <button
@@ -267,6 +269,13 @@ export function DurchgangHome({
                         {entry.headline}
                         <span className="sr-only">: {stateLabel(entry)}</span>
                       </Link>
+                    )}
+                    {/* What a set-aside step still needs, in sight: the circle's tooltip never
+                        opens on touch. */}
+                    {entry.state.kind === "waiting" && entry.state.reason && (
+                      <p className="mt-0.5 text-xs text-amber-700 dark:text-amber-400">
+                        {t(`waitReasons.${entry.state.reason}`)}
+                      </p>
                     )}
                   </div>
                   {!locked && (

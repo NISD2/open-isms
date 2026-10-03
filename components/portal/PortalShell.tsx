@@ -6,6 +6,7 @@ import { PortalHeader } from "@/components/portal/PortalHeader";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { hasReviewAccess } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
+import { mayWalkDurchgang } from "@/lib/billing/access";
 import { billingFor } from "@/lib/billing/ordering-access";
 import {
   type CategoryInfo,
@@ -116,9 +117,10 @@ export async function PortalShell({
   const mustOrder = session.accessLevel === "free";
   // Once the walkthrough is the portal's front, the framework tree leaves the sidebar: the walk
   // and the journey both lead to every item (Simon, 03.10.2026).
-  const live = await walkthroughLive(session.user.email);
-  const [frameworks, billing] = await Promise.all([
-    live ? [] : sidebarFrameworks(session, mustOrder),
+  const liveRead = walkthroughLive(session.user.email);
+  const [live, frameworks, billing] = await Promise.all([
+    liveRead,
+    liveRead.then((on) => (on ? [] : sidebarFrameworks(session, mustOrder))),
     billingFor(db, session.user.email),
   ]);
 
@@ -139,7 +141,13 @@ export async function PortalShell({
         walkthroughLive={live}
         // An account that has not paid has no journey once the walkthrough is the front.
         showJourney={!mustOrder}
-        journeyNotice={live && session.hints.journeyNotice}
+        // Only someone who can walk is pointed back to the walkthrough: for a grandfathered account
+        // it is locked, and the journey is what it has.
+        journeyNotice={
+          live &&
+          session.hints.journeyNotice &&
+          mayWalkDurchgang(session.accessLevel, platformAdmin)
+        }
       />
       <SidebarInset>
         <PortalHeader

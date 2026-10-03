@@ -18,11 +18,17 @@
         "adopted": "Methode übernommen",
         "adoptMethod": "Methode übernommen"
       },
+      "assessment": {
+        "signOff": "Anforderung freigegeben",
+        "updateRequirementStatus": "Status geändert"
+      },
       "requirement": {
         "signoff": "Anforderung freigegeben",
         "status_change": "Status geändert"
       },
       "evidence": {
+        "confirmUpload": "Nachweis hochgeladen",
+        "deleteEvidence": "Nachweis gelöscht",
         "upload": "Nachweis hochgeladen",
         "delete": "Nachweis gelöscht"
       },
