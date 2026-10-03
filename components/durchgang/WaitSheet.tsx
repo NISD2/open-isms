@@ -28,16 +28,18 @@ type Mode = "wait" | "decline";
 /**
  * What to do with an item that cannot be filled in now. Either it waits, with a reason and an
  * optional note, or the company decided not to do it, with the reason written down for the
- * Geschäftsführung to sign.
+ * Geschäftsführung to sign. Where the law leaves no choice (`mayDecline` false), only waiting.
  */
 export function WaitSheet({
   open,
   onOpenChange,
+  mayDecline,
   onWait,
   onDecline,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  mayDecline: boolean;
   onWait: (reason: WaitReason, note: string) => void;
   onDecline: (reason: string) => void;
 }) {
@@ -47,40 +49,43 @@ export function WaitSheet({
   const [note, setNote] = useState("");
   const [why, setWhy] = useState("");
   const whyReady = why.trim().length >= MIN_DECLINE_REASON;
+  const shown: Mode = mayDecline ? mode : "wait";
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent className="w-full overflow-y-auto sm:max-w-md">
         <SheetHeader>
           <SheetTitle>
-            {mode === "wait" ? t("ui.wait.title") : t("ui.decline.title")}
+            {shown === "wait" ? t("ui.wait.title") : t("ui.decline.title")}
           </SheetTitle>
           <SheetDescription>
-            {mode === "wait" ? t("ui.wait.description") : t("ui.decline.description")}
+            {shown === "wait" ? t("ui.wait.description") : t("ui.decline.description")}
           </SheetDescription>
         </SheetHeader>
         <div className="space-y-5 px-4">
-          <RadioGroup
-            aria-label={t("ui.wait.title")}
-            value={mode}
-            onValueChange={(value) =>
-              (value === "wait" || value === "decline") && setMode(value)
-            }
-            className="grid grid-cols-2 gap-1 rounded-xl bg-muted p-1"
-          >
-            {(["wait", "decline"] as const).map((m) => (
-              <Label
-                key={m}
-                htmlFor={`mode-${m}`}
-                className="flex cursor-pointer items-center justify-center rounded-lg px-3 py-2 text-center text-sm font-medium text-muted-foreground transition-colors has-[[data-state=checked]]:bg-background has-[[data-state=checked]]:text-foreground has-[[data-state=checked]]:shadow-sm"
-              >
-                <RadioGroupItem id={`mode-${m}`} value={m} className="sr-only" />
-                {m === "wait" ? t("ui.notYet") : t("ui.decline.tab")}
-              </Label>
-            ))}
-          </RadioGroup>
+          {mayDecline && (
+            <RadioGroup
+              aria-label={t("ui.wait.title")}
+              value={mode}
+              onValueChange={(value) =>
+                (value === "wait" || value === "decline") && setMode(value)
+              }
+              className="grid grid-cols-2 gap-1 rounded-xl bg-muted p-1"
+            >
+              {(["wait", "decline"] as const).map((m) => (
+                <Label
+                  key={m}
+                  htmlFor={`mode-${m}`}
+                  className="flex cursor-pointer items-center justify-center rounded-lg px-3 py-2 text-center text-sm font-medium text-muted-foreground transition-colors has-[[data-state=checked]]:bg-background has-[[data-state=checked]]:text-foreground has-[[data-state=checked]]:shadow-sm"
+                >
+                  <RadioGroupItem id={`mode-${m}`} value={m} className="sr-only" />
+                  {m === "wait" ? t("ui.notYet") : t("ui.decline.tab")}
+                </Label>
+              ))}
+            </RadioGroup>
+          )}
 
-          {mode === "wait" ? (
+          {shown === "wait" ? (
             <>
               <RadioGroup
                 value={reason}
@@ -135,7 +140,7 @@ export function WaitSheet({
           )}
         </div>
         <SheetFooter>
-          {mode === "wait" ? (
+          {shown === "wait" ? (
             <Button size="lg" className="rounded-xl" onClick={() => onWait(reason, note)}>
               {t("ui.wait.confirm")}
             </Button>

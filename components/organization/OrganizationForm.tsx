@@ -7,6 +7,7 @@ import type { FieldOverride } from "@/lib/forms/field-renderer";
 import { SchemaForm } from "@/lib/forms/schema-form";
 import {
   COMPANY_FORM_OMIT,
+  CORE_COMPANY_OMIT,
   type CompanyFormData,
   companyFormSchema,
   parseCompanyFormData,
@@ -18,12 +19,15 @@ interface OrganizationFormProps {
   mode: "create" | "edit";
   initialData?: CompanyFormData | null;
   isAdmin?: boolean;
+  /** Only the company itself (CORE_COMPANY_FIELDS), once the walkthrough is the portal's front. */
+  core?: boolean;
 }
 
 export function OrganizationForm({
   mode,
   initialData,
   isAdmin = true,
+  core = false,
 }: OrganizationFormProps) {
   const t = useTranslations("organization");
   const router = useRouter();
@@ -113,7 +117,10 @@ export function OrganizationForm({
     }
   }
 
-  async function handleEditSubmit(data: Record<string, unknown>) {
+  async function handleEditSubmit(submitted: Record<string, unknown>) {
+    // A field the form does not show keeps what is stored: without this, a hidden field would go
+    // to the server empty and wipe its value.
+    const data: Record<string, unknown> = { ...initialData, ...submitted };
     const toastId = toast.loading(t("saving"));
     try {
       await updateMutation.mutateAsync({
@@ -163,7 +170,7 @@ export function OrganizationForm({
       <SchemaForm
         schema={companyFormSchema}
         onSubmit={handleEditSubmit}
-        omit={[...COMPANY_FORM_OMIT]}
+        omit={core ? [...CORE_COMPANY_OMIT] : [...COMPANY_FORM_OMIT]}
         fieldOverrides={fieldOverrides}
         defaultValues={defaults}
         columns={2}

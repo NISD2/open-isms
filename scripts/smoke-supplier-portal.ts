@@ -41,7 +41,7 @@ async function getSeedUser() {
   const user = await appDb.query.user.findFirst({
     where: (u, { isNotNull }) => isNotNull(u.companyId),
   });
-  if (!user || !user.companyId) {
+  if (!user?.companyId) {
     throw new Error("No seed user found. Run `bun db:seed` first.");
   }
   const seedCompany = await appDb.query.company.findFirst({
@@ -101,6 +101,7 @@ async function main() {
         journeyTourTeam: false,
         requirementTour: false,
         helpOffer: false,
+        journeyNotice: false,
       },
     },
     userId: user.id,
@@ -273,7 +274,7 @@ async function main() {
     where: eq(schema.supplier.customerEmail, TEST_CUSTOMER_EMAIL),
     columns: { unsubscribeToken: true },
   });
-  if (!rel || !rel.unsubscribeToken) throw new Error("Relationship missing after invite");
+  if (!rel?.unsubscribeToken) throw new Error("Relationship missing after invite");
   const accessToken = rel.unsubscribeToken;
   const view = await caller.supplierPortal.public.getByToken({
     token: accessToken,

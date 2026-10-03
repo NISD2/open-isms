@@ -29,8 +29,10 @@ export default async function JourneyPreviewPage() {
         user={SAMPLE_USER}
         frameworks={SAMPLE_FRAMEWORKS}
         showBilling={false}
-        showAuditTrail
-        durchgangOpen={false}
+        reviewAccess
+        walkthroughLive={false}
+        showJourney
+        journeyNotice={false}
       />
       <SidebarInset>
         <header className="flex h-14 items-center gap-3 border-b bg-background/80 px-4 backdrop-blur-sm">

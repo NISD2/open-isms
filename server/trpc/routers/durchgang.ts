@@ -43,6 +43,8 @@ import {
   cryptoNote,
   type DurchgangAction,
   declinedNote,
+  gapsOf,
+  type ItemState,
   levelOf,
   loginsNote,
   MANAGEMENT_ROLE,
@@ -69,6 +71,7 @@ import {
   resolveItem,
   reviewedWithinYear,
   SUPPLIER_LEVEL,
+  signLast,
   standingOf,
   toScale,
   treatmentFor,
@@ -92,12 +95,10 @@ import {
   companyRiskMethodology,
   managementReview,
   policy,
-  requirement,
   risk,
   riskAsset,
   riskSupplier,
   supplier,
-  user,
 } from "@/schema";
 import { riskInsertSchema } from "@/schema/validators";
 import { signerRoleOf } from "../guards";
@@ -108,8 +109,13 @@ import {
 import {
   appendNote,
   type DurchgangActor,
+  declineReason,
+  declineReasonsOf,
   durchgangItem,
+  gapFactsOf,
+  signDeclined,
   walkItemRef,
+  walkPolicyRows,
   walkRows,
   walkStates,
 } from "../helpers/durchgang";
@@ -412,40 +418,6 @@ const policyDraftOf = async (
 };
 
 /**
- * The company's policies the walk wrote, in walk order: each one of an item's template on that
- * item's requirement, so a policy of the same type added by hand elsewhere is not among them.
- */
-const walkPolicyRows = async (db: TRPCContext["db"], companyId: string) => {
-  const rows = await db
-    .select({
-      code: requirement.code,
-      type: policy.type,
-      title: policy.title,
-      content: policy.content,
-      status: policy.status,
-      effectiveFrom: policy.effectiveFrom,
-      approver: user.name,
-    })
-    .from(policy)
-    .innerJoin(requirement, eq(requirement.id, policy.requirementId))
-    .leftJoin(user, eq(user.id, policy.approvedBy))
-    .where(
-      and(
-        eq(policy.companyId, companyId),
-        inArray(
-          policy.type,
-          WALK_POLICIES.map((p) => p.policy),
-        ),
-      ),
-    );
-  return WALK_POLICIES.flatMap((p) =>
-    rows
-      .filter((row) => row.code === p.code && row.type === p.policy)
-      .map((row) => ({ ...row, type: p.policy })),
-  );
-};
-
-/**
  * The company's walk items waiting for management's signature (see `awaitingSignature`), each
  * with its status row: what the approval screen lists and what the approval may sign, from one
  * computation. Items whose assigned signers still owe a signature are left to them.
@@ -459,11 +431,14 @@ const waitingForManagement = async (db: TRPCContext["db"], companyId: string) =>
       .from(managementReview)
       .where(eq(managementReview.companyId, companyId)),
   ]);
-  const waiting = awaitingSignature({
-    codes: WALK.map((item) => item.code),
-    stateOf: (code) => walk.items.get(code)?.state ?? { kind: "open" },
-    drafts: policies.filter((p) => p.status === "draft"),
+  const order = {
+    codes: walk.codes,
+    stateOf: (code: string): ItemState => walk.items.get(code)?.state ?? { kind: "open" },
     approvalCode: APPROVAL_SCREEN?.code ?? null,
+  };
+  const waiting = awaitingSignature({
+    ...order,
+    drafts: policies.filter((p) => p.status === "draft"),
     reviewed: reviewedWithinYear(
       reviews.map((r) => r.day),
       recordDay(new Date()),
@@ -479,7 +454,11 @@ const waitingForManagement = async (db: TRPCContext["db"], companyId: string) =>
   );
   return {
     assessmentId: walk.assessmentId,
-    items: rows.filter((item) => !rostered.has(item.row.statusId)),
+    items: signLast(
+      rows.filter((item) => !rostered.has(item.row.statusId)),
+      order,
+    ),
+    order,
   };
 };
 
@@ -493,6 +472,9 @@ const waitingForManagement = async (db: TRPCContext["db"], companyId: string) =>
  * Management signs every walk item, whatever role the requirement names for a single sign-off:
  * § 38 Abs. 1 BSIG has management implement and oversee the measures, and the walk was built for
  * its one signature at the end.
+ *
+ * An item the company decided not to do is signed as that decision: recorded not applicable,
+ * with its written reason and management as the one who decided (`signDeclined`).
  */
 const signWaiting = async (
   ctx: {
@@ -504,16 +486,31 @@ const signWaiting = async (
   shown: readonly string[],
   now: Date,
 ) => {
-  if (shown.length === 0) return [];
-  const { assessmentId, items } = await waitingForManagement(ctx.db, ctx.companyId);
+  if (shown.length === 0) return { signed: [], declined: [] };
+  const { assessmentId, items, order } = await waitingForManagement(
+    ctx.db,
+    ctx.companyId,
+  );
+  // Checked again on what this click signs: an item whose document stayed a draft stays open,
+  // and then the management review waits too.
+  const chosen = signLast(
+    items.filter((item) => item.drafts.length === 0 && shown.includes(item.code)),
+    order,
+  );
+  const decided = await signDeclined(ctx.db, {
+    userId: ctx.userId,
+    statusIds: chosen.filter((item) => item.declined).map((item) => item.row.statusId),
+    now,
+  });
+  const declined = chosen
+    .filter((item) => decided.includes(item.row.statusId))
+    .map((item) => item.row);
   const signedOffRole = signerRoleOf(ctx.session);
   const signed = await signOffRows(ctx.db, {
     companyId: ctx.companyId,
     userId: ctx.userId,
     signedOffRole,
-    rows: items
-      .filter((item) => item.drafts.length === 0 && shown.includes(item.code))
-      .map((item) => item.row),
+    rows: chosen.filter((item) => !item.declined).map((item) => item.row),
     source: "editor",
     chainData: (row) => ({
       code: row.code,
@@ -521,7 +518,7 @@ const signWaiting = async (
       walkApproval: APPROVAL_SCREEN?.code ?? null,
     }),
   });
-  if (!assessmentId || signed.length === 0) return signed;
+  if (!assessmentId || signed.length + declined.length === 0) return { signed, declined };
 
   await recalculateProgress(ctx.db, assessmentId);
   for (const row of signed) {
@@ -539,18 +536,12 @@ const signWaiting = async (
       userId: ctx.userId,
     }).catch((err) => console.error("[durchgang] deadlines:", err));
   }
-  return signed;
+  return { signed, declined };
 };
 
 export const durchgangRouter = router({
-  /** Where each item stands. Read on the server by every Durchgang page. */
-  walk: durchgangProcedure.query(async ({ ctx }) => {
-    const states = await walkStates(ctx.db, ctx.companyId);
-    return WALK.map((item) => ({
-      code: item.code,
-      state: states.get(item.code) ?? { kind: "open" as const },
-    }));
-  }),
+  /** Where each item of the company's walk stands. Read on the server by every Durchgang page. */
+  walk: durchgangProcedure.query(({ ctx }) => walkStates(ctx.db, ctx.companyId)),
 
   /**
    * When the company last took over the BSI method here, or null. A method row alone says nothing:
@@ -684,14 +675,23 @@ export const durchgangRouter = router({
 
   /**
    * "Wir haben entschieden, das nicht zu tun": finished without doing it, for the Geschäftsführung
-   * to sign. The written reason is the record of that decision and goes only into the notes; the
-   * audit row carries no free text.
+   * to sign in the approval. Refused on an item the law leaves no choice on (`mustDo`). The
+   * written reason goes into the notes and onto the row as the reason the signature will record
+   * (`notApplicableReason`); the status stays until management signs. The audit row carries no
+   * free text.
    */
   decline: durchgangProcedure
     .input(z.object({ code, reason: z.string().trim().min(20).max(2000) }))
     .mutation(async ({ ctx, input }) => {
+      if (itemOf(input.code).mustDo) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: `${input.code} is a duty the law leaves no choice on.`,
+        });
+      }
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
       const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
+      await declineReason(ctx.db, ref.statusId, input.reason);
       await appendNote(
         ctx.db,
         ref.statusId,
@@ -712,6 +712,8 @@ export const durchgangRouter = router({
     .input(z.object({ code }))
     .mutation(async ({ ctx, input }) => {
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
+      // Filled in after all: an earlier decision not to do it no longer stands.
+      await declineReason(ctx.db, ref.statusId, null);
       await logWalk({
         companyId: ctx.companyId,
         userId: ctx.userId,
@@ -1562,14 +1564,39 @@ export const durchgangRouter = router({
    */
   awaitingSignature: durchgangProcedure
     .input(z.object({ locale: z.enum(["de", "en"]) }))
-    .query(async ({ ctx, input }) =>
-      (await waitingForManagement(ctx.db, ctx.companyId)).items.map(
-        ({ code, drafts }) => {
-          const words = resolveItem(NAMESPACES[input.locale], itemOf(code));
-          return { code, drafts, headline: words.ok ? words.value.headline : code };
-        },
-      ),
-    ),
+    .query(async ({ ctx, input }) => {
+      const { items } = await waitingForManagement(ctx.db, ctx.companyId);
+      const reasons = await declineReasonsOf(
+        ctx.db,
+        items.filter((item) => item.declined).map((item) => item.row.statusId),
+      );
+      return items.map(({ code, drafts, declined, row }) => {
+        const words = resolveItem(NAMESPACES[input.locale], itemOf(code));
+        return {
+          code,
+          drafts,
+          headline: words.ok ? words.value.headline : code,
+          /** The written reason when the company decided not to do it; null when filled in. */
+          declined: declined ? (reasons.get(row.statusId) ?? "") : null,
+        };
+      });
+    }),
+
+  /**
+   * What the company's own answers still leave open (`gapsOf`), for management to see on the
+   * approval before it signs; a step set aside comes with its headline in the viewer's language.
+   */
+  gaps: durchgangProcedure
+    .input(z.object({ locale: z.enum(["de", "en"]) }))
+    .query(async ({ ctx, input }) => {
+      const headline = (c: string) => {
+        const words = resolveItem(NAMESPACES[input.locale], itemOf(c));
+        return words.ok ? words.value.headline : c;
+      };
+      return gapsOf(await gapFactsOf(ctx.db, ctx.companyId, new Date())).map((gap) =>
+        gap.kind === "set_aside" ? { ...gap, headlines: gap.codes.map(headline) } : gap,
+      );
+    }),
 
   /**
    * 7.3: management approves the drafts it ticked, signed in with its own account. The approval
@@ -1667,19 +1694,21 @@ export const durchgangRouter = router({
         // (writePolicy) still rechecks.
       }
 
-      const signed = await signWaiting(ctx, input.sign, now);
-      if (signed.length > 0) {
+      const { signed, declined } = await signWaiting(ctx, input.sign, now);
+      if (signed.length + declined.length > 0) {
+        const codes = signed.map((r) => r.code);
+        const decided = declined.map((r) => r.code);
         await logWalk({
           companyId: ctx.companyId,
           userId: ctx.userId,
           action: "durchgang.requirements_signed",
           entityType: "requirement",
           entityId: ref.requirementId,
-          description: `${ref.code} management signed off ${signed.map((r) => r.code).join(", ")}`,
-          newValue: { codes: signed.map((r) => r.code) },
+          description: `${ref.code} management signed off ${[...codes, ...decided].join(", ")}`,
+          newValue: { codes, declined: decided },
         });
       }
-      return { approved: approved.length, signed: signed.length };
+      return { approved: approved.length, signed: signed.length + declined.length };
     }),
 
   /** The policy an item writes, as its screen shows it and the server stores it. */

@@ -14,16 +14,12 @@ import {
   billingAccount,
   closeCrmSync,
   company,
-  companyAssessment,
   companyMembership,
-  companyRequirementStatus,
-  complianceFramework,
   emailPreference,
-  requirement,
   trainingLessonProgress,
   user,
 } from "@/schema";
-import { NIS2_FRAMEWORK_CODE } from "@/server/trpc/helpers/nis2-scope";
+import { journeyStatesByCompany } from "@/server/trpc/helpers/durchgang";
 import { closeFactsFor } from "./facts";
 import { type CloseSyncStore, MAX_REFUSALS } from "./sync";
 
@@ -107,27 +103,6 @@ const ceoCourseProgress = (db: DbOrTx) =>
     .where(eq(trainingLessonProgress.courseId, CEO_COURSE_ID));
 
 /** Every company's NIS 2 path in one read (~49 rows a company), summarised in memory. */
-const nis2PathRows = (db: DbOrTx) =>
-  db
-    .select({
-      companyId: companyAssessment.companyId,
-      status: companyRequirementStatus.status,
-      code: requirement.code,
-    })
-    .from(companyRequirementStatus)
-    .innerJoin(
-      companyAssessment,
-      eq(companyRequirementStatus.assessmentId, companyAssessment.id),
-    )
-    .innerJoin(
-      complianceFramework,
-      and(
-        eq(complianceFramework.id, companyAssessment.frameworkId),
-        eq(complianceFramework.code, NIS2_FRAMEWORK_CODE),
-      ),
-    )
-    .innerJoin(requirement, eq(companyRequirementStatus.requirementId, requirement.id));
-
 export const closeSyncStore = (db: DbOrTx): CloseSyncStore => ({
   erased: () =>
     db
@@ -141,21 +116,23 @@ export const closeSyncStore = (db: DbOrTx): CloseSyncStore => ({
       .where(isNull(closeCrmSync.userId)),
 
   people: async () => {
-    const [users, optedOut, ceoProgress, pathRows, launched, ceoCourse] =
-      await Promise.all([
-        verifiedUsers(db),
-        optedOutOfAll(db),
-        ceoCourseProgress(db),
-        nis2PathRows(db),
-        isFeatureOn(db, "billing"),
-        loadCourse(CEO_COURSE_ID),
-      ]);
+    const [users, optedOut, ceoProgress, launched, ceoCourse] = await Promise.all([
+      verifiedUsers(db),
+      optedOutOfAll(db),
+      ceoCourseProgress(db),
+      isFeatureOn(db, "billing"),
+      loadCourse(CEO_COURSE_ID),
+    ]);
+    // Each company's path as the journey reads it, so Close counts what the journey counts.
+    const paths = await journeyStatesByCompany(db, [
+      ...new Set(users.flatMap((u) => (u.companyId ? [u.companyId] : []))),
+    ]);
 
     const factsOf = closeFactsFor({
       optedOutUserIds: new Set(optedOut.map((row) => row.userId)),
       ceoLessonIds: ceoCourse.modules.flatMap((m) => m.lessonIds),
       ceoProgress,
-      pathRows,
+      paths,
       launched,
     });
     return users.map((row) => ({

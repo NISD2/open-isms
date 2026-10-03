@@ -6,11 +6,8 @@
  * and liveNode (the first not-done requirement in journey order).
  */
 
-import {
-  type DotState,
-  isDoneStatus,
-  journeyIndex,
-} from "@/lib/compliance/journey-position";
+import { type DotState, nextOnJourney } from "@/lib/compliance/journey-position";
+import type { CoveredBy } from "@/lib/durchgang";
 
 export type JourneyItem = {
   id: string;
@@ -34,30 +31,16 @@ export type JourneyItem = {
   sortOrder: number;
   /** Assigned sign-offs done vs required, for N-of-M management sign-off. */
   signOff: { signed: number; total: number };
-  /** Where the item stands on the journey, from its status and the walkthrough (`journeyState`). */
+  /** Where the item stands on the journey, from its status and the walkthrough (`coveredState`). */
   state: DotState;
+  /** What decided `state` when it was not work on the requirement itself, else null. */
+  coveredBy: CoveredBy | null;
 };
 
-function isDone(item: JourneyItem): boolean {
-  return isDoneStatus(item.status);
-}
-
-/** True journey position: the one order every surface sorts by. */
-function journeyOrder(item: JourneyItem): number {
-  return journeyIndex(item.code);
-}
-
 /**
- * The single live node for the path view: the first requirement in journey
- * order that still needs work, which is anything not done and not waiting for
- * management's sign-off, plus a review that is overdue. Else the first one
- * waiting for sign-off, the order the walkthrough resumes in. Returns null
- * when everything is done.
+ * The single live node for the path view (`nextOnJourney`, the rule the emails name too), where
+ * a review past its date also counts as work.
  */
 export function liveNode(items: readonly JourneyItem[]): JourneyItem | null {
-  const left = items
-    .filter((i) => !isDone(i))
-    .toSorted((a, b) => journeyOrder(a) - journeyOrder(b));
-  const overdue = (i: JourneyItem) => i.dueInDays !== null && i.dueInDays < 0;
-  return left.find((i) => i.state !== "awaiting" || overdue(i)) ?? left[0] ?? null;
+  return nextOnJourney(items, (i) => i.dueInDays !== null && i.dueInDays < 0);
 }

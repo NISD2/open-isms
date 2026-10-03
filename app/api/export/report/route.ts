@@ -1,24 +1,17 @@
 import { renderToBuffer } from "@react-pdf/renderer";
 import { eq } from "drizzle-orm";
-import { NextRequest } from "next/server";
-import { getSession } from "@/lib/auth";
+import type { NextRequest } from "next/server";
 import { db } from "@/lib/db";
+import { attachment, exportAccess } from "@/lib/export/access";
 import { ComplianceReport } from "@/lib/pdf/compliance-report";
 import { pdfLocale } from "@/lib/pdf/format";
 import { loadReportData } from "@/lib/pdf/load-report-data";
-import { rateLimit } from "@/lib/rate-limit";
 import { companyAssessment } from "@/schema";
 import { getNis2FrameworkId } from "@/server/trpc/helpers/nis2-scope";
 
 export async function GET(request: NextRequest) {
-  const session = await getSession();
-  if (!session) {
-    return new Response("Unauthorized", { status: 401 });
-  }
-
-  if (!(await rateLimit(`export:report:${session.user.id}`, 5, 60_000))) {
-    return new Response("Too many requests", { status: 429 });
-  }
+  const access = await exportAccess("report", 5);
+  if (!access.ok) return access.response;
 
   const assessmentId = request.nextUrl.searchParams.get("assessmentId");
   const locale = pdfLocale(request.nextUrl.searchParams.get("locale"));
@@ -37,7 +30,7 @@ export async function GET(request: NextRequest) {
   });
   if (
     !assessment ||
-    assessment.companyId !== session.companyId ||
+    assessment.companyId !== access.companyId ||
     assessment.frameworkId !== nis2FrameworkId
   ) {
     return new Response("Forbidden", { status: 403 });
@@ -45,13 +38,7 @@ export async function GET(request: NextRequest) {
 
   const data = await loadReportData(assessmentId, locale);
   const buffer = await renderToBuffer(ComplianceReport({ data, locale }));
-
-  const date = new Date().toISOString().split("T")[0];
-
   return new Response(new Uint8Array(buffer), {
-    headers: {
-      "Content-Type": "application/pdf",
-      "Content-Disposition": `attachment; filename="compliance-report-${date}.pdf"`,
-    },
+    headers: attachment("application/pdf", "compliance-report", "pdf"),
   });
 }

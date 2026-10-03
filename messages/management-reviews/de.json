@@ -13,7 +13,8 @@
       "reviewDate": "Reviewdatum",
       "decisions": "Entscheidungen",
       "actionItems": "Maßnahmen",
-      "nextReviewDate": "Nächstes Reviewdatum"
+      "nextReviewDate": "Nächstes Reviewdatum",
+      "attendees": "Teilgenommen"
     },
     "fieldDescriptions": {
       "title": "Geben Sie eine Bezeichnung für das Review an (z. B. 'Quartals-Management-Review Q3 2025').",

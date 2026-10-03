@@ -453,6 +453,19 @@ export const REG_SCHEMA = z.object({
     .max(255)
     .optional()
     .describe("Regulatory correspondence log uploaded"),
+  attackDetectionSystem: z
+    .string()
+    .max(1000)
+    .optional()
+    .describe(
+      "Attack detection system and the systems of the critical facility it watches (§31(2) BSIG)",
+    ),
+  lastKritisEvidenceDate: z.coerce
+    .date()
+    .optional()
+    .describe(
+      "Date the last audit, test or certification was sent to the BSI (§39 BSIG)",
+    ),
 });
 
 // ============================================================================
@@ -621,5 +634,7 @@ export const CATEGORY_FIELD_MAPPING: Record<string, Record<string, string[]>> = 
     informationSharingCompliant: ["12.4"],
     registrationProofUploaded: ["12.2"],
     correspondenceLogUploaded: ["12.4"],
+    attackDetectionSystem: ["12.4"],
+    lastKritisEvidenceDate: ["12.4"],
   },
 };

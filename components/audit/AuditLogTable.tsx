@@ -1,10 +1,28 @@
 "use client";
 
+import {
+  Activity,
+  BadgeCheck,
+  Bell,
+  ChevronDown,
+  ChevronRight,
+  ClipboardCheck,
+  FileText,
+  Footprints,
+  Gauge,
+  GraduationCap,
+  ListChecks,
+  type LucideIcon,
+  Paperclip,
+  Server,
+  Settings2,
+  Truck,
+  Users,
+} from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
-import { useTranslations } from "next-intl";
-import { formatDistanceToNow } from "date-fns";
+import { recordDay } from "@/lib/durchgang";
 import { AuditDiffView } from "./AuditDiffView";
-import { ChevronDown, ChevronRight } from "lucide-react";
 
 interface AuditRow {
   id: string;
@@ -22,94 +40,161 @@ interface AuditLogTableProps {
   rows: AuditRow[];
 }
 
-const ACTION_COLORS: Record<string, string> = {
-  "requirement.status_change": "bg-blue-100 text-blue-800",
-  "requirement.signoff": "bg-green-100 text-green-800",
-  "evidence.upload": "bg-purple-100 text-purple-800",
-  "evidence.delete": "bg-red-100 text-red-800",
-  "assessment.create": "bg-amber-100 text-amber-800",
-  "company.create": "bg-amber-100 text-amber-800",
+/** The sign of the area an action belongs to, by the first part of its name. */
+const AREA_ICON: Readonly<Record<string, LucideIcon>> = {
+  durchgang: Footprints,
+  assessment: BadgeCheck,
+  requirement: BadgeCheck,
+  review: BadgeCheck,
+  policy: FileText,
+  managementReview: ClipboardCheck,
+  training: GraduationCap,
+  asset: Server,
+  supplier: Truck,
+  risk: Gauge,
+  evidence: Paperclip,
+  intake: ListChecks,
+  notification: Bell,
+  team: Users,
+  user: Settings2,
+  journey: Settings2,
+  company: Settings2,
 };
 
+const BERLIN = "Europe/Berlin";
+
+/** The calendar day before an ISO date, counted on the calendar so a DST switch cannot skip one. */
+const dayBefore = (day: string) =>
+  new Date(Date.parse(`${day}T00:00:00Z`) - 86_400_000).toISOString().slice(0, 10);
+
+/** A stored description says something only when it is a sentence, not the action's own name. */
+const isSentence = (row: AuditRow) =>
+  row.description !== row.action && row.description.includes(" ");
+
+/** The rows, newest first as they come, in one group per Berlin day (`recordDay`). */
+const byDay = (rows: readonly AuditRow[]) => {
+  const dated = rows.map((row) => ({ row, day: recordDay(new Date(row.createdAt)) }));
+  return [...new Set(dated.map((d) => d.day))].map((day) => ({
+    day,
+    rows: dated.filter((d) => d.day === day).map((d) => d.row),
+  }));
+};
+
+/**
+ * The company's activity, day by day: each entry says what happened in the reader's words, with
+ * the sign of its area, who did it and when; what changed opens beneath it.
+ */
 export function AuditLogTable({ rows }: AuditLogTableProps) {
   const t = useTranslations("audit");
+  const locale = useLocale();
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   if (rows.length === 0) {
     return (
-      <div className="rounded-lg border border-dashed p-8 text-center">
+      <div className="rounded-2xl border border-dashed p-8 text-center">
         <p className="text-muted-foreground">{t("noEntries")}</p>
       </div>
     );
   }
 
+  const today = recordDay(new Date());
+  const yesterday = dayBefore(today);
+  const dateLabel = new Intl.DateTimeFormat(locale, {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: BERLIN,
+  });
+  const timeLabel = new Intl.DateTimeFormat(locale, {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: BERLIN,
+  });
+
+  const labelOf = (row: AuditRow) =>
+    t.has(`actions.${row.action}`)
+      ? t(`actions.${row.action}`)
+      : isSentence(row)
+        ? row.description
+        : row.action;
+  const detailOf = (row: AuditRow) =>
+    t.has(`actions.${row.action}`) && isSentence(row) ? row.description : null;
+
   return (
-    <div className="rounded-lg border divide-y">
-      {/* Header */}
-      <div className="grid grid-cols-[2rem_1fr_8rem_6rem_7rem] gap-2 px-4 py-2 text-xs font-medium text-muted-foreground bg-muted/50">
-        <div />
-        <div>{t("description")}</div>
-        <div>{t("action")}</div>
-        <div>{t("user")}</div>
-        <div>{t("time")}</div>
-      </div>
-
-      {rows.map((row) => {
-        const isExpanded = expandedId === row.id;
-        const hasDiff = !!(row.previousValue || row.newValue);
-
-        return (
-          <div key={row.id}>
-            <button
-              className="grid grid-cols-[2rem_1fr_8rem_6rem_7rem] gap-2 px-4 py-3 w-full text-left text-sm hover:bg-accent/50 transition-colors"
-              onClick={() =>
-                hasDiff && setExpandedId(isExpanded ? null : row.id)
-              }
-              disabled={!hasDiff}
-            >
-              <div className="flex items-center">
-                {hasDiff ? (
-                  isExpanded ? (
-                    <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
+    <div className="space-y-8">
+      {byDay(rows).map((group) => (
+        <section key={group.day}>
+          <h2 className="mb-3 text-xs font-semibold tracking-wider text-muted-foreground uppercase">
+            {group.day === today
+              ? t("today")
+              : group.day === yesterday
+                ? t("yesterday")
+                : dateLabel.format(new Date(group.rows[0]?.createdAt ?? group.day))}
+          </h2>
+          <ol className="divide-y overflow-hidden rounded-2xl border bg-card">
+            {group.rows.map((row) => {
+              const Icon = AREA_ICON[row.action.split(".")[0] ?? ""] ?? Activity;
+              const hasDiff = !!(row.previousValue || row.newValue);
+              const open = expandedId === row.id;
+              const detail = detailOf(row);
+              const body = (
+                <>
+                  <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/[0.08] text-primary">
+                    <Icon className="size-4" />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block font-medium">{labelOf(row)}</span>
+                    {detail && (
+                      <span className="block truncate text-muted-foreground">
+                        {detail}
+                      </span>
+                    )}
+                  </span>
+                  <span className="shrink-0 text-right text-xs text-muted-foreground">
+                    <span className="block">{row.userName ?? t("system")}</span>
+                    <span className="block tabular-nums">
+                      {timeLabel.format(new Date(row.createdAt))}
+                    </span>
+                  </span>
+                  {hasDiff &&
+                    (open ? (
+                      <ChevronDown className="size-4 shrink-0 text-muted-foreground" />
+                    ) : (
+                      <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
+                    ))}
+                </>
+              );
+              return (
+                <li key={row.id}>
+                  {hasDiff ? (
+                    <button
+                      type="button"
+                      aria-expanded={open}
+                      onClick={() => setExpandedId(open ? null : row.id)}
+                      className="flex w-full cursor-pointer items-center gap-4 px-4 py-3 text-left text-sm transition-colors hover:bg-accent/50 focus-visible:bg-accent/50 focus-visible:outline-none"
+                    >
+                      {body}
+                    </button>
                   ) : (
-                    <ChevronRight className="h-3.5 w-3.5 text-muted-foreground" />
-                  )
-                ) : (
-                  <div className="h-3.5 w-3.5" />
-                )}
-              </div>
-              <div className="truncate">{row.description}</div>
-              <div>
-                <span
-                  className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${
-                    ACTION_COLORS[row.action] ??
-                    "bg-gray-100 text-gray-800"
-                  }`}
-                >
-                  {row.action.split(".").pop()}
-                </span>
-              </div>
-              <div className="text-muted-foreground truncate text-xs">
-                {row.userName ?? "-"}
-              </div>
-              <div className="text-muted-foreground text-xs">
-                {formatDistanceToNow(new Date(row.createdAt), {
-                  addSuffix: true,
-                })}
-              </div>
-            </button>
-
-            {isExpanded && hasDiff && (
-              <div className="px-4 pb-4 pl-12 bg-muted/30">
-                <AuditDiffView
-                  previousValue={row.previousValue}
-                  newValue={row.newValue}
-                />
-              </div>
-            )}
-          </div>
-        );
-      })}
+                    <div className="flex items-center gap-4 px-4 py-3 text-sm">
+                      {body}
+                    </div>
+                  )}
+                  {open && hasDiff && (
+                    <div className="border-t bg-muted/30 px-4 py-3 pl-16">
+                      <AuditDiffView
+                        previousValue={row.previousValue}
+                        newValue={row.newValue}
+                      />
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        </section>
+      ))}
     </div>
   );
 }

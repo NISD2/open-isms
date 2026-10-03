@@ -27,6 +27,7 @@
         "critical": "Festlegen",
         "backups": "Eintragen",
         "crypto": "Ihre Liste",
+        "ongoing": "Ab jetzt",
         "done": "Erledigt"
       },
       "where": "{section} · Schritt {step} von {total}",
@@ -160,10 +161,24 @@
         "pageLeadOthers": "Diese Dokumente sind im NIS 2 Durchgang Ihres Unternehmens entstanden. Die Geschäftsführung gibt sie hier frei, angemeldet mit ihrem eigenen Zugang.",
         "close": "Schließen",
         "signTitle": "Diese Punkte geben Sie mit frei",
-        "signLead": "Diese Punkte des Durchgangs sind ausgefüllt. Mit Ihrer Freigabe gelten sie überall in der App als erledigt, mit Ihrem Namen und dem heutigen Datum. Ein Punkt, dessen Dokument Sie nicht freigeben, bleibt offen.",
+        "signLead": "Diese Punkte des Durchgangs sind ausgefüllt. Mit Ihrer Freigabe gelten sie überall in der App als erledigt, mit Ihrem Namen und dem heutigen Datum. Bei einem Punkt, der bewusst nicht umgesetzt wird, unterschreiben Sie diese Entscheidung mit ihrer Begründung. Ein Punkt, dessen Dokument Sie nicht freigeben, bleibt offen.",
         "signTitleOthers": "Diese Punkte warten auf Freigabe",
         "signLeadOthers": "Diese Punkte sind ausgefüllt. Die Geschäftsführung gibt sie hier zusammen mit den Dokumenten frei.",
         "staysOpen": "Bleibt offen, bis sein Dokument freigegeben ist",
+        "declined": "Bewusst nicht umgesetzt: {reason}",
+        "gaps": {
+          "title": "Was die Angaben noch offen lassen",
+          "lead": "Mit Ihrer Freigabe bestätigen Sie, was festgehalten ist. Nach den eigenen Angaben des Unternehmens ist das hier noch nicht umgesetzt. Nehmen Sie es unter „Zu erledigen“ in die Managementbewertung auf.",
+          "secondFactor": "Ohne zweiten Faktor: {names}",
+          "secondFactorAll": "Kein Programm mit Anmeldung hat einen zweiten Faktor. Das Gesetz verlangt, ihn zu verwenden (§ 30 Abs. 2 Nr. 10 BSIG).",
+          "supplier": "Hohes Risiko, im Vertrag weder Sicherheit noch Vorfälle geregelt: {names}",
+          "restore": "Noch keine Wiederherstellung, die funktioniert hat: {names}",
+          "reporting": "Das Unternehmen kann sich noch nicht im Portal des BSI anmelden, um einen Vorfall zu melden.",
+          "trainingNone": "Keine Schulung der Geschäftsführung in den letzten drei Jahren. Die Gesetzesbegründung liest „regelmäßig“ als mindestens alle drei Jahre.",
+          "training": "In den letzten drei Jahren geschult: {names}. Die Rolle Geschäftsführung haben {managers} Personen.",
+          "setAside": "Noch zur Seite gelegt: {headline}",
+          "change": "Ändern"
+        },
         "signCount": "{count, plural, =0 {Nichts ausgewählt} one {# Punkt freigeben} other {# Punkte freigeben}}",
         "signedDone": "{count, plural, one {# Punkt freigegeben.} other {# Punkte freigegeben.}}",
         "unchanged": "Es hat sich nichts geändert. Laden Sie die Seite neu, um den aktuellen Stand zu sehen."
@@ -303,9 +318,13 @@
         "notePlaceholder": "Zum Beispiel: IT-Dienstleister nach den IP-Adressen fragen",
         "confirm": "Auf die Warteliste"
       },
+      "places": {
+        "label": "Im NIS 2 Durchgang"
+      },
       "home": {
-        "title": "Ihre Umsetzung von NIS 2",
-        "lead": "Ein Punkt nach dem anderen. Was Sie zur Seite legen, wartet rechts auf Sie.",
+        "unlock": "Durchgang freischalten",
+        "open": "Offen",
+        "toSignOff": "Noch nicht freigegeben. Zur Freigabe springen",
         "next": "Als Nächstes",
         "waiting": "Wartet noch",
         "continue": "NIS 2 Umsetzung fortsetzen",
@@ -319,7 +338,7 @@
         "continueHere": "Jetzt weitermachen"
       },
       "intro": {
-        "eyebrow": "NIS 2 für Unternehmen mit 50 bis 150 Beschäftigten",
+        "eyebrow": "NIS 2 für den Mittelstand",
         "title": "Sie sind hier richtig.",
         "lead": "Sie sollen sich um NIS 2 kümmern und wissen nicht, wo Sie anfangen? Das geht fast allen so. Wir gehen es mit Ihnen durch, Punkt für Punkt.",
         "points": [
@@ -341,7 +360,7 @@
           }
         ],
         "start": "Los geht's",
-        "firstItems": "Die ersten Punkte auf Ihrem Weg"
+        "example": "So sieht es aus"
       }
     },
     "waitReasons": {
@@ -356,7 +375,7 @@
         "teaser": "Jedes Mitglied der Geschäftsführung, regelmäßig.",
         "missed": [
           "Die Schulung soll die Ziele aus § 38 Abs. 3 BSIG abdecken: Risiken und Risikomanagement erkennen und bewerten und beurteilen, was sie für die Dienste Ihres Unternehmens bedeuten.",
-          "Das Gesetz sagt nur „regelmäßig“. Wie lange eine Schulung dauert und wie oft sie sich wiederholt, überlässt es Ihnen."
+          "Das Gesetz sagt nur „regelmäßig“. Seine Begründung liest das als Schulungen, die mindestens alle drei Jahre angeboten werden (BT-Drs. 21/1501, S. 154). Wie lange eine Schulung dauert, legt keines von beiden fest."
         ],
         "screens": {
           "learn": {
@@ -365,7 +384,7 @@
               "Wer das Unternehmen leitet, nimmt regelmäßig an einer Schulung zur Informationssicherheit teil. Das gilt für jedes Mitglied der Geschäftsführung persönlich.",
               "Einen Kurs dafür bieten wir auf dieser Plattform an. Sie können auch jeden anderen Anbieter wählen; eine Zulassung für Anbieter schreibt das Gesetz nicht vor."
             ],
-            "duty": "Die Geschäftsführung muss regelmäßig an Schulungen teilnehmen. Wie oft und wie lange, legt das Gesetz nicht fest.",
+            "duty": "Die Geschäftsführung muss regelmäßig an Schulungen teilnehmen. Einen Abstand nennt das Gesetz nicht; seine Begründung liest „regelmäßig“ als mindestens alle drei Jahre.",
             "link": "Zum kostenlosen Kurs für die Geschäftsführung"
           },
           "record": {
@@ -1890,6 +1909,78 @@
           }
         }
       },
+      "12_4": {
+        "headline": "Angriffe erkennen und dem BSI nachweisen",
+        "teaser": "Nur für Betreiber kritischer Anlagen: Angriffserkennung und der Nachweis alle drei Jahre.",
+        "missed": [
+          "Betreibt Ihr Unternehmen Energieversorgungsnetze oder Energieanlagen und unterliegt dafür den §§ 5c bis 5e des Energiewirtschaftsgesetzes, gelten §§ 31 und 39 BSIG für diese Anlagen nicht. Für weitere kritische Anlagen, die Sie daneben betreiben, gelten sie (§ 28 Abs. 5 BSIG).",
+          "Waren Sie schon nach dem alten BSI-Gesetz Betreiber einer Kritischen Infrastruktur, legt das BSI den Termin frühestens drei Jahre nach Ihrem letzten Nachweis nach altem Recht fest (§ 39 Abs. 3 BSIG)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Angriffe automatisch erkennen",
+            "body": [
+              "Im Unternehmensprofil steht als Einrichtungstyp „KRITIS-Betreiber“. Deshalb sehen Sie diesen Schritt. Andere Unternehmen haben ihn nicht.",
+              "Für die IT, von der Ihre kritische Anlage abhängt, setzen Sie Systeme zur Angriffserkennung ein. Sie erfassen laufend und automatisch Daten aus dem Betrieb und werten sie aus. So erkennen sie Bedrohungen und sehen für Störungen Gegenmaßnahmen vor.",
+              "Der Aufwand soll in einem vernünftigen Verhältnis zu dem stehen, was ein Ausfall der Anlage zur Folge hätte."
+            ],
+            "duty": "Betreiber kritischer Anlagen setzen für die IT, die für den Betrieb ihrer Anlage maßgeblich ist, Systeme zur Angriffserkennung ein."
+          },
+          "detection": {
+            "title": "Welches System erkennt Angriffe?",
+            "lead": "Nennen Sie das System und welche Systeme der Anlage es überwacht. Läuft noch keins, wählen Sie „Geht noch nicht“.",
+            "document": "Angriffserkennung der kritischen Anlage"
+          },
+          "evidence": {
+            "title": "Alle drei Jahre: der Nachweis an das BSI",
+            "lead": "Durch ein Sicherheitsaudit, eine Prüfung oder eine Zertifizierung weisen Sie dem BSI nach, dass Ihre Maßnahmen umgesetzt sind, auch die Angriffserkennung. Das BSI bekommt:",
+            "items": [
+              {
+                "name": "Das Ergebnis",
+                "detail": "des Audits, der Prüfung oder der Zertifizierung"
+              },
+              {
+                "name": "Die gefundenen Mängel",
+                "detail": "jeden Sicherheitsmangel, den die Prüfung aufgedeckt hat"
+              },
+              {
+                "name": "Auf Verlangen: die Unterlagen",
+                "detail": "auf denen die Prüfung beruhte"
+              },
+              {
+                "name": "Auf Verlangen: einen Plan zur Mängelbeseitigung",
+                "detail": "und danach den Nachweis, dass die Mängel behoben sind"
+              }
+            ],
+            "source": "§ 39 Abs. 1 BSIG: zu einem Termin, den das BSI festlegt, frühestens drei Jahre nachdem Ihr Unternehmen erstmals als Betreiber einer kritischen Anlage gilt, danach alle drei Jahre."
+          },
+          "last": {
+            "title": "Wann ging der letzte Nachweis an das BSI?",
+            "lead": "Der Tag, an dem Ihr Unternehmen dem BSI zuletzt einen Nachweis geschickt hat, auch einen nach altem Recht. Gab es noch keinen, lassen Sie das Feld leer und gehen weiter.",
+            "document": "Nachweise an das BSI"
+          },
+          "done": {
+            "title": "Angriffserkennung und Nachweis erfasst"
+          }
+        },
+        "fields": {
+          "attackDetectionSystem": {
+            "label": "System zur Angriffserkennung",
+            "hint": "Was es ist, wer es betreibt und welche Systeme der Anlage es überwacht. Zum Beispiel: SIEM unseres Dienstleisters, überwacht das Netz der Leittechnik und die Fernzugänge.",
+            "suggestions": [
+              "Zentrale Auswertung der Protokolle (SIEM)",
+              "Angriffserkennung im Netz (IDS)",
+              "Angriffserkennung auf Servern und Rechnern (EDR)",
+              "Überwachung durch einen Dienstleister (SOC)",
+              "Überwachung des Netzes der Leittechnik"
+            ]
+          },
+          "lastKritisEvidenceDate": {
+            "label": "Letzter Nachweis an das BSI",
+            "hint": "Das Datum steht im Anschreiben zum Nachweis. Wer ihn verschickt hat, kann es Ihnen nennen."
+          }
+        }
+      },
       "7_3": {
         "headline": "Die Managementbewertung festhalten",
         "teaser": "Die Geschäftsführung prüft, ob die Maßnahmen wirken, und gibt Ihre Dokumente frei.",
@@ -1964,9 +2055,75 @@
             "title": "Die Geschäftsführung gibt die Dokumente frei",
             "lead": "Das sind die Dokumente, die dieser Durchgang geschrieben hat. Die Geschäftsführung liest jedes und gibt es hier frei, angemeldet mit ihrem eigenen Zugang. Gedruckt oder eingescannt wird nichts."
           },
+          "ongoing": {
+            "title": "Ab jetzt in Ihrer Hand",
+            "lead": "Mit der Freigabe ist festgehalten, was Ihr Unternehmen tut. Ab jetzt liegt es bei Ihnen, es auch zu tun. Diese Pflichten bleiben, wenn der Durchgang abgeschlossen ist.",
+            "groups": [
+              {
+                "title": "Wenn etwas passiert",
+                "items": [
+                  {
+                    "name": "Ein erheblicher Sicherheitsvorfall",
+                    "detail": "Erstmeldung an das BSI spätestens 24 Stunden, nachdem Sie davon wissen, die Meldung nach 72 Stunden und die Abschlussmeldung spätestens einen Monat nach der Meldung.",
+                    "basis": "§ 32 Abs. 1 BSIG"
+                  },
+                  {
+                    "name": "Eine Angabe der Registrierung ändert sich",
+                    "detail": "Im Portal des BSI nachtragen, spätestens zwei Wochen, nachdem Sie davon wissen. Zum Beispiel eine neue Kontaktperson oder neue öffentliche IP-Adressen.",
+                    "basis": "§ 33 Abs. 5 BSIG"
+                  },
+                  {
+                    "name": "Das BSI ordnet an, Ihre Kunden zu informieren",
+                    "detail": "Die Empfänger Ihrer Dienste unverzüglich unterrichten.",
+                    "basis": "§ 35 Abs. 1 BSIG"
+                  },
+                  {
+                    "name": "Ein neues Programm oder ein neuer Dienstleister",
+                    "detail": "In die Liste aufnehmen und das Risiko bewerten, wie es Ihre Leitlinie unter „Vorgehen“ festlegt.",
+                    "basis": "Ihre Leitlinie"
+                  }
+                ]
+              },
+              {
+                "title": "Regelmäßig",
+                "items": [
+                  {
+                    "name": "Die Managementbewertung",
+                    "detail": "Wiederholen, damit die Geschäftsführung die Umsetzung überwacht. Einen Abstand nennt das Gesetz nicht; hat Ihre Leitlinie die jährliche Überprüfung, gilt ein Jahr.",
+                    "basis": "§ 38 Abs. 1 BSIG"
+                  },
+                  {
+                    "name": "Die Schulung der Geschäftsführung",
+                    "detail": "Jedes Mitglied, mindestens alle drei Jahre, so liest die Gesetzesbegründung „regelmäßig“.",
+                    "basis": "§ 38 Abs. 3 BSIG"
+                  },
+                  {
+                    "name": "Die Schulung der Beschäftigten",
+                    "detail": "Das BSI hält es für zweckmäßig, neue Beschäftigte bei der Ersteinweisung zu schulen und einmal im Jahr über Neuerungen zu informieren.",
+                    "basis": "§ 30 Abs. 2 Nr. 7 BSIG"
+                  }
+                ]
+              },
+              {
+                "title": "Laufend",
+                "items": [
+                  {
+                    "name": "Die Maßnahmen umsetzen und überwachen",
+                    "detail": "Tun, was die Dokumente festlegen: den zweiten Faktor eingeschaltet halten, Sicherheitsupdates einspielen, die Wiederherstellung testen.",
+                    "basis": "§ 38 Abs. 1 BSIG"
+                  },
+                  {
+                    "name": "Die offenen Punkte schließen",
+                    "detail": "Was die Freigabe als noch offen gezeigt hat, unverzüglich angehen.",
+                    "basis": "Art. 21 Abs. 4 NIS 2"
+                  }
+                ]
+              }
+            ]
+          },
           "done": {
             "title": "Ihre Managementbewertung ist festgehalten",
-            "note": "Die freigegebenen Dokumente gelten ab dem Tag, an dem die Geschäftsführung sie freigegeben hat, und stehen in Ihren Richtlinien. Die nächste Bewertung halten Sie so, wie Ihre Leitlinie es festlegt."
+            "note": "Die freigegebenen Dokumente gelten ab dem Tag, an dem die Geschäftsführung sie freigegeben hat, und stehen in Ihren Richtlinien."
           }
         }
       }

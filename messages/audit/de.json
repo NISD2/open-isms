@@ -1,11 +1,58 @@
 {
   "audit": {
-    "title": "Audit-Protokoll",
-    "subtitle": "Manipulationssicheres Protokoll aller compliance-relevanten Aktionen",
-    "noEntries": "Noch keine Audit-Einträge vorhanden.",
-    "description": "Beschreibung",
-    "action": "Aktion",
-    "user": "Benutzer",
-    "time": "Zeit"
+    "title": "Aktivitätsprotokoll",
+    "subtitle": "Wer hat wann was geändert, Tag für Tag.",
+    "noEntries": "Noch keine Einträge.",
+    "today": "Heute",
+    "yesterday": "Gestern",
+    "system": "System",
+    "actions": {
+      "durchgang": {
+        "item_done": "Punkt im Durchgang ausgefüllt",
+        "finish": "Punkt im Durchgang abgeschlossen",
+        "waiting": "Punkt zur Seite gelegt",
+        "declined": "Bewusst nicht umgesetzt",
+        "writePolicy": "Dokument im Durchgang geschrieben",
+        "approvePolicies": "Dokumente freigegeben",
+        "requirements_signed": "Von der Geschäftsführung freigegeben",
+        "adopted": "Methode übernommen",
+        "adoptMethod": "Methode übernommen"
+      },
+      "assessment": {
+        "signOff": "Anforderung freigegeben",
+        "updateRequirementStatus": "Status geändert"
+      },
+      "requirement": {
+        "signoff": "Anforderung freigegeben",
+        "status_change": "Status geändert"
+      },
+      "evidence": {
+        "confirmUpload": "Nachweis hochgeladen",
+        "deleteEvidence": "Nachweis gelöscht",
+        "upload": "Nachweis hochgeladen",
+        "delete": "Nachweis gelöscht"
+      },
+      "managementReview": {
+        "create": "Managementbewertung eingetragen"
+      },
+      "training": {
+        "create": "Schulung eingetragen"
+      },
+      "intake": {
+        "saveRequirementAnswers": "Antworten gespeichert"
+      },
+      "journey": {
+        "setMode": "Ansicht des Wegs gewechselt"
+      },
+      "user": {
+        "dismissHint": "Hinweis geschlossen"
+      },
+      "notification": {
+        "scheduled": "Erinnerungen an Fristen geplant"
+      },
+      "dev": {
+        "resetImplementation": "Umsetzung zurückgesetzt (Test)"
+      }
+    }
   }
 }

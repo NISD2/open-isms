@@ -12,7 +12,7 @@
     "entityType": "Einrichtungstyp",
     "entityTypeHelp": "Gem. BSIG 2025 §28",
     "entityTypes": {
-      "essential": "Wesentliche Einrichtung",
+      "essential": "Besonders wichtige Einrichtung",
       "important": "Wichtige Einrichtung",
       "kritis": "KRITIS-Betreiber"
     },

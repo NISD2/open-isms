@@ -94,6 +94,12 @@ interface ReportLabels {
   reviewerFeedback: string;
   signedOff: string;
   categoryIntake: string;
+  /** A requirement met inside these walk items, signed off with them or still waiting. */
+  coveredSigned: (codes: string) => string;
+  coveredAwaiting: (codes: string) => string;
+  /** A requirement no statute asks of the company. */
+  notRequired: string;
+  and: string;
 }
 
 const REPORT_LABELS: Record<string, ReportLabels> = {
@@ -120,6 +126,10 @@ const REPORT_LABELS: Record<string, ReportLabels> = {
     reviewerFeedback: "Reviewer Feedback",
     signedOff: "Signed off",
     categoryIntake: "Category Intake",
+    coveredSigned: (codes) => `signed off in the walkthrough with ${codes}`,
+    coveredAwaiting: (codes) => `in the walkthrough with ${codes}, awaiting sign-off`,
+    notRequired: "not required by law",
+    and: "and",
   },
   de: {
     title: "Compliance-Bericht",
@@ -144,6 +154,10 @@ const REPORT_LABELS: Record<string, ReportLabels> = {
     reviewerFeedback: "Prüferfeedback",
     signedOff: "Freigegeben",
     categoryIntake: "Kategorieerfassung",
+    coveredSigned: (codes) => `im Durchgang mit ${codes} freigegeben`,
+    coveredAwaiting: (codes) => `im Durchgang mit ${codes}, wartet auf Freigabe`,
+    notRequired: "gesetzlich nicht gefordert",
+    and: "und",
   },
 };
 

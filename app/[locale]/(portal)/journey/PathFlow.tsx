@@ -115,7 +115,8 @@ function matchesFilter(node: FlowNode, filter: StatusFilter): boolean {
   if (filter === "overdue") return node.isOverdue;
   if (filter === "duesoon")
     return node.dueInDays !== null && node.dueInDays >= 0 && node.dueInDays <= 30;
-  return node.state === "awaiting";
+  // As the count does (journey router): one waiting on its walk item is signed with that item.
+  return node.state === "awaiting" && node.coveredBy === null;
 }
 
 export function PathFlow({

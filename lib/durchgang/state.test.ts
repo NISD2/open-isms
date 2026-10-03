@@ -9,6 +9,7 @@ import {
   resumeAt,
   reviewedWithinYear,
   type StatusRow,
+  signLast,
   WAIT_REASONS,
 } from "./index";
 
@@ -222,8 +223,16 @@ describe("awaiting management's signature", () => {
       reviewed: opts.reviewed ?? false,
     });
 
-  test("takes the filled-in items only: not open, waiting, declined or already signed", () => {
-    expect(awaiting({}).map((i) => i.code)).toEqual(["2.2", "2.4"]);
+  test("takes the filled-in items and the decisions not to do one: not open, waiting or signed", () => {
+    expect(awaiting({}).map((i) => i.code)).toEqual(["2.2", "2.4", "5.2"]);
+  });
+
+  test("marks a decision not to do an item, which management signs as such", () => {
+    expect(awaiting({}).map((i) => [i.code, i.declined])).toEqual([
+      ["2.2", false],
+      ["2.4", false],
+      ["5.2", true],
+    ]);
   });
 
   test("names the drafts each item still waits on, so it is signed only with its document", () => {
@@ -232,8 +241,9 @@ describe("awaiting management's signature", () => {
       { code: "6.3", type: "it_rules" },
     ];
     expect(awaiting({ drafts })).toEqual([
-      { code: "2.2", drafts: [] },
-      { code: "2.4", drafts: ["information_security"] },
+      { code: "2.2", drafts: [], declined: false },
+      { code: "2.4", drafts: ["information_security"], declined: false },
+      { code: "5.2", drafts: [], declined: true },
     ]);
   });
 
@@ -241,11 +251,12 @@ describe("awaiting management's signature", () => {
     expect(awaiting({ reviewed: true }).map((i) => i.code)).toEqual([
       "2.2",
       "2.4",
+      "5.2",
       "7.3",
     ]);
     // Without a review line the walk has not reached the approval yet.
     expect(awaiting({ reviewed: false }).map((i) => i.code)).not.toContain("7.3");
-    // Set aside or decided against, it is not signed by the approval either.
+    // Set aside, it is not signed by the approval either.
     expect(
       awaiting({
         reviewed: true,
@@ -263,7 +274,76 @@ describe("awaiting management's signature", () => {
       approvalCode: "7.3",
       reviewed: false,
     });
-    expect(result).toEqual([{ code: "4.2", drafts: [] }]);
+    expect(result).toEqual([{ code: "4.2", drafts: [], declined: false }]);
+  });
+});
+
+describe("the management review is signed last", () => {
+  const at = new Date("2026-10-01T10:00:00Z");
+  const order = (states: Readonly<Record<string, ItemState>>) => ({
+    codes: Object.keys(states),
+    stateOf: (code: string): ItemState => states[code] ?? { kind: "open" },
+    approvalCode: "7.3",
+  });
+  const codes = (batch: ReadonlyArray<{ code: string }>) => batch.map((i) => i.code);
+
+  test("waits while another item is still open, set aside or only filled in outside this approval", () => {
+    const batch = [{ code: "2.2" }, { code: "7.3" }];
+    for (const other of [
+      { kind: "open" },
+      { kind: "waiting", reason: "ask", since: at },
+      { kind: "filled", since: at },
+    ] satisfies ItemState[]) {
+      const states = {
+        "2.2": { kind: "filled", since: at },
+        "6.3": other,
+        "7.3": { kind: "open" },
+      } as const;
+      expect(codes(signLast(batch, order(states)))).toEqual(["2.2"]);
+    }
+  });
+
+  test("is signed in the approval that finishes everything else", () => {
+    const states: Record<string, ItemState> = {
+      "2.2": { kind: "filled", since: at },
+      "3.1": { kind: "signed" },
+      "5.2": { kind: "declined", since: at },
+      "6.3": { kind: "not_applicable" },
+      "7.3": { kind: "open" },
+    };
+    expect(
+      codes(signLast([{ code: "2.2" }, { code: "5.2" }, { code: "7.3" }], order(states))),
+    ).toEqual(["2.2", "5.2", "7.3"]);
+  });
+
+  test("a decided-against item waits for management like a filled one", () => {
+    const states: Record<string, ItemState> = {
+      "5.2": { kind: "declined", since: at },
+      "7.3": { kind: "open" },
+    };
+    // Signed in the same click, the review follows it.
+    expect(codes(signLast([{ code: "5.2" }, { code: "7.3" }], order(states)))).toEqual([
+      "5.2",
+      "7.3",
+    ]);
+    // Left out of this click, the review waits for it.
+    expect(codes(signLast([{ code: "7.3" }], order(states)))).toEqual([]);
+  });
+
+  test("leaves every other item alone, and changes nothing without an approval item", () => {
+    const states: Record<string, ItemState> = {
+      "2.2": { kind: "filled", since: at },
+      "6.3": { kind: "open" },
+    };
+    expect(codes(signLast([{ code: "2.2" }], order(states)))).toEqual(["2.2"]);
+    expect(
+      codes(
+        signLast([{ code: "2.2" }, { code: "7.3" }], {
+          ...order(states),
+          approvalCode: null,
+        }),
+      ),
+    ).toEqual(["2.2", "7.3"]);
   });
 });
 

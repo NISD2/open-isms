@@ -6,6 +6,7 @@ import {
   BadgeCheck,
   BookOpen,
   BookText,
+  CalendarClock,
   ChevronLeft,
   CircleCheckBig,
   ClipboardList,
@@ -49,7 +50,15 @@ import { Approve } from "./ApproveScreen";
 import { BackupsScreen } from "./BackupsScreen";
 import { CriticalScreen } from "./CriticalScreen";
 import { CryptoScreen } from "./CryptoScreen";
-import { Compare, Learn, Prepare, Provision, Reading, Sample } from "./ExplainScreens";
+import {
+  Compare,
+  Learn,
+  Ongoing,
+  Prepare,
+  Provision,
+  Reading,
+  Sample,
+} from "./ExplainScreens";
 import { GlossProvider } from "./Glossed";
 import { Logins } from "./LoginScreen";
 import { PolicyScreen } from "./PolicyScreen";
@@ -86,6 +95,7 @@ const KIND_ICON: Readonly<Record<ScreenKind, LucideIcon>> = {
   critical: LifeBuoy,
   backups: DatabaseBackup,
   crypto: LockKeyhole,
+  ongoing: CalendarClock,
   done: CircleCheckBig,
 };
 
@@ -175,7 +185,7 @@ export function DurchgangItem({
               pathname: "/durchgang/nis2/[code]",
               params: { code: next.code },
             }),
-          () => document.querySelector(`main[data-dg-item="${next.code}"]`) !== null,
+          () => document.querySelector(`[data-dg-item="${next.code}"]`) !== null,
         );
       } else {
         router.push("/durchgang/nis2");
@@ -274,6 +284,8 @@ export function DurchgangItem({
         return <CryptoScreen {...work} entry={entry} />;
       case "riskmap":
         return <RiskMapScreen {...work} entry={entry} />;
+      case "ongoing":
+        return <Ongoing entry={entry} />;
       case "done":
         return (
           <Done item={item} entry={entry} draft={draft} next={next} onNext={forward} />
@@ -284,8 +296,11 @@ export function DurchgangItem({
   })();
 
   const page = (
-    <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-30 bg-background/90 backdrop-blur-md print:hidden">
+    // The item fills the portal's main area edge to edge: -m-6 undoes PortalShell's padding, and
+    // the height is the window less the portal's h-12 header, so the footer sits at the bottom of
+    // the window on a short screen too.
+    <div className="-m-6 flex min-h-[calc(100svh-3rem)] flex-col">
+      <header className="sticky top-12 z-10 bg-background/90 backdrop-blur-md print:hidden">
         <div className="mx-auto flex h-16 max-w-7xl items-center gap-2 px-3 sm:px-6 lg:px-10">
           <Button
             variant="ghost"
@@ -336,8 +351,8 @@ export function DurchgangItem({
         </div>
       </header>
 
-      <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)] gap-12 px-4 pt-8 pb-40 sm:px-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:px-10 lg:pt-14 xl:gap-20">
-        <main
+      <div className="mx-auto grid w-full max-w-7xl flex-1 grid-cols-[minmax(0,1fr)] content-start gap-12 px-4 pt-8 pb-12 sm:px-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:px-10 lg:pt-14 xl:gap-20">
+        <div
           style={STAGE}
           className="w-full max-w-3xl"
           key={`${item.code}-${index}`}
@@ -364,19 +379,20 @@ export function DurchgangItem({
             </p>
           )}
           {body}
-        </main>
+        </div>
         <aside className="hidden lg:block print:hidden">
-          <div className="sticky top-28">
+          <div className="sticky top-40">
             <Rail item={item} />
           </div>
         </aside>
       </div>
 
-      <footer className="fixed inset-x-0 bottom-0 z-30 border-t bg-background/90 backdrop-blur-md print:hidden">
+      <footer className="sticky bottom-0 z-10 border-t bg-background/90 backdrop-blur-md print:hidden">
         <div className="mx-auto grid max-w-7xl px-4 py-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:px-10 xl:gap-20">
           <div className="flex max-w-3xl items-center justify-between gap-3">
-            {/* Only a screen that cannot be completed offers the way out. */}
-            {!complete ? (
+            {/* The way out is always there, a peer of answering (ui-design principle 6; Simon,
+                03.10.2026). Only the done screen, where the item is recorded, has none. */}
+            {entry.screen.kind !== "done" ? (
               <button
                 type="button"
                 onClick={() => setWaitOpen(true)}
@@ -428,6 +444,7 @@ export function DurchgangItem({
       <WaitSheet
         open={waitOpen}
         onOpenChange={setWaitOpen}
+        mayDecline={item.mayDecline}
         onWait={(reason, note) => settleAndGoHome(park(index, reason, note))}
         onDecline={(reason) => settleAndGoHome(decline(index, reason))}
       />

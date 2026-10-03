@@ -23,6 +23,7 @@ export const HINTS = [
   "journeyTourTeam",
   "requirementTour",
   "helpOffer",
+  "journeyNotice",
 ] as const;
 export type Hint = (typeof HINTS)[number];
 
@@ -34,6 +35,7 @@ export type HintState = Pick<
   | "journeyTourTeamDismissedAt"
   | "requirementTourDismissedAt"
   | "helpOfferDismissedAt"
+  | "journeyNoticeDismissedAt"
 >;
 
 /**
@@ -48,6 +50,7 @@ export const HINT_COLUMN = {
   journeyTourTeam: "journeyTourTeamDismissedAt",
   requirementTour: "requirementTourDismissedAt",
   helpOffer: "helpOfferDismissedAt",
+  journeyNotice: "journeyNoticeDismissedAt",
 } as const satisfies Record<Hint, keyof HintState>;
 
 /**
@@ -76,5 +79,7 @@ export function resolveHints(state: HintState): Record<Hint, boolean> {
     journeyTourTeam: state.journeyTourTeamDismissedAt === null,
     requirementTour: firstLogin && state.requirementTourDismissedAt === null,
     helpOffer: state.loginCount >= 2 && state.helpOfferDismissedAt === null,
+    // Asked once, the first time someone opens the journey while the walkthrough is the front.
+    journeyNotice: state.journeyNoticeDismissedAt === null,
   };
 }

@@ -12,7 +12,7 @@
  * BSI wrote it.
  */
 
-import type { assetMfaMethodEnum } from "@nisd2/grc-data-model/enums";
+import type { assetMfaMethodEnum, entityTypeEnum } from "@nisd2/grc-data-model/enums";
 import type { FunctionalGroup } from "@/lib/asset-inventory/catalog";
 import type { Frequency, Impact } from "@/lib/compliance/bsi-200-3";
 import {
@@ -22,6 +22,7 @@ import {
 } from "@/lib/compliance/category-schemas";
 import type { CountableModule } from "@/lib/compliance/module-tables";
 import type { RoleKey } from "@/lib/compliance/role-keys";
+import type { settledFactEnum } from "@/schema/enums";
 import type { AssetSlice, RatingTarget } from "./ratings";
 
 /** The languages the walk is written in: its screens, and the notes and documents it writes. */
@@ -239,6 +240,11 @@ export type Screen<C extends CategoryCode> =
    * type `crypto`), or the BSI TR-02102 list until it has one, which the item's policy prints.
    */
   | { readonly kind: "crypto"; readonly id: string }
+  /**
+   * What the company does itself from now on, after management signed: the duties that arise
+   * when something happens, the ones that recur, and the ones that never end. Read only.
+   */
+  | { readonly kind: "ongoing"; readonly id: string }
   | { readonly kind: "done"; readonly id: string };
 
 export type AnyScreen = Screen<CategoryCode>;
@@ -254,7 +260,20 @@ type IsoDate = `${number}-${number}-${number}`;
  */
 export interface DutyLaw {
   readonly bsig: number;
-  readonly article: number;
+  /** Null for a duty only the BSIG sets, which no article of the directive carries. */
+  readonly article: number | null;
+}
+
+/** An entity type as the database enum on `company.entity_type` defines it. */
+export type EntityType = (typeof entityTypeEnum.enumValues)[number];
+
+/**
+ * What decides which items a company walks, read off its profile: the entity type it chose, and
+ * the fact recorded for §§ 31 Abs. 2 and 39 Abs. 1 BSIG (`company.critical_installation`).
+ */
+export interface WalkFacts {
+  readonly entityType: EntityType;
+  readonly criticalInstallation: (typeof settledFactEnum.enumValues)[number];
 }
 
 export interface Item<C extends CategoryCode> {
@@ -263,6 +282,18 @@ export interface Item<C extends CategoryCode> {
   /** The requirement's category, which types its fields. A test checks it against the framework. */
   readonly category: C;
   readonly law: DutyLaw;
+  /**
+   * Set when the item's statute addresses only operators of critical facilities (§§ 31 Abs. 2,
+   * 39 BSIG): only a company that operates one walks it (`operatesCriticalFacility`), read off its
+   * profile, never asked. Every other company does not see the item.
+   */
+  readonly onlyFor?: "kritis";
+  /**
+   * Why a company may not decide against this item: the provision that leaves no choice. Set,
+   * the walk offers no "Bewusst nicht umsetzen" and the server refuses one. Every other decision
+   * not to do an item goes to management's signature in the approval.
+   */
+  readonly mustDo?: string;
   /** Keys under `info.glossary.terms`. */
   readonly glossary: readonly string[];
   /**

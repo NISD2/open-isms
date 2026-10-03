@@ -62,7 +62,7 @@
     "policies": "Richtlinien",
     "training": "Schulungen",
     "exercises": "Notfallübungen",
-    "managementReviews": "Mgmt-Reviews",
+    "managementReviews": "Managementbewertungen",
     "kpis": "Sicherheitskennzahlen",
     "changes": "Änderungen",
     "patches": "Sicherheitsupdates",
@@ -87,6 +87,12 @@
     "durchgang": "NIS 2 Durchgang",
     "administration": "Verwaltung",
     "comingSoon": "Bald verfügbar",
+    "journeyNotice": {
+      "title": "Der Weg ist die ausführliche Ansicht",
+      "text": "Dort sehen Sie alle Anforderungen auf einmal, mit den Registern dazu. Das ist mehr, als die meisten brauchen. Wir empfehlen den NIS 2 Durchgang: Er führt Sie Punkt für Punkt durch und erklärt jeden Schritt.",
+      "stay": "Beim Durchgang bleiben",
+      "go": "Trotzdem zum Weg"
+    },
     "journeyBoard": {
       "hero": {
         "title": "Ihre NIS2-Umsetzung",

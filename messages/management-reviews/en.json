@@ -13,7 +13,8 @@
       "reviewDate": "Review Date",
       "decisions": "Decisions",
       "actionItems": "Action Items",
-      "nextReviewDate": "Next Review Date"
+      "nextReviewDate": "Next Review Date",
+      "attendees": "Attendees"
     },
     "fieldDescriptions": {
       "title": "Title of the management review meeting (e.g., 'Q1 2025 Cybersecurity Review').",
