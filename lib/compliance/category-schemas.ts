@@ -457,11 +457,15 @@ export const REG_SCHEMA = z.object({
     .string()
     .max(1000)
     .optional()
-    .describe("Attack detection system and the systems of the critical facility it watches (§31(2) BSIG)"),
+    .describe(
+      "Attack detection system and the systems of the critical facility it watches (§31(2) BSIG)",
+    ),
   lastKritisEvidenceDate: z.coerce
     .date()
     .optional()
-    .describe("Date the last audit, test or certification was sent to the BSI (§39 BSIG)"),
+    .describe(
+      "Date the last audit, test or certification was sent to the BSI (§39 BSIG)",
+    ),
 });
 
 // ============================================================================

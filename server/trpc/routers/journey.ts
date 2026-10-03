@@ -210,7 +210,8 @@ export const journeyRouter = router({
             r.code,
             {
               state: journeyState(status, itemState({ ...r, status }, latest)),
-              walked: latest?.action === ("durchgang.item_done" satisfies DurchgangAction),
+              walked:
+                latest?.action === ("durchgang.item_done" satisfies DurchgangAction),
             },
           ];
         }),
