@@ -10,6 +10,7 @@ import { asc, eq, type InferSelectModel, inArray } from "drizzle-orm";
 import { isDoneState, isDoneStatus } from "@/lib/compliance/journey-position";
 import { db } from "@/lib/db";
 import type { CoveredBy, JourneyEntry } from "@/lib/durchgang";
+import { type AnswerNames, exportNames } from "@/lib/export/value-names";
 import {
   getCategory,
   getComplianceMessages,
@@ -26,6 +27,7 @@ import {
   user,
 } from "@/schema";
 import { journeyStatesOf } from "@/server/trpc/helpers/durchgang";
+import { pdfLocale } from "./format";
 
 type StatusRow = InferSelectModel<typeof companyRequirementStatus>;
 type UserName = InferSelectModel<typeof user>["name"];
@@ -87,15 +89,18 @@ export interface ReportData {
   completedCount: number;
   approvedCount: number;
   categories: ReportCategory[];
+  /** What the answers typed in each category are called, as the walk and the export name them. */
+  answerNames: AnswerNames;
 }
 
 export async function loadReportData(
   assessmentId: string,
   locale = "en",
 ): Promise<ReportData> {
-  const [compliance, requirementMessages, assessment] = await Promise.all([
+  const [compliance, requirementMessages, names, assessment] = await Promise.all([
     getComplianceMessages(locale),
     getRequirementsMessages(locale),
+    exportNames(pdfLocale(locale)),
     db.query.companyAssessment.findFirst({
       where: eq(companyAssessment.id, assessmentId),
       with: {
@@ -225,5 +230,6 @@ export async function loadReportData(
       .length,
     approvedCount: reported.filter((r) => r.status === "approved").length,
     categories: reportCategories,
+    answerNames: names.answers,
   };
 }

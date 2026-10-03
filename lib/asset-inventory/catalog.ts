@@ -35,8 +35,9 @@ export interface CatalogItem {
   /** Optional sector gate: hidden unless user picked one of these sectors. */
   appliesToSectors?: string[];
   /**
-   * False for a line nobody signs in to with an account (the internet line, the LAN, a phone
-   * line), which the second-factor screen leaves out although its type is a network.
+   * False for a thing nobody signs in to with an account of its own (the internet line, the LAN,
+   * a phone line, backup disks, a contact form), which the second-factor screen leaves out
+   * although its type is one people sign in to.
    */
   signIn?: false;
   /** A system that makes the company's backups, which 4.4 records per system. */
@@ -66,7 +67,7 @@ export const CATALOG: CatalogItem[] = [
   { id: "cf-webshop", group: "customer-facing", layer: "anwendung", category: "application", defaultChecked: false, defaultExposure: "internet" },
   { id: "cf-customer-portal", group: "customer-facing", layer: "anwendung", category: "application", defaultChecked: false, defaultExposure: "internet" },
   { id: "cf-mobile-app", group: "customer-facing", layer: "anwendung", category: "application", defaultChecked: false, defaultExposure: "internet" },
-  { id: "cf-contact-form", group: "customer-facing", layer: "anwendung", category: "application", defaultChecked: false, defaultExposure: "internet" },
+  { id: "cf-contact-form", group: "customer-facing", layer: "anwendung", category: "application", defaultChecked: false, defaultExposure: "internet", signIn: false },
   { id: "cf-newsletter", group: "customer-facing", layer: "anwendung", category: "cloud_service", defaultChecked: false, defaultExposure: "internet" },
   { id: "cf-social-media", group: "customer-facing", layer: "anwendung", category: "cloud_service", defaultChecked: false, defaultExposure: "internet" },
 
@@ -141,7 +142,7 @@ export const CATALOG: CatalogItem[] = [
   { id: "infra-cloud-platform", group: "it-infrastructure", layer: "it-system", category: "cloud_service", defaultChecked: true, defaultExposure: "internet" },
   { id: "infra-network-equipment", group: "it-infrastructure", layer: "it-system", category: "network", defaultChecked: true, defaultExposure: "internal" },
   { id: "infra-backup-system", group: "it-infrastructure", layer: "it-system", category: "data_store", defaultChecked: true, defaultExposure: "internal", backup: true },
-  { id: "infra-backup-media", group: "it-infrastructure", layer: "it-system", category: "data_store", defaultChecked: false, defaultExposure: "physical-only" },
+  { id: "infra-backup-media", group: "it-infrastructure", layer: "it-system", category: "data_store", defaultChecked: false, defaultExposure: "physical-only", signIn: false },
   { id: "infra-virtualisation", group: "it-infrastructure", layer: "it-system", category: "server", defaultChecked: false, defaultExposure: "internal" },
   { id: "infra-terminal-server", group: "it-infrastructure", layer: "it-system", category: "server", defaultChecked: false, defaultExposure: "internal" },
   { id: "infra-directory", group: "it-infrastructure", layer: "it-system", category: "server", defaultChecked: false, defaultExposure: "internal" },
@@ -218,7 +219,7 @@ export const CATALOG: CatalogItem[] = [
 export const CATALOG_BY_ID = new Map(CATALOG.map((i) => [i.id, i]));
 
 /** Items visible to the user given their sector selection. */
-export function visibleCatalog(sectors: string[]): CatalogItem[] {
+export function visibleCatalog(sectors: readonly string[]): CatalogItem[] {
   return CATALOG.filter((item) => {
     if (!item.appliesToSectors) return true;
     if (item.appliesToSectors.length === 0) return false;
@@ -227,7 +228,7 @@ export function visibleCatalog(sectors: string[]): CatalogItem[] {
 }
 
 /** Default selection given sector — items with defaultChecked=true within visible. */
-export function defaultSelectionFor(sectors: string[]): string[] {
+export function defaultSelectionFor(sectors: readonly string[]): string[] {
   return visibleCatalog(sectors)
     .filter((i) => i.defaultChecked)
     .map((i) => i.id);

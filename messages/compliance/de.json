@@ -407,6 +407,61 @@
     }
   },
   "intake": {
+    "answerOptions": {
+      "classificationLevels": {
+        "2_levels": "Zwei Stufen",
+        "3_levels": "Drei Stufen",
+        "4_levels": "Vier Stufen"
+      },
+      "classificationScheme": {
+        "bsi": "Schema des BSI",
+        "enisa": "Schema der ENISA",
+        "custom": "Eigenes Schema"
+      },
+      "drillType": {
+        "tabletop": "Planspiel am Tisch",
+        "functional": "Funktionsübung",
+        "full_scale": "Vollübung"
+      },
+      "backupFrequency": {
+        "real_time": "Laufend",
+        "hourly": "Stündlich",
+        "daily": "Täglich",
+        "weekly": "Wöchentlich"
+      },
+      "vulnerabilityScanningFrequency": {
+        "continuous": "Laufend",
+        "weekly": "Wöchentlich",
+        "monthly": "Monatlich",
+        "quarterly": "Vierteljährlich"
+      },
+      "auditFrequency": {
+        "quarterly": "Vierteljährlich",
+        "semi_annual": "Halbjährlich",
+        "annual": "Jährlich"
+      },
+      "trainingFrequency": {
+        "quarterly": "Vierteljährlich",
+        "semi_annual": "Halbjährlich",
+        "annual": "Jährlich"
+      },
+      "phishingSimFrequency": {
+        "monthly": "Monatlich",
+        "quarterly": "Vierteljährlich",
+        "semi_annual": "Halbjährlich",
+        "annual": "Jährlich"
+      },
+      "mfaCoverage": {
+        "critical_only": "Nur kritische Systeme",
+        "remote_access": "Fernzugriff",
+        "all_users": "Alle Benutzerkonten",
+        "all_systems": "Alle Systeme"
+      },
+      "entityClassification": {
+        "essential": "Besonders wichtige Einrichtung",
+        "important": "Wichtige Einrichtung"
+      }
+    },
     "bsiContext": "Was das BSI erwartet",
     "threatLandscape": "Gefährdungslage",
     "grundschutzModule": "IT-Grundschutz-Baustein",

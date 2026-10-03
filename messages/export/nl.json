@@ -1,11 +1,36 @@
 {
   "export": {
-    "title": "Export Reports",
-    "subtitle": "Download compliance reports for your assessments",
-    "noAssessments": "No assessments found. Complete the setup first.",
-    "download": "Download PDF",
-    "started": "Started",
-    "progress": "{completed} of {total} requirements",
-    "compliance": "Compliance"
+    "title": "Export",
+    "lead": "Alles wat u in het stappenplan en de registers hebt vastgelegd, als bestand om door te geven: aan de directie, aan een auditor of aan uw IT-dienstverlener.",
+    "noAccess": "Beheerders, reviewers en de directie van uw bedrijf kunnen exporteren.",
+    "noAssessment": "Uw bedrijf heeft nog geen NIS 2-beoordeling.",
+    "complete": {
+      "card": {
+        "title": "Alles in één document",
+        "text": "Het volledige stappenplan op één pagina: stand, open punten, documenten, risicomatrix, alle registers en antwoorden. Sla het in de browser op als pdf. Het document is in het Engels."
+      }
+    },
+    "files": {
+      "report": {
+        "title": "Stand van de implementatie",
+        "text": "Elke NIS 2-eis met de stand, wie hem heeft afgetekend en wanneer."
+      },
+      "documents": {
+        "title": "Documenten",
+        "text": "Het beleid, de plannen en de concepten uit het stappenplan, elk met de goedkeuring van de directie."
+      },
+      "registers": {
+        "title": "Registers",
+        "text": "Assets met hun leveranciers, leveranciers, risico's, trainingen, directiebeoordelingen en incidenten."
+      },
+      "table": {
+        "title": "Eisen als tabel",
+        "text": "De eisen met hun stand en aftekendatum, om in Excel te openen."
+      },
+      "data": {
+        "title": "Alle gegevens",
+        "text": "Alles in één bestand, voor uw eigen tools of om mee te nemen. Uw gegevens zijn van u."
+      }
+    }
   }
 }

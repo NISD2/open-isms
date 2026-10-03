@@ -407,6 +407,61 @@
     }
   },
   "intake": {
+    "answerOptions": {
+      "classificationLevels": {
+        "2_levels": "Two levels",
+        "3_levels": "Three levels",
+        "4_levels": "Four levels"
+      },
+      "classificationScheme": {
+        "bsi": "BSI scheme",
+        "enisa": "ENISA scheme",
+        "custom": "Own scheme"
+      },
+      "drillType": {
+        "tabletop": "Tabletop exercise",
+        "functional": "Functional exercise",
+        "full_scale": "Full-scale exercise"
+      },
+      "backupFrequency": {
+        "real_time": "Continuous",
+        "hourly": "Hourly",
+        "daily": "Daily",
+        "weekly": "Weekly"
+      },
+      "vulnerabilityScanningFrequency": {
+        "continuous": "Continuous",
+        "weekly": "Weekly",
+        "monthly": "Monthly",
+        "quarterly": "Quarterly"
+      },
+      "auditFrequency": {
+        "quarterly": "Quarterly",
+        "semi_annual": "Twice a year",
+        "annual": "Yearly"
+      },
+      "trainingFrequency": {
+        "quarterly": "Quarterly",
+        "semi_annual": "Twice a year",
+        "annual": "Yearly"
+      },
+      "phishingSimFrequency": {
+        "monthly": "Monthly",
+        "quarterly": "Quarterly",
+        "semi_annual": "Twice a year",
+        "annual": "Yearly"
+      },
+      "mfaCoverage": {
+        "critical_only": "Critical systems only",
+        "remote_access": "Remote access",
+        "all_users": "All user accounts",
+        "all_systems": "All systems"
+      },
+      "entityClassification": {
+        "essential": "Essential entity",
+        "important": "Important entity"
+      }
+    },
     "bsiContext": "What BSI expects",
     "threatLandscape": "Threat landscape",
     "grundschutzModule": "IT-Grundschutz Module",

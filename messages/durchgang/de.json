@@ -218,6 +218,7 @@
         "name": "Name",
         "provider": "Anbieter",
         "providerPlaceholder": "zum Beispiel ein Onlinekurs oder ein Bildungsträger",
+        "managementTraining": "Schulung der Geschäftsleitung (§ 38 Abs. 3 BSIG)",
         "date": "Datum",
         "proof": "Nachweis (freiwillig)",
         "proofHint": "Teilnahmebescheinigung, Zertifikat oder Bildschirmfoto. Nach einem Webinar gibt es manchmal keinen.",

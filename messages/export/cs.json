@@ -1,11 +1,36 @@
 {
   "export": {
-    "title": "Exportovat zprávy",
-    "subtitle": "Stáhněte si zprávy o souladu pro svá hodnocení",
-    "noAssessments": "Nebyla nalezena žádná hodnocení. Nejprve dokončete nastavení.",
-    "download": "Stáhnout PDF",
-    "started": "Zahájeno",
-    "progress": "{completed} z {total} požadavků",
-    "compliance": "Soulad"
+    "title": "Export",
+    "lead": "Vše, co jste zaznamenali v průvodci a v registrech, jako soubor k předání: vedení, auditorovi nebo vašemu poskytovateli IT služeb.",
+    "noAccess": "Exportovat mohou administrátoři, revizoři a vedení vaší společnosti.",
+    "noAssessment": "Vaše společnost zatím nemá hodnocení NIS 2.",
+    "complete": {
+      "card": {
+        "title": "Vše v jednom dokumentu",
+        "text": "Celý průvodce na jedné stránce: stav, otevřené body, dokumenty, matice rizik, všechny registry a odpovědi. Uložte jej v prohlížeči jako PDF. Dokument je v angličtině."
+      }
+    },
+    "files": {
+      "report": {
+        "title": "Stav zavádění",
+        "text": "Každý požadavek NIS 2 s jeho stavem, kdo jej schválil a kdy."
+      },
+      "documents": {
+        "title": "Dokumenty",
+        "text": "Politika, plány a koncepce z průvodce, každý se schválením vedením."
+      },
+      "registers": {
+        "title": "Registry",
+        "text": "Aktiva s jejich poskytovateli, dodavatelé, rizika, školení, přezkoumání vedením a incidenty."
+      },
+      "table": {
+        "title": "Požadavky jako tabulka",
+        "text": "Požadavky s jejich stavem a datem schválení, k otevření v Excelu."
+      },
+      "data": {
+        "title": "Všechna data",
+        "text": "Vše v jednom souboru, pro vaše vlastní nástroje nebo k odnesení. Vaše data patří vám."
+      }
+    }
   }
 }

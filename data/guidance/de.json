@@ -7,13 +7,13 @@
     "evidenceExample": "Schulungsnachweise, die zeigen: Namen der teilnehmenden Vorstände, Name und Qualifikation des Trainers, behandelte Themen (Bedrohungen, BSIG-Pflichten, Grundlagen, Haftung), die Dauer und das Datum.",
     "fields": {
       "managementTrainingProvider": {
-        "label": "Management Training Provider",
+        "label": "Schulungsanbieter der Geschäftsleitung",
         "meaning": "Hier tragen Sie den Namen des Anbieters oder Trainers ein, der die Schulung für die Geschäftsführung durchgeführt hat.",
         "example": "Dr. Müller Cybersecurity GmbH",
         "whereToFind": "Auf der Rechnung, im Vertrag oder auf dem Schulungszertifikat des Anbieters. Fragen Sie Ihren Einkauf oder IT-Leiter."
       },
       "lastManagementTraining": {
-        "label": "Last Management Training",
+        "label": "Letzte Schulung der Geschäftsleitung",
         "meaning": "Geben Sie das Datum der letzten abgeschlossenen Schulung für die Geschäftsführung an.",
         "example": "2024-03-15",
         "whereToFind": "Auf den Schulungsnachweisen, Teilnehmerlisten oder Zertifikaten. Schauen Sie in Ihren Personal- oder Compliance-Ordnern nach."
@@ -195,25 +195,25 @@
     "evidenceExample": "Unterschriebene Erklärung der Geschäftsführung, die die akzeptierten Restrisiken auflistet und die genehmigte Informationssicherheitsrichtlinie bestätigt.",
     "fields": {
       "riskAppetiteDocumented": {
-        "label": "Risk Appetite Documented",
+        "label": "Risikobereitschaft festgehalten",
         "meaning": "Dieses Feld zeigt ein Dokument, das beschreibt, welche Risikostufe Ihr Unternehmen maximal akzeptiert.",
         "example": "Risikoappetit-Statement v1.0",
         "whereToFind": "Im Strategiepapier der Geschäftsführung oder aus der letzten Vorstandssitzung"
       },
       "residualRiskCount": {
-        "label": "Residual Risk Count",
+        "label": "Anzahl akzeptierter Restrisiken",
         "meaning": "Geben Sie die Anzahl der Risiken an, die nach allen Maßnahmen noch akzeptiert werden.",
         "example": "12",
         "whereToFind": "In Ihrer Risikoliste oder dem Risikoregister nach der letzten Überprüfung"
       },
       "policyVersion": {
-        "label": "Policy Version",
+        "label": "Version der Leitlinie",
         "meaning": "Notieren Sie die Versionsnummer Ihrer Informationssicherheitsrichtlinie.",
         "example": "2.1",
         "whereToFind": "Auf der ersten Seite Ihrer aktuellen Sicherheitsrichtlinie"
       },
       "policyApprovalDate": {
-        "label": "Policy Approval Date",
+        "label": "Tag der Freigabe der Leitlinie",
         "meaning": "Tragen Sie das Datum ein, an dem die Geschäftsführung die Richtlinie unterschrieben hat.",
         "example": "2024-03-15",
         "whereToFind": "Auf der Unterschriften- oder Genehmigungsseite der Richtlinie"
@@ -294,7 +294,7 @@
     "evidenceExample": "Dokumente, die zeigen, dass Vorlagen für alle drei Meldetypen existieren, der Prozess beschrieben ist und eine Übung erfolgreich durchgeführt wurde, zum Beispiel Übungsprotokolle mit Fristen-Einhaltung.",
     "fields": {
       "earlyWarningSlaHours": {
-        "label": "Early Warning Sla Hours",
+        "label": "Frist für die frühe Erstmeldung (Stunden)",
         "meaning": "Hier tragen Sie die maximale Zeit in Stunden ein, innerhalb derer die erste Warnmeldung ans BSI gehen muss.",
         "example": "24",
         "whereToFind": "Im BSIG-Gesetz (§ 32) oder in Ihrer internen IT-Sicherheitspolicy. Es ist gesetzlich 24 Stunden."
@@ -413,25 +413,25 @@
     "evidenceExample": "Eine Richtlinie, die Backup-Regeln beschreibt, plus Berichte von Wiederherstellungstests, die zeigen, dass alles funktioniert hat, und Nachweis für sichere, unveränderbare Speicher.",
     "fields": {
       "backupFrequency": {
-        "label": "Backup Frequency",
+        "label": "Häufigkeit der Datensicherung",
         "meaning": "Wie oft Backups erstellt werden, damit Datenverlust minimal bleibt.",
         "example": "täglich",
         "whereToFind": "Fragen Sie Ihr IT-Team nach dem aktuellen Backup-Plan."
       },
       "backupEncryption": {
-        "label": "Backup Encryption",
+        "label": "Verschlüsselung der Datensicherung",
         "meaning": "Beschreibt, wie Backups verschlüsselt werden, um sie vor unbefugtem Zugriff zu schützen.",
         "example": "AES-256 mit Schlüsselsicherung in Key Vault",
         "whereToFind": "Im IT-Handbuch oder bei Ihrem Systemadministrator nachfragen."
       },
       "lastBackupTest": {
-        "label": "Last Backup Test",
+        "label": "Letzter Test der Wiederherstellung",
         "meaning": "Das Datum des letzten Tests, ob Backups wiederhergestellt werden können.",
         "example": "2024-09-15",
         "whereToFind": "In den IT-Protokollen oder Testberichten Ihres Teams."
       },
       "backupRestoreSuccessRate": {
-        "label": "Backup Restore Success Rate",
+        "label": "Anteil geglückter Wiederherstellungen (%)",
         "meaning": "Der Prozentsatz erfolgreicher Wiederherstellungen aus Tests.",
         "example": "98",
         "whereToFind": "Aus den Ergebnissen der letzten Backup-Tests beim IT-Leiter."
@@ -494,13 +494,13 @@
     "evidenceExample": "Auszüge aus Verträgen, die zeigen, dass Sicherheitsklauseln mit Mindeststandards, Audit-Rechten, Incident-Meldung, Subunternehmer-Pflichten und Kündigungsrechten enthalten sind, plus eine Beschreibung Ihres Prüfprozesses für Lieferanten.",
     "fields": {
       "contractSecurityClauses": {
-        "label": "Contract Security Clauses",
+        "label": "Sicherheitsklauseln in Lieferantenverträgen",
         "meaning": "Beschreiben Sie hier die Sicherheitsklauseln, die Sie in Verträge mit Lieferanten aufnehmen.",
         "example": "Lieferanten müssen ISO-ähnliche Standards einhalten, uns innerhalb 48 Stunden über Sicherheitsvorfälle informieren, Audits zulassen und dieselben Anforderungen an ihre Unterauftragnehmer weitergeben.",
         "whereToFind": "In Ihren aktuellen Lieferantenverträgen oder besprechen Sie es mit Ihrem Einkauf- oder Rechtsabteilung."
       },
       "dueDiligenceProcess": {
-        "label": "Due Diligence Process",
+        "label": "Prüfung von Lieferanten vor dem Vertrag",
         "meaning": "Erklären Sie Ihren Prozess, wie Sie Lieferanten vor Vertragsabschluss auf Sicherheitsrisiken prüfen.",
         "example": "Vor jedem Vertrag: Fragebogen zu Sicherheitsmaßnahmen ausfüllen lassen, Referenzen prüfen und bei Risiken eine Auditrechte-Klausel verlangen.",
         "whereToFind": "Bei Ihrem Einkaufsleiter oder der Person, die Lieferanten auswählt. Falls keiner da ist, erstellen Sie einen einfachen Prozess."
@@ -548,7 +548,7 @@
     "evidenceExample": "Ein Logbuch-Auszug, das gemeldete Lieferantenvorfälle, ob die Meldung pünktlich war, die Einhaltsquote pro Lieferant und durchgeführte Follow-ups oder Eskalationen zeigt.",
     "fields": {
       "incidentNotificationSlaHours": {
-        "label": "Incident Notification Sla Hours",
+        "label": "Meldefrist der Lieferanten bei Vorfällen (Stunden)",
         "meaning": "Hier tragen Sie die vereinbarte Frist in Stunden ein, innerhalb derer Lieferanten Sicherheitsvorfälle melden müssen.",
         "example": "24",
         "whereToFind": "In den Verträgen oder SLAs mit Ihren kritischen Lieferanten, oft im Abschnitt zu Incident Management oder Reporting."
@@ -563,25 +563,25 @@
     "evidenceExample": "Ein Dokument wie eine Beschaffungsrichtlinie, das Ihre Sicherheitscheckliste, EOL-Bewertung und die Pflichtklauseln für Verträge zeigt, inklusive Genehmigung durch das Management.",
     "fields": {
       "threshold": {
-        "label": "Procurement Security Threshold (EUR amount above which security review is required)",
+        "label": "Betrag, ab dem ein Einkauf auf Sicherheit geprüft wird (EUR)",
         "meaning": "Der Betrag in Euro, ab dem für jeden Einkauf eine Sicherheitsprüfung obligatorisch ist. Darunter reicht eine kurze Abfrage.",
         "example": "50000",
         "whereToFind": "Fragen Sie Ihren Einkaufsleiter nach typischen IT-Einkäufen und wählen Sie einen Betrag, der sinnvolle Prüfungen abdeckt."
       },
       "requiredClauses": {
-        "label": "Required Contract Clauses (8 mandatory cybersecurity clauses per CIR Art. 5)",
+        "label": "Vertragsklauseln zur Sicherheit",
         "meaning": "Eine Auswahl aus 8 vorgeschriebenen Klauseln, die in jedem Lieferantenvertrag stehen müssen, um Cybersicherheit zu gewährleisten.",
         "example": "Datenschutzgarantien, Incident-Reporting-Pflicht, Audit-Rechte, Subunternehmer-Sicherheit, Verschlüsselungspflicht, Patch-Management, EOL-Kündigung, Haftung bei Sicherheitsvorfällen",
         "whereToFind": "Schauen Sie in Ihren Standardverträgen nach oder fragen Sie den Rechtsberater nach CIR-konformen Klauseln."
       },
       "evaluationCriteria": {
-        "label": "Vendor Evaluation Criteria (weighted scoring criteria for supplier assessment)",
+        "label": "Gewichtete Kriterien für die Bewertung von Lieferanten",
         "meaning": "Eine Tabelle mit Kriterien und Gewichtungen (z.B. in Prozent), um Lieferanten auf Sicherheit zu bewerten. Höhere Punkte für bessere Sicherheit.",
         "example": "Sicherheitszertifikate (30%), Patch-Verfügbarkeit (20%), EOL-Datum (15%), Referenzen (20%), Preis (15%)",
         "whereToFind": "Sprechen Sie mit IT-Leiter und Einkauf, um die wichtigsten Sicherheitsfaktoren für Ihre Branche zu listen."
       },
       "reviewFrequency": {
-        "label": "Policy Review Frequency",
+        "label": "Wie oft die Einkaufsregeln überprüft werden",
         "meaning": "Wie oft Sie die gesamte Einkaufsrichtlinie prüfen und aktualisieren, damit sie aktuell bleibt.",
         "example": "Jährlich oder bei wesentlichen Gesetzesänderungen",
         "whereToFind": "Entscheiden Sie mit Compliance- oder Qualitätsmanager, basierend auf Veränderungsgeschwindigkeit Ihrer IT."
@@ -596,19 +596,19 @@
     "evidenceExample": "Ein internes Dokument, das die Richtlinien für sichere Entwicklung, Systemhärtung und Testanforderungen beschreibt und von der Geschäftsführung genehmigt ist.",
     "fields": {
       "sdlcFramework": {
-        "label": "Secure Development Lifecycle Framework",
+        "label": "Vorgehen für sichere Softwareentwicklung",
         "meaning": "Hier wählen Sie das Framework aus, das Ihren gesamten Software-Entwicklungsprozess sicher macht, von der Planung bis zum Betrieb.",
         "example": "Microsoft SDL",
         "whereToFind": "Fragen Sie Ihren Entwicklungsleiter nach gängigen Frameworks wie OWASP SAMM oder Microsoft SDL."
       },
       "hardeningBaseline": {
-        "label": "System Hardening Baseline",
+        "label": "Vorgabe für sichere Grundeinstellungen (Härtung)",
         "meaning": "Das ist die Standard-Vorlage für sichere Einstellungen Ihrer Server, Computer und Netzwerke, um Angriffe zu erschweren.",
         "example": "CIS Benchmarks für Windows Server",
         "whereToFind": "Sprechen Sie mit Ihrem Systemadministrator oder schauen Sie in IT-Grundschutz des BSI."
       },
       "testingRequirements": {
-        "label": "Security Testing Requirements (SAST, DAST, SCA, pentest, code review)",
+        "label": "Vorgeschriebene Sicherheitstests (SAST, DAST, SCA, Penetrationstest, Codeprüfung)",
         "meaning": "Markieren Sie hier, welche automatisierten und manuellen Tests für Sicherheitslücken in Code und Systemen Pflicht sind.",
         "example": "SAST, DAST, SCA, Code Review",
         "whereToFind": "Überlegen Sie mit dem Entwicklungs- und IT-Team, welche Tests Sie schon einsetzen oder einführen wollen."
@@ -670,7 +670,7 @@
     "evidenceExample": "Dokumentation des Change-Management-Prozesses, das Änderungsregister mit vollständigem Audit-Trail und vierteljährliche Überprüfungsberichte.",
     "fields": {
       "changeManagementTool": {
-        "label": "Change Management Tool",
+        "label": "Werkzeug für die Änderungsverwaltung",
         "meaning": "Hier nennen Sie das Werkzeug oder die Software, die Sie für die Verwaltung von IT-Änderungen nutzen.",
         "example": "ServiceNow Change Management Modul",
         "whereToFind": "Fragen Sie Ihren IT-Leiter oder die Abteilung, die Tickets und Anfragen bearbeitet."
@@ -712,13 +712,13 @@
     "evidenceExample": "Ein Audit-Plan, der zeigt, welche Bereiche wann geprüft werden, plus Berichte mit festgestellten Problemen, Abweichungen und geplanten Korrekturen inklusive Fristen.",
     "fields": {
       "auditFrequency": {
-        "label": "Audit Frequency",
+        "label": "Wie oft interne Audits stattfinden",
         "meaning": "Wie oft Sie interne Audits planen und durchführen.",
         "example": "annual",
         "whereToFind": "In Ihrem Audit-Plan oder sprechen Sie mit dem IT- oder Compliance-Verantwortlichen."
       },
       "lastAuditDate": {
-        "label": "Last Audit Date",
+        "label": "Letztes internes Audit",
         "meaning": "Das Datum des zuletzt durchgeführten internen Audits.",
         "example": "2024-03-15",
         "whereToFind": "In den Archiven Ihrer IT-Abteilung oder im letzten Audit-Bericht."
@@ -754,19 +754,19 @@
     "evidenceExample": "Ein Register-Dokument (z. B. Tabelle), das für jeden Eintrag die Quelle, den Verantwortlichen, den aktuellen Status und Nachweise für abgeschlossene Behebungen zeigt.",
     "fields": {
       "correctiveActionTool": {
-        "label": "Corrective Action Tool",
+        "label": "Werkzeug für das Maßnahmenregister",
         "meaning": "Name des Tools oder der Datei, in der Sie Ihr Verbesserungsregister führen.",
         "example": "Google Sheets: Verbesserungsregister_2024",
         "whereToFind": "Bei Ihrem IT- oder Qualitätsmanager, der die Audits oder Vorfälle koordiniert."
       },
       "openCorrectiveActions": {
-        "label": "Open Corrective Actions",
+        "label": "Offene Korrekturmaßnahmen",
         "meaning": "Anzahl der derzeit offenen Maßnahmen in Ihrem Register.",
         "example": "12",
         "whereToFind": "Zählen Sie die Einträge mit Status 'offen' oder 'in Arbeit' in Ihrem Register."
       },
       "avgClosureTimeDays": {
-        "label": "Avg Closure Time Days",
+        "label": "Durchschnittliche Dauer bis zum Abschluss (Tage)",
         "meaning": "Durchschnittliche Zeit in Tagen, die es dauert, eine Maßnahme vom Start bis zur Abschluss zu bearbeiten.",
         "example": "45",
         "whereToFind": "Berechnen Sie es aus abgeschlossenen Einträgen in Ihrem Register: (Summe der Abschlusszeiten) / Anzahl abgeschlossener Maßnahmen."
@@ -781,7 +781,7 @@
     "evidenceExample": "Ein Dokument, das die IT-Sicherheitsrichtlinie, die Nutzungsrichtlinie und die Clean-Desk-Regeln zeigt, zusammen mit Unterschriften der Mitarbeiter, die bestätigen, dass sie diese gelesen und akzeptiert haben.",
     "fields": {
       "itSecurityPolicyPublished": {
-        "label": "IT Security Policy Published",
+        "label": "Veröffentlichte IT-Sicherheitsrichtlinie",
         "meaning": "Hier laden Sie die fertige und veröffentlichte IT-Sicherheitsrichtlinie hoch.",
         "example": "IT-Sicherheitsrichtlinie_UnternehmenXYZ_2024.pdf",
         "whereToFind": "Bei Ihrem IT-Leiter oder der Person, die die Richtlinie erstellt hat, oft im Intranet oder Personalordner."
@@ -796,31 +796,31 @@
     "evidenceExample": "Dokumente, die zeigen, dass ein Jahreskalender für Schulungsthemen existiert, eine Onboarding-Checkliste mit Sicherheits-Schritten vorliegt und Nachweise über durchgeführte Schulungen mit Abschlussraten und Daten für alle Mitarbeiter da sind.",
     "fields": {
       "trainingPlatform": {
-        "label": "Training Platform",
+        "label": "Plattform für die Schulungen",
         "meaning": "Name der Plattform oder des Tools, das Sie für die Sicherheits-Schulungen nutzen.",
         "example": "KnowBe4",
         "whereToFind": "Fragen Sie Ihren IT-Leiter oder die Person, die Schulungen organisiert."
       },
       "trainingFrequency": {
-        "label": "Training Frequency",
+        "label": "Wie oft geschult wird",
         "meaning": "Wie oft im Jahr die Sicherheits-Schulung für Mitarbeiter obligatorisch ist.",
         "example": "annual",
         "whereToFind": "Entscheiden Sie mit Ihrem Vorstand oder HR, was für Ihr Unternehmen passt, meist jährlich."
       },
       "trainingCompletionRate": {
-        "label": "Training Completion Rate",
+        "label": "Anteil der geschulten Beschäftigten (%)",
         "meaning": "Der Prozentsatz der Mitarbeiter, die die Schulung abgeschlossen haben (z.B. 98 für 98%).",
         "example": "100",
         "whereToFind": "Schauen Sie in den Berichten Ihrer Schulungsplattform oder Excel-Listen mit Teilnehmern."
       },
       "lastTrainingDate": {
-        "label": "Last Training Date",
+        "label": "Letzte Schulung der Beschäftigten",
         "meaning": "Das Datum der letzten abgeschlossenen Sicherheits-Schulung für alle Mitarbeiter.",
         "example": "2024-10-15",
         "whereToFind": "In den Logs oder Berichten Ihrer Schulungsplattform oder im HR-System."
       },
       "newEmployeeOnboarding": {
-        "label": "New Employee Onboarding",
+        "label": "Schulung neuer Beschäftigter",
         "meaning": "Beschreibung, wie Neue Mitarbeiter in Sicherheits-Themen geschult werden, bevor sie Zugang bekommen.",
         "example": "Neue absolvieren 1-Stunden-E-Learning zu Phishing und AUP, signen die Nutzungsbedingungen und richten MFA ein.",
         "whereToFind": "In Ihrer HR-Onboarding-Checkliste oder sprechen Sie mit dem HR-Team."
@@ -850,19 +850,19 @@
     "evidenceExample": "Berichte von Phishing-Kampagnen, die Klick- und Melderaten gegen Ihre selbst gesetzten Zielwerte sowie Trends über mehrere Tests zeigen, plus eine Übersicht über abgeschlossene Schulungen pro Abteilung.",
     "fields": {
       "phishingSimFrequency": {
-        "label": "Phishing Sim Frequency",
+        "label": "Wie oft Phishingtests stattfinden",
         "meaning": "Wie oft Sie simulierte Phishing-Tests durchführen, um die Schulungswirksamkeit zu prüfen.",
         "example": "quarterly",
         "whereToFind": "In Ihren IT-Sicherheitsplänen oder beim Verantwortlichen für Schulungen."
       },
       "lastPhishingTest": {
-        "label": "Last Phishing Test",
+        "label": "Letzter Phishingtest",
         "meaning": "Das Datum des letzten simulierten Phishing-Tests.",
         "example": "2024-09-15",
         "whereToFind": "In den Berichten Ihres Phishing-Tool-Anbieters oder im IT-Ticket-System."
       },
       "phishingClickRate": {
-        "label": "Phishing Click Rate",
+        "label": "Anteil der Klicks im Phishingtest (%)",
         "meaning": "Der Prozentsatz der Mitarbeiter, die in Tests auf Phishing-Links geklickt haben.",
         "example": "3.2",
         "whereToFind": "Im aktuellsten Kampagnenbericht des Phishing-Tools."
@@ -918,19 +918,19 @@
     "evidenceExample": "Eine Policy-Dokumentation, die den gesamten Schlüssel-Lebenszyklus beschreibt; ein Inventar-Excel mit allen Zertifikaten und Schlüsseln inklusive Ablaufdaten; Logs von Rotationen und Alarme; eine Skizze Ihrer HSM- oder Vault-Architektur, die zeigt, wie Schlüssel geschützt gespeichert werden.",
     "fields": {
       "keyManagementTool": {
-        "label": "Key Management Tool",
+        "label": "Werkzeug für die Schlüsselverwaltung",
         "meaning": "Der Name des Tools oder Systems, das Sie für die sichere Speicherung und Verwaltung von Verschlüsselungsschlüsseln nutzen.",
         "example": "AWS KMS",
         "whereToFind": "Bei Ihrem IT-Team oder Cloud-Admin. Schauen Sie in die Konfiguration Ihrer Cloud-Konten oder fragen Sie nach installierten HSMs."
       },
       "certificateMonitoringTool": {
-        "label": "Certificate Monitoring Tool",
+        "label": "Werkzeug für die Überwachung der Zertifikate",
         "meaning": "Das Tool, das alle Ihre SSL-Zertifikate überwacht und vor Ablauf warnt, um Ausfälle zu vermeiden.",
         "example": "Sectigo Certificate Manager",
         "whereToFind": "Im IT-Ticket-System oder bei der Web-Admin-Abteilung, oft schon in Cloud-Diensten wie AWS Certificate Manager integriert."
       },
       "certExpiryAlertDays": {
-        "label": "Cert Expiry Alert Days",
+        "label": "Warnung vor Ablauf eines Zertifikats (Tage vorher)",
         "meaning": "An wie vielen Tagen vor Ablauf ein Alarm ausgelöst werden soll, damit Zeit für Erneuerung bleibt.",
         "example": "30",
         "whereToFind": "In den Einstellungen Ihres Monitoring-Tools oder besprechen Sie mit IT, was praktikabel ist (z. B. 90, 60, 30 Tage)."
@@ -945,19 +945,19 @@
     "evidenceExample": "Eine Richtlinie, die Rollen, Zugriffsrechte, Genehmigungsprozess und Prüfregeln beschreibt, plus eine Zuordnungstabelle von Rollen zu Berechtigungen und ein Protokoll einer Vorstandssitzung zur Genehmigung.",
     "fields": {
       "accessModel": {
-        "label": "Access Control Model (RBAC, ABAC, or hybrid)",
+        "label": "Modell der Zugriffssteuerung (rollenbasiert, attributbasiert oder gemischt)",
         "meaning": "Das ist das Modell, nach dem Sie Zugriffe steuern: RBAC basiert auf festen Rollen, ABAC auf dynamischen Regeln wie Ort oder Zeit.",
         "example": "RBAC",
         "whereToFind": "Fragen Sie Ihren IT-Leiter, welches Modell Sie schon nutzen oder empfehlen. Meistens starten Firmen mit RBAC."
       },
       "reviewFrequency": {
-        "label": "Access Review Frequency (standard and privileged)",
+        "label": "Wie oft Zugriffsrechte überprüft werden (normale und privilegierte Konten)",
         "meaning": "Wie oft Sie prüfen, ob Zugriffe noch passen: z. B. jährlich für normale Rollen und vierteljährlich für Admins.",
         "example": "jährlich / vierteljährlich",
         "whereToFind": "ORP.4.A4 empfiehlt mindestens jährlich für Standardkonten, vierteljährlich für privilegierte."
       },
       "deprovisioningSla": {
-        "label": "De-provisioning SLA (hours to revoke access after termination)",
+        "label": "Frist für das Sperren von Zugängen nach dem Austritt (Stunden)",
         "meaning": "Die maximale Zeit in Stunden, bis Ex-Mitarbeiter-Zugänge gesperrt sind.",
         "example": "24",
         "whereToFind": "Fragen Sie HR: Wann genau endet ein Arbeitsverhältnis? ORP.4.A6 verlangt sofortige Deaktivierung."
@@ -1079,13 +1079,13 @@
         "whereToFind": "Fragen Sie Ihren IT-Leiter oder Datenschutzbeauftragten nach den aktuell genutzten Tools."
       },
       "emergencyCommsChannel": {
-        "label": "Emergency Comms Channel",
+        "label": "Erster Weg für die Notfallkommunikation",
         "meaning": "Geben Sie den primären Kanal für Notfallkommunikation an, falls normale Systeme ausfallen.",
         "example": "Signal-Gruppe 'Krisenteam'",
         "whereToFind": "Schauen Sie in Ihren IT- oder Krisenplan oder fragen Sie das Management-Team."
       },
       "lastEmergencyCommsTest": {
-        "label": "Last Emergency Comms Test",
+        "label": "Letzter Test der Notfallkommunikation",
         "meaning": "Notieren Sie das Datum des letzten Tests Ihrer Notfallkommunikationswege.",
         "example": "2024-09-15",
         "whereToFind": "In den Protokollen Ihrer IT- oder Krisenübungen oder im Kalender Ihres IT-Teams."
@@ -1100,19 +1100,19 @@
     "evidenceExample": "Ein Prüfbericht, der zeigt, welche Authentifizierungsmethoden geprüft wurden, ob sie zu Standards passen, Schwachstellen auflistet und wie Sie sie beheben, plus Ihre Passwortrichtlinie mit Regeln zu Länge, Speicherung und Lockout.",
     "fields": {
       "ssoTool": {
-        "label": "Sso Tool",
+        "label": "Werkzeug für die einmalige Anmeldung (Single Sign-On)",
         "meaning": "Name des Tools für Single Sign-On, falls Sie eines nutzen, damit alle Systeme mit einem Login funktionieren.",
         "example": "Microsoft Azure AD",
         "whereToFind": "Bei Ihrem IT-Team oder in den Einstellungen Ihrer Login-Portale"
       },
       "passwordMinLength": {
-        "label": "Password Min Length",
+        "label": "Mindestlänge für Passwörter",
         "meaning": "Die kleinste erlaubte Anzahl Zeichen für Passwörter in Ihrer Richtlinie. Das BSI empfiehlt für Zugänge ohne weitere Schutzmaßnahmen, etwa ohne Mehr-Faktor-Authentifizierung, mindestens 14 Zeichen (Grundschutz++ BER.6.4).",
         "example": "14",
         "whereToFind": "In Ihrer aktuellen Passwortrichtlinie oder bei Ihrer IT."
       },
       "sessionTimeoutMinutes": {
-        "label": "Session Timeout Minutes",
+        "label": "Abmeldung nach Inaktivität (Minuten)",
         "meaning": "Wie viele Minuten eine Anmeldung automatisch abläuft, bevor neu eingeloggt werden muss.",
         "example": "15",
         "whereToFind": "In den Einstellungen Ihrer IT-Systeme oder empfohlen von IT (z. B. 15 Minuten für sensible Bereiche)"
@@ -1127,13 +1127,13 @@
     "evidenceExample": "Ein internes Dokument, das Ihre Sektoren, Firmengröße, Klassifizierung und die rechtliche Begründung mit Verweisen auf §28 BSIG zeigt.",
     "fields": {
       "entityClassification": {
-        "label": "Entity Classification",
+        "label": "Einstufung der Einrichtung",
         "meaning": "Hier wählen Sie aus, ob Ihre Firma als 'essential' (besonders wichtige Einrichtung) oder 'important' (wichtige Einrichtung) klassifiziert wird.",
         "example": "essential",
         "whereToFind": "In Ihrer Selbsteinschätzung nach Mitarbeiterzahl, Umsatz und Sektor. Fragen Sie Finanzleitung und Vorstand."
       },
       "applicableSectors": {
-        "label": "Applicable Sectors",
+        "label": "Zutreffende Sektoren",
         "meaning": "Listen Sie die relevanten NIS2-Sektoren auf, in denen Ihre Firma tätig ist, wie Energie oder Transport.",
         "example": "Energieversorgung, Gesundheitswesen",
         "whereToFind": "Aus Ihrem Geschäftsbericht oder der Branchenbeschreibung. Fragen Sie Vertrieb oder Geschäftsführung."
@@ -1175,25 +1175,25 @@
     "evidenceExample": "Ein Protokoll der letzten Überprüfung, das zeigt, welche Daten geprüft wurden und dass alles aktuell ist, plus Nachweise über gemeldete Änderungen mit BSI-Bestätigung und Beleg für die Erreichbarkeit der Kontaktstelle.",
     "fields": {
       "contactPersonName": {
-        "label": "Contact Person Name",
+        "label": "Name der Kontaktperson",
         "meaning": "Der Name der Person, die als Ansprechpartnerin für das BSI vermerkt ist.",
         "example": "Max Mustermann",
         "whereToFind": "Im BSI-Registrierungskonto oder bei Ihrer IT- oder Compliance-Abteilung"
       },
       "contactPersonEmail": {
-        "label": "Contact Person Email",
+        "label": "E-Mail der Kontaktperson",
         "meaning": "Die E-Mail-Adresse der BSI-Kontaktperson für offizielle Mitteilungen.",
         "example": "max.mustermann@ihrefirma.de",
         "whereToFind": "Im BSI-Registrierungskonto oder in den internen Kontaktdaten"
       },
       "lastRegistrationUpdate": {
-        "label": "Last Registration Update",
+        "label": "Letzte Aktualisierung der Registrierung",
         "meaning": "Das Datum der letzten Überprüfung oder Aktualisierung Ihrer BSI-Registrierung.",
         "example": "2026-06-15",
         "whereToFind": "In Ihrem BSI-Konto unter Aktualisierungsprotokoll oder in internen Dokumenten"
       },
       "nextRegistrationUpdate": {
-        "label": "Next Registration Update",
+        "label": "Nächste geplante Prüfung der Registrierung",
         "meaning": "Das geplante Datum für die nächste Prüfung der Registrierung.",
         "example": "2027-06-15",
         "whereToFind": "Aus Ihrem internen Planungskalender oder dem letzten Review-Protokoll"
@@ -1208,13 +1208,13 @@
     "evidenceExample": "Ein Katalog-Dokument, das auflistet, welche Nachweise Sie für BSI-Anfragen bereithalten, inklusive Beispielen wie Sicherheitsrichtlinien oder Schulungsprotokolle; plus ein Prozessbeschreibung, wer antwortet und wie schnell; bei KRITIS ergänzt durch eine Übersicht Ihrer Anlagen-Daten oder einen Nachweis für Angriffserkennungssysteme.",
     "fields": {
       "informationSharingCompliant": {
-        "label": "Information Sharing Compliant",
+        "label": "Austausch von Informationen mit dem BSI",
         "meaning": "Beschreibt, wie Sie sicherstellen, dass Informationen mit dem BSI oder Behörden geteilt werden, ohne Risiken einzugehen.",
         "example": "Wir teilen nur geforderte Daten innerhalb von 48 Stunden über einen festen Prozess und protokollieren jede Übergabe.",
         "whereToFind": "Bei Ihrem Datenschutz- oder Compliance-Beauftragten oder in den IT-Richtlinien."
       },
       "correspondenceLogUploaded": {
-        "label": "Correspondence Log Uploaded",
+        "label": "Protokoll der Korrespondenz mit dem BSI",
         "meaning": "Ein Protokoll aller Korrespondenz mit dem BSI, um zu zeigen, dass Anfragen bearbeitet wurden.",
         "example": "Eine Tabelle mit Datum, Anfrage-Thema, gesendeten Nachweisen und Verantwortlichem.",
         "whereToFind": "Im E-Mail-Archiv Ihres Compliance-Teams oder im Ticketsystem für Behördenanfragen."

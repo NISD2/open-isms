@@ -1,11 +1,36 @@
 {
   "export": {
-    "title": "Exporter les rapports",
-    "subtitle": "Téléchargez les rapports de conformité de vos évaluations",
-    "noAssessments": "Aucune évaluation trouvée. Effectuez d'abord la configuration.",
-    "download": "Télécharger le PDF",
-    "started": "Démarré",
-    "progress": "{completed} sur {total} exigences",
-    "compliance": "Conformité"
+    "title": "Export",
+    "lead": "Tout ce que vous avez consigné dans le parcours et les registres, sous forme de fichier à transmettre : à la direction, à un auditeur ou à votre prestataire informatique.",
+    "noAccess": "Les administrateurs, les réviseurs et la direction de votre entreprise peuvent exporter.",
+    "noAssessment": "Votre entreprise n'a pas encore d'évaluation NIS 2.",
+    "complete": {
+      "card": {
+        "title": "Tout dans un seul document",
+        "text": "Le parcours complet sur une seule page : état, points ouverts, documents, matrice des risques, tous les registres et toutes les réponses. À enregistrer en PDF depuis le navigateur. Le document est en anglais."
+      }
+    },
+    "files": {
+      "report": {
+        "title": "État de la mise en œuvre",
+        "text": "Chaque exigence NIS 2 avec son état, qui l'a validée et quand."
+      },
+      "documents": {
+        "title": "Documents",
+        "text": "La politique, les plans et les concepts du parcours, chacun avec l'approbation de la direction."
+      },
+      "registers": {
+        "title": "Registres",
+        "text": "Les actifs avec leurs fournisseurs, les fournisseurs, les risques, les formations, les revues de direction et les incidents."
+      },
+      "table": {
+        "title": "Exigences sous forme de tableau",
+        "text": "Les exigences avec leur état et la date de validation, à ouvrir dans Excel."
+      },
+      "data": {
+        "title": "Toutes les données",
+        "text": "Tout dans un seul fichier, pour vos propres outils ou à emporter. Vos données vous appartiennent."
+      }
+    }
   }
 }

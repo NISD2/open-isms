@@ -4,6 +4,7 @@ import path from "node:path";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import type { ItemView, WalkEntry } from "@/components/durchgang/view";
 import { onRegister } from "@/lib/asset-inventory/catalog-labels";
+import { catalogueSectorsOf } from "@/lib/asset-inventory/sectors";
 import { getSession } from "@/lib/auth";
 import { canSeeCategory, getUserAccess } from "@/lib/compliance/access";
 import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
@@ -52,10 +53,10 @@ async function wordsOf(item: AnyItem): Promise<ResolvedItem> {
   return resolved.value;
 }
 
-/** The items the caller's company walks, read off its profile; none without a company. */
-async function callerWalk(): Promise<readonly AnyItem[]> {
+/** The caller's company and the items it walks, read off its profile; none without a company. */
+async function callerWalk() {
   const company = await api.assessment.getCompany();
-  return company ? walkOf(company) : [];
+  return { company, walk: company ? walkOf(company) : ([] as readonly AnyItem[]) };
 }
 
 /**
@@ -68,7 +69,7 @@ export async function loadWalk({
 }: {
   locked: boolean;
 }): Promise<readonly WalkEntry[]> {
-  const [walk, states, tc] = await Promise.all([
+  const [{ walk }, states, tc] = await Promise.all([
     callerWalk(),
     locked ? [] : api.durchgang.walk(),
     getTranslations("compliance"),
@@ -106,8 +107,9 @@ export async function headlinesOf(
  * to the caller.
  */
 export async function loadItem(code: string): Promise<ItemView | null> {
-  const item = (await callerWalk()).find((i) => i.code === code);
-  if (!item) return null;
+  const { company, walk } = await callerWalk();
+  const item = walk.find((i) => i.code === code);
+  if (!item || !company) return null;
 
   const [session, req, assessment, localeTag] = await Promise.all([
     getSession(),
@@ -256,7 +258,9 @@ export async function loadItem(code: string): Promise<ItemView | null> {
       management_review: reviews,
     },
     team,
-    register: assets ? onRegister(assets) : null,
+    register: assets
+      ? { ...onRegister(assets), sectors: catalogueSectorsOf(company.sector) }
+      : null,
     adoptedAt: adoption.adoptedAt,
     registration,
     viewer: {

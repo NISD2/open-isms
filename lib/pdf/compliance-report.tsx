@@ -1,5 +1,5 @@
 import { Document, Page, Text, View } from "@react-pdf/renderer";
-import { humanize } from "@/lib/forms/schema-introspect";
+import { answerRow, coverageLabel } from "@/lib/export/rows";
 import {
   Badge,
   BrandBands,
@@ -12,12 +12,7 @@ import {
   SectionHeading,
   StatPlate,
 } from "./chrome";
-import {
-  formatDecision,
-  formatFieldValue,
-  formatReportDate,
-  formatSigner,
-} from "./format";
+import { formatDecision, formatReportDate, formatSigner, pdfLocale } from "./format";
 import type { ReportData, ReportRequirement } from "./load-report-data";
 import { getDocumentLabels, getReportLabels, getStatusLabel } from "./policy-labels";
 import { styles } from "./styles";
@@ -35,17 +30,6 @@ const STATUS_TONE: Record<string, StatusTone> = {
   completed: "completed",
   rejected: "rejected",
 };
-
-/** How the journey reads a requirement it does not read off its own work, or null. */
-function coverageLabel(
-  covered: ReportRequirement["covered"],
-  labels: ReturnType<typeof getReportLabels>,
-): string | null {
-  if (covered === null) return null;
-  if (covered.by.kind === "not_required") return labels.notRequired;
-  const codes = covered.by.codes.join(` ${labels.and} `);
-  return covered.done ? labels.coveredSigned(codes) : labels.coveredAwaiting(codes);
-}
 
 function RequirementSection({ req, locale }: { req: ReportRequirement; locale: string }) {
   const labels = getReportLabels(locale);
@@ -231,13 +215,16 @@ export function ComplianceReport({ data, locale }: ComplianceReportProps) {
                   value={formatReportDate(new Date(cat.intakeSignedOffAt), locale)}
                 />
               )}
-              {Object.entries(cat.intakeAnswers).map(([key, val]) => (
-                <FieldRow
-                  key={key}
-                  label={humanize(key)}
-                  value={formatFieldValue(val, "text", locale)}
-                />
-              ))}
+              {Object.entries(cat.intakeAnswers).map(([key, val]) => {
+                const [label, value] = answerRow(
+                  cat.code,
+                  key,
+                  val,
+                  data.answerNames,
+                  pdfLocale(locale),
+                );
+                return <FieldRow key={key} label={label} value={value ?? "—"} />;
+              })}
             </View>
           )}
 

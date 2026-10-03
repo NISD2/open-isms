@@ -62,13 +62,14 @@ const AUDIENCE = {
       empty: "empty",
       proofHint: "proofHint",
     },
-    // The provider is the line's own second answer, so it is not asked twice.
+    // The provider is the line's own second answer, so it is not asked twice. What the training
+    // is follows from § 38 Abs. 3 BSIG, so the form does not ask it and the row is named for it.
     asksProvider: false,
-    row: (entered: Entered) => ({
+    row: (entered: Entered, managementTraining: string) => ({
       trainingType: "management",
       isManagement: true,
       participantName: entered.who,
-      title: entered.what,
+      title: managementTraining,
       providerName: entered.what,
     }),
     line: (row: Row) => ({ head: row.participantName, detail: row.providerName }),
@@ -139,11 +140,14 @@ export function TrainingRecords({
     if (!ready) return;
     create.mutate(
       {
-        ...rowOf({
-          who: form.who.trim(),
-          what: form.what.trim(),
-          provider: form.provider.trim(),
-        }),
+        ...rowOf(
+          {
+            who: form.who.trim(),
+            what: form.what.trim(),
+            provider: form.provider.trim(),
+          },
+          t("managementTraining"),
+        ),
         completedAt: new Date(form.date),
         certificateFileKey: cert?.key ?? null,
         sourceUrl: form.link.trim() || null,

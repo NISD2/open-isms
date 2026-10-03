@@ -115,3 +115,76 @@ export function gapsOf(facts: GapFacts): readonly Gap[] {
       : []),
   ];
 }
+
+/** A gap as the approval and the export show it: a step set aside also carries its headline. */
+export type ShownGap =
+  | Exclude<Gap, { readonly kind: "set_aside" }>
+  | (Extract<Gap, { readonly kind: "set_aside" }> & {
+      readonly headlines: readonly string[];
+    });
+
+type GapKey =
+  | "secondFactorAll"
+  | "secondFactor"
+  | "supplier"
+  | "restore"
+  | "reporting"
+  | "trainingNone"
+  | "training"
+  | "setAside";
+
+/**
+ * The open points as sentences, each with the step where it changes, in the wording of
+ * `durchgang.ui.approve.gaps`, which `t` reads. The approval screen and the export print these.
+ */
+export function gapLines(
+  gaps: readonly ShownGap[],
+  t: (key: GapKey, values?: Readonly<Record<string, string | number>>) => string,
+): { readonly text: string; readonly code: string }[] {
+  return gaps.flatMap((gap) => {
+    switch (gap.kind) {
+      case "second_factor":
+        return [
+          {
+            text: gap.all
+              ? t("secondFactorAll")
+              : t("secondFactor", { names: gap.names.join(", ") }),
+            code: GAP_STEP.second_factor,
+          },
+        ];
+      case "supplier":
+        return [
+          {
+            text: t("supplier", { names: gap.names.join(", ") }),
+            code: GAP_STEP.supplier,
+          },
+        ];
+      case "restore":
+        return [
+          { text: t("restore", { names: gap.names.join(", ") }), code: GAP_STEP.restore },
+        ];
+      case "reporting":
+        return [{ text: t("reporting"), code: GAP_STEP.reporting }];
+      case "training":
+        return [
+          {
+            text:
+              gap.trained.length === 0
+                ? t("trainingNone")
+                : t("training", {
+                    names: gap.trained.join(", "),
+                    managers: gap.managers,
+                  }),
+            code: GAP_STEP.training,
+          },
+        ];
+      case "set_aside":
+        return gap.codes.map((code, i) => ({
+          text: t("setAside", { headline: gap.headlines[i] ?? code }),
+          code,
+        }));
+      default:
+        return gap satisfies never;
+    }
+  });
+}

@@ -15,9 +15,11 @@ import { typesetCitation } from "@/lib/compliance/citations";
 import { cn } from "@/lib/utils";
 
 interface BigChecklistProps {
-  sectors: string[];
+  sectors: readonly string[];
   /** Show only these groups, e.g. one slice of the catalogue per guided screen. Defaults to all. */
   groups?: readonly FunctionalGroup[];
+  /** The groups that start folded; by default the sector's, for scanning the headers first. */
+  folded?: readonly FunctionalGroup[];
   checked: string[];
   custom: Array<{ name: string; layer: AssetLayer }>;
   onCheckedChange: (next: string[]) => void;
@@ -46,6 +48,7 @@ const DEFAULT_COLLAPSED = new Set<FunctionalGroup>(["sector-specific"]);
 export function BigChecklist({
   sectors,
   groups = FUNCTIONAL_GROUPS,
+  folded = [...DEFAULT_COLLAPSED],
   checked,
   custom,
   onCheckedChange,
@@ -63,9 +66,7 @@ export function BigChecklist({
     return map;
   }, [visible]);
 
-  const [collapsed, setCollapsed] = useState<Set<FunctionalGroup>>(
-    () => new Set(DEFAULT_COLLAPSED),
-  );
+  const [collapsed, setCollapsed] = useState<Set<FunctionalGroup>>(() => new Set(folded));
 
   function toggleGroup(group: FunctionalGroup) {
     const next = new Set(collapsed);

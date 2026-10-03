@@ -158,6 +158,9 @@ const SCREEN_COPY = {
   done: z.object({ title: text, note: text.optional() }),
 } as const satisfies Record<ScreenKind, z.ZodType>;
 
+/** The duties that stay with the company, as the approval's last screen and the export print them. */
+export const ONGOING_COPY = SCREEN_COPY.ongoing;
+
 const ITEM_COPY = z.object({
   headline: text,
   teaser: text,
