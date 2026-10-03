@@ -71,7 +71,13 @@ describe("compliance report content", () => {
         {
           ...gov,
           requirements: [
-            { ...first, covered: { by: { kind: "walk" as const, codes: ["2.4", "8.2"] }, done: true } },
+            {
+              ...first,
+              covered: {
+                by: { kind: "walk" as const, codes: ["2.4", "8.2"] },
+                done: true,
+              },
+            },
             { ...second, covered: { by: { kind: "not_required" as const }, done: true } },
           ],
         },

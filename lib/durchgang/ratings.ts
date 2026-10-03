@@ -7,7 +7,11 @@
 
 import type { supplierRiskLevelEnum } from "@nisd2/grc-data-model/enums";
 import type { z } from "zod";
-import { catalogIdOf, ownDescription } from "@/lib/asset-inventory/catalog-labels";
+import {
+  catalogIdOf,
+  noSignIn,
+  ownDescription,
+} from "@/lib/asset-inventory/catalog-labels";
 import type { AssetType } from "@/lib/compliance/asset-types";
 import {
   FREQUENCIES,
@@ -54,6 +58,11 @@ export const sliceOf = (type: string): AssetSlice | null =>
  */
 export const signsIn = (type: string): boolean =>
   SOFTWARE.has(type) || type === "network";
+
+/** A thing the second-factor screen (11.1) asks about: of a kind people sign in to, and not a catalogue line nobody does. */
+export const asksSecondFactor = (
+  asset: Readonly<{ type: string; catalogId: string | null; name: string; description: string | null }>,
+): boolean => signsIn(asset.type) && !noSignIn(asset);
 
 export interface Rating {
   readonly frequency: Frequency;

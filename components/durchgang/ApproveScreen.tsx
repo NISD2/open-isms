@@ -6,10 +6,11 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { getPathname, useRouter } from "@/i18n/navigation";
+import { getPathname, Link, useRouter } from "@/i18n/navigation";
 import {
   APPROVAL_SCREEN,
   enteredDay,
+  GAP_STEP,
   MANAGEMENT_ROLE,
   type PolicyTemplate,
   type WalkLocale,
@@ -54,6 +55,7 @@ export function Approval({ viewer, locale }: { viewer: Viewer; locale: WalkLocal
   const utils = trpc.useUtils();
   const { data: rows } = trpc.durchgang.walkPolicies.useQuery();
   const { data: items } = trpc.durchgang.awaitingSignature.useQuery({ locale });
+  const { data: gaps } = trpc.durchgang.gaps.useQuery({ locale });
   /** The drafts left out of this approval; every other draft is approved. */
   const [left, setLeft] = useState<readonly PolicyTemplate[]>([]);
   const approve = trpc.durchgang.approvePolicies.useMutation({
@@ -132,6 +134,7 @@ export function Approval({ viewer, locale }: { viewer: Viewer; locale: WalkLocal
       {items.length > 0 && (
         <SignedWith items={items} staysOpen={staysOpen} management={viewer.management} />
       )}
+      {gaps !== undefined && gaps.length > 0 && <OpenPoints gaps={gaps} />}
       {(drafts.length > 0 || items.length > 0) &&
         (viewer.management ? (
           <section className="mt-6 rounded-2xl border border-primary/30 bg-primary/[0.04] p-5 sm:p-6">
@@ -203,6 +206,87 @@ function SignedWith({
                 </span>
               )}
             </span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+type OpenGap = RouterOutputs["durchgang"]["gaps"][number];
+
+/**
+ * What the company's own answers still leave open, each with the step where it changes, so
+ * management sees it before it signs (§ 38 Abs. 1 BSIG). Amber says "look here", never "failed"
+ * (ui-design principle 10), and no count heads it (principle 7).
+ */
+function OpenPoints({ gaps }: { gaps: readonly OpenGap[] }) {
+  const t = useTranslations("durchgang.ui.approve.gaps");
+  const lines = gaps.flatMap((gap): { text: string; code: string }[] => {
+    switch (gap.kind) {
+      case "second_factor":
+        return [
+          {
+            text: gap.all
+              ? t("secondFactorAll")
+              : t("secondFactor", { names: gap.names.join(", ") }),
+            code: GAP_STEP.second_factor,
+          },
+        ];
+      case "supplier":
+        return [
+          {
+            text: t("supplier", { names: gap.names.join(", ") }),
+            code: GAP_STEP.supplier,
+          },
+        ];
+      case "restore":
+        return [
+          { text: t("restore", { names: gap.names.join(", ") }), code: GAP_STEP.restore },
+        ];
+      case "reporting":
+        return [{ text: t("reporting"), code: GAP_STEP.reporting }];
+      case "training":
+        return [
+          {
+            text:
+              gap.trained.length === 0
+                ? t("trainingNone")
+                : t("training", {
+                    names: gap.trained.join(", "),
+                    managers: gap.managers,
+                  }),
+            code: GAP_STEP.training,
+          },
+        ];
+      case "set_aside":
+        return gap.codes.map((code, i) => ({
+          text: t("setAside", { headline: gap.headlines[i] ?? code }),
+          code,
+        }));
+      default:
+        return gap satisfies never;
+    }
+  });
+  return (
+    <section className="mt-8 rounded-2xl border border-amber-300/70 bg-amber-50/70 p-5 sm:p-6 dark:border-amber-500/40 dark:bg-amber-950/20">
+      <p className="font-semibold">{t("title")}</p>
+      <p className="mt-1 max-w-[62ch] text-sm leading-6 text-muted-foreground">
+        {t("lead")}
+      </p>
+      <ul className="mt-4 space-y-2.5">
+        {lines.map((line) => (
+          <li
+            key={`${line.code}:${line.text}`}
+            className="flex items-baseline gap-3 text-sm"
+          >
+            <span className="min-w-0 flex-1">{line.text}</span>
+            <Link
+              href={{ pathname: "/durchgang/nis2/[code]", params: { code: line.code } }}
+              className="shrink-0 font-medium text-primary underline-offset-4 hover:underline"
+            >
+              {t("change")}
+            </Link>
           </li>
         ))}
       </ul>

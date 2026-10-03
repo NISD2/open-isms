@@ -43,6 +43,7 @@ import {
   cryptoNote,
   type DurchgangAction,
   declinedNote,
+  gapsOf,
   levelOf,
   loginsNote,
   MANAGEMENT_ROLE,
@@ -109,6 +110,7 @@ import {
   declineReason,
   declineReasonsOf,
   durchgangItem,
+  gapFactsOf,
   signDeclined,
   walkItemRef,
   walkPolicyRows,
@@ -1563,6 +1565,22 @@ export const durchgangRouter = router({
           declined: declined ? (reasons.get(row.statusId) ?? "") : null,
         };
       });
+    }),
+
+  /**
+   * What the company's own answers still leave open (`gapsOf`), for management to see on the
+   * approval before it signs; a step set aside comes with its headline in the viewer's language.
+   */
+  gaps: durchgangProcedure
+    .input(z.object({ locale: z.enum(["de", "en"]) }))
+    .query(async ({ ctx, input }) => {
+      const headline = (c: string) => {
+        const words = resolveItem(NAMESPACES[input.locale], itemOf(c));
+        return words.ok ? words.value.headline : c;
+      };
+      return gapsOf(await gapFactsOf(ctx.db, ctx.companyId, new Date())).map((gap) =>
+        gap.kind === "set_aside" ? { ...gap, headlines: gap.codes.map(headline) } : gap,
+      );
     }),
 
   /**

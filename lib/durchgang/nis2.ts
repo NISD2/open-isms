@@ -579,6 +579,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
       { kind: "sample", id: "record" },
       { kind: "register", id: "review", module: "management_review" },
       { kind: "approve", id: "approve" },
+      { kind: "ongoing", id: "ongoing" },
       { kind: "done", id: "done" },
     ],
     notAsked: {

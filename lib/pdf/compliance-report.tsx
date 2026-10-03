@@ -60,7 +60,9 @@ function RequirementSection({ req, locale }: { req: ReportRequirement; locale: s
       <View style={styles.recordHeader}>
         <Text style={styles.recordCode}>{req.code}</Text>
         <Text style={styles.recordTitle}>{req.title}</Text>
-        <Badge tone={req.covered?.done ? "completed" : (STATUS_TONE[req.status] ?? "neutral")}>
+        <Badge
+          tone={req.covered?.done ? "completed" : (STATUS_TONE[req.status] ?? "neutral")}
+        >
           {coverage ?? getStatusLabel(req.status, locale)}
         </Badge>
       </View>

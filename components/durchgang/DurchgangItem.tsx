@@ -6,6 +6,7 @@ import {
   BadgeCheck,
   BookOpen,
   BookText,
+  CalendarClock,
   ChevronLeft,
   CircleCheckBig,
   ClipboardList,
@@ -49,7 +50,15 @@ import { Approve } from "./ApproveScreen";
 import { BackupsScreen } from "./BackupsScreen";
 import { CriticalScreen } from "./CriticalScreen";
 import { CryptoScreen } from "./CryptoScreen";
-import { Compare, Learn, Prepare, Provision, Reading, Sample } from "./ExplainScreens";
+import {
+  Compare,
+  Learn,
+  Ongoing,
+  Prepare,
+  Provision,
+  Reading,
+  Sample,
+} from "./ExplainScreens";
 import { GlossProvider } from "./Glossed";
 import { Logins } from "./LoginScreen";
 import { PolicyScreen } from "./PolicyScreen";
@@ -86,6 +95,7 @@ const KIND_ICON: Readonly<Record<ScreenKind, LucideIcon>> = {
   critical: LifeBuoy,
   backups: DatabaseBackup,
   crypto: LockKeyhole,
+  ongoing: CalendarClock,
   done: CircleCheckBig,
 };
 
@@ -274,6 +284,8 @@ export function DurchgangItem({
         return <CryptoScreen {...work} entry={entry} />;
       case "riskmap":
         return <RiskMapScreen {...work} entry={entry} />;
+      case "ongoing":
+        return <Ongoing entry={entry} />;
       case "done":
         return (
           <Done item={item} entry={entry} draft={draft} next={next} onNext={forward} />

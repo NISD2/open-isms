@@ -15,8 +15,14 @@ const SOURCES = {
   treatment: ["risks", ["risks", "treatment"]],
   severity: ["incidents", ["incidents", "severity"]],
   approverRole: ["team", ["team", "roles"]],
-  mfaMethod: ["durchgang", ["durchgang", "items", "11_1", "screens", "logins", "methods"]],
-  backupFrequency: ["durchgang", ["durchgang", "items", "4_4", "screens", "systems", "options"]],
+  mfaMethod: [
+    "durchgang",
+    ["durchgang", "items", "11_1", "screens", "logins", "methods"],
+  ],
+  backupFrequency: [
+    "durchgang",
+    ["durchgang", "items", "4_4", "screens", "systems", "options"],
+  ],
 } as const satisfies Record<string, readonly [string, readonly string[]]>;
 
 export type CodedField = keyof typeof SOURCES;
@@ -29,7 +35,9 @@ const NAMES = z.record(z.string(), z.string()).catch({});
 const at = (json: unknown, path: readonly string[]): unknown =>
   path.reduce<unknown>(
     (node, key) =>
-      typeof node === "object" && node !== null ? new Map(Object.entries(node)).get(key) : undefined,
+      typeof node === "object" && node !== null
+        ? new Map(Object.entries(node)).get(key)
+        : undefined,
     json,
   );
 

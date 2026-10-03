@@ -221,7 +221,8 @@ export async function loadReportData(
     assessmentDate: assessment.startedAt,
     totalRequirements: allRequirements.length,
     // Done as the journey counts it: signed, approved or not applicable, or met in the walk.
-    completedCount: reported.filter((r) => r.covered?.done || isDoneStatus(r.status)).length,
+    completedCount: reported.filter((r) => r.covered?.done || isDoneStatus(r.status))
+      .length,
     approvedCount: reported.filter((r) => r.status === "approved").length,
     categories: reportCategories,
   };

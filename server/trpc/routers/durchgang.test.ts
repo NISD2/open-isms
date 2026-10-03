@@ -298,7 +298,8 @@ describe("durchgang router", () => {
     ).rejects.toMatchObject({ code: "BAD_REQUEST" });
     expect(writes).toEqual([]);
 
-    const reason = "Wir nutzen die Methode unseres Konzerns, die dem BSI-Standard entspricht.";
+    const reason =
+      "Wir nutzen die Methode unseres Konzerns, die dem BSI-Standard entspricht.";
     await caller.decline({ code: "2.1", reason });
     const rows = writes.filter(
       (w) => w.op === "update" && w.table === companyRequirementStatus,

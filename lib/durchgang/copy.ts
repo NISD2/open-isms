@@ -142,6 +142,18 @@ const SCREEN_COPY = {
     applies: text,
     change: text,
   }),
+  /** Each duty with what to do and when, and what it rests on (a provision, or the company's own Leitlinie). */
+  ongoing: z.object({
+    ...heading,
+    groups: z
+      .array(
+        z.object({
+          title: text,
+          items: z.array(z.object({ name: text, detail: text, basis: text })).min(1),
+        }),
+      )
+      .min(1),
+  }),
   /** `note` only where there is something the person still needs to know. */
   done: z.object({ title: text, note: text.optional() }),
 } as const satisfies Record<ScreenKind, z.ZodType>;
@@ -393,6 +405,8 @@ function resolveScreen(
         ? { ok: false, errors: [`${where}.document.clauses: duplicate id`] }
         : copy;
     }
+    case "ongoing":
+      return one(screen, SCREEN_COPY.ongoing);
     case "done":
       return one(screen, SCREEN_COPY.done);
     default:

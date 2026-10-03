@@ -11,6 +11,8 @@ export type { ResolvedItem, ResolvedScreen } from "./copy";
 export { itemKey, marker, resolveItem } from "./copy";
 export type { CoveredBy, Covering, JourneyEntry, JourneyRow } from "./coverage";
 export { coveredState, journeyStates } from "./coverage";
+export type { Gap, GapFacts } from "./gaps";
+export { GAP_STEP, gapsOf } from "./gaps";
 export { dutyHref } from "./law";
 export {
   agreementsNote,
@@ -53,6 +55,7 @@ export type {
   StoredRisk,
 } from "./ratings";
 export {
+  asksSecondFactor,
   byLevel,
   cellCount,
   fromScale,

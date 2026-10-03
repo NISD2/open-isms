@@ -1,25 +1,36 @@
 import { TRPCError } from "@trpc/server";
 import { addYears } from "date-fns";
-import { and, desc, eq, inArray, ne, notInArray, sql } from "drizzle-orm";
+import { and, count, desc, eq, inArray, ne, notInArray, sql } from "drizzle-orm";
+import { z } from "zod";
+import { isBackupSystem } from "@/lib/asset-inventory/catalog-labels";
 import { toDateString } from "@/lib/compliance/deadlines";
 import type { Database, DbOrTx } from "@/lib/db";
 import {
   type AnyItem,
+  asksSecondFactor,
   type DurchgangEvent,
+  type GapFacts,
   type ItemState,
   itemState,
   type JourneyEntry,
   journeyStates,
+  MANAGEMENT_ROLE,
   STATE_ACTIONS,
   WALK_POLICIES,
   walkOf,
 } from "@/lib/durchgang";
 import {
+  asset,
   auditLog,
   company,
+  companyCategoryIntake,
+  companyMembership,
   companyRequirementStatus,
   policy,
   requirement,
+  requirementCategory,
+  supplier,
+  trainingRecord,
   user,
 } from "@/schema";
 import { enforceAssignment } from "../guards";
@@ -279,6 +290,100 @@ export async function journeyStatesOf(
     sector: co.sector,
     walks: walkOf(co).map((item) => item.code),
   });
+}
+
+/** 3.3's answer as the intake stores it; anything else reads as unanswered. */
+const REPORTING = z.object({ bsiReportingRegistered: z.boolean().optional() }).catch({});
+
+/**
+ * The facts `gapsOf` reads, for one company: its programs with a sign-in, suppliers, backup
+ * systems, 3.3's answer, who holds the management role and the management trainings, and the
+ * steps set aside. Every query is filtered by the company.
+ */
+export async function gapFactsOf(
+  db: DbOrTx,
+  companyId: string,
+  today: Date,
+): Promise<GapFacts> {
+  const [assets, suppliers, managers, trainings, assessment, states] = await Promise.all([
+    db
+      .select({
+        name: asset.name,
+        type: asset.type,
+        catalogId: asset.catalogId,
+        description: asset.description,
+        hasMfa: asset.hasMfa,
+        lastRestore: asset.lastBackupTestDate,
+      })
+      .from(asset)
+      .where(eq(asset.companyId, companyId)),
+    db
+      .select({
+        name: supplier.name,
+        riskLevel: supplier.riskLevel,
+        security: supplier.hasSecurityClauses,
+        incidents: supplier.hasIncidentNotificationClause,
+      })
+      .from(supplier)
+      .where(eq(supplier.customerCompanyId, companyId)),
+    db
+      .select({ n: count() })
+      .from(companyMembership)
+      .where(
+        and(
+          eq(companyMembership.companyId, companyId),
+          eq(companyMembership.jobTitle, MANAGEMENT_ROLE),
+        ),
+      ),
+    db
+      .select({
+        name: trainingRecord.participantName,
+        completedAt: trainingRecord.completedAt,
+      })
+      .from(trainingRecord)
+      .where(
+        and(
+          eq(trainingRecord.companyId, companyId),
+          eq(trainingRecord.isManagement, true),
+        ),
+      ),
+    getNis2Assessment(db, companyId),
+    walkStates(db, companyId),
+  ]);
+  const [intake] = assessment
+    ? await db
+        .select({ answers: companyCategoryIntake.answers })
+        .from(companyCategoryIntake)
+        .innerJoin(
+          requirementCategory,
+          eq(requirementCategory.id, companyCategoryIntake.categoryId),
+        )
+        .where(
+          and(
+            eq(companyCategoryIntake.assessmentId, assessment.id),
+            eq(requirementCategory.code, "INC"),
+          ),
+        )
+    : [];
+  return {
+    signIns: assets
+      .filter(asksSecondFactor)
+      .map((a) => ({ name: a.name, hasMfa: a.hasMfa === true })),
+    suppliers: suppliers.map((s) => ({
+      name: s.name,
+      riskLevel: s.riskLevel,
+      security: s.security === true,
+      incidents: s.incidents === true,
+    })),
+    backups: assets
+      .filter(isBackupSystem)
+      .map((a) => ({ name: a.name, lastRestore: a.lastRestore })),
+    reporting: REPORTING.parse(intake?.answers ?? {}).bsiReportingRegistered ?? null,
+    managers: managers[0]?.n ?? 0,
+    managementTrainings: trainings,
+    setAside: states.filter((s) => s.state.kind === "waiting").map((s) => s.code),
+    today,
+  };
 }
 
 /** One item of the walk for a company: where it stands, and its NIS 2 status row if it has one. */

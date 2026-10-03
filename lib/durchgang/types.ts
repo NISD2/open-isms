@@ -240,6 +240,11 @@ export type Screen<C extends CategoryCode> =
    * type `crypto`), or the BSI TR-02102 list until it has one, which the item's policy prints.
    */
   | { readonly kind: "crypto"; readonly id: string }
+  /**
+   * What the company does itself from now on, after management signed: the duties that arise
+   * when something happens, the ones that recur, and the ones that never end. Read only.
+   */
+  | { readonly kind: "ongoing"; readonly id: string }
   | { readonly kind: "done"; readonly id: string };
 
 export type AnyScreen = Screen<CategoryCode>;
