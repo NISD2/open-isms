@@ -7,6 +7,7 @@ import {
   ChevronRight,
   ClipboardCheck,
   Compass,
+  Download,
   FileText,
   Footprints,
   Gauge,
@@ -97,8 +98,11 @@ interface AppSidebarProps {
   frameworks: FrameworkGroup[];
   /** Whether billing is launched for this person (lib/billing/ordering-access.ts). */
   showBilling: boolean;
-  /** Whether this person's role may read the audit trail (hasReviewAccess, server/trpc/routers/audit.ts). */
-  showAuditTrail: boolean;
+  /**
+   * Whether this person's role may read the audit trail and export the company's records
+   * (hasReviewAccess: server/trpc/routers/audit.ts, lib/export/access.ts).
+   */
+  reviewAccess: boolean;
   /**
    * Whether the walkthrough is the portal's front for this person (lib/walkthrough.ts): it comes
    * first and is a link (its home shows an unpaid account the way to order), the journey follows
@@ -243,7 +247,7 @@ export function AppSidebar({
   user,
   frameworks,
   showBilling,
-  showAuditTrail,
+  reviewAccess,
   walkthroughLive,
   showJourney,
   journeyNotice,
@@ -285,10 +289,15 @@ export function AppSidebar({
     { href: "/team", label: t("team"), icon: Users },
     { href: "/organization", label: t("organization"), icon: Building2 },
     ...(showBilling ? [{ href: "/billing", label: t("billing"), icon: Receipt }] : []),
-    ...(showAuditTrail
+    ...(reviewAccess
       ? [{ href: "/audit", label: t("auditTrail"), icon: ScrollText }]
       : []),
   ];
+
+  // Everything recorded, as files to pass on (Simon, 03.10.2026).
+  const exportItems: NavItem[] = reviewAccess
+    ? [{ href: "/export", label: t("export"), icon: Download }]
+    : [];
 
   return (
     <Sidebar collapsible="icon">
@@ -313,10 +322,14 @@ export function AppSidebar({
                     />
                   </SidebarMenu>
                 )}
+                <NavMenu items={exportItems} pathname={pathname} />
               </>
             ) : (
               <>
-                <NavMenu items={[journey, walkthrough]} pathname={pathname} />
+                <NavMenu
+                  items={[journey, walkthrough, ...exportItems]}
+                  pathname={pathname}
+                />
                 {/* Registers — collapsible sub-section within Overview */}
                 <Collapsible data-tour="sidebar-registers" className="group/registers">
                   <CollapsibleTrigger className="flex w-full items-center px-2 py-1.5 text-xs font-medium text-sidebar-foreground/70 hover:text-sidebar-foreground">

@@ -107,7 +107,14 @@ export function SuppliersPage({ items, inline, focus }: SuppliersPageProps) {
           <TableBody>
             {items.map((item) => (
               <TableRow key={item.id as string}>
-                <TableCell className="font-medium">{item.name as string}</TableCell>
+                <TableCell>
+                  <span className="font-medium">{item.name as string}</span>
+                  {item.description ? (
+                    <p className="mt-0.5 line-clamp-2 max-w-[48ch] text-xs text-muted-foreground">
+                      {item.description as string}
+                    </p>
+                  ) : null}
+                </TableCell>
                 <TableCell>{item.serviceType as string}</TableCell>
                 <TableCell>
                   <StatusBadge

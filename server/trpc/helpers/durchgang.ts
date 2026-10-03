@@ -7,9 +7,17 @@ import {
   type ItemState,
   itemState,
   STATE_ACTIONS,
+  WALK_POLICIES,
   walkOf,
 } from "@/lib/durchgang";
-import { auditLog, company, companyRequirementStatus, requirement } from "@/schema";
+import {
+  auditLog,
+  company,
+  companyRequirementStatus,
+  policy,
+  requirement,
+  user,
+} from "@/schema";
 import { enforceAssignment } from "../guards";
 import { getNis2Assessment } from "./nis2-scope";
 import type { SignableRow } from "./sign-off-rows";
@@ -232,6 +240,44 @@ export async function walkRows(
       }),
     ),
   };
+}
+
+/**
+ * The company's policies the walk wrote, in walk order: each one of an item's template on that
+ * item's requirement, so a policy of the same type added by hand elsewhere is not among them.
+ * With who approved each, when, in which role, and the version that approval set.
+ */
+export async function walkPolicyRows(db: DbOrTx, companyId: string) {
+  const rows = await db
+    .select({
+      code: requirement.code,
+      type: policy.type,
+      title: policy.title,
+      content: policy.content,
+      status: policy.status,
+      version: policy.version,
+      effectiveFrom: policy.effectiveFrom,
+      approvedAt: policy.approvedAt,
+      approverRole: policy.approverRole,
+      approver: user.name,
+    })
+    .from(policy)
+    .innerJoin(requirement, eq(requirement.id, policy.requirementId))
+    .leftJoin(user, eq(user.id, policy.approvedBy))
+    .where(
+      and(
+        eq(policy.companyId, companyId),
+        inArray(
+          policy.type,
+          WALK_POLICIES.map((p) => p.policy),
+        ),
+      ),
+    );
+  return WALK_POLICIES.flatMap((p) =>
+    rows
+      .filter((row) => row.code === p.code && row.type === p.policy)
+      .map((row) => ({ ...row, type: p.policy })),
+  );
 }
 
 /** Where every item of the company's walk stands, in walk order (see `walkRows`). */

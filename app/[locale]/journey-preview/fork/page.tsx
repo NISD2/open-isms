@@ -45,7 +45,7 @@ export default async function JourneyForkPreviewPage() {
         user={SAMPLE_USER}
         frameworks={SAMPLE_FRAMEWORKS}
         showBilling={false}
-        showAuditTrail
+        reviewAccess
         walkthroughLive={false}
         showJourney
         journeyNotice={false}

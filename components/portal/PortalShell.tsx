@@ -137,7 +137,7 @@ export async function PortalShell({
         }}
         frameworks={frameworks}
         showBilling={billing.open}
-        showAuditTrail={hasReviewAccess(session.role)}
+        reviewAccess={hasReviewAccess(session.role)}
         walkthroughLive={live}
         // An account that has not paid has no journey once the walkthrough is the front.
         showJourney={!mustOrder}

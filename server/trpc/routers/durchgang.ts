@@ -92,12 +92,10 @@ import {
   companyRiskMethodology,
   managementReview,
   policy,
-  requirement,
   risk,
   riskAsset,
   riskSupplier,
   supplier,
-  user,
 } from "@/schema";
 import { riskInsertSchema } from "@/schema/validators";
 import { signerRoleOf } from "../guards";
@@ -110,6 +108,7 @@ import {
   type DurchgangActor,
   durchgangItem,
   walkItemRef,
+  walkPolicyRows,
   walkRows,
   walkStates,
 } from "../helpers/durchgang";
@@ -409,40 +408,6 @@ const policyDraftOf = async (
         ? await policyListsOf(ctx.db, ctx.companyId, used, stored.fallbacks, locale)
         : {},
   };
-};
-
-/**
- * The company's policies the walk wrote, in walk order: each one of an item's template on that
- * item's requirement, so a policy of the same type added by hand elsewhere is not among them.
- */
-const walkPolicyRows = async (db: TRPCContext["db"], companyId: string) => {
-  const rows = await db
-    .select({
-      code: requirement.code,
-      type: policy.type,
-      title: policy.title,
-      content: policy.content,
-      status: policy.status,
-      effectiveFrom: policy.effectiveFrom,
-      approver: user.name,
-    })
-    .from(policy)
-    .innerJoin(requirement, eq(requirement.id, policy.requirementId))
-    .leftJoin(user, eq(user.id, policy.approvedBy))
-    .where(
-      and(
-        eq(policy.companyId, companyId),
-        inArray(
-          policy.type,
-          WALK_POLICIES.map((p) => p.policy),
-        ),
-      ),
-    );
-  return WALK_POLICIES.flatMap((p) =>
-    rows
-      .filter((row) => row.code === p.code && row.type === p.policy)
-      .map((row) => ({ ...row, type: p.policy })),
-  );
 };
 
 /**

@@ -1,11 +1,30 @@
 {
   "export": {
-    "title": "Export Reports",
-    "subtitle": "Download compliance reports for your assessments",
-    "noAssessments": "No assessments found. Complete the setup first.",
-    "download": "Download PDF",
-    "started": "Started",
-    "progress": "{completed} of {total} requirements",
-    "compliance": "Compliance"
+    "title": "Export",
+    "lead": "Everything you recorded in the walkthrough and the registers, as a file to pass on: to management, to an auditor or to your IT service provider.",
+    "noAccess": "Admins and reviewers of your company can export.",
+    "noAssessment": "Your company has no NIS 2 assessment yet.",
+    "files": {
+      "report": {
+        "title": "Implementation status",
+        "text": "Every NIS 2 requirement with its status, who signed it off and when."
+      },
+      "documents": {
+        "title": "Documents",
+        "text": "The policy, plans and concepts from the walkthrough, each with management's approval."
+      },
+      "registers": {
+        "title": "Registers",
+        "text": "Assets with their providers, suppliers, risks, trainings, management reviews and incidents."
+      },
+      "table": {
+        "title": "Requirements as a table",
+        "text": "The requirements with their status and sign-off date, to open in Excel."
+      },
+      "data": {
+        "title": "All data",
+        "text": "Everything in one file, for your own tools or to take with you. Your data is yours."
+      }
+    }
   }
 }

@@ -216,7 +216,14 @@ export function AssetsPage({ items, inline, focus, policyData }: AssetsPageProps
           <TableBody>
             {items.map((a) => (
               <TableRow key={a.id as string}>
-                <TableCell className="font-medium">{a.name as string}</TableCell>
+                <TableCell>
+                  <span className="font-medium">{a.name as string}</span>
+                  {a.description ? (
+                    <p className="mt-0.5 line-clamp-2 max-w-[48ch] text-xs text-muted-foreground">
+                      {a.description as string}
+                    </p>
+                  ) : null}
+                </TableCell>
                 <TableCell>{a.type as string}</TableCell>
                 <TableCell className="text-right tabular-nums">{(a.quantity as number) ?? 1}</TableCell>
                 <TableCell>{(a.owner as string) ?? "\u2014"}</TableCell>

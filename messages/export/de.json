@@ -1,11 +1,30 @@
 {
   "export": {
-    "title": "Berichte exportieren",
-    "subtitle": "Compliance-Berichte für Ihre Bewertungen herunterladen",
-    "noAssessments": "Keine Bewertungen gefunden. Schließen Sie zuerst die Einrichtung ab.",
-    "download": "PDF herunterladen",
-    "started": "Gestartet",
-    "progress": "{completed} von {total} Anforderungen",
-    "compliance": "Compliance"
+    "title": "Export",
+    "lead": "Alles, was Sie im Durchgang und in den Registern festgehalten haben, als Datei zum Weitergeben: an die Geschäftsführung, an Prüfer oder an Ihren IT-Dienstleister.",
+    "noAccess": "Exportieren können Admins und Prüfer Ihres Unternehmens.",
+    "noAssessment": "Für Ihr Unternehmen gibt es noch keine NIS 2 Bewertung.",
+    "files": {
+      "report": {
+        "title": "Stand der Umsetzung",
+        "text": "Jede NIS 2 Anforderung mit ihrem Stand, wer sie freigegeben hat und wann."
+      },
+      "documents": {
+        "title": "Dokumente",
+        "text": "Die Leitlinie, die Pläne und Konzepte aus dem Durchgang, jeweils mit Freigabe durch die Geschäftsführung."
+      },
+      "registers": {
+        "title": "Register",
+        "text": "Assets mit ihren Anbietern, Lieferanten, Risiken, Schulungen, Managementbewertungen und Vorfälle."
+      },
+      "table": {
+        "title": "Anforderungen als Tabelle",
+        "text": "Die Anforderungen mit Stand und Freigabedatum, zum Öffnen in Excel."
+      },
+      "data": {
+        "title": "Alle Daten",
+        "text": "Alles in einer Datei, für Ihre eigenen Werkzeuge oder zum Mitnehmen. Ihre Daten gehören Ihnen."
+      }
+    }
   }
 }

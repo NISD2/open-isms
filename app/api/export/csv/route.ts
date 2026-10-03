@@ -1,22 +1,15 @@
 import { eq } from "drizzle-orm";
 import { NextRequest } from "next/server";
-import { getSession } from "@/lib/auth";
 import { toCsv } from "@/lib/csv";
 import { db } from "@/lib/db";
+import { attachment, exportAccess } from "@/lib/export/access";
 import { loadReportData } from "@/lib/pdf/load-report-data";
-import { rateLimit } from "@/lib/rate-limit";
 import { companyAssessment } from "@/schema";
 import { getNis2FrameworkId } from "@/server/trpc/helpers/nis2-scope";
 
 export async function GET(request: NextRequest) {
-  const session = await getSession();
-  if (!session) {
-    return new Response("Unauthorized", { status: 401 });
-  }
-
-  if (!(await rateLimit(`export:csv:${session.user.id}`, 10, 60_000))) {
-    return new Response("Too many requests", { status: 429 });
-  }
+  const access = await exportAccess("csv", 10);
+  if (!access.ok) return access.response;
 
   const assessmentId = request.nextUrl.searchParams.get("assessmentId");
   if (!assessmentId) {
@@ -32,7 +25,7 @@ export async function GET(request: NextRequest) {
   });
   if (
     !assessment ||
-    assessment.companyId !== session.companyId ||
+    assessment.companyId !== access.companyId ||
     assessment.frameworkId !== nis2FrameworkId
   ) {
     return new Response("Forbidden", { status: 403 });
@@ -73,13 +66,7 @@ export async function GET(request: NextRequest) {
   // UTF-8 BOM for Excel compatibility with German umlauts
   const BOM = "\uFEFF";
   const csv = BOM + toCsv([headers, ...rows]);
-
-  const date = new Date().toISOString().split("T")[0];
-
   return new Response(csv, {
-    headers: {
-      "Content-Type": "text/csv; charset=utf-8",
-      "Content-Disposition": `attachment; filename="compliance-export-${date}.csv"`,
-    },
+    headers: attachment("text/csv; charset=utf-8", "compliance-export", "csv"),
   });
 }
