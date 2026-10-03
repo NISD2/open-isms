@@ -90,6 +90,7 @@ export {
   resumeAt,
   reviewedWithinYear,
   STATE_ACTIONS,
+  signLast,
   WAIT_REASONS,
 } from "./state";
 export { contactSuggestions } from "./suggest";
