@@ -7,7 +7,7 @@
     "complete": {
       "card": {
         "title": "Tout dans un seul document",
-        "text": "Le parcours complet sur une seule page : état, points ouverts, documents, matrice des risques, tous les registres et toutes les réponses. À enregistrer en PDF depuis le navigateur. Le document est en anglais."
+        "text": "Le parcours complet, du début à la fin : état, points ouverts, documents, matrice des risques, tous les registres et toutes les réponses. À enregistrer en PDF depuis le navigateur. Le document est en anglais."
       }
     },
     "files": {
@@ -21,7 +21,7 @@
       },
       "registers": {
         "title": "Registres",
-        "text": "Les actifs avec leurs fournisseurs, les fournisseurs, les risques, les formations, les revues de direction et les incidents."
+        "text": "Les actifs avec leurs prestataires, les fournisseurs, les risques, les formations, les revues de direction et les incidents."
       },
       "table": {
         "title": "Exigences sous forme de tableau",

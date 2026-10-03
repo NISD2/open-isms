@@ -7,7 +7,7 @@
     "complete": {
       "card": {
         "title": "Everything in one document",
-        "text": "The whole walkthrough on one page: status, open points, documents, risk matrix, every register and answer. Save it as a PDF from the browser."
+        "text": "The whole walkthrough, start to finish: status, open points, documents, risk matrix, every register and answer. Save it as a PDF from the browser."
       },
       "print": "Save as PDF",
       "printHint": "In the print window, choose “Save as PDF” as the destination.",
@@ -28,9 +28,10 @@
         "incidents": "Incidents",
         "answers": "Answers by area"
       },
-      "statusLead": "{done} of {total} requirements are done, as the journey counts them.",
+      "statusLead": "Of {total} requirements: {approved} signed off, {notApplicable} not applicable, {notRequired} not required by law, {open} open. What the company's own answers show as not yet in place is under “What is still open”.",
       "openLead": "By the company's own answers, this is not in place yet.",
       "noGaps": "By the company's own answers, nothing is open.",
+      "gapsNotWorkedOut": "Open points are worked out by the NIS 2 walkthrough from the company's answers. This company does not use it, so there is no list here.",
       "step": "Step {code}",
       "approved": "Approved by {signer} on {date}",
       "matrixLead": "Each field shows how many of the company's risks sit in it.",

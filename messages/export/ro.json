@@ -7,7 +7,7 @@
     "complete": {
       "card": {
         "title": "Totul într-un singur document",
-        "text": "Întregul parcurs pe o singură pagină: stadiu, puncte deschise, documente, matricea riscurilor, toate registrele și răspunsurile. Salvează-l ca PDF din browser. Documentul este în limba engleză."
+        "text": "Întregul parcurs, de la început până la sfârșit: stadiu, puncte deschise, documente, matricea riscurilor, toate registrele și răspunsurile. Salvează-l ca PDF din browser. Documentul este în limba engleză."
       }
     },
     "files": {
@@ -21,7 +21,7 @@
       },
       "registers": {
         "title": "Registre",
-        "text": "Active cu furnizorii lor, furnizori, riscuri, instruiri, analize ale conducerii și incidente."
+        "text": "Active cu prestatorii lor de servicii, furnizori, riscuri, instruiri, analize ale conducerii și incidente."
       },
       "table": {
         "title": "Cerințe sub formă de tabel",

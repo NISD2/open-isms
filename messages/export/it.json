@@ -7,7 +7,7 @@
     "complete": {
       "card": {
         "title": "Tutto in un unico documento",
-        "text": "L'intero percorso su una pagina: stato, punti aperti, documenti, matrice dei rischi, tutti i registri e le risposte. Salvalo come PDF dal browser. Il documento è in inglese."
+        "text": "L'intero percorso, dall'inizio alla fine: stato, punti aperti, documenti, matrice dei rischi, tutti i registri e le risposte. Salvalo come PDF dal browser. Il documento è in inglese."
       }
     },
     "files": {
@@ -21,7 +21,7 @@
       },
       "registers": {
         "title": "Registri",
-        "text": "Asset con i loro fornitori, fornitori, rischi, formazioni, riesami della direzione e incidenti."
+        "text": "Asset con i relativi prestatori di servizi, fornitori, rischi, formazioni, riesami della direzione e incidenti."
       },
       "table": {
         "title": "Requisiti in tabella",

@@ -160,7 +160,7 @@ export function RegistersDocument({
             rows(data).map((row, i) => (
               <RecordBlock
                 key={i}
-                title={titleOf(row)}
+                title={titleOf(row, words.names)}
                 rows={[...fieldRows(record, row, words), ...extraRows(row, words)]}
               />
             ))

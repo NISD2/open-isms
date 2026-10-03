@@ -99,7 +99,9 @@ test.describe("export", () => {
       "Angaben je Bereich",
       "Ab jetzt in Ihrer Hand",
     ]) {
-      await expect(page.getByRole("heading", { level: 2, name: section })).toBeVisible();
+      await expect(
+        page.getByRole("heading", { level: 2, name: section, exact: true }),
+      ).toBeVisible();
     }
     // The walk's matrix: its legend names the four levels.
     await expect(page.getByRole("list", { name: "Legende" })).toBeVisible();

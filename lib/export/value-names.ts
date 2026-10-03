@@ -65,7 +65,26 @@ export interface ExportNames {
   /** Each register's field labels, by field. */
   readonly fields: Readonly<Record<Register, Names>>;
   readonly answers: AnswerNames;
+  /**
+   * The title the walk gives a management training (§ 38 Abs. 3 BSIG), in the export's language,
+   * and as it is stored in every language the walk is written in: the walk saves it in the
+   * language of whoever entered the row.
+   */
+  readonly managementTraining: {
+    readonly name: string;
+    readonly stored: readonly string[];
+  };
 }
+
+/** The languages the walk is written in, so the languages its stored titles can be in. */
+const WALK_LOCALES = ["de", "en"] as const satisfies readonly PdfLocale[];
+
+/** The walk's title for a management training row, in `locale`. */
+const managementTrainingTitle = async (locale: PdfLocale): Promise<string> => {
+  const walk: unknown = (await import(`../../messages/durchgang/${locale}.json`)).default;
+  const title = at(walk, ["durchgang", "ui", "training", "managementTraining"]);
+  return typeof title === "string" ? title : "";
+};
 
 /** Message files are data: a map that does not parse names nothing, and the key prints. */
 const NAMES = z.record(z.string(), z.string()).catch({});
@@ -165,6 +184,8 @@ export async function exportNames(locale: PdfLocale): Promise<ExportNames> {
     managementReview,
     incident,
     answers,
+    managementTraining,
+    storedManagementTraining,
   ] = await Promise.all([
     named(VALUE_SOURCES.sector),
     named(VALUE_SOURCES.entityType),
@@ -182,6 +203,8 @@ export async function exportNames(locale: PdfLocale): Promise<ExportNames> {
     named(FIELD_SOURCES.managementReview),
     named(FIELD_SOURCES.incident),
     answerNames(locale),
+    managementTrainingTitle(locale),
+    Promise.all(WALK_LOCALES.map(managementTrainingTitle)),
   ]);
   return {
     values: {
@@ -197,5 +220,9 @@ export async function exportNames(locale: PdfLocale): Promise<ExportNames> {
     },
     fields: { asset, supplier, risk, training, managementReview, incident },
     answers,
+    managementTraining: {
+      name: managementTraining,
+      stored: storedManagementTraining.filter((title) => title !== ""),
+    },
   };
 }

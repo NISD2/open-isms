@@ -7,7 +7,7 @@
     "complete": {
       "card": {
         "title": "Tudo num só documento",
-        "text": "O percurso completo numa página: estado, pontos em aberto, documentos, matriz de riscos, todos os registos e respostas. Guarde-o como PDF a partir do navegador. O documento está em inglês."
+        "text": "O percurso completo, do início ao fim: estado, pontos em aberto, documentos, matriz de riscos, todos os registos e respostas. Guarde-o como PDF a partir do navegador. O documento está em inglês."
       }
     },
     "files": {
@@ -21,7 +21,7 @@
       },
       "registers": {
         "title": "Registos",
-        "text": "Ativos com os seus fornecedores, fornecedores, riscos, formações, revisões pela direção e incidentes."
+        "text": "Ativos com os seus prestadores de serviços, fornecedores, riscos, formações, revisões pela direção e incidentes."
       },
       "table": {
         "title": "Requisitos em tabela",

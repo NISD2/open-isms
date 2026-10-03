@@ -7,7 +7,7 @@
     "complete": {
       "card": {
         "title": "Alles in één document",
-        "text": "Het volledige stappenplan op één pagina: stand, open punten, documenten, risicomatrix, alle registers en antwoorden. Sla het in de browser op als pdf. Het document is in het Engels."
+        "text": "Het volledige stappenplan, van begin tot eind: stand, open punten, documenten, risicomatrix, alle registers en antwoorden. Sla het in de browser op als pdf. Het document is in het Engels."
       }
     },
     "files": {
@@ -21,7 +21,7 @@
       },
       "registers": {
         "title": "Registers",
-        "text": "Assets met hun leveranciers, leveranciers, risico's, trainingen, directiebeoordelingen en incidenten."
+        "text": "Assets met hun dienstverleners, leveranciers, risico's, trainingen, directiebeoordelingen en incidenten."
       },
       "table": {
         "title": "Eisen als tabel",

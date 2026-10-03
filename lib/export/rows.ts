@@ -2,6 +2,7 @@
  * How an export prints a record, whatever renders it: the PDFs (lib/pdf) and the complete export
  * page (components/export) read the same rows, so a field reads the same on paper and on screen.
  */
+import { isDoneStatus } from "@/lib/compliance/journey-position";
 import { humanize } from "@/lib/forms/schema-introspect";
 import type { ExportLabels } from "@/lib/pdf/export-labels";
 import { formatFieldValue, formatReportDate, type PdfLocale } from "@/lib/pdf/format";
@@ -74,10 +75,20 @@ export function fieldRows(
     );
 }
 
-export const titleOf = (row: object): string => {
+/**
+ * A record's heading: its name or title. A management training the walk entered carries the
+ * walk's title in the language of whoever entered it, so that title prints in the export's.
+ */
+export const titleOf = (
+  row: object,
+  names: Pick<ExportNames, "managementTraining">,
+): string => {
   const values = new Map(Object.entries(row));
   const title = values.get("name") ?? values.get("title");
-  return typeof title === "string" ? title : "";
+  if (typeof title !== "string") return "";
+  return names.managementTraining.stored.includes(title)
+    ? names.managementTraining.name
+    : title;
 };
 
 /** What a register row lists beyond its fields: an asset's providers. */
@@ -104,10 +115,46 @@ export function answerRow(
     (typeof v === "string" ? answers.values[key]?.[v] : undefined) ??
     formatFieldValue(v, "text", locale);
   if (value === null || value === undefined || value === "") return [label, null];
+  // A list is clipped once as a whole, like any long answer (formatFieldValue).
   if (Array.isArray(value))
-    return [label, value.length > 0 ? value.map(named).join(", ") : null];
+    return [
+      label,
+      value.length > 0
+        ? formatFieldValue(value.map(named).join(", "), "text", locale)
+        : null,
+    ];
   return [label, named(value)];
 }
+
+export type StatusKind = "approved" | "notApplicable" | "notRequired" | "open";
+
+/**
+ * Where a requirement stands, as a reader of the status table would sort it: signed off (itself,
+ * or met inside a walk step that was signed off), decided not applicable, not asked of the
+ * company by any statute, or open.
+ */
+export const statusKind = (
+  req: Pick<ReportRequirement, "status" | "covered">,
+): StatusKind => {
+  if (req.covered?.by.kind === "not_required") return "notRequired";
+  if (req.covered) return req.covered.done ? "approved" : "open";
+  if (req.status === "not_applicable") return "notApplicable";
+  return isDoneStatus(req.status) ? "approved" : "open";
+};
+
+/** How many requirements stand where (`statusKind`). */
+export const statusCounts = (
+  reqs: ReadonlyArray<Pick<ReportRequirement, "status" | "covered">>,
+): Readonly<Record<StatusKind, number>> => {
+  const kinds = reqs.map(statusKind);
+  const count = (kind: StatusKind) => kinds.filter((k) => k === kind).length;
+  return {
+    approved: count("approved"),
+    notApplicable: count("notApplicable"),
+    notRequired: count("notRequired"),
+    open: count("open"),
+  };
+};
 
 /** How the journey reads a requirement it does not read off its own work, or null. */
 export function coverageLabel(

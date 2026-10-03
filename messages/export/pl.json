@@ -7,7 +7,7 @@
     "complete": {
       "card": {
         "title": "Wszystko w jednym dokumencie",
-        "text": "Cały przewodnik na jednej stronie: stan, otwarte punkty, dokumenty, macierz ryzyka, wszystkie rejestry i odpowiedzi. Zapisz go jako PDF w przeglądarce. Dokument jest w języku angielskim."
+        "text": "Cały przewodnik od początku do końca: stan, otwarte punkty, dokumenty, macierz ryzyka, wszystkie rejestry i odpowiedzi. Zapisz go jako PDF w przeglądarce. Dokument jest w języku angielskim."
       }
     },
     "files": {
@@ -21,7 +21,7 @@
       },
       "registers": {
         "title": "Rejestry",
-        "text": "Aktywa z ich dostawcami, dostawcy, ryzyka, szkolenia, przeglądy kierownictwa i incydenty."
+        "text": "Aktywa z ich usługodawcami, dostawcy, ryzyka, szkolenia, przeglądy kierownictwa i incydenty."
       },
       "table": {
         "title": "Wymagania w tabeli",

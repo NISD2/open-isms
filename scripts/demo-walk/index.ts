@@ -34,8 +34,21 @@ const isLocal = (url: string | undefined): boolean => {
   }
 };
 
+/**
+ * The database is local by the host Postgres connects to: node-postgres lets a `host` query
+ * parameter override the URL's host, so that one is checked too (a socket path is local).
+ */
+const isLocalDatabase = (url: string | undefined): boolean => {
+  if (!url || !isLocal(url)) return false;
+  const params = new URL(url).searchParams;
+  return ["host", "hostaddr"].every((key) => {
+    const value = params.get(key);
+    return value === null || value.startsWith("/") || LOCAL_HOSTS.includes(value);
+  });
+};
+
 async function run(): Promise<void> {
-  if (!isLocal(process.env.DATABASE_URL))
+  if (!isLocalDatabase(process.env.DATABASE_URL))
     throw new Error("Refusing to run: DATABASE_URL does not point at localhost.");
   if (!isLocal(BASE_URL))
     throw new Error(`Refusing to run: ${BASE_URL} is not localhost.`);

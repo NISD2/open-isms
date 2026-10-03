@@ -7,7 +7,7 @@
     "complete": {
       "card": {
         "title": "Todo en un solo documento",
-        "text": "El recorrido completo en una página: estado, puntos abiertos, documentos, matriz de riesgos, todos los registros y respuestas. Guárdelo como PDF desde el navegador. El documento está en inglés."
+        "text": "El recorrido completo, de principio a fin: estado, puntos abiertos, documentos, matriz de riesgos, todos los registros y respuestas. Guárdelo como PDF desde el navegador. El documento está en inglés."
       }
     },
     "files": {
@@ -21,7 +21,7 @@
       },
       "registers": {
         "title": "Registros",
-        "text": "Activos con sus proveedores, proveedores, riesgos, formaciones, revisiones por la dirección e incidentes."
+        "text": "Activos con sus prestadores de servicios, proveedores, riesgos, formaciones, revisiones por la dirección e incidentes."
       },
       "table": {
         "title": "Requisitos en una tabla",

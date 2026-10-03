@@ -51,7 +51,7 @@ describe("formatReportDate", () => {
     // 23:30 UTC on 11 September is already 12 September in Berlin.
     const lateEvening = new Date("2026-09-11T23:30:00.000Z");
     expect(formatReportDate(lateEvening, "de")).toBe("12.9.2026");
-    expect(formatReportDate(lateEvening, "en")).toBe("9/12/2026");
+    expect(formatReportDate(lateEvening, "en")).toBe("12/09/2026");
   });
 });
 

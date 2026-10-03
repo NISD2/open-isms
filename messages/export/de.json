@@ -7,7 +7,7 @@
     "complete": {
       "card": {
         "title": "Alles in einem Dokument",
-        "text": "Der ganze Durchgang auf einer Seite: Stand, offene Punkte, Dokumente, Risikomatrix, alle Register und Angaben. Im Browser als PDF speichern."
+        "text": "Der ganze Durchgang von Anfang bis Ende: Stand, offene Punkte, Dokumente, Risikomatrix, alle Register und Angaben. Im Browser als PDF speichern."
       },
       "print": "Als PDF speichern",
       "printHint": "Wählen Sie im Druckfenster „Als PDF speichern“ als Ziel.",
@@ -28,9 +28,10 @@
         "incidents": "Vorfälle",
         "answers": "Angaben je Bereich"
       },
-      "statusLead": "{done} von {total} Anforderungen sind erledigt, so wie der Weg sie zählt.",
+      "statusLead": "Von {total} Anforderungen: {approved} freigegeben, {notApplicable} nicht anwendbar, {notRequired} gesetzlich nicht gefordert, {open} offen. Was nach den eigenen Angaben noch nicht umgesetzt ist, steht unter „Was noch offen ist“.",
       "openLead": "Nach den eigenen Angaben des Unternehmens ist das hier noch nicht umgesetzt.",
       "noGaps": "Nach den eigenen Angaben ist nichts offen.",
+      "gapsNotWorkedOut": "Offene Punkte ermittelt der NIS 2 Durchgang aus den Angaben des Unternehmens. Dieses Unternehmen nutzt ihn nicht, daher steht hier keine Aufstellung.",
       "step": "Schritt {code}",
       "approved": "Freigegeben von {signer} am {date}",
       "matrixLead": "Jedes Feld zeigt, wie viele Risiken des Unternehmens darin liegen.",

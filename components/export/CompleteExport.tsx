@@ -12,6 +12,7 @@ import {
   fieldRows,
   type Row,
   shown,
+  statusCounts,
   titleOf,
   type Words,
 } from "@/lib/export/rows";
@@ -33,7 +34,8 @@ export interface CompleteView {
     readonly doc: CompanyExport["documents"][number];
     readonly html: string;
   }>;
-  readonly gaps: readonly ShownGap[];
+  /** What the company's own answers leave open; null when it does not walk, so nothing worked it out. */
+  readonly gaps: readonly ShownGap[] | null;
 }
 
 /** Processes first, rooms last, the presets between, anything typed in after them. */
@@ -48,8 +50,10 @@ const levelRank = (level: string | null) =>
     : LEVEL_ORDER.length;
 
 /**
- * An asset without its unset flags: "MFA: Nein" on a process or a room reads as a gap that is
- * none. The programs without a second factor are named in "Was noch offen ist".
+ * An asset without its false flags. Every yes/no column on an asset defaults to false, so false
+ * mostly means nobody was asked: "Backup: Nein" or "MFA: Nein" on a process or a room would read as
+ * a gap that is none. Where the walk asks (the second factor), "Was noch offen ist" names the
+ * programs without one.
  */
 const withoutNo = (row: object): object =>
   Object.fromEntries(Object.entries(row).filter(([, value]) => value !== false));
@@ -265,8 +269,8 @@ export async function CompleteExport({ view }: { view: CompleteView }) {
         lead={
           report
             ? t("statusLead", {
-                done: report.completedCount,
                 total: report.totalRequirements,
+                ...statusCounts(requirements),
               })
             : undefined
         }
@@ -321,8 +325,14 @@ export async function CompleteExport({ view }: { view: CompleteView }) {
         )}
       </Section>
 
-      <Section id="open" title={t("sections.open")} lead={t("openLead")}>
-        {gaps.length === 0 ? (
+      <Section
+        id="open"
+        title={t("sections.open")}
+        lead={gaps === null ? undefined : t("openLead")}
+      >
+        {gaps === null ? (
+          <p className="text-sm text-muted-foreground">{t("gapsNotWorkedOut")}</p>
+        ) : gaps.length === 0 ? (
           <p className="text-sm text-muted-foreground">{t("noGaps")}</p>
         ) : (
           <ul className="space-y-2 rounded-xl border border-amber-300/70 bg-amber-50/70 p-5 text-sm dark:border-amber-500/40 dark:bg-amber-950/20">
@@ -456,7 +466,7 @@ export async function CompleteExport({ view }: { view: CompleteView }) {
               <Entry
                 // biome-ignore lint/suspicious/noArrayIndexKey: register rows carry no id here
                 key={i}
-                title={titleOf(row)}
+                title={titleOf(row, words.names)}
                 rows={fieldRows(record, row, words, ["title"])}
               />
             ))

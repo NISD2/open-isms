@@ -7,7 +7,7 @@
     "evidenceExample": "Schulungsnachweise, die zeigen: Namen der teilnehmenden Vorstände, Name und Qualifikation des Trainers, behandelte Themen (Bedrohungen, BSIG-Pflichten, Grundlagen, Haftung), die Dauer und das Datum.",
     "fields": {
       "managementTrainingProvider": {
-        "label": "Schulungsanbieter der Geschäftsleitung",
+        "label": "Anbieter der Schulung der Geschäftsleitung",
         "meaning": "Hier tragen Sie den Namen des Anbieters oder Trainers ein, der die Schulung für die Geschäftsführung durchgeführt hat.",
         "example": "Dr. Müller Cybersecurity GmbH",
         "whereToFind": "Auf der Rechnung, im Vertrag oder auf dem Schulungszertifikat des Anbieters. Fragen Sie Ihren Einkauf oder IT-Leiter."
@@ -431,7 +431,7 @@
         "whereToFind": "In den IT-Protokollen oder Testberichten Ihres Teams."
       },
       "backupRestoreSuccessRate": {
-        "label": "Anteil geglückter Wiederherstellungen (%)",
+        "label": "Anteil erfolgreicher Wiederherstellungen (%)",
         "meaning": "Der Prozentsatz erfolgreicher Wiederherstellungen aus Tests.",
         "example": "98",
         "whereToFind": "Aus den Ergebnissen der letzten Backup-Tests beim IT-Leiter."
@@ -862,7 +862,7 @@
         "whereToFind": "In den Berichten Ihres Phishing-Tool-Anbieters oder im IT-Ticket-System."
       },
       "phishingClickRate": {
-        "label": "Anteil der Klicks im Phishingtest (%)",
+        "label": "Anteil der Beschäftigten, die im Phishingtest geklickt haben (%)",
         "meaning": "Der Prozentsatz der Mitarbeiter, die in Tests auf Phishing-Links geklickt haben.",
         "example": "3.2",
         "whereToFind": "Im aktuellsten Kampagnenbericht des Phishing-Tools."
@@ -1079,7 +1079,7 @@
         "whereToFind": "Fragen Sie Ihren IT-Leiter oder Datenschutzbeauftragten nach den aktuell genutzten Tools."
       },
       "emergencyCommsChannel": {
-        "label": "Erster Weg für die Notfallkommunikation",
+        "label": "Hauptweg für die Notfallkommunikation",
         "meaning": "Geben Sie den primären Kanal für Notfallkommunikation an, falls normale Systeme ausfallen.",
         "example": "Signal-Gruppe 'Krisenteam'",
         "whereToFind": "Schauen Sie in Ihren IT- oder Krisenplan oder fragen Sie das Management-Team."

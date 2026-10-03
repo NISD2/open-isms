@@ -53,8 +53,9 @@ export default async function CompleteExportPage() {
     loadCompanyExport(db, companyId),
     getNis2Assessment(db, companyId),
     exportNames(locale),
-    // The open points come from the walk, which only a company that may walk has.
-    mayWalk ? api.durchgang.gaps({ locale }) : Promise.resolve([]),
+    // The open points come from the walk, which only a company that may walk has; without it
+    // they were never worked out (null), which is not the same as nothing open.
+    mayWalk ? api.durchgang.gaps({ locale }) : Promise.resolve(null),
     getTranslations({ locale, namespace: "export.complete" }),
   ]);
   const [report, documents] = await Promise.all([
