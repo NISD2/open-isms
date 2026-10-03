@@ -10,7 +10,9 @@ export const dynamic = "force-dynamic";
 /**
  * `/dashboard` is the portal's home, kept because it is the redirect the rest of the app points at
  * (sign-in, invite accept, password reset, "back to dashboard" links). Once the walkthrough is the
- * portal's front it opens the walkthrough, otherwise the journey (Simon, 03.10.2026).
+ * portal's front it opens the walkthrough, otherwise the journey (Simon, 03.10.2026). A company
+ * still being set up goes to the journey either way: it holds the setup step, and the walk only
+ * sends a draft back there.
  */
 export default async function DashboardRoute() {
   const session = await getSession();
@@ -19,7 +21,7 @@ export default async function DashboardRoute() {
     return <OnboardingBanner />;
   }
 
-  if (await walkthroughLive(session.user.email)) {
+  if (session.companyActivated && (await walkthroughLive(session.user.email))) {
     redirect(getPathname({ href: "/durchgang/nis2", locale: await getLocale() }));
   }
   redirect("/journey");

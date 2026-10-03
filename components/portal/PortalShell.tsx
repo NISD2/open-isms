@@ -141,8 +141,7 @@ export async function PortalShell({
         reviewAccess={hasReviewAccess(session.role)}
         mayExport={mayExport(session)}
         walkthroughLive={live}
-        // An account that has not paid has no journey once the walkthrough is the front.
-        showJourney={!mustOrder}
+        portalOpen={!mustOrder}
         // Only someone who can walk is pointed back to the walkthrough: for a grandfathered account
         // it is locked, and the journey is what it has.
         journeyNotice={

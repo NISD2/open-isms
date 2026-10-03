@@ -109,8 +109,11 @@ interface AppSidebarProps {
    * the journey comes first and the walkthrough sits in its place marked as coming soon.
    */
   walkthroughLive: boolean;
-  /** Whether the journey shows at all: not for an account that has not paid. */
-  showJourney: boolean;
+  /**
+   * Whether the account has the Compliance Portal (paid or grandfathered). Without it the journey
+   * and the registers are not shown, since each would only lead to the offer.
+   */
+  portalOpen: boolean;
   /** Whether opening the journey still asks once whether to stay in the walkthrough. */
   journeyNotice: boolean;
 }
@@ -249,7 +252,7 @@ export function AppSidebar({
   reviewAccess,
   mayExport,
   walkthroughLive,
-  showJourney,
+  portalOpen,
   journeyNotice,
 }: AppSidebarProps) {
   const t = useTranslations("portal");
@@ -313,7 +316,7 @@ export function AppSidebar({
             {walkthroughLive ? (
               <>
                 <NavMenu items={[walkthrough]} pathname={pathname} />
-                {showJourney && (
+                {portalOpen && (
                   <SidebarMenu>
                     <JourneyItem
                       item={journey}
@@ -347,7 +350,7 @@ export function AppSidebar({
 
         {/* Every register the walk writes into stands open, so a finished walk can be changed
             where it was recorded (Simon, 03.10.2026). */}
-        {walkthroughLive && (
+        {walkthroughLive && portalOpen && (
           <SidebarGroup data-tour="sidebar-registers">
             <SidebarGroupLabel>{t("registers")}</SidebarGroupLabel>
             <SidebarGroupContent>
