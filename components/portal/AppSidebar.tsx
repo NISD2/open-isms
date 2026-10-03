@@ -5,13 +5,17 @@ import {
   Building2,
   Check,
   ChevronRight,
+  ClipboardCheck,
   Compass,
   FileText,
   Footprints,
+  Gauge,
+  GraduationCap,
   Receipt,
   ScrollText,
   Server,
   ShieldCheck,
+  Truck,
   Users,
 } from "lucide-react";
 import { useParams } from "next/navigation";
@@ -257,6 +261,17 @@ export function AppSidebar({
     { href: "/policies", label: t("policies"), icon: FileText },
   ];
 
+  // Once the walkthrough is the front: the registers it writes into, in the walk's order (2.2
+  // assets, 5.1 suppliers, 2.3 risks, 2.4 and on the policies, 1.1 and 8.2 training, 7.3 reviews).
+  const walkRegisterItems: NavItem[] = [
+    { href: "/assets", label: t("assets"), icon: Server },
+    { href: "/suppliers", label: t("suppliers"), icon: Truck },
+    { href: "/risks", label: t("riskRegister"), icon: Gauge },
+    { href: "/policies", label: t("policies"), icon: FileText },
+    { href: "/training", label: t("training"), icon: GraduationCap },
+    { href: "/management-reviews", label: t("managementReviews"), icon: ClipboardCheck },
+  ];
+
   // Admin surfaces the journey never covers (org master data, roster, audit log).
   const managementItems: NavItem[] = [
     { href: "/team", label: t("team"), icon: Users },
@@ -290,14 +305,6 @@ export function AppSidebar({
                     />
                   </SidebarMenu>
                 )}
-                {/* Registers stand open: one click to the register, nothing to unfold. */}
-                <p
-                  data-tour="sidebar-registers"
-                  className="px-2 pt-2 pb-1 text-xs font-medium text-sidebar-foreground/70 group-data-[collapsible=icon]:hidden"
-                >
-                  {t("registers")}
-                </p>
-                <NavMenu items={registerItems} pathname={pathname} />
               </>
             ) : (
               <>
@@ -316,6 +323,17 @@ export function AppSidebar({
             )}
           </SidebarGroupContent>
         </SidebarGroup>
+
+        {/* Every register the walk writes into stands open, so a finished walk can be changed
+            where it was recorded (Simon, 03.10.2026). */}
+        {walkthroughLive && (
+          <SidebarGroup data-tour="sidebar-registers">
+            <SidebarGroupLabel>{t("registers")}</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <NavMenu items={walkRegisterItems} pathname={pathname} />
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
 
         {/* Frameworks */}
         {frameworks.map((fw) => {
