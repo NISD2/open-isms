@@ -21,7 +21,7 @@ export const NOT_WALKED: Readonly<Record<string, string>> = {
   "1.2":
     "No statute asks every entity to name roles: § 38 Abs. 1 BSIG and Art. 20(1) NIS 2 have management implement and oversee the measures. Roles, responsibilities and authorities are CIR 2024/2690 Annex 1.2, which binds only the digital providers the CIR covers, and a security officer is BSI advice (BSI-Standard 200-2). The walk names the people it needs where it needs them: whoever leads in an emergency in 3.1, with an invite for someone not in the team yet, and management for the approval in 7.3. The requirement page keeps the team and its roles.",
   "1.3":
-    "No statute asks for a separately approved security budget: § 30 and § 38 BSIG ask management to implement and oversee the measures. The nearest rule, CIR 2024/2690 Annex 1.1.1(e), binds only the digital providers the CIR covers and asks for a commitment to provide resources inside the security policy; the Leitlinie (2.4) carries that commitment for everyone.",
+    "No statute asks for a separately approved security budget: § 30 and § 38 BSIG ask management to implement and oversee the measures. The nearest rule, CIR 2024/2690 Annex 1.1.1(e), binds only the digital providers the CIR covers and asks for a commitment to provide resources inside the security policy; the Leitlinie (2.4) carries no such commitment today. The requirement page keeps the budget fields.",
   "1.4":
     "No statute asks management to sign an acknowledgement of liability; § 38 Abs. 2 BSIG sets the liability itself, which the CEO course behind 1.1 teaches. The acknowledgement is a platform record, so it stays on the requirement page.",
   "5.3":
@@ -74,6 +74,43 @@ export const NOT_WALKED: Readonly<Record<string, string>> = {
     "No statute requires an exercise. § 30 Abs. 2 Nr. 6 BSIG asks for concepts and procedures to assess whether the measures work, and an exercise is one way among others. Testing incident response at planned intervals is CIR 2024/2690 Annex 3.5.5 and 3.1.3, which bind only the digital providers the CIR covers. The 3.1 plan and the 4.2 plan each offer a yearly exercise as a clause.",
   "8.4":
     "No statute asks for phishing simulations or for testing training: CIR 2024/2690 Annex 8.1.3 and 8.2.3 ask the digital providers the CIR covers to test awareness and assess training, and the BSI names phishing-simulation results only as one example of an indicator. Whether awareness works can be raised in the management review (7.3); the requirement page keeps the simulation fields.",
+};
+
+/**
+ * Where each item the walk leaves out is met: the walked items that carry the part of it every
+ * entity owes, or `null` when no statute asks it of every entity. Checked against § 30, § 32, § 33
+ * and § 38 BSIG and the walk's own copy (NIS2 reviews/legal/2026-10-03-walk-coverage-bsig.md).
+ */
+export const COVERED_BY: Readonly<Record<string, readonly string[] | null>> = {
+  "12.1": null,
+  "12.4": ["7.3"],
+  "1.2": null,
+  "1.3": null,
+  "1.4": null,
+  "5.3": ["2.3", "5.2"],
+  "5.4": ["5.2"],
+  "3.2": ["3.1", "3.3"],
+  "3.4": ["3.1", "4.2"],
+  "3.5": ["3.1", "3.3"],
+  "9.2": ["9.1"],
+  "9.3": ["9.1"],
+  "10.2": ["10.1"],
+  "10.3": ["10.1"],
+  "10.4": ["10.1"],
+  "11.3": ["11.1", "10.1"],
+  "6.1": ["6.3"],
+  "6.2": ["6.3"],
+  "6.4": ["6.3"],
+  "6.5": ["6.3"],
+  "4.1": ["4.2"],
+  "4.3": ["4.2"],
+  "4.5": ["4.2"],
+  "8.1": ["2.4", "8.2"],
+  "8.3": ["1.1", "8.2"],
+  "8.4": null,
+  "7.1": ["7.3", "2.4"],
+  "7.2": ["7.3", "2.4"],
+  "7.4": ["7.3"],
 };
 
 export const NIS2_SCRIPT: readonly AnyItem[] = [
