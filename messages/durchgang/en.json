@@ -303,6 +303,9 @@
         "notePlaceholder": "For example: ask the IT provider for the IP addresses",
         "confirm": "Put on the waiting list"
       },
+      "places": {
+        "label": "In the NIS 2 walkthrough"
+      },
       "home": {
         "unlock": "Unlock the walkthrough",
         "open": "Open",

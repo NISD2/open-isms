@@ -1,11 +1,52 @@
 {
   "audit": {
-    "title": "Audit Trail",
-    "subtitle": "Tamper-evident log of all compliance-relevant actions",
-    "noEntries": "No audit log entries yet.",
-    "description": "Description",
-    "action": "Action",
-    "user": "User",
-    "time": "Time"
+    "title": "Activity log",
+    "subtitle": "Who changed what, and when, day by day.",
+    "noEntries": "No entries yet.",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "system": "System",
+    "actions": {
+      "durchgang": {
+        "item_done": "Walkthrough item filled in",
+        "finish": "Walkthrough item finished",
+        "waiting": "Item set aside",
+        "declined": "Decided not to do",
+        "writePolicy": "Document written in the walkthrough",
+        "approvePolicies": "Documents approved",
+        "requirements_signed": "Signed off by management",
+        "adopted": "Method adopted",
+        "adoptMethod": "Method adopted"
+      },
+      "requirement": {
+        "signoff": "Requirement signed off",
+        "status_change": "Status changed"
+      },
+      "evidence": {
+        "upload": "Evidence uploaded",
+        "delete": "Evidence deleted"
+      },
+      "managementReview": {
+        "create": "Management review recorded"
+      },
+      "training": {
+        "create": "Training recorded"
+      },
+      "intake": {
+        "saveRequirementAnswers": "Answers saved"
+      },
+      "journey": {
+        "setMode": "Journey view changed"
+      },
+      "user": {
+        "dismissHint": "Hint dismissed"
+      },
+      "notification": {
+        "scheduled": "Deadline reminders scheduled"
+      },
+      "dev": {
+        "resetImplementation": "Implementation reset (test)"
+      }
+    }
   }
 }

@@ -303,6 +303,9 @@
         "notePlaceholder": "Zum Beispiel: IT-Dienstleister nach den IP-Adressen fragen",
         "confirm": "Auf die Warteliste"
       },
+      "places": {
+        "label": "Im NIS 2 Durchgang"
+      },
       "home": {
         "unlock": "Durchgang freischalten",
         "open": "Offen",
