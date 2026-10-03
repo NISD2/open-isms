@@ -1897,6 +1897,78 @@
           }
         }
       },
+      "12_4": {
+        "headline": "Detect attacks and prove it to the BSI",
+        "teaser": "Operators of critical facilities only: attack detection and the evidence every three years.",
+        "missed": [
+          "If your company runs energy supply networks or energy installations and is subject to §§ 5c to 5e of the German Energy Industry Act (EnWG) for them, §§ 31 and 39 BSIG do not apply to those installations. They do apply to any other critical facility you run alongside (§ 28(5) BSIG).",
+          "If you were already an operator of critical infrastructure under the old BSI Act, the BSI sets the date at the earliest three years after your last evidence under the old law (§ 39(3) BSIG)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Detect attacks automatically",
+            "body": [
+              "Your company profile gives the entity type “KRITIS Operator”. That is why you see this step. Other companies do not have it.",
+              "For the IT your critical facility depends on, you run systems that detect attacks. They collect and evaluate data from operations continuously and automatically, so they spot threats and provide responses to disruptions.",
+              "The effort should stand in reasonable proportion to what an outage of the facility would cause."
+            ],
+            "duty": "Operators of critical facilities run attack detection systems for the IT that is essential to the operation of their facility."
+          },
+          "detection": {
+            "title": "Which system detects attacks?",
+            "lead": "Name the system and which systems of the facility it watches. If none runs yet, choose “Not possible yet”.",
+            "document": "Attack detection of the critical facility"
+          },
+          "evidence": {
+            "title": "Every three years: evidence to the BSI",
+            "lead": "Through a security audit, a test or a certification you prove to the BSI that your measures are in place, attack detection included. The BSI gets:",
+            "items": [
+              {
+                "name": "The result",
+                "detail": "of the audit, test or certification"
+              },
+              {
+                "name": "The deficiencies found",
+                "detail": "every security deficiency the check uncovered"
+              },
+              {
+                "name": "On request: the documents",
+                "detail": "the check was based on"
+              },
+              {
+                "name": "On request: a remediation plan",
+                "detail": "and afterwards proof that the deficiencies are fixed"
+              }
+            ],
+            "source": "§ 39(1) BSIG: at a date the BSI sets, at the earliest three years after your company first counts as an operator of a critical facility, then every three years."
+          },
+          "last": {
+            "title": "When did the last evidence go to the BSI?",
+            "lead": "The day your company last sent the BSI evidence, including evidence under the old law. If there has been none yet, leave the field empty and go on.",
+            "document": "Evidence sent to the BSI"
+          },
+          "done": {
+            "title": "Attack detection and evidence recorded"
+          }
+        },
+        "fields": {
+          "attackDetectionSystem": {
+            "label": "Attack detection system",
+            "hint": "What it is, who runs it and which systems of the facility it watches. For example: our provider's SIEM, watching the control system network and the remote access points.",
+            "suggestions": [
+              "Central log analysis (SIEM)",
+              "Network intrusion detection (IDS)",
+              "Detection on servers and computers (EDR)",
+              "Monitoring by a service provider (SOC)",
+              "Monitoring of the control system network"
+            ]
+          },
+          "lastKritisEvidenceDate": {
+            "label": "Last evidence sent to the BSI",
+            "hint": "The date is on the cover letter of the evidence. Whoever sent it can tell you."
+          }
+        }
+      },
       "7_3": {
         "headline": "Record the management review",
         "teaser": "Management checks whether the measures work and approves your documents.",

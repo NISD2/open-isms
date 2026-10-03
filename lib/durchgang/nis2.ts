@@ -69,7 +69,7 @@ export const NOT_WALKED: Readonly<Record<string, string>> = {
   "7.4":
     "Art. 21(4) NIS 2 asks that an entity that finds it does not comply takes corrective measures without undue delay; the BSIG has no separate sentence for it, and neither text asks for a register, a tool, counts or closure times. The measures management decides are recorded with the review in 7.3, and the improvement register stays on the requirement page.",
   "12.4":
-    "The one duty here that binds every entity is to document compliance (§ 30 Abs. 1 S. 3 BSIG), and the Durchgang as a whole is that documentation: each item's records and documents, which management reviews and approves in 7.3. Attack detection and three-yearly evidence bind operators of critical facilities only (§ 31 Abs. 2, § 39 BSIG), and the special registration binds only the § 60 Abs. 1 entity types (§ 34 BSIG). Handing documents over when the BSI asks follows from its supervisory powers (§ 61 Abs. 5, § 62 BSIG); a correspondence log and the BSI's information-sharing platform (§ 6 BSIG) are voluntary.",
+    "The one duty here that binds every entity is to document compliance (§ 30 Abs. 1 S. 3 BSIG), and the Durchgang as a whole is that documentation: each item's records and documents, which management reviews and approves in 7.3. Attack detection and three-yearly evidence bind operators of critical facilities only (§ 31 Abs. 2, § 39 BSIG), so only a company whose profile says so walks 12.4, and the special registration binds only the § 60 Abs. 1 entity types (§ 34 BSIG). Handing documents over when the BSI asks follows from its supervisory powers (§ 61 Abs. 5, § 62 BSIG); a correspondence log and the BSI's information-sharing platform (§ 6 BSIG) are voluntary.",
   "3.4":
     "No statute requires an exercise. § 30 Abs. 2 Nr. 6 BSIG asks for concepts and procedures to assess whether the measures work, and an exercise is one way among others. Testing incident response at planned intervals is CIR 2024/2690 Annex 3.5.5 and 3.1.3, which bind only the digital providers the CIR covers. The 3.1 plan and the 4.2 plan each offer a yearly exercise as a clause.",
   "8.4":
@@ -531,6 +531,27 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
         "The last training date is read off the training lines; a separate field would hold the same fact twice.",
       newEmployeeOnboarding:
         "Reaching new employees is CIR 2024/2690 Annex 8.1.2(a) for the digital providers the CIR covers, and the BSI's onboarding training is advice; a briefing on a new employee's first day is a training line like any other.",
+    },
+  }),
+  item({
+    code: "12.4",
+    category: "REG",
+    law: { bsig: 31, article: null },
+    onlyFor: "kritis",
+    glossary: [],
+    reviewed: "2026-10-03",
+    screens: [
+      { kind: "learn", id: "learn" },
+      { kind: "fields", id: "detection", fields: ["attackDetectionSystem"] },
+      { kind: "prepare", id: "evidence" },
+      { kind: "fields", id: "last", fields: ["lastKritisEvidenceDate"] },
+      { kind: "done", id: "done" },
+    ],
+    notAsked: {
+      informationSharingCompliant:
+        "The field is labelled after § 34 BSIG, which is the special registration of the § 60 Abs. 1 entity types, not a duty of operators of critical facilities; sharing information through the BSI's platform is voluntary (§ 6 BSIG).",
+      correspondenceLogUploaded:
+        "No statute asks for a correspondence log: handing documents over when the BSI asks follows from its supervisory powers (§ 61 Abs. 5, § 62 BSIG), and § 39 Abs. 1 asks for the evidence itself, which the walk records by the day it was last sent.",
     },
   }),
   item({

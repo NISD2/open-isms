@@ -1894,6 +1894,78 @@
           }
         }
       },
+      "12_4": {
+        "headline": "Angriffe erkennen und dem BSI nachweisen",
+        "teaser": "Nur für Betreiber kritischer Anlagen: Angriffserkennung und der Nachweis alle drei Jahre.",
+        "missed": [
+          "Betreibt Ihr Unternehmen Energieversorgungsnetze oder Energieanlagen und unterliegt dafür den §§ 5c bis 5e des Energiewirtschaftsgesetzes, gelten §§ 31 und 39 BSIG für diese Anlagen nicht. Für weitere kritische Anlagen, die Sie daneben betreiben, gelten sie (§ 28 Abs. 5 BSIG).",
+          "Waren Sie schon nach dem alten BSI-Gesetz Betreiber einer Kritischen Infrastruktur, legt das BSI den Termin frühestens drei Jahre nach Ihrem letzten Nachweis nach altem Recht fest (§ 39 Abs. 3 BSIG)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Angriffe automatisch erkennen",
+            "body": [
+              "Im Unternehmensprofil steht als Einrichtungstyp „KRITIS-Betreiber“. Deshalb sehen Sie diesen Schritt. Andere Unternehmen haben ihn nicht.",
+              "Für die IT, von der Ihre kritische Anlage abhängt, setzen Sie Systeme zur Angriffserkennung ein. Sie erfassen laufend und automatisch Daten aus dem Betrieb und werten sie aus. So erkennen sie Bedrohungen und sehen für Störungen Gegenmaßnahmen vor.",
+              "Der Aufwand soll in einem vernünftigen Verhältnis zu dem stehen, was ein Ausfall der Anlage zur Folge hätte."
+            ],
+            "duty": "Betreiber kritischer Anlagen setzen für die IT, die für den Betrieb ihrer Anlage maßgeblich ist, Systeme zur Angriffserkennung ein."
+          },
+          "detection": {
+            "title": "Welches System erkennt Angriffe?",
+            "lead": "Nennen Sie das System und welche Systeme der Anlage es überwacht. Läuft noch keins, wählen Sie „Geht noch nicht“.",
+            "document": "Angriffserkennung der kritischen Anlage"
+          },
+          "evidence": {
+            "title": "Alle drei Jahre: der Nachweis an das BSI",
+            "lead": "Durch ein Sicherheitsaudit, eine Prüfung oder eine Zertifizierung weisen Sie dem BSI nach, dass Ihre Maßnahmen umgesetzt sind, auch die Angriffserkennung. Das BSI bekommt:",
+            "items": [
+              {
+                "name": "Das Ergebnis",
+                "detail": "des Audits, der Prüfung oder der Zertifizierung"
+              },
+              {
+                "name": "Die gefundenen Mängel",
+                "detail": "jeden Sicherheitsmangel, den die Prüfung aufgedeckt hat"
+              },
+              {
+                "name": "Auf Verlangen: die Unterlagen",
+                "detail": "auf denen die Prüfung beruhte"
+              },
+              {
+                "name": "Auf Verlangen: einen Plan zur Mängelbeseitigung",
+                "detail": "und danach den Nachweis, dass die Mängel behoben sind"
+              }
+            ],
+            "source": "§ 39 Abs. 1 BSIG: zu einem Termin, den das BSI festlegt, frühestens drei Jahre nachdem Ihr Unternehmen erstmals als Betreiber einer kritischen Anlage gilt, danach alle drei Jahre."
+          },
+          "last": {
+            "title": "Wann ging der letzte Nachweis an das BSI?",
+            "lead": "Der Tag, an dem Ihr Unternehmen dem BSI zuletzt einen Nachweis geschickt hat, auch einen nach altem Recht. Gab es noch keinen, lassen Sie das Feld leer und gehen weiter.",
+            "document": "Nachweise an das BSI"
+          },
+          "done": {
+            "title": "Angriffserkennung und Nachweis erfasst"
+          }
+        },
+        "fields": {
+          "attackDetectionSystem": {
+            "label": "System zur Angriffserkennung",
+            "hint": "Was es ist, wer es betreibt und welche Systeme der Anlage es überwacht. Zum Beispiel: SIEM unseres Dienstleisters, überwacht das Netz der Leittechnik und die Fernzugänge.",
+            "suggestions": [
+              "Zentrale Auswertung der Protokolle (SIEM)",
+              "Angriffserkennung im Netz (IDS)",
+              "Angriffserkennung auf Servern und Rechnern (EDR)",
+              "Überwachung durch einen Dienstleister (SOC)",
+              "Überwachung des Netzes der Leittechnik"
+            ]
+          },
+          "lastKritisEvidenceDate": {
+            "label": "Letzter Nachweis an das BSI",
+            "hint": "Das Datum steht im Anschreiben zum Nachweis. Wer ihn verschickt hat, kann es Ihnen nennen."
+          }
+        }
+      },
       "7_3": {
         "headline": "Die Managementbewertung festhalten",
         "teaser": "Die Geschäftsführung prüft, ob die Maßnahmen wirken, und gibt Ihre Dokumente frei.",

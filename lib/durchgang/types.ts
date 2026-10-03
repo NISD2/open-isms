@@ -12,7 +12,7 @@
  * BSI wrote it.
  */
 
-import type { assetMfaMethodEnum } from "@nisd2/grc-data-model/enums";
+import type { assetMfaMethodEnum, entityTypeEnum } from "@nisd2/grc-data-model/enums";
 import type { FunctionalGroup } from "@/lib/asset-inventory/catalog";
 import type { Frequency, Impact } from "@/lib/compliance/bsi-200-3";
 import {
@@ -254,8 +254,12 @@ type IsoDate = `${number}-${number}-${number}`;
  */
 export interface DutyLaw {
   readonly bsig: number;
-  readonly article: number;
+  /** Null for a duty only the BSIG sets, which no article of the directive carries. */
+  readonly article: number | null;
 }
+
+/** An entity type as the database enum on `company.entity_type` defines it. */
+export type EntityType = (typeof entityTypeEnum.enumValues)[number];
 
 export interface Item<C extends CategoryCode> {
   /** Requirement code in the NIS 2 framework. */
@@ -263,6 +267,12 @@ export interface Item<C extends CategoryCode> {
   /** The requirement's category, which types its fields. A test checks it against the framework. */
   readonly category: C;
   readonly law: DutyLaw;
+  /**
+   * The one entity type the item is walked by, when its statute addresses only that type: the
+   * operators of critical facilities (§§ 31 Abs. 2, 39 BSIG). Read off the company's profile,
+   * never asked. Every other company does not see the item.
+   */
+  readonly onlyFor?: EntityType;
   /** Keys under `info.glossary.terms`. */
   readonly glossary: readonly string[];
   /**

@@ -2,18 +2,33 @@ import { TRPCError } from "@trpc/server";
 import { and, desc, eq, inArray, sql } from "drizzle-orm";
 import type { Database, DbOrTx } from "@/lib/db";
 import {
+  type AnyItem,
   type DurchgangEvent,
   type ItemState,
   itemState,
   STATE_ACTIONS,
-  WALK,
+  walkOf,
 } from "@/lib/durchgang";
-import { auditLog, companyRequirementStatus, requirement } from "@/schema";
+import { auditLog, company, companyRequirementStatus, requirement } from "@/schema";
 import { enforceAssignment } from "../guards";
 import { getNis2Assessment } from "./nis2-scope";
 import type { SignableRow } from "./sign-off-rows";
 
-const WALK_CODES: readonly string[] = WALK.map((item) => item.code);
+/**
+ * The items this company walks, read off the entity type on its profile: an item for operators
+ * of critical facilities is in it only when the profile says the company is one.
+ */
+export async function companyWalk(
+  db: DbOrTx,
+  companyId: string,
+): Promise<readonly AnyItem[]> {
+  const row = await db.query.company.findFirst({
+    where: eq(company.id, companyId),
+    columns: { entityType: true },
+  });
+  if (!row) throw new TRPCError({ code: "NOT_FOUND", message: "No such company." });
+  return walkOf(row.entityType);
+}
 
 export interface DurchgangItemRef {
   readonly code: string;
@@ -61,10 +76,11 @@ export async function walkItemRef(
   companyId: string,
   code: string,
 ): Promise<DurchgangItemRef> {
-  if (!WALK_CODES.includes(code)) {
+  const walk = await companyWalk(db, companyId);
+  if (!walk.some((item) => item.code === code)) {
     throw new TRPCError({
       code: "BAD_REQUEST",
-      message: `${code} is not in the Durchgang.`,
+      message: `${code} is not in this company's Durchgang.`,
     });
   }
   const assessment = await getNis2Assessment(db, companyId);
@@ -149,25 +165,30 @@ export interface WalkRow {
 }
 
 /**
- * Every item of the walk for one company: its status row and the newest audit row among the
- * actions that move an item. An item without a status row is open.
+ * Every item of the company's walk (`companyWalk`), its codes in walk order: its status row and
+ * the newest audit row among the actions that move an item. An item without a status row is open.
  */
 export async function walkRows(
   db: DbOrTx,
   companyId: string,
 ): Promise<{
   readonly assessmentId: string | null;
+  readonly codes: readonly string[];
   readonly items: ReadonlyMap<string, WalkRow>;
 }> {
   const none: WalkRow = { state: { kind: "open" }, row: null };
-  const assessment = await getNis2Assessment(db, companyId);
+  const [assessment, walk] = await Promise.all([
+    getNis2Assessment(db, companyId),
+    companyWalk(db, companyId),
+  ]);
+  const codes = walk.map((item) => item.code);
   const reqs = await db.query.requirement.findMany({
-    where: inArray(requirement.code, [...WALK_CODES]),
+    where: inArray(requirement.code, codes),
     columns: { id: true, code: true, templateVersion: true },
   });
   const ids = reqs.map((r) => r.id);
   if (!assessment || ids.length === 0) {
-    return { assessmentId: null, items: new Map(WALK_CODES.map((c) => [c, none])) };
+    return { assessmentId: null, codes, items: new Map(codes.map((c) => [c, none])) };
   }
 
   const [rows, events] = await Promise.all([
@@ -190,6 +211,7 @@ export async function walkRows(
   const rowOf = new Map(rows.map((r) => [r.requirementId, r]));
   return {
     assessmentId: assessment.id,
+    codes,
     items: new Map(
       reqs.map((r): [string, WalkRow] => {
         const status = rowOf.get(r.id);
@@ -212,11 +234,14 @@ export async function walkRows(
   };
 }
 
-/** Where every item of the walk stands for one company (see `walkRows`). */
+/** Where every item of the company's walk stands, in walk order (see `walkRows`). */
 export async function walkStates(
   db: DbOrTx,
   companyId: string,
-): Promise<ReadonlyMap<string, ItemState>> {
-  const { items } = await walkRows(db, companyId);
-  return new Map([...items].map(([code, item]) => [code, item.state]));
+): Promise<ReadonlyArray<{ readonly code: string; readonly state: ItemState }>> {
+  const { codes, items } = await walkRows(db, companyId);
+  return codes.map((code) => ({
+    code,
+    state: items.get(code)?.state ?? { kind: "open" },
+  }));
 }

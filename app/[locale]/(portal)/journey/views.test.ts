@@ -27,6 +27,7 @@ const item = (code: string, status: string, filled = false): JourneyItem => ({
   sortOrder: 0,
   signOff: { signed: 0, total: 0 },
   state: journeyState(status, filled ? { kind: "filled", since: new Date(0) } : null),
+  coveredBy: null,
 });
 
 describe("the journey's next step", () => {

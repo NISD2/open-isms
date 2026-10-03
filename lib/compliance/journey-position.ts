@@ -38,6 +38,14 @@ export function isDoneStatus(status: string | null | undefined): boolean {
   return DONE_STATUSES.has(status ?? "not_started");
 }
 
+/**
+ * Done on the journey: the states `DONE_STATUSES` map to, read off the state so that a
+ * requirement met inside the walk, or one no statute asks of the company, counts as well.
+ */
+export function isDoneState(state: DotState): boolean {
+  return state === "signed" || state === "na";
+}
+
 /** The six visual states a requirement can be in on the journey, shared by every view. */
 export type DotState = "todo" | "started" | "awaiting" | "signed" | "na" | "rejected";
 

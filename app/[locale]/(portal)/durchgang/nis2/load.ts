@@ -20,6 +20,7 @@ import {
   type ResolvedItem,
   resolveItem,
   WALK,
+  walkOf,
 } from "@/lib/durchgang";
 import { introspectSchema } from "@/lib/forms/schema-introspect";
 import { api } from "@/lib/trpc/server";
@@ -51,23 +52,31 @@ async function wordsOf(item: AnyItem): Promise<ResolvedItem> {
   return resolved.value;
 }
 
+/** The items the caller's company walks, by the entity type on its profile. */
+async function companyWalk(): Promise<readonly AnyItem[]> {
+  const company = await api.assessment.getCompany();
+  if (!company) return [];
+  return walkOf(company.entityType);
+}
+
 /**
- * Every item of the walk with its state, for the home screen and the "Als Nächstes" card. Locked
- * (an account that has not paid), every item is open: such a company has walked nothing, and the
- * walk's own data is for paid accounts only.
+ * Every item of the company's walk with its state, for the home screen and the "Als Nächstes"
+ * card. Locked (an account that has not paid), every item is open: such a company has walked
+ * nothing, and the walk's own data is for paid accounts only.
  */
 export async function loadWalk({
   locked,
 }: {
   locked: boolean;
 }): Promise<readonly WalkEntry[]> {
-  const [states, tc] = await Promise.all([
+  const [walk, states, tc] = await Promise.all([
+    companyWalk(),
     locked ? [] : api.durchgang.walk(),
     getTranslations("compliance"),
   ]);
   const stateOf = new Map(states.map((s) => [s.code, s.state]));
   return Promise.all(
-    WALK.map(async (item) => {
+    walk.map(async (item) => {
       const words = await wordsOf(item);
       return {
         code: item.code,
@@ -93,9 +102,12 @@ export async function headlinesOf(
   );
 }
 
-/** One item, resolved for its screens. Null when it is not in the walk or not visible to the caller. */
+/**
+ * One item, resolved for its screens. Null when it is not in the company's walk or not visible
+ * to the caller.
+ */
 export async function loadItem(code: string): Promise<ItemView | null> {
-  const item = WALK.find((i) => i.code === code);
+  const item = (await companyWalk()).find((i) => i.code === code);
   if (!item) return null;
 
   const [session, req, assessment, localeTag] = await Promise.all([

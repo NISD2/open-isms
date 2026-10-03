@@ -226,6 +226,7 @@ export function buildSampleNodes(titles: Record<string, string>): FlowNode[] {
       status: s.status,
       rawStatus,
       state: journeyState(rawStatus, null),
+      coveredBy: null,
       isOverdue: s.dueInDays != null && s.dueInDays < 0,
       dueInDays: s.dueInDays ?? null,
       priority: s.priority ?? null,

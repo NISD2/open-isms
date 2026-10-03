@@ -460,7 +460,7 @@ const waitingForManagement = async (db: TRPCContext["db"], companyId: string) =>
       .where(eq(managementReview.companyId, companyId)),
   ]);
   const waiting = awaitingSignature({
-    codes: WALK.map((item) => item.code),
+    codes: walk.codes,
     stateOf: (code) => walk.items.get(code)?.state ?? { kind: "open" },
     drafts: policies.filter((p) => p.status === "draft"),
     approvalCode: APPROVAL_SCREEN?.code ?? null,
@@ -543,14 +543,8 @@ const signWaiting = async (
 };
 
 export const durchgangRouter = router({
-  /** Where each item stands. Read on the server by every Durchgang page. */
-  walk: durchgangProcedure.query(async ({ ctx }) => {
-    const states = await walkStates(ctx.db, ctx.companyId);
-    return WALK.map((item) => ({
-      code: item.code,
-      state: states.get(item.code) ?? { kind: "open" as const },
-    }));
-  }),
+  /** Where each item of the company's walk stands. Read on the server by every Durchgang page. */
+  walk: durchgangProcedure.query(({ ctx }) => walkStates(ctx.db, ctx.companyId)),
 
   /**
    * When the company last took over the BSI method here, or null. A method row alone says nothing:

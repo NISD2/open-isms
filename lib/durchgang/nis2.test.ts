@@ -17,7 +17,7 @@ import en from "@/messages/durchgang/en.json";
 import infoDe from "@/messages/info/de.json";
 import infoEn from "@/messages/info/en.json";
 import { marker } from "./copy";
-import { askedFields, resolveItem, WAIT_REASONS, WALK } from "./index";
+import { askedFields, resolveItem, WAIT_REASONS, WALK, walkOf } from "./index";
 import { NIS2_SCRIPT, NOT_WALKED } from "./nis2";
 import type { AnyItem, AnyScreen, ScreenKind } from "./types";
 
@@ -108,22 +108,36 @@ describe("the NIS 2 script", () => {
   });
 
   test("opens the duty card at the provision the requirement cites first", () => {
-    for (const item of NIS2_SCRIPT) {
+    for (const item of NIS2_SCRIPT.filter((i) => !i.onlyFor)) {
       const cited = FRAMEWORK.get(item.code);
       expect(cited?.legalRef.startsWith(`§${item.law.bsig}(`)).toBe(true);
       expect(cited?.frameworkRef?.startsWith(`Art. ${item.law.article}(`)).toBe(true);
     }
   });
 
+  test("opens an item for one entity type at the provision addressed to that type", () => {
+    // The requirement cites first what binds every entity (12.4: § 30 Abs. 1 S. 3); the item
+    // walks the part the statute addresses to that type only, which only the BSIG sets.
+    for (const item of NIS2_SCRIPT.filter((i) => i.onlyFor)) {
+      const cited = FRAMEWORK.get(item.code);
+      expect(cited?.legalRef).toContain(`§${item.law.bsig}(`);
+      expect(item.law.article).toBeNull();
+    }
+  });
+
   test("walks the start of the journey without a gap, in journey order", () => {
     // Items are scripted from the front of the journey (spec §0.7), so the walk is always the
     // first N codes: a later item scripted before an earlier one would leave a hole in the path.
-    // The only exceptions are the items left out, each listed with its reason.
+    // The only exceptions are the items left out, each listed with its reason, and the items
+    // for one entity type, which every other entity leaves out with that reason.
+    const forEveryone = NIS2_SCRIPT.filter((i) => !i.onlyFor);
     const front = JOURNEY_ORDER.slice(
       0,
-      NIS2_SCRIPT.length + Object.keys(NOT_WALKED).length,
+      forEveryone.length + Object.keys(NOT_WALKED).length,
     );
-    expect(WALK.map((i) => i.code)).toEqual(front.filter((code) => !NOT_WALKED[code]));
+    expect(walkOf("important").map((i) => i.code)).toEqual(
+      front.filter((code) => !NOT_WALKED[code]),
+    );
     for (const code of Object.keys(NOT_WALKED)) expect(front).toContain(code);
     for (const reason of Object.values(NOT_WALKED)) {
       expect(reason.trim().length).toBeGreaterThan(20);

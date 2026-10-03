@@ -1,8 +1,14 @@
 import { and, asc, count, desc, eq, isNotNull } from "drizzle-orm";
 import { z } from "zod";
 import { daysUntilDeadline } from "@/lib/compliance/deadlines";
-import { isDoneStatus, journeyState } from "@/lib/compliance/journey-position";
-import { itemState } from "@/lib/durchgang";
+import { isDoneState, journeyState } from "@/lib/compliance/journey-position";
+import {
+  type Covering,
+  coveredState,
+  type DurchgangAction,
+  itemState,
+  walkOf,
+} from "@/lib/durchgang";
 import {
   getRequirementDescription,
   getRequirementsMessages,
@@ -78,12 +84,17 @@ export const journeyRouter = router({
       const [assessment, companyRows] = await Promise.all([
         getNis2Assessment(ctx.db, cid),
         ctx.db
-          .select({ journeyMode: company.journeyMode })
+          .select({
+            journeyMode: company.journeyMode,
+            sector: company.sector,
+            entityType: company.entityType,
+          })
           .from(company)
           .where(eq(company.id, cid))
           .limit(1),
       ]);
-      const mode = companyRows[0]?.journeyMode ?? null;
+      const companyRow = companyRows[0];
+      const mode = companyRow?.journeyMode ?? null;
 
       if (!assessment) {
         return {
@@ -188,8 +199,35 @@ export const journeyRouter = router({
       // per-key for untranslated entries.
       const requirements = await getRequirementsMessages(input?.locale ?? "en");
       const nowDate = new Date();
+
+      // Each requirement's own state, which a requirement met inside the walk reads off the walk
+      // items that carry it (`coveredState`).
+      const own = new Map(
+        rows.map((r): [string, Covering] => {
+          const status = r.status ?? "not_started";
+          const latest = walk.get(r.requirementId) ?? null;
+          return [
+            r.code,
+            {
+              state: journeyState(status, itemState({ ...r, status }, latest)),
+              walked: latest?.action === ("durchgang.item_done" satisfies DurchgangAction),
+            },
+          ];
+        }),
+      );
+      const covering = (code: string): Covering =>
+        own.get(code) ?? { state: "todo", walked: false };
+      const profile = companyRow && {
+        sector: companyRow.sector,
+        walks: walkOf(companyRow.entityType).map((item) => item.code),
+      };
+
       const items = rows.map((r) => {
         const status = r.status ?? "not_started";
+        const ownState = covering(r.code).state;
+        const { state, coveredBy } = profile
+          ? coveredState(r.code, ownState, profile, covering)
+          : { state: ownState, coveredBy: null };
         const dueAt = r.nextReviewDate ? new Date(r.nextReviewDate) : null;
         // nextReviewDate means a recurring REVIEW date only on review-relevant
         // statuses (matches dashboard.ts). On not-done items the same column
@@ -216,22 +254,24 @@ export const journeyRouter = router({
           signedOffAt: r.signedOffAt,
           sortOrder: r.sortOrder ?? 999,
           signOff: signOffByStatusId.get(r.statusId) ?? { signed: 0, total: 0 },
-          state: journeyState(
-            status,
-            itemState({ ...r, status }, walk.get(r.requirementId) ?? null),
-          ),
+          state,
+          coveredBy,
         };
       });
 
       // Company-wide aggregates, a reality check shown across the path view.
       const aggregate = {
         total: items.length,
-        done: items.filter((i) => isDoneStatus(i.status)).length,
+        done: items.filter((i) => isDoneState(i.state)).length,
         // Partition, not overlap: a needs_review item past its review date
         // counts as overdue below, so "awaiting" holds only the ones whose
-        // review is not (yet) late.
+        // review is not (yet) late. A requirement waiting on the walk item that
+        // carries it is signed with that item, so only the item counts.
         awaitingSignoff: items.filter(
-          (i) => i.state === "awaiting" && (i.dueInDays === null || i.dueInDays >= 0),
+          (i) =>
+            i.state === "awaiting" &&
+            i.coveredBy === null &&
+            (i.dueInDays === null || i.dueInDays >= 0),
         ).length,
         // Recurring-review cycle (only on review-status items, so a never-done
         // item past its initial deadline is NOT mislabelled "review overdue").
@@ -239,7 +279,7 @@ export const journeyRouter = router({
         dueSoon: items.filter(
           (i) => i.dueInDays !== null && i.dueInDays >= 0 && i.dueInDays <= 30,
         ).length,
-        open: items.filter((i) => !isDoneStatus(i.status)).length,
+        open: items.filter((i) => !isDoneState(i.state)).length,
       };
 
       return {
