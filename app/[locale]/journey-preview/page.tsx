@@ -30,6 +30,7 @@ export default async function JourneyPreviewPage() {
         frameworks={SAMPLE_FRAMEWORKS}
         showBilling={false}
         reviewAccess
+        mayExport
         walkthroughLive={false}
         showJourney
         journeyNotice={false}

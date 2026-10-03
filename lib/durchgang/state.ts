@@ -12,6 +12,7 @@ import type { ItemState as PolicyState } from "@/lib/compliance/guided-form/poli
 import { resumeAt as policyResumeAt } from "@/lib/compliance/guided-form/policy";
 import { hasSignOffToWithdraw } from "@/lib/compliance/sign-off-state";
 import type { AuditLog, CompanyRequirementStatus } from "@/schema/types";
+import { NIS2_SCRIPT } from "./nis2";
 
 /** Why an item cannot be finished yet. Codes only: a free-text note goes to `internal_notes`. */
 export const WAIT_REASONS = ["letter", "ask", "decide", "unclear"] as const;
@@ -110,6 +111,25 @@ export function itemState(row: StatusRow, latest: DurchgangEvent | null): ItemSt
   }
   if (hasSignOffToWithdraw(row)) return { kind: "signed" };
   return fromEvent(latest);
+}
+
+/** Items the law leaves no choice on (`mustDo`). */
+const MUST_DO: ReadonlySet<string> = new Set(
+  NIS2_SCRIPT.flatMap((item) => (item.mustDo ? [item.code] : [])),
+);
+
+/**
+ * `itemState` for one walk item, by its code. A decision not to do an item the law leaves no
+ * choice on reads as open: such a decision predates the rule that refuses it (`decline`), and
+ * nobody may sign it as not applicable.
+ */
+export function walkItemState(
+  code: string,
+  row: StatusRow,
+  latest: DurchgangEvent | null,
+): ItemState {
+  const state = itemState(row, latest);
+  return state.kind === "declined" && MUST_DO.has(code) ? { kind: "open" } : state;
 }
 
 function fromEvent(latest: DurchgangEvent | null): ItemState {

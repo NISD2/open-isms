@@ -113,6 +113,7 @@ import {
   declineReasonsOf,
   durchgangItem,
   gapFactsOf,
+  refuseSettled,
   signDeclined,
   walkItemRef,
   walkPolicyRows,
@@ -421,6 +422,9 @@ const policyDraftOf = async (
  * The company's walk items waiting for management's signature (see `awaitingSignature`), each
  * with its status row: what the approval screen lists and what the approval may sign, from one
  * computation. Items whose assigned signers still owe a signature are left to them.
+ *
+ * A decision not to do an item carries no document to approve, even where the walk drafted one
+ * before the decision; and it waits only with its written reason, which the signature records.
  */
 const waitingForManagement = async (db: TRPCContext["db"], companyId: string) => {
   const [walk, policies, reviews] = await Promise.all([
@@ -438,15 +442,26 @@ const waitingForManagement = async (db: TRPCContext["db"], companyId: string) =>
   };
   const waiting = awaitingSignature({
     ...order,
-    drafts: policies.filter((p) => p.status === "draft"),
+    drafts: policies.filter(
+      (p) => p.status === "draft" && order.stateOf(p.code).kind !== "declined",
+    ),
     reviewed: reviewedWithinYear(
       reviews.map((r) => r.day),
       recordDay(new Date()),
     ),
   });
-  const rows = waiting.flatMap((item) => {
+  const located = waiting.flatMap((item) => {
     const row = walk.items.get(item.code)?.row;
     return row ? [{ ...item, row }] : [];
+  });
+  const reasons = await declineReasonsOf(
+    db,
+    companyId,
+    located.filter((item) => item.declined).map((item) => item.row.statusId),
+  );
+  const rows = located.flatMap((item) => {
+    const reason = item.declined ? (reasons.get(item.row.statusId) ?? null) : null;
+    return item.declined && !reason ? [] : [{ ...item, reason }];
   });
   const rostered = await rosteredOf(
     db,
@@ -497,27 +512,32 @@ const signWaiting = async (
     items.filter((item) => item.drafts.length === 0 && shown.includes(item.code)),
     order,
   );
-  const decided = await signDeclined(ctx.db, {
-    userId: ctx.userId,
-    statusIds: chosen.filter((item) => item.declined).map((item) => item.row.statusId),
-    now,
-  });
+  const signedOffRole = signerRoleOf(ctx.session);
+  // One transaction: decisions and signatures land together, so a failed signature never
+  // leaves decisions recorded that no progress count or trail entry followed.
+  const { decided, signed } = await ctx.db.transaction(async (tx) => ({
+    decided: await signDeclined(tx, {
+      companyId: ctx.companyId,
+      userId: ctx.userId,
+      statusIds: chosen.filter((item) => item.declined).map((item) => item.row.statusId),
+      now,
+    }),
+    signed: await signOffRows(tx, {
+      companyId: ctx.companyId,
+      userId: ctx.userId,
+      signedOffRole,
+      rows: chosen.filter((item) => !item.declined).map((item) => item.row),
+      source: "editor",
+      chainData: (row) => ({
+        code: row.code,
+        bulkOf: "walk",
+        walkApproval: APPROVAL_SCREEN?.code ?? null,
+      }),
+    }),
+  }));
   const declined = chosen
     .filter((item) => decided.includes(item.row.statusId))
     .map((item) => item.row);
-  const signedOffRole = signerRoleOf(ctx.session);
-  const signed = await signOffRows(ctx.db, {
-    companyId: ctx.companyId,
-    userId: ctx.userId,
-    signedOffRole,
-    rows: chosen.filter((item) => !item.declined).map((item) => item.row),
-    source: "editor",
-    chainData: (row) => ({
-      code: row.code,
-      bulkOf: "walk",
-      walkApproval: APPROVAL_SCREEN?.code ?? null,
-    }),
-  });
   if (!assessmentId || signed.length + declined.length === 0) return { signed, declined };
 
   await recalculateProgress(ctx.db, assessmentId);
@@ -606,6 +626,7 @@ export const durchgangRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
+      refuseSettled(ref);
       const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
       const reason = NAMESPACES[locale].waitReasons[input.reason];
       await appendNote(
@@ -628,6 +649,8 @@ export const durchgangRouter = router({
     .input(z.object({ code }))
     .mutation(async ({ ctx, input }) => {
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
+      // Picked up again: an earlier decision not to do it no longer stands either.
+      await declineReason(ctx.db, ctx.companyId, ref.statusId, null);
       await logWalk({
         companyId: ctx.companyId,
         userId: ctx.userId,
@@ -690,8 +713,9 @@ export const durchgangRouter = router({
         });
       }
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
+      refuseSettled(ref);
       const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
-      await declineReason(ctx.db, ref.statusId, input.reason);
+      await declineReason(ctx.db, ctx.companyId, ref.statusId, input.reason);
       await appendNote(
         ctx.db,
         ref.statusId,
@@ -713,7 +737,7 @@ export const durchgangRouter = router({
     .mutation(async ({ ctx, input }) => {
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
       // Filled in after all: an earlier decision not to do it no longer stands.
-      await declineReason(ctx.db, ref.statusId, null);
+      await declineReason(ctx.db, ctx.companyId, ref.statusId, null);
       await logWalk({
         companyId: ctx.companyId,
         userId: ctx.userId,
@@ -1549,12 +1573,19 @@ export const durchgangRouter = router({
    * nothing loaded from outside, and every link's address in view.
    */
   walkPolicies: durchgangProcedure.query(async ({ ctx }) => {
-    const rows = await walkPolicyRows(ctx.db, ctx.companyId);
+    const [rows, walk] = await Promise.all([
+      walkPolicyRows(ctx.db, ctx.companyId),
+      walkRows(ctx.db, ctx.companyId),
+    ]);
+    // A draft of an item decided against is not management's to approve (`waitingForManagement`).
+    const declined = (code: string) => walk.items.get(code)?.state.kind === "declined";
     return Promise.all(
-      rows.map(async ({ content, ...row }) => ({
-        ...row,
-        html: await renderDocumentMarkdown(content ?? ""),
-      })),
+      rows
+        .filter((row) => row.status !== "draft" || !declined(row.code))
+        .map(async ({ content, ...row }) => ({
+          ...row,
+          html: await renderDocumentMarkdown(content ?? ""),
+        })),
     );
   }),
 
@@ -1566,18 +1597,14 @@ export const durchgangRouter = router({
     .input(z.object({ locale: z.enum(["de", "en"]) }))
     .query(async ({ ctx, input }) => {
       const { items } = await waitingForManagement(ctx.db, ctx.companyId);
-      const reasons = await declineReasonsOf(
-        ctx.db,
-        items.filter((item) => item.declined).map((item) => item.row.statusId),
-      );
-      return items.map(({ code, drafts, declined, row }) => {
+      return items.map(({ code, drafts, reason }) => {
         const words = resolveItem(NAMESPACES[input.locale], itemOf(code));
         return {
           code,
           drafts,
           headline: words.ok ? words.value.headline : code,
           /** The written reason when the company decided not to do it; null when filled in. */
-          declined: declined ? (reasons.get(row.statusId) ?? "") : null,
+          declined: reason,
         };
       });
     }),

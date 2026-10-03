@@ -134,7 +134,9 @@ export function Approval({ viewer, locale }: { viewer: Viewer; locale: WalkLocal
       {items.length > 0 && (
         <SignedWith items={items} staysOpen={staysOpen} management={viewer.management} />
       )}
-      {gaps !== undefined && gaps.length > 0 && <OpenPoints gaps={gaps} />}
+      {gaps !== undefined && gaps.length > 0 && (
+        <OpenPoints gaps={gaps} canChange={viewer.admin} />
+      )}
       {(drafts.length > 0 || items.length > 0) &&
         (viewer.management ? (
           <section className="mt-6 rounded-2xl border border-primary/30 bg-primary/[0.04] p-5 sm:p-6">
@@ -220,7 +222,17 @@ type OpenGap = RouterOutputs["durchgang"]["gaps"][number];
  * management sees it before it signs (§ 38 Abs. 1 BSIG). Amber says "look here", never "failed"
  * (ui-design principle 10), and no count heads it (principle 7).
  */
-function OpenPoints({ gaps }: { gaps: readonly OpenGap[] }) {
+function OpenPoints({
+  gaps,
+  canChange,
+}: {
+  gaps: readonly OpenGap[];
+  /**
+   * Whether the viewer may open every step: an admin. A member sees only their role's categories,
+   * so a link would end on a missing page; the line stays without one.
+   */
+  canChange: boolean;
+}) {
   const t = useTranslations("durchgang.ui.approve.gaps");
   const lines = gaps.flatMap((gap): { text: string; code: string }[] => {
     switch (gap.kind) {
@@ -281,12 +293,14 @@ function OpenPoints({ gaps }: { gaps: readonly OpenGap[] }) {
             className="flex items-baseline gap-3 text-sm"
           >
             <span className="min-w-0 flex-1">{line.text}</span>
-            <Link
-              href={{ pathname: "/durchgang/nis2/[code]", params: { code: line.code } }}
-              className="shrink-0 font-medium text-primary underline-offset-4 hover:underline"
-            >
-              {t("change")}
-            </Link>
+            {canChange && (
+              <Link
+                href={{ pathname: "/durchgang/nis2/[code]", params: { code: line.code } }}
+                className="shrink-0 font-medium text-primary underline-offset-4 hover:underline"
+              >
+                {t("change")}
+              </Link>
+            )}
           </li>
         ))}
       </ul>

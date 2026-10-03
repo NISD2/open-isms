@@ -2,7 +2,7 @@
   "export": {
     "title": "Export",
     "lead": "Everything you recorded in the walkthrough and the registers, as a file to pass on: to management, to an auditor or to your IT service provider.",
-    "noAccess": "Admins and reviewers of your company can export.",
+    "noAccess": "Admins, reviewers and management of your company can export.",
     "noAssessment": "Your company has no NIS 2 assessment yet.",
     "files": {
       "report": {

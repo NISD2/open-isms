@@ -1,9 +1,20 @@
 import { TRPCError } from "@trpc/server";
 import { addYears } from "date-fns";
-import { and, count, desc, eq, inArray, ne, notInArray, sql } from "drizzle-orm";
+import {
+  and,
+  count,
+  desc,
+  eq,
+  inArray,
+  isNotNull,
+  ne,
+  notInArray,
+  sql,
+} from "drizzle-orm";
 import { z } from "zod";
 import { isBackupSystem } from "@/lib/asset-inventory/catalog-labels";
 import { toDateString } from "@/lib/compliance/deadlines";
+import { isDoneStatus } from "@/lib/compliance/journey-position";
 import type { Database, DbOrTx } from "@/lib/db";
 import {
   type AnyItem,
@@ -11,12 +22,12 @@ import {
   type DurchgangEvent,
   type GapFacts,
   type ItemState,
-  itemState,
   type JourneyEntry,
   journeyStates,
   MANAGEMENT_ROLE,
   STATE_ACTIONS,
   WALK_POLICIES,
+  walkItemState,
   walkOf,
 } from "@/lib/durchgang";
 import {
@@ -60,6 +71,8 @@ export interface DurchgangItemRef {
   readonly code: string;
   readonly requirementId: string;
   readonly statusId: string;
+  /** The status column, for the acts a signed item no longer takes. */
+  readonly status: string;
   /** Where the item's answers are kept: the intake row of this assessment and category. */
   readonly assessmentId: string;
   readonly categoryId: string;
@@ -121,7 +134,7 @@ export async function walkItemRef(
             eq(companyRequirementStatus.assessmentId, assessment.id),
             eq(companyRequirementStatus.requirementId, req.id),
           ),
-          columns: { id: true },
+          columns: { id: true, status: true },
         })
       : undefined;
   if (!assessment || !req || !status) {
@@ -131,9 +144,24 @@ export async function walkItemRef(
     code,
     requirementId: req.id,
     statusId: status.id,
+    status: status.status,
     assessmentId: assessment.id,
     categoryId: req.categoryId,
   };
+}
+
+/**
+ * Refuses setting aside or deciding against an item that is signed off or recorded not
+ * applicable: either would stop the requirements it covers reading done while it stays signed.
+ * Such an item is reopened on its requirement page first.
+ */
+export function refuseSettled(ref: DurchgangItemRef): void {
+  if (isDoneStatus(ref.status)) {
+    throw new TRPCError({
+      code: "PRECONDITION_FAILED",
+      message: `${ref.code} is signed off; reopen it before setting it aside or deciding against it.`,
+    });
+  }
 }
 
 /**
@@ -153,12 +181,26 @@ export async function appendNote(
     .where(eq(companyRequirementStatus.id, statusId));
 }
 
+/** The company's own status rows: every write below is limited to them. */
+const ofCompany = (db: DbOrTx, companyId: string) =>
+  inArray(
+    companyRequirementStatus.assessmentId,
+    db
+      .select({ id: companyAssessment.id })
+      .from(companyAssessment)
+      .where(eq(companyAssessment.companyId, companyId)),
+  );
+
+/** Rows already decided: signed off, approved, or recorded not applicable. */
+const DECIDED = ["completed", "approved", "not_applicable"] as const;
+
 /**
  * The reason a decision not to do an item will be signed with, or null once the item is filled
- * in after all. A requirement already recorded not applicable keeps its signed reason.
+ * in or picked up again. A row already decided keeps what it has.
  */
 export async function declineReason(
   db: DbOrTx,
+  companyId: string,
   statusId: string,
   reason: string | null,
 ): Promise<void> {
@@ -168,14 +210,16 @@ export async function declineReason(
     .where(
       and(
         eq(companyRequirementStatus.id, statusId),
-        ne(companyRequirementStatus.status, "not_applicable"),
+        ofCompany(db, companyId),
+        notInArray(companyRequirementStatus.status, [...DECIDED]),
       ),
     );
 }
 
-/** The reasons the given rows were decided against with, by status row id. */
+/** The reasons the company's given rows were decided against with, by status row id. */
 export async function declineReasonsOf(
   db: DbOrTx,
+  companyId: string,
   statusIds: readonly string[],
 ): Promise<ReadonlyMap<string, string>> {
   if (statusIds.length === 0) return new Map();
@@ -185,19 +229,22 @@ export async function declineReasonsOf(
       reason: companyRequirementStatus.notApplicableReason,
     })
     .from(companyRequirementStatus)
-    .where(inArray(companyRequirementStatus.id, [...statusIds]));
+    .where(
+      and(inArray(companyRequirementStatus.id, [...statusIds]), ofCompany(db, companyId)),
+    );
   return new Map(rows.flatMap((r) => (r.reason ? [[r.id, r.reason] as const] : [])));
 }
 
 /**
  * Management's signature on decisions not to do an item: recorded the way the requirement page
  * records "not applicable", with the walk's written reason, management as the one who decided,
- * now, and a review in a year. A row signed or approved meanwhile is left alone. Returns the ids
- * of the rows it recorded.
+ * now, and a review in a year. Only a decision with its written reason is signed; a row decided
+ * meanwhile is left alone. Returns the ids of the rows it recorded.
  */
 export async function signDeclined(
   db: DbOrTx,
   args: {
+    readonly companyId: string;
     readonly userId: string;
     readonly statusIds: readonly string[];
     readonly now: Date;
@@ -218,11 +265,10 @@ export async function signDeclined(
     .where(
       and(
         inArray(companyRequirementStatus.id, [...args.statusIds]),
-        notInArray(companyRequirementStatus.status, [
-          "completed",
-          "approved",
-          "not_applicable",
-        ]),
+        ofCompany(db, args.companyId),
+        notInArray(companyRequirementStatus.status, [...DECIDED]),
+        isNotNull(companyRequirementStatus.notApplicableReason),
+        ne(companyRequirementStatus.notApplicableReason, ""),
       ),
     )
     .returning({ id: companyRequirementStatus.id });
@@ -497,7 +543,7 @@ export async function walkRows(
           r.code,
           status
             ? {
-                state: itemState(status, events.get(r.id) ?? null),
+                state: walkItemState(r.code, status, events.get(r.id) ?? null),
                 row: {
                   statusId: status.id,
                   requirementId: r.id,

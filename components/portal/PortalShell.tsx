@@ -17,6 +17,7 @@ import {
 } from "@/lib/compliance/access";
 import { db } from "@/lib/db";
 import { env } from "@/lib/env";
+import { mayExport } from "@/lib/export/access";
 import {
   type ComplianceMessages,
   getCategoryName,
@@ -138,6 +139,7 @@ export async function PortalShell({
         frameworks={frameworks}
         showBilling={billing.open}
         reviewAccess={hasReviewAccess(session.role)}
+        mayExport={mayExport(session)}
         walkthroughLive={live}
         // An account that has not paid has no journey once the walkthrough is the front.
         showJourney={!mustOrder}

@@ -2,7 +2,7 @@
   "export": {
     "title": "Export",
     "lead": "Alles, was Sie im Durchgang und in den Registern festgehalten haben, als Datei zum Weitergeben: an die Geschäftsführung, an Prüfer oder an Ihren IT-Dienstleister.",
-    "noAccess": "Exportieren können Admins und Prüfer Ihres Unternehmens.",
+    "noAccess": "Exportieren können Admins, Prüfer und die Geschäftsführung Ihres Unternehmens.",
     "noAssessment": "Für Ihr Unternehmen gibt es noch keine NIS 2 Bewertung.",
     "files": {
       "report": {

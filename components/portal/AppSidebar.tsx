@@ -98,11 +98,10 @@ interface AppSidebarProps {
   frameworks: FrameworkGroup[];
   /** Whether billing is launched for this person (lib/billing/ordering-access.ts). */
   showBilling: boolean;
-  /**
-   * Whether this person's role may read the audit trail and export the company's records
-   * (hasReviewAccess: server/trpc/routers/audit.ts, lib/export/access.ts).
-   */
+  /** Whether this person's role may read the audit trail (hasReviewAccess, server/trpc/routers/audit.ts). */
   reviewAccess: boolean;
+  /** Whether this person may export the company's records (`mayExport`, lib/export/access.ts). */
+  mayExport: boolean;
   /**
    * Whether the walkthrough is the portal's front for this person (lib/walkthrough.ts): it comes
    * first and is a link (its home shows an unpaid account the way to order), the journey follows
@@ -248,6 +247,7 @@ export function AppSidebar({
   frameworks,
   showBilling,
   reviewAccess,
+  mayExport,
   walkthroughLive,
   showJourney,
   journeyNotice,
@@ -295,7 +295,7 @@ export function AppSidebar({
   ];
 
   // Everything recorded, as files to pass on (Simon, 03.10.2026).
-  const exportItems: NavItem[] = reviewAccess
+  const exportItems: NavItem[] = mayExport
     ? [{ href: "/export", label: t("export"), icon: Download }]
     : [];
 

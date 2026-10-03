@@ -8,7 +8,8 @@ import {
   Sheet,
 } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
-import { getSession, hasReviewAccess } from "@/lib/auth";
+import { getSession } from "@/lib/auth";
+import { mayExport } from "@/lib/export/access";
 import { pdfLocale } from "@/lib/pdf/format";
 import { api } from "@/lib/trpc/server";
 
@@ -56,7 +57,7 @@ export default async function ExportPage() {
     getSession(),
     api.assessment.getActiveAssessment(),
   ]);
-  const allowed = session ? hasReviewAccess(session.role) : false;
+  const allowed = session ? mayExport(session) : false;
   const pdf = pdfLocale(locale);
 
   return (

@@ -125,6 +125,7 @@ export function DurchgangItem({
   const [railOpen, setRailOpen] = useState(false);
 
   const self = walk.find((w) => w.code === item.code);
+  const signed = self?.state.kind === "signed" || self?.state.kind === "not_applicable";
   const filled: ItemState = { kind: "filled", since: new Date() };
   const next = resumeAt(walk, (w) => (w.code === item.code ? filled : w.state));
   const { draft, setDraft, adoptedAt, leave, keep, park, decline } = useWalkItem(
@@ -391,8 +392,9 @@ export function DurchgangItem({
         <div className="mx-auto grid max-w-7xl px-4 py-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:px-10 xl:gap-20">
           <div className="flex max-w-3xl items-center justify-between gap-3">
             {/* The way out is always there, a peer of answering (ui-design principle 6; Simon,
-                03.10.2026). Only the done screen, where the item is recorded, has none. */}
-            {entry.screen.kind !== "done" ? (
+                03.10.2026). Only the done screen, where the item is recorded, has none, and a
+                signed item, which is reopened on its requirement page before it can wait again. */}
+            {entry.screen.kind !== "done" && !signed ? (
               <button
                 type="button"
                 onClick={() => setWaitOpen(true)}

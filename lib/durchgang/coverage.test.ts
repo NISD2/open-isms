@@ -17,8 +17,11 @@ import {
   coveredState,
   type DurchgangEvent,
   itemState,
+  type JourneyRow,
+  journeyStates,
   type StatusRow,
   WALK,
+  walkItemState,
   walkOf,
 } from "./index";
 import { COVERED_BY, NOT_WALKED } from "./nis2";
@@ -228,6 +231,54 @@ describe("what the law leaves no choice on cannot be decided against", () => {
   test("each says which provision leaves no choice", () => {
     for (const item of WALK) {
       if (item.mustDo !== undefined) expect(item.mustDo).toMatch(/§ \d+/);
+    }
+  });
+
+  test("a decision against one of them, made before the rule, reads as open, never as waiting", () => {
+    const open: StatusRow = {
+      status: "in_progress",
+      signedOffAt: null,
+      reviewedAt: null,
+    };
+    const declined: DurchgangEvent = {
+      action: "durchgang.declined",
+      newValue: null,
+      createdAt: new Date("2026-10-02T10:00:00Z"),
+    };
+    expect(walkItemState("3.3", open, declined)).toEqual({ kind: "open" });
+    expect(walkItemState("7.3", open, declined)).toEqual({ kind: "open" });
+    expect(walkItemState("4.2", open, declined).kind).toBe("declined");
+  });
+});
+
+describe("the approval item counts as walked once signed", () => {
+  const at = new Date("2026-10-03T10:00:00Z");
+  const row = (code: string, status: string): JourneyRow => ({
+    code,
+    requirementId: `req-${code}`,
+    status,
+    signedOffAt: status === "completed" ? at : null,
+    reviewedAt: null,
+  });
+
+  test("management signing 7.3 from its own page covers 7.1, 7.2 and 7.4 without 7.3's done screen", () => {
+    const rows = [
+      row("7.3", "completed"),
+      row("2.4", "completed"),
+      row("7.1", "not_started"),
+      row("7.2", "not_started"),
+      row("7.4", "not_started"),
+    ];
+    // 2.4 was walked to its done screen; 7.3 was only signed by the approval.
+    const events = new Map([
+      ["req-2.4", { action: "durchgang.item_done", newValue: null, createdAt: at }],
+    ]);
+    const states = journeyStates(rows, events, {
+      sector: "manufacturing",
+      walks: codesOf(company("important")),
+    });
+    for (const code of ["7.1", "7.2", "7.4"]) {
+      expect({ code, ...states.get(code) }).toMatchObject({ code, state: "signed" });
     }
   });
 });

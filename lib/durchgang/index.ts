@@ -92,6 +92,7 @@ export {
   STATE_ACTIONS,
   signLast,
   WAIT_REASONS,
+  walkItemState,
 } from "./state";
 export { contactSuggestions } from "./suggest";
 export type {

@@ -1,6 +1,7 @@
 import "@/lib/server-guard";
 
 import { getSession, hasReviewAccess } from "@/lib/auth";
+import { MANAGEMENT_ROLE } from "@/lib/durchgang";
 import { rateLimit } from "@/lib/rate-limit";
 
 export type ExportAccess =
@@ -8,9 +9,17 @@ export type ExportAccess =
   | { readonly ok: false; readonly response: Response };
 
 /**
- * Who may download an export: a signed-in member of a company with review access, the rule the
- * audit log follows, a few times a minute per person and kind. Not behind the paywall: a
- * company's own records always leave with it.
+ * Who may export the company's records: whoever may read its audit trail, and management, who
+ * approved what the files hold and passes them on.
+ */
+export const mayExport = (session: {
+  readonly role: string;
+  readonly jobTitle?: string | null;
+}): boolean => hasReviewAccess(session.role) || session.jobTitle === MANAGEMENT_ROLE;
+
+/**
+ * Who may download an export (`mayExport`), a few times a minute per person and kind. Not behind
+ * the paywall: a company's own records always leave with it.
  */
 export async function exportAccess(
   kind: string,
@@ -20,7 +29,7 @@ export async function exportAccess(
   if (!session?.companyId) {
     return { ok: false, response: new Response("Unauthorized", { status: 401 }) };
   }
-  if (!hasReviewAccess(session.role)) {
+  if (!mayExport(session)) {
     return { ok: false, response: new Response("Forbidden", { status: 403 }) };
   }
   if (!(await rateLimit(`export:${kind}:${session.user.id}`, perMinute, 60_000))) {

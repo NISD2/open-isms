@@ -1,6 +1,6 @@
 import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
 import { and, eq, inArray, isNull, sql } from "drizzle-orm";
-import type { Database } from "@/lib/db";
+import type { Database, DbOrTx } from "@/lib/db";
 import { companyRequirementStatus, requirementAssignment } from "@/schema";
 import { buildSignOffSnapshot } from "./assessment-helpers";
 import { type RecordSignOffParams, recordSignOffChainEntry } from "./sign-off-chain";
@@ -22,7 +22,7 @@ export type Signed<R extends SignableRow> = R & { readonly snapshot: SignOffSnap
  * roster. Those rows are signed one by one through the assignment flow, never in a batch.
  */
 export async function rosteredOf(
-  db: Database,
+  db: DbOrTx,
   statusIds: readonly string[],
 ): Promise<ReadonlySet<string>> {
   if (statusIds.length === 0) return new Set();
@@ -48,7 +48,7 @@ export async function rosteredOf(
  * read and the write is skipped rather than signed under this caller's name.
  */
 export async function signOffRows<R extends SignableRow>(
-  db: Database,
+  db: DbOrTx,
   args: {
     readonly companyId: string;
     readonly userId: string;
