@@ -1,14 +1,8 @@
 import { and, asc, count, desc, eq, isNotNull } from "drizzle-orm";
 import { z } from "zod";
 import { daysUntilDeadline } from "@/lib/compliance/deadlines";
-import { isDoneState, journeyState } from "@/lib/compliance/journey-position";
-import {
-  type Covering,
-  coveredState,
-  type DurchgangAction,
-  itemState,
-  walkOf,
-} from "@/lib/durchgang";
+import { isDoneState } from "@/lib/compliance/journey-position";
+import { journeyStates, walkOf } from "@/lib/durchgang";
 import {
   getRequirementDescription,
   getRequirementsMessages,
@@ -88,6 +82,7 @@ export const journeyRouter = router({
             journeyMode: company.journeyMode,
             sector: company.sector,
             entityType: company.entityType,
+            criticalInstallation: company.criticalInstallation,
           })
           .from(company)
           .where(eq(company.id, cid))
@@ -200,35 +195,24 @@ export const journeyRouter = router({
       const requirements = await getRequirementsMessages(input?.locale ?? "en");
       const nowDate = new Date();
 
-      // Each requirement's own state, which a requirement met inside the walk reads off the walk
-      // items that carry it (`coveredState`).
-      const own = new Map(
-        rows.map((r): [string, Covering] => {
-          const status = r.status ?? "not_started";
-          const latest = walk.get(r.requirementId) ?? null;
-          return [
-            r.code,
-            {
-              state: journeyState(status, itemState({ ...r, status }, latest)),
-              walked:
-                latest?.action === ("durchgang.item_done" satisfies DurchgangAction),
-            },
-          ];
-        }),
+      // Where each requirement stands, the one computation the exports read too.
+      const states = journeyStates(
+        rows,
+        walk,
+        companyRow
+          ? {
+              sector: companyRow.sector,
+              walks: walkOf(companyRow).map((item) => item.code),
+            }
+          : null,
       );
-      const covering = (code: string): Covering =>
-        own.get(code) ?? { state: "todo", walked: false };
-      const profile = companyRow && {
-        sector: companyRow.sector,
-        walks: walkOf(companyRow.entityType).map((item) => item.code),
-      };
 
       const items = rows.map((r) => {
         const status = r.status ?? "not_started";
-        const ownState = covering(r.code).state;
-        const { state, coveredBy } = profile
-          ? coveredState(r.code, ownState, profile, covering)
-          : { state: ownState, coveredBy: null };
+        const { state, coveredBy } = states.get(r.code) ?? {
+          state: "todo" as const,
+          coveredBy: null,
+        };
         const dueAt = r.nextReviewDate ? new Date(r.nextReviewDate) : null;
         // nextReviewDate means a recurring REVIEW date only on review-relevant
         // statuses (matches dashboard.ts). On not-done items the same column

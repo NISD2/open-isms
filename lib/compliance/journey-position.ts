@@ -52,16 +52,20 @@ export type DotState = "todo" | "started" | "awaiting" | "signed" | "na" | "reje
 /**
  * A requirement's state on the journey, from its status and where the walkthrough has it, so the
  * dot, the label, the filter, the counts and the next step all read one value. Waiting for
- * management's sign-off means filled in through the walkthrough, or signed once and due to be
- * signed again, unless the walkthrough set it aside or declined it since: then the approval does
- * not list it either.
+ * management's sign-off means filled in through the walkthrough, decided against there (management
+ * signs the decision), or signed once and due to be signed again, unless the walkthrough set it
+ * aside since: then the approval does not list it either.
  */
 export function journeyState(status: string, walk: ItemState | null): DotState {
   // "completed" = user sign-off done; "approved" adds legal review. Both done.
   if (status === "completed" || status === "approved") return "signed";
   if (status === "not_applicable") return "na";
-  const setAside = walk?.kind === "waiting" || walk?.kind === "declined";
-  if (walk?.kind === "filled" || (status === "needs_review" && !setAside))
+  const setAside = walk?.kind === "waiting";
+  if (
+    walk?.kind === "filled" ||
+    walk?.kind === "declined" ||
+    (status === "needs_review" && !setAside)
+  )
     return "awaiting";
   if (status === "rejected") return "rejected";
   if (status === "in_progress") return "started";

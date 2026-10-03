@@ -106,7 +106,10 @@ import {
 import {
   appendNote,
   type DurchgangActor,
+  declineReason,
+  declineReasonsOf,
   durchgangItem,
+  signDeclined,
   walkItemRef,
   walkPolicyRows,
   walkRows,
@@ -458,6 +461,9 @@ const waitingForManagement = async (db: TRPCContext["db"], companyId: string) =>
  * Management signs every walk item, whatever role the requirement names for a single sign-off:
  * § 38 Abs. 1 BSIG has management implement and oversee the measures, and the walk was built for
  * its one signature at the end.
+ *
+ * An item the company decided not to do is signed as that decision: recorded not applicable,
+ * with its written reason and management as the one who decided (`signDeclined`).
  */
 const signWaiting = async (
   ctx: {
@@ -469,16 +475,25 @@ const signWaiting = async (
   shown: readonly string[],
   now: Date,
 ) => {
-  if (shown.length === 0) return [];
+  if (shown.length === 0) return { signed: [], declined: [] };
   const { assessmentId, items } = await waitingForManagement(ctx.db, ctx.companyId);
+  const chosen = items.filter(
+    (item) => item.drafts.length === 0 && shown.includes(item.code),
+  );
+  const decided = await signDeclined(ctx.db, {
+    userId: ctx.userId,
+    statusIds: chosen.filter((item) => item.declined).map((item) => item.row.statusId),
+    now,
+  });
+  const declined = chosen
+    .filter((item) => decided.includes(item.row.statusId))
+    .map((item) => item.row);
   const signedOffRole = signerRoleOf(ctx.session);
   const signed = await signOffRows(ctx.db, {
     companyId: ctx.companyId,
     userId: ctx.userId,
     signedOffRole,
-    rows: items
-      .filter((item) => item.drafts.length === 0 && shown.includes(item.code))
-      .map((item) => item.row),
+    rows: chosen.filter((item) => !item.declined).map((item) => item.row),
     source: "editor",
     chainData: (row) => ({
       code: row.code,
@@ -486,7 +501,7 @@ const signWaiting = async (
       walkApproval: APPROVAL_SCREEN?.code ?? null,
     }),
   });
-  if (!assessmentId || signed.length === 0) return signed;
+  if (!assessmentId || signed.length + declined.length === 0) return { signed, declined };
 
   await recalculateProgress(ctx.db, assessmentId);
   for (const row of signed) {
@@ -504,7 +519,7 @@ const signWaiting = async (
       userId: ctx.userId,
     }).catch((err) => console.error("[durchgang] deadlines:", err));
   }
-  return signed;
+  return { signed, declined };
 };
 
 export const durchgangRouter = router({
@@ -643,14 +658,23 @@ export const durchgangRouter = router({
 
   /**
    * "Wir haben entschieden, das nicht zu tun": finished without doing it, for the Geschäftsführung
-   * to sign. The written reason is the record of that decision and goes only into the notes; the
-   * audit row carries no free text.
+   * to sign in the approval. Refused on an item the law leaves no choice on (`mustDo`). The
+   * written reason goes into the notes and onto the row as the reason the signature will record
+   * (`notApplicableReason`); the status stays until management signs. The audit row carries no
+   * free text.
    */
   decline: durchgangProcedure
     .input(z.object({ code, reason: z.string().trim().min(20).max(2000) }))
     .mutation(async ({ ctx, input }) => {
+      if (itemOf(input.code).mustDo) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: `${input.code} is a duty the law leaves no choice on.`,
+        });
+      }
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
       const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
+      await declineReason(ctx.db, ref.statusId, input.reason);
       await appendNote(
         ctx.db,
         ref.statusId,
@@ -671,6 +695,8 @@ export const durchgangRouter = router({
     .input(z.object({ code }))
     .mutation(async ({ ctx, input }) => {
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
+      // Filled in after all: an earlier decision not to do it no longer stands.
+      await declineReason(ctx.db, ref.statusId, null);
       await logWalk({
         companyId: ctx.companyId,
         userId: ctx.userId,
@@ -1521,14 +1547,23 @@ export const durchgangRouter = router({
    */
   awaitingSignature: durchgangProcedure
     .input(z.object({ locale: z.enum(["de", "en"]) }))
-    .query(async ({ ctx, input }) =>
-      (await waitingForManagement(ctx.db, ctx.companyId)).items.map(
-        ({ code, drafts }) => {
-          const words = resolveItem(NAMESPACES[input.locale], itemOf(code));
-          return { code, drafts, headline: words.ok ? words.value.headline : code };
-        },
-      ),
-    ),
+    .query(async ({ ctx, input }) => {
+      const { items } = await waitingForManagement(ctx.db, ctx.companyId);
+      const reasons = await declineReasonsOf(
+        ctx.db,
+        items.filter((item) => item.declined).map((item) => item.row.statusId),
+      );
+      return items.map(({ code, drafts, declined, row }) => {
+        const words = resolveItem(NAMESPACES[input.locale], itemOf(code));
+        return {
+          code,
+          drafts,
+          headline: words.ok ? words.value.headline : code,
+          /** The written reason when the company decided not to do it; null when filled in. */
+          declined: declined ? (reasons.get(row.statusId) ?? "") : null,
+        };
+      });
+    }),
 
   /**
    * 7.3: management approves the drafts it ticked, signed in with its own account. The approval
@@ -1626,19 +1661,21 @@ export const durchgangRouter = router({
         // (writePolicy) still rechecks.
       }
 
-      const signed = await signWaiting(ctx, input.sign, now);
-      if (signed.length > 0) {
+      const { signed, declined } = await signWaiting(ctx, input.sign, now);
+      if (signed.length + declined.length > 0) {
+        const codes = signed.map((r) => r.code);
+        const decided = declined.map((r) => r.code);
         await logWalk({
           companyId: ctx.companyId,
           userId: ctx.userId,
           action: "durchgang.requirements_signed",
           entityType: "requirement",
           entityId: ref.requirementId,
-          description: `${ref.code} management signed off ${signed.map((r) => r.code).join(", ")}`,
-          newValue: { codes: signed.map((r) => r.code) },
+          description: `${ref.code} management signed off ${[...codes, ...decided].join(", ")}`,
+          newValue: { codes, declined: decided },
         });
       }
-      return { approved: approved.length, signed: signed.length };
+      return { approved: approved.length, signed: signed.length + declined.length };
     }),
 
   /** The policy an item writes, as its screen shows it and the server stores it. */

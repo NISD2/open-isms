@@ -21,7 +21,7 @@ export const NOT_WALKED: Readonly<Record<string, string>> = {
   "1.2":
     "No statute asks every entity to name roles: § 38 Abs. 1 BSIG and Art. 20(1) NIS 2 have management implement and oversee the measures. Roles, responsibilities and authorities are CIR 2024/2690 Annex 1.2, which binds only the digital providers the CIR covers, and a security officer is BSI advice (BSI-Standard 200-2). The walk names the people it needs where it needs them: whoever leads in an emergency in 3.1, with an invite for someone not in the team yet, and management for the approval in 7.3. The requirement page keeps the team and its roles.",
   "1.3":
-    "No statute asks for a separately approved security budget: § 30 and § 38 BSIG ask management to implement and oversee the measures. The nearest rule, CIR 2024/2690 Annex 1.1.1(e), binds only the digital providers the CIR covers and asks for a commitment to provide resources inside the security policy; the Leitlinie (2.4) carries no such commitment today. The requirement page keeps the budget fields.",
+    "No statute asks for a separately approved security budget: § 30 and § 38 BSIG ask management to implement and oversee the measures. The nearest rule, CIR 2024/2690 Annex 1.1.1(e), binds only the digital providers the CIR covers and asks for a commitment to provide resources inside the security policy, which the Leitlinie (2.4) carries in its section on responsibility (management „stellt dafür Zeit, Geld und Personal bereit“). The requirement page keeps the budget fields.",
   "1.4":
     "No statute asks management to sign an acknowledgement of liability; § 38 Abs. 2 BSIG sets the liability itself, which the CEO course behind 1.1 teaches. The acknowledgement is a platform record, so it stays on the requirement page.",
   "5.3":
@@ -118,6 +118,8 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     code: "1.1",
     category: "GOV",
     law: { bsig: 38, article: 20 },
+    mustDo:
+      "§ 38 Abs. 3 BSIG: management „muss“ take part in training regularly; the provision leaves no proportionality to weigh.",
     glossary: [],
     reviewed: "2026-09-30",
     screens: [
@@ -173,6 +175,8 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     code: "12.3",
     category: "REG",
     law: { bsig: 33, article: 3 },
+    mustDo:
+      "§ 33 Abs. 5 BSIG: every change to the registration data is reported within two weeks; no entity may opt out.",
     glossary: [],
     reviewed: "2026-09-30",
     screens: [
@@ -222,6 +226,8 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     code: "3.3",
     category: "INC",
     law: { bsig: 32, article: 23 },
+    mustDo:
+      "§ 32 Abs. 1 BSIG: a significant incident is reported to the BSI within 24 hours, 72 hours and one month; the duty has no exception to decide.",
     glossary: [],
     reviewed: "2026-10-01",
     screens: [
@@ -245,6 +251,8 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     code: "12.2",
     category: "REG",
     law: { bsig: 33, article: 3 },
+    mustDo:
+      "§ 33 Abs. 1 BSIG: every important and essential entity registers with the BSI within three months.",
     glossary: [],
     reviewed: "2026-09-30",
     screens: [
@@ -538,6 +546,8 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     category: "REG",
     law: { bsig: 31, article: null },
     onlyFor: "kritis",
+    mustDo:
+      "§ 31 Abs. 2 and § 39 Abs. 1 BSIG: operators of critical facilities „sind verpflichtet“ to run attack detection and „haben“ to give the evidence.",
     glossary: [],
     reviewed: "2026-10-03",
     screens: [
@@ -558,6 +568,8 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     code: "7.3",
     category: "EFF",
     law: { bsig: 30, article: 21 },
+    mustDo:
+      "§ 38 Abs. 1 BSIG: management implements and oversees the measures, and this item is where it approves them; a decision not to approve is not a way to finish.",
     glossary: [],
     reviewed: "2026-10-01",
     screens: [

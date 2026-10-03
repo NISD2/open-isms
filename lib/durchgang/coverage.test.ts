@@ -23,8 +23,14 @@ import {
 } from "./index";
 import { COVERED_BY, NOT_WALKED } from "./nis2";
 
-/** What every entity walks: a company whose profile names no type an item is addressed to. */
-const everyone = new Set(walkOf("important").map((item) => item.code));
+const company = (
+  entityType: (typeof entityTypeEnum.enumValues)[number],
+  criticalInstallation: "yes" | "no" | "unsettled" = "unsettled",
+) => ({ entityType, criticalInstallation });
+const codesOf = (facts: ReturnType<typeof company>) => walkOf(facts).map((i) => i.code);
+
+/** What every entity walks: a company that operates no critical facility. */
+const everyone = new Set(codesOf(company("important")));
 const notWalked = Object.keys(NOT_WALKED);
 
 describe("every NIS 2 requirement has a place", () => {
@@ -67,43 +73,44 @@ describe("every NIS 2 requirement has a place", () => {
   });
 });
 
-describe("an item for one entity type is walked by that type only", () => {
+describe("an item for operators of critical facilities is walked by them only", () => {
   const forSome = WALK.filter((item) => item.onlyFor !== undefined);
 
   test("operators of critical facilities walk 12.4; nobody else does", () => {
     expect(forSome.map((item) => [item.code, item.onlyFor])).toEqual([
       ["12.4", "kritis"],
     ]);
-    expect(walkOf("kritis").map((i) => i.code)).toContain("12.4");
-    expect(walkOf("essential").map((i) => i.code)).not.toContain("12.4");
-    expect(walkOf("important").map((i) => i.code)).not.toContain("12.4");
+    expect(codesOf(company("kritis"))).toContain("12.4");
+    expect(codesOf(company("essential"))).not.toContain("12.4");
+    expect(codesOf(company("important"))).not.toContain("12.4");
+  });
+
+  test("a critical facility recorded as such counts, whatever entity type was chosen", () => {
+    expect(codesOf(company("essential", "yes"))).toContain("12.4");
+    expect(codesOf(company("essential", "no"))).not.toContain("12.4");
   });
 
   test("everyone else has the reason it is left out", () => {
     for (const { code } of forSome) expect(code in NOT_WALKED).toBe(true);
   });
 
-  test("a type's walk is every entity's walk plus its own items", () => {
-    for (const type of entityTypeEnum.enumValues) {
-      const own = forSome.filter((i) => i.onlyFor === type).map((i) => i.code);
-      expect(
-        walkOf(type)
-          .map((i) => i.code)
-          .filter((code) => !own.includes(code)),
-      ).toEqual([...everyone]);
-    }
+  test("an operator's walk is every entity's walk plus its own items", () => {
+    const own = forSome.map((i) => i.code);
+    expect(codesOf(company("kritis")).filter((code) => !own.includes(code))).toEqual([
+      ...everyone,
+    ]);
   });
 
   test("in every walk, management approves last", () => {
     for (const type of entityTypeEnum.enumValues) {
-      expect(walkOf(type).at(-1)?.code).toBe(APPROVAL_SCREEN?.code);
+      expect(codesOf(company(type)).at(-1)).toBe(APPROVAL_SCREEN?.code);
     }
   });
 });
 
 describe("a requirement the walk leaves out shows on the journey where it was met", () => {
   const ordinary = { sector: "energy", walks: [...everyone] };
-  const kritis = { sector: "energy", walks: walkOf("kritis").map((i) => i.code) };
+  const kritis = { sector: "energy", walks: codesOf(company("kritis")) };
   const msp = { sector: "ict_service_management", walks: [...everyone] };
   const states =
     (map: Readonly<Record<string, Covering>>) =>
@@ -197,8 +204,8 @@ describe("walking an item checks it off in the journey", () => {
   const journeyOf = (row: StatusRow, latest: DurchgangEvent | null) =>
     journeyState(row.status, itemState(row, latest));
 
-  for (const { code } of WALK) {
-    test(`${code}: filled in waits for sign-off, signed off is done, set aside is neither`, () => {
+  for (const item of WALK) {
+    test(`${item.code}: filled in waits for sign-off, signed off is done, set aside is neither`, () => {
       expect(journeyOf(open, null)).toBe("todo");
       expect(journeyOf(open, event("durchgang.item_done"))).toBe("awaiting");
       expect(journeyOf(signed, event("durchgang.item_done"))).toBe("signed");
@@ -206,4 +213,21 @@ describe("walking an item checks it off in the journey", () => {
       expect(aside === "awaiting" || aside === "signed").toBe(false);
     });
   }
+
+  test("a decision not to do an item waits for management's signature, like a filled one", () => {
+    expect(journeyOf(open, event("durchgang.declined"))).toBe("awaiting");
+  });
+});
+
+describe("what the law leaves no choice on cannot be decided against", () => {
+  test("registration, reporting, management training, the approval and the KRITIS duties", () => {
+    const fixed = WALK.filter((item) => item.mustDo !== undefined).map((i) => i.code);
+    expect(fixed.toSorted()).toEqual(["1.1", "12.2", "12.3", "12.4", "3.3", "7.3"]);
+  });
+
+  test("each says which provision leaves no choice", () => {
+    for (const item of WALK) {
+      if (item.mustDo !== undefined) expect(item.mustDo).toMatch(/§ \d+/);
+    }
+  });
 });

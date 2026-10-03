@@ -222,8 +222,16 @@ describe("awaiting management's signature", () => {
       reviewed: opts.reviewed ?? false,
     });
 
-  test("takes the filled-in items only: not open, waiting, declined or already signed", () => {
-    expect(awaiting({}).map((i) => i.code)).toEqual(["2.2", "2.4"]);
+  test("takes the filled-in items and the decisions not to do one: not open, waiting or signed", () => {
+    expect(awaiting({}).map((i) => i.code)).toEqual(["2.2", "2.4", "5.2"]);
+  });
+
+  test("marks a decision not to do an item, which management signs as such", () => {
+    expect(awaiting({}).map((i) => [i.code, i.declined])).toEqual([
+      ["2.2", false],
+      ["2.4", false],
+      ["5.2", true],
+    ]);
   });
 
   test("names the drafts each item still waits on, so it is signed only with its document", () => {
@@ -232,8 +240,9 @@ describe("awaiting management's signature", () => {
       { code: "6.3", type: "it_rules" },
     ];
     expect(awaiting({ drafts })).toEqual([
-      { code: "2.2", drafts: [] },
-      { code: "2.4", drafts: ["information_security"] },
+      { code: "2.2", drafts: [], declined: false },
+      { code: "2.4", drafts: ["information_security"], declined: false },
+      { code: "5.2", drafts: [], declined: true },
     ]);
   });
 
@@ -241,11 +250,12 @@ describe("awaiting management's signature", () => {
     expect(awaiting({ reviewed: true }).map((i) => i.code)).toEqual([
       "2.2",
       "2.4",
+      "5.2",
       "7.3",
     ]);
     // Without a review line the walk has not reached the approval yet.
     expect(awaiting({ reviewed: false }).map((i) => i.code)).not.toContain("7.3");
-    // Set aside or decided against, it is not signed by the approval either.
+    // Set aside, it is not signed by the approval either.
     expect(
       awaiting({
         reviewed: true,
@@ -263,7 +273,7 @@ describe("awaiting management's signature", () => {
       approvalCode: "7.3",
       reviewed: false,
     });
-    expect(result).toEqual([{ code: "4.2", drafts: [] }]);
+    expect(result).toEqual([{ code: "4.2", drafts: [], declined: false }]);
   });
 });
 

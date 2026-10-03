@@ -135,9 +135,11 @@ describe("the NIS 2 script", () => {
       0,
       forEveryone.length + Object.keys(NOT_WALKED).length,
     );
-    expect(walkOf("important").map((i) => i.code)).toEqual(
-      front.filter((code) => !NOT_WALKED[code]),
-    );
+    expect(
+      walkOf({ entityType: "important", criticalInstallation: "unsettled" }).map(
+        (i) => i.code,
+      ),
+    ).toEqual(front.filter((code) => !NOT_WALKED[code]));
     for (const code of Object.keys(NOT_WALKED)) expect(front).toContain(code);
     for (const reason of Object.values(NOT_WALKED)) {
       expect(reason.trim().length).toBeGreaterThan(20);

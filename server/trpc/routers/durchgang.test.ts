@@ -290,25 +290,36 @@ describe("durchgang router", () => {
     expect(JSON.stringify(event?.newValue)).not.toContain("IT-Dienstleister");
   });
 
-  test("records a decision not to do an item with its reason in the trail, not in the audit row", async () => {
+  test("records a decision not to do an item with its reason, for management to sign, not in the audit row", async () => {
     audits.length = 0;
     const { caller, writes } = setup({ accessLevel: "full" });
     await expect(
-      caller.decline({ code: "12.2", reason: "zu kurz" }),
+      caller.decline({ code: "2.1", reason: "zu kurz" }),
     ).rejects.toMatchObject({ code: "BAD_REQUEST" });
     expect(writes).toEqual([]);
 
-    await caller.decline({
-      code: "12.2",
-      reason: "Wir sind bereits über den Konzern registriert.",
-    });
-    const note = writes.find(
+    const reason = "Wir nutzen die Methode unseres Konzerns, die dem BSI-Standard entspricht.";
+    await caller.decline({ code: "2.1", reason });
+    const rows = writes.filter(
       (w) => w.op === "update" && w.table === companyRequirementStatus,
     );
-    expect(note).toBeDefined();
+    // The reason the approval will sign, and the line in the notes trail.
+    expect(rows.some((w) => JSON.stringify(w.values).includes(reason))).toBe(true);
+    expect(rows.length).toBe(2);
     const event = audits.find((a) => a.action === "durchgang.declined");
     expect(event).toMatchObject({ entityType: "requirement", entityId: REQUIREMENT });
     expect(JSON.stringify(event)).not.toContain("Konzern");
+  });
+
+  test("refuses to decline what the law leaves no choice on, and writes nothing", async () => {
+    const { caller, writes } = setup({ accessLevel: "full" });
+    await expect(
+      caller.decline({
+        code: "12.2",
+        reason: "Wir sind bereits über den Konzern registriert.",
+      }),
+    ).rejects.toMatchObject({ code: "BAD_REQUEST" });
+    expect(writes).toEqual([]);
   });
 
   test("adds only catalogue items the company does not list yet, with their category as type", async () => {

@@ -9,10 +9,7 @@ type FieldLabels = {
 
 export interface ExportLabels {
   readonly fields: FieldLabels;
-  /** Names for stored values that are codes (entity type, risk level, treatment, severity). */
-  readonly values: Readonly<Record<string, string>>;
   readonly records: Readonly<Record<ExportRecord, string>>;
-  readonly name: string;
   readonly providers: string;
   readonly none: string;
   readonly yes: string;
@@ -26,7 +23,6 @@ export interface ExportLabels {
     readonly title: string;
     readonly eyebrow: string;
     readonly empty: string;
-    readonly status: string;
     readonly approvedBy: string;
     readonly approvedAt: string;
     readonly version: string;
@@ -47,6 +43,11 @@ const DE: ExportLabels = {
       primaryLocations: "Standorte",
       contactEmail: "Kontakt",
       contactPhone: "Telefon",
+      cisoName: "Verantwortlich für Informationssicherheit",
+      cisoReportsTo: "Berichtet an",
+      bsiContactName: "Kontaktstelle für das BSI",
+      bsiContactEmail: "E-Mail der Kontaktstelle",
+      bsiContactPhone: "Telefon der Kontaktstelle",
       bsiRegistrationId: "Registrierung beim BSI",
     },
     asset: {
@@ -61,11 +62,17 @@ const DE: ExportLabels = {
       ipAddress: "IP-Adresse",
       operatingSystem: "Betriebssystem",
       softwareVersion: "Version",
+      lastPatchDate: "Letztes Update",
+      accessManagement: "Zugriffsverwaltung",
       hasMfa: "Zweiter Faktor",
       mfaMethod: "Art des zweiten Faktors",
+      encryptionAtRest: "Verschlüsselung gespeicherter Daten",
+      encryptionInTransit: "Verschlüsselung bei der Übertragung",
       hasBackup: "Datensicherung",
       backupFrequency: "Sicherungsrhythmus",
       lastBackupTestDate: "Letzte erfolgreiche Wiederherstellung",
+      rto: "Wiederanlaufzeit in Stunden",
+      rpo: "Höchster Datenverlust in Stunden",
       processesPersonalData: "Personenbezogene Daten",
       endOfLife: "Ende der Unterstützung",
     },
@@ -79,10 +86,13 @@ const DE: ExportLabels = {
       hasAccessToSystems: "Zugriff auf Systeme",
       hasAccessToData: "Zugriff auf Daten",
       hasSecurityClauses: "Sicherheit vertraglich geregelt",
+      contractSecurityClauses: "Vertragliche Regelungen",
+      hasAuditRights: "Prüfrechte",
       hasSecurityCertification: "Zertifiziert",
       securityCertificationType: "Zertifizierung",
       contractStartDate: "Vertrag seit",
       contractEndDate: "Vertrag bis",
+      lastReviewDate: "Zuletzt überprüft",
       processesPersonalData: "Personenbezogene Daten",
       dpaAvailable: "Auftragsverarbeitungsvertrag",
     },
@@ -122,23 +132,6 @@ const DE: ExportLabels = {
       resolvedAt: "Behoben am",
     },
   },
-  values: {
-    essential: "Besonders wichtige Einrichtung",
-    important: "Wichtige Einrichtung",
-    kritis: "Betreiber einer kritischen Anlage",
-    critical: "kritisch",
-    high: "hoch",
-    medium: "mittel",
-    low: "niedrig",
-    mitigate: "Reduzieren",
-    accept: "Akzeptieren",
-    transfer: "Übertragen",
-    avoid: "Vermeiden",
-    near_miss: "Beinahevorfall",
-    incident: "Vorfall",
-    significant: "Erheblicher Sicherheitsvorfall",
-    ceo: "Geschäftsführung",
-  },
   records: {
     company: "Stammdaten",
     asset: "Assets",
@@ -148,7 +141,6 @@ const DE: ExportLabels = {
     managementReview: "Managementbewertungen",
     incident: "Vorfälle",
   },
-  name: "Name",
   providers: "Anbieter",
   none: "Keine Einträge.",
   yes: "Ja",
@@ -162,7 +154,6 @@ const DE: ExportLabels = {
     title: "Dokumente",
     eyebrow: "NIS 2 Dokumentation",
     empty: "Der Durchgang hat noch keine Dokumente geschrieben.",
-    status: "Status",
     approvedBy: "Freigegeben von",
     approvedAt: "Freigegeben am",
     version: "Version",
@@ -183,6 +174,11 @@ const EN: ExportLabels = {
       primaryLocations: "Locations",
       contactEmail: "Contact",
       contactPhone: "Phone",
+      cisoName: "Responsible for information security",
+      cisoReportsTo: "Reports to",
+      bsiContactName: "Contact point for the BSI",
+      bsiContactEmail: "Contact point email",
+      bsiContactPhone: "Contact point phone",
       bsiRegistrationId: "Registration with the BSI",
     },
     asset: {
@@ -197,11 +193,17 @@ const EN: ExportLabels = {
       ipAddress: "IP address",
       operatingSystem: "Operating system",
       softwareVersion: "Version",
+      lastPatchDate: "Last update",
+      accessManagement: "Access management",
       hasMfa: "Second factor",
       mfaMethod: "Kind of second factor",
+      encryptionAtRest: "Encryption of stored data",
+      encryptionInTransit: "Encryption in transit",
       hasBackup: "Backup",
       backupFrequency: "Backup rhythm",
       lastBackupTestDate: "Last successful restore",
+      rto: "Recovery time in hours",
+      rpo: "Maximum data loss in hours",
       processesPersonalData: "Personal data",
       endOfLife: "End of support",
     },
@@ -215,10 +217,13 @@ const EN: ExportLabels = {
       hasAccessToSystems: "Access to systems",
       hasAccessToData: "Access to data",
       hasSecurityClauses: "Security agreed in the contract",
+      contractSecurityClauses: "Contract clauses",
+      hasAuditRights: "Audit rights",
       hasSecurityCertification: "Certified",
       securityCertificationType: "Certification",
       contractStartDate: "Contract since",
       contractEndDate: "Contract until",
+      lastReviewDate: "Last reviewed",
       processesPersonalData: "Personal data",
       dpaAvailable: "Data processing agreement",
     },
@@ -258,23 +263,6 @@ const EN: ExportLabels = {
       resolvedAt: "Resolved on",
     },
   },
-  values: {
-    essential: "Essential entity",
-    important: "Important entity",
-    kritis: "Operator of a critical facility",
-    critical: "critical",
-    high: "high",
-    medium: "medium",
-    low: "low",
-    mitigate: "Reduce",
-    accept: "Accept",
-    transfer: "Transfer",
-    avoid: "Avoid",
-    near_miss: "Near miss",
-    incident: "Incident",
-    significant: "Significant incident",
-    ceo: "Management",
-  },
   records: {
     company: "Company",
     asset: "Assets",
@@ -284,7 +272,6 @@ const EN: ExportLabels = {
     managementReview: "Management reviews",
     incident: "Incidents",
   },
-  name: "Name",
   providers: "Providers",
   none: "No entries.",
   yes: "Yes",
@@ -298,7 +285,6 @@ const EN: ExportLabels = {
     title: "Documents",
     eyebrow: "NIS 2 records",
     empty: "The walkthrough has not written any documents yet.",
-    status: "Status",
     approvedBy: "Approved by",
     approvedAt: "Approved on",
     version: "Version",

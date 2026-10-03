@@ -1,11 +1,15 @@
 import { TRPCError } from "@trpc/server";
-import { and, desc, eq, inArray, sql } from "drizzle-orm";
+import { addYears } from "date-fns";
+import { and, desc, eq, inArray, ne, notInArray, sql } from "drizzle-orm";
+import { toDateString } from "@/lib/compliance/deadlines";
 import type { Database, DbOrTx } from "@/lib/db";
 import {
   type AnyItem,
   type DurchgangEvent,
   type ItemState,
   itemState,
+  type JourneyEntry,
+  journeyStates,
   STATE_ACTIONS,
   WALK_POLICIES,
   walkOf,
@@ -23,8 +27,9 @@ import { getNis2Assessment } from "./nis2-scope";
 import type { SignableRow } from "./sign-off-rows";
 
 /**
- * The items this company walks, read off the entity type on its profile: an item for operators
- * of critical facilities is in it only when the profile says the company is one.
+ * The items this company walks, read off its profile (`walkOf`): an item for operators of
+ * critical facilities is in it only when the company operates one. A session's company always
+ * exists, so a missing one is a broken invariant, not a "not found" a caller could handle.
  */
 export async function companyWalk(
   db: DbOrTx,
@@ -32,10 +37,10 @@ export async function companyWalk(
 ): Promise<readonly AnyItem[]> {
   const row = await db.query.company.findFirst({
     where: eq(company.id, companyId),
-    columns: { entityType: true },
+    columns: { entityType: true, criticalInstallation: true },
   });
-  if (!row) throw new TRPCError({ code: "NOT_FOUND", message: "No such company." });
-  return walkOf(row.entityType);
+  if (!row) throw new Error(`No company ${companyId}.`);
+  return walkOf(row);
 }
 
 export interface DurchgangItemRef {
@@ -136,6 +141,82 @@ export async function appendNote(
 }
 
 /**
+ * The reason a decision not to do an item will be signed with, or null once the item is filled
+ * in after all. A requirement already recorded not applicable keeps its signed reason.
+ */
+export async function declineReason(
+  db: DbOrTx,
+  statusId: string,
+  reason: string | null,
+): Promise<void> {
+  await db
+    .update(companyRequirementStatus)
+    .set({ notApplicableReason: reason })
+    .where(
+      and(
+        eq(companyRequirementStatus.id, statusId),
+        ne(companyRequirementStatus.status, "not_applicable"),
+      ),
+    );
+}
+
+/** The reasons the given rows were decided against with, by status row id. */
+export async function declineReasonsOf(
+  db: DbOrTx,
+  statusIds: readonly string[],
+): Promise<ReadonlyMap<string, string>> {
+  if (statusIds.length === 0) return new Map();
+  const rows = await db
+    .select({
+      id: companyRequirementStatus.id,
+      reason: companyRequirementStatus.notApplicableReason,
+    })
+    .from(companyRequirementStatus)
+    .where(inArray(companyRequirementStatus.id, [...statusIds]));
+  return new Map(rows.flatMap((r) => (r.reason ? [[r.id, r.reason] as const] : [])));
+}
+
+/**
+ * Management's signature on decisions not to do an item: recorded the way the requirement page
+ * records "not applicable", with the walk's written reason, management as the one who decided,
+ * now, and a review in a year. A row signed or approved meanwhile is left alone. Returns the ids
+ * of the rows it recorded.
+ */
+export async function signDeclined(
+  db: DbOrTx,
+  args: {
+    readonly userId: string;
+    readonly statusIds: readonly string[];
+    readonly now: Date;
+  },
+): Promise<readonly string[]> {
+  if (args.statusIds.length === 0) return [];
+  const rows = await db
+    .update(companyRequirementStatus)
+    .set({
+      status: "not_applicable",
+      isApplicable: false,
+      notApplicableBy: args.userId,
+      notApplicableAt: args.now,
+      lastReviewedAt: args.now,
+      nextReviewDate: toDateString(addYears(args.now, 1)),
+      updatedAt: args.now,
+    })
+    .where(
+      and(
+        inArray(companyRequirementStatus.id, [...args.statusIds]),
+        notInArray(companyRequirementStatus.status, [
+          "completed",
+          "approved",
+          "not_applicable",
+        ]),
+      ),
+    )
+    .returning({ id: companyRequirementStatus.id });
+  return rows.map((r) => r.id);
+}
+
+/**
  * The newest audit row per requirement among the actions that move a walk item, for the company:
  * what `itemState` reads beside the status row. Without `requirementIds` it reads every
  * requirement of the company, so the journey can run it beside its own rows.
@@ -164,6 +245,40 @@ export async function latestWalkEvents(
     )
     .orderBy(auditLog.entityId, desc(auditLog.createdAt));
   return new Map(events.map((e) => [e.entityId, e]));
+}
+
+/**
+ * Where each of the company's NIS 2 requirements stands on the journey, by code (`journeyStates`),
+ * for a reader outside the journey: the export's report, table and data file.
+ */
+export async function journeyStatesOf(
+  db: DbOrTx,
+  companyId: string,
+): Promise<ReadonlyMap<string, JourneyEntry>> {
+  const [assessment, co, events] = await Promise.all([
+    getNis2Assessment(db, companyId),
+    db.query.company.findFirst({
+      where: eq(company.id, companyId),
+      columns: { sector: true, entityType: true, criticalInstallation: true },
+    }),
+    latestWalkEvents(db, companyId),
+  ]);
+  if (!assessment || !co) return new Map();
+  const rows = await db
+    .select({
+      code: requirement.code,
+      requirementId: companyRequirementStatus.requirementId,
+      status: companyRequirementStatus.status,
+      signedOffAt: companyRequirementStatus.signedOffAt,
+      reviewedAt: companyRequirementStatus.reviewedAt,
+    })
+    .from(companyRequirementStatus)
+    .innerJoin(requirement, eq(requirement.id, companyRequirementStatus.requirementId))
+    .where(eq(companyRequirementStatus.assessmentId, assessment.id));
+  return journeyStates(rows, events, {
+    sector: co.sector,
+    walks: walkOf(co).map((item) => item.code),
+  });
 }
 
 /** One item of the walk for a company: where it stands, and its NIS 2 status row if it has one. */

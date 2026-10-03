@@ -24,6 +24,7 @@ import { renderToBuffer } from "@react-pdf/renderer";
 import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { loadCompanyExport } from "@/lib/export/company-export";
+import { valueNames } from "@/lib/export/value-names";
 import { DocumentsDocument, RegistersDocument } from "@/lib/pdf/company-export";
 import { ComplianceReport } from "@/lib/pdf/compliance-report";
 import { loadReportData } from "@/lib/pdf/load-report-data";
@@ -49,9 +50,10 @@ async function main(): Promise<readonly string[]> {
   const assessment = await getNis2Assessment(db, gf.companyId);
   if (!assessment) throw new Error("no NIS 2 assessment for the demo company");
 
-  const [report, data] = await Promise.all([
+  const [report, data, names] = await Promise.all([
     loadReportData(assessment.id, "de"),
     loadCompanyExport(db, gf.companyId),
+    valueNames("de"),
   ]);
   const files: ReadonlyArray<readonly [string, Buffer | string]> = [
     [
@@ -60,11 +62,11 @@ async function main(): Promise<readonly string[]> {
     ],
     [
       "pruefordner-2-register.pdf",
-      await renderToBuffer(RegistersDocument({ data, locale: "de" })),
+      await renderToBuffer(RegistersDocument({ data, locale: "de", names })),
     ],
     [
       "pruefordner-3-dokumente.pdf",
-      await renderToBuffer(DocumentsDocument({ data, locale: "de" })),
+      await renderToBuffer(DocumentsDocument({ data, locale: "de", names })),
     ],
     ["pruefordner-4-daten.json", JSON.stringify(data, null, 2)],
   ];

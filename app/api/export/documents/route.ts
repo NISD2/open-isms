@@ -3,6 +3,7 @@ import type { NextRequest } from "next/server";
 import { db } from "@/lib/db";
 import { attachment, exportAccess } from "@/lib/export/access";
 import { loadCompanyExport } from "@/lib/export/company-export";
+import { valueNames } from "@/lib/export/value-names";
 import { DocumentsDocument } from "@/lib/pdf/company-export";
 import { pdfLocale } from "@/lib/pdf/format";
 
@@ -12,8 +13,11 @@ export async function GET(request: NextRequest) {
   if (!access.ok) return access.response;
 
   const locale = pdfLocale(request.nextUrl.searchParams.get("locale"));
-  const data = await loadCompanyExport(db, access.companyId);
-  const buffer = await renderToBuffer(DocumentsDocument({ data, locale }));
+  const [data, names] = await Promise.all([
+    loadCompanyExport(db, access.companyId),
+    valueNames(locale),
+  ]);
+  const buffer = await renderToBuffer(DocumentsDocument({ data, locale, names }));
   return new Response(new Uint8Array(buffer), {
     headers: attachment(
       "application/pdf",

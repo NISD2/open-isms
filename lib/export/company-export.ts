@@ -1,21 +1,23 @@
 import "@/lib/server-guard";
 
-import { asc, eq, inArray } from "drizzle-orm";
+import { and, asc, eq, inArray } from "drizzle-orm";
 import { journeyIndex } from "@/lib/compliance/journey-position";
 import type { DbOrTx } from "@/lib/db";
 import {
   asset,
   assetProvider,
   company,
+  companyCategoryIntake,
   companyRequirementStatus,
   incident,
   managementReview,
   requirement,
+  requirementCategory,
   risk,
   supplier,
   trainingRecord,
 } from "@/schema";
-import { walkPolicyRows } from "@/server/trpc/helpers/durchgang";
+import { journeyStatesOf, walkPolicyRows } from "@/server/trpc/helpers/durchgang";
 import { getNis2Assessment } from "@/server/trpc/helpers/nis2-scope";
 
 type Row<T extends { $inferSelect: object }> = T["$inferSelect"];
@@ -34,6 +36,11 @@ export const EXPORT_FIELDS = {
     "primaryLocations",
     "contactEmail",
     "contactPhone",
+    "cisoName",
+    "cisoReportsTo",
+    "bsiContactName",
+    "bsiContactEmail",
+    "bsiContactPhone",
     "bsiRegistrationId",
   ],
   asset: [
@@ -48,11 +55,17 @@ export const EXPORT_FIELDS = {
     "ipAddress",
     "operatingSystem",
     "softwareVersion",
+    "lastPatchDate",
+    "accessManagement",
     "hasMfa",
     "mfaMethod",
+    "encryptionAtRest",
+    "encryptionInTransit",
     "hasBackup",
     "backupFrequency",
     "lastBackupTestDate",
+    "rto",
+    "rpo",
     "processesPersonalData",
     "endOfLife",
   ],
@@ -66,10 +79,13 @@ export const EXPORT_FIELDS = {
     "hasAccessToSystems",
     "hasAccessToData",
     "hasSecurityClauses",
+    "contractSecurityClauses",
+    "hasAuditRights",
     "hasSecurityCertification",
     "securityCertificationType",
     "contractStartDate",
     "contractEndDate",
+    "lastReviewDate",
     "processesPersonalData",
     "dpaAvailable",
   ],
@@ -120,15 +136,19 @@ export const EXPORT_FIELDS = {
 
 export type ExportRecord = keyof typeof EXPORT_FIELDS;
 
-const pick = <T extends object, K extends keyof T>(
-  row: T,
-  keys: readonly K[],
-): Pick<T, K> => Object.fromEntries(keys.map((k) => [k, row[k]])) as Pick<T, K>;
+/**
+ * The columns a query loads, from a field list: only what the export carries ever leaves the
+ * database, so a token on the same row never reaches memory.
+ */
+const columnsOf = <K extends string>(keys: readonly K[]) =>
+  Object.fromEntries(keys.map((k) => [k, true])) as { [P in K]: true };
 
 /**
  * Everything one company recorded, for its export: master data, the registers the walk writes
- * into, each NIS 2 requirement's status with its sign-off and notes trail, and the documents the
- * walk wrote with their approval. Every query is filtered by `companyId`.
+ * into, each NIS 2 requirement with its status, its place on the journey (`journeyStatesOf`),
+ * sign-off and notes trail, the answers typed in each category, and the documents the walk wrote
+ * with their approval. Every query is filtered by the company, directly or through its own
+ * assessment and assets.
  */
 export async function loadCompanyExport(db: DbOrTx, companyId: string) {
   const [
@@ -141,29 +161,46 @@ export async function loadCompanyExport(db: DbOrTx, companyId: string) {
     incidents,
     documents,
     assessment,
+    states,
   ] = await Promise.all([
-    db.query.company.findFirst({ where: eq(company.id, companyId) }),
+    db.query.company.findFirst({
+      where: eq(company.id, companyId),
+      columns: { name: true, ...columnsOf(EXPORT_FIELDS.company) },
+    }),
     db.query.asset.findMany({
       where: eq(asset.companyId, companyId),
+      columns: { id: true, name: true, ...columnsOf(EXPORT_FIELDS.asset) },
       orderBy: asc(asset.name),
     }),
     db.query.supplier.findMany({
       where: eq(supplier.customerCompanyId, companyId),
+      columns: { name: true, ...columnsOf(EXPORT_FIELDS.supplier) },
       orderBy: asc(supplier.name),
     }),
-    db.query.risk.findMany({ where: eq(risk.companyId, companyId) }),
-    db.query.trainingRecord.findMany({ where: eq(trainingRecord.companyId, companyId) }),
+    db.query.risk.findMany({
+      where: eq(risk.companyId, companyId),
+      columns: columnsOf(EXPORT_FIELDS.risk),
+    }),
+    db.query.trainingRecord.findMany({
+      where: eq(trainingRecord.companyId, companyId),
+      columns: columnsOf(EXPORT_FIELDS.training),
+    }),
     db.query.managementReview.findMany({
       where: eq(managementReview.companyId, companyId),
+      columns: columnsOf(EXPORT_FIELDS.managementReview),
       orderBy: asc(managementReview.reviewDate),
     }),
-    db.query.incident.findMany({ where: eq(incident.companyId, companyId) }),
+    db.query.incident.findMany({
+      where: eq(incident.companyId, companyId),
+      columns: columnsOf(EXPORT_FIELDS.incident),
+    }),
     walkPolicyRows(db, companyId),
     getNis2Assessment(db, companyId),
+    journeyStatesOf(db, companyId),
   ]);
   if (!co) throw new Error(`No company ${companyId}.`);
 
-  const [providers, statuses] = await Promise.all([
+  const [providers, statuses, intakes] = await Promise.all([
     assets.length === 0
       ? []
       : db
@@ -171,9 +208,12 @@ export async function loadCompanyExport(db: DbOrTx, companyId: string) {
           .from(assetProvider)
           .innerJoin(supplier, eq(supplier.id, assetProvider.supplierId))
           .where(
-            inArray(
-              assetProvider.assetId,
-              assets.map((a) => a.id),
+            and(
+              eq(supplier.customerCompanyId, companyId),
+              inArray(
+                assetProvider.assetId,
+                assets.map((a) => a.id),
+              ),
             ),
           ),
     assessment
@@ -183,6 +223,7 @@ export async function loadCompanyExport(db: DbOrTx, companyId: string) {
             status: companyRequirementStatus.status,
             signedOffAt: companyRequirementStatus.signedOffAt,
             signedOffRole: companyRequirementStatus.signedOffRole,
+            notApplicableReason: companyRequirementStatus.notApplicableReason,
             notes: companyRequirementStatus.internalNotes,
           })
           .from(companyRequirementStatus)
@@ -192,28 +233,42 @@ export async function loadCompanyExport(db: DbOrTx, companyId: string) {
           )
           .where(eq(companyRequirementStatus.assessmentId, assessment.id))
       : [],
+    assessment
+      ? db
+          .select({
+            category: requirementCategory.code,
+            answers: companyCategoryIntake.answers,
+          })
+          .from(companyCategoryIntake)
+          .innerJoin(
+            requirementCategory,
+            eq(requirementCategory.id, companyCategoryIntake.categoryId),
+          )
+          .where(eq(companyCategoryIntake.assessmentId, assessment.id))
+      : [],
   ]);
 
   return {
     exportedAt: new Date(),
-    company: { name: co.name, ...pick(co, EXPORT_FIELDS.company) },
-    requirements: statuses.toSorted(
-      (a, b) => journeyIndex(a.code) - journeyIndex(b.code),
-    ),
+    company: co,
+    requirements: statuses
+      .map((s) => ({
+        ...s,
+        journey: states.get(s.code) ?? { state: "todo" as const, coveredBy: null },
+      }))
+      .toSorted((a, b) => journeyIndex(a.code) - journeyIndex(b.code)),
+    /** What was typed in each category's fields, in the walk or on the requirement pages. */
+    answers: Object.fromEntries(intakes.map((i) => [i.category, i.answers ?? {}])),
     documents,
-    assets: assets.map((a) => ({
-      name: a.name,
-      ...pick(a, EXPORT_FIELDS.asset),
-      providers: providers.filter((p) => p.assetId === a.id).map((p) => p.name),
+    assets: assets.map(({ id, ...a }) => ({
+      ...a,
+      providers: providers.filter((p) => p.assetId === id).map((p) => p.name),
     })),
-    suppliers: suppliers.map((s) => ({
-      name: s.name,
-      ...pick(s, EXPORT_FIELDS.supplier),
-    })),
-    risks: risks.map((r) => pick(r, EXPORT_FIELDS.risk)),
-    trainings: trainings.map((t) => pick(t, EXPORT_FIELDS.training)),
-    managementReviews: reviews.map((r) => pick(r, EXPORT_FIELDS.managementReview)),
-    incidents: incidents.map((i) => pick(i, EXPORT_FIELDS.incident)),
+    suppliers,
+    risks,
+    trainings,
+    managementReviews: reviews,
+    incidents,
   };
 }
 

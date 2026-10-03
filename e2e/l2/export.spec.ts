@@ -4,6 +4,7 @@
  * gets anything. Real UI, real Postgres; read only.
  */
 import { expect, test } from "@playwright/test";
+import { e2eQuery } from "../lib/db";
 import { e2eTenant, type Tenant } from "../lib/durchgang";
 
 test.describe("export", () => {
@@ -18,7 +19,8 @@ test.describe("export", () => {
   }) => {
     await page.goto("/de/team");
     await page.getByRole("link", { name: "Export", exact: true }).first().click();
-    await expect(page).toHaveURL(/\/de\/export$/, { timeout: 30_000 });
+    // German is the default locale and carries no prefix.
+    await expect(page).toHaveURL(/\/export$/, { timeout: 30_000 });
 
     const links = page.locator("main a[download]");
     await expect(links).toHaveCount(5, { timeout: 30_000 });
@@ -62,7 +64,14 @@ test.describe("export", () => {
     ]) {
       expect(Array.isArray(data[key]), key).toBe(true);
     }
-    expect(text).not.toContain("unsubscribeToken");
+    expect(typeof data.answers).toBe("object");
+    // No supplier's bearer token, by value, whatever the field would be called.
+    const tokens = await e2eQuery<{ token: string }>(
+      `SELECT unsubscribe_token AS token FROM supplier
+        WHERE customer_company_id = $1 AND unsubscribe_token IS NOT NULL`,
+      [tenant.company_id],
+    );
+    for (const { token } of tokens) expect(text).not.toContain(token);
   });
 
   test("without a session nothing downloads", async ({ browser, baseURL }) => {

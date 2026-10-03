@@ -52,11 +52,10 @@ async function wordsOf(item: AnyItem): Promise<ResolvedItem> {
   return resolved.value;
 }
 
-/** The items the caller's company walks, by the entity type on its profile. */
-async function companyWalk(): Promise<readonly AnyItem[]> {
+/** The items the caller's company walks, read off its profile; none without a company. */
+async function callerWalk(): Promise<readonly AnyItem[]> {
   const company = await api.assessment.getCompany();
-  if (!company) return [];
-  return walkOf(company.entityType);
+  return company ? walkOf(company) : [];
 }
 
 /**
@@ -70,7 +69,7 @@ export async function loadWalk({
   locked: boolean;
 }): Promise<readonly WalkEntry[]> {
   const [walk, states, tc] = await Promise.all([
-    companyWalk(),
+    callerWalk(),
     locked ? [] : api.durchgang.walk(),
     getTranslations("compliance"),
   ]);
@@ -107,7 +106,7 @@ export async function headlinesOf(
  * to the caller.
  */
 export async function loadItem(code: string): Promise<ItemView | null> {
-  const item = (await companyWalk()).find((i) => i.code === code);
+  const item = (await callerWalk()).find((i) => i.code === code);
   if (!item) return null;
 
   const [session, req, assessment, localeTag] = await Promise.all([
@@ -244,6 +243,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     dutyHref: dutyHref(item.law, locale),
     gloss: glossary(prose, locale),
     screens: words.screens,
+    mayDecline: item.mustDo === undefined,
     statusId,
     assessmentId: assessment?.id ?? null,
     categoryId: req.category.id,

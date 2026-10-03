@@ -132,7 +132,8 @@ function fromEvent(latest: DurchgangEvent | null): ItemState {
 /**
  * The items waiting for management's signature, in walk order, each with the drafts of the
  * documents it wrote: an item is signed only once its documents are approved. Filled in counts,
- * and so does a signed item that has to be signed again (see `itemState`).
+ * so does a signed item that has to be signed again (see `itemState`), and so does a decision
+ * not to do an item, which management signs as such (`declined`).
  *
  * The item that holds the approval counts once its review is recorded (`reviewedWithinYear`).
  * The approval is that item's own last working step, so the item can only be finished after it,
@@ -144,13 +145,13 @@ export function awaitingSignature<T>(args: {
   readonly drafts: ReadonlyArray<{ readonly code: string; readonly type: T }>;
   readonly approvalCode: string | null;
   readonly reviewed: boolean;
-}): Array<{ code: string; drafts: T[] }> {
+}): Array<{ code: string; drafts: T[]; declined: boolean }> {
   return args.codes.flatMap((code) => {
     const { kind } = args.stateOf(code);
     const approving = code === args.approvalCode && kind === "open" && args.reviewed;
-    if (kind !== "filled" && !approving) return [];
+    if (kind !== "filled" && kind !== "declined" && !approving) return [];
     const drafts = args.drafts.filter((d) => d.code === code).map((d) => d.type);
-    return [{ code, drafts }];
+    return [{ code, drafts, declined: kind === "declined" }];
   });
 }
 

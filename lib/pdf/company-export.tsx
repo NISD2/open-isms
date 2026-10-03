@@ -5,6 +5,7 @@ import {
   EXPORT_FIELDS,
   type ExportRecord,
 } from "@/lib/export/company-export";
+import type { CodedField, ValueNames } from "@/lib/export/value-names";
 import {
   BrandBands,
   CoverFooter,
@@ -24,27 +25,29 @@ import {
 import { MarkdownBlocks } from "./markdown";
 import { styles } from "./styles";
 
-/** Fields whose stored value is a code with a name in the labels, not the company's own words. */
-const CODED: ReadonlySet<string> = new Set([
-  "entityType",
-  "riskLevel",
-  "treatment",
-  "severity",
-  "approverRole",
-]);
+/** How the export prints: its own words, and the app's names for stored codes. */
+interface Words {
+  readonly labels: ExportLabels;
+  readonly names: ValueNames;
+  readonly locale: PdfLocale;
+}
+
+const isCoded = (field: string, names: ValueNames): field is CodedField =>
+  Object.hasOwn(names, field);
 
 /** A stored value as printed, or null when there is nothing to print. */
 function shown(
   field: string,
   value: unknown,
-  labels: ExportLabels,
-  locale: PdfLocale,
+  { labels, names, locale }: Words,
 ): string | null {
   if (value === null || value === undefined || value === "") return null;
   if (Array.isArray(value)) return value.length > 0 ? value.join(", ") : null;
   if (value instanceof Date) return formatReportDate(value, locale);
   if (typeof value === "boolean") return value ? labels.yes : labels.no;
-  if (typeof value === "string" && CODED.has(field)) return labels.values[value] ?? value;
+  if (typeof value === "string" && isCoded(field, names)) {
+    return names[field][value] ?? value;
+  }
   return formatFieldValue(value, "text", locale);
 }
 
@@ -53,20 +56,21 @@ function Cover({
   title,
   data,
   meta,
-  labels,
-  locale,
+  words,
 }: {
   eyebrow: string;
   title: string;
   data: CompanyExport;
   meta: { label: string; value: string }[];
-  labels: ExportLabels;
-  locale: PdfLocale;
+  words: Words;
 }) {
   return (
     <Page size="A4" style={[styles.page, styles.coverPage]}>
       <BrandBands />
-      <DocHeader label={labels.asOf} value={formatReportDate(data.exportedAt, locale)} />
+      <DocHeader
+        label={words.labels.asOf}
+        value={formatReportDate(data.exportedAt, words.locale)}
+      />
       <View style={styles.coverBody}>
         <CoverHeading
           eyebrow={eyebrow}
@@ -75,7 +79,10 @@ function Cover({
           meta={meta}
         />
       </View>
-      <CoverFooter issuedByLabel={labels.issuedBy} disclaimer={labels.confidential} />
+      <CoverFooter
+        issuedByLabel={words.labels.issuedBy}
+        disclaimer={words.labels.confidential}
+      />
     </Page>
   );
 }
@@ -85,13 +92,13 @@ function Sheet({
   title,
   label,
   data,
-  labels,
+  words,
   children,
 }: {
   title: string;
   label: string;
   data: CompanyExport;
-  labels: ExportLabels;
+  words: Words;
   children: React.ReactNode;
 }) {
   return (
@@ -102,13 +109,16 @@ function Sheet({
       </View>
       <SectionHeading title={title} />
       <View style={{ marginTop: 10 }}>{children}</View>
-      <PageFooter context={`${data.company.name} · ${label}`} pageLabel={labels.page} />
+      <PageFooter
+        context={`${data.company.name} · ${label}`}
+        pageLabel={words.labels.page}
+      />
     </Page>
   );
 }
 
 /** One record as a block: its title, then every field that holds something. */
-function Record({
+function RecordBlock({
   title,
   rows,
 }: {
@@ -144,14 +154,12 @@ const REGISTERS: ReadonlyArray<{
 function fieldRows(
   record: ExportRecord,
   row: object,
-  labels: ExportLabels,
-  locale: PdfLocale,
+  words: Words,
 ): (readonly [string, string | null])[] {
   const values = new Map(Object.entries(row));
-  const names: Readonly<Record<string, string>> = labels.fields[record];
+  const names: Readonly<Record<string, string>> = words.labels.fields[record];
   return EXPORT_FIELDS[record].map(
-    (field) =>
-      [names[field] ?? field, shown(field, values.get(field), labels, locale)] as const,
+    (field) => [names[field] ?? field, shown(field, values.get(field), words)] as const,
   );
 }
 
@@ -161,6 +169,14 @@ const titleOf = (row: object): string => {
   return typeof title === "string" ? title : "";
 };
 
+/** What a register row lists beyond its fields: an asset's providers. */
+const extraRows = (row: object, words: Words): (readonly [string, string | null])[] => {
+  const providers = new Map(Object.entries(row)).get("providers");
+  return Array.isArray(providers)
+    ? [[words.labels.providers, shown("providers", providers, words)]]
+    : [];
+};
+
 /**
  * The registers the walk writes into, one section each: the company's master data, assets with
  * their providers, suppliers, risks, trainings, management reviews and incidents.
@@ -168,11 +184,14 @@ const titleOf = (row: object): string => {
 export function RegistersDocument({
   data,
   locale,
+  names,
 }: {
   data: CompanyExport;
   locale: PdfLocale;
+  names: ValueNames;
 }) {
-  const labels = exportLabels(locale);
+  const words: Words = { labels: exportLabels(locale), names, locale };
+  const { labels } = words;
   return (
     <Document
       title={`${labels.registers.title}: ${data.company.name}`}
@@ -182,8 +201,7 @@ export function RegistersDocument({
         eyebrow={labels.registers.eyebrow}
         title={labels.registers.title}
         data={data}
-        labels={labels}
-        locale={locale}
+        words={words}
         meta={REGISTERS.map(({ record, rows }) => ({
           label: labels.records[record],
           value: String(rows(data).length),
@@ -193,11 +211,11 @@ export function RegistersDocument({
         title={labels.records.company}
         label={labels.registers.title}
         data={data}
-        labels={labels}
+        words={words}
       >
-        <Record
+        <RecordBlock
           title={data.company.name}
-          rows={fieldRows("company", data.company, labels, locale)}
+          rows={fieldRows("company", data.company, words)}
         />
       </Sheet>
       {REGISTERS.map(({ record, rows }) => (
@@ -206,31 +224,18 @@ export function RegistersDocument({
           title={labels.records[record]}
           label={labels.registers.title}
           data={data}
-          labels={labels}
+          words={words}
         >
           {rows(data).length === 0 ? (
             <Text style={styles.sectionNote}>{labels.none}</Text>
           ) : (
-            rows(data).map((row, i) => {
-              const providers = new Map(Object.entries(row)).get("providers");
-              return (
-                <Record
-                  key={i}
-                  title={titleOf(row)}
-                  rows={[
-                    ...fieldRows(record, row, labels, locale),
-                    ...(Array.isArray(providers)
-                      ? [
-                          [
-                            labels.providers,
-                            shown("providers", providers, labels, locale),
-                          ] as const,
-                        ]
-                      : []),
-                  ]}
-                />
-              );
-            })
+            rows(data).map((row, i) => (
+              <RecordBlock
+                key={i}
+                title={titleOf(row)}
+                rows={[...fieldRows(record, row, words), ...extraRows(row, words)]}
+              />
+            ))
           )}
         </Sheet>
       ))}
@@ -245,48 +250,43 @@ export function RegistersDocument({
 export function DocumentsDocument({
   data,
   locale,
+  names,
 }: {
   data: CompanyExport;
   locale: PdfLocale;
+  names: ValueNames;
 }) {
-  const labels = exportLabels(locale);
-  const t = labels.documents;
+  const words: Words = { labels: exportLabels(locale), names, locale };
+  const t = words.labels.documents;
   return (
     <Document title={`${t.title}: ${data.company.name}`} author={data.company.name}>
       <Cover
         eyebrow={t.eyebrow}
         title={t.title}
         data={data}
-        labels={labels}
-        locale={locale}
+        words={words}
         meta={data.documents.map((d) => ({
           label: d.title,
           value: d.status === "approved" ? t.approved : t.draft,
         }))}
       />
       {data.documents.length === 0 ? (
-        <Sheet title={t.title} label={t.title} data={data} labels={labels}>
+        <Sheet title={t.title} label={t.title} data={data} words={words}>
           <Text style={styles.sectionNote}>{t.empty}</Text>
         </Sheet>
       ) : (
         data.documents.map((d) => (
-          <Sheet key={d.type} title={d.title} label={t.title} data={data} labels={labels}>
-            <Record
+          <Sheet key={d.type} title={d.title} label={t.title} data={data} words={words}>
+            <RecordBlock
               title={d.status === "approved" ? t.approved : t.draft}
               rows={[
                 [
                   t.approvedBy,
-                  formatSigner(
-                    d.approver,
-                    shown("approverRole", d.approverRole, labels, locale),
-                  ),
+                  formatSigner(d.approver, shown("approverRole", d.approverRole, words)),
                 ],
-                [t.approvedAt, shown("approvedAt", d.approvedAt, labels, locale)],
+                [t.approvedAt, shown("approvedAt", d.approvedAt, words)],
                 [t.version, d.status === "approved" ? d.version : null],
-                [
-                  t.effectiveFrom,
-                  shown("effectiveFrom", d.effectiveFrom, labels, locale),
-                ],
+                [t.effectiveFrom, shown("effectiveFrom", d.effectiveFrom, words)],
               ]}
             />
             <View style={{ marginTop: 8 }}>

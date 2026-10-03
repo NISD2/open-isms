@@ -22,6 +22,7 @@ import {
 } from "@/lib/compliance/category-schemas";
 import type { CountableModule } from "@/lib/compliance/module-tables";
 import type { RoleKey } from "@/lib/compliance/role-keys";
+import type { settledFactEnum } from "@/schema/enums";
 import type { AssetSlice, RatingTarget } from "./ratings";
 
 /** The languages the walk is written in: its screens, and the notes and documents it writes. */
@@ -261,6 +262,15 @@ export interface DutyLaw {
 /** An entity type as the database enum on `company.entity_type` defines it. */
 export type EntityType = (typeof entityTypeEnum.enumValues)[number];
 
+/**
+ * What decides which items a company walks, read off its profile: the entity type it chose, and
+ * the fact recorded for §§ 31 Abs. 2 and 39 Abs. 1 BSIG (`company.critical_installation`).
+ */
+export interface WalkFacts {
+  readonly entityType: EntityType;
+  readonly criticalInstallation: (typeof settledFactEnum.enumValues)[number];
+}
+
 export interface Item<C extends CategoryCode> {
   /** Requirement code in the NIS 2 framework. */
   readonly code: string;
@@ -268,11 +278,17 @@ export interface Item<C extends CategoryCode> {
   readonly category: C;
   readonly law: DutyLaw;
   /**
-   * The one entity type the item is walked by, when its statute addresses only that type: the
-   * operators of critical facilities (§§ 31 Abs. 2, 39 BSIG). Read off the company's profile,
-   * never asked. Every other company does not see the item.
+   * Set when the item's statute addresses only operators of critical facilities (§§ 31 Abs. 2,
+   * 39 BSIG): only a company that operates one walks it (`operatesCriticalFacility`), read off its
+   * profile, never asked. Every other company does not see the item.
    */
-  readonly onlyFor?: EntityType;
+  readonly onlyFor?: "kritis";
+  /**
+   * Why a company may not decide against this item: the provision that leaves no choice. Set,
+   * the walk offers no "Bewusst nicht umsetzen" and the server refuses one. Every other decision
+   * not to do an item goes to management's signature in the approval.
+   */
+  readonly mustDo?: string;
   /** Keys under `info.glossary.terms`. */
   readonly glossary: readonly string[];
   /**

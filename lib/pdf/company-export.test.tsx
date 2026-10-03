@@ -6,7 +6,10 @@ import { describe, expect, test } from "bun:test";
 import { renderToBuffer } from "@react-pdf/renderer";
 import { extractText, getDocumentProxy } from "unpdf";
 import type { CompanyExport } from "@/lib/export/company-export";
+import { valueNames } from "@/lib/export/value-names";
 import { DocumentsDocument, RegistersDocument } from "./company-export";
+
+const NAMES = { de: await valueNames("de"), en: await valueNames("en") };
 
 async function pagesOf(node: React.ReactElement): Promise<string[]> {
   const buffer = await renderToBuffer(node);
@@ -28,11 +31,17 @@ const none = {
   ipAddress: null,
   operatingSystem: null,
   softwareVersion: null,
-  hasMfa: false,
-  mfaMethod: null,
-  hasBackup: false,
-  backupFrequency: null,
+  lastPatchDate: null,
+  accessManagement: null,
+  hasMfa: true,
+  mfaMethod: "security_key" as const,
+  encryptionAtRest: null,
+  encryptionInTransit: null,
+  hasBackup: true,
+  backupFrequency: "daily",
   lastBackupTestDate: null,
+  rto: null,
+  rpo: null,
   processesPersonalData: false,
   endOfLife: null,
 };
@@ -49,9 +58,15 @@ const FIXTURE: CompanyExport = {
     primaryLocations: null,
     contactEmail: "it@beispielwerke.example",
     contactPhone: null,
+    cisoName: null,
+    cisoReportsTo: null,
+    bsiContactName: null,
+    bsiContactEmail: null,
+    bsiContactPhone: null,
     bsiRegistrationId: null,
   },
   requirements: [],
+  answers: {},
   documents: [
     {
       code: "2.4",
@@ -82,7 +97,7 @@ const FIXTURE: CompanyExport = {
   assets: [
     {
       name: "Website",
-      type: "website",
+      type: "application",
       description: "Kundenanfragen, WordPress auf einem gemieteten Server",
       ...none,
       providers: ["Hetzner"],
@@ -100,10 +115,13 @@ const FIXTURE: CompanyExport = {
       hasAccessToSystems: true,
       hasAccessToData: false,
       hasSecurityClauses: false,
+      contractSecurityClauses: null,
+      hasAuditRights: false,
       hasSecurityCertification: false,
       securityCertificationType: null,
       contractStartDate: null,
       contractEndDate: null,
+      lastReviewDate: null,
       processesPersonalData: false,
       dpaAvailable: false,
     },
@@ -114,9 +132,10 @@ const FIXTURE: CompanyExport = {
   incidents: [],
 };
 
-const registers = (locale: "de" | "en") => RegistersDocument({ data: FIXTURE, locale });
+const registers = (locale: "de" | "en") =>
+  RegistersDocument({ data: FIXTURE, locale, names: NAMES[locale] });
 const documents = (data: CompanyExport = FIXTURE) =>
-  DocumentsDocument({ data, locale: "de" });
+  DocumentsDocument({ data, locale: "de", names: NAMES.de });
 
 describe("the registers PDF", () => {
   test("says what each asset is for and who provides it", async () => {
@@ -127,11 +146,17 @@ describe("the registers PDF", () => {
     expect(text).toContain("Betreut unsere Server und Arbeitsplätze");
   });
 
-  test("names coded values instead of printing the code", async () => {
+  test("names every coded value the way the app's screens do", async () => {
     const text = await textOf(registers("de"));
-    expect(text).toContain("Wichtige Einrichtung");
-    expect(text).toContain("Risiko hoch");
-    expect(text).not.toContain("important");
+    expect(text).toContain("Einrichtungstyp Wichtige Einrichtung");
+    expect(text).toContain("Sektor Verarbeitendes Gewerbe");
+    expect(text).toContain("Typ Anwendung");
+    expect(text).toContain("Art des zweiten Faktors Sicherheitsschlüssel");
+    expect(text).toContain("Sicherungsrhythmus täglich");
+    expect(text).toContain("Risiko Hoch");
+    for (const code of ["important", "manufacturing", "application", "security_key"]) {
+      expect(text).not.toContain(code);
+    }
   });
 
   test("an empty register says so", async () => {
@@ -150,7 +175,7 @@ describe("the registers PDF", () => {
 describe("the documents PDF", () => {
   test("prints who approved a document, in which role, and when", async () => {
     const text = await textOf(documents());
-    expect(text).toContain("Freigegeben von Anna Beispiel (Geschäftsführung)");
+    expect(text).toContain("Freigegeben von Anna Beispiel (CEO / Geschäftsführer)");
     expect(text).toContain("Freigegeben am 1.10.2026");
     expect(text).toContain("Erster Punkt");
   });

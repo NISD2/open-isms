@@ -192,6 +192,11 @@ function SignedWith({
             </span>
             <span className="min-w-0 flex-1">
               <span className="font-medium break-words">{item.headline}</span>
+              {item.declined !== null && (
+                <span className="block text-sm text-muted-foreground">
+                  {t("declined", { reason: item.declined })}
+                </span>
+              )}
               {staysOpen(item) && (
                 <span className="block text-sm text-muted-foreground">
                   {t("staysOpen")}

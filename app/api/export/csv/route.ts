@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import { toCsv } from "@/lib/csv";
 import { db } from "@/lib/db";
 import { attachment, exportAccess } from "@/lib/export/access";
-import { loadReportData } from "@/lib/pdf/load-report-data";
+import { loadReportData, type ReportRequirement } from "@/lib/pdf/load-report-data";
 import { companyAssessment } from "@/schema";
 import { getNis2FrameworkId } from "@/server/trpc/helpers/nis2-scope";
 
@@ -41,27 +41,34 @@ export async function GET(request: NextRequest) {
     "Requirement Title",
     "Priority",
     "Status",
+    "Walkthrough",
     "Signed Off At",
     "Evidence Count",
     "Review Feedback",
   ];
 
-  const rows: string[][] = [];
-  for (const cat of data.categories) {
-    for (const req of cat.requirements) {
-      rows.push([
-        cat.code,
-        cat.name,
-        req.code,
-        req.title,
-        req.priority,
-        req.status,
-        req.signedOffAt ? new Date(req.signedOffAt).toISOString() : "",
-        String(req.evidence.length),
-        req.reviewFeedback ?? "",
-      ]);
-    }
-  }
+  /** Where the walk met it, as the journey reads it (`ReportRequirement.covered`). */
+  const walkthrough = (covered: ReportRequirement["covered"]): string => {
+    if (covered === null) return "";
+    if (covered.by.kind === "not_required") return "not required by law";
+    const codes = covered.by.codes.join(" + ");
+    return covered.done ? `signed off with ${codes}` : `with ${codes}, awaiting sign-off`;
+  };
+
+  const rows = data.categories.flatMap((cat) =>
+    cat.requirements.map((req) => [
+      cat.code,
+      cat.name,
+      req.code,
+      req.title,
+      req.priority,
+      req.status,
+      walkthrough(req.covered),
+      req.signedOffAt ? new Date(req.signedOffAt).toISOString() : "",
+      String(req.evidence.length),
+      req.reviewFeedback ?? "",
+    ]),
+  );
 
   // UTF-8 BOM for Excel compatibility with German umlauts
   const BOM = "\uFEFF";

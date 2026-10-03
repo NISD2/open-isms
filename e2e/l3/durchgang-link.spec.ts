@@ -25,9 +25,10 @@ const HEADLINE = "Planen, was bei einem Vorfall passiert";
 /** The walk home's card for the step, named with the state its circle shows. */
 async function walkState(page: Page): Promise<string> {
   await page.goto("/de/durchgang/nis2", { waitUntil: "networkidle" });
-  const card = page.getByRole("link", { name: new RegExp(`^${HEADLINE}: `) });
+  // The state is read out after the headline: "Headline : Wartet auf Freigabe".
+  const card = page.getByRole("link", { name: new RegExp(`^${HEADLINE}\\s*:`) });
   await expect(card).toBeVisible({ timeout: 30_000 });
-  return (await card.textContent())?.split(": ").at(-1)?.trim() ?? "";
+  return (await card.textContent())?.split(":").at(-1)?.trim() ?? "";
 }
 
 /** The journey's state label for the step, read off its hover card. */

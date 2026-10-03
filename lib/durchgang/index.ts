@@ -5,12 +5,12 @@
 
 import { JOURNEY_ORDER } from "@/lib/compliance/journey-position";
 import { NIS2_SCRIPT } from "./nis2";
-import type { AnyItem, AnyScreen, EntityType, PolicyTemplate } from "./types";
+import type { AnyItem, AnyScreen, PolicyTemplate, WalkFacts } from "./types";
 
 export type { ResolvedItem, ResolvedScreen } from "./copy";
 export { itemKey, marker, resolveItem } from "./copy";
-export type { CoveredBy, Covering } from "./coverage";
-export { coveredState } from "./coverage";
+export type { CoveredBy, Covering, JourneyEntry, JourneyRow } from "./coverage";
+export { coveredState, journeyStates } from "./coverage";
 export { dutyHref } from "./law";
 export {
   agreementsNote,
@@ -105,6 +105,7 @@ export type {
   ScreenKind,
   SuggestSource,
   TrainingAudience,
+  WalkFacts,
   WalkLocale,
 } from "./types";
 export {
@@ -138,9 +139,17 @@ export const WALK: readonly AnyItem[] = [
   ...IN_JOURNEY_ORDER.filter(approves),
 ];
 
-/** The items a company of this type walks: those for every entity, and those for its type. */
-export const walkOf = (entityType: EntityType): readonly AnyItem[] =>
-  WALK.filter((item) => item.onlyFor === undefined || item.onlyFor === entityType);
+/**
+ * Whether the company operates a critical facility: its profile says KRITIS, or the fact recorded
+ * for §§ 31 Abs. 2 and 39 Abs. 1 BSIG does. Nothing in the app writes that fact yet, so today the
+ * entity type decides; a measured threshold will count the moment it is recorded.
+ */
+export const operatesCriticalFacility = (company: WalkFacts): boolean =>
+  company.entityType === "kritis" || company.criticalInstallation === "yes";
+
+/** The items a company walks: those for every entity, and those addressed to what it is. */
+export const walkOf = (company: WalkFacts): readonly AnyItem[] =>
+  WALK.filter((item) => item.onlyFor === undefined || operatesCriticalFacility(company));
 
 /** Where management approves the walk's documents: the item and the index of its screen. */
 export const APPROVAL_SCREEN: { readonly code: string; readonly at: number } | null =

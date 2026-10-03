@@ -60,6 +60,31 @@ describe("compliance report content", () => {
     ).join(" ");
     expect(text).toContain("Katrin Albers (Geschäftsführung)");
   });
+
+  test("says where the walk met a requirement, as the journey does", async () => {
+    const [gov, ...rest] = REPORT_FIXTURE.categories;
+    const [first, second] = gov?.requirements ?? [];
+    if (!gov || !first || !second) throw new Error("fixture changed");
+    const data = {
+      ...REPORT_FIXTURE,
+      categories: [
+        {
+          ...gov,
+          requirements: [
+            { ...first, covered: { by: { kind: "walk" as const, codes: ["2.4", "8.2"] }, done: true } },
+            { ...second, covered: { by: { kind: "not_required" as const }, done: true } },
+          ],
+        },
+        ...rest,
+      ],
+    };
+    // The badge sets its words in capitals.
+    const text = (await pagesOf(ComplianceReport({ data, locale: "de" })))
+      .join(" ")
+      .toLowerCase();
+    expect(text).toContain("im durchgang mit 2.4 und 8.2 freigegeben");
+    expect(text).toContain("gesetzlich nicht gefordert");
+  });
 });
 
 describe("glyph coverage", () => {

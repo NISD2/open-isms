@@ -432,6 +432,7 @@ export function DurchgangItem({
       <WaitSheet
         open={waitOpen}
         onOpenChange={setWaitOpen}
+        mayDecline={item.mayDecline}
         onWait={(reason, note) => settleAndGoHome(park(index, reason, note))}
         onDecline={(reason) => settleAndGoHome(decline(index, reason))}
       />

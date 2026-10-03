@@ -7,9 +7,10 @@
  * stays its own.
  */
 
-import type { DotState } from "@/lib/compliance/journey-position";
+import { type DotState, journeyState } from "@/lib/compliance/journey-position";
 import type { SECTORS } from "@/lib/organization/constants";
 import { COVERED_BY } from "./nis2";
+import { type DurchgangEvent, itemState, type StatusRow } from "./state";
 
 /**
  * The sectors the § 30 Abs. 3 providers are in: DNS, TLD registries, cloud, data centres, CDNs
@@ -69,4 +70,53 @@ export function coveredState(
       ? "awaiting"
       : null;
   return state ? { state, coveredBy: { kind: "walk", codes } } : mine;
+}
+
+/** A requirement's status row, as the journey reads it. */
+export interface JourneyRow extends StatusRow {
+  readonly code: string;
+  readonly requirementId: string;
+}
+
+export interface JourneyEntry {
+  readonly state: DotState;
+  readonly coveredBy: CoveredBy | null;
+}
+
+/**
+ * Where each requirement stands on the journey, by code: its own state from its status and the
+ * walk's newest event for it, then what its coverage makes of that (`coveredState`). The journey
+ * and every export read this one computation, so a requirement met inside the walk reads done in
+ * all of them. `company` null leaves every requirement its own state.
+ */
+export function journeyStates(
+  rows: readonly JourneyRow[],
+  events: ReadonlyMap<string | null, DurchgangEvent>,
+  company: { readonly sector: string; readonly walks: readonly string[] } | null,
+): ReadonlyMap<string, JourneyEntry> {
+  const own = new Map(
+    rows.map((r): [string, Covering] => {
+      const latest = events.get(r.requirementId) ?? null;
+      return [
+        r.code,
+        {
+          state: journeyState(r.status, itemState(r, latest)),
+          walked: latest?.action === "durchgang.item_done",
+        },
+      ];
+    }),
+  );
+  const covering = (code: string): Covering =>
+    own.get(code) ?? { state: "todo", walked: false };
+  return new Map(
+    rows.map((r): [string, JourneyEntry] => {
+      const mine = covering(r.code).state;
+      return [
+        r.code,
+        company
+          ? coveredState(r.code, mine, company, covering)
+          : { state: mine, coveredBy: null },
+      ];
+    }),
+  );
 }
