@@ -37,7 +37,12 @@ import { closeSyncOnce, closeSyncState } from "@/lib/crm/schedule";
 import { closeSyncStatus } from "@/lib/crm/status";
 import type { Database } from "@/lib/db";
 import { env, mailSupportEmail } from "@/lib/env";
-import { isFeatureOn } from "@/lib/feature-flags";
+import {
+  FEATURE_FLAGS,
+  isFeatureOn,
+  listFeatures,
+  setFeature,
+} from "@/lib/feature-flags";
 import { answerMapSchema, getGapAssessmentData } from "@/lib/gap-assessment";
 import { computeScores } from "@/lib/gap-assessment/scoring";
 import {
@@ -96,6 +101,7 @@ import {
   dataErasureLog,
   emailPreference,
   evidence,
+  featureFlagKeyEnum,
   gapAssessment,
   notification,
   signOffHistory,
@@ -480,6 +486,32 @@ export const platformAdminRouter = router({
     return launch;
   }),
 
+  /** The Feature flags tab: every switch, what it does, and whether it is flipped there. */
+  featureFlags: platformAdminProcedure.query(({ ctx }) => listFeatures(ctx.db)),
+
+  /** Flips one switch. A switch with its own one-way control (billing) is refused here. */
+  setFeatureFlag: platformAdminProcedure
+    .input(z.object({ key: z.enum(featureFlagKeyEnum.enumValues), enabled: z.boolean() }))
+    .mutation(async ({ ctx, input }) => {
+      const flag = FEATURE_FLAGS[input.key];
+      if (!flag.toggle)
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: `${flag.label} is not switched from the Feature flags tab.`,
+        });
+      await setFeature(ctx.db, input.key, input.enabled, ctx.userId);
+      await logAudit({
+        companyId: null,
+        userId: ctx.userId,
+        action: "platform.feature_flag_set",
+        entityType: "feature_flag",
+        entityId: null,
+        description: `Feature flag ${input.key} switched ${input.enabled ? "on" : "off"}`,
+        ipAddress: ctx.ip,
+        userAgent: ctx.userAgent,
+      });
+    }),
+
   /** The price for the demo close, as the customer's form would show it, at an optional amount. */
   closeQuote: platformAdminProcedure
     .input(
@@ -727,6 +759,7 @@ export const platformAdminRouter = router({
         journeyTourTeamDismissedAt: true,
         requirementTourDismissedAt: true,
         helpOfferDismissedAt: true,
+        journeyNoticeDismissedAt: true,
       },
     });
     if (!row) throw new TRPCError({ code: "NOT_FOUND", message: "User row missing" });

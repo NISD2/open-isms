@@ -15,7 +15,7 @@ import {
   NIS2_PREREQUISITES,
   nis2Categories,
 } from "@nisd2/grc-data-model/frameworks";
-import type { ItemState } from "@/lib/durchgang";
+import type { CoveredBy, ItemState } from "@/lib/durchgang";
 
 /**
  * Terminal-success statuses of the `item_status` enum. "completed" is the
@@ -38,22 +38,57 @@ export function isDoneStatus(status: string | null | undefined): boolean {
   return DONE_STATUSES.has(status ?? "not_started");
 }
 
+/**
+ * Done on the journey: the states `DONE_STATUSES` map to, read off the state so that a
+ * requirement met inside the walk, or one no statute asks of the company, counts as well.
+ */
+export function isDoneState(state: DotState): boolean {
+  return state === "signed" || state === "na";
+}
+
+/**
+ * The next step on the journey, the one every surface names: the journey page, the activation
+ * email, the digest. The first requirement in journey order that is not done and not waiting on
+ * its own sign-off (or whose review is overdue), else the first one waiting, the order the
+ * walkthrough resumes in. Never a requirement whose state comes from a walk item: the item is
+ * the step. Null when nothing is left.
+ */
+export function nextOnJourney<
+  T extends {
+    readonly code: string;
+    readonly state: DotState;
+    readonly coveredBy: CoveredBy | null;
+  },
+>(items: readonly T[], overdue: (item: T) => boolean = () => false): T | null {
+  const left = items
+    .filter((i) => !isDoneState(i.state) && i.coveredBy === null)
+    .toSorted(
+      (a, b) =>
+        journeyIndex(a.code) - journeyIndex(b.code) || a.code.localeCompare(b.code),
+    );
+  return left.find((i) => i.state !== "awaiting" || overdue(i)) ?? left[0] ?? null;
+}
+
 /** The six visual states a requirement can be in on the journey, shared by every view. */
 export type DotState = "todo" | "started" | "awaiting" | "signed" | "na" | "rejected";
 
 /**
  * A requirement's state on the journey, from its status and where the walkthrough has it, so the
  * dot, the label, the filter, the counts and the next step all read one value. Waiting for
- * management's sign-off means filled in through the walkthrough, or signed once and due to be
- * signed again, unless the walkthrough set it aside or declined it since: then the approval does
- * not list it either.
+ * management's sign-off means filled in through the walkthrough, decided against there (management
+ * signs the decision), or signed once and due to be signed again, unless the walkthrough set it
+ * aside since: then the approval does not list it either.
  */
 export function journeyState(status: string, walk: ItemState | null): DotState {
   // "completed" = user sign-off done; "approved" adds legal review. Both done.
   if (status === "completed" || status === "approved") return "signed";
   if (status === "not_applicable") return "na";
-  const setAside = walk?.kind === "waiting" || walk?.kind === "declined";
-  if (walk?.kind === "filled" || (status === "needs_review" && !setAside))
+  const setAside = walk?.kind === "waiting";
+  if (
+    walk?.kind === "filled" ||
+    walk?.kind === "declined" ||
+    (status === "needs_review" && !setAside)
+  )
     return "awaiting";
   if (status === "rejected") return "rejected";
   if (status === "in_progress") return "started";

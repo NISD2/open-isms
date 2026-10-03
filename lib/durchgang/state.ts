@@ -12,6 +12,7 @@ import type { ItemState as PolicyState } from "@/lib/compliance/guided-form/poli
 import { resumeAt as policyResumeAt } from "@/lib/compliance/guided-form/policy";
 import { hasSignOffToWithdraw } from "@/lib/compliance/sign-off-state";
 import type { AuditLog, CompanyRequirementStatus } from "@/schema/types";
+import { NIS2_SCRIPT } from "./nis2";
 
 /** Why an item cannot be finished yet. Codes only: a free-text note goes to `internal_notes`. */
 export const WAIT_REASONS = ["letter", "ask", "decide", "unclear"] as const;
@@ -112,6 +113,25 @@ export function itemState(row: StatusRow, latest: DurchgangEvent | null): ItemSt
   return fromEvent(latest);
 }
 
+/** Items the law leaves no choice on (`mustDo`). */
+const MUST_DO: ReadonlySet<string> = new Set(
+  NIS2_SCRIPT.flatMap((item) => (item.mustDo ? [item.code] : [])),
+);
+
+/**
+ * `itemState` for one walk item, by its code. A decision not to do an item the law leaves no
+ * choice on reads as open: such a decision predates the rule that refuses it (`decline`), and
+ * nobody may sign it as not applicable.
+ */
+export function walkItemState(
+  code: string,
+  row: StatusRow,
+  latest: DurchgangEvent | null,
+): ItemState {
+  const state = itemState(row, latest);
+  return state.kind === "declined" && MUST_DO.has(code) ? { kind: "open" } : state;
+}
+
 function fromEvent(latest: DurchgangEvent | null): ItemState {
   switch (latest?.action) {
     case "durchgang.waiting":
@@ -132,7 +152,8 @@ function fromEvent(latest: DurchgangEvent | null): ItemState {
 /**
  * The items waiting for management's signature, in walk order, each with the drafts of the
  * documents it wrote: an item is signed only once its documents are approved. Filled in counts,
- * and so does a signed item that has to be signed again (see `itemState`).
+ * so does a signed item that has to be signed again (see `itemState`), and so does a decision
+ * not to do an item, which management signs as such (`declined`).
  *
  * The item that holds the approval counts once its review is recorded (`reviewedWithinYear`).
  * The approval is that item's own last working step, so the item can only be finished after it,
@@ -144,25 +165,25 @@ export function awaitingSignature<T>(args: {
   readonly drafts: ReadonlyArray<{ readonly code: string; readonly type: T }>;
   readonly approvalCode: string | null;
   readonly reviewed: boolean;
-}): Array<{ code: string; drafts: T[] }> {
+}): Array<{ code: string; drafts: T[]; declined: boolean }> {
   return args.codes.flatMap((code) => {
     const { kind } = args.stateOf(code);
     const approving = code === args.approvalCode && kind === "open" && args.reviewed;
-    if (kind !== "filled" && !approving) return [];
+    if (kind !== "filled" && kind !== "declined" && !approving) return [];
     const drafts = args.drafts.filter((d) => d.code === code).map((d) => d.type);
-    return [{ code, drafts }];
+    return [{ code, drafts, declined: kind === "declined" }];
   });
 }
 
 /**
- * What counts as finished for signing the approval item last: signed off, not applicable, or
- * decided not to do. Nothing signs a decline, so a decline must not hold the review back (Simon,
- * 03.10.2026).
+ * What counts as finished for signing the approval item last: signed off or not applicable. A
+ * decision not to do an item waits for management's signature like a filled item does (it is
+ * recorded not applicable when signed), so until management signs it, in this click or before,
+ * the review waits for it too.
  */
 const FINISHED_BEFORE_REVIEW: ReadonlySet<ItemState["kind"]> = new Set([
   "signed",
   "not_applicable",
-  "declined",
 ]);
 
 /**

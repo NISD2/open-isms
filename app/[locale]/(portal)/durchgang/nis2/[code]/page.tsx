@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { DurchgangItem } from "@/components/durchgang/DurchgangItem";
+import { requireWalk } from "../../gate";
 import { loadItem, loadWalk } from "../load";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -20,8 +21,9 @@ export default async function DurchgangItemPage({
   params: Promise<{ code: string }>;
   searchParams: Promise<{ s?: string }>;
 }) {
+  await requireWalk();
   const [{ code }, { s }] = await Promise.all([params, searchParams]);
-  const [item, walk] = await Promise.all([loadItem(code), loadWalk()]);
+  const [item, walk] = await Promise.all([loadItem(code), loadWalk({ locked: false })]);
   if (!item) notFound();
   return (
     <DurchgangItem key={code} item={item} walk={walk} initialScreen={Number(s ?? 0)} />

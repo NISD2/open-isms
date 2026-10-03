@@ -1218,6 +1218,18 @@
         "meaning": "Upload any file tracking past communications with BSI or government regulators about security.",
         "example": "A simple Excel sheet with columns for date, sender, topic (e.g. 'BSI info request on incidents'), and response sent.",
         "whereToFind": "Check emails or shared drives in legal, compliance, or IT departments for BSI-related correspondence."
+      },
+      "attackDetectionSystem": {
+        "label": "Attack detection system",
+        "meaning": "Operators of critical facilities only (§ 31(2) BSIG): the system that detects attacks on the IT the facility depends on, and which systems it watches.",
+        "example": "SIEM run by our service provider, watching the control system network and the remote access gateways of the waterworks.",
+        "whereToFind": "Ask whoever runs the IT of the facility, or the security service provider."
+      },
+      "lastKritisEvidenceDate": {
+        "label": "Last evidence sent to the BSI",
+        "meaning": "Operators of critical facilities only (§ 39 BSIG): the day the company last sent the BSI the result of an audit, test or certification. Leave it empty if there has been none yet.",
+        "example": "2025-03-14",
+        "whereToFind": "In the cover letter of the last evidence, or ask whoever sent it."
       }
     }
   }

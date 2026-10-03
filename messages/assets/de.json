@@ -65,7 +65,8 @@
       "rpo": "RPO (Stunden)",
       "endOfLife": "End of Life",
       "quantity": "Anzahl",
-      "processesPersonalData": "Verarbeitet personenbezogene Daten"
+      "processesPersonalData": "Verarbeitet personenbezogene Daten",
+      "mfaMethod": "Art des zweiten Faktors"
     },
     "fieldDescriptions": {
       "name": "Eindeutiger Name zur Identifizierung dieses Assets im Inventar Ihrer Organisation.",

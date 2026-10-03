@@ -10,10 +10,8 @@ import type { InferSelectModel } from "drizzle-orm";
 import { isFreeMailAddress } from "@/lib/auth/free-mail";
 import { effectiveAccessLevel, isGrandfatheredPerson } from "@/lib/billing/access";
 import type { AccessLevel } from "@/lib/billing/accounts";
-import {
-  type JourneyStatusRow,
-  summarizeJourneys,
-} from "@/lib/lifecycle/journey-progress";
+import type { JourneyEntry } from "@/lib/durchgang";
+import { summarizeJourneys } from "@/lib/lifecycle/journey-progress";
 import { courseCompletion, type LessonProgressRow } from "@/lib/training/completion";
 import type { company, user } from "@/schema";
 import type { CloseFacts } from "./fields";
@@ -57,12 +55,13 @@ export const closeFactsFor = (input: {
   readonly optedOutUserIds: ReadonlySet<string>;
   readonly ceoLessonIds: readonly string[];
   readonly ceoProgress: readonly CourseProgressRow[];
-  readonly pathRows: readonly JourneyStatusRow[];
+  /** Each company's journey states (`journeyStatesByCompany`), by company id. */
+  readonly paths: ReadonlyMap<string, ReadonlyMap<string, JourneyEntry>>;
   /** Whether pricing has launched (the "billing" feature flag). */
   readonly launched: boolean;
 }) => {
   const ceoProgressByUser = groupByUser(input.ceoProgress);
-  const journeys = summarizeJourneys(input.pathRows);
+  const journeys = summarizeJourneys(input.paths);
 
   return (person: CloseUserRow): CloseFacts => {
     const ceo = courseCompletion(

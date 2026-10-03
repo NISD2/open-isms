@@ -31,7 +31,8 @@
       "requiresGdprNotification": "DSGVO-Meldung erforderlich",
       "dataSubjectsAffected": "Betroffene Personen",
       "gdprNotifiedAt": "Aufsichtsbehörde benachrichtigt am",
-      "notifiedDataSubjectsAt": "Betroffene Personen informiert am"
+      "notifiedDataSubjectsAt": "Betroffene Personen informiert am",
+      "internalRef": "Kennung"
     },
     "bsiDeadlines": {
       "title": "BSI-Meldefristen",

@@ -73,6 +73,8 @@ export interface ItemView {
    */
   readonly gloss: Readonly<Record<string, readonly Gloss[]>>;
   readonly screens: readonly ResolvedScreen[];
+  /** Whether the company may decide not to do this item; not where the law leaves no choice. */
+  readonly mayDecline: boolean;
   readonly statusId: string | null;
   readonly assessmentId: string | null;
   readonly categoryId: string;

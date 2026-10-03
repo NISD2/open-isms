@@ -1,6 +1,6 @@
 import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
 import { and, eq, inArray, sql } from "drizzle-orm";
-import type { Database } from "@/lib/db";
+import type { Database, DbOrTx } from "@/lib/db";
 import {
   company,
   companyAssessment,
@@ -14,7 +14,7 @@ import { completedSignOffValues, snapshotForVersion } from "./sign-off-completio
 
 /** Build a sign-off snapshot capturing company profile + operational counts at sign-off time */
 export async function buildSignOffSnapshot(
-  db: Database,
+  db: DbOrTx,
   companyId: string,
   templateVersion: number,
 ): Promise<SignOffSnapshot> {

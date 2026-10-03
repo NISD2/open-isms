@@ -490,6 +490,11 @@ export const user = pgTable(
     requirementTourDismissedAt: timestamp("requirement_tour_dismissed_at"),
     /** When the user dismissed the second-login offer of help. */
     helpOfferDismissedAt: timestamp("help_offer_dismissed_at"),
+    /**
+     * When the user answered the one-time notice that the journey is the more detailed view than
+     * the NIS 2 walkthrough, shown once the walkthrough is the portal's front.
+     */
+    journeyNoticeDismissedAt: timestamp("journey_notice_dismissed_at"),
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at").defaultNow().notNull(),
   },

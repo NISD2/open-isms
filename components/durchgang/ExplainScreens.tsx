@@ -1,12 +1,15 @@
 "use client";
 
 import {
+  Activity,
+  BellRing,
   BookText,
   CheckCircle2,
   ExternalLink,
   FileText,
   GraduationCap,
   Info,
+  Repeat,
   ScrollText,
   XCircle,
 } from "lucide-react";
@@ -235,6 +238,51 @@ export function Prepare({
         </Label>
       )}
       <Source>{entry.copy.source}</Source>
+    </>
+  );
+}
+
+/** The groups of ongoing duties in their fixed order, each with its sign. */
+const ONGOING_ICONS = [BellRing, Repeat, Activity] as const;
+
+/**
+ * What the company does itself from now on, after management signed: grouped by when it
+ * happens, each duty with what to do and what it rests on. Read only; the walk ends here.
+ */
+export function Ongoing({ entry }: { entry: Of<"ongoing"> }) {
+  return (
+    <>
+      <Heading>{entry.copy.title}</Heading>
+      <Lead>{entry.copy.lead}</Lead>
+      <div className="mt-8 space-y-6">
+        {entry.copy.groups.map((group, g) => {
+          const Icon = ONGOING_ICONS[g] ?? Activity;
+          return (
+            <section key={group.title}>
+              <h2 className="flex items-center gap-2 text-sm font-semibold">
+                <Icon className="size-4 text-primary" />
+                {group.title}
+              </h2>
+              <ul className="mt-3 divide-y overflow-hidden rounded-2xl border bg-card shadow-sm">
+                {group.items.map((line) => (
+                  <li
+                    key={line.name}
+                    className="grid gap-1 px-5 py-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:gap-6"
+                  >
+                    <div className="min-w-0">
+                      <p className="font-semibold">{line.name}</p>
+                      <p className="text-sm text-muted-foreground">{line.detail}</p>
+                    </div>
+                    <p className="self-start text-xs text-muted-foreground sm:text-right">
+                      {typesetCitation(line.basis)}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          );
+        })}
+      </div>
     </>
   );
 }

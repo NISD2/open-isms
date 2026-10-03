@@ -85,5 +85,6 @@ export async function buildFullJourneyItems(locale: string): Promise<JourneyItem
       sortOrder: indexInCategory,
       signOff: { signed: 0, total: 0 },
       state: journeyState(sampleStatus(step), null),
+      coveredBy: null,
     }));
 }

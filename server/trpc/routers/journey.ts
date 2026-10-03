@@ -1,8 +1,8 @@
 import { and, asc, count, desc, eq, isNotNull } from "drizzle-orm";
 import { z } from "zod";
 import { daysUntilDeadline } from "@/lib/compliance/deadlines";
-import { isDoneStatus, journeyState } from "@/lib/compliance/journey-position";
-import { itemState } from "@/lib/durchgang";
+import { isDoneState } from "@/lib/compliance/journey-position";
+import { journeyStates, walkOf } from "@/lib/durchgang";
 import {
   getRequirementDescription,
   getRequirementsMessages,
@@ -78,12 +78,18 @@ export const journeyRouter = router({
       const [assessment, companyRows] = await Promise.all([
         getNis2Assessment(ctx.db, cid),
         ctx.db
-          .select({ journeyMode: company.journeyMode })
+          .select({
+            journeyMode: company.journeyMode,
+            sector: company.sector,
+            entityType: company.entityType,
+            criticalInstallation: company.criticalInstallation,
+          })
           .from(company)
           .where(eq(company.id, cid))
           .limit(1),
       ]);
-      const mode = companyRows[0]?.journeyMode ?? null;
+      const companyRow = companyRows[0];
+      const mode = companyRow?.journeyMode ?? null;
 
       if (!assessment) {
         return {
@@ -188,8 +194,25 @@ export const journeyRouter = router({
       // per-key for untranslated entries.
       const requirements = await getRequirementsMessages(input?.locale ?? "en");
       const nowDate = new Date();
+
+      // Where each requirement stands, the one computation the exports read too.
+      const states = journeyStates(
+        rows,
+        walk,
+        companyRow
+          ? {
+              sector: companyRow.sector,
+              walks: walkOf(companyRow).map((item) => item.code),
+            }
+          : null,
+      );
+
       const items = rows.map((r) => {
         const status = r.status ?? "not_started";
+        const { state, coveredBy } = states.get(r.code) ?? {
+          state: "todo" as const,
+          coveredBy: null,
+        };
         const dueAt = r.nextReviewDate ? new Date(r.nextReviewDate) : null;
         // nextReviewDate means a recurring REVIEW date only on review-relevant
         // statuses (matches dashboard.ts). On not-done items the same column
@@ -216,22 +239,24 @@ export const journeyRouter = router({
           signedOffAt: r.signedOffAt,
           sortOrder: r.sortOrder ?? 999,
           signOff: signOffByStatusId.get(r.statusId) ?? { signed: 0, total: 0 },
-          state: journeyState(
-            status,
-            itemState({ ...r, status }, walk.get(r.requirementId) ?? null),
-          ),
+          state,
+          coveredBy,
         };
       });
 
       // Company-wide aggregates, a reality check shown across the path view.
       const aggregate = {
         total: items.length,
-        done: items.filter((i) => isDoneStatus(i.status)).length,
+        done: items.filter((i) => isDoneState(i.state)).length,
         // Partition, not overlap: a needs_review item past its review date
         // counts as overdue below, so "awaiting" holds only the ones whose
-        // review is not (yet) late.
+        // review is not (yet) late. A requirement waiting on the walk item that
+        // carries it is signed with that item, so only the item counts.
         awaitingSignoff: items.filter(
-          (i) => i.state === "awaiting" && (i.dueInDays === null || i.dueInDays >= 0),
+          (i) =>
+            i.state === "awaiting" &&
+            i.coveredBy === null &&
+            (i.dueInDays === null || i.dueInDays >= 0),
         ).length,
         // Recurring-review cycle (only on review-status items, so a never-done
         // item past its initial deadline is NOT mislabelled "review overdue").
@@ -239,7 +264,7 @@ export const journeyRouter = router({
         dueSoon: items.filter(
           (i) => i.dueInDays !== null && i.dueInDays >= 0 && i.dueInDays <= 30,
         ).length,
-        open: items.filter((i) => !isDoneStatus(i.status)).length,
+        open: items.filter((i) => !isDoneState(i.state)).length,
       };
 
       return {

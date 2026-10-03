@@ -1,0 +1,1 @@
+ALTER TYPE "public"."feature_flag_key" ADD VALUE 'walkthrough';

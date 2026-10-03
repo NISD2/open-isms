@@ -1,10 +1,11 @@
 import { nis2Categories } from "@nisd2/grc-data-model/frameworks";
 import {
   type DotState,
-  isDoneStatus,
+  isDoneState,
   journeyIndex,
   priorityRank,
 } from "@/lib/compliance/journey-position";
+import type { CoveredBy } from "@/lib/durchgang";
 import { type JourneyItem, liveNode } from "./views";
 
 export type { DotState };
@@ -28,8 +29,10 @@ export type FlowNode = {
   status: NodeStatus;
   /** Raw companyRequirementStatus, for the aggregate filter chips. */
   rawStatus: string;
-  /** Where the requirement stands (`journeyState`); every view draws and labels from it. */
+  /** Where the requirement stands (`coveredState`); every view draws and labels from it. */
   state: DotState;
+  /** What decided `state` when it was not work on the requirement itself, else null. */
+  coveredBy: CoveredBy | null;
   /** Recurring-review cycle: the next review (nextReviewDate) is in the past. */
   isOverdue: boolean;
   /** Days until the next review (negative = overdue). null = no review date. */
@@ -300,12 +303,27 @@ export function reviewLabel(dueInDays: number | null, de: boolean): string | nul
 
 /**
  * Localized status wording. One vocabulary so the views cannot drift apart. The raw status only
- * tells a signature from a reviewer's approval; everything else is the node's state.
+ * tells a signature from a reviewer's approval; everything else is the node's state, and where
+ * the state came from the walk or from no statute asking for it, the label says so.
  */
 export function statusLabel(
-  node: Pick<FlowNode, "rawStatus" | "state">,
+  node: Pick<FlowNode, "rawStatus" | "state" | "coveredBy">,
   de: boolean,
 ): string {
+  const { coveredBy } = node;
+  if (coveredBy?.kind === "not_required") {
+    return de ? "Gesetzlich nicht gefordert" : "Not required by law";
+  }
+  if (coveredBy?.kind === "walk") {
+    const codes = coveredBy.codes.join(de ? " und " : " and ");
+    return node.state === "signed"
+      ? de
+        ? `Im Durchgang mit ${codes} freigegeben`
+        : `Signed off in the walkthrough with ${codes}`
+      : de
+        ? `Im Durchgang mit ${codes}, wartet auf Freigabe`
+        : `In the walkthrough with ${codes}, awaiting sign-off`;
+  }
   switch (node.state) {
     case "signed":
       if (node.rawStatus === "approved") return de ? "Geprüft" : "Reviewed";
@@ -342,7 +360,7 @@ export function buildRequirementNodes(items: JourneyItem[]): FlowNode[] {
         it.requiredSignOffRole === "ceo"
           ? "ceo"
           : (CATEGORY_ROLE[it.categoryCode] ?? "ciso");
-      const done = isDoneStatus(it.status);
+      const done = isDoneState(it.state);
       const status: NodeStatus = done
         ? "done"
         : it.code === live
@@ -360,6 +378,7 @@ export function buildRequirementNodes(items: JourneyItem[]): FlowNode[] {
         status,
         rawStatus: it.status,
         state: it.state,
+        coveredBy: it.coveredBy,
         // Recurring review (server-computed, calendar days, review-status-gated).
         isOverdue: it.dueInDays !== null && it.dueInDays < 0,
         dueInDays: it.dueInDays,

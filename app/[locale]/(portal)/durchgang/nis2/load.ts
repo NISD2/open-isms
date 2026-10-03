@@ -20,6 +20,7 @@ import {
   type ResolvedItem,
   resolveItem,
   WALK,
+  walkOf,
 } from "@/lib/durchgang";
 import { introspectSchema } from "@/lib/forms/schema-introspect";
 import { api } from "@/lib/trpc/server";
@@ -51,15 +52,30 @@ async function wordsOf(item: AnyItem): Promise<ResolvedItem> {
   return resolved.value;
 }
 
-/** Every item of the walk with its state, for the home screen and the "Als Nächstes" card. */
-export async function loadWalk(): Promise<readonly WalkEntry[]> {
-  const [states, tc] = await Promise.all([
-    api.durchgang.walk(),
+/** The items the caller's company walks, read off its profile; none without a company. */
+async function callerWalk(): Promise<readonly AnyItem[]> {
+  const company = await api.assessment.getCompany();
+  return company ? walkOf(company) : [];
+}
+
+/**
+ * Every item of the company's walk with its state, for the home screen and the "Als Nächstes"
+ * card. Locked (an account that has not paid), every item is open: such a company has walked
+ * nothing, and the walk's own data is for paid accounts only.
+ */
+export async function loadWalk({
+  locked,
+}: {
+  locked: boolean;
+}): Promise<readonly WalkEntry[]> {
+  const [walk, states, tc] = await Promise.all([
+    callerWalk(),
+    locked ? [] : api.durchgang.walk(),
     getTranslations("compliance"),
   ]);
   const stateOf = new Map(states.map((s) => [s.code, s.state]));
   return Promise.all(
-    WALK.map(async (item) => {
+    walk.map(async (item) => {
       const words = await wordsOf(item);
       return {
         code: item.code,
@@ -73,9 +89,24 @@ export async function loadWalk(): Promise<readonly WalkEntry[]> {
   );
 }
 
-/** One item, resolved for its screens. Null when it is not in the walk or not visible to the caller. */
+/** The walk's own headline of each of these items, for links into the walk from elsewhere. */
+export async function headlinesOf(
+  codes: readonly string[],
+): Promise<ReadonlyMap<string, string>> {
+  const items = WALK.filter((item) => codes.includes(item.code));
+  return new Map(
+    await Promise.all(
+      items.map(async (item) => [item.code, (await wordsOf(item)).headline] as const),
+    ),
+  );
+}
+
+/**
+ * One item, resolved for its screens. Null when it is not in the company's walk or not visible
+ * to the caller.
+ */
 export async function loadItem(code: string): Promise<ItemView | null> {
-  const item = WALK.find((i) => i.code === code);
+  const item = (await callerWalk()).find((i) => i.code === code);
   if (!item) return null;
 
   const [session, req, assessment, localeTag] = await Promise.all([
@@ -212,6 +243,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     dutyHref: dutyHref(item.law, locale),
     gloss: glossary(prose, locale),
     screens: words.screens,
+    mayDecline: item.mustDo === undefined,
     statusId,
     assessmentId: assessment?.id ?? null,
     categoryId: req.category.id,

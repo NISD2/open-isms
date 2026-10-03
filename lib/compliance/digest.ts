@@ -18,9 +18,10 @@ import {
   requirementAssignment,
   user,
 } from "@/schema";
+import { journeyStatesOf } from "@/server/trpc/helpers/durchgang";
 import { getNis2FrameworkId } from "@/server/trpc/helpers/nis2-scope";
 import { daysUntilDeadline } from "./deadlines";
-import { isDoneStatus, journeyIndex } from "./journey-position";
+import { isDoneState, nextOnJourney } from "./journey-position";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -79,49 +80,70 @@ function requirementTitle(code: string): string {
   );
 }
 
+/** How far the journey is and its next step, as both digests report them. */
+interface JourneyProgress {
+  readonly done: number;
+  readonly total: number;
+  /** First open requirement in journey order; null when the path is done. */
+  readonly nextStep: DigestNextStep | null;
+}
+
+/** The headline percentage, from the journey's own count. */
+const percentOf = ({ done, total }: JourneyProgress): string =>
+  total > 0 ? ((done / total) * 100).toFixed(1) : "0";
+
 /**
- * The first not-done requirement in journey order — the same
- * category-weighted order the path view and the activation-nudge email use
- * (journeyPosition), so every email names the step the journey page
- * highlights when the reader clicks through. Carries the progress numbers
- * the templates turn into the payoff line ("20 of 49; finishing 12.1
- * completes Registration") and, for the management digest, who owns it.
+ * The journey's own "done" (`journeyStatesOf`) and the step its page highlights
+ * (`nextOnJourney`): a requirement met inside the walk counts done, one no
+ * statute asks of the company is never named. The stored progress counters
+ * count only the status column, which the walk leaves alone for those, so the
+ * headline reads this too. The next step carries the numbers the templates
+ * turn into the payoff line ("20 of 49; finishing 12.1 completes
+ * Registration") and, for the management digest, who owns it.
  *
  * includeAssignee: only the weekly management template renders the owner,
  * so the daily path skips that query — it runs per member of every active
  * company, and twice per send (queue build, then send time).
  */
-async function findNextJourneyStep(
+async function journeyProgress(
   db: Database,
+  companyId: string,
   assessmentIds: string[],
   includeAssignee: boolean,
-): Promise<DigestNextStep | null> {
-  const rows = await db.query.companyRequirementStatus.findMany({
-    where: inArray(companyRequirementStatus.assessmentId, assessmentIds),
-    columns: { id: true, status: true },
-    with: {
-      requirement: {
-        columns: { code: true, sortOrder: true, priority: true },
-        with: { category: { columns: { slug: true, sortOrder: true } } },
+): Promise<JourneyProgress> {
+  const [statusRows, states] = await Promise.all([
+    db.query.companyRequirementStatus.findMany({
+      where: inArray(companyRequirementStatus.assessmentId, assessmentIds),
+      columns: { id: true },
+      with: {
+        requirement: {
+          columns: { code: true },
+          with: { category: { columns: { slug: true } } },
+        },
       },
-    },
+    }),
+    journeyStatesOf(db, companyId),
+  ]);
+  const rows = statusRows.flatMap((r) => {
+    const entry = states.get(r.requirement.code);
+    return entry
+      ? [
+          {
+            statusId: r.id,
+            code: r.requirement.code,
+            slug: r.requirement.category?.slug ?? "unknown",
+            ...entry,
+          },
+        ]
+      : [];
   });
+  const isDone = (r: (typeof rows)[number]) => isDoneState(r.state);
+  const done = rows.filter(isDone).length;
 
-  const next = rows
-    .filter((r) => !isDoneStatus(r.status))
-    .map((r) => ({
-      statusId: r.id,
-      code: r.requirement.code,
-      slug: r.requirement.category?.slug ?? "unknown",
-      position: journeyIndex(r.requirement.code),
-    }))
-    .sort((a, b) => a.position - b.position || a.code.localeCompare(b.code))[0];
+  const next = nextOnJourney(rows);
+  if (!next) return { done, total: rows.length, nextStep: null };
 
-  if (!next) return null;
-
-  const categoryRows = rows.filter(
-    (r) => (r.requirement.category?.slug ?? "unknown") === next.slug,
-  );
+  const categoryRows = rows.filter((r) => r.slug === next.slug);
   // A status row can carry several assignments (unique index is
   // statusId+userId). Without an ORDER BY, LIMIT 1 returns an arbitrary
   // row, and the §38-evidence email could name a different owner each
@@ -135,15 +157,19 @@ async function findNextJourneyStep(
     : null;
 
   return {
-    requirementCode: next.code,
-    requirementTitle: requirementTitle(next.code),
-    url: `${getAppUrl()}/compliance/${next.slug}#${next.code}`,
-    done: rows.filter((r) => isDoneStatus(r.status)).length,
+    done,
     total: rows.length,
-    categoryName: CATEGORY_NAME_BY_SLUG[next.slug] ?? next.slug,
-    categoryDone: categoryRows.filter((r) => isDoneStatus(r.status)).length,
-    categoryTotal: categoryRows.length,
-    assigneeName: assignment?.user?.name ?? null,
+    nextStep: {
+      requirementCode: next.code,
+      requirementTitle: requirementTitle(next.code),
+      url: `${getAppUrl()}/compliance/${next.slug}#${next.code}`,
+      done,
+      total: rows.length,
+      categoryName: CATEGORY_NAME_BY_SLUG[next.slug] ?? next.slug,
+      categoryDone: categoryRows.filter(isDone).length,
+      categoryTotal: categoryRows.length,
+      assigneeName: assignment?.user?.name ?? null,
+    },
   };
 }
 
@@ -186,25 +212,13 @@ export async function compileDailyDigest(
       eq(companyAssessment.companyId, companyId),
       eq(companyAssessment.frameworkId, nis2FrameworkId),
     ),
-    columns: {
-      id: true,
-      compliancePercentage: true,
-      completedRequirements: true,
-      totalRequirements: true,
-    },
+    columns: { id: true },
   });
 
   if (assessments.length === 0) return null;
 
-  // Compute aggregate compliance %
-  const totalReq = assessments.reduce((s, a) => s + (a.totalRequirements ?? 0), 0);
-  const completedReq = assessments.reduce(
-    (s, a) => s + (a.completedRequirements ?? 0),
-    0,
-  );
-  const pct = totalReq > 0 ? ((completedReq / totalReq) * 100).toFixed(1) : "0";
-
   const assessmentIds = assessments.map((a) => a.id);
+  const journey = await journeyProgress(db, companyId, assessmentIds, false);
 
   // Find all statuses with upcoming or overdue nextReviewDate
   const statuses = await db.query.companyRequirementStatus.findMany({
@@ -276,8 +290,8 @@ export async function compileDailyDigest(
     overdueItems,
     urgentItems,
     upcomingItems,
-    nextStep: await findNextJourneyStep(db, assessmentIds, false),
-    compliancePercentage: pct,
+    nextStep: journey.nextStep,
+    compliancePercentage: percentOf(journey),
     dashboardUrl: `${appUrl}/`,
   };
 }
@@ -318,12 +332,7 @@ export async function compileManagementDigest(
       eq(companyAssessment.companyId, companyId),
       eq(companyAssessment.frameworkId, nis2FrameworkId),
     ),
-    columns: {
-      id: true,
-      compliancePercentage: true,
-      completedRequirements: true,
-      totalRequirements: true,
-    },
+    columns: { id: true },
   });
 
   // No NIS 2 assessment means there is nothing to report on. The daily digest
@@ -332,14 +341,8 @@ export async function compileManagementDigest(
   // report announcing it was 0% compliant across 0 of 0 requirements.
   if (assessments.length === 0) return null;
 
-  const totalReq = assessments.reduce((s, a) => s + (a.totalRequirements ?? 0), 0);
-  const completedReq = assessments.reduce(
-    (s, a) => s + (a.completedRequirements ?? 0),
-    0,
-  );
-  const pct = totalReq > 0 ? ((completedReq / totalReq) * 100).toFixed(1) : "0";
-
   const assessmentIds = assessments.map((a) => a.id);
+  const journey = await journeyProgress(db, companyId, assessmentIds, true);
 
   // Count overdue. Review-relevant statuses only, matching the daily digest
   // and the dashboard: on not-done rows nextReviewDate holds the initial
@@ -387,13 +390,13 @@ export async function compileManagementDigest(
     recipientEmail: recipient.email,
     companyName: companyRow.name,
     companyId,
-    compliancePercentage: pct,
+    compliancePercentage: percentOf(journey),
     overdueCount,
     urgentCount,
     escalationCount: escalationRows.length,
-    totalRequirements: totalReq,
-    completedRequirements: completedReq,
-    nextStep: await findNextJourneyStep(db, assessmentIds, true),
+    totalRequirements: journey.total,
+    completedRequirements: journey.done,
+    nextStep: journey.nextStep,
     dashboardUrl: `${getAppUrl()}/`,
   };
 }

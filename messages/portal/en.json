@@ -62,7 +62,7 @@
     "policies": "Policies",
     "training": "Training",
     "exercises": "Emergency Drills",
-    "managementReviews": "Mgmt Reviews",
+    "managementReviews": "Management reviews",
     "kpis": "Security Metrics",
     "changes": "Changes",
     "patches": "Security Updates",
@@ -87,6 +87,12 @@
     "durchgang": "NIS 2 walkthrough",
     "administration": "Administration",
     "comingSoon": "Coming soon",
+    "journeyNotice": {
+      "title": "The journey is the detailed view",
+      "text": "It shows every requirement at once, with the registers that go with them. That is more than most companies need. We recommend the NIS 2 walkthrough: it takes you through item by item and explains each step.",
+      "stay": "Stay in the walkthrough",
+      "go": "Go to the journey anyway"
+    },
     "journeyBoard": {
       "hero": {
         "title": "Your NIS2 implementation",

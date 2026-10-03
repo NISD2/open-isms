@@ -1218,6 +1218,18 @@
         "meaning": "Ein Protokoll aller Korrespondenz mit dem BSI, um zu zeigen, dass Anfragen bearbeitet wurden.",
         "example": "Eine Tabelle mit Datum, Anfrage-Thema, gesendeten Nachweisen und Verantwortlichem.",
         "whereToFind": "Im E-Mail-Archiv Ihres Compliance-Teams oder im Ticketsystem für Behördenanfragen."
+      },
+      "attackDetectionSystem": {
+        "label": "System zur Angriffserkennung",
+        "meaning": "Nur für Betreiber kritischer Anlagen (§ 31 Abs. 2 BSIG): das System, das Angriffe auf die IT erkennt, von der die Anlage abhängt, und welche Systeme es überwacht.",
+        "example": "SIEM unseres Dienstleisters, überwacht das Netz der Leittechnik und die Fernzugänge des Wasserwerks.",
+        "whereToFind": "Bei der Person, die die IT der Anlage betreut, oder beim Sicherheitsdienstleister."
+      },
+      "lastKritisEvidenceDate": {
+        "label": "Letzter Nachweis an das BSI",
+        "meaning": "Nur für Betreiber kritischer Anlagen (§ 39 BSIG): der Tag, an dem Ihr Unternehmen dem BSI zuletzt das Ergebnis eines Audits, einer Prüfung oder einer Zertifizierung geschickt hat. Gab es noch keinen, bleibt das Feld leer.",
+        "example": "2025-03-14",
+        "whereToFind": "Im Anschreiben zum letzten Nachweis, oder bei der Person, die ihn verschickt hat."
       }
     }
   }

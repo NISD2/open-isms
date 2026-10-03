@@ -25,6 +25,7 @@ const node = (
   status,
   rawStatus: status === "done" ? "signed" : "todo",
   state: status === "done" ? "signed" : "todo",
+  coveredBy: null,
   isOverdue: false,
   dueInDays: null,
   priority: null,

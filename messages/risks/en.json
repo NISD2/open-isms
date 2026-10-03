@@ -36,7 +36,8 @@
       "residualLikelihood": "Residual Likelihood",
       "residualImpact": "Residual Impact",
       "riskOwner": "Risk Owner",
-      "nextReviewDate": "Next Review Date"
+      "nextReviewDate": "Next Review Date",
+      "acceptedAt": "Accepted On"
     },
     "fieldDescriptions": {
       "title": "Short descriptive name for this risk (e.g., 'Ransomware attack on ERP system').",

@@ -5,10 +5,14 @@
 
 import { JOURNEY_ORDER } from "@/lib/compliance/journey-position";
 import { NIS2_SCRIPT } from "./nis2";
-import type { AnyItem, AnyScreen, PolicyTemplate } from "./types";
+import type { AnyItem, AnyScreen, PolicyTemplate, WalkFacts } from "./types";
 
 export type { ResolvedItem, ResolvedScreen } from "./copy";
 export { itemKey, marker, resolveItem } from "./copy";
+export type { CoveredBy, Covering, JourneyEntry, JourneyRow } from "./coverage";
+export { coveredState, journeyStates } from "./coverage";
+export type { Gap, GapFacts } from "./gaps";
+export { GAP_STEP, gapsOf } from "./gaps";
 export { dutyHref } from "./law";
 export {
   agreementsNote,
@@ -51,6 +55,7 @@ export type {
   StoredRisk,
 } from "./ratings";
 export {
+  asksSecondFactor,
   byLevel,
   cellCount,
   fromScale,
@@ -87,6 +92,7 @@ export {
   STATE_ACTIONS,
   signLast,
   WAIT_REASONS,
+  walkItemState,
 } from "./state";
 export { contactSuggestions } from "./suggest";
 export type {
@@ -94,6 +100,7 @@ export type {
   AnyItem,
   AnyScreen,
   BackupFrequency,
+  EntityType,
   LearnLink,
   MfaMethod,
   PolicyList,
@@ -103,6 +110,7 @@ export type {
   ScreenKind,
   SuggestSource,
   TrainingAudience,
+  WalkFacts,
   WalkLocale,
 } from "./types";
 export {
@@ -118,11 +126,35 @@ const BY_CODE: ReadonlyMap<string, AnyItem> = new Map(
   NIS2_SCRIPT.map((i) => [i.code, i]),
 );
 
-/** The items the Durchgang walks, in journey order. */
-export const WALK: readonly AnyItem[] = JOURNEY_ORDER.flatMap((code) => {
+const approves = (item: AnyItem): boolean =>
+  item.screens.some((s: AnyScreen) => s.kind === "approve");
+
+const IN_JOURNEY_ORDER: readonly AnyItem[] = JOURNEY_ORDER.flatMap((code) => {
   const item = BY_CODE.get(code);
   return item ? [item] : [];
 });
+
+/**
+ * Every item of the script in journey order, with the approval last: management signs what came
+ * before it, including an item the journey puts later. For looking an item up by its code; what a
+ * company walks is `walkOf`.
+ */
+export const WALK: readonly AnyItem[] = [
+  ...IN_JOURNEY_ORDER.filter((item) => !approves(item)),
+  ...IN_JOURNEY_ORDER.filter(approves),
+];
+
+/**
+ * Whether the company operates a critical facility: its profile says KRITIS, or the fact recorded
+ * for §§ 31 Abs. 2 and 39 Abs. 1 BSIG does. Nothing in the app writes that fact yet, so today the
+ * entity type decides; a measured threshold will count the moment it is recorded.
+ */
+export const operatesCriticalFacility = (company: WalkFacts): boolean =>
+  company.entityType === "kritis" || company.criticalInstallation === "yes";
+
+/** The items a company walks: those for every entity, and those addressed to what it is. */
+export const walkOf = (company: WalkFacts): readonly AnyItem[] =>
+  WALK.filter((item) => item.onlyFor === undefined || operatesCriticalFacility(company));
 
 /** Where management approves the walk's documents: the item and the index of its screen. */
 export const APPROVAL_SCREEN: { readonly code: string; readonly at: number } | null =

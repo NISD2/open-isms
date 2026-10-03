@@ -30,18 +30,8 @@ import { type EmailLocale, resolveEmailLocale } from "@/lib/mail/locale";
 import { renderEmail } from "@/lib/mail/render";
 import { getRequirementsMessages, getRequirementTitle } from "@/lib/messages";
 import { getAppUrl } from "@/lib/utils";
-import {
-  auditLog,
-  company,
-  companyAssessment,
-  companyRequirementStatus,
-  complianceFramework,
-  emailPreference,
-  notification,
-  requirement,
-  user,
-} from "@/schema";
-import { NIS2_FRAMEWORK_CODE } from "@/server/trpc/helpers/nis2-scope";
+import { auditLog, company, emailPreference, notification, user } from "@/schema";
+import { journeyStatesByCompany } from "@/server/trpc/helpers/durchgang";
 import { type JourneySummary, summarizeJourneys } from "../journey-progress";
 import {
   LIFECYCLE_ENTITY_TYPE,
@@ -238,27 +228,9 @@ export async function prepareActivationNudgeSample(
   let total = 49;
   let nextCode: string | null = null;
   if (target.companyId) {
-    const statusRows = await db
-      .select({
-        companyId: companyAssessment.companyId,
-        status: companyRequirementStatus.status,
-        code: requirement.code,
-      })
-      .from(companyRequirementStatus)
-      .innerJoin(
-        companyAssessment,
-        eq(companyRequirementStatus.assessmentId, companyAssessment.id),
-      )
-      .innerJoin(
-        complianceFramework,
-        and(
-          eq(complianceFramework.id, companyAssessment.frameworkId),
-          eq(complianceFramework.code, NIS2_FRAMEWORK_CODE),
-        ),
-      )
-      .innerJoin(requirement, eq(companyRequirementStatus.requirementId, requirement.id))
-      .where(eq(companyAssessment.companyId, target.companyId));
-    const journey = summarizeJourneys(statusRows).get(target.companyId);
+    const journey = summarizeJourneys(
+      await journeyStatesByCompany(db, [target.companyId]),
+    ).get(target.companyId);
     if (journey && journey.total > 0) {
       done = journey.done;
       total = journey.total;
@@ -395,27 +367,7 @@ export const activationNudge: LifecycleEmailType = {
     // One bulk read of every candidate company's NIS 2 path, summarized in
     // memory (~49 rows per company).
     const companyIds = Array.from(new Set(quiet.map((c) => c.companyId)));
-    const statusRows = await db
-      .select({
-        companyId: companyAssessment.companyId,
-        status: companyRequirementStatus.status,
-        code: requirement.code,
-      })
-      .from(companyRequirementStatus)
-      .innerJoin(
-        companyAssessment,
-        eq(companyRequirementStatus.assessmentId, companyAssessment.id),
-      )
-      .innerJoin(
-        complianceFramework,
-        and(
-          eq(complianceFramework.id, companyAssessment.frameworkId),
-          eq(complianceFramework.code, NIS2_FRAMEWORK_CODE),
-        ),
-      )
-      .innerJoin(requirement, eq(companyRequirementStatus.requirementId, requirement.id))
-      .where(inArray(companyAssessment.companyId, companyIds));
-    const journeys = summarizeJourneys(statusRows);
+    const journeys = summarizeJourneys(await journeyStatesByCompany(db, companyIds));
 
     const appUrl = getAppUrl();
     const prepared: PreparedLifecycleEmail[] = [];

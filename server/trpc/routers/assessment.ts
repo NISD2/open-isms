@@ -168,8 +168,8 @@ export const assessmentRouter = router({
     return getNis2Assessment(ctx.db, ctx.companyId);
   }),
 
-  // Feeds the portal sidebar and the export page, so it is NIS 2 only. A
-  // tenant's GDPR / AI Act / CRA assessment rows are kept, just not surfaced.
+  // Feeds the portal sidebar, so it is NIS 2 only. A tenant's GDPR / AI Act /
+  // CRA assessment rows are kept, just not surfaced.
   listAssessments: protectedProcedure.query(async ({ ctx }) => {
     if (!ctx.companyId) return [];
     const frameworkId = await getNis2FrameworkId(ctx.db);

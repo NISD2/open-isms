@@ -36,20 +36,34 @@ const STATUS_TONE: Record<string, StatusTone> = {
   rejected: "rejected",
 };
 
+/** How the journey reads a requirement it does not read off its own work, or null. */
+function coverageLabel(
+  covered: ReportRequirement["covered"],
+  labels: ReturnType<typeof getReportLabels>,
+): string | null {
+  if (covered === null) return null;
+  if (covered.by.kind === "not_required") return labels.notRequired;
+  const codes = covered.by.codes.join(` ${labels.and} `);
+  return covered.done ? labels.coveredSigned(codes) : labels.coveredAwaiting(codes);
+}
+
 function RequirementSection({ req, locale }: { req: ReportRequirement; locale: string }) {
   const labels = getReportLabels(locale);
   const signer = formatSigner(req.signedOffByName, req.signedOffRole);
   const notApplicableDecided = req.notApplicable
     ? formatDecision(req.notApplicable.decidedAt, req.notApplicable.decidedBy, locale)
     : null;
+  const coverage = coverageLabel(req.covered, labels);
 
   return (
     <View style={styles.record} wrap={false}>
       <View style={styles.recordHeader}>
         <Text style={styles.recordCode}>{req.code}</Text>
         <Text style={styles.recordTitle}>{req.title}</Text>
-        <Badge tone={STATUS_TONE[req.status] ?? "neutral"}>
-          {getStatusLabel(req.status, locale)}
+        <Badge
+          tone={req.covered?.done ? "completed" : (STATUS_TONE[req.status] ?? "neutral")}
+        >
+          {coverage ?? getStatusLabel(req.status, locale)}
         </Badge>
       </View>
 

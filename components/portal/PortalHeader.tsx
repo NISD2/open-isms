@@ -33,7 +33,7 @@ function titleCase(slug: string) {
  */
 export function PortalHeader({
   guide,
-  journeyHome = false,
+  home,
 }: {
   guide?: {
     hints: Record<Hint, boolean>;
@@ -43,12 +43,13 @@ export function PortalHeader({
     supportEmail: string;
   };
   /**
-   * Root the trail at the journey. Only the entity portal does. The supplier
+   * Root the trail at the portal's home: the journey, or the NIS 2 walkthrough
+   * once it is the portal's front. Only the entity portal has one. The supplier
    * portal's visitors are external and have no journey to be sent to, and many
    * who take a course have not set up a company, so both keep a trail that
    * starts where they are.
    */
-  journeyHome?: boolean;
+  home?: "journey" | "walkthrough";
 }) {
   const t = useTranslations("portal");
   const tCompliance = useTranslations("compliance");
@@ -60,9 +61,10 @@ export function PortalHeader({
   const segments = usePortalPath().split("/").filter(Boolean);
 
   /**
-   * In the entity portal every trail starts at the journey, because that is
-   * its home: the Overview item in the sidebar, where /dashboard redirects,
-   * and where a requirement page is reached from by opening a node.
+   * In the entity portal every trail starts at its home, the journey, or the
+   * walkthrough once that is the portal's front: the first item in the
+   * sidebar, where /dashboard redirects, and where a requirement page is
+   * reached from by opening a node.
    *
    * Before this, a requirement page read "NIS2 Compliance / Registration /
    * 12.1" — a trail through the framework tree, which is the alternative
@@ -75,12 +77,30 @@ export function PortalHeader({
     if (segments.length === 0) {
       return [{ label: t("overview"), href: undefined }];
     }
-    if (journeyHome && segments[0] === "journey") {
-      return [{ label: t("journey"), href: undefined }];
+    const root =
+      home === "walkthrough"
+        ? {
+            label: t("durchgang"),
+            href: "/durchgang/nis2",
+            at: ["durchgang", "walkthrough"],
+          }
+        : home === "journey"
+          ? { label: t("journey"), href: "/journey", at: ["journey"] }
+          : null;
+    if (root && segments[0] !== undefined && root.at.includes(segments[0])) {
+      // Below the walk's home (/durchgang/nis2/<item>, its approval page): back to the home, and
+      // where you are.
+      const below = home === "walkthrough" ? segments.slice(2).at(-1) : undefined;
+      return below === undefined
+        ? [{ label: root.label, href: undefined }]
+        : [
+            { label: root.label, href: root.href },
+            { label: titleCase(below), href: undefined },
+          ];
     }
 
-    const crumbs: { label: string; href?: string }[] = journeyHome
-      ? [{ label: t("journey"), href: "/journey" }]
+    const crumbs: { label: string; href?: string }[] = root
+      ? [{ label: root.label, href: root.href }]
       : [];
 
     if (segments[0] === "compliance") {
