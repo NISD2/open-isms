@@ -264,6 +264,7 @@ export const routing = defineRouting({
     },
     "/exercises": "/exercises",
     "/export": "/export",
+    "/export/gesamt": { de: "/export/gesamt", en: "/export/complete" },
     "/gap-assessment": "/gap-assessment",
     "/gap-assessment/[day]": "/gap-assessment/[day]",
     "/gap-assessment/results": "/gap-assessment/results",

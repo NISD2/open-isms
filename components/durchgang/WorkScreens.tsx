@@ -396,7 +396,9 @@ export function Assets({
       )}
       <div className="mt-6">
         <BigChecklist
-          sectors={[]}
+          sectors={item.register?.sectors ?? []}
+          // The sector is the company's own, so its entries are not tucked away.
+          folded={[]}
           groups={entry.screen.groups}
           checked={[...listed, ...draft.checked]}
           custom={[...draft.custom]}

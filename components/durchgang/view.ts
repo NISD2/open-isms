@@ -96,6 +96,8 @@ export interface ItemView {
   readonly register: {
     readonly listed: readonly string[];
     readonly others: readonly string[];
+    /** The catalogue sectors of the company's profile, whose own entries the checklists add. */
+    readonly sectors: readonly string[];
   } | null;
   /** When the company took over the BSI method in the walk; a second pass then writes nothing. */
   readonly adoptedAt: Date | null;

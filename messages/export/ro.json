@@ -1,11 +1,36 @@
 {
   "export": {
-    "title": "Exportă rapoarte",
-    "subtitle": "Descarcă rapoarte de conformitate pentru evaluările tale",
-    "noAssessments": "Nu s-au găsit evaluări. Finalizează mai întâi configurarea.",
-    "download": "Descarcă PDF",
-    "started": "Început",
-    "progress": "{completed} din {total} cerințe",
-    "compliance": "Conformitate"
+    "title": "Export",
+    "lead": "Tot ce ai înregistrat în parcurs și în registre, ca fișier de predat: conducerii, unui auditor sau furnizorului tău de servicii IT.",
+    "noAccess": "Pot exporta administratorii, evaluatorii și conducerea companiei tale.",
+    "noAssessment": "Compania ta nu are încă o evaluare NIS 2.",
+    "complete": {
+      "card": {
+        "title": "Totul într-un singur document",
+        "text": "Întregul parcurs, de la început până la sfârșit: stadiu, puncte deschise, documente, matricea riscurilor, toate registrele și răspunsurile. Salvează-l ca PDF din browser. Documentul este în limba engleză."
+      }
+    },
+    "files": {
+      "report": {
+        "title": "Stadiul implementării",
+        "text": "Fiecare cerință NIS 2 cu stadiul ei, cine a aprobat-o și când."
+      },
+      "documents": {
+        "title": "Documente",
+        "text": "Politica, planurile și conceptele din parcurs, fiecare cu aprobarea conducerii."
+      },
+      "registers": {
+        "title": "Registre",
+        "text": "Active cu prestatorii lor de servicii, furnizori, riscuri, instruiri, analize ale conducerii și incidente."
+      },
+      "table": {
+        "title": "Cerințe sub formă de tabel",
+        "text": "Cerințele cu stadiul și data aprobării, de deschis în Excel."
+      },
+      "data": {
+        "title": "Toate datele",
+        "text": "Totul într-un singur fișier, pentru propriile tale instrumente sau de luat cu tine. Datele tale îți aparțin."
+      }
+    }
   }
 }

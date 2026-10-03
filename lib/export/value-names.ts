@@ -1,5 +1,9 @@
 import "@/lib/server-guard";
 
+import {
+  getNis2RequirementsForCategory,
+  nis2Categories,
+} from "@nisd2/grc-data-model/frameworks";
 import { z } from "zod";
 import type { PdfLocale } from "@/lib/pdf/format";
 import type { ExportRecord } from "./company-export";
@@ -47,15 +51,44 @@ export type CodedField = keyof typeof VALUE_SOURCES;
 export type Register = keyof typeof FIELD_SOURCES;
 type Names = Readonly<Record<string, string>>;
 
+/** What the export calls the answers typed in each category. */
+export interface AnswerNames {
+  /** Each answer's label, by category code, then field key: a key can mean two things in two areas. */
+  readonly labels: Readonly<Record<string, Names>>;
+  /** The name of each choice an answer can hold, by field key. */
+  readonly values: Readonly<Record<string, Names>>;
+}
+
 export interface ExportNames {
   /** The name of each coded value, by field. */
   readonly values: Readonly<Record<CodedField, Names>>;
   /** Each register's field labels, by field. */
   readonly fields: Readonly<Record<Register, Names>>;
+  readonly answers: AnswerNames;
+  /**
+   * The title the walk gives a management training (§ 38 Abs. 3 BSIG), in the export's language,
+   * and as it is stored in every language the walk is written in: the walk saves it in the
+   * language of whoever entered the row.
+   */
+  readonly managementTraining: {
+    readonly name: string;
+    readonly stored: readonly string[];
+  };
 }
+
+/** The languages the walk is written in, so the languages its stored titles can be in. */
+const WALK_LOCALES = ["de", "en"] as const satisfies readonly PdfLocale[];
+
+/** The walk's title for a management training row, in `locale`. */
+const managementTrainingTitle = async (locale: PdfLocale): Promise<string> => {
+  const walk: unknown = (await import(`../../messages/durchgang/${locale}.json`)).default;
+  const title = at(walk, ["durchgang", "ui", "training", "managementTraining"]);
+  return typeof title === "string" ? title : "";
+};
 
 /** Message files are data: a map that does not parse names nothing, and the key prints. */
 const NAMES = z.record(z.string(), z.string()).catch({});
+const SECTIONS = z.record(z.string(), z.unknown()).catch({});
 
 /** The value under `path` in a message file's JSON, or undefined. */
 const at = (json: unknown, path: readonly string[]): unknown =>
@@ -66,6 +99,64 @@ const at = (json: unknown, path: readonly string[]): unknown =>
         : undefined,
     json,
   );
+
+/** Each NIS 2 requirement's category code, by requirement code ("6.1" is PRO). */
+const CATEGORY_OF: ReadonlyMap<string, string> = new Map(
+  nis2Categories.flatMap((category) =>
+    getNis2RequirementsForCategory(category.slug).map((r): [string, string] => [
+      r.code,
+      category.code,
+    ]),
+  ),
+);
+
+/**
+ * Each field label under `sections`, which are keyed by requirement (`codeOf` reads the code off
+ * a section's key) and hold their fields as `fields.<key>.label`, with the field's category.
+ */
+const fieldLabelsIn = (
+  sections: unknown,
+  codeOf: (section: string) => string,
+): [string, string, string][] =>
+  Object.entries(SECTIONS.parse(sections)).flatMap(([section, body]) => {
+    const category = CATEGORY_OF.get(codeOf(section));
+    if (!category) return [];
+    return Object.entries(SECTIONS.parse(at(body, ["fields"]))).flatMap(
+      ([key, field]): [string, string, string][] => {
+        const label = at(field, ["label"]);
+        return typeof label === "string" ? [[category, key, label]] : [];
+      },
+    );
+  });
+
+/**
+ * The answers' labels, the walk's own wording where the walk asks a field, else the requirement
+ * page's guidance; and the names of the choices an answer can hold.
+ */
+async function answerNames(locale: PdfLocale): Promise<AnswerNames> {
+  const [walk, guidance, compliance]: unknown[] = await Promise.all([
+    import(`../../messages/durchgang/${locale}.json`).then((m) => m.default),
+    import(`../../data/guidance/${locale}.json`).then((m) => m.default),
+    import(`../../messages/compliance/${locale}.json`).then((m) => m.default),
+  ]);
+  const labels = [
+    ...fieldLabelsIn(guidance, (code) => code),
+    // The walk keys its items "6_1".
+    ...fieldLabelsIn(at(walk, ["durchgang", "items"]), (key) => key.split("_").join(".")),
+  ].reduce<Record<string, Record<string, string>>>(
+    (byCategory, [category, key, label]) => ({
+      ...byCategory,
+      [category]: { ...byCategory[category], [key]: label },
+    }),
+    {},
+  );
+  const values = Object.fromEntries(
+    Object.entries(SECTIONS.parse(at(compliance, ["intake", "answerOptions"]))).map(
+      ([field, names]) => [field, NAMES.parse(names)],
+    ),
+  );
+  return { labels, values };
+}
 
 /**
  * What the export calls fields and coded values, in `locale`, read the way `lib/messages`
@@ -92,6 +183,9 @@ export async function exportNames(locale: PdfLocale): Promise<ExportNames> {
     training,
     managementReview,
     incident,
+    answers,
+    managementTraining,
+    storedManagementTraining,
   ] = await Promise.all([
     named(VALUE_SOURCES.sector),
     named(VALUE_SOURCES.entityType),
@@ -108,6 +202,9 @@ export async function exportNames(locale: PdfLocale): Promise<ExportNames> {
     named(FIELD_SOURCES.training),
     named(FIELD_SOURCES.managementReview),
     named(FIELD_SOURCES.incident),
+    answerNames(locale),
+    managementTrainingTitle(locale),
+    Promise.all(WALK_LOCALES.map(managementTrainingTitle)),
   ]);
   return {
     values: {
@@ -122,5 +219,10 @@ export async function exportNames(locale: PdfLocale): Promise<ExportNames> {
       backupFrequency,
     },
     fields: { asset, supplier, risk, training, managementReview, incident },
+    answers,
+    managementTraining: {
+      name: managementTraining,
+      stored: storedManagementTraining.filter((title) => title !== ""),
+    },
   };
 }

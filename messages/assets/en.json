@@ -22,7 +22,9 @@
       "data_store": "Data Store",
       "ot_ics": "OT / ICS",
       "iot": "IoT",
-      "physical": "Physical"
+      "physical": "Physical",
+      "process": "Business process",
+      "room": "Room"
     },
     "typeDescriptions": {
       "application": "Business applications (ERP, CRM, email)",

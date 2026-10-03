@@ -1,11 +1,36 @@
 {
   "export": {
-    "title": "Esporta report",
-    "subtitle": "Scarica i report di conformità per le tue valutazioni",
-    "noAssessments": "Nessuna valutazione trovata. Completa prima la configurazione.",
-    "download": "Scarica PDF",
-    "started": "Avviata",
-    "progress": "{completed} di {total} requisiti",
-    "compliance": "Conformità"
+    "title": "Esporta",
+    "lead": "Tutto ciò che hai registrato nel percorso e nei registri, come file da consegnare: alla direzione, a un auditor o al tuo fornitore di servizi IT.",
+    "noAccess": "Possono esportare gli amministratori, i revisori e la direzione della tua azienda.",
+    "noAssessment": "La tua azienda non ha ancora una valutazione NIS 2.",
+    "complete": {
+      "card": {
+        "title": "Tutto in un unico documento",
+        "text": "L'intero percorso, dall'inizio alla fine: stato, punti aperti, documenti, matrice dei rischi, tutti i registri e le risposte. Salvalo come PDF dal browser. Il documento è in inglese."
+      }
+    },
+    "files": {
+      "report": {
+        "title": "Stato dell'attuazione",
+        "text": "Ogni requisito NIS 2 con il suo stato, chi lo ha approvato e quando."
+      },
+      "documents": {
+        "title": "Documenti",
+        "text": "La politica, i piani e i concetti del percorso, ciascuno con l'approvazione della direzione."
+      },
+      "registers": {
+        "title": "Registri",
+        "text": "Asset con i relativi prestatori di servizi, fornitori, rischi, formazioni, riesami della direzione e incidenti."
+      },
+      "table": {
+        "title": "Requisiti in tabella",
+        "text": "I requisiti con il loro stato e la data di approvazione, da aprire in Excel."
+      },
+      "data": {
+        "title": "Tutti i dati",
+        "text": "Tutto in un unico file, per i tuoi strumenti o da portare con te. I tuoi dati sono tuoi."
+      }
+    }
   }
 }

@@ -74,6 +74,40 @@ test.describe("export", () => {
     for (const { token } of tokens) expect(text).not.toContain(token);
   });
 
+  test("everything in one document: every section, the risk matrix, and a way to save it", async ({
+    page,
+  }) => {
+    await page.goto("/de/export");
+    await page.getByRole("link", { name: "Alles in einem Dokument" }).click();
+    await expect(page).toHaveURL(/\/export\/gesamt$/, { timeout: 30_000 });
+
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+      "Gesamtdokumentation",
+      { timeout: 30_000 },
+    );
+    await expect(page.getByText(tenant.company_name).first()).toBeVisible();
+    for (const section of [
+      "Stand der Umsetzung",
+      "Was noch offen ist",
+      "Dokumente",
+      "Risiken",
+      "Assets",
+      "Lieferanten",
+      "Schulungen",
+      "Managementbewertungen",
+      "Vorfälle",
+      "Angaben je Bereich",
+      "Ab jetzt in Ihrer Hand",
+    ]) {
+      await expect(
+        page.getByRole("heading", { level: 2, name: section, exact: true }),
+      ).toBeVisible();
+    }
+    // The walk's matrix: its legend names the four levels.
+    await expect(page.getByRole("list", { name: "Legende" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Als PDF speichern" })).toBeVisible();
+  });
+
   test("without a session nothing downloads", async ({ browser, baseURL }) => {
     const anonymous = await browser.newContext({
       storageState: { cookies: [], origins: [] },
@@ -82,6 +116,9 @@ test.describe("export", () => {
       const res = await anonymous.request.get(`${baseURL}/api/export/${path}`);
       expect(res.status(), path).toBe(401);
     }
+    const page = await anonymous.newPage();
+    await page.goto(`${baseURL}/de/export/gesamt`);
+    await expect(page).toHaveURL(/\/auth\/signin/, { timeout: 30_000 });
     await anonymous.close();
   });
 });

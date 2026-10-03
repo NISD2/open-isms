@@ -20,6 +20,7 @@ export const REPORT_FIXTURE: ReportData = {
   totalRequirements: 24,
   completedCount: 19,
   approvedCount: 14,
+  answerNames: { labels: {}, values: {} },
   categories: [
     {
       code: "GOV",

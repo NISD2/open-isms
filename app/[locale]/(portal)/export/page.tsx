@@ -1,4 +1,5 @@
 import {
+  BookOpen,
   Braces,
   ChevronRight,
   ClipboardList,
@@ -8,6 +9,7 @@ import {
   Sheet,
 } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { getSession } from "@/lib/auth";
 import { mayExport } from "@/lib/export/access";
 import { pdfLocale } from "@/lib/pdf/format";
@@ -65,10 +67,33 @@ export default async function ExportPage() {
       <h1 className="text-3xl font-semibold tracking-tight">{t("title")}</h1>
       <p className="mt-3 max-w-[62ch] text-muted-foreground">{t("lead")}</p>
 
+      {allowed && (
+        <div className="relative mt-8 flex items-center gap-4 rounded-2xl border border-primary/30 bg-primary/[0.04] p-5 shadow-xs transition-colors hover:border-primary/60 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-ring">
+          <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+            <BookOpen className="size-5" />
+          </span>
+          <div className="min-w-0 flex-1">
+            <Link
+              href="/export/gesamt"
+              className="font-semibold after:absolute after:inset-0 focus-visible:outline-none"
+            >
+              {t("complete.card.title")}
+            </Link>
+            <p className="mt-0.5 text-sm text-muted-foreground">
+              {t("complete.card.text")}
+            </p>
+          </div>
+          <span className="shrink-0 rounded-md bg-muted px-2 py-0.5 font-mono text-xs text-muted-foreground">
+            PDF
+          </span>
+          <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
+        </div>
+      )}
+
       {!allowed ? (
         <p className="mt-8 text-sm text-muted-foreground">{t("noAccess")}</p>
       ) : (
-        <ul className="mt-8 space-y-3">
+        <ul className="mt-3 space-y-3">
           {FILES.filter((f) => !f.needsAssessment || assessment).map((file) => {
             const Icon = file.icon;
             return (

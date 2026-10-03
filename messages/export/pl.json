@@ -1,11 +1,36 @@
 {
   "export": {
-    "title": "Eksport raportów",
-    "subtitle": "Pobierz raporty zgodności dla swoich ocen",
-    "noAssessments": "Nie znaleziono żadnych ocen. Najpierw ukończ konfigurację.",
-    "download": "Pobierz PDF",
-    "started": "Rozpoczęto",
-    "progress": "{completed} z {total} wymagań",
-    "compliance": "Zgodność"
+    "title": "Eksport",
+    "lead": "Wszystko, co zapisałeś w przewodniku i w rejestrach, jako plik do przekazania: kierownictwu, audytorowi lub dostawcy usług IT.",
+    "noAccess": "Eksportować mogą administratorzy, recenzenci i kierownictwo Twojej firmy.",
+    "noAssessment": "Twoja firma nie ma jeszcze oceny NIS 2.",
+    "complete": {
+      "card": {
+        "title": "Wszystko w jednym dokumencie",
+        "text": "Cały przewodnik od początku do końca: stan, otwarte punkty, dokumenty, macierz ryzyka, wszystkie rejestry i odpowiedzi. Zapisz go jako PDF w przeglądarce. Dokument jest w języku angielskim."
+      }
+    },
+    "files": {
+      "report": {
+        "title": "Stan wdrożenia",
+        "text": "Każde wymaganie NIS 2 z jego stanem, kto je zatwierdził i kiedy."
+      },
+      "documents": {
+        "title": "Dokumenty",
+        "text": "Polityka, plany i koncepcje z przewodnika, każdy z zatwierdzeniem przez kierownictwo."
+      },
+      "registers": {
+        "title": "Rejestry",
+        "text": "Aktywa z ich usługodawcami, dostawcy, ryzyka, szkolenia, przeglądy kierownictwa i incydenty."
+      },
+      "table": {
+        "title": "Wymagania w tabeli",
+        "text": "Wymagania z ich stanem i datą zatwierdzenia, do otwarcia w Excelu."
+      },
+      "data": {
+        "title": "Wszystkie dane",
+        "text": "Wszystko w jednym pliku, dla Twoich własnych narzędzi lub do zabrania ze sobą. Twoje dane należą do Ciebie."
+      }
+    }
   }
 }

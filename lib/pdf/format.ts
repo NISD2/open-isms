@@ -19,8 +19,12 @@ export function pdfLocale(raw: string | null): PdfLocale {
   return raw?.trim().toLowerCase().split("-")[0] === "de" ? "de" : "en";
 }
 
+/**
+ * English is what every reader but a German one gets, across Europe, so its dates are day first
+ * (en-GB): a reader in Prague takes "3/12/2026" for 3 December.
+ */
 export function getDateLocale(locale: string): string {
-  return locale === "de" ? "de-DE" : "en-US";
+  return locale === "de" ? "de-DE" : "en-GB";
 }
 
 /** Calendar day in German time, so a decision made just after midnight in

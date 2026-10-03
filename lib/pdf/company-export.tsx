@@ -1,11 +1,16 @@
 import { Document, Page, Text, View } from "@react-pdf/renderer";
 import type React from "react";
+import type { CompanyExport } from "@/lib/export/company-export";
 import {
-  type CompanyExport,
-  EXPORT_FIELDS,
-  type ExportRecord,
-} from "@/lib/export/company-export";
-import type { CodedField, ExportNames } from "@/lib/export/value-names";
+  extraRows,
+  fieldRows,
+  REGISTERS,
+  type Row,
+  shown,
+  titleOf,
+  type Words,
+} from "@/lib/export/rows";
+import type { ExportNames } from "@/lib/export/value-names";
 import {
   BrandBands,
   CoverFooter,
@@ -15,41 +20,10 @@ import {
   PageFooter,
   SectionHeading,
 } from "./chrome";
-import { type ExportLabels, exportLabels } from "./export-labels";
-import {
-  formatFieldValue,
-  formatReportDate,
-  formatSigner,
-  type PdfLocale,
-} from "./format";
+import { exportLabels } from "./export-labels";
+import { formatReportDate, formatSigner, type PdfLocale } from "./format";
 import { MarkdownBlocks } from "./markdown";
 import { styles } from "./styles";
-
-/** How the export prints: its own words, and the app's names for fields and stored codes. */
-interface Words {
-  readonly labels: ExportLabels;
-  readonly names: ExportNames;
-  readonly locale: PdfLocale;
-}
-
-const isCoded = (field: string, names: ExportNames): field is CodedField =>
-  Object.hasOwn(names.values, field);
-
-/** A stored value as printed, or null when there is nothing to print. */
-function shown(
-  field: string,
-  value: unknown,
-  { labels, names, locale }: Words,
-): string | null {
-  if (value === null || value === undefined || value === "") return null;
-  if (Array.isArray(value)) return value.length > 0 ? value.join(", ") : null;
-  if (value instanceof Date) return formatReportDate(value, locale);
-  if (typeof value === "boolean") return value ? labels.yes : labels.no;
-  if (typeof value === "string" && isCoded(field, names)) {
-    return names.values[field][value] ?? value;
-  }
-  return formatFieldValue(value, "text", locale);
-}
 
 function Cover({
   eyebrow,
@@ -118,13 +92,7 @@ function Sheet({
 }
 
 /** One record as a block: its title, then every field that holds something. */
-function RecordBlock({
-  title,
-  rows,
-}: {
-  title: string;
-  rows: readonly (readonly [string, string | null])[];
-}) {
+function RecordBlock({ title, rows }: { title: string; rows: readonly Row[] }) {
   return (
     <View style={styles.record} wrap={false}>
       <View style={styles.recordHeader}>
@@ -136,47 +104,6 @@ function RecordBlock({
     </View>
   );
 }
-
-type Listed = Exclude<ExportRecord, "company">;
-
-const REGISTERS: ReadonlyArray<{
-  readonly record: Listed;
-  readonly rows: (data: CompanyExport) => ReadonlyArray<object>;
-}> = [
-  { record: "asset", rows: (d) => d.assets },
-  { record: "supplier", rows: (d) => d.suppliers },
-  { record: "risk", rows: (d) => d.risks },
-  { record: "training", rows: (d) => d.trainings },
-  { record: "managementReview", rows: (d) => d.managementReviews },
-  { record: "incident", rows: (d) => d.incidents },
-];
-
-function fieldRows(
-  record: ExportRecord,
-  row: object,
-  words: Words,
-): (readonly [string, string | null])[] {
-  const values = new Map(Object.entries(row));
-  const names: Readonly<Record<string, string>> =
-    record === "company" ? words.labels.company : words.names.fields[record];
-  return EXPORT_FIELDS[record].map(
-    (field) => [names[field] ?? field, shown(field, values.get(field), words)] as const,
-  );
-}
-
-const titleOf = (row: object): string => {
-  const values = new Map(Object.entries(row));
-  const title = values.get("name") ?? values.get("title");
-  return typeof title === "string" ? title : "";
-};
-
-/** What a register row lists beyond its fields: an asset's providers. */
-const extraRows = (row: object, words: Words): (readonly [string, string | null])[] => {
-  const providers = new Map(Object.entries(row)).get("providers");
-  return Array.isArray(providers)
-    ? [[words.labels.providers, shown("providers", providers, words)]]
-    : [];
-};
 
 /**
  * The registers the walk writes into, one section each: the company's master data, assets with
@@ -233,7 +160,7 @@ export function RegistersDocument({
             rows(data).map((row, i) => (
               <RecordBlock
                 key={i}
-                title={titleOf(row)}
+                title={titleOf(row, words.names)}
                 rows={[...fieldRows(record, row, words), ...extraRows(row, words)]}
               />
             ))

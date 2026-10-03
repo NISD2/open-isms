@@ -10,7 +10,7 @@ import { getPathname, Link, useRouter } from "@/i18n/navigation";
 import {
   APPROVAL_SCREEN,
   enteredDay,
-  GAP_STEP,
+  gapLines,
   MANAGEMENT_ROLE,
   type PolicyTemplate,
   type WalkLocale,
@@ -234,52 +234,7 @@ function OpenPoints({
   canChange: boolean;
 }) {
   const t = useTranslations("durchgang.ui.approve.gaps");
-  const lines = gaps.flatMap((gap): { text: string; code: string }[] => {
-    switch (gap.kind) {
-      case "second_factor":
-        return [
-          {
-            text: gap.all
-              ? t("secondFactorAll")
-              : t("secondFactor", { names: gap.names.join(", ") }),
-            code: GAP_STEP.second_factor,
-          },
-        ];
-      case "supplier":
-        return [
-          {
-            text: t("supplier", { names: gap.names.join(", ") }),
-            code: GAP_STEP.supplier,
-          },
-        ];
-      case "restore":
-        return [
-          { text: t("restore", { names: gap.names.join(", ") }), code: GAP_STEP.restore },
-        ];
-      case "reporting":
-        return [{ text: t("reporting"), code: GAP_STEP.reporting }];
-      case "training":
-        return [
-          {
-            text:
-              gap.trained.length === 0
-                ? t("trainingNone")
-                : t("training", {
-                    names: gap.trained.join(", "),
-                    managers: gap.managers,
-                  }),
-            code: GAP_STEP.training,
-          },
-        ];
-      case "set_aside":
-        return gap.codes.map((code, i) => ({
-          text: t("setAside", { headline: gap.headlines[i] ?? code }),
-          code,
-        }));
-      default:
-        return gap satisfies never;
-    }
-  });
+  const lines = gapLines(gaps, t);
   return (
     <section className="mt-8 rounded-2xl border border-amber-300/70 bg-amber-50/70 p-5 sm:p-6 dark:border-amber-500/40 dark:bg-amber-950/20">
       <p className="font-semibold">{t("title")}</p>

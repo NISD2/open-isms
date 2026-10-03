@@ -1,3 +1,4 @@
+import type { SECTORS } from "@/lib/organization/constants";
 import type { NIS2Sector } from "./types";
 
 // NIS2 Directive (EU) 2022/2555 Annex I + Annex II — 18 sectors total.
@@ -38,6 +39,42 @@ export const NIS2_SECTORS: NIS2Sector[] = [
 ];
 
 export const SECTOR_BY_ID = new Map(NIS2_SECTORS.map((s) => [s.id, s]));
+
+/**
+ * The catalogue's sector for each sector a company profile stores (`company.sector`). Two
+ * vocabularies grew apart: the profile writes snake_case and names financial markets shorter.
+ * Public administration has no catalogue sector (see above).
+ */
+const CATALOGUE_SECTOR: Readonly<Record<(typeof SECTORS)[number], string | null>> = {
+  energy: "energy",
+  transport: "transport",
+  banking: "banking",
+  financial_market: "financial-market-infrastructure",
+  health: "health",
+  drinking_water: "drinking-water",
+  waste_water: "waste-water",
+  digital_infrastructure: "digital-infrastructure",
+  ict_service_management: "ict-service-management",
+  public_administration: null,
+  space: "space",
+  postal_courier: "postal-courier",
+  waste_management: "waste-management",
+  chemicals: "chemicals",
+  food: "food",
+  manufacturing: "manufacturing",
+  digital_providers: "digital-providers",
+  research: "research",
+};
+
+const BY_PROFILE_SECTOR: ReadonlyMap<string, string | null> = new Map(
+  Object.entries(CATALOGUE_SECTOR),
+);
+
+/** The catalogue sectors whose entries a company of this profile sector sees. */
+export const catalogueSectorsOf = (sector: string): readonly string[] => {
+  const id = BY_PROFILE_SECTOR.get(sector);
+  return id ? [id] : [];
+};
 
 export const ANNEX_I_SECTORS = NIS2_SECTORS.filter((s) => s.annex === "I");
 export const ANNEX_II_SECTORS = NIS2_SECTORS.filter((s) => s.annex === "II");

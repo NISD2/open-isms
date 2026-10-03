@@ -218,6 +218,7 @@
         "name": "Name",
         "provider": "Provider",
         "providerPlaceholder": "for example an online course or a training institute",
+        "managementTraining": "Management body training (Art. 20(2) NIS 2)",
         "date": "Date",
         "proof": "Proof (optional)",
         "proofHint": "Certificate of attendance, certificate or screenshot. After a webinar there is sometimes none.",
