@@ -17,13 +17,18 @@ import { loadReportData } from "@/lib/pdf/load-report-data";
 import { api } from "@/lib/trpc/server";
 import { getNis2Assessment } from "@/server/trpc/helpers/nis2-scope";
 
-/** A4 with margins, and the matrix's colours kept when printed. */
+/**
+ * A4 with margins, and the matrix's colours kept when printed. A heading never ends a page
+ * without what it heads, and a table row never splits across two.
+ */
 const PRINT_CSS = `
 @page { size: A4; margin: 14mm 14mm 16mm; }
 @media print {
   html, body { background: #fff !important; }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   nextjs-portal, [data-sonner-toaster] { display: none !important; }
+  h1, h2, h3, h4 { break-after: avoid; }
+  tr { break-inside: avoid; }
 }`;
 
 /**
