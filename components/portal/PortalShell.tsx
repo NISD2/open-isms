@@ -68,12 +68,10 @@ function buildSteps(
 /**
  * The framework trees for the sidebar. Always loaded in the journey's portal, so the sidebar shows
  * the NIS2 / GDPR groups even before the user has set up their company: pre-onboarding the
- * category links work as a preview, and clicking lands on the onboarding banner.
+ * category links work as a preview, and clicking lands on the onboarding banner. Never for an
+ * account that must order first: every category link would only lead to the offer.
  */
-async function sidebarFrameworks(
-  session: Session,
-  mustOrder: boolean,
-): Promise<FrameworkGroup[]> {
+async function sidebarFrameworks(session: Session): Promise<FrameworkGroup[]> {
   const [allFrameworks, compliance, assessments] = await Promise.all([
     getAllActiveCategories(),
     getLocale().then(getComplianceMessages),
@@ -85,7 +83,7 @@ async function sidebarFrameworks(
       const assessment = assessments.find((a) => a.framework?.code === code);
       return Promise.all([
         assessment ? getUserAccess(assessment.id, session.user.id, session.role) : null,
-        assessment && !mustOrder
+        assessment
           ? api.assessment.getProgressByCategory({ assessmentId: assessment.id })
           : ({} as Record<string, { completed: number; total: number }>),
       ]).then(([access, progress]) => {
@@ -121,7 +119,7 @@ export async function PortalShell({
   const liveRead = walkthroughLive(session.user.email);
   const [live, frameworks, billing] = await Promise.all([
     liveRead,
-    liveRead.then((on) => (on ? [] : sidebarFrameworks(session, mustOrder))),
+    liveRead.then((on) => (on || mustOrder ? [] : sidebarFrameworks(session))),
     billingFor(db, session.user.email),
   ]);
 

@@ -4,7 +4,9 @@ import { getLocale } from "next-intl/server";
 import { getPathname } from "@/i18n/navigation";
 import { getSession } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
-import { mayWalkDurchgang } from "@/lib/billing/access";
+import { mayWalkDurchgang, walkLockFor } from "@/lib/billing/access";
+import { billingFor } from "@/lib/billing/ordering-access";
+import { db } from "@/lib/db";
 import { walkthroughLive } from "@/lib/walkthrough";
 
 /**
@@ -26,8 +28,9 @@ export async function guardWalk(): Promise<void> {
 
 /**
  * Whether this person may walk (paid, or a platform admin) and whether the walkthrough is the
- * portal's front for them. An unpaid account that may not even see the home goes to the order
- * page, where a grandfathered person sees their price.
+ * portal's front for them. An unpaid account that may not even see the home goes where the
+ * locked home would send it (`walkLockFor`): the order page with its own price, or its journey
+ * while ordering is not open and the order page does not exist.
  */
 export async function walkAccess(): Promise<{ mayWalk: boolean; live: boolean }> {
   const [session, locale] = await Promise.all([getSession(), getLocale()]);
@@ -37,7 +40,11 @@ export async function walkAccess(): Promise<{ mayWalk: boolean; live: boolean }>
     isPlatformAdmin(session.user.email),
   );
   const live = await walkthroughLive(session.user.email);
-  if (!mayWalk && !live) redirect(getPathname({ href: "/bestellen", locale }));
+  if (!mayWalk && !live) {
+    const { open } = await billingFor(db, session.user.email);
+    const { orderAt } = walkLockFor(session.accessLevel, open);
+    redirect(getPathname({ href: orderAt ?? "/journey", locale }));
+  }
   return { mayWalk, live };
 }
 
