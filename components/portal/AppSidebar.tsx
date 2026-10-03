@@ -109,8 +109,12 @@ interface AppSidebarProps {
    * the journey comes first and the walkthrough sits in its place marked as coming soon.
    */
   walkthroughLive: boolean;
-  /** Whether the journey shows at all: not for an account that has not paid. */
-  showJourney: boolean;
+  /**
+   * Whether the account has the Compliance Portal (paid or grandfathered). Without it the journey,
+   * the registers, the team and the audit log are not shown, since each would only lead to the
+   * offer.
+   */
+  portalOpen: boolean;
   /** Whether opening the journey still asks once whether to stay in the walkthrough. */
   journeyNotice: boolean;
 }
@@ -249,7 +253,7 @@ export function AppSidebar({
   reviewAccess,
   mayExport,
   walkthroughLive,
-  showJourney,
+  portalOpen,
   journeyNotice,
 }: AppSidebarProps) {
   const t = useTranslations("portal");
@@ -284,12 +288,13 @@ export function AppSidebar({
     { href: "/management-reviews", label: t("managementReviews"), icon: ClipboardCheck },
   ];
 
-  // Admin surfaces the journey never covers (org master data, roster, audit log).
+  // Admin surfaces the journey never covers (org master data, roster, audit log). The roster and
+  // the audit log sit behind the paywall, so an account without the portal is not shown them.
   const managementItems: NavItem[] = [
-    { href: "/team", label: t("team"), icon: Users },
+    ...(portalOpen ? [{ href: "/team", label: t("team"), icon: Users }] : []),
     { href: "/organization", label: t("organization"), icon: Building2 },
     ...(showBilling ? [{ href: "/billing", label: t("billing"), icon: Receipt }] : []),
-    ...(reviewAccess
+    ...(reviewAccess && portalOpen
       ? [{ href: "/audit", label: t("auditTrail"), icon: ScrollText }]
       : []),
   ];
@@ -313,7 +318,7 @@ export function AppSidebar({
             {walkthroughLive ? (
               <>
                 <NavMenu items={[walkthrough]} pathname={pathname} />
-                {showJourney && (
+                {portalOpen && (
                   <SidebarMenu>
                     <JourneyItem
                       item={journey}
@@ -327,19 +332,21 @@ export function AppSidebar({
             ) : (
               <>
                 <NavMenu
-                  items={[journey, walkthrough, ...exportItems]}
+                  items={[...(portalOpen ? [journey] : []), walkthrough, ...exportItems]}
                   pathname={pathname}
                 />
                 {/* Registers — collapsible sub-section within Overview */}
-                <Collapsible data-tour="sidebar-registers" className="group/registers">
-                  <CollapsibleTrigger className="flex w-full items-center px-2 py-1.5 text-xs font-medium text-sidebar-foreground/70 hover:text-sidebar-foreground">
-                    {t("registers")}
-                    <ChevronRight className="ml-auto size-3.5 transition-transform group-data-[state=open]/registers:rotate-90" />
-                  </CollapsibleTrigger>
-                  <CollapsibleContent>
-                    <NavMenu items={registerItems} pathname={pathname} />
-                  </CollapsibleContent>
-                </Collapsible>
+                {portalOpen && (
+                  <Collapsible data-tour="sidebar-registers" className="group/registers">
+                    <CollapsibleTrigger className="flex w-full items-center px-2 py-1.5 text-xs font-medium text-sidebar-foreground/70 hover:text-sidebar-foreground">
+                      {t("registers")}
+                      <ChevronRight className="ml-auto size-3.5 transition-transform group-data-[state=open]/registers:rotate-90" />
+                    </CollapsibleTrigger>
+                    <CollapsibleContent>
+                      <NavMenu items={registerItems} pathname={pathname} />
+                    </CollapsibleContent>
+                  </Collapsible>
+                )}
               </>
             )}
           </SidebarGroupContent>
@@ -347,7 +354,7 @@ export function AppSidebar({
 
         {/* Every register the walk writes into stands open, so a finished walk can be changed
             where it was recorded (Simon, 03.10.2026). */}
-        {walkthroughLive && (
+        {walkthroughLive && portalOpen && (
           <SidebarGroup data-tour="sidebar-registers">
             <SidebarGroupLabel>{t("registers")}</SidebarGroupLabel>
             <SidebarGroupContent>

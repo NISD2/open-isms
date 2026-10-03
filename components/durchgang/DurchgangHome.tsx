@@ -15,6 +15,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Link } from "@/i18n/navigation";
+import type { WalkLock } from "@/lib/billing/access";
 import { APPROVAL_SCREEN, resumeAt } from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
 import { Art } from "./Art";
@@ -38,17 +39,20 @@ const stepId = (code: string) => `dg-step-${code}`;
  * step, each step a card with its status circle and its picture. There is no separate
  * introduction screen; this page is it (Simon, 03.10.2026).
  *
- * `locked`: an account that has not paid sees the same page with the way to order in place of
- * the way in, and steps that show but do not open.
+ * `lock` (`walkLockFor`): an account that has not paid sees the same page locked, with "Jetzt
+ * bestellen" in place of the way in, and steps that show but do not open. An account that keeps
+ * its journey free (grandfathered) is offered it beside the order, as the quieter way, or as the
+ * one way on while ordering is not open yet.
  */
 export function DurchgangHome({
   walk,
-  locked,
+  lock,
 }: {
   walk: readonly WalkEntry[];
-  locked: boolean;
+  lock: WalkLock | null;
 }) {
   const t = useTranslations("durchgang");
+  const locked = lock !== null;
   const points = t.raw("ui.intro.points") as ReadonlyArray<{
     title: string;
     text: string;
@@ -117,17 +121,35 @@ export function DurchgangHome({
             />
           ))}
         </ul>
-        {locked ? (
+        {lock?.orderAt === null ? (
+          // Ordering is not open yet: the journey is the one way on.
           <Button
             asChild
             size="lg"
             className="mt-10 h-12 self-start rounded-xl px-7 text-base"
           >
-            <Link href="/bestellen">
-              {t("ui.home.unlock")}
+            <Link href="/journey">
+              {t("ui.home.toJourney")}
               <ArrowRight />
             </Link>
           </Button>
+        ) : lock ? (
+          <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <Button asChild size="lg" className="h-12 rounded-xl px-7 text-base">
+              <Link href={lock.orderAt}>
+                {t("ui.home.unlock")}
+                <ArrowRight />
+              </Link>
+            </Button>
+            {lock.journey && (
+              <Link
+                href="/journey"
+                className="text-sm font-medium text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+              >
+                {t("ui.home.toJourney")}
+              </Link>
+            )}
+          </div>
         ) : next ? (
           <Button
             asChild

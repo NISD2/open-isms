@@ -45,10 +45,11 @@ export function SignInCard({
   // controlled callback that resolves off-site would let router.push escape
   // origin via window.location.assign on the next nav and host a credible
   // re-login-phish on the genuine nisd2.eu chrome.
-  // Default post-login surface is the journey path view. Company-less users
-  // (fresh registrations) are bounced from /journey to /dashboard, which
-  // renders the onboarding banner, so this is safe for not-yet-onboarded users.
-  const callbackUrl = localCallbackPath(searchParams.get("callbackUrl"), "/journey");
+  // Default post-login surface is the portal's home: /dashboard opens the
+  // walkthrough once it is live (locked, with the way to order, for an unpaid
+  // account) and the journey otherwise. Company-less users (fresh
+  // registrations) get the onboarding banner there.
+  const callbackUrl = localCallbackPath(searchParams.get("callbackUrl"), "/dashboard");
   const [step, setStep] = useState<Step>("auth");
   const [mode, setMode] = useState<"login" | "register">("login");
   const [email, setEmail] = useState("");

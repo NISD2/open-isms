@@ -322,7 +322,8 @@
         "label": "In the NIS 2 walkthrough"
       },
       "home": {
-        "unlock": "Unlock the walkthrough",
+        "unlock": "Order now",
+        "toJourney": "Continue in your journey, as before",
         "open": "Open",
         "toSignOff": "Not signed off yet. Jump to sign-off",
         "next": "Next",

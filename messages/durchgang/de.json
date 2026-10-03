@@ -322,7 +322,8 @@
         "label": "Im NIS 2 Durchgang"
       },
       "home": {
-        "unlock": "Durchgang freischalten",
+        "unlock": "Jetzt bestellen",
+        "toJourney": "Weiter im Weg, wie bisher",
         "open": "Offen",
         "toSignOff": "Noch nicht freigegeben. Zur Freigabe springen",
         "next": "Als Nächstes",

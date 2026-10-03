@@ -6,7 +6,9 @@ import {
   mayOpenPortalPath,
   mayWalkDurchgang,
   newAccountAccessLevel,
+  OFFER_PATH,
   unpaidAccessLevel,
+  walkLockFor,
 } from "./access";
 
 describe("mayWalkDurchgang", () => {
@@ -103,8 +105,15 @@ describe("newAccountAccessLevel", () => {
 });
 
 describe("mayOpenPortalPath", () => {
-  test("a free account reaches billing, settings, organization and notifications", () => {
-    for (const p of ["/billing", "/settings", "/organization", "/notifications"]) {
+  test("a free account reaches billing, settings, organization, notifications and its export", () => {
+    for (const p of [
+      "/billing",
+      "/settings",
+      "/organization",
+      "/notifications",
+      "/export",
+      "/export/gesamt",
+    ]) {
       expect(mayOpenPortalPath("free", p)).toBe(true);
     }
   });
@@ -131,5 +140,31 @@ describe("mayOpenPortalPath", () => {
   test("grandfathered and full reach everything", () => {
     expect(mayOpenPortalPath("grandfathered", "/journey")).toBe(true);
     expect(mayOpenPortalPath("full", "/assets")).toBe(true);
+  });
+});
+
+describe("walkLockFor", () => {
+  test("a free account orders from the offer and has no journey to go to", () => {
+    expect(walkLockFor("free", true)).toEqual({ orderAt: OFFER_PATH, journey: false });
+  });
+
+  test("a grandfathered account, or one with no level yet, orders directly and keeps its journey", () => {
+    for (const level of ["grandfathered", null] as const) {
+      expect(walkLockFor(level, true)).toEqual({ orderAt: "/bestellen", journey: true });
+    }
+  });
+
+  test("before ordering opens there is no order page to send anyone to, only the journey", () => {
+    expect(walkLockFor("grandfathered", false)).toEqual({ orderAt: null, journey: true });
+  });
+
+  test("offers the journey exactly where the portal gate opens it", () => {
+    for (const level of ["free", "grandfathered", "full"] as const) {
+      for (const open of [true, false]) {
+        expect(walkLockFor(level, open).journey).toBe(
+          mayOpenPortalPath(level, "/journey"),
+        );
+      }
+    }
   });
 });

@@ -24,7 +24,7 @@ export const FEATURE_FLAGS = {
   walkthrough: {
     label: "Walkthrough",
     description:
-      "The NIS 2 walkthrough as the portal's front. On, for everyone: the main page after sign-in, first in the sidebar, the journey behind a one-time notice that it is the more detailed view, registers always open, the framework tree out of the sidebar; an unpaid account sees the walkthrough locked with the way to order and has no journey. Off: platform admins see all that, everyone else the journey as before with the walkthrough marked coming soon. Paid accounts can open the walkthrough's address either way.",
+      "The NIS 2 walkthrough as the portal's front. On, for everyone: the main page after sign-in, first in the sidebar, the journey behind a one-time notice that it is the more detailed view, registers always open, the framework tree out of the sidebar. An account that has not paid sees the walkthrough locked: a grandfathered one with Order now and its journey beside it (only the journey while ordering is not open, so launch pricing first), a free one with Order now to the offer and no journey. Off: platform admins see all that, everyone else the journey as before with the walkthrough marked coming soon. Paid accounts can open the walkthrough's address either way.",
     toggle: true,
   },
 } as const satisfies Record<

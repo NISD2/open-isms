@@ -10,13 +10,14 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /**
- * Where the portal layout sends an account that must order first, from any page it may not open.
- * Anyone else already has the Compliance Portal, so the offer would only confuse them.
+ * Where the portal layout sends an account that must order first, from any page it may not open,
+ * and where the locked walk's "Jetzt bestellen" leads it. Anyone else already has the Compliance
+ * Portal, so the offer would only confuse them; they go to the portal's home.
  */
 export default async function OfferPage() {
   const session = await getSession();
   if (session?.accessLevel !== "free") {
-    redirect({ href: "/journey", locale: await getLocale() });
+    redirect({ href: "/dashboard", locale: await getLocale() });
   }
   return <PortalOffer />;
 }

@@ -73,6 +73,28 @@ export const unpaidAccessLevel = (holderGrandfathered: boolean): AccessLevel =>
 export const OFFER_PATH = "/billing/offer";
 
 /**
+ * What the walk's locked home offers an account that may not walk. A free account orders from the
+ * offer, which opens the Compliance Portal and shows the two portals that need no order; a free
+ * account exists only once pricing is launched, so the offer is always there for it. Any other
+ * (grandfathered, or no level yet) has the journey open, as the portal gate has it: it goes
+ * straight to the order page with its own price and is offered its journey beside it. While
+ * ordering is not open to it (`billingFor`: before the launch, or without live keys) the order
+ * page does not exist, so only the journey is offered.
+ */
+export type WalkLock =
+  | { readonly orderAt: typeof OFFER_PATH; readonly journey: false }
+  | { readonly orderAt: "/bestellen"; readonly journey: true }
+  | { readonly orderAt: null; readonly journey: true };
+
+export const walkLockFor = (
+  level: AccessLevel | null,
+  orderingOpen: boolean,
+): WalkLock =>
+  level === "free"
+    ? { orderAt: OFFER_PATH, journey: false }
+    : { orderAt: orderingOpen ? "/bestellen" : null, journey: true };
+
+/**
  * The order page as the portal layout sees it. It is the one portal page with a translated slug,
  * and the layout reads the path as the visitor typed it, so every locale's slug is listed.
  */
@@ -81,13 +103,15 @@ export const ORDER_PATHS: readonly string[] = [...new Set(Object.values(ORDER_SL
 /**
  * The portal pages an account without a paid or grandfathered level still reaches, the offer at
  * /billing/offer among them. Everything else in the portal sends it to the offer. The course and
- * the supplier portal live outside the portal and stay open.
+ * the supplier portal live outside the portal and stay open. /export because a company's own
+ * records always leave with it, as its downloads do (lib/export/access.ts).
  */
 export const FREE_PORTAL_PATHS: readonly string[] = [
   "/billing",
   "/settings",
   "/organization",
   "/notifications",
+  "/export",
   ...ORDER_PATHS,
 ];
 

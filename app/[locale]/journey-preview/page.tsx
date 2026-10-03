@@ -32,7 +32,7 @@ export default async function JourneyPreviewPage() {
         reviewAccess
         mayExport
         walkthroughLive={false}
-        showJourney
+        portalOpen
         journeyNotice={false}
       />
       <SidebarInset>
