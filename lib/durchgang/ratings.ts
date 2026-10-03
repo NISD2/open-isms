@@ -61,7 +61,12 @@ export const signsIn = (type: string): boolean =>
 
 /** A thing the second-factor screen (11.1) asks about: of a kind people sign in to, and not a catalogue line nobody does. */
 export const asksSecondFactor = (
-  asset: Readonly<{ type: string; catalogId: string | null; name: string; description: string | null }>,
+  asset: Readonly<{
+    type: string;
+    catalogId: string | null;
+    name: string;
+    description: string | null;
+  }>,
 ): boolean => signsIn(asset.type) && !noSignIn(asset);
 
 export interface Rating {

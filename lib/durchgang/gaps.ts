@@ -19,7 +19,10 @@ export interface GapFacts {
     readonly incidents: boolean;
   }>;
   /** 4.4: each backup system and the day of its last restore that worked. */
-  readonly backups: ReadonlyArray<{ readonly name: string; readonly lastRestore: string | null }>;
+  readonly backups: ReadonlyArray<{
+    readonly name: string;
+    readonly lastRestore: string | null;
+  }>;
   /** 3.3: whether the company can sign in to the BSI's portal and report; null unanswered. */
   readonly reporting: boolean | null;
   /** How many people hold the management role in the app. */
@@ -36,7 +39,11 @@ export interface GapFacts {
 
 export type Gap =
   /** Programs with a sign-in and no second factor; `all` when none has one. */
-  | { readonly kind: "second_factor"; readonly names: readonly string[]; readonly all: boolean }
+  | {
+      readonly kind: "second_factor";
+      readonly names: readonly string[];
+      readonly all: boolean;
+    }
   /** Suppliers rated high or critical whose contract settles neither security nor incidents. */
   | { readonly kind: "supplier"; readonly names: readonly string[] }
   /** Backup systems without a restore that worked. */
@@ -95,7 +102,9 @@ export function gapsOf(facts: GapFacts): readonly Gap[] {
           },
         ]
       : []),
-    ...(unregulated.length > 0 ? [{ kind: "supplier" as const, names: unregulated }] : []),
+    ...(unregulated.length > 0
+      ? [{ kind: "supplier" as const, names: unregulated }]
+      : []),
     ...(untested.length > 0 ? [{ kind: "restore" as const, names: untested }] : []),
     ...(facts.reporting === false ? [{ kind: "reporting" as const }] : []),
     ...(trained.length === 0 || trained.length < facts.managers

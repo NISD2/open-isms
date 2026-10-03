@@ -12,7 +12,9 @@ const complete: GapFacts = {
     { name: "Microsoft 365", hasMfa: true },
     { name: "DATEV", hasMfa: true },
   ],
-  suppliers: [{ name: "Systemhaus", riskLevel: "high", security: true, incidents: false }],
+  suppliers: [
+    { name: "Systemhaus", riskLevel: "high", security: true, incidents: false },
+  ],
   backups: [{ name: "NAS", lastRestore: "2026-09-01" }],
   reporting: true,
   managers: 1,
@@ -28,7 +30,10 @@ describe("the gaps management sees before it signs", () => {
 
   test("programs without a second factor, and whether none has one", () => {
     expect(
-      gapsOf({ ...complete, signIns: [...complete.signIns, { name: "Shop", hasMfa: false }] }),
+      gapsOf({
+        ...complete,
+        signIns: [...complete.signIns, { name: "Shop", hasMfa: false }],
+      }),
     ).toEqual([{ kind: "second_factor", names: ["Shop"], all: false }]);
     expect(
       gapsOf({ ...complete, signIns: [{ name: "Shop", hasMfa: false }] })[0],
@@ -46,9 +51,9 @@ describe("the gaps management sees before it signs", () => {
   });
 
   test("a backup system without a restore that worked", () => {
-    expect(gapsOf({ ...complete, backups: [{ name: "Band", lastRestore: null }] })).toEqual([
-      { kind: "restore", names: ["Band"] },
-    ]);
+    expect(
+      gapsOf({ ...complete, backups: [{ name: "Band", lastRestore: null }] }),
+    ).toEqual([{ kind: "restore", names: ["Band"] }]);
   });
 
   test("reporting not set up, but not an unanswered question", () => {
@@ -64,7 +69,9 @@ describe("the gaps management sees before it signs", () => {
     expect(gapsOf({ ...complete, managers: 2 })).toEqual([
       { kind: "training", trained: ["Anna Beispiel"], managers: 2 },
     ]);
-    const exactlyThreeYears = [{ name: "Anna Beispiel", completedAt: new Date("2023-10-03") }];
+    const exactlyThreeYears = [
+      { name: "Anna Beispiel", completedAt: new Date("2023-10-03") },
+    ];
     expect(gapsOf({ ...complete, managementTrainings: exactlyThreeYears })).toEqual([]);
   });
 
