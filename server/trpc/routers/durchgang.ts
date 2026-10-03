@@ -43,6 +43,7 @@ import {
   cryptoNote,
   type DurchgangAction,
   declinedNote,
+  type ItemState,
   levelOf,
   loginsNote,
   MANAGEMENT_ROLE,
@@ -69,6 +70,7 @@ import {
   resolveItem,
   reviewedWithinYear,
   SUPPLIER_LEVEL,
+  signLast,
   standingOf,
   toScale,
   treatmentFor,
@@ -459,11 +461,14 @@ const waitingForManagement = async (db: TRPCContext["db"], companyId: string) =>
       .from(managementReview)
       .where(eq(managementReview.companyId, companyId)),
   ]);
-  const waiting = awaitingSignature({
+  const order = {
     codes: WALK.map((item) => item.code),
-    stateOf: (code) => walk.items.get(code)?.state ?? { kind: "open" },
-    drafts: policies.filter((p) => p.status === "draft"),
+    stateOf: (code: string): ItemState => walk.items.get(code)?.state ?? { kind: "open" },
     approvalCode: APPROVAL_SCREEN?.code ?? null,
+  };
+  const waiting = awaitingSignature({
+    ...order,
+    drafts: policies.filter((p) => p.status === "draft"),
     reviewed: reviewedWithinYear(
       reviews.map((r) => r.day),
       recordDay(new Date()),
@@ -479,7 +484,11 @@ const waitingForManagement = async (db: TRPCContext["db"], companyId: string) =>
   );
   return {
     assessmentId: walk.assessmentId,
-    items: rows.filter((item) => !rostered.has(item.row.statusId)),
+    items: signLast(
+      rows.filter((item) => !rostered.has(item.row.statusId)),
+      order,
+    ),
+    order,
   };
 };
 
@@ -505,15 +514,22 @@ const signWaiting = async (
   now: Date,
 ) => {
   if (shown.length === 0) return [];
-  const { assessmentId, items } = await waitingForManagement(ctx.db, ctx.companyId);
+  const { assessmentId, items, order } = await waitingForManagement(
+    ctx.db,
+    ctx.companyId,
+  );
   const signedOffRole = signerRoleOf(ctx.session);
+  // Checked again on what this click signs: an item whose document stayed a draft stays open,
+  // and then the management review waits too.
+  const signing = signLast(
+    items.filter((item) => item.drafts.length === 0 && shown.includes(item.code)),
+    order,
+  );
   const signed = await signOffRows(ctx.db, {
     companyId: ctx.companyId,
     userId: ctx.userId,
     signedOffRole,
-    rows: items
-      .filter((item) => item.drafts.length === 0 && shown.includes(item.code))
-      .map((item) => item.row),
+    rows: signing.map((item) => item.row),
     source: "editor",
     chainData: (row) => ({
       code: row.code,
