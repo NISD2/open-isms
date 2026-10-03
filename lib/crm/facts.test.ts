@@ -4,6 +4,8 @@
  */
 import { describe, expect, test } from "bun:test";
 import { isFreeMailAddress } from "@/lib/auth/free-mail";
+import type { DotState } from "@/lib/compliance/journey-position";
+import type { JourneyEntry } from "@/lib/durchgang";
 import { type CloseUserRow, closeFactsFor } from "./facts";
 
 const row = (over: Partial<CloseUserRow> = {}): CloseUserRow => ({
@@ -32,7 +34,7 @@ const context = (over: Partial<Parameters<typeof closeFactsFor>[0]> = {}) =>
     optedOutUserIds: new Set(),
     ceoLessonIds: ["1.1", "1.2", "2.1", "2.2"],
     ceoProgress: [],
-    pathRows: [],
+    paths: new Map(),
     launched: true,
     ...over,
   });
@@ -86,16 +88,19 @@ describe("closeFactsFor", () => {
   });
 
   test("the path is the open company's NIS 2 progress", () => {
-    const pathRows = [
-      { companyId: "c1", status: "implemented", code: "GOV-01" },
-      { companyId: "c1", status: null, code: "GOV-02" },
-      { companyId: "c2", status: "implemented", code: "GOV-01" },
-    ];
-    const facts = context({ pathRows })(row());
-    expect(facts.path?.total).toBe(2);
-    expect(
-      context({ pathRows })(row({ companyId: null, company: null })).path,
-    ).toBeNull();
+    const entry = (state: DotState): JourneyEntry => ({ state, coveredBy: null });
+    const paths = new Map([
+      [
+        "c1",
+        new Map([
+          ["12.1", entry("signed")],
+          ["12.2", entry("todo")],
+        ]),
+      ],
+      ["c2", new Map([["12.1", entry("signed")]])],
+    ]);
+    expect(context({ paths })(row()).path).toEqual({ done: 1, total: 2 });
+    expect(context({ paths })(row({ companyId: null, company: null })).path).toBeNull();
   });
 
   test("access lifts a free account to grandfathered for a stamped person, as the session does", () => {

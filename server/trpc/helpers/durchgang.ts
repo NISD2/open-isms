@@ -23,9 +23,11 @@ import {
   asset,
   auditLog,
   company,
+  companyAssessment,
   companyCategoryIntake,
   companyMembership,
   companyRequirementStatus,
+  complianceFramework,
   policy,
   requirement,
   requirementCategory,
@@ -34,7 +36,7 @@ import {
   user,
 } from "@/schema";
 import { enforceAssignment } from "../guards";
-import { getNis2Assessment } from "./nis2-scope";
+import { getNis2Assessment, NIS2_FRAMEWORK_CODE } from "./nis2-scope";
 import type { SignableRow } from "./sign-off-rows";
 
 /**
@@ -259,37 +261,85 @@ export async function latestWalkEvents(
 }
 
 /**
- * Where each of the company's NIS 2 requirements stands on the journey, by code (`journeyStates`),
- * for a reader outside the journey: the export's report, table and data file.
+ * Where each NIS 2 requirement stands on the journey (`journeyStates`), by code, for each of these
+ * companies: for readers outside the journey, the export and the emails, so they name what the
+ * journey shows. Three queries whatever the number of companies.
  */
+export async function journeyStatesByCompany(
+  db: DbOrTx,
+  companyIds: readonly string[],
+): Promise<ReadonlyMap<string, ReadonlyMap<string, JourneyEntry>>> {
+  if (companyIds.length === 0) return new Map();
+  const ids = [...companyIds];
+  const [rows, events, companies] = await Promise.all([
+    db
+      .select({
+        companyId: companyAssessment.companyId,
+        code: requirement.code,
+        requirementId: companyRequirementStatus.requirementId,
+        status: companyRequirementStatus.status,
+        signedOffAt: companyRequirementStatus.signedOffAt,
+        reviewedAt: companyRequirementStatus.reviewedAt,
+      })
+      .from(companyRequirementStatus)
+      .innerJoin(
+        companyAssessment,
+        eq(companyAssessment.id, companyRequirementStatus.assessmentId),
+      )
+      .innerJoin(
+        complianceFramework,
+        and(
+          eq(complianceFramework.id, companyAssessment.frameworkId),
+          eq(complianceFramework.code, NIS2_FRAMEWORK_CODE),
+        ),
+      )
+      .innerJoin(requirement, eq(requirement.id, companyRequirementStatus.requirementId))
+      .where(inArray(companyAssessment.companyId, ids)),
+    db
+      .selectDistinctOn([auditLog.companyId, auditLog.entityId], {
+        companyId: auditLog.companyId,
+        entityId: auditLog.entityId,
+        action: auditLog.action,
+        newValue: auditLog.newValue,
+        createdAt: auditLog.createdAt,
+      })
+      .from(auditLog)
+      .where(
+        and(
+          inArray(auditLog.companyId, ids),
+          eq(auditLog.entityType, "requirement"),
+          inArray(auditLog.action, [...STATE_ACTIONS]),
+        ),
+      )
+      .orderBy(auditLog.companyId, auditLog.entityId, desc(auditLog.createdAt)),
+    db
+      .select({
+        id: company.id,
+        sector: company.sector,
+        entityType: company.entityType,
+        criticalInstallation: company.criticalInstallation,
+      })
+      .from(company)
+      .where(inArray(company.id, ids)),
+  ]);
+  return new Map(
+    companies.map((co) => [
+      co.id,
+      journeyStates(
+        rows.filter((r) => r.companyId === co.id),
+        new Map(events.filter((e) => e.companyId === co.id).map((e) => [e.entityId, e])),
+        { sector: co.sector, walks: walkOf(co).map((item) => item.code) },
+      ),
+    ]),
+  );
+}
+
+/** `journeyStatesByCompany` for one company. */
 export async function journeyStatesOf(
   db: DbOrTx,
   companyId: string,
 ): Promise<ReadonlyMap<string, JourneyEntry>> {
-  const [assessment, co, events] = await Promise.all([
-    getNis2Assessment(db, companyId),
-    db.query.company.findFirst({
-      where: eq(company.id, companyId),
-      columns: { sector: true, entityType: true, criticalInstallation: true },
-    }),
-    latestWalkEvents(db, companyId),
-  ]);
-  if (!assessment || !co) return new Map();
-  const rows = await db
-    .select({
-      code: requirement.code,
-      requirementId: companyRequirementStatus.requirementId,
-      status: companyRequirementStatus.status,
-      signedOffAt: companyRequirementStatus.signedOffAt,
-      reviewedAt: companyRequirementStatus.reviewedAt,
-    })
-    .from(companyRequirementStatus)
-    .innerJoin(requirement, eq(requirement.id, companyRequirementStatus.requirementId))
-    .where(eq(companyRequirementStatus.assessmentId, assessment.id));
-  return journeyStates(rows, events, {
-    sector: co.sector,
-    walks: walkOf(co).map((item) => item.code),
-  });
+  return (await journeyStatesByCompany(db, [companyId])).get(companyId) ?? new Map();
 }
 
 /** 3.3's answer as the intake stores it; anything else reads as unanswered. */

@@ -15,7 +15,7 @@ import {
   NIS2_PREREQUISITES,
   nis2Categories,
 } from "@nisd2/grc-data-model/frameworks";
-import type { ItemState } from "@/lib/durchgang";
+import type { CoveredBy, ItemState } from "@/lib/durchgang";
 
 /**
  * Terminal-success statuses of the `item_status` enum. "completed" is the
@@ -44,6 +44,29 @@ export function isDoneStatus(status: string | null | undefined): boolean {
  */
 export function isDoneState(state: DotState): boolean {
   return state === "signed" || state === "na";
+}
+
+/**
+ * The next step on the journey, the one every surface names: the journey page, the activation
+ * email, the digest. The first requirement in journey order that is not done and not waiting on
+ * its own sign-off (or whose review is overdue), else the first one waiting, the order the
+ * walkthrough resumes in. Never a requirement whose state comes from a walk item: the item is
+ * the step. Null when nothing is left.
+ */
+export function nextOnJourney<
+  T extends {
+    readonly code: string;
+    readonly state: DotState;
+    readonly coveredBy: CoveredBy | null;
+  },
+>(items: readonly T[], overdue: (item: T) => boolean = () => false): T | null {
+  const left = items
+    .filter((i) => !isDoneState(i.state) && i.coveredBy === null)
+    .toSorted(
+      (a, b) =>
+        journeyIndex(a.code) - journeyIndex(b.code) || a.code.localeCompare(b.code),
+    );
+  return left.find((i) => i.state !== "awaiting" || overdue(i)) ?? left[0] ?? null;
 }
 
 /** The six visual states a requirement can be in on the journey, shared by every view. */
