@@ -2,47 +2,226 @@
   "pricing": {
     "meta": {
       "title": "Prețuri - Platformă de conformitate NIS2",
-      "description": "Platforma este gratuită, permanent. Găzduită la nisd2.eu sau auto-găzduită pe propria infrastructură, cod sursă deschis sub AGPL-3.0. Fără contract, fără activare, fără lock-in."
+      "description": "Platforma este gratuită, permanent. Găzduită pe nisd2.eu sau auto-găzduită pe propria infrastructură, cod sursă deschis sub AGPL-3.0. Fără contract, fără activare, fără blocare la un furnizor."
     },
     "title": "Prețuri",
-    "subtitle": "Gratuită, permanent. Alegeți doar cine o operează.",
+    "subtitle": "Gratuit, permanent. Singura alegere este cine o rulează.",
     "free": {
-      "name": "Găzduită la nisd2.eu",
+      "name": "Găzduit pe nisd2.eu",
       "description": "Platforma completă, operată de noi pe infrastructură din UE.",
-      "price": "0 €",
+      "price": "€0",
       "priceSub": "pentru totdeauna",
-      "cta": "Începe acum",
+      "cta": "Începeți",
       "features": {
         "f1": "Toate cele 49 de cerințe BSIG, pas cu pas",
-        "f2": "Încărcarea dovezilor și documentația",
-        "f3": "Export PDF pentru auditori și management",
-        "f4": "Pistă de audit completă",
+        "f2": "Încărcarea dovezilor și documentare",
+        "f3": "Export PDF pentru auditori și conducere",
+        "f4": "Istoric complet al modificărilor",
         "f5": "Urmărirea termenelor și mementouri",
-        "f6": "Îndrumare pentru înregistrarea BSI",
+        "f6": "Ghid pentru înregistrarea la BSI",
         "f7": "Membri de echipă nelimitați",
         "f8": "Registre de riscuri, active și furnizori",
-        "f9": "Asistență la formulare bazată pe AI",
-        "f10": "Fără lock-in. Model de date deschis. Export oricând, inclusiv către auto-găzduire."
+        "f9": "Asistență cu AI la completarea formularelor",
+        "f10": "Fără blocare la un furnizor. Model de date deschis. Export oricând, inclusiv pentru auto-găzduire."
+      }
+    },
+    "paid": {
+      "meta": {
+        "title": "Prețuri: parcursul ghidat NIS 2 și auto-găzduirea",
+        "description": "Parcursul ghidat NIS 2 pe nisd2.eu: {price} net pe an, pe bază de factură, banii înapoi în 30 de zile, orice număr de organizații și utilizatori. Auto-găzduire sub AGPL-3.0."
+      }
+    },
+    "tiers": {
+      "subtitle": "Un singur preț, totul inclus. Cursurile și wiki-ul sunt gratuite.",
+      "recommended": "Recomandat",
+      "talkFirst": {
+        "title": "Preferați să vorbiți mai întâi cu noi?",
+        "body": "Un scurt apel video sau telefonic, la o oră aleasă de dumneavoastră."
+      },
+      "approvalLink": "Decide altcineva? O pagină pentru conducerea dumneavoastră",
+      "free": {
+        "name": "Învățare",
+        "description": "Pentru oricine vrea să înțeleagă NIS 2.",
+        "price": "€0",
+        "priceSub": "pentru totdeauna",
+        "cta": "Mergeți la cursuri",
+        "features": {
+          "courses": "Toate cursurile, inclusiv <course>pentru conducere</course>",
+          "wiki": "Wiki-ul NIS 2",
+          "tools": "Instrumente pentru <risk>evaluarea riscurilor</risk> și <structure>inventarul activelor</structure>"
+        }
+      },
+      "paid": {
+        "name": "Parcursul ghidat NIS 2",
+        "description": "Implementare ghidată pe nisd2.eu.",
+        "priceSub": "net pe an, plus TVA",
+        "anchor": "Întregul parcurs ghidat la prețul unei analize a lacunelor.",
+        "anchorTip": {
+          "title": "Cât costă o analiză a lacunelor",
+          "body": "Firmele de consultanță din Germania publică prețuri între {low} și {high} pentru o analiză a lacunelor NIS 2, o singură dată și în mare parte ca prețuri de pornire. Analiza arată ce lipsește. Parcursul ghidat vă conduce apoi prin implementare, pas cu pas.",
+          "note": "Surse: site-urile {sources}, la data de {checked}."
+        },
+        "moneyBack": "Banii înapoi în 30 de zile",
+        "moneyBackTip": {
+          "title": "Banii înapoi în 30 de zile",
+          "points": {
+            "first": "La prima comandă, fără a fi nevoie de un motiv",
+            "cancel": "Anulați la secțiunea Facturare sau prin e-mail",
+            "refund": "O factură deschisă se anulează, una plătită se rambursează în 30 de zile",
+            "data": "Datele dumneavoastră rămân stocate"
+          },
+          "note": "Nu se aplică la reînnoiri. Detaliile se găsesc în termeni, secțiunea B7."
+        },
+        "grandfatheredBadge": "Prețul dumneavoastră de utilizator existent",
+        "cta": "Comandați",
+        "terms": "Pe bază de factură, scadentă în 30 de zile. Anulare în primele 30 de zile: factura se anulează sau banii se returnează.",
+        "termsLink": "Termeni",
+        "features": {
+          "guided": "Implementare NIS 2 ghidată, pas cu pas",
+          "unlimited": "Organizații și utilizatori nelimitați",
+          "history": "Un istoric al modificărilor și aprobărilor, pe care să îl puteți arăta autorității de supraveghere",
+          "deadlines": "Termene și mementouri pentru fiecare cerință",
+          "suppliers": "Chestionar de securitate pentru furnizorii dumneavoastră",
+          "export": "Export în PDF sau CSV oricând",
+          "updates": "Toate actualizările viitoare incluse",
+          "call": "<cal>Apeluri personale cu noi</cal>, de rezervat oricând"
+        },
+        "unlimitedTip": {
+          "title": "Pentru propria structură a companiei dumneavoastră",
+          "points": {
+            "structure": "Societate-mamă, filiale și societăți surori",
+            "users": "Fiecare ca organizație proprie, cu proprii utilizatori",
+            "payment": "Toate cu o singură plată"
+          },
+          "note": "Nu pentru furnizori de servicii IT, consultanți sau responsabili externi care îngrijesc clienți. Acolo, fiecare organizație client are nevoie de propria licență (termeni, secțiunea B1)."
+        },
+        "grandfatheredNote": "V-ați autentificat înainte de începerea planurilor plătite? Plătiți {price} net pe an, inclusiv la reînnoiri."
+      },
+      "selfHost": {
+        "name": "Auto-găzduire",
+        "description": "Același cod sursă, pe serverele dumneavoastră.",
+        "price": "€0",
+        "priceSub": "pentru totdeauna",
+        "cta": "Vedeți codul sursă",
+        "features": {
+          "everything": "Tot ce conține <paid>parcursul ghidat</paid>",
+          "infrastructure": "Rularea, actualizările și copiile de rezervă sunt în mâinile dumneavoastră",
+          "licence": "Cod sursă deschis sub AGPL-3.0",
+          "contract": "Fără contract cu noi"
+        },
+        "licences": {
+          "title": "Licențe în depozit",
+          "dual": "Cod sub MIT, conținut sub CC BY 4.0",
+          "courses": "Conținutul cursurilor sub CC BY 4.0"
+        }
+      },
+      "trust": {
+        "invoice": "Factură, fără card de credit",
+        "documents": "<terms>Termenii</terms> și <avv>acordul de prelucrare a datelor</avv> pot fi citite deschis",
+        "openSource": "Cod sursă deschis sub AGPL-3.0"
       }
     },
     "selfHost": {
       "name": "Auto-găzduire",
       "description": "Cod sursă complet. Pe propria infrastructură, permanent.",
-      "price": "0 €",
+      "price": "€0",
       "priceSub": "pentru totdeauna",
-      "cta": "Vezi codul sursă",
+      "cta": "Vedeți codul sursă",
       "features": {
-        "h1": "Cod sursă complet al platformei, deschis sub AGPL-3.0",
+        "h1": "Codul sursă complet al platformei, deschis sub AGPL-3.0",
         "h2": "Toate actualizările viitoare incluse, permanent",
         "h3": "Pe propria infrastructură, cu propriile date",
         "h4": "Fără contract, fără cheie de activare, fără cont la noi",
-        "h5": "Exportați lucrul dvs. din nisd2.eu și continuați să îl rulați singuri",
+        "h5": "Exportați lucrul făcut pe nisd2.eu și continuați să îl rulați singuri",
         "h6": "Contact direct prin e-mail și Signal",
-        "h7": "Instalare de către noi, dacă doriți: 500 € fără TVA, o singură dată"
+        "h7": "Instalare de către noi, dacă o doriți: €500 net, o singură dată"
       }
     },
-    "whyFree": "De ce este gratuit: codul sursă este deschis pe GitHub, verificabil și rulabil de dumneavoastră. Facturăm instalarea în regim de auto-găzduire și primim un comision de la firmele specializate către care vă îndrumăm. Nu platforma.",
-    "consultantFootnote": "V-ați blocat cu NIS 2? Întrebările tehnice scurte nu costă nimic, iar dacă e nevoie de o firmă specializată, vă recomandăm una fără costuri pentru dumneavoastră.",
-    "consultantCta": "Ajutor și recomandare"
+    "whyFree": "De ce gratuit: codul sursă este deschis pe GitHub, verificabil și al dumneavoastră de rulat. Percepem bani pentru instalarea sistemelor auto-găzduite și primim un comision de la firmele de specialitate către care vă îndrumăm. Nu pentru platformă.",
+    "consultantFootnote": "Vă blocați cu NIS 2? Întrebările tehnice scurte sunt gratuite, iar dacă este nevoie de o firmă de specialitate, vă îndrumăm către una, fără costuri pentru dumneavoastră.",
+    "consultantCta": "Ajutor și îndrumare",
+    "faq": {
+      "heading": "Întrebări înainte de comandă",
+      "items": {
+        "cost": {
+          "q": "Cât va costa?",
+          "a": "Pentru parcursul ghidat, {price} net pe an, pentru fiecare organizație și utilizator din grupul dumneavoastră de companii. Nu există alte taxe. Cât costă măsurile în sine depinde de afacerea dumneavoastră. Legea germană menționează costul implementării ca un criteriu pentru ceea ce este proporțional (<bsig30>Section 30(1) BSIG</bsig30>)."
+        },
+        "effort": {
+          "q": "Cât de multă muncă înseamnă și trebuie să angajăm pe cineva?",
+          "a": "Parcursul ghidat este făcut pentru o singură persoană care implementează NIS 2 pe lângă postul ei obișnuit. Aceasta parcurge pașii unul după altul, se poate opri oricând și poate lăsa deschis un pas care nu se poate face încă. Conducerea se alătură la final, pentru a aproba în aplicație. Cât timp durează depinde de afacerea dumneavoastră. Parcursul ghidat nu presupune o angajare suplimentară."
+        },
+        "software": {
+          "q": "Putem să facem totul fără software?",
+          "a": "Da. Legea nu prescrie niciun instrument anume. Ea cere măsurile și ca respectarea lor să fie documentată (<bsig30>Section 30(1) BSIG</bsig30>). Parcursul ghidat vă scutește de a organiza singuri ordinea, modelele, aprobările și termenele."
+        },
+        "data": {
+          "q": "Avem nevoie de propriul server și unde sunt datele noastre?",
+          "a": "Nu, parcursul ghidat rulează în browser. Hetzner rulează aplicația și baza de date în Germania, fișierele încărcate sunt stocate la AWS într-o regiune din UE, iar Resend trimite e-mailurile din SUA, în baza clauzelor contractuale standard. Lista completă se află în <avv>acordul de prelucrare a datelor</avv>, Anexa IV. Dacă preferați să nu externalizați nimic, rulați platforma singuri, cu Docker pe serverele dumneavoastră."
+        },
+        "language": {
+          "q": "Totul este în germană?",
+          "a": "Da. Aplicația și parcursul ghidat sunt în germană, iar în engleză dacă preferați."
+        },
+        "nextYear": {
+          "q": "Ce plătim în al doilea an și pentru ce?",
+          "a": "Același preț. Licența se reînnoiește în fiecare an. Cu 14 zile înainte vă trimitem un e-mail despre reînnoire, preț și modul de anulare, iar puteți anula până în ultima zi a anului de licență (<terms>termeni, B6</terms>). După parcursul ghidat, aplicația vă reamintește obligațiile recurente, iar toate actualizările sunt incluse."
+        },
+        "approval": {
+          "q": "Nu decid singur. Cum obțin aprobarea?",
+          "a": "Trimiteți conducerii <approval>pagina pentru aprobare</approval>. Ea conține tot ce trebuie pentru decizie: ce este parcursul ghidat, cât costă, o comparație cu prețurile publicate ale consultanților și cum se încheie."
+        },
+        "money": {
+          "q": "Cum câștigați bani?",
+          "a": "Din această licență anuală. Codul sursă este deschis pentru ca dumneavoastră să puteți verifica ce face platforma cu datele dumneavoastră. Plătiți pentru faptul că noi rulăm platforma, o dezvoltăm și suntem alături de dumneavoastră la întrebări. Nu vă vindem datele."
+        }
+      }
+    },
+    "approval": {
+      "meta": {
+        "title": "Pentru aprobare: parcursul ghidat NIS 2",
+        "description": "O pagină pentru conducere: ce este parcursul ghidat NIS 2, cât costă și cum se încheie."
+      },
+      "eyebrow": "Pentru aprobare",
+      "title": "Parcursul ghidat NIS 2 pe nisd2.eu",
+      "lead": "O pagină pentru decizie: ce este, cât costă și cum se încheie.",
+      "rows": {
+        "what": {
+          "label": "Ce este",
+          "text": "Implementarea ghidată a obligațiilor NIS 2 într-o singură aplicație. O persoană din compania dumneavoastră parcurge pașii unul după altul, iar fiecare decizie este înregistrată cu un nume și o dată."
+        },
+        "role": {
+          "label": "Rolul dumneavoastră",
+          "text": "Pentru entitățile care intră în domeniul de aplicare, organele de conducere trebuie să aprobe măsurile de gestionare a riscurilor de securitate cibernetică și să supravegheze implementarea lor (<nis2>Articolul 20(1) NIS 2</nis2>). În Germania, <bsig>Section 38(1) BSIG</bsig> cere conducerii să implementeze măsurile și să monitorizeze implementarea lor. În parcursul ghidat aprobați rezultatele la final, în aplicație, autentificat cu propriul cont. Nimic nu se tipărește și nu se scanează."
+        },
+        "cost": {
+          "label": "Cost",
+          "text": "{price} net pe an plus TVA, pe bază de factură, scadentă în 30 de zile. Prețul acoperă fiecare organizație și utilizator din grupul dumneavoastră de companii."
+        },
+        "comparison": {
+          "label": "Pentru comparație"
+        },
+        "exit": {
+          "label": "Durată și anulare",
+          "text": "Anulați în 30 de zile de la prima comandă și factura se anulează, iar una plătită se rambursează. După aceea licența se reînnoiește anual, vă trimitem un e-mail cu 14 zile înainte, iar puteți anula până în ultima zi a anului de licență (<terms>termeni, B6 și B7</terms>)."
+        },
+        "scope": {
+          "label": "Ce nu este",
+          "text": "Nu este o certificare. Rezultatul este autoevaluarea documentată a companiei dumneavoastră, cu istoricul fiecărei modificări și aprobări."
+        },
+        "provider": {
+          "label": "Furnizor",
+          "text": "Kardashev Catalyst UG (haftungsbeschränkt), Köln. Se aplică <terms>termenii</terms>, împreună cu <avv>acordul de prelucrare a datelor</avv>."
+        }
+      },
+      "forward": {
+        "label": "Trimiteți această pagină:",
+        "email": "Prin e-mail",
+        "copy": "Copiați linkul",
+        "copied": "Link copiat",
+        "subject": "Parcursul ghidat NIS 2 pentru aprobare",
+        "body": "Bună ziua,\n\npentru aprobare: o pagină despre parcursul ghidat NIS 2 de pe nisd2.eu, cu cost, durată și anulare.\n\n{url}\n\nCu stimă"
+      }
+    }
   }
 }

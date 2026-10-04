@@ -25,6 +25,102 @@
         "f10": "Aucun verrouillage. Modèle de données ouvert. Export à tout moment, y compris vers l'auto-hébergement."
       }
     },
+    "paid": {
+      "meta": {
+        "title": "Tarifs : le parcours guidé NIS 2 et l'auto-hébergement",
+        "description": "Le parcours guidé NIS 2 sur nisd2.eu : {price} HT par an, sur facture, remboursement sous 30 jours, un nombre illimité d'organisations et d'utilisateurs. Auto-hébergement sous AGPL-3.0."
+      }
+    },
+    "tiers": {
+      "subtitle": "Un seul prix, tout compris. Les cours et le wiki ne coûtent rien.",
+      "recommended": "Recommandé",
+      "talkFirst": {
+        "title": "Vous préférez d'abord nous parler ?",
+        "body": "Une courte visio ou un appel téléphonique, au moment que vous choisissez."
+      },
+      "approvalLink": "Quelqu'un d'autre décide ? Une page pour votre direction",
+      "free": {
+        "name": "Apprendre",
+        "description": "Pour toute personne qui veut comprendre NIS 2.",
+        "price": "0 €",
+        "priceSub": "pour toujours",
+        "cta": "Aller aux cours",
+        "features": {
+          "courses": "Tous les cours, y compris <course>pour la direction</course>",
+          "wiki": "Le wiki NIS 2",
+          "tools": "Outils pour l'<risk>analyse des risques</risk> et l'<structure>inventaire des actifs</structure>"
+        }
+      },
+      "paid": {
+        "name": "Parcours guidé NIS 2",
+        "description": "Mise en œuvre guidée sur nisd2.eu.",
+        "priceSub": "HT par an, TVA en sus",
+        "anchor": "Tout le parcours guidé pour le prix d'une analyse d'écarts.",
+        "anchorTip": {
+          "title": "Ce que coûte une analyse d'écarts",
+          "body": "Des cabinets de conseil allemands publient des prix entre {low} et {high} pour une analyse d'écarts NIS 2, ponctuelle et le plus souvent à partir de ce montant. L'analyse montre ce qui manque. Le parcours guidé vous accompagne ensuite dans la mise en œuvre, étape par étape.",
+          "note": "Sources : les sites web de {sources}, état au {checked}."
+        },
+        "moneyBack": "Remboursement sous 30 jours",
+        "moneyBackTip": {
+          "title": "Remboursement sous 30 jours",
+          "points": {
+            "first": "Sur votre première commande, sans avoir à donner de motif",
+            "cancel": "Résiliez sous Facturation ou par e-mail",
+            "refund": "Une facture ouverte est annulée ; une facture payée est remboursée sous 30 jours",
+            "data": "Vos données restent conservées"
+          },
+          "note": "Ne s'applique pas aux renouvellements. Le détail figure dans les conditions, section B7."
+        },
+        "grandfatheredBadge": "Votre tarif d'utilisateur existant",
+        "cta": "Commander",
+        "terms": "Sur facture, payable sous 30 jours. Résiliation dans les 30 premiers jours : facture annulée ou remboursement.",
+        "termsLink": "Conditions",
+        "features": {
+          "guided": "Mise en œuvre guidée de NIS 2, étape par étape",
+          "unlimited": "Organisations et utilisateurs illimités",
+          "history": "Un historique des modifications et des validations à présenter à votre autorité de contrôle",
+          "deadlines": "Échéances et rappels pour chaque exigence",
+          "suppliers": "Questionnaire de sécurité pour vos fournisseurs",
+          "export": "Export en PDF ou CSV à tout moment",
+          "updates": "Toutes les mises à jour futures incluses",
+          "call": "<cal>Appels personnels avec nous</cal>, réservables à tout moment"
+        },
+        "unlimitedTip": {
+          "title": "Pour la structure de votre propre entreprise",
+          "points": {
+            "structure": "Société mère, filiales et sociétés sœurs",
+            "users": "Chacune comme organisation distincte, avec ses propres utilisateurs",
+            "payment": "Le tout pour un seul paiement"
+          },
+          "note": "Pas pour les prestataires de services informatiques, les consultants ou les responsables externes qui suivent des clients. Dans ce cas, chaque organisation cliente a besoin de sa propre licence (conditions, section B1)."
+        },
+        "grandfatheredNote": "Vous vous étiez connecté avant le début des offres payantes ? Vous payez {price} HT par an, renouvellements inclus."
+      },
+      "selfHost": {
+        "name": "Auto-hébergement",
+        "description": "Le même code source, sur vos propres serveurs.",
+        "price": "0 €",
+        "priceSub": "pour toujours",
+        "cta": "Voir le code source",
+        "features": {
+          "everything": "Tout ce qui est dans le <paid>parcours guidé</paid>",
+          "infrastructure": "Exploitation, mises à jour et sauvegardes entre vos mains",
+          "licence": "Code source ouvert sous AGPL-3.0",
+          "contract": "Aucun contrat avec nous"
+        },
+        "licences": {
+          "title": "Licences dans le dépôt",
+          "dual": "Code sous MIT, contenu sous CC BY 4.0",
+          "courses": "Contenu des cours sous CC BY 4.0"
+        }
+      },
+      "trust": {
+        "invoice": "Facture, pas de carte bancaire",
+        "documents": "<terms>Conditions</terms> et <avv>accord de sous-traitance</avv> consultables librement",
+        "openSource": "Open source sous AGPL-3.0"
+      }
+    },
     "selfHost": {
       "name": "Auto-hébergement",
       "description": "Code source complet. Sur votre propre infrastructure, durablement.",
@@ -43,6 +139,89 @@
     },
     "whyFree": "Pourquoi gratuit : le code source est ouvert sur GitHub, vérifiable et exploitable par vos soins. Nous facturons l'installation en auto-hébergement et percevons une commission des entreprises spécialisées vers lesquelles nous vous orientons. Pas la plateforme.",
     "consultantFootnote": "Bloqué avec NIS 2 ? Les questions techniques courtes ne coûtent rien, et s'il faut une entreprise spécialisée, nous vous en recommandons une, sans frais pour vous.",
-    "consultantCta": "Aide et recommandation"
+    "consultantCta": "Aide et recommandation",
+    "faq": {
+      "heading": "Questions avant de commander",
+      "items": {
+        "cost": {
+          "q": "Combien cela coûtera-t-il ?",
+          "a": "Pour le parcours guidé, {price} HT par an, pour chaque organisation et chaque utilisateur de votre groupe d'entreprises. Il n'y a pas d'autres frais. Le coût des mesures elles-mêmes dépend de votre activité. Le droit allemand cite le coût de mise en œuvre comme un critère de ce qui est proportionné (<bsig30>§ 30(1) BSIG</bsig30>)."
+        },
+        "effort": {
+          "q": "Quelle charge de travail cela représente-t-il, et faut-il embaucher quelqu'un ?",
+          "a": "Le parcours guidé est conçu pour une personne qui met en œuvre NIS 2 en plus de son travail habituel. Elle suit les étapes l'une après l'autre, peut s'arrêter à tout moment et laisser ouverte une étape qui ne peut pas encore être réalisée. La direction intervient à la fin, pour valider dans l'application. Le temps nécessaire dépend de votre activité. Le parcours guidé ne suppose pas d'embauche supplémentaire."
+        },
+        "software": {
+          "q": "Peut-on le faire sans logiciel ?",
+          "a": "Oui. La loi ne prescrit aucun outil particulier. Elle exige les mesures et que vous documentiez leur respect (<bsig30>§ 30(1) BSIG</bsig30>). Le parcours guidé vous évite d'organiser vous-même l'ordre des étapes, les modèles, les validations et les échéances."
+        },
+        "data": {
+          "q": "Faut-il notre propre serveur, et où sont nos données ?",
+          "a": "Non, le parcours guidé fonctionne dans le navigateur. Hetzner exploite l'application et la base de données en Allemagne, les fichiers téléversés sont stockés chez AWS dans une région de l'UE, et Resend envoie les e-mails depuis les États-Unis dans le cadre des clauses contractuelles types. La liste complète figure dans l'<avv>accord de sous-traitance</avv>, annexe IV. Si vous préférez ne rien externaliser, exploitez la plateforme vous-même, avec Docker sur vos propres serveurs."
+        },
+        "language": {
+          "q": "Tout est-il en allemand ?",
+          "a": "Oui. L'application et le parcours guidé sont en allemand, et en anglais si vous préférez."
+        },
+        "nextYear": {
+          "q": "Que payons-nous la deuxième année, et pour quoi ?",
+          "a": "Le même prix. La licence se renouvelle chaque année. 14 jours avant, nous vous écrivons par e-mail au sujet du renouvellement, du prix et de la façon de résilier, et vous pouvez résilier jusqu'au dernier jour de l'année de licence (<terms>conditions, B6</terms>). Après le parcours guidé, l'application vous rappelle vos obligations récurrentes, et toutes les mises à jour sont incluses."
+        },
+        "approval": {
+          "q": "Je ne décide pas seul. Comment obtenir une validation ?",
+          "a": "Transmettez <approval>la page de validation</approval> à votre direction. Elle contient tout pour la décision : ce qu'est le parcours guidé, ce qu'il coûte, une comparaison avec les prix publiés des cabinets de conseil, et comment y mettre fin."
+        },
+        "money": {
+          "q": "Comment gagnez-vous de l'argent ?",
+          "a": "Avec cette licence annuelle. Le code source est ouvert pour que vous puissiez vérifier ce que la plateforme fait de vos données. Vous payez pour que nous exploitions la plateforme, la développions et soyons là pour vos questions. Nous ne vendons pas vos données."
+        }
+      }
+    },
+    "approval": {
+      "meta": {
+        "title": "Pour validation : le parcours guidé NIS 2",
+        "description": "Une page pour la direction : ce qu'est le parcours guidé NIS 2, ce qu'il coûte et comment y mettre fin."
+      },
+      "eyebrow": "Pour validation",
+      "title": "Le parcours guidé NIS 2 sur nisd2.eu",
+      "lead": "Une page pour la décision : ce que c'est, ce que cela coûte et comment y mettre fin.",
+      "rows": {
+        "what": {
+          "label": "Ce que c'est",
+          "text": "Mise en œuvre guidée des obligations NIS 2 dans une seule application. Une personne de votre entreprise suit les étapes l'une après l'autre, et chaque décision est consignée avec un nom et une date."
+        },
+        "role": {
+          "label": "Votre rôle",
+          "text": "Pour les entités concernées, les organes de direction doivent approuver les mesures de gestion des risques en matière de cybersécurité et superviser leur mise en œuvre (<nis2>Article 20(1) NIS 2</nis2>). En Allemagne, le <bsig>§ 38(1) BSIG</bsig> impose à la direction de mettre en œuvre les mesures et d'en surveiller la mise en œuvre. Dans le parcours guidé, vous approuvez les résultats à la fin, dans l'application, connecté avec votre propre compte. Rien n'est imprimé ni numérisé."
+        },
+        "cost": {
+          "label": "Coût",
+          "text": "{price} HT par an, TVA en sus, sur facture, payable sous 30 jours. Le prix couvre chaque organisation et chaque utilisateur de votre groupe d'entreprises."
+        },
+        "comparison": {
+          "label": "À titre de comparaison"
+        },
+        "exit": {
+          "label": "Durée et résiliation",
+          "text": "Résiliez dans les 30 jours suivant votre première commande : la facture est annulée, et une facture payée est remboursée. Ensuite, la licence se renouvelle chaque année, nous vous écrivons par e-mail 14 jours avant, et vous pouvez résilier jusqu'au dernier jour de l'année de licence (<terms>conditions, B6 et B7</terms>)."
+        },
+        "scope": {
+          "label": "Ce que ce n'est pas",
+          "text": "Pas une certification. Le résultat est l'auto-évaluation documentée de votre entreprise, avec l'historique de chaque modification et de chaque validation."
+        },
+        "provider": {
+          "label": "Prestataire",
+          "text": "Kardashev Catalyst UG (haftungsbeschränkt), Cologne. Les <terms>conditions</terms> s'appliquent, avec l'<avv>accord de sous-traitance</avv>."
+        }
+      },
+      "forward": {
+        "label": "Transmettre cette page :",
+        "email": "Par e-mail",
+        "copy": "Copier le lien",
+        "copied": "Lien copié",
+        "subject": "Parcours guidé NIS 2 pour validation",
+        "body": "Bonjour,\n\npour validation : une page sur le parcours guidé NIS 2 de nisd2.eu, avec le coût, la durée et la résiliation.\n\n{url}\n\nCordialement"
+      }
+    }
   }
 }
