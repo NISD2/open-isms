@@ -50,6 +50,12 @@
         "name": "NIS 2 walkthrough",
         "description": "Guided implementation at nisd2.eu.",
         "priceSub": "net a year, plus VAT",
+        "anchor": "The whole walkthrough for the price of a gap assessment.",
+        "anchorTip": {
+          "title": "What a gap assessment costs",
+          "body": "German consultancies publish prices between {low} and {high} for a NIS 2 gap assessment, one-off and mostly as starting prices. The assessment shows what is missing. The walkthrough then takes you through the implementation, step by step.",
+          "note": "From the providers' own websites, as of {checked}."
+        },
         "moneyBack": "30 days money back",
         "moneyBackTip": {
           "title": "30 days money back",

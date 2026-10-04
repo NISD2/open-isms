@@ -42,12 +42,12 @@ export default async function FinanzierungPage({
 
         <h2>Revenue today (2026)</h2>
         <p>
-          The wiki and the courses are free. The NIS 2 walkthrough on the platform is paid; its
-          price is on the pricing page. We also fund operations through founder savings
-          plus three early income lines: affiliate revenue from training partners (paid by
-          the partner, never by readers), referral fees from a hand-picked consultant list
-          (paid only on closed engagements), and small consulting projects we take on
-          directly when they advance the platform mission.
+          The wiki and the courses are free. The NIS 2 walkthrough on the platform is
+          paid; its price is on the pricing page. We also fund operations through founder
+          savings plus three early income lines: affiliate revenue from training partners
+          (paid by the partner, never by readers), referral fees from a hand-picked
+          consultant list (paid only on closed engagements), and small consulting projects
+          we take on directly when they advance the platform mission.
         </p>
 
         <h2>Revenue we have rejected</h2>

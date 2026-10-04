@@ -50,6 +50,12 @@
         "name": "NIS 2 Durchgang",
         "description": "Die geführte Umsetzung auf nisd2.eu.",
         "priceSub": "netto im Jahr, zzgl. USt.",
+        "anchor": "Der ganze Durchgang zum Preis einer Gap-Analyse.",
+        "anchorTip": {
+          "title": "Was eine Gap-Analyse kostet",
+          "body": "Beratungen in Deutschland veröffentlichen für eine NIS 2 Gap-Analyse Preise zwischen {low} und {high}, einmalig und meist als Einstiegspreis. Die Analyse zeigt, was fehlt. Der Durchgang führt Sie danach Schritt für Schritt durch die Umsetzung.",
+          "note": "Von den Websites der Anbieter, Stand {checked}."
+        },
         "moneyBack": "30 Tage Geld zurück",
         "moneyBackTip": {
           "title": "30 Tage Geld zurück",
