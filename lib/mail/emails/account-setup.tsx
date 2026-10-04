@@ -17,7 +17,7 @@ export const ACCOUNT_SETUP_COPY = {
   en: {
     subject: "Your access to nisd2.eu",
     heading: "Your access is ready",
-    body: "We have set up your account for the NIS 2 guided pass. Use the link to set a password, or sign in with Google under this email address.",
+    body: "We have set up your account for the NIS 2 walkthrough. Use the link to set a password, or sign in with Google under this email address.",
     button: "Set up access",
     note: "The link is valid for seven days and works once. The invoice arrives in a separate email.",
   },

@@ -193,7 +193,7 @@ export const invoiceDates = (
 
 /** The line item's title, on the invoice and on the credit note that cancels it. */
 export const licenceTitle = (locale: "de" | "en"): string =>
-  locale === "de" ? "NIS 2 Durchgang, Jahreslizenz" : "NIS 2 guided pass, annual licence";
+  locale === "de" ? "NIS 2 Durchgang, Jahreslizenz" : "NIS 2 walkthrough, annual licence";
 
 /** What makes the automatic payment match work: the invoice number as the payment reference. */
 const PAYMENT_REFERENCE = {
@@ -352,13 +352,13 @@ export const invoiceEmailWording = (opts: {
       }
     : {
         ...common,
-        subject: `Invoice ${number}: NIS 2 guided pass, annual licence`,
+        subject: `Invoice ${number}: NIS 2 walkthrough, annual licence`,
         heading: "Your invoice",
         greeting: "Hello,",
         intro: [
           where.attached
-            ? "Please find attached the invoice for the NIS 2 guided pass annual licence."
-            : `The invoice for the NIS 2 guided pass annual licence is here: ${where.invoiceUrl}`,
+            ? "Please find attached the invoice for the annual licence for the NIS 2 walkthrough."
+            : `The invoice for the annual licence for the NIS 2 walkthrough is here: ${where.invoiceUrl}`,
           ...online,
         ],
         document: {

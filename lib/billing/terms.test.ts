@@ -66,7 +66,7 @@ describe("invoice email links the invoice", () => {
       termsVersion: null,
     });
     expect(intro[0]).toBe(
-      `The invoice for the NIS 2 guided pass annual licence is here: ${url}`,
+      `The invoice for the annual licence for the NIS 2 walkthrough is here: ${url}`,
     );
     expect(intro.filter((p) => p.includes(url))).toHaveLength(1);
   });

@@ -5,7 +5,7 @@
  * Change it in the same commit that changes the text of either page: every order stores the version
  * it was placed under (invoice.terms_version), and the pages print it as "Fassung vom".
  */
-export const TERMS_VERSION = "2026-10-01";
+export const TERMS_VERSION = "2026-10-04";
 
 /** The version as the reader writes a date: "26.09.2026", "26 September 2026". */
 export const termsVersionLabel = (

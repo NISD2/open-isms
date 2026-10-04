@@ -27,8 +27,8 @@
     },
     "paid": {
       "meta": {
-        "title": "Pricing: the NIS 2 guided pass and self-hosting",
-        "description": "The NIS 2 guided pass at nisd2.eu: {price} net a year, by invoice, 30 days money back, any number of organizations and users. Self-host under AGPL-3.0."
+        "title": "Pricing: the NIS 2 walkthrough and self-hosting",
+        "description": "The NIS 2 walkthrough at nisd2.eu: {price} net a year, by invoice, 30 days money back, any number of organizations and users. Self-host under AGPL-3.0."
       }
     },
     "tiers": {
@@ -47,7 +47,7 @@
         }
       },
       "paid": {
-        "name": "NIS 2 guided pass",
+        "name": "NIS 2 walkthrough",
         "description": "Guided implementation at nisd2.eu.",
         "priceSub": "net a year, plus VAT",
         "moneyBack": "30 days money back",
@@ -93,7 +93,7 @@
         "priceSub": "forever",
         "cta": "View the source",
         "features": {
-          "everything": "Everything in the <paid>guided pass</paid>",
+          "everything": "Everything in the <paid>walkthrough</paid>",
           "infrastructure": "On your own infrastructure",
           "licence": "Source open under AGPL-3.0",
           "contract": "No contract with us"

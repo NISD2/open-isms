@@ -214,7 +214,7 @@ const renewalWording = (
         subject: `Cancellation confirmed: your licence ends on ${end}`,
         heading: "Your cancellation is confirmed",
         intro: [
-          "You have canceled the NIS 2 guided pass annual licence. It will not renew.",
+          "You have canceled the annual licence for the NIS 2 walkthrough. It will not renew.",
         ],
         document: {
           kind: "Cancellation",
@@ -338,7 +338,7 @@ const moneyBackWording = (
         subject: `Credit note ${cn}: your order is canceled`,
         heading: "Your order is canceled",
         intro: [
-          `You canceled the NIS 2 guided pass annual licence within the thirty days. The invoice is canceled by a credit note${attached ? ", attached as a PDF" : ""}.`,
+          `You canceled the annual licence for the NIS 2 walkthrough within the thirty days. The invoice is canceled by a credit note${attached ? ", attached as a PDF" : ""}.`,
         ],
         document: {
           kind: "Credit note",

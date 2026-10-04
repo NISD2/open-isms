@@ -1057,7 +1057,7 @@
     "agb": {
       "meta": {
         "title": "General terms and conditions | nisd2.eu",
-        "description": "Terms of nisd2.eu: use of the platform, the NIS 2 guided pass annual licence, price, term and renewal, thirty days money back, liability and data processing."
+        "description": "Terms of nisd2.eu: use of the platform, the annual licence for the NIS 2 walkthrough, price, term and renewal, thirty days money back, liability and data processing."
       },
       "title": "General terms and conditions",
       "subtitle": "For the use of the hosted platform nisd2.eu, free and with an annual licence. The data processing agreement is Annex 1.",
@@ -1158,7 +1158,7 @@
         "licence": {
           "heading": "B1. Subject of the contract",
           "paragraphs": [
-            "The subject is the right to use the hosted Platform with the NIS 2 guided pass for one licence year (\"annual licence\"). The Provider makes the Platform available over the internet. The customer does not receive a copy of the software.",
+            "The subject is the right to use the hosted Platform with the NIS 2 walkthrough for one licence year (\"annual licence\"). The Provider makes the Platform available over the internet. The customer does not receive a copy of the software.",
             "The annual licence covers the customer's account: every organisation and every user on that account. One payment covers all of them.",
             "Organisations in this sense are the customer itself and the companies of its own group: companies affiliated with it or majority-owned by the same shareholders. If the customer uses the Platform for organisations it looks after as a service provider, for example as an IT service provider, managed service provider, consultant or external information security officer, each of those organisations needs its own annual licence unless agreed otherwise."
           ]
@@ -1209,7 +1209,7 @@
             "This does not apply to renewals, nor to any later order for the same account, including a new order after a cancellation. B8 applies to those from the first day.",
             "The customer cancels under Billing with the button, or in text form by email to contact@nisd2.eu.",
             "The Provider then cancels the invoice in full with a credit note. If it was still open, the customer owes nothing more. If the customer had already paid, the Provider transfers the full amount back within 30 days of the cancellation to the account the payment came from. A payment that arrives only after the cancellation is refunded within 30 days of its arrival.",
-            "The annual licence ends at once. The account falls back to use without a licence; for existing users, to the continued free use of the current guided pass. The customer's data stays stored (B10)."
+            "The annual licence ends at once. The account falls back to use without a licence; for existing users, to the continued free use of the current walkthrough. The customer's data stays stored (B10)."
           ]
         },
         "cancelAfter": {
@@ -1231,7 +1231,7 @@
           "heading": "B10. End of the annual licence and the data",
           "paragraphs": [
             "When the annual licence ends, by cancellation, by expiry without renewal, or by suspension under B9, the account remains and falls back to use without a licence. The Provider does not delete any data when this happens.",
-            "Without a licence, the account reaches only Billing, Settings, Organisation and Notifications. The other content and the exports are reachable again only with a new order. Existing users keep the free use of the current guided pass.",
+            "Without a licence, the account reaches only Billing, Settings, Organisation and Notifications. The other content and the exports are reachable again only with a new order. Existing users keep the free use of the current walkthrough.",
             "On the customer's instruction, the Provider returns or deletes the data as the data processing agreement provides. An email to contact@nisd2.eu is enough."
           ]
         },
