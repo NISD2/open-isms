@@ -19,9 +19,9 @@ export const effectiveAccessLevel = (
 
 /**
  * The level a brand-new account is created with: free, so its holder orders, where this deployment
- * sells (`sells`: live billing keys, lib/billing/ordering.ts). Where it does not, a self-hosted
- * instance or a local run, nobody could order, so a new account starts grandfathered. Someone
- * stamped at the launch keeps the journey free for any company they start later.
+ * sells (`sells`: it is nisd2.eu, lib/billing/seller.ts). Anywhere else, a self-hosted instance
+ * or a local run, nobody could order, so a new account starts grandfathered. Someone stamped at
+ * the launch keeps the journey free for any company they start later.
  */
 export const newAccountAccessLevel = (
   sells: boolean,

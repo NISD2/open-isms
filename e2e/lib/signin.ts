@@ -6,8 +6,8 @@
 import type { Page } from "@playwright/test";
 import { E2E_USER_PASSWORD } from "./env";
 
-/** Where signing in lands: the portal's home, which opens the walk (or the journey for a draft). */
-export const SIGNED_IN = /\/(dashboard|journey|durchgang\/nis2|walkthrough\/nis2)/;
+/** Where signing in lands: the portal's home, /dashboard, which opens the walk. */
+export const SIGNED_IN = /\/(dashboard|durchgang\/nis2|walkthrough\/nis2)/;
 
 export async function signInViaForm(page: Page, email: string): Promise<void> {
   await page.goto("/de/auth/signin");

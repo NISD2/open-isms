@@ -7,7 +7,7 @@
  *     person who pays. Not for company admins: any admin may add an organization and is its
  *     admin, so a company role says nothing about who may put the account on an invoice.
  *   - On top of that, `billingFor` decides: nobody while Qonto is not set up, platform admins
- *     whenever it is, everyone else only with live keys and the `billing` switch on.
+ *     whenever it is, everyone else only with live keys.
  *
  * The account is always the open company's own, read from the session. No procedure takes an
  * account id from the browser, and the one that takes an invoice id checks it belongs to it.

@@ -100,8 +100,8 @@ export async function PortalOffer() {
             <MoneyBackBadge />
           </div>
           <div className="space-y-3">
-            {/* Closed only without live keys. A new account starts free only where they are set
-                (newAccountAccessLevel), so a free account meets this only if they are taken away. */}
+            {/* Closed without live keys: on nisd2.eu while they are broken, or in a sandbox run
+                for anyone but a platform admin. */}
             {status.open ? (
               <Button className="h-12 w-full text-base" size="lg" asChild>
                 <Link href="/bestellen">{tiers("paid.cta")}</Link>

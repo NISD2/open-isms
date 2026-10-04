@@ -26,7 +26,7 @@ declare module "next-auth" {
     jobTitle: string | null;
     /**
      * What the open company's billing account may use right now, as the gate enforces it
-     * (lib/billing/access.ts). "free" only once billing is launched; null without a company.
+     * (lib/billing/access.ts); null without a company.
      */
     accessLevel: AccessLevel | null;
     /**
