@@ -1,20 +1,19 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
-import { pageAlternates, pageOg, type Locale } from "@/lib/seo";
+import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkSteps } from "@/components/wiki/WalkSteps";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -28,10 +27,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: pageAlternates(
-      "wiki/troubleshooting/ddos-angriff-nis2",
-      locale,
-    ),
+    alternates: pageAlternates("wiki/troubleshooting/ddos-angriff-nis2", locale),
     ...pageOg({
       slug: "wiki/troubleshooting/ddos-angriff-nis2",
       locale,
@@ -54,8 +50,7 @@ export default async function DdosAngriffNis2Page({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale =
-    rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
   const t = await getTranslations("info");
 
   return (
@@ -141,9 +136,7 @@ export default async function DdosAngriffNis2Page({
         <Card>
           <CardHeader>
             <CardTitle>{t("ddosAngriffNis2.elements.heading")}</CardTitle>
-            <CardDescription>
-              {t("ddosAngriffNis2.elements.description")}
-            </CardDescription>
+            <CardDescription>{t("ddosAngriffNis2.elements.description")}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 sm:grid-cols-3">
@@ -221,9 +214,7 @@ export default async function DdosAngriffNis2Page({
         <Card>
           <CardHeader>
             <CardTitle>{t("ddosAngriffNis2.pitfalls.heading")}</CardTitle>
-            <CardDescription>
-              {t("ddosAngriffNis2.pitfalls.description")}
-            </CardDescription>
+            <CardDescription>{t("ddosAngriffNis2.pitfalls.description")}</CardDescription>
           </CardHeader>
           <CardContent>
             <ul className="space-y-4">
@@ -244,9 +235,7 @@ export default async function DdosAngriffNis2Page({
         {/* Practitioner */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("ddosAngriffNis2.practitioner.heading")}
-            </CardTitle>
+            <CardTitle>{t("ddosAngriffNis2.practitioner.heading")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <p className="text-sm leading-relaxed text-muted-foreground">
@@ -258,21 +247,6 @@ export default async function DdosAngriffNis2Page({
           </CardContent>
         </Card>
 
-        {/* Platform */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("ddosAngriffNis2.platform.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("ddosAngriffNis2.platform.p1")}
-            </p>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("ddosAngriffNis2.platform.p2")}
-            </p>
-          </CardContent>
-        </Card>
-
         {/* Sources */}
         <Card>
           <CardHeader>
@@ -280,35 +254,20 @@ export default async function DdosAngriffNis2Page({
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">
-              {(t.raw("ddosAngriffNis2.sources.items") as string[]).map(
-                (source, i) => (
-                  <li
-                    key={i}
-                    className="flex items-start gap-2 text-xs text-muted-foreground"
-                  >
-                    <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
-                    {source}
-                  </li>
-                ),
-              )}
+              {(t.raw("ddosAngriffNis2.sources.items") as string[]).map((source) => (
+                <li
+                  key={source}
+                  className="flex items-start gap-2 text-xs text-muted-foreground"
+                >
+                  <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
+                  {source}
+                </li>
+              ))}
             </ul>
           </CardContent>
         </Card>
 
-        {/* CTA */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("ddosAngriffNis2.ctaCard.heading")}</CardTitle>
-            <CardDescription>
-              {t("ddosAngriffNis2.ctaCard.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button asChild>
-              <Link href="/applicability">{t("ddosAngriffNis2.cta")}</Link>
-            </Button>
-          </CardContent>
-        </Card>
+        <WalkSteps codes={["3.3"]} />
       </div>
     </GlossedProse>
   );

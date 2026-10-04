@@ -1,20 +1,18 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
-import { pageAlternates, pageOg, type Locale } from "@/lib/seo";
+import { GlossedProse } from "@/components/wiki/GlossedProse";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -28,10 +26,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: pageAlternates(
-      "wiki/sektoren/nis2-bankwesen",
-      locale,
-    ),
+    alternates: pageAlternates("wiki/sektoren/nis2-bankwesen", locale),
     ...pageOg({
       slug: "wiki/sektoren/nis2-bankwesen",
       locale,
@@ -54,8 +49,7 @@ export default async function Nis2BankwesenPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale =
-    rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
   const t = await getTranslations("info");
 
   return (
@@ -141,9 +135,7 @@ export default async function Nis2BankwesenPage({
         <Card>
           <CardHeader>
             <CardTitle>{t("nis2Bankwesen.elements.heading")}</CardTitle>
-            <CardDescription>
-              {t("nis2Bankwesen.elements.description")}
-            </CardDescription>
+            <CardDescription>{t("nis2Bankwesen.elements.description")}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 sm:grid-cols-3">
@@ -168,9 +160,7 @@ export default async function Nis2BankwesenPage({
         <Card>
           <CardHeader>
             <CardTitle>{t("nis2Bankwesen.principles.heading")}</CardTitle>
-            <CardDescription>
-              {t("nis2Bankwesen.principles.description")}
-            </CardDescription>
+            <CardDescription>{t("nis2Bankwesen.principles.description")}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -221,9 +211,7 @@ export default async function Nis2BankwesenPage({
         <Card>
           <CardHeader>
             <CardTitle>{t("nis2Bankwesen.pitfalls.heading")}</CardTitle>
-            <CardDescription>
-              {t("nis2Bankwesen.pitfalls.description")}
-            </CardDescription>
+            <CardDescription>{t("nis2Bankwesen.pitfalls.description")}</CardDescription>
           </CardHeader>
           <CardContent>
             <ul className="space-y-4">
@@ -244,9 +232,7 @@ export default async function Nis2BankwesenPage({
         {/* Practitioner */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("nis2Bankwesen.practitioner.heading")}
-            </CardTitle>
+            <CardTitle>{t("nis2Bankwesen.practitioner.heading")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <p className="text-sm leading-relaxed text-muted-foreground">
@@ -258,21 +244,6 @@ export default async function Nis2BankwesenPage({
           </CardContent>
         </Card>
 
-        {/* Platform */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("nis2Bankwesen.platform.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("nis2Bankwesen.platform.p1")}
-            </p>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("nis2Bankwesen.platform.p2")}
-            </p>
-          </CardContent>
-        </Card>
-
         {/* Sources */}
         <Card>
           <CardHeader>
@@ -280,33 +251,16 @@ export default async function Nis2BankwesenPage({
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">
-              {(t.raw("nis2Bankwesen.sources.items") as string[]).map(
-                (source, i) => (
-                  <li
-                    key={i}
-                    className="flex items-start gap-2 text-xs text-muted-foreground"
-                  >
-                    <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
-                    {source}
-                  </li>
-                ),
-              )}
+              {(t.raw("nis2Bankwesen.sources.items") as string[]).map((source) => (
+                <li
+                  key={source}
+                  className="flex items-start gap-2 text-xs text-muted-foreground"
+                >
+                  <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
+                  {source}
+                </li>
+              ))}
             </ul>
-          </CardContent>
-        </Card>
-
-        {/* CTA */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("nis2Bankwesen.ctaCard.heading")}</CardTitle>
-            <CardDescription>
-              {t("nis2Bankwesen.ctaCard.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button asChild>
-              <Link href="/applicability">{t("nis2Bankwesen.cta")}</Link>
-            </Button>
           </CardContent>
         </Card>
       </div>

@@ -1,20 +1,19 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
-import { pageAlternates, pageOg, type Locale } from "@/lib/seo";
+import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkSteps } from "@/components/wiki/WalkSteps";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -28,10 +27,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: pageAlternates(
-      "wiki/anwendungsbereich/bin-ich-stadtwerk-nis2",
-      locale,
-    ),
+    alternates: pageAlternates("wiki/anwendungsbereich/bin-ich-stadtwerk-nis2", locale),
     ...pageOg({
       slug: "wiki/anwendungsbereich/bin-ich-stadtwerk-nis2",
       locale,
@@ -54,8 +50,7 @@ export default async function BinIchStadtwerkNis2Page({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale =
-    rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
   const t = await getTranslations("info");
 
   return (
@@ -77,9 +72,7 @@ export default async function BinIchStadtwerkNis2Page({
           <Badge variant="secondary" className="mb-3">
             Anhang I Sektoren 1, 6, 7, 8 NIS 2
           </Badge>
-          <h1 className="text-3xl font-bold tracking-tight">
-            {t("amIStadtwerk.title")}
-          </h1>
+          <h1 className="text-3xl font-bold tracking-tight">{t("amIStadtwerk.title")}</h1>
           <p className="mt-2 text-lg text-muted-foreground">
             {t("amIStadtwerk.subtitle")}
           </p>
@@ -114,9 +107,7 @@ export default async function BinIchStadtwerkNis2Page({
         <Card>
           <CardHeader>
             <CardTitle>{t("amIStadtwerk.legalAnchor.heading")}</CardTitle>
-            <CardDescription>
-              {t("amIStadtwerk.legalAnchor.description")}
-            </CardDescription>
+            <CardDescription>{t("amIStadtwerk.legalAnchor.description")}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -141,9 +132,7 @@ export default async function BinIchStadtwerkNis2Page({
         <Card>
           <CardHeader>
             <CardTitle>{t("amIStadtwerk.elements.heading")}</CardTitle>
-            <CardDescription>
-              {t("amIStadtwerk.elements.description")}
-            </CardDescription>
+            <CardDescription>{t("amIStadtwerk.elements.description")}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 sm:grid-cols-3">
@@ -168,9 +157,7 @@ export default async function BinIchStadtwerkNis2Page({
         <Card>
           <CardHeader>
             <CardTitle>{t("amIStadtwerk.principles.heading")}</CardTitle>
-            <CardDescription>
-              {t("amIStadtwerk.principles.description")}
-            </CardDescription>
+            <CardDescription>{t("amIStadtwerk.principles.description")}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -221,9 +208,7 @@ export default async function BinIchStadtwerkNis2Page({
         <Card>
           <CardHeader>
             <CardTitle>{t("amIStadtwerk.pitfalls.heading")}</CardTitle>
-            <CardDescription>
-              {t("amIStadtwerk.pitfalls.description")}
-            </CardDescription>
+            <CardDescription>{t("amIStadtwerk.pitfalls.description")}</CardDescription>
           </CardHeader>
           <CardContent>
             <ul className="space-y-4">
@@ -256,21 +241,6 @@ export default async function BinIchStadtwerkNis2Page({
           </CardContent>
         </Card>
 
-        {/* Platform */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("amIStadtwerk.platform.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("amIStadtwerk.platform.p1")}
-            </p>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("amIStadtwerk.platform.p2")}
-            </p>
-          </CardContent>
-        </Card>
-
         {/* Sources */}
         <Card>
           <CardHeader>
@@ -278,35 +248,20 @@ export default async function BinIchStadtwerkNis2Page({
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">
-              {(t.raw("amIStadtwerk.sources.items") as string[]).map(
-                (source, i) => (
-                  <li
-                    key={i}
-                    className="flex items-start gap-2 text-xs text-muted-foreground"
-                  >
-                    <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
-                    {source}
-                  </li>
-                ),
-              )}
+              {(t.raw("amIStadtwerk.sources.items") as string[]).map((source) => (
+                <li
+                  key={source}
+                  className="flex items-start gap-2 text-xs text-muted-foreground"
+                >
+                  <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
+                  {source}
+                </li>
+              ))}
             </ul>
           </CardContent>
         </Card>
 
-        {/* CTA */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("amIStadtwerk.ctaCard.heading")}</CardTitle>
-            <CardDescription>
-              {t("amIStadtwerk.ctaCard.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button asChild>
-              <Link href="/applicability">{t("amIStadtwerk.cta")}</Link>
-            </Button>
-          </CardContent>
-        </Card>
+        <WalkSteps codes={["12.2"]} />
       </div>
     </GlossedProse>
   );

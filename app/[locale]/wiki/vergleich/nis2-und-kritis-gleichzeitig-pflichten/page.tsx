@@ -1,20 +1,18 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
-import { pageAlternates, pageOg, type Locale } from "@/lib/seo";
+import { GlossedProse } from "@/components/wiki/GlossedProse";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -58,8 +56,7 @@ export default async function Nis2AndKritisSimultaneousPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale =
-    rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
   const t = await getTranslations("info");
 
   return (
@@ -117,9 +114,7 @@ export default async function Nis2AndKritisSimultaneousPage({
         {/* Legal anchor */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("nis2AndKritisSimultaneous.legalAnchor.heading")}
-            </CardTitle>
+            <CardTitle>{t("nis2AndKritisSimultaneous.legalAnchor.heading")}</CardTitle>
             <CardDescription>
               {t("nis2AndKritisSimultaneous.legalAnchor.description")}
             </CardDescription>
@@ -146,9 +141,7 @@ export default async function Nis2AndKritisSimultaneousPage({
         {/* Three elements */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("nis2AndKritisSimultaneous.elements.heading")}
-            </CardTitle>
+            <CardTitle>{t("nis2AndKritisSimultaneous.elements.heading")}</CardTitle>
             <CardDescription>
               {t("nis2AndKritisSimultaneous.elements.description")}
             </CardDescription>
@@ -158,9 +151,7 @@ export default async function Nis2AndKritisSimultaneousPage({
               {elementKeys.map((key) => (
                 <div key={key} className="rounded-lg border p-4">
                   <Badge variant="outline" className="mb-2 text-[10px]">
-                    {t(
-                      `nis2AndKritisSimultaneous.elements.items.${key}.section`,
-                    )}
+                    {t(`nis2AndKritisSimultaneous.elements.items.${key}.section`)}
                   </Badge>
                   <p className="text-sm font-semibold">
                     {t(`nis2AndKritisSimultaneous.elements.items.${key}.title`)}
@@ -177,9 +168,7 @@ export default async function Nis2AndKritisSimultaneousPage({
         {/* Two principles */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("nis2AndKritisSimultaneous.principles.heading")}
-            </CardTitle>
+            <CardTitle>{t("nis2AndKritisSimultaneous.principles.heading")}</CardTitle>
             <CardDescription>
               {t("nis2AndKritisSimultaneous.principles.description")}
             </CardDescription>
@@ -189,14 +178,10 @@ export default async function Nis2AndKritisSimultaneousPage({
               {principleKeys.map((key) => (
                 <div key={key} className="rounded-lg border p-4">
                   <p className="text-sm font-semibold">
-                    {t(
-                      `nis2AndKritisSimultaneous.principles.items.${key}.title`,
-                    )}
+                    {t(`nis2AndKritisSimultaneous.principles.items.${key}.title`)}
                   </p>
                   <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                    {t(
-                      `nis2AndKritisSimultaneous.principles.items.${key}.body`,
-                    )}
+                    {t(`nis2AndKritisSimultaneous.principles.items.${key}.body`)}
                   </p>
                 </div>
               ))}
@@ -207,9 +192,7 @@ export default async function Nis2AndKritisSimultaneousPage({
         {/* National view */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("nis2AndKritisSimultaneous.nationalView.heading")}
-            </CardTitle>
+            <CardTitle>{t("nis2AndKritisSimultaneous.nationalView.heading")}</CardTitle>
             <CardDescription>
               {t("nis2AndKritisSimultaneous.nationalView.description")}
             </CardDescription>
@@ -220,20 +203,14 @@ export default async function Nis2AndKritisSimultaneousPage({
                 <div key={key} className="rounded-lg border p-4">
                   <div className="flex flex-wrap items-baseline gap-2">
                     <Badge variant="outline" className="text-[10px]">
-                      {t(
-                        `nis2AndKritisSimultaneous.nationalView.items.${key}.country`,
-                      )}
+                      {t(`nis2AndKritisSimultaneous.nationalView.items.${key}.country`)}
                     </Badge>
                     <p className="text-sm font-semibold">
-                      {t(
-                        `nis2AndKritisSimultaneous.nationalView.items.${key}.label`,
-                      )}
+                      {t(`nis2AndKritisSimultaneous.nationalView.items.${key}.label`)}
                     </p>
                   </div>
                   <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                    {t(
-                      `nis2AndKritisSimultaneous.nationalView.items.${key}.body`,
-                    )}
+                    {t(`nis2AndKritisSimultaneous.nationalView.items.${key}.body`)}
                   </p>
                 </div>
               ))}
@@ -244,9 +221,7 @@ export default async function Nis2AndKritisSimultaneousPage({
         {/* Pitfalls */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("nis2AndKritisSimultaneous.pitfalls.heading")}
-            </CardTitle>
+            <CardTitle>{t("nis2AndKritisSimultaneous.pitfalls.heading")}</CardTitle>
             <CardDescription>
               {t("nis2AndKritisSimultaneous.pitfalls.description")}
             </CardDescription>
@@ -259,9 +234,7 @@ export default async function Nis2AndKritisSimultaneousPage({
                     {t(`nis2AndKritisSimultaneous.pitfalls.items.${key}.myth`)}
                   </p>
                   <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                    {t(
-                      `nis2AndKritisSimultaneous.pitfalls.items.${key}.reality`,
-                    )}
+                    {t(`nis2AndKritisSimultaneous.pitfalls.items.${key}.reality`)}
                   </p>
                 </li>
               ))}
@@ -272,9 +245,7 @@ export default async function Nis2AndKritisSimultaneousPage({
         {/* Practitioner view */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("nis2AndKritisSimultaneous.practitioner.heading")}
-            </CardTitle>
+            <CardTitle>{t("nis2AndKritisSimultaneous.practitioner.heading")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <p className="text-sm leading-relaxed text-muted-foreground">
@@ -286,63 +257,25 @@ export default async function Nis2AndKritisSimultaneousPage({
           </CardContent>
         </Card>
 
-        {/* Platform recommendation */}
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              {t("nis2AndKritisSimultaneous.platform.heading")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("nis2AndKritisSimultaneous.platform.p1")}
-            </p>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("nis2AndKritisSimultaneous.platform.p2")}
-            </p>
-          </CardContent>
-        </Card>
-
         {/* Sources */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("nis2AndKritisSimultaneous.sources.heading")}
-            </CardTitle>
+            <CardTitle>{t("nis2AndKritisSimultaneous.sources.heading")}</CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">
-              {(
-                t.raw("nis2AndKritisSimultaneous.sources.items") as string[]
-              ).map((source, i) => (
-                <li
-                  key={i}
-                  className="flex items-start gap-2 text-xs text-muted-foreground"
-                >
-                  <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
-                  {source}
-                </li>
-              ))}
+              {(t.raw("nis2AndKritisSimultaneous.sources.items") as string[]).map(
+                (source) => (
+                  <li
+                    key={source}
+                    className="flex items-start gap-2 text-xs text-muted-foreground"
+                  >
+                    <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
+                    {source}
+                  </li>
+                ),
+              )}
             </ul>
-          </CardContent>
-        </Card>
-
-        {/* CTA */}
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              {t("nis2AndKritisSimultaneous.ctaCard.heading")}
-            </CardTitle>
-            <CardDescription>
-              {t("nis2AndKritisSimultaneous.ctaCard.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button asChild>
-              <Link href="/auth/signin">
-                {t("nis2AndKritisSimultaneous.cta")}
-              </Link>
-            </Button>
           </CardContent>
         </Card>
       </div>

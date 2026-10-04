@@ -259,14 +259,14 @@
     },
     "whatIsNisd2": {
       "meta": {
-        "title": "Co je nisd2.eu ve skutečnosti: bezplatný, otevřený registr povinností pro NIS 2",
-        "description": "nisd2.eu je bezplatná open source platforma pro implementaci NIS 2 v segmentu Mittelstand: strukturovaný registr povinností s právním základem ke každému požadavku, průběžná auditní stopa a žádný lock-in. Takto funguje."
+        "title": "Co je nisd2.eu ve skutečnosti: open source průvodce NIS 2 krok za krokem",
+        "description": "nisd2.eu provede firmu krok za krokem 49 požadavky NIS 2, s právním základem ke každému a se schválením vedení zaznamenaným v aplikaci. Open source, bez licenčního poplatku při vlastním provozu, žádný lock-in. Takto funguje."
       },
       "title": "Co je nisd2.eu ve skutečnosti",
-      "subtitle": "Bezplatná open source platforma pro NIS 2 pro evropský Mittelstand. Žádný lock-in, žádný prodej založený na strachu.",
+      "subtitle": "Open source průvodce NIS 2 krok za krokem pro evropský Mittelstand. Žádný lock-in, žádný prodej založený na strachu.",
       "overview": {
-        "heading": "Registr povinností, nikoli další vyplňovač formulářů",
-        "p1": "nisd2.eu není dalším GRC nástrojem, který každý požadavek rozkládá na formuláře. Je to strukturovaný registr povinností. Přebírá povinnosti ze směrnice NIS 2 (EU) 2022/2555 a její německé transpozice v BSIG, ke každému požadavku přiřazuje jeho právní základ a provede vás implementací ve smysluplném pořadí.",
+        "heading": "Provázený postup, nikoli další vyplňovač formulářů",
+        "p1": "nisd2.eu není dalším GRC nástrojem, který každý požadavek rozkládá na formuláře. Je to provázený postup. Přebírá povinnosti ze směrnice NIS 2 (EU) 2022/2555, s její německou transpozicí v BSIG jako referenčním textem, ke každému požadavku přiřazuje jeho právní základ a provede vás implementací ve smysluplném pořadí.",
         "p2": "Skutečným problémem v segmentu Mittelstand je jen zřídka nedostatek znalostí. Je to nedostatek struktury. Právě zde platforma začíná."
       },
       "sections": {
@@ -282,7 +282,7 @@
         },
         "funding": {
           "heading": "Jak jsme financováni",
-          "p1": "Platforma je bezplatná a open source. Očekáváme, že budeme vydělávat prostřednictvím školení, hostingu a partnerských nabídek, nikoli prostřednictvím licenčních poplatků za jednotlivé požadavky.",
+          "p1": "Kód je open source pod licencí AGPL a při vlastním provozu neplatíte žádný licenční poplatek. Provázený postup hostovaný na nisd2.eu má jednu roční cenu; kurzy a wiki nestojí nic. Neúčtujeme za jednotlivé požadavky.",
           "p2": "Je to záměrná volba. NIS 2 by neměl segment Mittelstand stát desítky tisíc eur."
         },
         "notUs": {
@@ -294,8 +294,8 @@
       "faq": {
         "heading": "Často kladené dotazy",
         "q1": {
-          "q": "Je platforma opravdu zdarma?",
-          "a": "Ano. Používání je bezplatné a kód je open source. Projekt plánujeme financovat prostřednictvím školení, hostingu a partnerských nabídek."
+          "q": "Kolik platforma stojí?",
+          "a": "Kurzy a wiki nestojí nic a open source kód můžete provozovat na vlastních serverech bez licenčního poplatku. Provázený postup na nisd2.eu má jednu roční cenu, uvedenou na stránce s cenami."
         },
         "q2": {
           "q": "Potřebuji účet?",
@@ -345,7 +345,7 @@
         },
         "noLockin": {
           "heading": "Žádný lock-in",
-          "p1": "Váš registr povinností, vaše doklady a váš proces by měly patřit vám. U otevřených nástrojů můžete exportovat, provozovat ve vlastní režii nebo změnit poskytovatele, aniž byste začínali znovu.",
+          "p1": "Vaše záznamy, vaše doklady a váš proces by měly patřit vám. U otevřených nástrojů můžete exportovat, provozovat ve vlastní režii nebo změnit poskytovatele, aniž byste začínali znovu.",
           "p2": "Lock-in je náklad, který se ukáže až v den, kdy chcete odejít."
         },
         "whenSaas": {
@@ -466,12 +466,12 @@
         },
         "support": {
           "heading": "Podpora a záruky",
-          "p1": "Open source jen zřídka přichází s podnikovou dohodou o podpoře. Komunitní podpora se liší rychlostí a bezplatná úroveň je ze své podstaty na bázi maximálního úsilí.",
-          "p2": "Naše odpověď: placené úrovně podpory a hostingu existují pro týmy, které potřebují zaručenou reakci, a otevřeně říkáme, že bezplatná úroveň není SLA."
+          "p1": "Open source jen zřídka přichází s podnikovou dohodou o podpoře. Komunitní podpora se liší rychlostí a pomoc při vlastním provozu je ze své podstaty na bázi maximálního úsilí.",
+          "p2": "Naše odpověď: pokud potřebujete, aby vám to někdo provozoval, postup hostovaný na nisd2.eu provozujeme my a otevřeně říkáme, že komunitní pomoc při vlastním provozu není SLA."
         },
         "maturity": {
           "heading": "Vyzrálost a integrace",
-          "p1": "Dobře financovaný americký SaaS bude mít často více certifikovaných integrací a více vyladěnosti. Některé funkce, které stojí vývojový čas, patří do prémiové úrovně, nikoli do bezplatné nabídky.",
+          "p1": "Dobře financovaný americký SaaS bude mít často více certifikovaných integrací a více vyladěnosti.",
           "p2": "Naše odpověď: pro většinu společností segmentu Mittelstand je úzkým hrdlem v rámci NIS 2 struktura a čistá auditní stopa, nikoli počet integrací. Stavíme nejprve pro tuto potřebu."
         },
         "accountability": {
@@ -483,8 +483,8 @@
       "faq": {
         "heading": "Často kladené dotazy",
         "q1": {
-          "q": "Je bezplatná verze opravdu zdarma, nebo je to zkušební verze?",
-          "a": "Je bezplatná k užívání, nikoli časově omezená zkušební verze. Projekt plánujeme financovat prostřednictvím školení, hostingu a partnerských nabídek, nikoli licencemi za jednotlivá místa."
+          "q": "Je vlastní provoz opravdu bez licenčního poplatku, nebo je to zkušební verze?",
+          "a": "Vlastní provoz open source kódu nestojí žádný licenční poplatek a není časově omezen. Postup hostovaný na nisd2.eu je placená nabídka s jednou roční cenou."
         },
         "q2": {
           "q": "Co se stane, pokud bude projekt opuštěn?",
@@ -2806,7 +2806,7 @@
         "description": "Tři vrstvy navršené na sebe. Směrnice (závazná pro každou zemi EU). Prováděcí nařízení (přímo použitelné právo EU pro odvětví uvedená v příloze). Národní transpozice (v Německu: BSIG).",
         "directive": {
           "label": "Článek 21 odst. 2 písm. a) směrnice NIS 2 (2022/2555)",
-          "quote": "Zásady analýzy rizik a bezpečnosti informačních systémů.",
+          "quote": "Politiku analýzy rizik a politiku bezpečnosti informačních systémů.",
           "context": "Toto je bod a) na seznamu deseti opatření kybernetické bezpečnosti, která musí zavést každý základní a důležitý subjekt."
         },
         "regulation": {
@@ -3381,12 +3381,12 @@
         "description": "Tři vrstvy. Pravidlo působnosti NIS 2 říká, kdo je uvnitř. Opatření k dodavatelskému řetězci v článku 21 říká, co musí kupující v působnosti udělat ohledně svých dodavatelů. Německé provedení (§30 BSIG) ukotvuje povinnost kupujícího do vnitrostátního práva.",
         "directive": {
           "label": "Směrnice NIS 2 (EU) 2022/2555, čl. 2 odst. 1",
-          "quote": "This Directive applies to public or private entities of a type referred to in Annex I or II which qualify as medium-sized enterprises under Article 2 of the Annex to Recommendation 2003/361/EC, or exceed the ceilings for medium-sized enterprises provided for in paragraph 1 of that Article, and which provide their services or carry out their activities within the Union.",
+          "quote": "Tato směrnice se vztahuje na veřejné a soukromé subjekty, jejichž druhy jsou uvedeny v příloze I nebo II a které jsou považovány podle článku 2 přílohy doporučení 2003/361/ES za střední podniky, nebo které překračují stropy pro střední podniky stanovené v odstavci 1 uvedeného článku a které poskytují služby nebo vykonávají činnosti v rámci Unie.",
           "context": "Působnost je vázána na dvě skutečnosti o samotném subjektu: sektor v příloze I nebo II a velikostní práh. Vztahy se zákazníky, smlouvy a vazby v dodavatelském řetězci v textu nejsou a působnost nerozšiřují. Čl. 2 odst. 2 až 4 přidává několik výjimek bez ohledu na velikost pro konkrétní typy subjektů, ale žádnou z nich nespouští to, že jste něčím dodavatelem."
         },
         "regulation": {
           "label": "NIS 2 čl. 21 odst. 2 písm. d) + prováděcí nařízení Komise (EU) 2024/2690 §5",
-          "quote": "supply chain security, including security-related aspects concerning the relationships between each entity and its direct suppliers or service providers.",
+          "quote": "bezpečnost dodavatelského řetězce včetně bezpečnostních aspektů týkajících se vztahů mezi každým subjektem a jeho přímými dodavateli nebo poskytovateli služeb.",
           "context": "Článek 21 odst. 2 písm. d) ukládá povinnost subjektu NIS 2 (kupujícímu), nikoli dodavateli. CIR 2024/2690 §5 z toho dělá politiku bezpečnosti dodavatelů s písemnými kritérii výběru a registr rizik dodavatelů. Dodavatel dělá to, co říká smlouva. Regulátor mluví jen s kupujícím."
         },
         "transposition": {
@@ -3513,7 +3513,7 @@
         "description": "Tři vrstvy nad sebou: pravidlo působnosti směrnice, definice malých a středních podniků, na kterou odkazuje, a příklad německé transpozice.",
         "directive": {
           "label": "Článek 2 NIS 2 (působnost)",
-          "quote": "Tato směrnice se vztahuje na veřejné nebo soukromé subjekty některého z typů uvedených v příloze I nebo II, které se kvalifikují jako střední podniky podle článku 2 přílohy doporučení 2003/361/ES nebo překračují stropy pro střední podniky stanovené v odstavci 1 uvedeného článku a které poskytují své služby nebo vykonávají své činnosti v rámci Unie.",
+          "quote": "Tato směrnice se vztahuje na veřejné a soukromé subjekty, jejichž druhy jsou uvedeny v příloze I nebo II a které jsou považovány podle článku 2 přílohy doporučení 2003/361/ES za střední podniky, nebo které překračují stropy pro střední podniky stanovené v odstavci 1 uvedeného článku a které poskytují služby nebo vykonávají činnosti v rámci Unie.",
           "context": "Působnost se váže na subjekt, který sám provádí činnost podle přílohy I nebo II. Článek 2(2) a (3) doplňují výjimky \"bez ohledu na velikost\" (DNS, registry TLD, kvalifikovaní poskytovatelé služeb vytvářejících důvěru, poskytovatelé veřejných sítí elektronických komunikací, výhradní poskytovatelé základních služeb a další), které zatahují jednotlivé subjekty i pod práh malých a středních podniků."
         },
         "regulation": {
@@ -7387,7 +7387,7 @@
         "description": "Tři vrstvy naskládané na sebe. Směrnice (závazná pro každou zemi EU). Prováděcí nařízení (přímo použitelné právo EU pro sektory uvedené v příloze). Národní transpozice (v Německu: BSIG).",
         "directive": {
           "label": "Článek 21(2)(j) směrnice NIS 2 (2022/2555)",
-          "quote": "používání řešení vícefaktorové autentizace nebo průběžné autentizace, zabezpečené hlasové, video a textové komunikace a zabezpečených systémů nouzové komunikace uvnitř subjektu, je-li to vhodné.",
+          "quote": "v příslušných případech používání vícefaktorových autentizačních řešení nebo trvalých autentizačních řešení, zabezpečené hlasové, obrazové a textové komunikace a zabezpečených systémů nouzové komunikace v rámci subjektu.",
           "context": "Bod (j) v seznamu deseti opatření kybernetické bezpečnosti. Dělá dvě věci najednou: jmenuje MFA (nebo průběžnou autentizaci) jako standard řízení přístupu a vtahuje zabezpečenou interní hlasovou, video, textovou a nouzovou komunikaci do téže povinnosti."
         },
         "regulation": {
@@ -7397,7 +7397,7 @@
         },
         "transposition": {
           "label": "§30(2)(10) BSIG (Německo)",
-          "quote": "používání řešení vícefaktorové autentizace nebo průběžné autentizace, zabezpečené hlasové, video a textové komunikace a zabezpečených systémů nouzové komunikace uvnitř subjektu, je-li to vhodné.",
+          "quote": "v příslušných případech používání vícefaktorových autentizačních řešení nebo trvalých autentizačních řešení, zabezpečené hlasové, obrazové a textové komunikace a zabezpečených systémů nouzové komunikace v rámci subjektu.",
           "context": "Německo kopíruje text EU téměř slovo od slova. Praktická operacionalizace v Německu míří na baustein ORP.4 z IT-Grundschutz (správa identit a přístupů), což je referenční katalog BSI pro správné nastavení autentizace v provozu."
         }
       },
@@ -7519,7 +7519,7 @@
         "description": "Tři vrstvy navršené na sebe. Směrnice (závazná pro každou zemi EU). Prováděcí nařízení (přímo použitelné právo EU pro odvětví uvedená v příloze). Národní transpozice (v Německu: BSIG).",
         "directive": {
           "label": "Článek 21 odst. 2 písm. h) směrnice NIS 2 (2022/2555)",
-          "quote": "Zásady a postupy týkající se používání kryptografie a případně šifrování.",
+          "quote": "Politiky a postupy týkající se používání kryptografie a případně šifrování.",
           "context": "Bod h) na seznamu deseti opatření kybernetické bezpečnosti, která musí zavést každý základní a důležitý subjekt. \"Případně\" se vztahuje na šifrování (aplikaci), nikoli na existenci zásad (která je povinná)."
         },
         "regulation": {
@@ -7652,12 +7652,12 @@
         "description": "Tři vrstvy. Směrnice (právo EU, stanoví standard). Transpoziční povinnost (článek 41 NIS 2, ukládá členským státům jednat). Samotná transpozice (NIS2UmsuCG → novelizovaný BSIG).",
         "directive": {
           "label": "Směrnice NIS 2 (EU) 2022/2555",
-          "quote": "Tato směrnice stanoví opatření, jejichž cílem je dosáhnout vysoké společné úrovně kybernetické bezpečnosti v celé Unii.",
+          "quote": "Touto směrnicí se stanoví opatření, jejichž účelem je dosáhnout vysoké společné úrovně kybernetické bezpečnosti v rámci Unie.",
           "context": "NIS 2 je směrnice. Byla přijata 14. prosince 2022 a vstoupila v platnost 16. ledna 2023. Zavazuje každý členský stát ke stejnému standardu. Podstata každého vnitrostátního zákona NIS 2 v EU vychází z tohoto textu."
         },
         "regulation": {
           "label": "Článek 41 odst. 1 NIS 2",
-          "quote": "Do 17. října 2024 přijmou a zveřejní členské státy předpisy nezbytné pro dosažení souladu s touto směrnicí. Neprodleně o nich uvědomí Komisi. Tyto předpisy použijí ode dne 18. října 2024.",
+          "quote": "Členské státy do 17. října 2024 přijmou a zveřejní opatření nezbytná pro dosažení souladu s touto směrnicí. Neprodleně o nich uvědomí Komisi. Použijí tato opatření ode dne 18. října 2024.",
           "context": "Článek 41 je transpoziční ustanovení. Stanovil dvě data. Vnitrostátní zákony musely být přijaty do 17. října 2024. Povinnosti se musely uplatňovat od 18. října 2024. Německo nestihlo ani jedno. Komise zahájila v listopadu 2024 řízení o nesplnění povinnosti proti opožděně transponujícím členským státům."
         },
         "transposition": {
@@ -7916,7 +7916,7 @@
         "description": "Tři vrstvy. Směrnice (závazná pro každou zemi EU). Prováděcí nařízení (přímo použitelné právo EU pro odvětví uvedená v příloze). Vnitrostátní transpozice (v Německu: BSIG).",
         "directive": {
           "label": "Čl. 21 odst. 2 písm. c) směrnice NIS 2 (2022/2555)",
-          "quote": "Kontinuita činností, jako je řízení zálohování a obnova provozu po havárii, a řízení krizí.",
+          "quote": "Řízení kontinuity provozu, jako je například správa zálohování a obnova provozu po havárii, a krizové řízení.",
           "context": "Bod c) na seznamu deseti kybernetických opatření, která musí každý základní a důležitý subjekt zavést. Jeden řádek, tři spojené povinnosti."
         },
         "regulation": {
@@ -7926,7 +7926,7 @@
         },
         "transposition": {
           "label": "§ 30 odst. 2 bod 3 BSIG (Německo)",
-          "quote": "Kontinuita činností, jako je řízení zálohování a obnova provozu po havárii, a řízení krizí.",
+          "quote": "Řízení kontinuity provozu, jako je například správa zálohování a obnova provozu po havárii, a krizové řízení.",
           "context": "Německo kopíruje znění směrnice. Infopakete od BSI uvádí kontinuitu provozu jako jedno z deseti opatření podle čl. 21 odst. 2, která musí každý základní a důležitý subjekt pokrýt."
         }
       },
@@ -8048,7 +8048,7 @@
         "description": "Tři vrstvy poskládané na sebe. Směrnice (závazná pro každou zemi EU). Prováděcí nařízení (přímo použitelné právo EU pro sektory uvedené v příloze). Vnitrostátní transpozice (v Německu: BSIG).",
         "directive": {
           "label": "Článek 21 odst. 2 písm. e) směrnice NIS 2 (2022/2555)",
-          "quote": "Bezpečnost při pořizování, vývoji a údržbě sítí a informačních systémů, včetně zveřejňování a řešení zranitelností.",
+          "quote": "Zabezpečení pořizování, vývoje a údržby sítí a informačních systémů, včetně zveřejňování zranitelností a jejich řešení.",
           "context": "Toto je bod e) na seznamu deseti opatření kybernetické bezpečnosti, která musí zavést každý základní a důležitý subjekt. Je to jediný bod na seznamu, který se výslovně táhne od objednávky po konec životnosti."
         },
         "regulation": {
@@ -8180,7 +8180,7 @@
         "description": "Tři vrstvy naskládané na sobě. Směrnice (závazná pro každou zemi EU). Prováděcí nařízení (přímo použitelné právo EU pro odvětví uvedená v příloze). Národní transpozice (v Německu: BSIG).",
         "directive": {
           "label": "Článek 21(2)(f) směrnice NIS 2 (2022/2555)",
-          "quote": "Politiky a postupy k posuzování účinnosti opatření k řízení rizik v oblasti kybernetické bezpečnosti.",
+          "quote": "Politiky a postupy za účelem posouzení účinnosti opatření k řízení kybernetických bezpečnostních rizik.",
           "context": "Bod (f) na seznamu deseti opatření kybernetické bezpečnosti, která musí každý nezbytný a důležitý subjekt zavést. Směrnice neříká, jak často nebo s jakými KPI. To je ponecháno na CIR §7."
         },
         "regulation": {
@@ -8190,7 +8190,7 @@
         },
         "transposition": {
           "label": "§30(2)(6) BSIG (Německo)",
-          "quote": "Politiky a postupy k posuzování účinnosti opatření k řízení rizik v oblasti kybernetické bezpečnosti.",
+          "quote": "Politiky a postupy za účelem posouzení účinnosti opatření k řízení kybernetických bezpečnostních rizik.",
           "context": "Německo kopíruje text EU téměř slovo od slova. BSI očekává, že při auditu ukážete na doložený koncept hodnocení, ne na nahodilou tabulku."
         }
       },
@@ -8312,12 +8312,12 @@
         "description": "Tři vrstvy. Směrnice pojmenovává povinnost. Prováděcí nařízení stanoví podrobnosti pro digitální poskytovatele uvedené v jeho čl. 1. Německá transpozice přebírá povinnost do národního práva.",
         "directive": {
           "label": "Článek 21 odst. 2 písm. e) směrnice NIS 2 (2022/2555)",
-          "quote": "Bezpečnost při pořizování, vývoji a údržbě sítí a informačních systémů, včetně nakládání se zranitelnostmi a jejich zveřejňování.",
+          "quote": "Zabezpečení pořizování, vývoje a údržby sítí a informačních systémů, včetně zveřejňování zranitelností a jejich řešení.",
           "context": "Bod e) na seznamu deseti opatření. Všimněte si rámování: nakládání se zranitelnostmi a jejich zveřejňování sedí uvnitř širší povinnosti kolem pořizování, vývoje a údržby. CIR to rozděluje do samostatných bodů (6.1 pořizování, 6.10 zranitelnosti)."
         },
         "regulation": {
           "label": "CIR (EU) 2024/2690, příloha §6.10",
-          "quote": "Dotčené subjekty získávají informace o technických zranitelnostech ve svých sítích a informačních systémech, posuzují svou expozici těmto zranitelnostem a přijímají vhodná opatření k jejich řízení.",
+          "quote": "Příslušné subjekty získají informace o technických zranitelnostech svých sítí a informačních systémů, vyhodnotí, zda jsou těmto zranitelnostem vystaveny, a přijmou vhodná opatření k řízení těchto zranitelností.",
           "context": "Přímo závazné právo EU pro druhy subjektů uvedené v čl. 1 CIR (DNS, TLD, cloud, datová centra, MSP, služby vytvářející důvěru a další). §6.10.2 vyjmenovává pět konkrétních činností. §6.10.3 říká, že pokud zmírnění vynecháte, zapíšete proč. §6.10.4 říká, že kanály, které používáte ke sledování informací o zranitelnostech, přezkoumáváte v plánovaných intervalech."
         },
         "transposition": {
@@ -8576,7 +8576,7 @@
         "description": "Tři vrstvy. Směrnice (závazná pro každou zemi EU). Prováděcí nařízení (přímo použitelné právo EU pro odvětví uvedená v příloze). Vnitrostátní transpozice (v Německu: BSIG).",
         "directive": {
           "label": "Čl. 21 odst. 2 písm. i) směrnice NIS 2 (2022/2555)",
-          "quote": "Bezpečnost lidských zdrojů, zásady řízení přístupu a správa aktiv.",
+          "quote": "Bezpečnost lidských zdrojů, postupy kontroly přístupu a správa aktiv.",
           "context": "Bod i) na seznamu deseti kybernetických opatření, která musí každý základní a důležitý subjekt zavést. Tři povinnosti vtěsnané do jednoho odstavce, protože fungují jen společně."
         },
         "regulation": {
@@ -8708,7 +8708,7 @@
         "description": "Tři vrstvy navršené na sebe. Směrnice (závazná pro každou zemi EU). Prováděcí nařízení (přímo použitelné právo EU pro odvětví uvedená v příloze). Národní transpozice (v Německu: BSIG).",
         "directive": {
           "label": "Článek 21 odst. 2 písm. i) směrnice NIS 2 (2022/2555)",
-          "quote": "Bezpečnost lidských zdrojů, zásady řízení přístupu a správa aktiv.",
+          "quote": "Bezpečnost lidských zdrojů, postupy kontroly přístupu a správa aktiv.",
           "context": "Toto je bod i) na seznamu deseti opatření kybernetické bezpečnosti, která musí zavést každý základní a důležitý subjekt. Směrnice slučuje tři povinnosti: personální bezpečnost, řízení přístupu a správu aktiv. CIR §12 je část, která uvádí do praxe polovinu o aktivech."
         },
         "regulation": {
@@ -8841,12 +8841,12 @@
         "description": "Tři vrstvy, ale úroveň směrnice se dělí na dvě písmena. Článek 21 odst. 2 písm. i) pro zásady řízení přístupu (s personální bezpečností a správou aktiv). Článek 21 odst. 2 písm. j) pro MFA a zabezpečenou komunikaci. CIR §11 pak pokrývá obě písmena společně. BSIG je na národní úrovni opět rozděluje.",
         "directive": {
           "label": "Článek 21 odst. 2 písm. i) + j) směrnice NIS 2 (2022/2555)",
-          "quote": "i) Bezpečnost lidských zdrojů, zásady řízení přístupu a správa aktiv. j) Používání vícefaktorového ověřování nebo řešení kontinuálního ověřování, zabezpečené hlasové, video a textové komunikace a zabezpečených systémů nouzové komunikace v rámci subjektu, je-li to vhodné.",
+          "quote": "i) bezpečnost lidských zdrojů, postupy kontroly přístupu a správa aktiv; j) v příslušných případech používání vícefaktorových autentizačních řešení nebo trvalých autentizačních řešení, zabezpečené hlasové, obrazové a textové komunikace a zabezpečených systémů nouzové komunikace v rámci subjektu.",
           "context": "Body i) a j) jsou dvě z deseti opatření článku 21 odst. 2. Bod i) slučuje tři věci, z nichž řízení přístupu je prostřední položka. Bod j) sedí vedle něj na seznamu. CIR bod 11 pokrývá obojí společně."
         },
         "regulation": {
           "label": "CIR (EU) 2024/2690, příloha §11",
-          "quote": "Řízení přístupu (čl. 21 odst. 2 body i) a j) směrnice (EU) 2022/2555).",
+          "quote": "Kontrola přístupu (čl. 21 odst. 2 písm. i) a j) směrnice (EU) 2022/2555).",
           "context": "CIR §11 má sedm pododdílů: §11.1 zásady řízení přístupu, §11.2 správa přístupových práv, §11.3 privilegované účty a účty správy systémů, §11.4 systémy správy systémů, §11.5 identifikace, §11.6 ověřování, §11.7 vícefaktorové ověřování. Toto nařízení váže jen druhy subjektů uvedené v jeho čl. 1 (DNS, TLD, cloud, datová centra, CDN, MSP, MSSP, online tržiště, vyhledávače, sociální sítě, služby vytvářející důvěru)."
         },
         "transposition": {
@@ -8973,7 +8973,7 @@
         "description": "Tři vrstvy navršené na sebe. Směrnice (závazná pro každou zemi EU). Prováděcí nařízení (přímo použitelné právo EU pro odvětví uvedená v příloze). Národní transpozice (v Německu: BSIG).",
         "directive": {
           "label": "Článek 21 odst. 2 písm. c) směrnice NIS 2 (2022/2555)",
-          "quote": "Kontinuita provozu, jako je správa zálohování a obnova po havárii, a krizové řízení.",
+          "quote": "Řízení kontinuity provozu, jako je například správa zálohování a obnova provozu po havárii, a krizové řízení.",
           "context": "Toto je bod c) na seznamu deseti opatření kybernetické bezpečnosti, která musí zavést každý základní a důležitý subjekt. Správa zálohování je jmenována přímo v textu směrnice, nikoli jen zahrabána v prováděcím nařízení."
         },
         "regulation": {
@@ -9106,7 +9106,7 @@
         "description": "Tři vrstvy naskládané na sobě. Směrnice. Prováděcí nařízení. Německá transpozice. Všechny tři říkají totéž jinými slovy.",
         "directive": {
           "label": "Článek 21 odst. 2 písm. e) směrnice NIS 2 (2022/2555)",
-          "quote": "Bezpečnost při pořizování, vývoji a údržbě sítí a informačních systémů, včetně řešení a zveřejňování zranitelností.",
+          "quote": "Zabezpečení pořizování, vývoje a údržby sítí a informačních systémů, včetně zveřejňování zranitelností a jejich řešení.",
           "context": "Bod e) na seznamu článku 21 odst. 2. Pokrývá celý životní cyklus vašich sítí a IT systémů, ne jen běžící stav. CIR § 6 to pak rozdělí do více pododdílů. § 6.7 a § 6.8 jsou ty specifické pro síť."
         },
         "regulation": {
@@ -9238,17 +9238,17 @@
         "description": "Tři vrstvy. Směrnice (závazná pro každou zemi EU). Prováděcí nařízení (přímo použitelné právo EU pro druhy subjektů uvedené v jeho čl. 1). Národní transpozice (v Německu: BSIG).",
         "directive": {
           "label": "Čl. 21 odst. 2 písm. b) směrnice NIS 2 (2022/2555)",
-          "quote": "Zvládání incidentů.",
+          "quote": "Řešení incidentů.",
           "context": "Toto je bod b) v seznamu deseti opatření kybernetické bezpečnosti, která musí zavést každý klíčový a důležitý subjekt. CIR § 3 ho pak uvádí do praxe. Protokolování a monitoring spadají do § 3.2."
         },
         "regulation": {
           "label": "CIR (EU) 2024/2690, příloha § 3.2.1",
-          "quote": "Dotčené subjekty stanoví postupy a použijí nástroje k monitorování a protokolování činností ve svých síťových a informačních systémech tak, aby bylo možné odhalit události, které lze považovat za bezpečnostní incidenty, a reagovat na ně za účelem omezení jejich dopadu.",
+          "quote": "Příslušné subjekty stanoví postupy a používají nástroje pro činnosti v rámci monitorování a vedení protokolů ve svých sítích a informačních systémech s cílem odhalit události, které by mohly být považovány za incidenty, a odpovídajícím způsobem na ně reagovat, aby bylo možné zmírnit dopad.",
           "context": "Protože jde o nařízení (nikoli o směrnici), je přímo závazným právem EU pro druhy subjektů uvedené v jeho čl. 1 (DNS, TLD, cloud, datová centra, CDN, MSP, MSSP, online tržiště, vyhledávače, sociální sítě, služby vytvářející důvěru). Bod 3.2 se pak člení na sedm podbodů pokrývajících typy událostí k protokolování, výstrahy, uchovávání, synchronizaci času a redundanci. Žádná národní transpozice není potřeba."
         },
         "transposition": {
           "label": "§ 30 odst. 2 bod 2 BSIG (Německo)",
-          "quote": "Zvládání incidentů.",
+          "quote": "Řešení incidentů.",
           "context": "Německo přebírá znění EU slovo od slova. IT-Grundschutz nabízí jako stavební kameny OPS.1.1.5 'Protokollierung' a DER.1 'Detektion von sicherheitsrelevanten Ereignissen'; jsou to doporučení, nikoli zákonný základ."
         }
       },
@@ -9911,7 +9911,7 @@
         "description": "Tři vrstvy nad sebou. Směrnice (článek 2 NIS 2 plus příloha I a II). Nařízení o velikosti (doporučení 2003/361/ES, oficiální definice středního podniku v EU). Vnitrostátní transpozice (v Německu: § 28 BSIG).",
         "directive": {
           "label": "Článek 2 odst. 1 směrnice NIS 2 (2022/2555)",
-          "quote": "Tato směrnice se vztahuje na veřejné nebo soukromé subjekty typu uvedeného v příloze I nebo II, které se kvalifikují jako střední podniky podle článku 2 přílohy doporučení 2003/361/ES nebo překračují stropy pro střední podniky stanovené v odstavci 1 uvedeného článku a které poskytují své služby nebo vykonávají své činnosti v rámci Unie.",
+          "quote": "Tato směrnice se vztahuje na veřejné a soukromé subjekty, jejichž druhy jsou uvedeny v příloze I nebo II a které jsou považovány podle článku 2 přílohy doporučení 2003/361/ES za střední podniky, nebo které překračují stropy pro střední podniky stanovené v odstavci 1 uvedeného článku a které poskytují služby nebo vykonávají činnosti v rámci Unie.",
           "context": "Základní test. Sektor (příloha I nebo II), velikost (střední nebo větší), služba poskytovaná v Unii. Článek 2 odst. 2 pak přidává seznam případů bez ohledu na velikost. Článek 2 odst. 3 vtahuje kritické subjekty podle CER. Články 2 odst. 5 až 2 odst. 11 vyjímají národní bezpečnost, obranu, parlamenty, centrální banky a finanční sektor (DORA, lex specialis podle článku 4)."
         },
         "regulation": {
@@ -10858,7 +10858,7 @@
         },
         "regulation": {
           "label": "Článek 6 odst. 39 směrnice NIS 2 (definice MSP)",
-          "quote": "Poskytovatelem řízených služeb se rozumí subjekt, který poskytuje služby související s instalací, správou, provozem nebo údržbou produktů, sítí, infrastruktury, aplikací IKT nebo jakýchkoli jiných sítí a informačních systémů, prostřednictvím asistence nebo aktivní administrace prováděné buď v prostorách zákazníka, nebo na dálku.",
+          "quote": "„poskytovatelem řízených služeb“ subjekt, který poskytuje služby související s instalací, správou, provozem nebo údržbou produktů IKT, sítí, infrastruktury, aplikací nebo jakýchkoli jiných sítí a informačních systémů, a to prostřednictvím asistence nebo aktivní správy, které jsou prováděny buď v prostorách zákazníků, nebo na dálku.",
           "context": "Článek 6 odst. 40 doplňuje definici MSSP: poskytovatel řízených služeb, který provádí nebo poskytuje asistenci u činností souvisejících s řízením kybernetických bezpečnostních rizik. Směrnice volí slovesa záměrně: instalace, správa, provoz, údržba, aktivní administrace. Prodej produktu bez průběžného provozu definici nesplňuje. Help desk, který resetuje hesla, aniž by systémy provozoval, ji rovněž nesplňuje."
         },
         "transposition": {
@@ -11403,7 +11403,7 @@
         },
         "regulation": {
           "label": "Článek 2(1) směrnice NIS 2: test velikosti",
-          "quote": "Tato směrnice se vztahuje na veřejné nebo soukromé subjekty některého z typů uvedených v příloze I nebo II, které se kvalifikují jako střední podniky podle článku 2 přílohy doporučení 2003/361/ES nebo překračují stropy pro střední podniky stanovené v odstavci 1 uvedeného článku.",
+          "quote": "Tato směrnice se vztahuje na veřejné a soukromé subjekty, jejichž druhy jsou uvedeny v příloze I nebo II a které jsou považovány podle článku 2 přílohy doporučení 2003/361/ES za střední podniky, nebo které překračují stropy pro střední podniky stanovené v odstavci 1 uvedeného článku.",
           "context": "Strop velikosti používá definici malých a středních podniků EU. 50 zaměstnanců nebo více, nebo roční obrat nad 10 milionů eur a bilanční suma nad 10 milionů eur. Dosáhněte jednoho z nich a jste v ní. Směrnice uvádí hrstku případů, kde na velikosti nezáleží, ale čistá výroba strojů na tomto seznamu přebití není."
         },
         "transposition": {
@@ -11664,7 +11664,7 @@
         "description": "Tři texty, které je třeba číst společně: velikostní pravidlo NIS 2, doporučení definující velikosti a výjimky NIS 2, které menší subjekty vracejí dovnitř.",
         "directive": {
           "label": "Čl. 2 odst. 1 směrnice NIS 2 (2022/2555)",
-          "quote": "This Directive applies to public or private entities of a type referred to in Annex I or II which qualify as medium-sized enterprises under Article 2 of the Annex to Recommendation 2003/361/EC, or exceed the ceilings for medium-sized enterprises provided for in paragraph 1 of that Article, and which provide their services or carry out their activities within the Union.",
+          "quote": "Tato směrnice se vztahuje na veřejné a soukromé subjekty, jejichž druhy jsou uvedeny v příloze I nebo II a které jsou považovány podle článku 2 přílohy doporučení 2003/361/ES za střední podniky, nebo které překračují stropy pro střední podniky stanovené v odstavci 1 uvedeného článku a které poskytují služby nebo vykonávají činnosti v rámci Unie.",
           "context": "Toto je výchozí pravidlo působnosti. Dva filtry v jedné větě: váš sektor musí být v příloze I nebo II a musíte být alespoň střední podnik podle doporučení 2003/361/ES. Pod úrovní středního podniku se směrnice ve výchozím nastavení neuplatní."
         },
         "regulation": {
@@ -11802,7 +11802,7 @@
         },
         "regulation": {
           "label": "Článek 2 odst. 5 směrnice NIS 2 (vynětí)",
-          "quote": "Tato směrnice se nevztahuje na subjekty veřejné správy, které vykonávají své činnosti v oblastech národní bezpečnosti, veřejné bezpečnosti, obrany nebo vymáhání práva, včetně předcházení trestným činům, jejich vyšetřování, odhalování a stíhání.",
+          "quote": "Tato směrnice se nevztahuje na subjekty veřejné správy, které vykonávají činnosti v oblasti národní bezpečnosti, veřejné bezpečnosti, obrany nebo vymáhání práva, včetně prevence, vyšetřování, odhalování a stíhání trestných činů.",
           "context": "Vynětí je funkční. Vyloučení sleduje činnost, nikoli instituci. Spolkový policejní orgán je mimo pro své systémy vymáhání práva a v působnosti pro své firemní IT. Článek 2 odst. 7 přidává parlamenty a centrální banky. Článek 2 odst. 6 umožňuje členským státům vyjmout subjekty, které vykonávají činnosti podle článku 2 odst. 5 pouze v těchto oblastech."
         },
         "transposition": {
@@ -12474,7 +12474,7 @@
         "description": "Tři vrstvy naskládané na sebe. Směrnice (závazná pro každou zemi EU). Prováděcí nařízení (přímo použitelné právo EU pro sektory uvedené v příloze). Národní transpozice (v Německu: BSIG).",
         "directive": {
           "label": "Článek 21(2)(a) směrnice NIS 2 (2022/2555)",
-          "quote": "Politiky pro analýzu rizik a zabezpečení informačních systémů.",
+          "quote": "Politiku analýzy rizik a politiku bezpečnosti informačních systémů.",
           "context": "Bod (a) v seznamu deseti opatření kybernetické bezpečnosti, která musí zavést každý zásadní a důležitý subjekt. Směrnice nepředepisuje metodu. Předepisuje povinnost."
         },
         "regulation": {
@@ -12614,7 +12614,7 @@
         },
         "regulation": {
           "label": "Prováděcí nařízení Komise (EU) 2024/2690, příloha bod 12.4 (inventář aktiv)",
-          "quote": "12.4.1. Dotčené subjekty vypracují a udržují úplný, přesný, aktuální a konzistentní inventář svých aktiv. Změny záznamů v inventáři zaznamenávají sledovatelným způsobem. 12.4.2. Granularita inventáře aktiv odpovídá potřebám dotčených subjektů. Inventář zahrnuje: a) seznam činností a služeb a jejich popis, b) seznam sítí a informačních systémů a dalších souvisejících aktiv, které podporují činnosti a služby dotčených subjektů. 12.4.3. Dotčené subjekty inventář a svá aktiva pravidelně přezkoumávají a aktualizují a dokumentují historii změn.",
+          "quote": "12.4.1. Příslušné subjekty vypracují a udržují úplný, přesný, aktuální a ucelený soupis svých aktiv. Dohledatelným způsobem zaznamenávají změny položek v soupisu. 12.4.2. Podrobnost soupisu aktiv by měla být na úrovni odpovídající potřebám příslušných subjektů. Soupis obsahuje: a) seznam operací a služeb a jejich popis; b) seznam sítí a informačních systémů a dalších souvisejících aktiv podporujících operace a služby příslušných subjektů. 12.4.3. Příslušné subjekty pravidelně přezkoumávají a aktualizují soupis a svá aktiva a dokumentují historii změn.",
           "context": "CIR 2024/2690 zavazuje jen digitální poskytovatele uvedené v jeho čl. 1 (DNS, TLD, cloud, datová centra, CDN, MSP, MSSP, online tržiště, vyhledávače, sociální sítě, služby vytvářející důvěru). Bod 12.4 od nich žádá úplný, aktuální inventář v granularitě odpovídající jejich potřebám, uvádějící činnosti a služby a systémy za nimi, pravidelně přezkoumávaný. Nejmenuje žádná pole ani interval. U všech ostatních subjektů žádá § 30 odst. 2 bod 9 BSIG koncept správy IT systémů, produktů a procesů, aniž by předepisoval formu."
         },
         "transposition": {
@@ -13146,7 +13146,7 @@
         "description": "Článek 21 NIS 2, prováděcí nařízení Komise a německá transpozice. Rámec řízení rizik je definován na úrovni EU; právo členského státu ho transponuje.",
         "directive": {
           "label": "Článek 21 odst. 1 NIS 2",
-          "quote": "Členské státy zajistí, aby klíčové a důležité subjekty přijaly vhodná a přiměřená technická, provozní a organizační opatření k řízení rizik pro bezpečnost sítí a informačních systémů, které tyto subjekty používají pro svůj provoz nebo pro poskytování svých služeb, a k předcházení dopadům incidentů na příjemce jejich služeb a na jiné služby nebo k jejich minimalizaci. S ohledem na stav techniky a případně na relevantní evropské a mezinárodní normy, jakož i na náklady na implementaci, zajistí opatření uvedená v prvním pododstavci úroveň bezpečnosti sítí a informačních systémů přiměřenou daným rizikům.",
+          "quote": "Členské státy zajistí, aby základní a důležité subjekty přijaly vhodná a přiměřená technická, provozní a organizační opatření k řízení bezpečnostních rizik, jimž čelí sítě a informační systémy, jež tyto subjekty používají pro svůj provoz nebo poskytování svých služeb, a k předcházení incidentům nebo minimalizaci jejich dopadů na příjemce jejich služeb a na další služby. S ohledem na nejnovější technický vývoj a případně na příslušné evropské a mezinárodní normy a na náklady na provádění musí opatření uvedená v prvním pododstavci zajišťovat úroveň bezpečnosti sítí a informačních systémů odpovídající existující míře rizika.",
           "context": "Zdroj: směrnice (EU) 2022/2555, článek 21 odst. 1. Referenčními body jsou stav techniky, relevantní normy a náklady na implementaci. Pojištění na seznamu není."
         },
         "regulation": {
@@ -13278,7 +13278,7 @@
         "description": "NIS 2 je směrnice na úrovni EU. CIR 2024/2690 upřesňuje technické a metodické požadavky pro určité subjekty v digitálním odvětví. Německo transponuje povinnost správy a řízení v §38 BSIG a mění ji v osobní odpovědnost prostřednictvím obecné Sorgfaltspflicht práva obchodních společností.",
         "directive": {
           "label": "Směrnice EU",
-          "quote": "Členské státy zajistí, aby řídící orgány zásadních a důležitých subjektů schvalovaly opatření řízení rizik kybernetické bezpečnosti přijatá těmito subjekty za účelem souladu s článkem 21, dohlížely na jejich zavádění a mohly nést odpovědnost za porušení tohoto článku ze strany subjektů.",
+          "quote": "Členské státy zajistí, aby řídící orgány základních a důležitých subjektů schválily opatření k řízení kybernetických bezpečnostních rizik přijatá těmito subjekty za účelem dosažení souladu s článkem 21, dohlížely nad jeho uplatňováním a mohly nést odpovědnost, poruší-li subjekty uvedený článek.",
           "context": "Článek 20(1) NIS 2 (směrnice (EU) 2022/2555). Povinnost je přiřazena přímo řídícímu orgánu, ne společnosti jako samostatné právnické osobě."
         },
         "regulation": {
@@ -13412,7 +13412,7 @@
         "description": "Text směrnice, prováděcí nařízení pro subjekty digitální infrastruktury a německá transpozice. Citace jsou doslovné z EUR-Lex a gesetze-im-internet.de.",
         "directive": {
           "label": "Článek 21 odst. 2 písm. d) NIS 2",
-          "quote": "bezpečnost dodavatelského řetězce, včetně bezpečnostních aspektů týkajících se vztahů mezi každým subjektem a jeho přímými dodavateli nebo poskytovateli služeb",
+          "quote": "bezpečnost dodavatelského řetězce včetně bezpečnostních aspektů týkajících se vztahů mezi každým subjektem a jeho přímými dodavateli nebo poskytovateli služeb",
           "context": "Jedno z deseti minimálních opatření uvedených v článku 21 odst. 2. Povšimněte si záměrného omezení na přímé dodavatele a poskytovatele služeb. Směrnice doložku nerozšiřuje na subdodavatele n-té úrovně. Recitály 85 a 90 potvrzují, že posouzení je rizikově založené a zohledňuje specifické zranitelnosti každého dodavatele a celkovou kvalitu jeho postupů kybernetické bezpečnosti."
         },
         "regulation": {
@@ -13946,7 +13946,7 @@
         "description": "Na každém phishingovém případu sedí tři vrstvy: směrnice definuje významnost, CIR přidává kvantitativní a kategoriální detail pro digitální infrastrukturu a národní právo transponuje kaskádu.",
         "directive": {
           "label": "Směrnice NIS 2 (EU) 2022/2555, čl. 23 odst. 3",
-          "quote": "Incident se považuje za významný, pokud: a) způsobil nebo je schopen způsobit závažné narušení provozu služeb nebo finanční ztrátu pro dotčený subjekt; b) ovlivnil nebo je schopen ovlivnit jiné fyzické nebo právnické osoby tím, že způsobil značnou hmotnou nebo nehmotnou škodu.",
+          "quote": "Incident se považuje za významný, jestliže: a) dotčenému subjektu způsobil nebo může způsobit závažné provozní narušení služeb nebo finanční ztráty; b) způsobil nebo může způsobit jiným fyzickým nebo právnickým osobám značnou hmotnou nebo nehmotnou újmu.",
           "context": "Toto je jediná obecná definice významného incidentu v právu EU. Oba body používají 'schopen způsobit', takže potenciální škoda se počítá stejně jako skutečná škoda. Phishingová událost, která kompromitovala přihlašovací údaje k privilegovanému účtu, může splnit bod a) ještě předtím, než se nějaká služba skutečně zastavila."
         },
         "regulation": {
@@ -14213,7 +14213,7 @@
         "description": "Situaci řídí tři vrstvy. Směrnice klade povinnost, prováděcí nařízení ji upřesňuje pro subjekty digitální infrastruktury, národní zákon ji transponuje.",
         "directive": {
           "label": "Článek 21(2)(d) NIS 2",
-          "quote": "zabezpečení dodavatelského řetězce, včetně bezpečnostních aspektů týkajících se vztahů mezi každým subjektem a jeho přímými dodavateli nebo poskytovateli služeb.",
+          "quote": "bezpečnost dodavatelského řetězce včetně bezpečnostních aspektů týkajících se vztahů mezi každým subjektem a jeho přímými dodavateli nebo poskytovateli služeb.",
           "context": "Článek se zabývá vztahem k přímým dodavatelům, ne dodavatelem samotným. Subjekt zůstává odpovědný za řízení tohoto vztahu, včetně incidentů, které se z něj šíří."
         },
         "regulation": {
@@ -14223,7 +14223,7 @@
         },
         "transposition": {
           "label": "Článek 23(3) NIS 2",
-          "quote": "incident se považuje za významný, pokud: (a) způsobil nebo je schopen způsobit závažné narušení provozu služeb nebo finanční ztrátu pro dotčený subjekt; (b) zasáhl nebo je schopen zasáhnout jiné fyzické či právnické osoby tím, že způsobil značnou hmotnou nebo nehmotnou škodu.",
+          "quote": "incident se považuje za významný, jestliže: a) dotčenému subjektu způsobil nebo může způsobit závažné provozní narušení služeb nebo finanční ztráty; b) způsobil nebo může způsobit jiným fyzickým nebo právnickým osobám značnou hmotnou nebo nehmotnou újmu.",
           "context": "Článek 23(3) definuje práh významnosti na úrovni subjektu. Incident u dodavatele se posuzuje touto optikou, jakmile dosáhne vlastních služeb subjektu."
         }
       },
@@ -15009,7 +15009,7 @@
         "description": "Směrnice NIS 2, německá transpozice (BSIG) a související kosmický režim EU.",
         "directive": {
           "label": "Směrnice (EU) 2022/2555, příloha I, odvětví 11 (kosmický prostor)",
-          "quote": "Provozovatelé pozemní infrastruktury vlastněné, spravované a provozované členskými státy nebo soukromými stranami, která podporuje poskytování kosmických služeb, s výjimkou poskytovatelů veřejných sítí elektronických komunikací.",
+          "quote": "Provozovatelé pozemních infrastruktur vlastněných, spravovaných a provozovaných členskými státy nebo soukromými subjekty a podporujících poskytování služeb využívajících kosmického prostoru, s výjimkou poskytovatelů veřejných sítí elektronických komunikací.",
           "context": "Toto je úplná sektorová definice. Současně platí tři filtry. Zaprvé, třída aktiv je pozemní infrastruktura. Zadruhé, funkcí je podporovat kosmické služby. Zatřetí, poskytovatelé veřejných sítí elektronických komunikací jsou vyňati, protože jsou řešeni v rámci odvětví 8 (digitální infrastruktura) a režimu EECC."
         },
         "regulation": {
@@ -15679,7 +15679,7 @@
         "description": "Obě směrnice na sebe odkazují tak, že provozovatelé klasifikovaní jako kritické subjekty podle CER se automaticky počítají jako klíčové subjekty podle NIS 2.",
         "directive": {
           "label": "NIS 2, čl. 2 odst. 3 (doslovně)",
-          "quote": "This Directive applies to entities identified as critical entities under Directive (EU) 2022/2557.",
+          "quote": "[…] se tato směrnice použije na subjekty určené jakožto kritické subjekty podle směrnice (EU) 2022/2557.",
           "context": "Čl. 2 odst. 3 NIS 2 vazbu výslovně zakládá: subjekt, který členský stát označí jako kritický subjekt podle CER, je v rozsahu NIS 2 a je považován za klíčový subjekt podle čl. 3 odst. 1 písm. f) NIS 2."
         },
         "regulation": {
@@ -15812,7 +15812,7 @@
         "description": "Migraci definují tři vrstvy textu: směrnice EU, která ruší NIS 1, prováděcí nařízení Komise, které přidává podrobnosti pro digitální infrastrukturu, a národní statut, který směrnici transponuje.",
         "directive": {
           "label": "Směrnice (EU) 2022/2555, čl. 41",
-          "quote": "Directive (EU) 2016/1148 is repealed with effect from 18 October 2024.",
+          "quote": "Směrnice (EU) 2016/1148 se zrušuje s účinkem ode dne 18. října 2024.",
           "context": "Datum zrušení je zároveň transpoziční lhůtou. Odkazy na NIS 1 v jiných aktech EU se čtou jako odkazy na NIS 2."
         },
         "regulation": {
@@ -17028,7 +17028,7 @@
         "description": "Tři vrstvy naskládané na sebe. Směrnice stanoví povinnost řídicího orgánu. Prováděcí nařízení provádí opatření, která řídicí orgán musí schválit. Německá transpozice mění stejnou povinnost ve vnitrostátní zákon s připojenou osobní odpovědností.",
         "directive": {
           "label": "Článek 20 odst. 1 směrnice NIS 2 (2022/2555)",
-          "quote": "Členské státy zajistí, aby řídicí orgány zásadně významných a významných subjektů schvalovaly opatření k řízení rizik v oblasti kybernetické bezpečnosti přijatá těmito subjekty za účelem dosažení souladu s článkem 21, dohlížely na jejich zavádění a mohly být činěny odpovědnými za porušení tohoto článku ze strany subjektů.",
+          "quote": "Členské státy zajistí, aby řídící orgány základních a důležitých subjektů schválily opatření k řízení kybernetických bezpečnostních rizik přijatá těmito subjekty za účelem dosažení souladu s článkem 21, dohlížely nad jeho uplatňováním a mohly nést odpovědnost, poruší-li subjekty uvedený článek.",
           "context": "Článek 20 je článkem směrnice o správě a řízení. Odstavec 1 stanoví tři povinnosti řídicího orgánu: schválit, dohlížet, může být činěn odpovědným. Odstavec 2 přidává povinnost školení pro samotný řídicí orgán a žádá subjekt, aby nabízel pravidelné školení všem zaměstnancům."
         },
         "regulation": {
@@ -19446,7 +19446,7 @@
         "description": "Přiměřenost je zakotvena v operativním článku a v bodu odůvodnění, který vysvětluje, jak se má uplatňovat.",
         "directive": {
           "label": "Čl. 21(1) NIS 2 (operativní)",
-          "quote": "Členské státy zajistí, aby zásadní a důležité subjekty přijaly vhodná a přiměřená technická, provozní a organizační opatření k řízení rizik, která ohrožují bezpečnost sítí a informačních systémů, jež tyto subjekty využívají pro svůj provoz nebo pro poskytování svých služeb, a k zamezení nebo minimalizaci dopadu incidentů na příjemce jejich služeb.",
+          "quote": "Členské státy zajistí, aby základní a důležité subjekty přijaly vhodná a přiměřená technická, provozní a organizační opatření k řízení bezpečnostních rizik, jimž čelí sítě a informační systémy, jež tyto subjekty používají pro svůj provoz nebo poskytování svých služeb, a k předcházení incidentům nebo minimalizaci jejich dopadů na příjemce jejich služeb.",
           "context": "Tentýž odstavec uvádí šest faktorů, které rozhodují o přiměřenosti: míru vystavení subjektu rizikům, velikost subjektu, pravděpodobnost výskytu incidentů a jejich závažnost, včetně jejich společenského a ekonomického dopadu, stav techniky a náklady na zavedení. Všech šest jsou vstupy pro rozhodnutí, žádný z nich není volitelný."
         },
         "recital": {
@@ -19765,7 +19765,7 @@
         "description": "Směrnice pojmenovává stranu Accountable; transpozice přidává povinnost školení.",
         "directive": {
           "label": "Čl. 20(1) NIS 2 (odpovědnost řídicího orgánu)",
-          "quote": "Členské státy zajistí, aby řídicí orgány zásadních a důležitých subjektů schvalovaly opatření k řízení rizik kybernetické bezpečnosti přijatá těmito subjekty za účelem dosažení souladu s článkem 21, dohlížely na jejich zavedení a mohly nést odpovědnost za porušení tohoto článku těmito subjekty.",
+          "quote": "Členské státy zajistí, aby řídící orgány základních a důležitých subjektů schválily opatření k řízení kybernetických bezpečnostních rizik přijatá těmito subjekty za účelem dosažení souladu s článkem 21, dohlížely nad jeho uplatňováním a mohly nést odpovědnost, poruší-li subjekty uvedený článek.",
           "context": "'Schvalovat' a 'dohlížet' jsou v termínech RACI činnosti Accountable. Řídicí orgán drží A bez ohledu na to, zda deleguje R. Delegování je povoleno, abdikace nikoli."
         },
         "transposition": {
@@ -19930,7 +19930,7 @@
         "description": "Jeden operativní článek, jedno prováděcí nařízení, jedna metodika BSI.",
         "directive": {
           "label": "Čl. 21(2)(a) a 21(2)(b) NIS 2",
-          "quote": "Opatření uvedená v odstavci 1 musí vycházet z přístupu zohledňujícího všechna rizika, jehož cílem je chránit sítě a informační systémy a fyzické prostředí těchto systémů před incidenty, a musí zahrnovat alespoň následující: (a) zásady analýzy rizik a bezpečnosti informačních systémů; (b) zvládání incidentů.",
+          "quote": "Opatření uvedená v odstavci 1 jsou založena na přístupu zohledňujícím všechny druhy rizik, jehož cílem je chránit sítě a informační systémy a fyzické prostředí těchto systémů před incidenty, a zahrnují alespoň: a) politiku analýzy rizik a politiku bezpečnosti informačních systémů; b) řešení incidentů.",
           "context": "Analýza rizik a zvládání incidentů jsou uvedeny jako první, ale obojí vyžaduje objekt k analýze a ke zvládání: inventář toho, co skutečně máte. Směrnice to považuje za předpoklad, ne za samostatné opatření."
         },
         "cir": {

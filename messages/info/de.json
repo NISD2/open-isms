@@ -259,14 +259,14 @@
     },
     "whatIsNisd2": {
       "meta": {
-        "title": "Was ist nisd2.eu? Das kostenlose, offene Pflichtenregister für NIS 2",
-        "description": "nisd2.eu ist eine kostenlose, quelloffene Plattform zur NIS-2-Umsetzung im Mittelstand: ein strukturiertes Pflichtenregister mit Rechtsgrundlage je Anforderung, ein durchgehender Audit-Trail, kein Lock-in. So funktioniert sie."
+        "title": "Was ist nisd2.eu? Ein quelloffener Durchgang durch NIS 2",
+        "description": "nisd2.eu führt ein Unternehmen Schritt für Schritt durch die 49 Anforderungen aus NIS 2, mit der Rechtsgrundlage je Anforderung und der Freigabe der Geschäftsführung in der App. Quelloffen, ohne Lizenzgebühr im Eigenbetrieb, kein Lock-in. So funktioniert es."
       },
       "title": "Was nisd2.eu eigentlich ist",
-      "subtitle": "Eine kostenlose, quelloffene NIS-2-Plattform für den europäischen Mittelstand. Kein Lock-in, keine Angstverkäufe.",
+      "subtitle": "Ein quelloffener Durchgang durch NIS 2 für den europäischen Mittelstand. Kein Lock-in, keine Angstverkäufe.",
       "overview": {
-        "heading": "Ein Pflichtenregister, kein weiteres Formularwerkzeug",
-        "p1": "nisd2.eu ist kein weiteres GRC-Werkzeug, das jede Anforderung in Formulare zerlegt. Es ist ein strukturiertes Pflichtenregister. Es nimmt die Pflichten aus der NIS-2-Richtlinie (EU) 2022/2555 und ihrer deutschen Umsetzung im BSIG, ordnet jeder Anforderung ihre Rechtsgrundlage zu und führt Sie in sinnvoller Reihenfolge durch die Umsetzung.",
+        "heading": "Ein geführter Durchgang, kein weiteres Formularwerkzeug",
+        "p1": "nisd2.eu ist kein weiteres GRC-Werkzeug, das jede Anforderung in Formulare zerlegt. Es ist ein geführter Durchgang. Es nimmt die Pflichten aus der NIS-2-Richtlinie (EU) 2022/2555, mit der deutschen Umsetzung im BSIG als Referenztext, ordnet jeder Anforderung ihre Rechtsgrundlage zu und führt Sie in sinnvoller Reihenfolge durch die Umsetzung.",
         "p2": "Das eigentliche Problem im Mittelstand ist selten fehlendes Wissen. Es ist fehlende Struktur. Genau dort setzt die Plattform an."
       },
       "sections": {
@@ -282,7 +282,7 @@
         },
         "funding": {
           "heading": "Wie wir uns finanzieren",
-          "p1": "Die Plattform ist kostenlos und quelloffen. Wir verdienen perspektivisch über Schulungen, Hosting und Partnerangebote, nicht über Lizenzgebühren pro Anforderung.",
+          "p1": "Der Code ist quelloffen unter der AGPL, und wer ihn selbst betreibt, zahlt keine Lizenzgebühr. Der geführte Durchgang auf nisd2.eu hat einen Jahrespreis; Kurse und Wiki kosten nichts. Wir rechnen nicht pro Anforderung ab.",
           "p2": "Das ist eine bewusste Entscheidung. NIS 2 sollte den Mittelstand nicht mehrere zehntausend Euro kosten."
         },
         "notUs": {
@@ -294,8 +294,8 @@
       "faq": {
         "heading": "Häufige Fragen",
         "q1": {
-          "q": "Ist die Plattform wirklich kostenlos?",
-          "a": "Ja. Die Nutzung ist kostenlos und der Code quelloffen. Wir finanzieren das Projekt perspektivisch über Schulungen, Hosting und Partnerangebote."
+          "q": "Was kostet die Plattform?",
+          "a": "Kurse und Wiki kosten nichts, und den quelloffenen Code können Sie ohne Lizenzgebühr auf eigenen Servern betreiben. Der geführte Durchgang auf nisd2.eu hat einen Jahrespreis, den die Preisseite nennt."
         },
         "q2": {
           "q": "Brauche ich ein Konto?",
@@ -345,7 +345,7 @@
         },
         "noLockin": {
           "heading": "Kein Lock-in",
-          "p1": "Ihr Pflichtenregister, Ihre Nachweise und Ihr Prozess sollten Ihnen gehören. Bei offenen Werkzeugen können Sie exportieren, selbst hosten oder den Anbieter wechseln, ohne von vorn anzufangen.",
+          "p1": "Ihre Aufzeichnungen, Ihre Nachweise und Ihr Prozess sollten Ihnen gehören. Bei offenen Werkzeugen können Sie exportieren, selbst hosten oder den Anbieter wechseln, ohne von vorn anzufangen.",
           "p2": "Lock-in ist ein Preis, der sich erst an dem Tag zeigt, an dem Sie wechseln wollen."
         },
         "whenSaas": {
@@ -466,12 +466,12 @@
         },
         "support": {
           "heading": "Support und Gewährleistung",
-          "p1": "Open Source kommt selten mit einer Enterprise-Supportvereinbarung. Community-Support schwankt im Tempo, und der kostenlose Tarif ist naturgemäß nach bestem Bemühen.",
-          "p2": "Unsere Antwort: Bezahlte Support- und Hosting-Stufen gibt es für Teams, die eine garantierte Reaktion brauchen, und wir sagen offen, dass der kostenlose Tarif kein SLA ist."
+          "p1": "Open Source kommt selten mit einer Enterprise-Supportvereinbarung. Community-Support schwankt im Tempo, und Hilfe beim Eigenbetrieb erfolgt naturgemäß nach bestem Bemühen.",
+          "p2": "Unsere Antwort: Wer jemanden braucht, der den Betrieb übernimmt, nutzt den Durchgang auf nisd2.eu, den wir betreiben, und wir sagen offen, dass Community-Hilfe beim Eigenbetrieb kein SLA ist."
         },
         "maturity": {
           "heading": "Reifegrad und Integrationen",
-          "p1": "Ein gut finanzierter US-SaaS hat oft mehr zertifizierte Integrationen und mehr Politur. Manche Funktionen, die Entwicklungszeit kosten, gehören zur Premium-Stufe statt zum kostenlosen Angebot.",
+          "p1": "Ein gut finanzierter US-SaaS hat oft mehr zertifizierte Integrationen und mehr Politur.",
           "p2": "Unsere Antwort: Für die meisten Mittelstandsunternehmen ist der Engpass unter NIS 2 die Struktur und ein sauberer Audit-Trail, nicht die Zahl der Integrationen. Dafür bauen wir zuerst."
         },
         "accountability": {
@@ -483,8 +483,8 @@
       "faq": {
         "heading": "Häufige Fragen",
         "q1": {
-          "q": "Ist die kostenlose Version wirklich kostenlos oder eine Testphase?",
-          "a": "Sie ist kostenlos nutzbar, keine zeitlich begrenzte Testphase. Wir finanzieren das Projekt perspektivisch über Schulungen, Hosting und Partnerangebote statt über Lizenzen pro Platz."
+          "q": "Ist der Eigenbetrieb wirklich ohne Lizenzgebühr oder eine Testphase?",
+          "a": "Den quelloffenen Code selbst zu betreiben kostet keine Lizenzgebühr und ist zeitlich nicht begrenzt. Der Durchgang auf nisd2.eu ist das bezahlte Angebot, mit einem Jahrespreis."
         },
         "q2": {
           "q": "Was passiert, wenn das Projekt eingestellt wird?",

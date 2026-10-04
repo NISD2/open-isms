@@ -1,20 +1,18 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
-import { pageAlternates, pageOg, type Locale } from "@/lib/seo";
+import { GlossedProse } from "@/components/wiki/GlossedProse";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -28,10 +26,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: pageAlternates(
-      "wiki/recht-und-folgen/nis2-cyber-versicherung",
-      locale,
-    ),
+    alternates: pageAlternates("wiki/recht-und-folgen/nis2-cyber-versicherung", locale),
     ...pageOg({
       slug: "wiki/recht-und-folgen/nis2-cyber-versicherung",
       locale,
@@ -46,7 +41,11 @@ const anchorKeys = ["directive", "regulation", "transposition"] as const;
 const elementKeys = ["coverage", "exclusion", "interface"] as const;
 const principleKeys = ["notTransfer", "proportionalityStillApplies"] as const;
 const nationalKeys = ["bsi", "enisa", "gdv"] as const;
-const pitfallKeys = ["blanketTransfer", "crimeExclusion", "noPayoutWithoutMeasures"] as const;
+const pitfallKeys = [
+  "blanketTransfer",
+  "crimeExclusion",
+  "noPayoutWithoutMeasures",
+] as const;
 
 export default async function Nis2CyberVersicherungPage({
   params,
@@ -54,8 +53,7 @@ export default async function Nis2CyberVersicherungPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale =
-    rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
   const t = await getTranslations("info");
 
   return (
@@ -244,9 +242,7 @@ export default async function Nis2CyberVersicherungPage({
         {/* Practitioner */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("nis2CyberVersicherung.practitioner.heading")}
-            </CardTitle>
+            <CardTitle>{t("nis2CyberVersicherung.practitioner.heading")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <p className="text-sm leading-relaxed text-muted-foreground">
@@ -254,21 +250,6 @@ export default async function Nis2CyberVersicherungPage({
             </p>
             <p className="text-sm leading-relaxed text-muted-foreground">
               {t("nis2CyberVersicherung.practitioner.p2")}
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* Platform */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("nis2CyberVersicherung.platform.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("nis2CyberVersicherung.platform.p1")}
-            </p>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("nis2CyberVersicherung.platform.p2")}
             </p>
           </CardContent>
         </Card>
@@ -281,9 +262,9 @@ export default async function Nis2CyberVersicherungPage({
           <CardContent>
             <ul className="space-y-2">
               {(t.raw("nis2CyberVersicherung.sources.items") as string[]).map(
-                (source, i) => (
+                (source) => (
                   <li
-                    key={i}
+                    key={source}
                     className="flex items-start gap-2 text-xs text-muted-foreground"
                   >
                     <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
@@ -292,21 +273,6 @@ export default async function Nis2CyberVersicherungPage({
                 ),
               )}
             </ul>
-          </CardContent>
-        </Card>
-
-        {/* CTA */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("nis2CyberVersicherung.ctaCard.heading")}</CardTitle>
-            <CardDescription>
-              {t("nis2CyberVersicherung.ctaCard.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button asChild>
-              <Link href="/applicability">{t("nis2CyberVersicherung.cta")}</Link>
-            </Button>
           </CardContent>
         </Card>
       </div>

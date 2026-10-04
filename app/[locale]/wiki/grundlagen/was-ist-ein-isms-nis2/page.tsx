@@ -1,20 +1,18 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
-import { pageAlternates, pageOg, type Locale } from "@/lib/seo";
+import { GlossedProse } from "@/components/wiki/GlossedProse";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -28,10 +26,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: pageAlternates(
-      "wiki/grundlagen/was-ist-ein-isms-nis2",
-      locale,
-    ),
+    alternates: pageAlternates("wiki/grundlagen/was-ist-ein-isms-nis2", locale),
     ...pageOg({
       slug: "wiki/grundlagen/was-ist-ein-isms-nis2",
       locale,
@@ -53,8 +48,7 @@ export default async function IsmsPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale =
-    rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
   const t = await getTranslations("info");
 
   return (
@@ -76,12 +70,8 @@ export default async function IsmsPage({
           <Badge variant="secondary" className="mb-3">
             Art. 21 NIS 2 + §30 BSIG + BSI 200-1
           </Badge>
-          <h1 className="text-3xl font-bold tracking-tight">
-            {t("nis2Isms.title")}
-          </h1>
-          <p className="mt-2 text-lg text-muted-foreground">
-            {t("nis2Isms.subtitle")}
-          </p>
+          <h1 className="text-3xl font-bold tracking-tight">{t("nis2Isms.title")}</h1>
+          <p className="mt-2 text-lg text-muted-foreground">{t("nis2Isms.subtitle")}</p>
         </header>
 
         <WikiPageMeta
@@ -111,9 +101,7 @@ export default async function IsmsPage({
         <Card>
           <CardHeader>
             <CardTitle>{t("nis2Isms.legalAnchor.heading")}</CardTitle>
-            <CardDescription>
-              {t("nis2Isms.legalAnchor.description")}
-            </CardDescription>
+            <CardDescription>{t("nis2Isms.legalAnchor.description")}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -137,9 +125,7 @@ export default async function IsmsPage({
         <Card>
           <CardHeader>
             <CardTitle>{t("nis2Isms.whatItIs.heading")}</CardTitle>
-            <CardDescription>
-              {t("nis2Isms.whatItIs.description")}
-            </CardDescription>
+            <CardDescription>{t("nis2Isms.whatItIs.description")}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -160,9 +146,7 @@ export default async function IsmsPage({
         <Card>
           <CardHeader>
             <CardTitle>{t("nis2Isms.whatItIsNot.heading")}</CardTitle>
-            <CardDescription>
-              {t("nis2Isms.whatItIsNot.description")}
-            </CardDescription>
+            <CardDescription>{t("nis2Isms.whatItIsNot.description")}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 sm:grid-cols-3">
@@ -197,9 +181,7 @@ export default async function IsmsPage({
         <Card>
           <CardHeader>
             <CardTitle>{t("nis2Isms.buildMinimal.heading")}</CardTitle>
-            <CardDescription>
-              {t("nis2Isms.buildMinimal.description")}
-            </CardDescription>
+            <CardDescription>{t("nis2Isms.buildMinimal.description")}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -223,9 +205,9 @@ export default async function IsmsPage({
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">
-              {(t.raw("nis2Isms.sources.items") as string[]).map((s, i) => (
+              {(t.raw("nis2Isms.sources.items") as string[]).map((s) => (
                 <li
-                  key={i}
+                  key={s}
                   className="flex items-start gap-2 text-xs text-muted-foreground"
                 >
                   <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
@@ -241,20 +223,6 @@ export default async function IsmsPage({
             <p className="text-xs leading-relaxed text-muted-foreground">
               {t("nis2Isms.disclaimer")}
             </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("nis2Isms.ctaCard.heading")}</CardTitle>
-            <CardDescription>
-              {t("nis2Isms.ctaCard.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button asChild>
-              <Link href="/auth/signin">{t("nis2Isms.cta")}</Link>
-            </Button>
           </CardContent>
         </Card>
       </div>

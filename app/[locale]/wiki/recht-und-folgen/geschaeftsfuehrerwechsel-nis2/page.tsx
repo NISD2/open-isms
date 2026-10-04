@@ -1,20 +1,19 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
-import { pageAlternates, pageOg, type Locale } from "@/lib/seo";
+import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkSteps } from "@/components/wiki/WalkSteps";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -50,7 +49,11 @@ const transferKeys = [
   "incidentPlaybook",
 ] as const;
 const stepKeys = ["registryUpdate", "training", "approvals"] as const;
-const pitfallKeys = ["staleContact", "unbriefedAcceptances", "trainingForgotten"] as const;
+const pitfallKeys = [
+  "staleContact",
+  "unbriefedAcceptances",
+  "trainingForgotten",
+] as const;
 
 export default async function ManagementChangePage({
   params,
@@ -58,8 +61,7 @@ export default async function ManagementChangePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale =
-    rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
   const t = await getTranslations("info");
 
   return (
@@ -115,9 +117,7 @@ export default async function ManagementChangePage({
 
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("nis2ManagementChange.legalAnchor.heading")}
-            </CardTitle>
+            <CardTitle>{t("nis2ManagementChange.legalAnchor.heading")}</CardTitle>
             <CardDescription>
               {t("nis2ManagementChange.legalAnchor.description")}
             </CardDescription>
@@ -143,9 +143,7 @@ export default async function ManagementChangePage({
 
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("nis2ManagementChange.whatToTransfer.heading")}
-            </CardTitle>
+            <CardTitle>{t("nis2ManagementChange.whatToTransfer.heading")}</CardTitle>
             <CardDescription>
               {t("nis2ManagementChange.whatToTransfer.description")}
             </CardDescription>
@@ -168,9 +166,7 @@ export default async function ManagementChangePage({
 
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("nis2ManagementChange.threeSteps.heading")}
-            </CardTitle>
+            <CardTitle>{t("nis2ManagementChange.threeSteps.heading")}</CardTitle>
             <CardDescription>
               {t("nis2ManagementChange.threeSteps.description")}
             </CardDescription>
@@ -193,9 +189,7 @@ export default async function ManagementChangePage({
 
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("nis2ManagementChange.pitfalls.heading")}
-            </CardTitle>
+            <CardTitle>{t("nis2ManagementChange.pitfalls.heading")}</CardTitle>
             <CardDescription>
               {t("nis2ManagementChange.pitfalls.description")}
             </CardDescription>
@@ -238,17 +232,15 @@ export default async function ManagementChangePage({
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">
-              {(t.raw("nis2ManagementChange.sources.items") as string[]).map(
-                (s, i) => (
-                  <li
-                    key={i}
-                    className="flex items-start gap-2 text-xs text-muted-foreground"
-                  >
-                    <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
-                    {s}
-                  </li>
-                ),
-              )}
+              {(t.raw("nis2ManagementChange.sources.items") as string[]).map((s) => (
+                <li
+                  key={s}
+                  className="flex items-start gap-2 text-xs text-muted-foreground"
+                >
+                  <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
+                  {s}
+                </li>
+              ))}
             </ul>
           </CardContent>
         </Card>
@@ -261,21 +253,7 @@ export default async function ManagementChangePage({
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              {t("nis2ManagementChange.ctaCard.heading")}
-            </CardTitle>
-            <CardDescription>
-              {t("nis2ManagementChange.ctaCard.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button asChild>
-              <Link href="/auth/signin">{t("nis2ManagementChange.cta")}</Link>
-            </Button>
-          </CardContent>
-        </Card>
+        <WalkSteps codes={["1.1", "12.3"]} />
       </div>
     </GlossedProse>
   );

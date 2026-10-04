@@ -259,14 +259,14 @@
     },
     "whatIsNisd2": {
       "meta": {
-        "title": "What nisd2.eu actually is: the free, open obligation register for NIS 2",
-        "description": "nisd2.eu is a free, open-source platform for NIS 2 implementation in the Mittelstand: a structured obligation register with a legal basis for each requirement, an end-to-end audit trail, and no lock-in. Here is how it works."
+        "title": "What nisd2.eu actually is: an open-source NIS 2 walkthrough",
+        "description": "nisd2.eu takes a company through the 49 NIS 2 requirements one step at a time, with the legal basis for each and management's approval recorded in the app. Open source, no licence fee to run it yourself, no lock-in. Here is how it works."
       },
       "title": "What nisd2.eu actually is",
-      "subtitle": "A free, open-source NIS 2 platform for the European Mittelstand. No lock-in, no fear selling.",
+      "subtitle": "An open-source NIS 2 walkthrough for the European Mittelstand. No lock-in, no fear selling.",
       "overview": {
-        "heading": "An obligation register, not another form filler",
-        "p1": "nisd2.eu is not another GRC tool that breaks every requirement into forms. It is a structured obligation register. It takes the duties from the NIS 2 Directive (EU) 2022/2555 and its German transposition in the BSIG, assigns each requirement its legal basis, and walks you through implementation in a sensible order.",
+        "heading": "A guided walkthrough, not another form filler",
+        "p1": "nisd2.eu is not another GRC tool that breaks every requirement into forms. It is a guided walkthrough. It takes the duties from the NIS 2 Directive (EU) 2022/2555, with its German transposition in the BSIG as the reference text, assigns each requirement its legal basis, and walks you through implementation in a sensible order.",
         "p2": "The real problem in the Mittelstand is rarely a lack of knowledge. It is a lack of structure. That is where the platform starts."
       },
       "sections": {
@@ -282,7 +282,7 @@
         },
         "funding": {
           "heading": "How we are funded",
-          "p1": "The platform is free and open source. We expect to earn through training, hosting and partner offerings, not through per-requirement licence fees.",
+          "p1": "The code is open source under the AGPL, and running it yourself carries no licence fee. The guided walkthrough hosted at nisd2.eu has one yearly price; the courses and the wiki cost nothing. We do not charge per requirement.",
           "p2": "That is a deliberate choice. NIS 2 should not cost the Mittelstand tens of thousands of euros."
         },
         "notUs": {
@@ -294,8 +294,8 @@
       "faq": {
         "heading": "Frequently asked questions",
         "q1": {
-          "q": "Is the platform really free?",
-          "a": "Yes. Use is free and the code is open source. We plan to fund the project through training, hosting and partner offerings."
+          "q": "What does the platform cost?",
+          "a": "The courses and the wiki cost nothing, and you can run the open-source code on your own servers without a licence fee. The guided walkthrough at nisd2.eu has one yearly price, shown on the pricing page."
         },
         "q2": {
           "q": "Do I need an account?",
@@ -345,7 +345,7 @@
         },
         "noLockin": {
           "heading": "No lock-in",
-          "p1": "Your obligation register, your evidence and your process should belong to you. With open tools you can export, self-host or change provider without starting over.",
+          "p1": "Your records, your evidence and your process should belong to you. With open tools you can export, self-host or change provider without starting over.",
           "p2": "Lock-in is a cost that only shows up the day you want to leave."
         },
         "whenSaas": {
@@ -466,12 +466,12 @@
         },
         "support": {
           "heading": "Support and warranties",
-          "p1": "Open source rarely ships with an enterprise support agreement. Community support varies in speed, and the free tier is best effort by nature.",
-          "p2": "Our answer: paid support and hosting tiers exist for teams that need a guaranteed response, and we say plainly that the free tier is not an SLA."
+          "p1": "Open source rarely ships with an enterprise support agreement. Community support varies in speed, and help for running it yourself is best effort by nature.",
+          "p2": "Our answer: if you need someone to run it for you, the walkthrough hosted at nisd2.eu is run by us, and we say plainly that community help for running it yourself is not an SLA."
         },
         "maturity": {
           "heading": "Maturity and integrations",
-          "p1": "A well-funded US SaaS will often have more certified integrations and more polish. Some features that take engineering time are premium tier rather than free.",
+          "p1": "A well-funded US SaaS will often have more certified integrations and more polish.",
           "p2": "Our answer: for most Mittelstand companies the bottleneck under NIS 2 is structure and a clean audit trail, not the number of integrations. We build for that need first."
         },
         "accountability": {
@@ -483,8 +483,8 @@
       "faq": {
         "heading": "Frequently asked questions",
         "q1": {
-          "q": "Is the free version really free, or a trial?",
-          "a": "It is free to use, not a time-limited trial. We plan to fund the project through training, hosting and partner offerings rather than per-seat licences."
+          "q": "Is running it yourself really without a licence fee, or a trial?",
+          "a": "Running the open-source code yourself carries no licence fee and no time limit. The walkthrough hosted at nisd2.eu is the paid offer, with one yearly price."
         },
         "q2": {
           "q": "What happens if the project is abandoned?",
