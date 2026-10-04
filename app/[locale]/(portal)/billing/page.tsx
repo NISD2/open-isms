@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 import { CancelButton } from "@/components/billing/CancelButton";
 import { InvoicePdfButton } from "@/components/billing/InvoicePdfButton";
+import { PaidPricingCards } from "@/components/pricing/PaidPricingCards";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,6 +18,11 @@ import {
 } from "@/components/ui/table";
 import { Link } from "@/i18n/navigation";
 import { getSession } from "@/lib/auth";
+import {
+  ANNUAL_NET_CENTS,
+  formatWholeEuro,
+  GRANDFATHERED_NET_CENTS,
+} from "@/lib/billing/order";
 import { termsVersionLabel } from "@/lib/billing/terms";
 import { api } from "@/lib/trpc/server";
 
@@ -51,16 +57,36 @@ export default async function BillingPage({
 
   const days = new Intl.DateTimeFormat(locale, { dateStyle: "medium", timeZone: "UTC" });
   const noon = (iso: string) => new Date(`${iso}T12:00:00Z`);
+  const header = (
+    <div className="flex items-center gap-3">
+      <Receipt className="h-8 w-8 text-primary" />
+      <div>
+        <h1 className="font-bold text-2xl tracking-tight">{t("title")}</h1>
+        <p className="mt-1 text-muted-foreground">{t("description")}</p>
+      </div>
+    </div>
+  );
+
+  // Nothing invoiced yet and no licence: there is nothing to account for, so the page is the
+  // offer, the pricing page's three tiers with this account's own price (Simon, 04.10.2026).
+  if (status.accessLevel !== "full" && invoices?.length === 0) {
+    return (
+      <div className="space-y-8">
+        <div className="mx-auto max-w-6xl">{header}</div>
+        <PaidPricingCards
+          orderOpen={status.canOrder}
+          price={formatWholeEuro(status.netCents, locale)}
+          listPrice={formatWholeEuro(ANNUAL_NET_CENTS, locale)}
+          grandfathered={status.netCents === GRANDFATHERED_NET_CENTS}
+          grandfatheredPrice={formatWholeEuro(GRANDFATHERED_NET_CENTS, locale)}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-3xl space-y-6">
-      <div className="flex items-center gap-3">
-        <Receipt className="h-8 w-8 text-primary" />
-        <div>
-          <h1 className="font-bold text-2xl tracking-tight">{t("title")}</h1>
-          <p className="mt-1 text-muted-foreground">{t("description")}</p>
-        </div>
-      </div>
+      {header}
 
       <Card>
         <CardHeader>

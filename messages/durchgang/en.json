@@ -325,6 +325,9 @@
       "home": {
         "unlock": "Order now",
         "toJourney": "Continue in your journey, as before",
+        "price": "{price} net a year, plus VAT. 30 days money back.",
+        "setupSection": "Getting started",
+        "setupHeadline": "Set up your company",
         "open": "Open",
         "toSignOff": "Not signed off yet. Jump to sign-off",
         "next": "Next",

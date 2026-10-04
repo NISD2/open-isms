@@ -325,6 +325,9 @@
       "home": {
         "unlock": "Jetzt bestellen",
         "toJourney": "Weiter im Weg, wie bisher",
+        "price": "{price} netto im Jahr, zzgl. USt. 30 Tage Geld zurück.",
+        "setupSection": "Vorbereitung",
+        "setupHeadline": "Ihr Unternehmen anlegen",
         "open": "Offen",
         "toSignOff": "Noch nicht freigegeben. Zur Freigabe springen",
         "next": "Als Nächstes",

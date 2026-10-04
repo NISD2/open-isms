@@ -14,6 +14,7 @@ import {
   ListChecks,
   type LucideIcon,
   Paperclip,
+  Receipt,
   Server,
   Settings2,
   Truck,
@@ -59,6 +60,7 @@ const AREA_ICON: Readonly<Record<string, LucideIcon>> = {
   user: Settings2,
   journey: Settings2,
   company: Settings2,
+  billing: Receipt,
 };
 
 const BERLIN = "Europe/Berlin";

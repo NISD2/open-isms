@@ -606,13 +606,16 @@ export const durchgangRouter = router({
     };
   }),
 
-  /** Common answers for the vulnerability report address, read off the company's contact email. */
+  /**
+   * Common answers for the vulnerability report address, read off the company's contact email, or
+   * the caller's own when the company has none: setting the company up no longer asks for one.
+   */
   contactSuggestions: durchgangProcedure.query(async ({ ctx }) => {
     const org = await ctx.db.query.company.findFirst({
       where: eq(company.id, ctx.companyId),
       columns: { contactEmail: true },
     });
-    return contactSuggestions(org?.contactEmail ?? null);
+    return contactSuggestions(org?.contactEmail ?? ctx.session.user.email ?? null);
   }),
 
   /** "Geht noch nicht": the reason goes into the audit row, the free text only into the notes. */

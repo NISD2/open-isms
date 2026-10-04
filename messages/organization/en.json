@@ -11,6 +11,16 @@
     "sectorPlaceholder": "Select sector...",
     "entityType": "Entity Classification",
     "entityTypeHelp": "As defined in BSIG 2025 §28",
+    "essentials": {
+      "title": "Your company",
+      "lead": "Three answers, nothing more. The walkthrough asks for everything else where it is needed.",
+      "create": "Continue",
+      "name": "Company name",
+      "nameHint": "As it should appear in your documents, with its legal form.",
+      "entityTypeHint": "How your company is classified (Art. 3 NIS 2, in Germany § 28 BSIG).",
+      "missing": "Please enter the name and the sector.",
+      "failed": "That did not work. Please try again."
+    },
     "entityTypes": {
       "essential": "Essential Entity",
       "important": "Important Entity",

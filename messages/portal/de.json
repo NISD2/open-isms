@@ -87,9 +87,127 @@
     "durchgang": "NIS 2 Durchgang",
     "administration": "Verwaltung",
     "comingSoon": "Bald verfügbar",
+    "examples": {
+      "badge": "Beispiel",
+      "order": "Jetzt bestellen",
+      "audit": "So hält das Aktivitätsprotokoll fest, wer was wann geändert hat. Ihre eigenen Einträge stehen hier, sobald Sie im Durchgang arbeiten.",
+      "auditRows": [
+        {
+          "action": "durchgang.requirements_signed",
+          "detail": "12 Anforderungen nach Prüfung freigegeben",
+          "minutesAgo": 12
+        },
+        {
+          "action": "durchgang.approvePolicies",
+          "detail": "Leitlinie und Notfallplan freigegeben",
+          "minutesAgo": 14
+        },
+        {
+          "action": "durchgang.writePolicy",
+          "detail": "Leitlinie zur Informationssicherheit geschrieben",
+          "minutesAgo": 41
+        },
+        {
+          "action": "durchgang.waiting",
+          "detail": "5.2 zur Seite gelegt: Der Vertrag liegt beim Lieferanten",
+          "minutesAgo": 58
+        },
+        {
+          "action": "durchgang.item_done",
+          "detail": "2.2 Aufschreiben, was Ihr Unternehmen hat",
+          "minutesAgo": 75
+        },
+        {
+          "action": "training.create",
+          "detail": "Schulung der Geschäftsleitung eingetragen",
+          "minutesAgo": 96
+        }
+      ],
+      "registers": {
+        "assets": {
+          "text": "So sieht Ihr Assetregister aus: die Programme, Geräte und Dienste, mit denen Ihr Unternehmen arbeitet. Im NIS 2 Durchgang tragen Sie sie Schritt für Schritt ein.",
+          "columns": ["Name", "Art", "Kritisch", "Verantwortlich"],
+          "rows": [
+            ["proALPHA ERP", "Anwendung", "Ja", "IT-Leitung"],
+            ["Microsoft 365", "Clouddienst", "Ja", "IT-Leitung"],
+            ["Hyper-V-Host 1", "Server", "Ja", "IT-Service Diekmann"],
+            ["62 Notebooks mit Windows 11", "Endgeräte", "Nein", "IT-Leitung"]
+          ]
+        },
+        "suppliers": {
+          "text": "So sieht Ihre Lieferantenliste aus: wer für Sie arbeitet und wie wichtig er für Ihren Betrieb ist. Der Durchgang füllt sie aus Ihren Assets.",
+          "columns": ["Name", "Leistung", "Stufe"],
+          "rows": [
+            ["IT-Service Diekmann GmbH", "Systembetreuung und Fernwartung", "Hoch"],
+            ["Hetzner Online GmbH", "Hosting der Website", "Mittel"],
+            ["DATEV eG", "Lohn und Finanzbuchhaltung", "Mittel"],
+            ["Steuerkanzlei Wiebold & Partner", "Jahresabschluss", "Gering"]
+          ]
+        },
+        "risks": {
+          "text": "So sieht Ihr Risikoregister aus: jedes Asset und jeder Lieferant mit seiner Stufe in der Risikomatrix und dem, was Sie dagegen tun.",
+          "columns": ["Risiko", "Stufe", "Behandlung"],
+          "rows": [
+            ["Microsoft 365: Ausfall, Angriff oder Datenverlust", "Sehr hoch", "Mindern"],
+            ["Fernwartungszugang für Dienstleister", "Sehr hoch", "Mindern"],
+            ["proALPHA ERP: Ausfall, Angriff oder Datenverlust", "Hoch", "Mindern"],
+            ["Außenkameras am Werksgelände", "Gering", "Akzeptieren"]
+          ]
+        },
+        "policies": {
+          "text": "So sehen Ihre Dokumente aus: die Leitlinie, die Pläne und Konzepte, die der Durchgang mit Ihnen schreibt und die Ihre Geschäftsführung in der App freigibt.",
+          "columns": ["Dokument", "Stand", "Freigabe"],
+          "rows": [
+            [
+              "Leitlinie zur Informationssicherheit",
+              "Freigegeben",
+              "Geschäftsführung, 3.10.2026"
+            ],
+            [
+              "Notfallplan für IT-Sicherheitsvorfälle",
+              "Freigegeben",
+              "Geschäftsführung, 3.10.2026"
+            ],
+            ["Kryptokonzept", "Entwurf", "Wartet auf Freigabe"]
+          ]
+        },
+        "training": {
+          "text": "So sehen Ihre Schulungen aus: wer wann was gelernt hat, die Schulung der Geschäftsleitung eingeschlossen.",
+          "columns": ["Schulung", "Teilnehmende", "Datum"],
+          "rows": [
+            [
+              "Schulung der Geschäftsleitung (§ 38 Abs. 3 BSIG)",
+              "Geschäftsführung",
+              "12.3.2026"
+            ],
+            [
+              "Phishing erkennen und melden",
+              "Alle Beschäftigten der Verwaltung",
+              "24.2.2026"
+            ],
+            [
+              "USB-Sticks und Fernwartung an den Anlagen",
+              "Schichtführer Fertigung und Lager",
+              "6.5.2026"
+            ]
+          ]
+        },
+        "managementReviews": {
+          "text": "So sehen Ihre Managementbewertungen aus: wann die Geschäftsführung die Umsetzung geprüft hat und was sie entschieden hat.",
+          "columns": ["Datum", "Teilnehmende", "Entscheidungen"],
+          "rows": [
+            [
+              "3.10.2026",
+              "Geschäftsführung, IT-Leitung",
+              "Leitlinie und Notfallplan freigegeben. Zweiter Faktor für das ERP bis 31.03.2027."
+            ]
+          ]
+        }
+      }
+    },
     "journeyNotice": {
-      "title": "Der Weg ist die ausführliche Ansicht",
-      "text": "Dort sehen Sie alle Anforderungen auf einmal, mit den Registern dazu. Das ist mehr, als die meisten brauchen. Wir empfehlen den NIS 2 Durchgang: Er führt Sie Punkt für Punkt durch und erklärt jeden Schritt.",
+      "title": "Der Weg ist die ausführliche Ansicht. Wirklich dorthin?",
+      "text": "Dort sehen Sie alle Anforderungen auf einmal, mit den Registern dazu. Diese Ansicht ist für große Unternehmen gedacht, meist ab 250 Beschäftigten, mit eigenem Team für Informationssicherheit. Wir empfehlen den NIS 2 Durchgang: Er führt Sie Punkt für Punkt durch und erklärt jeden Schritt.",
       "stay": "Beim Durchgang bleiben",
       "go": "Trotzdem zum Weg"
     },

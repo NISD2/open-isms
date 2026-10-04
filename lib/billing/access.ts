@@ -101,10 +101,26 @@ export const walkLockFor = (
 export const ORDER_PATHS: readonly string[] = [...new Set(Object.values(ORDER_SLUGS))];
 
 /**
+ * The pages a free account opens with example rows in place of its own (Simon, 04.10.2026: "A
+ * free user should be able to see these pages but not actually use them"). Each page shows the
+ * examples itself, before it reads anything behind the paywall.
+ */
+export const EXAMPLE_PORTAL_PATHS: readonly string[] = [
+  "/assets",
+  "/suppliers",
+  "/risks",
+  "/policies",
+  "/training",
+  "/management-reviews",
+  "/audit",
+];
+
+/**
  * The portal pages an account without a paid or grandfathered level still reaches, the offer at
  * /billing/offer among them. Everything else in the portal sends it to the offer. The course and
  * the supplier portal live outside the portal and stay open. /export because a company's own
- * records always leave with it, as its downloads do (lib/export/access.ts).
+ * records always leave with it, as its downloads do (lib/export/access.ts). The registers and the
+ * activity log open with example rows (`EXAMPLE_PORTAL_PATHS`).
  */
 export const FREE_PORTAL_PATHS: readonly string[] = [
   "/billing",
@@ -112,6 +128,7 @@ export const FREE_PORTAL_PATHS: readonly string[] = [
   "/organization",
   "/notifications",
   "/export",
+  ...EXAMPLE_PORTAL_PATHS,
   ...ORDER_PATHS,
 ];
 
