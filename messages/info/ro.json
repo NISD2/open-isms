@@ -1227,6 +1227,10 @@
             "date": "6 mar. 2026",
             "event": "Termenul pentru înregistrarea la BSI"
           },
+          "amendmentBill": {
+            "date": "5 oct. 2026",
+            "event": "Audiere în comisia pentru afaceri interne a Bundestagului privind proiectul de lege pentru consolidarea securității cibernetice (documentul 21/6585), care ar modifica din nou BSIG: operatorii KRITIS ar transmite către BSI datele din sistemele de detectare a atacurilor"
+          },
           "kritisAudit": {
             "date": "~2028",
             "event": "Operatori KRITIS: prima dovadă de conformitate este scadentă"
@@ -1237,7 +1241,7 @@
       },
       "categories": {
         "heading": "Categorii de entități",
-        "description": "Germania folosește o terminologie diferită de cea a directivei UE. Aproximativ 29.500 de companii din Germania sunt vizate.",
+        "description": "Germania folosește o terminologie diferită de cea a directivei UE. Cifra de aproximativ 29.500 de companii vizate este o estimare ex ante a oficiului federal de statistică (Destatis); potrivit guvernului federal, numărul real al companiilor vizate nu este cunoscut (documentul Bundestagului 21/7573).",
         "headers": {
           "euTerm": "Termen UE",
           "germanTerm": "Termen german",
@@ -1350,7 +1354,7 @@
       "registration": {
         "heading": "Înregistrarea la BSI",
         "description": "Toate entitățile clasificate ca esențiale sau importante trebuie să se înregistreze la BSI.",
-        "deadline": "Termen: 6 martie 2026 (la 3 luni după intrarea în vigoare a BSIG).",
+        "deadline": "Termen: 6 martie 2026 (la 3 luni după intrarea în vigoare a BSIG). Până la 31 iulie 2026 au fost efectuate 19.058 de înregistrări.",
         "process": "Înregistrarea folosește un proces în doi pași: mai întâi se creează un cont prin Mein Unternehmenskonto (MUK/ELSTER), apoi se face înregistrarea prin portalul BSI (operațional din 6 ianuarie 2026).",
         "selfId": "Înregistrarea este o obligație de autoidentificare, fără o înștiințare din partea BSI. Companiile trebuie să stabilească singure dacă intră în domeniul de aplicare. BSI poate, de asemenea, dispune ca o companie să se înregistreze dacă stabilește că aceasta intră în domeniul de aplicare."
       },
@@ -3816,10 +3820,10 @@
     "euImplementation": {
       "meta": {
         "title": "NIS2 în Europa: monitor de stare",
-        "description": "Termenul de transpunere NIS2 a fost octombrie 2024. Până în 2026, mai puțin de 8 din 27 de state UE transpuseseră complet. Monitor stat cu stat."
+        "description": "Termenul de transpunere NIS2 a fost octombrie 2024. În octombrie 2026, 24 din 27 de state UE au o lege națională în vigoare. Portaluri și termene pe stat."
       },
       "title": "Implementarea NIS2 în Europa",
-      "subtitle": "Termenul de transpunere a fost 17 octombrie 2024. Până la începutul lui 2026, majoritatea statelor membre UE îl ratase, declanșând proceduri de constatare a neîndeplinirii obligațiilor și creând un peisaj de conformitate fragmentat în Europa.",
+      "subtitle": "Termenul de transpunere a fost 17 octombrie 2024, iar majoritatea statelor membre l-au ratat. În octombrie 2026, 24 din 27 au o lege națională în vigoare; Franța, Spania și Irlanda nu, iar Comisia a sesizat Curtea de Justiție a UE în privința tuturor celor trei. Fiecare stat are propria autoritate, propriul portal de înregistrare și propriile termene.",
       "overview": {
         "heading": "Un termen al unei directive ratat de majoritate",
         "p1": "Directiva (UE) 2022/2555 (Directiva NIS2) a impus tuturor celor 27 de state membre UE să transpună dispozițiile sale în legislația națională până la 17 octombrie 2024. Acest termen a fost explicit, nenegociabil și stabilit cu mai mult de doi ani în avans, atunci când Directiva a fost publicată la 27 decembrie 2022. În pofida acestui fapt, marea majoritate a statelor membre nu l-au respectat.",
@@ -3976,7 +3980,7 @@
         "heading": "Surse",
         "items": [
           "Directiva (UE) 2022/2555: Directiva NIS2, Jurnalul Oficial al Uniunii Europene (27 decembrie 2022)",
-          "Comisia Europeană: monitor de transpunere NIS2 și actualizări privind procedurile de constatare a neîndeplinirii obligațiilor (2024-2025)",
+          "Comisia Europeană: stadiul transpunerii NIS2 și procedurile de constatare a neîndeplinirii obligațiilor, inclusiv sesizarea Curții de Justiție privind patru state membre (2024-2026)",
           "Wavestone: NIS2 Transposition Radar, stare a implementării stat cu stat (2025)",
           "NIS2UmsuCG: Gesetz zur Umsetzung der NIS-2-Richtlinie und zur Stärkung der Cybersicherheit (Germania)",
           "Loi NIS2: legea belgiană de transpunere NIS2 (aprilie 2024)",

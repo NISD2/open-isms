@@ -80,7 +80,9 @@ export default async function LessonRoute({
           {/* The walk's home takes a finisher from wherever they stand: not set
               up yet, it opens on setting the company up; not paid, it shows the
               way to order. */}
-          {completion.allCompleted && <GetStarted href="/durchgang/nis2" />}
+          {completion.allCompleted && (
+            <GetStarted variant="landing" href="/durchgang/nis2" />
+          )}
           {/* End of the course is the second place someone stalls: they have
               the theory and no next step. Same one-line offer as the
               requirement sidebar, below the certificate rather than above it,

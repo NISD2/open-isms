@@ -1473,6 +1473,10 @@
             "date": "6. März 2026",
             "event": "Frist für die BSI-Registrierung"
           },
+          "amendmentBill": {
+            "date": "5. Okt. 2026",
+            "event": "Anhörung im Innenausschuss des Bundestages zum Gesetzentwurf zur Stärkung der Cybersicherheit (Drucksache 21/6585), der das BSIG erneut ändern soll: Betreiber kritischer Anlagen sollen Daten aus der Angriffserkennung an das BSI übermitteln"
+          },
           "kritisAudit": {
             "date": "~2028",
             "event": "KRITIS-Betreiber: erster Compliance-Nachweis fällig"
@@ -1483,7 +1487,7 @@
       },
       "categories": {
         "heading": "Einrichtungskategorien",
-        "description": "Deutschland verwendet eine andere Terminologie als die EU-Richtlinie. Etwa 29.500 Unternehmen in Deutschland sind betroffen.",
+        "description": "Deutschland verwendet eine andere Terminologie als die EU-Richtlinie. Die Zahl von rund 29.500 betroffenen Unternehmen ist eine vorab erstellte Schätzung des Statistischen Bundesamts; die tatsächliche Zahl der betroffenen Unternehmen ist laut Bundesregierung nicht bekannt (Bundestagsdrucksache 21/7573).",
         "headers": {
           "euTerm": "EU-Begriff",
           "germanTerm": "Deutscher Begriff",
@@ -1596,7 +1600,7 @@
       "registration": {
         "heading": "BSI-Registrierung",
         "description": "Alle als wesentlich oder wichtig eingestuften Einrichtungen müssen sich beim BSI registrieren.",
-        "deadline": "Frist: 6. März 2026 (3 Monate nach Inkrafttreten des BSIG).",
+        "deadline": "Frist: 6. März 2026 (3 Monate nach Inkrafttreten des BSIG). Bis 31. Juli 2026 gingen 19.058 Registrierungen ein.",
         "process": "Die Registrierung erfolgt in zwei Schritten: Zunächst ein Konto über Mein Unternehmenskonto (MUK/ELSTER) anlegen, dann über das BSI-Portal registrieren (online seit 6. Januar 2026).",
         "selfId": "Die Registrierung ist eine Selbstidentifikationspflicht. Es erfolgt keine Benachrichtigung durch das BSI. Unternehmen müssen selbst prüfen, ob sie in den Anwendungsbereich fallen. Das BSI kann Unternehmen auch zur Registrierung verpflichten."
       },
@@ -4057,10 +4061,10 @@
     "euImplementation": {
       "meta": {
         "title": "NIS2-Umsetzung Europa: Status aller EU-Staaten",
-        "description": "Stand der NIS2-Umsetzung in allen EU-Mitgliedstaaten. Welche Länder haben umgesetzt, wo gibt es Verzögerungen und was das für Ihr Unternehmen bedeutet."
+        "description": "Stand der NIS2-Umsetzung in allen EU-Mitgliedstaaten: Im Oktober 2026 gilt in 24 von 27 Staaten ein nationales Gesetz. Registrierungsportale und Fristen je Land."
       },
       "title": "NIS2-Umsetzung in Europa",
-      "subtitle": "Die Umsetzungsfrist war der 17. Oktober 2024. Bis Anfang 2026 hatten nur wenige EU-Mitgliedstaaten die NIS2-Richtlinie vollständig in nationales Recht überführt.",
+      "subtitle": "Die Umsetzungsfrist war der 17. Oktober 2024, und die meisten Mitgliedstaaten haben sie verpasst. Im Oktober 2026 gilt in 24 der 27 Staaten ein nationales Gesetz; Frankreich, Spanien und Irland fehlen noch, und die Kommission hat alle drei beim Gerichtshof der EU verklagt. Jedes Land hat eigene Behörde, eigenes Registrierungsportal und eigene Fristen.",
       "overview": {
         "heading": "Überblick",
         "p1": "Die NIS2-Richtlinie (EU) 2022/2555 verpflichtete alle 27 EU-Mitgliedstaaten, die Richtlinie bis zum 17. Oktober 2024 in nationales Recht umzusetzen. Diese Frist wurde von der großen Mehrheit der Mitgliedstaaten verfehlt, ein Muster, das bei EU-Cybersicherheitsregulierung nicht neu ist, aber in seiner Dimension beispiellos.",
@@ -4217,7 +4221,7 @@
         "heading": "Quellen",
         "items": [
           "Europäische Kommission: NIS2-Umsetzungsstand und Vertragsverletzungsverfahren (2025/2026)",
-          "ENISA: NIS2 Transposition Tracker (enisa.europa.eu)",
+          "Europäische Kommission: Stand der NIS2-Umsetzung und Vertragsverletzungsverfahren, einschließlich der Klage gegen vier Mitgliedstaaten beim Gerichtshof der EU (2024-2026)",
           "BMI: NIS-2-Umsetzungs- und Cybersicherheitsstärkungsgesetz (NIS2UmsuCG)",
           "Centre for Cybersecurity Belgium (CCB): Loi NIS2 (2024)",
           "Agence nationale de la sécurité des systèmes d'information (ANSSI): Projet de loi NIS2",

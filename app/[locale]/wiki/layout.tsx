@@ -24,7 +24,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
           per page: a next step and the disclaimer are things a new
           article must not be able to ship without.
         */}
-        <GetStarted className="mt-16" />
+        <GetStarted variant="funnel" className="mt-16" />
         <WikiLegalDisclaimer />
       </main>
       <PublicFooter />

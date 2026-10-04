@@ -6,7 +6,6 @@ import { GlossedProse } from "@/components/wiki/GlossedProse";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
 import { Link } from "@/i18n/navigation";
-import { routing } from "@/i18n/routing";
 import { isLocaleCode, pickLocalized } from "@/lib/locale";
 import {
   getRegistrationPortals,
@@ -67,15 +66,15 @@ export async function generateMetadata({
   );
   const description = pick(
     {
-      de: "Wo jeder EU-Mitgliedstaat bei der NIS 2 Umsetzung steht: nationales Gesetz, zuständige Behörde, nationales CSIRT, Stand. Stand Juni 2026.",
-      en: "Where every EU Member State stands on NIS 2 transposition: national act, competent authority, national CSIRT, status. Reviewed June 2026.",
-      fr: "Où en est chaque État membre de l'UE dans la transposition de NIS 2 : loi nationale, autorité compétente, CSIRT national, état d'avancement. Revu en juin 2026.",
-      it: "A che punto è ogni Stato membro dell'UE nel recepimento di NIS 2: legge nazionale, autorità competente, CSIRT nazionale, stato. Verificato a giugno 2026.",
-      es: "Dónde se encuentra cada Estado miembro de la UE en la transposición de NIS 2: ley nacional, autoridad competente, CSIRT nacional, estado. Revisado en junio de 2026.",
-      pl: "Na jakim etapie wdrożenia NIS 2 jest każde państwo członkowskie UE: ustawa krajowa, organ właściwy, krajowy CSIRT, status. Zweryfikowano w czerwcu 2026.",
-      cs: "Jak je na tom každý členský stát EU s transpozicí NIS 2: vnitrostátní zákon, příslušný orgán, vnitrostátní CSIRT, stav. Ověřeno v červnu 2026.",
-      pt: "Em que ponto está cada Estado-Membro da UE na transposição da NIS 2: lei nacional, autoridade competente, CSIRT nacional, estado. Verificado em junho de 2026.",
-      ro: "În ce stadiu se află fiecare stat membru al UE cu transpunerea NIS 2: lege națională, autoritate competentă, CSIRT național, stare. Verificat în iunie 2026.",
+      de: "Wo jeder EU-Mitgliedstaat bei der NIS 2 Umsetzung steht: nationales Gesetz, zuständige Behörde, nationales CSIRT, Stand. Stand Oktober 2026.",
+      en: "Where every EU Member State stands on NIS 2 transposition: national act, competent authority, national CSIRT, status. Reviewed October 2026.",
+      fr: "Où en est chaque État membre de l'UE dans la transposition de NIS 2 : loi nationale, autorité compétente, CSIRT national, état d'avancement. Revu en octobre 2026.",
+      it: "A che punto è ogni Stato membro dell'UE nel recepimento di NIS 2: legge nazionale, autorità competente, CSIRT nazionale, stato. Verificato a ottobre 2026.",
+      es: "Dónde se encuentra cada Estado miembro de la UE en la transposición de NIS 2: ley nacional, autoridad competente, CSIRT nacional, estado. Revisado en octubre de 2026.",
+      pl: "Na jakim etapie wdrożenia NIS 2 jest każde państwo członkowskie UE: ustawa krajowa, organ właściwy, krajowy CSIRT, status. Zweryfikowano w październiku 2026.",
+      cs: "Jak je na tom každý členský stát EU s transpozicí NIS 2: vnitrostátní zákon, příslušný orgán, vnitrostátní CSIRT, stav. Ověřeno v říjnu 2026.",
+      pt: "Em que ponto está cada Estado-Membro da UE na transposição da NIS 2: lei nacional, autoridade competente, CSIRT nacional, estado. Verificado em outubro de 2026.",
+      ro: "În ce stadiu se află fiecare stat membru al UE cu transpunerea NIS 2: lege națională, autoritate competentă, CSIRT național, stare. Verificat în octombrie 2026.",
     },
     locale,
   );
@@ -267,15 +266,15 @@ export default async function Nis2TrackerEuPage({
           <p className="mt-2 text-lg text-muted-foreground">
             {pick(
               {
-                de: "Wo jeder EU-Mitgliedstaat bei der NIS 2 Umsetzung steht. Nationales Gesetz, zuständige Behörde, nationales CSIRT, Stand. Stand Juni 2026.",
-                en: "Where every EU Member State stands on the NIS 2 transposition. National act, competent authority, national CSIRT, status. Reviewed June 2026.",
-                fr: "Où en est chaque État membre de l'UE dans la transposition de NIS 2. Loi nationale, autorité compétente, CSIRT national, état d'avancement. Revu en juin 2026.",
-                it: "A che punto è ogni Stato membro dell'UE nel recepimento di NIS 2. Legge nazionale, autorità competente, CSIRT nazionale, stato. Verificato a giugno 2026.",
-                es: "Dónde se encuentra cada Estado miembro de la UE en la transposición de NIS 2. Ley nacional, autoridad competente, CSIRT nacional, estado. Revisado en junio de 2026.",
-                pl: "Na jakim etapie wdrożenia NIS 2 jest każde państwo członkowskie UE. Ustawa krajowa, organ właściwy, krajowy CSIRT, status. Zweryfikowano w czerwcu 2026.",
-                cs: "Jak je na tom každý členský stát EU s transpozicí NIS 2. Vnitrostátní zákon, příslušný orgán, vnitrostátní CSIRT, stav. Ověřeno v červnu 2026.",
-                pt: "Em que ponto está cada Estado-Membro da UE na transposição da NIS 2. Lei nacional, autoridade competente, CSIRT nacional, estado. Verificado em junho de 2026.",
-                ro: "În ce stadiu se află fiecare stat membru al UE cu transpunerea NIS 2. Lege națională, autoritate competentă, CSIRT național, stare. Verificat în iunie 2026.",
+                de: "Wo jeder EU-Mitgliedstaat bei der NIS 2 Umsetzung steht. Nationales Gesetz, zuständige Behörde, nationales CSIRT, Stand. Stand Oktober 2026.",
+                en: "Where every EU Member State stands on the NIS 2 transposition. National act, competent authority, national CSIRT, status. Reviewed October 2026.",
+                fr: "Où en est chaque État membre de l'UE dans la transposition de NIS 2. Loi nationale, autorité compétente, CSIRT national, état d'avancement. Revu en octobre 2026.",
+                it: "A che punto è ogni Stato membro dell'UE nel recepimento di NIS 2. Legge nazionale, autorità competente, CSIRT nazionale, stato. Verificato a ottobre 2026.",
+                es: "Dónde se encuentra cada Estado miembro de la UE en la transposición de NIS 2. Ley nacional, autoridad competente, CSIRT nacional, estado. Revisado en octubre de 2026.",
+                pl: "Na jakim etapie wdrożenia NIS 2 jest każde państwo członkowskie UE. Ustawa krajowa, organ właściwy, krajowy CSIRT, status. Zweryfikowano w październiku 2026.",
+                cs: "Jak je na tom každý členský stát EU s transpozicí NIS 2. Vnitrostátní zákon, příslušný orgán, vnitrostátní CSIRT, stav. Ověřeno v říjnu 2026.",
+                pt: "Em que ponto está cada Estado-Membro da UE na transposição da NIS 2. Lei nacional, autoridade competente, CSIRT nacional, estado. Verificado em outubro de 2026.",
+                ro: "În ce stadiu se află fiecare stat membru al UE cu transpunerea NIS 2. Lege națională, autoritate competentă, CSIRT național, stare. Verificat în octombrie 2026.",
               },
               locale,
             )}
@@ -285,7 +284,7 @@ export default async function Nis2TrackerEuPage({
         <WikiPageMeta
           authorSlug="simon-orzel"
           locale={locale === "de" || locale === "en" || locale === "nl" ? locale : "en"}
-          lastReviewedAt="2026-06-01"
+          lastReviewedAt="2026-10-04"
           sourceLocale="en"
         />
 
@@ -379,15 +378,15 @@ export default async function Nis2TrackerEuPage({
           <p className="text-sm leading-relaxed text-muted-foreground">
             {pick(
               {
-                de: "Die Umsetzungsfrist vom 17. Oktober 2024 aus Artikel 41 NIS 2 ist verstrichen. Wenige Mitgliedstaaten waren rechtzeitig (Italien, Belgien, Ungarn, Kroatien, Rumänien). Die meisten sind noch im Gesetzgebungsverfahren, einschließlich der vier größten Volkswirtschaften (Deutschland, Frankreich, Spanien, Niederlande). Die Europäische Kommission hat im Mai 2025 Vertragsverletzungsverfahren gegen die säumigen Mitgliedstaaten eröffnet.",
-                en: "The 17 October 2024 transposition deadline set in Article 41 NIS 2 has come and gone. A few Member States moved fast (Italy, Belgium, Hungary, Croatia, Romania). Most are still in legislative process, including the four biggest economies (Germany, France, Spain, Netherlands). The European Commission opened infringement procedures in May 2025 against the late ones.",
-                fr: "Le délai de transposition du 17 octobre 2024 fixé à l'article 41 NIS 2 est dépassé. Quelques États membres ont agi rapidement (Italie, Belgique, Hongrie, Croatie, Roumanie). La plupart sont encore en procédure législative, y compris les quatre plus grandes économies (Allemagne, France, Espagne, Pays-Bas). La Commission européenne a ouvert des procédures d'infraction en mai 2025 contre les États en retard.",
-                it: "Il termine di recepimento del 17 ottobre 2024 fissato dall'articolo 41 NIS 2 è scaduto. Pochi Stati membri si sono mossi rapidamente (Italia, Belgio, Ungheria, Croazia, Romania). La maggior parte è ancora in iter legislativo, comprese le quattro maggiori economie (Germania, Francia, Spagna, Paesi Bassi). La Commissione europea ha aperto procedure di infrazione a maggio 2025 contro gli Stati in ritardo.",
-                es: "El plazo de transposición del 17 de octubre de 2024 fijado en el artículo 41 NIS 2 ha vencido. Unos pocos Estados miembros actuaron con rapidez (Italia, Bélgica, Hungría, Croacia, Rumanía). La mayoría siguen en proceso legislativo, incluidas las cuatro mayores economías (Alemania, Francia, España, Países Bajos). La Comisión Europea abrió procedimientos de infracción en mayo de 2025 contra los Estados rezagados.",
-                pl: "Termin transpozycji wyznaczony na 17 października 2024 r. w artykule 41 NIS 2 upłynął. Kilka państw członkowskich zadziałało szybko (Włochy, Belgia, Węgry, Chorwacja, Rumunia). Większość jest wciąż w procesie legislacyjnym, w tym cztery największe gospodarki (Niemcy, Francja, Hiszpania, Holandia). Komisja Europejska wszczęła w maju 2025 r. postępowania w sprawie uchybienia zobowiązaniom wobec spóźnionych państw.",
-                cs: "Lhůta pro transpozici stanovená na 17. října 2024 v článku 41 NIS 2 uplynula. Několik členských států jednalo rychle (Itálie, Belgie, Maďarsko, Chorvatsko, Rumunsko). Většina je stále v legislativním procesu, včetně čtyř největších ekonomik (Německo, Francie, Španělsko, Nizozemsko). Evropská komise zahájila v květnu 2025 řízení o nesplnění povinnosti proti opožděným státům.",
-                pt: "O prazo de transposição de 17 de outubro de 2024 fixado no artigo 41.º da NIS 2 já terminou. Alguns Estados-Membros agiram com rapidez (Itália, Bélgica, Hungria, Croácia, Roménia). A maioria continua em processo legislativo, incluindo as quatro maiores economias (Alemanha, França, Espanha, Países Baixos). A Comissão Europeia abriu, em maio de 2025, processos por infração contra os Estados em atraso.",
-                ro: "Termenul de transpunere de 17 octombrie 2024 stabilit la articolul 41 NIS 2 a expirat. Câteva state membre au acționat rapid (Italia, Belgia, Ungaria, Croația, România). Cele mai multe sunt încă în proces legislativ, inclusiv cele mai mari patru economii (Germania, Franța, Spania, Țările de Jos). Comisia Europeană a deschis în mai 2025 proceduri de constatare a neîndeplinirii obligațiilor împotriva statelor întârziate.",
+                de: "Die Umsetzungsfrist vom 17. Oktober 2024 aus Artikel 41 NIS 2 ist verstrichen. Wenige Mitgliedstaaten waren schnell (Italien, Belgien, Ungarn, Kroatien, Rumänien). Die meisten folgten 2025 und 2026: In Deutschland gilt das Gesetz seit Dezember 2025, in den Niederlanden seit August 2026 und in Österreich seit Oktober 2026. Frankreich, Spanien und Irland haben noch kein nationales Gesetz in Kraft. Die Europäische Kommission hat am 28. November 2024 Aufforderungsschreiben und am 7. Mai 2025 mit Gründen versehene Stellungnahmen verschickt und am 8. Juli 2026 Irland, Spanien, Frankreich und die Niederlande beim Gerichtshof der EU verklagt.",
+                en: "The 17 October 2024 transposition deadline set in Article 41 NIS 2 has come and gone. A few Member States moved fast (Italy, Belgium, Hungary, Croatia, Romania). Most followed in 2025 and 2026: Germany's act has been in force since December 2025, the Netherlands' since August 2026 and Austria's since October 2026. France, Spain and Ireland still have no national act in force. The European Commission sent letters of formal notice on 28 November 2024 and reasoned opinions on 7 May 2025, and on 8 July 2026 referred Ireland, Spain, France and the Netherlands to the Court of Justice of the EU.",
+                fr: "Le délai de transposition du 17 octobre 2024 fixé à l'article 41 NIS 2 est dépassé. Quelques États membres ont agi rapidement (Italie, Belgique, Hongrie, Croatie, Roumanie). La plupart ont suivi en 2025 et 2026 : la loi allemande est en vigueur depuis décembre 2025, la loi néerlandaise depuis août 2026 et la loi autrichienne depuis octobre 2026. La France, l'Espagne et l'Irlande n'ont toujours pas de loi nationale en vigueur. La Commission européenne a adressé des lettres de mise en demeure le 28 novembre 2024 et des avis motivés le 7 mai 2025, puis a saisi le 8 juillet 2026 la Cour de justice de l'UE contre l'Irlande, l'Espagne, la France et les Pays-Bas.",
+                it: "Il termine di recepimento del 17 ottobre 2024 fissato dall'articolo 41 NIS 2 è scaduto. Pochi Stati membri si sono mossi rapidamente (Italia, Belgio, Ungheria, Croazia, Romania). La maggior parte ha seguito nel 2025 e nel 2026: in Germania la legge è in vigore da dicembre 2025, nei Paesi Bassi da agosto 2026 e in Austria da ottobre 2026. Francia, Spagna e Irlanda non hanno ancora una legge nazionale in vigore. La Commissione europea ha inviato lettere di costituzione in mora il 28 novembre 2024 e pareri motivati il 7 maggio 2025, e l'8 luglio 2026 ha deferito Irlanda, Spagna, Francia e Paesi Bassi alla Corte di giustizia dell'UE.",
+                es: "El plazo de transposición del 17 de octubre de 2024 fijado en el artículo 41 NIS 2 ha vencido. Unos pocos Estados miembros actuaron con rapidez (Italia, Bélgica, Hungría, Croacia, Rumanía). La mayoría les siguieron en 2025 y 2026: la ley alemana está en vigor desde diciembre de 2025, la neerlandesa desde agosto de 2026 y la austriaca desde octubre de 2026. Francia, España e Irlanda siguen sin una ley nacional en vigor. La Comisión Europea envió cartas de emplazamiento el 28 de noviembre de 2024 y dictámenes motivados el 7 de mayo de 2025, y el 8 de julio de 2026 llevó a Irlanda, España, Francia y los Países Bajos ante el Tribunal de Justicia de la UE.",
+                pl: "Termin transpozycji wyznaczony na 17 października 2024 r. w artykule 41 NIS 2 upłynął. Kilka państw członkowskich zadziałało szybko (Włochy, Belgia, Węgry, Chorwacja, Rumunia). Większość dołączyła w latach 2025 i 2026: w Niemczech ustawa obowiązuje od grudnia 2025 r., w Holandii od sierpnia 2026 r., a w Austrii od października 2026 r. Francja, Hiszpania i Irlandia nadal nie mają obowiązującej ustawy krajowej. Komisja Europejska wysłała wezwania do usunięcia uchybienia 28 listopada 2024 r. i uzasadnione opinie 7 maja 2025 r., a 8 lipca 2026 r. skierowała do Trybunału Sprawiedliwości UE skargi przeciwko Irlandii, Hiszpanii, Francji i Holandii.",
+                cs: "Lhůta pro transpozici stanovená na 17. října 2024 v článku 41 NIS 2 uplynula. Několik členských států jednalo rychle (Itálie, Belgie, Maďarsko, Chorvatsko, Rumunsko). Většina následovala v letech 2025 a 2026: v Německu platí zákon od prosince 2025, v Nizozemsku od srpna 2026 a v Rakousku od října 2026. Francie, Španělsko a Irsko dosud nemají účinný vnitrostátní zákon. Evropská komise zaslala výzvy 28. listopadu 2024 a odůvodněná stanoviska 7. května 2025 a 8. července 2026 podala k Soudnímu dvoru EU žalobu proti Irsku, Španělsku, Francii a Nizozemsku.",
+                pt: "O prazo de transposição de 17 de outubro de 2024 fixado no artigo 41.º da NIS 2 já terminou. Alguns Estados-Membros agiram com rapidez (Itália, Bélgica, Hungria, Croácia, Roménia). A maioria seguiu em 2025 e 2026: a lei alemã está em vigor desde dezembro de 2025, a neerlandesa desde agosto de 2026 e a austríaca desde outubro de 2026. França, Espanha e Irlanda continuam sem lei nacional em vigor. A Comissão Europeia enviou cartas de notificação para cumprir em 28 de novembro de 2024 e pareceres fundamentados em 7 de maio de 2025 e, em 8 de julho de 2026, instaurou ações no Tribunal de Justiça da UE contra a Irlanda, Espanha, França e Países Baixos.",
+                ro: "Termenul de transpunere de 17 octombrie 2024 stabilit la articolul 41 NIS 2 a expirat. Câteva state membre au acționat rapid (Italia, Belgia, Ungaria, Croația, România). Cele mai multe au urmat în 2025 și 2026: legea germană este în vigoare din decembrie 2025, cea neerlandeză din august 2026, iar cea austriacă din octombrie 2026. Franța, Spania și Irlanda încă nu au o lege națională în vigoare. Comisia Europeană a trimis scrisori de punere în întârziere la 28 noiembrie 2024 și avize motivate la 7 mai 2025, iar la 8 iulie 2026 a sesizat Curtea de Justiție a UE cu privire la Irlanda, Spania, Franța și Țările de Jos.",
               },
               locale,
             )}
@@ -395,15 +394,15 @@ export default async function Nis2TrackerEuPage({
           <p className="text-sm leading-relaxed text-muted-foreground">
             {pick(
               {
-                de: "Die Tabelle unten fasst je Mitgliedstaat das wesentliche nationale Gesetz, die federführende zuständige Behörde und das nationale CSIRT zusammen. Wo eine Vertiefung pro Land existiert, ist der Landesname verlinkt. Stand zum Prüfdatum; für das aktuellste belastbare Bild bleibt die ENISA NIS 2 Umsetzungsübersicht maßgeblich.",
-                en: "The table below summarises the canonical national act, the lead competent authority and the national CSIRT for each Member State. Where we have a per-country deep dive, the country name links to it. Status as of the review date; check the ENISA NIS 2 transposition tracker for the latest verifiable picture.",
-                fr: "Le tableau ci-dessous résume, pour chaque État membre, la loi nationale de référence, l'autorité compétente chef de file et le CSIRT national. Lorsqu'une analyse approfondie par pays existe, le nom du pays renvoie vers elle. État à la date de révision ; pour l'image vérifiable la plus récente, consultez le suivi de transposition NIS 2 de l'ENISA.",
-                it: "La tabella seguente riassume, per ciascuno Stato membro, la legge nazionale di riferimento, l'autorità competente capofila e il CSIRT nazionale. Dove esiste un approfondimento per paese, il nome del paese rimanda a esso. Stato alla data di verifica; per il quadro verificabile più recente consultare il tracker di recepimento NIS 2 dell'ENISA.",
-                es: "La tabla siguiente resume, para cada Estado miembro, la ley nacional de referencia, la autoridad competente principal y el CSIRT nacional. Cuando existe un análisis detallado por país, el nombre del país enlaza con él. Estado a la fecha de revisión; para la imagen verificable más reciente, consulte el rastreador de transposición NIS 2 de ENISA.",
-                pl: "Poniższa tabela podsumowuje dla każdego państwa członkowskiego kluczową ustawę krajową, wiodący organ właściwy oraz krajowy CSIRT. Tam, gdzie istnieje pogłębiona analiza danego kraju, nazwa kraju jest do niej odnośnikiem. Status na dzień weryfikacji; najbardziej aktualny, wiarygodny obraz zapewnia tracker transpozycji NIS 2 prowadzony przez ENISA.",
-                cs: "Následující tabulka shrnuje pro každý členský stát klíčový vnitrostátní zákon, vedoucí příslušný orgán a vnitrostátní CSIRT. Tam, kde existuje podrobný rozbor dané země, je název země odkazem na něj. Stav k datu ověření; nejaktuálnější ověřitelný obraz poskytuje tracker transpozice NIS 2 od ENISA.",
-                pt: "A tabela abaixo resume, para cada Estado-Membro, a lei nacional de referência, a autoridade competente principal e o CSIRT nacional. Quando existe uma análise aprofundada por país, o nome do país remete para ela. Estado à data de revisão; para o panorama verificável mais recente, consulte a monitorização da transposição da NIS 2 da ENISA.",
-                ro: "Tabelul de mai jos rezumă, pentru fiecare stat membru, legea națională de referință, autoritatea competentă principală și CSIRT-ul național. Acolo unde există o analiză detaliată pe țară, numele țării face trimitere la aceasta. Stare la data verificării; pentru imaginea verificabilă cea mai recentă, consultați monitorul transpunerii NIS 2 al ENISA.",
+                de: "Die Tabelle unten fasst je Mitgliedstaat das wesentliche nationale Gesetz, die federführende zuständige Behörde und das nationale CSIRT zusammen. Wo eine Vertiefung pro Land existiert, ist der Landesname verlinkt. Stand zum Prüfdatum; das aktuellste belastbare Bild bietet die Übersicht der Europäischen Kommission zur Umsetzung von NIS 2.",
+                en: "The table below summarises the canonical national act, the lead competent authority and the national CSIRT for each Member State. Where we have a per-country deep dive, the country name links to it. Status as of the review date; check the European Commission's NIS 2 transposition page for the latest verifiable picture.",
+                fr: "Le tableau ci-dessous résume, pour chaque État membre, la loi nationale de référence, l'autorité compétente chef de file et le CSIRT national. Lorsqu'une analyse approfondie par pays existe, le nom du pays renvoie vers elle. État à la date de révision ; pour l'image vérifiable la plus récente, consultez la page de la Commission européenne sur la transposition de NIS 2.",
+                it: "La tabella seguente riassume, per ciascuno Stato membro, la legge nazionale di riferimento, l'autorità competente capofila e il CSIRT nazionale. Dove esiste un approfondimento per paese, il nome del paese rimanda a esso. Stato alla data di verifica; per il quadro verificabile più recente consultare la pagina della Commissione europea sul recepimento di NIS 2.",
+                es: "La tabla siguiente resume, para cada Estado miembro, la ley nacional de referencia, la autoridad competente principal y el CSIRT nacional. Cuando existe un análisis detallado por país, el nombre del país enlaza con él. Estado a la fecha de revisión; para la imagen verificable más reciente, consulte la página de la Comisión Europea sobre la transposición de NIS 2.",
+                pl: "Poniższa tabela podsumowuje dla każdego państwa członkowskiego kluczową ustawę krajową, wiodący organ właściwy oraz krajowy CSIRT. Tam, gdzie istnieje pogłębiona analiza danego kraju, nazwa kraju jest do niej odnośnikiem. Status na dzień weryfikacji; najbardziej aktualny, wiarygodny obraz zapewnia strona Komisji Europejskiej poświęcona transpozycji NIS 2.",
+                cs: "Následující tabulka shrnuje pro každý členský stát klíčový vnitrostátní zákon, vedoucí příslušný orgán a vnitrostátní CSIRT. Tam, kde existuje podrobný rozbor dané země, je název země odkazem na něj. Stav k datu ověření; nejaktuálnější ověřitelný obraz poskytuje stránka Evropské komise o transpozici NIS 2.",
+                pt: "A tabela abaixo resume, para cada Estado-Membro, a lei nacional de referência, a autoridade competente principal e o CSIRT nacional. Quando existe uma análise aprofundada por país, o nome do país remete para ela. Estado à data de revisão; para o panorama verificável mais recente, consulte a página da Comissão Europeia sobre a transposição da NIS 2.",
+                ro: "Tabelul de mai jos rezumă, pentru fiecare stat membru, legea națională de referință, autoritatea competentă principală și CSIRT-ul național. Acolo unde există o analiză detaliată pe țară, numele țării face trimitere la aceasta. Stare la data verificării; pentru imaginea verificabilă cea mai recentă, consultați pagina Comisiei Europene privind transpunerea NIS 2.",
               },
               locale,
             )}
@@ -633,21 +632,22 @@ export default async function Nis2TrackerEuPage({
               </li>
               <li className="flex items-start gap-2">
                 <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
-                ENISA NIS 2 transposition tracker: enisa.europa.eu/topics/nis-directive
+                European Commission, NIS 2 transposition status:
+                digital-strategy.ec.europa.eu/en/policies/nis-transposition
               </li>
               <li className="flex items-start gap-2">
                 <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
                 {pick(
                   {
-                    de: "Europäische Kommission, Vertragsverletzungsverfahren gegen Mitgliedstaaten ohne vollständige Mitteilung der NIS 2 Umsetzung (November 2024, mit Gründen versehene Stellungnahmen Mai 2025).",
-                    en: "European Commission, infringement procedures opened against Member States that did not communicate full transposition of NIS 2 (November 2024, reasoned opinions May 2025).",
-                    fr: "Commission européenne, procédures d'infraction ouvertes contre les États membres n'ayant pas communiqué la transposition complète de NIS 2 (novembre 2024, avis motivés en mai 2025).",
-                    it: "Commissione europea, procedure di infrazione avviate contro gli Stati membri che non hanno comunicato il recepimento completo di NIS 2 (novembre 2024, pareri motivati maggio 2025).",
-                    es: "Comisión Europea, procedimientos de infracción abiertos contra los Estados miembros que no comunicaron la transposición completa de NIS 2 (noviembre de 2024, dictámenes motivados en mayo de 2025).",
-                    pl: "Komisja Europejska, postępowania w sprawie uchybienia zobowiązaniom wszczęte wobec państw członkowskich, które nie zgłosiły pełnej transpozycji NIS 2 (listopad 2024, uzasadnione opinie maj 2025).",
-                    cs: "Evropská komise, řízení o nesplnění povinnosti zahájená proti členským státům, které neoznámily úplnou transpozici NIS 2 (listopad 2024, odůvodněná stanoviska květen 2025).",
-                    pt: "Comissão Europeia, processos por infração abertos contra os Estados-Membros que não comunicaram a transposição completa da NIS 2 (novembro de 2024, pareceres fundamentados em maio de 2025).",
-                    ro: "Comisia Europeană, proceduri de constatare a neîndeplinirii obligațiilor deschise împotriva statelor membre care nu au comunicat transpunerea completă a NIS 2 (noiembrie 2024, avize motivate mai 2025).",
+                    de: "Europäische Kommission, Vertragsverletzungsverfahren gegen Mitgliedstaaten ohne vollständige Mitteilung der NIS 2 Umsetzung (Aufforderungsschreiben 28. November 2024, mit Gründen versehene Stellungnahmen 7. Mai 2025, Klage gegen Irland, Spanien, Frankreich und die Niederlande beim Gerichtshof der EU 8. Juli 2026, IP/26/1499).",
+                    en: "European Commission, infringement procedures against Member States that did not communicate full transposition of NIS 2 (letters of formal notice 28 November 2024, reasoned opinions 7 May 2025, referral of Ireland, Spain, France and the Netherlands to the Court of Justice 8 July 2026, IP/26/1499).",
+                    fr: "Commission européenne, procédures d'infraction contre les États membres n'ayant pas communiqué la transposition complète de NIS 2 (mises en demeure le 28 novembre 2024, avis motivés le 7 mai 2025, saisine de la Cour de justice contre l'Irlande, l'Espagne, la France et les Pays-Bas le 8 juillet 2026, IP/26/1499).",
+                    it: "Commissione europea, procedure di infrazione contro gli Stati membri che non hanno comunicato il recepimento completo di NIS 2 (costituzione in mora 28 novembre 2024, pareri motivati 7 maggio 2025, deferimento di Irlanda, Spagna, Francia e Paesi Bassi alla Corte di giustizia 8 luglio 2026, IP/26/1499).",
+                    es: "Comisión Europea, procedimientos de infracción contra los Estados miembros que no comunicaron la transposición completa de NIS 2 (cartas de emplazamiento 28 de noviembre de 2024, dictámenes motivados 7 de mayo de 2025, recurso ante el Tribunal de Justicia contra Irlanda, España, Francia y los Países Bajos 8 de julio de 2026, IP/26/1499).",
+                    pl: "Komisja Europejska, postępowania w sprawie uchybienia zobowiązaniom wobec państw członkowskich, które nie zgłosiły pełnej transpozycji NIS 2 (wezwania 28 listopada 2024 r., uzasadnione opinie 7 maja 2025 r., skargi do Trybunału Sprawiedliwości przeciwko Irlandii, Hiszpanii, Francji i Holandii 8 lipca 2026 r., IP/26/1499).",
+                    cs: "Evropská komise, řízení o nesplnění povinnosti proti členským státům, které neoznámily úplnou transpozici NIS 2 (výzvy 28. listopadu 2024, odůvodněná stanoviska 7. května 2025, žaloby k Soudnímu dvoru proti Irsku, Španělsku, Francii a Nizozemsku 8. července 2026, IP/26/1499).",
+                    pt: "Comissão Europeia, processos por infração contra os Estados-Membros que não comunicaram a transposição completa da NIS 2 (notificações para cumprir 28 de novembro de 2024, pareceres fundamentados 7 de maio de 2025, ações no Tribunal de Justiça contra a Irlanda, Espanha, França e Países Baixos 8 de julho de 2026, IP/26/1499).",
+                    ro: "Comisia Europeană, proceduri de constatare a neîndeplinirii obligațiilor împotriva statelor membre care nu au comunicat transpunerea completă a NIS 2 (scrisori de punere în întârziere 28 noiembrie 2024, avize motivate 7 mai 2025, sesizarea Curții de Justiție privind Irlanda, Spania, Franța și Țările de Jos 8 iulie 2026, IP/26/1499).",
                   },
                   locale,
                 )}
