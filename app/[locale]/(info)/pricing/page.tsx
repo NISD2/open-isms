@@ -4,6 +4,7 @@ import { cache } from "react";
 import { JsonLd } from "@/components/JsonLd";
 import { MarketingHero } from "@/components/marketing/MarketingHero";
 import { PaidPricingCards } from "@/components/pricing/PaidPricingCards";
+import { PricingFaq } from "@/components/pricing/PricingFaq";
 import { getSession } from "@/lib/auth";
 import { holderNetCents } from "@/lib/billing/holder-price";
 import {
@@ -116,6 +117,8 @@ export default async function PricingPage({
         grandfathered={offer.netCents === GRANDFATHERED_NET_CENTS}
         grandfatheredPrice={formatWholeEuro(GRANDFATHERED_NET_CENTS, rawLocale)}
       />
+
+      <PricingFaq />
     </div>
   );
 }

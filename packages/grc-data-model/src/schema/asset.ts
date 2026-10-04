@@ -9,7 +9,7 @@ import {
   uuid,
   varchar,
 } from "drizzle-orm/pg-core";
-import { assetMfaMethodEnum } from "../enums";
+import { assetHostingEnum, assetMfaMethodEnum } from "../enums";
 import { supplier } from "./supplier";
 
 export const asset = pgTable(
@@ -34,6 +34,8 @@ export const asset = pgTable(
     isCritical: boolean("is_critical").default(false),
     owner: varchar("owner", { length: 255 }),
     location: varchar("location", { length: 255 }),
+    // Answered on 2.2 for what runs software; null until then. Who provides it is asset_provider.
+    hosting: assetHostingEnum("hosting"),
 
     // Superseded by asset_provider, which allows several providers per asset and was backfilled
     // from this column (migration 0005). No code reads or writes it any more; it is dropped once

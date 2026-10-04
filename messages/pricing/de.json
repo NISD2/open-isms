@@ -34,6 +34,11 @@
     "tiers": {
       "subtitle": "Ein Preis, alles inklusive. Kurse und Wiki kosten nichts.",
       "recommended": "Empfohlen",
+      "talkFirst": {
+        "title": "Lieber erst mit uns sprechen?",
+        "body": "Ein kurzes Gespräch per Video oder Telefon, zu einem Termin Ihrer Wahl."
+      },
+      "approvalLink": "Entscheidet jemand anderes? Eine Seite für Ihre Geschäftsführung",
       "free": {
         "name": "Lernen",
         "description": "Für alle, die NIS 2 verstehen wollen.",
@@ -50,6 +55,12 @@
         "name": "NIS 2 Durchgang",
         "description": "Die geführte Umsetzung auf nisd2.eu.",
         "priceSub": "netto im Jahr, zzgl. USt.",
+        "anchor": "Der ganze Durchgang zum Preis einer Gap-Analyse.",
+        "anchorTip": {
+          "title": "Was eine Gap-Analyse kostet",
+          "body": "Beratungen in Deutschland veröffentlichen für eine NIS 2 Gap-Analyse Preise zwischen {low} und {high}, einmalig und meist als Einstiegspreis. Die Analyse zeigt, was fehlt. Der Durchgang führt Sie danach Schritt für Schritt durch die Umsetzung.",
+          "note": "Quellen: die Websites von {sources}, Stand {checked}."
+        },
         "moneyBack": "30 Tage Geld zurück",
         "moneyBackTip": {
           "title": "30 Tage Geld zurück",
@@ -94,7 +105,7 @@
         "cta": "Zum Quellcode",
         "features": {
           "everything": "Alles aus dem <paid>Durchgang</paid>",
-          "infrastructure": "Auf Ihrer eigenen Infrastruktur",
+          "infrastructure": "Betrieb, Updates und Backups in Ihrer Hand",
           "licence": "Quellcode offen unter AGPL-3.0",
           "contract": "Kein Vertrag mit uns"
         },
@@ -128,6 +139,89 @@
     },
     "whyFree": "Warum kostenlos: Der Quellcode liegt offen auf GitHub, prüfbar und selbst betreibbar. Geld nehmen wir für die Einrichtung des Selbstbetriebs und von Fachbetrieben, an die wir vermitteln, nicht für die Plattform.",
     "consultantFootnote": "Kommen Sie bei NIS 2 nicht weiter? Kurze Fachfragen kosten nichts, und wenn es einen Fachbetrieb braucht, vermitteln wir Ihnen einen, ohne Kosten für Sie.",
-    "consultantCta": "Hilfe und Vermittlung"
+    "consultantCta": "Hilfe und Vermittlung",
+    "faq": {
+      "heading": "Fragen vor der Bestellung",
+      "items": {
+        "cost": {
+          "q": "Was kommt an Kosten zu?",
+          "a": "Für den Durchgang {price} netto im Jahr, für alle Organisationen und Nutzer Ihrer Unternehmensgruppe. Weitere Gebühren gibt es nicht. Was die Maßnahmen selbst kosten, hängt von Ihrem Betrieb ab. Das Gesetz nennt die Umsetzungskosten ausdrücklich als einen Maßstab dafür, was verhältnismäßig ist (<bsig30>§ 30 Abs. 1 Satz 2 BSIG</bsig30>)."
+        },
+        "effort": {
+          "q": "Wie viel Aufwand ist das, und müssen wir dafür jemanden einstellen?",
+          "a": "Der Durchgang ist für eine Person gebaut, die NIS 2 neben ihrer eigentlichen Arbeit umsetzt. Sie geht die Schritte nacheinander, kann jederzeit unterbrechen und einen Schritt offen lassen, der noch nicht geht. Die Geschäftsleitung kommt am Ende dazu, für die Freigabe in der App. Wie viel Zeit das braucht, hängt von Ihrem Betrieb ab. Eine zusätzliche Stelle setzt der Durchgang nicht voraus."
+        },
+        "software": {
+          "q": "Geht das auch ohne Software?",
+          "a": "Ja. Das Gesetz schreibt kein bestimmtes Werkzeug vor. Es verlangt die Maßnahmen und dass Sie ihre Einhaltung dokumentieren (<bsig30>§ 30 Abs. 1 Satz 3 BSIG</bsig30>). Der Durchgang nimmt Ihnen ab, Reihenfolge, Vorlagen, Freigaben und Fristen selbst zu organisieren."
+        },
+        "data": {
+          "q": "Brauchen wir einen eigenen Server, und wo liegen unsere Daten?",
+          "a": "Nein, der Durchgang läuft im Browser. Anwendung und Datenbank betreibt Hetzner in Deutschland, hochgeladene Dateien liegen bei AWS in einer Region der EU, und E-Mails versendet Resend aus den USA auf Grundlage der Standardvertragsklauseln. Die vollständige Liste steht im <avv>Auftragsverarbeitungsvertrag</avv>, Anhang IV. Wer nichts auslagern möchte, betreibt die Plattform selbst, mit Docker auf eigenen Servern."
+        },
+        "language": {
+          "q": "Ist alles auf Deutsch?",
+          "a": "Ja. Die App und der Durchgang sind auf Deutsch, auf Wunsch auch auf Englisch."
+        },
+        "nextYear": {
+          "q": "Was zahlen wir im zweiten Jahr, und wofür?",
+          "a": "Denselben Preis. Die Lizenz verlängert sich jährlich. 14 Tage vorher erinnern wir Sie per E-Mail an die Verlängerung, den Preis und den Weg zur Kündigung, und kündigen können Sie bis zum letzten Tag des Lizenzjahres (<terms>AGB B6</terms>). Nach dem Durchgang erinnert die App an Ihre wiederkehrenden Pflichten, und alle Updates sind enthalten."
+        },
+        "approval": {
+          "q": "Ich entscheide das nicht allein. Wie bekomme ich es freigegeben?",
+          "a": "Leiten Sie Ihrer Geschäftsführung <approval>die Seite zur Freigabe</approval> weiter. Darauf steht alles für die Entscheidung: was der Durchgang ist, was er kostet, ein Vergleich mit veröffentlichten Beraterpreisen und wie man ihn wieder beendet."
+        },
+        "money": {
+          "q": "Womit verdienen Sie Ihr Geld?",
+          "a": "Mit dieser Jahreslizenz. Der Quellcode ist offen, damit Sie prüfen können, was die Plattform mit Ihren Daten macht. Sie zahlen dafür, dass wir die Plattform betreiben, weiterentwickeln und für Ihre Fragen da sind. Ihre Daten verkaufen wir nicht."
+        }
+      }
+    },
+    "approval": {
+      "meta": {
+        "title": "Zur Freigabe: NIS 2 Durchgang",
+        "description": "Eine Seite für die Geschäftsführung: was der NIS 2 Durchgang ist, was er kostet und wie man ihn wieder beendet."
+      },
+      "eyebrow": "Zur Freigabe",
+      "title": "NIS 2 Durchgang auf nisd2.eu",
+      "lead": "Eine Seite für die Entscheidung: was es ist, was es kostet und wie man es wieder beendet.",
+      "rows": {
+        "what": {
+          "label": "Was es ist",
+          "text": "Die geführte Umsetzung der NIS 2 Pflichten in einer App. Eine Person aus Ihrem Haus geht die Schritte nacheinander durch, und jede Entscheidung wird mit Namen und Datum festgehalten."
+        },
+        "role": {
+          "label": "Ihre Rolle",
+          "text": "Für Einrichtungen im Anwendungsbereich müssen die Leitungsorgane die Risikomanagementmaßnahmen billigen und ihre Umsetzung überwachen (<nis2>Art. 20 Abs. 1 NIS 2</nis2>). In Deutschland verpflichtet <bsig>§ 38 Abs. 1 BSIG</bsig> die Geschäftsleitung, die Maßnahmen umzusetzen und ihre Umsetzung zu überwachen. Im Durchgang geben Sie die Ergebnisse am Ende frei, in der App mit Ihrem eigenen Zugang. Gedruckt und eingescannt wird nichts."
+        },
+        "cost": {
+          "label": "Kosten",
+          "text": "{price} netto im Jahr zuzüglich Umsatzsteuer, auf Rechnung mit 30 Tagen Zahlungsziel. Der Preis gilt für alle Organisationen und Nutzer Ihrer Unternehmensgruppe."
+        },
+        "comparison": {
+          "label": "Zum Vergleich"
+        },
+        "exit": {
+          "label": "Laufzeit und Kündigung",
+          "text": "Kündigen Sie in den ersten 30 Tagen nach der ersten Bestellung, wird die Rechnung storniert, und eine bezahlte erstatten wir. Danach verlängert sich die Lizenz jährlich, 14 Tage vorher erinnern wir per E-Mail, und kündigen können Sie bis zum letzten Tag des Lizenzjahres (<terms>AGB B6 und B7</terms>)."
+        },
+        "scope": {
+          "label": "Was es nicht ist",
+          "text": "Keine Zertifizierung. Das Ergebnis ist die dokumentierte Selbstauskunft Ihres Unternehmens, mit dem Verlauf aller Änderungen und Freigaben."
+        },
+        "provider": {
+          "label": "Anbieter",
+          "text": "Kardashev Catalyst UG (haftungsbeschränkt), Köln. Es gelten die <terms>AGB</terms> mit dem <avv>Auftragsverarbeitungsvertrag</avv>."
+        }
+      },
+      "forward": {
+        "label": "Diese Seite weiterleiten:",
+        "email": "Per E-Mail",
+        "copy": "Link kopieren",
+        "copied": "Link kopiert",
+        "subject": "NIS 2 Durchgang zur Freigabe",
+        "body": "Hallo,\n\nzur Freigabe: eine Seite zum NIS 2 Durchgang auf nisd2.eu, mit Kosten, Laufzeit und Kündigung.\n\n{url}\n\nViele Grüße"
+      }
+    }
   }
 }

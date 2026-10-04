@@ -211,6 +211,25 @@ describe("the NIS 2 script", () => {
     }
   });
 
+  test("starts on today only a date field the same screen asks", () => {
+    for (const item of NIS2_SCRIPT) {
+      for (const screen of screensOf(item)) {
+        if (screen.kind !== "fields") continue;
+        for (const key of screen.today ?? []) {
+          expect(screen.fields).toContain(key);
+          const shape = CATEGORY_SCHEMAS[item.category].shape as Record<
+            string,
+            z.ZodType
+          >;
+          expect({ key, date: shape[key] instanceof z.ZodDate }).toEqual({
+            key,
+            date: true,
+          });
+        }
+      }
+    }
+  });
+
   test("gives every field it does not ask a reason", () => {
     for (const item of NIS2_SCRIPT) {
       for (const reason of Object.values(item.notAsked ?? {})) {

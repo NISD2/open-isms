@@ -14,6 +14,7 @@ import { e2eQuery } from "../lib/db";
 import {
   e2eTenant,
   e2eUserId,
+  enabledNext,
   fillWalkItem,
   keepJobTitle,
   keepPolicies,
@@ -129,9 +130,7 @@ test.describe("durchgang management review", () => {
       page.getByRole("listitem").filter({ hasText: FILLED_HEADLINE }),
     ).toBeVisible();
     await expect(page.getByText("An die Geschäftsführung schicken")).toBeVisible();
-    await expect(
-      page.getByRole("button", { name: "Weiter", exact: true }),
-    ).toBeDisabled();
+    await expect(enabledNext(page)).toHaveCount(0);
 
     await page
       .getByRole("button", { name: "Ich gehöre selbst zur Geschäftsführung" })

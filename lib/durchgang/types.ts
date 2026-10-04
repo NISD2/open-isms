@@ -12,7 +12,11 @@
  * BSI wrote it.
  */
 
-import type { assetMfaMethodEnum, entityTypeEnum } from "@nisd2/grc-data-model/enums";
+import type {
+  assetHostingEnum,
+  assetMfaMethodEnum,
+  entityTypeEnum,
+} from "@nisd2/grc-data-model/enums";
 import type { FunctionalGroup } from "@/lib/asset-inventory/catalog";
 import type { Frequency, Impact } from "@/lib/compliance/bsi-200-3";
 import {
@@ -92,6 +96,12 @@ export const MFA_METHODS = [
   "email",
 ] as const satisfies readonly MfaMethod[];
 
+/** Where an asset runs, as the database enum on `asset.hosting` defines it. */
+export type Hosting = (typeof assetHostingEnum.enumValues)[number];
+
+/** Where an asset runs, in the order 2.2 offers it; a test pins it to the enum, as above. */
+export const HOSTINGS = ["in_house", "cloud"] as const satisfies readonly Hosting[];
+
 /** How often a backup system backs up: the values the intake already offers for 4.4. */
 export const BACKUP_FREQUENCIES = BCP_SCHEMA.shape.backupFrequency.options;
 export type BackupFrequency = (typeof BACKUP_FREQUENCIES)[number];
@@ -165,6 +175,11 @@ export type Screen<C extends CategoryCode> =
       readonly person?: CategoryField<C>;
       /** A rule or list shown above the fields, which the answers are read off. */
       readonly provision?: Provision;
+      /**
+       * Date fields that start on today while unanswered: what is usually recorded the day it
+       * happens, like a registration entered straight after it went through.
+       */
+      readonly today?: readonly CategoryField<C>[];
       /**
        * A text field whose common answers come from the company's own data, so a tap names what
        * it already has: its software from the list, or addresses at its contact email's domain.

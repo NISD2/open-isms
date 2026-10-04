@@ -7,11 +7,17 @@ import {
 } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import type { ComponentProps } from "react";
-import { MoneyBackBadge, PaidFeatureList } from "@/components/pricing/PaidPricingCards";
+import {
+  ApprovalLink,
+  MoneyBackBadge,
+  PaidFeatureList,
+  PriceAnchor,
+  TalkFirst,
+} from "@/components/pricing/PaidPricingCards";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "@/i18n/navigation";
-import { formatWholeEuro } from "@/lib/billing/order";
+import { formatWholeEuro, GRANDFATHERED_NET_CENTS } from "@/lib/billing/order";
 import { api } from "@/lib/trpc/server";
 
 /**
@@ -97,7 +103,11 @@ export async function PortalOffer() {
                 {tiers("paid.priceSub")}
               </span>
             </p>
-            <MoneyBackBadge />
+            {/* As on /pricing: half the list price is no longer "the price of a gap analysis". */}
+            {status.netCents === GRANDFATHERED_NET_CENTS ? null : <PriceAnchor />}
+            <div>
+              <MoneyBackBadge />
+            </div>
           </div>
           <div className="space-y-3">
             {/* Closed without live keys: on nisd2.eu while they are broken, or in a sandbox run
@@ -120,6 +130,10 @@ export async function PortalOffer() {
                 {tiers("paid.termsLink")}
               </Link>
             </p>
+          </div>
+          <div className="space-y-3">
+            <TalkFirst />
+            <ApprovalLink />
           </div>
           <Separator />
           <PaidFeatureList />

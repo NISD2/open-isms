@@ -148,6 +148,11 @@ export const routing = defineRouting({
       nl: "/functies",
     },
     "/pricing": PRICING_SLUGS,
+    "/pricing/approval": {
+      de: "/preise/freigabe",
+      en: "/pricing/approval",
+      nl: "/prijzen/goedkeuring",
+    },
     "/about": {
       de: "/about",
       en: "/about",

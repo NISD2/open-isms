@@ -11,6 +11,7 @@ import { e2eQuery } from "../lib/db";
 import {
   e2eTenant,
   e2eUserId,
+  enabledNext,
   keepAnswers,
   keepPolicies,
   payFor,
@@ -49,7 +50,7 @@ test.describe("durchgang leitlinie", () => {
     });
     const next = page.getByRole("button", { name: "Weiter", exact: true });
     // Weiter waits until the person says they have read the document.
-    await expect(next).toBeDisabled();
+    await expect(enabledNext(page)).toHaveCount(0);
     await page.locator("#dg-policy-read").click();
     await next.click();
 

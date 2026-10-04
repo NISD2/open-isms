@@ -1231,7 +1231,7 @@
           "heading": "B10. Ende der Jahreslizenz und Daten",
           "paragraphs": [
             "Endet die Jahreslizenz, durch Kündigung, durch Ablauf ohne Verlängerung oder durch eine Sperre nach B9, bleibt das Konto bestehen und fällt auf die Nutzung ohne Lizenz zurück. Der Anbieter löscht dabei keine Daten.",
-            "Ohne Lizenz erreicht das Konto nur noch die Bereiche Abrechnung, Einstellungen, Organisation und Benachrichtigungen. Die übrigen Inhalte und die Exporte sind erst mit einer neuen Bestellung wieder erreichbar. Bestandsnutzer behalten die kostenlose Nutzung des bisherigen Durchgangs.",
+            "Ohne Lizenz erreicht das Konto nur noch die Bereiche Abrechnung, Einstellungen, Organisation, Benachrichtigungen und Export. Die Exporte der eigenen Daten bleiben damit jederzeit erreichbar. Die übrigen Inhalte sind erst mit einer neuen Bestellung wieder erreichbar. Bestandsnutzer behalten die kostenlose Nutzung des bisherigen Durchgangs.",
             "Auf Weisung des Kunden gibt der Anbieter die Daten heraus oder löscht sie, wie es der Auftragsverarbeitungsvertrag regelt. Eine E-Mail an contact@nisd2.eu genügt."
           ]
         },
@@ -2165,7 +2165,7 @@
       },
       "badge": "Unsere Mission",
       "title": "Wir halbieren Europas NIS2-Rechnung.",
-      "subtitle": "Das 31-Milliarden-Euro-Problem - und unser Plan, es zu lösen.",
+      "subtitle": "Ein Problem von 31 Milliarden Euro, und unser Plan, es zu lösen.",
       "problem": {
         "heading": "Das 31-Milliarden-Euro-Problem",
         "p1": "NIS2 wird europäische Unternehmen 31,2 Milliarden Euro pro Jahr kosten (Frontier Economics, 2023). Das sind 0,31% des Umsatzes jedes regulierten Unternehmens. Für immer.",
@@ -2197,7 +2197,7 @@
       "plan": {
         "heading": "Wie wir es halbieren",
         "p1": "Wir streichen keine Hardware. Wir streichen keine Sicherheitstools. Die sind real und notwendig.",
-        "p2": "Wir streichen die Reibung. Die Übersetzungsarbeit, die Interpretationsarbeit, den Papierkram - einmal gemacht, strukturiert, kostenlos, für alle geteilt."
+        "p2": "Wir streichen die Reibung. Die Übersetzungsarbeit, die Interpretationsarbeit, den Papierkram: einmal gemacht, strukturiert, kostenlos, für alle geteilt."
       },
       "savings": {
         "heading": "Woher die 16 Milliarden Euro Ersparnis kommen",
@@ -7030,11 +7030,8 @@
         "heading": "Warum wir",
         "body": "Wir sind keine Beratungsfirma. Wir verkaufen kein Tool und kassieren dann für die Schulung. Wir haben alles auf dieser Plattform gebaut, indem wir das Gesetz, die Durchführungsverordnung und die BSI-Leitfäden gelesen haben. Jede Lektion im CEO-Kurs nennt ihre Rechtsgrundlage. Jede Anforderung in der Plattform verweist auf einen konkreten BSIG-Paragraphen. Wir sind Ingenieure, die entschieden haben, dass Compliance keine sechs Stellen kosten sollte."
       },
-      "cta": {
-        "heading": "Plattform ausprobieren",
-        "description": "Prüfen Sie, ob NIS2 für Ihr Unternehmen gilt, und arbeiten Sie die Anforderungen Schritt für Schritt ab. Open Source, kein Lock-in."
-      },
-      "ctaPlatform": "Kostenlos starten"
+      "simonRole": "Geschäftsführer, technischer Mitgründer",
+      "coryRole": "COO, Mitgründer"
     },
     "gapAssessmentLanding": {
       "meta": {

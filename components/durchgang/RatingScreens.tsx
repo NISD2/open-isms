@@ -1,10 +1,19 @@
 "use client";
 
-import { Check, ChevronDown, Plus } from "lucide-react";
+import {
+  Building2,
+  Check,
+  ChevronDown,
+  Cloud,
+  Handshake,
+  type LucideIcon,
+  Plus,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   catalogIdOf,
   catalogLabel,
@@ -13,6 +22,8 @@ import {
 } from "@/lib/asset-inventory/catalog-labels";
 import { RISK_LEVEL_TEXT, type RiskLevel } from "@/lib/compliance/bsi-200-3";
 import {
+  asksHosting,
+  hostingOf,
   levelOf,
   providersOf,
   type Rating,
@@ -61,24 +72,64 @@ function Chip({
   );
 }
 
+/** Two answers side by side, one of them chosen or neither yet; a tap picks one. */
+function Choice<T extends string>({
+  id,
+  label,
+  options,
+  value,
+  onChange,
+}: {
+  id: string;
+  label: string;
+  options: ReadonlyArray<{ value: T; label: string; icon: LucideIcon }>;
+  value: T | null;
+  onChange: (value: T) => void;
+}) {
+  return (
+    <RadioGroup
+      aria-label={label}
+      value={value ?? ""}
+      onValueChange={(next) => {
+        const picked = options.find((o) => o.value === next);
+        if (picked) onChange(picked.value);
+      }}
+      className="grid grid-cols-2 gap-1 rounded-xl bg-muted p-1"
+    >
+      {options.map((o) => (
+        <Label
+          key={o.value}
+          htmlFor={`${id}-${o.value}`}
+          className="flex min-h-9 cursor-pointer items-center justify-center gap-1.5 rounded-lg px-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground has-[[data-state=checked]]:bg-background has-[[data-state=checked]]:text-foreground has-[[data-state=checked]]:shadow-sm has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring"
+        >
+          <RadioGroupItem id={`${id}-${o.value}`} value={o.value} className="sr-only" />
+          <o.icon className="size-4" />
+          {o.label}
+        </Label>
+      ))}
+    </RadioGroup>
+  );
+}
+
 /**
- * Who provides one thing: any number of suppliers, each a tap on or off, a name of one's own added
- * with Enter, and "run in house" for none at all.
+ * Who provides one thing: any number of suppliers, each a tap on or off, and a name of one's own
+ * added with Enter.
  */
 function Providers({
   id,
   listId,
   common,
   value,
+  placeholder,
   onChange,
 }: {
   id: string;
   listId: string;
   common: readonly string[];
   value: readonly string[];
+  placeholder: string;
   onChange: (value: readonly string[]) => void;
 }) {
-  const t = useTranslations("durchgang.ui.specify");
   const [typed, setTyped] = useState("");
   const has = (name: string) => value.some((v) => nameKey(v) === nameKey(name));
   const toggle = (name: string) =>
@@ -90,23 +141,23 @@ function Providers({
     if (name && !has(name)) onChange([...value, name]);
     setTyped("");
   };
+  const names = [...new Set([...value, ...common])];
   return (
     <div className="space-y-2">
-      <div className="flex flex-wrap gap-1.5">
-        <Chip on={value.length === 0} onClick={() => onChange([])}>
-          {t("inHouse")}
-        </Chip>
-        {[...new Set([...value, ...common])].map((name) => (
-          <Chip key={nameKey(name)} on={has(name)} onClick={() => toggle(name)}>
-            {name}
-          </Chip>
-        ))}
-      </div>
+      {names.length > 0 && (
+        <div className="flex flex-wrap gap-1.5">
+          {names.map((name) => (
+            <Chip key={nameKey(name)} on={has(name)} onClick={() => toggle(name)}>
+              {name}
+            </Chip>
+          ))}
+        </div>
+      )}
       <Input
         id={id}
         list={listId}
         value={typed}
-        placeholder={t("addProvider")}
+        placeholder={placeholder}
         className="h-9"
         onChange={(e) => setTyped(e.target.value)}
         onBlur={add}
@@ -148,10 +199,15 @@ export function Specify({
     ...new Set([...rows.flatMap((r) => storedOf(r.id)), ...listed.map((s) => s.name)]),
   ].slice(0, 5);
 
+  // Rows where "A provider" was picked before any provider is named; on this visit only, since
+  // a row with no provider reads as in house.
+  const [external, setExternal] = useState<ReadonlySet<string>>(new Set());
+
   const shown = (row: (typeof rows)[number]): Specified =>
     draft.specified[row.id] ?? {
       name: row.name,
       description: ownDescription(row) ?? "",
+      hosting: asksHosting(row.type) ? hostingOf(row) : null,
       providers: storedOf(row.id),
     };
   const edit = (row: (typeof rows)[number], change: Partial<Specified>) =>
@@ -159,6 +215,14 @@ export function Specify({
       ...draft,
       specified: { ...draft.specified, [row.id]: { ...shown(row), ...change } },
     });
+  const keptBy = (row: (typeof rows)[number], who: "in_house" | "provider") => {
+    setExternal((rowIds) =>
+      who === "provider"
+        ? new Set([...rowIds, row.id])
+        : new Set([...rowIds].filter((rowId) => rowId !== row.id)),
+    );
+    if (who === "in_house") edit(row, { providers: [] });
+  };
 
   return (
     <>
@@ -210,20 +274,68 @@ export function Specify({
                       {t("another")}
                     </button>
                   </div>
-                  <div className="min-w-0">
+                  <div className="min-w-0 space-y-2">
                     <Label
                       htmlFor={`provider-${row.id}`}
                       className="mb-1.5 text-xs text-muted-foreground sm:sr-only"
                     >
                       {t("provider")}
                     </Label>
-                    <Providers
-                      id={`provider-${row.id}`}
-                      listId={listId}
-                      common={common}
-                      value={value.providers}
-                      onChange={(providers) => edit(row, { providers })}
-                    />
+                    {asksHosting(row.type) ? (
+                      <>
+                        <Choice
+                          id={`hosting-${row.id}`}
+                          label={t("where")}
+                          options={[
+                            { value: "in_house", label: t("inHouse"), icon: Building2 },
+                            { value: "cloud", label: t("cloud"), icon: Cloud },
+                          ]}
+                          value={value.hosting}
+                          onChange={(hosting) => edit(row, { hosting })}
+                        />
+                        <Providers
+                          id={`provider-${row.id}`}
+                          listId={listId}
+                          common={common}
+                          value={value.providers}
+                          placeholder={
+                            value.hosting === "cloud" ? t("whoseCloud") : t("addProvider")
+                          }
+                          onChange={(providers) => edit(row, { providers })}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <Choice
+                          id={`kept-${row.id}`}
+                          label={t("who")}
+                          options={[
+                            { value: "in_house", label: t("inHouse"), icon: Building2 },
+                            {
+                              value: "provider",
+                              label: t("byProvider"),
+                              icon: Handshake,
+                            },
+                          ]}
+                          value={
+                            value.providers.length > 0 || external.has(row.id)
+                              ? "provider"
+                              : "in_house"
+                          }
+                          onChange={(who) => keptBy(row, who)}
+                        />
+                        {(value.providers.length > 0 || external.has(row.id)) && (
+                          <Providers
+                            id={`provider-${row.id}`}
+                            listId={listId}
+                            common={common}
+                            value={value.providers}
+                            placeholder={t("addProvider")}
+                            onChange={(providers) => edit(row, { providers })}
+                          />
+                        )}
+                      </>
+                    )}
                   </div>
                   <div className="min-w-0 sm:col-span-2">
                     <Label

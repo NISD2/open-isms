@@ -10,6 +10,7 @@ import { expect, test } from "@playwright/test";
 import { e2eQuery } from "../lib/db";
 import {
   e2eTenant,
+  enabledNext,
   intakeRows,
   keepAnswers,
   keepPolicies,
@@ -84,7 +85,7 @@ test.describe("durchgang incident plan", () => {
     await expect(card).toHaveAttribute("aria-pressed", "true");
     await expect(page.getByRole("heading", { name: "IT-Notfallkarte" })).toBeVisible();
     // Weiter waits until the person has read the document.
-    await expect(next).toBeDisabled();
+    await expect(enabledNext(page)).toHaveCount(0);
     await page.locator("#dg-policy-read").click();
     await next.click();
 

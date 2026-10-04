@@ -88,13 +88,18 @@
       "specify": {
         "what": "What exactly",
         "provider": "From whom",
-        "inHouse": "run in house",
+        "inHouse": "In house",
+        "cloud": "Cloud",
+        "byProvider": "A provider",
+        "where": "Where it runs",
+        "who": "Who runs it",
+        "whoseCloud": "Whose cloud? Name the provider, then press Enter",
         "addProvider": "Add another provider, then press Enter",
         "another": "Another of this kind",
         "about": "What it does at your company",
         "aboutHint": "What for, who works with it, and what data it holds",
         "empty": "Nothing in this area is on your list.",
-        "hint": "Whoever you name as a provider goes onto your supplier list. A program can have several, for example its maker and your IT provider. None means run in house or not known yet. Two of one kind used for different work, for example two CRMs, get a row each; alike things used alike may stay one row (BSI-Standard 200-2, 8.1.1)."
+        "hint": "Whoever you name as a provider goes onto your supplier list. A program can have several, for example its maker and your IT provider, and something run in house can still be looked after by one. Two of one kind used for different work, for example two CRMs, get a row each; alike things used alike may stay one row (BSI-Standard 200-2, 8.1.1)."
       },
       "rate": {
         "open": "Level",
@@ -234,6 +239,20 @@
         "withoutProof": "no proof",
         "atProvider": "Record at the provider",
         "onPlatform": "Course completed on nisd2.eu, recorded there",
+        "started": "Course started on nisd2.eu",
+        "lessons": "{done} of {total} lessons",
+        "invite": {
+          "title": "Invite to {course}",
+          "lead": "Members of management take the course here. Once they are in your team, their progress shows in the list above.",
+          "label": "Invite someone from management by email",
+          "placeholder": "name@your-company.com",
+          "send": "Send",
+          "invited": "Invitation sent to {email}. After signing in they land in the course.",
+          "notEmailed": "The invitation for {email} was created but no email could be sent. Copy the link from the team page.",
+          "failed": "That did not work. Please try again.",
+          "askAdmin": "To invite someone new, ask an admin of your company. A colleague already in your team starts with the link.",
+          "copyLink": "Copy the link to the course"
+        },
         "link": "Link to the provider's record (optional)",
         "linkHint": "Where an online course or a training provider keeps who took part, for example its completion report. Then the proof stays with them, also for many people.",
         "remove": "Delete",

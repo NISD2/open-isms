@@ -1,5 +1,75 @@
 {
   "landing": {
+    "guided": {
+      "eyebrow": "Per aziende da 50 a 150 dipendenti",
+      "title": "Ti hanno affidato <blue>NIS2</blue>?",
+      "subtitle": "Ti guidiamo passo dopo passo. Tu compili, noi spieghiamo ogni punto con parole semplici, e alla fine firma la direzione.",
+      "cta": "Inizia ora",
+      "trainingCta": "Formazione gratuita per il tuo amministratore delegato",
+      "meta": {
+        "title": "NIS2 passo dopo passo, per aziende da 50 a 150 dipendenti",
+        "description": "Tu compili, noi spieghiamo ogni punto con parole semplici, e alla fine firma la direzione. Per aziende senza un proprio reparto di sicurezza."
+      }
+    },
+    "walk": {
+      "heroAlt": "Il percorso NIS2: la tua strada passo dopo passo, i primi punti completati",
+      "title": "Come il percorso ti accompagna attraverso NIS2",
+      "lead": "Ogni immagine mostra l'app reale, compilata per aziende di esempio inventate.",
+      "steps": {
+        "oneAtATime": {
+          "title": "Una cosa alla volta",
+          "text": "Vedi sempre un solo punto. Lo spieghiamo con parole semplici prima che tu inserisca qualcosa, e la norma su cui si basa è a un clic di distanza.",
+          "alt": "Un passo del percorso: la registrazione presso la tua autorità, spiegata con parole semplici"
+        },
+        "bsiMethods": {
+          "title": "Metodi del BSI",
+          "text": "Dove l'Ufficio federale tedesco per la sicurezza informatica (BSI) raccomanda un metodo, è già pronto per te, come la valutazione dei rischi dello standard BSI 200-3. Con un clic diventa il metodo della tua azienda. Se adottarlo è una tua decisione.",
+          "alt": "Il metodo di valutazione dei rischi dello standard BSI 200-3, come voce nei registri"
+        },
+        "riskMap": {
+          "title": "I tuoi rischi a colpo d'occhio",
+          "text": "Valuti il tuo software, la tua tecnologia e i tuoi fornitori sulla matrice del BSI. La panoramica mostra dove si trovano le tue voci e cosa va protetto per primo.",
+          "alt": "La matrice dei rischi di un'azienda di esempio: quante voci ci sono in ogni campo"
+        },
+        "setAside": {
+          "title": "Lasciare punti aperti va bene",
+          "text": "Ciò che non si può ancora fare lo metti da parte con un motivo, per esempio perché aspetti una lettera o devi prima chiedere a qualcuno. Il punto finisce nella tua lista d'attesa e prosegui con il successivo.",
+          "alt": "Mettere da parte un punto: i motivi tra cui scegliere"
+        },
+        "signOff": {
+          "title": "La direzione approva nell'app",
+          "text": "Alla fine, la direzione legge i documenti scritti dal percorso e li approva, con il proprio account. Il suo nome e la data compaiono poi su ogni documento. Nulla viene stampato o scansionato.",
+          "alt": "I documenti del percorso, approvati dalla direzione, ciascuno con nome e data"
+        },
+        "staysCurrent": {
+          "title": "Resta aggiornato",
+          "text": "Dopo l'approvazione, una pagina mostra ciò che resta a te: cosa fare quando succede qualcosa e cosa si ripete. Quando arriva una scadenza o modifichi un elenco, il punto torna alla direzione per l'approvazione.",
+          "alt": "Ciò che resta dopo l'approvazione: cosa fare quando succede qualcosa e cosa si ripete, ciascuno con la sua base giuridica"
+        }
+      },
+      "outcomes": {
+        "title": "Cosa trovi poi nei tuoi registri",
+        "registers": {
+          "title": "I tuoi registri",
+          "text": "Ciò che spunti e inserisci nel percorso finisce poi nei tuoi registri: asset, fornitori, rischi, policy, formazioni e riesami della direzione.",
+          "alt": "L'elenco degli asset nel percorso: processi aziendali da spuntare"
+        },
+        "log": {
+          "title": "Il registro delle attività",
+          "text": "Mostra, giorno per giorno, chi ha modificato cosa e quando. Contiene anche ogni approvazione della direzione.",
+          "alt": "Il registro delle attività di un'azienda di esempio"
+        },
+        "export": {
+          "title": "Tutto in un unico documento",
+          "text": "L'intero percorso, dall'inizio alla fine: stato, punti aperti, documenti, matrice dei rischi, ogni registro e ogni risposta. Salvalo come PDF dal browser.",
+          "alt": "La documentazione completa di un'azienda di esempio"
+        }
+      },
+      "closing": "Inizia dal primo punto.",
+      "pricing": "Prezzi e condizioni",
+      "pause": "Metti in pausa l'animazione",
+      "play": "Avvia l'animazione"
+    },
     "title": "Dimezza il conto <blue>NIS2</blue> dell'Europa.",
     "eyebrow": "Open source · Gratuita · Nessun lock-in",
     "subtitle": "La piattaforma gratuita con cui le aziende regolamentate e i loro fornitori implementano NIS2: autovalutazione, modelli e formazione per la direzione. <os>Open source</os>, nessun lock-in.",

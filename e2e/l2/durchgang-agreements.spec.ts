@@ -8,7 +8,14 @@
  */
 import { expect, test } from "@playwright/test";
 import { e2eQuery } from "../lib/db";
-import { e2eTenant, payFor, type Tenant, type Undo, undoAll } from "../lib/durchgang";
+import {
+  e2eTenant,
+  enabledNext,
+  payFor,
+  type Tenant,
+  type Undo,
+  undoAll,
+} from "../lib/durchgang";
 
 // learn, example, contracts, done.
 const CONTRACTS_SCREEN = 2;
@@ -71,7 +78,7 @@ test.describe("durchgang supplier agreements", () => {
     await expect(ours.getByText("Nicht bewertet")).toBeVisible();
 
     const next = page.getByRole("button", { name: "Weiter", exact: true });
-    await expect(next).toBeDisabled();
+    await expect(enabledNext(page)).toHaveCount(0);
     for (const none of await page
       .getByRole("button", { name: "Nichts davon geregelt" })
       .all()) {

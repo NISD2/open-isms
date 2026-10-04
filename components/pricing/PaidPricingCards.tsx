@@ -1,14 +1,17 @@
 import {
   Building2,
   Check,
+  ChevronRight,
   Code2,
   FileText,
   Info,
   Receipt,
   Scale,
+  Send,
   ShieldCheck,
 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import Image from "next/image";
+import { useLocale, useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -27,6 +30,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Link } from "@/i18n/navigation";
+import { formatWholeEuro } from "@/lib/billing/order";
 
 // Every line is checked against the code or the AGB. "Deadlines and reminders" means the in-app
 // reminders the nightly cron schedules; deadline digests by email go out only when an operator
@@ -63,6 +67,21 @@ const LICENCES = [
   },
   { key: "courses", packages: ["courses/"], spdx: null },
 ] as const;
+
+/**
+ * Published one-off prices for a NIS 2 gap analysis, each from the provider's own page: cyberkom
+ * 2.000 fixed (up to 500 staff), ing-ism from 3.900 and from 6.900, Blackfort "Gap" from 4.900,
+ * DATAGROUP 4.990, secunet from 5.000. Blackfort's 8.500 tier adds a roadmap and is left out.
+ * Most are starting prices, which the copy says; most pages do not say net, so the copy does not.
+ * A price comparison must be verifiable (§ 6 Abs. 2 Nr. 2 UWG), so the sources are named on the
+ * page, and a stale one misleads (§ 5 UWG): re-check every quarter and move `checked`.
+ */
+const GAP_ANALYSIS_PRICES = {
+  lowCents: 200_000,
+  highCents: 690_000,
+  sources: ["cyberkom", "ing-ism", "Blackfort", "DATAGROUP", "secunet"],
+  checked: "2026-10-04",
+} as const;
 
 const moneyBackPoints = ["first", "cancel", "refund", "data"] as const;
 const unlimitedPoints = ["structure", "users", "payment"] as const;
@@ -172,6 +191,105 @@ export function MoneyBackBadge() {
         />
       </InfoPanel>
     </Tooltip>
+  );
+}
+
+/** The published gap analysis range, its sources and the day it was checked, for one locale. */
+export const gapAnalysisRange = (locale: string) => ({
+  low: formatWholeEuro(GAP_ANALYSIS_PRICES.lowCents, locale),
+  high: formatWholeEuro(GAP_ANALYSIS_PRICES.highCents, locale),
+  sources: new Intl.ListFormat(locale, { type: "conjunction" }).format(
+    GAP_ANALYSIS_PRICES.sources,
+  ),
+  checked: new Intl.DateTimeFormat(locale, {
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(`${GAP_ANALYSIS_PRICES.checked}T12:00:00Z`)),
+});
+
+/**
+ * The list price set against what a gap analysis alone costs; hover or focus gives the published
+ * range. "For the price of", never "cheaper than": the low end of the range is below our price.
+ */
+export function PriceAnchor() {
+  const t = useTranslations("pricing.tiers");
+  const { low, high, sources, checked } = gapAnalysisRange(useLocale());
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <button
+          type="button"
+          className="mt-2 cursor-help text-left text-sm text-muted-foreground underline decoration-muted-foreground/40 decoration-dotted underline-offset-4 hover:decoration-foreground"
+        >
+          {t("paid.anchor")}
+        </button>
+      </TooltipTrigger>
+      <InfoPanel
+        title={t("paid.anchorTip.title")}
+        icon={<Receipt className="size-4 text-primary" />}
+        note={t("paid.anchorTip.note", { sources, checked })}
+      >
+        <p className="leading-snug">{t("paid.anchorTip.body", { low, high })}</p>
+      </InfoPanel>
+    </Tooltip>
+  );
+}
+
+const FOUNDERS = [
+  { name: "Simon Orzel", photo: "/images/people/simon.png" },
+  { name: "Cory Hisey", photo: "/images/people/cory.png" },
+] as const;
+
+/**
+ * The way to talk before ordering, beside the order button: one card that is its own link to the
+ * booking page (ui-design principle 14), with the founders' faces.
+ */
+export function TalkFirst() {
+  const t = useTranslations("pricing.tiers.talkFirst");
+  return (
+    <div className="relative flex items-center gap-3 rounded-xl border bg-muted/40 p-4 transition-colors hover:border-foreground/25 hover:bg-muted/70 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-ring sm:gap-4">
+      <div className="flex shrink-0 -space-x-2.5 sm:-space-x-3">
+        {FOUNDERS.map((person) => (
+          <Image
+            key={person.name}
+            src={person.photo}
+            alt={person.name}
+            width={96}
+            height={96}
+            className="size-10 rounded-full object-cover ring-2 ring-card sm:size-12"
+          />
+        ))}
+      </div>
+      <div className="min-w-0 flex-1 space-y-0.5">
+        <p className="font-semibold leading-snug">
+          <a
+            href={BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="after:absolute after:inset-0 focus-visible:outline-none"
+          >
+            {t("title")}
+          </a>
+        </p>
+        <p className="text-sm leading-snug text-muted-foreground">{t("body")}</p>
+      </div>
+      <ChevronRight aria-hidden className="size-5 shrink-0 text-muted-foreground" />
+    </div>
+  );
+}
+
+/** For the buyer whose boss decides: the one-page summary at /pricing/approval, to forward. */
+export function ApprovalLink() {
+  const t = useTranslations("pricing.tiers");
+  return (
+    <Link
+      href="/pricing/approval"
+      className="inline-flex items-center gap-2 text-sm text-muted-foreground underline decoration-muted-foreground/40 underline-offset-4 hover:text-foreground hover:decoration-foreground"
+    >
+      <Send className="size-3.5" />
+      {t("approvalLink")}
+    </Link>
   );
 }
 
@@ -345,6 +463,8 @@ export function PaidPricingCards({
               <span className="text-5xl font-bold tracking-tight">{price}</span>
               <span className="text-sm text-muted-foreground">{t("paid.priceSub")}</span>
             </div>
+            {/* Half the list price is no longer "the price of a gap analysis". */}
+            {grandfathered ? null : <PriceAnchor />}
             <div className="mt-3 flex flex-wrap gap-2">
               {/* On touch the terms line under the button says the same in short. */}
               <MoneyBackBadge />
@@ -377,6 +497,10 @@ export function PaidPricingCards({
                   {t("paid.termsLink")}
                 </Link>
               </p>
+            </div>
+            <div className="space-y-3">
+              <TalkFirst />
+              <ApprovalLink />
             </div>
             <Separator />
             <PaidFeatureList />

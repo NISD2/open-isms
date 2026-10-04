@@ -88,13 +88,18 @@
       "specify": {
         "what": "Was genau",
         "provider": "Von wem",
-        "inHouse": "selbst betrieben",
+        "inHouse": "Selbst betrieben",
+        "cloud": "In der Cloud",
+        "byProvider": "Ein Anbieter",
+        "where": "Wo es läuft",
+        "who": "Wer es betreibt",
+        "whoseCloud": "Wessen Cloud? Anbieter eintragen, mit Enter",
         "addProvider": "Weiteren Anbieter eintragen, mit Enter",
         "another": "Noch eins dieser Art",
         "about": "Wofür es bei Ihnen da ist",
         "aboutHint": "Wofür, wer damit arbeitet und welche Daten darin liegen",
         "empty": "In diesem Bereich steht nichts auf Ihrer Liste.",
-        "hint": "Wen Sie als Anbieter nennen, kommt auf Ihre Lieferantenliste. Ein Programm kann mehrere haben, etwa den Hersteller und Ihr Systemhaus. Keiner heißt: selbst betrieben oder noch nicht bekannt. Zwei Dinge einer Art für verschiedene Arbeit, etwa zwei CRM, bekommen je eine Zeile; Gleiches, gleich genutzt, darf eine Zeile bleiben (BSI-Standard 200-2, 8.1.1)."
+        "hint": "Wen Sie als Anbieter nennen, kommt auf Ihre Lieferantenliste. Ein Programm kann mehrere haben, etwa den Hersteller und Ihr Systemhaus, und auch was Sie selbst betreiben, kann ein Systemhaus betreuen. Zwei Dinge einer Art für verschiedene Arbeit, etwa zwei CRM, bekommen je eine Zeile; Gleiches, gleich genutzt, darf eine Zeile bleiben (BSI-Standard 200-2, 8.1.1)."
       },
       "rate": {
         "open": "Stufe",
@@ -234,6 +239,20 @@
         "withoutProof": "ohne Nachweis",
         "atProvider": "Nachweis beim Anbieter",
         "onPlatform": "Kurs auf nisd2.eu abgeschlossen, dort festgehalten",
+        "started": "Kurs auf nisd2.eu begonnen",
+        "lessons": "{done} von {total} Lektionen",
+        "invite": {
+          "title": "Zur {course} einladen",
+          "lead": "Mitglieder der Geschäftsleitung machen den Kurs hier. Sobald sie in Ihrem Team sind, steht ihr Stand oben in der Liste.",
+          "label": "Jemanden aus der Geschäftsleitung per E-Mail einladen",
+          "placeholder": "name@ihre-firma.de",
+          "send": "Senden",
+          "invited": "Einladung an {email} verschickt. Nach der Anmeldung landet die Person im Kurs.",
+          "notEmailed": "Die Einladung für {email} ist angelegt, aber es konnte keine E-Mail verschickt werden. Den Link finden Sie auf der Teamseite.",
+          "failed": "Das hat nicht geklappt. Bitte versuchen Sie es noch einmal.",
+          "askAdmin": "Für jemanden, der neu dazukommt, bitten Sie einen Admin Ihres Unternehmens um die Einladung. Wer schon im Team ist, startet über den Link.",
+          "copyLink": "Link zum Kurs kopieren"
+        },
         "link": "Link zum Nachweis beim Anbieter (freiwillig)",
         "linkHint": "Wo ein Onlinekurs oder ein Schulungsanbieter festhält, wer teilgenommen hat, etwa sein Abschlussbericht. Dann bleibt der Nachweis dort, auch für viele Personen.",
         "remove": "Löschen",

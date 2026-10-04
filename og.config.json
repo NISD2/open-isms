@@ -5,11 +5,7 @@
   "outDir": "public/og",
   "publicPath": "/og",
   "manifest": "lib/og-cards.json",
-  "locales": [
-    "de",
-    "en",
-    "nl"
-  ],
+  "locales": ["de", "en", "nl", "fr", "it", "es", "pl", "cs", "pt", "ro"],
   "resolution": {
     "width": 1200,
     "height": 630,
@@ -22,7 +18,14 @@
       "paths": {
         "de": "/",
         "en": "/en",
-        "nl": "/nl"
+        "nl": "/nl",
+        "fr": "/fr",
+        "it": "/it",
+        "es": "/es",
+        "pl": "/pl",
+        "cs": "/cs",
+        "pt": "/pt",
+        "ro": "/ro"
       }
     },
     {

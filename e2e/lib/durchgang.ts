@@ -3,10 +3,19 @@
  * off against the same tenant, so a spec lifts the tenant for its file and puts back everything
  * it touched. Each step returns the function that undoes it; `undoAll` runs them last first.
  */
+import type { Page } from "@playwright/test";
 import { e2eQuery } from "./db";
 import { E2E_USER_EMAIL } from "./env";
 
 export type Undo = () => Promise<void>;
+
+/**
+ * Weiter as a button the person can press. An unfinished screen has none: its place shows
+ * "Geht noch nicht", or a disabled Weiter on an item already signed off, depending on what
+ * earlier specs left in the shared tenant.
+ */
+export const enabledNext = (page: Page) =>
+  page.getByRole("button", { name: "Weiter", exact: true, disabled: false });
 
 export interface Tenant {
   readonly company_id: string;

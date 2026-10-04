@@ -16,7 +16,7 @@ import {
 import { MAX_UPLOAD_BYTES } from "@/lib/storage/limits";
 import { removeReleasedObject } from "@/lib/storage/released-object";
 import type { CourseId } from "@/lib/training/catalog";
-import { courseGraduates } from "@/lib/training/company-course";
+import { courseParticipants } from "@/lib/training/company-course";
 import { trainingRecord } from "@/schema";
 import { trainingInsertSchema, trainingUpdateSchema } from "@/schema/validators";
 import { assertOwnObjectKey, verifyMemberReferences } from "../guards";
@@ -63,9 +63,9 @@ export const trainingRouter = router({
     });
   }),
 
-  /** The company's members who finished the platform's course for management, read off their progress. */
+  /** The company's members who started or finished the platform's course for management, read off their progress. */
   managementCourse: companyProcedure.query(({ ctx }) =>
-    courseGraduates(ctx.db, ctx.companyId, MANAGEMENT_COURSE),
+    courseParticipants(ctx.db, ctx.companyId, MANAGEMENT_COURSE),
   ),
 
   create: companyProcedure

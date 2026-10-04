@@ -18,7 +18,7 @@ import { usePathname } from "next/navigation";
  * German is the unprefixed default and somebody who has been reading English
  * about Docker should not land on German.
  *
- * Different offer from the wiki strip. Somebody here is running the thing
+ * Different offer from the wiki's closing block. Somebody here is running the thing
  * themselves, so what they might buy is the setup done for them, never NIS 2
  * consulting.
  */

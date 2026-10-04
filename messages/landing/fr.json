@@ -1,5 +1,75 @@
 {
   "landing": {
+    "guided": {
+      "eyebrow": "Pour les entreprises de 50 à 150 salariés",
+      "title": "On vous a confié <blue>NIS2</blue> ?",
+      "subtitle": "Nous vous guidons pas à pas. Vous remplissez, nous expliquons chaque point en termes simples, et à la fin, la direction signe.",
+      "cta": "Commencer",
+      "trainingCta": "Formation gratuite pour votre dirigeant",
+      "meta": {
+        "title": "NIS2 pas à pas, pour les entreprises de 50 à 150 salariés",
+        "description": "Vous remplissez, nous expliquons chaque point en termes simples, et à la fin, la direction signe. Pour les entreprises sans service de sécurité dédié."
+      }
+    },
+    "walk": {
+      "heroAlt": "Le parcours NIS2 : votre chemin étape par étape, les premiers points terminés",
+      "title": "Comment le parcours vous accompagne à travers NIS2",
+      "lead": "Chaque image montre la véritable application, remplie pour des entreprises d'exemple fictives.",
+      "steps": {
+        "oneAtATime": {
+          "title": "Une chose à la fois",
+          "text": "Vous ne voyez jamais qu'un seul point. Nous l'expliquons en termes simples avant que vous ne saisissiez quoi que ce soit, et la loi qui le fonde est à un clic.",
+          "alt": "Une étape du parcours : l'enregistrement auprès de votre autorité, expliqué en termes simples"
+        },
+        "bsiMethods": {
+          "title": "Des méthodes du BSI",
+          "text": "Lorsque l'Office fédéral allemand de la sécurité des technologies de l'information (BSI) recommande une méthode, elle est prête pour vous, comme l'évaluation des risques de la norme BSI 200-3. Un clic en fait la méthode de votre entreprise. L'adopter ou non reste votre décision.",
+          "alt": "La méthode d'évaluation des risques de la norme BSI 200-3, comme entrée dans les registres"
+        },
+        "riskMap": {
+          "title": "Vos risques en un coup d'œil",
+          "text": "Vous évaluez vos logiciels, votre technique et vos fournisseurs sur la matrice du BSI. La vue d'ensemble montre où se situent vos entrées et ce qui doit être protégé en premier.",
+          "alt": "La matrice des risques d'une entreprise d'exemple : combien d'entrées se trouvent dans chaque case"
+        },
+        "setAside": {
+          "title": "Laisser un point en suspens, c'est normal",
+          "text": "Ce qui ne peut pas encore être fait, vous le mettez de côté avec une raison, par exemple parce que vous attendez un courrier ou devez d'abord demander à quelqu'un. Le point passe sur votre liste d'attente et vous continuez avec le suivant.",
+          "alt": "Mettre un point de côté : les raisons au choix"
+        },
+        "signOff": {
+          "title": "La direction approuve dans l'application",
+          "text": "À la fin, la direction lit les documents rédigés par le parcours et les approuve, connectée avec son propre compte. Son nom et la date figurent ensuite sur chaque document. Rien n'est imprimé ni scanné.",
+          "alt": "Les documents du parcours, approuvés par la direction, chacun avec nom et date"
+        },
+        "staysCurrent": {
+          "title": "Reste à jour",
+          "text": "Après l'approbation, une page montre ce qui reste à votre charge : que faire en cas d'incident, et ce qui revient régulièrement. Lorsqu'une échéance arrive ou que vous modifiez une liste, le point repart en approbation auprès de la direction.",
+          "alt": "Ce qui reste après l'approbation : que faire en cas d'incident et ce qui revient, chacun avec sa base juridique"
+        }
+      },
+      "outcomes": {
+        "title": "Ce qui figure ensuite dans vos registres",
+        "registers": {
+          "title": "Vos registres",
+          "text": "Ce que vous cochez et saisissez dans le parcours se retrouve ensuite dans vos registres : actifs, fournisseurs, risques, politiques, formations et revues de direction.",
+          "alt": "La liste des actifs dans le parcours : processus métier à cocher"
+        },
+        "log": {
+          "title": "Le journal d'activité",
+          "text": "Il montre, jour après jour, qui a modifié quoi et quand. Chaque approbation de la direction y figure aussi.",
+          "alt": "Le journal d'activité d'une entreprise d'exemple"
+        },
+        "export": {
+          "title": "Tout dans un seul document",
+          "text": "Le parcours complet, du début à la fin : statut, points ouverts, documents, matrice des risques, chaque registre et chaque réponse. Enregistrez-le en PDF depuis le navigateur.",
+          "alt": "La documentation complète d'une entreprise d'exemple"
+        }
+      },
+      "closing": "Commencez par le premier point.",
+      "pricing": "Prix et conditions",
+      "pause": "Mettre l'animation en pause",
+      "play": "Lancer l'animation"
+    },
     "title": "Réduisez de moitié la facture <blue>NIS2</blue> de l'Europe.",
     "eyebrow": "Open source · Gratuit · Sans lock-in",
     "subtitle": "La plateforme gratuite permettant aux entreprises réglementées et à leurs fournisseurs de mettre en œuvre NIS2 : auto-évaluation, modèles et formation de la direction. <os>Open source</os>, sans lock-in.",
