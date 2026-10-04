@@ -2,43 +2,50 @@
   "sicherheitsfragebogen": {
     "meta": {
       "title": "Answer the security questionnaire once | nisd2.eu",
-      "description": "Fill the single supplier security questionnaire once, share with every customer. Structured by ENISA NIS 2 TIG v1.0. Free. Open source."
+      "description": "Answer the supplier security questionnaire once and share it with every customer. Each question names what it rests on. Open source."
     },
     "branding": {
       "label": "A tool by nisd2.eu"
     },
     "landing": {
       "hero": {
-        "eyebrow": "Supplier portal by nisd2.eu",
-        "headline": "Answer <u>one</u> security questionnaire.",
-        "headlineAccent": "Share with <u>every</u> customer.",
-        "subhead": "One canonical supplier questionnaire, structured by ENISA NIS 2 Technical Implementation Guidance v1.0. Every question names its EU-level source, and customers who manage suppliers under ISO 27001 find the matching controls right next to it. Free. Open source. Your data stays portable.",
-        "anchorBadge": "Structured by ENISA NIS 2 TIG v1.0 §5",
+        "eyebrow": "For suppliers to companies under NIS 2",
+        "title": "Answer one security questionnaire, <blue>share it with every customer</blue>",
+        "subtitle": "Companies under NIS 2 have to manage the security of their supply chain, so they ask their suppliers. You answer one questionnaire, once, and every customer reads the same answers. Free for suppliers.",
         "ctaPrimary": "Create supplier profile",
-        "ctaSecondary": "What is in the questionnaire?"
+        "allQuestions": "See all {total} questions",
+        "shotAlt": "The security questionnaire in the supplier portal, filled in by a sample supplier: every question with its explanation and basis"
       },
-      "steps": {
-        "heading": "How it works.",
-        "lead": "Three steps, from first sign-in to first customer invite.",
-        "items": [
-          {
-            "title": "Create a profile",
-            "body": "Sign in with Google. Enter company name and primary domain. Two minutes."
+      "showcase": {
+        "title": "How the questionnaire works",
+        "lead": "Every picture shows the real app, filled in for made-up sample companies.",
+        "steps": {
+          "reach": {
+            "title": "Only the questions that fit you",
+            "text": "First you say whether you hold your customers' data, access their systems or enter their premises, and what service you provide. After that you see only the questions that belong to it, and none that do not apply to your service.",
+            "alt": "On the profile: what the supplier delivers and what it reaches at customers, each with yes or no"
           },
-          {
-            "title": "Answer the questionnaire",
-            "body": "Three pages in the portal: who you are and what you reach at customers, what you commit to and how you run security, plus questions on software if you offer or ship any. Every supplier answers {always} questions, the rest only where they fit. At your own pace, draft auto-saves."
+          "explained": {
+            "title": "Every question says when to tick yes",
+            "text": "Under each question it says in plain words what is meant, with examples. Below that, what the question rests on, mostly a paragraph of Implementing Regulation (EU) 2024/2690, and the matching ISO/IEC 27001:2022 control where there is one.",
+            "alt": "Questions on security practice, each with its explanation, basis and ISO/IEC 27001 control"
           },
-          {
-            "title": "Invite customers",
-            "body": "Each invited customer gets a private magic link. No public profile, no search-engine indexing."
+          "privateLink": {
+            "title": "Answer once, show every customer",
+            "text": "You invite your customers by email. Each opens your answers through a link of their own, without creating an account, and reads the same answers as everyone else. Nothing is public: no profile page, nothing for search engines. You can take the access back at any time.",
+            "alt": "What an invited customer sees through their link: the supplier's security profile"
+          },
+          "inRegister": {
+            "title": "Customers on nisd2.eu have you in their supplier register",
+            "text": "If your customer uses nisd2.eu itself, it requests your answers in the portal. From then on it opens them from its supplier register, where it keeps its suppliers under NIS 2.",
+            "alt": "The supplier's commitments as a customer reads them in its supplier register"
+          },
+          "lastSaved": {
+            "title": "Change it in one place",
+            "text": "When a subcontractor is added or an answer changes, you change it once in the portal. Every customer always reads the current version, with the day of your last change.",
+            "alt": "The questionnaire with its status: every question answered, last saved"
           }
-        ]
-      },
-      "sections": {
-        "heading": "What is in the questionnaire.",
-        "lead": "The questions in the order you answer them in the portal. Each names the provision in Implementing Regulation (EU) 2024/2690, ENISA's Technical Implementation Guidance, the GDPR or the Cyber Resilience Act that it rests on.",
-        "footnote": "The full schema is public on GitHub and exportable as JSON."
+        }
       },
       "serviceTypes": {
         "heading": "What you are asked depends on what you reach at your customers.",
@@ -63,50 +70,35 @@
         ],
         "example": "A cleaning company with keys sees {cleaning} questions this way, a SaaS provider that holds customer data {saas}."
       },
-      "preview": {
-        "heading": "Sample questions.",
-        "lead": "Some questions from different parts of the questionnaire, with the help text suppliers see while filling them in and the provision each rests on.",
-        "footnote": "{shown} of {total} questions. Full set in the portal."
-      },
       "bsi": {
-        "quote": "We welcome current industry initiatives to develop a unified questionnaire catalogue for suppliers.",
-        "attribution": "BSI NIS-2 FAQ (supply chain and security).",
-        "context": "This supplier portal is one such initiative: a single, open questionnaire, structured by ENISA TIG §5. Suppliers answer it once, and every customer reads the same answers when it reviews its supply chain under Art. 21(2)(d) NIS 2."
+        "quote": "Wir begrüßen aktuelle Vorstöße der Wirtschaft, einen einheitlichen Fragenkatalog für Lieferanten zu erarbeiten, der die Erfüllung der Anforderungen belegt.",
+        "translation": "We welcome current initiatives from industry to develop a uniform catalogue of questions for suppliers that demonstrates the requirements are met.",
+        "attribution": "BSI, general FAQ on NIS-2 (our translation)",
+        "context": "This questionnaire is one such initiative: uniform, open and free to reuse. Suppliers answer it once, and every customer reads the same answers when it manages the security of its supply chain under Art. 21(2)(d) NIS 2."
       },
       "privacy": {
-        "heading": "Bilateral and private.",
-        "body": "Built in Germany, hosted in the EU, aligned with BSI Grundschutz. Your data is shared only with customers you explicitly invite. No public URL, no search-engine indexing."
+        "heading": "Only for customers you invite",
+        "body": "Your answers are seen only by the customers you invite or whose request you accept. No public profile page, nothing for search engines. Hosted in the EU, with the code open on GitHub."
       },
       "cta": {
-        "heading": "Start in two minutes.",
-        "body": "Sign in with Google. Enter company name and primary domain. Fill the questionnaire at your own pace. When you are ready, invite your customers.",
+        "heading": "Start with your profile",
+        "body": "Sign in, enter your company name, then answer the questionnaire at your own pace. You invite your customers only when you are ready.",
         "button": "Create supplier profile"
       },
       "related": {
-        "heading": "Continue on nisd2.eu.",
-        "lead": "This tool is part of the nisd2.eu ecosystem. The rest lives here.",
-        "items": [
-          {
-            "title": "NIS 2 supplier portal",
-            "body": "Same function, positioned from the NIS 2 perspective: for managing bodies implementing §30 BSIG.",
-            "href": "/supplier-portal"
-          },
-          {
-            "title": "Open questionnaire schema",
-            "body": "The full JSON schema with source citations, free to reuse.",
-            "href": "/nis2-lieferanten-fragebogen"
-          },
-          {
-            "title": "If you get stuck",
-            "body": "We answer short technical questions at no charge. If it needs a specialist firm, we refer you to one.",
-            "href": "/hilfe"
-          },
-          {
-            "title": "Open source",
-            "body": "Full source on GitHub under AGPL-3.0.",
-            "href": "/open-source"
-          }
-        ]
+        "heading": "More on nisd2.eu",
+        "portal": {
+          "title": "Supplier portal",
+          "body": "What else the portal does: invite customers, store certificates, report incidents."
+        },
+        "questions": {
+          "title": "Every question with its basis",
+          "body": "The whole questionnaire to read, and as a PDF, for Word and as an open schema."
+        },
+        "openSource": {
+          "title": "Open source",
+          "body": "The full source code under AGPL-3.0 on GitHub."
+        }
       }
     }
   }

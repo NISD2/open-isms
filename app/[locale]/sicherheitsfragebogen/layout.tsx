@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
+import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { PublicNav } from "@/components/PublicNav";
 import { PublicFooter } from "@/components/PublicFooter";
+import { PublicNav } from "@/components/PublicNav";
 
 // On-demand render. The wedge pages are translation-driven, hit no
 // database, and have a long tail of programmatic sub-routes coming.
@@ -43,9 +43,8 @@ export default async function SicherheitsfragebogenLayout({
         </div>
       </div>
       <PublicNav />
-      <main className="mx-auto max-w-6xl px-6 pt-24 pb-16 sm:pt-28 lg:px-0">
-        {children}
-      </main>
+      {/* The page lays out its own <main>, full width like the home page's. */}
+      {children}
       <PublicFooter />
     </>
   );

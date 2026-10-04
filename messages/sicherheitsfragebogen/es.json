@@ -9,36 +9,7 @@
     },
     "landing": {
       "hero": {
-        "eyebrow": "Portal de proveedores de nisd2.eu",
-        "headline": "Responda <u>un</u> cuestionario de seguridad.",
-        "headlineAccent": "Compártalo con <u>todos</u> sus clientes.",
-        "subhead": "Un cuestionario canónico de proveedores, estructurado según la ENISA NIS 2 Technical Implementation Guidance v1.0. Cada pregunta indica su fuente a nivel de la UE, y los clientes que gestionan a sus proveedores según la ISO 27001 encuentran los controles correspondientes justo al lado. Gratis. Open source. Sus datos siguen siendo portables.",
-        "anchorBadge": "Estructurado según la ENISA NIS 2 TIG v1.0 §5",
-        "ctaPrimary": "Crear perfil de proveedor",
-        "ctaSecondary": "¿Qué contiene el cuestionario?"
-      },
-      "steps": {
-        "heading": "Cómo funciona.",
-        "lead": "Tres pasos, desde el primer inicio de sesión hasta la primera invitación a un cliente.",
-        "items": [
-          {
-            "title": "Cree un perfil",
-            "body": "Inicie sesión con Google. Introduzca el nombre de la empresa y el dominio principal. Dos minutos."
-          },
-          {
-            "title": "Responda el cuestionario",
-            "body": "Tres páginas en el portal: quién es usted y a qué accede en sus clientes, a qué se compromete y cómo gestiona la seguridad, además de preguntas sobre software si lo ofrece o lo entrega. Todo proveedor responde {always} preguntas, el resto solo cuando corresponde. A su propio ritmo, el borrador se guarda automáticamente."
-          },
-          {
-            "title": "Invite a sus clientes",
-            "body": "Cada cliente invitado recibe un enlace mágico privado. Sin perfil público, sin indexación por motores de búsqueda."
-          }
-        ]
-      },
-      "sections": {
-        "heading": "Qué contiene el cuestionario.",
-        "lead": "Las preguntas en el orden en que las responde en el portal. Cada una indica la disposición del Reglamento de Ejecución (UE) 2024/2690, de la Technical Implementation Guidance de ENISA, del RGPD o del Cyber Resilience Act en la que se basa.",
-        "footnote": "El esquema completo es público en GitHub y exportable como JSON."
+        "ctaPrimary": "Crear perfil de proveedor"
       },
       "serviceTypes": {
         "heading": "Lo que se le pregunta depende de a qué accede en sus clientes.",
@@ -62,51 +33,6 @@
           }
         ],
         "example": "Una empresa de limpieza con llaves ve así {cleaning} preguntas, un proveedor de SaaS que conserva datos de clientes {saas}."
-      },
-      "preview": {
-        "heading": "Preguntas de ejemplo.",
-        "lead": "Algunas preguntas de distintas partes del cuestionario, con el texto de ayuda que ven los proveedores al completarlas y la disposición en la que se basa cada una.",
-        "footnote": "{shown} de {total} preguntas. El conjunto completo está en el portal."
-      },
-      "bsi": {
-        "quote": "We welcome current industry initiatives to develop a unified questionnaire catalogue for suppliers.",
-        "attribution": "BSI NIS-2 FAQ (cadena de suministro y seguridad).",
-        "context": "Este portal de proveedores es una de esas iniciativas: un cuestionario único y abierto, estructurado según la ENISA TIG §5. Los proveedores lo responden una vez, y cada cliente lee las mismas respuestas cuando revisa su cadena de suministro conforme al artículo 21, apartado 2, letra d), de NIS 2."
-      },
-      "privacy": {
-        "heading": "Bilateral y privado.",
-        "body": "Construido en Alemania, alojado en la UE, alineado con el BSI Grundschutz. Sus datos se comparten únicamente con los clientes a los que usted invite expresamente. Sin URL pública, sin indexación por motores de búsqueda."
-      },
-      "cta": {
-        "heading": "Empiece en dos minutos.",
-        "body": "Inicie sesión con Google. Introduzca el nombre de la empresa y el dominio principal. Complete el cuestionario a su propio ritmo. Cuando esté listo, invite a sus clientes.",
-        "button": "Crear perfil de proveedor"
-      },
-      "related": {
-        "heading": "Continúe en nisd2.eu.",
-        "lead": "Esta herramienta forma parte del ecosistema de nisd2.eu. El resto está aquí.",
-        "items": [
-          {
-            "title": "Portal de proveedores NIS 2",
-            "body": "La misma función, planteada desde la perspectiva de NIS 2: para órganos de dirección que implementan el §30 BSIG.",
-            "href": "/supplier-portal"
-          },
-          {
-            "title": "Esquema abierto del cuestionario",
-            "body": "El esquema JSON completo con citas de las fuentes, libre para reutilizar.",
-            "href": "/nis2-lieferanten-fragebogen"
-          },
-          {
-            "title": "Si se queda atascado",
-            "body": "Respondemos gratis a las preguntas técnicas breves. Si hace falta una empresa especializada, le recomendamos una.",
-            "href": "/hilfe"
-          },
-          {
-            "title": "Open source",
-            "body": "Código fuente completo en GitHub bajo AGPL-3.0.",
-            "href": "/open-source"
-          }
-        ]
       }
     }
   }
