@@ -27,7 +27,7 @@
       "serviceTypeEmpty": "Questa pagina contiene le domande sul software come servizio e sul software che consegnate. Nel profilo non avete spuntato né l'uno né l'altro, quindi qui non c'è nulla a cui rispondere.",
       "serviceTypeEmptyLink": "Vai al profilo",
       "certificationsIntro": "Caricate i vostri attestati di sicurezza (ISO 27001, BSI Grundschutz, BSI C5, TISAX, SOC 2). I PDF e i relativi dati sono visibili ai clienti che avete invitato.",
-      "customersTitle": "Aggiungi il primo cliente",
+      "customersTitle": "Aggiungi un cliente",
       "customersIntro": "Invitate un cliente via e-mail. Riceve un link privato al vostro profilo di sicurezza e non gli serve alcun account. Dopo che ha accettato, inserite i sistemi che gestite per lui e segnalate gli incidenti che li riguardano.",
       "customer": "Cliente",
       "unknownCustomer": "(cliente sconosciuto)"

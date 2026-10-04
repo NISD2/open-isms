@@ -9,30 +9,24 @@
  * /customers/[id]/assets = per-customer asset CRUD), so this component is
  * just the email-invite form.
  */
+import { useTranslations } from "next-intl";
 import type { z } from "zod";
 import { useRouter } from "@/i18n/navigation";
-import { trpc } from "@/lib/trpc/client";
-import { SchemaForm } from "@/lib/forms/schema-form";
 import type { FieldOverride } from "@/lib/forms/field-renderer";
+import { SchemaForm } from "@/lib/forms/schema-form";
+import { trpc } from "@/lib/trpc/client";
 import { supplierInviteCustomerSchema } from "@/schema/validators";
 
-type InviteFormValues = z.infer<typeof supplierInviteCustomerSchema>;
+// The input type, because the form never sends `source` (see below).
+type InviteFormValues = z.input<typeof supplierInviteCustomerSchema>;
 
-const fieldOverrides: Record<string, FieldOverride> = {
-  customerEmail: {
-    label: "Customer security contact email",
-    placeholder: "ciso@customer.de",
-  },
-  customerOrgName: {
-    label: "Customer org name (optional)",
-    placeholder: "Acme GmbH",
-  },
-  // The `source` field always defaults to "manual" for the supplier-side
-  // invite form. Hide it so the user doesn't see it.
-  source: { component: "hidden" },
-};
+// `source` is always "manual" for a supplier's own invite, which the schema
+// supplies as its default. Omitted rather than rendered hidden: a hidden
+// field still renders its label.
+const OMITTED_FIELDS = ["source"];
 
 export function CustomerInviteSection() {
+  const t = useTranslations("supplierPortal.customers");
   const router = useRouter();
 
   const invite = trpc.supplierPortal.relationship.invite.useMutation({
@@ -47,21 +41,33 @@ export function CustomerInviteSection() {
     },
   });
 
+  // The form marks optional fields itself, so no label says "optional".
+  const fieldOverrides: Record<string, FieldOverride> = {
+    customerEmail: {
+      label: t("emailLabel"),
+      placeholder: t("emailPlaceholder"),
+    },
+    customerOrgName: {
+      label: t("orgNameLabel"),
+      placeholder: t("orgNamePlaceholder"),
+    },
+  };
+
   return (
     <div className="rounded-lg border bg-card p-5">
       <SchemaForm
         schema={supplierInviteCustomerSchema}
+        omit={OMITTED_FIELDS}
         defaultValues={{
           customerEmail: "",
           customerOrgName: "",
-          source: "manual",
         }}
         fieldOverrides={fieldOverrides}
         columns={2}
         onSubmit={async (data) => {
           await invite.mutateAsync(data as InviteFormValues);
         }}
-        submitLabel="Invite customer"
+        submitLabel={t("submit")}
         isSubmitting={invite.isPending}
       />
       {invite.isError && (

@@ -9,36 +9,7 @@
     },
     "landing": {
       "hero": {
-        "eyebrow": "Leveranciersportaal van nisd2.eu",
-        "headline": "Beantwoord <u>één</u> beveiligingsvragenlijst.",
-        "headlineAccent": "Deel met <u>elke</u> klant.",
-        "subhead": "Eén canonieke leveranciersvragenlijst, gestructureerd volgens ENISA NIS 2 Technical Implementation Guidance v1.0. Elke vraag noemt haar bron op EU-niveau, en klanten die leveranciers volgens ISO 27001 sturen, vinden de bijbehorende maatregelen direct ernaast. Gratis. Open source. Uw data blijft portabel.",
-        "anchorBadge": "Gestructureerd volgens ENISA NIS 2 TIG v1.0 §5",
-        "ctaPrimary": "Leveranciersprofiel aanmaken",
-        "ctaSecondary": "Wat staat er in de vragenlijst?"
-      },
-      "steps": {
-        "heading": "Zo werkt het.",
-        "lead": "Drie stappen, van eerste login tot eerste klantuitnodiging.",
-        "items": [
-          {
-            "title": "Profiel aanmaken",
-            "body": "Aanmelden met Google. Bedrijfsnaam en primair domein invullen. Twee minuten."
-          },
-          {
-            "title": "Vragenlijst beantwoorden",
-            "body": "Drie pagina's in het portaal: wie u bent en wat u bij klanten bereikt, wat u toezegt en hoe u beveiliging regelt, plus vragen over software als u die aanbiedt of levert. Elke leverancier beantwoordt {always} vragen, de rest alleen waar die passen. In uw eigen tempo, concept wordt automatisch opgeslagen."
-          },
-          {
-            "title": "Klanten uitnodigen",
-            "body": "Elke uitgenodigde klant krijgt een private magic-link. Geen openbaar profiel, geen zoekmachine-indexering."
-          }
-        ]
-      },
-      "sections": {
-        "heading": "Wat staat er in de vragenlijst.",
-        "lead": "De vragen in de volgorde waarin u ze in het portaal beantwoordt. Elke vraag noemt de bepaling in Uitvoeringsverordening (EU) 2024/2690, de Technical Implementation Guidance van ENISA, de AVG of de Cyber Resilience Act waarop ze steunt.",
-        "footnote": "Het volledige schema staat openbaar op GitHub en is als JSON exporteerbaar."
+        "ctaPrimary": "Leveranciersprofiel aanmaken"
       },
       "serviceTypes": {
         "heading": "Wat u gevraagd wordt, hangt af van wat u bij uw klanten bereikt.",
@@ -62,51 +33,6 @@
           }
         ],
         "example": "Een schoonmaakbedrijf met sleutels ziet zo {cleaning} vragen, een SaaS-aanbieder die klantgegevens bewaart {saas}."
-      },
-      "preview": {
-        "heading": "Voorbeeldvragen.",
-        "lead": "Enkele vragen uit verschillende delen van de vragenlijst, met de uitleg die leveranciers bij het invullen zien en de bepaling waarop elke vraag steunt.",
-        "footnote": "{shown} van {total} vragen. Volledig in het portaal."
-      },
-      "bsi": {
-        "quote": "We verwelkomen huidige initiatieven uit het bedrijfsleven om een uniforme vragencatalogus voor leveranciers te ontwikkelen.",
-        "attribution": "BSI NIS-2 FAQ (toeleveringsketen en beveiliging).",
-        "context": "Dit leveranciersportaal is zo'n initiatief: één open vragenlijst, ingedeeld volgens ENISA TIG §5. Leveranciers vullen hem één keer in, en elke klant leest dezelfde antwoorden wanneer hij zijn toeleveringsketen beoordeelt op grond van artikel 21, lid 2, onder d, NIS 2."
-      },
-      "privacy": {
-        "heading": "Bilateraal en privé.",
-        "body": "Gebouwd in Duitsland, gehost in de EU, afgestemd op BSI Grundschutz. Uw data wordt alleen gedeeld met klanten die u expliciet uitnodigt. Geen openbare URL, geen zoekmachine-indexering."
-      },
-      "cta": {
-        "heading": "Begin in twee minuten.",
-        "body": "Aanmelden met Google. Bedrijfsnaam en primair domein invullen. Vragenlijst in uw eigen tempo beantwoorden. Klaar? Nodig uw klanten uit.",
-        "button": "Leveranciersprofiel aanmaken"
-      },
-      "related": {
-        "heading": "Verder op nisd2.eu.",
-        "lead": "Deze tool is onderdeel van het nisd2.eu-ecosysteem. De rest staat daar.",
-        "items": [
-          {
-            "title": "NIS 2 leveranciersportaal",
-            "body": "Zelfde functie, gepositioneerd vanuit NIS 2: voor besturen die §30 BSIG implementeren.",
-            "href": "/supplier-portal"
-          },
-          {
-            "title": "Open vragenlijst-schema",
-            "body": "Het volledige JSON-schema met bronverwijzingen, vrij te hergebruiken.",
-            "href": "/nis2-lieferanten-fragebogen"
-          },
-          {
-            "title": "Als u vastloopt",
-            "body": "Korte vakinhoudelijke vragen beantwoorden wij kosteloos. Is er een gespecialiseerd bedrijf nodig, dan verwijzen wij u door.",
-            "href": "/hilfe"
-          },
-          {
-            "title": "Open source",
-            "body": "Volledige broncode onder AGPL-3.0 op GitHub.",
-            "href": "/open-source"
-          }
-        ]
       }
     }
   }

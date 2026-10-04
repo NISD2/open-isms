@@ -2,43 +2,50 @@
   "sicherheitsfragebogen": {
     "meta": {
       "title": "Sicherheitsfragebogen einmal beantworten | nisd2.eu",
-      "description": "Den einheitlichen Lieferantenfragebogen einmal ausfüllen, mit jedem Kunden teilen. Strukturiert nach ENISA NIS 2 TIG v1.0. Kostenlos. Open Source."
+      "description": "Den Sicherheitsfragebogen für Lieferanten einmal beantworten und mit jedem Kunden teilen. Jede Frage nennt, worauf sie sich stützt. Open Source."
     },
     "branding": {
       "label": "Ein Werkzeug von nisd2.eu"
     },
     "landing": {
       "hero": {
-        "eyebrow": "Lieferantenportal nisd2.eu",
-        "headline": "<u>Einen</u> Sicherheitsfragebogen beantworten.",
-        "headlineAccent": "Mit <u>jedem</u> Kunden teilen.",
-        "subhead": "Ein einheitlicher Fragebogen, strukturiert nach der ENISA NIS 2 Technical Implementation Guidance v1.0. Jede Frage nennt ihre Quelle auf EU-Ebene, und wer Lieferanten nach ISO 27001 steuert, findet die passenden Maßnahmen gleich daneben. Kostenlos. Open Source. Ihre Daten bleiben portabel.",
-        "anchorBadge": "Strukturiert nach ENISA NIS 2 TIG v1.0 §5",
+        "eyebrow": "Für Lieferanten von Unternehmen unter NIS 2",
+        "title": "Einen Sicherheits­fragebogen beantworten, <blue>mit jedem Kunden teilen</blue>",
+        "subtitle": "Unternehmen unter NIS 2 müssen die Sicherheit ihrer Lieferkette regeln und fragen deshalb bei ihren Lieferanten nach. Sie beantworten einen Fragebogen, einmal, und jeder Kunde liest dieselben Antworten. Für Lieferanten kostenlos.",
         "ctaPrimary": "Lieferantenprofil erstellen",
-        "ctaSecondary": "Was steht im Fragebogen?"
+        "allQuestions": "Alle {total} Fragen ansehen",
+        "shotAlt": "Der Sicherheitsfragebogen im Lieferantenportal, ausgefüllt von einem Beispiellieferanten: jede Frage mit Erklärung und Grundlage"
       },
-      "steps": {
-        "heading": "So funktioniert es.",
-        "lead": "Drei Schritte, vom ersten Login bis zur ersten Kundeneinladung.",
-        "items": [
-          {
-            "title": "Profil anlegen",
-            "body": "Mit Google anmelden. Firmenname und primäre Domain eintragen. Zwei Minuten."
+      "showcase": {
+        "title": "So läuft der Fragebogen",
+        "lead": "Alle Bilder zeigen die echte App, ausgefüllt für erfundene Beispielfirmen.",
+        "steps": {
+          "reach": {
+            "title": "Nur die Fragen, die zu Ihnen passen",
+            "text": "Zuerst sagen Sie, ob Sie Daten Ihrer Kunden halten, auf ihre Systeme zugreifen oder ihre Räume betreten, und welche Leistung Sie erbringen. Danach sehen Sie nur die Fragen, die dazu gehören, und keine, die für Ihre Leistung nicht gelten.",
+            "alt": "Im Profil: was der Lieferant liefert und worauf er bei Kunden zugreift, jeweils mit Ja oder Nein"
           },
-          {
-            "title": "Fragebogen beantworten",
-            "body": "Drei Seiten im Portal: wer Sie sind und worauf Sie bei Kunden zugreifen, was Sie zusagen und wie Sie Sicherheit betreiben, dazu Fragen zu Software, wenn Sie welche anbieten oder ausliefern. {always} Fragen beantwortet jeder Lieferant, alle weiteren nur, wenn sie zu ihm passen. Im eigenen Tempo, Entwurf jederzeit speichern."
+          "explained": {
+            "title": "Jede Frage sagt, wann Sie Ja ankreuzen",
+            "text": "Unter jeder Frage steht in einfachen Worten, was gemeint ist, mit Beispielen. Darunter steht, worauf sie sich stützt, meist ein Absatz der Durchführungsverordnung (EU) 2024/2690, und die passende Maßnahme aus ISO/IEC 27001:2022, wo es eine gibt.",
+            "alt": "Fragen zur Sicherheitspraxis, jede mit Erklärung, Grundlage und Maßnahme aus ISO/IEC 27001"
           },
-          {
-            "title": "Kunden einladen",
-            "body": "Jeder eingeladene Kunde bekommt einen privaten Magic-Link. Kein öffentliches Profil, keine Suchmaschinen-Indexierung."
+          "privateLink": {
+            "title": "Einmal beantworten, jedem Kunden zeigen",
+            "text": "Sie laden Ihre Kunden per E-Mail ein. Jeder öffnet Ihre Antworten über einen eigenen Link, ohne ein Konto anzulegen, und liest dieselben Antworten wie alle anderen. Öffentlich ist nichts: keine Profilseite, nichts für Suchmaschinen. Den Zugang können Sie jederzeit wieder entziehen.",
+            "alt": "Was ein eingeladener Kunde über seinen Link sieht: das Sicherheitsprofil des Lieferanten"
+          },
+          "inRegister": {
+            "title": "Kunden auf nisd2.eu haben Sie im Lieferantenregister",
+            "text": "Arbeitet Ihr Kunde selbst mit nisd2.eu, fordert er Ihre Antworten im Portal an. Danach öffnet er sie aus seinem Lieferantenregister, dort, wo er nach NIS 2 seine Lieferanten führt.",
+            "alt": "Die Zusagen des Lieferanten, wie ein Kunde sie in seinem Lieferantenregister liest"
+          },
+          "lastSaved": {
+            "title": "Ändern Sie es an einer Stelle",
+            "text": "Kommt ein Unterauftragnehmer dazu oder ändert sich eine Antwort, ändern Sie sie einmal im Portal. Jeder Kunde liest immer den aktuellen Stand, mit dem Tag Ihrer letzten Änderung.",
+            "alt": "Der Fragebogen mit seinem Stand: alle Fragen beantwortet, zuletzt gespeichert"
           }
-        ]
-      },
-      "sections": {
-        "heading": "Was steht im Fragebogen.",
-        "lead": "Die Fragen in der Reihenfolge, in der Sie sie im Portal beantworten. Jede nennt die Stelle in der Durchführungsverordnung (EU) 2024/2690, der ENISA Technical Implementation Guidance, der DSGVO oder dem Cyber Resilience Act, auf die sie sich stützt.",
-        "footnote": "Das vollständige Schema liegt offen auf GitHub und ist als JSON exportierbar."
+        }
       },
       "serviceTypes": {
         "heading": "Was Sie gefragt werden, hängt davon ab, was Sie bei Kunden erreichen.",
@@ -63,50 +70,34 @@
         ],
         "example": "Ein Reinigungsunternehmen mit Schlüsseln sieht so {cleaning} Fragen, ein Anbieter von SaaS, der Kundendaten hält, {saas}."
       },
-      "preview": {
-        "heading": "Beispielfragen.",
-        "lead": "Einige Fragen aus verschiedenen Teilen des Fragebogens, mit der Hilfestellung, die Sie beim Ausfüllen sehen, und der Stelle, auf die sich jede stützt.",
-        "footnote": "{shown} von {total} Fragen. Vollständig im Portal."
-      },
       "bsi": {
-        "quote": "Wir begrüßen aktuelle Vorstöße der Wirtschaft, einen einheitlichen Fragenkatalog für Lieferanten zu erarbeiten.",
-        "attribution": "BSI NIS-2 FAQ (Lieferketten und Sicherheit).",
-        "context": "Das Lieferantenportal ist ein solcher Vorstoß: ein einheitlicher, offener Fragenkatalog, gegliedert nach ENISA TIG §5. Lieferanten beantworten ihn einmal, und jeder Kunde liest dieselben Antworten, wenn er seine Lieferkette nach Art. 21 Abs. 2 Buchst. d NIS 2 prüft."
+        "quote": "Wir begrüßen aktuelle Vorstöße der Wirtschaft, einen einheitlichen Fragenkatalog für Lieferanten zu erarbeiten, der die Erfüllung der Anforderungen belegt.",
+        "attribution": "BSI, Allgemeine FAQ zu NIS-2",
+        "context": "Dieser Fragebogen ist ein solcher Vorstoß: einheitlich, offen und frei nachnutzbar. Lieferanten beantworten ihn einmal, und jeder Kunde liest dieselben Antworten, wenn er die Sicherheit seiner Lieferkette nach Art. 21 Abs. 2 Buchst. d NIS 2 regelt."
       },
       "privacy": {
-        "heading": "Bilateral und privat.",
-        "body": "In Deutschland gebaut, in der EU gehostet, an BSI-Grundschutz-Vorgaben ausgerichtet. Ihre Daten werden nur mit Kunden geteilt, die Sie ausdrücklich einladen. Keine öffentliche URL, keine Suchmaschinen-Indexierung."
+        "heading": "Nur für Kunden, die Sie einladen",
+        "body": "Ihre Antworten sehen nur die Kunden, die Sie einladen oder deren Anfrage Sie annehmen. Keine öffentliche Profilseite, nichts für Suchmaschinen. Gehostet in der EU, der Code liegt offen auf GitHub."
       },
       "cta": {
-        "heading": "Starten Sie in zwei Minuten.",
-        "body": "Mit Google anmelden. Firmenname und primäre Domain eintragen. Den Fragebogen in Ihrem eigenen Tempo beantworten. Wenn Sie bereit sind, laden Sie Ihre Kunden ein.",
+        "heading": "Fangen Sie mit Ihrem Profil an",
+        "body": "Anmelden, Firmenname eintragen, dann den Fragebogen in Ihrem Tempo beantworten. Ihre Kunden laden Sie erst ein, wenn Sie so weit sind.",
         "button": "Lieferantenprofil erstellen"
       },
       "related": {
-        "heading": "Weiter auf nisd2.eu.",
-        "lead": "Das Werkzeug ist Teil des nisd2.eu Ökosystems. Hier liegt der Rest.",
-        "items": [
-          {
-            "title": "NIS 2 Lieferantenportal",
-            "body": "Dieselbe Funktion, aus der NIS 2 Perspektive positioniert: für Geschäftsführungen, die §30 BSIG umsetzen.",
-            "href": "/supplier-portal"
-          },
-          {
-            "title": "Offenes Fragebogen-Schema",
-            "body": "Das vollständige JSON-Schema mit Quellverweisen, frei nachnutzbar.",
-            "href": "/nis2-lieferanten-fragebogen"
-          },
-          {
-            "title": "Wenn Sie nicht weiterkommen",
-            "body": "Kurze Fachfragen beantworten wir kostenlos. Braucht es einen Fachbetrieb, vermitteln wir Ihnen einen.",
-            "href": "/hilfe"
-          },
-          {
-            "title": "Open Source",
-            "body": "Vollständiger Quellcode unter AGPL-3.0 auf GitHub.",
-            "href": "/open-source"
-          }
-        ]
+        "heading": "Weiter auf nisd2.eu",
+        "portal": {
+          "title": "Lieferantenportal",
+          "body": "Was das Portal sonst kann: Kunden einladen, Zertifikate ablegen, Vorfälle melden."
+        },
+        "questions": {
+          "title": "Alle Fragen mit Grundlage",
+          "body": "Der ganze Fragebogen zum Lesen, dazu als PDF, für Word und als offenes Schema."
+        },
+        "openSource": {
+          "title": "Open Source",
+          "body": "Der vollständige Quellcode unter AGPL-3.0 auf GitHub."
+        }
       }
     }
   }

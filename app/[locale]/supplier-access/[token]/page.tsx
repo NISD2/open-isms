@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { CustomerAccessShell } from "@/components/supplier-portal/CustomerAccessShell";
 import { SecurityProfilePage } from "@/components/supplier-portal/SecurityProfilePage";
 import { SharedIncidentsSection } from "@/components/supplier-portal/SharedIncidentsSection";
@@ -21,8 +22,9 @@ import { api } from "@/lib/trpc/server";
  * indexed tokens would leak access).
  */
 export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("supplierPortal.customerView");
   return {
-    title: "Supplier security data",
+    title: t("securityProfile"),
     robots: { index: false, follow: false },
   };
 }

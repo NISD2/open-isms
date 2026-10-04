@@ -1,24 +1,30 @@
 import { describe, expect, test } from "bun:test";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import { SHOTS, type ShotName, shotImage, stopsOf, zoomSizes } from "./shots";
+import { SHOTS, type ShotName, shotImage, shotSrc, stopsOf, zoomSizes } from "./shots";
 import { loopBeat } from "./useZoomLoop";
 
-const PROMISES = join(import.meta.dir, "../../public/images/durchgang/promises");
+const PUBLIC = join(import.meta.dir, "../../public");
+const NAMES = Object.keys(SHOTS) as ShotName[];
 
-describe("the landing page's walkthrough screenshots", () => {
+describe("the landing pages' screenshots", () => {
   // The src is built from a name with no fallback, so a missing file is a broken image.
   test("every screenshot exists in German and in English", () => {
-    const missing = Object.values(SHOTS).flatMap(({ file }) =>
+    const missing = NAMES.flatMap((name) =>
       ["de", "en"]
-        .map((lang) => `${lang}-${file}.webp`)
-        .filter((name) => !existsSync(join(PROMISES, name))),
+        .map((lang) => shotSrc(name, lang))
+        .filter((src) => !existsSync(join(PUBLIC, src))),
     );
     expect(missing).toEqual([]);
   });
 
+  test("the questionnaire's screenshots lie apart from the walkthrough's", () => {
+    expect(shotSrc("reach", "de")).toBe("/images/fragebogen/de-reach.webp");
+    expect(shotSrc("explain", "de")).toBe("/images/durchgang/promises/de-explain.webp");
+  });
+
   test("every stop of every zoom aims inside its image and enlarges it", () => {
-    const stops = (Object.keys(SHOTS) as ShotName[]).flatMap(stopsOf);
+    const stops = NAMES.flatMap(stopsOf);
     for (const focus of stops) {
       expect(focus.x).toBeGreaterThan(0);
       expect(focus.x).toBeLessThan(1);

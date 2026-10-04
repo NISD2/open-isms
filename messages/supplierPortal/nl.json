@@ -27,7 +27,7 @@
       "serviceTypeEmpty": "Op deze pagina staan de vragen over software als dienst en over software die u levert. U hebt in uw profiel geen van beide aangevinkt, dus hier valt niets te beantwoorden.",
       "serviceTypeEmptyLink": "Naar het profiel",
       "certificationsIntro": "Upload uw beveiligingsverklaringen (ISO 27001, BSI Grundschutz, BSI C5, TISAX, SOC 2). De pdf's en hun gegevens zijn zichtbaar voor de klanten die u hebt uitgenodigd.",
-      "customersTitle": "Eerste klant toevoegen",
+      "customersTitle": "Klant toevoegen",
       "customersIntro": "Nodig een klant uit per e-mail. Hij krijgt een private link naar uw beveiligingsprofiel en heeft daarvoor geen account nodig. Zodra hij accepteert, voert u de systemen in die u voor hem beheert en meldt u incidenten die deze systemen raken.",
       "customer": "Klant",
       "unknownCustomer": "(onbekende klant)"

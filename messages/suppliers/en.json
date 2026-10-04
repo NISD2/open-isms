@@ -102,6 +102,22 @@
     "suppliersNoRisks": "Suppliers without risks",
     "unlinkedRisks": "Risks not linked to any supplier",
     "noSuppliersYet": "No suppliers registered. Add suppliers in step 5.1 first.",
-    "supplierRiskAssessment": "Supplier Risk Assessment"
+    "supplierRiskAssessment": "Supplier Risk Assessment",
+    "requestProfile": {
+      "button": "Request security profile from a supplier",
+      "title": "Request a supplier security profile",
+      "description": "Send the supplier an invitation with a personal link. They sign in to the supplier portal and answer the unified questionnaire once. Their answers then appear in your supplier register.",
+      "emailLabel": "Supplier email",
+      "emailPlaceholder": "it@supplier.example",
+      "emailHint": "The link is bound to this address. The supplier can only accept it after signing in with the same email.",
+      "messageLabel": "Personal message",
+      "messagePlaceholder": "Hello, we need your answers to review the security of our supply chain. Thank you.",
+      "submit": "Send invite",
+      "sent": "Invite sent to {email}.",
+      "sendFailed": "Could not send the invite. Please try again.",
+      "expiry": "The link is valid for 30 days. You can also copy it below and share it directly.",
+      "linkLabel": "Invite link",
+      "done": "Done"
+    }
   }
 }

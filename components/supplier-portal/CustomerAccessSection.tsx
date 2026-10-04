@@ -12,18 +12,24 @@
  * from supplierInsertSchema) so the supplier portal can never mass-assign
  * portal-share state (status, token, customerCompanyId, etc.) from this
  * endpoint.
+ *
+ * The clause labels come from supplierPortal.fields.* through
+ * `translationNamespace`. The `group` names only decide where a separator
+ * goes; they are not shown.
  */
-import { useRouter } from "@/i18n/navigation";
-import type { z } from "zod";
 import { Mail, Trash2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
+import type { z } from "zod";
 import { Badge } from "@/components/ui/badge";
-import { trpc } from "@/lib/trpc/client";
-import { SchemaForm } from "@/lib/forms/schema-form";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "@/i18n/navigation";
 import type { FieldOverride } from "@/lib/forms/field-renderer";
+import { SchemaForm } from "@/lib/forms/schema-form";
+import { trpc } from "@/lib/trpc/client";
 import { relationshipClausesUpdateSchema } from "@/schema/validators";
 
 type ClauseValues = z.infer<typeof relationshipClausesUpdateSchema>;
+type RelationshipStatus = "active" | "revoked" | "bounced";
 
 const fieldOverrides: Record<string, FieldOverride> = {
   acceptRightToAudit: { group: "Audit & subprocessors" },
@@ -48,9 +54,12 @@ export function CustomerAccessSection({
   relationshipId: string;
   customerEmail: string | null;
   customerOrgName: string | null;
-  status: "active" | "revoked" | "bounced" | null;
+  status: RelationshipStatus | null;
   initialClauses: ClauseValues;
 }) {
+  const t = useTranslations("supplierPortal.access");
+  const tNav = useTranslations("supplierPortal.nav");
+  const tView = useTranslations("supplierPortal.customerView");
   const router = useRouter();
 
   const updateClauses = trpc.supplierPortal.relationship.updateClauses.useMutation({
@@ -73,8 +82,7 @@ export function CustomerAccessSection({
     dataReturnOnTermination: initialClauses.dataReturnOnTermination ?? false,
     dpaAvailable: initialClauses.dpaAvailable ?? false,
     notifyOnLocationChange: initialClauses.notifyOnLocationChange ?? false,
-    incidentAssistanceCommitment:
-      initialClauses.incidentAssistanceCommitment ?? false,
+    incidentAssistanceCommitment: initialClauses.incidentAssistanceCommitment ?? false,
     notifyMaterialChanges: initialClauses.notifyMaterialChanges ?? false,
     hasExitPlan: initialClauses.hasExitPlan ?? false,
     incidentSlaHours: initialClauses.incidentSlaHours ?? null,
@@ -84,13 +92,13 @@ export function CustomerAccessSection({
     <div className="space-y-8">
       {/* Access — invited contact + revoke */}
       <section className="space-y-3">
-        <h2 className="text-lg font-semibold">Access</h2>
+        <h2 className="text-lg font-semibold">{tNav("access")}</h2>
         <div className="rounded-md border bg-card p-4 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 min-w-0">
             <Mail className="h-4 w-4 text-muted-foreground shrink-0" />
             <div className="min-w-0">
               <div className="font-medium text-sm truncate">
-                {customerEmail ?? "(no email)"}
+                {customerEmail ?? t("contactMissing")}
               </div>
               {customerOrgName && (
                 <div className="text-xs text-muted-foreground truncate">
@@ -105,16 +113,12 @@ export function CustomerAccessSection({
               size="sm"
               variant="ghost"
               onClick={() => {
-                if (
-                  confirm(
-                    "Revoke access for this customer? They will no longer be able to view your security profile.",
-                  )
-                ) {
+                if (confirm(t("revokeConfirm"))) {
                   remove.mutate({ id: relationshipId });
                 }
               }}
               disabled={remove.isPending || status === "revoked"}
-              aria-label="Revoke access"
+              aria-label={tView("revoke")}
             >
               <Trash2 className="h-4 w-4" />
             </Button>
@@ -125,18 +129,16 @@ export function CustomerAccessSection({
       {/* Per-customer contract clauses */}
       <section className="space-y-3">
         <header>
-          <h2 className="text-lg font-semibold">Contract clauses</h2>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Per-customer terms negotiated for this relationship. Anchored to
-            CIR §5.1.4 and ENISA TIG §5.1.4 TIPS.
-          </p>
+          <h2 className="text-lg font-semibold">{t("clausesTitle")}</h2>
+          <p className="mt-1 text-sm text-muted-foreground">{t("clausesIntro")}</p>
         </header>
         <SchemaForm
           schema={relationshipClausesUpdateSchema}
           defaultValues={defaults}
           fieldOverrides={fieldOverrides}
+          translationNamespace="supplierPortal"
           columns={2}
-          submitLabel="Save clauses"
+          submitLabel={t("saveClauses")}
           isSubmitting={updateClauses.isPending}
           onSubmit={async (data) => {
             await updateClauses.mutateAsync({
@@ -146,22 +148,17 @@ export function CustomerAccessSection({
           }}
         />
         {updateClauses.isError && (
-          <p className="text-xs text-destructive">
-            {updateClauses.error.message}
-          </p>
+          <p className="text-xs text-destructive">{updateClauses.error.message}</p>
         )}
       </section>
     </div>
   );
 }
 
-function StatusBadge({
-  status,
-}: {
-  status: "active" | "revoked" | "bounced";
-}) {
+function StatusBadge({ status }: { status: RelationshipStatus }) {
+  const t = useTranslations("supplierPortal.access.status");
   const variants: Record<
-    typeof status,
+    RelationshipStatus,
     "default" | "secondary" | "outline" | "destructive"
   > = {
     active: "default",
@@ -169,8 +166,8 @@ function StatusBadge({
     bounced: "destructive",
   };
   return (
-    <Badge variant={variants[status]} className="text-xs capitalize">
-      {status}
+    <Badge variant={variants[status]} className="text-xs">
+      {t(status)}
     </Badge>
   );
 }

@@ -5,39 +5,31 @@ import {
 } from "@nisd2/nis2-supply-chain-questionnaire-schema";
 import {
   ArrowRight,
-  Check,
-  ClipboardList,
+  ChevronRight,
   Code2,
   Database,
   DoorOpen,
-  HelpCircle,
-  Mail,
+  Lock,
   MonitorCog,
-  ShieldCheck,
-  UserPlus,
 } from "lucide-react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { JsonLd } from "@/components/JsonLd";
-import { MarketingHero, Underline } from "@/components/marketing/MarketingHero";
+import { MotionProvider } from "@/components/landing/motion";
+import { OpenSourceNote } from "@/components/landing/OpenSourceNote";
+import { ScrollShowcase } from "@/components/landing/ScrollShowcase";
+import { type ShotName, shotImage, zoomSizes } from "@/components/landing/shots";
+import { AutoShot } from "@/components/landing/ZoomShot";
+import { PartnerLogoStrip } from "@/components/PartnerLogoStrip";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
-import { QUESTIONNAIRE_PAGES } from "@/lib/forms/supplier-portal-sections";
-import { pickLocalized } from "@/lib/locale";
 import {
   buildSoftwareApplicationJsonLd,
   type Locale,
   pageAlternates,
   pageOg,
 } from "@/lib/seo";
-import { isoText, QUESTIONNAIRE_COUNTS } from "@/lib/supplier-questionnaire-text";
+import { QUESTIONNAIRE_COUNTS } from "@/lib/supplier-questionnaire-text";
 
 export async function generateMetadata({
   params,
@@ -52,34 +44,49 @@ export async function generateMetadata({
     title,
     description,
     alternates: pageAlternates("sicherheitsfragebogen", locale),
+    // The card comes from the og-shot manifest, which falls back to the home card in a language
+    // this page has none for.
     ...pageOg({
       slug: "sicherheitsfragebogen",
       locale,
       title,
       description,
       type: "website",
-      image: `/og/sicherheitsfragebogen-${locale}.png`,
     }),
   };
 }
 
-const stepIcons = [UserPlus, ClipboardList, Mail] as const;
-const reachIcons = [Database, MonitorCog, DoorOpen, Code2] as const;
+/** The hero screenshot's width on a large screen: the 72rem column less the 25rem pitch and gap. */
+const HERO_SHOT_PX = 704;
 
-/**
- * Questions the landing shows in full: identity, what the supplier reaches, a choice question,
- * encryption, access to customer systems, certificates. Ids from the questionnaire package; a
- * removed id simply drops out of the preview.
- */
-const PREVIEW_IDS = [
-  "legalName",
-  "accessesCustomerPremises",
-  "dataProcessingAgreement",
-  "encryptionAtRest",
-  // A question id, not a credential: gitleaks' generic rule reads "Access…", the comma and the
-  // next id as a key being assigned. `gitleaks:allow` marks it as a known false positive.
-  "customerAccessPersonalMfa", // gitleaks:allow
-  "hasIso27001OrEquivalent",
+/** Sign-up that ends in the supplier portal's setup rather than the walkthrough. */
+const SUPPLIER_SIGN_UP = {
+  pathname: "/auth/signin",
+  query: { callbackUrl: "/portal/supplier-onboarding" },
+} as const;
+
+/** The questionnaire in five steps, each with the screenshot that proves it. */
+const STEPS = [
+  { key: "reach", shot: "reach" },
+  { key: "explained", shot: "explained" },
+  { key: "privateLink", shot: "privateLink" },
+  { key: "inRegister", shot: "inRegister" },
+  { key: "lastSaved", shot: "lastSaved" },
+] as const satisfies readonly { readonly key: string; readonly shot: ShotName }[];
+
+/** One per entry of `serviceTypes.items`, in the same order. */
+const REACH = [
+  { key: "data", icon: Database },
+  { key: "systems", icon: MonitorCog },
+  { key: "premises", icon: DoorOpen },
+  { key: "software", icon: Code2 },
+] as const;
+
+/** Further reading on nisd2.eu, one card each. */
+const RELATED = [
+  { key: "portal", href: "/supplier-portal" },
+  { key: "questions", href: "/nis2-lieferanten-fragebogen" },
+  { key: "openSource", href: "/open-source" },
 ] as const;
 
 /** Two suppliers at either end, as their profile answers, to show how far the question count moves. */
@@ -95,305 +102,233 @@ const QUESTION_COUNTS = {
   saas: visibleFields(supplierQuestionnaire, EXAMPLE_ANSWERS.saas).length,
 };
 
-const GROUP_KEYS = Object.values(QUESTIONNAIRE_PAGES).flatMap((groups) =>
-  groups.map((group) => group.key),
-);
+const SECTION = "mx-auto w-full max-w-6xl";
+const EYEBROW = "text-xs font-semibold uppercase tracking-wider text-muted-foreground";
+const PRIMARY_BUTTON =
+  "h-11 rounded-lg px-5 text-[0.9375rem] font-medium shadow-sm transition-shadow hover:shadow-md";
 
-type Step = { title: string; body: string };
 /**
- * Canonical (DE-key) paths for the related cards. Narrowed to the four routes
- * actually used so the localized <Link> can resolve them: a bare `string`
- * cannot be checked against the pathname map, and rendering these as plain
- * <a href> sent every non-German reader to the German URL, because the
- * canonical key is only the real path in the default locale.
+ * The security questionnaire's landing, on nisd2.eu/sicherheitsfragebogen and its own domain. Built
+ * like the home page: the headline, the questionnaire as a zooming screenshot, then the steps with
+ * one frame that holds while the text scrolls. For the supplier who keeps getting questionnaires.
  */
-type RelatedHref =
-  | "/supplier-portal"
-  | "/nis2-lieferanten-fragebogen"
-  | "/hilfe"
-  | "/open-source";
-type RelatedItem = { title: string; body: string; href: RelatedHref };
-type ReachBlock = { title: string; fields: string };
-
 export default async function SicherheitsfragebogenLanding({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const t = await getTranslations("sicherheitsfragebogen");
-  const tGroups = await getTranslations("supplierPortal.questionnaire.groups");
-  const steps = (t.raw("landing.steps.items") as Step[]).map((_, i) => ({
-    title: t(`landing.steps.items.${i}.title`),
-    body: t(`landing.steps.items.${i}.body`, QUESTION_COUNTS),
-  }));
-  const reachBlocks = t.raw("landing.serviceTypes.items") as ReachBlock[];
-  const related = t.raw("landing.related.items") as RelatedItem[];
-
-  // Help text comes straight from the questionnaire package, in the reader's language where the
-  // package carries it and in English otherwise.
-  const previewFields = PREVIEW_IDS.map((id) =>
-    supplierQuestionnaire.fields.find((f) => f.id === id),
-  ).filter((f): f is NonNullable<typeof f> => f !== undefined);
+  const t = await getTranslations("sicherheitsfragebogen.landing");
+  const tMeta = await getTranslations("sicherheitsfragebogen.meta");
+  const tLanding = await getTranslations("landing");
 
   return (
-    <div className="space-y-24">
+    <MotionProvider>
       <JsonLd
         data={buildSoftwareApplicationJsonLd({
           slug: "sicherheitsfragebogen",
           locale: locale as Locale,
-          name: t("meta.title"),
-          description: t("meta.description"),
+          name: tMeta("title"),
+          description: tMeta("description"),
           category: "BusinessApplication",
         })}
       />
+      <main className="relative min-h-screen overflow-x-clip px-6 pb-24 pt-20 sm:pt-24">
+        {/* Navy dot-grid, densest behind the product, dissolving to the edges */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 -z-10"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle, rgb(40 75 99 / 0.06) 1px, transparent 1px)",
+            backgroundSize: "22px 22px",
+            maskImage: "radial-gradient(92% 60% at 64% 24%, black 0%, transparent 78%)",
+            WebkitMaskImage:
+              "radial-gradient(92% 60% at 64% 24%, black 0%, transparent 78%)",
+          }}
+        />
 
-      {/* Hero */}
-      <MarketingHero
-        centered
-        eyebrow={t("landing.hero.eyebrow")}
-        headline={t.rich("landing.hero.headline", {
-          u: (chunks) => <Underline>{chunks}</Underline>,
-        })}
-        accent={t.rich("landing.hero.headlineAccent", {
-          u: (chunks) => <Underline>{chunks}</Underline>,
-        })}
-        subhead={t("landing.hero.subhead")}
-      >
-        <div className="mt-6 flex justify-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-xs font-medium text-primary">
-            <ShieldCheck className="h-3 w-3" />
-            {t("landing.hero.anchorBadge")}
-          </span>
-        </div>
-        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <Button asChild size="lg" className="h-12 gap-2">
-            <Link
-              href={{
-                pathname: "/auth/signin",
-                query: { callbackUrl: "/portal/supplier-onboarding" },
-              }}
+        <div className={SECTION}>
+          <p className={EYEBROW}>{t("hero.eyebrow")}</p>
+          {/* text-3xl on a phone, where "Sicherheitsfragebogen" alone is wider than the column at
+              4xl; the copy carries a soft hyphen for where it may break. */}
+          <h1 className="mt-4 text-3xl font-semibold leading-[1.05] tracking-tight text-balance sm:text-5xl lg:text-6xl">
+            {t.rich("hero.title", {
+              blue: (chunks) => <span className="text-primary">{chunks}</span>,
+            })}
+          </h1>
+
+          <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,25rem)_1fr] lg:items-start">
+            <div>
+              <p className="max-w-sm text-base leading-relaxed text-muted-foreground">
+                {t("hero.subtitle")}
+              </p>
+              <div className="mt-8 flex flex-col items-start gap-3">
+                <Button asChild size="lg" className={PRIMARY_BUTTON}>
+                  <Link href={SUPPLIER_SIGN_UP}>{t("hero.ctaPrimary")}</Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="link"
+                  size="lg"
+                  className="group h-auto min-h-11 justify-start whitespace-normal px-0 py-2 text-left has-[>svg]:px-0 text-[0.9375rem] font-medium text-foreground/80 hover:text-foreground hover:no-underline"
+                >
+                  <Link href="/nis2-lieferanten-fragebogen">
+                    {t("hero.allQuestions", { total: QUESTION_COUNTS.total })}
+                    <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+
+            <div
+              className="rounded-xl"
+              style={{ boxShadow: "0 40px 80px -20px rgb(40 75 99 / 0.28)" }}
             >
-              {t("landing.hero.ctaPrimary")}
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </Button>
-          <Button asChild size="lg" variant="outline" className="h-12">
-            <a href="#fragebogen">{t("landing.hero.ctaSecondary")}</a>
-          </Button>
+              <AutoShot
+                image={shotImage("questionnaire", locale, t("hero.shotAlt"))}
+                sizes={zoomSizes("questionnaire", HERO_SHOT_PX)}
+                rounds={5}
+                preload
+                className="rounded-xl border border-border/60"
+              />
+            </div>
+          </div>
         </div>
-      </MarketingHero>
 
-      {/* How it works */}
-      <section>
-        <div className="text-center">
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-            {t("landing.steps.heading")}
-          </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
-            {t("landing.steps.lead")}
-          </p>
-        </div>
-        <div className="mt-10 grid gap-6 sm:grid-cols-3">
-          {steps.map((step, i) => {
-            const Icon = stepIcons[i];
-            return (
-              <Card key={step.title}>
-                <CardHeader>
-                  <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
-                    <Icon className="h-5 w-5 text-primary" />
-                  </div>
-                  <CardTitle className="text-lg">
-                    {i + 1}. {step.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription>{step.body}</CardDescription>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
-      </section>
+        <section className={`${SECTION} mt-10 sm:mt-12`}>
+          <p className={EYEBROW}>{tLanding("partnersLabel")}</p>
+          <div className="mt-6">
+            <PartnerLogoStrip variant="landing" />
+          </div>
+        </section>
 
-      {/* Questionnaire sections */}
-      <section id="fragebogen" className="scroll-mt-24">
-        <div>
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-            {t("landing.sections.heading")}
+        <ScrollShowcase
+          id="questionnaire-steps-title"
+          title={t("showcase.title")}
+          lead={t("showcase.lead")}
+          steps={STEPS.map((step) => ({
+            ...step,
+            title: t(`showcase.steps.${step.key}.title`),
+            text: t(`showcase.steps.${step.key}.text`, QUESTION_COUNTS),
+            alt: t(`showcase.steps.${step.key}.alt`),
+          }))}
+        />
+
+        {/* What decides the questions: what the supplier reaches at its customers. */}
+        <section
+          aria-labelledby="reach-title"
+          className={`${SECTION} mt-24 border-t border-border/60 pt-10 sm:mt-32`}
+        >
+          <h2
+            id="reach-title"
+            className="max-w-3xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl"
+          >
+            {t("serviceTypes.heading")}
           </h2>
-          <p className="mt-3 max-w-3xl text-muted-foreground">
-            {t("landing.sections.lead")}
+          <p className="mt-4 max-w-3xl text-base leading-relaxed text-muted-foreground">
+            {t("serviceTypes.lead", QUESTION_COUNTS)}
           </p>
-        </div>
-        <ul className="mt-8 grid gap-3 sm:grid-cols-2">
-          {GROUP_KEYS.map((key) => (
-            <li key={key} className="flex gap-3 rounded-lg border bg-card p-4 text-sm">
-              <Check className="mt-0.5 h-4 w-4 flex-none text-primary" />
-              <span>
-                <span className="block font-medium text-foreground">
-                  {tGroups(`${key}.title`)}
+          <ul className="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2">
+            {REACH.map(({ key, icon: Icon }, index) => (
+              <li key={key} className="flex flex-col gap-2.5">
+                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                  <Icon className="h-4 w-4" />
                 </span>
-                <span className="mt-1 block text-muted-foreground">
-                  {tGroups(`${key}.why`)}
-                </span>
-              </span>
-            </li>
-          ))}
-        </ul>
-        <p className="mt-6 text-sm text-muted-foreground">
-          {t("landing.sections.footnote")}
-        </p>
-      </section>
-
-      {/* Which questions depend on what the supplier reaches at its customers */}
-      <section>
-        <div>
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-            {t("landing.serviceTypes.heading")}
-          </h2>
-          <p className="mt-3 max-w-3xl text-muted-foreground">
-            {t("landing.serviceTypes.lead", QUESTION_COUNTS)}
+                <h3 className="text-base font-medium">
+                  {t(`serviceTypes.items.${index}.title`)}
+                </h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  {t(`serviceTypes.items.${index}.fields`)}
+                </p>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-8 text-sm text-muted-foreground">
+            {t("serviceTypes.example", QUESTION_COUNTS)}
           </p>
-        </div>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
-          {reachBlocks.map((block, i) => {
-            const Icon = reachIcons[i];
-            return (
-              <div key={block.title} className="rounded-lg border bg-card p-5">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10">
-                    <Icon className="h-4 w-4 text-primary" />
-                  </div>
-                  <h3 className="font-semibold text-foreground">{block.title}</h3>
-                </div>
-                <p className="mt-3 text-sm text-muted-foreground">{block.fields}</p>
-              </div>
-            );
-          })}
-        </div>
-        <p className="mt-6 text-sm text-muted-foreground">
-          {t("landing.serviceTypes.example", QUESTION_COUNTS)}
-        </p>
-      </section>
+        </section>
 
-      {/* Sample questions, pulled live from the questionnaire package */}
-      <section className="space-y-6">
-        <div>
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-            {t("landing.preview.heading")}
-          </h2>
-          <p className="mt-3 max-w-3xl text-muted-foreground">
-            {t("landing.preview.lead")}
-          </p>
-        </div>
-        <div className="space-y-4">
-          {previewFields.map((field) => (
-            <div key={field.id} className="rounded-lg border bg-card p-5">
-              <h3 className="text-base font-semibold text-foreground">
-                {pickLocalized(field.label, locale)}
-              </h3>
-              <div className="mt-2 flex gap-2 text-sm text-muted-foreground">
-                <HelpCircle className="mt-0.5 h-4 w-4 flex-none text-primary" />
-                <p>{pickLocalized(field.description, locale)}</p>
-              </div>
-              {field.options && (
-                <ul className="mt-3 space-y-1.5 pl-6 text-sm text-foreground">
-                  {field.options.map((option) => (
-                    <li key={option.value} className="flex items-start gap-2">
-                      <span
-                        aria-hidden
-                        className="mt-1 h-3 w-3 flex-none rounded-full border border-muted-foreground/50"
-                      />
-                      {pickLocalized(option.label, locale)}
-                    </li>
-                  ))}
-                </ul>
-              )}
-              <p className="mt-3 text-xs text-muted-foreground">
-                {[field.legalBasis, isoText(field)].filter(Boolean).join(" · ")}
+        {/* Why one questionnaire, in the BSI's words, and who sees the answers. */}
+        <section className={`${SECTION} mt-20 border-t border-border/60 pt-10`}>
+          <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr] lg:gap-16">
+            <div>
+              <blockquote className="border-l-2 border-primary/30 pl-5">
+                <p
+                  lang="de"
+                  className="text-lg italic leading-relaxed text-foreground/90"
+                >
+                  „{t("bsi.quote")}“
+                </p>
+                {locale !== "de" && (
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    {t("bsi.translation")}
+                  </p>
+                )}
+                <footer className="mt-3 text-xs leading-relaxed text-muted-foreground/80">
+                  {t("bsi.attribution")}
+                </footer>
+              </blockquote>
+              <p className="mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground">
+                {t("bsi.context")}
               </p>
             </div>
-          ))}
-        </div>
-        <p className="text-sm text-muted-foreground">
-          {t("landing.preview.footnote", {
-            shown: previewFields.length,
-            total: QUESTION_COUNTS.total,
-          })}
-        </p>
-      </section>
+            <div className="lg:border-l lg:border-border/60 lg:pl-16">
+              <h2 className={`flex items-center gap-2 ${EYEBROW}`}>
+                <Lock className="h-3.5 w-3.5" />
+                {t("privacy.heading")}
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                {t("privacy.body")}
+              </p>
+            </div>
+          </div>
+        </section>
 
-      {/* BSI quote */}
-      <section className="mx-auto max-w-3xl rounded-lg border bg-muted/40 p-6 sm:p-8">
-        <blockquote className="text-center text-base italic text-foreground/90 sm:text-lg">
-          „{t("landing.bsi.quote")}"
-        </blockquote>
-        <p className="mt-4 text-center text-sm text-muted-foreground">
-          {t("landing.bsi.attribution")}
-        </p>
-        <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-muted-foreground">
-          {t("landing.bsi.context")}
-        </p>
-      </section>
-
-      {/* Privacy posture */}
-      <section className="mx-auto max-w-3xl rounded-xl border bg-card p-8">
-        <h2 className="text-xl font-semibold tracking-tight">
-          {t("landing.privacy.heading")}
-        </h2>
-        <p className="mt-3 text-muted-foreground">{t("landing.privacy.body")}</p>
-      </section>
-
-      {/* Footer CTA */}
-      <section className="rounded-xl border bg-primary/5 p-8 text-center">
-        <h2 className="text-2xl font-semibold tracking-tight">
-          {t("landing.cta.heading")}
-        </h2>
-        <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
-          {t("landing.cta.body")}
-        </p>
-        <div className="mt-6">
-          <Button asChild size="lg" className="h-12 gap-2">
-            <Link
-              href={{
-                pathname: "/auth/signin",
-                query: { callbackUrl: "/portal/supplier-onboarding" },
-              }}
-            >
-              {t("landing.cta.button")}
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </Button>
-        </div>
-      </section>
-
-      {/* Related on nisd2.eu */}
-      <section className="space-y-6">
-        <div>
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-            {t("landing.related.heading")}
+        <section
+          className={`${SECTION} mt-24 rounded-3xl bg-primary/[0.06] px-6 py-12 sm:mt-32 sm:px-12 sm:py-16`}
+        >
+          <h2 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+            {t("cta.heading")}
           </h2>
-          <p className="mt-3 max-w-2xl text-muted-foreground">
-            {t("landing.related.lead")}
+          <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
+            {t("cta.body")}
           </p>
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {related.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="group rounded-lg border bg-card p-5 transition hover:border-primary/40 hover:bg-primary/5"
-            >
-              <div className="flex items-start justify-between gap-3">
-                <h3 className="font-semibold text-foreground">{item.title}</h3>
-                <ArrowRight className="h-4 w-4 flex-none text-muted-foreground transition group-hover:text-primary" />
-              </div>
-              <p className="mt-2 text-sm text-muted-foreground">{item.body}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
-    </div>
+          <Button asChild size="lg" className={`mt-8 ${PRIMARY_BUTTON}`}>
+            <Link href={SUPPLIER_SIGN_UP}>{t("cta.button")}</Link>
+          </Button>
+        </section>
+
+        {/* Further reading and open source, split by a hairline like the end of the home page. */}
+        <section className={`${SECTION} mt-16 border-t border-border/60 pt-10`}>
+          <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr] lg:gap-16">
+            <div>
+              <h2 className={EYEBROW}>{t("related.heading")}</h2>
+              <ul className="mt-5 grid gap-4 sm:grid-cols-3">
+                {RELATED.map((item) => (
+                  // One link per card, so the whole card is the link (stretched over it).
+                  <li
+                    key={item.key}
+                    className="relative flex flex-col gap-2 rounded-xl border border-border/60 bg-background p-4 transition-colors hover:border-primary/40 hover:bg-primary/[0.03] has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-ring"
+                  >
+                    <Link
+                      href={item.href}
+                      className="flex items-start justify-between gap-2 text-sm font-medium after:absolute after:inset-0 focus-visible:outline-none"
+                    >
+                      {t(`related.${item.key}.title`)}
+                      <ChevronRight className="mt-0.5 h-4 w-4 flex-none text-muted-foreground" />
+                    </Link>
+                    <p className="text-sm leading-snug text-muted-foreground">
+                      {t(`related.${item.key}.body`)}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <OpenSourceNote className="lg:border-l lg:border-border/60 lg:pl-16" />
+          </div>
+        </section>
+      </main>
+    </MotionProvider>
   );
 }

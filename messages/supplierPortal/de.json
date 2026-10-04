@@ -13,7 +13,14 @@
       "uploading": "Wird hochgeladen…",
       "uploadFailed": "Das Hochladen ist fehlgeschlagen. Bitte versuchen Sie es erneut oder wenden Sie sich an den Support.",
       "tooManyUploads": "Ihr Unternehmen hat in der letzten Stunde zu viele Dateien hochgeladen. Bitte versuchen Sie es in einer Stunde erneut.",
-      "remove": "Entfernen"
+      "remove": "Entfernen",
+      "typeLabel": "Art des Nachweises",
+      "typePenTest": "Penetrationstest",
+      "typeOther": "Anderer Nachweis",
+      "auditorLabel": "Prüfer",
+      "auditorPlaceholder": "Name der Zertifizierungsstelle",
+      "validUntilLabel": "Gültig bis",
+      "fileLabel": "Zertifikat als PDF"
     },
     "nav": {
       "portalName": "Lieferantenportal",
@@ -35,7 +42,7 @@
       "serviceTypeEmpty": "Auf dieser Seite stehen die Fragen zu Software als Dienst und zu Software, die Sie ausliefern. Sie haben im Profil keins von beiden angekreuzt, deshalb gibt es hier nichts zu beantworten.",
       "serviceTypeEmptyLink": "Zum Profil",
       "certificationsIntro": "Laden Sie Ihre Sicherheitsnachweise hoch (ISO 27001, BSI Grundschutz, BSI C5, TISAX, SOC 2). Die PDFs und ihre Angaben sehen die Kunden, die Sie eingeladen haben.",
-      "customersTitle": "Ersten Kunden hinzufügen",
+      "customersTitle": "Kunden hinzufügen",
       "customersIntro": "Laden Sie einen Kunden per E-Mail ein. Er bekommt einen privaten Link auf Ihr Sicherheitsprofil und braucht dafür kein Konto. Sobald er angenommen hat, tragen Sie die Systeme ein, die Sie für ihn betreuen, und melden Vorfälle, die diese Systeme betreffen.",
       "customer": "Kunde",
       "unknownCustomer": "(unbekannter Kunde)"
@@ -203,6 +210,108 @@
         "significant": "Erheblicher Vorfall"
       }
     },
+    "customers": {
+      "emailLabel": "E-Mail-Adresse des Sicherheitskontakts beim Kunden",
+      "emailPlaceholder": "it@kunde.de",
+      "orgNameLabel": "Firmenname des Kunden",
+      "orgNamePlaceholder": "Muster GmbH",
+      "submit": "Kunden einladen"
+    },
+    "assets": {
+      "add": "Asset hinzufügen",
+      "newTitle": "Neues Asset",
+      "editTitle": "Asset bearbeiten",
+      "save": "Asset speichern",
+      "saveChanges": "Änderungen speichern",
+      "remove": "Asset entfernen",
+      "empty": "Für diesen Kunden ist noch kein Asset eingetragen. Mit „Asset hinzufügen“ legen Sie das erste an.",
+      "serviceTypes": {
+        "saas": "Software als Dienst (SaaS)",
+        "on_prem": "Software beim Kunden",
+        "pro_services": "Dienstleistung",
+        "managed": "Managed Service"
+      }
+    },
+    "incidents": {
+      "intro": "Informieren Sie {recipient} über einen Sicherheitsvorfall, der Assets betrifft, die Sie für diesen Kunden betreuen. Das hilft dem Kunden bei seiner Pflicht aus Art. 21 Abs. 2 Buchst. d NIS2, die Sicherheit seiner Lieferkette im Blick zu behalten.",
+      "thisCustomer": "diesen Kunden",
+      "managerTitle": "Vorfallmeldungen",
+      "managerIntro": "Informieren Sie einen Kunden über einen Sicherheitsvorfall, der Assets betrifft, die Sie für ihn betreuen. Jede Meldung geht an genau einen Kunden. Das hilft dem Kunden bei seiner Pflicht aus Art. 21 Abs. 2 Buchst. d NIS2, die Sicherheit seiner Lieferkette im Blick zu behalten.",
+      "newTitle": "Neuen Vorfall melden",
+      "noCustomers": "Um einen Vorfall zu melden, brauchen Sie mindestens einen aktiven Kunden. <link>Kunde hinzufügen</link>",
+      "customerPlaceholder": "Kunden auswählen",
+      "affectedAssets": "Betroffene Assets (optional, ohne Auswahl wird es eine allgemeine Meldung)",
+      "loadingAssets": "Assets werden geladen…",
+      "noAssets": "Für diesen Kunden ist noch kein Asset eingetragen. Die Meldung wird ohne Bezug auf ein Asset versendet.",
+      "noAssetsHint": "Assets tragen Sie auf der Seite des Kunden ein.",
+      "titleLabel": "Titel",
+      "titlePlaceholder": "Ausfall des Kundenportals",
+      "descriptionLabel": "Beschreibung (höchstens {max, number} Zeichen)",
+      "descriptionPlaceholder": "Zwischen 14:00 und 15:30 Uhr war das Kundenportal nicht erreichbar…",
+      "descriptionHint": "Schreiben Sie keine internen Notizen aus der Untersuchung und keine personenbezogenen Daten hinein. Der Kunde liest den Text genau so, wie Sie ihn eingeben. Die E-Mail an ihn enthält den Text nicht, sie führt über einen Link zu Ihrer Meldung.",
+      "severity": "Schweregrad",
+      "severityOptions": {
+        "info": "Beinahevorfall",
+        "warning": "Vorfall",
+        "critical": "Erheblicher Vorfall"
+      },
+      "notify": "Kunden informieren",
+      "historyTitle": "Gemeldete Vorfälle",
+      "historyEmpty": "Noch keine Vorfälle gemeldet.",
+      "reportedAt": "Gemeldet am {date}",
+      "delivery": "Benachrichtigung: {status} ({count} versendet)",
+      "deliveryStatus": {
+        "queued": "wartet",
+        "sending": "wird versendet",
+        "sent": "versendet",
+        "failed": "fehlgeschlagen",
+        "none": "keine"
+      }
+    },
+    "access": {
+      "contactMissing": "(keine E-Mail-Adresse)",
+      "revokeConfirm": "Zugriff für diesen Kunden beenden? Er kann Ihr Sicherheitsprofil danach nicht mehr sehen.",
+      "status": {
+        "active": "Aktiv",
+        "revoked": "Beendet",
+        "bounced": "E-Mail unzustellbar"
+      },
+      "clausesTitle": "Vertragsklauseln für diesen Kunden",
+      "clausesIntro": "Was Sie mit diesem Kunden vertraglich vereinbart haben. Grundlage ist Nr. 5.1.4 im Anhang der Durchführungsverordnung (EU) 2024/2690 und die ENISA Technical Implementation Guidance dazu.",
+      "saveClauses": "Klauseln speichern"
+    },
+    "acceptInvite": {
+      "metaTitle": "Einladung annehmen",
+      "wrongEmailTitle": "Mit einer anderen E-Mail-Adresse angemeldet",
+      "wrongEmailBody": "Diese Einladung ging an <b>{invited}</b>, Sie sind aber als <b>{signedIn}</b> angemeldet.",
+      "wrongEmailHint": "Melden Sie sich ab und mit {invited} wieder an, um die Einladung anzunehmen.",
+      "signOut": "Abmelden",
+      "hasCompanyTitle": "Konto gehört schon zu einem Unternehmen",
+      "hasCompanyBody": "Ihr Konto gehört auf der Plattform bereits zu einem anderen Unternehmen. Um diese Einladung anzunehmen, melden Sie sich bitte mit einer anderen E-Mail-Adresse an.",
+      "toPortal": "Zu meinem Lieferantenportal",
+      "eyebrow": "Einladung",
+      "title": "{company} möchte Ihr Sicherheitsprofil sehen",
+      "intro": "{company} fällt unter NIS2 und muss prüfen, wie sicher seine Lieferanten arbeiten. Statt eines eigenen Fragebogens nutzt das Unternehmen dafür nisd2.eu: Sie beantworten den einheitlichen Fragebogen einmal und geben ihn jedem Kunden frei, der danach fragt.",
+      "yourEmail": "Ihre E-Mail-Adresse",
+      "nameLabel": "Name Ihres Unternehmens",
+      "namePlaceholder": "Muster GmbH",
+      "countryLabel": "Land (Ländercode)",
+      "countryHint": "Zwei Buchstaben nach ISO 3166-1, etwa DE oder AT.",
+      "submit": "Annehmen und Profil anlegen",
+      "freeNote": "Das Lieferantenportal kostet nichts. Die meisten Lieferanten fallen nicht selbst unter NIS2, und dieses Formular geht auch nicht davon aus."
+    },
+    "options": {
+      "saasHostingRegion": {
+        "eu": "Nur EU",
+        "de_only": "Nur Deutschland",
+        "global": "Weltweit"
+      },
+      "backgroundCheckScope": {
+        "criminal": "Führungszeugnis",
+        "employment": "Beruflicher Werdegang",
+        "both": "Beides"
+      }
+    },
     "fields": {
       "dataProcessingLocations": "Länder / Regionen, in denen Kundendaten verarbeitet werden",
       "saasHostingRegion": "Hosting-Region",
@@ -215,7 +324,20 @@
       "proServicesCustomerPremisesPolicy": "Dokumentierte Verhaltensrichtlinie auf Kundenstandort",
       "managedPrivilegedAccessMgmt": "Privileged Access Management (PAM) im Einsatz",
       "managedSessionRecording": "Admin-Sitzungen werden aufgezeichnet",
-      "managedOnCall24x7": "24/7-Bereitschaft"
+      "managedOnCall24x7": "24/7-Bereitschaft",
+      "name": "Name",
+      "serviceType": "Leistungsart",
+      "serviceDescription": "Beschreibung der Leistung",
+      "acceptRightToAudit": "Wir akzeptieren Audits durch den Kunden oder stellen Prüfberichte bereit",
+      "hasSubprocessors": "Wir setzen für diesen Kunden Unterauftragnehmer ein",
+      "subprocessorList": "Liste der Unterauftragnehmer",
+      "dataReturnOnTermination": "Bei Vertragsende geben wir zurück oder vernichten, was wir vom Kunden haben",
+      "dpaAvailable": "Auftragsverarbeitungsvertrag vorhanden",
+      "hasExitPlan": "Wir haben einen dokumentierten Ausstiegsplan mit angemessener Übergangszeit",
+      "notifyOnLocationChange": "Wir informieren den Kunden vorab, wenn sich der Ort der Datenverarbeitung ändert",
+      "notifyMaterialChanges": "Wir informieren den Kunden über wesentliche Änderungen an unserer Leistung",
+      "incidentAssistanceCommitment": "Wir unterstützen den Kunden bei Vorfällen ohne Zusatzkosten",
+      "incidentSlaHours": "Wie schnell Sie den Kunden über einen Vorfall informieren (Stunden)"
     }
   }
 }

@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { CompanyEssentials } from "@/components/organization/CompanyEssentials";
 import { CompanySetup } from "@/components/organization/CompanySetup";
+import { OrganizationId } from "@/components/organization/OrganizationId";
 import { getSession } from "@/lib/auth";
 import { ENTITY_TYPES } from "@/lib/organization/constants";
 import { api } from "@/lib/trpc/server";
@@ -11,6 +12,7 @@ import { api } from "@/lib/trpc/server";
  * The company's own data: the three essentials the walk sets the company up with
  * (`CompanyEssentials`, Simon 04.10.2026: "only the things we need from the organization, nothing
  * more"). A company not set up yet sets itself up here (`CompanySetup`). Only an admin changes them.
+ * Below them its id, to copy (`OrganizationId`).
  */
 export default async function OrganizationPage() {
   const session = await getSession();
@@ -60,6 +62,7 @@ export default async function OrganizationPage() {
           ))}
         </dl>
       )}
+      <OrganizationId id={companyData.id} />
     </div>
   );
 }

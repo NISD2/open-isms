@@ -27,7 +27,7 @@
       "serviceTypeEmpty": "Na tej stronie są pytania o oprogramowanie jako usługę i o oprogramowanie, które Państwo dostarczają. W profilu nie zaznaczyli Państwo żadnego z nich, więc nie ma tu nic do odpowiedzi.",
       "serviceTypeEmptyLink": "Przejdź do profilu",
       "certificationsIntro": "Proszę wgrać swoje poświadczenia bezpieczeństwa (ISO 27001, BSI Grundschutz, BSI C5, TISAX, SOC 2). Pliki PDF i ich dane widzą klienci, których Państwo zaprosili.",
-      "customersTitle": "Dodaj pierwszego klienta",
+      "customersTitle": "Dodaj klienta",
       "customersIntro": "Proszę zaprosić klienta e-mailem. Otrzyma prywatny link do Państwa profilu bezpieczeństwa i nie potrzebuje do tego konta. Gdy zaakceptuje, wpisują Państwo systemy, które dla niego prowadzą, i zgłaszają incydenty dotyczące tych systemów.",
       "customer": "Klient",
       "unknownCustomer": "(nieznany klient)"

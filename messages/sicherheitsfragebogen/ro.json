@@ -9,36 +9,7 @@
     },
     "landing": {
       "hero": {
-        "eyebrow": "Portal pentru furnizori de la nisd2.eu",
-        "headline": "Răspundeți la <u>un singur</u> chestionar de securitate.",
-        "headlineAccent": "Partajați-l cu <u>fiecare</u> client.",
-        "subhead": "Un chestionar canonic pentru furnizori, structurat conform ENISA NIS 2 Technical Implementation Guidance v1.0. Fiecare întrebare își indică sursa la nivelul UE, iar clienții care își gestionează furnizorii conform ISO 27001 găsesc controalele corespunzătoare chiar alături. Gratuit. Open source. Datele dumneavoastră rămân portabile.",
-        "anchorBadge": "Structurat conform ENISA NIS 2 TIG v1.0 §5",
-        "ctaPrimary": "Creați profil de furnizor",
-        "ctaSecondary": "Ce conține chestionarul?"
-      },
-      "steps": {
-        "heading": "Cum funcționează.",
-        "lead": "Trei pași, de la prima autentificare la prima invitație de client.",
-        "items": [
-          {
-            "title": "Creați un profil",
-            "body": "Autentificați-vă cu Google. Introduceți numele companiei și domeniul principal. Două minute."
-          },
-          {
-            "title": "Răspundeți la chestionar",
-            "body": "Trei pagini în portal: cine sunteți și la ce aveți acces la clienți, la ce vă angajați și cum gestionați securitatea, plus întrebări despre software, dacă oferiți sau livrați. Fiecare furnizor răspunde la {always, plural, one {# întrebare} few {# întrebări} other {# de întrebări}}, la celelalte doar dacă i se aplică. În ritmul dumneavoastră, ciorna se salvează automat."
-          },
-          {
-            "title": "Invitați clienții",
-            "body": "Fiecare client invitat primește un link privat de tip magic link. Fără profil public, fără indexare în motoarele de căutare."
-          }
-        ]
-      },
-      "sections": {
-        "heading": "Ce conține chestionarul.",
-        "lead": "Întrebările în ordinea în care le răspundeți în portal. Fiecare indică prevederea din Regulamentul de punere în aplicare (UE) 2024/2690, din Technical Implementation Guidance a ENISA, din RGPD sau din Cyber Resilience Act pe care se sprijină.",
-        "footnote": "Schema completă este publică pe GitHub și poate fi exportată în format JSON."
+        "ctaPrimary": "Creați profil de furnizor"
       },
       "serviceTypes": {
         "heading": "Ce vi se cere depinde de ce anume accesați la clienții dumneavoastră.",
@@ -62,51 +33,6 @@
           }
         ],
         "example": "O firmă de curățenie cu chei vede astfel {cleaning, plural, one {# întrebare} few {# întrebări} other {# de întrebări}}, un furnizor de SaaS care păstrează date ale clienților {saas}."
-      },
-      "preview": {
-        "heading": "Întrebări exemplificative.",
-        "lead": "Câteva întrebări din diferite părți ale chestionarului, cu textul de ajutor pe care furnizorii îl văd în timp ce le completează și prevederea pe care se sprijină fiecare.",
-        "footnote": "{shown} din {total, plural, one {# întrebare} few {# întrebări} other {# de întrebări}}. Setul complet în portal."
-      },
-      "bsi": {
-        "quote": "Salutăm inițiativele actuale din industrie de a dezvolta un catalog unificat de chestionare pentru furnizori.",
-        "attribution": "BSI NIS-2 FAQ (lanțul de aprovizionare și securitatea).",
-        "context": "Acest portal pentru furnizori este una dintre aceste inițiative: un chestionar unic și deschis, structurat conform ENISA TIG §5. Furnizorii îl completează o singură dată, iar fiecare client citește aceleași răspunsuri atunci când își evaluează lanțul de aprovizionare în temeiul articolului 21 alineatul (2) litera (d) din NIS 2."
-      },
-      "privacy": {
-        "heading": "Bilateral și privat.",
-        "body": "Construit în Germania, găzduit în UE, aliniat la BSI Grundschutz. Datele dumneavoastră sunt partajate doar cu clienții pe care îi invitați explicit. Fără URL public, fără indexare în motoarele de căutare."
-      },
-      "cta": {
-        "heading": "Începeți în două minute.",
-        "body": "Autentificați-vă cu Google. Introduceți numele companiei și domeniul principal. Completați chestionarul în ritmul dumneavoastră. Când sunteți gata, invitați clienții.",
-        "button": "Creați profil de furnizor"
-      },
-      "related": {
-        "heading": "Continuați pe nisd2.eu.",
-        "lead": "Acest instrument face parte din ecosistemul nisd2.eu. Restul se află aici.",
-        "items": [
-          {
-            "title": "Portal NIS 2 pentru furnizori",
-            "body": "Aceeași funcție, prezentată din perspectiva NIS 2: pentru organele de conducere care implementează §30 BSIG.",
-            "href": "/supplier-portal"
-          },
-          {
-            "title": "Schema deschisă a chestionarului",
-            "body": "Schema JSON completă cu citări ale surselor, liberă de reutilizat.",
-            "href": "/nis2-lieferanten-fragebogen"
-          },
-          {
-            "title": "Dacă vă blocați",
-            "body": "Răspundem gratuit la întrebări tehnice scurte. Dacă e nevoie de o firmă specializată, vă recomandăm una.",
-            "href": "/hilfe"
-          },
-          {
-            "title": "Open source",
-            "body": "Cod sursă complet pe GitHub sub licență AGPL-3.0.",
-            "href": "/open-source"
-          }
-        ]
       }
     }
   }

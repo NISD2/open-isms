@@ -11,80 +11,31 @@
  *
  * Per-asset technical fields like SaaS hosting region, on-prem SBOM, managed
  * PAM, etc. live on the asset row, scoped to one (supplier, customer) pair.
+ *
+ * Labels: the asset-level fields use assets.fields.*, the rest come from
+ * supplierPortal.fields.* through `translationNamespace`. Those are the same
+ * labels the customer reads on their access page (SharedServicesSection).
+ * The `group` names only decide where a separator goes; they are not shown.
  */
+import { Pencil, Server, Trash2, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { useRouter } from "@/i18n/navigation";
-import { Server, Trash2, Pencil, X } from "lucide-react";
+import type { z } from "zod";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { trpc, type RouterOutputs } from "@/lib/trpc/client";
-import { SchemaForm } from "@/lib/forms/schema-form";
+import { useRouter } from "@/i18n/navigation";
 import type { FieldOverride } from "@/lib/forms/field-renderer";
+import { SchemaForm } from "@/lib/forms/schema-form";
+import { type RouterOutputs, trpc } from "@/lib/trpc/client";
 import { assetServiceUpdateSchema } from "@/schema/validators";
-import type { z } from "zod";
 
 type AssetServiceValues = z.infer<typeof assetServiceUpdateSchema>;
 type AssetRow =
   RouterOutputs["supplierPortal"]["managedAsset"]["listByRelationship"][number];
 
-const fieldOverrides: Record<string, FieldOverride> = {
-  // Identity
-  name: { group: "Service identity" },
-  description: { group: "Service identity", colSpan: 2 },
-  serviceType: {
-    group: "Service identity",
-    component: "enum",
-    options: [
-      { value: "saas", label: "SaaS / hosted service" },
-      { value: "on_prem", label: "On-prem software" },
-      { value: "pro_services", label: "Professional services" },
-      { value: "managed", label: "Managed service" },
-    ],
-  },
-  serviceDescription: { group: "Service identity", colSpan: 2 },
-  dataProcessingLocations: { group: "Service identity", colSpan: 2 },
-
-  // Reused entity-side fields
-  hasMfa: { group: "Cryptography & access" },
-  encryptionAtRest: { group: "Cryptography & access" },
-  encryptionInTransit: { group: "Cryptography & access" },
-  rto: { group: "Cryptography & access", unit: "h" },
-
-  // SaaS branch
-  saasHostingRegion: {
-    group: "SaaS branch",
-    component: "enum",
-    options: [
-      { value: "eu", label: "EU only" },
-      { value: "de_only", label: "Germany only" },
-      { value: "global", label: "Global" },
-    ],
-  },
-
-  // On-prem branch
-  onPremSbomProvided: { group: "On-prem branch" },
-  onPremSignedReleases: { group: "On-prem branch" },
-  onPremVulnerabilityDisclosurePolicy: { group: "On-prem branch" },
-  onPremPatchSlaCriticalHours: { group: "On-prem branch", unit: "h" },
-
-  // Pro services branch
-  proServicesBackgroundCheckScope: {
-    group: "Professional services branch",
-    component: "enum",
-    options: [
-      { value: "criminal", label: "Criminal record" },
-      { value: "employment", label: "Employment history" },
-      { value: "both", label: "Both" },
-    ],
-  },
-  proServicesNdaInPlace: { group: "Professional services branch" },
-  proServicesCustomerPremisesPolicy: { group: "Professional services branch" },
-
-  // Managed branch
-  managedPrivilegedAccessMgmt: { group: "Managed service branch" },
-  managedSessionRecording: { group: "Managed service branch" },
-  managedOnCall24x7: { group: "Managed service branch" },
-};
+const SERVICE_TYPES = ["saas", "on_prem", "pro_services", "managed"] as const;
+const HOSTING_REGIONS = ["eu", "de_only", "global"] as const;
+const BACKGROUND_CHECK_SCOPES = ["criminal", "employment", "both"] as const;
 
 const emptyDefaults: AssetServiceValues = {
   name: "",
@@ -116,8 +67,78 @@ export function CustomerAssetsSection({
   relationshipId: string;
   initialAssets: AssetRow[];
 }) {
+  const t = useTranslations("supplierPortal.assets");
+  const tNav = useTranslations("supplierPortal.nav");
+  const tOption = useTranslations("supplierPortal.options");
+  const tAsset = useTranslations("assets.fields");
+  const tCommon = useTranslations("common");
   const router = useRouter();
   const [editingId, setEditingId] = useState<string | null>(null);
+
+  const fieldOverrides: Record<string, FieldOverride> = {
+    // Identity
+    name: { group: "Service identity" },
+    description: {
+      group: "Service identity",
+      colSpan: 2,
+      label: tAsset("description"),
+    },
+    serviceType: {
+      group: "Service identity",
+      component: "enum",
+      options: SERVICE_TYPES.map((value) => ({
+        value,
+        label: t(`serviceTypes.${value}`),
+      })),
+    },
+    serviceDescription: { group: "Service identity", colSpan: 2 },
+    dataProcessingLocations: { group: "Service identity", colSpan: 2 },
+
+    // Reused entity-side fields
+    hasMfa: { group: "Cryptography & access", label: tAsset("hasMfa") },
+    encryptionAtRest: {
+      group: "Cryptography & access",
+      label: tAsset("encryptionAtRest"),
+    },
+    encryptionInTransit: {
+      group: "Cryptography & access",
+      label: tAsset("encryptionInTransit"),
+    },
+    rto: { group: "Cryptography & access", unit: "h", label: tAsset("rto") },
+
+    // SaaS branch
+    saasHostingRegion: {
+      group: "SaaS branch",
+      component: "enum",
+      options: HOSTING_REGIONS.map((value) => ({
+        value,
+        label: tOption(`saasHostingRegion.${value}`),
+      })),
+    },
+
+    // On-prem branch
+    onPremSbomProvided: { group: "On-prem branch" },
+    onPremSignedReleases: { group: "On-prem branch" },
+    onPremVulnerabilityDisclosurePolicy: { group: "On-prem branch" },
+    onPremPatchSlaCriticalHours: { group: "On-prem branch", unit: "h" },
+
+    // Pro services branch
+    proServicesBackgroundCheckScope: {
+      group: "Professional services branch",
+      component: "enum",
+      options: BACKGROUND_CHECK_SCOPES.map((value) => ({
+        value,
+        label: tOption(`backgroundCheckScope.${value}`),
+      })),
+    },
+    proServicesNdaInPlace: { group: "Professional services branch" },
+    proServicesCustomerPremisesPolicy: { group: "Professional services branch" },
+
+    // Managed branch
+    managedPrivilegedAccessMgmt: { group: "Managed service branch" },
+    managedSessionRecording: { group: "Managed service branch" },
+    managedOnCall24x7: { group: "Managed service branch" },
+  };
   const [showAdd, setShowAdd] = useState(false);
 
   const utils = trpc.useUtils();
@@ -163,10 +184,10 @@ export function CustomerAssetsSection({
   return (
     <section className="space-y-4">
       <header className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold">Assets</h2>
+        <h2 className="text-lg font-semibold">{tNav("assets")}</h2>
         {!showAdd && editingId === null && (
           <Button size="sm" onClick={() => setShowAdd(true)}>
-            Add asset
+            {t("add")}
           </Button>
         )}
       </header>
@@ -174,12 +195,12 @@ export function CustomerAssetsSection({
       {showAdd && (
         <div className="rounded-lg border bg-card p-5 space-y-3">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-medium">New asset</h3>
+            <h3 className="text-sm font-medium">{t("newTitle")}</h3>
             <Button
               size="sm"
               variant="ghost"
               onClick={() => setShowAdd(false)}
-              aria-label="Cancel"
+              aria-label={tCommon("cancel")}
             >
               <X className="h-4 w-4" />
             </Button>
@@ -188,8 +209,9 @@ export function CustomerAssetsSection({
             schema={assetServiceUpdateSchema}
             defaultValues={emptyDefaults}
             fieldOverrides={fieldOverrides}
+            translationNamespace="supplierPortal"
             columns={2}
-            submitLabel="Save asset"
+            submitLabel={t("save")}
             isSubmitting={create.isPending}
             onSubmit={async (data) => {
               // SchemaForm has run zodResolver — name is min(1) on the schema
@@ -210,12 +232,12 @@ export function CustomerAssetsSection({
       {editingId !== null && editingAsset.data && (
         <div className="rounded-lg border bg-card p-5 space-y-3">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-medium">Edit asset</h3>
+            <h3 className="text-sm font-medium">{t("editTitle")}</h3>
             <Button
               size="sm"
               variant="ghost"
               onClick={() => setEditingId(null)}
-              aria-label="Cancel"
+              aria-label={tCommon("cancel")}
             >
               <X className="h-4 w-4" />
             </Button>
@@ -228,8 +250,7 @@ export function CustomerAssetsSection({
               description: editingAsset.data.description ?? null,
               serviceType: editingAsset.data.serviceType,
               serviceDescription: editingAsset.data.serviceDescription ?? null,
-              dataProcessingLocations:
-                editingAsset.data.dataProcessingLocations ?? null,
+              dataProcessingLocations: editingAsset.data.dataProcessingLocations ?? null,
               hasMfa: editingAsset.data.hasMfa ?? false,
               encryptionAtRest: editingAsset.data.encryptionAtRest ?? null,
               encryptionInTransit: editingAsset.data.encryptionInTransit ?? null,
@@ -242,8 +263,7 @@ export function CustomerAssetsSection({
                   | null
                   | undefined) ?? null,
               onPremSbomProvided: editingAsset.data.onPremSbomProvided ?? false,
-              onPremSignedReleases:
-                editingAsset.data.onPremSignedReleases ?? false,
+              onPremSignedReleases: editingAsset.data.onPremSignedReleases ?? false,
               onPremVulnerabilityDisclosurePolicy:
                 editingAsset.data.onPremVulnerabilityDisclosurePolicy ?? false,
               onPremPatchSlaCriticalHours:
@@ -255,19 +275,18 @@ export function CustomerAssetsSection({
                   | "both"
                   | null
                   | undefined) ?? null,
-              proServicesNdaInPlace:
-                editingAsset.data.proServicesNdaInPlace ?? false,
+              proServicesNdaInPlace: editingAsset.data.proServicesNdaInPlace ?? false,
               proServicesCustomerPremisesPolicy:
                 editingAsset.data.proServicesCustomerPremisesPolicy ?? false,
               managedPrivilegedAccessMgmt:
                 editingAsset.data.managedPrivilegedAccessMgmt ?? false,
-              managedSessionRecording:
-                editingAsset.data.managedSessionRecording ?? false,
+              managedSessionRecording: editingAsset.data.managedSessionRecording ?? false,
               managedOnCall24x7: editingAsset.data.managedOnCall24x7 ?? false,
             }}
             fieldOverrides={fieldOverrides}
+            translationNamespace="supplierPortal"
             columns={2}
-            submitLabel="Save changes"
+            submitLabel={t("saveChanges")}
             isSubmitting={update.isPending}
             onSubmit={async (data) => {
               await update.mutateAsync({
@@ -296,7 +315,7 @@ export function CustomerAssetsSection({
                     {a.name}
                     {a.serviceType && (
                       <Badge variant="secondary" className="text-[10px]">
-                        {a.serviceType.replace("_", " ")}
+                        {t(`serviceTypes.${a.serviceType}`)}
                       </Badge>
                     )}
                   </div>
@@ -316,7 +335,7 @@ export function CustomerAssetsSection({
                     setEditingId(a.id);
                   }}
                   disabled={remove.isPending}
-                  aria-label="Edit asset"
+                  aria-label={t("editTitle")}
                 >
                   <Pencil className="h-4 w-4" />
                 </Button>
@@ -325,7 +344,7 @@ export function CustomerAssetsSection({
                   variant="ghost"
                   onClick={() => remove.mutate({ id: a.id })}
                   disabled={remove.isPending}
-                  aria-label="Remove asset"
+                  aria-label={t("remove")}
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>
@@ -336,8 +355,7 @@ export function CustomerAssetsSection({
       ) : (
         !showAdd && (
           <div className="rounded-lg border border-dashed p-6 text-center text-sm text-muted-foreground">
-            No assets declared yet for this customer. Click &quot;Add
-            asset&quot; to start.
+            {t("empty")}
           </div>
         )
       )}

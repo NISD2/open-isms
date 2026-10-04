@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { SupplierInviteAcceptForm } from "@/components/supplier-portal/SupplierInviteAcceptForm";
 import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db";
@@ -21,8 +22,9 @@ import { api } from "@/lib/trpc/server";
  * The token is the credential. Token expiry is 30 days.
  */
 export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("supplierPortal.acceptInvite");
   return {
-    title: "Accept supplier invite",
+    title: t("metaTitle"),
     robots: { index: false, follow: false },
   };
 }
