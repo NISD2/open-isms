@@ -186,7 +186,7 @@
       "id": "cfcs",
       "name": "CFCS Denmark",
       "url": "https://www.cfcs.dk",
-      "description": "Center for Cybersikkerhed: Danish national CSIRT, part of SAMSIK since 1 January 2026; operates under Forsvarets Efterretningstjeneste",
+      "description": "Center for Cybersikkerhed: the Danish centre for cyber security, part of Styrelsen for Samfundssikkerhed (SAMSIK) since 29 January 2025; cfcs.dk now redirects to samsik.dk",
       "language": "en"
     },
     {
@@ -538,6 +538,27 @@
       "url": "https://virk.dk",
       "description": "Danish business portal, which hosts the SAMSIK registration service for entities under the NIS 2-loven.",
       "language": "en"
+    },
+    {
+      "id": "gazzetta-ufficiale",
+      "name": "Gazzetta Ufficiale",
+      "url": "https://www.gazzettaufficiale.it",
+      "description": "Official journal of the Italian Republic: authentic text of D.Lgs. 138/2024 (NIS 2 transposition), GU Serie Generale n. 230 of 1 October 2024.",
+      "language": "en"
+    },
+    {
+      "id": "regeringen-se",
+      "name": "Regeringen (Government Offices of Sweden)",
+      "url": "https://www.regeringen.se",
+      "description": "Swedish Government Offices: press releases, bills and ordinances, incl. the renaming of MSB to Myndigheten för civilt försvar in force 1 January 2026.",
+      "language": "en"
+    },
+    {
+      "id": "e-seimas",
+      "name": "e-seimas (Seimas of the Republic of Lithuania)",
+      "url": "https://e-seimas.lrs.lt",
+      "description": "Legal acts information system of the Lithuanian Seimas: texts, consolidated versions and publication metadata of laws, incl. the Law on Cybersecurity No. XII-1428 and its amendment XV-1076.",
+      "language": "en"
     }
   ],
   "events": [
@@ -589,12 +610,12 @@
       "category": "national-transposition",
       "tags": ["it", "transposition", "publication"],
       "type": "update",
-      "title": "Italy publishes Decreto Legislativo n. 138/2024 (NIS 2 transposition)",
-      "titleDe": "Italien veröffentlicht Decreto Legislativo n. 138/2024 (NIS 2 Umsetzung)",
-      "summary": "Italy becomes one of the first Member States to formally transpose NIS 2. D.Lgs. 138/2024 of 4 September 2024 establishes ACN (Agenzia per la Cybersicurezza Nazionale) as the sole competent authority and hosts CSIRT Italia. Enters into force 16 October 2024.",
-      "summaryDe": "Italien gehört zu den ersten Mitgliedstaaten mit formaler NIS 2 Umsetzung. D.Lgs. 138/2024 vom 4. September 2024 benennt die ACN (Agenzia per la Cybersicurezza Nazionale) als alleinige zuständige Behörde und Trägerin von CSIRT Italia. Inkrafttreten am 16. Oktober 2024.",
-      "sourceId": "acn",
-      "sourceUrl": "https://www.acn.gov.it/portale/registrazione",
+      "title": "Italy adopts Decreto Legislativo n. 138/2024 (NIS 2 transposition)",
+      "titleDe": "Italien erlässt Decreto Legislativo n. 138/2024 (NIS 2 Umsetzung)",
+      "summary": "Italy becomes one of the first Member States to formally transpose NIS 2. D.Lgs. 138/2024 of 4 September 2024, published in the Gazzetta Ufficiale on 1 October 2024, establishes ACN (Agenzia per la Cybersicurezza Nazionale) as the sole competent authority and hosts CSIRT Italia. Enters into force 16 October 2024.",
+      "summaryDe": "Italien gehört zu den ersten Mitgliedstaaten mit formaler NIS 2 Umsetzung. D.Lgs. 138/2024 vom 4. September 2024, am 1. Oktober 2024 in der Gazzetta Ufficiale veröffentlicht, benennt die ACN (Agenzia per la Cybersicurezza Nazionale) als alleinige zuständige Behörde und Trägerin von CSIRT Italia. Inkrafttreten am 16. Oktober 2024.",
+      "sourceId": "gazzetta-ufficiale",
+      "sourceUrl": "https://www.gazzettaufficiale.it/eli/id/2024/10/01/24G00155/sg",
       "addedAt": "2026-06-01"
     },
     {
@@ -864,17 +885,17 @@
       "addedAt": "2026-03-20T00:00:00Z"
     },
     {
-      "id": "2026-01-01-dk-cfcs-samsik-merger",
-      "date": "2026-01-01",
+      "id": "2025-01-29-dk-cfcs-samsik-merger",
+      "date": "2025-01-29",
       "category": "national-transposition",
       "tags": ["dk", "organisational"],
       "type": "update",
       "title": "Denmark: CFCS becomes part of SAMSIK",
       "titleDe": "Dänemark: CFCS wird Teil von SAMSIK",
-      "summary": "On 1 January 2026 the Centre for Cybersecurity (CFCS) becomes part of the newly established Agency for Societal Security (SAMSIK), under the Ministry for Societal Security and Emergency Preparedness. CFCS continues to operate the national CSIRT under Forsvarets Efterretningstjeneste; the cfcs.dk site now redirects to samsik.dk.",
-      "summaryDe": "Am 1. Januar 2026 wird das Center for Cybersikkerhed (CFCS) Teil der neu gegruendeten Behörde für Gesellschaftssicherheit (SAMSIK) unter dem Ministerium für Gesellschaftssicherheit und Bereitschaft. CFCS betreibt weiterhin das nationale CSIRT unter Forsvarets Efterretningstjeneste; cfcs.dk leitet jetzt auf samsik.dk weiter.",
-      "sourceId": "cfcs",
-      "sourceUrl": "https://www.cfcs.dk/da/nyheder/2025/cfcs-er-en-del-af-samsik/",
+      "summary": "On 29 January 2025 Styrelsen for Samfundssikkerhed (SAMSIK, the Danish Resilience Agency) was established under the Ministry of Resilience and Preparedness by bringing together units from several ministries, including the Centre for Cyber Security (CFCS). The royal resolution of 29 August 2024 had moved cyber security, NIS 2 implementation and CFCS out of the Ministry of Defence; only the Netsikkerhedstjenesten and the parts of CFCS handling operational defensive cyber operations and defence tasks stayed there. The national CSIRT is among the functions SAMSIK took over, and cfcs.dk now redirects to samsik.dk.",
+      "summaryDe": "Am 29. Januar 2025 wurde die Styrelsen for Samfundssikkerhed (SAMSIK, englisch Danish Resilience Agency) im Ministeriet for Samfundssikkerhed og Beredskab errichtet, indem Einheiten aus mehreren Ministerien zusammengelegt wurden, darunter das Center for Cybersikkerhed (CFCS). Grundlage ist die königliche Resolution vom 29. August 2024, die Cybersicherheit, die Umsetzung von NIS 2 und das CFCS aus dem Verteidigungsministerium herauslöste; nur Netsikkerhedstjenesten und die Teile des CFCS für operative defensive Cyberabwehr und Aufgaben der Streitkräfte blieben dort. Zu den von SAMSIK übernommenen Aufgaben gehört das nationale CSIRT; cfcs.dk leitet heute auf samsik.dk weiter.",
+      "sourceId": "samsik",
+      "sourceUrl": "https://samsik.dk/artikler/2025/03/center-for-cybersikkerhed-er-en-del-af-styrelsen-for-samfundssikkerhed/",
       "addedAt": "2026-06-01"
     },
     {
@@ -885,10 +906,10 @@
       "type": "update",
       "title": "Sweden: MSB renamed to MCF (Myndigheten för civilt försvar)",
       "titleDe": "Schweden: MSB wird in MCF (Myndigheten för civilt försvar) umbenannt",
-      "summary": "On 1 January 2026 the Swedish Civil Contingencies Agency (MSB) is renamed Myndigheten för civilt försvar (MCF). MCF continues to host CERT-SE as the national CSIRT and is the EU Single Point of Contact for NIS 2.",
-      "summaryDe": "Am 1. Januar 2026 wird die schwedische Behörde für Gesellschaftsschutz und Bereitschaft (MSB) in Myndigheten för civilt försvar (MCF) umbenannt. MCF betreibt weiterhin CERT-SE als nationales CSIRT und ist EU-Anlaufstelle für NIS 2.",
-      "sourceId": "riksdagen",
-      "sourceUrl": "https://www.riksdagen.se",
+      "summary": "On 1 January 2026 the Swedish Civil Contingencies Agency (MSB) was renamed Myndigheten för civilt försvar (MCF, in English the Swedish Civil Defence and Resilience Agency), after the Riksdag approved the government's bill on 5 November 2025. MCF kept CERT-SE and the NIS 2 single point of contact role until 30 June 2026; on 1 July 2026 both moved to the new Nationellt cybersäkerhetscenter (NCSC) at the FRA.",
+      "summaryDe": "Am 1. Januar 2026 wurde die schwedische Behörde für Gesellschaftsschutz und Bereitschaft (MSB) in Myndigheten för civilt försvar (MCF) umbenannt, nachdem der Reichstag den Gesetzentwurf der Regierung am 5. November 2025 angenommen hatte. MCF behielt CERT-SE und die Rolle der nationalen Anlaufstelle nach NIS 2 bis zum 30. Juni 2026; am 1. Juli 2026 gingen beide an das neue Nationellt cybersäkerhetscenter (NCSC) bei der FRA über.",
+      "sourceId": "regeringen-se",
+      "sourceUrl": "https://www.regeringen.se/pressmeddelanden/2025/11/msb-blir-myndigheten-for-civilt-forsvar/",
       "addedAt": "2026-06-01"
     },
     {
@@ -2108,6 +2129,34 @@
       "sourceId": "ncsc-se",
       "sourceUrl": "https://www.cert.se/2026/06/nu-samlas-cyberverksamheten-hos-nationellt-cybersakerhetscenter.html",
       "addedAt": "2026-07-06T18:30:00Z"
+    },
+    {
+      "id": "2026-06-30-national-transposition-lt-cybersecurity-law-xv-894",
+      "date": "2026-06-30",
+      "category": "national-transposition",
+      "tags": ["lt", "legislation", "amendment", "in-force", "enforcement"],
+      "type": "update",
+      "title": "Lithuania: amendment XV-894 on collecting cybersecurity fines enters into force",
+      "titleDe": "Litauen: Änderungsgesetz XV-894 zur Vollstreckung von Cybersicherheitsbußgeldern tritt in Kraft",
+      "summary": "Law No. XV-894, adopted by the Seimas on 12 May 2026 and published in the Register of Legal Acts on 15 May 2026, amends Article 31(13) of the Law on Cybersecurity (No. XII-1428) from 30 June 2026. A fine decision of the National Cyber Security Centre remains an enforceable title, but is now enforced under the Law on Tax Administration as well as the Code of Civil Procedure, and the previous three-year limit for submitting it for enforcement is removed. Decisions that became final by 29 June 2026 are enforced under the old rules. Fine ceilings, the authority that imposes fines and the procedure for imposing them are not amended.",
+      "summaryDe": "Das Gesetz Nr. XV-894, vom Seimas am 12. Mai 2026 verabschiedet und am 15. Mai 2026 im Register der Rechtsakte veröffentlicht, ändert ab dem 30. Juni 2026 Art. 31 Abs. 13 des Cybersicherheitsgesetzes (Nr. XII-1428). Ein Bußgeldbescheid des Nationalen Cybersicherheitszentrums bleibt ein Vollstreckungstitel, wird aber nun nach dem Steuerverwaltungsgesetz und der Zivilprozessordnung vollstreckt; die bisherige Frist von drei Jahren, innerhalb derer der Bescheid zur Vollstreckung eingereicht werden musste, entfällt. Bescheide, die bis zum 29. Juni 2026 bestandskräftig wurden, werden nach dem alten Recht vollstreckt. Bußgeldobergrenzen, die zuständige Behörde und das Verfahren zur Verhängung von Bußgeldern bleiben unverändert.",
+      "sourceId": "e-seimas",
+      "sourceUrl": "https://e-seimas.lrs.lt/portal/legalAct/lt/TAD/0506f6d04e8711f18091f24c9e0d719a",
+      "addedAt": "2026-10-05T00:00:00Z"
+    },
+    {
+      "id": "2026-07-04-national-transposition-lt-cybersecurity-law-xv-1076",
+      "date": "2026-07-04",
+      "category": "national-transposition",
+      "tags": ["lt", "legislation", "amendment", "in-force"],
+      "type": "update",
+      "title": "Lithuania: amendment XV-1076 to the Cybersecurity Law enters into force",
+      "titleDe": "Litauen: Änderungsgesetz XV-1076 zum Cybersicherheitsgesetz tritt in Kraft",
+      "summary": "Law No. XV-1076, adopted by the Seimas on 25 June 2026 and published in the Register of Legal Acts on 3 July 2026, amends the Law on Cybersecurity (No. XII-1428) from 4 July 2026. The size test for essential and important entities now follows the EU SME definition (above the headcount ceiling or above both financial ceilings), with headcount taken from State Social Insurance Fund records and finances from filed annual accounts or tax data; the rule that digital providers registered in Lithuania have their main establishment there is dropped in favour of the NIS 2 Article 26(2) test. Incident reporting (Article 18), risk management measures and fine ceilings are not amended.",
+      "summaryDe": "Das Gesetz Nr. XV-1076, vom Seimas am 25. Juni 2026 verabschiedet und am 3. Juli 2026 im Register der Rechtsakte veröffentlicht, ändert ab dem 4. Juli 2026 das Cybersicherheitsgesetz (Nr. XII-1428). Die Größenschwelle für wesentliche und wichtige Einrichtungen folgt nun der Definition der EU für kleine und mittlere Unternehmen (über der Beschäftigtenschwelle oder über beiden Finanzschwellen); die Beschäftigtenzahl kommt aus den Daten der staatlichen Sozialversicherung, die Finanzdaten aus eingereichten Jahresabschlüssen oder Steuerdaten. Die Regel, nach der in Litauen registrierte Digitalanbieter dort ihre Hauptniederlassung haben, entfällt zugunsten der Prüfung nach Art. 26 Abs. 2 NIS 2. Meldepflichten bei Vorfällen (Art. 18), Risikomanagementmaßnahmen und Bußgeldobergrenzen bleiben unverändert.",
+      "sourceId": "e-seimas",
+      "sourceUrl": "https://e-seimas.lrs.lt/portal/legalAct/lt/TAD/0dac9462746c11f1a305c23ba1643967",
+      "addedAt": "2026-10-04T00:00:00Z"
     },
     {
       "id": "2026-07-08-eu-cjeu-referral-nis2-four-states",

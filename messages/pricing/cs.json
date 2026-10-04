@@ -25,6 +25,102 @@
         "f10": "Žádný lock-in. Otevřený datový model. Export kdykoli, i do vlastního provozu."
       }
     },
+    "paid": {
+      "meta": {
+        "title": "Ceník: průvodce NIS 2 a vlastní provoz",
+        "description": "Průvodce NIS 2 na nisd2.eu: {price} bez DPH ročně, na fakturu, 30 dní na vrácení peněz, libovolný počet organizací a uživatelů. Vlastní provoz pod AGPL-3.0."
+      }
+    },
+    "tiers": {
+      "subtitle": "Jedna cena, všechno v ceně. Kurzy a wiki nic nestojí.",
+      "recommended": "Doporučeno",
+      "talkFirst": {
+        "title": "Raději si nejdřív promluvit?",
+        "body": "Krátký videohovor nebo telefonát v čase, který si zvolíte."
+      },
+      "approvalLink": "Rozhoduje někdo jiný? Jedna stránka pro vaše vedení",
+      "free": {
+        "name": "Učení",
+        "description": "Pro každého, kdo chce NIS 2 pochopit.",
+        "price": "0 €",
+        "priceSub": "navždy",
+        "cta": "Přejít na kurzy",
+        "features": {
+          "courses": "Všechny kurzy, včetně kurzu <course>pro vedení</course>",
+          "wiki": "Wiki o NIS 2",
+          "tools": "Nástroje pro <risk>posouzení rizik</risk> a <structure>evidenci aktiv</structure>"
+        }
+      },
+      "paid": {
+        "name": "Průvodce NIS 2",
+        "description": "Řízené zavedení na nisd2.eu.",
+        "priceSub": "bez DPH ročně, plus DPH",
+        "anchor": "Celý průvodce za cenu analýzy mezer.",
+        "anchorTip": {
+          "title": "Kolik stojí analýza mezer",
+          "body": "Německé poradenské firmy uvádějí za analýzu mezer pro NIS 2 ceny mezi {low} a {high}, jednorázově a většinou jako ceny od. Analýza ukáže, co chybí. Průvodce vás pak zavedením provede krok za krokem.",
+          "note": "Zdroje: weby {sources}, stav k {checked}."
+        },
+        "moneyBack": "30 dní na vrácení peněz",
+        "moneyBackTip": {
+          "title": "30 dní na vrácení peněz",
+          "points": {
+            "first": "U první objednávky, bez udání důvodu",
+            "cancel": "Zrušení v sekci Fakturace nebo e-mailem",
+            "refund": "Nezaplacená faktura se stornuje, zaplacená se vrátí do 30 dnů",
+            "data": "Vaše data zůstávají uložena"
+          },
+          "note": "Neplatí pro prodloužení. Podrobnosti jsou v podmínkách, oddíl B7."
+        },
+        "grandfatheredBadge": "Vaše cena pro stávající uživatele",
+        "cta": "Objednat",
+        "terms": "Na fakturu, splatnost 30 dní. Zrušení do 30 dnů od první objednávky: faktura se stornuje nebo se peníze vrátí.",
+        "termsLink": "Podmínky",
+        "features": {
+          "guided": "Řízené zavedení NIS 2 krok za krokem",
+          "unlimited": "Neomezený počet organizací a uživatelů",
+          "history": "Historie změn a schválení, kterou můžete ukázat úřadu",
+          "deadlines": "Termíny a upozornění ke každému požadavku",
+          "suppliers": "Bezpečnostní dotazník pro vaše dodavatele",
+          "export": "Export do PDF nebo CSV kdykoli",
+          "updates": "Všechny budoucí aktualizace v ceně",
+          "call": "<cal>Osobní hovory s námi</cal>, k objednání kdykoli"
+        },
+        "unlimitedTip": {
+          "title": "Pro vlastní strukturu vaší firmy",
+          "points": {
+            "structure": "Mateřská společnost, dceřiné a sesterské společnosti",
+            "users": "Každá jako samostatná organizace s vlastními uživateli",
+            "payment": "Vše jednou platbou"
+          },
+          "note": "Neplatí pro poskytovatele IT služeb, poradce ani externí pověřence, kteří spravují klienty. Tam potřebuje každá klientská organizace vlastní licenci (podmínky, oddíl B1)."
+        },
+        "grandfatheredNote": "Přihlásili jste se před zavedením placených plánů? Platíte {price} bez DPH ročně, včetně prodloužení."
+      },
+      "selfHost": {
+        "name": "Vlastní provoz",
+        "description": "Stejný zdrojový kód na vašich vlastních serverech.",
+        "price": "0 €",
+        "priceSub": "navždy",
+        "cta": "Zobrazit zdrojový kód",
+        "features": {
+          "everything": "Vše z <paid>průvodce</paid>",
+          "infrastructure": "Provoz, aktualizace a zálohy ve vašich rukou",
+          "licence": "Zdrojový kód otevřený pod AGPL-3.0",
+          "contract": "Žádná smlouva s námi"
+        },
+        "licences": {
+          "title": "Licence v repozitáři",
+          "dual": "Kód pod MIT, obsah pod CC BY 4.0",
+          "courses": "Obsah kurzů pod CC BY 4.0"
+        }
+      },
+      "trust": {
+        "invoice": "Faktura, žádná platební karta",
+        "documents": "<terms>Podmínky</terms> a <avv>smlouva o zpracování údajů</avv> k přečtení",
+        "openSource": "Open source pod AGPL-3.0"
+      }
+    },
     "selfHost": {
       "name": "Vlastní provoz",
       "description": "Celý zdrojový kód. Na vlastní infrastruktuře, trvale.",
@@ -43,6 +139,89 @@
     },
     "whyFree": "Proč zdarma: zdrojový kód je otevřený na GitHubu, ověřitelný a provozovatelný ve vlastní režii. Účtujeme si nasazení vlastního provozu a dostáváme provizi od specializovaných firem, na které vás odkazujeme. Nikoli za platformu.",
     "consultantFootnote": "Zasekli jste se u NIS 2? Krátké odborné dotazy nic nestojí, a pokud je potřeba specializovaná firma, doporučíme vám ji bez nákladů pro vás.",
-    "consultantCta": "Pomoc a doporučení"
+    "consultantCta": "Pomoc a doporučení",
+    "faq": {
+      "heading": "Otázky před objednávkou",
+      "items": {
+        "cost": {
+          "q": "Kolik to bude stát?",
+          "a": "Za průvodce {price} bez DPH ročně, pro každou organizaci a každého uživatele ve vaší skupině společností. Žádné další poplatky neexistují. Kolik stojí samotná opatření, závisí na vaší firmě. Německé právo uvádí náklady na zavedení jako jedno z měřítek přiměřenosti (<bsig30>§ 30 odst. 1 BSIG</bsig30>)."
+        },
+        "effort": {
+          "q": "Kolik je to práce a musíme někoho najmout?",
+          "a": "Průvodce je postavený pro jednoho člověka, který zavádí NIS 2 vedle své běžné práce. Postupuje krok za krokem, může kdykoli přestat a nechat otevřený krok, který zatím nejde udělat. Vedení se připojí na konci a schválí v aplikaci. Kolik času to zabere, závisí na vaší firmě. Průvodce nepočítá s dalším zaměstnancem."
+        },
+        "software": {
+          "q": "Můžeme to zvládnout bez softwaru?",
+          "a": "Ano. Zákon žádný konkrétní nástroj nepředepisuje. Vyžaduje opatření a to, abyste jejich dodržování dokumentovali (<bsig30>§ 30 odst. 1 BSIG</bsig30>). Průvodce vám ušetří vlastní organizaci pořadí, šablon, schvalování a termínů."
+        },
+        "data": {
+          "q": "Potřebujeme vlastní server a kde jsou naše data?",
+          "a": "Ne, průvodce běží v prohlížeči. Hetzner provozuje aplikaci a databázi v Německu, nahrané soubory jsou uloženy u AWS v regionu EU a Resend posílá e-maily z USA na základě standardních smluvních doložek. Úplný seznam je ve <avv>smlouvě o zpracování údajů</avv>, příloha IV. Pokud nechcete nic předávat externě, provozujte platformu sami, s Dockerem na vlastních serverech."
+        },
+        "language": {
+          "q": "Je všechno v němčině?",
+          "a": "Ano. Aplikace i průvodce jsou v němčině, a pokud chcete, i v angličtině."
+        },
+        "nextYear": {
+          "q": "Co platíme ve druhém roce a za co?",
+          "a": "Stejnou cenu. Licence se každý rok prodlužuje. 14 dní předem vám pošleme e-mail o prodloužení, ceně a o tom, jak zrušit, a rušit můžete až do posledního dne licenčního roku (<terms>podmínky, B6</terms>). Po dokončení průvodce vám aplikace připomíná opakující se povinnosti a všechny aktualizace jsou v ceně."
+        },
+        "approval": {
+          "q": "Nerozhoduji o tom sám. Jak to nechat schválit?",
+          "a": "Pošlete svému vedení dál <approval>stránku ke schválení</approval>. Obsahuje vše potřebné k rozhodnutí: co průvodce je, kolik stojí, srovnání s publikovanými cenami poradenských firem a jak ho ukončit."
+        },
+        "money": {
+          "q": "Jak vyděláváte?",
+          "a": "Touto roční licencí. Zdrojový kód je otevřený, abyste mohli ověřit, co platforma s vašimi daty dělá. Platíte za to, že platformu provozujeme, rozvíjíme a že jsme tu pro vaše otázky. Vaše data neprodáváme."
+        }
+      }
+    },
+    "approval": {
+      "meta": {
+        "title": "Ke schválení: průvodce NIS 2",
+        "description": "Jedna stránka pro vedení: co je průvodce NIS 2, kolik stojí a jak ho ukončit."
+      },
+      "eyebrow": "Ke schválení",
+      "title": "Průvodce NIS 2 na nisd2.eu",
+      "lead": "Jedna stránka k rozhodnutí: co to je, kolik to stojí a jak to ukončit.",
+      "rows": {
+        "what": {
+          "label": "Co to je",
+          "text": "Řízené zavedení povinností podle NIS 2 v jedné aplikaci. Jeden člověk z vaší firmy prochází kroky jeden po druhém a každé rozhodnutí se zaznamená se jménem a datem."
+        },
+        "role": {
+          "label": "Vaše role",
+          "text": "U subjektů v působnosti musí řídicí orgány schvalovat opatření pro řízení kybernetických rizik a dohlížet na jejich provádění (<nis2>čl. 20 odst. 1 NIS 2</nis2>). V Německu vyžaduje <bsig>§ 38 odst. 1 BSIG</bsig>, aby vedení opatření zavedlo a jejich provádění kontrolovalo. V průvodci výsledky na konci schvalujete v aplikaci, přihlášeni pod vlastním účtem. Nic se netiskne ani neskenuje."
+        },
+        "cost": {
+          "label": "Cena",
+          "text": "{price} bez DPH ročně plus DPH, na fakturu, splatnost 30 dní. Cena zahrnuje každou organizaci a každého uživatele ve vaší skupině společností."
+        },
+        "comparison": {
+          "label": "Pro srovnání"
+        },
+        "exit": {
+          "label": "Doba trvání a zrušení",
+          "text": "Při zrušení do 30 dnů od první objednávky se faktura stornuje a zaplacená se vrátí. Poté se licence každý rok prodlužuje, 14 dní předem vám pošleme e-mail a rušit můžete až do posledního dne licenčního roku (<terms>podmínky, B6 a B7</terms>)."
+        },
+        "scope": {
+          "label": "Co to není",
+          "text": "Není to certifikace. Výsledkem je zdokumentované vlastní posouzení vaší firmy s historií každé změny a schválení."
+        },
+        "provider": {
+          "label": "Poskytovatel",
+          "text": "Kardashev Catalyst UG (haftungsbeschränkt), Kolín nad Rýnem. Platí <terms>podmínky</terms> spolu se <avv>smlouvou o zpracování údajů</avv>."
+        }
+      },
+      "forward": {
+        "label": "Poslat tuto stránku dál:",
+        "email": "E-mailem",
+        "copy": "Zkopírovat odkaz",
+        "copied": "Odkaz zkopírován",
+        "subject": "Průvodce NIS 2 ke schválení",
+        "body": "Dobrý den,\n\nke schválení: stránka o průvodci NIS 2 na nisd2.eu s cenou, dobou trvání a zrušením.\n\n{url}\n\nS pozdravem"
+      }
+    }
   }
 }

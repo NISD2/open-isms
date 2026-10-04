@@ -17221,7 +17221,7 @@
         "heading": "Overview",
         "p1": "The NIS 2 directive is the EU layer. It binds every member state, including Denmark, with one cybersecurity floor for essential and important entities. Denmark must put that floor into Danish law and run a supervision regime under it.",
         "p2": "Denmark transposed late. The deadline under Article 41 was 17 October 2024. The Folketing adopted the NIS 2-loven (Lov om foranstaltninger til sikring af et højt cybersikkerhedsniveau) only on 29 April 2025. It entered into force as Act No. 434 of 6 May 2025 on 1 July 2025. The self-registration window through virk.dk ran until 1 October 2025.",
-        "p3": "Denmark uses a sectoral supervision model. Styrelsen for Samfundssikkerhed (SAMSIK), under the Ministry for Societal Security and Emergency Preparedness, coordinates and acts as supervisor for telecoms, central government, municipalities and parts of manufacturing. Energy, finance, transport, maritime, health and water each have their own sector-responsible authority. Center for Cybersikkerhed (CFCS) has been organisationally part of SAMSIK since 1 January 2025 and continues to operate the national CSIRT under Forsvarets Efterretningstjeneste."
+        "p3": "Denmark uses a sectoral supervision model. Styrelsen for Samfundssikkerhed (SAMSIK), under the Ministry for Societal Security and Emergency Preparedness, coordinates and acts as supervisor for telecoms, central government, municipalities and parts of manufacturing. Energy, finance, transport, maritime, health and water each have their own sector-responsible authority. Center for Cybersikkerhed (CFCS) has been part of SAMSIK since 29 January 2025 and runs the national CSIRT."
       },
       "legalAnchor": {
         "heading": "Where the rules live",
@@ -17284,7 +17284,7 @@
           "cfcs": {
             "country": "DK",
             "label": "CFCS",
-            "body": "Center for Cybersikkerhed. Organisationally part of SAMSIK since 1 January 2025, operationally still inside Forsvarets Efterretningstjeneste (FE, the Defence Intelligence Service). Runs the national CSIRT, is the 24/7 contact point for incident reports and the single point of contact in the EU CSIRTs network. CFCS is not the general NIS 2 supervisor; it is the technical authority for situational awareness and response."
+            "body": "Center for Cybersikkerhed. Part of SAMSIK since 29 January 2025; only the parts that handle operational defensive cyber operations and defence tasks stayed with the Ministry of Defence. Runs the national CSIRT, is the 24/7 contact point for incident reports and the single point of contact in the EU CSIRTs network. CFCS is not the general NIS 2 supervisor; it is the technical authority for situational awareness and response."
           },
           "sectoral": {
             "country": "DK",

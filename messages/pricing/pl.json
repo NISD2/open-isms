@@ -25,6 +25,102 @@
         "f10": "Bez lock-inu. Otwarty model danych. Eksport w dowolnym momencie, także do własnego hostingu."
       }
     },
+    "paid": {
+      "meta": {
+        "title": "Cennik: przewodnik krok po kroku po NIS 2 i hosting własny",
+        "description": "Przewodnik krok po kroku po NIS 2 na nisd2.eu: {price} netto rocznie, na fakturę, 30 dni na zwrot pieniędzy, dowolna liczba organizacji i użytkowników. Hosting własny na AGPL-3.0."
+      }
+    },
+    "tiers": {
+      "subtitle": "Jedna cena, wszystko w cenie. Kursy i wiki nic nie kosztują.",
+      "recommended": "Polecamy",
+      "talkFirst": {
+        "title": "Wolisz najpierw porozmawiać z nami?",
+        "body": "Krótkie wideo lub rozmowa telefoniczna, w terminie, który wybierzesz."
+      },
+      "approvalLink": "Decyduje ktoś inny? Jedna strona dla Twojego kierownictwa",
+      "free": {
+        "name": "Nauka",
+        "description": "Dla każdego, kto chce zrozumieć NIS 2.",
+        "price": "0 €",
+        "priceSub": "na zawsze",
+        "cta": "Przejdź do kursów",
+        "features": {
+          "courses": "Wszystkie kursy, także <course>dla kierownictwa</course>",
+          "wiki": "Wiki o NIS 2",
+          "tools": "Narzędzia do <risk>oceny ryzyka</risk> i <structure>inwentaryzacji aktywów</structure>"
+        }
+      },
+      "paid": {
+        "name": "Przewodnik krok po kroku po NIS 2",
+        "description": "Wdrożenie z przewodnikiem na nisd2.eu.",
+        "priceSub": "netto rocznie, plus VAT",
+        "anchor": "Cały przewodnik w cenie analizy luk.",
+        "anchorTip": {
+          "title": "Ile kosztuje analiza luk",
+          "body": "Niemieckie firmy doradcze publikują ceny od {low} do {high} za analizę luk w zakresie NIS 2, jednorazowo i najczęściej jako ceny od. Analiza pokazuje, czego brakuje. Przewodnik prowadzi Cię potem przez wdrożenie, krok po kroku.",
+          "note": "Źródła: strony internetowe {sources}, stan na {checked}."
+        },
+        "moneyBack": "30 dni na zwrot pieniędzy",
+        "moneyBackTip": {
+          "title": "30 dni na zwrot pieniędzy",
+          "points": {
+            "first": "Przy pierwszym zamówieniu, bez podawania powodu",
+            "cancel": "Rezygnacja w sekcji Rozliczenia lub e-mailem",
+            "refund": "Otwarta faktura zostaje anulowana, a opłaconą zwracamy w ciągu 30 dni",
+            "data": "Twoje dane pozostają zapisane"
+          },
+          "note": "Nie dotyczy odnowień. Szczegóły są w regulaminie, sekcja B7."
+        },
+        "grandfatheredBadge": "Twoja cena dla obecnych użytkowników",
+        "cta": "Zamów",
+        "terms": "Na fakturę, płatną w 30 dni. Rezygnacja w ciągu pierwszych 30 dni: faktura zostaje anulowana albo zwracamy pieniądze.",
+        "termsLink": "Regulamin",
+        "features": {
+          "guided": "Wdrożenie NIS 2 z przewodnikiem, krok po kroku",
+          "unlimited": "Nieograniczona liczba organizacji i użytkowników",
+          "history": "Historia zmian i zatwierdzeń do pokazania organowi nadzoru",
+          "deadlines": "Terminy i przypomnienia dla każdego wymagania",
+          "suppliers": "Kwestionariusz bezpieczeństwa dla Twoich dostawców",
+          "export": "Eksport do PDF lub CSV w dowolnym momencie",
+          "updates": "Wszystkie przyszłe aktualizacje w cenie",
+          "call": "<cal>Osobiste rozmowy z nami</cal>, do umówienia w dowolnym momencie"
+        },
+        "unlimitedTip": {
+          "title": "Dla struktury Twojej własnej firmy",
+          "points": {
+            "structure": "Spółka dominująca, spółki zależne i siostrzane",
+            "users": "Każda jako osobna organizacja z własnymi użytkownikami",
+            "payment": "Wszystko w jednej płatności"
+          },
+          "note": "Nie dla dostawców usług IT, doradców ani zewnętrznych pełnomocników, którzy obsługują klientów. Tam każda organizacja klienta potrzebuje własnej licencji (regulamin, sekcja B1)."
+        },
+        "grandfatheredNote": "Logowałeś się przed startem płatnych planów? Płacisz {price} netto rocznie, także przy odnowieniach."
+      },
+      "selfHost": {
+        "name": "Hosting własny",
+        "description": "Ten sam kod źródłowy, na Twoich własnych serwerach.",
+        "price": "0 €",
+        "priceSub": "na zawsze",
+        "cta": "Zobacz kod źródłowy",
+        "features": {
+          "everything": "Wszystko, co w <paid>przewodniku</paid>",
+          "infrastructure": "Uruchamianie, aktualizacje i kopie zapasowe po Twojej stronie",
+          "licence": "Kod źródłowy otwarty na AGPL-3.0",
+          "contract": "Bez umowy z nami"
+        },
+        "licences": {
+          "title": "Licencje w repozytorium",
+          "dual": "Kod na MIT, treści na CC BY 4.0",
+          "courses": "Treści kursów na CC BY 4.0"
+        }
+      },
+      "trust": {
+        "invoice": "Faktura, bez karty kredytowej",
+        "documents": "<terms>Regulamin</terms> i <avv>umowa powierzenia przetwarzania danych</avv> do przeczytania",
+        "openSource": "Open source na AGPL-3.0"
+      }
+    },
     "selfHost": {
       "name": "Hosting własny",
       "description": "Pełny kod źródłowy. Na własnej infrastrukturze, na stałe.",
@@ -41,8 +137,91 @@
         "h7": "Wdrożenie przez nas, jeśli chcesz: 500 € netto, jednorazowo"
       }
     },
-    "whyFree": "Dlaczego bezpłatnie: kod źródłowy jest otwarty na GitHubie, można go sprawdzić i uruchomić samodzielnie. Rozliczamy wdrożenie hostingu własnego i otrzymujemy prowizję od wyspecjalizowanych firm, do których kierujemy. Nie za platformę.",
+    "whyFree": "Dlaczego bezpłatnie: kod źródłowy jest otwarty na GitHubie, można go sprawdzić i uruchomić samodzielnie. Pobieramy opłatę za wdrożenie instalacji we własnym hostingu i otrzymujemy prowizję od wyspecjalizowanych firm, do których Cię kierujemy. Nie za platformę.",
     "consultantFootnote": "Utknąłeś przy NIS 2? Krótkie pytania merytoryczne nic nie kosztują, a jeśli potrzebna jest wyspecjalizowana firma, polecimy ją bez kosztów dla Ciebie.",
-    "consultantCta": "Pomoc i polecenia"
+    "consultantCta": "Pomoc i polecenia",
+    "faq": {
+      "heading": "Pytania przed zamówieniem",
+      "items": {
+        "cost": {
+          "q": "Ile to będzie kosztować?",
+          "a": "Za przewodnik {price} netto rocznie, dla każdej organizacji i każdego użytkownika w Twojej grupie spółek. Nie ma innych opłat. Ile kosztują same środki, zależy od Twojej firmy. Niemieckie prawo wymienia koszt wdrożenia jako jedno z kryteriów proporcjonalności (<bsig30>§ 30 ust. 1 BSIG</bsig30>)."
+        },
+        "effort": {
+          "q": "Ile to pracy i czy musimy kogoś zatrudnić?",
+          "a": "Przewodnik jest zbudowany dla jednej osoby, która wdraża NIS 2 obok swojej właściwej pracy. Wykonuje kroki jeden po drugim, może przerwać w dowolnym momencie i zostawić otwarty krok, którego jeszcze nie da się zrobić. Kierownictwo dołącza na końcu, aby zatwierdzić w aplikacji. Ile to zajmie czasu, zależy od Twojej firmy. Przewodnik nie zakłada dodatkowego zatrudnienia."
+        },
+        "software": {
+          "q": "Czy możemy to zrobić bez oprogramowania?",
+          "a": "Tak. Prawo nie narzuca żadnego konkretnego narzędzia. Wymaga środków oraz udokumentowania ich przestrzegania (<bsig30>§ 30 ust. 1 BSIG</bsig30>). Przewodnik oszczędza Ci samodzielnego organizowania kolejności, szablonów, zatwierdzeń i terminów."
+        },
+        "data": {
+          "q": "Czy potrzebujemy własnego serwera i gdzie są nasze dane?",
+          "a": "Nie, przewodnik działa w przeglądarce. Hetzner uruchamia aplikację i bazę danych w Niemczech, przesłane pliki są przechowywane u AWS w regionie UE, a Resend wysyła e-maile z USA na podstawie standardowych klauzul umownych. Pełna lista znajduje się w <avv>umowie powierzenia przetwarzania danych</avv>, załącznik IV. Jeśli wolisz niczego nie zlecać na zewnątrz, uruchom platformę samodzielnie, z Dockerem na własnych serwerach."
+        },
+        "language": {
+          "q": "Czy wszystko jest po niemiecku?",
+          "a": "Tak. Aplikacja i przewodnik są po niemiecku, a na życzenie po angielsku."
+        },
+        "nextYear": {
+          "q": "Ile płacimy w drugim roku i za co?",
+          "a": "Tę samą cenę. Licencja odnawia się co roku. 14 dni wcześniej wysyłamy Ci e-mail o odnowieniu, cenie i sposobie rezygnacji, a zrezygnować możesz do ostatniego dnia roku licencyjnego (<terms>regulamin, B6</terms>). Po przewodniku aplikacja przypomina Ci o cyklicznych obowiązkach, a wszystkie aktualizacje są w cenie."
+        },
+        "approval": {
+          "q": "Nie decyduję o tym sam. Jak uzyskać zatwierdzenie?",
+          "a": "Prześlij kierownictwu <approval>stronę do zatwierdzenia</approval>. Zawiera wszystko potrzebne do decyzji: czym jest przewodnik, ile kosztuje, porównanie z opublikowanymi cenami firm doradczych i jak go zakończyć."
+        },
+        "money": {
+          "q": "Jak zarabiacie?",
+          "a": "Na tej rocznej licencji. Kod źródłowy jest otwarty, abyś mógł sprawdzić, co platforma robi z Twoimi danymi. Płacisz za to, że uruchamiamy platformę, rozwijamy ją i jesteśmy do dyspozycji w razie pytań. Nie sprzedajemy Twoich danych."
+        }
+      }
+    },
+    "approval": {
+      "meta": {
+        "title": "Do zatwierdzenia: przewodnik krok po kroku po NIS 2",
+        "description": "Jedna strona dla kierownictwa: czym jest przewodnik krok po kroku po NIS 2, ile kosztuje i jak go zakończyć."
+      },
+      "eyebrow": "Do zatwierdzenia",
+      "title": "Przewodnik krok po kroku po NIS 2 na nisd2.eu",
+      "lead": "Jedna strona do podjęcia decyzji: czym jest, ile kosztuje i jak to zakończyć.",
+      "rows": {
+        "what": {
+          "label": "Czym jest",
+          "text": "Wdrożenie obowiązków wynikających z NIS 2 z przewodnikiem, w jednej aplikacji. Jedna osoba z Twojej firmy przechodzi kroki jeden po drugim, a każda decyzja jest zapisywana z imieniem i datą."
+        },
+        "role": {
+          "label": "Twoja rola",
+          "text": "W podmiotach objętych zakresem organy zarządzające muszą zatwierdzać środki zarządzania ryzykiem w cyberbezpieczeństwie i nadzorować ich wdrażanie (<nis2>art. 20 ust. 1 NIS 2</nis2>). W Niemczech <bsig>§ 38 ust. 1 BSIG</bsig> wymaga od kierownictwa wdrożenia środków i nadzorowania ich wdrażania. W przewodniku zatwierdzasz wyniki na końcu, w aplikacji, zalogowany na własne konto. Nic nie jest drukowane ani skanowane."
+        },
+        "cost": {
+          "label": "Koszt",
+          "text": "{price} netto rocznie plus VAT, na fakturę, płatną w 30 dni. Cena obejmuje każdą organizację i każdego użytkownika w Twojej grupie spółek."
+        },
+        "comparison": {
+          "label": "Dla porównania"
+        },
+        "exit": {
+          "label": "Okres i rezygnacja",
+          "text": "Zrezygnuj w ciągu 30 dni od pierwszego zamówienia, a faktura zostanie anulowana, zaś opłacona zwrócona. Potem licencja odnawia się co roku, wysyłamy Ci e-mail 14 dni wcześniej, a zrezygnować możesz do ostatniego dnia roku licencyjnego (<terms>regulamin, B6 i B7</terms>)."
+        },
+        "scope": {
+          "label": "Czym nie jest",
+          "text": "Nie jest certyfikacją. Wynik to udokumentowana samoocena Twojej firmy, z historią każdej zmiany i zatwierdzenia."
+        },
+        "provider": {
+          "label": "Dostawca",
+          "text": "Kardashev Catalyst UG (haftungsbeschränkt), Kolonia. Obowiązuje <terms>regulamin</terms> wraz z <avv>umową powierzenia przetwarzania danych</avv>."
+        }
+      },
+      "forward": {
+        "label": "Prześlij tę stronę:",
+        "email": "E-mailem",
+        "copy": "Skopiuj link",
+        "copied": "Link skopiowany",
+        "subject": "Przewodnik krok po kroku po NIS 2 do zatwierdzenia",
+        "body": "Dzień dobry,\n\ndo zatwierdzenia: strona o przewodniku krok po kroku po NIS 2 na nisd2.eu, z kosztem, okresem i rezygnacją.\n\n{url}\n\nZ poważaniem"
+      }
+    }
   }
 }
