@@ -1,5 +1,8 @@
 import { cn } from "@/lib/utils";
 
+/** The art of the walk's first step, setting up the company; it has no item code to look it up by. */
+export const SETUP_ART = "/images/durchgang/unternehmen.svg";
+
 /** The step art carries its own white ground; multiply lets the tinted panel show through it. */
 export function Art({ src, className }: { src: string | null; className: string }) {
   if (!src) return null;
