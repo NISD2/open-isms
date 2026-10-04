@@ -79,7 +79,7 @@ More examples — Drizzle storage, multi-page form rendering — under [`example
 {
   id:            "mfaEnforcedInternal"       // stable camelCase key
   section:       "security_practices"
-  type:          "boolean"                   // string | text | email | phone | url | country | boolean | enum | integer
+  type:          "boolean"                   // string | text | email | phone | url | domain | country | boolean | enum | integer
   label:         { en, de }
   description:   { en, de }                  // why this field exists, with legal context
   legalBasis:    "NIS2 Art. 21(2)(j)"        // EU-level primary citation

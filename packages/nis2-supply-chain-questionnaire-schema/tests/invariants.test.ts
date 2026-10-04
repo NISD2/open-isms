@@ -18,6 +18,17 @@ describe("data loads", () => {
     expect(supplierQuestionnaire.fields.length).toBeGreaterThan(0);
     expect(supplierQuestionnaire.version).toMatch(/^\d+\.\d+\.\d+$/);
   });
+
+  test("the published JSON Schema describes the questionnaire", async () => {
+    const published = await Bun.file(
+      new URL("../schema/supply-chain-questionnaire.schema.json", import.meta.url),
+    ).json();
+    expect(Object.keys(published.properties ?? {})).toEqual([
+      "version",
+      "lastUpdated",
+      "fields",
+    ]);
+  });
 });
 
 describe("uniqueness", () => {

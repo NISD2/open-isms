@@ -211,7 +211,10 @@
         "add": "Hinzufügen",
         "empty": "Noch kein Lieferant auf Ihrer Liste.",
         "failed": "Das wurde nicht gespeichert. Bitte versuchen Sie es noch einmal.",
-        "details": "Verträge und Ansprechpartner auf der Lieferantenseite"
+        "details": "Verträge und Ansprechpartner auf der Lieferantenseite",
+        "answers": "Seine Angaben zur Sicherheit ansehen",
+        "platform": "Betreibt diese Plattform und verarbeitet dafür Ihre Daten. Die Angaben hat der Anbieter selbst im Lieferantenportal gemacht.",
+        "backToRegister": "Zurück zur Lieferantenliste"
       },
       "training": {
         "add": "Schulung eintragen",

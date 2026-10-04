@@ -142,14 +142,14 @@ export function CertificationsSection({
     <section className="space-y-4">
       <header className="flex items-center justify-between">
         <div>
-          <h2 className="text-lg font-semibold">Certifications</h2>
+          <h2 className="text-lg font-semibold">{t("title")}</h2>
           <p className="text-sm text-muted-foreground">
-            ISO 27001, BSI Grundschutz, SOC 2, TISAX — upload PDFs and metadata.
+            {readOnly ? t("introReadOnly") : t("intro")}
           </p>
         </div>
         {!readOnly && (
           <Button onClick={() => setShowForm(!showForm)} size="sm">
-            <Plus className="h-4 w-4 mr-1" /> Add
+            <Plus className="h-4 w-4 mr-1" /> {t("add")}
           </Button>
         )}
       </header>
@@ -169,7 +169,7 @@ export function CertificationsSection({
             onSubmit={async (data) => {
               await create.mutateAsync(data as CertCreateValues);
             }}
-            submitLabel="Save certificate"
+            submitLabel={t("save")}
             isSubmitting={create.isPending}
           />
           {create.isError && (
@@ -180,9 +180,7 @@ export function CertificationsSection({
 
       {certifications.length === 0 ? (
         <div className="rounded-lg border border-dashed p-6 text-center text-sm text-muted-foreground">
-          {readOnly
-            ? "No active certifications."
-            : "No certifications yet. Click Add above to upload your first attestation."}
+          {readOnly ? t("emptyReadOnly") : t("empty")}
         </div>
       ) : (
         <ul className="space-y-2">
@@ -199,7 +197,7 @@ export function CertificationsSection({
                   </div>
                   <div className="text-xs text-muted-foreground inline-flex items-center gap-1">
                     <Calendar className="h-3 w-3" />
-                    valid until {cert.validUntil}
+                    {t("validUntil", { date: cert.validUntil })}
                     {cert.auditor && <span>· {cert.auditor}</span>}
                   </div>
                 </div>

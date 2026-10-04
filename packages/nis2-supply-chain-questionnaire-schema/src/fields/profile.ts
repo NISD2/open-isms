@@ -100,7 +100,7 @@ export const profileFields: SupplierField[] = [
   {
     id: "primaryDomain",
     section: "profile",
-    type: "url",
+    type: "domain",
     label: {
       en: "Primary domain",
       de: "Primäre Domain",

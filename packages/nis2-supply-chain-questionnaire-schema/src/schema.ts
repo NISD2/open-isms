@@ -19,6 +19,8 @@ export const FIELD_TYPE = {
   EMAIL: "email",
   PHONE: "phone",
   URL: "url",
+  /** A bare host name such as example.com: no scheme, no path. */
+  DOMAIN: "domain",
   COUNTRY: "country",
   BOOLEAN: "boolean",
   ENUM: "enum",

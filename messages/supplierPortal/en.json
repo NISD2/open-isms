@@ -1,6 +1,14 @@
 {
   "supplierPortal": {
     "certifications": {
+      "title": "Certificates",
+      "intro": "ISO 27001, BSI IT-Grundschutz, SOC 2 or TISAX: add the certificate as a PDF, with auditor and expiry date.",
+      "introReadOnly": "The certificates the supplier has added, with auditor and expiry date.",
+      "add": "Add",
+      "save": "Save certificate",
+      "empty": "No certificates yet. Use Add to upload the first one.",
+      "emptyReadOnly": "The supplier has not added a valid certificate.",
+      "validUntil": "valid until {date}",
       "uploadHint": "Drop your certificate PDF here, or click to browse",
       "uploading": "Uploading…",
       "uploadFailed": "Upload failed. Try again or contact support.",
@@ -97,6 +105,12 @@
       "unanswered": "Not answered",
       "hours": "hours",
       "basis": "Basis",
+      "invalid": {
+        "domain": "Enter the domain only, for example acmesoftware.com.",
+        "email": "Enter an email address, for example security@acmesoftware.com.",
+        "country": "Enter two letters, for example DE.",
+        "other": "This answer cannot be saved as it is. Please check it."
+      },
       "groups": {
         "identity": {
           "title": "Who you are",

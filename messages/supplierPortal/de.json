@@ -1,6 +1,14 @@
 {
   "supplierPortal": {
     "certifications": {
+      "title": "Zertifikate",
+      "intro": "ISO 27001, BSI IT-Grundschutz, SOC 2 oder TISAX: legen Sie das Zertifikat als PDF ab, mit Prüfer und Ablaufdatum.",
+      "introReadOnly": "Die Zertifikate, die der Lieferant hinterlegt hat, mit Prüfer und Ablaufdatum.",
+      "add": "Hinzufügen",
+      "save": "Zertifikat speichern",
+      "empty": "Noch keine Zertifikate. Mit „Hinzufügen“ legen Sie das erste ab.",
+      "emptyReadOnly": "Der Lieferant hat kein gültiges Zertifikat hinterlegt.",
+      "validUntil": "gültig bis {date}",
       "uploadHint": "Legen Sie das Zertifikat als PDF hier ab oder klicken Sie, um eine Datei auszuwählen",
       "uploading": "Wird hochgeladen…",
       "uploadFailed": "Das Hochladen ist fehlgeschlagen. Bitte versuchen Sie es erneut oder wenden Sie sich an den Support.",
@@ -97,6 +105,12 @@
       "unanswered": "Keine Angabe",
       "hours": "Stunden",
       "basis": "Grundlage",
+      "invalid": {
+        "domain": "Bitte nur die Domain eintragen, etwa muellergmbh.de.",
+        "email": "Bitte eine E-Mail-Adresse eintragen, etwa sicherheit@muellergmbh.de.",
+        "country": "Bitte zwei Buchstaben eintragen, etwa DE.",
+        "other": "Diese Angabe lässt sich so nicht speichern. Bitte prüfen."
+      },
       "groups": {
         "identity": {
           "title": "Wer Sie sind",

@@ -286,6 +286,7 @@ export const routing = defineRouting({
     "/risks": "/risks",
     "/settings": "/settings",
     "/suppliers": "/suppliers",
+    "/suppliers/[id]": "/suppliers/[id]",
     "/team": "/team",
     "/training": "/training",
     "/vulnerabilities": "/vulnerabilities",

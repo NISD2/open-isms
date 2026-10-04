@@ -11,7 +11,7 @@
  * answers on other pages are passed in so the conditions can be read.
  */
 import { conditionsHold } from "@nisd2/nis2-supply-chain-questionnaire-schema/schema";
-import { useTranslations } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "@/i18n/navigation";
 import type { QuestionnaireField } from "@/lib/forms/supplier-portal-sections";
+import { normalizeDomain } from "@/lib/supplier-portal/domain";
 import type { GroupView, QuestionView } from "@/lib/supplier-portal/questionnaire-view";
 import { trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
@@ -41,8 +42,13 @@ const stored = (question: QuestionView, value: unknown): unknown => {
   if (text === "") return null;
   if (question.type === "integer") return Number.parseInt(text, 10);
   if (question.type === "country") return text.toUpperCase();
+  if (question.type === "domain") return normalizeDomain(text) ?? text;
   return text;
 };
+
+/** The message shown when the save schema rejects an answer, by kind of question. */
+const invalidKey = (type: QuestionView["type"]) =>
+  type === "domain" || type === "email" || type === "country" ? type : "other";
 
 const INPUT_TYPES: Partial<Record<QuestionView["type"], string>> = {
   email: "email",
@@ -61,6 +67,7 @@ export function QuestionnaireForm({
   readonly lastSavedAt: string | null;
 }) {
   const t = useTranslations("supplierPortal.questionnaire");
+  const format = useFormatter();
   const router = useRouter();
   const questions = useMemo(() => groups.flatMap((group) => group.questions), [groups]);
   const initial = useMemo(
@@ -94,9 +101,14 @@ export function QuestionnaireForm({
     );
     const parsed = securityProfileUpdateSchema.safeParse(payload);
     if (!parsed.success) {
+      const typeOf = new Map(questions.map((q) => [q.id as string, q.type]));
       setErrors(
         Object.fromEntries(
-          parsed.error.issues.map((issue) => [String(issue.path[0]), issue.message]),
+          parsed.error.issues.map((issue) => {
+            const id = String(issue.path[0]);
+            const type = typeOf.get(id);
+            return [id, t(`invalid.${type ? invalidKey(type) : "other"}`)];
+          }),
         ),
       );
       return;
@@ -109,7 +121,10 @@ export function QuestionnaireForm({
     setValues((previous) => ({ ...previous, [id]: value }));
 
   return (
+    // The save schema decides what is valid. The browser's own check would block a submit
+    // silently, with no message in the form and no request sent.
     <form
+      noValidate
       className="space-y-10"
       onSubmit={(event) => {
         event.preventDefault();
@@ -161,7 +176,12 @@ export function QuestionnaireForm({
           {dirty
             ? t("unsaved")
             : lastSavedAt
-              ? t("savedAt", { time: new Date(lastSavedAt).toLocaleString() })
+              ? t("savedAt", {
+                  time: format.dateTime(new Date(lastSavedAt), {
+                    dateStyle: "medium",
+                    timeStyle: "short",
+                  }),
+                })
               : t("notSavedYet")}
         </p>
         <Button type="submit" disabled={!dirty || save.isPending} className="h-10 px-5">

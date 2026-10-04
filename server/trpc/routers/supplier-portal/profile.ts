@@ -23,12 +23,12 @@ import { z } from "zod";
 import { rateLimit } from "@/lib/rate-limit";
 import { companyUploadPrefixes, sanitizeFilename } from "@/lib/storage/object-key";
 import { createPresignedPut } from "@/lib/storage/presign";
+import { normalizeDomain } from "@/lib/supplier-portal/domain";
 import { company } from "@/schema";
 import { securityProfileUpdateSchema } from "@/schema/validators";
 import { assertOwnObjectKey } from "../../guards";
 import { accountProcedure, router } from "../../init";
 import { updateRow } from "../../typed";
-import { normalizeDomain } from "./helpers";
 
 /** Where the logo upload URL puts a company's logos; the only keys setLogo accepts. */
 const logoPrefix = companyUploadPrefixes.logos;

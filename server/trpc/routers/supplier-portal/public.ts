@@ -21,12 +21,10 @@ import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
 import { rateLimit } from "@/lib/rate-limit";
-import { QUESTIONNAIRE_COLUMN_FLAGS } from "@/lib/supplier-portal/completeness";
+import { loadSharedSupplierProfile } from "@/lib/supplier-portal/shared-profile";
 import {
   asset,
   assetSupplierOffering,
-  company,
-  companyCertification,
   incident,
   incidentBroadcast,
   supplier,
@@ -71,31 +69,14 @@ export const supplierPublicRouter = router({
       if (rel.status === "revoked") return null;
       if (!rel.supplierCompanyId) return null;
 
-      // Explicit column whitelist — defensive against future drift. The
-      // company row contains BOTH NIS2-entity-only data (cisoName, billing,
-      // stripeCustomerId) and the universal company facts surfaced by the
-      // supplier portal. Only the supplier-portal subset is allowed on the
-      // wire.
-      //
-      // Per-customer contract clauses live on `rel` (the supplier row) —
-      // they're returned in the `relationship` payload below. Per-asset
-      // technical declarations live on the asset rows queried separately.
-      const supplierCompany = await ctx.db.query.company.findFirst({
-        where: eq(company.id, rel.supplierCompanyId),
-        columns: {
-          id: true,
-          name: true,
-          sector: true,
-          actsAsSupplier: true,
-          logoStorageKey: true,
-          practicesLastSavedAt: true,
-          // Every question the portal asks, from its one field list; nothing else of the row.
-          ...QUESTIONNAIRE_COLUMN_FLAGS,
-        },
-      });
-      // Defense-in-depth: if a token survives a relationship cascade-delete
-      // race or the supplier opted out of the supplier role, refuse to leak.
-      if (!supplierCompany?.actsAsSupplier) return null;
+      // What a customer may read of the supplier: the questionnaire answers and the active
+      // certificates, nothing else of the company row (lib/supplier-portal/shared-profile.ts).
+      // Null once the supplier stopped acting as one, so a token surviving a cascade-delete race
+      // leaks nothing. Per-customer contract clauses live on `rel` and are returned in
+      // `relationship` below; per-asset declarations are queried separately.
+      const shared = await loadSharedSupplierProfile(ctx.db, rel.supplierCompanyId);
+      if (!shared) return null;
+      const supplierCompany = shared.profile;
 
       // Assets the supplier offers to THIS customer — service profile lives
       // in asset_supplier_offering, joined to the generic asset row.
@@ -178,22 +159,7 @@ export const supplierPublicRouter = router({
       }));
 
       // Active certifications (cert metadata only — no S3 storage keys)
-      const certifications = await ctx.db.query.companyCertification.findMany({
-        where: and(
-          eq(companyCertification.companyId, rel.supplierCompanyId),
-          eq(companyCertification.status, "active"),
-        ),
-        columns: {
-          id: true,
-          type: true,
-          typeOther: true,
-          scope: true,
-          auditor: true,
-          validFrom: true,
-          validUntil: true,
-          status: true,
-        },
-      });
+      const { certifications } = shared;
 
       return {
         relationship: {

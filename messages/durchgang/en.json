@@ -211,7 +211,10 @@
         "add": "Add",
         "empty": "No supplier on your list yet.",
         "failed": "That was not saved. Please try again.",
-        "details": "Contracts and contacts on the supplier page"
+        "details": "Contracts and contacts on the supplier page",
+        "answers": "See their security answers",
+        "platform": "Runs this platform and processes your data to do so. The provider gave these answers itself in the supplier portal.",
+        "backToRegister": "Back to the supplier list"
       },
       "training": {
         "add": "Add a training",

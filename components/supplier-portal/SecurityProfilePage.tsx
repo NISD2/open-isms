@@ -6,7 +6,7 @@
  *
  * Server component — receives the data already loaded by the route.
  */
-import { getTranslations } from "next-intl/server";
+import { getFormatter, getTranslations } from "next-intl/server";
 import {
   answersOf,
   loadQuestionnaireGroups,
@@ -29,9 +29,10 @@ export async function SecurityProfilePage({
   certifications,
   supplierName,
 }: SecurityProfilePageProps) {
-  const [t, tq, groups] = await Promise.all([
+  const [t, tq, format, groups] = await Promise.all([
     getTranslations("supplierPortal.customerView"),
     getTranslations("supplierPortal.questionnaire"),
+    getFormatter(),
     loadQuestionnaireGroups(["profile", "practices", "serviceType"], "customer"),
   ]);
   const savedAt = profile.practicesLastSavedAt ?? null;
@@ -46,7 +47,7 @@ export async function SecurityProfilePage({
           <h1 className="text-3xl font-semibold tracking-tight">{supplierName}</h1>
           <p className="text-sm text-muted-foreground">
             {savedAt
-              ? tq("savedAt", { time: savedAt.toLocaleDateString() })
+              ? tq("savedAt", { time: format.dateTime(savedAt, { dateStyle: "medium" }) })
               : tq("notSavedYet")}
           </p>
         </header>

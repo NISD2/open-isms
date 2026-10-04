@@ -10,6 +10,7 @@ import { canSeeCategory, getUserAccess } from "@/lib/compliance/access";
 import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
 import { buildCitationRows, typesetCitation } from "@/lib/compliance/citations";
 import { legislation } from "@/lib/content/citations";
+import { db } from "@/lib/db";
 import {
   type AnyItem,
   type AnyScreen,
@@ -24,6 +25,7 @@ import {
   walkOf,
 } from "@/lib/durchgang";
 import { introspectSchema } from "@/lib/forms/schema-introspect";
+import { ensurePlatformSupplier } from "@/lib/supplier-portal/platform-supplier";
 import { api } from "@/lib/trpc/server";
 import { glossary } from "./gloss";
 
@@ -138,6 +140,10 @@ export async function loadItem(code: string): Promise<ItemView | null> {
       (s.provision === "registration_portals" || s.provision === "reporting_channels"),
   );
   const asksPerson = screens.some((s) => s.kind === "fields" && s.person);
+  // The instance's operator is offered once as a supplier before the register is read.
+  if (shows("supplier") && session?.companyId) {
+    await ensurePlatformSupplier(db, session.companyId);
+  }
 
   const [
     words,

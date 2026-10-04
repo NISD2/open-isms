@@ -15,7 +15,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { zodToJsonSchema } from "zod-to-json-schema";
+import { z } from "zod";
 import { supplierQuestionnaire } from "../src/data";
 import { supplierQuestionnaireSchema } from "../src/schema";
 
@@ -23,23 +23,18 @@ const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..");
 
 const dataPath = join(root, "data", "supply-chain-questionnaire.json");
-const dataOut = JSON.stringify(supplierQuestionnaire, null, 2) + "\n";
+const dataOut = `${JSON.stringify(supplierQuestionnaire, null, 2)}\n`;
 writeFileSync(dataPath, dataOut);
 
 const schemaDir = join(root, "schema");
 mkdirSync(schemaDir, { recursive: true });
 const schemaPath = join(schemaDir, "supply-chain-questionnaire.schema.json");
-// The widened localisedString tips a latent zod / zod-to-json-schema version
-// skew into a structural-type mismatch; narrow the arg to the lib's own param
-// type (runtime is unaffected — it's a valid ZodObject).
-const jsonSchema = zodToJsonSchema(
-  supplierQuestionnaireSchema as unknown as Parameters<typeof zodToJsonSchema>[0],
-  {
-    name: "SupplyChainQuestionnaire",
-    $refStrategy: "none",
-  },
-);
-const schemaOut = JSON.stringify(jsonSchema, null, 2) + "\n";
+// zod's own converter: zod-to-json-schema predates zod 4 and wrote an empty object for it.
+const jsonSchema = {
+  title: "SupplyChainQuestionnaire",
+  ...z.toJSONSchema(supplierQuestionnaireSchema, { target: "draft-7" }),
+};
+const schemaOut = `${JSON.stringify(jsonSchema, null, 2)}\n`;
 writeFileSync(schemaPath, schemaOut);
 
 console.log(

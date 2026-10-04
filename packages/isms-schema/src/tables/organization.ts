@@ -354,6 +354,12 @@ export const company = pgTable("company", {
 
   /** Denormalized timestamp of last supplier-portal Security Practices save — surfaced as a "saved at" hint in the UI. */
   practicesLastSavedAt: timestamp("questionnaire_last_saved_at"),
+  /**
+   * When the company that runs this instance was added to this company's supplier list
+   * (lib/supplier-portal/platform-supplier.ts). Set once; a row the company deletes afterwards
+   * stays deleted, because this says it was offered already.
+   */
+  platformSupplierLinkedAt: timestamp("platform_supplier_linked_at"),
 
   /**
    * Onboarding lifecycle discriminator. NULL = a draft shell (auto-provisioned
