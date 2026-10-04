@@ -384,13 +384,14 @@ export const auditLogSelectSchema = createSelectSchema(auditLog);
 
 // The providing supplier is set only by code that checks the supplier is the company's own, so
 // neither the asset form nor a client can name another company's row. The second factor's kind is
-// answered per program in the walk (11.1), from a fixed list the form has no labels for. The
-// catalogue item is set by the walk from its own catalogue, never by a client.
+// answered per program in the walk (11.1), from a fixed list the form has no labels for, and so
+// is where it runs (2.2). The catalogue item is set by the walk from its own catalogue, never by a
+// client.
 export const assetInsertSchema = createInsertSchema(asset, {
   ...isoDateColumns(asset),
   name: z.string().min(1).max(255),
   type: z.string().min(1).max(100),
-}).omit({ supplierId: true, mfaMethod: true, catalogId: true });
+}).omit({ supplierId: true, mfaMethod: true, catalogId: true, hosting: true });
 export const assetSelectSchema = createSelectSchema(asset);
 export const assetUpdateSchema = assetInsertSchema.partial().omit(omitTenantMeta);
 

@@ -1057,7 +1057,7 @@
     "agb": {
       "meta": {
         "title": "General terms and conditions | nisd2.eu",
-        "description": "Terms of nisd2.eu: use of the platform, the NIS 2 guided pass annual licence, price, term and renewal, thirty days money back, liability and data processing."
+        "description": "Terms of nisd2.eu: use of the platform, the annual licence for the NIS 2 walkthrough, price, term and renewal, thirty days money back, liability and data processing."
       },
       "title": "General terms and conditions",
       "subtitle": "For the use of the hosted platform nisd2.eu, free and with an annual licence. The data processing agreement is Annex 1.",
@@ -1158,7 +1158,7 @@
         "licence": {
           "heading": "B1. Subject of the contract",
           "paragraphs": [
-            "The subject is the right to use the hosted Platform with the NIS 2 guided pass for one licence year (\"annual licence\"). The Provider makes the Platform available over the internet. The customer does not receive a copy of the software.",
+            "The subject is the right to use the hosted Platform with the NIS 2 walkthrough for one licence year (\"annual licence\"). The Provider makes the Platform available over the internet. The customer does not receive a copy of the software.",
             "The annual licence covers the customer's account: every organisation and every user on that account. One payment covers all of them.",
             "Organisations in this sense are the customer itself and the companies of its own group: companies affiliated with it or majority-owned by the same shareholders. If the customer uses the Platform for organisations it looks after as a service provider, for example as an IT service provider, managed service provider, consultant or external information security officer, each of those organisations needs its own annual licence unless agreed otherwise."
           ]
@@ -1209,7 +1209,7 @@
             "This does not apply to renewals, nor to any later order for the same account, including a new order after a cancellation. B8 applies to those from the first day.",
             "The customer cancels under Billing with the button, or in text form by email to contact@nisd2.eu.",
             "The Provider then cancels the invoice in full with a credit note. If it was still open, the customer owes nothing more. If the customer had already paid, the Provider transfers the full amount back within 30 days of the cancellation to the account the payment came from. A payment that arrives only after the cancellation is refunded within 30 days of its arrival.",
-            "The annual licence ends at once. The account falls back to use without a licence; for existing users, to the continued free use of the current guided pass. The customer's data stays stored (B10)."
+            "The annual licence ends at once. The account falls back to use without a licence; for existing users, to the continued free use of the current walkthrough. The customer's data stays stored (B10)."
           ]
         },
         "cancelAfter": {
@@ -1231,7 +1231,7 @@
           "heading": "B10. End of the annual licence and the data",
           "paragraphs": [
             "When the annual licence ends, by cancellation, by expiry without renewal, or by suspension under B9, the account remains and falls back to use without a licence. The Provider does not delete any data when this happens.",
-            "Without a licence, the account reaches only Billing, Settings, Organisation and Notifications. The other content and the exports are reachable again only with a new order. Existing users keep the free use of the current guided pass.",
+            "Without a licence, the account reaches only Billing, Settings, Organisation, Notifications and Export, so the exports of its own data stay reachable at all times. The other content is reachable again only with a new order. Existing users keep the free use of the current walkthrough.",
             "On the customer's instruction, the Provider returns or deletes the data as the data processing agreement provides. An email to contact@nisd2.eu is enough."
           ]
         },
@@ -2197,7 +2197,7 @@
       "plan": {
         "heading": "How we will halve it",
         "p1": "We do not cut hardware. We do not cut security tools. Those are real and necessary.",
-        "p2": "We cut the friction. The translation work, the interpretation work, the paperwork - done once, structured, free, shared with everyone."
+        "p2": "We cut the friction. The translation work, the interpretation work, the paperwork: done once, structured, free, shared with everyone."
       },
       "savings": {
         "heading": "Where the €16 billion saving comes from",
@@ -7037,11 +7037,8 @@
         "heading": "Why us",
         "body": "We're not a consulting firm. We're not selling you a tool and then charging for the training to use it. We built everything on this platform by reading the actual law, the implementing regulation, and the BSI guidance. Every lesson in the managing director course cites its legal basis. Every requirement in the platform maps to a specific BSIG paragraph. We're engineers who decided compliance shouldn't cost six figures."
       },
-      "cta": {
-        "heading": "Try the platform",
-        "description": "Check whether NIS2 applies to your company, then work through the requirements step by step. Open source, no lock-in."
-      },
-      "ctaPlatform": "Start free"
+      "simonRole": "Managing Director, technical co-founder",
+      "coryRole": "COO, co-founder"
     },
     "gapAssessmentLanding": {
       "meta": {

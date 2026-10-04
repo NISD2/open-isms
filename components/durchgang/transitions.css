@@ -53,6 +53,19 @@ html[data-dg-dir="back"] {
   }
 }
 
+/*
+ * A light shade behind the "not possible yet" sheet, which carries data-shade="light": the screen
+ * stays readable, so the person sees what they set aside. The overlay is the sheet's own sibling
+ * in the portal, and the shared sheet component takes no class for it.
+ */
+[data-slot="sheet-overlay"]:has(~ [data-shade="light"][data-state="open"]) {
+  background-color: rgb(0 0 0 / 0.15);
+}
+
+.dark [data-slot="sheet-overlay"]:has(~ [data-shade="light"][data-state="open"]) {
+  background-color: rgb(0 0 0 / 0.4);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html[data-dg-dir]::view-transition-group(*),
   html[data-dg-dir]::view-transition-old(*),

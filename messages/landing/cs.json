@@ -1,5 +1,75 @@
 {
   "landing": {
+    "guided": {
+      "eyebrow": "Pro firmy s 50 až 150 zaměstnanci",
+      "title": "Máte se postarat o <blue>NIS2</blue>?",
+      "subtitle": "Provedeme vás krok za krokem. Vy vyplňujete, my vysvětlujeme každý bod srozumitelně a na konci podepisuje vedení.",
+      "cta": "Začít",
+      "trainingCta": "Bezplatné školení pro vašeho jednatele",
+      "meta": {
+        "title": "NIS2 krok za krokem, pro firmy s 50 až 150 zaměstnanci",
+        "description": "Vy vyplňujete, my vysvětlujeme každý bod srozumitelně a na konci podepisuje vedení. Pro firmy bez vlastního bezpečnostního oddělení."
+      }
+    },
+    "walk": {
+      "heroAlt": "Průvodce NIS2: vaše cesta krok za krokem, první body hotové",
+      "title": "Jak vás průvodce provede NIS2",
+      "lead": "Každý obrázek ukazuje skutečnou aplikaci, vyplněnou pro smyšlené ukázkové firmy.",
+      "steps": {
+        "oneAtATime": {
+          "title": "Vždy jen jedna věc",
+          "text": "Vidíte vždy jen jeden bod. Vysvětlíme ho srozumitelně dřív, než cokoli zadáte, a předpis, ze kterého vychází, je jedno kliknutí daleko.",
+          "alt": "Krok průvodce: registrace u vašeho úřadu, srozumitelně vysvětlená"
+        },
+        "bsiMethods": {
+          "title": "Metody od BSI",
+          "text": "Kde německý Spolkový úřad pro bezpečnost informační techniky (BSI) doporučuje metodu, máte ji připravenou, například posouzení rizik podle standardu BSI 200-3. Jedním kliknutím se z ní stane metoda vaší firmy. Zda ji převezmete, je vaše rozhodnutí.",
+          "alt": "Metoda posouzení rizik podle standardu BSI 200-3 jako záznam v evidenci"
+        },
+        "riskMap": {
+          "title": "Vaše rizika na první pohled",
+          "text": "Hodnotíte svůj software, techniku a dodavatele v matici BSI. Přehled ukazuje, kde leží vaše záznamy a co je třeba chránit nejdřív.",
+          "alt": "Matice rizik ukázkové firmy: kolik záznamů leží v každém poli"
+        },
+        "setAside": {
+          "title": "Nechat něco otevřené je v pořádku",
+          "text": "Co ještě nejde udělat, odložíte s důvodem, třeba protože čekáte na dopis nebo se musíte nejdřív někoho zeptat. Bod se přesune na váš seznam čekajících a vy pokračujete dalším.",
+          "alt": "Odložení bodu: důvody na výběr"
+        },
+        "signOff": {
+          "title": "Vedení schvaluje v aplikaci",
+          "text": "Na konci vedení přečte dokumenty, které průvodce sepsal, a schválí je pod vlastním účtem. Jméno a datum se pak objeví na každém dokumentu. Nic se netiskne ani neskenuje.",
+          "alt": "Dokumenty průvodce schválené vedením, každý se jménem a datem"
+        },
+        "staysCurrent": {
+          "title": "Zůstává aktuální",
+          "text": "Po schválení jedna stránka ukáže, co zůstává na vás: co dělat, když se něco stane, a co se opakuje. Když přijde termín nebo změníte seznam, bod se vrátí vedení ke schválení.",
+          "alt": "Co zůstává po schválení: co dělat, když se něco stane, a co se opakuje, vždy s právním základem"
+        }
+      },
+      "outcomes": {
+        "title": "Co pak máte ve své evidenci",
+        "registers": {
+          "title": "Vaše evidence",
+          "text": "Co v průvodci zaškrtnete a zadáte, máte pak ve své evidenci: aktiva, dodavatele, rizika, politiky, školení a přezkoumání vedením.",
+          "alt": "Seznam aktiv v průvodci: obchodní procesy k zaškrtnutí"
+        },
+        "log": {
+          "title": "Protokol aktivit",
+          "text": "Ukazuje den po dni, kdo co a kdy změnil. Je v něm i každé schválení vedením.",
+          "alt": "Protokol aktivit ukázkové firmy"
+        },
+        "export": {
+          "title": "Vše v jednom dokumentu",
+          "text": "Celý průvodce od začátku do konce: stav, otevřené body, dokumenty, matice rizik, každá evidence a každá odpověď. Uložte si ho z prohlížeče jako PDF.",
+          "alt": "Kompletní dokumentace ukázkové firmy"
+        }
+      },
+      "closing": "Začněte prvním bodem.",
+      "pricing": "Ceny a podmínky",
+      "pause": "Pozastavit animaci",
+      "play": "Přehrát animaci"
+    },
     "title": "Snižte účet Evropy za <blue>NIS2</blue> na polovinu.",
     "eyebrow": "Open source · Zdarma · Bez vendor lock-inu",
     "subtitle": "Bezplatná platforma pro regulované firmy a jejich dodavatele k zavedení NIS2: sebehodnocení, šablony a školení vedení. <os>Open source</os>, bez vendor lock-inu.",

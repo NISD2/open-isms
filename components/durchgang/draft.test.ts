@@ -1,6 +1,13 @@
 import { describe, expect, test } from "bun:test";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
-import { changedAnswers, initialDraft, isAnswered, toAnswer, toDraft } from "./draft";
+import {
+  changedAnswers,
+  initialDraft,
+  isAnswered,
+  startOnToday,
+  toAnswer,
+  toDraft,
+} from "./draft";
 
 const meta = (type: FieldMeta["type"]): FieldMeta => ({
   key: "k",
@@ -41,5 +48,18 @@ describe("the Durchgang draft", () => {
       b: null,
       c: 3,
     });
+  });
+
+  test("starts an unanswered date on today and sends it, but keeps a stored one", () => {
+    const fields = { open: meta("date"), stored: meta("date") };
+    const stored = initialDraft(
+      { open: null, stored: "2026-03-02T00:00:00.000Z" },
+      fields,
+    );
+    const draft = startOnToday(stored, ["open", "stored"], fields, "2026-10-04");
+    expect(draft.values).toEqual({ open: "2026-10-04", stored: "2026-03-02" });
+    expect(
+      changedAnswers(["open", "stored"], draft.values, stored.values, fields),
+    ).toEqual({ open: "2026-10-04" });
   });
 });

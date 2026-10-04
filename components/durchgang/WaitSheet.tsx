@@ -1,5 +1,13 @@
 "use client";
 
+import {
+  CircleHelp,
+  Clock,
+  type LucideIcon,
+  Mail,
+  MessagesSquare,
+  Users,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -19,6 +27,14 @@ import { WAIT_REASONS, type WaitReason } from "@/lib/durchgang";
 
 const isWaitReason = (value: string): value is WaitReason =>
   (WAIT_REASONS as readonly string[]).includes(value);
+
+/** Each reason's sign, so the four read apart before their words do. */
+const REASON_ICON: Readonly<Record<WaitReason, LucideIcon>> = {
+  letter: Mail,
+  ask: MessagesSquare,
+  decide: Users,
+  unclear: CircleHelp,
+};
 
 /** The shortest reason that can stand as a record of a decision. The router checks it too. */
 const MIN_DECLINE_REASON = 20;
@@ -53,16 +69,21 @@ export function WaitSheet({
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent className="w-full overflow-y-auto sm:max-w-md">
-        <SheetHeader>
-          <SheetTitle>
+      {/* A light shade behind it (transitions.css), so the screen set aside stays readable. */}
+      <SheetContent className="w-full overflow-y-auto sm:max-w-md" data-shade="light">
+        <SheetHeader className="gap-2 px-5 pt-8">
+          {/* The waiting list's own mark on the walk home: where the item goes. */}
+          <span className="mb-2 flex size-11 items-center justify-center rounded-full border-2 border-amber-400 bg-amber-50 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400">
+            <Clock className="size-5" />
+          </span>
+          <SheetTitle className="text-xl tracking-tight">
             {shown === "wait" ? t("ui.wait.title") : t("ui.decline.title")}
           </SheetTitle>
-          <SheetDescription>
+          <SheetDescription className="leading-6">
             {shown === "wait" ? t("ui.wait.description") : t("ui.decline.description")}
           </SheetDescription>
         </SheetHeader>
-        <div className="space-y-5 px-4">
+        <div className="space-y-5 px-5">
           {mayDecline && (
             <RadioGroup
               aria-label={t("ui.wait.title")}
@@ -91,16 +112,22 @@ export function WaitSheet({
                 value={reason}
                 onValueChange={(value) => isWaitReason(value) && setReason(value)}
               >
-                {WAIT_REASONS.map((key) => (
-                  <Label
-                    key={key}
-                    htmlFor={`wait-${key}`}
-                    className="flex items-center gap-3 rounded-xl border p-3.5 font-normal has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:bg-primary/[0.04]"
-                  >
-                    <RadioGroupItem id={`wait-${key}`} value={key} />
-                    {t(`waitReasons.${key}`)}
-                  </Label>
-                ))}
+                {WAIT_REASONS.map((key) => {
+                  const Icon = REASON_ICON[key];
+                  return (
+                    <Label
+                      key={key}
+                      htmlFor={`wait-${key}`}
+                      className="group flex cursor-pointer items-center gap-3 rounded-xl border p-3 leading-snug font-normal transition-colors hover:bg-muted/50 has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:bg-primary/[0.04]"
+                    >
+                      <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground transition-colors group-has-[[data-state=checked]]:bg-primary/10 group-has-[[data-state=checked]]:text-primary">
+                        <Icon className="size-4" />
+                      </span>
+                      <span className="flex-1">{t(`waitReasons.${key}`)}</span>
+                      <RadioGroupItem id={`wait-${key}`} value={key} />
+                    </Label>
+                  );
+                })}
               </RadioGroup>
               {reason === "unclear" && (
                 <p className="rounded-xl bg-muted p-3.5 text-sm">
@@ -139,9 +166,10 @@ export function WaitSheet({
             </div>
           )}
         </div>
-        <SheetFooter>
+        <SheetFooter className="px-5 pb-6">
           {shown === "wait" ? (
             <Button size="lg" className="rounded-xl" onClick={() => onWait(reason, note)}>
+              <Clock />
               {t("ui.wait.confirm")}
             </Button>
           ) : (

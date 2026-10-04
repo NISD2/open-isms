@@ -7,28 +7,42 @@ import type { CourseId } from "./catalog";
 import { courseCompletion } from "./completion";
 import { loadCourse } from "./course-loader";
 
-export interface CourseGraduate {
+/** A member who opened at least one lesson: finished by the certificate's rule, or on the way. */
+export type CourseParticipant = {
   readonly userId: string;
   readonly name: string;
-  /** The day the last lesson was completed, or null when no completion carries a date. */
-  readonly completedAt: Date | null;
-}
+} & (
+  | {
+      readonly status: "finished";
+      /** The day the last lesson was completed, or null when no completion carries a date. */
+      readonly completedAt: Date | null;
+    }
+  | {
+      readonly status: "started";
+      /** Lessons completed among the course's current ones. */
+      readonly done: number;
+      readonly total: number;
+    }
+);
 
 /**
- * The company's members who completed a course on the platform, by the rule the certificate
- * uses. Read from lesson progress every time rather than copied into the training register, so
- * a course finished later shows up without anyone entering it.
+ * The company's members who started or completed a course on the platform, completion by the
+ * rule the certificate uses. Read from lesson progress every time rather than copied into the
+ * training register, so a course finished later shows up without anyone entering it.
  */
-export async function courseGraduates(
+export async function courseParticipants(
   db: DbOrTx,
   companyId: string,
   courseId: CourseId,
-): Promise<{ title: Readonly<Record<string, string>>; graduates: CourseGraduate[] }> {
+): Promise<{
+  title: Readonly<Record<string, string>>;
+  participants: CourseParticipant[];
+}> {
   const [course, members] = await Promise.all([
     loadCourse(courseId),
     listCompanyMembers(db, companyId),
   ]);
-  if (members.length === 0) return { title: course.title, graduates: [] };
+  if (members.length === 0) return { title: course.title, participants: [] };
   const lessonIds = course.modules.flatMap((m) => m.lessonIds);
   const progress = await db
     .select({
@@ -47,19 +61,27 @@ export async function courseGraduates(
         ),
       ),
     );
-  const graduates = members.flatMap((member) => {
-    const done = courseCompletion(
-      lessonIds,
-      progress.filter((p) => p.userId === member.id),
-    );
-    if (!done.allCompleted || !done.completionDate) return [];
+  const participants = members.flatMap((member): CourseParticipant[] => {
+    const rows = progress.filter((p) => p.userId === member.id);
+    if (rows.length === 0) return [];
+    const name = member.name?.trim() || member.email;
+    const done = courseCompletion(lessonIds, rows);
     return [
-      {
-        userId: member.id,
-        name: member.name?.trim() || member.email,
-        completedAt: done.completionDate.getTime() === 0 ? null : done.completionDate,
-      },
+      done.allCompleted && done.completionDate
+        ? {
+            userId: member.id,
+            name,
+            status: "finished",
+            completedAt: done.completionDate.getTime() === 0 ? null : done.completionDate,
+          }
+        : {
+            userId: member.id,
+            name,
+            status: "started",
+            done: done.completedInCourse,
+            total: done.totalCount,
+          },
     ];
   });
-  return { title: course.title, graduates };
+  return { title: course.title, participants };
 }

@@ -1,72 +1,12 @@
-import { user } from "@nisd2/isms-schema/tables/organization";
-import { trainingLessonProgress } from "@nisd2/isms-schema/tables/training-progress";
-import { and, count, countDistinct, eq, sql } from "drizzle-orm";
 import { Globe } from "lucide-react";
 import type { Metadata } from "next";
-import { unstable_cache } from "next/cache";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
+import { GetStarted } from "@/components/GetStarted";
 import { JsonLd } from "@/components/JsonLd";
-import { PitchDeckViewer } from "@/components/pitch/PitchDeckViewer";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { Link } from "@/i18n/navigation";
-import { db } from "@/lib/db";
+import { OpenSourceNote } from "@/components/landing/OpenSourceNote";
+import { PartnerLogoStrip } from "@/components/PartnerLogoStrip";
 import { buildAboutPageJsonLd, type Locale, pageAlternates, pageOg } from "@/lib/seo";
-
-/**
- * Live platform stats for the pitch deck. Falls back to a sane baseline if
- * the DB is unreachable (e.g. local dev without postgres). Same query shape
- * the dedicated /pitch page used before the consolidation; the route now
- * redirects here.
- *
- * Cached, because /about is public and ten locales deep and these three
- * queries were running on every single request: a COUNT over `user` plus two
- * scans of `training_lesson_progress`, which no index leads with `course_id`
- * for. A page-level `export const revalidate` does not help here — the (info)
- * layout sets `dynamic = "force-dynamic"`, which is why neither /about nor
- * /status appears in the prerender manifest despite status/page.tsx
- * declaring one. Caching the data rather than the route sidesteps that.
- */
-async function queryPitchStats() {
-  try {
-    const [usersResult, startsResult, completionsResult] = await Promise.all([
-      db.select({ count: count(user.id) }).from(user),
-      db
-        .select({ count: countDistinct(trainingLessonProgress.userId) })
-        .from(trainingLessonProgress)
-        .where(eq(trainingLessonProgress.courseId, "nis2-ceo")),
-      db
-        .select({ userId: trainingLessonProgress.userId })
-        .from(trainingLessonProgress)
-        .where(
-          and(
-            eq(trainingLessonProgress.courseId, "nis2-ceo"),
-            eq(trainingLessonProgress.completed, true),
-          ),
-        )
-        .groupBy(trainingLessonProgress.userId)
-        .having(sql`count(*) >= 47`),
-    ]);
-    return {
-      users: usersResult[0]?.count ?? 0,
-      courseStarts: startsResult[0]?.count ?? 0,
-      courseCompletions: completionsResult.length,
-    };
-  } catch {
-    return { users: 158, courseStarts: 76, courseCompletions: 0 };
-  }
-}
-
-/**
- * Ten minutes. These are headline numbers on a marketing page, not a
- * dashboard; nobody is watching them tick.
- */
-const getPitchStats = unstable_cache(queryPitchStats, ["about-pitch-stats"], {
-  revalidate: 600,
-});
 
 function GithubIcon({ className }: { className?: string }) {
   return (
@@ -107,6 +47,41 @@ function LinkedinIcon({ className }: { className?: string }) {
   );
 }
 
+const FOUNDERS = [
+  {
+    name: "Simon Orzel",
+    photo: "/images/people/simon-cutout.png",
+    role: "simonRole",
+    bio: "simon",
+    links: [
+      { label: "Website", href: "https://sorzel.com", Icon: Globe },
+      { label: "GitHub", href: "https://github.com/simonorzel26", Icon: GithubIcon },
+      {
+        label: "LinkedIn",
+        href: "https://www.linkedin.com/in/simon-orzel-5a974b180/",
+        Icon: LinkedinIcon,
+      },
+    ],
+  },
+  {
+    name: "Cory Hisey",
+    photo: "/images/people/cory.png",
+    role: "coryRole",
+    bio: "cory",
+    links: [
+      { label: "GitHub", href: "https://github.com/CoryHisey", Icon: GithubIcon },
+      {
+        label: "LinkedIn",
+        href: "https://www.linkedin.com/in/cory-hisey/",
+        Icon: LinkedinIcon,
+      },
+    ],
+  },
+] as const;
+
+const EYEBROW = "text-xs font-semibold uppercase tracking-wider text-muted-foreground";
+const SECTION_TITLE = "text-3xl font-semibold tracking-tight text-balance sm:text-4xl";
+
 export async function generateMetadata({
   params,
 }: {
@@ -138,12 +113,24 @@ export default async function TeamPage({
 }) {
   const { locale: rawLocale } = await params;
   const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
-  const pitchLocale: "en" | "de" = locale === "en" ? "en" : "de";
   const t = await getTranslations("info");
-  const stats = await getPitchStats();
+  const tLanding = await getTranslations("landing");
 
   return (
-    <div className="space-y-10">
+    <div className="relative">
+      {/* The landing page's navy dot grid, behind the people */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 -top-28 -z-10 h-[44rem]"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, rgb(40 75 99 / 0.06) 1px, transparent 1px)",
+          backgroundSize: "22px 22px",
+          maskImage: "radial-gradient(92% 60% at 64% 24%, black 0%, transparent 78%)",
+          WebkitMaskImage:
+            "radial-gradient(92% 60% at 64% 24%, black 0%, transparent 78%)",
+        }}
+      />
       <JsonLd
         data={buildAboutPageJsonLd({
           slug: "about",
@@ -152,164 +139,90 @@ export default async function TeamPage({
           description: t("teamPage.meta.description"),
         })}
       />
+
       <header>
-        <Badge variant="secondary" className="mb-3">
-          {t("teamPage.badge")}
-        </Badge>
-        <h1 className="text-3xl font-bold tracking-tight">{t("teamPage.title")}</h1>
-        <p className="mt-2 text-lg text-muted-foreground">{t("teamPage.subtitle")}</p>
+        <p className={EYEBROW}>{t("teamPage.badge")}</p>
+        <h1 className="mt-4 text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
+          {t("teamPage.title")}
+        </h1>
+        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+          {t("teamPage.subtitle")}
+        </p>
       </header>
 
-      <Separator />
-
-      <div className="grid gap-6 sm:grid-cols-2">
-        {/* Simon */}
-        <Card>
-          <CardContent className="pt-6 space-y-4">
-            <div className="flex items-center gap-4">
+      <ul className="mt-14 grid gap-14 md:grid-cols-2 md:gap-12">
+        {FOUNDERS.map((founder) => (
+          <li key={founder.name}>
+            <article>
               <Image
-                src="/images/people/simon-cutout.png"
-                alt="Simon Orzel"
-                width={80}
-                height={80}
-                className="h-20 w-20 rounded-full object-cover"
+                src={founder.photo}
+                alt={founder.name}
+                width={128}
+                height={128}
+                className="size-28 rounded-2xl object-cover sm:size-32"
+                style={{ boxShadow: "0 24px 48px -16px rgb(40 75 99 / 0.35)" }}
               />
-              <div>
-                <p className="text-lg font-semibold">Simon Orzel</p>
-                <p className="text-sm text-muted-foreground">
-                  Geschäftsführer / Technical Co-Founder
-                </p>
-              </div>
-            </div>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("teamPage.simon")}
-            </p>
-            <div className="flex gap-2">
-              <a
-                href="https://sorzel.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Globe className="size-4" />
-              </a>
-              <a
-                href="https://github.com/simonorzel26"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <GithubIcon className="size-4" />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/simon-orzel-5a974b180/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <LinkedinIcon className="size-4" />
-              </a>
-            </div>
-          </CardContent>
-        </Card>
+              <h2 className="mt-7 text-2xl font-semibold tracking-tight">
+                {founder.name}
+              </h2>
+              <p className="mt-1 text-sm font-medium text-primary">
+                {t(`teamPage.${founder.role}`)}
+              </p>
+              <p className="mt-4 text-[0.9375rem] leading-7 text-muted-foreground">
+                {t(`teamPage.${founder.bio}`)}
+              </p>
+              <ul className="mt-5 flex flex-wrap gap-2">
+                {founder.links.map(({ label, href, Icon }) => (
+                  <li key={label}>
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      // The chip stays small; its tap area reaches 44px tall (after:-inset-y-2.5).
+                      className="relative inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-2.5 py-1 text-xs after:absolute after:-inset-y-2.5 after:inset-x-0 hover:bg-muted"
+                    >
+                      <Icon className="size-3.5" />
+                      {label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          </li>
+        ))}
+      </ul>
 
-        {/* Cory */}
-        <Card>
-          <CardContent className="pt-6 space-y-4">
-            <div className="flex items-center gap-4">
-              <Image
-                src="/images/people/cory.png"
-                alt="Cory Hisey"
-                width={80}
-                height={80}
-                className="h-20 w-20 rounded-full object-cover"
-              />
-              <div>
-                <p className="text-lg font-semibold">Cory Hisey</p>
-                <p className="text-sm text-muted-foreground">COO / Co-Founder</p>
-              </div>
-            </div>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("teamPage.cory")}
-            </p>
-            <div className="flex gap-2">
-              <a
-                href="https://github.com/CoryHisey"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <GithubIcon className="size-4" />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/cory-hisey/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <LinkedinIcon className="size-4" />
-              </a>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      <section className="mt-20">
+        <p className={EYEBROW}>{tLanding("partnersLabel")}</p>
+        <div className="mt-6">
+          <PartnerLogoStrip variant="landing" />
+        </div>
+      </section>
 
-      <Separator />
-
-      {/* Why us */}
-      <section className="space-y-3">
-        <h2 className="text-xl font-semibold tracking-tight">
-          {t("teamPage.whyUs.heading")}
-        </h2>
-        <p className="text-sm leading-relaxed text-muted-foreground">
+      <section className="mt-24 grid gap-6 sm:mt-32 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16">
+        <h2 className={SECTION_TITLE}>{t("teamPage.whyUs.heading")}</h2>
+        <p className="max-w-2xl text-base leading-relaxed text-muted-foreground lg:pt-2">
           {t("teamPage.whyUs.body")}
         </p>
       </section>
 
-      <Separator />
-
-      {/* Mission — slim version of the old /mission page. Three paragraphs:
-          the problem, the cut, the model. The full breakdown / savings /
-          tactics cards were dropped: they belong in the business plan, not
-          a public about page. */}
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold tracking-tight">{t("mission.badge")}</h2>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          {t("mission.subtitle")}
-        </p>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          {t("mission.problem.p1")}
-        </p>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          {t("mission.plan.p1")}
-        </p>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          <span className="font-medium text-foreground">
-            {t("mission.paid.heading")}.
-          </span>{" "}
-          {t("mission.paid.p1")}
-        </p>
-      </section>
-
-      <Separator />
-
-      {/* Pitch deck — full business overview. Migrated here from /pitch. */}
-      <section className="space-y-3">
-        <PitchDeckViewer locale={pitchLocale} stats={stats} />
-      </section>
-
-      {/* CTA */}
-      <Card className="text-center">
-        <CardContent className="pt-6 space-y-4">
-          <h2 className="text-xl font-semibold">{t("teamPage.cta.heading")}</h2>
-          <p className="text-sm text-muted-foreground">{t("teamPage.cta.description")}</p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Button asChild>
-              <Link href="/applicability">{t("teamPage.ctaPlatform")}</Link>
-            </Button>
+      <section className="mt-24 grid gap-6 sm:mt-32 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16">
+        <div>
+          <p className={EYEBROW}>{t("mission.badge")}</p>
+          <h2 className={`mt-3 ${SECTION_TITLE}`}>{t("mission.subtitle")}</h2>
+        </div>
+        <div className="max-w-2xl lg:pt-8">
+          <div className="space-y-5 text-base leading-relaxed text-muted-foreground">
+            <p>{t("mission.problem.p1")}</p>
+            <p>
+              {t("mission.plan.p1")} {t("mission.plan.p2")}
+            </p>
           </div>
-        </CardContent>
-      </Card>
+          <OpenSourceNote className="mt-10 border-t border-border/60 pt-8" />
+        </div>
+      </section>
+
+      <GetStarted className="mt-16" />
     </div>
   );
 }

@@ -1,5 +1,75 @@
 {
   "landing": {
+    "guided": {
+      "eyebrow": "Pentru companii cu 50 până la 150 de angajați",
+      "title": "Vi s-a cerut să vă ocupați de <blue>NIS2</blue>?",
+      "subtitle": "Vă ghidăm pas cu pas. Dumneavoastră completați, noi explicăm fiecare punct pe înțelesul tuturor, iar la final semnează conducerea.",
+      "cta": "Începeți",
+      "trainingCta": "Instruire gratuită pentru directorul general",
+      "meta": {
+        "title": "NIS2 pas cu pas, pentru companii cu 50 până la 150 de angajați",
+        "description": "Dumneavoastră completați, noi explicăm fiecare punct pe înțelesul tuturor, iar la final semnează conducerea. Pentru companii fără un departament propriu de securitate."
+      }
+    },
+    "walk": {
+      "heroAlt": "Parcursul NIS2: drumul dumneavoastră pas cu pas, primele puncte gata",
+      "title": "Cum vă ghidează parcursul prin NIS2",
+      "lead": "Fiecare imagine arată aplicația reală, completată pentru companii exemplu fictive.",
+      "steps": {
+        "oneAtATime": {
+          "title": "Câte un lucru pe rând",
+          "text": "Vedeți mereu un singur punct. Îl explicăm pe înțelesul tuturor înainte să introduceți ceva, iar legea pe care se bazează este la un clic distanță.",
+          "alt": "Un pas din parcurs: înregistrarea la autoritatea dumneavoastră, explicată pe înțelesul tuturor"
+        },
+        "bsiMethods": {
+          "title": "Metode de la BSI",
+          "text": "Acolo unde Oficiul Federal German pentru Securitatea Informației (BSI) recomandă o metodă, o aveți pregătită, de exemplu evaluarea riscurilor din standardul BSI 200-3. Un clic o transformă în metoda companiei dumneavoastră. Dacă o adoptați este decizia dumneavoastră.",
+          "alt": "Metoda de evaluare a riscurilor din standardul BSI 200-3, ca înregistrare în registre"
+        },
+        "riskMap": {
+          "title": "Riscurile dumneavoastră dintr-o privire",
+          "text": "Evaluați software-ul, tehnologia și furnizorii pe matricea BSI. Prezentarea generală arată unde se află înregistrările dumneavoastră și ce trebuie protejat mai întâi.",
+          "alt": "Matricea de riscuri a unei companii exemplu: câte înregistrări sunt în fiecare câmp"
+        },
+        "setAside": {
+          "title": "E în regulă să lăsați lucruri deschise",
+          "text": "Ce nu se poate face încă, puneți deoparte cu un motiv, de exemplu pentru că așteptați o scrisoare sau trebuie mai întâi să întrebați pe cineva. Punctul trece pe lista de așteptare și continuați cu următorul.",
+          "alt": "Punerea deoparte a unui punct: motivele dintre care alegeți"
+        },
+        "signOff": {
+          "title": "Conducerea aprobă în aplicație",
+          "text": "La final, conducerea citește documentele redactate de parcurs și le aprobă, autentificată cu propriul cont. Numele și data apar apoi pe fiecare document. Nimic nu se tipărește și nimic nu se scanează.",
+          "alt": "Documentele parcursului, aprobate de conducere, fiecare cu nume și dată"
+        },
+        "staysCurrent": {
+          "title": "Rămâne la zi",
+          "text": "După aprobare, o pagină arată ce rămâne în sarcina dumneavoastră: ce faceți când se întâmplă ceva și ce revine periodic. Când vine un termen sau modificați o listă, punctul revine la conducere pentru aprobare.",
+          "alt": "Ce rămâne după aprobare: ce faceți când se întâmplă ceva și ce revine, fiecare cu temeiul legal"
+        }
+      },
+      "outcomes": {
+        "title": "Ce aveți apoi în evidențele dumneavoastră",
+        "registers": {
+          "title": "Registrele dumneavoastră",
+          "text": "Ce bifați și introduceți în parcurs ajunge apoi în registrele dumneavoastră: active, furnizori, riscuri, politici, instruiri și analize ale conducerii.",
+          "alt": "Lista de active din parcurs: procese de business de bifat"
+        },
+        "log": {
+          "title": "Jurnalul de activitate",
+          "text": "Arată, zi de zi, cine a modificat ce și când. Conține și fiecare aprobare a conducerii.",
+          "alt": "Jurnalul de activitate al unei companii exemplu"
+        },
+        "export": {
+          "title": "Totul într-un singur document",
+          "text": "Întregul parcurs, de la început la sfârșit: stare, puncte deschise, documente, matricea de riscuri, fiecare registru și fiecare răspuns. Salvați-l ca PDF din browser.",
+          "alt": "Documentația completă a unei companii exemplu"
+        }
+      },
+      "closing": "Începeți cu primul punct.",
+      "pricing": "Prețuri și condiții",
+      "pause": "Opriți animația",
+      "play": "Porniți animația"
+    },
     "title": "Înjumătățiți factura <blue>NIS2</blue> a Europei.",
     "eyebrow": "Open Source · Gratuit · Kein Lock-in",
     "subtitle": "Platforma gratuită prin care companiile reglementate și furnizorii lor implementează NIS2: autoevaluare, șabloane și instruire pentru conducere. <os>Open Source</os>, fără lock-in.",

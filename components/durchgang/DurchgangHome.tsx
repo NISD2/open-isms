@@ -4,7 +4,6 @@ import "./transitions.css";
 import {
   ArrowRight,
   BadgeCheck,
-  Building2,
   Check,
   ChevronRight,
   Clock,
@@ -21,7 +20,7 @@ import { Link } from "@/i18n/navigation";
 import type { WalkLock } from "@/lib/billing/access";
 import { APPROVAL_SCREEN, resumeAt } from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
-import { Art } from "./Art";
+import { Art, SETUP_ART } from "./Art";
 import { itemShot } from "./itemShots";
 import { PromiseCard } from "./PromiseCard";
 import { STAGE } from "./transition";
@@ -87,7 +86,7 @@ export function DurchgangHome({
           section: t("ui.home.setupSection"),
           headline: t("ui.home.setupHeadline"),
           teaser: "",
-          image: null,
+          image: SETUP_ART,
           state: { kind: "open" },
         },
         ...walk,
@@ -315,17 +314,10 @@ export function DurchgangHome({
                     )}
                   </span>
                   <div className="flex h-12 w-14 shrink-0 items-end justify-center sm:h-14 sm:w-16">
-                    {entry.code === SETUP_STEP ? (
-                      <Building2
-                        aria-hidden
-                        className="size-9 self-center text-primary/70"
-                      />
-                    ) : (
-                      <Art
-                        src={entry.image}
-                        className={cn("h-full", settled && "opacity-40")}
-                      />
-                    )}
+                    <Art
+                      src={entry.image}
+                      className={cn("h-full", settled && "opacity-40")}
+                    />
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="text-xs text-muted-foreground">{entry.section}</p>

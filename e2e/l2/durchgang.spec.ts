@@ -58,10 +58,10 @@ test.describe("durchgang", () => {
     const next = page.getByRole("button", { name: "Weiter", exact: true });
     await expect(tools).toBeVisible({ timeout: 30_000 });
 
-    // A required field left empty holds the screen and offers the way out instead.
+    // A required field left empty holds the screen: the way out takes the forward button's place.
     await tools.fill("");
-    await expect(next).toBeDisabled();
-    await expect(page.getByRole("button", { name: "Geht noch nicht" })).toBeVisible();
+    await expect(next).toHaveCount(0);
+    await expect(page.getByRole("button", { name: "Geht noch nicht" })).toHaveCount(1);
 
     await tools.fill("Abgewiesene Eingabe");
     await next.click();
