@@ -25,6 +25,102 @@
         "f10": "Sin dependencia del proveedor. Modelo de datos abierto. Exporte cuando quiera, también al autoalojamiento."
       }
     },
+    "paid": {
+      "meta": {
+        "title": "Precios: el recorrido guiado de NIS 2 y el autoalojamiento",
+        "description": "El recorrido guiado de NIS 2 en nisd2.eu: {price} sin IVA al año, con factura, 30 días de devolución del dinero, cualquier número de organizaciones y usuarios. Autoalojamiento bajo AGPL-3.0."
+      }
+    },
+    "tiers": {
+      "subtitle": "Un solo precio, todo incluido. Los cursos y la wiki no cuestan nada.",
+      "recommended": "Recomendado",
+      "talkFirst": {
+        "title": "¿Prefiere hablar antes con nosotros?",
+        "body": "Una videollamada o llamada telefónica breve, a la hora que usted elija."
+      },
+      "approvalLink": "¿Decide otra persona? Una página para su dirección",
+      "free": {
+        "name": "Aprender",
+        "description": "Para quien quiera entender NIS 2.",
+        "price": "0 €",
+        "priceSub": "para siempre",
+        "cta": "Ir a los cursos",
+        "features": {
+          "courses": "Todos los cursos, incluido el <course>para la dirección</course>",
+          "wiki": "La wiki de NIS 2",
+          "tools": "Herramientas para la <risk>evaluación de riesgos</risk> y el <structure>inventario de activos</structure>"
+        }
+      },
+      "paid": {
+        "name": "Recorrido guiado de NIS 2",
+        "description": "Implantación guiada en nisd2.eu.",
+        "priceSub": "sin IVA al año, más IVA",
+        "anchor": "Todo el recorrido guiado por el precio de un análisis de brechas.",
+        "anchorTip": {
+          "title": "Lo que cuesta un análisis de brechas",
+          "body": "Las consultoras alemanas publican precios de entre {low} y {high} por un análisis de brechas de NIS 2, de pago único y casi siempre como precios de partida. El análisis muestra lo que falta. El recorrido guiado le lleva después por la implantación, paso a paso.",
+          "note": "Fuentes: los sitios web de {sources}, a fecha de {checked}."
+        },
+        "moneyBack": "30 días de devolución del dinero",
+        "moneyBackTip": {
+          "title": "30 días de devolución del dinero",
+          "points": {
+            "first": "En su primer pedido, sin necesidad de dar motivo",
+            "cancel": "Cancele en Facturación o por correo electrónico",
+            "refund": "Una factura abierta se anula; una pagada se reembolsa en un plazo de 30 días",
+            "data": "Sus datos se conservan"
+          },
+          "note": "No se aplica a las renovaciones. Los detalles están en las condiciones, apartado B7."
+        },
+        "grandfatheredBadge": "Su precio de usuario existente",
+        "cta": "Pedir",
+        "terms": "Con factura, a pagar en 30 días. Cancelación dentro de los primeros 30 días: factura anulada o devolución del dinero.",
+        "termsLink": "Condiciones",
+        "features": {
+          "guided": "Implantación guiada de NIS 2, paso a paso",
+          "unlimited": "Organizaciones y usuarios ilimitados",
+          "history": "Un historial de cambios y aprobaciones para mostrar a su autoridad supervisora",
+          "deadlines": "Plazos y recordatorios para cada requisito",
+          "suppliers": "Cuestionario de seguridad para sus proveedores",
+          "export": "Exportación a PDF o CSV en cualquier momento",
+          "updates": "Todas las actualizaciones futuras incluidas",
+          "call": "<cal>Llamadas personales con nosotros</cal>, reservables en cualquier momento"
+        },
+        "unlimitedTip": {
+          "title": "Para la estructura de su propia empresa",
+          "points": {
+            "structure": "Sociedad matriz, filiales y sociedades hermanas",
+            "users": "Cada una como organización propia con sus propios usuarios",
+            "payment": "Todo con un solo pago"
+          },
+          "note": "No para proveedores de servicios de TI, consultores ni responsables externos que atienden a clientes. En ese caso, cada organización cliente necesita su propia licencia (condiciones, apartado B1)."
+        },
+        "grandfatheredNote": "¿Inició sesión antes de que existieran los planes de pago? Usted paga {price} sin IVA al año, renovaciones incluidas."
+      },
+      "selfHost": {
+        "name": "Autoalojamiento",
+        "description": "El mismo código fuente, en sus propios servidores.",
+        "price": "0 €",
+        "priceSub": "para siempre",
+        "cta": "Ver el código fuente",
+        "features": {
+          "everything": "Todo lo del <paid>recorrido guiado</paid>",
+          "infrastructure": "Operación, actualizaciones y copias de seguridad en sus manos",
+          "licence": "Código fuente abierto bajo AGPL-3.0",
+          "contract": "Sin contrato con nosotros"
+        },
+        "licences": {
+          "title": "Licencias en el repositorio",
+          "dual": "Código bajo MIT, contenido bajo CC BY 4.0",
+          "courses": "Contenido de los cursos bajo CC BY 4.0"
+        }
+      },
+      "trust": {
+        "invoice": "Factura, sin tarjeta de crédito",
+        "documents": "<terms>Condiciones</terms> y <avv>DPA</avv> abiertos a la lectura",
+        "openSource": "Código abierto bajo AGPL-3.0"
+      }
+    },
     "selfHost": {
       "name": "Autoalojamiento",
       "description": "Código fuente completo. En su propia infraestructura, de forma permanente.",
@@ -43,6 +139,89 @@
     },
     "whyFree": "Por qué es gratis: el código fuente está abierto en GitHub, auditable y ejecutable por su cuenta. Cobramos por la instalación en autoalojamiento y recibimos una comisión de las empresas especializadas a las que le derivamos. No la plataforma.",
     "consultantFootnote": "¿Atascado con NIS 2? Las preguntas técnicas breves no cuestan nada y, si hace falta una empresa especializada, le recomendamos una sin coste para usted.",
-    "consultantCta": "Ayuda y derivación"
+    "consultantCta": "Ayuda y derivación",
+    "faq": {
+      "heading": "Preguntas antes de pedir",
+      "items": {
+        "cost": {
+          "q": "¿Cuánto costará?",
+          "a": "Por el recorrido guiado, {price} sin IVA al año, para cada organización y usuario de su grupo de empresas. No hay otras tarifas. Lo que cuesten las medidas en sí depende de su negocio. La ley alemana nombra el coste de la implantación como uno de los criterios para determinar lo proporcionado (<bsig30>§ 30(1) BSIG</bsig30>)."
+        },
+        "effort": {
+          "q": "¿Cuánto trabajo supone y tenemos que contratar a alguien?",
+          "a": "El recorrido guiado está pensado para una persona que implanta NIS 2 junto a su trabajo habitual. Da los pasos uno tras otro, puede parar en cualquier momento y dejar abierto un paso que todavía no se puede hacer. La dirección se incorpora al final, para aprobar en la app. El tiempo que lleva depende de su negocio. El recorrido guiado no presupone una contratación adicional."
+        },
+        "software": {
+          "q": "¿Podemos hacerlo sin software?",
+          "a": "Sí. La ley no prescribe ninguna herramienta concreta. Exige las medidas y que usted documente su cumplimiento (<bsig30>§ 30(1) BSIG</bsig30>). El recorrido guiado le ahorra organizar usted mismo el orden, las plantillas, las aprobaciones y los plazos."
+        },
+        "data": {
+          "q": "¿Necesitamos un servidor propio y dónde están nuestros datos?",
+          "a": "No, el recorrido guiado funciona en el navegador. Hetzner opera la aplicación y la base de datos en Alemania, los archivos subidos se almacenan con AWS en una región de la UE y Resend envía los correos desde EE. UU. con cláusulas contractuales tipo. La lista completa está en el <avv>contrato de encargado del tratamiento</avv>, anexo IV. Si prefiere no externalizar nada, opere usted mismo la plataforma, con Docker en sus propios servidores."
+        },
+        "language": {
+          "q": "¿Todo está en alemán?",
+          "a": "Sí. La app y el recorrido guiado están en alemán y, si lo prefiere, en inglés."
+        },
+        "nextYear": {
+          "q": "¿Qué pagamos el segundo año y por qué?",
+          "a": "El mismo precio. La licencia se renueva cada año. 14 días antes le enviamos un correo sobre la renovación, el precio y cómo cancelar, y puede cancelar hasta el último día del año de licencia (<terms>condiciones, B6</terms>). Tras el recorrido guiado, la app le recuerda sus obligaciones recurrentes y todas las actualizaciones están incluidas."
+        },
+        "approval": {
+          "q": "No decido esto yo solo. ¿Cómo consigo la aprobación?",
+          "a": "Reenvíe <approval>la página para la aprobación</approval> a su dirección. Contiene todo lo necesario para decidir: qué es el recorrido guiado, cuánto cuesta, una comparación con los precios publicados de las consultoras y cómo darlo por terminado."
+        },
+        "money": {
+          "q": "¿Cómo ganan dinero?",
+          "a": "Con esta licencia anual. El código fuente es abierto para que usted pueda comprobar qué hace la plataforma con sus datos. Usted paga por que nosotros operemos la plataforma, la desarrollemos y estemos ahí para sus preguntas. No vendemos sus datos."
+        }
+      }
+    },
+    "approval": {
+      "meta": {
+        "title": "Para su aprobación: el recorrido guiado de NIS 2",
+        "description": "Una página para la dirección: qué es el recorrido guiado de NIS 2, cuánto cuesta y cómo darlo por terminado."
+      },
+      "eyebrow": "Para su aprobación",
+      "title": "El recorrido guiado de NIS 2 en nisd2.eu",
+      "lead": "Una página para decidir: qué es, cuánto cuesta y cómo darlo por terminado.",
+      "rows": {
+        "what": {
+          "label": "Qué es",
+          "text": "Implantación guiada de las obligaciones de NIS 2 en una sola app. Una persona de su empresa recorre los pasos uno tras otro y cada decisión queda registrada con un nombre y una fecha."
+        },
+        "role": {
+          "label": "Su papel",
+          "text": "Para las entidades incluidas en el ámbito de aplicación, los órganos de dirección deben aprobar las medidas de gestión de riesgos de ciberseguridad y supervisar su aplicación (<nis2>artículo 20(1) NIS 2</nis2>). En Alemania, <bsig>§ 38(1) BSIG</bsig> exige que la dirección aplique las medidas y supervise su aplicación. En el recorrido guiado usted aprueba los resultados al final, en la app, con su propia cuenta. No se imprime ni se escanea nada."
+        },
+        "cost": {
+          "label": "Coste",
+          "text": "{price} sin IVA al año más IVA, con factura, a pagar en 30 días. El precio cubre cada organización y usuario de su grupo de empresas."
+        },
+        "comparison": {
+          "label": "A modo de comparación"
+        },
+        "exit": {
+          "label": "Duración y cancelación",
+          "text": "Si cancela en los 30 días siguientes a su primer pedido, la factura se anula y una ya pagada se reembolsa. Después, la licencia se renueva cada año, le enviamos un correo 14 días antes y puede cancelar hasta el último día del año de licencia (<terms>condiciones, B6 y B7</terms>)."
+        },
+        "scope": {
+          "label": "Lo que no es",
+          "text": "No es una certificación. El resultado es la autoevaluación documentada de su empresa, con el historial de cada cambio y aprobación."
+        },
+        "provider": {
+          "label": "Proveedor",
+          "text": "Kardashev Catalyst UG (haftungsbeschränkt), Colonia. Se aplican las <terms>condiciones</terms>, con el <avv>contrato de encargado del tratamiento</avv>."
+        }
+      },
+      "forward": {
+        "label": "Reenviar esta página:",
+        "email": "Por correo electrónico",
+        "copy": "Copiar enlace",
+        "copied": "Enlace copiado",
+        "subject": "Recorrido guiado de NIS 2 para su aprobación",
+        "body": "Hola:\n\npara su aprobación: una página sobre el recorrido guiado de NIS 2 en nisd2.eu, con coste, duración y cancelación.\n\n{url}\n\nUn saludo"
+      }
+    }
   }
 }

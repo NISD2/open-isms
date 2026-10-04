@@ -25,6 +25,102 @@
         "f10": "Nessun lock-in. Modello dati aperto. Esporta in qualsiasi momento, anche verso il self-hosting."
       }
     },
+    "paid": {
+      "meta": {
+        "title": "Prezzi: il percorso guidato NIS 2 e il self-hosting",
+        "description": "Il percorso guidato NIS 2 su nisd2.eu: {price} netti all'anno, con fattura, rimborso entro 30 giorni, un numero qualsiasi di organizzazioni e utenti. Self-hosting con AGPL-3.0."
+      }
+    },
+    "tiers": {
+      "subtitle": "Un solo prezzo, tutto incluso. Corsi e wiki non costano nulla.",
+      "recommended": "Consigliato",
+      "talkFirst": {
+        "title": "Preferisci parlarne prima con noi?",
+        "body": "Una breve videochiamata o telefonata, nel momento che scegli tu."
+      },
+      "approvalLink": "Decide qualcun altro? Una pagina per la tua direzione",
+      "free": {
+        "name": "Impara",
+        "description": "Per chiunque voglia capire la NIS 2.",
+        "price": "€0",
+        "priceSub": "per sempre",
+        "cta": "Vai ai corsi",
+        "features": {
+          "courses": "Tutti i corsi, compreso quello <course>per la direzione</course>",
+          "wiki": "La wiki sulla NIS 2",
+          "tools": "Strumenti per la <risk>valutazione dei rischi</risk> e l'<structure>inventario degli asset</structure>"
+        }
+      },
+      "paid": {
+        "name": "Percorso guidato NIS 2",
+        "description": "Implementazione guidata su nisd2.eu.",
+        "priceSub": "netti all'anno, più IVA",
+        "anchor": "L'intero percorso guidato al prezzo di una gap analysis.",
+        "anchorTip": {
+          "title": "Quanto costa una gap analysis",
+          "body": "Le società di consulenza tedesche pubblicano prezzi tra {low} e {high} per una gap analysis NIS 2, una tantum e per lo più come prezzi di partenza. La gap analysis mostra che cosa manca. Il percorso guidato ti accompagna poi nell'implementazione, passo dopo passo.",
+          "note": "Fonti: i siti web di {sources}, aggiornati al {checked}."
+        },
+        "moneyBack": "Rimborso entro 30 giorni",
+        "moneyBackTip": {
+          "title": "Rimborso entro 30 giorni",
+          "points": {
+            "first": "Sul primo ordine, senza bisogno di motivazione",
+            "cancel": "Annulla da Fatturazione o per email",
+            "refund": "Una fattura aperta viene annullata; una già pagata viene rimborsata entro 30 giorni",
+            "data": "I tuoi dati restano conservati"
+          },
+          "note": "Non vale per i rinnovi. I dettagli sono nelle condizioni, sezione B7."
+        },
+        "grandfatheredBadge": "Il tuo prezzo da utente esistente",
+        "cta": "Ordina",
+        "terms": "Con fattura, da pagare entro 30 giorni. Annullamento entro i primi 30 giorni: fattura annullata o rimborso.",
+        "termsLink": "Condizioni",
+        "features": {
+          "guided": "Implementazione guidata della NIS 2, passo dopo passo",
+          "unlimited": "Organizzazioni e utenti illimitati",
+          "history": "Una cronologia di modifiche e approvazioni da mostrare alla tua autorità di vigilanza",
+          "deadlines": "Scadenze e promemoria per ogni requisito",
+          "suppliers": "Questionario di sicurezza per i tuoi fornitori",
+          "export": "Esportazione in PDF o CSV in qualsiasi momento",
+          "updates": "Tutti gli aggiornamenti futuri inclusi",
+          "call": "<cal>Chiamate personali con noi</cal>, prenotabili in qualsiasi momento"
+        },
+        "unlimitedTip": {
+          "title": "Per la struttura della tua azienda",
+          "points": {
+            "structure": "Capogruppo, controllate e società sorelle",
+            "users": "Ognuna come organizzazione a sé, con i propri utenti",
+            "payment": "Tutto con un solo pagamento"
+          },
+          "note": "Non per fornitori di servizi IT, consulenti o responsabili esterni che seguono dei clienti. In quel caso ogni organizzazione cliente ha bisogno della propria licenza (condizioni, sezione B1)."
+        },
+        "grandfatheredNote": "Hai effettuato l'accesso prima dell'avvio dei piani a pagamento? Paghi {price} netti all'anno, rinnovi compresi."
+      },
+      "selfHost": {
+        "name": "Self-hosting",
+        "description": "Lo stesso codice sorgente, sui tuoi server.",
+        "price": "€0",
+        "priceSub": "per sempre",
+        "cta": "Vedi il codice sorgente",
+        "features": {
+          "everything": "Tutto ciò che c'è nel <paid>percorso guidato</paid>",
+          "infrastructure": "Gestione, aggiornamenti e backup nelle tue mani",
+          "licence": "Codice sorgente aperto con AGPL-3.0",
+          "contract": "Nessun contratto con noi"
+        },
+        "licences": {
+          "title": "Licenze nel repository",
+          "dual": "Codice con MIT, contenuti con CC BY 4.0",
+          "courses": "Contenuti dei corsi con CC BY 4.0"
+        }
+      },
+      "trust": {
+        "invoice": "Fattura, senza carta di credito",
+        "documents": "<terms>Condizioni</terms> e <avv>DPA</avv> consultabili",
+        "openSource": "Open source con AGPL-3.0"
+      }
+    },
     "selfHost": {
       "name": "Self-hosting",
       "description": "Codice sorgente completo. Sulla tua infrastruttura, in modo permanente.",
@@ -35,14 +131,97 @@
         "h1": "Codice sorgente completo della piattaforma, aperto con AGPL-3.0",
         "h2": "Tutti gli aggiornamenti futuri inclusi, in modo permanente",
         "h3": "Sulla tua infrastruttura, con i tuoi dati",
-        "h4": "Nessun contratto, nessuna chiave di attivazione, nessun account da noi",
-        "h5": "Esporta il tuo lavoro da nisd2.eu e continua a gestirlo da solo",
+        "h4": "Nessun contratto, nessuna chiave di attivazione, nessun account presso di noi",
+        "h5": "Esporta il tuo lavoro da nisd2.eu e continua a gestirlo in autonomia",
         "h6": "Contatto diretto via email e Signal",
-        "h7": "Installazione da parte nostra, se lo desidera: €500 IVA esclusa, una tantum"
+        "h7": "Installazione da parte nostra, se la desideri: €500 netti, una tantum"
       }
     },
-    "whyFree": "Perché è gratuito: il codice sorgente è aperto su GitHub, verificabile e installabile in proprio. Fatturiamo l'installazione in self-hosting e riceviamo una provvigione dalle aziende specializzate a cui vi indirizziamo. Non la piattaforma.",
-    "consultantFootnote": "Bloccato con NIS 2? Le domande tecniche brevi non costano nulla e, se serve un'azienda specializzata, ve ne segnaliamo una senza costi per voi.",
-    "consultantCta": "Aiuto e segnalazione"
+    "whyFree": "Perché è gratuita: il codice sorgente è aperto su GitHub, verificabile e tuo da gestire. Ci facciamo pagare l'installazione delle istanze in self-hosting e riceviamo una commissione dalle società specializzate a cui ti indirizziamo. Non per la piattaforma.",
+    "consultantFootnote": "Ti sei bloccato con la NIS 2? Le brevi domande tecniche non costano nulla, e se serve una società specializzata, ti indirizziamo a una senza alcun costo per te.",
+    "consultantCta": "Aiuto e segnalazioni",
+    "faq": {
+      "heading": "Domande prima di ordinare",
+      "items": {
+        "cost": {
+          "q": "Quanto costerà?",
+          "a": "Per il percorso guidato, {price} netti all'anno, per ogni organizzazione e utente del tuo gruppo di società. Non ci sono altri costi. Quanto costano le misure in sé dipende dalla tua attività. La legge tedesca indica il costo di attuazione come uno dei parametri per stabilire ciò che è proporzionato (<bsig30>Sezione 30(1) BSIG</bsig30>)."
+        },
+        "effort": {
+          "q": "Quanto lavoro richiede, e dobbiamo assumere qualcuno?",
+          "a": "Il percorso guidato è pensato per una persona che implementa la NIS 2 accanto al proprio lavoro di tutti i giorni. Segue i passi uno dopo l'altro, può fermarsi in qualsiasi momento e lasciare aperto un passo che non si può ancora completare. La direzione interviene alla fine, per approvare nell'app. Il tempo necessario dipende dalla tua attività. Il percorso guidato non presuppone un'assunzione in più."
+        },
+        "software": {
+          "q": "Possiamo farlo senza software?",
+          "a": "Sì. La legge non prescrive alcuno strumento in particolare. Richiede le misure e che tu documenti la conformità ad esse (<bsig30>Sezione 30(1) BSIG</bsig30>). Il percorso guidato ti evita di organizzare da solo l'ordine dei passi, i modelli, le approvazioni e le scadenze."
+        },
+        "data": {
+          "q": "Ci serve un server nostro, e dove sono i nostri dati?",
+          "a": "No, il percorso guidato funziona nel browser. Hetzner gestisce l'applicazione e il database in Germania, i file caricati sono conservati presso AWS in una regione UE, e Resend invia le email dagli USA in base alle clausole contrattuali tipo. L'elenco completo è nell'<avv>accordo sul trattamento dei dati</avv>, Allegato IV. Se preferisci non affidare nulla all'esterno, gestisci tu la piattaforma, con Docker sui tuoi server."
+        },
+        "language": {
+          "q": "È tutto in tedesco?",
+          "a": "Sì. L'app e il percorso guidato sono in tedesco, e in inglese se preferisci."
+        },
+        "nextYear": {
+          "q": "Che cosa paghiamo il secondo anno, e per che cosa?",
+          "a": "Lo stesso prezzo. La licenza si rinnova ogni anno. 14 giorni prima ti scriviamo per email sul rinnovo, sul prezzo e su come annullare, e puoi annullare fino all'ultimo giorno dell'anno di licenza (<terms>condizioni, B6</terms>). Dopo il percorso guidato, l'app ti ricorda i tuoi obblighi ricorrenti, e tutti gli aggiornamenti sono inclusi."
+        },
+        "approval": {
+          "q": "Non decido da solo. Come lo faccio approvare?",
+          "a": "Inoltra <approval>la pagina per l'approvazione</approval> alla tua direzione. Contiene tutto ciò che serve per decidere: che cos'è il percorso guidato, quanto costa, un confronto con i prezzi pubblicati dalle società di consulenza e come terminarlo."
+        },
+        "money": {
+          "q": "Come guadagnate?",
+          "a": "Con questa licenza annuale. Il codice sorgente è aperto così puoi verificare che cosa fa la piattaforma con i tuoi dati. Paghi perché noi gestiamo la piattaforma, la sviluppiamo e siamo a disposizione per le tue domande. Non vendiamo i tuoi dati."
+        }
+      }
+    },
+    "approval": {
+      "meta": {
+        "title": "Per l'approvazione: il percorso guidato NIS 2",
+        "description": "Una pagina per la direzione: che cos'è il percorso guidato NIS 2, quanto costa e come terminarlo."
+      },
+      "eyebrow": "Per l'approvazione",
+      "title": "Il percorso guidato NIS 2 su nisd2.eu",
+      "lead": "Una pagina per decidere: che cos'è, quanto costa e come terminarlo.",
+      "rows": {
+        "what": {
+          "label": "Che cos'è",
+          "text": "Implementazione guidata degli obblighi NIS 2 in un'unica app. Una persona della tua azienda segue i passi uno dopo l'altro, e ogni decisione viene registrata con un nome e una data."
+        },
+        "role": {
+          "label": "Il tuo ruolo",
+          "text": "Per i soggetti che rientrano nell'ambito di applicazione, gli organi di gestione devono approvare le misure di gestione dei rischi di cybersicurezza e sovrintendere alla loro attuazione (<nis2>Articolo 20(1) NIS 2</nis2>). In Germania, la <bsig>Sezione 38(1) BSIG</bsig> impone alla direzione di attuare le misure e di monitorarne l'attuazione. Nel percorso guidato approvi i risultati alla fine, nell'app, con il tuo account personale. Non si stampa e non si scansiona nulla."
+        },
+        "cost": {
+          "label": "Costo",
+          "text": "{price} netti all'anno più IVA, con fattura, da pagare entro 30 giorni. Il prezzo copre ogni organizzazione e utente del tuo gruppo di società."
+        },
+        "comparison": {
+          "label": "Per confronto"
+        },
+        "exit": {
+          "label": "Durata e disdetta",
+          "text": "Se annulli entro 30 giorni dal primo ordine, la fattura viene annullata e quella già pagata viene rimborsata. Dopo di che la licenza si rinnova ogni anno, ti scriviamo per email 14 giorni prima, e puoi annullare fino all'ultimo giorno dell'anno di licenza (<terms>condizioni, B6 e B7</terms>)."
+        },
+        "scope": {
+          "label": "Che cosa non è",
+          "text": "Non è una certificazione. Il risultato è l'autovalutazione documentata della tua azienda, con la cronologia di ogni modifica e approvazione."
+        },
+        "provider": {
+          "label": "Fornitore",
+          "text": "Kardashev Catalyst UG (haftungsbeschränkt), Colonia. Si applicano le <terms>condizioni</terms>, con l'<avv>accordo sul trattamento dei dati</avv>."
+        }
+      },
+      "forward": {
+        "label": "Inoltra questa pagina:",
+        "email": "Per email",
+        "copy": "Copia il link",
+        "copied": "Link copiato",
+        "subject": "Percorso guidato NIS 2 per l'approvazione",
+        "body": "Buongiorno,\n\nper l'approvazione: una pagina sul percorso guidato NIS 2 su nisd2.eu, con costo, durata e disdetta.\n\n{url}\n\nCordiali saluti"
+      }
+    }
   }
 }
