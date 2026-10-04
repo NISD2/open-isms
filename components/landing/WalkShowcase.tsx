@@ -39,9 +39,9 @@ export function WalkShowcase() {
   const inView = useInView(frame);
   const allowed = useMotionAllowed();
 
-  // The step being read is the last one whose top has passed a line level with the frame's lower
-  // edge. Worked out from positions on every scroll, so a jump (the End key, a restored scroll
-  // position) lands on the right step too.
+  // The step being read is the last one whose top has passed the read line, or the last step once
+  // it is fully on screen. Worked out from positions on every scroll, so a jump (the End key, a
+  // restored scroll position) lands on the right step too.
   useEffect(() => {
     const list = steps.current;
     if (!list) return;
@@ -53,7 +53,12 @@ export function WalkShowcase() {
       const passed = items.filter(
         (item) => item.getBoundingClientRect().top <= line,
       ).length;
-      setActive(Math.max(0, passed - 1));
+      // The last step is short and the page goes on below it, so it is read in the lower half of
+      // the window, before its top reaches the line: it takes over once it is fully on screen.
+      const last = items.at(-1);
+      const lastShown =
+        last !== undefined && last.getBoundingClientRect().bottom <= window.innerHeight;
+      setActive(lastShown ? items.length - 1 : Math.max(0, passed - 1));
     };
     const schedule = () => {
       if (!pending) pending = window.requestAnimationFrame(update);
@@ -72,10 +77,9 @@ export function WalkShowcase() {
     shotImage(step.shot, locale, t(`steps.${step.key}.alt`));
 
   return (
-    <section
-      aria-labelledby="walk-title"
-      className="mx-auto mt-24 w-full max-w-6xl sm:mt-32"
-    >
+    // mt-16, not more (Simon, 04.10.2026): under the programme logos the title shows on the first
+    // screen of a 1728 × 963 window, so the reader sees there is more below.
+    <section aria-labelledby="walk-title" className="mx-auto mt-16 w-full max-w-6xl">
       <div className="max-w-2xl">
         <h2
           id="walk-title"
