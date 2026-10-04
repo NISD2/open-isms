@@ -1397,7 +1397,6 @@
         "traceable": "Identyfikowalne",
         "requirements": "Wymogi",
         "measures": "Środki § 30",
-        "assistedPrefill": "Wspomagane wypełnianie",
         "tenPhases": "10 faz",
         "granular": "Szczegółowe",
         "exportAnytime": "Eksport w każdej chwili",
@@ -1421,7 +1420,7 @@
         "heading": "49 ustrukturyzowanych wymogów BSIG",
         "p1": "10 obowiązkowych środków sekcji 30 BSIG zostało rozłożonych na 49 konkretnych, wykonalnych wymogów - każdy z własnym ustrukturyzowanym formularzem.",
         "p2": "Każdy wymóg to formularz. Każde pole formularza odwzorowuje konkretny obowiązek zgodności. Wypełnij formularz, a udokumentujesz swoją zgodność. Bez niejednoznaczności, bez zgadywania.",
-        "p3": "Formularze obsługują tekst, wybory, wielokrotny wybór, daty oraz przesyłanie plików jako dowodów. Wspomagane sztuczną inteligencją wstępne wypełnianie pomaga przygotować szkice odpowiedzi na podstawie profilu Twojej firmy, a następnie je doprecyzowujesz i zatwierdzasz."
+        "p3": "Formularze obsługują tekst, wybory, wielokrotny wybór, daty oraz przesyłanie plików jako dowodów."
       },
       "deadlines": {
         "heading": "Śledzenie terminów i eskalacja",

@@ -1396,7 +1396,6 @@
         "traceable": "Traceable",
         "requirements": "Requirements",
         "measures": "§ 30 Measures",
-        "assistedPrefill": "Assisted Prefill",
         "tenPhases": "10 Phases",
         "granular": "Granular",
         "exportAnytime": "Export Anytime",
@@ -1420,7 +1419,7 @@
         "heading": "49 Structured BSIG Requirements",
         "p1": "The 10 mandatory measures of Section 30 BSIG are broken down into 49 concrete, actionable requirements - each with its own structured form.",
         "p2": "Every requirement is a form. Every form field maps to a specific compliance obligation. Fill in the form, and you have documented your compliance. No ambiguity, no guesswork.",
-        "p3": "Forms support text, selections, multi-select, dates, and file uploads for evidence. AI-assisted prefill helps you draft responses based on your company profile, then you refine and approve."
+        "p3": "Forms support text, selections, multi-select, dates, and file uploads for evidence."
       },
       "deadlines": {
         "heading": "Deadline Tracking & Escalation",

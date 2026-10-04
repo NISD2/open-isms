@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { JsonLd } from "@/components/JsonLd";
+import { MarketingHero } from "@/components/marketing/MarketingHero";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
@@ -7,18 +10,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import {
-  pageAlternates,
-  pageOg,
   buildSoftwareApplicationJsonLd,
   type Locale,
+  pageAlternates,
+  pageOg,
 } from "@/lib/seo";
-import { JsonLd } from "@/components/JsonLd";
-import { MarketingHero } from "@/components/marketing/MarketingHero";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations("info");
   const title = t("features.meta.title");
@@ -27,7 +31,14 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     title,
     description,
     alternates: pageAlternates("features", locale),
-    ...pageOg({ slug: "features", locale, title, description, type: "website", image: `/og/features-${locale}.png` }),
+    ...pageOg({
+      slug: "features",
+      locale,
+      title,
+      description,
+      type: "website",
+      image: `/og/features-${locale}.png`,
+    }),
   };
 }
 
@@ -75,30 +86,37 @@ export default async function FeaturesPage({
         subhead={t("features.subtitle")}
       />
 
-
       <Separator />
 
       {/* Guided Process */}
       <section id="guided" className="scroll-mt-24 space-y-4">
         <div>
-          <h2 className="text-xl font-semibold tracking-tight">{t("features.guided.heading")}</h2>
+          <h2 className="text-xl font-semibold tracking-tight">
+            {t("features.guided.heading")}
+          </h2>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-3">
           <div className="rounded-lg border p-4">
-            <Badge variant="outline" className="mb-2">§§ 28–30 BSIG</Badge>
+            <Badge variant="outline" className="mb-2">
+              §§ 28–30 BSIG
+            </Badge>
             <p className="text-xs leading-relaxed text-muted-foreground">
               {t("features.guided.p1")}
             </p>
           </div>
           <div className="rounded-lg border p-4">
-            <Badge variant="outline" className="mb-2">{t("features.badges.tenMeasures")}</Badge>
+            <Badge variant="outline" className="mb-2">
+              {t("features.badges.tenMeasures")}
+            </Badge>
             <p className="text-xs leading-relaxed text-muted-foreground">
               {t("features.guided.p2")}
             </p>
           </div>
           <div className="rounded-lg border p-4">
-            <Badge variant="outline" className="mb-2">{t("features.badges.traceable")}</Badge>
+            <Badge variant="outline" className="mb-2">
+              {t("features.badges.traceable")}
+            </Badge>
             <p className="text-xs leading-relaxed text-muted-foreground">
               {t("features.guided.p3")}
             </p>
@@ -142,18 +160,18 @@ export default async function FeaturesPage({
           <CardDescription>{t("features.requirements.p1")}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="grid gap-3 sm:grid-cols-3">
+          <div className="grid gap-3 sm:grid-cols-2">
             <div className="rounded-lg border p-4 text-center">
               <p className="text-2xl font-bold">132</p>
-              <p className="mt-1 text-xs text-muted-foreground">{t("features.badges.requirements")}</p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                {t("features.badges.requirements")}
+              </p>
             </div>
             <div className="rounded-lg border p-4 text-center">
               <p className="text-2xl font-bold">10</p>
-              <p className="mt-1 text-xs text-muted-foreground">{t("features.badges.measures")}</p>
-            </div>
-            <div className="rounded-lg border p-4 text-center">
-              <p className="text-2xl font-bold">AI</p>
-              <p className="mt-1 text-xs text-muted-foreground">{t("features.badges.assistedPrefill")}</p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                {t("features.badges.measures")}
+              </p>
             </div>
           </div>
 
@@ -175,19 +193,25 @@ export default async function FeaturesPage({
         <CardContent className="space-y-4">
           <div className="grid gap-3 sm:grid-cols-3">
             <div className="rounded-lg border p-4">
-              <Badge variant="outline" className="mb-2">{t("features.badges.tenPhases")}</Badge>
+              <Badge variant="outline" className="mb-2">
+                {t("features.badges.tenPhases")}
+              </Badge>
               <p className="text-xs leading-relaxed text-muted-foreground">
                 {t("features.deadlines.p2")}
               </p>
             </div>
             <div className="rounded-lg border p-4">
-              <Badge variant="outline" className="mb-2">{t("features.badges.granular")}</Badge>
+              <Badge variant="outline" className="mb-2">
+                {t("features.badges.granular")}
+              </Badge>
               <p className="text-xs leading-relaxed text-muted-foreground">
                 {t("features.deadlines.p3")}
               </p>
             </div>
             <div className="rounded-lg border p-4">
-              <Badge variant="outline" className="mb-2">24h / 72h / 1m</Badge>
+              <Badge variant="outline" className="mb-2">
+                24h / 72h / 1m
+              </Badge>
               <p className="text-xs leading-relaxed text-muted-foreground">
                 {t("features.deadlines.p1")}
               </p>
@@ -199,7 +223,9 @@ export default async function FeaturesPage({
       {/* 13 Modules */}
       <section id="modules" className="scroll-mt-24 space-y-4">
         <div>
-          <h2 className="text-xl font-semibold tracking-tight">{t("features.modules.heading")}</h2>
+          <h2 className="text-xl font-semibold tracking-tight">
+            {t("features.modules.heading")}
+          </h2>
           <p className="mt-1 text-sm text-muted-foreground">{t("features.modules.p1")}</p>
         </div>
 
@@ -233,13 +259,17 @@ export default async function FeaturesPage({
         <CardContent className="space-y-4">
           <div className="grid gap-3 sm:grid-cols-2">
             <div className="rounded-lg border p-4">
-              <p className="text-sm font-semibold">{t("features.badges.exportAnytime")}</p>
+              <p className="text-sm font-semibold">
+                {t("features.badges.exportAnytime")}
+              </p>
               <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
                 {t("features.auditTrail.p2")}
               </p>
             </div>
             <div className="rounded-lg border p-4">
-              <p className="text-sm font-semibold">{t("features.badges.dataStaysForever")}</p>
+              <p className="text-sm font-semibold">
+                {t("features.badges.dataStaysForever")}
+              </p>
               <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
                 {t("features.auditTrail.p3")}
               </p>

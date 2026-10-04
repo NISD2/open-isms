@@ -1397,7 +1397,6 @@
         "traceable": "Trazable",
         "requirements": "Requisitos",
         "measures": "Medidas del § 30",
-        "assistedPrefill": "Cumplimentación previa asistida",
         "tenPhases": "10 fases",
         "granular": "Granular",
         "exportAnytime": "Exportación en cualquier momento",
@@ -1421,7 +1420,7 @@
         "heading": "49 requisitos del BSIG estructurados",
         "p1": "Las 10 medidas obligatorias del artículo 30 BSIG se desglosan en 49 requisitos concretos y accionables: cada uno con su propio formulario estructurado.",
         "p2": "Cada requisito es un formulario. Cada campo del formulario se asigna a una obligación de cumplimiento específica. Rellene el formulario y habrá documentado su cumplimiento. Sin ambigüedad, sin conjeturas.",
-        "p3": "Los formularios admiten texto, selecciones, selección múltiple, fechas y cargas de archivos como prueba. La cumplimentación previa asistida por IA le ayuda a redactar respuestas basadas en el perfil de su empresa; después usted las refina y aprueba."
+        "p3": "Los formularios admiten texto, selecciones, selección múltiple, fechas y cargas de archivos como prueba."
       },
       "deadlines": {
         "heading": "Seguimiento de plazos y escalado",

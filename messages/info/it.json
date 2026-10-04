@@ -1397,7 +1397,6 @@
         "traceable": "Tracciabile",
         "requirements": "Requisiti",
         "measures": "Misure § 30",
-        "assistedPrefill": "Precompilazione assistita",
         "tenPhases": "10 fasi",
         "granular": "Granulare",
         "exportAnytime": "Esportazione in qualsiasi momento",
@@ -1421,7 +1420,7 @@
         "heading": "49 requisiti BSIG strutturati",
         "p1": "Le 10 misure obbligatorie del § 30 BSIG sono suddivise in 49 requisiti concreti e attuabili, ciascuno con il proprio modulo strutturato.",
         "p2": "Ogni requisito è un modulo. Ogni campo del modulo è mappato a uno specifico obbligo di conformità. Compila il modulo e avrai documentato la tua conformità. Nessuna ambiguità, nessuna supposizione.",
-        "p3": "I moduli supportano testo, selezioni, selezioni multiple, date e caricamenti di file per le evidenze. La precompilazione assistita da IA ti aiuta a redigere le risposte in base al profilo della tua azienda; poi le perfezioni e le approvi."
+        "p3": "I moduli supportano testo, selezioni, selezioni multiple, date e caricamenti di file per le evidenze."
       },
       "deadlines": {
         "heading": "Monitoraggio delle scadenze ed escalation",
