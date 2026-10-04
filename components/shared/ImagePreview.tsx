@@ -26,7 +26,7 @@ const ZOOM_DELAY_MS = 950;
  * The zoom that brings `focus` to the middle of the frame. The middle is held far enough from the
  * edges that the scaled image still fills the frame, so no blank edge shows.
  */
-const zoomTo = ({ x, y, scale }: NonNullable<PreviewImage["focus"]>) => {
+export const zoomTo = ({ x, y, scale }: NonNullable<PreviewImage["focus"]>) => {
   const edge = 0.5 / scale;
   const cx = Math.min(Math.max(x, edge), 1 - edge);
   const cy = Math.min(Math.max(y, edge), 1 - edge);
