@@ -43,13 +43,12 @@ export function PortalHeader({
     supportEmail: string;
   };
   /**
-   * Root the trail at the portal's home: the journey, or the NIS 2 walkthrough
-   * once it is the portal's front. Only the entity portal has one. The supplier
-   * portal's visitors are external and have no journey to be sent to, and many
-   * who take a course have not set up a company, so both keep a trail that
-   * starts where they are.
+   * Root the trail at the portal's home, the NIS 2 walkthrough. Only the entity
+   * portal has one. The supplier portal's visitors are external and have no
+   * walk to be sent to, and many who take a course have not set up a company,
+   * so both keep a trail that starts where they are.
    */
-  home?: "journey" | "walkthrough";
+  home?: "walkthrough";
 }) {
   const t = useTranslations("portal");
   const tCompliance = useTranslations("compliance");
@@ -61,10 +60,8 @@ export function PortalHeader({
   const segments = usePortalPath().split("/").filter(Boolean);
 
   /**
-   * In the entity portal every trail starts at its home, the journey, or the
-   * walkthrough once that is the portal's front: the first item in the
-   * sidebar, where /dashboard redirects, and where a requirement page is
-   * reached from by opening a node.
+   * In the entity portal every trail starts at its home, the walkthrough: the
+   * first item in the sidebar, and where /dashboard redirects.
    *
    * Before this, a requirement page read "NIS2 Compliance / Registration /
    * 12.1" — a trail through the framework tree, which is the alternative
@@ -84,13 +81,11 @@ export function PortalHeader({
             href: "/durchgang/nis2",
             at: ["durchgang", "walkthrough"],
           }
-        : home === "journey"
-          ? { label: t("journey"), href: "/journey", at: ["journey"] }
-          : null;
+        : null;
     if (root && segments[0] !== undefined && root.at.includes(segments[0])) {
       // Below the walk's home (/durchgang/nis2/<item>, its approval page): back to the home, and
       // where you are.
-      const below = home === "walkthrough" ? segments.slice(2).at(-1) : undefined;
+      const below = segments.slice(2).at(-1);
       return below === undefined
         ? [{ label: root.label, href: undefined }]
         : [

@@ -1,56 +1,65 @@
 import { Building2 } from "lucide-react";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import { OrganizationForm } from "@/components/organization/OrganizationForm";
+import { CompanyEssentials } from "@/components/organization/CompanyEssentials";
+import { CompanySetup } from "@/components/organization/CompanySetup";
 import { getSession } from "@/lib/auth";
+import { ENTITY_TYPES } from "@/lib/organization/constants";
 import { api } from "@/lib/trpc/server";
-import { walkthroughLive } from "@/lib/walkthrough";
 
+/**
+ * The company's own data: the three essentials the walk sets the company up with
+ * (`CompanyEssentials`, Simon 04.10.2026: "only the things we need from the organization, nothing
+ * more"). A company not set up yet sets itself up here (`CompanySetup`). Only an admin changes them.
+ */
 export default async function OrganizationPage() {
   const session = await getSession();
   if (!session) redirect("/auth/signin");
 
-  const t = await getTranslations("organization");
-  const companyData = await api.assessment.getCompany();
+  const [t, companyData] = await Promise.all([
+    getTranslations("organization"),
+    api.assessment.getCompany(),
+  ]);
+  if (!companyData?.activatedAt) return <CompanySetup />;
 
-  // No company, or a draft shell not yet activated → send the user through
-  // onboarding to confirm identity + activate before editing.
-  if (!companyData?.activatedAt) redirect("/onboarding");
-
+  const entityType =
+    ENTITY_TYPES.find((type) => type === companyData.entityType) ?? "important";
   const isAdmin = session.role === "admin";
-  // Once the walkthrough is the portal's front, only the company itself (CORE_COMPANY_FIELDS).
-  const core = await walkthroughLive(session.user.email);
+  const sectorName = t.has(`sectors.${companyData.sector}`)
+    ? t(`sectors.${companyData.sector}`)
+    : companyData.sector;
 
   return (
     <div className="mx-auto max-w-2xl">
-      <div className="flex items-center gap-3 mb-8">
+      <div className="mb-8 flex items-center gap-3">
         <Building2 className="h-8 w-8 text-primary" />
         <div>
           <h1 className="text-2xl font-bold tracking-tight">{t("editTitle")}</h1>
-          <p className="text-muted-foreground mt-1">{t("editDescription")}</p>
+          <p className="mt-1 text-muted-foreground">{t("editDescription")}</p>
         </div>
       </div>
-      <OrganizationForm
-        mode="edit"
-        initialData={{
-          name: companyData.name,
-          sector: companyData.sector,
-          entityType: companyData.entityType as "essential" | "important" | "kritis",
-          legalForm: companyData.legalForm ?? undefined,
-          employeeCount: companyData.employeeCount ?? undefined,
-          contactEmail: companyData.contactEmail ?? undefined,
-          cisoName: companyData.cisoName ?? undefined,
-          cisoReportsTo: companyData.cisoReportsTo ?? undefined,
-          bsiContactName: companyData.bsiContactName ?? undefined,
-          bsiContactEmail: companyData.bsiContactEmail ?? undefined,
-          bsiContactPhone: companyData.bsiContactPhone ?? undefined,
-          bsiRegistrationId: companyData.bsiRegistrationId ?? undefined,
-          annualSecurityBudget: companyData.annualSecurityBudget ?? undefined,
-          primaryLocations: companyData.primaryLocations ?? undefined,
-        }}
-        isAdmin={isAdmin}
-        core={core}
-      />
+      {isAdmin ? (
+        <div className="rounded-3xl border bg-card p-6 shadow-xs sm:p-8">
+          <CompanyEssentials
+            mode="edit"
+            initial={{ name: companyData.name, sector: companyData.sector, entityType }}
+            submitLabel={t("save")}
+          />
+        </div>
+      ) : (
+        <dl className="divide-y rounded-3xl border bg-card px-6 shadow-xs">
+          {[
+            [t("essentials.name"), companyData.name],
+            [t("sector"), sectorName],
+            [t("entityType"), t(`entityTypes.${entityType}`)],
+          ].map(([label, value]) => (
+            <div key={label} className="grid gap-1 py-4 sm:grid-cols-[14rem_1fr]">
+              <dt className="text-sm text-muted-foreground">{label}</dt>
+              <dd className="font-medium">{value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
     </div>
   );
 }

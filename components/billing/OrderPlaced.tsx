@@ -4,8 +4,8 @@
  * After the order: a clear end, what was recorded, and one way on into what they bought.
  *
  * The Durchgang opens at once, because the session reads the access level per request
- * (lib/auth/config.ts), so the button works without signing in again. A company not yet set up is
- * sent on to the journey by the Durchgang's own layout.
+ * (lib/auth/config.ts), so the button works without signing in again. A company not yet set up
+ * sets itself up in the Durchgang's first step.
  */
 import { ArrowRight, CircleCheck } from "lucide-react";
 import { useTranslations } from "next-intl";

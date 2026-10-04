@@ -100,8 +100,8 @@ export async function PortalOffer() {
             <MoneyBackBadge />
           </div>
           <div className="space-y-3">
-            {/* Closed only before live keys, which a free account never sees: an account is free
-                only once pricing is launched, and the launch needs live keys. */}
+            {/* Closed without live keys: on nisd2.eu while they are broken, or in a sandbox run
+                for anyone but a platform admin. */}
             {status.open ? (
               <Button className="h-12 w-full text-base" size="lg" asChild>
                 <Link href="/bestellen">{tiers("paid.cta")}</Link>

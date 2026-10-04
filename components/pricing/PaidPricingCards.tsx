@@ -265,9 +265,8 @@ function SideTier({
 }
 
 /**
- * The /pricing tiers once billing is launched: learning on the left, the paid Durchgang in the
- * middle as the obvious choice, self-hosting on the right. PricingCards is the free offer shown
- * before the launch.
+ * The /pricing tiers: learning on the left, the paid Durchgang in the middle as the obvious choice,
+ * self-hosting on the right. The billing page shows them too, until the first invoice.
  */
 export function PaidPricingCards({
   orderOpen,
@@ -358,8 +357,8 @@ export function PaidPricingCards({
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-3">
-              {/* Closed only before live keys (sandbox, or no Qonto at all), which a visitor
-                  never reaches once the page is launched, so the button keeps its place. */}
+              {/* Closed without live keys (sandbox, or no Qonto at all, as on a self-hosted
+                  instance, which sells nothing), so the button keeps its place. */}
               {orderOpen ? (
                 <Button className="h-12 w-full text-base" size="lg" asChild>
                   <Link href="/bestellen">{t("paid.cta")}</Link>

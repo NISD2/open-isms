@@ -7,7 +7,6 @@
  */
 import { eq } from "drizzle-orm";
 import type { DbOrTx } from "@/lib/db";
-import { isFeatureOn } from "@/lib/feature-flags";
 import {
   type accessLevelEnum,
   billingAccount,
@@ -17,12 +16,15 @@ import {
   user,
 } from "@/schema";
 import { newAccountAccessLevel } from "./access";
+import { isSellerInstance } from "./seller";
 
 export type AccessLevel = (typeof accessLevelEnum.enumValues)[number];
 
 /**
- * Open a new billing account and return its id. It starts grandfathered until billing is launched,
- * and after that free unless its owner was grandfathered at the launch (./access).
+ * Open a new billing account and return its id. It starts free unless its owner was grandfathered,
+ * and grandfathered on any install but nisd2.eu, which sells nothing (./access). Judged by the
+ * install's address, not by its Qonto keys: a key that breaks on nisd2.eu must not hand every
+ * signup in the meantime the journey for good.
  */
 export const createBillingAccount = async (
   db: DbOrTx,
@@ -35,7 +37,7 @@ export const createBillingAccount = async (
       })
     : undefined;
   const accessLevel = newAccountAccessLevel(
-    await isFeatureOn(db, "billing"),
+    isSellerInstance(),
     owner?.grandfatheredAt != null,
   );
   const [account] = await db

@@ -28,7 +28,6 @@ import { grandfatherByPromo } from "@/lib/billing/promo-grant";
 import { getClientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
 import { env } from "@/lib/env";
-import { isFeatureOn } from "@/lib/feature-flags";
 import { isLocaleCode, LOCALE_COOKIE, type LocaleCode } from "@/lib/locale";
 import { newUserSignupEmail, sendMail, sendWelcomeEmail } from "@/lib/mail";
 import { resolveHints } from "@/lib/onboarding/hints";
@@ -661,11 +660,7 @@ export const getSession = cache(async (): Promise<Session | null> => {
   session.jobTitle = open?.jobTitle ?? null;
   session.companyActivated = open?.activatedAt != null;
   session.accessLevel = open
-    ? effectiveAccessLevel(
-        open.accessLevel,
-        await isFeatureOn(db, "billing"),
-        dbUser.grandfatheredAt !== null,
-      )
+    ? effectiveAccessLevel(open.accessLevel, dbUser.grandfatheredAt !== null)
     : null;
 
   return session;

@@ -23,6 +23,7 @@ import { expect, test } from "@playwright/test";
 import bcrypt from "bcryptjs";
 import { e2eQuery } from "./lib/db";
 import { assertE2eTargets } from "./lib/env";
+import { SIGNED_IN } from "./lib/signin";
 
 // Anonymous: every other project inherits the signed-in admin storage state,
 // and this spec is about arriving with no session at all.
@@ -104,7 +105,7 @@ test("signing up a second time signs in with the password typed that time", asyn
   await page.locator("#code").fill("123456");
   await page.getByRole("button", { name: "Bestätigen und anmelden" }).click();
 
-  await page.waitForURL(/\/(journey|dashboard)/, { timeout: 30_000 });
+  await page.waitForURL(SIGNED_IN, { timeout: 30_000 });
 
   const [row] = await e2eQuery<{
     password_hash: string;
@@ -163,5 +164,5 @@ test("reaching the code step from the login form does not invalidate the code al
   // And the code that was already in the inbox still works.
   await page.locator("#code").fill("654321");
   await page.getByRole("button", { name: "Bestätigen und anmelden" }).click();
-  await page.waitForURL(/\/(journey|dashboard)/, { timeout: 30_000 });
+  await page.waitForURL(SIGNED_IN, { timeout: 30_000 });
 });

@@ -50,6 +50,11 @@
       "notification": {
         "scheduled": "Erinnerungen an Fristen geplant"
       },
+      "billing": {
+        "quote": "Preis für die Bestellung berechnet",
+        "place": "Bestellt",
+        "cancel": "Gekündigt"
+      },
       "dev": {
         "resetImplementation": "Umsetzung zurückgesetzt (Test)"
       }

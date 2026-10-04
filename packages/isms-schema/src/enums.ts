@@ -13,7 +13,9 @@ export const invoiceSourceEnum = pgEnum("invoice_source", ["self_serve", "admin"
 
 /**
  * Platform switches a platform admin flips at runtime. One value per switch; absent means off.
- * What each one does is in lib/feature-flags.ts (FEATURE_FLAGS).
+ * What each one does is in lib/feature-flags.ts (FEATURE_FLAGS). `billing` and `walkthrough` are
+ * retired there and stay here: existing rows hold them, and Postgres cannot drop an enum value
+ * without rebuilding the type.
  */
 export const featureFlagKeyEnum = pgEnum("feature_flag_key", ["billing", "walkthrough"]);
 

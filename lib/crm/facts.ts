@@ -57,8 +57,6 @@ export const closeFactsFor = (input: {
   readonly ceoProgress: readonly CourseProgressRow[];
   /** Each company's journey states (`journeyStatesByCompany`), by company id. */
   readonly paths: ReadonlyMap<string, ReadonlyMap<string, JourneyEntry>>;
-  /** Whether pricing has launched (the "billing" feature flag). */
-  readonly launched: boolean;
 }) => {
   const ceoProgressByUser = groupByUser(input.ceoProgress);
   const journeys = summarizeJourneys(input.paths);
@@ -82,7 +80,7 @@ export const closeFactsFor = (input: {
       signedUpAt: person.createdAt,
       lastLoginAt: person.lastLoginAt,
       loginCount: person.loginCount,
-      grandfathered: isGrandfatheredPerson(person, input.launched),
+      grandfathered: isGrandfatheredPerson(person),
       mayEmail:
         !person.emailFollowupsDisabled && !input.optedOutUserIds.has(person.userId),
       freeMail: isFreeMailAddress(person.email),
@@ -98,11 +96,7 @@ export const closeFactsFor = (input: {
       company: open?.company ?? null,
       // The rule the session applies (lib/auth/config.ts), so Close shows what the person gets.
       access: open
-        ? effectiveAccessLevel(
-            open.accessLevel,
-            input.launched,
-            person.grandfatheredAt !== null,
-          )
+        ? effectiveAccessLevel(open.accessLevel, person.grandfatheredAt !== null)
         : null,
       path: journey ? { done: journey.done, total: journey.total } : null,
     };

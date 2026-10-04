@@ -51,7 +51,7 @@ The harness cannot reach production by construction:
 | Layer | Files | Covers |
 |---|---|---|
 | L0 | `l0/` | No browser: all 49 requirements classify, personas match schemas |
-| smoke | `smoke.spec.ts`, `i18n-sidebar.spec.ts` | Journey renders 49 nodes, auth redirect, sidebar locale regression |
+| smoke | `smoke.spec.ts` | Journey renders 49 nodes, auth redirect |
 | L1 | `l1/` | Every intake form filled via UI, saved, round-trip verified; assets and the audit row their writes invalidate; the first-login tour |
 | L2 | `l2/` | Module CRUD sweep, the 9 bespoke editors, evidence upload round-trip, edit/delete, validation |
 | L3 | `l3/` | Sign-off semantics incl. N-of-M with two sessions, cross-tenant isolation, the token-gated supplier portal (the app's only unauthenticated data surface) |

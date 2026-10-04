@@ -7,7 +7,6 @@ import "@/lib/server-guard";
 import { and, eq, inArray, isNotNull, isNull, sql } from "drizzle-orm";
 import { logAudit } from "@/lib/audit";
 import type { DbOrTx } from "@/lib/db";
-import { isFeatureOn } from "@/lib/feature-flags";
 import { SCOPE_ALL } from "@/lib/mail/consent-rules";
 import { type COURSE_IDS, loadCourse } from "@/lib/training/course-loader";
 import {
@@ -116,11 +115,10 @@ export const closeSyncStore = (db: DbOrTx): CloseSyncStore => ({
       .where(isNull(closeCrmSync.userId)),
 
   people: async () => {
-    const [users, optedOut, ceoProgress, launched, ceoCourse] = await Promise.all([
+    const [users, optedOut, ceoProgress, ceoCourse] = await Promise.all([
       verifiedUsers(db),
       optedOutOfAll(db),
       ceoCourseProgress(db),
-      isFeatureOn(db, "billing"),
       loadCourse(CEO_COURSE_ID),
     ]);
     // Each company's path as the journey reads it, so Close counts what the journey counts.
@@ -133,7 +131,6 @@ export const closeSyncStore = (db: DbOrTx): CloseSyncStore => ({
       ceoLessonIds: ceoCourse.modules.flatMap((m) => m.lessonIds),
       ceoProgress,
       paths,
-      launched,
     });
     return users.map((row) => ({
       userId: row.userId,

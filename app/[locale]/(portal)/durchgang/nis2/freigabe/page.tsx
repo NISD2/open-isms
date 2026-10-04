@@ -13,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
 /**
  * Where management approves the documents the walk wrote, the page its invite and its link lead
  * to. It needs no category of the walk: approving is management's act, which the server checks
- * by role. The layout checks sign-in and activation, `requireWalk` the plan.
+ * by role. The layout checks sign-in, `requireWalk` the plan and that the company is set up.
  */
 export default async function ApprovalRoute() {
   await requireWalk();

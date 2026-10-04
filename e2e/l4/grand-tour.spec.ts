@@ -64,7 +64,7 @@ test("grand tour: the company reaches a fully signed-off NIS2 implementation", a
     "requirements still open after the tour",
   ).toBe("");
 
-  // And the product agrees: the sidebar shows the full count.
+  // And the product agrees: the journey's heading shows the full count.
   await page.goto("/de/journey");
   await expect(page.getByText("49/49").first()).toBeVisible({ timeout: 20_000 });
 });

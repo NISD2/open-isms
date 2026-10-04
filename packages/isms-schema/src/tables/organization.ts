@@ -441,9 +441,10 @@ export const user = pgTable(
      */
     lastLoginAt: timestamp("last_login_at"),
     /**
-     * When this person was grandfathered: stamped once, at the billing launch, on everyone who had
-     * got in before it (lib/billing/launch.ts). A stamped person keeps the current journey free in
-     * every company they belong to or start later. Null for everyone who arrived after the launch.
+     * When this person was grandfathered: stamped at the billing launch on everyone who had got in
+     * before it, and since then by the promo link (lib/billing/promo-grant.ts). A stamped person
+     * keeps the current journey free in every company they belong to or start later. Null for
+     * everyone else.
      */
     grandfatheredAt: timestamp("grandfathered_at"),
     /**
@@ -491,8 +492,8 @@ export const user = pgTable(
     /** When the user dismissed the second-login offer of help. */
     helpOfferDismissedAt: timestamp("help_offer_dismissed_at"),
     /**
-     * When the user answered the one-time notice that the journey is the more detailed view than
-     * the NIS 2 walkthrough, shown once the walkthrough is the portal's front.
+     * When the user answered the notice that the journey is the more detailed view than the NIS 2
+     * walkthrough.
      */
     journeyNoticeDismissedAt: timestamp("journey_notice_dismissed_at"),
     createdAt: timestamp("created_at").defaultNow().notNull(),

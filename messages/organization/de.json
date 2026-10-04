@@ -11,6 +11,16 @@
     "sectorPlaceholder": "Sektor wählen...",
     "entityType": "Einrichtungstyp",
     "entityTypeHelp": "Gem. BSIG 2025 §28",
+    "essentials": {
+      "title": "Ihr Unternehmen",
+      "lead": "Drei Angaben, mehr braucht es zum Start nicht. Alles Weitere tragen Sie dort ein, wo es gebraucht wird.",
+      "create": "Weiter",
+      "name": "Name des Unternehmens",
+      "nameHint": "So, wie er in Ihren Dokumenten stehen soll, mit Rechtsform.",
+      "entityTypeHint": "Wie Ihr Unternehmen nach § 28 BSIG eingestuft ist.",
+      "missing": "Bitte geben Sie den Namen und den Sektor an.",
+      "failed": "Das hat nicht geklappt. Bitte versuchen Sie es noch einmal."
+    },
     "entityTypes": {
       "essential": "Besonders wichtige Einrichtung",
       "important": "Wichtige Einrichtung",

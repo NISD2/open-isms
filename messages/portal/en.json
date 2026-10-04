@@ -87,9 +87,111 @@
     "durchgang": "NIS 2 walkthrough",
     "administration": "Administration",
     "comingSoon": "Coming soon",
+    "examples": {
+      "badge": "Example",
+      "order": "Order now",
+      "audit": "This is how the activity log records who changed what, and when. Your own entries appear here as soon as you work in the walkthrough.",
+      "auditRows": [
+        {
+          "action": "durchgang.requirements_signed",
+          "detail": "12 requirements signed off after review",
+          "minutesAgo": 12
+        },
+        {
+          "action": "durchgang.approvePolicies",
+          "detail": "Policy and incident plan approved",
+          "minutesAgo": 14
+        },
+        {
+          "action": "durchgang.writePolicy",
+          "detail": "Information security policy written",
+          "minutesAgo": 41
+        },
+        {
+          "action": "durchgang.waiting",
+          "detail": "5.2 set aside: the contract is with the supplier",
+          "minutesAgo": 58
+        },
+        {
+          "action": "durchgang.item_done",
+          "detail": "2.2 Write down what your company has",
+          "minutesAgo": 75
+        },
+        {
+          "action": "training.create",
+          "detail": "Management body training recorded",
+          "minutesAgo": 96
+        }
+      ],
+      "registers": {
+        "assets": {
+          "text": "This is what your asset register looks like: the software, devices and services your company works with. In the NIS 2 walkthrough you enter them step by step.",
+          "columns": ["Name", "Type", "Critical", "Owner"],
+          "rows": [
+            ["proALPHA ERP", "Application", "Yes", "IT lead"],
+            ["Microsoft 365", "Cloud service", "Yes", "IT lead"],
+            ["Hyper-V host 1", "Server", "Yes", "IT-Service Diekmann"],
+            ["62 notebooks with Windows 11", "Endpoints", "No", "IT lead"]
+          ]
+        },
+        "suppliers": {
+          "text": "This is what your supplier list looks like: who works for you and how much your operations depend on them. The walkthrough fills it from your assets.",
+          "columns": ["Name", "Service", "Level"],
+          "rows": [
+            ["IT-Service Diekmann GmbH", "IT support and remote maintenance", "High"],
+            ["Hetzner Online GmbH", "Website hosting", "Medium"],
+            ["DATEV eG", "Payroll and accounting", "Medium"],
+            ["Steuerkanzlei Wiebold & Partner", "Annual accounts", "Low"]
+          ]
+        },
+        "risks": {
+          "text": "This is what your risk register looks like: every asset and supplier with its level in the risk matrix and what you do about it.",
+          "columns": ["Risk", "Level", "Treatment"],
+          "rows": [
+            ["Microsoft 365: outage, attack or data loss", "Very high", "Mitigate"],
+            ["Remote maintenance access for providers", "Very high", "Mitigate"],
+            ["proALPHA ERP: outage, attack or data loss", "High", "Mitigate"],
+            ["Outdoor cameras on the factory site", "Low", "Accept"]
+          ]
+        },
+        "policies": {
+          "text": "This is what your documents look like: the policy, plans and concepts the walkthrough writes with you, approved by your management in the app.",
+          "columns": ["Document", "Status", "Approval"],
+          "rows": [
+            ["Information security policy", "Approved", "Management, 3 Oct 2026"],
+            ["Incident response plan", "Approved", "Management, 3 Oct 2026"],
+            ["Cryptography concept", "Draft", "Awaiting approval"]
+          ]
+        },
+        "training": {
+          "text": "This is what your trainings look like: who learned what and when, the management body training included.",
+          "columns": ["Training", "Participants", "Date"],
+          "rows": [
+            ["Management body training (Art. 20(2) NIS 2)", "Management", "12 Mar 2026"],
+            ["Recognising and reporting phishing", "All office staff", "24 Feb 2026"],
+            [
+              "USB sticks and remote maintenance on the machines",
+              "Shift leads, production and warehouse",
+              "6 May 2026"
+            ]
+          ]
+        },
+        "managementReviews": {
+          "text": "This is what your management reviews look like: when management checked the implementation and what it decided.",
+          "columns": ["Date", "Participants", "Decisions"],
+          "rows": [
+            [
+              "3 Oct 2026",
+              "Management, IT lead",
+              "Policy and incident plan approved. Second factor for the ERP by 31 March 2027."
+            ]
+          ]
+        }
+      }
+    },
     "journeyNotice": {
-      "title": "The journey is the detailed view",
-      "text": "It shows every requirement at once, with the registers that go with them. That is more than most companies need. We recommend the NIS 2 walkthrough: it takes you through item by item and explains each step.",
+      "title": "The journey is the detailed view. Go there anyway?",
+      "text": "It shows every requirement at once, with the registers that go with them. We recommend this view for large companies (250 employees or more, as the EU defines them) with their own information security team. For everyone else we recommend the NIS 2 walkthrough: it takes you through item by item and explains each step.",
       "stay": "Stay in the walkthrough",
       "go": "Go to the journey anyway"
     },

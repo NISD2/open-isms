@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import {
+  EXAMPLE_PORTAL_PATHS,
   effectiveAccessLevel,
   hasGotIn,
   isGrandfatheredPerson,
@@ -19,34 +20,15 @@ describe("mayWalkDurchgang", () => {
     expect(mayWalkDurchgang(null, false)).toBe(false);
   });
 
-  test("before the launch everyone reads as grandfathered, so nobody unpaid gets in", () => {
-    const beforeLaunch = effectiveAccessLevel("free", false, false);
-    expect(mayWalkDurchgang(beforeLaunch, false)).toBe(false);
-  });
-
   test("a platform admin passes, to show it on a call", () => {
     expect(mayWalkDurchgang("grandfathered", true)).toBe(true);
   });
 });
 
 describe("isGrandfatheredPerson", () => {
-  const never = {
-    grandfatheredAt: null,
-    emailVerifiedAt: null,
-    loginCount: 0,
-    lastLoginAt: null,
-  };
-  const gotIn = { ...never, emailVerifiedAt: new Date("2026-09-01") };
-  const stamped = { ...gotIn, grandfatheredAt: new Date("2026-09-20") };
-
-  test("after the launch, exactly the people it stamped", () => {
-    expect(isGrandfatheredPerson(stamped, true)).toBe(true);
-    expect(isGrandfatheredPerson(gotIn, true)).toBe(false);
-  });
-
-  test("before the launch, everyone who has got in", () => {
-    expect(isGrandfatheredPerson(gotIn, false)).toBe(true);
-    expect(isGrandfatheredPerson(never, false)).toBe(false);
+  test("exactly the people the launch or a promo link stamped", () => {
+    expect(isGrandfatheredPerson({ grandfatheredAt: new Date("2026-09-20") })).toBe(true);
+    expect(isGrandfatheredPerson({ grandfatheredAt: null })).toBe(false);
   });
 });
 
@@ -58,23 +40,15 @@ describe("unpaidAccessLevel", () => {
 });
 
 describe("effectiveAccessLevel", () => {
-  test("before launch nobody is gated: free and grandfathered both read as grandfathered", () => {
-    expect(effectiveAccessLevel("free", false, false)).toBe("grandfathered");
-    expect(effectiveAccessLevel("grandfathered", false, false)).toBe("grandfathered");
+  test("the stored level is the level for an unstamped person", () => {
+    expect(effectiveAccessLevel("free", false)).toBe("free");
+    expect(effectiveAccessLevel("grandfathered", false)).toBe("grandfathered");
+    expect(effectiveAccessLevel("full", false)).toBe("full");
   });
 
-  test("a paid account keeps full, before and after launch", () => {
-    expect(effectiveAccessLevel("full", false, false)).toBe("full");
-    expect(effectiveAccessLevel("full", true, false)).toBe("full");
-  });
-
-  test("after launch the stored level is the level for an unstamped person", () => {
-    expect(effectiveAccessLevel("free", true, false)).toBe("free");
-    expect(effectiveAccessLevel("grandfathered", true, false)).toBe("grandfathered");
-  });
-
-  test("after launch a stamped person is grandfathered even in a free company", () => {
-    expect(effectiveAccessLevel("free", true, true)).toBe("grandfathered");
+  test("a stamped person is grandfathered even in a free company, and keeps full", () => {
+    expect(effectiveAccessLevel("free", true)).toBe("grandfathered");
+    expect(effectiveAccessLevel("full", true)).toBe("full");
   });
 });
 
@@ -93,14 +67,14 @@ describe("hasGotIn", () => {
 });
 
 describe("newAccountAccessLevel", () => {
-  test("grandfathered before launch, whoever opens it", () => {
-    expect(newAccountAccessLevel(false, false)).toBe("grandfathered");
-    expect(newAccountAccessLevel(false, true)).toBe("grandfathered");
-  });
-
-  test("after launch free, unless the person opening it was grandfathered", () => {
+  test("where the deployment sells: free, unless the person opening it was grandfathered", () => {
     expect(newAccountAccessLevel(true, false)).toBe("free");
     expect(newAccountAccessLevel(true, true)).toBe("grandfathered");
+  });
+
+  test("where it sells nothing (self-hosted, a local run): grandfathered, nobody could order", () => {
+    expect(newAccountAccessLevel(false, false)).toBe("grandfathered");
+    expect(newAccountAccessLevel(false, true)).toBe("grandfathered");
   });
 });
 
@@ -124,13 +98,20 @@ describe("mayOpenPortalPath", () => {
     }
   });
 
-  test("a free account does not reach the journey or the registers", () => {
+  test("a free account opens the registers and the activity log, which show examples", () => {
+    for (const p of EXAMPLE_PORTAL_PATHS) {
+      expect(mayOpenPortalPath("free", p)).toBe(true);
+    }
+  });
+
+  test("a free account does not reach the journey, the team or the requirements", () => {
     for (const p of [
       "/journey",
       "/dashboard",
-      "/assets",
+      "/team",
       "/compliance/x",
       "/billingx",
+      "/assetsx",
       "/orders",
     ]) {
       expect(mayOpenPortalPath("free", p)).toBe(false);

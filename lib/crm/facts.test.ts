@@ -35,15 +35,13 @@ const context = (over: Partial<Parameters<typeof closeFactsFor>[0]> = {}) =>
     ceoLessonIds: ["1.1", "1.2", "2.1", "2.2"],
     ceoProgress: [],
     paths: new Map(),
-    launched: true,
     ...over,
   });
 
 describe("closeFactsFor", () => {
-  test("grandfathered follows the billing rule: stamped after launch, got-in before it", () => {
+  test("grandfathered follows the billing rule: exactly the people stamped", () => {
     expect(context()(row()).grandfathered).toBe(false);
     expect(context()(row({ grandfatheredAt: new Date() })).grandfathered).toBe(true);
-    expect(context({ launched: false })(row()).grandfathered).toBe(true);
   });
 
   test("may email is off after unsubscribing, either way", () => {

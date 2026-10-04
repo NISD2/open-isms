@@ -84,8 +84,9 @@ const customerFor = async (
   // Idempotent: a user who already has a company gets no second one.
   const draft = await createDraftCompany(db, row.id);
   // A customer sold to on a call never got in before the paywall, so their fresh account is free,
-  // not the grandfathered level a signup gets before the launch. The order makes it full; if the
-  // order fails, it stays free rather than holding the free journey nobody promised them.
+  // even where a new account starts grandfathered because the deployment sells nothing (a sandbox
+  // run). The order makes it full; if the order fails, it stays free rather than holding the free
+  // journey nobody promised them.
   if (inserted.length > 0 && draft) {
     await db
       .update(billingAccount)
