@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://www.nisd2.eu";
@@ -43,6 +43,7 @@ export const metadata: Metadata = {
   authors: [{ name: "nisd2.eu" }],
   creator: "nisd2.eu",
   publisher: "nisd2.eu",
+  manifest: "/site.webmanifest",
   robots: {
     index: true,
     follow: true,
@@ -67,6 +68,11 @@ export const metadata: Metadata = {
     card: "summary_large_image",
   },
   category: "technology",
+};
+
+/** The page background, so a phone's browser bar runs into the page. Matches site.webmanifest. */
+export const viewport: Viewport = {
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -1,3 +1,4 @@
+import { AllMessagesProvider } from "@/components/AllMessagesProvider";
 import { requirePlatformAdmin } from "@/lib/auth/platform-admin";
 
 export default async function PlatformAdminLayout({
@@ -8,8 +9,10 @@ export default async function PlatformAdminLayout({
   await requirePlatformAdmin();
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="mx-auto max-w-7xl px-6 py-8">{children}</div>
-    </div>
+    <AllMessagesProvider>
+      <div className="min-h-screen bg-background">
+        <div className="mx-auto max-w-7xl px-6 py-8">{children}</div>
+      </div>
+    </AllMessagesProvider>
   );
 }
