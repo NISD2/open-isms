@@ -191,7 +191,7 @@
     },
     "journeyNotice": {
       "title": "The journey is the detailed view. Go there anyway?",
-      "text": "It shows every requirement at once, with the registers that go with them. It is meant for large companies, usually 250 employees or more, with their own information security team. We recommend the NIS 2 walkthrough: it takes you through item by item and explains each step.",
+      "text": "It shows every requirement at once, with the registers that go with them. We recommend this view for large companies (250 employees or more, as the EU defines them) with their own information security team. For everyone else we recommend the NIS 2 walkthrough: it takes you through item by item and explains each step.",
       "stay": "Stay in the walkthrough",
       "go": "Go to the journey anyway"
     },

@@ -207,7 +207,7 @@
     },
     "journeyNotice": {
       "title": "Der Weg ist die ausführliche Ansicht. Wirklich dorthin?",
-      "text": "Dort sehen Sie alle Anforderungen auf einmal, mit den Registern dazu. Diese Ansicht ist für große Unternehmen gedacht, meist ab 250 Beschäftigten, mit eigenem Team für Informationssicherheit. Wir empfehlen den NIS 2 Durchgang: Er führt Sie Punkt für Punkt durch und erklärt jeden Schritt.",
+      "text": "Dort sehen Sie alle Anforderungen auf einmal, mit den Registern dazu. Wir empfehlen diese Ansicht großen Unternehmen (nach der Definition der EU ab 250 Beschäftigten) mit eigenem Team für Informationssicherheit. Allen anderen empfehlen wir den NIS 2 Durchgang: Er führt Sie Punkt für Punkt durch und erklärt jeden Schritt.",
       "stay": "Beim Durchgang bleiben",
       "go": "Trotzdem zum Weg"
     },

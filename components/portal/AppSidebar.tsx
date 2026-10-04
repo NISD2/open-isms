@@ -154,9 +154,9 @@ function SoonButton({ item }: { item: NavItem & { soon: string } }) {
 }
 
 /**
- * The journey, once the walkthrough is the portal's front. The first click asks once whether to
- * stay in the walkthrough, the simpler way through, and records the answer either way, so it never
- * asks again (Simon, 03.10.2026). Closing the question without an answer asks again next time.
+ * The journey, once the walkthrough is the portal's front. For someone who can walk, every click
+ * asks first whether to stay in the walkthrough, the simpler way through (Simon, 04.10.2026: "If
+ * I click on the sidebar, the journey view, this modal should show up").
  */
 function JourneyItem({
   item,

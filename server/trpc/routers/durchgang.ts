@@ -14,6 +14,7 @@ import {
 } from "@/lib/asset-inventory/catalog-labels";
 import { ASSET_LAYERS, CUSTOM_ASSET_TYPE } from "@/lib/asset-inventory/types";
 import { logAudit } from "@/lib/audit";
+import { isFreeMailAddress } from "@/lib/auth/free-mail";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { mayWalkDurchgang } from "@/lib/billing/access";
 import { FREQUENCIES, IMPACTS, type RiskLevel } from "@/lib/compliance/bsi-200-3";
@@ -608,14 +609,17 @@ export const durchgangRouter = router({
 
   /**
    * Common answers for the vulnerability report address, read off the company's contact email, or
-   * the caller's own when the company has none: setting the company up no longer asks for one.
+   * the caller's own when the company has none: setting the company up no longer asks for one. A
+   * free-mail address names no company domain, so it suggests nothing.
    */
   contactSuggestions: durchgangProcedure.query(async ({ ctx }) => {
     const org = await ctx.db.query.company.findFirst({
       where: eq(company.id, ctx.companyId),
       columns: { contactEmail: true },
     });
-    return contactSuggestions(org?.contactEmail ?? ctx.session.user.email ?? null);
+    const own = ctx.session.user.email;
+    const fallback = own && !isFreeMailAddress(own) ? own : null;
+    return contactSuggestions(org?.contactEmail ?? fallback);
   }),
 
   /** "Geht noch nicht": the reason goes into the audit row, the free text only into the notes. */

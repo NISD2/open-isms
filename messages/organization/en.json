@@ -13,7 +13,7 @@
     "entityTypeHelp": "As defined in BSIG 2025 §28",
     "essentials": {
       "title": "Your company",
-      "lead": "Three answers, nothing more. The walkthrough asks for everything else where it is needed.",
+      "lead": "Three answers are all it takes to start. Everything else you enter where it is needed.",
       "create": "Continue",
       "name": "Company name",
       "nameHint": "As it should appear in your documents, with its legal form.",

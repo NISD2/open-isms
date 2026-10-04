@@ -3,27 +3,36 @@ import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { CompanyEssentials } from "@/components/organization/CompanyEssentials";
 import { CompanySetup } from "@/components/organization/CompanySetup";
+import { OrganizationForm } from "@/components/organization/OrganizationForm";
 import { getSession } from "@/lib/auth";
 import { ENTITY_TYPES } from "@/lib/organization/constants";
 import { api } from "@/lib/trpc/server";
+import { walkthroughLive } from "@/lib/walkthrough";
 
 /**
- * The company's three essentials, the same form the walk sets the company up with
- * (`CompanyEssentials`). A company not set up yet sets itself up here; only an admin changes them.
+ * The company's own data. A company not set up yet sets itself up here (`CompanySetup`). Once the
+ * walkthrough is the portal's front, only the three essentials the walk sets the company up with
+ * (`CompanyEssentials`, Simon 04.10.2026: "only the things we need from the organization, nothing
+ * more"); before that, every field, since the sign-off snapshot and the export read them and this
+ * is the one place they are edited. Only an admin changes them.
  */
 export default async function OrganizationPage() {
   const session = await getSession();
   if (!session) redirect("/auth/signin");
 
-  const [t, companyData] = await Promise.all([
+  const [t, companyData, live] = await Promise.all([
     getTranslations("organization"),
     api.assessment.getCompany(),
+    walkthroughLive(session.user.email),
   ]);
   if (!companyData?.activatedAt) return <CompanySetup />;
 
   const entityType =
     ENTITY_TYPES.find((type) => type === companyData.entityType) ?? "important";
   const isAdmin = session.role === "admin";
+  const sectorName = t.has(`sectors.${companyData.sector}`)
+    ? t(`sectors.${companyData.sector}`)
+    : companyData.sector;
 
   return (
     <div className="mx-auto max-w-2xl">
@@ -34,7 +43,27 @@ export default async function OrganizationPage() {
           <p className="mt-1 text-muted-foreground">{t("editDescription")}</p>
         </div>
       </div>
-      {isAdmin ? (
+      {!live ? (
+        <OrganizationForm
+          isAdmin={isAdmin}
+          initialData={{
+            name: companyData.name,
+            sector: companyData.sector,
+            entityType,
+            legalForm: companyData.legalForm ?? undefined,
+            employeeCount: companyData.employeeCount ?? undefined,
+            contactEmail: companyData.contactEmail ?? undefined,
+            cisoName: companyData.cisoName ?? undefined,
+            cisoReportsTo: companyData.cisoReportsTo ?? undefined,
+            bsiContactName: companyData.bsiContactName ?? undefined,
+            bsiContactEmail: companyData.bsiContactEmail ?? undefined,
+            bsiContactPhone: companyData.bsiContactPhone ?? undefined,
+            bsiRegistrationId: companyData.bsiRegistrationId ?? undefined,
+            annualSecurityBudget: companyData.annualSecurityBudget ?? undefined,
+            primaryLocations: companyData.primaryLocations ?? undefined,
+          }}
+        />
+      ) : isAdmin ? (
         <div className="rounded-3xl border bg-card p-6 shadow-xs sm:p-8">
           <CompanyEssentials
             mode="edit"
@@ -46,12 +75,7 @@ export default async function OrganizationPage() {
         <dl className="divide-y rounded-3xl border bg-card px-6 shadow-xs">
           {[
             [t("essentials.name"), companyData.name],
-            [
-              t("sector"),
-              t.has(`sectors.${companyData.sector}`)
-                ? t(`sectors.${companyData.sector}`)
-                : companyData.sector,
-            ],
+            [t("sector"), sectorName],
             [t("entityType"), t(`entityTypes.${entityType}`)],
           ].map(([label, value]) => (
             <div key={label} className="grid gap-1 py-4 sm:grid-cols-[14rem_1fr]">
