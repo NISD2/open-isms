@@ -11,6 +11,65 @@
         "description": "U vult in, wij leggen elk punt in eenvoudige woorden uit, en aan het eind tekent de directie. Voor bedrijven zonder eigen beveiligingsafdeling."
       }
     },
+    "walk": {
+      "heroAlt": "De NIS2-doorloop: uw pad stap voor stap, de eerste punten afgerond",
+      "title": "Hoe de doorloop u door NIS2 leidt",
+      "lead": "Elke afbeelding toont de echte app, ingevuld voor verzonnen voorbeeldbedrijven.",
+      "steps": {
+        "oneAtATime": {
+          "title": "Eén ding tegelijk",
+          "text": "U ziet altijd maar één punt. We leggen het in eenvoudige woorden uit voordat u iets invult, en de wet erachter is één klik verder.",
+          "alt": "Een stap in de doorloop: registratie bij uw toezichthouder, in eenvoudige woorden uitgelegd"
+        },
+        "bsiMethods": {
+          "title": "Methoden van het BSI",
+          "text": "Waar het Duitse Bundesamt für Sicherheit in der Informationstechnik (BSI) een methode aanbeveelt, staat die voor u klaar, zoals de risicobeoordeling uit BSI-standaard 200-3. Met één klik wordt het de methode van uw bedrijf. Of u die overneemt, beslist u zelf.",
+          "alt": "De risicobeoordelingsmethode uit BSI-standaard 200-3, als vermelding in de registers"
+        },
+        "riskMap": {
+          "title": "Uw risico's in één oogopslag",
+          "text": "U beoordeelt uw software, uw techniek en uw leveranciers op de matrix van het BSI. Het overzicht toont waar uw vermeldingen staan en wat eerst bescherming nodig heeft.",
+          "alt": "De risicomatrix van een voorbeeldbedrijf: hoeveel vermeldingen er in elk vak staan"
+        },
+        "setAside": {
+          "title": "Dingen openlaten mag",
+          "text": "Wat nog niet kan, zet u opzij met een reden, bijvoorbeeld omdat u op een brief wacht of eerst iemand iets moet vragen. Het punt komt op uw wachtlijst en u gaat verder met het volgende.",
+          "alt": "Een punt opzijzetten: de redenen om uit te kiezen"
+        },
+        "signOff": {
+          "title": "De directie keurt goed in de app",
+          "text": "Aan het eind leest de directie de documenten die de doorloop heeft geschreven en keurt ze goed, ingelogd met een eigen account. Naam en datum staan daarna op elk document. Er wordt niets geprint of gescand.",
+          "alt": "De documenten van de doorloop, goedgekeurd door de directie, elk met naam en datum"
+        },
+        "staysCurrent": {
+          "title": "Blijft actueel",
+          "text": "Na de goedkeuring toont één pagina wat bij u blijft: wat u doet als er iets gebeurt, en wat terugkomt. Als een datum verloopt of u een lijst wijzigt, gaat het punt terug naar de directie ter goedkeuring.",
+          "alt": "Wat blijft na de goedkeuring: wat u doet als er iets gebeurt en wat terugkomt, elk met de wettelijke grondslag"
+        }
+      },
+      "outcomes": {
+        "title": "Wat er daarna in uw administratie staat",
+        "registers": {
+          "title": "Uw registers",
+          "text": "Wat u in de doorloop aanvinkt en invult, staat daarna in uw registers: assets, leveranciers, risico's, beleid, trainingen en directiebeoordelingen.",
+          "alt": "De assetlijst in de doorloop: bedrijfsprocessen om aan te vinken"
+        },
+        "log": {
+          "title": "Het activiteitenlogboek",
+          "text": "Het toont dag voor dag wie wat wanneer heeft gewijzigd. Elke goedkeuring door de directie staat er ook in.",
+          "alt": "Het activiteitenlogboek van een voorbeeldbedrijf"
+        },
+        "export": {
+          "title": "Alles in één document",
+          "text": "De hele doorloop van begin tot eind: status, open punten, documenten, risicomatrix, elk register en elk antwoord. Sla het in de browser op als PDF.",
+          "alt": "De volledige documentatie van een voorbeeldbedrijf"
+        }
+      },
+      "closing": "Begin met het eerste punt.",
+      "pricing": "Prijzen en voorwaarden",
+      "pause": "Animatie pauzeren",
+      "play": "Animatie afspelen"
+    },
     "title": "Halveer Europa's <blue>NIS2</blue>-rekening.",
     "eyebrow": "Open source · Gratis · Geen lock-in",
     "subtitle": "Het gratis platform waarmee gereguleerde bedrijven en hun leveranciers NIS2 implementeren: met zelfbeoordeling, sjablonen en bestuurstraining. <os>Open source</os>, geen lock-in.",
