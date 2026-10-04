@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
 import { DurchgangHome } from "@/components/durchgang/DurchgangHome";
+import { TalkFirst } from "@/components/pricing/PaidPricingCards";
 import { getSession } from "@/lib/auth";
 import { walkLockFor } from "@/lib/billing/access";
 import { formatWholeEuro } from "@/lib/billing/order";
@@ -41,6 +42,7 @@ export default async function DurchgangHomePage() {
       lock={lock}
       price={price}
       setup={!session?.companyActivated}
+      call={<TalkFirst size="button" className="h-12 rounded-xl" />}
     />
   );
 }

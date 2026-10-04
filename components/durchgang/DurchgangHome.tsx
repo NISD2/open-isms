@@ -12,7 +12,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 import { ImagePreview } from "@/components/shared/ImagePreview";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -53,17 +53,22 @@ const stepId = (code: string) => `dg-step-${code}`;
  *
  * `setup`: a company not set up yet walks one step more, setting itself up right after the
  * registration (`useSteps`).
+ *
+ * `call`: beside "Jetzt bestellen", the way to talk to us first (the pricing page's `TalkFirst`,
+ * rendered by the server page and passed in).
  */
 export function DurchgangHome({
   walk,
   lock,
   price,
   setup,
+  call,
 }: {
   walk: readonly WalkEntry[];
   lock: WalkLock | null;
   price: string | null;
   setup: boolean;
+  call?: ReactNode;
 }) {
   const t = useTranslations("durchgang");
   const locale = useLocale();
@@ -157,6 +162,7 @@ export function DurchgangHome({
                 <ArrowRight />
               </Link>
             </Button>
+            {call}
             {lock.journey && (
               <Link
                 href="/journey"
