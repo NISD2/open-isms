@@ -1,12 +1,24 @@
 import { getLocale } from "next-intl/server";
+import { headlinesOf } from "@/app/[locale]/(portal)/durchgang/nis2/load";
 import { GetStarted } from "@/components/GetStarted";
 import { StuckLink } from "@/components/help/StuckLink";
 import { CertificateDownload } from "@/components/training-portal/CertificateDownload";
 import { LessonViewerPage } from "@/components/training-portal/LessonViewerPage";
-import { getSession } from "@/lib/auth";
 import { lessonArt } from "@/lib/training/art";
-import { journeyCategoryForLesson } from "@/lib/training/lesson-journey-map";
+import { walkItemForLesson } from "@/lib/training/lesson-journey-map";
 import { api } from "@/lib/trpc/server";
+
+/**
+ * The walk item a lesson leads to, named by the walk's own headline. The NIS2 course only: the
+ * other courses reuse its lesson IDs, so its map must not leak into them. The walk's gates take it
+ * from there (not set up, not paid).
+ */
+async function walkLinkFor(courseId: string, lessonId: string) {
+  const code = courseId === "nis2-ceo" ? walkItemForLesson(lessonId) : null;
+  if (!code) return null;
+  const headline = (await headlinesOf([code])).get(code);
+  return headline ? { code, headline } : null;
+}
 
 export default async function LessonRoute({
   params,
@@ -16,9 +28,10 @@ export default async function LessonRoute({
   const { courseId, lessonId } = await params;
   const locale = await getLocale();
 
-  const [lessonData, quizData] = await Promise.all([
+  const [lessonData, quizData, walkLink] = await Promise.all([
     api.trainingPortal.getLesson({ courseId, lessonId, locale }),
     api.trainingPortal.getQuiz({ courseId, lessonId, locale }).catch(() => null),
+    walkLinkFor(courseId, lessonId),
   ]);
 
   // The certificate sits on each course's final lesson. It used to match the
@@ -29,16 +42,6 @@ export default async function LessonRoute({
   const completion = isFinalLesson
     ? await api.trainingCertificate.getCourseCompletion({ courseId })
     : null;
-
-  // Per-lesson journey link only where it can actually work: the NIS2 course,
-  // for a user who has a company (so the journey is populated) and passes the
-  // journey flag. Other courses reuse lesson IDs, so the nis2-ceo-only map
-  // must not leak into them.
-  let journeyCategory: string | null = null;
-  const session = await getSession();
-  if (courseId === "nis2-ceo" && session?.companyId) {
-    journeyCategory = journeyCategoryForLesson(lessonId);
-  }
 
   async function handleSubmitQuiz(answers: number[]) {
     "use server";
@@ -60,7 +63,7 @@ export default async function LessonRoute({
         progress={lessonData.progress}
         courseId={courseId}
         image={lessonArt(courseId, lessonId)}
-        journeyCategory={journeyCategory}
+        walkLink={walkLink}
         onSubmitQuiz={handleSubmitQuiz}
         onCompleteLesson={handleCompleteLesson}
       />
