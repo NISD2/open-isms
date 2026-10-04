@@ -9,7 +9,14 @@
  */
 import { expect, test } from "@playwright/test";
 import { e2eQuery } from "../lib/db";
-import { e2eTenant, payFor, type Tenant, type Undo, undoAll } from "../lib/durchgang";
+import {
+  e2eTenant,
+  enabledNext,
+  payFor,
+  type Tenant,
+  type Undo,
+  undoAll,
+} from "../lib/durchgang";
 
 // 4.4: learn, example, what to ask first, then the backup systems.
 const SYSTEMS_SCREEN = 3;
@@ -107,7 +114,7 @@ test.describe("durchgang backup systems and crypto list", () => {
     });
     await expect(page.getByText("AES-256-GCM (256)", { exact: false })).toBeVisible();
     const next = page.getByRole("button", { name: "Weiter", exact: true });
-    await expect(next).toBeDisabled();
+    await expect(enabledNext(page)).toHaveCount(0);
 
     await page.locator("#dg-crypto-applies").click();
     await next.click();
