@@ -1,5 +1,75 @@
 {
   "landing": {
+    "guided": {
+      "eyebrow": "Para empresas de 50 a 150 empleados",
+      "title": "¿Le han encargado <blue>NIS2</blue>?",
+      "subtitle": "Le guiamos paso a paso. Usted rellena, nosotros explicamos cada punto con palabras sencillas y, al final, firma la dirección.",
+      "cta": "Empezar",
+      "trainingCta": "Formación gratuita para su director general",
+      "meta": {
+        "title": "NIS2 paso a paso, para empresas de 50 a 150 empleados",
+        "description": "Usted rellena, nosotros explicamos cada punto con palabras sencillas y, al final, firma la dirección. Para empresas sin departamento de seguridad propio."
+      }
+    },
+    "walk": {
+      "heroAlt": "El recorrido NIS2: su camino paso a paso, con los primeros puntos hechos",
+      "title": "Cómo el recorrido le lleva a través de NIS2",
+      "lead": "Cada imagen muestra la aplicación real, rellenada para empresas de ejemplo ficticias.",
+      "steps": {
+        "oneAtATime": {
+          "title": "Una cosa cada vez",
+          "text": "Solo ve un punto cada vez. Se lo explicamos con palabras sencillas antes de que introduzca nada, y la ley en la que se basa está a un clic.",
+          "alt": "Un paso del recorrido: el registro ante su autoridad, explicado con palabras sencillas"
+        },
+        "bsiMethods": {
+          "title": "Métodos del BSI",
+          "text": "Cuando la Oficina Federal de Seguridad de la Información de Alemania (BSI) recomienda un método, lo tiene listo, como la evaluación de riesgos del estándar BSI 200-3. Con un clic se convierte en el método de su empresa. Adoptarlo o no es decisión suya.",
+          "alt": "El método de evaluación de riesgos del estándar BSI 200-3, como entrada en los registros"
+        },
+        "riskMap": {
+          "title": "Sus riesgos de un vistazo",
+          "text": "Usted valora su software, su tecnología y sus proveedores en la matriz del BSI. La vista general muestra dónde están sus entradas y qué necesita protección primero.",
+          "alt": "La matriz de riesgos de una empresa de ejemplo: cuántas entradas hay en cada casilla"
+        },
+        "setAside": {
+          "title": "Dejar cosas pendientes está bien",
+          "text": "Lo que todavía no se puede hacer, lo aparta con un motivo, por ejemplo porque espera una carta o primero tiene que preguntar a alguien. El punto pasa a su lista de espera y usted sigue con el siguiente.",
+          "alt": "Apartar un punto: los motivos para elegir"
+        },
+        "signOff": {
+          "title": "La dirección aprueba en la aplicación",
+          "text": "Al final, la dirección lee los documentos que redactó el recorrido y los aprueba, con su propia cuenta. Su nombre y la fecha aparecen después en cada documento. No se imprime ni se escanea nada.",
+          "alt": "Los documentos del recorrido, aprobados por la dirección, cada uno con nombre y fecha"
+        },
+        "staysCurrent": {
+          "title": "Se mantiene al día",
+          "text": "Tras la aprobación, una página muestra lo que queda a su cargo: qué hacer cuando ocurre algo y qué se repite. Cuando vence una fecha o cambia una lista, el punto vuelve a la dirección para su aprobación.",
+          "alt": "Lo que queda tras la aprobación: qué hacer cuando ocurre algo y qué se repite, cada uno con su base legal"
+        }
+      },
+      "outcomes": {
+        "title": "Lo que queda después en sus registros",
+        "registers": {
+          "title": "Sus registros",
+          "text": "Lo que marca e introduce en el recorrido queda después en sus registros: activos, proveedores, riesgos, políticas, formaciones y revisiones de la dirección.",
+          "alt": "La lista de activos en el recorrido: procesos de negocio para marcar"
+        },
+        "log": {
+          "title": "El registro de actividad",
+          "text": "Muestra, día a día, quién cambió qué y cuándo. También incluye cada aprobación de la dirección.",
+          "alt": "El registro de actividad de una empresa de ejemplo"
+        },
+        "export": {
+          "title": "Todo en un documento",
+          "text": "El recorrido completo, de principio a fin: estado, puntos abiertos, documentos, matriz de riesgos, cada registro y cada respuesta. Guárdelo como PDF desde el navegador.",
+          "alt": "La documentación completa de una empresa de ejemplo"
+        }
+      },
+      "closing": "Empiece por el primer punto.",
+      "pricing": "Precios y condiciones",
+      "pause": "Pausar la animación",
+      "play": "Reproducir la animación"
+    },
     "title": "Reduzca a la mitad la factura de <blue>NIS2</blue> en Europa.",
     "eyebrow": "Open source · Gratis · Sin lock-in",
     "subtitle": "La plataforma gratuita para que las empresas reguladas y sus proveedores implementen NIS2: autoevaluación, plantillas y formación para la dirección. <os>Open source</os>, sin lock-in.",

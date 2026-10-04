@@ -1,5 +1,75 @@
 {
   "landing": {
+    "guided": {
+      "eyebrow": "Dla firm zatrudniających od 50 do 150 osób",
+      "title": "Masz zająć się <blue>NIS2</blue>?",
+      "subtitle": "Prowadzimy Cię krok po kroku. Ty wypełniasz, my wyjaśniamy każdy punkt prostymi słowami, a na końcu podpisuje kierownictwo.",
+      "cta": "Zacznij teraz",
+      "trainingCta": "Bezpłatne szkolenie dla zarządu",
+      "meta": {
+        "title": "NIS2 krok po kroku, dla firm zatrudniających od 50 do 150 osób",
+        "description": "Ty wypełniasz, my wyjaśniamy każdy punkt prostymi słowami, a na końcu podpisuje kierownictwo. Dla firm bez własnego działu bezpieczeństwa."
+      }
+    },
+    "walk": {
+      "heroAlt": "Przewodnik NIS2: Twoja ścieżka krok po kroku, pierwsze punkty gotowe",
+      "title": "Jak przewodnik prowadzi Cię przez NIS2",
+      "lead": "Każdy obraz pokazuje prawdziwą aplikację, wypełnioną dla fikcyjnych firm przykładowych.",
+      "steps": {
+        "oneAtATime": {
+          "title": "Jedna rzecz naraz",
+          "text": "Zawsze widzisz tylko jeden punkt. Wyjaśniamy go prostymi słowami, zanim cokolwiek wpiszesz, a przepis, na którym się opiera, jest o jedno kliknięcie dalej.",
+          "alt": "Krok przewodnika: rejestracja w Twoim urzędzie, wyjaśniona prostymi słowami"
+        },
+        "bsiMethods": {
+          "title": "Metody BSI",
+          "text": "Tam, gdzie niemiecki Federalny Urząd Bezpieczeństwa Informacji (BSI) zaleca metodę, masz ją gotową, na przykład ocenę ryzyka ze standardu BSI 200-3. Jedno kliknięcie czyni ją metodą Twojej firmy. Czy ją przyjmiesz, decydujesz Ty.",
+          "alt": "Metoda oceny ryzyka ze standardu BSI 200-3 jako wpis w rejestrach"
+        },
+        "riskMap": {
+          "title": "Twoje ryzyka w jednym spojrzeniu",
+          "text": "Oceniasz swoje oprogramowanie, technikę i dostawców na macierzy BSI. Przegląd pokazuje, gdzie są Twoje wpisy i co trzeba chronić najpierw.",
+          "alt": "Macierz ryzyka przykładowej firmy: ile wpisów jest w każdym polu"
+        },
+        "setAside": {
+          "title": "Zostawienie czegoś otwartego jest w porządku",
+          "text": "To, czego jeszcze nie da się zrobić, odkładasz z podaniem powodu, na przykład gdy czekasz na pismo albo musisz najpierw kogoś zapytać. Punkt trafia na Twoją listę oczekujących, a Ty przechodzisz do następnego.",
+          "alt": "Odkładanie punktu: powody do wyboru"
+        },
+        "signOff": {
+          "title": "Kierownictwo zatwierdza w aplikacji",
+          "text": "Na końcu kierownictwo czyta dokumenty przygotowane przez przewodnik i zatwierdza je, zalogowane na własne konto. Imię, nazwisko i data pojawiają się potem na każdym dokumencie. Nic nie jest drukowane ani skanowane.",
+          "alt": "Dokumenty przewodnika zatwierdzone przez kierownictwo, każdy z nazwiskiem i datą"
+        },
+        "staysCurrent": {
+          "title": "Zawsze aktualne",
+          "text": "Po zatwierdzeniu jedna strona pokazuje, co zostaje po Twojej stronie: co robić, gdy coś się wydarzy, i co powraca regularnie. Gdy nadchodzi termin albo zmieniasz listę, punkt wraca do kierownictwa do zatwierdzenia.",
+          "alt": "Co zostaje po zatwierdzeniu: co robić, gdy coś się wydarzy, i co powraca, każde z podstawą prawną"
+        }
+      },
+      "outcomes": {
+        "title": "Co potem masz w swojej dokumentacji",
+        "registers": {
+          "title": "Twoje rejestry",
+          "text": "To, co zaznaczysz i wpiszesz w przewodniku, trafia potem do Twoich rejestrów: zasoby, dostawcy, ryzyka, polityki, szkolenia i przeglądy kierownictwa.",
+          "alt": "Lista zasobów w przewodniku: procesy biznesowe do zaznaczenia"
+        },
+        "log": {
+          "title": "Dziennik aktywności",
+          "text": "Pokazuje dzień po dniu, kto, co i kiedy zmienił. Jest w nim też każde zatwierdzenie przez kierownictwo.",
+          "alt": "Dziennik aktywności przykładowej firmy"
+        },
+        "export": {
+          "title": "Wszystko w jednym dokumencie",
+          "text": "Cały przewodnik od początku do końca: status, otwarte punkty, dokumenty, macierz ryzyka, każdy rejestr i każda odpowiedź. Zapisz go jako PDF z przeglądarki.",
+          "alt": "Pełna dokumentacja przykładowej firmy"
+        }
+      },
+      "closing": "Zacznij od pierwszego punktu.",
+      "pricing": "Ceny i warunki",
+      "pause": "Wstrzymaj animację",
+      "play": "Odtwórz animację"
+    },
     "title": "Zmniejsz o połowę rachunek Europy za <blue>NIS2</blue>.",
     "eyebrow": "Open source · Darmowe · Kein Lock-in",
     "subtitle": "Darmowa platforma dla regulowanych firm i ich dostawców do wdrożenia NIS2: samoocena, szablony i szkolenia dla kierownictwa. <os>Open source</os>, bez lock-inu.",
