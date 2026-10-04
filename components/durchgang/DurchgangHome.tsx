@@ -20,9 +20,10 @@ import { Link } from "@/i18n/navigation";
 import type { WalkLock } from "@/lib/billing/access";
 import { APPROVAL_SCREEN, resumeAt } from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
-import { Art, SETUP_ART } from "./Art";
+import { Art } from "./Art";
 import { itemShot } from "./itemShots";
 import { PromiseCard } from "./PromiseCard";
+import { hrefOf, SETUP_STEP, useSteps } from "./setup";
 import { STAGE } from "./transition";
 import type { WalkEntry } from "./view";
 
@@ -35,14 +36,6 @@ const POINT_ICONS = [Footprints, ShieldCheck, Clock, BadgeCheck] as const;
 const FLASH_MS = 2400;
 
 const stepId = (code: string) => `dg-step-${code}`;
-
-/** The walk's first step while the company is not set up yet: setting it up. */
-const SETUP_STEP = "unternehmen";
-
-const hrefOf = (code: string) =>
-  code === SETUP_STEP
-    ? ("/durchgang/nis2/unternehmen" as const)
-    : ({ pathname: "/durchgang/nis2/[code]", params: { code } } as const);
 
 /**
  * The Durchgang's front door: what the walk is on the left, pinned while the path scrolls, with
@@ -58,8 +51,8 @@ const hrefOf = (code: string) =>
  * zooms into the part that matters (`itemShots`); open, a step opens itself instead (Simon,
  * 04.10.2026).
  *
- * `setup`: a company not set up yet (the draft every account gets at sign-up) walks one step more
- * first, setting itself up (Simon, 04.10.2026).
+ * `setup`: a company not set up yet walks one step more, setting itself up right after the
+ * registration (`useSteps`).
  */
 export function DurchgangHome({
   walk,
@@ -79,19 +72,7 @@ export function DurchgangHome({
     title: string;
     text: string;
   }>;
-  const steps: readonly WalkEntry[] = setup
-    ? [
-        {
-          code: SETUP_STEP,
-          section: t("ui.home.setupSection"),
-          headline: t("ui.home.setupHeadline"),
-          teaser: "",
-          image: SETUP_ART,
-          state: { kind: "open" },
-        },
-        ...walk,
-      ]
-    : walk;
+  const steps = useSteps(walk, setup);
   const untouched = steps.every((w) => w.state.kind === "open");
   const next = resumeAt(steps, (w) => w.state);
   const [flash, setFlash] = useState<string | null>(null);

@@ -350,6 +350,15 @@
         "price": "{price} netto im Jahr, zzgl. USt. 30 Tage Geld zurück.",
         "setupSection": "Vorbereitung",
         "setupHeadline": "Ihr Unternehmen anlegen",
+        "setupLead": "Name und Sektor sind dieselben wie bei der Registrierung. Alles Weitere tragen Sie dort ein, wo es gebraucht wird.",
+        "setupNameHint": "Wie bei der Registrierung, mit Rechtsform. So steht er auch in Ihren Dokumenten.",
+        "setupSectorHint": "Den Sektor geben Sie auch bei der Registrierung an.",
+        "setupEntityTypeHint": "Wie § 28 BSIG Ihr Unternehmen einstuft. Für Telekommunikation, Vertrauensdienste und DNS gelten eigene Schwellen.",
+        "setupEntityTypes": {
+          "essential": "Sektor aus Anlage 1, ab 250 Beschäftigten oder mit mehr als 50 Mio. Euro Umsatz und mehr als 43 Mio. Euro Bilanzsumme.",
+          "important": "Sektor aus Anlage 1 oder 2, ab 50 Beschäftigten oder mit jeweils mehr als 10 Mio. Euro Umsatz und Bilanzsumme.",
+          "kritis": "Sie betreiben eine kritische Anlage."
+        },
         "open": "Offen",
         "toSignOff": "Noch nicht freigegeben. Zur Freigabe springen",
         "next": "Als Nächstes",

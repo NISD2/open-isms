@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
 /**
  * The Durchgang's front door, and the portal's. An account that has not paid sees it locked: the
  * same page, with the way to order and its price in place of the way in. A company not set up yet
- * sees setting it up as the first step.
+ * sees setting it up as a step, right after the registration.
  */
 export default async function DurchgangHomePage() {
   const [{ mayWalk }, session, locale] = await Promise.all([

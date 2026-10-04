@@ -5,7 +5,7 @@
  *
  * The Durchgang opens at once, because the session reads the access level per request
  * (lib/auth/config.ts), so the button works without signing in again. A company not yet set up
- * sets itself up in the Durchgang's first step.
+ * sets itself up in the Durchgang, right after the registration.
  */
 import { ArrowRight, CircleCheck } from "lucide-react";
 import { useTranslations } from "next-intl";

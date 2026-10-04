@@ -350,6 +350,15 @@
         "price": "{price} net a year, plus VAT. 30 days money back.",
         "setupSection": "Getting started",
         "setupHeadline": "Set up your company",
+        "setupLead": "The name and the sector are the same as in the registration. Everything else you enter where it is needed.",
+        "setupNameHint": "As in the registration, with its legal form. This is also how it appears in your documents.",
+        "setupSectorHint": "You give the sector in the registration too.",
+        "setupEntityTypeHint": "How the law classifies your company (Art. 3 NIS 2, in Germany § 28 BSIG). Telecoms, trust services and DNS have thresholds of their own.",
+        "setupEntityTypes": {
+          "essential": "Annex I sector, from 250 employees, or more than 50 million euros turnover and more than 43 million euros balance sheet total.",
+          "important": "Annex I or II sector, from 50 employees, or more than 10 million euros each in turnover and balance sheet total.",
+          "kritis": "You operate a critical facility."
+        },
         "open": "Open",
         "toSignOff": "Not signed off yet. Jump to sign-off",
         "next": "Next",
