@@ -51,7 +51,7 @@ export default async function BillingPage({
 
   const t = await getTranslations("billing.page");
   const status = await api.billing.status();
-  // Not launched for this person yet: the page does not exist for them.
+  // Ordering is not open here (no live keys, or a sandbox and not an admin): no billing page.
   if (!status.open) notFound();
   const invoices = status.isPayer ? await api.billing.invoices() : null;
 

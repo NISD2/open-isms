@@ -9,7 +9,6 @@
 import "@/lib/server-guard";
 import { eq } from "drizzle-orm";
 import type { DbOrTx } from "@/lib/db";
-import { isFeatureOn } from "@/lib/feature-flags";
 import { user } from "@/schema";
 import { isGrandfatheredPerson } from "./access";
 import { netCentsFor } from "./order";
@@ -21,17 +20,11 @@ export const isGrandfatheredHolder = async (
 ): Promise<boolean> => {
   if (!holderUserId) return false;
   const [person] = await db
-    .select({
-      grandfatheredAt: user.grandfatheredAt,
-      emailVerifiedAt: user.emailVerifiedAt,
-      loginCount: user.loginCount,
-      lastLoginAt: user.lastLoginAt,
-    })
+    .select({ grandfatheredAt: user.grandfatheredAt })
     .from(user)
     .where(eq(user.id, holderUserId))
     .limit(1);
-  if (!person) return false;
-  return isGrandfatheredPerson(person, await isFeatureOn(db, "billing"));
+  return person ? isGrandfatheredPerson(person) : false;
 };
 
 /** The yearly net for an account held by this person. */

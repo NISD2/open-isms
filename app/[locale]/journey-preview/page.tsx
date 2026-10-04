@@ -3,12 +3,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { AppSidebar } from "@/components/portal/AppSidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { JourneyBoard } from "./JourneyBoard";
-import {
-  buildSampleNodes,
-  SAMPLE_FRAMEWORKS,
-  SAMPLE_USER,
-  sampleAggregate,
-} from "./sample-data";
+import { buildSampleNodes, SAMPLE_USER, sampleAggregate } from "./sample-data";
 import { titlesFor } from "./sample-titles";
 
 // Public design route for the portal sidebar + journey redesign. No auth, no
@@ -27,11 +22,9 @@ export default async function JourneyPreviewPage() {
     <SidebarProvider>
       <AppSidebar
         user={SAMPLE_USER}
-        frameworks={SAMPLE_FRAMEWORKS}
         showBilling={false}
         reviewAccess
         mayExport
-        walkthroughLive={false}
         portalOpen
         journeyNotice={false}
       />

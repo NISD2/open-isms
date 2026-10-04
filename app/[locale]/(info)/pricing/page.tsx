@@ -4,9 +4,7 @@ import { cache } from "react";
 import { JsonLd } from "@/components/JsonLd";
 import { MarketingHero } from "@/components/marketing/MarketingHero";
 import { PaidPricingCards } from "@/components/pricing/PaidPricingCards";
-import { PricingCards } from "@/components/pricing/PricingCards";
 import { getSession } from "@/lib/auth";
-import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { holderNetCents } from "@/lib/billing/holder-price";
 import {
   ANNUAL_NET_CENTS,
@@ -16,7 +14,6 @@ import {
 } from "@/lib/billing/order";
 import { billingFor } from "@/lib/billing/ordering-access";
 import { db } from "@/lib/db";
-import { isFeatureOn } from "@/lib/feature-flags";
 import {
   buildSoftwareApplicationJsonLd,
   type Locale,
@@ -25,23 +22,8 @@ import {
   pageOg,
 } from "@/lib/seo";
 
-/**
- * The page shows the paid offer only once pricing is launched in the platform admin Pricing tab
- * (lib/billing/launch.ts); before that, the free offer. Read per request (the (info) layout is
- * force-dynamic), once for metadata and page. A public page must not fail on the database, so an
- * error reads as "not launched".
- */
-const billingLaunched = cache(() => isFeatureOn(db, "billing").catch(() => false));
-
+/** Read once per request (the (info) layout is force-dynamic). A public page must not fail on it. */
 const visitorSession = cache(() => getSession().catch(() => null));
-
-/**
- * A platform admin sees the paid page before the launch, to test it with real ordering (which
- * billingFor already opens for them). Metadata stays on billingLaunched alone, so crawlers never
- * see the preview.
- */
-const showPaid = async () =>
-  (await billingLaunched()) || isPlatformAdmin((await visitorSession())?.user.email);
 
 export async function generateMetadata({
   params,
@@ -50,11 +32,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations("pricing");
-  const launched = await billingLaunched();
-  const title = launched ? t("paid.meta.title") : t("meta.title");
-  const description = launched
-    ? t("paid.meta.description", { price: formatEuro(ANNUAL_NET_CENTS, locale) })
-    : t("meta.description");
+  const title = t("paid.meta.title");
+  const description = t("paid.meta.description", {
+    price: formatEuro(ANNUAL_NET_CENTS, locale),
+  });
   return {
     title,
     description,
@@ -73,50 +54,25 @@ export async function generateMetadata({
 /**
  * Whether this visitor may order, and at what yearly price. The price is the visitor's own holder
  * price, the one the order's quote and invoice use (billing.quote), so the card shows what the
- * invoice will say. A public page must not fail on the database: any error reads as "not open" at
- * the public price.
+ * invoice will say. A public page must not fail on the database: an error reads as the public
+ * price.
  */
 const visitorOffer = async () => {
   const session = await visitorSession();
-  const orderOpen = await billingFor(db, session?.user.email).then(
-    (b) => b.open,
-    () => false,
-  );
+  const orderOpen = billingFor(session?.user.email).open;
   const netCents = await holderNetCents(db, session?.user.id ?? null).catch(
     () => ANNUAL_NET_CENTS,
   );
   return { orderOpen, netCents };
 };
 
-const FreePricing = async ({ locale }: { locale: Locale }) => {
-  const t = await getTranslations("pricing");
-
-  return (
-    <div className="space-y-10">
-      <JsonLd
-        data={buildSoftwareApplicationJsonLd({
-          slug: "pricing",
-          locale,
-          name: t("meta.title"),
-          description: t("meta.description"),
-        })}
-      />
-      <header>
-        <MarketingHero centered headline={t("title")} subhead={t("subtitle")} />
-      </header>
-
-      <PricingCards />
-    </div>
-  );
-};
-
-const PaidPricing = async ({
-  locale,
-  rawLocale,
+export default async function PricingPage({
+  params,
 }: {
-  locale: Locale;
-  rawLocale: string;
-}) => {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale: rawLocale } = await params;
+  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
   const t = await getTranslations("pricing");
   const offer = await visitorOffer();
   const price = formatEuro(ANNUAL_NET_CENTS, rawLocale);
@@ -161,20 +117,5 @@ const PaidPricing = async ({
         grandfatheredPrice={formatWholeEuro(GRANDFATHERED_NET_CENTS, rawLocale)}
       />
     </div>
-  );
-};
-
-export default async function PricingPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale: rawLocale } = await params;
-  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
-
-  return (await showPaid()) ? (
-    <PaidPricing locale={locale} rawLocale={rawLocale} />
-  ) : (
-    <FreePricing locale={locale} />
   );
 }

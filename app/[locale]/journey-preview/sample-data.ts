@@ -3,7 +3,6 @@
 // board drops into the real page unchanged. Titles are localized separately
 // (sample-titles.ts) so the preview can be screenshotted per locale.
 
-import type { FrameworkGroup } from "@/components/portal/AppSidebar";
 import { journeyState } from "@/lib/compliance/journey-position";
 import type { Aggregate, FlowNode } from "../(portal)/journey/path-nodes";
 
@@ -262,89 +261,3 @@ export const SAMPLE_USER = {
   image: null as string | null,
   isPlatformAdmin: false,
 };
-
-// Header counts derive from SEEDS so they cannot drift from the board aggregate
-// (done = status "done", total = all seeds). The per-category breakdown is
-// illustrative — categories do not map 1:1 to the SEEDS codes — but its
-// completedCount values are kept summing to SAMPLE_DONE so an expanded sidebar
-// stays consistent with the header and the board.
-const SAMPLE_DONE = SEEDS.filter((s) => s.status === "done").length;
-const SAMPLE_TOTAL = SEEDS.length;
-
-// One NIS2 framework group for the sidebar. Category names only show when the
-// group is expanded (collapsed by default), so they need no translation for the
-// hero shot; the header count matches the board aggregate.
-export const SAMPLE_FRAMEWORKS: FrameworkGroup[] = [
-  {
-    code: "NIS2",
-    label: "nis2",
-    codePrefix: "NIS2-",
-    completed: SAMPLE_DONE,
-    total: SAMPLE_TOTAL,
-    steps: [
-      {
-        slug: "governance",
-        code: "GOV",
-        name: "Governance",
-        phase: "phaseFoundation",
-        requirementCount: 4,
-        completedCount: 3,
-        requirements: [],
-      },
-      {
-        slug: "risk",
-        code: "RSK",
-        name: "Risikomanagement",
-        phase: "phaseFoundation",
-        requirementCount: 5,
-        completedCount: 3,
-        requirements: [],
-      },
-      {
-        slug: "supply",
-        code: "SUP",
-        name: "Lieferkette",
-        phase: "phaseFoundation",
-        requirementCount: 3,
-        completedCount: 1,
-        requirements: [],
-      },
-      {
-        slug: "crypto",
-        code: "CRY",
-        name: "Kryptografie",
-        phase: "phaseControls",
-        requirementCount: 2,
-        completedCount: 2,
-        requirements: [],
-      },
-      {
-        slug: "access",
-        code: "ACC",
-        name: "Zugriffssteuerung",
-        phase: "phaseControls",
-        requirementCount: 3,
-        completedCount: 1,
-        requirements: [],
-      },
-      {
-        slug: "incident",
-        code: "INC",
-        name: "Vorfallsbehandlung",
-        phase: "phaseOperations",
-        requirementCount: 3,
-        completedCount: 1,
-        requirements: [],
-      },
-      {
-        slug: "training",
-        code: "TRN",
-        name: "Schulung",
-        phase: "phaseVerification",
-        requirementCount: 2,
-        completedCount: 0,
-        requirements: [],
-      },
-    ],
-  },
-];

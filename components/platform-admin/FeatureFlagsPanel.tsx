@@ -2,8 +2,7 @@
 
 /**
  * The Feature flags tab: every platform switch (lib/feature-flags.ts), what it does, and its
- * state. A switch flipped here shows on each person's next full page load. Billing is listed but not
- * flipped here, because its launch in the Pricing tab is one-way.
+ * state. A switch flipped here shows on each person's next full page load.
  */
 import { ToggleRight } from "lucide-react";
 import { toast } from "sonner";
@@ -39,6 +38,9 @@ export function FeatureFlagsPanel() {
         </CardDescription>
       </CardHeader>
       <CardContent className="divide-y text-sm">
+        {flags.data?.length === 0 && (
+          <p className="text-muted-foreground">No switches right now.</p>
+        )}
         {(flags.data ?? []).map((flag) => (
           <div key={flag.key} className="flex items-start justify-between gap-6 py-4">
             <div className="min-w-0 space-y-1">
@@ -55,19 +57,13 @@ export function FeatureFlagsPanel() {
                   : "Never set, so off."}
               </p>
             </div>
-            {flag.toggle ? (
-              <Switch
-                aria-label={flag.label}
-                checked={flag.enabled}
-                disabled={set.isPending}
-                onCheckedChange={(enabled) => set.mutate({ key: flag.key, enabled })}
-                className="mt-1"
-              />
-            ) : (
-              <span className="mt-0.5 shrink-0 text-xs text-muted-foreground">
-                {flag.enabled ? "On" : "Off"} · set in Pricing
-              </span>
-            )}
+            <Switch
+              aria-label={flag.label}
+              checked={flag.enabled}
+              disabled={set.isPending}
+              onCheckedChange={(enabled) => set.mutate({ key: flag.key, enabled })}
+              className="mt-1"
+            />
           </div>
         ))}
       </CardContent>

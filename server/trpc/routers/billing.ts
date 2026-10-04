@@ -63,8 +63,8 @@ const payerProcedure = accountProcedure.use(async ({ ctx, next }) => {
   return next({ ctx: { ...ctx, account } });
 });
 
-const requireOrdering = async (db: DbOrTx, email: string | null | undefined) => {
-  const { mode, open } = await billingFor(db, email);
+const requireOrdering = (email: string | null | undefined) => {
+  const { mode, open } = billingFor(email);
   if (!open || mode.kind === "off") {
     throw new TRPCError({ code: "FORBIDDEN", message: "Ordering is not open." });
   }
@@ -115,7 +115,7 @@ const liveStatus = async (mode: OrderingMode, qontoInvoiceId: string) => {
 export const billingRouter = router({
   status: accountProcedure.query(async ({ ctx }) => {
     const account = await accountOf(ctx.db, ctx.companyId);
-    const { mode, open } = await billingFor(ctx.db, ctx.session.user.email);
+    const { mode, open } = billingFor(ctx.session.user.email);
     const now = new Date();
     const active = await findActiveInvoice(ctx.db, account.id, now);
     const isPayer = account.ownerUserId === ctx.userId;
@@ -147,7 +147,7 @@ export const billingRouter = router({
    * renewal (lib/billing/cancel.ts). The dialog showed which one; the server decides again by date.
    */
   cancel: payerProcedure.mutation(async ({ ctx }) => {
-    const mode = await requireOrdering(ctx.db, ctx.session.user.email);
+    const mode = requireOrdering(ctx.session.user.email);
     await limited(`billing:cancel:${ctx.userId}`, 3);
     const outcome = await cancelSubscription({
       db: ctx.db,
@@ -207,7 +207,7 @@ export const billingRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      await requireOrdering(ctx.db, ctx.session.user.email);
+      requireOrdering(ctx.session.user.email);
       await limited(`billing:quote:${ctx.userId}`, 10);
       return quoteFor({
         ...input,
@@ -241,7 +241,7 @@ export const billingRouter = router({
           message: "The terms have changed since this page was loaded.",
         });
       }
-      const mode = await requireOrdering(ctx.db, ctx.session.user.email);
+      const mode = requireOrdering(ctx.session.user.email);
       await limited(`billing:place:${ctx.userId}`, 3);
 
       const outcome = await placeOrder({

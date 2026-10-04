@@ -125,8 +125,8 @@ export function pageAlternates(
   // own. Emitting the narrowed cluster here instead would name three URLs and
   // omit this page from its own annotation, which is the invalid shape Google
   // discards the whole set for, and dropping it from the sitemap alone never
-  // stopped it being crawled: PricingCards and /vermittlung link /hilfe in
-  // every locale, and layout.tsx indexes everything by default.
+  // stopped it being crawled: the pricing cards and /vermittlung link /hilfe
+  // in every locale, and layout.tsx indexes everything by default.
   if (!locales.includes(safeLocale)) {
     return { canonical: localizedAbsoluteUrl(canonical, I18N_FALLBACK_LOCALE) };
   }

@@ -1,36 +1,38 @@
 /**
  * Platform switches. A switch with no row is off. Platform admin lists every one in its Feature
- * flags tab; `billing` is set once by the pricing launch (lib/billing/launch.ts), the rest are
- * flipped there.
+ * flags tab and flips it there.
  */
 import "@/lib/server-guard";
 import { eq } from "drizzle-orm";
 import type { DbOrTx } from "@/lib/db";
 import { featureFlag, featureFlagKeyEnum, user } from "@/schema";
 
-export type FeatureFlagKey = (typeof featureFlagKeyEnum.enumValues)[number];
+/**
+ * Enum values no code reads any more: `billing` (the pricing launch, done) and `walkthrough` (the
+ * walkthrough as the portal's front, done). They stay in the database enum, where Postgres cannot
+ * drop a value, and their rows stay where they are; they are not switches any more.
+ */
+const RETIRED = ["billing", "walkthrough"] as const;
+
+type EnumKey = (typeof featureFlagKeyEnum.enumValues)[number];
+export type FeatureFlagKey = Exclude<EnumKey, (typeof RETIRED)[number]>;
+
+const isRetired = (key: string): boolean => (RETIRED as readonly string[]).includes(key);
+
+/** Whether `key` names a live switch, one the registry describes. */
+export const isFeatureFlagKey = (key: string): key is FeatureFlagKey =>
+  featureFlagKeyEnum.enumValues.some((value) => value === key) && !isRetired(key);
+
+interface FeatureFlagInfo {
+  readonly label: string;
+  readonly description: string;
+}
 
 /**
- * What each switch does, and whether the Feature flags tab may flip it. A new enum value does not
- * compile until it is described here.
+ * What each switch does. A new enum value does not compile until it is described here (or retired
+ * above). None is live right now.
  */
-export const FEATURE_FLAGS = {
-  billing: {
-    label: "Billing",
-    description:
-      "The paywall for customers. Turned on once by Launch pricing in the Pricing tab, which grandfathers everyone who has got in. Nothing turns it off: grandfathering is a promise made at one moment.",
-    toggle: false,
-  },
-  walkthrough: {
-    label: "Walkthrough",
-    description:
-      "The NIS 2 walkthrough as the portal's front. On, for everyone: the main page after sign-in, first in the sidebar, the journey behind a one-time notice that it is the more detailed view, registers always open, the framework tree out of the sidebar. An account that has not paid sees the walkthrough locked: a grandfathered one with Order now and its journey beside it (only the journey while ordering is not open, so launch pricing first), a free one with Order now to the offer and no journey. Off: platform admins see all that, everyone else the journey as before with the walkthrough marked coming soon. Paid accounts can open the walkthrough's address either way.",
-    toggle: true,
-  },
-} as const satisfies Record<
-  FeatureFlagKey,
-  { readonly label: string; readonly description: string; readonly toggle: boolean }
->;
+export const FEATURE_FLAGS: Readonly<Record<FeatureFlagKey, FeatureFlagInfo>> = {};
 
 export const isFeatureOn = async (db: DbOrTx, key: FeatureFlagKey): Promise<boolean> => {
   const [row] = await db
@@ -57,7 +59,7 @@ export const setFeature = async (
     });
 };
 
-/** Every switch in the enum, with its state and who last set it; one with no row is off. */
+/** Every live switch, with its state and who last set it; one with no row is off. */
 export const listFeatures = async (db: DbOrTx) => {
   const rows = await db
     .select({
@@ -68,14 +70,18 @@ export const listFeatures = async (db: DbOrTx) => {
     })
     .from(featureFlag)
     .leftJoin(user, eq(user.id, featureFlag.updatedByUserId));
-  return featureFlagKeyEnum.enumValues.map((key) => {
-    const row = rows.find((r) => r.key === key);
-    return {
-      key,
-      ...FEATURE_FLAGS[key],
-      enabled: row?.enabled ?? false,
-      updatedAt: row?.updatedAt ?? null,
-      updatedBy: row?.updatedBy ?? null,
-    };
-  });
+  return Object.keys(FEATURE_FLAGS)
+    .filter(isFeatureFlagKey)
+    .map((key) => {
+      const info: FeatureFlagInfo = FEATURE_FLAGS[key];
+      const row = rows.find((r) => r.key === key);
+      return {
+        key,
+        label: info.label,
+        description: info.description,
+        enabled: row?.enabled ?? false,
+        updatedAt: row?.updatedAt ?? null,
+        updatedBy: row?.updatedBy ?? null,
+      };
+    });
 };

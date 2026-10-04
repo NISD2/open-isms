@@ -5,7 +5,6 @@ import { getSession } from "@/lib/auth";
 import { walkLockFor } from "@/lib/billing/access";
 import { formatWholeEuro } from "@/lib/billing/order";
 import { billingFor } from "@/lib/billing/ordering-access";
-import { db } from "@/lib/db";
 import { api } from "@/lib/trpc/server";
 import { walkAccess } from "../gate";
 import { loadWalk } from "./load";
@@ -16,9 +15,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /**
- * The Durchgang's front door. An account that has not paid sees it locked once the walkthrough is
- * the portal's front: the same page, with the way to order and its price in place of the way in.
- * A company not set up yet sees setting it up as the first step.
+ * The Durchgang's front door, and the portal's. An account that has not paid sees it locked: the
+ * same page, with the way to order and its price in place of the way in. A company not set up yet
+ * sees setting it up as the first step.
  */
 export default async function DurchgangHomePage() {
   const [{ mayWalk }, session, locale] = await Promise.all([
@@ -29,7 +28,7 @@ export default async function DurchgangHomePage() {
   const lock =
     mayWalk || !session
       ? null
-      : walkLockFor(session.accessLevel, (await billingFor(db, session.user.email)).open);
+      : walkLockFor(session.accessLevel, billingFor(session.user.email).open);
   const [walk, price] = await Promise.all([
     loadWalk({ locked: lock !== null }),
     lock?.orderAt

@@ -16,8 +16,8 @@ import { PARTNER_SLUG_PATTERN } from "@/lib/advisory-options";
 import { logAudit } from "@/lib/audit";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { createBillingAccount } from "@/lib/billing/accounts";
+import { announcementGroup } from "@/lib/billing/announcement-group";
 import { closeDeal, closeNetCents } from "@/lib/billing/close-deal";
-import { launchBilling, pricingState } from "@/lib/billing/launch";
 import { formatEuro, orderSchemaWithVatCheck } from "@/lib/billing/order";
 import { clearCheckedOrder, listOrderChecks } from "@/lib/billing/order-check";
 import { orderingMode } from "@/lib/billing/ordering";
@@ -37,12 +37,7 @@ import { closeSyncOnce, closeSyncState } from "@/lib/crm/schedule";
 import { closeSyncStatus } from "@/lib/crm/status";
 import type { Database } from "@/lib/db";
 import { env, mailSupportEmail } from "@/lib/env";
-import {
-  FEATURE_FLAGS,
-  isFeatureOn,
-  listFeatures,
-  setFeature,
-} from "@/lib/feature-flags";
+import { isFeatureFlagKey, listFeatures, setFeature } from "@/lib/feature-flags";
 import { answerMapSchema, getGapAssessmentData } from "@/lib/gap-assessment";
 import { computeScores } from "@/lib/gap-assessment/scoring";
 import {
@@ -101,7 +96,6 @@ import {
   dataErasureLog,
   emailPreference,
   evidence,
-  featureFlagKeyEnum,
   gapAssessment,
   notification,
   signOffHistory,
@@ -431,13 +425,13 @@ export const platformAdminRouter = router({
    * procedure in this group takes an id that could point at somebody else.
    */
   /**
-   * The Pricing tab: whether pricing is launched, whether it can be, the announcement group, and the
-   * promo link: its code and last day, how many it has grandfathered, and the links to send.
+   * The Pricing tab: the announcement group frozen at the pricing launch, and the promo link: its
+   * code and last day, how many it has grandfathered, and the links to send.
    */
   pricingState: platformAdminProcedure.query(async ({ ctx }) => {
     const summary = promoSummary(env);
-    const [state, [granted]] = await Promise.all([
-      pricingState(ctx.db, orderingMode(env).kind === "live"),
+    const [group, [granted]] = await Promise.all([
+      announcementGroup(ctx.db),
       ctx.db
         .select({ n: count() })
         .from(auditLog)
@@ -449,56 +443,19 @@ export const platformAdminRouter = router({
           url: `${localizedAbsoluteUrl("/anmelden", locale)}?promo=${encodeURIComponent(summary.code)}`,
         }))
       : [];
-    return { ...state, promo: { summary, grandfathered: granted?.n ?? 0, links } };
-  }),
-
-  /**
-   * Launch pricing, once. Grandfathers everyone who has got in, freezes the announcement group and
-   * turns the paywall on, all or nothing (lib/billing/launch.ts). There is no way back: nothing in
-   * the app turns it off, because grandfathering is a promise made at one moment.
-   */
-  launchPricing: platformAdminProcedure.mutation(async ({ ctx }) => {
-    // Without live keys /bestellen does not exist, and every new signup would be sent to a 404.
-    if (orderingMode(env).kind !== "live") {
-      throw new TRPCError({
-        code: "PRECONDITION_FAILED",
-        message: "Pricing needs live Qonto keys before it can launch.",
-      });
-    }
-    const launch = await ctx.db.transaction(async (tx) => {
-      // Under the transaction, so two clicks cannot both launch.
-      await tx.execute(sql`select pg_advisory_xact_lock(hashtext('pricing-launch'))`);
-      if (await isFeatureOn(tx, "billing")) return null;
-      return launchBilling(tx, ctx.userId);
-    });
-    if (!launch)
-      throw new TRPCError({ code: "CONFLICT", message: "Pricing is already launched." });
-    await logAudit({
-      companyId: null,
-      userId: ctx.userId,
-      action: "platform.pricing_launch",
-      entityType: "feature_flag",
-      entityId: null,
-      description: `Pricing launched: ${launch.stampedUsers} people grandfathered, ${launch.accountsGrandfathered} accounts moved to grandfathered, announcement group of ${launch.groupMembers}`,
-      ipAddress: ctx.ip,
-      userAgent: ctx.userAgent,
-    });
-    return launch;
+    return { group, promo: { summary, grandfathered: granted?.n ?? 0, links } };
   }),
 
   /** The Feature flags tab: every switch, what it does, and whether it is flipped there. */
   featureFlags: platformAdminProcedure.query(({ ctx }) => listFeatures(ctx.db)),
 
-  /** Flips one switch. A switch with its own one-way control (billing) is refused here. */
+  /** Flips one live switch (lib/feature-flags.ts); a retired one is refused. */
   setFeatureFlag: platformAdminProcedure
-    .input(z.object({ key: z.enum(featureFlagKeyEnum.enumValues), enabled: z.boolean() }))
+    .input(z.object({ key: z.string(), enabled: z.boolean() }))
     .mutation(async ({ ctx, input }) => {
-      const flag = FEATURE_FLAGS[input.key];
-      if (!flag.toggle)
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: `${flag.label} is not switched from the Feature flags tab.`,
-        });
+      if (!isFeatureFlagKey(input.key)) {
+        throw new TRPCError({ code: "BAD_REQUEST", message: "No such switch." });
+      }
       await setFeature(ctx.db, input.key, input.enabled, ctx.userId);
       await logAudit({
         companyId: null,
