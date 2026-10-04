@@ -1,8 +1,8 @@
 import { getLocale } from "next-intl/server";
+import { GetStarted } from "@/components/GetStarted";
 import { StuckLink } from "@/components/help/StuckLink";
 import { CertificateDownload } from "@/components/training-portal/CertificateDownload";
 import { LessonViewerPage } from "@/components/training-portal/LessonViewerPage";
-import { StartJourneyCta } from "@/components/training-portal/StartJourneyCta";
 import { getSession } from "@/lib/auth";
 import { lessonArt } from "@/lib/training/art";
 import { journeyCategoryForLesson } from "@/lib/training/lesson-journey-map";
@@ -74,13 +74,16 @@ export default async function LessonRoute({
             totalCount={completion.totalCount}
             userName={completion.userName}
           />
-          {completion.allCompleted && <StartJourneyCta locale={locale} />}
+          {/* The walk's home takes a finisher from wherever they stand: not set
+              up yet, it opens on setting the company up; not paid, it shows the
+              way to order. */}
+          {completion.allCompleted && <GetStarted href="/durchgang/nis2" />}
           {/* End of the course is the second place someone stalls: they have
               the theory and no next step. Same one-line offer as the
               requirement sidebar, below the certificate rather than above it,
               so finishing is still the headline.
 
-              Gated on allCompleted like StartJourneyCta above, not on
+              Gated on allCompleted like GetStarted above, not on
               `completion` being non-null: completion is fetched for the
               certificate lesson whatever the progress, so opening it two
               modules in used to show end-of-course help to someone who has
