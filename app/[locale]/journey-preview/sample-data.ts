@@ -256,8 +256,8 @@ export function sampleAggregate(nodes: FlowNode[]): Aggregate {
 }
 
 export const SAMPLE_USER = {
-  name: "Simon Orzel",
-  email: "simon@nisd2.eu",
+  name: "Max Mustermann",
+  email: "max.mustermann@musterland.example",
   image: null as string | null,
   isPlatformAdmin: false,
 };
