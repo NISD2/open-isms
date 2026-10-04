@@ -7,11 +7,13 @@ import {
   Check,
   ChevronRight,
   Clock,
+  Eye,
   Footprints,
   ShieldCheck,
 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
+import { ImagePreview } from "@/components/shared/ImagePreview";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Link } from "@/i18n/navigation";
@@ -19,6 +21,7 @@ import type { WalkLock } from "@/lib/billing/access";
 import { APPROVAL_SCREEN, resumeAt } from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
 import { Art, SETUP_ART } from "./Art";
+import { itemShot } from "./itemShots";
 import { PromiseCard } from "./PromiseCard";
 import { STAGE } from "./transition";
 import type { WalkEntry } from "./view";
@@ -51,7 +54,9 @@ const hrefOf = (code: string) =>
  * bestellen" in place of the way in, and steps that show but do not open. An account that keeps
  * its journey free (grandfathered) is offered it beside the order, as the quieter way, or as the
  * one way on while ordering is not open yet. `price` is what that account would pay, shown under
- * the order.
+ * the order. Locked, each step shows a screenshot of itself on hover, or on a tap on touch, and
+ * zooms into the part that matters (`itemShots`); open, a step opens itself instead (Simon,
+ * 04.10.2026).
  *
  * `setup`: a company not set up yet (the draft every account gets at sign-up) walks one step more
  * first, setting itself up (Simon, 04.10.2026).
@@ -68,6 +73,7 @@ export function DurchgangHome({
   setup: boolean;
 }) {
   const t = useTranslations("durchgang");
+  const locale = useLocale();
   const locked = lock !== null;
   const points = t.raw("ui.intro.points") as ReadonlyArray<{
     title: string;
@@ -220,6 +226,13 @@ export function DurchgangHome({
             const waiting = entry.state.kind === "waiting";
             const isNext = next?.code === entry.code;
             const href = hrefOf(entry.code);
+            const shot = locked
+              ? itemShot(
+                  entry.code,
+                  locale,
+                  t("ui.home.previewAlt", { step: entry.headline }),
+                )
+              : null;
             const circle = cn(
               "flex size-7 items-center justify-center rounded-full border-2 border-muted-foreground/25",
               settled && "border-primary bg-primary text-primary-foreground",
@@ -248,6 +261,8 @@ export function DurchgangHome({
                     "relative flex items-center gap-3 rounded-2xl border bg-card p-3 pr-4 pl-5 shadow-xs transition duration-500 sm:gap-4",
                     !locked &&
                       "hover:border-primary/40 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-ring",
+                    shot &&
+                      "hover:border-primary/40 has-[button:focus-visible]:ring-2 has-[button:focus-visible]:ring-ring",
                     isNext && "border-primary/60 ring-4 ring-primary/10",
                     flash === entry.code &&
                       "border-emerald-600 ring-4 ring-emerald-600/25",
@@ -332,6 +347,24 @@ export function DurchgangHome({
                   </div>
                   {!locked && (
                     <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
+                  )}
+                  {/* A locked step does not open, it shows itself: the whole card is the trigger,
+                      so the preview sits beside the card, and the eye tells a phone user that a
+                      tap shows it. */}
+                  {shot && (
+                    <>
+                      <Eye
+                        aria-hidden
+                        className="size-4 shrink-0 text-muted-foreground"
+                      />
+                      <ImagePreview image={shot}>
+                        <button
+                          type="button"
+                          aria-label={t("ui.home.preview", { step: entry.headline })}
+                          className="absolute inset-0 z-20 cursor-pointer rounded-2xl focus-visible:outline-none"
+                        />
+                      </ImagePreview>
+                    </>
                   )}
                 </div>
               </li>

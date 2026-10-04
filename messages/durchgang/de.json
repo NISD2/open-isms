@@ -359,6 +359,8 @@
         "declined": "Bewusst nicht umgesetzt",
         "signed": "Freigegeben",
         "notApplicable": "Trifft nicht zu",
+        "preview": "So sieht „{step}“ aus",
+        "previewAlt": "Der Schritt „{step}“ am Beispiel einer erfundenen Firma",
         "continueHere": "Jetzt weitermachen"
       },
       "intro": {
