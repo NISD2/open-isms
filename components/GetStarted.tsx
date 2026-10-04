@@ -10,11 +10,17 @@ import { cn } from "@/lib/utils";
  * page, /about and every wiki article. One ask everywhere, so a reader never weighs a scope check
  * against a request form against a sign-up. A finished course ends on it too, pointing a reader
  * who is already signed in straight at the walk.
+ *
+ * `landing` closes the landing page, whose reader has just seen the walk screen by screen.
+ * `funnel` is for a page a reader enters from search and never saw the landing page: it repeats
+ * the landing page's headline and subline, so the ask carries its own reason.
  */
 export async function GetStarted({
+  variant,
   className,
   href = "/auth/signin",
 }: {
+  variant: "landing" | "funnel";
   className?: string;
   href?: ComponentProps<typeof Link>["href"];
 }) {
@@ -29,8 +35,17 @@ export async function GetStarted({
     >
       <div>
         <h2 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
-          {t("walk.closing")}
+          {variant === "landing"
+            ? t("walk.closing")
+            : t.rich("guided.title", {
+                blue: (chunks) => <span className="text-primary">{chunks}</span>,
+              })}
         </h2>
+        {variant === "funnel" && (
+          <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+            {t("guided.subtitle")}
+          </p>
+        )}
         <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
           <Button
             asChild
