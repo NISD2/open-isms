@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { JsonLd } from "@/components/JsonLd";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
-import { pageAlternates, pageOg, type Locale } from "@/lib/seo";
-import { JsonLd } from "@/components/JsonLd";
+import { GlossedProse } from "@/components/wiki/GlossedProse";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { Link } from "@/i18n/navigation";
+import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -47,11 +47,7 @@ const anchorKeys = ["directive", "regulation", "transposition"] as const;
 const elementKeys = ["processes", "systems", "classification"] as const;
 const principleKeys = ["groupDontEnumerate", "processFirst"] as const;
 const nationalKeys = ["bsi", "enisa", "iso"] as const;
-const pitfallKeys = [
-  "confluencePage",
-  "everyServer",
-  "skipProcessMap",
-] as const;
+const pitfallKeys = ["confluencePage", "everyServer", "skipProcessMap"] as const;
 
 export default async function HowToBuildAssetInventoryPage({
   params,
@@ -59,8 +55,7 @@ export default async function HowToBuildAssetInventoryPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale =
-    rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
   const t = await getTranslations("info");
 
   const steps = elementKeys.map((key) => ({
@@ -99,7 +94,7 @@ export default async function HowToBuildAssetInventoryPage({
 
         <header>
           <Badge variant="secondary" className="mb-3">
-            CIR §12.4 + BSI 200-2 §8.1
+            CIR Annex 12.4 + BSI 200-2 §8.1
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight">
             {t("howToBuildAssetInventory.title")}
@@ -112,7 +107,7 @@ export default async function HowToBuildAssetInventoryPage({
         <WikiPageMeta
           authorSlug="simon-orzel"
           locale={locale === "nl" ? "de" : (locale as "de" | "en")}
-          lastReviewedAt="2026-05-30"
+          lastReviewedAt="2026-10-05"
           sourceLocale="en"
         />
 
@@ -137,9 +132,7 @@ export default async function HowToBuildAssetInventoryPage({
         {/* Legal anchor */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("howToBuildAssetInventory.legalAnchor.heading")}
-            </CardTitle>
+            <CardTitle>{t("howToBuildAssetInventory.legalAnchor.heading")}</CardTitle>
             <CardDescription>
               {t("howToBuildAssetInventory.legalAnchor.description")}
             </CardDescription>
@@ -166,9 +159,7 @@ export default async function HowToBuildAssetInventoryPage({
         {/* Three build steps */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("howToBuildAssetInventory.elements.heading")}
-            </CardTitle>
+            <CardTitle>{t("howToBuildAssetInventory.elements.heading")}</CardTitle>
             <CardDescription>
               {t("howToBuildAssetInventory.elements.description")}
             </CardDescription>
@@ -195,9 +186,7 @@ export default async function HowToBuildAssetInventoryPage({
         {/* Two governing principles */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("howToBuildAssetInventory.principles.heading")}
-            </CardTitle>
+            <CardTitle>{t("howToBuildAssetInventory.principles.heading")}</CardTitle>
             <CardDescription>
               {t("howToBuildAssetInventory.principles.description")}
             </CardDescription>
@@ -221,9 +210,7 @@ export default async function HowToBuildAssetInventoryPage({
         {/* National operationalisation */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("howToBuildAssetInventory.nationalView.heading")}
-            </CardTitle>
+            <CardTitle>{t("howToBuildAssetInventory.nationalView.heading")}</CardTitle>
             <CardDescription>
               {t("howToBuildAssetInventory.nationalView.description")}
             </CardDescription>
@@ -234,20 +221,14 @@ export default async function HowToBuildAssetInventoryPage({
                 <div key={key} className="rounded-lg border p-4">
                   <div className="flex flex-wrap items-baseline gap-2">
                     <Badge variant="outline" className="text-[10px]">
-                      {t(
-                        `howToBuildAssetInventory.nationalView.items.${key}.country`,
-                      )}
+                      {t(`howToBuildAssetInventory.nationalView.items.${key}.country`)}
                     </Badge>
                     <p className="text-sm font-semibold">
-                      {t(
-                        `howToBuildAssetInventory.nationalView.items.${key}.label`,
-                      )}
+                      {t(`howToBuildAssetInventory.nationalView.items.${key}.label`)}
                     </p>
                   </div>
                   <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                    {t(
-                      `howToBuildAssetInventory.nationalView.items.${key}.body`,
-                    )}
+                    {t(`howToBuildAssetInventory.nationalView.items.${key}.body`)}
                   </p>
                 </div>
               ))}
@@ -258,9 +239,7 @@ export default async function HowToBuildAssetInventoryPage({
         {/* Pitfalls */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("howToBuildAssetInventory.pitfalls.heading")}
-            </CardTitle>
+            <CardTitle>{t("howToBuildAssetInventory.pitfalls.heading")}</CardTitle>
             <CardDescription>
               {t("howToBuildAssetInventory.pitfalls.description")}
             </CardDescription>
@@ -284,9 +263,7 @@ export default async function HowToBuildAssetInventoryPage({
         {/* Practitioner view */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("howToBuildAssetInventory.practitioner.heading")}
-            </CardTitle>
+            <CardTitle>{t("howToBuildAssetInventory.practitioner.heading")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <p className="text-sm leading-relaxed text-muted-foreground">
@@ -301,9 +278,7 @@ export default async function HowToBuildAssetInventoryPage({
         {/* Platform recommendation */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("howToBuildAssetInventory.platform.heading")}
-            </CardTitle>
+            <CardTitle>{t("howToBuildAssetInventory.platform.heading")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <p className="text-sm leading-relaxed text-muted-foreground">
@@ -318,23 +293,21 @@ export default async function HowToBuildAssetInventoryPage({
         {/* Sources */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("howToBuildAssetInventory.sources.heading")}
-            </CardTitle>
+            <CardTitle>{t("howToBuildAssetInventory.sources.heading")}</CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">
-              {(
-                t.raw("howToBuildAssetInventory.sources.items") as string[]
-              ).map((source, i) => (
-                <li
-                  key={i}
-                  className="flex items-start gap-2 text-xs text-muted-foreground"
-                >
-                  <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
-                  {source}
-                </li>
-              ))}
+              {(t.raw("howToBuildAssetInventory.sources.items") as string[]).map(
+                (source) => (
+                  <li
+                    key={source}
+                    className="flex items-start gap-2 text-xs text-muted-foreground"
+                  >
+                    <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
+                    {source}
+                  </li>
+                ),
+              )}
             </ul>
           </CardContent>
         </Card>
@@ -342,18 +315,14 @@ export default async function HowToBuildAssetInventoryPage({
         {/* CTA */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("howToBuildAssetInventory.ctaCard.heading")}
-            </CardTitle>
+            <CardTitle>{t("howToBuildAssetInventory.ctaCard.heading")}</CardTitle>
             <CardDescription>
               {t("howToBuildAssetInventory.ctaCard.description")}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Button asChild>
-              <Link href="/auth/signin">
-                {t("howToBuildAssetInventory.cta")}
-              </Link>
+              <Link href="/auth/signin">{t("howToBuildAssetInventory.cta")}</Link>
             </Button>
           </CardContent>
         </Card>

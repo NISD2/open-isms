@@ -1,11 +1,15 @@
+import { CheckCircle2, MinusCircle } from "lucide-react";
 import type { Metadata } from "next";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import {
   Table,
   TableBody,
@@ -14,60 +18,59 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
-import { CheckCircle2, MinusCircle } from "lucide-react";
-import { pageAlternates, pageOg, type Locale as SeoLocale } from "@/lib/seo";
+import { GlossedProse } from "@/components/wiki/GlossedProse";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { Link } from "@/i18n/navigation";
 import {
-  NIS2_DOCUMENTS,
-  NIS2_DOCUMENT_GROUPS,
   type DocumentGroup,
+  NIS2_DOCUMENT_GROUPS,
+  NIS2_DOCUMENTS,
 } from "@/lib/nis2-documents";
+import { pageAlternates, pageOg, type Locale as SeoLocale } from "@/lib/seo";
 
 type Locale = "de" | "en" | "nl";
 
-const content: Record<Locale, {
-  title: string;
-  subtitle: string;
-  meta: { title: string; description: string };
-  intro: string[];
-  sources: { heading: string; bullets: string[] };
-  countLine: (groupCount: number, docCount: number, coveredCount: number) => string;
-  columns: {
-    name: string;
-    reference: string;
-    description: string;
-    platform: string;
-  };
-  notCoveredLabel: string;
-  cta: { heading: string; description: string; primary: string; secondary: string };
-  footnote: string;
-  breadcrumb: string;
-  badge: string;
-}> = {
+const content: Record<
+  Locale,
+  {
+    title: string;
+    subtitle: string;
+    meta: { title: string; description: string };
+    intro: string[];
+    sources: { heading: string; bullets: string[] };
+    countLine: (groupCount: number, docCount: number, coveredCount: number) => string;
+    columns: {
+      name: string;
+      reference: string;
+      description: string;
+      platform: string;
+    };
+    notCoveredLabel: string;
+    cta: { heading: string; description: string; primary: string; secondary: string };
+    footnote: string;
+    breadcrumb: string;
+    badge: string;
+  }
+> = {
   de: {
-    title: "NIS 2 Dokumente: Pflicht-Liste nach Richtlinie + CIR 2024/2690",
+    title: "NIS 2 Dokumente: was Richtlinie, BSIG und CIR 2024/2690 nennen",
     subtitle:
-      "Die Dokumente und Aufzeichnungen, die NIS 2 und die Durchführungsverordnung 2024/2690 verlangen — eins zu eins zur Regulierung, ohne Beratungs-Bloat.",
+      "Die Dokumente und Aufzeichnungen hinter NIS 2 und der Durchführungsverordnung 2024/2690. Die meisten Details stammen aus dem Anhang der Verordnung, der nur die dort erfassten digitalen Anbieter bindet (DNS, TLD, Cloud, Rechenzentren, CDN, MSP, MSSP, Online-Marktplätze, Suchmaschinen, soziale Netzwerke, Vertrauensdienste). Für alle anderen Einrichtungen verlangt das Gesetz Konzepte zu Risikoanalyse und IT-Sicherheit, Wirksamkeit, Kryptographie, Personal, Zugriff und Verwaltung der IT sowie die Dokumentation der Maßnahmen (§ 30 BSIG); die Form ist frei.",
     meta: {
-      title: "NIS 2 Dokumente: Pflicht-Liste (Richtlinie + CIR 2024/2690)",
+      title: "NIS 2 Dokumente: was Richtlinie, BSIG und CIR 2024/2690 nennen",
       description:
-        "Die unter NIS 2 und CIR 2024/2690 erforderlichen Dokumente — verankert in den EU-Originaltexten. Pro Dokument: Artikel-Verweis, CIR-Annex, Beschreibung und nisd2.eu-Plattform-Modul.",
+        "Die Dokumente und Aufzeichnungen, die NIS 2, das BSIG und die CIR 2024/2690 nennen, verankert in den Originaltexten. Zeilen aus dem CIR-Anhang binden nur die dort erfassten digitalen Anbieter. Pro Dokument: Artikel-Verweis, CIR-Annex, Beschreibung und nisd2.eu-Plattform-Modul.",
     },
     intro: [
-      "Diese Seite listet die Dokumente und Aufzeichnungen, die NIS 2 (Richtlinie (EU) 2022/2555) und die Durchführungsverordnung (EU) 2024/2690 verlangen. Quelle für die Benennung und Verweise: die Verordnungstexte selbst — nicht ein Berater-Toolkit.",
-      "Bewusst kompakt: Beratungs-Toolkits zerlegen jede Anforderung in Verfahren + Formular + Anhang und kommen so auf 60+ Dokumente. Die Verordnung verlangt das nicht. Eine Anforderung = ein Dokument oder eine Aufzeichnung. Die fünf Stufen der Meldekaskade nach Artikel 23 sind ein Vorfall, der fünf Statusphasen durchläuft, nicht fünf separate Dokumente.",
+      "Diese Seite listet die Dokumente und Aufzeichnungen, die NIS 2 (Richtlinie (EU) 2022/2555), das BSIG und die Durchführungsverordnung (EU) 2024/2690 nennen. Zeilen, die nur im CIR-Anhang verankert sind, binden die in Art. 1 CIR genannten digitalen Anbieter; für andere Einrichtungen sind sie Orientierung, keine Pflicht.",
+      "Bewusst kompakt: Beratungs-Toolkits zerlegen jede Anforderung oft in Verfahren, Formular und Anhang. Die Verordnung verlangt das nicht. Eine Anforderung = ein Dokument oder eine Aufzeichnung. Die fünf Stufen der Meldekaskade nach Artikel 23 sind ein Vorfall, der fünf Statusphasen durchläuft, nicht fünf separate Dokumente.",
       "Letzte Spalte: das genaue nisd2.eu-Modul, in dem das Dokument bzw. der Nachweis aus Ihren Daten lebt — versionsfest, mit Audit-Trail, jederzeit exportierbar. Klicken Sie auf das Modul, um direkt zur Live-Ansicht zu springen. So entsteht keine eingefrorene Word-Vorlage, sondern eine durchgehende Compliance-Posture.",
     ],
     sources: {
       heading: "Quellen",
       bullets: [
-        "Richtlinie (EU) 2022/2555 (NIS 2) — Artikel 20, 21(2)(a-j), 23, 27",
+        "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 3 Abs. 4, 20, 21 Abs. 2 Buchst. a bis j, 23",
         "Durchführungsverordnung (EU) 2024/2690 — Annex Abschnitte 1-13",
         "BSIG (deutsche Umsetzung) — §§ 30, 32, 33, 38",
         "BSI TR-02102 (Kryptografie), TR-03107 (Authentifizierung) — wo einschlägig",
@@ -95,23 +98,23 @@ const content: Record<Locale, {
     badge: "Referenz",
   },
   en: {
-    title: "NIS 2 Documents: Required-List under the Directive + CIR 2024/2690",
+    title: "NIS 2 Documents: what the Directive, the BSIG and CIR 2024/2690 name",
     subtitle:
-      "The documents and records NIS 2 and Implementing Regulation 2024/2690 actually require — one to one with the regulation, no consultancy bloat.",
+      "The documents and records behind NIS 2 and Implementing Regulation 2024/2690. Most of the detail comes from the Regulation's Annex, which binds only the digital providers it covers (DNS, TLD, cloud, data centres, CDNs, MSPs, MSSPs, online marketplaces, search engines, social networks, trust services). For every other entity the law asks for policies on risk analysis and IT security, effectiveness, cryptography, staff, access and IT management, and for the measures to be documented (§ 30 BSIG); the form is up to the entity.",
     meta: {
-      title: "NIS 2 Documents: Required List (Directive + CIR 2024/2690)",
+      title: "NIS 2 Documents: what the Directive, the BSIG and CIR 2024/2690 name",
       description:
-        "Documents required under NIS 2 and CIR 2024/2690, anchored to the EU source texts. Per document: article reference, CIR annex, description, nisd2.eu platform module.",
+        "Documents and records named in NIS 2, the BSIG and CIR 2024/2690, anchored to the source texts. Rows from the CIR Annex bind only the digital providers it covers. Per document: article reference, CIR annex, description, nisd2.eu platform module.",
     },
     intro: [
-      "This page lists the documents and records NIS 2 (Directive (EU) 2022/2555) and Implementing Regulation (EU) 2024/2690 actually require. The names and references come from the regulation texts, not a consultancy toolkit.",
-      "Intentionally compact: toolkit vendors split each requirement into a procedure + form + appendix and end up with 60+ documents. The regulation does not require that. One requirement = one document or record. The five-stage Article 23 reporting cascade is one incident progressing through five status phases, not five separate documents.",
+      "This page lists the documents and records named in NIS 2 (Directive (EU) 2022/2555), the BSIG and Implementing Regulation (EU) 2024/2690. Rows anchored only in the CIR Annex bind the digital providers listed in Art. 1 CIR; for other entities they are a reference, not a duty.",
+      "Intentionally compact: toolkit vendors often split each requirement into a procedure, a form and an appendix. The regulation does not require that. One requirement = one document or record. The five-stage Article 23 reporting cascade is one incident progressing through five status phases, not five separate documents.",
       "Last column: the exact nisd2.eu module where the document or evidence lives as data — version-controlled, audit-trailed, exportable at any time. Click the module to jump straight to the live view. The point is continuous posture, not a frozen Word template.",
     ],
     sources: {
       heading: "Sources",
       bullets: [
-        "Directive (EU) 2022/2555 (NIS 2) — Articles 20, 21(2)(a-j), 23, 27",
+        "Directive (EU) 2022/2555 (NIS 2), Articles 3(4), 20, 21(2)(a) to (j), 23",
         "Implementing Regulation (EU) 2024/2690 — Annex sections 1-13",
         "BSIG (German transposition) — §§ 30, 32, 33, 38",
         "BSI TR-02102 (cryptography), TR-03107 (authentication) — where applicable",
@@ -139,23 +142,23 @@ const content: Record<Locale, {
     badge: "Reference",
   },
   nl: {
-    title: "NIS 2 Documents: Required-List under the Directive + CIR 2024/2690",
+    title: "NIS 2 Documents: what the Directive and CIR 2024/2690 name",
     subtitle:
-      "The documents and records NIS 2 and Implementing Regulation 2024/2690 actually require — one to one with the regulation, no consultancy bloat.",
+      "The documents and records behind NIS 2 and Implementing Regulation 2024/2690. Most of the detail comes from the Regulation's Annex, which binds only the digital providers it covers (DNS, TLD, cloud, data centres, CDNs, MSPs, MSSPs, online marketplaces, search engines, social networks, trust services). For every other entity the national law asks for the measures of Article 21(2) and decides the form of the documentation.",
     meta: {
-      title: "NIS 2 Documents: Required List (Directive + CIR 2024/2690)",
+      title: "NIS 2 Documents: what the Directive and CIR 2024/2690 name",
       description:
-        "Documents required under NIS 2 and CIR 2024/2690, anchored to the EU source texts. Per document: article reference, CIR annex, description, nisd2.eu platform module.",
+        "Documents and records named in NIS 2 and CIR 2024/2690, anchored to the source texts. Rows from the CIR Annex bind only the digital providers it covers. Per document: article reference, CIR annex, description, nisd2.eu platform module.",
     },
     intro: [
-      "This page lists the documents and records NIS 2 (Directive (EU) 2022/2555) and Implementing Regulation (EU) 2024/2690 actually require. The names and references come from the regulation texts, not a consultancy toolkit.",
-      "Intentionally compact: toolkit vendors split each requirement into a procedure + form + appendix and end up with 60+ documents. The regulation does not require that. One requirement = one document or record.",
+      "This page lists the documents and records named in NIS 2 (Directive (EU) 2022/2555) and Implementing Regulation (EU) 2024/2690. Rows anchored only in the CIR Annex bind the digital providers listed in Art. 1 CIR; for other entities they are a reference, not a duty.",
+      "Intentionally compact: toolkit vendors often split each requirement into a procedure, a form and an appendix. The regulation does not require that. One requirement = one document or record.",
       "Last column: the exact nisd2.eu module where the document or evidence lives as data — version-controlled, audit-trailed, exportable at any time. Click the module to jump straight to the live view.",
     ],
     sources: {
       heading: "Sources",
       bullets: [
-        "Directive (EU) 2022/2555 (NIS 2) — Articles 20, 21(2)(a-j), 23, 27",
+        "Directive (EU) 2022/2555 (NIS 2), Articles 3(4), 20, 21(2)(a) to (j), 23",
         "Implementing Regulation (EU) 2024/2690 — Annex sections 1-13",
         "National transposition (e.g. BSIG in Germany)",
       ],
@@ -234,16 +237,15 @@ export default async function Nis2DocumentsPage({
 }) {
   const { locale: rawLocale } = await params;
   const locale = rawLocale;
-  const seoLocale: SeoLocale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const seoLocale: SeoLocale =
+    rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
   const loc = pickLocale(locale);
   const c = content[loc];
 
   const docsByGroup = GROUP_ORDER.map((g) => ({
     group: g,
     label:
-      loc === "de"
-        ? NIS2_DOCUMENT_GROUPS[g].label_de
-        : NIS2_DOCUMENT_GROUPS[g].label_en,
+      loc === "de" ? NIS2_DOCUMENT_GROUPS[g].label_de : NIS2_DOCUMENT_GROUPS[g].label_en,
     docs: NIS2_DOCUMENTS.filter((d) => d.group === g),
   })).filter((g) => g.docs.length > 0);
 
@@ -253,154 +255,155 @@ export default async function Nis2DocumentsPage({
 
   return (
     <GlossedProse locale={seoLocale}>
-    <div className="space-y-10">
-      <WikiPageJsonLd
-        category="umsetzung"
-        slug="nis2-documents"
-        locale={seoLocale}
-        authorSlug="cory-hisey"
-        proficiencyLevel="Intermediate"
-        audienceType="Compliance-Beauftragte"
-        citationKeys={["nis2", "bsig", "cir-2024-2690"]}
-        aboutKeys={["nis2"]}
-      />
+      <div className="space-y-10">
+        <WikiPageJsonLd
+          category="umsetzung"
+          slug="nis2-documents"
+          locale={seoLocale}
+          authorSlug="cory-hisey"
+          proficiencyLevel="Intermediate"
+          audienceType="Compliance-Beauftragte"
+          citationKeys={["nis2", "bsig", "cir-2024-2690"]}
+          aboutKeys={["nis2"]}
+        />
 
-      <header>
-        <Badge variant="secondary" className="mb-3">{c.badge}</Badge>
-        <h1 className="text-3xl font-bold tracking-tight">{c.title}</h1>
-        <p className="mt-2 text-lg text-muted-foreground">{c.subtitle}</p>
-      </header>
+        <header>
+          <Badge variant="secondary" className="mb-3">
+            {c.badge}
+          </Badge>
+          <h1 className="text-3xl font-bold tracking-tight">{c.title}</h1>
+          <p className="mt-2 text-lg text-muted-foreground">{c.subtitle}</p>
+        </header>
 
-      <WikiPageMeta authorSlug="cory-hisey" locale={seoLocale === "nl" ? "de" : (seoLocale as "de" | "en")} />
+        <WikiPageMeta
+          authorSlug="cory-hisey"
+          locale={seoLocale === "nl" ? "de" : (seoLocale as "de" | "en")}
+        />
 
-      <Separator />
+        <Separator />
 
-      <section className="space-y-3">
-        {c.intro.map((p, i) => (
-          <p key={i} className="text-sm leading-relaxed text-muted-foreground">
-            {p}
+        <section className="space-y-3">
+          {c.intro.map((p) => (
+            <p key={p} className="text-sm leading-relaxed text-muted-foreground">
+              {p}
+            </p>
+          ))}
+          <p className="text-sm font-medium">
+            {c.countLine(totalGroups, totalDocs, coveredDocs)}
           </p>
-        ))}
-        <p className="text-sm font-medium">
-          {c.countLine(totalGroups, totalDocs, coveredDocs)}
-        </p>
-      </section>
+        </section>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>{c.sources.heading}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ul className="space-y-1.5 text-sm text-muted-foreground">
-            {c.sources.bullets.map((b, i) => (
-              <li key={i}>{b}</li>
-            ))}
-          </ul>
-        </CardContent>
-      </Card>
-
-      {docsByGroup.map(({ group, label, docs }) => (
-        <Card key={group}>
+        <Card>
           <CardHeader>
-            <CardTitle>{label}</CardTitle>
-            <CardDescription>
-              {docs.length}{" "}
-              {docs.length === 1
-                ? loc === "de" ? "Dokument" : "document"
-                : loc === "de" ? "Dokumente" : "documents"}
-            </CardDescription>
+            <CardTitle>{c.sources.heading}</CardTitle>
           </CardHeader>
           <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[24%]">{c.columns.name}</TableHead>
-                  <TableHead className="w-[16%]">{c.columns.reference}</TableHead>
-                  <TableHead>{c.columns.description}</TableHead>
-                  <TableHead className="w-[22%]">{c.columns.platform}</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {docs.map((doc) => {
-                  const note =
-                    loc === "de"
-                      ? doc.platform.note_de
-                      : doc.platform.note_en;
-                  return (
-                    <TableRow key={doc.id}>
-                      <TableCell className="font-medium align-top whitespace-normal">
-                        {loc === "de" ? doc.name_de : doc.name_en}
-                      </TableCell>
-                      <TableCell className="align-top whitespace-normal text-xs">
-                        <div>{doc.nis2Ref}</div>
-                        <div className="text-muted-foreground">
-                          {doc.cirRef}
-                        </div>
-                      </TableCell>
-                      <TableCell className="align-top whitespace-normal text-sm text-muted-foreground">
-                        {loc === "de" ? doc.description_de : doc.description_en}
-                      </TableCell>
-                      <TableCell className="align-top whitespace-normal text-xs">
-                        {doc.platform.module && doc.platform.slug ? (
-                          <div className="flex items-start gap-1.5">
-                            <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-600" />
-                            <div>
-                              <Link
-                                href={doc.platform.slug as never}
-                                className="font-medium text-foreground underline-offset-2 hover:underline"
-                              >
-                                {doc.platform.module}
-                                <span className="ml-1 text-muted-foreground">
-                                  {doc.platform.slug}
-                                </span>
-                              </Link>
-                              <div className="text-muted-foreground">
-                                {note}
-                              </div>
-                            </div>
-                          </div>
-                        ) : (
-                          <div className="flex items-start gap-1.5">
-                            <MinusCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted-foreground" />
-                            <div>
-                              <div className="font-medium text-muted-foreground">
-                                {c.notCoveredLabel}
-                              </div>
-                              <div className="text-muted-foreground">
-                                {note}
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
+            <ul className="space-y-1.5 text-sm text-muted-foreground">
+              {c.sources.bullets.map((b) => (
+                <li key={b}>{b}</li>
+              ))}
+            </ul>
           </CardContent>
         </Card>
-      ))}
 
-      <Card>
-        <CardHeader>
-          <CardTitle>{c.cta.heading}</CardTitle>
-          <CardDescription>{c.cta.description}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="flex flex-col gap-2 sm:flex-row">
-            <Button asChild>
-              <Link href="/features">{c.cta.primary}</Link>
-            </Button>
-            <Button asChild variant="outline">
-              <Link href="/applicability">{c.cta.secondary}</Link>
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+        {docsByGroup.map(({ group, label, docs }) => (
+          <Card key={group}>
+            <CardHeader>
+              <CardTitle>{label}</CardTitle>
+              <CardDescription>
+                {docs.length}{" "}
+                {docs.length === 1
+                  ? loc === "de"
+                    ? "Dokument"
+                    : "document"
+                  : loc === "de"
+                    ? "Dokumente"
+                    : "documents"}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-[24%]">{c.columns.name}</TableHead>
+                    <TableHead className="w-[16%]">{c.columns.reference}</TableHead>
+                    <TableHead>{c.columns.description}</TableHead>
+                    <TableHead className="w-[22%]">{c.columns.platform}</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {docs.map((doc) => {
+                    const note =
+                      loc === "de" ? doc.platform.note_de : doc.platform.note_en;
+                    return (
+                      <TableRow key={doc.id}>
+                        <TableCell className="font-medium align-top whitespace-normal">
+                          {loc === "de" ? doc.name_de : doc.name_en}
+                        </TableCell>
+                        <TableCell className="align-top whitespace-normal text-xs">
+                          <div>{doc.nis2Ref}</div>
+                          <div className="text-muted-foreground">{doc.cirRef}</div>
+                        </TableCell>
+                        <TableCell className="align-top whitespace-normal text-sm text-muted-foreground">
+                          {loc === "de" ? doc.description_de : doc.description_en}
+                        </TableCell>
+                        <TableCell className="align-top whitespace-normal text-xs">
+                          {doc.platform.module && doc.platform.slug ? (
+                            <div className="flex items-start gap-1.5">
+                              <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-600" />
+                              <div>
+                                <Link
+                                  href={doc.platform.slug as never}
+                                  className="font-medium text-foreground underline-offset-2 hover:underline"
+                                >
+                                  {doc.platform.module}
+                                  <span className="ml-1 text-muted-foreground">
+                                    {doc.platform.slug}
+                                  </span>
+                                </Link>
+                                <div className="text-muted-foreground">{note}</div>
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="flex items-start gap-1.5">
+                              <MinusCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+                              <div>
+                                <div className="font-medium text-muted-foreground">
+                                  {c.notCoveredLabel}
+                                </div>
+                                <div className="text-muted-foreground">{note}</div>
+                              </div>
+                            </div>
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        ))}
 
-      <p className="text-xs text-muted-foreground">{c.footnote}</p>
-    </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>{c.cta.heading}</CardTitle>
+            <CardDescription>{c.cta.description}</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-col gap-2 sm:flex-row">
+              <Button asChild>
+                <Link href="/features">{c.cta.primary}</Link>
+              </Button>
+              <Button asChild variant="outline">
+                <Link href="/applicability">{c.cta.secondary}</Link>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        <p className="text-xs text-muted-foreground">{c.footnote}</p>
+      </div>
     </GlossedProse>
   );
 }

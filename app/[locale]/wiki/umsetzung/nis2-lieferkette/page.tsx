@@ -41,13 +41,7 @@ export async function generateMetadata({
   };
 }
 
-const reasonKeys = [
-  "contracts",
-  "audits",
-  "incidents",
-  "reputation",
-  "insurance",
-] as const;
+const reasonKeys = ["contracts", "audits", "incidents", "reputation"] as const;
 const requirementKeys = [
   "riskManagement",
   "accessControl",
@@ -121,9 +115,6 @@ export default async function SupplyChainPage({
           <p className="text-sm leading-relaxed text-muted-foreground">
             {t("supplyChain.why.p2")}
           </p>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("supplyChain.why.p3")}
-          </p>
         </section>
 
         {/* Legal basis callout */}
@@ -138,7 +129,7 @@ export default async function SupplyChainPage({
           </CardContent>
         </Card>
 
-        {/* 5 reasons customers will require it */}
+        {/* 4 reasons customers will require it */}
         <Card>
           <CardHeader>
             <CardTitle>{t("supplyChain.reasons.heading")}</CardTitle>

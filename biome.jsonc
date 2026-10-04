@@ -51,6 +51,14 @@
   },
   "overrides": [
     {
+      // The wiki's table of contents: one entry per line, by design, so a wiki
+      // page's whole entry reads and diffs as one line. The formatter would
+      // spread it over three times the lines and bury every content fix in the
+      // churn. Lint rules still apply.
+      "includes": ["lib/content/wiki-toc.ts"],
+      "formatter": { "enabled": false }
+    },
+    {
       // Rendered documents and the slide deck: fixed literal arrays, authored
       // in order, never reordered or filtered at runtime. An index IS the
       // stable identity here, and a text key would collide on two

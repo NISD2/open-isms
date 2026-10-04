@@ -1,5 +1,5 @@
 {
-  "cat:open-source":   {
+  "cat:open-source": {
     "fr": {
       "title": "Open source et souveraineté",
       "question": "Pourquoi l'ouverture, et qu'est-ce que cela change pour mes données ?"
@@ -2222,31 +2222,31 @@
   "entry:nis2-schwachstellenmanagement": {
     "fr": {
       "title": "Gestion des vulnérabilités NIS 2 au titre de l'art. 21(2)(e) et du CIR §6.10",
-      "summary": "Identifier, évaluer, traiter et coordonner la divulgation des vulnérabilités. Ce qu'exige réellement le CIR §6.10."
+      "summary": "Identifier, évaluer, traiter et coordonner la divulgation des vulnérabilités. Ce que le CIR §6.10 demande aux fournisseurs numériques qu'il couvre."
     },
     "it": {
       "title": "Gestione delle vulnerabilità NIS 2 ai sensi dell'art. 21(2)(e) e del CIR §6.10",
-      "summary": "Individuare, valutare, trattare e coordinare la divulgazione delle vulnerabilità. Cosa richiede realmente il CIR §6.10."
+      "summary": "Individuare, valutare, trattare e coordinare la divulgazione delle vulnerabilità. Cosa chiede il CIR §6.10 ai fornitori digitali che rientrano nel suo ambito."
     },
     "es": {
       "title": "Gestión de vulnerabilidades NIS 2 conforme al art. 21(2)(e) y al CIR §6.10",
-      "summary": "Identificar, evaluar, tratar y coordinar la divulgación de las vulnerabilidades. Qué exige realmente el CIR §6.10."
+      "summary": "Identificar, evaluar, tratar y coordinar la divulgación de las vulnerabilidades. Qué exige el CIR §6.10 a los proveedores digitales que cubre."
     },
     "pl": {
       "title": "Zarządzanie podatnościami NIS 2 na podstawie art. 21(2)(e) i CIR §6.10",
-      "summary": "Identyfikowanie, ocena, postępowanie z podatnościami i koordynacja ich ujawniania. Czego faktycznie wymaga CIR §6.10."
+      "summary": "Identyfikowanie, ocena, postępowanie z podatnościami i koordynacja ich ujawniania. Czego CIR §6.10 wymaga od objętych nim dostawców cyfrowych."
     },
     "cs": {
       "title": "Řízení zranitelností NIS 2 podle čl. 21 odst. 2 písm. e) a CIR §6.10",
-      "summary": "Identifikovat, vyhodnotit, řešit a koordinovat zveřejňování zranitelností. Co CIR §6.10 skutečně vyžaduje."
+      "summary": "Identifikovat, vyhodnotit, řešit a koordinovat zveřejňování zranitelností. Co CIR §6.10 vyžaduje od digitálních poskytovatelů, na které se vztahuje."
     },
     "pt": {
       "title": "Gestão de vulnerabilidades NIS 2 ao abrigo do art. 21.º, n.º 2, alínea e) e do CIR §6.10",
-      "summary": "Identificar, avaliar, tratar e coordenar a divulgação das vulnerabilidades. O que o CIR §6.10 realmente exige."
+      "summary": "Identificar, avaliar, tratar e coordenar a divulgação das vulnerabilidades. O que o CIR §6.10 exige aos prestadores digitais que abrange."
     },
     "ro": {
       "title": "Gestionarea vulnerabilităților NIS 2 în temeiul art. 21 alineatul (2) litera (e) și al CIR §6.10",
-      "summary": "Identificarea, evaluarea, tratarea și coordonarea divulgării vulnerabilităților. Ce impune cu adevărat CIR §6.10."
+      "summary": "Identificarea, evaluarea, tratarea și coordonarea divulgării vulnerabilităților. Ce cere CIR §6.10 furnizorilor digitali pe care îi acoperă."
     }
   },
   "entry:nis2-wirksamkeitsbewertung": {
@@ -2462,31 +2462,31 @@
   "entry:nis2-logging-protokollierung": {
     "fr": {
       "title": "Journalisation et surveillance NIS 2 selon le CIR §3.2",
-      "summary": "Quels douze types d'événements le CIR veut voir journalisés, du trafic réseau aux accès à privilèges."
+      "summary": "Quels douze types d'événements le CIR veut voir journaliser par les fournisseurs numériques qu'il couvre, du trafic réseau aux accès à privilèges."
     },
     "it": {
       "title": "Registrazione e monitoraggio NIS 2 ai sensi del CIR §3.2",
-      "summary": "Quali dodici tipi di eventi il CIR richiede di registrare, dal traffico di rete agli accessi privilegiati."
+      "summary": "Quali dodici tipi di eventi il CIR richiede ai fornitori digitali che disciplina di registrare, dal traffico di rete agli accessi privilegiati."
     },
     "es": {
       "title": "Registro y supervisión NIS 2 según el CIR §3.2",
-      "summary": "Qué doce tipos de eventos exige registrar el CIR, desde el tráfico de red hasta los accesos privilegiados."
+      "summary": "Qué doce tipos de eventos exige el CIR que registren los proveedores digitales que cubre, desde el tráfico de red hasta los accesos privilegiados."
     },
     "pl": {
       "title": "Rejestrowanie i monitorowanie NIS 2 zgodnie z CIR §3.2",
-      "summary": "Które dwanaście typów zdarzeń CIR wymaga rejestrować, od ruchu sieciowego po dostęp uprzywilejowany."
+      "summary": "Które dwanaście typów zdarzeń CIR każe rejestrować objętym nim dostawcom cyfrowym, od ruchu sieciowego po dostęp uprzywilejowany."
     },
     "cs": {
       "title": "Protokolování a monitorování NIS 2 podle CIR §3.2",
-      "summary": "Kterých dvanáct typů událostí chce CIR protokolovat, od síťového provozu po privilegované přístupy."
+      "summary": "Kterých dvanáct typů událostí mají podle CIR protokolovat digitální poskytovatelé, na které se vztahuje, od síťového provozu po privilegované přístupy."
     },
     "pt": {
       "title": "Registo e monitorização NIS 2 ao abrigo do CIR §3.2",
-      "summary": "Que doze tipos de eventos o CIR exige registar, do tráfego de rede aos acessos privilegiados."
+      "summary": "Que doze tipos de eventos o CIR exige que os prestadores digitais que abrange registem, do tráfego de rede aos acessos privilegiados."
     },
     "ro": {
       "title": "Jurnalizare și monitorizare NIS 2 în temeiul CIR §3.2",
-      "summary": "Care douăsprezece tipuri de evenimente impune CIR să fie jurnalizate, de la traficul de rețea la accesele privilegiate."
+      "summary": "Care douăsprezece tipuri de evenimente impune CIR să fie jurnalizate de furnizorii digitali pe care îi acoperă, de la traficul de rețea la accesele privilegiate."
     }
   },
   "entry:wie-nis2-risikoanalyse-durchfuehren": {
@@ -2522,31 +2522,31 @@
   "entry:wie-asset-inventar-erstellen-nis2": {
     "fr": {
       "title": "Comment constituer un inventaire des actifs NIS 2 ?",
-      "summary": "Le CIR §12.4 en pratique : processus et systèmes, regroupement Grundschutz, classification CIA. Comment un Mittelstand constitue l'inventaire en une semaine."
+      "summary": "L'art. 21(2)(i) NIS 2 et le § 30 al. 2 n° 9 BSIG en pratique : processus et systèmes, regroupement Grundschutz, classification CIA, et ce que le point 12.4 du CIR demande aux fournisseurs numériques qu'il couvre."
     },
     "it": {
       "title": "Come creare un inventario degli asset NIS 2?",
-      "summary": "Il CIR §12.4 in pratica: processi e sistemi, raggruppamento Grundschutz, classificazione CIA. Come una Mittelstand crea l'inventario in una settimana."
+      "summary": "L'art. 21(2)(i) NIS 2 e il § 30, comma 2, n. 9 BSIG in pratica: processi e sistemi, raggruppamento Grundschutz, classificazione CIA, e che cosa il punto 12.4 del CIR richiede ai fornitori digitali che rientrano nel suo ambito."
     },
     "es": {
       "title": "¿Cómo elaboro un inventario de activos NIS 2?",
-      "summary": "El CIR §12.4 en la práctica: procesos y sistemas, agrupación Grundschutz, clasificación CIA. Cómo una Mittelstand elabora el inventario en una semana."
+      "summary": "El art. 21(2)(i) NIS 2 y el § 30, apartado 2, n.º 9 BSIG en la práctica: procesos y sistemas, agrupación Grundschutz, clasificación CIA, y lo que el punto 12.4 del CIR exige a los proveedores digitales que cubre."
     },
     "pl": {
       "title": "Jak zbudować inwentarz aktywów NIS 2?",
-      "summary": "CIR §12.4 w praktyce: procesy oraz systemy, grupowanie Grundschutz, klasyfikacja CIA. Jak Mittelstand buduje inwentarz w jeden tydzień."
+      "summary": "Art. 21(2)(i) NIS 2 i § 30 ust. 2 pkt 9 BSIG w praktyce: procesy oraz systemy, grupowanie Grundschutz, klasyfikacja CIA oraz to, czego pkt 12.4 CIR wymaga od objętych nim dostawców cyfrowych."
     },
     "cs": {
       "title": "Jak vytvořit inventář aktiv NIS 2?",
-      "summary": "CIR §12.4 v praxi: procesy a systémy, seskupování Grundschutz, klasifikace CIA. Jak Mittelstand vytvoří inventář za jeden týden."
+      "summary": "Čl. 21 odst. 2 písm. i) NIS 2 a § 30 odst. 2 č. 9 BSIG v praxi: procesy a systémy, seskupování Grundschutz, klasifikace CIA a to, co bod 12.4 CIR vyžaduje od digitálních poskytovatelů, na které se vztahuje."
     },
     "pt": {
       "title": "Como elaboro um inventário de ativos NIS 2?",
-      "summary": "O CIR §12.4 na prática: processos e sistemas, agrupamento Grundschutz, classificação CIA. Como um Mittelstand elabora o inventário numa semana."
+      "summary": "O art. 21.º, n.º 2, alínea i) da NIS 2 e o § 30, n.º 2, n.º 9 do BSIG na prática: processos e sistemas, agrupamento Grundschutz, classificação CIA, e o que o ponto 12.4 do CIR exige aos prestadores digitais que abrange."
     },
     "ro": {
       "title": "Cum elaborez un inventar de active NIS 2?",
-      "summary": "CIR §12.4 în practică: procese și sisteme, grupare Grundschutz, clasificare CIA. Cum elaborează un Mittelstand inventarul într-o săptămână."
+      "summary": "Art. 21 alineatul (2) litera (i) NIS 2 și § 30 alineatul (2) nr. 9 BSIG în practică: procese și sisteme, grupare Grundschutz, clasificare CIA și ce cere punctul 12.4 din CIR furnizorilor digitali pe care îi acoperă."
     }
   },
   "entry:wie-bsi-audit-vorbereiten": {
@@ -3632,31 +3632,31 @@
   "entry:nis2-status-schweden": {
     "fr": {
       "title": "État de mise en œuvre de NIS 2 : Suède",
-      "summary": "Transposition suédoise de NIS 2, MSB (Swedish Civil Contingencies Agency) et CERT-SE."
+      "summary": "Transposition suédoise de NIS 2, le Centre national de cybersécurité (NCSC) auprès de la FRA et CERT-SE."
     },
     "it": {
       "title": "Stato di attuazione di NIS 2: Svezia",
-      "summary": "Trasposizione svedese di NIS 2, MSB (Swedish Civil Contingencies Agency) e CERT-SE."
+      "summary": "Trasposizione svedese di NIS 2, il Centro nazionale per la cybersicurezza (NCSC) presso la FRA e CERT-SE."
     },
     "es": {
       "title": "Estado de implementación de NIS 2: Suecia",
-      "summary": "Transposición sueca de NIS 2, MSB (Swedish Civil Contingencies Agency) y CERT-SE."
+      "summary": "Transposición sueca de NIS 2, el Centro Nacional de Ciberseguridad (NCSC) en la FRA y CERT-SE."
     },
     "pl": {
       "title": "Stan wdrożenia NIS 2: Szwecja",
-      "summary": "Szwedzka transpozycja NIS 2, MSB (Swedish Civil Contingencies Agency) i CERT-SE."
+      "summary": "Szwedzka transpozycja NIS 2, Narodowe Centrum Cyberbezpieczeństwa (NCSC) przy FRA i CERT-SE."
     },
     "cs": {
       "title": "Stav implementace NIS 2: Švédsko",
-      "summary": "Švédská transpozice NIS 2, MSB (Swedish Civil Contingencies Agency) a CERT-SE."
+      "summary": "Švédská transpozice NIS 2, Národní centrum kybernetické bezpečnosti (NCSC) při FRA a CERT-SE."
     },
     "pt": {
       "title": "Estado de implementação da NIS 2: Suécia",
-      "summary": "Transposição sueca da NIS 2, MSB (Swedish Civil Contingencies Agency) e CERT-SE."
+      "summary": "Transposição sueca da NIS 2, o Centro Nacional de Cibersegurança (NCSC) junto da FRA e o CERT-SE."
     },
     "ro": {
       "title": "Stadiul implementării NIS 2: Suedia",
-      "summary": "Transpunerea suedeză a NIS 2, MSB (Swedish Civil Contingencies Agency) și CERT-SE."
+      "summary": "Transpunerea suedeză a NIS 2, Centrul Național de Securitate Cibernetică (NCSC) de pe lângă FRA și CERT-SE."
     }
   },
   "entry:nis2-status-daenemark": {
@@ -3722,31 +3722,31 @@
   "entry:nis2-status-irland": {
     "fr": {
       "title": "État de mise en œuvre de NIS 2 : Irlande",
-      "summary": "Transposition irlandaise de NIS 2, NCSC-IE et le Department of the Environment, Climate and Communications (DECC)."
+      "summary": "Transposition irlandaise de NIS 2, NCSC-IE et le Department of Justice, Home Affairs and Migration."
     },
     "it": {
       "title": "Stato di attuazione di NIS 2: Irlanda",
-      "summary": "Trasposizione irlandese di NIS 2, NCSC-IE e il Department of the Environment, Climate and Communications (DECC)."
+      "summary": "Trasposizione irlandese di NIS 2, NCSC-IE e il Department of Justice, Home Affairs and Migration."
     },
     "es": {
       "title": "Estado de implementación de NIS 2: Irlanda",
-      "summary": "Transposición irlandesa de NIS 2, NCSC-IE y el Department of the Environment, Climate and Communications (DECC)."
+      "summary": "Transposición irlandesa de NIS 2, NCSC-IE y el Department of Justice, Home Affairs and Migration."
     },
     "pl": {
       "title": "Stan wdrożenia NIS 2: Irlandia",
-      "summary": "Irlandzka transpozycja NIS 2, NCSC-IE i Department of the Environment, Climate and Communications (DECC)."
+      "summary": "Irlandzka transpozycja NIS 2, NCSC-IE i Department of Justice, Home Affairs and Migration."
     },
     "cs": {
       "title": "Stav implementace NIS 2: Irsko",
-      "summary": "Irská transpozice NIS 2, NCSC-IE a Department of the Environment, Climate and Communications (DECC)."
+      "summary": "Irská transpozice NIS 2, NCSC-IE a Department of Justice, Home Affairs and Migration."
     },
     "pt": {
       "title": "Estado de implementação da NIS 2: Irlanda",
-      "summary": "Transposição irlandesa da NIS 2, NCSC-IE e o Department of the Environment, Climate and Communications (DECC)."
+      "summary": "Transposição irlandesa da NIS 2, NCSC-IE e o Department of Justice, Home Affairs and Migration."
     },
     "ro": {
       "title": "Stadiul implementării NIS 2: Irlanda",
-      "summary": "Transpunerea irlandeză a NIS 2, NCSC-IE și Department of the Environment, Climate and Communications (DECC)."
+      "summary": "Transpunerea irlandeză a NIS 2, NCSC-IE și Department of Justice, Home Affairs and Migration."
     }
   },
   "entry:nis2-status-tschechien": {
@@ -3992,31 +3992,31 @@
   "entry:nis2-status-slowenien": {
     "fr": {
       "title": "État de mise en œuvre de NIS 2 : Slovénie",
-      "summary": "Loi slovène de transposition de NIS 2 et URSIV / SI-CERT comme autorités compétentes."
+      "summary": "Loi slovène de transposition de NIS 2, URSIV comme autorité compétente, SI-CERT et SIGOV-CERT comme CSIRT."
     },
     "it": {
       "title": "Stato di attuazione di NIS 2: Slovenia",
-      "summary": "Legge slovena di trasposizione di NIS 2 e URSIV / SI-CERT come autorità competenti."
+      "summary": "Legge slovena di trasposizione di NIS 2, URSIV come autorità competente, SI-CERT e SIGOV-CERT come CSIRT."
     },
     "es": {
       "title": "Estado de implementación de NIS 2: Eslovenia",
-      "summary": "Ley eslovena de transposición de NIS 2 y URSIV / SI-CERT como autoridades competentes."
+      "summary": "Ley eslovena de transposición de NIS 2, URSIV como autoridad competente, SI-CERT y SIGOV-CERT como CSIRT."
     },
     "pl": {
       "title": "Stan wdrożenia NIS 2: Słowenia",
-      "summary": "Słoweńska ustawa transponująca NIS 2 i URSIV / SI-CERT jako organy właściwe."
+      "summary": "Słoweńska ustawa transponująca NIS 2, URSIV jako organ właściwy, SI-CERT i SIGOV-CERT jako CSIRT."
     },
     "cs": {
       "title": "Stav implementace NIS 2: Slovinsko",
-      "summary": "Slovinský transpoziční zákon NIS 2 a URSIV / SI-CERT jako příslušné orgány."
+      "summary": "Slovinský transpoziční zákon NIS 2, URSIV jako příslušný orgán, SI-CERT a SIGOV-CERT jako CSIRT."
     },
     "pt": {
       "title": "Estado de implementação da NIS 2: Eslovénia",
-      "summary": "Lei eslovena de transposição da NIS 2 e URSIV / SI-CERT como autoridades competentes."
+      "summary": "Lei eslovena de transposição da NIS 2, URSIV como autoridade competente, SI-CERT e SIGOV-CERT como CSIRT."
     },
     "ro": {
       "title": "Stadiul implementării NIS 2: Slovenia",
-      "summary": "Legea slovenă de transpunere a NIS 2 și URSIV / SI-CERT ca autorități competente."
+      "summary": "Legea slovenă de transpunere a NIS 2, URSIV ca autoritate competentă, SI-CERT și SIGOV-CERT ca CSIRT."
     }
   },
   "entry:nis2-status-zypern": {
