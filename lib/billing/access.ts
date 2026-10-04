@@ -1,40 +1,37 @@
 /**
  * What an account may use right now, and what a new account starts at.
  *
- * The paywall goes live when a platform admin launches pricing in the platform admin Pricing tab,
- * once, not when a release deploys (NIS2 plan, slice 5). Until then nobody is gated, whatever is
- * stored, and every new account is grandfathered, because everyone who gets in before the paywall
- * keeps the current journey free.
+ * Pricing launched on nisd2.eu (NIS2 plan, slice 5): everyone who had got in by then was stamped
+ * `grandfatheredAt` and keeps the journey free; everyone else orders.
  */
 import { ORDER_SLUGS } from "@/i18n/slugs";
 import type { AccessLevel } from "./accounts";
 
 /**
  * The level the gate enforces for one person in one company: the account's stored level, lifted to
- * grandfathered before the launch for everyone, and after it for a person stamped at the launch.
- * Grandfathering belongs to the person, so it holds in any company they open, including one they
- * joined after the launch whose account is free.
+ * grandfathered for a person stamped at the launch. Grandfathering belongs to the person, so it
+ * holds in any company they open, including one they joined after the launch whose account is free.
  */
 export const effectiveAccessLevel = (
   stored: AccessLevel,
-  launched: boolean,
   personGrandfathered: boolean,
-): AccessLevel =>
-  stored === "free" && (!launched || personGrandfathered) ? "grandfathered" : stored;
+): AccessLevel => (stored === "free" && personGrandfathered ? "grandfathered" : stored);
 
 /**
- * The level a brand-new account is created with. Grandfathering belongs to the person: someone
- * stamped at the launch keeps the current journey free for any company they start later.
+ * The level a brand-new account is created with: free, so its holder orders, where this deployment
+ * sells (`sells`: it is nisd2.eu, lib/billing/seller.ts). Anywhere else, a self-hosted instance
+ * or a local run, nobody could order, so a new account starts grandfathered. Someone stamped at
+ * the launch keeps the journey free for any company they start later.
  */
 export const newAccountAccessLevel = (
-  launched: boolean,
+  sells: boolean,
   ownerGrandfathered: boolean,
-): AccessLevel => (launched && !ownerGrandfathered ? "free" : "grandfathered");
+): AccessLevel => (sells && !ownerGrandfathered ? "free" : "grandfathered");
 
 /**
  * Whether a person has ever got in: a verified email, a login count, or a last login. The same
- * signal the 0016 backfill and the launch (./launch) use. login_count alone is not enough: it
- * arrived with migration 0007 at 0 for everyone and was never backfilled.
+ * signal the 0016 backfill and the launch used. login_count alone is not enough: it arrived with
+ * migration 0007 at 0 for everyone and was never backfilled.
  */
 export const hasGotIn = (person: {
   readonly emailVerifiedAt: Date | null;
@@ -43,22 +40,10 @@ export const hasGotIn = (person: {
 }): boolean =>
   person.emailVerifiedAt !== null || person.loginCount > 0 || person.lastLoginAt !== null;
 
-/** What decides whether a person is grandfathered: the launch stamp, and the got-in signal. */
-export interface GrandfatherFacts {
+/** Whether this person is grandfathered: exactly the people the launch (or a promo link) stamped. */
+export const isGrandfatheredPerson = (person: {
   readonly grandfatheredAt: Date | null;
-  readonly emailVerifiedAt: Date | null;
-  readonly loginCount: number;
-  readonly lastLoginAt: Date | null;
-}
-
-/**
- * Whether this person is grandfathered. After the launch, exactly the people it stamped. Before it,
- * everyone who has got in, because the launch will stamp exactly them.
- */
-export const isGrandfatheredPerson = (
-  person: GrandfatherFacts,
-  launched: boolean,
-): boolean => person.grandfatheredAt !== null || (!launched && hasGotIn(person));
+}): boolean => person.grandfatheredAt !== null;
 
 /**
  * The level an account falls back to when it stops being paid for (a cancel inside the thirty
@@ -74,11 +59,10 @@ export const OFFER_PATH = "/billing/offer";
 
 /**
  * What the walk's locked home offers an account that may not walk. A free account orders from the
- * offer, which opens the Compliance Portal and shows the two portals that need no order; a free
- * account exists only once pricing is launched, so the offer is always there for it. Any other
+ * offer, which opens the Compliance Portal and shows the two portals that need no order. Any other
  * (grandfathered, or no level yet) has the journey open, as the portal gate has it: it goes
  * straight to the order page with its own price and is offered its journey beside it. While
- * ordering is not open to it (`billingFor`: before the launch, or without live keys) the order
+ * ordering is not open to it (`billingFor`: no live keys, as on a self-hosted instance) the order
  * page does not exist, so only the journey is offered.
  */
 export type WalkLock =
@@ -139,9 +123,10 @@ export const mayOpenPortalPath = (level: AccessLevel, pathname: string): boolean
 
 /**
  * Whether a person may walk the Durchgang, the paid guided path. Only a paid account: a
- * grandfathered one keeps the current journey free and pays for the guided path, and before the
- * launch every account reads as grandfathered, so "not free" opened it to everyone. A platform
- * admin passes too, so it can be shown on a call from the operator's own company.
+ * grandfathered one keeps the current journey free and pays for the guided path, and where the
+ * deployment sells nothing every new account is grandfathered, so "not free" would open it to
+ * everyone. A platform admin passes too, so it can be shown on a call from the operator's own
+ * company.
  */
 export const mayWalkDurchgang = (
   level: AccessLevel | null,

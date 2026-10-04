@@ -4,17 +4,14 @@ import { getLocale } from "next-intl/server";
 import { getPathname } from "@/i18n/navigation";
 import { getSession } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
-import { mayWalkDurchgang, walkLockFor } from "@/lib/billing/access";
-import { billingFor } from "@/lib/billing/ordering-access";
-import { db } from "@/lib/db";
-import { walkthroughLive } from "@/lib/walkthrough";
+import { mayWalkDurchgang } from "@/lib/billing/access";
 
 /**
  * The walk's own gates, for its home, its first step, its items and management's approval page:
  * signed in, with a company. A company that is not set up yet (the draft every account gets at
  * sign-up) sees the home and sets itself up in the walk's first step (`requireWalk` sends it
- * there). Paying is each page's check (`walkAccess`): the home opens to everyone once the
- * walkthrough is the portal's front, locked for an account that has not paid.
+ * there). Paying is each page's check (`walkAccess`): the home opens to everyone, locked for an
+ * account that has not paid.
  *
  * The walk is written in German and English only. Any other locale gets the English walk rather
  * than English text around its own titles and terms.
@@ -28,26 +25,13 @@ export async function guardWalk(): Promise<void> {
     redirect(getPathname({ href: "/durchgang/nis2", locale: "en" }));
 }
 
-/**
- * Whether this person may walk (paid, or a platform admin) and whether the walkthrough is the
- * portal's front for them. An unpaid account that may not even see the home goes where the
- * locked home would send it (`walkLockFor`): the order page with its own price, or its journey
- * while ordering is not open and the order page does not exist.
- */
-export async function walkAccess(): Promise<{ mayWalk: boolean; live: boolean }> {
-  const [session, locale] = await Promise.all([getSession(), getLocale()]);
+/** Whether this person may walk: a paid account, or a platform admin. */
+export async function walkAccess(): Promise<{ mayWalk: boolean }> {
+  const session = await getSession();
   if (!session) redirect("/auth/signin");
-  const mayWalk = mayWalkDurchgang(
-    session.accessLevel,
-    isPlatformAdmin(session.user.email),
-  );
-  const live = await walkthroughLive(session.user.email);
-  if (!mayWalk && !live) {
-    const { open } = await billingFor(db, session.user.email);
-    const { orderAt } = walkLockFor(session.accessLevel, open);
-    redirect(getPathname({ href: orderAt ?? "/journey", locale }));
-  }
-  return { mayWalk, live };
+  return {
+    mayWalk: mayWalkDurchgang(session.accessLevel, isPlatformAdmin(session.user.email)),
+  };
 }
 
 /**

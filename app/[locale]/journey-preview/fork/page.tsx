@@ -7,7 +7,7 @@ import { buildRequirementNodes } from "../../(portal)/journey/path-nodes";
 import { liveNode } from "../../(portal)/journey/views";
 import { buildFullJourneyItems } from "../full-sample";
 import { JourneyPreviewSwitcher } from "../JourneyPreviewSwitcher";
-import { SAMPLE_FRAMEWORKS, SAMPLE_USER } from "../sample-data";
+import { SAMPLE_USER } from "../sample-data";
 
 type Locale = "en" | "de" | "nl";
 
@@ -43,11 +43,9 @@ export default async function JourneyForkPreviewPage() {
     <SidebarProvider>
       <AppSidebar
         user={SAMPLE_USER}
-        frameworks={SAMPLE_FRAMEWORKS}
         showBilling={false}
         reviewAccess
         mayExport
-        walkthroughLive={false}
         portalOpen
         journeyNotice={false}
       />

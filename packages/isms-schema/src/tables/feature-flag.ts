@@ -1,6 +1,7 @@
 /**
- * Platform switches flipped at runtime from platform admin, such as launching billing to customers.
- * A switch with no row is off, so a fresh install or a self-hoster starts with everything off.
+ * Platform switches flipped at runtime from platform admin. A switch with no row is off, so a fresh
+ * install or a self-hoster starts with everything off. Rows of retired keys stay and are read by
+ * nothing (lib/feature-flags.ts).
  */
 
 import { boolean, pgTable, timestamp, uuid } from "drizzle-orm/pg-core";

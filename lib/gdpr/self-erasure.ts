@@ -211,7 +211,7 @@ const decide = async (db: DbOrTx, person: Person): Promise<Decision> => {
   // Last: a cancel cannot be undone, so it is made only when nothing else stands in the way. It
   // goes through the Billing page's cancel, which runs only while billing is open for this person.
   const cancels = await openCancelsOf(db, person.userId, new Date());
-  if (cancels.length > 0 && !(await billingFor(db, person.email)).open) {
+  if (cancels.length > 0 && !billingFor(person.email).open) {
     return { allowed: false, reason: "cancel_by_us" };
   }
   return {
@@ -249,7 +249,7 @@ export async function cancelLicencesForErasure(
   const decision = await decide(db, person);
   if (!decision.allowed) throw new SelfErasureRefused(decision.reason);
   if (decision.cancels.length === 0) return [];
-  const { mode, open } = await billingFor(db, person.email);
+  const { mode, open } = billingFor(person.email);
   if (!open || mode.kind === "off") throw new SelfErasureRefused("cancel_by_us");
   const notices: CancelNotice[] = [];
   try {

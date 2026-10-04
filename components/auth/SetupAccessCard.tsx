@@ -19,7 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-/** Where a freshly set up customer lands: the portal's home, the walkthrough once it is live. */
+/** Where a freshly set up customer lands: the portal's home, which opens the walkthrough. */
 const AFTER_SETUP = "/dashboard";
 
 export function SetupAccessCard({

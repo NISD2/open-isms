@@ -98,8 +98,6 @@ function fakeDb(
         innerJoin: () => ({ where: () => ({ orderBy: async () => [] }) }),
         // The inviting customers' contact addresses.
         leftJoin: () => ({ where: async () => customers }),
-        // isFeatureOn: every flag off.
-        where: () => ({ limit: async () => [] }),
       }),
     }),
     insert: (table: unknown) => ({

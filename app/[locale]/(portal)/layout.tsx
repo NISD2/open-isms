@@ -11,7 +11,7 @@ import {
   OFFER_PATH,
   ORDER_PATHS,
 } from "@/lib/billing/access";
-import { WALK_HOME_PATHS, walkthroughLive } from "@/lib/walkthrough";
+import { WALK_HOME_PATHS } from "@/lib/walkthrough";
 
 export default async function PortalLayout({ children }: { children: React.ReactNode }) {
   const session = await getSession();
@@ -25,10 +25,9 @@ export default async function PortalLayout({ children }: { children: React.React
   const h = await headers();
   const pathname = h.get("x-pathname") ?? "";
   const mustOrder = session.accessLevel === "free";
-  // Once the walkthrough is the front, its home opens to an unpaid account too, locked, with the
-  // way to order (Simon, 03.10.2026). Its items stay closed (the walk's own gate).
-  const walkHome =
-    WALK_HOME_PATHS.includes(pathname) && (await walkthroughLive(session.user.email));
+  // The walk's home opens to an unpaid account too, locked, with the way to order (Simon,
+  // 03.10.2026). Its items stay closed (the walk's own gate).
+  const walkHome = WALK_HOME_PATHS.includes(pathname);
   if (mustOrder && !mayOpenPortalPath("free", pathname) && !walkHome) {
     localeRedirect({ href: OFFER_PATH, locale: await getLocale() });
   }

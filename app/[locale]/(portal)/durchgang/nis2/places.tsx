@@ -6,13 +6,12 @@ import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { mayWalkDurchgang } from "@/lib/billing/access";
 import { WALK } from "@/lib/durchgang";
 import { placesOf, type WalkRegister } from "@/lib/durchgang/places";
-import { walkthroughLive } from "@/lib/walkthrough";
 import { headlinesOf } from "./load";
 
 /**
  * Above a register the walk writes into: the steps of the walk where it is filled, each a link to
- * that very screen (Simon, 03.10.2026). Only once the walkthrough is the portal's front, and only
- * for a person who may walk it; anyone else would land on the locked home.
+ * that very screen (Simon, 03.10.2026). Only for a person who may walk it; anyone else would land on
+ * the locked home.
  */
 export async function WalkPlaces({ register }: { register: WalkRegister }) {
   const session = await getSession();
@@ -21,7 +20,7 @@ export async function WalkPlaces({ register }: { register: WalkRegister }) {
     session.accessLevel,
     isPlatformAdmin(session.user.email),
   );
-  if (!mayWalk || !(await walkthroughLive(session.user.email))) return null;
+  if (!mayWalk) return null;
   const places = placesOf(WALK, register);
   if (places.length === 0) return null;
 

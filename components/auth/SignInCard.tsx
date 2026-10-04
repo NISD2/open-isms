@@ -46,9 +46,8 @@ export function SignInCard({
   // origin via window.location.assign on the next nav and host a credible
   // re-login-phish on the genuine nisd2.eu chrome.
   // Default post-login surface is the portal's home: /dashboard opens the
-  // walkthrough once it is live (locked, with the way to order, for an unpaid
-  // account) and the journey otherwise. Company-less users (fresh
-  // registrations) get the onboarding banner there.
+  // walkthrough (locked, with the way to order, for an unpaid account).
+  // Company-less users get the company setup there.
   const callbackUrl = localCallbackPath(searchParams.get("callbackUrl"), "/dashboard");
   const [step, setStep] = useState<Step>("auth");
   const [mode, setMode] = useState<"login" | "register">("login");
