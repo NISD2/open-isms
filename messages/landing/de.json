@@ -68,7 +68,19 @@
       "closing": "Fangen Sie mit dem ersten Punkt an.",
       "pricing": "Preise und Bedingungen",
       "pause": "Animation anhalten",
-      "play": "Animation fortsetzen"
+      "play": "Animation fortsetzen",
+      "talkFirst": "Lieber erst mit uns sprechen?"
+    },
+    "walkSteps": {
+      "eyebrow": "In der Praxis",
+      "topic": {
+        "title": "Wo das im Durchgang vorkommt",
+        "lead": "Im Durchgang werden daraus Schritte, die Sie ausfüllen, mit dem Gesetz jeweils daneben erklärt. Öffnen Sie einen Schritt, um ihn ausgefüllt am Beispiel einer erfundenen Firma zu sehen."
+      },
+      "national": {
+        "title": "Was das nationale Gesetz ändert und was nicht",
+        "lead": "Das nationale Gesetz regelt unter anderem, wo Sie sich registrieren und wem Sie Vorfälle melden. Die Maßnahmen selbst gehen in jedem Mitgliedstaat von derselben Mindestliste aus (Art. 21 NIS 2). Der Durchgang führt Sie Schritt für Schritt hindurch:"
+      }
     },
     "title": "Wir halbieren Europas <blue>NIS2</blue>-Rechnung.",
     "eyebrow": "Open Source · Kostenlos · Kein Lock-in",

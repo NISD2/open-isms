@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/tooltip";
 import { Link } from "@/i18n/navigation";
 import { formatWholeEuro } from "@/lib/billing/order";
+import { BOOKING_URL } from "@/lib/booking";
 
 // Every line is checked against the code or the AGB. "Deadlines and reminders" means the in-app
 // reminders the nightly cron schedules; deadline digests by email go out only when an operator
@@ -50,7 +51,6 @@ const selfHostFeatures = ["everything", "infrastructure", "licence", "contract"]
 
 const SOURCE_URL = "https://github.com/NISD2/open-isms";
 const PAID_CARD_ID = "durchgang";
-const BOOKING_URL = "https://cal.com/nisd2";
 
 // From the LICENSE files and package.json licence fields (the README's table is older than
 // they are). `spdx` is shown as is; the other two rows carry translated wording.

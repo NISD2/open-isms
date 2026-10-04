@@ -68,7 +68,20 @@
       "closing": "Begin met het eerste punt.",
       "pricing": "Prijzen en voorwaarden",
       "pause": "Animatie pauzeren",
-      "play": "Animatie afspelen"
+      "play": "Animatie afspelen",
+      "talkFirst": "Liever eerst met ons praten?"
+    },
+    "walkSteps": {
+      "eyebrow": "In de praktijk",
+      "topic": {
+        "title": "Waar dit in de begeleide doorloop terugkomt",
+        "lead": "De begeleide doorloop maakt hier stappen van die u invult, met de wet bij elke stap uitgelegd. Open een stap om het scherm te zien, ingevuld voor een verzonnen bedrijf."
+      },
+      "national": {
+        "title": "Wat de nationale wet verandert, en wat niet",
+        "lead": "De nationale wet bepaalt onder meer waar u zich registreert en aan wie u incidenten meldt. De maatregelen zelf gaan in elke lidstaat uit van dezelfde minimumlijst (art. 21 NIS 2). De begeleide doorloop neemt u er stap voor stap doorheen:"
+      },
+      "languageNote": "De doorloop zelf is in het Duits en het Engels."
     },
     "title": "Halveer Europa's <blue>NIS2</blue>-rekening.",
     "eyebrow": "Open source · Gratis · Geen lock-in",

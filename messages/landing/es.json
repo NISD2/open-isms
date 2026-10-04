@@ -68,7 +68,20 @@
       "closing": "Empiece por el primer punto.",
       "pricing": "Precios y condiciones",
       "pause": "Pausar la animación",
-      "play": "Reproducir la animación"
+      "play": "Reproducir la animación",
+      "talkFirst": "¿Prefiere hablar antes con nosotros?"
+    },
+    "walkSteps": {
+      "eyebrow": "En la práctica",
+      "topic": {
+        "title": "Dónde aparece esto en el recorrido guiado",
+        "lead": "El recorrido guiado lo convierte en pasos que usted rellena, con la ley explicada al lado de cada uno. Abra un paso para ver su pantalla, rellenada para una empresa ficticia."
+      },
+      "national": {
+        "title": "Qué cambia la ley nacional y qué no",
+        "lead": "La ley nacional determina, entre otras cosas, dónde se registra y a quién notifica los incidentes. Las medidas parten de la misma lista mínima en todos los Estados miembros (art. 21 NIS 2). El recorrido guiado le lleva por ellas paso a paso:"
+      },
+      "languageNote": "El recorrido está en alemán y en inglés."
     },
     "title": "Reduzca a la mitad la factura de <blue>NIS2</blue> en Europa.",
     "eyebrow": "Open source · Gratis · Sin lock-in",

@@ -3,7 +3,11 @@ import type { ComponentProps } from "react";
 import { Art, SETUP_ART } from "@/components/durchgang/Art";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
+import { BOOKING_URL } from "@/lib/booking";
 import { cn } from "@/lib/utils";
+
+const QUIET_LINK =
+  "inline-flex min-h-11 items-center text-[0.9375rem] font-medium text-foreground/80 underline-offset-4 transition-colors hover:text-foreground hover:underline";
 
 /**
  * The one way in, and the last thing on every public page that asks for something: the landing
@@ -13,7 +17,8 @@ import { cn } from "@/lib/utils";
  *
  * `landing` closes the landing page, whose reader has just seen the walk screen by screen.
  * `funnel` is for a page a reader enters from search and never saw the landing page: it repeats
- * the landing page's headline and subline, so the ask carries its own reason.
+ * the landing page's headline and subline, so the ask carries its own reason, and offers a call
+ * as the quieter way for a reader who wants to talk before signing up.
  */
 export async function GetStarted({
   variant,
@@ -54,12 +59,19 @@ export async function GetStarted({
           >
             <Link href={href}>{t("guided.cta")}</Link>
           </Button>
-          <Link
-            href="/pricing"
-            className="inline-flex min-h-11 items-center text-[0.9375rem] font-medium text-foreground/80 underline-offset-4 transition-colors hover:text-foreground hover:underline"
-          >
+          <Link href="/pricing" className={QUIET_LINK}>
             {t("walk.pricing")}
           </Link>
+          {variant === "funnel" && (
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={QUIET_LINK}
+            >
+              {t("walk.talkFirst")}
+            </a>
+          )}
         </div>
       </div>
       {/* Setting up the company, the walk's step right after the registration. */}

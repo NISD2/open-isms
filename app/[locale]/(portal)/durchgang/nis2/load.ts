@@ -1,7 +1,5 @@
 import "@/lib/server-guard";
-import { readdirSync } from "node:fs";
-import path from "node:path";
-import { getLocale, getMessages, getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import type { ItemView, WalkEntry } from "@/components/durchgang/view";
 import { onRegister } from "@/lib/asset-inventory/catalog-labels";
 import { catalogueSectorsOf } from "@/lib/asset-inventory/sectors";
@@ -16,11 +14,8 @@ import {
   type AnyScreen,
   askedFields,
   dutyHref,
-  itemKey,
   MANAGEMENT_ROLE,
   type RegisterModule,
-  type ResolvedItem,
-  resolveItem,
   WALK,
   walkOf,
 } from "@/lib/durchgang";
@@ -28,32 +23,7 @@ import { introspectSchema } from "@/lib/forms/schema-introspect";
 import { ensurePlatformSupplier } from "@/lib/supplier-portal/platform-supplier";
 import { api } from "@/lib/trpc/server";
 import { glossary } from "./gloss";
-
-/** The step art on disk, read once per server process rather than on every render. */
-const ART: ReadonlySet<string> = (() => {
-  try {
-    return new Set(
-      readdirSync(path.join(process.cwd(), "public", "images", "durchgang"))
-        .filter((f) => f.endsWith(".svg"))
-        .map((f) => f.slice(0, -4)),
-    );
-  } catch {
-    return new Set();
-  }
-})();
-
-const imageFor = (code: string): string | null =>
-  ART.has(itemKey(code)) ? `/images/durchgang/${itemKey(code)}.svg` : null;
-
-/** The parsed words of an item. The script's tests guarantee this never fails for a shipped item. */
-async function wordsOf(item: AnyItem): Promise<ResolvedItem> {
-  const messages = await getMessages();
-  const resolved = resolveItem(messages.durchgang, item);
-  if (!resolved.ok) {
-    throw new Error(`Durchgang ${item.code}: ${resolved.errors.join("; ")}`);
-  }
-  return resolved.value;
-}
+import { imageFor, stepOf, wordsOf } from "./steps";
 
 /** The caller's company and the items it walks, read off its profile; none without a company. */
 async function callerWalk() {
@@ -71,24 +41,16 @@ export async function loadWalk({
 }: {
   locked: boolean;
 }): Promise<readonly WalkEntry[]> {
-  const [{ walk }, states, tc] = await Promise.all([
+  const [{ walk }, states] = await Promise.all([
     callerWalk(),
     locked ? [] : api.durchgang.walk(),
-    getTranslations("compliance"),
   ]);
   const stateOf = new Map(states.map((s) => [s.code, s.state]));
   return Promise.all(
-    walk.map(async (item) => {
-      const words = await wordsOf(item);
-      return {
-        code: item.code,
-        section: tc(`categories.${item.category}.name`),
-        headline: words.headline,
-        teaser: words.teaser,
-        image: imageFor(item.code),
-        state: stateOf.get(item.code) ?? { kind: "open" as const },
-      };
-    }),
+    walk.map(async (item) => ({
+      ...(await stepOf(item)),
+      state: stateOf.get(item.code) ?? { kind: "open" as const },
+    })),
   );
 }
 
