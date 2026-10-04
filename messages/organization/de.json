@@ -4,6 +4,12 @@
     "description": "Registrieren Sie Ihre Organisation, um die Konformitätsbewertung zu starten.",
     "editTitle": "Organisationseinstellungen",
     "editDescription": "Aktualisieren Sie Ihre Organisationsdaten.",
+    "organizationId": {
+      "label": "Organisations-ID",
+      "hint": "Nennen Sie sie, wenn Sie uns schreiben oder die Plattform selbst betreiben.",
+      "copy": "Kopieren",
+      "copied": "Kopiert"
+    },
     "formTitle": "Organisationsdaten",
     "name": "Organisationsname",
     "namePlaceholder": "Acme GmbH",

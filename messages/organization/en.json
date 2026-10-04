@@ -4,6 +4,12 @@
     "description": "Register your organization to start the compliance assessment.",
     "editTitle": "Organization Settings",
     "editDescription": "Update your organization details.",
+    "organizationId": {
+      "label": "Organization ID",
+      "hint": "Quote it when you write to us or run the platform yourself.",
+      "copy": "Copy",
+      "copied": "Copied"
+    },
     "formTitle": "Organization Details",
     "name": "Organization Name",
     "namePlaceholder": "Acme GmbH",
