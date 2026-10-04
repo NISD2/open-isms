@@ -222,7 +222,7 @@ export default async function TeamPage({
         </div>
       </section>
 
-      <GetStarted className="mt-16" />
+      <GetStarted variant="funnel" className="mt-16" />
     </div>
   );
 }

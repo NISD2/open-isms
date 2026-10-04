@@ -137,7 +137,7 @@ export default async function LandingPage() {
         {/* The walk shown screen by screen, what it leaves behind, and the same one way in. */}
         <WalkShowcase />
         <WalkOutcomes />
-        <GetStarted className="mt-24 sm:mt-32" />
+        <GetStarted variant="landing" className="mt-24 sm:mt-32" />
 
         {/* What you get + open source. Aligned to the hero width and left edge,
             split by a hairline, so it reads as an intentional section rather

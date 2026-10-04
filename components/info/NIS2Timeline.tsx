@@ -1,13 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 import { useLocale } from "next-intl";
-import { cn } from "@/lib/utils";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import type {
+  TimelineCategory,
   TimelineEvent,
   TimelineSource,
-  TimelineCategory,
 } from "@/lib/timeline/schema";
+import { cn } from "@/lib/utils";
 
 interface NIS2TimelineProps {
   events: TimelineEvent[];
@@ -67,6 +69,13 @@ const CATEGORY_LABELS: Record<TimelineCategory, { en: string; de: string }> = {
   market: { en: "Market", de: "Markt" },
 };
 
+/**
+ * The newest few, then more on request: the full list put the page's next step 38 screens down
+ * (1440x900, 04.10.2026). Older events stay in the HTML, hidden, so crawlers still read them all.
+ */
+const FIRST_PAGE = 5;
+const PAGE = 10;
+
 function formatDate(dateStr: string, locale: string): string {
   const d = new Date(dateStr + "T12:00:00Z");
   return d.toLocaleDateString(locale === "de" ? "de-DE" : "en-US", {
@@ -84,9 +93,7 @@ function formatFullDate(dateStr: string, locale: string): string {
   });
 }
 
-function groupByYear(
-  events: TimelineEvent[],
-): Record<string, TimelineEvent[]> {
+function groupByYear(events: TimelineEvent[]): Record<string, TimelineEvent[]> {
   const groups: Record<string, TimelineEvent[]> = {};
   for (const event of events) {
     const year = event.date.slice(0, 4);
@@ -96,15 +103,10 @@ function groupByYear(
   return groups;
 }
 
-export function NIS2Timeline({
-  events,
-  sources,
-  lastUpdated,
-}: NIS2TimelineProps) {
+export function NIS2Timeline({ events, sources, lastUpdated }: NIS2TimelineProps) {
   const locale = useLocale() as "en" | "de";
-  const [activeCategory, setActiveCategory] = useState<
-    TimelineCategory | "all"
-  >("all");
+  const [activeCategory, setActiveCategory] = useState<TimelineCategory | "all">("all");
+  const [visible, setVisible] = useState(FIRST_PAGE);
 
   const filtered =
     activeCategory === "all"
@@ -114,6 +116,11 @@ export function NIS2Timeline({
   const sorted = [...filtered].sort((a, b) => b.date.localeCompare(a.date));
   const grouped = groupByYear(sorted);
   const years = Object.keys(grouped).sort((a, b) => b.localeCompare(a));
+  const shown = new Set(sorted.slice(0, visible).map((e) => e.id));
+  const lastShownInYear = new Map(
+    years.map((year) => [year, grouped[year].findLast((e) => shown.has(e.id))?.id]),
+  );
+  const nextPage = Math.min(PAGE, sorted.length - visible);
 
   const sourceMap = new Map(sources.map((s) => [s.id, s]));
 
@@ -126,10 +133,11 @@ export function NIS2Timeline({
         </span>
         <span>
           {locale === "de" ? "Aktualisiert" : "Updated"}{" "}
-          {new Date(lastUpdated).toLocaleDateString(
-            locale === "de" ? "de-DE" : "en-US",
-            { year: "numeric", month: "short", day: "numeric" },
-          )}
+          {new Date(lastUpdated).toLocaleDateString(locale === "de" ? "de-DE" : "en-US", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })}
         </span>
       </div>
 
@@ -144,8 +152,12 @@ export function NIS2Timeline({
           const isActive = activeCategory === cat.key;
           return (
             <button
+              type="button"
               key={cat.key}
-              onClick={() => setActiveCategory(cat.key)}
+              onClick={() => {
+                setActiveCategory(cat.key);
+                setVisible(FIRST_PAGE);
+              }}
               className={cn(
                 "inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1 text-xs font-medium transition-all",
                 isActive
@@ -157,9 +169,7 @@ export function NIS2Timeline({
                 <span
                   className={cn(
                     "h-1.5 w-1.5 rounded-full",
-                    isActive
-                      ? DOT_COLORS[cat.key]
-                      : "bg-muted-foreground/30",
+                    isActive ? DOT_COLORS[cat.key] : "bg-muted-foreground/30",
                   )}
                 />
               )}
@@ -172,19 +182,20 @@ export function NIS2Timeline({
 
       {/* Timeline grouped by year */}
       {years.map((year) => (
-        <section key={year}>
+        <section key={year} hidden={!lastShownInYear.get(year)}>
           <div className="sticky top-0 z-10 -mx-1 mb-4 bg-background/95 px-1 py-2 backdrop-blur-sm">
             <h2 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">
               {year}
             </h2>
           </div>
           <div className="relative ml-3 border-l border-border/50 pl-6">
-            {grouped[year].map((event, i) => {
+            {grouped[year].map((event) => {
               const source = sourceMap.get(event.sourceId);
-              const isLast = i === grouped[year].length - 1;
+              const isLast = event.id === lastShownInYear.get(year);
               return (
                 <div
                   key={event.id}
+                  hidden={!shown.has(event.id)}
                   className={cn("relative pb-8", isLast && "pb-0")}
                 >
                   {/* Timeline dot */}
@@ -244,6 +255,7 @@ export function NIS2Timeline({
                       >
                         {source?.name ?? event.sourceId}
                         <svg
+                          aria-hidden="true"
                           className="h-3 w-3"
                           fill="none"
                           viewBox="0 0 24 24"
@@ -257,14 +269,9 @@ export function NIS2Timeline({
                           />
                         </svg>
                       </a>
-                      {event.tags.length > 0 && (
-                        <span className="text-border">|</span>
-                      )}
+                      {event.tags.length > 0 && <span className="text-border">|</span>}
                       {event.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="text-[11px] text-muted-foreground/60"
-                        >
+                        <span key={tag} className="text-[11px] text-muted-foreground/60">
                           {tag}
                         </span>
                       ))}
@@ -277,11 +284,27 @@ export function NIS2Timeline({
         </section>
       ))}
 
-      {/* Sources */}
-      <div className="border-t pt-10">
-        <h2 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">
-          {locale === "de" ? "Quellen" : "Sources"}
-        </h2>
+      {nextPage > 0 && (
+        <div className="ml-9">
+          <Button variant="outline" onClick={() => setVisible((v) => v + PAGE)}>
+            {locale === "de"
+              ? `${nextPage} ältere Ereignisse zeigen`
+              : `Show ${nextPage} older events`}
+          </Button>
+        </div>
+      )}
+
+      {/* Sources: reference for the few who check them, so behind a disclosure */}
+      <details className="group border-t pt-10">
+        <summary className="flex min-h-11 cursor-pointer list-none items-center gap-2 [&::-webkit-details-marker]:hidden">
+          <h2 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">
+            {locale === "de" ? "Quellen" : "Sources"}
+          </h2>
+          <span className="text-sm tabular-nums text-muted-foreground/60">
+            {sources.length}
+          </span>
+          <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform group-open:rotate-180 motion-reduce:transition-none" />
+        </summary>
         <p className="mt-2 text-sm text-muted-foreground">
           {locale === "de"
             ? "Diese Seite wird regelmäßig aus den folgenden offiziellen und journalistischen Quellen aktualisiert."
@@ -300,14 +323,12 @@ export function NIS2Timeline({
                 {source.name}
               </span>
               <span className="text-[10px] uppercase tracking-wider text-muted-foreground/50">
-                {source.language === "both"
-                  ? "EN/DE"
-                  : source.language.toUpperCase()}
+                {source.language === "both" ? "EN/DE" : source.language.toUpperCase()}
               </span>
             </a>
           ))}
         </div>
-      </div>
+      </details>
     </div>
   );
 }
