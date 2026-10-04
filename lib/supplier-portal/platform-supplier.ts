@@ -2,7 +2,8 @@
  * The company that runs this instance is a supplier to every company using it: on nisd2.eu,
  * nisd2.eu processes their data. So each customer company gets it once as a row of its supplier
  * register, which opens the answers the operator gave in the supplier portal (read live from the
- * operator's company, so they stay current).
+ * operator's company, so they stay current), and once as a cloud service in its asset register,
+ * linked to that row.
  *
  * The one exception to the portal's rule that suppliers reach customers only by an explicit
  * invite, and one way only: the row carries no `supplierCompanyId`, so the operator never sees
@@ -11,10 +12,11 @@
  * customer can delete it like any other row; a deleted row is not added again.
  */
 import "@/lib/server-guard";
-import { and, eq } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
+import type { AssetType } from "@/lib/compliance/asset-types";
 import type { DbOrTx } from "@/lib/db";
 import { env } from "@/lib/env";
-import { company, supplier } from "@/schema";
+import { asset, company, supplier } from "@/schema";
 import { PLATFORM_SOURCE } from "./register-row";
 
 /** The operator's company id, or null where the feature is off. */
@@ -90,16 +92,42 @@ export async function ensurePlatformSupplier(
       columns: { id: true },
     });
     const now = new Date();
-    if (!invited) {
-      await tx.insert(supplier).values({
-        customerCompanyId,
+    const [operatorRow] = invited
+      ? [invited]
+      : await tx
+          .insert(supplier)
+          .values({
+            customerCompanyId,
+            name,
+            description: serviceDescription,
+            status: "active",
+            source: PLATFORM_SOURCE,
+            confirmedAt: now,
+          })
+          .returning({ id: supplier.id });
+
+    // The service itself goes into the customer's asset register too, under the same name and
+    // linked to that row: it holds their compliance records and their staff's accounts. Not where
+    // they listed it already.
+    const listed = await tx.query.asset.findFirst({
+      where: and(
+        eq(asset.companyId, customerCompanyId),
+        sql`lower(${asset.name}) = lower(${name})`,
+      ),
+      columns: { id: true },
+    });
+    if (!listed) {
+      await tx.insert(asset).values({
+        companyId: customerCompanyId,
         name,
+        type: "cloud_service" satisfies AssetType,
+        hosting: "cloud",
         description: serviceDescription,
-        status: "active",
-        source: PLATFORM_SOURCE,
-        confirmedAt: now,
+        supplierId: operatorRow?.id ?? null,
+        processesPersonalData: true,
       });
     }
+
     await tx
       .update(company)
       .set({ platformSupplierLinkedAt: now })
