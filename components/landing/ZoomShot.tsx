@@ -59,6 +59,7 @@ export function ZoomImage({
       height={image.height}
       sizes={sizes}
       preload={preload}
+      fetchPriority={preload ? "high" : undefined}
       aria-hidden={hidden || undefined}
       style={{
         transformOrigin: "0 0",

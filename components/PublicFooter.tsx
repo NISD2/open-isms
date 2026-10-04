@@ -1,6 +1,6 @@
-import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
+import { Link } from "@/i18n/navigation";
 
 /**
  * `variant="docs"` drops the locale switcher and nothing else. /docs is a
@@ -10,7 +10,9 @@ import { LocaleSwitcher } from "@/components/LocaleSwitcher";
  */
 export async function PublicFooter({
   variant = "site",
-}: { variant?: "site" | "docs" } = {}) {
+}: {
+  variant?: "site" | "docs";
+} = {}) {
   const t = await getTranslations("info");
 
   return (
@@ -21,27 +23,42 @@ export async function PublicFooter({
             <h3 className="text-sm font-semibold">{t("footer.platform")}</h3>
             <ul className="mt-3 space-y-2">
               <li>
-                <Link href={"/wiki" as never} className="text-sm text-muted-foreground hover:text-foreground">
+                <Link
+                  href={"/wiki" as never}
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
                   {t("footer.documentation")}
                 </Link>
               </li>
               <li>
-                <Link href="/features" className="text-sm text-muted-foreground hover:text-foreground">
+                <Link
+                  href="/features"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
                   {t("footer.features")}
                 </Link>
               </li>
               <li>
-                <Link href="/pricing" className="text-sm text-muted-foreground hover:text-foreground">
+                <Link
+                  href="/pricing"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
                   {t("footer.pricing")}
                 </Link>
               </li>
               <li>
-                <Link href="/auth/signin" className="text-sm text-muted-foreground hover:text-foreground">
+                <Link
+                  href="/auth/signin"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
                   {t("footer.signIn")}
                 </Link>
               </li>
               <li>
-                <Link href="/training/nis2-ceo" className="text-sm text-muted-foreground hover:text-foreground">
+                <Link
+                  href="/training/nis2-ceo"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
                   {t("footer.trainingPortal")}
                 </Link>
               </li>
@@ -52,37 +69,58 @@ export async function PublicFooter({
             <h3 className="text-sm font-semibold">{t("footer.company")}</h3>
             <ul className="mt-3 space-y-2">
               <li>
-                <Link href="/vertrauen" className="text-sm text-muted-foreground hover:text-foreground font-medium">
+                <Link
+                  href="/vertrauen"
+                  className="text-sm text-muted-foreground hover:text-foreground font-medium"
+                >
                   {t("footer.trustCenter")}
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground">
+                <Link
+                  href="/about"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
                   {t("footer.team")}
                 </Link>
               </li>
               <li>
-                <Link href="/corrections" className="text-sm text-muted-foreground hover:text-foreground">
+                <Link
+                  href="/corrections"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
                   {t("footer.corrections")}
                 </Link>
               </li>
               <li>
-                <Link href="/changelog" className="text-sm text-muted-foreground hover:text-foreground">
+                <Link
+                  href="/changelog"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
                   {t("footer.changelog")}
                 </Link>
               </li>
               <li>
-                <Link href="/open-source" className="text-sm text-muted-foreground hover:text-foreground">
+                <Link
+                  href="/open-source"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
                   {t("footer.openSource")}
                 </Link>
               </li>
               <li>
-                <Link href="/partner" className="text-sm text-muted-foreground hover:text-foreground">
+                <Link
+                  href="/partner"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
                   {t("footer.partners")}
                 </Link>
               </li>
               <li>
-                <Link href="/status" className="text-sm text-muted-foreground hover:text-foreground">
+                <Link
+                  href="/status"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
                   {t("footer.status")}
                 </Link>
               </li>
@@ -93,27 +131,42 @@ export async function PublicFooter({
             <h3 className="text-sm font-semibold">{t("footer.legal")}</h3>
             <ul className="mt-3 space-y-2">
               <li>
-                <Link href="/impressum" className="text-sm text-muted-foreground hover:text-foreground">
+                <Link
+                  href="/impressum"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
                   {t("footer.impressum")}
                 </Link>
               </li>
               <li>
-                <Link href="/datenschutz" className="text-sm text-muted-foreground hover:text-foreground">
+                <Link
+                  href="/datenschutz"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
                   {t("footer.datenschutz")}
                 </Link>
               </li>
               <li>
-                <Link href="/avv" className="text-sm text-muted-foreground hover:text-foreground">
+                <Link
+                  href="/avv"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
                   {t("footer.avv")}
                 </Link>
               </li>
               <li>
-                <Link href="/toms" className="text-sm text-muted-foreground hover:text-foreground">
+                <Link
+                  href="/toms"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
                   {t("footer.toms")}
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="text-sm text-muted-foreground hover:text-foreground">
+                <Link
+                  href="/terms"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
                   {t("footer.terms")}
                 </Link>
               </li>
@@ -124,7 +177,10 @@ export async function PublicFooter({
             <h3 className="text-sm font-semibold">{t("footer.contact")}</h3>
             <ul className="mt-3 space-y-2">
               <li>
-                <a href="mailto:contact@nisd2.eu" className="text-sm text-muted-foreground hover:text-foreground">
+                <a
+                  href="mailto:contact@nisd2.eu"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
                   contact@nisd2.eu
                 </a>
               </li>
@@ -167,9 +223,7 @@ export async function PublicFooter({
             </p>
             {variant === "docs" ? null : <LocaleSwitcher />}
           </div>
-          <p className="mt-3 text-xs text-muted-foreground/60">
-            {t("footer.disclaimer")}
-          </p>
+          <p className="mt-3 text-xs text-muted-foreground">{t("footer.disclaimer")}</p>
         </div>
       </div>
     </footer>

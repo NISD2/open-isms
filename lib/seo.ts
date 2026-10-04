@@ -169,15 +169,24 @@ const OG_LOCALE: Record<Locale, string> = {
   ro: "ro_RO",
 };
 
+/** `og:url`, `og:site_name` and `og:locale`, for a page that builds its own Open Graph block. */
+export function ogSite(slug: string, locale: string) {
+  const safeLocale: Locale = isLocaleCode(locale) ? locale : routing.defaultLocale;
+  return {
+    url: pageUrl(slug, safeLocale),
+    siteName: "NISD2",
+    locale: OG_LOCALE[safeLocale],
+  };
+}
+
 /**
  * Returns a Next.js `Metadata` OpenGraph + Twitter Cards block with
  * sensible defaults for any page on the site. Locale-aware: emits
  * `og:locale` for the current locale and `og:locale:alternate` for
  * the other two.
  *
- * Image defaults to /og-default.png (1200x630). Pages with their own
- * OG image (wiki articles, specific landing pages) override via the
- * `image` arg.
+ * Image is the page's og-shot card, or the home card in its locale (see
+ * `ogCard`). Pages with their own OG image override via the `image` arg.
  */
 export function pageOg(args: {
   slug: string;
@@ -197,11 +206,7 @@ export function pageOg(args: {
     .filter((l) => l !== safeLocale)
     .map((l) => OG_LOCALE[l]);
   const card = args.image ?? ogCard(args.slug, safeLocale);
-  const image = card
-    ? card.startsWith("http")
-      ? card
-      : `${baseUrl}${card}`
-    : `${baseUrl}/og-default.png`;
+  const image = card && (card.startsWith("http") ? card : `${baseUrl}${card}`);
 
   return {
     openGraph: {
@@ -212,20 +217,22 @@ export function pageOg(args: {
       siteName: "NISD2",
       locale: OG_LOCALE[safeLocale],
       alternateLocale: alternates,
-      images: [
-        {
-          url: image,
-          width: 1200,
-          height: 630,
-          alt: args.imageAlt ?? args.title,
-        },
-      ],
+      images: image
+        ? [
+            {
+              url: image,
+              width: 1200,
+              height: 630,
+              alt: args.imageAlt ?? args.title,
+            },
+          ]
+        : [],
     },
     twitter: {
       card: "summary_large_image" as const,
       title: args.title,
       description: args.description,
-      images: [image],
+      images: image ? [image] : [],
       ...(args.twitterHandle ? { creator: args.twitterHandle } : {}),
     },
   };

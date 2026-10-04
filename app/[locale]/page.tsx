@@ -14,7 +14,7 @@ import { PublicNav } from "@/components/PublicNav";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { ogImages } from "@/lib/og-card";
-import { pageAlternates } from "@/lib/seo";
+import { ogSite, pageAlternates } from "@/lib/seo";
 
 /** The hero screenshot's width on a large screen: the 72rem column less the 25rem pitch and gap. */
 const HERO_SHOT_PX = 704;
@@ -30,7 +30,11 @@ export async function generateMetadata({
     title: t("title"),
     description: t("description"),
     alternates: pageAlternates("", locale),
-    openGraph: { type: "website", images: ogImages("home", locale, t("title")) },
+    openGraph: {
+      type: "website",
+      ...ogSite("", locale),
+      images: ogImages("home", locale, t("title")),
+    },
   };
 }
 

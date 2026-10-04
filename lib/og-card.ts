@@ -9,21 +9,21 @@ import cards from "./og-cards.json";
 const manifest: Record<string, Record<string, string>> = cards;
 
 /**
- * Public URL of the card for a route slug + locale, or undefined when none
- * exists (an untranslated locale, or a route without a card) so the caller
- * falls back to the default. Accepts either a short slug ("about") or a full
- * page slug ("wiki/umsetzung/nis2-meldepflicht"); the last path segment is the
- * card key.
+ * Public URL of the card for a route slug + locale. A route without a card, or
+ * a locale it was not shot in, gets the home card in that locale, so a share
+ * preview always shows the current landing page. Undefined only when the home
+ * card is missing too. Accepts either a short slug ("about") or a full page
+ * slug ("wiki/umsetzung/nis2-meldepflicht"); the last path segment is the card
+ * key.
  */
 export function ogCard(slug: string, locale: string): string | undefined {
   const key = slug.split("/").filter(Boolean).pop() ?? slug;
-  return manifest[key]?.[locale];
+  return manifest[key]?.[locale] ?? manifest.home?.[locale];
 }
 
 /**
- * The Next.js `openGraph.images` array for a route's card, or undefined to
- * inherit the default. For pages that build metadata by hand instead of via
- * `pageOg`.
+ * The Next.js `openGraph.images` array for a route's card. For pages that
+ * build metadata by hand instead of via `pageOg`.
  */
 export function ogImages(slug: string, locale: string, alt: string) {
   const url = ogCard(slug, locale);

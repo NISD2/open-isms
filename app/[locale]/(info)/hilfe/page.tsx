@@ -28,12 +28,10 @@ export async function generateMetadata({
     description: t("meta.description"),
     alternates: pageAlternates("hilfe", locale, HELP_LOCALES),
     // No openGraph block, deliberately. lib/og-cards.json carries no "hilfe"
-    // entry, so ogImages() returned undefined -- and Next REPLACES the parent
-    // openGraph object rather than deep-merging it. Declaring one here
-    // therefore dropped siteName, locale, alternateLocale, title and
-    // description from app/layout.tsx and shipped a bare share card for a
-    // page the sitemap lists at priority 0.8. Inheriting the root defaults is
-    // strictly better until a card exists, which is what /vermittlung does.
+    // entry, and Next REPLACES the parent openGraph object rather than
+    // deep-merging it, so this page inherits the [locale] layout's default
+    // (siteName plus the home card) with og:title filled from the title above.
+    // That is what /vermittlung does too, until a card of its own exists.
   };
 }
 

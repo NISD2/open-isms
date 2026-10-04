@@ -1,11 +1,11 @@
 {
-  "name": "NISD2.eu — NIS2 Compliance Platform",
+  "name": "NISD2: NIS2 Compliance Platform",
   "short_name": "NISD2",
   "description": "NIS2 and BSIG compliance management for German and EU entities. Risk management, incident reporting, audit trail, and deadline tracking.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "theme_color": "#09090b",
+  "theme_color": "#ffffff",
   "background_color": "#ffffff",
   "icons": [
     {
