@@ -794,9 +794,6 @@ export const supplierAcceptInviteSchema = z.object({
 export const supplierInviteCustomerSchema = z.object({
   customerEmail: z.string().email().max(255),
   customerOrgName: z.string().max(500).optional(),
-  source: z
-    .enum(["manual", "claim_token", "domain_match", "rsk22_import"])
-    .default("manual"),
 });
 
 /** Entity-side: request a security profile from a supplier (magic-link invite). */

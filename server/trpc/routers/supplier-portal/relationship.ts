@@ -119,7 +119,8 @@ export const supplierRelationshipRouter = router({
             customerOrgName: input.customerOrgName ?? null,
             status: "active" as const,
             unsubscribeToken: generateOpaqueToken(),
-            source: input.source,
+            // A supplier's own invite, always: the other sources are set by their own flows.
+            source: "manual",
             confirmedAt: new Date(),
           }),
         )
