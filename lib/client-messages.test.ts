@@ -52,7 +52,10 @@ const resolve = (specifier: string, from: string): string | undefined => {
 /** Whether the file's directive prologue, the string statements before any code, says "use client". */
 const isUseClient = (source: ts.SourceFile): boolean => {
   for (const statement of source.statements) {
-    if (!ts.isExpressionStatement(statement) || !ts.isStringLiteral(statement.expression)) {
+    if (
+      !ts.isExpressionStatement(statement) ||
+      !ts.isStringLiteral(statement.expression)
+    ) {
       return false;
     }
     if (statement.expression.text === "use client") return true;
