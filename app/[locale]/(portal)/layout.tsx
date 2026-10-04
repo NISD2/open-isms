@@ -1,6 +1,7 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getLocale } from "next-intl/server";
+import { AllMessagesProvider } from "@/components/AllMessagesProvider";
 import { CompanySetup } from "@/components/organization/CompanySetup";
 import { PortalShell } from "@/components/portal/PortalShell";
 import { redirect as localeRedirect } from "@/i18n/navigation";
@@ -63,6 +64,10 @@ export default async function PortalLayout({ children }: { children: React.React
   const showSetup = !session.companyActivated && needsCompany;
 
   return (
-    <PortalShell session={session}>{showSetup ? <CompanySetup /> : children}</PortalShell>
+    <AllMessagesProvider>
+      <PortalShell session={session}>
+        {showSetup ? <CompanySetup /> : children}
+      </PortalShell>
+    </AllMessagesProvider>
   );
 }

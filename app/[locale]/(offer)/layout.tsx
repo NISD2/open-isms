@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { AllMessagesProvider } from "@/components/AllMessagesProvider";
 import { PortalShell } from "@/components/portal/PortalShell";
 import { getSession } from "@/lib/auth";
 
@@ -13,5 +14,9 @@ export default async function OfferLayout({ children }: { children: React.ReactN
   const session = await getSession();
   if (!session) redirect("/auth/signin");
 
-  return <PortalShell session={session}>{children}</PortalShell>;
+  return (
+    <AllMessagesProvider>
+      <PortalShell session={session}>{children}</PortalShell>
+    </AllMessagesProvider>
+  );
 }

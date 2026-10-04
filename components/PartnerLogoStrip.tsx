@@ -1,3 +1,4 @@
+import { getImageProps } from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { acsBadge, type Programme, programmes } from "@/lib/partners";
@@ -31,12 +32,23 @@ const LOGO_CLASS =
  * Every asset in the list already carries its silhouette in the alpha channel,
  * which is what the mask reads, so nothing needed re-exporting.
  *
+ * A CSS url bypasses next/image, so the mask takes its URL from getImageProps:
+ * the PNGs then reach the browser as WebP with the alpha intact (the ACS badge
+ * 95 KB to 38 KB). The SVGs pass through unchanged, as next/image leaves SVG
+ * alone.
+ *
  * The element is a span rather than an img, so the accessible name comes from
  * role and aria-label. aspectRatio against the definite height from heightClass
  * is what resolves the width.
  */
 function PartnerLogo({ programme, alt }: { programme: Programme; alt: string }) {
-  const mask = `url(${programme.logo}) center / contain no-repeat`;
+  const { src } = getImageProps({
+    src: programme.logo,
+    alt: "",
+    width: programme.logoWidth,
+    height: programme.logoHeight,
+  }).props;
+  const mask = `url("${src}") center / contain no-repeat`;
 
   return (
     <span

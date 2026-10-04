@@ -169,6 +169,16 @@ const OG_LOCALE: Record<Locale, string> = {
   ro: "ro_RO",
 };
 
+/** `og:url`, `og:site_name` and `og:locale`, for a page that builds its own Open Graph block. */
+export function ogSite(slug: string, locale: string) {
+  const safeLocale: Locale = isLocaleCode(locale) ? locale : routing.defaultLocale;
+  return {
+    url: pageUrl(slug, safeLocale),
+    siteName: "NISD2",
+    locale: OG_LOCALE[safeLocale],
+  };
+}
+
 /**
  * Returns a Next.js `Metadata` OpenGraph + Twitter Cards block with
  * sensible defaults for any page on the site. Locale-aware: emits
