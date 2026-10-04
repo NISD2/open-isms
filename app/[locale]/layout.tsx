@@ -1,12 +1,36 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, getTranslations } from "next-intl/server";
 import { Analytics } from "@/components/Analytics";
 import { JsonLd } from "@/components/JsonLd";
 import { Toaster } from "@/components/ui/sonner";
 import { routing } from "@/i18n/routing";
+import { ogImages } from "@/lib/og-card";
 import { buildSiteGraphJsonLd, buildSiteNavGraphJsonLd, type Locale } from "@/lib/seo";
 import { TRPCProvider } from "@/lib/trpc/provider";
+
+/**
+ * The share card for any page that sets no Open Graph block of its own: the
+ * home card in its locale. Without it those pages inherit the root layout's
+ * site-wide block, whose static image and title predate the current offer.
+ */
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) return {};
+  const t = await getTranslations({ locale, namespace: "landing.guided.meta" });
+  return {
+    openGraph: {
+      type: "website",
+      siteName: "nisd2.eu",
+      images: ogImages("home", locale, t("title")),
+    },
+  };
+}
 
 export default async function LocaleLayout({
   children,

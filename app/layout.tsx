@@ -65,17 +65,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "NIS2 Compliance Platform. Free, EU-wide",
-    description:
-      "Free NIS2 compliance platform. All 10 BSIG measures, audit trail, management liability, BSI registration guide. No lock-in.",
   },
   category: "technology",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return children;
 }

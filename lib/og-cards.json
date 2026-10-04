@@ -57,7 +57,14 @@
   "home": {
     "de": "/og/home-de.png",
     "en": "/og/home-en.png",
-    "nl": "/og/home-nl.png"
+    "nl": "/og/home-nl.png",
+    "fr": "/og/home-fr.png",
+    "it": "/og/home-it.png",
+    "es": "/og/home-es.png",
+    "pl": "/og/home-pl.png",
+    "cs": "/og/home-cs.png",
+    "pt": "/og/home-pt.png",
+    "ro": "/og/home-ro.png"
   },
   "nis2-documents": {
     "de": "/og/nis2-documents-de.png",
