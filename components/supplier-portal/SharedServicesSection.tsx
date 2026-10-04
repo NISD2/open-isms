@@ -56,6 +56,12 @@ const ASSET_FIELDS = [
   "processesPersonalData",
 ] as const satisfies readonly (keyof SharedService)[];
 
+/** Declarations stored as a fixed value, each with the supplierPortal.options group that names its values. */
+const OPTION_GROUPS = new Map<string, string>([
+  ["saasHostingRegion", "saasHostingRegion"],
+  ["proServicesBackgroundCheckScope", "backgroundCheckScope"],
+]);
+
 type Row = { readonly key: string; readonly label: string; readonly value: string };
 
 export async function SharedServicesSection({
@@ -63,17 +69,20 @@ export async function SharedServicesSection({
 }: {
   services: readonly SharedService[];
 }) {
-  const [t, tField, tAsset, tCommon] = await Promise.all([
+  const [t, tField, tAsset, tOption, tCommon] = await Promise.all([
     getTranslations("supplierPortal.customerView"),
     getTranslations("supplierPortal.fields"),
     getTranslations("assets.fields"),
+    getTranslations("supplierPortal.options"),
     getTranslations("common"),
   ]);
 
-  const format = (value: unknown): string | null => {
+  const format = (key: string, value: unknown): string | null => {
     if (value === null || value === undefined || value === "") return null;
     if (typeof value === "boolean") return value ? tCommon("yes") : tCommon("no");
-    return String(value);
+    const group = OPTION_GROUPS.get(key);
+    const option = group && `${group}.${String(value)}`;
+    return option && tOption.has(option) ? tOption(option) : String(value);
   };
 
   const rowsFor = (service: SharedService): readonly Row[] => {
@@ -94,7 +103,7 @@ export async function SharedServicesSection({
     // An unanswered declaration renders as nothing rather than a row of
     // "not specified" repeated fifteen times.
     return [...offering, ...shared].flatMap<Row>(({ key, label, raw }) => {
-      const value = format(raw);
+      const value = format(key, raw);
       return value === null ? [] : [{ key, label, value }];
     });
   };

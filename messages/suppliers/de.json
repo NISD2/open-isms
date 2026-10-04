@@ -102,6 +102,22 @@
     "suppliersNoRisks": "Lieferanten ohne Risiken",
     "unlinkedRisks": "Risiken ohne Lieferanten-Zuordnung",
     "noSuppliersYet": "Keine Lieferanten erfasst. Erfassen Sie Lieferanten in Schritt 5.1.",
-    "supplierRiskAssessment": "Lieferanten-Risikobewertung"
+    "supplierRiskAssessment": "Lieferanten-Risikobewertung",
+    "requestProfile": {
+      "button": "Sicherheitsprofil bei einem Lieferanten anfragen",
+      "title": "Sicherheitsprofil eines Lieferanten anfragen",
+      "description": "Sie schicken dem Lieferanten eine Einladung mit persönlichem Link. Er meldet sich im Lieferantenportal an und beantwortet den einheitlichen Fragebogen einmal. Seine Antworten erscheinen danach in Ihrem Lieferantenregister.",
+      "emailLabel": "E-Mail-Adresse des Lieferanten",
+      "emailPlaceholder": "it@lieferant.de",
+      "emailHint": "Der Link gilt nur für diese Adresse. Der Lieferant kann die Einladung nur annehmen, wenn er sich mit genau dieser E-Mail-Adresse anmeldet.",
+      "messageLabel": "Persönliche Nachricht",
+      "messagePlaceholder": "Guten Tag, wir brauchen Ihre Angaben, um die Sicherheit unserer Lieferkette zu prüfen. Vielen Dank.",
+      "submit": "Einladung senden",
+      "sent": "Einladung an {email} gesendet.",
+      "sendFailed": "Die Einladung konnte nicht gesendet werden. Bitte versuchen Sie es erneut.",
+      "expiry": "Der Link gilt 30 Tage. Sie können ihn auch unten kopieren und selbst weitergeben.",
+      "linkLabel": "Einladungslink",
+      "done": "Fertig"
+    }
   }
 }

@@ -291,6 +291,24 @@ export function SchemaForm<T extends z.ZodRawShape>({
                 />
               ) : null;
 
+              // A hidden field carries a value nobody sets by hand: the input only, without the
+              // label and the grid cell a visible field gets.
+              if (override?.component === "hidden") {
+                return (
+                  <FormField
+                    key={meta.key}
+                    control={form.control}
+                    name={meta.key}
+                    render={({ field }) => (
+                      <>
+                        {showGroupSep && <Separator className="col-span-full my-1" />}
+                        {renderFieldInput(meta, field, override, selectPlaceholder)}
+                      </>
+                    )}
+                  />
+                );
+              }
+
               if ((override?.component ?? meta.type) === "boolean") {
                 return (
                   <FormField

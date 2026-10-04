@@ -37,7 +37,8 @@ export interface CertRow {
   status: string;
 }
 
-const CERT_TYPES = [
+/** The standards by their own names, the same in every language. */
+const STANDARDS = [
   { value: "iso27001", label: "ISO/IEC 27001" },
   { value: "iso27017", label: "ISO/IEC 27017" },
   { value: "iso27018", label: "ISO/IEC 27018" },
@@ -48,8 +49,6 @@ const CERT_TYPES = [
   { value: "soc2_type2", label: "SOC 2 Type 2" },
   { value: "isae3402", label: "ISAE 3402" },
   { value: "eucc", label: "EUCC" },
-  { value: "pen_test", label: "Penetration Test" },
-  { value: "other", label: "Other" },
 ];
 
 interface CertificationsSectionProps {
@@ -83,22 +82,29 @@ export function CertificationsSection({
     onSuccess: () => router.refresh(),
   });
 
+  const certTypes = [
+    ...STANDARDS,
+    { value: "pen_test", label: t("typePenTest") },
+    { value: "other", label: t("typeOther") },
+  ];
+
   const fieldOverrides: Record<string, FieldOverride> = {
     type: {
-      label: "Type",
+      label: t("typeLabel"),
       component: "enum",
-      options: CERT_TYPES,
+      options: certTypes,
     },
     typeOther: { component: "hidden" },
     scope: { component: "hidden" },
-    auditor: { label: "Auditor (optional)", placeholder: "TÜV Süd" },
+    // The form marks optional fields itself.
+    auditor: { label: t("auditorLabel"), placeholder: t("auditorPlaceholder") },
     validFrom: { component: "hidden" },
-    validUntil: { label: "Valid until" },
+    validUntil: { label: t("validUntilLabel") },
     fileName: { component: "hidden" },
     fileSize: { component: "hidden" },
     contentHash: { component: "hidden" },
     storageKey: {
-      label: "Certificate PDF",
+      label: t("fileLabel"),
       // Custom render: mount SimpleFileUpload and bind its onUploaded /
       // onRemoved handlers to the react-hook-form field.
       render: (field) => (
@@ -193,7 +199,8 @@ export function CertificationsSection({
                 <ShieldCheck className="h-5 w-5 text-primary shrink-0" />
                 <div className="min-w-0">
                   <div className="font-medium text-sm truncate">
-                    {CERT_TYPES.find((t) => t.value === cert.type)?.label ?? cert.type}
+                    {certTypes.find((type) => type.value === cert.type)?.label ??
+                      cert.type}
                   </div>
                   <div className="text-xs text-muted-foreground inline-flex items-center gap-1">
                     <Calendar className="h-3 w-3" />

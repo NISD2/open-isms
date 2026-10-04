@@ -13,7 +13,14 @@
       "uploading": "Uploading…",
       "uploadFailed": "Upload failed. Try again or contact support.",
       "tooManyUploads": "Your company has uploaded too many files in the last hour. Please try again in an hour.",
-      "remove": "Remove"
+      "remove": "Remove",
+      "typeLabel": "Type of evidence",
+      "typePenTest": "Penetration test",
+      "typeOther": "Other evidence",
+      "auditorLabel": "Auditor",
+      "auditorPlaceholder": "Name of the certification body",
+      "validUntilLabel": "Valid until",
+      "fileLabel": "Certificate PDF"
     },
     "nav": {
       "portalName": "Supplier portal",
@@ -203,6 +210,108 @@
         "significant": "Significant incident"
       }
     },
+    "customers": {
+      "emailLabel": "Customer's security contact email",
+      "emailPlaceholder": "it@customer.example",
+      "orgNameLabel": "Customer's company name",
+      "orgNamePlaceholder": "Example Ltd",
+      "submit": "Invite customer"
+    },
+    "assets": {
+      "add": "Add asset",
+      "newTitle": "New asset",
+      "editTitle": "Edit asset",
+      "save": "Save asset",
+      "saveChanges": "Save changes",
+      "remove": "Remove asset",
+      "empty": "No assets recorded for this customer yet. Use Add asset to record the first one.",
+      "serviceTypes": {
+        "saas": "Software as a service (SaaS)",
+        "on_prem": "Software on the customer's premises",
+        "pro_services": "Professional services",
+        "managed": "Managed service"
+      }
+    },
+    "incidents": {
+      "intro": "Notify {recipient} about a security incident that affects the assets you manage for them. It helps the customer with their duty under Art. 21(2)(d) NIS2 to keep the security of their supply chain in view.",
+      "thisCustomer": "this customer",
+      "managerTitle": "Incident notifications",
+      "managerIntro": "Notify one customer about a security incident that affects the assets you manage for them. Each notice goes to exactly one customer. It helps the customer with their duty under Art. 21(2)(d) NIS2 to keep the security of their supply chain in view.",
+      "newTitle": "Report a new incident",
+      "noCustomers": "You need at least one active customer before you can report an incident. <link>Add a customer</link>",
+      "customerPlaceholder": "Pick a customer to notify",
+      "affectedAssets": "Affected assets (optional, leave blank for a general notice)",
+      "loadingAssets": "Loading assets…",
+      "noAssets": "No assets recorded for this customer yet. The notice goes out without naming an asset.",
+      "noAssetsHint": "You add assets on the customer's page.",
+      "titleLabel": "Title",
+      "titlePlaceholder": "Customer portal outage",
+      "descriptionLabel": "Description (up to {max, number} characters)",
+      "descriptionPlaceholder": "Between 14:00 and 15:30 UTC the customer portal was unreachable…",
+      "descriptionHint": "Do not include internal investigation notes or personal data. The customer reads the text exactly as you write it. The email they get does not contain it, it links to your notice.",
+      "severity": "Severity",
+      "severityOptions": {
+        "info": "Near miss",
+        "warning": "Incident",
+        "critical": "Significant incident"
+      },
+      "notify": "Notify customer",
+      "historyTitle": "Reported incidents",
+      "historyEmpty": "No incidents reported yet.",
+      "reportedAt": "Reported {date}",
+      "delivery": "Notification: {status} ({count} sent)",
+      "deliveryStatus": {
+        "queued": "queued",
+        "sending": "sending",
+        "sent": "sent",
+        "failed": "failed",
+        "none": "none"
+      }
+    },
+    "access": {
+      "contactMissing": "(no email)",
+      "revokeConfirm": "End access for this customer? They will no longer be able to see your security profile.",
+      "status": {
+        "active": "Active",
+        "revoked": "Ended",
+        "bounced": "Email bounced"
+      },
+      "clausesTitle": "Contract clauses for this customer",
+      "clausesIntro": "What you have agreed with this customer in your contract. Based on point 5.1.4 of the Annex to Implementing Regulation (EU) 2024/2690 and ENISA's Technical Implementation Guidance on it.",
+      "saveClauses": "Save clauses"
+    },
+    "acceptInvite": {
+      "metaTitle": "Accept supplier invite",
+      "wrongEmailTitle": "Signed in with a different email",
+      "wrongEmailBody": "This invite was sent to <b>{invited}</b>, but you are signed in as <b>{signedIn}</b>.",
+      "wrongEmailHint": "Sign out and sign back in with {invited} to accept this invite.",
+      "signOut": "Sign out",
+      "hasCompanyTitle": "Account already in use",
+      "hasCompanyBody": "Your account already belongs to another company on the platform. To accept this invite, please sign in with a different email address.",
+      "toPortal": "Go to my supplier portal",
+      "eyebrow": "Invitation",
+      "title": "{company} would like to see your security profile",
+      "intro": "{company} falls under NIS2 and has to check how securely its suppliers work. Instead of its own questionnaire it uses nisd2.eu: you answer the unified questionnaire once and release it to every customer who asks.",
+      "yourEmail": "Your email",
+      "nameLabel": "Your company name",
+      "namePlaceholder": "Example Ltd",
+      "countryLabel": "Country (ISO code)",
+      "countryHint": "Two-letter ISO 3166-1 code, for example DE or AT.",
+      "submit": "Accept and create profile",
+      "freeNote": "The supplier portal costs nothing. Most suppliers do not fall under NIS2 themselves, and this form does not assume you do."
+    },
+    "options": {
+      "saasHostingRegion": {
+        "eu": "EU only",
+        "de_only": "Germany only",
+        "global": "Global"
+      },
+      "backgroundCheckScope": {
+        "criminal": "Criminal record",
+        "employment": "Employment history",
+        "both": "Both"
+      }
+    },
     "fields": {
       "dataProcessingLocations": "Countries / regions where customer data is processed",
       "saasHostingRegion": "Hosting region",
@@ -215,7 +324,20 @@
       "proServicesCustomerPremisesPolicy": "Documented customer-premises behaviour policy",
       "managedPrivilegedAccessMgmt": "Privileged access management (PAM) in place",
       "managedSessionRecording": "Admin sessions are recorded",
-      "managedOnCall24x7": "24/7 on-call coverage"
+      "managedOnCall24x7": "24/7 on-call coverage",
+      "name": "Name",
+      "serviceType": "Service type",
+      "serviceDescription": "Description of the service",
+      "acceptRightToAudit": "We accept audits by the customer or provide audit reports",
+      "hasSubprocessors": "We use subcontractors for this customer",
+      "subprocessorList": "List of subcontractors",
+      "dataReturnOnTermination": "At contract end we hand back or destroy what we hold of the customer",
+      "dpaAvailable": "Data processing agreement in place",
+      "hasExitPlan": "We have a documented exit plan with an adequate transition period",
+      "notifyOnLocationChange": "We inform the customer in advance if the data processing location changes",
+      "notifyMaterialChanges": "We inform the customer of material changes to our service",
+      "incidentAssistanceCommitment": "We assist the customer during incidents at no extra cost",
+      "incidentSlaHours": "How fast you inform the customer of an incident (hours)"
     }
   }
 }

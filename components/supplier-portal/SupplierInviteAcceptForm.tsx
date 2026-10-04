@@ -9,13 +9,14 @@
  * Driven by SchemaForm + a .pick() of `supplierAcceptInviteSchema` (the same
  * schema the tRPC mutation uses on the server side — single source of truth).
  */
-import type { z } from "zod";
 import { AlertCircle, Building2 } from "lucide-react";
+import { useTranslations } from "next-intl";
+import type { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { trpc } from "@/lib/trpc/client";
-import { SchemaForm } from "@/lib/forms/schema-form";
 import type { FieldOverride } from "@/lib/forms/field-renderer";
+import { SchemaForm } from "@/lib/forms/schema-form";
+import { trpc } from "@/lib/trpc/client";
 import { supplierAcceptInviteSchema } from "@/schema/validators";
 
 // .omit({ token: true }) — token comes from the URL, not the form
@@ -43,6 +44,7 @@ export function SupplierInviteAcceptForm({
   alreadyHasCompany,
   signedInAs,
 }: Props) {
+  const t = useTranslations("supplierPortal.acceptInvite");
   const accept = trpc.supplierPortal.onboarding.acceptInvite.useMutation({
     onSuccess: () => {
       window.location.href = "/portal/supplier";
@@ -55,16 +57,19 @@ export function SupplierInviteAcceptForm({
       <Card>
         <CardContent className="py-8 space-y-4 text-center">
           <AlertCircle className="h-10 w-10 text-amber-600 mx-auto" />
-          <h1 className="text-xl font-semibold">Wrong email signed in</h1>
+          <h1 className="text-xl font-semibold">{t("wrongEmailTitle")}</h1>
           <p className="text-sm text-muted-foreground">
-            This invite was sent to <strong>{toEmail}</strong>, but you are
-            signed in as <strong>{signedInAs}</strong>.
+            {t.rich("wrongEmailBody", {
+              invited: toEmail,
+              signedIn: signedInAs,
+              b: (chunks) => <strong>{chunks}</strong>,
+            })}
           </p>
           <p className="text-xs text-muted-foreground">
-            Sign out and sign back in with {toEmail} to accept this invite.
+            {t("wrongEmailHint", { invited: toEmail })}
           </p>
           <Button asChild variant="outline">
-            <a href="/auth/signout">Sign out</a>
+            <a href="/auth/signout">{t("signOut")}</a>
           </Button>
         </CardContent>
       </Card>
@@ -77,26 +82,23 @@ export function SupplierInviteAcceptForm({
       <Card>
         <CardContent className="py-8 space-y-4 text-center">
           <AlertCircle className="h-10 w-10 text-amber-600 mx-auto" />
-          <h1 className="text-xl font-semibold">Account already in use</h1>
-          <p className="text-sm text-muted-foreground">
-            Your account is already a member of another company on the
-            platform. To accept this invite, please sign in with a different
-            email address.
-          </p>
+          <h1 className="text-xl font-semibold">{t("hasCompanyTitle")}</h1>
+          <p className="text-sm text-muted-foreground">{t("hasCompanyBody")}</p>
           <Button asChild variant="outline">
-            <a href="/portal/supplier">Go to my supplier portal</a>
+            <a href="/portal/supplier">{t("toPortal")}</a>
           </Button>
         </CardContent>
       </Card>
     );
   }
 
+  // `placeholder: "DE"` is a country code, not a translatable example.
   const fieldOverrides: Record<string, FieldOverride> = {
-    name: { label: "Your company name", placeholder: "Your GmbH" },
+    name: { label: t("nameLabel"), placeholder: t("namePlaceholder") },
     country: {
-      label: "Country (ISO code)",
+      label: t("countryLabel"),
       placeholder: "DE",
-      description: "Two-letter ISO 3166-1 code. Defaults to DE.",
+      description: t("countryHint"),
     },
   };
 
@@ -105,16 +107,13 @@ export function SupplierInviteAcceptForm({
       <header className="space-y-2">
         <div className="inline-flex items-center gap-2 text-xs text-muted-foreground">
           <Building2 className="h-3 w-3" />
-          Invitation
+          {t("eyebrow")}
         </div>
         <h1 className="text-2xl font-semibold tracking-tight">
-          {fromCompanyName} would like to see your security profile
+          {t("title", { company: fromCompanyName })}
         </h1>
         <p className="text-sm text-muted-foreground">
-          They are a NIS2-regulated entity required by EU law to assess their
-          suppliers' cybersecurity practices. Instead of a 200-question PDF,
-          they are using nisd2.eu — fill the unified ENISA-anchored
-          questionnaire once, and share it with every customer who asks.
+          {t("intro", { company: fromCompanyName })}
         </p>
       </header>
 
@@ -125,7 +124,7 @@ export function SupplierInviteAcceptForm({
       )}
 
       <div className="text-sm space-y-1">
-        <div className="text-xs text-muted-foreground">Your email</div>
+        <div className="text-xs text-muted-foreground">{t("yourEmail")}</div>
         <div className="rounded-md border bg-muted px-3 py-2 text-muted-foreground">
           {toEmail}
         </div>
@@ -141,18 +140,13 @@ export function SupplierInviteAcceptForm({
             ...(data as InviteAcceptFormValues),
           });
         }}
-        submitLabel="Accept and create profile"
+        submitLabel={t("submit")}
         isSubmitting={accept.isPending}
       />
       {accept.isError && (
-        <p className="text-xs text-destructive text-center">
-          {accept.error.message}
-        </p>
+        <p className="text-xs text-destructive text-center">{accept.error.message}</p>
       )}
-      <p className="text-xs text-muted-foreground text-center">
-        Free forever for the supplier portal. Most suppliers are not directly
-        NIS2-regulated, and this form does not assume you are.
-      </p>
+      <p className="text-xs text-muted-foreground text-center">{t("freeNote")}</p>
     </div>
   );
 }

@@ -10,6 +10,7 @@
  * entity user can also copy-paste the link manually if email delivery is slow.
  */
 import { Check, Copy, Mail } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
 import type { z } from "zod";
@@ -33,14 +34,15 @@ import { supplierInviteRequestSchema } from "@/schema/validators";
 type InviteRequestValues = z.infer<typeof supplierInviteRequestSchema>;
 
 export function RequestSupplierProfileButton({
-  label = "Request security profile from a supplier",
+  label,
   supplierId,
 }: {
-  /** The button's text, for a page that shows it in its own language. */
+  /** The button's text where a page words it its own way; the register's wording otherwise. */
   label?: string;
   /** The row of the supplier list it is sent for, which the reply then links. */
   supplierId?: string;
 } = {}) {
+  const t = useTranslations("suppliers.requestProfile");
   const [open, setOpen] = useState(false);
   const [inviteUrl, setInviteUrl] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
@@ -50,13 +52,11 @@ export function RequestSupplierProfileButton({
     onSuccess: (data, variables) => {
       setInviteUrl(data.inviteUrl);
       setLastEmail(variables.toEmail);
-      toast.success(`Invite sent to ${variables.toEmail}`);
+      toast.success(t("sent", { email: variables.toEmail }));
     },
-    // Untranslated to match the rest of this component, which is English
-    // throughout. The fallback matters more than the wording: without it an
-    // unhandled server exception was rendered verbatim into the toast.
-    onError: (err) =>
-      toast.error(userFacingError(err, "Could not send the invite. Please try again.")),
+    // The fallback matters: without it an unhandled server exception was
+    // rendered verbatim into the toast.
+    onError: (err) => toast.error(userFacingError(err, t("sendFailed"))),
   });
 
   function handleCopy() {
@@ -72,17 +72,16 @@ export function RequestSupplierProfileButton({
     setLastEmail("");
   }
 
+  // The form marks optional fields itself, so no label says "optional".
   const fieldOverrides: Record<string, FieldOverride> = {
     toEmail: {
-      label: "Supplier email",
-      placeholder: "security@supplier.de",
-      description:
-        "The link is bound to this email — the supplier can only accept it after signing in with the same address.",
+      label: t("emailLabel"),
+      placeholder: t("emailPlaceholder"),
+      description: t("emailHint"),
     },
     message: {
-      label: "Personal message (optional)",
-      placeholder:
-        "Hi, we need this for our NIS2 §30 supplier monitoring obligation. Thanks!",
+      label: t("messageLabel"),
+      placeholder: t("messagePlaceholder"),
       component: "textarea",
     },
   };
@@ -98,17 +97,13 @@ export function RequestSupplierProfileButton({
       <SheetTrigger asChild>
         <Button variant="outline" size="sm">
           <Mail className="h-4 w-4 mr-2" />
-          {label}
+          {label ?? t("button")}
         </Button>
       </SheetTrigger>
       <SheetContent className="sm:max-w-lg flex flex-col gap-6 p-6 overflow-y-auto">
         <SheetHeader className="p-0">
-          <SheetTitle>Request a supplier security profile</SheetTitle>
-          <SheetDescription>
-            Send a magic-link invite to a supplier. They sign up via the supplier portal
-            and fill the unified ENISA-anchored questionnaire once. Their answers
-            auto-link back to your supplier inventory.
-          </SheetDescription>
+          <SheetTitle>{t("title")}</SheetTitle>
+          <SheetDescription>{t("description")}</SheetDescription>
         </SheetHeader>
 
         {!inviteUrl ? (
@@ -119,22 +114,21 @@ export function RequestSupplierProfileButton({
             onSubmit={async (data) => {
               await create.mutateAsync({ ...(data as InviteRequestValues), supplierId });
             }}
-            submitLabel="Send invite"
+            submitLabel={t("submit")}
             isSubmitting={create.isPending}
           />
         ) : (
           <div className="space-y-4">
             <div className="rounded-lg border bg-green-50 dark:bg-green-950/20 border-green-200 dark:border-green-800 p-4 text-sm">
               <p className="font-medium text-green-900 dark:text-green-100">
-                Invite sent to {lastEmail}.
+                {t("sent", { email: lastEmail })}
               </p>
               <p className="text-green-800 dark:text-green-200 mt-1 text-xs">
-                Expires in 30 days. You can also copy the link below and share it
-                directly.
+                {t("expiry")}
               </p>
             </div>
             <div>
-              <Label className="text-sm font-medium">Invite link</Label>
+              <Label className="text-sm font-medium">{t("linkLabel")}</Label>
               <div className="mt-1.5 flex gap-2">
                 <Input readOnly value={inviteUrl} className="font-mono text-xs" />
                 <Button type="button" variant="outline" size="sm" onClick={handleCopy}>
@@ -143,7 +137,7 @@ export function RequestSupplierProfileButton({
               </div>
             </div>
             <div className="flex justify-end gap-2 pt-2">
-              <Button onClick={() => setOpen(false)}>Done</Button>
+              <Button onClick={() => setOpen(false)}>{t("done")}</Button>
             </div>
           </div>
         )}
