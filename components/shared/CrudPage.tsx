@@ -31,6 +31,11 @@ interface CrudPageProps<T extends z.ZodRawShape> {
   onUpdate?: (id: string, data: z.infer<z.ZodObject<T>>) => void | Promise<unknown>;
   onDelete?: (id: string) => void;
   isSubmitting?: boolean;
+  /**
+   * Which forms the AI prefill button belongs on. Held back from every form for now: this page
+   * does not pass it on to SchemaForm, so pages keep saying where it fits and showing it again is
+   * one line below.
+   */
   llmPrefill?: boolean;
   children: (props: {
     items: Item[];
@@ -53,7 +58,6 @@ export function CrudPage<T extends z.ZodRawShape>({
   onUpdate,
   onDelete,
   isSubmitting,
-  llmPrefill = false,
   children,
 }: CrudPageProps<T>) {
   const t = useTranslations(namespace);
@@ -133,7 +137,6 @@ export function CrudPage<T extends z.ZodRawShape>({
               isSubmitting={isSubmitting}
               fieldOverrides={fieldOverrides}
               readOnly={editItem ? readOnlyFor?.(editItem) : undefined}
-              llmPrefill={llmPrefill}
               translationNamespace={namespace}
             />
           </CardContent>

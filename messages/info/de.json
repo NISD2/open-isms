@@ -1643,7 +1643,6 @@
         "traceable": "Nachvollziehbar",
         "requirements": "Anforderungen",
         "measures": "§ 30 Maßnahmen",
-        "assistedPrefill": "KI-Vorausfüllung",
         "tenPhases": "10 Phasen",
         "granular": "Granular",
         "exportAnytime": "Jederzeit exportieren",
@@ -1667,7 +1666,7 @@
         "heading": "49 strukturierte BSIG-Anforderungen",
         "p1": "Die 10 Pflichtmaßnahmen des § 30 BSIG sind in 49 konkrete, umsetzbare Anforderungen aufgeschlüsselt - jede mit eigenem strukturiertem Formular.",
         "p2": "Jede Anforderung ist ein Formular. Jedes Formularfeld entspricht einer konkreten Compliance-Pflicht. Formular ausfüllen, Compliance dokumentiert. Keine Unklarheiten, kein Rätselraten.",
-        "p3": "Formulare unterstützen Text, Auswahl, Mehrfachauswahl, Daten und Datei-Uploads für Nachweise. KI-gestützte Vorausfüllung hilft beim Entwurf basierend auf Ihrem Unternehmensprofil - Sie verfeinern und genehmigen."
+        "p3": "Formulare unterstützen Text, Auswahl, Mehrfachauswahl, Daten und Datei-Uploads für Nachweise."
       },
       "deadlines": {
         "heading": "Fristenüberwachung & Eskalation",

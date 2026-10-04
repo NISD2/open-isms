@@ -1397,7 +1397,6 @@
         "traceable": "Traçable",
         "requirements": "Exigences",
         "measures": "Mesures § 30",
-        "assistedPrefill": "Pré-remplissage assisté",
         "tenPhases": "10 phases",
         "granular": "Granulaire",
         "exportAnytime": "Export à tout moment",
@@ -1421,7 +1420,7 @@
         "heading": "49 exigences BSIG structurées",
         "p1": "Les 10 mesures obligatoires du § 30 BSIG sont déclinées en 49 exigences concrètes et actionnables, chacune dotée de son propre formulaire structuré.",
         "p2": "Chaque exigence est un formulaire. Chaque champ de formulaire correspond à une obligation de conformité spécifique. Remplissez le formulaire, et vous avez documenté votre conformité. Aucune ambiguïté, aucune supposition.",
-        "p3": "Les formulaires prennent en charge le texte, les sélections, les sélections multiples, les dates et les téléversements de fichiers pour les preuves. Le pré-remplissage assisté par IA vous aide à rédiger des réponses à partir du profil de votre entreprise, que vous affinez et approuvez ensuite."
+        "p3": "Les formulaires prennent en charge le texte, les sélections, les sélections multiples, les dates et les téléversements de fichiers pour les preuves."
       },
       "deadlines": {
         "heading": "Suivi des échéances et escalade",

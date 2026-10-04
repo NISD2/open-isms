@@ -1397,7 +1397,6 @@
         "traceable": "Dohledatelné",
         "requirements": "Požadavky",
         "measures": "Opatření § 30",
-        "assistedPrefill": "Asistované předvyplnění",
         "tenPhases": "10 fází",
         "granular": "Granulární",
         "exportAnytime": "Export kdykoli",
@@ -1421,7 +1420,7 @@
         "heading": "49 strukturovaných požadavků BSIG",
         "p1": "10 povinných opatření § 30 BSIG je rozděleno do 49 konkrétních, použitelných požadavků, každý s vlastním strukturovaným formulářem.",
         "p2": "Každý požadavek je formulář. Každé pole formuláře se mapuje na konkrétní povinnost compliance. Vyplníte formulář a máte zdokumentovaný svůj soulad. Žádná nejednoznačnost, žádné hádání.",
-        "p3": "Formuláře podporují text, výběry, vícenásobný výběr, data a nahrávání souborů jako důkazů. Předvyplnění s podporou AI vám pomůže navrhnout odpovědi na základě profilu vaší společnosti, které poté upravíte a schválíte."
+        "p3": "Formuláře podporují text, výběry, vícenásobný výběr, data a nahrávání souborů jako důkazů."
       },
       "deadlines": {
         "heading": "Sledování lhůt a eskalace",

@@ -1397,7 +1397,6 @@
         "traceable": "Trasabil",
         "requirements": "Cerințe",
         "measures": "Măsuri § 30",
-        "assistedPrefill": "Precompletare asistată",
         "tenPhases": "10 faze",
         "granular": "Granular",
         "exportAnytime": "Export oricând",
@@ -1421,7 +1420,7 @@
         "heading": "49 de cerințe BSIG structurate",
         "p1": "Cele 10 măsuri obligatorii din secțiunea 30 BSIG sunt descompuse în 49 de cerințe concrete și aplicabile, fiecare cu propriul formular structurat.",
         "p2": "Fiecare cerință este un formular. Fiecare câmp al formularului se raportează la o obligație de conformitate specifică. Completați formularul și v-ați documentat conformitatea. Fără ambiguitate, fără ghicit.",
-        "p3": "Formularele acceptă text, selecții, selecție multiplă, date și încărcări de fișiere pentru dovezi. Precompletarea asistată de IA vă ajută să schițați răspunsuri pe baza profilului companiei, iar apoi le rafinați și le aprobați."
+        "p3": "Formularele acceptă text, selecții, selecție multiplă, date și încărcări de fișiere pentru dovezi."
       },
       "deadlines": {
         "heading": "Urmărirea și escaladarea termenelor",

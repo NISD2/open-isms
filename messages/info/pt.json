@@ -1397,7 +1397,6 @@
         "traceable": "Rastreável",
         "requirements": "Requisitos",
         "measures": "Medidas do § 30",
-        "assistedPrefill": "Preenchimento prévio assistido",
         "tenPhases": "10 fases",
         "granular": "Granular",
         "exportAnytime": "Exporte a qualquer momento",
@@ -1421,7 +1420,7 @@
         "heading": "49 requisitos BSIG estruturados",
         "p1": "As 10 medidas obrigatórias do § 30 BSIG são desdobradas em 49 requisitos concretos e acionáveis, cada um com o seu próprio formulário estruturado.",
         "p2": "Cada requisito é um formulário. Cada campo do formulário remete para uma obrigação de conformidade específica. Preencha o formulário e terá documentado a sua conformidade. Sem ambiguidade, sem adivinhação.",
-        "p3": "Os formulários suportam texto, seleções, seleção múltipla, datas e carregamento de ficheiros como prova. O preenchimento prévio assistido por IA ajuda-o a redigir respostas com base no perfil da sua empresa, que depois refina e aprova."
+        "p3": "Os formulários suportam texto, seleções, seleção múltipla, datas e carregamento de ficheiros como prova."
       },
       "deadlines": {
         "heading": "Acompanhamento de prazos e escalonamento",
