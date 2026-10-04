@@ -1336,8 +1336,8 @@
         "duties": {
           "heading": "Tres deberes esenciales",
           "approval": {
-            "title": "Aprobación (Billigung)",
-            "description": "La dirección debe aprobar formalmente las medidas de gestión de riesgos de ciberseguridad conforme al §30 BSIG."
+            "title": "Aplicación (Umsetzung)",
+            "description": "La dirección debe aplicar las medidas de gestión de riesgos de ciberseguridad exigidas por el §30 BSIG."
           },
           "oversight": {
             "title": "Supervisión (Überwachung)",
@@ -16902,7 +16902,7 @@
         "heading": "Resumen",
         "p1": "La directiva NIS 2 es la capa de la UE. Vincula a todos los Estados miembros, incluida Dinamarca, con un único suelo de ciberseguridad para las entidades esenciales e importantes. Dinamarca debe incorporar ese suelo al Derecho danés y aplicar un régimen de supervisión bajo él.",
         "p2": "Dinamarca transpuso tarde. El plazo conforme al artículo 41 era el 17 de octubre de 2024. El Folketing adoptó la NIS 2-loven (Lov om foranstaltninger til sikring af et højt cybersikkerhedsniveau) solo el 29 de abril de 2025. Entró en vigor como Ley n.º 434 de 6 de mayo de 2025 el 1 de julio de 2025. La ventana de autorregistro a través de virk.dk estuvo abierta hasta el 1 de octubre de 2025.",
-        "p3": "Dinamarca usa un modelo de supervisión sectorial. Styrelsen for Samfundssikkerhed (SAMSIK), dependiente del Ministerio de Seguridad Social y Preparación ante Emergencias, coordina y actúa como supervisor para las telecomunicaciones, la administración central, los municipios y partes de la industria manufacturera. La energía, las finanzas, el transporte, lo marítimo, la salud y el agua tienen cada uno su propia autoridad responsable de sector. El Center for Cybersikkerhed (CFCS) forma parte organizativamente de SAMSIK desde el 1 de enero de 2025 y sigue operando el CSIRT nacional bajo Forsvarets Efterretningstjeneste."
+        "p3": "Dinamarca usa un modelo de supervisión sectorial. Styrelsen for Samfundssikkerhed (SAMSIK), dependiente del Ministerio de Seguridad Social y Preparación ante Emergencias, coordina y actúa como supervisor para las telecomunicaciones, la administración central, los municipios y partes de la industria manufacturera. La energía, las finanzas, el transporte, lo marítimo, la salud y el agua tienen cada uno su propia autoridad responsable de sector. El Center for Cybersikkerhed (CFCS) forma parte de SAMSIK desde el 29 de enero de 2025 y opera el CSIRT nacional."
       },
       "legalAnchor": {
         "heading": "Dónde viven las reglas",
@@ -16965,7 +16965,7 @@
           "cfcs": {
             "country": "DK",
             "label": "CFCS",
-            "body": "Center for Cybersikkerhed. Organizativamente parte de SAMSIK desde el 1 de enero de 2025, operativamente todavía dentro de Forsvarets Efterretningstjeneste (FE, el Servicio de Inteligencia de Defensa). Opera el CSIRT nacional, es el punto de contacto 24/7 para los informes de incidentes y el punto de contacto único en la red de CSIRT de la UE. El CFCS no es el supervisor general de NIS 2; es la autoridad técnica para la conciencia situacional y la respuesta."
+            "body": "Center for Cybersikkerhed. Parte de SAMSIK desde el 29 de enero de 2025; solo las partes que se ocupan de las operaciones ciberdefensivas operativas y de las tareas de defensa permanecieron en el Ministerio de Defensa. Opera el CSIRT nacional, es el punto de contacto 24/7 para los informes de incidentes y el punto de contacto único en la red de CSIRT de la UE. El CFCS no es el supervisor general de NIS 2; es la autoridad técnica para la conciencia situacional y la respuesta."
           },
           "sectoral": {
             "country": "DK",

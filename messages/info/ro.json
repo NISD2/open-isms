@@ -1336,8 +1336,8 @@
         "duties": {
           "heading": "Trei obligații fundamentale",
           "approval": {
-            "title": "Aprobare (Billigung)",
-            "description": "Conducerea trebuie să aprobe formal măsurile de gestionare a riscurilor de securitate cibernetică conform §30 BSIG."
+            "title": "Implementare (Umsetzung)",
+            "description": "Conducerea trebuie să implementeze măsurile de gestionare a riscurilor de securitate cibernetică cerute de §30 BSIG."
           },
           "oversight": {
             "title": "Supraveghere (Überwachung)",
@@ -16902,7 +16902,7 @@
         "heading": "Prezentare generală",
         "p1": "Directiva NIS 2 este stratul UE. Obligă fiecare stat membru, inclusiv Danemarca, cu un prag unic de securitate cibernetică pentru entitățile esențiale și importante. Danemarca trebuie să integreze acel prag în legislația daneză și să ruleze un regim de supraveghere în temeiul lui.",
         "p2": "Danemarca a transpus cu întârziere. Termenul din Articolul 41 era 17 octombrie 2024. Folketing-ul a adoptat NIS 2-loven (Lov om foranstaltninger til sikring af et højt cybersikkerhedsniveau) abia la 29 aprilie 2025. A intrat în vigoare ca Legea nr. 434 din 6 mai 2025 la 1 iulie 2025. Fereastra de autoînregistrare prin virk.dk a fost deschisă până la 1 octombrie 2025.",
-        "p3": "Danemarca folosește un model de supraveghere sectorială. Styrelsen for Samfundssikkerhed (SAMSIK), din cadrul Ministerului pentru Securitatea Societală și Pregătirea pentru Situații de Urgență, coordonează și acționează ca supraveghetor pentru telecomunicații, administrația centrală, municipalități și părți ale producției. Energia, finanțele, transportul, domeniul maritim, sănătatea și apa au fiecare propria autoritate sectorială responsabilă. Center for Cybersikkerhed (CFCS) face parte organizatoric din SAMSIK de la 1 ianuarie 2025 și continuă să opereze CSIRT-ul național în cadrul Forsvarets Efterretningstjeneste."
+        "p3": "Danemarca folosește un model de supraveghere sectorială. Styrelsen for Samfundssikkerhed (SAMSIK), din cadrul Ministerului pentru Securitatea Societală și Pregătirea pentru Situații de Urgență, coordonează și acționează ca supraveghetor pentru telecomunicații, administrația centrală, municipalități și părți ale producției. Energia, finanțele, transportul, domeniul maritim, sănătatea și apa au fiecare propria autoritate sectorială responsabilă. Center for Cybersikkerhed (CFCS) face parte din SAMSIK de la 29 ianuarie 2025 și operează CSIRT-ul național."
       },
       "legalAnchor": {
         "heading": "Unde se află normele",
@@ -16965,7 +16965,7 @@
           "cfcs": {
             "country": "DK",
             "label": "CFCS",
-            "body": "Center for Cybersikkerhed. Face parte organizatoric din SAMSIK de la 1 ianuarie 2025, operativ încă în interiorul Forsvarets Efterretningstjeneste (FE, Serviciul de Informații al Apărării). Operează CSIRT-ul național, este punctul de contact 24/7 pentru rapoartele de incidente și punctul unic de contact în rețeaua CSIRT-urilor din UE. CFCS nu este supraveghetorul general NIS 2; este autoritatea tehnică pentru conștientizarea situației și răspuns."
+            "body": "Center for Cybersikkerhed. Face parte din SAMSIK de la 29 ianuarie 2025; doar părțile care se ocupă de operațiunile cibernetice defensive operative și de sarcinile apărării au rămas la Ministerul Apărării. Operează CSIRT-ul național, este punctul de contact 24/7 pentru rapoartele de incidente și punctul unic de contact în rețeaua CSIRT-urilor din UE. CFCS nu este supraveghetorul general NIS 2; este autoritatea tehnică pentru conștientizarea situației și răspuns."
           },
           "sectoral": {
             "country": "DK",
