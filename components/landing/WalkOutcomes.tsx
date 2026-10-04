@@ -29,7 +29,7 @@ export function WalkOutcomes() {
   const list = useRef<HTMLUListElement>(null);
   const [visible, setVisible] = useState<readonly number[]>([]);
   const allowed = useMotionAllowed();
-  const round = useZoomLoop(visible.length > 0 && allowed);
+  const { round } = useZoomLoop(visible.length > 0 && allowed);
   const zoomedCard = round === null ? null : visible[round % visible.length];
 
   useEffect(() => {
@@ -73,7 +73,7 @@ export function WalkOutcomes() {
                 <ZoomImage
                   image={shotImage(card.shot, locale, t(`${card.key}.alt`))}
                   sizes={zoomSizes(card.shot, CARD_PX)}
-                  zoomed={zoomedCard === index}
+                  stop={zoomedCard === index ? 0 : null}
                 />
                 {index === CARDS.length - 1 && (
                   <MotionToggle className="absolute right-3 bottom-3" />

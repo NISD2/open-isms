@@ -18,8 +18,11 @@ const STEPS = [
 
 /** The frame's width on a large screen: the page's 72rem less the 22rem of steps and the gap. */
 const FRAME_PX = 736;
-/** Where a step takes over, as a share of the window's height: level with the frame's foot. */
-const READ_LINE = 0.56;
+/**
+ * Where a step takes over, as a share of the window's height: the middle, where the frame's middle
+ * is, so the step beside the frame is the one it shows.
+ */
+const READ_LINE = 0.5;
 
 /**
  * The walk in five steps. On a large screen the text scrolls on the left while one frame on the
@@ -129,8 +132,11 @@ export function WalkShowcase() {
           })}
         </ol>
 
-        <div className="hidden lg:block">
-          <div className="sticky top-24">
+        {/* The frame holds in the middle of the window (Simon, 04.10.2026): half a window down,
+            less half its own height, which is 9/16 of the column's width (28.125cqw). Never
+            higher than below the navigation, on a window too short to centre it. */}
+        <div className="@container hidden lg:block">
+          <div className="sticky top-[max(6rem,calc(50vh-28.125cqw))]">
             <div
               ref={frame}
               className="relative w-full overflow-hidden rounded-xl border border-border/60 bg-muted shadow-lg"

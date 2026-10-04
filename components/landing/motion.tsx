@@ -49,17 +49,32 @@ export function useMotionAllowed(): boolean {
   return !usePrefersStill() && !paused;
 }
 
-/** The pause switch in a screenshot's corner. Gone under reduced motion, where nothing moves. */
-export function MotionToggle({ className }: { className?: string }) {
+/**
+ * The pause switch in a screenshot's corner. Gone under reduced motion, where nothing moves. On a
+ * screenshot that has played all its rounds (`ended`) it offers play, which starts it over.
+ */
+export function MotionToggle({
+  className,
+  ended = false,
+  onReplay,
+}: {
+  className?: string;
+  ended?: boolean;
+  onReplay?: () => void;
+}) {
   const t = useTranslations("landing.walk");
   const { paused, toggle } = useContext(Paused);
   const still = usePrefersStill();
   if (still) return null;
-  const label = paused ? t("play") : t("pause");
+  const resting = paused || ended;
+  const label = resting ? t("play") : t("pause");
   return (
     <button
       type="button"
-      onClick={toggle}
+      onClick={() => {
+        if (ended) onReplay?.();
+        if (paused || !ended) toggle();
+      }}
       aria-label={label}
       title={label}
       className={cn(
@@ -67,7 +82,7 @@ export function MotionToggle({ className }: { className?: string }) {
         className,
       )}
     >
-      {paused ? <Play className="size-3.5" /> : <Pause className="size-3.5" />}
+      {resting ? <Play className="size-3.5" /> : <Pause className="size-3.5" />}
     </button>
   );
 }

@@ -213,10 +213,12 @@ export default async function LandingPage() {
               style={{ boxShadow: "0 40px 80px -20px rgb(40 75 99 / 0.28)" }}
             >
               {guided ? (
-                // The walk's home, zooming into the path with its first steps done.
+                // The walk's home, zooming into the path with its first steps done, then on to
+                // the next three. Five rounds, then it rests whole (Simon, 04.10.2026).
                 <AutoShot
                   image={shotImage("path", locale, t("walk.heroAlt"))}
                   sizes={zoomSizes("path", HERO_SHOT_PX)}
+                  rounds={5}
                   preload
                   className="rounded-xl border border-border/60"
                 />
@@ -310,10 +312,10 @@ export default async function LandingPage() {
             </div>
             <div className="lg:border-l lg:border-border/60 lg:pl-16">
               <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                {t("cardWhyFreeTitle")}
+                {t("cardOpenSourceTitle")}
               </p>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                {t("cardWhyFree")}
+                {t("cardOpenSource")}
               </p>
               <div className="mt-5 flex flex-wrap gap-2">
                 <a
