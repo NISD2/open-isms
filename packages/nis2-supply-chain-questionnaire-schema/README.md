@@ -3,7 +3,7 @@
 [![License: MIT + CC BY 4.0](https://img.shields.io/badge/license-MIT%20%2B%20CC%20BY%204.0-blue.svg)](./LICENSE)
 [![CI](https://github.com/NISD2/nis2-supply-chain-questionnaire-schema/actions/workflows/validate.yml/badge.svg)](https://github.com/NISD2/nis2-supply-chain-questionnaire-schema/actions/workflows/validate.yml)
 
-**An open data format.** The questions a NIS2-regulated entity needs to ask its suppliers, expressed once as a typed Zod schema and published as JSON + JSON Schema.
+**An open data format.** The questions a NIS2-regulated entity needs to ask its suppliers, any supplier and not only software vendors, expressed once as a typed Zod schema and published as JSON + JSON Schema. Each question also names the ISO/IEC 27001:2022 controls it serves, so a customer managing suppliers under ISO 27001 can use it too.
 
 It exists because every German Mittelstand procurement team is currently inventing its own supplier questionnaire from scratch and sending suppliers five slightly different versions of the same NIS2-anchored questions. This repo is one shared, openly maintained, legally-anchored questionnaire that any of them can adopt or fork.
 
@@ -26,8 +26,9 @@ The reference implementation is the supplier portal at [nisd2.eu](https://nisd2.
 
 ## What's in it
 
-- **47 fields** across 6 sections (`profile`, `security_practices`, `saas_technical`, `on_prem_technical`, `pro_services`, `managed_services`). Conditional fields show only where they apply: 31 are asked of every supplier, and a SaaS supplier that processes customer data and uses subcontractors sees 39.
-- Each field anchored to an **EU-level** primary source: NIS2 Art. 21, CIR 2024/2690, ENISA Technical Implementation Guidance v1.0, GDPR Art. 28, or the Cyber Resilience Act. The CIR binds only the entity types in its Art. 1; for every other NIS 2 entity it is orientation.
+- **50 fields** across 4 sections (`profile`, `security_practices`, `saas_technical`, `on_prem_technical`). Every supplier answers 21; the rest depend on what it reaches at its customers: their data, their systems, their premises, or software it runs or ships. A cleaning company with office keys sees 26 questions, a tax adviser holding payroll data 36, a managed service provider 40, a SaaS vendor with subcontractors 42.
+- Each field anchored to an **EU-level** primary source: NIS2 Art. 21(2)(d) and (3), CIR 2024/2690 point 5, ENISA Technical Implementation Guidance v1.0, GDPR Art. 28, or the Cyber Resilience Act. The CIR binds only the entity types in its Art. 1; for every other NIS 2 entity it is orientation.
+- ISO/IEC 27001:2022 Annex A controls per field, from ENISA's mapping of the CIR to ISO 27001 (mapping table v1.2).
 - English and German for every field; French, Italian, Spanish, Polish, Czech, Portuguese and Romanian for the fields unchanged since 3.1.0 (the rest fall back to English)
 - Published as a Zod schema (TypeScript), a JSON artefact, and a JSON Schema for non-TS consumers
 
@@ -67,7 +68,7 @@ for (const [section, fields] of groupBySection(supplierQuestionnaire)) {
 }
 
 // Only the questions that apply to this supplier's answers so far.
-const answers = { isSaas: true, processesCustomerData: true };
+const answers = { accessesCustomerPremises: true, processesCustomerData: false };
 const asked = supplierQuestionnaire.fields.filter((f) => isVisible(f, answers));
 ```
 
@@ -81,14 +82,17 @@ More examples — Drizzle storage, multi-page form rendering — under [`example
   section:       "security_practices"
   type:          "boolean"                   // string | text | email | phone | url | domain | country | boolean | enum | integer
   label:         { en, de }
-  description:   { en, de }                  // why this field exists, with legal context
-  legalBasis:    "NIS2 Art. 21(2)(j)"        // EU-level primary citation
+  description:   { en, de }                  // the "tick yes if" help, with legal context
+  legalBasis:    "CIR 2024/2690 §5.1.2(a); §11.7"   // why a customer asks; then the practice
+  iso27001?:     ["A.8.5", "A.8.2"]          // ISO/IEC 27001:2022 Annex A controls
   required:      true
   visibleWhen?:  { field: "isSaas", equals: true }   // shown only while this holds
               // or { anyOf: [{ field: "isSaas", equals: true }, { field: "isOnPrem", equals: true }] }
   options?:      [{ value, label: { en, de } }]      // type=enum only
 }
 ```
+
+The first citation in `legalBasis` is why a customer asks its supplier (NIS 2 Art. 21(2)(d) and (3), CIR 2024/2690 point 5); any further one names the practice the answer is measured against. Citations of the customer's own security measures never stand alone, because those bind the customer, not the supplier.
 
 Full Zod schema in [`src/schema.ts`](./src/schema.ts).
 

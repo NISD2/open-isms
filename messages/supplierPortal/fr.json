@@ -21,11 +21,12 @@
       "access": "Accès"
     },
     "pages": {
-      "profileIntro": "Identité, description publique que voient vos clients, et le contact qu'ils joignent en cas d'incident. Fondé sur le registre des fournisseurs de l'ENISA TIG §5.2 et la chaîne de notification du CIR §5.1.4(d).",
-      "practicesIntro": "Informations générales sur la façon dont votre entreprise gère la sécurité de l'information : système de management, statut ISO 27001 ou Grundschutz, formation et les mesures de base de l'article 21(2) NIS 2. Les mêmes réponses pour tous vos clients.",
-      "serviceTypeIntro": "Déclarations techniques propres à ce que vous fournissez : hébergement et chiffrement pour le SaaS, SBOM et versions signées pour le logiciel installé chez le client, vérifications d'antécédents pour les prestations de services, PAM et astreinte pour les services gérés. Ne remplissez que les sections qui vous concernent.",
+      "profileIntro": "Qui vous êtes, comment vos clients vous joignent en cas de problème, et ce que vous fournissez. C'est à cette aune qu'un client pèse le reste de vos réponses.",
+      "practicesIntro": "Ce à quoi vous vous engagez envers vos clients et comment vous gérez la sécurité. Les mêmes réponses pour tous vos clients.",
+      "serviceTypeIntro": "Les précisions sur les types de service cochés dans votre profil. Les questions sur des services que vous ne fournissez pas n'apparaissent pas ici.",
+      "serviceTypeEmpty": "Cette page regroupe les questions sur le logiciel en tant que service et sur les logiciels que vous livrez. Vous n'avez coché ni l'un ni l'autre dans votre profil, il n'y a donc rien à répondre ici.",
+      "serviceTypeEmptyLink": "Aller au profil",
       "certificationsIntro": "Déposez vos attestations de sécurité (ISO 27001, BSI Grundschutz, BSI C5, TISAX, SOC 2). Les PDF et leurs informations sont visibles par les clients que vous avez invités.",
-      "nis2Regulated": "Directement soumis à NIS 2",
       "customersTitle": "Ajouter votre premier client",
       "customersIntro": "Invitez un client par e-mail. Il reçoit un lien privé vers votre profil de sécurité et n'a besoin d'aucun compte pour cela. Une fois qu'il a accepté, vous saisissez les systèmes que vous gérez pour lui et signalez les incidents qui les touchent.",
       "customer": "Client",
@@ -44,23 +45,23 @@
       "step1Title": "Créer le profil",
       "step1Body": "Connectez-vous, saisissez le nom de votre société et votre domaine. Le profil vous appartient, pas à l'un de vos clients.",
       "step2Title": "Répondre une seule fois",
-      "step2Body": "{count} questions sur la gestion de la sécurité, la certification, les plans d'urgence, les accès et les clauses contractuelles. Chaque question cite le paragraphe sur lequel elle s'appuie. Les brouillons sont enregistrés au fur et à mesure.",
+      "step2Body": "Jusqu'à {count} questions sur les engagements, la gestion de la sécurité, les plans d'urgence et les accès ; vous ne voyez que celles qui correspondent à ce que vous fournissez. Chaque question cite la disposition sur laquelle elle s'appuie. Les brouillons sont enregistrés au fur et à mesure.",
       "step3Title": "Inviter vos clients",
       "step3Body": "Chaque client reçoit son propre lien privé. Il voit votre profil, les systèmes que vous gérez pour lui et vos certificats. Aucun compte ne lui est demandé.",
       "step4Title": "Signaler les incidents",
       "step4Body": "Si le système d'un client est touché, vous le signalez depuis le portail. Seul ce client voit le signalement. C'est ainsi qu'il remplit son obligation de suivi de ses fournisseurs au titre de l'article 21(2)(d) NIS 2.",
       "coversTitle": "Ce qui est demandé",
-      "coversIntro": "La structure suit le guide ENISA NIS2 Technical Implementation Guidance v1.0 de juin 2025. Chaque question cite le paragraphe du CIR 2024/2690 ou du BSI IT-Grundschutz sur lequel elle repose. Un auditeur reconnaît la structure, vous n'avez donc pas à en inventer une. Le jeu de questions est public sur GitHub.",
+      "coversIntro": "Les questions reposent sur l'article 21 NIS2, le règlement d'exécution (UE) 2024/2690 et la Technical Implementation Guidance v1.0 de l'ENISA de juin 2025 ; chacune cite la disposition sur laquelle elle repose et, lorsqu'elle existe, la mesure correspondante de l'ISO 27001. Le questionnaire demande ce dont un client a besoin pour sa chaîne d'approvisionnement, et rien de plus. Le jeu de questions est public sur GitHub.",
       "covers1Title": "Identité et contact",
       "covers1Body": "Raison sociale, adresse, domaine et la personne qu'un client joint en cas de problème. Ainsi que le délai dans lequel vous vous engagez à répondre.",
       "covers2Title": "Pratiques de sécurité",
       "covers2Body": "Comment votre entreprise gère la sécurité de l'information : système de management, certification, formation, traitement des vulnérabilités, accès, plan de continuité.",
       "covers3Title": "Clauses contractuelles",
-      "covers3Body": "Droit d'audit, contrat de sous-traitance des données, sous-traitants ultérieurs, restitution des données en fin de contrat, notification des changements importants.",
-      "covers4Title": "Type de prestation",
-      "covers4Body": "SaaS, logiciel installé chez le client, prestation de services ou service géré. Vous ne répondez qu'aux questions qui correspondent à votre activité.",
+      "covers3Body": "Droit d'audit, contrat de sous-traitance des données, sous-traitants, confidentialité, restitution en fin de contrat, notification des changements importants.",
+      "covers4Title": "Ce à quoi vous accédez chez vos clients",
+      "covers4Body": "Si vous détenez des données de vos clients, accédez à leurs systèmes, entrez dans leurs locaux ou livrez des logiciels. Un conseiller fiscal, une entreprise de nettoyage et un éditeur de logiciels ne voient chacun que les questions qui les concernent.",
       "covers5Title": "Certificats",
-      "covers5Body": "Déposez ISO 27001, BSI Grundschutz ou un équivalent au format PDF. Les clients voient jusqu'à quelle date le certificat est valable.",
+      "covers5Body": "Déposez ISO 27001, BSI C5, TISAX, SOC 2 ou un équivalent au format PDF. Les clients voient jusqu'à quand il reste valable.",
       "privacyTitle": "Bilatéral et privé",
       "privacyBody": "Il n'existe aucun annuaire public de fournisseurs. Seuls les clients à qui vous l'ouvrez voient votre profil, et chacun d'eux peut mettre fin à son propre accès. Pas d'adresse publique, pas d'indexation par les moteurs de recherche.",
       "bsiQuote": "Wir begrüßen aktuelle Vorstöße der Wirtschaft, einen einheitlichen Fragenkatalog für Lieferanten zu erarbeiten.",
@@ -78,25 +79,79 @@
       "metaDescription": "Répondez une seule fois aux questions NIS 2 de vos clients et publiez vos réponses pour chaque client qui vous invite. Structuré selon ENISA TIG v1.0 et CIR 2024/2690. Open source, sans verrouillage."
     },
     "questionnaire": {
-      "title": "Questionnaire fournisseur BSI / CIR",
-      "intro": "Chaque question correspond à un paragraphe précis du CIR 2024/2690 (le règlement contraignant de l'UE au titre de NIS2) ou au BSI IT-Grundschutz. Remplissez-le une seule fois ; chaque client qui s'abonne voit les mêmes réponses.",
       "save": "Enregistrer le brouillon",
-      "submit": "Valider et publier",
       "submitting": "Enregistrement…",
       "saved": "Enregistré",
       "saveError": "Impossible d'enregistrer. Veuillez réessayer.",
-      "submitError": "Impossible de valider. Corrigez d'abord les erreurs de validation.",
       "savedAt": "Dernier enregistrement {time}",
-      "sectionIdentity": "Identité (CIR §5.2 / registre des fournisseurs ENISA TIG §5.2)",
-      "sectionIncidentContact": "Contact en cas d'incident, côté client",
-      "sectionType": "Type de service",
-      "sectionContract": "Clauses contractuelles obligatoires (CIR / ENISA TIG §5.1.4)",
-      "sectionBaseline": "Pratiques de cybersécurité (art. 21(2) NIS2 / ENISA TIG §5.1.2)",
-      "sectionContractTips": "Clauses contractuelles supplémentaires (ENISA TIG §5.1.4 TIPS)",
-      "sectionSaas": "Détails techniques SaaS",
-      "sectionOnPrem": "Détails techniques du logiciel sur site",
-      "sectionProServices": "Détails des services professionnels",
-      "sectionManaged": "Détails des services gérés"
+      "groups": {
+        "identity": {
+          "title": "Qui vous êtes",
+          "why": "Pour qu'un client puisse vous inscrire sans ambiguïté dans sa liste de fournisseurs."
+        },
+        "contacts": {
+          "title": "Comment vous joindre en cas de problème",
+          "why": "Un client a besoin, pour chaque fournisseur direct, d'un point de contact pour les questions de sécurité."
+        },
+        "delivery": {
+          "title": "Ce que vous fournissez et ce à quoi vous accédez",
+          "why": "Que vous déteniez des données de vos clients, accédiez à leurs systèmes ou entriez dans leurs locaux détermine les questions que vous voyez ensuite et le poids de vos réponses pour un client."
+        },
+        "commitments": {
+          "title": "Ce à quoi vous vous engagez envers vos clients",
+          "why": "Le cas échéant, ces points ont leur place dans votre contrat avec un client. Ici, vous indiquez d'avance ce que vous êtes prêt à faire."
+        },
+        "operations": {
+          "title": "Comment vous gérez la sécurité",
+          "why": "Les clients choisissent aussi leurs fournisseurs selon leurs pratiques de sécurité. Un certificat qui couvre votre service leur en dit déjà beaucoup."
+        },
+        "access": {
+          "title": "Comment vous accédez chez vos clients",
+          "why": "Se connecter aux systèmes d'un client ou entrer dans ses locaux engage une responsabilité pour sa sécurité. Ici, vous indiquez comment vous sécurisez cet accès."
+        },
+        "saas": {
+          "title": "Logiciel en tant que service (SaaS)",
+          "why": "Si les clients peuvent protéger leurs comptes par un second facteur, et en combien de temps votre service fonctionne de nouveau après une panne."
+        },
+        "onPrem": {
+          "title": "Logiciel installé chez le client",
+          "why": "Combien de temps vous fournissez des mises à jour de sécurité pour votre logiciel, et comment un client peut s'assurer que le logiciel et ses mises à jour sont dignes de confiance."
+        }
+      },
+      "customerGroups": {
+        "identity": {
+          "title": "Qui est le fournisseur",
+          "why": "Pour que vous puissiez l'inscrire sans ambiguïté dans votre liste de fournisseurs."
+        },
+        "contacts": {
+          "title": "Comment le joindre en cas de problème",
+          "why": "Le point de contact pour les questions de sécurité dont vous avez besoin pour chaque fournisseur direct."
+        },
+        "delivery": {
+          "title": "Ce que le fournisseur fournit et ce à quoi il accède",
+          "why": "Qu'il détienne vos données, accède à vos systèmes ou entre dans vos locaux détermine le poids du reste de ses réponses pour vous."
+        },
+        "commitments": {
+          "title": "Ce à quoi il s'engage envers ses clients",
+          "why": "Ce à quoi le fournisseur s'engage d'avance. Ce qui en est approprié pour vous a sa place dans votre contrat avec lui."
+        },
+        "operations": {
+          "title": "Comment il gère la sécurité",
+          "why": "Comment le fournisseur gère la sécurité. Un certificat qui couvre son service figure ci-dessous parmi les certificats."
+        },
+        "access": {
+          "title": "Accès à vos systèmes et à vos locaux",
+          "why": "Comment le fournisseur sécurise son accès à vos systèmes et à vos locaux."
+        },
+        "saas": {
+          "title": "Logiciel en tant que service (SaaS)",
+          "why": "Si vous pouvez protéger vos comptes par un second facteur, et en combien de temps son service fonctionne de nouveau après une panne."
+        },
+        "onPrem": {
+          "title": "Logiciel chez vous",
+          "why": "Combien de temps il fournit des mises à jour de sécurité pour son logiciel, et comment vous pouvez vous assurer que le logiciel et ses mises à jour sont dignes de confiance."
+        }
+      }
     },
     "customerView": {
       "securityProfile": "Profil de sécurité",
@@ -104,8 +159,6 @@
       "revoke": "Mettre fin à l'accès",
       "revokedTitle": "Accès terminé",
       "revokedBody": "Vous ne recevrez plus de notifications de ce fournisseur.",
-      "nis2Regulated": "Directement soumis à NIS2",
-      "nis2RegulatedNote": "Ce fournisseur relève lui-même de NIS2 et est enregistré auprès du BSI. Selon ENISA TIG §5.1.2, vous pouvez vous appuyer sur ce fait pour une grande partie de votre évaluation fournisseur au titre du CIR 2024/2690.",
       "servicesTitle": "Systèmes que ce fournisseur exploite pour vous",
       "servicesIntro": "Ces informations ne concernent que votre relation. Les autres clients du même fournisseur voient leurs propres systèmes, pas ceux-ci.",
       "servicesEmpty": "Aucun système n'a encore été enregistré pour vous.",
@@ -129,55 +182,8 @@
       }
     },
     "fields": {
-      "legalName": "Raison sociale",
-      "registeredAddress": "Adresse du siège social",
-      "country": "Pays",
-      "securityContactName": "Nom du contact sécurité",
-      "primaryDomain": "Domaine principal",
-      "tagline": "Accroche (une ligne, côté client)",
-      "description": "Description publique (plus longue)",
-      "incidentContactEmail": "E-mail du contact en cas d'incident",
-      "incidentContactPhone": "Téléphone du contact en cas d'incident (24/7)",
-      "incidentSlaHours": "SLA de notification d'incident (heures)",
-      "serviceDescription": "Description des services fournis",
-      "dataProcessingLocations": "Pays / régions où les données client sont traitées",
-      "bsiRegistrationId": "Identifiant d'enregistrement BSI (uniquement si votre entreprise est elle-même réglementée NIS2)",
-      "isSaas": "Nous fournissons des services SaaS / hébergés",
-      "isOnPrem": "Nous livrons des logiciels sur site",
-      "isProfessionalServices": "Nous fournissons des services professionnels / du conseil",
-      "isManagedService": "Nous fournissons des services gérés / MSP",
-      "hasIsms": "Système de management de la sécurité de l'information (ISMS) documenté",
-      "hasIso27001OrEquivalent": "Détenir une certification ISO 27001, BSI Grundschutz ou équivalente",
-      "staffSecurityTraining": "Formation annuelle de sensibilisation à la sécurité pour tout le personnel",
-      "backgroundChecks": "Vérifications d'antécédents pour le personnel ayant accès aux données client",
-      "vulnerabilityHandling": "Processus documenté de gestion des vulnérabilités et de correctifs",
-      "acceptRightToAudit": "Accepter le droit d'audit du client (ou fournir des rapports d'audit)",
-      "hasSubprocessors": "Recourir à des sous-traitants ultérieurs / sous-fournisseurs",
-      "subprocessorList": "Liste des sous-traitants ultérieurs",
-      "dataReturnOnTermination": "S'engager à restituer / détruire les données client à la fin du contrat",
-      "dpaAvailable": "Accord de traitement des données (DPA) standard disponible",
-      "securityPolicyReviewedAnnually": "Politiques de sécurité revues au moins une fois par an",
-      "hasIncidentResponsePlan": "Plan de réponse aux incidents documenté",
-      "hasBusinessContinuityPlan": "Plan de continuité d'activité / de reprise après sinistre documenté",
-      "hasCryptographyPolicy": "Politique de cryptographie documentée",
-      "hasPrivilegedAccessMgmt": "Gestion des accès à privilèges (PAM) pour le personnel interne",
-      "mfaEnforcedInternal": "MFA imposée pour tous les comptes administrateurs / à privilèges internes",
-      "hasAssetInventory": "Tenir un inventaire des actifs informationnels",
-      "hasPenetrationTestingProgram": "Programme de tests d'intrusion annuels ou bisannuels",
-      "pastBreachesDisclosed": "Nous divulguons les événements de cybersécurité notifiables passés à la demande des clients",
-      "incidentAssistanceCommitment": "Fournir une assistance aux clients en cas d'incident sans frais / à coût convenu à l'avance",
-      "cooperateWithAuthorities": "Coopérer pleinement avec les autorités compétentes (BSI, ENISA, CSIRT nationaux)",
-      "notifyMaterialChanges": "Informer les clients de tout changement substantiel affectant la fourniture du service",
-      "notifyOnLocationChange": "Informer les clients à l'avance en cas de modification des lieux de traitement des données",
-      "hasExitPlan": "Stratégie de sortie documentée avec période de transition obligatoire",
-      "usesAiSystems": "Nous utilisons, intégrons ou fournissons des systèmes d'IA",
-      "providesSbomForAi": "Fournir un SBOM-for-AI selon les éléments minimaux du G7",
-      "aiSbomUrl": "URL du document SBOM-for-AI",
+      "dataProcessingLocations": "Pays / régions où les données des clients sont traitées",
       "saasHostingRegion": "Région d'hébergement",
-      "saasEncryptionAtRest": "Chiffrement au repos",
-      "saasEncryptionInTransit": "Chiffrement en transit (TLS ≥ 1.2)",
-      "saasMfaEnforced": "MFA imposée pour tous les comptes administrateurs",
-      "saasRtoHours": "Objectif de temps de reprise (RTO) en heures",
       "onPremSbomProvided": "Fournir une nomenclature logicielle (SBOM)",
       "onPremSignedReleases": "Les versions sont signées cryptographiquement",
       "onPremVulnerabilityDisclosurePolicy": "Politique publiée de divulgation des vulnérabilités",
@@ -188,67 +194,6 @@
       "managedPrivilegedAccessMgmt": "Gestion des accès à privilèges (PAM) en place",
       "managedSessionRecording": "Les sessions administrateur sont enregistrées",
       "managedOnCall24x7": "Couverture d'astreinte 24/7"
-    },
-    "fieldDescriptions": {
-      "legalName": "La dénomination enregistrée de votre entreprise, telle qu'elle figure au registre du commerce. Exemple : Müller GmbH ou Acme Software Ltd.",
-      "registeredAddress": "L'adresse du siège social de votre entreprise. Une seule adresse suffit, même si vous avez plusieurs sites.",
-      "country": "Le pays où votre entreprise est légalement établie. Deux lettres, par exemple DE pour l'Allemagne.",
-      "primaryDomain": "Votre domaine principal, généralement l'URL de votre site web. Exemple : acmesoftware.com.",
-      "tagline": "Une ligne résumant ce que vous proposez. Les clients la voient sur votre profil fournisseur. Exemple : ERP pour la fabrication PME.",
-      "description": "Deux à trois phrases sur votre entreprise et ce que vous faites. Cela apparaît sur votre profil fournisseur. Argumentaire commercial, posture de sécurité, ou les deux.",
-      "serviceDescription": "Un paragraphe sur ce que votre entreprise livre techniquement aux clients. Produits, modules ou services concrets. Évitez le langage purement marketing.",
-      "dataProcessingLocations": "Chaque pays où les données de vos clients sont stockées ou traitées. Séparés par des virgules, codes pays ISO. Exemple : DE, NL, US. Si vous traitez entièrement au sein de l'UE, énumérer les pays de l'UE suffit.",
-      "securityContactName": "Qui les clients contactent en cas d'incident de sécurité. Dans les petites entreprises, souvent le directeur général ou le responsable informatique. Une seule personne suffit.",
-      "incidentContactEmail": "Adresse e-mail que les clients utilisent pour signaler un incident de sécurité. Idéalement une liste de diffusion comme security@example.com qui atteint plusieurs personnes.",
-      "incidentContactPhone": "Numéro de téléphone pour les signalements d'incidents urgents. Si vous n'assurez pas d'astreinte 24/7, indiquez vos heures d'ouverture entre parenthèses.",
-      "incidentSlaHours": "Nombre d'heures, au plus tard, entre la détection de l'incident et la notification au client. Auto-évaluation réaliste, et non ambition. Valeurs courantes : 24, 48 ou 72 heures.",
-      "bsiRegistrationId": "Si votre entreprise est elle-même réglementée NIS 2 et enregistrée auprès du BSI, saisissez ici l'identifiant d'enregistrement. Facultatif. Permet aux clients de voir d'un coup d'œil que vous répondez à la même obligation qu'une entité réglementée.",
-      "isSaas": "Vous exploitez des logiciels pour les clients sur votre propre infrastructure et les fournissez via Internet. Cochez plusieurs cases si vous proposez plusieurs modèles.",
-      "isOnPrem": "Vous livrez des logiciels que les clients installent et exécutent sur leur propre infrastructure.",
-      "isProfessionalServices": "Votre livrable principal est un travail humain : conseil, mise en œuvre, formation, audit ou personnalisation.",
-      "isManagedService": "Vous exploitez une partie de l'informatique de votre client pour son compte, avec votre propre personnel. Typique des modèles MSP et MSSP.",
-      "usesAiSystems": "Vos produits ou services traitent-ils des données client via un modèle d'IA ou de ML ? Cela inclut les modèles externes que vous appelez via une API, par exemple OpenAI ou Anthropic.",
-      "hasIsms": "Cochez oui si vous disposez d'une politique de sécurité de l'information écrite, avec des rôles attribués, des revues régulières et une gestion documentée des incidents. Une certification ISO 27001 ou BSI Grundschutz implique oui.",
-      "hasIso27001OrEquivalent": "Cochez oui si votre entreprise détient actuellement une certification ISO 27001, BSI Grundschutz, SOC 2 Type II ou équivalente. Téléversez le certificat dans l'onglet Certifications.",
-      "staffSecurityTraining": "Cochez oui si chaque membre du personnel reçoit au moins une formation annuelle de sensibilisation à la sécurité de l'information. L'e-learning compte ; les simulations d'hameçonnage s'y ajoutent.",
-      "backgroundChecks": "Cochez oui si vous effectuez une vérification d'antécédents pour le personnel ayant accès aux données client. Critère courant : un extrait de casier judiciaire ou un document équivalent à l'embauche.",
-      "vulnerabilityHandling": "Cochez oui si vous disposez d'un processus écrit de gestion des vulnérabilités de sécurité : détecter, évaluer, prioriser, corriger ou atténuer. La surveillance des CVE et l'application de correctifs pilotée par SLA sont la norme.",
-      "acceptRightToAudit": "Cochez oui si vous accordez aux clients un droit d'audit sur site ou fournissez des rapports d'audit de substitution (par exemple SOC 2, ISAE 3402).",
-      "hasSubprocessors": "Cochez oui si vous recourez à d'autres entreprises pour fournir votre service, et qu'elles ont accès aux données ou à l'infrastructure des clients. Exemples typiques : AWS, Azure, Cloudflare, Stripe.",
-      "subprocessorList": "Énumérez chaque sous-traitant ultérieur avec son nom, son lieu de traitement et ce qu'il fait pour vous. Un tableau ou une liste à puces suffit. Mettez à jour à chaque ajout ou retrait.",
-      "dataReturnOnTermination": "Cochez oui si vous vous engagez contractuellement à restituer ou détruire les données client à la fin du contrat. Pratique courante : export et restitution, puis suppression sous 30 jours.",
-      "dpaAvailable": "Cochez oui si vous disposez d'un accord de traitement des données standard au titre de l'article 28 du GDPR que les clients peuvent signer. Requis dès que vous traitez des données à caractère personnel.",
-      "securityPolicyReviewedAnnually": "Cochez oui si vos politiques de sécurité sont revues au moins une fois par an et mises à jour si nécessaire. Une mention écrite dans le document suffit comme preuve.",
-      "hasIncidentResponsePlan": "Cochez oui si vous disposez d'un plan écrit de gestion des incidents de sécurité : qui décide, qui communique, qui documente. Au moins un exercice sur table par an est une bonne pratique.",
-      "hasBusinessContinuityPlan": "Cochez oui si vous disposez d'un plan expliquant comment vous maintenez l'activité ou vous rétablissez rapidement en cas de panne : systèmes critiques, solutions de repli, objectifs RTO et RPO.",
-      "hasCryptographyPolicy": "Cochez oui si vous avez consigné par écrit quelle cryptographie vous utilisez et où : données en transit (TLS 1.2+), données au repos (AES-256), gestion des clés, algorithmes de hachage.",
-      "hasPrivilegedAccessMgmt": "Cochez oui si les administrateurs et les comptes à privilèges bénéficient de contrôles supplémentaires : connexion distincte, MFA, journalisation des sessions ou accès juste-à-temps.",
-      "mfaEnforcedInternal": "Cochez oui si chaque compte administrateur ou à privilèges interne doit utiliser la MFA. Les jetons matériels ou les applications d'authentification comptent ; les SMS non.",
-      "hasAssetInventory": "Cochez oui si vous tenez une liste à jour de chaque système d'information que vous utilisez pour fournir votre service : serveurs, bases de données, outils SaaS, postes de travail. Un tableur suffit.",
-      "hasPenetrationTestingProgram": "Cochez oui si vous commandez un test d'intrusion externe au moins tous les un à deux ans. Pour les plus petites entreprises, une analyse de vulnérabilités externe comme étape minimale est acceptable.",
-      "pastBreachesDisclosed": "Cochez oui si, à la demande du client, vous divulguez ouvertement si et quels incidents de sécurité notifiables votre entreprise a connus par le passé. Fenêtre courante : les trois à cinq dernières années.",
-      "incidentAssistanceCommitment": "Cochez oui si vous vous engagez à aider les clients sans frais supplémentaires lorsqu'un incident est causé par votre produit ou service. Si vous convenez plutôt d'un tarif journalier prédéfini à l'avance, cochez également oui.",
-      "cooperateWithAuthorities": "Cochez oui si vous vous engagez à coopérer pleinement avec les autorités compétentes telles que le BSI, l'ENISA ou les CSIRT nationaux lors des inspections, audits et gestions d'incidents. Standard pour les fournisseurs sérieux.",
-      "notifyMaterialChanges": "Cochez oui si vous vous engagez à informer les clients de tout changement substantiel affectant votre capacité à livrer : acquisitions, changements de sous-traitants ultérieurs, évolutions techniques majeures.",
-      "notifyOnLocationChange": "Cochez oui si vous informez les clients à l'avance avant que le lieu de traitement de leurs données ne change. Important pour la protection des données et pour une supervision de la chaîne d'approvisionnement conforme au GDPR.",
-      "hasExitPlan": "Cochez oui si vous disposez d'une stratégie de sortie écrite : combien de temps prend un transfert ordonné, quelles données et connaissances sont transférées, ce à quoi vous vous engagez pendant la transition.",
-      "providesSbomForAi": "Facultatif. Cochez oui si vous pouvez fournir un SBOM-for-AI selon les éléments minimaux du G7 (mai 2026). Documente les métadonnées, les modèles, les données d'entraînement, l'infrastructure, les propriétés de sécurité, les KPI et le comportement du système. Norme volontaire.",
-      "aiSbomUrl": "URL publique ou partagée vers votre document SBOM-for-AI. Peut être un PDF, un fichier JSON ou une page de projet.",
-      "saasHostingRegion": "La région cloud où les données client sont hébergées. Exemple : AWS eu-central-1, Azure West Europe. Indiquez la région principale ; les régions secondaires ou de sauvegarde peuvent être ajoutées, séparées par des virgules.",
-      "saasEncryptionAtRest": "Cochez oui si les données client sur disque sont chiffrées au repos avec AES-256 ou équivalent. Le chiffrement de disque géré par le cloud (AWS EBS, Azure Disk Encryption) compte.",
-      "saasEncryptionInTransit": "Cochez oui si tous les points de terminaison côté client imposent TLS 1.2 ou supérieur. TLS 1.3 est préféré. Le HTTP en clair doit rediriger vers HTTPS.",
-      "saasMfaEnforced": "Cochez oui si chaque compte administrateur interne de la plateforme SaaS doit utiliser la MFA. Même standard que votre politique d'administration interne.",
-      "saasRtoHours": "Nombre maximal d'heures pendant lesquelles votre service peut être indisponible avant rétablissement. Valeur de SLA réaliste, et non ambition. Valeurs SaaS courantes : 4, 8 ou 24 heures.",
-      "onPremSbomProvided": "Cochez oui si vous fournissez une nomenclature logicielle avec chaque version. CycloneDX ou SPDX sont les formats standard. Obligatoire au titre du Cyber Resilience Act pour les produits mis sur le marché de l'UE à partir de décembre 2027.",
-      "onPremSignedReleases": "Cochez oui si chaque artefact de version porte une signature cryptographique que les clients peuvent vérifier. Les clés de signature sont documentées et renouvelées. Les signatures Sigstore ou PGP comptent toutes deux.",
-      "onPremVulnerabilityDisclosurePolicy": "Cochez oui si vous disposez d'un moyen publiquement documenté de signaler des vulnérabilités de sécurité. Un fichier security.txt sous votre domaine (selon la RFC 9116) ou une adresse dédiée comme security@example.com suffit.",
-      "onPremPatchSlaCriticalHours": "Nombre d'heures entre la divulgation publique d'une CVE et une version corrigée pour les vulnérabilités critiques (CVSS 9.0+). Engagement réaliste, et non ambition. Valeurs courantes : 24, 48 ou 72 heures.",
-      "proServicesBackgroundCheckScope": "Décrivez comment vous vérifiez les consultants pour les rôles sensibles. Exemple : extrait de casier judiciaire pour tous les consultants, plus vérification des références pour les missions impliquant des données classifiées.",
-      "proServicesNdaInPlace": "Cochez oui si chaque consultant signe un accord de confidentialité avant d'être affecté à des travaux pour un client. Soit dans le cadre du contrat de travail, soit sous forme d'un NDA distinct.",
-      "proServicesCustomerPremisesPolicy": "Cochez oui si vous disposez d'un code de conduite écrit pour les consultants travaillant sur les sites du client : gestion des badges, règle de verrouillage de l'écran, conduite à tenir si des données quittent le site.",
-      "managedPrivilegedAccessMgmt": "Cochez oui si vous utilisez un outil de gestion des accès à privilèges pour les sessions d'administration à distance sur les systèmes des clients. Exemples : CyberArk, BeyondTrust, Teleport. Une configuration de serveur de rebond journalisée compte.",
-      "managedSessionRecording": "Cochez oui si les sessions administrateur sur les systèmes des clients sont enregistrées et conservées pour revue. Durée de conservation courante : 90 jours à 1 an. Nécessaire à la reconstitution forensique après incident.",
-      "managedOnCall24x7": "Cochez oui si vous exploitez une rotation d'astreinte 24/7 qui répond aux incidents de sécurité sur les systèmes des clients. Un support limité aux heures ouvrées ne qualifie pas."
     }
   }
 }

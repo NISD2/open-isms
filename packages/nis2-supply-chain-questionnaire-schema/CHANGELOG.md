@@ -6,43 +6,54 @@ All notable changes to this repository are documented here. Format follows [Keep
 
 ## [4.0.0] — 2026-10-04
 
-A legal and proportionality review against the primary texts (Directive (EU) 2022/2555, Implementing Regulation (EU) 2024/2690 and ENISA's Technical Implementation Guidance v1.0, which reproduces the CIR annex). The questionnaire asked too much in places that do not help a customer meet Art. 21(2)(d) and (3), and too little in two that do. 47 fields, down from 59; a SaaS supplier that processes customer data and uses subcontractors now sees 39.
+A legal and proportionality review against the primary texts: Directive (EU) 2022/2555, Implementing Regulation (EU) 2024/2690 (CIR), ENISA's Technical Implementation Guidance v1.0 and its ISO 27001 mapping table v1.2, the GDPR, the Cyber Resilience Act (CRA) and, for one German example, § 11 StBerG. Three findings drove it. The questionnaire assumed every supplier is a software vendor: a cleaning company with office keys was asked about pen tests and admin MFA, and nothing about keys. Ten citations pointed at the customer's own security measures as if they bound the supplier. And it asked too much where the law points nowhere, too little where it does (physical access, end of security updates, encryption beyond SaaS, certificate scope).
+
+50 fields, from 59. Every supplier answers 21; the rest depend on what it reaches at its customers. A cleaning company with keys now sees 26 questions that fit it, a tax adviser 36, a managed service provider 40, a SaaS vendor 42.
 
 ### Added
-- `profile.processesCustomerData` and `profile.accessesCustomerSystems` (boolean, required): what the supplier reaches at its customers, the "sensitivity of the use" a customer weighs the other answers against (TIG §5.1.2).
-- `security_practices.subprocessorRequirementsPassedOn` (boolean, visible when `hasSubprocessors`): the second half of CIR §5.1.4(g).
-- `security_practices.secureDevelopment` (boolean, visible when `isSaas` or `isOnPrem`): CIR §5.1.2(a) names secure development procedures; until now only on-prem vendors were asked anything near it.
-- `managed_services.managedAdminAccessLogged` (boolean): logging of administrative access, CIR §3.2.
-- `visibleWhen` accepts `{ anyOf: [condition, ...] }` besides a single condition; `isVisible(field, response)` and `conditionsOf(field)` are exported.
-- Field type `domain`: a bare host name such as example.com, no scheme and no path.
+- What the supplier reaches, asked of everyone and deciding the rest: `processesCustomerData` (data or documents, electronically or on paper), `accessesCustomerSystems`, `accessesCustomerPremises` (CIR §11.1.2(a): access by external entities such as suppliers).
+- `premisesAccessManaged`, `premisesConductRules` (visible when `accessesCustomerPremises`): keys, badges and codes, and rules on site (CIR §11.2.2(d), §13.3.2(b); TIG §5.1 TIPS).
+- `customerAccessPersonalMfa`, `customerAccessLogged` (visible when `accessesCustomerSystems`): personal accounts with a second factor, also for remote maintenance, and logging of administrative access (CIR §5.1.4(a), §11.3.2(a), §3.2.3(e)). They replace two questions asked of MSPs only.
+- `encryptionAtRest`, `encryptionInTransit` (visible when `processesCustomerData`): asked of every supplier that holds customer data, not only SaaS.
+- `confidentialityCommitted` (visible when the supplier reaches data, systems or premises): replaces the consultant NDA question; professional secrecy by law counts.
+- `dataProcessingAgreement` (enum): available / independent controller / no personal data / no. Replaces the yes/no `dpaAvailable`, which told a tax adviser, a controller by statute, that it lacked a contract it cannot sign as a processor.
+- `certificationDetails` (visible when `hasIso27001OrEquivalent`): standard, issuer, validity and scope. A certificate for another part of the business proves nothing.
+- `vulnerabilityDisclosurePolicy` (visible when `isSaas` or `isOnPrem`): replaces the on-prem-only question; NIS 2 Art. 21(3) points at every direct supplier's vulnerabilities, and the CRA requires such a policy from 11 December 2027.
+- `onPremSupportEnd`: until when security updates are supplied (CIR §6.1.2(b), CRA Art. 13(19)).
+- `subprocessorRequirementsPassedOn` (the second half of CIR §5.1.4(g)) and `secureDevelopment` (CIR §5.1.2(a)).
+- `iso27001` on every field but identity: ISO/IEC 27001:2022 Annex A controls, from ENISA's mapping table.
+- `visibleWhen` accepts `{ anyOf: [...] }`; `isVisible(field, response)` and `conditionsOf(field)` are exported. Field type `domain`: a bare host name.
 
 ### Removed (BREAKING)
-- `tagline`, `description`: marketing text with no legal basis; `serviceDescription` (TIG §5.2(b)) carries what a customer needs.
-- `bsiRegistrationId`: being registered does not show that the measures are in place, and TIG §5.1.2 lists regulated status as one criterion to consider, not a shortcut.
-- `usesAiSystems`, `providesSbomForAi`, `aiSbomUrl`: neither Art. 21(2)(d) nor TIG §5.1.2 mentions AI, and the G7 SBOM-for-AI paper is voluntary. AI services belong in the subcontractor list.
-- `incidentAssistanceCommitment`, `hasExitPlan`: from TIG §5.1.4's list of items to consider for contracts; they belong in contract negotiations.
-- `proServicesBackgroundCheckScope`: asked for criminal record checks on all consultants, against CIR §10.2.1 ("to the extent feasible").
-- `managedSessionRecording`, `managedOnCall24x7`: large-enterprise terms for a small MSP; replaced by `managedAdminAccessLogged`, and the existing contact fields cover reachability.
-- `saasHostingRegion` (repeats `dataProcessingLocations`), `securityPolicyReviewedAnnually` (part of `hasIsms`), `hasCryptographyPolicy` (the encryption answers carry it), `hasPrivilegedAccessMgmt` (repeats the MFA answers), `hasAssetInventory`, `notifyOnLocationChange` (merged into `notifyMaterialChanges`).
+- Sections `pro_services` and `managed_services`, and `isProfessionalServices`: their questions now depend on what the supplier reaches, not on a label it gives itself.
+- `tagline`, `description`: marketing text with no legal basis; `serviceDescription` carries what a customer needs.
+- `bsiRegistrationId`: being registered does not show that the measures are in place.
+- `usesAiSystems`, `providesSbomForAi`, `aiSbomUrl`: neither Art. 21(2)(d) nor TIG chapter 5 mentions AI. AI services belong in the subcontractor list.
+- `incidentAssistanceCommitment`, `hasExitPlan`: contract negotiation items. Exit is now part of `dataReturnOnTermination`.
+- `proServicesBackgroundCheckScope`, `managedSessionRecording`, `managedOnCall24x7`: against CIR §10.2.1 ("to the extent feasible") or large-enterprise terms for a small MSP.
+- `saasHostingRegion`, `securityPolicyReviewedAnnually`, `hasCryptographyPolicy`, `hasPrivilegedAccessMgmt`, `hasAssetInventory`, `notifyOnLocationChange`: duplicates of other answers.
+- Replaced, see Added: `dpaAvailable`, `saasEncryptionAtRest`, `saasEncryptionInTransit`, `onPremVulnerabilityDisclosurePolicy`, `managedPrivilegedAccessMgmt`, `proServicesNdaInPlace`, `proServicesCustomerPremisesPolicy`.
 
 ### Changed
-- `backgroundChecks`: only staff with privileged access, as far as employment and data protection law allow (CIR §10.2.1).
-- `cooperateWithAuthorities`: "we give customers the information their authority asks for". A supplier outside NIS 2 owes the BSI or ENISA nothing directly.
-- `incidentSlaHours`: cites CIR §5.1.4(d) instead of Art. 23 (the entity's own reporting) and explains the customer's 24-hour early warning.
-- `saasMfaEnforced`: asks whether customers can use a second factor; the supplier's own admin accounts are `mfaEnforcedInternal`.
-- `onPremSbomProvided`: the CRA requires an SBOM in the technical documentation from 11 December 2027; giving it to customers is optional.
-- `dpaAvailable`: visible when `processesCustomerData`; required only for processing on a customer's behalf (Art. 28(3) GDPR).
-- `incidentContactPhone`: no 24/7 expectation.
-- `primaryDomain`: type `domain` instead of `url`. The answer is a host name, and a form that renders a URL input for it rejects the very value the help text asks for.
-- Citations corrected: contacts to CIR §5.2(a); ISO certification to CIR §5.1.4(b); signed releases to TIG §6.2; vulnerability disclosure to TIG §6.10; consultant NDA and on-site conduct to TIG §5.1.4.
+- Citations corrected: `hasIso27001OrEquivalent` cited CIR §5.1.4(b), which is about the supplier's employees, now §5.1.2(a); `onPremSignedReleases` cited TIG §6.2, now CIR §6.6.1(c) and CRA Annex I Part II(7); identity fields cite CIR §5.2.
+- Ten questions that cited the customer's own measures (NIS 2 Art. 21(2)(b), (c), (e), (h), (i), (j)) now lead with the supply chain point that makes the customer ask, and name the practice after it. A test keeps Art. 21(2) from standing first again.
+- Gated by what the supplier reaches: the ISMS, certificate, vulnerability handling, incident plan, continuity plan and admin MFA questions (anything digital); `dataProcessingLocations` (customer data); `backgroundChecks` and `dataReturnOnTermination` (data, systems or premises); `hasPenetrationTestingProgram` (runs IT for customers).
+- `incidentSlaHours`: the customer's 24-hour early warning applies to significant incidents and runs from becoming aware (Art. 23(4)(a)).
+- `hasIso27001OrEquivalent`: counts ISO/IEC 27001 (also on the basis of IT-Grundschutz), BSI C5, TISAX, SOC 2 Type II, ISAE 3402 and European certificates, and only when their scope covers the service; no reference to any portal's upload tab.
+- `dataReturnOnTermination`: also keys, badges, documents and accounts, and a usable documented format (CIR §5.1.2(d), vendor lock-in).
+- `hasBusinessContinuityPlan`: includes backups kept apart and test-restored (CIR §4.2.1).
+- Numbers the sources do not set are gone: annual training, annual or biennial pen tests, "SMS does not count", 30 days, three to five years, common RTO and patch values. `onPremPatchSlaCriticalHours` is optional.
+- Labels a supplier can confirm or deny ("We ...") and German a Geschäftsführer reads without English terms.
 - Reworded and new fields carry `en` and `de` only; the other locales fall back to English for them rather than keep a translation of text that no longer applies.
 
 ### Fixed
 - `schema/supply-chain-questionnaire.schema.json` was an empty object: `zod-to-json-schema` predates zod 4. It is now generated by zod's own `z.toJSONSchema`, and a test fails if it is empty again.
 
 ### Migration
-- A consumer that renders by `type` must handle `domain` (a plain text input will do).
-- A consumer that renders by `visibleWhen` must handle `anyOf` (use `isVisible`). Stored answers to removed fields stay where they are; nothing in the schema reads them.
+- A consumer that renders by `type` must handle `domain` (a plain text input will do) and `enum` (`dataProcessingAgreement`).
+- A consumer that renders by `visibleWhen` must handle `anyOf` (use `isVisible`).
+- A `dpaAvailable` answer maps to `dataProcessingAgreement`: true to `available`, false to `no`. The other replaced questions ask something broader than before, so their old answers do not carry over.
+- Stored answers to removed fields stay where they are; nothing in the schema reads them.
 
 ## [3.1.0] — 2026-05-15
 

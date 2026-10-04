@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "@/i18n/navigation";
-import { PLATFORM_SOURCE } from "@/lib/supplier-portal/platform-source";
+import { PLATFORM_SOURCE } from "@/lib/supplier-portal/register-row";
 import { trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
 import type { Registers } from "./view";
@@ -52,7 +52,7 @@ export function SupplierList({ initial }: { initial: Registers["supplier"] }) {
           {data.map((row) => {
             // A supplier that answers through the supplier portal: its answers open from here,
             // and the row is that one link.
-            const shares = row.supplierCompanyId !== null && row.status === "active";
+            const shares = row.opensAnswers;
             return (
               <li
                 key={row.id}
@@ -66,7 +66,7 @@ export function SupplierList({ initial }: { initial: Registers["supplier"] }) {
                 {row.description && (
                   <p className="text-sm text-muted-foreground">{row.description}</p>
                 )}
-                {row.source === PLATFORM_SOURCE && (
+                {shares && row.source === PLATFORM_SOURCE && (
                   <p className="text-xs text-muted-foreground">{t("platform")}</p>
                 )}
                 {shares && (

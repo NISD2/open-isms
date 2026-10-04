@@ -1,33 +1,33 @@
+import {
+  groupBySection,
+  supplierQuestionnaire,
+} from "@nisd2/nis2-supply-chain-questionnaire-schema";
+import { Download, ExternalLink, FileCode, FileText } from "lucide-react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { JsonLd } from "@/components/JsonLd";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { Link } from "@/i18n/navigation";
-import { pageAlternates } from "@/lib/seo";
 import { pickLocalized } from "@/lib/locale";
 import { ogImages } from "@/lib/og-card";
-import { JsonLd } from "@/components/JsonLd";
+import { pageAlternates } from "@/lib/seo";
 import {
-  supplierQuestionnaire,
-  groupBySection,
-} from "@nisd2/nis2-supply-chain-questionnaire-schema";
-import { Download, FileCode, FileText, ExternalLink } from "lucide-react";
+  conditionText,
+  isoText,
+  QUESTIONNAIRE_COUNTS,
+  SECTION_ORDER,
+} from "@/lib/supplier-questionnaire-text";
 
-type Locale = "de" | "en" | "nl";
-
-const SECTION_ORDER = [
-  "profile",
-  "security_practices",
-  "saas_technical",
-  "on_prem_technical",
-  "pro_services",
-  "managed_services",
-] as const;
-
-const SCHEMA_REPO_URL =
-  "https://github.com/NISD2/nis2-supply-chain-questionnaire-schema";
+const SCHEMA_REPO_URL = "https://github.com/NISD2/nis2-supply-chain-questionnaire-schema";
 const SCHEMA_JSON_URL = `${SCHEMA_REPO_URL}/blob/main/data/supply-chain-questionnaire.json`;
 
 export async function generateMetadata({
@@ -39,10 +39,14 @@ export async function generateMetadata({
   const t = await getTranslations("info");
   return {
     title: t("supplierQuestionnaire.meta.title"),
-    description: t("supplierQuestionnaire.meta.description"),
+    description: t("supplierQuestionnaire.meta.description", QUESTIONNAIRE_COUNTS),
     alternates: pageAlternates("nis2-lieferanten-fragebogen", locale),
     openGraph: {
-      images: ogImages("nis2-lieferanten-fragebogen", locale, t("supplierQuestionnaire.meta.title")),
+      images: ogImages(
+        "nis2-lieferanten-fragebogen",
+        locale,
+        t("supplierQuestionnaire.meta.title"),
+      ),
     },
   };
 }
@@ -63,7 +67,12 @@ export default async function SupplierQuestionnairePage({
   const locale = rawLocale;
   const t = await getTranslations("info");
   const grouped = groupBySection(supplierQuestionnaire);
-  const totalFields = supplierQuestionnaire.fields.length;
+  const conditionWords = {
+    onlyIf: t("supplierQuestionnaire.field.onlyIf"),
+    yes: t("supplierQuestionnaire.field.yes"),
+    no: t("supplierQuestionnaire.field.no"),
+    or: t("supplierQuestionnaire.field.or"),
+  };
 
   // FAQ JSON-LD around the EU anchoring claim is the most likely rich-result hit.
   const faqJsonLd = {
@@ -75,7 +84,7 @@ export default async function SupplierQuestionnairePage({
         name: t("supplierQuestionnaire.meta.title"),
         acceptedAnswer: {
           "@type": "Answer",
-          text: t("supplierQuestionnaire.meta.description"),
+          text: t("supplierQuestionnaire.meta.description", QUESTIONNAIRE_COUNTS),
         },
       },
     ],
@@ -104,7 +113,10 @@ export default async function SupplierQuestionnairePage({
           {t("supplierQuestionnaire.intro.p1")}
         </p>
         <p className="text-sm leading-relaxed text-muted-foreground">
-          {t("supplierQuestionnaire.intro.p2")}
+          {t("supplierQuestionnaire.intro.p2", QUESTIONNAIRE_COUNTS)}
+        </p>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          {t("supplierQuestionnaire.intro.p3", QUESTIONNAIRE_COUNTS)}
         </p>
       </section>
 
@@ -148,19 +160,25 @@ export default async function SupplierQuestionnairePage({
               <dt className="text-muted-foreground">
                 {t("supplierQuestionnaire.meta_panel.version")}
               </dt>
-              <dd className="mt-0.5 font-mono font-medium">{supplierQuestionnaire.version}</dd>
+              <dd className="mt-0.5 font-mono font-medium">
+                {supplierQuestionnaire.version}
+              </dd>
             </div>
             <div>
               <dt className="text-muted-foreground">
                 {t("supplierQuestionnaire.meta_panel.lastUpdated")}
               </dt>
-              <dd className="mt-0.5 font-mono font-medium">{supplierQuestionnaire.lastUpdated}</dd>
+              <dd className="mt-0.5 font-mono font-medium">
+                {supplierQuestionnaire.lastUpdated}
+              </dd>
             </div>
             <div>
               <dt className="text-muted-foreground">
                 {t("supplierQuestionnaire.meta_panel.fields")}
               </dt>
-              <dd className="mt-0.5 font-mono font-medium">{totalFields}</dd>
+              <dd className="mt-0.5 font-mono font-medium">
+                {QUESTIONNAIRE_COUNTS.total}
+              </dd>
             </div>
             <div>
               <dt className="text-muted-foreground">
@@ -184,7 +202,8 @@ export default async function SupplierQuestionnairePage({
                 {t(`supplierQuestionnaire.sections.${sectionId}`)}
               </h2>
               <span className="text-xs text-muted-foreground">
-                {fields.length} {t("supplierQuestionnaire.meta_panel.fields").toLowerCase()}
+                {fields.length}{" "}
+                {t("supplierQuestionnaire.meta_panel.fields").toLowerCase()}
               </span>
             </header>
             <div className="space-y-3">
@@ -196,6 +215,8 @@ export default async function SupplierQuestionnairePage({
                   : field.required
                     ? t("supplierQuestionnaire.field.required")
                     : t("supplierQuestionnaire.field.optional");
+                const condition = conditionText(field, locale, conditionWords);
+                const iso = isoText(field);
                 return (
                   <Card key={field.id}>
                     <CardContent className="space-y-2 pt-6">
@@ -213,14 +234,38 @@ export default async function SupplierQuestionnairePage({
                           </Badge>
                         </div>
                       </div>
+                      {condition && (
+                        <p className="text-xs italic text-muted-foreground">
+                          {condition}
+                        </p>
+                      )}
                       <p className="text-xs leading-relaxed text-muted-foreground">
                         {description}
                       </p>
+                      {field.options && (
+                        <ul className="space-y-1 text-xs text-foreground">
+                          {field.options.map((option) => (
+                            <li key={option.value} className="flex items-start gap-2">
+                              <span
+                                aria-hidden
+                                className="mt-0.5 h-2.5 w-2.5 flex-none rounded-full border border-muted-foreground/50"
+                              />
+                              {pickLocaleString(option.label, locale)}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                       <p className="text-[11px] text-muted-foreground">
                         <span className="text-muted-foreground/70">
                           {t("supplierQuestionnaire.field.legalBasis")}:
                         </span>{" "}
                         <span className="font-mono">{field.legalBasis}</span>
+                        {iso && (
+                          <>
+                            <span aria-hidden> · </span>
+                            <span className="font-mono">{iso}</span>
+                          </>
+                        )}
                       </p>
                     </CardContent>
                   </Card>

@@ -19,6 +19,18 @@ export const invoiceSourceEnum = pgEnum("invoice_source", ["self_serve", "admin"
  */
 export const featureFlagKeyEnum = pgEnum("feature_flag_key", ["billing", "walkthrough"]);
 
+/**
+ * The options of the supplier questionnaire's `dataProcessingAgreement` question
+ * (@nisd2/nis2-supply-chain-questionnaire-schema). lib/forms/supplier-portal-sections.test.ts
+ * keeps the two equal.
+ */
+export const dataProcessingAgreementEnum = pgEnum("data_processing_agreement", [
+  "available",
+  "independentController",
+  "noPersonalData",
+  "no",
+]);
+
 /** Each series has its own counter, because invoice and credit note numbers never share. */
 export const documentSeriesEnum = pgEnum("document_series", ["invoice", "credit_note"]);
 

@@ -7,8 +7,8 @@
 import "@/lib/server-guard";
 import { and, eq } from "drizzle-orm";
 import type { DbOrTx } from "@/lib/db";
+import { QUESTIONNAIRE_COLUMNS } from "@/lib/forms/supplier-portal-sections";
 import { company, companyCertification } from "@/schema";
-import { QUESTIONNAIRE_COLUMN_FLAGS } from "./completeness";
 
 export async function loadSharedSupplierProfile(db: DbOrTx, supplierCompanyId: string) {
   const [profile, certifications] = await Promise.all([
@@ -21,7 +21,7 @@ export async function loadSharedSupplierProfile(db: DbOrTx, supplierCompanyId: s
         actsAsSupplier: true,
         logoStorageKey: true,
         practicesLastSavedAt: true,
-        ...QUESTIONNAIRE_COLUMN_FLAGS,
+        ...QUESTIONNAIRE_COLUMNS,
       },
     }),
     db.query.companyCertification.findMany({

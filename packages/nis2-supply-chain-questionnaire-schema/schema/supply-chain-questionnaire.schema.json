@@ -27,9 +27,7 @@
               "profile",
               "security_practices",
               "saas_technical",
-              "on_prem_technical",
-              "pro_services",
-              "managed_services"
+              "on_prem_technical"
             ]
           },
           "type": {
@@ -205,6 +203,14 @@
           "legalBasis": {
             "type": "string",
             "minLength": 1
+          },
+          "iso27001": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^A\\.[5-8]\\.\\d{1,2}$"
+            }
           },
           "required": {
             "type": "boolean"

@@ -1,1 +1,0 @@
-ALTER TABLE "company" ADD COLUMN "platform_supplier_linked_at" timestamp;

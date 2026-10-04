@@ -12,18 +12,16 @@
  * /portal/supplier/customers/[relationshipId]/assets via CustomerAssetsSection.
  * This is the customer's half: no mutations, no tRPC, props only.
  *
- * Labels are reused, not restated: the offering fields already carry
- * supplierPortal.fields.* + fieldDescriptions.* in all ten locales, and the
- * asset-level security fields carry assets.fields.*.
+ * Labels are reused, not restated: the offering fields carry supplierPortal.fields.*
+ * in all ten locales, and the asset-level security fields carry assets.fields.*.
  */
-import { getTranslations } from "next-intl/server";
+
 import { Server } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { Badge } from "@/components/ui/badge";
 import type { RouterOutputs } from "@/lib/trpc/client";
 
-type TokenView = NonNullable<
-  RouterOutputs["supplierPortal"]["public"]["getByToken"]
->;
+type TokenView = NonNullable<RouterOutputs["supplierPortal"]["public"]["getByToken"]>;
 export type SharedService = TokenView["managedAssets"][number];
 
 /** Which declarations apply depends on what kind of service this is. */
@@ -115,7 +113,10 @@ export async function SharedServicesSection({
           {services.map((service) => {
             const rows = rowsFor(service);
             return (
-              <li key={service.id} className="rounded-lg border bg-background p-4 space-y-3">
+              <li
+                key={service.id}
+                className="rounded-lg border bg-background p-4 space-y-3"
+              >
                 <div className="flex flex-wrap items-center gap-2">
                   <Server className="h-4 w-4 text-muted-foreground shrink-0" />
                   <span className="font-medium">{service.name}</span>

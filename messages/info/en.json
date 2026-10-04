@@ -6654,8 +6654,8 @@
         "description": "A structured self-assessment as a typed Zod schema. Every question is anchored to a specific legal source (NIS2 Directive, BSIG, CIR 2024/2690, BSI IT-Grundschutz). Includes reference scoring logic and a Drizzle storage example for responses."
       },
       "supplierQuestionnaire": {
-        "title": "NIS2 Supplier Questionnaire: 56 fields, 6 sections",
-        "description": "The questions a NIS2-regulated entity needs to ask its suppliers. Anchored to NIS2 Art. 21(2), CIR 2024/2690, ENISA TIG, BSI IT-Grundschutz, and GDPR Art. 28. With a visibleWhen mechanism that gates optional sections by service type."
+        "title": "NIS2 Supplier Questionnaire, mapped to ISO 27001",
+        "description": "The questions a NIS2-regulated company asks its suppliers, from software houses to cleaning companies. Each question names its EU-level source (CIR 2024/2690, ENISA TIG, GDPR, Cyber Resilience Act), most also the ISO/IEC 27001:2022 Annex A controls they serve. Through visibleWhen, each supplier sees only the questions that fit what it reaches at its customers: data, systems, premises or software."
       },
       "grcDataModel": {
         "title": "GRC Data Model: RoPA, DPA, TOMs, NIS2 ↔ GDPR mappings",
@@ -7470,7 +7470,7 @@
       },
       "questionnaireCta": {
         "heading": "Open supplier questionnaire",
-        "description": "The 59 EU-anchored questions every NIS 2 supplier assessment needs to cover. Free to use, MIT + CC BY 4.0.",
+        "description": "{count} questions for suppliers, each with its EU-level source. A supplier sees only those that fit what it reaches at its customers. Free to use, MIT + CC BY 4.0.",
         "button": "Open the questionnaire"
       }
     },
@@ -7567,14 +7567,15 @@
     "supplierQuestionnaire": {
       "meta": {
         "title": "Open NIS 2 Supplier Questionnaire",
-        "description": "An open, EU-anchored NIS 2 supplier questionnaire. 59 fields across 6 sections, each linked to Art. 21(2), CIR 2024/2690 or ENISA TIG. MIT + CC BY 4.0, free to use and fork."
+        "description": "An open NIS 2 supplier questionnaire: {total} questions in {sections} sections, each with its EU-level source and, where one fits, its ISO/IEC 27001 controls. MIT + CC BY 4.0, free to use and fork."
       },
       "badge": "Open standard",
       "title": "NIS 2 Supplier Questionnaire",
       "subtitle": "The questions a NIS 2 regulated entity needs to ask its suppliers. Anchored once to EU law. Free to use.",
       "intro": {
-        "p1": "Almost every procurement team in the European mid-market is currently writing its own NIS 2 supplier questionnaire. The same fifty-ish EU-anchored questions, in slightly different forms, sent to suppliers who end up filling out five versions of the same thing. This questionnaire is the shared baseline.",
-        "p2": "Every field is anchored to an EU-level primary source: NIS 2 Art. 21(2), CIR 2024/2690, ENISA Technical Implementation Guidance, GDPR Art. 28, or the Cyber Resilience Act. Sector overlays like TISAX, VDA ISA, BSI C5 or KRITIS audit catalogues sit on top of this baseline, not in place of it."
+        "p1": "Almost every procurement team in the European mid-market is currently writing its own NIS 2 supplier questionnaire. The same EU-anchored questions, in slightly different forms, sent to suppliers who end up filling out five versions of the same thing. This questionnaire is the shared baseline.",
+        "p2": "Every question names its EU-level source: Implementing Regulation (EU) 2024/2690, ENISA's Technical Implementation Guidance, the GDPR or the Cyber Resilience Act. {withIso} of the {total} questions also name the ISO/IEC 27001:2022 Annex A controls they serve, from ENISA's mapping. Sector overlays like TISAX, VDA ISA, BSI C5 or KRITIS audit catalogues sit on top of this baseline, not in place of it.",
+        "p3": "Every supplier answers {always} questions. Which others it sees depends on what it reaches at its customers: their data, their systems, their premises, software it runs or ships, or IT it runs for them. Each conditional question states the answer it depends on."
       },
       "downloads": {
         "heading": "Download",
@@ -7595,17 +7596,19 @@
       "sections": {
         "profile": "Supplier profile",
         "security_practices": "Security practices",
-        "saas_technical": "SaaS-specific",
-        "on_prem_technical": "On-premise-specific",
-        "pro_services": "Professional services",
-        "managed_services": "Managed services"
+        "saas_technical": "Software as a service (SaaS)",
+        "on_prem_technical": "Software on the customer's premises (on-premise)"
       },
       "field": {
         "type": "Field type",
         "legalBasis": "Legal basis",
         "required": "Required",
         "optional": "Optional",
-        "conditional": "Conditional"
+        "conditional": "Conditional",
+        "onlyIf": "Only if",
+        "yes": "Yes",
+        "no": "No",
+        "or": "or"
       },
       "useNote": {
         "heading": "How to use it",

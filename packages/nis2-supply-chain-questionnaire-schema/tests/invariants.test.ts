@@ -139,3 +139,70 @@ describe("helpers", () => {
     expect(isVisible(secure, { isSaas: false, isOnPrem: false })).toBe(false);
   });
 });
+
+describe("any supplier", () => {
+  const nothing = {
+    isSaas: false,
+    isOnPrem: false,
+    isManagedService: false,
+    processesCustomerData: false,
+    accessesCustomerSystems: false,
+    accessesCustomerPremises: false,
+  };
+  const asked = (response: Record<string, unknown>) =>
+    new Set(visibleFields(supplierQuestionnaire, response).map((f) => f.id));
+
+  test("a cleaning company with keys is asked about keys, not about IT", () => {
+    const cleaning = asked({ ...nothing, accessesCustomerPremises: true });
+    for (const id of [
+      "premisesAccessManaged",
+      "premisesConductRules",
+      "backgroundChecks",
+    ]) {
+      expect(cleaning.has(id)).toBe(true);
+    }
+    for (const id of [
+      "hasIsms",
+      "hasPenetrationTestingProgram",
+      "mfaEnforcedInternal",
+      "dataProcessingLocations",
+      "encryptionAtRest",
+    ]) {
+      expect(cleaning.has(id)).toBe(false);
+    }
+  });
+
+  test("a supplier holding customer data is asked about encryption and the DPA", () => {
+    const taxAdviser = asked({ ...nothing, processesCustomerData: true });
+    for (const id of [
+      "encryptionAtRest",
+      "encryptionInTransit",
+      "dataProcessingAgreement",
+    ]) {
+      expect(taxAdviser.has(id)).toBe(true);
+    }
+    expect(taxAdviser.has("hasPenetrationTestingProgram")).toBe(false);
+  });
+
+  test("a supplier with access to customer systems is asked how that access is secured", () => {
+    const msp = asked({
+      ...nothing,
+      isManagedService: true,
+      accessesCustomerSystems: true,
+    });
+    for (const id of [
+      "customerAccessPersonalMfa",
+      "customerAccessLogged",
+      "hasPenetrationTestingProgram",
+    ]) {
+      expect(msp.has(id)).toBe(true);
+    }
+  });
+
+  test("no question rests on the customer's own NIS 2 measures", () => {
+    // Art. 21(2) binds the customer; on a supplier question it reads as binding the supplier.
+    for (const field of supplierQuestionnaire.fields) {
+      expect(field.legalBasis.startsWith("NIS2 Art. 21(2)")).toBe(false);
+    }
+  });
+});

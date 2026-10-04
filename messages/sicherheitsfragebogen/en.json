@@ -12,7 +12,7 @@
         "eyebrow": "Supplier portal by nisd2.eu",
         "headline": "Answer <u>one</u> security questionnaire.",
         "headlineAccent": "Share with <u>every</u> customer.",
-        "subhead": "One canonical supplier questionnaire, structured by ENISA NIS 2 Technical Implementation Guidance v1.0. Every question cites CIR 2024/2690, BSIG §30 or BSI IT-Grundschutz. Free. Open source. Your data stays portable.",
+        "subhead": "One canonical supplier questionnaire, structured by ENISA NIS 2 Technical Implementation Guidance v1.0. Every question names its EU-level source, and customers who manage suppliers under ISO 27001 find the matching controls right next to it. Free. Open source. Your data stays portable.",
         "anchorBadge": "Structured by ENISA NIS 2 TIG v1.0 §5",
         "ctaPrimary": "Create supplier profile",
         "ctaSecondary": "What is in the questionnaire?"
@@ -27,7 +27,7 @@
           },
           {
             "title": "Answer the questionnaire",
-            "body": "Three sub-pages in the portal: profile and service description, universal cybersecurity measures per NIS 2 Art. 21(2), technical sections per service type. 59 questions, at your own pace, draft auto-saves."
+            "body": "Three pages in the portal: who you are and what you reach at customers, what you commit to and how you run security, plus questions on software if you offer or ship any. Every supplier answers {always} questions, the rest only where they fit. At your own pace, draft auto-saves."
           },
           {
             "title": "Invite customers",
@@ -37,52 +37,41 @@
       },
       "sections": {
         "heading": "What is in the questionnaire.",
-        "lead": "Ten sections, each citing the underlying paragraph of ENISA TIG, CIR 2024/2690 or BSI IT-Grundschutz.",
-        "items": [
-          "Identity (CIR §5.2 / ENISA TIG §5.2 supplier register)",
-          "Incident contact (customer-facing)",
-          "Service type",
-          "Mandatory contract clauses (CIR / ENISA TIG §5.1.4)",
-          "Cybersecurity measures (NIS 2 Art. 21(2) / ENISA TIG §5.1.2)",
-          "Additional contract clauses (ENISA TIG §5.1.4 TIPS)",
-          "SaaS technical",
-          "On-prem software technical",
-          "Professional services, details",
-          "Managed services, details"
-        ],
+        "lead": "The questions in the order you answer them in the portal. Each names the provision in Implementing Regulation (EU) 2024/2690, ENISA's Technical Implementation Guidance, the GDPR or the Cyber Resilience Act that it rests on.",
         "footnote": "The full schema is public on GitHub and exportable as JSON."
       },
       "serviceTypes": {
-        "heading": "Four technical sections per service type.",
-        "lead": "The Service type page in the portal surfaces four additional sections. Fill in only the ones that match what you offer.",
+        "heading": "What you are asked depends on what you reach at your customers.",
+        "lead": "Every supplier answers {always} questions. On your profile you say whether you hold your customers' data, access their systems or enter their premises, and whether you offer software as a service, ship software or run IT for customers. The rest follows from that. A supplier that reaches data, systems or premises also answers on confidentiality, on the suitability of staff with access, and on hand-back at the end of the contract.",
         "items": [
           {
-            "title": "SaaS",
-            "fields": "Hosting region, encryption at rest and in transit, MFA for admin accounts, recovery time objective."
+            "title": "Your customers' data",
+            "fields": "Where the data is processed, the data processing agreement, encryption at rest and in transit. Plus how you manage security: ISMS, certificate, vulnerability handling, plans for incidents and outages, a second factor for your own administrator accounts."
           },
           {
-            "title": "On-prem software",
-            "fields": "Software Bill of Materials (SBOM), cryptographically signed releases, published vulnerability disclosure policy, patch SLA for critical CVEs."
+            "title": "Your customers' systems",
+            "fields": "Personal accounts with a second factor for every access, remote maintenance included, and a log of access with administrator rights. Plus the same security management as for customer data."
           },
           {
-            "title": "Professional services",
-            "fields": "Background check scope, NDA with all consultants, documented customer-premises behaviour policy."
+            "title": "Your customers' premises",
+            "fields": "How you keep track of keys, badges and codes, and which written rules of conduct your staff follow on site. A supplier that only enters premises is not asked about an ISMS, security testing or administrator accounts."
           },
           {
-            "title": "Managed services",
-            "fields": "Privileged access management, admin session recording, 24/7 on-call for security incidents."
+            "title": "Software and managed services",
+            "fields": "If you offer software as a service or ship software: secure development, a published way to report security holes, independent security testing. For SaaS also a second factor for your customers and the time to restore service; for shipped software how long you supply security updates, an SBOM and signed releases. If you run IT for customers, you answer the questions on security testing and security management."
           }
-        ]
+        ],
+        "example": "A cleaning company with keys sees {cleaning} questions this way, a SaaS provider that holds customer data {saas}."
       },
       "preview": {
         "heading": "Sample questions.",
-        "lead": "Six questions from different sections, with the help text suppliers see while filling them in. Identity, security practices, contract clauses, AI declarations, technical details.",
-        "footnote": "Six of 59 questions. Full set in the portal."
+        "lead": "Some questions from different parts of the questionnaire, with the help text suppliers see while filling them in and the provision each rests on.",
+        "footnote": "{shown} of {total} questions. Full set in the portal."
       },
       "bsi": {
         "quote": "We welcome current industry initiatives to develop a unified questionnaire catalogue for suppliers.",
         "attribution": "BSI NIS-2 FAQ (supply chain and security).",
-        "context": "This supplier portal IS that industry initiative. A privately built, unified questionnaire catalogue, structured by the canonical EU taxonomy (ENISA TIG §5) so every NIS 2 regulated entity can satisfy CIR §5.1.4 from a single source."
+        "context": "This supplier portal is one such initiative: a single, open questionnaire, structured by ENISA TIG §5. Suppliers answer it once, and every customer reads the same answers when it reviews its supply chain under Art. 21(2)(d) NIS 2."
       },
       "privacy": {
         "heading": "Bilateral and private.",

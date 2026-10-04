@@ -1,8 +1,7 @@
 /**
- * SecurityProfilePage — a supplier's security profile as their customer reads it, at
- * /supplier-access/[token]: the questionnaire answers as a sheet (`QuestionnaireAnswers`) and the
- * certificates. Per-customer contract terms and per-asset details come from the same
- * public.getByToken call and are shown by the supplier-access page around this.
+ * SecurityProfilePage — a supplier's security profile as their customer reads it: the
+ * questionnaire answers as a sheet (`QuestionnaireAnswers`) and the active certificates. Shown on
+ * the token view (/supplier-access/[token]) and in the app (/suppliers/[id]).
  *
  * Server component — receives the data already loaded by the route.
  */

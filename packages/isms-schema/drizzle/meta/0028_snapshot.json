@@ -1,5 +1,5 @@
 {
-  "id": "3c2ff0f1-e361-48b8-9f29-f3d2a8fb578b",
+  "id": "68f4ff95-77dd-4ba7-a754-6ff379ade675",
   "prevId": "6125286d-83e3-4ef4-b149-aec130766bdf",
   "version": "7",
   "dialect": "postgresql",
@@ -4266,21 +4266,21 @@
           "primaryKey": false,
           "notNull": false
         },
-        "tagline": {
-          "name": "tagline",
-          "type": "varchar(255)",
+        "logo_storage_key": {
+          "name": "logo_storage_key",
+          "type": "varchar(500)",
           "primaryKey": false,
           "notNull": false
         },
-        "description": {
-          "name": "description",
+        "service_description": {
+          "name": "service_description",
           "type": "text",
           "primaryKey": false,
           "notNull": false
         },
-        "logo_storage_key": {
-          "name": "logo_storage_key",
-          "type": "varchar(500)",
+        "data_processing_locations": {
+          "name": "data_processing_locations",
+          "type": "varchar(1000)",
           "primaryKey": false,
           "notNull": false
         },
@@ -4302,108 +4302,6 @@
           "primaryKey": false,
           "notNull": false
         },
-        "has_isms": {
-          "name": "has_isms",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "has_iso_27001_or_equivalent": {
-          "name": "has_iso_27001_or_equivalent",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "staff_security_training": {
-          "name": "staff_security_training",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "background_checks": {
-          "name": "background_checks",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "vulnerability_handling": {
-          "name": "vulnerability_handling",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "security_policy_reviewed_annually": {
-          "name": "security_policy_reviewed_annually",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "has_incident_response_plan": {
-          "name": "has_incident_response_plan",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "has_business_continuity_plan": {
-          "name": "has_business_continuity_plan",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "has_cryptography_policy": {
-          "name": "has_cryptography_policy",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "has_privileged_access_mgmt": {
-          "name": "has_privileged_access_mgmt",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "mfa_enforced_internal": {
-          "name": "mfa_enforced_internal",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "has_asset_inventory": {
-          "name": "has_asset_inventory",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "has_penetration_testing_program": {
-          "name": "has_penetration_testing_program",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "cooperate_with_authorities": {
-          "name": "cooperate_with_authorities",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "past_breaches_disclosed": {
-          "name": "past_breaches_disclosed",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "service_description": {
-          "name": "service_description",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "data_processing_locations": {
-          "name": "data_processing_locations",
-          "type": "varchar(1000)",
-          "primaryKey": false,
-          "notNull": false
-        },
         "incident_sla_hours": {
           "name": "incident_sla_hours",
           "type": "integer",
@@ -4422,20 +4320,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "is_professional_services": {
-          "name": "is_professional_services",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false
-        },
         "is_managed_service": {
           "name": "is_managed_service",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "uses_ai_systems": {
-          "name": "uses_ai_systems",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false
@@ -4448,6 +4334,18 @@
         },
         "accesses_customer_systems": {
           "name": "accesses_customer_systems",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "accesses_customer_premises": {
+          "name": "accesses_customer_premises",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "staff_security_training": {
+          "name": "staff_security_training",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false
@@ -4476,14 +4374,219 @@
           "primaryKey": false,
           "notNull": false
         },
-        "secure_development": {
-          "name": "secure_development",
+        "notify_material_changes": {
+          "name": "notify_material_changes",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "past_breaches_disclosed": {
+          "name": "past_breaches_disclosed",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cooperate_with_authorities": {
+          "name": "cooperate_with_authorities",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "confidentiality_committed": {
+          "name": "confidentiality_committed",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "background_checks": {
+          "name": "background_checks",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false
         },
         "data_return_on_termination": {
           "name": "data_return_on_termination",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "data_processing_agreement": {
+          "name": "data_processing_agreement",
+          "type": "data_processing_agreement",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "encryption_at_rest": {
+          "name": "encryption_at_rest",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "encryption_in_transit": {
+          "name": "encryption_in_transit",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "has_isms": {
+          "name": "has_isms",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "has_iso_27001_or_equivalent": {
+          "name": "has_iso_27001_or_equivalent",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "vulnerability_handling": {
+          "name": "vulnerability_handling",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "has_incident_response_plan": {
+          "name": "has_incident_response_plan",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "has_business_continuity_plan": {
+          "name": "has_business_continuity_plan",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "mfa_enforced_internal": {
+          "name": "mfa_enforced_internal",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "has_penetration_testing_program": {
+          "name": "has_penetration_testing_program",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "secure_development": {
+          "name": "secure_development",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "vulnerability_disclosure_policy": {
+          "name": "vulnerability_disclosure_policy",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "customer_access_personal_mfa": {
+          "name": "customer_access_personal_mfa",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "customer_access_logged": {
+          "name": "customer_access_logged",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "premises_access_managed": {
+          "name": "premises_access_managed",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "premises_conduct_rules": {
+          "name": "premises_conduct_rules",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "saas_mfa_enforced": {
+          "name": "saas_mfa_enforced",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "saas_rto_hours": {
+          "name": "saas_rto_hours",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "on_prem_support_end": {
+          "name": "on_prem_support_end",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "on_prem_patch_sla_critical_hours": {
+          "name": "on_prem_patch_sla_critical_hours",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "on_prem_sbom_provided": {
+          "name": "on_prem_sbom_provided",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "on_prem_signed_releases": {
+          "name": "on_prem_signed_releases",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tagline": {
+          "name": "tagline",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_professional_services": {
+          "name": "is_professional_services",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "uses_ai_systems": {
+          "name": "uses_ai_systems",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "security_policy_reviewed_annually": {
+          "name": "security_policy_reviewed_annually",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "has_cryptography_policy": {
+          "name": "has_cryptography_policy",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "has_privileged_access_mgmt": {
+          "name": "has_privileged_access_mgmt",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "has_asset_inventory": {
+          "name": "has_asset_inventory",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false
@@ -4496,12 +4599,6 @@
         },
         "incident_assistance_commitment": {
           "name": "incident_assistance_commitment",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "notify_material_changes": {
-          "name": "notify_material_changes",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false
@@ -4548,39 +4645,9 @@
           "primaryKey": false,
           "notNull": false
         },
-        "saas_mfa_enforced": {
-          "name": "saas_mfa_enforced",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "saas_rto_hours": {
-          "name": "saas_rto_hours",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "on_prem_sbom_provided": {
-          "name": "on_prem_sbom_provided",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "on_prem_signed_releases": {
-          "name": "on_prem_signed_releases",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false
-        },
         "on_prem_vulnerability_disclosure_policy": {
           "name": "on_prem_vulnerability_disclosure_policy",
           "type": "boolean",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "on_prem_patch_sla_critical_hours": {
-          "name": "on_prem_patch_sla_critical_hours",
-          "type": "integer",
           "primaryKey": false,
           "notNull": false
         },
@@ -4620,14 +4687,14 @@
           "primaryKey": false,
           "notNull": false
         },
-        "managed_admin_access_logged": {
-          "name": "managed_admin_access_logged",
-          "type": "boolean",
+        "questionnaire_last_saved_at": {
+          "name": "questionnaire_last_saved_at",
+          "type": "timestamp",
           "primaryKey": false,
           "notNull": false
         },
-        "questionnaire_last_saved_at": {
-          "name": "questionnaire_last_saved_at",
+        "platform_supplier_linked_at": {
+          "name": "platform_supplier_linked_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false
@@ -6768,6 +6835,16 @@
         "covered_otherwise",
         "justified",
         "deferred"
+      ]
+    },
+    "public.data_processing_agreement": {
+      "name": "data_processing_agreement",
+      "schema": "public",
+      "values": [
+        "available",
+        "independentController",
+        "noPersonalData",
+        "no"
       ]
     },
     "public.document_series": {

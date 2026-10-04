@@ -12,7 +12,7 @@
         "eyebrow": "Portal de proveedores de nisd2.eu",
         "headline": "Responda <u>un</u> cuestionario de seguridad.",
         "headlineAccent": "Compártalo con <u>todos</u> sus clientes.",
-        "subhead": "Un cuestionario canónico de proveedores, estructurado según la ENISA NIS 2 Technical Implementation Guidance v1.0. Cada pregunta cita el CIR 2024/2690, el §30 BSIG o el BSI IT-Grundschutz. Gratis. Open source. Sus datos siguen siendo portables.",
+        "subhead": "Un cuestionario canónico de proveedores, estructurado según la ENISA NIS 2 Technical Implementation Guidance v1.0. Cada pregunta indica su fuente a nivel de la UE, y los clientes que gestionan a sus proveedores según la ISO 27001 encuentran los controles correspondientes justo al lado. Gratis. Open source. Sus datos siguen siendo portables.",
         "anchorBadge": "Estructurado según la ENISA NIS 2 TIG v1.0 §5",
         "ctaPrimary": "Crear perfil de proveedor",
         "ctaSecondary": "¿Qué contiene el cuestionario?"
@@ -27,7 +27,7 @@
           },
           {
             "title": "Responda el cuestionario",
-            "body": "Tres subpáginas en el portal: perfil y descripción del servicio, medidas universales de ciberseguridad según el Art. 21(2) NIS 2, secciones técnicas según el tipo de servicio. 59 preguntas, a su propio ritmo, el borrador se guarda automáticamente."
+            "body": "Tres páginas en el portal: quién es usted y a qué accede en sus clientes, a qué se compromete y cómo gestiona la seguridad, además de preguntas sobre software si lo ofrece o lo entrega. Todo proveedor responde {always} preguntas, el resto solo cuando corresponde. A su propio ritmo, el borrador se guarda automáticamente."
           },
           {
             "title": "Invite a sus clientes",
@@ -37,52 +37,41 @@
       },
       "sections": {
         "heading": "Qué contiene el cuestionario.",
-        "lead": "Diez secciones, cada una citando el apartado subyacente de la ENISA TIG, el CIR 2024/2690 o el BSI IT-Grundschutz.",
-        "items": [
-          "Identidad (CIR §5.2 / registro de proveedores ENISA TIG §5.2)",
-          "Contacto para incidentes (de cara al cliente)",
-          "Tipo de servicio",
-          "Cláusulas contractuales obligatorias (CIR / ENISA TIG §5.1.4)",
-          "Medidas de ciberseguridad (Art. 21(2) NIS 2 / ENISA TIG §5.1.2)",
-          "Cláusulas contractuales adicionales (ENISA TIG §5.1.4 TIPS)",
-          "Técnica de SaaS",
-          "Técnica de software on-premise",
-          "Servicios profesionales, detalles",
-          "Servicios gestionados, detalles"
-        ],
+        "lead": "Las preguntas en el orden en que las responde en el portal. Cada una indica la disposición del Reglamento de Ejecución (UE) 2024/2690, de la Technical Implementation Guidance de ENISA, del RGPD o del Cyber Resilience Act en la que se basa.",
         "footnote": "El esquema completo es público en GitHub y exportable como JSON."
       },
       "serviceTypes": {
-        "heading": "Cuatro secciones técnicas por tipo de servicio.",
-        "lead": "La página Tipo de servicio del portal muestra cuatro secciones adicionales. Complete solo las que correspondan a lo que usted ofrece.",
+        "heading": "Lo que se le pregunta depende de a qué accede en sus clientes.",
+        "lead": "Todo proveedor responde {always} preguntas. En su perfil indica si conserva datos de sus clientes, accede a sus sistemas o entra en sus instalaciones, y si ofrece software como servicio, entrega software o gestiona la TI de sus clientes. El resto se deriva de ello. Un proveedor que accede a datos, sistemas o instalaciones responde además sobre confidencialidad, la idoneidad del personal con acceso y la devolución al final del contrato.",
         "items": [
           {
-            "title": "SaaS",
-            "fields": "Región de alojamiento, cifrado en reposo y en tránsito, MFA para cuentas de administrador, objetivo de tiempo de recuperación."
+            "title": "Los datos de sus clientes",
+            "fields": "Dónde se tratan los datos, el acuerdo de tratamiento de datos, cifrado en reposo y en tránsito. Además, cómo gestiona la seguridad: SGSI, certificado, gestión de vulnerabilidades, planes para incidentes e interrupciones, un segundo factor para sus propias cuentas de administrador."
           },
           {
-            "title": "Software on-premise",
-            "fields": "Lista de materiales de software (SBOM), versiones firmadas criptográficamente, política publicada de divulgación de vulnerabilidades, SLA de parcheo para CVE críticas."
+            "title": "Los sistemas de sus clientes",
+            "fields": "Cuentas personales con un segundo factor para cada acceso, incluido el mantenimiento remoto, y un registro de los accesos con derechos de administrador. Además, la misma gestión de la seguridad que para los datos de clientes."
           },
           {
-            "title": "Servicios profesionales",
-            "fields": "Alcance de la verificación de antecedentes, NDA con todos los consultores, política documentada de conducta en las instalaciones del cliente."
+            "title": "Las instalaciones de sus clientes",
+            "fields": "Cómo controla las llaves, tarjetas y códigos y qué normas de conducta escritas sigue su personal in situ. A un proveedor que solo entra en instalaciones no se le pregunta por un SGSI, pruebas de seguridad ni cuentas de administrador."
           },
           {
-            "title": "Servicios gestionados",
-            "fields": "Gestión de accesos privilegiados, grabación de sesiones de administrador, guardia 24/7 para incidentes de seguridad."
+            "title": "Software y servicios gestionados",
+            "fields": "Si ofrece software como servicio o entrega software: desarrollo seguro, una vía publicada para comunicar fallos de seguridad, pruebas de seguridad independientes. En SaaS, además, un segundo factor para sus clientes y el tiempo de restablecimiento del servicio; en el software entregado, hasta cuándo suministra actualizaciones de seguridad, una SBOM y versiones firmadas. Si gestiona la TI de sus clientes, responde a las preguntas sobre pruebas de seguridad y gestión de la seguridad."
           }
-        ]
+        ],
+        "example": "Una empresa de limpieza con llaves ve así {cleaning} preguntas, un proveedor de SaaS que conserva datos de clientes {saas}."
       },
       "preview": {
         "heading": "Preguntas de ejemplo.",
-        "lead": "Seis preguntas de distintas secciones, con el texto de ayuda que ven los proveedores al completarlas. Identidad, prácticas de seguridad, cláusulas contractuales, declaraciones sobre IA, detalles técnicos.",
-        "footnote": "Seis de 59 preguntas. El conjunto completo está en el portal."
+        "lead": "Algunas preguntas de distintas partes del cuestionario, con el texto de ayuda que ven los proveedores al completarlas y la disposición en la que se basa cada una.",
+        "footnote": "{shown} de {total} preguntas. El conjunto completo está en el portal."
       },
       "bsi": {
         "quote": "We welcome current industry initiatives to develop a unified questionnaire catalogue for suppliers.",
         "attribution": "BSI NIS-2 FAQ (cadena de suministro y seguridad).",
-        "context": "Este portal de proveedores ES esa iniciativa del sector. Un catálogo de cuestionarios unificado, de construcción privada, estructurado según la taxonomía canónica de la UE (ENISA TIG §5) para que toda entidad regulada por NIS 2 pueda satisfacer el CIR §5.1.4 desde una única fuente."
+        "context": "Este portal de proveedores es una de esas iniciativas: un cuestionario único y abierto, estructurado según la ENISA TIG §5. Los proveedores lo responden una vez, y cada cliente lee las mismas respuestas cuando revisa su cadena de suministro conforme al artículo 21, apartado 2, letra d), de NIS 2."
       },
       "privacy": {
         "heading": "Bilateral y privado.",

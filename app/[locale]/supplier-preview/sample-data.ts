@@ -1,4 +1,5 @@
-import type { QuestionnaireAnswers } from "@/lib/supplier-portal/completeness";
+import type { z } from "zod";
+import type { securityProfileUpdateSchema } from "@/schema/validators";
 
 /**
  * Sample supplier for the hero screenshot. Deliberately a placeholder company
@@ -37,48 +38,50 @@ export const SAMPLE_CUSTOMERS = [
  * A filled-in security profile. Not every answer is "yes" — a questionnaire
  * where everything is ticked reads as a mock-up rather than a real profile.
  */
-export const SAMPLE_PROFILE: QuestionnaireAnswers = {
+export const SAMPLE_PROFILE = {
   legalName: "Musterland IT-Services GmbH",
   registeredAddress: "Musterstraße 12, 40213 Musterstadt",
   country: "DE",
   primaryDomain: "musterland-it.de",
   serviceDescription:
     "Betrieb und Wartung der Warenwirtschaft für mittelständische Entsorger, als gehostete Anwendung mit Fernwartung.",
-  dataProcessingLocations: "Deutschland",
   securityContactName: "A. Weber",
   incidentContactEmail: "security@musterland-it.de",
   incidentContactPhone: "+49 211 000000 (Mo bis Fr, 8 bis 18 Uhr)",
+  incidentSlaHours: 24,
   isSaas: true,
   isOnPrem: false,
-  isProfessionalServices: false,
   isManagedService: true,
   processesCustomerData: true,
+  dataProcessingLocations: "Deutschland",
   accessesCustomerSystems: true,
-  incidentSlaHours: 24,
-  vulnerabilityHandling: true,
+  accessesCustomerPremises: false,
+  staffSecurityTraining: true,
   acceptRightToAudit: true,
   hasSubprocessors: true,
   subprocessorList:
     "Musterland Hosting GmbH (Rechenzentrum, DE) · Musterland Backup GmbH (Sicherung, DE)",
   subprocessorRequirementsPassedOn: true,
   notifyMaterialChanges: true,
-  dataReturnOnTermination: true,
-  dpaAvailable: true,
   pastBreachesDisclosed: false,
   cooperateWithAuthorities: true,
-  hasIso27001OrEquivalent: false,
-  hasIsms: true,
-  staffSecurityTraining: true,
+  confidentialityCommitted: true,
   backgroundChecks: true,
+  dataReturnOnTermination: true,
+  dataProcessingAgreement: "available",
+  encryptionAtRest: true,
+  encryptionInTransit: true,
+  hasIsms: true,
+  hasIso27001OrEquivalent: false,
+  vulnerabilityHandling: true,
   hasIncidentResponsePlan: true,
   hasBusinessContinuityPlan: true,
   mfaEnforcedInternal: true,
   hasPenetrationTestingProgram: false,
   secureDevelopment: true,
-  saasEncryptionAtRest: true,
-  saasEncryptionInTransit: true,
+  vulnerabilityDisclosurePolicy: true,
+  customerAccessPersonalMfa: true,
+  customerAccessLogged: true,
   saasMfaEnforced: true,
   saasRtoHours: 8,
-  managedPrivilegedAccessMgmt: false,
-  managedAdminAccessLogged: true,
-};
+} satisfies z.input<typeof securityProfileUpdateSchema>;

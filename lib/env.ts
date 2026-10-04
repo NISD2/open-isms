@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { billingEnvShape } from "@/lib/billing/config-schema";
 import { closeEnvShape } from "@/lib/crm/config-schema";
-import { withoutBlanks } from "@/lib/env-value";
+import { trimmed, withoutBlanks } from "@/lib/env-value";
 
 const envSchema = z.object({
   // Required always
@@ -163,10 +163,15 @@ const envSchema = z.object({
 
   // The company that runs this instance, as a supplier: on nisd2.eu, nisd2.eu itself. Every
   // customer company gets it once as the first row of its supplier list, linked to the answers
-  // it gave in the supplier portal (lib/supplier-portal/platform-supplier.ts). Empty by default:
+  // it gave in the supplier portal (lib/supplier-portal/platform-supplier.ts). Unset by default:
   // a self-hosted instance is not run by us, and listing us there would be false. A value that is
-  // not a company id switches the feature off rather than stopping the app.
-  PLATFORM_SUPPLIER_COMPANY_ID: z.string().default(""),
+  // not a company id switches the feature off with a warning rather than stopping the app.
+  PLATFORM_SUPPLIER_COMPANY_ID: z.preprocess(trimmed, z.uuid().optional()).catch(() => {
+    console.warn(
+      "[env] PLATFORM_SUPPLIER_COMPANY_ID must be a company id (uuid); the operator is not listed as a supplier",
+    );
+    return undefined;
+  }),
 
   // Standard
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),

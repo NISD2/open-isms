@@ -19,42 +19,42 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "@/i18n/navigation";
 import type { QuestionnaireField } from "@/lib/forms/supplier-portal-sections";
-import { normalizeDomain } from "@/lib/supplier-portal/domain";
+import { isAnswered } from "@/lib/supplier-portal/answered";
 import type { GroupView, QuestionView } from "@/lib/supplier-portal/questionnaire-view";
 import { trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
 import { securityProfileUpdateSchema } from "@/schema/validators";
-import { BasisLine, isAnswered, YesNoValue } from "./parts";
+import { BasisLine, ChoiceValue, YesNoValue } from "./parts";
 
 type Answers = Partial<Record<QuestionnaireField, unknown>>;
 
-/** What the form holds for each kind of question: text as typed, yes/no as a boolean or null. */
+/**
+ * What the form holds for each kind of question: text as typed, yes/no as a boolean or null, a
+ * choice as its option's value or null.
+ */
 const editable = (question: QuestionView, value: unknown): unknown => {
   if (question.type === "boolean") return typeof value === "boolean" ? value : null;
+  if (question.type === "enum") return typeof value === "string" ? value : null;
   if (question.type === "integer") return typeof value === "number" ? String(value) : "";
   return typeof value === "string" ? value : "";
 };
 
-/** What is saved: a blank text or number is no answer, so it is stored as none. */
+/**
+ * What is saved: a blank text or number is no answer, so it is stored as none. Further shaping (a
+ * pasted address reduced to its domain) is the save schema's, so it happens once for both sides.
+ */
 const stored = (question: QuestionView, value: unknown): unknown => {
-  if (question.type === "boolean") return value;
+  if (question.type === "boolean" || question.type === "enum") return value;
   const text = typeof value === "string" ? value.trim() : "";
   if (text === "") return null;
   if (question.type === "integer") return Number.parseInt(text, 10);
   if (question.type === "country") return text.toUpperCase();
-  if (question.type === "domain") return normalizeDomain(text) ?? text;
   return text;
 };
 
 /** The message shown when the save schema rejects an answer, by kind of question. */
 const invalidKey = (type: QuestionView["type"]) =>
   type === "domain" || type === "email" || type === "country" ? type : "other";
-
-const INPUT_TYPES: Partial<Record<QuestionView["type"], string>> = {
-  email: "email",
-  url: "url",
-  phone: "tel",
-};
 
 export function QuestionnaireForm({
   groups,
@@ -81,7 +81,11 @@ export function QuestionnaireForm({
   const [saved, setSaved] = useState<Answers>(initial);
   const [errors, setErrors] = useState<Partial<Record<QuestionnaireField, string>>>({});
 
-  const current: Answers = { ...answers, ...values };
+  // This page's answers as they would be saved; conditions read them that way, like the server.
+  const payload = Object.fromEntries(
+    questions.map((q) => [q.id, stored(q, values[q.id])]),
+  );
+  const current: Answers = { ...answers, ...payload };
   const shows = (q: QuestionView) => conditionsHold(q.conditions, current);
   const shown = questions.filter(shows);
   const dirty = questions.some((q) => values[q.id] !== saved[q.id]);
@@ -96,9 +100,6 @@ export function QuestionnaireForm({
   });
 
   const submit = () => {
-    const payload = Object.fromEntries(
-      questions.map((q) => [q.id, stored(q, values[q.id])]),
-    );
     const parsed = securityProfileUpdateSchema.safeParse(payload);
     if (!parsed.success) {
       const typeOf = new Map(questions.map((q) => [q.id as string, q.type]));
@@ -207,6 +208,8 @@ function QuestionRow({
   const labelId = `${inputId}-label`;
   const helpId = `${inputId}-help`;
   const yesNo = question.type === "boolean";
+  // A radio group is labelled by the question (aria-labelledby), not by a <label for>.
+  const radios = yesNo || question.type === "enum";
   const labelClass = "block text-[15px] font-medium leading-snug";
   return (
     <div
@@ -216,7 +219,7 @@ function QuestionRow({
       )}
     >
       <div className="min-w-0 space-y-1">
-        {yesNo ? (
+        {radios ? (
           <p id={labelId} className={labelClass}>
             {question.label}
           </p>
@@ -231,27 +234,19 @@ function QuestionRow({
         >
           {question.help}
         </p>
-        <BasisLine basis={question.basis} />
+        <BasisLine question={question} />
       </div>
       <div
         className={cn(yesNo ? "sm:pt-0.5" : question.type === "text" ? "" : "max-w-md")}
       >
-        {yesNo ? (
-          <YesNoValue
-            name={inputId}
-            labelledBy={labelId}
-            value={typeof value === "boolean" ? value : null}
-            onChange={onChange}
-          />
-        ) : (
-          <QuestionInput
-            question={question}
-            inputId={inputId}
-            helpId={helpId}
-            value={value}
-            onChange={onChange}
-          />
-        )}
+        <Control
+          question={question}
+          inputId={inputId}
+          labelId={labelId}
+          helpId={helpId}
+          value={value}
+          onChange={onChange}
+        />
         {error ? (
           <p className="mt-1.5 text-sm text-destructive" role="alert">
             {error}
@@ -262,66 +257,103 @@ function QuestionRow({
   );
 }
 
-function QuestionInput({
+/** The input for one question, by its type. A type added to the package fails to compile here. */
+function Control({
   question,
   inputId,
+  labelId,
   helpId,
   value,
   onChange,
 }: {
   readonly question: QuestionView;
   readonly inputId: string;
+  readonly labelId: string;
   readonly helpId: string;
   readonly value: unknown;
   readonly onChange: (value: unknown) => void;
 }) {
   const t = useTranslations("supplierPortal.questionnaire");
   const text = typeof value === "string" ? value : "";
-  if (question.type === "text")
-    return (
-      <Textarea
-        id={inputId}
-        aria-describedby={helpId}
-        value={text}
-        rows={3}
-        onChange={(event) => onChange(event.target.value)}
-        className="min-h-24 text-base sm:text-sm"
-      />
-    );
-  if (question.type === "integer")
-    return (
-      <div className="flex items-center gap-2">
-        <Input
-          id={inputId}
-          aria-describedby={helpId}
-          inputMode="numeric"
-          value={text}
-          onChange={(event) => onChange(event.target.value.replace(/[^0-9]/g, ""))}
-          className="h-10 w-28 text-base tabular-nums sm:text-sm"
-        />
-        <span className="text-sm text-muted-foreground">{t("hours")}</span>
-      </div>
-    );
-  if (question.type === "country")
-    return (
-      <Input
-        id={inputId}
-        aria-describedby={helpId}
-        value={text}
-        maxLength={2}
-        autoCapitalize="characters"
-        onChange={(event) => onChange(event.target.value.toUpperCase())}
-        className="h-10 w-20 text-base uppercase sm:text-sm"
-      />
-    );
-  return (
+  const line = (type: "text" | "email" | "tel" | "url") => (
     <Input
       id={inputId}
       aria-describedby={helpId}
-      type={INPUT_TYPES[question.type] ?? "text"}
+      type={type}
       value={text}
       onChange={(event) => onChange(event.target.value)}
       className="h-10 text-base sm:text-sm"
     />
   );
+  switch (question.type) {
+    case "boolean":
+      return (
+        <YesNoValue
+          name={inputId}
+          labelledBy={labelId}
+          value={typeof value === "boolean" ? value : null}
+          onChange={onChange}
+        />
+      );
+    case "enum":
+      return (
+        <ChoiceValue
+          name={inputId}
+          labelledBy={labelId}
+          options={question.options}
+          value={typeof value === "string" ? value : null}
+          onChange={onChange}
+        />
+      );
+    case "text":
+      return (
+        <Textarea
+          id={inputId}
+          aria-describedby={helpId}
+          value={text}
+          rows={3}
+          onChange={(event) => onChange(event.target.value)}
+          className="min-h-24 text-base sm:text-sm"
+        />
+      );
+    case "integer":
+      return (
+        <div className="flex items-center gap-2">
+          <Input
+            id={inputId}
+            aria-describedby={helpId}
+            inputMode="numeric"
+            value={text}
+            onChange={(event) => onChange(event.target.value.replace(/[^0-9]/g, ""))}
+            className="h-10 w-28 text-base tabular-nums sm:text-sm"
+          />
+          <span className="text-sm text-muted-foreground">{t("hours")}</span>
+        </div>
+      );
+    case "country":
+      return (
+        <Input
+          id={inputId}
+          aria-describedby={helpId}
+          value={text}
+          maxLength={2}
+          autoCapitalize="characters"
+          onChange={(event) => onChange(event.target.value.toUpperCase())}
+          className="h-10 w-20 text-base uppercase sm:text-sm"
+        />
+      );
+    case "email":
+      return line("email");
+    case "phone":
+      return line("tel");
+    case "url":
+      return line("url");
+    case "string":
+    case "domain":
+      return line("text");
+    default: {
+      const unhandled: never = question.type;
+      return unhandled;
+    }
+  }
 }

@@ -24,21 +24,13 @@ import {
 } from "@nisd2/nis2-supply-chain-questionnaire-schema";
 import {
   PROFILE_PAGE_FIELDS,
+  QUESTIONNAIRE_FIELDS,
   type QuestionnaireField,
   SECURITY_PRACTICES_PAGE_FIELDS,
   SERVICE_TYPE_PAGE_FIELDS,
 } from "@/lib/forms/supplier-portal-sections";
 import { company } from "@/schema";
 import { isAnswered } from "./answered";
-
-export type { QuestionnaireField };
-
-/** Every column the questionnaire covers, across all three pages. */
-export const QUESTIONNAIRE_FIELDS: readonly QuestionnaireField[] = [
-  ...PROFILE_PAGE_FIELDS,
-  ...SECURITY_PRACTICES_PAGE_FIELDS,
-  ...SERVICE_TYPE_PAGE_FIELDS,
-];
 
 /** A company row carrying (at least) the questionnaire columns. */
 export type QuestionnaireAnswers = Partial<Record<QuestionnaireField, unknown>>;
@@ -59,11 +51,6 @@ export interface QuestionnaireCompleteness {
   /** Zero-applicable when the supplier has ticked no service type. */
   serviceType: SectionScore;
 }
-
-/** The questionnaire columns as a relational-query `columns` map, for `findFirst({ columns })`. */
-export const QUESTIONNAIRE_COLUMN_FLAGS = Object.fromEntries(
-  QUESTIONNAIRE_FIELDS.map((field) => [field, true]),
-) as { [K in QuestionnaireField]: true };
 
 /**
  * The questionnaire columns as a Drizzle projection, so a `.select()` picks

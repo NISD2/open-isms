@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { RequestSupplierProfileButton } from "@/components/suppliers/RequestSupplierProfileButton";
 import type { RiskLevel } from "@/lib/compliance/bsi-200-3";
 import { byLevel, levelOfStanding, type RatingRow } from "@/lib/durchgang";
+import { canRequestAnswers } from "@/lib/supplier-portal/register-row";
 import { trpc } from "@/lib/trpc/client";
 import type { Agreed, Draft } from "./draft";
 import { Aside, Heading, Lead } from "./ExplainScreens";
@@ -21,6 +22,8 @@ export interface AgreementRow {
   readonly checked: boolean;
   /** Whether the supplier answers through the supplier portal already. */
   readonly linked: boolean;
+  /** Whether the customer may ask the supplier to answer the questionnaire. */
+  readonly canRequest: boolean;
 }
 
 /**
@@ -47,7 +50,8 @@ export function useAgreementRows(enabled: boolean): readonly AgreementRow[] | un
                 incidents: Boolean(s.hasIncidentNotificationClause),
               },
               checked: s.agreementsCheckedAt !== null,
-              linked: s.supplierCompanyId !== null,
+              linked: s.opensAnswers,
+              canRequest: canRequestAnswers(s),
             },
           ]
         : [];
@@ -125,12 +129,12 @@ export function Agreements({
                   </div>
                   {row.linked ? (
                     <p className="text-xs text-muted-foreground">{t("linked")}</p>
-                  ) : (
+                  ) : row.canRequest ? (
                     <RequestSupplierProfileButton
                       label={t("questionnaireButton")}
                       supplierId={row.id}
                     />
-                  )}
+                  ) : null}
                 </div>
               </li>
             );

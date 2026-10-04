@@ -6399,8 +6399,8 @@
         "description": "Strukturované sebehodnocení jako typované Zod schéma. Každá otázka je ukotvena ke konkrétnímu právnímu zdroji (směrnice NIS2, BSIG, CIR 2024/2690, BSI IT-Grundschutz). Obsahuje referenční bodovací logiku a příklad uložení odpovědí přes Drizzle."
       },
       "supplierQuestionnaire": {
-        "title": "Dodavatelský dotazník NIS2: 56 polí, 6 sekcí",
-        "description": "Otázky, které subjekt regulovaný NIS2 potřebuje položit svým dodavatelům. Ukotveno k NIS2 čl. 21 odst. 2, CIR 2024/2690, ENISA TIG, BSI IT-Grundschutz a čl. 28 GDPR. S mechanismem visibleWhen, který volitelné sekce podmiňuje typem služby."
+        "title": "Dodavatelský dotazník NIS2 s mapováním na ISO 27001",
+        "description": "Otázky, které podnik regulovaný NIS2 klade svým dodavatelům, od softwarové firmy po úklidovou firmu. Každá otázka uvádí svůj zdroj na úrovni EU (CIR 2024/2690, ENISA TIG, GDPR, akt o kybernetické odolnosti), většina také opatření z přílohy A ISO/IEC 27001:2022, kterým slouží. Díky visibleWhen vidí každý dodavatel jen otázky, které odpovídají tomu, k čemu má u svých zákazníků přístup: data, systémy, prostory nebo software."
       },
       "grcDataModel": {
         "title": "GRC datový model: RoPA, DPA, TOMs, mapování NIS2 ↔ GDPR",
@@ -7212,7 +7212,7 @@
       },
       "questionnaireCta": {
         "heading": "Otevřený dodavatelský dotazník",
-        "description": "59 otázek ukotvených v právu EU, které musí pokrýt každé posouzení dodavatele podle NIS 2. Zdarma k použití, MIT + CC BY 4.0.",
+        "description": "{count, plural, one {# otázka} few {# otázky} many {# otázky} other {# otázek}} pro dodavatele, každá se zdrojem na úrovni EU. Dodavatel vidí jen ty, které odpovídají tomu, k čemu má u svých zákazníků přístup. Zdarma k použití, MIT + CC BY 4.0.",
         "button": "Otevřít dotazník"
       }
     },
@@ -7309,14 +7309,15 @@
     "supplierQuestionnaire": {
       "meta": {
         "title": "Otevřený dodavatelský dotazník NIS 2",
-        "description": "Otevřený dodavatelský dotazník NIS 2 ukotvený v právu EU. 59 polí v 6 sekcích, každé navázané na čl. 21 odst. 2, CIR 2024/2690 nebo ENISA TIG. MIT + CC BY 4.0, volně k použití a forknutí."
+        "description": "Otevřený dodavatelský dotazník NIS 2: {total, plural, one {# otázka} few {# otázky} many {# otázky} other {# otázek}} v {sections} sekcích, každá se zdrojem na úrovni EU a tam, kde to sedí, s opatřeními z ISO/IEC 27001. MIT + CC BY 4.0, volně k použití a forknutí."
       },
       "badge": "Otevřený standard",
       "title": "Dodavatelský dotazník NIS 2",
       "subtitle": "Otázky, které musí regulovaný subjekt NIS 2 položit svým dodavatelům. Jednou ukotveno v právu EU. Volně k použití.",
       "intro": {
-        "p1": "Téměř každý nákupní tým na evropském středním trhu si dnes píše vlastní dodavatelský dotazník NIS 2. Stejných zhruba padesát otázek ukotvených v právu EU, v mírně odlišných podobách, posílaných dodavatelům, kteří nakonec vyplňují pět verzí téhož. Tento dotazník je sdílený základ.",
-        "p2": "Každé pole je ukotveno v primárním zdroji na úrovni EU: NIS 2 čl. 21 odst. 2, CIR 2024/2690, technické prováděcí pokyny ENISA, GDPR čl. 28 nebo akt o kybernetické odolnosti. Sektorové nadstavby jako TISAX, VDA ISA, BSI C5 nebo auditní katalogy KRITIS stojí nad tímto základem, ne místo něj."
+        "p1": "Téměř každý nákupní tým na evropském středním trhu si dnes píše vlastní dodavatelský dotazník NIS 2. Stejné otázky ukotvené v právu EU, v mírně odlišných podobách, posílané dodavatelům, kteří nakonec vyplňují pět verzí téhož. Tento dotazník je sdílený základ.",
+        "p2": "Každá otázka uvádí svůj zdroj na úrovni EU: prováděcí nařízení (EU) 2024/2690, Technical Implementation Guidance agentury ENISA, GDPR nebo akt o kybernetické odolnosti. U {withIso} z {total} otázek jsou uvedena také opatření z přílohy A ISO/IEC 27001:2022, kterým slouží, podle mapování agentury ENISA. Sektorové nadstavby jako TISAX, VDA ISA, BSI C5 nebo auditní katalogy KRITIS stojí nad tímto základem, ne místo něj.",
+        "p3": "Každý dodavatel odpovídá na {always, plural, one {# otázku} few {# otázky} many {# otázky} other {# otázek}}. Které další vidí, záleží na tom, k čemu má u svých zákazníků přístup: k jejich datům, systémům, prostorám, softwaru, který provozuje nebo dodává, nebo IT, které pro ně provozuje. U každé podmíněné otázky je uvedeno, na které odpovědi závisí."
       },
       "downloads": {
         "heading": "Ke stažení",
@@ -7337,17 +7338,19 @@
       "sections": {
         "profile": "Profil dodavatele",
         "security_practices": "Bezpečnostní praktiky",
-        "saas_technical": "Specifické pro SaaS",
-        "on_prem_technical": "Specifické pro on-premise",
-        "pro_services": "Odborné služby",
-        "managed_services": "Spravované služby"
+        "saas_technical": "Software jako služba (SaaS)",
+        "on_prem_technical": "Software u zákazníka (on-premise)"
       },
       "field": {
         "type": "Typ pole",
         "legalBasis": "Právní základ",
         "required": "Povinné",
         "optional": "Volitelné",
-        "conditional": "Podmíněné"
+        "conditional": "Podmíněné",
+        "onlyIf": "Jen pokud",
+        "yes": "Ano",
+        "no": "Ne",
+        "or": "nebo"
       },
       "useNote": {
         "heading": "Jak jej použít",

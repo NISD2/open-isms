@@ -6399,8 +6399,8 @@
         "description": "Une auto-évaluation structurée sous forme de schéma Zod typé. Chaque question est ancrée à une source juridique précise (directive NIS2, BSIG, CIR 2024/2690, BSI IT-Grundschutz). Comprend une logique de notation de référence et un exemple de stockage Drizzle pour les réponses."
       },
       "supplierQuestionnaire": {
-        "title": "Questionnaire fournisseurs NIS2 : 56 champs, 6 sections",
-        "description": "Les questions qu'une entité réglementée par NIS2 doit poser à ses fournisseurs. Ancré à NIS2 art. 21, par. 2, au CIR 2024/2690, à l'ENISA TIG, au BSI IT-Grundschutz et à l'art. 28 GDPR. Avec un mécanisme visibleWhen qui conditionne les sections optionnelles selon le type de service."
+        "title": "Questionnaire fournisseurs NIS2, avec correspondance ISO 27001",
+        "description": "Les questions qu'une entreprise réglementée par NIS2 pose à ses fournisseurs, de l'éditeur de logiciels à l'entreprise de nettoyage. Chaque question indique sa source au niveau de l'UE (CIR 2024/2690, ENISA TIG, RGPD, Cyber Resilience Act), la plupart aussi les mesures de l'annexe A de l'ISO/IEC 27001:2022 qu'elles servent. Grâce à visibleWhen, chaque fournisseur ne voit que les questions qui correspondent à ce à quoi il accède chez ses clients : données, systèmes, locaux ou logiciels."
       },
       "grcDataModel": {
         "title": "Modèle de données GRC : RoPA, DPA, TOMs, correspondances NIS2 ↔ GDPR",
@@ -7212,7 +7212,7 @@
       },
       "questionnaireCta": {
         "heading": "Questionnaire fournisseur ouvert",
-        "description": "Les 59 questions ancrées dans le droit de l'UE que toute évaluation de fournisseur NIS 2 doit couvrir. Gratuit, MIT + CC BY 4.0.",
+        "description": "{count} questions pour les fournisseurs, chacune avec sa source au niveau de l'UE. Un fournisseur ne voit que celles qui correspondent à ce à quoi il accède chez ses clients. Gratuit, MIT + CC BY 4.0.",
         "button": "Ouvrir le questionnaire"
       }
     },
@@ -7309,14 +7309,15 @@
     "supplierQuestionnaire": {
       "meta": {
         "title": "Questionnaire fournisseur NIS 2 ouvert",
-        "description": "Un questionnaire fournisseur NIS 2 ouvert et ancré dans le droit de l'UE. 59 champs répartis sur 6 sections, chacun rattaché à l'art. 21(2), au CIR 2024/2690 ou au TIG de l'ENISA. MIT + CC BY 4.0, libre d'utilisation et de fork."
+        "description": "Un questionnaire fournisseur NIS 2 ouvert : {total} questions réparties en {sections} sections, chacune avec sa source au niveau de l'UE et, le cas échéant, ses mesures ISO/IEC 27001. MIT + CC BY 4.0, libre d'utilisation et de fork."
       },
       "badge": "Standard ouvert",
       "title": "Questionnaire fournisseur NIS 2",
       "subtitle": "Les questions qu'une entité réglementée NIS 2 doit poser à ses fournisseurs. Ancrées une fois pour toutes dans le droit de l'UE. Libres d'utilisation.",
       "intro": {
-        "p1": "Presque toutes les équipes achats du marché intermédiaire européen rédigent actuellement leur propre questionnaire fournisseur NIS 2. La même cinquantaine de questions ancrées dans le droit de l'UE, sous des formes légèrement différentes, envoyées à des fournisseurs qui finissent par remplir cinq versions de la même chose. Ce questionnaire constitue le socle commun.",
-        "p2": "Chaque champ est ancré à une source primaire de niveau européen : art. 21(2) de NIS 2, CIR 2024/2690, orientations techniques de mise en œuvre de l'ENISA, art. 28 du GDPR, ou le Cyber Resilience Act. Les couches sectorielles comme TISAX, VDA ISA, BSI C5 ou les catalogues d'audit KRITIS se superposent à ce socle, sans s'y substituer."
+        "p1": "Presque toutes les équipes achats du marché intermédiaire européen rédigent actuellement leur propre questionnaire fournisseur NIS 2. Les mêmes questions ancrées dans le droit de l'UE, sous des formes légèrement différentes, envoyées à des fournisseurs qui finissent par remplir cinq versions de la même chose. Ce questionnaire constitue le socle commun.",
+        "p2": "Chaque question indique sa source au niveau de l'UE : le règlement d'exécution (UE) 2024/2690, la Technical Implementation Guidance de l'ENISA, le RGPD ou le Cyber Resilience Act. {withIso} des {total} questions indiquent aussi les mesures de l'annexe A de l'ISO/IEC 27001:2022 qu'elles servent, d'après la correspondance établie par l'ENISA. Les couches sectorielles comme TISAX, VDA ISA, BSI C5 ou les catalogues d'audit KRITIS se superposent à ce socle, sans s'y substituer.",
+        "p3": "Chaque fournisseur répond à {always} questions. Les autres qu'il voit dépendent de ce à quoi il accède chez ses clients : leurs données, leurs systèmes, leurs locaux, les logiciels qu'il exploite ou livre, ou l'informatique qu'il gère pour eux. Chaque question conditionnelle indique la réponse dont elle dépend."
       },
       "downloads": {
         "heading": "Téléchargement",
@@ -7337,17 +7338,19 @@
       "sections": {
         "profile": "Profil du fournisseur",
         "security_practices": "Pratiques de sécurité",
-        "saas_technical": "Spécifique au SaaS",
-        "on_prem_technical": "Spécifique à l'hébergement sur site",
-        "pro_services": "Services professionnels",
-        "managed_services": "Services managés"
+        "saas_technical": "Logiciel en tant que service (SaaS)",
+        "on_prem_technical": "Logiciel installé chez le client (on-premise)"
       },
       "field": {
         "type": "Type de champ",
         "legalBasis": "Base juridique",
         "required": "Obligatoire",
         "optional": "Facultatif",
-        "conditional": "Conditionnel"
+        "conditional": "Conditionnel",
+        "onlyIf": "Seulement si",
+        "yes": "Oui",
+        "no": "Non",
+        "or": "ou"
       },
       "useNote": {
         "heading": "Comment l'utiliser",

@@ -9,7 +9,7 @@ import {
 
 /**
  * Source of truth lives in `src/fields/<section>.ts` (TypeScript with full
- * type safety on label, type, section, and Baustein IDs). The bundled JSON
+ * type safety on label, type, section and conditions). The bundled JSON
  * artefact at `data/supply-chain-questionnaire.json` is generated from these
  * files via `bun run build:json` and shipped for non-TS consumers.
  *

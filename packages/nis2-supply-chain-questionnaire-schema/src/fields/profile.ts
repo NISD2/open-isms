@@ -4,10 +4,12 @@
 //
 // Descriptions are Mittelstand-readable plain language: what to type, with
 // a short example where the question is ambiguous. Legal citations live in
-// the `legalBasis` field so audit teams still see the source. Labels are
-// the public schema contract and are not edited here.
+// the `legalBasis` field so audit teams still see the source. A field whose
+// English or German text changes carries those two only, until it is
+// translated again; consumers fall back to English.
 
 import type { SupplierField } from "../schema";
+import { PROCESSES_DATA } from "./gates";
 
 export const profileFields: SupplierField[] = [
   {
@@ -36,7 +38,7 @@ export const profileFields: SupplierField[] = [
       pt: "O nome registado da sua empresa, tal como consta do registo comercial. Exemplo: Müller GmbH ou Acme Software Ltd.",
       ro: "Denumirea înregistrată a companiei dumneavoastră, astfel cum apare în registrul comerțului. Exemplu: Müller GmbH sau Acme Software Ltd.",
     },
-    legalBasis: "ENISA TIG §5.2",
+    legalBasis: "CIR 2024/2690 §5.2",
     required: true,
   },
   {
@@ -65,7 +67,7 @@ export const profileFields: SupplierField[] = [
       pt: "O endereço comercial registado da sua empresa. Basta um endereço, mesmo que tenha várias localizações.",
       ro: "Adresa comercială înregistrată a companiei dumneavoastră. Este suficientă o singură adresă, chiar dacă aveți mai multe locații.",
     },
-    legalBasis: "ENISA TIG §5.2",
+    legalBasis: "CIR 2024/2690 §5.2",
     required: true,
   },
   {
@@ -94,7 +96,7 @@ export const profileFields: SupplierField[] = [
       pt: "O país onde a sua empresa está legalmente estabelecida. Duas letras, por exemplo DE para a Alemanha.",
       ro: "Țara în care compania dumneavoastră este stabilită legal. Două litere, de exemplu DE pentru Germania.",
     },
-    legalBasis: "ENISA TIG §5.2",
+    legalBasis: "CIR 2024/2690 §5.2",
     required: true,
   },
   {
@@ -123,7 +125,7 @@ export const profileFields: SupplierField[] = [
       pt: "O seu domínio principal, normalmente o URL do seu sítio web. Exemplo: acmesoftware.com.",
       ro: "Domeniul dumneavoastră principal, de obicei adresa URL a site-ului web. Exemplu: acmesoftware.com.",
     },
-    legalBasis: "ENISA TIG §5.2(b)",
+    legalBasis: "CIR 2024/2690 §5.2(a)",
     required: false,
   },
   {
@@ -133,55 +135,13 @@ export const profileFields: SupplierField[] = [
     label: {
       en: "Description of services provided",
       de: "Beschreibung der erbrachten Leistungen",
-      fr: "Description des services fournis",
-      it: "Descrizione dei servizi forniti",
-      es: "Descripción de los servicios prestados",
-      pl: "Opis świadczonych usług",
-      cs: "Popis poskytovaných služeb",
-      pt: "Descrição dos serviços prestados",
-      ro: "Descrierea serviciilor furnizate",
     },
     description: {
-      en: "One paragraph on what your company technically delivers to customers. Concrete products, modules, or services. Avoid pure marketing language.",
-      de: "Ein Absatz darüber, was Ihr Unternehmen Kunden technisch liefert. Konkrete Produkte, Module oder Dienstleistungen. Vermeiden Sie reine Marketing-Sprache.",
-      fr: "Un paragraphe sur ce que votre entreprise livre techniquement aux clients. Produits, modules ou services concrets. Évitez le langage purement marketing.",
-      it: "Un paragrafo su ciò che la vostra azienda fornisce tecnicamente ai clienti. Prodotti, moduli o servizi concreti. Evitate il linguaggio puramente di marketing.",
-      es: "Un párrafo sobre lo que su empresa entrega técnicamente a los clientes. Productos, módulos o servicios concretos. Evite el lenguaje puramente comercial.",
-      pl: "Jeden akapit o tym, co Twoja firma technicznie dostarcza klientom. Konkretne produkty, moduły lub usługi. Unikaj czysto marketingowego języka.",
-      cs: "Jeden odstavec o tom, co vaše společnost zákazníkům technicky dodává. Konkrétní produkty, moduly nebo služby. Vyhněte se čistě marketingovému jazyku.",
-      pt: "Um parágrafo sobre o que a sua empresa entrega tecnicamente aos clientes. Produtos, módulos ou serviços concretos. Evite linguagem puramente de marketing.",
-      ro: "Un paragraf despre ceea ce compania dumneavoastră livrează din punct de vedere tehnic clienților. Produse, module sau servicii concrete. Evitați limbajul pur de marketing.",
+      en: "One paragraph on what you deliver to customers: concrete products, services or work, not marketing. Examples: “Office cleaning three evenings a week, with keys to the building” or “Payroll accounting for up to 200 employees”.",
+      de: "Ein Absatz dazu, was Sie Kunden liefern: konkrete Produkte, Dienste oder Arbeiten, keine Werbung. Beispiele: „Büroreinigung an drei Abenden pro Woche, mit Schlüssel zum Gebäude“ oder „Lohnabrechnung für bis zu 200 Mitarbeitende“.",
     },
-    legalBasis: "ENISA TIG §5.2(b) + §5.1.4 TIPS",
-    required: true,
-  },
-  {
-    id: "dataProcessingLocations",
-    section: "profile",
-    type: "string",
-    label: {
-      en: "Countries / regions where customer data is processed",
-      de: "Länder / Regionen, in denen Kundendaten verarbeitet werden",
-      fr: "Pays / régions où les données des clients sont traitées",
-      it: "Paesi / regioni in cui vengono trattati i dati dei clienti",
-      es: "Países / regiones donde se tratan los datos de los clientes",
-      pl: "Kraje / regiony, w których przetwarzane są dane klientów",
-      cs: "Země / regiony, kde se zpracovávají data zákazníků",
-      pt: "Países / regiões onde são tratados os dados dos clientes",
-      ro: "Țări / regiuni în care sunt prelucrate datele clienților",
-    },
-    description: {
-      en: "Every country where your customers' data is stored or processed. Comma-separated, ISO country codes. Example: DE, NL, US. If you process entirely within the EU, listing the EU countries is enough.",
-      de: "Alle Länder, in denen Kundendaten Ihrer Kunden gespeichert oder verarbeitet werden. Komma-getrennt, ISO-Ländercodes. Beispiel: DE, NL, US. Wenn Sie ausschließlich in der EU verarbeiten, reicht eine Liste der EU-Länder.",
-      fr: "Tous les pays où les données de vos clients sont stockées ou traitées. Séparés par des virgules, codes pays ISO. Exemple : DE, NL, US. Si vous traitez entièrement au sein de l'UE, lister les pays de l'UE suffit.",
-      it: "Tutti i paesi in cui i dati dei vostri clienti vengono archiviati o trattati. Separati da virgole, codici paese ISO. Esempio: DE, NL, US. Se trattate interamente all'interno dell'UE, è sufficiente elencare i paesi dell'UE.",
-      es: "Todos los países donde se almacenan o tratan los datos de sus clientes. Separados por comas, códigos de país ISO. Ejemplo: DE, NL, US. Si trata los datos enteramente dentro de la UE, basta con enumerar los países de la UE.",
-      pl: "Wszystkie kraje, w których przechowywane lub przetwarzane są dane Twoich klientów. Oddzielone przecinkami, kody krajów ISO. Przykład: DE, NL, US. Jeśli przetwarzasz dane wyłącznie w UE, wystarczy wymienić kraje UE.",
-      cs: "Všechny země, kde se ukládají nebo zpracovávají data vašich zákazníků. Oddělené čárkami, kódy zemí ISO. Příklad: DE, NL, US. Pokud zpracováváte výhradně v rámci EU, stačí uvést země EU.",
-      pt: "Todos os países onde os dados dos seus clientes são armazenados ou tratados. Separados por vírgulas, códigos de país ISO. Exemplo: DE, NL, US. Se tratar os dados inteiramente dentro da UE, basta enumerar os países da UE.",
-      ro: "Toate țările în care datele clienților dumneavoastră sunt stocate sau prelucrate. Separate prin virgule, coduri de țară ISO. Exemplu: DE, NL, US. Dacă prelucrați integral în interiorul UE, este suficient să enumerați țările UE.",
-    },
-    legalBasis: "ENISA TIG §5.1.4 TIPS",
+    legalBasis: "CIR 2024/2690 §5.2(b)",
+    iso27001: ["A.5.19", "A.5.22"],
     required: true,
   },
   {
@@ -211,6 +171,7 @@ export const profileFields: SupplierField[] = [
       ro: "Persoana pe care clienții o contactează atunci când are loc un incident de securitate. În companiile mai mici, adesea directorul general sau responsabilul IT. Este suficientă o singură persoană.",
     },
     legalBasis: "CIR 2024/2690 §5.2(a)",
+    iso27001: ["A.5.20", "A.5.24"],
     required: true,
   },
   {
@@ -240,6 +201,7 @@ export const profileFields: SupplierField[] = [
       ro: "Adresa de e-mail pe care clienții o folosesc pentru a raporta un incident de securitate. În mod ideal, o listă de distribuție precum security@example.com care ajunge la mai multe persoane.",
     },
     legalBasis: "CIR 2024/2690 §5.2(a)",
+    iso27001: ["A.5.20", "A.5.24"],
     required: true,
   },
   {
@@ -255,6 +217,7 @@ export const profileFields: SupplierField[] = [
       de: "Telefonnummer für dringende Vorfallsmeldungen. Nennen Sie in Klammern, wann sie besetzt ist; eine Erreichbarkeit rund um die Uhr wird nicht erwartet.",
     },
     legalBasis: "CIR 2024/2690 §5.2(a)",
+    iso27001: ["A.5.20", "A.5.24"],
     required: false,
   },
   {
@@ -266,10 +229,11 @@ export const profileFields: SupplierField[] = [
       de: "Wie schnell Sie Kunden über einen Vorfall informieren (Stunden)",
     },
     description: {
-      en: "At most this many hours after you notice a security incident that affects your customers. Your customers must give their own authority an early warning within 24 hours (Art. 23(4)(a) NIS2), so a promise of 24 hours or less helps them most. Give a value you keep, not a wish.",
-      de: "Höchstens so viele Stunden, nachdem Sie einen Sicherheitsvorfall bemerkt haben, der Ihre Kunden betrifft. Ihre Kunden müssen ihrer Behörde selbst innerhalb von 24 Stunden eine Frühwarnung geben (Art. 23 Abs. 4 Buchst. a NIS2), deshalb hilft ihnen eine Zusage von 24 Stunden oder weniger am meisten. Nennen Sie einen Wert, den Sie halten, keinen Wunsch.",
+      en: "At most this many hours after you notice a security incident that affects a customer, for example a data leak, a hacked account or a lost key. A customer under NIS 2 must send its authority an early warning within 24 hours of becoming aware of a significant incident (Art. 23(4)(a) NIS 2), so a promise of 24 hours or less helps them most. Give a value you keep.",
+      de: "Höchstens so viele Stunden, nachdem Sie einen Sicherheitsvorfall bemerkt haben, der einen Kunden betrifft, zum Beispiel ein Datenleck, ein gehacktes Konto oder einen verlorenen Schlüssel. Ein Kunde unter NIS 2 muss seiner Behörde einen erheblichen Sicherheitsvorfall innerhalb von 24 Stunden, nachdem er davon erfahren hat, als Frühwarnung melden (Art. 23 Abs. 4 Buchst. a NIS 2). Eine Zusage von 24 Stunden oder weniger hilft ihm deshalb am meisten. Nennen Sie einen Wert, den Sie halten.",
     },
     legalBasis: "CIR 2024/2690 §5.1.4(d)",
+    iso27001: ["A.5.20", "A.5.24"],
     required: false,
   },
   {
@@ -298,7 +262,8 @@ export const profileFields: SupplierField[] = [
       pt: "Executa software para os clientes na sua própria infraestrutura e entrega-o através da internet. Assinale mais do que uma caixa se oferecer vários modelos.",
       ro: "Rulați software pentru clienți pe propria infrastructură și îl livrați prin internet. Bifați mai multe casete dacă oferiți mai multe modele.",
     },
-    legalBasis: "ENISA TIG §5.2(b)",
+    legalBasis: "CIR 2024/2690 §5.2(b)",
+    iso27001: ["A.5.19", "A.5.22", "A.5.23"],
     required: true,
   },
   {
@@ -327,36 +292,8 @@ export const profileFields: SupplierField[] = [
       pt: "Fornece software que os clientes instalam e executam na sua própria infraestrutura.",
       ro: "Livrați software pe care clienții îl instalează și îl rulează pe propria infrastructură.",
     },
-    legalBasis: "ENISA TIG §5.2(b)",
-    required: true,
-  },
-  {
-    id: "isProfessionalServices",
-    section: "profile",
-    type: "boolean",
-    label: {
-      en: "We provide professional services / consulting",
-      de: "Wir bieten Dienstleistungen / Beratung",
-      fr: "Nous fournissons des services professionnels / conseil",
-      it: "Forniamo servizi professionali / consulenza",
-      es: "Ofrecemos servicios profesionales / consultoría",
-      pl: "Świadczymy usługi profesjonalne / doradztwo",
-      cs: "Poskytujeme profesionální služby / poradenství",
-      pt: "Fornecemos serviços profissionais / consultoria",
-      ro: "Furnizăm servicii profesionale / consultanță",
-    },
-    description: {
-      en: "Your main deliverable is human work: consulting, implementation, training, audit, or customisation.",
-      de: "Sie liefern menschliche Arbeit als Hauptleistung: Beratung, Implementierung, Schulung, Audit oder Customizing.",
-      fr: "Votre prestation principale est un travail humain : conseil, mise en œuvre, formation, audit ou personnalisation.",
-      it: "La vostra prestazione principale è il lavoro umano: consulenza, implementazione, formazione, audit o personalizzazione.",
-      es: "Su entregable principal es trabajo humano: consultoría, implementación, formación, auditoría o personalización.",
-      pl: "Twoim głównym produktem jest praca ludzka: doradztwo, wdrożenie, szkolenia, audyt lub dostosowanie.",
-      cs: "Vaším hlavním výstupem je lidská práce: poradenství, implementace, školení, audit nebo přizpůsobení.",
-      pt: "O seu principal resultado é trabalho humano: consultoria, implementação, formação, auditoria ou personalização.",
-      ro: "Principalul dumneavoastră livrabil este munca umană: consultanță, implementare, instruire, audit sau personalizare.",
-    },
-    legalBasis: "ENISA TIG §5.2(b)",
+    legalBasis: "CIR 2024/2690 §5.2(b)",
+    iso27001: ["A.5.19", "A.5.22"],
     required: true,
   },
   {
@@ -385,9 +322,12 @@ export const profileFields: SupplierField[] = [
       pt: "Opera para o cliente partes da sua TI, com pessoal próprio. Típico dos modelos MSP e MSSP.",
       ro: "Operați pentru client părți din infrastructura sa IT, cu personal propriu. Tipic pentru modelele MSP și MSSP.",
     },
-    legalBasis: "ENISA TIG §5.2(b)",
+    legalBasis: "CIR 2024/2690 §5.2(b)",
+    iso27001: ["A.5.19", "A.5.22"],
     required: true,
   },
+  // What the supplier reaches at its customers decides which further questions it is asked
+  // (./gates.ts). These three are asked of every supplier.
   {
     id: "processesCustomerData",
     section: "profile",
@@ -397,11 +337,43 @@ export const profileFields: SupplierField[] = [
       de: "Wir verarbeiten oder speichern Daten unserer Kunden",
     },
     description: {
-      en: "Tick yes if your customers' data sits on or passes through your systems, for example in your software, your data centre or your ticket system. With the next answer, this tells a customer how much the rest of your answers matter to them.",
-      de: "Ja, wenn Daten Ihrer Kunden auf Ihren Systemen liegen oder durch sie laufen, zum Beispiel in Ihrer Software, Ihrem Rechenzentrum oder Ihrem Ticketsystem. Zusammen mit der nächsten Antwort sieht ein Kunde daran, wie schwer Ihre übrigen Antworten für ihn wiegen.",
+      en: "Tick yes if you hold or handle your customers' data or documents, electronically or on paper, for example in software, a data centre, a ticket system, accounting or an archive.",
+      de: "Ja, wenn Sie Daten oder Unterlagen Ihrer Kunden elektronisch oder auf Papier halten oder bearbeiten, etwa in Software, Rechenzentrum, Ticketsystem, Buchhaltung oder Archiv.",
     },
     legalBasis: "ENISA TIG §5.1.2",
+    iso27001: ["A.5.19"],
     required: true,
+  },
+  {
+    id: "dataProcessingLocations",
+    section: "profile",
+    type: "string",
+    label: {
+      en: "Countries / regions where customer data is processed",
+      de: "Länder / Regionen, in denen Kundendaten verarbeitet werden",
+      fr: "Pays / régions où les données des clients sont traitées",
+      it: "Paesi / regioni in cui vengono trattati i dati dei clienti",
+      es: "Países / regiones donde se tratan los datos de los clientes",
+      pl: "Kraje / regiony, w których przetwarzane są dane klientów",
+      cs: "Země / regiony, kde se zpracovávají data zákazníků",
+      pt: "Países / regiões onde são tratados os dados dos clientes",
+      ro: "Țări / regiuni în care sunt prelucrate datele clienților",
+    },
+    description: {
+      en: "Every country where your customers' data is stored or processed. Comma-separated, ISO country codes. Example: DE, NL, US. If you process entirely within the EU, listing the EU countries is enough.",
+      de: "Alle Länder, in denen Kundendaten Ihrer Kunden gespeichert oder verarbeitet werden. Komma-getrennt, ISO-Ländercodes. Beispiel: DE, NL, US. Wenn Sie ausschließlich in der EU verarbeiten, reicht eine Liste der EU-Länder.",
+      fr: "Tous les pays où les données de vos clients sont stockées ou traitées. Séparés par des virgules, codes pays ISO. Exemple : DE, NL, US. Si vous traitez entièrement au sein de l'UE, lister les pays de l'UE suffit.",
+      it: "Tutti i paesi in cui i dati dei vostri clienti vengono archiviati o trattati. Separati da virgole, codici paese ISO. Esempio: DE, NL, US. Se trattate interamente all'interno dell'UE, è sufficiente elencare i paesi dell'UE.",
+      es: "Todos los países donde se almacenan o tratan los datos de sus clientes. Separados por comas, códigos de país ISO. Ejemplo: DE, NL, US. Si trata los datos enteramente dentro de la UE, basta con enumerar los países de la UE.",
+      pl: "Wszystkie kraje, w których przechowywane lub przetwarzane są dane Twoich klientów. Oddzielone przecinkami, kody krajów ISO. Przykład: DE, NL, US. Jeśli przetwarzasz dane wyłącznie w UE, wystarczy wymienić kraje UE.",
+      cs: "Všechny země, kde se ukládají nebo zpracovávají data vašich zákazníků. Oddělené čárkami, kódy zemí ISO. Příklad: DE, NL, US. Pokud zpracováváte výhradně v rámci EU, stačí uvést země EU.",
+      pt: "Todos os países onde os dados dos seus clientes são armazenados ou tratados. Separados por vírgulas, códigos de país ISO. Exemplo: DE, NL, US. Se tratar os dados inteiramente dentro da UE, basta enumerar os países da UE.",
+      ro: "Toate țările în care datele clienților dumneavoastră sunt stocate sau prelucrate. Separate prin virgule, coduri de țară ISO. Exemplu: DE, NL, US. Dacă prelucrați integral în interiorul UE, este suficient să enumerați țările UE.",
+    },
+    legalBasis: "ENISA TIG §5.1.4 TIPS",
+    iso27001: ["A.5.20", "A.5.23", "A.5.34"],
+    required: true,
+    visibleWhen: PROCESSES_DATA,
   },
   {
     id: "accessesCustomerSystems",
@@ -416,6 +388,23 @@ export const profileFields: SupplierField[] = [
       de: "Ja, wenn Sie sich bei Ihren Kunden anmelden können, aus der Ferne, als Administrator oder vor Ort, zum Beispiel für Wartung, Support oder Betrieb.",
     },
     legalBasis: "ENISA TIG §5.1.2",
+    iso27001: ["A.5.19"],
+    required: true,
+  },
+  {
+    id: "accessesCustomerPremises",
+    section: "profile",
+    type: "boolean",
+    label: {
+      en: "Our staff enter our customers' premises",
+      de: "Unsere Mitarbeitenden betreten Räume unserer Kunden",
+    },
+    description: {
+      en: "Tick yes if your staff or subcontractors go into a customer's offices or buildings, escorted or not, for example for cleaning, maintenance, repairs, deliveries into the building or on-site support. Holding keys, badges or door codes counts.",
+      de: "Ja, wenn Ihre Mitarbeitenden oder Unterauftragnehmer Büros oder Gebäude eines Kunden betreten, mit oder ohne Begleitung, etwa für Reinigung, Wartung, Reparaturen, Anlieferung ins Gebäude oder Support vor Ort. Schlüssel, Ausweise oder Türcodes zählen dazu.",
+    },
+    legalBasis: "CIR 2024/2690 §11.1.2(a); §13.3.2(b)",
+    iso27001: ["A.5.19"],
     required: true,
   },
 ];

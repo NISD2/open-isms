@@ -2,14 +2,14 @@ import { and, eq } from "drizzle-orm";
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
+import { z } from "zod";
 import { SecurityProfilePage } from "@/components/supplier-portal/SecurityProfilePage";
 import { Link } from "@/i18n/navigation";
 import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { answeringCompanyId } from "@/lib/supplier-portal/platform-supplier";
 import { loadSharedSupplierProfile } from "@/lib/supplier-portal/shared-profile";
 import { supplier } from "@/schema";
-
-const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("supplierPortal.customerView");
@@ -19,7 +19,8 @@ export async function generateMetadata(): Promise<Metadata> {
 /**
  * A supplier's answers to the supplier questionnaire, read inside the app by the company that
  * lists it: the same answer sheet and certificates as the token view. Only for a register row of
- * the caller's own company that is linked to a supplier who shares through the portal.
+ * the caller's own company that is linked to a supplier who shares through the portal, or the
+ * row listing the instance's operator, whose answers are the configured operator company's.
  */
 export default async function SupplierAnswersPage({
   params,
@@ -29,15 +30,14 @@ export default async function SupplierAnswersPage({
   const { id } = await params;
   const session = await getSession();
   if (!session) redirect("/auth/signin");
-  if (!session.companyId || !UUID.test(id)) notFound();
+  if (!session.companyId || !z.uuid().safeParse(id).success) notFound();
 
   const row = await db.query.supplier.findFirst({
     where: and(eq(supplier.id, id), eq(supplier.customerCompanyId, session.companyId)),
-    columns: { supplierCompanyId: true, status: true },
+    columns: { supplierCompanyId: true, status: true, source: true },
   });
-  if (!row?.supplierCompanyId || row.status !== "active") notFound();
-
-  const shared = await loadSharedSupplierProfile(db, row.supplierCompanyId);
+  const answeredBy = row ? answeringCompanyId(row) : null;
+  const shared = answeredBy ? await loadSharedSupplierProfile(db, answeredBy) : null;
   if (!shared) notFound();
 
   const t = await getTranslations("durchgang.ui.suppliers");

@@ -11,11 +11,13 @@ import {
 } from "@nisd2/nis2-supply-chain-questionnaire-schema";
 import { getLocale, getTranslations } from "next-intl/server";
 import {
+  QUESTIONNAIRE_FIELDS,
   QUESTIONNAIRE_PAGES,
   type QuestionnaireField,
   type QuestionnairePage,
 } from "@/lib/forms/supplier-portal-sections";
-import { QUESTIONNAIRE_FIELDS, questionOf } from "./completeness";
+import { pickLocalized } from "@/lib/locale";
+import { questionOf } from "./completeness";
 
 export interface QuestionView {
   readonly id: QuestionnaireField;
@@ -24,6 +26,8 @@ export interface QuestionView {
   /** The "tick yes if" threshold and examples. Shown under the question, never behind an icon. */
   readonly help: string;
   readonly basis: string;
+  /** ISO/IEC 27001:2022 Annex A controls the question serves; empty when it serves none. */
+  readonly iso27001: readonly string[];
   readonly options: readonly { readonly value: string; readonly label: string }[];
   readonly conditions: readonly Condition[];
 }
@@ -35,29 +39,25 @@ export interface GroupView {
   readonly questions: readonly QuestionView[];
 }
 
-type Localised = SupplierField["label"];
-
-/** The text in the reader's language; a language the package does not carry reads English. */
-const inLocale = (text: Localised, locale: string): string =>
-  text[locale as keyof Localised] ?? text.en;
-
+// A language the package does not carry for a question reads English (pickLocalized's fallback).
 const viewOf = (id: QuestionnaireField, locale: string): QuestionView => {
   const question = questionOf(id);
   return {
     id,
     type: question.type,
-    label: inLocale(question.label, locale),
-    help: inLocale(question.description, locale),
+    label: pickLocalized(question.label, locale),
+    help: pickLocalized(question.description, locale),
     basis: question.legalBasis,
+    iso27001: question.iso27001 ?? [],
     options: (question.options ?? []).map((option) => ({
       value: option.value,
-      label: inLocale(option.label, locale),
+      label: pickLocalized(option.label, locale),
     })),
     conditions: conditionsOf(question),
   };
 };
 
-export const questionnaireGroups = (
+const questionnaireGroups = (
   pages: readonly QuestionnairePage[],
   locale: string,
   copy: (groupKey: string) => { readonly title: string; readonly why: string },

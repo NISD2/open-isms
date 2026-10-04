@@ -30,15 +30,21 @@ const USER = "11111111-1111-4111-8111-111111111111";
 const LISTED = "5e5e5e5e-0000-4000-8000-000000000001";
 const FOREIGN = "f0f0f0f0-0000-4000-8000-000000000009";
 
-/** A database whose supplier lookup finds only the sender's own unlinked row. */
-function setup(own: readonly string[]) {
+type Row = { readonly supplierCompanyId: string | null; readonly source: string | null };
+const UNLINKED: Row = { supplierCompanyId: null, source: null };
+
+/** A database whose supplier lookup finds only the sender's own rows, as given. */
+function setup(own: Readonly<Record<string, Row>>) {
   const inserted: Record<string, unknown>[] = [];
   sent.length = 0;
   const db = {
     query: {
       // The lookup's id is one of its conditions; the fake answers by the id the test names.
       supplier: {
-        findFirst: async () => (own.includes(asked.id) ? { id: asked.id } : undefined),
+        findFirst: async () => {
+          const row = own[asked.id];
+          return row ? { id: asked.id, ...row } : undefined;
+        },
       },
       supplierInvite: { findFirst: async () => undefined },
       company: { findFirst: async () => ({ name: "Muster GmbH" }) },
@@ -71,14 +77,24 @@ function setup(own: readonly string[]) {
 
 describe("supplierInvite.create for a listed supplier", () => {
   test("keeps the row it was sent for, so the reply links it", async () => {
-    const { caller, inserted, asked } = setup([LISTED]);
+    const { caller, inserted, asked } = setup({ [LISTED]: UNLINKED });
     asked.id = LISTED;
     await caller.create({ toEmail: "security@lieferant.example", supplierId: LISTED });
     expect(inserted).toEqual([expect.objectContaining({ supplierId: LISTED })]);
   });
 
-  test("refuses a row that is not the sender's own or is linked already, and sends nothing", async () => {
-    const { caller, inserted, asked } = setup([LISTED]);
+  test.each([
+    ["not the sender's own", {}],
+    [
+      "linked to a supplier company",
+      { [FOREIGN]: { supplierCompanyId: COMPANY, source: null } },
+    ],
+    [
+      "the instance operator's row",
+      { [FOREIGN]: { supplierCompanyId: null, source: "platform" } },
+    ],
+  ])("refuses a row that is %s, and sends nothing", async (_, rows) => {
+    const { caller, inserted, asked } = setup(rows);
     asked.id = FOREIGN;
     await expect(
       caller.create({ toEmail: "security@lieferant.example", supplierId: FOREIGN }),
@@ -88,7 +104,7 @@ describe("supplierInvite.create for a listed supplier", () => {
   });
 
   test("an invite from the supplier page names no row", async () => {
-    const { caller, inserted } = setup([]);
+    const { caller, inserted } = setup({});
     await caller.create({ toEmail: "security@lieferant.example" });
     expect(inserted).toEqual([expect.objectContaining({ supplierId: null })]);
   });

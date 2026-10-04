@@ -1,70 +1,14 @@
 // Source of truth for the supplier questionnaire fields in this section.
 // Edit this file (not data/supply-chain-questionnaire.json) and run
 // `bun run build:json` to regenerate the published JSON artefact.
+//
+// Encryption is asked of every supplier that holds customer data, in
+// ./security-practices.ts, not only of software as a service.
 
 import type { SupplierField } from "../schema";
+import { SAAS } from "./gates";
 
 export const saasTechnicalFields: SupplierField[] = [
-  {
-    id: "saasEncryptionAtRest",
-    section: "saas_technical",
-    type: "boolean",
-    label: {
-      en: "Encryption at rest",
-      de: "Verschlüsselung im Ruhezustand",
-      fr: "Chiffrement au repos",
-      it: "Cifratura dei dati a riposo",
-      es: "Cifrado en reposo",
-      pl: "Szyfrowanie danych w spoczynku",
-      cs: "Šifrování dat v klidu",
-      pt: "Cifragem dos dados em repouso",
-      ro: "Criptarea datelor în repaus",
-    },
-    description: {
-      en: "Tick yes if customer data on disk is encrypted at rest with AES-256 or equivalent. Cloud-managed disk encryption (AWS EBS, Azure Disk Encryption) counts.",
-      de: "Ja, wenn Kundendaten auf der Festplatte mit AES-256 oder gleichwertig verschlüsselt sind. Cloud-verwaltete Festplattenverschlüsselung (AWS EBS, Azure Disk Encryption) zählt.",
-      fr: "Cochez oui si les données des clients sur disque sont chiffrées au repos avec AES-256 ou équivalent. Le chiffrement de disque géré par le cloud (AWS EBS, Azure Disk Encryption) compte.",
-      it: "Selezionare sì se i dati dei clienti su disco sono cifrati a riposo con AES-256 o equivalente. È valida la cifratura del disco gestita dal cloud (AWS EBS, Azure Disk Encryption).",
-      es: "Marque sí si los datos de los clientes en disco están cifrados en reposo con AES-256 o equivalente. El cifrado de disco gestionado por la nube (AWS EBS, Azure Disk Encryption) cuenta.",
-      pl: "Zaznacz tak, jeśli dane klientów na dysku są szyfrowane w spoczynku za pomocą AES-256 lub równoważnego standardu. Liczy się szyfrowanie dysków zarządzane przez chmurę (AWS EBS, Azure Disk Encryption).",
-      cs: "Zaškrtněte ano, pokud jsou zákaznická data na disku šifrována v klidu pomocí AES-256 nebo rovnocenného standardu. Platí i šifrování disků spravované cloudem (AWS EBS, Azure Disk Encryption).",
-      pt: "Assinale sim se os dados dos clientes em disco estiverem cifrados em repouso com AES-256 ou equivalente. A cifragem de disco gerida pela nuvem (AWS EBS, Azure Disk Encryption) conta.",
-      ro: "Bifați da dacă datele clienților de pe disc sunt criptate în repaus cu AES-256 sau echivalent. Criptarea discului gestionată de cloud (AWS EBS, Azure Disk Encryption) este luată în calcul.",
-    },
-    legalBasis: "NIS2 Art. 21(2)(h) / ENISA TIG §9",
-    required: true,
-    visibleWhen: { field: "isSaas", equals: true },
-  },
-  {
-    id: "saasEncryptionInTransit",
-    section: "saas_technical",
-    type: "boolean",
-    label: {
-      en: "Encryption in transit (TLS ≥ 1.2)",
-      de: "Verschlüsselung bei Übertragung (TLS ≥ 1.2)",
-      fr: "Chiffrement en transit (TLS ≥ 1.2)",
-      it: "Cifratura in transito (TLS ≥ 1.2)",
-      es: "Cifrado en tránsito (TLS ≥ 1.2)",
-      pl: "Szyfrowanie podczas przesyłania (TLS ≥ 1.2)",
-      cs: "Šifrování při přenosu (TLS ≥ 1.2)",
-      pt: "Cifragem em trânsito (TLS ≥ 1.2)",
-      ro: "Criptarea în tranzit (TLS ≥ 1.2)",
-    },
-    description: {
-      en: "Tick yes if all customer-facing endpoints enforce TLS 1.2 or higher. TLS 1.3 is preferred. Plain HTTP must redirect to HTTPS.",
-      de: "Ja, wenn alle kundenseitigen Endpunkte mindestens TLS 1.2 erzwingen. TLS 1.3 ist vorzuziehen. Reines HTTP muss auf HTTPS weiterleiten.",
-      fr: "Cochez oui si tous les points d'accès exposés aux clients imposent TLS 1.2 ou supérieur. TLS 1.3 est préférable. Le HTTP simple doit rediriger vers HTTPS.",
-      it: "Selezionare sì se tutti gli endpoint rivolti ai clienti impongono TLS 1.2 o superiore. TLS 1.3 è da preferire. Il semplice HTTP deve reindirizzare a HTTPS.",
-      es: "Marque sí si todos los puntos de acceso orientados al cliente exigen TLS 1.2 o superior. Se prefiere TLS 1.3. El HTTP simple debe redirigir a HTTPS.",
-      pl: "Zaznacz tak, jeśli wszystkie punkty końcowe dostępne dla klientów wymuszają TLS 1.2 lub wyższy. Preferowany jest TLS 1.3. Zwykły HTTP musi przekierowywać na HTTPS.",
-      cs: "Zaškrtněte ano, pokud všechny koncové body dostupné zákazníkům vynucují TLS 1.2 nebo vyšší. Preferován je TLS 1.3. Prostý HTTP musí přesměrovávat na HTTPS.",
-      pt: "Assinale sim se todos os pontos de extremidade orientados ao cliente impuserem TLS 1.2 ou superior. É preferível o TLS 1.3. O HTTP simples deve redirecionar para HTTPS.",
-      ro: "Bifați da dacă toate punctele finale orientate către clienți impun TLS 1.2 sau o versiune superioară. Este de preferat TLS 1.3. HTTP simplu trebuie să redirecționeze către HTTPS.",
-    },
-    legalBasis: "NIS2 Art. 21(2)(h) / ENISA TIG §9",
-    required: true,
-    visibleWhen: { field: "isSaas", equals: true },
-  },
   {
     id: "saasMfaEnforced",
     section: "saas_technical",
@@ -75,40 +19,28 @@ export const saasTechnicalFields: SupplierField[] = [
     },
     description: {
       en: "Tick yes if your application offers sign-in with a second factor (an authenticator app, a security key or a one-time code), at least for your customers' administrators. Your own internal admin accounts are a separate question under security practices.",
-      de: "Ja, wenn Ihre Anwendung eine Anmeldung mit zweitem Faktor anbietet (App, Sicherheitsschlüssel oder Einmalcode), mindestens für die Administratoren Ihrer Kunden. Ihre eigenen internen Admin-Konten fragt ein eigener Punkt unter Sicherheit im Betrieb ab.",
+      de: "Ja, wenn Ihre Anwendung eine Anmeldung mit zweitem Faktor anbietet (App, Sicherheitsschlüssel oder Einmalcode), mindestens für die Administratoren Ihrer Kunden. Ihre eigenen internen Administratorkonten fragt ein eigener Punkt unter Sicherheit im Betrieb ab.",
     },
-    legalBasis: "NIS2 Art. 21(2)(j)",
+    legalBasis: "CIR 2024/2690 §5.1.2(c); §11.7",
+    iso27001: ["A.8.5", "A.5.23"],
     required: true,
-    visibleWhen: { field: "isSaas", equals: true },
+    visibleWhen: SAAS,
   },
   {
     id: "saasRtoHours",
     section: "saas_technical",
     type: "integer",
     label: {
-      en: "Recovery time objective (RTO) in hours",
-      de: "Recovery Time Objective (RTO) in Stunden",
-      fr: "Objectif de temps de reprise (RTO) en heures",
-      it: "Obiettivo del tempo di ripristino (RTO) in ore",
-      es: "Objetivo de tiempo de recuperación (RTO) en horas",
-      pl: "Docelowy czas przywrócenia (RTO) w godzinach",
-      cs: "Cílová doba obnovení (RTO) v hodinách",
-      pt: "Objetivo de tempo de recuperação (RTO) em horas",
-      ro: "Obiectivul de timp de recuperare (RTO) în ore",
+      en: "Longest outage until your service is restored (hours)",
+      de: "Längste Ausfallzeit bis zur Wiederherstellung (Stunden)",
     },
     description: {
-      en: "Maximum number of hours your service can be unavailable before recovery. Realistic SLA value, not aspirational. Common SaaS values: 4, 8, or 24 hours.",
-      de: "Maximale Anzahl Stunden, die Ihr Dienst ausfallen darf, bevor die Wiederherstellung greift. Realistischer SLA-Wert, kein Wunschwert. Übliche SaaS-Werte: 4, 8 oder 24 Stunden.",
-      fr: "Nombre maximal d'heures pendant lesquelles votre service peut être indisponible avant reprise. Valeur SLA réaliste, pas un objectif théorique. Valeurs SaaS courantes : 4, 8 ou 24 heures.",
-      it: "Numero massimo di ore in cui il servizio può essere non disponibile prima del ripristino. Valore SLA realistico, non un valore ideale. Valori SaaS comuni: 4, 8 o 24 ore.",
-      es: "Número máximo de horas que su servicio puede estar no disponible antes de la recuperación. Valor de SLA realista, no aspiracional. Valores habituales de SaaS: 4, 8 o 24 horas.",
-      pl: "Maksymalna liczba godzin, przez które Twoja usługa może być niedostępna przed przywróceniem. Realistyczna wartość SLA, a nie wartość docelowa. Typowe wartości SaaS: 4, 8 lub 24 godziny.",
-      cs: "Maximální počet hodin, po které může být vaše služba nedostupná před obnovením. Realistická hodnota SLA, nikoli aspirační. Obvyklé hodnoty SaaS: 4, 8 nebo 24 hodin.",
-      pt: "Número máximo de horas em que o seu serviço pode estar indisponível antes da recuperação. Valor de SLA realista, não aspiracional. Valores comuns de SaaS: 4, 8 ou 24 horas.",
-      ro: "Numărul maxim de ore în care serviciul dumneavoastră poate fi indisponibil înainte de recuperare. Valoare SLA realistă, nu aspirațională. Valori SaaS frecvente: 4, 8 sau 24 de ore.",
+      en: "The most hours your service may be unavailable before it is restored. Give a value you keep.",
+      de: "So viele Stunden darf Ihr Dienst höchstens ausfallen, bis er wiederhergestellt ist. Nennen Sie einen Wert, den Sie halten.",
     },
-    legalBasis: "NIS2 Art. 21(2)(c) / ENISA TIG §4",
+    legalBasis: "ENISA TIG §5.1 TIPS",
+    iso27001: ["A.5.30", "A.5.23"],
     required: true,
-    visibleWhen: { field: "isSaas", equals: true },
+    visibleWhen: SAAS,
   },
 ];

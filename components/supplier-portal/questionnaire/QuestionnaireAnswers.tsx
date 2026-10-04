@@ -3,15 +3,15 @@
 /**
  * A supplier's questionnaire as their customer reads it: the same groups and questions as the
  * supplier's form, each with its answer, as a sheet to read rather than a form to fill.
- * Questions the supplier was never asked (a condition that does not hold) are left out; one
- * they were asked and left open says so.
+ * Questions that do not apply to the supplier are left out (`shownToReader`); one that applies
+ * and was left open says so.
  */
-import { conditionsHold } from "@nisd2/nis2-supply-chain-questionnaire-schema/schema";
 import { useTranslations } from "next-intl";
 import type { QuestionnaireField } from "@/lib/forms/supplier-portal-sections";
+import { isAnswered, shownToReader } from "@/lib/supplier-portal/answered";
 import type { GroupView, QuestionView } from "@/lib/supplier-portal/questionnaire-view";
 import { cn } from "@/lib/utils";
-import { BasisLine, isAnswered, YesNoAnswer } from "./parts";
+import { BasisLine, YesNoAnswer } from "./parts";
 
 type Answers = Partial<Record<QuestionnaireField, unknown>>;
 
@@ -25,9 +25,7 @@ export function QuestionnaireAnswers({
   return (
     <div className="space-y-10">
       {groups.map((group) => {
-        const asked = group.questions.filter((q) =>
-          conditionsHold(q.conditions, answers),
-        );
+        const asked = group.questions.filter((q) => shownToReader(q, answers));
         if (asked.length === 0) return null;
         return (
           <section
@@ -77,7 +75,7 @@ function AnswerRow({
     >
       <dt className="min-w-0 space-y-0.5">
         <p className="text-[15px] font-medium leading-snug">{question.label}</p>
-        <BasisLine basis={question.basis} />
+        <BasisLine question={question} />
       </dt>
       <dd className={cn("min-w-0", long ? "" : "sm:text-right")}>
         <Answer question={question} value={value} />
@@ -103,6 +101,13 @@ function Answer({
     return (
       <span className="text-sm font-medium tabular-nums">
         {String(value)} {t("hours")}
+      </span>
+    );
+  if (question.type === "enum")
+    return (
+      <span className="text-sm font-medium text-foreground">
+        {question.options.find((option) => option.value === value)?.label ??
+          String(value)}
       </span>
     );
   return (

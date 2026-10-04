@@ -27,8 +27,8 @@ describe("questionnaireCompleteness", () => {
   });
 
   test("`false` is an answer, so an honest no does not score as a blank", () => {
-    expect(questionnaireCompleteness({ hasIsms: false }).answered).toBe(1);
-    expect(questionnaireCompleteness({ hasIsms: true }).answered).toBe(1);
+    expect(questionnaireCompleteness({ staffSecurityTraining: false }).answered).toBe(1);
+    expect(questionnaireCompleteness({ staffSecurityTraining: true }).answered).toBe(1);
   });
 
   test("a blank or whitespace-only string is not an answer", () => {
@@ -37,12 +37,20 @@ describe("questionnaireCompleteness", () => {
     expect(questionnaireCompleteness({ legalName: "Acme GmbH" }).answered).toBe(1);
   });
 
-  test("ticking SaaS adds its block and the secure development question", () => {
+  test("ticking SaaS opens the digital, software and SaaS questions", () => {
     const saas = questionnaireCompleteness({ isSaas: true });
     // isSaas is itself a profile field, so ticking it also answers one.
     expect(saas.answered).toBe(1);
-    expect(saas.serviceType.applicable).toBe(4);
-    expect(saas.applicable).toBe(BASELINE + 4 + 1);
+    expect(saas.serviceType.applicable).toBe(2);
+    // ISMS, certificate, vulnerability handling, incident plan, continuity plan, admin MFA;
+    // independent testing; secure development and the published reporting route; the SaaS block.
+    expect(saas.applicable).toBe(BASELINE + 6 + 1 + 2 + 2);
+  });
+
+  test("a supplier with keys to customer premises is asked about access, not about IT", () => {
+    const premises = questionnaireCompleteness({ accessesCustomerPremises: true });
+    // Confidentiality, suitability checks and hand-back; keys and rules on site.
+    expect(premises.applicable).toBe(BASELINE + 3 + 2);
   });
 
   test("a supplier who ticks no service type is never asked those questions", () => {
@@ -59,12 +67,14 @@ describe("questionnaireCompleteness", () => {
     expect(with_.applicable).toBe(BASELINE + 2);
   });
 
-  test("the DPA question only applies to a supplier that processes customer data", () => {
+  test("holding customer data opens the data, access and digital questions", () => {
     expect(questionnaireCompleteness({ processesCustomerData: false }).applicable).toBe(
       BASELINE,
     );
+    // Locations, DPA, both encryption questions; confidentiality, suitability checks, hand-back;
+    // the six digital ones.
     expect(questionnaireCompleteness({ processesCustomerData: true }).applicable).toBe(
-      BASELINE + 1,
+      BASELINE + 4 + 3 + 6,
     );
   });
 
@@ -88,9 +98,9 @@ describe("questionnaireCompleteness", () => {
       PROFILE_PAGE_FIELDS.map((field) => [field, "answered"]),
     );
     const score = questionnaireCompleteness(answers);
-    expect(score.profile.answered).toBe(PROFILE_PAGE_FIELDS.length);
+    expect(score.profile.answered).toBe(score.profile.applicable);
     expect(score.percent).toBe(
-      Math.round((PROFILE_PAGE_FIELDS.length / score.applicable) * 100),
+      Math.round((score.profile.applicable / score.applicable) * 100),
     );
   });
 });

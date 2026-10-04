@@ -9,9 +9,8 @@ import { answersOf } from "@/lib/supplier-portal/questionnaire-view";
 import { api } from "@/lib/trpc/server";
 
 /**
- * Service details: the questions for the types of service ticked on the profile (SaaS, software on
- * the customer's premises, professional services, managed services). None ticked yet: a pointer back
- * to the profile instead of an empty form.
+ * Service details: the questions for software as a service and for software the supplier ships,
+ * as ticked on the profile. Neither ticked: a pointer back to the profile instead of an empty form.
  */
 export default async function SupplierServiceTypePage() {
   const [nav, pages] = await Promise.all([
