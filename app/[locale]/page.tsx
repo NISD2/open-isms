@@ -152,7 +152,7 @@ export default async function LandingPage() {
           </div>
         </section>
 
-        {/* What you get + why free. Aligned to the hero width and left edge,
+        {/* What you get + open source. Aligned to the hero width and left edge,
             split by a hairline, so it reads as an intentional section rather
             than a floating centered card. */}
         <section className="mx-auto mt-16 w-full max-w-6xl border-t border-border/60 pt-10">
@@ -194,7 +194,8 @@ export default async function LandingPage() {
                   href="https://github.com/NISD2"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-2.5 py-1 text-xs hover:bg-muted"
+                  // The chip stays small; its tap area reaches 44px tall (after:-inset-y-2.5).
+                  className="relative inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-2.5 py-1 text-xs after:absolute after:-inset-y-2.5 after:inset-x-0 hover:bg-muted"
                 >
                   <Code2 className="h-3.5 w-3.5" />
                   {t("proofOpenSource")}
@@ -206,7 +207,7 @@ export default async function LandingPage() {
               </div>
               <Link
                 href="/vertrauen"
-                className="mt-4 inline-flex items-center gap-1.5 text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
+                className="mt-2 inline-flex min-h-11 items-center gap-1.5 text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
               >
                 {t("cardTrustLink")}
                 <ArrowRight className="h-3.5 w-3.5" />

@@ -14,6 +14,7 @@ const STEPS = [
   { key: "riskMap", shot: "riskMap" },
   { key: "setAside", shot: "setAside" },
   { key: "signOff", shot: "approved" },
+  { key: "staysCurrent", shot: "ongoing" },
 ] as const satisfies readonly { readonly key: string; readonly shot: ShotName }[];
 
 /** The frame's width on a large screen: the page's 72rem less the 22rem of steps and the gap. */
@@ -25,7 +26,7 @@ const FRAME_PX = 736;
 const READ_LINE = 0.5;
 
 /**
- * The walk in five steps. On a large screen the text scrolls on the left while one frame on the
+ * The walk in six steps. On a large screen the text scrolls on the left while one frame on the
  * right stays put and shows the step being read, zooming into the part that proves it. Below
  * that the steps stack, each with its own screenshot under its text.
  */

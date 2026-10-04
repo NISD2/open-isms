@@ -40,6 +40,11 @@
           "title": "Management approves in the app",
           "text": "At the end, management reads the documents the walkthrough wrote and approves them, signed in with its own account. Its name and the date then appear on each document. Nothing is printed or scanned.",
           "alt": "The walkthrough's documents, approved by management, each with name and date"
+        },
+        "staysCurrent": {
+          "title": "Stays current",
+          "text": "After the approval, one page shows what stays with you: what to do when something happens, and what comes round again. When a date comes due or you change a list, the item goes back to management for approval.",
+          "alt": "What stays after the approval: what to do when something happens and what recurs, each with its legal basis"
         }
       },
       "outcomes": {

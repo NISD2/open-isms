@@ -29,6 +29,8 @@ export const SHOTS = {
   riskMap: { file: "risk-map", focus: { x: 0.445, y: 0.67, scale: 1.85 } },
   setAside: { file: "3", focus: { x: 0.86, y: 0.3, scale: 2.4 } },
   approved: { file: "approved", focus: { x: 0.445, y: 0.6, scale: 2 } },
+  // What stays after the approval, on the duties that recur.
+  ongoing: { file: "ongoing", focus: { x: 0.445, y: 0.63, scale: 2 } },
   assetList: { file: "asset-list", focus: { x: 0.41, y: 0.55, scale: 2.3 } },
   activityLog: { file: "activity-log", focus: { x: 0.43, y: 0.25, scale: 2.4 } },
   export: { file: "export", focus: { x: 0.38, y: 0.23, scale: 2.6 } },

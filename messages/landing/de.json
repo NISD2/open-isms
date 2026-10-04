@@ -40,6 +40,11 @@
           "title": "Die Geschäftsführung gibt in der App frei",
           "text": "Am Ende liest die Geschäftsführung die Dokumente, die der Durchgang geschrieben hat, und gibt sie frei, angemeldet mit ihrem eigenen Zugang. Name und Datum stehen danach auf jedem Dokument. Gedruckt oder eingescannt wird nichts.",
           "alt": "Die Dokumente des Durchgangs, von der Geschäftsführung freigegeben, jedes mit Namen und Datum"
+        },
+        "staysCurrent": {
+          "title": "Bleibt aktuell",
+          "text": "Nach der Freigabe steht auf einer Seite, was bei Ihnen bleibt: was bei einem Vorfall zu tun ist und was sich regelmäßig wiederholt. Wird ein Termin fällig oder ändern Sie eine Liste, liegt der Punkt der Geschäftsführung wieder zur Freigabe vor.",
+          "alt": "Was nach der Freigabe bleibt: was bei einem Vorfall zu tun ist und was sich regelmäßig wiederholt, mit der Rechtsgrundlage"
         }
       },
       "outcomes": {
