@@ -34,6 +34,11 @@
     "tiers": {
       "subtitle": "One price, everything included. Courses and wiki cost nothing.",
       "recommended": "Recommended",
+      "talkFirst": {
+        "title": "Rather talk to us first?",
+        "body": "A short video or phone call, at a time you choose."
+      },
+      "approvalLink": "Someone else decides? One page for your management",
       "free": {
         "name": "Learn",
         "description": "For anyone who wants to understand NIS 2.",
@@ -100,7 +105,7 @@
         "cta": "View the source",
         "features": {
           "everything": "Everything in the <paid>walkthrough</paid>",
-          "infrastructure": "On your own infrastructure",
+          "infrastructure": "Running, updates and backups in your hands",
           "licence": "Source open under AGPL-3.0",
           "contract": "No contract with us"
         },
@@ -134,6 +139,89 @@
     },
     "whyFree": "Why free: the source is open on GitHub, auditable and yours to run. We charge for setting up self-hosted installations, and we take a commission from the specialist firms we refer you to. Not for the platform.",
     "consultantFootnote": "Stuck with NIS 2? Short technical questions cost nothing, and if it needs a specialist firm, we refer you to one at no cost to you.",
-    "consultantCta": "Help and referrals"
+    "consultantCta": "Help and referrals",
+    "faq": {
+      "heading": "Questions before you order",
+      "items": {
+        "cost": {
+          "q": "What will it cost?",
+          "a": "For the walkthrough, {price} net a year, for every organization and user in your group of companies. There are no other fees. What the measures themselves cost depends on your business. German law names the cost of implementation as one yardstick for what is proportionate (<bsig30>Section 30(1) BSIG</bsig30>)."
+        },
+        "effort": {
+          "q": "How much work is it, and do we need to hire someone?",
+          "a": "The walkthrough is built for one person who implements NIS 2 alongside their actual job. They take the steps one after another, can stop at any time and leave a step open that cannot be done yet. Management joins at the end, to approve in the app. How much time it takes depends on your business. The walkthrough does not assume an extra hire."
+        },
+        "software": {
+          "q": "Can we do it without software?",
+          "a": "Yes. The law prescribes no particular tool. It requires the measures and that you document compliance with them (<bsig30>Section 30(1) BSIG</bsig30>). The walkthrough saves you organizing the order, the templates, the approvals and the deadlines yourself."
+        },
+        "data": {
+          "q": "Do we need our own server, and where is our data?",
+          "a": "No, the walkthrough runs in the browser. Hetzner runs the application and the database in Germany, uploaded files are stored with AWS in an EU region, and Resend sends the emails from the USA under the standard contractual clauses. The full list is in the <avv>data processing agreement</avv>, Annex IV. If you would rather not outsource anything, run the platform yourself, with Docker on your own servers."
+        },
+        "language": {
+          "q": "Is everything in German?",
+          "a": "Yes. The app and the walkthrough are in German, and in English if you prefer."
+        },
+        "nextYear": {
+          "q": "What do we pay in the second year, and for what?",
+          "a": "The same price. The licence renews every year. 14 days before, we email you about the renewal, the price and how to cancel, and you can cancel until the last day of the licence year (<terms>terms, B6</terms>). After the walkthrough, the app reminds you of your recurring duties, and all updates are included."
+        },
+        "approval": {
+          "q": "I don't decide this alone. How do I get it approved?",
+          "a": "Forward <approval>the page for approval</approval> to your management. It has everything for the decision: what the walkthrough is, what it costs, a comparison with published consultancy prices, and how to end it."
+        },
+        "money": {
+          "q": "How do you make money?",
+          "a": "With this annual licence. The source code is open so you can check what the platform does with your data. You pay for us running the platform, developing it and being there for your questions. We do not sell your data."
+        }
+      }
+    },
+    "approval": {
+      "meta": {
+        "title": "For approval: the NIS 2 walkthrough",
+        "description": "One page for management: what the NIS 2 walkthrough is, what it costs and how to end it."
+      },
+      "eyebrow": "For approval",
+      "title": "The NIS 2 walkthrough at nisd2.eu",
+      "lead": "One page for the decision: what it is, what it costs and how to end it.",
+      "rows": {
+        "what": {
+          "label": "What it is",
+          "text": "Guided implementation of the NIS 2 duties in one app. One person from your company works through the steps one after another, and every decision is recorded with a name and a date."
+        },
+        "role": {
+          "label": "Your role",
+          "text": "For entities in scope, the management bodies must approve the cybersecurity risk-management measures and oversee their implementation (<nis2>Article 20(1) NIS 2</nis2>). In Germany, <bsig>Section 38(1) BSIG</bsig> requires management to implement the measures and monitor their implementation. In the walkthrough you approve the results at the end, in the app, signed in with your own account. Nothing is printed or scanned."
+        },
+        "cost": {
+          "label": "Cost",
+          "text": "{price} net a year plus VAT, by invoice, due in 30 days. The price covers every organization and user in your group of companies."
+        },
+        "comparison": {
+          "label": "For comparison"
+        },
+        "exit": {
+          "label": "Term and cancellation",
+          "text": "Cancel within 30 days of your first order and the invoice is cancelled, and a paid one is refunded. After that the licence renews yearly, we email you 14 days before, and you can cancel until the last day of the licence year (<terms>terms, B6 and B7</terms>)."
+        },
+        "scope": {
+          "label": "What it is not",
+          "text": "Not a certification. The result is your company's documented self-assessment, with the history of every change and approval."
+        },
+        "provider": {
+          "label": "Provider",
+          "text": "Kardashev Catalyst UG (haftungsbeschränkt), Cologne. The <terms>terms</terms> apply, with the <avv>data processing agreement</avv>."
+        }
+      },
+      "forward": {
+        "label": "Forward this page:",
+        "email": "By email",
+        "copy": "Copy link",
+        "copied": "Link copied",
+        "subject": "NIS 2 walkthrough for approval",
+        "body": "Hello,\n\nfor approval: a page on the NIS 2 walkthrough at nisd2.eu, with cost, term and cancellation.\n\n{url}\n\nBest regards"
+      }
+    }
   }
 }

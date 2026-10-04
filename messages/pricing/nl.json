@@ -34,6 +34,11 @@
     "tiers": {
       "subtitle": "Eén prijs, alles inbegrepen. Cursussen en wiki kosten niets.",
       "recommended": "Aanbevolen",
+      "talkFirst": {
+        "title": "Liever eerst met ons praten?",
+        "body": "Een kort gesprek via video of telefoon, op een moment dat u kiest."
+      },
+      "approvalLink": "Beslist iemand anders? Eén pagina voor uw directie",
       "free": {
         "name": "Leren",
         "description": "Voor iedereen die NIS 2 wil begrijpen.",
@@ -100,7 +105,7 @@
         "cta": "Naar de broncode",
         "features": {
           "everything": "Alles uit de <paid>begeleide doorloop</paid>",
-          "infrastructure": "Op uw eigen infrastructuur",
+          "infrastructure": "Beheer, updates en back-ups in eigen hand",
           "licence": "Broncode open onder AGPL-3.0",
           "contract": "Geen contract met ons"
         },
@@ -134,6 +139,89 @@
     },
     "whyFree": "Waarom gratis: de broncode staat open op GitHub, controleerbaar en zelf te draaien. Wij rekenen voor het opzetten van eigen beheer en krijgen een provisie van de gespecialiseerde bedrijven waarnaar wij doorverwijzen. Niet voor het platform.",
     "consultantFootnote": "Loopt u vast bij NIS 2? Korte vakinhoudelijke vragen kosten niets, en is er een gespecialiseerd bedrijf nodig, dan verwijzen wij u door, zonder kosten voor u.",
-    "consultantCta": "Hulp en bemiddeling"
+    "consultantCta": "Hulp en bemiddeling",
+    "faq": {
+      "heading": "Vragen voor u bestelt",
+      "items": {
+        "cost": {
+          "q": "Wat gaat het kosten?",
+          "a": "Voor de doorloop {price} netto per jaar, voor alle organisaties en gebruikers binnen uw concern. Andere kosten zijn er niet. Wat de maatregelen zelf kosten, hangt af van uw organisatie."
+        },
+        "effort": {
+          "q": "Hoeveel werk is het, en moeten we iemand aannemen?",
+          "a": "De doorloop is gebouwd voor één persoon die NIS 2 naast het eigen werk invoert. Die doorloopt de stappen na elkaar, kan altijd onderbreken en een stap openlaten die nog niet kan. De directie komt aan het eind erbij, om in de app goed te keuren. Hoeveel tijd het kost, hangt af van uw organisatie. Een extra functie is voor de doorloop niet nodig."
+        },
+        "software": {
+          "q": "Kan het ook zonder software?",
+          "a": "Ja. De wet schrijft geen bepaald hulpmiddel voor, alleen de maatregelen zelf. De doorloop neemt u het organiseren van volgorde, sjablonen, goedkeuringen en termijnen uit handen."
+        },
+        "data": {
+          "q": "Hebben we een eigen server nodig, en waar staan onze gegevens?",
+          "a": "Nee, de doorloop werkt in de browser. Hetzner draait de applicatie en de database in Duitsland, geüploade bestanden staan bij AWS in een EU-regio, en Resend verstuurt de e-mails vanuit de VS op basis van de standaardcontractbepalingen. De volledige lijst staat in de <avv>verwerkersovereenkomst</avv>, bijlage IV. Wilt u niets uitbesteden, draai het platform dan zelf, met Docker op eigen servers."
+        },
+        "language": {
+          "q": "Is alles in het Nederlands?",
+          "a": "De meeste schermen van de app wel. De doorloop zelf is er in het Duits en het Engels."
+        },
+        "nextYear": {
+          "q": "Wat betalen we in het tweede jaar, en waarvoor?",
+          "a": "Dezelfde prijs. De licentie wordt elk jaar verlengd. 14 dagen vooraf mailen we u over de verlenging, de prijs en hoe u opzegt, en opzeggen kan tot de laatste dag van het licentiejaar (<terms>voorwaarden, B6</terms>). Na de doorloop herinnert de app u aan terugkerende verplichtingen, en alle updates zijn inbegrepen."
+        },
+        "approval": {
+          "q": "Ik beslis dit niet alleen. Hoe krijg ik goedkeuring?",
+          "a": "Stuur <approval>de pagina ter goedkeuring</approval> door aan uw directie. Daarop staat alles voor het besluit: wat de doorloop is, wat hij kost, een vergelijking met gepubliceerde adviesprijzen en hoe u hem weer beëindigt."
+        },
+        "money": {
+          "q": "Hoe verdient nisd2.eu geld?",
+          "a": "Met deze jaarlicentie. De broncode is open, zodat u kunt controleren wat het platform met uw gegevens doet. U betaalt ervoor dat wij het platform draaien, doorontwikkelen en klaarstaan voor uw vragen. Uw gegevens verkopen we niet."
+        }
+      }
+    },
+    "approval": {
+      "meta": {
+        "title": "Ter goedkeuring: de NIS 2 begeleide doorloop",
+        "description": "Eén pagina voor de directie: wat de NIS 2 begeleide doorloop is, wat hij kost en hoe u hem weer beëindigt."
+      },
+      "eyebrow": "Ter goedkeuring",
+      "title": "De NIS 2 begeleide doorloop op nisd2.eu",
+      "lead": "Eén pagina voor het besluit: wat het is, wat het kost en hoe u het weer beëindigt.",
+      "rows": {
+        "what": {
+          "label": "Wat het is",
+          "text": "Begeleide implementatie van de NIS 2 verplichtingen in één app. Eén persoon uit uw organisatie doorloopt de stappen na elkaar, en elk besluit wordt vastgelegd met naam en datum."
+        },
+        "role": {
+          "label": "Uw rol",
+          "text": "Voor entiteiten binnen het toepassingsgebied moeten de bestuursorganen de maatregelen voor het beheer van cyberbeveiligingsrisico's goedkeuren en toezien op de uitvoering ervan (<nis2>artikel 20, lid 1, NIS 2</nis2>). In de doorloop keurt u de resultaten aan het eind goed, in de app en met uw eigen account. Er wordt niets geprint of gescand."
+        },
+        "cost": {
+          "label": "Kosten",
+          "text": "{price} netto per jaar, excl. btw, op factuur met een betalingstermijn van 30 dagen. De prijs geldt voor alle organisaties en gebruikers binnen uw concern."
+        },
+        "comparison": {
+          "label": "Ter vergelijking"
+        },
+        "exit": {
+          "label": "Looptijd en opzegging",
+          "text": "Zegt u binnen 30 dagen na de eerste bestelling op, dan wordt de factuur gecrediteerd, en een betaalde factuur betalen we terug. Daarna wordt de licentie jaarlijks verlengd, 14 dagen vooraf mailen we u, en opzeggen kan tot de laatste dag van het licentiejaar (<terms>voorwaarden, B6 en B7</terms>)."
+        },
+        "scope": {
+          "label": "Wat het niet is",
+          "text": "Geen certificering. Het resultaat is de vastgelegde zelfverklaring van uw organisatie, met de geschiedenis van alle wijzigingen en goedkeuringen."
+        },
+        "provider": {
+          "label": "Aanbieder",
+          "text": "Kardashev Catalyst UG (haftungsbeschränkt), Keulen. De <terms>voorwaarden</terms> zijn van toepassing, met de <avv>verwerkersovereenkomst</avv>."
+        }
+      },
+      "forward": {
+        "label": "Deze pagina doorsturen:",
+        "email": "Per e-mail",
+        "copy": "Link kopiëren",
+        "copied": "Link gekopieerd",
+        "subject": "NIS 2 begeleide doorloop ter goedkeuring",
+        "body": "Hallo,\n\nter goedkeuring: een pagina over de NIS 2 begeleide doorloop op nisd2.eu, met kosten, looptijd en opzegging.\n\n{url}\n\nMet vriendelijke groet"
+      }
+    }
   }
 }
