@@ -243,7 +243,7 @@ const FOUNDERS = [
 
 /**
  * The way to talk before ordering, beside the order button: one card that is its own link to the
- * booking page (ui-design principle 14), with the founders' faces so a caller knows who answers.
+ * booking page (ui-design principle 14), with the founders' faces.
  */
 export function TalkFirst() {
   const t = useTranslations("pricing.tiers.talkFirst");

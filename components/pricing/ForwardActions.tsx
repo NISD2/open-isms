@@ -13,9 +13,10 @@ export function ForwardActions({ url }: { readonly url: string }) {
   const t = useTranslations("pricing.approval.forward");
   const [copied, setCopied] = useState(false);
   const mailto = `mailto:?subject=${encodeURIComponent(t("subject"))}&body=${encodeURIComponent(t("body", { url }))}`;
+  // Wrapped so a browser without the clipboard API (plain http) rejects instead of throwing.
   const copy = () =>
-    navigator.clipboard
-      .writeText(url)
+    Promise.resolve()
+      .then(() => navigator.clipboard.writeText(url))
       .then(() => setCopied(true))
       .catch(() => setCopied(false));
   return (
