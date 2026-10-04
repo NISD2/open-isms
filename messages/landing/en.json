@@ -11,6 +11,60 @@
         "description": "You fill it in, we explain every point in plain words, and at the end management signs. For companies without their own security department."
       }
     },
+    "walk": {
+      "heroAlt": "The NIS2 walkthrough: your path step by step, the first items done",
+      "title": "How the walkthrough takes you through NIS2",
+      "lead": "Every picture shows the real app, filled in for made-up example companies.",
+      "steps": {
+        "oneAtATime": {
+          "title": "One thing at a time",
+          "text": "You only ever see one item. We explain it in plain words before you enter anything, and the law behind it is one click away.",
+          "alt": "A step in the walkthrough: registering with your authority, explained in plain words"
+        },
+        "bsiMethods": {
+          "title": "Methods from the BSI",
+          "text": "Where Germany's Federal Office for Information Security (BSI) recommends a method, it is ready for you, such as the risk assessment from BSI Standard 200-3. One click makes it your company's method. Whether you adopt it is your decision.",
+          "alt": "The risk assessment method from BSI Standard 200-3, as an entry in the records"
+        },
+        "riskMap": {
+          "title": "Your risks at a glance",
+          "text": "You rate your software, your technology and your suppliers on the BSI's matrix. The overview shows where your entries sit and what needs protection first.",
+          "alt": "An example company's risk matrix: how many entries sit in each field"
+        },
+        "setAside": {
+          "title": "Leaving things open is fine",
+          "text": "What cannot be done yet, you set aside with a reason, for example because you are waiting for a letter or need to ask someone first. The item goes on your waiting list and you carry on with the next one.",
+          "alt": "Setting an item aside: the reasons to choose from"
+        },
+        "signOff": {
+          "title": "Management approves in the app",
+          "text": "At the end, management reads the documents the walkthrough wrote and approves them, signed in with its own account. Its name and the date then appear on each document. Nothing is printed or scanned.",
+          "alt": "The walkthrough's documents, approved by management, each with name and date"
+        }
+      },
+      "outcomes": {
+        "title": "What is in your records afterwards",
+        "registers": {
+          "title": "Your registers",
+          "text": "What you tick and enter in the walkthrough is then in your registers: assets, suppliers, risks, policies, trainings and management reviews.",
+          "alt": "The asset list in the walkthrough: business processes to tick"
+        },
+        "log": {
+          "title": "The activity log",
+          "text": "It shows, day by day, who changed what and when. Every approval by management is in it too.",
+          "alt": "An example company's activity log"
+        },
+        "export": {
+          "title": "Everything in one document",
+          "text": "The whole walkthrough, start to finish: status, open points, documents, risk matrix, every register and answer. Save it as a PDF from the browser.",
+          "alt": "An example company's complete documentation"
+        }
+      },
+      "closing": "Start with the first item.",
+      "pricing": "Pricing and terms",
+      "pause": "Pause animation",
+      "play": "Play animation"
+    },
     "title": "Halve Europe's <blue>NIS2</blue> bill.",
     "eyebrow": "Open source · Free · No lock-in",
     "subtitle": "The free platform for regulated companies and their suppliers to implement NIS2: self-assessment, templates, and management training. <os>Open source</os>, no lock-in.",

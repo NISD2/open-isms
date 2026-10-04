@@ -11,6 +11,60 @@
         "description": "Sie füllen aus, wir erklären jeden Punkt in einfachen Worten, am Ende unterschreibt die Geschäftsführung. Für Betriebe ohne eigene Sicherheitsabteilung."
       }
     },
+    "walk": {
+      "heroAlt": "Der NIS2 Durchgang: Ihr Weg Schritt für Schritt, die ersten Punkte erledigt",
+      "title": "So führt Sie der Durchgang durch NIS2",
+      "lead": "Alle Bilder zeigen die echte App, ausgefüllt für erfundene Beispielfirmen.",
+      "steps": {
+        "oneAtATime": {
+          "title": "Eins nach dem anderen",
+          "text": "Sie sehen immer nur einen Punkt. Wir erklären ihn in einfachen Worten, bevor Sie etwas eintragen, und das Gesetz dazu ist einen Klick entfernt.",
+          "alt": "Ein Schritt im Durchgang: die Registrierung beim BSI, in einfachen Worten erklärt"
+        },
+        "bsiMethods": {
+          "title": "Die Vorgaben des BSI",
+          "text": "Wo das BSI eine Methode empfiehlt, liegt sie fertig bereit, etwa die Risikobewertung nach dem Standard 200-3 des BSI. Ein Klick macht sie zur Methode Ihres Unternehmens. Ob Sie sie übernehmen, entscheiden Sie.",
+          "alt": "Die Methode zur Risikobewertung aus dem Standard 200-3 des BSI, als Eintrag in den Unterlagen"
+        },
+        "riskMap": {
+          "title": "Ihre Risiken auf einen Blick",
+          "text": "Sie bewerten Ihre Programme, Ihre Technik und Ihre Lieferanten auf der Matrix des BSI. Die Übersicht zeigt, wo Ihre Einträge liegen und was zuerst Schutz braucht.",
+          "alt": "Die Risikomatrix eines Beispielunternehmens: wie viele Einträge in jedem Feld liegen"
+        },
+        "setAside": {
+          "title": "Offen lassen ist erlaubt",
+          "text": "Was noch nicht geht, legen Sie mit einem Grund zur Seite, etwa weil Sie auf einen Brief warten oder erst jemanden fragen müssen. Der Punkt kommt auf Ihre Warteliste, und Sie machen mit dem nächsten weiter.",
+          "alt": "Einen Punkt zur Seite legen: die Gründe zur Auswahl"
+        },
+        "signOff": {
+          "title": "Die Geschäftsführung gibt in der App frei",
+          "text": "Am Ende liest die Geschäftsführung die Dokumente, die der Durchgang geschrieben hat, und gibt sie frei, angemeldet mit ihrem eigenen Zugang. Name und Datum stehen danach auf jedem Dokument. Gedruckt oder eingescannt wird nichts.",
+          "alt": "Die Dokumente des Durchgangs, von der Geschäftsführung freigegeben, jedes mit Namen und Datum"
+        }
+      },
+      "outcomes": {
+        "title": "Was danach in Ihren Unterlagen steht",
+        "registers": {
+          "title": "Ihre Register",
+          "text": "Was Sie im Durchgang ankreuzen und eintragen, steht danach in Ihren Registern: Assets, Lieferanten, Risiken, Richtlinien, Schulungen und Managementbewertungen.",
+          "alt": "Die Liste der Assets im Durchgang: Geschäftsprozesse zum Ankreuzen"
+        },
+        "log": {
+          "title": "Das Aktivitätsprotokoll",
+          "text": "Es zeigt Tag für Tag, wer was geändert hat und wann. Auch jede Freigabe der Geschäftsführung steht darin.",
+          "alt": "Das Aktivitätsprotokoll eines Beispielunternehmens"
+        },
+        "export": {
+          "title": "Alles in einem Dokument",
+          "text": "Der ganze Durchgang von Anfang bis Ende: Stand, offene Punkte, Dokumente, Risikomatrix, alle Register und Angaben. Im Browser als PDF speichern.",
+          "alt": "Die Gesamtdokumentation eines Beispielunternehmens"
+        }
+      },
+      "closing": "Fangen Sie mit dem ersten Punkt an.",
+      "pricing": "Preise und Bedingungen",
+      "pause": "Animation anhalten",
+      "play": "Animation fortsetzen"
+    },
     "title": "Wir halbieren Europas <blue>NIS2</blue>-Rechnung.",
     "eyebrow": "Open Source · Kostenlos · Kein Lock-in",
     "subtitle": "Die kostenlose Plattform, mit der regulierte Unternehmen und ihre Lieferanten NIS2 umsetzen: mit Selbsteinschätzung, Vorlagen und Schulung für die Geschäftsführung. <os>Open Source</os>, kein Lock-in.",
