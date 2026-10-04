@@ -76,7 +76,9 @@ const PREVIEW_IDS = [
   "accessesCustomerPremises",
   "dataProcessingAgreement",
   "encryptionAtRest",
-  "customerAccessPersonalMfa",
+  // A question id, not a credential: gitleaks' generic rule reads "Access…", the comma and the
+  // next id as a key being assigned. `gitleaks:allow` marks it as a known false positive.
+  "customerAccessPersonalMfa", // gitleaks:allow
   "hasIso27001OrEquivalent",
 ] as const;
 
