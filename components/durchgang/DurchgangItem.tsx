@@ -65,6 +65,7 @@ import { PolicyScreen } from "./PolicyScreen";
 import { Rail } from "./Rail";
 import { Rate, Specify } from "./RatingScreens";
 import { RiskMapScreen } from "./RiskMapScreen";
+import { hrefOf, useSteps } from "./setup";
 import { type Direction, PROGRESS, STAGE, transition, transitionTo } from "./transition";
 import { useScreenComplete } from "./useScreenComplete";
 import { useWalkItem } from "./useWalkItem";
@@ -110,10 +111,13 @@ const clampScreen = (value: number, total: number) =>
 export function DurchgangItem({
   item,
   walk,
+  setup,
   initialScreen,
 }: {
   item: ItemView;
   walk: readonly WalkEntry[];
+  /** The company is not set up yet: the registration leads on to setting it up. */
+  setup: boolean;
   initialScreen: number;
 }) {
   const t = useTranslations("durchgang.ui");
@@ -124,10 +128,11 @@ export function DurchgangItem({
   const [waitOpen, setWaitOpen] = useState(false);
   const [railOpen, setRailOpen] = useState(false);
 
-  const self = walk.find((w) => w.code === item.code);
+  const steps = useSteps(walk, setup);
+  const self = steps.find((w) => w.code === item.code);
   const signed = self?.state.kind === "signed" || self?.state.kind === "not_applicable";
   const filled: ItemState = { kind: "filled", since: new Date() };
-  const next = resumeAt(walk, (w) => (w.code === item.code ? filled : w.state));
+  const next = resumeAt(steps, (w) => (w.code === item.code ? filled : w.state));
   const { draft, setDraft, adoptedAt, leave, keep, park, decline } = useWalkItem(
     item,
     self?.state.kind === "waiting",
@@ -181,11 +186,7 @@ export function DurchgangItem({
         // The next section slides in like the next screen of this one.
         transitionTo(
           "forward",
-          () =>
-            router.push({
-              pathname: "/durchgang/nis2/[code]",
-              params: { code: next.code },
-            }),
+          () => router.push(hrefOf(next.code)),
           () => document.querySelector(`[data-dg-item="${next.code}"]`) !== null,
         );
       } else {

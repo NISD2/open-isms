@@ -2,17 +2,24 @@ import { getTranslations } from "next-intl/server";
 import type { ComponentProps } from "react";
 import { CompanyEssentials } from "./CompanyEssentials";
 
+type EssentialsProps = ComponentProps<typeof CompanyEssentials>;
+
 /**
- * Setting up the company, wherever a company that is not set up yet arrives: the walk's first
- * step, and in place of any page that needs a company. Never a separate onboarding screen
- * (Simon, 04.10.2026: "I should never see this").
+ * Setting up the company, wherever a company that is not set up yet arrives: the walk's setup step,
+ * and in place of any page that needs a company. Never a separate onboarding screen (Simon,
+ * 04.10.2026: "I should never see this"). `lead` and `hints` replace the general words where the
+ * page knows more about the reader, as the walk does after its registration.
  */
 export async function CompanySetup({
   eyebrow,
   next,
+  lead,
+  hints,
 }: {
   eyebrow?: string;
-  next?: ComponentProps<typeof CompanyEssentials>["next"];
+  next?: EssentialsProps["next"];
+  lead?: string;
+  hints?: EssentialsProps["hints"];
 }) {
   const t = await getTranslations("organization.essentials");
   return (
@@ -26,10 +33,15 @@ export async function CompanySetup({
         {t("title")}
       </h1>
       <p className="mt-4 max-w-[58ch] text-lg leading-8 text-muted-foreground">
-        {t("lead")}
+        {lead ?? t("lead")}
       </p>
       <div className="mt-8 rounded-3xl border bg-card p-6 shadow-xs sm:p-8">
-        <CompanyEssentials mode="create" next={next} submitLabel={t("create")} />
+        <CompanyEssentials
+          mode="create"
+          next={next}
+          submitLabel={t("create")}
+          hints={hints}
+        />
       </div>
     </div>
   );

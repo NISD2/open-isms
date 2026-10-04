@@ -47,7 +47,7 @@ export async function GetStarted({
           </Link>
         </div>
       </div>
-      {/* The first item itself: setting up the company, the walk's first step. */}
+      {/* Setting up the company, the walk's step right after the registration. */}
       <Art src={SETUP_ART} className="hidden h-40 shrink-0 sm:block lg:h-48" />
     </section>
   );

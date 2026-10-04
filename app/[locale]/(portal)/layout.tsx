@@ -37,8 +37,8 @@ export default async function PortalLayout({ children }: { children: React.React
   // auto-provisioned at verification) may reach without setting the company up.
   // /journey is here: it is the draft's home surface, rendering the seeded path
   // with a "set up your organization" first step. The walk is here too: its home
-  // shows a draft the walk (locked until paid), and its first step sets the
-  // company up (Simon, 04.10.2026). Every other real-work route asks the draft
+  // shows a draft the walk (locked until paid), and the step after the
+  // registration sets the company up (Simon, 04.10.2026). Every other real-work route asks the draft
   // to set the company up in its place. /team is intentionally absent — a draft
   // must not manage a team before activating. Gating on companyActivated (not
   // merely companyId) is what keeps a draft from an empty, 403-on-write shell.

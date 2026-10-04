@@ -28,7 +28,7 @@ const both = (focus: Focus): Readonly<Record<Lang, Focus>> => ({ de: focus, en: 
 export const ITEM_SHOTS: Readonly<
   Partial<Record<string, Readonly<Record<Lang, Focus>>>>
 > = {
-  // The walk's first step for a company not set up yet: the three essentials, filled in.
+  // The walk's setup step for a company not set up yet: the three essentials, filled in.
   unternehmen: both({ x: 0.58, y: 0.58, scale: 2 }),
   "12.2": both({ x: 0.44, y: 0.6, scale: 2.2 }), // s=1: the country and its authority
   "1.1": both({ x: 0.44, y: 0.59, scale: 2.2 }), // s=2: one training line per manager

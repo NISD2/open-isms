@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { DurchgangItem } from "@/components/durchgang/DurchgangItem";
+import { getSession } from "@/lib/auth";
 import { requireWalk } from "../../gate";
 import { loadItem, loadWalk } from "../load";
 
@@ -21,11 +22,21 @@ export default async function DurchgangItemPage({
   params: Promise<{ code: string }>;
   searchParams: Promise<{ s?: string }>;
 }) {
-  await requireWalk();
   const [{ code }, { s }] = await Promise.all([params, searchParams]);
-  const [item, walk] = await Promise.all([loadItem(code), loadWalk({ locked: false })]);
+  await requireWalk(code);
+  const [item, walk, session] = await Promise.all([
+    loadItem(code),
+    loadWalk({ locked: false }),
+    getSession(),
+  ]);
   if (!item) notFound();
   return (
-    <DurchgangItem key={code} item={item} walk={walk} initialScreen={Number(s ?? 0)} />
+    <DurchgangItem
+      key={code}
+      item={item}
+      walk={walk}
+      setup={!session?.companyActivated}
+      initialScreen={Number(s ?? 0)}
+    />
   );
 }

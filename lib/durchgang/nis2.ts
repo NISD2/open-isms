@@ -17,7 +17,7 @@ const item = <C extends CategoryCode>(i: Item<C>): Item<C> => i;
  */
 export const NOT_WALKED: Readonly<Record<string, string>> = {
   "12.1":
-    "Whoever reaches the Durchgang already knows their entity type; the walk does not decide it for them.",
+    "The walk does not decide the entity type for the company: setting the company up, right after the registration (12.2), asks for it with the thresholds of § 28 BSIG beside it.",
   "1.2":
     "No statute asks every entity to name roles: § 38 Abs. 1 BSIG and Art. 20(1) NIS 2 have management implement and oversee the measures. Roles, responsibilities and authorities are CIR 2024/2690 Annex 1.2, which binds only the digital providers the CIR covers, and a security officer is BSI advice (BSI-Standard 200-2). The walk names the people it needs where it needs them: whoever leads in an emergency in 3.1, with an invite for someone not in the team yet, and management for the approval in 7.3. The requirement page keeps the team and its roles.",
   "1.3":

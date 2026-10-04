@@ -149,6 +149,29 @@ export const WALK: readonly AnyItem[] = [
 ];
 
 /**
+ * The item a company not set up yet walks before setting itself up: registering with the BSI asks
+ * for the name with its legal form and the sector (§ 33 Abs. 1 Nr. 1 and 3 BSIG), which setting up
+ * then asks for again (Simon, 04.10.2026: "after the registration they will understand and they
+ * will actually know what to fill out here").
+ */
+export const SETUP_AFTER = "12.2";
+
+/** Whether a company not set up yet may open this item: the walk up to the registration. */
+export const opensBeforeSetup = (code: string): boolean => {
+  const at = WALK.findIndex((item) => item.code === code);
+  return at !== -1 && at <= WALK.findIndex((item) => item.code === SETUP_AFTER);
+};
+
+/** The walk with setting up the company in its place, right after the registration. */
+export const withSetup = <T extends { readonly code: string }>(
+  walk: readonly T[],
+  setup: T,
+): readonly T[] => {
+  const after = walk.findIndex((entry) => entry.code === SETUP_AFTER) + 1;
+  return [...walk.slice(0, after), setup, ...walk.slice(after)];
+};
+
+/**
  * Whether the company operates a critical facility: its profile says KRITIS, or the fact recorded
  * for §§ 31 Abs. 2 and 39 Abs. 1 BSIG does. Nothing in the app writes that fact yet, so today the
  * entity type decides; a measured threshold will count the moment it is recorded.

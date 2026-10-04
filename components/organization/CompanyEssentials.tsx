@@ -34,17 +34,26 @@ export interface Essentials {
  *
  * `create` sets up the company: it activates the draft every account gets at sign-up, or creates
  * one. `edit` changes the three. Afterwards it goes to `next`, or reloads the page it is on.
+ * `hints` replace the help under each field where the page knows more about the reader, as the
+ * walk does after its registration, and say under each classification what puts a company there.
  */
 export function CompanyEssentials({
   mode,
   initial,
   next,
   submitLabel,
+  hints,
 }: {
   mode: "create" | "edit";
   initial?: Essentials;
   next?: Href;
   submitLabel: string;
+  hints?: {
+    readonly name: string;
+    readonly sector: string;
+    readonly entityType: string;
+    readonly entityTypes: Readonly<Record<EntityType, string>>;
+  };
 }) {
   const t = useTranslations("organization");
   const id = useId();
@@ -89,7 +98,9 @@ export function CompanyEssentials({
           autoComplete="organization"
           className="h-11 text-base"
         />
-        <p className="text-sm text-muted-foreground">{t("essentials.nameHint")}</p>
+        <p className="text-sm text-muted-foreground">
+          {hints?.name ?? t("essentials.nameHint")}
+        </p>
       </div>
 
       <div className="space-y-2">
@@ -109,11 +120,14 @@ export function CompanyEssentials({
             ))}
           </SelectContent>
         </Select>
+        {hints && <p className="text-sm text-muted-foreground">{hints.sector}</p>}
       </div>
 
       <fieldset className="space-y-2">
         <legend className="text-sm font-medium">{t("entityType")}</legend>
-        <p className="text-sm text-muted-foreground">{t("essentials.entityTypeHint")}</p>
+        <p className="text-sm text-muted-foreground">
+          {hints?.entityType ?? t("essentials.entityTypeHint")}
+        </p>
         <RadioGroup
           value={entityType}
           onValueChange={(v) => {
@@ -126,10 +140,17 @@ export function CompanyEssentials({
             <Label
               key={type}
               htmlFor={`${id}-${type}`}
-              className="flex cursor-pointer items-center gap-3 rounded-xl border p-3 font-normal transition-colors hover:border-primary/40 has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:bg-primary/[0.05]"
+              className="flex cursor-pointer items-start gap-3 rounded-xl border p-3 font-normal transition-colors hover:border-primary/40 has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:bg-primary/[0.05]"
             >
-              <RadioGroupItem id={`${id}-${type}`} value={type} />
-              {t(`entityTypes.${type}`)}
+              <RadioGroupItem id={`${id}-${type}`} value={type} className="mt-0.5" />
+              <span className="space-y-1 leading-5">
+                <span className="block">{t(`entityTypes.${type}`)}</span>
+                {hints && (
+                  <span className="block text-xs text-muted-foreground">
+                    {hints.entityTypes[type]}
+                  </span>
+                )}
+              </span>
             </Label>
           ))}
         </RadioGroup>
