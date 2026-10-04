@@ -44,6 +44,7 @@ import {
 import { type EmailLocale, resolveEmailLocale } from "./locale";
 import { renderEmail } from "./render";
 import { companyNameForMail } from "./sender-name";
+import { signupFollowUp } from "./signup-followup";
 import type { MailAttachment } from "./transport";
 
 export type { DigestItem, DigestNextStep } from "./digest";
@@ -694,12 +695,13 @@ export async function newUserSignupEmail(opts: {
   userEmail: string;
   userName: string;
   provider: string;
+  /** The signup's own language, which the prepared follow-up is written in. */
+  locale: EmailLocale;
 }): Promise<EmailContent> {
   const { userEmail, userName, provider } = opts;
-  const mailtoSubject = encodeURIComponent(`Welcome to NIS2: quick question`);
-  const mailtoBody = encodeURIComponent(
-    `Hi ${userName},\n\nI saw you just signed up on nisd2.eu. Welcome!\n\nI'd love to learn a bit about what you're looking for. Are you exploring NIS2 compliance for your company, or just researching the topic?\n\nHappy to help either way.\n\nBest,\n`,
-  );
+  const followUp = signupFollowUp({ name: userName, locale: opts.locale });
+  const mailtoUrl = `mailto:${encodeURIComponent(userEmail)}?subject=${encodeURIComponent(followUp.subject)}&body=${encodeURIComponent(followUp.body)}`;
+  const followUpLanguage = followUp.locale === "de" ? "German" : "English";
 
   return {
     subject: `New signup: ${safeHeader(userEmail)}`,
@@ -708,9 +710,10 @@ export async function newUserSignupEmail(opts: {
       userName,
       provider,
       at: new Date().toLocaleString("de-DE", { timeZone: "Europe/Berlin" }),
-      mailtoUrl: `mailto:${encodeURIComponent(userEmail)}?subject=${mailtoSubject}&body=${mailtoBody}`,
+      mailtoUrl,
+      followUpLanguage,
     }),
-    text: `New signup: ${userEmail} (${userName}) via ${provider}\n\nReply to them: ${userEmail}`,
+    text: `New signup: ${userEmail} (${userName}) via ${provider}\n\nFollow up (prepared in ${followUpLanguage}): ${mailtoUrl}`,
   };
 }
 
