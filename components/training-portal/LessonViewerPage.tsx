@@ -9,9 +9,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useRouter } from "@/i18n/navigation";
 import type { Lesson } from "@/lib/training/schemas";
 import { DictionarySidebar } from "./DictionarySidebar";
-import { JourneyLink } from "./JourneyLink";
 import { QuizForm } from "./QuizForm";
 import { TermHoverProvider, useTermHover } from "./TermHoverContext";
+import { WalkLink } from "./WalkLink";
 
 interface SidebarTerm {
   term: string;
@@ -34,8 +34,8 @@ interface LessonViewerPageProps {
   courseId: string;
   /** The lesson's picture (lib/training/art.ts), or null where none is drawn. */
   image: string | null;
-  /** NIS2 journey category this lesson maps to, or null (gated server-side). */
-  journeyCategory: string | null;
+  /** The walk item this lesson leads to, with its headline, or null (decided server-side). */
+  walkLink: { code: string; headline: string } | null;
   onSubmitQuiz: (answers: number[]) => Promise<{
     score: number;
     passed: boolean;
@@ -120,7 +120,7 @@ export function LessonViewerPage({
   progress,
   courseId,
   image,
-  journeyCategory,
+  walkLink,
   onSubmitQuiz,
   onCompleteLesson,
 }: LessonViewerPageProps) {
@@ -188,9 +188,7 @@ export function LessonViewerPage({
                 <LessonArticle html={html} />
               </TabsContent>
             </Tabs>
-            {journeyCategory ? (
-              <JourneyLink category={journeyCategory} locale={locale} />
-            ) : null}
+            {walkLink ? <WalkLink {...walkLink} locale={locale} /> : null}
           </div>
 
           {/* Right: Dictionary sidebar (1/3) */}

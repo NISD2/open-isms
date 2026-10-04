@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import type { ComponentProps } from "react";
 import { Art, SETUP_ART } from "@/components/durchgang/Art";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
@@ -7,9 +8,16 @@ import { cn } from "@/lib/utils";
 /**
  * The one way in, and the last thing on every public page that asks for something: the landing
  * page, /about and every wiki article. One ask everywhere, so a reader never weighs a scope check
- * against a request form against a sign-up.
+ * against a request form against a sign-up. A finished course ends on it too, pointing a reader
+ * who is already signed in straight at the walk.
  */
-export async function GetStarted({ className }: { className?: string }) {
+export async function GetStarted({
+  className,
+  href = "/auth/signin",
+}: {
+  className?: string;
+  href?: ComponentProps<typeof Link>["href"];
+}) {
   const t = await getTranslations("landing");
 
   return (
@@ -29,7 +37,7 @@ export async function GetStarted({ className }: { className?: string }) {
             size="lg"
             className="h-11 rounded-lg px-5 text-[0.9375rem] font-medium shadow-sm transition-shadow hover:shadow-md"
           >
-            <Link href="/auth/signin">{t("guided.cta")}</Link>
+            <Link href={href}>{t("guided.cta")}</Link>
           </Button>
           <Link
             href="/pricing"

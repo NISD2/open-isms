@@ -1,35 +1,19 @@
 "use client";
 
-import { Link } from "@/i18n/navigation";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-interface CoursePortalCtaProps {
-  /** Whether the viewer has an onboarded company (decides the destination). */
-  hasCompany: boolean;
-  locale: string;
-}
+import { Link } from "@/i18n/navigation";
 
 /**
- * Persistent link from the CEO course chrome into the compliance product.
- * Onboarded users go straight to their journey; everyone else starts onboarding.
- * Opens in a new tab so the learner keeps their place in the course.
+ * Persistent link from the CEO course chrome into the walk. Its home takes everyone from where
+ * they stand: a company not set up yet sets itself up there, an unpaid account sees the way to
+ * order. Opens in a new tab so the learner keeps their place in the course.
  */
-export function CoursePortalCta({ hasCompany, locale }: CoursePortalCtaProps) {
-  const de = locale === "de";
-  const href = hasCompany ? "/journey" : "/onboarding";
-  const label = hasCompany
-    ? de
-      ? "Zur NIS2-Umsetzung"
-      : "Open your journey"
-    : de
-      ? "NIS2-Umsetzung starten"
-      : "Start your NIS2 compliance";
-
+export function CoursePortalCta({ locale }: { locale: string }) {
   return (
     <Button asChild variant="outline" size="sm" className="gap-2">
-      <Link href={href} target="_blank" rel="noopener noreferrer">
-        {label}
+      <Link href="/durchgang/nis2" target="_blank" rel="noopener noreferrer">
+        {locale === "de" ? "Zum NIS 2 Durchgang" : "Open the NIS 2 walkthrough"}
         <ArrowUpRight aria-hidden className="size-4" />
       </Link>
     </Button>
