@@ -88,6 +88,7 @@
     "administration": "Verwaltung",
     "comingSoon": "Bald verfügbar",
     "examples": {
+      "person": "Max Mustermann",
       "badge": "Beispiel",
       "order": "Jetzt bestellen",
       "audit": "So hält das Aktivitätsprotokoll fest, wer was wann geändert hat. Ihre eigenen Einträge stehen hier, sobald Sie im Durchgang arbeiten.",

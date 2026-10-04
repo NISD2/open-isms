@@ -15,8 +15,9 @@ const EXAMPLE_ROWS = z
 
 /**
  * Who changed what, and when. An account that has not ordered, and one with nothing logged yet,
- * sees example entries under the viewer's own name, marked as examples (Simon, 04.10.2026: "some
- * kind of example items that show the activity log actually works").
+ * sees example entries, marked as examples (Simon, 04.10.2026: "some kind of example items that
+ * show the activity log actually works"), by a made-up person rather than the viewer, so nobody's
+ * real name stands next to work they did not do.
  */
 export default async function AuditPage() {
   const session = await getSession();
@@ -40,7 +41,7 @@ export default async function AuditPage() {
     description: row.detail,
     previousValue: null,
     newValue: null,
-    userName: session.user.name ?? session.user.email ?? null,
+    userName: tx("person"),
     createdAt: new Date(now - row.minutesAgo * 60_000),
   }));
 

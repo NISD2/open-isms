@@ -88,6 +88,7 @@
     "administration": "Administration",
     "comingSoon": "Coming soon",
     "examples": {
+      "person": "John Smith",
       "badge": "Example",
       "order": "Order now",
       "audit": "This is how the activity log records who changed what, and when. Your own entries appear here as soon as you work in the walkthrough.",
