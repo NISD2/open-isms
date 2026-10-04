@@ -1,20 +1,19 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
-import { pageAlternates, pageOg, type Locale } from "@/lib/seo";
+import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkSteps } from "@/components/wiki/WalkSteps";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -28,10 +27,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: pageAlternates(
-      "wiki/zeit-und-status/nis2-status-litauen",
-      locale,
-    ),
+    alternates: pageAlternates("wiki/zeit-und-status/nis2-status-litauen", locale),
     ...pageOg({
       slug: "wiki/zeit-und-status/nis2-status-litauen",
       locale,
@@ -54,8 +50,7 @@ export default async function Nis2StatusLitauenPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale =
-    rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
   const t = await getTranslations("info");
 
   return (
@@ -98,23 +93,37 @@ export default async function Nis2StatusLitauenPage({
           <h2 className="text-xl font-semibold tracking-tight">
             {t("nis2StatusLitauen.overview.heading")}
           </h2>
-          <p className="text-sm leading-relaxed text-muted-foreground">{t("nis2StatusLitauen.overview.p1")}</p>
-          <p className="text-sm leading-relaxed text-muted-foreground">{t("nis2StatusLitauen.overview.p2")}</p>
-          <p className="text-sm leading-relaxed text-muted-foreground">{t("nis2StatusLitauen.overview.p3")}</p>
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            {t("nis2StatusLitauen.overview.p1")}
+          </p>
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            {t("nis2StatusLitauen.overview.p2")}
+          </p>
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            {t("nis2StatusLitauen.overview.p3")}
+          </p>
         </section>
 
         <Card>
           <CardHeader>
             <CardTitle>{t("nis2StatusLitauen.legalAnchor.heading")}</CardTitle>
-            <CardDescription>{t("nis2StatusLitauen.legalAnchor.description")}</CardDescription>
+            <CardDescription>
+              {t("nis2StatusLitauen.legalAnchor.description")}
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {anchorKeys.map((k) => (
                 <div key={k} className="rounded-lg border p-4">
-                  <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{t(`nis2StatusLitauen.legalAnchor.${k}.label`)}</p>
-                  <blockquote className="mt-2 border-l-2 border-primary/40 pl-3 text-sm italic leading-relaxed">{t(`nis2StatusLitauen.legalAnchor.${k}.quote`)}</blockquote>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t(`nis2StatusLitauen.legalAnchor.${k}.context`)}</p>
+                  <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    {t(`nis2StatusLitauen.legalAnchor.${k}.label`)}
+                  </p>
+                  <blockquote className="mt-2 border-l-2 border-primary/40 pl-3 text-sm italic leading-relaxed">
+                    {t(`nis2StatusLitauen.legalAnchor.${k}.quote`)}
+                  </blockquote>
+                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                    {t(`nis2StatusLitauen.legalAnchor.${k}.context`)}
+                  </p>
                 </div>
               ))}
             </div>
@@ -124,15 +133,23 @@ export default async function Nis2StatusLitauenPage({
         <Card>
           <CardHeader>
             <CardTitle>{t("nis2StatusLitauen.elements.heading")}</CardTitle>
-            <CardDescription>{t("nis2StatusLitauen.elements.description")}</CardDescription>
+            <CardDescription>
+              {t("nis2StatusLitauen.elements.description")}
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 sm:grid-cols-3">
               {elementKeys.map((k) => (
                 <div key={k} className="rounded-lg border p-4">
-                  <Badge variant="outline" className="mb-2 text-[10px]">{t(`nis2StatusLitauen.elements.items.${k}.section`)}</Badge>
-                  <p className="text-sm font-semibold">{t(`nis2StatusLitauen.elements.items.${k}.title`)}</p>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t(`nis2StatusLitauen.elements.items.${k}.body`)}</p>
+                  <Badge variant="outline" className="mb-2 text-[10px]">
+                    {t(`nis2StatusLitauen.elements.items.${k}.section`)}
+                  </Badge>
+                  <p className="text-sm font-semibold">
+                    {t(`nis2StatusLitauen.elements.items.${k}.title`)}
+                  </p>
+                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                    {t(`nis2StatusLitauen.elements.items.${k}.body`)}
+                  </p>
                 </div>
               ))}
             </div>
@@ -142,14 +159,20 @@ export default async function Nis2StatusLitauenPage({
         <Card>
           <CardHeader>
             <CardTitle>{t("nis2StatusLitauen.principles.heading")}</CardTitle>
-            <CardDescription>{t("nis2StatusLitauen.principles.description")}</CardDescription>
+            <CardDescription>
+              {t("nis2StatusLitauen.principles.description")}
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 sm:grid-cols-2">
               {principleKeys.map((k) => (
                 <div key={k} className="rounded-lg border p-4">
-                  <p className="text-sm font-semibold">{t(`nis2StatusLitauen.principles.items.${k}.title`)}</p>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t(`nis2StatusLitauen.principles.items.${k}.body`)}</p>
+                  <p className="text-sm font-semibold">
+                    {t(`nis2StatusLitauen.principles.items.${k}.title`)}
+                  </p>
+                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                    {t(`nis2StatusLitauen.principles.items.${k}.body`)}
+                  </p>
                 </div>
               ))}
             </div>
@@ -159,17 +182,25 @@ export default async function Nis2StatusLitauenPage({
         <Card>
           <CardHeader>
             <CardTitle>{t("nis2StatusLitauen.nationalView.heading")}</CardTitle>
-            <CardDescription>{t("nis2StatusLitauen.nationalView.description")}</CardDescription>
+            <CardDescription>
+              {t("nis2StatusLitauen.nationalView.description")}
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {nationalKeys.map((k) => (
                 <div key={k} className="rounded-lg border p-4">
                   <div className="flex flex-wrap items-baseline gap-2">
-                    <Badge variant="outline" className="text-[10px]">{t(`nis2StatusLitauen.nationalView.items.${k}.country`)}</Badge>
-                    <p className="text-sm font-semibold">{t(`nis2StatusLitauen.nationalView.items.${k}.label`)}</p>
+                    <Badge variant="outline" className="text-[10px]">
+                      {t(`nis2StatusLitauen.nationalView.items.${k}.country`)}
+                    </Badge>
+                    <p className="text-sm font-semibold">
+                      {t(`nis2StatusLitauen.nationalView.items.${k}.label`)}
+                    </p>
                   </div>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t(`nis2StatusLitauen.nationalView.items.${k}.body`)}</p>
+                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                    {t(`nis2StatusLitauen.nationalView.items.${k}.body`)}
+                  </p>
                 </div>
               ))}
             </div>
@@ -179,14 +210,20 @@ export default async function Nis2StatusLitauenPage({
         <Card>
           <CardHeader>
             <CardTitle>{t("nis2StatusLitauen.pitfalls.heading")}</CardTitle>
-            <CardDescription>{t("nis2StatusLitauen.pitfalls.description")}</CardDescription>
+            <CardDescription>
+              {t("nis2StatusLitauen.pitfalls.description")}
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <ul className="space-y-4">
               {pitfallKeys.map((k) => (
                 <li key={k} className="rounded-lg border p-4">
-                  <p className="text-sm font-semibold">{t(`nis2StatusLitauen.pitfalls.items.${k}.myth`)}</p>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t(`nis2StatusLitauen.pitfalls.items.${k}.reality`)}</p>
+                  <p className="text-sm font-semibold">
+                    {t(`nis2StatusLitauen.pitfalls.items.${k}.myth`)}
+                  </p>
+                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                    {t(`nis2StatusLitauen.pitfalls.items.${k}.reality`)}
+                  </p>
                 </li>
               ))}
             </ul>
@@ -198,18 +235,12 @@ export default async function Nis2StatusLitauenPage({
             <CardTitle>{t("nis2StatusLitauen.practitioner.heading")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed text-muted-foreground">{t("nis2StatusLitauen.practitioner.p1")}</p>
-            <p className="text-sm leading-relaxed text-muted-foreground">{t("nis2StatusLitauen.practitioner.p2")}</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("nis2StatusLitauen.platform.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed text-muted-foreground">{t("nis2StatusLitauen.platform.p1")}</p>
-            <p className="text-sm leading-relaxed text-muted-foreground">{t("nis2StatusLitauen.platform.p2")}</p>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              {t("nis2StatusLitauen.practitioner.p1")}
+            </p>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              {t("nis2StatusLitauen.practitioner.p2")}
+            </p>
           </CardContent>
         </Card>
 
@@ -219,8 +250,11 @@ export default async function Nis2StatusLitauenPage({
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">
-              {(t.raw("nis2StatusLitauen.sources.items") as string[]).map((source, i) => (
-                <li key={i} className="flex items-start gap-2 text-xs text-muted-foreground">
+              {(t.raw("nis2StatusLitauen.sources.items") as string[]).map((source) => (
+                <li
+                  key={source}
+                  className="flex items-start gap-2 text-xs text-muted-foreground"
+                >
                   <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
                   {source}
                 </li>
@@ -229,17 +263,7 @@ export default async function Nis2StatusLitauenPage({
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("nis2StatusLitauen.ctaCard.heading")}</CardTitle>
-            <CardDescription>{t("nis2StatusLitauen.ctaCard.description")}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button asChild>
-              <Link href={`/applicability?country=LT` as never}>{t("nis2StatusLitauen.cta")}</Link>
-            </Button>
-          </CardContent>
-        </Card>
+        <WalkSteps kind="national" />
       </div>
     </GlossedProse>
   );

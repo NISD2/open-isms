@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -11,9 +10,9 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkSteps } from "@/components/wiki/WalkSteps";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { Link } from "@/i18n/navigation";
 import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -247,20 +246,6 @@ export default async function Nis2StatusSlowakeiPage({
 
         <Card>
           <CardHeader>
-            <CardTitle>{t("nis2StatusSlowakei.platform.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("nis2StatusSlowakei.platform.p1")}
-            </p>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("nis2StatusSlowakei.platform.p2")}
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
             <CardTitle>{t("nis2StatusSlowakei.sources.heading")}</CardTitle>
           </CardHeader>
           <CardContent>
@@ -278,21 +263,7 @@ export default async function Nis2StatusSlowakeiPage({
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("nis2StatusSlowakei.ctaCard.heading")}</CardTitle>
-            <CardDescription>
-              {t("nis2StatusSlowakei.ctaCard.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button asChild>
-              <Link href={`/applicability?country=SK` as never}>
-                {t("nis2StatusSlowakei.cta")}
-              </Link>
-            </Button>
-          </CardContent>
-        </Card>
+        <WalkSteps kind="national" />
       </div>
     </GlossedProse>
   );

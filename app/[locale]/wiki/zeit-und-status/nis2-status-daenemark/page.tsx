@@ -1,20 +1,19 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
-import { pageAlternates, pageOg, type Locale } from "@/lib/seo";
+import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkSteps } from "@/components/wiki/WalkSteps";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -28,10 +27,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: pageAlternates(
-      "wiki/zeit-und-status/nis2-status-daenemark",
-      locale,
-    ),
+    alternates: pageAlternates("wiki/zeit-und-status/nis2-status-daenemark", locale),
     ...pageOg({
       slug: "wiki/zeit-und-status/nis2-status-daenemark",
       locale,
@@ -54,8 +50,7 @@ export default async function Nis2StatusDaenemarkPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale =
-    rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
   const t = await getTranslations("info");
 
   return (
@@ -98,23 +93,37 @@ export default async function Nis2StatusDaenemarkPage({
           <h2 className="text-xl font-semibold tracking-tight">
             {t("nis2StatusDaenemark.overview.heading")}
           </h2>
-          <p className="text-sm leading-relaxed text-muted-foreground">{t("nis2StatusDaenemark.overview.p1")}</p>
-          <p className="text-sm leading-relaxed text-muted-foreground">{t("nis2StatusDaenemark.overview.p2")}</p>
-          <p className="text-sm leading-relaxed text-muted-foreground">{t("nis2StatusDaenemark.overview.p3")}</p>
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            {t("nis2StatusDaenemark.overview.p1")}
+          </p>
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            {t("nis2StatusDaenemark.overview.p2")}
+          </p>
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            {t("nis2StatusDaenemark.overview.p3")}
+          </p>
         </section>
 
         <Card>
           <CardHeader>
             <CardTitle>{t("nis2StatusDaenemark.legalAnchor.heading")}</CardTitle>
-            <CardDescription>{t("nis2StatusDaenemark.legalAnchor.description")}</CardDescription>
+            <CardDescription>
+              {t("nis2StatusDaenemark.legalAnchor.description")}
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {anchorKeys.map((key) => (
-                <div key={key} className="rounded-lg border p-4">
-                  <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{t(`nis2StatusDaenemark.legalAnchor.${key}.label`)}</p>
-                  <blockquote className="mt-2 border-l-2 border-primary/40 pl-3 text-sm italic leading-relaxed">{t(`nis2StatusDaenemark.legalAnchor.${key}.quote`)}</blockquote>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t(`nis2StatusDaenemark.legalAnchor.${key}.context`)}</p>
+              {anchorKeys.map((k) => (
+                <div key={k} className="rounded-lg border p-4">
+                  <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    {t(`nis2StatusDaenemark.legalAnchor.${k}.label`)}
+                  </p>
+                  <blockquote className="mt-2 border-l-2 border-primary/40 pl-3 text-sm italic leading-relaxed">
+                    {t(`nis2StatusDaenemark.legalAnchor.${k}.quote`)}
+                  </blockquote>
+                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                    {t(`nis2StatusDaenemark.legalAnchor.${k}.context`)}
+                  </p>
                 </div>
               ))}
             </div>
@@ -124,15 +133,23 @@ export default async function Nis2StatusDaenemarkPage({
         <Card>
           <CardHeader>
             <CardTitle>{t("nis2StatusDaenemark.elements.heading")}</CardTitle>
-            <CardDescription>{t("nis2StatusDaenemark.elements.description")}</CardDescription>
+            <CardDescription>
+              {t("nis2StatusDaenemark.elements.description")}
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 sm:grid-cols-3">
-              {elementKeys.map((key) => (
-                <div key={key} className="rounded-lg border p-4">
-                  <Badge variant="outline" className="mb-2 text-[10px]">{t(`nis2StatusDaenemark.elements.items.${key}.section`)}</Badge>
-                  <p className="text-sm font-semibold">{t(`nis2StatusDaenemark.elements.items.${key}.title`)}</p>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t(`nis2StatusDaenemark.elements.items.${key}.body`)}</p>
+              {elementKeys.map((k) => (
+                <div key={k} className="rounded-lg border p-4">
+                  <Badge variant="outline" className="mb-2 text-[10px]">
+                    {t(`nis2StatusDaenemark.elements.items.${k}.section`)}
+                  </Badge>
+                  <p className="text-sm font-semibold">
+                    {t(`nis2StatusDaenemark.elements.items.${k}.title`)}
+                  </p>
+                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                    {t(`nis2StatusDaenemark.elements.items.${k}.body`)}
+                  </p>
                 </div>
               ))}
             </div>
@@ -142,14 +159,20 @@ export default async function Nis2StatusDaenemarkPage({
         <Card>
           <CardHeader>
             <CardTitle>{t("nis2StatusDaenemark.principles.heading")}</CardTitle>
-            <CardDescription>{t("nis2StatusDaenemark.principles.description")}</CardDescription>
+            <CardDescription>
+              {t("nis2StatusDaenemark.principles.description")}
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 sm:grid-cols-2">
-              {principleKeys.map((key) => (
-                <div key={key} className="rounded-lg border p-4">
-                  <p className="text-sm font-semibold">{t(`nis2StatusDaenemark.principles.items.${key}.title`)}</p>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t(`nis2StatusDaenemark.principles.items.${key}.body`)}</p>
+              {principleKeys.map((k) => (
+                <div key={k} className="rounded-lg border p-4">
+                  <p className="text-sm font-semibold">
+                    {t(`nis2StatusDaenemark.principles.items.${k}.title`)}
+                  </p>
+                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                    {t(`nis2StatusDaenemark.principles.items.${k}.body`)}
+                  </p>
                 </div>
               ))}
             </div>
@@ -159,17 +182,25 @@ export default async function Nis2StatusDaenemarkPage({
         <Card>
           <CardHeader>
             <CardTitle>{t("nis2StatusDaenemark.nationalView.heading")}</CardTitle>
-            <CardDescription>{t("nis2StatusDaenemark.nationalView.description")}</CardDescription>
+            <CardDescription>
+              {t("nis2StatusDaenemark.nationalView.description")}
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {nationalKeys.map((key) => (
-                <div key={key} className="rounded-lg border p-4">
+              {nationalKeys.map((k) => (
+                <div key={k} className="rounded-lg border p-4">
                   <div className="flex flex-wrap items-baseline gap-2">
-                    <Badge variant="outline" className="text-[10px]">{t(`nis2StatusDaenemark.nationalView.items.${key}.country`)}</Badge>
-                    <p className="text-sm font-semibold">{t(`nis2StatusDaenemark.nationalView.items.${key}.label`)}</p>
+                    <Badge variant="outline" className="text-[10px]">
+                      {t(`nis2StatusDaenemark.nationalView.items.${k}.country`)}
+                    </Badge>
+                    <p className="text-sm font-semibold">
+                      {t(`nis2StatusDaenemark.nationalView.items.${k}.label`)}
+                    </p>
                   </div>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t(`nis2StatusDaenemark.nationalView.items.${key}.body`)}</p>
+                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                    {t(`nis2StatusDaenemark.nationalView.items.${k}.body`)}
+                  </p>
                 </div>
               ))}
             </div>
@@ -179,14 +210,20 @@ export default async function Nis2StatusDaenemarkPage({
         <Card>
           <CardHeader>
             <CardTitle>{t("nis2StatusDaenemark.pitfalls.heading")}</CardTitle>
-            <CardDescription>{t("nis2StatusDaenemark.pitfalls.description")}</CardDescription>
+            <CardDescription>
+              {t("nis2StatusDaenemark.pitfalls.description")}
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <ul className="space-y-4">
-              {pitfallKeys.map((key) => (
-                <li key={key} className="rounded-lg border p-4">
-                  <p className="text-sm font-semibold">{t(`nis2StatusDaenemark.pitfalls.items.${key}.myth`)}</p>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t(`nis2StatusDaenemark.pitfalls.items.${key}.reality`)}</p>
+              {pitfallKeys.map((k) => (
+                <li key={k} className="rounded-lg border p-4">
+                  <p className="text-sm font-semibold">
+                    {t(`nis2StatusDaenemark.pitfalls.items.${k}.myth`)}
+                  </p>
+                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                    {t(`nis2StatusDaenemark.pitfalls.items.${k}.reality`)}
+                  </p>
                 </li>
               ))}
             </ul>
@@ -198,18 +235,12 @@ export default async function Nis2StatusDaenemarkPage({
             <CardTitle>{t("nis2StatusDaenemark.practitioner.heading")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed text-muted-foreground">{t("nis2StatusDaenemark.practitioner.p1")}</p>
-            <p className="text-sm leading-relaxed text-muted-foreground">{t("nis2StatusDaenemark.practitioner.p2")}</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("nis2StatusDaenemark.platform.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed text-muted-foreground">{t("nis2StatusDaenemark.platform.p1")}</p>
-            <p className="text-sm leading-relaxed text-muted-foreground">{t("nis2StatusDaenemark.platform.p2")}</p>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              {t("nis2StatusDaenemark.practitioner.p1")}
+            </p>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              {t("nis2StatusDaenemark.practitioner.p2")}
+            </p>
           </CardContent>
         </Card>
 
@@ -219,8 +250,11 @@ export default async function Nis2StatusDaenemarkPage({
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">
-              {(t.raw("nis2StatusDaenemark.sources.items") as string[]).map((source, i) => (
-                <li key={i} className="flex items-start gap-2 text-xs text-muted-foreground">
+              {(t.raw("nis2StatusDaenemark.sources.items") as string[]).map((source) => (
+                <li
+                  key={source}
+                  className="flex items-start gap-2 text-xs text-muted-foreground"
+                >
                   <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
                   {source}
                 </li>
@@ -229,17 +263,7 @@ export default async function Nis2StatusDaenemarkPage({
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("nis2StatusDaenemark.ctaCard.heading")}</CardTitle>
-            <CardDescription>{t("nis2StatusDaenemark.ctaCard.description")}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button asChild>
-              <Link href={`/applicability?country=DK` as never}>{t("nis2StatusDaenemark.cta")}</Link>
-            </Button>
-          </CardContent>
-        </Card>
+        <WalkSteps kind="national" />
       </div>
     </GlossedProse>
   );

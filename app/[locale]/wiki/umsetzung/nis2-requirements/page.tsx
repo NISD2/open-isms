@@ -18,6 +18,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkSteps } from "@/components/wiki/WalkSteps";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
 import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
@@ -240,6 +241,8 @@ export default async function Nis2RequirementsPage({
             </ul>
           </CardContent>
         </Card>
+
+        <WalkSteps codes={["2.2", "3.1", "7.3"]} />
       </div>
     </GlossedProse>
   );
