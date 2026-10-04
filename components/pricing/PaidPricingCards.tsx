@@ -31,7 +31,8 @@ import {
 } from "@/components/ui/tooltip";
 import { Link } from "@/i18n/navigation";
 import { formatWholeEuro } from "@/lib/billing/order";
-import { BOOKING_URL } from "@/lib/booking";
+import { cn } from "@/lib/utils";
+import { BookingLink } from "./BookingLink";
 
 // Every line is checked against the code or the AGB. "Deadlines and reminders" means the in-app
 // reminders the nightly cron schedules; deadline digests by email go out only when an operator
@@ -241,15 +242,46 @@ const FOUNDERS = [
   { name: "Cory Hisey", photo: "/images/people/cory.png" },
 ] as const;
 
+const TALK_FIRST_SIZES = {
+  default: {
+    card: "gap-3 rounded-xl p-4 sm:gap-4",
+    faces: "-space-x-2.5 sm:-space-x-3",
+    face: "size-10 sm:size-12",
+    title: "",
+    body: "text-sm",
+    chevron: "size-5",
+  },
+  // Under "Jetzt starten" on the homepage: a one-line button of the same height, faces and title
+  // only.
+  button: {
+    card: "h-11 gap-2.5 rounded-lg px-3",
+    faces: "-space-x-1.5",
+    face: "size-7",
+    title: "text-[0.9375rem] font-medium",
+    body: "hidden",
+    chevron: "size-4",
+  },
+} as const;
+
 /**
  * The way to talk before ordering, beside the order button: one card that is its own link to the
  * booking page (ui-design principle 14), with the founders' faces.
  */
-export function TalkFirst() {
+export function TalkFirst({
+  size = "default",
+}: {
+  size?: keyof typeof TALK_FIRST_SIZES;
+}) {
   const t = useTranslations("pricing.tiers.talkFirst");
+  const s = TALK_FIRST_SIZES[size];
   return (
-    <div className="relative flex items-center gap-3 rounded-xl border bg-muted/40 p-4 transition-colors hover:border-foreground/25 hover:bg-muted/70 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-ring sm:gap-4">
-      <div className="flex shrink-0 -space-x-2.5 sm:-space-x-3">
+    <div
+      className={cn(
+        "relative flex items-center border bg-muted/40 transition-colors hover:border-foreground/25 hover:bg-muted/70 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-ring",
+        s.card,
+      )}
+    >
+      <div className={cn("flex shrink-0", s.faces)}>
         {FOUNDERS.map((person) => (
           <Image
             key={person.name}
@@ -257,24 +289,22 @@ export function TalkFirst() {
             alt={person.name}
             width={96}
             height={96}
-            className="size-10 rounded-full object-cover ring-2 ring-card sm:size-12"
+            className={cn("rounded-full object-cover ring-2 ring-card", s.face)}
           />
         ))}
       </div>
       <div className="min-w-0 flex-1 space-y-0.5">
-        <p className="font-semibold leading-snug">
-          <a
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="after:absolute after:inset-0 focus-visible:outline-none"
-          >
+        <p className={cn("font-semibold leading-snug", s.title)}>
+          <BookingLink className="after:absolute after:inset-0 focus-visible:outline-none">
             {t("title")}
-          </a>
+          </BookingLink>
         </p>
-        <p className="text-sm leading-snug text-muted-foreground">{t("body")}</p>
+        <p className={cn("leading-snug text-muted-foreground", s.body)}>{t("body")}</p>
       </div>
-      <ChevronRight aria-hidden className="size-5 shrink-0 text-muted-foreground" />
+      <ChevronRight
+        aria-hidden
+        className={cn("shrink-0 text-muted-foreground", s.chevron)}
+      />
     </div>
   );
 }
@@ -327,14 +357,7 @@ export function PaidFeatureList() {
           ) : (
             t.rich(`paid.features.${key}`, {
               cal: (chunks) => (
-                <a
-                  href={BOOKING_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={externalLink}
-                >
-                  {chunks}
-                </a>
+                <BookingLink className={externalLink}>{chunks}</BookingLink>
               ),
             })
           )}

@@ -1,9 +1,9 @@
 import { getTranslations } from "next-intl/server";
 import type { ComponentProps } from "react";
 import { Art, SETUP_ART } from "@/components/durchgang/Art";
+import { BookingLink } from "@/components/pricing/BookingLink";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
-import { BOOKING_URL } from "@/lib/booking";
 import { cn } from "@/lib/utils";
 
 const QUIET_LINK =
@@ -63,14 +63,7 @@ export async function GetStarted({
             {t("walk.pricing")}
           </Link>
           {variant === "funnel" && (
-            <a
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={QUIET_LINK}
-            >
-              {t("walk.talkFirst")}
-            </a>
+            <BookingLink className={QUIET_LINK}>{t("walk.talkFirst")}</BookingLink>
           )}
         </div>
       </div>

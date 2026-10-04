@@ -11,6 +11,7 @@ import { AutoShot } from "@/components/landing/ZoomShot";
 import { PartnerLogoStrip } from "@/components/PartnerLogoStrip";
 import { PublicFooter } from "@/components/PublicFooter";
 import { PublicNav } from "@/components/PublicNav";
+import { TalkFirst } from "@/components/pricing/PaidPricingCards";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { ogImages } from "@/lib/og-card";
@@ -90,6 +91,8 @@ export default async function LandingPage() {
                 >
                   <Link href="/auth/signin">{t("guided.cta")}</Link>
                 </Button>
+                {/* A call with us, next to starting alone. */}
+                <TalkFirst size="button" />
                 <Button
                   asChild
                   variant="link"
