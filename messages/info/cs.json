@@ -2385,7 +2385,7 @@
       "subtitle": "BSI odhaduje přibližně 30 000 subjektů podléhajících NIS2 v Německu. Termín registrace uplynul 6. března 2026. Významná část společností v rozsahu se stále nezaregistrovala, což je vystavuje vymáhání podle §65 BSIG.",
       "overview": {
         "p1": "§33 BSIG vyžaduje, aby se každý subjekt spadající pod NIS2 (ať už zásadní nebo důležitý subjekt) zaregistroval u Bundesamt für Sicherheit in der Informationstechnik (BSI). To není volitelné. Registrační povinnost existuje nezávisle na tom, zda společnost zavedla nějaká opatření kybernetické bezpečnosti. Nejprve se musíte zaregistrovat, pak zajistit shodu.",
-        "p2": "Registrační portál BSI (muk.bsi.bund.de) byl spuštěn 6. ledna 2026, jeden měsíc po nabytí účinnosti BSIG. Termín registrace podle §33 BSIG byl 6. března 2026 (3 měsíce po nabytí účinnosti). Navzdory jasné právní povinnosti a dvouměsíčnímu oknu se významná část z odhadovaných 29 000 až 30 000 subjektů v rozsahu do termínu nezaregistrovala. Průzkum společnosti G DATA zjistil, že 44 % dotčených společností si svých povinností podle NIS2 vůbec nebylo vědomo.",
+        "p2": "Registrační portál BSI byl spuštěn 6. ledna 2026, jeden měsíc po nabytí účinnosti BSIG. Termín registrace podle §33 BSIG byl 6. března 2026 (3 měsíce po nabytí účinnosti). Navzdory jasné právní povinnosti a dvouměsíčnímu oknu se významná část z odhadovaných 29 000 až 30 000 subjektů v rozsahu do termínu nezaregistrovala. Průzkum společnosti G DATA zjistil, že 44 % dotčených společností si svých povinností podle NIS2 vůbec nebylo vědomo.",
         "p3": "Mezera v registraci je obzvláště znepokojivá, protože registrace je předpokladem pro dohledový režim BSI. Neregistrované subjekty nejsou neviditelné, jsou ve výchozím stavu v rozporu. Až BSI začne se systematickým vymáháním (které signalizuje pro rok 2026), neregistrované společnosti čelí sankcím nejen za chybějící opatření kybernetické bezpečnosti, ale i za samotné porušení registrace, samostatný delikt podle §65 BSIG."
       },
       "stats": {
@@ -2481,12 +2481,12 @@
         "description": "CIR 2024/2690 definuje přesné technické požadavky pro subjekty NIS2. Bylo zveřejněno v říjnu 2024 a platí přímo ve všech členských státech EU."
       },
       "title": "Průvodce implementací CIR 2024/2690",
-      "subtitle": "Prováděcí nařízení EU, které přesně určuje, jaká technická a metodická opatření musejí subjekty NIS2 zavést. Bylo zveřejněno v Úředním věstníku dne 17. října 2024 a je přímo použitelné ve všech členských státech.",
+      "subtitle": "Prováděcí nařízení EU, které přesně určuje, jaká technická a metodická opatření musejí zavést určití poskytovatelé digitálních služeb podle NIS2: přijato 17. října 2024, zveřejněno v Úředním věstníku dne 18. října 2024, v platnosti od 7. listopadu 2024 a přímo použitelné ve všech členských státech.",
       "overview": {
         "heading": "Co je CIR 2024/2690?",
         "p1": "Prováděcí nařízení Komise (EU) 2024/2690 ze dne 17. října 2024 bylo zveřejněno v Úředním věstníku Evropské unie (řada OJ L, 2024/2690). Stanoví pravidla pro uplatňování směrnice (EU) 2022/2555 (směrnice NIS2), pokud jde o technické a metodické požadavky na opatření k řízení kybernetických bezpečnostních rizik. Na rozdíl od samotné směrnice NIS2 toto nařízení nevyžaduje vnitrostátní transpozici. Platí přímo ve všech 27 členských státech ode dne svého vstupu v platnost.",
         "p2": "CIR je odpovědí na otázku, kterou si klade každý compliance officer: 'Co přesně musíme zavést?' Zatímco §30 BSIG (německá transpozice) uvádí 10 oblastí opatření v obecné rovině, příloha CIR je rozkládá na konkrétní, auditovatelné technické a metodické požadavky. Jde o nejpodrobnější dostupnou oficiální specifikaci povinností NIS2. Je podrobnější než samotná směrnice, konkrétnější než BSIG a přímo vymahatelná.",
-        "p3": "Nařízení bylo vypracováno po konzultaci s ENISA a skupinou pro spolupráci NIS a vychází ze stávajících rámců včetně ISO/IEC 27001, ETSI EN 319 401 a vnitrostátních norem. Vztahuje se konkrétně na poskytovatele služeb DNS, registry názvů TLD, poskytovatele služeb cloud computingu, poskytovatele řízených služeb ICT, poskytovatele řízených bezpečnostních služeb, poskytovatele online tržišť, poskytovatele internetových vyhledávačů, poskytovatele platforem sociálních sítí a poskytovatele služeb vytvářejících důvěru. Jeho technické požadavky však slouží jako faktické měřítko pro všechny subjekty NIS2."
+        "p3": "Nařízení bylo vypracováno po konzultaci s ENISA a skupinou pro spolupráci NIS a vychází z evropských a mezinárodních norem, jako jsou ISO/IEC 27001, ISO/IEC 27002 a ETSI EN 319 401, a z CEN/TS 18026:2024. Vztahuje se konkrétně na poskytovatele služeb DNS, registry názvů TLD, poskytovatele služeb cloud computingu, poskytovatele datových center, poskytovatele sítí pro doručování obsahu, poskytovatele řízených služeb, poskytovatele řízených bezpečnostních služeb, poskytovatele online tržišť, internetových vyhledávačů a platforem sociálních sítí a poskytovatele služeb vytvářejících důvěru. Zavazuje pouze tyto typy subjektů. Pro všechny ostatní může být užitečným čtením, ale není jejich právním měřítkem."
       },
       "scope": {
         "heading": "Subjekty přímo zahrnuté",
@@ -2495,39 +2495,50 @@
           "dns": "Poskytovatelé služeb DNS",
           "tld": "Registry názvů TLD",
           "cloud": "Poskytovatelé služeb cloud computingu",
+          "datacentre": "Poskytovatelé služeb datových center",
+          "cdn": "Poskytovatelé sítí pro doručování obsahu",
           "managed": "Poskytovatelé řízení služeb ICT (řízené služby) a poskytovatelé řízených bezpečnostních služeb",
           "marketplaces": "Poskytovatelé online tržišť",
+          "search": "Poskytovatelé internetových vyhledávačů",
           "social": "Poskytovatelé platforem sociálních sítí",
           "trust": "Poskytovatelé služeb vytvářejících důvěru"
         }
       },
       "articles": {
         "heading": "Struktura nařízení",
-        "description": "CIR se skládá ze 7 článků vymezujících oblast působnosti, definice a požadavky, dále z podrobné přílohy obsahující technické a metodické specifikace.",
+        "description": "CIR má 16 článků a přílohu. Článek 2 odkazuje na přílohu pro opatření; články 3 až 14 stanoví, kdy je incident významný; článek 15 ruší staré nařízení z roku 2018; článek 16 upravuje vstup v platnost.",
         "items": {
+          "a1": {
+            "title": "Článek 1: Předmět úpravy",
+            "description": "Uvádí typy subjektů, na které se nařízení vztahuje, a stanoví, že nařízení upravuje technické a metodické požadavky na opatření podle čl. 21 odst. 2 NIS 2 a případy, ve kterých je incident významný."
+          },
           "a2": {
-            "title": "Článek 2. Definice",
-            "description": "Stanoví definice pojmů 'bezpečnost sítí a informačních systémů', 'významný incident' a dalších klíčových pojmů. Sjednocuje terminologii se směrnicí NIS2 a přidává přesnost specifickou pro implementaci."
+            "title": "Článek 2: Technické a metodické požadavky",
+            "description": "Odkazuje na přílohu pro opatření podle čl. 21 odst. 2 písm. a) až j) NIS 2. Opatření musí odpovídat rizikům s ohledem na expozici subjektu, jeho velikost a pravděpodobnost a závažnost incidentů. Tam, kde příloha uvádí, že se požadavek uplatní jen tehdy, je-li to vhodné, použitelné nebo proveditelné, musí subjekt, který jej neuplatňuje, písemně zaznamenat proč."
           },
           "a3": {
-            "title": "Článek 3. Významnost incidentů",
-            "description": "Vymezuje, kdy je incident 'významný', tedy prahovou hodnotu, která spouští ohlašovací povinnost. Incident je významný, pokud způsobí finanční ztrátu přesahující 500 000 EUR nebo 5 % ročního obratu, vede k úniku obchodního tajemství, způsobí smrt nebo značné poškození zdraví, nebo splňuje kritéria specifická pro daný subjekt vymezená v tomto článku."
+            "title": "Článek 3: Významné incidenty",
+            "description": "Jen pro subjekty podle čl. 1 je incident významný, pokud způsobil nebo mohl způsobit: přímou finanční ztrátu přesahující 500 000 EUR nebo 5 % ročního obratu, podle toho, která částka je nižší; krádež obchodního tajemství; úmrtí; značné poškození zdraví; nebo pokud došlo k úspěšnému přístupu s podezřením na škodlivý úmysl, který mohl způsobit závažné narušení. Započítávají se také opakující se incidenty (čl. 4) a prahy podle služby v čl. 5 až 14."
           },
           "a4": {
-            "title": "Článek 4. Opakující se významné incidenty",
-            "description": "Stanoví, že opakující se incidenty, které jednotlivě nedosahují prahu významnosti, mohou být sečteny a posuzovány jako jediný významný incident, pokud společně splňují kritéria v období šesti měsíců."
+            "title": "Článek 4: Opakující se incidenty",
+            "description": "Incidenty, které jsou každý pod prahem, se počítají společně jako jeden významný incident, pokud nastaly nejméně dvakrát během šesti měsíců, mají stejnou zjevnou původní příčinu a společně překročí práh finanční ztráty podle čl. 3 odst. 1 písm. a)."
           },
           "a5": {
-            "title": "Článek 5. Významné incidenty pro registry DNS a TLD",
-            "description": "Doplňuje specifická kritéria významnosti pro poskytovatele služeb DNS a registry TLD, včetně dostupnosti služby pod 99,9 % po jakoukoli dobu, chybné míry odpovědí DNS a narušení integrity nebo důvěrnosti uložených dat o registraci domén."
+            "title": "Článek 5: Významné incidenty u poskytovatelů služeb DNS",
+            "description": "Významný je, pokud je rekurzivní nebo autoritativní služba překladu názvů zcela nedostupná déle než 30 minut, pokud je její průměrná doba odezvy delší než 10 sekund po dobu delší než hodinu, nebo pokud je narušena integrita, důvěrnost nebo autenticita jejích dat (kromě chybné konfigurace, která se týká méně než 1 000 doménových jmen a nejvýše 1 % z nich)."
           },
           "a6": {
-            "title": "Článek 6. Technické a metodické požadavky",
-            "description": "Klíčový článek. Vyžaduje, aby zahrnuté subjekty zavedly technické a metodické požadavky stanovené v příloze. Opatření musejí být 'vhodná a přiměřená' rizikům, s ohledem na velikost subjektu, jeho expozici, pravděpodobnost incidentů a dopad na společnost."
+            "title": "Články 6 až 14: Významné incidenty podle typu poskytovatele",
+            "description": "Prahy podle služby: registry názvů TLD (6), cloud (7), datová centra (8), CDN (9), poskytovatelé řízených služeb a řízených bezpečnostních služeb (10), online tržiště (11), vyhledávače (12), sociální sítě (13), služby vytvářející důvěru (14). Příklad: cloudová služba zcela nedostupná déle než 30 minut je významná (čl. 7 písm. a))."
+          },
+          "a15": {
+            "title": "Článek 15: Zrušení",
+            "description": "Ruší prováděcí nařízení Komise (EU) 2018/151."
           },
           "a7": {
-            "title": "Článek 7. Vstup v platnost",
-            "description": "Nařízení vstoupilo v platnost dvacátým dnem po jeho zveřejnění v Úředním věstníku (zveřejněno 17. října 2024). Platí přímo ve všech členských státech, aniž by vyžadovalo vnitrostátní transpozici."
+            "title": "Článek 16: Vstup v platnost a použitelnost",
+            "description": "V platnosti od 7. listopadu 2024, dvacátého dne po zveřejnění dne 18. října 2024; závazné a přímo použitelné ve všech členských státech."
           }
         }
       },
@@ -2537,7 +2548,7 @@
         "items": {
           "policy": {
             "title": "Politika bezpečnosti sítí a informačních systémů",
-            "description": "Vyžaduje zdokumentovanou politiku bezpečnosti sítí a informačních systémů schválenou vedením, která stanoví přístup subjektu k řízení bezpečnosti, je přezkoumávána v plánovaných intervalech a aktualizována po významných incidentech nebo změnách. Vytváří rámec pro všechna následná opatření."
+            "description": "Vyžaduje zdokumentovanou politiku bezpečnosti sítí a informačních systémů schválenou vedením, která stanoví přístup subjektu k řízení bezpečnosti, je přezkoumávána vedením alespoň jednou ročně a po významných incidentech nebo významných změnách provozu či rizik a podle potřeby aktualizována. Vytváří rámec pro všechna následná opatření."
           },
           "risk": {
             "title": "Politika řízení rizik",
@@ -2561,7 +2572,7 @@
           },
           "effectiveness": {
             "title": "Politiky a postupy pro posuzování účinnosti opatření k řízení kybernetických bezpečnostních rizik",
-            "description": "Vyžaduje, aby subjekt definoval politiky a postupy pro posouzení, zda jsou jeho opatření k řízení rizik účinná, včetně monitorování, přezkumu a nezávislého posouzení, tak aby byly identifikovány nedostatky a opatření byla v čase zlepšována."
+            "description": "Vyžaduje, aby subjekt definoval politiky a postupy pro posouzení, zda jsou jeho opatření k řízení rizik účinná, včetně určení, co se měří, jak, kdy a kým, a jejich přezkumu v plánovaných intervalech, tak aby byly identifikovány nedostatky a opatření byla v čase zlepšována."
           },
           "hygiene": {
             "title": "Základní postupy kybernetické hygieny a bezpečnostní školení",
@@ -2577,7 +2588,7 @@
           },
           "access": {
             "title": "Řízení přístupu",
-            "description": "Vyžaduje politiku řízení přístupu se správou přístupových práv (11.2) a privilegovaných účtů (11.3), administrativních systémů (11.4), jedinečnou identifikací (11.5), ověřováním (11.6) a vícefaktorovým nebo průběžným ověřováním (11.7) pro přístup ke kritickým systémům a vzdálený přístup, přezkoumávanou v plánovaných intervalech."
+            "description": "Vyžaduje politiku řízení přístupu se správou přístupových práv (11.2) a privilegovaných účtů (11.3), administrativních systémů (11.4), jedinečnou identifikací (11.5), ověřováním (11.6) a vícefaktorovým nebo průběžným ověřováním, je-li to vhodné, odpovídajícím citlivosti systému (11.7), přezkoumávanou v plánovaných intervalech."
           },
           "assets": {
             "title": "Správa aktiv",
@@ -2592,19 +2603,18 @@
       "relationship": {
         "heading": "CIR, směrnice NIS2 a BSIG. Jak do sebe zapadají",
         "description": "Pochopení právní hierarchie je pro plánování compliance zásadní.",
-        "p1": "Směrnice NIS2 (EU) 2022/2555 je nadřazený právní předpis. Stanoví rámec, povinnosti a režim vymáhání na úrovni EU. Členské státy ji měly transponovat do vnitrostátního práva do 17. října 2024. Německou transpozicí je NIS2UmsuCG, který novelizuje BSIG. BSIG nyní obsahuje všechny povinnosti NIS2 v německém právu, včetně §30 (opatření kybernetické bezpečnosti) a §32 (hlášení incidentů).",
+        "p1": "Směrnice NIS2 (EU) 2022/2555 je nadřazený právní předpis: stanoví rámec, povinnosti a režim vymáhání na úrovni EU. Členské státy ji měly transponovat do vnitrostátního práva do 17. října 2024. Německo ji transponovalo prostřednictvím NIS2UmsuCG, jehož článek 1 je nový BSIG (v účinnosti od 6. prosince 2025). Většina povinností je v BSIG, včetně §30 (opatření) a §32 (hlášení). Veřejní poskytovatelé telekomunikací a provozovatelé energetických sítí se řídí vlastními odvětvovými zákony (TKG, EnWG) a finanční subjekty podle DORA jsou z těchto ustanovení vyňaty.",
         "p2": "CIR 2024/2690 je přímo použitelné nařízení EU. Nevyžaduje transpozici a má přednost před kolidujícími vnitrostátními ustanoveními. Tam, kde CIR stanoví technický požadavek, platí tento požadavek přímo bez ohledu na to, zda jej BSIG řeší. Pro typy subjektů uvedené v článku 1 je CIR primárním standardem compliance.",
-        "p3": "Pro subjekty, které NEJSOU přímo uvedeny v článku 1 CIR, ale přesto podléhají NIS2 (např. poskytovatelé energie, zdravotnictví, doprava), slouží CIR jako nejautoritativnější reference toho, jak vypadají 'vhodná a přiměřená' opatření. Očekává se, že německé soudy a BSI budou při posuzování, zda opatření společnosti splňují standard §30 BSIG, odkazovat na technické specifikace CIR, i když CIR tyto subjekty formálně nezavazuje."
+        "p3": "Pro subjekty, které nejsou uvedeny v čl. 1 (energetika, zdravotnictví, doprava, zpracovatelský průmysl a další), se CIR nepoužije. Jejich opatření se posuzují podle §30 BSIG. Komise pro ně může přijmout samostatný akt; dokud tak neučiní, žádný neplatí."
       },
       "sources": {
         "heading": "Zdroje",
         "items": [
-          "Prováděcí nařízení Komise (EU) 2024/2690 ze dne 17. října 2024. Úřední věstník Evropské unie, OJ L 2024/2690",
-          "EUR-Lex. Úplné znění CIR 2024/2690 (CELEX: 32024R2690)",
-          "Směrnice (EU) 2022/2555 (směrnice NIS2). Úřední věstník Evropské unie",
-          "ENISA. Technické pokyny k implementačním opatřením NIS2 (2024)",
-          "secuvera GmbH. Analýza požadavků CIR 2024/2690 a mapování na ISO 27001 (2024)",
-          "BSIG. §30 (Risikomanagementmaßnahmen), §32 (Meldepflichten), ve znění NIS2UmsuCG"
+          "Prováděcí nařízení Komise (EU) 2024/2690 ze dne 17. října 2024: Úřední věstník Evropské unie, OJ L 2024/2690",
+          "EUR-Lex: úplné znění CIR 2024/2690 (CELEX: 32024R2690)",
+          "Směrnice (EU) 2022/2555 (směrnice NIS2): Úřední věstník Evropské unie",
+          "ENISA, NIS2 Technical Implementation Guidance, verze 1.0, 26. června 2025",
+          "BSIG (2025), § 30 (Risikomanagementmaßnahmen), § 32 (Meldepflichten), přijat jako článek 1 NIS2UmsuCG"
         ]
       },
       "ctaCard": {
@@ -3045,10 +3055,10 @@
     "significantIncident": {
       "meta": {
         "title": "Co se podle NIS 2 považuje za významný incident",
-        "description": "Článek 23 odst. 3 NIS 2 vám dává dvě kvalitativní spouštěcí kritéria. CIR 2024/2690 doplňuje čísla, ale jen pro digitální infrastrukturu. Všichni ostatní se musí rozhodnout do 24 hodin bez čísla, o které by se mohli opřít."
+        "description": "Článek 23 odst. 3 NIS 2 vám dává dvě kvalitativní spouštěcí kritéria. CIR 2024/2690 doplňuje čísla, ale jen pro určité poskytovatele digitálních služeb (čl. 1 CIR). Všichni ostatní se musí rozhodnout do 24 hodin bez čísla, o které by se mohli opřít."
       },
       "title": "Významný incident podle NIS 2",
-      "subtitle": "Dvě kvalitativní spouštěcí kritéria, jedno nařízení s čísly pro digitální infrastrukturu a písemný záznam o rozhodnutí pro všechny ostatní.",
+      "subtitle": "Dvě kvalitativní spouštěcí kritéria, jedno nařízení s čísly pro určité poskytovatele digitálních služeb a písemný záznam o rozhodnutí pro všechny ostatní.",
       "overview": {
         "heading": "Proč na definici záleží",
         "p1": "Významnost je to, co spouští celé ohlašovací hodiny v článku 23 NIS 2: včasné varování do 24 hodin, oznámení incidentu do 72 hodin, závěrečnou zprávu do jednoho měsíce. Pokud je událost významná, hodiny začnou běžet v okamžiku, kdy ji zjistíte. Pokud významná není, CSIRT ani příslušnému orgánu nic nedlužíte.",
@@ -3060,23 +3070,23 @@
         "description": "Text směrnice, prováděcí nařízení, vnitrostátní transpozice. Směrnice dává kvalitativní test. Prováděcí nařízení dává čísla pro vymezenou skupinu. Transpoziční zákon (v Německu: §32 BSIG) zavádí ohlašovací povinnost do vnitrostátního práva.",
         "directive": {
           "label": "Směrnice NIS 2 (EU) 2022/2555, čl. 23 odst. 3",
-          "quote": "Incident se považuje za významný, pokud: a) způsobil nebo je schopen způsobit závažné narušení provozu služeb nebo finanční ztrátu dotčenému subjektu; b) postihl nebo je schopen postihnout jiné fyzické nebo právnické osoby tím, že způsobil značnou hmotnou nebo nehmotnou újmu.",
+          "quote": "Incident se považuje za významný, jestliže: a) dotčenému subjektu způsobil nebo může způsobit závažné provozní narušení služeb nebo finanční ztráty; b) způsobil nebo může způsobit jiným fyzickým nebo právnickým osobám značnou hmotnou nebo nehmotnou újmu.",
           "context": "Toto je jediná obecná definice významného incidentu v právu EU. Oba body používají spojení „je schopen způsobit“, takže musíte zvážit jak potenciální, tak skutečnou škodu. Text nikdy nekvantifikuje pojmy závažný, značný ani hmotný."
         },
         "regulation": {
           "label": "CIR (EU) 2024/2690, čl. 3",
-          "quote": "Incident se považuje za významný, pokud způsobil nebo je schopen způsobit: a) přímou finanční ztrátu přesahující 500 000 EUR nebo 5 procent celkového ročního obratu v předchozím účetním období, podle toho, která hodnota je nižší; b) exfiltraci obchodního tajemství subjektu ve smyslu čl. 2 odst. 1 směrnice (EU) 2016/943; c) smrt fyzické osoby; d) značnou újmu na zdraví fyzické osoby; e) úspěšný, pravděpodobně zlovolný a neoprávněný přístup k sítím a informačním systémům schopný způsobit závažné narušení provozu; f) kritéria stanovená v článku 4 (opakující se incidenty); nebo g) jedno či více kritérií stanovených v článcích 5 až 14 (specifická pro subjekt). Postačí kterékoli jediné kritérium.",
+          "quote": "Incident se považuje za významný pro účely čl. 23 odst. 3 směrnice (EU) 2022/2555, pokud jde o příslušné subjekty, je-li splněno jedno nebo více z těchto kritérií: a) incident způsobil nebo může způsobit příslušnému subjektu přímou finanční ztrátu, která přesahuje 500 000 EUR nebo 5 % celkového ročního obratu příslušného subjektu za předchozí účetní období, podle toho, která částka je nižší; b) incident způsobil nebo může způsobit únik obchodního tajemství příslušného subjektu podle čl. 2 bodu 1 směrnice (EU) 2016/943; c) incident způsobil nebo může způsobit úmrtí fyzické osoby; d) incident způsobil nebo může způsobit značnou újmu na zdraví fyzické osoby; e) došlo k úspěšnému podezřelému zlovolnému a neoprávněnému přístupu do sítě a informačních systémů, který může způsobit vážné narušení provozu; f) incident splňuje kritéria stanovená v článku 4; g) incident splňuje jedno nebo více kritérií uvedených v článcích 5 až 14.",
           "context": "Sedm kritérií (písmena a až g), pět věcných plus dva odkazy. Článek 1 CIR uvádí, že tato čísla platí jen pro konkrétní poskytovatele digitálních služeb (DNS, TLD, cloud, datové centrum, CDN, MSP, MSSP, online tržiště, vyhledávač, sociální platforma, služby vytvářející důvěru). Články 5 až 14 doplňují pro tutéž skupinu hranice dostupnosti specifické pro jednotlivá odvětví. Pokud vaše odvětví na tomto seznamu není, tato čísla vás nezavazují a jediné, co máte, je kvalitativní test z čl. 23 odst. 3."
         },
         "transposition": {
           "label": "§32 BSIG (Německo, příklad transpozice)",
-          "quote": "Wesentliche und wichtige Einrichtungen melden dem BSI erhebliche Sicherheitsvorfälle unverzüglich, spätestens innerhalb von 24 Stunden nach Kenntniserlangung als Frühwarnung, innerhalb von 72 Stunden als Sicherheitsvorfallsmeldung und innerhalb eines Monats als Abschlussbericht.",
-          "context": "Každý členský stát přetváří článek 23 do vnitrostátního práva. §32 BSIG opakuje kaskádu a jako příjemce uvádí BSI. Pro nedigitální odvětví nedoplňuje žádné vlastní číslo. Nizozemsko, Rakousko a Francie postupují podle stejného vzoru."
+          "quote": "Besonders wichtige Einrichtungen und wichtige Einrichtungen sind verpflichtet, folgende Informationen an eine vom Bundesamt und dem Bundesamt für Bevölkerungsschutz und Katastrophenhilfe eingerichtete gemeinsame Meldestelle zu melden: 1. unverzüglich, spätestens jedoch innerhalb von 24 Stunden nach Kenntniserlangung von einem erheblichen Sicherheitsvorfall, eine frühe Erstmeldung ...",
+          "context": "Každý členský stát musí čl. 23 přetavit do vnitrostátního práva. §32 BSIG opakuje kaskádu a jako příjemce uvádí společné ohlašovací místo zřízené BSI a Spolkovým úřadem pro civilní ochranu a pomoc při katastrofách (BBK). Pro nedigitální odvětví nedoplňuje žádné vlastní číslo. Rakouský NISG 2026 platí od 1. října 2026. Francie a Nizozemsko do července 2026 neoznámily svou transpozici (Komise je předala Soudnímu dvoru)."
         }
       },
       "elements": {
         "heading": "Články CIR, které významnost vyjadřují čísly",
-        "description": "Kvantitativní práci odvádějí tři články CIR 2024/2690. Zavazují jen digitální skupinu uvedenou v čl. 1 téhož nařízení.",
+        "description": "Kvantitativní práci odvádějí články 3 až 14 CIR 2024/2690. Zavazují jen digitální skupinu uvedenou v čl. 1 téhož nařízení.",
         "items": {
           "framework": {
             "section": "CIR čl. 3",
@@ -3089,9 +3099,9 @@
             "body": "Malé incidenty se sčítají. Pokud stejná hlavní příčina vyvolá nejméně dva incidenty za šest měsíců a dohromady překročí hranici finanční ztráty v čl. 3 odst. 1 písm. a), CIR je považuje za jeden významný incident. Počítat každý zvlášť je chyba."
           },
           "independent": {
-            "section": "CIR čl. 5",
+            "section": "CIR čl. 5 a 6",
             "title": "Specifika pro DNS a TLD",
-            "body": "Pro DNS resolvery a registry TLD: výpadek překladu jmen na déle než 30 minut, průměrná doba odezvy nad 10 sekund po dobu delší než jedna hodina nebo narušení integrity dat u více než 1 000 domén či 1 procenta portfolia. Články 6 až 14 stanoví obdobné hranice pro cloud, CDN, MSP, MSSP, tržiště, vyhledávání, sociální sítě a služby vytvářející důvěru."
+            "body": "Pro poskytovatele služeb DNS (čl. 5): překlad jmen zcela nedostupný déle než 30 minut, průměrná doba odezvy nad 10 sekund po dobu delší než hodinu nebo narušená data (kromě chybné konfigurace týkající se méně než 1 000 domén a nejvýše 1 % z nich). Registry TLD (čl. 6): jakýkoli úplný výpadek autoritativního překladu, doba odezvy nad 10 sekund po dobu hodiny nebo jakékoli narušení dat TLD. Články 7 až 14 stanoví prahy pro cloud, datová centra, CDN, MSP a MSSP, tržiště, vyhledávače, sociální sítě a služby vytvářející důvěru."
           }
         }
       },
@@ -3121,7 +3131,7 @@
           "phishingNoCreds": {
             "title": "Kliknutí na phishingový e-mail, heslo nezadáno",
             "verdict": "Neohlašovatelné",
-            "body": "Zvládnutí úspěšné, žádný dopad na služby ani třetí strany. Dobrovolné oznámení podle čl. 30 NIS 2 je k dispozici, pokud se chcete podělit, a neukládá žádné další povinnosti (čl. 30 odst. 4)."
+            "body": "Zvládnutí úspěšné, žádný dopad na služby ani třetí strany. Dobrovolné oznámení podle čl. 30 NIS 2 je k dispozici, pokud se chcete podělit, a neukládá žádné další povinnosti (čl. 30 odst. 2)."
           },
           "cloudOutage": {
             "title": "Výpadek poskytovatele cloudu, vaše vlastní služba zpožděna",
@@ -3144,17 +3154,17 @@
             "body": "Nejprve zkontrolujte škodu na vlastním subjektu nebo u vašich zákazníků. Ne každý incident u dodavatele spouští vaši vlastní ohlašovací povinnost. Souběžně: zdokumentujte dohled nad dodavateli podle čl. 21 odst. 2 písm. d) NIS 2."
           }
         },
-        "uncertainHint": "Nejste si jisti, zda je práh překročen? Podejte včasné varování a aktualizujte později. Čl. 23 odst. 4 písm. a) NIS 2 je k tomu přesně určen. Příslušný orgán dává přednost včasnému „zatím si nejsme jisti“ před pozdním „čekali jsme příliš dlouho“."
+        "uncertainHint": "Nejste si jisti? Včasné varování lze aktualizovat v oznámení do 72 hodin (čl. 23 odst. 4 písm. b)). U událostí pod prahem můžete oznámit dobrovolně, aniž byste přebírali další povinnosti (čl. 30)."
       },
       "voluntaryReporting": {
         "heading": "Co není povinné, lze přesto ohlásit (čl. 30 NIS 2)",
         "p1": "Článek 30 odst. 1 NIS 2 umožňuje dobrovolné oznámení incidentů, kybernetických hrozeb a téměř uskutečněných incidentů CSIRT. Týká se to subjektů v působnosti směrnice i subjektů mimo ni, které chtějí významnou událost oznámit.",
-        "p2": "Klíčovou ochranou je čl. 30 odst. 4 NIS 2: dobrovolné ohlašování nesmí oznamujícímu subjektu uložit žádné další povinnosti. Ohlášení hraničního případu nenese žádné riziko dalších povinností. To odstraňuje zjevnou výmluvu, proč neoznámit nejasný incident."
+        "p2": "Klíčovou ochranou je čl. 30 odst. 2 NIS 2: dobrovolné ohlašování nesmí oznamujícímu subjektu uložit žádné další povinnosti. Ohlášení hraničního případu nenese žádné riziko dalších povinností. To odstraňuje zjevnou výmluvu, proč neoznámit nejasný incident."
       },
       "customerNotification": {
         "heading": "Informování zákazníků o významných kybernetických hrozbách (čl. 23 odst. 2 NIS 2)",
         "p1": "Článek 23 odst. 2 NIS 2 doplňuje samostatnou povinnost. Klíčové a důležité subjekty bez zbytečného odkladu sdělí příjemcům svých služeb veškerá opatření nebo nápravu, které mohou přijmout ke zmírnění rizik plynoucích z významné kybernetické hrozby. Toto není oznámení CSIRT, ale externí komunikace se zákazníky.",
-        "p2": "V Německu to provádí §35 BSIG. §35 odst. 1 umožňuje BSI nařídit oznámení. §35 odst. 2 navíc zavazuje určitá odvětví (finance, sociální zabezpečení, digitální infrastruktura, řízení služeb IKT, digitální služby) oznámit z vlastní iniciativy. Komunikaci lze provést zveřejněním na internetových stránkách subjektu."
+        "p2": "V Německu to provádí §35 odst. 2 BSIG: subjekty z oblasti financí, sociálního zabezpečení, digitální infrastruktury, řízení služeb IKT a digitálních služeb musí zákazníkům ohroženým významnou kybernetickou hrozbou sdělit, co mohou udělat, pokud zájmy zákazníků převažují nad jejich vlastními. Samostatně může BSI subjektu nařídit, aby informoval své zákazníky o významném incidentu (§35 odst. 1 BSIG), například zveřejněním na svých internetových stránkách."
       },
       "nationalView": {
         "heading": "Jak to členské státy ve skutečnosti uplatňují",
@@ -3163,17 +3173,17 @@
           "bsi": {
             "country": "Německo",
             "label": "Pokyny BSI podle §32 BSIG",
-            "body": "BSI opakuje znění čl. 23 odst. 3 a odkazuje vás na svůj standardní ohlašovací formulář (MIRP). Pro nedigitální odvětví nezveřejňuje žádné číslo. Postoj BSI: posuzujte významnost podle kvalitativních kritérií, sepište své odůvodnění a v případě pochybností ohlaste."
+            "body": "BSI opakuje definici z § 2 č. 11 BSIG a výraz 'mohl způsobit' chápe tak, že účinky by se reálně mohly projevit. Hlášení probíhají přes portál BSI. Pro nedigitální odvětví nezveřejňuje žádné číslo. BSI uvádí, že spolkové ministerstvo vnitra může později vymezit pojem 'významný' podrobněji nařízením (§ 56 odst. 4 BSIG)."
           },
           "enisa": {
             "country": "EU",
             "label": "Technické prováděcí pokyny ENISA",
-            "body": "Technické prováděcí pokyny ENISA (TIG, v1.2 srpen 2025) dávají praktické rady k posouzení dopadu a odkazují na prahy CIR tam, kde platí. TIG nejsou závazné a odvětví mimo působnost CIR výslovně vracejí zpět vnitrostátním orgánům."
+            "body": "Technické prováděcí pokyny ENISA (TIG, verze 1.0 z června 2025; jejich mapovací tabulka byla v srpnu 2025 aktualizována na verzi 1.2) dávají praktické rady k posouzení dopadu a odkazují na prahy CIR tam, kde platí. TIG nejsou závazné a odvětví mimo působnost CIR výslovně vracejí zpět vnitrostátním orgánům."
           },
           "transposition": {
             "country": "NL / AT / FR",
-            "label": "Transpozice v jiných členských státech",
-            "body": "Nizozemský Cyberbeveiligingswet, rakouský návrh NISG 2024 i francouzský režim OIV/REC opakují test z čl. 23 odst. 3 doslova. Žádný z nich dosud nezveřejnil čísla pro nedigitální odvětví. Vzor je v celé EU stejný: kvalitativní test plus CIR pro digitální skupinu."
+            "label": "Jiné členské státy",
+            "body": "Rakouský NISG 2026 platí od 1. října 2026. Francie a Nizozemsko do července 2026 neoznámily svou transpozici (Komise je předala Soudnímu dvoru). Zde je použit jako příklad Německo."
           }
         }
       },
@@ -3183,21 +3193,21 @@
         "items": {
           "blanketTransfer": {
             "myth": "Mýtus 1: Poznáme to, až to uvidíme.",
-            "reality": "Realita: Čl. 23 odst. 3 vám dává 24 hodin na rozhodnutí, sepsání odůvodnění a jeho obhajobu při auditu. Pokud jste si svá kritéria nesepsali před incidentem, budete se rozhodovat pod tlakem a bez záznamu, o který byste se mohli opřít. Vybudujte rozhodovací rámec teď, ne až v daný den."
+            "reality": "Realita: Čl. 23 odst. 4 písm. a) vám dává 24 hodin od zjištění významného incidentu na odeslání včasného varování. V tomto čase se musíte rozhodnout, zapsat si odůvodnění a umět ho obhájit při auditu. Pokud jste si svá kritéria nesepsali před incidentem, budete se rozhodovat pod tlakem a bez záznamu, o který byste se mohli opřít. Vybudujte rozhodovací rámec teď, ne až v daný den."
           },
           "noAssets": {
             "myth": "Mýtus 2: Za významné incidenty se počítají jen úniky dat.",
-            "reality": "Realita: Čl. 23 odst. 3 písm. a) se vztahuje na narušení provozu a finanční ztrátu bez jakékoli zmínky o osobních údajích. Výrobní linka zastavená ransomwarem bez exfiltrace dat je významný incident. Logistická platforma mimo provoz na tři hodiny je významný incident. NIS 2 není GDPR."
+            "reality": "Realita: Čl. 23 odst. 3 písm. a) se vztahuje na narušení provozu a finanční ztrátu bez jakékoli zmínky o osobních údajích. Výrobní linka zastavená ransomwarem bez exfiltrace dat je významný incident. Logistická platforma mimo provoz na tři hodiny jím může být, pokud výpadek závažně naruší službu nebo způsobí zákazníkům značnou újmu. NIS 2 není GDPR."
           },
           "noAcceptanceCriteria": {
             "myth": "Mýtus 3: Malé incidenty pod prahem se nesčítají.",
-            "reality": "Realita: Čl. 4 CIR (a stejná logika u kvalitativních spouštěčů) říká, že opakované incidenty se stejnou hlavní příčinou se sčítají. Dva dvacetiminutové výpadky téže selhávající součásti během šesti měsíců mohou práh překročit dohromady. Počítat každý izolovaně je chyba."
+            "reality": "Realita: U poskytovatelů digitálních služeb podle CIR se incidenty se stejnou zjevnou původní příčinou, které nastanou nejméně dvakrát za šest měsíců, počítají jako jeden významný incident, pokud jejich finanční ztráty společně překročí hranici čl. 3 odst. 1 písm. a) (čl. 4 CIR). Samotná NIS 2 takové pravidlo nemá, ale vzorec drobných incidentů je přesto důvodem podívat se znovu."
           }
         }
       },
       "practitioner": {
         "heading": "Klín: pro většinu subjektů NIS 2 nedefinováno",
-        "p1": "Přílohy I a II NIS 2 pokrývají zhruba 18 odvětví. Čísla dostává jen digitální skupina v čl. 1 CIR (asi 11 typů subjektů). To je malý zlomek subjektů v působnosti. Pro energetiku, dopravu, bankovnictví, infrastrukturu finančního trhu, zdravotnictví, pitnou vodu, odpadní vodu, veřejnou správu, kosmický prostor, poštovní služby, odpadové hospodářství, chemii, potravinářství, výrobu a výzkum zůstává test kvalitativní.",
+        "p1": "Přílohy I a II NIS 2 pokrývají 18 odvětví. Čísla dostává jen digitální skupina v čl. 1 CIR (11 typů subjektů). To je malý zlomek subjektů v působnosti. Pro energetiku, dopravu, bankovnictví, infrastrukturu finančního trhu, zdravotnictví, pitnou vodu, odpadní vodu, veřejnou správu, kosmický prostor, poštovní služby, odpadové hospodářství, chemii, potravinářství, výrobu a výzkum zůstává test kvalitativní.",
         "p2": "Právě tady můžete být v místnosti užiteční. Poctivá odpověď na otázku představenstva („co se pro nás počítá za významné?“) zní: EU to ponechala na vašem úsudku, zde jsou tři faktory z bodu odůvodnění 101, zde je záznam o rozhodnutí, který v daný den vytvoříme, zde je ten, kdo jej podepíše, zde je ohlašovací formulář BSI, který podáme. Obhajitelnou odpovědí není číslo. Je to písemné rozhodnutí."
       },
       "platform": {
@@ -3210,9 +3220,9 @@
         "items": [
           "Směrnice (EU) 2022/2555 (NIS 2), čl. 23 a bod odůvodnění 101. eur-lex.europa.eu/eli/dir/2022/2555/oj",
           "Prováděcí nařízení Komise (EU) 2024/2690, články 1, 3, 4, 5 až 14. eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
-          "BSIG §32 (Německo). bsi.bund.de regulační portál",
-          "Technické prováděcí pokyny ENISA k ohlašování incidentů podle NIS 2 (TIG). enisa.europa.eu",
-          "Ohlašovací formulář BSI MIRP a pokyny k incidentům. bsi.bund.de"
+          "BSIG § 32 (Německo): gesetze-im-internet.de/bsig_2025",
+          "ENISA, NIS2 Technical Implementation Guidance, verze 1.0, 26. června 2025: enisa.europa.eu",
+          "BSI, NIS-2 FAQ a portál BSI: bsi.bund.de, portal.bsi.bund.de"
         ]
       },
       "ctaCard": {
@@ -4638,9 +4648,9 @@
       "subtitle": "Pokud jste hledali 'IT Sicherheitspflicht', hledáte NIS2. Od prosince 2025 dělá revidovaný BSIG z kybernetické bezpečnosti zákonnou povinnost pro zhruba 29 500 německých společností.",
       "overview": {
         "heading": "NIS2 je ta povinnost zajistit IT bezpečnost, o které jste slyšeli",
-        "p1": "V Německu neexistuje samostatný 'zákon o povinnosti zajistit IT bezpečnost'. Co existuje, je směrnice NIS2 (EU 2022/2555), transponovaná do německého práva prostřednictvím NIS2UmsuCG, který zásadně přepracoval spolkový zákon o kybernetické bezpečnosti (BSIG). To je zákon, který vytváří závazné povinnosti zajistit IT bezpečnost pro společnosti v 18 kritických odvětvích.",
-        "p2": "BSIG nabyl účinnosti 6. prosince 2025. Vyžaduje, aby dotčené společnosti zavedly 10 konkrétních opatření pro řízení rizik kybernetické bezpečnosti (§30 BSIG), zaregistrovaly se u BSI, hlásily významné incidenty v přísných lhůtách a zabezpečily svůj dodavatelský řetězec. Vedení je podle §38 BSIG osobně odpovědné za zajištění shody.",
-        "p3": "Pokud má vaše společnost 50 nebo více zaměstnanců, nebo roční obrat i bilanční sumu nad 10 milionů eur, a působí v jednom z 18 odvětví NIS2, tyto povinnosti se na vás vztahují právě teď. Termín registrace byl 6. března 2026."
+        "p1": "V Německu neexistuje samostatný 'zákon o povinnosti zajistit IT bezpečnost'. Co existuje, je směrnice NIS2 (EU 2022/2555), transponovaná do německého práva prostřednictvím NIS2UmsuCG, který zásadně přepracoval spolkový zákon o kybernetické bezpečnosti (BSIG). To je zákon, který vytváří závazné povinnosti zajistit IT bezpečnost pro společnosti v odvětvích uvedených v přílohách 1 a 2 BSIG.",
+        "p2": "BSIG nabyl účinnosti 6. prosince 2025. Vyžaduje, aby dotčené společnosti zavedly 10 konkrétních opatření pro řízení rizik kybernetické bezpečnosti (§30 BSIG), zaregistrovaly se u BSI, hlásily významné incidenty v přísných lhůtách a zabezpečily svůj dodavatelský řetězec. Podle §38 BSIG musí vedení opatření zavést a dohlížet na ně a vůči společnosti odpovídá za škodu, kterou způsobí zaviněním.",
+        "p3": "Pokud má vaše společnost 50 nebo více zaměstnanců, nebo roční obrat i bilanční sumu nad 10 milionů eur, a působí v jednom z odvětví uvedených v přílohách 1 a 2 BSIG, tyto povinnosti se na vás vztahují právě teď. Termín registrace byl 6. března 2026."
       },
       "check": {
         "heading": "Vztahuje se to na mou společnost?",
@@ -4648,11 +4658,11 @@
         "items": {
           "sector": {
             "title": "Odvětví",
-            "description": "Vaše společnost působí v jednom z 18 odvětví: energetika, doprava, bankovnictví, zdravotnictví, voda, digitální infrastruktura, služby IKT, veřejná správa, kosmický prostor, poštovní služby, odpadové hospodářství, chemie, výroba potravin, zpracovatelský průmysl nebo digitální poskytovatelé."
+            "description": "Vaše společnost nabízí za úplatu zboží nebo služby v jednom z odvětví uvedených v přílohách 1 a 2 BSIG: energetika, doprava, finance, zdravotnictví, voda, digitální infrastruktura (včetně řízených služeb IT a bezpečnosti), kosmický prostor, poštovní a kurýrní služby, odpad, chemie, potraviny, zpracovatelský průmysl, digitální služby, výzkum."
           },
           "size": {
             "title": "Počet zaměstnanců",
-            "description": "Máte 50 nebo více zaměstnanců. To vychází z definice MSP v EU a zahrnuje všechny zaměstnance v rámci skupiny, nikoli jen německý subjekt. Zaměstnanci na částečný úvazek se počítají poměrně."
+            "description": "Máte 50 nebo více zaměstnanců. To vychází z definice MSP v EU a zahrnuje všechny zaměstnance v rámci skupiny, nikoli jen německý subjekt. Výjimka: partnerské nebo propojené společnosti se nepřičítají, pokud vaše IT funguje nezávisle na jejich IT (§ 28 odst. 4 BSIG). Zaměstnanci na částečný úvazek se počítají poměrně."
           },
           "revenue": {
             "title": "Roční obrat",
@@ -4660,7 +4670,7 @@
           },
           "services": {
             "title": "Kritické služby",
-            "description": "Některé typy subjektů jsou v rozsahu bez ohledu na velikost: poskytovatelé DNS, registry TLD, kvalifikovaní poskytovatelé služeb vytvářejících důvěru, provozovatelé KRITIS a výhradní poskytovatelé zásadních služeb v regionu."
+            "description": "Některé typy subjektů jsou v rozsahu bez ohledu na velikost: provozovatelé kritických zařízení (KRITIS), poskytovatelé služeb vytvářejících důvěru, registry názvů TLD a poskytovatelé služeb DNS (§ 28 BSIG)."
           }
         }
       },
@@ -4670,7 +4680,7 @@
         "items": {
           "register": {
             "title": "Zaregistrujte se u BSI",
-            "description": "Dokončete registraci přes portál BSI (muk.bsi.bund.de). To je zákonná povinnost podle §33 BSIG s vlastní sankcí až do výše 500 000 eur. Portál je v provozu od ledna 2026 a termín byl 6. března 2026. Pokud jste ho zmeškali, zaregistrujte se okamžitě."
+            "description": "Registrujte se ve dvou krocích: nejprve si vytvořte účet na Mein Unternehmenskonto (mein-unternehmenskonto.de, používá organizační certifikát ELSTER), poté se zaregistrujte v portálu BSI (portal.bsi.bund.de). To je zákonná povinnost podle §33 BSIG s vlastní sankcí až do výše 500 000 eur. Portál je v provozu od ledna 2026 a termín byl 6. března 2026. Pokud jste ho zmeškali, zaregistrujte se okamžitě."
           },
           "assess": {
             "title": "Proveďte posouzení rizik",
@@ -4678,7 +4688,7 @@
           },
           "implement": {
             "title": "Zaveďte 10 bezpečnostních opatření",
-            "description": "§30 BSIG definuje 10 povinných oblastí: zásady řízení rizik, řešení incidentů, kontinuita provozu, bezpečnost dodavatelského řetězce, bezpečnost sítí, řízení zranitelností, kybernetická hygiena, kryptografie, řízení přístupu a vícefaktorové ověřování. Každá oblast vyžaduje zdokumentované zásady a důkazy o zavedení."
+            "description": "§30 odst. 2 BSIG uvádí 10 oblastí: 1 analýza rizik a bezpečnostní politiky; 2 řešení incidentů; 3 udržení provozu (zálohy, obnova, krizové řízení); 4 bezpečnost dodavatelského řetězce; 5 bezpečnost při pořizování, vývoji a údržbě IT, včetně nakládání se zranitelnostmi; 6 ověřování, zda opatření fungují; 7 základní školení a zvyšování povědomí; 8 kryptografie; 9 bezpečnost personálu, řízení přístupu a správa aktiv; 10 vícefaktorové ověřování a zabezpečená komunikace. Každá oblast vyžaduje zdokumentované zásady a důkazy o zavedení."
           },
           "report": {
             "title": "Nastavte hlášení incidentů",
@@ -4686,14 +4696,14 @@
           },
           "maintain": {
             "title": "Udržujte průběžnou shodu",
-            "description": "NIS2 není jednorázový projekt. Potřebujete roční přezkumy posouzení rizik, pravidelné školení vedení (§38 BSIG vyžaduje osobní účast), opětovná posouzení dodavatelů a průběžné sledování incidentů. Platforma sleduje všechny termíny a automaticky eskaluje."
+            "description": "NIS2 není jednorázový projekt. Udržujte posouzení rizik aktuální, když se věci mění, školte vedení pravidelně (§38 BSIG vyžaduje osobní účast; důvodová zpráva k zákonu chápe 'pravidelně' jako nejméně jednou za tři roky), přezkoumávejte dodavatele a průběžně sledujte incidenty."
           }
         }
       },
       "consequences": {
         "heading": "Co se stane, když neuděláte nic",
-        "p1": "Rámec sankcí je vytvořen podle GDPR. Zásadní subjekty čelí pokutám až do výše 10 milionů eur nebo 2 % celosvětového ročního obratu. Důležité subjekty čelí až 7 milionům eur nebo 1,4 %. Samotná porušení registrace nesou pokuty až do výše 500 000 eur. BSI má donucovací pravomoci a může nařídit shodu nebo omezit provoz.",
-        "p2": "Kromě pokut vytváří §38 BSIG osobní odpovědnost vedení. Vedoucí pracovníci musí schvalovat opatření kybernetické bezpečnosti, dohlížet na jejich zavedení a dokončit školení. Jsou odpovědni vlastní společnosti za zaviněná porušení. Tuto odpovědnost nelze smluvně vyloučit. Tvrzení, že jste kybernetické bezpečnosti nerozuměli, výslovně není obranou."
+        "p1": "Zásadní subjekty čelí pokutám až do výše 10 milionů eur nebo 2 % celosvětového ročního obratu. Důležité subjekty čelí až 7 milionům eur nebo 1,4 %. Samotná porušení registrace nesou pokuty až do výše 500 000 eur. BSI může nařídit shodu (§§ 61, 62 BSIG). U zvláště důležitých subjektů, které jeho příkazy ignorují, může příslušný odvětvový orgán jako poslední možnost dočasně pozastavit povolení a dočasně vyloučit nespolehlivé členy vedení (§ 61 odst. 9 BSIG).",
+        "p2": "Kromě pokut vytváří §38 BSIG osobní odpovědnost vedení. Vedoucí pracovníci musí zavést opatření kybernetické bezpečnosti, dohlížet na jejich zavedení a pravidelně se účastnit školení. Vůči vlastní společnosti odpovídají za škodu způsobenou zaviněním, podle pravidel společnostního práva pro její právní formu."
       },
       "faq": {
         "heading": "Často kladené otázky",
@@ -4707,15 +4717,15 @@
         },
         "q3": {
           "q": "Termín registrace uplynul. Co bychom měli udělat?",
-          "a": "Zaregistrujte se okamžitě. Portál BSI na muk.bsi.bund.de stále přijímá registrace. Pozdní registrace je lepší než žádná registrace. Pokuta za nezaregistrování je až 500 000 eur, ale BSI hodnotí dobrou vůli. Společnost, která se zaregistruje o pár týdnů později a může ukázat, že aktivně pracovala na shodě, je v nesrovnatelně lepší pozici než ta, která neudělala nic."
+          "a": "Zaregistrujte se okamžitě. Nejprve si vytvořte účet na Mein Unternehmenskonto (mein-unternehmenskonto.de), poté se zaregistrujte v portálu BSI (portal.bsi.bund.de), který registrace stále přijímá. Pozdní registrace je lepší než žádná registrace. Pokuta za nezaregistrování je až 500 000 eur (§ 65 BSIG)."
         },
         "q4": {
           "q": "Může za nás shodu s NIS2 zajistit náš externí poskytovatel IT?",
-          "a": "Mohou pomoci zavést technická opatření, ale zákonná povinnost zůstává na vaší společnosti. §30 BSIG výslovně stanoví, že můžete outsourcovat provoz, ale nikoli odpovědnost. Vaše vedení zůstává osobně odpovědné podle §38 BSIG. Musíte zdokumentovat, co váš poskytovatel IT dělá, ověřit jeho bezpečnostní opatření a zahrnout ho do svého procesu řízení dodavatelů."
+          "a": "Mohou pomoci zavést technická opatření, ale zákonná povinnost zůstává na vaší společnosti, i když je vaše IT zcela outsourcováno. BSI to uvádí ve svých FAQ k NIS-2: musíte zajistit, aby vaši poskytovatelé opatření zavedli, pravidelně je kontrolovat a dohlédnout na to, aby byly incidenty hlášeny. Vaše vedení zůstává odpovědné podle §38 BSIG za zavedení a dohled nad opatřeními. Musíte zdokumentovat, co váš poskytovatel IT dělá, ověřit jeho bezpečnostní opatření a zahrnout ho do svého procesu řízení dodavatelů."
         },
         "q5": {
           "q": "Kolik shoda s NIS2 stojí společnost středního trhu?",
-          "a": "U společnosti s 50 až 250 zaměstnanci očekávejte výdaje mezi 20 000 a 80 000 eur v prvním roce, v závislosti na vaší současné bezpečnostní vyspělosti. To zahrnuje posouzení rizik, dokumentaci zásad, technická zlepšení a školení. Společnosti, které již mají zavedena základní opatření IT bezpečnosti, jsou na spodní hranici. Průběžné roční náklady po prvním roce výrazně klesají, protože většina práce je nastavení, nikoli údržba."
+          "a": "Záleží na tom, co už máte. Zákon žádá opatření, která odpovídají vaší velikosti a riziku, a náklady na jejich zavedení patří k věcem, které se zvažují (§ 30 odst. 1 BSIG)."
         }
       },
       "ctaCard": {
@@ -4850,7 +4860,7 @@
         "items": {
           "muk": {
             "title": "Mein Unternehmenskonto (MUK)",
-            "description": "Potřebujete aktivní účet MUK na muk.bsi.bund.de. MUK je systém firemních účtů spolkové vlády. Pokud ho vaše firma ještě nemá, vytvořte ho jako první. Může to trvat několik dní, protože to vyžaduje ověření přes ELSTER. Nečekejte na poslední chvíli."
+            "description": "Potřebujete aktivní účet v Mein Unternehmenskonto (MUK, mein-unternehmenskonto.de), systému firemních účtů spolkové vlády, zřízený pomocí certifikátu ELSTER vaší firmy. Pokud ho vaše firma ještě nemá, vytvořte ho jako první: může to trvat několik dní, protože to vyžaduje ověření přes ELSTER. Nečekejte na poslední chvíli."
           },
           "elster": {
             "title": "Certifikát ELSTER",
@@ -4872,7 +4882,7 @@
         "items": {
           "s1": {
             "title": "Přihlaste se do MUK",
-            "description": "Přejděte na muk.bsi.bund.de a přihlaste se svým certifikátem ELSTER. Pokud MUK používáte poprvé, budete muset vytvořit účet a propojit ho se svou identitou ELSTER. Ujistěte se, že váš prohlížeč povoluje bezpečnostní plugin ELSTER. Pro nejlepší kompatibilitu použijte Chrome nebo Edge."
+            "description": "Přejděte na portál BSI (portal.bsi.bund.de) a přihlaste se přes Mein Unternehmenskonto svým certifikátem ELSTER. Pokud MUK používáte poprvé, budete muset vytvořit účet a propojit ho se svou identitou ELSTER. Ujistěte se, že váš prohlížeč povoluje bezpečnostní plugin ELSTER. Pro nejlepší kompatibilitu použijte Chrome nebo Edge."
           },
           "s2": {
             "title": "Vyberte registraci NIS2",
@@ -4956,7 +4966,7 @@
             "title": "Týden 1, registrace a orientace",
             "timeframe": "Dny 1 až 5",
             "actions": [
-              "Zaregistrujte se u BSI přes muk.bsi.bund.de (pokud jste tak ještě neučinili). S přípravou to zabere 30 až 60 minut.",
+              "Zaregistrujte se u BSI v portálu BSI (portal.bsi.bund.de), přihlášením přes Mein Unternehmenskonto (pokud jste tak ještě neučinili).",
               "Přečtěte si §30 BSIG, abyste pochopili 10 povinných bezpečnostních opatření. Jsou to 2 strany právního textu, ne učebnice.",
               "Určete, kdo ve vaší firmě bude mít shodu s NIS2 na starosti. Nemusí to být nová pozice, může to být váš IT manažer, CISO nebo manažer kvality.",
               "Informujte vedení o jeho osobní odpovědnosti podle §38 BSIG. Musí znát tři povinnosti: schválení, dohled a školení.",
@@ -5099,7 +5109,7 @@
         "items": {
           "registration": {
             "title": "1. Registrace u BSI",
-            "description": "Dokončete svou registraci podle § 33 BSIG přes muk.bsi.bund.de. Trvá to asi 30 až 60 minut a okamžitě vás zanese do evidence. Sankce za neregistraci činí až 500 000 eur. Pokud lhůta uplynula, registrujte se okamžitě."
+            "description": "Dokončete svou registraci podle § 33 BSIG v portálu BSI (portal.bsi.bund.de), přihlášením přes Mein Unternehmenskonto. Zanese vás to do evidence. Sankce za neregistraci činí až 500 000 eur. Pokud lhůta uplynula, registrujte se okamžitě."
           },
           "assets": {
             "title": "2. Sestavte inventář aktiv",
@@ -5200,7 +5210,7 @@
         "items": {
           "registration": {
             "title": "1. Zaregistrujte se u BSI",
-            "description": "Dokončete svou registraci podle § 33 BSIG přes muk.bsi.bund.de. Trvá to 30 až 60 minut a zapíše vás do evidence. Sankce za neregistraci je až 500 000 eur. Pokud lhůta uplynula, zaregistrujte se ihned."
+            "description": "Dokončete svou registraci podle § 33 BSIG v portálu BSI (portal.bsi.bund.de), přihlášením přes Mein Unternehmenskonto. Zapíše vás to do evidence. Sankce za neregistraci je až 500 000 eur. Pokud lhůta uplynula, zaregistrujte se ihned."
           },
           "assets": {
             "title": "2. Sestavte soupis aktiv (IT a OT)",
@@ -5355,20 +5365,20 @@
     "sectorLogistics": {
       "meta": {
         "title": "NIS2 pro logistiku a dopravu",
-        "description": "Logistika spadá do působnosti přílohy I NIS2. Průvodce pro společnosti s 50 a více zaměstnanci: TMS, správa vozového parku, skladové systémy a shoda s BSIG."
+        "description": "Koho v logistice NIS2 zahrnuje: leteckou, železniční a lodní dopravu, přístavy a systémy silničního provozu (příloha I), poštovní a kurýrní služby (příloha II). Silniční nákladní doprava a spedice ne."
       },
-      "badge": "Příloha I - základní / důležitý subjekt",
+      "badge": "Příloha I/II NIS2",
       "title": "NIS2 pro logistické a dopravní společnosti",
-      "subtitle": "Doprava je zařazena pod přílohu I NIS2 a zahrnuje silniční, železniční, vodní a leteckou dopravu. Pokud má vaše logistická společnost 50 a více zaměstnanců, zde je, co BSIG vyžaduje a kde začít.",
+      "subtitle": "NIS2 zahrnuje určité typy dopravních subjektů v příloze I a poštovní a kurýrní služby v příloze II. Silniční dopravci, speditéři a provozovatelé skladů mezi ně nepatří. Zde je, kdo spadá do působnosti, kdo ne a co se k ostatním dostává jako požadavky na dodavatele.",
       "why": {
-        "heading": "Proč se NIS2 vztahuje na logistické společnosti?",
-        "p1": "Logistika je páteří fyzické ekonomiky. Kybernetický útok, který zastaví velkého logistického poskytovatele, nepostihne jen jednu společnost. Naruší dodavatelské řetězce desítek nebo stovek klientů. Útok NotPetya z roku 2017 stál samotný Maersk přes 300 milionů eur a na týdny narušil světovou lodní dopravu. EU zařadila dopravu pod přílohu I (odvětví vysoké kritičnosti), protože výpadky logistiky se kaskádovitě šíří celou ekonomikou.",
-        "p2": "NIS2 pokrývá všechny druhy dopravy: silniční nákladní dopravu, železniční dopravu, vnitrozemskou vodní dopravu, námořní lodní dopravu a leteckou nákladní dopravu. Do působnosti spadají společnosti splňující velikostní prahy (50 a více zaměstnanců, nebo obrat i bilanční suma nad 10 milionů eur). Velké společnosti (250 a více zaměstnanců) v odvětvích přílohy I jsou zařazeny jako základní subjekty. Střední společnosti (50 až 249 zaměstnanců) jsou důležité subjekty (wichtige Einrichtungen). Obojí čelí plné sadě povinností NIS2.",
-        "p3": "Moderní logistické společnosti běží na propojených IT systémech. Systémy řízení dopravy (TMS) řídí zásilky. Správa vozového parku sleduje vozidla v reálném čase. Systémy řízení skladu (WMS) řídí zásoby a vychystávání. Telematické jednotky v nákladních vozech přenášejí polohu, rychlost, teplotu a data o řidiči. Pokud kterýkoli z těchto systémů selže, provoz se zastaví nebo se stane nebezpečně neefektivním. NIS2 vyžaduje, abyste tyto závislosti identifikovali a systematicky řídili kybernetická rizika."
+        "heading": "Na které logistické společnosti se NIS2 vztahuje?",
+        "p1": "Logistika je páteří fyzické ekonomiky. Kybernetický útok, který zastaví velkého logistického poskytovatele, nepostihne jen jednu společnost. Naruší dodavatelské řetězce desítek nebo stovek klientů. EU zařazuje dopravu do přílohy I (odvětví vysoké kritičnosti), ale jen určité typy subjektů v ní, nikoli logistiku jako celek.",
+        "p2": "NIS2 nepokrývá dopravu obecně. Uvádí určité typy subjektů: letecké dopravce, letiště a řízení letového provozu; správce železniční infrastruktury a železniční podniky; společnosti vnitrozemské, námořní a pobřežní lodní dopravy, provozovatele přístavů a služby řízení lodní dopravy; silniční orgány odpovědné za řízení dopravy a provozovatele inteligentních dopravních systémů (příloha I odvětví 2); a poštovní a kurýrní služby (příloha II odvětví 1). Železniční nákladní a lodní dopravní společnosti tedy do působnosti spadají, silniční nákladní doprava ne. Silniční dopravce, speditér nebo provozovatel skladu není žádným z těchto typů, takže pro tuto činnost do působnosti nespadá, bez ohledu na velikost. Požadavky NIS2 může přesto dostat jako dodavatel: zákazníci, kteří do působnosti spadají, musí řídit bezpečnost svých přímých dodavatelů (čl. 21 odst. 2 písm. d) NIS2, § 30 odst. 2 bod 4 BSIG) a často požadavky předávají prostřednictvím smluv. Dodavatel se tím subjektem nestává. Pro uvedené typy platí: společnosti splňující velikostní práh (50 a více zaměstnanců, nebo obrat i bilanční suma každý nad 10 milionů eur) spadají do působnosti. Velké společnosti (250 a více zaměstnanců) typu z přílohy I jsou zařazeny jako základní subjekty. Střední společnosti (50 až 249 zaměstnanců) jsou důležité subjekty (wichtige Einrichtungen) a poštovní a kurýrní služby se počítají jako důležité subjekty v jakékoli velikosti nad prahem. Obojí čelí plné sadě povinností NIS2.",
+        "p3": "Moderní logistické společnosti běží na propojených IT systémech. Systémy řízení dopravy (TMS) řídí zásilky. Správa vozového parku sleduje vozidla v reálném čase. Systémy řízení skladu (WMS) řídí zásoby a vychystávání. Telematické jednotky v nákladních vozech přenášejí polohu, rychlost, teplotu a data o řidiči. Pokud kterýkoli z těchto systémů selže, provoz se zastaví nebo se stane nebezpečně neefektivním. Pokud je vaše společnost jedním z uvedených typů subjektů, NIS2 vyžaduje, abyste tyto závislosti identifikovali a systematicky řídili kybernetická rizika."
       },
       "assets": {
         "heading": "Jak vypadá soupis aktiv logistické společnosti?",
-        "description": "Pro logistickou společnost se 100 až 250 zaměstnanci očekávejte 10 až 18 sdružených položek aktiv v šesti kategoriích. Přesná skladba závisí na tom, zda provozujete silniční, železniční, skladové nebo multimodální operace.",
+        "description": "Inventář aktiv logistické společnosti sdružuje její systémy do šesti kategorií. Přesná skladba závisí na tom, zda provozujete silniční, železniční, skladové nebo multimodální operace.",
         "items": {
           "tms": {
             "title": "Systém řízení dopravy (TMS)",
@@ -5398,11 +5408,11 @@
       },
       "priorities": {
         "heading": "Kde začít. Pořadí priorit pro logistické společnosti",
-        "description": "Zaměřte se nejdříve na oblasti, které vytvářejí největší hodnotu pro shodu. Logistickým společnostem prospívá začít systémy, které přímo řídí provoz.",
+        "description": "Pokud je vaše společnost jedním z uvedených typů subjektů, zaměřte se nejdříve na oblasti, které vytvářejí největší hodnotu pro shodu. Logistickým společnostem prospívá začít systémy, které přímo řídí provoz.",
         "items": {
           "registration": {
             "title": "1. Zaregistrujte se u BSI",
-            "description": "Dokončete svou registraci podle § 33 BSIG. Doprava je odvětvím přílohy I, takže velké společnosti čelí proaktivnímu dohledu BSI. Registrace zabere 30 až 60 minut přes muk.bsi.bund.de. Pokud lhůta uplynula, zaregistrujte se okamžitě. Pokuta za neregistraci je až 500 000 eur."
+            "description": "Dokončete svou registraci podle § 33 BSIG, pokud je vaše společnost jedním z uvedených typů subjektů. Doprava je odvětvím přílohy I, takže velké společnosti uvedeného typu čelí proaktivnímu dohledu BSI. Zaregistrujte se v portálu BSI (portal.bsi.bund.de). Přihlašujete se organizačním certifikátem ELSTER z 'Mein Unternehmenskonto' (MUK). Registrace je samostatná povinnost, na kterou máte tři měsíce od okamžiku, kdy se poprvé považujete za subjekt (§ 33 odst. 1 BSIG)."
           },
           "assets": {
             "title": "2. Sestavte soupis aktiv",
@@ -5426,25 +5436,25 @@
         "heading": "Čím jsou logistické společnosti jiné",
         "p1": "Logistické společnosti provozují jedno z nejvíce distribuovaných IT prostředí ze všech odvětví. Aktiva nejsou v jedné budově. Jsou rozprostřena přes kanceláře, sklady, distribuční centra a stovky vozidel na silnici. Každý nákladní vůz s telematickou jednotkou je připojený koncový bod. Každá skladová čtečka je zařízení na vaší síti. Tato distribuovaná stopa činí tradiční perimetrovou bezpečnost méně účinnou a zvyšuje význam správy zařízení, segmentace sítě a přístupu založeného na identitě.",
         "p2": "Časová citlivost logistiky vytváří jedinečnou výzvu pro reakci na incidenty. Ve výrobní společnosti možná snesete 24hodinový výpadek systému. V logistice 4 hodiny výpadku TMS znamenají promeškaná okna pro doručení, smluvní pokuty a kaskádovitá zpoždění. Váš plán reakce na incidenty musí počítat s tímto: jaké ruční záložní postupy existují? Mohou dispečeři směrovat zásilky telefonem? Mohou skladové operace pokračovat s papírovým vychystáváním? Tyto otázky kontinuity provozu jsou stejně důležité jako plán technické obnovy.",
-        "p3": "Logistické společnosti jsou také hluboce integrovány se systémy svých zákazníků a dopravců prostřednictvím EDI (Electronic Data Interchange), API spojení a sdílených platforem. Bezpečnostní průnik u vaší společnosti se může těmito spojeními rozšířit k zákazníkům a naopak. Vaše posouzení bezpečnosti dodavatelského řetězce by mělo pokrýt nejen vaše IT dodavatele, ale i elektronická spojení s vašimi obchodními partnery. Zabezpečení těchto rozhraní (řádné ověřování, šifrovaný přenos, validace vstupů) je jak požadavkem NIS2, tak opatřením na ochranu podniku."
+        "p3": "Logistické společnosti jsou také hluboce integrovány se systémy svých zákazníků a dopravců prostřednictvím EDI (Electronic Data Interchange), API spojení a sdílených platforem. Bezpečnostní průnik u vaší společnosti se může těmito spojeními rozšířit k zákazníkům a naopak. Vaše posouzení bezpečnosti dodavatelského řetězce by mělo pokrýt nejen vaše IT dodavatele, ale i elektronická spojení s vašimi obchodními partnery. Zabezpečení těchto rozhraní (řádné ověřování, šifrovaný přenos, validace vstupů) je požadavkem NIS2 pro společnosti v působnosti a opatřením na ochranu podniku pro všechny."
       },
       "faq": {
         "heading": "Často kladené otázky",
         "q1": {
           "q": "Jsme silniční nákladní dopravce s 80 nákladními vozy. Jsme základní, nebo důležití?",
-          "a": "Silniční doprava spadá pod přílohu I (odvětví vysoké kritičnosti). Pokud má vaše společnost 250 a více zaměstnanců, jste základní subjekt s proaktivním dohledem BSI. S 50 až 249 zaměstnanci jste důležitý subjekt s reaktivním dohledem. S 80 nákladními vozy máte pravděpodobně 100 až 150 zaměstnanců (řidiči, dispečeři, sklad, kancelář). Porovnejte svůj celkový počet zaměstnanců s prahem. Plný rozsah povinností NIS2 platí v obou případech."
+          "a": "Pravděpodobně ani jedním. Silniční nákladní doprava není typem subjektu podle NIS2 ani BSIG: v silniční dopravě příloha I zahrnuje jen silniční orgány odpovědné za řízení dopravy a provozovatele inteligentních dopravních systémů. Zkontrolujte, zda neposkytujete také poštovní nebo kurýrní služby (příloha II) nebo neprovozujete inteligentní dopravní systém. Pokud ne, na počtu nákladních vozů ani zaměstnanců nezáleží. Zákazníci, kteří do působnosti spadají, vám přesto mohou předat bezpečnostní požadavky prostřednictvím smluv, protože musí řídit bezpečnost svých přímých dodavatelů (čl. 21 odst. 2 písm. d) NIS2). Subjektem vás to nečiní."
         },
         "q2": {
           "q": "Považují se telematické jednotky našich nákladních vozů za \"aktiva\" podle NIS2?",
-          "a": "Ano. Jakýkoli systém, který podporuje vaše kritické dopravní služby, je aktivem. Telematické jednotky přenášejí data o poloze v reálném čase, rychlosti, teplotě (u chlazené přepravy) a pracovní době řidiče. Jsou to připojená zařízení na vaší síti. Sdružte je jako jednu položku aktiva. Například \"80 telematických jednotek Webfleet\" namísto 80 samostatných položek. Klíčová rizika jsou: neoprávněný přístup k datům o sledování vozidel, manipulace se záznamy tachografu a možné využití jako vstupní bod do sítě."
+          "a": "Pokud je vaše společnost jedním z uvedených typů subjektů, ano. Jakýkoli systém, který podporuje vaše kritické dopravní služby, je aktivem. Telematické jednotky přenášejí data o poloze v reálném čase, rychlosti, teplotě (u chlazené přepravy) a pracovní době řidiče. Jsou to připojená zařízení na vaší síti. Sdružte je jako jednu položku aktiva. Například \"80 telematických jednotek Webfleet\" namísto 80 samostatných položek. Klíčová rizika jsou: neoprávněný přístup k datům o sledování vozidel, manipulace se záznamy tachografu a možné využití jako vstupní bod do sítě."
         },
         "q3": {
           "q": "Používáme cloudový TMS. Je to náš problém, nebo poskytovatele?",
-          "a": "Obojí, ale právní povinnost je vaše. Podle § 30 BSIG můžete outsourcovat provoz, ale ne odpovědnost. Váš poskytovatel cloudového TMS je kritickým dodavatelem podle § 30 odst. 2 bodu 4. Musíte: zdokumentovat poskytovatele ve svém posouzení bezpečnosti dodavatelského řetězce, zahrnout požadavky kybernetické bezpečnosti do smlouvy, ověřit, že poskytovatel má odpovídající bezpečnostní opatření (certifikace, auditní zprávy, závazky k oznamování incidentů), a mít pohotovostní plán pro případ, že poskytovatel utrpí průnik nebo výpadek."
+          "a": "Obojí, ale pokud je vaše společnost v působnosti, právní povinnost je vaše. Podle § 30 BSIG můžete outsourcovat provoz, ale ne odpovědnost. Váš poskytovatel cloudového TMS je kritickým dodavatelem podle § 30 odst. 2 bodu 4. Musíte: zdokumentovat poskytovatele ve svém posouzení bezpečnosti dodavatelského řetězce, zahrnout požadavky kybernetické bezpečnosti do smlouvy, ověřit, že poskytovatel má odpovídající bezpečnostní opatření (certifikace, auditní zprávy, závazky k oznamování incidentů), a mít pohotovostní plán pro případ, že poskytovatel utrpí průnik nebo výpadek."
         },
         "q4": {
-          "q": "Jak NIS2 souvisí s nařízením EU o datech v mobilitě a s předpisy o digitálních tachografech?",
-          "a": "NIS2, nařízení o datech v mobilitě a předpisy o tachografech (EU 165/2014) jsou samostatné právní rámce, které se překrývají v oblasti zabezpečení dat. Předpisy o tachografech vyžadují záznam dat o řidiči odolný proti manipulaci. Nařízení o datech v mobilitě řeší povinnosti sdílení dat. NIS2 přidává vrstvu řízení kybernetické bezpečnosti: zabezpečení IT systémů, které tato data zpracovávají a přenášejí. Shoda s NIS2 posiluje vaši pozici u všech tří, protože dobře zabezpečené IT prostředí chrání integritu regulovaných dat."
+          "q": "Jak NIS2 souvisí s pravidly pro digitální tachografy?",
+          "a": "NIS2 a pravidla pro tachografy (nařízení (EU) č. 165/2014) jsou samostatné právní předpisy, které se překrývají v oblasti zabezpečení dat. Předpisy o tachografech vyžadují záznam dat o řidiči odolný proti manipulaci. Pro subjekty v působnosti NIS2 přidává vrstvu řízení kybernetické bezpečnosti: zabezpečení IT systémů, které tato data zpracovávají a přenášejí. Shoda s NIS2 posiluje vaši pozici u obou, protože dobře zabezpečené IT prostředí chrání integritu regulovaných dat."
         }
       },
       "ctaCard": {
@@ -9426,7 +9436,7 @@
           "transposition": {
             "country": "Ostatní členské státy",
             "label": "Vnitrostátní transpoziční zákony",
-            "body": "Příloha I sektor 5 zavazuje poskytovatele zdravotní péče v celé EU. NL to pokrývá prostřednictvím Cyberbeveiligingswet; FR prostřednictvím Ordonnance n° 2024-1093; AT prostřednictvím NISG. Test sektoru je stejný. Test velikosti je stejný. Ohlašovací kanály a příslušné orgány se liší."
+            "body": "Příloha I sektor 5 zavazuje poskytovatele zdravotní péče v celé EU. NL to pokrývá prostřednictvím Cyberbeveiligingswet a AT prostřednictvím NISG; ve FR je transpozice stále návrhem zákona v parlamentu. Test sektoru je stejný. Test velikosti je stejný. Ohlašovací kanály a příslušné orgány se liší."
           }
         }
       },
@@ -11858,7 +11868,7 @@
           "transposition": {
             "country": "Ostatní členské státy",
             "label": "Vnitrostátní transpoziční zákony",
-            "body": "Článek 2 odst. 2 písm. f) zavazuje veřejnou správu po celé EU. NL to pokrývá prostřednictvím Cyberbeveiligingswet, FR prostřednictvím Ordonnance n° 2024-1093, AT prostřednictvím NISG, CZ prostřednictvím zákona č. 264/2025 Sb. Pravidlo směrnice bez ohledu na velikost je všude stejné. Každý členský stát rozhoduje, co se počítá jako ústřední a které regionální subjekty projdou posouzením založeným na riziku."
+            "body": "Článek 2 odst. 2 písm. f) zavazuje veřejnou správu po celé EU. NL to pokrývá prostřednictvím Cyberbeveiligingswet a AT prostřednictvím NISG, CZ prostřednictvím zákona č. 264/2025 Sb.; ve FR je transpozice stále návrhem zákona v parlamentu. Pravidlo směrnice bez ohledu na velikost je všude stejné. Každý členský stát rozhoduje, co se počítá jako ústřední a které regionální subjekty projdou posouzením založeným na riziku."
           }
         }
       },
@@ -11994,7 +12004,7 @@
           "memberStates": {
             "country": "Ostatní členské státy",
             "label": "Vnitrostátní transpoziční zákony",
-            "body": "eIDAS je nařízení, takže pravidla pro služby vytvářející důvěru jsou v celé EU jednotná. NIS 2 je směrnice, takže každý členský stát ji transponuje: NL prostřednictvím Cyberbeveiligingswet, AT prostřednictvím NISG, FR prostřednictvím Ordonnance 2024-1093. Příloha I, sektor 8 a pravidlo bez ohledu na velikost podle článku 2 odst. 2 písm. b) jsou ve všech identické. Příslušný orgán pro stranu NIS 2 se liší zemi od země."
+            "body": "eIDAS je nařízení, takže pravidla pro služby vytvářející důvěru jsou v celé EU jednotná. NIS 2 je směrnice, takže každý členský stát ji transponuje: NL prostřednictvím Cyberbeveiligingswet, AT prostřednictvím NISG, zatímco ve FR je transpozice stále návrhem zákona v parlamentu. Příloha I, sektor 8 a pravidlo bez ohledu na velikost podle článku 2 odst. 2 písm. b) jsou ve všech identické. Příslušný orgán pro stranu NIS 2 se liší zemi od země."
           }
         }
       },
@@ -15255,12 +15265,12 @@
         "description": "Jak Nizozemsko transponuje směrnici NIS 2 do národního práva: Cyberbeveiligingswet (Cbw), dozorová role RDI, NCSC-NL jako národní CSIRT a mechanika registrace pro nizozemské subjekty."
       },
       "title": "Stav NIS 2 v Nizozemsku",
-      "subtitle": "Nizozemsko transponuje směrnici EU NIS 2 prostřednictvím Cyberbeveiligingswet (Cbw). Legislativní proces nabral zpoždění, takže nizozemské subjekty by měly nyní sledovat jak minimální úroveň EU, tak text Cbw projednávaný v Tweede Kamer.",
+      "subtitle": "Nizozemsko transponovalo směrnici EU NIS 2 prostřednictvím Cyberbeveiligingswet (Cbw). Zákon přišel pozdě a platí od 15. srpna 2026, bez přechodného období.",
       "overview": {
         "heading": "Přehled",
-        "p1": "Právním základem je směrnice EU NIS 2 (2022/2555). Stanoví minimální úroveň povinností v oblasti kybernetické bezpečnosti pro každý členský stát. Nizozemsko tuto úroveň zapisuje do národního práva prostřednictvím Cyberbeveiligingswet (Cbw), který nahrazuje starší Wbni (Wet beveiliging netwerk- en informatiesystemen) zavádějící NIS 1.",
-        "p2": "Lhůtu pro transpozici EU dne 17. října 2024 Nizozemsko i většina členských států, včetně Německa, zmeškaly. Nizozemský návrh prošel v roce 2024 veřejnou konzultací, v roce 2025 byl předložen Tweede Kamer a očekává se, že nabude účinnosti během roku 2026. Komise zahájila řízení o porušení povinnosti proti opožděným členským státům.",
-        "p3": "Jakmile Cbw nabude účinnosti, povinnosti platí bez přechodného okna, podobně jako to řešilo Německo u BSIG. Dnes drží dvě praktické kotvy: samotná směrnice EU a zveřejněný nizozemský návrh. Při vymezování práce použijte obě."
+        "p1": "Právním základem je směrnice EU NIS 2 (2022/2555). Stanoví minimální úroveň povinností v oblasti kybernetické bezpečnosti pro každý členský stát. Nizozemsko tuto úroveň zapisuje do národního práva prostřednictvím Cyberbeveiligingswet (Cbw), který nahradil starší Wbni (Wet beveiliging netwerk- en informatiesystemen) zavádějící NIS 1.",
+        "p2": "Lhůtu pro transpozici EU dne 17. října 2024 Nizozemsko i většina členských států, včetně Německa, zmeškaly. Nizozemský návrh prošel v roce 2024 veřejnou konzultací, v červnu 2025 byl předložen Tweede Kamer a byl přijat jako zákon ze dne 8. července 2026 (Staatsblad 2026, 187). Komise podala 8. července 2026 žalobu proti Nizozemsku u Soudního dvora EU, měsíc před tím, než Cbw 15. srpna 2026 nabyl účinnosti.",
+        "p3": "Cbw a jeho prováděcí vyhláška, Cyberbeveiligingsbesluit (Staatsblad 2026, 189), nabyly účinnosti 15. srpna 2026 bez přechodného období, podobně jako to řešilo Německo u BSIG. Při vymezování práce je nyní referencí přijatý Cbw společně se směrnicí EU."
       },
       "legalAnchor": {
         "heading": "Právní kotva",
@@ -15273,12 +15283,12 @@
         "regulation": {
           "label": "Prováděcí nařízení EU",
           "quote": "Prováděcí nařízení Komise (EU) 2024/2690 ze dne 17. října 2024 (CIR).",
-          "context": "Podrobně určuje, jak vypadají opatření podle čl. 21 pro digitální infrastrukturu, DNS, cloud, datová centra, doručování obsahu, poskytovatele řízených služeb a online tržiště. Přímo použitelné v Nizozemsku bez dalšího národního aktu."
+          "context": "Podrobně určuje, jak vypadají opatření podle čl. 21 pro poskytovatele DNS, registry TLD, cloud, poskytovatele datových center a sítí pro doručování obsahu (CDN), poskytovatele řízených (bezpečnostních) služeb, online tržiště, vyhledávače, sociální sítě a poskytovatele služeb vytvářejících důvěru. Přímo použitelné v Nizozemsku bez dalšího národního aktu."
         },
         "transposition": {
           "label": "Nizozemská transpozice",
-          "quote": "Cyberbeveiligingswet (Cbw), vládní návrh aktuálně projednávaný v parlamentu; starší Wbni zůstává v platnosti, dokud Cbw nenabude účinnosti.",
-          "context": "Cbw přiděluje role dozoru a CSIRT, definuje klíčové a důležité subjekty pro Nizozemsko a doplňuje národní specifika jako poplatky, postupy určení a předání mezi odvětvími. Články citované na této stránce odkazují na zveřejněný konzultační návrh a mohou se před přijetím změnit."
+          "quote": "Cyberbeveiligingswet (Cbw), zákon ze dne 8. července 2026 (Staatsblad 2026, 187), v účinnosti od 15. srpna 2026; nahradil Wbni.",
+          "context": "Cbw přiděluje role dozoru a CSIRT, definuje klíčové a důležité subjekty pro Nizozemsko a doplňuje národní specifika jako poplatky, postupy určení a předání mezi odvětvími. Jeho prováděcí vyhláška, Cyberbeveiligingsbesluit (Staatsblad 2026, 189), nabyla účinnosti současně s ním dne 15. srpna 2026."
         }
       },
       "elements": {
@@ -15288,17 +15298,17 @@
           "law": {
             "section": "Zákon",
             "title": "Cyberbeveiligingswet (Cbw)",
-            "body": "Transponuje články 1 až 41 NIS 2 do nizozemského práva. Definuje klíčové (essentiële) a důležité (belangrijke) subjekty, stanoví dozorové pravomoci, pokuty a postupy hlášení incidentů a začleňuje CIR EU odkazem."
+            "body": "Transponuje NIS 2 do nizozemského práva a platí od 15. srpna 2026. Definuje klíčové (essentiële) a důležité (belangrijke) subjekty, stanoví dozorové pravomoci, pokuty a postupy hlášení incidentů a začleňuje CIR EU odkazem."
           },
           "authority": {
             "section": "Úřad",
             "title": "RDI, odvětvové regulátory, NCSC-NL",
-            "body": "Rijksinspectie Digitale Infrastructuur (RDI) je hlavním dozorovým orgánem pro mnoho odvětví, včetně digitální infrastruktury a většiny poskytovatelů digitálních služeb. Odvětvové regulátory si drží svou působnost (například DNB pro bankovnictví, AFM pro finanční trhy, ACM pro telekomunikace). NCSC-NL je národní CSIRT."
+            "body": "Dozor je rozdělen podle odvětví: Rijksinspectie Digitale Infrastructuur (RDI) pro digitální infrastrukturu, digitální poskytovatele, správu služeb ICT, energetiku a veřejnou správu; ILT pro dopravu, vodu a chemii; DNB pro bankovnictví; AFM pro infrastruktury finančních trhů; NVWA pro potraviny. NCSC je CSIRT pro většinu odvětví."
           },
           "deadlines": {
             "section": "Lhůty",
             "title": "Lhůta EU zmeškána, registrace přes nizozemský portál",
-            "body": "Lhůta EU dne 17. října 2024 uplynula bez nizozemské transpozice. Jakmile Cbw nabude účinnosti, subjekty se musí zaregistrovat u příslušného orgánu a hlásit významné incidenty do 24 hodin (včasné varování) a 72 hodin (úplné oznámení), v souladu s čl. 23 NIS 2."
+            "body": "Lhůta EU dne 17. října 2024 uplynula bez nizozemské transpozice. Od 15. srpna 2026 se subjekty v působnosti musí zaregistrovat v národním registru subjektů na MijnNCSC (mijn.ncsc.nl), s přihlášením přes eHerkenning, a změny hlásit bez zbytečného odkladu a nejpozději do dvou týdnů. Významné incidenty se hlásí CSIRT i dozorovému orgánu do 24 hodin (včasné varování) a 72 hodin (úplné oznámení), v souladu s čl. 23 NIS 2."
           }
         }
       },
@@ -15307,8 +15317,8 @@
         "description": "Dvě pravidla, která vyřeší téměř každou pochybnost o tom, jak na sebe působí nizozemské a evropské povinnosti.",
         "items": {
           "lexLocalis": {
-            "title": "Národní právo platí tam, kde působíte",
-            "body": "Subjekt poskytující služby v Nizozemsku podléhá pro tyto činnosti nizozemskému právu, i když jeho ústředí sídlí jinde. Pravidlo hlavní provozovny podle čl. 26 NIS 2 rozhoduje, který členský stát přebírá primární dozor, ale místní činnost stejně spouští hlášení tam, kde incident dopadne."
+            "title": "Národní právo následuje místo usazení",
+            "body": "Subjekt podléhá právu země, v níž je usazen. Pouze někteří poskytovatelé digitálních služeb (cloud, datová centra, poskytovatelé řízených služeb, online tržiště a podobně) podléhají zemi své hlavní provozovny v EU a poskytovatelé elektronických komunikačních služeb podléhají každé zemi, v níž své služby poskytují (čl. 26 odst. 1 NIS 2)."
           },
           "euFloor": {
             "title": "Směrnice je minimální úroveň, nikdy ne strop",
@@ -15323,17 +15333,17 @@
           "rdi": {
             "country": "NL",
             "label": "Rijksinspectie Digitale Infrastructuur (RDI)",
-            "body": "Hlavní příslušný orgán pro mnoho odvětví NIS 2 v Nizozemsku, včetně digitální infrastruktury, správy služeb ICT, digitálních poskytovatelů a několika dalších odvětví z přílohy I a II. Nástupce Agentschap Telecom; spadá pod Ministerstvo hospodářství."
+            "body": "Dozorový orgán pro digitální infrastrukturu, digitální poskytovatele, správu služeb ICT, energetiku, vesmír, poštu, zpracovatelský průmysl a veřejnou správu. Příslušným orgánem ve smyslu zákona je odpovědný ministr. Nástupce Agentschap Telecom; spadá pod Ministerstvo hospodářství."
           },
           "ncscNl": {
             "country": "NL",
             "label": "NCSC-NL (Nationaal Cyber Security Centrum)",
-            "body": "Národní CSIRT pod Ministerstvem spravedlnosti a bezpečnosti. Přijímá oznámení o incidentech podle čl. 23, provozuje odvětvová doporučení a koordinuje se s ENISA a dalšími národními CSIRT. Nizozemská vláda oznámila konsolidovanou národní službu kybernetické bezpečnosti, ale operativním CSIRT je dnes NCSC-NL."
+            "body": "Národní CSIRT pod Ministerstvem spravedlnosti a bezpečnosti. Přijímá oznámení o incidentech podle čl. 23, vydává odvětvová doporučení a koordinuje se s ENISA a dalšími národními CSIRT. Od 1. ledna 2026 je Digital Trust Center součástí NCSC, které je nyní jednotným kontaktním místem pro digitální odolnost a CSIRT pro většinu odvětví Cbw. Provozuje registr subjektů na MijnNCSC."
           },
           "enisa": {
             "country": "EU",
             "label": "ENISA",
-            "body": "Vydává metodiku na úrovni EU a technické zprávy o implementaci. Není regulátorem nizozemských subjektů, ale její výstupy (jako Technical Implementation Guidance a křížové mapování na ISO 27001) jsou praktickou referencí pro doložení opatření podle čl. 21."
+            "body": "Vydává pokyny na úrovni EU a technické zprávy o implementaci. Není regulátorem nizozemských subjektů. Její Technical Implementation Guidance k CIR (s křížovým mapováním na ISO 27001) je napsána pro poskytovatele digitálních služeb, na které se CIR vztahuje; ostatní subjekty ji mohou použít jako referenci."
           }
         }
       },
@@ -15347,18 +15357,18 @@
           },
           "noRegistry": {
             "myth": "Nizozemská registrační povinnost zatím neexistuje, takže můžeme počkat.",
-            "reality": "Čl. 3 odst. 4 NIS 2 vyžaduje, aby každý členský stát vedl registr a aby subjekty poskytly své údaje. Nizozemsko spustí registrační kanál prostřednictvím příslušných orgánů, jakmile Cbw nabude účinnosti. Pravidlo aktualizace do dvou týdnů podle čl. 3 odst. 4 platí celounijně a zavazuje nizozemské subjekty v okamžiku, kdy se zákon začne uplatňovat."
+            "reality": "Čl. 3 odst. 4 NIS 2 vyžaduje, aby každý členský stát vedl registr a aby subjekty poskytly své údaje. V Nizozemsku je registrace povinná od 15. srpna 2026, bez ochranné lhůty: subjekty v působnosti se registrují v národním registru subjektů na MijnNCSC, který vede ministr spravedlnosti a bezpečnosti (čl. 43 Cbw). Změny je třeba hlásit bez zbytečného odkladu a v každém případě do dvou týdnů ode dne změny (čl. 44 odst. 2 Cbw)."
           },
           "onlySector": {
             "myth": "Můj odvětvový regulátor řeší vše, RDI není relevantní.",
-            "reality": "Odvětvové regulátory si drží svou finanční, telekomunikační nebo zdravotnickou dozorovou působnost. RDI je horizontální dozor kybernetické bezpečnosti pro několik odvětví a kontaktní místo pro mezioborové otázky kybernetické bezpečnosti. U finančních subjektů spadajících pod DORA působí DORA jako lex specialis v oblasti kybernetické bezpečnosti, ale registrace podle čl. 3 odst. 4 NIS 2 stále platí."
+            "reality": "Dozor podle Cbw je rozdělen podle odvětví: DNB pro bankovnictví, AFM pro infrastruktury finančních trhů, ILT pro dopravu, vodu a chemii, NVWA pro potraviny a RDI pro digitální infrastrukturu, energetiku, veřejnou správu a několik dalších odvětví. U finančních subjektů spadajících pod DORA působí DORA jako lex specialis v oblasti kybernetické bezpečnosti, ale registrace podle čl. 3 odst. 4 NIS 2 stále platí."
           }
         }
       },
       "practitioner": {
         "heading": "Pohled z praxe",
-        "p1": "Většina nizozemských subjektů v působnosti už ví, že do působnosti spadne. Otázkou není, zda NIS 2 dopadne, ale jak je nizozemský zákon nasměruje. Sledujte týdně dvě věci: legislativní stav Cbw v Tweede Kamer a jakoukoli odvětvovou komunikaci RDI, která ukotvuje načasování nebo vymezení.",
-        "p2": "Provozně drží na úrovni EU dnes čtyři stálé povinnosti: řídit bezpečnost s odpovědností vedení (čl. 20), provozovat opatření pro řízení rizik (čl. 21), hlásit významné incidenty v rytmu 24 hodin a 72 hodin (čl. 23) a připravit se na registraci (čl. 3 odst. 4). Žádná z těchto čtyř nevyžaduje, aby byl nizozemský zákon účinný, aby byla užitečná."
+        "p1": "Většina nizozemských subjektů v působnosti už věděla, že do působnosti spadne. Cbw platí od 15. srpna 2026 bez přechodného období, takže teď záleží na dvou věcech: na registraci v registru subjektů na MijnNCSC a na jakékoli komunikaci dozorového orgánu pro vaše odvětví, která ukotvuje vymezení.",
+        "p2": "Provozně platí podle Cbw, který tyto články EU transponuje, čtyři stálé povinnosti: řídit bezpečnost s odpovědností vedení (čl. 20), provozovat opatření pro řízení rizik (čl. 21), hlásit významné incidenty v rytmu 24 hodin a 72 hodin (čl. 23) a zaregistrovat se a udržovat registraci aktuální (čl. 3 odst. 4)."
       },
       "platform": {
         "heading": "Jak platforma pomáhá",
@@ -15370,11 +15380,11 @@
         "items": [
           "Směrnice (EU) 2022/2555 (NIS 2), EUR-Lex, Úř. věst. L 333, 27. prosince 2022",
           "Prováděcí nařízení Komise (EU) 2024/2690 ze dne 17. října 2024",
-          "Wetsvoorstel Cyberbeveiligingswet (Cbw), konzultace a dokumentace Tweede Kamer, internetconsultatie.nl",
-          "Wbni, Wet beveiliging netwerk- en informatiesystemen (současný zákon, transpozice NIS 1)",
+          "Cyberbeveiligingswet (Cbw), zákon ze dne 8. července 2026, Staatsblad 2026, 187; Cyberbeveiligingsbesluit, Staatsblad 2026, 189",
+          "Wbni: Wet beveiliging netwerk- en informatiesystemen (transpozice NIS 1, nahrazen Cbw dne 15. srpna 2026)",
           "Rijksinspectie Digitale Infrastructuur (RDI), rdi.nl, dozorové informace k NIS 2",
           "NCSC-NL, ncsc.nl, oznamování incidentů a metodika CSIRT",
-          "ENISA, NIS 2 Technical Implementation Guidance (v1.2, 2025)"
+          "ENISA, NIS 2 Technical Implementation Guidance, verze 1.0, červen 2025 (mapovací tabulka verze 1.2, září 2025)"
         ]
       },
       "ctaCard": {
@@ -15519,16 +15529,16 @@
     },
     "nis2StatusFrankreich": {
       "meta": {
-        "title": "Stav NIS 2 ve Francii. Ordonnance n° 2024-1093, ANSSI, MonEspaceNIS2",
-        "description": "Jak Francie transponuje směrnici NIS 2: Ordonnance n° 2024-1093 ze dne 2. prosince 2024, ANSSI jako dozorový orgán a národní CSIRT, registrace MonEspaceNIS2 a jak se převádějí staré režimy OIV a OSE."
+        "title": "Stav NIS 2 ve Francii: návrh transpozičního zákona, ANSSI, předregistrace",
+        "description": "Kde Francie stojí se směrnicí NIS 2: dosud netransponována, návrh zákona o odolnosti a kybernetické bezpečnosti před Assemblée nationale, žaloba Komise proti Francii u Soudního dvora, ANSSI jako národní CSIRT a plánovaný dozorový orgán, dobrovolná předregistrace a jak se převádějí staré režimy OIV a OSE."
       },
       "title": "Stav NIS 2 ve Francii",
       "subtitle": "Co směrnice vyžaduje, jak ji Francie transponuje a kde v obrázku sedí ANSSI.",
       "overview": {
         "heading": "Přehled",
         "p1": "Směrnice NIS 2 je vrstva EU. Zavazuje každý členský stát, včetně Francie, jednou minimální úrovní kybernetické bezpečnosti pro nezbytné a důležité subjekty. Francie musí tuto úroveň vložit do francouzského práva a provozovat pod ní dohledový režim.",
-        "p2": "Francie transponuje NIS 2 prostřednictvím Ordonnance n° 2024-1093 ze dne 2. prosince 2024 a prováděcích dekretů, které ji následují. Text se vrství na existující režim OIV (Opérateurs d'Importance Vitale) a režim OSE z NIS 1 (Opérateurs de Services Essentiels) spíše než aby je rovnou nahradil.",
-        "p3": "ANSSI (Agence nationale de la sécurité des systèmes d'information) je dozorovým orgánem a národním CSIRT. Registrace běží prostřednictvím portálu MonEspaceNIS2. Odvětvoví regulátoři zůstávají ve hře pro odvětví, která už nějaké měla, zejména finance, kde DORA působí jako lex specialis."
+        "p2": "Francie dosud netransponovala NIS 2. Transpozice probíhá vládním návrhem zákona, projet de loi relatif à la résilience des infrastructures critiques et au renforcement de la cybersécurité, který pokrývá NIS 2, směrnici o odolnosti kritických subjektů a DORA. Senát jej přijal 12. března 2025 a zvláštní výbor Assemblée nationale 10. září 2025. Plenární rozprava v Assemblée je naplánována na 7. října 2026. Komise podala 8. července 2026 žalobu proti Francii u Soudního dvora EU pro nedokončenou transpozici NIS 2 a požaduje finanční sankce. Návrh se vrství na existující režim OIV (Opérateurs d'Importance Vitale) a režim OSE z NIS 1 (Opérateurs de Services Essentiels) spíše než aby je rovnou nahradil.",
+        "p3": "ANSSI (Agence nationale de la sécurité des systèmes d'information) provozuje národní CSIRT a podle návrhu zákona je národním orgánem. Nabízí dobrovolnou předregistraci na messervices.cyber.gouv.fr/nis2 (dříve MonEspaceNIS2); registrace se stane povinností teprve po přijetí zákona. Odvětvoví regulátoři zůstávají ve hře pro odvětví, která už nějaké měla, zejména finance, kde DORA působí jako lex specialis."
       },
       "legalAnchor": {
         "heading": "Kde pravidla žijí",
@@ -15544,9 +15554,9 @@
           "context": "Technická a metodická opatření pro poskytovatele digitální infrastruktury. Přímo použitelné ve Francii bez národní transpozice."
         },
         "transposition": {
-          "label": "Francouzská transpozice",
-          "quote": "Ordonnance n° 2024-1093 ze dne 2. prosince 2024",
-          "context": "Francouzská transpozice NIS 2. Prováděcí dekrety a pokyny ANSSI doplňují operativní detail. Text mění Code de la défense (články L.1332-x pro OIV) a rozšiřuje jej na širší perimetr NIS 2."
+          "label": "Francouzská transpozice (návrh zákona)",
+          "quote": "Projet de loi relatif à la résilience des infrastructures critiques et au renforcement de la cybersécurité",
+          "context": "Vládní návrh zákona, který bude transponovat NIS 2 společně se směrnicí o odolnosti kritických subjektů a DORA. Senát jej přijal 12. března 2025; plenární rozprava v Assemblée nationale je naplánována na 7. října 2026. Hlava I návrhu přepisuje pravidla pro kritické provozovatele v Code de la défense; hlava II přináší NIS 2 jako články nového zákona, s ANSSI jako národním orgánem. Prováděcí dekrety a pokyny ANSSI doplní operativní detail."
         }
       },
       "elements": {
@@ -15555,18 +15565,18 @@
         "items": {
           "ordonnance": {
             "section": "Transpozice",
-            "title": "Ordonnance n° 2024-1093",
-            "body": "Přenáší povinnosti NIS 2 do francouzského práva. Definuje kategorii EEI (Entités essentielles importantes), dohledové pravomoci ANSSI, povinnosti hlášení incidentů a sankce. Většina operativního detailu je delegována na décrets d'application."
+            "title": "Návrh zákona o odolnosti a kybernetické bezpečnosti",
+            "body": "Přenese povinnosti NIS 2 do francouzského práva, jakmile bude přijat; zatím to zákon není. Návrh definuje dvě kategorie, entités essentielles (EE) a entités importantes (EI), dozorové pravomoci ANSSI, povinnosti hlášení incidentů a sankce. Většina operativního detailu je delegována na décrets d'application."
           },
           "anssi": {
             "section": "Orgán",
             "title": "ANSSI jako dozorový orgán a CSIRT",
-            "body": "ANSSI provozuje dohled, audity a návrhy sankcí. Provozuje také národní CSIRT a portál MonEspaceNIS2. Odvětvoví regulátoři jako ACPR pro finance si ponechávají vlastní působnost tam, kde se uplatní lex specialis."
+            "body": "Podle návrhu zákona ANSSI provádí dohled a audity a porušení předává sankční komisi (commission des sanctions), která ukládá pokuty. Provozuje také národní CSIRT a dobrovolnou předregistraci na messervices.cyber.gouv.fr/nis2 (dříve MonEspaceNIS2). Odvětvoví regulátoři jako ACPR pro finance si ponechávají vlastní působnost tam, kde se uplatní lex specialis."
           },
           "deadlines": {
             "section": "Lhůty",
             "title": "Registrace a hlášení",
-            "body": "Směrnice vyžadovala, aby byly subjekty členskými státy identifikovatelné od 17. dubna 2025. Ve Francii se to děje prostřednictvím MonEspaceNIS2. Významné incidenty se řídí kadencí směrnice: 24h včasné varování, 72h oznámení a závěrečná zpráva do jednoho měsíce."
+            "body": "Směrnice vyžadovala, aby byly subjekty členskými státy identifikovatelné od 17. dubna 2025. Francie zatím nemá registrační povinnost: ANSSI nabízí dobrovolnou předregistraci na messervices.cyber.gouv.fr/nis2 (dříve MonEspaceNIS2) a registrace se stane povinností teprve po přijetí zákona. Jakmile se zákon uplatní, významné incidenty se řídí kadencí směrnice: 24h včasné varování, 72h oznámení a závěrečná zpráva do jednoho měsíce."
           }
         }
       },
@@ -15576,7 +15586,7 @@
         "items": {
           "lexLocalis": {
             "title": "Uvnitř Francie platí místní právo",
-            "body": "Provoz na francouzském území se řídí francouzskou transpozicí. Německý Geschäftsführer řídící francouzskou dceřinou společnost čte pro tu dceřinou společnost Ordonnance n° 2024-1093, ne německý BSIG. Povinnosti ze směrnice jsou stejné; postup, portál a sankce žijí ve francouzském právu."
+            "body": "Subjekty usazené ve Francii se budou řídit francouzskou transpozicí, jakmile bude přijata. Německý Geschäftsführer řídící francouzskou dceřinou společnost bude pro tu dceřinou společnost číst francouzský zákon, ne německý BSIG. Povinnosti ze směrnice jsou stejné; postup, portál a sankce budou žít ve francouzském právu."
           },
           "euFloor": {
             "title": "Francie nemůže jít pod úroveň EU",
@@ -15591,7 +15601,7 @@
           "anssi": {
             "country": "FR",
             "label": "ANSSI",
-            "body": "Vedoucí příslušný orgán, dozorový orgán a národní CSIRT. Provozuje MonEspaceNIS2, vydává pokyny, provádí audity a navrhuje sankce Premier ministre. Drží historickou doktrínu OIV, která nyní krmí dohled NIS 2."
+            "body": "Národní CSIRT a podle návrhu zákona národní orgán. Provozuje dobrovolnou předregistraci NIS 2 na messervices.cyber.gouv.fr/nis2 (dříve MonEspaceNIS2), vydává pokyny a provádí audity. Podle návrhu ANSSI vykonává dohled a porušení předává sankční komisi (commission des sanctions), která ukládá pokuty až do výše 10 milionů EUR nebo 2 % celosvětového obratu u základních subjektů a 7 milionů EUR nebo 1,4 % u důležitých subjektů. Drží historickou doktrínu OIV, která bude krmit dohled NIS 2."
           },
           "cnil": {
             "country": "FR",
@@ -15611,7 +15621,7 @@
         "items": {
           "oivCoversAll": {
             "myth": "Jsme už OIV, takže NIS 2 je vyřízena.",
-            "reality": "Klasifikace OIV a OSE podle existujícího Code de la défense a rámce NIS 1 se automaticky nepřevádějí jako EEI podle NIS 2. Perimetr je jiný, odvětvové prahy jsou jiné a subjekty musí ověřit svůj status proti novým kritériím. Mnozí OIV jsou také nezbytnými subjekty podle NIS 2, ale soubor povinností a kanál pro hlášení se mění."
+            "reality": "Klasifikace OIV a OSE podle existujícího Code de la défense a rámce NIS 1 se automaticky nepřevádějí jako základní nebo důležité subjekty (EE nebo EI) podle NIS 2. Perimetr je jiný, odvětvové prahy jsou jiné a subjekty musí ověřit svůj status proti novým kritériím. Mnozí OIV jsou také základními subjekty podle NIS 2, ale soubor povinností a kanál pro hlášení se mění."
           },
           "onlyLargeFirms": {
             "myth": "NIS 2 ve Francii platí jen pro velké operátory.",
@@ -15619,18 +15629,18 @@
           },
           "frenchOnlyForms": {
             "myth": "MonEspaceNIS2 a ANSSI přijímají jen francouzštinu.",
-            "reality": "Portál a oficiální pokyny jsou primárně francouzské, ale ANSSI ve vymezených případech přijímá technické hlášení a podpůrnou dokumentaci v angličtině, v souladu se spoluprací v rámci EU. Zahraniční mateřské společnosti by neměly předpokládat, že potřebují plný francouzský překlad každé vnitřní politiky, aby se zaregistrovaly nebo podaly hlášení incidentu."
+            "reality": "Portál a oficiální pokyny jsou primárně francouzské. Zahraniční mateřské společnosti by neměly předpokládat, že potřebují plný francouzský překlad každé vnitřní politiky, aby se zaregistrovaly nebo podaly hlášení incidentu."
           }
         }
       },
       "practitioner": {
         "heading": "Pohled praktika",
-        "p1": "Většina operátorů ve Francii odpovídajících Mittelstandu, které vidíme, stále zachází s NIS 2 jako s rozšířením starého režimu OIV / OSE. To je napůl správně. Dohled a kanál pro incidenty sedí uvnitř ANSSI jako dřív, ale rozsah je širší a odsouhlasení řídícím orgánem je těžší. Ekvivalent Geschäftsführera (président, directeur général, gérant) osobně odpovídá za schválení řízení rizik a za školení.",
-        "p2": "Praktický krok je stejný jako všude jinde v EU: potvrďte rozsah podle směrnice, zaregistrujte se prostřednictvím národního portálu (zde MonEspaceNIS2), nastavte čtyři průběžné povinnosti (udržování registrace, hlášení incidentů, riziko dodavatelského řetězce, dozor řídícího orgánu) a zdokumentujte minimum. Aparát OIV pomáhá, ale nenahrazuje registr povinností NIS 2."
+        "p1": "Většina operátorů ve Francii odpovídajících Mittelstandu, které vidíme, stále zachází s NIS 2 jako s rozšířením starého režimu OIV / OSE. To je napůl správně. Podle návrhu zákona dohled a kanál pro incidenty sedí uvnitř ANSSI jako dřív, ale rozsah je širší a odsouhlasení řídícím orgánem je těžší. Jakmile se zákon uplatní, ekvivalent Geschäftsführera (président, directeur général, gérant) bude osobně odpovídat za schválení řízení rizik a za školení.",
+        "p2": "Praktický krok je stejný jako všude jinde v EU: potvrďte rozsah podle směrnice, dobrovolně se předregistrujte u ANSSI (messervices.cyber.gouv.fr/nis2, dříve MonEspaceNIS2) a zaregistrujte se, jakmile bude zákon přijat, nastavte čtyři průběžné povinnosti (udržování registrace, hlášení incidentů, riziko dodavatelského řetězce, dozor řídícího orgánu) a zdokumentujte minimum. Aparát OIV pomáhá, ale nenahrazuje registr povinností NIS 2."
       },
       "platform": {
         "heading": "Jak platforma pomáhá",
-        "p1": "Registr povinností NIS 2 stavíme na vrstvě EU, ne na jediné národní transpozici. Tentýž kontrolní seznam funguje pro francouzskou dceřinou společnost používající Ordonnance n° 2024-1093, německou mateřskou společnost používající BSIG a nizozemskou sesterskou společnost používající Cyberbeveiligingswet. Odkazy na články se přepínají podle lokalizace; věcné povinnosti ne.",
+        "p1": "Registr povinností NIS 2 stavíme na vrstvě EU, ne na jediné národní transpozici. Tentýž kontrolní seznam funguje pro francouzskou dceřinou společnost podle budoucího francouzského zákona, německou mateřskou společnost používající BSIG a nizozemskou sesterskou společnost používající Cyberbeveiligingswet. Odkazy na články se přepínají podle lokalizace; věcné povinnosti ne.",
         "p2": "Pro francouzský rozsah začnete kontrolou použitelnosti, pak přejdete na kadenci hlášení incidentů, doložky dodavatelského řetězce a odsouhlasení řídícím orgánem. Tam, kde ANSSI vydává odvětvové pokyny, na ně odkazujeme; neduplikujeme je."
       },
       "sources": {
@@ -15638,10 +15648,10 @@
         "items": [
           "Směrnice (EU) 2022/2555 (NIS 2). EUR-Lex",
           "Prováděcí nařízení Komise (EU) 2024/2690",
-          "Ordonnance n° 2024-1093 du 2 décembre 2024. Légifrance",
+          "Projet de loi relatif à la résilience des infrastructures critiques et au renforcement de la cybersécurité: Assemblée nationale, legislativní spis",
           "Code de la défense, Articles L.1332-1 et suivants (OIV). Légifrance",
           "ANSSI, Agence nationale de la sécurité des systèmes d'information, oficiální stránka",
-          "MonEspaceNIS2, francouzský registrační portál NIS 2 (ANSSI)",
+          "Předregistrace NIS 2 u ANSSI: messervices.cyber.gouv.fr/nis2 (dříve MonEspaceNIS2)",
           "ACPR / Banque de France, příslušný orgán pro DORA ve finančním sektoru"
         ]
       },
@@ -16165,7 +16175,7 @@
       },
       "platform": {
         "heading": "Jak platforma pomáhá",
-        "p1": "Evidenci povinností NIS 2 stavíme na vrstvě EU, ne na jediné národní transpozici. Stejný checklist funguje pro portugalskou dceru používající Decreto-Lei n.º 125/2025, německou mateřskou firmu používající BSIG i francouzskou sesterskou firmu používající Ordonnance n° 2024-1093. Odkazy na články se mění podle lokality; věcné povinnosti ne.",
+        "p1": "Evidenci povinností NIS 2 stavíme na vrstvě EU, ne na jediné národní transpozici. Stejný checklist funguje pro portugalskou dceru používající Decreto-Lei n.º 125/2025 a německou mateřskou firmu používající BSIG. Odkazy na články se mění podle lokality; věcné povinnosti ne.",
         "p2": "Pro portugalskou působnost začnete kontrolou působnosti, pak přejdete na kadenci hlášení incidentů, doložky dodavatelského řetězce a schválení řídicím orgánem. Tam, kde CNCS zveřejňuje sektorové pokyny, na ně odkazujeme; neduplikujeme je."
       },
       "sources": {
@@ -16570,7 +16580,7 @@
       },
       "platform": {
         "heading": "Jak platforma pomáhá",
-        "p1": "Registr povinností NIS 2 stavíme na vrstvě EU, ne na jediné národní transpozici. Stejný kontrolní seznam funguje pro českou dceru používající zákon č. 264/2025 Sb., německou matku používající BSIG i francouzskou sestru používající Ordonnance n° 2024-1093. Odkazy na články se přepínají podle lokality. Věcné povinnosti ne.",
+        "p1": "Registr povinností NIS 2 stavíme na vrstvě EU, ne na jediné národní transpozici. Stejný kontrolní seznam funguje pro českou dceru používající zákon č. 264/2025 Sb. a německou matku používající BSIG. Odkazy na články se přepínají podle lokality. Věcné povinnosti ne.",
         "p2": "Pro český rozsah začnete kontrolou použitelnosti, pak přejdete na kadenci hlášení incidentů, doložky o dodavatelském řetězci a odsouhlasení řídícím orgánem. Kde NÚKIB vydává vyhlášky a sektorové pokyny, odkazujeme na ně. Neduplikujeme je."
       },
       "sources": {
@@ -17245,7 +17255,7 @@
       },
       "platform": {
         "heading": "Jak platforma pomáhá",
-        "p1": "Registr povinností NIS 2 budujeme na vrstvě EU, ne na žádné jediné národní transpozici. Tentýž kontrolní seznam funguje pro italskou dceřinou společnost používající legislativní dekret 138/2024, německou mateřskou společnost používající BSIG, francouzskou sesterskou používající Ordonnance n° 2024-1093 i nizozemskou používající Cyberbeveiligingswet. Odkazy na články se přepínají podle lokality; věcné povinnosti nikoli.",
+        "p1": "Registr povinností NIS 2 budujeme na vrstvě EU, ne na žádné jediné národní transpozici. Tentýž kontrolní seznam funguje pro italskou dceřinou společnost používající legislativní dekret 138/2024, německou mateřskou společnost používající BSIG i nizozemskou používající Cyberbeveiligingswet. Odkazy na články se přepínají podle lokality; věcné povinnosti nikoli.",
         "p2": "U italské působnosti začnete kontrolou působnosti, poté přejdete k rytmu hlášení incidentů přes CSIRT Italia, doložkám dodavatelského řetězce a schválení řídicím orgánem. Tam, kde ACN vydává rozhodnutí nebo odvětvové přílohy, na ně odkazujeme; neduplikujeme je."
       },
       "sources": {
@@ -17269,15 +17279,15 @@
     "nis2StatusSpanien": {
       "meta": {
         "title": "Stav NIS 2 ve Španělsku: návrh Ley de Coordinación y Gobernanza de la Ciberseguridad, CCN, INCIBE",
-        "description": "Jak Španělsko transponuje směrnici NIS 2: návrh Ley de Coordinación y Gobernanza de la Ciberseguridad schválený Radou ministrů dne 14. ledna 2025, navrhované Centro Nacional de Ciberseguridad, stávající rozdělení CCN-CERT a INCIBE-CERT a řízení EU o porušení."
+        "description": "Jak Španělsko transponuje směrnici NIS 2: návrh Ley de Coordinación y Gobernanza de la Ciberseguridad schválený Radou ministrů dne 14. ledna 2025, navrhované Centro Nacional de Ciberseguridad, stávající rozdělení CCN-CERT a INCIBE-CERT a žaloba Komise proti Španělsku u Soudního dvora EU."
       },
       "title": "Stav NIS 2 ve Španělsku",
       "subtitle": "Co směrnice vyžaduje, kde stojí španělská transpozice a jak do toho zatím zapadají CCN a INCIBE.",
       "overview": {
         "heading": "Přehled",
         "p1": "Směrnice NIS 2 je vrstvou EU. Zavazuje každý členský stát, včetně Španělska, jednou minimální úrovní kybernetické bezpečnosti pro klíčové a důležité subjekty. Španělsko musí tuto úroveň vložit do španělského práva a provozovat pod ní dozorový režim.",
-        "p2": "Španělsko zmeškalo transpoziční lhůtu 17. října 2024 stanovenou v čl. 41 NIS 2. Rada ministrů schválila Anteproyecto de Ley de Coordinación y Gobernanza de la Ciberseguridad dne 14. ledna 2025, ale k polovině roku 2026 je návrh stále v legislativním procesu a nebyl zveřejněn v Boletín Oficial del Estado.",
-        "p3": "Dokud se návrh nestane zákonem, nadále platí předchozí Real Decreto-ley 12/2018 (transpozice NIS 1) a dohled zůstává rozdělen mezi Národní kryptologické centrum (CCN) a Národní institut kybernetické bezpečnosti (INCIBE), se sektorovými orgány pro finance a další regulované sektory. Evropská komise zaslala odůvodněné stanovisko dne 7. května 2025 kvůli chybějící transpozici."
+        "p2": "Španělsko zmeškalo transpoziční lhůtu 17. října 2024 stanovenou v čl. 41 NIS 2. Rada ministrů schválila Anteproyecto de Ley de Coordinación y Gobernanza de la Ciberseguridad dne 14. ledna 2025. V březnu 2026 vláda uvedla, že text ministerstva stále zpracovávají jako Anteproyecto (vládní návrh) a že nebyl zveřejněn v Boletín Oficial del Estado.",
+        "p3": "Dokud se návrh nestane zákonem, nadále platí předchozí Real Decreto-ley 12/2018 (transpozice NIS 1). Podle něj je dohled rozdělen: Ministerstvo vnitra (CNPIC) pro provozovatele označené za kritické, příslušné ministerstvo pro ostatní provozovatele základních služeb, Státní sekretariát pro digitalizaci pro poskytovatele digitálních služeb a CCN pro veřejný sektor. INCIBE-CERT a CCN-CERT jsou týmy pro reakci na incidenty, nikoli dozorové orgány. Evropská komise zaslala odůvodněné stanovisko dne 7. května 2025 a dne 8. července 2026 podala žalobu proti Španělsku u Soudního dvora EU, v níž požaduje paušální částku a denní penále, dokud Španělsko neoznámí úplnou transpozici."
       },
       "legalAnchor": {
         "heading": "Kde pravidla žijí",
@@ -17295,7 +17305,7 @@
         "transposition": {
           "label": "Španělská transpozice (probíhá)",
           "quote": "Anteproyecto de Ley de Coordinación y Gobernanza de la Ciberseguridad",
-          "context": "Schváleno Radou ministrů dne 14. ledna 2025. Text vytváří Centro Nacional de Ciberseguridad připojené k Presidencia del Gobierno jako navrhovaný jednotný národní příslušný orgán. Návrh je stále v legislativním procesu; dokud nebude přijat, nadále platí předchozí Real Decreto-ley 12/2018 (transpozice NIS 1)."
+          "context": "Schváleno Radou ministrů dne 14. ledna 2025. Návrh vytváří Centro Nacional de Ciberseguridad, připojené k Secretaría General de Presidencia del Gobierno, jako jednotné kontaktní místo s EU a orgán pro krizové situace v oblasti kybernetické bezpečnosti. Dohled by spočíval na třech kontrolních orgánech: Koordinačním úřadu pro kybernetickou bezpečnost Ministerstva vnitra, Národním kryptologickém centru (obrana) a Státním sekretariátu pro telekomunikace a digitální infrastruktury. V březnu 2026 byl text stále Anteproyecto (vládní návrh) a nebyl zveřejněn v BOE; dokud nebude přijat, nadále platí předchozí Real Decreto-ley 12/2018 (transpozice NIS 1)."
         }
       },
       "elements": {
@@ -17305,17 +17315,17 @@
           "law": {
             "section": "Transpozice",
             "title": "Ley de Coordinación y Gobernanza de la Ciberseguridad (návrh)",
-            "body": "Návrh přenáší povinnosti NIS 2 do španělského práva, definuje klíčové a důležité subjekty, stanoví dozorové pravomoci, povinnosti hlášení incidentů a sankce. Dokud nebude zákon zveřejněn v BOE, je samotná směrnice operativní referencí pro subjekty působící ve Španělsku spolu se stávajícím Real Decreto-ley 12/2018."
+            "body": "Návrh přenáší povinnosti NIS 2 do španělského práva, definuje klíčové a důležité subjekty, stanoví dozorové pravomoci, povinnosti hlášení incidentů a sankce. Dokud nebude zákon zveřejněn v BOE, směrnice zavazuje španělský stát, nikoli španělské společnosti; na společnosti dnes dopadá Real Decreto-ley 12/2018, pokud jsou podle něj určeny."
           },
           "authority": {
             "section": "Orgán",
-            "title": "Navrhované Centro Nacional de Ciberseguridad",
-            "body": "Návrh navrhuje Centro Nacional de Ciberseguridad připojené k Presidencia del Gobierno jako jednotný národní příslušný orgán a kontaktní místo EU. V mezidobí je dohled rozdělen: CCN pro veřejný sektor a rozsah Esquema Nacional de Seguridad, INCIBE pro soukromý sektor a občany, se sektorovými regulátory příslušnými v jejich vlastních oblastech."
+            "title": "Navrhované Centro Nacional de Ciberseguridad a kontrolní orgány",
+            "body": "Návrh vytváří Centro Nacional de Ciberseguridad, připojené k Secretaría General de Presidencia del Gobierno, jako jednotné kontaktní místo s EU a orgán pro krizové situace v oblasti kybernetické bezpečnosti. Dohled by spočíval na třech kontrolních orgánech: Koordinačním úřadu pro kybernetickou bezpečnost Ministerstva vnitra, Národním kryptologickém centru (obrana) a Státním sekretariátu pro telekomunikace a digitální infrastruktury. V mezidobí dekret NIS 1 dělí dohled mezi Ministerstvo vnitra (CNPIC) pro kritické provozovatele, příslušné ministerstvo pro ostatní provozovatele základních služeb, Státní sekretariát pro digitalizaci pro poskytovatele digitálních služeb a CCN pro veřejný sektor. INCIBE-CERT a CCN-CERT jsou týmy pro reakci na incidenty, nikoli dozorové orgány."
           },
           "deadlines": {
             "section": "Lhůty",
             "title": "Lhůta podle čl. 41 zmeškána",
-            "body": "Čl. 41 NIS 2 stanovil transpoziční lhůtu na 17. října 2024. Španělsko tuto lhůtu nesplnilo. Evropská komise zaslala Španělsku odůvodněné stanovisko dne 7. května 2025, což je druhá formální fáze řízení o porušení před postoupením Soudnímu dvoru EU."
+            "body": "Čl. 41 NIS 2 stanovil transpoziční lhůtu na 17. října 2024. Španělsko tuto lhůtu nesplnilo. Evropská komise zaslala Španělsku odůvodněné stanovisko dne 7. května 2025 a dne 8. července 2026 podala žalobu proti Španělsku u Soudního dvora EU, v níž požaduje paušální částku a denní penále, dokud Španělsko neoznámí úplnou transpozici."
           }
         }
       },
@@ -17325,11 +17335,11 @@
         "items": {
           "lexLocalis": {
             "title": "Uvnitř Španělska platí místní právo",
-            "body": "Provoz na španělském území se řídí španělskou transpozicí, jakmile bude přijata. Německý Geschäftsführer řídící španělskou dceřinou společnost bude pro tuto dceřinou společnost číst případnou Ley de Coordinación y Gobernanza de la Ciberseguridad, nikoli německý BSIG. V mezidobí zůstává referencí Real Decreto-ley 12/2018 plus samotná směrnice."
+            "body": "Subjekty usazené ve Španělsku se budou řídit španělskou transpozicí, jakmile bude přijata. Německý Geschäftsführer řídící španělskou dceřinou společnost bude pro tuto dceřinou společnost číst případnou Ley de Coordinación y Gobernanza de la Ciberseguridad, nikoli německý BSIG. V mezidobí platí Real Decreto-ley 12/2018 pro společnosti, které jsou podle něj určeny; směrnice zavazuje španělský stát, nikoli dceřinou společnost."
           },
           "euFloor": {
             "title": "Španělsko nesmí klesnout pod úroveň EU",
-            "body": "Směrnice je nástrojem minimální harmonizace. Skutečnost, že je španělská transpozice zpožděna, úroveň nesnižuje. Povinnosti klíčových a důležitých subjektů, lhůty pro hlášení incidentů a odpovědnost vedení zůstávají ukotveny ve směrnici a v judikatuře EU o přímém účinku neprovedených směrnic."
+            "body": "Směrnice je nástrojem minimální harmonizace. Skutečnost, že je španělská transpozice zpožděna, úroveň nesnižuje: po přijetí musí španělský zákon obsahovat alespoň povinnosti klíčových a důležitých subjektů ze směrnice, lhůty pro hlášení incidentů a odpovědnost řídícího orgánu. Do té doby směrnice zavazuje španělský stát, nikoli španělské společnosti: judikatura EU je jasná v tom, že směrnice sama o sobě nemůže společnosti ukládat povinnosti."
           }
         }
       },
@@ -17340,17 +17350,17 @@
           "incibe": {
             "country": "ES",
             "label": "INCIBE a INCIBE-CERT",
-            "body": "Instituto Nacional de Ciberseguridad, připojený k Ministerstvu digitální transformace. INCIBE-CERT je referenčním centrem reakce na incidenty pro občany a soukromoprávní subjekty. Pro incidenty týkající se kritických provozovatelů soukromého sektoru je provozováno společně s koordinačním úřadem pro kybernetickou bezpečnost Ministerstva vnitra."
+            "body": "Instituto Nacional de Ciberseguridad, připojený k Ministerstvu digitální transformace. INCIBE-CERT je referenčním centrem reakce na incidenty pro občany a soukromoprávní subjekty. Pro incidenty týkající se kritických provozovatelů provozuje INCIBE-CERT společně INCIBE a CNPIC Ministerstva vnitra."
           },
           "ccn": {
             "country": "ES",
             "label": "CCN a CCN-CERT",
-            "body": "Centro Criptológico Nacional, připojené k Centro Nacional de Inteligencia (CNI). CCN-CERT je vládním CERT pro veřejný sektor, zřízeným v roce 2006 podle zákona 11/2002, Real Decreto 421/2004 a Real Decreto 311/2022, který upravuje Esquema Nacional de Seguridad (ENS)."
+            "body": "Centro Criptológico Nacional, připojené k Centro Nacional de Inteligencia (CNI). CCN-CERT, zřízený v roce 2006, je vládním CERT pro veřejný sektor. CCN upravují zákon 11/2002 a Real Decreto 421/2004; Real Decreto 311/2022 upravuje Esquema Nacional de Seguridad (ENS)."
           },
           "enisa": {
             "country": "EU",
             "label": "ENISA",
-            "body": "Agentura EU pro kybernetickou bezpečnost. Zveřejňuje pokyny, spravuje evropskou databázi zranitelností a podporuje přeshraniční koordinaci. Není dozorcem pro španělské subjekty; tím jsou CCN, INCIBE a sektorové orgány, s navrhovaným Centro Nacional de Ciberseguridad, které tuto roli sjednotí, jakmile bude zákon přijat."
+            "body": "Agentura EU pro kybernetickou bezpečnost. Zveřejňuje pokyny, spravuje evropskou databázi zranitelností a podporuje přeshraniční koordinaci. Není dozorcem pro španělské subjekty. Podle dekretu NIS 1 jsou dozorovými orgány Ministerstvo vnitra (CNPIC), odvětvová ministerstva, Státní sekretariát pro digitalizaci a CCN; návrh zákona by svěřil dohled třem kontrolním orgánům, s Centro Nacional de Ciberseguridad jako jednotným kontaktním místem s EU."
           }
         }
       },
@@ -17360,22 +17370,22 @@
         "items": {
           "sameAsGermany": {
             "myth": "Když má Německo BSIG, Španělsko má obdobný zákon v platnosti.",
-            "reality": "Německo samo dosud nepřijalo NIS2UmsuCG a je ve stejné zpožděné pozici. Španělsko je na straně návrhu pokročilejší (Anteproyecto prošel Radou ministrů dne 14. ledna 2025), ale BOE dosud nezveřejnil přijatý text. Španělské dceřiné společnosti nemohou poukázat na finalizovaný národní zákon a musí číst směrnici přímo plus předchozí Real Decreto-ley 12/2018."
+            "reality": "Německý zákon o NIS 2 platí od 6. prosince 2025. Španělsko zatím nemá přijatý zákon: Anteproyecto prošel Radou ministrů dne 14. ledna 2025, ale v BOE nebylo nic zveřejněno. Španělské dceřiné společnosti nemohou poukázat na finalizovaný národní zákon; dnes se na ně vztahuje předchozí Real Decreto-ley 12/2018, pokud jsou podle něj určeny, zatímco směrnice ukazuje, co bude muset španělský zákon obsahovat."
           },
           "noRegistry": {
             "myth": "Není v platnosti žádný španělský zákon, takže zatím není co dělat.",
-            "reality": "Samotná směrnice nabývá účinnosti na úrovni EU dne 18. října 2024 a judikatura EU dává neprovedeným směrnicím částečný přímý účinek vůči státu. Lhůta 17. dubna 2025, do které musí být členské státy schopny identifikovat klíčové a důležité subjekty, je pro Španělsko závazná bez ohledu na návrh. Provozovatelé by měli již nyní připravovat kontroly rozsahu, postupy hlášení incidentů a schválení vedení, nikoli čekat na BOE."
+            "reality": "Směrnice je v platnosti od ledna 2023. Členské státy musely uplatňovat své vnitrostátní předpisy od 18. října 2024. Dokud Španělsko svůj zákon nepřijme, směrnice zavazuje španělský stát, nikoli španělské společnosti: judikatura EU je jasná v tom, že směrnice sama o sobě nemůže společnosti ukládat povinnosti. Na společnosti dnes dopadá dekret NIS 1 (Real Decreto-ley 12/2018), pokud jsou podle něj určeny. Lhůta 17. dubna 2025, do které musí být členské státy schopny identifikovat klíčové a důležité subjekty, je pro Španělsko závazná bez ohledu na návrh. Připravovat kontroly rozsahu, postupy hlášení incidentů a schválení řídícím orgánem je přesto rozumné, protože návrh směrnici úzce sleduje."
           },
           "onlySector": {
             "myth": "Náš sektorový regulátor nám řekne, co máme dělat.",
-            "reality": "Některé sektory mají jasného regulátora (finance s Banco de España a DORA jako lex specialis, energetika s CNMC). Mnohé jednu linii dohledu zatím nemají, protože návrh zákona ještě nedokončil definování architektury dohledu. Povinnosti směrnice platí bez ohledu na to, který národní orgán je nakonec bude vymáhat."
+            "reality": "Některé sektory mají jasného regulátora (finance s Banco de España pro úvěrové instituce a DORA jako lex specialis, energetika s Ministerstvem pro ekologickou transformaci). Mnohé jednu linii dohledu zatím nemají, protože návrh zákona ještě nedokončil definování architektury dohledu. Po přijetí zákona platí jeho povinnosti bez ohledu na to, který národní orgán je nakonec bude vymáhat."
           }
         }
       },
       "practitioner": {
         "heading": "Pohled z praxe",
-        "p1": "Většina španělských provozovatelů středního trhu, které vidíme, považuje NIS 2 za problém, který lze odložit, dokud Boletín nezveřejní finální zákon. To je drahá sázka. Lhůta směrnice 17. října 2024 již uplynula, Komise se již dne 7. května 2025 posunula do fáze odůvodněného stanoviska a hmotněprávní povinnosti (schválení opatření k řízení rizik vedením, 24h včasné varování, 72h oznámení, doložky o dodavatelském řetězci) se mezi návrhem a jakýmkoli pravděpodobným finálním textem nemění.",
-        "p2": "Praktický krok je stejný jako kdekoli jinde v EU: potvrdit rozsah podle směrnice, připravit se na registraci, jakmile bude oznámen portál Centro Nacional de Ciberseguridad, nastavit čtyři průběžné povinnosti (udržování registrace, hlášení incidentů, řízení rizik dodavatelského řetězce, dohled vedení) a zdokumentovat minimum. Stávající pokyny CCN a INCIBE plus ohlašovací kanály Real Decreto-ley 12/2018 zůstávají použitelné, dokud je nový zákon ve schvalování."
+        "p1": "Většina španělských provozovatelů středního trhu, které vidíme, považuje NIS 2 za problém, který lze odložit, dokud Boletín nezveřejní finální zákon. To je drahá sázka. Lhůta směrnice 17. října 2024 již uplynula, Komise zaslala odůvodněné stanovisko dne 7. května 2025 a dne 8. července 2026 podala žalobu proti Španělsku u Soudního dvora EU a hmotněprávní povinnosti (schválení opatření k řízení rizik vedením, 24h včasné varování, 72h oznámení, doložky o dodavatelském řetězci) se mezi návrhem a jakýmkoli pravděpodobným finálním textem nemění.",
+        "p2": "Praktický krok je stejný jako kdekoli jinde v EU: potvrdit rozsah podle směrnice, připravit se na registraci, jakmile španělský zákon určí registrační orgán a portál, nastavit čtyři průběžné povinnosti (udržování registrace, hlášení incidentů, řízení rizik dodavatelského řetězce, dohled vedení) a zdokumentovat minimum. Stávající pokyny CCN a INCIBE plus ohlašovací kanály Real Decreto-ley 12/2018 zůstávají použitelné, dokud je nový zákon ve schvalování."
       },
       "platform": {
         "heading": "Jak platforma pomáhá",
@@ -17388,9 +17398,9 @@
           "Směrnice (EU) 2022/2555 (NIS 2), čl. 41 transpoziční lhůta. EUR-Lex.",
           "Prováděcí nařízení Komise (EU) 2024/2690.",
           "Anteproyecto de Ley de Coordinación y Gobernanza de la Ciberseguridad, schváleno Radou ministrů dne 14. ledna 2025. Departamento de Seguridad Nacional (dsn.gob.es).",
-          "Evropská komise, odůvodněné stanovisko Španělsku za neoznámení úplné transpozice NIS 2, 7. května 2025.",
+          "Evropská komise, odůvodněné stanovisko Španělsku za neoznámení úplné transpozice NIS 2, 7. května 2025; žaloba proti Španělsku u Soudního dvora EU, 8. července 2026 (IP/26/1499).",
           "Real Decreto-ley 12/2018, transpozice NIS 1, Boletín Oficial del Estado.",
-          "CCN-CERT, Centro Criptológico Nacional, založeno 2006 podle Ley 11/2002 a Real Decreto 421/2004; Real Decreto 311/2022 o Esquema Nacional de Seguridad.",
+          "CCN-CERT (zřízen 2006): Centro Criptológico Nacional, upraveno Ley 11/2002 a Real Decreto 421/2004; Real Decreto 311/2022 o Esquema Nacional de Seguridad.",
           "INCIBE-CERT, Instituto Nacional de Ciberseguridad, Ministerio para la Transformación Digital."
         ]
       },
@@ -17588,7 +17598,7 @@
       },
       "platform": {
         "heading": "Jak platforma pomáhá",
-        "p1": "Registr povinností NIS 2 budujeme na vrstvě EU, ne na žádné jediné národní transpozici. Tentýž kontrolní seznam funguje pro maďarskou dceřinou společnost podle zákona č. XXIII z roku 2023, německou mateřskou společnost podle BSIG i francouzskou sesterskou podle Ordonnance n. 2024-1093. Odkazy na články se přepínají podle lokality. Věcné povinnosti nikoli.",
+        "p1": "Registr povinností NIS 2 budujeme na vrstvě EU, ne na žádné jediné národní transpozici. Tentýž kontrolní seznam funguje pro maďarskou dceřinou společnost podle zákona č. XXIII z roku 2023 a německou mateřskou společnost podle BSIG. Odkazy na články se přepínají podle lokality. Věcné povinnosti nikoli.",
         "p2": "U maďarské působnosti začnete kontrolou působnosti, poté přejdete k rytmu hlášení incidentů s NKI, doložkám dodavatelského řetězce a schválení řídicím orgánem. Tam, kde SZTFH vydává odvětvovou metodiku, na ni odkazujeme. Neduplikujeme ji."
       },
       "sources": {
@@ -17855,7 +17865,7 @@
       },
       "platform": {
         "heading": "Co platforma přináší",
-        "p1": "Registr povinností NIS 2 stavíme na úrovni EU, ne na jediné národní transpozici. Stejný kontrolní seznam sedne slovenskému subjektu podle zákona č. 366/2024, německé matce podle BSIG i francouzské sestře podle Ordonnance n° 2024-1093. Odkazy na články se mění podle země, věcné povinnosti ne.",
+        "p1": "Registr povinností NIS 2 stavíme na úrovni EU, ne na jediné národní transpozici. Stejný kontrolní seznam sedne slovenskému subjektu podle zákona č. 366/2024 a německé matce podle BSIG. Odkazy na články se mění podle země, věcné povinnosti ne.",
         "p2": "Pro slovenský rozsah začněte kontrolou použitelnosti, pak kadencí hlášení, doložkami o dodavatelském řetězci a odsouhlasením řídícím orgánem. Kde NBÚ vydává sektorové vyhlášky nebo pokyny, odkazujeme na ně. Nekopírujeme je."
       },
       "sources": {
@@ -17990,7 +18000,7 @@
       },
       "platform": {
         "heading": "Co platforma přináší",
-        "p1": "Registr povinností NIS 2 stavíme na vrstvě EU, ne na jediné národní transpozici. Stejný kontrolní seznam sedne chorvatské dceře podle NN 14/2024, německé matce podle BSIG i francouzské sestře podle Ordonnance n° 2024-1093. Odkazy na články se posouvají podle země, podkladové povinnosti ne.",
+        "p1": "Registr povinností NIS 2 stavíme na vrstvě EU, ne na jediné národní transpozici. Stejný kontrolní seznam sedne chorvatské dceře podle NN 14/2024 a německé matce podle BSIG. Odkazy na články se posouvají podle země, podkladové povinnosti ne.",
         "p2": "Pro chorvatský rozsah začnete kontrolou použitelnosti, pak kadencí hlášení incidentů, doložkami o dodavatelském řetězci a odsouhlasením řídícím orgánem. Kde SOA / NCSC-HR nebo CERT.hr vydává sektorové pokyny, odkazujeme na ně. Nekopírujeme je."
       },
       "sources": {
@@ -18126,7 +18136,7 @@
       },
       "platform": {
         "heading": "Jak platforma pomáhá",
-        "p1": "Registr povinností NIS 2 stavíme na vrstvě EU, nikoli na žádné jednotlivé vnitrostátní transpozici. Stejný kontrolní seznam funguje pro bulharskou dceřinou společnost podle novelizovaného zákona o kybernetické bezpečnosti, německou mateřskou společnost podle BSIG a francouzskou sesterskou společnost podle Ordonnance n° 2024-1093. Odkazy na články se přepínají podle lokality; věcné povinnosti nikoli.",
+        "p1": "Registr povinností NIS 2 stavíme na vrstvě EU, nikoli na žádné jednotlivé vnitrostátní transpozici. Stejný kontrolní seznam funguje pro bulharskou dceřinou společnost podle novelizovaného zákona o kybernetické bezpečnosti a německou mateřskou společnost podle BSIG. Odkazy na články se přepínají podle lokality; věcné povinnosti nikoli.",
         "p2": "Pro bulharskou působnost začnete kontrolou použitelnosti, poté přejdete na kadenci hlášení incidentů do CERT Bulgaria, doložky dodavatelského řetězce a schválení řídicím orgánem. Tam, kde Státní agentura pro e-Government nebo sektorové ministerstvo zveřejní pokyny, na ně odkazujeme; neduplikujeme je."
       },
       "sources": {
@@ -18260,7 +18270,7 @@
       },
       "platform": {
         "heading": "Co platforma dodává",
-        "p1": "Registr povinností NIS 2 stavíme na vrstvě EU, ne na jednom vnitrostátním provedení. Stejný checklist sedí řecké dceřiné společnosti podle zákona 5160/2024, německé mateřské společnosti podle BSIG i francouzské sesterské společnosti podle Ordonnance n° 2024-1093. Odkazy na články se mění podle země, povinnosti v podstatě ne.",
+        "p1": "Registr povinností NIS 2 stavíme na vrstvě EU, ne na jednom vnitrostátním provedení. Stejný checklist sedí řecké dceřiné společnosti podle zákona 5160/2024 a německé mateřské společnosti podle BSIG. Odkazy na články se mění podle země, povinnosti v podstatě ne.",
         "p2": "Pro řeckou působnost začněte kontrolou použitelnosti, pak kadence hlášení, ustanovení o dodavatelském řetězci a podpis řídicího orgánu. Tam, kde Národní úřad pro kyberbezpečnost vydává sektorová vodítka, na ně odkazujeme. Nekopírujeme je."
       },
       "sources": {
@@ -18529,7 +18539,7 @@
       },
       "platform": {
         "heading": "Jak platforma pomáhá",
-        "p1": "Registr povinností NIS 2 stavíme na vrstvě EU, ne na jediné národní transpozici. Stejný kontrolní seznam funguje pro slovinský subjekt podle ZInfV-1, německou matku podle BSIG i francouzskou sestru podle Ordonnance n° 2024-1093. Odkazy na články se přepínají podle lokality. Věcné povinnosti ne.",
+        "p1": "Registr povinností NIS 2 stavíme na vrstvě EU, ne na jediné národní transpozici. Stejný kontrolní seznam funguje pro slovinský subjekt podle ZInfV-1 a německou matku podle BSIG. Odkazy na články se přepínají podle lokality. Věcné povinnosti ne.",
         "p2": "Pro slovinský rozsah začnete kontrolou použitelnosti, pak přejdete na kadenci hlášení incidentů do SI-CERT, doložky o dodavatelském řetězci a odsouhlasení řídícím orgánem. Kde URSIV vydává sektorové pokyny, odkazujeme na ně. Neduplikujeme je."
       },
       "sources": {
@@ -18796,7 +18806,7 @@
       },
       "platform": {
         "heading": "Jak platforma pomáhá",
-        "p1": "Registr povinností NIS 2 budujeme na vrstvě EU, ne na žádné jediné národní transpozici. Tentýž kontrolní seznam funguje pro estonský subjekt podle Küberturvalisuse seadus, německou mateřskou společnost podle BSIG i francouzskou sesterskou podle Ordonnance n° 2024-1093. Odkazy na články se přepínají podle lokality; věcné povinnosti nikoli.",
+        "p1": "Registr povinností NIS 2 budujeme na vrstvě EU, ne na žádné jediné národní transpozici. Tentýž kontrolní seznam funguje pro estonský subjekt podle Küberturvalisuse seadus a německou mateřskou společnost podle BSIG. Odkazy na články se přepínají podle lokality; věcné povinnosti nikoli.",
         "p2": "U estonské působnosti začnete kontrolou působnosti, poté přejdete k samoregistraci u RIA, rytmu hlášení incidentů do CERT-EE, doložkám dodavatelského řetězce a schválení řídicím orgánem. Tam, kde RIA vydává odvětvovou metodiku, na ni odkazujeme; neduplikujeme ji."
       },
       "sources": {
@@ -19064,7 +19074,7 @@
       },
       "platform": {
         "heading": "Co platforma přináší",
-        "p1": "Registr povinností NIS 2 stavíme na vrstvě EU, ne na jediné národní transpozici. Stejný kontrolní seznam sedne lotyšské dceře podle Národního zákona o kybernetické bezpečnosti, německé matce podle BSIG i francouzské sestře podle Ordonnance n° 2024-1093. Odkazy na články se přepínají podle země, věcné povinnosti ne.",
+        "p1": "Registr povinností NIS 2 stavíme na vrstvě EU, ne na jediné národní transpozici. Stejný kontrolní seznam sedne lotyšské dceře podle Národního zákona o kybernetické bezpečnosti a německé matce podle BSIG. Odkazy na články se přepínají podle země, věcné povinnosti ne.",
         "p2": "Pro lotyšský rozsah začnete kontrolou použitelnosti, pak jednoměsíční registrační lhůtou, pak oznamováním incidentů přes CERT.LV, doložkami o dodavatelském řetězci a odsouhlasením řídícím orgánem. Kde NCSC nebo CERT.LV vydává sektorové pokyny, odkazujeme na ně. Nekopírujeme je."
       },
       "sources": {

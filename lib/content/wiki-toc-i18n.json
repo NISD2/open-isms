@@ -902,31 +902,31 @@
   "entry:nis2-logistik": {
     "fr": {
       "title": "NIS 2 pour la logistique",
-      "summary": "Commissionnaires de transport, coursiers, prestataires de services logistiques au regard de NIS 2."
+      "summary": "Qui, dans la logistique, relève de NIS 2 (rail, transport maritime, aérien, ports, poste et coursiers) et pourquoi le transport routier et la commission de transport n'en relèvent pas."
     },
     "it": {
       "title": "NIS 2 per la logistica",
-      "summary": "Spedizionieri, corrieri, fornitori di servizi logistici ai sensi di NIS 2."
+      "summary": "Chi nella logistica rientra in NIS 2 (ferrovia, trasporto marittimo e aereo, porti, servizi postali e corrieri) e perché l'autotrasporto e la spedizione no."
     },
     "es": {
       "title": "NIS 2 para la logística",
-      "summary": "Transitarios, mensajeros, prestadores de servicios logísticos conforme a NIS 2."
+      "summary": "Quién en la logística entra en NIS 2 (ferrocarril, transporte marítimo y aéreo, puertos, servicios postales y mensajería) y por qué el transporte por carretera y los transitarios no."
     },
     "pl": {
       "title": "NIS 2 dla logistyki",
-      "summary": "Spedytorzy, kurierzy, dostawcy usług logistycznych w rozumieniu NIS 2."
+      "summary": "Kto w logistyce podlega NIS 2 (kolej, transport morski i lotniczy, porty, usługi pocztowe i kurierskie) i dlaczego transport drogowy i spedycja nie."
     },
     "cs": {
       "title": "NIS 2 pro logistiku",
-      "summary": "Zasílatelé, kurýři, poskytovatelé logistických služeb z hlediska NIS 2."
+      "summary": "Kdo v logistice spadá pod NIS 2 (železnice, námořní a letecká doprava, přístavy, poštovní a kurýrní služby) a proč silniční doprava a zasílatelství ne."
     },
     "pt": {
       "title": "NIS 2 para a logística",
-      "summary": "Transitários, estafetas, prestadores de serviços logísticos à luz da NIS 2."
+      "summary": "Quem na logística está abrangido pela NIS 2 (ferrovia, transporte marítimo e aéreo, portos, serviços postais e de estafeta) e porque o transporte rodoviário e os transitários não estão."
     },
     "ro": {
       "title": "NIS 2 pentru logistică",
-      "summary": "Expeditori, curieri, prestatori de servicii logistice în raport cu NIS 2."
+      "summary": "Cine din logistică intră sub NIS 2 (feroviar, transport maritim și aerian, porturi, servicii poștale și de curierat) și de ce transportul rutier și expedierea nu."
     }
   },
   "entry:nis2-produzierendes-gewerbe": {
@@ -1172,31 +1172,31 @@
   "entry:cir-2024-2690": {
     "fr": {
       "title": "CIR 2024/2690 : le règlement technique",
-      "summary": "Le règlement d'exécution de l'UE qui rend NIS 2 opérationnel pour l'infrastructure numérique."
+      "summary": "Le règlement d'exécution de l'UE qui rend NIS 2 opérationnel pour certains fournisseurs numériques."
     },
     "it": {
       "title": "CIR 2024/2690 : il regolamento tecnico",
-      "summary": "Il regolamento di esecuzione dell'UE che rende operativo NIS 2 per l'infrastruttura digitale."
+      "summary": "Il regolamento di esecuzione dell'UE che rende operativo NIS 2 per alcuni fornitori digitali."
     },
     "es": {
       "title": "CIR 2024/2690 : el reglamento técnico",
-      "summary": "El reglamento de ejecución de la UE que hace operativo NIS 2 para la infraestructura digital."
+      "summary": "El reglamento de ejecución de la UE que hace operativo NIS 2 para determinados proveedores digitales."
     },
     "pl": {
       "title": "CIR 2024/2690 : rozporządzenie techniczne",
-      "summary": "Unijne rozporządzenie wykonawcze, które operacjonalizuje NIS 2 w odniesieniu do infrastruktury cyfrowej."
+      "summary": "Unijne rozporządzenie wykonawcze, które operacjonalizuje NIS 2 w odniesieniu do niektórych dostawców cyfrowych."
     },
     "cs": {
       "title": "CIR 2024/2690: technické nařízení",
-      "summary": "Prováděcí nařízení EU, které zprovozňuje NIS 2 pro digitální infrastrukturu."
+      "summary": "Prováděcí nařízení EU, které zprovozňuje NIS 2 pro některé digitální poskytovatele."
     },
     "pt": {
       "title": "CIR 2024/2690: o regulamento técnico",
-      "summary": "O regulamento de execução da UE que torna a NIS 2 operacional para a infraestrutura digital."
+      "summary": "O regulamento de execução da UE que torna a NIS 2 operacional para determinados prestadores digitais."
     },
     "ro": {
       "title": "CIR 2024/2690: regulamentul tehnic",
-      "summary": "Regulamentul de punere în aplicare al UE care operaționalizează NIS 2 pentru infrastructura digitală."
+      "summary": "Regulamentul de punere în aplicare al UE care operaționalizează NIS 2 pentru anumiți furnizori digitali."
     }
   },
   "entry:it-grundschutz": {
@@ -1352,31 +1352,31 @@
   "entry:erheblicher-sicherheitsvorfall": {
     "fr": {
       "title": "Incident important au sens de NIS 2 et du CIR 2024/2690",
-      "summary": "L'article 23(3) NIS 2 désigne deux éléments déclencheurs. Le CIR 2024/2690 quantifie des seuils pour l'infrastructure numérique. Pour les autres secteurs, le seuil reste non quantifié."
+      "summary": "L'article 23(3) NIS 2 désigne deux éléments déclencheurs. Le CIR 2024/2690 quantifie des seuils pour certains fournisseurs numériques. Pour les autres secteurs, le seuil reste non quantifié."
     },
     "it": {
       "title": "Incidente significativo ai sensi di NIS 2 e del CIR 2024/2690",
-      "summary": "L'articolo 23(3) NIS 2 individua due elementi scatenanti. Il CIR 2024/2690 quantifica soglie per l'infrastruttura digitale. Per gli altri settori la soglia resta non quantificata."
+      "summary": "L'articolo 23(3) NIS 2 individua due elementi scatenanti. Il CIR 2024/2690 quantifica soglie per alcuni fornitori digitali. Per gli altri settori la soglia resta non quantificata."
     },
     "es": {
       "title": "Incidente significativo conforme a NIS 2 y al CIR 2024/2690",
-      "summary": "El artículo 23(3) NIS 2 designa dos desencadenantes. El CIR 2024/2690 cuantifica umbrales para la infraestructura digital. Para los demás sectores, el umbral permanece sin cuantificar."
+      "summary": "El artículo 23(3) NIS 2 designa dos desencadenantes. El CIR 2024/2690 cuantifica umbrales para determinados proveedores digitales. Para los demás sectores, el umbral permanece sin cuantificar."
     },
     "pl": {
       "title": "Poważny incydent w rozumieniu NIS 2 i CIR 2024/2690",
-      "summary": "Artykuł 23(3) NIS 2 wskazuje dwa czynniki wyzwalające. CIR 2024/2690 kwantyfikuje progi dla infrastruktury cyfrowej. Dla pozostałych sektorów próg pozostaje nieskwantyfikowany."
+      "summary": "Artykuł 23(3) NIS 2 wskazuje dwa czynniki wyzwalające. CIR 2024/2690 kwantyfikuje progi dla niektórych dostawców cyfrowych. Dla pozostałych sektorów próg pozostaje nieskwantyfikowany."
     },
     "cs": {
       "title": "Významný incident ve smyslu NIS 2 a CIR 2024/2690",
-      "summary": "Čl. 23 odst. 3 NIS 2 určuje dva spouštěcí prvky. CIR 2024/2690 kvantifikuje prahy pro digitální infrastrukturu. Pro ostatní sektory zůstává práh nekvantifikovaný."
+      "summary": "Čl. 23 odst. 3 NIS 2 určuje dva spouštěcí prvky. CIR 2024/2690 kvantifikuje prahy pro některé digitální poskytovatele. Pro ostatní sektory zůstává práh nekvantifikovaný."
     },
     "pt": {
       "title": "Incidente significativo na aceção da NIS 2 e do CIR 2024/2690",
-      "summary": "O artigo 23.º, n.º 3 da NIS 2 designa dois fatores desencadeadores. O CIR 2024/2690 quantifica limiares para a infraestrutura digital. Para os restantes setores, o limiar permanece não quantificado."
+      "summary": "O artigo 23.º, n.º 3 da NIS 2 designa dois fatores desencadeadores. O CIR 2024/2690 quantifica limiares para determinados prestadores digitais. Para os restantes setores, o limiar permanece não quantificado."
     },
     "ro": {
       "title": "Incident semnificativ în sensul NIS 2 și al CIR 2024/2690",
-      "summary": "Articolul 23 alineatul (3) din NIS 2 desemnează doi factori declanșatori. CIR 2024/2690 cuantifică praguri pentru infrastructura digitală. Pentru celelalte sectoare, pragul rămâne necuantificat."
+      "summary": "Articolul 23 alineatul (3) din NIS 2 desemnează doi factori declanșatori. CIR 2024/2690 cuantifică praguri pentru anumiți furnizori digitali. Pentru celelalte sectoare, pragul rămâne necuantificat."
     }
   },
   "entry:nis-2-kooperationsgruppe": {
@@ -3482,31 +3482,31 @@
   "entry:nis2-status-frankreich": {
     "fr": {
       "title": "État de mise en œuvre de NIS 2 : France",
-      "summary": "Ordonnance 2024-1093, ANSSI et la supervision française : comment la France met en œuvre NIS 2."
+      "summary": "Projet de loi sur la résilience et la cybersécurité, ANSSI et la supervision française : où en est la France dans la transposition de NIS 2."
     },
     "it": {
       "title": "Stato di attuazione di NIS 2: Francia",
-      "summary": "Ordonnance 2024-1093, ANSSI e la vigilanza francese: come la Francia attua NIS 2."
+      "summary": "Disegno di legge su resilienza e cibersicurezza, ANSSI e la vigilanza francese: a che punto è la Francia nel recepimento di NIS 2."
     },
     "es": {
       "title": "Estado de implementación de NIS 2: Francia",
-      "summary": "Ordonnance 2024-1093, ANSSI y la supervisión francesa: cómo implementa Francia NIS 2."
+      "summary": "Proyecto de ley sobre resiliencia y ciberseguridad, ANSSI y la supervisión francesa: en qué punto está Francia con la transposición de NIS 2."
     },
     "pl": {
       "title": "Stan wdrożenia NIS 2: Francja",
-      "summary": "Ordonnance 2024-1093, ANSSI i nadzór francuski: jak Francja wdraża NIS 2."
+      "summary": "Projekt ustawy o odporności i cyberbezpieczeństwie, ANSSI i nadzór francuski: na jakim etapie Francja jest z transpozycją NIS 2."
     },
     "cs": {
       "title": "Stav implementace NIS 2: Francie",
-      "summary": "Ordonnance 2024-1093, ANSSI a francouzský dohled: jak Francie implementuje NIS 2."
+      "summary": "Návrh zákona o odolnosti a kybernetické bezpečnosti, ANSSI a francouzský dohled: kde je Francie s transpozicí NIS 2."
     },
     "pt": {
       "title": "Estado de implementação da NIS 2: França",
-      "summary": "Ordonnance 2024-1093, ANSSI e a supervisão francesa: como a França implementa a NIS 2."
+      "summary": "Proposta de lei sobre resiliência e cibersegurança, ANSSI e a supervisão francesa: em que ponto está a França na transposição da NIS 2."
     },
     "ro": {
       "title": "Stadiul implementării NIS 2: Franța",
-      "summary": "Ordonnance 2024-1093, ANSSI și supravegherea franceză: cum implementează Franța NIS 2."
+      "summary": "Proiect de lege privind reziliența și securitatea cibernetică, ANSSI și supravegherea franceză: unde se află Franța cu transpunerea NIS 2."
     }
   },
   "entry:nis2-status-spanien": {
