@@ -262,6 +262,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
         kind: "fields",
         id: "confirmation",
         fields: ["mukAccountId", "bsiRegistrationDate"],
+        today: ["bsiRegistrationDate"],
       },
       { kind: "done", id: "done" },
     ],

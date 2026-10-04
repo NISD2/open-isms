@@ -57,6 +57,13 @@
       "when": 1790957222039,
       "tag": "0007_supplier_agreements_checked",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1791114317656,
+      "tag": "0008_asset_hosting",
+      "breakpoints": true
     }
   ]
 }

@@ -55,10 +55,12 @@ export type {
   StoredRisk,
 } from "./ratings";
 export {
+  asksHosting,
   asksSecondFactor,
   byLevel,
   cellCount,
   fromScale,
+  hostingOf,
   inCell,
   levelGroups,
   levelOf,
@@ -101,6 +103,7 @@ export type {
   AnyScreen,
   BackupFrequency,
   EntityType,
+  Hosting,
   LearnLink,
   MfaMethod,
   PolicyList,
@@ -116,6 +119,7 @@ export type {
 export {
   askedFields,
   BACKUP_FREQUENCIES,
+  HOSTINGS,
   MANAGEMENT_ROLE,
   MFA_METHODS,
   POLICY_LISTS,

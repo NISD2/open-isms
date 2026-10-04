@@ -132,7 +132,7 @@ export function DurchgangItem({
     item,
     self?.state.kind === "waiting",
   );
-  const complete = useScreenComplete(item, item.screens[index], draft);
+  const gate = useScreenComplete(item, item.screens[index], draft);
 
   // A "which exactly" screen is passed over when nothing of its kind is on the list, saved or
   // ticked on this visit: asking which software you use when you listed none is a dead end.
@@ -233,6 +233,7 @@ export function DurchgangItem({
           : t("toOverview")
         : t("next");
   const Icon = KIND_ICON[entry.screen.kind];
+  const mayWait = entry.screen.kind !== "done" && !signed;
 
   const body = (() => {
     const work = { item, draft, onDraft: setDraft };
@@ -393,8 +394,10 @@ export function DurchgangItem({
           <div className="flex max-w-3xl items-center justify-between gap-3">
             {/* The way out is always there, a peer of answering (ui-design principle 6; Simon,
                 03.10.2026). Only the done screen, where the item is recorded, has none, and a
-                signed item, which is reopened on its requirement page before it can wait again. */}
-            {entry.screen.kind !== "done" && !signed ? (
+                signed item, which is reopened on its requirement page before it can wait again.
+                While the screen is unfinished the way out takes the forward button's place
+                instead, where the person reaches to carry on (Simon, 04.10.2026). */}
+            {mayWait && gate !== "incomplete" ? (
               <button
                 type="button"
                 onClick={() => setWaitOpen(true)}
@@ -417,15 +420,32 @@ export function DurchgangItem({
                 <ChevronLeft />
                 <span className="hidden sm:inline">{t("back")}</span>
               </Button>
-              <Button
-                size="lg"
-                onClick={forward}
-                disabled={!complete}
-                className="h-11 min-w-0 rounded-xl px-6 sm:h-10"
-              >
-                <span className="max-w-[12rem] truncate sm:max-w-[24rem]">{primary}</span>
-                <ArrowRight />
-              </Button>
+              {mayWait && gate === "incomplete" ? (
+                // Amber and the clock are the waiting list's own marks on the walk home, so the
+                // button says where the item goes, and it turns into Continue once filled in.
+                <Button
+                  size="lg"
+                  onClick={() => setWaitOpen(true)}
+                  className="h-11 min-w-0 rounded-xl border border-amber-300 bg-amber-100 px-6 text-amber-950 shadow-xs hover:bg-amber-200 sm:h-10 dark:border-amber-700 dark:bg-amber-950 dark:text-amber-50 dark:hover:bg-amber-900"
+                >
+                  <Clock />
+                  <span className="max-w-[12rem] truncate sm:max-w-[24rem]">
+                    {t("notYet")}
+                  </span>
+                </Button>
+              ) : (
+                <Button
+                  size="lg"
+                  onClick={forward}
+                  disabled={gate !== "complete"}
+                  className="h-11 min-w-0 rounded-xl px-6 sm:h-10"
+                >
+                  <span className="max-w-[12rem] truncate sm:max-w-[24rem]">
+                    {primary}
+                  </span>
+                  <ArrowRight />
+                </Button>
+              )}
             </div>
           </div>
         </div>

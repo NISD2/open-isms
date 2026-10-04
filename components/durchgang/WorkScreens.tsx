@@ -428,6 +428,7 @@ export function Register({ item, entry }: { item: ItemView; entry: Of<"register"
                   initial={item.registers.training_record ?? []}
                   locale={item.locale}
                   audience={screen.audience}
+                  admin={item.viewer.admin}
                 />
               );
             case "management_review":

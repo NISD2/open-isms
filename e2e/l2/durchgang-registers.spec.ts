@@ -9,6 +9,7 @@
  */
 import { expect, test } from "@playwright/test";
 import { e2eQuery } from "../lib/db";
+import { enabledNext } from "../lib/durchgang";
 import { E2E_USER_EMAIL } from "../lib/env";
 
 // 2.2 keeps its four catalogue checklists whether or not the register has entries, so "Welches
@@ -201,7 +202,7 @@ test.describe("durchgang registers", () => {
       timeout: 30_000,
     });
     const next = page.getByRole("button", { name: "Weiter", exact: true });
-    await expect(next).toBeDisabled();
+    await expect(enabledNext(page)).toHaveCount(0);
 
     await rateAll(page, "Beträchtlich", "Häufig");
     // Frequent and considerable meet at "hoch" in the 200-3 matrix.

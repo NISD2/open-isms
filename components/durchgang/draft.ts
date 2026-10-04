@@ -1,15 +1,16 @@
 import type { AssetLayer } from "@/lib/asset-inventory/types";
-import type { MfaMethod, RatedKind, Rating } from "@/lib/durchgang";
+import type { Hosting, MfaMethod, RatedKind, Rating } from "@/lib/durchgang";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
 
 /**
  * An asset as the "which one exactly" screen edits it: its name, what it is for in the company's
- * words, and who provides it, any number of suppliers by name; none is run in house or not known
- * yet.
+ * words, where it runs (null while open, and for what runs nowhere else), and who provides it,
+ * any number of suppliers by name; none is nobody or not known yet.
  */
 export interface Specified {
   readonly name: string;
   readonly description: string;
+  readonly hosting: Hosting | null;
   readonly providers: readonly string[];
 }
 
@@ -137,6 +138,24 @@ export const initialDraft = (
   methods: {},
   critical: {},
   backups: {},
+});
+
+/** The draft with each of `keys` set to `today` where no answer is stored yet. */
+export const startOnToday = (
+  draft: Draft,
+  keys: readonly string[],
+  fields: Fields,
+  today: string,
+): Draft => ({
+  ...draft,
+  values: {
+    ...draft.values,
+    ...Object.fromEntries(
+      keys
+        .filter((key) => !isAnswered(fields[key], draft.values[key]))
+        .map((key) => [key, today]),
+    ),
+  },
 });
 
 /** A rating with both scales chosen, or null. */
