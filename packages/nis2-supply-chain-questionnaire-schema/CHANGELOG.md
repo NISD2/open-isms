@@ -4,6 +4,40 @@ All notable changes to this repository are documented here. Format follows [Keep
 
 ## [Unreleased]
 
+## [4.0.0] — 2026-10-04
+
+A legal and proportionality review against the primary texts (Directive (EU) 2022/2555, Implementing Regulation (EU) 2024/2690 and ENISA's Technical Implementation Guidance v1.0, which reproduces the CIR annex). The questionnaire asked too much in places that do not help a customer meet Art. 21(2)(d) and (3), and too little in two that do. 47 fields, down from 59; a SaaS supplier that processes customer data and uses subcontractors now sees 39.
+
+### Added
+- `profile.processesCustomerData` and `profile.accessesCustomerSystems` (boolean, required): what the supplier reaches at its customers, the "sensitivity of the use" a customer weighs the other answers against (TIG §5.1.2).
+- `security_practices.subprocessorRequirementsPassedOn` (boolean, visible when `hasSubprocessors`): the second half of CIR §5.1.4(g).
+- `security_practices.secureDevelopment` (boolean, visible when `isSaas` or `isOnPrem`): CIR §5.1.2(a) names secure development procedures; until now only on-prem vendors were asked anything near it.
+- `managed_services.managedAdminAccessLogged` (boolean): logging of administrative access, CIR §3.2.
+- `visibleWhen` accepts `{ anyOf: [condition, ...] }` besides a single condition; `isVisible(field, response)` and `conditionsOf(field)` are exported.
+
+### Removed (BREAKING)
+- `tagline`, `description`: marketing text with no legal basis; `serviceDescription` (TIG §5.2(b)) carries what a customer needs.
+- `bsiRegistrationId`: being registered does not show that the measures are in place, and TIG §5.1.2 lists regulated status as one criterion to consider, not a shortcut.
+- `usesAiSystems`, `providesSbomForAi`, `aiSbomUrl`: neither Art. 21(2)(d) nor TIG §5.1.2 mentions AI, and the G7 SBOM-for-AI paper is voluntary. AI services belong in the subcontractor list.
+- `incidentAssistanceCommitment`, `hasExitPlan`: from TIG §5.1.4's list of items to consider for contracts; they belong in contract negotiations.
+- `proServicesBackgroundCheckScope`: asked for criminal record checks on all consultants, against CIR §10.2.1 ("to the extent feasible").
+- `managedSessionRecording`, `managedOnCall24x7`: large-enterprise terms for a small MSP; replaced by `managedAdminAccessLogged`, and the existing contact fields cover reachability.
+- `saasHostingRegion` (repeats `dataProcessingLocations`), `securityPolicyReviewedAnnually` (part of `hasIsms`), `hasCryptographyPolicy` (the encryption answers carry it), `hasPrivilegedAccessMgmt` (repeats the MFA answers), `hasAssetInventory`, `notifyOnLocationChange` (merged into `notifyMaterialChanges`).
+
+### Changed
+- `backgroundChecks`: only staff with privileged access, as far as employment and data protection law allow (CIR §10.2.1).
+- `cooperateWithAuthorities`: "we give customers the information their authority asks for". A supplier outside NIS 2 owes the BSI or ENISA nothing directly.
+- `incidentSlaHours`: cites CIR §5.1.4(d) instead of Art. 23 (the entity's own reporting) and explains the customer's 24-hour early warning.
+- `saasMfaEnforced`: asks whether customers can use a second factor; the supplier's own admin accounts are `mfaEnforcedInternal`.
+- `onPremSbomProvided`: the CRA requires an SBOM in the technical documentation from 11 December 2027; giving it to customers is optional.
+- `dpaAvailable`: visible when `processesCustomerData`; required only for processing on a customer's behalf (Art. 28(3) GDPR).
+- `incidentContactPhone`: no 24/7 expectation.
+- Citations corrected: contacts to CIR §5.2(a); ISO certification to CIR §5.1.4(b); signed releases to TIG §6.2; vulnerability disclosure to TIG §6.10; consultant NDA and on-site conduct to TIG §5.1.4.
+- Reworded and new fields carry `en` and `de` only; the other locales fall back to English for them rather than keep a translation of text that no longer applies.
+
+### Migration
+- A consumer that renders by `visibleWhen` must handle `anyOf` (use `isVisible`). Stored answers to removed fields stay where they are; nothing in the schema reads them.
+
 ## [3.1.0] — 2026-05-15
 
 ### Added

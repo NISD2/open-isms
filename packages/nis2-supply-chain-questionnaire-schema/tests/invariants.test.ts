@@ -1,6 +1,11 @@
 import { describe, expect, test } from "bun:test";
-import { supplierQuestionnaire, groupBySection, visibleFields } from "../src/data";
-import { FIELD_TYPE } from "../src/schema";
+import {
+  groupBySection,
+  isVisible,
+  supplierQuestionnaire,
+  visibleFields,
+} from "../src/data";
+import { conditionsOf, FIELD_TYPE } from "../src/schema";
 
 // These tests guard invariants that the Zod schema cannot express:
 // uniqueness, cross-references, conditional shape, semantic content,
@@ -39,19 +44,19 @@ describe("cross-references", () => {
   test("every visibleWhen.field resolves to an existing field", () => {
     const ids = new Set(supplierQuestionnaire.fields.map((f) => f.id));
     for (const field of supplierQuestionnaire.fields) {
-      if (field.visibleWhen) {
-        expect(ids.has(field.visibleWhen.field)).toBe(true);
+      for (const condition of conditionsOf(field)) {
+        expect(ids.has(condition.field)).toBe(true);
       }
     }
   });
 
   test("every visibleWhen.equals value matches the referenced field's type", () => {
     const fieldsById = new Map(supplierQuestionnaire.fields.map((f) => [f.id, f]));
-    for (const field of supplierQuestionnaire.fields) {
-      if (!field.visibleWhen) continue;
-      const target = fieldsById.get(field.visibleWhen.field);
+    const conditions = supplierQuestionnaire.fields.flatMap(conditionsOf);
+    for (const condition of conditions) {
+      const target = fieldsById.get(condition.field);
       if (!target) throw new Error("unreachable — guarded by previous test");
-      const equals = field.visibleWhen.equals;
+      const equals = condition.equals;
       switch (target.type) {
         case FIELD_TYPE.BOOLEAN:
           expect(typeof equals).toBe("boolean");
@@ -108,9 +113,18 @@ describe("helpers", () => {
 
     expect(visibleIds.has("legalName")).toBe(true);
     for (const field of supplierQuestionnaire.fields) {
-      if (field.visibleWhen?.field === "isOnPrem" && field.visibleWhen.equals === true) {
+      const conditions = conditionsOf(field);
+      if (conditions.length === 1 && conditions[0]?.field === "isOnPrem") {
         expect(visibleIds.has(field.id)).toBe(false);
       }
     }
+  });
+
+  test("a question with several conditions shows while any one of them holds", () => {
+    const secure = supplierQuestionnaire.fields.find((f) => f.id === "secureDevelopment");
+    if (!secure) throw new Error("secureDevelopment is missing");
+    expect(isVisible(secure, { isSaas: true, isOnPrem: false })).toBe(true);
+    expect(isVisible(secure, { isSaas: false, isOnPrem: true })).toBe(true);
+    expect(isVisible(secure, { isSaas: false, isOnPrem: false })).toBe(false);
   });
 });

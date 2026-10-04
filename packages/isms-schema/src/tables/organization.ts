@@ -277,8 +277,15 @@ export const company = pgTable("company", {
   isOnPrem: boolean("is_on_prem"),
   isProfessionalServices: boolean("is_professional_services"),
   isManagedService: boolean("is_managed_service"),
-  /** NIS 2 Art. 21(2)(d) — supplier uses/integrates/provides AI systems. */
+  /** No longer asked (questionnaire 4.0.0); kept so earlier answers survive. */
   usesAiSystems: boolean("uses_ai_systems"),
+  /**
+   * ENISA TIG §5.1.2 "sensitivity of the use" — the supplier processes or stores its customers'
+   * data. With the next one, what the customer weighs the other answers against.
+   */
+  processesCustomerData: boolean("processes_customer_data"),
+  /** ENISA TIG §5.1.2 — the supplier reaches its customers' systems (remote, admin, on site). */
+  accessesCustomerSystems: boolean("accesses_customer_systems"),
 
   // ─────────────────────────────────────────────────────────────────────────
   // Security-practices-section extensions — CIR §5.1.4, GDPR Art. 28, ENISA TIG §5.1.4 TIPS
@@ -289,6 +296,10 @@ export const company = pgTable("company", {
   hasSubprocessors: boolean("has_subprocessors"),
   /** CIR 2024/2690 §5.1.4(g) — list of subprocessors (rendered when hasSubprocessors). */
   subprocessorList: text("subprocessor_list"),
+  /** CIR 2024/2690 §5.1.4(g), second half — security requirements passed on to subcontractors. */
+  subprocessorRequirementsPassedOn: boolean("subprocessor_requirements_passed_on"),
+  /** CIR 2024/2690 §5.1.2(a) / §6.2 — secure development procedures (SaaS and software). */
+  secureDevelopment: boolean("secure_development"),
   /** CIR 2024/2690 §5.1.4(h) — return / destroy customer data on termination. */
   dataReturnOnTermination: boolean("data_return_on_termination"),
   /** GDPR Art. 28 — standard data processing agreement available. */
@@ -338,6 +349,8 @@ export const company = pgTable("company", {
   managedPrivilegedAccessMgmt: boolean("managed_privileged_access_mgmt"),
   managedSessionRecording: boolean("managed_session_recording"),
   managedOnCall24x7: boolean("managed_on_call_24x7"),
+  /** CIR 2024/2690 §3.2 — administrative access to customer systems is logged. */
+  managedAdminAccessLogged: boolean("managed_admin_access_logged"),
 
   /** Denormalized timestamp of last supplier-portal Security Practices save — surfaced as a "saved at" hint in the UI. */
   practicesLastSavedAt: timestamp("questionnaire_last_saved_at"),

@@ -21,9 +21,11 @@
       "access": "Zugriff"
     },
     "pages": {
-      "profileIntro": "Identität, die öffentliche Beschreibung, die Kunden sehen, und der Kontakt, den sie im Vorfall erreichen. Gestützt auf das Lieferantenregister nach ENISA TIG §5.2 und die Meldekette nach CIR §5.1.4(d).",
-      "practicesIntro": "Allgemeine Angaben dazu, wie Ihr Unternehmen Informationssicherheit betreibt: Managementsystem, Stand bei ISO 27001 oder Grundschutz, Schulungen und die Basismaßnahmen nach Artikel 21(2) NIS2. Für jeden Kunden dieselben Antworten.",
-      "serviceTypeIntro": "Technische Angaben zu dem, was Sie liefern: Hosting und Verschlüsselung bei SaaS, SBOM und signierte Releases bei Software beim Kunden, Zuverlässigkeitsprüfungen bei Dienstleistungen, PAM und Rufbereitschaft bei Managed Services. Beantworten Sie nur die Abschnitte, die auf Sie zutreffen.",
+      "profileIntro": "Wer Sie sind, wie Kunden Sie im Ernstfall erreichen und was Sie liefern. Daran misst ein Kunde, wie schwer Ihre übrigen Antworten für ihn wiegen.",
+      "practicesIntro": "Was Sie Ihren Kunden zusagen und wie Sie Sicherheit betreiben. Für jeden Kunden dieselben Antworten.",
+      "serviceTypeIntro": "Angaben zu den Leistungsarten, die Sie im Profil angekreuzt haben. Fragen zu Leistungen, die Sie nicht erbringen, sehen Sie hier nicht.",
+      "serviceTypeEmpty": "Sie haben im Profil noch keine Leistungsart angekreuzt. Sobald Sie dort SaaS, Software, Dienstleistung oder Managed Service wählen, stehen hier die Fragen dazu.",
+      "serviceTypeEmptyLink": "Zum Profil",
       "certificationsIntro": "Laden Sie Ihre Sicherheitsnachweise hoch (ISO 27001, BSI Grundschutz, BSI C5, TISAX, SOC 2). Die PDFs und ihre Angaben sehen die Kunden, die Sie eingeladen haben.",
       "nis2Regulated": "Selbst NIS2-reguliert",
       "customersTitle": "Ersten Kunden hinzufügen",
@@ -44,13 +46,13 @@
       "step1Title": "Profil anlegen",
       "step1Body": "Anmelden, Firmenname und Domain eintragen. Das Profil gehört Ihnen, nicht einem Ihrer Kunden.",
       "step2Title": "Einmal antworten",
-      "step2Body": "{count} Fragen zu Sicherheitsmanagement, Zertifizierung, Notfallplänen, Zugängen und Vertragsklauseln. Jede Frage nennt den Absatz, auf den sie sich stützt. Zwischenstände bleiben gespeichert.",
+      "step2Body": "Bis zu {count} Fragen zu Zusagen, Sicherheitsmanagement, Notfallplänen und Zugängen; Sie sehen nur die, die zu Ihrer Leistung passen. Jede Frage nennt die Stelle, auf die sie sich stützt. Zwischenstände bleiben gespeichert.",
       "step3Title": "Kunden einladen",
       "step3Body": "Jeder Kunde bekommt einen eigenen, privaten Link. Er sieht Ihr Profil, die Systeme, die Sie für ihn betreuen, und Ihre Zertifikate. Ein Konto braucht er dafür nicht.",
       "step4Title": "Vorfälle melden",
-      "step4Body": "Ist ein System eines Kunden betroffen, melden Sie das aus dem Portal heraus. Nur dieser eine Kunde sieht die Meldung. Er erfüllt damit seine Pflicht aus Artikel 21(2)(d) NIS2, seine Lieferanten laufend im Blick zu behalten.",
+      "step4Body": "Ist ein System eines Kunden betroffen, melden Sie das aus dem Portal heraus. Nur dieser eine Kunde sieht die Meldung. Das hilft ihm bei seiner Pflicht aus Art. 21 Abs. 2 Buchst. d NIS2, die Sicherheit seiner Lieferkette im Blick zu behalten.",
       "coversTitle": "Was gefragt wird",
-      "coversIntro": "Die Gliederung folgt der ENISA NIS2 Technical Implementation Guidance v1.0 vom Juni 2025. Jede Frage nennt den Absatz aus CIR 2024/2690 oder dem BSI IT-Grundschutz, auf den sie sich stützt. So erkennt ein Prüfer die Struktur wieder, und Sie müssen keine eigene erfinden. Der Fragenkatalog liegt offen auf GitHub.",
+      "coversIntro": "Die Fragen stützen sich auf Art. 21 NIS2, die Durchführungsverordnung (EU) 2024/2690 und die ENISA Technical Implementation Guidance v1.0 vom Juni 2025; jede nennt die Stelle, auf die sie sich stützt. Gefragt wird, was ein Kunde für seine Lieferkette braucht, und nicht mehr. Der Fragenkatalog liegt offen auf GitHub.",
       "covers1Title": "Identität und Kontakt",
       "covers1Body": "Rechtsname, Anschrift, Domain und die Stelle, die ein Kunde im Ernstfall erreicht. Dazu die Frist, in der Sie sich melden.",
       "covers2Title": "Sicherheitspraxis",
@@ -67,7 +69,7 @@
       "bsiQuoteTranslation": "",
       "bsiAttribution": "BSI, FAQ zu NIS 2 (Lieferketten und Sicherheit). Genau das ist dieses Portal: ein einheitlicher Fragenkatalog, gebaut von einem Unternehmen, den jeder benutzen darf.",
       "whyFreeTitle": "Warum kostenlos?",
-      "whyFree": "Das Lieferantenportal kostet nichts und der Code ist offen. Wir verdienen an Schulung und begleiteter Umsetzung, nicht an Ihren Daten. Plattform und Fragenkatalog liegen auf GitHub, das können Sie selbst nachsehen.",
+      "whyFree": "Das Lieferantenportal kostet nichts und der Code ist offen. Wir verdienen am geführten Durchgang für Unternehmen unter NIS 2, nicht an Ihren Daten. Plattform und Fragenkatalog liegen auf GitHub, das können Sie selbst nachsehen.",
       "proofOpenSource": "Open Source, auf GitHub einsehbar",
       "proofEuHosted": "In der EU gehostet",
       "trustLink": "Mehr im Trust Center",
@@ -78,25 +80,99 @@
       "metaDescription": "Beantworten Sie die NIS2-Fragen Ihrer Kunden einmal und geben Sie die Antworten jedem Kunden frei, der Sie einlädt. Gegliedert nach ENISA TIG v1.0 und CIR 2024/2690. Open Source, kein Lock-in."
     },
     "questionnaire": {
-      "title": "BSI / CIR Lieferanten-Fragebogen",
-      "intro": "Jede Frage verweist auf einen konkreten Absatz der CIR 2024/2690 (der bindenden EU-Verordnung unter NIS2) oder auf den BSI IT-Grundschutz. Einmal ausfüllen; jeder abonnierte Kunde sieht die gleichen Antworten.",
-      "save": "Entwurf speichern",
+      "title": "Lieferantenfragebogen",
+      "intro": "Einmal ausfüllen; jeder Kunde, dem Sie das Profil freigeben, sieht dieselben Antworten. Jede Frage nennt die Stelle in NIS2, der Durchführungsverordnung (EU) 2024/2690 oder der ENISA Guidance, auf die sie sich stützt.",
+      "save": "Speichern",
       "submit": "Freigeben und veröffentlichen",
       "submitting": "Speichern…",
       "saved": "Gespeichert",
       "saveError": "Speichern fehlgeschlagen. Bitte erneut versuchen.",
       "submitError": "Freigabe fehlgeschlagen. Bitte zuerst die Validierungsfehler beheben.",
       "savedAt": "Zuletzt gespeichert {time}",
-      "sectionIdentity": "Identität (CIR §5.2 / ENISA TIG §5.2 Lieferantenregister)",
-      "sectionIncidentContact": "Vorfall-Kontakt (kundenseitig)",
-      "sectionType": "Leistungsart",
-      "sectionContract": "Verpflichtende Vertragsklauseln (CIR / ENISA TIG §5.1.4)",
-      "sectionBaseline": "Cybersicherheitsmaßnahmen (NIS2 Art. 21(2) / ENISA TIG §5.1.2)",
-      "sectionContractTips": "Zusätzliche Vertragsklauseln (ENISA TIG §5.1.4 TIPS)",
-      "sectionSaas": "SaaS-Technik",
-      "sectionOnPrem": "On-Prem-Software-Technik",
-      "sectionProServices": "Dienstleistungen: Details",
-      "sectionManaged": "Managed Services: Details"
+      "notSavedYet": "Noch nicht gespeichert",
+      "unsaved": "Ungespeicherte Änderungen",
+      "answered": "{answered} von {total} beantwortet",
+      "yes": "Ja",
+      "no": "Nein",
+      "unanswered": "Keine Angabe",
+      "hours": "Stunden",
+      "basis": "Grundlage",
+      "groups": {
+        "identity": {
+          "title": "Wer Sie sind",
+          "why": "Damit ein Kunde Sie in seiner Lieferantenliste eindeutig führen kann und weiß, wo seine Daten liegen."
+        },
+        "contacts": {
+          "title": "So erreicht man Sie im Ernstfall",
+          "why": "Ein Kunde braucht für jeden direkten Lieferanten eine Anlaufstelle für Sicherheitsfragen."
+        },
+        "delivery": {
+          "title": "Was Sie liefern",
+          "why": "Ob Sie Daten Ihrer Kunden verarbeiten oder auf ihre Systeme zugreifen, entscheidet, wie schwer Ihre übrigen Antworten wiegen. Die Leistungsarten bestimmen, welche Fragen Sie danach sehen."
+        },
+        "commitments": {
+          "title": "Was Sie Kunden zusagen",
+          "why": "Diese Punkte gehören, wo angemessen, in den Vertrag mit Ihren Kunden. Hier sagen Sie vorab, wozu Sie bereit sind."
+        },
+        "operations": {
+          "title": "Wie Sie Sicherheit betreiben",
+          "why": "Ein Kunde wählt Lieferanten auch nach ihrer Sicherheitspraxis aus. Mit einem Zertifikat, das Ihre Leistung abdeckt, liest er vieles davon schon dort ab."
+        },
+        "saas": {
+          "title": "Software als Dienst (SaaS)",
+          "why": "Wie Sie die Daten in Ihrer Anwendung schützen und wie schnell sie nach einem Ausfall wieder läuft."
+        },
+        "onPrem": {
+          "title": "Software beim Kunden",
+          "why": "Woran ein Kunde erkennt, dass Ihre Software und ihre Updates vertrauenswürdig sind."
+        },
+        "proServices": {
+          "title": "Dienstleistung und Beratung",
+          "why": "Was gilt, wenn Ihre Leute mit Daten oder vor Ort beim Kunden arbeiten."
+        },
+        "managed": {
+          "title": "Managed Services",
+          "why": "Wie Sie Ihre Zugriffe auf die Systeme Ihrer Kunden absichern und nachvollziehbar machen."
+        }
+      },
+      "customerGroups": {
+        "identity": {
+          "title": "Wer der Lieferant ist",
+          "why": "So führen Sie ihn eindeutig in Ihrer Lieferantenliste und sehen, wo Ihre Daten verarbeitet werden."
+        },
+        "contacts": {
+          "title": "Erreichbarkeit im Ernstfall",
+          "why": "Die Anlaufstelle für Sicherheitsfragen, die Sie für jeden direkten Lieferanten brauchen."
+        },
+        "delivery": {
+          "title": "Was der Lieferant liefert",
+          "why": "Ob er Ihre Daten verarbeitet oder auf Ihre Systeme zugreift, entscheidet, wie schwer die übrigen Antworten für Sie wiegen."
+        },
+        "commitments": {
+          "title": "Zusagen an seine Kunden",
+          "why": "Was der Lieferant vorab zusagt. Was davon für Sie angemessen ist, gehört in Ihren Vertrag mit ihm."
+        },
+        "operations": {
+          "title": "Sicherheit im Betrieb",
+          "why": "Wie der Lieferant Sicherheit betreibt. Ein Zertifikat, das seine Leistung abdeckt, steht unten bei den Zertifikaten."
+        },
+        "saas": {
+          "title": "Software als Dienst (SaaS)",
+          "why": "Wie er die Daten in seiner Anwendung schützt und wie schnell sie nach einem Ausfall wieder läuft."
+        },
+        "onPrem": {
+          "title": "Software bei Ihnen",
+          "why": "Woran Sie erkennen, dass seine Software und ihre Updates vertrauenswürdig sind."
+        },
+        "proServices": {
+          "title": "Dienstleistung und Beratung",
+          "why": "Was gilt, wenn seine Leute mit Ihren Daten oder bei Ihnen vor Ort arbeiten."
+        },
+        "managed": {
+          "title": "Managed Services",
+          "why": "Wie er seine Zugriffe auf Ihre Systeme absichert und nachvollziehbar macht."
+        }
+      }
     },
     "customerView": {
       "securityProfile": "Sicherheitsprofil",

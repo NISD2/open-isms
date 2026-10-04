@@ -6,14 +6,16 @@
  */
 import { describe, expect, test } from "bun:test";
 import {
-  PROFILE_PAGE_FIELDS,
-  SECURITY_PRACTICES_PAGE_FIELDS,
-} from "@/lib/forms/supplier-portal-sections";
+  conditionsOf,
+  supplierQuestionnaire,
+} from "@nisd2/nis2-supply-chain-questionnaire-schema";
+import { PROFILE_PAGE_FIELDS } from "@/lib/forms/supplier-portal-sections";
 import { questionnaireCompleteness } from "./completeness";
 
-/** Practices minus the two that only apply once another answer turns them on. */
-const UNGATED_PRACTICES = SECURITY_PRACTICES_PAGE_FIELDS.length - 2;
-const BASELINE = PROFILE_PAGE_FIELDS.length + UNGATED_PRACTICES;
+/** Every question asked of every supplier: those that depend on no other answer. */
+const BASELINE = supplierQuestionnaire.fields.filter(
+  (field) => conditionsOf(field).length === 0,
+).length;
 
 describe("questionnaireCompleteness", () => {
   test("an untouched supplier has answered nothing, and is asked only the baseline", () => {
@@ -35,26 +37,35 @@ describe("questionnaireCompleteness", () => {
     expect(questionnaireCompleteness({ legalName: "Acme GmbH" }).answered).toBe(1);
   });
 
-  test("ticking a service type adds that block to the denominator", () => {
+  test("ticking SaaS adds its block and the secure development question", () => {
     const saas = questionnaireCompleteness({ isSaas: true });
     // isSaas is itself a profile field, so ticking it also answers one.
     expect(saas.answered).toBe(1);
-    expect(saas.serviceType.applicable).toBe(5);
-    expect(saas.applicable).toBe(BASELINE + 5);
+    expect(saas.serviceType.applicable).toBe(4);
+    expect(saas.applicable).toBe(BASELINE + 4 + 1);
   });
 
   test("a supplier who ticks no service type is never asked those questions", () => {
-    const filled = questionnaireCompleteness({ saasHostingRegion: "eu-central-1" });
+    const filled = questionnaireCompleteness({ saasRtoHours: 4 });
     expect(filled.serviceType.applicable).toBe(0);
     // The answer is ignored rather than counted: they were never asked.
     expect(filled.answered).toBe(0);
   });
 
-  test("the subprocessor list only applies once they say they have subprocessors", () => {
+  test("the subcontractor list and pass-down only apply once they say they have subcontractors", () => {
     const without = questionnaireCompleteness({ hasSubprocessors: false });
     const with_ = questionnaireCompleteness({ hasSubprocessors: true });
     expect(without.applicable).toBe(BASELINE);
-    expect(with_.applicable).toBe(BASELINE + 1);
+    expect(with_.applicable).toBe(BASELINE + 2);
+  });
+
+  test("the DPA question only applies to a supplier that processes customer data", () => {
+    expect(questionnaireCompleteness({ processesCustomerData: false }).applicable).toBe(
+      BASELINE,
+    );
+    expect(questionnaireCompleteness({ processesCustomerData: true }).applicable).toBe(
+      BASELINE + 1,
+    );
   });
 
   test("columns that are not questionnaire fields do not change the score", () => {

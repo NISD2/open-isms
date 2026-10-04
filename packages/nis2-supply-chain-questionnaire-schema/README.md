@@ -26,9 +26,9 @@ The reference implementation is the supplier portal at [nisd2.eu](https://nisd2.
 
 ## What's in it
 
-- **59 fields** across 6 sections (`profile`, `security_practices`, `saas_technical`, `on_prem_technical`, `pro_services`, `managed_services`)
-- Each field anchored to an **EU-level** primary source: NIS2 Art. 21(2), CIR 2024/2690, ENISA Technical Implementation Guidance v1.0, GDPR Art. 28, or the Cyber Resilience Act
-- Nine locales: English, German, French, Italian, Spanish, Polish, Czech, Portuguese and Romanian
+- **47 fields** across 6 sections (`profile`, `security_practices`, `saas_technical`, `on_prem_technical`, `pro_services`, `managed_services`). Conditional fields show only where they apply: 31 are asked of every supplier, and a SaaS supplier that processes customer data and uses subcontractors sees 39.
+- Each field anchored to an **EU-level** primary source: NIS2 Art. 21, CIR 2024/2690, ENISA Technical Implementation Guidance v1.0, GDPR Art. 28, or the Cyber Resilience Act. The CIR binds only the entity types in its Art. 1; for every other NIS 2 entity it is orientation.
+- English and German for every field; French, Italian, Spanish, Polish, Czech, Portuguese and Romanian for the fields unchanged since 3.1.0 (the rest fall back to English)
 - Published as a Zod schema (TypeScript), a JSON artefact, and a JSON Schema for non-TS consumers
 
 ## What's deliberately out of scope
@@ -47,7 +47,7 @@ National-derivative frameworks (BSI IT-Grundschutz / Lieferketten-Checkliste in 
 This package is **not on the npm registry** — install directly from GitHub.
 
 ```bash
-bun add github:NISD2/nis2-supply-chain-questionnaire-schema#v3.1.0
+bun add github:NISD2/nis2-supply-chain-questionnaire-schema#v4.0.0
 # npm, pnpm, yarn — same syntax
 ```
 
@@ -59,11 +59,16 @@ If you only need the data or the JSON Schema, download them directly from the re
 import {
   supplierQuestionnaire,
   groupBySection,
+  isVisible,
 } from "@nisd2/nis2-supply-chain-questionnaire-schema";
 
 for (const [section, fields] of groupBySection(supplierQuestionnaire)) {
   console.log(`${section}: ${fields.length} fields`);
 }
+
+// Only the questions that apply to this supplier's answers so far.
+const answers = { isSaas: true, processesCustomerData: true };
+const asked = supplierQuestionnaire.fields.filter((f) => isVisible(f, answers));
 ```
 
 More examples — Drizzle storage, multi-page form rendering — under [`examples/`](./examples/).
@@ -79,7 +84,8 @@ More examples — Drizzle storage, multi-page form rendering — under [`example
   description:   { en, de }                  // why this field exists, with legal context
   legalBasis:    "NIS2 Art. 21(2)(j)"        // EU-level primary citation
   required:      true
-  visibleWhen?:  { field: "isSaas", equals: true }   // gates section visibility
+  visibleWhen?:  { field: "isSaas", equals: true }   // shown only while this holds
+              // or { anyOf: [{ field: "isSaas", equals: true }, { field: "isOnPrem", equals: true }] }
   options?:      [{ value, label: { en, de } }]      // type=enum only
 }
 ```

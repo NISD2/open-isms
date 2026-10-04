@@ -9,7 +9,7 @@ export const SECTION = {
   MANAGED_SERVICES: "managed_services",
 } as const;
 
-export type SectionValue = typeof SECTION[keyof typeof SECTION];
+export type SectionValue = (typeof SECTION)[keyof typeof SECTION];
 
 export const sectionSchema = z.nativeEnum(SECTION);
 
@@ -25,7 +25,7 @@ export const FIELD_TYPE = {
   INTEGER: "integer",
 } as const;
 
-export type FieldTypeValue = typeof FIELD_TYPE[keyof typeof FIELD_TYPE];
+export type FieldTypeValue = (typeof FIELD_TYPE)[keyof typeof FIELD_TYPE];
 
 export const fieldTypeSchema = z.nativeEnum(FIELD_TYPE);
 
@@ -41,13 +41,24 @@ const localisedString = z.object({
   ro: z.string().min(1).optional(),
 });
 
+/** One answer that must hold for a question to show. */
+export const conditionSchema = z.object({
+  field: z.string().min(1),
+  equals: z.union([z.boolean(), z.string(), z.number()]),
+});
+
+export type Condition = z.infer<typeof conditionSchema>;
+
 const fieldOptionSchema = z.object({
   value: z.string().min(1),
   label: localisedString,
 });
 
 export const supplierFieldSchema = z.object({
-  id: z.string().min(1).regex(/^[a-z][a-zA-Z0-9]*$/, "id must be camelCase"),
+  id: z
+    .string()
+    .min(1)
+    .regex(/^[a-z][a-zA-Z0-9]*$/, "id must be camelCase"),
   section: sectionSchema,
   type: fieldTypeSchema,
   options: z.array(fieldOptionSchema).optional(),
@@ -67,11 +78,9 @@ export const supplierFieldSchema = z.object({
    */
   legalBasis: z.string().min(1),
   required: z.boolean(),
+  /** Shown only while another answer holds, or while any one of several holds. */
   visibleWhen: z
-    .object({
-      field: z.string().min(1),
-      equals: z.union([z.boolean(), z.string(), z.number()]),
-    })
+    .union([conditionSchema, z.object({ anyOf: z.array(conditionSchema).min(2) })])
     .optional(),
 });
 
@@ -89,3 +98,22 @@ export const supplierResponseSchema = z.record(
 export type SupplierField = z.infer<typeof supplierFieldSchema>;
 export type SupplierQuestionnaire = z.infer<typeof supplierQuestionnaireSchema>;
 export type SupplierResponse = z.infer<typeof supplierResponseSchema>;
+
+/** The conditions a question depends on: none, one, or any one of several. */
+export const conditionsOf = (
+  field: Pick<SupplierField, "visibleWhen">,
+): readonly Condition[] => {
+  const when = field.visibleWhen;
+  if (!when) return [];
+  return "anyOf" in when ? when.anyOf : [when];
+};
+
+/**
+ * Whether a question with these conditions shows for these answers. Lives here, beside the types
+ * and apart from the data, so a form can re-check visibility without loading every question.
+ */
+export const conditionsHold = (
+  conditions: readonly Condition[],
+  response: Record<string, unknown>,
+): boolean =>
+  conditions.length === 0 || conditions.some((c) => response[c.field] === c.equals);

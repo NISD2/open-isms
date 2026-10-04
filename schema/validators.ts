@@ -246,10 +246,15 @@ export const securityProfileUpdateSchema = companyInsertSchema.partial().pick({
   isProfessionalServices: true,
   isManagedService: true,
   usesAiSystems: true,
+  // ENISA TIG §5.1.2 — what the supplier reaches at its customers (questionnaire 4.0.0)
+  processesCustomerData: true,
+  accessesCustomerSystems: true,
   // CIR §5.1.4 / GDPR Art. 28 / ENISA TIG §5.1.4 TIPS — security practice extensions
   acceptRightToAudit: true,
   hasSubprocessors: true,
   subprocessorList: true,
+  subprocessorRequirementsPassedOn: true,
+  secureDevelopment: true,
   dataReturnOnTermination: true,
   dpaAvailable: true,
   incidentAssistanceCommitment: true,
@@ -277,6 +282,7 @@ export const securityProfileUpdateSchema = companyInsertSchema.partial().pick({
   managedPrivilegedAccessMgmt: true,
   managedSessionRecording: true,
   managedOnCall24x7: true,
+  managedAdminAccessLogged: true,
 });
 
 export const userInsertSchema = createInsertSchema(user, {

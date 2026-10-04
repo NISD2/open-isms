@@ -21,9 +21,11 @@
       "access": "Access"
     },
     "pages": {
-      "profileIntro": "Identity, the public description customers see, and the contact they reach when something happens. Anchored to the ENISA TIG §5.2 supplier register and the CIR §5.1.4(d) notification chain.",
-      "practicesIntro": "Universal facts about how your company runs information security: management system, ISO 27001 or Grundschutz status, staff training, and the NIS 2 Article 21(2) baseline. The same answers for every customer.",
-      "serviceTypeIntro": "Technical declarations specific to what you provide: hosting and encryption for SaaS, SBOM and signed releases for on-premise software, background checks for professional services, PAM and on-call for managed services. Answer only the sections that apply to you.",
+      "profileIntro": "Who you are, how customers reach you when something happens, and what you deliver. A customer weighs the rest of your answers by this.",
+      "practicesIntro": "What you commit to your customers and how you run security. The same answers for every customer.",
+      "serviceTypeIntro": "Details for the types of service you ticked on your profile. Questions about services you do not provide do not appear here.",
+      "serviceTypeEmpty": "You have not ticked a type of service on your profile yet. Once you choose SaaS, software, professional services or managed services there, the questions for it appear here.",
+      "serviceTypeEmptyLink": "Go to the profile",
       "certificationsIntro": "Upload your security attestations (ISO 27001, BSI Grundschutz, BSI C5, TISAX, SOC 2). The PDFs and their details are visible to the customers you have invited.",
       "nis2Regulated": "Directly regulated under NIS 2",
       "customersTitle": "Add your first customer",
@@ -44,13 +46,13 @@
       "step1Title": "Create the profile",
       "step1Body": "Sign in, enter your company name and domain. The profile belongs to you, not to one of your customers.",
       "step2Title": "Answer once",
-      "step2Body": "{count} questions on security management, certification, incident plans, access, and contract clauses. Every question names the paragraph it rests on. Drafts are saved as you go.",
+      "step2Body": "Up to {count} questions on commitments, security management, incident plans and access; you only see the ones that fit what you deliver. Every question names the provision it rests on. Drafts are saved as you go.",
       "step3Title": "Invite customers",
       "step3Body": "Each customer gets their own private link. They see your profile, the systems you run for them, and your certificates. They do not need an account.",
       "step4Title": "Report incidents",
-      "step4Body": "If a customer's system is affected, you report it from inside the portal. Only that one customer sees the report. It is how they meet their Article 21(2)(d) duty to keep an eye on their suppliers.",
+      "step4Body": "If a customer's system is affected, you report it from inside the portal. Only that one customer sees the report. It helps them with their duty under Art. 21(2)(d) NIS2 to keep the security of their supply chain in view.",
       "coversTitle": "What gets asked",
-      "coversIntro": "The structure follows ENISA's NIS2 Technical Implementation Guidance v1.0 from June 2025. Every question names the paragraph in CIR 2024/2690 or BSI IT-Grundschutz it rests on. An auditor recognises the structure, so you do not have to invent one. The question set is public on GitHub.",
+      "coversIntro": "The questions rest on Art. 21 NIS2, Implementing Regulation (EU) 2024/2690 and ENISA's Technical Implementation Guidance v1.0 from June 2025; each names the provision it rests on. It asks what a customer needs for their supply chain, and no more. The question set is public on GitHub.",
       "covers1Title": "Identity and contact",
       "covers1Body": "Legal name, address, domain, and who a customer reaches when something goes wrong. Plus the window you commit to responding in.",
       "covers2Title": "Security practice",
@@ -67,7 +69,7 @@
       "bsiQuoteTranslation": "We welcome current industry initiatives to develop a unified question set for suppliers.",
       "bsiAttribution": "BSI, FAQ on NIS 2 (supply chains and security). This portal is exactly that: a unified question set, built by a company, free for anyone to use.",
       "whyFreeTitle": "Why free?",
-      "whyFree": "The supplier portal costs nothing and the code is open. We earn from training and hands-on implementation work, not from your data. Platform and question set are on GitHub, so you can check for yourself.",
+      "whyFree": "The supplier portal costs nothing and the code is open. We earn from the guided walkthrough for companies under NIS 2, not from your data. Platform and question set are on GitHub, so you can check for yourself.",
       "proofOpenSource": "Open Source, readable on GitHub",
       "proofEuHosted": "Hosted in the EU",
       "trustLink": "More in the Trust Center",
@@ -78,25 +80,99 @@
       "metaDescription": "Answer your customers' NIS 2 questions once and release the answers to every customer who invites you. Structured to ENISA TIG v1.0 and CIR 2024/2690. Open Source, no lock-in."
     },
     "questionnaire": {
-      "title": "BSI / CIR Supplier Questionnaire",
-      "intro": "Every question maps to a specific paragraph of CIR 2024/2690 (the binding EU regulation under NIS2) or to BSI IT-Grundschutz. Fill it once; every customer who subscribes sees the same answers.",
-      "save": "Save draft",
+      "title": "Supplier questionnaire",
+      "intro": "Fill it once; every customer you release your profile to sees the same answers. Each question names the provision in NIS2, Implementing Regulation (EU) 2024/2690 or ENISA's guidance it rests on.",
+      "save": "Save",
       "submit": "Sign off and publish",
       "submitting": "Saving…",
       "saved": "Saved",
       "saveError": "Could not save. Please try again.",
       "submitError": "Could not sign off. Fix the validation errors first.",
       "savedAt": "Last saved {time}",
-      "sectionIdentity": "Identity (CIR §5.2 / ENISA TIG §5.2 supplier register)",
-      "sectionIncidentContact": "Customer-facing incident contact",
-      "sectionType": "Service type",
-      "sectionContract": "Mandatory contract clauses (CIR / ENISA TIG §5.1.4)",
-      "sectionBaseline": "Cybersecurity practices (NIS2 Art. 21(2) / ENISA TIG §5.1.2)",
-      "sectionContractTips": "Additional contract clauses (ENISA TIG §5.1.4 TIPS)",
-      "sectionSaas": "SaaS technicals",
-      "sectionOnPrem": "On-prem software technicals",
-      "sectionProServices": "Professional services details",
-      "sectionManaged": "Managed service details"
+      "notSavedYet": "Not saved yet",
+      "unsaved": "Unsaved changes",
+      "answered": "{answered} of {total} answered",
+      "yes": "Yes",
+      "no": "No",
+      "unanswered": "Not answered",
+      "hours": "hours",
+      "basis": "Basis",
+      "groups": {
+        "identity": {
+          "title": "Who you are",
+          "why": "So a customer can list you unambiguously among their suppliers and knows where their data is."
+        },
+        "contacts": {
+          "title": "How to reach you when something happens",
+          "why": "A customer needs a contact point for security matters for each direct supplier."
+        },
+        "delivery": {
+          "title": "What you deliver",
+          "why": "Whether you process your customers' data or reach their systems decides how much the rest of your answers weigh. The types of service decide which questions you see next."
+        },
+        "commitments": {
+          "title": "What you commit to customers",
+          "why": "Where appropriate, these points belong in your contract with a customer. Here you say up front what you are prepared to do."
+        },
+        "operations": {
+          "title": "How you run security",
+          "why": "Customers also choose suppliers by their security practices. A certificate that covers your service already tells them much of this."
+        },
+        "saas": {
+          "title": "Software as a service (SaaS)",
+          "why": "How you protect the data in your application and how fast it runs again after an outage."
+        },
+        "onPrem": {
+          "title": "Software on the customer's premises",
+          "why": "How a customer can tell that your software and its updates can be trusted."
+        },
+        "proServices": {
+          "title": "Professional services and consulting",
+          "why": "What applies when your people work with data or on site at a customer."
+        },
+        "managed": {
+          "title": "Managed services",
+          "why": "How you secure your access to your customers' systems and keep it traceable."
+        }
+      },
+      "customerGroups": {
+        "identity": {
+          "title": "Who the supplier is",
+          "why": "So you can list them unambiguously among your suppliers and see where your data is processed."
+        },
+        "contacts": {
+          "title": "How to reach them when something happens",
+          "why": "The contact point for security matters you need for each direct supplier."
+        },
+        "delivery": {
+          "title": "What the supplier delivers",
+          "why": "Whether they process your data or reach your systems decides how much the rest of their answers weigh for you."
+        },
+        "commitments": {
+          "title": "What they commit to customers",
+          "why": "What the supplier commits to up front. What of it is appropriate for you belongs in your contract with them."
+        },
+        "operations": {
+          "title": "How they run security",
+          "why": "How the supplier runs security. A certificate that covers their service is listed under certificates below."
+        },
+        "saas": {
+          "title": "Software as a service (SaaS)",
+          "why": "How they protect the data in their application and how fast it runs again after an outage."
+        },
+        "onPrem": {
+          "title": "Software on your premises",
+          "why": "How you can tell that their software and its updates can be trusted."
+        },
+        "proServices": {
+          "title": "Professional services and consulting",
+          "why": "What applies when their people work with your data or on site with you."
+        },
+        "managed": {
+          "title": "Managed services",
+          "why": "How they secure their access to your systems and keep it traceable."
+        }
+      }
     },
     "customerView": {
       "securityProfile": "Security profile",

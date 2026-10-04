@@ -21,6 +21,7 @@ import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
 import { rateLimit } from "@/lib/rate-limit";
+import { QUESTIONNAIRE_COLUMN_FLAGS } from "@/lib/supplier-portal/completeness";
 import {
   asset,
   assetSupplierOffering,
@@ -86,39 +87,10 @@ export const supplierPublicRouter = router({
           name: true,
           sector: true,
           actsAsSupplier: true,
-          // Public identity
-          legalName: true,
-          registeredAddress: true,
-          country: true,
-          primaryDomain: true,
-          tagline: true,
-          description: true,
           logoStorageKey: true,
-          // Customer-facing incident contact (default — per-customer SLA on rel)
-          securityContactName: true,
-          incidentContactEmail: true,
-          incidentContactPhone: true,
-          // CIR §5.1.4 universal facts about how the company runs
-          hasIsms: true,
-          hasIso27001OrEquivalent: true,
-          staffSecurityTraining: true,
-          backgroundChecks: true,
-          vulnerabilityHandling: true,
-          // NIS2 Art 21(2) / CIR §5.1 universal baseline practices
-          securityPolicyReviewedAnnually: true,
-          hasIncidentResponsePlan: true,
-          hasBusinessContinuityPlan: true,
-          hasCryptographyPolicy: true,
-          hasPrivilegedAccessMgmt: true,
-          mfaEnforcedInternal: true,
-          hasAssetInventory: true,
-          hasPenetrationTestingProgram: true,
-          // ENISA TIG §5 — universal company-wide declarations
-          cooperateWithAuthorities: true,
-          pastBreachesDisclosed: true,
-          // ENISA TIG §5.1.2 — supplier's own NIS2-regulated status
-          bsiRegistrationId: true,
           practicesLastSavedAt: true,
+          // Every question the portal asks, from its one field list; nothing else of the row.
+          ...QUESTIONNAIRE_COLUMN_FLAGS,
         },
       });
       // Defense-in-depth: if a token survives a relationship cascade-delete
