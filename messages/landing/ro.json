@@ -68,7 +68,20 @@
       "closing": "Începeți cu primul punct.",
       "pricing": "Prețuri și condiții",
       "pause": "Opriți animația",
-      "play": "Porniți animația"
+      "play": "Porniți animația",
+      "talkFirst": "Preferați să vorbiți mai întâi cu noi?"
+    },
+    "walkSteps": {
+      "eyebrow": "În practică",
+      "topic": {
+        "title": "Unde apare acest lucru în parcursul ghidat",
+        "lead": "Parcursul ghidat face din acest subiect pași pe care îi completați, cu legea explicată lângă fiecare. Deschideți un pas pentru a vedea ecranul său, completat pentru o firmă fictivă."
+      },
+      "national": {
+        "title": "Ce schimbă legea națională și ce nu",
+        "lead": "Legea națională stabilește, printre altele, unde vă înregistrați și cui raportați incidentele. Măsurile pornesc, în fiecare stat membru, de la aceeași listă minimă (art. 21 NIS 2). Parcursul ghidat vă conduce prin ele pas cu pas:"
+      },
+      "languageNote": "Parcursul în sine este în germană și engleză."
     },
     "title": "Înjumătățiți factura <blue>NIS2</blue> a Europei.",
     "eyebrow": "Open Source · Gratuit · Kein Lock-in",

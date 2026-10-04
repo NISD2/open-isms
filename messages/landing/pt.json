@@ -68,7 +68,20 @@
       "closing": "Comece pelo primeiro ponto.",
       "pricing": "Preços e condições",
       "pause": "Pausar a animação",
-      "play": "Reproduzir a animação"
+      "play": "Reproduzir a animação",
+      "talkFirst": "Prefere falar connosco primeiro?"
+    },
+    "walkSteps": {
+      "eyebrow": "Na prática",
+      "topic": {
+        "title": "Onde isto aparece no percurso guiado",
+        "lead": "O percurso guiado transforma isto em passos que preenche, com a lei explicada ao lado de cada um. Abra um passo para ver o seu ecrã, preenchido para uma empresa fictícia."
+      },
+      "national": {
+        "title": "O que a lei nacional muda, e o que não muda",
+        "lead": "A lei nacional determina, entre outras coisas, onde se regista e a quem notifica os incidentes. As medidas partem da mesma lista mínima em todos os Estados-Membros (art. 21.º NIS 2). O percurso guiado leva-o por elas passo a passo:"
+      },
+      "languageNote": "O percurso em si está em alemão e em inglês."
     },
     "title": "Reduza para metade a fatura <blue>NIS2</blue> da Europa.",
     "eyebrow": "Open source · Gratuito · Sem lock-in",

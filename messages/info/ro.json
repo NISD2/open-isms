@@ -259,14 +259,14 @@
     },
     "whatIsNisd2": {
       "meta": {
-        "title": "Ce este de fapt nisd2.eu: registrul obligațiilor gratuit și deschis pentru NIS 2",
-        "description": "nisd2.eu este o platformă gratuită, open-source, pentru implementarea NIS 2 în Mittelstand: un registru al obligațiilor structurat, cu temei legal pentru fiecare cerință, o pistă de audit completă și fără lock-in. Iată cum funcționează."
+        "title": "Ce este de fapt nisd2.eu: un parcurs ghidat open-source prin NIS 2",
+        "description": "nisd2.eu conduce o companie pas cu pas prin cele 49 de cerințe NIS 2, cu temeiul legal pentru fiecare și cu aprobarea conducerii înregistrată în aplicație. Open-source, fără taxă de licență dacă îl rulați singuri, fără lock-in. Iată cum funcționează."
       },
       "title": "Ce este de fapt nisd2.eu",
-      "subtitle": "O platformă NIS 2 gratuită, open-source, pentru Mittelstand-ul european. Fără lock-in, fără vânzări bazate pe frică.",
+      "subtitle": "Un parcurs ghidat open-source prin NIS 2 pentru Mittelstand-ul european. Fără lock-in, fără vânzări bazate pe frică.",
       "overview": {
-        "heading": "Un registru al obligațiilor, nu încă un instrument de completat formulare",
-        "p1": "nisd2.eu nu este încă un instrument GRC care descompune fiecare cerință în formulare. Este un registru al obligațiilor structurat. Preia obligațiile din Directiva NIS 2 (UE) 2022/2555 și din transpunerea ei germană în BSIG, atribuie fiecărei cerințe temeiul ei legal și vă conduce prin implementare într-o ordine logică.",
+        "heading": "Un parcurs ghidat, nu încă un instrument de completat formulare",
+        "p1": "nisd2.eu nu este încă un instrument GRC care descompune fiecare cerință în formulare. Este un parcurs ghidat. Preia obligațiile din Directiva NIS 2 (UE) 2022/2555, cu transpunerea ei germană în BSIG ca text de referință, atribuie fiecărei cerințe temeiul ei legal și vă conduce prin implementare într-o ordine logică.",
         "p2": "Adevărata problemă în Mittelstand este rareori lipsa de cunoștințe. Este lipsa de structură. Exact de acolo pornește platforma."
       },
       "sections": {
@@ -282,7 +282,7 @@
         },
         "funding": {
           "heading": "Cum ne finanțăm",
-          "p1": "Platforma este gratuită și open-source. Ne așteptăm să obținem venituri din instruire, găzduire și oferte de parteneriat, nu din taxe de licență per cerință.",
+          "p1": "Codul este open-source sub licența AGPL, iar rularea lui pe cont propriu nu implică nicio taxă de licență. Parcursul ghidat găzduit pe nisd2.eu are un singur preț anual; cursurile și wiki-ul nu costă nimic. Nu taxăm per cerință.",
           "p2": "Aceasta este o alegere deliberată. NIS 2 nu ar trebui să coste Mittelstand-ul zeci de mii de euro."
         },
         "notUs": {
@@ -294,8 +294,8 @@
       "faq": {
         "heading": "Întrebări frecvente",
         "q1": {
-          "q": "Platforma este într-adevăr gratuită?",
-          "a": "Da. Utilizarea este gratuită, iar codul este open-source. Intenționăm să finanțăm proiectul prin instruire, găzduire și oferte de parteneriat."
+          "q": "Cât costă platforma?",
+          "a": "Cursurile și wiki-ul nu costă nimic, iar codul open-source îl puteți rula pe propriile servere, fără taxă de licență. Parcursul ghidat de pe nisd2.eu are un singur preț anual, afișat pe pagina de prețuri."
         },
         "q2": {
           "q": "Am nevoie de un cont?",
@@ -345,7 +345,7 @@
         },
         "noLockin": {
           "heading": "Fără lock-in",
-          "p1": "Registrul obligațiilor, probele și procesul dumneavoastră ar trebui să vă aparțină. Cu instrumente deschise puteți exporta, găzdui pe cont propriu sau schimba furnizorul fără a o lua de la capăt.",
+          "p1": "Înregistrările, probele și procesul dumneavoastră ar trebui să vă aparțină. Cu instrumente deschise puteți exporta, găzdui pe cont propriu sau schimba furnizorul fără a o lua de la capăt.",
           "p2": "Lock-in-ul este un cost care apare abia în ziua în care doriți să plecați."
         },
         "whenSaas": {
@@ -466,12 +466,12 @@
         },
         "support": {
           "heading": "Suport și garanții",
-          "p1": "Open source vine rareori cu un acord de suport de tip enterprise. Suportul comunitar variază ca viteză, iar nivelul gratuit este, prin natura sa, după cele mai bune eforturi.",
-          "p2": "Răspunsul nostru: există niveluri plătite de suport și găzduire pentru echipele care au nevoie de un timp de răspuns garantat, iar spunem clar că nivelul gratuit nu este un SLA."
+          "p1": "Open source vine rareori cu un acord de suport de tip enterprise. Suportul comunitar variază ca viteză, iar ajutorul pentru rularea pe cont propriu este, prin natura sa, după cele mai bune eforturi.",
+          "p2": "Răspunsul nostru: dacă aveți nevoie de cineva care să îl ruleze pentru dumneavoastră, parcursul găzduit pe nisd2.eu este rulat de noi, iar spunem clar că ajutorul comunității pentru rularea pe cont propriu nu este un SLA."
         },
         "maturity": {
           "heading": "Maturitate și integrări",
-          "p1": "Un SaaS american bine finanțat va avea adesea mai multe integrări certificate și mai multă finisare. Unele funcționalități care necesită timp de dezvoltare aparțin nivelului premium, nu celui gratuit.",
+          "p1": "Un SaaS american bine finanțat va avea adesea mai multe integrări certificate și mai multă finisare.",
           "p2": "Răspunsul nostru: pentru majoritatea companiilor din Mittelstand, obstacolul sub incidența NIS 2 este structura și o pistă de audit clară, nu numărul de integrări. Pentru această nevoie construim în primul rând."
         },
         "accountability": {
@@ -483,8 +483,8 @@
       "faq": {
         "heading": "Întrebări frecvente",
         "q1": {
-          "q": "Este versiunea gratuită într-adevăr gratuită sau este o perioadă de probă?",
-          "a": "Este gratuită pentru utilizare, nu o perioadă de probă limitată în timp. Intenționăm să finanțăm proiectul prin instruire, găzduire și oferte de parteneriat, nu prin licențe per utilizator."
+          "q": "Rularea pe cont propriu este într-adevăr fără taxă de licență sau este o perioadă de probă?",
+          "a": "Rularea pe cont propriu a codului open-source nu implică taxă de licență și nu are limită de timp. Parcursul găzduit pe nisd2.eu este oferta plătită, cu un singur preț anual."
         },
         "q2": {
           "q": "Ce se întâmplă dacă proiectul este abandonat?",
@@ -2806,7 +2806,7 @@
         "description": "Trei straturi stivuite unul peste altul. Directiva (obligatorie pentru fiecare țară din UE). Regulamentul de punere în aplicare (drept UE direct aplicabil pentru sectoarele numite în Anexă). Transpunerea națională (în Germania: BSIG).",
         "directive": {
           "label": "Articolul 21(2)(a) Directiva NIS 2 (2022/2555)",
-          "quote": "Politici privind analiza riscurilor și securitatea sistemelor informatice.",
+          "quote": "Politici referitoare la analiza riscurilor și securitatea sistemelor informatice.",
           "context": "Acesta este punctul (a) din lista celor zece măsuri de securitate cibernetică pe care fiecare entitate esențială și importantă trebuie să le pună în practică."
         },
         "regulation": {
@@ -3381,12 +3381,12 @@
         "description": "Trei niveluri. Regula privind domeniul de aplicare NIS 2 spune cine este inclus. Măsura privind lanțul de aprovizionare din articolul 21 spune ce trebuie să facă un cumpărător inclus în legătură cu furnizorii săi. Transpunerea germană (§30 BSIG) trece obligația cumpărătorului în dreptul național.",
         "directive": {
           "label": "Directiva NIS 2 (UE) 2022/2555, articolul 2(1)",
-          "quote": "This Directive applies to public or private entities of a type referred to in Annex I or II which qualify as medium-sized enterprises under Article 2 of the Annex to Recommendation 2003/361/EC, or exceed the ceilings for medium-sized enterprises provided for in paragraph 1 of that Article, and which provide their services or carry out their activities within the Union.",
+          "quote": "Prezenta directivă se aplică entităților publice sau private de tipul celor menționate în anexa I sau II, care se califică drept întreprinderi mijlocii în temeiul articolului 2 din anexa la Recomandarea 2003/361/CE sau care depășesc plafoanele pentru întreprinderile mijlocii prevăzute la alineatul (1) din respectivul articol și care prestează servicii sau își desfășoară activitățile în cadrul Uniunii.",
           "context": "Domeniul de aplicare este legat de două fapte despre entitatea însăși: sectorul din Anexa I sau II și pragul de mărime. Relațiile cu clienții, contractele și legăturile din lanțul de aprovizionare nu sunt în text și nu extind domeniul de aplicare. Articolul 2(2) până la (4) adaugă câteva excepții independente de mărime pentru tipuri specifice de entități, dar niciuna nu este declanșată de faptul că sunteți furnizorul cuiva."
         },
         "regulation": {
           "label": "NIS 2 articolul 21(2)(d) plus Regulamentul de punere în aplicare al Comisiei (UE) 2024/2690 §5",
-          "quote": "supply chain security, including security-related aspects concerning the relationships between each entity and its direct suppliers or service providers.",
+          "quote": "securitatea lanțului de aprovizionare, inclusiv aspectele legate de securitate referitoare la relațiile dintre fiecare entitate și prestatorii sau furnizorii săi direcți de servicii.",
           "context": "Articolul 21(2)(d) pune obligația pe entitatea NIS 2 (cumpărătorul), nu pe furnizor. CIR 2024/2690 §5 transformă acest lucru într-o politică de securitate a furnizorilor cu criterii scrise de selecție și un registru al riscurilor furnizorilor. Furnizorul face ce spune contractul. Autoritatea de reglementare vorbește doar cu cumpărătorul."
         },
         "transposition": {
@@ -3513,7 +3513,7 @@
         "description": "Trei straturi suprapuse: regula privind domeniul de aplicare din directivă, definiția IMM la care trimite și un exemplu de transpunere germană.",
         "directive": {
           "label": "Articolul 2 NIS 2 (domeniul de aplicare)",
-          "quote": "Prezenta directivă se aplică entităților publice sau private de un tip menționat în anexa I sau II care se califică drept întreprinderi mijlocii în temeiul articolului 2 din anexa la Recomandarea 2003/361/CE sau care depășesc plafoanele pentru întreprinderile mijlocii prevăzute la alineatul (1) din respectivul articol și care își furnizează serviciile sau își desfășoară activitățile pe teritoriul Uniunii.",
+          "quote": "Prezenta directivă se aplică entităților publice sau private de tipul celor menționate în anexa I sau II, care se califică drept întreprinderi mijlocii în temeiul articolului 2 din anexa la Recomandarea 2003/361/CE sau care depășesc plafoanele pentru întreprinderile mijlocii prevăzute la alineatul (1) din respectivul articol și care prestează servicii sau își desfășoară activitățile în cadrul Uniunii.",
           "context": "Domeniul de aplicare se atașează entității care desfășoară ea însăși activitatea din anexa I sau II. Articolul 2(2) și (3) adaugă derogări \"indiferent de dimensiune\" (registre DNS, registre TLD, prestatori de servicii de încredere calificați, furnizori de rețele publice de comunicații electronice, furnizori unici de servicii esențiale și alții) care atrag entități individuale chiar și sub plafonul IMM."
         },
         "regulation": {
@@ -7387,7 +7387,7 @@
         "description": "Trei straturi suprapuse. Directiva (obligatorie pentru fiecare țară din UE). Regulamentul de punere în aplicare (drept al UE direct aplicabil pentru sectoarele numite în Anexă). Transpunerea națională (în Germania: BSIG).",
         "directive": {
           "label": "Articolul 21 alin. (2) lit. (j) Directiva NIS 2 (2022/2555)",
-          "quote": "utilizarea de soluții de autentificare cu mai mulți factori sau de autentificare continuă, de comunicații vocale, video și text securizate și de sisteme de comunicații de urgență securizate în cadrul entității, după caz.",
+          "quote": "utilizarea de soluții de autentificare multifactor sau de autentificare continuă, de comunicații securizate voce, video și text și de sisteme securizate de comunicații de urgență în cadrul entității, după caz.",
           "context": "Punctul (j) de pe lista celor zece măsuri de securitate cibernetică. Face două lucruri deodată: numește MFA (sau autentificarea continuă) drept standard de control al accesului și aduce comunicațiile interne securizate vocale, video, text și de urgență în aceeași obligație."
         },
         "regulation": {
@@ -7397,7 +7397,7 @@
         },
         "transposition": {
           "label": "§30 alin. (2) pct. 10 BSIG (Germania)",
-          "quote": "utilizarea de soluții de autentificare cu mai mulți factori sau de autentificare continuă, de comunicații vocale, video și text securizate și de sisteme de comunicații de urgență securizate în cadrul entității, după caz.",
+          "quote": "utilizarea de soluții de autentificare multifactor sau de autentificare continuă, de comunicații securizate voce, video și text și de sisteme securizate de comunicații de urgență în cadrul entității, după caz.",
           "context": "Germania copiază textul UE aproape cuvânt cu cuvânt. Operaționalizarea practică în Germania trimite la blocul IT-Grundschutz ORP.4 (gestionarea identității și a accesului), care este catalogul de referință al BSI pentru o autentificare corectă în operațiuni."
         }
       },
@@ -7519,7 +7519,7 @@
         "description": "Trei straturi stivuite unul peste altul. Directiva (obligatorie pentru fiecare țară din UE). Regulamentul de punere în aplicare (drept UE direct aplicabil pentru sectoarele numite în Anexă). Transpunerea națională (în Germania: BSIG).",
         "directive": {
           "label": "Articolul 21(2)(h) Directiva NIS 2 (2022/2555)",
-          "quote": "Politici și proceduri privind utilizarea criptografiei și, dacă este cazul, a criptării.",
+          "quote": "Politici și proceduri privind utilizarea criptografiei și, după caz, a criptării.",
           "context": "Punctul (h) din lista celor zece măsuri de securitate cibernetică pe care fiecare entitate esențială și importantă trebuie să le pună în practică. 'Dacă este cazul' se aplică criptării (aplicarea), nu deținerii politicii (care este obligatorie)."
         },
         "regulation": {
@@ -7652,12 +7652,12 @@
         "description": "Trei niveluri. Directiva (legislație UE, stabilește standardul). Obligația de transpunere (Articolul 41 NIS 2, le impune statelor membre să acționeze). Transpunerea propriu-zisă (NIS2UmsuCG → BSIG modificat).",
         "directive": {
           "label": "Directiva NIS 2 (UE) 2022/2555",
-          "quote": "Prezenta directivă stabilește măsuri care vizează atingerea unui nivel comun ridicat de securitate cibernetică în întreaga Uniune.",
+          "quote": "Prezenta directivă stabilește măsuri care vizează obținerea unui nivel comun ridicat de securitate cibernetică în Uniune.",
           "context": "NIS 2 este o directivă. A fost adoptată la 14 decembrie 2022 și a intrat în vigoare la 16 ianuarie 2023. Obligă fiecare stat membru la același standard. Substanța fiecărei legi naționale NIS 2 din UE provine din acest text."
         },
         "regulation": {
           "label": "Articolul 41(1) NIS 2",
-          "quote": "Până la 17 octombrie 2024, statele membre adoptă și publică măsurile necesare pentru a se conforma prezentei directive. Ele informează imediat Comisia cu privire la aceasta. Ele aplică măsurile respective începând cu 18 octombrie 2024.",
+          "quote": "Până la 17 octombrie 2024, statele membre adoptă și publică măsurile necesare pentru a se conforma prezentei directive. Statele membre informează de îndată Comisia cu privire la aceasta. Statele membre aplică măsurile respective de la 18 octombrie 2024.",
           "context": "Articolul 41 este clauza de transpunere. A stabilit două date. Legile naționale trebuiau să fie adoptate până la 17 octombrie 2024. Obligațiile trebuiau să se aplice începând cu 18 octombrie 2024. Germania le-a ratat pe amândouă. Comisia a deschis proceduri de constatare a neîndeplinirii obligațiilor împotriva statelor membre care au transpus cu întârziere, în noiembrie 2024."
         },
         "transposition": {
@@ -7916,7 +7916,7 @@
         "description": "Trei niveluri. Directiva (obligatorie pentru fiecare țară UE). Regulamentul de punere în aplicare (legislație UE direct aplicabilă pentru sectoarele menționate în Anexă). Transpunerea națională (în Germania: BSIG).",
         "directive": {
           "label": "Articolul 21(2)(c) Directiva NIS 2 (2022/2555)",
-          "quote": "Continuitatea activității, cum ar fi gestionarea copiilor de rezervă și recuperarea în caz de dezastru, și managementul crizelor.",
+          "quote": "Continuitatea activității, de exemplu gestionarea copiilor de rezervă și recuperarea în caz de dezastru, precum și gestionarea crizelor.",
           "context": "Punctul (c) din lista celor zece măsuri de securitate cibernetică pe care fiecare entitate esențială și importantă trebuie să le pună în practică. Un singur rând, trei obligații grupate."
         },
         "regulation": {
@@ -7926,7 +7926,7 @@
         },
         "transposition": {
           "label": "§30(2)(3) BSIG (Germania)",
-          "quote": "Continuitatea activității, cum ar fi gestionarea copiilor de rezervă și recuperarea în caz de dezastru, și managementul crizelor.",
+          "quote": "Continuitatea activității, de exemplu gestionarea copiilor de rezervă și recuperarea în caz de dezastru, precum și gestionarea crizelor.",
           "context": "Germania copiază formularea directivei. Infopakete ale BSI enumeră continuitatea activității drept una dintre cele zece măsuri ale Articolului 21(2) pe care fiecare entitate esențială și importantă trebuie să le acopere."
         }
       },
@@ -8048,7 +8048,7 @@
         "description": "Trei straturi suprapuse. Directiva (obligatorie pentru fiecare țară din UE). Regulamentul de punere în aplicare (legislație UE direct aplicabilă pentru sectoarele numite în anexă). Transpunerea națională (în Germania: BSIG).",
         "directive": {
           "label": "Articolul 21(2)(e) din Directiva NIS 2 (2022/2555)",
-          "quote": "Securitatea în achiziția, dezvoltarea și întreținerea rețelelor și a sistemelor informatice, inclusiv gestionarea și divulgarea vulnerabilităților.",
+          "quote": "Securitatea în achiziționarea, dezvoltarea și întreținerea rețelelor și a sistemelor informatice, inclusiv gestionarea vulnerabilităților și divulgarea acestora.",
           "context": "Acesta este punctul (e) de pe lista celor zece măsuri de securitate cibernetică pe care fiecare entitate esențială și importantă trebuie să le pună în aplicare. Este singurul punct de pe listă care se extinde explicit de la comanda de achiziție până la sfârșitul duratei de viață."
         },
         "regulation": {
@@ -8180,7 +8180,7 @@
         "description": "Trei straturi suprapuse. Directiva (obligatorie pentru fiecare țară UE). Regulamentul de punere în aplicare (drept UE direct aplicabil pentru sectoarele numite în anexă). Transpunerea națională (în Germania: BSIG).",
         "directive": {
           "label": "Articolul 21(2)(f) din Directiva NIS 2 (2022/2555)",
-          "quote": "Politici și proceduri pentru evaluarea eficacității măsurilor de management al riscurilor de securitate cibernetică.",
+          "quote": "Politici și proceduri pentru a evalua eficacitatea măsurilor de gestionare a riscurilor în materie de securitate cibernetică.",
           "context": "Punctul (f) din lista celor zece măsuri de securitate cibernetică pe care fiecare entitate esențială și importantă trebuie să le instituie. Directiva nu spune cât de des sau cu ce KPI-uri. Asta este lăsat în seama CIR §7."
         },
         "regulation": {
@@ -8190,7 +8190,7 @@
         },
         "transposition": {
           "label": "§30(2)(6) BSIG (Germania)",
-          "quote": "Politici și proceduri pentru evaluarea eficacității măsurilor de management al riscurilor de securitate cibernetică.",
+          "quote": "Politici și proceduri pentru a evalua eficacitatea măsurilor de gestionare a riscurilor în materie de securitate cibernetică.",
           "context": "Germania copiază textul UE aproape cuvânt cu cuvânt. BSI se așteaptă să indicați un concept de evaluare documentat în timpul unui audit, nu un tabel ad-hoc."
         }
       },
@@ -8312,12 +8312,12 @@
         "description": "Trei straturi. Directiva numește obligația. Regulamentul de punere în aplicare stabilește detaliile pentru furnizorii digitali enumerați la art. 1. Transpunerea germană copiază obligația în legea națională.",
         "directive": {
           "label": "Articolul 21(2)(e) Directiva NIS 2 (2022/2555)",
-          "quote": "Securitatea în achiziția, dezvoltarea și întreținerea rețelelor și sistemelor informatice, inclusiv gestionarea și divulgarea vulnerabilităților.",
+          "quote": "Securitatea în achiziționarea, dezvoltarea și întreținerea rețelelor și a sistemelor informatice, inclusiv gestionarea vulnerabilităților și divulgarea acestora.",
           "context": "Punctul (e) din lista celor zece măsuri. Observați încadrarea: gestionarea și divulgarea vulnerabilităților stau în interiorul unei obligații mai largi privind achiziția, dezvoltarea și întreținerea. CIR împarte asta în puncte separate (6.1 achiziția, 6.10 vulnerabilități)."
         },
         "regulation": {
           "label": "CIR (UE) 2024/2690, Anexa §6.10",
-          "quote": "Entitățile relevante obțin informații despre vulnerabilitățile tehnice din rețelele și sistemele lor informatice, evaluează expunerea lor la astfel de vulnerabilități și iau măsuri corespunzătoare pentru gestionarea vulnerabilităților.",
+          "quote": "Entitățile relevante obțin informații cu privire la vulnerabilitățile tehnice din rețelele și sistemele lor informatice, evaluează expunerea lor la astfel de vulnerabilități și iau măsurile adecvate pentru gestionarea vulnerabilităților.",
           "context": "Drept UE direct obligatoriu pentru tipurile de entități enumerate la art. 1 CIR (DNS, TLD-uri, cloud, centre de date, MSP-uri, servicii de încredere și celelalte). §6.10.2 listează cinci acțiuni concrete. §6.10.3 spune că atunci când săriți peste atenuare, notați de ce. §6.10.4 spune că revizuiți la intervale planificate canalele pe care le folosiți pentru a monitoriza informațiile despre vulnerabilități."
         },
         "transposition": {
@@ -8444,7 +8444,7 @@
         "description": "Trei straturi suprapuse. Directiva (obligatorie pentru fiecare țară din UE). Regulamentul de punere în aplicare (legislație UE direct aplicabilă pentru sectoarele numite în anexă). Transpunerea națională (în Germania: BSIG).",
         "directive": {
           "label": "Articolul 21(2)(g) din Directiva NIS 2 (2022/2555)",
-          "quote": "Practici de igienă cibernetică de bază și instruire în domeniul securității cibernetice.",
+          "quote": "Practici de bază în materie de igienă cibernetică și formare în domeniul securității cibernetice.",
           "context": "Acesta este punctul (g) de pe lista celor zece măsuri de securitate cibernetică pe care fiecare entitate esențială și importantă trebuie să le pună în aplicare. Este obligația la nivelul întregii forțe de muncă, distinctă de instruirea organului de conducere prevăzută la articolul 20(2)."
         },
         "regulation": {
@@ -8708,7 +8708,7 @@
         "description": "Trei straturi stivuite unul peste altul. Directiva (obligatorie pentru fiecare țară din UE). Regulamentul de punere în aplicare (drept UE direct aplicabil pentru sectoarele numite în Anexă). Transpunerea națională (în Germania: BSIG).",
         "directive": {
           "label": "Articolul 21(2)(i) Directiva NIS 2 (2022/2555)",
-          "quote": "Securitatea resurselor umane, politici de control al accesului și managementul activelor.",
+          "quote": "Securitatea resurselor umane, politicile de control al accesului și gestionarea activelor.",
           "context": "Acesta este punctul (i) din lista celor zece măsuri de securitate cibernetică pe care fiecare entitate esențială și importantă trebuie să le pună în practică. Directiva grupează trei obligații împreună: securitatea personalului, controlul accesului și managementul activelor. CIR §12 este partea care operaționalizează jumătatea de active."
         },
         "regulation": {
@@ -8841,12 +8841,12 @@
         "description": "Trei straturi, dar nivelul de directivă se împarte în două litere. Articolul 21(2)(i) pentru politicile de control al accesului (cu securitatea personalului și managementul activelor). Articolul 21(2)(j) pentru MFA și comunicații securizate. CIR §11 acoperă apoi ambele litere împreună. BSIG le împarte din nou la nivel național.",
         "directive": {
           "label": "Articolul 21(2)(i) + (j) Directiva NIS 2 (2022/2555)",
-          "quote": "(i) Securitatea resurselor umane, politici de control al accesului și managementul activelor. (j) Utilizarea autentificării multifactor sau a soluțiilor de autentificare continuă, comunicații securizate de voce, video și text și sisteme securizate de comunicare de urgență în cadrul entității, dacă este cazul.",
+          "quote": "(i) securitatea resurselor umane, politicile de control al accesului și gestionarea activelor; (j) utilizarea de soluții de autentificare multifactor sau de autentificare continuă, de comunicații securizate voce, video și text și de sisteme securizate de comunicații de urgență în cadrul entității, după caz.",
           "context": "Punctele (i) și (j) sunt două dintre cele zece măsuri din Articolul 21(2). (i) grupează trei lucruri, dintre care controlul accesului este elementul de mijloc. (j) stă lângă el pe listă. Punctul 11 din CIR le acoperă pe ambele împreună."
         },
         "regulation": {
           "label": "CIR (UE) 2024/2690, Anexa §11",
-          "quote": "Controlul accesului (Articolul 21(2), punctele (i) și (j) din Directiva (UE) 2022/2555).",
+          "quote": "Controlul accesului [articolul 21 alineatul (2) literele (i) și (j) din Directiva (UE) 2022/2555].",
           "context": "CIR §11 are șapte subsecțiuni: §11.1 politica de control al accesului, §11.2 gestionarea drepturilor de acces, §11.3 conturile privilegiate și conturile de administrare a sistemelor, §11.4 sistemele de administrare a sistemelor, §11.5 identificarea, §11.6 autentificarea, §11.7 autentificarea multifactor. Acest regulament obligă numai tipurile de entități enumerate la art. 1 (DNS, TLD, cloud, centre de date, CDN, MSP, MSSP, piețe online, motoare de căutare, rețele sociale, servicii de încredere)."
         },
         "transposition": {
@@ -8973,7 +8973,7 @@
         "description": "Trei straturi stivuite unul peste altul. Directiva (obligatorie pentru fiecare țară din UE). Regulamentul de punere în aplicare (drept UE direct aplicabil pentru sectoarele numite în Anexă). Transpunerea națională (în Germania: BSIG).",
         "directive": {
           "label": "Articolul 21(2)(c) Directiva NIS 2 (2022/2555)",
-          "quote": "Continuitatea activității, cum ar fi managementul copiilor de rezervă și recuperarea în caz de dezastru, și managementul crizelor.",
+          "quote": "Continuitatea activității, de exemplu gestionarea copiilor de rezervă și recuperarea în caz de dezastru, precum și gestionarea crizelor.",
           "context": "Acesta este punctul (c) din lista celor zece măsuri de securitate cibernetică pe care fiecare entitate esențială și importantă trebuie să le pună în practică. Managementul copiilor de rezervă este numit direct în textul directivei, nu doar îngropat în regulamentul de punere în aplicare."
         },
         "regulation": {
@@ -9106,7 +9106,7 @@
         "description": "Trei straturi suprapuse. Directiva. Regulamentul de punere în aplicare. Transpunerea germană. Toate trei spun același lucru, în cuvinte diferite.",
         "directive": {
           "label": "Articolul 21(2)(e) Directiva NIS 2 (2022/2555)",
-          "quote": "Securitatea în achiziția, dezvoltarea și întreținerea rețelelor și sistemelor informatice, inclusiv gestionarea și divulgarea vulnerabilităților.",
+          "quote": "Securitatea în achiziționarea, dezvoltarea și întreținerea rețelelor și a sistemelor informatice, inclusiv gestionarea vulnerabilităților și divulgarea acestora.",
           "context": "Litera (e) din lista Articolului 21(2). Acoperă întregul ciclu de viață al rețelei și al sistemelor IT, nu doar starea de funcționare. CIR §6 împarte apoi asta în mai multe subsecțiuni. §6.7 și §6.8 sunt cele specifice rețelei."
         },
         "regulation": {
@@ -9243,7 +9243,7 @@
         },
         "regulation": {
           "label": "CIR (UE) 2024/2690, Anexa §3.2.1",
-          "quote": "Entitățile relevante stabilesc proceduri și utilizează instrumente pentru a monitoriza și a jurnaliza activitățile din rețelele și sistemele lor informatice, pentru a detecta evenimentele care ar putea fi considerate incidente și pentru a răspunde în consecință, astfel încât impactul să fie atenuat.",
+          "quote": "Entitățile relevante stabilesc proceduri și utilizează instrumente pentru monitorizarea și jurnalizarea activităților în rețelele lor și în sistemele lor informatice pentru a detecta evenimentele care ar putea fi considerate incidente și pentru a răspunde în consecință pentru a atenua impactul.",
           "context": "Întrucât acesta este un regulament (nu o directivă), este drept UE direct obligatoriu pentru tipurile de entități enumerate la art. 1 (DNS, TLD, cloud, centre de date, CDN, MSP, MSSP, piețe online, motoare de căutare, rețele sociale, servicii de încredere). Punctul 3.2 se împarte apoi în șapte subpuncte care acoperă tipurile de evenimente de jurnalizat, alertarea, retenția, sincronizarea timpului și redundanța. Nu este nevoie de transpunere națională."
         },
         "transposition": {
@@ -9911,7 +9911,7 @@
         "description": "Trei niveluri suprapuse. Directiva (articolul 2 NIS 2 plus Anexele I și II). Regulamentul de mărime (Recomandarea 2003/361/CE, definiția oficială a UE a unei întreprinderi mijlocii). Transpunerea națională (în Germania: §28 BSIG).",
         "directive": {
           "label": "Articolul 2(1) Directiva NIS 2 (2022/2555)",
-          "quote": "Prezenta directivă se aplică entităților publice sau private de un tip menționat în Anexa I sau II care se califică drept întreprinderi mijlocii în temeiul articolului 2 din anexa la Recomandarea 2003/361/CE, sau care depășesc plafoanele pentru întreprinderi mijlocii prevăzute la alineatul (1) din respectivul articol, și care își prestează serviciile sau își desfășoară activitățile în interiorul Uniunii.",
+          "quote": "Prezenta directivă se aplică entităților publice sau private de tipul celor menționate în anexa I sau II, care se califică drept întreprinderi mijlocii în temeiul articolului 2 din anexa la Recomandarea 2003/361/CE sau care depășesc plafoanele pentru întreprinderile mijlocii prevăzute la alineatul (1) din respectivul articol și care prestează servicii sau își desfășoară activitățile în cadrul Uniunii.",
           "context": "Testul de bază. Sector (Anexa I sau II), mărime (mijlocie sau mai mare), serviciu prestat în Uniune. Articolul 2(2) adaugă apoi o listă de cazuri indiferent de mărime. Articolul 2(3) include entitățile critice din CER. Articolele 2(5) până la 2(11) exclud securitatea națională, apărarea, parlamentele, băncile centrale și sectorul financiar (DORA, lex specialis în temeiul articolului 4)."
         },
         "regulation": {
@@ -10858,7 +10858,7 @@
         },
         "regulation": {
           "label": "Articolul 6(39) din Directiva NIS 2 (definiția MSP)",
-          "quote": "Furnizor de servicii gestionate înseamnă o entitate care furnizează servicii legate de instalarea, gestionarea, operarea sau întreținerea produselor TIC, a rețelelor, a infrastructurii, a aplicațiilor sau a oricăror altor rețele și sisteme informatice, prin asistență sau administrare activă efectuată fie la sediul clienților, fie de la distanță.",
+          "quote": "„furnizor de servicii gestionate” înseamnă o entitate care furnizează servicii legate de instalarea, gestionarea, funcționarea sau întreținerea produselor, rețelelor, infrastructurii, aplicațiilor TIC sau a oricăror alte rețele și sisteme informatice, prin intermediul asistenței sau al administrării active efectuate fie la sediul clienților, fie la distanță.",
           "context": "Articolul 6(40) adaugă definiția MSSP: un furnizor de servicii gestionate care desfășoară sau oferă asistență pentru activități legate de gestionarea riscurilor în materie de securitate cibernetică. Directiva alege verbele deliberat: instalare, gestionare, operare, întreținere, administrare activă. Vânzarea unui produs fără operare continuă nu îndeplinește definiția. Un serviciu de asistență care resetează parole fără a opera sistemele nu o îndeplinește nici el."
         },
         "transposition": {
@@ -11403,7 +11403,7 @@
         },
         "regulation": {
           "label": "Articolul 2 alin. (1) Directiva NIS 2, testul de mărime",
-          "quote": "Prezenta directivă se aplică entităților publice sau private de un tip menționat în Anexa I sau II care se califică drept întreprinderi mijlocii în temeiul articolului 2 din anexa la Recomandarea 2003/361/CE sau care depășesc plafoanele pentru întreprinderile mijlocii prevăzute la alineatul (1) al articolului respectiv.",
+          "quote": "Prezenta directivă se aplică entităților publice sau private de tipul celor menționate în anexa I sau II, care se califică drept întreprinderi mijlocii în temeiul articolului 2 din anexa la Recomandarea 2003/361/CE sau care depășesc plafoanele pentru întreprinderile mijlocii prevăzute la alineatul (1) din respectivul articol.",
           "context": "Pragul de mărime folosește definiția UE a IMM-urilor. 50 de angajați sau mai mult, ori cifră de afaceri anuală peste 10 milioane de euro și total al bilanțului peste 10 milioane de euro. Atingi unul dintre acestea și ești înăuntru. Directiva listează câteva cazuri în care mărimea nu contează, dar fabricarea pură de mașini nu se află pe acea listă de anulare."
         },
         "transposition": {
@@ -11664,7 +11664,7 @@
         "description": "Trei texte pe care trebuie să le citiți împreună: regula de mărime NIS 2, Recomandarea care definește mărimile și excepțiile NIS 2 care aduc înapoi entitățile mai mici.",
         "directive": {
           "label": "Articolul 2(1) Directiva NIS 2 (2022/2555)",
-          "quote": "This Directive applies to public or private entities of a type referred to in Annex I or II which qualify as medium-sized enterprises under Article 2 of the Annex to Recommendation 2003/361/EC, or exceed the ceilings for medium-sized enterprises provided for in paragraph 1 of that Article, and which provide their services or carry out their activities within the Union.",
+          "quote": "Prezenta directivă se aplică entităților publice sau private de tipul celor menționate în anexa I sau II, care se califică drept întreprinderi mijlocii în temeiul articolului 2 din anexa la Recomandarea 2003/361/CE sau care depășesc plafoanele pentru întreprinderile mijlocii prevăzute la alineatul (1) din respectivul articol și care prestează servicii sau își desfășoară activitățile în cadrul Uniunii.",
           "context": "Aceasta este regula implicită privind domeniul de aplicare. Două filtre într-o singură propoziție: sectorul dumneavoastră trebuie să fie în Anexa I sau II și trebuie să fiți cel puțin de mărime mijlocie conform Recomandării 2003/361/CE. Sub mărimea mijlocie, directiva nu se aplică în mod implicit."
         },
         "regulation": {
@@ -11802,7 +11802,7 @@
         },
         "regulation": {
           "label": "Articolul 2(5) Directiva NIS 2 (excluderile)",
-          "quote": "Prezenta directivă nu se aplică entităților administrației publice care își desfășoară activitățile în domeniile securității naționale, securității publice, apărării sau aplicării legii, inclusiv prevenirea, investigarea, depistarea și urmărirea penală a infracțiunilor.",
+          "quote": "Prezenta directivă nu se aplică entităților administrației publice care își desfășoară activitățile în domeniile securității naționale, siguranței publice, apărării sau aplicării legii, inclusiv prevenirii, investigării, depistării și urmăririi penale a infracțiunilor.",
           "context": "Excluderea este funcțională. Excluderea urmează activitatea, nu instituția. O autoritate federală de poliție este exclusă pentru sistemele sale de aplicare a legii și inclusă pentru IT-ul său corporativ. Articolul 2(7) adaugă parlamentele și băncile centrale. Articolul 2(6) permite statelor membre să excepteze entitățile care desfășoară activități în temeiul articolului 2(5) doar în acele domenii."
         },
         "transposition": {
@@ -12474,7 +12474,7 @@
         "description": "Trei straturi suprapuse. Directiva (obligatorie pentru fiecare țară din UE). Regulamentul de punere în aplicare (drept al UE direct aplicabil pentru sectoarele numite în Anexă). Transpunerea națională (în Germania: BSIG).",
         "directive": {
           "label": "Articolul 21 alin. (2) lit. (a) Directiva NIS 2 (2022/2555)",
-          "quote": "Politici privind analiza riscurilor și securitatea sistemelor informatice.",
+          "quote": "Politici referitoare la analiza riscurilor și securitatea sistemelor informatice.",
           "context": "Punctul (a) de pe lista celor zece măsuri de securitate cibernetică pe care fiecare entitate esențială și importantă trebuie să le implementeze. Directiva nu prescrie o metodă. Prescrie obligația."
         },
         "regulation": {
@@ -12614,7 +12614,7 @@
         },
         "regulation": {
           "label": "Regulamentul de punere în aplicare al Comisiei (UE) 2024/2690, Anexă punctul 12.4 (inventarul activelor)",
-          "quote": "12.4.1. Entitățile relevante dezvoltă și mențin un inventar complet, exact, actualizat și coerent al activelor lor. Ele înregistrează modificările intrărilor din inventar în mod trasabil. 12.4.2. Granularitatea inventarului activelor se situează la un nivel adecvat nevoilor entităților relevante. Inventarul include următoarele: (a) lista operațiunilor și serviciilor și descrierea lor, (b) lista sistemelor de rețea și informatice și a celorlalte active asociate care susțin operațiunile și serviciile entităților relevante. 12.4.3. Entitățile relevante revizuiesc și actualizează regulat inventarul și activele lor și documentează istoricul modificărilor.",
+          "quote": "12.4.1. Entitățile relevante elaborează și mențin un inventar complet, exact, actualizat și consecvent al activelor lor. Entitățile relevante înregistrează modificările aduse înregistrărilor din inventar într-un mod care să poată fi urmărit. 12.4.2. Granularitatea inventarului activelor este la un nivel adecvat nevoilor entităților relevante. Inventarul include următoarele: (a) lista operațiunilor și a serviciilor și descrierea acestora; (b) lista rețelelor și a sistemelor informatice și a altor active asociate care sprijină operațiunile și serviciile entităților relevante. 12.4.3. Entitățile relevante revizuiesc și actualizează periodic inventarul și activele lor și documentează istoricul modificărilor.",
           "context": "CIR 2024/2690 obligă numai furnizorii digitali enumerați la art. 1 (DNS, TLD, cloud, centre de date, CDN, MSP, MSSP, piețe online, motoare de căutare, rețele sociale, servicii de încredere). Punctul 12.4 le cere un inventar complet și actualizat, la o granularitate potrivită nevoilor lor, care listează operațiunile și serviciile și sistemele din spatele lor, revizuit regulat. Nu numește niciun câmp și niciun interval. Pentru orice altă entitate, § 30(2) Nr. 9 BSIG cere un concept pentru gestionarea sistemelor, produselor și proceselor IT, fără a prescrie o formă."
         },
         "transposition": {
@@ -13146,7 +13146,7 @@
         "description": "Articolul 21 NIS 2, Regulamentul de punere în aplicare al Comisiei și transpunerea germană. Cadrul de management al riscurilor este definit la nivelul UE; legislația statelor membre îl transpune.",
         "directive": {
           "label": "Articolul 21(1) NIS 2",
-          "quote": "Statele membre se asigură că entitățile esențiale și importante iau măsuri tehnice, operaționale și organizatorice adecvate și proporționale pentru a gestiona riscurile la adresa securității rețelelor și sistemelor informatice pe care aceste entități le utilizează pentru operațiunile lor sau pentru furnizarea serviciilor lor și pentru a preveni sau a reduce la minimum impactul incidentelor asupra destinatarilor serviciilor lor și asupra altor servicii. Ținând cont de stadiul actual al tehnologiei și, dacă este cazul, de standardele europene și internaționale relevante, precum și de costul implementării, măsurile menționate la primul paragraf asigură un nivel de securitate al rețelelor și sistemelor informatice adecvat riscurilor la care sunt expuse.",
+          "quote": "Statele membre se asigură că entitățile esențiale și entitățile importante iau măsuri tehnice, operaționale și organizatorice adecvate și proporționale pentru a gestiona riscurile la adresa securității rețelelor și a sistemelor informatice pe care entitățile respective le utilizează pentru operațiunile lor sau pentru a furniza servicii și pentru a preveni sau reduce la minimum impactul incidentelor asupra beneficiarilor serviciilor lor și asupra altor servicii. Ținând seama de cele mai avansate standarde în domeniu și, atunci când este cazul, de standardele europene și internaționale relevante, precum și de costul punerii în aplicare, măsurile menționate la primul paragraf asigură un nivel de securitate a rețelelor și a sistemelor informatice corespunzător riscurilor prezentate.",
           "context": "Sursă: Directiva (UE) 2022/2555, Articolul 21(1). Punctele de referință sunt stadiul actual al tehnologiei, standardele relevante și costul implementării. Asigurarea nu se află pe listă."
         },
         "regulation": {
@@ -13278,7 +13278,7 @@
         "description": "NIS 2 este o directivă la nivelul UE. CIR 2024/2690 precizează cerințele tehnice și metodologice pentru anumite entități din sectorul digital. Germania transpune obligația de guvernanță în §38 BSIG și o transformă în răspundere personală prin Sorgfaltspflicht generală din dreptul societar.",
         "directive": {
           "label": "Directiva UE",
-          "quote": "Statele membre se asigură că organele de conducere ale entităților esențiale și importante aprobă măsurile de management al riscurilor de securitate cibernetică luate de respectivele entități pentru a se conforma articolului 21, supraveghează implementarea acestora și pot fi trase la răspundere pentru încălcările de către entități ale respectivului articol.",
+          "quote": "Statele membre se asigură că organele de conducere ale entităților esențiale și ale entităților importante aprobă măsurile de gestionare a riscurilor în materie de securitate cibernetică luate de entitățile respective pentru a se conforma articolului 21, supraveghează punerea în aplicare a acestuia și pot fi trase la răspundere pentru încălcarea de către entități a respectivului articol.",
           "context": "Articolul 20(1) NIS 2 (Directiva (UE) 2022/2555). Obligația este atribuită direct organului de conducere, nu companiei ca persoană juridică separată."
         },
         "regulation": {
@@ -13412,7 +13412,7 @@
         "description": "Textul directivei, regulamentul de punere în aplicare pentru entitățile de infrastructură digitală și transpunerea germană. Citatele sunt textuale din EUR-Lex și gesetze-im-internet.de.",
         "directive": {
           "label": "Articolul 21(2)(d) NIS 2",
-          "quote": "securitatea lanțului de aprovizionare, inclusiv aspectele legate de securitate privind relațiile dintre fiecare entitate și furnizorii sau prestatorii săi de servicii direcți",
+          "quote": "securitatea lanțului de aprovizionare, inclusiv aspectele legate de securitate referitoare la relațiile dintre fiecare entitate și prestatorii sau furnizorii săi direcți de servicii",
           "context": "Una dintre cele zece măsuri minime enumerate în Articolul 21(2). Observați limitarea deliberată la furnizorii și prestatorii de servicii direcți. Directiva nu extinde clauza la subfurnizorii de rangul n. Considerentele 85 și 90 confirmă că evaluarea este bazată pe risc și ține cont de vulnerabilitățile specifice ale fiecărui furnizor și de calitatea generală a practicilor lor de securitate cibernetică."
         },
         "regulation": {
@@ -13946,7 +13946,7 @@
         "description": "Trei straturi stau peste fiecare caz de phishing: directiva definește semnificația, CIR adaugă detalii cantitative și pe categorii pentru infrastructura digitală, iar legislația națională transpune cascada.",
         "directive": {
           "label": "Directiva NIS 2 (UE) 2022/2555, Art. 23(3)",
-          "quote": "Un incident este considerat semnificativ dacă: (a) a cauzat sau poate cauza o perturbare operațională gravă a serviciilor sau pierderi financiare pentru entitatea în cauză; (b) a afectat sau poate afecta alte persoane fizice sau juridice prin cauzarea unor daune materiale sau morale considerabile.",
+          "quote": "Un incident este considerat semnificativ dacă: (a) a provocat sau poate provoca perturbări operaționale grave ale serviciilor sau pierderi financiare pentru entitatea în cauză; (b) a afectat sau poate afecta alte persoane fizice sau juridice, cauzând prejudicii materiale sau morale considerabile.",
           "context": "Aceasta este singura definiție generală a unui incident semnificativ în dreptul UE. Ambele puncte folosesc \"poate cauza\", deci dauna potențială contează la fel ca dauna efectivă. Un eveniment de phishing care a compromis acreditările pentru un cont privilegiat poate îndeplini punctul (a) chiar înainte ca vreun serviciu să se fi oprit efectiv."
         },
         "regulation": {
@@ -14213,7 +14213,7 @@
         "description": "Trei straturi reglementeaza situatia. Directiva plaseaza obligatia, regulamentul de punere in aplicare o specifica pentru entitatile de infrastructura digitala, legea nationala o transpune.",
         "directive": {
           "label": "Articolul 21(2)(d) NIS 2",
-          "quote": "securitatea lantului de aprovizionare, inclusiv aspectele legate de securitate privind relatiile dintre fiecare entitate si furnizorii sai directi sau prestatorii sai de servicii.",
+          "quote": "securitatea lanțului de aprovizionare, inclusiv aspectele legate de securitate referitoare la relațiile dintre fiecare entitate și prestatorii sau furnizorii săi direcți de servicii.",
           "context": "Articolul abordeaza relatia cu furnizorii directi, nu furnizorul in sine. Entitatea ramane raspunzatoare pentru gestionarea acelei relatii, inclusiv pentru incidentele care se propaga din ea."
         },
         "regulation": {
@@ -14223,7 +14223,7 @@
         },
         "transposition": {
           "label": "Articolul 23(3) NIS 2",
-          "quote": "un incident este considerat semnificativ daca: (a) a cauzat sau este susceptibil sa cauzeze o perturbare operationala grava a serviciilor sau o pierdere financiara pentru entitatea in cauza; (b) a afectat sau este susceptibil sa afecteze alte persoane fizice sau juridice prin cauzarea unui prejudiciu material sau moral considerabil.",
+          "quote": "un incident este considerat semnificativ dacă: (a) a provocat sau poate provoca perturbări operaționale grave ale serviciilor sau pierderi financiare pentru entitatea în cauză; (b) a afectat sau poate afecta alte persoane fizice sau juridice, cauzând prejudicii materiale sau morale considerabile.",
           "context": "Articolul 23(3) defineste pragul de semnificatie la nivelul entitatii. Un incident la furnizor este apreciat prin aceasta lentila odata ce ajunge la propriile servicii ale entitatii."
         }
       },
@@ -15009,7 +15009,7 @@
         "description": "Directiva NIS 2, transpunerea germană (BSIG) și regimul spațial conex al UE.",
         "directive": {
           "label": "Directiva (UE) 2022/2555, anexa I, sectorul 11 (spațiu)",
-          "quote": "Operatori de infrastructură terestră deținută, gestionată și exploatată de state membre sau de părți private, care susțin furnizarea de servicii spațiale, cu excepția furnizorilor de rețele publice de comunicații electronice.",
+          "quote": "Operatorii de infrastructură terestră deținută, gestionată și operată de statele membre sau de părți private, care sprijină furnizarea de servicii spațiale, cu excepția furnizorilor de rețele publice de comunicații electronice.",
           "context": "Aceasta este definiția sectorială completă. Trei filtre se aplică în același timp. Primul, clasa de active este infrastructura terestră. Al doilea, funcția este de a susține serviciile spațiale. Al treilea, furnizorii de rețele publice de comunicații electronice sunt excluși, deoarece sunt abordați în sectorul 8 (infrastructură digitală) și în regimul EECC."
         },
         "regulation": {
@@ -15143,7 +15143,7 @@
         "description": "Trei straturi guvernează dacă o organizație de cercetare intră sub incidența NIS 2: Directiva însăși, definiția din Articolul 6 și transpunerea națională.",
         "directive": {
           "label": "Anexa II, Sectorul 10 (Directiva (UE) 2022/2555)",
-          "quote": "Organizații de cercetare",
+          "quote": "Organizațiile de cercetare",
           "context": "Anexa II punctul 10 enumeră sectorul cu unicul tip de entitate \"organizații de cercetare\". Definiția de fond se află în Articolul 6(41) și este consolidată de Considerentul 39."
         },
         "regulation": {
@@ -15679,7 +15679,7 @@
         "description": "Cele două directive se referă reciproc, astfel încât operatorii clasificați drept entități critice în temeiul CER se consideră automat entități esențiale în temeiul NIS 2.",
         "directive": {
           "label": "NIS 2, Articolul 2(3) (textual)",
-          "quote": "Prezenta directivă se aplică entităților identificate drept entități critice în temeiul Directivei (UE) 2022/2557.",
+          "quote": "Prezenta directivă se aplică entităților identificate ca fiind entități critice în temeiul Directivei (UE) 2022/2557.",
           "context": "Articolul 2(3) din NIS 2 face legătura explicită: o entitate pe care un stat membru o desemnează drept entitate critică în temeiul CER intră în domeniul de aplicare al NIS 2 și este tratată ca entitate esențială în temeiul Articolului 3(1)(f) din NIS 2."
         },
         "regulation": {
@@ -15812,7 +15812,7 @@
         "description": "Trei straturi de text definesc migrarea: directiva UE care abrogă NIS 1, regulamentul de punere în aplicare al Comisiei care adaugă detalii pentru infrastructura digitală și legea națională care transpune directiva.",
         "directive": {
           "label": "Directiva (UE) 2022/2555 Articolul 41",
-          "quote": "Directiva (UE) 2016/1148 se abrogă cu efect de la 18 octombrie 2024.",
+          "quote": "Directiva (UE) 2016/1148 se abrogă de la 18 octombrie 2024.",
           "context": "Data abrogării este și termenul de transpunere. Trimiterile la NIS 1 din alte acte ale UE se citesc ca trimiteri la NIS 2."
         },
         "regulation": {
@@ -17028,7 +17028,7 @@
         "description": "Trei niveluri suprapuse unul peste celălalt. Directiva stabilește obligația organului de conducere. Regulamentul de punere în aplicare operaționalizează măsurile pe care organul de conducere trebuie să le aprobe. Transpunerea germană transformă aceeași obligație într-o lege națională cu răspundere personală atașată.",
         "directive": {
           "label": "Articolul 20(1) Directiva NIS 2 (2022/2555)",
-          "quote": "Statele membre se asigură că organele de conducere ale entităților esențiale și importante aprobă măsurile de gestionare a riscurilor în materie de securitate cibernetică luate de entitățile respective în vederea respectării articolului 21, supraveghează implementarea acestora și pot fi trase la răspundere pentru încălcările articolului respectiv de către entități.",
+          "quote": "Statele membre se asigură că organele de conducere ale entităților esențiale și ale entităților importante aprobă măsurile de gestionare a riscurilor în materie de securitate cibernetică luate de entitățile respective pentru a se conforma articolului 21, supraveghează punerea în aplicare a acestuia și pot fi trase la răspundere pentru încălcarea de către entități a respectivului articol.",
           "context": "Articolul 20 este articolul de guvernanță al directivei. Alineatul 1 stabilește cele trei obligații ale organului de conducere: aprobare, supraveghere, pot fi trase la răspundere. Alineatul 2 adaugă obligația de instruire pentru organul de conducere însuși și cere entității să ofere instruire periodică întregului personal."
         },
         "regulation": {
@@ -19446,7 +19446,7 @@
         "description": "Proportionalitatea este ancorata in articolul operativ si in considerentul care explica modul in care trebuie aplicata.",
         "directive": {
           "label": "Art. 21(1) NIS 2 (operativ)",
-          "quote": "Statele membre se asigura ca entitatile esentiale si importante iau masuri tehnice, operationale si organizationale adecvate si proportionale pentru a gestiona riscurile la adresa securitatii retelelor si sistemelor informatice pe care aceste entitati le utilizeaza pentru operatiunile lor sau pentru furnizarea serviciilor lor, precum si pentru a preveni sau a reduce la minimum impactul incidentelor asupra destinatarilor serviciilor lor.",
+          "quote": "Statele membre se asigură că entitățile esențiale și entitățile importante iau măsuri tehnice, operaționale și organizatorice adecvate și proporționale pentru a gestiona riscurile la adresa securității rețelelor și a sistemelor informatice pe care entitățile respective le utilizează pentru operațiunile lor sau pentru a furniza servicii și pentru a preveni sau reduce la minimum impactul incidentelor asupra beneficiarilor serviciilor lor.",
           "context": "Acelasi paragraf enumera sase factori care decid proportionalitatea: gradul de expunere la riscuri al entitatii, marimea entitatii, probabilitatea producerii incidentelor si gravitatea lor, inclusiv impactul societal si economic, stadiul actual al tehnicii si costul implementarii. Toti sase sunt date de intrare pentru decizie, niciunul nu este optional."
         },
         "recital": {
@@ -19765,7 +19765,7 @@
         "description": "Directiva numeste partea Responsabila de raspundere; transpunerea adauga obligatia de instruire.",
         "directive": {
           "label": "Art. 20(1) NIS 2 (responsabilitatea organului de conducere)",
-          "quote": "Statele membre se asigura ca organele de conducere ale entitatilor esentiale si importante aproba masurile de gestionare a riscurilor de securitate cibernetica luate de aceste entitati in vederea conformarii cu articolul 21, supravegheaza punerea lor in aplicare si pot fi trase la raspundere pentru incalcarea de catre entitati a articolului respectiv.",
+          "quote": "Statele membre se asigură că organele de conducere ale entităților esențiale și ale entităților importante aprobă măsurile de gestionare a riscurilor în materie de securitate cibernetică luate de entitățile respective pentru a se conforma articolului 21, supraveghează punerea în aplicare a acestuia și pot fi trase la răspundere pentru încălcarea de către entități a respectivului articol.",
           "context": "'A aproba' si 'a supraveghea' sunt activitati de Responsabil de raspundere in termeni RACI. Organul de conducere detine A indiferent daca deleaga R sau nu. Delegarea este permisa, abdicarea nu."
         },
         "transposition": {
@@ -19930,7 +19930,7 @@
         "description": "Un articol operativ, un regulament de punere in aplicare, o metodologie BSI.",
         "directive": {
           "label": "Art. 21(2)(a) si 21(2)(b) NIS 2",
-          "quote": "Masurile mentionate la alineatul (1) se bazeaza pe o abordare bazata pe toate pericolele care vizeaza protejarea retelelor si sistemelor informatice si a mediului fizic al acestor sisteme impotriva incidentelor si includ cel putin urmatoarele: (a) politici privind analiza riscurilor si securitatea sistemelor informatice; (b) gestionarea incidentelor.",
+          "quote": "Măsurile menționate la alineatul (1) se bazează pe o abordare multirisc care vizează protejarea rețelelor și a sistemelor informatice, precum și a mediului fizic al acestor sisteme împotriva incidentelor, și includ cel puțin următoarele: (a) politici referitoare la analiza riscurilor și securitatea sistemelor informatice; (b) gestionarea incidentelor.",
           "context": "Analiza riscurilor si gestionarea incidentelor sunt enumerate primele, dar ambele necesita un obiect de analizat si de gestionat: inventarul a ceea ce aveti efectiv. Directiva trateaza acest lucru ca pe o conditie prealabila, nu ca pe o masura separata."
         },
         "cir": {

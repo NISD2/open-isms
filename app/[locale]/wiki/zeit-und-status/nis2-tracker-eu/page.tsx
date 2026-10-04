@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkSteps } from "@/components/wiki/WalkSteps";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
 import { Link } from "@/i18n/navigation";
@@ -673,66 +674,7 @@ export default async function Nis2TrackerEuPage({
           </CardContent>
         </Card>
 
-        {/* CTA */}
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              {pick(
-                {
-                  de: "Anwendbarkeitsprüfung starten",
-                  en: "Run the applicability check for your entity",
-                  fr: "Lancez le test d'applicabilité pour votre entité",
-                  it: "Esegui il test di applicabilità per la tua entità",
-                  es: "Ejecute la comprobación de aplicabilidad para su entidad",
-                  pl: "Uruchom test stosowalności dla swojego podmiotu",
-                  cs: "Spusťte test použitelnosti pro svůj subjekt",
-                  pt: "Execute o teste de aplicabilidade para a sua entidade",
-                  ro: "Rulați testul de aplicabilitate pentru entitatea dumneavoastră",
-                },
-                locale,
-              )}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground">
-              {pick(
-                {
-                  de: "Die Anwendbarkeitsprüfung läuft gegen die EU-Richtlinie. Das Ergebnis gilt unabhängig davon, welche nationale Umsetzung in Ihrem Land bereits in Kraft ist.",
-                  en: "The applicability check works against the EU directive, so the answer holds regardless of which national transposition is in force in your country yet.",
-                  fr: "Le test d'applicabilité s'appuie sur la directive européenne. Le résultat reste valable quelle que soit la transposition nationale déjà en vigueur dans votre pays.",
-                  it: "Il test di applicabilità si basa sulla direttiva dell'UE. Il risultato resta valido indipendentemente da quale recepimento nazionale sia già in vigore nel tuo paese.",
-                  es: "La comprobación de aplicabilidad se basa en la directiva de la UE. El resultado es válido independientemente de la transposición nacional que ya esté en vigor en su país.",
-                  pl: "Test stosowalności opiera się na dyrektywie UE. Wynik obowiązuje niezależnie od tego, która transpozycja krajowa już obowiązuje w Twoim kraju.",
-                  cs: "Test použitelnosti vychází ze směrnice EU. Výsledek platí bez ohledu na to, která vnitrostátní transpozice již ve vaší zemi platí.",
-                  pt: "O teste de aplicabilidade baseia-se na diretiva da UE. O resultado é válido independentemente de qual transposição nacional já esteja em vigor no seu país.",
-                  ro: "Testul de aplicabilitate se bazează pe directiva UE. Rezultatul rămâne valabil indiferent de transpunerea națională care este deja în vigoare în țara dumneavoastră.",
-                },
-                locale,
-              )}
-            </p>
-            <div className="mt-4">
-              <Link
-                href="/applicability"
-                className="inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
-              >
-                {pick(
-                  {
-                    de: "Anwendbarkeitsprüfung öffnen",
-                    en: "Open the applicability check",
-                    fr: "Ouvrir le test d'applicabilité",
-                    it: "Apri il test di applicabilità",
-                    es: "Abrir la comprobación de aplicabilidad",
-                    pl: "Otwórz test stosowalności",
-                    cs: "Otevřít test použitelnosti",
-                    pt: "Abrir o teste de aplicabilidade",
-                    ro: "Deschideți testul de aplicabilitate",
-                  },
-                  locale,
-                )}
-              </Link>
-            </div>
-          </CardContent>
-        </Card>
+        <WalkSteps kind="national" />
       </div>
     </GlossedProse>
   );

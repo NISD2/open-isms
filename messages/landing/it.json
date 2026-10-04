@@ -68,7 +68,20 @@
       "closing": "Inizia dal primo punto.",
       "pricing": "Prezzi e condizioni",
       "pause": "Metti in pausa l'animazione",
-      "play": "Avvia l'animazione"
+      "play": "Avvia l'animazione",
+      "talkFirst": "Preferisci parlarci prima?"
+    },
+    "walkSteps": {
+      "eyebrow": "In pratica",
+      "topic": {
+        "title": "Dove compare nel percorso guidato",
+        "lead": "Il percorso guidato ne fa dei passi da compilare, con la legge spiegata accanto a ciascuno. Apri un passo per vedere la sua schermata, compilata per un'azienda di fantasia."
+      },
+      "national": {
+        "title": "Cosa cambia la legge nazionale, e cosa no",
+        "lead": "La legge nazionale stabilisce, tra l'altro, dove ti registri e a chi notifichi gli incidenti. Le misure partono dallo stesso elenco minimo in ogni Stato membro (art. 21 NIS 2). Il percorso guidato te le fa affrontare un passo alla volta:"
+      },
+      "languageNote": "Il percorso è in tedesco e in inglese."
     },
     "title": "Dimezza il conto <blue>NIS2</blue> dell'Europa.",
     "eyebrow": "Open source · Gratuita · Nessun lock-in",

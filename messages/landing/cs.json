@@ -68,7 +68,20 @@
       "closing": "Začněte prvním bodem.",
       "pricing": "Ceny a podmínky",
       "pause": "Pozastavit animaci",
-      "play": "Přehrát animaci"
+      "play": "Přehrát animaci",
+      "talkFirst": "Chcete s námi nejdřív mluvit?"
+    },
+    "walkSteps": {
+      "eyebrow": "V praxi",
+      "topic": {
+        "title": "Kde se to objevuje v průvodci",
+        "lead": "Průvodce z toho udělá kroky, které vyplníte, a u každého vysvětlí zákon. Otevřete krok a uvidíte jeho obrazovku vyplněnou pro smyšlenou firmu."
+      },
+      "national": {
+        "title": "Co mění národní zákon a co ne",
+        "lead": "Národní zákon mimo jiné určuje, kde se registrujete a komu hlásíte incidenty. Samotná opatření vycházejí ve všech členských státech ze stejného minimálního seznamu (čl. 21 NIS 2). Průvodce vás jimi provede krok za krokem:"
+      },
+      "languageNote": "Samotný průvodce je v němčině a angličtině."
     },
     "title": "Snižte účet Evropy za <blue>NIS2</blue> na polovinu.",
     "eyebrow": "Open source · Zdarma · Bez vendor lock-inu",

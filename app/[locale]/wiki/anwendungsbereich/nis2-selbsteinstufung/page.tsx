@@ -1,20 +1,19 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
-import { pageAlternates, pageOg, type Locale } from "@/lib/seo";
+import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkSteps } from "@/components/wiki/WalkSteps";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -28,10 +27,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: pageAlternates(
-      "wiki/anwendungsbereich/nis2-selbsteinstufung",
-      locale,
-    ),
+    alternates: pageAlternates("wiki/anwendungsbereich/nis2-selbsteinstufung", locale),
     ...pageOg({
       slug: "wiki/anwendungsbereich/nis2-selbsteinstufung",
       locale,
@@ -53,8 +49,7 @@ export default async function SelfClassificationPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale =
-    rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
   const t = await getTranslations("info");
 
   return (
@@ -110,9 +105,7 @@ export default async function SelfClassificationPage({
 
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("nis2SelfClassification.legalAnchor.heading")}
-            </CardTitle>
+            <CardTitle>{t("nis2SelfClassification.legalAnchor.heading")}</CardTitle>
             <CardDescription>
               {t("nis2SelfClassification.legalAnchor.description")}
             </CardDescription>
@@ -138,9 +131,7 @@ export default async function SelfClassificationPage({
 
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("nis2SelfClassification.howItWorks.heading")}
-            </CardTitle>
+            <CardTitle>{t("nis2SelfClassification.howItWorks.heading")}</CardTitle>
             <CardDescription>
               {t("nis2SelfClassification.howItWorks.description")}
             </CardDescription>
@@ -168,9 +159,7 @@ export default async function SelfClassificationPage({
 
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("nis2SelfClassification.consequences.heading")}
-            </CardTitle>
+            <CardTitle>{t("nis2SelfClassification.consequences.heading")}</CardTitle>
             <CardDescription>
               {t("nis2SelfClassification.consequences.description")}
             </CardDescription>
@@ -221,9 +210,9 @@ export default async function SelfClassificationPage({
           <CardContent>
             <ul className="space-y-2">
               {(t.raw("nis2SelfClassification.sources.items") as string[]).map(
-                (source, i) => (
+                (source) => (
                   <li
-                    key={i}
+                    key={source}
                     className="flex items-start gap-2 text-xs text-muted-foreground"
                   >
                     <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
@@ -243,23 +232,7 @@ export default async function SelfClassificationPage({
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              {t("nis2SelfClassification.ctaCard.heading")}
-            </CardTitle>
-            <CardDescription>
-              {t("nis2SelfClassification.ctaCard.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button asChild>
-              <Link href="/applicability">
-                {t("nis2SelfClassification.cta")}
-              </Link>
-            </Button>
-          </CardContent>
-        </Card>
+        <WalkSteps codes={["12.2"]} />
       </div>
     </GlossedProse>
   );

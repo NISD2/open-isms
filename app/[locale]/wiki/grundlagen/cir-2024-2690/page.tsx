@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -13,7 +12,6 @@ import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { Link } from "@/i18n/navigation";
 import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -229,19 +227,6 @@ export default async function CirPage({
                 </li>
               ))}
             </ul>
-          </CardContent>
-        </Card>
-
-        {/* CTA */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("cir.ctaCard.heading")}</CardTitle>
-            <CardDescription>{t("cir.ctaCard.description")}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button asChild>
-              <Link href="/auth/signin">{t("cir.cta")}</Link>
-            </Button>
           </CardContent>
         </Card>
       </div>

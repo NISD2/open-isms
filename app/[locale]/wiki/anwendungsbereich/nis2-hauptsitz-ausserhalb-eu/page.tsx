@@ -1,20 +1,18 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
-import { pageAlternates, pageOg, type Locale } from "@/lib/seo";
+import { GlossedProse } from "@/components/wiki/GlossedProse";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -54,8 +52,7 @@ export default async function Nis2HeadquartersOutsideEuPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale =
-    rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
   const t = await getTranslations("info");
 
   return (
@@ -113,9 +110,7 @@ export default async function Nis2HeadquartersOutsideEuPage({
         {/* Legal anchor */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("nis2HeadquartersOutsideEu.legalAnchor.heading")}
-            </CardTitle>
+            <CardTitle>{t("nis2HeadquartersOutsideEu.legalAnchor.heading")}</CardTitle>
             <CardDescription>
               {t("nis2HeadquartersOutsideEu.legalAnchor.description")}
             </CardDescription>
@@ -169,9 +164,7 @@ export default async function Nis2HeadquartersOutsideEuPage({
         {/* Two principles */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("nis2HeadquartersOutsideEu.principles.heading")}
-            </CardTitle>
+            <CardTitle>{t("nis2HeadquartersOutsideEu.principles.heading")}</CardTitle>
             <CardDescription>
               {t("nis2HeadquartersOutsideEu.principles.description")}
             </CardDescription>
@@ -195,9 +188,7 @@ export default async function Nis2HeadquartersOutsideEuPage({
         {/* National view */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("nis2HeadquartersOutsideEu.nationalView.heading")}
-            </CardTitle>
+            <CardTitle>{t("nis2HeadquartersOutsideEu.nationalView.heading")}</CardTitle>
             <CardDescription>
               {t("nis2HeadquartersOutsideEu.nationalView.description")}
             </CardDescription>
@@ -208,9 +199,7 @@ export default async function Nis2HeadquartersOutsideEuPage({
                 <div key={key} className="rounded-lg border p-4">
                   <div className="flex flex-wrap items-baseline gap-2">
                     <Badge variant="outline" className="text-[10px]">
-                      {t(
-                        `nis2HeadquartersOutsideEu.nationalView.items.${key}.country`,
-                      )}
+                      {t(`nis2HeadquartersOutsideEu.nationalView.items.${key}.country`)}
                     </Badge>
                     <p className="text-sm font-semibold">
                       {t(`nis2HeadquartersOutsideEu.nationalView.items.${key}.label`)}
@@ -252,9 +241,7 @@ export default async function Nis2HeadquartersOutsideEuPage({
         {/* Practitioner */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("nis2HeadquartersOutsideEu.practitioner.heading")}
-            </CardTitle>
+            <CardTitle>{t("nis2HeadquartersOutsideEu.practitioner.heading")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <p className="text-sm leading-relaxed text-muted-foreground">
@@ -262,21 +249,6 @@ export default async function Nis2HeadquartersOutsideEuPage({
             </p>
             <p className="text-sm leading-relaxed text-muted-foreground">
               {t("nis2HeadquartersOutsideEu.practitioner.p2")}
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* Platform */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("nis2HeadquartersOutsideEu.platform.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("nis2HeadquartersOutsideEu.platform.p1")}
-            </p>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("nis2HeadquartersOutsideEu.platform.p2")}
             </p>
           </CardContent>
         </Card>
@@ -289,9 +261,9 @@ export default async function Nis2HeadquartersOutsideEuPage({
           <CardContent>
             <ul className="space-y-2">
               {(t.raw("nis2HeadquartersOutsideEu.sources.items") as string[]).map(
-                (source, i) => (
+                (source) => (
                   <li
-                    key={i}
+                    key={source}
                     className="flex items-start gap-2 text-xs text-muted-foreground"
                   >
                     <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
@@ -300,21 +272,6 @@ export default async function Nis2HeadquartersOutsideEuPage({
                 ),
               )}
             </ul>
-          </CardContent>
-        </Card>
-
-        {/* CTA */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("nis2HeadquartersOutsideEu.ctaCard.heading")}</CardTitle>
-            <CardDescription>
-              {t("nis2HeadquartersOutsideEu.ctaCard.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button asChild>
-              <Link href="/auth/signin">{t("nis2HeadquartersOutsideEu.cta")}</Link>
-            </Button>
           </CardContent>
         </Card>
       </div>

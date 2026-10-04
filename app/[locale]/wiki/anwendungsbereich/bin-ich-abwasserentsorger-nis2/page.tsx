@@ -1,20 +1,19 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
-import { pageAlternates, pageOg, type Locale } from "@/lib/seo";
+import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkSteps } from "@/components/wiki/WalkSteps";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -54,8 +53,7 @@ export default async function BinIchAbwasserentsorgerNis2Page({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale =
-    rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
   const t = await getTranslations("info");
 
   return (
@@ -113,9 +111,7 @@ export default async function BinIchAbwasserentsorgerNis2Page({
         {/* Legal anchor */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("amIWasteWaterOperator.legalAnchor.heading")}
-            </CardTitle>
+            <CardTitle>{t("amIWasteWaterOperator.legalAnchor.heading")}</CardTitle>
             <CardDescription>
               {t("amIWasteWaterOperator.legalAnchor.description")}
             </CardDescription>
@@ -142,9 +138,7 @@ export default async function BinIchAbwasserentsorgerNis2Page({
         {/* Three elements */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("amIWasteWaterOperator.elements.heading")}
-            </CardTitle>
+            <CardTitle>{t("amIWasteWaterOperator.elements.heading")}</CardTitle>
             <CardDescription>
               {t("amIWasteWaterOperator.elements.description")}
             </CardDescription>
@@ -171,9 +165,7 @@ export default async function BinIchAbwasserentsorgerNis2Page({
         {/* Two principles */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("amIWasteWaterOperator.principles.heading")}
-            </CardTitle>
+            <CardTitle>{t("amIWasteWaterOperator.principles.heading")}</CardTitle>
             <CardDescription>
               {t("amIWasteWaterOperator.principles.description")}
             </CardDescription>
@@ -197,9 +189,7 @@ export default async function BinIchAbwasserentsorgerNis2Page({
         {/* National view */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("amIWasteWaterOperator.nationalView.heading")}
-            </CardTitle>
+            <CardTitle>{t("amIWasteWaterOperator.nationalView.heading")}</CardTitle>
             <CardDescription>
               {t("amIWasteWaterOperator.nationalView.description")}
             </CardDescription>
@@ -210,14 +200,10 @@ export default async function BinIchAbwasserentsorgerNis2Page({
                 <div key={key} className="rounded-lg border p-4">
                   <div className="flex flex-wrap items-baseline gap-2">
                     <Badge variant="outline" className="text-[10px]">
-                      {t(
-                        `amIWasteWaterOperator.nationalView.items.${key}.country`,
-                      )}
+                      {t(`amIWasteWaterOperator.nationalView.items.${key}.country`)}
                     </Badge>
                     <p className="text-sm font-semibold">
-                      {t(
-                        `amIWasteWaterOperator.nationalView.items.${key}.label`,
-                      )}
+                      {t(`amIWasteWaterOperator.nationalView.items.${key}.label`)}
                     </p>
                   </div>
                   <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
@@ -232,9 +218,7 @@ export default async function BinIchAbwasserentsorgerNis2Page({
         {/* Pitfalls */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("amIWasteWaterOperator.pitfalls.heading")}
-            </CardTitle>
+            <CardTitle>{t("amIWasteWaterOperator.pitfalls.heading")}</CardTitle>
             <CardDescription>
               {t("amIWasteWaterOperator.pitfalls.description")}
             </CardDescription>
@@ -258,9 +242,7 @@ export default async function BinIchAbwasserentsorgerNis2Page({
         {/* Practitioner view */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("amIWasteWaterOperator.practitioner.heading")}
-            </CardTitle>
+            <CardTitle>{t("amIWasteWaterOperator.practitioner.heading")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <p className="text-sm leading-relaxed text-muted-foreground">
@@ -272,36 +254,17 @@ export default async function BinIchAbwasserentsorgerNis2Page({
           </CardContent>
         </Card>
 
-        {/* Platform */}
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              {t("amIWasteWaterOperator.platform.heading")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("amIWasteWaterOperator.platform.p1")}
-            </p>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("amIWasteWaterOperator.platform.p2")}
-            </p>
-          </CardContent>
-        </Card>
-
         {/* Sources */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("amIWasteWaterOperator.sources.heading")}
-            </CardTitle>
+            <CardTitle>{t("amIWasteWaterOperator.sources.heading")}</CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">
               {(t.raw("amIWasteWaterOperator.sources.items") as string[]).map(
-                (source, i) => (
+                (source) => (
                   <li
-                    key={i}
+                    key={source}
                     className="flex items-start gap-2 text-xs text-muted-foreground"
                   >
                     <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
@@ -313,24 +276,7 @@ export default async function BinIchAbwasserentsorgerNis2Page({
           </CardContent>
         </Card>
 
-        {/* CTA */}
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              {t("amIWasteWaterOperator.ctaCard.heading")}
-            </CardTitle>
-            <CardDescription>
-              {t("amIWasteWaterOperator.ctaCard.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button asChild>
-              <Link href="/applicability">
-                {t("amIWasteWaterOperator.cta")}
-              </Link>
-            </Button>
-          </CardContent>
-        </Card>
+        <WalkSteps codes={["12.2"]} />
       </div>
     </GlossedProse>
   );

@@ -259,14 +259,14 @@
     },
     "whatIsNisd2": {
       "meta": {
-        "title": "O que é realmente o nisd2.eu: o registo de obrigações gratuito e aberto para a NIS 2",
-        "description": "O nisd2.eu é uma plataforma gratuita e de código aberto para a implementação da NIS 2 no Mittelstand: um registo de obrigações estruturado com uma base legal para cada requisito, um registo de auditoria de ponta a ponta e sem lock-in. Eis como funciona."
+        "title": "O que é realmente o nisd2.eu: um percurso guiado de código aberto pela NIS 2",
+        "description": "O nisd2.eu conduz uma empresa passo a passo pelos 49 requisitos da NIS 2, com a base legal de cada um e a aprovação da direção registada na aplicação. Código aberto, sem taxa de licença se o operar por conta própria, sem lock-in. Eis como funciona."
       },
       "title": "O que é realmente o nisd2.eu",
-      "subtitle": "Uma plataforma NIS 2 gratuita e de código aberto para o Mittelstand europeu. Sem lock-in, sem venda pelo medo.",
+      "subtitle": "Um percurso guiado de código aberto pela NIS 2 para o Mittelstand europeu. Sem lock-in, sem venda pelo medo.",
       "overview": {
-        "heading": "Um registo de obrigações, não mais um preenchedor de formulários",
-        "p1": "O nisd2.eu não é mais uma ferramenta GRC que decompõe cada requisito em formulários. É um registo de obrigações estruturado. Retira os deveres da Diretiva NIS 2 (UE) 2022/2555 e da sua transposição alemã no BSIG, atribui a cada requisito a sua base legal e conduz o utilizador pela implementação numa ordem sensata.",
+        "heading": "Um percurso guiado, não mais um preenchedor de formulários",
+        "p1": "O nisd2.eu não é mais uma ferramenta GRC que decompõe cada requisito em formulários. É um percurso guiado. Retira os deveres da Diretiva NIS 2 (UE) 2022/2555, com a sua transposição alemã no BSIG como texto de referência, atribui a cada requisito a sua base legal e conduz o utilizador pela implementação numa ordem sensata.",
         "p2": "O verdadeiro problema no Mittelstand raramente é a falta de conhecimento. É a falta de estrutura. É aí que a plataforma começa."
       },
       "sections": {
@@ -282,7 +282,7 @@
         },
         "funding": {
           "heading": "Como nos financiamos",
-          "p1": "A plataforma é gratuita e de código aberto. Prevemos gerar receita através de formação, alojamento e ofertas de parceiros, não através de taxas de licença por requisito.",
+          "p1": "O código é de código aberto sob a AGPL, e operá-lo por conta própria não implica qualquer taxa de licença. O percurso guiado alojado em nisd2.eu tem um único preço anual; os cursos e a wiki não custam nada. Não cobramos por requisito.",
           "p2": "É uma escolha deliberada. A NIS 2 não deve custar ao Mittelstand dezenas de milhares de euros."
         },
         "notUs": {
@@ -294,8 +294,8 @@
       "faq": {
         "heading": "Perguntas frequentes",
         "q1": {
-          "q": "A plataforma é mesmo gratuita?",
-          "a": "Sim. A utilização é gratuita e o código é aberto. Pretendemos financiar o projeto através de formação, alojamento e ofertas de parceiros."
+          "q": "Quanto custa a plataforma?",
+          "a": "Os cursos e a wiki não custam nada, e pode operar o código aberto nos seus próprios servidores sem taxa de licença. O percurso guiado em nisd2.eu tem um único preço anual, indicado na página de preços."
         },
         "q2": {
           "q": "Preciso de uma conta?",
@@ -345,7 +345,7 @@
         },
         "noLockin": {
           "heading": "Sem lock-in",
-          "p1": "O seu registo de obrigações, as suas provas e o seu processo devem pertencer-lhe. Com ferramentas abertas, pode exportar, alojar você mesmo ou mudar de fornecedor sem começar do zero.",
+          "p1": "Os seus registos, as suas provas e o seu processo devem pertencer-lhe. Com ferramentas abertas, pode exportar, alojar você mesmo ou mudar de fornecedor sem começar do zero.",
           "p2": "O lock-in é um custo que só se revela no dia em que quer sair."
         },
         "whenSaas": {
@@ -466,12 +466,12 @@
         },
         "support": {
           "heading": "Apoio e garantias",
-          "p1": "O código aberto raramente vem com um acordo de apoio empresarial. O apoio da comunidade varia em rapidez, e o nível gratuito é, por natureza, prestado segundo os melhores esforços.",
-          "p2": "A nossa resposta: existem níveis pagos de apoio e de alojamento para equipas que precisam de uma resposta garantida, e dizemos com clareza que o nível gratuito não é um SLA."
+          "p1": "O código aberto raramente vem com um acordo de apoio empresarial. O apoio da comunidade varia em rapidez, e a ajuda para o operar por conta própria é, por natureza, prestada segundo os melhores esforços.",
+          "p2": "A nossa resposta: se precisar de alguém que o opere por si, o percurso alojado em nisd2.eu é operado por nós, e dizemos com clareza que a ajuda da comunidade para o operar por conta própria não é um SLA."
         },
         "maturity": {
           "heading": "Maturidade e integrações",
-          "p1": "Um SaaS americano bem financiado terá, muitas vezes, mais integrações certificadas e mais acabamento. Algumas funcionalidades que exigem tempo de engenharia pertencem ao nível premium e não ao gratuito.",
+          "p1": "Um SaaS americano bem financiado terá, muitas vezes, mais integrações certificadas e mais acabamento.",
           "p2": "A nossa resposta: para a maioria das empresas do Mittelstand, o estrangulamento ao abrigo da NIS 2 é a estrutura e um registo de auditoria limpo, não o número de integrações. É para essa necessidade que construímos primeiro."
         },
         "accountability": {
@@ -483,8 +483,8 @@
       "faq": {
         "heading": "Perguntas frequentes",
         "q1": {
-          "q": "A versão gratuita é mesmo gratuita, ou é uma versão de avaliação?",
-          "a": "É de utilização gratuita, não uma versão de avaliação com prazo limitado. Pretendemos financiar o projeto através de formação, alojamento e ofertas de parceiros, e não através de licenças por utilizador."
+          "q": "Operá-lo por conta própria é mesmo sem taxa de licença, ou é uma versão de avaliação?",
+          "a": "Operar o código aberto por conta própria não implica taxa de licença nem limite de tempo. O percurso alojado em nisd2.eu é a oferta paga, com um único preço anual."
         },
         "q2": {
           "q": "O que acontece se o projeto for abandonado?",
@@ -2806,7 +2806,7 @@
         "description": "Três camadas empilhadas umas sobre as outras. A diretiva (vinculativa para todos os países da UE). O regulamento de execução (lei da UE diretamente aplicável aos setores nomeados no Anexo). A transposição nacional (na Alemanha: BSIG).",
         "directive": {
           "label": "Artigo 21(2)(a) da Diretiva NIS 2 (2022/2555)",
-          "quote": "Políticas de análise de riscos e de segurança dos sistemas de informação.",
+          "quote": "Políticas de análise dos riscos e de segurança dos sistemas de informação.",
           "context": "Este é o ponto (a) na lista das dez medidas de cibersegurança que todas as entidades essenciais e importantes têm de implementar."
         },
         "regulation": {
@@ -3381,12 +3381,12 @@
         "description": "Três camadas. A regra de âmbito da NIS 2 diz quem está dentro. A medida de cadeia de abastecimento no Artigo 21 diz o que um comprador no âmbito tem de fazer quanto aos seus fornecedores. A transposição alemã (§30 BSIG) inscreve o dever do comprador na lei nacional.",
         "directive": {
           "label": "Diretiva NIS 2 (UE) 2022/2555, Artigo 2(1)",
-          "quote": "This Directive applies to public or private entities of a type referred to in Annex I or II which qualify as medium-sized enterprises under Article 2 of the Annex to Recommendation 2003/361/EC, or exceed the ceilings for medium-sized enterprises provided for in paragraph 1 of that Article, and which provide their services or carry out their activities within the Union.",
+          "quote": "A presente diretiva aplica-se às entidades públicas ou privadas de um dos tipos referidos no anexo I ou II, que sejam consideradas médias empresas nos termos do artigo 2.o do anexo da Recomendação 2003/361/CE, ou que excedam os limiares relativos às médias empresas previstos no n.o 1 desse artigo, e que prestem os seus serviços ou exerçam as suas atividades na União.",
           "context": "O âmbito está ligado a dois factos sobre a própria entidade: o setor no Anexo I ou II, e o limiar de dimensão. Relações com clientes, contratos e vínculos de cadeia de abastecimento não constam do texto e não alargam o âmbito. O Artigo 2(2) a (4) acrescenta algumas exceções independentes da dimensão para tipos específicos de entidade, mas nenhuma é desencadeada por se ser fornecedor de alguém."
         },
         "regulation": {
           "label": "Artigo 21(2)(d) NIS 2 mais Regulamento de Execução (UE) 2024/2690 da Comissão §5",
-          "quote": "supply chain security, including security-related aspects concerning the relationships between each entity and its direct suppliers or service providers.",
+          "quote": "Segurança da cadeia de abastecimento, incluindo aspetos de segurança respeitantes às relações entre cada entidade e os respetivos fornecedores ou prestadores de serviços diretos.",
           "context": "O Artigo 21(2)(d) coloca o dever na entidade NIS 2 (o comprador), não no fornecedor. O CIR 2024/2690 §5 transforma isso numa política de segurança de fornecedores com critérios de seleção escritos e um registo de risco de fornecedores. O fornecedor faz o que o contrato disser. O regulador só fala com o comprador."
         },
         "transposition": {
@@ -3513,7 +3513,7 @@
         "description": "Três camadas empilhadas: a regra de âmbito da diretiva, a definição de PME para a qual remete e um exemplo de transposição alemã.",
         "directive": {
           "label": "Artigo 2.o da NIS 2 (âmbito)",
-          "quote": "A presente diretiva aplica-se às entidades públicas ou privadas de um tipo referido no anexo I ou II que sejam consideradas médias empresas nos termos do artigo 2.o do anexo da Recomendação 2003/361/CE, ou que excedam os limiares para médias empresas previstos no n.o 1 desse artigo, e que prestem os seus serviços ou desenvolvam as suas atividades na União.",
+          "quote": "A presente diretiva aplica-se às entidades públicas ou privadas de um dos tipos referidos no anexo I ou II, que sejam consideradas médias empresas nos termos do artigo 2.o do anexo da Recomendação 2003/361/CE, ou que excedam os limiares relativos às médias empresas previstos no n.o 1 desse artigo, e que prestem os seus serviços ou exerçam as suas atividades na União.",
           "context": "O âmbito liga-se à entidade que ela própria desenvolve a atividade do anexo I ou II. O artigo 2.o, n.os 2 e 3, acrescenta exceções 'independentemente da dimensão' (DNS, registos de TLD, prestadores qualificados de serviços de confiança, fornecedores de comunicações eletrónicas públicas, fornecedores únicos de serviços essenciais e outros) que abrangem entidades individuais mesmo abaixo do limiar de PME."
         },
         "regulation": {
@@ -7387,7 +7387,7 @@
         "description": "Três camadas empilhadas umas sobre as outras. A diretiva (vinculativa para todos os países da UE). O regulamento de execução (direito da UE diretamente aplicável aos setores nomeados no Anexo). A transposição nacional (na Alemanha: BSIG).",
         "directive": {
           "label": "Artigo 21.º(2)(j) Diretiva NIS 2 (2022/2555)",
-          "quote": "a utilização de soluções de autenticação multifator ou de autenticação contínua, de comunicações de voz, vídeo e texto seguras e de sistemas de comunicação de emergência seguros dentro da entidade, se for caso disso.",
+          "quote": "Utilização de soluções de autenticação multifatores ou de autenticação contínua, comunicações seguras de voz, vídeo e texto e sistemas seguros de comunicações de emergência no seio da entidade, se for caso disso.",
           "context": "Ponto (j) da lista das dez medidas de cibersegurança. Faz duas coisas ao mesmo tempo: nomeia a MFA (ou a autenticação contínua) como padrão de controlo de acesso e arrasta a voz, vídeo, texto e comunicações de emergência internas seguras para o mesmo dever."
         },
         "regulation": {
@@ -7397,7 +7397,7 @@
         },
         "transposition": {
           "label": "§30(2)(10) BSIG (Alemanha)",
-          "quote": "a utilização de soluções de autenticação multifator ou de autenticação contínua, de comunicações de voz, vídeo e texto seguras e de sistemas de comunicação de emergência seguros dentro da entidade, se for caso disso.",
+          "quote": "Utilização de soluções de autenticação multifatores ou de autenticação contínua, comunicações seguras de voz, vídeo e texto e sistemas seguros de comunicações de emergência no seio da entidade, se for caso disso.",
           "context": "A Alemanha copia o texto da UE quase palavra por palavra. A operacionalização prática na Alemanha aponta para o IT-Grundschutz baustein ORP.4 (Gestão de identidade e acessos), que é o catálogo de referência do BSI para fazer bem a autenticação na operação."
         }
       },
@@ -7519,7 +7519,7 @@
         "description": "Três camadas empilhadas umas sobre as outras. A diretiva (vinculativa para todos os países da UE). O regulamento de execução (lei da UE diretamente aplicável aos setores nomeados no Anexo). A transposição nacional (na Alemanha: BSIG).",
         "directive": {
           "label": "Artigo 21(2)(h) da Diretiva NIS 2 (2022/2555)",
-          "quote": "Políticas e procedimentos relativos à utilização de criptografia e, quando adequado, de cifragem.",
+          "quote": "Políticas e procedimentos relativos à utilização de criptografia e, se for caso disso, de cifragem.",
           "context": "Ponto (h) na lista das dez medidas de cibersegurança que todas as entidades essenciais e importantes têm de implementar. O 'quando adequado' aplica-se à cifragem (a aplicação), não ao facto de ter a política (que é obrigatória)."
         },
         "regulation": {
@@ -7652,12 +7652,12 @@
         "description": "Três camadas. A diretiva (direito da UE, fixa a norma). A obrigação de transposição (Artigo 41.o da NIS 2, manda os Estados-Membros agir). A própria transposição (NIS2UmsuCG → BSIG alterada).",
         "directive": {
           "label": "Diretiva NIS 2 (UE) 2022/2555",
-          "quote": "A presente diretiva estabelece medidas destinadas a alcançar um elevado nível comum de cibersegurança na União.",
+          "quote": "A presente diretiva estabelece medidas que visam a consecução de um elevado nível comum de cibersegurança na União.",
           "context": "A NIS 2 é uma diretiva. Foi adotada em 14 de dezembro de 2022 e entrou em vigor em 16 de janeiro de 2023. Vincula cada Estado-Membro à mesma norma. A substância de todas as leis nacionais de NIS 2 na UE vem deste texto."
         },
         "regulation": {
           "label": "Artigo 41.o, n.o 1, NIS 2",
-          "quote": "Até 17 de outubro de 2024, os Estados-Membros adotam e publicam as medidas necessárias para dar cumprimento à presente diretiva. Do facto informam imediatamente a Comissão. Aplicam essas medidas a partir de 18 de outubro de 2024.",
+          "quote": "Os Estados-Membros devem adotar e publicar, até 17 de outubro de 2024, as disposições necessárias para dar cumprimento à presente diretiva. Do facto informam imediatamente a Comissão. Os Estados-Membros devem aplicar essas disposições a partir de 18 de outubro de 2024.",
           "context": "O Artigo 41.o é a cláusula de transposição. Fixou duas datas. As leis nacionais tinham de estar em vigor até 17 de outubro de 2024. Os deveres tinham de aplicar-se a partir de 18 de outubro de 2024. A Alemanha falhou ambas. A Comissão abriu processos por infração contra os Estados-Membros em atraso na transposição em novembro de 2024."
         },
         "transposition": {
@@ -7916,7 +7916,7 @@
         "description": "Três camadas. A diretiva (vinculativa para todos os países da UE). O regulamento de execução (direito da UE diretamente aplicável aos setores nomeados no Anexo). A transposição nacional (na Alemanha: BSIG).",
         "directive": {
           "label": "Artigo 21.o, n.o 2, alínea c), Diretiva NIS 2 (2022/2555)",
-          "quote": "Continuidade das atividades, como a gestão de cópias de segurança e a recuperação após desastre, e gestão de crises.",
+          "quote": "Continuidade das atividades, como a gestão de cópias de segurança e a recuperação de desastres, e gestão de crises.",
           "context": "O ponto c) na lista das dez medidas de cibersegurança que toda a entidade essencial e importante tem de implementar. Uma linha, três deveres agrupados."
         },
         "regulation": {
@@ -7926,7 +7926,7 @@
         },
         "transposition": {
           "label": "§30, n.o 2, ponto 3, BSIG (Alemanha)",
-          "quote": "Continuidade das atividades, como a gestão de cópias de segurança e a recuperação após desastre, e gestão de crises.",
+          "quote": "Continuidade das atividades, como a gestão de cópias de segurança e a recuperação de desastres, e gestão de crises.",
           "context": "A Alemanha copia a redação da diretiva. Os Infopakete do BSI listam a continuidade das atividades como uma das dez medidas do Artigo 21.o, n.o 2, que toda a entidade essencial e importante tem de cobrir."
         }
       },
@@ -8048,7 +8048,7 @@
         "description": "Três camadas empilhadas umas sobre as outras. A Diretiva (vinculativa para todos os países da UE). O regulamento de execução (direito da UE diretamente aplicável para os setores nomeados no anexo). A transposição nacional (na Alemanha: BSIG).",
         "directive": {
           "label": "Artigo 21.o, n.o 2, alínea e), da Diretiva NIS 2 (2022/2555)",
-          "quote": "Segurança na aquisição, no desenvolvimento e na manutenção das redes e dos sistemas de informação, incluindo o tratamento e a divulgação de vulnerabilidades.",
+          "quote": "Segurança na aquisição, desenvolvimento e manutenção dos sistemas de rede e informação, incluindo o tratamento e a divulgação de vulnerabilidades.",
           "context": "Este é o ponto e) na lista das dez medidas de cibersegurança que todas as entidades essenciais e importantes têm de implementar. É o único ponto da lista que explicitamente se estende da ordem de compra até ao fim de vida."
         },
         "regulation": {
@@ -8312,12 +8312,12 @@
         "description": "Três camadas. A diretiva nomeia o dever. O regulamento de execução fixa o pormenor para os prestadores digitais enumerados no seu artigo 1.o. A transposição alemã copia o dever para a lei nacional.",
         "directive": {
           "label": "Artigo 21(2)(e) da Diretiva NIS 2 (2022/2555)",
-          "quote": "Segurança na aquisição, desenvolvimento e manutenção de redes e sistemas de informação, incluindo o tratamento e a divulgação de vulnerabilidades.",
+          "quote": "Segurança na aquisição, desenvolvimento e manutenção dos sistemas de rede e informação, incluindo o tratamento e a divulgação de vulnerabilidades.",
           "context": "Ponto (e) na lista das dez medidas. Note o enquadramento: o tratamento e a divulgação de vulnerabilidades estão dentro de um dever mais amplo de aquisição, desenvolvimento e manutenção. O CIR divide isto em pontos separados (6.1 aquisição, 6.10 vulnerabilidades)."
         },
         "regulation": {
           "label": "CIR (UE) 2024/2690, Anexo §6.10",
-          "quote": "As entidades relevantes devem obter informação sobre vulnerabilidades técnicas nas suas redes e sistemas de informação, avaliar a sua exposição a tais vulnerabilidades e tomar medidas adequadas para gerir as vulnerabilidades.",
+          "quote": "As entidades pertinentes obtêm informações sobre as vulnerabilidades técnicas dos seus sistemas de rede e informação, avaliam a sua exposição a essas vulnerabilidades e tomam medidas adequadas para geri-las.",
           "context": "Lei da UE diretamente vinculativa para os tipos de entidade enumerados no artigo 1.o do CIR (DNS, TLDs, cloud, centros de dados, MSPs, serviços de confiança e outros). O §6.10.2 lista cinco ações concretas. O §6.10.3 diz que, quando dispensa a mitigação, regista porquê. O §6.10.4 diz que revê periodicamente os canais que usa para monitorizar a informação de vulnerabilidades."
         },
         "transposition": {
@@ -8444,7 +8444,7 @@
         "description": "Três camadas empilhadas umas sobre as outras. A Diretiva (vinculativa para todos os países da UE). O regulamento de execução (direito da UE diretamente aplicável para os setores nomeados no anexo). A transposição nacional (na Alemanha: BSIG).",
         "directive": {
           "label": "Artigo 21.o, n.o 2, alínea g), da Diretiva NIS 2 (2022/2555)",
-          "quote": "Práticas básicas de higiene cibernética e formação em cibersegurança.",
+          "quote": "Práticas básicas de ciber-higiene e formação em cibersegurança.",
           "context": "Este é o ponto g) na lista das dez medidas de cibersegurança que todas as entidades essenciais e importantes têm de implementar. É o dever alargado a toda a força de trabalho, distinto da formação do órgão de direção no artigo 20.o, n.o 2."
         },
         "regulation": {
@@ -8576,7 +8576,7 @@
         "description": "Três camadas. A diretiva (vinculativa para todos os países da UE). O regulamento de execução (direito da UE diretamente aplicável aos setores nomeados no Anexo). A transposição nacional (na Alemanha: BSIG).",
         "directive": {
           "label": "Artigo 21.o, n.o 2, alínea i), Diretiva NIS 2 (2022/2555)",
-          "quote": "Segurança dos recursos humanos, políticas de controlo de acessos e gestão de ativos.",
+          "quote": "Segurança dos recursos humanos, políticas seguidas em matéria de controlo do acesso e gestão de ativos.",
           "context": "O ponto i) na lista das dez medidas de cibersegurança que toda a entidade essencial e importante tem de implementar. Três deveres num só parágrafo, porque só funcionam em conjunto."
         },
         "regulation": {
@@ -8708,7 +8708,7 @@
         "description": "Três camadas empilhadas umas sobre as outras. A diretiva (vinculativa para todos os países da UE). O regulamento de execução (lei da UE diretamente aplicável aos setores nomeados no Anexo). A transposição nacional (na Alemanha: BSIG).",
         "directive": {
           "label": "Artigo 21(2)(i) da Diretiva NIS 2 (2022/2555)",
-          "quote": "Segurança dos recursos humanos, políticas de controlo de acesso e gestão de ativos.",
+          "quote": "Segurança dos recursos humanos, políticas seguidas em matéria de controlo do acesso e gestão de ativos.",
           "context": "Este é o ponto (i) na lista das dez medidas de cibersegurança que todas as entidades essenciais e importantes têm de implementar. A diretiva agrupa três deveres: segurança do pessoal, controlo de acesso e gestão de ativos. O §12 do CIR é a parte que operacionaliza a metade dos ativos."
         },
         "regulation": {
@@ -8841,12 +8841,12 @@
         "description": "Três camadas, mas o nível da diretiva divide-se em duas alíneas. O Artigo 21(2)(i) para as políticas de controlo de acesso (com a segurança do pessoal e a gestão de ativos). O Artigo 21(2)(j) para o MFA e as comunicações seguras. O §11 do CIR cobre depois ambas as alíneas em conjunto. O BSIG volta a dividi-las ao nível nacional.",
         "directive": {
           "label": "Artigo 21(2)(i) + (j) da Diretiva NIS 2 (2022/2555)",
-          "quote": "(i) Segurança dos recursos humanos, políticas de controlo de acesso e gestão de ativos. (j) A utilização de soluções de autenticação multifatorial ou de autenticação contínua, comunicações de voz, vídeo e texto seguras e sistemas de comunicação de emergência seguros no seio da entidade, quando adequado.",
+          "quote": "i) Segurança dos recursos humanos, políticas seguidas em matéria de controlo do acesso e gestão de ativos; j) Utilização de soluções de autenticação multifatores ou de autenticação contínua, comunicações seguras de voz, vídeo e texto e sistemas seguros de comunicações de emergência no seio da entidade, se for caso disso.",
           "context": "Os pontos (i) e (j) são duas das dez medidas do Artigo 21(2). O (i) agrupa três coisas, das quais o controlo de acesso é o item do meio. O (j) está ao lado dele na lista. O ponto 11 do CIR cobre ambos em conjunto."
         },
         "regulation": {
           "label": "CIR (UE) 2024/2690, Anexo §11",
-          "quote": "Controlo de acesso (Artigo 21(2), pontos (i) e (j) da Diretiva (UE) 2022/2555).",
+          "quote": "Controlo do acesso [artigo 21.o, n.o 2, alíneas i) e j), da Diretiva (UE) 2022/2555].",
           "context": "O §11 do CIR tem sete subsecções: §11.1 política de controlo de acesso, §11.2 gestão de direitos de acesso, §11.3 contas privilegiadas e contas de administração de sistemas, §11.4 sistemas de administração de sistemas, §11.5 identificação, §11.6 autenticação, §11.7 autenticação multifatorial. Este regulamento vincula apenas os tipos de entidade enumerados no seu artigo 1.o (DNS, TLD, cloud, centros de dados, CDN, MSP, MSSP, mercados em linha, motores de pesquisa, redes sociais, serviços de confiança)."
         },
         "transposition": {
@@ -9106,7 +9106,7 @@
         "description": "Três camadas empilhadas umas sobre as outras. A diretiva. O regulamento de execução. A transposição alemã. As três dizem o mesmo por palavras diferentes.",
         "directive": {
           "label": "Artigo 21(2)(e) da Diretiva NIS 2 (2022/2555)",
-          "quote": "Segurança na aquisição, no desenvolvimento e na manutenção dos sistemas de rede e de informação, incluindo o tratamento e a divulgação de vulnerabilidades.",
+          "quote": "Segurança na aquisição, desenvolvimento e manutenção dos sistemas de rede e informação, incluindo o tratamento e a divulgação de vulnerabilidades.",
           "context": "Ponto (e) da lista do Artigo 21(2). Abrange todo o ciclo de vida da sua rede e sistemas de TI, não apenas o estado em funcionamento. O CIR §6 desdobra depois isso em várias subsecções. O §6.7 e o §6.8 são os específicos da rede."
         },
         "regulation": {
@@ -9243,7 +9243,7 @@
         },
         "regulation": {
           "label": "CIR (UE) 2024/2690, Anexo §3.2.1",
-          "quote": "As entidades relevantes estabelecem procedimentos e utilizam instrumentos para monitorizar e registar atividades nas suas redes e sistemas de informação, a fim de detetar eventos que possam ser considerados incidentes e de responder em conformidade para atenuar o seu impacto.",
+          "quote": "As entidades pertinentes estabelecem procedimentos e utilizam ferramentas para monitorizar e registar as atividades nos seus sistemas de rede e informação, de modo a detetar eventos suscetíveis de ser considerados incidentes e a responder-lhes em conformidade para atenuar o seu impacto.",
           "context": "Como se trata de um regulamento (e não de uma diretiva), é legislação da UE diretamente vinculativa para os tipos de entidade enumerados no seu artigo 1.o (DNS, TLD, computação em nuvem, centros de dados, CDN, MSP, MSSP, mercados em linha, motores de pesquisa, redes sociais, serviços de confiança). O ponto 3.2 desdobra-se depois em sete subpontos que cobrem os tipos de eventos a registar, os alertas, a retenção, a sincronização horária e a redundância. Não é necessária transposição nacional."
         },
         "transposition": {
@@ -9911,7 +9911,7 @@
         "description": "Três camadas empilhadas. A diretiva (artigo 2.o da NIS 2 e Anexos I e II). O regulamento de dimensão (Recomendação 2003/361/CE, a definição oficial de média empresa da UE). A transposição nacional (na Alemanha: §28 BSIG).",
         "directive": {
           "label": "Artigo 2.o, n.o 1, da Diretiva NIS 2 (2022/2555)",
-          "quote": "A presente diretiva aplica-se às entidades públicas ou privadas de um tipo referido no Anexo I ou no Anexo II que se qualifiquem como médias empresas nos termos do artigo 2.o do anexo da Recomendação 2003/361/CE, ou que excedam os limiares para médias empresas previstos no n.o 1 desse artigo, e que prestem os seus serviços ou exerçam as suas atividades na União.",
+          "quote": "A presente diretiva aplica-se às entidades públicas ou privadas de um dos tipos referidos no anexo I ou II, que sejam consideradas médias empresas nos termos do artigo 2.o do anexo da Recomendação 2003/361/CE, ou que excedam os limiares relativos às médias empresas previstos no n.o 1 desse artigo, e que prestem os seus serviços ou exerçam as suas atividades na União.",
           "context": "O teste base. Setor (Anexo I ou II), dimensão (média ou maior), serviço prestado na União. O artigo 2.o, n.o 2, acrescenta depois uma lista de casos independentes da dimensão. O artigo 2.o, n.o 3, traz as entidades críticas da CER. Os artigos 2.o, n.os 5 a 11, excluem a segurança nacional, a defesa, os parlamentos, os bancos centrais e o setor financeiro (DORA, lex specialis ao abrigo do artigo 4.o)."
         },
         "regulation": {
@@ -10858,7 +10858,7 @@
         },
         "regulation": {
           "label": "Artigo 6.o, n.o 39 da Diretiva NIS 2 (definição de MSP)",
-          "quote": "Prestador de serviços geridos significa uma entidade que presta serviços relacionados com a instalação, gestão, operação ou manutenção de produtos TIC, redes, infraestruturas, aplicações ou quaisquer outros sistemas de redes e de informação, através de assistência ou administração ativa realizada nas instalações dos clientes ou remotamente.",
+          "quote": "«Prestador de serviços geridos», uma entidade que presta serviços relacionados com a instalação, gestão, operação ou manutenção de produtos de TIC, redes, infraestruturas, aplicações ou quaisquer outros sistemas de rede e informação, através de assistência ou administração ativa efetuadas nas instalações dos clientes ou à distância.",
           "context": "O artigo 6.o, n.o 40 acrescenta a definição de MSSP: um prestador de serviços geridos que realiza ou presta assistência a atividades relacionadas com a gestão de riscos de cibersegurança. A diretiva escolhe os verbos deliberadamente: instalação, gestão, operação, manutenção, administração ativa. Vender um produto sem operação contínua não cumpre a definição. Um help desk que repõe palavras-passe sem operar os sistemas também não a cumpre."
         },
         "transposition": {
@@ -11403,7 +11403,7 @@
         },
         "regulation": {
           "label": "Artigo 2.º(1) Diretiva NIS 2, teste de dimensão",
-          "quote": "A presente diretiva aplica-se às entidades públicas ou privadas de um dos tipos referidos no Anexo I ou II que sejam consideradas médias empresas nos termos do Artigo 2.º do Anexo à Recomendação 2003/361/CE, ou que excedam os limiares para médias empresas previstos no n.º 1 desse artigo.",
+          "quote": "A presente diretiva aplica-se às entidades públicas ou privadas de um dos tipos referidos no anexo I ou II, que sejam consideradas médias empresas nos termos do artigo 2.o do anexo da Recomendação 2003/361/CE, ou que excedam os limiares relativos às médias empresas previstos no n.o 1 desse artigo.",
           "context": "O limite de dimensão usa a definição de PME da UE. 50 trabalhadores ou mais, ou volume de negócios anual acima de 10 milhões de euros e total do balanço acima de 10 milhões de euros. Atinja um desses e está dentro. A Diretiva lista um punhado de casos em que a dimensão não importa, mas o fabrico puro de máquinas não consta dessa lista de derrogação."
         },
         "transposition": {
@@ -11664,7 +11664,7 @@
         "description": "Três textos que precisa de ler em conjunto: a regra de dimensão da NIS 2, a Recomendação que define as dimensões, e as exceções da NIS 2 que voltam a trazer entidades menores para o âmbito.",
         "directive": {
           "label": "Artigo 2(1) Diretiva NIS 2 (2022/2555)",
-          "quote": "This Directive applies to public or private entities of a type referred to in Annex I or II which qualify as medium-sized enterprises under Article 2 of the Annex to Recommendation 2003/361/EC, or exceed the ceilings for medium-sized enterprises provided for in paragraph 1 of that Article, and which provide their services or carry out their activities within the Union.",
+          "quote": "A presente diretiva aplica-se às entidades públicas ou privadas de um dos tipos referidos no anexo I ou II, que sejam consideradas médias empresas nos termos do artigo 2.o do anexo da Recomendação 2003/361/CE, ou que excedam os limiares relativos às médias empresas previstos no n.o 1 desse artigo, e que prestem os seus serviços ou exerçam as suas atividades na União.",
           "context": "Esta é a regra de âmbito por defeito. Dois filtros numa frase: o seu setor tem de estar no Anexo I ou II, e tem de ser pelo menos médio ao abrigo da Recomendação 2003/361/CE. Abaixo de médio, a diretiva não se aplica por defeito."
         },
         "regulation": {
@@ -11802,7 +11802,7 @@
         },
         "regulation": {
           "label": "Artigo 2.o, n.o 5, da Diretiva NIS 2 (exclusões)",
-          "quote": "A presente diretiva não se aplica às entidades da administração pública que exercem as suas atividades nos domínios da segurança nacional, da segurança pública, da defesa ou da aplicação da lei, incluindo a prevenção, a investigação, a deteção e a repressão de infrações penais.",
+          "quote": "A presente diretiva não se aplica às entidades da administração pública que exercem as suas atividades nos domínios da segurança nacional, da segurança pública, da defesa ou da aplicação da lei, incluindo a prevenção, investigação, deteção e repressão de infrações penais.",
           "context": "A exclusão é funcional. A exclusão segue a atividade, não a instituição. Uma autoridade policial federal está fora para os seus sistemas de aplicação da lei e dentro para o seu IT empresarial. O artigo 2.o, n.o 7, acrescenta os parlamentos e os bancos centrais. O artigo 2.o, n.o 6, permite aos Estados-Membros isentar as entidades que exercem atividades ao abrigo do artigo 2.o, n.o 5, apenas nesses domínios."
         },
         "transposition": {
@@ -12614,7 +12614,7 @@
         },
         "regulation": {
           "label": "Regulamento de Execução (UE) 2024/2690 da Comissão, ponto 12.4 do Anexo (inventário de ativos)",
-          "quote": "12.4.1. As entidades relevantes devem desenvolver e manter um inventário completo, exato, atualizado e coerente dos seus ativos. Devem registar de forma rastreável as alterações às entradas do inventário. 12.4.2. A granularidade do inventário dos ativos deve ser adequada às necessidades das entidades relevantes. O inventário deve incluir o seguinte: a) a lista das operações e dos serviços e a sua descrição, b) a lista dos sistemas de rede e de informação e de outros ativos associados que apoiam as operações e os serviços das entidades relevantes. 12.4.3. As entidades relevantes devem rever e atualizar regularmente o inventário e os seus ativos e documentar o histórico das alterações.",
+          "quote": "12.4.1. As entidades pertinentes elaboram e mantêm um inventário exaustivo, exato, atualizado e coerente dos seus ativos. Registam, de forma rastreável, quaisquer alterações às entradas do inventário. 12.4.2. A granularidade do inventário de ativos deve ser adequada às necessidades das entidades pertinentes. Esse inventário inclui o seguinte: (a) A lista de operações e serviços e a respetiva descrição; (b) A lista de sistemas de rede e informação e outros ativos conexos que apoiam as operações e os serviços das entidades pertinentes. 12.4.3. As entidades pertinentes analisam e atualizam regularmente o inventário e os seus ativos e documentam o histórico de alterações.",
           "context": "O CIR 2024/2690 vincula apenas os prestadores digitais enumerados no seu artigo 1.o (DNS, TLD, computação em nuvem, centros de dados, CDN, MSP, MSSP, mercados em linha, motores de pesquisa, redes sociais, serviços de confiança). O ponto 12.4 pede-lhes um inventário completo e atual, com uma granularidade adequada às suas necessidades, que enumere as operações e os serviços e os sistemas que os suportam, revisto regularmente. Não nomeia campos nem intervalo. Para todas as outras entidades, o § 30(2) n.º 9 BSIG pede um conceito para a gestão de sistemas, produtos e processos de TI, sem prescrever uma forma."
         },
         "transposition": {
@@ -13146,7 +13146,7 @@
         "description": "O Artigo 21 NIS 2, o Regulamento de Execução da Comissão e a transposição alemã. O quadro de gestão de risco é definido ao nível da UE; a lei do Estado-Membro transpõe-no.",
         "directive": {
           "label": "Artigo 21(1) NIS 2",
-          "quote": "Os Estados-Membros asseguram que as entidades essenciais e importantes tomam medidas técnicas, operacionais e organizacionais adequadas e proporcionadas para gerir os riscos para a segurança dos sistemas de rede e de informação que essas entidades utilizam nas suas operações ou na prestação dos seus serviços, e para prevenir ou minimizar o impacto dos incidentes nos destinatários dos seus serviços e noutros serviços. Tendo em conta o estado da técnica e, se aplicável, as normas europeias e internacionais pertinentes, bem como o custo de implementação, as medidas referidas no primeiro parágrafo asseguram um nível de segurança dos sistemas de rede e de informação adequado aos riscos existentes.",
+          "quote": "Os Estados-Membros devem assegurar que as entidades essenciais e importantes tomam medidas técnicas, operacionais e organizativas adequadas e proporcionadas para gerir os riscos que se colocam à segurança dos sistemas de rede e informação que utilizam nas suas operações ou na prestação dos seus serviços e para impedir ou minimizar o impacto de incidentes nos destinatários dos seus serviços e noutros serviços. As medidas referidas no primeiro parágrafo devem garantir um nível de segurança dos sistemas de rede e informação adequado ao risco em causa, tendo em conta os progressos técnicos mais recentes e, se aplicáveis, as normas europeias e internacionais pertinentes, bem como os custos de execução.",
           "context": "Fonte: Diretiva (UE) 2022/2555, Artigo 21(1). Os pontos de referência são o estado da técnica, as normas pertinentes e o custo de implementação. O seguro não consta da lista."
         },
         "regulation": {
@@ -13278,7 +13278,7 @@
         "description": "A NIS 2 é uma diretiva ao nível da UE. A CIR 2024/2690 especifica os requisitos técnicos e metodológicos para certas entidades do setor digital. A Alemanha transpõe o dever de governação no §38 BSIG e converte-o em responsabilidade pessoal através da Sorgfaltspflicht geral do direito societário.",
         "directive": {
           "label": "Diretiva da UE",
-          "quote": "Os Estados-Membros asseguram que os órgãos de gestão das entidades essenciais e importantes aprovem as medidas de gestão de riscos de cibersegurança tomadas por essas entidades para dar cumprimento ao artigo 21.o, supervisionem a sua aplicação e possam ser responsabilizados pelas infrações ao referido artigo cometidas pelas entidades.",
+          "quote": "Os Estados-Membros devem assegurar que os órgãos de direção das entidades essenciais e importantes aprovam as medidas de gestão dos riscos de cibersegurança tomadas por essas entidades em cumprimento do disposto no artigo 21.o, supervisionam a sua aplicação e podem ser responsabilizados por infrações cometidas pelas entidades referidas nesse artigo.",
           "context": "Artigo 20.o, n.o 1, da NIS 2 (Diretiva (UE) 2022/2555). O dever é atribuído diretamente ao órgão de gestão, não à empresa enquanto pessoa jurídica distinta."
         },
         "regulation": {
@@ -13412,7 +13412,7 @@
         "description": "O texto da diretiva, o regulamento de execução para entidades de infraestrutura digital e a transposição alemã. As citações são literais do EUR-Lex e da gesetze-im-internet.de.",
         "directive": {
           "label": "Artigo 21(2)(d) NIS 2",
-          "quote": "segurança da cadeia de abastecimento, incluindo aspetos relacionados com a segurança respeitantes às relações entre cada entidade e os seus fornecedores ou prestadores de serviços diretos",
+          "quote": "Segurança da cadeia de abastecimento, incluindo aspetos de segurança respeitantes às relações entre cada entidade e os respetivos fornecedores ou prestadores de serviços diretos",
           "context": "Uma das dez medidas mínimas enumeradas no Artigo 21(2). Note a limitação deliberada a fornecedores e prestadores de serviços diretos. A diretiva não estende a cláusula a subfornecedores de enésimo nível. Os considerandos 85 e 90 confirmam que a avaliação é baseada no risco e considera as vulnerabilidades específicas de cada fornecedor e a qualidade global das suas práticas de cibersegurança."
         },
         "regulation": {
@@ -13946,7 +13946,7 @@
         "description": "Três camadas assentam sobre cada caso de phishing: a diretiva define a significância, o CIR acrescenta detalhe quantitativo e por categoria para a infraestrutura digital, e a lei nacional transpõe a cascata.",
         "directive": {
           "label": "Diretiva NIS 2 (UE) 2022/2555, Art. 23(3)",
-          "quote": "Um incidente é considerado significativo se: (a) tiver causado ou for suscetível de causar uma perturbação operacional grave dos serviços ou perdas financeiras para a entidade em causa; (b) tiver afetado ou for suscetível de afetar outras pessoas singulares ou coletivas, causando danos materiais ou imateriais consideráveis.",
+          "quote": "Considera-se que um incidente é significativo se: a) Tiver causado ou for suscetível de causar graves perturbações operacionais dos serviços ou perdas financeiras à entidade em causa; b) Tiver afetado ou for suscetível de afetar outras pessoas singulares ou coletivas, causando danos materiais ou imateriais consideráveis.",
           "context": "Esta é a única definição geral de incidente significativo no direito da UE. Ambos os pontos usam «suscetível de causar», pelo que o dano potencial conta tanto como o dano efetivo. Um evento de phishing que comprometeu credenciais de uma conta privilegiada pode cumprir o ponto (a) mesmo antes de qualquer serviço ter efetivamente parado."
         },
         "regulation": {
@@ -14213,7 +14213,7 @@
         "description": "Três camadas regem a situação. A diretiva coloca o dever, o regulamento de execução especifica-o para as entidades de infraestrutura digital, a lei nacional transpõe-no.",
         "directive": {
           "label": "Artigo 21.º, n.º 2, alínea d), NIS 2",
-          "quote": "segurança da cadeia de abastecimento, incluindo aspetos de segurança respeitantes às relações entre cada entidade e os seus fornecedores diretos ou prestadores de serviços.",
+          "quote": "Segurança da cadeia de abastecimento, incluindo aspetos de segurança respeitantes às relações entre cada entidade e os respetivos fornecedores ou prestadores de serviços diretos.",
           "context": "O artigo trata da relação com os fornecedores diretos, não do próprio fornecedor. A entidade continua responsável pela gestão dessa relação, incluindo pelos incidentes que dela se propaguem."
         },
         "regulation": {
@@ -14223,7 +14223,7 @@
         },
         "transposition": {
           "label": "Artigo 23.º, n.º 3, NIS 2",
-          "quote": "um incidente é considerado significativo se: a) tiver causado ou for suscetível de causar uma perturbação operacional grave dos serviços ou perdas financeiras para a entidade em causa; b) tiver afetado ou for suscetível de afetar outras pessoas singulares ou coletivas, causando danos materiais ou imateriais consideráveis.",
+          "quote": "considera-se que um incidente é significativo se: a) Tiver causado ou for suscetível de causar graves perturbações operacionais dos serviços ou perdas financeiras à entidade em causa; b) Tiver afetado ou for suscetível de afetar outras pessoas singulares ou coletivas, causando danos materiais ou imateriais consideráveis.",
           "context": "O artigo 23.º, n.º 3, define o limiar de significância ao nível da entidade. Um incidente de fornecedor é avaliado por esta lente assim que atinge os próprios serviços da entidade."
         }
       },
@@ -15009,7 +15009,7 @@
         "description": "Diretiva NIS 2, transposição alemã (BSIG) e o regime espacial conexo da UE.",
         "directive": {
           "label": "Diretiva (UE) 2022/2555, anexo I, setor 11 (Espaço)",
-          "quote": "Operadores de infraestruturas terrestres, detidas, geridas e exploradas por Estados-Membros ou por entidades privadas, que apoiem a prestação de serviços baseados no espaço, excluindo os fornecedores de redes públicas de comunicações eletrónicas.",
+          "quote": "Operadores de infraestruturas terrestres, detidas, geridas e operadas por Estados-Membros ou entidades privadas, que apoiam a prestação de serviços espaciais, excluindo os fornecedores de redes públicas de comunicações eletrónicas.",
           "context": "Esta é a definição setorial completa. Aplicam-se três filtros em simultâneo. Primeiro, a classe de ativo é a infraestrutura terrestre. Segundo, a função é apoiar serviços baseados no espaço. Terceiro, os fornecedores de redes públicas de comunicações eletrónicas estão excluídos porque são abordados no setor 8 (infraestrutura digital) e no regime do EECC."
         },
         "regulation": {
@@ -15679,7 +15679,7 @@
         "description": "As duas diretivas referem-se mutuamente, de modo que os operadores classificados como entidades críticas ao abrigo da CER contam automaticamente como entidades essenciais ao abrigo da NIS 2.",
         "directive": {
           "label": "NIS 2, artigo 2.o, n.o 3 (ipsis verbis)",
-          "quote": "A presente diretiva aplica-se às entidades identificadas como entidades críticas nos termos da Diretiva (UE) 2022/2557.",
+          "quote": "A presente diretiva é aplicável às entidades identificadas como entidades críticas nos termos da Diretiva (UE) 2022/2557.",
           "context": "O artigo 2.o, n.o 3, da NIS 2 torna a ligação explícita: uma entidade que um Estado-Membro designe como entidade crítica ao abrigo da CER está no âmbito da NIS 2 e é tratada como entidade essencial ao abrigo do artigo 3.o, n.o 1, alínea f), da NIS 2."
         },
         "regulation": {
@@ -17028,7 +17028,7 @@
         "description": "Três camadas empilhadas umas sobre as outras. A diretiva fixa o dever sobre o órgão de gestão. O regulamento de execução operacionaliza as medidas que o órgão de gestão tem de aprovar. A transposição alemã transforma o mesmo dever numa lei nacional com responsabilidade pessoal associada.",
         "directive": {
           "label": "Artigo 20.o, n.o 1, da Diretiva NIS 2 (2022/2555)",
-          "quote": "Os Estados-Membros asseguram que os órgãos de gestão das entidades essenciais e importantes aprovam as medidas de gestão dos riscos de cibersegurança tomadas por essas entidades para dar cumprimento ao artigo 21.o, supervisionam a sua implementação e podem ser responsabilizados por infrações do referido artigo cometidas pelas entidades.",
+          "quote": "Os Estados-Membros devem assegurar que os órgãos de direção das entidades essenciais e importantes aprovam as medidas de gestão dos riscos de cibersegurança tomadas por essas entidades em cumprimento do disposto no artigo 21.o, supervisionam a sua aplicação e podem ser responsabilizados por infrações cometidas pelas entidades referidas nesse artigo.",
           "context": "O artigo 20.o é o artigo de governação da diretiva. O n.o 1 fixa os três deveres sobre o órgão de gestão: aprovar, supervisionar, poder ser responsabilizado. O n.o 2 acrescenta o dever de formação para o próprio órgão de gestão e pede à entidade que ofereça formação regular a todo o pessoal."
         },
         "regulation": {
@@ -19446,7 +19446,7 @@
         "description": "A proporcionalidade está ancorada no artigo operativo e no considerando que explica como deve ser aplicada.",
         "directive": {
           "label": "Art. 21(1) NIS 2 (operativo)",
-          "quote": "Os Estados-Membros asseguram que as entidades essenciais e importantes tomam medidas técnicas, operacionais e organizativas adequadas e proporcionadas para gerir os riscos que se colocam à segurança das redes e dos sistemas de informação que essas entidades utilizam nas suas operações ou na prestação dos seus serviços, e para prevenir ou minimizar o impacto dos incidentes sobre os destinatários dos seus serviços.",
+          "quote": "Os Estados-Membros devem assegurar que as entidades essenciais e importantes tomam medidas técnicas, operacionais e organizativas adequadas e proporcionadas para gerir os riscos que se colocam à segurança dos sistemas de rede e informação que utilizam nas suas operações ou na prestação dos seus serviços e para impedir ou minimizar o impacto de incidentes nos destinatários dos seus serviços.",
           "context": "O mesmo número enumera seis fatores que decidem a proporcionalidade: o grau de exposição da entidade aos riscos, a dimensão da entidade, a probabilidade de ocorrência de incidentes e a sua gravidade, incluindo o seu impacto societal e económico, o estado da arte e o custo da implementação. Todos os seis são dados de decisão, nenhum deles é opcional."
         },
         "recital": {
@@ -19765,7 +19765,7 @@
         "description": "A diretiva nomeia o lado Responsável-final; a transposição acrescenta o dever de formação.",
         "directive": {
           "label": "Art. 20(1) NIS 2 (responsabilidade do órgão de gestão)",
-          "quote": "Os Estados-Membros asseguram que os órgãos de gestão das entidades essenciais e importantes aprovam as medidas de gestão do risco de cibersegurança tomadas por essas entidades para dar cumprimento ao artigo 21.o, supervisionam a sua aplicação e podem ser responsabilizados por infrações dessas entidades a esse artigo.",
+          "quote": "Os Estados-Membros devem assegurar que os órgãos de direção das entidades essenciais e importantes aprovam as medidas de gestão dos riscos de cibersegurança tomadas por essas entidades em cumprimento do disposto no artigo 21.o, supervisionam a sua aplicação e podem ser responsabilizados por infrações cometidas pelas entidades referidas nesse artigo.",
           "context": "'Aprovar' e 'supervisionar' são atividades de Responsável-final em termos RACI. O órgão de gestão detém o A, delegue ou não o R. A delegação é permitida, a abdicação não é."
         },
         "transposition": {
@@ -19930,7 +19930,7 @@
         "description": "Um artigo operativo, um regulamento de execução, uma metodologia do BSI.",
         "directive": {
           "label": "Art. 21.º, n.º 2, alíneas a) e b), NIS 2",
-          "quote": "As medidas a que se refere o n.º 1 baseiam-se numa abordagem de todos os perigos que visa proteger as redes e os sistemas de informação e o ambiente físico desses sistemas contra incidentes, e incluem, pelo menos, o seguinte: a) políticas de análise dos riscos e de segurança dos sistemas de informação; b) tratamento de incidentes.",
+          "quote": "As medidas referidas no n.o 1 devem basear-se numa abordagem que abranja todos os riscos e que vise proteger os sistemas de rede e informação, bem como o seu ambiente físico contra incidentes, e devem abranger pelo menos os seguintes aspetos: a) Políticas de análise dos riscos e de segurança dos sistemas de informação; b) Tratamento de incidentes.",
           "context": "A análise de risco e o tratamento de incidentes vêm enumerados em primeiro lugar, mas ambos exigem um objeto a analisar e a tratar: o inventário do que realmente tem. A diretiva trata isto como uma precondição, e não como uma medida separada."
         },
         "cir": {

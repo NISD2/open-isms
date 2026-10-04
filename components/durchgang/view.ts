@@ -36,13 +36,17 @@ export interface Term {
   readonly source: string | null;
 }
 
-/** One item of the walk, as the home screen and the "Als Nächstes" card show it. */
-export interface WalkEntry {
+/** One item of the walk as its card shows it, in the walk or outside it (the wiki). */
+export interface WalkStep {
   readonly code: string;
   readonly section: string;
   readonly headline: string;
   readonly teaser: string;
   readonly image: string | null;
+}
+
+/** One item of the walk, as the home screen and the "Als Nächstes" card show it. */
+export interface WalkEntry extends WalkStep {
   readonly state: ItemState;
 }
 

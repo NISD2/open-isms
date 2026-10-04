@@ -1,20 +1,18 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
-import { pageAlternates, pageOg, type Locale } from "@/lib/seo";
+import { GlossedProse } from "@/components/wiki/GlossedProse";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -28,10 +26,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: pageAlternates(
-      "wiki/sektoren/nis2-raumfahrt",
-      locale,
-    ),
+    alternates: pageAlternates("wiki/sektoren/nis2-raumfahrt", locale),
     ...pageOg({
       slug: "wiki/sektoren/nis2-raumfahrt",
       locale,
@@ -46,7 +41,11 @@ const anchorKeys = ["directive", "regulation", "transposition"] as const;
 const elementKeys = ["scope", "sizeTest", "national"] as const;
 const principleKeys = ["narrowAnnex", "operatorVsManufacturer"] as const;
 const nationalKeys = ["bsi", "enisa", "national"] as const;
-const pitfallKeys = ["manufacturerIncluded", "researchCoversAll", "euAgenciesOnly"] as const;
+const pitfallKeys = [
+  "manufacturerIncluded",
+  "researchCoversAll",
+  "euAgenciesOnly",
+] as const;
 
 export default async function Nis2RaumfahrtPage({
   params,
@@ -54,8 +53,7 @@ export default async function Nis2RaumfahrtPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale =
-    rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
   const t = await getTranslations("info");
 
   return (
@@ -141,9 +139,7 @@ export default async function Nis2RaumfahrtPage({
         <Card>
           <CardHeader>
             <CardTitle>{t("nis2Raumfahrt.elements.heading")}</CardTitle>
-            <CardDescription>
-              {t("nis2Raumfahrt.elements.description")}
-            </CardDescription>
+            <CardDescription>{t("nis2Raumfahrt.elements.description")}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 sm:grid-cols-3">
@@ -168,9 +164,7 @@ export default async function Nis2RaumfahrtPage({
         <Card>
           <CardHeader>
             <CardTitle>{t("nis2Raumfahrt.principles.heading")}</CardTitle>
-            <CardDescription>
-              {t("nis2Raumfahrt.principles.description")}
-            </CardDescription>
+            <CardDescription>{t("nis2Raumfahrt.principles.description")}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -221,9 +215,7 @@ export default async function Nis2RaumfahrtPage({
         <Card>
           <CardHeader>
             <CardTitle>{t("nis2Raumfahrt.pitfalls.heading")}</CardTitle>
-            <CardDescription>
-              {t("nis2Raumfahrt.pitfalls.description")}
-            </CardDescription>
+            <CardDescription>{t("nis2Raumfahrt.pitfalls.description")}</CardDescription>
           </CardHeader>
           <CardContent>
             <ul className="space-y-4">
@@ -244,9 +236,7 @@ export default async function Nis2RaumfahrtPage({
         {/* Practitioner */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("nis2Raumfahrt.practitioner.heading")}
-            </CardTitle>
+            <CardTitle>{t("nis2Raumfahrt.practitioner.heading")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <p className="text-sm leading-relaxed text-muted-foreground">
@@ -258,21 +248,6 @@ export default async function Nis2RaumfahrtPage({
           </CardContent>
         </Card>
 
-        {/* Platform */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("nis2Raumfahrt.platform.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("nis2Raumfahrt.platform.p1")}
-            </p>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("nis2Raumfahrt.platform.p2")}
-            </p>
-          </CardContent>
-        </Card>
-
         {/* Sources */}
         <Card>
           <CardHeader>
@@ -280,33 +255,16 @@ export default async function Nis2RaumfahrtPage({
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">
-              {(t.raw("nis2Raumfahrt.sources.items") as string[]).map(
-                (source, i) => (
-                  <li
-                    key={i}
-                    className="flex items-start gap-2 text-xs text-muted-foreground"
-                  >
-                    <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
-                    {source}
-                  </li>
-                ),
-              )}
+              {(t.raw("nis2Raumfahrt.sources.items") as string[]).map((source) => (
+                <li
+                  key={source}
+                  className="flex items-start gap-2 text-xs text-muted-foreground"
+                >
+                  <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
+                  {source}
+                </li>
+              ))}
             </ul>
-          </CardContent>
-        </Card>
-
-        {/* CTA */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("nis2Raumfahrt.ctaCard.heading")}</CardTitle>
-            <CardDescription>
-              {t("nis2Raumfahrt.ctaCard.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button asChild>
-              <Link href="/applicability">{t("nis2Raumfahrt.cta")}</Link>
-            </Button>
           </CardContent>
         </Card>
       </div>

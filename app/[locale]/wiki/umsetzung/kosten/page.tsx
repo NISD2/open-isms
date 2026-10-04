@@ -2,7 +2,6 @@ import { Check, X } from "lucide-react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -22,7 +21,6 @@ import {
 import { GlossedProse } from "@/components/wiki/GlossedProse";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { Link } from "@/i18n/navigation";
 import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -210,17 +208,6 @@ export default async function CostsPage({
                 </li>
               ))}
             </ul>
-          </CardContent>
-        </Card>
-
-        {/* CTA */}
-        <Card className="text-center">
-          <CardContent className="space-y-4 py-8">
-            <p className="text-lg font-semibold">{t("costs.cta.heading")}</p>
-            <p className="text-sm text-muted-foreground">{t("costs.cta.description")}</p>
-            <Button asChild size="lg">
-              <Link href="/auth/signin">{t("costs.cta.button")}</Link>
-            </Button>
           </CardContent>
         </Card>
       </div>

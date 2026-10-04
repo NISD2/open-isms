@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { JsonLd } from "@/components/JsonLd";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
-import { JsonLd } from "@/components/JsonLd";
-import { pageAlternates, pageOg, type Locale } from "@/lib/seo";
+import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkSteps } from "@/components/wiki/WalkSteps";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -55,8 +54,7 @@ export default async function HowToConductRiskAssessmentPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale =
-    rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
   const t = await getTranslations("info");
 
   const steps = elementKeys.map((key) => ({
@@ -133,9 +131,7 @@ export default async function HowToConductRiskAssessmentPage({
         {/* Legal anchor */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("howToConductRiskAssessment.legalAnchor.heading")}
-            </CardTitle>
+            <CardTitle>{t("howToConductRiskAssessment.legalAnchor.heading")}</CardTitle>
             <CardDescription>
               {t("howToConductRiskAssessment.legalAnchor.description")}
             </CardDescription>
@@ -162,9 +158,7 @@ export default async function HowToConductRiskAssessmentPage({
         {/* Three steps */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("howToConductRiskAssessment.elements.heading")}
-            </CardTitle>
+            <CardTitle>{t("howToConductRiskAssessment.elements.heading")}</CardTitle>
             <CardDescription>
               {t("howToConductRiskAssessment.elements.description")}
             </CardDescription>
@@ -174,14 +168,10 @@ export default async function HowToConductRiskAssessmentPage({
               {elementKeys.map((key) => (
                 <div key={key} className="rounded-lg border p-4">
                   <Badge variant="outline" className="mb-2 text-[10px]">
-                    {t(
-                      `howToConductRiskAssessment.elements.items.${key}.section`,
-                    )}
+                    {t(`howToConductRiskAssessment.elements.items.${key}.section`)}
                   </Badge>
                   <p className="text-sm font-semibold">
-                    {t(
-                      `howToConductRiskAssessment.elements.items.${key}.title`,
-                    )}
+                    {t(`howToConductRiskAssessment.elements.items.${key}.title`)}
                   </p>
                   <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
                     {t(`howToConductRiskAssessment.elements.items.${key}.body`)}
@@ -195,9 +185,7 @@ export default async function HowToConductRiskAssessmentPage({
         {/* Two principles */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("howToConductRiskAssessment.principles.heading")}
-            </CardTitle>
+            <CardTitle>{t("howToConductRiskAssessment.principles.heading")}</CardTitle>
             <CardDescription>
               {t("howToConductRiskAssessment.principles.description")}
             </CardDescription>
@@ -207,14 +195,10 @@ export default async function HowToConductRiskAssessmentPage({
               {principleKeys.map((key) => (
                 <div key={key} className="rounded-lg border p-4">
                   <p className="text-sm font-semibold">
-                    {t(
-                      `howToConductRiskAssessment.principles.items.${key}.title`,
-                    )}
+                    {t(`howToConductRiskAssessment.principles.items.${key}.title`)}
                   </p>
                   <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                    {t(
-                      `howToConductRiskAssessment.principles.items.${key}.body`,
-                    )}
+                    {t(`howToConductRiskAssessment.principles.items.${key}.body`)}
                   </p>
                 </div>
               ))}
@@ -225,9 +209,7 @@ export default async function HowToConductRiskAssessmentPage({
         {/* National view */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("howToConductRiskAssessment.nationalView.heading")}
-            </CardTitle>
+            <CardTitle>{t("howToConductRiskAssessment.nationalView.heading")}</CardTitle>
             <CardDescription>
               {t("howToConductRiskAssessment.nationalView.description")}
             </CardDescription>
@@ -238,20 +220,14 @@ export default async function HowToConductRiskAssessmentPage({
                 <div key={key} className="rounded-lg border p-4">
                   <div className="flex flex-wrap items-baseline gap-2">
                     <Badge variant="outline" className="text-[10px]">
-                      {t(
-                        `howToConductRiskAssessment.nationalView.items.${key}.country`,
-                      )}
+                      {t(`howToConductRiskAssessment.nationalView.items.${key}.country`)}
                     </Badge>
                     <p className="text-sm font-semibold">
-                      {t(
-                        `howToConductRiskAssessment.nationalView.items.${key}.label`,
-                      )}
+                      {t(`howToConductRiskAssessment.nationalView.items.${key}.label`)}
                     </p>
                   </div>
                   <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                    {t(
-                      `howToConductRiskAssessment.nationalView.items.${key}.body`,
-                    )}
+                    {t(`howToConductRiskAssessment.nationalView.items.${key}.body`)}
                   </p>
                 </div>
               ))}
@@ -262,9 +238,7 @@ export default async function HowToConductRiskAssessmentPage({
         {/* Pitfalls */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("howToConductRiskAssessment.pitfalls.heading")}
-            </CardTitle>
+            <CardTitle>{t("howToConductRiskAssessment.pitfalls.heading")}</CardTitle>
             <CardDescription>
               {t("howToConductRiskAssessment.pitfalls.description")}
             </CardDescription>
@@ -277,9 +251,7 @@ export default async function HowToConductRiskAssessmentPage({
                     {t(`howToConductRiskAssessment.pitfalls.items.${key}.myth`)}
                   </p>
                   <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                    {t(
-                      `howToConductRiskAssessment.pitfalls.items.${key}.reality`,
-                    )}
+                    {t(`howToConductRiskAssessment.pitfalls.items.${key}.reality`)}
                   </p>
                 </li>
               ))}
@@ -290,9 +262,7 @@ export default async function HowToConductRiskAssessmentPage({
         {/* Practitioner */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("howToConductRiskAssessment.practitioner.heading")}
-            </CardTitle>
+            <CardTitle>{t("howToConductRiskAssessment.practitioner.heading")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <p className="text-sm leading-relaxed text-muted-foreground">
@@ -304,65 +274,29 @@ export default async function HowToConductRiskAssessmentPage({
           </CardContent>
         </Card>
 
-        {/* Platform */}
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              {t("howToConductRiskAssessment.platform.heading")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("howToConductRiskAssessment.platform.p1")}
-            </p>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("howToConductRiskAssessment.platform.p2")}
-            </p>
-          </CardContent>
-        </Card>
-
         {/* Sources */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("howToConductRiskAssessment.sources.heading")}
-            </CardTitle>
+            <CardTitle>{t("howToConductRiskAssessment.sources.heading")}</CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">
-              {(
-                t.raw("howToConductRiskAssessment.sources.items") as string[]
-              ).map((source, i) => (
-                <li
-                  key={i}
-                  className="flex items-start gap-2 text-xs text-muted-foreground"
-                >
-                  <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
-                  {source}
-                </li>
-              ))}
+              {(t.raw("howToConductRiskAssessment.sources.items") as string[]).map(
+                (source) => (
+                  <li
+                    key={source}
+                    className="flex items-start gap-2 text-xs text-muted-foreground"
+                  >
+                    <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
+                    {source}
+                  </li>
+                ),
+              )}
             </ul>
           </CardContent>
         </Card>
 
-        {/* CTA */}
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              {t("howToConductRiskAssessment.ctaCard.heading")}
-            </CardTitle>
-            <CardDescription>
-              {t("howToConductRiskAssessment.ctaCard.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button asChild>
-              <Link href="/auth/signin">
-                {t("howToConductRiskAssessment.cta")}
-              </Link>
-            </Button>
-          </CardContent>
-        </Card>
+        <WalkSteps codes={["2.1", "2.3"]} />
       </div>
     </GlossedProse>
   );

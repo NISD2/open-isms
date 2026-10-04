@@ -1,7 +1,6 @@
 import { CheckCircle2, MinusCircle } from "lucide-react";
 import type { Metadata } from "next";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -19,6 +18,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkSteps } from "@/components/wiki/WalkSteps";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
 import { Link } from "@/i18n/navigation";
@@ -385,24 +385,9 @@ export default async function Nis2DocumentsPage({
           </Card>
         ))}
 
-        <Card>
-          <CardHeader>
-            <CardTitle>{c.cta.heading}</CardTitle>
-            <CardDescription>{c.cta.description}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col gap-2 sm:flex-row">
-              <Button asChild>
-                <Link href="/features">{c.cta.primary}</Link>
-              </Button>
-              <Button asChild variant="outline">
-                <Link href="/applicability">{c.cta.secondary}</Link>
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-
         <p className="text-xs text-muted-foreground">{c.footnote}</p>
+
+        <WalkSteps codes={["2.4", "7.3"]} />
       </div>
     </GlossedProse>
   );

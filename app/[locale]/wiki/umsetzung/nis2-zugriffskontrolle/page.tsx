@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -11,9 +10,9 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkSteps } from "@/components/wiki/WalkSteps";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { Link } from "@/i18n/navigation";
 import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -246,21 +245,6 @@ export default async function Nis2AccessControlPage({
           </CardContent>
         </Card>
 
-        {/* Platform recommendation */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("accessControl.platform.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("accessControl.platform.p1")}
-            </p>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("accessControl.platform.p2")}
-            </p>
-          </CardContent>
-        </Card>
-
         {/* Sources */}
         <Card>
           <CardHeader>
@@ -281,18 +265,7 @@ export default async function Nis2AccessControlPage({
           </CardContent>
         </Card>
 
-        {/* CTA */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("accessControl.ctaCard.heading")}</CardTitle>
-            <CardDescription>{t("accessControl.ctaCard.description")}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button asChild>
-              <Link href="/auth/signin">{t("accessControl.cta")}</Link>
-            </Button>
-          </CardContent>
-        </Card>
+        <WalkSteps codes={["10.1", "11.1"]} />
       </div>
     </GlossedProse>
   );

@@ -68,7 +68,20 @@
       "closing": "Commencez par le premier point.",
       "pricing": "Prix et conditions",
       "pause": "Mettre l'animation en pause",
-      "play": "Lancer l'animation"
+      "play": "Lancer l'animation",
+      "talkFirst": "Vous préférez d'abord nous parler ?"
+    },
+    "walkSteps": {
+      "eyebrow": "En pratique",
+      "topic": {
+        "title": "Où cela apparaît dans le parcours guidé",
+        "lead": "Le parcours guidé en fait des étapes que vous remplissez, avec la loi expliquée à côté de chacune. Ouvrez une étape pour voir son écran, rempli pour une entreprise fictive."
+      },
+      "national": {
+        "title": "Ce que la loi nationale change, et ce qu'elle ne change pas",
+        "lead": "La loi nationale détermine notamment où vous vous enregistrez et à qui vous notifiez les incidents. Les mesures elles-mêmes partent de la même liste minimale dans chaque État membre (art. 21 NIS 2). Le parcours guidé vous les fait suivre étape par étape :"
+      },
+      "languageNote": "Le parcours lui-même est en allemand et en anglais."
     },
     "title": "Réduisez de moitié la facture <blue>NIS2</blue> de l'Europe.",
     "eyebrow": "Open source · Gratuit · Sans lock-in",

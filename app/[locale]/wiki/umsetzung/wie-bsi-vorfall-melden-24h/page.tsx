@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { JsonLd } from "@/components/JsonLd";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
-import { pageAlternates, pageOg, type Locale } from "@/lib/seo";
-import { JsonLd } from "@/components/JsonLd";
+import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkSteps } from "@/components/wiki/WalkSteps";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -29,10 +28,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: pageAlternates(
-      "wiki/umsetzung/wie-bsi-vorfall-melden-24h",
-      locale,
-    ),
+    alternates: pageAlternates("wiki/umsetzung/wie-bsi-vorfall-melden-24h", locale),
     ...pageOg({
       slug: "wiki/umsetzung/wie-bsi-vorfall-melden-24h",
       locale,
@@ -55,8 +51,7 @@ export default async function HowToReportIncident24hPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale =
-    rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
   const t = await getTranslations("info");
 
   return (
@@ -129,9 +124,7 @@ export default async function HowToReportIncident24hPage({
         {/* Legal anchor */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("howToReportIncident24h.legalAnchor.heading")}
-            </CardTitle>
+            <CardTitle>{t("howToReportIncident24h.legalAnchor.heading")}</CardTitle>
             <CardDescription>
               {t("howToReportIncident24h.legalAnchor.description")}
             </CardDescription>
@@ -158,9 +151,7 @@ export default async function HowToReportIncident24hPage({
         {/* The 4-stage cascade (3 main elements + on-request intermediate) */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("howToReportIncident24h.elements.heading")}
-            </CardTitle>
+            <CardTitle>{t("howToReportIncident24h.elements.heading")}</CardTitle>
             <CardDescription>
               {t("howToReportIncident24h.elements.description")}
             </CardDescription>
@@ -187,9 +178,7 @@ export default async function HowToReportIncident24hPage({
         {/* Two governing principles */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("howToReportIncident24h.principles.heading")}
-            </CardTitle>
+            <CardTitle>{t("howToReportIncident24h.principles.heading")}</CardTitle>
             <CardDescription>
               {t("howToReportIncident24h.principles.description")}
             </CardDescription>
@@ -213,9 +202,7 @@ export default async function HowToReportIncident24hPage({
         {/* National operationalisation */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("howToReportIncident24h.nationalView.heading")}
-            </CardTitle>
+            <CardTitle>{t("howToReportIncident24h.nationalView.heading")}</CardTitle>
             <CardDescription>
               {t("howToReportIncident24h.nationalView.description")}
             </CardDescription>
@@ -226,14 +213,10 @@ export default async function HowToReportIncident24hPage({
                 <div key={key} className="rounded-lg border p-4">
                   <div className="flex flex-wrap items-baseline gap-2">
                     <Badge variant="outline" className="text-[10px]">
-                      {t(
-                        `howToReportIncident24h.nationalView.items.${key}.country`,
-                      )}
+                      {t(`howToReportIncident24h.nationalView.items.${key}.country`)}
                     </Badge>
                     <p className="text-sm font-semibold">
-                      {t(
-                        `howToReportIncident24h.nationalView.items.${key}.label`,
-                      )}
+                      {t(`howToReportIncident24h.nationalView.items.${key}.label`)}
                     </p>
                   </div>
                   <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
@@ -248,9 +231,7 @@ export default async function HowToReportIncident24hPage({
         {/* Pitfalls */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("howToReportIncident24h.pitfalls.heading")}
-            </CardTitle>
+            <CardTitle>{t("howToReportIncident24h.pitfalls.heading")}</CardTitle>
             <CardDescription>
               {t("howToReportIncident24h.pitfalls.description")}
             </CardDescription>
@@ -274,9 +255,7 @@ export default async function HowToReportIncident24hPage({
         {/* Practitioner view */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("howToReportIncident24h.practitioner.heading")}
-            </CardTitle>
+            <CardTitle>{t("howToReportIncident24h.practitioner.heading")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <p className="text-sm leading-relaxed text-muted-foreground">
@@ -288,65 +267,29 @@ export default async function HowToReportIncident24hPage({
           </CardContent>
         </Card>
 
-        {/* Platform recommendation */}
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              {t("howToReportIncident24h.platform.heading")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("howToReportIncident24h.platform.p1")}
-            </p>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("howToReportIncident24h.platform.p2")}
-            </p>
-          </CardContent>
-        </Card>
-
         {/* Sources */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              {t("howToReportIncident24h.sources.heading")}
-            </CardTitle>
+            <CardTitle>{t("howToReportIncident24h.sources.heading")}</CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">
-              {(
-                t.raw("howToReportIncident24h.sources.items") as string[]
-              ).map((source, i) => (
-                <li
-                  key={i}
-                  className="flex items-start gap-2 text-xs text-muted-foreground"
-                >
-                  <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
-                  {source}
-                </li>
-              ))}
+              {(t.raw("howToReportIncident24h.sources.items") as string[]).map(
+                (source) => (
+                  <li
+                    key={source}
+                    className="flex items-start gap-2 text-xs text-muted-foreground"
+                  >
+                    <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
+                    {source}
+                  </li>
+                ),
+              )}
             </ul>
           </CardContent>
         </Card>
 
-        {/* CTA */}
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              {t("howToReportIncident24h.ctaCard.heading")}
-            </CardTitle>
-            <CardDescription>
-              {t("howToReportIncident24h.ctaCard.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button asChild>
-              <Link href="/auth/signin">
-                {t("howToReportIncident24h.cta")}
-              </Link>
-            </Button>
-          </CardContent>
-        </Card>
+        <WalkSteps codes={["3.3"]} />
       </div>
     </GlossedProse>
   );

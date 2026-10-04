@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkSteps } from "@/components/wiki/WalkSteps";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
 import { Link } from "@/i18n/navigation";
@@ -244,23 +245,7 @@ export default async function SupplyChainPage({
           </CardContent>
         </Card>
 
-        {/* CTA */}
-        <Card className="text-center">
-          <CardContent className="pt-6 space-y-4">
-            <h2 className="text-xl font-semibold">{t("supplyChain.cta.heading")}</h2>
-            <p className="text-sm text-muted-foreground">
-              {t("supplyChain.cta.description")}
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Button asChild>
-                <Link href="/applicability">{t("supplyChain.cta.checkButton")}</Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href="/auth/signin">{t("supplyChain.cta.startButton")}</Link>
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+        <WalkSteps codes={["5.1", "5.2"]} />
       </div>
     </GlossedProse>
   );

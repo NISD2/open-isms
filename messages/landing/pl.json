@@ -68,7 +68,20 @@
       "closing": "Zacznij od pierwszego punktu.",
       "pricing": "Ceny i warunki",
       "pause": "Wstrzymaj animację",
-      "play": "Odtwórz animację"
+      "play": "Odtwórz animację",
+      "talkFirst": "Wolisz najpierw z nami porozmawiać?"
+    },
+    "walkSteps": {
+      "eyebrow": "W praktyce",
+      "topic": {
+        "title": "Gdzie to pojawia się w przewodniku krok po kroku",
+        "lead": "Przewodnik zamienia to w kroki do wypełnienia, a przy każdym z nich wyjaśnia przepisy. Otwórz krok, aby zobaczyć jego ekran wypełniony dla fikcyjnej firmy."
+      },
+      "national": {
+        "title": "Co zmienia prawo krajowe, a czego nie",
+        "lead": "Prawo krajowe określa między innymi, gdzie się rejestrujesz i komu zgłaszasz incydenty. Same środki wychodzą w każdym państwie członkowskim z tej samej minimalnej listy (art. 21 NIS 2). Przewodnik prowadzi przez nie krok po kroku:"
+      },
+      "languageNote": "Sam przewodnik jest po niemiecku i po angielsku."
     },
     "title": "Zmniejsz o połowę rachunek Europy za <blue>NIS2</blue>.",
     "eyebrow": "Open source · Darmowe · Kein Lock-in",
