@@ -1,9 +1,11 @@
 import { describe, expect, test } from "bun:test";
 import { FREQUENCIES, IMPACTS } from "@/lib/compliance/bsi-200-3";
 import {
+  asksHosting,
   byLevel,
   cellCount,
   fromScale,
+  hostingOf,
   inCell,
   levelGroups,
   levelOfStanding,
@@ -138,6 +140,30 @@ describe("the rows of a rating screen", () => {
       ["DATEV"],
     ]);
     expect(rows.every((r) => r.standing.kind === "open")).toBe(true);
+  });
+});
+
+describe("where a thing runs", () => {
+  test("asks it of software and servers, never of devices, rooms or lines", () => {
+    for (const type of [
+      "application",
+      "cloud_service",
+      "database",
+      "data_store",
+      "server",
+    ]) {
+      expect(asksHosting(type)).toBe(true);
+    }
+    for (const type of ["endpoint", "room", "network", "iot", "ot_ics", "physical"]) {
+      expect(asksHosting(type)).toBe(false);
+    }
+  });
+
+  test("shows the answer, else the cloud for a cloud service and nothing for the rest", () => {
+    expect(hostingOf({ type: "cloud_service", hosting: null })).toBe("cloud");
+    expect(hostingOf({ type: "cloud_service", hosting: "in_house" })).toBe("in_house");
+    expect(hostingOf({ type: "application", hosting: null })).toBeNull();
+    expect(hostingOf({ type: "server", hosting: "cloud" })).toBe("cloud");
   });
 });
 

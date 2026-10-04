@@ -24,7 +24,7 @@ import {
 } from "@/lib/compliance/bsi-200-3";
 import type { Asset, AssetProvider, Risk, Supplier } from "@/schema/types";
 import type { riskInsertSchema } from "@/schema/validators";
-import type { WalkLocale } from "./types";
+import type { Hosting, WalkLocale } from "./types";
 
 /** A risk's treatment, as the risk register's validator allows it. */
 type Treatment = z.infer<typeof riskInsertSchema>["treatment"];
@@ -49,6 +49,19 @@ const SOFTWARE: ReadonlySet<string> = new Set([
  */
 export const sliceOf = (type: string): AssetSlice | null =>
   type === "process" ? null : SOFTWARE.has(type) ? "software" : "technology";
+
+/**
+ * Whether 2.2 asks where an asset of this type runs, in house or in the cloud: software and
+ * services, and the servers they run on. A device, a room or a line runs nowhere else.
+ */
+export const asksHosting = (type: string): boolean =>
+  SOFTWARE.has(type) || type === "server";
+
+/** Where an asset runs as 2.2 shows it: the answer, else the cloud for what is a cloud service. */
+export const hostingOf = (asset: {
+  readonly type: string;
+  readonly hosting: Hosting | null;
+}): Hosting | null => asset.hosting ?? (asset.type === "cloud_service" ? "cloud" : null);
 
 /**
  * Whether people sign in to an asset of this type: software and services, and the network, which

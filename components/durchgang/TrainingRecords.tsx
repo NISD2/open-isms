@@ -23,6 +23,7 @@ import {
   type WalkLocale,
 } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
+import { CourseInvite } from "./CourseInvite";
 import type { Registers } from "./view";
 
 type Row = Registers["training_record"][number];
@@ -110,10 +111,13 @@ export function TrainingRecords({
   initial,
   locale,
   audience,
+  admin,
 }: {
   initial: Registers["training_record"];
   locale: WalkLocale;
   audience: TrainingAudience;
+  /** Whether the person walking may invite someone new to the team, and so to the course. */
+  admin: boolean;
 }) {
   const t = useTranslations("durchgang.ui.training");
   const { labels, row: rowOf, line, asksProvider } = AUDIENCE[audience];
@@ -122,11 +126,17 @@ export function TrainingRecords({
     initialData: initial,
   });
   const rows = data.filter((row) => inAudience(row, audience));
-  // Management also counts the platform's own course, read off each member's progress.
+  // Management also counts the platform's own course, read off each member's progress: who
+  // finished it, then who is on the way.
   const course = trpc.training.managementCourse.useQuery(undefined, {
     enabled: audience === "management",
   });
-  const graduates = audience === "management" ? (course.data?.graduates ?? []) : [];
+  const participants =
+    audience === "management"
+      ? [...(course.data?.participants ?? [])].sort(
+          (a, b) => Number(b.status === "finished") - Number(a.status === "finished"),
+        )
+      : [];
   const courseTitle = course.data?.title[locale] ?? course.data?.title.en ?? "";
   const refresh = () => utils.training.list.invalidate();
   const create = trpc.training.create.useMutation({ onSuccess: refresh });
@@ -164,26 +174,53 @@ export function TrainingRecords({
 
   return (
     <div className="overflow-hidden rounded-2xl border bg-card shadow-sm">
-      {rows.length === 0 && graduates.length === 0 ? (
+      {rows.length === 0 && participants.length === 0 ? (
         <p className="px-5 py-6 text-sm text-muted-foreground">{t(labels.empty)}</p>
       ) : (
         <ul className="divide-y">
-          {graduates.map((g) => (
-            <li key={g.userId} className="flex items-start gap-3 px-5 py-3.5">
+          {participants.map((p) => (
+            <li key={p.userId} className="flex items-start gap-3 px-5 py-3.5">
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium">{g.name}</p>
-                <p className="text-sm text-muted-foreground">
-                  {[
-                    courseTitle,
-                    g.completedAt && recordedDay(locale, new Date(g.completedAt)),
-                  ]
-                    .filter(Boolean)
-                    .join(", ")}
-                </p>
-                <p className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
-                  <GraduationCap className="size-3" />
-                  {t("onPlatform")}
-                </p>
+                <p className="text-sm font-medium">{p.name}</p>
+                {p.status === "finished" ? (
+                  <>
+                    <p className="text-sm text-muted-foreground">
+                      {[
+                        courseTitle,
+                        p.completedAt && recordedDay(locale, new Date(p.completedAt)),
+                      ]
+                        .filter(Boolean)
+                        .join(", ")}
+                    </p>
+                    <p className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
+                      <GraduationCap className="size-3" />
+                      {t("onPlatform")}
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-sm text-muted-foreground">
+                      {courseTitle}, {t("lessons", { done: p.done, total: p.total })}
+                    </p>
+                    <div
+                      className="mt-2 h-1.5 max-w-60 overflow-hidden rounded-full bg-muted"
+                      role="progressbar"
+                      aria-label={t("lessons", { done: p.done, total: p.total })}
+                      aria-valuemin={0}
+                      aria-valuemax={p.total}
+                      aria-valuenow={p.done}
+                    >
+                      <div
+                        className="h-full rounded-full bg-primary"
+                        style={{ width: `${(p.done / Math.max(p.total, 1)) * 100}%` }}
+                      />
+                    </div>
+                    <p className="mt-1.5 flex items-center gap-1.5 text-xs text-muted-foreground">
+                      <GraduationCap className="size-3" />
+                      {t("started")}
+                    </p>
+                  </>
+                )}
               </div>
             </li>
           ))}
@@ -230,6 +267,9 @@ export function TrainingRecords({
             );
           })}
         </ul>
+      )}
+      {audience === "management" && courseTitle && (
+        <CourseInvite admin={admin} locale={locale} course={courseTitle} />
       )}
       <div className="space-y-4 border-t bg-muted/30 px-5 py-5">
         <p className="text-sm font-semibold">{t("add")}</p>

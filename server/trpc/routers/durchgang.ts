@@ -45,6 +45,7 @@ import {
   type DurchgangAction,
   declinedNote,
   gapsOf,
+  HOSTINGS,
   type ItemState,
   levelOf,
   loginsNote,
@@ -851,6 +852,8 @@ export const durchgangRouter = router({
               name: z.string().trim().min(1).max(255),
               description: z.string().trim().max(2000).optional(),
               providers: z.array(z.string().trim().min(1).max(255)).max(20),
+              // Left out by a page loaded before 2.2 asked it, and then kept as stored.
+              hosting: z.enum(HOSTINGS).nullable().optional(),
             }),
           )
           .max(500),
@@ -872,6 +875,7 @@ export const durchgangRouter = router({
             catalogId: asset.catalogId,
             name: asset.name,
             description: asset.description,
+            hosting: asset.hosting,
           })
           .from(asset)
           .where(and(eq(asset.companyId, ctx.companyId), inArray(asset.id, ids)));
@@ -944,7 +948,8 @@ export const durchgangRouter = router({
             row.description === undefined ? undefined : row.description || null;
           const described =
             description !== undefined && description !== ownDescription(was);
-          if (row.name === was.name && !described) return [];
+          const hosted = row.hosting !== undefined && row.hosting !== was.hosting;
+          if (row.name === was.name && !described && !hosted) return [];
           return [
             {
               id: row.id,
@@ -952,6 +957,7 @@ export const durchgangRouter = router({
               // Read before the name or description that told it changes.
               catalogId: catalogIdOf(was),
               ...(described ? { description } : {}),
+              ...(hosted ? { hosting: row.hosting } : {}),
             },
           ];
         });

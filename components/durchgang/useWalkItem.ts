@@ -2,10 +2,17 @@ import { useRef, useState } from "react";
 import {
   BACKUP_FREQUENCIES,
   type BackupFrequency,
+  recordDay,
   type WaitReason,
 } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
-import { changedAnswers, type Draft, fullRating, initialDraft } from "./draft";
+import {
+  changedAnswers,
+  type Draft,
+  fullRating,
+  initialDraft,
+  startOnToday,
+} from "./draft";
 import { methodOf, mfaOf, useLoginRows } from "./LoginScreen";
 import type { ItemView } from "./view";
 
@@ -21,12 +28,20 @@ const isBackupFrequency = (value: string | null): value is BackupFrequency =>
  * later overwriting the earlier, and "done" must not land before the last answers do.
  */
 export function useWalkItem(item: ItemView, waiting: boolean) {
+  const [stored] = useState(() => initialDraft(item.answers, item.fields));
   const [draft, setDraft] = useState<Draft>(() =>
-    initialDraft(item.answers, item.fields),
+    startOnToday(
+      stored,
+      item.screens.flatMap(({ screen }) =>
+        screen.kind === "fields" ? (screen.today ?? []) : [],
+      ),
+      item.fields,
+      recordDay(new Date()),
+    ),
   );
   const [adoptedAt, setAdoptedAt] = useState(item.adoptedAt);
-  /** What the server holds, so an unchanged screen sends nothing. */
-  const saved = useRef(draft.values);
+  /** What the server holds, so an unchanged screen sends nothing and a date started on today is sent. */
+  const saved = useRef(stored.values);
   /** A visit resumes a waiting item once. */
   const resumed = useRef(false);
   const queue = useRef<Promise<void>>(Promise.resolve());
@@ -121,6 +136,7 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
                   id,
                   name: s.name.trim(),
                   description: s.description,
+                  hosting: s.hosting,
                   providers: s.providers.map((p) => p.trim()).filter(Boolean),
                 },
               ]

@@ -142,6 +142,13 @@ export const assetMfaMethodEnum = pgEnum("asset_mfa_method", [
   "email",
 ]);
 
+/**
+ * Where an asset runs: on the company's own machines, or in the cloud at a provider. Separate from
+ * who provides it (asset_provider), since a server in house can still be looked after by an IT
+ * provider.
+ */
+export const assetHostingEnum = pgEnum("asset_hosting", ["in_house", "cloud"]);
+
 export const assetServiceTypeEnum = pgEnum("asset_service_type", [
   "saas",
   "on_prem",
