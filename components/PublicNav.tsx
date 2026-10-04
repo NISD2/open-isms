@@ -1,9 +1,9 @@
-import { Link } from "@/i18n/navigation";
-import { getTranslations } from "next-intl/server";
 import { Shield } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { getTranslations } from "next-intl/server";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/navigation";
 import { auth } from "@/lib/auth/config";
 import { getInitials } from "@/lib/utils";
 
@@ -46,7 +46,11 @@ function GithubIcon({ className }: { className?: string }) {
  * NextIntlClientProvider, which is what lets getTranslations and the
  * localized Link work outside [locale].
  */
-export async function PublicNav({ variant = "site" }: { variant?: "site" | "docs" } = {}) {
+export async function PublicNav({
+  variant = "site",
+}: {
+  variant?: "site" | "docs";
+} = {}) {
   const t = await getTranslations("landing");
   const isDocs = variant === "docs";
   const session = isDocs ? null : await auth();
@@ -62,13 +66,30 @@ export async function PublicNav({ variant = "site" }: { variant?: "site" | "docs
           <span className="text-sm font-semibold tracking-tight">nisd2.eu</span>
         </Link>
         <div className="flex items-center gap-4">
-          <Link href={"/wiki" as never} className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:block">
+          <Link
+            href={"/wiki" as never}
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:block"
+          >
             {t("nav.wiki")}
           </Link>
-          <Link href="/pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:block">
+          <Link
+            href="/pricing"
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:block"
+          >
             {t("nav.pricing")}
           </Link>
-          <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:block">
+          {/* The security questionnaire's landing, the one page written for suppliers. From md up:
+              a fifth link wraps the others below 768px. */}
+          <Link
+            href="/sicherheitsfragebogen"
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden md:block"
+          >
+            {t("nav.suppliers")}
+          </Link>
+          <Link
+            href="/about"
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:block"
+          >
             {t("nav.about")}
           </Link>
           <div className="flex items-center gap-2">
