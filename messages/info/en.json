@@ -6897,117 +6897,84 @@
     "nis2Roadmap": {
       "meta": {
         "title": "NIS2 Roadmap for Managing Directors | NISD2.eu",
-        "description": "The prioritised roadmap for managing directors. Personal time: ~3 hours per year. One page, A4 print-ready.",
-        "ogTitle": "NIS2 Roadmap: what a managing director needs to know",
-        "ogDescription": "Personal time: ~3 hours per year. Everything else is delegable. With paragraph citations and concrete actions."
+        "description": "Seven steps to NIS 2 for management: what to do, who does it and which provision requires it. With pictures from the guided walkthrough.",
+        "ogTitle": "NIS2 Roadmap: seven steps for management",
+        "ogDescription": "What to do, who does it and which provision requires it. With article citations and pictures from the guided walkthrough."
       },
-      "heroBadge": "For managing directors",
+      "heroBadge": "For management",
       "heroTitle": "NIS2 Roadmap for managing directors",
-      "heroSubtitle": "The prioritised steps. Your personal time: ~3 hours per year: everything else is delegable.",
-      "triageHeading": "Before you read further",
-      "triageBody": "Are you actually in scope of NIS2? The 2-minute check is free, no login.",
-      "triageCta": "Check applicability",
+      "heroSubtitle": "Seven steps, in the order they come up. For each: what to do, who does it and which provision requires it, and what the same step looks like in the guided walkthrough on nisd2.eu.",
+      "personalBadge": "personal",
       "delegableBadge": "delegable",
-      "personalBadge": "personal · non-delegable",
       "lawLabel": "Legal basis",
-      "ownerLabel": "Owner",
-      "timeLabel": "Effort",
-      "deadlineLabel": "Deadline",
-      "actionLabel": "Concrete action",
-      "stepsHeading": "The roadmap",
-      "step1": {
-        "title": "Check applicability",
-        "law": "§28 BSIG",
-        "owner": "Managing director",
-        "time": "2 minutes",
-        "deadline": "now",
-        "what": "Check thresholds (employees, revenue, sector) to confirm whether your entity is classified as 'essential' or 'important'.",
-        "actionText": "2-minute check, no login",
-        "actionHref": "/applicability"
-      },
-      "step2": {
-        "title": "Register with your national NIS2 authority",
-        "law": "NIS2 Art. 3(4) · §33 BSIG (DE)",
-        "owner": "IT lead files, managing director signs",
-        "time": "~1 hour per country + national identity setup (e.g. ELSTER in DE: activation letter by post, per the BSI regularly at least five working days; an existing organisation certificate, say from tax filings, can be reused)",
-        "deadline": "National deadlines apply: DE: 06.03.2026 passed; obligation continues",
-        "what": "You register with the NIS2 authority of every EU Member State you operate in: not only Germany. 'Operate in' means physical establishment: your own company, a branch, an office, or your own employees on the ground in that country. Cross-border sales alone do not count. Example: a German GmbH with a Vienna office registers with the BSI (DE) and the NIS-Stelle (AT).",
-        "actionText": "See authorities by country",
-        "actionHref": "/nis2-registration-portals"
-      },
-      "step3": {
-        "title": "Complete the management training",
-        "law": "§38(3) BSIG",
-        "owner": "Managing director, personally",
-        "time": "~2 hours initial · annual refresh recommended",
-        "deadline": "before first audit",
-        "what": "The one obligation that cannot be delegated. Demonstrate sufficient knowledge of cybersecurity risk management.",
-        "actionText": "Start the free MD course",
-        "actionHref": "/training/nis2-ceo"
-      },
-      "step4": {
-        "title": "Asset inventory and risk register",
-        "law": "§30(2) BSIG · NIS2 Art. 21(2)(a)",
-        "owner": "IT lead produces, managing director signs (§38(1) BSIG)",
-        "time": "~1 day initial pass · maintained ongoing, signed off yearly",
-        "deadline": "Q1",
-        "what": "Complete list of the systems, applications, and data your operations depend on: and the risks against each. Both are the foundation for every other NIS2 obligation and the first thing an auditor asks to see. In the NISD2 platform, your IT lead and CISO build and maintain the inventory and risk register, and the incident reporting workflow (24h / 72h / 1 month under §32 BSIG) is wired in automatically.",
-        "actionText": "Build asset and risk register in the platform",
-        "actionHref": "/features"
-      },
-      "step5": {
-        "title": "Supplier inventory and supplier risk management",
-        "law": "§30(2)(4) BSIG · NIS2 Art. 21(2)(d)",
-        "owner": "Procurement / IT produces, managing director signs",
-        "time": "~½ day initial pass · maintained ongoing",
-        "deadline": "Q1 to Q2",
-        "what": "Inventory of your direct suppliers, linked to your asset register (which supplier runs which system). Continuous cybersecurity risk management: not a one-shot questionnaire: per-supplier security posture, incident notifications received via their supplier portal, risk scoring. The platform ships with the NIS2-anchored standard questionnaire (open source, MIT + CC BY 4.0) and maintains the inventory.",
-        "actionText": "Build supplier inventory in the platform",
-        "actionHref": "/features"
-      },
-      "step6": {
-        "title": "Implement the rest of NIS2",
-        "law": "§30(2) Nr. 1 to 10 BSIG · NIS2 Art. 21",
-        "owner": "IT lead / CISO implements, managing director signs off yearly",
-        "time": "ongoing, alongside normal IT work",
-        "deadline": "Q2 onwards",
-        "what": "The ten measure areas under NIS2 Art. 21: incident handling, business continuity (backups, recovery), training, access control, cryptography, vulnerability and patch management, network security, monitoring, supplier contracts, communications. The platform covers all ten with templates, automatic evidence capture, and a full audit trail; you sign off the annual summary.",
-        "actionText": "See platform features",
-        "actionHref": "/features"
-      },
-      "anchor": {
-        "heading": "Your personal minimum",
-        "lineSchulung": "1× training (~2 hours, one-time)",
-        "lineSign": "5× document sign-offs (~40 minutes total)",
-        "lineYearly": "Annual refresh recommended",
-        "totalLabel": "Total",
-        "total": "~3 hours per year.",
-        "footer": "Everything else is handled by your IT lead or CISO."
-      },
-      "disclaimer": "This page is structured guidance based on NIS2, BSIG, CIR 2024/2690, and ENISA TIG. It does not constitute legal advice. Your IT lead or CISO handles the operational work.",
-      "guided": {
-        "heading": "Prefer a human to guide you?",
-        "body": "You now know the steps. If you would rather not run the implementation alone, we go through it with you. A 30-minute call once a week, point by point, you stay in control. No lock-in.",
-        "cta": "See guided implementation"
+      "ownerLabel": "Who",
+      "inPlatform": "In the nisd2.eu walkthrough",
+      "steps": {
+        "check": {
+          "title": "Check whether NIS 2 applies to you",
+          "law": "Art. 2, 3 NIS2 · § 28 BSIG (DE)",
+          "owner": "Management or someone it appoints",
+          "what": "Whether your company counts as an essential or important entity depends on sector, headcount and turnover. In Germany, the BSI's own applicability check takes you through the questions. The BSI states that its result is not legally binding; where in doubt, a legal review of the individual case settles it.",
+          "action": "To the BSI's applicability check"
+        },
+        "register": {
+          "title": "Register with your authority",
+          "law": "Art. 3(4) NIS2 · § 33 BSIG (DE)",
+          "owner": "Whoever holds the company account (ELSTER)",
+          "what": "No later than three months after your company starts to count as an entity, you register it with the BSI, through the BSI portal with your company account. An existing ELSTER organisation certificate, for example from tax filings, can be reused; a new one comes with an activation letter, per the BSI regularly after at least five working days. If you have establishments in other EU countries, you register there too.",
+          "action": "Authorities in every EU country",
+          "platform": "The walkthrough explains registration in plain words, and you enter the BSI's confirmation.",
+          "alt": "A step in the walkthrough: registering with the BSI, explained in plain words"
+        },
+        "training": {
+          "title": "Train the management",
+          "law": "Art. 20(2) NIS2 · § 38(3) BSIG (DE)",
+          "owner": "Management, personally",
+          "what": "Management must take part in training regularly, so it can recognise and assess risks and risk management practices in information security. The law sets no interval; the explanatory memorandum reads regularly as training offered at least every three years. The law requires no accreditation of the provider.",
+          "action": "Free training for management"
+        },
+        "assets": {
+          "title": "List what you have and assess the risks",
+          "law": "Art. 21(2)(a), (i) NIS2 · § 30(2) no. 1, 9 BSIG (DE)",
+          "owner": "IT lead, with the business departments",
+          "what": "First the list: the software, devices, services and processes your operations depend on. Then, for each entry, what can happen and how serious it would be. How thorough you need to be depends on your company's size and risk (§ 30(1) sentence 2 BSIG); what you decide, you record (sentence 3).",
+          "action": "How to carry out the risk analysis",
+          "platform": "You tick what your company uses and rate each entry on the matrix of BSI Standard 200-3. The overview shows what needs protecting first.",
+          "alt": "A sample company's risk matrix: how many entries sit in each cell"
+        },
+        "suppliers": {
+          "title": "Bring in your suppliers",
+          "law": "Art. 21(2)(d) NIS2 · § 30(2) no. 4 BSIG (DE)",
+          "owner": "Procurement or IT lead",
+          "what": "This means all direct suppliers and service providers, not only IT. Record who works for you, how much your operations depend on whom and what you have agreed with them on security.",
+          "action": "The supply chain under NIS 2",
+          "platform": "The supplier list builds itself from your assets. Suppliers on nisd2.eu answer the uniform security questionnaire once, and you read their answers in your supplier register.",
+          "alt": "A supplier's commitments as a customer reads them in its supplier register"
+        },
+        "measures": {
+          "title": "Put the measures in place and record them",
+          "law": "Art. 21, 23 NIS2 · §§ 30, 32 BSIG (DE)",
+          "owner": "IT lead or information security officer",
+          "what": "§ 30(2) BSIG names ten areas: policies on risk analysis and information security, incident handling, business continuity, supply chain security, security in acquisition, development and maintenance, assessing effectiveness, training and awareness, cryptography, personnel security with access control and management of IT, multi-factor authentication and secured communications. You report significant incidents to the joint reporting office of the BSI and BBK: an early warning within 24 hours, a notification within 72 hours and a final report one month after the notification (§ 32(1) BSIG).",
+          "action": "All requirements at a glance",
+          "platform": "The walkthrough writes the policy and the incident plan with you, from your answers. After approval, one page says what to do in an incident and what recurs.",
+          "alt": "What stays after approval: what to do in an incident and what recurs"
+        },
+        "approve": {
+          "title": "Approve and oversee the implementation",
+          "law": "Art. 20(1) NIS2 · § 38(1) BSIG (DE)",
+          "owner": "Management, personally",
+          "what": "Management is required to implement the risk management measures and to oversee their implementation (§ 38(1) BSIG). The Directive requires it to approve the measures (Art. 20(1) NIS2).",
+          "action": "Which documents NIS 2 requires",
+          "platform": "At the end, management reads the documents and approves them in the app, signed in with its own account. Name and date then stand on every document.",
+          "alt": "The walkthrough's documents, approved by management, each with name and date"
+        }
       },
       "actions": {
         "print": "Print page",
         "share": "Share via email",
-        "shareSubject": "NIS2 Roadmap: for managing directors",
-        "shareBody": "Hi,\n\nhere is a compact NIS2 roadmap for managing directors. Personal time: about 3 hours per year, everything else is delegable.\n\n%URL%\n\nBest"
-      },
-      "transparency": {
-        "heading": "Sources and transparency",
-        "sources": "NIS2 Directive (EU) 2022/2555 · BSIG (as of 06.12.2025) · CIR 2024/2690 · ENISA Technical Implementation Guidance v1.0",
-        "openSource": "Open-source tooling (MIT + CC BY 4.0)",
-        "openSourceUrl": "https://github.com/NISD2",
-        "hosting": "Hosted in Germany · GDPR-compliant"
-      },
-      "platform": {
-        "heading": "The whole path, in the platform",
-        "body": "You do not have to work through the steps by hand. The free platform guides you through exactly this roadmap, drafts most of the evidence for you, and keeps sign-offs and deadlines in view. You review and approve. Open source, no lock-in.",
-        "cta": "Start in the platform",
-        "compact": "Ready to run it as a guided journey?"
+        "shareSubject": "NIS2 Roadmap for management",
+        "shareBody": "Hi,\n\nhere is a compact NIS2 roadmap for management: seven steps, each with what to do and the provision behind it.\n\n%URL%\n\nBest"
       }
     },
     "corrections": {
