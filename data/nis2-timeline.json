@@ -2131,6 +2131,20 @@
       "addedAt": "2026-07-06T18:30:00Z"
     },
     {
+      "id": "2026-06-30-national-transposition-lt-cybersecurity-law-xv-894",
+      "date": "2026-06-30",
+      "category": "national-transposition",
+      "tags": ["lt", "legislation", "amendment", "in-force", "enforcement"],
+      "type": "update",
+      "title": "Lithuania: amendment XV-894 on collecting cybersecurity fines enters into force",
+      "titleDe": "Litauen: Änderungsgesetz XV-894 zur Vollstreckung von Cybersicherheitsbußgeldern tritt in Kraft",
+      "summary": "Law No. XV-894, adopted by the Seimas on 12 May 2026 and published in the Register of Legal Acts on 15 May 2026, amends Article 31(13) of the Law on Cybersecurity (No. XII-1428) from 30 June 2026. A fine decision of the National Cyber Security Centre remains an enforceable title, but is now enforced under the Law on Tax Administration as well as the Code of Civil Procedure, and the previous three-year limit for submitting it for enforcement is removed. Decisions that became final by 29 June 2026 are enforced under the old rules. Fine ceilings, the authority that imposes fines and the procedure for imposing them are not amended.",
+      "summaryDe": "Das Gesetz Nr. XV-894, vom Seimas am 12. Mai 2026 verabschiedet und am 15. Mai 2026 im Register der Rechtsakte veröffentlicht, ändert ab dem 30. Juni 2026 Art. 31 Abs. 13 des Cybersicherheitsgesetzes (Nr. XII-1428). Ein Bußgeldbescheid des Nationalen Cybersicherheitszentrums bleibt ein Vollstreckungstitel, wird aber nun nach dem Steuerverwaltungsgesetz und der Zivilprozessordnung vollstreckt; die bisherige Frist von drei Jahren, innerhalb derer der Bescheid zur Vollstreckung eingereicht werden musste, entfällt. Bescheide, die bis zum 29. Juni 2026 bestandskräftig wurden, werden nach dem alten Recht vollstreckt. Bußgeldobergrenzen, die zuständige Behörde und das Verfahren zur Verhängung von Bußgeldern bleiben unverändert.",
+      "sourceId": "e-seimas",
+      "sourceUrl": "https://e-seimas.lrs.lt/portal/legalAct/lt/TAD/0506f6d04e8711f18091f24c9e0d719a",
+      "addedAt": "2026-10-05T00:00:00Z"
+    },
+    {
       "id": "2026-07-04-national-transposition-lt-cybersecurity-law-xv-1076",
       "date": "2026-07-04",
       "category": "national-transposition",
