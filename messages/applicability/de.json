@@ -95,8 +95,8 @@
       "managementTrainingValue": "Pflichtschulung Cybersicherheit nach § 38 BSIG",
       "managementTrainingInfo": "§ 38 BSIG sieht vor, dass Mitglieder der Geschäftsleitung regelmäßig persönlich an einer Cybersicherheitsschulung teilnehmen. Diese Pflicht ist nach dem Gesetzeswortlaut nicht an einen CISO oder die IT-Abteilung delegierbar.",
 
-      "cta": "Walkthrough buchen",
-      "ctaVoluntary": "Trotzdem Walkthrough buchen",
+      "cta": "Termin buchen",
+      "ctaVoluntary": "Trotzdem Termin buchen",
       "restart": "Neu starten",
       "supplyChainNote": "Auch wenn nicht direkt betroffen, können NIS2-Anforderungen über Verträge mit betroffenen Kunden gelten."
     },

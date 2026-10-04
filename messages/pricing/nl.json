@@ -50,6 +50,12 @@
         "name": "NIS 2 begeleide doorloop",
         "description": "Begeleide implementatie op nisd2.eu.",
         "priceSub": "netto per jaar, excl. btw",
+        "anchor": "De hele doorloop voor de prijs van een gap-analyse.",
+        "anchorTip": {
+          "title": "Wat een gap-analyse kost",
+          "body": "Duitse adviesbureaus publiceren voor een NIS 2 gap-analyse prijzen tussen {low} en {high}, eenmalig en meestal als vanafprijs. De analyse laat zien wat ontbreekt. De doorloop leidt u daarna stap voor stap door de implementatie.",
+          "note": "Bronnen: de websites van {sources}, stand per {checked}."
+        },
         "moneyBack": "30 dagen geld terug",
         "moneyBackTip": {
           "title": "30 dagen geld terug",

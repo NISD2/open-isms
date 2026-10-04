@@ -93,8 +93,8 @@
       "managementTrainingValue": "Mandatory cybersecurity training every 3 years",
       "managementTrainingInfo": "All members of the management body must personally participate in cybersecurity training at least every 3 years. This duty cannot be delegated to a CISO or IT department. Failure to comply contributes to personal liability under Section 38 BSIG.",
 
-      "cta": "Book a walkthrough",
-      "ctaVoluntary": "Book a walkthrough anyway",
+      "cta": "Plan een gesprek",
+      "ctaVoluntary": "Toch een gesprek plannen",
       "restart": "Start over",
       "supplyChainNote": "Even if not directly in scope, you may face NIS2 requirements through contracts with in-scope customers."
     },
