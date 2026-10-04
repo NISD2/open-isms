@@ -35,7 +35,7 @@
       "serviceTypeEmpty": "This page holds the questions on software as a service and on software you ship. You have ticked neither on your profile, so there is nothing to answer here.",
       "serviceTypeEmptyLink": "Go to the profile",
       "certificationsIntro": "Upload your security attestations (ISO 27001, BSI Grundschutz, BSI C5, TISAX, SOC 2). The PDFs and their details are visible to the customers you have invited.",
-      "customersTitle": "Add your first customer",
+      "customersTitle": "Add a customer",
       "customersIntro": "Invite a customer by email. They get a private link to your security profile and need no account for it. Once they accept, you enter the systems you run for them and report incidents that affect those systems.",
       "customer": "Customer",
       "unknownCustomer": "(unknown customer)"
