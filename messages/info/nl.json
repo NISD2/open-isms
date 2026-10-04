@@ -1182,208 +1182,208 @@
     },
     "nis2InGermany": {
       "meta": {
-        "title": "NIS2 in Germany 2026: Deadlines, Fines & BSIG Guide",
-        "description": "NIS2 in Germany explained: NIS2UmsuCG status, BSI registration deadline, essential vs important entities, fines up to €10M, management liability, supervision."
+        "title": "NIS2 in Duitsland 2026: termijnen, boetes en BSIG-gids",
+        "description": "NIS2 in Duitsland uitgelegd: status van het NIS2UmsuCG, BSI-registratietermijn, essentiële versus belangrijke entiteiten, boetes tot €10 mln, bestuurdersaansprakelijkheid, toezicht."
       },
-      "title": "NIS2 in Germany",
-      "subtitle": "Germany transposed the NIS2 Directive into national law through the NIS2UmsuCG, overhauling the Federal Cybersecurity Act (BSIG). All obligations apply since 6 December 2025.",
+      "title": "NIS2 in Duitsland",
+      "subtitle": "Duitsland heeft de NIS2-richtlijn via het NIS2UmsuCG in nationaal recht omgezet. Die wet herziet de federale cyberbeveiligingswet (BSIG) grondig. Alle verplichtingen gelden sinds 6 december 2025.",
       "timeline": {
-        "heading": "German Timeline",
+        "heading": "Tijdlijn voor Duitsland",
         "items": {
           "euPublished": {
-            "date": "27 Dec 2022",
-            "event": "NIS2 Directive published in the EU Official Journal"
+            "date": "27 dec. 2022",
+            "event": "NIS2-richtlijn gepubliceerd in het Publicatieblad van de EU, L 333 (vastgesteld op 14 december 2022)"
           },
           "euForce": {
-            "date": "16 Jan 2023",
-            "event": "NIS2 enters into force at EU level"
+            "date": "16 jan. 2023",
+            "event": "NIS2 treedt op EU-niveau in werking"
           },
           "euDeadline": {
-            "date": "17 Oct 2024",
-            "event": "EU transposition deadline (Germany missed it)"
+            "date": "17 okt. 2024",
+            "event": "Uiterste omzettingsdatum in de EU (Duitsland haalde die niet)"
           },
           "bundestag": {
-            "date": "13 Nov 2025",
-            "event": "Bundestag passes NIS2UmsuCG"
+            "date": "13 nov. 2025",
+            "event": "De Bundestag neemt het NIS2UmsuCG aan"
           },
           "bundesrat": {
-            "date": "21 Nov 2025",
-            "event": "Bundesrat approves"
+            "date": "21 nov. 2025",
+            "event": "De Bundesrat stemt in"
           },
           "published": {
-            "date": "5 Dec 2025",
-            "event": "Published in Bundesgesetzblatt"
+            "date": "5 dec. 2025",
+            "event": "Gepubliceerd in het Bundesgesetzblatt"
           },
           "inForce": {
-            "date": "6 Dec 2025",
-            "event": "New BSIG enters into force - all obligations apply immediately"
+            "date": "6 dec. 2025",
+            "event": "Nieuwe BSIG treedt in werking, alle verplichtingen gelden direct"
           },
           "portal": {
-            "date": "6 Jan 2026",
-            "event": "BSI registration portal goes live"
+            "date": "6 jan. 2026",
+            "event": "Registratieportaal van het BSI gaat online"
           },
           "registration": {
-            "date": "6 Mar 2026",
-            "event": "Deadline for BSI registration"
+            "date": "6 mrt. 2026",
+            "event": "Uiterste datum voor registratie bij het BSI"
           },
           "amendmentBill": {
-            "date": "5 Oct 2026",
-            "event": "Bundestag Interior Committee hearing on the bill to strengthen cybersecurity (printed paper 21/6585), which would amend the BSIG again: KRITIS operators would feed attack detection data to the BSI"
+            "date": "5 okt. 2026",
+            "event": "Hoorzitting van de Commissie Binnenlandse Zaken van de Bundestag over het wetsvoorstel ter versterking van de cyberbeveiliging (Bundestagsdrucksache 21/6585), dat de BSIG opnieuw zou wijzigen: KRITIS-exploitanten zouden gegevens voor aanvalsdetectie aan het BSI leveren"
           },
           "kritisAudit": {
-            "date": "~2028",
-            "event": "KRITIS operators: first evidence of compliance due"
+            "date": "ca. 2028",
+            "event": "KRITIS-exploitanten: eerste bewijs van naleving moet worden ingediend"
           }
         },
-        "noTransition": "There is no transition period. Risk management measures, incident reporting, and management liability applied from the day the law entered into force.",
-        "seeFullTimeline": "See full NIS2 timeline"
+        "noTransition": "Er is geen overgangsperiode. Risicobeheersmaatregelen, incidentmelding en de aansprakelijkheid van de bedrijfsleiding gelden vanaf de dag waarop de wet in werking trad.",
+        "seeFullTimeline": "Bekijk de volledige NIS2-tijdlijn"
       },
       "categories": {
-        "heading": "Entity Categories",
-        "description": "Germany uses different terminology than the EU directive. The figure of about 29,500 affected companies is an ex ante estimate by Destatis; the federal government states that the actual number of companies in scope is not known (Bundestag printed paper 21/7573).",
+        "heading": "Entiteitscategorieën",
+        "description": "Duitsland gebruikt andere termen dan de EU-richtlijn. Het cijfer van ongeveer 29.500 betrokken ondernemingen is een schatting vooraf van Destatis. De federale regering stelt dat het werkelijke aantal ondernemingen binnen het toepassingsgebied niet bekend is (Bundestagsdrucksache 21/7573).",
         "headers": {
-          "euTerm": "EU Term",
-          "germanTerm": "German Term",
-          "abbreviation": "Abbreviation"
+          "euTerm": "EU-term",
+          "germanTerm": "Duitse term",
+          "abbreviation": "Afkorting"
         },
         "rows": {
           "essential": {
-            "eu": "Essential entity",
+            "eu": "Essentiële entiteit",
             "de": "Besonders wichtige Einrichtung",
             "abbr": "bwE"
           },
           "important": {
-            "eu": "Important entity",
+            "eu": "Belangrijke entiteit",
             "de": "Wichtige Einrichtung",
             "abbr": "wE"
           },
           "kritis": {
-            "eu": "Critical infrastructure operator",
+            "eu": "Exploitant van kritieke infrastructuur",
             "de": "Betreiber kritischer Anlagen",
             "abbr": "KRITIS"
           }
         },
-        "hierarchy": "The hierarchy: KRITIS ⊂ essential entities ⊂ all NIS2 entities. KRITIS operators are automatically classified as essential entities."
+        "hierarchy": "De hiërarchie: KRITIS ⊂ essentiële entiteiten ⊂ alle NIS2-entiteiten. KRITIS-exploitanten worden automatisch als essentiële entiteit ingedeeld."
       },
       "penalties": {
-        "heading": "Penalties",
+        "heading": "Boetes",
         "byCategory": {
-          "heading": "By Entity Category",
+          "heading": "Per entiteitscategorie",
           "headers": {
-            "category": "Category",
-            "maxFine": "Maximum Fine",
-            "turnover": "Turnover-Based Alternative"
+            "category": "Categorie",
+            "maxFine": "Maximale boete",
+            "turnover": "Alternatief op basis van omzet"
           },
           "rows": {
             "bwe": {
-              "category": "Essential entities",
-              "fine": "EUR 10,000,000",
-              "turnover": "2% of worldwide annual group turnover"
+              "category": "Essentiële entiteiten",
+              "fine": "EUR 10.000.000",
+              "turnover": "2% van de wereldwijde jaaromzet van het concern"
             },
             "we": {
-              "category": "Important entities",
-              "fine": "EUR 7,000,000",
-              "turnover": "1.4% of worldwide annual group turnover"
+              "category": "Belangrijke entiteiten",
+              "fine": "EUR 7.000.000",
+              "turnover": "1,4% van de wereldwijde jaaromzet van het concern"
             }
           }
         },
         "byViolation": {
-          "heading": "By Violation Type",
+          "heading": "Per soort overtreding",
           "headers": {
-            "violation": "Violation",
-            "maxFine": "Maximum Fine"
+            "violation": "Overtreding",
+            "maxFine": "Maximale boete"
           },
           "rows": {
             "measures": {
-              "violation": "Failure to implement cybersecurity measures (§30)",
-              "fine": "EUR 10M / EUR 7M"
+              "violation": "Cyberbeveiligingsmaatregelen niet uitgevoerd (§30)",
+              "fine": "EUR 10 mln / EUR 7 mln"
             },
             "incidents": {
-              "violation": "Failure to report incidents (§31)",
-              "fine": "EUR 10M / EUR 7M"
+              "violation": "Incidenten niet gemeld (§32)",
+              "fine": "EUR 10 mln / EUR 7 mln"
             },
             "bsiDirectives": {
-              "violation": "Non-compliance with BSI directives",
-              "fine": "EUR 10M / EUR 7M"
+              "violation": "Aanwijzingen van het BSI niet nageleefd",
+              "fine": "EUR 10 mln / EUR 7 mln"
             },
             "kritisComponents": {
-              "violation": "KRITIS: failure in critical component reporting",
-              "fine": "EUR 5,000,000"
+              "violation": "KRITIS: tekortkomingen bij het melden van kritieke componenten",
+              "fine": "EUR 5.000.000"
             },
             "kritisAudit": {
-              "violation": "KRITIS: failure in audit evidence procedures",
-              "fine": "EUR 2,000,000"
+              "violation": "KRITIS: tekortkomingen in de procedures voor auditbewijs",
+              "fine": "EUR 2.000.000"
             },
             "registration": {
-              "violation": "Registration violations, failure to notify BSI",
-              "fine": "EUR 500,000"
+              "violation": "Overtredingen bij de registratie, BSI niet geïnformeerd",
+              "fine": "EUR 500.000"
             },
             "obstruction": {
-              "violation": "Obstruction of BSI inspections",
-              "fine": "EUR 500,000"
+              "violation": "Belemmering van inspecties door het BSI",
+              "fine": "EUR 500.000"
             },
             "contact": {
-              "violation": "Contact accessibility failures",
-              "fine": "EUR 100,000"
+              "violation": "Tekortkomingen in de bereikbaarheid",
+              "fine": "EUR 100.000"
             }
           }
         }
       },
       "managementLiability": {
-        "heading": "Management Liability (Section 38 BSIG)",
-        "description": "One of the most impactful provisions of the German implementation. Management bodies are personally liable for cybersecurity compliance.",
+        "heading": "Aansprakelijkheid van de bedrijfsleiding (§ 38 BSIG)",
+        "description": "Een van de ingrijpendste bepalingen van de Duitse omzetting. De bedrijfsleiding is persoonlijk aansprakelijk voor de naleving van de cyberbeveiligingsverplichtingen.",
         "duties": {
-          "heading": "Three Core Duties",
+          "heading": "Drie kernplichten",
           "approval": {
-            "title": "Approval (Billigung)",
-            "description": "Management must formally approve cybersecurity risk management measures per Section 30 BSIG."
+            "title": "Uitvoering (Umsetzung)",
+            "description": "De bedrijfsleiding moet de maatregelen voor het beheer van cyberbeveiligingsrisico's uitvoeren die § 30 BSIG voorschrijft."
           },
           "oversight": {
-            "title": "Oversight (Überwachung)",
-            "description": "Active monitoring of implementation - not passive awareness. Management must verify that measures are actually being implemented."
+            "title": "Bewaking (Überwachung)",
+            "description": "Actieve bewaking van de uitvoering, geen passieve kennisname. De bedrijfsleiding moet nagaan of de maatregelen ook echt worden uitgevoerd."
           },
           "training": {
-            "title": "Training (Schulung)",
-            "description": "Mandatory personal participation in regular cybersecurity training; §38(3) BSIG sets no fixed interval. This duty cannot be delegated."
+            "title": "Scholing (Schulung)",
+            "description": "Verplichte persoonlijke deelname aan regelmatige trainingen in cyberbeveiliging; §38(3) BSIG schrijft geen vaste frequentie voor. Deze plicht kan niet worden gedelegeerd."
           }
         },
-        "liability": "Executives are personally liable to their own company when they culpably violate these duties. Delegation of operational tasks is permitted, but strategic responsibility and oversight remain with management. Management cannot claim lack of technical knowledge as defense.",
-        "waiver": "Section 38 BSIG explicitly prohibits contractual liability waivers by shareholders that are disproportionate to existing uncertainty regarding rights."
+        "liability": "Bestuurders zijn persoonlijk aansprakelijk tegenover hun eigen onderneming als zij deze plichten verwijtbaar schenden. Operationele taken mogen worden gedelegeerd, maar de strategische verantwoordelijkheid en het toezicht blijven bij de bedrijfsleiding. Gebrek aan technische kennis is voor de bedrijfsleiding geen geldig verweer.",
+        "waiver": "§ 38 BSIG verbiedt uitdrukkelijk dat aandeelhouders contractueel afstand doen van aansprakelijkheid als die afstand niet in verhouding staat tot de bestaande onzekerheid over de rechtslage."
       },
       "registration": {
-        "heading": "BSI Registration",
-        "description": "All entities classified as essential or important entities must register with the BSI.",
-        "deadline": "Deadline: 6 March 2026 (3 months after the BSIG entered into force). By 31 July 2026, 19,058 registrations had been made.",
-        "process": "Registration uses a two-step process: first create an account via Mein Unternehmenskonto (MUK/ELSTER), then register via the BSI portal (live since 6 January 2026).",
-        "selfId": "Registration is a self-identification obligation - no notification from BSI. Companies must determine themselves whether they are in scope. The BSI can also order a company to register if it determines the company falls within scope."
+        "heading": "Registratie bij het BSI",
+        "description": "Alle entiteiten die als essentiële of belangrijke entiteit zijn ingedeeld, moeten zich bij het BSI registreren.",
+        "deadline": "Uiterste datum: 6 maart 2026 (3 maanden nadat de BSIG in werking trad). Op 31 juli 2026 waren er 19.058 registraties ingediend.",
+        "process": "De registratie verloopt in twee stappen: eerst maakt u een account aan via Mein Unternehmenskonto (MUK/ELSTER), daarna registreert u zich via het BSI-portaal (online sinds 6 januari 2026).",
+        "selfId": "Registratie is een plicht tot zelfidentificatie: het BSI stuurt u geen bericht. Ondernemingen moeten zelf bepalen of zij binnen het toepassingsgebied vallen. Het BSI kan een onderneming ook opdragen zich te registreren als het vaststelt dat die onderneming binnen het toepassingsgebied valt."
       },
       "supervision": {
-        "heading": "Supervision Model",
+        "heading": "Toezichtsmodel",
         "headers": {
           "aspect": "Aspect",
-          "bwe": "Essential",
-          "we": "Important"
+          "bwe": "Essentieel",
+          "we": "Belangrijk"
         },
         "rows": {
           "approach": {
-            "aspect": "Supervision",
-            "bwe": "Proactive (ex-ante) - BSI can audit at any time",
-            "we": "Reactive (ex-post) - only on evidence of non-compliance"
+            "aspect": "Toezicht",
+            "bwe": "Proactief (ex ante), het BSI kan op elk moment een audit uitvoeren",
+            "we": "Reactief (ex post), alleen bij aanwijzingen voor niet-naleving"
           },
           "fines": {
-            "aspect": "Maximum fine",
-            "bwe": "EUR 10M or 2% global turnover",
-            "we": "EUR 7M or 1.4% global turnover"
+            "aspect": "Maximale boete",
+            "bwe": "EUR 10 mln of 2% van de wereldwijde omzet",
+            "we": "EUR 7 mln of 1,4% van de wereldwijde omzet"
           },
           "audit": {
-            "aspect": "Audit requirements",
-            "bwe": "Risk-based spot checks by BSI",
-            "we": "Only on justified suspicion"
+            "aspect": "Auditvereisten",
+            "bwe": "Risicogebaseerde steekproefcontroles door het BSI",
+            "we": "Alleen bij gegronde verdenking"
           },
           "kritisAudit": {
-            "aspect": "KRITIS audit cycle",
-            "bwe": "Every 3 years (if KRITIS operator)",
-            "we": "N/A"
+            "aspect": "KRITIS-auditcyclus",
+            "bwe": "Elke 3 jaar (als KRITIS-exploitant)",
+            "we": "N.v.t."
           }
         }
       }
@@ -16711,7 +16711,7 @@
         "heading": "Overview",
         "p1": "The NIS 2 directive is the EU layer. It binds every member state, including Denmark, with one cybersecurity floor for essential and important entities. Denmark must put that floor into Danish law and run a supervision regime under it.",
         "p2": "Denmark transposed late. The deadline under Article 41 was 17 October 2024. The Folketing adopted the NIS 2-loven (Lov om foranstaltninger til sikring af et højt cybersikkerhedsniveau) only on 29 April 2025. It entered into force as Act No. 434 of 6 May 2025 on 1 July 2025. The self-registration window through virk.dk ran until 1 October 2025.",
-        "p3": "Denmark uses a sectoral supervision model. Styrelsen for Samfundssikkerhed (SAMSIK), under the Ministry for Societal Security and Emergency Preparedness, coordinates and acts as supervisor for telecoms, central government, municipalities and parts of manufacturing. Energy, finance, transport, maritime, health and water each have their own sector-responsible authority. Center for Cybersikkerhed (CFCS) has been organisationally part of SAMSIK since 1 January 2025 and continues to operate the national CSIRT under Forsvarets Efterretningstjeneste."
+        "p3": "Denmark uses a sectoral supervision model. Styrelsen for Samfundssikkerhed (SAMSIK), under the Ministry for Societal Security and Emergency Preparedness, coordinates and acts as supervisor for telecoms, central government, municipalities and parts of manufacturing. Energy, finance, transport, maritime, health and water each have their own sector-responsible authority. Center for Cybersikkerhed (CFCS) has been part of SAMSIK since 29 January 2025 and runs the national CSIRT."
       },
       "legalAnchor": {
         "heading": "Where the rules live",
@@ -16774,7 +16774,7 @@
           "cfcs": {
             "country": "DK",
             "label": "CFCS",
-            "body": "Center for Cybersikkerhed. Organisationally part of SAMSIK since 1 January 2025, operationally still inside Forsvarets Efterretningstjeneste (FE, the Defence Intelligence Service). Runs the national CSIRT, is the 24/7 contact point for incident reports and the single point of contact in the EU CSIRTs network. CFCS is not the general NIS 2 supervisor; it is the technical authority for situational awareness and response."
+            "body": "Center for Cybersikkerhed. Part of SAMSIK since 29 January 2025; only the parts that handle operational defensive cyber operations and defence tasks stayed with the Ministry of Defence. Runs the national CSIRT, is the 24/7 contact point for incident reports and the single point of contact in the EU CSIRTs network. CFCS is not the general NIS 2 supervisor; it is the technical authority for situational awareness and response."
           },
           "sectoral": {
             "country": "DK",

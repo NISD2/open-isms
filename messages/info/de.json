@@ -17263,7 +17263,7 @@
         "heading": "Überblick",
         "p1": "Die NIS 2 Richtlinie ist die EU Ebene. Sie bindet jeden Mitgliedstaat, auch Dänemark, mit einem einheitlichen Mindestniveau für wesentliche und wichtige Einrichtungen. Dänemark muss dieses Niveau in dänisches Recht überführen und eine Aufsicht darunter führen.",
         "p2": "Dänemark hat die Richtlinie verspätet umgesetzt. Die Frist nach Artikel 41 war der 17. Oktober 2024. Das Folketing hat die NIS 2-loven (Lov om foranstaltninger til sikring af et højt cybersikkerhedsniveau) erst am 29. April 2025 verabschiedet. Sie ist als Lov nr. 434 vom 6. Mai 2025 am 1. Juli 2025 in Kraft getreten. Die Registrierung über virk.dk lief bis zum 1. Oktober 2025.",
-        "p3": "Dänemark arbeitet mit einem sektoralen Aufsichtsmodell. Die Styrelsen for Samfundssikkerhed (SAMSIK) im Ministeriet for Samfundssikkerhed og Beredskab koordiniert das Ganze und ist selbst zuständig für Telekom, Zentralverwaltung, Kommunen und Teile der Industrie. Energie, Finanzen, Verkehr, Schifffahrt, Gesundheit und Wasser haben jeweils eigene sektorzuständige Behörden. Das Center for Cybersikkerhed (CFCS) ist seit dem 1. Januar 2025 Teil von SAMSIK und betreibt weiterhin das nationale CSIRT unter Forsvarets Efterretningstjeneste."
+        "p3": "Dänemark arbeitet mit einem sektoralen Aufsichtsmodell. Die Styrelsen for Samfundssikkerhed (SAMSIK) im Ministeriet for Samfundssikkerhed og Beredskab koordiniert das Ganze und ist selbst zuständig für Telekom, Zentralverwaltung, Kommunen und Teile der Industrie. Energie, Finanzen, Verkehr, Schifffahrt, Gesundheit und Wasser haben jeweils eigene sektorzuständige Behörden. Das Center for Cybersikkerhed (CFCS) ist seit dem 29. Januar 2025 Teil von SAMSIK und betreibt das nationale CSIRT."
       },
       "legalAnchor": {
         "heading": "Wo die Regeln stehen",
@@ -17326,7 +17326,7 @@
           "cfcs": {
             "country": "DK",
             "label": "CFCS",
-            "body": "Center for Cybersikkerhed. Seit dem 1. Januar 2025 organisatorisch Teil von SAMSIK, operativ aber weiter unter Forsvarets Efterretningstjeneste (FE) angesiedelt. Betreibt das nationale CSIRT, ist 24/7 Kontaktstelle für Vorfallmeldungen und Single Point of Contact im EU CSIRT Netzwerk. CFCS ist nicht der allgemeine NIS 2 Aufseher, sondern die technische Stelle für Lagebild und Reaktion."
+            "body": "Center for Cybersikkerhed. Seit dem 29. Januar 2025 Teil von SAMSIK; nur die Teile für operative defensive Cyberabwehr und Aufgaben der Streitkräfte blieben beim Verteidigungsministerium. Betreibt das nationale CSIRT, ist 24/7 Kontaktstelle für Vorfallmeldungen und Single Point of Contact im EU CSIRT Netzwerk. CFCS ist nicht der allgemeine NIS 2 Aufseher, sondern die technische Stelle für Lagebild und Reaktion."
           },
           "sectoral": {
             "country": "DK",

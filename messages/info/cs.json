@@ -1336,8 +1336,8 @@
         "duties": {
           "heading": "Tři základní povinnosti",
           "approval": {
-            "title": "Schválení (Billigung)",
-            "description": "Vedení musí formálně schválit opatření řízení rizik v oblasti kybernetické bezpečnosti podle §30 BSIG."
+            "title": "Provedení (Umsetzung)",
+            "description": "Vedení musí provést opatření řízení rizik v oblasti kybernetické bezpečnosti požadovaná podle §30 BSIG."
           },
           "oversight": {
             "title": "Dohled (Überwachung)",
@@ -17012,7 +17012,7 @@
         "heading": "Přehled",
         "p1": "Směrnice NIS 2 je vrstvou EU. Zavazuje každý členský stát, včetně Dánska, jednou minimální úrovní kybernetické bezpečnosti pro klíčové a důležité subjekty. Dánsko musí tuto úroveň vložit do dánského práva a provozovat pod ní dozorový režim.",
         "p2": "Dánsko transponovalo pozdě. Lhůta podle čl. 41 byla 17. října 2024. Folketing přijal NIS 2-loven (Lov om foranstaltninger til sikring af et højt cybersikkerhedsniveau) až 29. dubna 2025. Nabyl účinnosti jako zákon č. 434 z 6. května 2025 dne 1. července 2025. Okno pro seberegistraci přes virk.dk běželo do 1. října 2025.",
-        "p3": "Dánsko používá model sektorového dohledu. Styrelsen for Samfundssikkerhed (SAMSIK), pod Ministerstvem pro společenskou bezpečnost a krizovou připravenost, koordinuje a působí jako dozorce pro telekomunikace, ústřední státní správu, obce a části zpracovatelského průmyslu. Energetika, finance, doprava, námořní oblast, zdravotnictví a voda mají každá svůj vlastní sektorově odpovědný orgán. Center for Cybersikkerhed (CFCS) je od 1. ledna 2025 organizačně součástí SAMSIK a nadále provozuje národní CSIRT pod Forsvarets Efterretningstjeneste."
+        "p3": "Dánsko používá model sektorového dohledu. Styrelsen for Samfundssikkerhed (SAMSIK), pod Ministerstvem pro společenskou bezpečnost a krizovou připravenost, koordinuje a působí jako dozorce pro telekomunikace, ústřední státní správu, obce a části zpracovatelského průmyslu. Energetika, finance, doprava, námořní oblast, zdravotnictví a voda mají každá svůj vlastní sektorově odpovědný orgán. Center for Cybersikkerhed (CFCS) je od 29. ledna 2025 součástí SAMSIK a provozuje národní CSIRT."
       },
       "legalAnchor": {
         "heading": "Kde pravidla žijí",
@@ -17075,7 +17075,7 @@
           "cfcs": {
             "country": "DK",
             "label": "CFCS",
-            "body": "Center for Cybersikkerhed. Organizačně součástí SAMSIK od 1. ledna 2025, operativně stále uvnitř Forsvarets Efterretningstjeneste (FE, obranná zpravodajská služba). Provozuje národní CSIRT, je nepřetržitým kontaktním místem pro hlášení incidentů a jednotným kontaktním místem v síti CSIRT EU. CFCS není obecným dozorcem pro NIS 2; je technickým orgánem pro situační přehled a reakci."
+            "body": "Center for Cybersikkerhed. Součástí SAMSIK od 29. ledna 2025; na ministerstvu obrany zůstaly jen části pro operativní obrannou kybernetickou činnost a úkoly pro ozbrojené síly. Provozuje národní CSIRT, je nepřetržitým kontaktním místem pro hlášení incidentů a jednotným kontaktním místem v síti CSIRT EU. CFCS není obecným dozorcem pro NIS 2; je technickým orgánem pro situační přehled a reakci."
           },
           "sectoral": {
             "country": "DK",
