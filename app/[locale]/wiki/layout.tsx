@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { PublicNav } from "@/components/PublicNav";
+import { GetStarted } from "@/components/GetStarted";
 import { PublicFooter } from "@/components/PublicFooter";
+import { PublicNav } from "@/components/PublicNav";
 import { WikiLegalDisclaimer } from "@/components/wiki/WikiLegalDisclaimer";
-import { WikiNextStep } from "@/components/wiki/WikiNextStep";
 
 export async function generateMetadata({
   params,
@@ -22,11 +22,9 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
         {/*
           Both blocks render for every wiki page from here rather than
           per page: a next step and the disclaimer are things a new
-          article must not be able to ship without. Per-page CTA cards
-          still exist on ~36 pages and are complementary — see the
-          variant table in WikiNextStep.
+          article must not be able to ship without.
         */}
-        <WikiNextStep />
+        <GetStarted className="mt-16" />
         <WikiLegalDisclaimer />
       </main>
       <PublicFooter />

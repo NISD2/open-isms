@@ -87,8 +87,8 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
                 </div>
                 {children}
                 {/*
-                  Rendered from the layout for the same reason WikiNextStep is:
-                  a new page must not be able to ship without a next step.
+                  Rendered from the layout for the same reason the wiki's closing
+                  block is: a new page must not be able to ship without a next step.
                 */}
                 <DocsHelpCta />
               </div>
