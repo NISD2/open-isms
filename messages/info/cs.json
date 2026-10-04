@@ -1227,6 +1227,10 @@
             "date": "6. března 2026",
             "event": "Lhůta pro registraci u BSI"
           },
+          "amendmentBill": {
+            "date": "5. října 2026",
+            "event": "Slyšení výboru Spolkového sněmu pro vnitro k návrhu zákona o posílení kybernetické bezpečnosti (tisk 21/6585), který by znovu změnil BSIG: provozovatelé KRITIS by předávali BSI data ze systémů detekce útoků"
+          },
           "kritisAudit": {
             "date": "~2028",
             "event": "Provozovatelé KRITIS: splatný první doklad o souladu"
@@ -1237,7 +1241,7 @@
       },
       "categories": {
         "heading": "Kategorie subjektů",
-        "description": "Německo používá jinou terminologii než směrnice EU. NIS2 se v Německu dotýká přibližně 29 500 společností.",
+        "description": "Německo používá jinou terminologii než směrnice EU. Údaj přibližně 29 500 dotčených společností je odhad ex ante spolkového statistického úřadu (Destatis); podle spolkové vlády není skutečný počet dotčených společností znám (tisk Spolkového sněmu 21/7573).",
         "headers": {
           "euTerm": "Pojem EU",
           "germanTerm": "Německý pojem",
@@ -1350,7 +1354,7 @@
       "registration": {
         "heading": "Registrace u BSI",
         "description": "Všechny subjekty zařazené mezi zásadní nebo důležité subjekty se musí zaregistrovat u BSI.",
-        "deadline": "Lhůta: 6. března 2026 (3 měsíce poté, co BSIG vstoupil v platnost).",
+        "deadline": "Lhůta: 6. března 2026 (3 měsíce poté, co BSIG vstoupil v platnost). Do 31. července 2026 bylo provedeno 19 058 registrací.",
         "process": "Registrace probíhá ve dvou krocích: nejprve si založíte účet přes Mein Unternehmenskonto (MUK/ELSTER), poté se zaregistrujete přes portál BSI (v provozu od 6. ledna 2026).",
         "selfId": "Registrace je povinností sebeidentifikace, BSI vás neoznámí. Společnosti samy musí určit, zda spadají do působnosti. BSI může také společnosti nařídit registraci, pokud zjistí, že do působnosti spadá."
       },
@@ -3816,10 +3820,10 @@
     "euImplementation": {
       "meta": {
         "title": "NIS2 napříč Evropou: sledování stavu",
-        "description": "Lhůta pro transpozici NIS2 byla říjen 2024. Do roku 2026 plně transponovalo méně než 8 z 27 států EU. Přehled podle jednotlivých zemí."
+        "description": "Lhůta pro transpozici NIS2 byla říjen 2024. V říjnu 2026 platí vnitrostátní zákon ve 24 z 27 států EU. Registrační portály a lhůty podle zemí."
       },
       "title": "Zavádění NIS2 napříč Evropou",
-      "subtitle": "Lhůta pro transpozici byla 17. října 2024. Do začátku roku 2026 ji většina členských států EU nestihla, čímž spustila řízení o nesplnění povinnosti a vytvořila roztříštěné prostředí souladu napříč Evropou.",
+      "subtitle": "Lhůta pro transpozici byla 17. října 2024 a většina členských států ji nestihla. V říjnu 2026 platí vnitrostátní zákon ve 24 z 27 států; Francie, Španělsko a Irsko jej nemají a Komise na všechny tři podala žalobu k Soudnímu dvoru EU. Každá země má vlastní orgán, registrační portál a lhůty.",
       "overview": {
         "heading": "Lhůta směrnice, kterou většina nestihla",
         "p1": "Směrnice (EU) 2022/2555 (směrnice NIS2) vyžadovala, aby všech 27 členských států EU transponovalo její ustanovení do vnitrostátního práva do 17. října 2024. Tato lhůta byla výslovná, nesmlouvavá a stanovená více než dva roky předem, když byla směrnice zveřejněna dne 27. prosince 2022. Přesto naprostá většina členských států její splnění nestihla.",
@@ -3976,7 +3980,7 @@
         "heading": "Zdroje",
         "items": [
           "Směrnice (EU) 2022/2555: směrnice NIS2, Úřední věstník Evropské unie (27. prosince 2022)",
-          "Evropská komise: přehled transpozice NIS2 a aktualizace řízení o nesplnění povinnosti (2024-2025)",
+          "Evropská komise: stav transpozice NIS2 a řízení o nesplnění povinnosti, včetně žalob k Soudnímu dvoru proti čtyřem členským státům (2024-2026)",
           "Wavestone: NIS2 Transposition Radar, stav zavádění podle jednotlivých zemí (2025)",
           "NIS2UmsuCG: Gesetz zur Umsetzung der NIS-2-Richtlinie und zur Stärkung der Cybersicherheit (Německo)",
           "Loi NIS2: belgický transpoziční zákon NIS2 (duben 2024)",

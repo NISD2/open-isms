@@ -1227,6 +1227,10 @@
             "date": "6 mar 2026",
             "event": "Termine per la registrazione presso il BSI"
           },
+          "amendmentBill": {
+            "date": "5 ott 2026",
+            "event": "Audizione della commissione Interni del Bundestag sul disegno di legge per rafforzare la cibersicurezza (documento 21/6585), che modificherebbe di nuovo il BSIG: gli operatori KRITIS trasmetterebbero al BSI i dati dei sistemi di rilevamento degli attacchi"
+          },
           "kritisAudit": {
             "date": "~2028",
             "event": "Operatori KRITIS: prima prova di conformità dovuta"
@@ -1237,7 +1241,7 @@
       },
       "categories": {
         "heading": "Categorie di soggetti",
-        "description": "La Germania utilizza una terminologia diversa da quella della direttiva UE. Circa 29.500 imprese in Germania sono interessate.",
+        "description": "La Germania utilizza una terminologia diversa da quella della direttiva UE. La cifra di circa 29.500 imprese interessate è una stima ex ante dell'ufficio federale di statistica (Destatis); secondo il governo federale il numero effettivo di imprese interessate non è noto (documento del Bundestag 21/7573).",
         "headers": {
           "euTerm": "Termine UE",
           "germanTerm": "Termine tedesco",
@@ -1350,7 +1354,7 @@
       "registration": {
         "heading": "Registrazione presso il BSI",
         "description": "Tutti i soggetti classificati come soggetti essenziali o importanti devono registrarsi presso il BSI.",
-        "deadline": "Termine: 6 marzo 2026 (3 mesi dopo l'entrata in vigore del BSIG).",
+        "deadline": "Termine: 6 marzo 2026 (3 mesi dopo l'entrata in vigore del BSIG). Entro il 31 luglio 2026 erano state effettuate 19.058 registrazioni.",
         "process": "La registrazione avviene mediante una procedura in due fasi: prima si crea un account tramite Mein Unternehmenskonto (MUK/ELSTER), poi ci si registra tramite il portale del BSI (attivo dal 6 gennaio 2026).",
         "selfId": "La registrazione è un obbligo di autoidentificazione, senza notifica da parte del BSI. Le imprese devono determinare da sé se rientrano nell'ambito di applicazione. Il BSI può anche ordinare a un'impresa di registrarsi se accerta che essa rientra nell'ambito di applicazione."
       },
@@ -3816,10 +3820,10 @@
     "euImplementation": {
       "meta": {
         "title": "NIS2 in Europa: tracker dello stato",
-        "description": "La scadenza per il recepimento di NIS2 era ottobre 2024. Entro il 2026, meno di 8 dei 27 Stati dell'UE avevano recepito integralmente. Tracker Paese per Paese."
+        "description": "La scadenza per il recepimento di NIS2 era ottobre 2024. A ottobre 2026, 24 dei 27 Stati dell'UE hanno una legge nazionale in vigore. Portali e termini per Paese."
       },
       "title": "Attuazione di NIS2 in Europa",
-      "subtitle": "La scadenza per il recepimento era il 17 ottobre 2024. All'inizio del 2026, la maggior parte degli Stati membri dell'UE non l'aveva rispettata, avviando procedure di infrazione e creando un quadro di conformità frammentato in tutta Europa.",
+      "subtitle": "La scadenza per il recepimento era il 17 ottobre 2024 e la maggior parte degli Stati membri l'ha mancata. A ottobre 2026, 24 dei 27 hanno una legge nazionale in vigore; Francia, Spagna e Irlanda no, e la Commissione le ha deferite tutte e tre alla Corte di giustizia dell'UE. Ogni Paese ha la propria autorità, il proprio portale di registrazione e i propri termini.",
       "overview": {
         "heading": "Una scadenza della direttiva mancata dalla maggioranza",
         "p1": "La direttiva (UE) 2022/2555 (la direttiva NIS2) imponeva a tutti i 27 Stati membri dell'UE di recepire le sue disposizioni nel diritto nazionale entro il 17 ottobre 2024. Questa scadenza era esplicita, non negoziabile e fissata con oltre due anni di anticipo al momento della pubblicazione della direttiva, il 27 dicembre 2022. Nonostante ciò, la stragrande maggioranza degli Stati membri non l'ha rispettata.",
@@ -3976,7 +3980,7 @@
         "heading": "Fonti",
         "items": [
           "Direttiva (UE) 2022/2555: direttiva NIS2, Gazzetta ufficiale dell'Unione europea (27 dicembre 2022)",
-          "Commissione europea: tracker di recepimento NIS2 e aggiornamenti sulle procedure di infrazione (2024-2025)",
+          "Commissione europea: stato del recepimento di NIS2 e procedure di infrazione, compreso il deferimento di quattro Stati membri alla Corte di giustizia (2024-2026)",
           "Wavestone: NIS2 Transposition Radar, stato di attuazione Paese per Paese (2025)",
           "NIS2UmsuCG: Gesetz zur Umsetzung der NIS-2-Richtlinie und zur Stärkung der Cybersicherheit (Germania)",
           "Loi NIS2: legge di recepimento NIS2 del Belgio (aprile 2024)",

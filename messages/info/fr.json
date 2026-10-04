@@ -1227,6 +1227,10 @@
             "date": "6 mars 2026",
             "event": "Date limite d'enregistrement auprès du BSI"
           },
+          "amendmentBill": {
+            "date": "5 oct. 2026",
+            "event": "Audition de la commission de l'intérieur du Bundestag sur le projet de loi visant à renforcer la cybersécurité (document 21/6585), qui modifierait à nouveau la BSIG : les exploitants KRITIS transmettraient au BSI les données de leurs systèmes de détection des attaques"
+          },
           "kritisAudit": {
             "date": "~2028",
             "event": "Exploitants KRITIS : première preuve de conformité exigée"
@@ -1237,7 +1241,7 @@
       },
       "categories": {
         "heading": "Catégories d'entités",
-        "description": "L'Allemagne utilise une terminologie différente de celle de la directive de l'UE. Environ 29 500 entreprises en Allemagne sont concernées.",
+        "description": "L'Allemagne utilise une terminologie différente de celle de la directive de l'UE. Le chiffre d'environ 29 500 entreprises concernées est une estimation ex ante de l'office fédéral de la statistique (Destatis) ; selon le gouvernement fédéral, le nombre réel d'entreprises concernées n'est pas connu (document du Bundestag 21/7573).",
         "headers": {
           "euTerm": "Terme UE",
           "germanTerm": "Terme allemand",
@@ -1350,7 +1354,7 @@
       "registration": {
         "heading": "Enregistrement auprès du BSI",
         "description": "Toutes les entités classées comme entités essentielles ou importantes doivent s'enregistrer auprès du BSI.",
-        "deadline": "Date limite : 6 mars 2026 (3 mois après l'entrée en vigueur de la BSIG).",
+        "deadline": "Date limite : 6 mars 2026 (3 mois après l'entrée en vigueur de la BSIG). Au 31 juillet 2026, 19 058 enregistrements avaient été effectués.",
         "process": "L'enregistrement suit un processus en deux étapes : créer d'abord un compte via Mein Unternehmenskonto (MUK/ELSTER), puis s'enregistrer via le portail du BSI (en service depuis le 6 janvier 2026).",
         "selfId": "L'enregistrement est une obligation d'auto-identification, sans notification de la part du BSI. Les entreprises doivent déterminer elles-mêmes si elles relèvent du champ d'application. Le BSI peut également ordonner à une entreprise de s'enregistrer s'il établit qu'elle relève du champ d'application."
       },
@@ -3816,10 +3820,10 @@
     "euImplementation": {
       "meta": {
         "title": "NIS2 à travers l'Europe : suivi de l'état d'avancement",
-        "description": "L'échéance de transposition de NIS2 était octobre 2024. En 2026, moins de 8 des 27 États de l'UE avaient pleinement transposé. Suivi pays par pays."
+        "description": "L'échéance de transposition de NIS2 était octobre 2024. En octobre 2026, 24 des 27 États de l'UE ont une loi nationale en vigueur. Portails et délais par pays."
       },
       "title": "Mise en œuvre de NIS2 à travers l'Europe",
-      "subtitle": "L'échéance de transposition était le 17 octobre 2024. Au début de 2026, la majorité des États membres de l'UE l'avaient manquée, déclenchant des procédures d'infraction et créant un paysage de conformité fragmenté à travers l'Europe.",
+      "subtitle": "L'échéance de transposition était le 17 octobre 2024 et la plupart des États membres l'ont manquée. En octobre 2026, 24 des 27 ont une loi nationale en vigueur ; la France, l'Espagne et l'Irlande non, et la Commission a saisi la Cour de justice de l'UE contre les trois. Chaque pays a sa propre autorité, son propre portail d'enregistrement et ses propres délais.",
       "overview": {
         "heading": "Une échéance de directive manquée par la plupart",
         "p1": "La directive (UE) 2022/2555 (la directive NIS2) imposait aux 27 États membres de l'UE de transposer ses dispositions en droit national au plus tard le 17 octobre 2024. Cette échéance était explicite, non négociable et fixée plus de deux ans à l'avance, lors de la publication de la directive le 27 décembre 2022. Malgré cela, la grande majorité des États membres n'ont pas réussi à la respecter.",
@@ -3976,7 +3980,7 @@
         "heading": "Sources",
         "items": [
           "Directive (UE) 2022/2555 : directive NIS2, Journal officiel de l'Union européenne (27 décembre 2022)",
-          "Commission européenne : suivi de transposition de NIS2 et mises à jour des procédures d'infraction (2024-2025)",
+          "Commission européenne : état de la transposition de NIS2 et procédures d'infraction, y compris la saisine de la Cour de justice contre quatre États membres (2024-2026)",
           "Wavestone : NIS2 Transposition Radar, état de mise en œuvre pays par pays (2025)",
           "NIS2UmsuCG : Gesetz zur Umsetzung der NIS-2-Richtlinie und zur Stärkung der Cybersicherheit (Allemagne)",
           "Loi NIS2 : loi belge de transposition de NIS2 (avril 2024)",

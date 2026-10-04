@@ -1473,6 +1473,10 @@
             "date": "6 Mar 2026",
             "event": "Deadline for BSI registration"
           },
+          "amendmentBill": {
+            "date": "5 Oct 2026",
+            "event": "Bundestag Interior Committee hearing on the bill to strengthen cybersecurity (printed paper 21/6585), which would amend the BSIG again: KRITIS operators would feed attack detection data to the BSI"
+          },
           "kritisAudit": {
             "date": "~2028",
             "event": "KRITIS operators: first evidence of compliance due"
@@ -1483,7 +1487,7 @@
       },
       "categories": {
         "heading": "Entity Categories",
-        "description": "Germany uses different terminology than the EU directive. Approximately 29,500 companies in Germany are affected.",
+        "description": "Germany uses different terminology than the EU directive. The figure of about 29,500 affected companies is an ex ante estimate by Destatis; the federal government states that the actual number of companies in scope is not known (Bundestag printed paper 21/7573).",
         "headers": {
           "euTerm": "EU Term",
           "germanTerm": "German Term",
@@ -1596,7 +1600,7 @@
       "registration": {
         "heading": "BSI Registration",
         "description": "All entities classified as essential or important entities must register with the BSI.",
-        "deadline": "Deadline: 6 March 2026 (3 months after the BSIG entered into force).",
+        "deadline": "Deadline: 6 March 2026 (3 months after the BSIG entered into force). By 31 July 2026, 19,058 registrations had been made.",
         "process": "Registration uses a two-step process: first create an account via Mein Unternehmenskonto (MUK/ELSTER), then register via the BSI portal (live since 6 January 2026).",
         "selfId": "Registration is a self-identification obligation, no notification from BSI. Companies must determine themselves whether they are in scope. The BSI can also order a company to register if it determines the company falls within scope."
       },
@@ -4062,10 +4066,10 @@
     "euImplementation": {
       "meta": {
         "title": "NIS2 Across Europe: Status Tracker",
-        "description": "NIS2 transposition deadline was October 2024. By 2026, fewer than 8 of 27 EU states had fully transposed. Country-by-country tracker."
+        "description": "NIS2 transposition deadline was October 2024. By October 2026, 24 of 27 EU states have a national law in force. Registration portals and deadlines per country."
       },
       "title": "NIS2 Implementation Across Europe",
-      "subtitle": "The transposition deadline was 17 October 2024. By early 2026, the majority of EU member states had missed it, triggering infringement proceedings and creating a fragmented compliance landscape across Europe.",
+      "subtitle": "The transposition deadline was 17 October 2024 and most Member States missed it. By October 2026, 24 of the 27 have a national act in force; France, Spain and Ireland do not, and the Commission has referred all three to the Court of Justice of the EU. Each country runs its own authority, registration portal and deadlines.",
       "overview": {
         "heading": "A Directive Deadline Missed by Most",
         "p1": "Directive (EU) 2022/2555 (the NIS2 Directive) required all 27 EU member states to transpose its provisions into national law by 17 October 2024. This deadline was explicit, non-negotiable, and established more than two years in advance when the Directive was published on 27 December 2022. Despite this, the vast majority of member states failed to meet it.",
@@ -4222,7 +4226,7 @@
         "heading": "Sources",
         "items": [
           "Directive (EU) 2022/2555: NIS2 Directive, Official Journal of the European Union (27 December 2022)",
-          "European Commission: NIS2 transposition tracker and infringement proceedings updates (2024-2025)",
+          "European Commission: NIS2 transposition status and infringement proceedings, including the referral of four Member States to the Court of Justice (2024-2026)",
           "Wavestone: NIS2 Transposition Radar, country-by-country implementation status (2025)",
           "NIS2UmsuCG: Gesetz zur Umsetzung der NIS-2-Richtlinie und zur Stärkung der Cybersicherheit (Germany)",
           "Loi NIS2: Belgian NIS2 transposition law (April 2024)",
