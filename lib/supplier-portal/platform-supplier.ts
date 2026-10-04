@@ -59,11 +59,19 @@ export async function ensurePlatformSupplier(
 
   const operator = await db.query.company.findFirst({
     where: eq(company.id, operatorId),
-    columns: { legalName: true, serviceDescription: true, actsAsSupplier: true },
+    columns: {
+      legalName: true,
+      serviceDescription: true,
+      actsAsSupplier: true,
+      primaryDomain: true,
+    },
   });
   if (!operator?.actsAsSupplier || !operator.legalName || !operator.serviceDescription)
     return;
-  const { legalName, serviceDescription } = operator;
+  const { serviceDescription } = operator;
+  // Listed under the name customers know it by, its domain (nisd2.eu, not the legal name of the
+  // company behind it); the legal name stays in its answers. The customer can rename the row.
+  const name = operator.primaryDomain ?? operator.legalName;
 
   await db.transaction(async (tx) => {
     // Locks the customer's row, so two requests at once cannot both add the operator.
@@ -85,7 +93,7 @@ export async function ensurePlatformSupplier(
     if (!invited) {
       await tx.insert(supplier).values({
         customerCompanyId,
-        name: legalName,
+        name,
         description: serviceDescription,
         status: "active",
         source: PLATFORM_SOURCE,

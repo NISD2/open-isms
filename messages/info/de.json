@@ -6894,117 +6894,84 @@
     "nis2Roadmap": {
       "meta": {
         "title": "NIS2-Roadmap für Geschäftsführer | NISD2.eu",
-        "description": "Die priorisierte Roadmap für Geschäftsführer. Persönlicher Aufwand: ~3 Stunden pro Jahr. Eine Seite, zum Drucken (A4).",
-        "ogTitle": "NIS2-Roadmap: was ein Geschäftsführer wissen muss",
-        "ogDescription": "Persönlicher Aufwand: ~3 Stunden pro Jahr. Alles andere ist delegierbar. Mit Paragrafenzitaten und konkreten Aktionen."
+        "description": "Sieben Schritte zu NIS 2 für die Geschäftsleitung: was zu tun ist, wer es tut und welche Vorschrift es verlangt. Mit Bildern aus dem Durchgang.",
+        "ogTitle": "NIS2-Roadmap: sieben Schritte für die Geschäftsleitung",
+        "ogDescription": "Was zu tun ist, wer es tut und welche Vorschrift es verlangt. Mit Paragrafen und Bildern aus dem geführten Durchgang."
       },
-      "heroBadge": "Für Geschäftsführer",
+      "heroBadge": "Für die Geschäftsleitung",
       "heroTitle": "NIS2-Roadmap für Geschäftsführer",
-      "heroSubtitle": "Die priorisierten Schritte. Ihr persönlicher Aufwand: ~3 Stunden pro Jahr: alles andere ist delegierbar.",
-      "triageHeading": "Bevor Sie weiterlesen",
-      "triageBody": "Sind Sie überhaupt von NIS2 betroffen? Der 2-Minuten-Check ist kostenlos und ohne Login.",
-      "triageCta": "Anwendbarkeit prüfen",
+      "heroSubtitle": "Sieben Schritte, in der Reihenfolge, in der sie anfallen. Zu jedem steht, was zu tun ist, wer es tut und welche Vorschrift es verlangt, und wie derselbe Schritt im geführten Durchgang von nisd2.eu aussieht.",
+      "personalBadge": "persönlich",
       "delegableBadge": "delegierbar",
-      "personalBadge": "persönlich · nicht delegierbar",
       "lawLabel": "Rechtsgrundlage",
-      "ownerLabel": "Verantwortlich",
-      "timeLabel": "Aufwand",
-      "deadlineLabel": "Frist",
-      "actionLabel": "Konkrete Aktion",
-      "stepsHeading": "Die Roadmap",
-      "step1": {
-        "title": "Anwendbarkeit prüfen",
-        "law": "§28 BSIG",
-        "owner": "Geschäftsführer",
-        "time": "2 Minuten",
-        "deadline": "sofort",
-        "what": "Schwellenwerte (Beschäftigte, Umsatz, Sektor) prüfen, um zu klären, ob Ihre Einrichtung als „wesentlich“ oder „wichtig“ gilt.",
-        "actionText": "2-Minuten-Check ohne Login",
-        "actionHref": "/applicability"
-      },
-      "step2": {
-        "title": "Bei der nationalen NIS2-Behörde registrieren",
-        "law": "NIS2 Art. 3(4) · §33 BSIG (DE)",
-        "owner": "IT-Leitung füllt aus, Geschäftsführer zeichnet",
-        "time": "~1 Stunde pro Land + nationale Identitätsverfahren (z. B. ELSTER in DE: Aktivierungsbrief per Post, laut BSI regelmäßig mindestens fünf Werktage; ein vorhandenes Organisationszertifikat, etwa aus dem Steuerbereich, lässt sich weiterverwenden)",
-        "deadline": "Nationale Fristen gelten: DE: 06.03.2026 abgelaufen, Pflicht besteht weiter",
-        "what": "Sie registrieren sich bei der NIS2-Behörde jedes EU-Mitgliedstaats, in dem Sie tätig sind: nicht nur in Deutschland. Tätig sein heißt hier: physische Niederlassung: eigene Gesellschaft, Zweigstelle, Büro oder eigene Mitarbeiter vor Ort in diesem Land. Reiner grenzüberschreitender Vertrieb zählt nicht. Beispiel: GmbH in Köln plus Standort in Wien → Registrierung beim BSI (DE) und bei der NIS-Stelle (AT).",
-        "actionText": "Behörden je Land ansehen",
-        "actionHref": "/nis2-registration-portals"
-      },
-      "step3": {
-        "title": "GF-Schulung absolvieren",
-        "law": "§38 Abs. 3 BSIG",
-        "owner": "Geschäftsführer persönlich",
-        "time": "~2 Stunden, Erstaufwand · jährliche Auffrischung empfohlen",
-        "deadline": "vor erster Aufsicht",
-        "what": "Die einzige Pflicht, die Sie als Geschäftsführer nicht delegieren können. Ausreichende Kenntnisse zu Cybersicherheits-Risikomanagement nachweisen.",
-        "actionText": "Kostenlose GF-Schulung starten",
-        "actionHref": "/training/nis2-ceo"
-      },
-      "step4": {
-        "title": "Asset-Inventar und Risikoregister",
-        "law": "§30 Abs. 2 BSIG · NIS2 Art. 21(2)(a)",
-        "owner": "IT-Leitung erstellt, Geschäftsführer zeichnet (§38 Abs. 1 BSIG)",
-        "time": "~1 Tag Erstaufnahme · laufend pflegen, jährlich freigeben",
-        "deadline": "Quartal 1",
-        "what": "Vollständige Liste der Systeme, Anwendungen und Daten, von denen Ihr Betrieb abhängt: und die zugehörigen Risiken. Beides ist die Grundlage für alle weiteren NIS2-Pflichten und der erste Punkt, den ein Auditor sehen will. In der NISD2-Plattform legen Ihre IT-Leitung und der CISO Inventar und Risiken an, halten sie aktuell und ziehen den Vorfallsmeldungsprozess (24 h / 72 h / 1 Monat nach §32 BSIG) automatisch in den Compliance-Nachweis ein.",
-        "actionText": "Asset- und Risikoregister im Portal anlegen",
-        "actionHref": "/features"
-      },
-      "step5": {
-        "title": "Lieferantenverzeichnis und Lieferantenrisiko-Management",
-        "law": "§30 Abs. 2 Nr. 4 BSIG · NIS2 Art. 21(2)(d)",
-        "owner": "Einkauf / IT erstellt, Geschäftsführer zeichnet",
-        "time": "~½ Tag Erstaufnahme · laufend pflegen",
-        "deadline": "Quartal 1 bis 2",
-        "what": "Verzeichnis der direkten Lieferanten, gekoppelt an Ihr Asset-Inventar (welcher Lieferant betreibt welches System). Kontinuierliches Cybersicherheits-Risiko-Management statt einmaliger Fragebogen: Sicherheitsstatus pro Lieferant, Vorfallsmeldungen aus deren Lieferantenportal, Risikobewertung. Die Plattform stellt den auf NIS2 verankerten Standardfragebogen bereit (Open Source, MIT + CC BY 4.0) und führt das Verzeichnis fort.",
-        "actionText": "Lieferantenverzeichnis im Portal anlegen",
-        "actionHref": "/features"
-      },
-      "step6": {
-        "title": "Restliche NIS2-Pflichten umsetzen",
-        "law": "§30 Abs. 2 Nr. 1 bis 10 BSIG · NIS2 Art. 21",
-        "owner": "IT-Leitung / CISO setzt um, Geschäftsführer zeichnet jährlich",
-        "time": "laufend, parallel zur IT-Arbeit",
-        "deadline": "Quartal 2 ff.",
-        "what": "Die zehn Maßnahmenbereiche aus Art. 21 NIS2: Vorfallsbearbeitung, Geschäftskontinuität (Backups, Wiederanlauf), Schulungen, Zugangskontrolle, Kryptografie, Schwachstellen- und Patch-Management, Netzwerksicherheit, Monitoring, Lieferantenverträge, Kommunikation. Die Plattform deckt alle zehn Bereiche mit Vorlagen, automatischen Nachweisen und einem Audit-Trail ab; Sie als Geschäftsführer zeichnen jährlich die Übersicht ab.",
-        "actionText": "Plattform-Funktionen ansehen",
-        "actionHref": "/features"
-      },
-      "anchor": {
-        "heading": "Ihr persönlicher Mindestaufwand",
-        "lineSchulung": "1× Schulung (~2 Stunden, einmalig)",
-        "lineSign": "5× Dokumente unterzeichnen (~40 Minuten gesamt)",
-        "lineYearly": "Jährliche Auffrischung empfohlen",
-        "totalLabel": "Gesamtaufwand",
-        "total": "~3 Stunden pro Jahr.",
-        "footer": "Alles andere übernimmt Ihre IT-Leitung oder Ihr CISO."
-      },
-      "disclaimer": "Diese Seite ist eine strukturierte Hilfestellung auf Basis von NIS2, BSIG, CIR 2024/2690 und ENISA TIG. Sie ersetzt keine Rechtsberatung. Die operative Umsetzung übernimmt Ihre IT-Leitung oder Ihr CISO.",
-      "guided": {
-        "heading": "Lieber mit einem Menschen?",
-        "body": "Sie kennen jetzt die Schritte. Wenn Sie die Umsetzung nicht allein durchziehen wollen, gehen wir sie mit Ihnen durch. Ein 30-Minuten-Termin pro Woche, wir nehmen uns Punkt für Punkt vor, Sie behalten alles in der Hand. Kein Lock-in.",
-        "cta": "Begleitete Umsetzung ansehen"
+      "ownerLabel": "Wer",
+      "inPlatform": "Im Durchgang von nisd2.eu",
+      "steps": {
+        "check": {
+          "title": "Prüfen, ob NIS 2 für Sie gilt",
+          "law": "Art. 2, 3 NIS2 · § 28 BSIG (DE)",
+          "owner": "Geschäftsleitung oder eine beauftragte Person",
+          "what": "Ob Ihr Unternehmen als besonders wichtige oder wichtige Einrichtung gilt, hängt von Sektor, Beschäftigtenzahl und Umsatz ab. In Deutschland führt die Betroffenheitsprüfung des BSI durch die Fragen. Ihr Ergebnis ist nach Angabe des BSI nicht rechtlich bindend; im Zweifel klärt eine rechtliche Prüfung des Einzelfalls.",
+          "action": "Zur Betroffenheitsprüfung des BSI"
+        },
+        "register": {
+          "title": "Bei Ihrer Behörde registrieren",
+          "law": "Art. 3 Abs. 4 NIS2 · § 33 BSIG (DE)",
+          "owner": "Wer das Unternehmenskonto (ELSTER) führt",
+          "what": "Spätestens drei Monate, nachdem Ihr Unternehmen als Einrichtung gilt, melden Sie es beim BSI an, über das BSI-Portal mit Ihrem Unternehmenskonto. Ein vorhandenes ELSTER-Organisationszertifikat, etwa aus der Steuer, lässt sich weiterverwenden; ein neues kommt per Aktivierungsbrief, laut BSI regelmäßig nach mindestens fünf Werktagen. Haben Sie Niederlassungen in weiteren EU-Staaten, registrieren Sie sich auch dort.",
+          "action": "Behörden in allen EU-Staaten",
+          "platform": "Der Durchgang erklärt die Registrierung in einfachen Worten, und Sie tragen die Bestätigung des BSI ein.",
+          "alt": "Ein Schritt im Durchgang: die Registrierung beim BSI, in einfachen Worten erklärt"
+        },
+        "training": {
+          "title": "Die Geschäftsleitung schulen",
+          "law": "Art. 20 Abs. 2 NIS2 · § 38 Abs. 3 BSIG (DE)",
+          "owner": "Geschäftsleitung, persönlich",
+          "what": "Die Geschäftsleitung muss regelmäßig an Schulungen teilnehmen, um Risiken und Risikomanagementpraktiken in der Informationssicherheit erkennen und bewerten zu können. Eine Frist nennt das Gesetz nicht; die Gesetzesbegründung versteht als regelmäßig Schulungen, die mindestens alle drei Jahre angeboten werden. Eine Zulassung des Anbieters verlangt das Gesetz nicht.",
+          "action": "Kostenlose Schulung für die Geschäftsleitung"
+        },
+        "assets": {
+          "title": "Erfassen, was Sie haben, und die Risiken bewerten",
+          "law": "Art. 21 Abs. 2 Buchst. a, i NIS2 · § 30 Abs. 2 Nr. 1, 9 BSIG (DE)",
+          "owner": "IT-Leitung, mit den Fachabteilungen",
+          "what": "Zuerst die Liste: Programme, Geräte, Dienste und Abläufe, von denen Ihr Betrieb abhängt. Dann für jeden Eintrag, was passieren kann und wie schwer es wiegt. Wie gründlich, richtet sich nach Größe und Risiko Ihres Unternehmens (§ 30 Abs. 1 Satz 2 BSIG); was Sie entscheiden, halten Sie fest (Satz 3).",
+          "action": "So führen Sie die Risikoanalyse durch",
+          "platform": "Sie kreuzen an, was Ihr Betrieb nutzt, und bewerten jeden Eintrag auf der Matrix des BSI-Standards 200-3. Die Übersicht zeigt, was zuerst Schutz braucht.",
+          "alt": "Die Risikomatrix eines Beispielunternehmens: wie viele Einträge in jedem Feld liegen"
+        },
+        "suppliers": {
+          "title": "Die Lieferanten einbeziehen",
+          "law": "Art. 21 Abs. 2 Buchst. d NIS2 · § 30 Abs. 2 Nr. 4 BSIG (DE)",
+          "owner": "Einkauf oder IT-Leitung",
+          "what": "Gemeint sind alle unmittelbaren Anbieter und Diensteanbieter, nicht nur die IT. Halten Sie fest, wer für Sie arbeitet, wie sehr Ihr Betrieb von wem abhängt und was Sie mit ihm zur Sicherheit vereinbart haben.",
+          "action": "Die Lieferkette nach NIS 2",
+          "platform": "Die Lieferantenliste entsteht aus Ihren Assets. Lieferanten auf nisd2.eu beantworten den einheitlichen Sicherheitsfragebogen einmal, und Sie lesen die Antworten in Ihrem Lieferantenregister.",
+          "alt": "Die Zusagen eines Lieferanten, wie ein Kunde sie in seinem Lieferantenregister liest"
+        },
+        "measures": {
+          "title": "Die Maßnahmen umsetzen und festhalten",
+          "law": "Art. 21, 23 NIS2 · §§ 30, 32 BSIG (DE)",
+          "owner": "IT-Leitung oder Informationssicherheitsbeauftragte",
+          "what": "§ 30 Abs. 2 BSIG nennt zehn Bereiche: Konzepte zur Risikoanalyse und Informationssicherheit, Bewältigung von Sicherheitsvorfällen, Aufrechterhaltung des Betriebs, Sicherheit der Lieferkette, Sicherheit bei Erwerb, Entwicklung und Wartung, Bewertung der Wirksamkeit, Schulungen und Sensibilisierung, Kryptografie, Personalsicherheit mit Zugriffskontrolle und Verwaltung der IT, Multi-Faktor-Authentifizierung und gesicherte Kommunikation. Erhebliche Sicherheitsvorfälle melden Sie an die gemeinsame Meldestelle von BSI und BBK: eine frühe Erstmeldung binnen 24 Stunden, eine Meldung binnen 72 Stunden und eine Abschlussmeldung einen Monat nach der Meldung (§ 32 Abs. 1 BSIG).",
+          "action": "Alle Anforderungen im Überblick",
+          "platform": "Der Durchgang schreibt mit Ihnen die Richtlinie und den Vorfallplan aus Ihren Antworten. Nach der Freigabe steht auf einer Seite, was bei einem Vorfall zu tun ist und was sich regelmäßig wiederholt.",
+          "alt": "Was nach der Freigabe bleibt: was bei einem Vorfall zu tun ist und was sich regelmäßig wiederholt"
+        },
+        "approve": {
+          "title": "Freigeben und die Umsetzung überwachen",
+          "law": "Art. 20 Abs. 1 NIS2 · § 38 Abs. 1 BSIG (DE)",
+          "owner": "Geschäftsleitung, persönlich",
+          "what": "Die Geschäftsleitung ist verpflichtet, die Risikomanagementmaßnahmen umzusetzen und ihre Umsetzung zu überwachen (§ 38 Abs. 1 BSIG). Die Richtlinie verlangt, dass sie die Maßnahmen billigt (Art. 20 Abs. 1 NIS2).",
+          "action": "Welche Dokumente NIS 2 verlangt",
+          "platform": "Am Ende liest die Geschäftsleitung die Dokumente und gibt sie in der App frei, angemeldet mit ihrem eigenen Zugang. Name und Datum stehen danach auf jedem Dokument.",
+          "alt": "Die Dokumente des Durchgangs, von der Geschäftsleitung freigegeben, jedes mit Namen und Datum"
+        }
       },
       "actions": {
         "print": "Seite drucken",
         "share": "Per E-Mail teilen",
-        "shareSubject": "NIS2-Roadmap: für Geschäftsführer",
-        "shareBody": "Hallo,\n\nhier ist eine kompakte NIS2-Roadmap für Geschäftsführer. Persönlicher Aufwand: ca. 3 Stunden pro Jahr, alles andere ist delegierbar.\n\n%URL%\n\nViele Grüße"
-      },
-      "transparency": {
-        "heading": "Quellen und Transparenz",
-        "sources": "NIS2-Richtlinie (EU) 2022/2555 · BSIG (Stand 06.12.2025) · CIR 2024/2690 · ENISA Technical Implementation Guidance v1.0",
-        "openSource": "Open-Source-Werkzeuge (MIT + CC BY 4.0)",
-        "openSourceUrl": "https://github.com/NISD2",
-        "hosting": "Hosting in Deutschland · DSGVO-konform"
-      },
-      "platform": {
-        "heading": "Der ganze Weg, in der Plattform",
-        "body": "Sie müssen die Schritte nicht einzeln von Hand abarbeiten. Die kostenlose Plattform führt Sie durch genau diese Roadmap, entwirft die meisten Nachweise vorab und behält Freigaben und Fristen im Blick. Sie prüfen und geben frei. Open Source, kein Lock-in.",
-        "cta": "In der Plattform starten",
-        "compact": "Bereit für den geführten Weg?"
+        "shareSubject": "NIS2-Roadmap für die Geschäftsleitung",
+        "shareBody": "Hallo,\n\nhier ist eine kompakte NIS2-Roadmap für die Geschäftsleitung: sieben Schritte, jeweils mit dem, was zu tun ist, und der Vorschrift dazu.\n\n%URL%\n\nViele Grüße"
       }
     },
     "corrections": {

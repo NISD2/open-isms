@@ -134,7 +134,6 @@ async function main() {
   try {
     await caller.supplierPortal.relationship.invite({
       customerEmail: "should-not-create@example.test",
-      source: "manual",
     });
   } catch (err) {
     if ((err as { code?: string }).code === "FORBIDDEN") inviteBlocked = true;
@@ -189,7 +188,6 @@ async function main() {
   const invited = await caller.supplierPortal.relationship.invite({
     customerEmail: TEST_CUSTOMER_EMAIL,
     customerOrgName: "Smoke Test Customer GmbH",
-    source: "manual",
   });
   console.log(`   ✓ relationship id=${invited.id}\n`);
 

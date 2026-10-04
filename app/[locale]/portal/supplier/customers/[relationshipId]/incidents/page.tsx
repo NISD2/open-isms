@@ -1,12 +1,9 @@
-import { api } from "@/lib/trpc/server";
 import { CustomerIncidentsSection } from "@/components/supplier-portal/CustomerIncidentsSection";
+import { api } from "@/lib/trpc/server";
 
 /**
- * Per-customer incident publish + history.
- *
- * Reuses SupplierIncidentsManager via the customer-specific wrapper, which
- * locks the relationship picker to THIS customer and only loads incidents
- * scoped to it.
+ * Per-customer incident publish + history (CustomerIncidentsSection), with the
+ * relationship fixed to THIS customer and only the incidents scoped to it.
  */
 export default async function CustomerIncidentsPage({
   params,

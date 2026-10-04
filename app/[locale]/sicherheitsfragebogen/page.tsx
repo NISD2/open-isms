@@ -133,7 +133,9 @@ export default async function SicherheitsfragebogenLanding({
           category: "BusinessApplication",
         })}
       />
-      <main className="relative min-h-screen overflow-x-clip px-6 pb-24 pt-20 sm:pt-24">
+      {/* pt-6 / sm:pt-10: the home page's gap under the navigation, here measured from the
+          attribution bar the layout puts beneath it. */}
+      <main className="relative min-h-screen overflow-x-clip px-6 pb-24 pt-6 sm:pt-10">
         {/* Navy dot-grid, densest behind the product, dissolving to the edges */}
         <div
           aria-hidden

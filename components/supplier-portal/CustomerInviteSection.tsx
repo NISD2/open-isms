@@ -17,13 +17,7 @@ import { SchemaForm } from "@/lib/forms/schema-form";
 import { trpc } from "@/lib/trpc/client";
 import { supplierInviteCustomerSchema } from "@/schema/validators";
 
-// The input type, because the form never sends `source` (see below).
-type InviteFormValues = z.input<typeof supplierInviteCustomerSchema>;
-
-// `source` is always "manual" for a supplier's own invite, which the schema
-// supplies as its default. Omitted rather than rendered hidden: a hidden
-// field still renders its label.
-const OMITTED_FIELDS = ["source"];
+type InviteFormValues = z.infer<typeof supplierInviteCustomerSchema>;
 
 export function CustomerInviteSection() {
   const t = useTranslations("supplierPortal.customers");
@@ -57,7 +51,6 @@ export function CustomerInviteSection() {
     <div className="rounded-lg border bg-card p-5">
       <SchemaForm
         schema={supplierInviteCustomerSchema}
-        omit={OMITTED_FIELDS}
         defaultValues={{
           customerEmail: "",
           customerOrgName: "",

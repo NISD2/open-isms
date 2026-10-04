@@ -27,11 +27,12 @@ export default async function SicherheitsfragebogenLayout({
   // Always-on brand attribution. Visible on both nisd2.eu/sicherheitsfragebogen
   // and the EMD sicherheitsfragebogen.de so visitors always see the link to
   // the parent platform. Links absolute to https://www.nisd2.eu so it crosses
-  // domains cleanly from the EMD.
+  // domains cleanly from the EMD. mt-14 puts it under the fixed navigation
+  // (h-14), which hid it before; the page's top padding counts it in.
   const t = await getTranslations("sicherheitsfragebogen");
   return (
     <>
-      <div className="border-b bg-muted/40">
+      <div className="mt-14 border-b bg-muted/40">
         <div className="mx-auto flex max-w-6xl items-center justify-end px-6 py-1.5 lg:px-0">
           <a
             href="https://www.nisd2.eu"

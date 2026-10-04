@@ -253,9 +253,9 @@ export function CustomerIncidentsSection({
 function SeverityBadge({ severity }: { severity: string }) {
   const t = useTranslations("supplierPortal.customerView.severity");
   const variants: Record<string, "default" | "secondary" | "destructive"> = {
-    info: "secondary",
-    warning: "default",
-    critical: "destructive",
+    near_miss: "secondary",
+    incident: "default",
+    significant: "destructive",
   };
   return (
     <Badge variant={variants[severity] ?? "secondary"} className="text-xs">
