@@ -269,8 +269,11 @@ const TALK_FIRST_SIZES = {
  */
 export function TalkFirst({
   size = "default",
+  className,
 }: {
   size?: keyof typeof TALK_FIRST_SIZES;
+  /** To match the button it sits beside, such as the walk home's taller order button. */
+  className?: string;
 }) {
   const t = useTranslations("pricing.tiers.talkFirst");
   const s = TALK_FIRST_SIZES[size];
@@ -279,6 +282,7 @@ export function TalkFirst({
       className={cn(
         "relative flex items-center border bg-muted/40 transition-colors hover:border-foreground/25 hover:bg-muted/70 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-ring",
         s.card,
+        className,
       )}
     >
       <div className={cn("flex shrink-0", s.faces)}>
