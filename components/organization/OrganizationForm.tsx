@@ -7,32 +7,28 @@ import type { FieldOverride } from "@/lib/forms/field-renderer";
 import { SchemaForm } from "@/lib/forms/schema-form";
 import {
   COMPANY_FORM_OMIT,
-  CORE_COMPANY_OMIT,
   type CompanyFormData,
   companyFormSchema,
-  parseCompanyFormData,
   SECTORS,
 } from "@/lib/organization/constants";
 import { trpc } from "@/lib/trpc/client";
 
-interface OrganizationFormProps {
-  mode: "create" | "edit";
-  initialData?: CompanyFormData | null;
-  isAdmin?: boolean;
-  /** Only the company itself (CORE_COMPANY_FIELDS), once the walkthrough is the portal's front. */
-  core?: boolean;
-}
-
+/**
+ * Every field of a company that is set up, while the journey is the portal's front: the sign-off
+ * snapshot and the export read them (CISO, BSI contact, locations), and this is the one place they
+ * are edited. Setting a company up is `CompanySetup`, and once the walkthrough is the front the
+ * organization page shows only `CompanyEssentials`.
+ */
 export function OrganizationForm({
-  mode,
   initialData,
-  isAdmin = true,
-  core = false,
-}: OrganizationFormProps) {
+  isAdmin,
+}: {
+  initialData: CompanyFormData;
+  isAdmin: boolean;
+}) {
   const t = useTranslations("organization");
   const router = useRouter();
 
-  const createMutation = trpc.assessment.createCompanyAndAssessment.useMutation();
   const updateMutation = trpc.assessment.updateCompany.useMutation();
 
   const fieldOverrides: Record<string, FieldOverride> = {
@@ -105,18 +101,6 @@ export function OrganizationForm({
     },
   };
 
-  async function handleCreateSubmit(data: Record<string, unknown>) {
-    const toastId = toast.loading(t("creating"));
-    try {
-      await createMutation.mutateAsync(parseCompanyFormData(data));
-      toast.dismiss(toastId);
-      router.push("/dashboard");
-    } catch {
-      toast.dismiss(toastId);
-      toast.error(t("createError"));
-    }
-  }
-
   async function handleEditSubmit(submitted: Record<string, unknown>) {
     // A field the form does not show keeps what is stored: without this, a hidden field would go
     // to the server empty and wipe its value.
@@ -149,49 +133,33 @@ export function OrganizationForm({
   }
 
   const defaults = {
-    name: initialData?.name ?? "",
-    sector: initialData?.sector ?? "",
-    entityType: initialData?.entityType ?? "important",
-    legalForm: initialData?.legalForm ?? "",
-    contactEmail: initialData?.contactEmail ?? "",
-    ...(initialData?.employeeCount ? { employeeCount: initialData.employeeCount } : {}),
-    cisoName: initialData?.cisoName ?? "",
-    cisoReportsTo: initialData?.cisoReportsTo ?? "",
-    bsiContactName: initialData?.bsiContactName ?? "",
-    bsiContactEmail: initialData?.bsiContactEmail ?? "",
-    bsiContactPhone: initialData?.bsiContactPhone ?? "",
-    bsiRegistrationId: initialData?.bsiRegistrationId ?? "",
-    annualSecurityBudget: initialData?.annualSecurityBudget ?? "",
-    primaryLocations: initialData?.primaryLocations ?? "",
+    name: initialData.name,
+    sector: initialData.sector,
+    entityType: initialData.entityType,
+    legalForm: initialData.legalForm ?? "",
+    contactEmail: initialData.contactEmail ?? "",
+    ...(initialData.employeeCount ? { employeeCount: initialData.employeeCount } : {}),
+    cisoName: initialData.cisoName ?? "",
+    cisoReportsTo: initialData.cisoReportsTo ?? "",
+    bsiContactName: initialData.bsiContactName ?? "",
+    bsiContactEmail: initialData.bsiContactEmail ?? "",
+    bsiContactPhone: initialData.bsiContactPhone ?? "",
+    bsiRegistrationId: initialData.bsiRegistrationId ?? "",
+    annualSecurityBudget: initialData.annualSecurityBudget ?? "",
+    primaryLocations: initialData.primaryLocations ?? "",
   };
-
-  if (mode === "edit") {
-    return (
-      <SchemaForm
-        schema={companyFormSchema}
-        onSubmit={handleEditSubmit}
-        omit={core ? [...CORE_COMPANY_OMIT] : [...COMPANY_FORM_OMIT]}
-        fieldOverrides={fieldOverrides}
-        defaultValues={defaults}
-        columns={2}
-        submitLabel={t("save")}
-        isSubmitting={updateMutation.isPending}
-        disabled={!isAdmin}
-      />
-    );
-  }
 
   return (
     <SchemaForm
       schema={companyFormSchema}
-      onSubmit={handleCreateSubmit}
+      onSubmit={handleEditSubmit}
       omit={[...COMPANY_FORM_OMIT]}
       fieldOverrides={fieldOverrides}
       defaultValues={defaults}
       columns={2}
-      submitLabel={t("submit")}
-      isSubmitting={createMutation.isPending}
-      llmPrefill
+      submitLabel={t("save")}
+      isSubmitting={updateMutation.isPending}
+      disabled={!isAdmin}
     />
   );
 }

@@ -140,13 +140,9 @@ export async function PortalShell({
         mayExport={mayExport(session)}
         walkthroughLive={live}
         portalOpen={!mustOrder}
-        // Only someone who can walk is pointed back to the walkthrough: for a grandfathered account
-        // it is locked, and the journey is what it has.
-        journeyNotice={
-          live &&
-          session.hints.journeyNotice &&
-          mayWalkDurchgang(session.accessLevel, platformAdmin)
-        }
+        // Only someone who can walk is pointed back to the walkthrough, and every time (Simon,
+        // 04.10.2026): for a grandfathered account it is locked, and the journey is what it has.
+        journeyNotice={live && mayWalkDurchgang(session.accessLevel, platformAdmin)}
       />
       <SidebarInset>
         <PortalHeader

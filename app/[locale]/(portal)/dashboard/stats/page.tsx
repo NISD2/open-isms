@@ -1,7 +1,7 @@
-import { api } from "@/lib/trpc/server";
-import { getSession } from "@/lib/auth";
 import { DashboardPage } from "@/components/dashboard/DashboardPage";
-import { OnboardingBanner } from "@/components/dashboard/OnboardingBanner";
+import { CompanySetup } from "@/components/organization/CompanySetup";
+import { getSession } from "@/lib/auth";
+import { api } from "@/lib/trpc/server";
 
 export const dynamic = "force-dynamic";
 
@@ -12,14 +12,12 @@ export default async function DashboardStatsRoute() {
   // Expert stats need a real (activated) company. A draft shell has only seeded
   // 0% data, so steer it to activation rather than an empty statistics surface.
   if (!session?.companyActivated) {
-    return <OnboardingBanner />;
+    return <CompanySetup />;
   }
 
   const [summary, complianceProgress] = await Promise.all([
     api.dashboard.summary(),
     api.dashboard.complianceProgress(),
   ]);
-  return (
-    <DashboardPage summary={summary} complianceProgress={complianceProgress} />
-  );
+  return <DashboardPage summary={summary} complianceProgress={complianceProgress} />;
 }

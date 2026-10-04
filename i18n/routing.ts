@@ -262,6 +262,10 @@ export const routing = defineRouting({
       de: "/durchgang/nis2/freigabe",
       en: "/walkthrough/nis2/approval",
     },
+    "/durchgang/nis2/unternehmen": {
+      de: "/durchgang/nis2/unternehmen",
+      en: "/walkthrough/nis2/company",
+    },
     "/exercises": "/exercises",
     "/export": "/export",
     "/export/gesamt": { de: "/export/gesamt", en: "/export/complete" },

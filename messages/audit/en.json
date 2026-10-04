@@ -50,6 +50,11 @@
       "notification": {
         "scheduled": "Deadline reminders scheduled"
       },
+      "billing": {
+        "quote": "Order price calculated",
+        "place": "Ordered",
+        "cancel": "Cancelled"
+      },
       "dev": {
         "resetImplementation": "Implementation reset (test)"
       }

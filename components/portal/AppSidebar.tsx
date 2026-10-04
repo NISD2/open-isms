@@ -55,7 +55,6 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
-import { trpc } from "@/lib/trpc/client";
 import { PortalSwitcher } from "./PortalSwitcher";
 import { UserNav } from "./UserNav";
 
@@ -110,12 +109,12 @@ interface AppSidebarProps {
    */
   walkthroughLive: boolean;
   /**
-   * Whether the account has the Compliance Portal (paid or grandfathered). Without it the journey,
-   * the registers, the team and the audit log are not shown, since each would only lead to the
-   * offer.
+   * Whether the account has the Compliance Portal (paid or grandfathered). Without it the journey
+   * and the team are not shown, since each would only lead to the offer; the registers and the
+   * audit log are, with example rows (`EXAMPLE_PORTAL_PATHS`).
    */
   portalOpen: boolean;
-  /** Whether opening the journey still asks once whether to stay in the walkthrough. */
+  /** Whether opening the journey asks first whether to stay in the walkthrough, every time. */
   journeyNotice: boolean;
 }
 
@@ -155,9 +154,9 @@ function SoonButton({ item }: { item: NavItem & { soon: string } }) {
 }
 
 /**
- * The journey, once the walkthrough is the portal's front. The first click asks once whether to
- * stay in the walkthrough, the simpler way through, and records the answer either way, so it never
- * asks again (Simon, 03.10.2026). Closing the question without an answer asks again next time.
+ * The journey, once the walkthrough is the portal's front. For someone who can walk, every click
+ * asks first whether to stay in the walkthrough, the simpler way through (Simon, 04.10.2026: "If
+ * I click on the sidebar, the journey view, this modal should show up").
  */
 function JourneyItem({
   item,
@@ -171,13 +170,9 @@ function JourneyItem({
   const t = useTranslations("portal.journeyNotice");
   const router = useRouter();
   const [asking, setAsking] = useState(false);
-  const [pending, setPending] = useState(notice);
   const stay = useRef<HTMLButtonElement>(null);
-  const dismiss = trpc.user.dismissHint.useMutation();
   const answer = (go: boolean) => {
     setAsking(false);
-    setPending(false);
-    dismiss.mutate({ hint: "journeyNotice" });
     if (go) router.push("/journey");
   };
   return (
@@ -187,7 +182,7 @@ function JourneyItem({
           href="/journey"
           prefetch={false}
           onClick={(e) => {
-            if (!pending) return;
+            if (!notice) return;
             e.preventDefault();
             setAsking(true);
           }}
@@ -288,13 +283,14 @@ export function AppSidebar({
     { href: "/management-reviews", label: t("managementReviews"), icon: ClipboardCheck },
   ];
 
-  // Admin surfaces the journey never covers (org master data, roster, audit log). The roster and
-  // the audit log sit behind the paywall, so an account without the portal is not shown them.
+  // Admin surfaces the journey never covers (org master data, roster, audit log). The roster sits
+  // behind the paywall, so an account without the portal is not shown it; the audit log always
+  // shows, with example entries until there is something of its own (Simon, 04.10.2026).
   const managementItems: NavItem[] = [
     ...(portalOpen ? [{ href: "/team", label: t("team"), icon: Users }] : []),
     { href: "/organization", label: t("organization"), icon: Building2 },
     ...(showBilling ? [{ href: "/billing", label: t("billing"), icon: Receipt }] : []),
-    ...(reviewAccess && portalOpen
+    ...(reviewAccess
       ? [{ href: "/audit", label: t("auditTrail"), icon: ScrollText }]
       : []),
   ];
@@ -336,25 +332,23 @@ export function AppSidebar({
                   pathname={pathname}
                 />
                 {/* Registers — collapsible sub-section within Overview */}
-                {portalOpen && (
-                  <Collapsible data-tour="sidebar-registers" className="group/registers">
-                    <CollapsibleTrigger className="flex w-full items-center px-2 py-1.5 text-xs font-medium text-sidebar-foreground/70 hover:text-sidebar-foreground">
-                      {t("registers")}
-                      <ChevronRight className="ml-auto size-3.5 transition-transform group-data-[state=open]/registers:rotate-90" />
-                    </CollapsibleTrigger>
-                    <CollapsibleContent>
-                      <NavMenu items={registerItems} pathname={pathname} />
-                    </CollapsibleContent>
-                  </Collapsible>
-                )}
+                <Collapsible data-tour="sidebar-registers" className="group/registers">
+                  <CollapsibleTrigger className="flex w-full items-center px-2 py-1.5 text-xs font-medium text-sidebar-foreground/70 hover:text-sidebar-foreground">
+                    {t("registers")}
+                    <ChevronRight className="ml-auto size-3.5 transition-transform group-data-[state=open]/registers:rotate-90" />
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <NavMenu items={registerItems} pathname={pathname} />
+                  </CollapsibleContent>
+                </Collapsible>
               </>
             )}
           </SidebarGroupContent>
         </SidebarGroup>
 
         {/* Every register the walk writes into stands open, so a finished walk can be changed
-            where it was recorded (Simon, 03.10.2026). */}
-        {walkthroughLive && portalOpen && (
+            where it was recorded (Simon, 03.10.2026); without the portal, with example rows. */}
+        {walkthroughLive && (
           <SidebarGroup data-tour="sidebar-registers">
             <SidebarGroupLabel>{t("registers")}</SidebarGroupLabel>
             <SidebarGroupContent>

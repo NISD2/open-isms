@@ -1,5 +1,10 @@
+import { entityTypeEnum } from "@nisd2/grc-data-model/enums";
 import type { ZodObject, ZodRawShape } from "zod";
 import { companyInsertSchema } from "@/schema/validators";
+
+/** How § 28 BSIG can class a company, as the database stores it. */
+export const ENTITY_TYPES = entityTypeEnum.enumValues;
+export type EntityType = (typeof ENTITY_TYPES)[number];
 
 // Bridge drizzle-zod BuildSchema (Zod v3 internals) → Zod v4 ZodObject
 export const companyFormSchema = companyInsertSchema as unknown as ZodObject<
@@ -143,26 +148,6 @@ export const PROFILE_FIELDS = [
 
 /** Onboarding omits base fields + profile fields (filled in later via /organization) */
 export const ONBOARDING_OMIT = [...COMPANY_FORM_OMIT, ...PROFILE_FIELDS] as const;
-
-/**
- * Once the walkthrough is the portal's front, the organization page keeps only the company itself
- * (Simon, 03.10.2026): who it is, what it does, how big, how to reach it. The walk and the
- * registers hold the rest.
- */
-export const CORE_COMPANY_FIELDS = [
-  "name",
-  "legalForm",
-  "sector",
-  "entityType",
-  "employeeCount",
-  "contactEmail",
-  "primaryLocations",
-] as const;
-
-/** Every company field the organization form leaves out when it shows only the core. */
-export const CORE_COMPANY_OMIT: readonly string[] = Object.keys(
-  companyFormSchema.shape,
-).filter((key) => !(CORE_COMPANY_FIELDS as readonly string[]).includes(key));
 
 export interface CompanyFormData {
   name: string;

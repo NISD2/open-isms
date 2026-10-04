@@ -1,11 +1,16 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getLocale } from "next-intl/server";
-import { OnboardingBanner } from "@/components/dashboard/OnboardingBanner";
+import { CompanySetup } from "@/components/organization/CompanySetup";
 import { PortalShell } from "@/components/portal/PortalShell";
 import { redirect as localeRedirect } from "@/i18n/navigation";
 import { getSession } from "@/lib/auth";
-import { mayOpenPortalPath, OFFER_PATH, ORDER_PATHS } from "@/lib/billing/access";
+import {
+  EXAMPLE_PORTAL_PATHS,
+  mayOpenPortalPath,
+  OFFER_PATH,
+  ORDER_PATHS,
+} from "@/lib/billing/access";
 import { WALK_HOME_PATHS, walkthroughLive } from "@/lib/walkthrough";
 
 export default async function PortalLayout({ children }: { children: React.ReactNode }) {
@@ -29,17 +34,19 @@ export default async function PortalLayout({ children }: { children: React.React
   }
 
   // Routes a not-yet-activated user (no company, or a draft shell
-  // auto-provisioned at verification) may reach without the activation banner.
+  // auto-provisioned at verification) may reach without setting the company up.
   // /journey is here: it is the draft's home surface, rendering the seeded path
-  // with a "set up your organization" first step. Every other real-work route
-  // steers the draft to activation. /team is intentionally absent — a draft must
-  // not manage a team before activating. Gating on companyActivated (not merely
-  // companyId) is what makes a draft see the banner here instead of an empty,
-  // 403-on-write shell. /billing and the order page are here because ordering
-  // only needs the draft: someone may order before setting up their
-  // organization, and must still see their invoices and be able to cancel.
+  // with a "set up your organization" first step. The walk is here too: its home
+  // shows a draft the walk (locked until paid), and its first step sets the
+  // company up (Simon, 04.10.2026). Every other real-work route asks the draft
+  // to set the company up in its place. /team is intentionally absent — a draft
+  // must not manage a team before activating. Gating on companyActivated (not
+  // merely companyId) is what keeps a draft from an empty, 403-on-write shell.
+  // /billing and the order page are here because ordering only needs the draft:
+  // someone may order before setting up their organization, and must still see
+  // their invoices and be able to cancel. A free account sees the registers as
+  // examples, which need no company.
   const ALLOWED_WITHOUT_COMPANY = [
-    "/dashboard",
     "/journey",
     "/organization",
     "/audit",
@@ -48,15 +55,15 @@ export default async function PortalLayout({ children }: { children: React.React
     "/gap-assessment",
     "/billing",
     ...ORDER_PATHS,
+    ...WALK_HOME_PATHS,
+    ...(mustOrder ? EXAMPLE_PORTAL_PATHS : []),
   ];
   const needsCompany = !ALLOWED_WITHOUT_COMPANY.some(
     (p) => pathname === p || pathname.startsWith(`${p}/`),
   );
-  const showOnboarding = !session.companyActivated && needsCompany;
+  const showSetup = !session.companyActivated && needsCompany;
 
   return (
-    <PortalShell session={session}>
-      {showOnboarding ? <OnboardingBanner /> : children}
-    </PortalShell>
+    <PortalShell session={session}>{showSetup ? <CompanySetup /> : children}</PortalShell>
   );
 }

@@ -4,6 +4,7 @@ import "./transitions.css";
 import {
   ArrowRight,
   BadgeCheck,
+  Building2,
   Check,
   ChevronRight,
   Clock,
@@ -33,6 +34,14 @@ const FLASH_MS = 2400;
 
 const stepId = (code: string) => `dg-step-${code}`;
 
+/** The walk's first step while the company is not set up yet: setting it up. */
+const SETUP_STEP = "unternehmen";
+
+const hrefOf = (code: string) =>
+  code === SETUP_STEP
+    ? ("/durchgang/nis2/unternehmen" as const)
+    : ({ pathname: "/durchgang/nis2/[code]", params: { code } } as const);
+
 /**
  * The Durchgang's front door: what the walk is on the left, pinned while the path scrolls, with
  * one way on (the next open item, else the first one waiting); "Ihr Weg" on the right, step by
@@ -42,14 +51,22 @@ const stepId = (code: string) => `dg-step-${code}`;
  * `lock` (`walkLockFor`): an account that has not paid sees the same page locked, with "Jetzt
  * bestellen" in place of the way in, and steps that show but do not open. An account that keeps
  * its journey free (grandfathered) is offered it beside the order, as the quieter way, or as the
- * one way on while ordering is not open yet.
+ * one way on while ordering is not open yet. `price` is what that account would pay, shown under
+ * the order.
+ *
+ * `setup`: a company not set up yet (the draft every account gets at sign-up) walks one step more
+ * first, setting itself up (Simon, 04.10.2026).
  */
 export function DurchgangHome({
   walk,
   lock,
+  price,
+  setup,
 }: {
   walk: readonly WalkEntry[];
   lock: WalkLock | null;
+  price: string | null;
+  setup: boolean;
 }) {
   const t = useTranslations("durchgang");
   const locked = lock !== null;
@@ -57,8 +74,21 @@ export function DurchgangHome({
     title: string;
     text: string;
   }>;
-  const untouched = walk.every((w) => w.state.kind === "open");
-  const next = resumeAt(walk, (w) => w.state);
+  const steps: readonly WalkEntry[] = setup
+    ? [
+        {
+          code: SETUP_STEP,
+          section: t("ui.home.setupSection"),
+          headline: t("ui.home.setupHeadline"),
+          teaser: "",
+          image: null,
+          state: { kind: "open" },
+        },
+        ...walk,
+      ]
+    : walk;
+  const untouched = steps.every((w) => w.state.kind === "open");
+  const next = resumeAt(steps, (w) => w.state);
   const [flash, setFlash] = useState<string | null>(null);
 
   /** A small sign-off tick leads to the step where management signs, and lights it briefly. */
@@ -149,6 +179,11 @@ export function DurchgangHome({
                 {t("ui.home.toJourney")}
               </Link>
             )}
+            {price && (
+              <p className="w-full text-sm text-muted-foreground">
+                {t("ui.home.price", { price })}
+              </p>
+            )}
           </div>
         ) : next ? (
           <Button
@@ -156,12 +191,7 @@ export function DurchgangHome({
             size="lg"
             className="mt-10 h-12 self-start rounded-xl px-7 text-base"
           >
-            <Link
-              href={{
-                pathname: "/durchgang/nis2/[code]",
-                params: { code: next.code },
-              }}
-            >
+            <Link href={hrefOf(next.code)}>
               {untouched ? t("ui.intro.start") : t("ui.home.continue")}
               <ArrowRight />
             </Link>
@@ -179,17 +209,18 @@ export function DurchgangHome({
           {t("ui.home.yourWay")}
         </h2>
         <ol className="mt-4 space-y-2">
-          {walk.map((entry, index) => {
+          {steps.map((entry, index) => {
             const settled = entry.state.kind !== "open" && entry.state.kind !== "waiting";
             const signedOff = entry.state.kind === "signed";
-            // A step that does not apply is never put to management, so it has no sign-off to show.
-            const awaitsSignOff = !signedOff && entry.state.kind !== "not_applicable";
+            // A step that does not apply is never put to management, so it has no sign-off to
+            // show; neither has setting the company up.
+            const awaitsSignOff =
+              !signedOff &&
+              entry.state.kind !== "not_applicable" &&
+              entry.code !== SETUP_STEP;
             const waiting = entry.state.kind === "waiting";
             const isNext = next?.code === entry.code;
-            const href = {
-              pathname: "/durchgang/nis2/[code]",
-              params: { code: entry.code },
-            } as const;
+            const href = hrefOf(entry.code);
             const circle = cn(
               "flex size-7 items-center justify-center rounded-full border-2 border-muted-foreground/25",
               settled && "border-primary bg-primary text-primary-foreground",
@@ -204,7 +235,7 @@ export function DurchgangHome({
             ) : null;
             return (
               <li key={entry.code} className="relative">
-                {index < walk.length - 1 && (
+                {index < steps.length - 1 && (
                   // Joins this card to the next across the 8px gap, under the status circle's
                   // centre (1px border, 20px padding, half the 28px circle).
                   <span
@@ -269,10 +300,17 @@ export function DurchgangHome({
                     )}
                   </span>
                   <div className="flex h-12 w-14 shrink-0 items-end justify-center sm:h-14 sm:w-16">
-                    <Art
-                      src={entry.image}
-                      className={cn("h-full", settled && "opacity-40")}
-                    />
+                    {entry.code === SETUP_STEP ? (
+                      <Building2
+                        aria-hidden
+                        className="size-9 self-center text-primary/70"
+                      />
+                    ) : (
+                      <Art
+                        src={entry.image}
+                        className={cn("h-full", settled && "opacity-40")}
+                      />
+                    )}
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="text-xs text-muted-foreground">{entry.section}</p>

@@ -1,8 +1,8 @@
 /**
  * L2 the walkthrough as the portal's front, for each kind of account (Simon, 03.10.2026): the
  * portal's home opens the walk; an account that has not paid sees it locked. A free account orders
- * from the offer ("Jetzt bestellen") and reaches no register; a grandfathered one is offered its
- * journey; a paid one walks.
+ * from the offer ("Jetzt bestellen") and sees the registers with example rows; a grandfathered one
+ * is offered its journey; a paid one walks.
  *
  * Pricing launched and the walkthrough switched on for the file, the tenant's level and the e2e
  * person's grandfathering set per test, and everything put back afterwards. The suite runs one
@@ -88,7 +88,7 @@ test.describe("the walkthrough as the portal's front", () => {
     await expect(order).toHaveAttribute("href", /\/billing\/offer$/);
     await expect(page.getByRole("link", { name: /^Weiter im Weg/ })).toHaveCount(0);
     await expect(sidebar(page).getByRole("link", { name: "Weg" })).toHaveCount(0);
-    await expect(sidebar(page).getByRole("link", { name: "Assets" })).toHaveCount(0);
+    await expect(sidebar(page).getByRole("link", { name: "Assets" })).toBeVisible();
 
     await order.click();
     await expect(page).toHaveURL(/\/billing\/offer$/);
@@ -96,8 +96,11 @@ test.describe("the walkthrough as the portal's front", () => {
       "Wie möchten Sie weitermachen?",
     );
 
+    // The registers open with example rows, never the company's own.
     await page.goto("/de/assets");
-    await expect(page).toHaveURL(/\/billing\/offer$/);
+    await expect(page).toHaveURL(/\/assets$/);
+    await expect(page.getByText("Beispiel", { exact: true })).toBeVisible();
+    await expect(page.getByRole("cell", { name: "proALPHA ERP" })).toBeVisible();
     // A company's own records always leave with it.
     await page.goto("/de/export");
     await expect(page).toHaveURL(/\/export$/);

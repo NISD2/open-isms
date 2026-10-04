@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import {
+  EXAMPLE_PORTAL_PATHS,
   effectiveAccessLevel,
   hasGotIn,
   isGrandfatheredPerson,
@@ -124,13 +125,20 @@ describe("mayOpenPortalPath", () => {
     }
   });
 
-  test("a free account does not reach the journey or the registers", () => {
+  test("a free account opens the registers and the activity log, which show examples", () => {
+    for (const p of EXAMPLE_PORTAL_PATHS) {
+      expect(mayOpenPortalPath("free", p)).toBe(true);
+    }
+  });
+
+  test("a free account does not reach the journey, the team or the requirements", () => {
     for (const p of [
       "/journey",
       "/dashboard",
-      "/assets",
+      "/team",
       "/compliance/x",
       "/billingx",
+      "/assetsx",
       "/orders",
     ]) {
       expect(mayOpenPortalPath("free", p)).toBe(false);
