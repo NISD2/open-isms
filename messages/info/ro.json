@@ -6399,8 +6399,8 @@
         "description": "O autoevaluare structurată ca schemă Zod tipizată. Fiecare întrebare este ancorată la o sursă juridică specifică (Directiva NIS2, BSIG, CIR 2024/2690, BSI IT-Grundschutz). Include logica de punctare de referință și un exemplu de stocare Drizzle pentru răspunsuri."
       },
       "supplierQuestionnaire": {
-        "title": "Chestionar pentru furnizori NIS2: 56 de câmpuri, 6 secțiuni",
-        "description": "Întrebările pe care o entitate reglementată de NIS2 trebuie să le adreseze furnizorilor săi. Ancorate la NIS2 art. 21(2), CIR 2024/2690, ENISA TIG, BSI IT-Grundschutz și GDPR art. 28. Cu un mecanism visibleWhen care condiționează secțiunile opționale în funcție de tipul serviciului."
+        "title": "Chestionar pentru furnizori NIS2, cu corespondență ISO 27001",
+        "description": "Întrebările pe care o firmă reglementată de NIS2 le adresează furnizorilor săi, de la firma de software la firma de curățenie. Fiecare întrebare își indică sursa la nivelul UE (CIR 2024/2690, ENISA TIG, RGPD, Cyber Resilience Act), majoritatea și controalele din anexa A a ISO/IEC 27001:2022 cărora le servesc. Prin visibleWhen, fiecare furnizor vede doar întrebările care se potrivesc cu ceea ce accesează la clienții săi: date, sisteme, spații sau software."
       },
       "grcDataModel": {
         "title": "Model de date GRC: RoPA, DPA, TOMs, mapări NIS2 ↔ GDPR",
@@ -7212,8 +7212,8 @@
       },
       "questionnaireCta": {
         "heading": "Chestionar deschis pentru furnizori",
-        "description": "Cele 59 de intrebari ancorate in dreptul UE pe care trebuie sa le acopere orice evaluare a unui furnizor NIS 2. Gratuit, MIT + CC BY 4.0.",
-        "button": "Deschideti chestionarul"
+        "description": "{count, plural, one {# întrebare} few {# întrebări} other {# de întrebări}} pentru furnizori, fiecare cu sursa sa la nivelul UE. Un furnizor vede doar întrebările care se potrivesc cu ceea ce accesează la clienții săi. Gratuit, MIT + CC BY 4.0.",
+        "button": "Deschideți chestionarul"
       }
     },
     "multiCountryReg": {
@@ -7309,14 +7309,15 @@
     "supplierQuestionnaire": {
       "meta": {
         "title": "Chestionar deschis pentru furnizori NIS 2",
-        "description": "Un chestionar deschis pentru furnizori NIS 2, ancorat în dreptul UE. 59 de câmpuri în 6 secțiuni, fiecare legat de art. 21(2), CIR 2024/2690 sau ENISA TIG. MIT + CC BY 4.0, gratuit de utilizat și de adaptat."
+        "description": "Un chestionar deschis pentru furnizori NIS 2: {total, plural, one {# întrebare} few {# întrebări} other {# de întrebări}} în {sections} secțiuni, fiecare cu sursa sa la nivelul UE și, unde se potrivește, cu controalele ISO/IEC 27001. MIT + CC BY 4.0, gratuit de utilizat și de adaptat."
       },
       "badge": "Standard deschis",
       "title": "Chestionar pentru furnizori NIS 2",
       "subtitle": "Întrebările pe care o entitate reglementată NIS 2 trebuie să le adreseze furnizorilor săi. Ancorate o singură dată în dreptul UE. Gratuit de utilizat.",
       "intro": {
-        "p1": "Aproape fiecare echipă de achiziții din segmentul mediu european își redactează în prezent propriul chestionar pentru furnizori NIS 2. Aceleași aproximativ cincizeci de întrebări ancorate în dreptul UE, în forme ușor diferite, trimise unor furnizori care ajung să completeze cinci versiuni ale aceluiași lucru. Acest chestionar este baza comună.",
-        "p2": "Fiecare câmp este ancorat într-o sursă primară de nivel UE: NIS 2 art. 21(2), CIR 2024/2690, Ghidul tehnic de implementare al ENISA, GDPR art. 28 sau Cyber Resilience Act. Suprapunerile sectoriale precum TISAX, VDA ISA, BSI C5 sau cataloagele de audit KRITIS se așază peste această bază, nu în locul ei."
+        "p1": "Aproape fiecare echipă de achiziții din segmentul mediu european își redactează în prezent propriul chestionar pentru furnizori NIS 2. Aceleași întrebări ancorate în dreptul UE, în forme ușor diferite, trimise unor furnizori care ajung să completeze cinci versiuni ale aceluiași lucru. Acest chestionar este baza comună.",
+        "p2": "Fiecare întrebare își indică sursa la nivelul UE: Regulamentul de punere în aplicare (UE) 2024/2690, Technical Implementation Guidance a ENISA, RGPD sau Cyber Resilience Act. {withIso} din {total, plural, one {# întrebare} few {# întrebări} other {# de întrebări}} indică și controalele din anexa A a ISO/IEC 27001:2022 cărora le servesc, după corespondența stabilită de ENISA. Suprapunerile sectoriale precum TISAX, VDA ISA, BSI C5 sau cataloagele de audit KRITIS se așază peste această bază, nu în locul ei.",
+        "p3": "Fiecare furnizor răspunde la {always, plural, one {# întrebare} few {# întrebări} other {# de întrebări}}. Ce alte întrebări vede depinde de ceea ce accesează la clienții săi: datele, sistemele, spațiile lor, software-ul pe care îl operează sau îl livrează ori IT-ul pe care îl administrează pentru ei. Fiecare întrebare condiționată indică răspunsul de care depinde."
       },
       "downloads": {
         "heading": "Descărcare",
@@ -7337,17 +7338,19 @@
       "sections": {
         "profile": "Profilul furnizorului",
         "security_practices": "Practici de securitate",
-        "saas_technical": "Specific SaaS",
-        "on_prem_technical": "Specific on-premise",
-        "pro_services": "Servicii profesionale",
-        "managed_services": "Servicii gestionate"
+        "saas_technical": "Software ca serviciu (SaaS)",
+        "on_prem_technical": "Software la client (on-premise)"
       },
       "field": {
         "type": "Tipul câmpului",
         "legalBasis": "Temei juridic",
         "required": "Obligatoriu",
         "optional": "Opțional",
-        "conditional": "Condiționat"
+        "conditional": "Condiționat",
+        "onlyIf": "Doar dacă",
+        "yes": "Da",
+        "no": "Nu",
+        "or": "sau"
       },
       "useNote": {
         "heading": "Cum se folosește",

@@ -51,6 +51,8 @@ import { getTableColumns, is, type Table } from "drizzle-orm";
 import { PgNumeric } from "drizzle-orm/pg-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
+import { QUESTIONNAIRE_COLUMNS } from "@/lib/forms/supplier-portal-sections";
+import { normalizeDomain } from "@/lib/supplier-portal/domain";
 
 // --- Module imports ---
 import { bsiIncidentReport, bsiRegistration } from "./modules/bsig";
@@ -158,12 +160,16 @@ export const companyInsertSchema = createInsertSchema(company, {
     .nullish(),
   employeeCount: z.number().int().positive().nullish(),
   // Universal company facts (surfaced by both entity and supplier portals).
-  primaryDomain: z
-    .string()
-    .min(3)
-    .max(255)
-    .regex(/^[a-z0-9.-]+\.[a-z]{2,}$/, "valid domain")
-    .nullish(),
+  // Stored as the bare host name: a pasted address is reduced to it before it is checked.
+  primaryDomain: z.preprocess(
+    (value) => (typeof value === "string" ? (normalizeDomain(value) ?? value) : value),
+    z
+      .string()
+      .min(3)
+      .max(255)
+      .regex(/^[a-z0-9.-]+\.[a-z]{2,}$/, "valid domain")
+      .nullish(),
+  ),
   tagline: z.string().max(255).nullish(),
   incidentContactEmail: z.string().email().max(255).nullish(),
   legalName: z.string().min(1).max(255).nullish(),
@@ -194,90 +200,14 @@ export const companyUpdateSchema = companyInsertSchema.partial().omit(omitMeta);
 // ----------------------------------------------------------------------------
 
 /**
- * Layer 1 — Universal company practices.
- *
- * Truth about the supplier company itself: identity, contacts, ISMS, ISO27001,
- * baseline NIS2 Art 21(2) practices. Same answer for every customer; lives on
- * the `company` row.
- *
- * Drives the "Profile" + "Security practices" pages of the supplier portal AND
- * the company-identity portion of the customer view at /supplier-access/{token}.
+ * Layer 1 — the supplier questionnaire answers on the `company` row, the same for
+ * every customer: the questions the portal places (lib/forms/supplier-portal-sections.ts),
+ * which a test keeps equal to @nisd2/nis2-supply-chain-questionnaire-schema. Drives the
+ * supplier portal's questionnaire pages and the customer's answer sheet.
  */
-export const securityProfileUpdateSchema = companyInsertSchema.partial().pick({
-  // Profile metadata
-  primaryDomain: true,
-  tagline: true,
-  description: true,
-  // Customer-facing incident contact (default — per-customer SLA on supplier row)
-  incidentContactEmail: true,
-  incidentContactPhone: true,
-  // Identity (ENISA TIG §5.2 supplier register)
-  legalName: true,
-  registeredAddress: true,
-  country: true,
-  securityContactName: true,
-  // CIR §5.1.4 universal facts about how the company runs
-  hasIsms: true,
-  hasIso27001OrEquivalent: true,
-  staffSecurityTraining: true,
-  backgroundChecks: true,
-  vulnerabilityHandling: true,
-  // NIS2 Art 21(2) / CIR §5.1 universal baseline practices
-  securityPolicyReviewedAnnually: true,
-  hasIncidentResponsePlan: true,
-  hasBusinessContinuityPlan: true,
-  hasCryptographyPolicy: true,
-  hasPrivilegedAccessMgmt: true,
-  mfaEnforcedInternal: true,
-  hasAssetInventory: true,
-  hasPenetrationTestingProgram: true,
-  // ENISA TIG §5 — universal company-wide declarations
-  cooperateWithAuthorities: true,
-  pastBreachesDisclosed: true,
-  // ENISA TIG §5.1.2 — supplier's own NIS2-regulated status (reuses the
-  // existing bsiRegistrationId column from the entity-side profile)
-  bsiRegistrationId: true,
-  // ENISA TIG §5.2(b) / §5.1.4 TIPS — profile extensions
-  serviceDescription: true,
-  dataProcessingLocations: true,
-  incidentSlaHours: true,
-  isSaas: true,
-  isOnPrem: true,
-  isProfessionalServices: true,
-  isManagedService: true,
-  usesAiSystems: true,
-  // CIR §5.1.4 / GDPR Art. 28 / ENISA TIG §5.1.4 TIPS — security practice extensions
-  acceptRightToAudit: true,
-  hasSubprocessors: true,
-  subprocessorList: true,
-  dataReturnOnTermination: true,
-  dpaAvailable: true,
-  incidentAssistanceCommitment: true,
-  notifyMaterialChanges: true,
-  notifyOnLocationChange: true,
-  hasExitPlan: true,
-  providesSbomForAi: true,
-  aiSbomUrl: true,
-  // SaaS technical (rendered when isSaas)
-  saasHostingRegion: true,
-  saasEncryptionAtRest: true,
-  saasEncryptionInTransit: true,
-  saasMfaEnforced: true,
-  saasRtoHours: true,
-  // On-prem technical (rendered when isOnPrem)
-  onPremSbomProvided: true,
-  onPremSignedReleases: true,
-  onPremVulnerabilityDisclosurePolicy: true,
-  onPremPatchSlaCriticalHours: true,
-  // Professional services (rendered when isProfessionalServices)
-  proServicesBackgroundCheckScope: true,
-  proServicesNdaInPlace: true,
-  proServicesCustomerPremisesPolicy: true,
-  // Managed services (rendered when isManagedService)
-  managedPrivilegedAccessMgmt: true,
-  managedSessionRecording: true,
-  managedOnCall24x7: true,
-});
+export const securityProfileUpdateSchema = companyInsertSchema
+  .partial()
+  .pick(QUESTIONNAIRE_COLUMNS);
 
 export const userInsertSchema = createInsertSchema(user, {
   email: z.string().email().max(255),
@@ -532,6 +462,9 @@ export const supplierSelectSchema = createSelectSchema(supplier);
  * from their side — a customer able to set them can undo a revocation the
  * supplier performed.
  *
+ * `source` says where a row came from, and `platform` marks the row that opens
+ * the instance operator's answers (lib/supplier-portal/register-row.ts).
+ *
  * None of these are fields a form posts; they were reachable only because the
  * omit list named individual columns and stopped at the obvious ones.
  * omitTenantMeta does not apply here: the supplier row is bilateral and has no
@@ -543,6 +476,7 @@ export const supplierUpdateSchema = supplierInsertSchema.partial().omit({
   supplierCompanyId: true,
   unsubscribeToken: true,
   status: true,
+  source: true,
   confirmedAt: true,
   unsubscribedAt: true,
 });
@@ -567,15 +501,15 @@ const supplierOwnedClauseColumns = {
 } as const;
 
 /**
- * Who the customer on a relationship is, and how the relationship began. Both
- * sides rely on these once linked: the supplier sees them as its customer,
- * incident broadcasts and the access link are mailed to customerEmail, and
- * (supplierCompanyId, customerEmail) is the portal share's unique key.
+ * Who the customer on a relationship is. Both sides rely on these once linked:
+ * the supplier sees them as its customer, incident broadcasts and the access
+ * link are mailed to customerEmail, and (supplierCompanyId, customerEmail) is
+ * the portal share's unique key. How the relationship began (`source`) is
+ * never the customer's to write, on any row (supplierUpdateSchema).
  */
 const relationshipIdentityColumns = {
   customerEmail: true,
   customerOrgName: true,
-  source: true,
 } as const;
 
 /**
@@ -603,6 +537,7 @@ export const supplierFacingRelationshipSchema = supplierSelectSchema.pick({
   ...supplierOwnedClauseColumns,
   ...relationshipIdentityColumns,
   id: true,
+  source: true,
   status: true,
   createdAt: true,
   confirmedAt: true,

@@ -12,7 +12,7 @@
         "eyebrow": "Portál pro dodavatele od nisd2.eu",
         "headline": "Vyplňte <u>jeden</u> bezpečnostní dotazník.",
         "headlineAccent": "Sdílejte ho s <u>každým</u> zákazníkem.",
-        "subhead": "Jeden kanonický dotazník pro dodavatele se strukturou podle ENISA NIS 2 Technical Implementation Guidance v1.0. Každá otázka odkazuje na CIR 2024/2690, BSIG §30 nebo BSI IT-Grundschutz. Zdarma. Otevřený zdrojový kód. Vaše data zůstávají přenositelná.",
+        "subhead": "Jeden kanonický dotazník pro dodavatele se strukturou podle ENISA NIS 2 Technical Implementation Guidance v1.0. Každá otázka uvádí svůj zdroj na úrovni EU a zákazníci, kteří řídí dodavatele podle ISO 27001, najdou odpovídající opatření hned vedle. Zdarma. Otevřený zdrojový kód. Vaše data zůstávají přenositelná.",
         "anchorBadge": "Struktura podle ENISA NIS 2 TIG v1.0 §5",
         "ctaPrimary": "Vytvořit profil dodavatele",
         "ctaSecondary": "Co dotazník obsahuje?"
@@ -27,7 +27,7 @@
           },
           {
             "title": "Vyplňte dotazník",
-            "body": "Tři podstránky v portálu: profil a popis služby, univerzální kybernetická bezpečnostní opatření podle NIS 2 čl. 21 odst. 2, technické sekce podle typu služby. 59 otázek, vlastním tempem, koncept se ukládá automaticky."
+            "body": "Tři stránky v portálu: kdo jste a k čemu máte přístup u zákazníků, k čemu se zavazujete a jak řídíte bezpečnost, k tomu otázky k softwaru, pokud ho nabízíte nebo dodáváte. Každý dodavatel odpovídá na {always, plural, one {# otázku} few {# otázky} many {# otázky} other {# otázek}}, na ostatní jen tehdy, když se ho týkají. Vlastním tempem, koncept se ukládá automaticky."
           },
           {
             "title": "Pozvěte zákazníky",
@@ -37,52 +37,41 @@
       },
       "sections": {
         "heading": "Co dotazník obsahuje.",
-        "lead": "Deset sekcí, každá odkazuje na příslušný odstavec ENISA TIG, CIR 2024/2690 nebo BSI IT-Grundschutz.",
-        "items": [
-          "Identita (CIR §5.2 / ENISA TIG §5.2 registr dodavatelů)",
-          "Kontakt pro incidenty (směrem k zákazníkovi)",
-          "Typ služby",
-          "Povinné smluvní doložky (CIR / ENISA TIG §5.1.4)",
-          "Kybernetická bezpečnostní opatření (NIS 2 čl. 21 odst. 2 / ENISA TIG §5.1.2)",
-          "Doplňkové smluvní doložky (ENISA TIG §5.1.4 TIPS)",
-          "SaaS, technické",
-          "Software on-prem, technické",
-          "Profesionální služby, podrobnosti",
-          "Spravované služby, podrobnosti"
-        ],
+        "lead": "Otázky v pořadí, v jakém na ně v portálu odpovídáte. Každá uvádí ustanovení prováděcího nařízení (EU) 2024/2690, Technical Implementation Guidance agentury ENISA, GDPR nebo Cyber Resilience Act, o které se opírá.",
         "footnote": "Celé schéma je veřejné na GitHubu a lze ho exportovat jako JSON."
       },
       "serviceTypes": {
-        "heading": "Čtyři technické sekce podle typu služby.",
-        "lead": "Stránka Typ služby v portálu zobrazí čtyři další sekce. Vyplňte jen ty, které odpovídají tomu, co nabízíte.",
+        "heading": "Na co se vás ptáme, záleží na tom, k čemu máte u zákazníků přístup.",
+        "lead": "Každý dodavatel odpovídá na {always, plural, one {# otázku} few {# otázky} many {# otázky} other {# otázek}}. V profilu uvedete, zda uchováváte data svých zákazníků, přistupujete k jejich systémům nebo vstupujete do jejich prostor, a zda nabízíte software jako službu, dodáváte software nebo provozujete IT pro zákazníky. Z toho vyplývá zbytek. Dodavatel, který má přístup k datům, systémům nebo prostorám, odpovídá také na otázky k mlčenlivosti, způsobilosti pracovníků s přístupem a vrácení na konci smlouvy.",
         "items": [
           {
-            "title": "SaaS",
-            "fields": "Region hostingu, šifrování v klidu a při přenosu, MFA pro administrátorské účty, cílová doba obnovy."
+            "title": "Data vašich zákazníků",
+            "fields": "Kde se data zpracovávají, smlouva o zpracování osobních údajů, šifrování při uložení a při přenosu. K tomu vaše řízení bezpečnosti: ISMS, certifikát, nakládání se zranitelnostmi, plány pro incidenty a výpadky, druhý faktor pro vaše vlastní administrátorské účty."
           },
           {
-            "title": "Software on-prem",
-            "fields": "Software Bill of Materials (SBOM), kryptograficky podepsané verze, zveřejněná politika oznamování zranitelností, SLA pro záplaty kritických CVE."
+            "title": "Systémy vašich zákazníků",
+            "fields": "Osobní účty s druhým faktorem pro každý přístup, i při vzdálené správě, a záznam přístupů s administrátorskými právy. K tomu stejné řízení bezpečnosti jako u dat zákazníků."
           },
           {
-            "title": "Profesionální služby",
-            "fields": "Rozsah prověrek pracovníků, NDA se všemi konzultanty, dokumentovaná politika chování v prostorách zákazníka."
+            "title": "Prostory vašich zákazníků",
+            "fields": "Jak vedete přehled o klíčích, průkazech a kódech a jaká písemná pravidla chování dodržují vaši pracovníci na místě. Dodavatel, který pouze vstupuje do prostor, nedostane otázky k ISMS, bezpečnostním testům ani administrátorským účtům."
           },
           {
-            "title": "Spravované služby",
-            "fields": "Správa privilegovaného přístupu, nahrávání administrátorských relací, pohotovost 24/7 pro bezpečnostní incidenty."
+            "title": "Software a spravované služby",
+            "fields": "Pokud nabízíte software jako službu nebo dodáváte software: bezpečný vývoj, zveřejněný způsob, jak nahlásit bezpečnostní chybu, nezávislé bezpečnostní testy. U SaaS navíc druhý faktor pro vaše zákazníky a doba obnovení služby; u dodaného softwaru, jak dlouho dodáváte bezpečnostní aktualizace, SBOM a podepsané verze. Pokud provozujete IT pro zákazníky, odpovídáte na otázky k bezpečnostním testům a řízení bezpečnosti."
           }
-        ]
+        ],
+        "example": "Úklidová firma s klíči tak vidí {cleaning, plural, one {# otázku} few {# otázky} many {# otázky} other {# otázek}}, poskytovatel SaaS, který uchovává data zákazníků, {saas}."
       },
       "preview": {
         "heading": "Ukázkové otázky.",
-        "lead": "Šest otázek z různých sekcí, s nápovědou, kterou dodavatelé vidí při vyplňování. Identita, bezpečnostní praktiky, smluvní doložky, prohlášení o AI, technické podrobnosti.",
-        "footnote": "Šest z 59 otázek. Celá sada je v portálu."
+        "lead": "Několik otázek z různých částí dotazníku, s nápovědou, kterou dodavatelé vidí při vyplňování, a ustanovením, o které se každá opírá.",
+        "footnote": "{shown} z {total} otázek. Celá sada je v portálu."
       },
       "bsi": {
         "quote": "Vítáme současné iniciativy z odvětví, jejichž cílem je vytvořit jednotný katalog dotazníků pro dodavatele.",
         "attribution": "BSI NIS-2 FAQ (dodavatelský řetězec a bezpečnost).",
-        "context": "Tento portál pro dodavatele JE onou iniciativou z odvětví. Soukromě vytvořený, jednotný katalog dotazníků se strukturou podle kanonické taxonomie EU (ENISA TIG §5), aby každý subjekt regulovaný NIS 2 mohl splnit CIR §5.1.4 z jediného zdroje."
+        "context": "Tento portál pro dodavatele je jednou z takových iniciativ: jediný otevřený dotazník, členěný podle ENISA TIG §5. Dodavatelé ho vyplní jednou a každý zákazník čte stejné odpovědi, když posuzuje svůj dodavatelský řetězec podle čl. 21 odst. 2 písm. d) NIS 2."
       },
       "privacy": {
         "heading": "Bilaterální a soukromé.",

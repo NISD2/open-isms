@@ -3603,7 +3603,7 @@
       "platform": {
         "heading": "Wie wir das auf der Plattform behandeln",
         "p1": "Die Anwendbarkeitsprüfung führt den dreiteiligen Test explizit durch: Juristische Person ja oder nein, Dienste an andere juristische Personen (innerhalb oder außerhalb des Konzerns), Größe einschließlich Verbundenheitsregel. Das Ergebnis geht in das Registrierungsmodul über, sodass sich die IT-Einheit dort getrennt registriert, wo nötig.",
-        "p2": "Das Lieferantenportal deckt die andere Vertragsseite ab. Töchter, die verwaltete Dienste von einer Schwester-IT-Gesellschaft beziehen, können den Lieferanten-Fragebogen gegen sie laufen lassen wie gegen jeden anderen Anbieter. Beide Vertragsseiten sind dann mit demselben Nachweis nach Artikel 21 Absatz 2 Buchstabe d dokumentiert."
+        "p2": "Das Lieferantenportal deckt die andere Vertragsseite ab. Töchter, die verwaltete Dienste von einer Schwester-IT-Gesellschaft beziehen, können den Lieferantenfragebogen gegen sie laufen lassen wie gegen jeden anderen Anbieter. Beide Vertragsseiten sind dann mit demselben Nachweis nach Artikel 21 Absatz 2 Buchstabe d dokumentiert."
       },
       "sources": {
         "heading": "Quellen",
@@ -6647,8 +6647,8 @@
         "description": "Strukturierte Selbstbewertung als typisiertes Zod-Schema. Jede Frage ist mit einer konkreten Rechtsquelle verankert (NIS2-Richtlinie, BSIG, CIR 2024/2690, BSI IT-Grundschutz). Mit Referenz-Scoring-Logik und einem Drizzle-Speicher-Beispiel für Antworten."
       },
       "supplierQuestionnaire": {
-        "title": "NIS2 Lieferantenfragebogen - 56 Felder, 6 Sektionen",
-        "description": "Die Fragen, die ein NIS2-reguliertes Unternehmen seinen Lieferanten stellen muss. Verankert an NIS2 Art. 21(2), CIR 2024/2690, ENISA TIG, BSI IT-Grundschutz und DSGVO Art. 28. Mit visibleWhen-Mechanismus zur Steuerung optionaler Sektionen je nach Servicetyp."
+        "title": "NIS2 Lieferantenfragebogen, mit Zuordnung zu ISO 27001",
+        "description": "Die Fragen, die ein NIS2-reguliertes Unternehmen seinen Lieferanten stellt, vom Softwarehaus bis zur Reinigungsfirma. Jede Frage nennt ihre Quelle auf EU-Ebene (CIR 2024/2690, ENISA TIG, DSGVO, Cyber Resilience Act), die meisten auch die Maßnahmen aus Anhang A der ISO/IEC 27001:2022. Über visibleWhen sieht jeder Lieferant nur die Fragen, die zu dem passen, was er bei seinen Kunden erreicht: Daten, Systeme, Räume oder Software."
       },
       "grcDataModel": {
         "title": "GRC-Datenmodell: RoPA, DPA, TOMs, NIS2 ↔ DSGVO-Mappings",
@@ -7462,8 +7462,8 @@
         "startButton": "Kostenlos starten"
       },
       "questionnaireCta": {
-        "heading": "Offener Lieferanten-Fragebogen",
-        "description": "Die 59 EU-verankerten Fragen, die jede NIS 2 Lieferantenbewertung abdecken muss. Frei nutzbar, MIT + CC BY 4.0.",
+        "heading": "Offener Lieferantenfragebogen",
+        "description": "{count} Fragen an Lieferanten, jede mit ihrer Quelle auf EU-Ebene. Jeder Lieferant sieht nur die, die zu dem passen, was er bei seinen Kunden erreicht. Frei nutzbar, MIT + CC BY 4.0.",
         "button": "Zum Fragebogen"
       }
     },
@@ -7559,15 +7559,16 @@
     },
     "supplierQuestionnaire": {
       "meta": {
-        "title": "Offener NIS 2 Lieferanten-Fragebogen",
-        "description": "Offener, EU-verankerter NIS 2 Lieferanten-Fragebogen. 59 Felder in 6 Sektionen, jedes Feld an Art. 21(2), CIR 2024/2690 oder ENISA TIG verknüpft. MIT + CC BY 4.0, frei nutzbar und forkbar."
+        "title": "Offener NIS 2 Lieferantenfragebogen",
+        "description": "Offener NIS 2 Lieferantenfragebogen: {total} Fragen in {sections} Abschnitten, jede mit ihrer Quelle auf EU-Ebene und, wo passend, den Maßnahmen aus ISO/IEC 27001. MIT + CC BY 4.0, frei nutzbar und forkbar."
       },
       "badge": "Offener Standard",
-      "title": "NIS 2 Lieferanten-Fragebogen",
+      "title": "NIS 2 Lieferantenfragebogen",
       "subtitle": "Die Fragen, die ein NIS 2 verpflichtetes Unternehmen seinen Lieferanten stellen muss. Einmal sauber an EU-Recht verankert. Frei nutzbar.",
       "intro": {
-        "p1": "Fast jede Procurement-Abteilung im deutschen Mittelstand schreibt aktuell ihren eigenen NIS 2 Lieferanten-Fragebogen. Die gleichen rund 50 EU-verankerten Fragen, in leicht anderer Form, an Lieferanten verschickt, die fünf Versionen davon ausfüllen müssen. Dieser Fragebogen ist die geteilte Basis.",
-        "p2": "Jedes Feld ist an eine EU-rechtliche Primärquelle verankert: NIS 2 Art. 21(2), CIR 2024/2690, ENISA Technical Implementation Guidance, DSGVO Art. 28 oder den Cyber Resilience Act. Sektorspezifische Erweiterungen wie TISAX, VDA ISA, BSI C5 oder KRITIS-Vorgaben ergänzen die Basis, ersetzen sie nicht."
+        "p1": "Fast jede Einkaufsabteilung im deutschen Mittelstand schreibt gerade ihren eigenen NIS 2 Lieferantenfragebogen. Die gleichen im EU-Recht verankerten Fragen, in leicht anderer Form, an Lieferanten verschickt, die fünf Versionen davon ausfüllen müssen. Dieser Fragebogen ist die geteilte Basis.",
+        "p2": "Jede Frage nennt ihre Quelle auf EU-Ebene: die Durchführungsverordnung (EU) 2024/2690, die ENISA Technical Implementation Guidance, die DSGVO oder den Cyber Resilience Act. {withIso} der {total} Fragen nennen dazu die Maßnahmen aus Anhang A der ISO/IEC 27001:2022, denen sie dienen, nach der Zuordnung der ENISA. Sektorspezifische Erweiterungen wie TISAX, VDA ISA, BSI C5 oder Vorgaben für KRITIS ergänzen die Basis, ersetzen sie nicht.",
+        "p3": "{always} Fragen beantwortet jeder Lieferant. Welche weiteren er sieht, hängt davon ab, was er bei seinen Kunden erreicht: ihre Daten, ihre Systeme, ihre Räume, Software, die er betreibt oder ausliefert, oder IT, die er für sie betreibt. Bei jeder bedingten Frage steht, unter welcher Antwort sie gestellt wird."
       },
       "downloads": {
         "heading": "Herunterladen",
@@ -7588,22 +7589,24 @@
       "sections": {
         "profile": "Lieferantenprofil",
         "security_practices": "Sicherheitspraktiken",
-        "saas_technical": "SaaS-spezifisch",
-        "on_prem_technical": "On-Premise-spezifisch",
-        "pro_services": "Professional Services",
-        "managed_services": "Managed Services"
+        "saas_technical": "Software als Dienst (SaaS)",
+        "on_prem_technical": "Software beim Kunden (On-Premise)"
       },
       "field": {
         "type": "Feldtyp",
         "legalBasis": "Rechtsgrundlage",
         "required": "Pflichtfeld",
         "optional": "Optional",
-        "conditional": "Bedingt"
+        "conditional": "Bedingt",
+        "onlyIf": "Nur wenn",
+        "yes": "Ja",
+        "no": "Nein",
+        "or": "oder"
       },
       "useNote": {
         "heading": "Verwendung",
         "p1": "Dieser Fragebogen deckt die EU-rechtliche Substanz für NIS 2 Lieferantenbewertungen ab. Er ist als geteilte Basis gedacht, nicht als vollständige sektorspezifische Vorlage.",
-        "p2": "Ergänzungen aus TISAX, VDA ISA, BSI C5, KRITIS-Auditkatalogen oder eigenen Risikoanforderungen gehören als Overlay obendrauf. Forken Sie das Repository, erweitern Sie es um Ihre Sektor-Fragen, oder nutzen Sie die geteilten Felder als Grundlage für Ihre eigene Vorlage."
+        "p2": "Ergänzungen aus TISAX, VDA ISA, BSI C5, Auditkatalogen für KRITIS oder eigenen Risikoanforderungen gehören als Overlay obendrauf. Forken Sie das Repository, erweitern Sie es um Ihre Sektor-Fragen, oder nutzen Sie die geteilten Felder als Grundlage für Ihre eigene Vorlage."
       },
       "ctaCard": {
         "heading": "Lieferantenbewertung mit Audit-Log",

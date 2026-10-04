@@ -12,7 +12,7 @@
         "eyebrow": "Leveranciersportaal van nisd2.eu",
         "headline": "Beantwoord <u>één</u> beveiligingsvragenlijst.",
         "headlineAccent": "Deel met <u>elke</u> klant.",
-        "subhead": "Eén canonieke leveranciersvragenlijst, gestructureerd volgens ENISA NIS 2 Technical Implementation Guidance v1.0. Elke vraag citeert CIR 2024/2690, BSIG §30 of BSI IT-Grundschutz. Gratis. Open source. Uw data blijft portabel.",
+        "subhead": "Eén canonieke leveranciersvragenlijst, gestructureerd volgens ENISA NIS 2 Technical Implementation Guidance v1.0. Elke vraag noemt haar bron op EU-niveau, en klanten die leveranciers volgens ISO 27001 sturen, vinden de bijbehorende maatregelen direct ernaast. Gratis. Open source. Uw data blijft portabel.",
         "anchorBadge": "Gestructureerd volgens ENISA NIS 2 TIG v1.0 §5",
         "ctaPrimary": "Leveranciersprofiel aanmaken",
         "ctaSecondary": "Wat staat er in de vragenlijst?"
@@ -27,7 +27,7 @@
           },
           {
             "title": "Vragenlijst beantwoorden",
-            "body": "Drie subpagina's in het portaal: profiel en dienstbeschrijving, universele cyberbeveiligingsmaatregelen volgens NIS 2 Art. 21(2), technische secties per dienstsoort. 59 vragen, in uw eigen tempo, concept wordt automatisch opgeslagen."
+            "body": "Drie pagina's in het portaal: wie u bent en wat u bij klanten bereikt, wat u toezegt en hoe u beveiliging regelt, plus vragen over software als u die aanbiedt of levert. Elke leverancier beantwoordt {always} vragen, de rest alleen waar die passen. In uw eigen tempo, concept wordt automatisch opgeslagen."
           },
           {
             "title": "Klanten uitnodigen",
@@ -37,52 +37,41 @@
       },
       "sections": {
         "heading": "Wat staat er in de vragenlijst.",
-        "lead": "Tien secties, elk met verwijzing naar het onderliggende lid van ENISA TIG, CIR 2024/2690 of BSI IT-Grundschutz.",
-        "items": [
-          "Identiteit (CIR §5.2 / ENISA TIG §5.2 leveranciersregister)",
-          "Incidentcontact (klantzijde)",
-          "Soort dienst",
-          "Verplichte contractclausules (CIR / ENISA TIG §5.1.4)",
-          "Cyberbeveiligingsmaatregelen (NIS 2 Art. 21(2) / ENISA TIG §5.1.2)",
-          "Aanvullende contractclausules (ENISA TIG §5.1.4 TIPS)",
-          "SaaS-techniek",
-          "On-prem-softwaretechniek",
-          "Dienstverlening, details",
-          "Managed services, details"
-        ],
+        "lead": "De vragen in de volgorde waarin u ze in het portaal beantwoordt. Elke vraag noemt de bepaling in Uitvoeringsverordening (EU) 2024/2690, de Technical Implementation Guidance van ENISA, de AVG of de Cyber Resilience Act waarop ze steunt.",
         "footnote": "Het volledige schema staat openbaar op GitHub en is als JSON exporteerbaar."
       },
       "serviceTypes": {
-        "heading": "Vier technische secties per dienstsoort.",
-        "lead": "De pagina Dienstsoort in het portaal toont vier extra secties. U vult alleen die in die passen bij wat u aanbiedt.",
+        "heading": "Wat u gevraagd wordt, hangt af van wat u bij uw klanten bereikt.",
+        "lead": "Elke leverancier beantwoordt {always} vragen. In uw profiel geeft u aan of u gegevens van uw klanten bewaart, toegang hebt tot hun systemen of hun panden betreedt, en of u software als dienst aanbiedt, software levert of IT voor klanten beheert. De rest volgt daaruit. Een leverancier die gegevens, systemen of panden bereikt, beantwoordt ook vragen over geheimhouding, over de geschiktheid van medewerkers met toegang en over teruggave aan het einde van het contract.",
         "items": [
           {
-            "title": "SaaS",
-            "fields": "Hostingregio, versleuteling in rust en in transit, MFA voor beheeraccounts, hersteltijddoelstelling."
+            "title": "Gegevens van uw klanten",
+            "fields": "Waar de gegevens worden verwerkt, de verwerkersovereenkomst, versleuteling bij opslag en tijdens overdracht. Plus hoe u beveiliging beheert: ISMS, certificaat, omgang met kwetsbaarheden, plannen voor incidenten en uitval, een tweede factor voor uw eigen beheerdersaccounts."
           },
           {
-            "title": "On-prem software",
-            "fields": "Software Bill of Materials (SBOM), cryptografisch ondertekende releases, gepubliceerd beleid voor kwetsbaarheidsopenbaarmaking, patch-SLA voor kritieke CVE's."
+            "title": "Systemen van uw klanten",
+            "fields": "Persoonlijke accounts met een tweede factor voor elke toegang, ook bij beheer op afstand, en een logboek van toegang met beheerdersrechten. Plus hetzelfde beveiligingsbeheer als bij klantgegevens."
           },
           {
-            "title": "Dienstverlening",
-            "fields": "Reikwijdte achtergrondcontrole, NDA met alle consultants, gedocumenteerd gedragsbeleid op klantlocatie."
+            "title": "Panden van uw klanten",
+            "fields": "Hoe u sleutels, passen en codes bijhoudt en welke schriftelijke gedragsregels uw medewerkers ter plaatse volgen. Een leverancier die alleen panden betreedt, krijgt geen vragen over een ISMS, beveiligingstests of beheerdersaccounts."
           },
           {
-            "title": "Managed services",
-            "fields": "Bevoorrecht toegangsbeheer, opname van beheersessies, 24/7 wachtdienst voor beveiligingsincidenten."
+            "title": "Software en managed services",
+            "fields": "Als u software als dienst aanbiedt of software levert: veilige ontwikkeling, een gepubliceerde manier om beveiligingslekken te melden, onafhankelijke beveiligingstests. Bij SaaS ook een tweede factor voor uw klanten en de hersteltijd; bij geleverde software hoe lang u beveiligingsupdates levert, een SBOM en ondertekende releases. Als u IT voor klanten beheert, beantwoordt u de vragen over beveiligingstests en beveiligingsbeheer."
           }
-        ]
+        ],
+        "example": "Een schoonmaakbedrijf met sleutels ziet zo {cleaning} vragen, een SaaS-aanbieder die klantgegevens bewaart {saas}."
       },
       "preview": {
         "heading": "Voorbeeldvragen.",
-        "lead": "Zes vragen uit verschillende secties, inclusief de uitleg die leveranciers zien bij het invullen. Identiteit, beveiligingsmaatregelen, contractclausules, AI-verklaring, technische details.",
-        "footnote": "Zes van 59 vragen. Volledig in het portaal."
+        "lead": "Enkele vragen uit verschillende delen van de vragenlijst, met de uitleg die leveranciers bij het invullen zien en de bepaling waarop elke vraag steunt.",
+        "footnote": "{shown} van {total} vragen. Volledig in het portaal."
       },
       "bsi": {
         "quote": "We verwelkomen huidige initiatieven uit het bedrijfsleven om een uniforme vragencatalogus voor leveranciers te ontwikkelen.",
         "attribution": "BSI NIS-2 FAQ (toeleveringsketen en beveiliging).",
-        "context": "Dit leveranciersportaal IS dat initiatief uit het bedrijfsleven. Een privé gebouwde uniforme vragencatalogus, gestructureerd volgens de canonieke EU-taxonomie (ENISA TIG §5), zodat elke NIS 2 gereguleerde entiteit CIR §5.1.4 vanuit één bron kan invullen."
+        "context": "Dit leveranciersportaal is zo'n initiatief: één open vragenlijst, ingedeeld volgens ENISA TIG §5. Leveranciers vullen hem één keer in, en elke klant leest dezelfde antwoorden wanneer hij zijn toeleveringsketen beoordeelt op grond van artikel 21, lid 2, onder d, NIS 2."
       },
       "privacy": {
         "heading": "Bilateraal en privé.",

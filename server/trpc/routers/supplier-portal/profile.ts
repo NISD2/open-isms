@@ -7,9 +7,8 @@
  * Same row, two perspectives, role flags decide which UI surfaces what.
  *
  * The router exposes a single `save` mutation that takes any subset of the
- * unified `securityProfileUpdateSchema` (profile metadata + questionnaire +
- * branch technicals + ENISA TIG §5 TIPS). The form on /portal/supplier is
- * one big SchemaForm that calls `save` whenever the user clicks Save.
+ * questionnaire's answers (`securityProfileUpdateSchema`); each questionnaire
+ * page of /portal/supplier saves its own questions through it.
  *
  * Security: only the .pick()-ed fields may be patched here. The strict input
  * shape prevents mass-assignment to NIS2/billing/role-flag columns.
@@ -20,6 +19,7 @@
 import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
+import { QUESTIONNAIRE_COLUMNS } from "@/lib/forms/supplier-portal-sections";
 import { rateLimit } from "@/lib/rate-limit";
 import { companyUploadPrefixes, sanitizeFilename } from "@/lib/storage/object-key";
 import { createPresignedPut } from "@/lib/storage/presign";
@@ -28,7 +28,6 @@ import { securityProfileUpdateSchema } from "@/schema/validators";
 import { assertOwnObjectKey } from "../../guards";
 import { accountProcedure, router } from "../../init";
 import { updateRow } from "../../typed";
-import { normalizeDomain } from "./helpers";
 
 /** Where the logo upload URL puts a company's logos; the only keys setLogo accepts. */
 const logoPrefix = companyUploadPrefixes.logos;
@@ -41,34 +40,13 @@ const logoPrefix = companyUploadPrefixes.logos;
 export const LOGO_UPLOADS_PER_HOUR = 10;
 
 /**
- * Shape of the supplier-portal subset of the company row, projected by `get`.
- * Kept narrow on purpose — the entity-side columns (cisoName, billing,
- * stripeCustomerId, etc.) never reach the supplier portal UI even though
- * they live on the same row.
- *
- * Per-asset technicals (SaaS hosting, on-prem SBOM, managed PAM, etc.) live
- * on the `asset` table now, scoped per-customer-relationship. Per-customer
- * contract clauses (right-to-audit, exit plan, etc.) live on the `supplier`
- * table. Both have their own routers — this query is purely company-level.
- */
-/**
- * Single source of truth for "which company columns belong to the supplier
- * portal": the Zod `securityProfileUpdateSchema` shape, which is itself a
- * `.pick({...})` of the drizzle-zod-derived `companyInsertSchema`.
- *
- * Anything outside that pick (NIS 2 entity-side fields, billing, FKs) cannot
- * leak through this query, and any supplier-portal column added to the pick
- * is automatically projected here — no second list to keep in sync.
- *
- * Plus a small set of columns the UI needs that are intentionally NOT in the
- * update schema (cannot be mass-assigned via the save endpoint): row id,
- * actsAsSupplier role flag, logoStorageKey (set via dedicated mutation),
- * practicesLastSavedAt timestamp.
+ * The supplier portal's part of the company row, projected by `get`: the questionnaire's columns
+ * (the same list the save schema picks) plus what the UI needs and the save endpoint must not
+ * write: the row id, the role flag, the logo key (set through `setLogo`) and when it last saved.
+ * The entity side of the row (billing, NIS 2 facts, contacts) never reaches the supplier portal.
  */
 const SUPPLIER_PORTAL_COLUMNS = {
-  ...(Object.fromEntries(
-    Object.keys(securityProfileUpdateSchema.shape).map((k) => [k, true]),
-  ) as { [K in keyof typeof securityProfileUpdateSchema.shape]: true }),
+  ...QUESTIONNAIRE_COLUMNS,
   id: true,
   actsAsSupplier: true,
   logoStorageKey: true,
@@ -97,42 +75,34 @@ export const supplierProfileRouter = router({
   }),
 
   /**
-   * Save any subset of the company-level security profile.
+   * Save any subset of the questionnaire's answers. A question left out stays as it is; one sent
+   * as null is cleared. Per-customer contract clauses and per-asset technical declarations have
+   * their own routers.
    *
-   * Covers profile metadata (identity, contacts) AND universal company
-   * practices (ISMS, ISO27001, baseline NIS2 Art 21(2) — i.e. the renamed
-   * "Security practices" page). Per-customer contract clauses and per-asset
-   * technical declarations have their own dedicated routers.
-   *
-   * Always:
-   *   - flips actsAsSupplier=true (idempotent — the predicate for "has set
-   *     anything up at all in the supplier portal")
-   *   - normalizes primaryDomain if provided
-   *   - stamps practicesLastSavedAt to drive the "saved at" indicator
-   *
-   * The strict .pick() input schema prevents mass-assignment to actsAsSupplier
-   * (overridden server-side anyway), actsAsNis2Entity, plan, stripeCustomerId,
-   * cisoName, etc.
+   * Always flips actsAsSupplier=true (idempotent, the predicate for "has set anything up in the
+   * supplier portal") and stamps practicesLastSavedAt for the "saved at" line. The input schema
+   * picks only the questionnaire's columns, so no other column of the row can be written here,
+   * and the result carries only what a caller needs back.
    */
   save: accountProcedure
     .input(securityProfileUpdateSchema)
     .mutation(async ({ ctx, input }) => {
-      const normalizedDomain =
-        input.primaryDomain != null ? normalizeDomain(input.primaryDomain) : undefined;
-
       const [row] = await ctx.db
         .update(company)
         .set(
           updateRow(company, {
             ...input,
-            primaryDomain: normalizedDomain,
             actsAsSupplier: true,
             practicesLastSavedAt: new Date(),
             updatedAt: new Date(),
           }),
         )
         .where(eq(company.id, ctx.companyId))
-        .returning();
+        .returning({
+          id: company.id,
+          actsAsSupplier: company.actsAsSupplier,
+          practicesLastSavedAt: company.practicesLastSavedAt,
+        });
       if (!row) throw new TRPCError({ code: "NOT_FOUND" });
       return row;
     }),

@@ -12,7 +12,7 @@
         "eyebrow": "Portal pentru furnizori de la nisd2.eu",
         "headline": "Răspundeți la <u>un singur</u> chestionar de securitate.",
         "headlineAccent": "Partajați-l cu <u>fiecare</u> client.",
-        "subhead": "Un chestionar canonic pentru furnizori, structurat conform ENISA NIS 2 Technical Implementation Guidance v1.0. Fiecare întrebare citează CIR 2024/2690, BSIG §30 sau BSI IT-Grundschutz. Gratuit. Open source. Datele dumneavoastră rămân portabile.",
+        "subhead": "Un chestionar canonic pentru furnizori, structurat conform ENISA NIS 2 Technical Implementation Guidance v1.0. Fiecare întrebare își indică sursa la nivelul UE, iar clienții care își gestionează furnizorii conform ISO 27001 găsesc controalele corespunzătoare chiar alături. Gratuit. Open source. Datele dumneavoastră rămân portabile.",
         "anchorBadge": "Structurat conform ENISA NIS 2 TIG v1.0 §5",
         "ctaPrimary": "Creați profil de furnizor",
         "ctaSecondary": "Ce conține chestionarul?"
@@ -27,7 +27,7 @@
           },
           {
             "title": "Răspundeți la chestionar",
-            "body": "Trei subpagini în portal: profil și descrierea serviciului, măsuri universale de securitate cibernetică conform NIS 2 Art. 21(2), secțiuni tehnice pe tip de serviciu. 59 de întrebări, în ritmul dumneavoastră, ciorna se salvează automat."
+            "body": "Trei pagini în portal: cine sunteți și la ce aveți acces la clienți, la ce vă angajați și cum gestionați securitatea, plus întrebări despre software, dacă oferiți sau livrați. Fiecare furnizor răspunde la {always, plural, one {# întrebare} few {# întrebări} other {# de întrebări}}, la celelalte doar dacă i se aplică. În ritmul dumneavoastră, ciorna se salvează automat."
           },
           {
             "title": "Invitați clienții",
@@ -37,52 +37,41 @@
       },
       "sections": {
         "heading": "Ce conține chestionarul.",
-        "lead": "Zece secțiuni, fiecare citând paragraful corespunzător din ENISA TIG, CIR 2024/2690 sau BSI IT-Grundschutz.",
-        "items": [
-          "Identitate (CIR §5.2 / registrul furnizorilor ENISA TIG §5.2)",
-          "Contact pentru incidente (orientat către client)",
-          "Tip de serviciu",
-          "Clauze contractuale obligatorii (CIR / ENISA TIG §5.1.4)",
-          "Măsuri de securitate cibernetică (NIS 2 Art. 21(2) / ENISA TIG §5.1.2)",
-          "Clauze contractuale suplimentare (ENISA TIG §5.1.4 TIPS)",
-          "SaaS tehnic",
-          "Software on-prem tehnic",
-          "Servicii profesionale, detalii",
-          "Servicii gestionate, detalii"
-        ],
+        "lead": "Întrebările în ordinea în care le răspundeți în portal. Fiecare indică prevederea din Regulamentul de punere în aplicare (UE) 2024/2690, din Technical Implementation Guidance a ENISA, din RGPD sau din Cyber Resilience Act pe care se sprijină.",
         "footnote": "Schema completă este publică pe GitHub și poate fi exportată în format JSON."
       },
       "serviceTypes": {
-        "heading": "Patru secțiuni tehnice pe tip de serviciu.",
-        "lead": "Pagina Tip de serviciu din portal afișează patru secțiuni suplimentare. Completați-le doar pe cele care corespund ofertei dumneavoastră.",
+        "heading": "Ce vi se cere depinde de ce anume accesați la clienții dumneavoastră.",
+        "lead": "Fiecare furnizor răspunde la {always, plural, one {# întrebare} few {# întrebări} other {# de întrebări}}. În profil indicați dacă păstrați date ale clienților, accesați sistemele lor sau intrați în spațiile lor și dacă oferiți software ca serviciu, livrați software sau operați IT pentru clienți. Restul decurge de aici. Un furnizor care are acces la date, sisteme sau spații răspunde și despre confidențialitate, potrivirea personalului cu acces și restituirea la încheierea contractului.",
         "items": [
           {
-            "title": "SaaS",
-            "fields": "Regiunea de găzduire, criptare în repaus și în tranzit, MFA pentru conturile de administrator, obiectivul de timp pentru recuperare."
+            "title": "Datele clienților dumneavoastră",
+            "fields": "Unde sunt prelucrate datele, acordul de prelucrare a datelor, criptarea la stocare și în tranzit. Plus modul în care gestionați securitatea: SMSI, certificat, gestionarea vulnerabilităților, planuri pentru incidente și întreruperi, un al doilea factor pentru propriile conturi de administrator."
           },
           {
-            "title": "Software on-prem",
-            "fields": "Software Bill of Materials (SBOM), versiuni semnate criptografic, politică publicată de divulgare a vulnerabilităților, SLA de aplicare a corecțiilor pentru CVE-uri critice."
+            "title": "Sistemele clienților dumneavoastră",
+            "fields": "Conturi personale cu un al doilea factor pentru fiecare acces, inclusiv la mentenanța de la distanță, și jurnalizarea accesului cu drepturi de administrator. Plus aceeași gestionare a securității ca la datele clienților."
           },
           {
-            "title": "Servicii profesionale",
-            "fields": "Domeniul verificărilor de fond, NDA cu toți consultanții, politică documentată privind comportamentul la sediul clientului."
+            "title": "Spațiile clienților dumneavoastră",
+            "fields": "Cum țineți evidența cheilor, ecusoanelor și codurilor și ce reguli de conduită scrise respectă personalul dumneavoastră la fața locului. Un furnizor care doar intră în spații nu este întrebat despre SMSI, teste de securitate sau conturi de administrator."
           },
           {
-            "title": "Servicii gestionate",
-            "fields": "Gestionarea accesului privilegiat, înregistrarea sesiunilor de administrator, disponibilitate 24/7 pentru incidente de securitate."
+            "title": "Software și servicii gestionate",
+            "fields": "Dacă oferiți software ca serviciu sau livrați software: dezvoltare sigură, o modalitate publicată de a raporta breșe de securitate, teste de securitate independente. La SaaS, în plus, un al doilea factor pentru clienții dumneavoastră și timpul de restabilire a serviciului; la software-ul livrat, până când furnizați actualizări de securitate, un SBOM și versiuni semnate. Dacă operați IT pentru clienți, răspundeți la întrebările despre teste de securitate și gestionarea securității."
           }
-        ]
+        ],
+        "example": "O firmă de curățenie cu chei vede astfel {cleaning, plural, one {# întrebare} few {# întrebări} other {# de întrebări}}, un furnizor de SaaS care păstrează date ale clienților {saas}."
       },
       "preview": {
         "heading": "Întrebări exemplificative.",
-        "lead": "Șase întrebări din secțiuni diferite, cu textul de ajutor pe care furnizorii îl văd în timp ce le completează. Identitate, practici de securitate, clauze contractuale, declarații privind IA, detalii tehnice.",
-        "footnote": "Șase din 59 de întrebări. Setul complet în portal."
+        "lead": "Câteva întrebări din diferite părți ale chestionarului, cu textul de ajutor pe care furnizorii îl văd în timp ce le completează și prevederea pe care se sprijină fiecare.",
+        "footnote": "{shown} din {total, plural, one {# întrebare} few {# întrebări} other {# de întrebări}}. Setul complet în portal."
       },
       "bsi": {
         "quote": "Salutăm inițiativele actuale din industrie de a dezvolta un catalog unificat de chestionare pentru furnizori.",
         "attribution": "BSI NIS-2 FAQ (lanțul de aprovizionare și securitatea).",
-        "context": "Acest portal pentru furnizori ESTE acea inițiativă din industrie. Un catalog unificat de chestionare, construit privat, structurat conform taxonomiei canonice a UE (ENISA TIG §5), astfel încât fiecare entitate reglementată de NIS 2 să poată îndeplini cerințele CIR §5.1.4 dintr-o singură sursă."
+        "context": "Acest portal pentru furnizori este una dintre aceste inițiative: un chestionar unic și deschis, structurat conform ENISA TIG §5. Furnizorii îl completează o singură dată, iar fiecare client citește aceleași răspunsuri atunci când își evaluează lanțul de aprovizionare în temeiul articolului 21 alineatul (2) litera (d) din NIS 2."
       },
       "privacy": {
         "heading": "Bilateral și privat.",

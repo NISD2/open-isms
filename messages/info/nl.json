@@ -6821,8 +6821,8 @@
         "description": "A structured self-assessment as a typed Zod schema. Every question is anchored to a specific legal source (NIS2 Directive, BSIG, CIR 2024/2690, BSI IT-Grundschutz). Includes reference scoring logic and a Drizzle storage example for responses."
       },
       "supplierQuestionnaire": {
-        "title": "NIS2 Supplier Questionnaire: 56 fields, 6 sections",
-        "description": "The questions a NIS2-regulated entity needs to ask its suppliers. Anchored to NIS2 Art. 21(2), CIR 2024/2690, ENISA TIG, BSI IT-Grundschutz, and GDPR Art. 28. With a visibleWhen mechanism that gates optional sections by service type."
+        "title": "NIS2 Supplier Questionnaire, mapped to ISO 27001",
+        "description": "The questions a NIS2-regulated company asks its suppliers, from software houses to cleaning companies. Each question names its EU-level source (CIR 2024/2690, ENISA TIG, GDPR, Cyber Resilience Act), most also the ISO/IEC 27001:2022 Annex A controls they serve. Through visibleWhen, each supplier sees only the questions that fit what it reaches at its customers: data, systems, premises or software."
       },
       "grcDataModel": {
         "title": "GRC Data Model: RoPA, DPA, TOMs, NIS2 ↔ GDPR mappings",

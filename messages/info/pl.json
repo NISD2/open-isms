@@ -6399,8 +6399,8 @@
         "description": "Ustrukturyzowana samoocena w postaci typowanego schematu Zod. Każde pytanie jest zakotwiczone w konkretnym źródle prawnym (dyrektywa NIS2, BSIG, CIR 2024/2690, BSI IT-Grundschutz). Zawiera referencyjną logikę punktacji oraz przykład przechowywania odpowiedzi w Drizzle."
       },
       "supplierQuestionnaire": {
-        "title": "Kwestionariusz dla dostawców NIS2: 56 pól, 6 sekcji",
-        "description": "Pytania, które podmiot regulowany przez NIS2 musi zadać swoim dostawcom. Zakotwiczone w NIS2 art. 21 ust. 2, CIR 2024/2690, ENISA TIG, BSI IT-Grundschutz oraz GDPR art. 28. Z mechanizmem visibleWhen, który warunkuje sekcje opcjonalne według typu usługi."
+        "title": "Kwestionariusz dla dostawców NIS2, z odwzorowaniem na ISO 27001",
+        "description": "Pytania, które przedsiębiorstwo regulowane przez NIS2 zadaje swoim dostawcom, od producenta oprogramowania po firmę sprzątającą. Każde pytanie wskazuje swoje źródło na poziomie UE (CIR 2024/2690, ENISA TIG, RODO, Cyber Resilience Act), większość także zabezpieczenia z załącznika A do ISO/IEC 27001:2022, którym służy. Dzięki visibleWhen każdy dostawca widzi tylko pytania pasujące do tego, do czego ma dostęp u swoich klientów: danych, systemów, pomieszczeń lub oprogramowania."
       },
       "grcDataModel": {
         "title": "Model danych GRC: RoPA, DPA, TOMs, mapowania NIS2 ↔ GDPR",
@@ -7212,7 +7212,7 @@
       },
       "questionnaireCta": {
         "heading": "Otwarty kwestionariusz dostawcy",
-        "description": "59 pytań zakotwiczonych w UE, które musi obejmować każda ocena dostawcy NIS 2. Bezpłatny w użyciu, MIT + CC BY 4.0.",
+        "description": "{count, plural, one {# pytanie} few {# pytania} many {# pytań} other {# pytania}} dla dostawców, każde ze źródłem na poziomie UE. Dostawca widzi tylko te, które pasują do tego, do czego ma dostęp u swoich klientów. Bezpłatny w użyciu, MIT + CC BY 4.0.",
         "button": "Otwórz kwestionariusz"
       }
     },
@@ -7309,14 +7309,15 @@
     "supplierQuestionnaire": {
       "meta": {
         "title": "Otwarty kwestionariusz dla dostawców NIS 2",
-        "description": "Otwarty, zakotwiczony w prawie UE kwestionariusz dla dostawców NIS 2. 59 pól w 6 sekcjach, każde powiązane z Art. 21(2), CIR 2024/2690 lub ENISA TIG. MIT + CC BY 4.0, darmowy w użyciu i do rozwidlenia."
+        "description": "Otwarty kwestionariusz dla dostawców NIS 2: {total, plural, one {# pytanie} few {# pytania} many {# pytań} other {# pytania}} w {sections} sekcjach, każde ze źródłem na poziomie UE i, tam gdzie to pasuje, zabezpieczeniami z ISO/IEC 27001. MIT + CC BY 4.0, darmowy w użyciu i do rozwidlenia."
       },
       "badge": "Otwarty standard",
       "title": "Kwestionariusz dla dostawców NIS 2",
       "subtitle": "Pytania, które podmiot regulowany przez NIS 2 musi zadać swoim dostawcom. Zakotwiczone raz w prawie UE. Darmowe w użyciu.",
       "intro": {
-        "p1": "Niemal każdy dział zakupów na europejskim rynku średnich przedsiębiorstw pisze obecnie własny kwestionariusz dla dostawców NIS 2. Te same około pięćdziesięciu zakotwiczonych w prawie UE pytań, w nieco różnych formach, wysyłane do dostawców, którzy ostatecznie wypełniają pięć wersji tego samego. Ten kwestionariusz jest wspólną podstawą.",
-        "p2": "Każde pole jest zakotwiczone w pierwotnym źródle na poziomie UE: NIS 2 Art. 21(2), CIR 2024/2690, ENISA Technical Implementation Guidance, GDPR Art. 28 lub Cyber Resilience Act. Nakładki sektorowe, takie jak TISAX, VDA ISA, BSI C5 czy katalogi audytowe KRITIS, leżą na tej podstawie, a nie zamiast niej."
+        "p1": "Niemal każdy dział zakupów na europejskim rynku średnich przedsiębiorstw pisze obecnie własny kwestionariusz dla dostawców NIS 2. Te same zakotwiczone w prawie UE pytania, w nieco różnych formach, wysyłane do dostawców, którzy ostatecznie wypełniają pięć wersji tego samego. Ten kwestionariusz jest wspólną podstawą.",
+        "p2": "Każde pytanie wskazuje swoje źródło na poziomie UE: rozporządzenie wykonawcze (UE) 2024/2690, Technical Implementation Guidance ENISA, RODO lub Cyber Resilience Act. Przy {withIso} z {total} pytań podano także zabezpieczenia z załącznika A do ISO/IEC 27001:2022, którym służą, według odwzorowania ENISA. Nakładki sektorowe, takie jak TISAX, VDA ISA, BSI C5 czy katalogi audytowe KRITIS, leżą na tej podstawie, a nie zamiast niej.",
+        "p3": "Każdy dostawca odpowiada na {always, plural, one {# pytanie} few {# pytania} many {# pytań} other {# pytania}}. To, które inne widzi, zależy od tego, do czego ma dostęp u swoich klientów: do ich danych, systemów, pomieszczeń, oprogramowania, które prowadzi lub dostarcza, albo IT, które dla nich prowadzi. Przy każdym pytaniu warunkowym podano odpowiedź, od której zależy."
       },
       "downloads": {
         "heading": "Pobierz",
@@ -7337,17 +7338,19 @@
       "sections": {
         "profile": "Profil dostawcy",
         "security_practices": "Praktyki bezpieczeństwa",
-        "saas_technical": "Specyficzne dla SaaS",
-        "on_prem_technical": "Specyficzne dla on-premise",
-        "pro_services": "Usługi profesjonalne",
-        "managed_services": "Usługi zarządzane"
+        "saas_technical": "Oprogramowanie jako usługa (SaaS)",
+        "on_prem_technical": "Oprogramowanie u klienta (on-premise)"
       },
       "field": {
         "type": "Typ pola",
         "legalBasis": "Podstawa prawna",
         "required": "Wymagane",
         "optional": "Opcjonalne",
-        "conditional": "Warunkowe"
+        "conditional": "Warunkowe",
+        "onlyIf": "Tylko jeśli",
+        "yes": "Tak",
+        "no": "Nie",
+        "or": "lub"
       },
       "useNote": {
         "heading": "Jak go używać",

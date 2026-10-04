@@ -1,6 +1,6 @@
 {
-  "version": "3.1.0",
-  "lastUpdated": "2026-05-15",
+  "version": "4.0.0",
+  "lastUpdated": "2026-10-04",
   "fields": [
     {
       "id": "legalName",
@@ -8,13 +8,27 @@
       "type": "string",
       "label": {
         "en": "Legal name",
-        "de": "Firmierung (Rechtsname)"
+        "de": "Firmierung (Rechtsname)",
+        "fr": "Raison sociale",
+        "it": "Denominazione legale",
+        "es": "Razón social",
+        "pl": "Nazwa prawna",
+        "cs": "Obchodní firma (právní název)",
+        "pt": "Denominação social",
+        "ro": "Denumirea legală"
       },
       "description": {
         "en": "Your company's registered name, as it appears in the commercial register. Example: Müller GmbH or Acme Software Ltd.",
-        "de": "Der eingetragene Name Ihres Unternehmens, so wie er im Handelsregister steht. Beispiel: Müller GmbH oder Schmidt AG."
+        "de": "Der eingetragene Name Ihres Unternehmens, so wie er im Handelsregister steht. Beispiel: Müller GmbH oder Schmidt AG.",
+        "fr": "Le nom enregistré de votre entreprise, tel qu'il figure au registre du commerce. Exemple : Müller GmbH ou Acme Software Ltd.",
+        "it": "Il nome registrato della vostra azienda, così come appare nel registro delle imprese. Esempio: Müller GmbH o Acme Software Ltd.",
+        "es": "El nombre registrado de su empresa, tal como aparece en el registro mercantil. Ejemplo: Müller GmbH o Acme Software Ltd.",
+        "pl": "Zarejestrowana nazwa Twojej firmy, taka jak widnieje w rejestrze handlowym. Przykład: Müller GmbH lub Acme Software Ltd.",
+        "cs": "Zapsaný název vaší společnosti tak, jak je uveden v obchodním rejstříku. Příklad: Müller GmbH nebo Acme Software Ltd.",
+        "pt": "O nome registado da sua empresa, tal como consta do registo comercial. Exemplo: Müller GmbH ou Acme Software Ltd.",
+        "ro": "Denumirea înregistrată a companiei dumneavoastră, astfel cum apare în registrul comerțului. Exemplu: Müller GmbH sau Acme Software Ltd."
       },
-      "legalBasis": "ENISA TIG §5.2",
+      "legalBasis": "CIR 2024/2690 §5.2",
       "required": true
     },
     {
@@ -23,13 +37,27 @@
       "type": "string",
       "label": {
         "en": "Registered address",
-        "de": "Geschäftsanschrift"
+        "de": "Geschäftsanschrift",
+        "fr": "Adresse du siège social",
+        "it": "Indirizzo della sede legale",
+        "es": "Domicilio social",
+        "pl": "Adres siedziby",
+        "cs": "Sídlo společnosti",
+        "pt": "Sede social",
+        "ro": "Adresa sediului social"
       },
       "description": {
         "en": "Your company's registered business address. One address is enough, even if you have several locations.",
-        "de": "Die Geschäftsanschrift Ihres Unternehmens. Eine Adresse genügt, auch wenn Sie mehrere Standorte haben."
+        "de": "Die Geschäftsanschrift Ihres Unternehmens. Eine Adresse genügt, auch wenn Sie mehrere Standorte haben.",
+        "fr": "L'adresse commerciale enregistrée de votre entreprise. Une seule adresse suffit, même si vous avez plusieurs sites.",
+        "it": "L'indirizzo commerciale registrato della vostra azienda. È sufficiente un solo indirizzo, anche se avete più sedi.",
+        "es": "El domicilio comercial registrado de su empresa. Basta con una dirección, aunque tenga varias ubicaciones.",
+        "pl": "Zarejestrowany adres prowadzenia działalności Twojej firmy. Wystarczy jeden adres, nawet jeśli masz kilka lokalizacji.",
+        "cs": "Zapsaná obchodní adresa vaší společnosti. Jedna adresa stačí, i když máte více provozoven.",
+        "pt": "O endereço comercial registado da sua empresa. Basta um endereço, mesmo que tenha várias localizações.",
+        "ro": "Adresa comercială înregistrată a companiei dumneavoastră. Este suficientă o singură adresă, chiar dacă aveți mai multe locații."
       },
-      "legalBasis": "ENISA TIG §5.2",
+      "legalBasis": "CIR 2024/2690 §5.2",
       "required": true
     },
     {
@@ -38,58 +66,56 @@
       "type": "country",
       "label": {
         "en": "Country",
-        "de": "Land"
+        "de": "Land",
+        "fr": "Pays",
+        "it": "Paese",
+        "es": "País",
+        "pl": "Kraj",
+        "cs": "Země",
+        "pt": "País",
+        "ro": "Țară"
       },
       "description": {
         "en": "The country where your company is legally established. Two letters, e.g. DE for Germany.",
-        "de": "Das Land, in dem Ihr Unternehmen rechtlich sitzt. Zwei Buchstaben, zum Beispiel DE für Deutschland."
+        "de": "Das Land, in dem Ihr Unternehmen rechtlich sitzt. Zwei Buchstaben, zum Beispiel DE für Deutschland.",
+        "fr": "Le pays où votre entreprise est légalement établie. Deux lettres, par exemple DE pour l'Allemagne.",
+        "it": "Il paese in cui la vostra azienda è legalmente stabilita. Due lettere, ad esempio DE per la Germania.",
+        "es": "El país donde su empresa está legalmente establecida. Dos letras, por ejemplo DE para Alemania.",
+        "pl": "Kraj, w którym Twoja firma ma siedzibę prawną. Dwie litery, np. DE dla Niemiec.",
+        "cs": "Země, ve které je vaše společnost právně usazena. Dvě písmena, například DE pro Německo.",
+        "pt": "O país onde a sua empresa está legalmente estabelecida. Duas letras, por exemplo DE para a Alemanha.",
+        "ro": "Țara în care compania dumneavoastră este stabilită legal. Două litere, de exemplu DE pentru Germania."
       },
-      "legalBasis": "ENISA TIG §5.2",
+      "legalBasis": "CIR 2024/2690 §5.2",
       "required": true
     },
     {
       "id": "primaryDomain",
       "section": "profile",
-      "type": "url",
+      "type": "domain",
       "label": {
         "en": "Primary domain",
-        "de": "Primäre Domain"
+        "de": "Primäre Domain",
+        "fr": "Domaine principal",
+        "it": "Dominio principale",
+        "es": "Dominio principal",
+        "pl": "Domena główna",
+        "cs": "Hlavní doména",
+        "pt": "Domínio principal",
+        "ro": "Domeniu principal"
       },
       "description": {
         "en": "Your main domain, usually the URL of your website. Example: acmesoftware.com.",
-        "de": "Ihre Hauptdomain, üblicherweise die Adresse Ihrer Webseite. Beispiel: muellergmbh.de."
+        "de": "Ihre Hauptdomain, üblicherweise die Adresse Ihrer Webseite. Beispiel: muellergmbh.de.",
+        "fr": "Votre domaine principal, généralement l'URL de votre site web. Exemple : acmesoftware.com.",
+        "it": "Il vostro dominio principale, di solito l'URL del vostro sito web. Esempio: acmesoftware.com.",
+        "es": "Su dominio principal, normalmente la URL de su sitio web. Ejemplo: acmesoftware.com.",
+        "pl": "Twoja domena główna, zwykle adres URL Twojej witryny. Przykład: acmesoftware.com.",
+        "cs": "Vaše hlavní doména, obvykle adresa URL vašich webových stránek. Příklad: acmesoftware.com.",
+        "pt": "O seu domínio principal, normalmente o URL do seu sítio web. Exemplo: acmesoftware.com.",
+        "ro": "Domeniul dumneavoastră principal, de obicei adresa URL a site-ului web. Exemplu: acmesoftware.com."
       },
-      "legalBasis": "ENISA TIG §5.2(b)",
-      "required": false
-    },
-    {
-      "id": "tagline",
-      "section": "profile",
-      "type": "string",
-      "label": {
-        "en": "Tagline (one line, customer-facing)",
-        "de": "Slogan (eine Zeile, kundenseitig sichtbar)"
-      },
-      "description": {
-        "en": "One line summarising what you offer. Customers see this on your supplier profile. Example: ERP for SME manufacturing.",
-        "de": "Eine Zeile, die Ihre Leistung zusammenfasst. Kunden sehen diese im Lieferantenprofil. Beispiel: ERP für mittelständische Produktion."
-      },
-      "legalBasis": "ENISA TIG §5.2(b)",
-      "required": false
-    },
-    {
-      "id": "description",
-      "section": "profile",
-      "type": "text",
-      "label": {
-        "en": "Public description (longer)",
-        "de": "Öffentliche Beschreibung (länger)"
-      },
-      "description": {
-        "en": "Two to three sentences about your company and what you do. This appears on your supplier profile. Sales pitch, security posture, or both.",
-        "de": "Zwei bis drei Sätze über Ihr Unternehmen und Ihre Leistung. Diese Beschreibung erscheint auf Ihrem Lieferantenprofil. Verkaufsversprechen, Sicherheitspositionierung oder beides."
-      },
-      "legalBasis": "ENISA TIG §5.2(b)",
+      "legalBasis": "CIR 2024/2690 §5.2(a)",
       "required": false
     },
     {
@@ -101,25 +127,14 @@
         "de": "Beschreibung der erbrachten Leistungen"
       },
       "description": {
-        "en": "One paragraph on what your company technically delivers to customers. Concrete products, modules, or services. Avoid pure marketing language.",
-        "de": "Ein Absatz darüber, was Ihr Unternehmen Kunden technisch liefert. Konkrete Produkte, Module oder Dienstleistungen. Vermeiden Sie reine Marketing-Sprache."
+        "en": "One paragraph on what you deliver to customers: concrete products, services or work, not marketing. Examples: “Office cleaning three evenings a week, with keys to the building” or “Payroll accounting for up to 200 employees”.",
+        "de": "Ein Absatz dazu, was Sie Kunden liefern: konkrete Produkte, Dienste oder Arbeiten, keine Werbung. Beispiele: „Büroreinigung an drei Abenden pro Woche, mit Schlüssel zum Gebäude“ oder „Lohnabrechnung für bis zu 200 Mitarbeitende“."
       },
-      "legalBasis": "ENISA TIG §5.2(b) + §5.1.4 TIPS",
-      "required": true
-    },
-    {
-      "id": "dataProcessingLocations",
-      "section": "profile",
-      "type": "string",
-      "label": {
-        "en": "Countries / regions where customer data is processed",
-        "de": "Länder / Regionen, in denen Kundendaten verarbeitet werden"
-      },
-      "description": {
-        "en": "Every country where your customers' data is stored or processed. Comma-separated, ISO country codes. Example: DE, NL, US. If you process entirely within the EU, listing the EU countries is enough.",
-        "de": "Alle Länder, in denen Kundendaten Ihrer Kunden gespeichert oder verarbeitet werden. Komma-getrennt, ISO-Ländercodes. Beispiel: DE, NL, US. Wenn Sie ausschließlich in der EU verarbeiten, reicht eine Liste der EU-Länder."
-      },
-      "legalBasis": "ENISA TIG §5.1.4 TIPS",
+      "legalBasis": "CIR 2024/2690 §5.2(b)",
+      "iso27001": [
+        "A.5.19",
+        "A.5.22"
+      ],
       "required": true
     },
     {
@@ -128,13 +143,31 @@
       "type": "string",
       "label": {
         "en": "Security contact name",
-        "de": "Name des Sicherheitskontakts"
+        "de": "Name des Sicherheitskontakts",
+        "fr": "Nom du contact sécurité",
+        "it": "Nome del referente per la sicurezza",
+        "es": "Nombre del contacto de seguridad",
+        "pl": "Imię i nazwisko kontaktu ds. bezpieczeństwa",
+        "cs": "Jméno bezpečnostního kontaktu",
+        "pt": "Nome do contacto de segurança",
+        "ro": "Numele persoanei de contact pentru securitate"
       },
       "description": {
         "en": "Who customers contact when a security incident hits. In smaller companies often the managing director or IT lead. One person is enough.",
-        "de": "Wer bei einem Sicherheitsvorfall direkt angesprochen wird. Bei kleineren Unternehmen oft die Geschäftsführung oder die IT-Leitung. Eine Person genügt."
+        "de": "Wer bei einem Sicherheitsvorfall direkt angesprochen wird. Bei kleineren Unternehmen oft die Geschäftsführung oder die IT-Leitung. Eine Person genügt.",
+        "fr": "La personne que les clients contactent lors d'un incident de sécurité. Dans les petites entreprises, souvent le directeur général ou le responsable informatique. Une seule personne suffit.",
+        "it": "La persona che i clienti contattano in caso di incidente di sicurezza. Nelle aziende più piccole spesso l'amministratore delegato o il responsabile IT. È sufficiente una sola persona.",
+        "es": "La persona a la que los clientes contactan cuando se produce un incidente de seguridad. En las empresas más pequeñas suele ser el director general o el responsable de TI. Basta con una persona.",
+        "pl": "Osoba, z którą klienci kontaktują się w przypadku incydentu bezpieczeństwa. W mniejszych firmach często dyrektor zarządzający lub kierownik IT. Wystarczy jedna osoba.",
+        "cs": "Na koho se zákazníci obrátí, když dojde k bezpečnostnímu incidentu. V menších společnostech často jednatel nebo vedoucí IT. Jedna osoba stačí.",
+        "pt": "A quem os clientes recorrem quando ocorre um incidente de segurança. Nas empresas mais pequenas, muitas vezes o diretor-geral ou o responsável de TI. Basta uma pessoa.",
+        "ro": "Persoana pe care clienții o contactează atunci când are loc un incident de securitate. În companiile mai mici, adesea directorul general sau responsabilul IT. Este suficientă o singură persoană."
       },
-      "legalBasis": "CIR 2024/2690 §5.1.4(d)",
+      "legalBasis": "CIR 2024/2690 §5.2(a)",
+      "iso27001": [
+        "A.5.20",
+        "A.5.24"
+      ],
       "required": true
     },
     {
@@ -143,13 +176,31 @@
       "type": "email",
       "label": {
         "en": "Incident contact email",
-        "de": "E-Mail für Vorfälle"
+        "de": "E-Mail für Vorfälle",
+        "fr": "E-mail de contact pour les incidents",
+        "it": "E-mail di contatto per gli incidenti",
+        "es": "Correo electrónico de contacto para incidentes",
+        "pl": "E-mail kontaktowy do zgłaszania incydentów",
+        "cs": "E-mail pro kontakt při incidentech",
+        "pt": "E-mail de contacto para incidentes",
+        "ro": "E-mail de contact pentru incidente"
       },
       "description": {
         "en": "Email address customers use to report a security incident. Ideally a distribution list like security@example.com that reaches multiple people.",
-        "de": "E-Mail-Adresse, die Kunden bei einem Sicherheitsvorfall verwenden. Idealerweise ein Verteiler wie security@firma.de, der mehrere Personen erreicht."
+        "de": "E-Mail-Adresse, die Kunden bei einem Sicherheitsvorfall verwenden. Idealerweise ein Verteiler wie security@firma.de, der mehrere Personen erreicht.",
+        "fr": "Adresse e-mail que les clients utilisent pour signaler un incident de sécurité. Idéalement une liste de diffusion comme security@example.com qui atteint plusieurs personnes.",
+        "it": "Indirizzo e-mail che i clienti utilizzano per segnalare un incidente di sicurezza. Idealmente una lista di distribuzione come security@example.com che raggiunge più persone.",
+        "es": "Dirección de correo electrónico que los clientes utilizan para notificar un incidente de seguridad. Idealmente una lista de distribución como security@example.com que llegue a varias personas.",
+        "pl": "Adres e-mail, którego klienci używają do zgłaszania incydentu bezpieczeństwa. Najlepiej lista dystrybucyjna, taka jak security@example.com, która dociera do wielu osób.",
+        "cs": "E-mailová adresa, kterou zákazníci používají k nahlášení bezpečnostního incidentu. Ideálně distribuční seznam jako security@example.com, který zastihne více osob.",
+        "pt": "Endereço de e-mail que os clientes utilizam para comunicar um incidente de segurança. Idealmente uma lista de distribuição como security@example.com que chegue a várias pessoas.",
+        "ro": "Adresa de e-mail pe care clienții o folosesc pentru a raporta un incident de securitate. În mod ideal, o listă de distribuție precum security@example.com care ajunge la mai multe persoane."
       },
-      "legalBasis": "CIR 2024/2690 §5.1.4(d)",
+      "legalBasis": "CIR 2024/2690 §5.2(a)",
+      "iso27001": [
+        "A.5.20",
+        "A.5.24"
+      ],
       "required": true
     },
     {
@@ -157,14 +208,18 @@
       "section": "profile",
       "type": "phone",
       "label": {
-        "en": "Incident contact phone (24/7)",
-        "de": "Telefonnummer für Vorfälle (24/7)"
+        "en": "Incident contact phone",
+        "de": "Telefonnummer für Vorfälle"
       },
       "description": {
-        "en": "Phone number for urgent incident reports. If you do not run 24/7 on-call, mention your business hours in brackets.",
-        "de": "Telefonnummer für dringende Vorfallsmeldungen. Wenn Sie keinen 24/7-Bereitschaftsdienst haben, geben Sie die Geschäftszeiten in Klammern an."
+        "en": "Phone number for urgent incident reports. Add the hours it is answered in brackets; round-the-clock cover is not expected.",
+        "de": "Telefonnummer für dringende Vorfallsmeldungen. Nennen Sie in Klammern, wann sie besetzt ist; eine Erreichbarkeit rund um die Uhr wird nicht erwartet."
       },
-      "legalBasis": "CIR 2024/2690 §5.1.4(d)",
+      "legalBasis": "CIR 2024/2690 §5.2(a)",
+      "iso27001": [
+        "A.5.20",
+        "A.5.24"
+      ],
       "required": false
     },
     {
@@ -172,29 +227,18 @@
       "section": "profile",
       "type": "integer",
       "label": {
-        "en": "Incident notification SLA (hours)",
-        "de": "Meldefrist für Vorfälle (Stunden)"
+        "en": "How fast you inform customers of an incident (hours)",
+        "de": "Wie schnell Sie Kunden über einen Vorfall informieren (Stunden)"
       },
       "description": {
-        "en": "Hours from incident detection to customer notification, at the latest. Realistic self-assessment, not aspirational. Common values: 24, 48, or 72 hours.",
-        "de": "Wie viele Stunden Sie maximal brauchen, um einen Kunden nach Erkennung eines Vorfalls zu informieren. Realistische Selbsteinschätzung, nicht Wunschwert. Übliche Werte: 24, 48 oder 72 Stunden."
+        "en": "At most this many hours after you notice a security incident that affects a customer, for example a data leak, a hacked account or a lost key. A customer under NIS 2 must send its authority an early warning within 24 hours of becoming aware of a significant incident (Art. 23(4)(a) NIS 2), so a promise of 24 hours or less helps them most. Give a value you keep.",
+        "de": "Höchstens so viele Stunden, nachdem Sie einen Sicherheitsvorfall bemerkt haben, der einen Kunden betrifft, zum Beispiel ein Datenleck, ein gehacktes Konto oder einen verlorenen Schlüssel. Ein Kunde unter NIS 2 muss seiner Behörde einen erheblichen Sicherheitsvorfall innerhalb von 24 Stunden, nachdem er davon erfahren hat, als Frühwarnung melden (Art. 23 Abs. 4 Buchst. a NIS 2). Eine Zusage von 24 Stunden oder weniger hilft ihm deshalb am meisten. Nennen Sie einen Wert, den Sie halten."
       },
-      "legalBasis": "NIS2 Art. 23",
-      "required": false
-    },
-    {
-      "id": "bsiRegistrationId",
-      "section": "profile",
-      "type": "string",
-      "label": {
-        "en": "BSI registration ID (only if your company is itself NIS2-regulated)",
-        "de": "BSI-Registrierungs-ID (nur falls Ihr Unternehmen selbst NIS2-reguliert ist)"
-      },
-      "description": {
-        "en": "If your company is itself NIS 2 regulated and registered with the BSI, enter the registration ID here. Optional. Lets customers see at a glance that you meet the same obligation as a regulated entity.",
-        "de": "Wenn Ihr Unternehmen selbst der NIS 2 unterliegt und beim BSI registriert ist, tragen Sie die Registrierungs-ID hier ein. Optional. Kunden sehen damit auf einen Blick, dass Sie als regulierte Einrichtung dieselbe Pflicht erfüllen."
-      },
-      "legalBasis": "ENISA TIG §5.1.2",
+      "legalBasis": "CIR 2024/2690 §5.1.4(d)",
+      "iso27001": [
+        "A.5.20",
+        "A.5.24"
+      ],
       "required": false
     },
     {
@@ -203,13 +247,32 @@
       "type": "boolean",
       "label": {
         "en": "We provide SaaS / hosted services",
-        "de": "Wir bieten SaaS / gehostete Dienste"
+        "de": "Wir bieten SaaS / gehostete Dienste",
+        "fr": "Nous fournissons des services SaaS / hébergés",
+        "it": "Forniamo servizi SaaS / in hosting",
+        "es": "Ofrecemos servicios SaaS / alojados",
+        "pl": "Świadczymy usługi SaaS / hostowane",
+        "cs": "Poskytujeme SaaS / hostované služby",
+        "pt": "Fornecemos serviços SaaS / alojados",
+        "ro": "Furnizăm servicii SaaS / găzduite"
       },
       "description": {
         "en": "You run software for customers on your own infrastructure and deliver it over the internet. Tick more than one box if you offer several models.",
-        "de": "Sie betreiben Software für Kunden auf eigener Infrastruktur und liefern sie über das Internet. Mehrfachauswahl möglich, wenn Sie mehrere Modelle anbieten."
+        "de": "Sie betreiben Software für Kunden auf eigener Infrastruktur und liefern sie über das Internet. Mehrfachauswahl möglich, wenn Sie mehrere Modelle anbieten.",
+        "fr": "Vous exécutez des logiciels pour les clients sur votre propre infrastructure et les livrez via internet. Cochez plusieurs cases si vous proposez plusieurs modèles.",
+        "it": "Eseguite software per i clienti sulla vostra infrastruttura e lo erogate tramite internet. Selezionate più caselle se offrite più modelli.",
+        "es": "Ejecuta software para los clientes en su propia infraestructura y lo entrega a través de internet. Marque más de una casilla si ofrece varios modelos.",
+        "pl": "Uruchamiasz oprogramowanie dla klientów na własnej infrastrukturze i dostarczasz je przez internet. Zaznacz więcej niż jedno pole, jeśli oferujesz kilka modeli.",
+        "cs": "Provozujete software pro zákazníky na vlastní infrastruktuře a dodáváte jej přes internet. Pokud nabízíte více modelů, zaškrtněte více políček.",
+        "pt": "Executa software para os clientes na sua própria infraestrutura e entrega-o através da internet. Assinale mais do que uma caixa se oferecer vários modelos.",
+        "ro": "Rulați software pentru clienți pe propria infrastructură și îl livrați prin internet. Bifați mai multe casete dacă oferiți mai multe modele."
       },
-      "legalBasis": "ENISA TIG §5.2(b)",
+      "legalBasis": "CIR 2024/2690 §5.2(b)",
+      "iso27001": [
+        "A.5.19",
+        "A.5.22",
+        "A.5.23"
+      ],
       "required": true
     },
     {
@@ -218,28 +281,31 @@
       "type": "boolean",
       "label": {
         "en": "We deliver on-prem software",
-        "de": "Wir liefern On-Prem-Software"
+        "de": "Wir liefern On-Prem-Software",
+        "fr": "Nous livrons des logiciels on-premise",
+        "it": "Forniamo software on-premise",
+        "es": "Entregamos software on-premise",
+        "pl": "Dostarczamy oprogramowanie on-premise",
+        "cs": "Dodáváme on-premise software",
+        "pt": "Fornecemos software on-premise",
+        "ro": "Livrăm software on-premise"
       },
       "description": {
         "en": "You deliver software that customers install and run on their own infrastructure.",
-        "de": "Sie liefern Software, die Ihre Kunden auf ihrer eigenen Infrastruktur installieren und betreiben."
+        "de": "Sie liefern Software, die Ihre Kunden auf ihrer eigenen Infrastruktur installieren und betreiben.",
+        "fr": "Vous livrez des logiciels que les clients installent et exécutent sur leur propre infrastructure.",
+        "it": "Fornite software che i clienti installano ed eseguono sulla propria infrastruttura.",
+        "es": "Entrega software que los clientes instalan y ejecutan en su propia infraestructura.",
+        "pl": "Dostarczasz oprogramowanie, które klienci instalują i uruchamiają na własnej infrastrukturze.",
+        "cs": "Dodáváte software, který si zákazníci instalují a provozují na vlastní infrastruktuře.",
+        "pt": "Fornece software que os clientes instalam e executam na sua própria infraestrutura.",
+        "ro": "Livrați software pe care clienții îl instalează și îl rulează pe propria infrastructură."
       },
-      "legalBasis": "ENISA TIG §5.2(b)",
-      "required": true
-    },
-    {
-      "id": "isProfessionalServices",
-      "section": "profile",
-      "type": "boolean",
-      "label": {
-        "en": "We provide professional services / consulting",
-        "de": "Wir bieten Dienstleistungen / Beratung"
-      },
-      "description": {
-        "en": "Your main deliverable is human work: consulting, implementation, training, audit, or customisation.",
-        "de": "Sie liefern menschliche Arbeit als Hauptleistung: Beratung, Implementierung, Schulung, Audit oder Customizing."
-      },
-      "legalBasis": "ENISA TIG §5.2(b)",
+      "legalBasis": "CIR 2024/2690 §5.2(b)",
+      "iso27001": [
+        "A.5.19",
+        "A.5.22"
+      ],
       "required": true
     },
     {
@@ -248,58 +314,123 @@
       "type": "boolean",
       "label": {
         "en": "We provide managed services / MSP",
-        "de": "Wir bieten Managed Services / MSP"
+        "de": "Wir bieten Managed Services / MSP",
+        "fr": "Nous fournissons des services gérés / MSP",
+        "it": "Forniamo servizi gestiti / MSP",
+        "es": "Ofrecemos servicios gestionados / MSP",
+        "pl": "Świadczymy usługi zarządzane / MSP",
+        "cs": "Poskytujeme spravované služby / MSP",
+        "pt": "Fornecemos serviços geridos / MSP",
+        "ro": "Furnizăm servicii gestionate / MSP"
       },
       "description": {
         "en": "You operate parts of your customer's IT for them, with your own staff. Typical for MSP and MSSP models.",
-        "de": "Sie betreiben Teile der IT-Landschaft des Kunden für ihn, mit eigenem Personal. Typisch für MSP- und MSSP-Modelle."
+        "de": "Sie betreiben Teile der IT-Landschaft des Kunden für ihn, mit eigenem Personal. Typisch für MSP- und MSSP-Modelle.",
+        "fr": "Vous exploitez pour le client une partie de son informatique, avec votre propre personnel. Typique des modèles MSP et MSSP.",
+        "it": "Gestite per il cliente parti della sua infrastruttura IT, con personale proprio. Tipico dei modelli MSP e MSSP.",
+        "es": "Opera para el cliente partes de su TI, con personal propio. Típico de los modelos MSP y MSSP.",
+        "pl": "Obsługujesz dla klienta części jego infrastruktury IT, własnym personelem. Typowe dla modeli MSP i MSSP.",
+        "cs": "Provozujete pro zákazníka části jeho IT vlastním personálem. Typické pro modely MSP a MSSP.",
+        "pt": "Opera para o cliente partes da sua TI, com pessoal próprio. Típico dos modelos MSP e MSSP.",
+        "ro": "Operați pentru client părți din infrastructura sa IT, cu personal propriu. Tipic pentru modelele MSP și MSSP."
       },
-      "legalBasis": "ENISA TIG §5.2(b)",
+      "legalBasis": "CIR 2024/2690 §5.2(b)",
+      "iso27001": [
+        "A.5.19",
+        "A.5.22"
+      ],
       "required": true
     },
     {
-      "id": "usesAiSystems",
+      "id": "processesCustomerData",
       "section": "profile",
       "type": "boolean",
       "label": {
-        "en": "We use, integrate or provide AI systems",
-        "de": "Wir nutzen, integrieren oder bieten KI-Systeme"
+        "en": "We process or store our customers' data",
+        "de": "Wir verarbeiten oder speichern Daten unserer Kunden"
       },
       "description": {
-        "en": "Do your products or services process customer data through an AI or ML model? Includes external models you call through an API, for example OpenAI or Anthropic.",
-        "de": "Verarbeiten Ihre Produkte oder Dienste Kundendaten durch ein KI- oder ML-Modell? Inklusive externer Modelle, die Sie über eine API anbinden, zum Beispiel OpenAI oder Anthropic."
+        "en": "Tick yes if you hold or handle your customers' data or documents, electronically or on paper, for example in software, a data centre, a ticket system, accounting or an archive.",
+        "de": "Ja, wenn Sie Daten oder Unterlagen Ihrer Kunden elektronisch oder auf Papier halten oder bearbeiten, etwa in Software, Rechenzentrum, Ticketsystem, Buchhaltung oder Archiv."
       },
-      "legalBasis": "NIS2 Art. 21(2)(d)",
+      "legalBasis": "ENISA TIG §5.1.2",
+      "iso27001": [
+        "A.5.19"
+      ],
       "required": true
     },
     {
-      "id": "hasIsms",
-      "section": "security_practices",
-      "type": "boolean",
+      "id": "dataProcessingLocations",
+      "section": "profile",
+      "type": "string",
       "label": {
-        "en": "Documented Information Security Management System (ISMS)",
-        "de": "Dokumentiertes Informationssicherheits-Managementsystem (ISMS)"
+        "en": "Countries / regions where customer data is processed",
+        "de": "Länder / Regionen, in denen Kundendaten verarbeitet werden",
+        "fr": "Pays / régions où les données des clients sont traitées",
+        "it": "Paesi / regioni in cui vengono trattati i dati dei clienti",
+        "es": "Países / regiones donde se tratan los datos de los clientes",
+        "pl": "Kraje / regiony, w których przetwarzane są dane klientów",
+        "cs": "Země / regiony, kde se zpracovávají data zákazníků",
+        "pt": "Países / regiões onde são tratados os dados dos clientes",
+        "ro": "Țări / regiuni în care sunt prelucrate datele clienților"
       },
       "description": {
-        "en": "Tick yes if you have a written information security policy with assigned roles, regular reviews, and documented incident handling. ISO 27001 or BSI Grundschutz certification implies yes.",
-        "de": "Ja, wenn Sie eine schriftliche Informationssicherheits-Richtlinie haben, klar zugewiesene Rollen, regelmäßige Überprüfungen und einen dokumentierten Umgang mit Vorfällen. ISO 27001 oder BSI Grundschutz Zertifizierung bedeutet automatisch Ja."
+        "en": "Every country where your customers' data is stored or processed. Comma-separated, ISO country codes. Example: DE, NL, US. If you process entirely within the EU, listing the EU countries is enough.",
+        "de": "Alle Länder, in denen Kundendaten Ihrer Kunden gespeichert oder verarbeitet werden. Komma-getrennt, ISO-Ländercodes. Beispiel: DE, NL, US. Wenn Sie ausschließlich in der EU verarbeiten, reicht eine Liste der EU-Länder.",
+        "fr": "Tous les pays où les données de vos clients sont stockées ou traitées. Séparés par des virgules, codes pays ISO. Exemple : DE, NL, US. Si vous traitez entièrement au sein de l'UE, lister les pays de l'UE suffit.",
+        "it": "Tutti i paesi in cui i dati dei vostri clienti vengono archiviati o trattati. Separati da virgole, codici paese ISO. Esempio: DE, NL, US. Se trattate interamente all'interno dell'UE, è sufficiente elencare i paesi dell'UE.",
+        "es": "Todos los países donde se almacenan o tratan los datos de sus clientes. Separados por comas, códigos de país ISO. Ejemplo: DE, NL, US. Si trata los datos enteramente dentro de la UE, basta con enumerar los países de la UE.",
+        "pl": "Wszystkie kraje, w których przechowywane lub przetwarzane są dane Twoich klientów. Oddzielone przecinkami, kody krajów ISO. Przykład: DE, NL, US. Jeśli przetwarzasz dane wyłącznie w UE, wystarczy wymienić kraje UE.",
+        "cs": "Všechny země, kde se ukládají nebo zpracovávají data vašich zákazníků. Oddělené čárkami, kódy zemí ISO. Příklad: DE, NL, US. Pokud zpracováváte výhradně v rámci EU, stačí uvést země EU.",
+        "pt": "Todos os países onde os dados dos seus clientes são armazenados ou tratados. Separados por vírgulas, códigos de país ISO. Exemplo: DE, NL, US. Se tratar os dados inteiramente dentro da UE, basta enumerar os países da UE.",
+        "ro": "Toate țările în care datele clienților dumneavoastră sunt stocate sau prelucrate. Separate prin virgule, coduri de țară ISO. Exemplu: DE, NL, US. Dacă prelucrați integral în interiorul UE, este suficient să enumerați țările UE."
       },
-      "legalBasis": "CIR 2024/2690 §5.1.2(a)",
+      "legalBasis": "ENISA TIG §5.1.4 TIPS",
+      "iso27001": [
+        "A.5.20",
+        "A.5.23",
+        "A.5.34"
+      ],
+      "required": true,
+      "visibleWhen": {
+        "field": "processesCustomerData",
+        "equals": true
+      }
+    },
+    {
+      "id": "accessesCustomerSystems",
+      "section": "profile",
+      "type": "boolean",
+      "label": {
+        "en": "We access our customers' systems",
+        "de": "Wir greifen auf Systeme unserer Kunden zu"
+      },
+      "description": {
+        "en": "Tick yes if you can sign in to your customers' systems, remotely, as an administrator or on site, for example for maintenance, support or operations.",
+        "de": "Ja, wenn Sie sich bei Ihren Kunden anmelden können, aus der Ferne, als Administrator oder vor Ort, zum Beispiel für Wartung, Support oder Betrieb."
+      },
+      "legalBasis": "ENISA TIG §5.1.2",
+      "iso27001": [
+        "A.5.19"
+      ],
       "required": true
     },
     {
-      "id": "hasIso27001OrEquivalent",
-      "section": "security_practices",
+      "id": "accessesCustomerPremises",
+      "section": "profile",
       "type": "boolean",
       "label": {
-        "en": "Hold ISO 27001, BSI Grundschutz, or equivalent certification",
-        "de": "ISO 27001, BSI Grundschutz oder gleichwertige Zertifizierung"
+        "en": "Our staff enter our customers' premises",
+        "de": "Unsere Mitarbeitenden betreten Räume unserer Kunden"
       },
       "description": {
-        "en": "Tick yes if your company currently holds an ISO 27001, BSI Grundschutz, SOC 2 Type II, or equivalent certification. Upload the certificate in the Certifications tab.",
-        "de": "Ja, wenn Ihr Unternehmen aktuell nach ISO 27001, BSI Grundschutz, SOC 2 Type II oder einem gleichwertigen Standard zertifiziert ist. Das Zertifikat laden Sie im Reiter Zertifizierungen hoch."
+        "en": "Tick yes if your staff or subcontractors go into a customer's offices or buildings, escorted or not, for example for cleaning, maintenance, repairs, deliveries into the building or on-site support. Holding keys, badges or door codes counts.",
+        "de": "Ja, wenn Ihre Mitarbeitenden oder Unterauftragnehmer Büros oder Gebäude eines Kunden betreten, mit oder ohne Begleitung, etwa für Reinigung, Wartung, Reparaturen, Anlieferung ins Gebäude oder Support vor Ort. Schlüssel, Ausweise oder Türcodes zählen dazu."
       },
-      "legalBasis": "CIR 2024/2690 §5.1.2(b)",
+      "legalBasis": "CIR 2024/2690 §11.1.2(a); §13.3.2(b)",
+      "iso27001": [
+        "A.5.19"
+      ],
       "required": true
     },
     {
@@ -307,44 +438,17 @@
       "section": "security_practices",
       "type": "boolean",
       "label": {
-        "en": "Annual security awareness training for all staff",
-        "de": "Jährliche Security-Awareness-Schulung für alle Mitarbeitenden"
+        "en": "Staff who work for customers are instructed in security when they start and at regular intervals",
+        "de": "Mitarbeitende, die für Kunden arbeiten, werden zu Beginn und danach regelmäßig in Sicherheit unterwiesen"
       },
       "description": {
-        "en": "Tick yes if every staff member receives at least one annual information-security awareness training. E-learning counts; phishing simulations add to it.",
-        "de": "Ja, wenn alle Mitarbeitenden mindestens einmal pro Jahr eine Awareness-Schulung zur Informationssicherheit erhalten. E-Learning genügt, Phishing-Simulationen kommen oben drauf."
+        "en": "Tick yes if everyone who works for customers learns the security rules that apply to them when they start, and again at regular intervals, for example in a short briefing, an e-learning course or written rules they sign.",
+        "de": "Ja, wenn alle, die für Kunden arbeiten, die für sie geltenden Sicherheitsregeln zu Beginn und danach regelmäßig vermittelt bekommen, etwa in einer kurzen Unterweisung, einem E-Learning oder schriftlichen Regeln, die sie unterschreiben."
       },
       "legalBasis": "CIR 2024/2690 §5.1.4(b)",
-      "required": true
-    },
-    {
-      "id": "backgroundChecks",
-      "section": "security_practices",
-      "type": "boolean",
-      "label": {
-        "en": "Background checks on staff with customer data access",
-        "de": "Zuverlässigkeitsprüfung für Mitarbeitende mit Kundendaten-Zugriff"
-      },
-      "description": {
-        "en": "Tick yes if you run a background check for staff with access to customer data. Common bar: a criminal record extract or equivalent document on hire.",
-        "de": "Ja, wenn Sie für Mitarbeitende mit Zugang zu Kundendaten eine Zuverlässigkeitsprüfung durchführen. Übliche Stufe: polizeiliches Führungszeugnis oder vergleichbares Dokument bei der Einstellung."
-      },
-      "legalBasis": "CIR 2024/2690 §5.1.4(c)",
-      "required": true
-    },
-    {
-      "id": "vulnerabilityHandling",
-      "section": "security_practices",
-      "type": "boolean",
-      "label": {
-        "en": "Documented vulnerability handling and patching process",
-        "de": "Dokumentierter Schwachstellen- und Patch-Management-Prozess"
-      },
-      "description": {
-        "en": "Tick yes if you have a written process for handling security vulnerabilities: detect, assess, prioritise, patch or mitigate. CVE monitoring and SLA-driven patching are the standard.",
-        "de": "Ja, wenn Sie einen schriftlichen Prozess für die Behandlung von Sicherheitslücken haben: erkennen, bewerten, priorisieren, patchen oder mitigieren. CVE-Monitoring und SLA-basiertes Patching gelten als Standard."
-      },
-      "legalBasis": "CIR 2024/2690 §5.1.4(f)",
+      "iso27001": [
+        "A.6.3"
+      ],
       "required": true
     },
     {
@@ -352,14 +456,18 @@
       "section": "security_practices",
       "type": "boolean",
       "label": {
-        "en": "Accept customer right to audit (or provide audit reports)",
-        "de": "Akzeptanz des Auditrechts (oder Bereitstellung von Auditberichten)"
+        "en": "We accept audits by customers or provide audit reports",
+        "de": "Wir akzeptieren Audits durch Kunden oder stellen Prüfberichte bereit"
       },
       "description": {
-        "en": "Tick yes if you either grant customers an on-site audit right or provide substitute audit reports (for example SOC 2, ISAE 3402).",
-        "de": "Ja, wenn Sie Kunden entweder ein Auditrecht vor Ort einräumen oder ihnen stellvertretend Auditberichte (zum Beispiel SOC 2, ISAE 3402) zur Verfügung stellen."
+        "en": "Tick yes if you either let customers audit you or give them audit reports instead (for example SOC 2, ISAE 3402).",
+        "de": "Ja, wenn Sie Kunden entweder ein Auditrecht einräumen oder ihnen stattdessen Prüfberichte (zum Beispiel SOC 2, ISAE 3402) zur Verfügung stellen."
       },
       "legalBasis": "CIR 2024/2690 §5.1.4(e)",
+      "iso27001": [
+        "A.5.20",
+        "A.5.22"
+      ],
       "required": true
     },
     {
@@ -367,14 +475,18 @@
       "section": "security_practices",
       "type": "boolean",
       "label": {
-        "en": "Use subprocessors / sub-suppliers",
-        "de": "Einsatz von Sub-Unternehmern / Sub-Lieferanten"
+        "en": "We use subcontractors to deliver our service",
+        "de": "Wir setzen für unsere Leistung Unterauftragnehmer ein"
       },
       "description": {
-        "en": "Tick yes if you use other companies to deliver your service that have access to customer data or infrastructure. Typical examples: AWS, Azure, Cloudflare, Stripe.",
-        "de": "Ja, wenn Sie für die Leistungserbringung andere Unternehmen einsetzen, die Zugang zu Kundendaten oder Kunden-Infrastruktur haben. Typische Beispiele: AWS, Azure, Cloudflare, Stripe."
+        "en": "Tick yes if other companies help you deliver your service and in doing so reach customer data, systems or premises. Examples: a cloud host such as AWS or Azure, a payment provider, or a subcontracted crew that works on site.",
+        "de": "Ja, wenn andere Unternehmen an Ihrer Leistung mitwirken und dabei an Daten, Systeme oder Räume Ihrer Kunden gelangen. Beispiele: ein Cloudanbieter wie AWS oder Azure, ein Zahlungsdienst oder ein beauftragtes Team, das vor Ort arbeitet."
       },
       "legalBasis": "CIR 2024/2690 §5.1.4(g)",
+      "iso27001": [
+        "A.5.20",
+        "A.5.21"
+      ],
       "required": true
     },
     {
@@ -382,14 +494,18 @@
       "section": "security_practices",
       "type": "text",
       "label": {
-        "en": "List of subprocessors",
-        "de": "Liste der Sub-Unternehmer"
+        "en": "List of subcontractors",
+        "de": "Liste der Unterauftragnehmer"
       },
       "description": {
-        "en": "List every subprocessor with name, processing location, and what they do for you. A table or bullet list is enough. Update whenever you add or remove one.",
-        "de": "Liste aller Sub-Unternehmer mit Name, Verarbeitungsstandort und Aufgabe. Eine Tabelle oder Stichpunktliste genügt. Aktualisieren Sie diese, wenn Sie einen Sub-Unternehmer hinzufügen oder entfernen."
+        "en": "Every subcontractor with name, location and what they do for you. One per line is enough. Update it whenever you add or remove one.",
+        "de": "Alle Unterauftragnehmer mit Name, Ort und Aufgabe. Eine Zeile pro Unterauftragnehmer genügt. Aktualisieren Sie die Liste, wenn Sie einen hinzufügen oder entfernen."
       },
       "legalBasis": "CIR 2024/2690 §5.1.4(g)",
+      "iso27001": [
+        "A.5.20",
+        "A.5.21"
+      ],
       "required": false,
       "visibleWhen": {
         "field": "hasSubprocessors",
@@ -397,153 +513,44 @@
       }
     },
     {
-      "id": "dataReturnOnTermination",
+      "id": "subprocessorRequirementsPassedOn",
       "section": "security_practices",
       "type": "boolean",
       "label": {
-        "en": "Commit to return / destroy customer data on termination",
-        "de": "Verpflichtung zur Rückgabe / Vernichtung von Kundendaten bei Vertragsende"
+        "en": "We bind subcontractors to comparable security requirements",
+        "de": "Wir verpflichten Unterauftragnehmer auf vergleichbare Sicherheitsanforderungen"
       },
       "description": {
-        "en": "Tick yes if you contractually commit to returning or destroying customer data at the end of the contract. Common practice: export and return, then delete within 30 days.",
-        "de": "Ja, wenn Sie sich vertraglich verpflichten, Kundendaten am Ende des Vertrags zurückzugeben oder zu vernichten. Üblich: Rückgabe als Export, dann Löschung innerhalb von 30 Tagen."
+        "en": "Tick yes if your contracts with subcontractors contain security requirements that match what your customers ask of you, for example on incidents, access and data handling.",
+        "de": "Ja, wenn Ihre Verträge mit Unterauftragnehmern Sicherheitsanforderungen enthalten, die dem entsprechen, was Ihre Kunden von Ihnen verlangen, etwa zu Vorfällen, Zugängen und dem Umgang mit Daten."
       },
-      "legalBasis": "CIR 2024/2690 §5.1.4(h)",
-      "required": true
+      "legalBasis": "CIR 2024/2690 §5.1.4(g)",
+      "iso27001": [
+        "A.5.20",
+        "A.5.21"
+      ],
+      "required": true,
+      "visibleWhen": {
+        "field": "hasSubprocessors",
+        "equals": true
+      }
     },
     {
-      "id": "dpaAvailable",
+      "id": "notifyMaterialChanges",
       "section": "security_practices",
       "type": "boolean",
       "label": {
-        "en": "Standard data processing agreement (DPA) available",
-        "de": "Standard-Auftragsverarbeitungsvertrag (AVV) verfügbar"
+        "en": "We inform customers of material changes, including where their data is processed",
+        "de": "Wir informieren Kunden über wesentliche Änderungen, auch der Verarbeitungsorte"
       },
       "description": {
-        "en": "Tick yes if you have a standard data processing agreement under GDPR Article 28 that customers can sign. Required as soon as you process personal data.",
-        "de": "Ja, wenn Sie einen standardisierten Auftragsverarbeitungsvertrag nach Artikel 28 DSGVO haben, den Kunden unterschreiben können. Notwendig, sobald Sie personenbezogene Daten verarbeiten."
+        "en": "Tick yes if you tell customers before anything material changes in how you deliver: a takeover, a new subcontractor, another hosting provider, or a new country where their data is processed.",
+        "de": "Ja, wenn Sie Kunden vorab informieren, bevor sich an Ihrer Leistung etwas Wesentliches ändert: eine Übernahme, ein neuer Unterauftragnehmer, ein anderer Hoster oder ein neues Land, in dem ihre Daten verarbeitet werden."
       },
-      "legalBasis": "GDPR Art. 28",
-      "required": true
-    },
-    {
-      "id": "securityPolicyReviewedAnnually",
-      "section": "security_practices",
-      "type": "boolean",
-      "label": {
-        "en": "Security policies reviewed at least annually",
-        "de": "Sicherheitsrichtlinien werden mindestens jährlich überprüft"
-      },
-      "description": {
-        "en": "Tick yes if your security policies are reviewed at least once a year and updated as needed. A written note in the document is enough evidence.",
-        "de": "Ja, wenn Ihre Sicherheitsrichtlinien mindestens jährlich überprüft und bei Bedarf aktualisiert werden. Eine schriftliche Notiz im Dokument genügt als Nachweis."
-      },
-      "legalBasis": "NIS2 Art. 21(2)(a) / ENISA TIG §1.1",
-      "required": true
-    },
-    {
-      "id": "hasIncidentResponsePlan",
-      "section": "security_practices",
-      "type": "boolean",
-      "label": {
-        "en": "Documented incident response plan",
-        "de": "Dokumentierter Notfall-/Incident-Response-Plan"
-      },
-      "description": {
-        "en": "Tick yes if you have a written plan for handling security incidents: who decides, who communicates, who documents. At least one tabletop exercise per year is good practice.",
-        "de": "Ja, wenn Sie einen schriftlichen Plan für den Umgang mit Sicherheitsvorfällen haben: wer entscheidet, wer kommuniziert, wer dokumentiert. Mindestens eine Tabletop-Übung pro Jahr ist gute Praxis."
-      },
-      "legalBasis": "NIS2 Art. 21(2)(b) / ENISA TIG §3",
-      "required": true
-    },
-    {
-      "id": "hasBusinessContinuityPlan",
-      "section": "security_practices",
-      "type": "boolean",
-      "label": {
-        "en": "Documented business continuity / disaster recovery plan",
-        "de": "Dokumentierter Business-Continuity- / Disaster-Recovery-Plan"
-      },
-      "description": {
-        "en": "Tick yes if you have a plan that explains how you keep running or recover quickly during an outage: critical systems, fallbacks, RTO and RPO targets.",
-        "de": "Ja, wenn Sie einen Plan haben, der erklärt, wie Sie den Betrieb bei einem Ausfall aufrechterhalten oder schnell wiederherstellen: kritische Systeme, Ersatzwege, RTO und RPO Ziele."
-      },
-      "legalBasis": "NIS2 Art. 21(2)(c) / ENISA TIG §4",
-      "required": true
-    },
-    {
-      "id": "hasCryptographyPolicy",
-      "section": "security_practices",
-      "type": "boolean",
-      "label": {
-        "en": "Documented cryptography policy",
-        "de": "Dokumentierte Kryptografie-Richtlinie"
-      },
-      "description": {
-        "en": "Tick yes if you have written down which cryptography you use where: data in transit (TLS 1.2+), data at rest (AES-256), key management, hashing algorithms.",
-        "de": "Ja, wenn Sie schriftlich festgelegt haben, welche Verschlüsselungsverfahren Sie wofür einsetzen: Daten im Transit (TLS 1.2+), Daten im Ruhezustand (AES-256), Schlüsselverwaltung, ausgewählte Hashing-Verfahren."
-      },
-      "legalBasis": "NIS2 Art. 21(2)(h) / ENISA TIG §9",
-      "required": true
-    },
-    {
-      "id": "hasPrivilegedAccessMgmt",
-      "section": "security_practices",
-      "type": "boolean",
-      "label": {
-        "en": "Privileged access management (PAM) for internal staff",
-        "de": "Privileged Access Management (PAM) für interne Mitarbeitende"
-      },
-      "description": {
-        "en": "Tick yes if administrators and privileged accounts get extra controls: separate sign-in, MFA, session logging, or just-in-time access.",
-        "de": "Ja, wenn Administratoren und privilegierte Konten besondere Kontrollen haben: separater Login, MFA, Sitzungsprotokollierung oder zeitlich befristete Berechtigung."
-      },
-      "legalBasis": "NIS2 Art. 21(2)(i) / ENISA TIG §11.3",
-      "required": true
-    },
-    {
-      "id": "mfaEnforcedInternal",
-      "section": "security_practices",
-      "type": "boolean",
-      "label": {
-        "en": "MFA enforced for all internal admin / privileged accounts",
-        "de": "MFA für alle internen Admin- / privilegierten Konten erzwungen"
-      },
-      "description": {
-        "en": "Tick yes if every internal admin or privileged account must use MFA. Hardware tokens or authenticator apps count; SMS does not.",
-        "de": "Ja, wenn alle internen Administrator-Konten oder Konten mit erhöhten Rechten MFA erzwingen müssen. Hardware-Tokens oder Authenticator-Apps zählen, SMS ist nicht ausreichend."
-      },
-      "legalBasis": "NIS2 Art. 21(2)(j)",
-      "required": true
-    },
-    {
-      "id": "hasAssetInventory",
-      "section": "security_practices",
-      "type": "boolean",
-      "label": {
-        "en": "Maintain an inventory of information assets",
-        "de": "Asset-Inventar wird gepflegt"
-      },
-      "description": {
-        "en": "Tick yes if you keep a current list of every information system you use to deliver your service: servers, databases, SaaS tools, endpoints. A spreadsheet is enough.",
-        "de": "Ja, wenn Sie eine aktuelle Liste aller Informationssysteme führen, die Sie für die Leistungserbringung einsetzen: Server, Datenbanken, SaaS-Werkzeuge, Endgeräte. Eine Tabelle genügt."
-      },
-      "legalBasis": "NIS2 Art. 21(2)(i) / ENISA TIG §12.4",
-      "required": true
-    },
-    {
-      "id": "hasPenetrationTestingProgram",
-      "section": "security_practices",
-      "type": "boolean",
-      "label": {
-        "en": "Annual or biennial penetration testing program",
-        "de": "Jährliches oder zweijährliches Penetrationstest-Programm"
-      },
-      "description": {
-        "en": "Tick yes if you commission an external penetration test at least every one to two years. For smaller companies, an external vulnerability scan as a minimum step is acceptable.",
-        "de": "Ja, wenn Sie mindestens alle ein bis zwei Jahre einen externen Penetrationstest beauftragen. Bei kleineren Unternehmen ist eine externe Schwachstellenanalyse als Mindestschritt akzeptabel."
-      },
-      "legalBasis": "NIS2 Art. 21(2)(e) / ENISA TIG §6.5",
+      "legalBasis": "ENISA TIG §5.1.4",
+      "iso27001": [
+        "A.5.22"
+      ],
       "required": true
     },
     {
@@ -551,29 +558,17 @@
       "section": "security_practices",
       "type": "boolean",
       "label": {
-        "en": "We disclose past notifiable cybersecurity events when asked by customers",
-        "de": "Wir legen frühere meldepflichtige Sicherheitsvorfälle auf Anfrage offen"
+        "en": "On request, we tell customers about security incidents that affected customers",
+        "de": "Auf Anfrage informieren wir Kunden über Sicherheitsvorfälle, die Kunden betrafen"
       },
       "description": {
-        "en": "Tick yes if, on customer request, you openly disclose whether and which reportable security incidents your company had in the past. Common window: the last three to five years.",
-        "de": "Ja, wenn Sie auf Kundenanfrage offen kommunizieren, ob und welche meldepflichtigen Sicherheitsvorfälle Ihr Unternehmen in der Vergangenheit hatte. Übliche Schwelle: die letzten drei bis fünf Jahre."
+        "en": "Tick yes if, when a customer asks, you say openly whether and which security incidents affecting customers you had in the past.",
+        "de": "Ja, wenn Sie auf Anfrage eines Kunden offen sagen, ob und welche Sicherheitsvorfälle mit Auswirkung auf Kunden es bei Ihnen gab."
       },
       "legalBasis": "ENISA TIG §5.1.2",
-      "required": true
-    },
-    {
-      "id": "incidentAssistanceCommitment",
-      "section": "security_practices",
-      "type": "boolean",
-      "label": {
-        "en": "Provide incident assistance to customers at no / ex-ante cost",
-        "de": "Wir unterstützen Kunden im Vorfall ohne / zu vorab definierten Kosten"
-      },
-      "description": {
-        "en": "Tick yes if you commit to helping customers at no extra cost when an incident is caused by your product or service. If you agree a pre-defined day rate up front instead, also tick yes.",
-        "de": "Ja, wenn Sie sich verpflichten, Kunden bei einem durch Ihr Produkt oder Ihre Dienstleistung verursachten Vorfall ohne zusätzliche Kosten zu unterstützen. Wenn Sie stattdessen einen vorab definierten Tagessatz vereinbaren, wählen Sie auch Ja."
-      },
-      "legalBasis": "ENISA TIG §5.1.4 TIPS",
+      "iso27001": [
+        "A.5.22"
+      ],
       "required": true
     },
     {
@@ -581,153 +576,686 @@
       "section": "security_practices",
       "type": "boolean",
       "label": {
-        "en": "Fully cooperate with competent authorities (BSI, ENISA, national CSIRTs)",
-        "de": "Vollständige Kooperation mit zuständigen Behörden (BSI, ENISA, nationale CSIRTs)"
+        "en": "We give customers the information their authority asks for",
+        "de": "Wir liefern Kunden die Angaben, die ihre Behörde verlangt"
       },
       "description": {
-        "en": "Tick yes if you commit to fully cooperating with competent authorities like BSI, ENISA, or national CSIRTs during inspections, audits, and incident handling. Standard for serious suppliers.",
-        "de": "Ja, wenn Sie sich verpflichten, mit zuständigen Behörden wie BSI, ENISA oder nationalen CSIRTs bei Inspektionen, Audits und Vorfallbearbeitung vollständig zu kooperieren. Standard für seriöse Lieferanten."
+        "en": "Tick yes if you give your customers the information their supervisory authority asks for after an incident or during an audit. Unless you are an essential or important entity under NIS 2 yourself, you owe that authority nothing directly; the duty is your customer's, and you help them meet it.",
+        "de": "Ja, wenn Sie Ihren Kunden die Angaben liefern, die deren Aufsichtsbehörde nach einem Vorfall oder bei einer Prüfung verlangt. Sofern Sie nicht selbst eine wesentliche oder wichtige Einrichtung unter NIS 2 sind, sind Sie dieser Behörde nicht selbst verpflichtet; die Pflicht hat Ihr Kunde, und Sie helfen ihm, sie zu erfüllen."
       },
-      "legalBasis": "ENISA TIG §5.1.4 TIPS",
+      "legalBasis": "ENISA TIG §5.1.4",
+      "iso27001": [
+        "A.5.20",
+        "A.5.31"
+      ],
       "required": true
     },
     {
-      "id": "notifyMaterialChanges",
+      "id": "confidentialityCommitted",
       "section": "security_practices",
       "type": "boolean",
       "label": {
-        "en": "Notify customers of any material change affecting service delivery",
-        "de": "Wir benachrichtigen Kunden über jede wesentliche Änderung der Leistungserbringung"
+        "en": "Everyone who works for our customers is bound to confidentiality",
+        "de": "Alle, die für unsere Kunden arbeiten, sind zur Verschwiegenheit verpflichtet"
       },
       "description": {
-        "en": "Tick yes if you commit to notifying customers of any material change affecting your ability to deliver: acquisitions, subprocessor changes, major technical shifts.",
-        "de": "Ja, wenn Sie sich verpflichten, Kunden über jede wesentliche Veränderung zu informieren, die Ihre Fähigkeit zur Leistungserbringung beeinflusst: Übernahmen, Wechsel des Sub-Unternehmers, größere technische Umstellungen."
+        "en": "Tick yes if everyone who works for customers has signed a confidentiality commitment, in the employment contract or a separate agreement, or is bound by professional secrecy by law.",
+        "de": "Ja, wenn alle, die für Kunden arbeiten, sich im Arbeitsvertrag oder separat schriftlich zur Verschwiegenheit verpflichtet haben oder gesetzlich zur Verschwiegenheit verpflichtet sind."
       },
-      "legalBasis": "ENISA TIG §5.1.4 TIPS",
-      "required": true
-    },
-    {
-      "id": "notifyOnLocationChange",
-      "section": "security_practices",
-      "type": "boolean",
-      "label": {
-        "en": "Notify customers in advance if data-processing locations change",
-        "de": "Wir benachrichtigen Kunden im Voraus, wenn sich Verarbeitungsstandorte ändern"
-      },
-      "description": {
-        "en": "Tick yes if you notify customers in advance before the processing location of their data changes. Important for data protection and for GDPR-compliant supply chain oversight.",
-        "de": "Ja, wenn Sie Kunden im Voraus informieren, bevor sich der Verarbeitungsstandort ihrer Daten ändert. Wichtig für Datenschutz und für DSGVO-konforme Lieferkettenkontrolle."
-      },
-      "legalBasis": "ENISA TIG §5.1.4 TIPS",
-      "required": true
-    },
-    {
-      "id": "hasExitPlan",
-      "section": "security_practices",
-      "type": "boolean",
-      "label": {
-        "en": "Documented exit strategy with mandatory transition period",
-        "de": "Dokumentierte Exit-Strategie mit verpflichtender Übergangszeit"
-      },
-      "description": {
-        "en": "Tick yes if you have a written exit strategy: how long an orderly handover takes, what data and knowledge gets transferred, what you commit to during the transition.",
-        "de": "Ja, wenn Sie eine schriftliche Exit-Strategie haben: Wie lange dauert der geordnete Übergang, welche Daten und welches Wissen werden übergeben, welche Mitwirkungspflichten gelten in dieser Phase."
-      },
-      "legalBasis": "ENISA TIG §5.1.4 TIPS",
-      "required": true
-    },
-    {
-      "id": "providesSbomForAi",
-      "section": "security_practices",
-      "type": "boolean",
-      "label": {
-        "en": "Provide an SBOM-for-AI per G7 minimum elements",
-        "de": "Wir stellen ein SBOM-for-AI nach G7-Mindestelementen bereit"
-      },
-      "description": {
-        "en": "Optional. Tick yes if you can provide an SBOM-for-AI per the G7 minimum elements (May 2026). Documents metadata, models, training data, infrastructure, security properties, KPIs, and system behaviour. Voluntary standard.",
-        "de": "Optional. Ja, wenn Sie eine SBOM-for-AI nach den G7-Mindestelementen (Mai 2026) bereitstellen können. Dokumentiert Metadaten, Modelle, Trainingsdaten, Infrastruktur, Sicherheitsmerkmale, KPIs und Systemverhalten. Freiwilliger Standard."
-      },
-      "legalBasis": "NIS2 Art. 21(2)(d) / ENISA TIG §5.1.2",
-      "required": false,
-      "visibleWhen": {
-        "field": "usesAiSystems",
-        "equals": true
-      }
-    },
-    {
-      "id": "aiSbomUrl",
-      "section": "security_practices",
-      "type": "url",
-      "label": {
-        "en": "SBOM-for-AI document URL",
-        "de": "URL des SBOM-for-AI-Dokuments"
-      },
-      "description": {
-        "en": "Public or shared URL to your SBOM-for-AI document. Can be a PDF, a JSON file, or a project page.",
-        "de": "Öffentliche oder geteilte URL zu Ihrem SBOM-for-AI-Dokument. Kann ein PDF, eine JSON-Datei oder eine Projektseite sein."
-      },
-      "legalBasis": "NIS2 Art. 21(2)(d) / ENISA TIG §5.1.2",
-      "required": false,
-      "visibleWhen": {
-        "field": "providesSbomForAi",
-        "equals": true
-      }
-    },
-    {
-      "id": "saasHostingRegion",
-      "section": "saas_technical",
-      "type": "string",
-      "label": {
-        "en": "Hosting region",
-        "de": "Hosting-Region"
-      },
-      "description": {
-        "en": "The cloud region where customer data is hosted. Example: AWS eu-central-1, Azure West Europe. Name the primary region; secondary or backup regions can be added comma-separated.",
-        "de": "Die Cloud-Region, in der Kundendaten gehostet werden. Beispiel: AWS eu-central-1, Azure West Europe. Geben Sie die Hauptregion an, Sekundär- oder Backup-Regionen kommen als kommagetrennte Liste dazu."
-      },
-      "legalBasis": "ENISA TIG §5.2",
+      "legalBasis": "ENISA TIG §5.1 TIPS; CIR 2024/2690 §10.3.2",
+      "iso27001": [
+        "A.6.6"
+      ],
       "required": true,
       "visibleWhen": {
-        "field": "isSaas",
+        "anyOf": [
+          {
+            "field": "processesCustomerData",
+            "equals": true
+          },
+          {
+            "field": "accessesCustomerSystems",
+            "equals": true
+          },
+          {
+            "field": "accessesCustomerPremises",
+            "equals": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "backgroundChecks",
+      "section": "security_practices",
+      "type": "boolean",
+      "label": {
+        "en": "We check that staff who get access at customers are suitable",
+        "de": "Wir prüfen die Eignung von Mitarbeitenden, die Zugang bei Kunden erhalten"
+      },
+      "description": {
+        "en": "Tick yes if, before they start, you check that people who will have access to customer data, systems or premises (key holders, for example) are suitable for that role, as far as employment and data protection law allow: references, for example, or a criminal record certificate where lawful and needed for the role. Checking every member of staff is not expected.",
+        "de": "Ja, wenn Sie vor dem Einsatz prüfen, ob Mitarbeitende mit Zugang zu Daten, Systemen oder Räumen von Kunden (etwa Schlüsselinhaber) für diese Rolle geeignet sind, soweit Arbeitsrecht und Datenschutz es erlauben: etwa Referenzen oder, wo zulässig und für die Rolle nötig, ein Führungszeugnis. Eine Prüfung aller Mitarbeitenden wird nicht erwartet."
+      },
+      "legalBasis": "CIR 2024/2690 §10.2.1",
+      "iso27001": [
+        "A.6.1"
+      ],
+      "required": true,
+      "visibleWhen": {
+        "anyOf": [
+          {
+            "field": "processesCustomerData",
+            "equals": true
+          },
+          {
+            "field": "accessesCustomerSystems",
+            "equals": true
+          },
+          {
+            "field": "accessesCustomerPremises",
+            "equals": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "dataReturnOnTermination",
+      "section": "security_practices",
+      "type": "boolean",
+      "label": {
+        "en": "At contract end we hand back or destroy what we hold of the customer",
+        "de": "Bei Vertragsende geben wir zurück oder vernichten, was wir vom Kunden haben"
+      },
+      "description": {
+        "en": "Tick yes if your contract commits you to hand back the customer's data in a usable, documented format (for example CSV or JSON) and then delete it, return keys, badges and documents, and close accounts you had with them.",
+        "de": "Ja, wenn Ihr Vertrag Sie verpflichtet, die Daten des Kunden in einem nutzbaren, beschriebenen Format (etwa CSV oder JSON) zurückzugeben und dann zu löschen, Schlüssel, Ausweise und Unterlagen zurückzugeben und Zugänge beim Kunden zu schließen."
+      },
+      "legalBasis": "CIR 2024/2690 §5.1.4(h); §5.1.2(d)",
+      "iso27001": [
+        "A.5.11",
+        "A.8.10"
+      ],
+      "required": true,
+      "visibleWhen": {
+        "anyOf": [
+          {
+            "field": "processesCustomerData",
+            "equals": true
+          },
+          {
+            "field": "accessesCustomerSystems",
+            "equals": true
+          },
+          {
+            "field": "accessesCustomerPremises",
+            "equals": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "dataProcessingAgreement",
+      "section": "security_practices",
+      "type": "enum",
+      "options": [
+        {
+          "value": "available",
+          "label": {
+            "en": "Yes, we offer a standard DPA",
+            "de": "Ja, wir bieten einen Mustervertrag an"
+          }
+        },
+        {
+          "value": "independentController",
+          "label": {
+            "en": "Not needed: we are an independent controller (for example a tax adviser)",
+            "de": "Nicht nötig: Wir sind selbst Verantwortlicher (zum Beispiel Steuerberater)"
+          }
+        },
+        {
+          "value": "noPersonalData",
+          "label": {
+            "en": "Not needed: we process no personal data for customers",
+            "de": "Nicht nötig: Wir verarbeiten für Kunden keine personenbezogenen Daten"
+          }
+        },
+        {
+          "value": "no",
+          "label": {
+            "en": "No",
+            "de": "Nein"
+          }
+        }
+      ],
+      "label": {
+        "en": "Data processing agreement (Art. 28 GDPR)",
+        "de": "Vertrag zur Auftragsverarbeitung (Art. 28 DSGVO)"
+      },
+      "description": {
+        "en": "Needed when you process personal data on a customer's behalf and on their instructions (Art. 28(3) GDPR). Some professions are controllers by law and sign none, in Germany tax advisers (§ 11(2) StBerG).",
+        "de": "Nötig, wenn Sie personenbezogene Daten im Auftrag und nach Weisung eines Kunden verarbeiten (Art. 28 Abs. 3 DSGVO). Manche Berufe sind von Gesetzes wegen selbst Verantwortliche und schließen keinen ab, in Deutschland etwa Steuerberater (§ 11 Abs. 2 StBerG)."
+      },
+      "legalBasis": "GDPR Art. 28(3); Art. 4(7)",
+      "iso27001": [
+        "A.5.34"
+      ],
+      "required": true,
+      "visibleWhen": {
+        "field": "processesCustomerData",
         "equals": true
       }
     },
     {
-      "id": "saasEncryptionAtRest",
-      "section": "saas_technical",
+      "id": "encryptionAtRest",
+      "section": "security_practices",
       "type": "boolean",
       "label": {
-        "en": "Encryption at rest",
-        "de": "Verschlüsselung im Ruhezustand"
+        "en": "Customer data we hold electronically is encrypted",
+        "de": "Kundendaten, die wir elektronisch speichern, sind verschlüsselt"
       },
       "description": {
-        "en": "Tick yes if customer data on disk is encrypted at rest with AES-256 or equivalent. Cloud-managed disk encryption (AWS EBS, Azure Disk Encryption) counts.",
-        "de": "Ja, wenn Kundendaten auf der Festplatte mit AES-256 oder gleichwertig verschlüsselt sind. Cloud-verwaltete Festplattenverschlüsselung (AWS EBS, Azure Disk Encryption) zählt."
+        "en": "Tick yes if customer data is encrypted wherever you store it electronically: on servers, laptops, phones and backups, for example with BitLocker, FileVault or your cloud provider's disk encryption.",
+        "de": "Ja, wenn Kundendaten überall verschlüsselt sind, wo Sie sie elektronisch speichern: auf Servern, Laptops, Telefonen und Sicherungen, etwa mit BitLocker, FileVault oder der Festplattenverschlüsselung Ihres Cloudanbieters."
       },
-      "legalBasis": "NIS2 Art. 21(2)(h) / ENISA TIG §9",
+      "legalBasis": "CIR 2024/2690 §5.1.2(c); §9.2(a)",
+      "iso27001": [
+        "A.8.24"
+      ],
       "required": true,
       "visibleWhen": {
-        "field": "isSaas",
+        "field": "processesCustomerData",
         "equals": true
       }
     },
     {
-      "id": "saasEncryptionInTransit",
-      "section": "saas_technical",
+      "id": "encryptionInTransit",
+      "section": "security_practices",
       "type": "boolean",
       "label": {
-        "en": "Encryption in transit (TLS ≥ 1.2)",
-        "de": "Verschlüsselung bei Übertragung (TLS ≥ 1.2)"
+        "en": "Customer data we send is encrypted in transit",
+        "de": "Kundendaten, die wir übertragen, sind verschlüsselt"
       },
       "description": {
-        "en": "Tick yes if all customer-facing endpoints enforce TLS 1.2 or higher. TLS 1.3 is preferred. Plain HTTP must redirect to HTTPS.",
-        "de": "Ja, wenn alle kundenseitigen Endpunkte mindestens TLS 1.2 erzwingen. TLS 1.3 ist vorzuziehen. Reines HTTP muss auf HTTPS weiterleiten."
+        "en": "Tick yes if your websites and interfaces use HTTPS with TLS 1.2 or higher, and files go to customers through an encrypted portal or encrypted email.",
+        "de": "Ja, wenn Ihre Webseiten und Schnittstellen HTTPS mit TLS 1.2 oder höher nutzen und Dateien über ein verschlüsseltes Portal oder verschlüsselte E-Mail an Kunden gehen."
       },
-      "legalBasis": "NIS2 Art. 21(2)(h) / ENISA TIG §9",
+      "legalBasis": "CIR 2024/2690 §5.1.2(c); §9.2(a)",
+      "iso27001": [
+        "A.8.24"
+      ],
       "required": true,
       "visibleWhen": {
-        "field": "isSaas",
+        "field": "processesCustomerData",
+        "equals": true
+      }
+    },
+    {
+      "id": "hasIsms",
+      "section": "security_practices",
+      "type": "boolean",
+      "label": {
+        "en": "We run a documented information security management system (ISMS)",
+        "de": "Wir betreiben ein dokumentiertes Informationssicherheitsmanagementsystem (ISMS)"
+      },
+      "description": {
+        "en": "Tick yes if you have a written information security policy with assigned roles, regular reviews and documented incident handling. ISO/IEC 27001 certification, also on the basis of IT-Grundschutz, implies yes.",
+        "de": "Ja, wenn Sie eine schriftliche Richtlinie zur Informationssicherheit haben, klar zugewiesene Rollen, regelmäßige Überprüfungen und einen dokumentierten Umgang mit Vorfällen. Eine Zertifizierung nach ISO/IEC 27001, auch auf Basis von IT-Grundschutz, bedeutet Ja."
+      },
+      "legalBasis": "CIR 2024/2690 §5.1.2(a)",
+      "iso27001": [
+        "A.5.1"
+      ],
+      "required": true,
+      "visibleWhen": {
+        "anyOf": [
+          {
+            "field": "processesCustomerData",
+            "equals": true
+          },
+          {
+            "field": "accessesCustomerSystems",
+            "equals": true
+          },
+          {
+            "field": "isSaas",
+            "equals": true
+          },
+          {
+            "field": "isOnPrem",
+            "equals": true
+          },
+          {
+            "field": "isManagedService",
+            "equals": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "hasIso27001OrEquivalent",
+      "section": "security_practices",
+      "type": "boolean",
+      "label": {
+        "en": "We hold a current security certificate or audit report that covers the service we deliver to customers",
+        "de": "Wir haben ein gültiges Sicherheitszertifikat oder einen Prüfbericht, der die Leistung für unsere Kunden abdeckt"
+      },
+      "description": {
+        "en": "Counts: ISO/IEC 27001 (also on the basis of IT-Grundschutz), a BSI C5 attestation, a TISAX label, a SOC 2 Type II or ISAE 3402 report, or a European cybersecurity certificate. Tick yes only if its scope covers the service you deliver to customers.",
+        "de": "Es zählen: ISO/IEC 27001 (auch auf Basis von IT-Grundschutz), ein Testat nach BSI C5, ein Label nach TISAX, ein Bericht nach SOC 2 Typ II oder ISAE 3402 oder ein europäisches Cybersicherheitszertifikat. Ja nur, wenn der Geltungsbereich die Leistung für Ihre Kunden abdeckt."
+      },
+      "legalBasis": "CIR 2024/2690 §5.1.2(a); ENISA TIG §5.1.2",
+      "iso27001": [
+        "A.5.19",
+        "A.5.22"
+      ],
+      "required": true,
+      "visibleWhen": {
+        "anyOf": [
+          {
+            "field": "processesCustomerData",
+            "equals": true
+          },
+          {
+            "field": "accessesCustomerSystems",
+            "equals": true
+          },
+          {
+            "field": "isSaas",
+            "equals": true
+          },
+          {
+            "field": "isOnPrem",
+            "equals": true
+          },
+          {
+            "field": "isManagedService",
+            "equals": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "certificationDetails",
+      "section": "security_practices",
+      "type": "text",
+      "label": {
+        "en": "Certificate or report: standard, issuer, valid until, scope",
+        "de": "Zertifikat oder Bericht: Standard, ausstellende Stelle, gültig bis, Geltungsbereich"
+      },
+      "description": {
+        "en": "Copy the scope as it is printed on the certificate or report. Several? One per line.",
+        "de": "Übernehmen Sie den Geltungsbereich so, wie er auf dem Zertifikat oder Bericht steht. Mehrere? Eines pro Zeile."
+      },
+      "legalBasis": "CIR 2024/2690 §5.1.2(a); ENISA TIG §5.1.2",
+      "iso27001": [
+        "A.5.22"
+      ],
+      "required": true,
+      "visibleWhen": {
+        "field": "hasIso27001OrEquivalent",
+        "equals": true
+      }
+    },
+    {
+      "id": "vulnerabilityHandling",
+      "section": "security_practices",
+      "type": "boolean",
+      "label": {
+        "en": "We install security updates promptly and follow up known vulnerabilities",
+        "de": "Wir spielen Sicherheitsupdates zeitnah ein und gehen bekannten Schwachstellen nach"
+      },
+      "description": {
+        "en": "Tick yes if you have a set routine for security holes in the systems and software you use for customers: you learn about them, judge how urgent they are, and install the update or take another measure in time.",
+        "de": "Ja, wenn Sie für Sicherheitslücken in den Systemen und Programmen, die Sie für Kunden nutzen, ein festes Vorgehen haben: Sie erfahren davon, schätzen die Dringlichkeit ein und spielen das Update rechtzeitig ein oder ergreifen eine andere Maßnahme."
+      },
+      "legalBasis": "CIR 2024/2690 §5.1.4(f)",
+      "iso27001": [
+        "A.8.8"
+      ],
+      "required": true,
+      "visibleWhen": {
+        "anyOf": [
+          {
+            "field": "processesCustomerData",
+            "equals": true
+          },
+          {
+            "field": "accessesCustomerSystems",
+            "equals": true
+          },
+          {
+            "field": "isSaas",
+            "equals": true
+          },
+          {
+            "field": "isOnPrem",
+            "equals": true
+          },
+          {
+            "field": "isManagedService",
+            "equals": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "hasIncidentResponsePlan",
+      "section": "security_practices",
+      "type": "boolean",
+      "label": {
+        "en": "We have a written plan for security incidents",
+        "de": "Wir haben einen schriftlichen Plan für Sicherheitsvorfälle"
+      },
+      "description": {
+        "en": "Tick yes if a written plan sets out how you handle a security incident: who decides, who informs customers and who documents.",
+        "de": "Ja, wenn ein schriftlicher Plan festlegt, wie Sie mit einem Sicherheitsvorfall umgehen: wer entscheidet, wer die Kunden informiert und wer dokumentiert."
+      },
+      "legalBasis": "CIR 2024/2690 §5.1.2(a); §3.1",
+      "iso27001": [
+        "A.5.24",
+        "A.5.26"
+      ],
+      "required": true,
+      "visibleWhen": {
+        "anyOf": [
+          {
+            "field": "processesCustomerData",
+            "equals": true
+          },
+          {
+            "field": "accessesCustomerSystems",
+            "equals": true
+          },
+          {
+            "field": "isSaas",
+            "equals": true
+          },
+          {
+            "field": "isOnPrem",
+            "equals": true
+          },
+          {
+            "field": "isManagedService",
+            "equals": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "hasBusinessContinuityPlan",
+      "section": "security_practices",
+      "type": "boolean",
+      "label": {
+        "en": "We have a written plan for outages, including backups",
+        "de": "Wir haben einen schriftlichen Plan für Ausfälle, einschließlich Sicherungen"
+      },
+      "description": {
+        "en": "Tick yes if a written plan says how you keep working or restart after an outage, including backups of the data you hold for customers, kept apart from the live systems and test-restored. It names your critical systems, the fallback, and how long an outage may last and how much data may be lost at most.",
+        "de": "Ja, wenn ein schriftlicher Plan festlegt, wie Sie nach einem Ausfall weiterarbeiten oder wieder anlaufen, einschließlich Sicherungen der Daten, die Sie für Kunden halten, getrennt von den laufenden Systemen und probeweise zurückgespielt. Er nennt die wichtigen Systeme, den Ersatzweg und wie lange ein Ausfall höchstens dauern und wie viele Daten höchstens verloren gehen dürfen."
+      },
+      "legalBasis": "CIR 2024/2690 §5.1.2(c); §4.1; §4.2",
+      "iso27001": [
+        "A.5.29",
+        "A.5.30",
+        "A.8.13"
+      ],
+      "required": true,
+      "visibleWhen": {
+        "anyOf": [
+          {
+            "field": "processesCustomerData",
+            "equals": true
+          },
+          {
+            "field": "accessesCustomerSystems",
+            "equals": true
+          },
+          {
+            "field": "isSaas",
+            "equals": true
+          },
+          {
+            "field": "isOnPrem",
+            "equals": true
+          },
+          {
+            "field": "isManagedService",
+            "equals": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "mfaEnforcedInternal",
+      "section": "security_practices",
+      "type": "boolean",
+      "label": {
+        "en": "All internal administrator accounts are protected with a second factor",
+        "de": "Alle internen Administratorkonten sind mit einem zweiten Faktor geschützt"
+      },
+      "description": {
+        "en": "Tick yes if every account with administrator rights in your own systems (email, cloud, servers, accounting) needs a second factor to sign in, such as an authenticator app or a security key. Codes by SMS count but are the weakest option.",
+        "de": "Ja, wenn jedes Konto mit Administratorrechten in Ihren eigenen Systemen (E-Mail, Cloud, Server, Buchhaltung) zur Anmeldung einen zweiten Faktor braucht, etwa eine App oder einen Sicherheitsschlüssel. Codes per SMS zählen, sind aber die schwächste Variante."
+      },
+      "legalBasis": "CIR 2024/2690 §5.1.2(a); §11.7",
+      "iso27001": [
+        "A.8.5",
+        "A.8.2"
+      ],
+      "required": true,
+      "visibleWhen": {
+        "anyOf": [
+          {
+            "field": "processesCustomerData",
+            "equals": true
+          },
+          {
+            "field": "accessesCustomerSystems",
+            "equals": true
+          },
+          {
+            "field": "isSaas",
+            "equals": true
+          },
+          {
+            "field": "isOnPrem",
+            "equals": true
+          },
+          {
+            "field": "isManagedService",
+            "equals": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "hasPenetrationTestingProgram",
+      "section": "security_practices",
+      "type": "boolean",
+      "label": {
+        "en": "The systems we use to serve customers are security tested by an independent party",
+        "de": "Die Systeme, mit denen wir Kunden bedienen, werden von einer unabhängigen Stelle auf Sicherheit getestet"
+      },
+      "description": {
+        "en": "Tick yes if an independent party tests these systems for security holes, as often as your risk calls for. A penetration test and an external vulnerability scan both count.",
+        "de": "Ja, wenn eine unabhängige Stelle diese Systeme auf Sicherheitslücken prüft, so oft, wie es Ihr Risiko verlangt. Ein Penetrationstest und ein externer Schwachstellenscan zählen beide."
+      },
+      "legalBasis": "CIR 2024/2690 §5.1.2(a); §6.5",
+      "iso27001": [
+        "A.8.29",
+        "A.8.8"
+      ],
+      "required": true,
+      "visibleWhen": {
+        "anyOf": [
+          {
+            "field": "isSaas",
+            "equals": true
+          },
+          {
+            "field": "isOnPrem",
+            "equals": true
+          },
+          {
+            "field": "isManagedService",
+            "equals": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "secureDevelopment",
+      "section": "security_practices",
+      "type": "boolean",
+      "label": {
+        "en": "We develop to defined secure development rules",
+        "de": "Wir entwickeln nach festgelegten Regeln für sichere Entwicklung"
+      },
+      "description": {
+        "en": "Tick yes if your development follows set rules, for example a review before every change goes live, dependencies kept up to date, tests, and a check for known vulnerabilities. Asked only of suppliers who run software as a service or ship software.",
+        "de": "Ja, wenn Ihre Entwicklung festen Regeln folgt, zum Beispiel einer Prüfung vor jeder Änderung, die live geht, aktuellen Abhängigkeiten, Tests und einer Prüfung auf bekannte Schwachstellen. Gefragt nur bei Lieferanten, die Software als Dienst betreiben oder ausliefern."
+      },
+      "legalBasis": "CIR 2024/2690 §5.1.2(a)",
+      "iso27001": [
+        "A.8.25",
+        "A.8.28"
+      ],
+      "required": true,
+      "visibleWhen": {
+        "anyOf": [
+          {
+            "field": "isSaas",
+            "equals": true
+          },
+          {
+            "field": "isOnPrem",
+            "equals": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "vulnerabilityDisclosurePolicy",
+      "section": "security_practices",
+      "type": "boolean",
+      "label": {
+        "en": "We publish how to report a security hole to us",
+        "de": "Wir veröffentlichen, wie man uns eine Sicherheitslücke meldet"
+      },
+      "description": {
+        "en": "Tick yes if your website says how to report a security hole and what you then do, for example in a security.txt file (RFC 9116). From 11 December 2027 the Cyber Resilience Act requires such a policy and a contact address from makers of software products.",
+        "de": "Ja, wenn auf Ihrer Webseite steht, wie man Ihnen eine Sicherheitslücke meldet und was Sie dann tun, etwa in einer security.txt (RFC 9116). Ab dem 11.12.2027 verlangt der Cyber Resilience Act diese Regelung und eine Kontaktadresse von Herstellern von Softwareprodukten."
+      },
+      "legalBasis": "CIR 2024/2690 §5.1.4(f); CRA Annex I Part II(5), (6)",
+      "iso27001": [
+        "A.8.8",
+        "A.5.21"
+      ],
+      "required": true,
+      "visibleWhen": {
+        "anyOf": [
+          {
+            "field": "isSaas",
+            "equals": true
+          },
+          {
+            "field": "isOnPrem",
+            "equals": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "customerAccessPersonalMfa",
+      "section": "security_practices",
+      "type": "boolean",
+      "label": {
+        "en": "Access to customer systems uses personal accounts with a second factor",
+        "de": "Zugriffe auf Kundensysteme laufen über persönliche Konten mit zweitem Faktor"
+      },
+      "description": {
+        "en": "Tick yes if everyone who signs in to customer systems uses their own account with a second factor, including remote maintenance tools such as TeamViewer; nobody shares a login.",
+        "de": "Ja, wenn alle, die sich bei Kunden anmelden, ein eigenes Konto mit zweitem Faktor nutzen, auch bei Fernwartung, etwa mit TeamViewer; niemand teilt sich eine Anmeldung."
+      },
+      "legalBasis": "CIR 2024/2690 §5.1.4(a); §11.3.2(a); §11.5.2(b)",
+      "iso27001": [
+        "A.8.2",
+        "A.8.5",
+        "A.5.16"
+      ],
+      "required": true,
+      "visibleWhen": {
+        "field": "accessesCustomerSystems",
+        "equals": true
+      }
+    },
+    {
+      "id": "customerAccessLogged",
+      "section": "security_practices",
+      "type": "boolean",
+      "label": {
+        "en": "Administrative access to customer systems is logged",
+        "de": "Administrative Zugriffe auf Kundensysteme werden protokolliert"
+      },
+      "description": {
+        "en": "Tick yes if it is recorded who accessed your customers' systems with administrator rights, and when, so it can be traced afterwards. Recording whole sessions is not expected.",
+        "de": "Ja, wenn festgehalten wird, wer wann mit Administratorrechten auf Systeme Ihrer Kunden zugegriffen hat, sodass es sich später nachvollziehen lässt. Ganze Sitzungen aufzuzeichnen wird nicht erwartet."
+      },
+      "legalBasis": "CIR 2024/2690 §5.1.4(a); §3.2.3(e)",
+      "iso27001": [
+        "A.8.15"
+      ],
+      "required": true,
+      "visibleWhen": {
+        "field": "accessesCustomerSystems",
+        "equals": true
+      }
+    },
+    {
+      "id": "premisesAccessManaged",
+      "section": "security_practices",
+      "type": "boolean",
+      "label": {
+        "en": "We keep track of the keys, badges and codes customers give us",
+        "de": "Wir verwalten Schlüssel, Ausweise und Codes unserer Kunden nachvollziehbar"
+      },
+      "description": {
+        "en": "Tick yes if you always know who holds which key, badge or code, take it back when someone leaves or changes job, and tell the customer without delay when one is lost.",
+        "de": "Ja, wenn Sie jederzeit wissen, wer welchen Schlüssel, Ausweis oder Code hat, ihn bei Ausscheiden oder Aufgabenwechsel zurücknehmen und den Kunden unverzüglich informieren, wenn einer verloren geht."
+      },
+      "legalBasis": "CIR 2024/2690 §5.1.4(a); §11.2.2(d); §13.3.2(b)",
+      "iso27001": [
+        "A.7.2",
+        "A.5.11",
+        "A.5.18"
+      ],
+      "required": true,
+      "visibleWhen": {
+        "field": "accessesCustomerPremises",
+        "equals": true
+      }
+    },
+    {
+      "id": "premisesConductRules",
+      "section": "security_practices",
+      "type": "boolean",
+      "label": {
+        "en": "Our staff on customer premises follow written rules of conduct",
+        "de": "Unsere Mitarbeitenden halten sich in Räumen von Kunden an schriftliche Verhaltensregeln"
+      },
+      "description": {
+        "en": "Tick yes if your staff have written rules for working at customers, for example: let no one in, leave screens, devices and documents alone, report anything unusual to the customer.",
+        "de": "Ja, wenn Ihre Mitarbeitenden schriftliche Regeln für die Arbeit bei Kunden haben, zum Beispiel: niemanden hereinlassen, Bildschirme, Geräte und Unterlagen nicht anfassen, Auffälliges dem Kunden melden."
+      },
+      "legalBasis": "ENISA TIG §5.1 TIPS; CIR 2024/2690 §8.1.1",
+      "iso27001": [
+        "A.7.2",
+        "A.7.7",
+        "A.6.3"
+      ],
+      "required": true,
+      "visibleWhen": {
+        "field": "accessesCustomerPremises",
         "equals": true
       }
     },
@@ -736,14 +1264,18 @@
       "section": "saas_technical",
       "type": "boolean",
       "label": {
-        "en": "MFA enforced for all admin accounts",
-        "de": "MFA für alle Admin-Konten erzwungen"
+        "en": "Customers can protect their accounts with a second factor",
+        "de": "Kunden können ihre Konten mit einem zweiten Faktor schützen"
       },
       "description": {
-        "en": "Tick yes if every internal admin account on the SaaS platform must use MFA. Same standard as your internal admin policy.",
-        "de": "Ja, wenn jedes interne Admin-Konto auf der SaaS-Plattform MFA verwenden muss. Gleicher Standard wie für Ihre internen Admin-Vorgaben."
+        "en": "Tick yes if your application offers sign-in with a second factor (an authenticator app, a security key or a one-time code), at least for your customers' administrators. Your own internal admin accounts are a separate question under security practices.",
+        "de": "Ja, wenn Ihre Anwendung eine Anmeldung mit zweitem Faktor anbietet (App, Sicherheitsschlüssel oder Einmalcode), mindestens für die Administratoren Ihrer Kunden. Ihre eigenen internen Administratorkonten fragt ein eigener Punkt unter Sicherheit im Betrieb ab."
       },
-      "legalBasis": "NIS2 Art. 21(2)(j) / ENISA TIG §11.3",
+      "legalBasis": "CIR 2024/2690 §5.1.2(c); §11.7",
+      "iso27001": [
+        "A.8.5",
+        "A.5.23"
+      ],
       "required": true,
       "visibleWhen": {
         "field": "isSaas",
@@ -755,14 +1287,18 @@
       "section": "saas_technical",
       "type": "integer",
       "label": {
-        "en": "Recovery time objective (RTO) in hours",
-        "de": "Recovery Time Objective (RTO) in Stunden"
+        "en": "Longest outage until your service is restored (hours)",
+        "de": "Längste Ausfallzeit bis zur Wiederherstellung (Stunden)"
       },
       "description": {
-        "en": "Maximum number of hours your service can be unavailable before recovery. Realistic SLA value, not aspirational. Common SaaS values: 4, 8, or 24 hours.",
-        "de": "Maximale Anzahl Stunden, die Ihr Dienst ausfallen darf, bevor die Wiederherstellung greift. Realistischer SLA-Wert, kein Wunschwert. Übliche SaaS-Werte: 4, 8 oder 24 Stunden."
+        "en": "The most hours your service may be unavailable before it is restored. Give a value you keep.",
+        "de": "So viele Stunden darf Ihr Dienst höchstens ausfallen, bis er wiederhergestellt ist. Nennen Sie einen Wert, den Sie halten."
       },
-      "legalBasis": "NIS2 Art. 21(2)(c) / ENISA TIG §4",
+      "legalBasis": "ENISA TIG §5.1 TIPS",
+      "iso27001": [
+        "A.5.30",
+        "A.5.23"
+      ],
       "required": true,
       "visibleWhen": {
         "field": "isSaas",
@@ -770,56 +1306,21 @@
       }
     },
     {
-      "id": "onPremSbomProvided",
+      "id": "onPremSupportEnd",
       "section": "on_prem_technical",
-      "type": "boolean",
+      "type": "string",
       "label": {
-        "en": "Provide a Software Bill of Materials (SBOM)",
-        "de": "Bereitstellung einer Software Bill of Materials (SBOM)"
+        "en": "Until when you supply security updates for the version you deliver",
+        "de": "Bis wann Sie für die gelieferte Version Sicherheitsupdates liefern"
       },
       "description": {
-        "en": "Tick yes if you ship a Software Bill of Materials with every release. CycloneDX or SPDX are the standard formats. Mandatory under the Cyber Resilience Act for products placed on the EU market from December 2027.",
-        "de": "Ja, wenn Sie mit jedem Release eine Software Bill of Materials ausliefern. Standardformate: CycloneDX oder SPDX. Verpflichtend nach dem Cyber Resilience Act für Produkte, die ab Dezember 2027 auf den EU-Markt kommen."
+        "en": "Month and year, or the rule you apply. From 11 December 2027 the Cyber Resilience Act requires manufacturers to state this date at the time of purchase.",
+        "de": "Monat und Jahr oder die Regel, nach der Sie gehen. Ab dem 11.12.2027 verlangt der Cyber Resilience Act, dass Hersteller dieses Datum beim Kauf angeben."
       },
-      "legalBasis": "CRA / NIS2 Art. 21(2)(d)",
-      "required": true,
-      "visibleWhen": {
-        "field": "isOnPrem",
-        "equals": true
-      }
-    },
-    {
-      "id": "onPremSignedReleases",
-      "section": "on_prem_technical",
-      "type": "boolean",
-      "label": {
-        "en": "Releases are cryptographically signed",
-        "de": "Releases sind kryptografisch signiert"
-      },
-      "description": {
-        "en": "Tick yes if every release artefact carries a cryptographic signature customers can verify. Signing keys are documented and rotated. Sigstore or PGP signatures both count.",
-        "de": "Ja, wenn jedes Release-Artefakt eine kryptografische Signatur trägt, die Kunden prüfen können. Signaturschlüssel sind dokumentiert und werden rotiert. Sigstore- oder PGP-Signaturen zählen beide."
-      },
-      "legalBasis": "NIS2 Art. 21(2)(e) / ENISA TIG §6.5",
-      "required": true,
-      "visibleWhen": {
-        "field": "isOnPrem",
-        "equals": true
-      }
-    },
-    {
-      "id": "onPremVulnerabilityDisclosurePolicy",
-      "section": "on_prem_technical",
-      "type": "boolean",
-      "label": {
-        "en": "Published vulnerability disclosure policy",
-        "de": "Veröffentlichte Vulnerability-Disclosure-Policy"
-      },
-      "description": {
-        "en": "Tick yes if you have a publicly documented way to report security vulnerabilities. A security.txt file under your domain (per RFC 9116) or a dedicated email like security@example.com is enough.",
-        "de": "Ja, wenn Sie einen öffentlich dokumentierten Meldeweg für Sicherheitslücken haben. Eine security.txt-Datei auf Ihrer Domain (nach RFC 9116) oder eine dedizierte E-Mail wie security@firma.de genügt."
-      },
-      "legalBasis": "NIS2 Art. 21(2)(e) / ENISA TIG §3",
+      "legalBasis": "CIR 2024/2690 §6.1.2(b); CRA Art. 13(19)",
+      "iso27001": [
+        "A.5.21"
+      ],
       "required": true,
       "visibleWhen": {
         "field": "isOnPrem",
@@ -831,14 +1332,39 @@
       "section": "on_prem_technical",
       "type": "integer",
       "label": {
-        "en": "Patch SLA for critical CVEs (hours)",
-        "de": "Patch-SLA für kritische CVEs (Stunden)"
+        "en": "Deadline for security updates for critical vulnerabilities (hours)",
+        "de": "Frist für Sicherheitsupdates bei kritischen Schwachstellen (Stunden)"
       },
       "description": {
-        "en": "Hours from public CVE disclosure to a patched release for critical vulnerabilities (CVSS 9.0+). Realistic commitment, not aspirational. Common values: 24, 48, or 72 hours.",
-        "de": "Stunden von der öffentlichen CVE-Veröffentlichung bis zum gepatchten Release für kritische Schwachstellen (CVSS 9.0+). Realistische Zusage, kein Wunschwert. Übliche Werte: 24, 48 oder 72 Stunden."
+        "en": "Hours from a critical vulnerability becoming known to your fixed release. From 11 December 2027 the Cyber Resilience Act requires manufacturers to fix vulnerabilities without delay.",
+        "de": "Stunden vom Bekanntwerden einer kritischen Schwachstelle bis zu Ihrem korrigierten Release. Ab dem 11.12.2027 verlangt der Cyber Resilience Act von Herstellern, Schwachstellen unverzüglich zu beheben."
       },
-      "legalBasis": "CIR 2024/2690 §5.1.4(f)",
+      "legalBasis": "CIR 2024/2690 §5.1.4(f); CRA Annex I Part II(2)",
+      "iso27001": [
+        "A.8.8"
+      ],
+      "required": false,
+      "visibleWhen": {
+        "field": "isOnPrem",
+        "equals": true
+      }
+    },
+    {
+      "id": "onPremSbomProvided",
+      "section": "on_prem_technical",
+      "type": "boolean",
+      "label": {
+        "en": "Customers can get a Software Bill of Materials (SBOM)",
+        "de": "Kunden erhalten auf Wunsch eine Software Bill of Materials (SBOM)"
+      },
+      "description": {
+        "en": "Tick yes if you give customers an SBOM for your releases (CycloneDX or SPDX). From 11 December 2027 the Cyber Resilience Act requires manufacturers to keep an SBOM in the technical documentation of products with digital elements; handing it to customers is up to you.",
+        "de": "Ja, wenn Sie Kunden zu Ihren Releases eine SBOM geben (CycloneDX oder SPDX). Ab dem 11.12.2027 verlangt der Cyber Resilience Act von Herstellern eine SBOM in der technischen Dokumentation von Produkten mit digitalen Elementen; sie an Kunden weiterzugeben, steht Ihnen frei."
+      },
+      "legalBasis": "CIR 2024/2690 §6.1.2(c); CRA Annex I Part II(1)",
+      "iso27001": [
+        "A.5.21"
+      ],
       "required": true,
       "visibleWhen": {
         "field": "isOnPrem",
@@ -846,116 +1372,24 @@
       }
     },
     {
-      "id": "proServicesBackgroundCheckScope",
-      "section": "pro_services",
-      "type": "string",
-      "label": {
-        "en": "Background check scope",
-        "de": "Umfang der Zuverlässigkeitsprüfung"
-      },
-      "description": {
-        "en": "Describe how you vet consultants for sensitive roles. Example: criminal record extract for all consultants, plus reference checks for engagements involving classified data.",
-        "de": "Beschreiben Sie, wie Sie Berater für sensible Rollen prüfen. Beispiel: polizeiliches Führungszeugnis für alle Berater, zusätzlich Referenzprüfungen bei Einsätzen mit klassifizierten Daten."
-      },
-      "legalBasis": "NIS2 Art. 21(2)(i) / CIR 2024/2690 §5.1.4(c)",
-      "required": true,
-      "visibleWhen": {
-        "field": "isProfessionalServices",
-        "equals": true
-      }
-    },
-    {
-      "id": "proServicesNdaInPlace",
-      "section": "pro_services",
+      "id": "onPremSignedReleases",
+      "section": "on_prem_technical",
       "type": "boolean",
       "label": {
-        "en": "NDA in place with all consultants",
-        "de": "NDA mit allen Beratern abgeschlossen"
+        "en": "Releases and updates are signed",
+        "de": "Releases und Updates sind signiert"
       },
       "description": {
-        "en": "Tick yes if every consultant signs a confidentiality agreement before being assigned to customer work. Either as part of the employment contract or as a separate NDA.",
-        "de": "Ja, wenn jeder Berater vor dem Einsatz beim Kunden eine Vertraulichkeitsvereinbarung unterschreibt. Entweder als Bestandteil des Arbeitsvertrags oder als separates NDA."
+        "en": "Tick yes if every release and update carries a signature your customers can check before installing, for example Sigstore, Authenticode or PGP.",
+        "de": "Ja, wenn jedes Release und jedes Update eine Signatur trägt, die Ihre Kunden vor der Installation prüfen können, zum Beispiel Sigstore, Authenticode oder PGP."
       },
-      "legalBasis": "NIS2 Art. 21(2)(i) / ENISA TIG §11.4",
+      "legalBasis": "CIR 2024/2690 §6.6.1(c); CRA Annex I Part II(7)",
+      "iso27001": [
+        "A.5.21"
+      ],
       "required": true,
       "visibleWhen": {
-        "field": "isProfessionalServices",
-        "equals": true
-      }
-    },
-    {
-      "id": "proServicesCustomerPremisesPolicy",
-      "section": "pro_services",
-      "type": "boolean",
-      "label": {
-        "en": "Documented customer-premises behaviour policy",
-        "de": "Dokumentierte Verhaltensrichtlinie auf Kundenstandort"
-      },
-      "description": {
-        "en": "Tick yes if you have a written code of conduct for consultants working on customer premises: badge handling, locked-screen rule, what to do if data leaves the site.",
-        "de": "Ja, wenn Sie eine schriftliche Verhaltensrichtlinie für Berater im Kundeneinsatz haben: Umgang mit Ausweisen, Sperrbildschirm-Pflicht, Verhalten beim Datenexport vom Standort."
-      },
-      "legalBasis": "NIS2 Art. 21(2)(i) / ENISA TIG §11.3",
-      "required": true,
-      "visibleWhen": {
-        "field": "isProfessionalServices",
-        "equals": true
-      }
-    },
-    {
-      "id": "managedPrivilegedAccessMgmt",
-      "section": "managed_services",
-      "type": "boolean",
-      "label": {
-        "en": "Privileged access management (PAM) in place",
-        "de": "Privileged Access Management (PAM) im Einsatz"
-      },
-      "description": {
-        "en": "Tick yes if you use a privileged access management tool for administrative remote sessions on customer systems. Examples: CyberArk, BeyondTrust, Teleport. A logged jump-host setup counts.",
-        "de": "Ja, wenn Sie für administrative Fernzugriffe auf Kundensysteme ein Privileged-Access-Management einsetzen. Beispiele: CyberArk, BeyondTrust, Teleport. Ein protokolliertes Jumphost-Setup zählt."
-      },
-      "legalBasis": "NIS2 Art. 21(2)(i) / ENISA TIG §11.3",
-      "required": true,
-      "visibleWhen": {
-        "field": "isManagedService",
-        "equals": true
-      }
-    },
-    {
-      "id": "managedSessionRecording",
-      "section": "managed_services",
-      "type": "boolean",
-      "label": {
-        "en": "Admin sessions are recorded",
-        "de": "Admin-Sitzungen werden aufgezeichnet"
-      },
-      "description": {
-        "en": "Tick yes if admin sessions on customer systems are recorded and retained for review. Common retention: 90 days to 1 year. Needed for forensic reconstruction after incidents.",
-        "de": "Ja, wenn Admin-Sitzungen auf Kundensystemen aufgezeichnet und für die Nachprüfung aufbewahrt werden. Übliche Aufbewahrung: 90 Tage bis 1 Jahr. Notwendig für forensische Rekonstruktion nach Vorfällen."
-      },
-      "legalBasis": "NIS2 Art. 21(2)(f) / ENISA TIG §10",
-      "required": true,
-      "visibleWhen": {
-        "field": "isManagedService",
-        "equals": true
-      }
-    },
-    {
-      "id": "managedOnCall24x7",
-      "section": "managed_services",
-      "type": "boolean",
-      "label": {
-        "en": "24/7 on-call coverage",
-        "de": "24/7-Bereitschaft"
-      },
-      "description": {
-        "en": "Tick yes if you operate a 24/7 on-call rotation that responds to security incidents on customer systems. Business-hours-only support does not qualify.",
-        "de": "Ja, wenn Sie eine 24/7-Bereitschaft betreiben, die auf Sicherheitsvorfälle auf Kundensystemen reagiert. Reine Unterstützung zu Geschäftszeiten qualifiziert sich nicht."
-      },
-      "legalBasis": "NIS2 Art. 21(2)(b) / ENISA TIG §3",
-      "required": true,
-      "visibleWhen": {
-        "field": "isManagedService",
+        "field": "isOnPrem",
         "equals": true
       }
     }

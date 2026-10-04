@@ -1,6 +1,11 @@
 import { describe, expect, test } from "bun:test";
-import { supplierQuestionnaire, groupBySection, visibleFields } from "../src/data";
-import { FIELD_TYPE } from "../src/schema";
+import {
+  groupBySection,
+  isVisible,
+  supplierQuestionnaire,
+  visibleFields,
+} from "../src/data";
+import { conditionsOf, FIELD_TYPE } from "../src/schema";
 
 // These tests guard invariants that the Zod schema cannot express:
 // uniqueness, cross-references, conditional shape, semantic content,
@@ -12,6 +17,17 @@ describe("data loads", () => {
   test("schema parses and the questionnaire is non-empty", () => {
     expect(supplierQuestionnaire.fields.length).toBeGreaterThan(0);
     expect(supplierQuestionnaire.version).toMatch(/^\d+\.\d+\.\d+$/);
+  });
+
+  test("the published JSON Schema describes the questionnaire", async () => {
+    const published = await Bun.file(
+      new URL("../schema/supply-chain-questionnaire.schema.json", import.meta.url),
+    ).json();
+    expect(Object.keys(published.properties ?? {})).toEqual([
+      "version",
+      "lastUpdated",
+      "fields",
+    ]);
   });
 });
 
@@ -39,19 +55,19 @@ describe("cross-references", () => {
   test("every visibleWhen.field resolves to an existing field", () => {
     const ids = new Set(supplierQuestionnaire.fields.map((f) => f.id));
     for (const field of supplierQuestionnaire.fields) {
-      if (field.visibleWhen) {
-        expect(ids.has(field.visibleWhen.field)).toBe(true);
+      for (const condition of conditionsOf(field)) {
+        expect(ids.has(condition.field)).toBe(true);
       }
     }
   });
 
   test("every visibleWhen.equals value matches the referenced field's type", () => {
     const fieldsById = new Map(supplierQuestionnaire.fields.map((f) => [f.id, f]));
-    for (const field of supplierQuestionnaire.fields) {
-      if (!field.visibleWhen) continue;
-      const target = fieldsById.get(field.visibleWhen.field);
+    const conditions = supplierQuestionnaire.fields.flatMap(conditionsOf);
+    for (const condition of conditions) {
+      const target = fieldsById.get(condition.field);
       if (!target) throw new Error("unreachable — guarded by previous test");
-      const equals = field.visibleWhen.equals;
+      const equals = condition.equals;
       switch (target.type) {
         case FIELD_TYPE.BOOLEAN:
           expect(typeof equals).toBe("boolean");
@@ -108,9 +124,85 @@ describe("helpers", () => {
 
     expect(visibleIds.has("legalName")).toBe(true);
     for (const field of supplierQuestionnaire.fields) {
-      if (field.visibleWhen?.field === "isOnPrem" && field.visibleWhen.equals === true) {
+      const conditions = conditionsOf(field);
+      if (conditions.length === 1 && conditions[0]?.field === "isOnPrem") {
         expect(visibleIds.has(field.id)).toBe(false);
       }
+    }
+  });
+
+  test("a question with several conditions shows while any one of them holds", () => {
+    const secure = supplierQuestionnaire.fields.find((f) => f.id === "secureDevelopment");
+    if (!secure) throw new Error("secureDevelopment is missing");
+    expect(isVisible(secure, { isSaas: true, isOnPrem: false })).toBe(true);
+    expect(isVisible(secure, { isSaas: false, isOnPrem: true })).toBe(true);
+    expect(isVisible(secure, { isSaas: false, isOnPrem: false })).toBe(false);
+  });
+});
+
+describe("any supplier", () => {
+  const nothing = {
+    isSaas: false,
+    isOnPrem: false,
+    isManagedService: false,
+    processesCustomerData: false,
+    accessesCustomerSystems: false,
+    accessesCustomerPremises: false,
+  };
+  const asked = (response: Record<string, unknown>) =>
+    new Set(visibleFields(supplierQuestionnaire, response).map((f) => f.id));
+
+  test("a cleaning company with keys is asked about keys, not about IT", () => {
+    const cleaning = asked({ ...nothing, accessesCustomerPremises: true });
+    for (const id of [
+      "premisesAccessManaged",
+      "premisesConductRules",
+      "backgroundChecks",
+    ]) {
+      expect(cleaning.has(id)).toBe(true);
+    }
+    for (const id of [
+      "hasIsms",
+      "hasPenetrationTestingProgram",
+      "mfaEnforcedInternal",
+      "dataProcessingLocations",
+      "encryptionAtRest",
+    ]) {
+      expect(cleaning.has(id)).toBe(false);
+    }
+  });
+
+  test("a supplier holding customer data is asked about encryption and the DPA", () => {
+    const taxAdviser = asked({ ...nothing, processesCustomerData: true });
+    for (const id of [
+      "encryptionAtRest",
+      "encryptionInTransit",
+      "dataProcessingAgreement",
+    ]) {
+      expect(taxAdviser.has(id)).toBe(true);
+    }
+    expect(taxAdviser.has("hasPenetrationTestingProgram")).toBe(false);
+  });
+
+  test("a supplier with access to customer systems is asked how that access is secured", () => {
+    const msp = asked({
+      ...nothing,
+      isManagedService: true,
+      accessesCustomerSystems: true,
+    });
+    for (const id of [
+      "customerAccessPersonalMfa",
+      "customerAccessLogged",
+      "hasPenetrationTestingProgram",
+    ]) {
+      expect(msp.has(id)).toBe(true);
+    }
+  });
+
+  test("no question rests on the customer's own NIS 2 measures", () => {
+    // Art. 21(2) binds the customer; on a supplier question it reads as binding the supplier.
+    for (const field of supplierQuestionnaire.fields) {
+      expect(field.legalBasis.startsWith("NIS2 Art. 21(2)")).toBe(false);
     }
   });
 });

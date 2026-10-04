@@ -150,7 +150,6 @@ async function main() {
   console.log("1. profile.save (metadata)");
   const profile = await caller.supplierPortal.profile.save({
     primaryDomain: "smoke-test.example",
-    tagline: "Smoke test supplier",
     incidentContactEmail: "incidents@smoke-test.example",
   });
   console.log(`   ✓ profile id=${profile.id} actsAsSupplier=${profile.actsAsSupplier}\n`);
@@ -173,19 +172,13 @@ async function main() {
     staffSecurityTraining: true,
     backgroundChecks: true,
     vulnerabilityHandling: true,
-    // NIS2 Art 21(2) / CIR §5.1 universal baseline practices
-    securityPolicyReviewedAnnually: true,
     hasIncidentResponsePlan: true,
     hasBusinessContinuityPlan: true,
-    hasCryptographyPolicy: true,
-    hasPrivilegedAccessMgmt: true,
     mfaEnforcedInternal: true,
-    hasAssetInventory: true,
     hasPenetrationTestingProgram: true,
-    // ENISA TIG §5 — universal company-wide declarations
     cooperateWithAuthorities: true,
     pastBreachesDisclosed: true,
-    bsiRegistrationId: "BSI-NIS2-2026-SMOKE",
+    dataProcessingAgreement: "available",
   });
   console.log(`   ✓ saved at ${saved.practicesLastSavedAt?.toISOString()}\n`);
 

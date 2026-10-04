@@ -12,7 +12,7 @@
         "eyebrow": "Portal dostawców od nisd2.eu",
         "headline": "Wypełnij <u>jeden</u> kwestionariusz bezpieczeństwa.",
         "headlineAccent": "Udostępnij <u>każdemu</u> klientowi.",
-        "subhead": "Jeden kanoniczny kwestionariusz dostawcy, ustrukturyzowany według ENISA NIS 2 Technical Implementation Guidance v1.0. Każde pytanie cytuje CIR 2024/2690, BSIG §30 lub BSI IT-Grundschutz. Darmowy. Open source. Twoje dane pozostają przenośne.",
+        "subhead": "Jeden kanoniczny kwestionariusz dostawcy, ustrukturyzowany według ENISA NIS 2 Technical Implementation Guidance v1.0. Każde pytanie wskazuje swoje źródło na poziomie UE, a klienci, którzy zarządzają dostawcami według ISO 27001, znajdą odpowiednie zabezpieczenia tuż obok. Darmowy. Open source. Twoje dane pozostają przenośne.",
         "anchorBadge": "Ustrukturyzowany według ENISA NIS 2 TIG v1.0 §5",
         "ctaPrimary": "Utwórz profil dostawcy",
         "ctaSecondary": "Co znajduje się w kwestionariuszu?"
@@ -27,7 +27,7 @@
           },
           {
             "title": "Wypełnij kwestionariusz",
-            "body": "Trzy podstrony w portalu: profil i opis usługi, uniwersalne środki bezpieczeństwa cybernetycznego zgodnie z NIS 2 Art. 21(2), sekcje techniczne według typu usługi. 59 pytań, we własnym tempie, wersja robocza zapisuje się automatycznie."
+            "body": "Trzy strony w portalu: kim jesteś i do czego masz dostęp u klientów, do czego się zobowiązujesz i jak dbasz o bezpieczeństwo, a także pytania o oprogramowanie, jeśli je oferujesz lub dostarczasz. Każdy dostawca odpowiada na {always, plural, one {# pytanie} few {# pytania} many {# pytań} other {# pytania}}, na pozostałe tylko wtedy, gdy go dotyczą. We własnym tempie, wersja robocza zapisuje się automatycznie."
           },
           {
             "title": "Zaproś klientów",
@@ -37,52 +37,41 @@
       },
       "sections": {
         "heading": "Co znajduje się w kwestionariuszu.",
-        "lead": "Dziesięć sekcji, każda cytująca odpowiedni paragraf ENISA TIG, CIR 2024/2690 lub BSI IT-Grundschutz.",
-        "items": [
-          "Tożsamość (CIR §5.2 / ENISA TIG §5.2 rejestr dostawców)",
-          "Kontakt w sprawie incydentów (skierowany do klienta)",
-          "Typ usługi",
-          "Obowiązkowe klauzule umowne (CIR / ENISA TIG §5.1.4)",
-          "Środki bezpieczeństwa cybernetycznego (NIS 2 Art. 21(2) / ENISA TIG §5.1.2)",
-          "Dodatkowe klauzule umowne (ENISA TIG §5.1.4 TIPS)",
-          "Część techniczna SaaS",
-          "Część techniczna oprogramowania on-prem",
-          "Usługi profesjonalne, szczegóły",
-          "Usługi zarządzane, szczegóły"
-        ],
+        "lead": "Pytania w kolejności, w jakiej odpowiadasz na nie w portalu. Każde wskazuje przepis rozporządzenia wykonawczego (UE) 2024/2690, Technical Implementation Guidance ENISA, RODO lub Cyber Resilience Act, na którym się opiera.",
         "footnote": "Pełny schemat jest publicznie dostępny na GitHub i można go wyeksportować jako JSON."
       },
       "serviceTypes": {
-        "heading": "Cztery sekcje techniczne na typ usługi.",
-        "lead": "Strona Typ usługi w portalu udostępnia cztery dodatkowe sekcje. Wypełnij tylko te, które odpowiadają temu, co oferujesz.",
+        "heading": "To, o co jesteś pytany, zależy od tego, do czego masz dostęp u klientów.",
+        "lead": "Każdy dostawca odpowiada na {always, plural, one {# pytanie} few {# pytania} many {# pytań} other {# pytania}}. W profilu podajesz, czy przechowujesz dane klientów, masz dostęp do ich systemów lub wchodzisz do ich pomieszczeń, oraz czy oferujesz oprogramowanie jako usługę, dostarczasz oprogramowanie lub prowadzisz IT dla klientów. Z tego wynika reszta. Dostawca, który ma dostęp do danych, systemów lub pomieszczeń, odpowiada też na pytania o poufność, przydatność pracowników z dostępem i zwrot na koniec umowy.",
         "items": [
           {
-            "title": "SaaS",
-            "fields": "Region hostingu, szyfrowanie w spoczynku i w tranzycie, MFA dla kont administracyjnych, docelowy czas odtworzenia."
+            "title": "Dane Twoich klientów",
+            "fields": "Gdzie dane są przetwarzane, umowa powierzenia przetwarzania danych, szyfrowanie w spoczynku i w tranzycie. Do tego sposób zarządzania bezpieczeństwem: SZBI, certyfikat, obsługa podatności, plany na incydenty i awarie, drugi składnik dla Twoich własnych kont administratorów."
           },
           {
-            "title": "Oprogramowanie on-prem",
-            "fields": "Zestawienie składników oprogramowania (SBOM), kryptograficznie podpisane wydania, opublikowana polityka ujawniania podatności, SLA poprawek dla krytycznych CVE."
+            "title": "Systemy Twoich klientów",
+            "fields": "Osobiste konta z drugim składnikiem przy każdym dostępie, także przy zdalnym serwisie, oraz rejestrowanie dostępu z uprawnieniami administratora. Do tego to samo zarządzanie bezpieczeństwem co przy danych klientów."
           },
           {
-            "title": "Usługi profesjonalne",
-            "fields": "Zakres weryfikacji przeszłości, NDA ze wszystkimi konsultantami, udokumentowana polityka zachowania na terenie klienta."
+            "title": "Pomieszczenia Twoich klientów",
+            "fields": "Jak prowadzisz ewidencję kluczy, identyfikatorów i kodów oraz jakich pisemnych zasad postępowania przestrzegają Twoi pracownicy na miejscu. Dostawca, który tylko wchodzi do pomieszczeń, nie jest pytany o SZBI, testy bezpieczeństwa ani konta administratorów."
           },
           {
-            "title": "Usługi zarządzane",
-            "fields": "Zarządzanie dostępem uprzywilejowanym, nagrywanie sesji administracyjnych, dyżur 24/7 w przypadku incydentów bezpieczeństwa."
+            "title": "Oprogramowanie i usługi zarządzane",
+            "fields": "Jeśli oferujesz oprogramowanie jako usługę lub dostarczasz oprogramowanie: bezpieczne wytwarzanie, opublikowany sposób zgłaszania luk bezpieczeństwa, niezależne testy bezpieczeństwa. Przy SaaS także drugi składnik dla Twoich klientów i czas przywrócenia usługi; przy dostarczanym oprogramowaniu to, jak długo dostarczasz aktualizacje bezpieczeństwa, SBOM i podpisane wydania. Jeśli prowadzisz IT dla klientów, odpowiadasz na pytania o testy bezpieczeństwa i zarządzanie bezpieczeństwem."
           }
-        ]
+        ],
+        "example": "Firma sprzątająca z kluczami widzi w ten sposób {cleaning, plural, one {# pytanie} few {# pytania} many {# pytań} other {# pytania}}, dostawca SaaS przechowujący dane klientów {saas}."
       },
       "preview": {
         "heading": "Przykładowe pytania.",
-        "lead": "Sześć pytań z różnych sekcji, wraz z tekstem pomocniczym, który dostawcy widzą podczas ich wypełniania. Tożsamość, praktyki bezpieczeństwa, klauzule umowne, deklaracje AI, szczegóły techniczne.",
-        "footnote": "Sześć z 59 pytań. Pełny zestaw w portalu."
+        "lead": "Kilka pytań z różnych części kwestionariusza, wraz z tekstem pomocniczym, który dostawcy widzą podczas wypełniania, i przepisem, na którym opiera się każde z nich.",
+        "footnote": "{shown} z {total} pytań. Pełny zestaw w portalu."
       },
       "bsi": {
         "quote": "Z zadowoleniem przyjmujemy obecne inicjatywy branżowe mające na celu opracowanie ujednoliconego katalogu kwestionariuszy dla dostawców.",
         "attribution": "BSI NIS-2 FAQ (łańcuch dostaw i bezpieczeństwo).",
-        "context": "Ten portal dostawców JEST tą inicjatywą branżową. Prywatnie zbudowany, ujednolicony katalog kwestionariuszy, ustrukturyzowany według kanonicznej taksonomii UE (ENISA TIG §5), tak aby każdy podmiot regulowany przez NIS 2 mógł spełnić CIR §5.1.4 z jednego źródła."
+        "context": "Ten portal dostawców jest jedną z takich inicjatyw: jeden otwarty kwestionariusz, uporządkowany według ENISA TIG §5. Dostawcy wypełniają go raz, a każdy klient czyta te same odpowiedzi, gdy ocenia swój łańcuch dostaw na podstawie art. 21 ust. 2 lit. d NIS 2."
       },
       "privacy": {
         "heading": "Dwustronny i prywatny.",

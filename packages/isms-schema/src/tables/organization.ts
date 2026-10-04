@@ -28,6 +28,7 @@ import {
 import {
   accessLevelEnum,
   aiDataSharingEnum,
+  dataProcessingAgreementEnum,
   journeyModeEnum,
   planEnum,
   settledFactEnum,
@@ -177,9 +178,11 @@ export const company = pgTable("company", {
   actsAsSupplier: boolean("acts_as_supplier").default(false).notNull(),
 
   // ─────────────────────────────────────────────────────────────────────────
-  // Public identity (CIR 2024/2690 §5.2 supplier register equivalent)
-  // Universal company facts. Surfaced in the supplier portal customer view
-  // and may be surfaced in the entity portal in future.
+  // Supplier questionnaire answers: what this company states about itself as a
+  // supplier, the same for every customer. Each column is named after its
+  // question in @nisd2/nis2-supply-chain-questionnaire-schema, which says what
+  // it asks and on which legal basis. Per-customer contract clauses live on the
+  // supplier (relationship) row.
   // ─────────────────────────────────────────────────────────────────────────
 
   /** Legal name as it appears in registers. Distinct from `name` (display). */
@@ -187,160 +190,101 @@ export const company = pgTable("company", {
   registeredAddress: varchar("registered_address", { length: 500 }),
   /** ISO 3166-1 alpha-2 country code. */
   country: varchar("country", { length: 2 }),
-  /** Primary FQDN (lowercased). Used by the supplier portal for identity. */
+  /** Primary FQDN (lowercased). */
   primaryDomain: varchar("primary_domain", { length: 255 }),
-  /** Public-facing one-line description. Surfaced in the supplier portal customer view. */
-  tagline: varchar("tagline", { length: 255 }),
-  /** Public-facing long description. */
-  description: text("description"),
   /** S3 key of the company logo. */
   logoStorageKey: varchar("logo_storage_key", { length: 500 }),
-
-  // ─────────────────────────────────────────────────────────────────────────
-  // Customer-facing incident contact (distinct from BSI contact above)
-  // ─────────────────────────────────────────────────────────────────────────
-
-  /** Named security contact for incident notification chain (CIR §5.1.4(d)). */
+  serviceDescription: text("service_description"),
+  dataProcessingLocations: varchar("data_processing_locations", { length: 1000 }),
+  /** The customer-facing incident contact, distinct from the BSI contact above. */
   securityContactName: varchar("security_contact_name", { length: 255 }),
-  /** Customer-facing incident contact email. Different audience than bsiContactEmail. */
   incidentContactEmail: varchar("incident_contact_email", { length: 255 }),
   incidentContactPhone: varchar("incident_contact_phone", { length: 50 }),
-
-  // ─────────────────────────────────────────────────────────────────────────
-  // CIR 2024/2690 §5.1 / BSIG §30 universal company practices.
-  // Truth about the supplier's own ISMS — same answer for every customer.
-  // Per-customer contract clauses live on the supplier (relationship) row.
-  // ─────────────────────────────────────────────────────────────────────────
-
-  /** CIR §5.1.2(a) / BSIG §30 — documented information security management system. */
-  hasIsms: boolean("has_isms"),
-  /** CIR §5.1.2(b) — ISO 27001 / BSI Grundschutz / equivalent (cert via certification table). */
-  hasIso27001OrEquivalent: boolean("has_iso_27001_or_equivalent"),
-  /** CIR §5.1.4(b) — staff awareness, skills, training. */
-  staffSecurityTraining: boolean("staff_security_training"),
-  /** CIR §5.1.4(c) — verification of staff background. */
-  backgroundChecks: boolean("background_checks"),
-  /** CIR §5.1.4(f) — vulnerability handling that present a risk. */
-  vulnerabilityHandling: boolean("vulnerability_handling"),
-
-  // ─────────────────────────────────────────────────────────────────────────
-  // NIS2 Art. 21(2) / CIR §5.1 universal baseline practices
-  // Every supplier needs these to support a NIS2 entity's compliance.
-  // ─────────────────────────────────────────────────────────────────────────
-
-  /** CIR §5.1.1(c) — security policies reviewed at least annually. */
-  securityPolicyReviewedAnnually: boolean("security_policy_reviewed_annually"),
-  /** CIR §5.1.3 / NIS2 Art 21(2)(b) — documented incident response plan. */
-  hasIncidentResponsePlan: boolean("has_incident_response_plan"),
-  /** CIR §5.1.5 / NIS2 Art 21(2)(c) — documented business continuity / disaster recovery plan. */
-  hasBusinessContinuityPlan: boolean("has_business_continuity_plan"),
-  /** CIR §5.1.6 / NIS2 Art 21(2)(h) — documented cryptography policy. */
-  hasCryptographyPolicy: boolean("has_cryptography_policy"),
-  /** CIR §5.1.7 / NIS2 Art 21(2)(i) — privileged access management for internal staff. */
-  hasPrivilegedAccessMgmt: boolean("has_privileged_access_mgmt"),
-  /** NIS2 Art 21(2)(j) — MFA enforced for internal admin / privileged accounts. */
-  mfaEnforcedInternal: boolean("mfa_enforced_internal"),
-  /** CIR §5.1.8 / NIS2 Art 21(2)(i) — maintain an asset inventory. */
-  hasAssetInventory: boolean("has_asset_inventory"),
-  /** CIR §5.1.12 — annual or biennial penetration testing program. */
-  hasPenetrationTestingProgram: boolean("has_penetration_testing_program"),
-
-  // ─────────────────────────────────────────────────────────────────────────
-  // ENISA TIG §5 — Company-wide supplier declarations.
-  // Service-specific declarations (description, data locations) live on
-  // `asset`. Per-customer contract clauses (right-to-audit, exit plan,
-  // notify-on-location-change, etc.) live on `supplier`. Only universal
-  // truths about the company stay here.
-  // ─────────────────────────────────────────────────────────────────────────
-
-  /** ENISA TIG §5.1.4 TIPS — supplier obligation to fully cooperate with competent authorities (BSI, ENISA, national CSIRTs). */
-  cooperateWithAuthorities: boolean("cooperate_with_authorities"),
-  /** ENISA TIG §5.1.2 selection criteria — supplier discloses past notifiable cybersecurity events / breaches when asked. */
-  pastBreachesDisclosed: boolean("past_breaches_disclosed"),
-
-  // ─────────────────────────────────────────────────────────────────────────
-  // Profile-section extensions — ENISA TIG §5.2(b), §5.1.4 TIPS, NIS 2 Art. 23
-  // Service-type toggles (isSaas, isOnPrem, isProfessionalServices,
-  // isManagedService) drive the conditional technical sections below.
-  // Architectural note: schema's ENISA TIG §5 model is flat per-supplier.
-  // The asset table is the long-term home for per-service technical
-  // declarations; for MVP everything lives here as a single profile.
-  // ─────────────────────────────────────────────────────────────────────────
-  /** ENISA TIG §5.2(b) + §5.1.4 TIPS — clear description of ICT products/services. */
-  serviceDescription: text("service_description"),
-  /** ENISA TIG §5.1.4 TIPS — comma-separated countries where customer data is processed. */
-  dataProcessingLocations: varchar("data_processing_locations", { length: 1000 }),
-  /** NIS 2 Art. 23 — max hours from detection to customer notification. */
   incidentSlaHours: integer("incident_sla_hours"),
-  /** Service-type toggles — ENISA TIG §5.2(b). */
+
+  // What the supplier reaches at its customers, which decides the questions that follow.
   isSaas: boolean("is_saas"),
   isOnPrem: boolean("is_on_prem"),
-  isProfessionalServices: boolean("is_professional_services"),
   isManagedService: boolean("is_managed_service"),
-  /** NIS 2 Art. 21(2)(d) — supplier uses/integrates/provides AI systems. */
-  usesAiSystems: boolean("uses_ai_systems"),
+  processesCustomerData: boolean("processes_customer_data"),
+  accessesCustomerSystems: boolean("accesses_customer_systems"),
+  accessesCustomerPremises: boolean("accesses_customer_premises"),
 
-  // ─────────────────────────────────────────────────────────────────────────
-  // Security-practices-section extensions — CIR §5.1.4, GDPR Art. 28, ENISA TIG §5.1.4 TIPS
-  // ─────────────────────────────────────────────────────────────────────────
-  /** CIR 2024/2690 §5.1.4(e) — accepts customer right to audit or provides substitute reports. */
+  staffSecurityTraining: boolean("staff_security_training"),
   acceptRightToAudit: boolean("accept_right_to_audit"),
-  /** CIR 2024/2690 §5.1.4(g) — uses subprocessors / sub-suppliers. */
   hasSubprocessors: boolean("has_subprocessors"),
-  /** CIR 2024/2690 §5.1.4(g) — list of subprocessors (rendered when hasSubprocessors). */
   subprocessorList: text("subprocessor_list"),
-  /** CIR 2024/2690 §5.1.4(h) — return / destroy customer data on termination. */
-  dataReturnOnTermination: boolean("data_return_on_termination"),
-  /** GDPR Art. 28 — standard data processing agreement available. */
-  dpaAvailable: boolean("dpa_available"),
-  /** ENISA TIG §5.1.4 TIPS — assists customers during incidents at no / ex-ante cost. */
-  incidentAssistanceCommitment: boolean("incident_assistance_commitment"),
-  /** ENISA TIG §5.1.4 TIPS — notifies customers of material changes affecting service. */
+  subprocessorRequirementsPassedOn: boolean("subprocessor_requirements_passed_on"),
   notifyMaterialChanges: boolean("notify_material_changes"),
-  /** ENISA TIG §5.1.4 TIPS — notifies customers in advance of data-processing location changes. */
-  notifyOnLocationChange: boolean("notify_on_location_change"),
-  /** ENISA TIG §5.1.4 TIPS — documented exit strategy with transition period. */
-  hasExitPlan: boolean("has_exit_plan"),
-  /** NIS 2 Art. 21(2)(d) — provides SBOM-for-AI per G7 minimum elements. */
-  providesSbomForAi: boolean("provides_sbom_for_ai"),
-  /** URL to the SBOM-for-AI document. */
-  aiSbomUrl: varchar("ai_sbom_url", { length: 500 }),
+  pastBreachesDisclosed: boolean("past_breaches_disclosed"),
+  cooperateWithAuthorities: boolean("cooperate_with_authorities"),
+  confidentialityCommitted: boolean("confidentiality_committed"),
+  backgroundChecks: boolean("background_checks"),
+  dataReturnOnTermination: boolean("data_return_on_termination"),
+  dataProcessingAgreement: dataProcessingAgreementEnum("data_processing_agreement"),
+  encryptionAtRest: boolean("encryption_at_rest"),
+  encryptionInTransit: boolean("encryption_in_transit"),
+  hasIsms: boolean("has_isms"),
+  /**
+   * The certificates themselves (standard, issuer, validity, scope, file) live in
+   * company_certification, which also answers the package's `certificationDetails`.
+   */
+  hasIso27001OrEquivalent: boolean("has_iso_27001_or_equivalent"),
+  vulnerabilityHandling: boolean("vulnerability_handling"),
+  hasIncidentResponsePlan: boolean("has_incident_response_plan"),
+  hasBusinessContinuityPlan: boolean("has_business_continuity_plan"),
+  mfaEnforcedInternal: boolean("mfa_enforced_internal"),
+  hasPenetrationTestingProgram: boolean("has_penetration_testing_program"),
+  secureDevelopment: boolean("secure_development"),
+  vulnerabilityDisclosurePolicy: boolean("vulnerability_disclosure_policy"),
+  customerAccessPersonalMfa: boolean("customer_access_personal_mfa"),
+  customerAccessLogged: boolean("customer_access_logged"),
+  premisesAccessManaged: boolean("premises_access_managed"),
+  premisesConductRules: boolean("premises_conduct_rules"),
+  saasMfaEnforced: boolean("saas_mfa_enforced"),
+  saasRtoHours: integer("saas_rto_hours"),
+  onPremSupportEnd: varchar("on_prem_support_end", { length: 255 }),
+  onPremPatchSlaCriticalHours: integer("on_prem_patch_sla_critical_hours"),
+  onPremSbomProvided: boolean("on_prem_sbom_provided"),
+  onPremSignedReleases: boolean("on_prem_signed_releases"),
 
-  // ─────────────────────────────────────────────────────────────────────────
-  // SaaS technical (rendered when isSaas) — BSI IT-Grundschutz OPS.2.2, NIS 2 Art. 21(2)(h)/(j)
-  // ─────────────────────────────────────────────────────────────────────────
+  // No longer asked (questionnaire 4.0.0). Kept so earlier answers survive, and
+  // so the release before can still read and write them while a deploy runs.
+  tagline: varchar("tagline", { length: 255 }),
+  description: text("description"),
+  isProfessionalServices: boolean("is_professional_services"),
+  usesAiSystems: boolean("uses_ai_systems"),
+  securityPolicyReviewedAnnually: boolean("security_policy_reviewed_annually"),
+  hasCryptographyPolicy: boolean("has_cryptography_policy"),
+  hasPrivilegedAccessMgmt: boolean("has_privileged_access_mgmt"),
+  hasAssetInventory: boolean("has_asset_inventory"),
+  dpaAvailable: boolean("dpa_available"),
+  incidentAssistanceCommitment: boolean("incident_assistance_commitment"),
+  notifyOnLocationChange: boolean("notify_on_location_change"),
+  hasExitPlan: boolean("has_exit_plan"),
+  providesSbomForAi: boolean("provides_sbom_for_ai"),
+  aiSbomUrl: varchar("ai_sbom_url", { length: 500 }),
   saasHostingRegion: varchar("saas_hosting_region", { length: 255 }),
   saasEncryptionAtRest: boolean("saas_encryption_at_rest"),
   saasEncryptionInTransit: boolean("saas_encryption_in_transit"),
-  saasMfaEnforced: boolean("saas_mfa_enforced"),
-  saasRtoHours: integer("saas_rto_hours"),
-
-  // ─────────────────────────────────────────────────────────────────────────
-  // On-prem technical (rendered when isOnPrem) — CRA / NIS 2 Art. 21(2)(d)/(e)
-  // ─────────────────────────────────────────────────────────────────────────
-  onPremSbomProvided: boolean("on_prem_sbom_provided"),
-  onPremSignedReleases: boolean("on_prem_signed_releases"),
   onPremVulnerabilityDisclosurePolicy: boolean("on_prem_vulnerability_disclosure_policy"),
-  onPremPatchSlaCriticalHours: integer("on_prem_patch_sla_critical_hours"),
-
-  // ─────────────────────────────────────────────────────────────────────────
-  // Professional services (rendered when isProfessionalServices) — BSI ORP.2/ORP.3
-  // ─────────────────────────────────────────────────────────────────────────
   proServicesBackgroundCheckScope: varchar("pro_services_background_check_scope", {
     length: 500,
   }),
   proServicesNdaInPlace: boolean("pro_services_nda_in_place"),
   proServicesCustomerPremisesPolicy: boolean("pro_services_customer_premises_policy"),
-
-  // ─────────────────────────────────────────────────────────────────────────
-  // Managed services (rendered when isManagedService) — BSI ORP.4 / DER.2.1, NIS 2 Art. 21(2)(f)
-  // ─────────────────────────────────────────────────────────────────────────
   managedPrivilegedAccessMgmt: boolean("managed_privileged_access_mgmt"),
   managedSessionRecording: boolean("managed_session_recording"),
   managedOnCall24x7: boolean("managed_on_call_24x7"),
 
   /** Denormalized timestamp of last supplier-portal Security Practices save — surfaced as a "saved at" hint in the UI. */
   practicesLastSavedAt: timestamp("questionnaire_last_saved_at"),
+  /**
+   * When the company that runs this instance was added to this company's supplier list
+   * (lib/supplier-portal/platform-supplier.ts). Set once; a row the company deletes afterwards
+   * stays deleted, because this says it was offered already.
+   */
+  platformSupplierLinkedAt: timestamp("platform_supplier_linked_at"),
 
   /**
    * Onboarding lifecycle discriminator. NULL = a draft shell (auto-provisioned

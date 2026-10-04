@@ -21,11 +21,12 @@
       "access": "Přístup"
     },
     "pages": {
-      "profileIntro": "Identita, veřejný popis, který vidí zákazníci, a kontakt, na který se obrátí, když se něco stane. Vychází z registru dodavatelů podle ENISA TIG §5.2 a z ohlašovací cesty podle CIR §5.1.4(d).",
-      "practicesIntro": "Obecné údaje o tom, jak vaše firma řídí bezpečnost informací: systém řízení, stav ISO 27001 nebo Grundschutz, školení a základní opatření podle článku 21(2) NIS 2. Pro každého zákazníka stejné odpovědi.",
-      "serviceTypeIntro": "Technické údaje k tomu, co dodáváte: hosting a šifrování u SaaS, SBOM a podepsaná vydání u softwaru u zákazníka, prověrky pracovníků u odborných služeb, PAM a pohotovost u spravovaných služeb. Vyplňte jen ty části, které se vás týkají.",
+      "profileIntro": "Kdo jste, jak vás zákazníci zastihnou, když se něco stane, a co dodáváte. Podle toho zákazník posuzuje, jakou váhu mají vaše ostatní odpovědi.",
+      "practicesIntro": "K čemu se zavazujete vůči zákazníkům a jak řídíte bezpečnost. Pro každého zákazníka stejné odpovědi.",
+      "serviceTypeIntro": "Podrobnosti k typům služeb, které jste zaškrtli v profilu. Otázky ke službám, které neposkytujete, se zde nezobrazují.",
+      "serviceTypeEmpty": "Na této stránce jsou otázky k softwaru jako službě a k softwaru, který dodáváte. V profilu jste nezaškrtli ani jedno, takže tu není na co odpovídat.",
+      "serviceTypeEmptyLink": "Přejít na profil",
       "certificationsIntro": "Nahrajte svá bezpečnostní osvědčení (ISO 27001, BSI Grundschutz, BSI C5, TISAX, SOC 2). PDF a jejich údaje vidí zákazníci, které jste pozvali.",
-      "nis2Regulated": "Sám podléhá NIS 2",
       "customersTitle": "Přidat prvního zákazníka",
       "customersIntro": "Pozvěte zákazníka e-mailem. Dostane soukromý odkaz na váš bezpečnostní profil a účet k tomu nepotřebuje. Jakmile pozvání přijme, zadáte systémy, které pro něj provozujete, a hlásíte incidenty, které se jich týkají.",
       "customer": "Zákazník",
@@ -44,23 +45,23 @@
       "step1Title": "Založit profil",
       "step1Body": "Přihlásit se, zadat název firmy a doménu. Profil patří vám, ne některému z vašich zákazníků.",
       "step2Title": "Odpovědět jednou",
-      "step2Body": "{count} otázek k řízení bezpečnosti, certifikaci, havarijním plánům, přístupům a smluvním ujednáním. Každá otázka uvádí ustanovení, o které se opírá. Rozpracované odpovědi se průběžně ukládají.",
+      "step2Body": "Až {count, plural, one {# otázka} few {# otázky} many {# otázky} other {# otázek}} k závazkům, řízení bezpečnosti, havarijním plánům a přístupům; vidíte jen ty, které odpovídají tomu, co dodáváte. Každá otázka uvádí ustanovení, o které se opírá. Rozpracované odpovědi se průběžně ukládají.",
       "step3Title": "Pozvat zákazníky",
       "step3Body": "Každý zákazník dostane vlastní soukromý odkaz. Vidí váš profil, systémy, které pro něj provozujete, a vaše certifikáty. Účet k tomu nepotřebuje.",
       "step4Title": "Hlásit incidenty",
       "step4Body": "Pokud je zasažen systém některého zákazníka, nahlásíte to přímo z portálu. Hlášení vidí jen tento jeden zákazník. Tím plní svou povinnost průběžně sledovat dodavatele podle článku 21(2)(d) NIS 2.",
       "coversTitle": "Na co se ptáme",
-      "coversIntro": "Členění vychází z dokumentu ENISA NIS2 Technical Implementation Guidance v1.0 z června 2025. Každá otázka uvádí ustanovení CIR 2024/2690 nebo BSI IT-Grundschutz, o které se opírá. Auditor tuto strukturu zná, takže si nemusíte vymýšlet vlastní. Sada otázek je veřejná na GitHubu.",
+      "coversIntro": "Otázky vycházejí z článku 21 NIS2, prováděcího nařízení (EU) 2024/2690 a Technical Implementation Guidance v1.0 agentury ENISA z června 2025; každá uvádí ustanovení, o které se opírá, a tam, kde existuje, odpovídající opatření z ISO 27001. Ptáme se na to, co zákazník potřebuje pro svůj dodavatelský řetězec, a na nic víc. Sada otázek je veřejná na GitHubu.",
       "covers1Title": "Identita a kontakt",
       "covers1Body": "Obchodní firma, adresa, doména a kdo se zákazníkovi ozve, když se něco stane. K tomu lhůta, ve které se zavazujete reagovat.",
       "covers2Title": "Bezpečnostní praxe",
       "covers2Body": "Jak vaše firma řídí bezpečnost informací: systém řízení, certifikace, školení, práce se zranitelnostmi, přístupy, plánování kontinuity.",
       "covers3Title": "Smluvní ujednání",
-      "covers3Body": "Právo na audit, smlouva o zpracování osobních údajů, další zpracovatelé, vrácení dat na konci smlouvy, oznamování podstatných změn.",
-      "covers4Title": "Druh služby",
-      "covers4Body": "SaaS, software u zákazníka, odborné služby nebo spravovaná služba. Odpovídáte jen na otázky, které odpovídají vašemu podnikání.",
+      "covers3Body": "Právo na audit, smlouva o zpracování osobních údajů, subdodavatelé, mlčenlivost, vrácení na konci smlouvy, oznamování podstatných změn.",
+      "covers4Title": "K čemu máte u zákazníků přístup",
+      "covers4Body": "Zda uchováváte data svých zákazníků, přistupujete k jejich systémům, vstupujete do jejich prostor nebo dodáváte software. Daňový poradce, úklidová firma a softwarová firma vidí každý jen otázky, které se ho týkají.",
       "covers5Title": "Certifikáty",
-      "covers5Body": "Nahrajete ISO 27001, BSI Grundschutz nebo rovnocenný certifikát v PDF. Zákazníci vidí, do kdy platí.",
+      "covers5Body": "Nahrajete ISO 27001, BSI C5, TISAX, SOC 2 nebo rovnocenný doklad v PDF. Zákazníci vidí, jak dlouho platí.",
       "privacyTitle": "Dvoustranně a soukromě",
       "privacyBody": "Žádný veřejný seznam dodavatelů neexistuje. Váš profil vidí jen zákazníci, kterým jej zpřístupníte, a každý z nich může svůj přístup sám ukončit. Žádná veřejná adresa, žádné indexování ve vyhledávačích.",
       "bsiQuote": "Wir begrüßen aktuelle Vorstöße der Wirtschaft, einen einheitlichen Fragenkatalog für Lieferanten zu erarbeiten.",
@@ -78,25 +79,79 @@
       "metaDescription": "Odpovězte na otázky NIS 2 od svých zákazníků jednou a odpovědi zpřístupněte každému zákazníkovi, který vás pozve. Členěno podle ENISA TIG v1.0 a CIR 2024/2690. Open source, bez uzamčení k dodavateli."
     },
     "questionnaire": {
-      "title": "Dodavatelský dotazník BSI / CIR",
-      "intro": "Každá otázka odkazuje na konkrétní odstavec CIR 2024/2690, závazného nařízení EU podle NIS2, nebo na BSI IT-Grundschutz. Vyplňte ho jednou. Každý zákazník, který se přihlásí k odběru, uvidí tytéž odpovědi.",
       "save": "Uložit koncept",
-      "submit": "Schválit a zveřejnit",
       "submitting": "Ukládání…",
       "saved": "Uloženo",
       "saveError": "Nepodařilo se uložit. Zkuste to prosím znovu.",
-      "submitError": "Nepodařilo se schválit. Nejprve opravte chyby ve validaci.",
       "savedAt": "Naposledy uloženo {time}",
-      "sectionIdentity": "Identita (CIR §5.2 / ENISA TIG §5.2 registr dodavatelů)",
-      "sectionIncidentContact": "Kontakt pro incidenty směrem k zákazníkovi",
-      "sectionType": "Typ služby",
-      "sectionContract": "Povinná smluvní ustanovení (CIR / ENISA TIG §5.1.4)",
-      "sectionBaseline": "Postupy kybernetické bezpečnosti (NIS2 čl. 21(2) / ENISA TIG §5.1.2)",
-      "sectionContractTips": "Doplňková smluvní ustanovení (ENISA TIG §5.1.4 TIPS)",
-      "sectionSaas": "Technické parametry SaaS",
-      "sectionOnPrem": "Technické parametry on-prem softwaru",
-      "sectionProServices": "Podrobnosti o profesionálních službách",
-      "sectionManaged": "Podrobnosti o řízených službách"
+      "groups": {
+        "identity": {
+          "title": "Kdo jste",
+          "why": "Aby vás zákazník mohl jednoznačně vést ve svém seznamu dodavatelů."
+        },
+        "contacts": {
+          "title": "Jak vás zastihnout, když se něco stane",
+          "why": "Zákazník potřebuje pro každého přímého dodavatele kontaktní místo pro bezpečnostní otázky."
+        },
+        "delivery": {
+          "title": "Co dodáváte a k čemu máte přístup",
+          "why": "Zda uchováváte data svých zákazníků, přistupujete k jejich systémům nebo vstupujete do jejich prostor, určuje, které otázky uvidíte dál a jakou váhu mají vaše odpovědi pro zákazníka."
+        },
+        "commitments": {
+          "title": "K čemu se zavazujete vůči zákazníkům",
+          "why": "Tam, kde je to vhodné, patří tyto body do vaší smlouvy se zákazníkem. Zde předem uvádíte, k čemu jste ochotni."
+        },
+        "operations": {
+          "title": "Jak řídíte bezpečnost",
+          "why": "Zákazníci si dodavatele vybírají i podle jejich bezpečnostní praxe. Certifikát, který pokrývá vaši službu, jim o tom už hodně řekne."
+        },
+        "access": {
+          "title": "Jak přistupujete k zákazníkům",
+          "why": "Kdo se přihlašuje do systémů zákazníka nebo vstupuje do jeho prostor, nese odpovědnost za jeho bezpečnost. Zde uvádíte, jak tento přístup zabezpečujete."
+        },
+        "saas": {
+          "title": "Software jako služba (SaaS)",
+          "why": "Zda si zákazníci mohou chránit účty druhým faktorem a jak rychle vaše služba po výpadku znovu běží."
+        },
+        "onPrem": {
+          "title": "Software u zákazníka",
+          "why": "Jak dlouho dodáváte ke svému softwaru bezpečnostní aktualizace a podle čeho zákazník pozná, že software i jeho aktualizace jsou důvěryhodné."
+        }
+      },
+      "customerGroups": {
+        "identity": {
+          "title": "Kdo je dodavatel",
+          "why": "Abyste ho mohli jednoznačně vést ve svém seznamu dodavatelů."
+        },
+        "contacts": {
+          "title": "Jak ho zastihnout, když se něco stane",
+          "why": "Kontaktní místo pro bezpečnostní otázky, které potřebujete pro každého přímého dodavatele."
+        },
+        "delivery": {
+          "title": "Co dodavatel dodává a k čemu má přístup",
+          "why": "Zda uchovává vaše data, přistupuje k vašim systémům nebo vstupuje do vašich prostor, určuje, jakou váhu pro vás mají jeho ostatní odpovědi."
+        },
+        "commitments": {
+          "title": "K čemu se zavazuje vůči zákazníkům",
+          "why": "K čemu se dodavatel předem zavazuje. Co z toho je pro vás vhodné, patří do vaší smlouvy s ním."
+        },
+        "operations": {
+          "title": "Jak řídí bezpečnost",
+          "why": "Jak dodavatel řídí bezpečnost. Certifikát, který pokrývá jeho službu, je uveden níže u certifikátů."
+        },
+        "access": {
+          "title": "Přístup k vašim systémům a prostorám",
+          "why": "Jak dodavatel zabezpečuje svůj přístup k vašim systémům a prostorám."
+        },
+        "saas": {
+          "title": "Software jako služba (SaaS)",
+          "why": "Zda si můžete chránit účty druhým faktorem a jak rychle jeho služba po výpadku znovu běží."
+        },
+        "onPrem": {
+          "title": "Software u vás",
+          "why": "Jak dlouho dodává ke svému softwaru bezpečnostní aktualizace a podle čeho poznáte, že software i jeho aktualizace jsou důvěryhodné."
+        }
+      }
     },
     "customerView": {
       "securityProfile": "Bezpečnostní profil",
@@ -104,8 +159,6 @@
       "revoke": "Ukončit přístup",
       "revokedTitle": "Přístup ukončen",
       "revokedBody": "Od tohoto dodavatele již nebudete dostávat oznámení.",
-      "nis2Regulated": "Sám podléhá NIS2",
-      "nis2RegulatedNote": "Tento dodavatel sám spadá pod NIS2 a je registrován u BSI. Podle ENISA TIG §5.1.2 se na to můžete opřít u podstatné části svého hodnocení dodavatele podle CIR 2024/2690.",
       "servicesTitle": "Systémy, které pro vás tento dodavatel provozuje",
       "servicesIntro": "Tyto údaje platí pouze pro vaši spolupráci. Ostatní zákazníci téhož dodavatele vidí své vlastní systémy, nikoli tyto.",
       "servicesEmpty": "Zatím pro vás nebyl zaznamenán žádný systém.",
@@ -129,55 +182,8 @@
       }
     },
     "fields": {
-      "legalName": "Obchodní firma",
-      "registeredAddress": "Sídlo zapsané v rejstříku",
-      "country": "Země",
-      "securityContactName": "Jméno bezpečnostního kontaktu",
-      "primaryDomain": "Hlavní doména",
-      "tagline": "Slogan (jeden řádek, viditelný zákazníkům)",
-      "description": "Veřejný popis (delší)",
-      "incidentContactEmail": "E-mail pro hlášení incidentů",
-      "incidentContactPhone": "Telefon pro incidenty (24/7)",
-      "incidentSlaHours": "SLA pro oznámení incidentu (hodiny)",
-      "serviceDescription": "Popis poskytovaných služeb",
-      "dataProcessingLocations": "Země a regiony, kde se zpracovávají data zákazníků",
-      "bsiRegistrationId": "Registrační ID u BSI (jen pokud je vaše firma sama regulována podle NIS2)",
-      "isSaas": "Poskytujeme SaaS / hostované služby",
-      "isOnPrem": "Dodáváme on-prem software",
-      "isProfessionalServices": "Poskytujeme profesionální služby / poradenství",
-      "isManagedService": "Poskytujeme řízené služby / MSP",
-      "hasIsms": "Zdokumentovaný systém řízení bezpečnosti informací (ISMS)",
-      "hasIso27001OrEquivalent": "Držíme certifikaci ISO 27001, BSI Grundschutz nebo rovnocennou",
-      "staffSecurityTraining": "Roční školení bezpečnostního povědomí pro všechny zaměstnance",
-      "backgroundChecks": "Prověrky zaměstnanců s přístupem k datům zákazníků",
-      "vulnerabilityHandling": "Zdokumentovaný proces správy zranitelností a záplatování",
-      "acceptRightToAudit": "Přijímáme právo zákazníka na audit (nebo poskytujeme auditní zprávy)",
-      "hasSubprocessors": "Využíváme dílčí zpracovatele / subdodavatele",
-      "subprocessorList": "Seznam dílčích zpracovatelů",
-      "dataReturnOnTermination": "Zavazujeme se vrátit / zničit data zákazníka při ukončení",
-      "dpaAvailable": "K dispozici standardní smlouva o zpracování osobních údajů (DPA)",
-      "securityPolicyReviewedAnnually": "Bezpečnostní směrnice přezkoumávány alespoň jednou ročně",
-      "hasIncidentResponsePlan": "Zdokumentovaný plán reakce na incidenty",
-      "hasBusinessContinuityPlan": "Zdokumentovaný plán kontinuity činností a obnovy po havárii",
-      "hasCryptographyPolicy": "Zdokumentovaná kryptografická politika",
-      "hasPrivilegedAccessMgmt": "Správa privilegovaného přístupu (PAM) pro interní zaměstnance",
-      "mfaEnforcedInternal": "MFA vynucena pro všechny interní administrátorské / privilegované účty",
-      "hasAssetInventory": "Vedeme evidenci informačních aktiv",
-      "hasPenetrationTestingProgram": "Roční nebo dvouletý program penetračního testování",
-      "pastBreachesDisclosed": "Na vyžádání zákazníka zveřejňujeme minulé oznamovatelné kybernetické události",
-      "incidentAssistanceCommitment": "Poskytujeme pomoc při incidentech zákazníkům bezplatně / za předem stanovenou cenu",
-      "cooperateWithAuthorities": "Plně spolupracujeme s příslušnými orgány (BSI, ENISA, národní CSIRT)",
-      "notifyMaterialChanges": "Informujeme zákazníky o každé podstatné změně ovlivňující poskytování služby",
-      "notifyOnLocationChange": "Informujeme zákazníky předem, pokud se změní místo zpracování dat",
-      "hasExitPlan": "Zdokumentovaná výstupní strategie s povinným přechodným obdobím",
-      "usesAiSystems": "Používáme, integrujeme nebo poskytujeme systémy AI",
-      "providesSbomForAi": "Poskytujeme SBOM-for-AI podle minimálních prvků G7",
-      "aiSbomUrl": "URL dokumentu SBOM-for-AI",
+      "dataProcessingLocations": "Země / regiony, kde se zpracovávají data zákazníků",
       "saasHostingRegion": "Region hostování",
-      "saasEncryptionAtRest": "Šifrování dat v klidu",
-      "saasEncryptionInTransit": "Šifrování dat při přenosu (TLS ≥ 1.2)",
-      "saasMfaEnforced": "MFA vynucena pro všechny administrátorské účty",
-      "saasRtoHours": "Cíl doby obnovy (RTO) v hodinách",
       "onPremSbomProvided": "Poskytujeme soupis softwarových komponent (SBOM)",
       "onPremSignedReleases": "Vydání jsou kryptograficky podepsána",
       "onPremVulnerabilityDisclosurePolicy": "Zveřejněná politika pro hlášení zranitelností",
@@ -188,67 +194,6 @@
       "managedPrivilegedAccessMgmt": "Zavedena správa privilegovaného přístupu (PAM)",
       "managedSessionRecording": "Administrátorské relace jsou zaznamenávány",
       "managedOnCall24x7": "Pohotovostní pokrytí 24/7"
-    },
-    "fieldDescriptions": {
-      "legalName": "Zapsaný název vaší firmy, jak je uveden v obchodním rejstříku. Příklad: Müller GmbH nebo Acme Software Ltd.",
-      "registeredAddress": "Zapsané sídlo vaší firmy. Stačí jedna adresa, i když máte více poboček.",
-      "country": "Země, ve které je vaše firma právně usazena. Dvě písmena, např. DE pro Německo.",
-      "primaryDomain": "Vaše hlavní doména, obvykle URL vašeho webu. Příklad: acmesoftware.com.",
-      "tagline": "Jeden řádek shrnující, co nabízíte. Zákazníci ho vidí na vašem dodavatelském profilu. Příklad: ERP pro výrobní malé a střední podniky.",
-      "description": "Dvě až tři věty o vaší firmě a o tom, čím se zabýváte. Zobrazuje se na vašem dodavatelském profilu. Prodejní představení, bezpečnostní postoj, nebo obojí.",
-      "serviceDescription": "Jeden odstavec o tom, co vaše firma zákazníkům technicky dodává. Konkrétní produkty, moduly nebo služby. Vyhněte se čistě marketingovému jazyku.",
-      "dataProcessingLocations": "Každá země, kde se ukládají nebo zpracovávají data vašich zákazníků. Oddělené čárkou, kódy zemí podle ISO. Příklad: DE, NL, US. Pokud zpracováváte výhradně v rámci EU, stačí uvést země EU.",
-      "securityContactName": "Koho zákazníci kontaktují, když nastane bezpečnostní incident. V menších firmách často jednatel nebo vedoucí IT. Stačí jedna osoba.",
-      "incidentContactEmail": "E-mailová adresa, na kterou zákazníci hlásí bezpečnostní incident. Ideálně distribuční seznam jako security@example.com, který zasáhne více lidí.",
-      "incidentContactPhone": "Telefonní číslo pro naléhavá hlášení incidentů. Pokud neprovozujete pohotovost 24/7, uveďte v závorce svou provozní dobu.",
-      "incidentSlaHours": "Počet hodin od zjištění incidentu do nejzazšího oznámení zákazníkovi. Realistické sebehodnocení, ne přání. Běžné hodnoty: 24, 48 nebo 72 hodin.",
-      "bsiRegistrationId": "Pokud je vaše firma sama regulována podle NIS 2 a registrována u BSI, zadejte sem registrační ID. Volitelné. Umožní zákazníkům na první pohled vidět, že plníte stejnou povinnost jako regulovaný subjekt.",
-      "isSaas": "Provozujete software pro zákazníky na vlastní infrastruktuře a dodáváte ho přes internet. Pokud nabízíte více modelů, zaškrtněte více polí.",
-      "isOnPrem": "Dodáváte software, který si zákazníci instalují a provozují na vlastní infrastruktuře.",
-      "isProfessionalServices": "Vaším hlavním výstupem je lidská práce: poradenství, implementace, školení, audit nebo úpravy na míru.",
-      "isManagedService": "Provozujete části IT zákazníka za něj, s vlastními zaměstnanci. Typické pro modely MSP a MSSP.",
-      "usesAiSystems": "Zpracovávají vaše produkty nebo služby data zákazníků prostřednictvím modelu AI nebo ML? Zahrnuje i externí modely, které voláte přes API, například OpenAI nebo Anthropic.",
-      "hasIsms": "Zaškrtněte ano, pokud máte písemnou bezpečnostní směrnici s přidělenými rolemi, pravidelnými přezkumy a zdokumentovaným řešením incidentů. Certifikace ISO 27001 nebo BSI Grundschutz znamená ano.",
-      "hasIso27001OrEquivalent": "Zaškrtněte ano, pokud vaše firma aktuálně drží certifikaci ISO 27001, BSI Grundschutz, SOC 2 Type II nebo rovnocennou. Certifikát nahrajte v záložce Certifikace.",
-      "staffSecurityTraining": "Zaškrtněte ano, pokud každý zaměstnanec absolvuje alespoň jedno roční školení bezpečnostního povědomí. E-learning se počítá, simulace phishingu ho doplňují.",
-      "backgroundChecks": "Zaškrtněte ano, pokud provádíte prověrku zaměstnanců s přístupem k datům zákazníků. Běžná úroveň: výpis z rejstříku trestů nebo rovnocenný dokument při nástupu.",
-      "vulnerabilityHandling": "Zaškrtněte ano, pokud máte písemný proces pro řešení bezpečnostních zranitelností: zjistit, vyhodnotit, určit prioritu, opravit nebo zmírnit. Standardem je monitoring CVE a záplatování řízené podle SLA.",
-      "acceptRightToAudit": "Zaškrtněte ano, pokud zákazníkům buď udělujete právo na audit na místě, nebo poskytujete náhradní auditní zprávy (například SOC 2, ISAE 3402).",
-      "hasSubprocessors": "Zaškrtněte ano, pokud k poskytování své služby využíváte další firmy, které mají přístup k datům nebo infrastruktuře zákazníků. Typické příklady: AWS, Azure, Cloudflare, Stripe.",
-      "subprocessorList": "Uveďte každého dílčího zpracovatele s názvem, místem zpracování a tím, co pro vás dělá. Stačí tabulka nebo odrážkový seznam. Aktualizujte, kdykoli někoho přidáte nebo odeberete.",
-      "dataReturnOnTermination": "Zaškrtněte ano, pokud se smluvně zavazujete vrátit nebo zničit data zákazníka na konci smlouvy. Běžná praxe: export a vrácení, poté smazání do 30 dnů.",
-      "dpaAvailable": "Zaškrtněte ano, pokud máte standardní smlouvu o zpracování osobních údajů podle článku 28 GDPR, kterou mohou zákazníci podepsat. Vyžaduje se, jakmile zpracováváte osobní údaje.",
-      "securityPolicyReviewedAnnually": "Zaškrtněte ano, pokud se vaše bezpečnostní směrnice přezkoumávají alespoň jednou ročně a podle potřeby aktualizují. Jako důkaz stačí písemná poznámka v dokumentu.",
-      "hasIncidentResponsePlan": "Zaškrtněte ano, pokud máte písemný plán pro řešení bezpečnostních incidentů: kdo rozhoduje, kdo komunikuje, kdo dokumentuje. Dobrou praxí je alespoň jedno cvičení od stolu ročně.",
-      "hasBusinessContinuityPlan": "Zaškrtněte ano, pokud máte plán, který popisuje, jak při výpadku zůstanete v provozu nebo se rychle obnovíte: kritické systémy, záložní řešení, cíle RTO a RPO.",
-      "hasCryptographyPolicy": "Zaškrtněte ano, pokud máte písemně, jakou kryptografii kde používáte: data při přenosu (TLS 1.2+), data v klidu (AES-256), správa klíčů, hašovací algoritmy.",
-      "hasPrivilegedAccessMgmt": "Zaškrtněte ano, pokud administrátoři a privilegované účty získávají další kontroly: oddělené přihlášení, MFA, protokolování relací nebo přístup just-in-time.",
-      "mfaEnforcedInternal": "Zaškrtněte ano, pokud každý interní administrátorský nebo privilegovaný účet musí používat MFA. Hardwarové tokeny nebo aplikace autentizátoru se počítají, SMS ne.",
-      "hasAssetInventory": "Zaškrtněte ano, pokud vedete aktuální seznam každého informačního systému, který používáte k poskytování své služby: servery, databáze, SaaS nástroje, koncové body. Stačí tabulka.",
-      "hasPenetrationTestingProgram": "Zaškrtněte ano, pokud zadáváte externí penetrační test alespoň jednou za jeden až dva roky. U menších firem je jako minimální krok přijatelný externí sken zranitelností.",
-      "pastBreachesDisclosed": "Zaškrtněte ano, pokud na žádost zákazníka otevřeně sdělíte, zda a které oznamovatelné bezpečnostní incidenty vaše firma v minulosti měla. Běžné období: poslední tři až pět let.",
-      "incidentAssistanceCommitment": "Zaškrtněte ano, pokud se zavazujete pomáhat zákazníkům bez příplatku, když je incident způsoben vaším produktem nebo službou. Pokud místo toho předem sjednáte pevnou denní sazbu, zaškrtněte také ano.",
-      "cooperateWithAuthorities": "Zaškrtněte ano, pokud se zavazujete plně spolupracovat s příslušnými orgány jako BSI, ENISA nebo národní CSIRT při inspekcích, auditech a řešení incidentů. Standard u seriózních dodavatelů.",
-      "notifyMaterialChanges": "Zaškrtněte ano, pokud se zavazujete informovat zákazníky o každé podstatné změně ovlivňující vaši schopnost dodávat: akvizice, změny dílčích zpracovatelů, zásadní technické posuny.",
-      "notifyOnLocationChange": "Zaškrtněte ano, pokud zákazníky informujete předem, než se změní místo zpracování jejich dat. Důležité pro ochranu osobních údajů a pro dohled nad dodavatelským řetězcem v souladu s GDPR.",
-      "hasExitPlan": "Zaškrtněte ano, pokud máte písemnou výstupní strategii: jak dlouho trvá řádné předání, jaká data a znalosti se předávají, k čemu se během přechodu zavazujete.",
-      "providesSbomForAi": "Volitelné. Zaškrtněte ano, pokud dokážete poskytnout SBOM-for-AI podle minimálních prvků G7 (květen 2026). Dokumentuje metadata, modely, trénovací data, infrastrukturu, bezpečnostní vlastnosti, KPI a chování systému. Dobrovolný standard.",
-      "aiSbomUrl": "Veřejná nebo sdílená URL k vašemu dokumentu SBOM-for-AI. Může to být PDF, soubor JSON nebo stránka projektu.",
-      "saasHostingRegion": "Cloudový region, kde jsou hostována data zákazníků. Příklad: AWS eu-central-1, Azure West Europe. Uveďte hlavní region. Sekundární nebo záložní regiony lze doplnit oddělené čárkou.",
-      "saasEncryptionAtRest": "Zaškrtněte ano, pokud jsou data zákazníků na disku šifrována v klidu pomocí AES-256 nebo rovnocenného algoritmu. Šifrování disku spravované cloudem (AWS EBS, Azure Disk Encryption) se počítá.",
-      "saasEncryptionInTransit": "Zaškrtněte ano, pokud všechny koncové body směrem k zákazníkům vynucují TLS 1.2 nebo vyšší. Preferuje se TLS 1.3. Prosté HTTP musí přesměrovávat na HTTPS.",
-      "saasMfaEnforced": "Zaškrtněte ano, pokud každý interní administrátorský účet na platformě SaaS musí používat MFA. Stejný standard jako vaše interní administrátorská politika.",
-      "saasRtoHours": "Maximální počet hodin, po které může být vaše služba nedostupná, než dojde k obnově. Realistická hodnota SLA, ne přání. Běžné hodnoty u SaaS: 4, 8 nebo 24 hodin.",
-      "onPremSbomProvided": "Zaškrtněte ano, pokud s každým vydáním dodáváte soupis softwarových komponent. Standardními formáty jsou CycloneDX nebo SPDX. Povinné podle Cyber Resilience Act pro produkty uváděné na trh EU od prosince 2027.",
-      "onPremSignedReleases": "Zaškrtněte ano, pokud každý artefakt vydání nese kryptografický podpis, který si zákazníci mohou ověřit. Podpisové klíče jsou zdokumentovány a obměňovány. Počítají se podpisy Sigstore i PGP.",
-      "onPremVulnerabilityDisclosurePolicy": "Zaškrtněte ano, pokud máte veřejně zdokumentovaný způsob, jak hlásit bezpečnostní zranitelnosti. Stačí soubor security.txt pod vaší doménou (podle RFC 9116) nebo vyhrazený e-mail jako security@example.com.",
-      "onPremPatchSlaCriticalHours": "Počet hodin od veřejného zveřejnění CVE do vydání záplaty pro kritické zranitelnosti (CVSS 9.0+). Realistický závazek, ne přání. Běžné hodnoty: 24, 48 nebo 72 hodin.",
-      "proServicesBackgroundCheckScope": "Popište, jak prověřujete konzultanty pro citlivé role. Příklad: výpis z rejstříku trestů pro všechny konzultanty, plus ověření referencí pro zakázky zahrnující utajované údaje.",
-      "proServicesNdaInPlace": "Zaškrtněte ano, pokud každý konzultant před přidělením k práci pro zákazníka podepíše dohodu o mlčenlivosti. Buď jako součást pracovní smlouvy, nebo jako samostatnou NDA.",
-      "proServicesCustomerPremisesPolicy": "Zaškrtněte ano, pokud máte písemný kodex chování pro konzultanty pracující v prostorách zákazníka: zacházení s vstupními kartami, pravidlo uzamčené obrazovky, postup při opuštění dat z lokality.",
-      "managedPrivilegedAccessMgmt": "Zaškrtněte ano, pokud pro administrativní vzdálené relace na systémech zákazníka používáte nástroj pro správu privilegovaného přístupu. Příklady: CyberArk, BeyondTrust, Teleport. Počítá se i protokolovaný jump-host.",
-      "managedSessionRecording": "Zaškrtněte ano, pokud jsou administrátorské relace na systémech zákazníka zaznamenávány a uchovávány k přezkumu. Běžná doba uchování: 90 dní až 1 rok. Potřebné pro forenzní rekonstrukci po incidentech.",
-      "managedOnCall24x7": "Zaškrtněte ano, pokud provozujete pohotovostní směny 24/7, které reagují na bezpečnostní incidenty na systémech zákazníka. Podpora jen v provozní době nestačí."
     }
   }
 }

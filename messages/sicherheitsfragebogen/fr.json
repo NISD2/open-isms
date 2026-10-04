@@ -12,7 +12,7 @@
         "eyebrow": "Portail fournisseur par nisd2.eu",
         "headline": "Répondez à <u>un seul</u> questionnaire de sécurité.",
         "headlineAccent": "Partagez-le avec <u>chaque</u> client.",
-        "subhead": "Un questionnaire fournisseur canonique unique, structuré selon l'ENISA NIS 2 Technical Implementation Guidance v1.0. Chaque question cite le CIR 2024/2690, le §30 BSIG ou le BSI IT-Grundschutz. Gratuit. Open source. Vos données restent portables.",
+        "subhead": "Un questionnaire fournisseur canonique unique, structuré selon l'ENISA NIS 2 Technical Implementation Guidance v1.0. Chaque question indique sa source au niveau de l'UE, et les clients qui gèrent leurs fournisseurs selon l'ISO 27001 trouvent les mesures correspondantes juste à côté. Gratuit. Open source. Vos données restent portables.",
         "anchorBadge": "Structuré selon ENISA NIS 2 TIG v1.0 §5",
         "ctaPrimary": "Créer un profil fournisseur",
         "ctaSecondary": "Que contient le questionnaire ?"
@@ -27,7 +27,7 @@
           },
           {
             "title": "Répondez au questionnaire",
-            "body": "Trois sous-pages dans le portail : profil et description du service, mesures de cybersécurité universelles selon l'art. 21(2) NIS 2, sections techniques par type de service. 59 questions, à votre rythme, le brouillon s'enregistre automatiquement."
+            "body": "Trois pages dans le portail : qui vous êtes et ce à quoi vous accédez chez vos clients, ce à quoi vous vous engagez et comment vous gérez la sécurité, plus des questions sur les logiciels si vous en proposez ou en livrez. Chaque fournisseur répond à {always} questions, les autres seulement lorsqu'elles s'appliquent. À votre rythme, le brouillon s'enregistre automatiquement."
           },
           {
             "title": "Invitez vos clients",
@@ -37,52 +37,41 @@
       },
       "sections": {
         "heading": "Que contient le questionnaire.",
-        "lead": "Dix sections, chacune citant le paragraphe sous-jacent de l'ENISA TIG, du CIR 2024/2690 ou du BSI IT-Grundschutz.",
-        "items": [
-          "Identité (CIR §5.2 / registre des fournisseurs ENISA TIG §5.2)",
-          "Contact en cas d'incident (côté client)",
-          "Type de service",
-          "Clauses contractuelles obligatoires (CIR / ENISA TIG §5.1.4)",
-          "Mesures de cybersécurité (art. 21(2) NIS 2 / ENISA TIG §5.1.2)",
-          "Clauses contractuelles supplémentaires (ENISA TIG §5.1.4 TIPS)",
-          "Technique SaaS",
-          "Technique logiciel sur site",
-          "Services professionnels, détails",
-          "Services gérés, détails"
-        ],
+        "lead": "Les questions dans l'ordre où vous y répondez dans le portail. Chacune indique la disposition du règlement d'exécution (UE) 2024/2690, de la Technical Implementation Guidance de l'ENISA, du RGPD ou du Cyber Resilience Act sur laquelle elle repose.",
         "footnote": "Le schéma complet est public sur GitHub et exportable au format JSON."
       },
       "serviceTypes": {
-        "heading": "Quatre sections techniques par type de service.",
-        "lead": "La page Type de service du portail fait apparaître quatre sections supplémentaires. Ne remplissez que celles qui correspondent à ce que vous proposez.",
+        "heading": "Ce qui vous est demandé dépend de ce à quoi vous accédez chez vos clients.",
+        "lead": "Chaque fournisseur répond à {always} questions. Dans votre profil, vous indiquez si vous détenez des données de vos clients, accédez à leurs systèmes ou entrez dans leurs locaux, et si vous proposez un logiciel en tant que service, livrez des logiciels ou exploitez l'informatique de vos clients. Le reste en découle. Un fournisseur qui accède à des données, des systèmes ou des locaux répond aussi sur la confidentialité, l'aptitude du personnel disposant d'un accès et la restitution en fin de contrat.",
         "items": [
           {
-            "title": "SaaS",
-            "fields": "Région d'hébergement, chiffrement au repos et en transit, MFA pour les comptes administrateurs, objectif de temps de reprise."
+            "title": "Les données de vos clients",
+            "fields": "Lieu de traitement des données, accord de traitement des données, chiffrement au repos et en transit. Plus votre gestion de la sécurité : SMSI, certificat, traitement des vulnérabilités, plans pour les incidents et les pannes, un second facteur pour vos propres comptes administrateurs."
           },
           {
-            "title": "Logiciel sur site",
-            "fields": "Nomenclature logicielle (SBOM), versions signées cryptographiquement, politique publiée de divulgation des vulnérabilités, SLA de correctif pour les CVE critiques."
+            "title": "Les systèmes de vos clients",
+            "fields": "Des comptes personnels avec un second facteur pour chaque accès, télémaintenance comprise, et une journalisation des accès avec droits d'administrateur. Plus la même gestion de la sécurité que pour les données clients."
           },
           {
-            "title": "Services professionnels",
-            "fields": "Périmètre des vérifications d'antécédents, NDA avec tous les consultants, politique documentée de comportement sur les sites du client."
+            "title": "Les locaux de vos clients",
+            "fields": "Comment vous suivez les clés, badges et codes, et quelles règles de conduite écrites votre personnel respecte sur place. Un fournisseur qui entre seulement dans des locaux n'est pas interrogé sur un SMSI, les tests de sécurité ou les comptes administrateurs."
           },
           {
-            "title": "Services gérés",
-            "fields": "Gestion des accès à privilèges, enregistrement des sessions administrateur, astreinte 24/7 pour les incidents de sécurité."
+            "title": "Logiciels et services gérés",
+            "fields": "Si vous proposez un logiciel en tant que service ou livrez des logiciels : développement sécurisé, un moyen publié de signaler les failles de sécurité, des tests de sécurité indépendants. Pour le SaaS, aussi un second facteur pour vos clients et le délai de rétablissement du service ; pour les logiciels livrés, la durée de fourniture des mises à jour de sécurité, une SBOM et des versions signées. Si vous exploitez l'informatique de vos clients, vous répondez aux questions sur les tests de sécurité et la gestion de la sécurité."
           }
-        ]
+        ],
+        "example": "Une entreprise de nettoyage qui détient des clés voit ainsi {cleaning} questions, un fournisseur SaaS qui détient des données clients {saas}."
       },
       "preview": {
         "heading": "Exemples de questions.",
-        "lead": "Six questions issues de différentes sections, avec le texte d'aide que les fournisseurs voient en les remplissant. Identité, pratiques de sécurité, clauses contractuelles, déclarations relatives à l'IA, détails techniques.",
-        "footnote": "Six questions sur 59. L'ensemble complet est dans le portail."
+        "lead": "Quelques questions issues de différentes parties du questionnaire, avec le texte d'aide que les fournisseurs voient en les remplissant et la disposition sur laquelle chacune repose.",
+        "footnote": "{shown} questions sur {total}. L'ensemble complet est dans le portail."
       },
       "bsi": {
         "quote": "Nous saluons les initiatives sectorielles actuelles visant à élaborer un catalogue de questionnaires unifié pour les fournisseurs.",
         "attribution": "FAQ NIS-2 du BSI (chaîne d'approvisionnement et sécurité).",
-        "context": "Ce portail fournisseur EST cette initiative sectorielle. Un catalogue de questionnaires unifié, construit de manière privée, structuré selon la taxonomie canonique de l'UE (ENISA TIG §5) afin que chaque entité réglementée NIS 2 puisse satisfaire au CIR §5.1.4 à partir d'une source unique."
+        "context": "Ce portail fournisseur est l'une de ces initiatives : un questionnaire unique et ouvert, structuré selon l'ENISA TIG §5. Les fournisseurs y répondent une fois, et chaque client lit les mêmes réponses lorsqu'il examine sa chaîne d'approvisionnement au titre de l'article 21, paragraphe 2, point d), de NIS 2."
       },
       "privacy": {
         "heading": "Bilatéral et privé.",

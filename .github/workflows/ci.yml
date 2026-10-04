@@ -88,6 +88,16 @@ jobs:
             || { echo "::error::REFERENCE.md is stale. Run 'bun run docs:reference' in packages/grc-data-model and commit."; exit 1; }
         working-directory: packages/grc-data-model
 
+      # The supplier questionnaire's JSON and JSON Schema are what its mirror repo publishes.
+      # Only the mirror's own workflow compared them with the TypeScript source, so an edited
+      # question without a rebuild went unnoticed here until the next publish.
+      - name: supplier questionnaire JSON is up to date with its source
+        run: |
+          bun run build:json
+          git diff --exit-code -- data schema \
+            || { echo "::error::The questionnaire JSON is stale. Run 'bun run build:json' in packages/nis2-supply-chain-questionnaire-schema and commit."; exit 1; }
+        working-directory: packages/nis2-supply-chain-questionnaire-schema
+
       # Biome was configured in September and then nothing ran it: no CI step,
       # no hook, no editor config. It had accumulated ~1900 findings across
       # files nobody was going to revisit. Rather than force a repo-wide

@@ -12,7 +12,7 @@
         "eyebrow": "Lieferantenportal nisd2.eu",
         "headline": "<u>Einen</u> Sicherheitsfragebogen beantworten.",
         "headlineAccent": "Mit <u>jedem</u> Kunden teilen.",
-        "subhead": "Ein einheitlicher Fragebogen, strukturiert nach ENISA NIS 2 Technical Implementation Guidance v1.0. Jede Frage zitiert CIR 2024/2690, BSIG §30 oder BSI IT-Grundschutz. Kostenlos. Open Source. Ihre Daten bleiben portabel.",
+        "subhead": "Ein einheitlicher Fragebogen, strukturiert nach der ENISA NIS 2 Technical Implementation Guidance v1.0. Jede Frage nennt ihre Quelle auf EU-Ebene, und wer Lieferanten nach ISO 27001 steuert, findet die passenden Maßnahmen gleich daneben. Kostenlos. Open Source. Ihre Daten bleiben portabel.",
         "anchorBadge": "Strukturiert nach ENISA NIS 2 TIG v1.0 §5",
         "ctaPrimary": "Lieferantenprofil erstellen",
         "ctaSecondary": "Was steht im Fragebogen?"
@@ -27,7 +27,7 @@
           },
           {
             "title": "Fragebogen beantworten",
-            "body": "Drei Seiten im Portal: Profil und Leistungsbeschreibung, universelle Sicherheitspraktiken nach NIS 2 Art. 21(2), technische Sektionen je Leistungsart. 59 Fragen, im eigenen Tempo, Entwurf jederzeit speichern."
+            "body": "Drei Seiten im Portal: wer Sie sind und worauf Sie bei Kunden zugreifen, was Sie zusagen und wie Sie Sicherheit betreiben, dazu Fragen zu Software, wenn Sie welche anbieten oder ausliefern. {always} Fragen beantwortet jeder Lieferant, alle weiteren nur, wenn sie zu ihm passen. Im eigenen Tempo, Entwurf jederzeit speichern."
           },
           {
             "title": "Kunden einladen",
@@ -37,52 +37,41 @@
       },
       "sections": {
         "heading": "Was steht im Fragebogen.",
-        "lead": "Zehn Abschnitte, jeder mit Verweis auf den zugrunde liegenden Absatz von ENISA TIG, CIR 2024/2690 oder BSI IT-Grundschutz.",
-        "items": [
-          "Identität (CIR §5.2 / ENISA TIG §5.2 Lieferantenregister)",
-          "Vorfall-Kontakt (kundenseitig)",
-          "Leistungsart",
-          "Verpflichtende Vertragsklauseln (CIR / ENISA TIG §5.1.4)",
-          "Cybersicherheitsmaßnahmen (NIS 2 Art. 21(2) / ENISA TIG §5.1.2)",
-          "Zusätzliche Vertragsklauseln (ENISA TIG §5.1.4 TIPS)",
-          "SaaS-Technik",
-          "On-Prem-Software-Technik",
-          "Dienstleistungen, Details",
-          "Managed Services, Details"
-        ],
+        "lead": "Die Fragen in der Reihenfolge, in der Sie sie im Portal beantworten. Jede nennt die Stelle in der Durchführungsverordnung (EU) 2024/2690, der ENISA Technical Implementation Guidance, der DSGVO oder dem Cyber Resilience Act, auf die sie sich stützt.",
         "footnote": "Das vollständige Schema liegt offen auf GitHub und ist als JSON exportierbar."
       },
       "serviceTypes": {
-        "heading": "Vier technische Sektionen je Leistungsart.",
-        "lead": "Auf der Seite „Leistungsart\" im Portal erscheinen vier zusätzliche Sektionen. Sie füllen nur die aus, die zu Ihrem Angebot passen.",
+        "heading": "Was Sie gefragt werden, hängt davon ab, was Sie bei Kunden erreichen.",
+        "lead": "{always} Fragen beantwortet jeder Lieferant. Im Profil sagen Sie, ob Sie Daten Ihrer Kunden halten, auf ihre Systeme zugreifen oder ihre Räume betreten, und ob Sie Software als Dienst anbieten, Software ausliefern oder IT für Kunden betreiben. Daraus ergibt sich der Rest. Wer Daten, Systeme oder Räume erreicht, beantwortet außerdem Fragen zur Verschwiegenheit, zur Eignung der Mitarbeitenden mit Zugang und zur Rückgabe am Vertragsende.",
         "items": [
           {
-            "title": "SaaS",
-            "fields": "Hosting-Region, Verschlüsselung im Ruhezustand und bei Übertragung, MFA für Admin-Konten, Recovery Time Objective."
+            "title": "Daten Ihrer Kunden",
+            "fields": "Wo die Daten verarbeitet werden, Vertrag zur Auftragsverarbeitung, Verschlüsselung bei Speicherung und Übertragung. Dazu Ihr Sicherheitsmanagement: ISMS, Zertifikat, Umgang mit Schwachstellen, Pläne für Vorfälle und Ausfälle, zweiter Faktor für Ihre eigenen Administratorkonten."
           },
           {
-            "title": "On-Prem-Software",
-            "fields": "Software Bill of Materials (SBOM), kryptografisch signierte Releases, veröffentlichte Vulnerability-Disclosure-Policy, Patch-SLA für kritische CVEs."
+            "title": "Systeme Ihrer Kunden",
+            "fields": "Persönliche Konten mit zweitem Faktor für jeden Zugriff, auch bei Fernwartung, und protokollierte Zugriffe mit Administratorrechten. Dazu dasselbe Sicherheitsmanagement wie bei Kundendaten."
           },
           {
-            "title": "Dienstleistungen",
-            "fields": "Umfang der Zuverlässigkeitsprüfung, NDA mit allen Beratern, dokumentierte Verhaltensrichtlinie auf Kundenstandort."
+            "title": "Räume Ihrer Kunden",
+            "fields": "Wie Sie Schlüssel, Ausweise und Codes verwalten und welche schriftlichen Verhaltensregeln Ihre Leute vor Ort haben. Wer nur Räume betritt, wird nicht nach ISMS, Sicherheitstests oder Administratorkonten gefragt."
           },
           {
-            "title": "Managed Services",
-            "fields": "Privileged Access Management, Aufzeichnung der Admin-Sitzungen, 24/7-Bereitschaft für sicherheitsrelevante Vorfälle."
+            "title": "Software und Managed Services",
+            "fields": "Wer Software als Dienst anbietet oder ausliefert: sichere Entwicklung, ein veröffentlichter Meldeweg für Sicherheitslücken, unabhängige Sicherheitstests. Bei SaaS dazu der zweite Faktor für Ihre Kunden und die Wiederherstellungszeit, bei ausgelieferter Software der Zeitraum für Sicherheitsupdates, SBOM und signierte Releases. Wer IT für Kunden betreibt, beantwortet die Fragen zu Sicherheitstests und Sicherheitsmanagement."
           }
-        ]
+        ],
+        "example": "Ein Reinigungsunternehmen mit Schlüsseln sieht so {cleaning} Fragen, ein Anbieter von SaaS, der Kundendaten hält, {saas}."
       },
       "preview": {
         "heading": "Beispielfragen.",
-        "lead": "Sechs Fragen aus verschiedenen Sektionen, samt der Hilfestellung, die Sie beim Ausfüllen sehen. Identität, Sicherheitspraktiken, Vertragsklauseln, KI-Erklärung, technische Details.",
-        "footnote": "Sechs von 59 Fragen. Vollständig im Portal."
+        "lead": "Einige Fragen aus verschiedenen Teilen des Fragebogens, mit der Hilfestellung, die Sie beim Ausfüllen sehen, und der Stelle, auf die sich jede stützt.",
+        "footnote": "{shown} von {total} Fragen. Vollständig im Portal."
       },
       "bsi": {
         "quote": "Wir begrüßen aktuelle Vorstöße der Wirtschaft, einen einheitlichen Fragenkatalog für Lieferanten zu erarbeiten.",
         "attribution": "BSI NIS-2 FAQ (Lieferketten und Sicherheit).",
-        "context": "Das Lieferantenportal IST dieser Vorstoß der Wirtschaft. Ein privatwirtschaftlich gebauter, einheitlicher Fragenkatalog, strukturiert nach der kanonischen EU-Taxonomie (ENISA TIG §5), damit jede NIS 2 regulierte Einrichtung CIR §5.1.4 aus einer einzigen Quelle erfüllen kann."
+        "context": "Das Lieferantenportal ist ein solcher Vorstoß: ein einheitlicher, offener Fragenkatalog, gegliedert nach ENISA TIG §5. Lieferanten beantworten ihn einmal, und jeder Kunde liest dieselben Antworten, wenn er seine Lieferkette nach Art. 21 Abs. 2 Buchst. d NIS 2 prüft."
       },
       "privacy": {
         "heading": "Bilateral und privat.",

@@ -1,20 +1,25 @@
+import {
+  type SupplierResponse,
+  supplierQuestionnaire,
+  visibleFields,
+} from "@nisd2/nis2-supply-chain-questionnaire-schema";
+import {
+  ArrowRight,
+  Check,
+  ClipboardList,
+  Code2,
+  Database,
+  DoorOpen,
+  HelpCircle,
+  Mail,
+  MonitorCog,
+  ShieldCheck,
+  UserPlus,
+} from "lucide-react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import {
-  ShieldCheck,
-  ArrowRight,
-  UserPlus,
-  ClipboardList,
-  Mail,
-  Check,
-  HelpCircle,
-  Cloud,
-  HardDrive,
-  Users,
-  Wrench,
-} from "lucide-react";
-import { supplierQuestionnaire } from "@nisd2/nis2-supply-chain-questionnaire-schema";
-import { Link } from "@/i18n/navigation";
+import { JsonLd } from "@/components/JsonLd";
+import { MarketingHero, Underline } from "@/components/marketing/MarketingHero";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -23,14 +28,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { JsonLd } from "@/components/JsonLd";
-import { MarketingHero, Underline } from "@/components/marketing/MarketingHero";
+import { Link } from "@/i18n/navigation";
+import { QUESTIONNAIRE_PAGES } from "@/lib/forms/supplier-portal-sections";
+import { pickLocalized } from "@/lib/locale";
 import {
-  pageAlternates,
-  pageOg,
   buildSoftwareApplicationJsonLd,
   type Locale,
+  pageAlternates,
+  pageOg,
 } from "@/lib/seo";
+import { isoText, QUESTIONNAIRE_COUNTS } from "@/lib/supplier-questionnaire-text";
 
 export async function generateMetadata({
   params,
@@ -57,7 +64,40 @@ export async function generateMetadata({
 }
 
 const stepIcons = [UserPlus, ClipboardList, Mail] as const;
-const serviceTypeIcons = [Cloud, HardDrive, Users, Wrench] as const;
+const reachIcons = [Database, MonitorCog, DoorOpen, Code2] as const;
+
+/**
+ * Questions the landing shows in full: identity, what the supplier reaches, a choice question,
+ * encryption, access to customer systems, certificates. Ids from the questionnaire package; a
+ * removed id simply drops out of the preview.
+ */
+const PREVIEW_IDS = [
+  "legalName",
+  "accessesCustomerPremises",
+  "dataProcessingAgreement",
+  "encryptionAtRest",
+  // A question id, not a credential: gitleaks' generic rule reads "Access…", the comma and the
+  // next id as a key being assigned. `gitleaks:allow` marks it as a known false positive.
+  "customerAccessPersonalMfa", // gitleaks:allow
+  "hasIso27001OrEquivalent",
+] as const;
+
+/** Two suppliers at either end, as their profile answers, to show how far the question count moves. */
+const EXAMPLE_ANSWERS = {
+  cleaning: { accessesCustomerPremises: true },
+  saas: { isSaas: true, processesCustomerData: true },
+} as const satisfies Record<string, SupplierResponse>;
+
+const QUESTION_COUNTS = {
+  total: QUESTIONNAIRE_COUNTS.total,
+  always: QUESTIONNAIRE_COUNTS.always,
+  cleaning: visibleFields(supplierQuestionnaire, EXAMPLE_ANSWERS.cleaning).length,
+  saas: visibleFields(supplierQuestionnaire, EXAMPLE_ANSWERS.saas).length,
+};
+
+const GROUP_KEYS = Object.values(QUESTIONNAIRE_PAGES).flatMap((groups) =>
+  groups.map((group) => group.key),
+);
 
 type Step = { title: string; body: string };
 /**
@@ -73,7 +113,7 @@ type RelatedHref =
   | "/hilfe"
   | "/open-source";
 type RelatedItem = { title: string; body: string; href: RelatedHref };
-type ServiceTypeBlock = { title: string; fields: string };
+type ReachBlock = { title: string; fields: string };
 
 export default async function SicherheitsfragebogenLanding({
   params,
@@ -82,28 +122,19 @@ export default async function SicherheitsfragebogenLanding({
 }) {
   const { locale } = await params;
   const t = await getTranslations("sicherheitsfragebogen");
-  const steps = t.raw("landing.steps.items") as Step[];
-  const sections = t.raw("landing.sections.items") as string[];
-  const serviceTypes = t.raw("landing.serviceTypes.items") as ServiceTypeBlock[];
+  const tGroups = await getTranslations("supplierPortal.questionnaire.groups");
+  const steps = (t.raw("landing.steps.items") as Step[]).map((_, i) => ({
+    title: t(`landing.steps.items.${i}.title`),
+    body: t(`landing.steps.items.${i}.body`, QUESTION_COUNTS),
+  }));
+  const reachBlocks = t.raw("landing.serviceTypes.items") as ReachBlock[];
   const related = t.raw("landing.related.items") as RelatedItem[];
 
-  // Six representative sample questions pulled directly from the schema
-  // package so the landing always shows current help text — no copy
-  // duplication, no risk of drift. Covers identity, ISMS baseline, contract
-  // clauses, TIPS commitments, AI declarations, and a service-type-conditional
-  // section. Schema ships DE+EN; NL renders EN.
-  const previewIds = [
-    "legalName",
-    "hasIsms",
-    "acceptRightToAudit",
-    "incidentAssistanceCommitment",
-    "usesAiSystems",
-    "saasHostingRegion",
-  ] as const;
-  const previewLocale: "de" | "en" = locale === "de" ? "de" : "en";
-  const previewFields = previewIds
-    .map((id) => supplierQuestionnaire.fields.find((f) => f.id === id))
-    .filter((f): f is NonNullable<typeof f> => f !== undefined);
+  // Help text comes straight from the questionnaire package, in the reader's language where the
+  // package carries it and in English otherwise.
+  const previewFields = PREVIEW_IDS.map((id) =>
+    supplierQuestionnaire.fields.find((f) => f.id === id),
+  ).filter((f): f is NonNullable<typeof f> => f !== undefined);
 
   return (
     <div className="space-y-24">
@@ -167,7 +198,7 @@ export default async function SicherheitsfragebogenLanding({
           {steps.map((step, i) => {
             const Icon = stepIcons[i];
             return (
-              <Card key={i}>
+              <Card key={step.title}>
                 <CardHeader>
                   <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
                     <Icon className="h-5 w-5 text-primary" />
@@ -196,13 +227,17 @@ export default async function SicherheitsfragebogenLanding({
           </p>
         </div>
         <ul className="mt-8 grid gap-3 sm:grid-cols-2">
-          {sections.map((section, i) => (
-            <li
-              key={i}
-              className="flex gap-3 rounded-lg border bg-card p-4 text-sm"
-            >
+          {GROUP_KEYS.map((key) => (
+            <li key={key} className="flex gap-3 rounded-lg border bg-card p-4 text-sm">
               <Check className="mt-0.5 h-4 w-4 flex-none text-primary" />
-              <span className="text-foreground">{section}</span>
+              <span>
+                <span className="block font-medium text-foreground">
+                  {tGroups(`${key}.title`)}
+                </span>
+                <span className="mt-1 block text-muted-foreground">
+                  {tGroups(`${key}.why`)}
+                </span>
+              </span>
             </li>
           ))}
         </ul>
@@ -211,42 +246,38 @@ export default async function SicherheitsfragebogenLanding({
         </p>
       </section>
 
-      {/* Service-type conditional sections */}
+      {/* Which questions depend on what the supplier reaches at its customers */}
       <section>
         <div>
           <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
             {t("landing.serviceTypes.heading")}
           </h2>
           <p className="mt-3 max-w-3xl text-muted-foreground">
-            {t("landing.serviceTypes.lead")}
+            {t("landing.serviceTypes.lead", QUESTION_COUNTS)}
           </p>
         </div>
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
-          {serviceTypes.map((block, i) => {
-            const Icon = serviceTypeIcons[i];
+          {reachBlocks.map((block, i) => {
+            const Icon = reachIcons[i];
             return (
-              <div
-                key={i}
-                className="rounded-lg border bg-card p-5"
-              >
+              <div key={block.title} className="rounded-lg border bg-card p-5">
                 <div className="flex items-center gap-3">
                   <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10">
                     <Icon className="h-4 w-4 text-primary" />
                   </div>
-                  <h3 className="font-semibold text-foreground">
-                    {block.title}
-                  </h3>
+                  <h3 className="font-semibold text-foreground">{block.title}</h3>
                 </div>
-                <p className="mt-3 text-sm text-muted-foreground">
-                  {block.fields}
-                </p>
+                <p className="mt-3 text-sm text-muted-foreground">{block.fields}</p>
               </div>
             );
           })}
         </div>
+        <p className="mt-6 text-sm text-muted-foreground">
+          {t("landing.serviceTypes.example", QUESTION_COUNTS)}
+        </p>
       </section>
 
-      {/* Sample questions — pulled live from the schema */}
+      {/* Sample questions, pulled live from the questionnaire package */}
       <section className="space-y-6">
         <div>
           <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
@@ -258,25 +289,38 @@ export default async function SicherheitsfragebogenLanding({
         </div>
         <div className="space-y-4">
           {previewFields.map((field) => (
-            <div
-              key={field.id}
-              className="rounded-lg border bg-card p-5"
-            >
+            <div key={field.id} className="rounded-lg border bg-card p-5">
               <h3 className="text-base font-semibold text-foreground">
-                {field.label[previewLocale]}
+                {pickLocalized(field.label, locale)}
               </h3>
               <div className="mt-2 flex gap-2 text-sm text-muted-foreground">
                 <HelpCircle className="mt-0.5 h-4 w-4 flex-none text-primary" />
-                <p>{field.description[previewLocale]}</p>
+                <p>{pickLocalized(field.description, locale)}</p>
               </div>
+              {field.options && (
+                <ul className="mt-3 space-y-1.5 pl-6 text-sm text-foreground">
+                  {field.options.map((option) => (
+                    <li key={option.value} className="flex items-start gap-2">
+                      <span
+                        aria-hidden
+                        className="mt-1 h-3 w-3 flex-none rounded-full border border-muted-foreground/50"
+                      />
+                      {pickLocalized(option.label, locale)}
+                    </li>
+                  ))}
+                </ul>
+              )}
               <p className="mt-3 text-xs text-muted-foreground">
-                {field.legalBasis}
+                {[field.legalBasis, isoText(field)].filter(Boolean).join(" · ")}
               </p>
             </div>
           ))}
         </div>
         <p className="text-sm text-muted-foreground">
-          {t("landing.preview.footnote")}
+          {t("landing.preview.footnote", {
+            shown: previewFields.length,
+            total: QUESTION_COUNTS.total,
+          })}
         </p>
       </section>
 
@@ -298,9 +342,7 @@ export default async function SicherheitsfragebogenLanding({
         <h2 className="text-xl font-semibold tracking-tight">
           {t("landing.privacy.heading")}
         </h2>
-        <p className="mt-3 text-muted-foreground">
-          {t("landing.privacy.body")}
-        </p>
+        <p className="mt-3 text-muted-foreground">{t("landing.privacy.body")}</p>
       </section>
 
       {/* Footer CTA */}

@@ -19,6 +19,7 @@ import { TRPCError } from "@trpc/server";
 import { and, desc, eq, gt, isNull } from "drizzle-orm";
 import { z } from "zod";
 import { entityInvitesSupplierEmail, sendMail } from "@/lib/mail";
+import { canRequestAnswers } from "@/lib/supplier-portal/register-row";
 import { getAppUrl } from "@/lib/utils";
 import { company, supplier, supplierInvite } from "@/schema";
 import { supplierInviteCreateSchema } from "@/schema/validators";
@@ -69,7 +70,8 @@ export const supplierInviteRouter = router({
    *
    * One row per (fromCompanyId, toEmail); never duplicated. Sent for a row of the sender's own
    * supplier list (`supplierId`), the reply links that row instead of adding a second one; the
-   * row must be the sender's and not linked to a supplier company yet.
+   * row must be the sender's and one it may ask (`canRequestAnswers`: not linked to a supplier
+   * company, not the operator's row).
    */
   create: companyProcedure
     .input(supplierInviteCreateSchema)
@@ -79,12 +81,13 @@ export const supplierInviteRouter = router({
             where: and(
               eq(supplier.id, input.supplierId),
               eq(supplier.customerCompanyId, ctx.companyId),
-              isNull(supplier.supplierCompanyId),
             ),
-            columns: { id: true },
+            columns: { id: true, supplierCompanyId: true, source: true },
           })
         : null;
-      if (input.supplierId && !listed) throw new TRPCError({ code: "NOT_FOUND" });
+      if (input.supplierId && !(listed && canRequestAnswers(listed))) {
+        throw new TRPCError({ code: "NOT_FOUND" });
+      }
       const supplierId = listed?.id ?? null;
       await requireSupplierMailBudget("supplierInvites", ctx.companyId);
       const email = input.toEmail.toLowerCase();

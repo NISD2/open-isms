@@ -8,7 +8,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "@/i18n/navigation";
+import { PLATFORM_SOURCE } from "@/lib/supplier-portal/register-row";
 import { trpc } from "@/lib/trpc/client";
+import { cn } from "@/lib/utils";
 import type { Registers } from "./view";
 
 const EMPTY = { name: "", what: "" };
@@ -47,14 +49,39 @@ export function SupplierList({ initial }: { initial: Registers["supplier"] }) {
         <p className="px-5 py-6 text-sm text-muted-foreground">{t("empty")}</p>
       ) : (
         <ul className="divide-y">
-          {data.map((row) => (
-            <li key={row.id} className="px-5 py-3.5">
-              <p className="text-sm font-medium">{row.name}</p>
-              {row.description && (
-                <p className="text-sm text-muted-foreground">{row.description}</p>
-              )}
-            </li>
-          ))}
+          {data.map((row) => {
+            // A supplier that answers through the supplier portal: its answers open from here,
+            // and the row is that one link.
+            const shares = row.opensAnswers;
+            return (
+              <li
+                key={row.id}
+                className={cn(
+                  "space-y-1 px-5 py-3.5",
+                  shares &&
+                    "relative transition-colors hover:bg-muted/40 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-ring has-[a:focus-visible]:ring-inset",
+                )}
+              >
+                <p className="text-sm font-medium">{row.name}</p>
+                {row.description && (
+                  <p className="text-sm text-muted-foreground">{row.description}</p>
+                )}
+                {shares && row.source === PLATFORM_SOURCE && (
+                  <p className="text-xs text-muted-foreground">{t("platform")}</p>
+                )}
+                {shares && (
+                  <Link
+                    href={{ pathname: "/suppliers/[id]", params: { id: row.id } }}
+                    target="_blank"
+                    className="inline-flex min-h-9 items-center gap-1.5 text-sm font-medium text-primary outline-none after:absolute after:inset-0"
+                  >
+                    {t("answers")}
+                    <ExternalLink className="size-3.5" />
+                  </Link>
+                )}
+              </li>
+            );
+          })}
         </ul>
       )}
       <form

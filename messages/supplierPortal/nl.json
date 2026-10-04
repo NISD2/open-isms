@@ -21,11 +21,12 @@
       "access": "Toegang"
     },
     "pages": {
-      "profileIntro": "Identiteit, de openbare beschrijving die klanten zien, en het contact dat zij bereiken als er iets gebeurt. Gebaseerd op het leveranciersregister uit ENISA TIG §5.2 en de meldketen uit CIR §5.1.4(d).",
-      "practicesIntro": "Algemene gegevens over hoe uw bedrijf informatiebeveiliging aanpakt: managementsysteem, status van ISO 27001 of Grundschutz, opleiding en de basismaatregelen uit artikel 21(2) NIS 2. Voor elke klant dezelfde antwoorden.",
-      "serviceTypeIntro": "Technische gegevens over wat u levert: hosting en versleuteling bij SaaS, SBOM en ondertekende releases bij software op locatie, achtergrondcontroles bij dienstverlening, PAM en bereikbaarheid bij managed services. Beantwoord alleen de onderdelen die op u van toepassing zijn.",
+      "profileIntro": "Wie u bent, hoe klanten u bereiken als er iets gebeurt, en wat u levert. Daaraan meet een klant hoe zwaar uw overige antwoorden wegen.",
+      "practicesIntro": "Wat u uw klanten toezegt en hoe u beveiliging regelt. Voor elke klant dezelfde antwoorden.",
+      "serviceTypeIntro": "Gegevens over de soorten dienst die u in uw profiel hebt aangevinkt. Vragen over diensten die u niet levert, verschijnen hier niet.",
+      "serviceTypeEmpty": "Op deze pagina staan de vragen over software als dienst en over software die u levert. U hebt in uw profiel geen van beide aangevinkt, dus hier valt niets te beantwoorden.",
+      "serviceTypeEmptyLink": "Naar het profiel",
       "certificationsIntro": "Upload uw beveiligingsverklaringen (ISO 27001, BSI Grundschutz, BSI C5, TISAX, SOC 2). De pdf's en hun gegevens zijn zichtbaar voor de klanten die u hebt uitgenodigd.",
-      "nis2Regulated": "Zelf onder NIS 2",
       "customersTitle": "Eerste klant toevoegen",
       "customersIntro": "Nodig een klant uit per e-mail. Hij krijgt een private link naar uw beveiligingsprofiel en heeft daarvoor geen account nodig. Zodra hij accepteert, voert u de systemen in die u voor hem beheert en meldt u incidenten die deze systemen raken.",
       "customer": "Klant",
@@ -44,23 +45,23 @@
       "step1Title": "Profiel aanmaken",
       "step1Body": "Aanmelden, bedrijfsnaam en domein invullen. Het profiel is van u, niet van een van uw klanten.",
       "step2Title": "Eén keer antwoorden",
-      "step2Body": "{count} vragen over beveiligingsbeheer, certificering, noodplannen, toegang en contractclausules. Elke vraag noemt de alinea waarop hij steunt. Tussentijds werk wordt bewaard.",
+      "step2Body": "Tot {count} vragen over toezeggingen, beveiligingsbeheer, noodplannen en toegang; u ziet alleen de vragen die passen bij wat u levert. Elke vraag noemt de bepaling waarop ze steunt. Tussentijds werk wordt bewaard.",
       "step3Title": "Klanten uitnodigen",
       "step3Body": "Elke klant krijgt een eigen, private link. Hij ziet uw profiel, de systemen die u voor hem beheert en uw certificaten. Een account is daarvoor niet nodig.",
       "step4Title": "Incidenten melden",
       "step4Body": "Is een systeem van een klant geraakt, dan meldt u dat vanuit het portaal. Alleen die ene klant ziet de melding. Zo voldoet hij aan zijn plicht uit artikel 21(2)(d) NIS 2 om zijn leveranciers te blijven volgen.",
       "coversTitle": "Wat er gevraagd wordt",
-      "coversIntro": "De indeling volgt de ENISA NIS2 Technical Implementation Guidance v1.0 van juni 2025. Elke vraag noemt de alinea uit CIR 2024/2690 of de BSI IT-Grundschutz waarop hij steunt. Een auditor herkent de structuur, zodat u er zelf geen hoeft te verzinnen. De vragenset staat open op GitHub.",
+      "coversIntro": "De vragen steunen op artikel 21 NIS 2, Uitvoeringsverordening (EU) 2024/2690 en de Technical Implementation Guidance v1.0 van ENISA van juni 2025; elke vraag noemt de bepaling waarop ze steunt en, waar die bestaat, de bijbehorende maatregel uit ISO 27001. Er wordt gevraagd wat een klant voor zijn toeleveringsketen nodig heeft, en niet meer. De vragenset staat openbaar op GitHub.",
       "covers1Title": "Identiteit en contact",
       "covers1Body": "Statutaire naam, adres, domein en wie een klant bereikt als er iets misgaat. Plus de termijn waarbinnen u reageert.",
       "covers2Title": "Beveiligingspraktijk",
       "covers2Body": "Hoe uw bedrijf informatiebeveiliging aanpakt: managementsysteem, certificering, opleiding, omgang met kwetsbaarheden, toegang, continuïteitsplanning.",
       "covers3Title": "Contractafspraken",
-      "covers3Body": "Auditrecht, verwerkersovereenkomst, subverwerkers, teruggave van gegevens bij einde contract, melding van wezenlijke wijzigingen.",
-      "covers4Title": "Soort dienst",
-      "covers4Body": "SaaS, software bij de klant, dienstverlening of managed service. U beantwoordt alleen de vragen die bij uw bedrijf passen.",
+      "covers3Body": "Auditrecht, verwerkersovereenkomst, onderaannemers, geheimhouding, teruggave aan het einde van het contract, melding van wezenlijke wijzigingen.",
+      "covers4Title": "Wat u bij klanten bereikt",
+      "covers4Body": "Of u gegevens van uw klanten bewaart, toegang hebt tot hun systemen, hun panden betreedt of software levert. Een belastingadviseur, een schoonmaakbedrijf en een softwarehuis zien elk alleen de vragen die bij hen passen.",
       "covers5Title": "Certificaten",
-      "covers5Body": "ISO 27001, BSI Grundschutz of gelijkwaardig als pdf uploaden. Klanten zien tot wanneer het certificaat geldt.",
+      "covers5Body": "ISO 27001, BSI C5, TISAX, SOC 2 of gelijkwaardig als pdf uploaden. Klanten zien hoe lang het geldig blijft.",
       "privacyTitle": "Bilateraal en privé",
       "privacyBody": "Er is geen openbaar leveranciersregister. Alleen de klanten aan wie u het vrijgeeft zien uw profiel, en ieder van hen kan zijn eigen toegang weer beëindigen. Geen openbaar adres, geen indexering door zoekmachines.",
       "bsiQuote": "Wir begrüßen aktuelle Vorstöße der Wirtschaft, einen einheitlichen Fragenkatalog für Lieferanten zu erarbeiten.",
@@ -78,25 +79,79 @@
       "metaDescription": "Beantwoord de NIS 2-vragen van uw klanten één keer en geef de antwoorden vrij aan elke klant die u uitnodigt. Ingedeeld volgens ENISA TIG v1.0 en CIR 2024/2690. Open source, geen lock-in."
     },
     "questionnaire": {
-      "title": "BSI / CIR Leveranciersvragenlijst",
-      "intro": "Elke vraag verwijst naar een specifiek lid van CIR 2024/2690 (de bindende EU-verordening onder NIS2) of naar BSI IT-Grundschutz. Vul het eenmalig in; elke klant die zich aanmeldt ziet dezelfde antwoorden.",
       "save": "Concept opslaan",
-      "submit": "Aftekenen en publiceren",
       "submitting": "Opslaan…",
       "saved": "Opgeslagen",
       "saveError": "Kon niet opslaan. Probeer het opnieuw.",
-      "submitError": "Kon niet aftekenen. Los eerst de validatiefouten op.",
       "savedAt": "Laatst opgeslagen {time}",
-      "sectionIdentity": "Identiteit (CIR §5.2 / ENISA TIG §5.2 leveranciersregister)",
-      "sectionIncidentContact": "Incidentcontact voor klanten",
-      "sectionType": "Type dienst",
-      "sectionContract": "Verplichte contractclausules (CIR / ENISA TIG §5.1.4)",
-      "sectionBaseline": "Cyberbeveiligingspraktijken (NIS2 Art. 21(2) / ENISA TIG §5.1.2)",
-      "sectionContractTips": "Aanvullende contractclausules (ENISA TIG §5.1.4 TIPS)",
-      "sectionSaas": "SaaS-technische details",
-      "sectionOnPrem": "On-premise softwaretechnische details",
-      "sectionProServices": "Details professionele diensten",
-      "sectionManaged": "Details beheerde diensten"
+      "groups": {
+        "identity": {
+          "title": "Wie u bent",
+          "why": "Zodat een klant u eenduidig in zijn leverancierslijst kan opnemen."
+        },
+        "contacts": {
+          "title": "Hoe men u bereikt als er iets gebeurt",
+          "why": "Een klant heeft voor elke directe leverancier een aanspreekpunt voor beveiligingszaken nodig."
+        },
+        "delivery": {
+          "title": "Wat u levert en wat u bereikt",
+          "why": "Of u gegevens van uw klanten bewaart, toegang hebt tot hun systemen of hun panden betreedt, bepaalt welke vragen u daarna ziet en hoe zwaar uw antwoorden voor een klant wegen."
+        },
+        "commitments": {
+          "title": "Wat u klanten toezegt",
+          "why": "Waar passend horen deze punten in uw contract met een klant. Hier zegt u vooraf waartoe u bereid bent."
+        },
+        "operations": {
+          "title": "Hoe u beveiliging regelt",
+          "why": "Klanten kiezen leveranciers ook op hun beveiligingspraktijk. Een certificaat dat uw dienst dekt, vertelt hun daar al veel over."
+        },
+        "access": {
+          "title": "Hoe u bij klanten toegang krijgt",
+          "why": "Wie zich aanmeldt op de systemen van een klant of zijn panden betreedt, draagt verantwoordelijkheid voor diens beveiliging. Hier zegt u hoe u die toegang beveiligt."
+        },
+        "saas": {
+          "title": "Software als dienst (SaaS)",
+          "why": "Of klanten hun accounts met een tweede factor kunnen beveiligen, en hoe snel uw dienst na een storing weer draait."
+        },
+        "onPrem": {
+          "title": "Software bij de klant",
+          "why": "Hoe lang u beveiligingsupdates voor uw software levert, en hoe een klant kan zien dat de software en haar updates te vertrouwen zijn."
+        }
+      },
+      "customerGroups": {
+        "identity": {
+          "title": "Wie de leverancier is",
+          "why": "Zodat u hem eenduidig in uw leverancierslijst kunt opnemen."
+        },
+        "contacts": {
+          "title": "Hoe u hem bereikt als er iets gebeurt",
+          "why": "Het aanspreekpunt voor beveiligingszaken dat u voor elke directe leverancier nodig hebt."
+        },
+        "delivery": {
+          "title": "Wat de leverancier levert en wat hij bereikt",
+          "why": "Of hij uw gegevens bewaart, toegang heeft tot uw systemen of uw panden betreedt, bepaalt hoe zwaar zijn overige antwoorden voor u wegen."
+        },
+        "commitments": {
+          "title": "Wat hij klanten toezegt",
+          "why": "Wat de leverancier vooraf toezegt. Wat daarvan voor u passend is, hoort in uw contract met hem."
+        },
+        "operations": {
+          "title": "Hoe hij beveiliging regelt",
+          "why": "Hoe de leverancier beveiliging regelt. Een certificaat dat zijn dienst dekt, staat hieronder bij de certificaten."
+        },
+        "access": {
+          "title": "Toegang tot uw systemen en panden",
+          "why": "Hoe de leverancier zijn toegang tot uw systemen en panden beveiligt."
+        },
+        "saas": {
+          "title": "Software als dienst (SaaS)",
+          "why": "Of u uw accounts met een tweede factor kunt beveiligen, en hoe snel zijn dienst na een storing weer draait."
+        },
+        "onPrem": {
+          "title": "Software bij u",
+          "why": "Hoe lang hij beveiligingsupdates voor zijn software levert, en hoe u kunt zien dat de software en haar updates te vertrouwen zijn."
+        }
+      }
     },
     "customerView": {
       "securityProfile": "Beveiligingsprofiel",
@@ -104,8 +159,6 @@
       "revoke": "Toegang beëindigen",
       "revokedTitle": "Toegang beëindigd",
       "revokedBody": "U ontvangt geen meldingen meer van deze leverancier.",
-      "nis2Regulated": "Zelf onder NIS2",
-      "nis2RegulatedNote": "Deze leverancier valt zelf onder NIS2 en is geregistreerd bij het BSI. Volgens ENISA TIG §5.1.2 kunt u dat gebruiken voor een groot deel van uw leveranciersbeoordeling onder CIR 2024/2690.",
       "servicesTitle": "Systemen die deze leverancier voor u beheert",
       "servicesIntro": "Deze gegevens gelden alleen voor uw samenwerking. Andere klanten van dezelfde leverancier zien hun eigen systemen, niet deze.",
       "servicesEmpty": "Er is nog geen systeem voor u vastgelegd.",
@@ -129,55 +182,8 @@
       }
     },
     "fields": {
-      "legalName": "Wettelijke naam",
-      "registeredAddress": "Geregistreerd adres",
-      "country": "Land",
-      "securityContactName": "Naam beveiligingscontact",
-      "primaryDomain": "Primair domein",
-      "tagline": "Tagline (één regel, klantgericht)",
-      "description": "Publieke beschrijving (uitgebreider)",
-      "incidentContactEmail": "E-mail incidentcontact",
-      "incidentContactPhone": "Telefoon incidentcontact (24/7)",
-      "incidentSlaHours": "SLA incidentmelding (uren)",
-      "serviceDescription": "Beschrijving geleverde diensten",
-      "dataProcessingLocations": "Landen/regio's waar klantgegevens worden verwerkt",
-      "bsiRegistrationId": "BSI-registratie-ID (alleen als uw bedrijf zelf NIS2-gereguleerd is)",
-      "isSaas": "Wij leveren SaaS / gehoste diensten",
-      "isOnPrem": "Wij leveren on-premise software",
-      "isProfessionalServices": "Wij leveren professionele diensten / consultancy",
-      "isManagedService": "Wij leveren beheerde diensten / MSP",
-      "hasIsms": "Gedocumenteerd Informatiebeveiligingsbeheersysteem (ISMS)",
-      "hasIso27001OrEquivalent": "ISO 27001, BSI Grundschutz of gelijkwaardige certificering",
-      "staffSecurityTraining": "Jaarlijkse beveiligingsbewustzijnstraining voor alle medewerkers",
-      "backgroundChecks": "Achtergrondcontroles voor medewerkers met toegang tot klantgegevens",
-      "vulnerabilityHandling": "Gedocumenteerd kwetsbaarheidsbeheer en patchproces",
-      "acceptRightToAudit": "Klantauditrecht accepteren (of auditrapporten verstrekken)",
-      "hasSubprocessors": "Gebruik van subverwerkers / sub-leveranciers",
-      "subprocessorList": "Lijst van subverwerkers",
-      "dataReturnOnTermination": "Toezegging om klantgegevens bij beëindiging te retourneren / vernietigen",
-      "dpaAvailable": "Standaard verwerkersovereenkomst (DPA) beschikbaar",
-      "securityPolicyReviewedAnnually": "Beveiligingsbeleid minimaal jaarlijks herzien",
-      "hasIncidentResponsePlan": "Gedocumenteerd incidentresponsplan",
-      "hasBusinessContinuityPlan": "Gedocumenteerd bedrijfscontinuïteits- / noodherstelplan",
-      "hasCryptographyPolicy": "Gedocumenteerd cryptografiebeleid",
-      "hasPrivilegedAccessMgmt": "Bevoorrecht toegangsbeheer (PAM) voor intern personeel",
-      "mfaEnforcedInternal": "MFA verplicht voor alle interne beheer- / bevoorrechte accounts",
-      "hasAssetInventory": "Inventaris van informatie-assets bijhouden",
-      "hasPenetrationTestingProgram": "Jaarlijks of tweejaarlijks penetratietestprogramma",
-      "pastBreachesDisclosed": "Wij melden eerdere meldingsplichtige cyberbeveiligingsincidenten op verzoek van klanten",
-      "incidentAssistanceCommitment": "Incidentondersteuning aan klanten bieden zonder / tegen vooraf bepaalde kosten",
-      "cooperateWithAuthorities": "Volledig meewerken met bevoegde autoriteiten (BSI, ENISA, nationale CSIRT's)",
-      "notifyMaterialChanges": "Klanten informeren over wezenlijke wijzigingen die de dienstverlening beïnvloeden",
-      "notifyOnLocationChange": "Klanten vooraf informeren als gegevensverwerkingslocaties wijzigen",
-      "hasExitPlan": "Gedocumenteerde exitstrategie met verplichte overgangsperiode",
-      "usesAiSystems": "Wij gebruiken, integreren of bieden AI-systemen",
-      "providesSbomForAi": "Wij verstrekken een SBOM-for-AI volgens G7-minimumelementen",
-      "aiSbomUrl": "URL van het SBOM-for-AI-document",
+      "dataProcessingLocations": "Landen / regio's waar klantgegevens worden verwerkt",
       "saasHostingRegion": "Hostingregio",
-      "saasEncryptionAtRest": "Versleuteling in rust",
-      "saasEncryptionInTransit": "Versleuteling in transit (TLS ≥ 1.2)",
-      "saasMfaEnforced": "MFA verplicht voor alle beheeraccounts",
-      "saasRtoHours": "Hersteltijddoelstelling (RTO) in uren",
       "onPremSbomProvided": "Software Bill of Materials (SBOM) verstrekken",
       "onPremSignedReleases": "Releases zijn cryptografisch ondertekend",
       "onPremVulnerabilityDisclosurePolicy": "Gepubliceerd beleid voor kwetsbaarheidsopenbaarmaking",
@@ -188,67 +194,6 @@
       "managedPrivilegedAccessMgmt": "Bevoorrecht toegangsbeheer (PAM) aanwezig",
       "managedSessionRecording": "Beheersessies worden opgenomen",
       "managedOnCall24x7": "24/7 wachtdienst"
-    },
-    "fieldDescriptions": {
-      "legalName": "Your company's registered name, as it appears in the commercial register. Example: Müller GmbH or Acme Software Ltd.",
-      "registeredAddress": "Your company's registered business address. One address is enough, even if you have several locations.",
-      "country": "The country where your company is legally established. Two letters, e.g. DE for Germany.",
-      "primaryDomain": "Your main domain, usually the URL of your website. Example: acmesoftware.com.",
-      "tagline": "One line summarising what you offer. Customers see this on your supplier profile. Example: ERP for SME manufacturing.",
-      "description": "Two to three sentences about your company and what you do. This appears on your supplier profile. Sales pitch, security posture, or both.",
-      "serviceDescription": "One paragraph on what your company technically delivers to customers. Concrete products, modules, or services. Avoid pure marketing language.",
-      "dataProcessingLocations": "Every country where your customers' data is stored or processed. Comma-separated, ISO country codes. Example: DE, NL, US. If you process entirely within the EU, listing the EU countries is enough.",
-      "securityContactName": "Who customers contact when a security incident hits. In smaller companies often the managing director or IT lead. One person is enough.",
-      "incidentContactEmail": "Email address customers use to report a security incident. Ideally a distribution list like security@example.com that reaches multiple people.",
-      "incidentContactPhone": "Phone number for urgent incident reports. If you do not run 24/7 on-call, mention your business hours in brackets.",
-      "incidentSlaHours": "Hours from incident detection to customer notification, at the latest. Realistic self-assessment, not aspirational. Common values: 24, 48, or 72 hours.",
-      "bsiRegistrationId": "If your company is itself NIS 2 regulated and registered with the BSI, enter the registration ID here. Optional. Lets customers see at a glance that you meet the same obligation as a regulated entity.",
-      "isSaas": "You run software for customers on your own infrastructure and deliver it over the internet. Tick more than one box if you offer several models.",
-      "isOnPrem": "You deliver software that customers install and run on their own infrastructure.",
-      "isProfessionalServices": "Your main deliverable is human work: consulting, implementation, training, audit, or customisation.",
-      "isManagedService": "You operate parts of your customer's IT for them, with your own staff. Typical for MSP and MSSP models.",
-      "usesAiSystems": "Do your products or services process customer data through an AI or ML model? Includes external models you call through an API, for example OpenAI or Anthropic.",
-      "hasIsms": "Tick yes if you have a written information security policy with assigned roles, regular reviews, and documented incident handling. ISO 27001 or BSI Grundschutz certification implies yes.",
-      "hasIso27001OrEquivalent": "Tick yes if your company currently holds an ISO 27001, BSI Grundschutz, SOC 2 Type II, or equivalent certification. Upload the certificate in the Certifications tab.",
-      "staffSecurityTraining": "Tick yes if every staff member receives at least one annual information-security awareness training. E-learning counts; phishing simulations add to it.",
-      "backgroundChecks": "Tick yes if you run a background check for staff with access to customer data. Common bar: a criminal record extract or equivalent document on hire.",
-      "vulnerabilityHandling": "Tick yes if you have a written process for handling security vulnerabilities: detect, assess, prioritise, patch or mitigate. CVE monitoring and SLA-driven patching are the standard.",
-      "acceptRightToAudit": "Tick yes if you either grant customers an on-site audit right or provide substitute audit reports (for example SOC 2, ISAE 3402).",
-      "hasSubprocessors": "Tick yes if you use other companies to deliver your service that have access to customer data or infrastructure. Typical examples: AWS, Azure, Cloudflare, Stripe.",
-      "subprocessorList": "List every subprocessor with name, processing location, and what they do for you. A table or bullet list is enough. Update whenever you add or remove one.",
-      "dataReturnOnTermination": "Tick yes if you contractually commit to returning or destroying customer data at the end of the contract. Common practice: export and return, then delete within 30 days.",
-      "dpaAvailable": "Tick yes if you have a standard data processing agreement under GDPR Article 28 that customers can sign. Required as soon as you process personal data.",
-      "securityPolicyReviewedAnnually": "Tick yes if your security policies are reviewed at least once a year and updated as needed. A written note in the document is enough evidence.",
-      "hasIncidentResponsePlan": "Tick yes if you have a written plan for handling security incidents: who decides, who communicates, who documents. At least one tabletop exercise per year is good practice.",
-      "hasBusinessContinuityPlan": "Tick yes if you have a plan that explains how you keep running or recover quickly during an outage: critical systems, fallbacks, RTO and RPO targets.",
-      "hasCryptographyPolicy": "Tick yes if you have written down which cryptography you use where: data in transit (TLS 1.2+), data at rest (AES-256), key management, hashing algorithms.",
-      "hasPrivilegedAccessMgmt": "Tick yes if administrators and privileged accounts get extra controls: separate sign-in, MFA, session logging, or just-in-time access.",
-      "mfaEnforcedInternal": "Tick yes if every internal admin or privileged account must use MFA. Hardware tokens or authenticator apps count; SMS does not.",
-      "hasAssetInventory": "Tick yes if you keep a current list of every information system you use to deliver your service: servers, databases, SaaS tools, endpoints. A spreadsheet is enough.",
-      "hasPenetrationTestingProgram": "Tick yes if you commission an external penetration test at least every one to two years. For smaller companies, an external vulnerability scan as a minimum step is acceptable.",
-      "pastBreachesDisclosed": "Tick yes if, on customer request, you openly disclose whether and which reportable security incidents your company had in the past. Common window: the last three to five years.",
-      "incidentAssistanceCommitment": "Tick yes if you commit to helping customers at no extra cost when an incident is caused by your product or service. If you agree a pre-defined day rate up front instead, also tick yes.",
-      "cooperateWithAuthorities": "Tick yes if you commit to fully cooperating with competent authorities like BSI, ENISA, or national CSIRTs during inspections, audits, and incident handling. Standard for serious suppliers.",
-      "notifyMaterialChanges": "Tick yes if you commit to notifying customers of any material change affecting your ability to deliver: acquisitions, subprocessor changes, major technical shifts.",
-      "notifyOnLocationChange": "Tick yes if you notify customers in advance before the processing location of their data changes. Important for data protection and for GDPR-compliant supply chain oversight.",
-      "hasExitPlan": "Tick yes if you have a written exit strategy: how long an orderly handover takes, what data and knowledge gets transferred, what you commit to during the transition.",
-      "providesSbomForAi": "Optional. Tick yes if you can provide an SBOM-for-AI per the G7 minimum elements (May 2026). Documents metadata, models, training data, infrastructure, security properties, KPIs, and system behaviour. Voluntary standard.",
-      "aiSbomUrl": "Public or shared URL to your SBOM-for-AI document. Can be a PDF, a JSON file, or a project page.",
-      "saasHostingRegion": "The cloud region where customer data is hosted. Example: AWS eu-central-1, Azure West Europe. Name the primary region; secondary or backup regions can be added comma-separated.",
-      "saasEncryptionAtRest": "Tick yes if customer data on disk is encrypted at rest with AES-256 or equivalent. Cloud-managed disk encryption (AWS EBS, Azure Disk Encryption) counts.",
-      "saasEncryptionInTransit": "Tick yes if all customer-facing endpoints enforce TLS 1.2 or higher. TLS 1.3 is preferred. Plain HTTP must redirect to HTTPS.",
-      "saasMfaEnforced": "Tick yes if every internal admin account on the SaaS platform must use MFA. Same standard as your internal admin policy.",
-      "saasRtoHours": "Maximum number of hours your service can be unavailable before recovery. Realistic SLA value, not aspirational. Common SaaS values: 4, 8, or 24 hours.",
-      "onPremSbomProvided": "Tick yes if you ship a Software Bill of Materials with every release. CycloneDX or SPDX are the standard formats. Mandatory under the Cyber Resilience Act for products placed on the EU market from December 2027.",
-      "onPremSignedReleases": "Tick yes if every release artefact carries a cryptographic signature customers can verify. Signing keys are documented and rotated. Sigstore or PGP signatures both count.",
-      "onPremVulnerabilityDisclosurePolicy": "Tick yes if you have a publicly documented way to report security vulnerabilities. A security.txt file under your domain (per RFC 9116) or a dedicated email like security@example.com is enough.",
-      "onPremPatchSlaCriticalHours": "Hours from public CVE disclosure to a patched release for critical vulnerabilities (CVSS 9.0+). Realistic commitment, not aspirational. Common values: 24, 48, or 72 hours.",
-      "proServicesBackgroundCheckScope": "Describe how you vet consultants for sensitive roles. Example: criminal record extract for all consultants, plus reference checks for engagements involving classified data.",
-      "proServicesNdaInPlace": "Tick yes if every consultant signs a confidentiality agreement before being assigned to customer work. Either as part of the employment contract or as a separate NDA.",
-      "proServicesCustomerPremisesPolicy": "Tick yes if you have a written code of conduct for consultants working on customer premises: badge handling, locked-screen rule, what to do if data leaves the site.",
-      "managedPrivilegedAccessMgmt": "Tick yes if you use a privileged access management tool for administrative remote sessions on customer systems. Examples: CyberArk, BeyondTrust, Teleport. A logged jump-host setup counts.",
-      "managedSessionRecording": "Tick yes if admin sessions on customer systems are recorded and retained for review. Common retention: 90 days to 1 year. Needed for forensic reconstruction after incidents.",
-      "managedOnCall24x7": "Tick yes if you operate a 24/7 on-call rotation that responds to security incidents on customer systems. Business-hours-only support does not qualify."
     }
   }
 }

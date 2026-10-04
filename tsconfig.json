@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -23,38 +19,26 @@
       }
     ],
     "paths": {
-      "@/components/ui/*": [
-        "./packages/isms-ui/src/components/ui/*"
-      ],
-      "@/hooks/use-mobile": [
-        "./packages/isms-ui/src/hooks/use-mobile.ts"
-      ],
-      "@/*": [
-        "./*"
-      ],
-      "@/schema": [
-        "./schema/index.ts"
-      ],
-      "@/schema/*": [
-        "./schema/*"
-      ],
-      "@nisd2/grc-data-model": [
-        "./packages/grc-data-model/src/index.ts"
-      ],
-      "@nisd2/grc-data-model/*": [
-        "./packages/grc-data-model/src/*"
-      ],
-      "@nisd2/isms-schema": [
-        "./packages/isms-schema/src/index.ts"
-      ],
-      "@nisd2/isms-schema/*": [
-        "./packages/isms-schema/src/*"
-      ],
+      "@/components/ui/*": ["./packages/isms-ui/src/components/ui/*"],
+      "@/hooks/use-mobile": ["./packages/isms-ui/src/hooks/use-mobile.ts"],
+      "@/*": ["./*"],
+      "@/schema": ["./schema/index.ts"],
+      "@/schema/*": ["./schema/*"],
+      "@nisd2/grc-data-model": ["./packages/grc-data-model/src/index.ts"],
+      "@nisd2/grc-data-model/*": ["./packages/grc-data-model/src/*"],
+      "@nisd2/isms-schema": ["./packages/isms-schema/src/index.ts"],
+      "@nisd2/isms-schema/*": ["./packages/isms-schema/src/*"],
       "@nisd2/incident-notification-schema": [
         "./packages/incident-notification-schema/src/index.ts"
       ],
       "@nisd2/incident-notification-schema/*": [
         "./packages/incident-notification-schema/src/*"
+      ],
+      "@nisd2/nis2-supply-chain-questionnaire-schema": [
+        "./packages/nis2-supply-chain-questionnaire-schema/src/index.ts"
+      ],
+      "@nisd2/nis2-supply-chain-questionnaire-schema/schema": [
+        "./packages/nis2-supply-chain-questionnaire-schema/src/schema.ts"
       ]
     }
   },

@@ -1,4 +1,5 @@
-import type { SecurityProfileInitialValues } from "@/components/supplier-portal/SecurityProfileForm";
+import type { z } from "zod";
+import type { securityProfileUpdateSchema } from "@/schema/validators";
 
 /**
  * Sample supplier for the hero screenshot. Deliberately a placeholder company
@@ -37,38 +38,50 @@ export const SAMPLE_CUSTOMERS = [
  * A filled-in security profile. Not every answer is "yes" — a questionnaire
  * where everything is ticked reads as a mock-up rather than a real profile.
  */
-export const SAMPLE_PROFILE: SecurityProfileInitialValues = {
+export const SAMPLE_PROFILE = {
   legalName: "Musterland IT-Services GmbH",
   registeredAddress: "Musterstraße 12, 40213 Musterstadt",
   country: "DE",
   primaryDomain: "musterland-it.de",
+  serviceDescription:
+    "Betrieb und Wartung der Warenwirtschaft für mittelständische Entsorger, als gehostete Anwendung mit Fernwartung.",
   securityContactName: "A. Weber",
   incidentContactEmail: "security@musterland-it.de",
-  incidentContactPhone: "+49 211 000000",
+  incidentContactPhone: "+49 211 000000 (Mo bis Fr, 8 bis 18 Uhr)",
   incidentSlaHours: 24,
-  hasIsms: true,
-  hasIso27001OrEquivalent: true,
+  isSaas: true,
+  isOnPrem: false,
+  isManagedService: true,
+  processesCustomerData: true,
+  dataProcessingLocations: "Deutschland",
+  accessesCustomerSystems: true,
+  accessesCustomerPremises: false,
   staffSecurityTraining: true,
-  backgroundChecks: true,
-  vulnerabilityHandling: true,
-  securityPolicyReviewedAnnually: true,
-  hasIncidentResponsePlan: true,
-  hasBusinessContinuityPlan: true,
-  hasCryptographyPolicy: true,
-  hasPrivilegedAccessMgmt: true,
-  mfaEnforcedInternal: true,
-  hasAssetInventory: true,
-  hasPenetrationTestingProgram: false,
-  cooperateWithAuthorities: true,
-  pastBreachesDisclosed: false,
   acceptRightToAudit: true,
   hasSubprocessors: true,
-  subprocessorList: "Hetzner Online GmbH (Hosting, DE) · Musterland Backup GmbH (Backup, DE)",
-  dataReturnOnTermination: true,
-  dpaAvailable: true,
-  incidentAssistanceCommitment: true,
+  subprocessorList:
+    "Musterland Hosting GmbH (Rechenzentrum, DE) · Musterland Backup GmbH (Sicherung, DE)",
+  subprocessorRequirementsPassedOn: true,
   notifyMaterialChanges: true,
-  notifyOnLocationChange: true,
-  hasExitPlan: false,
-  providesSbomForAi: false,
-};
+  pastBreachesDisclosed: false,
+  cooperateWithAuthorities: true,
+  confidentialityCommitted: true,
+  backgroundChecks: true,
+  dataReturnOnTermination: true,
+  dataProcessingAgreement: "available",
+  encryptionAtRest: true,
+  encryptionInTransit: true,
+  hasIsms: true,
+  hasIso27001OrEquivalent: false,
+  vulnerabilityHandling: true,
+  hasIncidentResponsePlan: true,
+  hasBusinessContinuityPlan: true,
+  mfaEnforcedInternal: true,
+  hasPenetrationTestingProgram: false,
+  secureDevelopment: true,
+  vulnerabilityDisclosurePolicy: true,
+  customerAccessPersonalMfa: true,
+  customerAccessLogged: true,
+  saasMfaEnforced: true,
+  saasRtoHours: 8,
+} satisfies z.input<typeof securityProfileUpdateSchema>;

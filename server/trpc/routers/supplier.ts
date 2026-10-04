@@ -11,12 +11,14 @@
  * table from the supplier perspective via supplierCompanyId.
  */
 
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, sql } from "drizzle-orm";
 import { z } from "zod";
 import {
   invalidateModuleSignOffs,
   recheckModuleRequirements,
 } from "@/lib/compliance/module-recheck";
+import { answeringCompanyId } from "@/lib/supplier-portal/platform-supplier";
+import { PLATFORM_SOURCE } from "@/lib/supplier-portal/register-row";
 import { riskSupplier, supplier } from "@/schema";
 import {
   customerSupplierAssessmentSchema,
@@ -48,11 +50,22 @@ export const supplierRouter = router({
     // other surface in the codebase already projects around this column
     // (schema/validators.ts omits it, mass-assignment.test.ts asserts it,
     // SuppliersPage hides it, export-demo-ordner projects it out).
-    return ctx.db.query.supplier.findMany({
+    // The instance's own operator first (lib/supplier-portal/platform-supplier.ts), then newest.
+    // `source` is mostly null, and a plain `=` would sort those nulls ahead of the operator.
+    // `opensAnswers` is decided here, because only the server knows whether the operator's row
+    // still leads anywhere.
+    const rows = await ctx.db.query.supplier.findMany({
       where: eq(supplier.customerCompanyId, ctx.companyId),
       columns: { unsubscribeToken: false },
-      orderBy: [desc(supplier.updatedAt)],
+      orderBy: [
+        desc(sql`${supplier.source} is not distinct from ${PLATFORM_SOURCE}`),
+        desc(supplier.updatedAt),
+      ],
     });
+    return rows.map((row) => ({
+      ...row,
+      opensAnswers: answeringCompanyId(row) !== null,
+    }));
   }),
 
   create: companyProcedure
@@ -63,6 +76,7 @@ export const supplierRouter = router({
         supplierCompanyId: true,
         unsubscribeToken: true,
         status: true,
+        source: true,
         confirmedAt: true,
         unsubscribedAt: true,
         createdAt: true,

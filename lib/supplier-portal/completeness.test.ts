@@ -6,14 +6,16 @@
  */
 import { describe, expect, test } from "bun:test";
 import {
-  PROFILE_PAGE_FIELDS,
-  SECURITY_PRACTICES_PAGE_FIELDS,
-} from "@/lib/forms/supplier-portal-sections";
+  conditionsOf,
+  supplierQuestionnaire,
+} from "@nisd2/nis2-supply-chain-questionnaire-schema";
+import { PROFILE_PAGE_FIELDS } from "@/lib/forms/supplier-portal-sections";
 import { questionnaireCompleteness } from "./completeness";
 
-/** Practices minus the two that only apply once another answer turns them on. */
-const UNGATED_PRACTICES = SECURITY_PRACTICES_PAGE_FIELDS.length - 2;
-const BASELINE = PROFILE_PAGE_FIELDS.length + UNGATED_PRACTICES;
+/** Every question asked of every supplier: those that depend on no other answer. */
+const BASELINE = supplierQuestionnaire.fields.filter(
+  (field) => conditionsOf(field).length === 0,
+).length;
 
 describe("questionnaireCompleteness", () => {
   test("an untouched supplier has answered nothing, and is asked only the baseline", () => {
@@ -25,8 +27,8 @@ describe("questionnaireCompleteness", () => {
   });
 
   test("`false` is an answer, so an honest no does not score as a blank", () => {
-    expect(questionnaireCompleteness({ hasIsms: false }).answered).toBe(1);
-    expect(questionnaireCompleteness({ hasIsms: true }).answered).toBe(1);
+    expect(questionnaireCompleteness({ staffSecurityTraining: false }).answered).toBe(1);
+    expect(questionnaireCompleteness({ staffSecurityTraining: true }).answered).toBe(1);
   });
 
   test("a blank or whitespace-only string is not an answer", () => {
@@ -35,26 +37,45 @@ describe("questionnaireCompleteness", () => {
     expect(questionnaireCompleteness({ legalName: "Acme GmbH" }).answered).toBe(1);
   });
 
-  test("ticking a service type adds that block to the denominator", () => {
+  test("ticking SaaS opens the digital, software and SaaS questions", () => {
     const saas = questionnaireCompleteness({ isSaas: true });
     // isSaas is itself a profile field, so ticking it also answers one.
     expect(saas.answered).toBe(1);
-    expect(saas.serviceType.applicable).toBe(5);
-    expect(saas.applicable).toBe(BASELINE + 5);
+    expect(saas.serviceType.applicable).toBe(2);
+    // ISMS, certificate, vulnerability handling, incident plan, continuity plan, admin MFA;
+    // independent testing; secure development and the published reporting route; the SaaS block.
+    expect(saas.applicable).toBe(BASELINE + 6 + 1 + 2 + 2);
+  });
+
+  test("a supplier with keys to customer premises is asked about access, not about IT", () => {
+    const premises = questionnaireCompleteness({ accessesCustomerPremises: true });
+    // Confidentiality, suitability checks and hand-back; keys and rules on site.
+    expect(premises.applicable).toBe(BASELINE + 3 + 2);
   });
 
   test("a supplier who ticks no service type is never asked those questions", () => {
-    const filled = questionnaireCompleteness({ saasHostingRegion: "eu-central-1" });
+    const filled = questionnaireCompleteness({ saasRtoHours: 4 });
     expect(filled.serviceType.applicable).toBe(0);
     // The answer is ignored rather than counted: they were never asked.
     expect(filled.answered).toBe(0);
   });
 
-  test("the subprocessor list only applies once they say they have subprocessors", () => {
+  test("the subcontractor list and pass-down only apply once they say they have subcontractors", () => {
     const without = questionnaireCompleteness({ hasSubprocessors: false });
     const with_ = questionnaireCompleteness({ hasSubprocessors: true });
     expect(without.applicable).toBe(BASELINE);
-    expect(with_.applicable).toBe(BASELINE + 1);
+    expect(with_.applicable).toBe(BASELINE + 2);
+  });
+
+  test("holding customer data opens the data, access and digital questions", () => {
+    expect(questionnaireCompleteness({ processesCustomerData: false }).applicable).toBe(
+      BASELINE,
+    );
+    // Locations, DPA, both encryption questions; confidentiality, suitability checks, hand-back;
+    // the six digital ones.
+    expect(questionnaireCompleteness({ processesCustomerData: true }).applicable).toBe(
+      BASELINE + 4 + 3 + 6,
+    );
   });
 
   test("columns that are not questionnaire fields do not change the score", () => {
@@ -77,9 +98,9 @@ describe("questionnaireCompleteness", () => {
       PROFILE_PAGE_FIELDS.map((field) => [field, "answered"]),
     );
     const score = questionnaireCompleteness(answers);
-    expect(score.profile.answered).toBe(PROFILE_PAGE_FIELDS.length);
+    expect(score.profile.answered).toBe(score.profile.applicable);
     expect(score.percent).toBe(
-      Math.round((PROFILE_PAGE_FIELDS.length / score.applicable) * 100),
+      Math.round((score.profile.applicable / score.applicable) * 100),
     );
   });
 });

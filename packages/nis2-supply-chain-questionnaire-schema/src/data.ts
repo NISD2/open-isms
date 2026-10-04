@@ -1,20 +1,23 @@
-import {
-  supplierQuestionnaireSchema,
-  type SupplierQuestionnaire,
-} from "./schema";
 import { allFields } from "./fields";
+import {
+  conditionsHold,
+  conditionsOf,
+  type SupplierField,
+  type SupplierQuestionnaire,
+  supplierQuestionnaireSchema,
+} from "./schema";
 
 /**
  * Source of truth lives in `src/fields/<section>.ts` (TypeScript with full
- * type safety on label, type, section, and Baustein IDs). The bundled JSON
+ * type safety on label, type, section and conditions). The bundled JSON
  * artefact at `data/supply-chain-questionnaire.json` is generated from these
  * files via `bun run build:json` and shipped for non-TS consumers.
  *
  * Bump these constants when shipping a release; CI will fail if the
  * generated JSON falls out of sync.
  */
-export const VERSION = "3.1.0";
-export const LAST_UPDATED = "2026-05-15";
+export const VERSION = "4.0.0";
+export const LAST_UPDATED = "2026-10-04";
 
 export const supplierQuestionnaire: SupplierQuestionnaire =
   supplierQuestionnaireSchema.parse({
@@ -33,12 +36,15 @@ export function groupBySection(q: SupplierQuestionnaire) {
   return out;
 }
 
+/** Whether a question shows for these answers. */
+export const isVisible = (
+  field: SupplierField,
+  response: Record<string, unknown>,
+): boolean => conditionsHold(conditionsOf(field), response);
+
 export function visibleFields(
   q: SupplierQuestionnaire,
   response: Record<string, unknown>,
 ) {
-  return q.fields.filter((field) => {
-    if (!field.visibleWhen) return true;
-    return response[field.visibleWhen.field] === field.visibleWhen.equals;
-  });
+  return q.fields.filter((field) => isVisible(field, response));
 }
