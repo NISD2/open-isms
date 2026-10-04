@@ -1,13 +1,16 @@
 import {
   Building2,
   Check,
+  ChevronRight,
   Code2,
   FileText,
   Info,
   Receipt,
   Scale,
+  Send,
   ShieldCheck,
 } from "lucide-react";
+import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 import { Badge } from "@/components/ui/badge";
@@ -191,21 +194,27 @@ export function MoneyBackBadge() {
   );
 }
 
+/** The published gap analysis range, its sources and the day it was checked, for one locale. */
+export const gapAnalysisRange = (locale: string) => ({
+  low: formatWholeEuro(GAP_ANALYSIS_PRICES.lowCents, locale),
+  high: formatWholeEuro(GAP_ANALYSIS_PRICES.highCents, locale),
+  sources: new Intl.ListFormat(locale, { type: "conjunction" }).format(
+    GAP_ANALYSIS_PRICES.sources,
+  ),
+  checked: new Intl.DateTimeFormat(locale, {
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(`${GAP_ANALYSIS_PRICES.checked}T12:00:00Z`)),
+});
+
 /**
  * The list price set against what a gap analysis alone costs; hover or focus gives the published
  * range. "For the price of", never "cheaper than": the low end of the range is below our price.
  */
-function PriceAnchor() {
+export function PriceAnchor() {
   const t = useTranslations("pricing.tiers");
-  const locale = useLocale();
-  const checked = new Intl.DateTimeFormat(locale, {
-    month: "long",
-    year: "numeric",
-    timeZone: "UTC",
-  }).format(new Date(`${GAP_ANALYSIS_PRICES.checked}T12:00:00Z`));
-  const sources = new Intl.ListFormat(locale, { type: "conjunction" }).format(
-    GAP_ANALYSIS_PRICES.sources,
-  );
+  const { low, high, sources, checked } = gapAnalysisRange(useLocale());
   return (
     <Tooltip>
       <TooltipTrigger asChild>
@@ -221,14 +230,66 @@ function PriceAnchor() {
         icon={<Receipt className="size-4 text-primary" />}
         note={t("paid.anchorTip.note", { sources, checked })}
       >
-        <p className="leading-snug">
-          {t("paid.anchorTip.body", {
-            low: formatWholeEuro(GAP_ANALYSIS_PRICES.lowCents, locale),
-            high: formatWholeEuro(GAP_ANALYSIS_PRICES.highCents, locale),
-          })}
-        </p>
+        <p className="leading-snug">{t("paid.anchorTip.body", { low, high })}</p>
       </InfoPanel>
     </Tooltip>
+  );
+}
+
+const FOUNDERS = [
+  { name: "Simon Orzel", photo: "/images/people/simon.png" },
+  { name: "Cory Hisey", photo: "/images/people/cory.png" },
+] as const;
+
+/**
+ * The way to talk before ordering, beside the order button: one card that is its own link to the
+ * booking page (ui-design principle 14), with the founders' faces.
+ */
+export function TalkFirst() {
+  const t = useTranslations("pricing.tiers.talkFirst");
+  return (
+    <div className="relative flex items-center gap-3 rounded-xl border bg-muted/40 p-4 transition-colors hover:border-foreground/25 hover:bg-muted/70 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-ring sm:gap-4">
+      <div className="flex shrink-0 -space-x-2.5 sm:-space-x-3">
+        {FOUNDERS.map((person) => (
+          <Image
+            key={person.name}
+            src={person.photo}
+            alt={person.name}
+            width={96}
+            height={96}
+            className="size-10 rounded-full object-cover ring-2 ring-card sm:size-12"
+          />
+        ))}
+      </div>
+      <div className="min-w-0 flex-1 space-y-0.5">
+        <p className="font-semibold leading-snug">
+          <a
+            href={BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="after:absolute after:inset-0 focus-visible:outline-none"
+          >
+            {t("title")}
+          </a>
+        </p>
+        <p className="text-sm leading-snug text-muted-foreground">{t("body")}</p>
+      </div>
+      <ChevronRight aria-hidden className="size-5 shrink-0 text-muted-foreground" />
+    </div>
+  );
+}
+
+/** For the buyer whose boss decides: the one-page summary at /pricing/approval, to forward. */
+export function ApprovalLink() {
+  const t = useTranslations("pricing.tiers");
+  return (
+    <Link
+      href="/pricing/approval"
+      className="inline-flex items-center gap-2 text-sm text-muted-foreground underline decoration-muted-foreground/40 underline-offset-4 hover:text-foreground hover:decoration-foreground"
+    >
+      <Send className="size-3.5" />
+      {t("approvalLink")}
+    </Link>
   );
 }
 
@@ -436,6 +497,10 @@ export function PaidPricingCards({
                   {t("paid.termsLink")}
                 </Link>
               </p>
+            </div>
+            <div className="space-y-3">
+              <TalkFirst />
+              <ApprovalLink />
             </div>
             <Separator />
             <PaidFeatureList />

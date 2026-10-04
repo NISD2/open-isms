@@ -86,6 +86,7 @@ const CANONICAL_PUBLIC_EXACT: readonly string[] = [
   "/open-source",
   "/partner",
   "/pricing",
+  "/pricing/approval",
   "/redaktion",
   "/sicherheit",
   "/status",
