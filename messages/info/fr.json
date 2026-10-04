@@ -2413,7 +2413,7 @@
       "subtitle": "Le BSI a estimé à environ 30 000 le nombre d'entités assujetties à NIS2 en Allemagne. Le délai d'enregistrement a expiré le 6 mars 2026. Une part importante des entreprises concernées ne s'est toujours pas enregistrée - les exposant à une exécution au titre du § 65 BSIG.",
       "overview": {
         "p1": "Le § 33 BSIG impose à chaque entité relevant de NIS2 - qu'elle soit entité essentielle ou importante - de s'enregistrer auprès du Bundesamt für Sicherheit in der Informationstechnik (BSI). Ce n'est pas facultatif. L'obligation d'enregistrement existe indépendamment du fait que l'entreprise ait mis en œuvre ou non des mesures de cybersécurité. Vous devez d'abord vous enregistrer, puis vous mettre en conformité.",
-        "p2": "Le portail d'enregistrement du BSI (muk.bsi.bund.de) a été mis en ligne le 6 janvier 2026 - un mois après l'entrée en vigueur du BSIG. Le délai d'enregistrement au titre du § 33 BSIG était fixé au 6 mars 2026 (3 mois après l'entrée en vigueur). Malgré une obligation légale claire et une fenêtre de deux mois, une part importante des 29 000 à 30 000 entités concernées estimées ne s'est pas enregistrée dans le délai. Une enquête de G DATA a révélé que 44 % des entreprises concernées ignoraient entièrement leurs obligations NIS2.",
+        "p2": "Le portail d'enregistrement du BSI a été mis en ligne le 6 janvier 2026 - un mois après l'entrée en vigueur du BSIG. Le délai d'enregistrement au titre du § 33 BSIG était fixé au 6 mars 2026 (3 mois après l'entrée en vigueur). Malgré une obligation légale claire et une fenêtre de deux mois, une part importante des 29 000 à 30 000 entités concernées estimées ne s'est pas enregistrée dans le délai. Une enquête de G DATA a révélé que 44 % des entreprises concernées ignoraient entièrement leurs obligations NIS2.",
         "p3": "L'écart d'enregistrement est particulièrement préoccupant parce que l'enregistrement est une condition préalable au régime de supervision du BSI. Les entités non enregistrées ne sont pas invisibles - elles sont en non-conformité par défaut. Lorsque le BSI engagera une exécution systématique (qu'il a annoncée pour 2026), les entreprises non enregistrées encourront des sanctions non seulement pour les mesures de cybersécurité manquantes, mais aussi pour la violation de l'obligation d'enregistrement elle-même - une infraction distincte au titre du § 65 BSIG."
       },
       "stats": {
@@ -2509,12 +2509,12 @@
         "description": "Le CIR 2024/2690 définit les exigences techniques exactes pour les entités NIS2. Publié en octobre 2024, il s'applique directement dans tous les États membres de l'UE."
       },
       "title": "Guide de mise en œuvre du CIR 2024/2690",
-      "subtitle": "Le règlement d'exécution de l'UE qui précise exactement quelles mesures techniques et méthodologiques les entités NIS2 doivent mettre en œuvre - publié au Journal officiel le 17 octobre 2024 et directement applicable dans tous les États membres.",
+      "subtitle": "Le règlement d'exécution de l'UE qui précise exactement quelles mesures techniques et méthodologiques certains fournisseurs numériques au titre de NIS2 doivent mettre en œuvre : adopté le 17 octobre 2024, publié au Journal officiel le 18 octobre 2024, en vigueur depuis le 7 novembre 2024 et directement applicable dans tous les États membres.",
       "overview": {
         "heading": "Qu'est-ce que le CIR 2024/2690 ?",
         "p1": "Le règlement d'exécution (UE) 2024/2690 de la Commission du 17 octobre 2024 a été publié au Journal officiel de l'Union européenne (série JO L, 2024/2690). Il établit des règles pour l'application de la directive (UE) 2022/2555 (la directive NIS2) en ce qui concerne les exigences techniques et méthodologiques des mesures de gestion des risques en matière de cybersécurité. Contrairement à la directive NIS2 elle-même, ce règlement ne nécessite pas de transposition nationale - il s'applique directement dans les 27 États membres à compter de la date de son entrée en vigueur.",
         "p2": "Le CIR est la réponse à la question que pose tout responsable de la conformité : « Que devons-nous mettre en œuvre exactement ? » Alors que le §30 BSIG (la transposition allemande) énumère 10 domaines de mesures en termes généraux, l'annexe du CIR les décompose en exigences techniques et méthodologiques spécifiques et auditables. C'est la spécification officielle la plus granulaire des obligations NIS2 disponible - plus détaillée que la directive elle-même, plus précise que le BSIG, et directement applicable.",
-        "p3": "Le règlement a été élaboré en consultation avec l'ENISA et le groupe de coopération NIS, en s'appuyant sur des cadres existants, notamment ISO/IEC 27001, ETSI EN 319 401 et des normes nationales. Il s'applique spécifiquement aux fournisseurs de services DNS, aux registres de noms de domaine de premier niveau, aux fournisseurs de services d'informatique en nuage, aux fournisseurs de services de gestion des TIC, aux fournisseurs de services de sécurité gérés, aux fournisseurs de places de marché en ligne, aux fournisseurs de moteurs de recherche en ligne, aux fournisseurs de plateformes de services de réseaux sociaux et aux prestataires de services de confiance - bien que ses exigences techniques servent de référence de fait pour toutes les entités NIS2."
+        "p3": "Le règlement a été élaboré en consultation avec l'ENISA et le groupe de coopération NIS, en s'appuyant sur des normes européennes et internationales telles que ISO/IEC 27001, ISO/IEC 27002 et ETSI EN 319 401, ainsi que sur CEN/TS 18026:2024. Il s'applique spécifiquement aux fournisseurs de services DNS, aux registres de noms de domaine de premier niveau, aux fournisseurs de services d'informatique en nuage, aux fournisseurs de services de centres de données, aux fournisseurs de réseaux de diffusion de contenu, aux fournisseurs de services gérés, aux fournisseurs de services de sécurité gérés, aux fournisseurs de places de marché en ligne, de moteurs de recherche en ligne et de plateformes de services de réseaux sociaux, et aux prestataires de services de confiance. Il ne lie que ces types d'entités. Pour toutes les autres, il peut servir de lecture utile, mais ce n'est pas leur norme juridique."
       },
       "scope": {
         "heading": "Entités directement couvertes",
@@ -2523,39 +2523,50 @@
           "dns": "Fournisseurs de services DNS",
           "tld": "Registres de noms de domaine de premier niveau (TLD)",
           "cloud": "Fournisseurs de services d'informatique en nuage",
+          "datacentre": "Fournisseurs de services de centres de données",
+          "cdn": "Fournisseurs de réseaux de diffusion de contenu",
           "managed": "Fournisseurs de services de gestion des TIC (services gérés) et fournisseurs de services de sécurité gérés",
           "marketplaces": "Fournisseurs de places de marché en ligne",
+          "search": "Fournisseurs de moteurs de recherche en ligne",
           "social": "Fournisseurs de plateformes de services de réseaux sociaux",
           "trust": "Prestataires de services de confiance"
         }
       },
       "articles": {
         "heading": "Structure du règlement",
-        "description": "Le CIR se compose de 7 articles définissant le champ d'application, les définitions et les exigences, ainsi qu'une annexe détaillée contenant les spécifications techniques et méthodologiques.",
+        "description": "Le CIR compte 16 articles et une annexe. L'article 2 renvoie à l'annexe pour les mesures ; les articles 3 à 14 précisent quand un incident est significatif ; l'article 15 abroge l'ancien règlement de 2018 ; l'article 16 porte sur l'entrée en vigueur.",
         "items": {
+          "a1": {
+            "title": "Article 1 : Objet",
+            "description": "Énumère les types d'entités couverts par le règlement et précise qu'il fixe les exigences techniques et méthodologiques des mesures de l'Art. 21(2) NIS 2 ainsi que les cas dans lesquels un incident est significatif."
+          },
           "a2": {
-            "title": "Article 2 - Définitions",
-            "description": "Établit les définitions de « sécurité des réseaux et des systèmes d'information », « incident important » et d'autres termes clés. Aligne la terminologie sur la directive NIS2 tout en ajoutant une précision spécifique à la mise en œuvre."
+            "title": "Article 2 : Exigences techniques et méthodologiques",
+            "description": "Renvoie à l'annexe pour les mesures prévues à l'Art. 21(2)(a) à (j) NIS 2. Les mesures doivent être adaptées aux risques, compte tenu de l'exposition de l'entité, de sa taille, ainsi que de la probabilité et de la gravité des incidents. Lorsque l'annexe indique qu'une exigence ne s'applique que lorsque cela est approprié, applicable ou réalisable, une entité qui ne l'applique pas doit consigner par écrit pourquoi."
           },
           "a3": {
-            "title": "Article 3 - Importance des incidents",
-            "description": "Définit le moment où un incident est « important » - le seuil qui déclenche les obligations de notification. Un incident est important s'il cause une perte financière supérieure à 500 000 EUR ou à 5 % du chiffre d'affaires annuel, entraîne l'exfiltration de secrets commerciaux, cause la mort ou un préjudice considérable à la santé, ou remplit les critères propres à l'entité définis dans l'article."
+            "title": "Article 3 : Incidents importants",
+            "description": "Pour les seules entités visées à l'Art. 1, un incident est important s'il a causé ou peut causer : une perte financière directe supérieure à 500 000 EUR ou à 5 % du chiffre d'affaires annuel, le montant le plus faible étant retenu ; le vol de secrets d'affaires ; un décès ; un préjudice considérable à la santé d'une personne ; ou s'il y a eu un accès réussi, présumé malveillant, susceptible de causer une perturbation grave. Les incidents récurrents (Art. 4) et les seuils par service des Art. 5 à 14 comptent aussi."
           },
           "a4": {
-            "title": "Article 4 - Incidents importants récurrents",
-            "description": "Précise que les incidents récurrents qui, individuellement, n'atteignent pas le seuil d'importance peuvent être agrégés et traités comme un seul incident important s'ils remplissent collectivement les critères sur une période de six mois."
+            "title": "Article 4 : Incidents récurrents",
+            "description": "Les incidents qui sont chacun sous le seuil comptent ensemble comme un seul incident important s'ils se sont produits au moins deux fois en six mois, ont la même cause profonde apparente et franchissent ensemble le seuil de perte financière de l'Art. 3(1)(a)."
           },
           "a5": {
-            "title": "Article 5 - Incidents importants pour les fournisseurs DNS et les registres TLD",
-            "description": "Ajoute des critères d'importance spécifiques pour les fournisseurs de services DNS et les registres TLD, notamment une disponibilité du service inférieure à 99,9 % pour toute période, des taux de réponses DNS incorrectes, et la compromission de l'intégrité ou de la confidentialité des données d'enregistrement de domaine stockées."
+            "title": "Article 5 : Incidents importants concernant les fournisseurs de services DNS",
+            "description": "Important si un service de résolution de noms récursif ou faisant autorité est totalement indisponible pendant plus de 30 minutes, si son temps de réponse moyen dépasse 10 secondes pendant plus d'une heure, ou si l'intégrité, la confidentialité ou l'authenticité de ses données est compromise (sauf une erreur de configuration touchant moins de 1 000 noms de domaine et pas plus de 1 % d'entre eux)."
           },
           "a6": {
-            "title": "Article 6 - Exigences techniques et méthodologiques",
-            "description": "L'article central - exige des entités couvertes qu'elles mettent en œuvre les exigences techniques et méthodologiques énoncées à l'annexe. Les mesures doivent être « appropriées et proportionnées » aux risques, en tenant compte de la taille de l'entité, de son exposition, de la probabilité d'incidents et de l'impact sociétal."
+            "title": "Articles 6 à 14 : Incidents importants par type de fournisseur",
+            "description": "Seuils par service : registres de noms de domaine de premier niveau (6), cloud (7), centres de données (8), CDN (9), MSP et MSSP (10), places de marché en ligne (11), moteurs de recherche (12), réseaux sociaux (13), services de confiance (14). Exemple : un service cloud totalement indisponible pendant plus de 30 minutes est important (Art. 7(a))."
+          },
+          "a15": {
+            "title": "Article 15 : Abrogation",
+            "description": "Abroge le règlement d'exécution (UE) 2018/151 de la Commission."
           },
           "a7": {
-            "title": "Article 7 - Entrée en vigueur",
-            "description": "Le règlement est entré en vigueur le vingtième jour suivant sa publication au Journal officiel (publié le 17 octobre 2024). Il s'applique directement dans tous les États membres sans nécessiter de transposition nationale."
+            "title": "Article 16 : Entrée en vigueur et application",
+            "description": "En vigueur depuis le 7 novembre 2024, le vingtième jour suivant la publication du 18 octobre 2024 ; obligatoire et directement applicable dans tous les États membres."
           }
         }
       },
@@ -2565,7 +2576,7 @@
         "items": {
           "policy": {
             "title": "Politique de sécurité des réseaux et des systèmes d'information",
-            "description": "Exige une politique documentée de sécurité des réseaux et des systèmes d'information, approuvée par la direction, qui définit l'approche de l'entité en matière de gestion de la sécurité, revue à intervalles planifiés et mise à jour après des incidents ou des changements significatifs. Elle encadre l'ensemble des mesures qui suivent."
+            "description": "Exige une politique documentée de sécurité des réseaux et des systèmes d'information, approuvée par la direction, qui définit l'approche de l'entité en matière de gestion de la sécurité, revue par la direction au moins une fois par an et après des incidents importants ou des changements importants dans les activités ou les risques, et mise à jour le cas échéant. Elle encadre l'ensemble des mesures qui suivent."
           },
           "risk": {
             "title": "Politique de gestion des risques",
@@ -2589,7 +2600,7 @@
           },
           "effectiveness": {
             "title": "Politiques et procédures d'évaluation de l'efficacité des mesures de gestion des risques en matière de cybersécurité",
-            "description": "Exige que l'entité définisse des politiques et des procédures pour évaluer si ses mesures de gestion des risques sont efficaces, y compris le suivi, la revue et une évaluation indépendante, afin que les lacunes soient identifiées et que les mesures soient améliorées au fil du temps."
+            "description": "Exige que l'entité définisse des politiques et des procédures pour évaluer si ses mesures de gestion des risques sont efficaces, en décidant ce qui est mesuré, comment, quand et par qui, et en les revoyant à intervalles planifiés, afin que les lacunes soient identifiées et que les mesures soient améliorées au fil du temps."
           },
           "hygiene": {
             "title": "Pratiques d'hygiène informatique de base et formation à la sécurité",
@@ -2605,7 +2616,7 @@
           },
           "access": {
             "title": "Contrôle d'accès",
-            "description": "Exige une politique de contrôle d'accès couvrant la gestion des droits d'accès (11.2) et des comptes à privilèges (11.3), les systèmes d'administration (11.4), l'identification unique (11.5), l'authentification (11.6) et l'authentification MFA ou continue (11.7) pour l'accès aux systèmes critiques et l'accès à distance, revue à intervalles planifiés."
+            "description": "Exige une politique de contrôle d'accès couvrant la gestion des droits d'accès (11.2) et des comptes à privilèges (11.3), les systèmes d'administration (11.4), l'identification unique (11.5), l'authentification (11.6) et l'authentification multifacteur ou continue le cas échéant, adaptée à la sensibilité du système (11.7), revue à intervalles planifiés."
           },
           "assets": {
             "title": "Gestion des actifs",
@@ -2620,9 +2631,9 @@
       "relationship": {
         "heading": "CIR, directive NIS2 et BSIG - Comment ils s'articulent",
         "description": "Comprendre la hiérarchie juridique est essentiel pour planifier la conformité.",
-        "p1": "La directive NIS2 (UE) 2022/2555 est la législation mère - elle établit le cadre, les obligations et le régime d'application au niveau de l'UE. Les États membres étaient tenus de la transposer en droit national au plus tard le 17 octobre 2024. La transposition de l'Allemagne est le NIS2UmsuCG, qui modifie le BSIG. Le BSIG contient désormais toutes les obligations NIS2 en droit allemand, y compris le §30 (mesures de cybersécurité) et le §32 (notification des incidents).",
+        "p1": "La directive NIS2 (UE) 2022/2555 est la législation mère - elle établit le cadre, les obligations et le régime d'application au niveau de l'UE. Les États membres étaient tenus de la transposer en droit national au plus tard le 17 octobre 2024. L'Allemagne l'a transposée par le NIS2UmsuCG, dont l'article 1 est un nouveau BSIG (en vigueur le 6 décembre 2025). La plupart des obligations figurent dans le BSIG, notamment le §30 (mesures) et le §32 (notification). Les fournisseurs publics de télécommunications et les gestionnaires de réseaux d'énergie suivent leurs propres lois sectorielles (TKG, EnWG), et les entités financières relevant de DORA sont exemptées de ces dispositions.",
         "p2": "Le CIR 2024/2690 est un règlement de l'UE directement applicable - il ne nécessite pas de transposition et prime sur les dispositions nationales contraires. Lorsque le CIR précise une exigence technique, cette exigence s'applique directement, que le BSIG l'aborde ou non. Pour les types d'entités énumérés à l'article 1, le CIR est la norme de conformité principale.",
-        "p3": "Pour les entités qui ne figurent PAS directement à l'article 1 du CIR mais qui restent soumises à NIS2 (par exemple les fournisseurs d'énergie, la santé, les transports), le CIR sert de référence la plus autoritative pour déterminer à quoi ressemblent des mesures « appropriées et proportionnées ». Les tribunaux allemands et le BSI sont censés se référer aux spécifications techniques du CIR lorsqu'ils évaluent si les mesures d'une entreprise satisfont à la norme du §30 BSIG - même si le CIR ne lie pas formellement ces entités."
+        "p3": "Pour les entités non énumérées à l'Art. 1 (énergie, santé, transports, industrie manufacturière et autres), le CIR ne s'applique pas. Leurs mesures sont appréciées au regard du §30 BSIG. La Commission peut adopter un acte distinct pour elles ; tant qu'elle ne l'a pas fait, aucun ne s'applique."
       },
       "sources": {
         "heading": "Sources",
@@ -2630,9 +2641,8 @@
           "Règlement d'exécution (UE) 2024/2690 de la Commission du 17 octobre 2024 - Journal officiel de l'Union européenne, JO L 2024/2690",
           "EUR-Lex - Texte intégral du CIR 2024/2690 (CELEX : 32024R2690)",
           "Directive (UE) 2022/2555 (directive NIS2) - Journal officiel de l'Union européenne",
-          "ENISA - Orientations techniques sur les mesures de mise en œuvre de NIS2 (2024)",
-          "secuvera GmbH - Analyse des exigences du CIR 2024/2690 et correspondance avec ISO 27001 (2024)",
-          "BSIG - §30 (Risikomanagementmaßnahmen), §32 (Meldepflichten), tel que modifié par le NIS2UmsuCG"
+          "ENISA, NIS2 Technical Implementation Guidance, version 1.0, 26 juin 2025",
+          "BSIG (2025), §30 (Risikomanagementmaßnahmen), §32 (Meldepflichten), adopté en tant qu'article 1 du NIS2UmsuCG"
         ]
       },
       "ctaCard": {
@@ -3073,10 +3083,10 @@
     "significantIncident": {
       "meta": {
         "title": "Ce qui constitue un incident important au sens de NIS 2",
-        "description": "L'article 23, paragraphe 3, de NIS 2 vous donne deux critères de déclenchement qualitatifs. Le CIR 2024/2690 ajoute des chiffres, mais uniquement pour l'infrastructure numérique. Tous les autres doivent trancher en 24 heures sans chiffre auquel se raccrocher."
+        "description": "L'article 23, paragraphe 3, de NIS 2 vous donne deux critères de déclenchement qualitatifs. Le CIR 2024/2690 ajoute des chiffres, mais uniquement pour certains fournisseurs numériques (art. 1 du CIR). Tous les autres doivent trancher en 24 heures sans chiffre auquel se raccrocher."
       },
       "title": "Incident important au sens de NIS 2",
-      "subtitle": "Deux critères de déclenchement qualitatifs, un règlement chiffré pour l'infrastructure numérique, et un journal de décision écrit pour tous les autres.",
+      "subtitle": "Deux critères de déclenchement qualitatifs, un règlement chiffré pour certains fournisseurs numériques, et un journal de décision écrit pour tous les autres.",
       "overview": {
         "heading": "Pourquoi la définition est déterminante",
         "p1": "L'importance est ce qui déclenche toute l'horloge de notification de l'article 23 de NIS 2 : une alerte précoce dans les 24 heures, une notification d'incident dans les 72 heures, un rapport final dans un délai d'un mois. Si l'événement est important, l'horloge démarre dès que vous en avez connaissance. S'il ne l'est pas, vous ne devez rien au CSIRT ni à l'autorité compétente.",
@@ -3088,23 +3098,23 @@
         "description": "Texte de la directive, règlement d'exécution, transposition nationale. La directive donne le test qualitatif. Le règlement d'exécution donne des chiffres pour un groupe défini. La loi de transposition (en Allemagne : §32 BSIG) inscrit l'obligation de notification dans le droit national.",
         "directive": {
           "label": "Directive NIS 2 (UE) 2022/2555, art. 23, paragraphe 3",
-          "quote": "Un incident est considéré comme important : a) s'il a causé ou est susceptible de causer une perturbation opérationnelle grave des services ou des pertes financières pour l'entité concernée ; b) s'il a affecté ou est susceptible d'affecter d'autres personnes physiques ou morales en causant un dommage matériel ou moral considérable.",
+          "quote": "Un incident est considéré comme important si: a) il a causé ou est susceptible de causer une perturbation opérationnelle grave des services ou des pertes financières pour l’entité concernée; b) il a affecté ou est susceptible d’affecter d’autres personnes physiques ou morales en causant des dommages matériels, corporels ou moraux considérables.",
           "context": "Il s'agit de la seule définition générale d'un incident important en droit de l'Union. Les deux points emploient « est susceptible de causer », vous devez donc apprécier le dommage potentiel aussi bien que le dommage effectif. Le texte ne quantifie jamais grave, considérable ou matériel."
         },
         "regulation": {
           "label": "CIR (UE) 2024/2690, art. 3",
-          "quote": "Un incident est considéré comme important lorsqu'il a causé ou est susceptible de causer : a) une perte financière directe supérieure à 500 000 EUR ou à 5 pour cent du chiffre d'affaires annuel total de l'exercice précédent, le montant le plus faible étant retenu ; b) l'exfiltration de secrets d'affaires de l'entité au sens de l'article 2, point 1, de la directive (UE) 2016/943 ; c) le décès d'une personne physique ; d) un dommage considérable à la santé d'une personne physique ; e) un accès réussi, soupçonné d'être malveillant et non autorisé à des réseaux et des systèmes d'information susceptible de causer une perturbation opérationnelle grave ; f) les critères énoncés à l'article 4 (incidents récurrents) ; ou g) un ou plusieurs des critères énoncés aux articles 5 à 14 (spécifiques à l'entité). Un seul critère suffit.",
+          "quote": "Un incident est considéré comme important au sens de l’article 23, paragraphe 3, de la directive (UE) 2022/2555 eu égard aux entités concernées lorsqu’un ou plusieurs des critères suivants sont remplis: a) l’incident a causé ou est susceptible de causer à l’entité concernée une perte financière directe supérieure à 500 000 EUR ou à 5 % du chiffre d’affaires annuel total de l’entité concernée au cours de l’exercice complet précédent, le montant le plus faible étant retenu; b) l’incident a causé ou est susceptible de provoquer l’exfiltration de secrets d’affaires de l’entité concernée, au sens de l’article 2, point 1), de la directive (UE) 2016/943; c) l’incident a causé ou est susceptible de causer la mort d’une personne physique; d) l’incident a causé ou est susceptible de causer des dommages considérables à la santé d’une personne physique; e) il y a eu un accès non autorisé effectif au réseau et aux systèmes d’information d’une entité concernée, qui est suspecté d’être malveillant et est susceptible de causer une perturbation opérationnelle grave; f) l’incident répond aux critères énoncés à l’article 4; g) l’incident répond à un ou plusieurs des critères énoncés aux articles 5 à 14.",
           "context": "Sept critères (lettres a à g): cinq substantiels plus deux renvois. L'article 1er du CIR précise que ces chiffres ne s'appliquent qu'à des fournisseurs numériques spécifiques (DNS, TLD, cloud, centre de données, CDN, MSP, MSSP, place de marché en ligne, moteur de recherche, plateforme de réseau social, services de confiance). Les articles 5 à 14 ajoutent des planchers de disponibilité par secteur pour le même groupe. Si votre secteur ne figure pas sur cette liste, ces chiffres ne vous lient pas et le test qualitatif de l'article 23, paragraphe 3, est tout ce dont vous disposez."
         },
         "transposition": {
           "label": "§32 BSIG (Allemagne, exemple de transposition)",
-          "quote": "Wesentliche und wichtige Einrichtungen melden dem BSI erhebliche Sicherheitsvorfälle unverzüglich, spätestens innerhalb von 24 Stunden nach Kenntniserlangung als Frühwarnung, innerhalb von 72 Stunden als Sicherheitsvorfallsmeldung und innerhalb eines Monats als Abschlussbericht.",
-          "context": "Chaque État membre transpose l'article 23 en droit national. Le §32 BSIG reprend la cascade et désigne le BSI comme destinataire. Il n'ajoute aucun chiffre propre pour les secteurs non numériques. Les Pays-Bas, l'Autriche et la France suivent le même schéma."
+          "quote": "Besonders wichtige Einrichtungen und wichtige Einrichtungen sind verpflichtet, folgende Informationen an eine vom Bundesamt und dem Bundesamt für Bevölkerungsschutz und Katastrophenhilfe eingerichtete gemeinsame Meldestelle zu melden: 1. unverzüglich, spätestens jedoch innerhalb von 24 Stunden nach Kenntniserlangung von einem erheblichen Sicherheitsvorfall, eine frühe Erstmeldung ...",
+          "context": "Chaque État membre transpose l'article 23 en droit national. Le §32 BSIG reprend la cascade et désigne comme destinataire un service de notification commun mis en place par le BSI et l'Office fédéral de la protection civile et de l'aide en cas de catastrophe (BBK). Il n'ajoute aucun chiffre propre pour les secteurs non numériques. Le NISG 2026 autrichien s'applique depuis le 1er octobre 2026. La France et les Pays-Bas n'avaient pas notifié leur transposition en juillet 2026 (la Commission les a saisis devant la Cour de justice)."
         }
       },
       "elements": {
         "heading": "Les articles du CIR qui chiffrent l'importance",
-        "description": "Trois articles du CIR 2024/2690 réalisent le travail quantitatif. Ils ne lient que le groupe numérique nommé à l'article 1er du même règlement.",
+        "description": "Les articles 3 à 14 du CIR 2024/2690 réalisent le travail quantitatif. Ils ne lient que le groupe numérique nommé à l'article 1er du même règlement.",
         "items": {
           "framework": {
             "section": "CIR art. 3",
@@ -3117,9 +3127,9 @@
             "body": "Les petits incidents s'additionnent. Si la même cause profonde produit au moins deux incidents en six mois et que, pris ensemble, ils franchissent le seuil de perte financière de l'art. 3, paragraphe 1, point a), le CIR les traite comme un seul incident important. Les compter séparément est une erreur."
           },
           "independent": {
-            "section": "CIR art. 5",
+            "section": "CIR art. 5 et 6",
             "title": "Spécificités DNS et TLD",
-            "body": "Pour les résolveurs DNS et les registres de domaines de premier niveau (TLD) : résolution de noms indisponible pendant plus de 30 minutes, temps de réponse moyen supérieur à 10 secondes pendant plus d'une heure, ou intégrité des données rompue pour plus de 1 000 domaines ou 1 pour cent du portefeuille. Les articles 6 à 14 fixent des planchers similaires pour le cloud, le CDN, le MSP, le MSSP, les places de marché, la recherche, les réseaux sociaux et les services de confiance."
+            "body": "Pour les fournisseurs de services DNS (art. 5) : résolution totalement indisponible pendant plus de 30 minutes, temps de réponse moyen supérieur à 10 secondes pendant plus d'une heure, ou données compromises (sauf une erreur de configuration touchant moins de 1 000 domaines et pas plus de 1 % d'entre eux). Registres de TLD (art. 6) : toute panne complète de la résolution faisant autorité, temps de réponse supérieur à 10 secondes pendant une heure, ou toute compromission des données du TLD. Les articles 7 à 14 fixent des seuils pour le cloud, les centres de données, les CDN, les MSP et MSSP, les places de marché, les moteurs de recherche, les réseaux sociaux et les services de confiance."
           }
         }
       },
@@ -3149,7 +3159,7 @@
           "phishingNoCreds": {
             "title": "E-mail d'hameçonnage cliqué, aucun mot de passe saisi",
             "verdict": "Non notifiable",
-            "body": "Confinement réussi, aucune incidence sur les services ou les tiers. Une notification volontaire au titre de l'art. 30 de NIS 2 reste possible si vous souhaitez partager, et elle n'impose aucune obligation supplémentaire (art. 30, paragraphe 4)."
+            "body": "Confinement réussi, aucune incidence sur les services ou les tiers. Une notification volontaire au titre de l'art. 30 de NIS 2 reste possible si vous souhaitez partager, et elle n'impose aucune obligation supplémentaire (art. 30, paragraphe 2)."
           },
           "cloudOutage": {
             "title": "Panne du fournisseur cloud, votre propre service ralenti",
@@ -3172,17 +3182,17 @@
             "body": "Vérifiez d'abord le dommage à votre propre entité ou à vos clients. Tout incident d'un fournisseur ne déclenche pas votre propre obligation de notification. En parallèle : documentez la surveillance des fournisseurs au titre de l'art. 21, paragraphe 2, point d), de NIS 2."
           }
         },
-        "uncertainHint": "Incertain quant au franchissement du seuil ? Déposez l'alerte précoce et complétez plus tard. L'art. 23, paragraphe 4, point a), de NIS 2 est conçu exactement pour cela. L'autorité compétente préfère un « nous ne sommes pas encore sûrs » précoce à un « nous avons trop attendu » tardif."
+        "uncertainHint": "Un doute ? L'alerte précoce peut être mise à jour dans la notification à 72 heures (art. 23, paragraphe 4, point b)). Pour les événements sous le seuil, vous pouvez notifier volontairement sans assumer d'obligations supplémentaires (art. 30)."
       },
       "voluntaryReporting": {
         "heading": "Ce qui n'est pas obligatoire peut tout de même être notifié (art. 30 de NIS 2)",
         "p1": "L'article 30, paragraphe 1, de NIS 2 permet la notification volontaire d'incidents, de cybermenaces et d'incidents évités de justesse au CSIRT. Cela s'applique aux entités relevant du champ d'application de la directive ainsi qu'aux entités qui en sont exclues et qui souhaitent notifier un événement important.",
-        "p2": "L'article 30, paragraphe 4, de NIS 2 constitue la protection essentielle : la notification volontaire n'entraîne aucune obligation supplémentaire pour l'entité notifiante. Notifier un cas limite ne fait courir aucun risque de devoirs supplémentaires. Cela supprime le prétexte évident de ne pas notifier un incident incertain."
+        "p2": "L'article 30, paragraphe 2, de NIS 2 constitue la protection essentielle : la notification volontaire n'entraîne aucune obligation supplémentaire pour l'entité notifiante. Notifier un cas limite ne fait courir aucun risque de devoirs supplémentaires. Cela supprime le prétexte évident de ne pas notifier un incident incertain."
       },
       "customerNotification": {
         "heading": "Informer les clients d'une cybermenace importante (art. 23, paragraphe 2, de NIS 2)",
         "p1": "L'article 23, paragraphe 2, de NIS 2 ajoute une obligation distincte. Les entités essentielles et importantes communiquent, sans retard injustifié, à leurs destinataires de services toutes les mesures ou réparations qu'ils peuvent prendre pour atténuer les risques d'une cybermenace importante. Ce n'est pas la notification au CSIRT ; c'est la communication externe aux clients.",
-        "p2": "En Allemagne, le §35 BSIG met cela en œuvre. Le §35, paragraphe 1, autorise le BSI à ordonner la notification. Le §35, paragraphe 2, oblige en outre certains secteurs (finance, sécurité sociale, infrastructure numérique, gestion des services TIC, services numériques) à notifier de leur propre initiative. La communication peut être faite par publication sur le site web de l'entité."
+        "p2": "En Allemagne, le § 35 Abs. 2 BSIG met cela en œuvre : les entités de la finance, de la sécurité sociale, de l'infrastructure numérique, de la gestion des services TIC et des services numériques doivent indiquer aux clients menacés par une cybermenace importante ce qu'ils peuvent faire, lorsque l'intérêt des clients l'emporte sur le leur. Par ailleurs, le BSI peut ordonner à une entité d'informer ses clients d'un incident important (§ 35 Abs. 1 BSIG), par exemple en le publiant sur son site web."
       },
       "nationalView": {
         "heading": "Comment les États membres appliquent réellement cela",
@@ -3191,17 +3201,17 @@
           "bsi": {
             "country": "Allemagne",
             "label": "Orientations du BSI au titre du §32 BSIG",
-            "body": "Le BSI reprend le libellé de l'art. 23, paragraphe 3, et vous renvoie à son formulaire de notification standard (MIRP). Il ne publie aucun chiffre pour les secteurs non numériques. Position du BSI : appréciez l'importance au regard des critères qualitatifs, consignez votre raisonnement par écrit, et notifiez en cas de doute."
+            "body": "Le BSI reprend la définition du § 2 Nr. 11 BSIG et lit « pourrait causer » comme : les effets pourraient se produire de façon réaliste. Les notifications passent par le portail du BSI. Il ne publie aucun chiffre pour les secteurs non numériques. Le BSI relève que le ministère fédéral de l'Intérieur peut, plus tard, préciser « important » par ordonnance (§ 56 Abs. 4 BSIG)."
           },
           "enisa": {
             "country": "UE",
             "label": "Orientations techniques de mise en œuvre de l'ENISA",
-            "body": "Les orientations techniques de mise en œuvre de l'ENISA (TIG, v1.2 d'août 2025) donnent des conseils pratiques sur l'évaluation de l'impact et renvoient aux seuils du CIR là où ils s'appliquent. Les TIG sont non contraignantes et renvoient explicitement les secteurs hors du champ du CIR aux autorités nationales."
+            "body": "Les orientations techniques de mise en œuvre de l'ENISA (TIG, version 1.0 de juin 2025 ; son tableau de correspondance a été mis à jour en version 1.2 en août 2025) donnent des conseils pratiques sur l'évaluation de l'impact et renvoient aux seuils du CIR là où ils s'appliquent. Les TIG sont non contraignantes et renvoient explicitement les secteurs hors du champ du CIR aux autorités nationales."
           },
           "transposition": {
             "country": "NL / AT / FR",
-            "label": "Transpositions d'autres États membres",
-            "body": "La Cyberbeveiligingswet néerlandaise, le projet autrichien NISG 2024 et le régime français OIV/REC reprennent tous mot pour mot le test de l'art. 23, paragraphe 3. Aucun d'eux n'a encore publié de chiffres pour les secteurs non numériques. Le schéma dans toute l'UE est le même : test qualitatif plus le CIR pour le groupe numérique."
+            "label": "Autres États membres",
+            "body": "Le NISG 2026 autrichien s'applique depuis le 1er octobre 2026. La France et les Pays-Bas n'avaient pas notifié leur transposition en juillet 2026 (la Commission les a saisis devant la Cour de justice). L'Allemagne est l'exemple utilisé ici."
           }
         }
       },
@@ -3211,21 +3221,21 @@
         "items": {
           "blanketTransfer": {
             "myth": "Mythe 1 : Nous le saurons quand nous le verrons.",
-            "reality": "Réalité : l'art. 23, paragraphe 3, vous donne 24 heures pour décider, consigner le raisonnement par écrit et le défendre lors de l'audit. Si vous n'avez pas écrit vos critères avant l'incident, vous trancherez sous pression sans aucune trace sur laquelle vous appuyer. Construisez le cadre de décision maintenant, pas le jour venu."
+            "reality": "Réalité : l'art. 23, paragraphe 4, point a), vous donne 24 heures à compter du moment où vous avez connaissance d'un incident important pour envoyer l'alerte précoce. Dans ce délai, vous devez décider, consigner le raisonnement par écrit et pouvoir le défendre lors de l'audit. Si vous n'avez pas écrit vos critères avant l'incident, vous trancherez sous pression sans aucune trace sur laquelle vous appuyer. Construisez le cadre de décision maintenant, pas le jour venu."
           },
           "noAssets": {
             "myth": "Mythe 2 : Seules les violations de données comptent comme incidents importants.",
-            "reality": "Réalité : l'art. 23, paragraphe 3, point a), couvre la perturbation opérationnelle et la perte financière sans aucune mention de données à caractère personnel. Une ligne d'usine arrêtée par un rançongiciel sans exfiltration de données est un incident important. Une plateforme logistique hors ligne pendant trois heures est un incident important. NIS 2 n'est pas le GDPR."
+            "reality": "Réalité : l'art. 23, paragraphe 3, point a), couvre la perturbation opérationnelle et la perte financière sans aucune mention de données à caractère personnel. Une ligne d'usine arrêtée par un rançongiciel sans exfiltration de données est un incident important. Une plateforme logistique hors ligne pendant trois heures peut en être un, si la panne perturbe gravement le service ou cause un dommage considérable aux clients. NIS 2 n'est pas le GDPR."
           },
           "noAcceptanceCriteria": {
             "myth": "Mythe 3 : Les petits incidents sous le seuil ne s'additionnent pas.",
-            "reality": "Réalité : l'art. 4 du CIR (et la même logique pour les critères qualitatifs) indique que des incidents répétés ayant la même cause profonde s'additionnent. Deux interruptions de 20 minutes dues au même composant défaillant en six mois peuvent franchir le seuil ensemble. Les compter isolément est une erreur."
+            "reality": "Réalité : pour les fournisseurs numériques du CIR, les incidents ayant la même cause profonde apparente qui se produisent au moins deux fois en six mois comptent comme un seul incident important si leurs pertes financières franchissent ensemble le seuil de l'art. 3(1)(a) (art. 4 du CIR). NIS 2 lui-même n'a pas une telle règle, mais une série de petits incidents reste une raison de regarder à nouveau."
           }
         }
       },
       "practitioner": {
         "heading": "Le levier : non défini pour la plupart des entités NIS 2",
-        "p1": "Les annexes I et II de NIS 2 couvrent environ 18 secteurs. Seul le groupe numérique de l'art. 1er du CIR (environ 11 types d'entités) obtient des chiffres. C'est une petite part des entités concernées. Pour l'énergie, les transports, la banque, les infrastructures des marchés financiers, la santé, l'eau potable, les eaux usées, l'administration publique, l'espace, la poste, la gestion des déchets, la chimie, l'alimentation, la fabrication et la recherche, le test reste qualitatif.",
+        "p1": "Les annexes I et II de NIS 2 couvrent 18 secteurs. Seul le groupe numérique de l'art. 1er du CIR (11 types d'entités) obtient des chiffres. C'est une petite part des entités concernées. Pour l'énergie, les transports, la banque, les infrastructures des marchés financiers, la santé, l'eau potable, les eaux usées, l'administration publique, l'espace, la poste, la gestion des déchets, la chimie, l'alimentation, la fabrication et la recherche, le test reste qualitatif.",
         "p2": "C'est là que vous pouvez être utile autour de la table. La réponse honnête à la question du conseil d'administration (« qu'est-ce qui compte comme important pour nous ? ») est la suivante : l'UE l'a laissé à votre appréciation, voici les trois facteurs du considérant 101, voici le journal de décision que nous produirons le jour venu, voici qui le signe, voici le formulaire de notification du BSI que nous déposerons. La réponse défendable n'est pas un chiffre. C'est une décision écrite."
       },
       "platform": {
@@ -3238,9 +3248,9 @@
         "items": [
           "Directive (UE) 2022/2555 (NIS 2), art. 23 et considérant 101: eur-lex.europa.eu/eli/dir/2022/2555/oj",
           "Règlement d'exécution (UE) 2024/2690 de la Commission, articles 1, 3, 4, 5 à 14: eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
-          "BSIG §32 (Allemagne): portail réglementaire bsi.bund.de",
-          "Orientations techniques de mise en œuvre de l'ENISA sur la notification des incidents NIS 2 (TIG): enisa.europa.eu",
-          "Formulaire de notification MIRP du BSI et orientations sur les incidents: bsi.bund.de"
+          "BSIG § 32 (Allemagne): gesetze-im-internet.de/bsig_2025",
+          "ENISA, NIS2 Technical Implementation Guidance, version 1.0, 26 juin 2025: enisa.europa.eu",
+          "BSI, FAQ NIS-2 et portail du BSI: bsi.bund.de, portal.bsi.bund.de"
         ]
       },
       "ctaCard": {
@@ -4667,9 +4677,9 @@
       "subtitle": "Si vous avez cherché « IT Sicherheitspflicht », vous cherchez NIS2. Depuis décembre 2025, le BSIG révisé fait de la cybersécurité une obligation légale pour environ 29 500 entreprises allemandes.",
       "overview": {
         "heading": "NIS2 est l'obligation de sécurité informatique dont vous avez entendu parler",
-        "p1": "Il n'existe pas de « loi sur l'obligation de sécurité informatique » autonome en Allemagne. Ce qui existe, c'est la directive NIS2 (UE 2022/2555), transposée en droit allemand par le NIS2UmsuCG, qui a refondu la loi fédérale sur la cybersécurité (BSIG). C'est cette loi qui crée des obligations contraignantes de sécurité informatique pour les entreprises de 18 secteurs critiques.",
-        "p2": "Le BSIG est entré en vigueur le 6 décembre 2025. Il impose aux entreprises concernées de mettre en œuvre 10 mesures spécifiques de gestion des risques de cybersécurité (article 30 BSIG), de s'enregistrer auprès du BSI, de déclarer les incidents importants dans des délais stricts et de sécuriser leur chaîne d'approvisionnement. La direction est personnellement responsable au titre de l'article 38 BSIG de veiller à la conformité.",
-        "p3": "Si votre entreprise compte 50 salariés ou plus, ou dépasse 10 millions d'euros à la fois de chiffre d'affaires annuel et de total du bilan, et opère dans l'un des 18 secteurs NIS2, ces obligations s'appliquent à vous dès à présent. Le délai d'enregistrement était fixé au 6 mars 2026."
+        "p1": "Il n'existe pas de « loi sur l'obligation de sécurité informatique » autonome en Allemagne. Ce qui existe, c'est la directive NIS2 (UE 2022/2555), transposée en droit allemand par le NIS2UmsuCG, qui a refondu la loi fédérale sur la cybersécurité (BSIG). C'est cette loi qui crée des obligations contraignantes de sécurité informatique pour les entreprises des secteurs énumérés aux annexes 1 et 2 du BSIG.",
+        "p2": "Le BSIG est entré en vigueur le 6 décembre 2025. Il impose aux entreprises concernées de mettre en œuvre 10 mesures spécifiques de gestion des risques de cybersécurité (article 30 BSIG), de s'enregistrer auprès du BSI, de déclarer les incidents importants dans des délais stricts et de sécuriser leur chaîne d'approvisionnement. Au titre de l'article 38 BSIG, la direction doit mettre en œuvre et superviser les mesures, et elle répond envers l'entreprise des dommages qu'elle cause par sa faute.",
+        "p3": "Si votre entreprise compte 50 salariés ou plus, ou dépasse 10 millions d'euros à la fois de chiffre d'affaires annuel et de total du bilan, et opère dans l'un des secteurs énumérés aux annexes 1 et 2 du BSIG, ces obligations s'appliquent à vous dès à présent. Le délai d'enregistrement était fixé au 6 mars 2026."
       },
       "check": {
         "heading": "Cela s'applique-t-il à mon entreprise ?",
@@ -4677,11 +4687,11 @@
         "items": {
           "sector": {
             "title": "Secteur",
-            "description": "Votre entreprise opère dans l'un des 18 secteurs : énergie, transport, banque, santé, eau, infrastructure numérique, services TIC, administration publique, espace, services postaux, gestion des déchets, produits chimiques, production alimentaire, fabrication ou fournisseurs numériques."
+            "description": "Votre entreprise offre des biens ou des services contre rémunération dans l'un des secteurs énumérés aux annexes 1 et 2 du BSIG : énergie, transport, finance, santé, eau, infrastructure numérique (y compris les services informatiques et de sécurité gérés), espace, services postaux et de courrier, déchets, produits chimiques, alimentation, fabrication, services numériques, recherche."
           },
           "size": {
             "title": "Effectif",
-            "description": "Vous comptez 50 salariés ou plus. Cela suit la définition européenne des PME et inclut tous les salariés du groupe, pas seulement l'entité allemande. Les salariés à temps partiel comptent au prorata."
+            "description": "Vous comptez 50 salariés ou plus. Cela suit la définition européenne des PME et inclut tous les salariés du groupe, pas seulement l'entité allemande. Exception : les entreprises partenaires ou liées ne sont pas additionnées si votre informatique fonctionne indépendamment de la leur (§ 28 Abs. 4 BSIG). Les salariés à temps partiel comptent au prorata."
           },
           "revenue": {
             "title": "Chiffre d'affaires annuel",
@@ -4689,7 +4699,7 @@
           },
           "services": {
             "title": "Services critiques",
-            "description": "Certains types d'entités sont dans le champ d'application quelle que soit leur taille : fournisseurs DNS, registres TLD, prestataires de services de confiance qualifiés, exploitants KRITIS et fournisseurs uniques de services essentiels dans une région."
+            "description": "Certaines sont dans le champ d'application quelle que soit leur taille : exploitants d'installations critiques (KRITIS), prestataires de services de confiance, registres de noms de domaine de premier niveau et fournisseurs de services DNS (§ 28 BSIG)."
           }
         }
       },
@@ -4699,7 +4709,7 @@
         "items": {
           "register": {
             "title": "S'enregistrer auprès du BSI",
-            "description": "Effectuez votre enregistrement via le portail du BSI (muk.bsi.bund.de). C'est une obligation légale au titre de l'article 33 BSIG, assortie de sa propre sanction pouvant atteindre 500 000 euros. Le portail est en ligne depuis janvier 2026, et le délai était fixé au 6 mars 2026. Si vous l'avez manqué, enregistrez-vous immédiatement."
+            "description": "Enregistrez-vous en deux étapes : créez d'abord un compte sur Mein Unternehmenskonto (mein-unternehmenskonto.de, avec un certificat d'organisation ELSTER), puis enregistrez-vous sur le portail du BSI (portal.bsi.bund.de). C'est une obligation légale au titre de l'article 33 BSIG, assortie de sa propre sanction pouvant atteindre 500 000 euros. Le portail est en ligne depuis janvier 2026, et le délai était fixé au 6 mars 2026. Si vous l'avez manqué, enregistrez-vous immédiatement."
           },
           "assess": {
             "title": "Mener une analyse de risque",
@@ -4707,7 +4717,7 @@
           },
           "implement": {
             "title": "Mettre en œuvre 10 mesures de sécurité",
-            "description": "L'article 30 BSIG définit 10 domaines obligatoires : politiques de gestion des risques, traitement des incidents, continuité d'activité, sécurité de la chaîne d'approvisionnement, sécurité réseau, gestion des vulnérabilités, hygiène de cybersécurité, cryptographie, contrôle d'accès et authentification multifacteur. Chaque domaine requiert des politiques documentées et des preuves de mise en œuvre."
+            "description": "L'article 30(2) BSIG nomme 10 domaines : 1 analyse des risques et politiques de sécurité ; 2 traitement des incidents ; 3 maintien de l'activité (sauvegardes, reprise, gestion de crise) ; 4 sécurité de la chaîne d'approvisionnement ; 5 sécurité lors de l'achat, du développement et de la maintenance des systèmes informatiques, y compris le traitement des vulnérabilités ; 6 vérification de l'efficacité des mesures ; 7 formation de base et sensibilisation ; 8 cryptographie ; 9 sécurité du personnel, contrôle d'accès et gestion des actifs ; 10 authentification multifacteur et communication sécurisée. Chaque domaine requiert des politiques documentées et des preuves de mise en œuvre."
           },
           "report": {
             "title": "Mettre en place la déclaration d'incidents",
@@ -4715,14 +4725,14 @@
           },
           "maintain": {
             "title": "Maintenir une conformité continue",
-            "description": "NIS2 n'est pas un projet ponctuel. Vous avez besoin de revues annuelles de l'analyse de risque, de formations régulières pour la direction (l'article 38 BSIG exige une participation personnelle), de réévaluations des fournisseurs et d'une surveillance continue des incidents. La plateforme suit toutes les échéances et escalade automatiquement."
+            "description": "NIS2 n'est pas un projet ponctuel. Tenez l'analyse de risque à jour quand les choses changent, formez régulièrement la direction (l'article 38 BSIG exige une participation personnelle ; l'exposé des motifs de la loi entend « régulièrement » comme au moins tous les trois ans), réévaluez les fournisseurs et continuez à surveiller les incidents."
           }
         }
       },
       "consequences": {
         "heading": "Ce qui se passe si vous ne faites rien",
-        "p1": "Le cadre de sanctions est modelé sur le GDPR. Les entités essentielles encourent des amendes pouvant atteindre 10 millions d'euros ou 2 % du chiffre d'affaires annuel mondial. Les entités importantes encourent jusqu'à 7 millions d'euros ou 1,4 %. Les violations de l'obligation d'enregistrement à elles seules sont passibles d'amendes pouvant atteindre 500 000 euros. Le BSI dispose de pouvoirs d'exécution et peut ordonner la mise en conformité ou restreindre les activités.",
-        "p2": "Au-delà des amendes, l'article 38 BSIG crée une responsabilité personnelle pour la direction. Les dirigeants doivent approuver les mesures de cybersécurité, superviser leur mise en œuvre et suivre une formation. Ils sont responsables envers leur propre entreprise des violations fautives. Cette responsabilité ne peut être écartée par contrat. Invoquer le fait de ne pas avoir compris la cybersécurité n'est explicitement pas un moyen de défense."
+        "p1": "Les entités essentielles encourent des amendes pouvant atteindre 10 millions d'euros ou 2 % du chiffre d'affaires annuel mondial. Les entités importantes encourent jusqu'à 7 millions d'euros ou 1,4 %. Les violations de l'obligation d'enregistrement à elles seules sont passibles d'amendes pouvant atteindre 500 000 euros. Le BSI peut ordonner la mise en conformité (§§ 61, 62 BSIG). Pour les entités particulièrement importantes qui ignorent ses ordres, l'autorité sectorielle compétente peut, en dernier recours, suspendre temporairement une autorisation et interdire temporairement d'exercer des dirigeants jugés non fiables (§ 61 Abs. 9 BSIG).",
+        "p2": "Au-delà des amendes, l'article 38 BSIG crée une responsabilité personnelle pour la direction. Les dirigeants doivent mettre en œuvre les mesures de cybersécurité, superviser leur mise en œuvre et suivre régulièrement une formation. Ils répondent envers leur propre entreprise des dommages causés par leur faute, selon les règles du droit des sociétés applicables à sa forme juridique."
       },
       "faq": {
         "heading": "Questions fréquentes",
@@ -4736,15 +4746,15 @@
         },
         "q3": {
           "q": "Le délai d'enregistrement est passé. Que devons-nous faire ?",
-          "a": "Enregistrez-vous immédiatement. Le portail du BSI à muk.bsi.bund.de accepte toujours les enregistrements. Un enregistrement tardif vaut mieux qu'aucun enregistrement. L'amende pour défaut d'enregistrement peut atteindre 500 000 euros, mais le BSI apprécie la bonne foi. Une entreprise qui s'enregistre avec quelques semaines de retard et peut montrer qu'elle travaillait activement à sa mise en conformité est dans une bien meilleure position que celle qui n'a rien fait."
+          "a": "Enregistrez-vous immédiatement. Créez d'abord un compte sur Mein Unternehmenskonto (mein-unternehmenskonto.de), puis enregistrez-vous sur le portail du BSI (portal.bsi.bund.de), qui accepte toujours les enregistrements. Un enregistrement tardif vaut mieux qu'aucun enregistrement. L'amende pour défaut d'enregistrement peut atteindre 500 000 euros (§ 65 BSIG)."
         },
         "q4": {
           "q": "Notre prestataire informatique externe peut-il gérer la conformité NIS2 pour nous ?",
-          "a": "Il peut aider à mettre en œuvre les mesures techniques, mais l'obligation légale reste sur votre entreprise. L'article 30 BSIG énonce explicitement que vous pouvez externaliser les opérations mais pas la responsabilité. Votre direction reste personnellement responsable au titre de l'article 38 BSIG. Vous devez documenter ce que fait votre prestataire informatique, vérifier ses mesures de sécurité et l'inclure dans votre processus de gestion des fournisseurs."
+          "a": "Il peut aider à mettre en œuvre les mesures techniques, mais l'obligation légale reste sur votre entreprise, même si votre informatique est entièrement externalisée. Le BSI le dit dans sa FAQ NIS-2 : vous devez vous assurer que vos prestataires mettent en œuvre les mesures, les contrôler régulièrement et veiller à ce que les incidents soient signalés. Votre direction reste responsable au titre de l'article 38 BSIG de la mise en œuvre et de la supervision des mesures. Vous devez documenter ce que fait votre prestataire informatique, vérifier ses mesures de sécurité et l'inclure dans votre processus de gestion des fournisseurs."
         },
         "q5": {
           "q": "Combien coûte la conformité NIS2 pour une entreprise de taille intermédiaire ?",
-          "a": "Pour une entreprise de 50 à 250 salariés, prévoyez de dépenser entre 20 000 et 80 000 euros la première année, selon votre maturité de sécurité actuelle. Cela comprend l'analyse de risque, la documentation des politiques, les améliorations techniques et la formation. Les entreprises qui disposent déjà de mesures de base de sécurité informatique se situent dans le bas de la fourchette. Le coût annuel récurrent baisse fortement après la première année, car l'essentiel du travail est de la mise en place, pas de la maintenance."
+          "a": "Cela dépend de ce que vous avez déjà. La loi demande des mesures adaptées à votre taille et à votre risque, et le coût de leur mise en œuvre fait partie des éléments pris en compte (§ 30 Abs. 1 BSIG)."
         }
       },
       "ctaCard": {
@@ -4879,7 +4889,7 @@
         "items": {
           "muk": {
             "title": "Mein Unternehmenskonto (MUK)",
-            "description": "Vous avez besoin d'un compte MUK actif sur muk.bsi.bund.de. MUK est le système de compte professionnel du gouvernement fédéral. Si votre entreprise n'en possède pas encore, créez-le d'abord - cela peut prendre quelques jours car cela requiert une vérification ELSTER. N'attendez pas la dernière minute."
+            "description": "Vous avez besoin d'un compte actif sur Mein Unternehmenskonto (MUK, mein-unternehmenskonto.de), le système de compte professionnel du gouvernement fédéral, créé avec le certificat ELSTER de votre entreprise. Si votre entreprise n'en possède pas encore, créez-le d'abord : cela peut prendre quelques jours car cela requiert une vérification ELSTER. N'attendez pas la dernière minute."
           },
           "elster": {
             "title": "Certificat ELSTER",
@@ -4901,7 +4911,7 @@
         "items": {
           "s1": {
             "title": "Connectez-vous à MUK",
-            "description": "Rendez-vous sur muk.bsi.bund.de et connectez-vous avec votre certificat ELSTER. S'il s'agit de votre première utilisation de MUK, vous devrez créer un compte et le lier à votre identité ELSTER. Assurez-vous que votre navigateur autorise le module de sécurité ELSTER. Utilisez Chrome ou Edge pour une meilleure compatibilité."
+            "description": "Rendez-vous sur le BSI-Portal (portal.bsi.bund.de) et connectez-vous via Mein Unternehmenskonto avec votre certificat ELSTER. S'il s'agit de votre première utilisation de MUK, vous devrez créer un compte et le lier à votre identité ELSTER. Assurez-vous que votre navigateur autorise le module de sécurité ELSTER. Utilisez Chrome ou Edge pour une meilleure compatibilité."
           },
           "s2": {
             "title": "Sélectionnez l'enregistrement NIS2",
@@ -4985,7 +4995,7 @@
             "title": "Semaine 1 - Enregistrement et orientation",
             "timeframe": "Jours 1-5",
             "actions": [
-              "Enregistrez-vous auprès du BSI via muk.bsi.bund.de (si ce n'est pas déjà fait). Cela prend 30 à 60 minutes avec une bonne préparation.",
+              "Enregistrez-vous auprès du BSI sur le BSI-Portal (portal.bsi.bund.de), en vous connectant via Mein Unternehmenskonto (si ce n'est pas déjà fait).",
               "Lisez le §30 BSIG pour comprendre les 10 mesures de sécurité obligatoires. Il s'agit de 2 pages de texte juridique, pas d'un manuel.",
               "Identifiez qui, dans votre entreprise, portera la conformité NIS2. Il ne s'agit pas nécessairement d'un nouveau recrutement : ce peut être votre responsable informatique, votre CISO ou votre responsable qualité.",
               "Informez la direction de sa responsabilité personnelle au titre du §38 BSIG. Elle doit connaître les trois devoirs : approbation, supervision et formation.",
@@ -5128,7 +5138,7 @@
         "items": {
           "registration": {
             "title": "1. Enregistrez-vous auprès du BSI",
-            "description": "Effectuez votre enregistrement au titre de l'article 33 BSIG via muk.bsi.bund.de. Cela prend environ 30 à 60 minutes et vous met immédiatement en règle. La sanction pour défaut d'enregistrement va jusqu'à 500 000 euros. Si l'échéance est passée, enregistrez-vous immédiatement."
+            "description": "Effectuez votre enregistrement au titre de l'article 33 BSIG sur le BSI-Portal (portal.bsi.bund.de), en vous connectant via Mein Unternehmenskonto. Il vous inscrit au registre. La sanction pour défaut d'enregistrement va jusqu'à 500 000 euros. Si l'échéance est passée, enregistrez-vous immédiatement."
           },
           "assets": {
             "title": "2. Constituez votre inventaire des actifs",
@@ -5229,7 +5239,7 @@
         "items": {
           "registration": {
             "title": "1. S'enregistrer auprès du BSI",
-            "description": "Effectuez votre enregistrement au titre de l'article 33 BSIG via muk.bsi.bund.de. Cela prend 30 à 60 minutes et vous inscrit au registre. La sanction pour défaut d'enregistrement va jusqu'à 500 000 euros. Si le délai est passé, enregistrez-vous immédiatement."
+            "description": "Effectuez votre enregistrement au titre de l'article 33 BSIG sur le BSI-Portal (portal.bsi.bund.de), en vous connectant via Mein Unternehmenskonto. Il vous inscrit au registre. La sanction pour défaut d'enregistrement va jusqu'à 500 000 euros. Si le délai est passé, enregistrez-vous immédiatement."
           },
           "assets": {
             "title": "2. Constituer votre inventaire des actifs (IT et OT)",
@@ -5384,20 +5394,20 @@
     "sectorLogistics": {
       "meta": {
         "title": "NIS2 pour la logistique et le transport",
-        "description": "La logistique relève du champ de l'annexe I de NIS2. Guide pour les entreprises de 50 salariés et plus : TMS, gestion de flotte, systèmes d'entrepôt et conformité BSIG."
+        "description": "Qui, dans la logistique, est couvert par NIS2 : le transport aérien, ferroviaire, maritime et fluvial, les ports et les systèmes de gestion du trafic routier (annexe I), les services postaux et de courrier (annexe II). Le transport routier de marchandises et la commission de transport ne le sont pas."
       },
-      "badge": "Annexe I - Entité essentielle / importante",
+      "badge": "Annexe I/II NIS2",
       "title": "NIS2 pour les entreprises de logistique et de transport",
-      "subtitle": "Le transport est classé à l'annexe I de NIS2, couvrant le transport routier, ferroviaire, par voie navigable et aérien. Si votre entreprise de logistique compte 50 salariés ou plus, voici ce qu'exige le BSIG et par où commencer.",
+      "subtitle": "NIS2 couvre des types d'entités de transport précis à l'annexe I et les services postaux et de courrier à l'annexe II. Les transporteurs routiers, les commissionnaires de transport et les exploitants d'entrepôts n'en font pas partie. Voici qui est dans le champ, qui n'y est pas, et ce qui atteint les autres en tant que fournisseurs.",
       "why": {
-        "heading": "Pourquoi NIS2 s'applique-t-il aux entreprises de logistique ?",
-        "p1": "La logistique est l'épine dorsale de l'économie physique. Une cyberattaque qui arrête un grand prestataire logistique n'affecte pas qu'une seule entreprise : elle perturbe les chaînes d'approvisionnement de dizaines, voire de centaines de clients. L'attaque NotPetya de 2017 a coûté à Maersk plus de 300 millions d'euros à elle seule et a perturbé le transport maritime mondial pendant des semaines. L'UE a classé le transport à l'annexe I (secteurs hautement critiques) parce que les perturbations logistiques se propagent en cascade à travers toute l'économie.",
-        "p2": "NIS2 couvre tous les modes de transport : fret routier, transport ferroviaire, voies navigables intérieures, transport maritime et fret aérien. Les entreprises atteignant le seuil de taille (50 salariés ou plus, ou plus de 10 millions d'euros à la fois de chiffre d'affaires et de total du bilan) sont dans le champ. Les grandes entreprises (250 salariés ou plus) des secteurs de l'annexe I sont classées comme entités essentielles. Les entreprises moyennes (50 à 249 salariés) sont des entités importantes (wichtige Einrichtungen). Les deux sont soumises à l'ensemble des obligations NIS2.",
-        "p3": "Les entreprises de logistique modernes fonctionnent sur des systèmes informatiques interconnectés. Les systèmes de gestion du transport (TMS) orchestrent les expéditions. La gestion de flotte suit les véhicules en temps réel. Les systèmes de gestion d'entrepôt (WMS) pilotent les stocks et la préparation de commandes. Les unités télématiques des camions transmettent position, vitesse, température et données conducteur. Si l'un de ces systèmes tombe en panne, l'exploitation s'arrête ou devient dangereusement inefficace. NIS2 vous impose d'identifier ces dépendances et de gérer systématiquement les risques de cybersécurité."
+        "heading": "À quelles entreprises de logistique NIS2 s'applique-t-il ?",
+        "p1": "La logistique est l'épine dorsale de l'économie physique. Une cyberattaque qui arrête un grand prestataire logistique n'affecte pas qu'une seule entreprise : elle perturbe les chaînes d'approvisionnement de dizaines, voire de centaines de clients. L'UE classe le transport à l'annexe I (secteurs hautement critiques), mais seulement certains types d'entités qui s'y trouvent, pas la logistique dans son ensemble.",
+        "p2": "NIS2 ne couvre pas le transport en général. Il énumère des types d'entités précis : transporteurs aériens, aéroports et contrôle du trafic aérien ; gestionnaires d'infrastructure ferroviaire et entreprises ferroviaires ; compagnies de transport par voie navigable intérieure, maritime et côtier, exploitants de ports et services de trafic maritime ; autorités routières responsables de la gestion du trafic et exploitants de systèmes de transport intelligents (annexe I, secteur 2) ; et services postaux et de courrier (annexe II, secteur 1). Les entreprises de fret ferroviaire et de transport maritime sont donc dans le champ, le fret routier ne l'est pas. Une entreprise de transport routier, un commissionnaire de transport ou un exploitant d'entrepôt ne fait pas partie de ces types, et n'est donc pas dans le champ pour cette activité, quelle que soit sa taille. Elle peut tout de même recevoir des exigences NIS2 en tant que fournisseur : les clients qui sont dans le champ doivent gérer la sécurité de leurs fournisseurs directs (article 21(2)(d) NIS2, § 30 Abs. 2 Nr. 4 BSIG) et répercutent souvent les exigences par leurs contrats. Cela ne fait pas du fournisseur une entité. Pour les types énumérés, les entreprises atteignant le seuil de taille (50 salariés ou plus, ou chiffre d'affaires et total du bilan chacun supérieurs à 10 millions d'euros) sont dans le champ. Les grandes entreprises (250 salariés ou plus) d'un type de l'annexe I sont classées comme entités essentielles. Les entreprises moyennes (50 à 249 salariés) sont des entités importantes (wichtige Einrichtungen), et les services postaux et de courrier comptent comme entités importantes à toute taille supérieure au seuil. Les deux sont soumises à l'ensemble des obligations NIS2.",
+        "p3": "Les entreprises de logistique modernes fonctionnent sur des systèmes informatiques interconnectés. Les systèmes de gestion du transport (TMS) orchestrent les expéditions. La gestion de flotte suit les véhicules en temps réel. Les systèmes de gestion d'entrepôt (WMS) pilotent les stocks et la préparation de commandes. Les unités télématiques des camions transmettent position, vitesse, température et données conducteur. Si l'un de ces systèmes tombe en panne, l'exploitation s'arrête ou devient dangereusement inefficace. Si votre entreprise fait partie des types d'entités énumérés, NIS2 vous impose d'identifier ces dépendances et de gérer systématiquement les risques de cybersécurité."
       },
       "assets": {
         "heading": "À quoi ressemble l'inventaire des actifs d'une entreprise de logistique ?",
-        "description": "Pour une entreprise de logistique de 100 à 250 salariés, attendez-vous à 10 à 18 entrées d'actifs regroupées réparties sur six catégories. Le mélange exact dépend de l'exploitation routière, ferroviaire, d'entrepôt ou multimodale.",
+        "description": "L'inventaire des actifs d'une entreprise de logistique regroupe ses systèmes en six catégories. Le mélange exact dépend de l'exploitation routière, ferroviaire, d'entrepôt ou multimodale.",
         "items": {
           "tms": {
             "title": "Système de gestion du transport (TMS)",
@@ -5427,11 +5437,11 @@
       },
       "priorities": {
         "heading": "Par où commencer - Ordre de priorité pour les entreprises de logistique",
-        "description": "Concentrez-vous d'abord sur les domaines qui créent le plus de valeur de conformité. Les entreprises de logistique ont intérêt à commencer par les systèmes qui pilotent directement l'exploitation.",
+        "description": "Si votre entreprise fait partie des types d'entités énumérés, concentrez-vous d'abord sur les domaines qui créent le plus de valeur de conformité. Les entreprises de logistique ont intérêt à commencer par les systèmes qui pilotent directement l'exploitation.",
         "items": {
           "registration": {
             "title": "1. S'enregistrer auprès du BSI",
-            "description": "Effectuez votre enregistrement au titre de l'article 33 BSIG. Le transport est un secteur de l'annexe I, de sorte que les grandes entreprises font l'objet d'une supervision proactive du BSI. L'enregistrement prend 30 à 60 minutes via muk.bsi.bund.de. Si le délai est dépassé, enregistrez-vous immédiatement : la sanction pour défaut d'enregistrement atteint 500 000 euros."
+            "description": "Effectuez votre enregistrement au titre de l'article 33 BSIG si votre entreprise fait partie des types d'entités énumérés. Le transport est un secteur de l'annexe I, de sorte que les grandes entreprises d'un type énuméré font l'objet d'une supervision proactive du BSI. Enregistrez-vous sur le BSI-Portal (portal.bsi.bund.de). Vous vous connectez avec un certificat d'organisation ELSTER de « Mein Unternehmenskonto » (MUK). L'enregistrement est une obligation à part entière, avec un délai de trois mois à compter du moment où vous comptez pour la première fois comme une entité (§ 33(1) BSIG)."
           },
           "assets": {
             "title": "2. Constituer votre inventaire des actifs",
@@ -5455,25 +5465,25 @@
         "heading": "Ce qui distingue les entreprises de logistique",
         "p1": "Les entreprises de logistique exploitent l'un des environnements informatiques les plus distribués de tous les secteurs. Les actifs ne sont pas dans un seul bâtiment : ils sont répartis entre bureaux, entrepôts, centres de distribution et des centaines de véhicules sur la route. Chaque camion équipé d'une unité télématique est un terminal connecté. Chaque scanner d'entrepôt est un appareil sur votre réseau. Cette empreinte distribuée rend la sécurité périmétrique traditionnelle moins efficace et accroît l'importance de la gestion des appareils, de la segmentation du réseau et des contrôles d'accès fondés sur l'identité.",
         "p2": "La sensibilité au temps de la logistique crée un défi unique pour la réponse aux incidents. Dans une entreprise manufacturière, vous pourriez tolérer une panne de système de 24 heures. En logistique, 4 heures d'indisponibilité du TMS signifient des fenêtres de livraison manquées, des pénalités contractuelles et des retards en cascade. Votre plan de réponse aux incidents doit tenir compte de cela : quelles procédures de repli manuel existent ? Les répartiteurs peuvent-ils router les expéditions par téléphone ? L'exploitation de l'entrepôt peut-elle continuer avec une préparation de commandes sur papier ? Ces questions de continuité d'activité sont aussi importantes que le plan technique de reprise.",
-        "p3": "Les entreprises de logistique sont aussi profondément intégrées aux systèmes de leurs clients et de leurs transporteurs via l'EDI (échange de données informatisé), des connexions API et des plateformes partagées. Une violation de sécurité dans votre entreprise peut se propager aux clients par ces connexions, et inversement. Votre évaluation de la sécurité de la chaîne d'approvisionnement devrait couvrir non seulement vos fournisseurs informatiques mais aussi les connexions électroniques avec vos partenaires commerciaux. Sécuriser ces interfaces (authentification correcte, transmission chiffrée, validation des entrées) est à la fois une exigence NIS2 et une mesure de protection de l'entreprise."
+        "p3": "Les entreprises de logistique sont aussi profondément intégrées aux systèmes de leurs clients et de leurs transporteurs via l'EDI (échange de données informatisé), des connexions API et des plateformes partagées. Une violation de sécurité dans votre entreprise peut se propager aux clients par ces connexions, et inversement. Votre évaluation de la sécurité de la chaîne d'approvisionnement devrait couvrir non seulement vos fournisseurs informatiques mais aussi les connexions électroniques avec vos partenaires commerciaux. Sécuriser ces interfaces (authentification correcte, transmission chiffrée, validation des entrées) est une exigence NIS2 pour les entreprises dans le champ et une mesure de protection de l'entreprise pour toutes."
       },
       "faq": {
         "heading": "Questions fréquentes",
         "q1": {
           "q": "Nous sommes une entreprise de fret routier avec 80 camions. Sommes-nous essentielle ou importante ?",
-          "a": "Le transport routier relève de l'annexe I (secteurs hautement critiques). Si votre entreprise compte 250 salariés ou plus, vous êtes une entité essentielle soumise à une supervision proactive du BSI. Avec 50 à 249 salariés, vous êtes une entité importante soumise à une supervision réactive. Avec 80 camions, vous comptez probablement 100 à 150 salariés (conducteurs, répartiteurs, entrepôt, bureau). Vérifiez votre effectif total par rapport au seuil : l'ensemble des obligations NIS2 s'applique dans les deux cas."
+          "a": "Probablement aucune des deux. Le transport routier de marchandises n'est pas un type d'entité au sens de NIS2 ou du BSIG : dans le transport routier, l'annexe I ne couvre que les autorités routières responsables de la gestion du trafic et les exploitants de systèmes de transport intelligents. Vérifiez si vous fournissez aussi des services postaux ou de courrier (annexe II) ou exploitez un système de transport intelligent. Si ce n'est pas le cas, le nombre de camions ou de salariés n'a pas d'importance. Les clients qui sont dans le champ peuvent tout de même vous répercuter des exigences de sécurité par leurs contrats, car ils doivent gérer la sécurité de leurs fournisseurs directs (article 21(2)(d) NIS2). Cela ne fait pas de vous une entité."
         },
         "q2": {
           "q": "Nos unités télématiques de camion sont-elles considérées comme des « actifs » au titre de NIS2 ?",
-          "a": "Oui. Tout système qui soutient vos services de transport critiques est un actif. Les unités télématiques transmettent en temps réel la localisation, la vitesse, la température (pour le transport frigorifique) et les données d'heures de conduite. Ce sont des appareils connectés sur votre réseau. Regroupez-les en une entrée d'actif : par exemple, « 80 unités télématiques Webfleet » plutôt que 80 entrées distinctes. Les risques clés sont : l'accès non autorisé aux données de suivi des véhicules, la manipulation des enregistrements du tachygraphe et l'usage potentiel comme point d'entrée réseau."
+          "a": "Si votre entreprise fait partie des types d'entités énumérés, oui. Tout système qui soutient vos services de transport critiques est un actif. Les unités télématiques transmettent en temps réel la localisation, la vitesse, la température (pour le transport frigorifique) et les données d'heures de conduite. Ce sont des appareils connectés sur votre réseau. Regroupez-les en une entrée d'actif : par exemple, « 80 unités télématiques Webfleet » plutôt que 80 entrées distinctes. Les risques clés sont : l'accès non autorisé aux données de suivi des véhicules, la manipulation des enregistrements du tachygraphe et l'usage potentiel comme point d'entrée réseau."
         },
         "q3": {
           "q": "Nous utilisons un TMS dans le cloud. Est-ce notre problème ou celui du fournisseur ?",
-          "a": "Les deux, mais l'obligation légale vous incombe. Au titre de l'article 30 BSIG, vous pouvez externaliser l'exploitation mais pas la responsabilité. Votre fournisseur de TMS cloud est un fournisseur critique au sens de l'article 30(2)(4). Vous devez : documenter le fournisseur dans votre évaluation de la sécurité de la chaîne d'approvisionnement, inclure des exigences de cybersécurité dans le contrat, vérifier que le fournisseur dispose de mesures de sécurité adéquates (certifications, rapports d'audit, engagements de notification d'incident), et disposer d'un plan de contingence si le fournisseur subit une violation ou une panne."
+          "a": "Les deux, mais si votre entreprise est dans le champ, l'obligation légale vous incombe. Au titre de l'article 30 BSIG, vous pouvez externaliser l'exploitation mais pas la responsabilité. Votre fournisseur de TMS cloud est un fournisseur critique au sens de l'article 30(2)(4). Vous devez : documenter le fournisseur dans votre évaluation de la sécurité de la chaîne d'approvisionnement, inclure des exigences de cybersécurité dans le contrat, vérifier que le fournisseur dispose de mesures de sécurité adéquates (certifications, rapports d'audit, engagements de notification d'incident), et disposer d'un plan de contingence si le fournisseur subit une violation ou une panne."
         },
         "q4": {
-          "q": "Quel est le rapport entre NIS2, l'EU Mobility Data Act et les réglementations sur le tachygraphe numérique ?",
-          "a": "NIS2, le Mobility Data Act et les réglementations sur le tachygraphe (UE 165/2014) sont des cadres juridiques distincts qui se recoupent sur la sécurité des données. Les réglementations sur le tachygraphe imposent un enregistrement inviolable des données conducteur. Le Mobility Data Act traite des obligations de partage de données. NIS2 ajoute la couche de gestion de la cybersécurité : sécuriser les systèmes informatiques qui traitent et transmettent ces données. La conformité à NIS2 renforce votre position sur les trois, car un environnement informatique bien sécurisé protège l'intégrité des données réglementées."
+          "q": "Quel est le rapport entre NIS2 et les règles sur le tachygraphe numérique ?",
+          "a": "NIS2 et les règles sur le tachygraphe (règlement (UE) n° 165/2014) sont des textes distincts qui se recoupent sur la sécurité des données. Les règles sur le tachygraphe imposent un enregistrement inviolable des données conducteur. Pour les entités dans le champ, NIS2 ajoute la couche de gestion de la cybersécurité : sécuriser les systèmes informatiques qui traitent et transmettent ces données. La conformité à NIS2 renforce votre position sur les deux, car un environnement informatique bien sécurisé protège l'intégrité des données réglementées."
         }
       },
       "ctaCard": {
@@ -9455,7 +9465,7 @@
           "transposition": {
             "country": "Autres États membres",
             "label": "Lois nationales de transposition",
-            "body": "L'annexe I secteur 5 lie les prestataires de soins de santé dans toute l'UE. NL le couvre par la Cyberbeveiligingswet ; FR par l'Ordonnance n° 2024-1093 ; AT par le NISG. Le test sectoriel est le même. Le test de taille est le même. Les canaux de notification et les autorités compétentes diffèrent."
+            "body": "L'annexe I secteur 5 lie les prestataires de soins de santé dans toute l'UE. NL le couvre par la Cyberbeveiligingswet et AT par le NISG ; en FR, la transposition est encore un projet de loi devant le Parlement. Le test sectoriel est le même. Le test de taille est le même. Les canaux de notification et les autorités compétentes diffèrent."
           }
         }
       },
@@ -11887,7 +11897,7 @@
           "transposition": {
             "country": "Autres États membres",
             "label": "Lois nationales de transposition",
-            "body": "L'article 2, paragraphe 2, point f), lie l'administration publique dans toute l'UE. Les Pays-Bas le couvrent par la Cyberbeveiligingswet, la France par l'ordonnance n° 2024-1093, l'Autriche par le NISG. La règle indépendante de la taille de la directive est la même partout. Chaque État membre décide de ce qui compte comme central et quelles entités régionales franchissent l'évaluation fondée sur les risques."
+            "body": "L'article 2, paragraphe 2, point f), lie l'administration publique dans toute l'UE. Les Pays-Bas le couvrent par la Cyberbeveiligingswet et l'Autriche par le NISG ; en France, la transposition est encore un projet de loi devant le Parlement. La règle indépendante de la taille de la directive est la même partout. Chaque État membre décide de ce qui compte comme central et quelles entités régionales franchissent l'évaluation fondée sur les risques."
           }
         }
       },
@@ -12023,7 +12033,7 @@
           "memberStates": {
             "country": "Autres États membres",
             "label": "Lois nationales de transposition",
-            "body": "eIDAS est un règlement, de sorte que les règles relatives aux services de confiance sont uniformes dans toute l'UE. NIS2 est une directive, de sorte que chaque État membre la transpose : les Pays-Bas via la Cyberbeveiligingswet, l'Autriche via la NISG, la France via l'ordonnance 2024-1093. L'annexe I secteur 8 et la règle d'indépendance de la taille de l'article 2(2)(b) sont identiques dans toutes ces transpositions. L'autorité compétente pour le volet NIS2 diffère d'un pays à l'autre."
+            "body": "eIDAS est un règlement, de sorte que les règles relatives aux services de confiance sont uniformes dans toute l'UE. NIS2 est une directive, de sorte que chaque État membre la transpose : les Pays-Bas via la Cyberbeveiligingswet, l'Autriche via la NISG, tandis qu'en France la transposition est encore un projet de loi devant le Parlement. L'annexe I secteur 8 et la règle d'indépendance de la taille de l'article 2(2)(b) sont identiques dans toutes ces transpositions. L'autorité compétente pour le volet NIS2 diffère d'un pays à l'autre."
           }
         }
       },
@@ -15284,12 +15294,12 @@
         "description": "Comment les Pays-Bas transposent la directive NIS 2 en droit national : la Cyberbeveiligingswet (Cbw), le rôle de surveillance de la RDI, le NCSC-NL en tant que CSIRT national, et les modalités d'enregistrement des entités néerlandaises."
       },
       "title": "Statut NIS 2 aux Pays-Bas",
-      "subtitle": "Les Pays-Bas transposent la directive NIS 2 de l'UE par la Cyberbeveiligingswet (Cbw). Le processus législatif a pris du retard ; les entités néerlandaises devraient donc suivre dès maintenant à la fois le socle de l'UE et le texte de la Cbw actuellement devant la Tweede Kamer.",
+      "subtitle": "Les Pays-Bas ont transposé la directive NIS 2 de l'UE par la Cyberbeveiligingswet (Cbw). La loi est arrivée tard et s'applique depuis le 15 août 2026, sans période transitoire.",
       "overview": {
         "heading": "Vue d'ensemble",
-        "p1": "Le fondement juridique est la directive NIS 2 de l'UE (2022/2555). Elle fixe le socle des obligations de cybersécurité dans chaque État membre. Les Pays-Bas inscrivent ce socle en droit national par la Cyberbeveiligingswet (Cbw), qui remplace l'ancienne Wbni (Wet beveiliging netwerk- en informatiesystemen) ayant mis en œuvre NIS 1.",
-        "p2": "Le délai de transposition de l'UE du 17 octobre 2024 a été manqué par les Pays-Bas et par la plupart des États membres, dont l'Allemagne. Le projet de loi néerlandais a fait l'objet d'une consultation publique en 2024, a été soumis à la Tweede Kamer en 2025 et devrait entrer en vigueur courant 2026. La Commission a ouvert une procédure d'infraction contre les États membres en retard.",
-        "p3": "Une fois la Cbw entrée en vigueur, les obligations s'appliquent sans période transitoire, à l'image de la manière dont l'Allemagne a traité le BSIG. Deux ancrages pratiques tiennent aujourd'hui : la directive de l'UE elle-même, et le projet néerlandais publié. Utilisez les deux pour cadrer le travail."
+        "p1": "Le fondement juridique est la directive NIS 2 de l'UE (2022/2555). Elle fixe le socle des obligations de cybersécurité dans chaque État membre. Les Pays-Bas ont inscrit ce socle en droit national par la Cyberbeveiligingswet (Cbw), qui a remplacé l'ancienne Wbni (Wet beveiliging netwerk- en informatiesystemen) ayant mis en œuvre NIS 1.",
+        "p2": "Le délai de transposition de l'UE du 17 octobre 2024 a été manqué par les Pays-Bas et par la plupart des États membres, dont l'Allemagne. Le projet de loi néerlandais a fait l'objet d'une consultation publique en 2024, a été soumis à la Tweede Kamer en juin 2025 et a été adopté sous la forme de la loi du 8 juillet 2026 (Staatsblad 2026, 187). La Commission a saisi la Cour de justice de l'UE contre les Pays-Bas le 8 juillet 2026, un mois avant l'entrée en vigueur de la Cbw le 15 août 2026.",
+        "p3": "La Cbw et son décret d'application, le Cyberbeveiligingsbesluit (Staatsblad 2026, 189), sont entrés en vigueur le 15 août 2026 sans période transitoire, à l'image de la manière dont l'Allemagne a traité le BSIG. La Cbw adoptée, avec la directive de l'UE, est désormais la référence pour cadrer le travail."
       },
       "legalAnchor": {
         "heading": "Ancrage juridique",
@@ -15302,12 +15312,12 @@
         "regulation": {
           "label": "Règlement d'exécution de l'UE",
           "quote": "Règlement d'exécution (UE) 2024/2690 de la Commission du 17 octobre 2024 (CIR).",
-          "context": "Précise en détail à quoi ressemblent les mesures de l'Art. 21 pour l'infrastructure numérique, le DNS, le cloud, les centres de données, la diffusion de contenu, les prestataires de services managés et les places de marché en ligne. Directement applicable aux Pays-Bas sans acte national supplémentaire."
+          "context": "Précise en détail à quoi ressemblent les mesures de l'Art. 21 pour les fournisseurs de services DNS, les registres de noms de domaine de premier niveau, les fournisseurs de cloud, de centres de données et de réseaux de diffusion de contenu, les prestataires de services (de sécurité) managés, les places de marché en ligne, les moteurs de recherche, les réseaux sociaux et les prestataires de services de confiance. Directement applicable aux Pays-Bas sans acte national supplémentaire."
         },
         "transposition": {
           "label": "Transposition néerlandaise",
-          "quote": "Cyberbeveiligingswet (Cbw), projet de loi du gouvernement néerlandais actuellement devant le parlement ; l'ancienne Wbni reste en vigueur jusqu'à l'entrée en application de la Cbw.",
-          "context": "La Cbw attribue les rôles de surveillance et de CSIRT, définit les entités essentielles et importantes pour les Pays-Bas, et ajoute des spécificités nationales telles que les redevances, les procédures de désignation et les passations sectorielles. Les articles cités sur cette page renvoient au projet de consultation publié et peuvent changer avant adoption."
+          "quote": "Cyberbeveiligingswet (Cbw), loi du 8 juillet 2026 (Staatsblad 2026, 187), en vigueur depuis le 15 août 2026 ; elle a remplacé la Wbni.",
+          "context": "La Cbw attribue les rôles de surveillance et de CSIRT, définit les entités essentielles et importantes pour les Pays-Bas, et ajoute des spécificités nationales telles que les redevances, les procédures de désignation et les passations sectorielles. Son décret d'application, le Cyberbeveiligingsbesluit (Staatsblad 2026, 189), est entré en vigueur avec elle le 15 août 2026."
         }
       },
       "elements": {
@@ -15317,17 +15327,17 @@
           "law": {
             "section": "Loi",
             "title": "Cyberbeveiligingswet (Cbw)",
-            "body": "Transpose les articles 1 à 41 de NIS 2 en droit néerlandais. Définit les entités essentielles (essentiële) et importantes (belangrijke), fixe les pouvoirs de surveillance, les amendes et les procédures de notification des incidents, et intègre le CIR de l'UE par renvoi."
+            "body": "Transpose NIS 2 en droit néerlandais et s'applique depuis le 15 août 2026. Définit les entités essentielles (essentiële) et importantes (belangrijke), fixe les pouvoirs de surveillance, les amendes et les procédures de notification des incidents, et intègre le CIR de l'UE par renvoi."
           },
           "authority": {
             "section": "Autorité",
             "title": "RDI, régulateurs sectoriels, NCSC-NL",
-            "body": "La Rijksinspectie Digitale Infrastructuur (RDI) est l'autorité de surveillance principale pour de nombreux secteurs, dont l'infrastructure numérique et la plupart des fournisseurs de services numériques. Les régulateurs sectoriels conservent leur domaine (par exemple la DNB pour la banque, l'AFM pour les marchés financiers, l'ACM pour les télécommunications). Le NCSC-NL est le CSIRT national."
+            "body": "La surveillance est répartie par secteur : la Rijksinspectie Digitale Infrastructuur (RDI) pour l'infrastructure numérique, les fournisseurs numériques, la gestion des services TIC, l'énergie et l'administration ; l'ILT pour les transports, l'eau et les produits chimiques ; la DNB pour la banque ; l'AFM pour les infrastructures de marché financier ; la NVWA pour l'alimentation. Le NCSC est le CSIRT pour la plupart des secteurs."
           },
           "deadlines": {
             "section": "Échéances",
             "title": "Délai de l'UE manqué, enregistrement via le portail néerlandais",
-            "body": "Le délai de l'UE du 17 octobre 2024 est passé sans transposition néerlandaise. Une fois la Cbw entrée en vigueur, les entités doivent s'enregistrer auprès de l'autorité compétente et notifier les incidents importants dans les 24 heures (alerte précoce) et 72 heures (notification complète), conformément à l'Art. 23 NIS 2."
+            "body": "Le délai de l'UE du 17 octobre 2024 est passé sans transposition néerlandaise. Depuis le 15 août 2026, les entités dans le périmètre doivent s'enregistrer dans le registre national des entités sur MijnNCSC (mijn.ncsc.nl), en se connectant avec eHerkenning, et signaler les changements sans délai et dans un délai de deux semaines. Les incidents importants sont notifiés au CSIRT et à l'autorité de surveillance dans les 24 heures (alerte précoce) et 72 heures (notification complète), conformément à l'Art. 23 NIS 2."
           }
         }
       },
@@ -15336,8 +15346,8 @@
         "description": "Deux règles qui lèvent presque tous les doutes sur l'articulation entre obligations néerlandaises et obligations de l'UE.",
         "items": {
           "lexLocalis": {
-            "title": "Le droit national s'applique là où vous opérez",
-            "body": "Une entité fournissant des services aux Pays-Bas est soumise au droit néerlandais pour ces activités, même si son siège se trouve ailleurs. La règle de l'établissement principal de l'Art. 26 NIS 2 détermine quel État membre exerce la surveillance principale, mais l'activité locale déclenche tout de même la notification là où l'incident survient."
+            "title": "Le droit national suit votre lieu d'établissement",
+            "body": "Une entité relève du pays où elle est établie. Seuls certains fournisseurs numériques (cloud, centres de données, prestataires de services managés, places de marché en ligne et similaires) relèvent du pays de leur établissement principal dans l'UE, et les fournisseurs de télécommunications relèvent de chaque pays où ils fournissent des services (Art. 26(1) NIS 2)."
           },
           "euFloor": {
             "title": "La directive est le socle, jamais le plafond",
@@ -15352,17 +15362,17 @@
           "rdi": {
             "country": "NL",
             "label": "Rijksinspectie Digitale Infrastructuur (RDI)",
-            "body": "Autorité compétente principale pour de nombreux secteurs NIS 2 aux Pays-Bas, dont l'infrastructure numérique, la gestion des services TIC, les fournisseurs numériques et plusieurs autres secteurs des Annexes I et II. Successeur de l'Agentschap Telecom ; relève du ministère des Affaires économiques."
+            "body": "L'autorité de surveillance pour l'infrastructure numérique, les fournisseurs numériques, la gestion des services TIC, l'énergie, l'espace, la poste, la fabrication et l'administration. L'autorité compétente en droit est le ministre responsable. Successeur de l'Agentschap Telecom ; relève du ministère des Affaires économiques."
           },
           "ncscNl": {
             "country": "NL",
             "label": "NCSC-NL (Nationaal Cyber Security Centrum)",
-            "body": "CSIRT national relevant du ministère de la Justice et de la Sécurité. Reçoit les notifications d'incidents au titre de l'Art. 23, diffuse des avis sectoriels et coordonne avec l'ENISA et les autres CSIRT nationaux. Le gouvernement néerlandais a annoncé un service national de cybersécurité consolidé, mais le NCSC-NL est aujourd'hui le CSIRT opérationnel."
+            "body": "CSIRT national relevant du ministère de la Justice et de la Sécurité. Reçoit les notifications d'incidents au titre de l'Art. 23, diffuse des avis sectoriels et coordonne avec l'ENISA et les autres CSIRT nationaux. Depuis le 1er janvier 2026, le Digital Trust Center fait partie du NCSC, qui est désormais le point de contact unique pour la résilience numérique et le CSIRT pour la plupart des secteurs de la Cbw. Il exploite le registre des entités sur MijnNCSC."
           },
           "enisa": {
             "country": "EU",
             "label": "ENISA",
-            "body": "Publie des orientations et des rapports techniques de mise en œuvre au niveau de l'UE. N'est pas un régulateur des entités néerlandaises, mais ses productions (comme la Technical Implementation Guidance et les correspondances avec ISO 27001) constituent la référence pratique pour étayer les mesures de l'Art. 21."
+            "body": "Publie des orientations et des rapports techniques de mise en œuvre au niveau de l'UE. N'est pas un régulateur des entités néerlandaises. Sa Technical Implementation Guidance sur le CIR (avec des correspondances avec ISO 27001) est rédigée pour les fournisseurs numériques que couvre le CIR ; les autres entités peuvent s'en servir comme référence."
           }
         }
       },
@@ -15376,18 +15386,18 @@
           },
           "noRegistry": {
             "myth": "Il n'existe pas encore d'obligation d'enregistrement néerlandaise, nous pouvons donc attendre.",
-            "reality": "L'Art. 3(4) NIS 2 impose à chaque État membre de tenir un registre et aux entités de fournir leurs données. Les Pays-Bas mettront en place un canal d'enregistrement via les autorités compétentes une fois la Cbw entrée en vigueur. La règle de mise à jour sous deux semaines de l'Art. 3(4) s'applique dans toute l'UE et lie les entités néerlandaises dès l'application de la loi."
+            "reality": "L'Art. 3(4) NIS 2 impose à chaque État membre de tenir un registre et aux entités de fournir leurs données. L'enregistrement est obligatoire aux Pays-Bas depuis le 15 août 2026, sans période de grâce : les entités dans le périmètre s'enregistrent dans le registre national des entités sur MijnNCSC, que tient le ministre de la Justice et de la Sécurité (Art. 43 Cbw). Les changements doivent être signalés sans délai et en tout état de cause dans les deux semaines suivant la date du changement (Art. 44(2) Cbw)."
           },
           "onlySector": {
             "myth": "Mon régulateur sectoriel gère tout, la RDI n'est pas pertinente.",
-            "reality": "Les régulateurs sectoriels conservent leur domaine de surveillance financier, télécom ou de santé. La RDI est le surveillant horizontal de cybersécurité pour plusieurs secteurs et le point de contact pour les questions de cybersécurité transsectorielles. Pour les entités financières couvertes par DORA, DORA agit comme lex specialis en matière de cybersécurité, mais l'enregistrement NIS 2 au titre de l'Art. 3(4) s'applique toujours."
+            "reality": "La surveillance au titre de la Cbw est répartie par secteur : la DNB pour la banque, l'AFM pour les infrastructures de marché financier, l'ILT pour les transports, l'eau et les produits chimiques, la NVWA pour l'alimentation, et la RDI pour l'infrastructure numérique, l'énergie, l'administration et plusieurs autres secteurs. Pour les entités financières couvertes par DORA, DORA agit comme lex specialis en matière de cybersécurité, mais l'enregistrement NIS 2 au titre de l'Art. 3(4) s'applique toujours."
           }
         }
       },
       "practitioner": {
         "heading": "Point de vue du praticien",
-        "p1": "La plupart des entités néerlandaises dans le périmètre savent déjà qu'elles le seront. La question n'est pas de savoir si NIS 2 s'impose, mais comment la loi néerlandaise les orientera. Suivez deux choses chaque semaine : l'état législatif de la Cbw devant la Tweede Kamer, et toute communication sectorielle de la RDI qui ancre un calendrier ou un cadrage.",
-        "p2": "Sur le plan opérationnel, les quatre devoirs constants tiennent aujourd'hui au niveau de l'UE : gouverner la sécurité avec une responsabilité de la direction (Art. 20), exécuter des mesures de gestion des risques (Art. 21), notifier les incidents importants dans le délai de 24 heures et de 72 heures (Art. 23), et se préparer à l'enregistrement (Art. 3(4)). Aucun de ces quatre devoirs n'exige que la loi néerlandaise soit en vigueur pour être utile."
+        "p1": "La plupart des entités néerlandaises dans le périmètre savaient déjà qu'elles le seraient. La Cbw s'applique depuis le 15 août 2026 sans période transitoire, donc deux choses comptent maintenant : l'enregistrement dans le registre des entités sur MijnNCSC, et toute communication de l'autorité de surveillance de votre secteur qui fixe le cadrage.",
+        "p2": "Sur le plan opérationnel, quatre devoirs constants s'appliquent au titre de la Cbw, qui transpose ces articles de l'UE : gouverner la sécurité avec une responsabilité de la direction (Art. 20), exécuter des mesures de gestion des risques (Art. 21), notifier les incidents importants dans le délai de 24 heures et de 72 heures (Art. 23), et s'enregistrer et tenir l'enregistrement à jour (Art. 3(4))."
       },
       "platform": {
         "heading": "Comment la plateforme aide",
@@ -15399,11 +15409,11 @@
         "items": [
           "Directive (UE) 2022/2555 (NIS 2): EUR-Lex, JO L 333, 27 décembre 2022",
           "Règlement d'exécution (UE) 2024/2690 de la Commission du 17 octobre 2024",
-          "Wetsvoorstel Cyberbeveiligingswet (Cbw), consultation et documentation de la Tweede Kamer, internetconsultatie.nl",
-          "Wbni: Wet beveiliging netwerk- en informatiesystemen (loi en vigueur, transposition de NIS 1)",
+          "Cyberbeveiligingswet (Cbw), loi du 8 juillet 2026, Staatsblad 2026, 187 ; Cyberbeveiligingsbesluit, Staatsblad 2026, 189",
+          "Wbni: Wet beveiliging netwerk- en informatiesystemen (transposition de NIS 1, remplacée par la Cbw le 15 août 2026)",
           "Rijksinspectie Digitale Infrastructuur (RDI), rdi.nl, informations de surveillance NIS 2",
           "NCSC-NL, ncsc.nl, notification d'incidents et orientations CSIRT",
-          "ENISA, NIS 2 Technical Implementation Guidance (v1.2, 2025)"
+          "ENISA, NIS 2 Technical Implementation Guidance, version 1.0, juin 2025 (tableau de correspondance version 1.2, septembre 2025)"
         ]
       },
       "ctaCard": {
@@ -15548,16 +15558,16 @@
     },
     "nis2StatusFrankreich": {
       "meta": {
-        "title": "Statut de NIS 2 en France: Ordonnance n° 2024-1093, ANSSI, MonEspaceNIS2",
-        "description": "Comment la France transpose la directive NIS 2 : Ordonnance n° 2024-1093 du 2 décembre 2024, l'ANSSI comme superviseur et CSIRT national, l'enregistrement MonEspaceNIS2, et comment les anciens régimes OIV et OSE se reportent."
+        "title": "Statut de NIS 2 en France: projet de loi de transposition, ANSSI, préenregistrement",
+        "description": "Où en est la France avec la directive NIS 2 : pas encore transposée, le projet de loi relatif à la résilience et à la cybersécurité devant l'Assemblée nationale, le renvoi de la France devant la Cour de justice par la Commission, l'ANSSI comme CSIRT national et future autorité de supervision, le préenregistrement volontaire, et comment les anciens régimes OIV et OSE se reportent."
       },
       "title": "Statut de NIS 2 en France",
       "subtitle": "Ce que la directive exige, comment la France la transpose, et où se situe l'ANSSI dans le tableau.",
       "overview": {
         "heading": "Vue d'ensemble",
         "p1": "La directive NIS 2 est la strate européenne. Elle lie chaque État membre, dont la France, avec un socle de cybersécurité unique pour les entités essentielles et importantes. La France doit inscrire ce socle dans le droit français et mettre en œuvre un régime de supervision en application de celui-ci.",
-        "p2": "La France transpose NIS 2 au moyen de l'Ordonnance n° 2024-1093 du 2 décembre 2024 et des décrets d'application qui la suivent. Le texte se superpose au régime OIV existant (Opérateurs d'Importance Vitale) et au régime OSE issu de NIS 1 (Opérateurs de Services Essentiels) plutôt que de les remplacer purement et simplement.",
-        "p3": "L'ANSSI (Agence nationale de la sécurité des systèmes d'information) est le superviseur et le CSIRT national. L'enregistrement passe par le portail MonEspaceNIS2. Les régulateurs sectoriels restent dans la boucle pour les secteurs qui en disposaient déjà, la finance en particulier, où DORA agit comme lex specialis."
+        "p2": "La France n'a pas encore transposé NIS 2. La transposition est un projet de loi du gouvernement, le projet de loi relatif à la résilience des infrastructures critiques et au renforcement de la cybersécurité, qui couvre NIS 2, la directive sur les entités critiques et DORA. Le Sénat l'a adopté le 12 mars 2025 et une commission spéciale de l'Assemblée nationale le 10 septembre 2025. Le débat en séance publique à l'Assemblée est prévu pour le 7 octobre 2026. La Commission a saisi la Cour de justice de l'UE le 8 juillet 2026 contre la France pour défaut de transposition de NIS 2 et a demandé des sanctions financières. Le projet se superpose au régime OIV existant (Opérateurs d'Importance Vitale) et au régime OSE issu de NIS 1 (Opérateurs de Services Essentiels) plutôt que de les remplacer purement et simplement.",
+        "p3": "L'ANSSI (Agence nationale de la sécurité des systèmes d'information) exploite le CSIRT national et est l'autorité nationale au titre du projet de loi. Elle propose un préenregistrement volontaire sur messervices.cyber.gouv.fr/nis2 (anciennement MonEspaceNIS2) ; l'enregistrement ne devient une obligation qu'une fois la loi adoptée. Les régulateurs sectoriels restent dans la boucle pour les secteurs qui en disposaient déjà, la finance en particulier, où DORA agit comme lex specialis."
       },
       "legalAnchor": {
         "heading": "Où résident les règles",
@@ -15573,9 +15583,9 @@
           "context": "Mesures techniques et méthodologiques pour les fournisseurs d'infrastructure numérique. Directement applicable en France sans transposition nationale."
         },
         "transposition": {
-          "label": "Transposition française",
-          "quote": "Ordonnance n° 2024-1093 du 2 décembre 2024",
-          "context": "La transposition française de NIS 2. Les décrets d'application et les orientations de l'ANSSI précisent le détail opérationnel. Le texte modifie le Code de la défense (articles L.1332-x pour les OIV) et l'étend au périmètre plus large de NIS 2."
+          "label": "Transposition française (projet de loi)",
+          "quote": "Projet de loi relatif à la résilience des infrastructures critiques et au renforcement de la cybersécurité",
+          "context": "Le projet de loi du gouvernement qui transposera NIS 2, avec la directive sur les entités critiques et DORA. Le Sénat l'a adopté le 12 mars 2025 ; le débat en séance publique de l'Assemblée nationale est prévu pour le 7 octobre 2026. Le titre I du projet réécrit les règles sur les opérateurs critiques dans le Code de la défense ; le titre II porte NIS 2 sous forme d'articles de la nouvelle loi, avec l'ANSSI comme autorité nationale. Les décrets d'application et les orientations de l'ANSSI préciseront le détail opérationnel."
         }
       },
       "elements": {
@@ -15584,18 +15594,18 @@
         "items": {
           "ordonnance": {
             "section": "Transposition",
-            "title": "Ordonnance n° 2024-1093",
-            "body": "Porte les obligations de NIS 2 en droit français. Définit la catégorie EEI (Entités essentielles importantes), les pouvoirs de supervision de l'ANSSI, les obligations de déclaration d'incidents et les sanctions. La plupart du détail opérationnel est délégué aux décrets d'application."
+            "title": "Le projet de loi résilience et cybersécurité",
+            "body": "Portera les obligations de NIS 2 en droit français une fois adopté ; ce n'est pas encore une loi. Le projet définit deux catégories, entités essentielles (EE) et entités importantes (EI), les pouvoirs de supervision de l'ANSSI, les obligations de déclaration d'incidents et les sanctions. La plupart du détail opérationnel est délégué aux décrets d'application."
           },
           "anssi": {
             "section": "Autorité",
             "title": "L'ANSSI comme superviseur et CSIRT",
-            "body": "L'ANSSI assure la supervision, les audits et les propositions de sanctions. Elle exploite également le CSIRT national et le portail MonEspaceNIS2. Les régulateurs sectoriels tels que l'ACPR pour la finance conservent leur propre compétence là où la lex specialis s'applique."
+            "body": "Au titre du projet de loi, l'ANSSI assure la supervision et les audits et défère les manquements à une commission des sanctions, qui prononce les amendes. Elle exploite également le CSIRT national et le préenregistrement volontaire sur messervices.cyber.gouv.fr/nis2 (anciennement MonEspaceNIS2). Les régulateurs sectoriels tels que l'ACPR pour la finance conservent leur propre compétence là où la lex specialis s'applique."
           },
           "deadlines": {
             "section": "Échéances",
             "title": "Enregistrement et déclaration",
-            "body": "La directive imposait que les entités soient identifiables par les États membres à compter du 17 avril 2025. En France, cela passe par MonEspaceNIS2. Les incidents importants suivent la cadence de la directive : alerte précoce à 24 h, notification à 72 h et rapport final à un mois."
+            "body": "La directive imposait que les entités soient identifiables par les États membres à compter du 17 avril 2025. La France n'a pas encore d'obligation d'enregistrement : l'ANSSI propose un préenregistrement volontaire sur messervices.cyber.gouv.fr/nis2 (anciennement MonEspaceNIS2), et l'enregistrement ne devient une obligation qu'une fois la loi adoptée. Une fois la loi applicable, les incidents importants suivent la cadence de la directive : alerte précoce à 24 h, notification à 72 h et rapport final à un mois."
           }
         }
       },
@@ -15605,7 +15615,7 @@
         "items": {
           "lexLocalis": {
             "title": "Le droit local s'applique à l'intérieur de la France",
-            "body": "Les opérations sur le territoire français suivent la transposition française. Un Geschäftsführer allemand dirigeant une filiale française lit l'Ordonnance n° 2024-1093 pour cette filiale, et non le BSIG allemand. Les obligations de la directive sont les mêmes ; la procédure, le portail et les sanctions résident dans le droit français."
+            "body": "Les entités établies en France suivront la transposition française une fois adoptée. Un Geschäftsführer allemand dirigeant une filiale française lira la loi française pour cette filiale, et non le BSIG allemand. Les obligations de la directive sont les mêmes ; la procédure, le portail et les sanctions relèveront du droit français."
           },
           "euFloor": {
             "title": "La France ne peut pas descendre sous le socle de l'UE",
@@ -15620,7 +15630,7 @@
           "anssi": {
             "country": "FR",
             "label": "ANSSI",
-            "body": "Autorité compétente principale, superviseur et CSIRT national. Exploite MonEspaceNIS2, publie des orientations, mène des audits et propose des sanctions au Premier ministre. Détient la doctrine OIV historique qui alimente désormais la supervision NIS 2."
+            "body": "CSIRT national et autorité nationale au titre du projet de loi. Exploite le préenregistrement volontaire NIS 2 sur messervices.cyber.gouv.fr/nis2 (anciennement MonEspaceNIS2), publie des orientations et mène des audits. Au titre du projet de loi, l'ANSSI assure la supervision et défère les manquements à une commission des sanctions, qui prononce des amendes pouvant atteindre 10 millions d'euros ou 2 % du chiffre d'affaires mondial pour les entités essentielles et 7 millions d'euros ou 1,4 % pour les entités importantes. Détient la doctrine OIV historique qui alimentera la supervision NIS 2."
           },
           "cnil": {
             "country": "FR",
@@ -15640,7 +15650,7 @@
         "items": {
           "oivCoversAll": {
             "myth": "Nous sommes déjà OIV, donc NIS 2 est géré.",
-            "reality": "Les classifications OIV et OSE au titre du Code de la défense existant et du cadre NIS 1 ne se reportent pas automatiquement en tant qu'EEI au titre de NIS 2. Le périmètre est différent, les seuils sectoriels sont différents, et les entités doivent vérifier leur statut au regard des nouveaux critères. De nombreux OIV sont aussi des entités essentielles au titre de NIS 2, mais l'ensemble des obligations et le canal de déclaration changent."
+            "reality": "Les classifications OIV et OSE au titre du Code de la défense existant et du cadre NIS 1 ne se reportent pas automatiquement en tant qu'entités essentielles ou importantes (EE ou EI) au titre de NIS 2. Le périmètre est différent, les seuils sectoriels sont différents, et les entités doivent vérifier leur statut au regard des nouveaux critères. De nombreux OIV sont aussi des entités essentielles au titre de NIS 2, mais l'ensemble des obligations et le canal de déclaration changent."
           },
           "onlyLargeFirms": {
             "myth": "NIS 2 en France ne s'applique qu'aux grands opérateurs.",
@@ -15648,18 +15658,18 @@
           },
           "frenchOnlyForms": {
             "myth": "MonEspaceNIS2 et l'ANSSI n'acceptent que le français.",
-            "reality": "Le portail et les orientations officielles sont en français d'abord, mais l'ANSSI accepte la déclaration technique et les pièces justificatives en anglais dans des cas définis, conformément à la coopération de l'UE. Les sociétés mères étrangères ne devraient pas présumer qu'elles ont besoin d'une traduction française complète de chaque politique interne pour s'enregistrer ou pour déposer une déclaration d'incident."
+            "reality": "Le portail et les orientations officielles sont en français d'abord. Les sociétés mères étrangères ne devraient pas présumer qu'elles ont besoin d'une traduction française complète de chaque politique interne pour s'enregistrer ou pour déposer une déclaration d'incident."
           }
         }
       },
       "practitioner": {
         "heading": "Point de vue du praticien",
-        "p1": "La plupart des opérateurs français équivalents au Mittelstand que nous voyons traitent encore NIS 2 comme une extension de l'ancien régime OIV / OSE. C'est à moitié exact. La supervision et le canal d'incident résident au sein de l'ANSSI comme auparavant, mais le champ d'application est plus large et la validation par l'organe de direction est plus lourde. L'équivalent du Geschäftsführer (président, directeur général, gérant) est personnellement engagé pour l'approbation de la gestion des risques et la formation.",
-        "p2": "La démarche pratique est la même que partout ailleurs dans l'UE : confirmer le champ d'application au titre de la directive, s'enregistrer via le portail national (ici MonEspaceNIS2), mettre en place les quatre obligations continues (tenue à jour de l'enregistrement, déclaration d'incidents, risque lié à la chaîne d'approvisionnement, supervision par l'organe de direction), et documenter le minimum. L'appareil OIV aide, mais il ne se substitue pas au registre des obligations NIS 2."
+        "p1": "La plupart des opérateurs français équivalents au Mittelstand que nous voyons traitent encore NIS 2 comme une extension de l'ancien régime OIV / OSE. C'est à moitié exact. Au titre du projet de loi, la supervision et le canal d'incident résident au sein de l'ANSSI comme auparavant, mais le champ d'application est plus large et la validation par l'organe de direction est plus lourde. Une fois la loi applicable, l'équivalent du Geschäftsführer (président, directeur général, gérant) est personnellement engagé pour l'approbation de la gestion des risques et la formation.",
+        "p2": "La démarche pratique est la même que partout ailleurs dans l'UE : confirmer le champ d'application au titre de la directive, se préenregistrer volontairement auprès de l'ANSSI (messervices.cyber.gouv.fr/nis2, anciennement MonEspaceNIS2) et s'enregistrer une fois la loi adoptée, mettre en place les quatre obligations continues (tenue à jour de l'enregistrement, déclaration d'incidents, risque lié à la chaîne d'approvisionnement, supervision par l'organe de direction), et documenter le minimum. L'appareil OIV aide, mais il ne se substitue pas aux obligations NIS 2."
       },
       "platform": {
         "heading": "Comment la plateforme aide",
-        "p1": "Nous construisons le registre des obligations NIS 2 sur la strate européenne, et non sur une transposition nationale donnée. La même liste de contrôle vaut pour une filiale française utilisant l'Ordonnance n° 2024-1093, une société mère allemande utilisant le BSIG et une société sœur néerlandaise utilisant la Cyberbeveiligingswet. Les références d'articles changent selon la langue ; les obligations de fond, non.",
+        "p1": "Nous construisons le registre des obligations NIS 2 sur la strate européenne, et non sur une transposition nationale donnée. La même liste de contrôle vaut pour une filiale française sous la future loi française, une société mère allemande utilisant le BSIG et une société sœur néerlandaise utilisant la Cyberbeveiligingswet. Les références d'articles changent selon la langue ; les obligations de fond, non.",
         "p2": "Pour le champ d'application français, vous commencez par le test d'applicabilité, puis passez à la cadence de déclaration d'incidents, aux clauses de chaîne d'approvisionnement et à la validation par l'organe de direction. Là où l'ANSSI publie des orientations sectorielles, nous y renvoyons ; nous ne les dupliquons pas."
       },
       "sources": {
@@ -15667,10 +15677,10 @@
         "items": [
           "Directive (UE) 2022/2555 (NIS 2): EUR-Lex",
           "Règlement d'exécution (UE) 2024/2690 de la Commission",
-          "Ordonnance n° 2024-1093 du 2 décembre 2024: Légifrance",
+          "Projet de loi relatif à la résilience des infrastructures critiques et au renforcement de la cybersécurité: Assemblée nationale, dossier législatif",
           "Code de la défense, articles L.1332-1 et suivants (OIV): Légifrance",
           "ANSSI: Agence nationale de la sécurité des systèmes d'information, site officiel",
-          "MonEspaceNIS2: portail français d'enregistrement NIS 2 (ANSSI)",
+          "Préenregistrement NIS 2 de l'ANSSI: messervices.cyber.gouv.fr/nis2 (anciennement MonEspaceNIS2)",
           "ACPR / Banque de France: autorité compétente pour DORA dans le secteur financier"
         ]
       },
@@ -16193,7 +16203,7 @@
       },
       "platform": {
         "heading": "Comment la plateforme aide",
-        "p1": "Nous construisons le registre des obligations NIS 2 au niveau de l'UE, et non sur une transposition nationale unique. La même liste de contrôle fonctionne pour une filiale portugaise utilisant le Decreto-Lei n.º 125/2025, une maison mère allemande utilisant le BSIG et une société sœur française utilisant l'Ordonnance n° 2024-1093. Les références d'articles changent selon la langue ; les obligations matérielles, non.",
+        "p1": "Nous construisons le registre des obligations NIS 2 au niveau de l'UE, et non sur une transposition nationale unique. La même liste de contrôle fonctionne pour une filiale portugaise utilisant le Decreto-Lei n.º 125/2025 et une maison mère allemande utilisant le BSIG. Les références d'articles changent selon la langue ; les obligations matérielles, non.",
         "p2": "Pour le champ d'application portugais, vous commencez par la vérification d'applicabilité, puis vous passez à la cadence de notification d'incident, aux clauses de chaîne d'approvisionnement et à la validation de l'organe de direction. Là où le CNCS publie des orientations sectorielles, nous les référençons ; nous ne les dupliquons pas."
       },
       "sources": {
@@ -16598,7 +16608,7 @@
       },
       "platform": {
         "heading": "Comment la plateforme aide",
-        "p1": "Nous construisons le registre des obligations NIS 2 sur la couche de l'UE, et non sur une transposition nationale unique. La même liste de contrôle fonctionne pour une filiale tchèque appliquant la loi n° 264/2025 Sb., une société mère allemande appliquant le BSIG, et une société sœur française appliquant l'Ordonnance n° 2024-1093. Les références d'articles changent selon la langue ; les obligations de fond, non.",
+        "p1": "Nous construisons le registre des obligations NIS 2 sur la couche de l'UE, et non sur une transposition nationale unique. La même liste de contrôle fonctionne pour une filiale tchèque appliquant la loi n° 264/2025 Sb. et une société mère allemande appliquant le BSIG. Les références d'articles changent selon la langue ; les obligations de fond, non.",
         "p2": "Pour le périmètre tchèque, vous commencez par le test d'applicabilité, puis vous passez à la cadence de notification des incidents, aux clauses de chaîne d'approvisionnement et à la validation de l'organe de direction. Là où le NÚKIB publie des vyhlášky et des orientations sectorielles, nous les référençons ; nous ne les dupliquons pas."
       },
       "sources": {
@@ -17271,7 +17281,7 @@
       },
       "platform": {
         "heading": "Comment la plateforme aide",
-        "p1": "Nous construisons le registre d'obligations NIS 2 sur la couche de l'UE, et non sur une transposition nationale unique. La même liste de contrôle fonctionne pour une filiale italienne utilisant le Decreto Legislativo 138/2024, une maison mère allemande utilisant le BSIG, une société sœur française utilisant l'Ordonnance n° 2024-1093 et une néerlandaise utilisant la Cyberbeveiligingswet. Les références d'articles changent selon la langue ; les obligations de fond non.",
+        "p1": "Nous construisons le registre d'obligations NIS 2 sur la couche de l'UE, et non sur une transposition nationale unique. La même liste de contrôle fonctionne pour une filiale italienne utilisant le Decreto Legislativo 138/2024, une maison mère allemande utilisant le BSIG et une société sœur néerlandaise utilisant la Cyberbeveiligingswet. Les références d'articles changent selon la langue ; les obligations de fond non.",
         "p2": "Pour le périmètre italien, vous commencez par le test d'applicabilité, puis passez à la cadence de notification des incidents via le CSIRT Italia, aux clauses de chaîne d'approvisionnement et à l'approbation de l'organe de direction. Là où l'ACN publie des déterminations ou des annexes sectorielles, nous les référençons ; nous ne les dupliquons pas."
       },
       "sources": {
@@ -17295,15 +17305,15 @@
     "nis2StatusSpanien": {
       "meta": {
         "title": "Statut de NIS 2 en Espagne : projet de Ley de Coordinación y Gobernanza de la Ciberseguridad, CCN, INCIBE",
-        "description": "Comment l'Espagne transpose la directive NIS 2 : le projet de Ley de Coordinación y Gobernanza de la Ciberseguridad approuvé par le Conseil des ministres le 14 janvier 2025, le Centro Nacional de Ciberseguridad proposé, la répartition existante entre CCN-CERT et INCIBE-CERT, et la procédure d'infraction de l'UE."
+        "description": "Comment l'Espagne transpose la directive NIS 2 : le projet de Ley de Coordinación y Gobernanza de la Ciberseguridad approuvé par le Conseil des ministres le 14 janvier 2025, le Centro Nacional de Ciberseguridad proposé, la répartition existante entre CCN-CERT et INCIBE-CERT, et le renvoi de l'Espagne devant la Cour de justice de l'UE par la Commission."
       },
       "title": "Statut de NIS 2 en Espagne",
       "subtitle": "Ce qu'exige la directive, où en est la transposition espagnole, et comment CCN et INCIBE s'insèrent dans l'intervalle.",
       "overview": {
         "heading": "Vue d'ensemble",
         "p1": "La directive NIS 2 est le niveau de l'UE. Elle lie chaque État membre, dont l'Espagne, par un socle de cybersécurité unique pour les entités essentielles et importantes. L'Espagne doit inscrire ce socle dans le droit espagnol et mettre en place un régime de contrôle à son titre.",
-        "p2": "L'Espagne a manqué le délai de transposition du 17 octobre 2024 fixé à l'article 41 de NIS 2. Le Conseil des ministres a approuvé un Anteproyecto de Ley de Coordinación y Gobernanza de la Ciberseguridad le 14 janvier 2025, mais à la mi-2026 le projet de loi est encore en procédure législative et n'a pas été publié au Boletín Oficial del Estado.",
-        "p3": "Jusqu'à ce que le projet devienne loi, le précédent Real Decreto-ley 12/2018 (la transposition de NIS 1) continue de s'appliquer, et la supervision reste répartie entre le Centre cryptologique national (CCN) et l'Institut national de cybersécurité (INCIBE), avec des autorités sectorielles pour la finance et d'autres secteurs réglementés. La Commission européenne a envoyé un avis motivé le 7 mai 2025 au sujet de la transposition manquante."
+        "p2": "L'Espagne a manqué le délai de transposition du 17 octobre 2024 fixé à l'article 41 de NIS 2. Le Conseil des ministres a approuvé un Anteproyecto de Ley de Coordinación y Gobernanza de la Ciberseguridad le 14 janvier 2025. En mars 2026, le gouvernement a indiqué que le texte était encore en cours d'examen par les ministères en tant qu'Anteproyecto (un projet du gouvernement), et il n'a pas été publié au Boletín Oficial del Estado.",
+        "p3": "Jusqu'à ce que le projet devienne loi, le précédent Real Decreto-ley 12/2018 (la transposition de NIS 1) continue de s'appliquer. À ce titre, la supervision est répartie : le ministère de l'Intérieur (CNPIC) pour les opérateurs désignés comme critiques, le ministère compétent pour les autres opérateurs de services essentiels, le Secrétariat d'État à la numérisation pour les fournisseurs de services numériques, et le CCN pour le secteur public. INCIBE-CERT et CCN-CERT sont les équipes de réponse aux incidents, et non des autorités de supervision. La Commission a envoyé un avis motivé le 7 mai 2025 et, le 8 juillet 2026, a saisi la Cour de justice de l'UE contre l'Espagne, en demandant une somme forfaitaire et des astreintes journalières jusqu'à ce que l'Espagne notifie une transposition complète."
       },
       "legalAnchor": {
         "heading": "Où se trouvent les règles",
@@ -17321,7 +17331,7 @@
         "transposition": {
           "label": "Transposition espagnole (en cours)",
           "quote": "Anteproyecto de Ley de Coordinación y Gobernanza de la Ciberseguridad",
-          "context": "Approuvé par le Conseil des ministres le 14 janvier 2025. Le texte crée un Centro Nacional de Ciberseguridad rattaché à la Presidencia del Gobierno comme autorité nationale compétente unique proposée. Le projet de loi est encore en procédure législative ; jusqu'à son adoption, le précédent Real Decreto-ley 12/2018 (transposition de NIS 1) continue de s'appliquer."
+          "context": "Approuvé par le Conseil des ministres le 14 janvier 2025. Le projet crée un Centro Nacional de Ciberseguridad, rattaché à la Secretaría General de Presidencia del Gobierno, comme point de contact unique avec l'UE et autorité pour les crises de cybersécurité. La supervision relèverait de trois autorités de contrôle : le bureau de coordination de la cybersécurité du ministère de l'Intérieur, le Centre cryptologique national (Défense) et le Secrétariat d'État aux télécommunications et aux infrastructures numériques. En mars 2026, le texte était encore un Anteproyecto (un projet du gouvernement) et n'a pas été publié au BOE ; jusqu'à son adoption, le précédent Real Decreto-ley 12/2018 (transposition de NIS 1) continue de s'appliquer."
         }
       },
       "elements": {
@@ -17331,17 +17341,17 @@
           "law": {
             "section": "Transposition",
             "title": "Ley de Coordinación y Gobernanza de la Ciberseguridad (projet)",
-            "body": "Le projet inscrit les obligations de NIS 2 dans le droit espagnol, définit les entités essentielles et importantes, fixe les pouvoirs de contrôle, les obligations de signalement d'incident et les sanctions. Jusqu'à la publication de la loi au BOE, la directive elle-même est la référence opérante pour les entités exerçant en Espagne, aux côtés du Real Decreto-ley 12/2018 existant."
+            "body": "Le projet inscrit les obligations de NIS 2 dans le droit espagnol, définit les entités essentielles et importantes, fixe les pouvoirs de contrôle, les obligations de signalement d'incident et les sanctions. Jusqu'à la publication de la loi au BOE, la directive lie l'État espagnol, et non les entreprises espagnoles ; ce qui s'applique aux entreprises aujourd'hui est le Real Decreto-ley 12/2018, pour celles désignées à ce titre."
           },
           "authority": {
             "section": "Autorité",
-            "title": "Centro Nacional de Ciberseguridad proposé",
-            "body": "Le projet propose un Centro Nacional de Ciberseguridad rattaché à la Presidencia del Gobierno comme autorité nationale compétente unique et point de contact de l'UE. Dans l'intervalle, la supervision est répartie : CCN pour le secteur public et le champ de l'Esquema Nacional de Seguridad, INCIBE pour le secteur privé et les citoyens, avec des régulateurs sectoriels compétents dans leurs propres domaines."
+            "title": "Centro Nacional de Ciberseguridad proposé et autorités de contrôle",
+            "body": "Le projet crée un Centro Nacional de Ciberseguridad, rattaché à la Secretaría General de Presidencia del Gobierno, comme point de contact unique avec l'UE et autorité pour les crises de cybersécurité. La supervision relèverait de trois autorités de contrôle : le bureau de coordination de la cybersécurité du ministère de l'Intérieur, le Centre cryptologique national (Défense) et le Secrétariat d'État aux télécommunications et aux infrastructures numériques. Dans l'intervalle, le décret NIS 1 répartit la supervision entre le ministère de l'Intérieur (CNPIC) pour les opérateurs critiques, le ministère compétent pour les autres opérateurs de services essentiels, le Secrétariat d'État à la numérisation pour les fournisseurs de services numériques et le CCN pour le secteur public. INCIBE-CERT et CCN-CERT sont les équipes de réponse aux incidents, et non des autorités de supervision."
           },
           "deadlines": {
             "section": "Délais",
             "title": "Délai de l'article 41 manqué",
-            "body": "L'article 41 de NIS 2 a fixé le délai de transposition au 17 octobre 2024. L'Espagne n'a pas respecté ce délai. La Commission européenne a envoyé à l'Espagne un avis motivé le 7 mai 2025, qui constitue la deuxième étape formelle d'une procédure d'infraction avant le renvoi à la Cour de justice de l'UE."
+            "body": "L'article 41 de NIS 2 a fixé le délai de transposition au 17 octobre 2024. L'Espagne n'a pas respecté ce délai. La Commission a envoyé un avis motivé le 7 mai 2025 et, le 8 juillet 2026, a saisi la Cour de justice de l'UE contre l'Espagne, en demandant une somme forfaitaire et des astreintes journalières jusqu'à ce que l'Espagne notifie une transposition complète."
           }
         }
       },
@@ -17351,11 +17361,11 @@
         "items": {
           "lexLocalis": {
             "title": "Le droit local s'applique à l'intérieur de l'Espagne",
-            "body": "Les opérations sur le territoire espagnol suivront la transposition espagnole une fois celle-ci adoptée. Un Geschäftsführer allemand dirigeant une filiale espagnole lira l'éventuelle Ley de Coordinación y Gobernanza de la Ciberseguridad pour cette filiale, et non le BSIG allemand. Dans la période intermédiaire, le Real Decreto-ley 12/2018 plus la directive elle-même restent la référence."
+            "body": "Les entités établies en Espagne suivent la transposition espagnole une fois celle-ci adoptée. Un Geschäftsführer allemand dirigeant une filiale espagnole lira l'éventuelle Ley de Coordinación y Gobernanza de la Ciberseguridad pour cette filiale, et non le BSIG allemand. Dans la période intermédiaire, le Real Decreto-ley 12/2018 s'applique aux entreprises désignées à ce titre ; la directive lie l'État espagnol, et non la filiale."
           },
           "euFloor": {
             "title": "L'Espagne ne peut pas descendre sous le socle de l'UE",
-            "body": "La directive est un instrument d'harmonisation minimale. Le fait que la transposition espagnole soit retardée n'abaisse pas le socle. Les obligations des entités essentielles et importantes, les délais de signalement d'incident et la responsabilité de l'organe de direction restent ancrés dans la directive et dans la jurisprudence de l'UE sur l'effet direct des directives non transposées."
+            "body": "La directive est un instrument d'harmonisation minimale. Le fait que la transposition espagnole soit retardée n'abaisse pas le socle : une fois adoptée, la loi espagnole devra porter au moins les obligations des entités essentielles et importantes, les délais de signalement d'incident et la responsabilité de l'organe de direction prévus par la directive. D'ici là, la directive lie l'État espagnol, et non les entreprises espagnoles : la jurisprudence de l'UE est claire, une directive ne peut pas, à elle seule, imposer d'obligations à une entreprise."
           }
         }
       },
@@ -17366,17 +17376,17 @@
           "incibe": {
             "country": "ES",
             "label": "INCIBE et INCIBE-CERT",
-            "body": "L'Instituto Nacional de Ciberseguridad, rattaché au ministère de la Transformation numérique. INCIBE-CERT est le centre de réponse aux incidents de référence pour les citoyens et les entités de droit privé. Pour les incidents affectant les opérateurs critiques du secteur privé, il est exploité conjointement avec le bureau de coordination de la cybersécurité du ministère de l'Intérieur."
+            "body": "L'Instituto Nacional de Ciberseguridad, rattaché au ministère de la Transformation numérique. INCIBE-CERT est le centre de réponse aux incidents de référence pour les citoyens et les entités de droit privé. Pour les incidents affectant les opérateurs critiques, INCIBE-CERT est exploité conjointement par l'INCIBE et le CNPIC du ministère de l'Intérieur."
           },
           "ccn": {
             "country": "ES",
             "label": "CCN et CCN-CERT",
-            "body": "Le Centro Criptológico Nacional, rattaché au Centro Nacional de Inteligencia (CNI). CCN-CERT est le CERT gouvernemental pour le secteur public, créé en 2006 au titre de la Ley 11/2002, du Real Decreto 421/2004 et du Real Decreto 311/2022, qui réglemente l'Esquema Nacional de Seguridad (ENS)."
+            "body": "Le Centro Criptológico Nacional, rattaché au Centro Nacional de Inteligencia (CNI). CCN-CERT, créé en 2006, est le CERT gouvernemental pour le secteur public. Le CCN est régi par la Ley 11/2002 et le Real Decreto 421/2004 ; le Real Decreto 311/2022 réglemente l'Esquema Nacional de Seguridad (ENS)."
           },
           "enisa": {
             "country": "UE",
             "label": "ENISA",
-            "body": "L'agence de cybersécurité de l'UE. Publie des orientations, gère la base de données européenne sur les vulnérabilités et soutient la coordination transfrontalière. N'est pas une autorité de contrôle pour les entités espagnoles ; CCN, INCIBE et les autorités sectorielles le sont, le Centro Nacional de Ciberseguridad proposé devant consolider ce rôle une fois la loi adoptée."
+            "body": "L'agence de cybersécurité de l'UE. Publie des orientations, gère la base de données européenne sur les vulnérabilités et soutient la coordination transfrontalière. N'est pas une autorité de contrôle pour les entités espagnoles. Au titre du décret NIS 1, les autorités de contrôle sont le ministère de l'Intérieur (CNPIC), les ministères sectoriels, le Secrétariat d'État à la numérisation et le CCN ; le projet de loi confierait la supervision à trois autorités de contrôle, avec le Centro Nacional de Ciberseguridad comme point de contact unique avec l'UE."
           }
         }
       },
@@ -17386,22 +17396,22 @@
         "items": {
           "sameAsGermany": {
             "myth": "Si l'Allemagne a le BSIG, l'Espagne a une loi similaire en vigueur.",
-            "reality": "L'Allemagne elle-même n'a pas encore adopté le NIS2UmsuCG et se trouve dans la même position de retard. L'Espagne est plus avancée côté projet (l'Anteproyecto a franchi le Conseil des ministres le 14 janvier 2025) mais le BOE n'a pas encore publié de texte adopté. Les filiales espagnoles ne peuvent pas se prévaloir d'une loi nationale finalisée et doivent lire la directive directement, ainsi que le précédent Real Decreto-ley 12/2018."
+            "reality": "La loi allemande de transposition de NIS 2 s'applique depuis le 6 décembre 2025. L'Espagne n'a pas encore de loi adoptée : l'Anteproyecto a franchi le Conseil des ministres le 14 janvier 2025, mais rien n'a été publié au BOE. Les filiales espagnoles ne peuvent pas se prévaloir d'une loi nationale finalisée ; ce qui s'applique à elles aujourd'hui est le précédent Real Decreto-ley 12/2018, pour celles désignées à ce titre, tandis que la directive montre ce que la loi espagnole devra contenir."
           },
           "noRegistry": {
             "myth": "Il n'y a pas de loi espagnole en vigueur, donc rien à faire pour l'instant.",
-            "reality": "La directive elle-même prend effet au niveau de l'UE le 18 octobre 2024 et la jurisprudence de l'UE confère aux directives non transposées un effet direct partiel à l'encontre de l'État. Le délai du 17 avril 2025 pour que les États membres soient en mesure de recenser les entités essentielles et importantes lie l'Espagne indépendamment du projet de loi. Les opérateurs devraient préparer dès maintenant les vérifications de champ d'application, les processus de signalement d'incident et l'approbation par l'organe de direction, et non attendre le BOE."
+            "reality": "La directive est en vigueur depuis janvier 2023. Les États membres devaient appliquer leurs règles nationales à compter du 18 octobre 2024. Tant que l'Espagne n'a pas adopté sa loi, la directive lie l'État espagnol, et non les entreprises espagnoles : la jurisprudence de l'UE est claire, une directive ne peut pas, à elle seule, imposer d'obligations à une entreprise. Ce qui s'applique aujourd'hui aux entreprises est le décret NIS 1 (Real Decreto-ley 12/2018), pour celles désignées à ce titre. Le délai du 17 avril 2025 pour que les États membres soient en mesure de recenser les entités essentielles et importantes lie l'Espagne indépendamment du projet de loi. Préparer dès maintenant les vérifications de champ d'application, les processus de signalement d'incident et l'approbation par l'organe de direction reste judicieux, car le projet suit de près la directive."
           },
           "onlySector": {
             "myth": "Notre régulateur sectoriel nous dira quoi faire.",
-            "reality": "Certains secteurs ont un régulateur clair (la finance avec la Banco de España et DORA comme lex specialis, l'énergie avec la CNMC). Beaucoup n'ont pas encore de ligne de visibilité unique car le projet de loi n'a pas fini de définir l'architecture de supervision. Les obligations de la directive s'appliquent indépendamment de l'organe national qui finira par les faire appliquer."
+            "reality": "Certains secteurs ont un régulateur clair (la finance avec la Banco de España pour les établissements de crédit et DORA comme lex specialis, l'énergie avec le ministère de la Transition écologique). Beaucoup n'ont pas encore de ligne de visibilité unique car le projet de loi n'a pas fini de définir l'architecture de supervision. Une fois la loi adoptée, ses obligations s'appliqueront indépendamment de l'organe national qui finira par les faire appliquer."
           }
         }
       },
       "practitioner": {
         "heading": "Point de vue du praticien",
-        "p1": "La plupart des exploitants espagnols du marché intermédiaire que nous voyons traitent NIS 2 comme un problème qu'ils peuvent reporter jusqu'à ce que le Boletín publie la loi finale. C'est un pari coûteux. Le délai du 17 octobre 2024 de la directive est déjà passé, la Commission est déjà passée au stade de l'avis motivé le 7 mai 2025, et les obligations de fond (approbation par l'organe de direction des mesures de risque, alerte précoce à 24 h, notification à 72 h, clauses relatives à la chaîne d'approvisionnement) ne changent pas entre le projet et tout texte final plausible.",
-        "p2": "La démarche pratique est la même que partout ailleurs dans l'UE : confirmer le champ d'application au titre de la directive, préparer l'enregistrement une fois le portail du Centro Nacional de Ciberseguridad annoncé, mettre en place les quatre obligations continues (tenue à jour de l'enregistrement, signalement d'incident, gestion des risques de la chaîne d'approvisionnement, supervision par l'organe de direction), et documenter le minimum. Les orientations existantes du CCN et de l'INCIBE ainsi que les canaux de signalement du Real Decreto-ley 12/2018 restent utilisables tant que la nouvelle loi est en attente."
+        "p1": "La plupart des exploitants espagnols du marché intermédiaire que nous voyons traitent NIS 2 comme un problème qu'ils peuvent reporter jusqu'à ce que le Boletín publie la loi finale. C'est un pari coûteux. Le délai du 17 octobre 2024 de la directive est déjà passé, la Commission a envoyé un avis motivé le 7 mai 2025 et a saisi la Cour de justice de l'UE contre l'Espagne le 8 juillet 2026, et les obligations de fond (approbation par l'organe de direction des mesures de risque, alerte précoce à 24 h, notification à 72 h, clauses relatives à la chaîne d'approvisionnement) ne changent pas entre le projet et tout texte final plausible.",
+        "p2": "La démarche pratique est la même que partout ailleurs dans l'UE : confirmer le champ d'application au titre de la directive, préparer l'enregistrement une fois que la loi espagnole désignera l'organisme et le portail d'enregistrement, mettre en place les quatre obligations continues (tenue à jour de l'enregistrement, signalement d'incident, gestion des risques de la chaîne d'approvisionnement, supervision par l'organe de direction), et documenter le minimum. Les orientations existantes du CCN et de l'INCIBE ainsi que les canaux de signalement du Real Decreto-ley 12/2018 restent utilisables tant que la nouvelle loi est en attente."
       },
       "platform": {
         "heading": "Comment la plateforme aide",
@@ -17414,9 +17424,9 @@
           "Directive (UE) 2022/2555 (NIS 2), article 41 délai de transposition. EUR-Lex.",
           "Règlement d'exécution (UE) 2024/2690 de la Commission.",
           "Anteproyecto de Ley de Coordinación y Gobernanza de la Ciberseguridad, approuvé par le Conseil des ministres le 14 janvier 2025. Departamento de Seguridad Nacional (dsn.gob.es).",
-          "Commission européenne, avis motivé à l'Espagne pour défaut de notification de la transposition complète de NIS 2, 7 mai 2025.",
+          "Commission européenne, avis motivé à l'Espagne pour défaut de notification de la transposition complète de NIS 2, 7 mai 2025 ; saisine de la Cour de justice de l'UE contre l'Espagne, 8 juillet 2026 (IP/26/1499).",
           "Real Decreto-ley 12/2018, transposition de NIS 1, Boletín Oficial del Estado.",
-          "CCN-CERT: Centro Criptológico Nacional, fondé en 2006 au titre de la Ley 11/2002 et du Real Decreto 421/2004 ; Real Decreto 311/2022 sur l'Esquema Nacional de Seguridad.",
+          "CCN-CERT (créé en 2006) : Centro Criptológico Nacional, régi par la Ley 11/2002 et le Real Decreto 421/2004 ; Real Decreto 311/2022 sur l'Esquema Nacional de Seguridad.",
           "INCIBE-CERT: Instituto Nacional de Ciberseguridad, Ministerio para la Transformación Digital."
         ]
       },
@@ -17614,7 +17624,7 @@
       },
       "platform": {
         "heading": "Comment la plateforme aide",
-        "p1": "Nous construisons le registre d'obligations NIS 2 sur la couche de l'UE, et non sur une transposition nationale unique. La même liste de contrôle fonctionne pour une filiale hongroise sous l'Act XXIII of 2023, une maison mère allemande sous le BSIG et une société sœur française sous l'Ordonnance n. 2024-1093. Les références d'articles changent selon la langue. Les obligations de fond non.",
+        "p1": "Nous construisons le registre d'obligations NIS 2 sur la couche de l'UE, et non sur une transposition nationale unique. La même liste de contrôle fonctionne pour une filiale hongroise sous l'Act XXIII of 2023 et une maison mère allemande sous le BSIG. Les références d'articles changent selon la langue. Les obligations de fond non.",
         "p2": "Pour le périmètre hongrois, vous commencez par le test d'applicabilité, puis passez à la cadence de notification des incidents avec NKI, aux clauses de chaîne d'approvisionnement et à l'approbation de l'organe de direction. Là où SZTFH publie des orientations sectorielles, nous les référençons. Nous ne les dupliquons pas."
       },
       "sources": {
@@ -17881,7 +17891,7 @@
       },
       "platform": {
         "heading": "Ce que la plateforme apporte",
-        "p1": "Nous construisons le registre des obligations NIS 2 au niveau de l'UE, et non sur une transposition nationale unique. La même liste de contrôle convient à une entité slovaque au titre de la loi 366/2024, à une société mère allemande au titre du BSIG et à une société sœur française au titre de l'Ordonnance n° 2024-1093. Les références d'articles changent selon le pays, les obligations de fond, non.",
+        "p1": "Nous construisons le registre des obligations NIS 2 au niveau de l'UE, et non sur une transposition nationale unique. La même liste de contrôle convient à une entité slovaque au titre de la loi 366/2024 et à une société mère allemande au titre du BSIG. Les références d'articles changent selon le pays, les obligations de fond, non.",
         "p2": "Pour le périmètre slovaque, commencez par le test d'applicabilité, puis la cadence de notification, les clauses de chaîne d'approvisionnement et la validation de l'organe de direction. Là où le NBÚ publie des décrets sectoriels ou des orientations, nous les relions. Nous ne les copions pas."
       },
       "sources": {
@@ -18016,7 +18026,7 @@
       },
       "platform": {
         "heading": "Ce que la plateforme apporte",
-        "p1": "Nous construisons le registre des obligations NIS 2 sur la couche de l'UE, et non sur une transposition nationale unique. La même liste de contrôle convient à une filiale croate au titre de NN 14/2024, à une société mère allemande au titre du BSIG et à une société sœur française au titre de l'Ordonnance n° 2024-1093. Les références d'articles se décalent selon le pays, les obligations sous-jacentes, non.",
+        "p1": "Nous construisons le registre des obligations NIS 2 sur la couche de l'UE, et non sur une transposition nationale unique. La même liste de contrôle convient à une filiale croate au titre de NN 14/2024 et à une société mère allemande au titre du BSIG. Les références d'articles se décalent selon le pays, les obligations sous-jacentes, non.",
         "p2": "Pour le périmètre croate, vous commencez par le test d'applicabilité, puis la cadence de notification des incidents, les clauses de chaîne d'approvisionnement et la validation de l'organe de direction. Là où la SOA / le NCSC-HR ou CERT.hr publie des orientations sectorielles, nous les relions. Nous ne les copions pas."
       },
       "sources": {
@@ -18152,7 +18162,7 @@
       },
       "platform": {
         "heading": "Comment la plateforme aide",
-        "p1": "Nous construisons le registre des obligations NIS 2 sur la couche de l'UE, et non sur une quelconque transposition nationale unique. La même liste de vérification fonctionne pour une filiale bulgare au titre de la loi sur la cybersécurité modifiée, une société mère allemande au titre du BSIG, et une société sœur française au titre de l'Ordonnance n° 2024-1093. Les références d'articles changent selon la locale ; les obligations de fond, non.",
+        "p1": "Nous construisons le registre des obligations NIS 2 sur la couche de l'UE, et non sur une quelconque transposition nationale unique. La même liste de vérification fonctionne pour une filiale bulgare au titre de la loi sur la cybersécurité modifiée et une société mère allemande au titre du BSIG. Les références d'articles changent selon la locale ; les obligations de fond, non.",
         "p2": "Pour le champ d'application bulgare, vous commencez par la vérification d'applicabilité, puis vous passez à la cadence de notification d'incidents vers CERT Bulgaria, aux clauses de chaîne d'approvisionnement et à l'approbation de l'organe de direction. Là où l'Agence d'État pour l'administration en ligne ou un ministère sectoriel publie des orientations, nous les référençons ; nous ne les dupliquons pas."
       },
       "sources": {
@@ -18286,7 +18296,7 @@
       },
       "platform": {
         "heading": "Ce que la plateforme fournit",
-        "p1": "Nous construisons le registre d'obligations NIS 2 sur le niveau de l'Union, non sur une seule transposition nationale. La même liste de contrôle convient à une filiale grecque au titre de la loi 5160/2024, à une société mère allemande au titre du BSIG et à une société sœur française au titre de l'Ordonnance n° 2024-1093. Les références d'articles changent selon le pays, les obligations en substance ne changent pas.",
+        "p1": "Nous construisons le registre d'obligations NIS 2 sur le niveau de l'Union, non sur une seule transposition nationale. La même liste de contrôle convient à une filiale grecque au titre de la loi 5160/2024 et à une société mère allemande au titre du BSIG. Les références d'articles changent selon le pays, les obligations en substance ne changent pas.",
         "p2": "Pour le champ d'application grec, commencez par le contrôle d'applicabilité, puis la cadence de déclaration, les clauses de chaîne d'approvisionnement et la validation par l'organe de direction. Là où l'Autorité nationale de cybersécurité publie des orientations sectorielles, nous les lions. Nous ne les copions pas."
       },
       "sources": {
@@ -18554,7 +18564,7 @@
       },
       "platform": {
         "heading": "Comment la plateforme aide",
-        "p1": "Nous construisons le registre des obligations NIS 2 sur la couche de l'UE, et non sur une transposition nationale unique. La même liste de contrôle fonctionne pour une entité slovène au titre de ZInfV-1, une société mère allemande au titre du BSIG et une société sœur française au titre de l'Ordonnance n° 2024-1093. Les références d'articles changent selon la langue. Les obligations de fond, non.",
+        "p1": "Nous construisons le registre des obligations NIS 2 sur la couche de l'UE, et non sur une transposition nationale unique. La même liste de contrôle fonctionne pour une entité slovène au titre de ZInfV-1 et une société mère allemande au titre du BSIG. Les références d'articles changent selon la langue. Les obligations de fond, non.",
         "p2": "Pour le périmètre slovène, vous commencez par le test d'applicabilité, puis vous passez à la cadence de notification des incidents vers SI-CERT, aux clauses de chaîne d'approvisionnement et à la validation de l'organe de direction. Là où URSIV publie des orientations sectorielles, nous les référençons. Nous ne les dupliquons pas."
       },
       "sources": {
@@ -18821,7 +18831,7 @@
       },
       "platform": {
         "heading": "Comment la plateforme aide",
-        "p1": "Nous construisons le registre d'obligations NIS 2 sur la couche de l'UE, et non sur une transposition nationale unique. La même liste de contrôle fonctionne pour une entité estonienne sous la Küberturvalisuse seadus, une maison mère allemande sous le BSIG et une société sœur française sous l'Ordonnance n° 2024-1093. Les références d'articles changent selon la langue ; les obligations de fond non.",
+        "p1": "Nous construisons le registre d'obligations NIS 2 sur la couche de l'UE, et non sur une transposition nationale unique. La même liste de contrôle fonctionne pour une entité estonienne sous la Küberturvalisuse seadus et une maison mère allemande sous le BSIG. Les références d'articles changent selon la langue ; les obligations de fond non.",
         "p2": "Pour le périmètre estonien, vous commencez par le test d'applicabilité, puis passez à l'auto-enregistrement auprès de RIA, à la cadence de notification des incidents vers CERT-EE, aux clauses de chaîne d'approvisionnement et à l'approbation de l'organe de direction. Là où RIA publie des orientations sectorielles, nous les référençons ; nous ne les dupliquons pas."
       },
       "sources": {
@@ -19089,7 +19099,7 @@
       },
       "platform": {
         "heading": "Ce que la plateforme apporte",
-        "p1": "Nous construisons le registre des obligations NIS 2 sur la couche de l'UE, et non sur une transposition nationale unique. La même liste de contrôle convient à une filiale lettone au titre de la loi nationale sur la cybersécurité, à une société mère allemande au titre du BSIG, et à une société sœur française au titre de l'Ordonnance n° 2024-1093. Les références d'articles changent selon le pays, les obligations de fond, non.",
+        "p1": "Nous construisons le registre des obligations NIS 2 sur la couche de l'UE, et non sur une transposition nationale unique. La même liste de contrôle convient à une filiale lettone au titre de la loi nationale sur la cybersécurité et à une société mère allemande au titre du BSIG. Les références d'articles changent selon le pays, les obligations de fond, non.",
         "p2": "Pour le périmètre letton, vous commencez par le test d'applicabilité, puis la fenêtre d'enregistrement d'un mois, puis la notification des incidents via CERT.LV, les clauses de chaîne d'approvisionnement et la validation de l'organe de direction. Là où le NCSC ou CERT.LV publie des orientations sectorielles, nous les relions. Nous ne les copions pas."
       },
       "sources": {

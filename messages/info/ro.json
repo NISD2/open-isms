@@ -2413,7 +2413,7 @@
       "subtitle": "BSI a estimat aproximativ 30.000 de entitati supuse NIS2 in Germania. Termenul de inregistrare a expirat la 6 martie 2026. O proportie semnificativa a companiilor din domeniul de aplicare inca nu s-au inregistrat, lasandu-le expuse aplicarii legii in temeiul §65 BSIG.",
       "overview": {
         "p1": "§33 BSIG cere fiecarei entitati care intra sub NIS2, fie ea entitate esentiala sau importanta, sa se inregistreze la Bundesamt für Sicherheit in der Informationstechnik (BSI). Acest lucru nu este optional. Obligatia de inregistrare exista independent de faptul ca firma a implementat sau nu vreo masura de securitate cibernetica. Trebuie sa va inregistrati intai, apoi sa va conformati.",
-        "p2": "Portalul de inregistrare BSI (muk.bsi.bund.de) a fost lansat la 6 ianuarie 2026, la o luna dupa intrarea in vigoare a BSIG. Termenul de inregistrare in temeiul §33 BSIG a fost 6 martie 2026 (3 luni dupa intrarea in vigoare). In ciuda unei obligatii legale clare si a unei ferestre de doua luni, o proportie semnificativa dintre cele 29.000-30.000 de entitati estimate din domeniul de aplicare nu s-au inregistrat pana la termen. Un sondaj G DATA a constatat ca 44% dintre companiile afectate nu erau deloc constiente de obligatiile lor NIS2.",
+        "p2": "Portalul de inregistrare BSI a fost lansat la 6 ianuarie 2026, la o luna dupa intrarea in vigoare a BSIG. Termenul de inregistrare in temeiul §33 BSIG a fost 6 martie 2026 (3 luni dupa intrarea in vigoare). In ciuda unei obligatii legale clare si a unei ferestre de doua luni, o proportie semnificativa dintre cele 29.000-30.000 de entitati estimate din domeniul de aplicare nu s-au inregistrat pana la termen. Un sondaj G DATA a constatat ca 44% dintre companiile afectate nu erau deloc constiente de obligatiile lor NIS2.",
         "p3": "Lacuna de inregistrare este deosebit de ingrijoratoare deoarece inregistrarea este o conditie prealabila pentru regimul de supraveghere al BSI. Entitatile neinregistrate nu sunt invizibile, ele sunt neconforme in mod implicit. Cand BSI incepe aplicarea sistematica (pe care a semnalat-o pentru 2026), companiile neinregistrate se confrunta cu penalitati nu doar pentru lipsa masurilor de securitate cibernetica, ci si pentru incalcarea obligatiei de inregistrare in sine, o abatere separata in temeiul §65 BSIG."
       },
       "stats": {
@@ -2509,12 +2509,12 @@
         "description": "CIR 2024/2690 definește cerințele tehnice exacte pentru entitățile NIS2. Publicat în octombrie 2024, se aplică direct în toate statele membre UE."
       },
       "title": "Ghid de implementare CIR 2024/2690",
-      "subtitle": "Regulamentul de punere în aplicare al UE care specifică exact ce măsuri tehnice și metodologice trebuie să implementeze entitățile NIS2. Publicat în Jurnalul Oficial la 17 octombrie 2024 și direct aplicabil în toate statele membre.",
+      "subtitle": "Regulamentul de punere în aplicare al UE care specifică exact ce măsuri tehnice și metodologice trebuie să implementeze anumiți furnizori digitali în temeiul NIS2: adoptat la 17 octombrie 2024, publicat în Jurnalul Oficial la 18 octombrie 2024, în vigoare din 7 noiembrie 2024 și direct aplicabil în toate statele membre.",
       "overview": {
         "heading": "Ce este CIR 2024/2690?",
         "p1": "Regulamentul de punere în aplicare (UE) 2024/2690 al Comisiei din 17 octombrie 2024 a fost publicat în Jurnalul Oficial al Uniunii Europene (seria OJ L, 2024/2690). Acesta stabilește norme de aplicare a Directivei (UE) 2022/2555 (Directiva NIS2) în ceea ce privește cerințele tehnice și metodologice ale măsurilor de gestionare a riscurilor de securitate cibernetică. Spre deosebire de Directiva NIS2 în sine, acest regulament nu necesită transpunere națională. Se aplică direct în toate cele 27 de state membre de la data intrării sale în vigoare.",
         "p2": "CIR este răspunsul la întrebarea pe care o pune fiecare responsabil cu conformitatea: 'Ce anume trebuie să implementăm?'. În timp ce §30 BSIG (transpunerea germană) enumeră 10 domenii de măsuri în termeni generali, anexa CIR le defalcă în cerințe tehnice și metodologice specifice, auditabile. Este cea mai detaliată specificație oficială a obligațiilor NIS2 disponibilă, mai detaliată decât Directiva însăși, mai specifică decât BSIG și direct aplicabilă.",
-        "p3": "Regulamentul a fost elaborat în consultare cu ENISA și cu Grupul de cooperare NIS, pe baza unor cadre existente, inclusiv ISO/IEC 27001, ETSI EN 319 401 și standarde naționale. Se aplică în mod specific furnizorilor de servicii DNS, registrelor de nume TLD, furnizorilor de servicii de cloud computing, furnizorilor de servicii de gestionare a serviciilor TIC, furnizorilor de servicii de securitate gestionate, furnizorilor de piețe online, furnizorilor de motoare de căutare online, furnizorilor de platforme de servicii de rețele sociale și furnizorilor de servicii de încredere. Cu toate acestea, cerințele sale tehnice servesc drept reper de facto pentru toate entitățile NIS2."
+        "p3": "Regulamentul a fost elaborat în consultare cu ENISA și cu Grupul de cooperare NIS, pe baza unor standarde europene și internaționale precum ISO/IEC 27001, ISO/IEC 27002 și ETSI EN 319 401, precum și a CEN/TS 18026:2024. Se aplică în mod specific furnizorilor de servicii DNS, registrelor de nume TLD, furnizorilor de servicii de cloud computing, furnizorilor de servicii de centre de date, furnizorilor de rețele de livrare de conținut, furnizorilor de servicii gestionate, furnizorilor de servicii de securitate gestionate, furnizorilor de piețe online, de motoare de căutare online și de platforme de servicii de rețele sociale, precum și furnizorilor de servicii de încredere. Obligă numai aceste tipuri de entități. Pentru toți ceilalți poate fi o lectură utilă, dar nu este standardul lor juridic."
       },
       "scope": {
         "heading": "Entități acoperite direct",
@@ -2523,39 +2523,50 @@
           "dns": "Furnizori de servicii DNS",
           "tld": "Registre de nume TLD",
           "cloud": "Furnizori de servicii de cloud computing",
+          "datacentre": "Furnizori de servicii de centre de date",
+          "cdn": "Furnizori de rețele de livrare de conținut",
           "managed": "Furnizori de servicii de gestionare a serviciilor TIC (servicii gestionate) și furnizori de servicii de securitate gestionate",
           "marketplaces": "Furnizori de piețe online",
+          "search": "Furnizori de motoare de căutare online",
           "social": "Furnizori de platforme de servicii de rețele sociale",
           "trust": "Furnizori de servicii de încredere"
         }
       },
       "articles": {
         "heading": "Structura regulamentului",
-        "description": "CIR este alcătuit din 7 articole care definesc domeniul de aplicare, definițiile și cerințele, plus o anexă detaliată care conține specificațiile tehnice și metodologice.",
+        "description": "CIR are 16 articole și o anexă. Articolul 2 trimite la anexă pentru măsuri; articolele 3 până la 14 spun când un incident este semnificativ; articolul 15 abrogă vechiul regulament din 2018; articolul 16 este intrarea în vigoare.",
         "items": {
+          "a1": {
+            "title": "Articolul 1: Obiect",
+            "description": "Numește tipurile de entități acoperite de regulament și precizează că acesta stabilește cerințele tehnice și metodologice ale măsurilor de la art. 21 alin. (2) NIS 2 și cazurile în care un incident este semnificativ."
+          },
           "a2": {
-            "title": "Articolul 2. Definiții",
-            "description": "Stabilește definiții pentru 'securitatea rețelelor și a sistemelor informatice', 'incident semnificativ' și alți termeni-cheie. Aliniază terminologia cu Directiva NIS2, adăugând precizie specifică implementării."
+            "title": "Articolul 2: Cerințe tehnice și metodologice",
+            "description": "Trimite la anexă pentru măsurile prevăzute la art. 21 alin. (2) lit. (a) până la (j) NIS 2. Măsurile trebuie să fie adecvate riscurilor, ținând cont de expunerea entității, de dimensiunea ei și de probabilitatea și gravitatea incidentelor. Acolo unde anexa spune că o cerință se aplică doar dacă este adecvată, aplicabilă sau fezabilă, o entitate care nu o aplică trebuie să consemneze în scris de ce."
           },
           "a3": {
-            "title": "Articolul 3. Semnificația incidentelor",
-            "description": "Definește când un incident este 'semnificativ', pragul care declanșează obligațiile de raportare. Un incident este semnificativ dacă provoacă o pierdere financiară care depășește 500.000 EUR sau 5% din cifra de afaceri anuală, are ca rezultat exfiltrarea de secrete comerciale, provoacă deces sau prejudicii considerabile pentru sănătate sau îndeplinește criterii specifice entității, definite la articol."
+            "title": "Articolul 3: Incidente semnificative",
+            "description": "Doar pentru entitățile de la art. 1, un incident este semnificativ dacă a cauzat sau ar putea cauza: pierderi financiare directe de peste 500.000 EUR sau 5 % din cifra de afaceri anuală, oricare este mai mică; furtul de secrete comerciale; un deces; daune considerabile aduse sănătății unei persoane; sau dacă a existat un acces reușit, suspectat ca răuvoitor, care ar putea cauza o perturbare gravă. Contează și incidentele recurente (art. 4) și pragurile pe tip de serviciu de la art. 5 până la 14."
           },
           "a4": {
-            "title": "Articolul 4. Incidente semnificative recurente",
-            "description": "Precizează că incidentele recurente care, în mod individual, nu ating pragul de semnificație pot fi agregate și tratate ca un singur incident semnificativ dacă, în mod colectiv, îndeplinesc criteriile într-o perioadă de șase luni."
+            "title": "Articolul 4: Incidente recurente",
+            "description": "Incidentele care, fiecare în parte, se află sub prag se numără împreună ca un singur incident semnificativ dacă s-au produs de cel puțin două ori în șase luni, au aceeași cauză-rădăcină aparentă și depășesc împreună pragul de pierdere financiară de la art. 3 alin. (1) lit. (a)."
           },
           "a5": {
-            "title": "Articolul 5. Incidente semnificative pentru registrele DNS și TLD",
-            "description": "Adaugă criterii de semnificație specifice pentru furnizorii de servicii DNS și registrele TLD, inclusiv disponibilitatea serviciului sub 99,9% pentru orice perioadă, rate incorecte de răspuns DNS și compromiterea integrității sau confidențialității datelor de înregistrare a domeniilor stocate."
+            "title": "Articolul 5: Incidente semnificative pentru furnizorii de servicii DNS",
+            "description": "Este semnificativ dacă un serviciu de rezoluție de nume recursiv sau autoritativ este complet indisponibil mai mult de 30 de minute, dacă timpul său mediu de răspuns depășește 10 secunde mai mult de o oră sau dacă sunt compromise integritatea, confidențialitatea sau autenticitatea datelor sale (cu excepția unei configurări greșite care afectează mai puțin de 1 000 de nume de domenii și cel mult 1 % dintre ele)."
           },
           "a6": {
-            "title": "Articolul 6. Cerințe tehnice și metodologice",
-            "description": "Articolul central. Impune entităților vizate să implementeze cerințele tehnice și metodologice stabilite în anexă. Măsurile trebuie să fie 'adecvate și proporționale' cu riscurile, ținând cont de dimensiunea entității, de expunere, de probabilitatea incidentelor și de impactul societal."
+            "title": "Articolele 6 până la 14: Incidente semnificative pe tip de furnizor",
+            "description": "Praguri pe serviciu: registrele de nume TLD (6), cloud (7), centre de date (8), CDN (9), MSP și MSSP (10), piețe online (11), motoare de căutare (12), rețele sociale (13), servicii de încredere (14). Exemplu: un serviciu cloud complet indisponibil mai mult de 30 de minute este semnificativ (art. 7 lit. (a))."
+          },
+          "a15": {
+            "title": "Articolul 15: Abrogare",
+            "description": "Abrogă Regulamentul de punere în aplicare (UE) 2018/151 al Comisiei."
           },
           "a7": {
-            "title": "Articolul 7. Intrarea în vigoare",
-            "description": "Regulamentul a intrat în vigoare în a douăzecea zi de la publicarea sa în Jurnalul Oficial (publicat la 17 octombrie 2024). Se aplică direct în toate statele membre, fără a fi necesară transpunerea națională."
+            "title": "Articolul 16: Intrarea în vigoare și aplicarea",
+            "description": "În vigoare din 7 noiembrie 2024, a douăzecea zi de la publicarea din 18 octombrie 2024; obligatoriu și direct aplicabil în toate statele membre."
           }
         }
       },
@@ -2565,7 +2576,7 @@
         "items": {
           "policy": {
             "title": "Politică privind securitatea rețelelor și a sistemelor informatice",
-            "description": "Impune o politică documentată de securitate a rețelelor și a sistemelor informatice, aprobată de conducere, care stabilește abordarea entității în gestionarea securității, revizuită la intervale planificate și actualizată după incidente sau modificări semnificative. Aceasta încadrează toate măsurile care urmează."
+            "description": "Impune o politică documentată de securitate a rețelelor și a sistemelor informatice, aprobată de conducere, care stabilește abordarea entității în gestionarea securității, revizuită de conducere cel puțin o dată pe an și după incidente semnificative sau modificări semnificative ale operațiunilor sau riscurilor, și actualizată dacă este cazul. Aceasta încadrează toate măsurile care urmează."
           },
           "risk": {
             "title": "Politică de gestionare a riscurilor",
@@ -2589,7 +2600,7 @@
           },
           "effectiveness": {
             "title": "Politici și proceduri pentru evaluarea eficacității măsurilor de gestionare a riscurilor de securitate cibernetică",
-            "description": "Impune ca entitatea să definească politici și proceduri pentru a evalua dacă măsurile sale de gestionare a riscurilor sunt eficace, inclusiv monitorizare, revizuire și evaluare independentă, astfel încât deficiențele să fie identificate, iar măsurile să fie îmbunătățite în timp."
+            "description": "Impune ca entitatea să definească politici și proceduri pentru a evalua dacă măsurile sale de gestionare a riscurilor sunt eficace, stabilind ce se măsoară, cum, când și de către cine, și revizuindu-le la intervale planificate, astfel încât deficiențele să fie identificate, iar măsurile să fie îmbunătățite în timp."
           },
           "hygiene": {
             "title": "Practici de igienă cibernetică de bază și instruire în domeniul securității",
@@ -2605,7 +2616,7 @@
           },
           "access": {
             "title": "Controlul accesului",
-            "description": "Impune o politică de control al accesului cu gestionarea drepturilor de acces (11.2) și a conturilor privilegiate (11.3), sisteme de administrare (11.4), identificare unică (11.5), autentificare (11.6) și autentificare multifactorială sau continuă (11.7) pentru accesul la sistemele critice și accesul la distanță, revizuită la intervale planificate."
+            "description": "Impune o politică de control al accesului cu gestionarea drepturilor de acces (11.2) și a conturilor privilegiate (11.3), sisteme de administrare (11.4), identificare unică (11.5), autentificare (11.6) și autentificare multifactorială sau continuă acolo unde este cazul, potrivite cu sensibilitatea sistemului (11.7), revizuită la intervale planificate."
           },
           "assets": {
             "title": "Gestionarea activelor",
@@ -2620,9 +2631,9 @@
       "relationship": {
         "heading": "CIR, Directiva NIS2 și BSIG. Cum se îmbină",
         "description": "Înțelegerea ierarhiei juridice este esențială pentru planificarea conformității.",
-        "p1": "Directiva NIS2 (UE) 2022/2555 este legislația-cadru. Aceasta stabilește cadrul, obligațiile și regimul de aplicare la nivelul UE. Statele membre au fost obligate să o transpună în legislația națională până la 17 octombrie 2024. Transpunerea Germaniei este NIS2UmsuCG, care modifică BSIG. BSIG conține acum toate obligațiile NIS2 în legislația germană, inclusiv §30 (măsuri de securitate cibernetică) și §32 (raportarea incidentelor).",
+        "p1": "Directiva NIS2 (UE) 2022/2555 este legislația-cadru. Aceasta stabilește cadrul, obligațiile și regimul de aplicare la nivelul UE. Statele membre au fost obligate să o transpună în legislația națională până la 17 octombrie 2024. Germania a transpus-o prin NIS2UmsuCG, al cărui articol 1 este un nou BSIG (în vigoare din 6 decembrie 2025). Cele mai multe obligații se află în BSIG, inclusiv §30 (măsuri) și §32 (raportare). Furnizorii publici de telecomunicații și operatorii de rețele energetice urmează propriile legi sectoriale (TKG, EnWG), iar entitățile financiare reglementate de DORA sunt exceptate de la aceste secțiuni.",
         "p2": "CIR 2024/2690 este un regulament UE direct aplicabil. Nu necesită transpunere și are prioritate față de dispozițiile naționale contradictorii. Acolo unde CIR specifică o cerință tehnică, acea cerință se aplică direct, indiferent dacă BSIG o tratează sau nu. Pentru tipurile de entități enumerate la articolul 1, CIR este standardul principal de conformitate.",
-        "p3": "Pentru entitățile care NU sunt enumerate direct la articolul 1 din CIR, dar care intră totuși sub incidența NIS2 (de exemplu, furnizorii de energie, asistența medicală, transporturile), CIR servește drept referința cea mai autoritară pentru aspectul măsurilor 'adecvate și proporționale'. Se preconizează că instanțele germane și BSI vor face trimitere la specificațiile tehnice ale CIR atunci când vor evalua dacă măsurile unei companii îndeplinesc standardul §30 BSIG, chiar dacă CIR nu obligă în mod formal acele entități."
+        "p3": "Pentru entitățile care nu sunt enumerate la art. 1 (energie, sănătate, transport, producție și altele), CIR nu se aplică. Măsurile lor sunt apreciate în raport cu §30 BSIG. Comisia poate adopta un act separat pentru ele; până atunci, niciunul nu se aplică."
       },
       "sources": {
         "heading": "Surse",
@@ -2630,9 +2641,8 @@
           "Regulamentul de punere în aplicare (UE) 2024/2690 al Comisiei din 17 octombrie 2024. Jurnalul Oficial al Uniunii Europene, OJ L 2024/2690",
           "EUR-Lex. Textul integral al CIR 2024/2690 (CELEX: 32024R2690)",
           "Directiva (UE) 2022/2555 (Directiva NIS2). Jurnalul Oficial al Uniunii Europene",
-          "ENISA. Orientări tehnice privind măsurile de implementare NIS2 (2024)",
-          "secuvera GmbH. Analiza cerințelor CIR 2024/2690 și corelarea cu ISO 27001 (2024)",
-          "BSIG. §30 (Risikomanagementmaßnahmen), §32 (Meldepflichten), astfel cum a fost modificat prin NIS2UmsuCG"
+          "ENISA, Ghidul tehnic de implementare NIS2, versiunea 1.0, 26 iunie 2025",
+          "BSIG (2025), § 30 (Risikomanagementmaßnahmen), § 32 (Meldepflichten), adoptat ca articolul 1 din NIS2UmsuCG"
         ]
       },
       "ctaCard": {
@@ -3073,10 +3083,10 @@
     "significantIncident": {
       "meta": {
         "title": "Ce constituie un incident semnificativ în temeiul NIS 2",
-        "description": "Articolul 23 alineatul (3) NIS 2 vă oferă două criterii calitative de declanșare. CIR 2024/2690 adaugă cifre, dar numai pentru infrastructura digitală. Toți ceilalți trebuie să ia decizia în 24 de ore, fără o cifră de la care să pornească."
+        "description": "Articolul 23 alineatul (3) NIS 2 vă oferă două criterii calitative de declanșare. CIR 2024/2690 adaugă cifre, dar numai pentru anumiți furnizori digitali (art. 1 CIR). Toți ceilalți trebuie să ia decizia în 24 de ore, fără o cifră de la care să pornească."
       },
       "title": "Incident semnificativ în temeiul NIS 2",
-      "subtitle": "Două criterii calitative de declanșare, un regulament cu cifre pentru infrastructura digitală și un jurnal scris de decizie pentru toți ceilalți.",
+      "subtitle": "Două criterii calitative de declanșare, un regulament cu cifre pentru anumiți furnizori digitali și un jurnal scris de decizie pentru toți ceilalți.",
       "overview": {
         "heading": "De ce contează definiția",
         "p1": "Caracterul semnificativ este ceea ce pornește întregul ceas de raportare din articolul 23 NIS 2: o avertizare timpurie în 24 de ore, o notificare a incidentului în 72 de ore, un raport final în termen de o lună. Dacă evenimentul este semnificativ, ceasul pornește în momentul în care aflați. Dacă nu este, nu datorați nimic CSIRT-ului și autorității competente.",
@@ -3088,23 +3098,23 @@
         "description": "Textul directivei, regulamentul de punere în aplicare, transpunerea națională. Directiva oferă testul calitativ. Regulamentul de punere în aplicare oferă cifre pentru un grup definit. Legea de transpunere (în Germania: §32 BSIG) introduce obligația de raportare în dreptul național.",
         "directive": {
           "label": "Directiva NIS 2 (UE) 2022/2555, art. 23 alin. (3)",
-          "quote": "Un incident este considerat semnificativ dacă: (a) a cauzat sau este în măsură să cauzeze o perturbare operațională gravă a serviciilor sau pierderi financiare pentru entitatea în cauză; (b) a afectat sau este în măsură să afecteze alte persoane fizice sau juridice prin cauzarea unor daune materiale sau morale considerabile.",
+          "quote": "Un incident este considerat semnificativ dacă: (a) a provocat sau poate provoca perturbări operaționale grave ale serviciilor sau pierderi financiare pentru entitatea în cauză; (b) a afectat sau poate afecta alte persoane fizice sau juridice, cauzând prejudicii materiale sau morale considerabile.",
           "context": "Aceasta este singura definiție generală a unui incident semnificativ din dreptul UE. Ambele puncte folosesc „este în măsură să cauzeze”, deci trebuie să cântăriți și daunele potențiale, nu doar daunele efective. Textul nu cuantifică niciodată grav, considerabil sau material."
         },
         "regulation": {
           "label": "CIR (UE) 2024/2690, art. 3",
-          "quote": "Un incident este considerat semnificativ atunci când a cauzat sau este în măsură să cauzeze: (a) pierderi financiare directe care depășesc 500 000 EUR sau 5 % din cifra de afaceri anuală totală din exercițiul financiar precedent, oricare dintre acestea este mai mică; (b) exfiltrarea secretelor comerciale ale entității, astfel cum sunt prevăzute la articolul 2 alineatul (1) din Directiva (UE) 2016/943; (c) decesul unei persoane fizice; (d) daune considerabile aduse sănătății unei persoane fizice; (e) accesul reușit, suspectat ca fiind răuvoitor și neautorizat la rețele și sisteme informatice, în măsură să cauzeze o perturbare operațională gravă; (f) criteriile prevăzute la articolul 4 (incidente recurente); sau (g) unul sau mai multe dintre criteriile prevăzute la articolele 5-14 (specifice entității). Oricare singur criteriu este suficient.",
+          "quote": "Un incident este considerat semnificativ în sensul articolului 23 alineatul (3) din Directiva 2022/2555 în ceea ce privește entitățile relevante în cazul în care sunt îndeplinite unul sau mai multe dintre următoarele criterii: (a) incidentul a cauzat sau poate cauza pierderi financiare directe pentru entitatea relevantă care depășesc 500 000 EUR sau 5 % din cifra de afaceri anuală totală a entității relevante aferentă exercițiului financiar anterior, reținându-se valoarea cea mai mică; (b) incidentul a cauzat sau poate cauza exfiltrarea secretelor comerciale ale entității relevante, astfel cum se prevede la articolul 2 punctul 1 din Directiva (UE) 2016/943; (c) incidentul a cauzat sau poate cauza decesul unei persoane fizice; (d) incidentul a cauzat sau poate cauza daune considerabile asupra sănătății unei persoane fizice; (e) s-a produs un acces reușit, presupus rău-intenționat și neautorizat la rețele și la sistemele informatice, care poate cauza perturbări operaționale grave; (f) incidentul îndeplinește criteriile prevăzute la articolul 4; (g) incidentul îndeplinește unul sau mai multe dintre criteriile prevăzute la articolele 5-14.",
           "context": "Șapte criterii (literele a-g). Cinci de fond plus două trimiteri. Art. 1 CIR prevede că aceste cifre se aplică numai unor furnizori digitali specifici (DNS, TLD, cloud, centru de date, CDN, MSP, MSSP, piață online, motor de căutare, platformă socială, servicii de încredere). Articolele 5-14 adaugă praguri minime de disponibilitate per sector pentru același grup. Dacă sectorul dumneavoastră nu se află pe acea listă, aceste cifre nu vă obligă, iar testul calitativ de la art. 23 alin. (3) este tot ce aveți."
         },
         "transposition": {
           "label": "§32 BSIG (Germania, exemplu de transpunere)",
-          "quote": "Wesentliche und wichtige Einrichtungen melden dem BSI erhebliche Sicherheitsvorfälle unverzüglich, spätestens innerhalb von 24 Stunden nach Kenntniserlangung als Frühwarnung, innerhalb von 72 Stunden als Sicherheitsvorfallsmeldung und innerhalb eines Monats als Abschlussbericht.",
-          "context": "Fiecare stat membru transformă art. 23 în drept național. §32 BSIG repetă cascada și desemnează BSI drept destinatar. Nu adaugă nicio cifră proprie pentru sectoarele nedigitale. Țările de Jos, Austria și Franța urmează același model."
+          "quote": "Besonders wichtige Einrichtungen und wichtige Einrichtungen sind verpflichtet, folgende Informationen an eine vom Bundesamt und dem Bundesamt für Bevölkerungsschutz und Katastrophenhilfe eingerichtete gemeinsame Meldestelle zu melden: 1. unverzüglich, spätestens jedoch innerhalb von 24 Stunden nach Kenntniserlangung von einem erheblichen Sicherheitsvorfall, eine frühe Erstmeldung ...",
+          "context": "Fiecare stat membru trebuie să transforme art. 23 în drept național. §32 BSIG repetă cascada și desemnează ca destinatar un birou comun de raportare înființat de BSI și de Oficiul Federal pentru Protecția Populației și Asistență în caz de Dezastre (BBK). Nu adaugă nicio cifră proprie pentru sectoarele nedigitale. NISG 2026 al Austriei se aplică din 1 octombrie 2026. Franța și Țările de Jos nu își notificaseră transpunerea până în iulie 2026 (Comisia le-a dat în judecată la Curtea de Justiție)."
         }
       },
       "elements": {
         "heading": "Articolele CIR care pun cifre pe caracterul semnificativ",
-        "description": "Trei articole din CIR 2024/2690 fac munca cantitativă. Ele obligă numai grupul digital denumit la art. 1 din același regulament.",
+        "description": "Articolele 3 până la 14 din CIR 2024/2690 fac munca cantitativă. Ele obligă numai grupul digital denumit la art. 1 din același regulament.",
         "items": {
           "framework": {
             "section": "CIR art. 3",
@@ -3117,9 +3127,9 @@
             "body": "Incidentele mici se cumulează. Dacă aceeași cauză-rădăcină produce cel puțin două incidente în șase luni, iar împreună depășesc limita de pierdere financiară de la art. 3 alin. (1) lit. (a), CIR le tratează ca pe un singur incident semnificativ. A le număra separat pe fiecare este greșit."
           },
           "independent": {
-            "section": "CIR art. 5",
+            "section": "CIR art. 5 și 6",
             "title": "Specificul DNS și TLD",
-            "body": "Pentru rezolvatorii DNS și registrele TLD: rezoluție de nume indisponibilă mai mult de 30 de minute, timp mediu de răspuns peste 10 secunde mai mult de o oră sau integritate a datelor compromisă pentru mai mult de 1 000 de domenii sau 1 % din portofoliu. Articolele 6-14 stabilesc praguri minime similare pentru cloud, CDN, MSP, MSSP, piețe online, căutare, rețele sociale și servicii de încredere."
+            "body": "Pentru furnizorii de servicii DNS (art. 5): rezoluție complet indisponibilă mai mult de 30 de minute, timp mediu de răspuns peste 10 secunde mai mult de o oră sau date compromise (cu excepția unei configurări greșite care afectează mai puțin de 1 000 de domenii și cel mult 1 % dintre ele). Registrele TLD (art. 6): orice întrerupere completă a rezoluției autoritative, timp de răspuns peste 10 secunde timp de o oră sau orice compromitere a datelor TLD. Articolele 7 până la 14 stabilesc praguri pentru cloud, centre de date, CDN, MSP și MSSP, piețe online, motoare de căutare, rețele sociale și servicii de încredere."
           }
         }
       },
@@ -3149,7 +3159,7 @@
           "phishingNoCreds": {
             "title": "S-a făcut clic pe un e-mail de phishing, nicio parolă introdusă",
             "verdict": "Neraportabil",
-            "body": "Limitare reușită, niciun impact asupra serviciilor sau a terților. Notificarea voluntară în temeiul art. 30 NIS 2 este disponibilă dacă doriți să comunicați și nu impune obligații suplimentare (art. 30 alin. (4))."
+            "body": "Limitare reușită, niciun impact asupra serviciilor sau a terților. Notificarea voluntară în temeiul art. 30 NIS 2 este disponibilă dacă doriți să comunicați și nu impune obligații suplimentare (art. 30 alin. (2))."
           },
           "cloudOutage": {
             "title": "Pană la furnizorul de cloud, propriul serviciu întârziat",
@@ -3172,17 +3182,17 @@
             "body": "Verificați mai întâi daunele aduse propriei entități sau clienților dumneavoastră. Nu orice incident al unui furnizor declanșează propria obligație de notificare. În paralel: documentați supravegherea furnizorilor în temeiul art. 21 alin. (2) lit. (d) NIS 2."
           }
         },
-        "uncertainHint": "Nu sunteți sigur dacă pragul este depășit? Depuneți avertizarea timpurie și actualizați mai târziu. Art. 23 alin. (4) lit. (a) NIS 2 este conceput exact pentru aceasta. Autoritatea competentă preferă un „încă nu suntem siguri” timpuriu unui „am așteptat prea mult” tardiv."
+        "uncertainHint": "Nu sunteți sigur dacă pragul este depășit? Avertizarea timpurie poate fi actualizată în notificarea de 72 de ore (art. 23 alin. (4) lit. (b)). Pentru evenimentele sub prag puteți notifica voluntar fără a vă asuma obligații suplimentare (art. 30)."
       },
       "voluntaryReporting": {
         "heading": "Ceea ce nu este obligatoriu poate fi totuși raportat (art. 30 NIS 2)",
         "p1": "Articolul 30 alineatul (1) NIS 2 permite notificarea voluntară a incidentelor, a amenințărilor cibernetice și a evitărilor la limită către CSIRT. Acest lucru se aplică entităților din domeniul de aplicare al directivei și entităților din afara acestuia care doresc să notifice un eveniment semnificativ.",
-        "p2": "Articolul 30 alineatul (4) NIS 2 este protecția cheie: raportarea voluntară nu trebuie să conducă la impunerea vreunei obligații suplimentare asupra entității care notifică. Raportarea unui caz la limită nu comportă niciun risc de îndatoriri suplimentare. Acest lucru elimină scuza evidentă de a nu notifica un incident neclar."
+        "p2": "Articolul 30 alineatul (2) NIS 2 este protecția cheie: raportarea voluntară nu trebuie să conducă la impunerea vreunei obligații suplimentare asupra entității care notifică. Raportarea unui caz la limită nu comportă niciun risc de îndatoriri suplimentare. Acest lucru elimină scuza evidentă de a nu notifica un incident neclar."
       },
       "customerNotification": {
         "heading": "Notificarea clienților cu privire la amenințări cibernetice semnificative (art. 23 alin. (2) NIS 2)",
         "p1": "Articolul 23 alineatul (2) NIS 2 adaugă o obligație separată. Entitățile esențiale și importante comunică, fără întârzieri nejustificate, destinatarilor serviciilor lor orice măsuri sau remedii pe care aceștia le pot lua pentru a atenua riscurile generate de o amenințare cibernetică semnificativă. Aceasta nu este notificarea către CSIRT; este comunicarea externă către clienți.",
-        "p2": "În Germania, §35 BSIG pune în aplicare acest lucru. §35 alin. (1) permite BSI să dispună notificarea. §35 alin. (2) obligă suplimentar anumite sectoare (finanțe, asigurări sociale, infrastructură digitală, gestionarea serviciilor TIC, servicii digitale) să notifice din proprie inițiativă. Comunicarea poate fi făcută prin publicare pe site-ul web al entității."
+        "p2": "În Germania, §35 alin. (2) BSIG pune în aplicare acest lucru: entitățile din finanțe, asigurări sociale, infrastructură digitală, gestionarea serviciilor TIC și servicii digitale trebuie să informeze clienții amenințați de o amenințare cibernetică semnificativă despre ce pot face, acolo unde interesele clienților prevalează asupra propriilor interese. Separat, BSI poate dispune ca o entitate să își informeze clienții despre un incident semnificativ (§35 alin. (1) BSIG), de exemplu prin publicare pe site-ul web."
       },
       "nationalView": {
         "heading": "Cum gestionează efectiv statele membre acest lucru",
@@ -3191,17 +3201,17 @@
           "bsi": {
             "country": "Germania",
             "label": "Orientările BSI în temeiul §32 BSIG",
-            "body": "BSI repetă formularea de la art. 23 alin. (3) și vă îndrumă către formularul său standard de raportare (MIRP). Nu publică nicio cifră pentru sectoarele nedigitale. Poziția BSI: evaluați caracterul semnificativ în raport cu criteriile calitative, consemnați-vă raționamentul în scris și raportați în caz de dubiu."
+            "body": "BSI repetă definiția din § 2 nr. 11 BSIG și interpretează „ar putea cauza” astfel: efectele s-ar putea produce în mod realist. Raportările se fac prin portalul BSI. Nu publică nicio cifră pentru sectoarele nedigitale. BSI notează că ministerul federal de interne poate defini ulterior „semnificativ” mai detaliat printr-un regulament (§ 56 alin. (4) BSIG)."
           },
           "enisa": {
             "country": "UE",
             "label": "Ghidul tehnic de punere în aplicare al ENISA",
-            "body": "Ghidul tehnic de punere în aplicare al ENISA (TIG, v1.2 august 2025) oferă sfaturi practice privind evaluarea impactului și trimite la pragurile CIR acolo unde acestea se aplică. TIG nu are caracter obligatoriu și predă în mod explicit sectoarele din afara domeniului CIR înapoi autorităților naționale."
+            "body": "Ghidul tehnic de punere în aplicare al ENISA (TIG, versiunea 1.0 din iunie 2025; tabelul său de corespondențe a fost actualizat la versiunea 1.2 în august 2025) oferă sfaturi practice privind evaluarea impactului și trimite la pragurile CIR acolo unde acestea se aplică. TIG nu are caracter obligatoriu și predă în mod explicit sectoarele din afara domeniului CIR înapoi autorităților naționale."
           },
           "transposition": {
             "country": "NL / AT / FR",
-            "label": "Alte transpuneri ale statelor membre",
-            "body": "Cyberbeveiligingswet din Țările de Jos, proiectul NISG 2024 din Austria și regimul francez OIV/REC repetă toate testul de la art. 23 alin. (3) cuvânt cu cuvânt. Niciunul dintre acestea nu a publicat încă cifre pentru sectoarele nedigitale. Modelul în întreaga UE este același: test calitativ plus CIR pentru grupul digital."
+            "label": "Alte state membre",
+            "body": "NISG 2026 al Austriei se aplică din 1 octombrie 2026. Franța și Țările de Jos nu își notificaseră transpunerea până în iulie 2026 (Comisia le-a dat în judecată la Curtea de Justiție). Germania este exemplul folosit aici."
           }
         }
       },
@@ -3211,21 +3221,21 @@
         "items": {
           "blanketTransfer": {
             "myth": "Mit 1: Vom ști când vom vedea.",
-            "reality": "Realitate: Art. 23 alin. (3) vă oferă 24 de ore pentru a decide, a consemna raționamentul în scris și a-l apăra la audit. Dacă nu v-ați notat criteriile înainte de incident, veți lua decizia sub presiune, fără un document pe care să vă bazați. Construiți cadrul de decizie acum, nu în ziua respectivă."
+            "reality": "Realitate: Art. 23 alin. (4) lit. (a) vă oferă 24 de ore de când aflați de un incident semnificativ pentru a trimite avertizarea timpurie. În acest interval trebuie să decideți, să consemnați raționamentul în scris și să îl puteți apăra la audit. Dacă nu v-ați notat criteriile înainte de incident, veți lua decizia sub presiune, fără un document pe care să vă bazați. Construiți cadrul de decizie acum, nu în ziua respectivă."
           },
           "noAssets": {
             "myth": "Mit 2: Doar încălcările de date contează ca incidente semnificative.",
-            "reality": "Realitate: Art. 23 alin. (3) lit. (a) acoperă perturbarea operațională și pierderea financiară, fără nicio mențiune privind datele cu caracter personal. O linie de fabrică oprită de un ransomware, fără exfiltrare de date, este un incident semnificativ. O platformă logistică indisponibilă timp de trei ore este un incident semnificativ. NIS 2 nu este GDPR."
+            "reality": "Realitate: Art. 23 alin. (3) lit. (a) acoperă perturbarea operațională și pierderea financiară, fără nicio mențiune privind datele cu caracter personal. O linie de fabrică oprită de un ransomware, fără exfiltrare de date, este un incident semnificativ. O platformă logistică indisponibilă timp de trei ore poate fi unul, dacă întreruperea perturbă grav serviciul sau cauzează daune considerabile clienților. NIS 2 nu este GDPR."
           },
           "noAcceptanceCriteria": {
             "myth": "Mit 3: Incidentele mici sub prag nu se cumulează.",
-            "reality": "Realitate: Art. 4 CIR (și aceeași logică pentru criteriile calitative) prevede că incidentele repetate cu aceeași cauză-rădăcină se adună. Două întreruperi de 20 de minute provocate de aceeași componentă defectă în șase luni pot depăși împreună pragul. A le număra pe fiecare izolat este greșit."
+            "reality": "Realitate: pentru furnizorii digitali din CIR, incidentele cu aceeași cauză-rădăcină aparentă care se produc de cel puțin două ori în șase luni se numără ca un singur incident semnificativ dacă pierderile lor financiare depășesc împreună pragul de la art. 3 alin. (1) lit. (a) (art. 4 CIR). NIS 2 în sine nu are o astfel de regulă, dar un tipar de incidente mici este tot un motiv să vă uitați din nou."
           }
         }
       },
       "practitioner": {
         "heading": "Pârghia: nedefinit pentru majoritatea entităților NIS 2",
-        "p1": "Anexele I și II la NIS 2 acoperă aproximativ 18 sectoare. Doar grupul digital de la art. 1 CIR (aproximativ 11 tipuri de entități) primește cifre. Aceasta este o mică parte din entitățile vizate. Pentru energie, transport, bănci, infrastructura piețelor financiare, sănătate, apă potabilă, ape uzate, administrație publică, spațiu, poștă, gestionarea deșeurilor, substanțe chimice, alimentație, producție și cercetare, testul rămâne calitativ.",
+        "p1": "Anexele I și II la NIS 2 acoperă 18 sectoare. Doar grupul digital de la art. 1 CIR (11 tipuri de entități) primește cifre. Aceasta este o mică parte din entitățile vizate. Pentru energie, transport, bănci, infrastructura piețelor financiare, sănătate, apă potabilă, ape uzate, administrație publică, spațiu, poștă, gestionarea deșeurilor, substanțe chimice, alimentație, producție și cercetare, testul rămâne calitativ.",
         "p2": "Acolo puteți fi util în discuție. Răspunsul onest la întrebarea consiliului („ce contează ca semnificativ pentru noi?”) este: UE a lăsat acest lucru la aprecierea dumneavoastră, iată cei trei factori din considerentul 101, iată jurnalul de decizie pe care îl vom produce în ziua respectivă, iată cine îl semnează, iată formularul de raportare BSI pe care îl vom depune. Răspunsul ce poate fi apărat nu este o cifră. Este o decizie consemnată în scris."
       },
       "platform": {
@@ -3238,9 +3248,9 @@
         "items": [
           "Directiva (UE) 2022/2555 (NIS 2), art. 23 și considerentul 101 (eur-lex.europa.eu/eli/dir/2022/2555/oj)",
           "Regulamentul de punere în aplicare (UE) 2024/2690 al Comisiei, articolele 1, 3, 4, 5-14 (eur-lex.europa.eu/eli/reg_impl/2024/2690/oj)",
-          "BSIG §32 (Germania) (portalul de reglementare bsi.bund.de)",
-          "Ghidul tehnic de punere în aplicare al ENISA privind raportarea incidentelor NIS 2 (TIG) (enisa.europa.eu)",
-          "Formularul de raportare BSI MIRP și orientările privind incidentele (bsi.bund.de)"
+          "BSIG § 32 (Germania): gesetze-im-internet.de/bsig_2025",
+          "ENISA, Ghidul tehnic de implementare NIS2, versiunea 1.0, 26 iunie 2025: enisa.europa.eu",
+          "BSI, FAQ NIS-2 și portalul BSI: bsi.bund.de, portal.bsi.bund.de"
         ]
       },
       "ctaCard": {
@@ -4667,9 +4677,9 @@
       "subtitle": "Daca ati cautat 'IT Sicherheitspflicht', cautati NIS2. Din decembrie 2025, BSIG revizuit face din securitatea cibernetica o obligatie legala pentru aproximativ 29.500 de companii germane.",
       "overview": {
         "heading": "NIS2 este obligatia de securitate IT despre care ati tot auzit",
-        "p1": "Nu exista o 'lege de sine statatoare a obligatiei de securitate IT' in Germania. Ce exista este Directiva NIS2 (UE 2022/2555), transpusa in dreptul german prin NIS2UmsuCG, care a revizuit Legea federala privind securitatea cibernetica (BSIG). Aceasta este legea care creeaza obligatii obligatorii de securitate IT pentru companiile din 18 sectoare critice.",
-        "p2": "BSIG a intrat in vigoare la 6 decembrie 2025. Cere companiilor afectate sa implementeze 10 masuri specifice de gestionare a riscurilor de securitate cibernetica (sectiunea 30 BSIG), sa se inregistreze la BSI, sa raporteze incidentele semnificative in termene stricte si sa isi securizeze lanturile de aprovizionare. Conducerea este personal raspunzatoare in temeiul sectiunii 38 BSIG pentru asigurarea conformitatii.",
-        "p3": "Daca firma voastra are 50 sau mai multi angajati sau depaseste 10 milioane de euro atât la cifra de afaceri anuală, cât și la bilanț, si opereaza intr-unul dintre cele 18 sectoare NIS2, aceste obligatii vi se aplica chiar acum. Termenul de inregistrare a fost 6 martie 2026."
+        "p1": "Nu există o 'lege de sine stătătoare a obligației de securitate IT' în Germania. Ceea ce există este Directiva NIS2 (UE 2022/2555), transpusă în dreptul german prin NIS2UmsuCG, care a revizuit Legea BSI (BSIG). Aceasta este legea care creează obligații obligatorii de securitate IT pentru companiile din sectoarele enumerate în anexele 1 și 2 la BSIG.",
+        "p2": "BSIG a intrat în vigoare la 6 decembrie 2025. Cere companiilor afectate să implementeze 10 măsuri specifice de gestionare a riscurilor de securitate cibernetică (secțiunea 30 BSIG), să se înregistreze la BSI, să raporteze incidentele semnificative în termene stricte și să își securizeze lanțurile de aprovizionare. Conform secțiunii 38 BSIG, conducerea trebuie să implementeze și să supravegheze măsurile și răspunde față de companie pentru prejudiciile cauzate din culpă.",
+        "p3": "Dacă firma voastră are 50 sau mai mulți angajați sau depășește 10 milioane de euro atât la cifra de afaceri anuală, cât și la totalul bilanțului și activează într-unul dintre sectoarele enumerate în anexele 1 și 2 la BSIG, aceste obligații se aplică chiar acum. Termenul de înregistrare a fost 6 martie 2026."
       },
       "check": {
         "heading": "Mi se aplica acest lucru companiei?",
@@ -4677,11 +4687,11 @@
         "items": {
           "sector": {
             "title": "Sector",
-            "description": "Firma voastra opereaza intr-unul dintre 18 sectoare: energie, transport, banci, sanatate, apa, infrastructura digitala, servicii TIC, administratie publica, spatiu, servicii postale, gestionarea deseurilor, produse chimice, productie alimentara, fabricatie sau furnizori digitali."
+            "description": "Firma voastră oferă bunuri sau servicii contra cost într-unul dintre sectoarele enumerate în anexele 1 și 2 la BSIG: energie, transport, finanțe, sănătate, apă, infrastructură digitală (inclusiv servicii TIC și de securitate gestionate), spațiu, servicii poștale și de curierat, deșeuri, produse chimice, alimente, producție, servicii digitale, cercetare."
           },
           "size": {
             "title": "Numar de angajati",
-            "description": "Aveti 50 sau mai multi angajati. Acest lucru urmeaza definitia UE a IMM-urilor si include toti angajatii din grup, nu doar entitatea germana. Angajatii cu fractiune de norma se numara proportional."
+            "description": "Aveți 50 sau mai mulți angajați. Aceasta urmează definiția UE a IMM-urilor și include toți angajații din grup, nu doar entitatea germană. Excepție: companiile partenere sau legate nu se adaugă dacă IT-ul vostru funcționează independent de al lor (§ 28 alin. (4) BSIG). Angajații cu fracțiune de normă se numără proporțional."
           },
           "revenue": {
             "title": "Cifra de afaceri anuala",
@@ -4689,7 +4699,7 @@
           },
           "services": {
             "title": "Servicii critice",
-            "description": "Unele tipuri de entitati sunt in domeniul de aplicare indiferent de marime: furnizorii DNS, registrele TLD, prestatorii de servicii de incredere calificati, operatorii KRITIS si furnizorii unici de servicii esentiale dintr-o regiune."
+            "description": "Unele sunt în domeniul de aplicare indiferent de mărime: operatorii de infrastructuri critice (KRITIS), prestatorii de servicii de încredere, registrele de nume TLD și furnizorii de servicii DNS (§ 28 BSIG)."
           }
         }
       },
@@ -4699,7 +4709,7 @@
         "items": {
           "register": {
             "title": "Inregistrati-va la BSI",
-            "description": "Finalizati-va inregistrarea prin portalul BSI (muk.bsi.bund.de). Aceasta este o obligatie legala in temeiul sectiunii 33 BSIG, cu propria penalitate de pana la 500.000 de euro. Portalul este activ din ianuarie 2026, iar termenul a fost 6 martie 2026. Daca l-ati ratat, inregistrati-va imediat."
+            "description": "Înregistrați-vă în doi pași: mai întâi creați un cont la Mein Unternehmenskonto (mein-unternehmenskonto.de, folosește un certificat de organizație ELSTER), apoi înregistrați-vă în portalul BSI (portal.bsi.bund.de). Aceasta este o obligație legală în temeiul secțiunii 33 BSIG, cu propria penalitate de până la 500.000 de euro. Portalul este activ din ianuarie 2026, iar termenul a fost 6 martie 2026. Dacă l-ați ratat, înregistrați-vă imediat."
           },
           "assess": {
             "title": "Efectuati o evaluare a riscului",
@@ -4707,7 +4717,7 @@
           },
           "implement": {
             "title": "Implementati 10 masuri de securitate",
-            "description": "Sectiunea 30 BSIG defineste 10 domenii obligatorii: politici de gestionare a riscurilor, gestionarea incidentelor, continuitatea activitatii, securitatea lantului de aprovizionare, securitatea retelei, gestionarea vulnerabilitatilor, igiena de securitate cibernetica, criptografie, control al accesului si autentificare multifactoriala. Fiecare domeniu necesita politici documentate si dovezi de implementare."
+            "description": "Secțiunea 30 alin. (2) BSIG enumeră 10 domenii: 1 analiza riscurilor și politicile de securitate; 2 gestionarea incidentelor; 3 menținerea activității (backup, recuperare, gestionarea crizelor); 4 securitatea lanțului de aprovizionare; 5 securitatea la achiziția, dezvoltarea și întreținerea IT, inclusiv gestionarea vulnerabilităților; 6 verificarea eficacității măsurilor; 7 instruire și sensibilizare de bază; 8 criptografie; 9 securitatea personalului, controlul accesului și gestionarea activelor; 10 autentificare multifactorială și comunicare securizată. Fiecare domeniu necesită politici documentate și dovezi de implementare."
           },
           "report": {
             "title": "Configurati raportarea incidentelor",
@@ -4715,14 +4725,14 @@
           },
           "maintain": {
             "title": "Mentineti conformitatea continua",
-            "description": "NIS2 nu este un proiect unic. Aveti nevoie de revizuiri anuale ale evaluarii riscului, instruire periodica pentru conducere (sectiunea 38 BSIG cere participare personala), reevaluari ale furnizorilor si monitorizare continua a incidentelor. Platforma urmareste toate termenele si escaladeaza automat."
+            "description": "NIS2 nu este un proiect unic. Păstrați evaluarea riscurilor la zi când lucrurile se schimbă, instruiți conducerea periodic (secțiunea 38 BSIG cere participare personală; expunerea de motive a legii interpretează „periodic” ca cel puțin o dată la trei ani), reevaluați furnizorii și continuați monitorizarea incidentelor."
           }
         }
       },
       "consequences": {
         "heading": "Ce se intampla daca nu faceti nimic",
-        "p1": "Cadrul de penalitati este modelat dupa GDPR. Entitatile esentiale se confrunta cu amenzi de pana la 10 milioane de euro sau 2% din cifra de afaceri anuala globala. Entitatile importante se confrunta cu pana la 7 milioane de euro sau 1,4%. Doar incalcarile de inregistrare atrag amenzi de pana la 500.000 de euro. BSI are competente de aplicare a legii si poate dispune conformitatea sau restrictiona operatiunile.",
-        "p2": "Pe langa amenzi, sectiunea 38 BSIG creeaza raspundere personala pentru conducere. Directorii trebuie sa aprobe masurile de securitate cibernetica, sa supravegheze implementarea si sa finalizeze instruirea. Ei raspund fata de propria companie pentru incalcari culpabile. Aceasta raspundere nu poate fi exclusa prin contract. A pretinde ca nu ati inteles securitatea cibernetica nu este explicit o aparare."
+        "p1": "Entitățile esențiale riscă amenzi de până la 10 milioane de euro sau 2% din cifra de afaceri anuală globală. Entitățile importante riscă până la 7 milioane de euro sau 1,4%. Doar încălcările privind înregistrarea atrag amenzi de până la 500.000 de euro. BSI poate dispune conformarea (§§ 61, 62 BSIG). Pentru entitățile deosebit de importante care ignoră ordinele sale, autoritatea sectorială competentă poate, ca ultimă soluție, să suspende temporar o licență și să interzică temporar exercitarea funcției de către conducătorii nefiabili (§ 61 alin. (9) BSIG).",
+        "p2": "Pe lângă amenzi, secțiunea 38 BSIG creează răspundere personală pentru conducere. Directorii trebuie să implementeze măsurile de securitate cibernetică, să supravegheze implementarea și să urmeze periodic instruiri. Ei răspund față de propria companie pentru prejudiciile cauzate din culpă, potrivit regulilor dreptului societar pentru forma sa juridică."
       },
       "faq": {
         "heading": "Intrebari frecvente",
@@ -4736,15 +4746,15 @@
         },
         "q3": {
           "q": "Termenul de inregistrare a trecut. Ce ar trebui sa facem?",
-          "a": "Inregistrati-va imediat. Portalul BSI de la muk.bsi.bund.de inca accepta inregistrari. Inregistrarea tarzie este mai buna decat lipsa inregistrarii. Amenda pentru neinregistrare este de pana la 500.000 de euro, dar BSI evalueaza buna-credinta. O companie care se inregistreaza cu cateva saptamani intarziere si poate arata ca lucra activ la conformitate este intr-o pozitie mult mai buna decat una care nu a facut nimic."
+          "a": "Înregistrați-vă imediat. Mai întâi creați un cont la Mein Unternehmenskonto (mein-unternehmenskonto.de), apoi înregistrați-vă în portalul BSI (portal.bsi.bund.de), care încă acceptă înregistrări. Înregistrarea tardivă este mai bună decât lipsa înregistrării. Amenda pentru neînregistrare este de până la 500.000 de euro (§ 65 BSIG)."
         },
         "q4": {
           "q": "Poate furnizorul nostru extern de IT sa gestioneze conformitatea NIS2 pentru noi?",
-          "a": "Pot ajuta la implementarea masurilor tehnice, dar obligatia legala ramane la firma voastra. Sectiunea 30 BSIG prevede explicit ca puteti externaliza operatiunile, dar nu si responsabilitatea. Conducerea voastra ramane personal raspunzatoare in temeiul sectiunii 38 BSIG. Trebuie sa documentati ce face furnizorul vostru de IT, sa verificati masurile lor de securitate si sa ii includeti in procesul vostru de gestionare a furnizorilor."
+          "a": "Pot ajuta la implementarea măsurilor tehnice, dar obligația legală rămâne la firma voastră, chiar dacă IT-ul vostru este complet externalizat. BSI spune acest lucru în FAQ-ul său NIS-2: trebuie să vă asigurați că furnizorii vă implementează măsurile, să îi verificați periodic și să urmăriți ca incidentele să fie raportate. Conducerea voastră rămâne responsabilă conform secțiunii 38 BSIG pentru implementarea și supravegherea măsurilor. Trebuie să documentați ce face furnizorul vostru de IT, să verificați măsurile lor de securitate și să îi includeți în procesul vostru de gestionare a furnizorilor."
         },
         "q5": {
           "q": "Cat costa conformitatea NIS2 pentru o companie din segmentul mediu?",
-          "a": "Pentru o companie cu 50 pana la 250 de angajati, asteptati-va sa cheltuiti intre 20.000 si 80.000 de euro in primul an, in functie de maturitatea voastra actuala de securitate. Aceasta include evaluarea riscului, documentarea politicilor, imbunatatiri tehnice si instruire. Companiile care au deja masuri de securitate IT de baza sunt la capatul inferior. Costul anual continuu scade semnificativ dupa primul an, deoarece cea mai mare parte a muncii este configurare, nu mentenanta."
+          "a": "Depinde de ce aveți deja. Legea cere măsuri potrivite cu dimensiunea și riscul vostru, iar costul implementării lor este unul dintre lucrurile care se iau în calcul (§ 30 alin. (1) BSIG)."
         }
       },
       "ctaCard": {
@@ -4879,7 +4889,7 @@
         "items": {
           "muk": {
             "title": "Mein Unternehmenskonto (MUK)",
-            "description": "Aveti nevoie de un cont MUK activ la muk.bsi.bund.de. MUK este sistemul de conturi de afaceri al guvernului federal. Daca firma dumneavoastra nu are inca unul, creati-l mai intai. Acest lucru poate dura cateva zile pentru ca necesita verificare ELSTER. Nu asteptati pana in ultimul moment."
+            "description": "Aveți nevoie de un cont activ la Mein Unternehmenskonto (MUK, mein-unternehmenskonto.de), sistemul de conturi de afaceri al guvernului federal, creat cu certificatul ELSTER al firmei dumneavoastră. Dacă firma dumneavoastră nu are încă unul, creați-l mai întâi: acest lucru poate dura câteva zile, pentru că necesită verificare ELSTER. Nu așteptați până în ultimul moment."
           },
           "elster": {
             "title": "Certificat ELSTER",
@@ -4901,7 +4911,7 @@
         "items": {
           "s1": {
             "title": "Conectati-va la MUK",
-            "description": "Accesati muk.bsi.bund.de si conectati-va cu certificatul ELSTER. Daca este prima data cand folositi MUK, va trebui sa creati un cont si sa il legati de identitatea dumneavoastra ELSTER. Asigurati-va ca navigatorul permite plugin-ul de securitate ELSTER. Folositi Chrome sau Edge pentru cea mai buna compatibilitate."
+            "description": "Accesați portalul BSI (portal.bsi.bund.de) și conectați-vă prin Mein Unternehmenskonto cu certificatul ELSTER. Dacă este prima dată când folosiți MUK, va trebui să creați un cont și să îl legați de identitatea dumneavoastră ELSTER. Asigurați-vă că navigatorul permite plugin-ul de securitate ELSTER. Folosiți Chrome sau Edge pentru cea mai bună compatibilitate."
           },
           "s2": {
             "title": "Selectati inregistrarea NIS2",
@@ -4985,7 +4995,7 @@
             "title": "Săptămâna 1, înregistrare și orientare",
             "timeframe": "Zilele 1-5",
             "actions": [
-              "Înregistrați-vă la BSI prin muk.bsi.bund.de (dacă nu ați făcut-o deja). Durează 30-60 de minute cu pregătire.",
+              "Înregistrați-vă la BSI în portalul BSI (portal.bsi.bund.de), autentificându-vă cu Mein Unternehmenskonto (dacă nu ați făcut-o deja).",
               "Citiți §30 BSIG pentru a înțelege cele 10 măsuri de securitate obligatorii. Sunt 2 pagini de text juridic, nu un manual.",
               "Identificați cine din firmă va răspunde de conformitatea NIS2. Nu trebuie să fie o angajare nouă, poate fi managerul IT, CISO sau managerul de calitate.",
               "Informați conducerea cu privire la răspunderea sa personală în temeiul §38 BSIG. Trebuie să cunoască cele trei îndatoriri: aprobarea, supravegherea și formarea.",
@@ -5128,7 +5138,7 @@
         "items": {
           "registration": {
             "title": "1. Înregistrați-vă la BSI",
-            "description": "Finalizați înregistrarea conform Secțiunii 33 BSIG prin muk.bsi.bund.de. Aceasta durează aproximativ 30 până la 60 de minute și vă pune imediat în evidență. Sancțiunea pentru neînregistrare este de până la 500.000 de euro. Dacă termenul a trecut, înregistrați-vă imediat."
+            "description": "Finalizați înregistrarea conform Secțiunii 33 BSIG în portalul BSI (portal.bsi.bund.de), autentificându-vă cu Mein Unternehmenskonto. Aceasta vă pune în evidență. Sancțiunea pentru neînregistrare este de până la 500.000 de euro. Dacă termenul a trecut, înregistrați-vă imediat."
           },
           "assets": {
             "title": "2. Construiți inventarul de active",
@@ -5229,7 +5239,7 @@
         "items": {
           "registration": {
             "title": "1. Înregistrați-vă la BSI",
-            "description": "Finalizați-vă înregistrarea conform articolului 33 BSIG prin muk.bsi.bund.de. Aceasta durează 30 până la 60 de minute și vă consemnează. Sancțiunea pentru neînregistrare este de până la 500.000 de euro. Dacă termenul a trecut, înregistrați-vă imediat."
+            "description": "Finalizați-vă înregistrarea conform articolului 33 BSIG în portalul BSI (portal.bsi.bund.de), autentificându-vă cu Mein Unternehmenskonto. Aceasta vă consemnează. Sancțiunea pentru neînregistrare este de până la 500.000 de euro. Dacă termenul a trecut, înregistrați-vă imediat."
           },
           "assets": {
             "title": "2. Construiți-vă inventarul de active (IT și OT)",
@@ -5384,20 +5394,20 @@
     "sectorLogistics": {
       "meta": {
         "title": "NIS2 pentru logistică și transport",
-        "description": "Logistica intră în domeniul Anexei I a NIS2. Ghid pentru companii cu 50+ angajați: TMS, managementul flotei, sisteme de depozit și conformitatea BSIG."
+        "description": "Cine din logistică intră sub NIS2: transport aerian, feroviar, maritim, porturi și sisteme de trafic rutier (Anexa I), servicii poștale și de curierat (Anexa II). Transportul rutier de marfă și expedițiile nu intră."
       },
-      "badge": "Anexa I - Entitate esențială / importantă",
+      "badge": "Anexa I/II NIS2",
       "title": "NIS2 pentru companiile de logistică și transport",
-      "subtitle": "Transportul este clasificat conform Anexei I a NIS2, acoperind transportul rutier, feroviar, pe apă și aerian. Dacă compania dvs. de logistică are 50+ angajați, iată ce cere BSIG și de unde să începeți.",
+      "subtitle": "NIS2 acoperă tipuri specifice de entități de transport din Anexa I și serviciile poștale și de curierat din Anexa II. Transportatorii rutieri, expeditorii și operatorii de depozite nu se numără printre ele. Iată cine intră în domeniul de aplicare, cine nu și ce ajunge la ceilalți în calitate de furnizori.",
       "why": {
-        "heading": "De ce se aplică NIS2 companiilor de logistică?",
-        "p1": "Logistica este coloana vertebrală a economiei fizice. Un atac cibernetic care oprește un furnizor major de logistică nu afectează doar o singură companie. El perturbă lanțurile de aprovizionare pentru zeci sau sute de clienți. Atacul NotPetya din 2017 a costat numai compania Maersk peste 300 de milioane de euro și a perturbat transportul maritim global timp de săptămâni. UE a clasificat transportul în Anexa I (sectoare de înaltă criticitate) pentru că perturbările logistice se propagă în cascadă prin întreaga economie.",
-        "p2": "NIS2 acoperă toate modurile de transport: transport rutier de marfă, transport feroviar, căi navigabile interioare, transport maritim și transport aerian de marfă. Companiile care ating pragul de mărime (50+ angajați sau o cifră de afaceri și un bilanț de peste 10 milioane de euro fiecare) intră în domeniul de aplicare. Companiile mari (250+ angajați) din sectoarele Anexei I sunt clasificate ca entități esențiale. Companiile mijlocii (50-249 angajați) sunt entități importante (wichtige Einrichtungen). Ambele se confruntă cu setul complet de obligații NIS2.",
-        "p3": "Companiile moderne de logistică funcționează pe sisteme IT interconectate. Sistemele de management al transportului (TMS) orchestrează expedierile. Managementul flotei urmărește vehiculele în timp real. Sistemele de management al depozitului (WMS) controlează inventarul și culegerea. Unitățile telematice din camioane transmit poziția, viteza, temperatura și datele șoferului. Dacă oricare dintre aceste sisteme cade, operațiunile se opresc sau devin periculos de ineficiente. NIS2 vă cere să identificați aceste dependențe și să gestionați sistematic riscurile de securitate cibernetică."
+        "heading": "Cărei companii de logistică i se aplică NIS2?",
+        "p1": "Logistica este coloana vertebrală a economiei fizice. Un atac cibernetic care oprește un furnizor major de logistică nu afectează doar o singură companie. El perturbă lanțurile de aprovizionare pentru zeci sau sute de clienți. UE listează transportul în Anexa I (sectoare de înaltă criticitate), dar numai tipuri specifice de entități din cadrul lui, nu logistica în ansamblu.",
+        "p2": "NIS2 nu acoperă transportul în general. Enumeră tipuri specifice de entități: transportatori aerieni, aeroporturi și controlul traficului aerian; administratori de infrastructură feroviară și întreprinderi feroviare; companii de transport pe căi navigabile interioare, maritim și de coastă, operatori de porturi și servicii de trafic naval; autorități rutiere responsabile de managementul traficului și operatori de sisteme inteligente de transport (Anexa I sectorul 2); și servicii poștale și de curierat (Anexa II sectorul 1). Prin urmare, companiile de transport feroviar de marfă și de transport maritim intră în domeniul de aplicare, transportul rutier de marfă nu. O companie de transport rutier, un expeditor sau un operator de depozit nu este unul dintre aceste tipuri, deci nu intră în domeniul de aplicare pentru acea activitate, indiferent de dimensiune. Poate primi totuși cerințe NIS2 în calitate de furnizor: clienții care intră în domeniul de aplicare trebuie să gestioneze securitatea furnizorilor lor direcți (articolul 21 alineatul (2) litera (d) NIS2, secțiunea 30 alin. (2) pct. 4 BSIG) și transmit adesea cerințele prin contractele lor. Asta nu face din furnizor o entitate. Pentru tipurile enumerate, companiile care ating pragul de mărime (50+ angajați sau o cifră de afaceri și un bilanț de peste 10 milioane de euro fiecare) intră în domeniul de aplicare. Companiile mari (250+ angajați) de un tip din Anexa I sunt clasificate ca entități esențiale. Companiile mijlocii (50-249 angajați) sunt entități importante (wichtige Einrichtungen), iar serviciile poștale și de curierat contează ca entități importante la orice dimensiune peste prag. Ambele se confruntă cu setul complet de obligații NIS2.",
+        "p3": "Companiile moderne de logistică funcționează pe sisteme IT interconectate. Sistemele de management al transportului (TMS) orchestrează expedierile. Managementul flotei urmărește vehiculele în timp real. Sistemele de management al depozitului (WMS) controlează inventarul și culegerea. Unitățile telematice din camioane transmit poziția, viteza, temperatura și datele șoferului. Dacă oricare dintre aceste sisteme cade, operațiunile se opresc sau devin periculos de ineficiente. Dacă firma dvs. este unul dintre tipurile de entități enumerate, NIS2 vă cere să identificați aceste dependențe și să gestionați sistematic riscurile de securitate cibernetică."
       },
       "assets": {
         "heading": "Cum arată inventarul de active al unei companii de logistică?",
-        "description": "Pentru o companie de logistică cu 100 până la 250 de angajați, așteptați-vă la 10 până la 18 intrări de active grupate în șase categorii. Mixul exact depinde dacă operați transport rutier, feroviar, de depozit sau operațiuni multimodale.",
+        "description": "Inventarul de active al unei companii de logistică își grupează sistemele în șase categorii. Mixul exact depinde dacă operați transport rutier, feroviar, de depozit sau operațiuni multimodale.",
         "items": {
           "tms": {
             "title": "Sistem de management al transportului (TMS)",
@@ -5427,11 +5437,11 @@
       },
       "priorities": {
         "heading": "De unde să începeți. Ordinea de prioritate pentru companiile de logistică",
-        "description": "Concentrați-vă mai întâi pe zonele care creează cea mai mare valoare de conformitate. Companiile de logistică beneficiază de pornirea cu sistemele care controlează direct operațiunile.",
+        "description": "Dacă firma dvs. este unul dintre tipurile de entități enumerate, concentrați-vă mai întâi pe zonele care creează cea mai mare valoare de conformitate. Companiile de logistică beneficiază de pornirea cu sistemele care controlează direct operațiunile.",
         "items": {
           "registration": {
             "title": "1. Înregistrați-vă la BSI",
-            "description": "Finalizați înregistrarea dvs. conform Secțiunii 33 BSIG. Transportul este un sector din Anexa I, deci companiile mari se confruntă cu o supraveghere proactivă din partea BSI. Înregistrarea durează 30 până la 60 de minute prin muk.bsi.bund.de. Dacă termenul a trecut, înregistrați-vă imediat. Sancțiunea pentru neînregistrare este de până la 500.000 de euro."
+            "description": "Finalizați înregistrarea dvs. conform Secțiunii 33 BSIG dacă firma dvs. este unul dintre tipurile de entități enumerate. Transportul este un sector din Anexa I, deci companiile mari de un tip enumerat se confruntă cu o supraveghere proactivă din partea BSI. Înregistrați-vă în portalul BSI (portal.bsi.bund.de). Vă autentificați cu un certificat de organizație ELSTER de la 'Mein Unternehmenskonto' (MUK). Înregistrarea este o obligație de sine stătătoare, cu trei luni de la momentul în care vă numărați prima dată ca entitate (§ 33 alin. (1) BSIG)."
           },
           "assets": {
             "title": "2. Construiți-vă inventarul de active",
@@ -5455,25 +5465,25 @@
         "heading": "Ce face companiile de logistică diferite",
         "p1": "Companiile de logistică operează unul dintre cele mai distribuite medii IT din orice sector. Activele nu se află într-o singură clădire. Sunt răspândite pe birouri, depozite, centre de distribuție și sute de vehicule pe șosea. Fiecare camion cu o unitate telematică este un punct terminal conectat. Fiecare scaner de depozit este un dispozitiv în rețeaua dvs. Această amprentă distribuită face securitatea tradițională de perimetru mai puțin eficace și crește importanța managementului dispozitivelor, a segmentării rețelei și a controalelor de acces bazate pe identitate.",
         "p2": "Sensibilitatea la timp a logisticii creează o provocare unică de răspuns la incidente. Într-o companie de producție, ați putea tolera o întrerupere a sistemului de 24 de ore. În logistică, 4 ore de indisponibilitate a TMS-ului înseamnă ferestre de livrare ratate, penalități contractuale și întârzieri în cascadă. Planul dvs. de răspuns la incidente trebuie să țină cont de asta: ce proceduri manuale de rezervă există? Pot dispecerii direcționa expedierile prin telefon? Pot continua operațiunile de depozit cu culegere pe hârtie? Aceste întrebări de continuitate a activității sunt la fel de importante ca planul tehnic de recuperare.",
-        "p3": "Companiile de logistică sunt de asemenea profund integrate cu sistemele clienților și ale transportatorilor lor prin EDI (Electronic Data Interchange), conexiuni API și platforme partajate. O breșă de securitate la compania dvs. se poate propaga la clienți prin aceste conexiuni, și viceversa. Evaluarea securității lanțului dvs. de aprovizionare ar trebui să acopere nu doar furnizorii dvs. IT, ci și conexiunile electronice cu partenerii dvs. de afaceri. Securizarea acestor interfețe (autentificare corespunzătoare, transmitere criptată, validarea intrărilor) este atât o cerință NIS2, cât și o măsură de protecție a afacerii."
+        "p3": "Companiile de logistică sunt de asemenea profund integrate cu sistemele clienților și ale transportatorilor lor prin EDI (Electronic Data Interchange), conexiuni API și platforme partajate. O breșă de securitate la compania dvs. se poate propaga la clienți prin aceste conexiuni, și viceversa. Evaluarea securității lanțului dvs. de aprovizionare ar trebui să acopere nu doar furnizorii dvs. IT, ci și conexiunile electronice cu partenerii dvs. de afaceri. Securizarea acestor interfețe (autentificare corespunzătoare, transmitere criptată, validarea intrărilor) este o cerință NIS2 pentru companiile din domeniul de aplicare și o măsură de protecție a afacerii pentru toți ceilalți."
       },
       "faq": {
         "heading": "Întrebări frecvente",
         "q1": {
           "q": "Suntem o companie de transport rutier de marfă cu 80 de camioane. Suntem esențiali sau importanți?",
-          "a": "Transportul rutier intră sub Anexa I (sectoare de înaltă criticitate). Dacă compania dvs. are 250 sau mai mulți angajați, sunteți o entitate esențială cu supraveghere proactivă din partea BSI. Cu 50 până la 249 de angajați, sunteți o entitate importantă cu supraveghere reactivă. Cu 80 de camioane, aveți probabil 100 până la 150 de angajați (șoferi, dispeceri, depozit, birou). Verificați numărul dvs. total de personal în raport cu pragul. Gama completă de obligații NIS2 se aplică oricum."
+          "a": "Probabil niciuna. Transportul rutier de marfă nu este un tip de entitate în sensul NIS2 sau BSIG: în transportul rutier, Anexa I acoperă doar autoritățile rutiere responsabile de managementul traficului și operatorii de sisteme inteligente de transport. Verificați dacă furnizați și servicii poștale sau de curierat (Anexa II) sau operați un sistem inteligent de transport. Dacă nu, numărul de camioane sau de angajați nu contează. Clienții care intră în domeniul de aplicare vă pot transmite totuși cerințe de securitate prin contractele lor, deoarece trebuie să gestioneze securitatea furnizorilor lor direcți (articolul 21 alineatul (2) litera (d) NIS2). Asta nu face din dvs. o entitate."
         },
         "q2": {
           "q": "Unitățile telematice ale camioanelor noastre sunt considerate 'active' conform NIS2?",
-          "a": "Da. Orice sistem care vă susține serviciile critice de transport este un activ. Unitățile telematice transmit locația în timp real, viteza, temperatura (pentru transportul refrigerat) și datele despre orele șoferului. Sunt dispozitive conectate în rețeaua dvs. Grupați-le ca o singură intrare de activ. De exemplu, '80 de unități telematice Webfleet' în loc de 80 de intrări separate. Riscurile-cheie sunt: accesul neautorizat la datele de urmărire a vehiculelor, manipularea înregistrărilor tahografului și utilizarea potențială ca punct de intrare în rețea."
+          "a": "Dacă firma dvs. este unul dintre tipurile de entități enumerate, da. Orice sistem care vă susține serviciile critice de transport este un activ. Unitățile telematice transmit locația în timp real, viteza, temperatura (pentru transportul refrigerat) și datele despre orele șoferului. Sunt dispozitive conectate în rețeaua dvs. Grupați-le ca o singură intrare de activ. De exemplu, '80 de unități telematice Webfleet' în loc de 80 de intrări separate. Riscurile-cheie sunt: accesul neautorizat la datele de urmărire a vehiculelor, manipularea înregistrărilor tahografului și utilizarea potențială ca punct de intrare în rețea."
         },
         "q3": {
           "q": "Folosim un TMS bazat pe cloud. Este asta problema noastră sau a furnizorului?",
-          "a": "Ambele, dar obligația legală este a dvs. Conform Secțiunii 30 BSIG, puteți externaliza operațiunile, dar nu și răspunderea. Furnizorul dvs. de TMS cloud este un furnizor critic conform Secțiunii 30(2)(4). Trebuie să: documentați furnizorul în evaluarea securității lanțului dvs. de aprovizionare, includeți cerințe de securitate cibernetică în contract, verificați că furnizorul are măsuri de securitate adecvate (certificări, rapoarte de audit, angajamente de notificare a incidentelor) și aveți un plan de contingență dacă furnizorul suferă o breșă sau o întrerupere."
+          "a": "Ambele, dar dacă firma dvs. intră în domeniul de aplicare, obligația legală este a dvs. Conform Secțiunii 30 BSIG, puteți externaliza operațiunile, dar nu și răspunderea. Furnizorul dvs. de TMS cloud este un furnizor critic conform Secțiunii 30(2)(4). Trebuie să: documentați furnizorul în evaluarea securității lanțului dvs. de aprovizionare, includeți cerințe de securitate cibernetică în contract, verificați că furnizorul are măsuri de securitate adecvate (certificări, rapoarte de audit, angajamente de notificare a incidentelor) și aveți un plan de contingență dacă furnizorul suferă o breșă sau o întrerupere."
         },
         "q4": {
-          "q": "Cum se raportează NIS2 la Legea UE privind datele de mobilitate și la reglementările privind tahograful digital?",
-          "a": "NIS2, Legea privind datele de mobilitate și reglementările privind tahograful (UE 165/2014) sunt cadre juridice separate care se suprapun în privința securității datelor. Reglementările privind tahograful cer înregistrarea inviolabilă a datelor șoferului. Legea privind datele de mobilitate abordează obligațiile de partajare a datelor. NIS2 adaugă stratul de management al securității cibernetice: securizarea sistemelor IT care prelucrează și transmit aceste date. Conformitatea cu NIS2 vă întărește poziția pe toate trei pentru că un mediu IT bine securizat protejează integritatea datelor reglementate."
+          "q": "Cum se raportează NIS2 la reglementările privind tahograful digital?",
+          "a": "NIS2 și reglementările privind tahograful (Regulamentul (UE) nr. 165/2014) sunt legi separate care se suprapun în privința securității datelor. Reglementările privind tahograful cer înregistrarea inviolabilă a datelor șoferului. Pentru entitățile din domeniul de aplicare, NIS2 adaugă stratul de management al securității cibernetice: securizarea sistemelor IT care prelucrează și transmit aceste date. Conformitatea cu NIS2 vă întărește poziția pe ambele fronturi, pentru că un mediu IT bine securizat protejează integritatea datelor reglementate."
         }
       },
       "ctaCard": {
@@ -9455,7 +9465,7 @@
           "transposition": {
             "country": "Alte state membre",
             "label": "Legi naționale de transpunere",
-            "body": "Anexa I sectorul 5 obligă furnizorii de servicii medicale din întreaga UE. NL o acoperă prin Cyberbeveiligingswet; FR prin Ordonnance n° 2024-1093; AT prin NISG. Testul de sector este același. Testul de dimensiune este același. Canalele de raportare și autoritățile competente diferă."
+            "body": "Anexa I sectorul 5 obligă furnizorii de servicii medicale din întreaga UE. NL o acoperă prin Cyberbeveiligingswet, iar AT prin NISG; în FR transpunerea este încă un proiect de lege în parlament. Testul de sector este același. Testul de dimensiune este același. Canalele de raportare și autoritățile competente diferă."
           }
         }
       },
@@ -11887,7 +11897,7 @@
           "transposition": {
             "country": "Alte state membre",
             "label": "Legi naționale de transpunere",
-            "body": "Articolul 2(2)(f) obligă administrația publică în toată UE. NL îl acoperă prin Cyberbeveiligingswet, FR prin Ordonnance n° 2024-1093, AT prin NISG. Regula indiferent de mărime a directivei este aceeași peste tot. Fiecare stat membru decide ce se contabilizează drept central și care entități regionale trec evaluarea bazată pe riscuri."
+            "body": "Articolul 2(2)(f) obligă administrația publică în toată UE. NL îl acoperă prin Cyberbeveiligingswet, iar AT prin NISG; în FR transpunerea este încă un proiect de lege în parlament. Regula indiferent de mărime a directivei este aceeași peste tot. Fiecare stat membru decide ce se contabilizează drept central și care entități regionale trec evaluarea bazată pe riscuri."
           }
         }
       },
@@ -12023,7 +12033,7 @@
           "memberStates": {
             "country": "Alte state membre",
             "label": "Legi naționale de transpunere",
-            "body": "eIDAS este un regulament, deci regulile privind serviciile de încredere sunt uniforme în întreaga UE. NIS 2 este o directivă, deci fiecare stat membru o transpune: NL prin Cyberbeveiligingswet, AT prin NISG, FR prin Ordonnance 2024-1093. Anexa I sectorul 8 și regula indiferent de mărime din articolul 2(2)(b) sunt identice în toate. Autoritatea competentă pentru latura NIS 2 diferă de la o țară la alta."
+            "body": "eIDAS este un regulament, deci regulile privind serviciile de încredere sunt uniforme în întreaga UE. NIS 2 este o directivă, deci fiecare stat membru o transpune: NL prin Cyberbeveiligingswet, AT prin NISG, în timp ce în FR transpunerea este încă un proiect de lege în parlament. Anexa I sectorul 8 și regula indiferent de mărime din articolul 2(2)(b) sunt identice în toate. Autoritatea competentă pentru latura NIS 2 diferă de la o țară la alta."
           }
         }
       },
@@ -15284,12 +15294,12 @@
         "description": "Cum transpune Țările de Jos Directiva NIS 2 în legislația națională: Cyberbeveiligingswet (Cbw), rolul de supraveghere al RDI, NCSC-NL ca CSIRT național și mecanica înregistrării pentru entitățile olandeze."
       },
       "title": "Statutul NIS 2 în Țările de Jos",
-      "subtitle": "Țările de Jos transpune Directiva NIS 2 a UE prin Cyberbeveiligingswet (Cbw). Procesul legislativ a întârziat, așa că entitățile olandeze ar trebui să urmărească atât pragul minim al UE, cât și textul Cbw aflat acum în Tweede Kamer.",
+      "subtitle": "Țările de Jos a transpus Directiva NIS 2 a UE prin Cyberbeveiligingswet (Cbw). Legea a venit târziu și se aplică din 15 august 2026, fără perioadă de tranziție.",
       "overview": {
         "heading": "Prezentare generală",
-        "p1": "Temeiul juridic este Directiva NIS 2 a UE (2022/2555). Aceasta stabilește pragul minim pentru obligațiile de securitate cibernetică în fiecare stat membru. Țările de Jos transpune acest prag în legislația națională prin Cyberbeveiligingswet (Cbw), care înlocuiește mai vechea Wbni (Wet beveiliging netwerk- en informatiesystemen) ce implementa NIS 1.",
-        "p2": "Termenul de transpunere la nivelul UE, 17 octombrie 2024, a fost ratat de Țările de Jos și de majoritatea statelor membre, inclusiv Germania. Proiectul olandez a trecut prin consultare publică în 2024, a fost depus la Tweede Kamer în 2025 și se preconizează că va intra în vigoare în cursul anului 2026. Comisia a deschis o procedură de constatare a neîndeplinirii obligațiilor împotriva statelor membre întârziate.",
-        "p3": "Odată ce Cbw intră în vigoare, obligațiile se aplică fără o perioadă de tranziție, oglindind modul în care Germania a gestionat BSIG. Astăzi rezistă două repere practice: directiva UE în sine și proiectul olandez publicat. Folosiți-le pe ambele când stabiliți domeniul de aplicare."
+        "p1": "Temeiul juridic este Directiva NIS 2 a UE (2022/2555). Aceasta stabilește pragul minim pentru obligațiile de securitate cibernetică în fiecare stat membru. Țările de Jos a înscris acest prag în legislația națională prin Cyberbeveiligingswet (Cbw), care a înlocuit mai vechea Wbni (Wet beveiliging netwerk- en informatiesystemen) ce implementa NIS 1.",
+        "p2": "Termenul de transpunere la nivelul UE, 17 octombrie 2024, a fost ratat de Țările de Jos și de majoritatea statelor membre, inclusiv Germania. Proiectul olandez a trecut prin consultare publică în 2024, a fost depus la Tweede Kamer în iunie 2025 și a fost adoptat ca Legea din 8 iulie 2026 (Staatsblad 2026, 187). Comisia a sesizat Curtea de Justiție a UE împotriva Țărilor de Jos la 8 iulie 2026, cu o lună înainte ca Cbw să producă efecte la 15 august 2026.",
+        "p3": "Cbw și decretul său de aplicare, Cyberbeveiligingsbesluit (Staatsblad 2026, 189), au intrat în vigoare la 15 august 2026, fără perioadă de tranziție, oglindind modul în care Germania a gestionat BSIG. Cbw adoptată, împreună cu directiva UE, este acum referința la stabilirea domeniului de aplicare."
       },
       "legalAnchor": {
         "heading": "Reper juridic",
@@ -15302,12 +15312,12 @@
         "regulation": {
           "label": "Regulamentul de punere în aplicare al UE",
           "quote": "Regulamentul de punere în aplicare (UE) 2024/2690 al Comisiei din 17 octombrie 2024 (CIR).",
-          "context": "Detaliază cum arată măsurile prevăzute la art. 21 pentru infrastructura digitală, DNS, cloud, centre de date, livrarea de conținut, furnizorii de servicii gestionate și piețele online. Direct aplicabil în Țările de Jos fără alt act național."
+          "context": "Detaliază cum arată măsurile prevăzute la art. 21 pentru furnizorii de DNS, registrele TLD, cloud, centrele de date și furnizorii de rețele de livrare de conținut (CDN), furnizorii de servicii gestionate (de securitate), piețele online, motoarele de căutare, rețelele sociale și furnizorii de servicii de încredere. Direct aplicabil în Țările de Jos fără alt act național."
         },
         "transposition": {
           "label": "Transpunerea olandeză",
-          "quote": "Cyberbeveiligingswet (Cbw), proiect de lege al guvernului olandez aflat în prezent în fața parlamentului; mai vechea Wbni rămâne în vigoare până când Cbw produce efecte.",
-          "context": "Cbw atribuie rolurile de supraveghere și CSIRT, definește entitățile esențiale și importante pentru Țările de Jos și adaugă elemente specifice naționale, precum taxe, proceduri de desemnare și predări de sector. Articolele citate în această pagină se referă la proiectul de consultare publicat și se pot modifica înainte de adoptare."
+          "quote": "Cyberbeveiligingswet (Cbw), Legea din 8 iulie 2026 (Staatsblad 2026, 187), în vigoare din 15 august 2026; a înlocuit Wbni.",
+          "context": "Cbw atribuie rolurile de supraveghere și CSIRT, definește entitățile esențiale și importante pentru Țările de Jos și adaugă elemente specifice naționale, precum taxe, proceduri de desemnare și predări de sector. Decretul său de aplicare, Cyberbeveiligingsbesluit (Staatsblad 2026, 189), a intrat în vigoare odată cu ea, la 15 august 2026."
         }
       },
       "elements": {
@@ -15317,17 +15327,17 @@
           "law": {
             "section": "Lege",
             "title": "Cyberbeveiligingswet (Cbw)",
-            "body": "Transpune articolele 1 până la 41 din NIS 2 în legislația olandeză. Definește entitățile esențiale (essentiële) și importante (belangrijke), stabilește competențele de supraveghere, amenzile și procedurile de raportare a incidentelor și integrează CIR al UE prin trimitere."
+            "body": "Transpune NIS 2 în legislația olandeză și se aplică din 15 august 2026. Definește entitățile esențiale (essentiële) și importante (belangrijke), stabilește competențele de supraveghere, amenzile și procedurile de raportare a incidentelor și integrează CIR al UE prin trimitere."
           },
           "authority": {
             "section": "Autoritate",
             "title": "RDI, reglementatorii sectoriali, NCSC-NL",
-            "body": "Rijksinspectie Digitale Infrastructuur (RDI) este supraveghetorul principal pentru multe sectoare, inclusiv infrastructura digitală și majoritatea furnizorilor de servicii digitale. Reglementatorii sectoriali își păstrează domeniul (de exemplu DNB pentru bănci, AFM pentru piețele financiare, ACM pentru telecomunicații). NCSC-NL este CSIRT-ul național."
+            "body": "Supravegherea este împărțită pe sectoare: Rijksinspectie Digitale Infrastructuur (RDI) pentru infrastructura digitală, furnizorii digitali, managementul serviciilor TIC, energie și administrație; ILT pentru transport, apă și produse chimice; DNB pentru bănci; AFM pentru infrastructurile piețelor financiare; NVWA pentru alimente. NCSC este CSIRT pentru majoritatea sectoarelor."
           },
           "deadlines": {
             "section": "Termene",
             "title": "Termen UE ratat, înregistrare prin portalul olandez",
-            "body": "Termenul UE din 17 octombrie 2024 a trecut fără transpunere olandeză. Odată ce Cbw intră în vigoare, entitățile trebuie să se înregistreze la autoritatea competentă și să raporteze incidentele semnificative în 24 de ore (avertizare timpurie) și 72 de ore (notificare completă), în conformitate cu art. 23 NIS 2."
+            "body": "Termenul UE din 17 octombrie 2024 a trecut fără transpunere olandeză. Din 15 august 2026, entitățile din domeniul de aplicare trebuie să se înregistreze în registrul național al entităților de pe MijnNCSC (mijn.ncsc.nl), autentificându-se cu eHerkenning, și să raporteze modificările fără întârziere și în termen de două săptămâni. Incidentele semnificative se raportează atât către CSIRT, cât și către supraveghetor în 24 de ore (avertizare timpurie) și 72 de ore (notificare completă), în conformitate cu art. 23 NIS 2."
           }
         }
       },
@@ -15336,8 +15346,8 @@
         "description": "Două reguli care rezolvă aproape orice îndoială cu privire la modul în care interacționează obligațiile olandeze și cele ale UE.",
         "items": {
           "lexLocalis": {
-            "title": "Legislația națională se aplică acolo unde operați",
-            "body": "O entitate care furnizează servicii în Țările de Jos este supravegheată în temeiul legislației olandeze pentru acele activități, chiar dacă sediul principal se află în altă parte. Regula sediului principal de la art. 26 NIS 2 decide ce stat membru preia supravegherea primară, dar activitatea locală tot declanșează raportarea acolo unde survine incidentul."
+            "title": "Legislația națională se aplică acolo unde sunteți stabilit",
+            "body": "O entitate intră sub legislația țării în care este stabilită. Doar unii furnizori digitali (cloud, centre de date, furnizori de servicii gestionate, piețe online și similare) intră sub legislația țării sediului lor principal din UE, iar furnizorii de telecomunicații intră sub legislația fiecărei țări în care furnizează servicii (art. 26 alin. (1) NIS 2)."
           },
           "euFloor": {
             "title": "Directiva este pragul minim, niciodată plafonul",
@@ -15352,17 +15362,17 @@
           "rdi": {
             "country": "NL",
             "label": "Rijksinspectie Digitale Infrastructuur (RDI)",
-            "body": "Autoritate competentă principală pentru multe sectoare NIS 2 din Țările de Jos, inclusiv infrastructura digitală, managementul serviciilor TIC, furnizorii digitali și mai multe alte sectoare din Anexa I și II. Succesoare a Agentschap Telecom; se află sub Ministerul Afacerilor Economice."
+            "body": "Supraveghetorul pentru infrastructura digitală, furnizorii digitali, managementul serviciilor TIC, energie, spațiu, poștă, producție și administrație. Autoritatea competentă în drept este ministrul responsabil. Succesoare a Agentschap Telecom; se află sub Ministerul Afacerilor Economice."
           },
           "ncscNl": {
             "country": "NL",
             "label": "NCSC-NL (Nationaal Cyber Security Centrum)",
-            "body": "CSIRT național sub Ministerul Justiției și Securității. Primește notificările de incidente în temeiul art. 23, emite avertismente sectoriale și coordonează cu ENISA și cu alte CSIRT-uri naționale. Guvernul olandez a anunțat un serviciu național consolidat de securitate cibernetică, dar NCSC-NL este CSIRT-ul operațional astăzi."
+            "body": "CSIRT național sub Ministerul Justiției și Securității. Primește notificările de incidente în temeiul art. 23, emite avertismente sectoriale și coordonează cu ENISA și cu alte CSIRT-uri naționale. Din 1 ianuarie 2026, Digital Trust Center face parte din NCSC, care este acum punctul unic de contact pentru reziliența digitală și CSIRT-ul pentru majoritatea sectoarelor Cbw. Operează registrul entităților pe MijnNCSC."
           },
           "enisa": {
             "country": "EU",
             "label": "ENISA",
-            "body": "Emite îndrumări la nivelul UE și rapoarte tehnice de implementare. Nu este un reglementator al entităților olandeze, dar rezultatele sale (precum Ghidul tehnic de implementare și corespondențele cu ISO 27001) reprezintă referința practică pentru a proba măsurile prevăzute la art. 21."
+            "body": "Emite îndrumări la nivelul UE și rapoarte tehnice de implementare. Nu este un reglementator al entităților olandeze. Ghidul său tehnic de implementare privind CIR (cu corespondențe cu ISO 27001) este scris pentru furnizorii digitali acoperiți de CIR; alte entități îl pot folosi ca referință."
           }
         }
       },
@@ -15376,18 +15386,18 @@
           },
           "noRegistry": {
             "myth": "Nu există încă o obligație de înregistrare olandeză, deci putem aștepta.",
-            "reality": "Art. 3 alin. (4) NIS 2 cere fiecărui stat membru să mențină un registru, iar entităților să își furnizeze datele. Țările de Jos va opera un canal de înregistrare prin autoritățile competente odată ce Cbw intră în vigoare. Regula de actualizare în două săptămâni de la art. 3 alin. (4) este valabilă în întreaga UE și obligă entitățile olandeze din momentul în care legea se aplică."
+            "reality": "Art. 3 alin. (4) NIS 2 cere fiecărui stat membru să mențină un registru, iar entităților să își furnizeze datele. Înregistrarea este obligatorie în Țările de Jos din 15 august 2026, fără perioadă de grație: entitățile din domeniul de aplicare se înregistrează în registrul național al entităților de pe MijnNCSC, ținut de ministrul Justiției și Securității (art. 43 Cbw). Modificările se comunică fără întârziere și, în orice caz, în termen de două săptămâni de la data modificării (art. 44 alin. (2) Cbw)."
           },
           "onlySector": {
             "myth": "Reglementatorul meu sectorial se ocupă de tot, RDI nu este relevant.",
-            "reality": "Reglementatorii sectoriali își păstrează domeniul de supraveghere financiară, de telecomunicații sau de sănătate. RDI este supraveghetorul orizontal de securitate cibernetică pentru mai multe sectoare și punctul de contact pentru întrebările intersectoriale de securitate cibernetică. Pentru entitățile financiare acoperite de DORA, DORA acționează ca lex specialis în materie de securitate cibernetică, dar înregistrarea NIS 2 în temeiul art. 3 alin. (4) tot se aplică."
+            "reality": "Supravegherea în temeiul Cbw este împărțită pe sectoare: DNB pentru bănci, AFM pentru infrastructurile piețelor financiare, ILT pentru transport, apă și produse chimice, NVWA pentru alimente și RDI pentru infrastructura digitală, energie, administrație și mai multe alte sectoare. Pentru entitățile financiare acoperite de DORA, DORA acționează ca lex specialis în materie de securitate cibernetică, dar înregistrarea NIS 2 în temeiul art. 3 alin. (4) tot se aplică."
           }
         }
       },
       "practitioner": {
         "heading": "Perspectiva practicianului",
-        "p1": "Majoritatea entităților olandeze din domeniul de aplicare știu deja că vor intra în domeniul de aplicare. Întrebarea nu este dacă NIS 2 ajunge la ele, ci cum le va direcționa actul olandez. Urmăriți două lucruri săptămânal: stadiul legislativ al Cbw în Tweede Kamer și orice comunicare sectorială a RDI care fixează calendarul sau domeniul de aplicare.",
-        "p2": "Operațional, cele patru îndatoriri constante rezistă astăzi la nivelul UE: guvernarea securității cu responsabilitatea conducerii (art. 20), aplicarea măsurilor de management al riscurilor (art. 21), raportarea incidentelor semnificative pe ceasul de 24 de ore și 72 de ore (art. 23) și pregătirea pentru înregistrare (art. 3 alin. (4)). Niciuna dintre aceste patru nu necesită ca actul olandez să fie în vigoare pentru a fi utilă."
+        "p1": "Majoritatea entităților olandeze din domeniul de aplicare știau deja că vor intra în domeniul de aplicare. Cbw se aplică din 15 august 2026, fără perioadă de tranziție, așa că acum contează două lucruri: înregistrarea în registrul entităților de pe MijnNCSC și orice comunicare a supraveghetorului sectorului dvs. care stabilește domeniul de aplicare.",
+        "p2": "Operațional, se aplică patru îndatoriri constante în temeiul Cbw, care transpune aceste articole ale UE: guvernarea securității cu responsabilitatea conducerii (art. 20), aplicarea măsurilor de management al riscurilor (art. 21), raportarea incidentelor semnificative pe ceasul de 24 de ore și 72 de ore (art. 23) și înregistrarea, cu menținerea la zi a înregistrării (art. 3 alin. (4))."
       },
       "platform": {
         "heading": "Cum ajută platforma",
@@ -15399,11 +15409,11 @@
         "items": [
           "Directiva (UE) 2022/2555 (NIS 2), EUR-Lex, JO L 333, 27 decembrie 2022",
           "Regulamentul de punere în aplicare (UE) 2024/2690 al Comisiei din 17 octombrie 2024",
-          "Wetsvoorstel Cyberbeveiligingswet (Cbw), documentație de consultare și Tweede Kamer, internetconsultatie.nl",
-          "Wbni, Wet beveiliging netwerk- en informatiesystemen (legea actuală, transpunerea NIS 1)",
+          "Cyberbeveiligingswet (Cbw), Legea din 8 iulie 2026, Staatsblad 2026, 187; Cyberbeveiligingsbesluit, Staatsblad 2026, 189",
+          "Wbni: Wet beveiliging netwerk- en informatiesystemen (transpunerea NIS 1, înlocuită de Cbw la 15 august 2026)",
           "Rijksinspectie Digitale Infrastructuur (RDI), rdi.nl, informații de supraveghere NIS 2",
           "NCSC-NL, ncsc.nl, notificarea incidentelor și îndrumări CSIRT",
-          "ENISA, Ghidul tehnic de implementare NIS 2 (v1.2, 2025)"
+          "ENISA, Ghidul tehnic de implementare NIS 2, versiunea 1.0, iunie 2025 (versiunea 1.2 a tabelului de corespondențe, septembrie 2025)"
         ]
       },
       "ctaCard": {
@@ -15548,16 +15558,16 @@
     },
     "nis2StatusFrankreich": {
       "meta": {
-        "title": "Statutul NIS 2 în Franța: Ordonnance n° 2024-1093, ANSSI, MonEspaceNIS2",
-        "description": "Cum transpune Franța directiva NIS 2: Ordonnance n° 2024-1093 din 2 decembrie 2024, ANSSI ca supraveghetor și CSIRT național, înregistrarea MonEspaceNIS2 și cum se preiau vechile regimuri OIV și OSE."
+        "title": "Statutul NIS 2 în Franța: proiect de lege de transpunere, ANSSI, preînregistrare",
+        "description": "Unde se află Franța cu directiva NIS 2: încă netranspusă, proiectul de lege privind reziliența și securitatea cibernetică aflat în fața Assemblée nationale, sesizarea Franței de către Comisie la Curtea de Justiție, ANSSI ca CSIRT național și supraveghetor planificat, preînregistrarea voluntară și cum se preiau vechile regimuri OIV și OSE."
       },
       "title": "Statutul NIS 2 în Franța",
       "subtitle": "Ce cere directiva, cum o transpune Franța și unde se situează ANSSI în tablou.",
       "overview": {
         "heading": "Prezentare generală",
         "p1": "Directiva NIS 2 este stratul UE. Obligă fiecare stat membru, inclusiv Franța, cu un prag unic de securitate cibernetică pentru entitățile esențiale și importante. Franța trebuie să pună acel prag în dreptul francez și să ruleze un regim de supraveghere sub el.",
-        "p2": "Franța transpune NIS 2 prin Ordonnance n° 2024-1093 din 2 decembrie 2024 și prin decretele de aplicare care îi urmează. Textul se suprapune peste regimul OIV existent (Opérateurs d'Importance Vitale) și peste regimul OSE din NIS 1 (Opérateurs de Services Essentiels), în loc să le înlocuiască de la zero.",
-        "p3": "ANSSI (Agence nationale de la sécurité des systèmes d'information) este supraveghetorul și CSIRT-ul național. Înregistrarea se face prin portalul MonEspaceNIS2. Autoritățile de reglementare sectorială rămân implicate pentru sectoarele care aveau deja una, finanțele în special, unde DORA acționează ca lex specialis."
+        "p2": "Franța nu a transpus încă NIS 2. Transpunerea este un proiect de lege al guvernului, projet de loi relatif à la résilience des infrastructures critiques et au renforcement de la cybersécurité, care acoperă NIS 2, directiva privind entitățile critice și DORA. Senatul l-a adoptat la 12 martie 2025, iar o comisie specială a Assemblée nationale la 10 septembrie 2025. Dezbaterea în plen a Assemblée este programată pentru 7 octombrie 2026. Comisia a sesizat Curtea de Justiție a UE împotriva Franței la 8 iulie 2026 pentru netranspunerea NIS 2 și a cerut sancțiuni financiare. Proiectul se suprapune peste regimul OIV existent (Opérateurs d'Importance Vitale) și peste regimul OSE din NIS 1 (Opérateurs de Services Essentiels), în loc să le înlocuiască de la zero.",
+        "p3": "ANSSI (Agence nationale de la sécurité des systèmes d'information) conduce CSIRT-ul național și este autoritatea națională în temeiul proiectului de lege. Oferă preînregistrare voluntară la messervices.cyber.gouv.fr/nis2 (fostul MonEspaceNIS2); înregistrarea devine obligatorie abia după adoptarea legii. Autoritățile de reglementare sectorială rămân implicate pentru sectoarele care aveau deja una, finanțele în special, unde DORA acționează ca lex specialis."
       },
       "legalAnchor": {
         "heading": "Unde se află regulile",
@@ -15573,9 +15583,9 @@
           "context": "Măsuri tehnice și metodologice pentru furnizorii de infrastructură digitală. Direct aplicabil în Franța fără transpunere națională."
         },
         "transposition": {
-          "label": "Transpunerea franceză",
-          "quote": "Ordonnance n° 2024-1093 din 2 decembrie 2024",
-          "context": "Transpunerea franceză a NIS 2. Decretele de aplicare și ghidurile ANSSI completează detaliul operațional. Textul modifică Code de la défense (Articolele L.1332-x pentru OIV) și îl extinde la perimetrul mai larg al NIS 2."
+          "label": "Transpunerea franceză (proiect de lege)",
+          "quote": "Projet de loi relatif à la résilience des infrastructures critiques et au renforcement de la cybersécurité",
+          "context": "Proiectul de lege al guvernului care va transpune NIS 2, împreună cu directiva privind entitățile critice și DORA. Senatul l-a adoptat la 12 martie 2025; dezbaterea în plen a Assemblée nationale este programată pentru 7 octombrie 2026. Titlul I al proiectului rescrie regulile privind operatorii critici din Code de la défense; Titlul II preia NIS 2 sub formă de articole ale noii legi, cu ANSSI ca autoritate națională. Decretele de aplicare și ghidurile ANSSI vor completa detaliul operațional."
         }
       },
       "elements": {
@@ -15584,18 +15594,18 @@
         "items": {
           "ordonnance": {
             "section": "Transpunere",
-            "title": "Ordonnance n° 2024-1093",
-            "body": "Aduce obligațiile NIS 2 în dreptul francez. Definește categoria EEI (Entités essentielles importantes), competențele de supraveghere ale ANSSI, obligațiile de raportare a incidentelor și sancțiunile. Cea mai mare parte a detaliului operațional este delegată décrets d'application."
+            "title": "Proiectul de lege privind reziliența și securitatea cibernetică",
+            "body": "Va aduce obligațiile NIS 2 în dreptul francez după adoptare; nu este încă lege. Proiectul definește două categorii, entités essentielles (EE) și entités importantes (EI), competențele de supraveghere ale ANSSI, obligațiile de raportare a incidentelor și sancțiunile. Cea mai mare parte a detaliului operațional este delegată décrets d'application."
           },
           "anssi": {
             "section": "Autoritate",
             "title": "ANSSI ca supraveghetor și CSIRT",
-            "body": "ANSSI conduce supravegherea, auditurile și propunerile de sancțiuni. Operează totodată CSIRT-ul național și portalul MonEspaceNIS2. Autoritățile de reglementare sectorială precum ACPR pentru finanțe își păstrează propria competență acolo unde se aplică lex specialis."
+            "body": "Conform proiectului de lege, ANSSI conduce supravegherea și auditurile și trimite încălcările către o comisie de sancțiuni (commission des sanctions), care aplică amenzile. Operează totodată CSIRT-ul național și preînregistrarea voluntară la messervices.cyber.gouv.fr/nis2 (fostul MonEspaceNIS2). Autoritățile de reglementare sectorială precum ACPR pentru finanțe își păstrează propria competență acolo unde se aplică lex specialis."
           },
           "deadlines": {
             "section": "Termene",
             "title": "Înregistrare și raportare",
-            "body": "Directiva a cerut ca entitățile să poată fi identificate de statele membre începând cu 17 aprilie 2025. În Franța, asta se întâmplă prin MonEspaceNIS2. Incidentele semnificative urmează cadența directivei: avertizare timpurie de 24 de ore, notificare de 72 de ore și raport final de o lună."
+            "body": "Directiva a cerut ca entitățile să poată fi identificate de statele membre începând cu 17 aprilie 2025. Franța nu are încă o obligație de înregistrare: ANSSI oferă preînregistrare voluntară la messervices.cyber.gouv.fr/nis2 (fostul MonEspaceNIS2), iar înregistrarea devine obligatorie abia după adoptarea legii. Odată aplicabilă, incidentele semnificative urmează cadența directivei: avertizare timpurie de 24 de ore, notificare de 72 de ore și raport final de o lună."
           }
         }
       },
@@ -15605,7 +15615,7 @@
         "items": {
           "lexLocalis": {
             "title": "Legea locală se aplică în Franța",
-            "body": "Operațiunile pe teritoriul francez urmează transpunerea franceză. Un Geschäftsführer german care administrează o filială franceză citește Ordonnance n° 2024-1093 pentru acea filială, nu BSIG-ul german. Obligațiile directivei sunt aceleași; procedura, portalul și sancțiunile se află în dreptul francez."
+            "body": "Entitățile stabilite în Franța vor urma transpunerea franceză după adoptarea acesteia. Un Geschäftsführer german care administrează o filială franceză va citi legea franceză pentru acea filială, nu BSIG-ul german. Obligațiile directivei sunt aceleași; procedura, portalul și sancțiunile vor fi în dreptul francez."
           },
           "euFloor": {
             "title": "Franța nu poate coborî sub pragul UE",
@@ -15620,7 +15630,7 @@
           "anssi": {
             "country": "FR",
             "label": "ANSSI",
-            "body": "Autoritatea competentă principală, supraveghetorul și CSIRT-ul național. Operează MonEspaceNIS2, emite ghiduri, efectuează audituri și propune sancțiuni Premier ministre. Deține doctrina OIV istorică ce alimentează acum supravegherea NIS 2."
+            "body": "CSIRT național și autoritatea națională în temeiul proiectului de lege. Operează preînregistrarea voluntară NIS 2 la messervices.cyber.gouv.fr/nis2 (fostul MonEspaceNIS2), emite ghiduri și efectuează audituri. Conform proiectului, ANSSI supraveghează și trimite încălcările către o comisie de sancțiuni (commission des sanctions), care aplică amenzi de până la 10 milioane EUR sau 2 % din cifra de afaceri mondială pentru entitățile esențiale și 7 milioane EUR sau 1,4 % pentru entitățile importante. Deține doctrina OIV istorică ce va alimenta supravegherea NIS 2."
           },
           "cnil": {
             "country": "FR",
@@ -15640,7 +15650,7 @@
         "items": {
           "oivCoversAll": {
             "myth": "Suntem deja OIV, deci NIS 2 este rezolvat.",
-            "reality": "Clasificările OIV și OSE din cadrul existent Code de la défense și NIS 1 nu se preiau automat ca EEI sub NIS 2. Perimetrul este diferit, pragurile sectoriale sunt diferite, iar entitățile trebuie să își verifice statutul față de noile criterii. Multe OIV sunt și entități esențiale NIS 2, dar setul de obligații și canalul de raportare se schimbă."
+            "reality": "Clasificările OIV și OSE din cadrul existent Code de la défense și NIS 1 nu se preiau automat ca entități esențiale sau importante (EE sau EI) sub NIS 2. Perimetrul este diferit, pragurile sectoriale sunt diferite, iar entitățile trebuie să își verifice statutul față de noile criterii. Multe OIV sunt și entități esențiale NIS 2, dar setul de obligații și canalul de raportare se schimbă."
           },
           "onlyLargeFirms": {
             "myth": "NIS 2 în Franța se aplică doar marilor operatori.",
@@ -15648,18 +15658,18 @@
           },
           "frenchOnlyForms": {
             "myth": "MonEspaceNIS2 și ANSSI acceptă doar franceza.",
-            "reality": "Portalul și ghidurile oficiale sunt în primul rând în franceză, dar ANSSI acceptă raportarea tehnică și documentația justificativă în engleză în cazuri definite, în concordanță cu cooperarea UE. Companiile-mamă străine nu ar trebui să presupună că au nevoie de o traducere franceză completă a fiecărei politici interne pentru a se înregistra sau a depune un raport de incident."
+            "reality": "Portalul și ghidurile oficiale sunt în primul rând în franceză. Companiile-mamă străine nu ar trebui să presupună că au nevoie de o traducere franceză completă a fiecărei politici interne pentru a se înregistra sau a depune un raport de incident."
           }
         }
       },
       "practitioner": {
         "heading": "Perspectiva practicianului",
-        "p1": "Majoritatea operatorilor francezi echivalenți Mittelstand-ului pe care îi vedem tratează încă NIS 2 ca o extensie a vechiului regim OIV / OSE. Asta este pe jumătate corect. Supravegherea și canalul de incidente se află în ANSSI ca înainte, dar domeniul este mai larg și asumarea de către organul de conducere este mai grea. Echivalentul Geschäftsführer (président, directeur général, gérant) răspunde personal pentru aprobarea managementului riscului și pentru formare.",
-        "p2": "Mișcarea practică este aceeași ca peste tot în UE: confirmați domeniul de aplicare conform directivei, înregistrați-vă prin portalul național (aici MonEspaceNIS2), instituiți cele patru obligații continue (menținerea înregistrării, raportarea incidentelor, riscul de lanț de aprovizionare, supravegherea de către organul de conducere) și documentați minimul. Aparatul OIV ajută, dar nu înlocuiește registrul de obligații NIS 2."
+        "p1": "Majoritatea operatorilor francezi echivalenți Mittelstand-ului pe care îi vedem tratează încă NIS 2 ca o extensie a vechiului regim OIV / OSE. Asta este pe jumătate corect. Conform proiectului de lege, supravegherea și canalul de incidente se află în ANSSI ca înainte, dar domeniul este mai larg și asumarea de către organul de conducere este mai grea. Odată ce legea se aplică, echivalentul Geschäftsführer (président, directeur général, gérant) răspunde personal pentru aprobarea managementului riscului și pentru formare.",
+        "p2": "Mișcarea practică este aceeași ca peste tot în UE: confirmați domeniul de aplicare conform directivei, preînregistrați-vă voluntar la ANSSI (messervices.cyber.gouv.fr/nis2, fostul MonEspaceNIS2) și înregistrați-vă după adoptarea legii, instituiți cele patru obligații continue (menținerea înregistrării, raportarea incidentelor, riscul de lanț de aprovizionare, supravegherea de către organul de conducere) și documentați minimul. Aparatul OIV ajută, dar nu înlocuiește obligațiile NIS 2."
       },
       "platform": {
         "heading": "Cum ajută platforma",
-        "p1": "Construim registrul de obligații NIS 2 pe stratul UE, nu pe o singură transpunere națională. Aceeași listă de verificare funcționează pentru o filială franceză care folosește Ordonnance n° 2024-1093, o companie-mamă germană care folosește BSIG și o companie-soră olandeză care folosește Cyberbeveiligingswet. Referințele la articole se schimbă per limbă; obligațiile de fond, nu.",
+        "p1": "Construim registrul de obligații NIS 2 pe stratul UE, nu pe o singură transpunere națională. Aceeași listă de verificare funcționează pentru o filială franceză în temeiul viitoarei legi franceze, o companie-mamă germană care folosește BSIG și o companie-soră olandeză care folosește Cyberbeveiligingswet. Referințele la articole se schimbă per limbă; obligațiile de fond, nu.",
         "p2": "Pentru domeniul francez, începeți cu verificarea de aplicabilitate, apoi treceți la cadența de raportare a incidentelor, clauzele de lanț de aprovizionare și asumarea de către organul de conducere. Acolo unde ANSSI publică ghiduri sectoriale, le referențiem; nu le duplicăm."
       },
       "sources": {
@@ -15667,10 +15677,10 @@
         "items": [
           "Directiva (UE) 2022/2555 (NIS 2). EUR-Lex",
           "Regulamentul de punere în aplicare (UE) 2024/2690 al Comisiei",
-          "Ordonnance n° 2024-1093 du 2 décembre 2024. Légifrance",
+          "Projet de loi relatif à la résilience des infrastructures critiques et au renforcement de la cybersécurité: Assemblée nationale, dosar legislativ",
           "Code de la défense, Articolele L.1332-1 et suivants (OIV). Légifrance",
           "ANSSI. Agence nationale de la sécurité des systèmes d'information, site oficial",
-          "MonEspaceNIS2. portalul francez de înregistrare NIS 2 (ANSSI)",
+          "Preînregistrarea ANSSI pentru NIS 2: messervices.cyber.gouv.fr/nis2 (fostul MonEspaceNIS2)",
           "ACPR / Banque de France. autoritatea competentă pentru DORA în sectorul financiar"
         ]
       },
@@ -16193,7 +16203,7 @@
       },
       "platform": {
         "heading": "Cum ajuta platforma",
-        "p1": "Construim registrul de obligatii NIS 2 pe stratul UE, nu pe vreo transpunere nationala anume. Aceeasi lista de verificare functioneaza pentru o filiala portugheza care foloseste Decreto-Lei n.º 125/2025, o societate-mama germana care foloseste BSIG si o sora franceza care foloseste Ordonnance n° 2024-1093. Referintele de articole se schimba pentru fiecare locale; obligatiile de fond nu.",
+        "p1": "Construim registrul de obligatii NIS 2 pe stratul UE, nu pe vreo transpunere nationala anume. Aceeasi lista de verificare functioneaza pentru o filiala portugheza care foloseste Decreto-Lei n.º 125/2025 si o societate-mama germana care foloseste BSIG. Referintele de articole se schimba pentru fiecare locale; obligatiile de fond nu.",
         "p2": "Pentru domeniul de aplicare portughez, incepeti cu verificarea de aplicabilitate, apoi treceti la ritmul de raportare a incidentelor, la clauzele privind lantul de aprovizionare si la aprobarea organului de conducere. Acolo unde CNCS publica indrumari sectoriale, le mentionam; nu le duplicam."
       },
       "sources": {
@@ -16598,7 +16608,7 @@
       },
       "platform": {
         "heading": "Cum ajută platforma",
-        "p1": "Construim registrul de obligații NIS 2 pe stratul UE, nu pe o singură transpunere națională. Aceeași listă de verificare funcționează pentru o filială cehă care folosește Legea nr. 264/2025 Sb., o companie mamă germană care folosește BSIG și o companie soră franceză care folosește Ordonnance n° 2024-1093. Referințele la articole se schimbă în funcție de locale; obligațiile de fond nu.",
+        "p1": "Construim registrul de obligații NIS 2 pe stratul UE, nu pe o singură transpunere națională. Aceeași listă de verificare funcționează pentru o filială cehă care folosește Legea nr. 264/2025 Sb. și o companie mamă germană care folosește BSIG. Referințele la articole se schimbă în funcție de locale; obligațiile de fond nu.",
         "p2": "Pentru domeniul de aplicare ceh începeți cu verificarea aplicabilității, apoi treceți la cadența de raportare a incidentelor, la clauzele privind lanțul de aprovizionare și la aprobarea de către organul de conducere. Acolo unde NÚKIB publică vyhlášky și ghiduri sectoriale, le referențiem; nu le duplicăm."
       },
       "sources": {
@@ -17271,7 +17281,7 @@
       },
       "platform": {
         "heading": "Cum ajută platforma",
-        "p1": "Construim registrul de obligații NIS 2 pe stratul UE, nu pe vreo transpunere națională unică. Aceeași listă de verificare funcționează pentru o filială italiană care folosește Decreto Legislativo 138/2024, o societate-mamă germană care folosește BSIG, o societate-soră franceză care folosește Ordonnance n° 2024-1093 și una olandeză care folosește Cyberbeveiligingswet. Referințele la articole se schimbă de la o limbă la alta; obligațiile de fond nu.",
+        "p1": "Construim registrul de obligații NIS 2 pe stratul UE, nu pe vreo transpunere națională unică. Aceeași listă de verificare funcționează pentru o filială italiană care folosește Decreto Legislativo 138/2024, o societate-mamă germană care folosește BSIG și una olandeză care folosește Cyberbeveiligingswet. Referințele la articole se schimbă de la o limbă la alta; obligațiile de fond nu.",
         "p2": "Pentru domeniul de aplicare italian începeți cu verificarea de aplicabilitate, apoi treceți la cadența de raportare a incidentelor prin CSIRT Italia, clauzele privind lanțul de aprovizionare și aprobarea organului de conducere. Acolo unde ACN publică determinări sau anexe sectoriale, le referențiem; nu le duplicăm."
       },
       "sources": {
@@ -17295,15 +17305,15 @@
     "nis2StatusSpanien": {
       "meta": {
         "title": "Statutul NIS 2 în Spania: proiectul Ley de Coordinación y Gobernanza de la Ciberseguridad, CCN, INCIBE",
-        "description": "Cum transpune Spania directiva NIS 2: proiectul Ley de Coordinación y Gobernanza de la Ciberseguridad aprobat de Consiliul de Miniștri la 14 ianuarie 2025, propunerea de Centro Nacional de Ciberseguridad, împărțirea existentă între CCN-CERT și INCIBE-CERT și procedura de constatare a neîndeplinirii obligațiilor din partea UE."
+        "description": "Cum transpune Spania directiva NIS 2: proiectul Ley de Coordinación y Gobernanza de la Ciberseguridad aprobat de Consiliul de Miniștri la 14 ianuarie 2025, propunerea de Centro Nacional de Ciberseguridad, împărțirea existentă între CCN-CERT și INCIBE-CERT și sesizarea Spaniei de către Comisie la Curtea de Justiție a UE."
       },
       "title": "Statutul NIS 2 în Spania",
       "subtitle": "Ce impune directiva, în ce stadiu se află transpunerea spaniolă și cum se încadrează CCN și INCIBE între timp.",
       "overview": {
         "heading": "Prezentare generală",
         "p1": "Directiva NIS 2 este stratul UE. Obligă fiecare stat membru, inclusiv Spania, cu un prag unic de securitate cibernetică pentru entitățile esențiale și importante. Spania trebuie să integreze acel prag în legislația spaniolă și să ruleze un regim de supraveghere în temeiul lui.",
-        "p2": "Spania a ratat termenul de transpunere de 17 octombrie 2024 stabilit în Articolul 41 din NIS 2. Consiliul de Miniștri a aprobat un Anteproyecto de Ley de Coordinación y Gobernanza de la Ciberseguridad la 14 ianuarie 2025, dar, la mijlocul anului 2026, proiectul de lege se află încă în procedura legislativă și nu a fost publicat în Boletín Oficial del Estado.",
-        "p3": "Până când proiectul devine lege, se aplică în continuare anteriorul Real Decreto-ley 12/2018 (transpunerea NIS 1), iar supravegherea continuă să fie împărțită între Centrul Național de Criptologie (CCN) și Institutul Național de Securitate Cibernetică (INCIBE), cu autorități sectoriale pentru finanțe și alte sectoare reglementate. Comisia Europeană a trimis un aviz motivat la 7 mai 2025 pentru lipsa transpunerii."
+        "p2": "Spania a ratat termenul de transpunere de 17 octombrie 2024 stabilit în Articolul 41 din NIS 2. Consiliul de Miniștri a aprobat un Anteproyecto de Ley de Coordinación y Gobernanza de la Ciberseguridad la 14 ianuarie 2025. În martie 2026, guvernul a declarat că textul era încă în curs de prelucrare de către ministere ca Anteproyecto (proiect guvernamental) și nu a fost publicat în Boletín Oficial del Estado.",
+        "p3": "Până când proiectul devine lege, se aplică în continuare anteriorul Real Decreto-ley 12/2018 (transpunerea NIS 1). În temeiul acestuia, supravegherea este împărțită: Ministerul de Interne (CNPIC) pentru operatorii desemnați ca critici, ministerul competent pentru ceilalți operatori de servicii esențiale, Secretariatul de Stat pentru Digitalizare pentru furnizorii de servicii digitale și CCN pentru sectorul public. INCIBE-CERT și CCN-CERT sunt echipele de răspuns la incidente, nu supraveghetori. Comisia a trimis un aviz motivat la 7 mai 2025 și la 8 iulie 2026 a sesizat Curtea de Justiție a UE împotriva Spaniei, cerând o sumă forfetară și penalități zilnice până când Spania notifică transpunerea integrală."
       },
       "legalAnchor": {
         "heading": "Unde se află normele",
@@ -17321,7 +17331,7 @@
         "transposition": {
           "label": "Transpunerea spaniolă (în curs)",
           "quote": "Anteproyecto de Ley de Coordinación y Gobernanza de la Ciberseguridad",
-          "context": "Aprobat de Consiliul de Miniștri la 14 ianuarie 2025. Textul creează un Centro Nacional de Ciberseguridad atașat Presidencia del Gobierno ca autoritate competentă națională unică propusă. Proiectul de lege se află încă în procedura legislativă; până la promulgare, anteriorul Real Decreto-ley 12/2018 (transpunerea NIS 1) continuă să se aplice."
+          "context": "Aprobat de Consiliul de Miniștri la 14 ianuarie 2025. Proiectul creează un Centro Nacional de Ciberseguridad, atașat Secretaría General de Presidencia del Gobierno, ca punct unic de contact cu UE și autoritate pentru crizele de securitate cibernetică. Supravegherea ar reveni a trei autorități de control: Oficiul de coordonare a securității cibernetice al Ministerului de Interne, Centrul Național de Criptologie (Apărare) și Secretariatul de Stat pentru Telecomunicații și Infrastructură Digitală. În martie 2026, textul era încă un Anteproyecto (proiect guvernamental) și nu a fost publicat în BOE; până la promulgare, anteriorul Real Decreto-ley 12/2018 (transpunerea NIS 1) continuă să se aplice."
         }
       },
       "elements": {
@@ -17331,17 +17341,17 @@
           "law": {
             "section": "Transpunere",
             "title": "Ley de Coordinación y Gobernanza de la Ciberseguridad (proiect)",
-            "body": "Proiectul transpune obligațiile NIS 2 în legislația spaniolă, definește entitățile esențiale și importante, stabilește competențe de supraveghere, obligații de raportare a incidentelor și sancțiuni. Până când legea este publicată în BOE, directiva însăși este referința operativă pentru entitățile care operează în Spania, alături de Real Decreto-ley 12/2018 existent."
+            "body": "Proiectul transpune obligațiile NIS 2 în legislația spaniolă, definește entitățile esențiale și importante, stabilește competențe de supraveghere, obligații de raportare a incidentelor și sancțiuni. Până când legea este publicată în BOE, directiva obligă statul spaniol, nu companiile spaniole; ceea ce se aplică astăzi companiilor este Real Decreto-ley 12/2018, pentru cele desemnate în temeiul acestuia."
           },
           "authority": {
             "section": "Autoritate",
-            "title": "Propunere de Centro Nacional de Ciberseguridad",
-            "body": "Proiectul propune un Centro Nacional de Ciberseguridad atașat Presidencia del Gobierno ca autoritate competentă națională unică și punct de contact al UE. Între timp, supravegherea este împărțită: CCN pentru sectorul public și domeniul de aplicare al Esquema Nacional de Seguridad, INCIBE pentru sectorul privat și cetățeni, cu autorități de reglementare sectoriale competente în propriile domenii."
+            "title": "Centro Nacional de Ciberseguridad propus și autoritățile de control",
+            "body": "Proiectul creează un Centro Nacional de Ciberseguridad, atașat Secretaría General de Presidencia del Gobierno, ca punct unic de contact cu UE și autoritate pentru crizele de securitate cibernetică. Supravegherea ar reveni a trei autorități de control: Oficiul de coordonare a securității cibernetice al Ministerului de Interne, Centrul Național de Criptologie (Apărare) și Secretariatul de Stat pentru Telecomunicații și Infrastructură Digitală. Între timp, decretul NIS 1 împarte supravegherea între Ministerul de Interne (CNPIC) pentru operatorii critici, ministerul competent pentru ceilalți operatori de servicii esențiale, Secretariatul de Stat pentru Digitalizare pentru furnizorii de servicii digitale și CCN pentru sectorul public. INCIBE-CERT și CCN-CERT sunt echipele de răspuns la incidente, nu supraveghetori."
           },
           "deadlines": {
             "section": "Termene",
             "title": "Termenul din Articolul 41 ratat",
-            "body": "Articolul 41 din NIS 2 a stabilit termenul de transpunere la 17 octombrie 2024. Spania nu a respectat acel termen. Comisia Europeană a trimis Spaniei un aviz motivat la 7 mai 2025, care este a doua etapă formală a unei proceduri de constatare a neîndeplinirii obligațiilor înainte de sesizarea Curții de Justiție a UE."
+            "body": "Articolul 41 din NIS 2 a stabilit termenul de transpunere la 17 octombrie 2024. Spania nu a respectat acel termen. Comisia a trimis un aviz motivat la 7 mai 2025 și la 8 iulie 2026 a sesizat Curtea de Justiție a UE împotriva Spaniei, cerând o sumă forfetară și penalități zilnice până când Spania notifică transpunerea integrală."
           }
         }
       },
@@ -17351,11 +17361,11 @@
         "items": {
           "lexLocalis": {
             "title": "Legea locală se aplică în interiorul Spaniei",
-            "body": "Operațiunile pe teritoriul spaniol urmează transpunerea spaniolă odată promulgată. Un Geschäftsführer german care conduce o filială spaniolă va citi eventuala Ley de Coordinación y Gobernanza de la Ciberseguridad pentru acea filială, nu BSIG german. În perioada intermediară, Real Decreto-ley 12/2018 plus directiva însăși rămân referința."
+            "body": "Entitățile stabilite în Spania urmează transpunerea spaniolă odată promulgată. Un Geschäftsführer german care conduce o filială spaniolă va citi eventuala Ley de Coordinación y Gobernanza de la Ciberseguridad pentru acea filială, nu BSIG german. În perioada intermediară, Real Decreto-ley 12/2018 se aplică companiilor desemnate în temeiul său; directiva obligă statul spaniol, nu filiala."
           },
           "euFloor": {
             "title": "Spania nu poate coborî sub pragul UE",
-            "body": "Directiva este un instrument de armonizare minimă. Faptul că transpunerea spaniolă este întârziată nu coboară pragul. Obligațiile entităților esențiale și importante, termenele de raportare a incidentelor și răspunderea organului de conducere rămân ancorate în directivă și în jurisprudența UE privind efectul direct al directivelor netranspuse."
+            "body": "Directiva este un instrument de armonizare minimă. Faptul că transpunerea spaniolă este întârziată nu coboară pragul: odată promulgată, legea spaniolă trebuie să conțină cel puțin obligațiile directivei pentru entitățile esențiale și importante, termenele de raportare a incidentelor și răspunderea organului de conducere. Până atunci directiva obligă statul spaniol, nu companiile spaniole: jurisprudența UE este clară că o directivă nu poate, prin ea însăși, impune obligații unei companii."
           }
         }
       },
@@ -17366,17 +17376,17 @@
           "incibe": {
             "country": "ES",
             "label": "INCIBE și INCIBE-CERT",
-            "body": "Instituto Nacional de Ciberseguridad, atașat Ministerului Transformării Digitale. INCIBE-CERT este centrul de referință pentru răspunsul la incidente pentru cetățeni și entitățile de drept privat. Pentru incidentele care afectează operatori critici din sectorul privat, este operat în comun cu biroul de coordonare a securității cibernetice al Ministerului de Interne."
+            "body": "Instituto Nacional de Ciberseguridad, atașat Ministerului Transformării Digitale. INCIBE-CERT este centrul de referință pentru răspunsul la incidente pentru cetățeni și entitățile de drept privat. Pentru incidentele care afectează operatori critici, INCIBE-CERT este operat în comun de INCIBE și de CNPIC al Ministerului de Interne."
           },
           "ccn": {
             "country": "ES",
             "label": "CCN și CCN-CERT",
-            "body": "Centro Criptológico Nacional, atașat Centro Nacional de Inteligencia (CNI). CCN-CERT este CERT-ul guvernamental pentru sectorul public, instituit în 2006 în temeiul Legii 11/2002, Real Decreto 421/2004 și Real Decreto 311/2022, care reglementează Esquema Nacional de Seguridad (ENS)."
+            "body": "Centro Criptológico Nacional, atașat Centro Nacional de Inteligencia (CNI). CCN-CERT, creat în 2006, este CERT-ul guvernamental pentru sectorul public. CCN este guvernat de Legea 11/2002 și Real Decreto 421/2004; Real Decreto 311/2022 reglementează Esquema Nacional de Seguridad (ENS)."
           },
           "enisa": {
             "country": "UE",
             "label": "ENISA",
-            "body": "Agenția UE pentru securitate cibernetică. Publică orientări, gestionează baza de date europeană a vulnerabilităților și sprijină coordonarea transfrontalieră. Nu este un supraveghetor pentru entitățile spaniole; CCN, INCIBE și autoritățile sectoriale sunt, propunerea de Centro Nacional de Ciberseguridad urmând să consolideze rolul odată ce legea este promulgată."
+            "body": "Agenția UE pentru securitate cibernetică. Publică orientări, gestionează baza de date europeană a vulnerabilităților și sprijină coordonarea transfrontalieră. Nu este un supraveghetor pentru entitățile spaniole. În temeiul decretului NIS 1, supraveghetorii sunt Ministerul de Interne (CNPIC), ministerele sectoriale, Secretariatul de Stat pentru Digitalizare și CCN; proiectul de lege ar da supravegherea a trei autorități de control, cu Centro Nacional de Ciberseguridad ca punct unic de contact cu UE."
           }
         }
       },
@@ -17386,22 +17396,22 @@
         "items": {
           "sameAsGermany": {
             "myth": "Dacă Germania are BSIG, Spania are o lege similară în vigoare.",
-            "reality": "Germania însăși nu a promulgat încă NIS2UmsuCG și se află în aceeași poziție de întârziere. Spania este mai avansată pe latura proiectului (Anteproyecto a trecut de Consiliul de Miniștri la 14 ianuarie 2025), dar BOE nu a publicat încă un text promulgat. Filialele spaniole nu pot invoca o lege națională finalizată și trebuie să citească direct directiva plus anteriorul Real Decreto-ley 12/2018."
+            "reality": "Legea germană NIS 2 se aplică din 6 decembrie 2025. Spania nu are încă o lege promulgată: Anteproyecto a trecut de Consiliul de Miniștri la 14 ianuarie 2025, dar nimic nu a fost publicat în BOE. Filialele spaniole nu pot invoca o lege națională finalizată; ceea ce li se aplică astăzi este anteriorul Real Decreto-ley 12/2018, pentru cele desemnate în temeiul său, în timp ce directiva arată ce va trebui să conțină legea spaniolă."
           },
           "noRegistry": {
             "myth": "Nu există nicio lege spaniolă în vigoare, deci nu e nimic de făcut deocamdată.",
-            "reality": "Directiva însăși produce efecte la nivelul UE de la 18 octombrie 2024, iar jurisprudența UE acordă directivelor netranspuse efect direct parțial împotriva statului. Termenul de 17 aprilie 2025 pentru ca statele membre să poată identifica entitățile esențiale și importante este obligatoriu pentru Spania indiferent de proiectul de lege. Operatorii ar trebui să pregătească acum verificările de domeniu de aplicare, procesele de raportare a incidentelor și aprobarea organului de conducere, nu să aștepte BOE."
+            "reality": "Directiva este în vigoare din ianuarie 2023. Statele membre trebuiau să aplice normele naționale de la 18 octombrie 2024. Până când Spania își promulgă legea, directiva obligă statul spaniol, nu companiile spaniole: jurisprudența UE este clară că o directivă nu poate, prin ea însăși, impune obligații unei companii. Ceea ce se aplică astăzi companiilor este decretul NIS 1 (Real Decreto-ley 12/2018), pentru cele desemnate în temeiul său. Termenul de 17 aprilie 2025 pentru ca statele membre să poată identifica entitățile esențiale și importante este obligatoriu pentru Spania indiferent de proiectul de lege. Pregătirea acum a verificărilor de domeniu de aplicare, a proceselor de raportare a incidentelor și a aprobării organului de conducere rămâne rezonabilă, deoarece proiectul urmează îndeaproape directiva."
           },
           "onlySector": {
             "myth": "Autoritatea noastră sectorială de reglementare ne va spune ce să facem.",
-            "reality": "Unele sectoare au o autoritate clară (finanțele cu Banco de España și DORA ca lex specialis, energia cu CNMC). Multe nu au încă o linie unică de competență, deoarece proiectul de lege nu a terminat de definit arhitectura de supraveghere. Obligațiile directivei se aplică indiferent de organismul național care va ajunge să le pună în aplicare."
+            "reality": "Unele sectoare au o autoritate clară (finanțele cu Banco de España pentru instituțiile de credit și DORA ca lex specialis, energia cu Ministerul pentru Tranziția Ecologică). Multe nu au încă o linie unică de competență, deoarece proiectul de lege nu a terminat de definit arhitectura de supraveghere. Odată promulgată legea, obligațiile ei se aplică indiferent de organismul național care va ajunge să le pună în aplicare."
           }
         }
       },
       "practitioner": {
         "heading": "Perspectiva practicianului",
-        "p1": "Majoritatea operatorilor spanioli din segmentul mediu pe care îi vedem tratează NIS 2 ca pe o problemă pe care o pot amâna până când Boletín publică legea finală. Acesta este un pariu scump. Termenul de 17 octombrie 2024 al directivei a trecut deja, Comisia a trecut deja la etapa avizului motivat la 7 mai 2025, iar obligațiile de fond (aprobarea măsurilor de risc de către organul de conducere, avertizare timpurie la 24h, notificare la 72h, clauzele privind lanțul de aprovizionare) nu se schimbă între proiect și orice text final plauzibil.",
-        "p2": "Mișcarea practică este aceeași ca peste tot în UE: confirmați domeniul de aplicare în temeiul directivei, pregătiți-vă pentru înregistrare odată ce portalul Centro Nacional de Ciberseguridad este anunțat, stabiliți cele patru obligații continue (menținerea înregistrării, raportarea incidentelor, gestionarea riscului lanțului de aprovizionare, supravegherea de către organul de conducere) și documentați minimul. Orientările existente CCN și INCIBE plus canalele de raportare din Real Decreto-ley 12/2018 rămân utilizabile cât timp noua lege este în așteptare."
+        "p1": "Majoritatea operatorilor spanioli din segmentul mediu pe care îi vedem tratează NIS 2 ca pe o problemă pe care o pot amâna până când Boletín publică legea finală. Acesta este un pariu scump. Termenul de 17 octombrie 2024 al directivei a trecut deja, Comisia a trimis un aviz motivat la 7 mai 2025 și a sesizat Curtea de Justiție a UE împotriva Spaniei la 8 iulie 2026, iar obligațiile de fond (aprobarea măsurilor de risc de către organul de conducere, avertizare timpurie la 24h, notificare la 72h, clauzele privind lanțul de aprovizionare) nu se schimbă între proiect și orice text final plauzibil.",
+        "p2": "Mișcarea practică este aceeași ca peste tot în UE: confirmați domeniul de aplicare în temeiul directivei, pregătiți-vă pentru înregistrare odată ce legea Spaniei desemnează organismul și portalul de înregistrare, stabiliți cele patru obligații continue (menținerea înregistrării, raportarea incidentelor, gestionarea riscului lanțului de aprovizionare, supravegherea de către organul de conducere) și documentați minimul. Orientările existente CCN și INCIBE plus canalele de raportare din Real Decreto-ley 12/2018 rămân utilizabile cât timp noua lege este în așteptare."
       },
       "platform": {
         "heading": "Cum ajută platforma",
@@ -17414,9 +17424,9 @@
           "Directiva (UE) 2022/2555 (NIS 2), termenul de transpunere din Articolul 41. EUR-Lex.",
           "Regulamentul de punere în aplicare (UE) 2024/2690 al Comisiei.",
           "Anteproyecto de Ley de Coordinación y Gobernanza de la Ciberseguridad, aprobat de Consiliul de Miniștri la 14 ianuarie 2025. Departamento de Seguridad Nacional (dsn.gob.es).",
-          "Comisia Europeană, aviz motivat adresat Spaniei pentru neînregistrarea transpunerii integrale a NIS 2, 7 mai 2025.",
+          "Comisia Europeană, aviz motivat adresat Spaniei pentru nenotificarea transpunerii integrale a NIS 2, 7 mai 2025; sesizarea Spaniei la Curtea de Justiție a UE, 8 iulie 2026 (IP/26/1499).",
           "Real Decreto-ley 12/2018, transpunerea NIS 1, Boletín Oficial del Estado.",
-          "CCN-CERT. Centro Criptológico Nacional, înființat în 2006 în temeiul Ley 11/2002 și Real Decreto 421/2004; Real Decreto 311/2022 privind Esquema Nacional de Seguridad.",
+          "CCN-CERT (creat în 2006): Centro Criptológico Nacional, guvernat de Ley 11/2002 și Real Decreto 421/2004; Real Decreto 311/2022 privind Esquema Nacional de Seguridad.",
           "INCIBE-CERT. Instituto Nacional de Ciberseguridad, Ministerio para la Transformación Digital."
         ]
       },
@@ -17614,7 +17624,7 @@
       },
       "platform": {
         "heading": "Cum ajută platforma",
-        "p1": "Construim registrul de obligații NIS 2 pe stratul UE, nu pe vreo transpunere națională unică. Aceeași listă de verificare funcționează pentru o filială maghiară în temeiul Legii XXIII din 2023, o societate-mamă germană în temeiul BSIG și o societate-soră franceză în temeiul Ordonnance n. 2024-1093. Referințele la articole se schimbă de la o limbă la alta. Obligațiile de fond nu.",
+        "p1": "Construim registrul de obligații NIS 2 pe stratul UE, nu pe vreo transpunere națională unică. Aceeași listă de verificare funcționează pentru o filială maghiară în temeiul Legii XXIII din 2023 și o societate-mamă germană în temeiul BSIG. Referințele la articole se schimbă de la o limbă la alta. Obligațiile de fond nu.",
         "p2": "Pentru domeniul de aplicare maghiar începeți cu verificarea de aplicabilitate, apoi treceți la cadența de raportare a incidentelor cu NKI, clauzele privind lanțul de aprovizionare și aprobarea organului de conducere. Acolo unde SZTFH publică îndrumări sectoriale, le referențiem. Nu le duplicăm."
       },
       "sources": {
@@ -17881,7 +17891,7 @@
       },
       "platform": {
         "heading": "Ce oferă platforma",
-        "p1": "Construim registrul de obligații NIS 2 la nivelul UE, nu pe o singură transpunere națională. Aceeași listă de verificare se potrivește unei entități slovace în temeiul Legii 366/2024, unei companii mamă germane în temeiul BSIG și unei companii soră franceze în temeiul Ordonnance n° 2024-1093. Referințele la articole se schimbă în funcție de țară, obligațiile de fond nu.",
+        "p1": "Construim registrul de obligații NIS 2 la nivelul UE, nu pe o singură transpunere națională. Aceeași listă de verificare se potrivește unei entități slovace în temeiul Legii 366/2024 și unei companii mamă germane în temeiul BSIG. Referințele la articole se schimbă în funcție de țară, obligațiile de fond nu.",
         "p2": "Pentru domeniul de aplicare slovac, începeți cu verificarea aplicabilității, apoi cadența de raportare, clauzele privind lanțul de aprovizionare și aprobarea de către organul de conducere. Acolo unde NBÚ publică decrete sau ghiduri sectoriale, le legăm. Nu le copiem."
       },
       "sources": {
@@ -18016,7 +18026,7 @@
       },
       "platform": {
         "heading": "Ce oferă platforma",
-        "p1": "Construim registrul de obligații NIS 2 pe stratul UE, nu pe o singură transpunere națională. Aceeași listă de verificare se potrivește unei filiale croate în temeiul NN 14/2024, unei companii mamă germane în temeiul BSIG și unei companii soră franceze în temeiul Ordonnance n° 2024-1093. Referințele la articole se schimbă în funcție de țară, obligațiile de bază nu.",
+        "p1": "Construim registrul de obligații NIS 2 pe stratul UE, nu pe o singură transpunere națională. Aceeași listă de verificare se potrivește unei filiale croate în temeiul NN 14/2024 și unei companii mamă germane în temeiul BSIG. Referințele la articole se schimbă în funcție de țară, obligațiile de bază nu.",
         "p2": "Pentru domeniul de aplicare croat începeți cu verificarea aplicabilității, apoi cadența de raportare a incidentelor, clauzele privind lanțul de aprovizionare și aprobarea de către organul de conducere. Acolo unde SOA / NCSC-HR sau CERT.hr publică ghiduri sectoriale, le legăm. Nu le copiem."
       },
       "sources": {
@@ -18152,7 +18162,7 @@
       },
       "platform": {
         "heading": "Cum ajută platforma",
-        "p1": "Construim registrul de obligații NIS 2 pe stratul UE, nu pe vreo transpunere națională unică. Aceeași listă de verificare funcționează pentru o filială bulgară în temeiul Legii modificate privind securitatea cibernetică, o societate-mamă germană în temeiul BSIG și o societate soră franceză în temeiul Ordonnance n° 2024-1093. Trimiterile la articole se schimbă per locală; obligațiile de fond nu.",
+        "p1": "Construim registrul de obligații NIS 2 pe stratul UE, nu pe vreo transpunere națională unică. Aceeași listă de verificare funcționează pentru o filială bulgară în temeiul Legii modificate privind securitatea cibernetică și o societate-mamă germană în temeiul BSIG. Trimiterile la articole se schimbă per locală; obligațiile de fond nu.",
         "p2": "Pentru domeniul de aplicare bulgar începeți cu verificarea aplicabilității, apoi treceți la cadența de raportare a incidentelor către CERT Bulgaria, clauzele privind lanțul de aprovizionare și aprobarea organului de conducere. Acolo unde Agenția de stat pentru e-guvernare sau un minister de resort publică orientări, le menționăm; nu le duplicăm."
       },
       "sources": {
@@ -18286,7 +18296,7 @@
       },
       "platform": {
         "heading": "Ce oferă platforma",
-        "p1": "Construim registrul de obligații NIS 2 pe nivelul UE, nu pe o singură transpunere națională. Aceeași listă de verificare se potrivește unei filiale grecești conform Legii 5160/2024, unei societăți-mamă germane conform BSIG și unei surori franceze conform Ordonanței n° 2024-1093. Trimiterile la articole se schimbă de la o țară la alta, obligațiile în substanță nu.",
+        "p1": "Construim registrul de obligații NIS 2 pe nivelul UE, nu pe o singură transpunere națională. Aceeași listă de verificare se potrivește unei filiale grecești conform Legii 5160/2024 și unei societăți-mamă germane conform BSIG. Trimiterile la articole se schimbă de la o țară la alta, obligațiile în substanță nu.",
         "p2": "Pentru domeniul de aplicare grecesc, începeți cu verificarea aplicabilității, apoi cadența de raportare, clauzele privind lanțul de aprovizionare și aprobarea organului de conducere. Acolo unde Autoritatea Națională de Securitate Cibernetică publică ghiduri sectoriale, le legăm. Nu le copiem."
       },
       "sources": {
@@ -18554,7 +18564,7 @@
       },
       "platform": {
         "heading": "Cum ajută platforma",
-        "p1": "Construim registrul de obligații NIS 2 pe stratul UE, nu pe o singură transpunere națională. Aceeași listă de verificare funcționează pentru o entitate slovenă în temeiul ZInfV-1, o companie mamă germană în temeiul BSIG și o companie soră franceză în temeiul Ordonnance n° 2024-1093. Referințele la articole se schimbă în funcție de locale. Obligațiile de fond nu.",
+        "p1": "Construim registrul de obligații NIS 2 pe stratul UE, nu pe o singură transpunere națională. Aceeași listă de verificare funcționează pentru o entitate slovenă în temeiul ZInfV-1 și o companie mamă germană în temeiul BSIG. Referințele la articole se schimbă în funcție de locale. Obligațiile de fond nu.",
         "p2": "Pentru domeniul de aplicare sloven începeți cu verificarea aplicabilității, apoi treceți la cadența de raportare a incidentelor către SI-CERT, la clauzele privind lanțul de aprovizionare și la aprobarea de către organul de conducere. Acolo unde URSIV publică ghiduri sectoriale, le referențiem. Nu le duplicăm."
       },
       "sources": {
@@ -18821,7 +18831,7 @@
       },
       "platform": {
         "heading": "Cum ajută platforma",
-        "p1": "Construim registrul de obligații NIS 2 pe stratul UE, nu pe vreo transpunere națională unică. Aceeași listă de verificare funcționează pentru o entitate estonă în temeiul Küberturvalisuse seadus, o societate-mamă germană în temeiul BSIG și o societate-soră franceză în temeiul Ordonnance n° 2024-1093. Referințele la articole se schimbă de la o limbă la alta; obligațiile de fond nu.",
+        "p1": "Construim registrul de obligații NIS 2 pe stratul UE, nu pe vreo transpunere națională unică. Aceeași listă de verificare funcționează pentru o entitate estonă în temeiul Küberturvalisuse seadus și o societate-mamă germană în temeiul BSIG. Referințele la articole se schimbă de la o limbă la alta; obligațiile de fond nu.",
         "p2": "Pentru domeniul de aplicare eston începeți cu verificarea de aplicabilitate, apoi treceți la autoînregistrarea la RIA, cadența de raportare a incidentelor către CERT-EE, clauzele privind lanțul de aprovizionare și aprobarea organului de conducere. Acolo unde RIA publică îndrumări sectoriale, le referențiem; nu le duplicăm."
       },
       "sources": {
@@ -19089,7 +19099,7 @@
       },
       "platform": {
         "heading": "Ce oferă platforma",
-        "p1": "Construim registrul de obligații NIS 2 pe stratul UE, nu pe o singură transpunere națională. Aceeași listă de verificare se potrivește unei filiale letone în temeiul Legii naționale privind securitatea cibernetică, unei companii mamă germane în temeiul BSIG și unei companii soră franceze în temeiul Ordonnance n° 2024-1093. Referințele la articole se schimbă în funcție de țară, obligațiile de fond nu.",
+        "p1": "Construim registrul de obligații NIS 2 pe stratul UE, nu pe o singură transpunere națională. Aceeași listă de verificare se potrivește unei filiale letone în temeiul Legii naționale privind securitatea cibernetică și unei companii mamă germane în temeiul BSIG. Referințele la articole se schimbă în funcție de țară, obligațiile de fond nu.",
         "p2": "Pentru domeniul de aplicare leton, începeți cu verificarea aplicabilității, apoi fereastra de înregistrare de o lună, apoi notificarea incidentelor prin CERT.LV, clauzele privind lanțul de aprovizionare și aprobarea de către organul de conducere. Acolo unde NCSC sau CERT.LV publică ghiduri sectoriale, le legăm. Nu le copiem."
       },
       "sources": {
