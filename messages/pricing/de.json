@@ -54,7 +54,7 @@
         "anchorTip": {
           "title": "Was eine Gap-Analyse kostet",
           "body": "Beratungen in Deutschland veröffentlichen für eine NIS 2 Gap-Analyse Preise zwischen {low} und {high}, einmalig und meist als Einstiegspreis. Die Analyse zeigt, was fehlt. Der Durchgang führt Sie danach Schritt für Schritt durch die Umsetzung.",
-          "note": "Von den Websites der Anbieter, Stand {checked}."
+          "note": "Quellen: die Websites von {sources}, Stand {checked}."
         },
         "moneyBack": "30 Tage Geld zurück",
         "moneyBackTip": {

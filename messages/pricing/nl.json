@@ -54,7 +54,7 @@
         "anchorTip": {
           "title": "Wat een gap-analyse kost",
           "body": "Duitse adviesbureaus publiceren voor een NIS 2 gap-analyse prijzen tussen {low} en {high}, eenmalig en meestal als vanafprijs. De analyse laat zien wat ontbreekt. De doorloop leidt u daarna stap voor stap door de implementatie.",
-          "note": "Van de websites van de aanbieders, stand per {checked}."
+          "note": "Bronnen: de websites van {sources}, stand per {checked}."
         },
         "moneyBack": "30 dagen geld terug",
         "moneyBackTip": {
