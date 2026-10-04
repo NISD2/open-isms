@@ -340,6 +340,8 @@
         "declined": "Decided not to do",
         "signed": "Signed off",
         "notApplicable": "Does not apply",
+        "preview": "What “{step}” looks like",
+        "previewAlt": "The step “{step}” shown with a made-up company",
         "continueHere": "Continue now"
       },
       "intro": {

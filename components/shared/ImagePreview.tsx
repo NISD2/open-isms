@@ -21,6 +21,21 @@ export interface PreviewImage {
 const PREVIEW_WIDTH = 640;
 /** Long enough to take in the whole image first, so the zoom reads as moving into it. */
 const ZOOM_DELAY_MS = 950;
+/** The gap to the trigger and the margin kept to the screen's edge, in CSS pixels. */
+const OFFSET = 12;
+const EDGE = 16;
+
+/**
+ * Beside the trigger where the preview fits on either side (the popover flips to the left on its
+ * own), else under it: on a phone a full-width trigger leaves no room beside it, and the preview
+ * would open off the screen.
+ */
+const sideFor = (trigger: HTMLElement | null): "right" | "bottom" => {
+  if (!trigger) return "right";
+  const { left, right } = trigger.getBoundingClientRect();
+  const needed = Math.min(PREVIEW_WIDTH, window.innerWidth - 2 * EDGE) + OFFSET + EDGE;
+  return window.innerWidth - right >= needed || left >= needed ? "right" : "bottom";
+};
 
 /**
  * The zoom that brings `focus` to the middle of the frame. The middle is held far enough from the
@@ -51,9 +66,16 @@ export function ImagePreview({
   children: React.ReactElement;
 }) {
   const [open, setOpen] = useState(false);
+  const [side, setSide] = useState<"right" | "bottom">("right");
   const [zoomed, setZoomed] = useState(false);
   const pointer = useRef("");
+  const trigger = useRef<HTMLButtonElement>(null);
   const { focus } = image;
+
+  const show = (next: boolean) => {
+    if (next) setSide(sideFor(trigger.current));
+    setOpen(next);
+  };
 
   useEffect(() => {
     if (!open || !focus) {
@@ -66,11 +88,12 @@ export function ImagePreview({
   }, [open, focus]);
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover open={open} onOpenChange={show}>
       <PopoverTrigger
+        ref={trigger}
         asChild
-        onPointerEnter={(e) => e.pointerType === "mouse" && setOpen(true)}
-        onPointerLeave={(e) => e.pointerType === "mouse" && setOpen(false)}
+        onPointerEnter={(e) => e.pointerType === "mouse" && show(true)}
+        onPointerLeave={(e) => e.pointerType === "mouse" && show(false)}
         onPointerDown={(e) => {
           pointer.current = e.pointerType;
         }}
@@ -83,10 +106,10 @@ export function ImagePreview({
         {children}
       </PopoverTrigger>
       <PopoverContent
-        side="right"
+        side={side}
         align="start"
-        sideOffset={12}
-        collisionPadding={16}
+        sideOffset={OFFSET}
+        collisionPadding={EDGE}
         onOpenAutoFocus={(e) => e.preventDefault()}
         onCloseAutoFocus={(e) => e.preventDefault()}
         className="w-[min(40rem,calc(100vw-2rem))] overflow-hidden p-0 [@media(hover:hover)]:pointer-events-none"
