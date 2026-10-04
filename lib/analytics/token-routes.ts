@@ -51,7 +51,7 @@ function withQueryFiltered(href: string, keep: (key: string) => boolean): string
   return parsed.origin === new URL(BASE).origin ? path : `${parsed.origin}${path}`;
 }
 
-const isCampaignTag = (key: string) => key.startsWith("utm_");
+export const isCampaignTag = (key: string) => key.startsWith("utm_");
 
 /**
  * Umami's `data-before-send` hook, called with every event before it leaves the browser; a
