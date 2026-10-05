@@ -62,7 +62,6 @@ export function SignInCard({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
-  const [consent, setConsent] = useState(false);
   const [error, setError] = useState(() => {
     const code = searchParams.get("error");
     return isGoogleSignInError(code)
@@ -87,11 +86,6 @@ export function SignInCard({
 
     try {
       if (mode === "register") {
-        if (!consent) {
-          setError(t("errorConsentRequired"));
-          setLoading(false);
-          return;
-        }
         const res = await fetch("/api/auth/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -368,50 +362,9 @@ export function SignInCard({
             <p className="text-sm text-muted-foreground">{t("orgDomain", { domain })}</p>
           )}
 
-          {mode === "register" && (
-            <label className="flex items-start gap-2 text-xs text-muted-foreground">
-              <input
-                type="checkbox"
-                checked={consent}
-                onChange={(e) => setConsent(e.target.checked)}
-                className="mt-0.5 h-4 w-4 rounded border-input"
-                required
-              />
-              <span>
-                {t.rich("consentLabel", {
-                  terms: (chunks) => (
-                    <a
-                      href="/terms"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline hover:text-foreground"
-                    >
-                      {chunks}
-                    </a>
-                  ),
-                  privacy: (chunks) => (
-                    <a
-                      href="/datenschutz"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline hover:text-foreground"
-                    >
-                      {chunks}
-                    </a>
-                  ),
-                })}
-              </span>
-            </label>
-          )}
-
           {error && <p className="text-sm text-destructive">{error}</p>}
 
-          <Button
-            type="submit"
-            className="w-full"
-            size="lg"
-            disabled={loading || (mode === "register" && !consent)}
-          >
+          <Button type="submit" className="w-full" size="lg" disabled={loading}>
             {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {mode === "login" ? t("signIn") : t("register")}
           </Button>
@@ -442,19 +395,7 @@ export function SignInCard({
           variant="outline"
           className="w-full"
           size="lg"
-          disabled={mode === "register" && !consent}
-          onClick={() => {
-            // Same consent gate as the credentials path. Without it, users
-            // could click "Sign in with Google" without ticking the box and
-            // the auto-create-on-first-signin in lib/auth/config.ts would
-            // create the account anyway — defeating the GDPR Art. 7 / UWG §7
-            // requirement to obtain consent at the point of registration.
-            if (mode === "register" && !consent) {
-              setError(t("errorConsentRequired"));
-              return;
-            }
-            signIn("google", { callbackUrl });
-          }}
+          onClick={() => signIn("google", { callbackUrl })}
         >
           {/* Decorative: the button's own label already says "Continue with
               Google", so announcing the mark again is noise to a screen reader. */}
@@ -466,6 +407,35 @@ export function SignInCard({
           </svg>
           {t("signInGoogle")}
         </Button>
+
+        {/* A notice, not a checkbox: the box blocked "Weiter mit Google" for everyone arriving in
+            register mode, and nothing stored it. The terms are agreed and recorded at the order
+            (invoice.terms_accepted_at); an account runs on the contract, not on consent
+            (Simon, 05.10.2026). */}
+        <p className="text-center text-xs text-muted-foreground">
+          {t.rich("termsNotice", {
+            terms: (chunks) => (
+              <a
+                href="/terms"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-foreground"
+              >
+                {chunks}
+              </a>
+            ),
+            privacy: (chunks) => (
+              <a
+                href="/datenschutz"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-foreground"
+              >
+                {chunks}
+              </a>
+            ),
+          })}
+        </p>
       </CardContent>
     </Card>
   );

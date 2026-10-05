@@ -77,7 +77,6 @@ async function registerWith(
   const issued = await issuedCodes(email);
   await page.locator("#email").fill(email);
   await page.locator("#password").fill(password);
-  await page.locator('input[type="checkbox"]').check();
   await page.getByRole("button", { name: "Konto erstellen" }).click();
   await expect(page.locator("#code")).toBeVisible({ timeout: 30_000 });
   // /api/auth/register answers every address before it looks the address up,
