@@ -415,8 +415,7 @@
             "text": "Management reviews everything and signs."
           }
         ],
-        "start": "Let's start",
-        "example": "What it looks like"
+        "start": "Let's start"
       }
     },
     "waitReasons": {

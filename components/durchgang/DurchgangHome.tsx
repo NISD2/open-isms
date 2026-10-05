@@ -143,7 +143,6 @@ export function DurchgangHome({
               icon={POINT_ICONS[i]}
               title={point.title}
               text={point.text}
-              shot={i + 1}
             />
           ))}
         </ul>
