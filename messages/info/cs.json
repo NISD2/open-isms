@@ -2379,10 +2379,10 @@
     "registration": {
       "meta": {
         "title": "Registrace NIS2 u BSI: termín a průvodce krok za krokem",
-        "description": "Registrace u BSI podle §33 BSIG: kdo se musí registrovat, termíny, průchod portálem. 30 000 subjektů NIS2 v Německu: většina stále chybí. Vyhněte se pokutám 500 tis. EUR."
+        "description": "Kolik subjektů se registrovalo u BSI, proč mezera vzniká a co znamená chybějící registrace podle § 33 BSIG. Se zdroji."
       },
       "title": "Analýza mezer v registraci NIS2",
-      "subtitle": "BSI odhaduje přibližně 30 000 subjektů podléhajících NIS2 v Německu. Termín registrace uplynul 6. března 2026. Významná část společností v rozsahu se stále nezaregistrovala, což je vystavuje vymáhání podle §65 BSIG.",
+      "subtitle": "Lhůta pro registraci podle § 33 BSIG uplynula 6. března 2026. Do 31. července 2026 obdržel BSI 19 058 registrací (tisk Spolkového sněmu 21/7573). Kolika subjektů se povinnost týká, podle spolkové vlády není známo.",
       "overview": {
         "p1": "§33 BSIG vyžaduje, aby se každý subjekt spadající pod NIS2 (ať už zásadní nebo důležitý subjekt) zaregistroval u Bundesamt für Sicherheit in der Informationstechnik (BSI). To není volitelné. Registrační povinnost existuje nezávisle na tom, zda společnost zavedla nějaká opatření kybernetické bezpečnosti. Nejprve se musíte zaregistrovat, pak zajistit shodu.",
         "p2": "Registrační portál BSI byl spuštěn 6. ledna 2026, jeden měsíc po nabytí účinnosti BSIG. Termín registrace podle §33 BSIG byl 6. března 2026 (3 měsíce po nabytí účinnosti). Navzdory jasné právní povinnosti a dvouměsíčnímu oknu se významná část z odhadovaných 29 000 až 30 000 subjektů v rozsahu do termínu nezaregistrovala. Průzkum společnosti G DATA zjistil, že 44 % dotčených společností si svých povinností podle NIS2 vůbec nebylo vědomo.",
@@ -3984,10 +3984,10 @@
     "missedRegistration": {
       "meta": {
         "title": "Zmeškali jste registraci BSI podle NIS2? Okamžité kroky",
-        "description": "Zmeškali jste lhůtu pro registraci NIS2 u BSI? Ve stejné situaci je 18 000 firem. Portál je stále otevřený: zaregistrujte se nyní, doložte to, vyhněte se pokutám až 500 tis. EUR. Krok za krokem."
+        "description": "Zmeškali jste registraci NIS2? Portál BSI je stále otevřený. Jak se nyní zaregistrovat podle § 33 BSIG, krok za krokem, s odpověďmi na časté dotazy."
       },
       "title": "Zmeškali jste lhůtu pro registraci u BSI. Co teď?",
-      "subtitle": "Lhůtu pro registraci podle §33 BSIG zmeškalo asi 18 000 německých firem. Portál BSI je stále otevřený. Tady je to, na čem teď záleží, a co se skutečně stane, když budete jednat rychle.",
+      "subtitle": "Portál BSI je stále otevřený. Tady je to, na čem teď záleží, a čím začít.",
       "shortAnswer": {
         "heading": "Stručná odpověď",
         "p1": "Nepropadejte panice. Nejste v tom sami, a není pozdě to napravit. BSI odhadl, že pod NIS2 v Německu spadá zhruba 30 000 subjektů. Lhůta pro registraci uplynula 6. března 2026, ale značný počet firem se stále nezaregistroval. Zdaleka nejste jediní, kdo je v této situaci.",

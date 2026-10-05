@@ -2629,7 +2629,7 @@
         "description": "How many entities have registered with the BSI, why the gap exists and what a missing registration under Section 33 BSIG means. With sources."
       },
       "title": "NIS2 Registration Gap Analysis",
-      "subtitle": "The BSI estimated ~30,000 entities subject to NIS2 in Germany. The registration deadline passed on March 6, 2026. A significant portion of in-scope companies have still not registered - leaving them exposed to enforcement under §65 BSIG.",
+      "subtitle": "The registration deadline under § 33 BSIG passed on 6 March 2026. By 31 July 2026 the BSI had received 19,058 registrations (Bundestag printed paper 21/7573). According to the federal government, the number of entities in scope is not known.",
       "overview": {
         "p1": "§33 BSIG requires every entity that falls under NIS2 - whether essential or important entity - to register with the Bundesamt für Sicherheit in der Informationstechnik (BSI). This is not optional. The registration obligation exists independently of whether the company has implemented any cybersecurity measures. You must register first, then comply.",
         "p2": "The BSI registration portal went live on January 6, 2026 - one month after the BSIG entered into force. The registration deadline under §33 BSIG was March 6, 2026 (3 months after entry into force). Despite a clear legal obligation and a two-month window, a significant share of the estimated 29,000-30,000 in-scope entities did not register by the deadline. A G DATA survey found that 44% of affected companies were unaware of their NIS2 obligations entirely.",
@@ -4231,10 +4231,10 @@
     "missedRegistration": {
       "meta": {
         "title": "Missed the NIS2 registration? How to register now",
-        "description": "Missed the NIS2 BSI registration deadline? 18,000 companies are in the same boat. Portal still open: register now, document, avoid €500K fines. Step-by-step."
+        "description": "Missed the NIS2 registration deadline? The BSI portal is still open. How to register now under § 33 BSIG, step by step, with answers to common questions."
       },
       "title": "You Missed the BSI Registration Deadline. Now What?",
-      "subtitle": "About 18,000 German companies missed the §33 BSIG registration deadline. The BSI portal is still open. Here is what matters now - and what actually happens if you act quickly.",
+      "subtitle": "The BSI portal is still open. Here is what matters now and what to do first.",
       "shortAnswer": {
         "heading": "The Short Answer",
         "p1": "Don't panic. You are not alone - and you are not too late to fix this. The BSI estimated that roughly 30,000 entities fall under NIS2 in Germany. The registration deadline passed on March 6, 2026, but a significant number of companies have still not registered. You are far from the only one in this position.",

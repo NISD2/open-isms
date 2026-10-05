@@ -2629,7 +2629,7 @@
         "description": "Wie viele Einrichtungen beim BSI registriert sind, warum die Lücke besteht und was eine fehlende Registrierung nach § 33 BSIG bedeutet. Mit Quellen."
       },
       "title": "NIS2-Registrierungsanalyse",
-      "subtitle": "Rund 30.000 betroffene Einrichtungen in Deutschland. Die Registrierungsfrist lief am 6. März 2026 ab - ein erheblicher Teil der Unternehmen hat sich noch nicht registriert.",
+      "subtitle": "Die Registrierungsfrist nach § 33 BSIG lief am 6. März 2026 ab. Bis 31. Juli 2026 gingen beim BSI 19.058 Registrierungen ein (BT-Drucksache 21/7573). Wie viele Einrichtungen betroffen sind, ist laut Bundesregierung nicht bekannt.",
       "overview": {
         "p1": "§33 BSIG verpflichtet alle wesentlichen und wichtigen Einrichtungen, sich beim BSI zu registrieren. Diese Pflicht ist eine Selbstidentifikationspflicht - das BSI informiert Unternehmen nicht proaktiv darüber, ob sie betroffen sind. Jede Organisation muss selbst feststellen, ob sie in den Anwendungsbereich fällt, und sich innerhalb der gesetzlichen Frist registrieren.",
         "p2": "Das BSI-Registrierungsportal ging am 6. Januar 2026 online - einen Monat nach Inkrafttreten des BSIG. Die Registrierungsfrist nach §33 BSIG war der 6. März 2026 (3 Monate nach Inkrafttreten). Trotz klarer Vorgaben und eines zweimonatigen Zeitfensters hat ein erheblicher Teil der geschätzten 30.000 betroffenen Einrichtungen die Frist versäumt. Eine G DATA-Umfrage ergab, dass 44% der betroffenen Unternehmen von ihren NIS2-Pflichten gar nichts wussten.",
@@ -4224,7 +4224,7 @@
     "missedRegistration": {
       "meta": {
         "title": "NIS2-Registrierung verpasst? So registrieren Sie sich jetzt",
-        "description": "NIS2-Registrierung verpasst: 18.000 Unternehmen sind betroffen. Portal weiterhin offen. Schritt-für-Schritt-Anleitung, Risiken, Bußgelder, FAQ."
+        "description": "NIS2-Registrierung verpasst? Das BSI-Portal ist weiterhin offen. So registrieren Sie sich jetzt nach § 33 BSIG, Schritt für Schritt, mit FAQ."
       },
       "title": "Sie haben die BSI-Registrierungsfrist verpasst. Was nun?",
       "subtitle": "Kurzantwort: Betroffenheit nach §28 BSIG prüfen, sofort über das BSI-Portal nach §33 BSIG registrieren, den Beginn schriftlich dokumentieren, mit der Umsetzung nach § 30 BSIG anfangen. Das Portal ist weiterhin offen. Eine verspätete Anmeldung mit dokumentiertem Fortschritt bewertet die Aufsichtsbehörde grundlegend anders als gar keine Anmeldung.",
