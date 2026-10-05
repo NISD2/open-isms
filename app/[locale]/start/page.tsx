@@ -1,18 +1,18 @@
-import { getLocale, getTranslations } from "next-intl/server";
-import { redirect } from "next/navigation";
-import { Link } from "@/i18n/navigation";
 import {
-  ClipboardCheck,
-  FileCheck,
-  Clock,
+  ArrowRight,
   Building2,
   Check,
+  ClipboardCheck,
+  Clock,
+  FileCheck,
   Users,
-  ArrowRight,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { FunnelFaq } from "@/components/funnel/FunnelFaq";
+import { redirect } from "next/navigation";
+import { getLocale, getTranslations } from "next-intl/server";
 import { CalBooker } from "@/components/funnel/CalBooker";
+import { FunnelFaq } from "@/components/funnel/FunnelFaq";
+import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/navigation";
 import { env } from "@/lib/env";
 
 const processSteps = [
@@ -159,7 +159,7 @@ export default async function FunnelPage() {
             {t("finalCta.email")}
           </p>
           <div className="mt-8">
-            <CalBooker calLink={env.CAL_LINK} />
+            <CalBooker calLink={env.CAL_LINK} title={t("finalCta.headline")} />
           </div>
         </section>
       )}

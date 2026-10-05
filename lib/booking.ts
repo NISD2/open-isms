@@ -18,3 +18,20 @@ export function bookingUrlFor(
   const tags = campaignTags(search);
   return tags.size > 0 ? `${page}?${tags.toString()}` : page;
 }
+
+/**
+ * The same booking page in cal.com's embed mode, for a plain iframe: no cal.com script on our
+ * origin, so the colours are cal.com's own light theme rather than ours.
+ */
+export function bookerFrameUrl(
+  search: string,
+  calLink: string = BOOKING_CAL_LINK,
+): string {
+  const params = new URLSearchParams({
+    embed: "true",
+    theme: "light",
+    layout: "month_view",
+  });
+  for (const [key, value] of campaignTags(search)) params.set(key, value);
+  return `https://cal.com/${calLink}?${params.toString()}`;
+}

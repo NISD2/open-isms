@@ -48,9 +48,9 @@ export const buildCsp = (env: CspEnv): string => {
   const httpsHardened = env.CSP_UPGRADE_INSECURE === "1";
   const analytics = env.ANALYTICS_SCRIPT_URL ? originOf(env.ANALYTICS_SCRIPT_URL) : "";
   const storage = storageOrigin(env);
-  // The booking calendar (components/pricing/BookingDialog.tsx): Cal's embed script, and the
-  // booker it frames.
-  const booking = "https://app.cal.com";
+  // The booking calendar (components/pricing/BookingDialog.tsx) is cal.com's page in a plain
+  // frame. Framing only: no cal.com script runs on our origin.
+  const booking = "https://cal.com";
 
   return [
     directive("default-src", ["'self'"]),
@@ -60,7 +60,6 @@ export const buildCsp = (env: CspEnv): string => {
       "'unsafe-eval'",
       analytics,
       "https://accounts.google.com",
-      booking,
     ]),
     directive("style-src", ["'self'", "'unsafe-inline'"]),
     directive("img-src", ["'self'", "data:", "blob:", "https:"]),
