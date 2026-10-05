@@ -150,7 +150,7 @@ export async function PublicNav({
               </Button>
             ) : (
               <Button size="sm" asChild>
-                <SignInLink>{t("nav.cta")}</SignInLink>
+                <SignInLink query={{ mode: "register" }}>{t("nav.cta")}</SignInLink>
               </Button>
             )}
           </div>
