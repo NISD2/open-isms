@@ -6,6 +6,13 @@ export type Direction = "forward" | "back";
 /** Only the stage takes part in the screen transition; header, rail and footer stay put. */
 export const STAGE: CSSProperties = { viewTransitionName: "dg-stage" };
 export const PROGRESS: CSSProperties = { viewTransitionName: "dg-progress" };
+/**
+ * The item's header and footer as their own layers. Without a name they are part of the page's
+ * flat snapshot, and the browser draws every named layer above it, so the sliding stage passed
+ * over the Weiter bar for a moment (Simon, 05.10.2026).
+ */
+export const HEADER: CSSProperties = { viewTransitionName: "dg-header" };
+export const FOOTER: CSSProperties = { viewTransitionName: "dg-footer" };
 
 /**
  * Run a state change as a screen transition where the browser supports it. The direction decides
