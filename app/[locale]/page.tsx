@@ -104,7 +104,7 @@ export default async function LandingPage() {
             </div>
 
             {/* Product: large, frameless, floating screenshot */}
-            <WalkHomeShot preload />
+            <WalkHomeShot preload video />
           </div>
         </div>
 
