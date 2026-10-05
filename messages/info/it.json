@@ -6847,7 +6847,7 @@
       },
       "whyFree": {
         "heading": "Perché è gratuito?",
-        "body": "Nessuno Stato membro dell'UE ha istituito un'autorità di certificazione di matrice statale per la formazione NIS2. Finché non esisteranno percorsi di certificazione ufficiali, la documentazione della formazione è lo standard universale. Abbiamo costruito questo corso affinché ogni amministratore delegato coperto nell'UE possa adempiere al proprio dovere ai sensi dell'Articolo 20(2) senza pagare un consulente. La piattaforma è gratuita. Il certificato è gratuito. Nessun lock-in, nessun muro di upsell."
+        "body": "Nessuno Stato membro dell'UE ha istituito un'autorità di certificazione di matrice statale per la formazione NIS2. Finché non esisteranno percorsi di certificazione ufficiali, la documentazione della formazione è lo standard universale. Abbiamo costruito questo corso affinché ogni amministratore delegato coperto nell'UE possa adempiere al proprio dovere ai sensi dell'Articolo 20(2) senza pagare un consulente."
       },
       "cta": {
         "heading": "Pronto ad adempiere al tuo dovere di formazione?",
@@ -6900,7 +6900,7 @@
       },
       "whyFree": {
         "heading": "Perché è gratuito?",
-        "body": "Nessun organismo dell'UE certifica i fornitori di formazione NIS 2. Il dovere di esercitazione di cui agli Articoli 21(2)(b)+(c) si estende a ogni soggetto essenziale e importante, ma le esercitazioni tabletop di consulenza costano 15.000-50.000 € per incarico. Abbiamo costruito questo corso e il modulo Live-System Tabletop della piattaforma affinché ogni facilitatore possa produrre evidenze difendibili dell'esercitazione senza pagare un consulente. La piattaforma è gratuita. L'attestazione è gratuita. Open source, nessun lock-in."
+        "body": "Nessun organismo dell'UE certifica i fornitori di formazione NIS 2. Il dovere di esercitazione di cui agli Articoli 21(2)(b)+(c) si estende a ogni soggetto essenziale e importante. Abbiamo costruito questo corso e il modulo Live-System Tabletop della piattaforma affinché ogni facilitatore possa produrre evidenze difendibili dell'esercitazione senza pagare un consulente."
       },
       "cta": {
         "heading": "Pronto a condurre la tua prima esercitazione tabletop?",
@@ -6950,7 +6950,7 @@
       },
       "whyFree": {
         "heading": "Perché è gratuito?",
-        "body": "L'obbligo SBOM del CRA si estende a ogni fabbricante di prodotti con elementi digitali venduti nell'UE. La maggior parte delle indicazioni è sepolta nel testo normativo e nelle bozze di standard. Abbiamo costruito questo corso affinché ogni team di prodotto possa comprendere e attuare i propri obblighi ai sensi dell'Articolo 13(5) senza pagare un consulente. La piattaforma è gratuita. L'attestazione è gratuita. Open source, nessun lock-in."
+        "body": "L'obbligo SBOM del CRA si estende a ogni fabbricante di prodotti con elementi digitali venduti nell'UE. La maggior parte delle indicazioni è sepolta nel testo normativo e nelle bozze di standard. Abbiamo costruito questo corso affinché ogni team di prodotto possa comprendere e attuare i propri obblighi ai sensi dell'Articolo 13(5) senza pagare un consulente."
       },
       "cta": {
         "heading": "Pronto a costruire il tuo primo SBOM conforme al CRA?",

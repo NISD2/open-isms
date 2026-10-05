@@ -49,6 +49,14 @@
       "length": "{lessons} lecții, aproximativ {minutes} minute",
       "cta": "Mergi la curs"
     },
+    "coursePage": {
+      "allCourses": "Vedeți toate cursurile",
+      "whatIsFree": "Acest curs și certificatul său rămân gratuite, la fel ca wiki-ul și auto-găzduirea: același cod sursă (AGPL-3.0) pe serverele dumneavoastră. Parcursul ghidat NIS 2 pe nisd2.eu, care vă ghidează pas cu pas prin implementare, costă {price} net pe an.",
+      "afterTraining": {
+        "title": "După instruire: implementarea măsurilor",
+        "body": "Instruirea este obligația conducerii conform § 38 alin. (3) BSIG. <law>Alineatul (1)</law> obligă în plus conducerea să implementeze măsurile de gestionare a riscurilor prevăzute la § 30 și să supravegheze implementarea lor. Parcursul ghidat NIS 2 vă ghidează pas cu pas prin aceste măsuri, iar la final semnează conducerea."
+      }
+    },
     "estimatedTime": "{minutes} min de citit",
     "certificate": {
       "lockedTitle": "Certificat de absolvire",

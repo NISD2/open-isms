@@ -2,6 +2,7 @@ import { getLocale } from "next-intl/server";
 import { headlinesOf } from "@/app/[locale]/(portal)/durchgang/nis2/load";
 import { GetStarted } from "@/components/GetStarted";
 import { StuckLink } from "@/components/help/StuckLink";
+import { AfterTrainingStep } from "@/components/training-portal/AfterTrainingStep";
 import { CertificateDownload } from "@/components/training-portal/CertificateDownload";
 import { LessonViewerPage } from "@/components/training-portal/LessonViewerPage";
 import { lessonArt } from "@/lib/training/art";
@@ -79,10 +80,14 @@ export default async function LessonRoute({
           />
           {/* The walk's home takes a finisher from wherever they stand: not set
               up yet, it opens on setting the company up; not paid, it shows the
-              way to order. */}
-          {completion.allCompleted && (
-            <GetStarted variant="landing" href="/durchgang/nis2" />
-          )}
+              way to order. The management training ends on the duty that follows
+              it (§ 38 Abs. 1 BSIG) instead of the general ask. */}
+          {completion.allCompleted &&
+            (courseId === "nis2-ceo" ? (
+              <AfterTrainingStep />
+            ) : (
+              <GetStarted variant="landing" href="/durchgang/nis2" />
+            ))}
           {/* End of the course is the second place someone stalls: they have
               the theory and no next step. Same one-line offer as the
               requirement sidebar, below the certificate rather than above it,

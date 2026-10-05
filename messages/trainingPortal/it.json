@@ -49,6 +49,14 @@
       "length": "{lessons} lezioni, circa {minutes} minuti",
       "cta": "Vai al corso"
     },
+    "coursePage": {
+      "allCourses": "Vedi tutti i corsi",
+      "whatIsFree": "Questo corso e il suo certificato restano gratuiti, così come il wiki e il self-hosting: lo stesso codice sorgente (AGPL-3.0) sui tuoi server. Il percorso guidato NIS 2 su nisd2.eu, che ti guida passo dopo passo nell'attuazione, costa {price} netti all'anno.",
+      "afterTraining": {
+        "title": "Dopo la formazione: attuare le misure",
+        "body": "La formazione è l'obbligo della direzione ai sensi del § 38, comma 3 BSIG. Il <law>comma 1</law> impone inoltre alla direzione di attuare le misure di gestione dei rischi previste dal § 30 e di vigilare sulla loro attuazione. Il percorso guidato NIS 2 ti guida passo dopo passo attraverso queste misure, e alla fine firma la direzione."
+      }
+    },
     "estimatedTime": "{minutes} min di lettura",
     "certificate": {
       "lockedTitle": "Attestato di completamento",

@@ -49,6 +49,14 @@
       "length": "Lekce: {lessons}, přibližně {minutes} minut",
       "cta": "Přejít na kurz"
     },
+    "coursePage": {
+      "allCourses": "Zobrazit všechny kurzy",
+      "whatIsFree": "Tento kurz a jeho certifikát zůstávají zdarma, stejně jako wiki a vlastní provoz: stejný zdrojový kód (AGPL-3.0) na vašich vlastních serverech. Průvodce NIS 2 na nisd2.eu, který vás krok za krokem provede zaváděním, stojí {price} bez DPH ročně.",
+      "afterTraining": {
+        "title": "Po školení: zavedení opatření",
+        "body": "Školení je povinností vedení podle § 38 odst. 3 BSIG. <law>Odstavec 1</law> navíc ukládá vedení zavést opatření k řízení rizik podle § 30 a dohlížet na jejich zavádění. Průvodce NIS 2 vás těmito opatřeními provede krok za krokem a na konci podepisuje vedení."
+      }
+    },
     "estimatedTime": "{minutes} min čtení",
     "certificate": {
       "lockedTitle": "Osvědčení o absolvování",
