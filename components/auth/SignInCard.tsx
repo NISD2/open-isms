@@ -50,7 +50,11 @@ export function SignInCard({
   // Company-less users get the company setup there.
   const callbackUrl = localCallbackPath(searchParams.get("callbackUrl"), "/dashboard");
   const [step, setStep] = useState<Step>("auth");
-  const [mode, setMode] = useState<"login" | "register">("login");
+  // "Jetzt starten" on the landing page links here with ?mode=register: a new visitor meets the
+  // registration form, not a login form with registering behind a link.
+  const [mode, setMode] = useState<"login" | "register">(() =>
+    searchParams.get("mode") === "register" ? "register" : "login",
+  );
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [code, setCode] = useState("");

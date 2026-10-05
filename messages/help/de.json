@@ -2,16 +2,16 @@
   "help": {
     "meta": {
       "title": "Wenn Sie bei NIS 2 nicht weiterkommen",
-      "description": "Die Plattform und der Kurs sind kostenlos. Kurze Fachfragen beantworten wir kostenlos. Wollen Sie selbst betreiben, richten wir es für einmalig 500 Euro netto ein. Braucht es einen Fachbetrieb, vermitteln wir Ihnen einen, ohne Kosten für Sie."
+      "description": "Kurze Fachfragen beantworten wir kostenlos, der Kurs für die Geschäftsführung kostet nichts. Wollen Sie selbst betreiben, richten wir es für einmalig 500 Euro netto ein. Braucht es einen Fachbetrieb, vermitteln wir Ihnen einen, ohne Kosten für Sie."
     },
     "title": "Wenn Sie bei NIS 2 nicht weiterkommen",
-    "intro": "Die Plattform ist kostenlos und bleibt es. Der Kurs auch. Die meisten Unternehmen kommen damit durch. Wer nicht durchkommt, hat zwei Wege, und beide fangen mit derselben Mail an.",
+    "intro": "Kurze Fachfragen beantworten wir kostenlos. Reicht das nicht, gibt es zwei Wege, und beide fangen mit derselben Anfrage an.",
     "tier1": {
       "label": "Stufe 1",
-      "heading": "Sie machen es selbst. 0 Euro.",
+      "heading": "Sie machen es selbst, mit der Plattform.",
       "p1": "Betroffenheitsprüfung, alle Anforderungen aus Artikel 21 NIS 2 und §30 BSIG als einzelne Schritte, Nachweise hochladen, PDF-Export, Prüfpfad, der Kurs für die Geschäftsführung mit Teilnahmenachweis.",
-      "p2": "Wenn Sie die Plattform lieber selbst betreiben: der Quellcode steht unter AGPL-3.0 auf GitHub, ebenfalls kostenlos, ohne Lizenzgebühr, ohne Nutzerbegrenzung.",
-      "p3": "Ohne Zeitlimit, ohne Kreditkarte, ohne Vertrieb im Nacken.",
+      "p2": "Wenn Sie die Plattform lieber selbst betreiben: der Quellcode steht unter AGPL-3.0 auf GitHub, kostenlos, ohne Lizenzgebühr, ohne Nutzerbegrenzung.",
+      "p3": "Auf nisd2.eu kostet der geführte Durchgang {price} netto im Jahr, auf Rechnung, 30 Tage Geld zurück. Im Selbstbetrieb kostet die Plattform nichts.",
       "p4": "NIS 2 ist eine Richtlinie; geprüft werden Sie am Wortlaut Ihres nationalen Umsetzungsgesetzes, nicht an dem der Richtlinie. Die Plattform bildet zuerst die Richtlinie ab und nennt die nationale Fundstelle, wo es eine gibt, in Deutschland das BSIG."
     },
     "tier2": {
@@ -38,7 +38,7 @@
     },
     "earn": {
       "heading": "Womit wir Geld verdienen",
-      "p1": "Bei Stufe 2 mit der einmaligen Einrichtungspauschale. Bei Stufe 3 bekommen wir vom Fachbetrieb 15 Prozent seines Nettohonorars, wenn aus der Vermittlung ein Auftrag wird.",
+      "p1": "Mit dem Durchgang auf nisd2.eu, {price} netto im Jahr. Bei Stufe 2 mit der einmaligen Einrichtungspauschale. Bei Stufe 3 bekommen wir vom Fachbetrieb 15 Prozent seines Nettohonorars, wenn aus der Vermittlung ein Auftrag wird.",
       "p2": "Unsere Partner verpflichten sich dabei schriftlich, ihr Honorar deswegen nicht zu erhöhen. Wir empfehlen nicht nach Provisionshöhe, und die Reihenfolge unserer Liste hängt nicht davon ab.",
       "p3": "Wenn Sie lieber Ihren eigenen Berater nehmen, ist das völlig in Ordnung, und Sie behalten trotzdem die Plattform.",
       "link": "Vermittlungsbedingungen lesen"

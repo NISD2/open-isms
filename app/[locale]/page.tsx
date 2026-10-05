@@ -89,7 +89,9 @@ export default async function LandingPage() {
                   size="lg"
                   className="h-11 rounded-lg px-5 text-[0.9375rem] font-medium shadow-sm transition-shadow hover:shadow-md"
                 >
-                  <Link href="/auth/signin">{t("guided.cta")}</Link>
+                  <Link href={{ pathname: "/auth/signin", query: { mode: "register" } }}>
+                    {t("guided.cta")}
+                  </Link>
                 </Button>
                 {/* A call with us, next to starting alone. */}
                 <TalkFirst size="button" />

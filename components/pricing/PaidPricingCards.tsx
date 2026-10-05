@@ -238,8 +238,8 @@ export function PriceAnchor() {
 }
 
 const FOUNDERS = [
-  { name: "Simon Orzel", photo: "/images/people/simon.png" },
-  { name: "Cory Hisey", photo: "/images/people/cory.png" },
+  { name: "Simon Orzel", firstName: "Simon", photo: "/images/people/simon.png" },
+  { name: "Cory Hisey", firstName: "Cory", photo: "/images/people/cory.png" },
 ] as const;
 
 const TALK_FIRST_SIZES = {
@@ -276,7 +276,11 @@ export function TalkFirst({
   className?: string;
 }) {
   const t = useTranslations("pricing.tiers.talkFirst");
+  const locale = useLocale();
   const s = TALK_FIRST_SIZES[size];
+  const names = new Intl.ListFormat(locale, { type: "disjunction" }).format(
+    FOUNDERS.map((person) => person.firstName),
+  );
   return (
     <div
       className={cn(
@@ -303,7 +307,9 @@ export function TalkFirst({
             {t("title")}
           </BookingLink>
         </p>
-        <p className={cn("leading-snug text-muted-foreground", s.body)}>{t("body")}</p>
+        <p className={cn("leading-snug text-muted-foreground", s.body)}>
+          {t("body", { names })}
+        </p>
       </div>
       <ChevronRight
         aria-hidden
@@ -419,6 +425,7 @@ export function PaidPricingCards({
   listPrice,
   grandfathered,
   grandfatheredPrice,
+  signedIn,
 }: {
   /** Whether /bestellen exists for this visitor (lib/billing/ordering-access.ts). */
   readonly orderOpen: boolean;
@@ -429,9 +436,10 @@ export function PaidPricingCards({
   /** Whether this visitor is a grandfathered account holder (AGB B4). */
   readonly grandfathered: boolean;
   readonly grandfatheredPrice: string;
+  /** Whether the visitor is signed in; the earlier-signup price note is shown only then. */
+  readonly signedIn: boolean;
 }) {
   const t = useTranslations("pricing.tiers");
-  const tp = useTranslations("pricing");
 
   const tiers = (
     <div className="mx-auto max-w-6xl space-y-10">
@@ -634,22 +642,13 @@ export function PaidPricingCards({
         </li>
       </ul>
 
-      {grandfathered ? null : (
+      {/* Only for someone signed in: a visitor arriving cold would read the earlier price as
+          "others pay half" right under the offer. */}
+      {signedIn && !grandfathered ? (
         <p className="text-center text-sm text-muted-foreground">
           {t("paid.grandfatheredNote", { price: grandfatheredPrice })}
         </p>
-      )}
-
-      <p className="text-center text-sm text-muted-foreground">
-        {tp("consultantFootnote")}{" "}
-        {/* /hilfe, not a bare mailto: the referral earns us a commission, and
-            the page is where that is disclosed. Sending the reader straight to
-            an email composer advertises the offer while leaving out the part
-            that makes it honest. */}
-        <Link href="/hilfe" className="underline hover:text-foreground">
-          {tp("consultantCta")}
-        </Link>
-      </p>
+      ) : null}
     </div>
   );
 
