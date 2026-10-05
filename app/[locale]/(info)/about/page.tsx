@@ -1,4 +1,4 @@
-import { Globe } from "lucide-react";
+import { Globe, Phone } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
@@ -54,6 +54,7 @@ const FOUNDERS = [
     role: "simonRole",
     bio: "simon",
     links: [
+      { label: "+49 221 95676311", href: "tel:+4922195676311", Icon: Phone },
       { label: "Website", href: "https://sorzel.com", Icon: Globe },
       { label: "GitHub", href: "https://github.com/simonorzel26", Icon: GithubIcon },
       {
@@ -69,6 +70,7 @@ const FOUNDERS = [
     role: "coryRole",
     bio: "cory",
     links: [
+      { label: "+49 221 95676617", href: "tel:+4922195676617", Icon: Phone },
       { label: "GitHub", href: "https://github.com/CoryHisey", Icon: GithubIcon },
       {
         label: "LinkedIn",
@@ -176,8 +178,9 @@ export default async function TeamPage({
                   <li key={label}>
                     <a
                       href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      {...(href.startsWith("tel:")
+                        ? {}
+                        : { target: "_blank", rel: "noopener noreferrer" })}
                       // The chip stays small; its tap area reaches 44px tall (after:-inset-y-2.5).
                       className="relative inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-2.5 py-1 text-xs after:absolute after:-inset-y-2.5 after:inset-x-0 hover:bg-muted"
                     >
