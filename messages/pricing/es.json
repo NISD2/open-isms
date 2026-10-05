@@ -212,7 +212,43 @@
         "provider": {
           "label": "Proveedor",
           "text": "Kardashev Catalyst UG (haftungsbeschränkt), Colonia. Se aplican las <terms>condiciones</terms>, con el <avv>contrato de encargado del tratamiento</avv>."
+        },
+        "outputs": {
+          "label": "Qué se obtiene",
+          "text": "El recorrido redacta los documentos a partir de las respuestas de su empresa y lleva las listas correspondientes. Todo queda en su cuenta, con nombre y fecha, y se puede exportar en cualquier momento."
+        },
+        "people": {
+          "label": "Quién está detrás"
         }
+      },
+      "outputs": {
+        "documentsTitle": "Documentos que usted aprueba",
+        "recordsTitle": "Listas y evidencias",
+        "documents": {
+          "information_security": "Política de seguridad de la información",
+          "incident_response": "Plan de respuesta a incidentes",
+          "cryptography": "Política de criptografía",
+          "personnel_access": "Política de personal, accesos y activos",
+          "it_rules": "Normas de compra, mantenimiento y vulnerabilidades de TI",
+          "business_continuity": "Plan de continuidad de negocio"
+        },
+        "records": {
+          "training_management": "Certificados de formación de la dirección",
+          "risks": "Evaluación de riesgos de su software, tecnología y proveedores según el método del BSI",
+          "assets": "Lista de sus procesos, software, tecnología y espacios",
+          "suppliers": "Lista de sus proveedores",
+          "agreements": "Lo acordado con cada proveedor sobre seguridad e incidentes",
+          "crypto": "Lista de métodos de cifrado admitidos",
+          "logins": "Dónde un segundo factor protege el inicio de sesión",
+          "critical": "Lo que debe seguir funcionando si falla la TI",
+          "backups": "Sus copias de seguridad y la última restauración correcta",
+          "training_staff": "Formaciones e instrucciones del personal",
+          "management_review": "Su revisión por la dirección",
+          "approvals": "Su aprobación de cada documento, con nombre y fecha"
+        }
+      },
+      "people": {
+        "role": "Fundador"
       },
       "forward": {
         "label": "Reenviar esta página:",

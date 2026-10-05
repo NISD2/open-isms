@@ -212,7 +212,43 @@
         "provider": {
           "label": "Aanbieder",
           "text": "Kardashev Catalyst UG (haftungsbeschränkt), Keulen. De <terms>voorwaarden</terms> zijn van toepassing, met de <avv>verwerkersovereenkomst</avv>."
+        },
+        "outputs": {
+          "label": "Wat er ontstaat",
+          "text": "De doorloop schrijft de documenten op basis van de antwoorden van uw organisatie en houdt de bijbehorende lijsten bij. Alles staat in uw account, met naam en datum, en kan op elk moment worden geëxporteerd."
+        },
+        "people": {
+          "label": "Wie erachter zit"
         }
+      },
+      "outputs": {
+        "documentsTitle": "Documenten die u goedkeurt",
+        "recordsTitle": "Lijsten en registraties",
+        "documents": {
+          "information_security": "Informatiebeveiligingsbeleid",
+          "incident_response": "Plan voor beveiligingsincidenten",
+          "cryptography": "Cryptografiebeleid",
+          "personnel_access": "Beleid voor personeel, toegang en IT",
+          "it_rules": "Regels voor aankoop, onderhoud en kwetsbaarheden van IT",
+          "business_continuity": "Bedrijfscontinuïteitsplan"
+        },
+        "records": {
+          "training_management": "Trainingsbewijzen van de directie",
+          "risks": "Risicobeoordeling van uw software, techniek en leveranciers volgens de methode van het BSI",
+          "assets": "Lijst van uw processen, software, techniek en ruimtes",
+          "suppliers": "Lijst van uw leveranciers",
+          "agreements": "Wat met elke leverancier is afgesproken over beveiliging en incidenten",
+          "crypto": "Lijst van toegestane versleutelingsmethoden",
+          "logins": "Waar een tweede factor het inloggen beschermt",
+          "critical": "Wat moet doorlopen als de IT uitvalt",
+          "backups": "Uw back-ups en het laatste herstel dat werkte",
+          "training_staff": "Trainingen en instructies van medewerkers",
+          "management_review": "Uw directiebeoordeling",
+          "approvals": "Uw goedkeuring van elk document, met naam en datum"
+        }
+      },
+      "people": {
+        "role": "Oprichter"
       },
       "forward": {
         "label": "Deze pagina doorsturen:",

@@ -212,7 +212,43 @@
         "provider": {
           "label": "Anbieter",
           "text": "Kardashev Catalyst UG (haftungsbeschränkt), Köln. Es gelten die <terms>AGB</terms> mit dem <avv>Auftragsverarbeitungsvertrag</avv>."
+        },
+        "outputs": {
+          "label": "Was entsteht",
+          "text": "Der Durchgang schreibt die Dokumente aus den Antworten Ihres Hauses und führt die Listen dazu. Alles liegt in Ihrem Konto, mit Namen und Datum, und lässt sich jederzeit exportieren."
+        },
+        "people": {
+          "label": "Wer dahintersteht"
         }
+      },
+      "outputs": {
+        "documentsTitle": "Dokumente, die Sie freigeben",
+        "recordsTitle": "Listen und Nachweise",
+        "documents": {
+          "information_security": "Leitlinie zur Informationssicherheit",
+          "incident_response": "Notfallplan für IT-Sicherheitsvorfälle",
+          "cryptography": "Kryptokonzept",
+          "personnel_access": "Konzept für Personal, Zugänge und IT",
+          "it_rules": "Regeln für Kauf, Wartung und Schwachstellen der IT",
+          "business_continuity": "Notfallplan für den Betrieb"
+        },
+        "records": {
+          "training_management": "Schulungsnachweise der Geschäftsführung",
+          "risks": "Risikobewertung Ihrer Programme, Technik und Lieferanten nach der Methode des BSI",
+          "assets": "Liste Ihrer Abläufe, Programme, Technik und Räume",
+          "suppliers": "Liste Ihrer Lieferanten",
+          "agreements": "Was mit jedem Lieferanten zu Sicherheit und Vorfällen vereinbart ist",
+          "crypto": "Liste der zugelassenen Verfahren für Verschlüsselung",
+          "logins": "Wo ein zweiter Faktor die Anmeldung schützt",
+          "critical": "Was weiterlaufen muss, wenn die IT ausfällt",
+          "backups": "Ihre Datensicherungen und wann zuletzt zurückgespielt wurde",
+          "training_staff": "Schulungen und Unterweisungen der Beschäftigten",
+          "management_review": "Ihre Managementbewertung",
+          "approvals": "Ihre Freigabe jedes Dokuments, mit Namen und Datum"
+        }
+      },
+      "people": {
+        "role": "Gründer"
       },
       "forward": {
         "label": "Diese Seite weiterleiten:",

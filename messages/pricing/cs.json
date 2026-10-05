@@ -212,7 +212,43 @@
         "provider": {
           "label": "Poskytovatel",
           "text": "Kardashev Catalyst UG (haftungsbeschränkt), Kolín nad Rýnem. Platí <terms>podmínky</terms> spolu se <avv>smlouvou o zpracování údajů</avv>."
+        },
+        "outputs": {
+          "label": "Co vznikne",
+          "text": "Průvodce sepíše dokumenty z odpovědí vaší firmy a vede k nim příslušné seznamy. Vše zůstává ve vašem účtu, se jménem a datem, a lze to kdykoli exportovat."
+        },
+        "people": {
+          "label": "Kdo za tím stojí"
         }
+      },
+      "outputs": {
+        "documentsTitle": "Dokumenty, které schvalujete",
+        "recordsTitle": "Seznamy a záznamy",
+        "documents": {
+          "information_security": "Politika bezpečnosti informací",
+          "incident_response": "Plán reakce na incidenty",
+          "cryptography": "Kryptografická politika",
+          "personnel_access": "Politika pro personál, přístupy a aktiva",
+          "it_rules": "Pravidla pro nákup, údržbu a zranitelnosti IT",
+          "business_continuity": "Plán kontinuity provozu"
+        },
+        "records": {
+          "training_management": "Záznamy o školení vedení",
+          "risks": "Hodnocení rizik softwaru, techniky a dodavatelů podle metody BSI",
+          "assets": "Seznam procesů, softwaru, techniky a prostor",
+          "suppliers": "Seznam dodavatelů",
+          "agreements": "Co je s každým dodavatelem dohodnuto o bezpečnosti a incidentech",
+          "crypto": "Seznam povolených šifrovacích metod",
+          "logins": "Kde přihlášení chrání druhý faktor",
+          "critical": "Co musí běžet dál, když IT selže",
+          "backups": "Zálohy a poslední úspěšná obnova",
+          "training_staff": "Školení a poučení zaměstnanců",
+          "management_review": "Přezkoumání vedením",
+          "approvals": "Schválení každého dokumentu se jménem a datem"
+        }
+      },
+      "people": {
+        "role": "Zakladatel"
       },
       "forward": {
         "label": "Poslat tuto stránku dál:",

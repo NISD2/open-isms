@@ -212,7 +212,43 @@
         "provider": {
           "label": "Prestataire",
           "text": "Kardashev Catalyst UG (haftungsbeschränkt), Cologne. Les <terms>conditions</terms> s'appliquent, avec l'<avv>accord de sous-traitance</avv>."
+        },
+        "outputs": {
+          "label": "Ce qui est produit",
+          "text": "Le parcours rédige les documents à partir des réponses de votre entreprise et tient les listes qui les accompagnent. Tout reste dans votre compte, avec nom et date, et peut être exporté à tout moment."
+        },
+        "people": {
+          "label": "Qui est derrière"
         }
+      },
+      "outputs": {
+        "documentsTitle": "Documents que vous approuvez",
+        "recordsTitle": "Listes et preuves",
+        "documents": {
+          "information_security": "Politique de sécurité de l'information",
+          "incident_response": "Plan de réponse aux incidents",
+          "cryptography": "Politique de cryptographie",
+          "personnel_access": "Politique du personnel, des accès et des actifs",
+          "it_rules": "Règles d'achat, de maintenance et de gestion des vulnérabilités informatiques",
+          "business_continuity": "Plan de continuité d'activité"
+        },
+        "records": {
+          "training_management": "Attestations de formation de la direction",
+          "risks": "Évaluation des risques de vos logiciels, équipements et fournisseurs selon la méthode du BSI",
+          "assets": "Liste de vos processus, logiciels, équipements et locaux",
+          "suppliers": "Liste de vos fournisseurs",
+          "agreements": "Ce qui est convenu avec chaque fournisseur sur la sécurité et les incidents",
+          "crypto": "Liste des méthodes de chiffrement admises",
+          "logins": "Où un second facteur protège la connexion",
+          "critical": "Ce qui doit continuer à fonctionner en cas de panne informatique",
+          "backups": "Vos sauvegardes et la dernière restauration réussie",
+          "training_staff": "Formations et sensibilisations du personnel",
+          "management_review": "Votre revue de direction",
+          "approvals": "Votre approbation de chaque document, avec nom et date"
+        }
+      },
+      "people": {
+        "role": "Fondateur"
       },
       "forward": {
         "label": "Transmettre cette page :",

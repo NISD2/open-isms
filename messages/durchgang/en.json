@@ -373,7 +373,25 @@
         "notApplicable": "Does not apply",
         "preview": "What “{step}” looks like",
         "previewAlt": "The step “{step}” shown with a made-up company",
-        "continueHere": "Continue now"
+        "continueHere": "Continue now",
+        "forward": {
+          "action": "Forward to management",
+          "title": "Forward to management",
+          "lead": "Your management gets an invitation to this account. After signing in they see one page with what the walkthrough is, which documents it writes and what it costs, and can order there. The order is for your company; no second account is created.",
+          "name": "Name",
+          "email": "Email",
+          "placeholder": "name@your-company.com",
+          "send": "Send invitation",
+          "sentTitle": "Invitation sent to {name}",
+          "sentText": "Once the invitation to {email} is accepted, your management is part of this account and can order. There is nothing more for you to do.",
+          "notEmailed": "The invitation is created, but the email could not be sent.",
+          "close": "Done",
+          "refused": {
+            "member": "This address already belongs to your team.",
+            "limit": "Several invitations have already been sent from your account today. Please try again tomorrow.",
+            "failed": "That did not work. Please try again."
+          }
+        }
       },
       "intro": {
         "eyebrow": "NIS 2 for mid-sized companies",

@@ -5,6 +5,7 @@ import {
   hasGotIn,
   isGrandfatheredPerson,
   mayOpenPortalPath,
+  mayOrderFor,
   mayWalkDurchgang,
   newAccountAccessLevel,
   OFFER_PATH,
@@ -147,5 +148,73 @@ describe("walkLockFor", () => {
         );
       }
     }
+  });
+});
+
+describe("mayOrderFor", () => {
+  const holder = "holder-id";
+  const fromHolder = { invitedBy: holder, role: "ceo" } as const;
+
+  test("the account holder orders", () => {
+    expect(
+      mayOrderFor({ userId: holder, holderUserId: holder, jobTitle: null, invite: null }),
+    ).toBe(true);
+  });
+
+  test("management the holder invited orders for the same account", () => {
+    expect(
+      mayOrderFor({
+        userId: "gf-id",
+        holderUserId: holder,
+        jobTitle: "ceo",
+        invite: fromHolder,
+      }),
+    ).toBe(true);
+  });
+
+  test("the management role alone is not enough: an admin can give it to anyone", () => {
+    expect(
+      mayOrderFor({
+        userId: "gf-id",
+        holderUserId: holder,
+        jobTitle: "ceo",
+        invite: null,
+      }),
+    ).toBe(false);
+    expect(
+      mayOrderFor({
+        userId: "gf-id",
+        holderUserId: holder,
+        jobTitle: "ceo",
+        invite: { invitedBy: "admin-id", role: "ceo" },
+      }),
+    ).toBe(false);
+  });
+
+  test("the holder's invite must have been for management, and the role still held", () => {
+    expect(
+      mayOrderFor({
+        userId: "member-id",
+        holderUserId: holder,
+        jobTitle: "ceo",
+        invite: { invitedBy: holder, role: null },
+      }),
+    ).toBe(false);
+    for (const jobTitle of [null, "ciso", "dpo"]) {
+      expect(
+        mayOrderFor({
+          userId: "gf-id",
+          holderUserId: holder,
+          jobTitle,
+          invite: fromHolder,
+        }),
+      ).toBe(false);
+    }
+  });
+
+  test("an account without a holder takes no order", () => {
+    expect(
+      mayOrderFor({ userId: "gf-id", holderUserId: null, jobTitle: "ceo", invite: null }),
+    ).toBe(false);
   });
 });

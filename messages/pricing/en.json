@@ -212,7 +212,43 @@
         "provider": {
           "label": "Provider",
           "text": "Kardashev Catalyst UG (haftungsbeschränkt), Cologne. The <terms>terms</terms> apply, with the <avv>data processing agreement</avv>."
+        },
+        "outputs": {
+          "label": "What it produces",
+          "text": "The walkthrough writes the documents from your company's answers and keeps the lists that go with them. Everything stays in your account, with names and dates, and can be exported at any time."
+        },
+        "people": {
+          "label": "Who is behind it"
         }
+      },
+      "outputs": {
+        "documentsTitle": "Documents you approve",
+        "recordsTitle": "Lists and records",
+        "documents": {
+          "information_security": "Information security policy",
+          "incident_response": "Incident response plan",
+          "cryptography": "Cryptography policy",
+          "personnel_access": "Staff, access and asset policy",
+          "it_rules": "Rules for buying, maintaining and securing IT",
+          "business_continuity": "Business continuity plan"
+        },
+        "records": {
+          "training_management": "Training records for management",
+          "risks": "Risk rating of your software, technology and suppliers, by the BSI method",
+          "assets": "List of your processes, software, technology and rooms",
+          "suppliers": "List of your suppliers",
+          "agreements": "What is agreed with each supplier on security and incidents",
+          "crypto": "List of accepted encryption methods",
+          "logins": "Where a second factor protects sign-in",
+          "critical": "What must keep running when IT fails",
+          "backups": "Your backups and their last restore that worked",
+          "training_staff": "Staff training and briefings",
+          "management_review": "Your management review",
+          "approvals": "Your approval of each document, with name and date"
+        }
+      },
+      "people": {
+        "role": "Founder"
       },
       "forward": {
         "label": "Forward this page:",

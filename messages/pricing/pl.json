@@ -212,7 +212,43 @@
         "provider": {
           "label": "Dostawca",
           "text": "Kardashev Catalyst UG (haftungsbeschränkt), Kolonia. Obowiązuje <terms>regulamin</terms> wraz z <avv>umową powierzenia przetwarzania danych</avv>."
+        },
+        "outputs": {
+          "label": "Co powstaje",
+          "text": "Przewodnik tworzy dokumenty na podstawie odpowiedzi Państwa firmy i prowadzi związane z nimi listy. Wszystko pozostaje na Państwa koncie, z nazwiskiem i datą, i można to w każdej chwili wyeksportować."
+        },
+        "people": {
+          "label": "Kto za tym stoi"
         }
+      },
+      "outputs": {
+        "documentsTitle": "Dokumenty, które Państwo zatwierdzają",
+        "recordsTitle": "Listy i dowody",
+        "documents": {
+          "information_security": "Polityka bezpieczeństwa informacji",
+          "incident_response": "Plan reagowania na incydenty",
+          "cryptography": "Polityka kryptograficzna",
+          "personnel_access": "Polityka dotycząca personelu, dostępu i zasobów",
+          "it_rules": "Zasady zakupu, utrzymania i obsługi podatności IT",
+          "business_continuity": "Plan ciągłości działania"
+        },
+        "records": {
+          "training_management": "Potwierdzenia szkoleń zarządu",
+          "risks": "Ocena ryzyka oprogramowania, technologii i dostawców metodą BSI",
+          "assets": "Lista procesów, oprogramowania, technologii i pomieszczeń",
+          "suppliers": "Lista dostawców",
+          "agreements": "Ustalenia z każdym dostawcą dotyczące bezpieczeństwa i incydentów",
+          "crypto": "Lista dopuszczonych metod szyfrowania",
+          "logins": "Gdzie drugi składnik chroni logowanie",
+          "critical": "Co musi działać dalej, gdy IT zawiedzie",
+          "backups": "Kopie zapasowe i ostatnie udane odtworzenie",
+          "training_staff": "Szkolenia i instruktaże pracowników",
+          "management_review": "Przegląd zarządczy",
+          "approvals": "Zatwierdzenie każdego dokumentu, z nazwiskiem i datą"
+        }
+      },
+      "people": {
+        "role": "Założyciel"
       },
       "forward": {
         "label": "Prześlij tę stronę:",

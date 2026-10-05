@@ -3,9 +3,11 @@
  *
  * Who may do what:
  *   - `status` is for any member, so the page can say why there is no order button.
- *   - Ordering and the invoices are for the account holder (`billing_account.ownerUserId`), the
+ *   - The invoices and cancelling are for the account holder (`billing_account.ownerUserId`), the
  *     person who pays. Not for company admins: any admin may add an organization and is its
  *     admin, so a company role says nothing about who may put the account on an invoice.
+ *   - Ordering is for the holder, and for management the holder invited into the company to
+ *     decide (`mayOrderFor`): its order lands on this same account.
  *   - On top of that, `billingFor` decides: nobody while Qonto is not set up, platform admins
  *     whenever it is, everyone else only with live keys.
  *
@@ -16,6 +18,7 @@ import { TRPCError } from "@trpc/server";
 import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
+import { mayOrderFor } from "@/lib/billing/access";
 import {
   cancelAuditDescription,
   cancelOption,
@@ -36,6 +39,7 @@ import { env } from "@/lib/env";
 import { rateLimit } from "@/lib/rate-limit";
 import { createPresignedGet } from "@/lib/storage";
 import { billingAccount, company, creditNote, invoice, user } from "@/schema";
+import { acceptedInviteOf } from "../helpers/company-invite";
 import { accountProcedure, router } from "../init";
 
 const accountOf = async (db: DbOrTx, companyId: string) => {
@@ -59,6 +63,43 @@ const payerProcedure = accountProcedure.use(async ({ ctx, next }) => {
   const account = await accountOf(ctx.db, ctx.companyId);
   if (account.ownerUserId !== ctx.userId) {
     throw new TRPCError({ code: "FORBIDDEN", message: "Only the account holder." });
+  }
+  return next({ ctx: { ...ctx, account } });
+});
+
+/** Whether the caller may order for the open company's account (lib/billing/access.ts). */
+const mayOrderHere = async (
+  db: DbOrTx,
+  ctx: {
+    readonly companyId: string;
+    readonly userId: string;
+    readonly jobTitle: string | null;
+  },
+  holderUserId: string | null,
+): Promise<boolean> =>
+  mayOrderFor({
+    userId: ctx.userId,
+    holderUserId,
+    jobTitle: ctx.jobTitle,
+    invite:
+      holderUserId === ctx.userId
+        ? null
+        : await acceptedInviteOf(db, { companyId: ctx.companyId, userId: ctx.userId }),
+  });
+
+/** The open company's billing account, for whoever may order for it. */
+const ordererProcedure = accountProcedure.use(async ({ ctx, next }) => {
+  const account = await accountOf(ctx.db, ctx.companyId);
+  const may = await mayOrderHere(
+    ctx.db,
+    { companyId: ctx.companyId, userId: ctx.userId, jobTitle: ctx.session.jobTitle },
+    account.ownerUserId,
+  );
+  if (!may) {
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: "Only the account holder or the management they invited.",
+    });
   }
   return next({ ctx: { ...ctx, account } });
 });
@@ -119,14 +160,21 @@ export const billingRouter = router({
     const now = new Date();
     const active = await findActiveInvoice(ctx.db, account.id, now);
     const isPayer = account.ownerUserId === ctx.userId;
+    const mayOrder = await mayOrderHere(
+      ctx.db,
+      { companyId: ctx.companyId, userId: ctx.userId, jobTitle: ctx.session.jobTitle },
+      account.ownerUserId,
+    );
     const pending = await hasOrderCheck(ctx.db, account.id);
     // The holder's price: what this account pays, whoever is looking.
     const netCents = await holderNetCents(ctx.db, account.ownerUserId);
     return {
       mode: mode.kind,
       open,
-      canOrder: open && isPayer && !active && !pending,
+      canOrder: open && mayOrder && !active && !pending,
       isPayer,
+      /** The holder, or management the holder invited (`mayOrderFor`). */
+      mayOrder,
       /** An earlier order is being checked in Qonto; ordering waits for that. */
       orderPending: pending,
       accessLevel: account.accessLevel,
@@ -199,7 +247,7 @@ export const billingRouter = router({
    * Every lookup is filed with the Commission under the seller's VAT number, so this is rate
    * limited per person and open only to someone who may order.
    */
-  quote: payerProcedure
+  quote: ordererProcedure
     .input(
       z.object({
         vatNumber: z.string().trim().min(2).max(32),
@@ -211,12 +259,13 @@ export const billingRouter = router({
       await limited(`billing:quote:${ctx.userId}`, 10);
       return quoteFor({
         ...input,
-        netCents: await holderNetCents(ctx.db, ctx.userId),
+        // The holder's price, as `place` charges it, whoever orders.
+        netCents: await holderNetCents(ctx.db, ctx.account.ownerUserId),
         vies: viesConfigFromEnv(env),
       });
     }),
 
-  place: payerProcedure
+  place: ordererProcedure
     .input(
       z.object({
         order: orderSchemaWithVatCheck,

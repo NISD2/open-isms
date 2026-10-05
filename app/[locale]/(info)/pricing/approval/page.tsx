@@ -1,17 +1,34 @@
+import { FileText, ListChecks } from "lucide-react";
 import type { Metadata } from "next";
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 import { ForwardActions } from "@/components/pricing/ForwardActions";
-import { gapAnalysisRange, TalkFirst } from "@/components/pricing/PaidPricingCards";
+import {
+  FOUNDERS,
+  gapAnalysisRange,
+  TalkFirst,
+} from "@/components/pricing/PaidPricingCards";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { getSession } from "@/lib/auth";
 import { ANNUAL_NET_CENTS, formatWholeEuro } from "@/lib/billing/order";
 import { billingFor } from "@/lib/billing/ordering-access";
+import { WALK_DOCUMENTS, WALK_RECORDS } from "@/lib/durchgang/outputs";
 import { localizedAbsoluteUrl } from "@/lib/seo";
 
 /** The rows a manager needs to decide, in the order they are asked. */
-const ROWS = ["what", "role", "cost", "comparison", "exit", "scope", "provider"] as const;
+const ROWS = [
+  "what",
+  "outputs",
+  "role",
+  "cost",
+  "comparison",
+  "exit",
+  "scope",
+  "provider",
+  "people",
+] as const;
 
 const BSIG_38 = "https://www.gesetze-im-internet.de/bsig_2025/__38.html";
 const EUR_LEX_LANG = { de: "DE", en: "EN", nl: "NL" } as const;
@@ -81,6 +98,41 @@ export default async function ApprovalPage({
 
   const content: Record<(typeof ROWS)[number], ReactNode> = {
     what: t("rows.what.text"),
+    // Read off the walk's script (lib/durchgang/outputs.ts), so nothing is named that it does
+    // not write. Documents look like documents; the lists are plain lines.
+    outputs: (
+      <div className="space-y-5">
+        <p>{t("rows.outputs.text")}</p>
+        <div>
+          <p className="font-medium text-sm">{t("outputs.documentsTitle")}</p>
+          <ul className="mt-2 grid gap-2 sm:grid-cols-2">
+            {WALK_DOCUMENTS.map((key) => (
+              <li
+                key={key}
+                className="flex items-start gap-2.5 rounded-lg border bg-background px-3 py-2.5 text-sm leading-snug"
+              >
+                <FileText aria-hidden className="mt-0.5 size-4 shrink-0 text-primary" />
+                {t(`outputs.documents.${key}`)}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <p className="font-medium text-sm">{t("outputs.recordsTitle")}</p>
+          <ul className="mt-2 space-y-1.5 text-sm">
+            {WALK_RECORDS.map((key) => (
+              <li key={key} className="flex items-start gap-2.5 leading-snug">
+                <ListChecks
+                  aria-hidden
+                  className="mt-0.5 size-4 shrink-0 text-muted-foreground"
+                />
+                {t(`outputs.records.${key}`)}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    ),
     role: (
       <span className="flex gap-3">
         <span aria-hidden className="font-mono font-semibold text-primary">
@@ -94,6 +146,27 @@ export default async function ApprovalPage({
     exit: t.rich("rows.exit.text", tags),
     scope: t("rows.scope.text"),
     provider: t.rich("rows.provider.text", tags),
+    people: (
+      <ul className="flex flex-wrap gap-x-8 gap-y-4">
+        {FOUNDERS.map((person) => (
+          <li key={person.name} className="flex items-center gap-3">
+            <Image
+              src={person.photo}
+              alt=""
+              width={96}
+              height={96}
+              className="size-12 rounded-full object-cover"
+            />
+            <span className="leading-snug">
+              <span className="block font-medium">{person.name}</span>
+              <span className="block text-muted-foreground text-sm">
+                {t("people.role")}
+              </span>
+            </span>
+          </li>
+        ))}
+      </ul>
+    ),
   };
 
   return (

@@ -212,7 +212,43 @@
         "provider": {
           "label": "Furnizor",
           "text": "Kardashev Catalyst UG (haftungsbeschränkt), Köln. Se aplică <terms>termenii</terms>, împreună cu <avv>acordul de prelucrare a datelor</avv>."
+        },
+        "outputs": {
+          "label": "Ce rezultă",
+          "text": "Parcursul redactează documentele pe baza răspunsurilor companiei dumneavoastră și ține listele aferente. Totul rămâne în contul dumneavoastră, cu nume și dată, și poate fi exportat oricând."
+        },
+        "people": {
+          "label": "Cine se află în spate"
         }
+      },
+      "outputs": {
+        "documentsTitle": "Documente pe care le aprobați",
+        "recordsTitle": "Liste și dovezi",
+        "documents": {
+          "information_security": "Politica de securitate a informației",
+          "incident_response": "Plan de răspuns la incidente",
+          "cryptography": "Politica de criptografie",
+          "personnel_access": "Politica privind personalul, accesul și activele",
+          "it_rules": "Reguli pentru achiziția, întreținerea și vulnerabilitățile IT",
+          "business_continuity": "Plan de continuitate a activității"
+        },
+        "records": {
+          "training_management": "Dovezi de instruire a conducerii",
+          "risks": "Evaluarea riscurilor pentru software, tehnică și furnizori după metoda BSI",
+          "assets": "Lista proceselor, software-ului, tehnicii și spațiilor",
+          "suppliers": "Lista furnizorilor",
+          "agreements": "Ce este convenit cu fiecare furnizor privind securitatea și incidentele",
+          "crypto": "Lista metodelor de criptare admise",
+          "logins": "Unde un al doilea factor protejează autentificarea",
+          "critical": "Ce trebuie să funcționeze în continuare dacă IT-ul cade",
+          "backups": "Copiile de rezervă și ultima restaurare reușită",
+          "training_staff": "Instruirile și informările personalului",
+          "management_review": "Analiza efectuată de management",
+          "approvals": "Aprobarea fiecărui document, cu nume și dată"
+        }
+      },
+      "people": {
+        "role": "Fondator"
       },
       "forward": {
         "label": "Trimiteți această pagină:",

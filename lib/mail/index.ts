@@ -17,6 +17,7 @@ export {
   entityInvitesSupplierEmail,
   gdprAlertEmail,
   inviteEmail,
+  managementHandoffEmail,
   memberRemovedEmail,
   newSaleEmail,
   newsletterEmail,
