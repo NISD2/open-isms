@@ -5,7 +5,7 @@ import { SignInLink } from "@/components/auth/SignInLink";
 import { GetStarted } from "@/components/GetStarted";
 import { MotionProvider } from "@/components/landing/motion";
 import { OpenSourceNote } from "@/components/landing/OpenSourceNote";
-import { shotImage, zoomSizes } from "@/components/landing/shots";
+import { restSizes, shotImage, zoomSizes } from "@/components/landing/shots";
 import { WalkOutcomes } from "@/components/landing/WalkOutcomes";
 import { WalkShowcase } from "@/components/landing/WalkShowcase";
 import { AutoShot } from "@/components/landing/ZoomShot";
@@ -118,6 +118,7 @@ export default async function LandingPage() {
               <AutoShot
                 image={shotImage("path", locale, t("walk.heroAlt"))}
                 sizes={zoomSizes("path", HERO_SHOT_PX)}
+                restSizes={restSizes(HERO_SHOT_PX)}
                 rounds={5}
                 preload
                 className="rounded-xl border border-border/60"

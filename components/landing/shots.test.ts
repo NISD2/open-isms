@@ -1,7 +1,15 @@
 import { describe, expect, test } from "bun:test";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import { SHOTS, type ShotName, shotImage, shotSrc, stopsOf, zoomSizes } from "./shots";
+import {
+  restSizes,
+  SHOTS,
+  type ShotName,
+  shotImage,
+  shotSrc,
+  stopsOf,
+  zoomSizes,
+} from "./shots";
 import { loopBeat } from "./useZoomLoop";
 
 const PUBLIC = join(import.meta.dir, "../../public");
@@ -49,6 +57,10 @@ describe("the landing pages' screenshots", () => {
 
   test("the sizes ask for the width the deepest zoom needs", () => {
     expect(zoomSizes("approved", 736)).toBe("(min-width: 1024px) 1472px, 200vw");
+  });
+
+  test("the sizes for the whole screen ask for its width on the page", () => {
+    expect(restSizes(704)).toBe("(min-width: 1024px) 704px, 100vw");
   });
 });
 

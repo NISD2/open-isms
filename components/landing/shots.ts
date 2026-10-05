@@ -104,11 +104,13 @@ export const shotImage = (name: ShotName, locale: string, alt: string): Shot => 
   stops: stopsOf(name),
 });
 
-/**
- * The `sizes` that keeps a screenshot sharp at its deepest zoom: its width on the page times the
- * zoom, `wide` CSS pixels from the large breakpoint up and the whole viewport below it.
- */
-export const zoomSizes = (name: ShotName, wide: number): string => {
-  const { scale } = SHOTS[name].focus;
-  return `(min-width: 1024px) ${Math.ceil(wide * scale)}px, ${Math.ceil(100 * scale)}vw`;
-};
+/** A screenshot `wide` CSS pixels from the large breakpoint up and the whole viewport below it, times `scale`. */
+const sizesAt = (wide: number, scale: number): string =>
+  `(min-width: 1024px) ${Math.ceil(wide * scale)}px, ${Math.ceil(100 * scale)}vw`;
+
+/** The `sizes` that keeps a screenshot sharp at its deepest zoom: its width on the page times the zoom. */
+export const zoomSizes = (name: ShotName, wide: number): string =>
+  sizesAt(wide, SHOTS[name].focus.scale);
+
+/** The `sizes` of a screenshot shown whole: a file a fraction of the zoom's, so it paints sooner. */
+export const restSizes = (wide: number): string => sizesAt(wide, 1);
