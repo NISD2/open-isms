@@ -66,7 +66,15 @@ import { Rail } from "./Rail";
 import { Rate, Specify } from "./RatingScreens";
 import { RiskMapScreen } from "./RiskMapScreen";
 import { hrefOf, useSteps } from "./setup";
-import { type Direction, PROGRESS, STAGE, transition, transitionTo } from "./transition";
+import {
+  type Direction,
+  FOOTER,
+  HEADER,
+  PROGRESS,
+  STAGE,
+  transition,
+  transitionTo,
+} from "./transition";
 import { useScreenComplete } from "./useScreenComplete";
 import { useWalkItem } from "./useWalkItem";
 import type { ItemView, WalkEntry } from "./view";
@@ -303,7 +311,10 @@ export function DurchgangItem({
     // the height is the window less the portal's h-12 header, so the footer sits at the bottom of
     // the window on a short screen too.
     <div className="-m-6 flex min-h-[calc(100svh-3rem)] flex-col">
-      <header className="sticky top-12 z-10 bg-background/90 backdrop-blur-md print:hidden">
+      <header
+        className="sticky top-12 z-10 bg-background/90 backdrop-blur-md print:hidden"
+        style={HEADER}
+      >
         <div className="mx-auto flex h-16 max-w-7xl items-center gap-2 px-3 sm:px-6 lg:px-10">
           <Button
             variant="ghost"
@@ -390,7 +401,10 @@ export function DurchgangItem({
         </aside>
       </div>
 
-      <footer className="sticky bottom-0 z-10 border-t bg-background/90 backdrop-blur-md print:hidden">
+      <footer
+        className="sticky bottom-0 z-10 border-t bg-background/90 backdrop-blur-md print:hidden"
+        style={FOOTER}
+      >
         <div className="mx-auto grid max-w-7xl px-4 py-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:px-10 xl:gap-20">
           <div className="flex max-w-3xl items-center justify-between gap-3">
             {/* The way out is always there, a peer of answering (ui-design principle 6; Simon,

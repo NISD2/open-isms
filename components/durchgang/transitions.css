@@ -19,6 +19,18 @@ html[data-dg-dir]::view-transition-group(dg-progress) {
   animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
+/* Header and footer stay put and above the sliding stage, as they are on the page. */
+html[data-dg-dir]::view-transition-group(dg-header),
+html[data-dg-dir]::view-transition-group(dg-footer) {
+  z-index: 1;
+  animation: none;
+}
+
+/* The progress fill sits inside the header, so it goes one above it to stay visible as it grows. */
+html[data-dg-dir]::view-transition-group(dg-progress) {
+  z-index: 2;
+}
+
 html[data-dg-dir]::view-transition-old(dg-stage) {
   animation: 220ms cubic-bezier(0.4, 0, 1, 1) both dg-out;
 }
