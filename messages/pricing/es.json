@@ -36,7 +36,9 @@
       "recommended": "Recomendado",
       "talkFirst": {
         "title": "¿Prefiere hablar antes con nosotros?",
-        "body": "Una videollamada o llamada telefónica breve, a la hora que usted elija."
+        "body": "Una videollamada o llamada telefónica breve, a la hora que usted elija.",
+        "close": "Cerrar",
+        "newTab": "Abrir el calendario en una pestaña nueva"
       },
       "approvalLink": "¿Decide otra persona? Una página para su dirección",
       "free": {

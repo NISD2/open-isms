@@ -36,7 +36,9 @@
       "recommended": "Recommended",
       "talkFirst": {
         "title": "Rather talk to us first?",
-        "body": "15 minutes with {names}, in German or English, at a time you choose."
+        "body": "15 minutes with {names}, in German or English, at a time you choose.",
+        "close": "Close",
+        "newTab": "Open the calendar in a new tab"
       },
       "approvalLink": "Someone else decides? One page for your management",
       "free": {

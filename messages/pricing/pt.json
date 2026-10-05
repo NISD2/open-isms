@@ -36,7 +36,9 @@
       "recommended": "Recomendado",
       "talkFirst": {
         "title": "Prefere falar connosco primeiro?",
-        "body": "Um breve vídeo ou telefonema, à hora que escolher."
+        "body": "Um breve vídeo ou telefonema, à hora que escolher.",
+        "close": "Fechar",
+        "newTab": "Abrir o calendário num novo separador"
       },
       "approvalLink": "Quem decide é outra pessoa? Uma página para a sua administração",
       "free": {

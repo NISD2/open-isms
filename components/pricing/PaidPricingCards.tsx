@@ -34,6 +34,7 @@ import { getPathname, Link } from "@/i18n/navigation";
 import { formatWholeEuro } from "@/lib/billing/order";
 import { cn } from "@/lib/utils";
 import { BookingLink } from "./BookingLink";
+import { callHostNames, FOUNDERS } from "./founders";
 
 // Every line is checked against the code or the AGB. "Deadlines and reminders" means the in-app
 // reminders the nightly cron schedules; deadline digests by email go out only when an operator
@@ -238,25 +239,6 @@ export function PriceAnchor() {
   );
 }
 
-/**
- * The two founders, with their photos: on the talk-first card and the approval page.
- * `takesCalls`: hosts the call booked through BookingLink, so the talk-first card names only them.
- */
-export const FOUNDERS = [
-  {
-    name: "Simon Orzel",
-    firstName: "Simon",
-    photo: "/images/people/simon.png",
-    takesCalls: true,
-  },
-  {
-    name: "Cory Hisey",
-    firstName: "Cory",
-    photo: "/images/people/cory.png",
-    takesCalls: false,
-  },
-] as const;
-
 const TALK_FIRST_SIZES = {
   default: {
     card: "gap-3 rounded-xl p-4 sm:gap-4",
@@ -293,9 +275,7 @@ export function TalkFirst({
   const t = useTranslations("pricing.tiers.talkFirst");
   const locale = useLocale();
   const s = TALK_FIRST_SIZES[size];
-  const names = new Intl.ListFormat(locale, { type: "disjunction" }).format(
-    FOUNDERS.filter((person) => person.takesCalls).map((person) => person.firstName),
-  );
+  const names = callHostNames(locale);
   return (
     <div
       className={cn(

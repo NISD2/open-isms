@@ -48,15 +48,36 @@ export const buildCsp = (env: CspEnv): string => {
   const httpsHardened = env.CSP_UPGRADE_INSECURE === "1";
   const analytics = env.ANALYTICS_SCRIPT_URL ? originOf(env.ANALYTICS_SCRIPT_URL) : "";
   const storage = storageOrigin(env);
+  // The booking calendar (components/pricing/BookingDialog.tsx): Cal's embed script, and the
+  // booker it frames.
+  const booking = "https://app.cal.com";
 
   return [
     directive("default-src", ["'self'"]),
-    directive("script-src", ["'self'", "'unsafe-inline'", "'unsafe-eval'", analytics, "https://accounts.google.com"]),
+    directive("script-src", [
+      "'self'",
+      "'unsafe-inline'",
+      "'unsafe-eval'",
+      analytics,
+      "https://accounts.google.com",
+      booking,
+    ]),
     directive("style-src", ["'self'", "'unsafe-inline'"]),
     directive("img-src", ["'self'", "data:", "blob:", "https:"]),
     directive("font-src", ["'self'", "data:"]),
-    directive("connect-src", ["'self'", analytics, "https://accounts.google.com", storage]),
-    directive("frame-src", ["'self'", "https://accounts.google.com", "https://www.youtube.com", "https://www.youtube-nocookie.com"]),
+    directive("connect-src", [
+      "'self'",
+      analytics,
+      "https://accounts.google.com",
+      storage,
+    ]),
+    directive("frame-src", [
+      "'self'",
+      "https://accounts.google.com",
+      "https://www.youtube.com",
+      "https://www.youtube-nocookie.com",
+      booking,
+    ]),
     directive("frame-ancestors", ["'none'"]),
     directive("base-uri", ["'self'"]),
     directive("form-action", ["'self'", "https://accounts.google.com"]),
