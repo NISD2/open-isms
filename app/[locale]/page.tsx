@@ -1,14 +1,13 @@
 import { ArrowRight, Check } from "lucide-react";
 import type { Metadata } from "next";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { SignInLink } from "@/components/auth/SignInLink";
 import { GetStarted } from "@/components/GetStarted";
 import { MotionProvider } from "@/components/landing/motion";
 import { OpenSourceNote } from "@/components/landing/OpenSourceNote";
-import { shotImage, zoomSizes } from "@/components/landing/shots";
+import { WalkHomeShot } from "@/components/landing/WalkHomeShot";
 import { WalkOutcomes } from "@/components/landing/WalkOutcomes";
 import { WalkShowcase } from "@/components/landing/WalkShowcase";
-import { AutoShot } from "@/components/landing/ZoomShot";
 import { PartnerLogoStrip } from "@/components/PartnerLogoStrip";
 import { PublicFooter } from "@/components/PublicFooter";
 import { PublicNav } from "@/components/PublicNav";
@@ -17,9 +16,6 @@ import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { ogImages } from "@/lib/og-card";
 import { ogSite, pageAlternates } from "@/lib/seo";
-
-/** The hero screenshot's width on a large screen: the 72rem column less the 25rem pitch and gap. */
-const HERO_SHOT_PX = 704;
 
 export async function generateMetadata({
   params,
@@ -42,7 +38,6 @@ export async function generateMetadata({
 
 export default async function LandingPage() {
   const t = await getTranslations("landing");
-  const locale = await getLocale();
 
   return (
     <MotionProvider>
@@ -109,20 +104,7 @@ export default async function LandingPage() {
             </div>
 
             {/* Product: large, frameless, floating screenshot */}
-            <div
-              className="rounded-xl"
-              style={{ boxShadow: "0 40px 80px -20px rgb(40 75 99 / 0.28)" }}
-            >
-              {/* The walk's home, zooming into the path with its first steps done, then on to the
-                  next three. Five rounds, then it rests whole (Simon, 04.10.2026). */}
-              <AutoShot
-                image={shotImage("path", locale, t("walk.heroAlt"))}
-                sizes={zoomSizes("path", HERO_SHOT_PX)}
-                rounds={5}
-                preload
-                className="rounded-xl border border-border/60"
-              />
-            </div>
+            <WalkHomeShot preload />
           </div>
         </div>
 
