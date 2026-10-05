@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { RelatedPage } from "@/components/wiki/RelatedPage";
 import { WalkSteps } from "@/components/wiki/WalkSteps";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
@@ -74,6 +75,9 @@ export default async function RegistrationPage({
           <p className="mt-2 text-lg text-muted-foreground">
             {t("registration.subtitle")}
           </p>
+          <RelatedPage href="/wiki/troubleshooting/nis2-registrierung-verpasst">
+            {t("missedRegistration.title")}
+          </RelatedPage>
         </header>
 
         <WikiPageMeta

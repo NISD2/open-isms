@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { RelatedPage } from "@/components/wiki/RelatedPage";
 import { WalkSteps } from "@/components/wiki/WalkSteps";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
@@ -87,6 +88,9 @@ export default async function CeoLiabilityPage({
           <p className="mt-2 text-lg text-muted-foreground">
             {t("ceoLiability.subtitle")}
           </p>
+          <RelatedPage href="/wiki/grundlagen/bsig-38">
+            {t("bsigParagraph38.title")}
+          </RelatedPage>
         </header>
 
         <WikiPageMeta
