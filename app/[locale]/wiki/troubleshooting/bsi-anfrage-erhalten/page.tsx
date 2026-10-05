@@ -1,17 +1,25 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { JsonLd } from "@/components/JsonLd";
+import { shotImage } from "@/components/landing/shots";
+import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkHow } from "@/components/wiki/WalkHow";
+import { WalkPriceCard } from "@/components/wiki/WalkPriceCard";
+import { WalkSteps } from "@/components/wiki/WalkSteps";
+import { WikiAnswerHeader } from "@/components/wiki/WikiAnswerHeader";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
+import {
+  faqJsonLd,
+  LAW_CHIP,
+  WikiExample,
+  WikiFaq,
+  type WikiQuestion,
+  WikiSection,
+  WikiSources,
+} from "@/components/wiki/WikiSection";
 import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -37,11 +45,11 @@ export async function generateMetadata({
   };
 }
 
-const anchorKeys = ["directive", "regulation", "transposition"] as const;
-const elementKeys = ["readCarefully", "assembleEvidence", "respondInWriting"] as const;
-const principleKeys = ["cooperationDuty", "privilegeBoundary"] as const;
-const nationalKeys = ["bsi", "vwg", "counsel"] as const;
-const pitfallKeys = ["ignoreOrDelay", "overshare", "informalReply"] as const;
+interface Basis {
+  readonly title: string;
+  readonly text: string;
+  readonly law: string;
+}
 
 export default async function BsiAnfrageErhaltenPage({
   params,
@@ -50,225 +58,120 @@ export default async function BsiAnfrageErhaltenPage({
 }) {
   const { locale: rawLocale } = await params;
   const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
-  const t = await getTranslations("info");
+  const [t, w] = await Promise.all([
+    getTranslations("info.bsiAnfrageErhalten"),
+    getTranslations("info.wikiWalk"),
+  ]);
+  const faq = t.raw("faq.items") as WikiQuestion[];
+  const bases = t.raw("bases.items") as Basis[];
+  const steps = t.raw("steps.items") as string[];
 
   return (
     <GlossedProse locale={locale}>
-      <div className="space-y-10">
+      <div className="space-y-12">
         <WikiPageJsonLd
           category="troubleshooting"
           slug="bsi-anfrage-erhalten"
           locale={locale}
           authorSlug="simon-orzel"
           proficiencyLevel="Beginner"
-          audienceType="Geschäftsführung und Recht"
+          audienceType="Geschäftsführung und IT-Verantwortliche im Mittelstand"
           citationKeys={["nis2", "bsig"]}
-          aboutKeys={["nis2"]}
-          mentionsKeys={["bsig"]}
+          aboutKeys={["bsig"]}
+          mentionsKeys={["nis2"]}
         />
+        <JsonLd data={faqJsonLd(faq)} />
 
-        <header>
-          <Badge variant="secondary" className="mb-3">
-            §64 BSIG
-          </Badge>
-          <h1 className="text-3xl font-bold tracking-tight">
-            {t("bsiAnfrageErhalten.title")}
-          </h1>
-          <p className="mt-2 text-lg text-muted-foreground">
-            {t("bsiAnfrageErhalten.subtitle")}
-          </p>
-        </header>
+        <WikiAnswerHeader
+          badge={t("badge")}
+          title={t("title")}
+          answer={t("subtitle")}
+          art="/images/durchgang/7_3.svg"
+        />
 
         <WikiPageMeta
           authorSlug="simon-orzel"
           locale={locale === "nl" ? "de" : (locale as "de" | "en")}
-          lastReviewedAt="2026-06-01"
-          sourceLocale="en"
+          lastReviewedAt="2026-10-05"
+          sourceLocale="de"
         />
 
         <Separator />
 
-        {/* Overview */}
-        <section className="space-y-3">
-          <h2 className="text-xl font-semibold tracking-tight">
-            {t("bsiAnfrageErhalten.overview.heading")}
-          </h2>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("bsiAnfrageErhalten.overview.p1")}
-          </p>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("bsiAnfrageErhalten.overview.p2")}
-          </p>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("bsiAnfrageErhalten.overview.p3")}
-          </p>
+        <section className="space-y-4">
+          <div>
+            <h2 className="text-xl font-semibold tracking-tight">{t("bases.heading")}</h2>
+            <p className="mt-1 max-w-[62ch] text-sm leading-relaxed text-muted-foreground">
+              {t("bases.lead")}
+            </p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {bases.map((basis) => (
+              <Card key={basis.title} className="gap-2 py-5">
+                <CardContent className="space-y-2 px-5">
+                  <h3 className="text-base font-semibold">{basis.title}</h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {basis.text}
+                  </p>
+                  <p>
+                    <span className={LAW_CHIP}>{basis.law}</span>
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </section>
 
-        {/* Legal anchor */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("bsiAnfrageErhalten.legalAnchor.heading")}</CardTitle>
-            <CardDescription>
-              {t("bsiAnfrageErhalten.legalAnchor.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {anchorKeys.map((key) => (
-                <div key={key} className="rounded-lg border p-4">
-                  <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                    {t(`bsiAnfrageErhalten.legalAnchor.${key}.label`)}
-                  </p>
-                  <blockquote className="mt-2 border-l-2 border-primary/40 pl-3 text-sm italic leading-relaxed">
-                    {t(`bsiAnfrageErhalten.legalAnchor.${key}.quote`)}
-                  </blockquote>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                    {t(`bsiAnfrageErhalten.legalAnchor.${key}.context`)}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <section className="space-y-4">
+          <h2 className="text-xl font-semibold tracking-tight">{t("steps.heading")}</h2>
+          <div className="space-y-3">
+            {steps.map((step, i) => (
+              <div key={step} className="flex gap-3">
+                <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
+                  {i + 1}
+                </span>
+                <p className="max-w-[62ch] pt-0.5 text-sm leading-relaxed">{step}</p>
+              </div>
+            ))}
+          </div>
+        </section>
 
-        {/* Elements */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("bsiAnfrageErhalten.elements.heading")}</CardTitle>
-            <CardDescription>
-              {t("bsiAnfrageErhalten.elements.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-4 sm:grid-cols-3">
-              {elementKeys.map((key) => (
-                <div key={key} className="rounded-lg border p-4">
-                  <Badge variant="outline" className="mb-2 text-[10px]">
-                    {t(`bsiAnfrageErhalten.elements.items.${key}.section`)}
-                  </Badge>
-                  <p className="text-sm font-semibold">
-                    {t(`bsiAnfrageErhalten.elements.items.${key}.title`)}
-                  </p>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                    {t(`bsiAnfrageErhalten.elements.items.${key}.body`)}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <WikiSection
+          heading={t("limits.heading")}
+          paragraphs={t.raw("limits.paragraphs") as string[]}
+          law={t("limits.law")}
+        />
 
-        {/* Principles */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("bsiAnfrageErhalten.principles.heading")}</CardTitle>
-            <CardDescription>
-              {t("bsiAnfrageErhalten.principles.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {principleKeys.map((key) => (
-                <div key={key} className="rounded-lg border p-4">
-                  <p className="text-sm font-semibold">
-                    {t(`bsiAnfrageErhalten.principles.items.${key}.title`)}
-                  </p>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                    {t(`bsiAnfrageErhalten.principles.items.${key}.body`)}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <WikiSection
+          heading={t("size.heading")}
+          paragraphs={t.raw("size.paragraphs") as string[]}
+        />
 
-        {/* National view */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("bsiAnfrageErhalten.nationalView.heading")}</CardTitle>
-            <CardDescription>
-              {t("bsiAnfrageErhalten.nationalView.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {nationalKeys.map((key) => (
-                <div key={key} className="rounded-lg border p-4">
-                  <div className="flex flex-wrap items-baseline gap-2">
-                    <Badge variant="outline" className="text-[10px]">
-                      {t(`bsiAnfrageErhalten.nationalView.items.${key}.country`)}
-                    </Badge>
-                    <p className="text-sm font-semibold">
-                      {t(`bsiAnfrageErhalten.nationalView.items.${key}.label`)}
-                    </p>
-                  </div>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                    {t(`bsiAnfrageErhalten.nationalView.items.${key}.body`)}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <WikiExample
+          heading={t("example.heading")}
+          lead={t("example.lead")}
+          items={t.raw("example.items") as string[]}
+        />
 
-        {/* Pitfalls */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("bsiAnfrageErhalten.pitfalls.heading")}</CardTitle>
-            <CardDescription>
-              {t("bsiAnfrageErhalten.pitfalls.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-4">
-              {pitfallKeys.map((key) => (
-                <li key={key} className="rounded-lg border p-4">
-                  <p className="text-sm font-semibold">
-                    {t(`bsiAnfrageErhalten.pitfalls.items.${key}.myth`)}
-                  </p>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                    {t(`bsiAnfrageErhalten.pitfalls.items.${key}.reality`)}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
+        <WalkHow
+          heading={t("walk.heading")}
+          lead={t("walk.lead")}
+          points={t.raw("walk.points") as string[]}
+          shot={shotImage("export", rawLocale, t("walk.seeItAlt"))}
+          seeIt={w("seeIt")}
+          next={t("walk.next")}
+        />
 
-        {/* Practitioner */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("bsiAnfrageErhalten.practitioner.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("bsiAnfrageErhalten.practitioner.p1")}
-            </p>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("bsiAnfrageErhalten.practitioner.p2")}
-            </p>
-          </CardContent>
-        </Card>
+        <WikiFaq heading={t("faq.heading")} items={faq} />
 
-        {/* Sources */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("bsiAnfrageErhalten.sources.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2">
-              {(t.raw("bsiAnfrageErhalten.sources.items") as string[]).map((source) => (
-                <li
-                  key={source}
-                  className="flex items-start gap-2 text-xs text-muted-foreground"
-                >
-                  <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
-                  {source}
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
+        <WikiSources
+          heading={t("sources.heading")}
+          items={t.raw("sources.items") as string[]}
+        />
+
+        <WalkSteps codes={["12.2", "7.3"]} />
+
+        <WalkPriceCard />
       </div>
     </GlossedProse>
   );

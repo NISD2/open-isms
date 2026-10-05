@@ -6,8 +6,19 @@ import { MotionProvider } from "@/components/landing/motion";
 import { type ShotName, shotImage, zoomSizes } from "@/components/landing/shots";
 import { AutoShot } from "@/components/landing/ZoomShot";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkHow } from "@/components/wiki/WalkHow";
+import { WalkPriceCard } from "@/components/wiki/WalkPriceCard";
+import { WikiAnswerHeader } from "@/components/wiki/WikiAnswerHeader";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
+import {
+  faqJsonLd,
+  WikiExample,
+  WikiFaq,
+  type WikiQuestion,
+  WikiSection,
+  WikiSources,
+} from "@/components/wiki/WikiSection";
 import { Link } from "@/i18n/navigation";
 import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 import { PrintShareActions } from "./PrintShareActions";
@@ -108,7 +119,11 @@ export default async function Nis2RoadmapPage({
 }) {
   const { locale: rawLocale } = await params;
   const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
-  const t = await getTranslations("info.nis2Roadmap");
+  const [t, w] = await Promise.all([
+    getTranslations("info.nis2Roadmap"),
+    getTranslations("info.wikiWalk"),
+  ]);
+  const faq = t.raw("faq.items") as WikiQuestion[];
 
   return (
     <GlossedProse locale={locale}>
@@ -119,11 +134,12 @@ export default async function Nis2RoadmapPage({
             slug="nis2-roadmap"
             locale={locale}
             authorSlug="simon-orzel"
-            proficiencyLevel="Intermediate"
-            audienceType="Geschäftsführung und Compliance-Beauftragte"
+            proficiencyLevel="Beginner"
+            audienceType="Geschäftsführung und IT-Verantwortliche im Mittelstand"
             citationKeys={["nis2", "bsig"]}
             aboutKeys={["nis2"]}
           />
+          <JsonLd data={faqJsonLd(faq)} />
           <JsonLd
             data={{
               "@context": "https://schema.org",
@@ -139,23 +155,19 @@ export default async function Nis2RoadmapPage({
             }}
           />
 
-          <header className="space-y-3">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-2.5 py-1 text-[11px] font-medium text-muted-foreground ring-1 ring-inset ring-border print:hidden">
-              <ShieldCheck className="size-3.5 text-primary" />
-              {t("heroBadge")}
-            </span>
-            <h1 className="text-4xl font-bold leading-tight tracking-tight text-primary">
-              {t("heroTitle")}
-            </h1>
-            <p className="max-w-2xl text-xl leading-relaxed text-muted-foreground">
-              {t("heroSubtitle")}
-            </p>
-          </header>
+          <WikiAnswerHeader
+            badge={t("heroBadge")}
+            title={t("heroTitle")}
+            answer={t("heroSubtitle")}
+            art="/images/wiki/nis2-umsetzen.svg"
+          />
 
           <div className="mt-6">
             <WikiPageMeta
               authorSlug="simon-orzel"
               locale={locale === "nl" ? "de" : (locale as "de" | "en")}
+              lastReviewedAt="2026-10-05"
+              sourceLocale="de"
             />
           </div>
 
@@ -249,8 +261,39 @@ export default async function Nis2RoadmapPage({
             })}
           </div>
 
-          {/* The sources and the not-legal-advice notice come from the wiki layout, for every page. */}
-          <div className="border-t border-border/60 pt-6">
+          <div className="space-y-12 border-t border-border/60 pt-10 print:hidden">
+            <WikiSection
+              heading={t("size.heading")}
+              paragraphs={t.raw("size.paragraphs") as string[]}
+              law={t("size.law")}
+            />
+
+            <WikiExample
+              heading={t("example.heading")}
+              lead={t("example.lead")}
+              items={t.raw("example.items") as string[]}
+            />
+
+            <WalkHow
+              heading={t("walk.heading")}
+              lead={t("walk.lead")}
+              points={t.raw("walk.points") as string[]}
+              shot={shotImage("path", rawLocale, t("walk.seeItAlt"))}
+              seeIt={w("seeIt")}
+              next={t("walk.next")}
+            />
+
+            <WikiFaq heading={t("faq.heading")} items={faq} />
+
+            <WikiSources
+              heading={t("sources.heading")}
+              items={t.raw("sources.items") as string[]}
+            />
+
+            <WalkPriceCard />
+          </div>
+
+          <div className="mt-12 border-t border-border/60 pt-6">
             <PrintShareActions
               printLabel={t("actions.print")}
               shareLabel={t("actions.share")}

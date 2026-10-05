@@ -1,14 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { JsonLd } from "@/components/JsonLd";
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { shotImage } from "@/components/landing/shots";
 import { Separator } from "@/components/ui/separator";
 import {
   Table,
@@ -19,8 +12,21 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkHow } from "@/components/wiki/WalkHow";
+import { WalkPriceCard } from "@/components/wiki/WalkPriceCard";
+import { WalkSteps } from "@/components/wiki/WalkSteps";
+import { WikiAnswerHeader } from "@/components/wiki/WikiAnswerHeader";
+import { WikiMoreLink } from "@/components/wiki/WikiMoreLink";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
+import {
+  faqJsonLd,
+  WikiExample,
+  WikiFaq,
+  type WikiQuestion,
+  WikiSection,
+  WikiSources,
+} from "@/components/wiki/WikiSection";
 import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -46,15 +52,11 @@ export async function generateMetadata({
   };
 }
 
-const tierKeys = ["essential", "important", "registration", "reporting"] as const;
-const exampleKeys = ["small", "medium", "large"] as const;
-const scenarioKeys = [
-  "lateRegistration",
-  "noIncidentReport",
-  "noRiskManagement",
-  "supplyChainGap",
-] as const;
-const faqKeys = ["q1", "q2", "q3", "q4", "q5"] as const;
+interface FineRow {
+  readonly what: string;
+  readonly max: string;
+  readonly law: string;
+}
 
 export default async function PenaltiesPage({
   params,
@@ -63,212 +65,139 @@ export default async function PenaltiesPage({
 }) {
   const { locale: rawLocale } = await params;
   const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
-  const t = await getTranslations("info");
-
-  const faqs = faqKeys.map((key) => ({
-    "@type": "Question" as const,
-    name: t(`penalties.faq.${key}.q`),
-    acceptedAnswer: {
-      "@type": "Answer" as const,
-      text: t(`penalties.faq.${key}.a`),
-    },
-  }));
+  const [t, w] = await Promise.all([
+    getTranslations("info.penalties"),
+    getTranslations("info.wikiWalk"),
+  ]);
+  const faq = t.raw("faq.items") as WikiQuestion[];
+  const rows = t.raw("amounts.rows") as FineRow[];
 
   return (
     <GlossedProse locale={locale}>
-      <div className="space-y-10">
+      <div className="space-y-12">
         <WikiPageJsonLd
           category="recht-und-folgen"
           slug="nis2-bussgelder"
           locale={locale}
           authorSlug="simon-orzel"
-          proficiencyLevel="Intermediate"
-          audienceType="Geschäftsführung und Vorstand"
+          proficiencyLevel="Beginner"
+          audienceType="Geschäftsführung und Vorstand im Mittelstand"
           citationKeys={["nis2", "bsig"]}
           aboutKeys={["bsig"]}
           mentionsKeys={["nis2"]}
         />
-        <JsonLd
-          data={{
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: faqs,
-          }}
-        />
+        <JsonLd data={faqJsonLd(faq)} />
 
-        <header>
-          <Badge variant="secondary" className="mb-3">
-            {"§"}65 BSIG
-          </Badge>
-          <h1 className="text-3xl font-bold tracking-tight">{t("penalties.title")}</h1>
-          <p className="mt-2 text-lg text-muted-foreground">{t("penalties.subtitle")}</p>
-        </header>
+        <WikiAnswerHeader
+          badge={t("badge")}
+          title={t("title")}
+          answer={t("subtitle")}
+          art="/images/durchgang/2_1.svg"
+        />
 
         <WikiPageMeta
           authorSlug="simon-orzel"
           locale={locale === "nl" ? "de" : (locale as "de" | "en")}
+          lastReviewedAt="2026-10-05"
+          sourceLocale="de"
         />
 
         <Separator />
 
-        <section className="space-y-3">
-          <h2 className="text-xl font-semibold tracking-tight">
-            {t("penalties.overview.heading")}
-          </h2>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("penalties.overview.p1")}
-          </p>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("penalties.overview.p2")}
-          </p>
-        </section>
-
-        {/* Penalty tiers */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("penalties.tiers.heading")}</CardTitle>
-            <CardDescription>{t("penalties.tiers.description")}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {tierKeys.map((key) => (
-                <div key={key} className="rounded-lg border p-4 text-center">
-                  <p className="text-xl font-bold text-destructive">
-                    {t(`penalties.tiers.items.${key}.amount`)}
-                  </p>
-                  <p className="mt-1 text-sm font-medium">
-                    {t(`penalties.tiers.items.${key}.label`)}
-                  </p>
-                  <p className="mt-1 text-xs text-muted-foreground">
-                    {t(`penalties.tiers.items.${key}.detail`)}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Calculation examples */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("penalties.examples.heading")}</CardTitle>
-            <CardDescription>{t("penalties.examples.description")}</CardDescription>
-          </CardHeader>
-          <CardContent>
+        <section className="space-y-4">
+          <div>
+            <h2 className="text-xl font-semibold tracking-tight">
+              {t("amounts.heading")}
+            </h2>
+            <p className="mt-1 max-w-[62ch] text-sm leading-relaxed text-muted-foreground">
+              {t("amounts.lead")}
+            </p>
+          </div>
+          <div className="rounded-xl border">
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>{t("penalties.examples.headers.company")}</TableHead>
-                  <TableHead>{t("penalties.examples.headers.turnover")}</TableHead>
-                  <TableHead>{t("penalties.examples.headers.maxEssential")}</TableHead>
-                  <TableHead>{t("penalties.examples.headers.maxImportant")}</TableHead>
+                  <TableHead>{t("amounts.whatLabel")}</TableHead>
+                  <TableHead>{t("amounts.maxLabel")}</TableHead>
+                  <TableHead className="hidden sm:table-cell">
+                    {t("amounts.lawLabel")}
+                  </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {exampleKeys.map((key) => (
-                  <TableRow key={key}>
-                    <TableCell className="font-medium">
-                      {t(`penalties.examples.rows.${key}.company`)}
+                {rows.map((row) => (
+                  <TableRow key={row.what}>
+                    <TableCell className="whitespace-normal text-sm">
+                      {row.what}
+                      <span className="mt-1 block font-mono text-xs text-muted-foreground sm:hidden">
+                        {row.law}
+                      </span>
                     </TableCell>
-                    <TableCell>{t(`penalties.examples.rows.${key}.turnover`)}</TableCell>
-                    <TableCell className="text-destructive">
-                      {t(`penalties.examples.rows.${key}.maxEssential`)}
+                    <TableCell className="whitespace-nowrap align-top text-sm font-medium tabular-nums">
+                      {row.max}
                     </TableCell>
-                    <TableCell className="text-destructive">
-                      {t(`penalties.examples.rows.${key}.maxImportant`)}
+                    <TableCell className="hidden align-top font-mono text-xs text-muted-foreground sm:table-cell">
+                      {row.law}
                     </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
-          </CardContent>
-        </Card>
-
-        {/* Real scenarios */}
-        <section className="space-y-4">
-          <div>
-            <h2 className="text-xl font-semibold tracking-tight">
-              {t("penalties.scenarios.heading")}
-            </h2>
-            <p className="mt-1 text-sm text-muted-foreground">
-              {t("penalties.scenarios.description")}
-            </p>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {scenarioKeys.map((key) => (
-              <Card key={key}>
-                <CardContent className="pt-6">
-                  <p className="text-sm font-semibold">
-                    {t(`penalties.scenarios.items.${key}.title`)}
-                  </p>
-                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                    {t(`penalties.scenarios.items.${key}.description`)}
-                  </p>
-                  <p className="mt-2 text-xs font-medium text-destructive">
-                    {t(`penalties.scenarios.items.${key}.consequence`)}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <p className="text-xs text-muted-foreground">{t("amounts.note")}</p>
         </section>
 
-        {/* Management liability */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("penalties.managementLiability.heading")}</CardTitle>
-            <CardDescription>
-              {t("penalties.managementLiability.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("penalties.managementLiability.p1")}
-            </p>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("penalties.managementLiability.p2")}
-            </p>
-          </CardContent>
-        </Card>
+        <WikiSection
+          heading={t("turnover.heading")}
+          paragraphs={t.raw("turnover.paragraphs") as string[]}
+          law={t("turnover.law")}
+        />
 
-        {/* FAQ */}
-        <section className="space-y-4">
-          <h2 className="text-xl font-semibold tracking-tight">
-            {t("penalties.faq.heading")}
-          </h2>
-          <div className="space-y-3">
-            {faqKeys.map((key) => (
-              <Card key={key}>
-                <CardContent className="pt-6">
-                  <p className="text-sm font-semibold">{t(`penalties.faq.${key}.q`)}</p>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                    {t(`penalties.faq.${key}.a`)}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
+        <WikiSection
+          heading={t("process.heading")}
+          paragraphs={t.raw("process.paragraphs") as string[]}
+          law={t("process.law")}
+        />
 
-        {/* Sources */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("penalties.sources.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2">
-              {(t.raw("penalties.sources.items") as string[]).map((source) => (
-                <li
-                  key={source}
-                  className="flex items-start gap-2 text-xs text-muted-foreground"
-                >
-                  <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
-                  {source}
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
+        <WikiSection
+          heading={t("management.heading")}
+          paragraphs={t.raw("management.paragraphs") as string[]}
+        >
+          <WikiMoreLink href="/wiki/recht-und-folgen/geschaftsfuhrerhaftung">
+            {t("management.link")}
+          </WikiMoreLink>
+        </WikiSection>
+
+        <WikiSection
+          heading={t("size.heading")}
+          paragraphs={t.raw("size.paragraphs") as string[]}
+        />
+
+        <WikiExample
+          heading={t("example.heading")}
+          lead={t("example.lead")}
+          items={t.raw("example.items") as string[]}
+        />
+
+        <WalkHow
+          heading={t("walk.heading")}
+          lead={t("walk.lead")}
+          points={t.raw("walk.points") as string[]}
+          shot={shotImage("approved", rawLocale, t("walk.seeItAlt"))}
+          seeIt={w("seeIt")}
+          next={t("walk.next")}
+        />
+
+        <WikiFaq heading={t("faq.heading")} items={faq} />
+
+        <WikiSources
+          heading={t("sources.heading")}
+          items={t.raw("sources.items") as string[]}
+        />
+
+        <WalkSteps codes={["3.3", "12.2", "7.3"]} />
+
+        <WalkPriceCard />
       </div>
     </GlossedProse>
   );

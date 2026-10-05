@@ -11,6 +11,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
 import { WalkSteps } from "@/components/wiki/WalkSteps";
+import { WikiAnswerHeader } from "@/components/wiki/WikiAnswerHeader";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
 import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
@@ -68,17 +69,12 @@ export default async function Nis2StatusFinnlandPage({
           mentionsKeys={["bsig"]}
         />
 
-        <header>
-          <Badge variant="secondary" className="mb-3">
-            NIS 2 Status Finnland
-          </Badge>
-          <h1 className="text-3xl font-bold tracking-tight">
-            {t("nis2StatusFinnland.title")}
-          </h1>
-          <p className="mt-2 text-lg text-muted-foreground">
-            {t("nis2StatusFinnland.subtitle")}
-          </p>
-        </header>
+        <WikiAnswerHeader
+          badge="NIS 2 Status Finnland"
+          title={t("nis2StatusFinnland.title")}
+          answer={t("nis2StatusFinnland.subtitle")}
+          art="/images/wiki/nis2-europa.svg"
+        />
 
         <WikiPageMeta
           authorSlug="simon-orzel"

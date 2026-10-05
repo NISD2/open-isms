@@ -1,19 +1,31 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { itemShot } from "@/components/durchgang/itemShots";
 import { JsonLd } from "@/components/JsonLd";
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkHow } from "@/components/wiki/WalkHow";
+import { WalkPriceCard } from "@/components/wiki/WalkPriceCard";
 import { WalkSteps } from "@/components/wiki/WalkSteps";
+import { WikiAnswerHeader } from "@/components/wiki/WikiAnswerHeader";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
+import {
+  faqJsonLd,
+  WikiExample,
+  WikiFaq,
+  type WikiQuestion,
+  WikiSection,
+  WikiSources,
+} from "@/components/wiki/WikiSection";
 import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -39,15 +51,13 @@ export async function generateMetadata({
   };
 }
 
-const assetKeys = ["his", "pacs", "medDevices", "lab", "network", "endpoints"] as const;
-const priorityKeys = [
-  "registration",
-  "assets",
-  "incidents",
-  "access",
-  "encryption",
-] as const;
-const faqKeys = ["q1", "q2", "q3", "q4"] as const;
+/** The walk's asset step, whose screen shows the business processes, ticked. */
+const ASSET_STEP = "2.2";
+
+interface Row {
+  readonly who: string;
+  readonly where: string;
+}
 
 export default async function SectorHealthPage({
   params,
@@ -56,142 +66,124 @@ export default async function SectorHealthPage({
 }) {
   const { locale: rawLocale } = await params;
   const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
-  const t = await getTranslations("info");
-  const faqs = faqKeys.map((key) => ({
-    "@type": "Question" as const,
-    name: t(`sectorHealth.faq.${key}.q`),
-    acceptedAnswer: { "@type": "Answer" as const, text: t(`sectorHealth.faq.${key}.a`) },
-  }));
+  const [t, w] = await Promise.all([
+    getTranslations("info.sectorHealth"),
+    getTranslations("info.wikiWalk"),
+  ]);
+  const faq = t.raw("faq.items") as WikiQuestion[];
+  const rows = t.raw("who.rows") as Row[];
+  const shot = itemShot(ASSET_STEP, rawLocale, t("walk.seeItAlt"));
+  if (!shot) throw new Error(`The walk has no screenshot for step ${ASSET_STEP}`);
 
   return (
     <GlossedProse locale={locale}>
-      <div className="space-y-10">
+      <div className="space-y-12">
         <WikiPageJsonLd
           category="sektoren"
           slug="nis2-gesundheitswesen"
           locale={locale}
           authorSlug="simon-orzel"
-          proficiencyLevel="Intermediate"
-          audienceType="Geschäftsführung im Gesundheitswesen"
-          citationKeys={["nis2", "bsig", "cir-2024-2690", "gdpr"]}
+          proficiencyLevel="Beginner"
+          audienceType="Geschäftsführung im Gesundheitswesen und in der Medizintechnik"
+          citationKeys={["nis2", "bsig", "gdpr"]}
           aboutKeys={["nis2"]}
         />
-        <JsonLd
-          data={{
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: faqs,
-          }}
+        <JsonLd data={faqJsonLd(faq)} />
+
+        <WikiAnswerHeader
+          badge={t("badge")}
+          title={t("title")}
+          answer={t("subtitle")}
+          art="/images/durchgang/3_1.svg"
         />
-        <header>
-          <Badge variant="secondary" className="mb-3">
-            {t("sectorHealth.badge")}
-          </Badge>
-          <h1 className="text-3xl font-bold tracking-tight">{t("sectorHealth.title")}</h1>
-          <p className="mt-2 text-lg text-muted-foreground">
-            {t("sectorHealth.subtitle")}
-          </p>
-        </header>
+
         <WikiPageMeta
           authorSlug="simon-orzel"
           locale={locale === "nl" ? "de" : (locale as "de" | "en")}
+          lastReviewedAt="2026-10-05"
+          sourceLocale="de"
         />
+
         <Separator />
-        <section className="space-y-3">
-          <h2 className="text-xl font-semibold tracking-tight">
-            {t("sectorHealth.why.heading")}
-          </h2>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("sectorHealth.why.p1")}
-          </p>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("sectorHealth.why.p2")}
-          </p>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("sectorHealth.why.p3")}
-          </p>
-        </section>
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("sectorHealth.assets.heading")}</CardTitle>
-            <CardDescription>{t("sectorHealth.assets.description")}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {assetKeys.map((key) => (
-                <div key={key} className="rounded-lg border p-3">
-                  <p className="text-sm font-medium">
-                    {t(`sectorHealth.assets.items.${key}.title`)}
-                  </p>
-                  <p className="mt-0.5 text-xs text-muted-foreground">
-                    {t(`sectorHealth.assets.items.${key}.detail`)}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("sectorHealth.priorities.heading")}</CardTitle>
-            <CardDescription>{t("sectorHealth.priorities.description")}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {priorityKeys.map((key, index) => (
-                <div key={key} className="flex gap-4 rounded-lg border p-4">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
-                    {index + 1}
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold">
-                      {t(`sectorHealth.priorities.items.${key}.title`)}
-                    </p>
-                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                      {t(`sectorHealth.priorities.items.${key}.description`)}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("sectorHealth.specifics.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("sectorHealth.specifics.p1")}
-            </p>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("sectorHealth.specifics.p2")}
-            </p>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("sectorHealth.specifics.p3")}
-            </p>
-          </CardContent>
-        </Card>
-        <section className="space-y-4">
-          <h2 className="text-xl font-semibold tracking-tight">
-            {t("sectorHealth.faq.heading")}
-          </h2>
-          <div className="space-y-3">
-            {faqKeys.map((key) => (
-              <Card key={key}>
-                <CardContent className="pt-6">
-                  <p className="text-sm font-semibold">
-                    {t(`sectorHealth.faq.${key}.q`)}
-                  </p>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                    {t(`sectorHealth.faq.${key}.a`)}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
+
+        <WikiSection
+          heading={t("who.heading")}
+          paragraphs={[t("who.lead")]}
+          law={t("who.law")}
+        >
+          <div className="rounded-xl border">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>{t("who.whoLabel")}</TableHead>
+                  <TableHead>{t("who.whereLabel")}</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow key={row.where}>
+                    <TableCell className="whitespace-normal text-sm">{row.who}</TableCell>
+                    <TableCell className="align-top font-mono text-xs text-muted-foreground">
+                      {row.where}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </div>
-        </section>
-        <WalkSteps codes={["12.2", "2.2"]} />
+          {(t.raw("who.paragraphs") as string[]).map((paragraph) => (
+            <p
+              key={paragraph}
+              className="max-w-[62ch] text-sm leading-relaxed text-muted-foreground"
+            >
+              {paragraph}
+            </p>
+          ))}
+        </WikiSection>
+
+        <WikiSection
+          heading={t("medtech.heading")}
+          paragraphs={t.raw("medtech.paragraphs") as string[]}
+          law={t("medtech.law")}
+        />
+
+        <WikiSection
+          heading={t("special.heading")}
+          paragraphs={t.raw("special.paragraphs") as string[]}
+          law={t("special.law")}
+        />
+
+        <WikiSection
+          heading={t("size.heading")}
+          paragraphs={t.raw("size.paragraphs") as string[]}
+          law={t("size.law")}
+        />
+
+        <WikiExample
+          heading={t("example.heading")}
+          lead={t("example.lead")}
+          items={t.raw("example.items") as string[]}
+        />
+
+        <WalkHow
+          heading={t("walk.heading")}
+          lead={t("walk.lead")}
+          points={t.raw("walk.points") as string[]}
+          shot={shot}
+          seeIt={w("seeIt")}
+          next={t("walk.next")}
+        />
+
+        <WikiFaq heading={t("faq.heading")} items={faq} />
+
+        <WikiSources
+          heading={t("sources.heading")}
+          items={t.raw("sources.items") as string[]}
+        />
+
+        <WalkSteps codes={["2.2", "3.1"]} />
+
+        <WalkPriceCard />
       </div>
     </GlossedProse>
   );

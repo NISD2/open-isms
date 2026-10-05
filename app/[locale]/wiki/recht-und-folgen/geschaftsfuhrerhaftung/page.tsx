@@ -1,19 +1,26 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { JsonLd } from "@/components/JsonLd";
+import { shotImage } from "@/components/landing/shots";
+import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
-import { RelatedPage } from "@/components/wiki/RelatedPage";
+import { WalkHow } from "@/components/wiki/WalkHow";
+import { WalkPriceCard } from "@/components/wiki/WalkPriceCard";
 import { WalkSteps } from "@/components/wiki/WalkSteps";
+import { WikiAnswerHeader } from "@/components/wiki/WikiAnswerHeader";
+import { WikiMoreLink } from "@/components/wiki/WikiMoreLink";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
+import {
+  faqJsonLd,
+  LAW_CHIP,
+  WikiExample,
+  WikiFaq,
+  type WikiQuestion,
+  WikiSection,
+  WikiSources,
+} from "@/components/wiki/WikiSection";
 import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -39,21 +46,11 @@ export async function generateMetadata({
   };
 }
 
-const dutyKeys = ["approval", "oversight", "training"] as const;
-const consequenceKeys = [
-  "noMeasures",
-  "noReporting",
-  "noTraining",
-  "noOversight",
-] as const;
-const misconceptionKeys = [
-  "delegate",
-  "insurance",
-  "ignorance",
-  "waiver",
-  "smallCompany",
-] as const;
-const stepKeys = ["step1", "step2", "step3"] as const;
+interface Duty {
+  readonly title: string;
+  readonly text: string;
+  readonly law: string;
+}
 
 export default async function CeoLiabilityPage({
   params,
@@ -62,179 +59,135 @@ export default async function CeoLiabilityPage({
 }) {
   const { locale: rawLocale } = await params;
   const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
-  const t = await getTranslations("info");
+  const [t, w] = await Promise.all([
+    getTranslations("info.ceoLiability"),
+    getTranslations("info.wikiWalk"),
+  ]);
+  const faq = t.raw("faq.items") as WikiQuestion[];
+  const duties = t.raw("duties.items") as Duty[];
 
   return (
     <GlossedProse locale={locale}>
-      <div className="space-y-10">
+      <div className="space-y-12">
         <WikiPageJsonLd
           category="recht-und-folgen"
           slug="geschaftsfuhrerhaftung"
           locale={locale}
           authorSlug="simon-orzel"
-          proficiencyLevel="Intermediate"
-          audienceType="Geschäftsführung und Vorstand"
+          proficiencyLevel="Beginner"
+          audienceType="Geschäftsführung und Vorstand im Mittelstand"
           citationKeys={["nis2", "bsig"]}
           aboutKeys={["bsig"]}
           mentionsKeys={["nis2"]}
         />
+        <JsonLd data={faqJsonLd(faq)} />
 
-        {/* Header */}
-        <header>
-          <Badge variant="secondary" className="mb-3">
-            {"§"}38 BSIG
-          </Badge>
-          <h1 className="text-3xl font-bold tracking-tight">{t("ceoLiability.title")}</h1>
-          <p className="mt-2 text-lg text-muted-foreground">
-            {t("ceoLiability.subtitle")}
-          </p>
-          <RelatedPage href="/wiki/grundlagen/bsig-38">
-            {t("bsigParagraph38.title")}
-          </RelatedPage>
-        </header>
+        <WikiAnswerHeader
+          badge={t("badge")}
+          title={t("title")}
+          answer={t("subtitle")}
+          art="/images/durchgang/2_1.svg"
+        />
 
         <WikiPageMeta
           authorSlug="simon-orzel"
           locale={locale === "nl" ? "de" : (locale as "de" | "en")}
+          lastReviewedAt="2026-10-05"
+          sourceLocale="de"
         />
 
         <Separator />
 
-        {/* Overview */}
+        <WikiSection
+          heading={t("who.heading")}
+          paragraphs={t.raw("who.paragraphs") as string[]}
+          law={t("who.law")}
+        />
+
         <section className="space-y-4">
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("ceoLiability.overview.p1")}
-          </p>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("ceoLiability.overview.p2")}
-          </p>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("ceoLiability.overview.p3")}
+          <div>
+            <h2 className="text-xl font-semibold tracking-tight">
+              {t("duties.heading")}
+            </h2>
+            <p className="mt-1 max-w-[62ch] text-sm leading-relaxed text-muted-foreground">
+              {t("duties.lead")}
+            </p>
+          </div>
+          <div className="grid gap-3 md:grid-cols-3">
+            {duties.map((duty, i) => (
+              <Card key={duty.title} className="gap-2 py-5">
+                <CardContent className="space-y-2 px-5">
+                  <span className="flex size-7 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
+                    {i + 1}
+                  </span>
+                  <h3 className="text-base font-semibold">{duty.title}</h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {duty.text}
+                  </p>
+                  <p>
+                    <span className={LAW_CHIP}>{duty.law}</span>
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          <p className="max-w-[62ch] text-sm leading-relaxed text-muted-foreground">
+            {t("duties.directive")}
           </p>
         </section>
 
-        {/* Three Core Duties */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("ceoLiability.duties.heading")}</CardTitle>
-            <CardDescription>{t("ceoLiability.duties.description")}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-4 sm:grid-cols-3">
-              {dutyKeys.map((key, index) => (
-                <div key={key} className="rounded-lg border p-4">
-                  <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
-                    {index + 1}
-                  </div>
-                  <p className="text-sm font-semibold">
-                    {t(`ceoLiability.duties.items.${key}.title`)}
-                  </p>
-                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                    {t(`ceoLiability.duties.items.${key}.description`)}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <WikiSection
+          heading={t("liability.heading")}
+          paragraphs={t.raw("liability.paragraphs") as string[]}
+          law={t("liability.law")}
+        />
 
-        {/* What Happens When You Fail */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("ceoLiability.consequences.heading")}</CardTitle>
-            <CardDescription>
-              {t("ceoLiability.consequences.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {consequenceKeys.map((key) => (
-                <div key={key} className="rounded-lg border p-4">
-                  <p className="text-sm font-semibold">
-                    {t(`ceoLiability.consequences.items.${key}.violation`)}
-                  </p>
-                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                    {t(`ceoLiability.consequences.items.${key}.consequence`)}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <WikiSection
+          heading={t("authority.heading")}
+          paragraphs={t.raw("authority.paragraphs") as string[]}
+          law={t("authority.law")}
+        >
+          <WikiMoreLink href="/wiki/recht-und-folgen/nis2-bussgelder">
+            {t("authority.link")}
+          </WikiMoreLink>
+        </WikiSection>
 
-        {/* Common Misconceptions */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("ceoLiability.misconceptions.heading")}</CardTitle>
-            <CardDescription>
-              {t("ceoLiability.misconceptions.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-4">
-              {misconceptionKeys.map((key) => (
-                <li key={key} className="rounded-lg border p-4">
-                  <p className="text-sm font-semibold">
-                    {t(`ceoLiability.misconceptions.items.${key}.myth`)}
-                  </p>
-                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                    {t(`ceoLiability.misconceptions.items.${key}.reality`)}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
+        <WikiSection
+          heading={t("delegate.heading")}
+          paragraphs={t.raw("delegate.paragraphs") as string[]}
+        />
 
-        {/* Personal Risk */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("ceoLiability.personalRisk.heading")}</CardTitle>
-            <CardDescription>
-              {t("ceoLiability.personalRisk.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("ceoLiability.personalRisk.liableToCompany")}
-            </p>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("ceoLiability.personalRisk.cannotWaive")}
-            </p>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("ceoLiability.personalRisk.cannotClaimIgnorance")}
-            </p>
-          </CardContent>
-        </Card>
+        <WikiSection
+          heading={t("size.heading")}
+          paragraphs={t.raw("size.paragraphs") as string[]}
+          law={t("size.law")}
+        />
 
-        {/* Three Steps to Protect Yourself */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("ceoLiability.steps.heading")}</CardTitle>
-            <CardDescription>{t("ceoLiability.steps.description")}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {stepKeys.map((key, index) => (
-                <div key={key} className="flex gap-4 rounded-lg border p-4">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
-                    {index + 1}
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold">
-                      {t(`ceoLiability.steps.items.${key}.title`)}
-                    </p>
-                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                      {t(`ceoLiability.steps.items.${key}.description`)}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <WikiExample
+          heading={t("example.heading")}
+          lead={t("example.lead")}
+          items={t.raw("example.items") as string[]}
+        />
+
+        <WalkHow
+          heading={t("walk.heading")}
+          lead={t("walk.lead")}
+          points={t.raw("walk.points") as string[]}
+          shot={shotImage("approved", rawLocale, t("walk.seeItAlt"))}
+          seeIt={w("seeIt")}
+          next={t("walk.next")}
+        />
+
+        <WikiFaq heading={t("faq.heading")} items={faq} />
+
+        <WikiSources
+          heading={t("sources.heading")}
+          items={t.raw("sources.items") as string[]}
+        />
 
         <WalkSteps codes={["1.1", "7.3", "2.4"]} />
+
+        <WalkPriceCard />
       </div>
     </GlossedProse>
   );
