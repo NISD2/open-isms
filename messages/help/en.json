@@ -2,16 +2,16 @@
   "help": {
     "meta": {
       "title": "If you get stuck with NIS 2",
-      "description": "The platform and the course are free. Short technical questions are answered at no charge. If you want to self-host, we set it up for a one-time 500 EUR net. If it needs a specialist firm, we refer you to one at no cost to you."
+      "description": "Short technical questions are answered at no charge, and the management course is free. If you want to self-host, we set it up for a one-time 500 EUR net. If it needs a specialist firm, we refer you to one at no cost to you."
     },
     "title": "If you get stuck with NIS 2",
-    "intro": "The platform is free and stays free. So does the course. Most companies get through on their own. If you do not, there are two routes, and both start with the same email.",
+    "intro": "Short technical questions are answered at no charge. If that is not enough, there are two routes, and both start with the same request.",
     "tier1": {
       "label": "Level 1",
-      "heading": "You do it yourself. 0 EUR.",
+      "heading": "You do it yourself, with the platform.",
       "p1": "A scope check, every measure required by Article 21 as a single step you can work through, evidence upload, PDF export, an audit trail, and the management course with a certificate of attendance that Article 20 asks you to be able to show.",
-      "p2": "If you would rather run the platform yourself, the source is on GitHub under AGPL-3.0. Also free. No licence fee, no user limit.",
-      "p3": "No time limit, no credit card, nobody from sales calling you.",
+      "p2": "If you would rather run the platform yourself, the source is on GitHub under AGPL-3.0. Free, no licence fee, no user limit.",
+      "p3": "On nisd2.eu the guided walkthrough costs {price} net a year, on invoice, with 30 days money back. Self-hosted, the platform costs nothing.",
       "p4": "NIS 2 is transposed by each member state, so the wording you are audited against is your national law, not the directive. The platform maps to the directive first and shows the national reference where one exists, for example §30 BSIG in Germany."
     },
     "tier2": {
@@ -38,7 +38,7 @@
     },
     "earn": {
       "heading": "How we earn",
-      "p1": "Level 2 is the one-time setup fee. On level 3 the firm pays us 15 percent of its net fee if the referral turns into an engagement.",
+      "p1": "The walkthrough on nisd2.eu, {price} net a year. Level 2 is the one-time setup fee. On level 3 the firm pays us 15 percent of its net fee if the referral turns into an engagement.",
       "p2": "Our partners commit in writing not to raise their fee because of it. We do not recommend by commission, and the order of our list does not depend on it.",
       "p3": "If you would rather use your own consultant, that is completely fine, and you keep the platform either way.",
       "link": "Read the referral terms"

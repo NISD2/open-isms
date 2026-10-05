@@ -2,16 +2,16 @@
   "help": {
     "meta": {
       "title": "Se ti blocchi con NIS 2",
-      "description": "La piattaforma e il corso sono gratuiti. Le domande tecniche brevi ricevono risposta senza costi. Se vuoi ospitarla in proprio, la installiamo noi per 500 EUR IVA esclusa, una tantum. Se serve un'azienda specializzata, te ne segnaliamo una senza costi per te."
+      "description": "Le domande tecniche brevi ricevono risposta senza costi, e il corso per la direzione è gratuito. Se vuoi ospitarla in proprio, la installiamo noi per 500 EUR IVA esclusa, una tantum. Se serve un'azienda specializzata, te ne segnaliamo una senza costi per te."
     },
     "title": "Se ti blocchi con NIS 2",
-    "intro": "La piattaforma è gratuita e resta gratuita. Anche il corso. La maggior parte delle aziende ce la fa da sola. Se non è il tuo caso, ci sono due strade, ed entrambe cominciano con la stessa email.",
+    "intro": "Le domande tecniche brevi ricevono risposta senza costi. Se non basta, ci sono due strade, ed entrambe cominciano con la stessa richiesta.",
     "tier1": {
       "label": "Livello 1",
-      "heading": "Fai da te. 0 EUR.",
+      "heading": "Fai da te, con la piattaforma.",
       "p1": "Una verifica di applicabilità, ogni misura richiesta dall'articolo 21 come singolo passaggio da percorrere, il caricamento delle prove, l'esportazione in PDF, un registro di audit, e il corso per la direzione con l'attestato di partecipazione che l'articolo 20 chiede di poter esibire.",
-      "p2": "Se preferisci gestire la piattaforma da solo, il codice sorgente è su GitHub con licenza AGPL-3.0. Anch'esso gratuito. Nessun canone di licenza, nessun limite di utenti.",
-      "p3": "Nessun limite di tempo, nessuna carta di credito, nessun commerciale che ti chiama.",
+      "p2": "Se preferisci gestire la piattaforma da solo, il codice sorgente è su GitHub con licenza AGPL-3.0. Gratuito, nessun canone di licenza, nessun limite di utenti.",
+      "p3": "Su nisd2.eu il percorso guidato costa {price} netti all'anno, su fattura, con rimborso entro 30 giorni. In self-hosting la piattaforma non costa nulla.",
       "p4": "La NIS 2 viene recepita da ogni Stato membro: il testo su cui vieni controllato è la tua legge nazionale, non la direttiva. La piattaforma rimanda prima alla direttiva e indica il riferimento nazionale dove esiste, per esempio il §30 BSIG in Germania."
     },
     "tier2": {
@@ -38,7 +38,7 @@
     },
     "earn": {
       "heading": "Come guadagniamo",
-      "p1": "Al livello 2 con il costo di installazione una tantum. Al livello 3 l'azienda ci versa il 15 per cento del suo onorario netto se la segnalazione si traduce in un incarico.",
+      "p1": "Con il percorso guidato su nisd2.eu, {price} netti all'anno. Al livello 2 con il costo di installazione una tantum. Al livello 3 l'azienda ci versa il 15 per cento del suo onorario netto se la segnalazione si traduce in un incarico.",
       "p2": "I nostri partner si impegnano per iscritto a non aumentare per questo il loro onorario. Non consigliamo in base all'importo della provvigione, e l'ordine del nostro elenco non ne dipende.",
       "p3": "Se preferisci rivolgerti al tuo consulente, va benissimo, e la piattaforma resta tua in ogni caso.",
       "link": "Leggi le condizioni di segnalazione"

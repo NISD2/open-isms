@@ -2,16 +2,16 @@
   "help": {
     "meta": {
       "title": "Als u vastloopt bij NIS 2",
-      "description": "Het platform en de cursus zijn gratis. Korte vakinhoudelijke vragen beantwoorden wij kosteloos. Wilt u zelf draaien, dan zetten wij het op voor eenmalig 500 EUR netto. Is er een gespecialiseerd bedrijf nodig, dan verwijzen wij u door, zonder kosten voor u."
+      "description": "Korte vakinhoudelijke vragen beantwoorden wij kosteloos, en de cursus voor de directie is gratis. Wilt u zelf draaien, dan zetten wij het op voor eenmalig 500 EUR netto. Is er een gespecialiseerd bedrijf nodig, dan verwijzen wij u door, zonder kosten voor u."
     },
     "title": "Als u vastloopt bij NIS 2",
-    "intro": "Het platform is gratis en blijft gratis. De cursus ook. De meeste bedrijven komen er zelf doorheen. Lukt dat niet, dan zijn er twee wegen, en beide beginnen met dezelfde mail.",
+    "intro": "Korte vakinhoudelijke vragen beantwoorden wij kosteloos. Is dat niet genoeg, dan zijn er twee wegen, en beide beginnen met dezelfde aanvraag.",
     "tier1": {
       "label": "Niveau 1",
-      "heading": "U doet het zelf. 0 EUR.",
+      "heading": "U doet het zelf, met het platform.",
       "p1": "Een toepassingstoets, elke maatregel uit artikel 21 als losse stap die u kunt doorlopen, bewijs uploaden, PDF-export, een audittrail, en de cursus voor de directie met een deelnamebewijs dat artikel 20 van u verlangt te kunnen tonen.",
-      "p2": "Wilt u het platform liever zelf draaien: de broncode staat op GitHub onder AGPL-3.0. Ook gratis. Geen licentiekosten, geen gebruikerslimiet.",
-      "p3": "Geen tijdslimiet, geen creditcard, geen verkoper aan de lijn.",
+      "p2": "Wilt u het platform liever zelf draaien: de broncode staat op GitHub onder AGPL-3.0. Gratis, geen licentiekosten, geen gebruikerslimiet.",
+      "p3": "Op nisd2.eu kost de begeleide doorloop {price} netto per jaar, op factuur, met 30 dagen geld terug. Zelf gedraaid kost het platform niets.",
       "p4": "NIS 2 wordt door elke lidstaat omgezet, dus de tekst waarop u wordt getoetst is uw nationale wet, niet de richtlijn. Het platform verwijst eerst naar de richtlijn en toont de nationale verwijzing waar die bestaat, bijvoorbeeld §30 BSIG in Duitsland."
     },
     "tier2": {
@@ -38,7 +38,7 @@
     },
     "earn": {
       "heading": "Waaraan wij verdienen",
-      "p1": "Bij niveau 2 aan het eenmalige installatietarief. Bij niveau 3 betaalt het bedrijf ons 15 procent van zijn nettohonorarium als de doorverwijzing tot een opdracht leidt.",
+      "p1": "Aan de begeleide doorloop op nisd2.eu, {price} netto per jaar. Bij niveau 2 aan het eenmalige installatietarief. Bij niveau 3 betaalt het bedrijf ons 15 procent van zijn nettohonorarium als de doorverwijzing tot een opdracht leidt.",
       "p2": "Onze partners leggen schriftelijk vast hun honorarium daarom niet te verhogen. Wij adviseren niet op provisiehoogte, en de volgorde van onze lijst hangt er niet van af.",
       "p3": "Gebruikt u liever uw eigen adviseur, dan is dat volledig in orde, en u houdt het platform hoe dan ook.",
       "link": "Bemiddelingsvoorwaarden lezen"

@@ -2,16 +2,16 @@
   "help": {
     "meta": {
       "title": "Si vous êtes bloqué avec NIS 2",
-      "description": "La plateforme et la formation sont gratuites. Les questions techniques courtes sont traitées sans frais. Si vous voulez héberger vous-même, nous réalisons l'installation pour 500 EUR HT, en paiement unique. S'il faut une entreprise spécialisée, nous vous en recommandons une, sans frais pour vous."
+      "description": "Les questions techniques courtes sont traitées sans frais, et la formation pour la direction est gratuite. Si vous voulez héberger vous-même, nous réalisons l'installation pour 500 EUR HT, en paiement unique. S'il faut une entreprise spécialisée, nous vous en recommandons une, sans frais pour vous."
     },
     "title": "Si vous êtes bloqué avec NIS 2",
-    "intro": "La plateforme est gratuite et le reste. La formation aussi. La plupart des entreprises y arrivent seules. Si ce n'est pas votre cas, il existe deux voies, et toutes deux commencent par le même e-mail.",
+    "intro": "Les questions techniques courtes sont traitées sans frais. Si cela ne suffit pas, il existe deux voies, et toutes deux commencent par la même demande.",
     "tier1": {
       "label": "Niveau 1",
-      "heading": "Vous le faites vous-même. 0 EUR.",
+      "heading": "Vous le faites vous-même, avec la plateforme.",
       "p1": "Un test d'applicabilité, chaque mesure exigée par l'article 21 sous forme d'étape à parcourir, le dépôt de preuves, l'export PDF, une piste d'audit, et la formation pour la direction avec une attestation de participation que l'article 20 vous demande de pouvoir présenter.",
-      "p2": "Si vous préférez exploiter la plateforme vous-même, le code source est sur GitHub sous AGPL-3.0. Gratuit également. Pas de redevance de licence, pas de limite d'utilisateurs.",
-      "p3": "Pas de limite de durée, pas de carte bancaire, personne du service commercial ne vous appelle.",
+      "p2": "Si vous préférez exploiter la plateforme vous-même, le code source est sur GitHub sous AGPL-3.0. Gratuit, pas de redevance de licence, pas de limite d'utilisateurs.",
+      "p3": "Sur nisd2.eu, le parcours guidé coûte {price} HT par an, sur facture, avec remboursement sous 30 jours. En auto-hébergement, la plateforme ne coûte rien.",
       "p4": "NIS 2 est transposée par chaque État membre : le texte sur lequel vous êtes contrôlé est votre loi nationale, pas la directive. La plateforme renvoie d'abord à la directive et indique la référence nationale lorsqu'elle existe, par exemple le §30 BSIG en Allemagne."
     },
     "tier2": {
@@ -38,7 +38,7 @@
     },
     "earn": {
       "heading": "Comment nous gagnons notre vie",
-      "p1": "Au niveau 2, avec le forfait d'installation unique. Au niveau 3, l'entreprise nous verse 15 pour cent de ses honoraires nets si la recommandation débouche sur une mission.",
+      "p1": "Avec le parcours guidé sur nisd2.eu, {price} HT par an. Au niveau 2, avec le forfait d'installation unique. Au niveau 3, l'entreprise nous verse 15 pour cent de ses honoraires nets si la recommandation débouche sur une mission.",
       "p2": "Nos partenaires s'engagent par écrit à ne pas augmenter leurs honoraires pour autant. Nous ne recommandons pas selon le montant de la commission, et l'ordre de notre liste n'en dépend pas.",
       "p3": "Si vous préférez faire appel à votre propre consultant, c'est parfaitement en ordre, et vous gardez la plateforme dans tous les cas.",
       "link": "Lire les conditions de recommandation"

@@ -64,7 +64,7 @@ const visitorOffer = async () => {
   const netCents = await holderNetCents(db, session?.user.id ?? null).catch(
     () => ANNUAL_NET_CENTS,
   );
-  return { orderOpen, netCents };
+  return { orderOpen, netCents, signedIn: session !== null };
 };
 
 export default async function PricingPage({
@@ -116,6 +116,7 @@ export default async function PricingPage({
         listPrice={formatWholeEuro(ANNUAL_NET_CENTS, rawLocale)}
         grandfathered={offer.netCents === GRANDFATHERED_NET_CENTS}
         grandfatheredPrice={formatWholeEuro(GRANDFATHERED_NET_CENTS, rawLocale)}
+        signedIn={offer.signedIn}
       />
 
       <PricingFaq />

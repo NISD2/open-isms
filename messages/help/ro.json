@@ -2,16 +2,16 @@
   "help": {
     "meta": {
       "title": "Dacă vă blocați la NIS 2",
-      "description": "Platforma și cursul sunt gratuite. Întrebările tehnice scurte primesc răspuns fără costuri. Dacă vreți să o găzduiți singuri, o instalăm noi pentru 500 EUR fără TVA, o singură dată. Dacă e nevoie de o firmă specializată, vă recomandăm una fără costuri pentru dumneavoastră."
+      "description": "Întrebările tehnice scurte primesc răspuns fără costuri, iar cursul pentru conducere este gratuit. Dacă vreți să o găzduiți singuri, o instalăm noi pentru 500 EUR fără TVA, o singură dată. Dacă e nevoie de o firmă specializată, vă recomandăm una fără costuri pentru dumneavoastră."
     },
     "title": "Dacă vă blocați la NIS 2",
-    "intro": "Platforma este gratuită și rămâne gratuită. Cursul la fel. Majoritatea companiilor se descurcă singure. Dacă nu reușiți, există două căi, și amândouă încep cu același e-mail.",
+    "intro": "Întrebările tehnice scurte primesc răspuns fără costuri. Dacă nu este suficient, există două căi, și amândouă încep cu aceeași cerere.",
     "tier1": {
       "label": "Nivelul 1",
-      "heading": "O faceți singuri. 0 EUR.",
+      "heading": "O faceți singuri, cu platforma.",
       "p1": "O verificare a aplicabilității, fiecare măsură cerută de articolul 21 ca pas separat pe care îl puteți parcurge, încărcarea dovezilor, exportul PDF, o pistă de audit și cursul pentru conducere cu certificatul de participare pe care articolul 20 vă cere să îl puteți prezenta.",
-      "p2": "Dacă preferați să rulați platforma singuri, codul sursă este pe GitHub sub AGPL-3.0. Tot gratuit. Fără taxă de licență, fără limită de utilizatori.",
-      "p3": "Fără limită de timp, fără card bancar, fără să vă sune cineva din vânzări.",
+      "p2": "Dacă preferați să rulați platforma singuri, codul sursă este pe GitHub sub AGPL-3.0. Gratuit, fără taxă de licență, fără limită de utilizatori.",
+      "p3": "Pe nisd2.eu parcursul ghidat costă {price} net pe an, pe factură, cu banii înapoi în 30 de zile. Găzduită de dumneavoastră, platforma nu costă nimic.",
       "p4": "NIS 2 este transpusă de fiecare stat membru: textul după care sunteți controlat este legea dumneavoastră națională, nu directiva. Platforma trimite mai întâi la directivă și arată referința națională acolo unde există, de exemplu §30 BSIG în Germania."
     },
     "tier2": {
@@ -38,7 +38,7 @@
     },
     "earn": {
       "heading": "Din ce câștigăm",
-      "p1": "La nivelul 2, din taxa unică de instalare. La nivelul 3, firma ne plătește 15 la sută din onorariul său net dacă recomandarea se transformă într-o colaborare.",
+      "p1": "Din parcursul ghidat pe nisd2.eu, {price} net pe an. La nivelul 2, din taxa unică de instalare. La nivelul 3, firma ne plătește 15 la sută din onorariul său net dacă recomandarea se transformă într-o colaborare.",
       "p2": "Partenerii noștri se angajează în scris să nu își majoreze onorariul din acest motiv. Nu recomandăm după mărimea comisionului, iar ordinea listei noastre nu depinde de el.",
       "p3": "Dacă preferați propriul consultant, este perfect în regulă, și păstrați platforma oricum.",
       "link": "Citiți condițiile de recomandare"

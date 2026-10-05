@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Copyable, CopyProtected } from "@/components/CopyProtected";
 import { AdvisoryRequestForm } from "@/components/help/AdvisoryRequestForm";
 import { MarketingHero } from "@/components/marketing/MarketingHero";
@@ -13,6 +13,7 @@ import {
   resolveDefaultTopic,
   SOURCE_PATH_PATTERN,
 } from "@/lib/advisory-options";
+import { ANNUAL_NET_CENTS, formatWholeEuro } from "@/lib/billing/order";
 import { HELP_LOCALES, pageAlternates } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -73,6 +74,7 @@ export default async function HelpPage({
 }) {
   const t = await getTranslations("help");
   const { req, from } = await searchParams;
+  const price = formatWholeEuro(ANNUAL_NET_CENTS, await getLocale());
 
   // StuckLink appends ?req=<requirementCode>, the wiki strip appends ?from=.
   // Both reach a stored row and a mail subject a human will read, so both are
@@ -114,7 +116,7 @@ export default async function HelpPage({
         <Separator className="my-8" />
 
         <div className="space-y-6">
-          {/* Tier 1 — the free platform, hosted or self-hosted */}
+          {/* Tier 1 — the platform, the walkthrough on nisd2.eu or self-hosted */}
           <section id="tier-1">
             <Card>
               <TierHeading
@@ -125,7 +127,7 @@ export default async function HelpPage({
               <CardContent className="space-y-3 text-sm text-muted-foreground">
                 <p>{t("tier1.p1")}</p>
                 <p>{t("tier1.p2")}</p>
-                <p>{t("tier1.p3")}</p>
+                <p>{t("tier1.p3", { price })}</p>
                 {/* Member-state transposition note, and no guard on it.
 
                     It used to be `t.has("tier1.p4") &&`, which never fired:
@@ -200,7 +202,7 @@ export default async function HelpPage({
               <CardTitle className="text-xl">{t("earn.heading")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 text-sm">
-              <p className="font-medium text-foreground">{t("earn.p1")}</p>
+              <p className="font-medium text-foreground">{t("earn.p1", { price })}</p>
               <p className="text-muted-foreground">{t("earn.p2")}</p>
               <p className="text-muted-foreground">{t("earn.p3")}</p>
               <p>

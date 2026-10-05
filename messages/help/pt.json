@@ -2,16 +2,16 @@
   "help": {
     "meta": {
       "title": "Se ficar bloqueado com a NIS 2",
-      "description": "A plataforma e o curso são gratuitos. As perguntas técnicas curtas são respondidas sem custos. Se quiser alojá-la por si, tratamos da instalação por 500 EUR sem IVA, em pagamento único. Se for preciso uma empresa especializada, indicamos uma sem custos para si."
+      "description": "As perguntas técnicas curtas são respondidas sem custos, e o curso para a gestão é gratuito. Se quiser alojá-la por si, tratamos da instalação por 500 EUR sem IVA, em pagamento único. Se for preciso uma empresa especializada, indicamos uma sem custos para si."
     },
     "title": "Se ficar bloqueado com a NIS 2",
-    "intro": "A plataforma é gratuita e continua a sê-lo. O curso também. A maioria das empresas consegue sozinha. Se não for o seu caso, há dois caminhos, e ambos começam com o mesmo email.",
+    "intro": "As perguntas técnicas curtas são respondidas sem custos. Se isso não chegar, há dois caminhos, e ambos começam com o mesmo pedido.",
     "tier1": {
       "label": "Nível 1",
-      "heading": "Faz por si. 0 EUR.",
+      "heading": "Faz por si, com a plataforma.",
       "p1": "Uma verificação de aplicabilidade, cada medida exigida pelo artigo 21 como um passo que pode percorrer, o carregamento de provas, a exportação em PDF, um registo de auditoria, e o curso para a direção com o certificado de participação que o artigo 20 lhe pede para poder mostrar.",
-      "p2": "Se preferir operar a plataforma por si, o código-fonte está no GitHub sob AGPL-3.0. Também gratuito. Sem taxa de licença, sem limite de utilizadores.",
-      "p3": "Sem limite de tempo, sem cartão de crédito, sem ninguém das vendas a ligar-lhe.",
+      "p2": "Se preferir operar a plataforma por si, o código-fonte está no GitHub sob AGPL-3.0. Gratuito, sem taxa de licença, sem limite de utilizadores.",
+      "p3": "Em nisd2.eu o percurso guiado custa {price} por ano sem IVA, por fatura, com 30 dias para reembolso. Alojada por si, a plataforma não custa nada.",
       "p4": "A NIS 2 é transposta por cada Estado-Membro: o texto pelo qual é fiscalizado é a sua lei nacional, não a diretiva. A plataforma remete primeiro para a diretiva e mostra a referência nacional onde existe, por exemplo o §30 BSIG na Alemanha."
     },
     "tier2": {
@@ -38,7 +38,7 @@
     },
     "earn": {
       "heading": "Como ganhamos dinheiro",
-      "p1": "No nível 2, com a taxa única de instalação. No nível 3, a empresa paga-nos 15 por cento dos seus honorários líquidos se o encaminhamento se converter num trabalho.",
+      "p1": "Com o percurso guiado em nisd2.eu, {price} por ano sem IVA. No nível 2, com a taxa única de instalação. No nível 3, a empresa paga-nos 15 por cento dos seus honorários líquidos se o encaminhamento se converter num trabalho.",
       "p2": "Os nossos parceiros comprometem-se por escrito a não aumentar os honorários por causa disso. Não recomendamos pelo valor da comissão, e a ordem da nossa lista não depende dele.",
       "p3": "Se preferir recorrer ao seu próprio consultor, está perfeitamente bem, e fica com a plataforma de qualquer modo.",
       "link": "Ler as condições de encaminhamento"

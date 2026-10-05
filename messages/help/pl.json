@@ -2,16 +2,16 @@
   "help": {
     "meta": {
       "title": "Jeśli utkniesz przy NIS 2",
-      "description": "Platforma i szkolenie są bezpłatne. Krótkie pytania merytoryczne odpowiadamy bez opłat. Jeśli chcesz hostować u siebie, wdrożymy to za jednorazowe 500 EUR netto. Jeśli potrzebna jest wyspecjalizowana firma, polecimy ją bez kosztów dla Ciebie."
+      "description": "Na krótkie pytania merytoryczne odpowiadamy bez opłat, a szkolenie dla zarządu jest bezpłatne. Jeśli chcesz hostować u siebie, wdrożymy to za jednorazowe 500 EUR netto. Jeśli potrzebna jest wyspecjalizowana firma, polecimy ją bez kosztów dla Ciebie."
     },
     "title": "Jeśli utkniesz przy NIS 2",
-    "intro": "Platforma jest bezpłatna i taka pozostanie. Szkolenie również. Większość firm radzi sobie sama. Jeśli Tobie się nie uda, są dwie drogi, i obie zaczynają się tym samym mailem.",
+    "intro": "Na krótkie pytania merytoryczne odpowiadamy bez opłat. Jeśli to nie wystarczy, są dwie drogi, i obie zaczynają się tym samym zgłoszeniem.",
     "tier1": {
       "label": "Poziom 1",
-      "heading": "Robisz to sam. 0 EUR.",
+      "heading": "Robisz to sam, z platformą.",
       "p1": "Sprawdzenie, czy przepisy Cię obejmują, każdy środek wymagany przez artykuł 21 jako pojedynczy krok do przejścia, wgrywanie dowodów, eksport do PDF, ścieżka audytu, oraz szkolenie dla zarządu z zaświadczeniem o uczestnictwie, które artykuł 20 każe móc okazać.",
-      "p2": "Jeśli wolisz prowadzić platformę samodzielnie, kod źródłowy jest na GitHubie na licencji AGPL-3.0. Także bezpłatnie. Bez opłaty licencyjnej, bez limitu użytkowników.",
-      "p3": "Bez limitu czasu, bez karty kredytowej, bez telefonu od handlowca.",
+      "p2": "Jeśli wolisz prowadzić platformę samodzielnie, kod źródłowy jest na GitHubie na licencji AGPL-3.0. Bezpłatnie, bez opłaty licencyjnej, bez limitu użytkowników.",
+      "p3": "Na nisd2.eu przewodnik krok po kroku kosztuje {price} netto rocznie, na fakturę, z 30 dniami na zwrot pieniędzy. Na własnym serwerze platforma nic nie kosztuje.",
       "p4": "NIS 2 wdraża każde państwo członkowskie: tekstem, według którego jesteś kontrolowany, jest Twoja ustawa krajowa, a nie dyrektywa. Platforma odsyła najpierw do dyrektywy i pokazuje krajowe odniesienie tam, gdzie istnieje, na przykład §30 BSIG w Niemczech."
     },
     "tier2": {
@@ -38,7 +38,7 @@
     },
     "earn": {
       "heading": "Na czym zarabiamy",
-      "p1": "Na poziomie 2 na jednorazowej opłacie wdrożeniowej. Na poziomie 3 firma płaci nam 15 procent swojego honorarium netto, jeśli skierowanie zamieni się w zlecenie.",
+      "p1": "Na przewodniku krok po kroku na nisd2.eu, {price} netto rocznie. Na poziomie 2 na jednorazowej opłacie wdrożeniowej. Na poziomie 3 firma płaci nam 15 procent swojego honorarium netto, jeśli skierowanie zamieni się w zlecenie.",
       "p2": "Nasi partnerzy zobowiązują się na piśmie, że z tego powodu nie podniosą honorarium. Nie polecamy według wysokości prowizji, a kolejność naszej listy od niej nie zależy.",
       "p3": "Jeśli wolisz swojego własnego doradcę, jest to całkowicie w porządku, a platformę i tak zachowujesz.",
       "link": "Przeczytaj warunki polecania"

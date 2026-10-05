@@ -2,16 +2,16 @@
   "help": {
     "meta": {
       "title": "Když se u NIS 2 zaseknete",
-      "description": "Platforma i kurz jsou zdarma. Krátké odborné dotazy zodpovídáme bez poplatku. Chcete-li provozovat vlastní instalaci, nasadíme ji za jednorázových 500 EUR bez DPH. Je-li potřeba specializovaná firma, doporučíme vám ji bez nákladů pro vás."
+      "description": "Krátké odborné dotazy zodpovídáme bez poplatku a kurz pro vedení je zdarma. Chcete-li provozovat vlastní instalaci, nasadíme ji za jednorázových 500 EUR bez DPH. Je-li potřeba specializovaná firma, doporučíme vám ji bez nákladů pro vás."
     },
     "title": "Když se u NIS 2 zaseknete",
-    "intro": "Platforma je zdarma a zůstane. Kurz také. Většina firem to zvládne sama. Kdo ne, má dvě cesty, a obě začínají stejným e-mailem.",
+    "intro": "Krátké odborné dotazy zodpovídáme bez poplatku. Pokud to nestačí, jsou dvě cesty, a obě začínají stejnou žádostí.",
     "tier1": {
       "label": "Úroveň 1",
-      "heading": "Uděláte to sami. 0 EUR.",
+      "heading": "Uděláte to sami, s platformou.",
       "p1": "Ověření, zda se na vás předpis vztahuje, každé opatření požadované článkem 21 jako jednotlivý krok, nahrávání důkazů, export do PDF, auditní stopa a kurz pro vedení s potvrzením o účasti, které článek 20 žádá umět doložit.",
-      "p2": "Chcete-li platformu provozovat sami, zdrojový kód je na GitHubu pod AGPL-3.0. Rovněž zdarma. Bez licenčního poplatku, bez omezení počtu uživatelů.",
-      "p3": "Bez časového limitu, bez platební karty, bez telefonátu od obchodníka.",
+      "p2": "Chcete-li platformu provozovat sami, zdrojový kód je na GitHubu pod AGPL-3.0. Zdarma, bez licenčního poplatku, bez omezení počtu uživatelů.",
+      "p3": "Na nisd2.eu stojí průvodce {price} bez DPH ročně, na fakturu, s 30 dny na vrácení peněz. Ve vlastním provozu platforma nestojí nic.",
       "p4": "NIS 2 transponuje každý členský stát: text, podle kterého jste kontrolováni, je váš vnitrostátní zákon, nikoli směrnice. Platforma odkazuje nejprve na směrnici a uvádí vnitrostátní odkaz tam, kde existuje, například §30 BSIG v Německu."
     },
     "tier2": {
@@ -38,7 +38,7 @@
     },
     "earn": {
       "heading": "Čím vyděláváme",
-      "p1": "U úrovně 2 jednorázovým poplatkem za nasazení. U úrovně 3 nám firma platí 15 procent svého čistého honoráře, pokud se z doporučení stane zakázka.",
+      "p1": "Průvodcem na nisd2.eu, {price} bez DPH ročně. U úrovně 2 jednorázovým poplatkem za nasazení. U úrovně 3 nám firma platí 15 procent svého čistého honoráře, pokud se z doporučení stane zakázka.",
       "p2": "Naši partneři se písemně zavazují, že kvůli tomu honorář nezvýší. Nedoporučujeme podle výše provize a pořadí našeho seznamu na ní nezávisí.",
       "p3": "Dáte-li přednost vlastnímu poradci, je to zcela v pořádku a platformu si přesto ponecháte.",
       "link": "Přečíst podmínky doporučování"
