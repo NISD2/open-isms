@@ -42,8 +42,8 @@ describe("the landing pages' screenshots", () => {
     }
   });
 
-  test("the hero's path shows its first three steps, then the next three", () => {
-    expect(stopsOf("path").map((s) => s.y)).toEqual([0.29, 0.607]);
+  test("the hero's path shows its first three steps, then the next four", () => {
+    expect(stopsOf("path").map((s) => s.y)).toEqual([0.27, 0.64]);
   });
 
   test("a language without its own screenshots shows the English ones", () => {
@@ -57,6 +57,7 @@ describe("the landing pages' screenshots", () => {
 
   test("the sizes ask for the width the deepest zoom needs", () => {
     expect(zoomSizes("approved", 736)).toBe("(min-width: 1024px) 1472px, 200vw");
+    expect(zoomSizes("questionnaire", 700)).toBe("(min-width: 1024px) 1260px, 180vw");
   });
 
   test("the sizes for the whole screen ask for its width on the page", () => {
