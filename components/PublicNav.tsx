@@ -1,5 +1,6 @@
 import { Shield } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import { SignInLink } from "@/components/auth/SignInLink";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -149,7 +150,7 @@ export async function PublicNav({
               </Button>
             ) : (
               <Button size="sm" asChild>
-                <Link href="/auth/signin">{t("nav.cta")}</Link>
+                <SignInLink>{t("nav.cta")}</SignInLink>
               </Button>
             )}
           </div>

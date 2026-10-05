@@ -151,7 +151,12 @@ export async function POST(request: Request) {
         passwordHash ? isNotNull(user.passwordHash) : undefined,
       ),
     )
-    .returning({ id: user.id, name: user.name, locale: user.locale });
+    .returning({
+      id: user.id,
+      name: user.name,
+      locale: user.locale,
+      signupCampaign: user.signupCampaign,
+    });
 
   // First-time verification → fire admin + welcome notifications.
   // If the user was already verified somehow (shouldn't happen given the OTP
@@ -179,6 +184,7 @@ export async function POST(request: Request) {
             userName: userRow.name,
             provider: "credentials",
             locale: resolveEmailLocale(userRow.locale, null),
+            campaign: userRow.signupCampaign,
           })
             .then((content) =>
               sendMail({

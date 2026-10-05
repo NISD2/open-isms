@@ -456,6 +456,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                   userName: newName,
                   provider: account.provider,
                   locale: resolveEmailLocale(await signupLocaleFromCookie(), null),
+                  // Only a cookie could carry the page's tags across Google's redirect.
+                  campaign: null,
                 })
                   .then((content) =>
                     sendMail({

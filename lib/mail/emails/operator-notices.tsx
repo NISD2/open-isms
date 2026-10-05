@@ -16,6 +16,8 @@ export interface NewSignupProps {
   readonly mailtoUrl: string;
   /** The language the prepared follow-up is written in. */
   readonly followUpLanguage: string;
+  /** The campaign tags of the page the signup started from, as one line; null without any. */
+  readonly source: string | null;
 }
 
 export function NewSignupEmail({
@@ -25,6 +27,7 @@ export function NewSignupEmail({
   at,
   mailtoUrl,
   followUpLanguage,
+  source,
 }: NewSignupProps) {
   return (
     <EmailFrame chrome={ENGLISH_ONLY}>
@@ -34,6 +37,7 @@ export function NewSignupEmail({
           ["Email", userEmail],
           ["Name", userName],
           ["Provider", provider],
+          ...(source ? [["Source", source] as const] : []),
           ["Time", at],
           [
             "Follow-up",

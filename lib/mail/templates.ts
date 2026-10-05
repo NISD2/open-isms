@@ -7,8 +7,10 @@
  *   await sendMail({ to: "user@co.com", ...email });
  */
 
+import { describeSignupCampaign } from "@/lib/auth/signup-campaign";
 import { mailSupportEmail } from "@/lib/env";
 import type { Locale } from "@/lib/seo";
+import type { SignupCampaign } from "@/schema";
 import { type DigestItem, type DigestNextStep, payoffLine, withUtm } from "./digest";
 import AccountSetupEmail, { ACCOUNT_SETUP_COPY } from "./emails/account-setup";
 import CategoryAssignedEmail from "./emails/category-assigned";
@@ -697,11 +699,14 @@ export async function newUserSignupEmail(opts: {
   provider: string;
   /** The signup's own language, which the prepared follow-up is written in. */
   locale: EmailLocale;
+  /** The campaign tags of the page the signup started from. */
+  campaign: SignupCampaign | null;
 }): Promise<EmailContent> {
   const { userEmail, userName, provider } = opts;
   const followUp = signupFollowUp({ name: userName, locale: opts.locale });
   const mailtoUrl = `mailto:${encodeURIComponent(userEmail)}?subject=${encodeURIComponent(followUp.subject)}&body=${encodeURIComponent(followUp.body)}`;
   const followUpLanguage = followUp.locale === "de" ? "German" : "English";
+  const source = describeSignupCampaign(opts.campaign);
 
   return {
     subject: `New signup: ${safeHeader(userEmail)}`,
@@ -712,8 +717,14 @@ export async function newUserSignupEmail(opts: {
       at: new Date().toLocaleString("de-DE", { timeZone: "Europe/Berlin" }),
       mailtoUrl,
       followUpLanguage,
+      source,
     }),
-    text: `New signup: ${userEmail} (${userName}) via ${provider}\n\nFollow up (prepared in ${followUpLanguage}): ${mailtoUrl}`,
+    text: [
+      `New signup: ${userEmail} (${userName}) via ${provider}`,
+      ...(source ? [`Source: ${source}`] : []),
+      "",
+      `Follow up (prepared in ${followUpLanguage}): ${mailtoUrl}`,
+    ].join("\n"),
   };
 }
 
