@@ -39,7 +39,17 @@ describe("buildCsp", () => {
 
   test("upgrade-insecure-requests only when the operator opts in", () => {
     expect(buildCsp({})).not.toContain("upgrade-insecure-requests");
-    expect(buildCsp({ CSP_UPGRADE_INSECURE: "1" })).toContain("upgrade-insecure-requests");
+    expect(buildCsp({ CSP_UPGRADE_INSECURE: "1" })).toContain(
+      "upgrade-insecure-requests",
+    );
+  });
+
+  test("cal.com may be framed but never runs a script on our origin", () => {
+    const directives = buildCsp({}).split("; ");
+    const scriptSrc = directives.find((d) => d.startsWith("script-src ")) ?? "";
+    const frameSrc = directives.find((d) => d.startsWith("frame-src ")) ?? "";
+    expect(scriptSrc).not.toContain("cal.com");
+    expect(frameSrc.split(" ")).toContain("https://cal.com");
   });
 
   test("directives never carry a blank source", () => {

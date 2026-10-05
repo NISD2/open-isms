@@ -120,7 +120,7 @@ async function register({
   try {
     const existing = await db.query.user.findFirst({
       where: eq(user.email, email),
-      columns: { id: true, emailVerifiedAt: true, locale: true },
+      columns: { id: true, emailVerifiedAt: true, locale: true, signupCampaign: true },
     });
 
     // Verified account: nothing is created or changed. Forgotten password
@@ -155,8 +155,9 @@ async function register({
           // the latest choice wins. Locale is not credential-bearing, so
           // updating it here is safe where passwordHash is not (audit C-1).
           ...(persistedLocale ? { locale: persistedLocale } : {}),
-          // Same reasoning: the attempt that gets verified is the one the signup came from.
-          ...(campaign ? { signupCampaign: campaign } : {}),
+          // Unlike locale, the first stored campaign stays: anyone who knows an unverified address
+          // could otherwise rewrite which ad the account is attributed to.
+          ...(campaign && !existing.signupCampaign ? { signupCampaign: campaign } : {}),
           updatedAt: new Date(),
         })
         .where(eq(user.id, existing.id));

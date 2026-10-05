@@ -63,7 +63,24 @@ import {
 
 /** Hand-offs to management one company may send per day: a few retries above honest use. */
 const FORWARD_LIMIT = 5;
+/** Team invites one company may send per day: room to onboard a whole department in one sitting. */
+const INVITE_LIMIT = 50;
 const DAY_MS = 24 * 60 * 60 * 1000;
+
+/** Every invite mails an address someone typed in, so each kind is capped per company per day. */
+async function enforceDailyInviteCap(
+  kind: "invite" | "forward",
+  companyId: string,
+  limit: number,
+): Promise<void> {
+  if (!(await rateLimit(`team:${kind}:${companyId}`, limit, DAY_MS))) {
+    throw new TRPCError({
+      code: "TOO_MANY_REQUESTS",
+      message:
+        "Your organization has sent many of these today. Please try again tomorrow.",
+    });
+  }
+}
 
 export const teamRouter = router({
   /** List members of the current company with their category assignments */
@@ -153,6 +170,7 @@ export const teamRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      await enforceDailyInviteCap("invite", ctx.companyId, INVITE_LIMIT);
       const email = input.email.toLowerCase();
       const { inviteId, token, inviteUrl } = await issueInvite(ctx.db, {
         companyId: ctx.companyId,
@@ -233,13 +251,7 @@ export const teamRouter = router({
           message: "Only the account holder can forward the order to management.",
         });
       }
-      if (!(await rateLimit(`team:forward:${ctx.companyId}`, FORWARD_LIMIT, DAY_MS))) {
-        throw new TRPCError({
-          code: "TOO_MANY_REQUESTS",
-          message:
-            "Your organization has sent many of these today. Please try again tomorrow.",
-        });
-      }
+      await enforceDailyInviteCap("forward", ctx.companyId, FORWARD_LIMIT);
 
       const email = input.email.toLowerCase();
       const { inviteUrl } = await issueInvite(ctx.db, {

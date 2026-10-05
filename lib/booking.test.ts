@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { BOOKING_URL, bookingUrlFor } from "./booking";
+import { BOOKING_URL, bookerFrameUrl, bookingUrlFor } from "./booking";
 
 describe("bookingUrlFor", () => {
   test("no query gives the plain booking page", () => {
@@ -16,5 +16,13 @@ describe("bookingUrlFor", () => {
 
   test("a query without campaign tags gives the plain booking page", () => {
     expect(bookingUrlFor("?callbackUrl=/invite/abc")).toBe(BOOKING_URL);
+  });
+});
+
+describe("bookerFrameUrl", () => {
+  test("embed mode with campaign tags, nothing else", () => {
+    expect(bookerFrameUrl("?utm_source=google&callbackUrl=/invite/abc&gclid=x")).toBe(
+      `${BOOKING_URL}?embed=true&theme=light&layout=month_view&utm_source=google`,
+    );
   });
 });

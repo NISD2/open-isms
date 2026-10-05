@@ -1,10 +1,9 @@
 "use client";
 
-import Cal, { getCalApi } from "@calcom/embed-react";
 import { ExternalLink, X } from "lucide-react";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Dialog,
   DialogClose,
@@ -12,77 +11,29 @@ import {
   DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { campaignTags } from "@/lib/analytics/token-routes";
+import { bookerFrameUrl } from "@/lib/booking";
 import { cn } from "@/lib/utils";
 import { CALL_HOSTS, callHostNames } from "./founders";
 
-const NAMESPACE = "booking";
-
 /**
- * Cal's booker in the site's own colours, read from the theme tokens (packages/isms-ui/src/theme.css)
- * rather than copied, so a palette change reaches the calendar too. The site has no dark mode, so
- * the booker is pinned to light; Cal still asks for both sets.
+ * The calendar itself: cal.com's booking page in a plain frame, so no cal.com script ever runs on
+ * our origin (the CSP's script-src names no cal.com host). Mounted only while the dialog is open,
+ * so each opening starts from a fresh booker and cal.com is contacted only by visitors who ask.
  */
-function calThemeVars(): Record<string, string> {
-  const css = getComputedStyle(document.documentElement);
-  const token = (name: string) => css.getPropertyValue(name).trim();
-  return {
-    "cal-brand": token("--primary"),
-    "cal-brand-emphasis": token("--primary"),
-    "cal-brand-text": token("--primary-foreground"),
-    "cal-text-emphasis": token("--foreground"),
-    "cal-bg": token("--background"),
-    "cal-bg-muted": token("--muted"),
-    "cal-border": token("--border"),
-    "cal-border-subtle": token("--border"),
-    // The dialog is the frame; a second border inside it reads as a box in a box.
-    "cal-border-booker": "transparent",
-  };
-}
-
-/**
- * The calendar itself. Mounted only while the dialog is open, so each opening starts from a fresh
- * booker and the cal.com script is fetched only by visitors who ask for it.
- */
-function Booker({ calLink }: { calLink: string }) {
+function Booker({ calLink, title }: { calLink: string; title: string }) {
   const [ready, setReady] = useState(false);
-  // Campaign tags only, as on the link's href (lib/booking.ts): cal.com takes them as hidden
-  // booking questions.
-  const [tags] = useState(() => Object.fromEntries(campaignTags(window.location.search)));
-
-  useEffect(() => {
-    const onReady = () => setReady(true);
-    const api = getCalApi({ namespace: NAMESPACE }).then((cal) => {
-      const vars = calThemeVars();
-      cal("ui", {
-        theme: "light",
-        hideEventTypeDetails: false,
-        layout: "month_view",
-        cssVarsPerTheme: { light: vars, dark: vars },
-      });
-      cal("on", { action: "linkReady", callback: onReady });
-      return cal;
-    });
-    return () => {
-      void api.then((cal) => cal("off", { action: "linkReady", callback: onReady }));
-    };
-  }, []);
+  const [src] = useState(() => bookerFrameUrl(window.location.search, calLink));
 
   return (
     // About the month view's own height, so the dialog does not jump when the calendar arrives.
-    <div className="relative min-h-[36rem]">
+    <div className="relative h-[36rem]">
       {!ready && <BookerPlaceholder />}
-      <Cal
-        namespace={NAMESPACE}
-        calLink={calLink}
-        config={{
-          ...tags,
-          layout: "month_view",
-          theme: "light",
-          useSlotsViewOnSmallScreen: "true",
-        }}
+      <iframe
+        src={src}
+        title={title}
+        onLoad={() => setReady(true)}
         className={cn(
-          "w-full transition-opacity duration-300 motion-reduce:transition-none",
+          "size-full border-0 transition-opacity duration-300 motion-reduce:transition-none",
           ready ? "opacity-100" : "opacity-0",
         )}
       />
@@ -170,7 +121,7 @@ export function BookingDialog({
         </div>
 
         <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
-          <Booker calLink={calLink} />
+          <Booker calLink={calLink} title={t("title")} />
         </div>
 
         <div className="border-t px-5 py-3 sm:px-6">
