@@ -1,4 +1,4 @@
-import { isCampaignTag } from "@/lib/analytics/token-routes";
+import { campaignTags } from "@/lib/analytics/token-routes";
 
 export const BOOKING_URL = "https://cal.com/nisd2";
 
@@ -8,8 +8,6 @@ export const BOOKING_URL = "https://cal.com/nisd2";
  * pass: a query string can carry a credential, the same rule the analytics hook follows.
  */
 export function bookingUrlFor(search: string): string {
-  const tags = [...new URLSearchParams(search)].filter(([key]) => isCampaignTag(key));
-  return tags.length > 0
-    ? `${BOOKING_URL}?${new URLSearchParams(tags).toString()}`
-    : BOOKING_URL;
+  const tags = campaignTags(search);
+  return tags.size > 0 ? `${BOOKING_URL}?${tags.toString()}` : BOOKING_URL;
 }

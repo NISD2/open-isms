@@ -1,6 +1,7 @@
 import { ArrowRight, Check } from "lucide-react";
 import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
+import { SignInLink } from "@/components/auth/SignInLink";
 import { GetStarted } from "@/components/GetStarted";
 import { MotionProvider } from "@/components/landing/motion";
 import { OpenSourceNote } from "@/components/landing/OpenSourceNote";
@@ -89,9 +90,7 @@ export default async function LandingPage() {
                   size="lg"
                   className="h-11 rounded-lg px-5 text-[0.9375rem] font-medium shadow-sm transition-shadow hover:shadow-md"
                 >
-                  <Link href={{ pathname: "/auth/signin", query: { mode: "register" } }}>
-                    {t("guided.cta")}
-                  </Link>
+                  <SignInLink query={{ mode: "register" }}>{t("guided.cta")}</SignInLink>
                 </Button>
                 {/* A call with us, next to starting alone. */}
                 <TalkFirst size="button" />

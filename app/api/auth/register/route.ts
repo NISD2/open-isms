@@ -3,13 +3,14 @@ import { eq } from "drizzle-orm";
 import { after, NextResponse } from "next/server";
 import { checkEmailQuality } from "@/lib/auth/email-quality";
 import { OtpRateLimitedError, requestOtp } from "@/lib/auth/otp";
+import { signupCampaignFrom } from "@/lib/auth/signup-campaign";
 import { getClientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
 import { isLocaleCode, type LocaleCode } from "@/lib/locale";
 import { registrationAttemptEmail, sendAuthCode, sendMail } from "@/lib/mail";
 import { rateLimit } from "@/lib/rate-limit";
 import { type Locale, localizedAbsoluteUrl } from "@/lib/seo";
-import { user } from "@/schema";
+import { type SignupCampaign, user } from "@/schema";
 
 // Rate limit: max 5 attempts per IP per 15 minutes
 const WINDOW_MS = 15 * 60 * 1000;
@@ -24,7 +25,7 @@ const NOTICE_MAX = 1;
  * Registration with email verification.
  *
  * Flow:
- *   POST /api/auth/register { email, password }
+ *   POST /api/auth/register { email, password, locale?, campaign? }
  *     → returns 200 { success: true, verificationRequired: true }
  *     → after the response: creates the user with `emailVerifiedAt: null`
  *       (or leaves a pending-verify one as it is) and mails a 6-digit OTP
@@ -75,6 +76,7 @@ export async function POST(request: Request) {
   const persistedLocale: LocaleCode | null = isLocaleCode(localeInput)
     ? localeInput
     : null;
+  const campaign = signupCampaignFrom(body.campaign);
 
   if (!email || typeof password !== "string" || !password) {
     return NextResponse.json(
@@ -98,7 +100,7 @@ export async function POST(request: Request) {
     );
   }
 
-  after(() => register({ email, password, persistedLocale }));
+  after(() => register({ email, password, persistedLocale, campaign }));
 
   return NextResponse.json({ success: true, verificationRequired: true });
 }
@@ -107,10 +109,12 @@ async function register({
   email,
   password,
   persistedLocale,
+  campaign,
 }: {
   email: string;
   password: string;
   persistedLocale: LocaleCode | null;
+  campaign: SignupCampaign | null;
 }): Promise<void> {
   const locale: Locale = persistedLocale ?? "de";
   try {
@@ -151,6 +155,8 @@ async function register({
           // the latest choice wins. Locale is not credential-bearing, so
           // updating it here is safe where passwordHash is not (audit C-1).
           ...(persistedLocale ? { locale: persistedLocale } : {}),
+          // Same reasoning: the attempt that gets verified is the one the signup came from.
+          ...(campaign ? { signupCampaign: campaign } : {}),
           updatedAt: new Date(),
         })
         .where(eq(user.id, existing.id));
@@ -168,6 +174,7 @@ async function register({
           passwordHash,
           isDisposableEmail: disposable,
           locale: persistedLocale,
+          signupCampaign: campaign,
           // emailVerifiedAt left null — set by /api/auth/verify-email
         })
         .onConflictDoNothing({ target: user.email });

@@ -18,6 +18,7 @@ import {
   decimal,
   index,
   integer,
+  jsonb,
   pgTable,
   text,
   timestamp,
@@ -304,6 +305,19 @@ export const company = pgTable("company", {
 // Users — Platform accounts (not the company workforce, just login users)
 // ---------------------------------------------------------------------------
 
+/** The campaign tags a signup keeps from the page it started from. */
+export const SIGNUP_CAMPAIGN_KEYS = [
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_content",
+  "utm_term",
+] as const;
+
+export type SignupCampaign = Partial<
+  Record<(typeof SIGNUP_CAMPAIGN_KEYS)[number], string>
+>;
+
 export const user = pgTable(
   "user",
   {
@@ -405,6 +419,13 @@ export const user = pgTable(
      * then "de" (lib/mail/locale.ts).
      */
     locale: varchar("locale", { length: 10 }),
+    /**
+     * The campaign tags (utm_*) on the page an email signup started from, validated and capped by
+     * lib/auth/signup-campaign.ts. They travel in the URL only, never in browser storage, which is
+     * also why a Google signup has none: across Google's redirect only a cookie could carry them.
+     * NULL when the page carried none and for accounts predating the column.
+     */
+    signupCampaign: jsonb("signup_campaign").$type<SignupCampaign>(),
     /**
      * When the user dismissed the walkthrough for the ROLE SWIMLANE layout.
      *

@@ -204,6 +204,13 @@
       "when": 1791123283296,
       "tag": "0028_supplier_questionnaire_v4",
       "breakpoints": true
+    },
+    {
+      "idx": 29,
+      "version": "7",
+      "when": 1791160619185,
+      "tag": "0029_signup_campaign",
+      "breakpoints": true
     }
   ]
 }

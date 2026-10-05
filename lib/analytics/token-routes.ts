@@ -53,6 +53,13 @@ function withQueryFiltered(href: string, keep: (key: string) => boolean): string
 
 export const isCampaignTag = (key: string) => key.startsWith("utm_");
 
+/** The campaign tags of a query string, nothing else: the rest of a query can carry a credential. */
+export function campaignTags(search: string): URLSearchParams {
+  return new URLSearchParams(
+    [...new URLSearchParams(search)].filter(([key]) => isCampaignTag(key)),
+  );
+}
+
 /**
  * Umami's `data-before-send` hook, called with every event before it leaves the browser; a
  * falsy return drops it. Needed on top of not loading the script on these pages, because once
