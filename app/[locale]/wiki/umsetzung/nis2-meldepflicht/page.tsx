@@ -18,6 +18,7 @@ import { WikiAnswerHeader } from "@/components/wiki/WikiAnswerHeader";
 import { WikiMoreLink } from "@/components/wiki/WikiMoreLink";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
+import { WikiPartnerStrip } from "@/components/wiki/WikiPartnerStrip";
 import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -81,10 +82,12 @@ export default async function IncidentReportingPage({
           badge="Art. 23 NIS 2 · § 32 BSIG"
           title={t("title")}
           answer={t("subtitle")}
-          art="/images/durchgang/3_3.svg"
+          shot
         />
 
         <WikiPageMeta authorSlug="simon-orzel" locale={locale} />
+
+        <WikiPartnerStrip />
 
         <Separator />
 
