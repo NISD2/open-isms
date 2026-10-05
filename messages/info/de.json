@@ -1823,7 +1823,7 @@
     },
     "ceoLiability": {
       "meta": {
-        "title": "NIS2 Geschäftsführerhaftung: §38 BSIG erklärt",
+        "title": "NIS2 Geschäftsführerhaftung: Pflichten und Haftung",
         "description": "§38 BSIG: persönliche Haftung der Geschäftsführung für NIS2-Cybersicherheit. Die drei Pflichten, Bußgelder und Schutzmaßnahmen im Überblick."
       },
       "title": "Geschäftsführerhaftung nach NIS2",
@@ -2624,8 +2624,8 @@
     },
     "registration": {
       "meta": {
-        "title": "NIS2-Registrierung beim BSI: Frist & Anleitung",
-        "description": "BSI-Registrierung nach §33 BSIG: Wer ist betroffen, welche Frist gilt, wie Sie sich registrieren. Aktuelle Lücke und Schritt-für-Schritt-Hinweise."
+        "title": "NIS2-Registrierung in Zahlen: Stand und Lücke",
+        "description": "Wie viele Einrichtungen beim BSI registriert sind, warum die Lücke besteht und was eine fehlende Registrierung nach § 33 BSIG bedeutet. Mit Quellen."
       },
       "title": "NIS2-Registrierungsanalyse",
       "subtitle": "Rund 30.000 betroffene Einrichtungen in Deutschland. Die Registrierungsfrist lief am 6. März 2026 ab - ein erheblicher Teil der Unternehmen hat sich noch nicht registriert.",
@@ -4222,7 +4222,7 @@
     },
     "missedRegistration": {
       "meta": {
-        "title": "BSI-Registrierung verpasst? Sofort-Anleitung",
+        "title": "NIS2-Registrierung verpasst? So registrieren Sie sich jetzt",
         "description": "NIS2-Registrierung verpasst: 18.000 Unternehmen sind betroffen. Portal weiterhin offen. Schritt-für-Schritt-Anleitung, Risiken, Bußgelder, FAQ."
       },
       "title": "Sie haben die BSI-Registrierungsfrist verpasst. Was nun?",

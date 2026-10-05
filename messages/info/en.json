@@ -1823,7 +1823,7 @@
     },
     "ceoLiability": {
       "meta": {
-        "title": "NIS2 Management Liability: §38 BSIG",
+        "title": "NIS2 management liability: duties and personal liability",
         "description": "§38 BSIG makes managing directors personally liable for NIS2 cybersecurity failures. Three core duties, applicable fines, and how to protect yourself."
       },
       "title": "NIS2 Management Liability",
@@ -2624,8 +2624,8 @@
     },
     "registration": {
       "meta": {
-        "title": "BSI NIS2 Registration: Deadline & Step-by-Step Guide",
-        "description": "BSI registration under §33 BSIG: who must register, deadlines, portal walkthrough. 30,000 NIS2 entities in Germany: most still missing. Avoid €500K fines."
+        "title": "NIS2 registration in numbers: status and gap",
+        "description": "How many entities have registered with the BSI, why the gap exists and what a missing registration under Section 33 BSIG means. With sources."
       },
       "title": "NIS2 Registration Gap Analysis",
       "subtitle": "The BSI estimated ~30,000 entities subject to NIS2 in Germany. The registration deadline passed on March 6, 2026. A significant portion of in-scope companies have still not registered - leaving them exposed to enforcement under §65 BSIG.",
@@ -4229,7 +4229,7 @@
     },
     "missedRegistration": {
       "meta": {
-        "title": "Missed BSI NIS2 Registration? Immediate Steps",
+        "title": "Missed the NIS2 registration? How to register now",
         "description": "Missed the NIS2 BSI registration deadline? 18,000 companies are in the same boat. Portal still open: register now, document, avoid €500K fines. Step-by-step."
       },
       "title": "You Missed the BSI Registration Deadline. Now What?",
