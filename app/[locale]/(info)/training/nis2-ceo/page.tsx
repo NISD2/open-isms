@@ -1,24 +1,19 @@
+import { countDistinct, eq } from "drizzle-orm";
+import { ArrowRight, BookOpen, Clock, GraduationCap, Shield, User } from "lucide-react";
 import type { Metadata } from "next";
-import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
+import { GetStarted } from "@/components/GetStarted";
+import { JsonLd } from "@/components/JsonLd";
+import { CourseOutlineList } from "@/components/training/CourseOutlineList";
+import { CourseHero, WhatIsFree } from "@/components/training/CoursePageParts";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import {
-  BookOpen,
-  Clock,
-  GraduationCap,
-  Shield,
-  ArrowRight,
-  User,
-} from "lucide-react";
-import { loadCourse, courseTotals } from "@/lib/training/course-loader";
-import { CourseOutlineList } from "@/components/training/CourseOutlineList";
-import { pageAlternates } from "@/lib/seo";
-import { ogImages } from "@/lib/og-card";
-import { JsonLd } from "@/components/JsonLd";
+import { Link } from "@/i18n/navigation";
 import { db } from "@/lib/db";
+import { ogImages } from "@/lib/og-card";
+import { pageAlternates } from "@/lib/seo";
+import { courseTotals, loadCourse } from "@/lib/training/course-loader";
 import { trainingLessonProgress } from "@/schema";
-import { eq, countDistinct } from "drizzle-orm";
 
 // Cache learner count for 10 minutes to avoid DB hit on every page load
 let cachedCount: { value: number; expiresAt: number } | null = null;
@@ -100,7 +95,7 @@ export default async function TrainingLandingPage({
         }}
       />
       {/* Hero */}
-      <header className="space-y-4">
+      <CourseHero art={course.art}>
         <Badge variant="secondary">{t("trainingCeo.badge")}</Badge>
         <h1 className="text-4xl font-bold tracking-tight leading-tight">
           {t("trainingCeo.title")}
@@ -108,10 +103,13 @@ export default async function TrainingLandingPage({
         <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl">
           {t("trainingCeo.subtitle")}
         </p>
-        <div className="flex flex-col sm:flex-row gap-3 pt-2">
+        <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 pt-2">
           <Link
-            href={{ pathname: "/training/courses/[courseId]/[lessonId]", params: { courseId: "nis2-ceo", lessonId: "0.1" } }}
-            className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow hover:bg-primary/90 transition-colors"
+            href={{
+              pathname: "/training/courses/[courseId]/[lessonId]",
+              params: { courseId: "nis2-ceo", lessonId: "0.1" },
+            }}
+            className="inline-flex shrink-0 whitespace-nowrap items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow hover:bg-primary/90 transition-colors"
           >
             {t("trainingCeo.startCourse")}
             <ArrowRight className="size-4" />
@@ -152,7 +150,7 @@ export default async function TrainingLandingPage({
             </div>
           )}
         </div>
-      </header>
+      </CourseHero>
 
       <Separator />
 
@@ -166,7 +164,9 @@ export default async function TrainingLandingPage({
                 <Icon className="size-5 text-muted-foreground" />
               </div>
               <div>
-                <div className="font-semibold">{t(`trainingCeo.highlights.${key}.title`)}</div>
+                <div className="font-semibold">
+                  {t(`trainingCeo.highlights.${key}.title`)}
+                </div>
                 <div className="text-sm text-muted-foreground">
                   {t(`trainingCeo.highlights.${key}.description`)}
                 </div>
@@ -207,6 +207,7 @@ export default async function TrainingLandingPage({
         <p className="text-muted-foreground leading-relaxed">
           {t("trainingCeo.whyFree.body")}
         </p>
+        <WhatIsFree locale={locale} />
       </section>
 
       {/* Testimonials */}
@@ -215,19 +216,18 @@ export default async function TrainingLandingPage({
         <div className="grid gap-4 sm:grid-cols-2">
           <blockquote className="rounded-lg border bg-muted/30 p-6 space-y-3">
             <p className="text-sm leading-relaxed text-muted-foreground">
-              &ldquo;Echt viel Inhalt und gut strukturiert. Man sieht gleich, dass viel Arbeit und Herzblut reingeflossen ist. Von Marktführern habe ich Checklisten bekommen, die nicht mal die Mail wert sind, mit der sie gesendet wurden.&rdquo;
+              &ldquo;Echt viel Inhalt und gut strukturiert. Man sieht gleich, dass viel
+              Arbeit und Herzblut reingeflossen ist. Von Marktführern habe ich Checklisten
+              bekommen, die nicht mal die Mail wert sind, mit der sie gesendet
+              wurden.&rdquo;
             </p>
-            <footer className="text-xs font-medium">
-              Shota O.
-            </footer>
+            <footer className="text-xs font-medium">Shota O.</footer>
           </blockquote>
           <blockquote className="rounded-lg border bg-muted/30 p-6 space-y-3">
             <p className="text-sm leading-relaxed text-muted-foreground">
               &ldquo;War sehr super. Würde jederzeit empfehlen.&rdquo;
             </p>
-            <footer className="text-xs font-medium">
-              Thom A.
-            </footer>
+            <footer className="text-xs font-medium">Thom A.</footer>
           </blockquote>
         </div>
       </section>
@@ -236,20 +236,21 @@ export default async function TrainingLandingPage({
 
       {/* CTA */}
       <div className="rounded-lg border bg-muted/30 p-8 text-center space-y-4">
-        <h2 className="text-2xl font-bold">
-          {t("trainingCeo.cta.heading")}
-        </h2>
-        <p className="text-muted-foreground">
-          {t("trainingCeo.cta.body")}
-        </p>
+        <h2 className="text-2xl font-bold">{t("trainingCeo.cta.heading")}</h2>
+        <p className="text-muted-foreground">{t("trainingCeo.cta.body")}</p>
         <Link
-          href={{ pathname: "/training/courses/[courseId]/[lessonId]", params: { courseId: "nis2-ceo", lessonId: "0.1" } }}
+          href={{
+            pathname: "/training/courses/[courseId]/[lessonId]",
+            params: { courseId: "nis2-ceo", lessonId: "0.1" },
+          }}
           className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-8 py-3 text-sm font-medium text-primary-foreground shadow hover:bg-primary/90 transition-colors"
         >
           {t("trainingCeo.cta.button")}
           <ArrowRight className="size-4" />
         </Link>
       </div>
+
+      <GetStarted variant="funnel" />
     </div>
   );
 }

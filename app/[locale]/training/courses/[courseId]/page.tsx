@@ -1,6 +1,7 @@
 import { Check, ChevronDown, Clock, PlayCircle } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Art } from "@/components/durchgang/Art";
+import { AfterTrainingStep } from "@/components/training-portal/AfterTrainingStep";
 import { CertificateDownload } from "@/components/training-portal/CertificateDownload";
 import {
   Collapsible,
@@ -8,7 +9,6 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Link } from "@/i18n/navigation";
-import { courseArt } from "@/lib/training/art";
 import { api } from "@/lib/trpc/server";
 
 export default async function CourseOverviewRoute({
@@ -24,7 +24,7 @@ export default async function CourseOverviewRoute({
     api.trainingCertificate.getCourseCompletion({ courseId }),
   ]);
 
-  const image = courseArt(courseId);
+  const image = course.art;
 
   const completedSet = new Set(
     progress.filter((p) => p.completed).map((p) => p.lessonId),
@@ -97,6 +97,7 @@ export default async function CourseOverviewRoute({
           userName={completion.userName}
         />
       )}
+      {completion.allCompleted && courseId === "nis2-ceo" && <AfterTrainingStep />}
 
       {/* Modules */}
       <div className="space-y-3">

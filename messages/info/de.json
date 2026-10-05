@@ -7178,7 +7178,7 @@
       },
       "whyFree": {
         "heading": "Warum ist das kostenlos?",
-        "body": "Kein EU-Mitgliedstaat hat eine staatlich anerkannte Zertifizierungsstelle für NIS2-Schulungen eingerichtet. Bis offizielle Zertifizierungswege existieren, ist die Schulungsdokumentation der universelle Standard. Wir haben diesen Kurs entwickelt, damit jeder betroffene Geschäftsführer in der EU seine Pflicht nach Artikel 20(2) erfüllen kann, ohne einen Berater zu bezahlen. Die Plattform ist kostenlos. Das Zertifikat ist kostenlos. Kein Lock-in, keine Paywall."
+        "body": "Kein EU-Mitgliedstaat hat eine staatlich anerkannte Zertifizierungsstelle für NIS2-Schulungen eingerichtet. Bis offizielle Zertifizierungswege existieren, ist die Schulungsdokumentation der universelle Standard. Wir haben diesen Kurs entwickelt, damit jeder betroffene Geschäftsführer in der EU seine Pflicht nach Artikel 20(2) erfüllen kann, ohne einen Berater zu bezahlen."
       },
       "cta": {
         "heading": "Bereit, Ihre Schulungspflicht zu erfüllen?",
@@ -7231,7 +7231,7 @@
       },
       "whyFree": {
         "heading": "Warum ist der Kurs kostenlos?",
-        "body": "Es gibt keine EU-Stelle, die NIS-2-Schulungsanbieter zertifiziert. Die Übungspflicht aus Artikel 21(2)(b) und (c) trifft jede wesentliche und wichtige Einrichtung, aber Beratungs-Tabletops kosten €15.000-50.000 pro Sitzung. Wir haben diesen Kurs und das Live-System-Tabletop-Modul gebaut, damit jede Moderation einen verteidigungsfähigen Übungsnachweis erstellen kann, ohne eine Beratung zu beauftragen. Die Plattform ist kostenlos. Die Bescheinigung ist kostenlos. Open Source, kein Lock-in."
+        "body": "Es gibt keine EU-Stelle, die NIS-2-Schulungsanbieter zertifiziert. Die Übungspflicht aus Artikel 21(2)(b) und (c) trifft jede wesentliche und wichtige Einrichtung. Wir haben diesen Kurs und das Live-System-Tabletop-Modul gebaut, damit jede Moderation einen verteidigungsfähigen Übungsnachweis erstellen kann, ohne eine Beratung zu beauftragen."
       },
       "cta": {
         "heading": "Bereit für Ihre erste Tabletop-Übung?",
@@ -7281,7 +7281,7 @@
       },
       "whyFree": {
         "heading": "Warum ist dieser Kurs kostenlos?",
-        "body": "Die CRA-SBOM-Pflicht betrifft jeden Hersteller von Produkten mit digitalen Elementen, die in der EU verkauft werden. Die meisten Leitlinien sind in Regulierungstexten und Normenentwuerfen vergraben. Wir haben diesen Kurs entwickelt, damit jedes Produktteam seine Artikel-13(5)-Pflichten ohne Beraterkosten verstehen und umsetzen kann. Die Plattform ist kostenlos. Die Attestierung ist kostenlos. Open Source, kein Lock-in."
+        "body": "Die CRA-SBOM-Pflicht betrifft jeden Hersteller von Produkten mit digitalen Elementen, die in der EU verkauft werden. Die meisten Leitlinien sind in Regulierungstexten und Normentwürfen vergraben. Wir haben diesen Kurs entwickelt, damit jedes Produktteam seine Artikel-13(5)-Pflichten ohne Beraterkosten verstehen und umsetzen kann."
       },
       "cta": {
         "heading": "Bereit für Ihre erste CRA-konforme SBOM?",

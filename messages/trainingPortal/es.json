@@ -49,6 +49,14 @@
       "length": "{lessons} lecciones, unos {minutes} minutos",
       "cta": "Ir al curso"
     },
+    "coursePage": {
+      "allCourses": "Ver todos los cursos",
+      "whatIsFree": "Este curso y su certificado siguen siendo gratuitos, igual que el wiki y el autoalojamiento: el mismo código fuente (AGPL-3.0) en sus propios servidores. El recorrido guiado de NIS 2 en nisd2.eu, que le guía paso a paso en la implantación, cuesta {price} sin IVA al año.",
+      "afterTraining": {
+        "title": "Después de la formación: implantar las medidas",
+        "body": "La formación es la obligación de la dirección según el § 38, apartado 3 BSIG. El <law>apartado 1</law> exige además a la dirección implantar las medidas de gestión de riesgos del § 30 y supervisar su implantación. El recorrido guiado de NIS 2 le guía paso a paso por estas medidas y, al final, firma la dirección."
+      }
+    },
     "estimatedTime": "{minutes} min de lectura",
     "certificate": {
       "lockedTitle": "Certificado de finalización",

@@ -1,6 +1,7 @@
-import { ArrowRight, BookOpen, Clock } from "lucide-react";
+import { ArrowRight, Clock } from "lucide-react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { Art } from "@/components/durchgang/Art";
 import { MarketingHero } from "@/components/marketing/MarketingHero";
 import { LearnerCountBadge } from "@/components/training/LearnerCountBadge";
 import { Badge } from "@/components/ui/badge";
@@ -73,14 +74,19 @@ export default async function PublicCoursesPage({
         {courses.map(({ id, badge, landing, course, totals }) => {
           const people = participants[id] ?? 0;
           return (
-            <Card key={id} className="flex flex-col">
+            // The card's one link is the button; it stretches over the card, so the whole card opens
+            // the course (ui-design principle 14).
+            <Card
+              key={id}
+              className="relative flex flex-col overflow-hidden pt-0 transition-colors hover:bg-muted/40 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-ring"
+            >
+              <div className="relative flex h-44 items-end justify-center bg-primary/[0.06]">
+                <Art src={course.art} className="h-40 translate-y-2" />
+                <Badge variant="secondary" className="absolute top-4 right-4">
+                  {badge}
+                </Badge>
+              </div>
               <CardHeader className="space-y-3">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="rounded-lg bg-primary/10 p-2.5 text-primary">
-                    <BookOpen className="size-5" />
-                  </span>
-                  <Badge variant="secondary">{badge}</Badge>
-                </div>
                 {people >= MIN_PARTICIPANTS_SHOWN ? (
                   <LearnerCountBadge>
                     {tp("participants", { count: people })}
@@ -99,7 +105,10 @@ export default async function PublicCoursesPage({
                   {t("length", { lessons: totals.lessons, minutes: totals.minutes })}
                 </p>
                 <Button asChild className="w-full">
-                  <Link href={landing}>
+                  <Link
+                    href={landing}
+                    className="after:absolute after:inset-0 focus-visible:outline-none"
+                  >
                     {t("cta")}
                     <ArrowRight className="ml-1 size-4" />
                   </Link>

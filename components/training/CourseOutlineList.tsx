@@ -1,10 +1,11 @@
-import { Link } from "@/i18n/navigation";
-import { Clock, PlayCircle, ChevronDown } from "lucide-react";
+import { ChevronDown, Clock, PlayCircle } from "lucide-react";
+import { Art } from "@/components/durchgang/Art";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { Link } from "@/i18n/navigation";
 import { loadCourse, loadLesson } from "@/lib/training/course-loader";
 
 type Locale = string;
@@ -47,9 +48,10 @@ export async function CourseOutlineList({
             <div className="border rounded-lg overflow-hidden bg-card shadow-sm">
               <CollapsibleTrigger className="flex w-full items-center justify-between px-5 py-4 hover:bg-muted/50 transition-colors">
                 <div className="flex items-center gap-3">
-                  <div className="flex items-center justify-center size-7 rounded-full bg-primary text-primary-foreground text-xs font-semibold shadow-sm ring-1 ring-primary/20">
+                  <div className="flex items-center justify-center size-7 shrink-0 rounded-full bg-primary text-primary-foreground text-xs font-semibold shadow-sm ring-1 ring-primary/20">
                     {modIdx + 1}
                   </div>
+                  <Art src={mod.art ?? null} className="-my-2 h-14 shrink-0 sm:h-16" />
                   <div className="text-left">
                     <div className="font-semibold text-sm">
                       {mod.title[locale] ?? mod.title.en}
@@ -68,8 +70,7 @@ export async function CourseOutlineList({
                 <div className="border-t divide-y">
                   {mod.lessonIds.map((lessonId) => {
                     const meta = lessonMetas[lessonId];
-                    const title =
-                      meta?.title?.[locale] ?? meta?.title?.en ?? lessonId;
+                    const title = meta?.title?.[locale] ?? meta?.title?.en ?? lessonId;
                     const mins = meta?.estimatedMinutes ?? 0;
 
                     return (
@@ -86,9 +87,7 @@ export async function CourseOutlineList({
                           <PlayCircle className="size-4 text-primary transition-colors" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <div className="text-sm font-medium truncate">
-                            {title}
-                          </div>
+                          <div className="text-sm font-medium truncate">{title}</div>
                         </div>
                         <div className="flex items-center gap-1.5 text-xs text-muted-foreground shrink-0">
                           <Clock className="size-3" />

@@ -76,11 +76,16 @@ export type Quiz = z.infer<typeof quizSchema>;
 
 // ─── Course ──────────────────────────────────────────────────
 
+/** A decorative picture under public/images, one object in the walk's drawing style. */
+const artPath = z.string().startsWith("/images/").endsWith(".svg");
+
 export const courseModuleSchema = z.object({
   id: z.string(),
   title: localeString,
   order: z.number().int().nonnegative(),
   lessonIds: z.array(z.string()).min(1),
+  /** Shown beside the module in the public course outline. */
+  art: artPath.optional(),
 });
 
 export type CourseModule = z.infer<typeof courseModuleSchema>;
@@ -108,6 +113,8 @@ export const courseSchema = z.object({
   description: localeString,
   version: z.string(),
   certificate: courseCertificateSchema,
+  /** The course's one picture, wherever the course is listed or introduced. */
+  art: artPath,
   modules: z.array(courseModuleSchema).min(1),
 });
 

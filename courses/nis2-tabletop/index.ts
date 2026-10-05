@@ -25,6 +25,7 @@ const course = courseSchema.parse({
     ro: "Concepeți, derulați și documentați exercițiul anual pe care îl impune NIS 2. Conceput pentru facilitatori: responsabili cu securitatea informațiilor, manageri IT și responsabili de continuitatea activității care trebuie să conducă un exercițiu tabletop ce produce dovezi valabile la audit. Cadru la nivelul UE, cu referințe la transpunerea germană.",
   },
   version: "1.0",
+  art: "/images/durchgang/3_1.svg",
   certificate: {
     sealLabel: "NIS 2",
     legalBasis: {

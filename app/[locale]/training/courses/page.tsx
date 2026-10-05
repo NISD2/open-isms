@@ -12,7 +12,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
-import { courseArt } from "@/lib/training/art";
 import { COURSES, MIN_PARTICIPANTS_SHOWN } from "@/lib/training/catalog";
 import { api } from "@/lib/trpc/server";
 
@@ -41,7 +40,7 @@ export default async function CoursesRoute() {
           const isFinished = completedCount === totalLessons && totalLessons > 0;
           const pct = totalLessons > 0 ? (completedCount / totalLessons) * 100 : 0;
           const people = participants[course.id] ?? 0;
-          const image = courseArt(course.id);
+          const image = course.art;
 
           return (
             // The card's one link is the button; it stretches over the card, so the whole card opens

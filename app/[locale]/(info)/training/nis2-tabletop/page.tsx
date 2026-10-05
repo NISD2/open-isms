@@ -1,24 +1,19 @@
+import { countDistinct, eq } from "drizzle-orm";
+import { ArrowRight, BookOpen, Clock, GraduationCap, Shield, User } from "lucide-react";
 import type { Metadata } from "next";
-import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
+import { GetStarted } from "@/components/GetStarted";
+import { JsonLd } from "@/components/JsonLd";
+import { CourseOutlineList } from "@/components/training/CourseOutlineList";
+import { CourseHero, WhatIsFree } from "@/components/training/CoursePageParts";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import {
-  BookOpen,
-  Clock,
-  GraduationCap,
-  Shield,
-  ArrowRight,
-  User,
-} from "lucide-react";
-import { loadCourse } from "@/lib/training/course-loader";
-import { CourseOutlineList } from "@/components/training/CourseOutlineList";
-import { pageAlternates } from "@/lib/seo";
-import { ogImages } from "@/lib/og-card";
-import { JsonLd } from "@/components/JsonLd";
+import { Link } from "@/i18n/navigation";
 import { db } from "@/lib/db";
+import { ogImages } from "@/lib/og-card";
+import { pageAlternates } from "@/lib/seo";
+import { loadCourse } from "@/lib/training/course-loader";
 import { trainingLessonProgress } from "@/schema";
-import { eq, countDistinct } from "drizzle-orm";
 
 // Cache learner count for 10 minutes to avoid DB hit on every page load
 let cachedCount: { value: number; expiresAt: number } | null = null;
@@ -100,7 +95,7 @@ export default async function TabletopTrainingLandingPage({
       />
 
       {/* Hero */}
-      <header className="space-y-4">
+      <CourseHero art={course.art}>
         <Badge variant="secondary">{t("trainingTabletop.badge")}</Badge>
         <h1 className="text-4xl font-bold tracking-tight leading-tight">
           {t("trainingTabletop.title")}
@@ -108,10 +103,13 @@ export default async function TabletopTrainingLandingPage({
         <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl">
           {t("trainingTabletop.subtitle")}
         </p>
-        <div className="flex flex-col sm:flex-row gap-3 pt-2">
+        <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 pt-2">
           <Link
-            href={{ pathname: "/training/courses/[courseId]/[lessonId]", params: { courseId: "nis2-tabletop", lessonId: "0.1" } }}
-            className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow hover:bg-primary/90 transition-colors"
+            href={{
+              pathname: "/training/courses/[courseId]/[lessonId]",
+              params: { courseId: "nis2-tabletop", lessonId: "0.1" },
+            }}
+            className="inline-flex shrink-0 whitespace-nowrap items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow hover:bg-primary/90 transition-colors"
           >
             {t("trainingTabletop.startCourse")}
             <ArrowRight className="size-4" />
@@ -136,7 +134,7 @@ export default async function TabletopTrainingLandingPage({
             </div>
           )}
         </div>
-      </header>
+      </CourseHero>
 
       <Separator />
 
@@ -150,7 +148,9 @@ export default async function TabletopTrainingLandingPage({
                 <Icon className="size-5 text-muted-foreground" />
               </div>
               <div>
-                <div className="font-semibold">{t(`trainingTabletop.highlights.${key}.title`)}</div>
+                <div className="font-semibold">
+                  {t(`trainingTabletop.highlights.${key}.title`)}
+                </div>
                 <div className="text-sm text-muted-foreground">
                   {t(`trainingTabletop.highlights.${key}.description`)}
                 </div>
@@ -191,24 +191,26 @@ export default async function TabletopTrainingLandingPage({
         <p className="text-muted-foreground leading-relaxed">
           {t("trainingTabletop.whyFree.body")}
         </p>
+        <WhatIsFree locale={locale} />
       </section>
 
       {/* CTA */}
       <div className="rounded-lg border bg-muted/30 p-8 text-center space-y-4">
-        <h2 className="text-2xl font-bold">
-          {t("trainingTabletop.cta.heading")}
-        </h2>
-        <p className="text-muted-foreground">
-          {t("trainingTabletop.cta.body")}
-        </p>
+        <h2 className="text-2xl font-bold">{t("trainingTabletop.cta.heading")}</h2>
+        <p className="text-muted-foreground">{t("trainingTabletop.cta.body")}</p>
         <Link
-          href={{ pathname: "/training/courses/[courseId]/[lessonId]", params: { courseId: "nis2-tabletop", lessonId: "0.1" } }}
+          href={{
+            pathname: "/training/courses/[courseId]/[lessonId]",
+            params: { courseId: "nis2-tabletop", lessonId: "0.1" },
+          }}
           className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-8 py-3 text-sm font-medium text-primary-foreground shadow hover:bg-primary/90 transition-colors"
         >
           {t("trainingTabletop.cta.button")}
           <ArrowRight className="size-4" />
         </Link>
       </div>
+
+      <GetStarted variant="funnel" />
     </div>
   );
 }

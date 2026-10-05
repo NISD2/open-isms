@@ -49,6 +49,14 @@
       "length": "Lekcje: {lessons}, około {minutes} minut",
       "cta": "Przejdź do kursu"
     },
+    "coursePage": {
+      "allCourses": "Zobacz wszystkie kursy",
+      "whatIsFree": "Ten kurs i jego certyfikat pozostają bezpłatne, podobnie jak wiki i hosting własny: ten sam kod źródłowy (AGPL-3.0) na Twoich własnych serwerach. Przewodnik krok po kroku po NIS 2 na nisd2.eu, który prowadzi Cię przez wdrożenie, kosztuje {price} netto rocznie.",
+      "afterTraining": {
+        "title": "Po szkoleniu: wdrożenie środków",
+        "body": "Szkolenie to obowiązek kierownictwa wynikający z § 38 ust. 3 BSIG. <law>Ustęp 1</law> zobowiązuje kierownictwo ponadto do wdrożenia środków zarządzania ryzykiem z § 30 i nadzorowania ich wdrożenia. Przewodnik NIS 2 prowadzi Cię przez te środki krok po kroku, a na końcu podpisuje kierownictwo."
+      }
+    },
     "estimatedTime": "{minutes} min czytania",
     "certificate": {
       "lockedTitle": "Certyfikat ukończenia",

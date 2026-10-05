@@ -49,6 +49,14 @@
       "length": "{lessons} lessen, ongeveer {minutes} minuten",
       "cta": "Naar de cursus"
     },
+    "coursePage": {
+      "allCourses": "Alle cursussen bekijken",
+      "whatIsFree": "Deze cursus en het certificaat blijven gratis, net als de wiki en eigen beheer: dezelfde broncode (AGPL-3.0) op uw eigen servers. De NIS 2 begeleide doorloop op nisd2.eu, die u stap voor stap door de invoering leidt, kost {price} netto per jaar.",
+      "afterTraining": {
+        "title": "Na de training: de maatregelen invoeren",
+        "body": "De training is de plicht van de directie volgens § 38 lid 3 BSIG. <law>Lid 1</law> verplicht de directie daarnaast de risicobeheersmaatregelen volgens § 30 in te voeren en toe te zien op de invoering. De begeleide doorloop leidt u stap voor stap door deze maatregelen, en aan het eind tekent de directie."
+      }
+    },
     "estimatedTime": "{minutes} min leestijd",
     "certificate": {
       "lockedTitle": "Deelnamecertificaat",

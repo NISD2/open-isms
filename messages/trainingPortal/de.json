@@ -49,6 +49,14 @@
       "length": "{lessons} Lektionen, rund {minutes} Minuten",
       "cta": "Zum Kurs"
     },
+    "coursePage": {
+      "allCourses": "Alle Kurse ansehen",
+      "whatIsFree": "Kostenlos bleiben dieser Kurs und sein Nachweis, das Wiki und der Selbstbetrieb: derselbe Quellcode (AGPL-3.0) auf Ihren eigenen Servern. Der NIS 2 Durchgang auf nisd2.eu, der Sie Schritt für Schritt durch die Umsetzung führt, kostet {price} netto im Jahr.",
+      "afterTraining": {
+        "title": "Nach der Schulung: die Maßnahmen umsetzen",
+        "body": "Die Schulung ist die Pflicht der Geschäftsleitung nach § 38 Abs. 3 BSIG. <law>Absatz 1</law> verlangt von ihr außerdem, die Risikomanagementmaßnahmen nach § 30 umzusetzen und ihre Umsetzung zu überwachen. Der NIS 2 Durchgang führt Sie Schritt für Schritt durch diese Maßnahmen, und am Ende unterschreibt die Geschäftsführung."
+      }
+    },
     "estimatedTime": "{minutes} Min. Lesezeit",
     "certificate": {
       "lockedTitle": "Teilnahmebescheinigung",
