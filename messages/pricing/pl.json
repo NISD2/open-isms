@@ -36,7 +36,9 @@
       "recommended": "Polecamy",
       "talkFirst": {
         "title": "Wolisz najpierw porozmawiać z nami?",
-        "body": "Krótkie wideo lub rozmowa telefoniczna, w terminie, który wybierzesz."
+        "body": "Krótkie wideo lub rozmowa telefoniczna, w terminie, który wybierzesz.",
+        "close": "Zamknij",
+        "newTab": "Otwórz kalendarz w nowej karcie"
       },
       "approvalLink": "Decyduje ktoś inny? Jedna strona dla Twojego kierownictwa",
       "free": {

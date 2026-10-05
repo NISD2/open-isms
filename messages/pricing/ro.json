@@ -36,7 +36,9 @@
       "recommended": "Recomandat",
       "talkFirst": {
         "title": "Preferați să vorbiți mai întâi cu noi?",
-        "body": "Un scurt apel video sau telefonic, la o oră aleasă de dumneavoastră."
+        "body": "Un scurt apel video sau telefonic, la o oră aleasă de dumneavoastră.",
+        "close": "Închideți",
+        "newTab": "Deschideți calendarul într-o filă nouă"
       },
       "approvalLink": "Decide altcineva? O pagină pentru conducerea dumneavoastră",
       "free": {

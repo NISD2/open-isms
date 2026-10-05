@@ -36,7 +36,9 @@
       "recommended": "Recommandé",
       "talkFirst": {
         "title": "Vous préférez d'abord nous parler ?",
-        "body": "Une courte visio ou un appel téléphonique, au moment que vous choisissez."
+        "body": "Une courte visio ou un appel téléphonique, au moment que vous choisissez.",
+        "close": "Fermer",
+        "newTab": "Ouvrir le calendrier dans un nouvel onglet"
       },
       "approvalLink": "Quelqu'un d'autre décide ? Une page pour votre direction",
       "free": {

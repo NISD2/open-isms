@@ -36,7 +36,9 @@
       "recommended": "Doporučeno",
       "talkFirst": {
         "title": "Raději si nejdřív promluvit?",
-        "body": "Krátký videohovor nebo telefonát v čase, který si zvolíte."
+        "body": "Krátký videohovor nebo telefonát v čase, který si zvolíte.",
+        "close": "Zavřít",
+        "newTab": "Otevřít kalendář v nové kartě"
       },
       "approvalLink": "Rozhoduje někdo jiný? Jedna stránka pro vaše vedení",
       "free": {
