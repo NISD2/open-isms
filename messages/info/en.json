@@ -920,6 +920,7 @@
         "aws": "Amazon Web Services (S3): file storage, stores evidence documents you upload",
         "resend": "Resend: transactional email, delivers notification and invitation emails",
         "close": "Close (Elastic Inc., Jackson, Wyoming, USA): our sales system (CRM). For verified accounts it processes your name and email address, facts about your account and use (such as sign-up, last sign-in, course progress, progress in implementing NIS 2, your plan and whether we may email you) and facts about your company (such as name, sector, number of employees, country). Transfers to the USA are based on the EU Standard Contractual Clauses. When your account is deleted, we also delete your contact in Close.",
+        "calcom": "Cal.com (Cal.com, Inc., San Francisco, USA): our booking calendar. When you use it to book a call, it receives the booking details you enter there and the page's campaign tags (parameters starting with utm_), so that we can arrange the call you asked for (Art. 6(1)(b) GDPR). The data is processed in the USA; according to its privacy policy, Cal.com participates in the EU-U.S. Data Privacy Framework. The calendar is loaded from cal.com only when you open it, or on /start, where it is part of the page; only then does cal.com set its own cookies. Our website stores nothing for it.",
         "qonto": "Qonto (Paris, France): our business account and invoicing. When you order, it receives the billing data, and it issues and keeps the invoices and credit notes."
       },
       "analytics": {

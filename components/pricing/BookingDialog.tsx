@@ -22,7 +22,7 @@ import { CALL_HOSTS, callHostNames } from "./founders";
  */
 function Booker({ calLink, title }: { calLink: string; title: string }) {
   const [ready, setReady] = useState(false);
-  const [src] = useState(() => bookerFrameUrl(calLink, window.location.search));
+  const [src] = useState(() => bookerFrameUrl(window.location.search, calLink));
 
   return (
     // About the month view's own height, so the dialog does not jump when the calendar arrives.
