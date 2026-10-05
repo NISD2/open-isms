@@ -185,8 +185,24 @@
         "description": "One page for management: what the NIS 2 walkthrough is, what it costs and how to end it."
       },
       "eyebrow": "For approval",
-      "title": "The NIS 2 walkthrough at nisd2.eu",
+      "title": "Implement NIS 2 in house. You approve at the end.",
       "lead": "One page for the decision: what it is, what it costs and how to end it.",
+      "summary": {
+        "label": "In short",
+        "cost": {
+          "label": "Cost",
+          "text": "{price} net a year, invoiced"
+        },
+        "risk": {
+          "label": "Risk",
+          "text": "30 days money back, then cancel yearly"
+        },
+        "task": {
+          "label": "Your part",
+          "text": "Approve at the end in the app, with your own login"
+        }
+      },
+      "seeApproval": "See what your approval looks like",
       "rows": {
         "what": {
           "label": "What it is",
@@ -226,6 +242,7 @@
       "outputs": {
         "documentsTitle": "Documents you approve",
         "recordsTitle": "Lists and records",
+        "recordsShow": "and {count} lists and records",
         "documents": {
           "information_security": "Information security policy",
           "incident_response": "Incident response plan",
