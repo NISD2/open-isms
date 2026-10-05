@@ -18,7 +18,6 @@ import {
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
-import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -249,9 +248,6 @@ export function AppSidebar({
       </SidebarContent>
 
       <SidebarFooter>
-        <div className="flex items-center justify-between px-2 py-1">
-          <LocaleSwitcher />
-        </div>
         <UserNav user={user} />
       </SidebarFooter>
       <SidebarRail />
