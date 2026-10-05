@@ -36,7 +36,9 @@
       "recommended": "Aanbevolen",
       "talkFirst": {
         "title": "Liever eerst met ons praten?",
-        "body": "Een kort gesprek via video of telefoon, op een moment dat u kiest."
+        "body": "Een kort gesprek via video of telefoon, op een moment dat u kiest.",
+        "close": "Sluiten",
+        "newTab": "Agenda in een nieuw tabblad openen"
       },
       "approvalLink": "Beslist iemand anders? Eén pagina voor uw directie",
       "free": {

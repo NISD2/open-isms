@@ -4,8 +4,8 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 import { ForwardActions } from "@/components/pricing/ForwardActions";
+import { FOUNDERS } from "@/components/pricing/founders";
 import {
-  FOUNDERS,
   gapAnalysisRange,
   OrderButton,
   TalkFirst,

@@ -1,9 +1,16 @@
 "use client";
 
-import { CalendarDays, Mail, Check, GraduationCap, Server, Compass, Handshake } from "lucide-react";
+import {
+  CalendarDays,
+  Check,
+  Compass,
+  GraduationCap,
+  Handshake,
+  Mail,
+  Server,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
-import { useCopy } from "@/lib/clipboard/use-copy";
+import { BookingLink } from "@/components/pricing/BookingLink";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,6 +19,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Link } from "@/i18n/navigation";
+import { useCopy } from "@/lib/clipboard/use-copy";
 
 function HelpRow({
   icon: Icon,
@@ -92,14 +101,12 @@ export function HelpDialog({
 
           {calLink && (
             <HelpRow icon={CalendarDays}>
-              <a
-                href={`https://cal.com/${calLink}`}
-                target="_blank"
-                rel="noopener noreferrer"
+              <BookingLink
+                calLink={calLink}
                 className="font-medium underline underline-offset-4"
               >
                 {t("help.call")}
-              </a>
+              </BookingLink>
             </HelpRow>
           )}
 

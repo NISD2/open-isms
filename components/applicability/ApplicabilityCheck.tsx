@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useState } from "react";
-import { CalModal } from "@/components/funnel/CalModal";
+import { BookingLink } from "@/components/pricing/BookingLink";
 import { Badge } from "@/components/ui/badge";
 
 import { Button } from "@/components/ui/button";
@@ -329,7 +329,7 @@ export function ApplicabilityCheck({ calLink }: { calLink: string }) {
                 <RotateCcw className="h-4 w-4" />
                 <span className="hidden sm:inline">{t("result.restart")}</span>
               </Button>
-              <CalModal calLink={calLink}>
+              {calLink && (
                 <Button
                   variant={
                     result && result.classification !== "not_in_scope"
@@ -337,13 +337,16 @@ export function ApplicabilityCheck({ calLink }: { calLink: string }) {
                       : "outline"
                   }
                   className="gap-2 whitespace-normal text-right"
+                  asChild
                 >
-                  <CheckCircle2 className="h-4 w-4 hidden sm:block shrink-0" />
-                  {result && result.classification !== "not_in_scope"
-                    ? t("result.cta")
-                    : t("result.ctaVoluntary")}
+                  <BookingLink calLink={calLink}>
+                    <CheckCircle2 className="h-4 w-4 hidden sm:block shrink-0" />
+                    {result && result.classification !== "not_in_scope"
+                      ? t("result.cta")
+                      : t("result.ctaVoluntary")}
+                  </BookingLink>
                 </Button>
-              </CalModal>
+              )}
             </>
           )}
         </div>

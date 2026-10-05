@@ -36,7 +36,9 @@
       "recommended": "Empfohlen",
       "talkFirst": {
         "title": "Lieber erst mit uns sprechen?",
-        "body": "15 Minuten mit {names}, auf Deutsch oder Englisch, zu einem Termin Ihrer Wahl."
+        "body": "15 Minuten mit {names}, auf Deutsch oder Englisch, zu einem Termin Ihrer Wahl.",
+        "close": "Schließen",
+        "newTab": "Kalender in neuem Tab öffnen"
       },
       "approvalLink": "Entscheidet jemand anderes? Eine Seite für Ihre Geschäftsführung",
       "free": {
