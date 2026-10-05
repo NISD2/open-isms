@@ -1459,119 +1459,205 @@
         "p4": "This is not a spreadsheet you lose or a consultant's report that sits on a shelf. It is a living, versioned, auditable record of everything your company has done for NIS2 compliance - from day one, forever."
       }
     },
+    "wikiWalk": {
+      "seeIt": "Zo ziet het eruit",
+      "priceHeading": "Wat de doorloop kost",
+      "more": "Meer hierover",
+      "lawLabel": "Wet",
+      "whoLabel": "Wie"
+    },
     "nis2Requirements": {
       "meta": {
-        "title": "NIS2 Requirements - 10 Mandatory Measures & Audits",
-        "description": "NIS2 requirements explained: 10 mandatory risk management measures, incident reporting cascade, audit obligations, and supply chain security."
+        "title": "NIS2-eisen: de 10 maatregelen en de plichten",
+        "description": "NIS2-eisen in eenvoudige woorden: de tien maatregelen volgens art. 21 NIS 2 en § 30 BSIG, melden, registreren en de rol van de directie."
       },
-      "title": "NIS2 Requirements",
-      "subtitle": "What affected entities must implement: 10 mandatory cybersecurity measures, a strict incident reporting cascade, and evidence-based compliance.",
+      "title": "NIS2-eisen: wat uw bedrijf moet invoeren",
+      "subtitle": "NIS2 vraagt om beveiligingsmaatregelen op tien gebieden, het melden van significante incidenten en registratie bij het BSI. De directie voert de maatregelen in en houdt er toezicht op. Hoe ver elke maatregel gaat, hangt af van de omvang en het risico van uw bedrijf.",
+      "overview": {
+        "heading": "De eisen in één oogopslag",
+        "lead": "NIS 2 is een Europese richtlijn. In Duitsland zet de BSI-wet (BSIG) haar om in nationaal recht. Bedrijven die eronder vallen, heten daar “entiteiten”.",
+        "items": {
+          "measures": {
+            "title": "Beveiligingsmaatregelen op tien gebieden",
+            "text": "De minimumlijst staat hieronder, elk gebied met een voorbeeld.",
+            "law": "Art. 21 NIS 2 · § 30 BSIG"
+          },
+          "report": {
+            "title": "Significante incidenten melden",
+            "text": "In drie fasen aan het BSI, de eerste binnen 24 uur.",
+            "law": "Art. 23 NIS 2 · § 32 BSIG"
+          },
+          "register": {
+            "title": "Registreren bij het BSI",
+            "text": "Eenmalig, via het portaal van het BSI. Verandert er iets, dan meldt u dat binnen twee weken.",
+            "law": "Art. 3(4) NIS 2 · § 33 BSIG"
+          },
+          "management": {
+            "title": "De directie",
+            "text": "Zij voert de maatregelen in, houdt er toezicht op en volgt regelmatig trainingen. De richtlijn eist ook dat de directie de maatregelen goedkeurt.",
+            "law": "Art. 20 NIS 2 · § 38 BSIG"
+          }
+        }
+      },
       "measures": {
-        "heading": "10 Mandatory Risk Management Measures (Section 30 BSIG / Article 21)",
-        "description": "All essential and important entities must implement these measures. There is no transition period - these obligations apply since 6 December 2025 in Germany.",
+        "heading": "De tien maatregelen in eenvoudige woorden",
+        "description": "Art. 21(2) NIS 2 noemt tien gebieden, in Duitsland § 30(2) BSIG. Dat is de minimumlijst. Voor elk gebied hebt u maatregelen nodig die bij uw bedrijf passen.",
+        "exampleLabel": "Bijvoorbeeld",
         "items": {
           "m1": {
-            "title": "Risk analysis and information security policies",
-            "description": "Establish and maintain policies for risk analysis and information systems security. Conduct regular risk assessments covering all critical systems and processes."
+            "title": "Risicoanalyse en beveiligingsbeleid",
+            "description": "U schrijft op welke IT uw bedrijf nodig heeft en wat daarbij mis kan gaan. Daaruit volgt een beveiligingsbeleid: hoe uw bedrijf informatiebeveiliging regelt.",
+            "example": "Een lijst van uw systemen met een beoordeling per risico, en een beleid van een paar pagina's.",
+            "law": "Art. 21(2)(a) · § 30(2) nr. 1"
           },
           "m2": {
-            "title": "Incident handling",
-            "description": "Implement procedures for preventing, detecting, identifying, containing, mitigating, and responding to security incidents."
+            "title": "Incidenten afhandelen",
+            "description": "U legt vast hoe u een incident ontdekt, indamt en oplost, en wie beslist.",
+            "example": "Een incidentplan met telefoonnummers en duidelijke verantwoordelijkheden.",
+            "law": "Art. 21(2)(b) · § 30(2) nr. 2"
           },
           "m3": {
-            "title": "Business continuity and crisis management",
-            "description": "Backup management, disaster recovery planning, and crisis management procedures to ensure operational resilience."
+            "title": "Het bedrijf draaiende houden",
+            "description": "Back-ups, herstel na een noodgeval en crisisbeheer.",
+            "example": "Een back-up waarvan u het terugzetten hebt uitgeprobeerd.",
+            "law": "Art. 21(2)(c) · § 30(2) nr. 3"
           },
           "m4": {
-            "title": "Supply chain security",
-            "description": "Beveiligingsmaatregelen voor de relaties met directe leveranciers en dienstverleners, rekening houdend met de kwetsbaarheden van elke leverancier en de kwaliteit van zijn producten en beveiligingspraktijken (Art. 21(3)); contracten zijn het gebruikelijke middel."
+            "title": "Beveiliging van de toeleveringsketen",
+            "description": "U houdt rekening met de kwetsbaarheden van elke directe leverancier en met de kwaliteit van diens producten en beveiligingspraktijk (art. 21(3) NIS 2). Contracten zijn het gebruikelijke middel.",
+            "example": "In het contract met uw IT-dienstverlener staat dat hij incidenten aan u meldt.",
+            "law": "Art. 21(2)(d) · § 30(2) nr. 4"
           },
           "m5": {
-            "title": "Security in acquisition, development, and maintenance",
-            "description": "Security in network and information system acquisition, development, and maintenance. Includes vulnerability handling and disclosure procedures."
+            "title": "Beveiliging bij aanschaf, ontwikkeling en onderhoud van IT",
+            "description": "Beveiliging geldt al bij de aankoop van IT, bij eigen ontwikkeling en bij onderhoud. Daar hoort bij dat u kwetsbaarheden behandelt en openbaar maakt.",
+            "example": "Beveiligingsupdates worden automatisch geïnstalleerd.",
+            "law": "Art. 21(2)(e) · § 30(2) nr. 5"
           },
           "m6": {
-            "title": "Effectiveness assessment",
-            "description": "Beleid en procedures om te beoordelen of de cyberbeveiligingsrisicobeheersmaatregelen werken. De wet schrijft niet voor elke entiteit tests of audits voor."
+            "title": "Doeltreffendheid beoordelen",
+            "description": "U legt vast hoe u controleert of de maatregelen werken. De wet schrijft niet voor elke entiteit tests of audits voor.",
+            "example": "Eens per jaar loopt de directie na wat werkte en wat niet.",
+            "law": "Art. 21(2)(f) · § 30(2) nr. 6"
           },
           "m7": {
-            "title": "Cybersecurity training and cyber hygiene",
-            "description": "Basale cyberhygiënepraktijken en cyberbeveiligingstraining. Bewustwording over phishing, social engineering, wachtwoorden en veilig gebruik van IT is de gebruikelijke inhoud."
+            "title": "Basistraining en bewustwording",
+            "description": "Alle medewerkers leren de basis: verdachte e-mails herkennen, goede wachtwoorden kiezen, incidenten melden.",
+            "example": "Een korte training bij indiensttreding en een opfrisser eens per jaar.",
+            "law": "Art. 21(2)(g) · § 30(2) nr. 7"
           },
           "m8": {
-            "title": "Cryptography and encryption",
-            "description": "Policies and procedures on the use of cryptography and, where appropriate, encryption. Covers data at rest, data in transit, and key management."
+            "title": "Cryptografie",
+            "description": "U legt vast waar en hoe u versleutelt.",
+            "example": "Laptops met versleutelde schijven, en e-mail alleen via versleutelde verbindingen.",
+            "law": "Art. 21(2)(h) · § 30(2) nr. 8"
           },
           "m9": {
-            "title": "Personnel security, access control, and asset management",
-            "description": "Human resources security policies, access control mechanisms, and asset management procedures. Includes onboarding/offboarding, least-privilege access, and asset inventories."
+            "title": "Personeel, toegang en beheer van IT",
+            "description": "Wie mag wat? Hoe krijgen nieuwe mensen hun toegang, en hoe verliezen vertrekkers die? Daar hoort een overzicht van uw IT bij.",
+            "example": "Op de laatste werkdag wordt alle toegang geblokkeerd.",
+            "law": "Art. 21(2)(i) · § 30(2) nr. 9"
           },
           "m10": {
-            "title": "Multi-factor authentication and secured communications",
-            "description": "Use of MFA or continuous authentication solutions. Secured voice, video, and text communications. Secured emergency communication systems within the entity."
+            "title": "Tweede factor en veilige communicatie",
+            "description": "Inloggen met een tweede factor of met doorlopende controle. Daarnaast beveiligde spraak, video en tekst en, waar nodig, een beveiligd kanaal voor noodgevallen.",
+            "example": "Een code uit een app bij het inloggen op e-mail en externe toegang.",
+            "law": "Art. 21(2)(j) · § 30(2) nr. 10"
           }
         }
+      },
+      "proportionality": {
+        "heading": "Hoeveel is genoeg?",
+        "p1": "De wet vraagt om passende, evenredige en doeltreffende maatregelen (§ 30(1) BSIG). Wat evenredig is, hangt af van uw risico, uw omvang, de kosten, hoe waarschijnlijk en ernstig incidenten zouden zijn, en de gevolgen ervan voor anderen.",
+        "p2": "U legt vast wat u invoert (§ 30(1), derde zin, BSIG). De wet eist geen certificaat zoals ISO 27001. Het kan uw bewijs wel ondersteunen.",
+        "link": "Wat “evenredig” precies betekent"
       },
       "incidentReporting": {
-        "heading": "Incident Reporting Cascade",
-        "description": "All essential and important entities must report significant security incidents to the BSI using a three-stage cascade.",
+        "heading": "Significante incidenten melden",
+        "description": "Een significant beveiligingsincident meldt u in drie fasen bij het BSI (§ 32 BSIG, art. 23 NIS 2). De termijnen lopen vanaf het moment dat u ervan hoort.",
         "stages": {
           "s1": {
-            "deadline": "24 hours",
-            "title": "Vroege waarschuwing (frühe Erstmeldung)",
-            "description": "Report whether the incident is suspected to be caused by unlawful or malicious acts, and whether it could have cross-border impact."
+            "deadline": "24 uur",
+            "title": "Vroegtijdige waarschuwing",
+            "description": "Of het incident vermoedelijk komt door een aanval of een onrechtmatige handeling, en of het andere landen kan raken."
           },
           "s2": {
-            "deadline": "72 hours",
-            "title": "Incidentmelding (Meldung)",
-            "description": "Severity assessment, impact assessment, indicators of compromise, and initial root cause analysis if available."
+            "deadline": "72 uur",
+            "title": "Incidentmelding",
+            "description": "Een eerste beoordeling van ernst en gevolgen, met sporen van de aanvallers (indicators of compromise) als die er zijn."
           },
           "s3": {
-            "deadline": "1 month",
-            "title": "Final report (Abschlussmeldung)",
-            "description": "Gedetailleerde beschrijving van het incident, inclusief ernst en impact, het type dreiging of de grondoorzaak die het waarschijnlijk heeft veroorzaakt, toegepaste en lopende beperkende maatregelen en eventuele grensoverschrijdende impact."
+            "deadline": "1 maand",
+            "title": "Eindrapport",
+            "description": "Een maand na de incidentmelding: wat er gebeurde, de waarschijnlijke oorzaak en wat u eraan hebt gedaan."
           }
         },
-        "significant": {
-          "heading": "What counts as a \"significant\" incident?",
-          "p1": "A security incident qualifies as significant when it has caused or is capable of causing severe operational disruption or financial losses for the entity.",
-          "p2": "Het kwalificeert ook wanneer het andere natuurlijke of rechtspersonen heeft getroffen of kan treffen door aanzienlijke materiële of immateriële schade te veroorzaken. Voor de 11 digitale entiteitstypen onder CIR 2024/2690 (DNS, cloud, MSP, MSSP, marktplaatsen, zoekmachines, sociale netwerken, vertrouwensdiensten, enz.) gelden aanvullende drempels uit CIR Art. 3 (direct financieel verlies van meer dan EUR 500.000 of 5% van de jaaromzet, afhankelijk van welk bedrag lager is; diefstal van bedrijfsgeheimen; overlijden of aanzienlijke schade aan de gezondheid van een persoon; succesvolle, vermoedelijk kwaadwillige en onbevoegde toegang die ernstige verstoring kan veroorzaken) plus criteria per dienst in Art. 5 tot en met 14 (bijvoorbeeld een DNS-dienst die langer dan 30 minuten volledig onbeschikbaar is, of een clouddienst die voor meer dan 5% van zijn EU-gebruikers of meer dan 1 miljoen, afhankelijk van welk aantal kleiner is, langer dan een uur beperkt is). Voor andere entiteiten stelt het BSI dat u significantie kunt veronderstellen als aan één criterium van Art. 3(1) is voldaan."
-        }
+        "link": "De meldplicht in detail"
       },
       "auditRequirements": {
-        "heading": "Audit and Evidence Requirements",
+        "heading": "Wie controleert, en wanneer?",
         "kritis": {
-          "heading": "KRITIS Operators",
-          "description": "Moeten hun maatregelen aan het BSI aantonen via beveiligingsaudits, inspecties of certificeringen, eerst op een door het BSI vastgesteld tijdstip (op zijn vroegst drie jaar nadat zij voor het eerst als exploitant gelden) en daarna elke 3 jaar (§ 39 BSIG). Moeten systemen voor aanvalsdetectie inzetten (§ 31 Abs. 2 BSIG)."
+          "heading": "Exploitanten van kritieke installaties",
+          "description": "Zij tonen hun maatregelen aan bij het BSI, via audits, inspecties of certificeringen. De eerste keer op een datum die het BSI vaststelt, op zijn vroegst drie jaar nadat zij als exploitant gelden, daarna elke drie jaar (§ 39 BSIG). Ook moeten zij systemen voor aanvalsdetectie gebruiken (§ 31(2) BSIG)."
         },
         "bwe": {
-          "heading": "Essential entities (non-KRITIS)",
-          "description": "Geen regelmatige auditcyclus, maar naleving moet worden gedocumenteerd (§ 30 Abs. 1 BSIG). Het BSI kan de naleving controleren en audits door onafhankelijke instanties gelasten (§ 61 Abs. 1 en 5 BSIG). Het kan bewijs opvragen bij essentiële entiteiten, op basis van risico geselecteerd, vanaf drie jaar nadat de wet in werking is getreden, dus niet vóór 6 december 2028 (§ 61 Abs. 3 en 4)."
+          "heading": "Essentiële entiteiten",
+          "description": "Geen vaste controlecyclus. U legt vast wat u invoert (§ 30(1) BSIG). Het BSI kan controleren en audits door onafhankelijke instanties opleggen (§ 61(1) en (5) BSIG). Bewijs kan het op zijn vroegst vanaf 6 december 2028 opvragen (§ 61(3) en (4) BSIG)."
         },
         "we": {
-          "heading": "Important entities",
-          "description": "Moeten de uitvoering van de vereiste maatregelen documenteren. Het BSI controleert alleen wanneer feiten doen vermoeden dat zij niet voldoen aan § 30, § 32 of § 38 Abs. 3 (§ 62 BSIG)."
+          "heading": "Belangrijke entiteiten",
+          "description": "U legt vast wat u invoert. Het BSI controleert alleen als feiten erop wijzen dat u § 30, § 32 of § 38(3) BSIG niet naleeft (§ 62 BSIG)."
         },
         "evidence": {
-          "heading": "Acceptable Evidence",
+          "heading": "Wat als bewijs kan dienen",
           "items": {
-            "audits": "Internal or external audit reports",
-            "certifications": "Certifications (ISO 27001, BSI IT-Grundschutz, etc.)",
-            "documentation": "Comprehensive documentation of risk assessments, implemented measures, and effectiveness reviews"
+            "audits": "Interne of externe auditrapporten",
+            "certifications": "Certificeringen, zoals ISO 27001 of BSI IT-Grundschutz",
+            "documentation": "Uw documentatie: risicobeoordeling, ingevoerde maatregelen en de controle of ze werken"
           },
-          "note": "ISO 27001 or IT-Grundschutz certification supports but does not guarantee NIS2 compliance - the BSIG requirements may go beyond standard certification scope."
+          "note": "Een certificaat volgens ISO 27001 of IT-Grundschutz helpt, maar dekt de BSIG niet automatisch af. De wet kan verder gaan dan de reikwijdte van een certificering."
         }
       },
       "supplyChain": {
-        "heading": "Supply Chain Security",
-        "description": "NIS2 introduces mandatory supply chain security obligations. Entities must:",
+        "heading": "Leveranciers",
+        "description": "Voor de toeleveringsketen betekent dit:",
         "items": {
-          "assess": "Houd rekening met de specifieke kwetsbaarheden van elke directe leverancier en de algemene kwaliteit van zijn producten en cyberbeveiligingspraktijken (Art. 21(3) NIS 2)",
-          "contractual": "Spreek beveiligingseisen met leveranciers af waar dat past, meestal in het contract (de Duitse memorie van toelichting noemt contracten als voorbeeld)",
-          "monitor": "Voor de digitale aanbieders die de CIR dekt: monitor en beoordeel wijzigingen in de beveiligingspraktijken van leveranciers met geplande tussenpozen (CIR punt 5.1.6)",
-          "coordinate": "Coordinate vulnerability disclosure with suppliers",
-          "risk": "Consider the overall quality of products and practices of suppliers, including their secure development procedures"
+          "assess": "U houdt rekening met de kwetsbaarheden van elke directe leverancier en met de kwaliteit van diens producten en beveiligingspraktijk, ook bij de ontwikkeling (art. 21(3) NIS 2).",
+          "contractual": "U spreekt beveiligingseisen af met leveranciers waar dat past, meestal in het contract. De toelichting bij de wet noemt contracten als voorbeeld.",
+          "monitor": "Alleen voor de digitale aanbieders die onder Uitvoeringsverordening (EU) 2024/2690 vallen: zij volgen op geplande momenten wijzigingen in de beveiligingspraktijk van hun leveranciers (punt 5.1.6 van de bijlage)."
         }
+      },
+      "example": {
+        "heading": "Een voorbeeld",
+        "lead": "Een verzonnen bedrijf: een maker van bakkerijproducten met 120 medewerkers die aan de detailhandel levert. Industriële voedselproductie staat in bijlage 2 van de BSIG, dus het bedrijf is een belangrijke entiteit. Zo ziet zijn antwoord op drie van de tien gebieden eruit:",
+        "items": [
+          "Toeleveringsketen: het bedrijf houdt een lijst bij van zijn dienstverleners, bijvoorbeeld voor voorraadbeheer, bewaking van de koeling en IT. In het IT-contract staat dat de dienstverlener incidenten meldt.",
+          "Tweede factor: voor e-mail en externe toegang heeft iedereen een code uit een app nodig.",
+          "Het bedrijf draaiende houden: recepturen en productieplannen worden dagelijks geback-upt. Eens per jaar probeert de IT het terugzetten uit."
+        ]
+      },
+      "walk": {
+        "heading": "Zo gaat het in de doorloop",
+        "lead": "In de doorloop op nisd2.eu wordt elk van de tien gebieden minstens één stap die u invult.",
+        "points": [
+          "Naast elke stap staat de wet, in eenvoudige woorden uitgelegd.",
+          "Waar een document nodig is, ontstaat het uit uw antwoorden: beveiligingsbeleid, incidentresponsplan, bedrijfscontinuïteitsplan, cryptografiebeleid, beleid voor personeel, toegang en IT-middelen, en regels voor aanschaf, onderhoud en kwetsbaarheden.",
+          "Waar een lijst volstaat, houdt u een lijst bij: uw IT, uw leveranciers, uw back-ups, uw trainingen.",
+          "Besluit u een punt bewust niet in te voeren, dan schrijft u op waarom. Ook dat besluit ondertekent de directie.",
+          "Aan het eind keurt de directie de documenten goed in de app, ingelogd met een eigen account. Naam en datum staan daarna op elk document."
+        ],
+        "seeItAlt": "Documenten uit de doorloop, goedgekeurd door de directie, elk met naam en datum",
+        "next": "Begin aan het eerste gebied in de doorloop"
+      },
+      "sources": {
+        "heading": "Bronnen",
+        "items": [
+          "Richtlijn (EU) 2022/2555 (NIS 2), art. 3, 20, 21 en 23 (eur-lex.europa.eu)",
+          "BSI-wet (BSIG), §§ 30, 31, 32, 33, 38, 39, 61 en 62 (gesetze-im-internet.de/bsig_2025)",
+          "BSIG, bijlage 2, nr. 4 productie, verwerking en distributie van levensmiddelen",
+          "Uitvoeringsverordening (EU) 2024/2690, art. 3 en punt 5.1.6 van de bijlage",
+          "Wetsvoorstel van de Duitse regering voor de NIS2UmsuCG, Bundestag-Drucksache 21/1501, toelichting bij § 30"
+        ]
       }
     },
     "ceoLiability": {
@@ -2030,135 +2116,127 @@
     },
     "smeGuide": {
       "meta": {
-        "title": "NIS2 Implementation for Mid-Market Companies - Practical Guide",
-        "description": "Step-by-step NIS2 implementation guide for German Mittelstand companies with 50-250 employees. 12-week roadmap, role assignments, common mistakes, and practical advice from BSIG to BSI audit readiness."
+        "title": "NIS2 implementeren: de stappen voor het middenbedrijf",
+        "description": "NIS2 implementeren in een middelgroot bedrijf: de vier plichten, de volgorde en wie wat doet. Met de wetsartikelen, een voorbeeld en de volgende stap."
       },
-      "badge": "Mittelstand / SME",
-      "title": "NIS2 Implementation for Mid-Market Companies",
-      "subtitle": "A practical 12-week implementation roadmap for German companies with 50-250 employees - no security team required.",
-      "overview": {
-        "heading": "You're Affected. Now What?",
-        "p1": "An estimated 29,500 companies in Germany fall under NIS2 scope. If you have more than 50 employees and operate in a covered sector - waste management, food production, manufacturing, energy, transport, health, digital infrastructure - you are almost certainly one of them. The BSIG entered force on December 6, 2025, and the BSI registration deadline was March 6, 2026.",
-        "p2": "Here's what most consultants won't tell you: for a mid-market company with basic IT, NIS2 compliance is manageable. It is not a 6-month, six-figure project. Most of the 49 BSIG requirements are write-once documentation - policies, risk assessments, procedures. Only a handful require ongoing operational processes. The law demands 'appropriate' measures proportional to your risk - not Fortune 500 security infrastructure.",
-        "p3": "This guide gives you the practical plan: a 12-week roadmap, the roles you need (all part-time, all existing staff), the common mistakes that trip up companies your size, and the priority order for tackling the 10 mandatory measures under §30 BSIG. No theory, no fear-mongering - just the steps."
-      },
-      "audience": {
-        "heading": "Who This Guide Is For",
-        "description": "This guide is written specifically for mid-market German companies encountering NIS2 for the first time.",
+      "badge": "Middelgrote bedrijven",
+      "title": "NIS2 implementeren: zo pakt een middelgroot bedrijf het aan",
+      "subtitle": "U registreert uw bedrijf bij het BSI, neemt beveiligingsmaatregelen op tien gebieden en meldt significante incidenten. De directie houdt daar toezicht op. Hoe grondig elke maatregel moet zijn, hangt af van de omvang en het risico van uw bedrijf.",
+      "duties": {
+        "heading": "De vier plichten",
+        "lead": "NIS 2 is een Europese richtlijn. In Duitsland zet de BSI-wet (BSIG) haar om in nationaal recht. Een bedrijf waarvoor zij geldt, heet daar een “entiteit”. Elke entiteit heeft vier plichten.",
         "items": {
-          "size": "Companies with 50-250 employees in NIS2 sectors",
-          "limitedIt": "Limited IT staff - maybe 2-5 people, not a security team",
-          "noCompliance": "No dedicated compliance department or GRC experience",
-          "firstTime": "First time dealing with NIS2, BSIG, or BSI registration"
-        }
-      },
-      "roadmap": {
-        "heading": "Implementation Roadmap",
-        "phases": {
-          "foundation": {
-            "title": "Foundation",
-            "weeks": "Weeks 1-2",
-            "description": "Establish the organizational foundation: register with the BSI, assign responsibilities, and brief management on their personal liability under §38 BSIG. This phase is about getting the right people engaged and the scope defined.",
-            "actions": [
-              "BSI registration via Mein Unternehmenskonto + BSI portal",
-              "Appoint compliance lead (part-time role, not a new hire)",
-              "Management briefing on §38 BSIG duties and personal liability",
-              "Set up compliance platform and invite team members",
-              "Initial scope: identify which entity category applies (essential or important)"
-            ]
+          "register": {
+            "title": "Registreren",
+            "text": "U meldt uw bedrijf eenmalig aan bij het BSI, via het portaal van het BSI.",
+            "law": "Art. 3(4) NIS 2 · § 33 BSIG",
+            "who": "Wie het ELSTER-account van het bedrijf beheert"
           },
-          "risk": {
-            "title": "Risk Assessment",
-            "weeks": "Weeks 3-4",
-            "description": "Build your asset inventory and conduct the initial risk assessment. This is the foundation everything else builds on - §30(1) BSIG measure 1. Use the BSI-200-3 risk analysis methodology: identify assets, identify threats, assess likelihood and impact, decide on treatment.",
-            "actions": [
-              "Build asset inventory - group identical assets (e.g., '45 laptops' = 1 entry)",
-              "Identify and categorize suppliers with access to your systems",
-              "Conduct initial risk assessment: likelihood × impact for each asset",
-              "Document risk treatment decisions: accept, mitigate, transfer, or avoid",
-              "Map risks to BSIG measures - which controls address which risks"
-            ]
+          "measures": {
+            "title": "Maatregelen nemen en vastleggen",
+            "text": "U beschermt uw IT op tien gebieden, van het incidentplan tot inloggen met een tweede factor. Wat u besluit, legt u schriftelijk vast.",
+            "law": "Art. 21 NIS 2 · § 30 BSIG",
+            "who": "Wie verantwoordelijk is voor de IT, intern of als dienstverlener"
           },
-          "controls": {
-            "title": "Controls & Documentation",
-            "weeks": "Weeks 5-8",
-            "description": "Document your security controls and procedures. This is the largest phase by volume but most requirements are write-once policies. Focus on documenting what you already do (most companies have informal processes) and filling genuine gaps.",
-            "actions": [
-              "Write or adopt security policies (information security, access control, incident response)",
-              "Document cryptography usage and key management approach",
-              "Set up incident response process with 24h/72h/1m cascade",
-              "Review access control: least privilege, onboarding/offboarding procedures",
-              "Document business continuity and backup procedures",
-              "Implement or document MFA for critical systems"
-            ]
+          "report": {
+            "title": "Significante incidenten melden",
+            "text": "Een significant beveiligingsincident meldt u bij het BSI, de eerste melding binnen 24 uur. Een incident is bijvoorbeeld significant als het uw bedrijf ernstig verstoort.",
+            "law": "Art. 23 NIS 2 · § 32 BSIG",
+            "who": "Wie in een noodgeval beslist"
           },
-          "evidence": {
-            "title": "Evidence & Audit Readiness",
-            "weeks": "Weeks 9-12",
-            "description": "Close the loop: management approvals, training completion, evidence collection, and a first effectiveness check. This phase transforms your documented measures into auditable compliance evidence.",
-            "actions": [
-              "Management formally approves all cybersecurity measures (§38 duty)",
-              "Complete mandatory management cybersecurity training",
-              "Upload evidence documents: screenshots, configs, policy sign-offs",
-              "Run first effectiveness assessment - are controls actually working?",
-              "Export compliance report for internal review"
-            ]
+          "management": {
+            "title": "De directie geeft leiding",
+            "text": "De directie voert de maatregelen in en houdt er toezicht op. Ook volgt zij regelmatig een training. Deze plichten rusten op de directie zelf.",
+            "law": "Art. 20 NIS 2 · § 38 BSIG",
+            "who": "De directie, persoonlijk"
           }
         }
       },
-      "roles": {
-        "heading": "Roles You Need",
-        "description": "You don't need to hire anyone. These are part-time responsibilities assigned to existing staff.",
-        "items": {
-          "complianceLead": {
-            "title": "Compliance Lead (4-8 hours/week)",
-            "description": "Drives the process, fills out requirement forms, coordinates with IT and management. Usually the IT manager, quality manager, or operations lead."
-          },
-          "itContact": {
-            "title": "IT Contact (2-4 hours/week)",
-            "description": "Provides technical input: asset details, network architecture, encryption status, access controls. Your admin or IT manager."
-          },
-          "managementSponsor": {
-            "title": "Management Sponsor (1-2 hours/week)",
-            "description": "Reviews and approves measures, completes training, demonstrates oversight. Required by §38 BSIG - cannot be delegated."
-          },
-          "externalAuditor": {
-            "title": "External Auditor (optional)",
-            "description": "For KRITIS operators: required every 3 years. For essential and important entities: optional but recommended for the first compliance cycle to validate your work."
-          }
-        }
+      "size": {
+        "heading": "Wat dit betekent bij 50 tot 150 medewerkers",
+        "items": [
+          "U hebt geen eigen securityteam nodig. De wet eist dat niet.",
+          "U hebt geen certificaat zoals ISO 27001 nodig. De wet schrijft dat niet voor, maar het kan helpen als bewijs.",
+          "De maatregelen moeten bij uw bedrijf passen. De maatstaf is uw risico, uw omvang, de kosten en hoe waarschijnlijk en ernstig incidenten zouden zijn (§ 30(1), tweede zin, BSIG).",
+          "U legt vast wat u invoert (§ 30(1), derde zin, BSIG). De maatregelen moeten ook werken.",
+          "Het werk doen mensen die u al hebt: de directie, wie verantwoordelijk is voor de IT, en de afdelingen die weten wat het bedrijf nodig heeft."
+        ]
+      },
+      "order": {
+        "heading": "In welke volgorde",
+        "lead": "Elke stap bouwt voort op de vorige.",
+        "steps": [
+          "Nagaan of NIS2 voor u geldt. Dat hangt af van uw sector, het aantal medewerkers en de omzet (§ 28 BSIG).",
+          "Registreren bij het BSI.",
+          "De directie laten trainen.",
+          "Opschrijven welke IT uw bedrijf gebruikt en wie voor u werkt. Daarna de risico's beoordelen.",
+          "De maatregelen vaststellen en vastleggen in documenten: een beveiligingsbeleid, noodplannen en regels voor toegang, updates en versleuteling.",
+          "De directie leest de documenten en keurt ze goed.",
+          "Daarna regelmatig nagaan of alles nog klopt."
+        ],
+        "roadmapLink": "De korte versie voor de directie"
+      },
+      "example": {
+        "heading": "Een voorbeeld",
+        "lead": "Een verzonnen bedrijf: een maker van transportsystemen met 90 medewerkers. Eén medewerker beheert de IT, samen met een externe dienstverlener.",
+        "steps": [
+          "De toets laat zien: machinebouw staat in bijlage 2 van de BSIG. Met 90 medewerkers geldt het bedrijf als belangrijke entiteit.",
+          "De directeur vraagt bij ELSTER een organisatiecertificaat aan. Zodra de brief met de activeringscode binnen is, registreert hij het bedrijf in het portaal van het BSI.",
+          "Hij volgt een training voor de directie.",
+          "De IT-medewerker schrijft op waar het bedrijf van afhangt: ERP, e-mail, ontwerpsoftware, productiebesturing, back-ups. Daarna de leveranciers, zoals de IT-dienstverlener en de leverancier van het ERP.",
+          "Samen beoordelen ze per onderdeel wat er kan gebeuren. Uitval van de productiebesturing weegt het zwaarst.",
+          "Daaruit volgen de documenten: het beveiligingsbeleid, een incidentresponsplan, een bedrijfscontinuïteitsplan en regels voor toegang, updates en versleuteling.",
+          "De directeur leest ze en keurt ze goed. In het incidentresponsplan staat wie bij een incident beslist."
+        ]
       },
       "mistakes": {
-        "heading": "Common Mistakes",
-        "description": "What we see companies get wrong - and how to avoid it.",
+        "heading": "Veelgemaakte fouten",
         "items": {
           "waiting": {
-            "title": "Waiting for 'the final guidance'",
-            "description": "The law is in force since December 2025. The CIR defines the technical measures. There is no further guidance coming that would change what you need to do. Start now."
+            "title": "Wachten op definitieve richtlijnen",
+            "description": "De BSIG geldt sinds 6 december 2025. Sindsdien geldt ook de plicht om maatregelen te nemen volgens § 30 BSIG."
           },
           "overEngineering": {
-            "title": "Over-engineering the solution",
-            "description": "A 100-person waste management company does not need a SOC or a SIEM. Match your controls to your actual risk profile. The BSIG requires 'appropriate' measures, not maximum measures."
+            "title": "Te groot plannen",
+            "description": "De wet vraagt om evenredige maatregelen, niet om zo groot mogelijke. Systemen voor aanvalsdetectie zijn bijvoorbeeld alleen verplicht voor exploitanten van kritieke installaties (§ 31(2) BSIG)."
           },
           "noManagement": {
-            "title": "Treating it as an IT project",
-            "description": "§38 BSIG makes this a management responsibility. If the CEO isn't involved, you're already non-compliant. Schedule the management briefing in week 1."
+            "title": "NIS2 alleen aan de IT overlaten",
+            "description": "De directie moet de maatregelen invoeren en er toezicht op houden (§ 38(1) BSIG). Betrek de directie vanaf het begin."
           },
           "ignoreSupplyChain": {
-            "title": "Ignoring supply chain security",
-            "description": "NIS2 explicitly requires assessing your suppliers' cybersecurity. This catches many companies off guard. Start documenting supplier relationships early."
+            "title": "De leveranciers vergeten",
+            "description": "De beveiliging van de toeleveringsketen is een van de tien gebieden (§ 30(2) nr. 4 BSIG). Het gaat om alle directe leveranciers en dienstverleners, niet alleen om de IT."
           },
           "paperOnly": {
-            "title": "Paper compliance without real measures",
-            "description": "Writing policies nobody reads doesn't count. The BSI can request evidence that measures are actually implemented and effective. Build real processes, not just documents."
+            "title": "Alleen papier",
+            "description": "De wet vraagt om maatregelen die werken (§ 30(1) BSIG). Een document dat niemand kent, beschermt niets."
           }
         }
       },
-      "ctaCard": {
-        "heading": "Start Your Implementation Today",
-        "description": "The platform walks you through all 49 BSIG requirements in the order they should be implemented, with structured forms, evidence uploads, and management sign-off workflows - exactly what a mid-market company needs to get compliant without hiring a consultant."
+      "walk": {
+        "heading": "Zo gaat het in de doorloop",
+        "lead": "De doorloop op nisd2.eu leidt u in deze volgorde door de implementatie, stap voor stap.",
+        "points": [
+          "20 stappen. Exploitanten van kritieke installaties hebben er één meer.",
+          "Naast elke stap staat de wet, in eenvoudige woorden uitgelegd.",
+          "Uit uw antwoorden ontstaan zes documenten, waaronder het beveiligingsbeleid en de twee noodplannen.",
+          "Wat nog niet lukt, zet u opzij en u gaat verder.",
+          "Besluit u een punt bewust niet in te voeren, dan schrijft u op waarom. Ook dat besluit ondertekent de directie.",
+          "Aan het eind keurt de directie de documenten goed in de app, ingelogd met een eigen account. Naam en datum staan daarna op elk document."
+        ],
+        "seeItAlt": "Het pad door de doorloop: de stappen en welke al klaar zijn",
+        "next": "Begin met de eerste stap"
       },
-      "cta": "Start Your NIS2 Compliance Process"
+      "sources": {
+        "heading": "Bronnen",
+        "items": [
+          "Richtlijn (EU) 2022/2555 (NIS 2), art. 3, 20, 21 en 23 (eur-lex.europa.eu)",
+          "BSI-wet (BSIG) van 2 december 2025, §§ 28, 30, 31, 32, 33 en 38, van kracht sinds 6 december 2025 (gesetze-im-internet.de/bsig_2025)",
+          "BSIG, bijlage 2, nr. 5.4 machinebouw (gesetze-im-internet.de/bsig_2025/anlage_2.html)",
+          "BSI, Mein Unternehmenskonto en registratie in het BSI-portaal (bsi.bund.de/dok/muk)"
+        ]
+      }
     },
     "checklist": {
       "meta": {
@@ -3624,174 +3702,169 @@
     },
     "incidentReporting": {
       "meta": {
-        "title": "NIS2-meldplicht: 24u / 72u / 1 maand playbook",
-        "description": "NIS2-meldplicht onder §32 BSIG: vroege waarschuwing binnen 24 uur, incidentmelding binnen 72 uur, eindrapport binnen 1 maand. Criteria, BSI-portaal, boetes."
+        "title": "NIS2-meldplicht: termijnen, inhoud en meldkanaal",
+        "description": "NIS2-meldplicht volgens § 32 BSIG: waarschuwing binnen 24 uur, melding na 72 uur, eindrapport na een maand. Wat significant is en hoe u meldt."
       },
-      "title": "NIS2-meldplicht playbook",
-      "subtitle": "§32 BSIG zet Art 23(4) NIS 2 om: drie verplichte meldingen met vaste termijnen (24u, 72u, 1 maand) plus twee voorwaardelijke meldingen (op verzoek, als het incident nog gaande is). Een termijn missen is een aparte overtreding, los van het incident zelf.",
-      "overview": {
-        "heading": "Incidentmelding onder NIS2",
-        "p1": "§32 BSIG voert artikel 23 van de NIS2-richtlijn uit. Het stelt een verplicht meldingsregime in voor significante beveiligingsincidenten. Elke entiteit die als essentiële entiteit of belangrijke entiteit is aangemerkt, moet bij het BSI melden zodra een incident aan de significantiecriteria voldoet. De cascade bestaat uit drie verplichte meldingen met vaste termijnen en twee voorwaardelijke meldingen, die worden geactiveerd op verzoek of door een lopend incident. Een dienstverlener kan worden gemachtigd om de meldingen namens de entiteit in te dienen; de verantwoordelijkheid voor het incident en voor de inhoud van de melding blijft bij de entiteit.",
-        "p2": "De meldtermijnen zijn strikt en beginnen op het moment dat de entiteit kennis krijgt van het incident, niet wanneer het onderzoek is afgerond. Dat is een cruciaal onderscheid: de vroege waarschuwing binnen 24 uur moet worden ingediend op basis van de eerste kennisname, ook als de volledige omvang en impact nog onbekend zijn. Wachten met melden tot er volledige informatie is, vormt op zichzelf al een overtreding."
-      },
-      "timeline": {
-        "heading": "Meldcascade volgens Art 23(4) NIS 2",
-        "description": "Drie verplichte fasen met vaste termijnen vanaf het moment van kennisname, plus maximaal twee voorwaardelijke meldingen (tussentijds op verzoek van de autoriteit, voortgangsrapport als het incident op de dag waarop het eindrapport verschuldigd is nog gaande is).",
-        "items": {
-          "early": {
-            "title": "Vroege waarschuwing (frühe Erstmeldung)",
-            "deadline": "Binnen 24 uur",
-            "description": "De eerste melding aan het BSI dat een mogelijk significant incident is gedetecteerd. Moet worden ingediend binnen 24 uur na kennisname van het incident. Het doel is het BSI in staat te stellen de sectoroverschrijdende impact te beoordelen en zo nodig waarschuwingen aan andere entiteiten te geven.",
-            "contents": [
-              "Bevestiging dat een significant incident heeft plaatsgevonden of wordt vermoed",
-              "Of het incident vermoedelijk wordt veroorzaakt door onrechtmatige of kwaadwillige handelingen",
-              "Of het incident grensoverschrijdende impact zou kunnen hebben",
-              "Naam van de entiteit, sector en contactgegevens voor opvolging"
-            ]
-          },
-          "update": {
-            "title": "Incidentmelding (Meldung)",
-            "deadline": "Binnen 72 uur",
-            "description": "Een meer gedetailleerde melding die de vroege waarschuwing aanvult met aanvullende informatie die tijdens de eerste respons is verzameld. Moet worden ingediend binnen 72 uur na kennisname. Werkt het BSI bij over de aard, ernst en eerste impactbeoordeling van het incident.",
-            "contents": [
-              "Bijgewerkte beoordeling van de ernst en impact van het incident",
-              "Indicatoren van compromittering (IoCs), voor zover beschikbaar",
-              "Eerste beoordeling van de aard en oorzaak van het incident",
-              "Genomen of geplande maatregelen om het incident te beperken",
-              "Beoordeling van grensoverschrijdende impact, indien van toepassing"
-            ]
-          },
-          "intermediate": {
-            "title": "Tussenrapport (Zwischenmeldung)",
-            "deadline": "Op verzoek",
-            "description": "Ingediend op verzoek van het BSI tussen de melding na 72 uur en het eindrapport. Statusupdate over de actuele stand van de incidentafhandeling. Niet automatisch; wordt door de autoriteit geactiveerd.",
-            "contents": [
-              "Actuele status van indamming en herstel",
-              "Nieuwe bevindingen over oorzaak, omvang of impact",
-              "Aanpassingen aan de tegenmaatregelen",
-              "Bijgewerkte schadebeoordeling"
-            ]
-          },
-          "final": {
-            "title": "Eindrapport (Abschlussmeldung)",
-            "deadline": "1 maand na de melding van 72u",
-            "description": "Een uitgebreid eindrapport, ingediend binnen één maand na de incidentmelding van 72 uur. Volledige documentatie van het incident en de respons.",
-            "contents": [
-              "Gedetailleerde beschrijving van het incident, inclusief ernst en impact",
-              "Analyse van de grondoorzaak: het type dreiging of kwetsbaarheid dat het incident veroorzaakte",
-              "Toegepaste en lopende maatregelen om het incident en de gevolgen ervan te beperken",
-              "Grensoverschrijdende impact, indien van toepassing"
-            ]
-          },
-          "progress": {
-            "title": "Voortgangsrapport (Fortschrittsmeldung)",
-            "deadline": "Als het incident nog gaande is",
-            "description": "Als het incident nog gaande is wanneer het eindrapport verschuldigd is, dient u in plaats daarvan een voortgangsrapport in. Het eindrapport volgt zodra het incident volledig is afgehandeld (§ 32 Abs. 2 BSIG); de richtlijn noemt daarvoor één maand na afhandeling (Art. 23(4)(e) NIS 2).",
-            "contents": [
-              "Actuele status, aangezien het incident nog gaande is",
-              "Tot nu toe doorgevoerde indammingsmaatregelen",
-              "Verwachte duur tot oplossing van het incident, voor zover voorzienbaar",
-              "Plan voor het uiteindelijke eindrapport na oplossing van het incident"
-            ]
-          }
-        }
-      },
+      "title": "NIS2-meldplicht: wanneer en hoe u incidenten meldt bij het BSI",
+      "subtitle": "Een significant beveiligingsincident meldt u in drie fasen bij het BSI: een vroegtijdige waarschuwing binnen 24 uur, een incidentmelding binnen 72 uur en een eindrapport een maand later (§ 32 BSIG). De klok loopt vanaf het moment dat u ervan hoort. U meldt in het portaal van het BSI.",
       "criteria": {
-        "heading": "Wat een incident 'significant' maakt",
-        "description": "Niet elk beveiligingsincident activeert de plicht uit § 32 BSIG. Een incident is significant als het voldoet aan een van de twee toetsen in § 2 Nr. 11 BSIG (Art. 23(3) NIS 2): ernstige verstoring van de diensten of financieel verlies voor de entiteit, of aanzienlijke materiële of immateriële schade voor anderen. Voor de digitale aanbieders die de CIR dekt, leggen Art. 3 tot en met 14 CIR 2024/2690 de drempels vast. Voor elke andere entiteit stelt het BSI dat u ervan kunt uitgaan dat een incident significant is als het aan een van de criteria van Art. 3(1) CIR voldoet, en altijd wanneer de levering van een kritieke dienst is uitgevallen of verstoord.",
+        "heading": "Wat een significant beveiligingsincident is",
+        "intro": "Een beveiligingsincident is een gebeurtenis die de beschikbaarheid, integriteit of vertrouwelijkheid van uw gegevens of diensten aantast (§ 2 nr. 40 BSIG). U hoeft alleen significante incidenten te melden.",
+        "description": "Een incident is significant als het een van twee dingen heeft veroorzaakt, of kan veroorzaken (§ 2 nr. 11 BSIG, art. 23(3) NIS 2): een ernstige verstoring van de bedrijfsvoering of financieel verlies voor uw bedrijf, of aanzienlijke schade bij anderen. Voor bepaalde digitale aanbieders legt Uitvoeringsverordening (EU) 2024/2690 precieze drempels vast. Voor alle anderen zegt het BSI: een incident is significant als het voldoet aan een van de criteria in art. 3(1) van die verordening, en altijd als een kritieke dienst uitvalt of wordt aangetast.",
         "items": {
           "disruption": {
-            "title": "Verstoring van de dienst",
-            "description": "Het incident heeft een ernstige operationele verstoring van de door de entiteit geleverde diensten veroorzaakt of kan deze veroorzaken (§ 2 Nr. 11 a BSIG)."
+            "title": "Ernstige verstoring van de bedrijfsvoering",
+            "description": "Het incident verstoort het leveren van uw diensten ernstig, of kan dat doen."
           },
           "financial": {
             "title": "Financieel verlies",
-            "description": "Het incident heeft financieel verlies voor de entiteit veroorzaakt of kan dit veroorzaken. Voor de digitale aanbieders die de CIR dekt, legt Art. 3(1)(a) CIR de grens bij een direct financieel verlies van meer dan EUR 500.000 of 5% van de jaaromzet van het voorgaande jaar, afhankelijk van welk bedrag lager is; overweging 36 telt bijvoorbeeld personeelskosten voor herstel, contractuele boetes, compensatie aan klanten en gederfde omzet mee."
+            "description": "Het incident veroorzaakt financieel verlies voor uw bedrijf, of kan dat doen. Voor de digitale aanbieders onder de uitvoeringsverordening ligt de drempel bij een direct verlies van meer dan 500.000 EUR of 5% van de omzet van het vorige jaar, als dat lager is (art. 3(1)(a))."
           },
           "spread": {
-            "title": "Impact op andere entiteiten",
-            "description": "Het incident heeft aanzienlijke schade aan andere natuurlijke of rechtspersonen veroorzaakt of kan deze veroorzaken. Dit omvat incidenten die zich via toeleveringsketens verspreiden, gedeelde infrastructuur treffen of gegevens van derden blootstellen."
+            "title": "Schade bij anderen",
+            "description": "Het incident veroorzaakt andere mensen of bedrijven aanzienlijke materiële of immateriële schade, of kan dat doen."
           },
           "data": {
             "title": "Datalek",
-            "description": "Een datalek is alleen een significant incident als het aan een van de twee toetsen voldoet, bijvoorbeeld omdat het aanzienlijke schade voor anderen veroorzaakt. Melden onder § 32 BSIG staat los van en komt bovenop de melding van datalekken onder Art. 33/34 AVG; beide kunnen voor hetzelfde incident gelden."
+            "description": "Een datalek is alleen significant als het aan een van de twee criteria voldoet, bijvoorbeeld omdat het anderen aanzienlijke schade toebrengt. De melding volgens § 32 BSIG staat naast de melding volgens art. 33 en 34 AVG. Beide kunnen voor hetzelfde incident gelden."
           },
           "duration": {
             "title": "Duur",
-            "description": "De duur is geen eigen criterium in § 2 Nr. 11 BSIG of Art. 23(3) NIS 2. Voor de digitale aanbieders die de CIR dekt, stellen Art. 5 tot en met 14 tijdslimieten per dienst vast (bijvoorbeeld een clouddienst die langer dan 30 minuten volledig onbeschikbaar is, Art. 7(a) CIR). Wanneer de levering van een kritieke dienst is uitgevallen of verstoord, is het incident volgens het BSI altijd significant."
+            "description": "De duur is geen apart criterium. Voor de digitale aanbieders onder de uitvoeringsverordening gelden tijdsgrenzen per dienst, bijvoorbeeld een clouddienst die langer dan 30 minuten volledig onbereikbaar is (art. 7(a))."
+          }
+        },
+        "doubt": "Meld bij twijfel vroeg. Het BSI wil uitdrukkelijk vroege meldingen, ook als er nog veel onduidelijk is. Correcties gaan mee in de latere meldingen."
+      },
+      "timeline": {
+        "heading": "De termijnen",
+        "description": "Drie meldingen met vaste termijnen, plus twee die alleen in bepaalde gevallen nodig zijn. De termijnen zijn maxima: u meldt zonder onnodige vertraging.",
+        "awareness": "De klok start zodra u ervan weet. Volgens het BSI is dat het moment waarop een medewerker van uw bedrijf tijdens werktijd van het significante incident hoort.",
+        "items": {
+          "early": {
+            "title": "Vroegtijdige waarschuwing",
+            "deadline": "24 uur",
+            "description": "Een eerste waarschuwing aan het BSI, uiterlijk 24 uur nadat u van het incident hoorde.",
+            "contents": [
+              "Of het incident vermoedelijk komt door een onrechtmatige of kwaadwillige handeling",
+              "Of het andere landen kan raken",
+              "Een eerste inschatting van het incident",
+              "Wie meldt, en hoe het BSI die persoon bereikt"
+            ]
+          },
+          "update": {
+            "title": "Incidentmelding",
+            "deadline": "72 uur",
+            "description": "Uiterlijk 72 uur nadat u van het incident hoorde. Zij bevestigt of actualiseert de vroegtijdige waarschuwing.",
+            "contents": [
+              "Een eerste beoordeling van ernst en gevolgen",
+              "Sporen van de aanvallers (indicators of compromise), als die er zijn",
+              "Wat u over de oorzaak weet",
+              "Wat u hebt gedaan en nog van plan bent"
+            ]
+          },
+          "intermediate": {
+            "title": "Tussentijds verslag",
+            "deadline": "Op verzoek",
+            "description": "Alleen als het BSI erom vraagt: de actuele stand.",
+            "contents": [
+              "Stand van indammen en herstel",
+              "Nieuwe inzichten over oorzaak, omvang of gevolgen"
+            ]
+          },
+          "final": {
+            "title": "Eindrapport",
+            "deadline": "1 maand na de incidentmelding",
+            "description": "Uiterlijk een maand na de incidentmelding van de termijn van 72 uur.",
+            "contents": [
+              "Een uitgebreide beschrijving van het incident, met ernst en gevolgen",
+              "Het soort dreiging of de waarschijnlijke oorzaak",
+              "Wat u hebt gedaan en nog doet",
+              "Of andere landen geraakt zijn"
+            ]
+          },
+          "progress": {
+            "title": "Voortgangsverslag",
+            "deadline": "Als het incident nog loopt",
+            "description": "Loopt het incident na een maand nog, dan dient u in plaats van het eindrapport een voortgangsverslag in. Het eindrapport volgt als het incident is afgehandeld (§ 32(2) BSIG).",
+            "contents": [
+              "De actuele stand",
+              "Wat u tot nu toe hebt ingedamd"
+            ]
           }
         }
       },
       "fields": {
-        "heading": "Verplichte meldvelden",
-        "description": "Het BSI-meldportaal vereist gestructureerde informatie. Door deze velden vooraf gereed te hebben, verkleint u het risico op het missen van de termijn van 24 uur aanzienlijk.",
-        "items": {
-          "entity": {
-            "title": "Identificatie van de entiteit",
-            "description": "Wie meldt en hoe die te bereiken is, en welke sectoren, branches en entiteitstypen zijn getroffen (en, voor exploitanten, welke kritieke installaties). Leg dit vast in uw incidentresponsplan, zodat het niet tijdens een crisis hoeft te worden opgezocht."
-          },
-          "nature": {
-            "title": "Aard en classificatie van het incident",
-            "description": "Type incident (ransomware, DDoS, datalek, insiderdreiging, compromittering van de toeleveringsketen, enz.), getroffen systemen en diensten, tijdlijn van gebeurtenissen van detectie tot de huidige stand, en eerste ernstclassificatie."
-          },
-          "impact": {
-            "title": "Impactbeoordeling",
-            "description": "Aantal getroffen gebruikers of klanten, verstoorde diensten, geschatte financiële impact, betrokken gegevenscategorieën (indien van toepassing) en duur van de verstoring. Voor de vroege waarschuwing zijn schattingen aanvaardbaar: precisie komt in de melding na 72 uur en in het eindrapport."
-          },
-          "crossBorder": {
-            "title": "Grensoverschrijdende impact",
-            "description": "Of het incident entiteiten of burgers in andere EU-lidstaten treft of zou kunnen treffen. Dit activeert informatie-uitwisseling tussen nationale CSIRT's en kan coördinatie door ENISA met zich meebrengen. Moet worden beoordeeld in zowel de vroege waarschuwing als de daaropvolgende meldingen."
-          },
-          "measures": {
-            "title": "Responsmaatregelen",
-            "description": "Acties die zijn ondernomen om het incident in te dammen, uit te roeien en ervan te herstellen. Omvat technische maatregelen (isolatie, patchen, vervanging van inloggegevens), communicatiemaatregelen (klantmelding, stakeholderbriefing) en organisatorische maatregelen (activering van het crisisteam, inschakeling van externe ondersteuning)."
-          }
-        }
+        "heading": "Wat in de vroegtijdige waarschuwing hoort",
+        "description": "Het BSI noemt deze gegevens voor de vroegtijdige waarschuwing. Het formulier in het portaal vraagt ernaar.",
+        "list": [
+          "Inschatting van het incident, reden van de melding en situatie",
+          "Een voorlopige beschrijving: verstoring, gevolgen, verwachte duur en vermoedelijke oorzaak",
+          "Wanneer het incident plaatsvond en wanneer u het merkte",
+          "Getroffen sectoren en soorten entiteiten",
+          "Of een aanval wordt vermoed en of andere landen geraakt kunnen worden",
+          "Wat u tot nu toe hebt gedaan en of het incident onder controle is",
+          "Hoe het BSI de melder bereikt"
+        ],
+        "note": "De regel van het BSI: snelheid gaat voor volledigheid. Een ingediende melding kunt u niet intrekken. U corrigeert haar met een vervolgmelding."
       },
       "where": {
-        "heading": "Waar en hoe te melden",
-        "description": "Meldingen gaan naar het BSI, normaal gesproken via het BSI-portaal.",
-        "p1": "Meldingen onder § 32 BSIG gaan naar het BSI, normaal gesproken via het BSI-portaal. Een entiteit die een significant incident heeft voordat zij is geregistreerd, meldt via een online formulier in het meld- en informatieportaal van het BSI (MIP). Exploitanten van kritieke installaties en federale overheidsinstanties gebruiken voorlopig hun eerdere meldkanalen.",
-        "p2": "Het meldportaal is beschikbaar op de website van het BSI onder de NIS2-rubriek. Om in het BSI-portaal te melden, logt u in met de toegang uit uw registratie (§ 33 BSIG). Als een significant incident plaatsvindt voordat u bent geregistreerd, meldt u het alsnog, via het online formulier in het MIP."
+        "heading": "Waar u meldt, en wie meldt",
+        "description": "U meldt bij het BSI, normaal via het portaal van het BSI.",
+        "p1": "Meldingen volgens § 32 BSIG gaan naar het BSI, normaal via het portaal van het BSI. Heeft uw bedrijf een significant incident voordat het geregistreerd is, dan meldt u via een formulier in het meld- en informatieportaal van het BSI (MIP). Exploitanten van kritieke installaties en federale overheidsinstanties gebruiken voorlopig hun bestaande meldkanalen.",
+        "p2": "Elke medewerker met toegang tot het portaal kan melden. Elke persoon heeft daarvoor een eigen organisatiecertificaat van ELSTER nodig en moet in het portaal aan uw entiteit gekoppeld zijn. U kunt ook een dienstverlener voor u laten melden. De verantwoordelijkheid voor de melding blijft bij u.",
+        "p3": "Exploitanten van kritieke installaties melden ook het soort installatie, de kritieke dienst en de gevolgen daarvoor (§ 32(3) BSIG). Als persoonsgegevens geraakt zijn, kan ook een melding bij de toezichthouder voor gegevensbescherming nodig zijn."
       },
-      "penalties": {
-        "heading": "Sancties bij meldverzuim",
-        "description": "Niet melden wordt los van het incident zelf bestraft. Een bedrijf dat een incident overkomt en dit technisch goed afhandelt maar nalaat te melden, krijgt te maken met een aparte handhavingsmaatregel.",
-        "items": {
-          "essential": {
-            "amount": "Tot EUR 10.000.000 of 2% van de omzet",
-            "label": "Essentiële entiteiten",
-            "detail": "Het hoogste van EUR 10 miljoen of 2% van de wereldwijde jaaromzet van het voorgaande boekjaar (§ 65 Abs. 5 en 6 BSIG). Essentiële entiteiten zijn onder meer grote ondernemingen in de sectoren van BSIG Bijlage 1 (energie, transport, financiën, gezondheid, water, digitale infrastructuur, ruimtevaart) en, ongeacht hun omvang, exploitanten van kritieke installaties, gekwalificeerde verleners van vertrouwensdiensten, TLD-registers en DNS-aanbieders (§ 28 Abs. 1 BSIG)."
-          },
-          "important": {
-            "amount": "Tot EUR 7.000.000 of 1,4% van de omzet",
-            "label": "Belangrijke entiteiten",
-            "detail": "Het hoogste van EUR 7 miljoen of 1,4% van de wereldwijde jaaromzet (§ 65 Abs. 5 en 7 BSIG). Belangrijke entiteiten zijn middelgrote ondernemingen in de sectoren van Bijlage 1 en middelgrote of grote ondernemingen in de sectoren van Bijlage 2 (post- en koeriersdiensten, afvalbeheer, chemie, levensmiddelen, productie, digitale aanbieders, onderzoek), plus alle andere verleners van vertrouwensdiensten (§ 28 Abs. 2 BSIG)."
-          },
-          "management": {
-            "amount": "Aansprakelijkheid jegens het bedrijf (§ 38 Abs. 2 BSIG)",
-            "label": "Leiding (Geschäftsleitung)",
-            "detail": "§ 38 BSIG verplicht de leiding de risicobeheersmaatregelen van § 30 uit te voeren en toezicht te houden op de uitvoering. Een lid van de leiding dat deze plicht verwijtbaar schendt, is jegens het bedrijf aansprakelijk voor de schade, volgens de regels van het vennootschapsrecht voor de rechtsvorm (§ 38 Abs. 2). Melden zelf is een plicht van de entiteit (§ 32); een te late of ontbrekende melding wordt op entiteitsniveau beboet (§ 65 Abs. 2 Nr. 4)."
-          }
-        }
+      "after": {
+        "heading": "Na de melding",
+        "items": [
+          "Het BSI bevestigt de ontvangst zonder onnodige vertraging, zo mogelijk binnen 24 uur. Op verzoek geeft het richtsnoeren of advies (§ 36(1) BSIG).",
+          "Het BSI kan u opdragen de afnemers van uw diensten over het incident te informeren (§ 35(1) BSIG).",
+          "Reken op vervolgvragen. Het BSI raadt aan dat zijn waarschuwingen ook buiten kantooruren iemand bereiken."
+        ]
+      },
+      "example": {
+        "heading": "Een voorbeeld",
+        "lead": "Een verzonnen bedrijf. Maandag, 9 uur: de boekhouding meldt aan de IT dat bestanden op de server versleuteld zijn. De orderverwerking ligt stil.",
+        "items": [
+          "Maandag, 9.30 uur: de IT bevestigt een aanval. Volgens het incidentplan beslist de directeur. Hij beoordeelt het incident als significant, omdat de bedrijfsvoering ernstig verstoord is.",
+          "Maandag, 14 uur: de vroegtijdige waarschuwing in het portaal van het BSI. Daarin staat wat bekend is en dat een aanval wordt vermoed. De termijn zou tot dinsdag 9 uur hebben gelopen.",
+          "Uiterlijk donderdag 9 uur: de incidentmelding, met een eerste beoordeling van ernst en gevolgen.",
+          "Een maand na die incidentmelding: het eindrapport met oorzaak en oplossing. Loopt het incident dan nog, dan komt eerst een voortgangsverslag.",
+          "Tegelijk gaat het bedrijf na of persoonsgegevens geraakt zijn. Is dat zo, dan geldt ook de meldplicht volgens art. 33 AVG."
+        ]
+      },
+      "prepare": {
+        "heading": "Wat u vooraf regelt",
+        "items": [
+          "Wie beslist of een incident significant is, en wie meldt.",
+          "Toegang tot het portaal van het BSI voor die mensen: elk een eigen organisatiecertificaat en een koppeling aan uw entiteit.",
+          "De telefoonnummers van IT, dienstverleners en directie, ook op papier.",
+          "Een incidentplan dat mensen kunnen vinden, ook als de servers uitgevallen zijn."
+        ]
+      },
+      "walk": {
+        "heading": "Zo gaat het in de doorloop",
+        "lead": "Twee stappen in de doorloop op nisd2.eu bereiden u voor op het melden.",
+        "points": [
+          "“Plan what happens in an incident”: uit uw antwoorden ontstaat uw incidentresponsplan. Daarin staat wie beslist en hoe u meldt.",
+          "“Know how to report an incident”: de stap toont de drie termijnen en een voorbeeld van een vroegtijdige waarschuwing.",
+          "U legt vast of u kunt inloggen op het portaal van het BSI en kunt melden.",
+          "Aan het eind keurt de directie het incidentresponsplan goed in de app."
+        ],
+        "seeItAlt": "De meldstap in de doorloop: de drie termijnen",
+        "next": "Schrijf uw incidentplan in de doorloop"
       },
       "sources": {
         "heading": "Bronnen",
         "items": [
-          "NIS2-richtlijn (EU) 2022/2555 - Artikel 23 (Rapportageverplichtingen)",
-          "BSIG - §32 (Meldepflichten bei erheblichen Sicherheitsvorfällen)",
-          "BSIG - §38 (Umsetzungs-, Überwachungs- und Schulungspflicht - Geschäftsleitung)",
-          "BSIG - §65 (Bußgeldvorschriften)",
-          "CIR (EU) 2024/2690 - Artikel 3 (Significantie van incidenten), Artikel 4 (Terugkerende incidenten)",
-          "BSI - NIS-2-Meldepflicht (informatiepagina voor gereguleerde bedrijven): bsi.bund.de",
-          "BSI - Documentatie en FAQ van het NIS2-meldportaal"
+          "BSI-wet (BSIG), § 2 nrs. 11 en 40, §§ 32, 35 en 36 (gesetze-im-internet.de/bsig_2025)",
+          "Richtlijn (EU) 2022/2555 (NIS 2), art. 23 (eur-lex.europa.eu)",
+          "Uitvoeringsverordening (EU) 2024/2690, art. 3 en 7",
+          "BSI, meldplicht onder NIS 2: termijnen, inhoud en meldkanaal (bsi.bund.de/dok/nis-2-meldepflicht)",
+          "BSI, Mein Unternehmenskonto: toegang tot het BSI-portaal (bsi.bund.de/dok/muk)",
+          "Verordening (EU) 2016/679 (AVG), art. 33 en 34"
         ]
-      },
-      "ctaCard": {
-        "heading": "Klaar om te melden voordat het incident toeslaat",
-        "description": "Het platform configureert uw BSI-meldvelden vooraf, houdt een incidentregister bij met classificatie-workflows en bewaakt de termijnen van 24u/72u/1 maand, zodat u onder druk aan elke verplichting voldoet."
-      },
-      "cta": "Start uw NIS2-complianceproces"
+      }
     },
     "euImplementation": {
       "meta": {
@@ -3978,108 +4051,117 @@
     },
     "missedRegistration": {
       "meta": {
-        "title": "Missed BSI NIS2 Registration? Immediate Steps",
-        "description": "Missed the NIS2 registration deadline? The BSI portal is still open. How to register now under § 33 BSIG, step by step, with answers to common questions."
+        "title": "NIS2-registratie bij het BSI: zo werkt het, en de termijn",
+        "description": "NIS2-registratie bij het BSI: wie zich registreert, de stappen via ELSTER en het portaal van het BSI, de termijn en wat daarna komt."
       },
-      "title": "You Missed the BSI Registration Deadline. Now What?",
-      "subtitle": "The BSI portal is still open. Here is what matters now and what to do first.",
-      "shortAnswer": {
-        "heading": "The Short Answer",
-        "p1": "Don't panic. You are not alone - and you are not too late to fix this. The BSI estimated that roughly 30,000 entities fall under NIS2 in Germany. The registration deadline passed on March 6, 2026, but a significant number of companies have still not registered. You are far from the only one in this position.",
-        "p2": "The registration portal under §33 BSIG is still open. You can register today. The BSI has signaled that it will prioritize enforcement against companies that ignore their obligations entirely - not against those who registered late but are acting in good faith. Late is better than never, and 'never' is the only truly dangerous option.",
-        "p3": "The key is to act now, document that you started, and begin the actual compliance work. A late registration with visible progress looks fundamentally different to a regulator than no registration at all."
+      "title": "NIS2-registratie: zo registreert u uw bedrijf bij het BSI",
+      "subtitle": "Bedrijven die onder NIS2 vallen, registreren zich in het portaal van het BSI (§ 33 BSIG). Eerst hebt u een organisatiecertificaat van ELSTER nodig, dat per brief wordt geactiveerd. Voor bedrijven die er sinds december 2025 onder vallen, liep de termijn af op 6 maart 2026. Hebt u die gemist, registreer dan nu: de plicht blijft gelden.",
+      "who": {
+        "heading": "Wie zich moet registreren",
+        "p1": "Elke essentiële en elke belangrijke entiteit (§ 33(1) BSIG). Zo noemt de wet de bedrijven waarvoor NIS 2 geldt.",
+        "p2": "Of uw bedrijf daarbij hoort, hangt af van de sector en de omvang (§ 28 BSIG). De sectoren staan in bijlage 1 en 2 van de BSIG. In die sectoren is een bedrijf een belangrijke entiteit als het minstens 50 medewerkers heeft, of een jaaromzet en een balanstotaal van elk meer dan 10 miljoen EUR.",
+        "p3": "Het BSI biedt een toets die u door de vragen leidt. Volgens het BSI is de uitkomst niet juridisch bindend."
+      },
+      "deadline": {
+        "heading": "De termijn",
+        "p1": "U registreert zich uiterlijk drie maanden nadat uw bedrijf voor het eerst als entiteit geldt (§ 33(1) BSIG).",
+        "p2": "De BSIG geldt sinds 6 december 2025. Voor bedrijven die er sindsdien onder vallen, liep de termijn af op 6 maart 2026.",
+        "p3": "Valt uw bedrijf er pas later onder, bijvoorbeeld omdat het groeit, dan lopen de drie maanden vanaf dat moment."
       },
       "steps": {
-        "heading": "Five Steps to Get Back on Track",
-        "description": "Follow this order. Each step builds on the previous one, and together they create a documented trail that shows the BSI you are taking compliance seriously.",
+        "heading": "Zo registreert u zich, stap voor stap",
+        "description": "De registratie heeft twee fasen: eerst een account bij ELSTER, daarna de registratie in het portaal van het BSI.",
         "items": {
           "check": {
-            "title": "1. Confirm you are actually in scope",
-            "description": "Before you register, verify that NIS2 applies to your company. The criteria are in §28 BSIG: you need to operate in one of 18 listed sectors AND meet the size threshold (at least 50 employees, or annual turnover and balance sheet total each above €10M). If you are unsure, check the BSI's sector lists in Annex I and Annex II of the NIS2 Directive. Many companies assume they are out of scope when they are not - and vice versa. If you are genuinely uncertain, get a legal opinion before registering, but do not use uncertainty as an excuse to delay."
+            "title": "Nagaan of u eronder valt",
+            "description": "Breng uw sector, het aantal medewerkers en de omzet in kaart (§ 28 BSIG). De toets van het BSI helpt daarbij. Bij twijfelgevallen helpt een juridische beoordeling."
+          },
+          "certificate": {
+            "title": "Een organisatiecertificaat aanvragen bij ELSTER",
+            "description": "Dat doet u via “Mein Unternehmenskonto” (mein-unternehmenskonto.de). U hebt daarvoor een Duits belastingnummer nodig. De toegangsgegevens komen per e-mail, de activeringscode per brief naar het adres dat bij het belastingnummer is opgeslagen. Volgens het BSI duurt de bezorging meestal minstens vijf werkdagen."
+          },
+          "gather": {
+            "title": "De gegevens klaarzetten",
+            "description": "Naam, adres, rechtsvorm en registergegevens haalt het portaal uit uw bedrijfsaccount. Volgens § 33(1) BSIG vult u aan: e-mail en telefoonnummers, uw publieke IP-adresbereiken, uw sector, de EU-landen waar u zulke diensten levert, en uw bevoegde toezichthouders."
           },
           "register": {
-            "title": "2. Register via the BSI portal immediately",
-            "description": "Go to the BSI's NIS2 registration portal and complete your registration under §33 BSIG. You will need: your company details, sector classification, contact person for cybersecurity matters, and IP address ranges for your critical systems. The registration itself takes about 30 minutes if you have your information ready. Do this today - every day you wait adds to the gap between the deadline and your registration date."
+            "title": "Registreren in het portaal van het BSI",
+            "description": "U logt met het certificaat in op het portaal van het BSI (portal.bsi.bund.de) en vult het formulier in. Wie de entiteit registreert, wordt automatisch de beheerder en kan collega's uitnodigen."
           },
-          "document": {
-            "title": "3. Document that you have started",
-            "description": "Create a written record - even a simple internal memo - that documents when you became aware of your NIS2 obligations, when you registered, and what steps you are taking. This creates a paper trail that demonstrates good faith. If the BSI ever asks why you were late, 'we identified the obligation, registered immediately, and began compliance work on [date]' is a strong answer."
-          },
-          "implement": {
-            "title": "4. Begin actual compliance work",
-            "description": "Registration is just the first step - §30 BSIG requires you to implement cybersecurity risk management measures. Start with the foundations: asset inventory, risk assessment methodology, and incident reporting procedures. You do not need to be fully compliant overnight, but you need to be visibly working toward it. The BSI will look at trajectory, not just current state."
-          },
-          "legal": {
-            "title": "5. Consider legal counsel if scope is unclear",
-            "description": "If your company sits near the threshold (close to 50 employees, or close to €10M in both turnover and balance sheet total), operates in a sector that could be interpreted multiple ways, or has a complex corporate structure, consult a lawyer specializing in IT regulation. The cost of a legal opinion (€2,000-5,000) is trivial compared to the cost of either non-compliance or unnecessary compliance. Some industry associations (like Bitkom or BDI) also offer NIS2 scope guidance for members."
+          "record": {
+            "title": "Vastleggen en toegang verdelen",
+            "description": "Noteer op welke dag en met welk certificaat u zich hebt geregistreerd. Geef toegang aan de mensen die in een noodgeval incidenten melden. Elke persoon heeft een eigen certificaat nodig en moet in het portaal aan uw entiteit gekoppeld zijn."
           }
         }
       },
-      "risks": {
-        "heading": "What Are the Actual Risks of Late Registration?",
-        "description": "Being honest about the risks helps you make proportionate decisions. The consequences are real but not catastrophic - if you act now.",
-        "items": {
-          "fines": {
-            "title": "Administrative fines",
-            "description": "§65 BSIG provides for fines of up to €500,000 specifically for registration violations. In practice, the BSI has limited enforcement capacity and is focused on getting companies into the system, not punishing stragglers. A company that registers late and demonstrates active compliance efforts is unlikely to face the maximum penalty. A company that never registers is a different story."
-          },
-          "orders": {
-            "title": "Compliance orders",
-            "description": "The BSI can issue binding compliance orders requiring you to register and implement specific measures within a set timeframe. Non-compliance with such an order escalates the legal situation significantly. Registering proactively - even late - avoids this escalation path entirely."
-          },
-          "liability": {
-            "title": "Management personal liability",
-            "description": "§38 BSIG makes the Geschäftsführung personally liable for ensuring NIS2 compliance. If your company is in scope and you - as management - knowingly delayed registration, this creates personal exposure. The liability cannot be waived by shareholder resolution. Documenting that you acted as soon as you became aware is important protection."
-          },
-          "audit": {
-            "title": "Increased scrutiny in future audits",
-            "description": "For essential entities, the BSI conducts periodic audits. A late registration will be visible in your compliance timeline. However, a well-documented catch-up process that shows systematic improvement is viewed very differently from a pattern of neglect. Auditors assess trajectory, not just the starting point."
-          }
-        }
-      },
-      "context": {
-        "heading": "Why So Many Companies Missed the Deadline",
-        "p1": "The NIS2 registration gap is not primarily caused by negligence. The German legislative process was delayed repeatedly - the NIS2UmsuCG passed months after the original EU transposition deadline. Many companies reasonably waited for the German law to be finalized before taking action. Others were unaware they fell in scope because the sector definitions expanded dramatically compared to the old KRITIS regime.",
-        "p2": "The BSI itself acknowledged the scale of the registration gap publicly. The agency has taken a pragmatic stance: the priority is getting all 30,000 entities registered and into the compliance system, not punishing the first wave of late registrants. This pragmatism has limits - it applies to companies that are actively working toward compliance, not to those using the BSI's patience as an excuse to do nothing."
-      },
-      "faq": {
-        "heading": "Frequently Asked Questions",
-        "q1": {
-          "q": "Is the BSI registration portal still open?",
-          "a": "Yes. The §33 BSIG registration portal remains open. There is no deadline after which you can no longer register - the obligation is ongoing. The deadline was when you should have registered, not when you could. Register now."
-        },
-        "q2": {
-          "q": "What is the fine for late registration?",
-          "a": "§65 BSIG provides for fines of up to €500,000 for registration violations. However, fines are assessed on a case-by-case basis considering the severity, duration, and whether the company acted in good faith. A company that registers a few months late and shows active compliance efforts faces a very different risk profile than one that ignores the obligation entirely."
-        },
-        "q3": {
-          "q": "Does late registration affect my other NIS2 obligations?",
-          "a": "No. Your obligations under §30 BSIG (cybersecurity measures), §32 (incident reporting), and §38 (management liability) exist independently of whether you have registered. Registration does not create the obligations - it fulfills one of them. The other obligations apply from the moment you meet the scope criteria, regardless of registration status."
-        },
-        "q4": {
-          "q": "Can I register if I am not sure we are in scope?",
-          "a": "Yes, and the BSI recommends erring on the side of registration if you are uncertain. Registering when you turn out to be out of scope has no negative consequences - the registration can be corrected. Not registering when you are in scope carries real legal risk. When in doubt, register."
-        },
-        "q5": {
-          "q": "What if we registered but have not started compliance work?",
-          "a": "Registration without compliance work is like filing a tax return but not paying the tax - you fulfilled one obligation but not the substantive ones. Start with §30 BSIG measures now: asset inventory, risk assessment, incident reporting procedures. The BSI expects registered entities to be actively working toward compliance, not just sitting on a registration number."
-        }
-      },
-      "sources": {
-        "heading": "Sources",
+      "after": {
+        "heading": "Wat er na de registratie komt",
+        "p1": "§ 33 BSIG voorziet na de registratie in geen besluit en geen verdere stap van het BSI. Verwacht dus geen bericht dat u moet beginnen.",
+        "p2": "De andere plichten gelden toch. Ze gelden omdat uw bedrijf een entiteit is. De registratie verandert daar niets aan.",
         "items": [
-          "BSI - NIS2 registration statistics and public statements on enforcement approach (2025)",
-          "G DATA CyberDefense - NIS2 awareness survey: 44% of mid-market companies unaware of obligations (2024)",
-          "BSIG - §33 (Registration obligation), §65 (Administrative fines), §38 (Management liability)",
-          "NIS2UmsuCG - Gesetz zur Umsetzung der NIS-2-Richtlinie und zur Stärkung der Cybersicherheit",
-          "BMI - Parliamentary documentation and guidance on NIS2UmsuCG implementation"
+          "Beveiligingsmaatregelen nemen op tien gebieden en ze vastleggen (§ 30 BSIG).",
+          "Significante beveiligingsincidenten melden, de eerste melding binnen 24 uur (§ 32 BSIG).",
+          "De directie voert de maatregelen in, houdt er toezicht op en volgt regelmatig trainingen (§ 38 BSIG).",
+          "Veranderen uw gegevens, dan meldt u dat binnen twee weken aan het BSI (§ 33(5) BSIG)."
+        ],
+        "link": "Hoe u het aanpakt: NIS2 implementeren"
+      },
+      "missed": {
+        "heading": "Termijn gemist? Doe dit nu",
+        "items": [
+          "Registreer u nu. De plicht eindigt niet met de termijn.",
+          "Noteer wanneer u van de plicht hoorde en wanneer u zich registreerde.",
+          "Had uw bedrijf al vóór de registratie een significant beveiligingsincident? Meld het toch, via een formulier in het meld- en informatieportaal van het BSI (MIP).",
+          "Begin met de maatregelen. Die gelden los van de registratie."
         ]
       },
-      "ctaCard": {
-        "heading": "Register, Then Build Your Compliance Trail",
-        "description": "The platform guides you from registration through full §30 BSIG compliance - creating the documented evidence trail that shows the BSI you are taking this seriously."
+      "faq": {
+        "heading": "Veelgestelde vragen",
+        "q1": {
+          "q": "Kan ik me na 6 maart 2026 nog registreren?",
+          "a": "Ja. De termijn zegt tot wanneer u zich moest registreren. De plicht zelf eindigt niet. U registreert zich via hetzelfde portaal van het BSI."
+        },
+        "q2": {
+          "q": "Krijg ik een besluit of een registratienummer?",
+          "a": "§ 33 BSIG voorziet niet in een besluit. Leg zelf vast wanneer en met welk certificaat u zich hebt geregistreerd. Bij incidentmeldingen is dat anders: daar bevestigt het BSI de ontvangst, zo mogelijk binnen 24 uur (§ 36(1) BSIG)."
+        },
+        "q3": {
+          "q": "Gelden de andere plichten pas na de registratie?",
+          "a": "Nee. De maatregelen (§ 30 BSIG), de meldplicht (§ 32 BSIG) en de plichten van de directie (§ 38 BSIG) gelden zodra uw bedrijf een entiteit is. De registratie is één plicht naast de andere."
+        },
+        "q4": {
+          "q": "We weten niet zeker of we eronder vallen. Wat nu?",
+          "a": "Gebruik de toets van het BSI en laat twijfelgevallen juridisch beoordelen. Twijfelgevallen zijn bijvoorbeeld een omvang dicht bij de drempel, activiteiten die in meerdere sectoren kunnen passen, of een groep met verbonden bedrijven (§ 28(3) en (4) BSIG)."
+        },
+        "q5": {
+          "q": "We hebben vestigingen in andere EU-landen. Waar registreren we ons?",
+          "a": "In principe is het land bevoegd waar uw bedrijf gevestigd is (art. 26(1) NIS 2). Voor bepaalde digitale aanbieders telt de hoofdvestiging. De instanties van alle EU-landen staan in ons overzicht van registratie-instanties."
+        }
       },
-      "cta": "Start Your NIS2 Compliance Process"
+      "walk": {
+        "heading": "Zo gaat het in de doorloop",
+        "lead": "De registratie is de eerste stap in de doorloop op nisd2.eu.",
+        "points": [
+          "De stap legt in eenvoudige woorden uit waar de registratie voor dient en hoe u via ELSTER in het portaal van het BSI komt.",
+          "Hij laat zien in welk EU-land u zich registreert, met de instantie en haar portaal.",
+          "U legt twee gegevens vast: de ID van uw gebruikersaccount en de dag van registratie.",
+          "Is de brief van ELSTER er nog niet, dan kiest u “Not possible yet” en gaat u verder met de volgende stap.",
+          "Een latere stap laat zien welke van uw gegevens kunnen veranderen."
+        ],
+        "seeItAlt": "De registratiestap in de doorloop: het land en zijn instantie",
+        "next": "Begin met de registratie in de doorloop"
+      },
+      "sources": {
+        "heading": "Bronnen",
+        "items": [
+          "BSI-wet (BSIG), §§ 28, 30, 32, 33, 36 en 38, bijlage 1 en 2, van kracht sinds 6 december 2025 (gesetze-im-internet.de/bsig_2025)",
+          "Richtlijn (EU) 2022/2555 (NIS 2), art. 3(4) en art. 26 (eur-lex.europa.eu)",
+          "BSI, details van de registratieprocedure volgens § 33(6) BSIG, versie 1.0 van 26.06.2026 (bsi.bund.de/dok/registrierungspflicht)",
+          "BSI, Mein Unternehmenskonto (bsi.bund.de/dok/muk)",
+          "BSI, meldplicht onder NIS 2: melden vóór de registratie (bsi.bund.de/dok/nis-2-meldepflicht)",
+          "BSI, toets of NIS 2 van toepassing is (betroffenheitspruefung-nis-2.bsi.de)"
+        ]
+      }
     },
     "kritisComparison": {
       "meta": {

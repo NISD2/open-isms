@@ -1460,119 +1460,205 @@
         "p4": "To nie arkusz kalkulacyjny, który zgubisz, ani raport konsultanta leżący na półce. To żywy, wersjonowany, audytowalny rejestr wszystkiego, co Twoja firma zrobiła dla zgodności z NIS2 - od pierwszego dnia, na zawsze."
       }
     },
+    "wikiWalk": {
+      "seeIt": "Zobacz, jak to wygląda",
+      "priceHeading": "Ile kosztuje przewodnik",
+      "more": "Więcej na ten temat",
+      "lawLabel": "Przepis",
+      "whoLabel": "Kto"
+    },
     "nis2Requirements": {
       "meta": {
-        "title": "Wymogi NIS2: 10 środków",
-        "description": "Wymogi NIS2 wyjaśnione: 10 obowiązkowych środków zarządzania ryzykiem, kaskada zgłaszania incydentów, obowiązki audytowe i bezpieczeństwo łańcucha dostaw."
+        "title": "Wymagania NIS2: 10 środków i obowiązki",
+        "description": "Wymagania NIS2 prostymi słowami: dziesięć środków z Art. 21 NIS 2 i § 30 BSIG, zgłaszanie incydentów, rejestracja i rola kierownictwa."
       },
-      "title": "Wymogi NIS2",
-      "subtitle": "Co podmioty objęte muszą wdrożyć: 10 obowiązkowych środków cyberbezpieczeństwa, rygorystyczna kaskada zgłaszania incydentów oraz zgodność oparta na dowodach.",
+      "title": "Wymagania NIS2: co Twoja firma musi wdrożyć",
+      "subtitle": "NIS2 wymaga środków bezpieczeństwa w dziesięciu obszarach, zgłaszania poważnych incydentów i rejestracji w BSI. Kierownictwo wdraża środki i je nadzoruje. Zakres każdego środka zależy od wielkości Twojej firmy i ryzyka.",
+      "overview": {
+        "heading": "Wymagania w skrócie",
+        "lead": "NIS 2 to dyrektywa UE. W Niemczech wprowadza ją do prawa ustawa o BSI (BSIG). Objęte firmy nazywa się tam „podmiotami”.",
+        "items": {
+          "measures": {
+            "title": "Środki bezpieczeństwa w dziesięciu obszarach",
+            "text": "Minimalna lista jest poniżej, każdy obszar z przykładem.",
+            "law": "Art. 21 NIS 2 · § 30 BSIG"
+          },
+          "report": {
+            "title": "Zgłaszanie poważnych incydentów",
+            "text": "W trzech etapach do BSI, pierwsze zgłoszenie w ciągu 24 godzin.",
+            "law": "Art. 23 NIS 2 · § 32 BSIG"
+          },
+          "register": {
+            "title": "Rejestracja w BSI",
+            "text": "Jednorazowo, przez portal BSI. Jeśli coś się zmieni, zgłaszasz to w ciągu dwóch tygodni.",
+            "law": "Art. 3(4) NIS 2 · § 33 BSIG"
+          },
+          "management": {
+            "title": "Kierownictwo",
+            "text": "Wdraża środki, nadzoruje je i regularnie bierze udział w szkoleniach. Dyrektywa wymaga też, aby kierownictwo zatwierdzało środki.",
+            "law": "Art. 20 NIS 2 · § 38 BSIG"
+          }
+        }
+      },
       "measures": {
-        "heading": "10 obowiązkowych środków zarządzania ryzykiem (Section 30 BSIG / Article 21(2) NIS-2)",
-        "description": "Wszystkie podmioty kluczowe i ważne muszą wdrożyć te środki. Nie ma okresu przejściowego. Obowiązki te obowiązują w Niemczech od 6 grudnia 2025 r.",
+        "heading": "Dziesięć środków prostymi słowami",
+        "description": "Art. 21(2) NIS 2 wymienia dziesięć obszarów, w Niemczech § 30(2) BSIG. To jest lista minimalna. Dla każdego obszaru potrzebujesz środków, które pasują do Twojej firmy.",
+        "exampleLabel": "Na przykład",
         "items": {
           "m1": {
-            "title": "Analiza ryzyka i polityki bezpieczeństwa informacji",
-            "description": "Ustanowienie i utrzymywanie polityk analizy ryzyka oraz bezpieczeństwa systemów informacyjnych. Przeprowadzanie regularnych ocen ryzyka obejmujących wszystkie krytyczne systemy i procesy."
+            "title": "Analiza ryzyka i polityka bezpieczeństwa",
+            "description": "Spisujesz, jakiego IT potrzebuje Twoja firma i co może z nim pójść nie tak. Z tego wynika polityka bezpieczeństwa: jak Twoja firma zarządza bezpieczeństwem informacji.",
+            "example": "Lista Twoich systemów z oceną każdego ryzyka i polityka na kilka stron.",
+            "law": "Art. 21(2)(a) · § 30(2) nr 1"
           },
           "m2": {
             "title": "Obsługa incydentów",
-            "description": "Wdrożenie procedur zapobiegania, wykrywania, identyfikowania, ograniczania, łagodzenia skutków i reagowania na incydenty bezpieczeństwa."
+            "description": "Ustalasz, jak wykrywasz, ograniczasz i usuwasz incydent oraz kto decyduje.",
+            "example": "Plan reagowania na incydenty z numerami telefonów i jasnym podziałem obowiązków.",
+            "law": "Art. 21(2)(b) · § 30(2) nr 2"
           },
           "m3": {
-            "title": "Ciągłość działania i zarządzanie kryzysowe",
-            "description": "Zarządzanie kopiami zapasowymi, planowanie odtwarzania po awarii oraz procedury zarządzania kryzysowego w celu zapewnienia odporności operacyjnej."
+            "title": "Utrzymanie działalności",
+            "description": "Kopie zapasowe, przywracanie po sytuacji awaryjnej i zarządzanie kryzysowe.",
+            "example": "Kopia zapasowa, której przywracanie zostało już sprawdzone w praktyce.",
+            "law": "Art. 21(2)(c) · § 30(2) nr 3"
           },
           "m4": {
             "title": "Bezpieczeństwo łańcucha dostaw",
-            "description": "Środki bezpieczeństwa w relacjach z bezpośrednimi dostawcami i usługodawcami, z uwzględnieniem podatności każdego dostawcy oraz jakości jego produktów i praktyk bezpieczeństwa (art. 21 ust. 3); umowy są zwykłym narzędziem."
+            "description": "Bierzesz pod uwagę podatności każdego bezpośredniego dostawcy oraz jakość jego produktów i praktyk bezpieczeństwa (Art. 21(3) NIS 2). Zwykłym narzędziem są umowy.",
+            "example": "W umowie z Twoim usługodawcą IT jest zapis, że zgłasza Ci on incydenty.",
+            "law": "Art. 21(2)(d) · § 30(2) nr 4"
           },
           "m5": {
-            "title": "Bezpieczeństwo w nabywaniu, rozwijaniu i utrzymywaniu",
-            "description": "Bezpieczeństwo w nabywaniu, rozwijaniu i utrzymywaniu sieci oraz systemów informacyjnych. Obejmuje procedury obsługi i ujawniania podatności."
+            "title": "Bezpieczeństwo przy zakupie, rozwoju i utrzymaniu IT",
+            "description": "Bezpieczeństwo obowiązuje już przy zakupie IT, przy własnym rozwoju oprogramowania i podczas utrzymania. Obejmuje to też postępowanie z podatnościami i ich ujawnianie.",
+            "example": "Aktualizacje bezpieczeństwa instalują się automatycznie.",
+            "law": "Art. 21(2)(e) · § 30(2) nr 5"
           },
           "m6": {
             "title": "Ocena skuteczności",
-            "description": "Polityki i procedury oceny, czy środki zarządzania ryzykiem w cyberbezpieczeństwie działają. Prawo nie narzuca testów ani audytów każdemu podmiotowi."
+            "description": "Ustalasz, jak sprawdzasz, czy środki działają. Prawo nie nakazuje testów ani audytów każdemu podmiotowi.",
+            "example": "Raz w roku kierownictwo omawia, co zadziałało, a co nie.",
+            "law": "Art. 21(2)(f) · § 30(2) nr 6"
           },
           "m7": {
-            "title": "Szkolenia z cyberbezpieczeństwa i cyberhigiena",
-            "description": "Podstawowe praktyki higieny cybernetycznej i szkolenia z cyberbezpieczeństwa. Zwykłą treścią jest świadomość dotycząca phishingu, inżynierii społecznej, haseł i bezpiecznego korzystania z IT."
+            "title": "Podstawowe szkolenia i świadomość",
+            "description": "Wszyscy pracownicy poznają podstawy: rozpoznawanie podejrzanych e-maili, wybór dobrych haseł, zgłaszanie incydentów.",
+            "example": "Krótkie szkolenie na start i odświeżenie raz w roku.",
+            "law": "Art. 21(2)(g) · § 30(2) nr 7"
           },
           "m8": {
-            "title": "Kryptografia i szyfrowanie",
-            "description": "Polityki i procedury dotyczące stosowania kryptografii oraz, w stosownych przypadkach, szyfrowania. Obejmuje dane w spoczynku, dane w tranzycie oraz zarządzanie kluczami."
+            "title": "Kryptografia",
+            "description": "Ustalasz, gdzie i jak szyfrujesz.",
+            "example": "Laptopy z zaszyfrowanymi dyskami, a poczta e-mail tylko przez szyfrowane połączenia.",
+            "law": "Art. 21(2)(h) · § 30(2) nr 8"
           },
           "m9": {
-            "title": "Bezpieczeństwo personelu, kontrola dostępu i zarządzanie aktywami",
-            "description": "Polityki bezpieczeństwa zasobów ludzkich, mechanizmy kontroli dostępu oraz procedury zarządzania aktywami. Obejmuje wprowadzanie i odprowadzanie pracowników, dostęp według zasady najmniejszych uprawnień oraz inwentaryzacje aktywów."
+            "title": "Personel, dostępy i zarządzanie IT",
+            "description": "Kto może robić co? Jak nowe osoby dostają dostęp, a jak odchodzące go tracą? Należy do tego także spis Twojego IT.",
+            "example": "Wszystkie dostępy są blokowane w ostatnim dniu pracy.",
+            "law": "Art. 21(2)(i) · § 30(2) nr 9"
           },
           "m10": {
-            "title": "Uwierzytelnianie wieloskładnikowe i zabezpieczona komunikacja",
-            "description": "Stosowanie MFA lub rozwiązań uwierzytelniania ciągłego. Zabezpieczona komunikacja głosowa, wideo i tekstowa. Zabezpieczone systemy łączności awaryjnej w obrębie podmiotu."
+            "title": "Drugi składnik i bezpieczna komunikacja",
+            "description": "Logowanie z drugim składnikiem albo z ciągłym sprawdzaniem. Do tego zabezpieczona komunikacja głosowa, wideo i tekstowa oraz, tam gdzie to potrzebne, zabezpieczony kanał na sytuacje awaryjne.",
+            "example": "Kod z aplikacji przy logowaniu do poczty e-mail i dostępu zdalnego.",
+            "law": "Art. 21(2)(j) · § 30(2) nr 10"
           }
         }
       },
+      "proportionality": {
+        "heading": "Ile wystarczy?",
+        "p1": "Prawo wymaga środków odpowiednich, proporcjonalnych i skutecznych (§ 30(1) BSIG). To, co jest proporcjonalne, zależy od narażenia na ryzyko, wielkości firmy, kosztów, prawdopodobieństwa i powagi incydentów oraz ich skutków dla innych.",
+        "p2": "Zapisujesz, co wdrażasz (§ 30(1), zdanie trzecie, BSIG). Prawo nie wymaga certyfikatu, takiego jak ISO 27001. Certyfikat może jednak wesprzeć Twoje dowody.",
+        "link": "Co dokładnie znaczy „proporcjonalny”"
+      },
       "incidentReporting": {
-        "heading": "Kaskada zgłaszania incydentów",
-        "description": "Wszystkie podmioty kluczowe i ważne muszą zgłaszać poważne incydenty bezpieczeństwa do BSI z wykorzystaniem trzyetapowej kaskady.",
+        "heading": "Zgłaszanie poważnych incydentów",
+        "description": "Poważny incydent bezpieczeństwa zgłaszasz do BSI w trzech etapach (§ 32 BSIG, Art. 23 NIS 2). Terminy liczą się od chwili, gdy się o nim dowiesz.",
         "stages": {
           "s1": {
             "deadline": "24 godziny",
-            "title": "Wczesne ostrzeżenie (frühe Erstmeldung)",
-            "description": "Zgłoszenie, czy istnieje podejrzenie, że incydent został spowodowany działaniami bezprawnymi lub złośliwymi, oraz czy może mieć skutki transgraniczne."
+            "title": "Wczesne ostrzeżenie",
+            "description": "Czy incydent prawdopodobnie wynika z ataku lub czynu bezprawnego i czy może dotknąć inne kraje."
           },
           "s2": {
             "deadline": "72 godziny",
-            "title": "Zgłoszenie incydentu (Meldung)",
-            "description": "Ocena dotkliwości, ocena skutków, wskaźniki naruszenia bezpieczeństwa oraz wstępna analiza przyczyny źródłowej, jeśli jest dostępna."
+            "title": "Zgłoszenie incydentu",
+            "description": "Pierwsza ocena powagi i skutków, a jeśli są dostępne, także ślady atakujących (wskaźniki kompromitacji)."
           },
           "s3": {
             "deadline": "1 miesiąc",
-            "title": "Sprawozdanie końcowe (Abschlussmeldung)",
-            "description": "Szczegółowy opis incydentu, w tym dotkliwość i skutki, rodzaj zagrożenia lub przyczyna źródłowa, która prawdopodobnie go wywołała, zastosowane i trwające środki łagodzące oraz ewentualne skutki transgraniczne."
+            "title": "Sprawozdanie końcowe",
+            "description": "Miesiąc po zgłoszeniu incydentu: co się stało, prawdopodobna przyczyna i jakie działania podjęto."
           }
         },
-        "significant": {
-          "heading": "Co liczy się jako incydent „poważny”?",
-          "p1": "Incydent bezpieczeństwa kwalifikuje się jako poważny, gdy spowodował lub jest w stanie spowodować poważne zakłócenie operacyjne lub straty finansowe dla podmiotu.",
-          "p2": "Kwalifikuje się również, gdy dotknął lub jest w stanie dotknąć inne osoby fizyczne lub prawne, powodując znaczne szkody materialne lub niematerialne. Dla 11 typów podmiotów cyfrowych w ramach CIR 2024/2690 (DNS, chmura, MSP, MSSP, platformy handlowe, wyszukiwarki, sieci społecznościowe, usługi zaufania itd.) obowiązują dodatkowe progi z CIR Art. 3 (bezpośrednia strata finansowa powyżej 500 000 EUR lub 5% rocznego obrotu, w zależności od tego, która kwota jest niższa; kradzież tajemnic przedsiębiorstwa; śmierć lub znaczny uszczerbek na zdrowiu osoby; skuteczny, podejrzewany o złośliwość i nieuprawniony dostęp mogący spowodować poważne zakłócenia) oraz kryteria dla poszczególnych usług w Art. 5 do 14 (na przykład usługa DNS całkowicie niedostępna dłużej niż 30 minut albo usługa w chmurze ograniczona dla ponad 5% jej użytkowników w UE lub ponad 1 miliona, w zależności od tego, która liczba jest mniejsza, przez ponad godzinę). Dla innych podmiotów BSI wskazuje, że można przyjąć istotność, jeśli spełnione jest jedno kryterium z Art. 3 ust. 1."
-        }
+        "link": "Obowiązek zgłaszania szczegółowo"
       },
       "auditRequirements": {
-        "heading": "Wymogi audytu i dowodów",
+        "heading": "Kto sprawdza i kiedy?",
         "kritis": {
-          "heading": "Operatorzy KRITIS",
-          "description": "Muszą wykazać BSI swoje środki poprzez audyty bezpieczeństwa, inspekcje lub certyfikacje, po raz pierwszy w terminie wyznaczonym przez BSI (najwcześniej trzy lata po tym, jak po raz pierwszy zostaną uznani za operatora), a następnie co 3 lata (§ 39 BSIG). Muszą stosować systemy wykrywania ataków (§ 31 ust. 2 BSIG)."
+          "heading": "Operatorzy instalacji krytycznych",
+          "description": "Wykazują swoje środki przed BSI przez audyty, kontrole lub certyfikacje. Pierwszy raz w terminie wyznaczonym przez BSI, najwcześniej trzy lata po tym, jak zaczęli być uznawani za operatorów, a potem co trzy lata (§ 39 BSIG). Muszą też stosować systemy wykrywania ataków (§ 31(2) BSIG)."
         },
         "bwe": {
-          "heading": "Podmioty kluczowe (poza KRITIS)",
-          "description": "Brak regularnego cyklu audytowego, ale zgodność musi być udokumentowana (§ 30 ust. 1 BSIG). BSI może kontrolować zgodność i zlecać audyty przez niezależne jednostki (§ 61 ust. 1 i 5 BSIG). Może zażądać dowodów od podmiotów kluczowych, wybieranych według ryzyka, najwcześniej trzy lata po wejściu ustawy w życie, czyli nie przed 6 grudnia 2028 r. (§ 61 ust. 3 i 4)."
+          "heading": "Podmioty kluczowe",
+          "description": "Brak stałego cyklu kontroli. Zapisujesz, co wdrażasz (§ 30(1) BSIG). BSI może przeprowadzać kontrole i nakazać audyty przez niezależne jednostki (§ 61(1) i (5) BSIG). Dowodów może żądać najwcześniej od 6 grudnia 2028 r. (§ 61(3) i (4) BSIG)."
         },
         "we": {
           "heading": "Podmioty ważne",
-          "description": "Muszą dokumentować wdrożenie wymaganych środków. BSI kontroluje tylko wtedy, gdy fakty wskazują, że nie spełniają § 30, § 32 lub § 38 ust. 3 (§ 62 BSIG)."
+          "description": "Zapisujesz, co wdrażasz. BSI sprawdza tylko wtedy, gdy fakty wskazują, że nie przestrzegasz § 30, § 32 lub § 38(3) BSIG (§ 62 BSIG)."
         },
         "evidence": {
-          "heading": "Akceptowalne dowody",
+          "heading": "Co może służyć jako dowód",
           "items": {
             "audits": "Wewnętrzne lub zewnętrzne raporty z audytów",
-            "certifications": "Certyfikacje (ISO 27001, BSI IT-Grundschutz itd.)",
-            "documentation": "Kompleksowa dokumentacja ocen ryzyka, wdrożonych środków i przeglądów skuteczności"
+            "certifications": "Certyfikaty, takie jak ISO 27001 lub BSI IT-Grundschutz",
+            "documentation": "Twoja dokumentacja: ocena ryzyka, wdrożone środki i sprawdzenie ich skuteczności"
           },
-          "note": "Certyfikacja ISO 27001 lub IT-Grundschutz wspiera zgodność z NIS2, ale jej nie gwarantuje: wymogi BSIG mogą wykraczać poza standardowy zakres certyfikacji."
+          "note": "Certyfikat ISO 27001 lub IT-Grundschutz pomaga, ale nie pokrywa automatycznie wymagań BSIG. Prawo może wykraczać poza zakres certyfikacji."
         }
       },
       "supplyChain": {
-        "heading": "Bezpieczeństwo łańcucha dostaw",
-        "description": "NIS2 wprowadza obowiązkowe wymogi bezpieczeństwa łańcucha dostaw. Podmioty muszą:",
+        "heading": "Dostawcy",
+        "description": "Dla łańcucha dostaw oznacza to:",
         "items": {
-          "assess": "Uwzględniać specyficzne podatności każdego bezpośredniego dostawcy oraz ogólną jakość jego produktów i praktyk cyberbezpieczeństwa (art. 21 ust. 3 NIS 2)",
-          "contractual": "Uzgadniać wymogi bezpieczeństwa z dostawcami tam, gdzie to ma sens, zwykle w umowie (niemieckie uzasadnienie ustawy wymienia umowy jako przykład)",
-          "monitor": "Dla dostawców cyfrowych objętych CIR: monitorować i oceniać zmiany praktyk bezpieczeństwa dostawców w planowanych odstępach (CIR pkt 5.1.6)",
-          "coordinate": "Koordynować ujawnianie podatności z dostawcami",
-          "risk": "Uwzględniać ogólną jakość produktów i praktyk dostawców, w tym ich procedury bezpiecznego rozwoju"
+          "assess": "Bierzesz pod uwagę podatności każdego bezpośredniego dostawcy oraz jakość jego produktów i praktyk bezpieczeństwa, w tym jego procesu rozwoju (Art. 21(3) NIS 2).",
+          "contractual": "Tam, gdzie to pasuje, uzgadniasz z dostawcami wymagania bezpieczeństwa, zwykle w umowie. Uzasadnienie ustawy podaje umowy jako przykład.",
+          "monitor": "Tylko dla dostawców cyfrowych objętych rozporządzeniem wykonawczym (UE) 2024/2690: w zaplanowanych odstępach monitorują zmiany w praktykach bezpieczeństwa swoich dostawców (pkt 5.1.6 załącznika)."
         }
+      },
+      "example": {
+        "heading": "Przykład",
+        "lead": "Fikcyjna firma: producent wyrobów piekarniczych ze 120 pracownikami, który zaopatruje handel. Przemysłowa produkcja żywności jest wymieniona w załączniku 2 do BSIG, więc firma jest podmiotem ważnym. Tak wygląda jej odpowiedź na trzy z dziesięciu obszarów:",
+        "items": [
+          "Łańcuch dostaw: firma prowadzi listę swoich usługodawców, na przykład od systemu gospodarki towarowej, monitoringu łańcucha chłodniczego i IT. W umowie IT jest zapis, że usługodawca zgłasza incydenty.",
+          "Drugi składnik: do poczty e-mail i dostępu zdalnego każdy potrzebuje kodu z aplikacji.",
+          "Utrzymanie działalności: kopie zapasowe receptur i planów produkcji powstają codziennie. Raz w roku dział IT sprawdza w praktyce ich przywracanie."
+        ]
+      },
+      "walk": {
+        "heading": "Jak robi to przewodnik",
+        "lead": "W przewodniku na nisd2.eu każdy z dziesięciu obszarów staje się co najmniej jednym krokiem, który wypełniasz.",
+        "points": [
+          "Obok każdego kroku jest przepis, wyjaśniony prostymi słowami.",
+          "Tam, gdzie potrzebny jest dokument, powstaje on z Twoich odpowiedzi: polityka bezpieczeństwa, plan reagowania na incydenty, plan ciągłości działania, polityka kryptograficzna, polityka dotycząca personelu, dostępów i zasobów oraz zasady zakupu, utrzymania i postępowania z podatnościami.",
+          "Tam, gdzie wystarczy lista, prowadzisz listę: Twoje IT, Twoi dostawcy, Twoje kopie zapasowe, Twoje szkolenia.",
+          "Jeśli postanowisz nie wdrażać jakiegoś punktu, zapisujesz dlaczego. Kierownictwo również podpisuje tę decyzję.",
+          "Na końcu kierownictwo zatwierdza dokumenty w aplikacji, zalogowane na własne konto. Imię, nazwisko i data pojawiają się potem na każdym dokumencie."
+        ],
+        "seeItAlt": "Dokumenty z przewodnika zatwierdzone przez kierownictwo, każdy z nazwiskiem i datą",
+        "next": "Zacznij od pierwszego obszaru w przewodniku"
+      },
+      "sources": {
+        "heading": "Źródła",
+        "items": [
+          "Dyrektywa (UE) 2022/2555 (NIS 2), Art. 3, 20, 21 i 23 (eur-lex.europa.eu)",
+          "Ustawa o BSI (BSIG), §§ 30, 31, 32, 33, 38, 39, 61 i 62 (gesetze-im-internet.de/bsig_2025)",
+          "BSIG, załącznik 2, nr 4 produkcja, przetwarzanie i dystrybucja żywności",
+          "Rozporządzenie wykonawcze (UE) 2024/2690, Art. 3 i pkt 5.1.6 załącznika",
+          "Rządowy projekt ustawy NIS2UmsuCG, druk Bundestagu 21/1501, uzasadnienie do § 30"
+        ]
       }
     },
     "ceoLiability": {
@@ -2035,135 +2121,127 @@
     },
     "smeGuide": {
       "meta": {
-        "title": "NIS2 dla średnich firm - Praktyczny przewodnik",
-        "description": "Przewodnik wdrożeniowy NIS2 dla niemieckiego Mittelstandu (50-250 pracowników). 12-tygodniowa mapa drogowa, przydział ról i praktyczne porady dotyczące BSIG."
+        "title": "Wdrożenie NIS2: kroki dla średniej firmy",
+        "description": "Wdrożenie NIS2 w średniej firmie: cztery obowiązki, kolejność działań i kto co robi. Z przepisami, przykładem i następnym krokiem."
       },
-      "badge": "Mittelstand / MŚP",
-      "title": "Wdrożenie NIS2 dla firm średniej wielkości",
-      "subtitle": "Praktyczna, 12-tygodniowa mapa drogowa wdrożenia dla niemieckich firm zatrudniających 50-250 pracowników - bez konieczności posiadania zespołu ds. bezpieczeństwa.",
-      "overview": {
-        "heading": "Jesteś objęty. I co teraz?",
-        "p1": "Szacuje się, że 29 500 firm w Niemczech podlega zakresowi NIS2. Jeżeli zatrudniasz ponad 50 pracowników i działasz w objętym sektorze - gospodarka odpadami, produkcja żywności, produkcja przemysłowa, energetyka, transport, ochrona zdrowia, infrastruktura cyfrowa - prawie na pewno jesteś jedną z nich. BSIG wszedł w życie 6 grudnia 2025 r., a termin rejestracji w BSI upłynął 6 marca 2026 r.",
-        "p2": "Oto, czego większość konsultantów ci nie powie: dla firmy średniej wielkości z podstawowym IT zgodność z NIS2 jest wykonalna. To nie jest 6-miesięczny projekt za sześciocyfrową kwotę. Większość z 49 wymagań BSIG to dokumentacja pisana raz - polityki, oceny ryzyka, procedury. Tylko nieliczne wymagają bieżących procesów operacyjnych. Prawo wymaga 'odpowiednich' środków proporcjonalnych do ryzyka - a nie infrastruktury bezpieczeństwa rodem z Fortune 500.",
-        "p3": "Ten przewodnik daje ci praktyczny plan: 12-tygodniową mapę drogową, role, których potrzebujesz (wszystkie w niepełnym wymiarze, wszystkie wśród obecnych pracowników), typowe błędy, które gubią firmy twojej wielkości, oraz kolejność priorytetów przy realizacji 10 obowiązkowych środków zgodnie z §30 BSIG. Bez teorii, bez straszenia - tylko kroki."
-      },
-      "audience": {
-        "heading": "Dla kogo jest ten przewodnik",
-        "description": "Ten przewodnik został napisany specjalnie dla niemieckich firm średniej wielkości, które po raz pierwszy spotykają się z NIS2.",
+      "badge": "Średnie firmy",
+      "title": "Wdrożenie NIS2: jak średnia firma może się do tego zabrać",
+      "subtitle": "Rejestrujesz firmę w BSI, wdrażasz środki bezpieczeństwa w dziesięciu obszarach i zgłaszasz poważne incydenty. Kierownictwo to nadzoruje. To, jak dokładny musi być każdy środek, zależy od wielkości Twojej firmy i ryzyka.",
+      "duties": {
+        "heading": "Cztery obowiązki",
+        "lead": "NIS 2 to dyrektywa UE. W Niemczech wprowadza ją do prawa ustawa o BSI (BSIG). Firma, której ona dotyczy, nazywa się tam „podmiotem”. Każdy podmiot ma cztery obowiązki.",
         "items": {
-          "size": "Firmy zatrudniające 50-250 pracowników w sektorach NIS2",
-          "limitedIt": "Ograniczony personel IT - może 2-5 osób, a nie zespół ds. bezpieczeństwa",
-          "noCompliance": "Brak wydzielonego działu zgodności lub doświadczenia w GRC",
-          "firstTime": "Pierwszy kontakt z NIS2, BSIG lub rejestracją w BSI"
-        }
-      },
-      "roadmap": {
-        "heading": "Mapa drogowa wdrożenia",
-        "phases": {
-          "foundation": {
-            "title": "Fundament",
-            "weeks": "Tygodnie 1-2",
-            "description": "Ustanów fundament organizacyjny: zarejestruj się w BSI, przydziel obowiązki i poinformuj zarząd o jego osobistej odpowiedzialności na podstawie §38 BSIG. Ta faza polega na zaangażowaniu właściwych osób i zdefiniowaniu zakresu.",
-            "actions": [
-              "Rejestracja w BSI za pośrednictwem Mein Unternehmenskonto + portalu BSI",
-              "Wyznaczenie lidera ds. zgodności (rola w niepełnym wymiarze, a nie nowe zatrudnienie)",
-              "Poinformowanie zarządu o obowiązkach z §38 BSIG i osobistej odpowiedzialności",
-              "Skonfigurowanie platformy zgodności i zaproszenie członków zespołu",
-              "Wstępny zakres: ustalenie, która kategoria podmiotu ma zastosowanie (kluczowy lub ważny)"
-            ]
+          "register": {
+            "title": "Rejestracja",
+            "text": "Rejestrujesz swoją firmę jednorazowo w BSI, przez jego portal.",
+            "law": "Art. 3(4) NIS 2 · § 33 BSIG",
+            "who": "Osoba, która zarządza kontem firmy w ELSTER"
           },
-          "risk": {
-            "title": "Ocena ryzyka",
-            "weeks": "Tygodnie 3-4",
-            "description": "Zbuduj inwentaryzację zasobów i przeprowadź wstępną ocenę ryzyka. To fundament, na którym opiera się wszystko inne - środek 1 z §30(1) BSIG. Zastosuj metodykę analizy ryzyka BSI-200-3: zidentyfikuj zasoby, zidentyfikuj zagrożenia, oceń prawdopodobieństwo i skutek, podejmij decyzję o postępowaniu.",
-            "actions": [
-              "Zbuduj inwentaryzację zasobów - grupuj identyczne zasoby (np. '45 laptopów' = 1 pozycja)",
-              "Zidentyfikuj i sklasyfikuj dostawców mających dostęp do twoich systemów",
-              "Przeprowadź wstępną ocenę ryzyka: prawdopodobieństwo × skutek dla każdego zasobu",
-              "Udokumentuj decyzje dotyczące postępowania z ryzykiem: akceptacja, ograniczenie, przeniesienie lub unikanie",
-              "Powiąż ryzyka ze środkami BSIG - które środki kontrolne adresują które ryzyka"
-            ]
+          "measures": {
+            "title": "Wdrożenie i spisanie środków",
+            "text": "Chronisz swoje IT w dziesięciu obszarach, od planu reagowania na incydenty po logowanie z drugim składnikiem. Swoje decyzje zapisujesz.",
+            "law": "Art. 21 NIS 2 · § 30 BSIG",
+            "who": "Osoba odpowiedzialna za IT, w firmie lub u usługodawcy"
           },
-          "controls": {
-            "title": "Środki kontrolne i dokumentacja",
-            "weeks": "Tygodnie 5-8",
-            "description": "Udokumentuj swoje środki kontrolne bezpieczeństwa i procedury. To największa faza pod względem objętości, ale większość wymagań to polityki pisane raz. Skup się na udokumentowaniu tego, co już robisz (większość firm ma nieformalne procesy) i wypełnieniu rzeczywistych luk.",
-            "actions": [
-              "Napisz lub przyjmij polityki bezpieczeństwa (bezpieczeństwo informacji, kontrola dostępu, reagowanie na incydenty)",
-              "Udokumentuj wykorzystanie kryptografii i podejście do zarządzania kluczami",
-              "Skonfiguruj proces reagowania na incydenty z kaskadą 24h/72h/1 miesiąc",
-              "Zweryfikuj kontrolę dostępu: najmniejsze uprzywilejowanie, procedury wdrażania/odejścia pracowników",
-              "Udokumentuj procedury ciągłości działania i tworzenia kopii zapasowych",
-              "Wdróż lub udokumentuj MFA dla systemów krytycznych"
-            ]
+          "report": {
+            "title": "Zgłaszanie poważnych incydentów",
+            "text": "Poważny incydent bezpieczeństwa zgłaszasz do BSI, pierwsze zgłoszenie w ciągu 24 godzin. Incydent jest poważny na przykład wtedy, gdy mocno zakłóca działalność Twojej firmy.",
+            "law": "Art. 23 NIS 2 · § 32 BSIG",
+            "who": "Osoba, która decyduje w sytuacji awaryjnej"
           },
-          "evidence": {
-            "title": "Dowody i gotowość do audytu",
-            "weeks": "Tygodnie 9-12",
-            "description": "Zamknij pętlę: zatwierdzenia zarządu, ukończenie szkoleń, zbieranie dowodów i pierwsze sprawdzenie skuteczności. Ta faza przekształca twoje udokumentowane środki w dowody zgodności poddające się audytowi.",
-            "actions": [
-              "Zarząd formalnie zatwierdza wszystkie środki cyberbezpieczeństwa (obowiązek z §38)",
-              "Ukończenie obowiązkowego szkolenia zarządu z zakresu cyberbezpieczeństwa",
-              "Załadowanie dokumentów dowodowych: zrzuty ekranu, konfiguracje, podpisane polityki",
-              "Przeprowadzenie pierwszej oceny skuteczności - czy środki kontrolne faktycznie działają?",
-              "Wyeksportowanie raportu zgodności do przeglądu wewnętrznego"
-            ]
+          "management": {
+            "title": "Kierownictwo prowadzi",
+            "text": "Kierownictwo wdraża środki i je nadzoruje. Regularnie bierze też udział w szkoleniach. Te obowiązki spoczywają na samym kierownictwie.",
+            "law": "Art. 20 NIS 2 · § 38 BSIG",
+            "who": "Kierownictwo, osobiście"
           }
         }
       },
-      "roles": {
-        "heading": "Role, których potrzebujesz",
-        "description": "Nie musisz nikogo zatrudniać. To obowiązki w niepełnym wymiarze przydzielone obecnym pracownikom.",
-        "items": {
-          "complianceLead": {
-            "title": "Lider ds. zgodności (4-8 godzin/tydzień)",
-            "description": "Prowadzi proces, wypełnia formularze wymagań, koordynuje działania z IT i zarządem. Zazwyczaj kierownik IT, kierownik ds. jakości lub kierownik operacyjny."
-          },
-          "itContact": {
-            "title": "Osoba kontaktowa ds. IT (2-4 godziny/tydzień)",
-            "description": "Dostarcza dane techniczne: szczegóły zasobów, architekturę sieci, status szyfrowania, kontrole dostępu. Twój administrator lub kierownik IT."
-          },
-          "managementSponsor": {
-            "title": "Sponsor z zarządu (1-2 godziny/tydzień)",
-            "description": "Przegląda i zatwierdza środki, ukończa szkolenia, wykazuje nadzór. Wymagany przez §38 BSIG - nie może zostać delegowany."
-          },
-          "externalAuditor": {
-            "title": "Audytor zewnętrzny (opcjonalnie)",
-            "description": "Dla operatorów KRITIS: wymagany co 3 lata. Dla podmiotów kluczowych i ważnych: opcjonalny, ale zalecany w pierwszym cyklu zgodności, aby zweryfikować twoją pracę."
-          }
-        }
+      "size": {
+        "heading": "Co to oznacza przy 50 do 150 pracownikach",
+        "items": [
+          "Nie potrzebujesz własnego zespołu ds. bezpieczeństwa. Prawo go nie wymaga.",
+          "Nie potrzebujesz certyfikatu, takiego jak ISO 27001. Prawo go nie wymaga, ale może on pomóc jako dowód.",
+          "Środki muszą pasować do Twojej firmy. Miarą są: narażenie na ryzyko, wielkość firmy, koszty oraz prawdopodobieństwo i powaga incydentów (§ 30(1), zdanie drugie, BSIG).",
+          "Zapisujesz, co wdrażasz (§ 30(1), zdanie trzecie, BSIG). Środki muszą też być skuteczne.",
+          "Pracę wykonują ludzie, których już masz: kierownictwo, osoba odpowiedzialna za IT i działy, które wiedzą, czego potrzebuje firma."
+        ]
+      },
+      "order": {
+        "heading": "W jakiej kolejności",
+        "lead": "Każdy krok opiera się na poprzednim.",
+        "steps": [
+          "Sprawdzić, czy NIS2 Cię dotyczy. Zależy to od Twojego sektora, liczby pracowników i obrotu (§ 28 BSIG).",
+          "Zarejestrować się w BSI.",
+          "Przeszkolić kierownictwo.",
+          "Spisać, z jakiego IT korzysta firma i kto dla niej pracuje. Potem ocenić ryzyka.",
+          "Postanowić o środkach i zapisać je jako dokumenty: polityka bezpieczeństwa, plany awaryjne oraz zasady dotyczące dostępów, aktualizacji i szyfrowania.",
+          "Kierownictwo czyta dokumenty i je zatwierdza.",
+          "Potem regularnie sprawdzać, czy wszystko nadal pasuje."
+        ],
+        "roadmapLink": "Wersja skrócona dla kierownictwa"
+      },
+      "example": {
+        "heading": "Przykład",
+        "lead": "Fikcyjna firma: producent systemów przenośnikowych, 90 pracowników. IT zajmuje się jeden pracownik, razem z zewnętrznym usługodawcą.",
+        "steps": [
+          "Sprawdzenie pokazuje: budowa maszyn jest wymieniona w załączniku 2 do BSIG. Przy 90 pracownikach firma jest podmiotem ważnym.",
+          "Prezes składa w ELSTER wniosek o certyfikat organizacji. Gdy przychodzi list z kodem aktywacyjnym, rejestruje firmę w portalu BSI.",
+          "Bierze udział w szkoleniu dla kierownictwa.",
+          "Pracownik IT spisuje, od czego zależy firma: ERP, poczta e-mail, oprogramowanie do projektowania, sterowanie produkcją, kopie zapasowe. Potem dostawców, na przykład usługodawcę IT i dostawcę ERP.",
+          "Razem oceniają dla każdej pozycji, co może się stać. Najwięcej waży awaria sterowania produkcją.",
+          "Z tego powstają dokumenty: polityka bezpieczeństwa, plan reagowania na incydenty, plan ciągłości działania oraz zasady dotyczące dostępów, aktualizacji i szyfrowania.",
+          "Prezes czyta je i zatwierdza. Plan reagowania na incydenty określa, kto decyduje podczas incydentu."
+        ]
       },
       "mistakes": {
-        "heading": "Typowe błędy",
-        "description": "Co widzimy, że firmy robią źle - i jak tego uniknąć.",
+        "heading": "Częste błędy",
         "items": {
           "waiting": {
-            "title": "Czekanie na 'ostateczne wytyczne'",
-            "description": "Prawo obowiązuje od grudnia 2025 r. CIR definiuje środki techniczne. Nie nadchodzą żadne dalsze wytyczne, które zmieniłyby to, co musisz zrobić. Zacznij teraz."
+            "title": "Czekanie na ostateczne wytyczne",
+            "description": "BSIG obowiązuje od 6 grudnia 2025 r. Od tego dnia obowiązuje też obowiązek wdrożenia środków z § 30 BSIG."
           },
           "overEngineering": {
-            "title": "Nadmierna inżynieria rozwiązania",
-            "description": "Firma gospodarki odpadami zatrudniająca 100 osób nie potrzebuje SOC ani SIEM. Dopasuj środki kontrolne do swojego rzeczywistego profilu ryzyka. BSIG wymaga 'odpowiednich' środków, a nie maksymalnych."
+            "title": "Planowanie na zbyt dużą skalę",
+            "description": "Prawo wymaga środków proporcjonalnych, a nie największych możliwych. Na przykład systemy wykrywania ataków są obowiązkowe tylko dla operatorów instalacji krytycznych (§ 31(2) BSIG)."
           },
           "noManagement": {
-            "title": "Traktowanie tego jak projektu IT",
-            "description": "§38 BSIG czyni z tego odpowiedzialność zarządu. Jeżeli dyrektor zarządzający nie jest zaangażowany, już naruszasz przepisy. Zaplanuj odprawę zarządu w tygodniu 1."
+            "title": "Zostawienie NIS2 samemu działowi IT",
+            "description": "Kierownictwo musi wdrażać środki i je nadzorować (§ 38(1) BSIG). Zaangażuj je od początku."
           },
           "ignoreSupplyChain": {
-            "title": "Ignorowanie bezpieczeństwa łańcucha dostaw",
-            "description": "NIS2 wyraźnie wymaga oceny cyberbezpieczeństwa twoich dostawców. To zaskakuje wiele firm. Zacznij dokumentować relacje z dostawcami wcześnie."
+            "title": "Zapominanie o dostawcach",
+            "description": "Bezpieczeństwo łańcucha dostaw to jeden z dziesięciu obszarów (§ 30(2) nr 4 BSIG). Obejmuje wszystkich bezpośrednich dostawców i usługodawców, nie tylko IT."
           },
           "paperOnly": {
-            "title": "Zgodność papierowa bez realnych środków",
-            "description": "Pisanie polityk, których nikt nie czyta, się nie liczy. BSI może zażądać dowodów, że środki są rzeczywiście wdrożone i skuteczne. Buduj realne procesy, a nie tylko dokumenty."
+            "title": "Tylko na papierze",
+            "description": "Prawo wymaga skutecznych środków (§ 30(1) BSIG). Dokument, o którym nikt nie wie, niczego nie chroni."
           }
         }
       },
-      "ctaCard": {
-        "heading": "Rozpocznij swoje wdrożenie już dziś",
-        "description": "Platforma przeprowadzi cię przez wszystkie 49 wymagań BSIG w kolejności, w jakiej powinny zostać wdrożone, z ustrukturyzowanymi formularzami, przesyłaniem dowodów i przepływami pracy z podpisem zarządu - dokładnie tym, czego potrzebuje firma średniej wielkości, aby osiągnąć zgodność bez zatrudniania konsultanta."
+      "walk": {
+        "heading": "Jak robi to przewodnik",
+        "lead": "Przewodnik na nisd2.eu prowadzi Cię przez wdrożenie w tej kolejności, krok po kroku.",
+        "points": [
+          "20 kroków. Operatorzy instalacji krytycznych mają jeden krok więcej.",
+          "Obok każdego kroku jest przepis, wyjaśniony prostymi słowami.",
+          "Z Twoich odpowiedzi powstaje sześć dokumentów, w tym polityka bezpieczeństwa i oba plany awaryjne.",
+          "To, czego jeszcze nie możesz zrobić, odkładasz na bok i idziesz dalej.",
+          "Jeśli postanowisz nie wdrażać jakiegoś punktu, zapisujesz dlaczego. Kierownictwo również podpisuje tę decyzję.",
+          "Na końcu kierownictwo zatwierdza dokumenty w aplikacji, zalogowane na własne konto. Imię, nazwisko i data pojawiają się potem na każdym dokumencie."
+        ],
+        "seeItAlt": "Ścieżka przez przewodnik: kroki i te, które są już zrobione",
+        "next": "Zacznij od pierwszego kroku"
       },
-      "cta": "Rozpocznij swój proces zgodności z NIS2"
+      "sources": {
+        "heading": "Źródła",
+        "items": [
+          "Dyrektywa (UE) 2022/2555 (NIS 2), Art. 3, 20, 21 i 23 (eur-lex.europa.eu)",
+          "Ustawa o BSI (BSIG) z 2 grudnia 2025 r., §§ 28, 30, 31, 32, 33 i 38, w mocy od 6 grudnia 2025 r. (gesetze-im-internet.de/bsig_2025)",
+          "BSIG, załącznik 2, nr 5.4 budowa maszyn (gesetze-im-internet.de/bsig_2025/anlage_2.html)",
+          "BSI, Mein Unternehmenskonto i rejestracja w portalu BSI (bsi.bund.de/dok/muk)"
+        ]
+      }
     },
     "checklist": {
       "meta": {
@@ -3629,174 +3707,169 @@
     },
     "incidentReporting": {
       "meta": {
-        "title": "Zgłaszanie incydentów NIS2: playbook 24h / 72h / 1 miesiąc",
-        "description": "Zgłaszanie incydentów NIS2 zgodnie z § 32 BSIG: wczesne ostrzeżenie w 24 godziny, zgłoszenie incydentu w 72 godziny, raport końcowy w 1 miesiąc. Kryteria, portal BSI, kary."
+        "title": "Obowiązek zgłaszania NIS2: terminy, treść, kanał",
+        "description": "Obowiązek zgłaszania NIS2 z § 32 BSIG: wczesne ostrzeżenie w 24 godziny, zgłoszenie po 72 godzinach, raport po miesiącu. Co jest poważne, jak zgłosić."
       },
-      "title": "Playbook zgłaszania incydentów NIS2",
-      "subtitle": "§32 BSIG transponuje art. 23 ust. 4 NIS 2: trzy obowiązkowe raporty ze stałymi terminami (24h, 72h, 1 miesiąc) plus dwa raporty warunkowe (na żądanie, jeśli incydent nadal trwa). Przekroczenie terminu jest odrębnym naruszeniem, niezależnym od samego incydentu.",
-      "overview": {
-        "heading": "Zgłaszanie incydentów w ramach NIS2",
-        "p1": "§ 32 BSIG wdraża artykuł 23 dyrektywy NIS2. Ustanawia obowiązkowy system zgłaszania poważnych incydentów bezpieczeństwa. Każdy podmiot zaklasyfikowany jako podmiot kluczowy lub podmiot ważny musi zgłosić do BSI, gdy incydent spełnia kryteria istotności. Kaskada obejmuje trzy obowiązkowe raporty ze stałymi terminami oraz dwa raporty warunkowe, uruchamiane na żądanie lub przez trwający incydent. Dostawca usług może zostać upoważniony do składania zgłoszeń w imieniu podmiotu; odpowiedzialność za incydent i za treść zgłoszenia pozostaje po stronie podmiotu.",
-        "p2": "Terminy zgłoszeń są ścisłe i rozpoczynają bieg w chwili, gdy podmiot dowie się o incydencie, a nie po zakończeniu dochodzenia. Jest to kluczowe rozróżnienie: 24-godzinne wczesne ostrzeżenie musi zostać złożone na podstawie wstępnej wiedzy, nawet jeśli pełny zakres i skutki są nieznane. Oczekiwanie na pełne informacje przed zgłoszeniem samo w sobie stanowi naruszenie."
-      },
-      "timeline": {
-        "heading": "Kaskada zgłoszeń zgodnie z art. 23 ust. 4 NIS 2",
-        "description": "Trzy obowiązkowe etapy ze stałymi terminami od chwili powzięcia wiedzy, plus do dwóch raportów warunkowych (raport pośredni na żądanie organu, raport o postępach, jeśli incydent nadal trwa w dniu, w którym należy złożyć raport końcowy).",
-        "items": {
-          "early": {
-            "title": "Wczesne ostrzeżenie (frühe Erstmeldung)",
-            "deadline": "W ciągu 24 godzin",
-            "description": "Wstępne zawiadomienie BSI, że wykryto potencjalnie poważny incydent. Musi zostać złożone w ciągu 24 godzin od powzięcia wiedzy o incydencie. Celem jest umożliwienie BSI oceny wpływu międzysektorowego i wydania ostrzeżeń innym podmiotom, jeśli to konieczne.",
-            "contents": [
-              "Potwierdzenie, że poważny incydent wystąpił lub jest podejrzewany",
-              "Czy podejrzewa się, że incydent został spowodowany bezprawnymi lub złośliwymi działaniami",
-              "Czy incydent mógł mieć skutki transgraniczne",
-              "Nazwa podmiotu, sektor i dane kontaktowe do dalszych ustaleń"
-            ]
-          },
-          "update": {
-            "title": "Zgłoszenie incydentu (Meldung)",
-            "deadline": "W ciągu 72 godzin",
-            "description": "Bardziej szczegółowe zawiadomienie aktualizujące wczesne ostrzeżenie o dodatkowe informacje zebrane podczas wstępnego reagowania. Musi zostać złożone w ciągu 72 godzin od powzięcia wiedzy. Aktualizuje BSI o charakterze incydentu, jego dotkliwości i wstępnej ocenie skutków.",
-            "contents": [
-              "Zaktualizowana ocena dotkliwości i skutków incydentu",
-              "Wskaźniki kompromitacji (IoC), jeżeli są dostępne",
-              "Wstępna ocena charakteru i przyczyny incydentu",
-              "Środki podjęte lub planowane w celu ograniczenia incydentu",
-              "Ocena skutków transgranicznych, jeżeli dotyczy"
-            ]
-          },
-          "intermediate": {
-            "title": "Raport pośredni (Zwischenmeldung)",
-            "deadline": "Na żądanie",
-            "description": "Składany na żądanie BSI pomiędzy 72-godzinnym zgłoszeniem a raportem końcowym. Aktualizacja statusu bieżącego stanu obsługi incydentu. Nieautomatyczny; uruchamiany przez organ.",
-            "contents": [
-              "Bieżący status powstrzymywania i usuwania skutków",
-              "Nowe ustalenia dotyczące przyczyny, zakresu lub skutków",
-              "Korekty środków zaradczych",
-              "Zaktualizowana ocena szkód"
-            ]
-          },
-          "final": {
-            "title": "Raport końcowy (Abschlussmeldung)",
-            "deadline": "1 miesiąc po zgłoszeniu w 72h",
-            "description": "Kompleksowy raport końcowy składany w ciągu jednego miesiąca od 72-godzinnego zgłoszenia incydentu. Pełna dokumentacja incydentu i reakcji.",
-            "contents": [
-              "Szczegółowy opis incydentu, w tym dotkliwość i skutki",
-              "Analiza przyczyny źródłowej: rodzaj zagrożenia lub podatności, które spowodowały incydent",
-              "Środki zastosowane i nadal stosowane w celu ograniczenia incydentu i jego skutków",
-              "Skutki transgraniczne, jeżeli dotyczy"
-            ]
-          },
-          "progress": {
-            "title": "Raport o postępach (Fortschrittsmeldung)",
-            "deadline": "Jeżeli incydent nadal trwa",
-            "description": "Jeżeli incydent trwa nadal w terminie złożenia raportu końcowego, zamiast niego wysyłasz raport o postępach. Raport końcowy składa się po całkowitym zakończeniu obsługi incydentu (§ 32 ust. 2 BSIG); dyrektywa mówi o terminie jednego miesiąca od zakończenia obsługi (art. 23 ust. 4 lit. e NIS 2).",
-            "contents": [
-              "Bieżący status, ponieważ incydent nadal trwa",
-              "Środki powstrzymywania wdrożone do tej pory",
-              "Spodziewany czas do rozwiązania incydentu, o ile możliwy do przewidzenia",
-              "Plan ostatecznego raportu końcowego po rozwiązaniu incydentu"
-            ]
-          }
-        }
-      },
+      "title": "Obowiązek zgłaszania NIS2: kiedy i jak zgłaszać incydenty do BSI",
+      "subtitle": "Poważny incydent bezpieczeństwa zgłaszasz do BSI w trzech etapach: wczesne ostrzeżenie w ciągu 24 godzin, zgłoszenie incydentu w ciągu 72 godzin i sprawozdanie końcowe miesiąc później (§ 32 BSIG). Czas liczy się od chwili, gdy się o nim dowiesz. Zgłoszenia składasz w portalu BSI.",
       "criteria": {
-        "heading": "Co czyni incydent 'poważnym'",
-        "description": "Nie każde zdarzenie bezpieczeństwa uruchamia obowiązek z § 32 BSIG. Incydent jest poważny, jeżeli spełnia jeden z dwóch testów z § 2 pkt 11 BSIG (art. 23 ust. 3 NIS 2): poważne zakłócenie świadczonych usług lub strata finansowa podmiotu albo znaczna szkoda materialna lub niematerialna po stronie innych. Dla dostawców cyfrowych objętych CIR progi wyznaczają art. 3 do 14 CIR 2024/2690. Dla każdego innego podmiotu BSI wskazuje, że można przyjąć, iż incydent jest poważny, jeżeli spełnia jedno z kryteriów z art. 3 ust. 1 CIR, a zawsze wtedy, gdy świadczenie usługi krytycznej zostało przerwane lub zakłócone.",
+        "heading": "Czym jest poważny incydent bezpieczeństwa",
+        "intro": "Incydent bezpieczeństwa to zdarzenie, które narusza dostępność, integralność lub poufność Twoich danych lub usług (§ 2 nr 40 BSIG). Zgłaszać musisz tylko poważne incydenty.",
+        "description": "Incydent jest poważny, jeśli spowodował albo może spowodować jedną z dwóch rzeczy (§ 2 nr 11 BSIG, Art. 23(3) NIS 2): poważne zakłócenie działalności lub straty finansowe dla Twojej firmy albo znaczne szkody u innych. Dla niektórych dostawców cyfrowych rozporządzenie wykonawcze (UE) 2024/2690 określa dokładne progi. Dla wszystkich pozostałych BSI mówi: incydent jest poważny, jeśli spełnia jedno z kryteriów z Art. 3(1) tego rozporządzenia, i zawsze wtedy, gdy usługa krytyczna przestaje działać lub działa z zakłóceniami.",
         "items": {
           "disruption": {
-            "title": "Zakłócenie usługi",
-            "description": "Incydent spowodował lub może spowodować poważne zakłócenie operacyjne usług świadczonych przez podmiot (§ 2 pkt 11 lit. a BSIG)."
+            "title": "Poważne zakłócenie działalności",
+            "description": "Incydent poważnie zakłóca świadczenie Twoich usług albo może to zrobić."
           },
           "financial": {
-            "title": "Strata finansowa",
-            "description": "Incydent spowodował lub może spowodować stratę finansową dla podmiotu. Dla dostawców cyfrowych objętych CIR art. 3 ust. 1 lit. a CIR wyznacza próg na poziomie bezpośredniej straty finansowej powyżej 500 000 EUR lub 5% obrotu z poprzedniego roku, w zależności od tego, która kwota jest niższa; motyw 36 zalicza tu na przykład koszty personelu odtwarzającego systemy, kary umowne, odszkodowania dla klientów i utracone przychody."
+            "title": "Straty finansowe",
+            "description": "Incydent powoduje straty finansowe dla Twojej firmy albo może je spowodować. Dla dostawców cyfrowych objętych rozporządzeniem wykonawczym próg to bezpośrednia strata powyżej 500 000 EUR lub 5% obrotu z poprzedniego roku, w zależności od tego, która kwota jest niższa (Art. 3(1)(a))."
           },
           "spread": {
-            "title": "Wpływ na inne podmioty",
-            "description": "Incydent spowodował lub mógł spowodować znaczną szkodę dla innych osób fizycznych lub prawnych. Obejmuje to incydenty propagujące się przez łańcuchy dostaw, dotykające wspólną infrastrukturę lub ujawniające dane należące do osób trzecich."
+            "title": "Szkody u innych",
+            "description": "Incydent powoduje u innych osób lub firm znaczne szkody majątkowe lub niemajątkowe albo może je spowodować."
           },
           "data": {
             "title": "Naruszenie danych",
-            "description": "Naruszenie danych jest poważnym incydentem tylko wtedy, gdy spełnia jeden z dwóch testów, na przykład dlatego, że powoduje znaczną szkodę po stronie innych. Zgłoszenie z § 32 BSIG jest odrębne i dodatkowe wobec zgłoszenia naruszenia ochrony danych z art. 33 i 34 RODO; oba obowiązki mogą dotyczyć tego samego incydentu."
+            "description": "Naruszenie danych jest poważne tylko wtedy, gdy spełnia jedno z dwóch kryteriów, na przykład dlatego, że wyrządza innym znaczne szkody. Zgłoszenie z § 32 BSIG istnieje obok zgłoszenia z Art. 33 i 34 RODO. Oba mogą dotyczyć tego samego incydentu."
           },
           "duration": {
             "title": "Czas trwania",
-            "description": "Czas trwania nie jest odrębnym kryterium w § 2 pkt 11 BSIG ani w art. 23 ust. 3 NIS 2. Dla dostawców cyfrowych objętych CIR art. 5 do 14 ustalają limity czasu dla poszczególnych usług (na przykład usługa w chmurze całkowicie niedostępna dłużej niż 30 minut, art. 7 lit. a CIR). Gdy świadczenie usługi krytycznej zostało przerwane lub zakłócone, według BSI incydent jest zawsze poważny."
+            "description": "Czas trwania nie jest osobnym kryterium. Dla dostawców cyfrowych objętych rozporządzeniem wykonawczym obowiązują limity czasu dla każdej usługi, na przykład gdy usługa w chmurze jest całkowicie niedostępna dłużej niż 30 minut (Art. 7(a))."
+          }
+        },
+        "doubt": "W razie wątpliwości zgłoś wcześnie. BSI wyraźnie chce wczesnych zgłoszeń, nawet gdy wiele jest jeszcze niejasne. Poprawki trafiają do kolejnych zgłoszeń."
+      },
+      "timeline": {
+        "heading": "Terminy",
+        "description": "Trzy zgłoszenia ze stałymi terminami i dwa, które pojawiają się tylko w określonych przypadkach. Terminy są maksymalne: zgłaszasz bez zbędnej zwłoki.",
+        "awareness": "Zegar startuje w chwili, gdy dowiesz się o incydencie. Według BSI jest to moment, w którym pracownik Twojej firmy w godzinach pracy dowiaduje się o poważnym incydencie.",
+        "items": {
+          "early": {
+            "title": "Wczesne ostrzeżenie",
+            "deadline": "24 godziny",
+            "description": "Pierwsze ostrzeżenie dla BSI, najpóźniej 24 godziny od chwili, gdy dowiesz się o incydencie.",
+            "contents": [
+              "Czy incydent prawdopodobnie wynika z czynu bezprawnego lub złośliwego",
+              "Czy może dotknąć inne kraje",
+              "Pierwsza klasyfikacja incydentu",
+              "Kto zgłasza i jak BSI może się z tą osobą skontaktować"
+            ]
+          },
+          "update": {
+            "title": "Zgłoszenie incydentu",
+            "deadline": "72 godziny",
+            "description": "Najpóźniej 72 godziny od chwili, gdy dowiesz się o incydencie. Potwierdza lub aktualizuje wczesne ostrzeżenie.",
+            "contents": [
+              "Pierwsza ocena powagi i skutków",
+              "Ślady atakujących (wskaźniki kompromitacji), jeśli są dostępne",
+              "Co wiadomo o przyczynie",
+              "Jakie działania podjęto i jakie są jeszcze planowane"
+            ]
+          },
+          "intermediate": {
+            "title": "Sprawozdanie pośrednie",
+            "deadline": "Na żądanie",
+            "description": "Tylko jeśli BSI o nie poprosi: aktualny stan.",
+            "contents": [
+              "Stan ograniczania incydentu i usuwania jego skutków",
+              "Nowe ustalenia dotyczące przyczyny, zakresu lub skutków"
+            ]
+          },
+          "final": {
+            "title": "Sprawozdanie końcowe",
+            "deadline": "1 miesiąc po zgłoszeniu incydentu",
+            "description": "Najpóźniej miesiąc po zgłoszeniu incydentu złożonym w terminie 72 godzin.",
+            "contents": [
+              "Szczegółowy opis incydentu, z jego powagą i skutkami",
+              "Rodzaj zagrożenia lub prawdopodobna przyczyna",
+              "Jakie działania podjęto i jakie są nadal prowadzone",
+              "Czy dotknięte są inne kraje"
+            ]
+          },
+          "progress": {
+            "title": "Sprawozdanie z postępów",
+            "deadline": "Gdy incydent nadal trwa",
+            "description": "Jeśli po miesiącu incydent nadal trwa, zamiast sprawozdania końcowego składasz sprawozdanie z postępów. Sprawozdanie końcowe składasz, gdy incydent zostanie obsłużony (§ 32(2) BSIG).",
+            "contents": [
+              "Aktualny stan",
+              "Co udało się dotąd opanować"
+            ]
           }
         }
       },
       "fields": {
-        "heading": "Wymagane pola zgłoszenia",
-        "description": "Portal zgłoszeniowy BSI wymaga ustrukturyzowanych informacji. Przygotowanie tych pól z wyprzedzeniem znacząco zmniejsza ryzyko przekroczenia terminu 24 godzin.",
-        "items": {
-          "entity": {
-            "title": "Identyfikacja podmiotu",
-            "description": "Kto zgłasza i jak się z nim skontaktować oraz których sektorów, branż i rodzajów podmiotów dotyczy incydent (a w przypadku operatorów: których instalacji krytycznych). Miej te informacje w planie reagowania na incydenty, aby nie szukać ich w trakcie kryzysu."
-          },
-          "nature": {
-            "title": "Charakter i klasyfikacja incydentu",
-            "description": "Rodzaj incydentu (ransomware, DDoS, naruszenie danych, zagrożenie wewnętrzne, kompromitacja łańcucha dostaw itp.), dotknięte systemy i usługi, oś czasu zdarzeń od wykrycia do stanu bieżącego oraz wstępna klasyfikacja dotkliwości."
-          },
-          "impact": {
-            "title": "Ocena skutków",
-            "description": "Liczba dotkniętych użytkowników lub klientów, zakłócone usługi, szacowany wpływ finansowy, dotknięte kategorie danych (jeżeli dotyczy) oraz czas trwania zakłócenia. W przypadku wczesnego ostrzeżenia szacunki są dopuszczalne - precyzja przychodzi w zgłoszeniu 72-godzinnym i raporcie końcowym."
-          },
-          "crossBorder": {
-            "title": "Skutki transgraniczne",
-            "description": "Czy incydent dotyka lub może dotknąć podmioty lub obywateli w innych państwach członkowskich UE. Uruchamia to wymianę informacji między krajowymi CSIRT i może obejmować koordynację ENISA. Musi zostać ocenione zarówno we wczesnym ostrzeżeniu, jak i w kolejnych zgłoszeniach."
-          },
-          "measures": {
-            "title": "Środki reagowania",
-            "description": "Działania podjęte w celu powstrzymania, wyeliminowania i odtworzenia po incydencie. Obejmuje środki techniczne (izolacja, łatanie, rotacja poświadczeń), środki komunikacyjne (powiadomienie klientów, briefing interesariuszy) oraz środki organizacyjne (aktywacja zespołu kryzysowego, zaangażowanie wsparcia zewnętrznego)."
-          }
-        }
+        "heading": "Co zawiera wczesne ostrzeżenie",
+        "description": "BSI wymienia te dane dla wczesnego ostrzeżenia. Formularz w portalu o nie pyta.",
+        "list": [
+          "Klasyfikacja incydentu, powód zgłoszenia i sytuacja",
+          "Wstępny opis: zakłócenie, skutki, przewidywany czas trwania i przypuszczalna przyczyna",
+          "Kiedy doszło do incydentu i kiedy go zauważono",
+          "Dotknięte sektory i rodzaje podmiotów",
+          "Czy podejrzewa się atak i czy mogą być dotknięte inne kraje",
+          "Co zrobiono do tej pory i czy incydent jest pod kontrolą",
+          "Jak BSI może się skontaktować z osobą zgłaszającą"
+        ],
+        "note": "Zasada BSI: szybkość przed kompletnością. Złożonego zgłoszenia nie można wycofać. Poprawiasz je zgłoszeniem uzupełniającym."
       },
       "where": {
-        "heading": "Gdzie i jak zgłaszać",
-        "description": "Zgłoszenia trafiają do BSI, zwykle za pośrednictwem portalu BSI.",
-        "p1": "Zgłoszenia na podstawie § 32 BSIG trafiają do BSI, zwykle za pośrednictwem portalu BSI. Podmiot, u którego poważny incydent wystąpi przed rejestracją, zgłasza go przez formularz online w portalu zgłoszeń i informacji BSI (Melde- und Informationsportal, MIP). Operatorzy instalacji krytycznych i organy federalne na razie korzystają z dotychczasowych kanałów zgłaszania.",
-        "p2": "Portal zgłoszeniowy jest dostępny na stronie internetowej BSI w sekcji NIS2. Aby zgłaszać przez portal BSI, logujesz się danymi dostępowymi uzyskanymi przy rejestracji (§ 33 BSIG). Jeżeli poważny incydent wystąpi, zanim się zarejestrujesz, nadal go zgłaszasz, przez formularz online w MIP."
+        "heading": "Gdzie zgłaszać i kto zgłasza",
+        "description": "Zgłaszasz do BSI, zwykle przez portal BSI.",
+        "p1": "Zgłoszenia z § 32 BSIG trafiają do BSI, zwykle przez portal BSI. Jeśli Twoja firma ma poważny incydent, zanim się zarejestruje, zgłaszasz go przez formularz w portalu zgłoszeń i informacji BSI (MIP). Operatorzy instalacji krytycznych i urzędy federalne na razie korzystają ze swoich dotychczasowych kanałów zgłaszania.",
+        "p2": "Zgłosić może każdy pracownik, który ma dostęp do portalu. Każda osoba potrzebuje własnego certyfikatu organizacji z ELSTER i musi być w portalu przypisana do Twojego podmiotu. Zgłoszenie może też złożyć za Ciebie usługodawca. Odpowiedzialność za zgłoszenie pozostaje po Twojej stronie.",
+        "p3": "Operatorzy instalacji krytycznych zgłaszają dodatkowo rodzaj instalacji, usługę krytyczną i wpływ incydentu na tę usługę (§ 32(3) BSIG). Jeśli incydent dotyczy danych osobowych, może być potrzebne także zgłoszenie do organu ochrony danych."
       },
-      "penalties": {
-        "heading": "Kary za uchybienia w zgłaszaniu",
-        "description": "Niezgłoszenie jest karane niezależnie od samego incydentu. Przedsiębiorstwo, które doznaje incydentu i technicznie dobrze sobie z nim radzi, ale go nie zgłasza, naraża się na odrębne działania egzekwujące.",
-        "items": {
-          "essential": {
-            "amount": "Do 10 000 000 EUR lub 2% obrotu",
-            "label": "Podmioty kluczowe",
-            "detail": "Wyższa z kwot 10 mln EUR lub 2% światowego rocznego obrotu z poprzedniego roku obrotowego (§ 65 ust. 5 i 6 BSIG). Podmioty kluczowe to między innymi duże przedsiębiorstwa w sektorach z załącznika 1 do BSIG (energia, transport, finanse, ochrona zdrowia, woda, infrastruktura cyfrowa, przestrzeń kosmiczna) oraz, niezależnie od wielkości, operatorzy instalacji krytycznych, kwalifikowani dostawcy usług zaufania, rejestry TLD i dostawcy DNS (§ 28 ust. 1 BSIG)."
-          },
-          "important": {
-            "amount": "Do 7 000 000 EUR lub 1,4% obrotu",
-            "label": "Podmioty ważne",
-            "detail": "Wyższa z kwot 7 mln EUR lub 1,4% światowego rocznego obrotu (§ 65 ust. 5 i 7 BSIG). Podmioty ważne to średnie przedsiębiorstwa w sektorach z załącznika 1 oraz średnie lub duże przedsiębiorstwa w sektorach z załącznika 2 (usługi pocztowe i kurierskie, gospodarka odpadami, chemikalia, żywność, produkcja, dostawcy cyfrowi, badania naukowe), a także wszyscy pozostali dostawcy usług zaufania (§ 28 ust. 2 BSIG)."
-          },
-          "management": {
-            "amount": "Odpowiedzialność wobec przedsiębiorstwa (§ 38 ust. 2 BSIG)",
-            "label": "Kierownictwo (Geschäftsleitung)",
-            "detail": "§ 38 BSIG zobowiązuje kierownictwo do wdrażania środków zarządzania ryzykiem z § 30 i nadzorowania ich stosowania. Członek kierownictwa, który w sposób zawiniony naruszy ten obowiązek, odpowiada wobec przedsiębiorstwa za szkodę na zasadach prawa spółek właściwych dla jego formy prawnej (§ 38 ust. 2). Samo zgłoszenie jest obowiązkiem podmiotu (§ 32); spóźnione lub brakujące zgłoszenie jest zagrożone karą pieniężną na poziomie podmiotu (§ 65 ust. 2 pkt 4)."
-          }
-        }
+      "after": {
+        "heading": "Po zgłoszeniu",
+        "items": [
+          "BSI bez zbędnej zwłoki potwierdza otrzymanie, w miarę możliwości w ciągu 24 godzin. Na prośbę udziela wskazówek lub porad (§ 36(1) BSIG).",
+          "BSI może nakazać Ci poinformowanie odbiorców Twoich usług o incydencie (§ 35(1) BSIG).",
+          "Spodziewaj się pytań uzupełniających. BSI zaleca, aby jego ostrzeżenia docierały do kogoś także poza godzinami pracy."
+        ]
+      },
+      "example": {
+        "heading": "Przykład",
+        "lead": "Fikcyjna firma. Poniedziałek, 9:00: księgowość mówi działowi IT, że pliki na serwerze są zaszyfrowane. Przyjmowanie zamówień stoi.",
+        "items": [
+          "Poniedziałek, 9:30: dział IT potwierdza atak. Zgodnie z planem reagowania na incydenty decyduje prezes. Uznaje incydent za poważny, bo działalność jest mocno zakłócona.",
+          "Poniedziałek, 14:00: wczesne ostrzeżenie w portalu BSI. Mówi, co wiadomo, i że podejrzewa się atak. Termin upłynąłby we wtorek o 9:00.",
+          "Najpóźniej w czwartek o 9:00: zgłoszenie incydentu z pierwszą oceną powagi i skutków.",
+          "Miesiąc po tym zgłoszeniu: sprawozdanie końcowe z przyczyną i środkami zaradczymi. Jeśli incydent wtedy nadal trwa, najpierw składane jest sprawozdanie z postępów.",
+          "Równolegle firma sprawdza, czy incydent dotyczy danych osobowych. Jeśli tak, obowiązuje też obowiązek zgłoszenia z Art. 33 RODO."
+        ]
+      },
+      "prepare": {
+        "heading": "Co przygotować z wyprzedzeniem",
+        "items": [
+          "Kto decyduje, czy incydent jest poważny, i kto zgłasza.",
+          "Dostęp do portalu BSI dla tych osób: dla każdej własny certyfikat organizacji i przypisanie do Twojego podmiotu.",
+          "Numery telefonów do IT, usługodawców i kierownictwa, także na papierze.",
+          "Plan reagowania na incydenty, który da się znaleźć także wtedy, gdy serwery nie działają."
+        ]
+      },
+      "walk": {
+        "heading": "Jak robi to przewodnik",
+        "lead": "Dwa kroki w przewodniku na nisd2.eu przygotowują Cię do zgłaszania.",
+        "points": [
+          "„Plan what happens in an incident”: z Twoich odpowiedzi powstaje plan reagowania na incydenty. Określa, kto decyduje i jak zgłaszasz.",
+          "„Know how to report an incident”: krok pokazuje trzy terminy i przykład wczesnego ostrzeżenia.",
+          "Zapisujesz, czy możesz zalogować się do portalu BSI i złożyć zgłoszenie.",
+          "Na końcu kierownictwo zatwierdza plan reagowania na incydenty w aplikacji."
+        ],
+        "seeItAlt": "Krok o zgłaszaniu w przewodniku: trzy terminy",
+        "next": "Przygotuj plan reagowania na incydenty w przewodniku"
       },
       "sources": {
         "heading": "Źródła",
         "items": [
-          "Dyrektywa NIS2 (UE) 2022/2555 - artykuł 23 (obowiązki zgłoszeniowe)",
-          "BSIG - §32 (Meldepflichten bei erheblichen Sicherheitsvorfällen)",
-          "BSIG - §38 (Umsetzungs-, Überwachungs- und Schulungspflicht - Geschäftsleitung)",
-          "BSIG - §65 (Bußgeldvorschriften)",
-          "CIR (UE) 2024/2690 - artykuł 3 (istotność incydentów), artykuł 4 (powtarzające się incydenty)",
-          "BSI - NIS-2-Meldepflicht (strona informacyjna dla podmiotów regulowanych): bsi.bund.de",
-          "BSI - dokumentacja i FAQ portalu zgłoszeniowego NIS2"
+          "Ustawa o BSI (BSIG), § 2 nr 11 i 40, §§ 32, 35 i 36 (gesetze-im-internet.de/bsig_2025)",
+          "Dyrektywa (UE) 2022/2555 (NIS 2), Art. 23 (eur-lex.europa.eu)",
+          "Rozporządzenie wykonawcze (UE) 2024/2690, Art. 3 i 7",
+          "BSI, obowiązek zgłaszania NIS 2: terminy, treść i kanał (bsi.bund.de/dok/nis-2-meldepflicht)",
+          "BSI, Mein Unternehmenskonto: dostęp do portalu BSI (bsi.bund.de/dok/muk)",
+          "Rozporządzenie (UE) 2016/679 (RODO), Art. 33 i 34"
         ]
-      },
-      "ctaCard": {
-        "heading": "Bądź gotowy do zgłaszania, zanim uderzy incydent",
-        "description": "Platforma wstępnie konfiguruje pola zgłoszeniowe BSI, prowadzi rejestr incydentów z przepływami klasyfikacji i śledzi terminy 24h/72h/1 miesiąc - abyś dopełnił każdego obowiązku pod presją."
-      },
-      "cta": "Rozpocznij proces zgodności z NIS2"
+      }
     },
     "euImplementation": {
       "meta": {
@@ -3983,108 +4056,117 @@
     },
     "missedRegistration": {
       "meta": {
-        "title": "Przegapiona rejestracja NIS2 w BSI? Natychmiastowe kroki",
-        "description": "Przegapiłeś rejestrację NIS2? Portal BSI jest nadal otwarty. Jak zarejestrować się teraz na podstawie § 33 BSIG, krok po kroku, z FAQ."
+        "title": "Rejestracja NIS2 w BSI: jak to zrobić i termin",
+        "description": "Rejestracja NIS2 w BSI: kto się rejestruje, kroki przez ELSTER i portal BSI, termin i co dzieje się potem."
       },
-      "title": "Przegapiłeś termin rejestracji w BSI. Co teraz?",
-      "subtitle": "Portal BSI jest nadal otwarty. Oto, co liczy się teraz i od czego zacząć.",
-      "shortAnswer": {
-        "heading": "Krótka odpowiedź",
-        "p1": "Bez paniki. Nie jesteś sam, i nie jest za późno, żeby to naprawić. BSI oszacowało, że w Niemczech pod NIS2 podpada około 30 000 podmiotów. Termin rejestracji upłynął 6 marca 2026 r., ale znacząca liczba firm nadal się nie zarejestrowała. Jesteś daleki od bycia jedynym w tej sytuacji.",
-        "p2": "Portal rejestracyjny wynikający z §33 BSIG jest nadal otwarty. Możesz zarejestrować się dzisiaj. BSI zasygnalizowało, że będzie priorytetowo egzekwować przepisy wobec firm, które całkowicie ignorują swoje obowiązki, a nie wobec tych, które zarejestrowały się z opóźnieniem, lecz działają w dobrej wierze. Późno jest lepsze niż nigdy, a „nigdy” to jedyna naprawdę niebezpieczna opcja.",
-        "p3": "Najważniejsze jest, by działać teraz, udokumentować, że się zaczęło, i rozpocząć faktyczną pracę nad zgodnością. Spóźniona rejestracja z widocznym postępem wygląda dla organu nadzorczego zasadniczo inaczej niż całkowity brak rejestracji."
+      "title": "Rejestracja NIS2: jak zarejestrować firmę w BSI",
+      "subtitle": "Objęte firmy rejestrują się w portalu BSI (§ 33 BSIG). Najpierw potrzebujesz certyfikatu organizacji z ELSTER, który aktywuje się listem. Dla firm objętych od grudnia 2025 r. termin minął 6 marca 2026 r. Jeśli termin minął bez rejestracji, zarejestruj się teraz: obowiązek nadal istnieje.",
+      "who": {
+        "heading": "Kto musi się zarejestrować",
+        "p1": "Każdy podmiot kluczowy i każdy podmiot ważny (§ 33(1) BSIG). Tak prawo nazywa firmy, których dotyczy NIS 2.",
+        "p2": "To, czy Twoja firma do nich należy, zależy od sektora i wielkości (§ 28 BSIG). Sektory są wymienione w załącznikach 1 i 2 do BSIG. W tych sektorach firma jest podmiotem ważnym, jeśli ma co najmniej 50 pracowników albo roczny obrót i sumę bilansową, każde powyżej 10 mln EUR.",
+        "p3": "BSI udostępnia narzędzie do sprawdzenia, czy firma jest objęta przepisami. Prowadzi ono przez pytania. Według BSI jego wynik nie jest prawnie wiążący."
+      },
+      "deadline": {
+        "heading": "Termin",
+        "p1": "Rejestrujesz się najpóźniej trzy miesiące po tym, jak Twoja firma po raz pierwszy staje się podmiotem (§ 33(1) BSIG).",
+        "p2": "BSIG obowiązuje od 6 grudnia 2025 r. Dla firm objętych od tego dnia termin minął 6 marca 2026 r.",
+        "p3": "Jeśli Twoja firma zostanie objęta dopiero później, na przykład dlatego, że rośnie, trzy miesiące liczą się od tego momentu."
       },
       "steps": {
-        "heading": "Pięć kroków, by wrócić na właściwe tory",
-        "description": "Trzymaj się tej kolejności. Każdy krok opiera się na poprzednim, a razem tworzą udokumentowany ślad, który pokazuje BSI, że traktujesz zgodność poważnie.",
+        "heading": "Jak się zarejestrować, krok po kroku",
+        "description": "Rejestracja ma dwa etapy: najpierw konto w ELSTER, potem rejestracja w portalu BSI.",
         "items": {
           "check": {
-            "title": "1. Potwierdź, że faktycznie podlegasz zakresowi",
-            "description": "Zanim się zarejestrujesz, zweryfikuj, czy NIS2 dotyczy Twojej firmy. Kryteria są w §28 BSIG: musisz działać w jednym z 18 wymienionych sektorów ORAZ spełniać próg wielkości (co najmniej 50 pracowników lub roczny obrót i roczna suma bilansowa, każde powyżej 10 mln EUR). Jeśli nie masz pewności, sprawdź listy sektorów BSI w Załączniku I i Załączniku II do dyrektywy NIS2. Wiele firm zakłada, że są poza zakresem, podczas gdy nie są, i odwrotnie. Jeśli naprawdę masz wątpliwości, uzyskaj opinię prawną przed rejestracją, ale nie wykorzystuj niepewności jako wymówki do zwłoki."
+            "title": "Sprawdź, czy NIS2 Cię dotyczy",
+            "description": "Ustal sektor, liczbę pracowników i obrót (§ 28 BSIG). Pomaga w tym narzędzie BSI do sprawdzenia objęcia przepisami. W przypadkach granicznych pomaga analiza prawna."
+          },
+          "certificate": {
+            "title": "Złóż w ELSTER wniosek o certyfikat organizacji",
+            "description": "Robisz to przez „Mein Unternehmenskonto” (mein-unternehmenskonto.de). Potrzebujesz niemieckiego numeru podatkowego. Dane dostępowe przychodzą e-mailem, a kod aktywacyjny listem na adres zapisany przy numerze podatkowym. Według BSI doręczenie trwa zwykle co najmniej pięć dni roboczych."
+          },
+          "gather": {
+            "title": "Przygotuj dane",
+            "description": "Portal pobiera nazwę, adres, formę prawną i dane rejestrowe z konta Twojej firmy. Zgodnie z § 33(1) BSIG dodajesz: adres e-mail i numery telefonów, publiczne zakresy adresów IP, swój sektor, kraje UE, w których świadczysz takie usługi, oraz właściwe organy nadzoru."
           },
           "register": {
-            "title": "2. Zarejestruj się przez portal BSI niezwłocznie",
-            "description": "Przejdź do portalu rejestracyjnego NIS2 prowadzonego przez BSI i dokończ swoją rejestrację wynikającą z §33 BSIG. Będziesz potrzebować: danych swojej firmy, klasyfikacji sektorowej, osoby kontaktowej do spraw cyberbezpieczeństwa oraz zakresów adresów IP dla swoich systemów krytycznych. Sama rejestracja zajmuje około 30 minut, jeśli masz przygotowane informacje. Zrób to dzisiaj, każdy dzień zwłoki powiększa lukę między terminem a datą Twojej rejestracji."
+            "title": "Zarejestruj się w portalu BSI",
+            "description": "Logujesz się certyfikatem do portalu BSI (portal.bsi.bund.de) i wypełniasz formularz. Osoba, która rejestruje podmiot, automatycznie zostaje jego administratorem i może zapraszać współpracowników."
           },
-          "document": {
-            "title": "3. Udokumentuj, że zacząłeś",
-            "description": "Stwórz pisemny zapis, nawet prostą wewnętrzną notatkę, który dokumentuje, kiedy dowiedziałeś się o swoich obowiązkach wynikających z NIS2, kiedy się zarejestrowałeś i jakie kroki podejmujesz. To tworzy ślad dokumentacyjny, który świadczy o dobrej wierze. Jeśli BSI kiedykolwiek zapyta, dlaczego zarejestrowałeś się z opóźnieniem, „zidentyfikowaliśmy obowiązek, zarejestrowaliśmy się niezwłocznie i rozpoczęliśmy pracę nad zgodnością dnia [data]” to mocna odpowiedź."
-          },
-          "implement": {
-            "title": "4. Rozpocznij faktyczną pracę nad zgodnością",
-            "description": "Rejestracja to dopiero pierwszy krok, §30 BSIG wymaga, abyś wdrożył środki zarządzania ryzykiem w cyberbezpieczeństwie. Zacznij od podstaw: inwentaryzacja zasobów, metodyka oceny ryzyka oraz procedury zgłaszania incydentów. Nie musisz osiągnąć pełnej zgodności z dnia na dzień, ale musisz w widoczny sposób ku niej dążyć. BSI patrzy na trajektorię, nie tylko na stan obecny."
-          },
-          "legal": {
-            "title": "5. Rozważ doradztwo prawne, jeśli zakres jest niejasny",
-            "description": "Jeśli Twoja firma znajduje się blisko progu (blisko 50 pracowników lub 10 mln EUR obrotu i sumy bilansowej), działa w sektorze, który można interpretować na wiele sposobów, lub ma złożoną strukturę korporacyjną, skonsultuj się z prawnikiem specjalizującym się w regulacjach IT. Koszt opinii prawnej (2 000 do 5 000 EUR) jest znikomy w porównaniu z kosztem zarówno niezgodności, jak i zbędnej zgodności. Niektóre stowarzyszenia branżowe (jak Bitkom czy BDI) oferują również członkom wytyczne dotyczące zakresu NIS2."
+          "record": {
+            "title": "Zapisz to i rozdaj dostępy",
+            "description": "Zanotuj dzień rejestracji i certyfikat, którego użyto. Daj dostęp osobom, które w sytuacji awaryjnej będą zgłaszać incydenty. Każda osoba potrzebuje własnego certyfikatu i musi być w portalu przypisana do Twojego podmiotu."
           }
         }
       },
-      "risks": {
-        "heading": "Jakie są rzeczywiste ryzyka spóźnionej rejestracji?",
-        "description": "Uczciwość wobec ryzyk pomaga podejmować proporcjonalne decyzje. Konsekwencje są realne, ale nie katastrofalne, jeśli zadziałasz teraz.",
-        "items": {
-          "fines": {
-            "title": "Kary administracyjne",
-            "description": "§65 BSIG przewiduje kary do 500 000 EUR konkretnie za naruszenia obowiązku rejestracji. W praktyce BSI ma ograniczone zdolności egzekucyjne i koncentruje się na wprowadzeniu firm do systemu, a nie na karaniu spóźnialskich. Firma, która rejestruje się z opóźnieniem i wykazuje aktywne starania o zgodność, raczej nie zostanie ukarana maksymalną sankcją. Firma, która nigdy się nie rejestruje, to inna historia."
-          },
-          "orders": {
-            "title": "Nakazy zgodności",
-            "description": "BSI może wydać wiążące nakazy zgodności, wymagające od Ciebie rejestracji i wdrożenia określonych środków w wyznaczonym terminie. Niezastosowanie się do takiego nakazu znacząco zaostrza sytuację prawną. Proaktywna rejestracja, nawet spóźniona, całkowicie omija tę ścieżkę eskalacji."
-          },
-          "liability": {
-            "title": "Osobista odpowiedzialność kierownictwa",
-            "description": "§38 BSIG czyni Geschäftsführung osobiście odpowiedzialną za zapewnienie zgodności z NIS2. Jeśli Twoja firma podlega zakresowi, a Ty, jako kierownictwo, świadomie opóźniłeś rejestrację, tworzy to osobistą ekspozycję. Odpowiedzialność ta nie może być uchylona uchwałą wspólników. Udokumentowanie, że działałeś, gdy tylko się dowiedziałeś, to ważna ochrona."
-          },
-          "audit": {
-            "title": "Zwiększona kontrola w przyszłych audytach",
-            "description": "W przypadku podmiotów kluczowych BSI przeprowadza okresowe audyty. Spóźniona rejestracja będzie widoczna w Twojej osi czasu zgodności. Jednak dobrze udokumentowany proces nadrabiania zaległości, który wykazuje systematyczną poprawę, postrzegany jest zupełnie inaczej niż wzorzec zaniedbań. Audytorzy oceniają trajektorię, a nie tylko punkt wyjścia."
-          }
-        }
+      "after": {
+        "heading": "Co następuje po rejestracji",
+        "p1": "§ 33 BSIG nie przewiduje po rejestracji żadnej decyzji ani dalszego kroku ze strony BSI. Nie czekaj więc na wezwanie do rozpoczęcia.",
+        "p2": "Pozostałe obowiązki i tak mają zastosowanie. Wynikają z tego, że Twoja firma jest podmiotem. Rejestracja niczego tu nie zmienia.",
+        "items": [
+          "Wdrożyć środki bezpieczeństwa w dziesięciu obszarach i je spisać (§ 30 BSIG).",
+          "Zgłaszać poważne incydenty bezpieczeństwa, pierwsze zgłoszenie w ciągu 24 godzin (§ 32 BSIG).",
+          "Kierownictwo wdraża środki, nadzoruje je i regularnie bierze udział w szkoleniach (§ 38 BSIG).",
+          "Jeśli Twoje dane się zmienią, zgłaszasz to do BSI w ciągu dwóch tygodni (§ 33(5) BSIG)."
+        ],
+        "link": "Jak się do tego zabrać: wdrożenie NIS2"
       },
-      "context": {
-        "heading": "Dlaczego tak wiele firm przegapiło termin",
-        "p1": "Luka w rejestracji NIS2 nie jest spowodowana przede wszystkim niedbalstwem. Niemiecki proces legislacyjny był wielokrotnie opóźniany, NIS2UmsuCG przeszła miesiące po pierwotnym unijnym terminie transpozycji. Wiele firm rozsądnie czekało na sfinalizowanie niemieckiej ustawy, zanim podjęły działania. Inne nie były świadome, że podlegają zakresowi, ponieważ definicje sektorów drastycznie się rozszerzyły w porównaniu ze starym reżimem KRITIS.",
-        "p2": "Samo BSI publicznie przyznało skalę luki rejestracyjnej. Agencja przyjęła pragmatyczne stanowisko: priorytetem jest zarejestrowanie wszystkich 30 000 podmiotów i wprowadzenie ich do systemu zgodności, a nie karanie pierwszej fali spóźnionych rejestrujących. Ten pragmatyzm ma granice, dotyczy firm, które aktywnie dążą do zgodności, a nie tych, które wykorzystują cierpliwość BSI jako wymówkę, by nic nie robić."
+      "missed": {
+        "heading": "Przegapiony termin? Zrób to teraz",
+        "items": [
+          "Zarejestruj się teraz. Obowiązek nie kończy się wraz z terminem.",
+          "Zanotuj, kiedy firma dowiedziała się o obowiązku i kiedy się zarejestrowała.",
+          "Czy Twoja firma miała poważny incydent bezpieczeństwa przed rejestracją? Zgłoś go mimo to, przez formularz w portalu zgłoszeń i informacji BSI (MIP).",
+          "Zacznij wdrażać środki. Obowiązują niezależnie od rejestracji."
+        ]
       },
       "faq": {
-        "heading": "Najczęściej zadawane pytania",
+        "heading": "Częste pytania",
         "q1": {
-          "q": "Czy portal rejestracyjny BSI jest nadal otwarty?",
-          "a": "Tak. Portal rejestracyjny wynikający z §33 BSIG pozostaje otwarty. Nie ma terminu, po którym nie można już się zarejestrować, obowiązek jest ciągły. Termin określał, kiedy powinieneś był się zarejestrować, a nie kiedy mogłeś. Zarejestruj się teraz."
+          "q": "Czy po 6 marca 2026 r. mogę się jeszcze zarejestrować?",
+          "a": "Tak. Termin mówi, do kiedy trzeba było się zarejestrować. Sam obowiązek się nie kończy. Rejestrujesz się przez ten sam portal BSI."
         },
         "q2": {
-          "q": "Jaka jest kara za spóźnioną rejestrację?",
-          "a": "§65 BSIG przewiduje kary do 500 000 EUR za naruszenia obowiązku rejestracji. Kary są jednak wymierzane indywidualnie dla każdego przypadku, z uwzględnieniem powagi, czasu trwania oraz tego, czy firma działała w dobrej wierze. Firma, która rejestruje się z kilkumiesięcznym opóźnieniem i wykazuje aktywne starania o zgodność, ma zupełnie inny profil ryzyka niż taka, która całkowicie ignoruje obowiązek."
+          "q": "Czy dostanę decyzję albo numer rejestracyjny?",
+          "a": "§ 33 BSIG nie przewiduje decyzji. Sam zapisz, kiedy i jakim certyfikatem nastąpiła rejestracja. Przy zgłoszeniach incydentów jest inaczej: tam BSI potwierdza otrzymanie, w miarę możliwości w ciągu 24 godzin (§ 36(1) BSIG)."
         },
         "q3": {
-          "q": "Czy spóźniona rejestracja wpływa na moje pozostałe obowiązki wynikające z NIS2?",
-          "a": "Nie. Twoje obowiązki wynikające z §30 BSIG (środki cyberbezpieczeństwa), §32 (zgłaszanie incydentów) oraz §38 (odpowiedzialność kierownictwa) istnieją niezależnie od tego, czy się zarejestrowałeś. Rejestracja nie tworzy obowiązków, wypełnia jeden z nich. Pozostałe obowiązki obowiązują od chwili, gdy spełnisz kryteria zakresu, niezależnie od statusu rejestracji."
+          "q": "Czy pozostałe obowiązki zaczynają się dopiero po rejestracji?",
+          "a": "Nie. Środki (§ 30 BSIG), obowiązek zgłaszania (§ 32 BSIG) i obowiązki kierownictwa (§ 38 BSIG) mają zastosowanie, gdy tylko Twoja firma staje się podmiotem. Rejestracja jest jednym z obowiązków, obok pozostałych."
         },
         "q4": {
-          "q": "Czy mogę się zarejestrować, jeśli nie mam pewności, że podlegamy zakresowi?",
-          "a": "Tak, a BSI zaleca, by w razie niepewności decydować na korzyść rejestracji. Rejestracja w sytuacji, gdy okaże się, że jesteś poza zakresem, nie ma negatywnych konsekwencji, rejestrację można skorygować. Brak rejestracji, gdy podlegasz zakresowi, niesie realne ryzyko prawne. W razie wątpliwości zarejestruj się."
+          "q": "Nie wiemy, czy jesteśmy objęci. Co teraz?",
+          "a": "Skorzystaj z narzędzia BSI do sprawdzenia objęcia przepisami, a przypadki graniczne zleć do analizy prawnej. Przypadki graniczne to na przykład wielkość blisko progu, działalność, która może pasować do kilku sektorów, albo grupa z powiązanymi firmami (§ 28(3) i (4) BSIG)."
         },
         "q5": {
-          "q": "Co, jeśli zarejestrowaliśmy się, ale nie rozpoczęliśmy pracy nad zgodnością?",
-          "a": "Rejestracja bez pracy nad zgodnością jest jak złożenie deklaracji podatkowej bez zapłaty podatku, wypełniłeś jeden obowiązek, ale nie te merytoryczne. Zacznij teraz od środków z §30 BSIG: inwentaryzacja zasobów, ocena ryzyka, procedury zgłaszania incydentów. BSI oczekuje, że zarejestrowane podmioty będą aktywnie dążyć do zgodności, a nie tylko siedzieć na numerze rejestracyjnym."
+          "q": "Mamy oddziały w innych krajach UE. Gdzie się rejestrujemy?",
+          "a": "Co do zasady właściwy jest kraj, w którym Twoja firma ma siedzibę (Art. 26(1) NIS 2). W przypadku niektórych dostawców cyfrowych liczy się główna siedziba. Organy wszystkich krajów UE są w naszym przeglądzie organów rejestracyjnych."
         }
+      },
+      "walk": {
+        "heading": "Jak robi to przewodnik",
+        "lead": "Rejestracja to pierwszy krok w przewodniku na nisd2.eu.",
+        "points": [
+          "Krok wyjaśnia prostymi słowami, czemu służy rejestracja i jak przez ELSTER dostać się do portalu BSI.",
+          "Pokazuje, w którym kraju UE się rejestrujesz, wraz z właściwym organem i jego portalem.",
+          "Zapisujesz dwie informacje: identyfikator swojego konta użytkownika i dzień rejestracji.",
+          "Jeśli list z ELSTER jeszcze nie przyszedł, wybierasz „Not possible yet” i przechodzisz do następnego kroku.",
+          "Jeden z późniejszych kroków pokazuje, które Twoje dane mogą się zmienić."
+        ],
+        "seeItAlt": "Krok rejestracji w przewodniku: kraj i jego organ",
+        "next": "Zacznij od rejestracji w przewodniku"
       },
       "sources": {
         "heading": "Źródła",
         "items": [
-          "BSI - statystyki rejestracji NIS2 i publiczne oświadczenia dotyczące podejścia do egzekwowania (2025)",
-          "G DATA CyberDefense - badanie świadomości NIS2: 44% firm średniej wielkości nieświadomych obowiązków (2024)",
-          "BSIG - §33 (obowiązek rejestracji), §65 (kary administracyjne), §38 (odpowiedzialność kierownictwa)",
-          "NIS2UmsuCG - Gesetz zur Umsetzung der NIS-2-Richtlinie und zur Stärkung der Cybersicherheit",
-          "BMI - dokumentacja parlamentarna i wytyczne dotyczące wdrożenia NIS2UmsuCG"
+          "Ustawa o BSI (BSIG), §§ 28, 30, 32, 33, 36 i 38, załączniki 1 i 2, w mocy od 6 grudnia 2025 r. (gesetze-im-internet.de/bsig_2025)",
+          "Dyrektywa (UE) 2022/2555 (NIS 2), Art. 3(4) i Art. 26 (eur-lex.europa.eu)",
+          "BSI, szczegóły procedury rejestracji zgodnie z § 33(6) BSIG, wersja 1.0 z 26.06.2026 (bsi.bund.de/dok/registrierungspflicht)",
+          "BSI, Mein Unternehmenskonto (bsi.bund.de/dok/muk)",
+          "BSI, obowiązek zgłaszania NIS 2: zgłoszenie przed rejestracją (bsi.bund.de/dok/nis-2-meldepflicht)",
+          "BSI, sprawdzenie objęcia przepisami (betroffenheitspruefung-nis-2.bsi.de)"
         ]
-      },
-      "ctaCard": {
-        "heading": "Zarejestruj się, a następnie zbuduj swój ślad zgodności",
-        "description": "Platforma prowadzi Cię od rejestracji aż do pełnej zgodności z §30 BSIG, tworząc udokumentowany ślad dowodowy, który pokazuje BSI, że traktujesz to poważnie."
-      },
-      "cta": "Rozpocznij swój proces zgodności z NIS2"
+      }
     },
     "kritisComparison": {
       "meta": {

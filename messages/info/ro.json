@@ -1460,119 +1460,205 @@
         "p4": "Aceasta nu este o foaie de calcul pe care o pierdeți sau un raport de consultant care zace pe un raft. Este o evidență vie, versionată și auditabilă a tot ceea ce a făcut compania dumneavoastră pentru conformitatea NIS2, din prima zi, pentru totdeauna."
       }
     },
+    "wikiWalk": {
+      "seeIt": "Vedeți cum arată",
+      "priceHeading": "Cât costă parcursul ghidat",
+      "more": "Mai multe despre acest subiect",
+      "lawLabel": "Temei legal",
+      "whoLabel": "Cine"
+    },
     "nis2Requirements": {
       "meta": {
-        "title": "Cerințe NIS2: 10 măsuri",
-        "description": "Cerințele NIS2 explicate: 10 măsuri obligatorii de management al riscului, cascada de raportare a incidentelor, obligațiile de audit și securitatea lanțului de aprovizionare."
+        "title": "Cerințe NIS2: cele 10 măsuri și obligațiile",
+        "description": "Cerințe NIS2 în cuvinte simple: cele zece măsuri din Art. 21 NIS 2 și § 30 BSIG, raportarea, înregistrarea și rolul conducerii."
       },
-      "title": "Cerințe NIS2",
-      "subtitle": "Ce trebuie să implementeze entitățile vizate: 10 măsuri obligatorii de securitate cibernetică, o cascadă strictă de raportare a incidentelor și conformitate bazată pe dovezi.",
+      "title": "Cerințe NIS2: ce trebuie să pună în aplicare compania dumneavoastră",
+      "subtitle": "NIS2 cere măsuri de securitate în zece domenii, raportarea incidentelor semnificative și înregistrarea la BSI. Conducerea pune în aplicare măsurile și le supraveghează. Cât de departe merge fiecare măsură depinde de mărimea și de riscul companiei dumneavoastră.",
+      "overview": {
+        "heading": "Cerințele pe scurt",
+        "lead": "NIS 2 este o directivă a UE. În Germania, ea este transpusă prin Legea BSI (BSIG). Companiile vizate se numesc acolo \"entități\".",
+        "items": {
+          "measures": {
+            "title": "Măsuri de securitate în zece domenii",
+            "text": "Lista minimă se află mai jos, fiecare domeniu cu un exemplu.",
+            "law": "Art. 21 NIS 2 · § 30 BSIG"
+          },
+          "report": {
+            "title": "Raportați incidentele semnificative",
+            "text": "În trei etape către BSI, prima în cel mult 24 de ore.",
+            "law": "Art. 23 NIS 2 · § 32 BSIG"
+          },
+          "register": {
+            "title": "Înregistrați-vă la BSI",
+            "text": "O singură dată, prin portalul BSI. Dacă se schimbă ceva, raportați schimbarea în cel mult două săptămâni.",
+            "law": "Art. 3(4) NIS 2 · § 33 BSIG"
+          },
+          "management": {
+            "title": "Conducerea",
+            "text": "Conducerea pune în aplicare măsurile, le supraveghează și participă regulat la instruiri. Directiva cere, în plus, ca ea să aprobe măsurile.",
+            "law": "Art. 20 NIS 2 · § 38 BSIG"
+          }
+        }
+      },
       "measures": {
-        "heading": "10 măsuri obligatorii de management al riscului (Secțiunea 30 BSIG / Articolul 21(2) NIS-2)",
-        "description": "Toate entitățile esențiale și importante trebuie să implementeze aceste măsuri. Nu există o perioadă de tranziție. Aceste obligații se aplică în Germania din 6 decembrie 2025.",
+        "heading": "Cele zece măsuri în cuvinte simple",
+        "description": "Art. 21(2) NIS 2 numește zece domenii, în Germania § 30(2) BSIG. Aceasta este lista minimă. Pentru fiecare domeniu aveți nevoie de măsuri potrivite companiei dumneavoastră.",
+        "exampleLabel": "De exemplu",
         "items": {
           "m1": {
-            "title": "Analiza riscurilor și politicile de securitate a informației",
-            "description": "Stabiliți și mențineți politici pentru analiza riscurilor și securitatea sistemelor informatice. Efectuați evaluări regulate ale riscurilor care acoperă toate sistemele și procesele critice."
+            "title": "Analiza riscurilor și politica de securitate",
+            "description": "Notați de ce IT are nevoie activitatea dumneavoastră și ce poate merge prost. De aici rezultă o politică de securitate: cum gestionează compania dumneavoastră securitatea informației.",
+            "example": "O listă a sistemelor dumneavoastră, cu o evaluare pentru fiecare risc, și o politică de câteva pagini.",
+            "law": "Art. 21(2)(a) · § 30(2) nr. 1"
           },
           "m2": {
             "title": "Gestionarea incidentelor",
-            "description": "Implementați proceduri pentru prevenirea, detectarea, identificarea, izolarea, atenuarea și răspunsul la incidentele de securitate."
+            "description": "Stabiliți cum detectați, limitați și rezolvați un incident și cine decide.",
+            "example": "Un plan pentru incidente, cu numere de telefon și responsabilități clare.",
+            "law": "Art. 21(2)(b) · § 30(2) nr. 2"
           },
           "m3": {
-            "title": "Continuitatea activității și managementul crizelor",
-            "description": "Gestionarea copiilor de rezervă, planificarea recuperării în caz de dezastru și procedurile de management al crizelor pentru a asigura reziliența operațională."
+            "title": "Menținerea activității",
+            "description": "Copii de siguranță, recuperarea după o situație de urgență și gestionarea crizelor.",
+            "example": "O copie de siguranță a cărei restaurare ați testat-o.",
+            "law": "Art. 21(2)(c) · § 30(2) nr. 3"
           },
           "m4": {
             "title": "Securitatea lanțului de aprovizionare",
-            "description": "Măsuri de securitate pentru relațiile cu furnizorii direcți și prestatorii de servicii, ținând seama de vulnerabilitățile fiecărui furnizor și de calitatea produselor și a practicilor sale de securitate (art. 21(3)); contractele sunt instrumentul obișnuit."
+            "description": "Țineți cont de vulnerabilitățile fiecărui furnizor direct și de calitatea produselor și a practicilor sale de securitate (Art. 21(3) NIS 2). Contractele sunt instrumentul obișnuit.",
+            "example": "Contractul cu furnizorul dumneavoastră de servicii IT prevede că vă raportează incidentele.",
+            "law": "Art. 21(2)(d) · § 30(2) nr. 4"
           },
           "m5": {
-            "title": "Securitatea în achiziție, dezvoltare și mentenanță",
-            "description": "Securitatea în achiziția, dezvoltarea și mentenanța rețelelor și a sistemelor informatice. Include gestionarea vulnerabilităților și procedurile de divulgare."
+            "title": "Securitatea la achiziția, dezvoltarea și întreținerea IT",
+            "description": "Securitatea contează deja când cumpărați IT, când dezvoltați propriile sisteme și în timpul întreținerii. Aici intră și gestionarea și divulgarea vulnerabilităților.",
+            "example": "Actualizările de securitate se instalează automat.",
+            "law": "Art. 21(2)(e) · § 30(2) nr. 5"
           },
           "m6": {
             "title": "Evaluarea eficacității",
-            "description": "Politici și proceduri pentru evaluarea faptului că măsurile de management al riscului de securitate cibernetică funcționează. Legea nu prescrie teste sau audituri pentru fiecare entitate."
+            "description": "Stabiliți cum verificați dacă măsurile funcționează. Legea nu impune teste sau audituri pentru fiecare entitate.",
+            "example": "O dată pe an, conducerea trece prin ce a funcționat și ce nu.",
+            "law": "Art. 21(2)(f) · § 30(2) nr. 6"
           },
           "m7": {
-            "title": "Instruire în securitate cibernetică și igienă cibernetică",
-            "description": "Practici de bază de igienă cibernetică și instruire în securitate cibernetică. Conștientizarea privind phishingul, ingineria socială, parolele și utilizarea sigură a IT-ului este conținutul obișnuit."
+            "title": "Instruire de bază și conștientizare",
+            "description": "Toți angajații învață elementele de bază: recunoașterea e-mailurilor suspecte, alegerea unor parole bune, raportarea incidentelor.",
+            "example": "O instruire scurtă la angajare și o reîmprospătare o dată pe an.",
+            "law": "Art. 21(2)(g) · § 30(2) nr. 7"
           },
           "m8": {
-            "title": "Criptografie și criptare",
-            "description": "Politici și proceduri privind utilizarea criptografiei și, după caz, a criptării. Acoperă datele în repaus, datele în tranzit și gestionarea cheilor."
+            "title": "Criptografie",
+            "description": "Stabiliți unde și cum criptați.",
+            "example": "Laptopuri cu discuri criptate și e-mail doar prin conexiuni criptate.",
+            "law": "Art. 21(2)(h) · § 30(2) nr. 8"
           },
           "m9": {
-            "title": "Securitatea personalului, controlul accesului și gestionarea activelor",
-            "description": "Politici de securitate a resurselor umane, mecanisme de control al accesului și proceduri de gestionare a activelor. Include integrarea și ieșirea angajaților, accesul cu privilegii minime și inventarele de active."
+            "title": "Personal, accese și gestionarea IT",
+            "description": "Cine are voie să facă ce? Cum primesc noii angajați accesele, și cum le pierd cei care pleacă? Aici intră și o evidență a IT-ului dumneavoastră.",
+            "example": "Toate accesele se blochează în ultima zi de lucru.",
+            "law": "Art. 21(2)(i) · § 30(2) nr. 9"
           },
           "m10": {
-            "title": "Autentificare multifactor și comunicații securizate",
-            "description": "Utilizarea soluțiilor de autentificare multifactor (MFA) sau de autentificare continuă. Comunicații securizate prin voce, video și text. Sisteme securizate de comunicații de urgență în cadrul entității."
+            "title": "Al doilea factor și comunicare securizată",
+            "description": "Autentificarea cu un al doilea factor sau cu verificare continuă. În plus, voce, video și text securizate și, unde este nevoie, un canal securizat pentru situații de urgență.",
+            "example": "Un cod dintr-o aplicație la autentificarea în e-mail și la accesul de la distanță.",
+            "law": "Art. 21(2)(j) · § 30(2) nr. 10"
           }
         }
       },
+      "proportionality": {
+        "heading": "Cât este suficient?",
+        "p1": "Legea cere măsuri adecvate, proporționale și eficace (§ 30(1) BSIG). Ce este proporțional depinde de expunerea la risc, de mărimea companiei, de costuri, de cât de probabile și de grave ar fi incidentele și de consecințele lor pentru alții.",
+        "p2": "Consemnați în scris ce puneți în aplicare (§ 30(1) teza a treia BSIG). Legea nu cere un certificat precum ISO 27001. Totuși, acesta vă poate sprijini dovezile.",
+        "link": "Ce înseamnă exact \"proporțional\""
+      },
       "incidentReporting": {
-        "heading": "Cascada de raportare a incidentelor",
-        "description": "Toate entitățile esențiale și importante trebuie să raporteze incidentele de securitate semnificative către BSI folosind o cascadă în trei etape.",
+        "heading": "Raportarea incidentelor semnificative",
+        "description": "Un incident de securitate semnificativ îl raportați la BSI în trei etape (§ 32 BSIG, Art. 23 NIS 2). Termenele curg din momentul în care aflați de incident.",
         "stages": {
           "s1": {
             "deadline": "24 de ore",
-            "title": "Avertizare timpurie (frühe Erstmeldung)",
-            "description": "Raportați dacă se suspectează că incidentul a fost cauzat de acte ilegale sau rău intenționate și dacă ar putea avea un impact transfrontalier."
+            "title": "Avertizare timpurie",
+            "description": "Dacă se suspectează că incidentul provine dintr-un atac sau dintr-o faptă ilegală și dacă ar putea afecta alte țări."
           },
           "s2": {
             "deadline": "72 de ore",
-            "title": "Notificarea incidentului (Meldung)",
-            "description": "Evaluarea gravității, evaluarea impactului, indicatorii de compromitere și analiza inițială a cauzei rădăcină, dacă este disponibilă."
+            "title": "Notificarea incidentului",
+            "description": "O primă evaluare a gravității și a impactului, cu semne despre atacatori (indicatori de compromitere), dacă există."
           },
           "s3": {
             "deadline": "1 lună",
-            "title": "Raport final (Abschlussmeldung)",
-            "description": "Descrierea detaliată a incidentului, inclusiv gravitatea și impactul, tipul de amenințare sau cauza rădăcină care l-a declanșat probabil, măsurile de atenuare aplicate și în curs și orice impact transfrontalier."
+            "title": "Raportul final",
+            "description": "La o lună după notificare: ce s-a întâmplat, cauza probabilă și ce ați făcut în privința ei."
           }
         },
-        "significant": {
-          "heading": "Ce contează drept incident „semnificativ”?",
-          "p1": "Un incident de securitate se califică drept semnificativ atunci când a cauzat sau este capabil să cauzeze o perturbare operațională gravă sau pierderi financiare pentru entitate.",
-          "p2": "Se califică, de asemenea, atunci când a afectat sau este capabil să afecteze alte persoane fizice sau juridice prin cauzarea unui prejudiciu material sau imaterial considerabil. Pentru cele 11 tipuri de entități digitale prevăzute de CIR 2024/2690 (DNS, cloud, MSP, MSSP, piețe online, motoare de căutare, rețele sociale, servicii de încredere etc.) se aplică praguri suplimentare din Art. 3 CIR (pierdere financiară directă de peste 500.000 EUR sau 5% din cifra de afaceri anuală, oricare dintre acestea este mai mică; furtul de secrete comerciale; decesul sau prejudiciul considerabil adus sănătății unei persoane; acces reușit, neautorizat și suspectat a fi rău intenționat, capabil să cauzeze o perturbare gravă), plus criterii pe serviciu în Art. 5 până la 14 (de exemplu un serviciu DNS complet indisponibil mai mult de 30 de minute sau un serviciu cloud limitat pentru mai mult de 5% dintre utilizatorii săi din UE ori pentru mai mult de 1 milion, oricare dintre acestea este mai mic, timp de peste o oră). Pentru celelalte entități, BSI arată că puteți presupune semnificația dacă este îndeplinit un criteriu din Art. 3 alin. (1)."
-        }
+        "link": "Obligația de raportare în detaliu"
       },
       "auditRequirements": {
-        "heading": "Cerințe privind auditul și dovezile",
+        "heading": "Cine verifică, și când?",
         "kritis": {
-          "heading": "Operatori KRITIS",
-          "description": "Trebuie să dovedească BSI măsurile lor prin audituri de securitate, inspecții sau certificări, prima dată la o dată stabilită de BSI (cel mai devreme la trei ani după ce încep să fie considerați operatori) și apoi la fiecare 3 ani (§ 39 BSIG). Trebuie să utilizeze sisteme de detectare a atacurilor (§ 31 Abs. 2 BSIG)."
+          "heading": "Operatorii de instalații critice",
+          "description": "Ei își dovedesc măsurile față de BSI prin audituri, inspecții sau certificări. Prima dată la o dată stabilită de BSI, cel mai devreme la trei ani după ce sunt considerați operatori, apoi la fiecare trei ani (§ 39 BSIG). În plus, trebuie să folosească sisteme de detectare a atacurilor (§ 31(2) BSIG)."
         },
         "bwe": {
-          "heading": "Entități esențiale (non-KRITIS)",
-          "description": "Nu există un ciclu de audit regulat, dar conformitatea trebuie documentată (§ 30 Abs. 1 BSIG). BSI poate verifica conformitatea și poate dispune audituri efectuate de organisme independente (§ 61 Abs. 1 și 5 BSIG). Poate solicita dovezi de la entitățile esențiale, alese în funcție de risc, începând de la trei ani după intrarea în vigoare a legii, deci nu înainte de 6 decembrie 2028 (§ 61 Abs. 3 și 4)."
+          "heading": "Entități esențiale",
+          "description": "Nu există un ciclu fix de audit. Consemnați în scris ce puneți în aplicare (§ 30(1) BSIG). BSI poate face verificări și poate dispune audituri realizate de organisme independente (§ 61(1) și (5) BSIG). Poate cere dovezi cel mai devreme începând cu 6 decembrie 2028 (§ 61(3) și (4) BSIG)."
         },
         "we": {
           "heading": "Entități importante",
-          "description": "Trebuie să documenteze implementarea măsurilor necesare. BSI verifică doar atunci când faptele sugerează că nu respectă § 30, § 32 sau § 38 Abs. 3 (§ 62 BSIG)."
+          "description": "Consemnați în scris ce puneți în aplicare. BSI verifică doar dacă anumite fapte indică faptul că nu respectați § 30, § 32 sau § 38(3) BSIG (§ 62 BSIG)."
         },
         "evidence": {
-          "heading": "Dovezi acceptabile",
+          "heading": "Ce poate servi drept dovadă",
           "items": {
             "audits": "Rapoarte de audit interne sau externe",
-            "certifications": "Certificări (ISO 27001, BSI IT-Grundschutz etc.)",
-            "documentation": "Documentație cuprinzătoare a evaluărilor riscurilor, a măsurilor implementate și a evaluărilor de eficacitate"
+            "certifications": "Certificări, de exemplu ISO 27001 sau BSI IT-Grundschutz",
+            "documentation": "Documentația dumneavoastră: evaluarea riscurilor, măsurile puse în aplicare și verificarea eficacității lor"
           },
-          "note": "Certificarea ISO 27001 sau IT-Grundschutz sprijină, dar nu garantează conformitatea NIS2: cerințele BSIG pot depăși domeniul standard al certificării."
+          "note": "Un certificat ISO 27001 sau IT-Grundschutz ajută, dar nu acoperă automat cerințele BSIG. Legea poate merge dincolo de sfera unei certificări."
         }
       },
       "supplyChain": {
-        "heading": "Securitatea lanțului de aprovizionare",
-        "description": "NIS2 introduce obligații obligatorii de securitate a lanțului de aprovizionare. Entitățile trebuie să:",
+        "heading": "Furnizorii",
+        "description": "Pentru lanțul de aprovizionare, aceasta înseamnă:",
         "items": {
-          "assess": "Țină seama de vulnerabilitățile specifice ale fiecărui furnizor direct și de calitatea generală a produselor și a practicilor sale de securitate cibernetică (art. 21(3) NIS 2)",
-          "contractual": "Convină cerințe de securitate cu furnizorii acolo unde este potrivit, de regulă în contract (expunerea de motive germană menționează contractele ca exemplu)",
-          "monitor": "Pentru furnizorii digitali acoperiți de CIR: monitorizeze și evalueze la intervale planificate modificările practicilor de securitate ale furnizorilor (CIR punctul 5.1.6)",
-          "coordinate": "Coordoneze divulgarea vulnerabilităților cu furnizorii",
-          "risk": "Țină cont de calitatea generală a produselor și practicilor furnizorilor, inclusiv de procedurile lor de dezvoltare securizată"
+          "assess": "Țineți cont de vulnerabilitățile fiecărui furnizor direct și de calitatea produselor și a practicilor sale de securitate, inclusiv a dezvoltării sale (Art. 21(3) NIS 2).",
+          "contractual": "Stabiliți cerințe de securitate cu furnizorii acolo unde se potrivește, de obicei în contract. Expunerea de motive a legii dă contractele ca exemplu.",
+          "monitor": "Doar pentru furnizorii digitali vizați de Regulamentul de punere în aplicare (UE) 2024/2690: aceștia monitorizează, la intervale planificate, schimbările din practicile de securitate ale furnizorilor lor (punctul 5.1.6 din anexă)."
         }
+      },
+      "example": {
+        "heading": "Un exemplu",
+        "lead": "O firmă inventată: un producător de produse de panificație, cu 120 de angajați, care livrează către comerț. Producția industrială de alimente apare în Anexa 2 a BSIG, deci firma este o entitate importantă. Iată răspunsul ei pentru trei dintre cele zece domenii:",
+        "items": [
+          "Lanțul de aprovizionare: firma ține o listă a furnizorilor săi de servicii, de exemplu pentru gestiunea mărfurilor, monitorizarea lanțului frigorific și IT. Contractul de IT prevede că furnizorul raportează incidentele.",
+          "Al doilea factor: pentru e-mail și accesul de la distanță, toată lumea are nevoie de un cod dintr-o aplicație.",
+          "Menținerea activității: rețetele și planurile de producție se salvează zilnic. O dată pe an, IT-ul testează restaurarea."
+        ]
+      },
+      "walk": {
+        "heading": "Cum face asta parcursul ghidat",
+        "lead": "În parcursul ghidat de pe nisd2.eu, fiecare dintre cele zece domenii devine cel puțin un pas pe care îl completați.",
+        "points": [
+          "Lângă fiecare pas se află temeiul legal, explicat în cuvinte simple.",
+          "Acolo unde este nevoie de un document, acesta rezultă din răspunsurile dumneavoastră: politica de securitate, planul de răspuns la incidente, planul de continuitate a activității, politica de criptografie, politica privind personalul, accesele și activele, precum și regulile pentru achiziție, întreținere și vulnerabilități.",
+          "Acolo unde o listă este suficientă, țineți o listă: IT-ul, furnizorii, copiile de siguranță, instruirile.",
+          "Dacă decideți să nu puneți în aplicare un punct, notați de ce. Conducerea semnează și această decizie.",
+          "La final, conducerea aprobă documentele în aplicație, autentificată cu propriul cont. Numele și data apar apoi pe fiecare document."
+        ],
+        "seeItAlt": "Documente din parcursul ghidat, aprobate de conducere, fiecare cu nume și dată",
+        "next": "Începeți primul domeniu în parcursul ghidat"
+      },
+      "sources": {
+        "heading": "Surse",
+        "items": [
+          "Directiva (UE) 2022/2555 (NIS 2), Art. 3, 20, 21 și 23 (eur-lex.europa.eu)",
+          "Legea BSI (BSIG), §§ 30, 31, 32, 33, 38, 39, 61 și 62 (gesetze-im-internet.de/bsig_2025)",
+          "BSIG, Anexa 2, nr. 4 producția, prelucrarea și distribuția de alimente",
+          "Regulamentul de punere în aplicare (UE) 2024/2690, Art. 3 și punctul 5.1.6 din anexă",
+          "Proiectul de lege al guvernului federal german pentru NIS2UmsuCG, documentul Bundestag 21/1501, expunerea de motive la § 30"
+        ]
       }
     },
     "ceoLiability": {
@@ -2035,135 +2121,127 @@
     },
     "smeGuide": {
       "meta": {
-        "title": "NIS2 pentru segmentul mediu - Ghid practic",
-        "description": "Ghid de implementare NIS2 pentru Mittelstand-ul german (50-250 de angajati). Foaie de parcurs de 12 saptamani, atribuiri de roluri si sfaturi practice BSIG."
+        "title": "Implementarea NIS2: pașii pentru o companie mijlocie",
+        "description": "Implementarea NIS2 într-o companie mijlocie: cele patru obligații, ordinea pașilor și cine ce face. Cu temeiul legal, un exemplu și pasul următor."
       },
-      "badge": "Mittelstand / IMM",
-      "title": "Implementarea NIS2 pentru companiile din segmentul mediu",
-      "subtitle": "O foaie de parcurs practica de implementare in 12 saptamani pentru companiile germane cu 50-250 de angajati, fara echipa de securitate necesara.",
-      "overview": {
-        "heading": "Sunteti vizati. Si acum?",
-        "p1": "Se estimeaza ca 29.500 de companii din Germania intra in domeniul de aplicare al NIS2. Daca aveti peste 50 de angajati si operati intr-un sector vizat (gestionarea deseurilor, productia alimentara, fabricatie, energie, transport, sanatate, infrastructura digitala) sunteti aproape sigur una dintre ele. BSIG a intrat in vigoare la 6 decembrie 2025, iar termenul de inregistrare la BSI a fost 6 martie 2026.",
-        "p2": "Iata ce nu va vor spune majoritatea consultantilor: pentru o companie din segmentul mediu cu IT de baza, conformitatea NIS2 este gestionabila. Nu este un proiect de 6 luni de sase cifre. Cele mai multe dintre cele 49 de cerinte BSIG sunt documentatie scrisa o singura data: politici, evaluari de risc, proceduri. Doar cateva necesita procese operationale continue. Legea cere masuri 'adecvate' proportionale cu riscul vostru, nu o infrastructura de securitate de tip Fortune 500.",
-        "p3": "Acest ghid va ofera planul practic: o foaie de parcurs de 12 saptamani, rolurile de care aveti nevoie (toate cu fractiune de norma, toate cu personalul existent), greselile frecvente care impiedica companiile de marimea voastra si ordinea de prioritate pentru abordarea celor 10 masuri obligatorii in temeiul §30 BSIG. Fara teorie, fara alarmism, doar pasii."
-      },
-      "audience": {
-        "heading": "Pentru cine este acest ghid",
-        "description": "Acest ghid este scris special pentru companiile germane din segmentul mediu care intalnesc NIS2 pentru prima data.",
+      "badge": "Companii mijlocii",
+      "title": "Implementarea NIS2: cum procedează o companie mijlocie",
+      "subtitle": "Vă înregistrați compania la BSI, puneți în aplicare măsuri de securitate în zece domenii și raportați incidentele semnificative. Conducerea supraveghează toate acestea. Cât de detaliată trebuie să fie fiecare măsură depinde de mărimea și de riscul companiei dumneavoastră.",
+      "duties": {
+        "heading": "Cele patru obligații",
+        "lead": "NIS 2 este o directivă a UE. În Germania, ea este transpusă prin Legea BSI (BSIG). O companie căreia i se aplică se numește acolo \"entitate\". Fiecare entitate are patru obligații.",
         "items": {
-          "size": "Companii cu 50-250 de angajati in sectoarele NIS2",
-          "limitedIt": "Personal IT limitat, poate 2-5 persoane, nu o echipa de securitate",
-          "noCompliance": "Fara un departament de conformitate dedicat sau experienta GRC",
-          "firstTime": "Prima interactiune cu NIS2, BSIG sau inregistrarea la BSI"
-        }
-      },
-      "roadmap": {
-        "heading": "Foaie de parcurs pentru implementare",
-        "phases": {
-          "foundation": {
-            "title": "Fundatie",
-            "weeks": "Saptamanile 1-2",
-            "description": "Stabiliti fundatia organizationala: inregistrati-va la BSI, atribuiti responsabilitati si informati conducerea despre raspunderea personala in temeiul §38 BSIG. Aceasta faza inseamna implicarea oamenilor potriviti si definirea domeniului.",
-            "actions": [
-              "Inregistrare la BSI prin Mein Unternehmenskonto + portalul BSI",
-              "Numirea responsabilului de conformitate (rol cu fractiune de norma, nu o noua angajare)",
-              "Sesiune de informare a conducerii despre atributiile §38 BSIG si raspunderea personala",
-              "Configurarea platformei de conformitate si invitarea membrilor echipei",
-              "Domeniu initial: identificati ce categorie de entitate se aplica (esentiala sau importanta)"
-            ]
+          "register": {
+            "title": "Înregistrarea",
+            "text": "Vă înregistrați compania o singură dată la BSI, prin portalul acestuia.",
+            "law": "Art. 3(4) NIS 2 · § 33 BSIG",
+            "who": "Persoana care administrează contul ELSTER al companiei"
           },
-          "risk": {
-            "title": "Evaluarea riscului",
-            "weeks": "Saptamanile 3-4",
-            "description": "Construiti inventarul de active si efectuati evaluarea initiala a riscului. Aceasta este fundatia pe care se construieste totul, masura 1 din §30(1) BSIG. Folositi metodologia de analiza a riscului BSI-200-3: identificati activele, identificati amenintarile, evaluati probabilitatea si impactul, decideti tratarea.",
-            "actions": [
-              "Construiti inventarul de active, grupand activele identice (de ex. '45 de laptopuri' = 1 intrare)",
-              "Identificati si clasificati furnizorii cu acces la sistemele voastre",
-              "Efectuati evaluarea initiala a riscului: probabilitate × impact pentru fiecare activ",
-              "Documentati deciziile de tratare a riscului: acceptare, atenuare, transfer sau evitare",
-              "Mapati riscurile la masurile BSIG: ce controale abordeaza ce riscuri"
-            ]
+          "measures": {
+            "title": "Puneți în aplicare măsurile și consemnați-le în scris",
+            "text": "Vă protejați IT-ul în zece domenii, de la planul pentru incidente până la autentificarea cu un al doilea factor. Ce decideți, consemnați în scris.",
+            "law": "Art. 21 NIS 2 · § 30 BSIG",
+            "who": "Persoana responsabilă de IT, din companie sau de la un furnizor de servicii"
           },
-          "controls": {
-            "title": "Controale si documentatie",
-            "weeks": "Saptamanile 5-8",
-            "description": "Documentati controalele si procedurile de securitate. Aceasta este cea mai mare faza ca volum, dar majoritatea cerintelor sunt politici scrise o singura data. Concentrati-va pe documentarea a ceea ce faceti deja (majoritatea companiilor au procese informale) si pe acoperirea lacunelor reale.",
-            "actions": [
-              "Scrieti sau adoptati politici de securitate (securitatea informatiei, controlul accesului, raspunsul la incidente)",
-              "Documentati utilizarea criptografiei si abordarea de gestionare a cheilor",
-              "Configurati procesul de raspuns la incidente cu cascada 24h/72h/1 luna",
-              "Revizuiti controlul accesului: privilegiu minim, proceduri de integrare/dezangajare",
-              "Documentati procedurile de continuitate a activitatii si de backup",
-              "Implementati sau documentati MFA pentru sistemele critice"
-            ]
+          "report": {
+            "title": "Raportați incidentele semnificative",
+            "text": "Un incident de securitate semnificativ îl raportați la BSI, primul raport în cel mult 24 de ore. Un incident este semnificativ, de exemplu, atunci când vă perturbă grav activitatea.",
+            "law": "Art. 23 NIS 2 · § 32 BSIG",
+            "who": "Persoana care decide în caz de urgență"
           },
-          "evidence": {
-            "title": "Dovezi si pregatire pentru audit",
-            "weeks": "Saptamanile 9-12",
-            "description": "Inchideti bucla: aprobari ale conducerii, finalizarea instruirii, colectarea dovezilor si o prima verificare a eficacitatii. Aceasta faza transforma masurile voastre documentate in dovezi de conformitate auditabile.",
-            "actions": [
-              "Conducerea aproba oficial toate masurile de securitate cibernetica (atributia §38)",
-              "Finalizati instruirea obligatorie de securitate cibernetica a conducerii",
-              "Incarcati documente justificative: capturi de ecran, configuratii, aprobari de politici",
-              "Efectuati prima evaluare a eficacitatii: functioneaza controalele cu adevarat?",
-              "Exportati raportul de conformitate pentru revizuire interna"
-            ]
+          "management": {
+            "title": "Conducerea are rolul principal",
+            "text": "Conducerea pune în aplicare măsurile și le supraveghează. În plus, participă regulat la instruiri. Aceste obligații revin conducerii însăși.",
+            "law": "Art. 20 NIS 2 · § 38 BSIG",
+            "who": "Conducerea, personal"
           }
         }
       },
-      "roles": {
-        "heading": "Rolurile de care aveti nevoie",
-        "description": "Nu trebuie sa angajati pe nimeni. Acestea sunt responsabilitati cu fractiune de norma atribuite personalului existent.",
-        "items": {
-          "complianceLead": {
-            "title": "Responsabil de conformitate (4-8 ore/saptamana)",
-            "description": "Conduce procesul, completeaza formularele cerintelor, coordoneaza cu IT-ul si conducerea. De obicei managerul IT, managerul de calitate sau responsabilul de operatiuni."
-          },
-          "itContact": {
-            "title": "Persoana de contact IT (2-4 ore/saptamana)",
-            "description": "Ofera input tehnic: detalii despre active, arhitectura retelei, statutul criptarii, controale de acces. Administratorul sau managerul vostru IT."
-          },
-          "managementSponsor": {
-            "title": "Sponsor din conducere (1-2 ore/saptamana)",
-            "description": "Revizuieste si aproba masurile, finalizeaza instruirea, demonstreaza supravegherea. Cerut de §38 BSIG, nu poate fi delegat."
-          },
-          "externalAuditor": {
-            "title": "Auditor extern (optional)",
-            "description": "Pentru operatorii KRITIS: necesar la fiecare 3 ani. Pentru entitatile esentiale si importante: optional, dar recomandat pentru primul ciclu de conformitate, pentru a valida munca voastra."
-          }
-        }
+      "size": {
+        "heading": "Ce înseamnă asta pentru 50 până la 150 de angajați",
+        "items": [
+          "Nu aveți nevoie de o echipă de securitate proprie. Legea nu cere așa ceva.",
+          "Nu aveți nevoie de un certificat precum ISO 27001. Legea nu îl cere, dar el poate ajuta ca dovadă.",
+          "Măsurile trebuie să se potrivească companiei dumneavoastră. Criteriile sunt expunerea la risc, mărimea companiei, costurile și cât de probabile și de grave ar fi incidentele (§ 30(1) teza a doua BSIG).",
+          "Consemnați în scris ce puneți în aplicare (§ 30(1) teza a treia BSIG). În plus, măsurile trebuie să fie eficace.",
+          "Munca o fac oamenii pe care îi aveți deja: conducerea, persoana responsabilă de IT și departamentele care știu de ce are nevoie activitatea."
+        ]
+      },
+      "order": {
+        "heading": "În ce ordine",
+        "lead": "Fiecare pas se sprijină pe cel dinainte.",
+        "steps": [
+          "Verificați dacă NIS2 vi se aplică. Aceasta depinde de sectorul dumneavoastră, de numărul de angajați și de cifra de afaceri (§ 28 BSIG).",
+          "Înregistrați-vă la BSI.",
+          "Asigurați instruirea conducerii.",
+          "Notați ce IT folosește activitatea dumneavoastră și cine lucrează pentru dumneavoastră. Apoi evaluați riscurile.",
+          "Decideți măsurile și consemnați-le în documente: o politică de securitate, planuri pentru situații de urgență și reguli pentru accese, actualizări și criptare.",
+          "Conducerea citește documentele și le aprobă.",
+          "După aceea, verificați regulat dacă totul se mai potrivește."
+        ],
+        "roadmapLink": "Varianta scurtă pentru conducere"
+      },
+      "example": {
+        "heading": "Un exemplu",
+        "lead": "O firmă inventată: un producător de benzi transportoare, cu 90 de angajați. De IT se ocupă un angajat, împreună cu un furnizor de servicii extern.",
+        "steps": [
+          "Verificarea arată: construcția de mașini apare în Anexa 2 a BSIG. Cu 90 de angajați, firma este o entitate importantă.",
+          "Directorul general solicită un certificat de organizație de la ELSTER. Când sosește scrisoarea cu codul de activare, înregistrează firma în portalul BSI.",
+          "Participă la o instruire pentru conducere.",
+          "Angajatul de IT notează de ce depinde activitatea: ERP, e-mail, software de proiectare, controlul producției, copii de siguranță. Apoi furnizorii, de exemplu furnizorul de servicii IT și furnizorul sistemului ERP.",
+          "Împreună evaluează, pentru fiecare element, ce s-ar putea întâmpla. O cădere a controlului producției cântărește cel mai mult.",
+          "Din asta rezultă documentele: politica de securitate, un plan de răspuns la incidente, un plan de continuitate a activității și reguli pentru accese, actualizări și criptare.",
+          "Directorul general le citește și le aprobă. Planul de răspuns la incidente spune cine decide în timpul unui incident."
+        ]
       },
       "mistakes": {
-        "heading": "Greseli frecvente",
-        "description": "Ce vedem ca gresesc companiile si cum sa evitati.",
+        "heading": "Greșeli frecvente",
         "items": {
           "waiting": {
-            "title": "Asteptarea 'ghidului final'",
-            "description": "Legea este in vigoare din decembrie 2025. CIR defineste masurile tehnice. Nu vine niciun ghid suplimentar care sa schimbe ce trebuie sa faceti. Incepeti acum."
+            "title": "Așteptarea unor ghiduri finale",
+            "description": "BSIG se aplică din 6 decembrie 2025. Tot de atunci se aplică și obligația de a lua măsuri conform § 30 BSIG."
           },
           "overEngineering": {
-            "title": "Supradimensionarea solutiei",
-            "description": "O companie de gestionare a deseurilor cu 100 de persoane nu are nevoie de un SOC sau de un SIEM. Potriviti controalele profilului vostru real de risc. BSIG cere masuri 'adecvate', nu masuri maxime."
+            "title": "Planuri prea mari",
+            "description": "Legea cere măsuri proporționale, nu cele mai mari posibile. Sistemele de detectare a atacurilor, de exemplu, sunt obligatorii doar pentru operatorii de instalații critice (§ 31(2) BSIG)."
           },
           "noManagement": {
-            "title": "Tratarea ca un proiect IT",
-            "description": "§38 BSIG face din aceasta o responsabilitate a conducerii. Daca administratorul nu este implicat, sunteti deja neconform. Programati sesiunea de informare a conducerii in saptamana 1."
+            "title": "NIS2 lăsat doar în seama IT-ului",
+            "description": "Conducerea trebuie să pună în aplicare măsurile și să le supravegheze (§ 38(1) BSIG). Implicați-o de la început."
           },
           "ignoreSupplyChain": {
-            "title": "Ignorarea securitatii lantului de aprovizionare",
-            "description": "NIS2 cere explicit evaluarea securitatii cibernetice a furnizorilor vostri. Aceasta ia multe companii prin surprindere. Incepeti devreme sa documentati relatiile cu furnizorii."
+            "title": "Furnizorii uitați",
+            "description": "Securitatea lanțului de aprovizionare este unul dintre cele zece domenii (§ 30(2) nr. 4 BSIG). Sunt vizați toți furnizorii direcți și toți prestatorii de servicii, nu doar cei de IT."
           },
           "paperOnly": {
-            "title": "Conformitate pe hartie fara masuri reale",
-            "description": "Scrierea de politici pe care nu le citeste nimeni nu conteaza. BSI poate solicita dovezi ca masurile sunt efectiv implementate si eficiente. Construiti procese reale, nu doar documente."
+            "title": "Doar pe hârtie",
+            "description": "Legea cere măsuri eficace (§ 30(1) BSIG). Un document pe care nu îl cunoaște nimeni nu protejează nimic."
           }
         }
       },
-      "ctaCard": {
-        "heading": "Incepeti implementarea astazi",
-        "description": "Platforma va ghideaza prin toate cele 49 de cerinte BSIG in ordinea in care ar trebui implementate, cu formulare structurate, incarcari de dovezi si fluxuri de lucru de aprobare a conducerii, exact ce are nevoie o companie din segmentul mediu pentru a deveni conforma fara a angaja un consultant."
+      "walk": {
+        "heading": "Cum face asta parcursul ghidat",
+        "lead": "Parcursul ghidat de pe nisd2.eu vă conduce prin implementare în această ordine, câte un pas pe rând.",
+        "points": [
+          "20 de pași. Operatorii de instalații critice au un pas în plus.",
+          "Lângă fiecare pas se află temeiul legal, explicat în cuvinte simple.",
+          "Din răspunsurile dumneavoastră rezultă șase documente, printre care politica de securitate și cele două planuri pentru situații de urgență.",
+          "Ce nu puteți face încă, puneți deoparte și mergeți mai departe.",
+          "Dacă decideți să nu puneți în aplicare un punct, notați de ce. Conducerea semnează și această decizie.",
+          "La final, conducerea aprobă documentele în aplicație, autentificată cu propriul cont. Numele și data apar apoi pe fiecare document."
+        ],
+        "seeItAlt": "Drumul prin parcursul ghidat: pașii și care dintre ei sunt finalizați",
+        "next": "Începeți cu primul pas"
       },
-      "cta": "Incepeti procesul vostru de conformitate NIS2"
+      "sources": {
+        "heading": "Surse",
+        "items": [
+          "Directiva (UE) 2022/2555 (NIS 2), Art. 3, 20, 21 și 23 (eur-lex.europa.eu)",
+          "Legea BSI (BSIG) din 2 decembrie 2025, §§ 28, 30, 31, 32, 33 și 38, în vigoare din 6 decembrie 2025 (gesetze-im-internet.de/bsig_2025)",
+          "BSIG, Anexa 2, nr. 5.4 construcția de mașini (gesetze-im-internet.de/bsig_2025/anlage_2.html)",
+          "BSI, Mein Unternehmenskonto și înregistrarea în portalul BSI (bsi.bund.de/dok/muk)"
+        ]
+      }
     },
     "checklist": {
       "meta": {
@@ -3629,174 +3707,169 @@
     },
     "incidentReporting": {
       "meta": {
-        "title": "Raportarea incidentelor NIS2: ghid 24h / 72h / 1 lună",
-        "description": "Raportarea incidentelor NIS2 în temeiul §32 BSIG: avertizare timpurie în 24 de ore, notificarea incidentului în 72 de ore, raport final în 1 lună. Criterii, portalul BSI, amenzi."
+        "title": "Obligația de raportare NIS2: termene, conținut, canal",
+        "description": "Raportarea NIS2 conform § 32 BSIG: avertizare timpurie în 24 de ore, notificare după 72 de ore, raport final după o lună. Ce e semnificativ, cum raportați."
       },
-      "title": "Ghid de raportare a incidentelor NIS2",
-      "subtitle": "§32 BSIG transpune art. 23(4) NIS 2: trei rapoarte obligatorii cu termene fixe (24h, 72h, 1 lună) plus două rapoarte condiționate (la cerere, dacă incidentul este în curs). Nerespectarea unui termen este o încălcare separată, independentă de incidentul în sine.",
-      "overview": {
-        "heading": "Raportarea incidentelor în temeiul NIS2",
-        "p1": "§32 BSIG pune în aplicare articolul 23 din Directiva NIS2. Acesta stabilește un regim obligatoriu de raportare pentru incidentele semnificative de securitate. Fiecare entitate clasificată ca entitate esențială sau entitate importantă trebuie să raporteze către BSI atunci când un incident îndeplinește criteriile de semnificație. Cascada are trei rapoarte obligatorii cu termene fixe și două rapoarte condiționate, declanșate la cerere sau de un incident în curs. Un furnizor de servicii poate fi autorizat să transmită rapoartele în numele entității; responsabilitatea pentru incident și pentru conținutul raportului rămâne la entitate.",
-        "p2": "Termenele de raportare sunt stricte și încep atunci când entitatea ia cunoștință de incident, nu atunci când investigația este finalizată. Aceasta este o distincție esențială: avertizarea timpurie de 24 de ore trebuie transmisă pe baza cunoașterii inițiale, chiar dacă amploarea și impactul complet sunt necunoscute. Așteptarea informațiilor complete înainte de raportare este ea însăși o încălcare."
-      },
-      "timeline": {
-        "heading": "Cascada de raportare conform art. 23(4) NIS 2",
-        "description": "Trei etape obligatorii cu termene fixe din momentul cunoașterii, plus până la două rapoarte condiționate (intermediar la cererea autorității, raport de progres dacă incidentul este încă în curs în ziua în care raportul final este scadent).",
-        "items": {
-          "early": {
-            "title": "Avertizare timpurie (frühe Erstmeldung)",
-            "deadline": "În termen de 24 de ore",
-            "description": "Notificarea inițială către BSI privind faptul că a fost detectat un incident potențial semnificativ. Trebuie transmisă în termen de 24 de ore de la luarea la cunoștință a incidentului. Scopul este de a permite BSI să evalueze impactul transsectorial și să emită avertizări către alte entități, dacă este necesar.",
-            "contents": [
-              "Confirmarea faptului că a avut loc sau este suspectat un incident semnificativ",
-              "Dacă incidentul este suspectat a fi cauzat de acte ilegale sau rău intenționate",
-              "Dacă incidentul ar putea avea un impact transfrontalier",
-              "Numele entității, sectorul și datele de contact pentru urmărire"
-            ]
-          },
-          "update": {
-            "title": "Notificarea incidentului (Meldung)",
-            "deadline": "În termen de 72 de ore",
-            "description": "O notificare mai detaliată care actualizează avertizarea timpurie cu informații suplimentare colectate în timpul răspunsului inițial. Trebuie transmisă în termen de 72 de ore de la luarea la cunoștință. Actualizează BSI privind natura, gravitatea și evaluarea inițială a impactului incidentului.",
-            "contents": [
-              "Evaluarea actualizată a gravității și a impactului incidentului",
-              "Indicatori de compromitere (IoC), acolo unde sunt disponibili",
-              "Evaluarea inițială a naturii și a cauzei incidentului",
-              "Măsuri luate sau planificate pentru a atenua incidentul",
-              "Evaluarea impactului transfrontalier, dacă este cazul"
-            ]
-          },
-          "intermediate": {
-            "title": "Raport intermediar (Zwischenmeldung)",
-            "deadline": "La cerere",
-            "description": "Transmis la cererea BSI între notificarea de 72 de ore și raportul final. Actualizare de stare privind situația curentă a gestionării incidentului. Nu este automat; este declanșat de autoritate.",
-            "contents": [
-              "Stadiul curent al limitării și al remedierii",
-              "Constatări noi privind cauza, amploarea sau impactul",
-              "Ajustări ale contramăsurilor",
-              "Evaluarea actualizată a prejudiciului"
-            ]
-          },
-          "final": {
-            "title": "Raport final (Abschlussmeldung)",
-            "deadline": "1 lună după notificarea de 72h",
-            "description": "Un raport final cuprinzător, transmis în termen de o lună de la notificarea incidentului de 72 de ore. Documentația completă a incidentului și a răspunsului.",
-            "contents": [
-              "Descrierea detaliată a incidentului, inclusiv gravitatea și impactul",
-              "Analiza cauzei-rădăcină. Tipul de amenințare sau vulnerabilitate care a cauzat incidentul",
-              "Măsuri aplicate și în curs de aplicare pentru a atenua incidentul și efectele acestuia",
-              "Impactul transfrontalier, dacă este cazul"
-            ]
-          },
-          "progress": {
-            "title": "Raport de progres (Fortschrittsmeldung)",
-            "deadline": "Dacă incidentul este încă în curs",
-            "description": "Dacă incidentul este încă în curs la scadența raportului final, transmiteți în loc un raport de progres. Raportul final urmează după ce incidentul a fost tratat complet (§ 32 Abs. 2 BSIG); directiva prevede în termen de o lună de la tratarea acestuia (art. 23(4)(e) NIS 2).",
-            "contents": [
-              "Stadiul curent, întrucât incidentul este încă în curs",
-              "Măsurile de limitare implementate până în prezent",
-              "Durata estimată până la soluționarea incidentului, acolo unde este previzibilă",
-              "Planul pentru raportul final, după soluționarea incidentului"
-            ]
-          }
-        }
-      },
+      "title": "Obligația de raportare NIS2: când și cum raportați incidentele la BSI",
+      "subtitle": "Un incident de securitate semnificativ îl raportați la BSI în trei etape: o avertizare timpurie în cel mult 24 de ore, o notificare în cel mult 72 de ore și un raport final o lună mai târziu (§ 32 BSIG). Termenul curge din momentul în care aflați de incident. Raportați în portalul BSI.",
       "criteria": {
-        "heading": "Ce face ca un incident să fie 'semnificativ'",
-        "description": "Nu fiecare eveniment de securitate declanșează obligația din § 32 BSIG. Un incident este semnificativ dacă îndeplinește unul dintre cele două teste din § 2 Nr. 11 BSIG (art. 23(3) NIS 2): perturbarea gravă a serviciilor sau pierderea financiară pentru entitate, ori prejudicii materiale sau nemateriale considerabile pentru terți. Pentru furnizorii digitali acoperiți de CIR, art. 3 până la 14 din CIR 2024/2690 stabilesc pragurile. Pentru orice altă entitate, BSI arată că puteți presupune că un incident este semnificativ dacă îndeplinește unul dintre criteriile din art. 3 alin. (1) CIR și întotdeauna atunci când furnizarea unui serviciu critic a eșuat sau este afectată.",
+        "heading": "Ce este un incident de securitate semnificativ",
+        "intro": "Un incident de securitate este un eveniment care compromite disponibilitatea, integritatea sau confidențialitatea datelor ori a serviciilor dumneavoastră (§ 2 nr. 40 BSIG). Trebuie să raportați doar incidentele semnificative.",
+        "description": "Un incident este semnificativ dacă a cauzat sau poate cauza unul dintre două lucruri (§ 2 nr. 11 BSIG, Art. 23(3) NIS 2): o perturbare gravă a activității sau pierderi financiare pentru compania dumneavoastră, ori pagube considerabile pentru alții. Pentru anumiți furnizori digitali, Regulamentul de punere în aplicare (UE) 2024/2690 stabilește praguri exacte. Pentru toți ceilalți, BSI spune: un incident este semnificativ dacă îndeplinește unul dintre criteriile din Art. 3(1) al acestui regulament și întotdeauna atunci când un serviciu critic cade sau este afectat.",
         "items": {
           "disruption": {
-            "title": "Perturbarea serviciului",
-            "description": "Incidentul a cauzat sau este de natură să cauzeze o perturbare operațională gravă a serviciilor furnizate de entitate (§ 2 Nr. 11 a BSIG)."
+            "title": "Perturbare gravă a activității",
+            "description": "Incidentul perturbă grav furnizarea serviciilor dumneavoastră sau poate face acest lucru."
           },
           "financial": {
-            "title": "Pierdere financiară",
-            "description": "Incidentul a cauzat sau este de natură să cauzeze o pierdere financiară pentru entitate. Pentru furnizorii digitali acoperiți de CIR, art. 3 alin. (1) lit. (a) CIR fixează limita la o pierdere financiară directă de peste 500.000 EUR sau 5% din cifra de afaceri a anului precedent, oricare dintre acestea este mai mică; considerentul 36 include, de exemplu, costurile personalului de recuperare, penalitățile contractuale, despăgubirile acordate clienților și veniturile pierdute."
+            "title": "Pierderi financiare",
+            "description": "Incidentul cauzează pierderi financiare companiei dumneavoastră sau poate face acest lucru. Pentru furnizorii digitali vizați de regulamentul de punere în aplicare, pragul este o pierdere directă de peste 500.000 EUR sau 5% din cifra de afaceri a anului anterior, oricare dintre acestea este mai mică (Art. 3(1)(a))."
           },
           "spread": {
-            "title": "Impactul asupra altor entități",
-            "description": "Incidentul a cauzat sau ar putea cauza prejudicii considerabile altor persoane fizice sau juridice. Acesta include incidentele care se propagă prin lanțurile de aprovizionare, afectează infrastructura comună sau expun date aparținând unor terți."
+            "title": "Pagube pentru alții",
+            "description": "Incidentul cauzează altor persoane sau companii pagube materiale sau morale considerabile, sau poate face acest lucru."
           },
           "data": {
             "title": "Încălcarea securității datelor",
-            "description": "O încălcare a securității datelor este un incident semnificativ numai dacă îndeplinește unul dintre cele două teste, de exemplu pentru că cauzează prejudicii considerabile pentru terți. Raportarea în temeiul § 32 BSIG este separată de și suplimentară față de notificarea încălcării securității datelor în temeiul art. 33/34 GDPR; ambele se pot aplica aceluiași incident."
+            "description": "O încălcare a securității datelor este semnificativă doar dacă îndeplinește unul dintre cele două criterii, de exemplu pentru că provoacă altora pagube considerabile. Raportarea conform § 32 BSIG există alături de notificarea conform Art. 33 și 34 GDPR. Ambele se pot aplica aceluiași incident."
           },
           "duration": {
-            "title": "Durată",
-            "description": "Durata nu este un criteriu de sine stătător în § 2 Nr. 11 BSIG sau în art. 23(3) NIS 2. Pentru furnizorii digitali acoperiți de CIR, art. 5 până la 14 stabilesc limite de timp pentru fiecare serviciu (de exemplu un serviciu cloud complet indisponibil mai mult de 30 de minute, art. 7 lit. (a) CIR). Când furnizarea unui serviciu critic a eșuat sau este afectată, BSI arată că incidentul este întotdeauna semnificativ."
+            "title": "Durata",
+            "description": "Durata nu este un criteriu separat. Pentru furnizorii digitali vizați de regulamentul de punere în aplicare, se aplică limite de timp pentru fiecare serviciu, de exemplu un serviciu cloud complet indisponibil mai mult de 30 de minute (Art. 7(a))."
+          }
+        },
+        "doubt": "Dacă aveți dubii, raportați devreme. BSI dorește în mod explicit rapoarte timpurii, chiar dacă multe lucruri nu sunt încă clare. Corecturile intră în rapoartele ulterioare."
+      },
+      "timeline": {
+        "heading": "Termenele",
+        "description": "Trei rapoarte cu termene fixe, plus două care apar doar în anumite cazuri. Termenele sunt maxime: raportați fără întârzieri nejustificate.",
+        "awareness": "Termenul începe să curgă din momentul în care aflați. Potrivit BSI, acesta este momentul în care un angajat al companiei dumneavoastră află de incidentul semnificativ în timpul programului de lucru.",
+        "items": {
+          "early": {
+            "title": "Avertizare timpurie",
+            "deadline": "24 de ore",
+            "description": "Un prim avertisment către BSI, cel târziu la 24 de ore după ce ați aflat de incident.",
+            "contents": [
+              "Dacă se suspectează că incidentul provine dintr-o faptă ilegală sau rău intenționată",
+              "Dacă ar putea afecta alte țări",
+              "O primă clasificare a incidentului",
+              "Cine raportează și cum poate BSI să contacteze această persoană"
+            ]
+          },
+          "update": {
+            "title": "Notificarea incidentului",
+            "deadline": "72 de ore",
+            "description": "Cel târziu la 72 de ore după ce ați aflat de incident. Ea confirmă sau actualizează avertizarea timpurie.",
+            "contents": [
+              "O primă evaluare a gravității și a impactului",
+              "Semne despre atacatori (indicatori de compromitere), dacă există",
+              "Ce știți despre cauză",
+              "Ce ați făcut și ce mai plănuiți să faceți"
+            ]
+          },
+          "intermediate": {
+            "title": "Raport intermediar",
+            "deadline": "La cerere",
+            "description": "Doar dacă BSI îl cere: situația actuală.",
+            "contents": [
+              "Stadiul limitării și al recuperării",
+              "Constatări noi despre cauză, amploare sau impact"
+            ]
+          },
+          "final": {
+            "title": "Raportul final",
+            "deadline": "La 1 lună după notificare",
+            "description": "Cel târziu la o lună după notificarea depusă în termenul de 72 de ore.",
+            "contents": [
+              "O descriere detaliată a incidentului, cu gravitatea și impactul",
+              "Tipul amenințării sau cauza probabilă",
+              "Ce ați făcut și ce faceți în continuare",
+              "Dacă sunt afectate alte țări"
+            ]
+          },
+          "progress": {
+            "title": "Raport de progres",
+            "deadline": "Dacă incidentul este în curs",
+            "description": "Dacă incidentul este încă în curs după o lună, depuneți un raport de progres în locul raportului final. Raportul final urmează după ce incidentul a fost gestionat (§ 32(2) BSIG).",
+            "contents": [
+              "Situația actuală",
+              "Ce ați limitat până acum"
+            ]
           }
         }
       },
       "fields": {
-        "heading": "Câmpuri de raportare obligatorii",
-        "description": "Portalul de raportare al BSI necesită informații structurate. Pregătirea în prealabil a acestor câmpuri reduce semnificativ riscul de a depăși termenul de 24 de ore.",
-        "items": {
-          "entity": {
-            "title": "Identificarea entității",
-            "description": "Cine raportează și cum poate fi contactat, precum și ce sectoare, ramuri și tipuri de entități sunt afectate (iar pentru operatori, ce instalații critice). Păstrați aceste informații în planul dvs. de răspuns la incidente, ca să nu fie căutate în timpul unei crize."
-          },
-          "nature": {
-            "title": "Natura și clasificarea incidentului",
-            "description": "Tipul incidentului (ransomware, DDoS, încălcarea securității datelor, amenințare internă, compromiterea lanțului de aprovizionare etc.), sistemele și serviciile afectate, cronologia evenimentelor de la detectare până la starea curentă și clasificarea inițială a gravității."
-          },
-          "impact": {
-            "title": "Evaluarea impactului",
-            "description": "Numărul de utilizatori sau clienți afectați, serviciile perturbate, impactul financiar estimat, categoriile de date afectate (dacă există) și durata perturbării. Pentru avertizarea timpurie, estimările sunt acceptabile. Precizia apare în notificarea de 72 de ore și în raportul final."
-          },
-          "crossBorder": {
-            "title": "Impact transfrontalier",
-            "description": "Dacă incidentul afectează sau ar putea afecta entități sau cetățeni din alte state membre UE. Acest lucru declanșează schimbul de informații între CSIRT-urile naționale și poate implica coordonarea ENISA. Trebuie evaluat atât în avertizarea timpurie, cât și în notificările ulterioare."
-          },
-          "measures": {
-            "title": "Măsuri de răspuns",
-            "description": "Acțiunile întreprinse pentru a limita, a eradica și a recupera în urma incidentului. Include măsuri tehnice (izolare, aplicarea de patch-uri, rotația credențialelor), măsuri de comunicare (notificarea clienților, informarea părților interesate) și măsuri organizatorice (activarea echipei de criză, angajarea de sprijin extern)."
-          }
-        }
+        "heading": "Ce intră în avertizarea timpurie",
+        "description": "BSI enumeră aceste informații pentru avertizarea timpurie. Formularul din portal le cere.",
+        "list": [
+          "Clasificarea incidentului, motivul raportării și situația",
+          "O descriere preliminară: perturbarea, impactul, durata estimată și cauza presupusă",
+          "Când a avut loc incidentul și când l-ați observat",
+          "Sectoarele și tipurile de entități afectate",
+          "Dacă se suspectează un atac și dacă ar putea fi afectate alte țări",
+          "Ce ați făcut până acum și dacă incidentul este sub control",
+          "Cum poate BSI să contacteze persoana care raportează"
+        ],
+        "note": "Regula BSI: viteza înaintea completitudinii. Un raport depus nu poate fi retras. Îl corectați printr-un raport ulterior."
       },
       "where": {
-        "heading": "Unde și cum se raportează",
-        "description": "Rapoartele merg la BSI, în mod normal prin portalul BSI.",
-        "p1": "Rapoartele în temeiul § 32 BSIG merg la BSI, în mod normal prin portalul BSI. O entitate care are un incident semnificativ înainte de a se fi înregistrat raportează printr-un formular online din portalul de raportare și informare al BSI (MIP). Operatorii de instalații critice și autoritățile federale folosesc deocamdată canalele lor anterioare de raportare.",
-        "p2": "Portalul de raportare este disponibil pe site-ul BSI, la secțiunea NIS2. Pentru a raporta în portalul BSI vă autentificați cu accesul obținut la înregistrare (§ 33 BSIG). Dacă are loc un incident semnificativ înainte de a vă fi înregistrat, îl raportați oricum, prin formularul online din MIP."
+        "heading": "Unde se raportează și cine raportează",
+        "description": "Raportați la BSI, de regulă prin portalul BSI.",
+        "p1": "Rapoartele conform § 32 BSIG ajung la BSI, de regulă prin portalul BSI. Dacă firma dumneavoastră are un incident semnificativ înainte de a se înregistra, raportați printr-un formular din portalul de raportare și informare al BSI (MIP). Operatorii de instalații critice și autoritățile federale folosesc deocamdată canalele lor de raportare de până acum.",
+        "p2": "Poate raporta orice angajat care are acces la portal. Fiecare persoană are nevoie de propriul certificat de organizație de la ELSTER și trebuie să fie asociată entității dumneavoastră în portal. Puteți lăsa și un furnizor de servicii să raporteze pentru dumneavoastră. Responsabilitatea pentru raport rămâne la dumneavoastră.",
+        "p3": "Operatorii de instalații critice raportează în plus tipul instalației, serviciul critic și impactul asupra acestuia (§ 32(3) BSIG). Dacă sunt afectate date cu caracter personal, poate fi necesară și o notificare către autoritatea de protecție a datelor."
       },
-      "penalties": {
-        "heading": "Sancțiuni pentru neîndeplinirea obligațiilor de raportare",
-        "description": "Neraportarea este sancționată independent de incidentul în sine. O companie care suferă un incident și îl gestionează bine din punct de vedere tehnic, dar nu îl raportează, se confruntă cu o acțiune de executare separată.",
-        "items": {
-          "essential": {
-            "amount": "Până la 10.000.000 EUR sau 2% din cifra de afaceri",
-            "label": "Entități esențiale",
-            "detail": "Valoarea mai mare dintre 10 milioane EUR sau 2% din cifra de afaceri anuală mondială din exercițiul financiar precedent (§ 65 Abs. 5 și 6 BSIG). Entitățile esențiale sunt, printre altele, companiile mari din sectoarele din anexa 1 BSIG (energie, transport, finanțe, sănătate, apă, infrastructură digitală, spațiu) și, indiferent de dimensiune, operatorii de instalații critice, furnizorii calificați de servicii de încredere, registrele TLD și furnizorii de DNS (§ 28 Abs. 1 BSIG)."
-          },
-          "important": {
-            "amount": "Până la 7.000.000 EUR sau 1,4% din cifra de afaceri",
-            "label": "Entități importante",
-            "detail": "Valoarea mai mare dintre 7 milioane EUR sau 1,4% din cifra de afaceri anuală mondială (§ 65 Abs. 5 și 7 BSIG). Entitățile importante sunt companiile mijlocii din sectoarele din anexa 1 și companiile mijlocii sau mari din sectoarele din anexa 2 (servicii poștale și de curierat, gestionarea deșeurilor, substanțe chimice, alimente, producție, furnizori digitali, cercetare), plus toți ceilalți furnizori de servicii de încredere (§ 28 Abs. 2 BSIG)."
-          },
-          "management": {
-            "amount": "Răspundere față de companie (§ 38 Abs. 2 BSIG)",
-            "label": "Conducerea (Geschäftsleitung)",
-            "detail": "§ 38 BSIG obligă conducerea să pună în aplicare și să supravegheze măsurile de gestionare a riscurilor din § 30. Un membru al conducerii care încalcă culpabil această obligație răspunde față de companie pentru prejudiciu, potrivit normelor dreptului societăților aplicabile formei sale juridice (§ 38 Abs. 2). Raportarea în sine este o obligație a entității (§ 32); un raport tardiv sau lipsă se sancționează la nivelul entității (§ 65 Abs. 2 Nr. 4)."
-          }
-        }
+      "after": {
+        "heading": "După raportare",
+        "items": [
+          "BSI confirmă primirea fără întârzieri nejustificate, pe cât posibil în 24 de ore. La cerere, oferă orientare sau consiliere (§ 36(1) BSIG).",
+          "BSI vă poate obliga să îi informați pe destinatarii serviciilor dumneavoastră despre incident (§ 35(1) BSIG).",
+          "Așteptați-vă la întrebări suplimentare. BSI recomandă ca avertismentele sale să ajungă la cineva și în afara programului de lucru."
+        ]
+      },
+      "example": {
+        "heading": "Un exemplu",
+        "lead": "O firmă inventată. Luni, ora 9: contabilitatea anunță IT-ul că fișierele de pe server sunt criptate. Preluarea comenzilor s-a oprit.",
+        "items": [
+          "Luni, ora 9:30: IT-ul confirmă un atac. Conform planului pentru incidente, decide directorul general. El clasifică incidentul ca semnificativ, pentru că activitatea este grav perturbată.",
+          "Luni, ora 14: avertizarea timpurie în portalul BSI. Ea spune ce se știe și că se suspectează un atac. Termenul ar fi expirat marți, la ora 9.",
+          "Joi, cel târziu la ora 9: notificarea, cu o primă evaluare a gravității și a impactului.",
+          "La o lună după această notificare: raportul final, cu cauza și remedierea. Dacă incidentul este încă în curs atunci, vine mai întâi un raport de progres.",
+          "În paralel, firma verifică dacă sunt afectate date cu caracter personal. Dacă da, se aplică în plus obligația de notificare conform Art. 33 GDPR."
+        ]
+      },
+      "prepare": {
+        "heading": "Ce pregătiți dinainte",
+        "items": [
+          "Cine decide dacă un incident este semnificativ și cine raportează.",
+          "Accesul acestor persoane la portalul BSI: câte un certificat de organizație pentru fiecare și asocierea cu entitatea dumneavoastră.",
+          "Numerele de telefon ale IT-ului, ale furnizorilor de servicii și ale conducerii, și pe hârtie.",
+          "Un plan pentru incidente pe care oamenii îl găsesc chiar și atunci când serverele sunt căzute."
+        ]
+      },
+      "walk": {
+        "heading": "Cum face asta parcursul ghidat",
+        "lead": "Doi pași din parcursul ghidat de pe nisd2.eu vă pregătesc pentru raportare.",
+        "points": [
+          "\"Plan what happens in an incident\" (planificați ce se întâmplă la un incident): din răspunsurile dumneavoastră rezultă planul de răspuns la incidente. El spune cine decide și cum raportați.",
+          "\"Know how to report an incident\" (aflați cum raportați un incident): pasul arată cele trei termene și un exemplu de avertizare timpurie.",
+          "Notați dacă vă puteți autentifica în portalul BSI și dacă puteți raporta.",
+          "La final, conducerea aprobă planul de răspuns la incidente în aplicație."
+        ],
+        "seeItAlt": "Pasul despre raportare din parcursul ghidat: cele trei termene",
+        "next": "Scrieți planul pentru incidente în parcursul ghidat"
       },
       "sources": {
         "heading": "Surse",
         "items": [
-          "Directiva NIS2 (UE) 2022/2555. Articolul 23 (Obligații de raportare)",
-          "BSIG. §32 (Meldepflichten bei erheblichen Sicherheitsvorfällen)",
-          "BSIG. §38 (Billigung, Überwachung, Schulung. Geschäftsleitung)",
-          "BSIG. §65 (Bußgeldvorschriften)",
-          "CIR (UE) 2024/2690. Articolul 3 (Semnificația incidentelor), Articolul 4 (Incidente recurente)",
-          "BSI. NIS-2-Meldepflicht (pagină de informare pentru companiile reglementate): bsi.bund.de",
-          "BSI. Documentația și întrebările frecvente privind portalul de raportare NIS2"
+          "Legea BSI (BSIG), § 2 nr. 11 și 40, §§ 32, 35 și 36 (gesetze-im-internet.de/bsig_2025)",
+          "Directiva (UE) 2022/2555 (NIS 2), Art. 23 (eur-lex.europa.eu)",
+          "Regulamentul de punere în aplicare (UE) 2024/2690, Art. 3 și 7",
+          "BSI, obligația de raportare NIS 2: termene, conținut și canal (bsi.bund.de/dok/nis-2-meldepflicht)",
+          "BSI, Mein Unternehmenskonto: accesul la portalul BSI (bsi.bund.de/dok/muk)",
+          "Regulamentul (UE) 2016/679 (GDPR), Art. 33 și 34"
         ]
-      },
-      "ctaCard": {
-        "heading": "Fiți pregătiți pentru raportare înainte de producerea incidentului",
-        "description": "Platforma vă preconfigurează câmpurile de raportare BSI, menține un registru de incidente cu fluxuri de clasificare și urmărește termenele de 24h/72h/1 lună, astfel încât să vă îndepliniți fiecare obligație sub presiune."
-      },
-      "cta": "Începeți procesul de conformitate NIS2"
+      }
     },
     "euImplementation": {
       "meta": {
@@ -3983,108 +4056,117 @@
     },
     "missedRegistration": {
       "meta": {
-        "title": "Ați ratat înregistrarea NIS2 la BSI? Pași imediați",
-        "description": "Ați ratat înregistrarea NIS2? Portalul BSI este încă deschis. Cum vă înregistrați acum conform § 33 BSIG, pas cu pas, cu întrebări frecvente."
+        "title": "Înregistrarea NIS2 la BSI: cum se face și termenul",
+        "description": "Înregistrarea NIS2 la BSI: cine se înregistrează, pașii prin ELSTER și portalul BSI, termenul și ce urmează după aceea."
       },
-      "title": "Ați ratat termenul de înregistrare la BSI. Și acum?",
-      "subtitle": "Portalul BSI este încă deschis. Iată ce contează acum și cu ce să începeți.",
-      "shortAnswer": {
-        "heading": "Răspunsul pe scurt",
-        "p1": "Fără panică. Nu sunteți singur și nu este prea târziu să remediați situația. BSI a estimat că aproximativ 30.000 de entități intră sub incidența NIS2 în Germania. Termenul de înregistrare a expirat pe 6 martie 2026, dar un număr semnificativ de firme tot nu s-au înregistrat. Sunteți departe de a fi singurul în această situație.",
-        "p2": "Portalul de înregistrare prevăzut de §33 BSIG este în continuare deschis. Vă puteți înregistra astăzi. BSI a semnalat că va prioritiza aplicarea legii împotriva firmelor care își ignoră complet obligațiile, nu împotriva celor care s-au înregistrat cu întârziere, dar acționează cu bună-credință. Mai târziu este mai bine decât niciodată, iar varianta cu adevărat periculoasă este: niciodată.",
-        "p3": "Esențial este să acționați acum, să documentați faptul că ați început și să demarați munca efectivă de conformitate. O înregistrare întârziată însoțită de progres vizibil arată fundamental diferit pentru un reglementator față de absența totală a înregistrării."
+      "title": "Înregistrarea NIS2: cum vă înregistrați compania la BSI",
+      "subtitle": "Companiile vizate se înregistrează în portalul BSI (§ 33 BSIG). Mai întâi aveți nevoie de un certificat de organizație de la ELSTER, care se activează prin scrisoare. Pentru companiile vizate din decembrie 2025, termenul s-a încheiat pe 6 martie 2026. Dacă l-ați ratat, înregistrați-vă acum: obligația rămâne valabilă.",
+      "who": {
+        "heading": "Cine trebuie să se înregistreze",
+        "p1": "Fiecare entitate esențială și fiecare entitate importantă (§ 33(1) BSIG). Așa numește legea companiile cărora li se aplică NIS 2.",
+        "p2": "Dacă firma dumneavoastră face parte dintre ele depinde de sectorul și de mărimea ei (§ 28 BSIG). Sectoarele sunt enumerate în Anexele 1 și 2 ale BSIG. În aceste sectoare, o companie este entitate importantă dacă are cel puțin 50 de angajați sau o cifră de afaceri anuală și un total al bilanțului de peste 10 milioane EUR fiecare.",
+        "p3": "BSI oferă o verificare a aplicabilității care vă conduce prin întrebări. Potrivit BSI, rezultatul ei nu este obligatoriu din punct de vedere juridic."
+      },
+      "deadline": {
+        "heading": "Termenul",
+        "p1": "Vă înregistrați cel târziu la trei luni după ce compania dumneavoastră devine pentru prima dată entitate (§ 33(1) BSIG).",
+        "p2": "BSIG se aplică din 6 decembrie 2025. Pentru companiile vizate de atunci, termenul s-a încheiat pe 6 martie 2026.",
+        "p3": "Dacă firma dumneavoastră devine vizată abia mai târziu, de exemplu pentru că crește, cele trei luni curg din acel moment."
       },
       "steps": {
-        "heading": "Cinci pași pentru a reveni pe direcția corectă",
-        "description": "Urmați această ordine. Fiecare pas se construiește pe cel anterior, iar împreună creează o pistă documentată care arată BSI că tratați conformitatea cu seriozitate.",
+        "heading": "Cum vă înregistrați, pas cu pas",
+        "description": "Înregistrarea are două etape: mai întâi un cont la ELSTER, apoi înregistrarea în portalul BSI.",
         "items": {
           "check": {
-            "title": "1. Confirmați că intrați efectiv în domeniul de aplicare",
-            "description": "Înainte de a vă înregistra, verificați dacă NIS2 se aplică firmei dumneavoastră. Criteriile se află în §28 BSIG: trebuie să operați într-unul dintre cele 18 sectoare enumerate ȘI să atingeți pragul de mărime (cel puțin 50 de angajați sau o cifră de afaceri anuală și un bilanț anual total de peste 10 milioane EUR fiecare). Dacă nu sunteți sigur, consultați listele de sectoare ale BSI din Anexa I și Anexa II la Directiva NIS2. Multe firme presupun că sunt în afara domeniului de aplicare când, de fapt, nu sunt, și invers. Dacă sunteți cu adevărat nesigur, obțineți o opinie juridică înainte de înregistrare, dar nu folosiți incertitudinea ca scuză pentru a amâna."
+            "title": "Verificați dacă sunteți vizați",
+            "description": "Clarificați sectorul, numărul de angajați și cifra de afaceri (§ 28 BSIG). Verificarea aplicabilității oferită de BSI vă ajută. Pentru cazurile la limită, ajută o analiză juridică."
+          },
+          "certificate": {
+            "title": "Solicitați un certificat de organizație de la ELSTER",
+            "description": "Faceți asta prin \"Mein Unternehmenskonto\" (mein-unternehmenskonto.de). Aveți nevoie de un cod fiscal german. Datele de acces vin prin e-mail, iar codul de activare prin scrisoare, la adresa înregistrată pentru codul fiscal. Potrivit BSI, livrarea durează de regulă cel puțin cinci zile lucrătoare."
+          },
+          "gather": {
+            "title": "Pregătiți datele",
+            "description": "Portalul preia numele, adresa, forma juridică și datele din registru din contul companiei. Conform § 33(1) BSIG adăugați: e-mail și numere de telefon, intervalele de adrese IP publice, sectorul, țările UE în care furnizați astfel de servicii și autoritățile de supraveghere competente."
           },
           "register": {
-            "title": "2. Înregistrați-vă imediat prin portalul BSI",
-            "description": "Accesați portalul de înregistrare NIS2 al BSI și finalizați înregistrarea în temeiul §33 BSIG. Veți avea nevoie de: datele firmei, clasificarea sectorială, persoana de contact pentru aspecte de securitate cibernetică și intervalele de adrese IP ale sistemelor critice. Înregistrarea propriu-zisă durează aproximativ 30 de minute dacă aveți informațiile pregătite. Faceți acest lucru astăzi. Fiecare zi de așteptare lărgește diferența dintre termenul-limită și data înregistrării."
+            "title": "Înregistrați-vă în portalul BSI",
+            "description": "Vă autentificați cu certificatul în portalul BSI (portal.bsi.bund.de) și completați formularul. Persoana care înregistrează entitatea devine automat administratorul ei și poate invita colegi."
           },
-          "document": {
-            "title": "3. Documentați faptul că ați început",
-            "description": "Creați o evidență scrisă, fie și o simplă notă internă, care să documenteze momentul în care ați luat cunoștință de obligațiile NIS2, când v-ați înregistrat și ce pași întreprindeți. Aceasta creează o pistă documentară care demonstrează buna-credință. Dacă BSI întreabă vreodată de ce ați întârziat, formularea „am identificat obligația, ne-am înregistrat imediat și am început munca de conformitate la [data]” este un răspuns solid."
-          },
-          "implement": {
-            "title": "4. Începeți munca efectivă de conformitate",
-            "description": "Înregistrarea este doar primul pas. §30 BSIG vă cere să implementați măsuri de management al riscurilor de securitate cibernetică. Începeți cu fundamentele: inventarul activelor, metodologia de evaluare a riscurilor și procedurile de raportare a incidentelor. Nu trebuie să fiți pe deplin conform peste noapte, dar trebuie să lucrați vizibil în această direcție. BSI va privi traiectoria, nu doar starea actuală."
-          },
-          "legal": {
-            "title": "5. Luați în calcul consultanța juridică dacă domeniul de aplicare este neclar",
-            "description": "Dacă firma dumneavoastră se află aproape de prag (în jur de 50 de angajați sau 10 milioane EUR cifră de afaceri și bilanț), operează într-un sector care poate fi interpretat în mai multe feluri sau are o structură corporativă complexă, consultați un avocat specializat în reglementarea IT. Costul unei opinii juridice (2.000 până la 5.000 EUR) este nesemnificativ în comparație cu costul fie al neconformității, fie al unei conformități inutile. Unele asociații sectoriale (precum Bitkom sau BDI) oferă, de asemenea, îndrumare privind domeniul de aplicare NIS2 pentru membri."
+          "record": {
+            "title": "Consemnați și distribuiți accesele",
+            "description": "Notați în ce zi și cu ce certificat v-ați înregistrat. Dați acces persoanelor care vor raporta incidentele în caz de urgență. Fiecare persoană are nevoie de propriul certificat și trebuie să fie asociată entității dumneavoastră în portal."
           }
         }
       },
-      "risks": {
-        "heading": "Care sunt riscurile reale ale înregistrării întârziate?",
-        "description": "Onestitatea privind riscurile vă ajută să luați decizii proporționale. Consecințele sunt reale, dar nu catastrofale, dacă acționați acum.",
-        "items": {
-          "fines": {
-            "title": "Amenzi administrative",
-            "description": "§65 BSIG prevede amenzi de până la 500.000 EUR special pentru încălcările privind înregistrarea. În practică, BSI are o capacitate limitată de aplicare a legii și se concentrează pe aducerea firmelor în sistem, nu pe sancționarea întârziaților. O firmă care se înregistrează cu întârziere și demonstrează eforturi active de conformitate este puțin probabil să se confrunte cu sancțiunea maximă. O firmă care nu se înregistrează niciodată este o altă poveste."
-          },
-          "orders": {
-            "title": "Ordine de conformare",
-            "description": "BSI poate emite ordine obligatorii de conformare prin care vă impune să vă înregistrați și să implementați măsuri specifice într-un termen stabilit. Nerespectarea unui astfel de ordin escaladează semnificativ situația juridică. Înregistrarea proactivă, chiar și întârziată, evită complet această cale de escaladare."
-          },
-          "liability": {
-            "title": "Răspunderea personală a conducerii",
-            "description": "§38 BSIG face Geschäftsführung răspunzătoare personal pentru asigurarea conformității NIS2. Dacă firma dumneavoastră intră în domeniul de aplicare și dumneavoastră, ca membru al conducerii, ați întârziat cu bună știință înregistrarea, acest lucru creează o expunere personală. Răspunderea nu poate fi exclusă prin hotărâre a asociaților. Documentarea faptului că ați acționat de îndată ce ați luat cunoștință reprezintă o protecție importantă."
-          },
-          "audit": {
-            "title": "Scrutin sporit la auditurile viitoare",
-            "description": "Pentru entitățile esențiale, BSI efectuează audituri periodice. O înregistrare întârziată va fi vizibilă în cronologia conformității dumneavoastră. Totuși, un proces de recuperare bine documentat, care arată o îmbunătățire sistematică, este privit foarte diferit față de un tipar de neglijență. Auditorii evaluează traiectoria, nu doar punctul de plecare."
-          }
-        }
+      "after": {
+        "heading": "Ce urmează după înregistrare",
+        "p1": "§ 33 BSIG nu prevede nicio decizie și niciun alt pas din partea BSI după înregistrare. Așadar, nu așteptați să vi se spună să începeți.",
+        "p2": "Celelalte obligații se aplică oricum. Ele se aplică pentru că firma dumneavoastră este o entitate. Înregistrarea nu schimbă acest lucru.",
+        "items": [
+          "Puneți în aplicare măsuri de securitate în zece domenii și consemnați-le în scris (§ 30 BSIG).",
+          "Raportați incidentele de securitate semnificative, primul raport în cel mult 24 de ore (§ 32 BSIG).",
+          "Conducerea pune în aplicare măsurile, le supraveghează și participă regulat la instruiri (§ 38 BSIG).",
+          "Dacă datele dumneavoastră se schimbă, raportați acest lucru la BSI în cel mult două săptămâni (§ 33(5) BSIG)."
+        ],
+        "link": "Cum procedați: implementarea NIS2"
       },
-      "context": {
-        "heading": "De ce atât de multe firme au ratat termenul",
-        "p1": "Decalajul de înregistrare NIS2 nu este cauzat în principal de neglijență. Procesul legislativ german a fost amânat în mod repetat. NIS2UmsuCG a fost adoptată la luni după termenul inițial de transpunere stabilit la nivel UE. Multe firme au așteptat în mod rezonabil finalizarea legii germane înainte de a acționa. Altele nu erau conștiente că intră în domeniul de aplicare, întrucât definițiile sectoarelor s-au extins dramatic față de vechiul regim KRITIS.",
-        "p2": "BSI însuși a recunoscut public amploarea decalajului de înregistrare. Agenția a adoptat o poziție pragmatică: prioritatea este înregistrarea tuturor celor 30.000 de entități și aducerea lor în sistemul de conformitate, nu sancționarea primului val de înregistrări întârziate. Acest pragmatism are limite: se aplică firmelor care lucrează activ pentru conformitate, nu celor care folosesc răbdarea BSI ca scuză pentru a nu face nimic."
+      "missed": {
+        "heading": "Ați ratat termenul? Faceți acum următoarele",
+        "items": [
+          "Înregistrați-vă acum. Obligația nu se încheie odată cu termenul.",
+          "Notați când ați aflat de obligație și când v-ați înregistrat.",
+          "A avut firma dumneavoastră un incident de securitate semnificativ înainte de înregistrare? Raportați-l oricum, printr-un formular din portalul de raportare și informare al BSI (MIP).",
+          "Începeți cu măsurile. Ele se aplică indiferent de înregistrare."
+        ]
       },
       "faq": {
         "heading": "Întrebări frecvente",
         "q1": {
-          "q": "Portalul de înregistrare al BSI este încă deschis?",
-          "a": "Da. Portalul de înregistrare prevăzut de §33 BSIG rămâne deschis. Nu există un termen după care nu vă mai puteți înregistra. Obligația este continuă. Termenul indica momentul în care ar fi trebuit să vă înregistrați, nu momentul în care ați putut. Înregistrați-vă acum."
+          "q": "Mă mai pot înregistra după 6 martie 2026?",
+          "a": "Da. Termenul spune până când trebuia să vă înregistrați. Obligația în sine nu se încheie. Vă înregistrați prin același portal BSI."
         },
         "q2": {
-          "q": "Care este amenda pentru înregistrarea întârziată?",
-          "a": "§65 BSIG prevede amenzi de până la 500.000 EUR pentru încălcările privind înregistrarea. Totuși, amenzile se evaluează de la caz la caz, ținând cont de gravitate, durată și dacă firma a acționat cu bună-credință. O firmă care se înregistrează cu câteva luni întârziere și arată eforturi active de conformitate are un profil de risc foarte diferit față de una care ignoră complet obligația."
+          "q": "Primesc o decizie sau un număr de înregistrare?",
+          "a": "§ 33 BSIG nu prevede nicio decizie. Consemnați chiar dumneavoastră când și cu ce certificat v-ați înregistrat. La rapoartele de incident este altfel: acolo BSI confirmă primirea, pe cât posibil în 24 de ore (§ 36(1) BSIG)."
         },
         "q3": {
-          "q": "Înregistrarea întârziată afectează celelalte obligații NIS2?",
-          "a": "Nu. Obligațiile dumneavoastră în temeiul §30 BSIG (măsuri de securitate cibernetică), §32 (raportarea incidentelor) și §38 (răspunderea conducerii) există independent de faptul dacă v-ați înregistrat. Înregistrarea nu creează obligațiile, ci o îndeplinește pe una dintre ele. Celelalte obligații se aplică din momentul în care îndepliniți criteriile de domeniu de aplicare, indiferent de statutul înregistrării."
+          "q": "Celelalte obligații se aplică doar după înregistrare?",
+          "a": "Nu. Măsurile (§ 30 BSIG), obligația de raportare (§ 32 BSIG) și obligațiile conducerii (§ 38 BSIG) se aplică de îndată ce firma dumneavoastră este o entitate. Înregistrarea este o obligație alături de celelalte."
         },
         "q4": {
-          "q": "Mă pot înregistra dacă nu sunt sigur că intrăm în domeniul de aplicare?",
-          "a": "Da, iar BSI recomandă să greșiți în direcția înregistrării dacă sunteți nesigur. Înregistrarea atunci când se dovedește că sunteți în afara domeniului de aplicare nu are consecințe negative. Înregistrarea poate fi corectată. Neînregistrarea atunci când intrați în domeniul de aplicare comportă un risc juridic real. La îndoială, înregistrați-vă."
+          "q": "Nu suntem siguri dacă suntem vizați. Ce facem acum?",
+          "a": "Folosiți verificarea aplicabilității oferită de BSI și cereți o analiză juridică pentru cazurile la limită. Cazuri la limită sunt, de exemplu, o mărime apropiată de prag, o activitate care s-ar potrivi în mai multe sectoare sau un grup cu companii afiliate (§ 28(3) și (4) BSIG)."
         },
         "q5": {
-          "q": "Ce se întâmplă dacă ne-am înregistrat, dar nu am început munca de conformitate?",
-          "a": "Înregistrarea fără munca de conformitate este ca depunerea unei declarații fiscale fără plata impozitului: ați îndeplinit o obligație, dar nu și pe cele de fond. Începeți acum cu măsurile prevăzute de §30 BSIG: inventarul activelor, evaluarea riscurilor, procedurile de raportare a incidentelor. BSI se așteaptă ca entitățile înregistrate să lucreze activ pentru conformitate, nu doar să stea pe un număr de înregistrare."
+          "q": "Avem sedii în alte țări din UE. Unde ne înregistrăm?",
+          "a": "În principiu, este competentă țara în care este stabilită compania dumneavoastră (Art. 26(1) NIS 2). Pentru anumiți furnizori digitali contează sediul principal. Autoritățile tuturor țărilor UE se află în prezentarea noastră a organismelor de înregistrare."
         }
+      },
+      "walk": {
+        "heading": "Cum face asta parcursul ghidat",
+        "lead": "Înregistrarea este primul pas din parcursul ghidat de pe nisd2.eu.",
+        "points": [
+          "Pasul explică în cuvinte simple la ce folosește înregistrarea și cum ajungeți în portalul BSI prin ELSTER.",
+          "Arată în ce țară din UE vă înregistrați, cu autoritatea și portalul ei.",
+          "Notați două informații: ID-ul contului dumneavoastră de utilizator și ziua înregistrării.",
+          "Dacă scrisoarea de la ELSTER nu a sosit încă, alegeți \"Not possible yet\" (încă nu este posibil) și continuați cu pasul următor.",
+          "Un pas ulterior arată care dintre datele dumneavoastră se pot schimba."
+        ],
+        "seeItAlt": "Pasul de înregistrare din parcursul ghidat: țara și autoritatea ei",
+        "next": "Începeți cu înregistrarea în parcursul ghidat"
       },
       "sources": {
         "heading": "Surse",
         "items": [
-          "BSI, statistici privind înregistrarea NIS2 și declarații publice privind abordarea aplicării legii (2025)",
-          "G DATA CyberDefense, sondaj de conștientizare NIS2: 44% dintre firmele de pe piața de mijloc nu cunosc obligațiile (2024)",
-          "BSIG, §33 (obligația de înregistrare), §65 (amenzi administrative), §38 (răspunderea conducerii)",
-          "NIS2UmsuCG, Gesetz zur Umsetzung der NIS-2-Richtlinie und zur Stärkung der Cybersicherheit",
-          "BMI, documentație parlamentară și îndrumări privind implementarea NIS2UmsuCG"
+          "Legea BSI (BSIG), §§ 28, 30, 32, 33, 36 și 38, Anexele 1 și 2, în vigoare din 6 decembrie 2025 (gesetze-im-internet.de/bsig_2025)",
+          "Directiva (UE) 2022/2555 (NIS 2), Art. 3(4) și Art. 26 (eur-lex.europa.eu)",
+          "BSI, detaliile procedurii de înregistrare conform § 33(6) BSIG, versiunea 1.0 din 26.06.2026 (bsi.bund.de/dok/registrierungspflicht)",
+          "BSI, Mein Unternehmenskonto (bsi.bund.de/dok/muk)",
+          "BSI, obligația de raportare NIS 2: raportarea înainte de înregistrare (bsi.bund.de/dok/nis-2-meldepflicht)",
+          "BSI, verificarea aplicabilității (betroffenheitspruefung-nis-2.bsi.de)"
         ]
-      },
-      "ctaCard": {
-        "heading": "Înregistrați-vă, apoi construiți-vă pista de conformitate",
-        "description": "Platforma vă ghidează de la înregistrare până la conformitatea deplină cu §30 BSIG, creând pista documentată de probe care arată BSI că tratați acest lucru cu seriozitate."
-      },
-      "cta": "Începeți procesul de conformitate NIS2"
+      }
     },
     "kritisComparison": {
       "meta": {

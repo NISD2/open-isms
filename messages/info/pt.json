@@ -1460,119 +1460,205 @@
         "p4": "Não é uma folha de cálculo que perde nem um relatório de consultor que fica numa prateleira. É um registo vivo, com versões e auditável de tudo o que a sua empresa fez pela conformidade NIS2, desde o primeiro dia, para sempre."
       }
     },
+    "wikiWalk": {
+      "seeIt": "Veja como é",
+      "priceHeading": "Quanto custa o percurso guiado",
+      "more": "Saiba mais",
+      "lawLabel": "Lei",
+      "whoLabel": "Quem"
+    },
     "nis2Requirements": {
       "meta": {
-        "title": "Requisitos NIS2: 10 medidas",
-        "description": "Os requisitos NIS2 explicados: 10 medidas obrigatórias de gestão de risco, cascata de notificação de incidentes, obrigações de auditoria e segurança da cadeia de abastecimento."
+        "title": "Requisitos NIS2: as 10 medidas e as obrigações",
+        "description": "Requisitos NIS2 em palavras simples: as dez medidas do Art. 21 NIS 2 e do § 30 BSIG, notificação, registo e o papel da direção."
       },
-      "title": "Requisitos NIS2",
-      "subtitle": "O que as entidades abrangidas têm de implementar: 10 medidas obrigatórias de cibersegurança, uma cascata rigorosa de notificação de incidentes e uma conformidade baseada em provas.",
+      "title": "Requisitos NIS2: o que a sua empresa tem de aplicar",
+      "subtitle": "A NIS2 exige medidas de segurança em dez áreas, a notificação de incidentes significativos e o registo no BSI. A direção aplica as medidas e supervisiona-as. O alcance de cada medida depende da dimensão e do risco da sua empresa.",
+      "overview": {
+        "heading": "Os requisitos num relance",
+        "lead": "A NIS 2 é uma diretiva da UE. Na Alemanha, a Lei do BSI (BSIG) transpõe-na para o direito nacional. As empresas abrangidas chamam-se aí \"entidades\".",
+        "items": {
+          "measures": {
+            "title": "Medidas de segurança em dez áreas",
+            "text": "A lista mínima está abaixo, cada área com um exemplo.",
+            "law": "Art. 21 NIS 2 · § 30 BSIG"
+          },
+          "report": {
+            "title": "Notificar incidentes significativos",
+            "text": "Em três fases ao BSI, a primeira no prazo de 24 horas.",
+            "law": "Art. 23 NIS 2 · § 32 BSIG"
+          },
+          "register": {
+            "title": "Registar-se no BSI",
+            "text": "Uma vez, através do portal do BSI. Se algo mudar, comunica-o no prazo de duas semanas.",
+            "law": "Art. 3(4) NIS 2 · § 33 BSIG"
+          },
+          "management": {
+            "title": "A direção",
+            "text": "Aplica as medidas, supervisiona-as e participa regularmente em formação. A diretiva exige também que a direção aprove as medidas.",
+            "law": "Art. 20 NIS 2 · § 38 BSIG"
+          }
+        }
+      },
       "measures": {
-        "heading": "10 medidas obrigatórias de gestão de risco (Secção 30 BSIG / Artigo 21.o, n.o 2, NIS-2)",
-        "description": "Todas as entidades essenciais e importantes têm de implementar estas medidas. Não há período de transição. Estas obrigações aplicam-se desde 6 de dezembro de 2025 na Alemanha.",
+        "heading": "As dez medidas em palavras simples",
+        "description": "O Art. 21(2) NIS 2 enumera dez áreas, na Alemanha o § 30(2) BSIG. Esta é a lista mínima. Para cada área precisa de medidas adequadas à sua empresa.",
+        "exampleLabel": "Por exemplo",
         "items": {
           "m1": {
-            "title": "Análise de risco e políticas de segurança da informação",
-            "description": "Estabelecer e manter políticas de análise de risco e de segurança dos sistemas de informação. Realizar avaliações de risco regulares que abranjam todos os sistemas e processos críticos."
+            "title": "Análise de risco e política de segurança",
+            "description": "Escreve de que TI a sua empresa precisa e o que pode correr mal. Daí resulta uma política de segurança: a forma como a sua empresa gere a segurança da informação.",
+            "example": "Uma lista dos seus sistemas com uma avaliação por risco e uma política de poucas páginas.",
+            "law": "Art. 21(2)(a) · § 30(2) n.º 1"
           },
           "m2": {
             "title": "Tratamento de incidentes",
-            "description": "Implementar procedimentos de prevenção, deteção, identificação, contenção, mitigação e resposta a incidentes de segurança."
+            "description": "Define como deteta, contém e resolve um incidente, e quem decide.",
+            "example": "Um plano de incidentes com números de telefone e responsabilidades claras.",
+            "law": "Art. 21(2)(b) · § 30(2) n.º 2"
           },
           "m3": {
-            "title": "Continuidade das atividades e gestão de crises",
-            "description": "Gestão de cópias de segurança, planeamento de recuperação após desastre e procedimentos de gestão de crises para assegurar a resiliência operacional."
+            "title": "Manter a atividade em funcionamento",
+            "description": "Cópias de segurança, recuperação após uma emergência e gestão de crises.",
+            "example": "Uma cópia de segurança cuja reposição já testou.",
+            "law": "Art. 21(2)(c) · § 30(2) n.º 3"
           },
           "m4": {
             "title": "Segurança da cadeia de abastecimento",
-            "description": "Medidas de segurança para as relações com fornecedores diretos e prestadores de serviços, tendo em conta as vulnerabilidades de cada fornecedor e a qualidade dos seus produtos e das suas práticas de segurança (art. 21.o, n.o 3); os contratos são o instrumento habitual."
+            "description": "Tem em conta as vulnerabilidades de cada fornecedor direto e a qualidade dos seus produtos e práticas de segurança (Art. 21(3) NIS 2). Os contratos são o instrumento habitual.",
+            "example": "O seu contrato com o prestador de serviços de TI diz que este lhe comunica incidentes.",
+            "law": "Art. 21(2)(d) · § 30(2) n.º 4"
           },
           "m5": {
-            "title": "Segurança na aquisição, desenvolvimento e manutenção",
-            "description": "Segurança na aquisição, desenvolvimento e manutenção de redes e sistemas de informação. Inclui o tratamento de vulnerabilidades e procedimentos de divulgação."
+            "title": "Segurança na aquisição, desenvolvimento e manutenção de TI",
+            "description": "A segurança aplica-se logo na compra de TI, no desenvolvimento próprio e durante a manutenção. Isso inclui o tratamento e a divulgação de vulnerabilidades.",
+            "example": "As atualizações de segurança instalam-se automaticamente.",
+            "law": "Art. 21(2)(e) · § 30(2) n.º 5"
           },
           "m6": {
-            "title": "Avaliação da eficácia",
-            "description": "Políticas e procedimentos para avaliar se as medidas de gestão de risco de cibersegurança funcionam. A lei não prescreve testes nem auditorias para todas as entidades."
+            "title": "Avaliar a eficácia",
+            "description": "Define como verifica se as medidas funcionam. A lei não impõe testes nem auditorias a todas as entidades.",
+            "example": "Uma vez por ano, a direção revê o que funcionou e o que não funcionou.",
+            "law": "Art. 21(2)(f) · § 30(2) n.º 6"
           },
           "m7": {
-            "title": "Formação em cibersegurança e higiene cibernética",
-            "description": "Práticas básicas de ciber-higiene e formação em cibersegurança. Sensibilização sobre phishing, engenharia social, palavras-passe e utilização segura das TI é o conteúdo habitual."
+            "title": "Formação básica e sensibilização",
+            "description": "Todos os trabalhadores aprendem o básico: reconhecer emails suspeitos, escolher boas palavras-passe, comunicar incidentes.",
+            "example": "Uma formação curta na entrada e uma atualização uma vez por ano.",
+            "law": "Art. 21(2)(g) · § 30(2) n.º 7"
           },
           "m8": {
-            "title": "Criptografia e cifragem",
-            "description": "Políticas e procedimentos relativos ao uso de criptografia e, quando adequado, de cifragem. Abrange dados em repouso, dados em trânsito e a gestão de chaves."
+            "title": "Criptografia",
+            "description": "Define onde e como cifra.",
+            "example": "Portáteis com disco cifrado, e email apenas através de ligações cifradas.",
+            "law": "Art. 21(2)(h) · § 30(2) n.º 8"
           },
           "m9": {
-            "title": "Segurança do pessoal, controlo de acessos e gestão de ativos",
-            "description": "Políticas de segurança de recursos humanos, mecanismos de controlo de acessos e procedimentos de gestão de ativos. Inclui entrada e saída de colaboradores, acesso de privilégio mínimo e inventários de ativos."
+            "title": "Pessoal, acessos e gestão das TI",
+            "description": "Quem pode fazer o quê? Como recebem as pessoas novas os seus acessos, e como os perdem as que saem? Inclui também uma visão geral das suas TI.",
+            "example": "No último dia de trabalho, todos os acessos são bloqueados.",
+            "law": "Art. 21(2)(i) · § 30(2) n.º 9"
           },
           "m10": {
-            "title": "Autenticação multifator e comunicações seguras",
-            "description": "Uso de MFA ou de soluções de autenticação contínua. Comunicações seguras de voz, vídeo e texto. Sistemas seguros de comunicação de emergência dentro da entidade."
+            "title": "Segundo fator e comunicação segura",
+            "description": "Início de sessão com um segundo fator ou com verificação contínua. Também voz, vídeo e texto protegidos e, quando necessário, um canal protegido para emergências.",
+            "example": "Um código de uma aplicação ao iniciar sessão no email e no acesso remoto.",
+            "law": "Art. 21(2)(j) · § 30(2) n.º 10"
           }
         }
       },
+      "proportionality": {
+        "heading": "Quanto é suficiente?",
+        "p1": "A lei exige medidas adequadas, proporcionadas e eficazes (§ 30(1) BSIG). O que é proporcionado depende da sua exposição ao risco, da sua dimensão, dos custos, da probabilidade e gravidade dos incidentes e das suas consequências para terceiros.",
+        "p2": "Põe por escrito o que aplica (§ 30(1), terceira frase, BSIG). A lei não exige um certificado como a ISO 27001. Ainda assim, um certificado pode apoiar a sua prova.",
+        "link": "O que significa exatamente \"proporcionado\""
+      },
       "incidentReporting": {
-        "heading": "Cascata de notificação de incidentes",
-        "description": "Todas as entidades essenciais e importantes têm de notificar incidentes de segurança significativos ao BSI através de uma cascata em três fases.",
+        "heading": "Notificar incidentes significativos",
+        "description": "Notifica ao BSI um incidente de segurança significativo em três fases (§ 32 BSIG, Art. 23 NIS 2). Os prazos contam a partir do momento em que toma conhecimento dele.",
         "stages": {
           "s1": {
             "deadline": "24 horas",
-            "title": "Aviso prévio (frühe Erstmeldung)",
-            "description": "Comunicar se há suspeita de que o incidente foi causado por atos ilícitos ou maliciosos, e se poderia ter impacto transfronteiriço."
+            "title": "Alerta precoce",
+            "description": "Se há suspeita de que o incidente resulta de um ataque ou de um ato ilícito, e se pode afetar outros países."
           },
           "s2": {
             "deadline": "72 horas",
-            "title": "Notificação de incidente (Meldung)",
-            "description": "Avaliação da gravidade, avaliação do impacto, indicadores de comprometimento e uma primeira análise da causa raiz, se disponível."
+            "title": "Notificação de incidente",
+            "description": "Uma primeira avaliação da gravidade e do impacto, com sinais dos atacantes (indicadores de comprometimento), quando existam."
           },
           "s3": {
             "deadline": "1 mês",
-            "title": "Relatório final (Abschlussmeldung)",
-            "description": "Descrição detalhada do incidente, incluindo gravidade e impacto, o tipo de ameaça ou a causa raiz que provavelmente o desencadeou, medidas de mitigação aplicadas e em curso, e qualquer impacto transfronteiriço."
+            "title": "Relatório final",
+            "description": "Um mês após a notificação: o que aconteceu, a causa provável e o que fez para a resolver."
           }
         },
-        "significant": {
-          "heading": "O que conta como incidente \"significativo\"?",
-          "p1": "Um incidente de segurança qualifica-se como significativo quando causou ou é suscetível de causar uma perturbação operacional grave ou perdas financeiras para a entidade.",
-          "p2": "Também se qualifica quando afetou ou é suscetível de afetar outras pessoas singulares ou coletivas, causando danos materiais ou imateriais consideráveis. Para os 11 tipos de entidades digitais abrangidos pelo CIR 2024/2690 (DNS, cloud, MSP, MSSP, mercados em linha, motores de pesquisa, redes sociais, serviços de confiança, etc.) aplicam-se limiares adicionais do artigo 3.o do CIR (perda financeira direta superior a 500 000 EUR ou 5 % do volume de negócios anual, consoante o que for inferior; furto de segredos comerciais; morte ou dano considerável para a saúde de uma pessoa; acesso bem-sucedido, presumivelmente malicioso e não autorizado, suscetível de causar uma perturbação grave), além de critérios por serviço nos artigos 5.o a 14.o (por exemplo, um serviço DNS totalmente indisponível durante mais de 30 minutos, ou um serviço de cloud limitado para mais de 5 % dos seus utilizadores na UE, ou mais de 1 milhão, consoante o que for menor, durante mais de uma hora). Para as outras entidades, o BSI indica que se pode presumir a significância se for cumprido um critério do artigo 3.o, n.o 1."
-        }
+        "link": "A obrigação de notificação em detalhe"
       },
       "auditRequirements": {
-        "heading": "Requisitos de auditoria e de prova",
+        "heading": "Quem verifica, e quando?",
         "kritis": {
-          "heading": "Operadores KRITIS",
-          "description": "Têm de demonstrar as suas medidas ao BSI através de auditorias de segurança, inspeções ou certificações, primeiro numa data fixada pelo BSI (no mínimo três anos depois de passarem a contar como operador) e depois de 3 em 3 anos (§ 39 BSIG). Têm de operar sistemas de deteção de ataques (§ 31 Abs. 2 BSIG)."
+          "heading": "Operadores de instalações críticas",
+          "description": "Comprovam as suas medidas ao BSI através de auditorias, inspeções ou certificações. A primeira vez numa data fixada pelo BSI, no mínimo três anos depois de passarem a contar como operadores, e depois a cada três anos (§ 39 BSIG). Têm também de utilizar sistemas de deteção de ataques (§ 31(2) BSIG)."
         },
         "bwe": {
-          "heading": "Entidades essenciais (não KRITIS)",
-          "description": "Sem ciclo de auditoria regular, mas o cumprimento tem de ser documentado (§ 30 Abs. 1 BSIG). O BSI pode verificar o cumprimento e ordenar auditorias por organismos independentes (§ 61 Abs. 1 e 5 BSIG). Pode exigir provas às entidades essenciais, escolhidas em função do risco, a partir de três anos após a entrada em vigor da lei, ou seja, não antes de 6 de dezembro de 2028 (§ 61 Abs. 3 e 4)."
+          "heading": "Entidades essenciais",
+          "description": "Sem ciclo de auditoria fixo. Põe por escrito o que aplica (§ 30(1) BSIG). O BSI pode verificar e ordenar auditorias por organismos independentes (§ 61(1) e (5) BSIG). Pode pedir provas a partir de 6 de dezembro de 2028, no mínimo (§ 61(3) e (4) BSIG)."
         },
         "we": {
           "heading": "Entidades importantes",
-          "description": "Têm de documentar a implementação das medidas exigidas. O BSI só verifica quando os factos sugerem que não cumprem o § 30, o § 32 ou o § 38 Abs. 3 (§ 62 BSIG)."
+          "description": "Põe por escrito o que aplica. O BSI só verifica quando há factos que indiquem que não cumpre o § 30, o § 32 ou o § 38(3) BSIG (§ 62 BSIG)."
         },
         "evidence": {
-          "heading": "Provas aceitáveis",
+          "heading": "O que pode servir de prova",
           "items": {
-            "audits": "Relatórios de auditoria interna ou externa",
-            "certifications": "Certificações (ISO 27001, BSI IT-Grundschutz, etc.)",
-            "documentation": "Documentação completa das avaliações de risco, das medidas implementadas e das revisões de eficácia"
+            "audits": "Relatórios de auditoria internos ou externos",
+            "certifications": "Certificações, como a ISO 27001 ou o BSI IT-Grundschutz",
+            "documentation": "A sua documentação: avaliação de riscos, medidas aplicadas e a verificação da sua eficácia"
           },
-          "note": "A certificação ISO 27001 ou IT-Grundschutz apoia mas não garante a conformidade NIS2: os requisitos do BSIG podem ir além do âmbito de uma certificação padrão."
+          "note": "Um certificado segundo a ISO 27001 ou o IT-Grundschutz ajuda, mas não cobre automaticamente a BSIG. A lei pode ir além do âmbito de uma certificação."
         }
       },
       "supplyChain": {
-        "heading": "Segurança da cadeia de abastecimento",
-        "description": "A NIS2 introduz obrigações obrigatórias de segurança da cadeia de abastecimento. As entidades têm de:",
+        "heading": "Fornecedores",
+        "description": "Para a cadeia de abastecimento, isto significa:",
         "items": {
-          "assess": "Ter em conta as vulnerabilidades específicas de cada fornecedor direto e a qualidade global dos seus produtos e das suas práticas de cibersegurança (art. 21.o, n.o 3, NIS 2)",
-          "contractual": "Acordar requisitos de segurança com os fornecedores quando fizer sentido, normalmente no contrato (a exposição de motivos alemã dá os contratos como exemplo)",
-          "monitor": "Para os prestadores digitais que o CIR abrange: acompanhar e avaliar as alterações nas práticas de segurança dos fornecedores a intervalos planeados (ponto 5.1.6 do CIR)",
-          "coordinate": "Coordenar a divulgação de vulnerabilidades com os fornecedores",
-          "risk": "Ter em conta a qualidade global dos produtos e das práticas dos fornecedores, incluindo os seus procedimentos de desenvolvimento seguro"
+          "assess": "Tem em conta as vulnerabilidades de cada fornecedor direto e a qualidade dos seus produtos e práticas de segurança, incluindo o seu desenvolvimento (Art. 21(3) NIS 2).",
+          "contractual": "Acorda requisitos de segurança com os fornecedores quando fizer sentido, normalmente no contrato. A exposição de motivos da lei dá os contratos como exemplo.",
+          "monitor": "Só para os prestadores digitais abrangidos pelo Regulamento de Execução (UE) 2024/2690: monitorizam, a intervalos planeados, as alterações nas práticas de segurança dos seus fornecedores (ponto 5.1.6 do Anexo)."
         }
+      },
+      "example": {
+        "heading": "Um exemplo",
+        "lead": "Uma empresa fictícia: um fabricante de produtos de panificação com 120 trabalhadores que abastece o comércio. A produção industrial de alimentos consta do Anexo 2 da BSIG, por isso a empresa é uma entidade importante. Esta é a sua resposta a três das dez áreas:",
+        "items": [
+          "Cadeia de abastecimento: a empresa mantém uma lista dos seus prestadores de serviços, por exemplo para a gestão de mercadorias, a monitorização da cadeia de frio e as TI. O contrato de TI diz que o prestador comunica incidentes.",
+          "Segundo fator: para o email e o acesso remoto, todos precisam de um código de uma aplicação.",
+          "Manter a atividade em funcionamento: as receitas e os planos de produção têm cópia de segurança diária. Uma vez por ano, as TI testam a reposição."
+        ]
+      },
+      "walk": {
+        "heading": "Como o percurso guiado faz isto",
+        "lead": "No percurso guiado em nisd2.eu, cada uma das dez áreas torna-se pelo menos um passo que preenche.",
+        "points": [
+          "Ao lado de cada passo está a lei, explicada em palavras simples.",
+          "Quando é necessário um documento, ele resulta das suas respostas: política de segurança, plano de resposta a incidentes, plano de continuidade do negócio, política de criptografia, política de pessoal, acessos e ativos, e regras para aquisição, manutenção e vulnerabilidades.",
+          "Quando basta uma lista, mantém uma lista: as suas TI, os seus fornecedores, as suas cópias de segurança, as suas formações.",
+          "Se decidir não aplicar um ponto, escreve porquê. A direção assina também essa decisão.",
+          "No fim, a direção aprova os documentos na aplicação, com sessão iniciada na sua própria conta. O nome e a data passam a constar de cada documento."
+        ],
+        "seeItAlt": "Documentos do percurso guiado, aprovados pela direção, cada um com nome e data",
+        "next": "Começar pela primeira área no percurso guiado"
+      },
+      "sources": {
+        "heading": "Fontes",
+        "items": [
+          "Diretiva (UE) 2022/2555 (NIS 2), Art. 3, 20, 21 e 23 (eur-lex.europa.eu)",
+          "Lei do BSI (BSIG), §§ 30, 31, 32, 33, 38, 39, 61 e 62 (gesetze-im-internet.de/bsig_2025)",
+          "BSIG, Anexo 2, n.º 4 produção, transformação e distribuição de alimentos",
+          "Regulamento de Execução (UE) 2024/2690, Art. 3 e ponto 5.1.6 do Anexo",
+          "Proposta de lei do Governo federal alemão para a NIS2UmsuCG, Bundestag, Drucksache 21/1501, exposição de motivos do § 30"
+        ]
       }
     },
     "ceoLiability": {
@@ -2035,135 +2121,127 @@
     },
     "smeGuide": {
       "meta": {
-        "title": "NIS2 para o Mid-Market - Guia Prático",
-        "description": "Guia de implementação da NIS2 para o Mittelstand alemão (50-250 trabalhadores). Roteiro de 12 semanas, atribuição de papéis e conselhos práticos sobre a BSIG."
+        "title": "Implementar a NIS2: os passos para uma empresa média",
+        "description": "Implementar a NIS2 numa empresa média: as quatro obrigações, a ordem e quem faz o quê. Com a lei, um exemplo e o próximo passo."
       },
-      "badge": "Mittelstand / PME",
-      "title": "Implementação da NIS2 para Empresas do Mid-Market",
-      "subtitle": "Um roteiro prático de implementação em 12 semanas para empresas alemãs com 50 a 250 trabalhadores, sem necessidade de equipa de segurança.",
-      "overview": {
-        "heading": "Está Abrangido. E Agora?",
-        "p1": "Estima-se que 29 500 empresas na Alemanha estejam dentro do âmbito da NIS2. Se tem mais de 50 trabalhadores e opera num setor abrangido, gestão de resíduos, produção alimentar, indústria transformadora, energia, transportes, saúde, infraestrutura digital, é quase certo que é uma delas. A BSIG entrou em vigor a 6 de dezembro de 2025 e o prazo de registo no BSI foi 6 de março de 2026.",
-        "p2": "Eis o que a maioria dos consultores não lhe dirá: para uma empresa do mid-market com TI básicas, a conformidade NIS2 é gerível. Não é um projeto de 6 meses e seis dígitos. A maioria dos 49 requisitos da BSIG é documentação que se escreve uma só vez: políticas, avaliações de risco, procedimentos. Apenas um punhado exige processos operacionais contínuos. A lei exige medidas adequadas e proporcionais ao seu risco, não a infraestrutura de segurança de uma Fortune 500.",
-        "p3": "Este guia dá-lhe o plano prático: um roteiro de 12 semanas, os papéis de que precisa (todos a tempo parcial, todos pessoal existente), os erros comuns que tropeçam empresas da sua dimensão e a ordem de prioridade para abordar as 10 medidas obrigatórias ao abrigo do §30 BSIG. Sem teoria, sem alarmismo, apenas os passos."
-      },
-      "audience": {
-        "heading": "A Quem Se Destina Este Guia",
-        "description": "Este guia foi escrito especificamente para empresas alemãs do mid-market que encontram a NIS2 pela primeira vez.",
+      "badge": "Empresas médias",
+      "title": "Implementar a NIS2: como avançar numa empresa média",
+      "subtitle": "Regista a sua empresa no BSI, aplica medidas de segurança em dez áreas e notifica incidentes significativos. A direção supervisiona tudo isto. O rigor de cada medida depende da dimensão e do risco da sua empresa.",
+      "duties": {
+        "heading": "As quatro obrigações",
+        "lead": "A NIS 2 é uma diretiva da UE. Na Alemanha, a Lei do BSI (BSIG) transpõe-na para o direito nacional. Uma empresa a que se aplica chama-se aí \"entidade\". Cada entidade tem quatro obrigações.",
         "items": {
-          "size": "Empresas com 50 a 250 trabalhadores em setores NIS2",
-          "limitedIt": "Pessoal de TI limitado, talvez 2 a 5 pessoas, não uma equipa de segurança",
-          "noCompliance": "Sem departamento de conformidade dedicado nem experiência em GRC",
-          "firstTime": "Primeira vez a lidar com a NIS2, a BSIG ou o registo no BSI"
-        }
-      },
-      "roadmap": {
-        "heading": "Roteiro de Implementação",
-        "phases": {
-          "foundation": {
-            "title": "Fundação",
-            "weeks": "Semanas 1-2",
-            "description": "Estabelecer a base organizacional: registar-se no BSI, atribuir responsabilidades e informar a gestão sobre a sua responsabilidade pessoal ao abrigo do §38 BSIG. Esta fase trata de envolver as pessoas certas e de definir o âmbito.",
-            "actions": [
-              "Registo no BSI através do Mein Unternehmenskonto + portal do BSI",
-              "Nomear o responsável de conformidade (papel a tempo parcial, não uma nova contratação)",
-              "Informação à gestão sobre os deveres do §38 BSIG e a responsabilidade pessoal",
-              "Configurar a plataforma de conformidade e convidar os membros da equipa",
-              "Âmbito inicial: identificar qual a categoria de entidade aplicável (essencial ou importante)"
-            ]
+          "register": {
+            "title": "Registar-se",
+            "text": "Regista a sua empresa uma vez no BSI, através do portal do BSI.",
+            "law": "Art. 3(4) NIS 2 · § 33 BSIG",
+            "who": "Quem gere a conta da empresa no ELSTER"
           },
-          "risk": {
-            "title": "Avaliação de Risco",
-            "weeks": "Semanas 3-4",
-            "description": "Construir o inventário de ativos e realizar a avaliação de risco inicial. Esta é a base sobre a qual tudo o resto assenta, medida 1 do §30(1) BSIG. Use a metodologia de análise de risco BSI-200-3: identificar ativos, identificar ameaças, avaliar probabilidade e impacto, decidir o tratamento.",
-            "actions": [
-              "Construir o inventário de ativos, agrupar ativos idênticos (por exemplo, '45 portáteis' = 1 entrada)",
-              "Identificar e categorizar fornecedores com acesso aos seus sistemas",
-              "Realizar a avaliação de risco inicial: probabilidade × impacto para cada ativo",
-              "Documentar as decisões de tratamento de risco: aceitar, mitigar, transferir ou evitar",
-              "Mapear os riscos às medidas da BSIG, quais os controlos que respondem a quais riscos"
-            ]
+          "measures": {
+            "title": "Aplicar medidas e pô-las por escrito",
+            "text": "Protege as suas TI em dez áreas, do plano de incidentes ao início de sessão com um segundo fator. Põe por escrito o que decide.",
+            "law": "Art. 21 NIS 2 · § 30 BSIG",
+            "who": "Quem é responsável pelas TI, internamente ou como prestador de serviços"
           },
-          "controls": {
-            "title": "Controlos e Documentação",
-            "weeks": "Semanas 5-8",
-            "description": "Documentar os seus controlos e procedimentos de segurança. É a maior fase em volume, mas a maioria dos requisitos são políticas que se escrevem uma só vez. Concentre-se em documentar o que já faz (a maioria das empresas tem processos informais) e em colmatar lacunas genuínas.",
-            "actions": [
-              "Escrever ou adotar políticas de segurança (segurança da informação, controlo de acessos, resposta a incidentes)",
-              "Documentar a utilização de criptografia e a abordagem de gestão de chaves",
-              "Configurar o processo de resposta a incidentes com a cascata de 24h/72h/1 mês",
-              "Rever o controlo de acessos: privilégio mínimo, procedimentos de admissão/saída",
-              "Documentar os procedimentos de continuidade de negócio e de cópias de segurança",
-              "Implementar ou documentar MFA para sistemas críticos"
-            ]
+          "report": {
+            "title": "Notificar incidentes significativos",
+            "text": "Notifica ao BSI um incidente de segurança significativo, a primeira notificação no prazo de 24 horas. Um incidente é significativo, por exemplo, quando perturba gravemente a sua atividade.",
+            "law": "Art. 23 NIS 2 · § 32 BSIG",
+            "who": "Quem decide numa emergência"
           },
-          "evidence": {
-            "title": "Provas e Preparação para Auditoria",
-            "weeks": "Semanas 9-12",
-            "description": "Fechar o ciclo: aprovações da gestão, conclusão da formação, recolha de provas e uma primeira verificação de eficácia. Esta fase transforma as suas medidas documentadas em provas de conformidade auditáveis.",
-            "actions": [
-              "A gestão aprova formalmente todas as medidas de cibersegurança (dever do §38)",
-              "Concluir a formação obrigatória de cibersegurança da gestão",
-              "Carregar documentos de prova: capturas de ecrã, configurações, aprovações de políticas",
-              "Realizar a primeira avaliação de eficácia, os controlos estão de facto a funcionar?",
-              "Exportar o relatório de conformidade para revisão interna"
-            ]
+          "management": {
+            "title": "A direção lidera",
+            "text": "A direção aplica as medidas e supervisiona-as. Além disso, participa regularmente em formação. Estas obrigações cabem à própria direção.",
+            "law": "Art. 20 NIS 2 · § 38 BSIG",
+            "who": "A direção, pessoalmente"
           }
         }
       },
-      "roles": {
-        "heading": "Papéis de Que Precisa",
-        "description": "Não precisa de contratar ninguém. Estas são responsabilidades a tempo parcial atribuídas a pessoal existente.",
-        "items": {
-          "complianceLead": {
-            "title": "Responsável de Conformidade (4-8 horas/semana)",
-            "description": "Conduz o processo, preenche os formulários de requisitos, coordena-se com as TI e a gestão. Normalmente o gestor de TI, o gestor da qualidade ou o responsável de operações."
-          },
-          "itContact": {
-            "title": "Contacto de TI (2-4 horas/semana)",
-            "description": "Fornece os dados técnicos: detalhes dos ativos, arquitetura de rede, estado da cifragem, controlos de acesso. O seu administrador ou gestor de TI."
-          },
-          "managementSponsor": {
-            "title": "Patrocinador da Gestão (1-2 horas/semana)",
-            "description": "Revê e aprova as medidas, conclui a formação, demonstra supervisão. Exigido pelo §38 BSIG, não pode ser delegado."
-          },
-          "externalAuditor": {
-            "title": "Auditor Externo (opcional)",
-            "description": "Para operadores KRITIS: exigido de 3 em 3 anos. Para entidades essenciais e importantes: opcional, mas recomendado no primeiro ciclo de conformidade para validar o seu trabalho."
-          }
-        }
+      "size": {
+        "heading": "O que isto significa com 50 a 150 trabalhadores",
+        "items": [
+          "Não precisa de uma equipa de segurança própria. A lei não a exige.",
+          "Não precisa de um certificado como a ISO 27001. A lei não o exige, mas pode ajudar como prova.",
+          "As medidas têm de se adequar à sua empresa. O critério é a sua exposição ao risco, a sua dimensão, os custos e a probabilidade e gravidade dos incidentes (§ 30(1), segunda frase, BSIG).",
+          "Põe por escrito o que aplica (§ 30(1), terceira frase, BSIG). As medidas também têm de ser eficazes.",
+          "O trabalho é feito por pessoas que já tem: a direção, quem é responsável pelas TI e os departamentos que sabem do que a atividade precisa."
+        ]
+      },
+      "order": {
+        "heading": "Por que ordem",
+        "lead": "Cada passo assenta no anterior.",
+        "steps": [
+          "Verificar se a NIS2 se aplica a si. Isso depende do seu setor, do número de trabalhadores e do volume de negócios (§ 28 BSIG).",
+          "Registar-se no BSI.",
+          "Dar formação à direção.",
+          "Escrever que TI a sua empresa utiliza e quem trabalha para si. Depois, avaliar os riscos.",
+          "Decidir as medidas e pô-las em documentos: uma política de segurança, planos de emergência e regras para acessos, atualizações e cifragem.",
+          "A direção lê os documentos e aprova-os.",
+          "Depois disso, verificar regularmente se tudo continua adequado."
+        ],
+        "roadmapLink": "A versão curta para a direção"
+      },
+      "example": {
+        "heading": "Um exemplo",
+        "lead": "Uma empresa fictícia: um fabricante de sistemas transportadores com 90 trabalhadores. Um funcionário trata das TI, em conjunto com um prestador de serviços externo.",
+        "steps": [
+          "A verificação mostra: o fabrico de máquinas consta do Anexo 2 da BSIG. Com 90 trabalhadores, a empresa conta como entidade importante.",
+          "O diretor-geral pede um certificado de organização ao ELSTER. Quando chega a carta com o código de ativação, regista a empresa no portal do BSI.",
+          "Participa numa formação para a direção.",
+          "O funcionário de TI escreve aquilo de que a empresa depende: ERP, email, software de projeto, controlo da produção, cópias de segurança. Depois, os fornecedores, como o prestador de serviços de TI e o fornecedor do ERP.",
+          "Em conjunto, avaliam para cada entrada o que pode acontecer. Uma falha do controlo da produção é o que pesa mais.",
+          "Daí resultam os documentos: a política de segurança, um plano de resposta a incidentes, um plano de continuidade do negócio e regras para acessos, atualizações e cifragem.",
+          "O diretor-geral lê-os e aprova-os. O plano de resposta a incidentes diz quem decide durante um incidente."
+        ]
       },
       "mistakes": {
-        "heading": "Erros Comuns",
-        "description": "O que vemos as empresas fazerem mal, e como evitá-lo.",
+        "heading": "Erros comuns",
         "items": {
           "waiting": {
-            "title": "Esperar pela 'orientação final'",
-            "description": "A lei está em vigor desde dezembro de 2025. O CIR define as medidas técnicas. Não vem aí mais nenhuma orientação que altere o que precisa de fazer. Comece já."
+            "title": "Esperar por orientações definitivas",
+            "description": "A BSIG aplica-se desde 6 de dezembro de 2025. A obrigação de aplicar medidas nos termos do § 30 BSIG também se aplica desde então."
           },
           "overEngineering": {
-            "title": "Sobredimensionar a solução",
-            "description": "Uma empresa de gestão de resíduos com 100 pessoas não precisa de um SOC nem de um SIEM. Ajuste os controlos ao seu perfil de risco real. A BSIG exige medidas 'adequadas, proporcionadas e eficazes', não medidas máximas."
+            "title": "Planear em excesso",
+            "description": "A lei exige medidas proporcionadas, não as maiores possíveis. Os sistemas de deteção de ataques, por exemplo, só são obrigatórios para operadores de instalações críticas (§ 31(2) BSIG)."
           },
           "noManagement": {
-            "title": "Tratá-lo como um projeto de TI",
-            "description": "O §38 BSIG torna isto uma responsabilidade da gestão. Se o gerente não estiver envolvido, já está em incumprimento. Agende a informação à gestão na semana 1."
+            "title": "Deixar a NIS2 só às TI",
+            "description": "A direção tem de aplicar as medidas e supervisioná-las (§ 38(1) BSIG). Envolva-a desde o início."
           },
           "ignoreSupplyChain": {
-            "title": "Ignorar a segurança da cadeia de abastecimento",
-            "description": "A NIS2 exige explicitamente avaliar a cibersegurança dos seus fornecedores. Isto apanha muitas empresas desprevenidas. Comece cedo a documentar as relações com fornecedores."
+            "title": "Esquecer os fornecedores",
+            "description": "A segurança da cadeia de abastecimento é uma das dez áreas (§ 30(2) n.º 4 BSIG). Abrange todos os fornecedores e prestadores de serviços diretos, não apenas os de TI."
           },
           "paperOnly": {
-            "title": "Conformidade no papel sem medidas reais",
-            "description": "Escrever políticas que ninguém lê não conta. O BSI pode exigir provas de que as medidas estão de facto implementadas e são eficazes. Construa processos reais, não apenas documentos."
+            "title": "Só papel",
+            "description": "A lei exige medidas eficazes (§ 30(1) BSIG). Um documento que ninguém conhece não protege nada."
           }
         }
       },
-      "ctaCard": {
-        "heading": "Comece a Sua Implementação Hoje",
-        "description": "A plataforma conduz através dos 49 requisitos da BSIG pela ordem em que devem ser implementados, com formulários estruturados, carregamentos de provas e fluxos de aprovação da gestão, exatamente o que uma empresa do mid-market precisa para ficar conforme sem contratar um consultor."
+      "walk": {
+        "heading": "Como o percurso guiado faz isto",
+        "lead": "O percurso guiado em nisd2.eu conduz a implementação por esta ordem, um passo de cada vez.",
+        "points": [
+          "20 passos. Os operadores de instalações críticas têm mais um.",
+          "Ao lado de cada passo está a lei, explicada em palavras simples.",
+          "As suas respostas dão origem a seis documentos, entre eles a política de segurança e os dois planos de emergência.",
+          "O que ainda não consegue fazer, põe de lado e continua.",
+          "Se decidir não aplicar um ponto, escreve porquê. A direção assina também essa decisão.",
+          "No fim, a direção aprova os documentos na aplicação, com sessão iniciada na sua própria conta. O nome e a data passam a constar de cada documento."
+        ],
+        "seeItAlt": "O caminho pelo percurso guiado: os passos e quais estão concluídos",
+        "next": "Começar pelo primeiro passo"
       },
-      "cta": "Inicie o Seu Processo de Conformidade NIS2"
+      "sources": {
+        "heading": "Fontes",
+        "items": [
+          "Diretiva (UE) 2022/2555 (NIS 2), Art. 3, 20, 21 e 23 (eur-lex.europa.eu)",
+          "Lei do BSI (BSIG) de 2 de dezembro de 2025, §§ 28, 30, 31, 32, 33 e 38, em vigor desde 6 de dezembro de 2025 (gesetze-im-internet.de/bsig_2025)",
+          "BSIG, Anexo 2, n.º 5.4 fabrico de máquinas (gesetze-im-internet.de/bsig_2025/anlage_2.html)",
+          "BSI, Mein Unternehmenskonto e registo no portal do BSI (bsi.bund.de/dok/muk)"
+        ]
+      }
     },
     "checklist": {
       "meta": {
@@ -3629,174 +3707,169 @@
     },
     "incidentReporting": {
       "meta": {
-        "title": "Comunicação de incidentes NIS2: manual de 24h / 72h / 1 mês",
-        "description": "Comunicação de incidentes NIS2 ao abrigo do §32 BSIG: alerta precoce em 24 horas, notificação de incidente em 72 horas, relatório final em 1 mês. Critérios, portal do BSI, coimas."
+        "title": "Obrigação de notificação NIS2: prazos, conteúdo, canal",
+        "description": "Notificação NIS2 (§ 32 BSIG): alerta precoce em 24 horas, notificação em 72 horas, relatório final após um mês. O que é significativo e como notificar."
       },
-      "title": "Manual de comunicação de incidentes NIS2",
-      "subtitle": "O §32 BSIG transpõe o artigo 23.o, n.o 4, da NIS 2: três relatórios obrigatórios com prazos fixos (24h, 72h, 1 mês) mais dois relatórios condicionais (a pedido, se o incidente ainda estiver em curso). Falhar um prazo é uma infração separada, independente do próprio incidente.",
-      "overview": {
-        "heading": "Comunicação de incidentes ao abrigo da NIS2",
-        "p1": "O §32 BSIG aplica o artigo 23.o da Diretiva NIS2. Estabelece um regime obrigatório de comunicação de incidentes de segurança significativos. Todas as entidades classificadas como entidade essencial ou entidade importante têm de comunicar ao BSI quando um incidente cumpre os critérios de significância. A cascata tem três relatórios obrigatórios com prazos fixos e dois relatórios condicionais, desencadeados a pedido ou por um incidente em curso. Um prestador de serviços pode ser autorizado a apresentar os relatórios em nome da entidade; a responsabilidade pelo incidente e pelo conteúdo do relatório continua a ser da entidade.",
-        "p2": "Os prazos de comunicação são rigorosos e começam quando a entidade toma conhecimento do incidente, não quando a investigação está concluída. Esta é uma distinção crítica: o alerta precoce de 24 horas tem de ser apresentado com base no conhecimento inicial, mesmo que o âmbito e o impacto totais sejam desconhecidos. Esperar por informação completa antes de comunicar é, em si, uma infração."
-      },
-      "timeline": {
-        "heading": "Cascata de comunicação nos termos do artigo 23.o, n.o 4, da NIS 2",
-        "description": "Três fases obrigatórias com prazos fixos a partir do momento do conhecimento, mais até dois relatórios condicionais (intermédio a pedido da autoridade, relatório de progresso se o incidente ainda estiver em curso no dia em que o relatório final é devido).",
-        "items": {
-          "early": {
-            "title": "Alerta precoce (frühe Erstmeldung)",
-            "deadline": "Dentro de 24 horas",
-            "description": "A notificação inicial ao BSI de que foi detetado um incidente potencialmente significativo. Tem de ser apresentada dentro de 24 horas após o conhecimento do incidente. O objetivo é permitir ao BSI avaliar o impacto intersetorial e emitir alertas a outras entidades, se necessário.",
-            "contents": [
-              "Confirmação de que ocorreu ou se suspeita de um incidente significativo",
-              "Se se suspeita que o incidente foi causado por atos ilícitos ou maliciosos",
-              "Se o incidente pode ter impacto transfronteiriço",
-              "Nome da entidade, setor e dados de contacto para seguimento"
-            ]
-          },
-          "update": {
-            "title": "Notificação de incidente (Meldung)",
-            "deadline": "Dentro de 72 horas",
-            "description": "Uma notificação mais detalhada que atualiza o alerta precoce com informação adicional recolhida durante a resposta inicial. Tem de ser apresentada dentro de 72 horas após o conhecimento. Atualiza o BSI sobre a natureza, gravidade e avaliação de impacto inicial do incidente.",
-            "contents": [
-              "Avaliação atualizada da gravidade e do impacto do incidente",
-              "Indicadores de comprometimento (IoC) quando disponíveis",
-              "Avaliação inicial da natureza e da causa do incidente",
-              "Medidas tomadas ou planeadas para mitigar o incidente",
-              "Avaliação de impacto transfronteiriço, se aplicável"
-            ]
-          },
-          "intermediate": {
-            "title": "Relatório intermédio (Zwischenmeldung)",
-            "deadline": "A pedido",
-            "description": "Apresentado a pedido do BSI entre a notificação de 72 horas e o relatório final. Atualização do estado atual do tratamento do incidente. Não é automático; é desencadeado pela autoridade.",
-            "contents": [
-              "Estado atual da contenção e da remediação",
-              "Novas constatações sobre causa, âmbito ou impacto",
-              "Ajustes às contramedidas",
-              "Avaliação de danos atualizada"
-            ]
-          },
-          "final": {
-            "title": "Relatório final (Abschlussmeldung)",
-            "deadline": "1 mês após a notificação de 72h",
-            "description": "Um relatório final abrangente apresentado no prazo de um mês após a notificação de incidente de 72 horas. Documentação completa do incidente e da resposta.",
-            "contents": [
-              "Descrição detalhada do incidente, incluindo gravidade e impacto",
-              "Análise da causa raiz. O tipo de ameaça ou vulnerabilidade que causou o incidente",
-              "Medidas aplicadas e em curso para mitigar o incidente e os seus efeitos",
-              "Impacto transfronteiriço, se aplicável"
-            ]
-          },
-          "progress": {
-            "title": "Relatório de progresso (Fortschrittsmeldung)",
-            "deadline": "Se o incidente ainda estiver em curso",
-            "description": "Se o incidente ainda estiver em curso na data em que o relatório final é devido, envia um relatório de progresso em seu lugar. O relatório final segue-se quando o incidente estiver totalmente tratado (§ 32 Abs. 2 BSIG); a diretiva fala em um mês após o tratamento (artigo 23.o, n.o 4, alínea e), da Diretiva NIS 2).",
-            "contents": [
-              "Estado atual, dado que o incidente ainda está em curso",
-              "Medidas de contenção implementadas até ao momento",
-              "Duração prevista até à resolução do incidente, quando previsível",
-              "Plano para o eventual relatório final após a resolução do incidente"
-            ]
-          }
-        }
-      },
+      "title": "Obrigação de notificação NIS2: quando e como notificar incidentes ao BSI",
+      "subtitle": "Notifica ao BSI um incidente de segurança significativo em três fases: um alerta precoce no prazo de 24 horas, uma notificação no prazo de 72 horas e um relatório final um mês depois (§ 32 BSIG). O prazo conta a partir do momento em que toma conhecimento dele. A notificação faz-se no portal do BSI.",
       "criteria": {
-        "heading": "O que torna um incidente «significativo»",
-        "description": "Nem todos os eventos de segurança desencadeiam a obrigação do § 32 BSIG. Um incidente é significativo se cumprir um dos dois testes do § 2 Nr. 11 BSIG (artigo 23.o, n.o 3, da Diretiva NIS 2): perturbação grave dos serviços ou perda financeira para a entidade, ou danos materiais ou imateriais consideráveis para terceiros. Para os prestadores digitais abrangidos pelo CIR, os artigos 3.o a 14.o do CIR 2024/2690 fixam os limiares. Para todas as outras entidades, o BSI indica que se pode presumir que um incidente é significativo se cumprir um dos critérios do artigo 3.o, n.o 1, do CIR, e sempre que a prestação de um serviço crítico tenha falhado ou esteja comprometida.",
+        "heading": "O que é um incidente de segurança significativo",
+        "intro": "Um incidente de segurança é um evento que compromete a disponibilidade, a integridade ou a confidencialidade dos seus dados ou serviços (§ 2 n.º 40 BSIG). Só tem de notificar os incidentes significativos.",
+        "description": "Um incidente é significativo se causou, ou pode causar, uma de duas coisas (§ 2 n.º 11 BSIG, Art. 23(3) NIS 2): uma perturbação operacional grave ou perdas financeiras para a sua empresa, ou danos consideráveis a terceiros. Para certos prestadores digitais, o Regulamento de Execução (UE) 2024/2690 fixa limiares exatos. Para todos os outros, o BSI diz: um incidente é significativo se cumprir um dos critérios do Art. 3(1) desse regulamento, e sempre que um serviço crítico falhe ou fique afetado.",
         "items": {
           "disruption": {
-            "title": "Perturbação do serviço",
-            "description": "O incidente causou ou é suscetível de causar uma perturbação operacional grave dos serviços prestados pela entidade (§ 2 Nr. 11 a BSIG)."
+            "title": "Perturbação operacional grave",
+            "description": "O incidente perturba gravemente a prestação dos seus serviços, ou pode fazê-lo."
           },
           "financial": {
-            "title": "Perda financeira",
-            "description": "O incidente causou ou é suscetível de causar perda financeira à entidade. Para os prestadores digitais abrangidos pelo CIR, o artigo 3.o, n.o 1, alínea a), do CIR fixa o limiar numa perda financeira direta superior a 500 000 EUR ou a 5 % do volume de negócios do ano anterior, consoante o que for inferior; o considerando 36 conta, por exemplo, os custos de pessoal de recuperação, as penalidades contratuais, as indemnizações a clientes e a receita perdida."
+            "title": "Perdas financeiras",
+            "description": "O incidente causa perdas financeiras à sua empresa, ou pode causá-las. Para os prestadores digitais abrangidos pelo regulamento de execução, o limiar é uma perda direta superior a 500 000 EUR ou a 5 % do volume de negócios do ano anterior, consoante o valor mais baixo (Art. 3(1)(a))."
           },
           "spread": {
-            "title": "Impacto noutras entidades",
-            "description": "O incidente causou ou poderia causar danos consideráveis a outras pessoas singulares ou coletivas. Inclui incidentes que se propagam pelas cadeias de abastecimento, afetam infraestruturas partilhadas ou expõem dados pertencentes a terceiros."
+            "title": "Danos a terceiros",
+            "description": "O incidente causa a outras pessoas ou empresas danos materiais ou imateriais consideráveis, ou pode causá-los."
           },
           "data": {
             "title": "Violação de dados",
-            "description": "Uma violação de dados só é um incidente significativo se cumprir um dos dois testes, por exemplo porque causa danos consideráveis a terceiros. A comunicação ao abrigo do § 32 BSIG é separada e adicional à notificação de violação de dados nos termos dos artigos 33.o e 34.o do RGPD; ambas podem aplicar-se ao mesmo incidente."
+            "description": "Uma violação de dados só é significativa se cumprir um dos dois critérios, por exemplo porque causa danos consideráveis a terceiros. A notificação segundo o § 32 BSIG existe a par da notificação segundo os Art. 33 e 34 do RGPD. Ambas podem aplicar-se ao mesmo incidente."
           },
           "duration": {
             "title": "Duração",
-            "description": "A duração não é um critério autónomo no § 2 Nr. 11 BSIG nem no artigo 23.o, n.o 3, da Diretiva NIS 2. Para os prestadores digitais abrangidos pelo CIR, os artigos 5.o a 14.o fixam limites de tempo por serviço (por exemplo, um serviço de computação em nuvem totalmente indisponível durante mais de 30 minutos, artigo 7.o, alínea a), do CIR). Quando a prestação de um serviço crítico tenha falhado ou esteja comprometida, o BSI indica que o incidente é sempre significativo."
+            "description": "A duração não é um critério autónomo. Para os prestadores digitais abrangidos pelo regulamento de execução, aplicam-se limites de tempo por serviço, por exemplo um serviço de nuvem totalmente indisponível durante mais de 30 minutos (Art. 7(a))."
+          }
+        },
+        "doubt": "Em caso de dúvida, notifique cedo. O BSI pede expressamente notificações precoces, mesmo quando ainda há muito por esclarecer. As correções seguem nas notificações posteriores."
+      },
+      "timeline": {
+        "heading": "Os prazos",
+        "description": "Três notificações com prazos fixos, mais duas que só surgem em certos casos. Os prazos são máximos: notifica sem demora injustificada.",
+        "awareness": "O prazo começa com o conhecimento. Segundo o BSI, é o momento em que um trabalhador da sua empresa toma conhecimento do incidente significativo durante o horário de trabalho.",
+        "items": {
+          "early": {
+            "title": "Alerta precoce",
+            "deadline": "24 horas",
+            "description": "Um primeiro aviso ao BSI, no máximo 24 horas depois de ter tomado conhecimento do incidente.",
+            "contents": [
+              "Se há suspeita de que o incidente resulta de um ato ilícito ou malicioso",
+              "Se pode afetar outros países",
+              "Uma primeira classificação do incidente",
+              "Quem notifica, e como o BSI pode contactar essa pessoa"
+            ]
+          },
+          "update": {
+            "title": "Notificação de incidente",
+            "deadline": "72 horas",
+            "description": "No máximo 72 horas depois de ter tomado conhecimento do incidente. Confirma ou atualiza o alerta precoce.",
+            "contents": [
+              "Uma primeira avaliação da gravidade e do impacto",
+              "Sinais dos atacantes (indicadores de comprometimento), quando existam",
+              "O que sabe sobre a causa",
+              "O que fez e o que ainda pretende fazer"
+            ]
+          },
+          "intermediate": {
+            "title": "Relatório intercalar",
+            "deadline": "A pedido",
+            "description": "Só se o BSI o pedir: o ponto da situação.",
+            "contents": [
+              "Estado da contenção e da recuperação",
+              "Novos dados sobre a causa, o alcance ou o impacto"
+            ]
+          },
+          "final": {
+            "title": "Relatório final",
+            "deadline": "1 mês após a notificação",
+            "description": "No máximo um mês após a notificação do prazo de 72 horas.",
+            "contents": [
+              "Uma descrição pormenorizada do incidente, com gravidade e impacto",
+              "O tipo de ameaça ou a causa provável",
+              "O que fez e o que ainda está a fazer",
+              "Se há outros países afetados"
+            ]
+          },
+          "progress": {
+            "title": "Relatório de progresso",
+            "deadline": "Se o incidente continuar",
+            "description": "Se o incidente ainda estiver em curso após um mês, apresenta um relatório de progresso em vez do relatório final. O relatório final segue-se quando o incidente estiver resolvido (§ 32(2) BSIG).",
+            "contents": [
+              "O ponto da situação",
+              "O que já conseguiu conter"
+            ]
           }
         }
       },
       "fields": {
-        "heading": "Campos de comunicação obrigatórios",
-        "description": "O portal de comunicação do BSI exige informação estruturada. Ter estes campos preparados com antecedência reduz significativamente o risco de falhar o prazo de 24 horas.",
-        "items": {
-          "entity": {
-            "title": "Identificação da entidade",
-            "description": "Quem comunica e como contactá-lo, e que setores, indústrias e tipos de entidade são afetados (e, no caso dos operadores, que instalações críticas). Mantenha esta informação no seu plano de resposta a incidentes, para não ter de a procurar durante uma crise."
-          },
-          "nature": {
-            "title": "Natureza e classificação do incidente",
-            "description": "Tipo de incidente (ransomware, DDoS, violação de dados, ameaça interna, comprometimento da cadeia de abastecimento, etc.), sistemas e serviços afetados, cronologia dos eventos desde a deteção até ao estado atual, e classificação de gravidade inicial."
-          },
-          "impact": {
-            "title": "Avaliação de impacto",
-            "description": "Número de utilizadores ou clientes afetados, serviços perturbados, impacto financeiro estimado, categorias de dados afetadas (se as houver) e duração da perturbação. Para o alerta precoce, são aceitáveis estimativas. A precisão vem na notificação de 72 horas e no relatório final."
-          },
-          "crossBorder": {
-            "title": "Impacto transfronteiriço",
-            "description": "Se o incidente afeta ou poderia afetar entidades ou cidadãos noutros Estados-Membros da UE. Isto desencadeia a partilha de informação entre os CSIRT nacionais e pode envolver a coordenação da ENISA. Tem de ser avaliado tanto no alerta precoce como nas notificações subsequentes."
-          },
-          "measures": {
-            "title": "Medidas de resposta",
-            "description": "Ações tomadas para conter, erradicar e recuperar do incidente. Inclui medidas técnicas (isolamento, aplicação de correções, rotação de credenciais), medidas de comunicação (notificação de clientes, informação das partes interessadas) e medidas organizacionais (ativação da equipa de crise, recurso a apoio externo)."
-          }
-        }
+        "heading": "O que incluir no alerta precoce",
+        "description": "O BSI enumera estes dados para o alerta precoce. O formulário no portal pede-os.",
+        "list": [
+          "Classificação do incidente, motivo da notificação e situação",
+          "Uma descrição provisória: perturbação, impacto, duração prevista e causa suspeita",
+          "Quando ocorreu o incidente e quando deu por ele",
+          "Setores e tipos de entidade afetados",
+          "Se há suspeita de ataque e se outros países podem ser afetados",
+          "O que fez até agora e se o incidente está sob controlo",
+          "Como o BSI pode contactar a pessoa que notifica"
+        ],
+        "note": "A regra do BSI: rapidez antes de exaustividade. Uma notificação submetida não pode ser retirada. Corrige-a com uma notificação de seguimento."
       },
       "where": {
-        "heading": "Onde e como comunicar",
-        "description": "As comunicações são dirigidas ao BSI, normalmente através do portal do BSI.",
-        "p1": "As comunicações ao abrigo do § 32 BSIG são dirigidas ao BSI, normalmente através do portal do BSI. Uma entidade que tenha um incidente significativo antes de se ter registado comunica através de um formulário em linha no portal de comunicação e informação do BSI (MIP). Os operadores de instalações críticas e as autoridades federais utilizam, por enquanto, os seus canais de comunicação anteriores.",
-        "p2": "O portal de comunicação está disponível no sítio do BSI, na secção NIS2. Para comunicar no portal do BSI, inicia sessão com o acesso obtido no seu registo (§ 33 BSIG). Se ocorrer um incidente significativo antes de se ter registado, continua a ter de o comunicar, através do formulário em linha no MIP."
+        "heading": "Onde notificar, e quem notifica",
+        "description": "Notifica ao BSI, normalmente através do portal do BSI.",
+        "p1": "As notificações segundo o § 32 BSIG vão para o BSI, normalmente através do portal do BSI. Se a sua empresa tiver um incidente significativo antes de se registar, notifica através de um formulário no portal de notificação e informação do BSI (MIP). Os operadores de instalações críticas e as autoridades federais usam, por agora, os seus canais de notificação anteriores.",
+        "p2": "Qualquer trabalhador com acesso ao portal pode notificar. Cada pessoa precisa do seu próprio certificado de organização do ELSTER e tem de estar associada à sua entidade no portal. Também pode pedir a um prestador de serviços que notifique por si. A responsabilidade pela notificação continua a ser sua.",
+        "p3": "Os operadores de instalações críticas indicam também o tipo de instalação, o serviço crítico e o impacto sobre ele (§ 32(3) BSIG). Se estiverem em causa dados pessoais, pode ser necessária também uma notificação à autoridade de proteção de dados."
       },
-      "penalties": {
-        "heading": "Sanções por falhas de comunicação",
-        "description": "A não comunicação é penalizada independentemente do próprio incidente. Uma empresa que sofre um incidente e o trata bem tecnicamente mas não o comunica enfrenta uma ação de execução separada.",
-        "items": {
-          "essential": {
-            "amount": "Até 10 000 000 EUR ou 2 % do volume de negócios",
-            "label": "Entidades essenciais",
-            "detail": "O valor mais elevado entre 10 milhões de EUR ou 2 % do volume de negócios anual mundial do exercício anterior (§ 65 Abs. 5 e 6 BSIG). São entidades essenciais, entre outras, as grandes empresas dos setores do anexo 1 do BSIG (energia, transportes, finanças, saúde, água, infraestrutura digital, espaço) e, qualquer que seja a sua dimensão, os operadores de instalações críticas, os prestadores qualificados de serviços de confiança, os registos de TLD e os prestadores de DNS (§ 28 Abs. 1 BSIG)."
-          },
-          "important": {
-            "amount": "Até 7 000 000 EUR ou 1,4 % do volume de negócios",
-            "label": "Entidades importantes",
-            "detail": "O valor mais elevado entre 7 milhões de EUR ou 1,4 % do volume de negócios anual mundial (§ 65 Abs. 5 e 7 BSIG). São entidades importantes as médias empresas dos setores do anexo 1 e as médias ou grandes empresas dos setores do anexo 2 (serviços postais e de correio expresso, gestão de resíduos, produtos químicos, alimentação, indústria transformadora, prestadores digitais, investigação), além de todos os outros prestadores de serviços de confiança (§ 28 Abs. 2 BSIG)."
-          },
-          "management": {
-            "amount": "Responsabilidade perante a empresa (§ 38 Abs. 2 BSIG)",
-            "label": "Direção (Geschäftsleitung)",
-            "detail": "O § 38 BSIG obriga a direção a implementar e a supervisionar as medidas de gestão de riscos do § 30. Um membro da direção que viole culposamente esse dever responde perante a empresa pelos danos, segundo as regras do direito das sociedades aplicáveis à sua forma jurídica (§ 38 Abs. 2). A comunicação em si é um dever da entidade (§ 32); uma comunicação tardia ou em falta é sancionada com coima ao nível da entidade (§ 65 Abs. 2 Nr. 4)."
-          }
-        }
+      "after": {
+        "heading": "Depois da notificação",
+        "items": [
+          "O BSI confirma a receção sem demora injustificada, sempre que possível no prazo de 24 horas. A pedido, dá orientações ou aconselhamento (§ 36(1) BSIG).",
+          "O BSI pode ordenar-lhe que informe os destinatários dos seus serviços sobre o incidente (§ 35(1) BSIG).",
+          "Conte com perguntas de seguimento. O BSI recomenda que os seus avisos cheguem a alguém também fora do horário de expediente."
+        ]
+      },
+      "example": {
+        "heading": "Um exemplo",
+        "lead": "Uma empresa fictícia. Segunda-feira, 9h00: a contabilidade informa as TI de que há ficheiros cifrados no servidor. A receção de encomendas parou.",
+        "items": [
+          "Segunda-feira, 9h30: as TI confirmam um ataque. Segundo o plano de incidentes, decide o diretor-geral. Classifica o incidente como significativo porque a atividade está gravemente perturbada.",
+          "Segunda-feira, 14h00: o alerta precoce no portal do BSI. Diz o que se sabe e que há suspeita de ataque. O prazo terminaria na terça-feira às 9h00.",
+          "Quinta-feira, 9h00, no máximo: a notificação, com uma primeira avaliação da gravidade e do impacto.",
+          "Um mês após essa notificação: o relatório final, com a causa e a solução. Se o incidente ainda estiver em curso nessa altura, vem primeiro um relatório de progresso.",
+          "Em paralelo, a empresa verifica se há dados pessoais afetados. Se houver, aplica-se também a obrigação de notificação do Art. 33 do RGPD."
+        ]
+      },
+      "prepare": {
+        "heading": "O que preparar com antecedência",
+        "items": [
+          "Quem decide se um incidente é significativo, e quem notifica.",
+          "O acesso ao portal do BSI para essas pessoas: um certificado de organização para cada uma e a associação à sua entidade.",
+          "Os números de telefone das TI, dos prestadores de serviços e da direção, também em papel.",
+          "Um plano de incidentes que se consiga encontrar mesmo com os servidores em baixo."
+        ]
+      },
+      "walk": {
+        "heading": "Como o percurso guiado faz isto",
+        "lead": "Dois passos do percurso guiado em nisd2.eu preparam-no para a notificação.",
+        "points": [
+          "\"Plan what happens in an incident\": as suas respostas dão origem ao seu plano de resposta a incidentes. O plano diz quem decide e como notifica.",
+          "\"Know how to report an incident\": o passo mostra os três prazos e um exemplo de alerta precoce.",
+          "Anota se consegue iniciar sessão no portal do BSI e notificar.",
+          "No fim, a direção aprova o plano de resposta a incidentes na aplicação."
+        ],
+        "seeItAlt": "O passo da notificação no percurso guiado: os três prazos",
+        "next": "Escrever o seu plano de incidentes no percurso guiado"
       },
       "sources": {
         "heading": "Fontes",
         "items": [
-          "Diretiva NIS2 (UE) 2022/2555. Artigo 23.o (Obrigações de comunicação)",
-          "BSIG. §32 (Meldepflichten bei erheblichen Sicherheitsvorfällen)",
-          "BSIG. §38 (Umsetzungs-, Überwachungs- und Schulungspflicht. Geschäftsleitung)",
-          "BSIG. §65 (Bußgeldvorschriften)",
-          "CIR (UE) 2024/2690. Artigo 3.o (Significância dos incidentes), artigo 4.o (Incidentes recorrentes)",
-          "BSI. NIS-2-Meldepflicht (página informativa para empresas reguladas): bsi.bund.de",
-          "BSI. Documentação e FAQ do portal de comunicação NIS2"
+          "Lei do BSI (BSIG), § 2 n.ºs 11 e 40, §§ 32, 35 e 36 (gesetze-im-internet.de/bsig_2025)",
+          "Diretiva (UE) 2022/2555 (NIS 2), Art. 23 (eur-lex.europa.eu)",
+          "Regulamento de Execução (UE) 2024/2690, Art. 3 e 7",
+          "BSI, obrigação de notificação NIS 2: prazos, conteúdo e canal (bsi.bund.de/dok/nis-2-meldepflicht)",
+          "BSI, Mein Unternehmenskonto: acesso ao portal do BSI (bsi.bund.de/dok/muk)",
+          "Regulamento (UE) 2016/679 (RGPD), Art. 33 e 34"
         ]
-      },
-      "ctaCard": {
-        "heading": "Esteja pronto a comunicar antes de o incidente ocorrer",
-        "description": "A plataforma pré-configura os seus campos de comunicação do BSI, mantém um registo de incidentes com fluxos de trabalho de classificação, e acompanha os prazos de 24h/72h/1 mês. Assim cumpre cada obrigação sob pressão."
-      },
-      "cta": "Iniciar o seu processo de conformidade NIS2"
+      }
     },
     "euImplementation": {
       "meta": {
@@ -3983,108 +4056,117 @@
     },
     "missedRegistration": {
       "meta": {
-        "title": "Perdeu o registo NIS2 no BSI? Passos imediatos",
-        "description": "Perdeu o registo NIS2? O portal do BSI continua aberto. Como se registar agora ao abrigo do § 33 BSIG, passo a passo, com perguntas frequentes."
+        "title": "Registo NIS2 no BSI: como fazer e qual o prazo",
+        "description": "Registo NIS2 no BSI: quem se regista, os passos através do ELSTER e do portal do BSI, o prazo e o que vem a seguir."
       },
-      "title": "Perdeu o prazo de registo no BSI. E agora?",
-      "subtitle": "O portal do BSI continua aberto. Eis o que importa agora e por onde começar.",
-      "shortAnswer": {
-        "heading": "A resposta curta",
-        "p1": "Não entre em pânico. Não está sozinho, e não é tarde demais para resolver isto. O BSI estimou que cerca de 30.000 entidades estão abrangidas pela NIS2 na Alemanha. O prazo de registo terminou a 6 de março de 2026, mas um número significativo de empresas continua sem registo. Está longe de ser o único nesta situação.",
-        "p2": "O portal de registo ao abrigo do §33 BSIG continua aberto. Pode registar-se hoje. O BSI indicou que vai priorizar a fiscalização contra as empresas que ignoram por completo as suas obrigações, e não contra quem se registou tarde mas age de boa-fé. Tarde é melhor do que nunca, e \"nunca\" é a única opção verdadeiramente perigosa.",
-        "p3": "O essencial é agir agora, documentar que começou e iniciar o trabalho de conformidade efetivo. Um registo tardio com progresso visível parece fundamentalmente diferente, aos olhos de um regulador, de não haver registo nenhum."
+      "title": "Registo NIS2: como registar a sua empresa no BSI",
+      "subtitle": "As empresas abrangidas registam-se no portal do BSI (§ 33 BSIG). Antes disso, precisa de um certificado de organização do ELSTER, que é ativado por carta. Para as empresas abrangidas desde dezembro de 2025, o prazo terminou a 6 de março de 2026. Se o perdeu, registe-se agora: a obrigação mantém-se.",
+      "who": {
+        "heading": "Quem tem de se registar",
+        "p1": "Todas as entidades essenciais e todas as entidades importantes (§ 33(1) BSIG). É assim que a lei designa as empresas a que a NIS 2 se aplica.",
+        "p2": "Se a sua empresa é uma delas depende do setor e da dimensão (§ 28 BSIG). Os setores constam dos Anexos 1 e 2 da BSIG. Nesses setores, uma empresa é entidade importante se tiver pelo menos 50 trabalhadores, ou um volume de negócios anual e um balanço total superiores a 10 milhões de EUR cada.",
+        "p3": "O BSI disponibiliza uma verificação de aplicabilidade que o guia pelas perguntas. Segundo o BSI, o resultado não é juridicamente vinculativo."
+      },
+      "deadline": {
+        "heading": "O prazo",
+        "p1": "Regista-se no máximo três meses depois de a sua empresa passar a contar como entidade (§ 33(1) BSIG).",
+        "p2": "A BSIG aplica-se desde 6 de dezembro de 2025. Para as empresas abrangidas desde então, o prazo terminou a 6 de março de 2026.",
+        "p3": "Se a sua empresa só ficar abrangida mais tarde, por exemplo porque cresce, os três meses contam a partir desse momento."
       },
       "steps": {
-        "heading": "Cinco passos para voltar ao caminho certo",
-        "description": "Siga esta ordem. Cada passo assenta no anterior e, em conjunto, criam um rasto documentado que mostra ao BSI que leva a conformidade a sério.",
+        "heading": "Como se registar, passo a passo",
+        "description": "O registo tem duas fases: primeiro uma conta no ELSTER, depois o registo no portal do BSI.",
         "items": {
           "check": {
-            "title": "1. Confirme que está mesmo no âmbito",
-            "description": "Antes de se registar, verifique se a NIS2 se aplica à sua empresa. Os critérios constam do §28 BSIG: tem de operar num dos 18 setores listados E cumprir o limiar de dimensão (pelo menos 50 trabalhadores, ou volume de negócios anual e balanço total anual superiores, cada um, a 10 milhões de euros). Em caso de dúvida, consulte as listas de setores do BSI no Anexo I e no Anexo II da Diretiva NIS2. Muitas empresas assumem que estão fora do âmbito quando não estão, e vice-versa. Se estiver genuinamente incerto, obtenha um parecer jurídico antes de se registar, mas não use a incerteza como desculpa para adiar."
+            "title": "Verificar se está abrangido",
+            "description": "Esclareça o setor, o número de trabalhadores e o volume de negócios (§ 28 BSIG). A verificação de aplicabilidade do BSI ajuda. Nos casos limite, ajuda uma análise jurídica."
+          },
+          "certificate": {
+            "title": "Pedir um certificado de organização ao ELSTER",
+            "description": "Faz-se através do \"Mein Unternehmenskonto\" (mein-unternehmenskonto.de). Precisa de um número fiscal alemão. Os dados de acesso chegam por email, o código de ativação por carta, para o endereço associado ao número fiscal. Segundo o BSI, a entrega demora regularmente pelo menos cinco dias úteis."
+          },
+          "gather": {
+            "title": "Preparar os dados",
+            "description": "O portal retira da sua conta empresarial o nome, o endereço, a forma jurídica e os dados de registo comercial. Nos termos do § 33(1) BSIG, acrescenta: email e números de telefone, os seus intervalos de endereços IP públicos, o seu setor, os países da UE onde presta esses serviços e as suas autoridades de supervisão competentes."
           },
           "register": {
-            "title": "2. Registe-se de imediato através do portal do BSI",
-            "description": "Aceda ao portal de registo NIS2 do BSI e conclua o seu registo ao abrigo do §33 BSIG. Vai precisar de: os dados da empresa, a classificação setorial, a pessoa de contacto para matérias de cibersegurança e os intervalos de endereços IP dos seus sistemas críticos. O registo em si demora cerca de 30 minutos se tiver a informação preparada. Faça-o hoje. Cada dia que espera aumenta o intervalo entre o prazo e a sua data de registo."
+            "title": "Registar-se no portal do BSI",
+            "description": "Inicia sessão no portal do BSI (portal.bsi.bund.de) com o certificado e preenche o formulário. Quem regista a entidade passa automaticamente a ser o seu administrador e pode convidar colegas."
           },
-          "document": {
-            "title": "3. Documente que começou",
-            "description": "Crie um registo escrito, ainda que uma simples nota interna, que documente quando tomou conhecimento das suas obrigações NIS2, quando se registou e que passos está a dar. Isto cria um rasto documental que demonstra boa-fé. Se o BSI alguma vez perguntar porque se atrasou, \"identificámos a obrigação, registámo-nos de imediato e iniciámos o trabalho de conformidade em [data]\" é uma resposta forte."
-          },
-          "implement": {
-            "title": "4. Inicie o trabalho de conformidade efetivo",
-            "description": "O registo é apenas o primeiro passo. O §30 BSIG exige que implemente medidas de gestão de risco de cibersegurança. Comece pelas bases: inventário de ativos, metodologia de avaliação de risco e procedimentos de notificação de incidentes. Não precisa de estar totalmente conforme de um dia para o outro, mas precisa de estar visivelmente a trabalhar para lá chegar. O BSI olha para a trajetória, não só para o estado atual."
-          },
-          "legal": {
-            "title": "5. Considere aconselhamento jurídico se o âmbito for pouco claro",
-            "description": "Se a sua empresa estiver perto do limiar (próxima dos 50 trabalhadores ou dos 10 milhões de euros de volume de negócios e de balanço), operar num setor que pode ser interpretado de várias formas, ou tiver uma estrutura societária complexa, consulte um advogado especializado em regulação de TI. O custo de um parecer jurídico (2.000 a 5.000 euros) é insignificante face ao custo da não conformidade ou de uma conformidade desnecessária. Algumas associações setoriais (como a Bitkom ou a BDI) também oferecem orientação sobre o âmbito da NIS2 aos seus associados."
+          "record": {
+            "title": "Anotar e distribuir acessos",
+            "description": "Anote em que dia e com que certificado se registou. Dê acesso às pessoas que vão notificar incidentes numa emergência. Cada pessoa precisa do seu próprio certificado e tem de estar associada à sua entidade no portal."
           }
         }
       },
-      "risks": {
-        "heading": "Quais são os riscos reais de um registo tardio?",
-        "description": "Ser honesto quanto aos riscos ajuda-o a tomar decisões proporcionadas. As consequências são reais, mas não catastróficas, se agir agora.",
-        "items": {
-          "fines": {
-            "title": "Coimas administrativas",
-            "description": "O §65 BSIG prevê coimas até 500.000 euros especificamente para infrações de registo. Na prática, o BSI tem capacidade de fiscalização limitada e está focado em trazer as empresas para o sistema, não em punir os retardatários. É improvável que uma empresa que se regista tarde e demonstra esforços ativos de conformidade enfrente a sanção máxima. Uma empresa que nunca se regista é outra história."
-          },
-          "orders": {
-            "title": "Ordens de conformidade",
-            "description": "O BSI pode emitir ordens de conformidade vinculativas que o obrigam a registar-se e a implementar medidas específicas dentro de um prazo fixado. O incumprimento de uma ordem destas agrava significativamente a situação jurídica. Registar-se proativamente, ainda que tarde, evita por completo esta via de escalada."
-          },
-          "liability": {
-            "title": "Responsabilidade pessoal da gestão",
-            "description": "O §38 BSIG torna a Geschäftsführung pessoalmente responsável por assegurar a conformidade com a NIS2. Se a sua empresa estiver no âmbito e o senhor, enquanto gestão, tiver atrasado conscientemente o registo, isto cria uma exposição pessoal. A responsabilidade não pode ser afastada por deliberação dos sócios. Documentar que agiu assim que tomou conhecimento é uma proteção importante."
-          },
-          "audit": {
-            "title": "Maior escrutínio em auditorias futuras",
-            "description": "Para as entidades essenciais, o BSI conduz auditorias periódicas. Um registo tardio ficará visível na sua cronologia de conformidade. No entanto, um processo de recuperação bem documentado que mostre uma melhoria sistemática é visto de forma muito diferente de um padrão de negligência. Os auditores avaliam a trajetória, não apenas o ponto de partida."
-          }
-        }
+      "after": {
+        "heading": "O que vem depois do registo",
+        "p1": "O § 33 BSIG não prevê nenhuma decisão nem nenhum passo seguinte do BSI após o registo. Por isso, não espere que lhe digam para começar.",
+        "p2": "As outras obrigações aplicam-se na mesma. Aplicam-se porque a sua empresa é uma entidade. O registo não muda isso.",
+        "items": [
+          "Aplicar medidas de segurança em dez áreas e pô-las por escrito (§ 30 BSIG).",
+          "Notificar incidentes de segurança significativos, a primeira notificação no prazo de 24 horas (§ 32 BSIG).",
+          "A direção aplica as medidas, supervisiona-as e participa regularmente em formação (§ 38 BSIG).",
+          "Se os seus dados mudarem, comunica-o ao BSI no prazo de duas semanas (§ 33(5) BSIG)."
+        ],
+        "link": "Como avançar: implementar a NIS2"
       },
-      "context": {
-        "heading": "Porque é que tantas empresas perderam o prazo",
-        "p1": "O atraso no registo NIS2 não decorre, sobretudo, de negligência. O processo legislativo alemão sofreu atrasos repetidos. O NIS2UmsuCG foi aprovado meses depois do prazo original de transposição da UE. Muitas empresas, com razão, esperaram pela finalização da lei alemã antes de agir. Outras desconheciam que estavam no âmbito porque as definições de setor alargaram-se drasticamente face ao antigo regime KRITIS.",
-        "p2": "O próprio BSI reconheceu publicamente a dimensão do atraso no registo. A agência adotou uma postura pragmática: a prioridade é registar todas as 30.000 entidades e trazê-las para o sistema de conformidade, não punir a primeira vaga de registos tardios. Este pragmatismo tem limites. Aplica-se às empresas que estão ativamente a trabalhar para a conformidade, não às que usam a paciência do BSI como desculpa para nada fazer."
+      "missed": {
+        "heading": "Perdeu o prazo? Faça isto agora",
+        "items": [
+          "Registe-se agora. A obrigação não termina com o prazo.",
+          "Anote quando teve conhecimento da obrigação e quando se registou.",
+          "A sua empresa teve um incidente de segurança significativo antes do registo? Notifique-o na mesma, através de um formulário no portal de notificação e informação do BSI (MIP).",
+          "Comece pelas medidas. Aplicam-se independentemente do registo."
+        ]
       },
       "faq": {
         "heading": "Perguntas frequentes",
         "q1": {
-          "q": "O portal de registo do BSI ainda está aberto?",
-          "a": "Sim. O portal de registo do §33 BSIG continua aberto. Não há um prazo após o qual deixe de se poder registar. A obrigação é contínua. O prazo era quando deveria ter-se registado, não quando podia. Registe-se agora."
+          "q": "Ainda me posso registar depois de 6 de março de 2026?",
+          "a": "Sim. O prazo diz até quando se tinha de registar. A obrigação em si não termina. Regista-se através do mesmo portal do BSI."
         },
         "q2": {
-          "q": "Qual é a coima por registo tardio?",
-          "a": "O §65 BSIG prevê coimas até 500.000 euros por infrações de registo. Contudo, as coimas são avaliadas caso a caso, ponderando a gravidade, a duração e se a empresa agiu de boa-fé. Uma empresa que se regista com alguns meses de atraso e mostra esforços ativos de conformidade enfrenta um perfil de risco muito diferente de uma que ignora a obrigação por completo."
+          "q": "Recebo uma decisão ou um número de registo?",
+          "a": "O § 33 BSIG não prevê nenhuma decisão. Anote por si quando e com que certificado se registou. Nas notificações de incidentes é diferente: aí, o BSI confirma a receção, sempre que possível no prazo de 24 horas (§ 36(1) BSIG)."
         },
         "q3": {
-          "q": "O registo tardio afeta as minhas outras obrigações NIS2?",
-          "a": "Não. As suas obrigações ao abrigo do §30 BSIG (medidas de cibersegurança), do §32 (notificação de incidentes) e do §38 (responsabilidade da gestão) existem independentemente de se ter registado. O registo não cria as obrigações: cumpre uma delas. As restantes obrigações aplicam-se a partir do momento em que cumpre os critérios de âmbito, independentemente do estado do registo."
+          "q": "As outras obrigações só se aplicam depois do registo?",
+          "a": "Não. As medidas (§ 30 BSIG), a obrigação de notificação (§ 32 BSIG) e as obrigações da direção (§ 38 BSIG) aplicam-se assim que a sua empresa é uma entidade. O registo é uma obrigação ao lado das outras."
         },
         "q4": {
-          "q": "Posso registar-me se não tiver a certeza de estar no âmbito?",
-          "a": "Sim, e o BSI recomenda que peque por excesso de registo se estiver incerto. Registar-se e vir a ficar fora do âmbito não tem consequências negativas: o registo pode ser corrigido. Não se registar quando está no âmbito acarreta um risco jurídico real. Na dúvida, registe-se."
+          "q": "Não temos a certeza de estar abrangidos. E agora?",
+          "a": "Use a verificação de aplicabilidade do BSI e peça uma análise jurídica dos casos limite. Casos limite são, por exemplo, uma dimensão próxima do limiar, uma atividade que pode caber em vários setores ou um grupo com empresas associadas (§ 28(3) e (4) BSIG)."
         },
         "q5": {
-          "q": "E se nos registámos mas não iniciámos o trabalho de conformidade?",
-          "a": "Registo sem trabalho de conformidade é como entregar uma declaração de impostos mas não pagar o imposto: cumpriu uma obrigação, mas não as substantivas. Comece já com as medidas do §30 BSIG: inventário de ativos, avaliação de risco, procedimentos de notificação de incidentes. O BSI espera que as entidades registadas estejam ativamente a trabalhar para a conformidade, e não apenas sentadas sobre um número de registo."
+          "q": "Temos instalações noutros países da UE. Onde nos registamos?",
+          "a": "Em princípio, é competente o país onde a sua empresa está estabelecida (Art. 26(1) NIS 2). Para certos prestadores digitais, conta o estabelecimento principal. As autoridades de todos os países da UE constam da nossa visão geral dos organismos de registo."
         }
+      },
+      "walk": {
+        "heading": "Como o percurso guiado faz isto",
+        "lead": "O registo é o primeiro passo do percurso guiado em nisd2.eu.",
+        "points": [
+          "O passo explica em palavras simples para que serve o registo e como chega ao portal do BSI através do ELSTER.",
+          "Mostra em que país da UE se regista, com a autoridade e o seu portal.",
+          "Anota dois dados: o identificador da sua conta de utilizador e o dia do registo.",
+          "Se a carta do ELSTER ainda não chegou, escolhe \"Not possible yet\" e continua com o passo seguinte.",
+          "Um passo posterior mostra quais dos seus dados podem mudar."
+        ],
+        "seeItAlt": "O passo do registo no percurso guiado: o país e a sua autoridade",
+        "next": "Começar pelo registo no percurso guiado"
       },
       "sources": {
         "heading": "Fontes",
         "items": [
-          "BSI, estatísticas de registo NIS2 e declarações públicas sobre a abordagem de fiscalização (2025)",
-          "G DATA CyberDefense, inquérito de sensibilização NIS2: 44% das empresas de médio mercado desconhecem as obrigações (2024)",
-          "BSIG, §33 (obrigação de registo), §65 (coimas administrativas), §38 (responsabilidade da gestão)",
-          "NIS2UmsuCG, Gesetz zur Umsetzung der NIS-2-Richtlinie und zur Stärkung der Cybersicherheit",
-          "BMI, documentação parlamentar e orientação sobre a implementação do NIS2UmsuCG"
+          "Lei do BSI (BSIG), §§ 28, 30, 32, 33, 36 e 38, Anexos 1 e 2, em vigor desde 6 de dezembro de 2025 (gesetze-im-internet.de/bsig_2025)",
+          "Diretiva (UE) 2022/2555 (NIS 2), Art. 3(4) e Art. 26 (eur-lex.europa.eu)",
+          "BSI, pormenores do procedimento de registo segundo o § 33(6) BSIG, versão 1.0 de 26.06.2026 (bsi.bund.de/dok/registrierungspflicht)",
+          "BSI, Mein Unternehmenskonto (bsi.bund.de/dok/muk)",
+          "BSI, obrigação de notificação NIS 2: notificação antes do registo (bsi.bund.de/dok/nis-2-meldepflicht)",
+          "BSI, verificação de aplicabilidade (betroffenheitspruefung-nis-2.bsi.de)"
         ]
-      },
-      "ctaCard": {
-        "heading": "Registe-se e depois construa o seu rasto de conformidade",
-        "description": "A plataforma orienta-o do registo até à conformidade plena com o §30 BSIG, criando o rasto de evidências documentado que mostra ao BSI que leva isto a sério."
-      },
-      "cta": "Inicie o seu processo de conformidade NIS2"
+      }
     },
     "kritisComparison": {
       "meta": {

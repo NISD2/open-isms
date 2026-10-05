@@ -1460,119 +1460,205 @@
         "p4": "Toto není tabulka, kterou ztratíte, ani konzultantova zpráva, která leží v šuplíku. Je to živý, verzovaný, auditovatelný záznam všeho, co vaše společnost udělala pro NIS2 compliance, od prvního dne, navždy."
       }
     },
+    "wikiWalk": {
+      "seeIt": "Takhle to vypadá",
+      "priceHeading": "Kolik průvodce stojí",
+      "more": "Více k tomu",
+      "lawLabel": "Předpis",
+      "whoLabel": "Kdo"
+    },
     "nis2Requirements": {
       "meta": {
-        "title": "Požadavky NIS2: 10 opatření",
-        "description": "Vysvětlení požadavků NIS2: 10 povinných opatření pro řízení rizik, kaskáda hlášení incidentů, auditní povinnosti a bezpečnost dodavatelského řetězce."
+        "title": "Požadavky NIS2: 10 opatření a povinnosti",
+        "description": "Požadavky NIS2 jednoduše: deset opatření podle Art. 21 NIS 2 a § 30 BSIG, hlášení incidentů, registrace a role vedení."
       },
-      "title": "Požadavky NIS2",
-      "subtitle": "Co musí dotčené subjekty zavést: 10 povinných kybernetických opatření, přísná kaskáda hlášení incidentů a soulad podložený důkazy.",
+      "title": "Požadavky NIS2: co musí vaše firma zavést",
+      "subtitle": "NIS2 požaduje bezpečnostní opatření v deseti oblastech, hlášení významných incidentů a registraci u BSI. Vedení opatření zavádí a dohlíží na ně. Jak daleko každé opatření sahá, závisí na velikosti a riziku vaší firmy.",
+      "overview": {
+        "heading": "Požadavky v kostce",
+        "lead": "NIS 2 je směrnice EU. V Německu ji do práva převádí zákon o BSI (BSIG). Dotčené firmy se tam nazývají „subjekty“.",
+        "items": {
+          "measures": {
+            "title": "Bezpečnostní opatření v deseti oblastech",
+            "text": "Minimální seznam je níže, každá oblast s příkladem.",
+            "law": "Art. 21 NIS 2 · § 30 BSIG"
+          },
+          "report": {
+            "title": "Hlásit významné incidenty",
+            "text": "Ve třech stupních BSI, první do 24 hodin.",
+            "law": "Art. 23 NIS 2 · § 32 BSIG"
+          },
+          "register": {
+            "title": "Registrace u BSI",
+            "text": "Jednou, přes portál BSI. Pokud se něco změní, nahlásíte to do dvou týdnů.",
+            "law": "Art. 3(4) NIS 2 · § 33 BSIG"
+          },
+          "management": {
+            "title": "Vedení",
+            "text": "Vedení opatření zavádí, dohlíží na ně a pravidelně se účastní školení. Směrnice navíc vyžaduje, aby vedení opatření schválilo.",
+            "law": "Art. 20 NIS 2 · § 38 BSIG"
+          }
+        }
+      },
       "measures": {
-        "heading": "10 povinných opatření pro řízení rizik (§ 30 BSIG / čl. 21 odst. 2 NIS-2)",
-        "description": "Všechny základní a důležité subjekty musí tato opatření zavést. Žádné přechodné období neexistuje. Tyto povinnosti platí v Německu od 6. prosince 2025.",
+        "heading": "Deset opatření jednoduchými slovy",
+        "description": "Art. 21(2) NIS 2 uvádí deset oblastí, v Německu § 30(2) BSIG. To je minimální seznam. Pro každou oblast potřebujete opatření, která odpovídají vaší firmě.",
+        "exampleLabel": "Například",
         "items": {
           "m1": {
-            "title": "Analýza rizik a zásady bezpečnosti informací",
-            "description": "Zaveďte a udržujte zásady pro analýzu rizik a bezpečnost informačních systémů. Provádějte pravidelná hodnocení rizik pokrývající všechny kritické systémy a procesy."
+            "title": "Analýza rizik a bezpečnostní koncepce",
+            "description": "Sepíšete, jaké IT váš provoz potřebuje a co se s ním může pokazit. Z toho vyplývá bezpečnostní politika: jak vaše firma řídí bezpečnost informací.",
+            "example": "Seznam vašich systémů s hodnocením každého rizika a politika na pár stran.",
+            "law": "Art. 21(2)(a) · § 30(2) č. 1"
           },
           "m2": {
-            "title": "Řešení incidentů",
-            "description": "Zaveďte postupy pro předcházení, detekci, identifikaci, zadržení, zmírnění a reakci na bezpečnostní incidenty."
+            "title": "Zvládání incidentů",
+            "description": "Určíte, jak incident odhalíte, omezíte a odstraníte, a kdo rozhoduje.",
+            "example": "Plán pro incidenty s telefonními čísly a jasnými odpovědnostmi.",
+            "law": "Art. 21(2)(b) · § 30(2) č. 2"
           },
           "m3": {
-            "title": "Kontinuita provozu a krizové řízení",
-            "description": "Správa záloh, plánování obnovy po havárii a postupy krizového řízení k zajištění provozní odolnosti."
+            "title": "Zachování provozu",
+            "description": "Zálohování, obnova po mimořádné události a krizové řízení.",
+            "example": "Záloha, jejíž obnovu jste vyzkoušeli.",
+            "law": "Art. 21(2)(c) · § 30(2) č. 3"
           },
           "m4": {
             "title": "Bezpečnost dodavatelského řetězce",
-            "description": "Bezpečnostní opatření pro vztahy s přímými dodavateli a poskytovateli služeb, s ohledem na zranitelnosti každého dodavatele a kvalitu jeho produktů a bezpečnostních postupů (čl. 21 odst. 3); smlouvy jsou obvyklým nástrojem."
+            "description": "Zohledníte zranitelnosti každého přímého dodavatele a kvalitu jeho produktů a bezpečnostní praxe (Art. 21(3) NIS 2). Obvyklým nástrojem jsou smlouvy.",
+            "example": "Ve smlouvě s vaším poskytovatelem IT služeb stojí, že vám hlásí incidenty.",
+            "law": "Art. 21(2)(d) · § 30(2) č. 4"
           },
           "m5": {
-            "title": "Bezpečnost při pořizování, vývoji a údržbě",
-            "description": "Bezpečnost při pořizování, vývoji a údržbě sítí a informačních systémů. Zahrnuje řešení zranitelností a postupy jejich zveřejňování."
+            "title": "Bezpečnost při nákupu, vývoji a údržbě",
+            "description": "Bezpečnost platí už při nákupu IT, při vlastním vývoji a při údržbě. Patří k tomu i zacházení se zranitelnostmi a jejich zveřejňování.",
+            "example": "Bezpečnostní aktualizace se instalují automaticky.",
+            "law": "Art. 21(2)(e) · § 30(2) č. 5"
           },
           "m6": {
-            "title": "Posuzování účinnosti",
-            "description": "Zásady a postupy pro posuzování toho, zda opatření k řízení kybernetických rizik fungují. Zákon neukládá testy ani audity každému subjektu."
+            "title": "Hodnocení účinnosti",
+            "description": "Určíte, jak ověříte, zda opatření fungují. Testy nebo audity zákon nepředepisuje každému subjektu.",
+            "example": "Jednou ročně vedení projde, co fungovalo a co ne.",
+            "law": "Art. 21(2)(f) · § 30(2) č. 6"
           },
           "m7": {
-            "title": "Kybernetické školení a kybernetická hygiena",
-            "description": "Základní postupy kybernetické hygieny a kybernetické školení. Obvyklým obsahem je povědomí o phishingu, sociálním inženýrství, heslech a bezpečném používání IT."
+            "title": "Základní školení a povědomí o bezpečnosti",
+            "description": "Všichni zaměstnanci se naučí základy: poznat podezřelé e-maily, volit dobrá hesla, hlásit incidenty.",
+            "example": "Krátké školení při nástupu a jednou ročně opakování.",
+            "law": "Art. 21(2)(g) · § 30(2) č. 7"
           },
           "m8": {
-            "title": "Kryptografie a šifrování",
-            "description": "Zásady a postupy pro používání kryptografie a tam, kde je to vhodné, šifrování. Pokrývá data v klidu, data při přenosu a správu klíčů."
+            "title": "Kryptografie",
+            "description": "Určíte, kde a jak šifrujete.",
+            "example": "Notebooky se šifrovaným diskem a e-mail jen přes šifrovaná spojení.",
+            "law": "Art. 21(2)(h) · § 30(2) č. 8"
           },
           "m9": {
-            "title": "Bezpečnost personálu, řízení přístupu a správa aktiv",
-            "description": "Zásady bezpečnosti lidských zdrojů, mechanismy řízení přístupu a postupy správy aktiv. Zahrnuje nástup a odchod, přístup podle zásady nejmenších oprávnění a inventáře aktiv."
+            "title": "Personál, přístupy a správa IT",
+            "description": "Kdo smí co? Jak noví lidé dostanou své přístupy a jak o ně odcházející přijdou? Patří sem i přehled vašeho IT.",
+            "example": "Poslední pracovní den se zablokují všechny přístupy.",
+            "law": "Art. 21(2)(i) · § 30(2) č. 9"
           },
           "m10": {
-            "title": "Vícefaktorové ověřování a zabezpečená komunikace",
-            "description": "Použití MFA nebo řešení průběžného ověřování. Zabezpečená hlasová, obrazová a textová komunikace. Zabezpečené nouzové komunikační systémy uvnitř subjektu."
+            "title": "Druhý faktor a bezpečná komunikace",
+            "description": "Přihlášení s druhým faktorem nebo s průběžným ověřováním. K tomu zabezpečená hlasová, video a textová komunikace a tam, kde je to potřeba, zabezpečený kanál pro mimořádné situace.",
+            "example": "Kód z aplikace při přihlášení k e-mailu a ke vzdálenému přístupu.",
+            "law": "Art. 21(2)(j) · § 30(2) č. 10"
           }
         }
       },
+      "proportionality": {
+        "heading": "Kolik stačí?",
+        "p1": "Zákon požaduje vhodná, přiměřená a účinná opatření (§ 30(1) BSIG). Co je přiměřené, závisí na vaší míře rizika, vaší velikosti, nákladech, pravděpodobnosti a závažnosti incidentů a jejich důsledcích pro ostatní.",
+        "p2": "Co zavádíte, zapíšete (§ 30(1) věta třetí BSIG). Certifikát jako ISO 27001 zákon nevyžaduje. Jako doklad vám ale může pomoci.",
+        "link": "Co přesně znamená „přiměřené“"
+      },
       "incidentReporting": {
-        "heading": "Kaskáda hlášení incidentů",
-        "description": "Všechny základní a důležité subjekty musí hlásit významné bezpečnostní incidenty BSI prostřednictvím třístupňové kaskády.",
+        "heading": "Hlášení významných incidentů",
+        "description": "Významný bezpečnostní incident hlásíte BSI ve třech stupních (§ 32 BSIG, Art. 23 NIS 2). Lhůty běží od okamžiku, kdy se o něm dozvíte.",
         "stages": {
           "s1": {
             "deadline": "24 hodin",
-            "title": "Včasné varování (frühe Erstmeldung)",
-            "description": "Nahlaste, zda existuje podezření, že incident způsobily protiprávní nebo zlovolné jednání, a zda by mohl mít přeshraniční dopad."
+            "title": "Včasné varování",
+            "description": "Zda za incidentem pravděpodobně stojí útok nebo protiprávní jednání a zda by mohl zasáhnout jiné země."
           },
           "s2": {
             "deadline": "72 hodin",
-            "title": "Oznámení incidentu (Meldung)",
-            "description": "Posouzení závažnosti, posouzení dopadů, indikátory kompromitace a počáteční analýza příčiny, je-li k dispozici."
+            "title": "Oznámení incidentu",
+            "description": "První posouzení závažnosti a dopadů, a pokud jsou k dispozici, i stopy po útočnících (indikátory kompromitace)."
           },
           "s3": {
             "deadline": "1 měsíc",
-            "title": "Závěrečné hlášení (Abschlussmeldung)",
-            "description": "Podrobný popis incidentu včetně závažnosti a dopadu, druh hrozby nebo kořenová příčina, která jej pravděpodobně spustila, uplatněná a probíhající zmírňující opatření a případný přeshraniční dopad."
+            "title": "Závěrečná zpráva",
+            "description": "Měsíc po oznámení: co se stalo, pravděpodobná příčina a co jste proti tomu udělali."
           }
         },
-        "significant": {
-          "heading": "Co se počítá jako \"významný\" incident?",
-          "p1": "Bezpečnostní incident se kvalifikuje jako významný, pokud způsobil nebo je schopen způsobit závažné provozní narušení nebo finanční ztráty pro subjekt.",
-          "p2": "Kvalifikuje se také tehdy, pokud zasáhl nebo může zasáhnout jiné fyzické či právnické osoby způsobením značné hmotné nebo nehmotné újmy. U 11 typů digitálních subjektů podle CIR 2024/2690 (DNS, cloud, MSP, MSSP, tržiště, vyhledávače, sociální sítě, služby vytvářející důvěru atd.) platí další prahové hodnoty z čl. 3 CIR (přímá finanční ztráta nad 500 000 EUR nebo 5 % ročního obratu, podle toho, která hodnota je nižší; krádež obchodního tajemství; úmrtí nebo značná újma na zdraví osoby; úspěšný a neoprávněný přístup s podezřením na zlovolný záměr, který může způsobit závažné narušení provozu) plus kritéria pro jednotlivé služby v čl. 5 až 14 (například služba DNS zcela nedostupná déle než 30 minut nebo cloudová služba omezená pro více než 5 % svých uživatelů v EU nebo více než 1 milion, podle toho, co je méně, po dobu delší než hodinu). U ostatních subjektů lze podle BSI vycházet z významnosti, pokud je splněno jedno kritérium čl. 3 odst. 1."
-        }
+        "link": "Oznamovací povinnost podrobně"
       },
       "auditRequirements": {
-        "heading": "Požadavky na audit a důkazy",
+        "heading": "Kdo kontroluje a kdy?",
         "kritis": {
-          "heading": "Provozovatelé KRITIS",
-          "description": "Musí BSI prokazovat svá opatření prostřednictvím bezpečnostních auditů, kontrol nebo certifikací, poprvé k datu, které stanoví BSI (nejdříve tři roky poté, co se poprvé považují za provozovatele), a poté každé 3 roky (§ 39 BSIG). Musí provozovat systémy detekce útoků (§ 31 Abs. 2 BSIG)."
+          "heading": "Provozovatelé kritických zařízení",
+          "description": "Svá opatření dokládají BSI audity, prověrkami nebo certifikacemi. Poprvé k datu, které určí BSI, nejdříve tři roky poté, co se za provozovatele považují, potom každé tři roky (§ 39 BSIG). Kromě toho musí provozovat systémy pro detekci útoků (§ 31(2) BSIG)."
         },
         "bwe": {
-          "heading": "Základní subjekty (mimo KRITIS)",
-          "description": "Žádný pravidelný cyklus auditů, ale soulad se musí dokumentovat (§ 30 Abs. 1 BSIG). BSI může soulad kontrolovat a nařizovat audity nezávislými subjekty (§ 61 Abs. 1 a 5 BSIG). Důkazy od základních subjektů, vybrané podle rizika, může nařídit nejdříve tři roky po vstupu zákona v platnost, tedy ne před 6. prosincem 2028 (§ 61 Abs. 3 a 4)."
+          "heading": "Základní subjekty",
+          "description": "Žádný pevný cyklus kontrol. Zapisujete, co zavádíte (§ 30(1) BSIG). BSI může kontrolovat a nařídit audity nezávislými institucemi (§ 61(1) a (5) BSIG). Doklady si může vyžádat nejdříve od 6. prosince 2028 (§ 61(3) a (4) BSIG)."
         },
         "we": {
           "heading": "Důležité subjekty",
-          "description": "Musí dokumentovat zavedení požadovaných opatření. BSI provádí kontrolu jen tehdy, když skutečnosti nasvědčují tomu, že nedodržují § 30, § 32 nebo § 38 Abs. 3 (§ 62 BSIG)."
+          "description": "Zapisujete, co zavádíte. BSI kontroluje jen tehdy, když skutečnosti nasvědčují, že nedodržujete § 30, § 32 nebo § 38(3) BSIG (§ 62 BSIG)."
         },
         "evidence": {
-          "heading": "Přijatelné důkazy",
+          "heading": "Co může sloužit jako doklad",
           "items": {
-            "audits": "Interní nebo externí auditní zprávy",
-            "certifications": "Certifikace (ISO 27001, BSI IT-Grundschutz atd.)",
-            "documentation": "Komplexní dokumentace hodnocení rizik, zavedených opatření a přezkumů účinnosti"
+            "audits": "Interní nebo externí zprávy z auditů",
+            "certifications": "Certifikace, například ISO 27001 nebo BSI IT-Grundschutz",
+            "documentation": "Vaše dokumentace: hodnocení rizik, zavedená opatření a kontrola jejich účinnosti"
           },
-          "note": "Certifikace ISO 27001 nebo IT-Grundschutz soulad s NIS2 podporuje, ale nezaručuje: požadavky BSIG mohou jít nad rámec standardního rozsahu certifikace."
+          "note": "Certifikát podle ISO 27001 nebo IT-Grundschutz pomáhá, ale BSIG automaticky nepokrývá. Zákon může jít nad rámec certifikace."
         }
       },
       "supplyChain": {
-        "heading": "Bezpečnost dodavatelského řetězce",
-        "description": "NIS2 zavádí povinné požadavky na bezpečnost dodavatelského řetězce. Subjekty musí:",
+        "heading": "Dodavatelé",
+        "description": "Pro dodavatelský řetězec to konkrétně znamená:",
         "items": {
-          "assess": "Zohlednit specifické zranitelnosti každého přímého dodavatele a celkovou kvalitu jeho produktů a kybernetických postupů (čl. 21 odst. 3 NIS 2)",
-          "contractual": "Sjednat s dodavateli bezpečnostní požadavky, kde to dává smysl, obvykle ve smlouvě (německá důvodová zpráva uvádí jako příklad smlouvy)",
-          "monitor": "Pro digitální poskytovatele, na které se CIR vztahuje: sledovat a vyhodnocovat změny v bezpečnostních postupech dodavatelů v plánovaných intervalech (CIR bod 5.1.6)",
-          "coordinate": "Koordinovat zveřejňování zranitelností s dodavateli",
-          "risk": "Zohlednit celkovou kvalitu produktů a postupů dodavatelů, včetně jejich postupů bezpečného vývoje"
+          "assess": "Zohledníte zranitelnosti každého přímého dodavatele a kvalitu jeho produktů a bezpečnostní praxe, včetně jeho vývoje (Art. 21(3) NIS 2).",
+          "contractual": "S dodavateli si dohodnete bezpečnostní požadavky tam, kde to dává smysl, obvykle ve smlouvě. Důvodová zpráva k zákonu uvádí smlouvy jako příklad.",
+          "monitor": "Jen pro digitální poskytovatele, na které se vztahuje prováděcí nařízení (EU) 2024/2690: v plánovaných intervalech sledují změny v bezpečnostní praxi svých dodavatelů (bod 5.1.6 přílohy)."
         }
+      },
+      "example": {
+        "heading": "Příklad",
+        "lead": "Smyšlená firma: výrobce pečiva se 120 zaměstnanci, který zásobuje obchody. Průmyslová výroba potravin je uvedena v příloze 2 BSIG, takže firma je důležitý subjekt. Takto vypadá její odpověď na tři z deseti oblastí:",
+        "items": [
+          "Dodavatelský řetězec: firma vede seznam svých poskytovatelů služeb, například pro řízení zásob, sledování chlazení a IT. Ve smlouvě s poskytovatelem IT stojí, že hlásí incidenty.",
+          "Druhý faktor: pro e-mail a vzdálený přístup potřebují všichni kód z aplikace.",
+          "Zachování provozu: receptury a výrobní plány se zálohují denně. Jednou ročně IT vyzkouší obnovu."
+        ]
+      },
+      "walk": {
+        "heading": "Jak to probíhá v průvodci",
+        "lead": "V průvodci na nisd2.eu se z každé z deseti oblastí stane alespoň jeden krok, který vyplníte.",
+        "points": [
+          "U každého kroku je předpis, vysvětlený jednoduchými slovy.",
+          "Kde je potřeba dokument, vznikne z vašich odpovědí: bezpečnostní politika, plán reakce na incidenty, plán kontinuity provozu, politika kryptografie, politika pro personál, přístupy a IT a pravidla pro nákup, údržbu a zranitelnosti.",
+          "Kde stačí seznam, vedete seznam: vaše IT, vaši dodavatelé, vaše zálohy, vaše školení.",
+          "Pokud se rozhodnete některý bod vědomě nezavést, zapíšete proč. Vedení toto rozhodnutí podepíše také.",
+          "Na konci vedení schválí dokumenty v aplikaci pod vlastním účtem. Jméno a datum se pak objeví na každém dokumentu."
+        ],
+        "seeItAlt": "Dokumenty z průvodce schválené vedením, každý se jménem a datem",
+        "next": "Pustit se v průvodci do první oblasti"
+      },
+      "sources": {
+        "heading": "Zdroje",
+        "items": [
+          "Směrnice (EU) 2022/2555 (NIS 2), Art. 3, 20, 21 a 23 (eur-lex.europa.eu)",
+          "Zákon o BSI (BSIG), §§ 30, 31, 32, 33, 38, 39, 61 a 62 (gesetze-im-internet.de/bsig_2025)",
+          "BSIG, příloha 2, č. 4 výroba, zpracování a distribuce potravin",
+          "Prováděcí nařízení (EU) 2024/2690, Art. 3 a bod 5.1.6 přílohy",
+          "Vládní návrh zákona NIS2UmsuCG, tisk Spolkového sněmu 21/1501, důvodová zpráva k § 30"
+        ]
       }
     },
     "ceoLiability": {
@@ -2035,135 +2121,127 @@
     },
     "smeGuide": {
       "meta": {
-        "title": "NIS2 pro střední trh - praktický průvodce",
-        "description": "Průvodce implementací NIS2 pro německý Mittelstand (50-250 zaměstnanců). 12týdenní plán, přidělení rolí a praktické rady k BSIG."
+        "title": "Zavedení NIS2: kroky pro středně velkou firmu",
+        "description": "Zavedení NIS2 ve středně velké firmě: čtyři povinnosti, jejich pořadí a kdo co dělá. S paragrafy, příkladem a dalším krokem."
       },
-      "badge": "Mittelstand / MSP",
-      "title": "Implementace NIS2 pro společnosti středního trhu",
-      "subtitle": "Praktický 12týdenní plán implementace pro německé společnosti s 50-250 zaměstnanci, bez potřeby bezpečnostního týmu.",
-      "overview": {
-        "heading": "Vztahuje se to na vás. Co teď?",
-        "p1": "Odhaduje se, že do rozsahu NIS2 v Německu spadá 29 500 společností. Pokud máte více než 50 zaměstnanců a působíte v některém z pokrytých odvětví (odpadové hospodářství, výroba potravin, zpracovatelský průmysl, energetika, doprava, zdravotnictví, digitální infrastruktura), jste téměř jistě jednou z nich. BSIG nabyl účinnosti 6. prosince 2025 a termín registrace u BSI byl 6. března 2026.",
-        "p2": "Zde je to, co vám většina konzultantů neřekne: pro společnost středního trhu se základní IT je shoda s NIS2 zvládnutelná. Není to šestiměsíční šestimístný projekt. Většina ze 49 požadavků BSIG je dokumentace psaná jednou: zásady, posouzení rizik, postupy. Jen hrstka vyžaduje průběžné provozní procesy. Zákon vyžaduje 'vhodná' opatření přiměřená vašemu riziku, nikoli bezpečnostní infrastrukturu společnosti z žebříčku Fortune 500.",
-        "p3": "Tento průvodce vám dává praktický plán: 12týdenní plán, role, které potřebujete (všechny na částečný úvazek, všechny stávající personál), běžné chyby, na které narážejí společnosti vaší velikosti, a prioritní pořadí pro zvládnutí 10 povinných opatření podle §30 BSIG. Žádná teorie, žádné strašení, jen kroky."
-      },
-      "audience": {
-        "heading": "Pro koho je tento průvodce",
-        "description": "Tento průvodce je napsán konkrétně pro německé společnosti středního trhu, které se s NIS2 setkávají poprvé.",
+      "badge": "Středně velké firmy",
+      "title": "Zavedení NIS2: jak postupovat ve středně velké firmě",
+      "subtitle": "Zaregistrujete svou firmu u BSI, zavedete bezpečnostní opatření v deseti oblastech a hlásíte významné incidenty. Vedení na to dohlíží. Jak důkladné musí každé opatření být, závisí na velikosti a riziku vaší firmy.",
+      "duties": {
+        "heading": "Čtyři povinnosti",
+        "lead": "NIS 2 je směrnice EU. V Německu ji do práva převádí zákon o BSI (BSIG). Firma, na kterou se vztahuje, se tam nazývá „subjekt“. Každý subjekt má čtyři povinnosti.",
         "items": {
-          "size": "Společnosti s 50-250 zaměstnanci v odvětvích NIS2",
-          "limitedIt": "Omezený IT personál, možná 2-5 lidí, nikoli bezpečnostní tým",
-          "noCompliance": "Žádné vyhrazené oddělení pro shodu ani zkušenost s GRC",
-          "firstTime": "První setkání s NIS2, BSIG nebo registrací u BSI"
-        }
-      },
-      "roadmap": {
-        "heading": "Plán implementace",
-        "phases": {
-          "foundation": {
-            "title": "Základ",
-            "weeks": "Týdny 1-2",
-            "description": "Vytvořte organizační základ: zaregistrujte se u BSI, přidělte odpovědnosti a informujte vedení o jeho osobní odpovědnosti podle §38 BSIG. Tato fáze je o zapojení správných lidí a vymezení rozsahu.",
-            "actions": [
-              "Registrace u BSI prostřednictvím Mein Unternehmenskonto + portál BSI",
-              "Jmenování vedoucího pro shodu (role na částečný úvazek, nikoli nový nábor)",
-              "Brífink vedení k povinnostem podle §38 BSIG a osobní odpovědnosti",
-              "Nastavení platformy pro shodu a pozvání členů týmu",
-              "Počáteční rozsah: určit, která kategorie subjektu se uplatní (zásadní nebo důležitý)"
-            ]
+          "register": {
+            "title": "Registrace",
+            "text": "Svou firmu jednou zaregistrujete u BSI, přes jeho portál.",
+            "law": "Art. 3(4) NIS 2 · § 33 BSIG",
+            "who": "Kdo spravuje firemní účet v ELSTER"
           },
-          "risk": {
-            "title": "Posouzení rizik",
-            "weeks": "Týdny 3-4",
-            "description": "Sestavte inventář aktiv a proveďte počáteční posouzení rizik. To je základ, na kterém staví vše ostatní, opatření 1 podle §30(1) BSIG. Použijte metodiku analýzy rizik BSI-200-3: identifikujte aktiva, identifikujte hrozby, posuďte pravděpodobnost a dopad, rozhodněte o ošetření.",
-            "actions": [
-              "Sestavit inventář aktiv - seskupit shodná aktiva (např. '45 notebooků' = 1 záznam)",
-              "Identifikovat a kategorizovat dodavatele s přístupem k vašim systémům",
-              "Provést počáteční posouzení rizik: pravděpodobnost × dopad pro každé aktivum",
-              "Zdokumentovat rozhodnutí o ošetření rizik: přijmout, zmírnit, přenést, nebo se vyhnout",
-              "Namapovat rizika na opatření BSIG - které kontroly řeší která rizika"
-            ]
+          "measures": {
+            "title": "Zavést opatření a zapsat je",
+            "text": "Chráníte své IT v deseti oblastech, od plánu pro incidenty po přihlášení s druhým faktorem. Co rozhodnete, zapíšete.",
+            "law": "Art. 21 NIS 2 · § 30 BSIG",
+            "who": "Kdo odpovídá za IT, interně nebo jako externí poskytovatel"
           },
-          "controls": {
-            "title": "Kontroly a dokumentace",
-            "weeks": "Týdny 5-8",
-            "description": "Zdokumentujte své bezpečnostní kontroly a postupy. Toto je objemově největší fáze, ale většina požadavků jsou zásady psané jednou. Zaměřte se na dokumentaci toho, co už děláte (většina společností má neformální procesy), a na vyplnění skutečných mezer.",
-            "actions": [
-              "Napsat nebo přijmout bezpečnostní zásady (informační bezpečnost, řízení přístupu, reakce na incidenty)",
-              "Zdokumentovat používání kryptografie a přístup ke správě klíčů",
-              "Nastavit proces reakce na incidenty s kaskádou 24 h / 72 h / 1 měsíc",
-              "Přezkoumat řízení přístupu: nejnižší nezbytná oprávnění, postupy při nástupu a odchodu",
-              "Zdokumentovat postupy pro kontinuitu provozu a zálohování",
-              "Zavést nebo zdokumentovat MFA pro kritické systémy"
-            ]
+          "report": {
+            "title": "Hlásit významné incidenty",
+            "text": "Významný bezpečnostní incident hlásíte BSI, první hlášení do 24 hodin. Incident je významný například tehdy, když vážně naruší váš provoz.",
+            "law": "Art. 23 NIS 2 · § 32 BSIG",
+            "who": "Kdo rozhoduje v případě nouze"
           },
-          "evidence": {
-            "title": "Důkazy a připravenost na audit",
-            "weeks": "Týdny 9-12",
-            "description": "Uzavřete smyčku: schválení vedením, dokončení školení, sběr důkazů a první kontrola účinnosti. Tato fáze přeměňuje vaše zdokumentovaná opatření na auditovatelné důkazy o shodě.",
-            "actions": [
-              "Vedení formálně schválí všechna opatření kybernetické bezpečnosti (povinnost podle §38)",
-              "Dokončit povinné školení vedení v kybernetické bezpečnosti",
-              "Nahrát dokumenty s důkazy: snímky obrazovky, konfigurace, podpisy zásad",
-              "Provést první posouzení účinnosti - fungují kontroly skutečně?",
-              "Exportovat zprávu o shodě pro interní přezkum"
-            ]
+          "management": {
+            "title": "Vedení řídí",
+            "text": "Vedení opatření zavádí a dohlíží na ně. Kromě toho se pravidelně účastní školení. Tyto povinnosti dopadají přímo na vedení.",
+            "law": "Art. 20 NIS 2 · § 38 BSIG",
+            "who": "Vedení, osobně"
           }
         }
       },
-      "roles": {
-        "heading": "Role, které potřebujete",
-        "description": "Nemusíte nikoho přijímat. Jde o odpovědnosti na částečný úvazek přidělené stávajícímu personálu.",
-        "items": {
-          "complianceLead": {
-            "title": "Vedoucí pro shodu (4-8 hodin týdně)",
-            "description": "Řídí proces, vyplňuje formuláře požadavků, koordinuje s IT a vedením. Obvykle vedoucí IT, manažer kvality nebo vedoucí provozu."
-          },
-          "itContact": {
-            "title": "Kontakt pro IT (2-4 hodiny týdně)",
-            "description": "Poskytuje technické vstupy: podrobnosti o aktivech, architektura sítě, stav šifrování, řízení přístupu. Váš administrátor nebo vedoucí IT."
-          },
-          "managementSponsor": {
-            "title": "Sponzor z vedení (1-2 hodiny týdně)",
-            "description": "Přezkoumává a schvaluje opatření, dokončuje školení, prokazuje dohled. Vyžadováno §38 BSIG, nelze delegovat."
-          },
-          "externalAuditor": {
-            "title": "Externí auditor (volitelně)",
-            "description": "Pro provozovatele KRITIS: vyžadováno každé 3 roky. Pro zásadní a důležité subjekty: volitelné, ale doporučené pro první cyklus shody k ověření vaší práce."
-          }
-        }
+      "size": {
+        "heading": "Co to znamená pro 50 až 150 zaměstnanců",
+        "items": [
+          "Nepotřebujete vlastní bezpečnostní tým. Zákon ho nevyžaduje.",
+          "Nepotřebujete certifikát jako ISO 27001. Zákon ho nepředepisuje, ale jako doklad může pomoci.",
+          "Opatření musí odpovídat vaší firmě. Měřítkem je vaše míra rizika, vaše velikost, náklady a to, jak pravděpodobné a závažné by incidenty byly (§ 30(1) věta druhá BSIG).",
+          "Zapíšete, co zavádíte (§ 30(1) věta třetí BSIG). Opatření navíc musí být účinná.",
+          "Práci odvedou lidé, které už máte: vedení, ten, kdo odpovídá za IT, a oddělení, která vědí, co provoz potřebuje."
+        ]
+      },
+      "order": {
+        "heading": "V jakém pořadí",
+        "lead": "Každý krok navazuje na ten předchozí.",
+        "steps": [
+          "Ověřit, zda se na vás NIS2 vztahuje. Záleží to na vašem odvětví, počtu zaměstnanců a obratu (§ 28 BSIG).",
+          "Zaregistrovat se u BSI.",
+          "Nechat vedení proškolit.",
+          "Sepsat, jaké IT váš provoz používá a kdo pro vás pracuje. Potom ohodnotit rizika.",
+          "Rozhodnout o opatřeních a zachytit je v dokumentech: bezpečnostní politika, nouzové plány a pravidla pro přístupy, aktualizace a šifrování.",
+          "Vedení dokumenty přečte a schválí.",
+          "Potom pravidelně kontrolovat, zda vše stále odpovídá."
+        ],
+        "roadmapLink": "Stručná verze pro vedení"
+      },
+      "example": {
+        "heading": "Příklad",
+        "lead": "Smyšlená firma: výrobce dopravníkových systémů s 90 zaměstnanci. O IT se stará jeden zaměstnanec spolu s externím poskytovatelem služeb.",
+        "steps": [
+          "Ověření ukáže: strojírenství je uvedeno v příloze 2 BSIG. S 90 zaměstnanci se firma počítá jako důležitý subjekt.",
+          "Jednatel požádá v ELSTER o certifikát organizace. Jakmile dorazí dopis s aktivačním kódem, zaregistruje firmu na portálu BSI.",
+          "Absolvuje školení pro vedení.",
+          "Zaměstnanec pro IT sepíše, na čem provoz závisí: ERP, e-mail, konstrukční software, řízení výroby, zálohy. K tomu dodavatelé, například poskytovatel IT služeb a dodavatel ERP.",
+          "Společně u každé položky ohodnotí, co se může stát. Nejvíc váží výpadek řízení výroby.",
+          "Z toho vzniknou dokumenty: bezpečnostní politika, plán reakce na incidenty, plán kontinuity provozu a pravidla pro přístupy, aktualizace a šifrování.",
+          "Jednatel je přečte a schválí. V plánu reakce na incidenty stojí, kdo při incidentu rozhoduje."
+        ]
       },
       "mistakes": {
-        "heading": "Běžné chyby",
-        "description": "Co vidíme společnosti dělat špatně, a jak se tomu vyhnout.",
+        "heading": "Časté chyby",
         "items": {
           "waiting": {
-            "title": "Čekání na 'konečný pokyn'",
-            "description": "Zákon je účinný od prosince 2025. CIR definuje technická opatření. Nepřichází žádný další pokyn, který by změnil to, co je třeba udělat. Začněte hned."
+            "title": "Čekat na konečný návod",
+            "description": "BSIG platí od 6. prosince 2025. Od té doby platí i povinnost přijmout opatření podle § 30 BSIG."
           },
           "overEngineering": {
-            "title": "Nadměrné řešení problému",
-            "description": "Stočlenná společnost odpadového hospodářství nepotřebuje SOC ani SIEM. Přizpůsobte své kontroly svému skutečnému rizikovému profilu. BSIG vyžaduje 'vhodná' opatření, nikoli maximální opatření."
+            "title": "Plánovat příliš ve velkém",
+            "description": "Zákon požaduje přiměřená opatření, ne co největší. Systémy pro detekci útoků jsou například povinné jen pro provozovatele kritických zařízení (§ 31(2) BSIG)."
           },
           "noManagement": {
-            "title": "Pojetí jako IT projekt",
-            "description": "§38 BSIG z toho dělá odpovědnost vedení. Pokud jednatel není zapojen, jste již v rozporu. Naplánujte brífink vedení do týdne 1."
+            "title": "Nechat NIS2 jen na IT",
+            "description": "Vedení musí opatření zavést a dohlížet na ně (§ 38(1) BSIG). Zapojte ho od začátku."
           },
           "ignoreSupplyChain": {
-            "title": "Ignorování bezpečnosti dodavatelského řetězce",
-            "description": "NIS2 výslovně vyžaduje posouzení kybernetické bezpečnosti vašich dodavatelů. To mnoho společností zaskočí. Začněte dokumentovat vztahy s dodavateli včas."
+            "title": "Zapomenout na dodavatele",
+            "description": "Bezpečnost dodavatelského řetězce je jednou z deseti oblastí (§ 30(2) č. 4 BSIG). Patří sem všichni přímí dodavatelé a poskytovatelé služeb, nejen IT."
           },
           "paperOnly": {
-            "title": "Papírová shoda bez skutečných opatření",
-            "description": "Psaní zásad, které nikdo nečte, se nepočítá. BSI může požadovat důkazy, že opatření jsou skutečně zavedena a účinná. Budujte skutečné procesy, nejen dokumenty."
+            "title": "Jen papír",
+            "description": "Zákon požaduje účinná opatření (§ 30(1) BSIG). Dokument, o kterém nikdo neví, nic nechrání."
           }
         }
       },
-      "ctaCard": {
-        "heading": "Začněte svou implementaci ještě dnes",
-        "description": "Platforma vás provede všemi 49 požadavky BSIG v pořadí, ve kterém by měly být implementovány, se strukturovanými formuláři, nahráváním důkazů a pracovními postupy pro schválení vedením, přesně to, co společnost středního trhu potřebuje, aby dosáhla shody bez najímání konzultanta."
+      "walk": {
+        "heading": "Jak to probíhá v průvodci",
+        "lead": "Průvodce na nisd2.eu vás zavedením provede v tomto pořadí, krok za krokem.",
+        "points": [
+          "20 kroků. Provozovatelé kritických zařízení mají o jeden krok víc.",
+          "U každého kroku je předpis, vysvětlený jednoduchými slovy.",
+          "Z vašich odpovědí vznikne šest dokumentů, mezi nimi bezpečnostní politika a oba nouzové plány.",
+          "Co ještě nejde, odložíte stranou a pokračujete dál.",
+          "Pokud se rozhodnete některý bod vědomě nezavést, zapíšete proč. Vedení toto rozhodnutí podepíše také.",
+          "Na konci vedení schválí dokumenty v aplikaci pod vlastním účtem. Jméno a datum se pak objeví na každém dokumentu."
+        ],
+        "seeItAlt": "Cesta průvodcem: kroky a které z nich jsou už hotové",
+        "next": "Začít prvním krokem"
       },
-      "cta": "Spusťte svůj proces shody s NIS2"
+      "sources": {
+        "heading": "Zdroje",
+        "items": [
+          "Směrnice (EU) 2022/2555 (NIS 2), Art. 3, 20, 21 a 23 (eur-lex.europa.eu)",
+          "Zákon o BSI (BSIG) ze dne 2. prosince 2025, §§ 28, 30, 31, 32, 33 a 38, účinný od 6. prosince 2025 (gesetze-im-internet.de/bsig_2025)",
+          "BSIG, příloha 2, č. 5.4 strojírenství (gesetze-im-internet.de/bsig_2025/anlage_2.html)",
+          "BSI, „Mein Unternehmenskonto“ a registrace na portálu BSI (bsi.bund.de/dok/muk)"
+        ]
+      }
     },
     "checklist": {
       "meta": {
@@ -3629,174 +3707,169 @@
     },
     "incidentReporting": {
       "meta": {
-        "title": "Hlášení incidentů NIS2: scénář 24 h / 72 h / 1 měsíc",
-        "description": "Hlášení incidentů NIS2 podle §32 BSIG: včasné varování do 24 hodin, oznámení incidentu do 72 hodin, závěrečná zpráva do 1 měsíce. Kritéria, portál BSI, pokuty."
+        "title": "Oznamovací povinnost NIS2: lhůty, obsah a postup",
+        "description": "Oznamovací povinnost NIS2 podle § 32 BSIG: včasné varování do 24 hodin, oznámení po 72 hodinách, závěrečná zpráva po měsíci. Co je významné, jak hlásit."
       },
-      "title": "Scénář hlášení incidentů NIS2",
-      "subtitle": "§32 BSIG transponuje čl. 23 odst. 4 NIS 2: tři povinné zprávy s pevnými termíny (24 h, 72 h, 1 měsíc) plus dvě podmíněné zprávy (na vyžádání a pokud incident stále trvá). Zmeškání termínu je samostatným porušením, nezávislým na incidentu samotném.",
-      "overview": {
-        "heading": "Hlášení incidentů podle NIS2",
-        "p1": "§32 BSIG provádí článek 23 směrnice NIS2. Zavádí povinný režim hlášení významných bezpečnostních incidentů. Každý subjekt klasifikovaný jako základní subjekt nebo důležitý subjekt musí hlásit BSI, pokud incident splňuje kritéria významnosti. Kaskáda má tři povinné zprávy s pevnými termíny a dvě podmíněné zprávy, spouštěné na vyžádání nebo probíhajícím incidentem. Poskytovatele služeb lze zmocnit k podání hlášení jménem subjektu; odpovědnost za incident a za obsah hlášení zůstává na subjektu.",
-        "p2": "Lhůty pro hlášení jsou přísné a začínají běžet okamžikem, kdy se subjekt o incidentu dozví, nikoli okamžikem dokončení vyšetřování. To je zásadní rozlišení: včasné varování do 24 hodin musí být podáno na základě prvotního zjištění, i když není znám plný rozsah a dopad. Čekání na úplné informace před hlášením je samo o sobě porušením."
-      },
-      "timeline": {
-        "heading": "Kaskáda hlášení podle čl. 23 odst. 4 NIS 2",
-        "description": "Tři povinné fáze s pevnými termíny od okamžiku zjištění, plus až dvě podmíněné zprávy (mezitímní na žádost orgánu, průběžná zpráva, pokud incident v den splatnosti závěrečné zprávy stále trvá).",
-        "items": {
-          "early": {
-            "title": "Včasné varování (frühe Erstmeldung)",
-            "deadline": "Do 24 hodin",
-            "description": "Prvotní oznámení BSI, že byl zjištěn potenciálně významný incident. Musí být podáno do 24 hodin od zjištění incidentu. Účelem je umožnit BSI posoudit meziodvětvový dopad a v případě potřeby vydat varování ostatním subjektům.",
-            "contents": [
-              "Potvrzení, že došlo k významnému incidentu nebo že je podezření na něj",
-              "Zda je podezření, že incident byl způsoben protiprávním nebo zlovolným jednáním",
-              "Zda by incident mohl mít přeshraniční dopad",
-              "Název subjektu, sektor a kontaktní údaje pro další jednání"
-            ]
-          },
-          "update": {
-            "title": "Oznámení incidentu (Meldung)",
-            "deadline": "Do 72 hodin",
-            "description": "Podrobnější oznámení doplňující včasné varování o další informace získané během prvotní reakce. Musí být podáno do 72 hodin od zjištění. Aktualizuje BSI o povaze, závažnosti a prvotním posouzení dopadu incidentu.",
-            "contents": [
-              "Aktualizované posouzení závažnosti a dopadu incidentu",
-              "Indikátory kompromitace (IoC), pokud jsou k dispozici",
-              "Prvotní posouzení povahy a příčiny incidentu",
-              "Opatření přijatá nebo plánovaná ke zmírnění incidentu",
-              "Posouzení přeshraničního dopadu, pokud je relevantní"
-            ]
-          },
-          "intermediate": {
-            "title": "Mezitímní zpráva (Zwischenmeldung)",
-            "deadline": "Na vyžádání",
-            "description": "Podává se na žádost BSI mezi oznámením do 72 hodin a závěrečnou zprávou. Aktualizace stavu o aktuálním průběhu zvládání incidentu. Není automatická; spouští ji orgán.",
-            "contents": [
-              "Aktuální stav zadržení a nápravy",
-              "Nová zjištění o příčině, rozsahu nebo dopadu",
-              "Úpravy protiopatření",
-              "Aktualizované posouzení škod"
-            ]
-          },
-          "final": {
-            "title": "Závěrečná zpráva (Abschlussmeldung)",
-            "deadline": "1 měsíc po oznámení do 72 h",
-            "description": "Komplexní závěrečná zpráva podaná do jednoho měsíce od oznámení incidentu do 72 hodin. Úplná dokumentace incidentu a reakce.",
-            "contents": [
-              "Podrobný popis incidentu, včetně závažnosti a dopadu",
-              "Analýza kořenové příčiny: typ hrozby nebo zranitelnosti, která incident způsobila",
-              "Opatření uplatněná a probíhající ke zmírnění incidentu a jeho následků",
-              "Přeshraniční dopad, pokud je relevantní"
-            ]
-          },
-          "progress": {
-            "title": "Průběžná zpráva (Fortschrittsmeldung)",
-            "deadline": "Pokud incident stále trvá",
-            "description": "Pokud incident v době splatnosti závěrečné zprávy stále trvá, odešle se místo ní průběžná zpráva. Závěrečná zpráva následuje po úplném vyřešení incidentu (§ 32 Abs. 2 BSIG); směrnice uvádí jeden měsíc od jeho vyřešení (čl. 23 odst. 4 písm. e) NIS 2).",
-            "contents": [
-              "Aktuální stav, jelikož incident stále trvá",
-              "Dosud zavedená opatření k zadržení",
-              "Předpokládaná doba do vyřešení incidentu, kde je předvídatelná",
-              "Plán pro případnou závěrečnou zprávu po vyřešení incidentu"
-            ]
-          }
-        }
-      },
+      "title": "Oznamovací povinnost NIS2: kdy a jak hlásit incidenty BSI",
+      "subtitle": "Významný bezpečnostní incident hlásíte BSI ve třech stupních: včasné varování do 24 hodin, oznámení do 72 hodin a závěrečná zpráva o měsíc později (§ 32 BSIG). Lhůta běží od okamžiku, kdy se o incidentu dozvíte. Hlásí se na portálu BSI.",
       "criteria": {
-        "heading": "Co činí incident 'významným'",
-        "description": "Ne každá bezpečnostní událost spouští povinnost podle § 32 BSIG. Incident je významný, pokud splňuje jedno ze dvou kritérií v § 2 Nr. 11 BSIG (čl. 23 odst. 3 NIS 2): závažné narušení služeb nebo finanční ztráta subjektu, nebo značná hmotná či nehmotná škoda jiných osob. Pro digitální poskytovatele, na které se vztahuje CIR, stanoví prahové hodnoty čl. 3 až 14 CIR 2024/2690. U všech ostatních subjektů lze podle BSI vycházet z toho, že incident je významný, pokud splňuje jedno z kritérií čl. 3 odst. 1 CIR, a vždy tehdy, když poskytování kritické služby selhalo nebo je narušeno.",
+        "heading": "Co je významný bezpečnostní incident",
+        "intro": "Bezpečnostní incident je událost, která narušuje dostupnost, integritu nebo důvěrnost vašich dat nebo služeb (§ 2 č. 40 BSIG). Hlásit musíte jen významné incidenty.",
+        "description": "Incident je významný, pokud způsobil nebo může způsobit jednu ze dvou věcí (§ 2 č. 11 BSIG, Art. 23(3) NIS 2): závažné narušení provozu nebo finanční ztrátu pro vaši firmu, nebo značnou škodu jiným. Pro určité digitální poskytovatele stanoví přesné prahy prováděcí nařízení (EU) 2024/2690. Pro všechny ostatní podle BSI platí: incident je významný, pokud splňuje některé z kritérií v Art. 3(1) tohoto nařízení, a vždy tehdy, když kritická služba vypadne nebo je omezena.",
         "items": {
           "disruption": {
-            "title": "Narušení služby",
-            "description": "Incident způsobil nebo může způsobit závažné provozní narušení služeb poskytovaných subjektem (§ 2 Nr. 11 a BSIG)."
+            "title": "Závažné narušení provozu",
+            "description": "Incident vážně narušuje poskytování vašich služeb, nebo k tomu může vést."
           },
           "financial": {
             "title": "Finanční ztráta",
-            "description": "Incident způsobil nebo může způsobit subjektu finanční ztrátu. U digitálních poskytovatelů, na které se vztahuje CIR, stanoví hranici čl. 3 odst. 1 písm. a) CIR na přímou finanční ztrátu přesahující 500 000 EUR nebo 5 % obratu za předchozí rok, podle toho, která hodnota je nižší; bod odůvodnění 36 počítá například náklady na pracovníky obnovy, smluvní pokuty, odškodnění zákazníků a ušlé příjmy."
+            "description": "Incident způsobuje vaší firmě finanční ztrátu, nebo ji může způsobit. Pro digitální poskytovatele, na které se prováděcí nařízení vztahuje, je prahem přímá ztráta nad 500 000 EUR nebo 5 % obratu za předchozí rok, podle toho, která částka je nižší (Art. 3(1)(a))."
           },
           "spread": {
-            "title": "Dopad na jiné subjekty",
-            "description": "Incident způsobil nebo by mohl způsobit značnou škodu jiným fyzickým nebo právnickým osobám. Zahrnuje incidenty, které se šíří dodavatelskými řetězci, ovlivňují sdílenou infrastrukturu nebo vystavují data patřící třetím stranám."
+            "title": "Škoda jiným",
+            "description": "Incident způsobuje jiným lidem nebo firmám značnou majetkovou nebo nemajetkovou škodu, nebo ji může způsobit."
           },
           "data": {
             "title": "Únik dat",
-            "description": "Únik dat je významným incidentem jen tehdy, pokud splňuje jedno ze dvou kritérií, například proto, že způsobuje značnou škodu jiným osobám. Hlášení podle § 32 BSIG je oddělené od ohlášení porušení zabezpečení podle čl. 33/34 GDPR a doplňuje je; obě povinnosti se mohou vztahovat na tentýž incident."
+            "description": "Únik dat je významný jen tehdy, pokud splňuje jedno z obou kritérií, například protože jiným způsobí značnou škodu. Hlášení podle § 32 BSIG stojí vedle ohlášení podle Art. 33 a 34 GDPR. Obojí může platit pro tentýž incident."
           },
           "duration": {
-            "title": "Délka trvání",
-            "description": "Délka trvání není samostatným kritériem v § 2 Nr. 11 BSIG ani v čl. 23 odst. 3 NIS 2. U digitálních poskytovatelů, na které se vztahuje CIR, stanoví čl. 5 až 14 časové limity pro jednotlivé služby (například cloudová služba zcela nedostupná déle než 30 minut, čl. 7 písm. a) CIR). Pokud poskytování kritické služby selhalo nebo je narušeno, je podle BSI incident vždy významný."
+            "title": "Doba trvání",
+            "description": "Doba trvání není samostatné kritérium. Pro digitální poskytovatele, na které se prováděcí nařízení vztahuje, platí časové limity pro každou službu, například když cloudová služba úplně nefunguje déle než 30 minut (Art. 7(a))."
+          }
+        },
+        "doubt": "V případě pochybností hlaste včas. BSI si výslovně přeje brzká hlášení, i když je ještě mnoho nejasného. Opravy přijdou s pozdějšími hlášeními."
+      },
+      "timeline": {
+        "heading": "Lhůty",
+        "description": "Tři hlášení s pevnými lhůtami a k tomu dvě, která přicházejí jen v určitých případech. Lhůty jsou maximální: hlásí se bez zbytečného odkladu.",
+        "awareness": "Lhůta začíná běžet ve chvíli, kdy se o incidentu dozvíte. Podle BSI je to okamžik, kdy se o významném incidentu dozví zaměstnanec vaší firmy během pracovní doby.",
+        "items": {
+          "early": {
+            "title": "Včasné varování",
+            "deadline": "24 hodin",
+            "description": "První varování pro BSI, nejpozději 24 hodin poté, co jste se o incidentu dozvěděli.",
+            "contents": [
+              "Zda incident pravděpodobně způsobilo protiprávní nebo zlovolné jednání",
+              "Zda by mohl zasáhnout jiné země",
+              "První zařazení incidentu",
+              "Kdo hlásí a jak se BSI s touto osobou spojí"
+            ]
+          },
+          "update": {
+            "title": "Oznámení incidentu",
+            "deadline": "72 hodin",
+            "description": "Nejpozději 72 hodin poté, co jste se o incidentu dozvěděli. Potvrzuje nebo doplňuje včasné varování.",
+            "contents": [
+              "První posouzení závažnosti a dopadů",
+              "Stopy po útočnících (indikátory kompromitace), pokud jsou k dispozici",
+              "Co víte o příčině",
+              "Co jste udělali a co ještě plánujete"
+            ]
+          },
+          "intermediate": {
+            "title": "Průběžná zpráva",
+            "deadline": "Na vyžádání",
+            "description": "Jen pokud o ni BSI požádá: aktuální stav.",
+            "contents": [
+              "Stav omezení a odstranění incidentu",
+              "Nová zjištění o příčině, rozsahu nebo dopadech"
+            ]
+          },
+          "final": {
+            "title": "Závěrečná zpráva",
+            "deadline": "1 měsíc po oznámení",
+            "description": "Nejpozději měsíc po oznámení incidentu, tedy po hlášení do 72 hodin.",
+            "contents": [
+              "Podrobný popis incidentu se závažností a dopady",
+              "Druh hrozby nebo pravděpodobná příčina",
+              "Co jste udělali a stále děláte",
+              "Zda jsou zasaženy jiné země"
+            ]
+          },
+          "progress": {
+            "title": "Zpráva o pokroku",
+            "deadline": "Pokud incident stále trvá",
+            "description": "Pokud incident po měsíci stále trvá, podáte místo závěrečné zprávy zprávu o pokroku. Závěrečná zpráva následuje, jakmile je incident vyřešen (§ 32(2) BSIG).",
+            "contents": [
+              "Aktuální stav",
+              "Co jste dosud omezili"
+            ]
           }
         }
       },
       "fields": {
-        "heading": "Povinné údaje hlášení",
-        "description": "Ohlašovací portál BSI vyžaduje strukturované informace. Mít tyto údaje připravené předem výrazně snižuje riziko zmeškání 24hodinové lhůty.",
-        "items": {
-          "entity": {
-            "title": "Identifikace subjektu",
-            "description": "Kdo hlásí a jak ho zastihnout, a kterých sektorů, odvětví a druhů subjektů se incident týká (a u provozovatelů, kterých kritických zařízení). Tyto údaje mějte ve svém plánu reakce na incidenty, aby se nehledaly v průběhu krize."
-          },
-          "nature": {
-            "title": "Povaha a klasifikace incidentu",
-            "description": "Typ incidentu (ransomware, DDoS, únik dat, vnitřní hrozba, kompromitace dodavatelského řetězce atd.), postižené systémy a služby, časová osa událostí od detekce po aktuální stav a prvotní klasifikace závažnosti."
-          },
-          "impact": {
-            "title": "Posouzení dopadu",
-            "description": "Počet postižených uživatelů nebo zákazníků, narušené služby, odhadovaný finanční dopad, kategorie dotčených dat (pokud nějaké) a doba trvání narušení. Pro včasné varování jsou odhady přípustné. Přesnost přichází v oznámení do 72 hodin a v závěrečné zprávě."
-          },
-          "crossBorder": {
-            "title": "Přeshraniční dopad",
-            "description": "Zda incident postihuje nebo by mohl postihnout subjekty nebo občany v jiných členských státech EU. To spouští sdílení informací mezi vnitrostátními CSIRT a může zahrnovat koordinaci ENISA. Musí být posouzeno jak ve včasném varování, tak v následných oznámeních."
-          },
-          "measures": {
-            "title": "Opatření reakce",
-            "description": "Kroky přijaté k zadržení, odstranění a obnově po incidentu. Zahrnuje technická opatření (izolace, opravy, obměna přihlašovacích údajů), komunikační opatření (informování zákazníků, brífink zainteresovaných stran) a organizační opatření (aktivace krizového týmu, zapojení externí podpory)."
-          }
-        }
+        "heading": "Co patří do včasného varování",
+        "description": "BSI pro včasné varování uvádí tyto údaje. Formulář na portálu se na ně ptá.",
+        "list": [
+          "Zařazení incidentu, důvod hlášení a situace",
+          "Předběžný popis: narušení, dopad, očekávaná doba trvání a předpokládaná příčina",
+          "Kdy incident nastal a kdy jste si ho všimli",
+          "Dotčená odvětví a druhy subjektů",
+          "Zda je podezření na útok a zda by mohly být zasaženy jiné země",
+          "Co jste dosud udělali a zda je incident pod kontrolou",
+          "Jak se BSI spojí s osobou, která hlásí"
+        ],
+        "note": "Podle BSI platí: rychlost před úplností. Podané hlášení nelze stáhnout. Opravíte ho navazujícím hlášením."
       },
       "where": {
-        "heading": "Kde a jak hlásit",
-        "description": "Hlášení se podávají BSI, zpravidla prostřednictvím portálu BSI.",
-        "p1": "Hlášení podle § 32 BSIG se podávají BSI, zpravidla prostřednictvím portálu BSI. Subjekt, který má významný incident dříve, než se zaregistroval, hlásí prostřednictvím online formuláře v ohlašovacím a informačním portálu BSI (MIP). Provozovatelé kritických zařízení a spolkové úřady zatím používají své dosavadní ohlašovací kanály.",
-        "p2": "Ohlašovací portál je dostupný na webu BSI v sekci NIS2. Pro hlášení v portálu BSI se přihlašujete přístupem z vaší registrace (§ 33 BSIG). Pokud k významnému incidentu dojde dříve, než jste se zaregistrovali, hlásíte jej i tak, a to prostřednictvím online formuláře v MIP."
+        "heading": "Kde a kdo hlásí",
+        "description": "Hlásí se BSI, obvykle přes portál BSI.",
+        "p1": "Hlášení podle § 32 BSIG jdou BSI, obvykle přes portál BSI. Pokud má vaše firma významný incident dříve, než je zaregistrovaná, hlásíte přes formulář na ohlašovacím a informačním portálu BSI (MIP). Provozovatelé kritických zařízení a spolkové úřady zatím používají své dosavadní cesty hlášení.",
+        "p2": "Hlásit může každý zaměstnanec, který má přístup k portálu. Každá osoba k tomu potřebuje vlastní certifikát organizace z ELSTER a musí být na portálu přiřazena k vašemu subjektu. Hlášením můžete pověřit i poskytovatele služeb. Odpovědnost za hlášení zůstává na vás.",
+        "p3": "Provozovatelé kritických zařízení navíc hlásí druh zařízení, kritickou službu a dopady na ni (§ 32(3) BSIG). Pokud jsou dotčeny osobní údaje, může být navíc potřeba ohlášení úřadu pro ochranu osobních údajů."
       },
-      "penalties": {
-        "heading": "Sankce za pochybení při hlášení",
-        "description": "Nesplnění hlášení se sankcionuje nezávisle na incidentu samotném. Společnost, která utrpí incident a zvládne jej technicky dobře, ale nesplní hlášení, čelí samostatnému správnímu řízení.",
-        "items": {
-          "essential": {
-            "amount": "Až 10 000 000 EUR nebo 2 % obratu",
-            "label": "Základní subjekty",
-            "detail": "Vyšší z hodnot 10 milionů EUR nebo 2 % celosvětového ročního obratu za předchozí účetní rok (§ 65 Abs. 5 a 6 BSIG). Základními subjekty jsou mimo jiné velké podniky v sektorech přílohy 1 BSIG (energetika, doprava, finance, zdravotnictví, voda, digitální infrastruktura, kosmický prostor) a bez ohledu na velikost provozovatelé kritických zařízení, kvalifikovaní poskytovatelé služeb vytvářejících důvěru, registry TLD a poskytovatelé DNS (§ 28 Abs. 1 BSIG)."
-          },
-          "important": {
-            "amount": "Až 7 000 000 EUR nebo 1,4 % obratu",
-            "label": "Důležité subjekty",
-            "detail": "Vyšší z hodnot 7 milionů EUR nebo 1,4 % celosvětového ročního obratu (§ 65 Abs. 5 a 7 BSIG). Důležitými subjekty jsou středně velké podniky v sektorech přílohy 1 a středně velké nebo velké podniky v sektorech přílohy 2 (poštovní a kurýrní služby, odpadové hospodářství, chemické látky, potraviny, výroba, digitální poskytovatelé, výzkum) a dále všichni ostatní poskytovatelé služeb vytvářejících důvěru (§ 28 Abs. 2 BSIG)."
-          },
-          "management": {
-            "amount": "Odpovědnost vůči společnosti (§ 38 Abs. 2 BSIG)",
-            "label": "Vedení (Geschäftsleitung)",
-            "detail": "§ 38 BSIG ukládá vedení zavést opatření řízení rizik podle § 30 a dohlížet na ně. Člen vedení, který tuto povinnost zaviněně poruší, odpovídá společnosti za vzniklou škodu podle pravidel práva obchodních společností pro její právní formu (§ 38 Abs. 2). Samotné hlášení je povinností subjektu (§ 32); pozdní nebo chybějící hlášení se pokutuje na úrovni subjektu (§ 65 Abs. 2 Nr. 4)."
-          }
-        }
+      "after": {
+        "heading": "Po hlášení",
+        "items": [
+          "BSI potvrdí přijetí bez zbytečného odkladu, pokud možno do 24 hodin. Na požádání poskytne vodítka nebo poradenství (§ 36(1) BSIG).",
+          "BSI může nařídit, abyste o incidentu informovali příjemce svých služeb (§ 35(1) BSIG).",
+          "Počítejte s doplňujícími dotazy. BSI doporučuje, aby jeho varování zastihla někoho i mimo pracovní dobu."
+        ]
+      },
+      "example": {
+        "heading": "Příklad",
+        "lead": "Smyšlená firma. Pondělí, 9:00: účetní oddělení oznámí IT, že soubory na serveru jsou zašifrované. Příjem objednávek stojí.",
+        "items": [
+          "Pondělí, 9:30: IT potvrdí útok. Podle plánu pro incidenty rozhoduje jednatel. Incident zařadí jako významný, protože je provoz vážně narušen.",
+          "Pondělí, 14:00: včasné varování na portálu BSI. Uvádí, co je známo, a že je podezření na útok. Lhůta by běžela do úterý 9:00.",
+          "Nejpozději ve čtvrtek v 9:00: oznámení incidentu s prvním posouzením závažnosti a dopadů.",
+          "Měsíc po tomto oznámení: závěrečná zpráva s příčinou a nápravou. Pokud incident tehdy ještě trvá, přijde nejdřív zpráva o pokroku.",
+          "Souběžně firma ověří, zda jsou dotčeny osobní údaje. Pokud ano, platí navíc ohlašovací povinnost podle Art. 33 GDPR."
+        ]
+      },
+      "prepare": {
+        "heading": "Co si připravit předem",
+        "items": [
+          "Kdo rozhoduje, zda je incident významný, a kdo hlásí.",
+          "Přístup k portálu BSI pro tyto osoby: pro každou certifikát organizace a přiřazení k vašemu subjektu.",
+          "Telefonní čísla na IT, poskytovatele služeb a vedení, i na papíře.",
+          "Plán pro incidenty, který lidé najdou, i když servery nefungují."
+        ]
+      },
+      "walk": {
+        "heading": "Jak to probíhá v průvodci",
+        "lead": "Na hlášení vás připraví dva kroky v průvodci na nisd2.eu.",
+        "points": [
+          "„Plan what happens in an incident“: z vašich odpovědí vznikne váš plán reakce na incidenty. Říká, kdo rozhoduje a jak hlásíte.",
+          "„Know how to report an incident“: krok ukazuje tři lhůty a příklad včasného varování.",
+          "Zaznamenáte, zda se dokážete přihlásit na portál BSI a podat hlášení.",
+          "Na konci vedení schválí plán reakce na incidenty v aplikaci."
+        ],
+        "seeItAlt": "Krok k hlášení v průvodci: tři lhůty",
+        "next": "Sepsat plán pro incidenty v průvodci"
       },
       "sources": {
         "heading": "Zdroje",
         "items": [
-          "Směrnice NIS2 (EU) 2022/2555. Článek 23 (ohlašovací povinnosti)",
-          "BSIG. §32 (Meldepflichten bei erheblichen Sicherheitsvorfällen)",
-          "BSIG. §38 (Umsetzungs-, Überwachungs- und Schulungspflicht. Geschäftsleitung)",
-          "BSIG. §65 (Bußgeldvorschriften)",
-          "CIR (EU) 2024/2690. Článek 3 (významnost incidentů), článek 4 (opakující se incidenty)",
-          "BSI. NIS-2-Meldepflicht (informační stránka pro regulované podniky): bsi.bund.de",
-          "BSI. Dokumentace ohlašovacího portálu NIS2 a FAQ"
+          "Zákon o BSI (BSIG), § 2 č. 11 a 40, §§ 32, 35 a 36 (gesetze-im-internet.de/bsig_2025)",
+          "Směrnice (EU) 2022/2555 (NIS 2), Art. 23 (eur-lex.europa.eu)",
+          "Prováděcí nařízení (EU) 2024/2690, Art. 3 a 7",
+          "BSI, oznamovací povinnost podle NIS 2: lhůty, obsah a způsob hlášení (bsi.bund.de/dok/nis-2-meldepflicht)",
+          "BSI, „Mein Unternehmenskonto“: přístup k portálu BSI (bsi.bund.de/dok/muk)",
+          "Nařízení (EU) 2016/679 (GDPR), Art. 33 a 34"
         ]
-      },
-      "ctaCard": {
-        "heading": "Buďte připraveni hlásit dřív, než incident udeří",
-        "description": "Platforma předkonfiguruje vaše ohlašovací údaje pro BSI, vede registr incidentů s klasifikačními postupy a sleduje termíny 24 h / 72 h / 1 měsíc, abyste pod tlakem splnili každou povinnost."
-      },
-      "cta": "Začněte svůj proces compliance NIS2"
+      }
     },
     "euImplementation": {
       "meta": {
@@ -3983,108 +4056,117 @@
     },
     "missedRegistration": {
       "meta": {
-        "title": "Zmeškali jste registraci BSI podle NIS2? Okamžité kroky",
-        "description": "Zmeškali jste registraci NIS2? Portál BSI je stále otevřený. Jak se nyní zaregistrovat podle § 33 BSIG, krok za krokem, s odpověďmi na časté dotazy."
+        "title": "Registrace NIS2 u BSI: postup a lhůta",
+        "description": "Registrace NIS2 u BSI: kdo se registruje, kroky přes ELSTER a portál BSI, lhůta a co následuje potom."
       },
-      "title": "Zmeškali jste lhůtu pro registraci u BSI. Co teď?",
-      "subtitle": "Portál BSI je stále otevřený. Tady je to, na čem teď záleží, a čím začít.",
-      "shortAnswer": {
-        "heading": "Stručná odpověď",
-        "p1": "Nepropadejte panice. Nejste v tom sami, a není pozdě to napravit. BSI odhadl, že pod NIS2 v Německu spadá zhruba 30 000 subjektů. Lhůta pro registraci uplynula 6. března 2026, ale značný počet firem se stále nezaregistroval. Zdaleka nejste jediní, kdo je v této situaci.",
-        "p2": "Registrační portál podle §33 BSIG je stále otevřený. Zaregistrovat se můžete ještě dnes. BSI dal najevo, že přednostně bude vymáhat povinnosti vůči firmám, které je zcela ignorují, nikoli vůči těm, které se zaregistrovaly pozdě, ale jednají v dobré víře. Pozdě je lepší než nikdy, a „nikdy“ je jediná opravdu nebezpečná možnost.",
-        "p3": "Klíčové je jednat hned, doložit, že jste začali, a pustit se do skutečné práce na shodě. Pozdní registrace s viditelným pokrokem vypadá pro regulátora zásadně jinak než žádná registrace."
+      "title": "Registrace NIS2: jak zaregistrovat firmu u BSI",
+      "subtitle": "Dotčené firmy se registrují na portálu BSI (§ 33 BSIG). Předtím potřebujete certifikát organizace z ELSTER, který se aktivuje dopisem. Pro firmy dotčené od prosince 2025 skončila lhůta 6. března 2026. Kdo ji zmeškal, zaregistruje se teď: povinnost trvá dál.",
+      "who": {
+        "heading": "Kdo se musí registrovat",
+        "p1": "Každý základní a každý důležitý subjekt (§ 33(1) BSIG). Tak zákon nazývá firmy, na které se NIS 2 vztahuje.",
+        "p2": "Zda k nim vaše firma patří, závisí na jejím odvětví a velikosti (§ 28 BSIG). Odvětví jsou uvedena v přílohách 1 a 2 BSIG. V těchto odvětvích je důležitým subjektem firma, která má alespoň 50 zaměstnanců, nebo roční obrat a bilanční sumu vždy přes 10 milionů EUR.",
+        "p3": "BSI nabízí ověření dotčenosti, které vás provede otázkami. Jeho výsledek podle BSI není právně závazný."
+      },
+      "deadline": {
+        "heading": "Lhůta",
+        "p1": "Zaregistrujete se nejpozději tři měsíce poté, co se vaše firma poprvé počítá jako subjekt (§ 33(1) BSIG).",
+        "p2": "BSIG platí od 6. prosince 2025. Pro firmy dotčené od té doby skončila lhůta 6. března 2026.",
+        "p3": "Pokud se vaše firma stane dotčenou až později, například protože roste, běží tři měsíce od tohoto okamžiku."
       },
       "steps": {
-        "heading": "Pět kroků, jak se vrátit do hry",
-        "description": "Postupujte v tomto pořadí. Každý krok navazuje na předchozí a společně vytvářejí doložitelnou stopu, která BSI ukáže, že shodu berete vážně.",
+        "heading": "Jak se zaregistrovat, krok za krokem",
+        "description": "Registrace má dva stupně: nejprve přístup v ELSTER, potom registrace na portálu BSI.",
         "items": {
           "check": {
-            "title": "1. Ověřte, že do působnosti skutečně spadáte",
-            "description": "Než se zaregistrujete, ověřte, že se na vaši firmu NIS2 vztahuje. Kritéria jsou v §28 BSIG: musíte působit v jednom z 18 uvedených odvětví A zároveň splňovat velikostní práh (nejméně 50 zaměstnanců, nebo roční obrat a bilanční suma, obojí nad 10 mil. EUR). Pokud si nejste jistí, zkontrolujte odvětvové seznamy BSI v příloze I a příloze II směrnice NIS2. Mnoho firem se domnívá, že jsou mimo působnost, i když nejsou, a naopak. Pokud si opravdu nejste jistí, vyžádejte si před registrací právní stanovisko, ale nepoužívejte nejistotu jako výmluvu k odkladu."
+            "title": "Ověřit, zda jste dotčeni",
+            "description": "Ujasněte si odvětví, počet zaměstnanců a obrat (§ 28 BSIG). Pomůže vám ověření dotčenosti od BSI. U hraničních případů pomůže právní posouzení."
+          },
+          "certificate": {
+            "title": "Požádat v ELSTER o certifikát organizace",
+            "description": "To se dělá přes „Mein Unternehmenskonto“ (mein-unternehmenskonto.de). Potřebujete k tomu německé daňové číslo. Přístupové údaje přijdou e-mailem, aktivační kód dopisem na adresu uloženou k daňovému číslu. Podle BSI trvá doručení obvykle nejméně pět pracovních dnů."
+          },
+          "gather": {
+            "title": "Připravit údaje",
+            "description": "Název, adresu, právní formu a údaje z rejstříku převezme portál z vašeho firemního účtu. Podle § 33(1) BSIG doplníte: e-mail a telefonní čísla, vaše veřejné rozsahy IP adres, vaše odvětví, státy EU, ve kterých takové služby poskytujete, a vaše příslušné dozorové úřady."
           },
           "register": {
-            "title": "2. Okamžitě se zaregistrujte přes portál BSI",
-            "description": "Přejděte na registrační portál NIS2 u BSI a dokončete registraci podle §33 BSIG. Budete potřebovat: údaje o firmě, zařazení do odvětví, kontaktní osobu pro otázky kybernetické bezpečnosti a rozsahy IP adres vašich kritických systémů. Samotná registrace zabere asi 30 minut, pokud máte informace připravené. Udělejte to ještě dnes. Každý den čekání zvětšuje mezeru mezi lhůtou a datem vaší registrace."
+            "title": "Zaregistrovat se na portálu BSI",
+            "description": "Pomocí certifikátu se přihlásíte na portál BSI (portal.bsi.bund.de) a vyplníte formulář. Kdo subjekt zaregistruje, stane se automaticky jeho správcem a může pozvat kolegy."
           },
-          "document": {
-            "title": "3. Doložte, že jste začali",
-            "description": "Vytvořte písemný záznam, klidně i jednoduché interní memo, který doloží, kdy jste se o svých povinnostech podle NIS2 dozvěděli, kdy jste se zaregistrovali a jaké kroky podnikáte. Tím vznikne papírová stopa prokazující dobrou víru. Pokud se BSI někdy zeptá, proč jste byli pozdě, „povinnost jsme zjistili, okamžitě se zaregistrovali a práci na shodě zahájili dne [datum]“ je silná odpověď."
-          },
-          "implement": {
-            "title": "4. Začněte se skutečnou prací na shodě",
-            "description": "Registrace je jen první krok. §30 BSIG vyžaduje zavedení opatření pro řízení rizik v oblasti kybernetické bezpečnosti. Začněte od základů: inventář aktiv, metodika hodnocení rizik a postupy pro hlášení incidentů. Nemusíte být plně ve shodě přes noc, ale musíte na tom viditelně pracovat. BSI bude sledovat vývoj, ne jen aktuální stav."
-          },
-          "legal": {
-            "title": "5. Při nejasné působnosti zvažte právní poradenství",
-            "description": "Pokud se vaše firma pohybuje blízko prahu (kolem 50 zaměstnanců nebo kolem 10 mil. EUR obratu i bilanční sumy), působí v odvětví, které lze vykládat více způsoby, nebo má složitou korporátní strukturu, poraďte se s právníkem se specializací na IT regulaci. Náklady na právní stanovisko (2 000 až 5 000 EUR) jsou zanedbatelné ve srovnání s náklady na nesoulad nebo na zbytečnou shodu. Některá oborová sdružení (jako Bitkom nebo BDI) nabízejí svým členům i poradenství k působnosti NIS2."
+          "record": {
+            "title": "Zaznamenat a rozdělit přístupy",
+            "description": "Poznamenejte si, kterého dne a s jakým certifikátem jste se zaregistrovali. Dejte přístup lidem, kteří budou v případě nouze hlásit incidenty. Každá osoba potřebuje vlastní certifikát a musí být na portálu přiřazena k vašemu subjektu."
           }
         }
       },
-      "risks": {
-        "heading": "Jaká jsou skutečná rizika pozdní registrace?",
-        "description": "Upřímnost ohledně rizik vám pomůže přijímat přiměřená rozhodnutí. Důsledky jsou reálné, ale ne katastrofální, pokud budete jednat hned.",
-        "items": {
-          "fines": {
-            "title": "Správní pokuty",
-            "description": "§65 BSIG stanoví pokuty až do výše 500 000 EUR konkrétně za porušení registrační povinnosti. V praxi má BSI omezené vymáhací kapacity a soustředí se na to, aby firmy dostal do systému, nikoli na trestání opozdilců. Firma, která se zaregistruje pozdě a prokáže aktivní úsilí o shodu, pravděpodobně nebude čelit maximální sankci. Firma, která se nezaregistruje nikdy, je jiný příběh."
-          },
-          "orders": {
-            "title": "Příkazy ke splnění povinností",
-            "description": "BSI může vydat závazné příkazy, které vám uloží zaregistrovat se a zavést konkrétní opatření v dané lhůtě. Nesplnění takového příkazu právní situaci výrazně zhorší. Proaktivní registrace, byť pozdní, této eskalaci zcela předejde."
-          },
-          "liability": {
-            "title": "Osobní odpovědnost vedení",
-            "description": "§38 BSIG činí Geschäftsführung osobně odpovědnou za zajištění shody s NIS2. Pokud vaše firma spadá do působnosti a vy jako vedení jste vědomě odkládali registraci, vzniká tím osobní expozice. Tuto odpovědnost nelze vyloučit usnesením společníků. Důležitou ochranou je doložit, že jste jednali, jakmile jste se o povinnosti dozvěděli."
-          },
-          "audit": {
-            "title": "Zvýšená pozornost při budoucích auditech",
-            "description": "U klíčových subjektů provádí BSI pravidelné audity. Pozdní registrace bude v časové ose vaší shody viditelná. Dobře doložený proces dohánění, který ukazuje systematické zlepšování, je však vnímán velmi odlišně od vzorce zanedbávání. Auditoři posuzují vývoj, nejen výchozí bod."
-          }
-        }
+      "after": {
+        "heading": "Co následuje po registraci",
+        "p1": "§ 33 BSIG po registraci nepředpokládá žádné rozhodnutí ani další krok BSI. Nečekejte tedy, že vás někdo vyzve, abyste začali.",
+        "p2": "Ostatní povinnosti platí i tak. Platí proto, že vaše firma je subjekt. Registrace na tom nic nemění.",
+        "items": [
+          "Zavést bezpečnostní opatření v deseti oblastech a zapsat je (§ 30 BSIG).",
+          "Hlásit významné bezpečnostní incidenty, první hlášení do 24 hodin (§ 32 BSIG).",
+          "Vedení opatření zavádí, dohlíží na ně a pravidelně se účastní školení (§ 38 BSIG).",
+          "Pokud se vaše údaje změní, nahlásíte to BSI do dvou týdnů (§ 33(5) BSIG)."
+        ],
+        "link": "Jak na to: zavedení NIS2"
       },
-      "context": {
-        "heading": "Proč tolik firem lhůtu zmeškalo",
-        "p1": "Registrační mezera u NIS2 není primárně způsobena nedbalostí. Německý legislativní proces se opakovaně zdržel: NIS2UmsuCG byl přijat měsíce po původní lhůtě pro transpozici EU. Mnoho firem rozumně čekalo, až bude německý zákon dokončen, než začaly jednat. Jiné nevěděly, že do působnosti spadají, protože definice odvětví se oproti starému režimu KRITIS dramaticky rozšířily.",
-        "p2": "Samotný BSI veřejně přiznal rozsah této registrační mezery. Úřad zaujal pragmatický postoj: prioritou je dostat všech 30 000 subjektů do registrace a do systému shody, nikoli trestat první vlnu pozdě registrovaných. Tato pragmatičnost má své meze. Platí pro firmy, které aktivně pracují na shodě, ne pro ty, které trpělivost BSI využívají jako výmluvu k nečinnosti."
+      "missed": {
+        "heading": "Zmeškali jste lhůtu? Co udělat teď",
+        "items": [
+          "Zaregistrujte se teď. Povinnost lhůtou nekončí.",
+          "Poznamenejte si, kdy jste se o povinnosti dozvěděli a kdy jste se zaregistrovali.",
+          "Měla vaše firma významný bezpečnostní incident už před registrací? Nahlaste ho přesto, přes formulář na ohlašovacím a informačním portálu BSI (MIP).",
+          "Začněte s opatřeními. Platí nezávisle na registraci."
+        ]
       },
       "faq": {
-        "heading": "Časté dotazy",
+        "heading": "Časté otázky",
         "q1": {
-          "q": "Je registrační portál BSI stále otevřený?",
-          "a": "Ano. Registrační portál podle §33 BSIG zůstává otevřený. Neexistuje lhůta, po jejímž uplynutí byste se už nemohli zaregistrovat. Povinnost je trvalá. Lhůta určovala, kdy jste se zaregistrovat měli, ne kdy jste mohli. Zaregistrujte se nyní."
+          "q": "Mohu se po 6. březnu 2026 ještě zaregistrovat?",
+          "a": "Ano. Lhůta říká, do kdy jste se měli zaregistrovat. Samotná povinnost nekončí. Zaregistrujete se přes stejný portál BSI."
         },
         "q2": {
-          "q": "Jaká je pokuta za pozdní registraci?",
-          "a": "§65 BSIG stanoví pokuty až do výše 500 000 EUR za porušení registrační povinnosti. Pokuty se však posuzují případ od případu s ohledem na závažnost, dobu trvání a na to, zda firma jednala v dobré víře. Firma, která se zaregistruje o pár měsíců později a prokáže aktivní úsilí o shodu, čelí velmi odlišnému rizikovému profilu než firma, která povinnost zcela ignoruje."
+          "q": "Dostanu rozhodnutí nebo registrační číslo?",
+          "a": "§ 33 BSIG žádné rozhodnutí nepředpokládá. Sami si zaznamenejte, kdy a s jakým certifikátem jste se zaregistrovali. U hlášení incidentů je to jinak: tam BSI potvrdí přijetí, pokud možno do 24 hodin (§ 36(1) BSIG)."
         },
         "q3": {
-          "q": "Ovlivní pozdní registrace mé ostatní povinnosti podle NIS2?",
-          "a": "Ne. Vaše povinnosti podle §30 BSIG (opatření kybernetické bezpečnosti), §32 (hlášení incidentů) a §38 (odpovědnost vedení) existují nezávisle na tom, zda jste se zaregistrovali. Registrace povinnosti nevytváří, plní jen jednu z nich. Ostatní povinnosti platí od okamžiku, kdy splníte kritéria působnosti, bez ohledu na stav registrace."
+          "q": "Platí ostatní povinnosti až po registraci?",
+          "a": "Ne. Opatření (§ 30 BSIG), oznamovací povinnost (§ 32 BSIG) a povinnosti vedení (§ 38 BSIG) platí, jakmile je vaše firma subjektem. Registrace je jedna povinnost vedle ostatních."
         },
         "q4": {
-          "q": "Mohu se zaregistrovat, když si nejsem jistý, zda spadáme do působnosti?",
-          "a": "Ano, a BSI doporučuje při nejistotě raději se přiklonit k registraci. Registrace v případě, že se ukáže, že do působnosti nespadáte, nemá žádné negativní důsledky. Registraci lze opravit. Neregistrace v případě, že do působnosti spadáte, nese reálné právní riziko. V případě pochybností se zaregistrujte."
+          "q": "Nejsme si jistí, zda jsme dotčeni. Co teď?",
+          "a": "Použijte ověření dotčenosti od BSI a hraniční případy nechte právně posoudit. Hraničními případy jsou například velikost blízko prahu, podnikání, které by mohlo spadat do více odvětví, nebo skupina s propojenými firmami (§ 28(3) a (4) BSIG)."
         },
         "q5": {
-          "q": "Co když jsme se zaregistrovali, ale práci na shodě jsme nezačali?",
-          "a": "Registrace bez práce na shodě je jako podat daňové přiznání, ale daň nezaplatit. Splnili jste jednu povinnost, ale nikoli ty věcné. Začněte s opatřeními podle §30 BSIG hned: inventář aktiv, hodnocení rizik, postupy pro hlášení incidentů. BSI očekává, že registrované subjekty aktivně pracují na shodě, ne že jen sedí na registračním čísle."
+          "q": "Máme pobočky v jiných státech EU. Kde se registrujeme?",
+          "a": "V zásadě je příslušný stát, ve kterém je vaše firma usazena (Art. 26(1) NIS 2). U určitých digitálních poskytovatelů rozhoduje hlavní provozovna. Úřady všech států EU najdete v našem přehledu registračních míst."
         }
+      },
+      "walk": {
+        "heading": "Jak to probíhá v průvodci",
+        "lead": "Registrace je v průvodci na nisd2.eu prvním krokem.",
+        "points": [
+          "Krok jednoduchými slovy vysvětlí, k čemu registrace slouží a jak se přes ELSTER dostanete na portál BSI.",
+          "Ukáže, ve kterém státě EU se registrujete, včetně úřadu a jeho portálu.",
+          "Zaznamenáte dva údaje: identifikátor svého uživatelského účtu a den registrace.",
+          "Pokud dopis z ELSTER ještě nepřišel, zvolíte „Not possible yet“ a pokračujete dalším krokem.",
+          "Pozdější krok ukáže, které z vašich údajů se mohou změnit."
+        ],
+        "seeItAlt": "Krok registrace v průvodci: země a její úřad",
+        "next": "Začít v průvodci registrací"
       },
       "sources": {
         "heading": "Zdroje",
         "items": [
-          "BSI, registrační statistiky NIS2 a veřejná vyjádření k přístupu k vymáhání (2025)",
-          "G DATA CyberDefense, průzkum povědomí o NIS2: 44 % firem středního trhu si není vědomo svých povinností (2024)",
-          "BSIG, §33 (registrační povinnost), §65 (správní pokuty), §38 (odpovědnost vedení)",
-          "NIS2UmsuCG, Gesetz zur Umsetzung der NIS-2-Richtlinie und zur Stärkung der Cybersicherheit",
-          "BMI, parlamentní dokumentace a metodika k implementaci NIS2UmsuCG"
+          "Zákon o BSI (BSIG), §§ 28, 30, 32, 33, 36 a 38, přílohy 1 a 2, účinný od 6. prosince 2025 (gesetze-im-internet.de/bsig_2025)",
+          "Směrnice (EU) 2022/2555 (NIS 2), Art. 3(4) a Art. 26 (eur-lex.europa.eu)",
+          "BSI, podrobnosti k registračnímu řízení podle § 33(6) BSIG, verze 1.0 ze dne 26. 6. 2026 (bsi.bund.de/dok/registrierungspflicht)",
+          "BSI, „Mein Unternehmenskonto“ (bsi.bund.de/dok/muk)",
+          "BSI, oznamovací povinnost podle NIS 2: hlášení před registrací (bsi.bund.de/dok/nis-2-meldepflicht)",
+          "BSI, ověření dotčenosti (betroffenheitspruefung-nis-2.bsi.de)"
         ]
-      },
-      "ctaCard": {
-        "heading": "Zaregistrujte se, pak budujte svou stopu shody",
-        "description": "Platforma vás provede od registrace až po plnou shodu podle §30 BSIG a vytvoří doložitelnou stopu důkazů, která BSI ukáže, že to berete vážně."
-      },
-      "cta": "Spustit proces shody s NIS2"
+      }
     },
     "kritisComparison": {
       "meta": {

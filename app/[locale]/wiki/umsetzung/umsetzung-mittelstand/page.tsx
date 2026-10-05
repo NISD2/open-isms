@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { JsonLd } from "@/components/JsonLd";
+import { shotImage } from "@/components/landing/shots";
+import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkHow } from "@/components/wiki/WalkHow";
+import { WalkPriceCard } from "@/components/wiki/WalkPriceCard";
+import { WalkSteps } from "@/components/wiki/WalkSteps";
+import { WikiAnswerHeader } from "@/components/wiki/WikiAnswerHeader";
+import { WikiMoreLink } from "@/components/wiki/WikiMoreLink";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
 import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
@@ -37,13 +37,14 @@ export async function generateMetadata({
   };
 }
 
-const phaseKeys = ["foundation", "risk", "controls", "evidence"] as const;
-const roleKeys = [
-  "complianceLead",
-  "itContact",
-  "managementSponsor",
-  "externalAuditor",
+/** The four duties, each with the page that covers it. */
+const DUTIES = [
+  { key: "register", href: "/wiki/troubleshooting/nis2-registrierung-verpasst" },
+  { key: "measures", href: "/wiki/umsetzung/nis2-requirements" },
+  { key: "report", href: "/wiki/umsetzung/nis2-meldepflicht" },
+  { key: "management", href: "/wiki/grundlagen/bsig-38" },
 ] as const;
+
 const mistakeKeys = [
   "waiting",
   "overEngineering",
@@ -52,6 +53,9 @@ const mistakeKeys = [
   "paperOnly",
 ] as const;
 
+const LAW_CHIP =
+  "inline-block rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground ring-1 ring-inset ring-border";
+
 export default async function SmeGuidePage({
   params,
 }: {
@@ -59,29 +63,45 @@ export default async function SmeGuidePage({
 }) {
   const { locale: rawLocale } = await params;
   const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
-  const t = await getTranslations("info");
+  const [t, w] = await Promise.all([
+    getTranslations("info.smeGuide"),
+    getTranslations("info.wikiWalk"),
+  ]);
+  const orderSteps = t.raw("order.steps") as string[];
 
   return (
     <GlossedProse locale={locale}>
-      <div className="space-y-10">
+      <div className="space-y-12">
         <WikiPageJsonLd
           category="umsetzung"
           slug="umsetzung-mittelstand"
           locale={locale}
           authorSlug="simon-orzel"
-          proficiencyLevel="Intermediate"
+          proficiencyLevel="Beginner"
           audienceType="Geschäftsführung im Mittelstand"
           citationKeys={["nis2", "bsig"]}
           aboutKeys={["nis2"]}
         />
-        {/* Header */}
-        <header>
-          <Badge variant="secondary" className="mb-3">
-            {t("smeGuide.badge")}
-          </Badge>
-          <h1 className="text-3xl font-bold tracking-tight">{t("smeGuide.title")}</h1>
-          <p className="mt-2 text-lg text-muted-foreground">{t("smeGuide.subtitle")}</p>
-        </header>
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            name: t("title"),
+            description: t("subtitle"),
+            step: orderSteps.map((text, i) => ({
+              "@type": "HowToStep",
+              position: i + 1,
+              text,
+            })),
+          }}
+        />
+
+        <WikiAnswerHeader
+          badge={t("badge")}
+          title={t("title")}
+          answer={t("subtitle")}
+          art="/images/wiki/nis2-umsetzen.svg"
+        />
 
         <WikiPageMeta
           authorSlug="simon-orzel"
@@ -90,122 +110,130 @@ export default async function SmeGuidePage({
 
         <Separator />
 
-        {/* Overview */}
+        <section className="space-y-4">
+          <div>
+            <h2 className="text-xl font-semibold tracking-tight">
+              {t("duties.heading")}
+            </h2>
+            <p className="mt-1 max-w-[62ch] text-sm leading-relaxed text-muted-foreground">
+              {t("duties.lead")}
+            </p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {DUTIES.map(({ key, href }) => (
+              <Card key={key} className="py-5">
+                <CardContent className="space-y-2 px-5">
+                  <h3 className="text-base font-semibold">
+                    {t(`duties.items.${key}.title`)}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {t(`duties.items.${key}.text`)}
+                  </p>
+                  <dl className="grid grid-cols-[5.5rem_1fr] gap-x-3 gap-y-1.5 text-sm">
+                    <dt className="text-muted-foreground">{w("lawLabel")}</dt>
+                    <dd>
+                      <span className={LAW_CHIP}>{t(`duties.items.${key}.law`)}</span>
+                    </dd>
+                    <dt className="text-muted-foreground">{w("whoLabel")}</dt>
+                    <dd>{t(`duties.items.${key}.who`)}</dd>
+                  </dl>
+                  <WikiMoreLink href={href}>{w("more")}</WikiMoreLink>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
         <section className="space-y-3">
-          <h2 className="text-xl font-semibold tracking-tight">
-            {t("smeGuide.overview.heading")}
-          </h2>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("smeGuide.overview.p1")}
-          </p>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("smeGuide.overview.p2")}
-          </p>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("smeGuide.overview.p3")}
-          </p>
+          <h2 className="text-xl font-semibold tracking-tight">{t("size.heading")}</h2>
+          <div className="space-y-2">
+            {(t.raw("size.items") as string[]).map((item) => (
+              <p
+                key={item}
+                className="flex max-w-[62ch] items-start gap-2.5 text-sm leading-relaxed"
+              >
+                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                <span>{item}</span>
+              </p>
+            ))}
+          </div>
         </section>
 
-        {/* Who This Guide Is For */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("smeGuide.audience.heading")}</CardTitle>
-            <CardDescription>{t("smeGuide.audience.description")}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2">
-              {(["size", "limitedIt", "noCompliance", "firstTime"] as const).map(
-                (key) => (
-                  <li key={key} className="flex items-start gap-2 text-sm">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                    {t(`smeGuide.audience.items.${key}`)}
-                  </li>
-                ),
-              )}
-            </ul>
-          </CardContent>
-        </Card>
-
-        {/* Implementation Roadmap */}
-        <section className="space-y-6">
-          <h2 className="text-xl font-semibold tracking-tight">
-            {t("smeGuide.roadmap.heading")}
-          </h2>
-
-          {phaseKeys.map((phase) => (
-            <Card key={phase}>
-              <CardHeader>
-                <div className="flex items-center gap-2">
-                  <CardTitle className="text-base">
-                    {t(`smeGuide.roadmap.phases.${phase}.title`)}
-                  </CardTitle>
-                  <Badge variant="outline">
-                    {t(`smeGuide.roadmap.phases.${phase}.weeks`)}
-                  </Badge>
-                </div>
-                <CardDescription>
-                  {t(`smeGuide.roadmap.phases.${phase}.description`)}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2">
-                  {(t.raw(`smeGuide.roadmap.phases.${phase}.actions`) as string[]).map(
-                    (action) => (
-                      <li key={action} className="flex items-start gap-2 text-sm">
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                        {action}
-                      </li>
-                    ),
-                  )}
-                </ul>
-              </CardContent>
-            </Card>
-          ))}
+        <section className="space-y-3">
+          <h2 className="text-xl font-semibold tracking-tight">{t("order.heading")}</h2>
+          <p className="max-w-[62ch] text-sm leading-relaxed text-muted-foreground">
+            {t("order.lead")}
+          </p>
+          <ol className="space-y-2.5">
+            {orderSteps.map((step, i) => (
+              <li key={step} className="flex max-w-[62ch] gap-3 text-sm leading-relaxed">
+                <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-semibold tabular-nums text-primary-foreground">
+                  {i + 1}
+                </span>
+                <span className="pt-0.5">{step}</span>
+              </li>
+            ))}
+          </ol>
+          <WikiMoreLink href="/wiki/umsetzung/nis2-roadmap">
+            {t("order.roadmapLink")}
+          </WikiMoreLink>
         </section>
 
-        {/* Roles You Need */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("smeGuide.roles.heading")}</CardTitle>
-            <CardDescription>{t("smeGuide.roles.description")}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {roleKeys.map((key) => (
-                <div key={key} className="rounded-lg border p-4">
-                  <p className="text-sm font-semibold">
-                    {t(`smeGuide.roles.items.${key}.title`)}
-                  </p>
-                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                    {t(`smeGuide.roles.items.${key}.description`)}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <section className="space-y-3">
+          <h2 className="text-xl font-semibold tracking-tight">{t("example.heading")}</h2>
+          <p className="max-w-[62ch] text-sm leading-relaxed text-muted-foreground">
+            {t("example.lead")}
+          </p>
+          <div className="space-y-2 border-l-2 border-primary/30 pl-4">
+            {(t.raw("example.steps") as string[]).map((step) => (
+              <p key={step} className="max-w-[62ch] text-sm leading-relaxed">
+                {step}
+              </p>
+            ))}
+          </div>
+        </section>
 
-        {/* Common Mistakes */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("smeGuide.mistakes.heading")}</CardTitle>
-            <CardDescription>{t("smeGuide.mistakes.description")}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-4">
-              {mistakeKeys.map((key) => (
-                <li key={key} className="rounded-lg border p-4">
-                  <p className="text-sm font-semibold">
-                    {t(`smeGuide.mistakes.items.${key}.title`)}
-                  </p>
-                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                    {t(`smeGuide.mistakes.items.${key}.description`)}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
+        <WalkHow
+          heading={t("walk.heading")}
+          lead={t("walk.lead")}
+          points={t.raw("walk.points") as string[]}
+          shot={shotImage("path", rawLocale, t("walk.seeItAlt"))}
+          seeIt={w("seeIt")}
+          next={t("walk.next")}
+        />
+
+        <section className="space-y-4">
+          <h2 className="text-xl font-semibold tracking-tight">
+            {t("mistakes.heading")}
+          </h2>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {mistakeKeys.map((key) => (
+              <div key={key} className="rounded-lg border p-4">
+                <p className="text-sm font-semibold">
+                  {t(`mistakes.items.${key}.title`)}
+                </p>
+                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                  {t(`mistakes.items.${key}.description`)}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="space-y-3">
+          <h2 className="text-base font-semibold">{t("sources.heading")}</h2>
+          <ul className="space-y-1.5">
+            {(t.raw("sources.items") as string[]).map((source) => (
+              <li key={source} className="text-xs leading-relaxed text-muted-foreground">
+                {source}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <WalkSteps codes={["12.2", "2.2", "7.3"]} />
+
+        <WalkPriceCard />
       </div>
     </GlossedProse>
   );

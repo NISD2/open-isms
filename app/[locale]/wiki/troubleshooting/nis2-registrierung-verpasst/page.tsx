@@ -1,17 +1,14 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { itemShot } from "@/components/durchgang/itemShots";
 import { JsonLd } from "@/components/JsonLd";
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkHow } from "@/components/wiki/WalkHow";
+import { WalkPriceCard } from "@/components/wiki/WalkPriceCard";
 import { WalkSteps } from "@/components/wiki/WalkSteps";
+import { WikiAnswerHeader } from "@/components/wiki/WikiAnswerHeader";
+import { WikiMoreLink } from "@/components/wiki/WikiMoreLink";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
 import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
@@ -42,9 +39,11 @@ export async function generateMetadata({
   };
 }
 
-const stepKeys = ["check", "register", "document", "implement", "legal"] as const;
-const riskKeys = ["fines", "orders", "liability", "audit"] as const;
+const stepKeys = ["check", "certificate", "gather", "register", "record"] as const;
 const faqKeys = ["q1", "q2", "q3", "q4", "q5"] as const;
+
+/** The walk's registration step, whose screen shows the country and its authority. */
+const REGISTRATION_STEP = "12.2";
 
 export default async function MissedRegistrationPage({
   params,
@@ -53,34 +52,23 @@ export default async function MissedRegistrationPage({
 }) {
   const { locale: rawLocale } = await params;
   const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
-  const t = await getTranslations("info");
-
-  const faqs = faqKeys.map((key) => ({
-    "@type": "Question" as const,
-    name: t(`missedRegistration.faq.${key}.q`),
-    acceptedAnswer: {
-      "@type": "Answer" as const,
-      text: t(`missedRegistration.faq.${key}.a`),
-    },
-  }));
-
-  const howToSteps = stepKeys.map((key, index) => ({
-    "@type": "HowToStep" as const,
-    position: index + 1,
-    name: t(`missedRegistration.steps.items.${key}.title`),
-    text: t(`missedRegistration.steps.items.${key}.description`),
-  }));
+  const [t, w] = await Promise.all([
+    getTranslations("info.missedRegistration"),
+    getTranslations("info.wikiWalk"),
+  ]);
+  const shot = itemShot(REGISTRATION_STEP, rawLocale, t("walk.seeItAlt"));
+  if (!shot) throw new Error(`The walk has no screenshot for step ${REGISTRATION_STEP}`);
 
   return (
     <GlossedProse locale={locale}>
-      <div className="space-y-10">
+      <div className="space-y-12">
         <WikiPageJsonLd
           category="troubleshooting"
           slug="nis2-registrierung-verpasst"
           locale={locale}
           authorSlug="simon-orzel"
-          proficiencyLevel="Intermediate"
-          audienceType="Geschäftsführung und Compliance-Verantwortliche"
+          proficiencyLevel="Beginner"
+          audienceType="Geschäftsführung und IT-Verantwortliche im Mittelstand"
           citationKeys={["nis2", "bsig"]}
           aboutKeys={["bsig"]}
           mentionsKeys={["nis2"]}
@@ -89,30 +77,34 @@ export default async function MissedRegistrationPage({
           data={{
             "@context": "https://schema.org",
             "@type": "FAQPage",
-            mainEntity: faqs,
+            mainEntity: faqKeys.map((key) => ({
+              "@type": "Question",
+              name: t(`faq.${key}.q`),
+              acceptedAnswer: { "@type": "Answer", text: t(`faq.${key}.a`) },
+            })),
           }}
         />
         <JsonLd
           data={{
             "@context": "https://schema.org",
             "@type": "HowTo",
-            name: t("missedRegistration.steps.heading"),
-            description: t("missedRegistration.steps.description"),
-            step: howToSteps,
+            name: t("steps.heading"),
+            description: t("steps.description"),
+            step: stepKeys.map((key, index) => ({
+              "@type": "HowToStep",
+              position: index + 1,
+              name: t(`steps.items.${key}.title`),
+              text: t(`steps.items.${key}.description`),
+            })),
           }}
         />
 
-        <header>
-          <Badge variant="secondary" className="mb-3">
-            {"§"}33 BSIG
-          </Badge>
-          <h1 className="text-3xl font-bold tracking-tight">
-            {t("missedRegistration.title")}
-          </h1>
-          <p className="mt-2 text-lg text-muted-foreground">
-            {t("missedRegistration.subtitle")}
-          </p>
-        </header>
+        <WikiAnswerHeader
+          badge="Art. 3 Abs. 4 NIS 2 · § 33 BSIG"
+          title={t("title")}
+          answer={t("subtitle")}
+          art="/images/durchgang/12_2.svg"
+        />
 
         <WikiPageMeta
           authorSlug="simon-orzel"
@@ -121,132 +113,131 @@ export default async function MissedRegistrationPage({
 
         <Separator />
 
-        {/* The short answer */}
-        <section className="space-y-3">
-          <h2 className="text-xl font-semibold tracking-tight">
-            {t("missedRegistration.shortAnswer.heading")}
-          </h2>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("missedRegistration.shortAnswer.p1")}
-          </p>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("missedRegistration.shortAnswer.p2")}
-          </p>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("missedRegistration.shortAnswer.p3")}
-          </p>
+        <section className="grid gap-8 sm:grid-cols-2">
+          <div className="space-y-2">
+            <h2 className="text-xl font-semibold tracking-tight">{t("who.heading")}</h2>
+            {(["p1", "p2", "p3"] as const).map((key) => (
+              <p key={key} className="text-sm leading-relaxed text-muted-foreground">
+                {t(`who.${key}`)}
+              </p>
+            ))}
+          </div>
+          <div className="space-y-2">
+            <h2 className="text-xl font-semibold tracking-tight">
+              {t("deadline.heading")}
+            </h2>
+            {(["p1", "p2", "p3"] as const).map((key) => (
+              <p key={key} className="text-sm leading-relaxed text-muted-foreground">
+                {t(`deadline.${key}`)}
+              </p>
+            ))}
+          </div>
         </section>
 
-        {/* What to do now - step by step */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("missedRegistration.steps.heading")}</CardTitle>
-            <CardDescription>{t("missedRegistration.steps.description")}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {stepKeys.map((key, index) => (
-                <div key={key} className="flex gap-4 rounded-lg border p-4">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
-                    {index + 1}
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold">
-                      {t(`missedRegistration.steps.items.${key}.title`)}
-                    </p>
-                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                      {t(`missedRegistration.steps.items.${key}.description`)}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Actual risks */}
         <section className="space-y-4">
           <div>
-            <h2 className="text-xl font-semibold tracking-tight">
-              {t("missedRegistration.risks.heading")}
-            </h2>
-            <p className="mt-1 text-sm text-muted-foreground">
-              {t("missedRegistration.risks.description")}
+            <h2 className="text-xl font-semibold tracking-tight">{t("steps.heading")}</h2>
+            <p className="mt-1 max-w-[62ch] text-sm leading-relaxed text-muted-foreground">
+              {t("steps.description")}
             </p>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {riskKeys.map((key) => (
-              <Card key={key}>
-                <CardContent className="pt-6">
-                  <p className="text-sm font-semibold">
-                    {t(`missedRegistration.risks.items.${key}.title`)}
-                  </p>
-                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                    {t(`missedRegistration.risks.items.${key}.description`)}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        {/* Context */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("missedRegistration.context.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("missedRegistration.context.p1")}
-            </p>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("missedRegistration.context.p2")}
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* FAQ */}
-        <section className="space-y-4">
-          <h2 className="text-xl font-semibold tracking-tight">
-            {t("missedRegistration.faq.heading")}
-          </h2>
           <div className="space-y-3">
-            {faqKeys.map((key) => (
-              <Card key={key}>
-                <CardContent className="pt-6">
-                  <p className="text-sm font-semibold">
-                    {t(`missedRegistration.faq.${key}.q`)}
+            {stepKeys.map((key, index) => (
+              <div key={key} className="flex gap-4 rounded-lg border p-4">
+                <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
+                  {index + 1}
+                </div>
+                <div className="min-w-0">
+                  <h3 className="text-base font-semibold">
+                    {t(`steps.items.${key}.title`)}
+                  </h3>
+                  <p className="mt-1 max-w-[62ch] text-sm leading-relaxed text-muted-foreground">
+                    {t(`steps.items.${key}.description`)}
                   </p>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                    {t(`missedRegistration.faq.${key}.a`)}
-                  </p>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             ))}
           </div>
         </section>
 
-        {/* Sources */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("missedRegistration.sources.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2">
-              {(t.raw("missedRegistration.sources.items") as string[]).map((source) => (
-                <li
-                  key={source}
-                  className="flex items-start gap-2 text-xs text-muted-foreground"
-                >
-                  <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
-                  {source}
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
+        <WalkHow
+          heading={t("walk.heading")}
+          lead={t("walk.lead")}
+          points={t.raw("walk.points") as string[]}
+          shot={shot}
+          seeIt={w("seeIt")}
+          next={t("walk.next")}
+        />
 
-        <WalkSteps codes={["12.2"]} />
+        <section className="space-y-3">
+          <h2 className="text-xl font-semibold tracking-tight">{t("after.heading")}</h2>
+          <p className="max-w-[62ch] text-sm leading-relaxed text-muted-foreground">
+            {t("after.p1")}
+          </p>
+          <p className="max-w-[62ch] text-sm leading-relaxed text-muted-foreground">
+            {t("after.p2")}
+          </p>
+          <ul className="space-y-2">
+            {(t.raw("after.items") as string[]).map((item) => (
+              <li
+                key={item}
+                className="flex max-w-[62ch] items-start gap-2 text-sm leading-relaxed"
+              >
+                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                {item}
+              </li>
+            ))}
+          </ul>
+          <WikiMoreLink href="/wiki/umsetzung/umsetzung-mittelstand">
+            {t("after.link")}
+          </WikiMoreLink>
+        </section>
+
+        <section className="space-y-3 rounded-2xl bg-primary/[0.06] p-6 sm:p-8">
+          <h2 className="text-xl font-semibold tracking-tight">{t("missed.heading")}</h2>
+          <ol className="space-y-2.5">
+            {(t.raw("missed.items") as string[]).map((item, i) => (
+              <li key={item} className="flex max-w-[62ch] gap-3 text-sm leading-relaxed">
+                <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-semibold tabular-nums text-primary-foreground">
+                  {i + 1}
+                </span>
+                <span className="pt-0.5">{item}</span>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section className="space-y-4">
+          <h2 className="text-xl font-semibold tracking-tight">{t("faq.heading")}</h2>
+          <div className="space-y-4">
+            {faqKeys.map((key) => (
+              <div key={key}>
+                <h3 className="text-sm font-semibold">{t(`faq.${key}.q`)}</h3>
+                <p className="mt-1 max-w-[62ch] text-sm leading-relaxed text-muted-foreground">
+                  {t(`faq.${key}.a`)}
+                </p>
+              </div>
+            ))}
+          </div>
+          <WikiMoreLink href="/wiki/umsetzung/nis2-registration-portals">
+            {w("more")}
+          </WikiMoreLink>
+        </section>
+
+        <section className="space-y-3">
+          <h2 className="text-base font-semibold">{t("sources.heading")}</h2>
+          <ul className="space-y-1.5">
+            {(t.raw("sources.items") as string[]).map((source) => (
+              <li key={source} className="text-xs leading-relaxed text-muted-foreground">
+                {source}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <WalkSteps codes={["12.2", "12.3"]} />
+
+        <WalkPriceCard />
       </div>
     </GlossedProse>
   );

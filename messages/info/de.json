@@ -1707,119 +1707,205 @@
         "p4": "Das ist keine Tabelle, die Sie verlieren, oder ein Beraterreport, der im Regal verstaubt. Es ist eine lebende, versionierte, auditierbare Aufzeichnung aller NIS2-Compliance-Maßnahmen Ihres Unternehmens - vom ersten Tag an, für immer."
       }
     },
+    "wikiWalk": {
+      "seeIt": "So sieht es aus",
+      "priceHeading": "Was der Durchgang kostet",
+      "more": "Mehr dazu",
+      "lawLabel": "Vorschrift",
+      "whoLabel": "Wer"
+    },
     "nis2Requirements": {
       "meta": {
-        "title": "NIS2 Anforderungen: 10 Maßnahmen",
-        "description": "NIS2-Anforderungen im Detail: 10 Pflichtmaßnahmen, Meldekaskade bei Vorfällen, Auditpflichten und Lieferkettensicherheit."
+        "title": "NIS2 Anforderungen: die 10 Maßnahmen und Pflichten",
+        "description": "NIS2 Anforderungen in einfachen Worten: die zehn Maßnahmen nach Art. 21 NIS 2 und § 30 BSIG, Meldung, Registrierung und die Rolle der Geschäftsleitung."
       },
-      "title": "NIS2 Anforderungen",
-      "subtitle": "Was betroffene Einrichtungen umsetzen müssen: 10 verpflichtende Cybersicherheitsmaßnahmen, eine strenge Meldekaskade und evidenzbasierte Compliance.",
-      "measures": {
-        "heading": "10 verpflichtende Risikomanagementmaßnahmen (§ 30 BSIG / Art. 21 Abs. 2 NIS-2)",
-        "description": "Alle wesentlichen und wichtigen Einrichtungen müssen diese Maßnahmen umsetzen. Es gibt keine Übergangsfrist. Diese Pflichten gelten seit dem 6. Dezember 2025 in Deutschland.",
+      "title": "NIS2 Anforderungen: was Ihr Unternehmen umsetzen muss",
+      "subtitle": "NIS2 verlangt Sicherheitsmaßnahmen in zehn Bereichen, die Meldung erheblicher Vorfälle und die Registrierung beim BSI. Die Geschäftsleitung setzt die Maßnahmen um und überwacht sie. Wie weit jede Maßnahme geht, richtet sich nach Größe und Risiko Ihres Unternehmens.",
+      "overview": {
+        "heading": "Die Anforderungen auf einen Blick",
+        "lead": "NIS 2 ist eine Richtlinie der EU. In Deutschland setzt sie das BSI-Gesetz (BSIG) um. Betroffene Unternehmen heißen dort „Einrichtungen“.",
         "items": {
-          "m1": {
-            "title": "Risikoanalyse und Informationssicherheit",
-            "description": "Erstellung und Pflege von Leitlinien für die Risikoanalyse und Informationssystemsicherheit. Regelmäßige Risikobewertungen aller kritischen Systeme und Prozesse."
+          "measures": {
+            "title": "Sicherheitsmaßnahmen in zehn Bereichen",
+            "text": "Die Mindestliste steht unten, jeder Bereich mit einem Beispiel.",
+            "law": "Art. 21 NIS 2 · § 30 BSIG"
           },
-          "m2": {
-            "title": "Bewältigung von Sicherheitsvorfällen",
-            "description": "Verfahren zur Vorbeugung, Erkennung, Identifizierung, Eindämmung, Abschwächung und Reaktion auf Sicherheitsvorfälle."
+          "report": {
+            "title": "Erhebliche Vorfälle melden",
+            "text": "In drei Stufen an das BSI, die erste binnen 24 Stunden.",
+            "law": "Art. 23 NIS 2 · § 32 BSIG"
           },
-          "m3": {
-            "title": "Business Continuity und Krisenmanagement",
-            "description": "Backup-Management, Notfallwiederherstellung und Krisenmanagement-Verfahren zur Sicherstellung der Betriebsresilienz."
+          "register": {
+            "title": "Beim BSI registrieren",
+            "text": "Einmal, über das Portal des BSI. Ändert sich etwas, melden Sie es binnen zwei Wochen.",
+            "law": "Art. 3 Abs. 4 NIS 2 · § 33 BSIG"
           },
-          "m4": {
-            "title": "Lieferkettensicherheit",
-            "description": "Sicherheitsmaßnahmen für die Beziehungen zu unmittelbaren Anbietern und Dienstleistern, unter Berücksichtigung der Schwachstellen jedes Anbieters und der Qualität seiner Produkte und Sicherheitspraxis (Art. 21 Abs. 3); Verträge sind das übliche Mittel."
-          },
-          "m5": {
-            "title": "Sicherheit bei Erwerb, Entwicklung und Wartung",
-            "description": "Sicherheit bei Erwerb, Entwicklung und Wartung von Netz- und Informationssystemen. Einschließlich Schwachstellenmanagement und Offenlegungsverfahren."
-          },
-          "m6": {
-            "title": "Wirksamkeitsbewertung",
-            "description": "Konzepte und Verfahren zur Bewertung, ob die Risikomanagementmaßnahmen wirken. Tests oder Audits schreibt das Gesetz nicht jeder Einrichtung vor."
-          },
-          "m7": {
-            "title": "Cyberhygiene und Schulungen",
-            "description": "Grundlegende Schulungen und Sensibilisierungsmaßnahmen. Übliche Inhalte sind Phishing, Social Engineering, Passwörter und sicherer Umgang mit IT."
-          },
-          "m8": {
-            "title": "Kryptographie und Verschlüsselung",
-            "description": "Konzepte und Verfahren für den Einsatz von Kryptographie und gegebenenfalls Verschlüsselung. Umfasst ruhende Daten, Daten bei der Übertragung und Schlüsselmanagement."
-          },
-          "m9": {
-            "title": "Personalsicherheit, Zugriffskontrolle und Asset-Management",
-            "description": "Personalsicherheitsrichtlinien, Zugriffskontrollmechanismen und Asset-Management-Verfahren. Einschließlich On-/Offboarding, Least-Privilege-Zugriff und Bestandsverzeichnisse."
-          },
-          "m10": {
-            "title": "Multi-Faktor-Authentifizierung und gesicherte Kommunikation",
-            "description": "Einsatz von MFA oder kontinuierlicher Authentifizierung. Gesicherte Sprach-, Video- und Textkommunikation. Gesicherte Notfallkommunikationssysteme."
+          "management": {
+            "title": "Die Geschäftsleitung",
+            "text": "Sie setzt die Maßnahmen um, überwacht sie und nimmt regelmäßig an Schulungen teil. Die Richtlinie verlangt außerdem, dass sie die Maßnahmen billigt.",
+            "law": "Art. 20 NIS 2 · § 38 BSIG"
           }
         }
       },
+      "measures": {
+        "heading": "Die zehn Maßnahmen in einfachen Worten",
+        "description": "Art. 21 Abs. 2 NIS 2 nennt zehn Bereiche, in Deutschland § 30 Abs. 2 BSIG. Das ist die Mindestliste. Zu jedem Bereich brauchen Sie Maßnahmen, die zu Ihrem Unternehmen passen.",
+        "exampleLabel": "Zum Beispiel",
+        "items": {
+          "m1": {
+            "title": "Risikoanalyse und Sicherheitskonzept",
+            "description": "Sie schreiben auf, welche IT Ihr Betrieb braucht und was dabei schiefgehen kann. Daraus folgt eine Leitlinie: wie Ihr Unternehmen Informationssicherheit regelt.",
+            "example": "Eine Liste Ihrer Systeme mit einer Bewertung je Risiko und eine Leitlinie von wenigen Seiten.",
+            "law": "Art. 21 Abs. 2 Buchst. a · § 30 Abs. 2 Nr. 1"
+          },
+          "m2": {
+            "title": "Bewältigung von Sicherheitsvorfällen",
+            "description": "Sie legen fest, wie Sie einen Vorfall erkennen, eindämmen und beheben, und wer entscheidet.",
+            "example": "Ein Notfallplan mit Telefonnummern und klaren Zuständigkeiten.",
+            "law": "Art. 21 Abs. 2 Buchst. b · § 30 Abs. 2 Nr. 2"
+          },
+          "m3": {
+            "title": "Den Betrieb aufrechterhalten",
+            "description": "Datensicherung, Wiederherstellung nach einem Notfall und Krisenmanagement.",
+            "example": "Eine Datensicherung, deren Wiederherstellung Sie ausprobiert haben.",
+            "law": "Art. 21 Abs. 2 Buchst. c · § 30 Abs. 2 Nr. 3"
+          },
+          "m4": {
+            "title": "Sicherheit der Lieferkette",
+            "description": "Sie berücksichtigen die Schwachstellen jedes direkten Anbieters und die Qualität seiner Produkte und Sicherheitspraxis (Art. 21 Abs. 3 NIS 2). Verträge sind das übliche Mittel.",
+            "example": "Im Vertrag mit Ihrem IT-Dienstleister steht, dass er Ihnen Vorfälle meldet.",
+            "law": "Art. 21 Abs. 2 Buchst. d · § 30 Abs. 2 Nr. 4"
+          },
+          "m5": {
+            "title": "Sicherheit bei Kauf, Entwicklung und Wartung",
+            "description": "Sicherheit gilt schon beim Kauf von IT, bei eigener Entwicklung und bei der Wartung. Dazu gehört, Schwachstellen zu beheben und offen damit umzugehen, etwa mit einer Adresse, an die andere gefundene Schwachstellen melden können.",
+            "example": "Sicherheitsupdates werden automatisch eingespielt.",
+            "law": "Art. 21 Abs. 2 Buchst. e · § 30 Abs. 2 Nr. 5"
+          },
+          "m6": {
+            "title": "Wirksamkeit bewerten",
+            "description": "Sie legen fest, wie Sie prüfen, ob die Maßnahmen wirken. Tests oder Audits schreibt das Gesetz nicht jeder Einrichtung vor.",
+            "example": "Die Geschäftsleitung geht einmal im Jahr durch, was funktioniert hat und was nicht.",
+            "law": "Art. 21 Abs. 2 Buchst. f · § 30 Abs. 2 Nr. 6"
+          },
+          "m7": {
+            "title": "Grundschulung und Sensibilisierung",
+            "description": "Alle Beschäftigten lernen die Grundlagen: verdächtige E-Mails erkennen, gute Passwörter wählen, Vorfälle melden.",
+            "example": "Eine kurze Schulung beim Eintritt und eine Auffrischung im Jahr.",
+            "law": "Art. 21 Abs. 2 Buchst. g · § 30 Abs. 2 Nr. 7"
+          },
+          "m8": {
+            "title": "Kryptografie",
+            "description": "Sie legen fest, wo und wie Sie verschlüsseln.",
+            "example": "Laptops mit verschlüsselter Festplatte und E-Mail nur über verschlüsselte Verbindungen.",
+            "law": "Art. 21 Abs. 2 Buchst. h · § 30 Abs. 2 Nr. 8"
+          },
+          "m9": {
+            "title": "Personal, Zugänge und Verwaltung der IT",
+            "description": "Wer darf was? Wie bekommen neue Leute ihre Zugänge, und wie verlieren Ausscheidende sie? Dazu gehört eine Übersicht Ihrer IT.",
+            "example": "Am letzten Arbeitstag werden alle Zugänge gesperrt.",
+            "law": "Art. 21 Abs. 2 Buchst. i · § 30 Abs. 2 Nr. 9"
+          },
+          "m10": {
+            "title": "Zweiter Faktor und sichere Kommunikation",
+            "description": "Anmeldung mit einem zweiten Faktor neben dem Passwort, oder mit fortlaufender Prüfung, ob noch dieselbe Person arbeitet. Dazu gesicherte Sprache, Video und Text und, wo nötig, ein gesicherter Weg für Notfälle.",
+            "example": "Ein Code aus einer App bei der Anmeldung an E-Mail und Fernzugang.",
+            "law": "Art. 21 Abs. 2 Buchst. j · § 30 Abs. 2 Nr. 10"
+          }
+        }
+      },
+      "proportionality": {
+        "heading": "Wie viel genügt?",
+        "p1": "Das Gesetz verlangt geeignete, verhältnismäßige und wirksame Maßnahmen (§ 30 Abs. 1 BSIG). Was verhältnismäßig ist, hängt ab von Ihrer Risikolage, Ihrer Größe, den Kosten, der Wahrscheinlichkeit und Schwere von Vorfällen und ihren Folgen für andere.",
+        "p2": "Was Sie umsetzen, halten Sie schriftlich fest (§ 30 Abs. 1 Satz 3 BSIG). Ein Zertifikat wie ISO 27001 verlangt das Gesetz nicht. Es kann den Nachweis aber stützen.",
+        "link": "Was „verhältnismäßig“ genau heißt"
+      },
       "incidentReporting": {
-        "heading": "Meldekaskade bei Sicherheitsvorfällen",
-        "description": "Alle wesentlichen und wichtigen Einrichtungen müssen erhebliche Sicherheitsvorfälle dem BSI in einer dreistufigen Kaskade melden.",
+        "heading": "Erhebliche Vorfälle melden",
+        "description": "Einen erheblichen Sicherheitsvorfall melden Sie dem BSI in drei Stufen (§ 32 BSIG, Art. 23 NIS 2). Die Fristen laufen ab dem Moment, in dem Sie davon erfahren.",
         "stages": {
           "s1": {
             "deadline": "24 Stunden",
             "title": "Frühe Erstmeldung",
-            "description": "Meldung, ob der Vorfall mutmaßlich auf rechtswidrige oder böswillige Handlungen zurückzuführen ist und ob er grenzüberschreitende Auswirkungen haben könnte."
+            "description": "Ob der Vorfall vermutlich auf einen Angriff oder eine rechtswidrige Handlung zurückgeht und ob er andere Länder betreffen könnte."
           },
           "s2": {
             "deadline": "72 Stunden",
             "title": "Meldung",
-            "description": "Schweregradbewertung, Auswirkungsanalyse, Kompromittierungsindikatoren und erste Ursachenanalyse, falls verfügbar."
+            "description": "Eine erste Bewertung von Schwere und Auswirkungen, wo vorhanden mit Hinweisen auf die Angreifer (Kompromittierungsindikatoren)."
           },
           "s3": {
             "deadline": "1 Monat",
             "title": "Abschlussmeldung",
-            "description": "Ausführliche Beschreibung des Vorfalls einschließlich Schweregrad und Auswirkungen, Art der Bedrohung oder zugrunde liegende Ursache, die ihn wahrscheinlich ausgelöst hat, getroffene und laufende Abhilfemaßnahmen sowie gegebenenfalls grenzüberschreitende Auswirkungen."
+            "description": "Ein Monat nach der Meldung: was passiert ist, die wahrscheinliche Ursache und was Sie dagegen getan haben."
           }
         },
-        "significant": {
-          "heading": "Was gilt als „erheblicher“ Vorfall?",
-          "p1": "Ein Sicherheitsvorfall gilt als erheblich, wenn er schwere Betriebsstörungen oder finanzielle Verluste für die Einrichtung verursacht hat oder verursachen kann.",
-          "p2": "Er gilt auch als erheblich, wenn er andere natürliche oder juristische Personen durch erheblichen materiellen oder immateriellen Schaden beeinträchtigt hat oder beeinträchtigen kann. Für die 11 digitalen Einrichtungstypen der CIR 2024/2690 (DNS, Cloud, MSP, MSSP, Marktplätze, Suchmaschinen, soziale Netzwerke, Vertrauensdiensteanbieter usw.) gelten zusätzlich Schwellen aus CIR Art. 3 (unmittelbarer Verlust über 500.000 EUR oder 5 % des Jahresumsatzes, je nachdem, welcher Betrag niedriger ist; Exfiltration von Geschäftsgeheimnissen; Tod oder erhebliche Gesundheitsschäden; erfolgreicher, mutmaßlich böswilliger und unbefugter Zugriff, der schwerwiegende Betriebsstörungen verursachen kann) und dienstspezifische Kriterien in Art. 5 bis 14 (zum Beispiel ein DNS-Dienst, der länger als 30 Minuten vollständig ausfällt, oder ein Cloud-Dienst, der für mehr als 5 % seiner Nutzer in der EU oder mehr als 1 Million, je nachdem, welche Zahl kleiner ist, länger als eine Stunde eingeschränkt ist). Für andere Einrichtungen kann laut BSI von Erheblichkeit ausgegangen werden, wenn ein Kriterium aus Art. 3 Abs. 1 CIR erfüllt ist."
-        }
+        "link": "Die Meldepflicht im Detail"
       },
       "auditRequirements": {
-        "heading": "Audit- und Nachweispflichten",
+        "heading": "Wer prüft, und wann?",
         "kritis": {
-          "heading": "KRITIS-Betreiber",
-          "description": "Müssen ihre Maßnahmen dem BSI durch Sicherheitsaudits, Prüfungen oder Zertifizierungen nachweisen, erstmals zu einem vom BSI festgelegten Zeitpunkt (frühestens drei Jahre, nachdem sie erstmals als Betreiber gelten) und danach alle drei Jahre (§ 39 BSIG). Müssen Systeme zur Angriffserkennung einsetzen (§ 31 Abs. 2 BSIG)."
+          "heading": "Betreiber kritischer Anlagen",
+          "description": "Sie weisen ihre Maßnahmen dem BSI nach, durch Audits, Prüfungen oder Zertifizierungen. Erstmals zu einem Zeitpunkt, den das BSI festlegt, frühestens drei Jahre nachdem sie als Betreiber gelten, danach alle drei Jahre (§ 39 BSIG). Außerdem müssen sie Systeme zur Angriffserkennung einsetzen (§ 31 Abs. 2 BSIG)."
         },
         "bwe": {
-          "heading": "Wesentliche Einrichtungen (nicht-KRITIS)",
-          "description": "Kein regelmäßiger Auditzyklus, aber die Einhaltung ist zu dokumentieren (§ 30 Abs. 1 BSIG). Das BSI kann die Einhaltung überprüfen und Audits durch unabhängige Stellen anordnen (§ 61 Abs. 1 und 5 BSIG). Nachweise kann es, risikobasiert ausgewählt, frühestens drei Jahre nach Inkrafttreten anfordern, also nicht vor dem 6. Dezember 2028 (§ 61 Abs. 3 und 4)."
+          "heading": "Besonders wichtige Einrichtungen",
+          "description": "Kein fester Prüfzyklus. Sie halten fest, was Sie umsetzen (§ 30 Abs. 1 BSIG). Das BSI kann prüfen und Audits durch unabhängige Stellen anordnen (§ 61 Abs. 1 und 5 BSIG). Nachweise kann es frühestens ab dem 6. Dezember 2028 anfordern (§ 61 Abs. 3 und 4 BSIG)."
         },
         "we": {
           "heading": "Wichtige Einrichtungen",
-          "description": "Müssen die Umsetzung der erforderlichen Maßnahmen dokumentieren. Das BSI prüft nur, wenn Tatsachen annehmen lassen, dass sie § 30, § 32 oder § 38 Abs. 3 nicht einhalten (§ 62 BSIG)."
+          "description": "Sie halten fest, was Sie umsetzen. Das BSI prüft nur, wenn Tatsachen annehmen lassen, dass Sie § 30, § 32 oder § 38 Abs. 3 BSIG nicht einhalten (§ 62 BSIG)."
         },
         "evidence": {
-          "heading": "Akzeptierte Nachweise",
+          "heading": "Was als Nachweis dienen kann",
           "items": {
             "audits": "Interne oder externe Auditberichte",
-            "certifications": "Zertifizierungen (ISO 27001, BSI IT-Grundschutz usw.)",
-            "documentation": "Umfassende Dokumentation von Risikobewertungen, umgesetzten Maßnahmen und Wirksamkeitsüberprüfungen"
+            "certifications": "Zertifizierungen, etwa ISO 27001 oder BSI IT-Grundschutz",
+            "documentation": "Ihre Dokumentation: Risikobewertung, umgesetzte Maßnahmen und die Prüfung ihrer Wirksamkeit"
           },
-          "note": "Eine ISO-27001- oder IT-Grundschutz-Zertifizierung unterstützt die NIS2-Compliance, garantiert sie aber nicht. Die BSIG-Anforderungen können über den üblichen Zertifizierungsumfang hinausgehen."
+          "note": "Ein Zertifikat nach ISO 27001 oder IT-Grundschutz hilft, deckt das BSIG aber nicht automatisch ab. Das Gesetz kann über den Umfang einer Zertifizierung hinausgehen."
         }
       },
       "supplyChain": {
-        "heading": "Lieferkettensicherheit",
-        "description": "NIS2 führt verpflichtende Anforderungen an die Lieferkettensicherheit ein. Einrichtungen müssen:",
+        "heading": "Lieferanten",
+        "description": "Für die Lieferkette heißt das konkret:",
         "items": {
-          "assess": "Die spezifischen Schwachstellen jedes unmittelbaren Anbieters und die Gesamtqualität seiner Produkte und Cybersicherheitspraxis berücksichtigen (Art. 21 Abs. 3 NIS 2)",
-          "contractual": "Sicherheitsanforderungen mit Lieferanten vereinbaren, wo es passt, meist im Vertrag (die Gesetzesbegründung nennt Verträge als Beispiel)",
-          "monitor": "Für die von der CIR erfassten digitalen Anbieter: Änderungen der Sicherheitspraxis der Lieferanten in geplanten Abständen überwachen und bewerten (CIR Nummer 5.1.6)",
-          "coordinate": "Schwachstellenoffenlegung mit Lieferanten koordinieren",
-          "risk": "Die Gesamtqualität der Produkte und Praktiken der Lieferanten berücksichtigen, einschließlich deren sicherer Entwicklungsverfahren"
+          "assess": "Sie berücksichtigen die Schwachstellen jedes direkten Anbieters und die Qualität seiner Produkte und Sicherheitspraxis, auch seiner Entwicklung (Art. 21 Abs. 3 NIS 2).",
+          "contractual": "Sie vereinbaren Sicherheitsanforderungen mit Lieferanten, wo es passt, meist im Vertrag. Die Gesetzesbegründung nennt Verträge als Beispiel.",
+          "monitor": "Nur für die digitalen Anbieter, die die Durchführungsverordnung (EU) 2024/2690 erfasst: Sie überwachen Änderungen der Sicherheitspraxis ihrer Lieferanten in geplanten Abständen (Nummer 5.1.6 des Anhangs)."
         }
+      },
+      "example": {
+        "heading": "Ein Beispiel",
+        "lead": "Eine erfundene Firma: ein Hersteller von Backwaren mit 120 Beschäftigten, der den Handel beliefert. Industrielle Lebensmittelherstellung steht in Anlage 2 des BSIG, also ist die Firma eine wichtige Einrichtung. So sieht ihre Antwort auf drei der zehn Bereiche aus:",
+        "items": [
+          "Lieferkette: Die Firma führt eine Liste ihrer Dienstleister, etwa für die Warenwirtschaft, die Kühlüberwachung und die IT. Im Vertrag mit der IT steht, dass sie Vorfälle meldet.",
+          "Zweiter Faktor: Für E-Mail und Fernzugang brauchen alle einen Code aus einer App.",
+          "Betrieb aufrechterhalten: Die Rezepturen und Produktionspläne werden täglich gesichert. Einmal im Jahr probiert die IT die Wiederherstellung aus."
+        ]
+      },
+      "walk": {
+        "heading": "So geht das im Durchgang",
+        "lead": "Im Durchgang auf nisd2.eu wird aus jedem der zehn Bereiche mindestens ein Schritt, den Sie ausfüllen.",
+        "points": [
+          "Neben jedem Schritt steht die Vorschrift, in einfachen Worten erklärt.",
+          "Wo ein Dokument nötig ist, entsteht es aus Ihren Antworten: Leitlinie, Notfallplan für Vorfälle, Notfallplan für den Betrieb, Kryptokonzept, Konzept für Personal, Zugänge und IT sowie Regeln für Kauf, Wartung und Schwachstellen.",
+          "Wo eine Liste reicht, führen Sie eine Liste: Ihre IT, Ihre Lieferanten, Ihre Datensicherungen, Ihre Schulungen.",
+          "Wollen Sie einen Punkt bewusst nicht umsetzen, schreiben Sie auf, warum. Die Geschäftsleitung unterschreibt diese Entscheidung mit.",
+          "Am Ende gibt die Geschäftsleitung die Dokumente in der App frei, angemeldet mit dem eigenen Zugang. Name und Datum stehen danach auf jedem Dokument."
+        ],
+        "seeItAlt": "Dokumente aus dem Durchgang, von der Geschäftsleitung freigegeben, jedes mit Namen und Datum",
+        "next": "Den ersten Bereich im Durchgang angehen"
+      },
+      "sources": {
+        "heading": "Quellen",
+        "items": [
+          "Richtlinie (EU) 2022/2555 (NIS 2), Art. 3, 20, 21 und 23 (eur-lex.europa.eu)",
+          "BSI-Gesetz (BSIG), §§ 30, 31, 32, 33, 38, 39, 61 und 62 (gesetze-im-internet.de/bsig_2025)",
+          "BSIG, Anlage 2, Nr. 4 Produktion, Verarbeitung und Vertrieb von Lebensmitteln",
+          "Durchführungsverordnung (EU) 2024/2690, Art. 3 und Anhang Nummer 5.1.6",
+          "Gesetzentwurf der Bundesregierung zum NIS2UmsuCG, BT-Drucksache 21/1501, Begründung zu § 30"
+        ]
       }
     },
     "ceoLiability": {
@@ -2282,135 +2368,127 @@
     },
     "smeGuide": {
       "meta": {
-        "title": "NIS2-Umsetzung für den Mittelstand",
-        "description": "NIS2-Umsetzungsleitfaden für Unternehmen mit 50-250 Mitarbeitern. 12-Wochen-Fahrplan, Rollenverteilung und praktische Tipps zur BSIG-Compliance."
+        "title": "NIS2 umsetzen: die Schritte für den Mittelstand",
+        "description": "NIS2 umsetzen im Mittelstand: die vier Pflichten, die Reihenfolge und wer was tut. Mit Paragrafen, einem Beispiel und dem nächsten Schritt."
       },
-      "badge": "Mittelstand / KMU",
-      "title": "NIS2-Umsetzung für den Mittelstand",
-      "subtitle": "Ein praktischer 12-Wochen-Umsetzungsfahrplan für deutsche Unternehmen mit 50-250 Mitarbeitern - kein Sicherheitsteam erforderlich.",
-      "overview": {
-        "heading": "Sie sind betroffen. Was nun?",
-        "p1": "Schätzungsweise 29.500 Unternehmen in Deutschland fallen unter den NIS2-Anwendungsbereich. Wenn Sie mehr als 50 Mitarbeiter haben und in einem betroffenen Sektor tätig sind - Abfallwirtschaft, Lebensmittelproduktion, Verarbeitendes Gewerbe, Energie, Transport, Gesundheit, digitale Infrastruktur - gehören Sie mit hoher Wahrscheinlichkeit dazu. Das BSIG trat am 6. Dezember 2025 in Kraft, und die BSI-Registrierungsfrist war der 6. März 2026.",
-        "p2": "Was die meisten Berater Ihnen nicht sagen: Für ein mittelständisches Unternehmen mit grundlegender IT ist die NIS2-Compliance machbar. Es ist kein 6-monatiges, sechsstelliges Projekt. Die meisten der 49 BSIG-Anforderungen sind einmalige Dokumentationsaufgaben - Richtlinien, Risikobewertungen, Verfahren. Nur wenige erfordern laufende operative Prozesse. Das Gesetz verlangt ‚geeignete, verhältnismäßige und wirksame' Maßnahmen (§ 30 Abs. 1 BSIG), passend zu Ihrem Risiko - keine Fortune-500-Sicherheitsinfrastruktur.",
-        "p3": "Dieser Leitfaden gibt Ihnen den praktischen Plan: einen 12-Wochen-Fahrplan, die Rollen, die Sie brauchen (alle in Teilzeit, alle bestehende Mitarbeiter), die häufigsten Fehler, die Unternehmen Ihrer Größe machen, und die Prioritätsreihenfolge für die 10 Pflichtmaßnahmen nach §30 BSIG. Keine Theorie, keine Panikmache - nur die konkreten Schritte."
-      },
-      "audience": {
-        "heading": "Für wen dieser Leitfaden ist",
-        "description": "Dieser Leitfaden richtet sich gezielt an mittelständische deutsche Unternehmen, die erstmals mit NIS2 in Berührung kommen.",
+      "badge": "Mittelstand",
+      "title": "NIS2 umsetzen: so gehen Sie im Mittelstand vor",
+      "subtitle": "Sie registrieren Ihr Unternehmen beim BSI, setzen Sicherheitsmaßnahmen in zehn Bereichen um und melden erhebliche Vorfälle. Die Geschäftsleitung überwacht das. Wie gründlich jede Maßnahme sein muss, hängt von Größe und Risiko Ihres Unternehmens ab.",
+      "duties": {
+        "heading": "Die vier Pflichten",
+        "lead": "NIS 2 ist eine Richtlinie der EU. In Deutschland setzt sie das BSI-Gesetz (BSIG) um. Ein Unternehmen, für das sie gilt, heißt dort „Einrichtung“. Jede Einrichtung hat vier Pflichten.",
         "items": {
-          "size": "Unternehmen mit 50-250 Mitarbeitern in NIS2-Sektoren",
-          "limitedIt": "Begrenzte IT-Kapazität - vielleicht 2-5 Personen, kein eigenes Sicherheitsteam",
-          "noCompliance": "Keine eigene Compliance-Abteilung und keine GRC-Erfahrung",
-          "firstTime": "Erstmaliger Kontakt mit NIS2, BSIG oder BSI-Registrierung"
-        }
-      },
-      "roadmap": {
-        "heading": "Umsetzungsfahrplan",
-        "phases": {
-          "foundation": {
-            "title": "Grundlagen",
-            "weeks": "Wochen 1-2",
-            "description": "Schaffen Sie die organisatorischen Grundlagen: Beim BSI registrieren, Verantwortlichkeiten zuweisen und die Geschäftsleitung über ihre persönliche Haftung nach §38 BSIG informieren. In dieser Phase geht es darum, die richtigen Personen einzubinden und den Geltungsbereich festzulegen.",
-            "actions": [
-              "BSI-Registrierung über Mein Unternehmenskonto + BSI-Portal",
-              "Compliance-Verantwortlichen benennen (Teilzeitrolle, keine Neueinstellung)",
-              "Management-Briefing zu §38 BSIG-Pflichten und persönlicher Haftung",
-              "Compliance-Plattform einrichten und Teammitglieder einladen",
-              "Initiale Einordnung: feststellen, welche Einrichtungskategorie gilt (wesentlich oder wichtig)"
-            ]
+          "register": {
+            "title": "Registrieren",
+            "text": "Sie melden Ihr Unternehmen einmal beim BSI an, über dessen Portal.",
+            "law": "Art. 3 Abs. 4 NIS 2 · § 33 BSIG",
+            "who": "Wer das Unternehmenskonto bei ELSTER verwaltet"
           },
-          "risk": {
-            "title": "Risikobewertung",
-            "weeks": "Wochen 3-4",
-            "description": "Erstellen Sie Ihr Asset-Inventar und führen Sie die initiale Risikobewertung durch. Dies ist das Fundament, auf dem alles andere aufbaut - §30 Abs. 1 BSIG Maßnahme 1. Nutzen Sie die BSI-200-3-Risikoanalyse-Methodik: Assets identifizieren, Bedrohungen ermitteln, Eintrittswahrscheinlichkeit und Auswirkung bewerten, Behandlung festlegen.",
-            "actions": [
-              "Asset-Inventar erstellen - identische Assets gruppieren (z. B. ‚45 Laptops' = 1 Eintrag)",
-              "Lieferanten mit Zugang zu Ihren Systemen identifizieren und kategorisieren",
-              "Initiale Risikobewertung durchführen: Eintrittswahrscheinlichkeit × Auswirkung pro Asset",
-              "Risikobehandlungsentscheidungen dokumentieren: akzeptieren, mindern, übertragen oder vermeiden",
-              "Risiken den BSIG-Maßnahmen zuordnen - welche Kontrollen adressieren welche Risiken"
-            ]
+          "measures": {
+            "title": "Maßnahmen umsetzen und festhalten",
+            "text": "Sie schützen Ihre IT in zehn Bereichen, vom Notfallplan bis zur Anmeldung mit zweitem Faktor. Was Sie entscheiden, halten Sie schriftlich fest.",
+            "law": "Art. 21 NIS 2 · § 30 BSIG",
+            "who": "Wer die IT verantwortet, intern oder als Dienstleister"
           },
-          "controls": {
-            "title": "Kontrollen & Dokumentation",
-            "weeks": "Wochen 5-8",
-            "description": "Dokumentieren Sie Ihre Sicherheitskontrollen und Verfahren. Diese Phase hat den größten Umfang, aber die meisten Anforderungen sind einmalige Dokumentationsaufgaben. Konzentrieren Sie sich darauf, zu dokumentieren, was Sie bereits tun (die meisten Unternehmen haben informelle Prozesse) und echte Lücken zu schließen.",
-            "actions": [
-              "Sicherheitsrichtlinien erstellen oder übernehmen (Informationssicherheit, Zugriffskontrolle, Vorfallreaktion)",
-              "Kryptographie-Einsatz und Schlüsselmanagement-Ansatz dokumentieren",
-              "Vorfallreaktionsprozess mit 24h/72h/1-Monat-Kaskade aufsetzen",
-              "Zugriffskontrolle prüfen: Least-Privilege-Prinzip, On-/Offboarding-Verfahren",
-              "Betriebskontinuität und Backup-Verfahren dokumentieren",
-              "MFA für kritische Systeme implementieren oder dokumentieren"
-            ]
+          "report": {
+            "title": "Erhebliche Vorfälle melden",
+            "text": "Einen erheblichen Sicherheitsvorfall melden Sie dem BSI, die erste Meldung binnen 24 Stunden. Erheblich ist ein Vorfall etwa, wenn er Ihren Betrieb schwer stört.",
+            "law": "Art. 23 NIS 2 · § 32 BSIG",
+            "who": "Wer im Notfall entscheidet"
           },
-          "evidence": {
-            "title": "Nachweise & Prüfungsbereitschaft",
-            "weeks": "Wochen 9-12",
-            "description": "Den Kreis schließen: Billigungen der Geschäftsleitung, Schulungsabschlüsse, Nachweissammlung und eine erste Wirksamkeitsprüfung. Diese Phase wandelt Ihre dokumentierten Maßnahmen in prüfbare Compliance-Nachweise um.",
-            "actions": [
-              "Geschäftsleitung setzt alle Cybersicherheitsmaßnahmen um und überwacht sie, dokumentiert festgehalten (§38 Abs. 1 BSIG)",
-              "Verpflichtende Cybersicherheitsschulung der Geschäftsleitung abschließen",
-              "Nachweisdokumente hochladen: Screenshots, Konfigurationen, Richtlinienfreigaben",
-              "Erste Wirksamkeitsbewertung durchführen - funktionieren die Kontrollen tatsächlich?",
-              "Compliance-Bericht für interne Prüfung exportieren"
-            ]
+          "management": {
+            "title": "Die Geschäftsleitung führt",
+            "text": "Sie setzt die Maßnahmen um und überwacht sie. Außerdem nimmt sie regelmäßig an einer Schulung teil. Diese Pflichten treffen die Geschäftsleitung selbst.",
+            "law": "Art. 20 NIS 2 · § 38 BSIG",
+            "who": "Geschäftsleitung, persönlich"
           }
         }
       },
-      "roles": {
-        "heading": "Rollen, die Sie brauchen",
-        "description": "Sie müssen niemanden einstellen. Dies sind Teilzeitaufgaben für bestehende Mitarbeiter.",
-        "items": {
-          "complianceLead": {
-            "title": "Compliance-Verantwortlicher (4-8 Stunden/Woche)",
-            "description": "Treibt den Prozess voran, füllt Anforderungsformulare aus, koordiniert mit IT und Geschäftsleitung. Üblicherweise der IT-Leiter, Qualitätsmanager oder Betriebsleiter."
-          },
-          "itContact": {
-            "title": "IT-Ansprechpartner (2-4 Stunden/Woche)",
-            "description": "Liefert technischen Input: Asset-Details, Netzwerkarchitektur, Verschlüsselungsstatus, Zugriffskontrollen. Ihr Admin oder IT-Manager."
-          },
-          "managementSponsor": {
-            "title": "Management-Sponsor (1-2 Stunden/Woche)",
-            "description": "Setzt Maßnahmen um und überwacht sie, absolviert Schulungen. Vorgeschrieben durch §38 BSIG - nicht delegierbar."
-          },
-          "externalAuditor": {
-            "title": "Externer Prüfer (optional)",
-            "description": "Für KRITIS-Betreiber: alle 3 Jahre vorgeschrieben. Für wesentliche und wichtige Einrichtungen: optional, aber empfohlen für den ersten Compliance-Zyklus zur Validierung Ihrer Arbeit."
-          }
-        }
+      "size": {
+        "heading": "Was das für 50 bis 150 Beschäftigte heißt",
+        "items": [
+          "Sie brauchen kein eigenes Sicherheitsteam. Das Gesetz verlangt keins.",
+          "Sie brauchen kein Zertifikat wie ISO 27001. Das Gesetz schreibt keins vor, es kann aber beim Nachweis helfen.",
+          "Die Maßnahmen müssen zu Ihnen passen. Maßstab sind Ihre Risikolage, Ihre Größe, die Kosten und wie wahrscheinlich und schwer Vorfälle wären (§ 30 Abs. 1 Satz 2 BSIG).",
+          "Sie halten fest, was Sie umsetzen (§ 30 Abs. 1 Satz 3 BSIG). Die Maßnahmen müssen außerdem wirksam sein.",
+          "Die Arbeit machen Leute, die Sie schon haben: die Geschäftsleitung, wer die IT verantwortet, und die Abteilungen, die wissen, was der Betrieb braucht."
+        ]
+      },
+      "order": {
+        "heading": "In welcher Reihenfolge",
+        "lead": "Jeder Schritt baut auf dem vorigen auf.",
+        "steps": [
+          "Prüfen, ob NIS2 für Sie gilt. Das hängt von Ihrem Sektor, der Zahl der Beschäftigten und dem Umsatz ab (§ 28 BSIG).",
+          "Beim BSI registrieren.",
+          "Die Geschäftsleitung schulen.",
+          "Aufschreiben, welche IT Ihr Betrieb nutzt und wer für Sie arbeitet. Danach die Risiken bewerten.",
+          "Die Maßnahmen beschließen und als Dokumente festhalten: Leitlinie, Notfallpläne und Regeln für Zugänge, Updates und Verschlüsselung.",
+          "Die Geschäftsleitung liest die Dokumente und gibt sie frei.",
+          "Danach regelmäßig prüfen, ob alles noch passt."
+        ],
+        "roadmapLink": "Die Kurzfassung für die Geschäftsleitung"
+      },
+      "example": {
+        "heading": "Ein Beispiel",
+        "lead": "Eine erfundene Firma: ein Hersteller von Fördertechnik mit 90 Beschäftigten. Die IT betreut ein Mitarbeiter, zusammen mit einem externen Dienstleister.",
+        "steps": [
+          "Die Prüfung ergibt: Maschinenbau steht in Anlage 2 des BSIG. Mit 90 Beschäftigten gilt die Firma als wichtige Einrichtung.",
+          "Der Geschäftsführer beantragt ein Organisationszertifikat bei ELSTER. Sobald der Brief mit dem Aktivierungscode da ist, registriert er die Firma im Portal des BSI.",
+          "Er nimmt an einer Schulung für die Geschäftsleitung teil.",
+          "Der Mitarbeiter für die IT schreibt auf, wovon der Betrieb abhängt: ERP, E-Mail, Konstruktion, Steuerung der Fertigung, Datensicherung. Dazu kommen die Lieferanten, etwa der IT-Dienstleister und der Anbieter des ERP.",
+          "Gemeinsam bewerten sie für jeden Eintrag, was passieren kann. Ein Ausfall der Fertigungssteuerung wiegt am schwersten.",
+          "Daraus entstehen die Dokumente: die Leitlinie, ein Notfallplan für Vorfälle, ein Notfallplan für den Betrieb und Regeln für Zugänge, Updates und Verschlüsselung.",
+          "Der Geschäftsführer liest sie und gibt sie frei. Im Notfallplan steht, wer bei einem Vorfall entscheidet."
+        ]
       },
       "mistakes": {
         "heading": "Häufige Fehler",
-        "description": "Was wir bei Unternehmen immer wieder sehen - und wie Sie es vermeiden.",
         "items": {
           "waiting": {
-            "title": "Auf ‚die endgültige Anleitung' warten",
-            "description": "Das Gesetz gilt seit Dezember 2025. Die CIR definiert die technischen Maßnahmen. Es kommt keine weitere Anleitung, die ändern würde, was Sie tun müssen. Fangen Sie jetzt an."
+            "title": "Auf eine endgültige Anleitung warten",
+            "description": "Das BSIG gilt seit dem 6. Dezember 2025. Seitdem gilt auch die Pflicht zu Maßnahmen nach § 30 BSIG."
           },
           "overEngineering": {
-            "title": "Die Lösung überdimensionieren",
-            "description": "Ein 100-Personen-Abfallwirtschaftsunternehmen braucht kein SOC und kein SIEM. Passen Sie Ihre Kontrollen an Ihr tatsächliches Risikoprofil an. Das BSIG verlangt ‚geeignete, verhältnismäßige und wirksame' Maßnahmen, nicht maximale Maßnahmen."
+            "title": "Zu groß planen",
+            "description": "Das Gesetz verlangt verhältnismäßige Maßnahmen, keine größtmöglichen. Systeme zur Angriffserkennung sind zum Beispiel nur für Betreiber kritischer Anlagen Pflicht (§ 31 Abs. 2 BSIG)."
           },
           "noManagement": {
-            "title": "NIS2 als IT-Projekt behandeln",
-            "description": "§38 BSIG macht dies zu einer Managementverantwortung. Wenn der Geschäftsführer nicht eingebunden ist, sind Sie bereits nicht compliant. Planen Sie das Management-Briefing in Woche 1."
+            "title": "NIS2 nur der IT überlassen",
+            "description": "Die Geschäftsleitung muss die Maßnahmen umsetzen und überwachen (§ 38 Abs. 1 BSIG). Binden Sie sie von Anfang an ein."
           },
           "ignoreSupplyChain": {
-            "title": "Lieferkettensicherheit ignorieren",
-            "description": "NIS2 verlangt ausdrücklich die Bewertung der Cybersicherheit Ihrer Lieferanten. Das überrascht viele Unternehmen. Beginnen Sie frühzeitig mit der Dokumentation der Lieferantenbeziehungen."
+            "title": "Die Lieferanten vergessen",
+            "description": "Die Sicherheit der Lieferkette ist einer der zehn Bereiche (§ 30 Abs. 2 Nr. 4 BSIG). Gemeint sind alle direkten Anbieter und Dienstleister, nicht nur die IT."
           },
           "paperOnly": {
-            "title": "Papier-Compliance ohne echte Maßnahmen",
-            "description": "Richtlinien zu schreiben, die niemand liest, reicht nicht. Das BSI kann Nachweise verlangen, dass Maßnahmen tatsächlich umgesetzt und wirksam sind. Bauen Sie echte Prozesse auf, nicht nur Dokumente."
+            "title": "Nur Papier",
+            "description": "Das Gesetz verlangt wirksame Maßnahmen (§ 30 Abs. 1 BSIG). Ein Dokument, das niemand kennt, schützt nichts."
           }
         }
       },
-      "ctaCard": {
-        "heading": "Starten Sie Ihre Umsetzung noch heute",
-        "description": "Die Plattform führt Sie durch alle 49 BSIG-Anforderungen in der richtigen Reihenfolge, mit strukturierten Formularen, Nachweisupload und Management-Freigabe-Workflows - genau das, was ein Mittelstandsunternehmen braucht, um ohne Berater compliant zu werden."
+      "walk": {
+        "heading": "So geht das im Durchgang",
+        "lead": "Der Durchgang auf nisd2.eu führt Sie in dieser Reihenfolge durch die Umsetzung, einen Schritt nach dem anderen.",
+        "points": [
+          "20 Schritte. Betreiber kritischer Anlagen haben einen Schritt mehr.",
+          "Neben jedem Schritt steht die Vorschrift, in einfachen Worten erklärt.",
+          "Aus Ihren Antworten entstehen sechs Dokumente, darunter die Leitlinie und die beiden Notfallpläne.",
+          "Was noch nicht geht, legen Sie zur Seite und machen weiter.",
+          "Wollen Sie einen Punkt bewusst nicht umsetzen, schreiben Sie auf, warum. Die Geschäftsleitung unterschreibt diese Entscheidung mit.",
+          "Am Ende gibt die Geschäftsleitung die Dokumente in der App frei, angemeldet mit dem eigenen Zugang. Name und Datum stehen danach auf jedem Dokument."
+        ],
+        "seeItAlt": "Der Weg durch den Durchgang: die Schritte und welche schon erledigt sind",
+        "next": "Mit dem ersten Schritt beginnen"
       },
-      "cta": "NIS2-Compliance starten"
+      "sources": {
+        "heading": "Quellen",
+        "items": [
+          "Richtlinie (EU) 2022/2555 (NIS 2), Art. 3, 20, 21 und 23 (eur-lex.europa.eu)",
+          "BSI-Gesetz (BSIG) vom 2. Dezember 2025, §§ 28, 30, 31, 32, 33 und 38, in Kraft seit 6. Dezember 2025 (gesetze-im-internet.de/bsig_2025)",
+          "BSIG, Anlage 2, Nr. 5.4 Maschinenbau (gesetze-im-internet.de/bsig_2025/anlage_2.html)",
+          "BSI, Mein Unternehmenskonto und Registrierung im BSI-Portal (bsi.bund.de/dok/muk)"
+        ]
+      }
     },
     "checklist": {
       "meta": {
@@ -3873,172 +3951,169 @@
     },
     "incidentReporting": {
       "meta": {
-        "title": "NIS2-Meldepflicht: 24h/72h Fristen + §32 BSIG",
-        "description": "NIS2-Meldepflicht in Deutschland: frühe Erstmeldung in 24h, Meldung in 72h, Abschlussmeldung einen Monat danach. Erheblichkeitskriterien, BSI-Verfahren, Sanktionen."
+        "title": "NIS2 Meldepflicht: Fristen, Inhalte und Meldeweg",
+        "description": "NIS2 Meldepflicht nach § 32 BSIG: Erstmeldung binnen 24 Stunden, Meldung nach 72 Stunden, Abschluss nach einem Monat. Was erheblich ist, wie Sie melden."
       },
-      "title": "NIS2-Meldepflicht",
-      "subtitle": "§32 BSIG setzt Art 23(4) NIS 2 um: drei Pflichtmeldungen mit festen Fristen (24h, 72h, 1 Monat) plus zwei bedingte Meldungen (auf Anfrage, bei laufendem Vorfall).",
-      "overview": {
-        "heading": "Überblick",
-        "p1": "§32 BSIG setzt Artikel 23 der NIS2-Richtlinie in deutsches Recht um und verpflichtet alle wesentlichen und wichtigen Einrichtungen, erhebliche Sicherheitsvorfälle dem BSI zu melden. Die Meldekaskade hat drei Pflichtmeldungen mit festen Fristen und zwei bedingte Meldungen, ausgelöst auf Anfrage oder bei laufendem Vorfall. Versäumnisse sind bußgeldbewehrt.",
-        "p2": "Die Meldepflicht ist keine formale Übung. Das BSI nutzt die Meldungen zur Erstellung des nationalen Lagebilds, zur Warnung anderer betroffener Einrichtungen und ggf. zur Koordination grenzüberschreitender Reaktionen über das EU-CSIRTs-Netzwerk. Unvollständige oder verspätete Meldungen untergraben diesen Mechanismus und ziehen eigenständige Sanktionen nach sich."
+      "title": "NIS2 Meldepflicht: wann und wie Sie Vorfälle dem BSI melden",
+      "subtitle": "Einen erheblichen Sicherheitsvorfall melden Sie dem BSI in drei Stufen: frühe Erstmeldung binnen 24 Stunden, Meldung binnen 72 Stunden, Abschlussmeldung einen Monat danach (§ 32 BSIG). Die Uhr läuft ab dem Moment, in dem Sie davon erfahren. Gemeldet wird im Portal des BSI.",
+      "criteria": {
+        "heading": "Was ein erheblicher Sicherheitsvorfall ist",
+        "intro": "Ein Sicherheitsvorfall ist ein Ereignis, das die Verfügbarkeit, Integrität oder Vertraulichkeit Ihrer Daten oder Dienste beeinträchtigt (§ 2 Nr. 40 BSIG). Melden müssen Sie nur erhebliche Vorfälle.",
+        "description": "Erheblich ist ein Vorfall, wenn er eines von zwei Dingen verursacht hat oder verursachen kann (§ 2 Nr. 11 BSIG, Art. 23 Abs. 3 NIS 2): eine schwerwiegende Betriebsstörung oder finanzielle Verluste für Ihr Unternehmen, oder erheblichen Schaden bei anderen. Für bestimmte digitale Anbieter legt die Durchführungsverordnung (EU) 2024/2690 genaue Schwellen fest. Für alle anderen gilt laut BSI: Ein Vorfall ist erheblich, wenn er eines der Kriterien aus Art. 3 Abs. 1 dieser Verordnung erfüllt, und immer dann, wenn eine kritische Dienstleistung ausfällt oder beeinträchtigt ist.",
+        "items": {
+          "disruption": {
+            "title": "Schwerwiegende Betriebsstörung",
+            "description": "Der Vorfall stört die Erbringung Ihrer Dienste schwer oder kann das tun."
+          },
+          "financial": {
+            "title": "Finanzielle Verluste",
+            "description": "Der Vorfall verursacht finanzielle Verluste für Ihr Unternehmen oder kann das tun. Für die digitalen Anbieter, die die Durchführungsverordnung erfasst, liegt die Schwelle bei einem unmittelbaren Verlust über 500.000 EUR oder 5 % des Vorjahresumsatzes, je nachdem, welcher Betrag niedriger ist (Art. 3 Abs. 1 Buchst. a)."
+          },
+          "spread": {
+            "title": "Schaden bei anderen",
+            "description": "Der Vorfall verursacht anderen Menschen oder Unternehmen erheblichen materiellen oder immateriellen Schaden oder kann das tun."
+          },
+          "data": {
+            "title": "Datenpanne",
+            "description": "Eine Datenpanne ist nur dann erheblich, wenn sie eines der beiden Kriterien erfüllt, etwa weil sie anderen erheblichen Schaden zufügt. Die Meldung nach § 32 BSIG steht neben der Meldung nach Art. 33 und 34 DSGVO. Beide können für denselben Vorfall gelten."
+          },
+          "duration": {
+            "title": "Dauer",
+            "description": "Die Dauer ist kein eigenes Kriterium. Für die digitalen Anbieter, die die Durchführungsverordnung erfasst, gelten Zeitgrenzen je Dienst, etwa wenn ein Dienst in der Cloud länger als 30 Minuten ganz ausfällt (Art. 7 Buchst. a)."
+          }
+        },
+        "doubt": "Im Zweifel früh melden. Das BSI wünscht eine frühe Meldung ausdrücklich, auch wenn noch vieles unklar ist. Korrekturen gehen mit den späteren Meldungen."
       },
       "timeline": {
-        "heading": "Meldekaskade nach Art 23(4) NIS 2",
-        "description": "Drei Pflichtmeldungen mit festen Fristen ab Kenntniserlangung, plus bis zu zwei bedingte Meldungen (Zwischenmeldung auf Anfrage der Behörde, Fortschrittsmeldung bei laufendem Vorfall am Tag der Abschlussmeldung).",
+        "heading": "Die Fristen",
+        "description": "Drei Meldungen mit festen Fristen, dazu zwei, die nur in bestimmten Fällen anfallen. Die Fristen sind Höchstwerte: Gemeldet wird unverzüglich.",
+        "awareness": "Die Uhr startet mit der Kenntnis. Laut BSI ist das der Moment, in dem ein Beschäftigter Ihres Unternehmens während der Arbeitszeit von dem erheblichen Vorfall erfährt.",
         "items": {
           "early": {
             "title": "Frühe Erstmeldung",
             "deadline": "24 Stunden",
-            "description": "Erste Meldung an das BSI innerhalb von 24 Stunden nach Kenntniserlangung vom Vorfall. Fokus auf Sofortinformationen zur Ermöglichung einer koordinierten Reaktion.",
+            "description": "Eine erste Warnung an das BSI, spätestens 24 Stunden nachdem Sie vom Vorfall erfahren haben.",
             "contents": [
-              "Angabe, ob der Vorfall vermutlich auf rechtswidrige oder böswillige Handlungen zurückzuführen ist",
-              "Einschätzung, ob grenzüberschreitende Auswirkungen möglich sind",
-              "Erste Klassifizierung der Vorfallart",
-              "Kontaktdaten der meldenden Stelle"
+              "Ob der Vorfall vermutlich auf eine rechtswidrige oder böswillige Handlung zurückgeht",
+              "Ob er andere Länder betreffen könnte",
+              "Eine erste Einstufung des Vorfalls",
+              "Wer meldet, und wie das BSI diese Person erreicht"
             ]
           },
           "update": {
-            "title": "Meldung (nach 72 Stunden)",
+            "title": "Meldung",
             "deadline": "72 Stunden",
-            "description": "Erweiterte Meldung innerhalb von 72 Stunden mit vertiefter Analyse des Vorfalls. Aktualisierung der frühen Erstmeldung um verfügbare Erkenntnisse.",
+            "description": "Spätestens 72 Stunden nachdem Sie vom Vorfall erfahren haben. Sie bestätigt oder ergänzt die Erstmeldung.",
             "contents": [
-              "Bewertung der Schwere des Vorfalls und seiner Auswirkungen",
-              "Indikatoren für eine Kompromittierung (IoCs), sofern verfügbar",
-              "Erste Ursachenanalyse",
-              "Bisher ergriffene und geplante Gegenmaßnahmen",
-              "Aktualisierte Einschätzung der grenzüberschreitenden Auswirkungen"
+              "Eine erste Bewertung von Schwere und Auswirkungen",
+              "Hinweise auf die Angreifer (Kompromittierungsindikatoren), wo vorhanden",
+              "Was Sie über die Ursache wissen",
+              "Was Sie getan haben und noch tun wollen"
             ]
           },
           "intermediate": {
             "title": "Zwischenmeldung",
             "deadline": "Auf Anfrage",
-            "description": "Auf Anfrage des BSI zwischen der Meldung nach 72 Stunden und der Abschlussmeldung. Statusupdate zum aktuellen Stand der Vorfallbehandlung. Keine automatische Meldung, sondern anlassbezogen.",
+            "description": "Nur wenn das BSI darum bittet: der aktuelle Stand.",
             "contents": [
-              "Aktueller Status der Eindämmung und Behebung",
-              "Neue Erkenntnisse zu Ursache, Umfang oder Auswirkungen",
-              "Anpassungen an den Gegenmaßnahmen",
-              "Aktualisierte Schadensbewertung"
+              "Stand der Eindämmung und Behebung",
+              "Neue Erkenntnisse zu Ursache, Umfang oder Auswirkungen"
             ]
           },
           "final": {
             "title": "Abschlussmeldung",
-            "deadline": "1 Monat nach 72h-Meldung",
-            "description": "Umfassende Abschlussmeldung innerhalb eines Monats nach der Meldung nach 72 Stunden. Vollständige Dokumentation des Vorfalls und der Reaktion.",
+            "deadline": "1 Monat nach der Meldung",
+            "description": "Spätestens einen Monat nach der zweiten Meldung, der Meldung binnen 72 Stunden.",
             "contents": [
-              "Detaillierte Beschreibung des Vorfalls einschließlich Schweregrad und Auswirkungen",
-              "Art der Bedrohung oder zugrunde liegende Ursache, die den Vorfall wahrscheinlich ausgelöst hat",
-              "Ergriffene und laufende Abhilfemaßnahmen",
-              "Grenzüberschreitende Auswirkungen, sofern zutreffend"
+              "Eine ausführliche Beschreibung des Vorfalls mit Schwere und Auswirkungen",
+              "Die Art der Bedrohung oder die wahrscheinliche Ursache",
+              "Was Sie getan haben und noch tun",
+              "Ob andere Länder betroffen sind"
             ]
           },
           "progress": {
             "title": "Fortschrittsmeldung",
             "deadline": "Bei laufendem Vorfall",
-            "description": "Dauert der Vorfall zum Zeitpunkt der Abschlussmeldung noch an, wird stattdessen eine Fortschrittsmeldung abgegeben. Die Abschlussmeldung folgt nach abschließender Bearbeitung des Vorfalls (§ 32 Abs. 2 BSIG); die Richtlinie nennt dafür einen Monat (Art. 23 Abs. 4 Buchst. e NIS 2).",
+            "description": "Läuft der Vorfall nach einem Monat noch, geben Sie statt der Abschlussmeldung eine Fortschrittsmeldung ab. Die Abschlussmeldung folgt, wenn der Vorfall bearbeitet ist (§ 32 Abs. 2 BSIG).",
             "contents": [
-              "Aktueller Status, da der Vorfall noch andauert",
-              "Bisher umgesetzte Eindämmungsmaßnahmen",
-              "Erwartete Dauer bis zum Vorfallsende, sofern absehbar",
-              "Plan für die Abschlussmeldung nach Vorfallsende"
+              "Der aktuelle Stand",
+              "Was Sie bisher eingedämmt haben"
             ]
           }
         }
       },
-      "criteria": {
-        "heading": "Erheblichkeitskriterien",
-        "description": "Nicht jedes Sicherheitsereignis löst die Meldepflicht nach § 32 BSIG aus. Ein Sicherheitsvorfall ist erheblich, wenn er eines der beiden Kriterien aus § 2 Nr. 11 BSIG (Art. 23 Abs. 3 NIS 2) erfüllt: schwerwiegende Betriebsstörungen der Dienste oder finanzielle Verluste für die Einrichtung, oder erhebliche materielle oder immaterielle Schäden bei anderen. Für die digitalen Anbieter, die die CIR erfasst, legen Art. 3 bis 14 CIR 2024/2690 die Schwellen fest. Für alle anderen kann laut BSI von einem erheblichen Sicherheitsvorfall ausgegangen werden, wenn mindestens eines der Kriterien aus Art. 3 Abs. 1 CIR erfüllt ist, und immer dann, wenn die Erbringung kritischer Dienstleistungen ausgefallen oder beeinträchtigt ist.",
-        "items": {
-          "disruption": {
-            "title": "Schwerwiegende Betriebsstörung",
-            "description": "Der Vorfall hat eine schwerwiegende Störung der Erbringung der betroffenen Dienste verursacht oder kann eine solche verursachen."
-          },
-          "financial": {
-            "title": "Finanzielle Verluste",
-            "description": "Der Vorfall hat finanzielle Verluste für die betroffene Einrichtung verursacht oder kann solche verursachen. Für die digitalen Anbieter, die die CIR erfasst, liegt die Schwelle bei einem unmittelbaren finanziellen Verlust über 500.000 EUR oder 5 % des Jahresumsatzes des Vorjahres, je nachdem, welcher Betrag niedriger ist (Art. 3 Abs. 1 Buchst. a CIR 2024/2690)."
-          },
-          "spread": {
-            "title": "Ausbreitung auf Dritte",
-            "description": "Der Vorfall hat andere natürliche oder juristische Personen beeinträchtigt oder kann diese beeinträchtigen, indem er beträchtlichen materiellen oder immateriellen Schaden verursacht."
-          },
-          "data": {
-            "title": "Datenschutzverletzung",
-            "description": "Eine Datenpanne ist nur dann ein erheblicher Sicherheitsvorfall, wenn sie eines der beiden Kriterien erfüllt, etwa weil sie anderen erheblichen Schaden zufügt. Die Meldung nach § 32 BSIG steht neben der Meldung nach Art. 33 und 34 DSGVO; beide können für denselben Vorfall gelten."
-          },
-          "duration": {
-            "title": "Dauer",
-            "description": "Die Dauer ist in § 2 Nr. 11 BSIG und Art. 23 Abs. 3 NIS 2 kein eigenes Kriterium. Für die digitalen Anbieter, die die CIR erfasst, setzen Art. 5 bis 14 CIR Zeitgrenzen je Dienst (etwa ein Cloud-Dienst, der länger als 30 Minuten vollständig ausfällt, Art. 7 Buchst. a CIR). Ist die Erbringung kritischer Dienstleistungen ausgefallen oder beeinträchtigt, ist laut BSI immer von einem erheblichen Sicherheitsvorfall auszugehen."
-          }
-        }
-      },
       "fields": {
-        "heading": "Pflichtangaben der Meldung",
-        "description": "Jede Meldung an das BSI muss die folgenden Kernangaben enthalten.",
-        "items": {
-          "entity": {
-            "title": "Einrichtungsdaten",
-            "description": "Kontaktangaben der meldenden Person sowie betroffene Sektoren, Branchen, Einrichtungsarten und gegebenenfalls kritische Anlagen."
-          },
-          "nature": {
-            "title": "Art des Vorfalls",
-            "description": "Klassifizierung des Vorfalls (z.B. Ransomware, DDoS, Datenpanne, Phishing-Kampagne), betroffene Systeme und Dienste, Zeitpunkt der Erkennung."
-          },
-          "impact": {
-            "title": "Auswirkungen",
-            "description": "Betroffene Dienste und deren Einschränkung, Anzahl betroffener Nutzer, geschätzte finanzielle Auswirkungen, Dauer der Beeinträchtigung."
-          },
-          "crossBorder": {
-            "title": "Grenzüberschreitende Auswirkungen",
-            "description": "Einschätzung, ob der Vorfall Auswirkungen auf andere EU-Mitgliedstaaten hat oder haben könnte. Angabe betroffener Länder und Sektoren."
-          },
-          "measures": {
-            "title": "Gegenmaßnahmen",
-            "description": "Bereits ergriffene Sofortmaßnahmen, geplante weitere Maßnahmen, eingebundene externe Dienstleister und Behörden."
-          }
-        }
+        "heading": "Was in die erste Meldung gehört",
+        "description": "Das BSI nennt für die frühe Erstmeldung diese Angaben. Das Formular im Portal fragt sie ab.",
+        "list": [
+          "Einstufung des Vorfalls, Grund der Meldung und Lage",
+          "Eine vorläufige Beschreibung: Störung, Auswirkung, erwartete Dauer und vermutete Ursache",
+          "Wann der Vorfall eintrat und wann Sie ihn bemerkt haben",
+          "Betroffene Sektoren und Einrichtungsarten",
+          "Ob ein Angriff vermutet wird und ob andere Länder betroffen sein könnten",
+          "Was Sie bisher getan haben und ob der Vorfall unter Kontrolle ist",
+          "Wie das BSI die meldende Person erreicht"
+        ],
+        "note": "Laut BSI gilt: Schnelligkeit vor Vollständigkeit. Eine abgegebene Meldung lässt sich nicht zurückziehen. Sie korrigieren sie mit einer Folgemeldung."
       },
       "where": {
-        "heading": "Meldewege",
-        "description": "Meldungen gehen an das BSI, im Regelfall über das BSI-Portal.",
-        "p1": "Alle Meldungen nach § 32 BSIG gehen an das BSI, im Regelfall über das BSI-Portal. Wer vor der Registrierung einen erheblichen Sicherheitsvorfall hat, meldet über ein Online-Formular im Melde- und Informationsportal (MIP). Betreiber kritischer Anlagen und Bundesbehörden nutzen vorübergehend ihre bisherigen Meldewege. Betrifft ein Vorfall andere Mitgliedstaaten, informiert das BSI diese und die ENISA (Art. 23 Abs. 6 NIS 2).",
-        "p2": "Betreiber kritischer Anlagen melden zusätzlich die Art der betroffenen Anlage, die kritische Dienstleistung und die Auswirkungen des Vorfalls auf diese Dienstleistung (§ 32 Abs. 3 BSIG). Für Einrichtungen, die gleichzeitig der DSGVO unterliegen, können parallele Meldepflichten an Datenschutzaufsichtsbehörden bestehen."
+        "heading": "Wo und wer meldet",
+        "description": "Gemeldet wird beim BSI, im Regelfall über das Portal des BSI.",
+        "p1": "Meldungen nach § 32 BSIG gehen an das BSI, im Regelfall über das Portal des BSI. Hat Ihr Unternehmen einen erheblichen Vorfall, bevor es registriert ist, melden Sie über ein Formular im Melde- und Informationsportal (MIP) des BSI. Betreiber kritischer Anlagen und Bundesbehörden nutzen vorerst ihre bisherigen Meldewege.",
+        "p2": "Melden kann jeder Beschäftigte, der Zugang zum Portal hat. Dafür braucht jede Person ein eigenes Organisationszertifikat von ELSTER und muss im Portal Ihrer Einrichtung zugeordnet sein. Sie können auch einen Dienstleister melden lassen. Die Verantwortung für die Meldung bleibt bei Ihnen.",
+        "p3": "Betreiber kritischer Anlagen melden zusätzlich die Art der Anlage, die kritische Dienstleistung und die Auswirkungen darauf (§ 32 Abs. 3 BSIG). Sind personenbezogene Daten betroffen, kann zusätzlich eine Meldung an die Datenschutzaufsicht nötig sein."
       },
-      "penalties": {
-        "heading": "Sanktionen bei Meldeverstößen",
-        "description": "Die Nichtmeldung oder verspätete Meldung erheblicher Sicherheitsvorfälle ist eigenständig bußgeldbewehrt.",
-        "items": {
-          "essential": {
-            "amount": "Bis 10 Mio. EUR",
-            "label": "Wesentliche Einrichtungen",
-            "detail": "Oder 2% des weltweiten Jahresumsatzes des vorangegangenen Geschäftsjahres - je nachdem, welcher Betrag höher ist."
-          },
-          "important": {
-            "amount": "Bis 7 Mio. EUR",
-            "label": "Wichtige Einrichtungen",
-            "detail": "Oder 1,4% des weltweiten Jahresumsatzes des vorangegangenen Geschäftsjahres - je nachdem, welcher Betrag höher ist."
-          },
-          "management": {
-            "amount": "Haftung gegenüber der Einrichtung",
-            "label": "Geschäftsleitung (§38 BSIG)",
-            "detail": "Die Geschäftsleitung muss die Risikomanagementmaßnahmen nach § 30 umsetzen und ihre Umsetzung überwachen. Verletzt sie diese Pflicht schuldhaft, haftet sie der Einrichtung für den Schaden nach den Regeln des Gesellschaftsrechts (§ 38 Abs. 2 BSIG). Die Meldung selbst ist Pflicht der Einrichtung (§ 32); eine fehlende oder verspätete Meldung ist bußgeldbewehrt (§ 65 Abs. 2 Nr. 4 BSIG)."
-          }
-        }
+      "after": {
+        "heading": "Nach der Meldung",
+        "items": [
+          "Das BSI bestätigt den Eingang unverzüglich, nach Möglichkeit binnen 24 Stunden. Auf Wunsch gibt es Orientierungshilfe oder Beratung (§ 36 Abs. 1 BSIG).",
+          "Das BSI kann anordnen, dass Sie die Empfänger Ihrer Dienste über den Vorfall informieren (§ 35 Abs. 1 BSIG).",
+          "Rechnen Sie mit Rückfragen. Das BSI empfiehlt, dass seine Warnungen auch außerhalb der Geschäftszeiten jemanden erreichen."
+        ]
+      },
+      "example": {
+        "heading": "Ein Beispiel",
+        "lead": "Eine erfundene Firma. Montag, 9 Uhr: Die Buchhaltung sagt der IT, dass Dateien auf dem Server verschlüsselt sind. Die Auftragsannahme steht still.",
+        "items": [
+          "Montag, 9.30 Uhr: Die IT bestätigt einen Angriff. Laut Notfallplan entscheidet der Geschäftsführer. Er stuft den Vorfall als erheblich ein, weil der Betrieb schwer gestört ist.",
+          "Montag, 14 Uhr: die frühe Erstmeldung im Portal des BSI. Sie sagt, was bekannt ist, und dass ein Angriff vermutet wird. Die Frist wäre bis Dienstag, 9 Uhr gelaufen.",
+          "Spätestens Donnerstag, 9 Uhr: die Meldung mit einer ersten Bewertung von Schwere und Auswirkungen.",
+          "Einen Monat nach dieser Meldung: die Abschlussmeldung mit Ursache und Abhilfe. Läuft der Vorfall dann noch, kommt zuerst eine Fortschrittsmeldung.",
+          "Daneben prüft die Firma, ob personenbezogene Daten betroffen sind. Dann gilt zusätzlich die Meldepflicht nach Art. 33 DSGVO."
+        ]
+      },
+      "prepare": {
+        "heading": "Was Sie vorher vorbereiten",
+        "items": [
+          "Wer entscheidet, ob ein Vorfall erheblich ist, und wer meldet.",
+          "Den Zugang zum Portal des BSI für diese Personen: je ein Organisationszertifikat und die Zuordnung zu Ihrer Einrichtung.",
+          "Die Telefonnummern von IT, Dienstleistern und Geschäftsleitung, auch auf Papier.",
+          "Einen Notfallplan, den man auch findet, wenn die Server ausgefallen sind."
+        ]
+      },
+      "walk": {
+        "heading": "So geht das im Durchgang",
+        "lead": "Zwei Schritte im Durchgang auf nisd2.eu bereiten Sie auf die Meldung vor.",
+        "points": [
+          "„Planen, was bei einem Vorfall passiert“: Aus Ihren Antworten entsteht Ihr Notfallplan für Vorfälle. Er sagt, wer entscheidet und wie Sie melden.",
+          "„Wissen, wie Sie einen Vorfall melden“: Der Schritt zeigt die drei Fristen und ein Beispiel für eine frühe Erstmeldung.",
+          "Sie halten fest, ob Sie sich im Portal des BSI anmelden und melden können.",
+          "Am Ende gibt die Geschäftsleitung den Notfallplan in der App frei."
+        ],
+        "seeItAlt": "Der Schritt zur Meldung im Durchgang: die drei Fristen",
+        "next": "Den Notfallplan im Durchgang schreiben"
       },
       "sources": {
         "heading": "Quellen",
         "items": [
-          "BSIG - §31, §32, §38, §65 - Meldepflichten, Geschäftsführerhaftung, Bußgeldvorschriften",
-          "NIS2-Richtlinie (EU) 2022/2555 - Artikel 23: Berichtspflichten",
-          "Durchführungsverordnung (EU) 2024/2690 - Artikel 3-5: Erheblichkeitskriterien",
-          "BSI - Meldeportal und Meldeverfahren für Sicherheitsvorfälle",
-          "BMI - NIS-2-Umsetzungs- und Cybersicherheitsstärkungsgesetz: Gesetzesbegründung zu §32"
+          "BSI-Gesetz (BSIG), § 2 Nr. 11 und 40, §§ 32, 35 und 36 (gesetze-im-internet.de/bsig_2025)",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Art. 23 (eur-lex.europa.eu)",
+          "Durchführungsverordnung (EU) 2024/2690, Art. 3 und 7",
+          "BSI, Meldepflicht nach NIS 2: Fristen, Inhalte und Meldeweg (bsi.bund.de/dok/nis-2-meldepflicht)",
+          "BSI, Mein Unternehmenskonto: Zugang zum Portal des BSI (bsi.bund.de/dok/muk)",
+          "Verordnung (EU) 2016/679 (DSGVO), Art. 33 und 34"
         ]
-      },
-      "ctaCard": {
-        "heading": "Meldepflichten systematisch erfüllen",
-        "description": "Die Plattform strukturiert Ihre Vorfallbehandlung nach §32 BSIG - mit Fristüberwachung, Meldevorlagen und automatischer Eskalation bei drohender Fristüberschreitung."
-      },
-      "cta": "NIS2-Compliance starten"
+      }
     },
     "euImplementation": {
       "meta": {
@@ -4223,108 +4298,117 @@
     },
     "missedRegistration": {
       "meta": {
-        "title": "NIS2-Registrierung verpasst? So registrieren Sie sich jetzt",
-        "description": "NIS2-Registrierung verpasst? Das BSI-Portal ist weiterhin offen. So registrieren Sie sich jetzt nach § 33 BSIG, Schritt für Schritt, mit FAQ."
+        "title": "NIS2 Registrierung beim BSI: Anleitung und Frist",
+        "description": "NIS2 Registrierung beim BSI: wer sich registriert, die Schritte über ELSTER und das Portal des BSI, die Frist und was danach kommt."
       },
-      "title": "Sie haben die BSI-Registrierungsfrist verpasst. Was nun?",
-      "subtitle": "Kurzantwort: Betroffenheit nach §28 BSIG prüfen, sofort über das BSI-Portal nach §33 BSIG registrieren, den Beginn schriftlich dokumentieren, mit der Umsetzung nach § 30 BSIG anfangen. Das Portal ist weiterhin offen. Eine verspätete Anmeldung mit dokumentiertem Fortschritt bewertet die Aufsichtsbehörde grundlegend anders als gar keine Anmeldung.",
-      "shortAnswer": {
-        "heading": "Die kurze Antwort",
-        "p1": "Keine Panik. Sie sind nicht allein - und es ist nicht zu spät, das zu korrigieren. Das BSI schätzt, dass rund 30.000 Unternehmen in Deutschland unter NIS2 fallen. Die Registrierungsfrist lief am 6. März 2026 ab, aber eine erhebliche Anzahl von Unternehmen hat sich noch nicht registriert. Sie sind bei weitem nicht der einzige in dieser Situation.",
-        "p2": "Das Registrierungsportal nach §33 BSIG ist weiterhin offen. Sie können sich heute registrieren. Das BSI hat signalisiert, dass es die Durchsetzung gegen Unternehmen priorisiert, die ihre Pflichten vollständig ignorieren - nicht gegen solche, die sich verspätet registriert haben, aber in gutem Glauben handeln. Verspätet ist besser als nie, und ‚nie' ist die einzig wirklich gefährliche Option.",
-        "p3": "Entscheidend ist, jetzt zu handeln, den Beginn zu dokumentieren und mit der eigentlichen Compliance-Arbeit zu beginnen. Eine verspätete Registrierung mit sichtbarem Fortschritt sieht für eine Aufsichtsbehörde grundlegend anders aus als gar keine Registrierung."
+      "title": "NIS2 Registrierung: so melden Sie Ihr Unternehmen beim BSI an",
+      "subtitle": "Betroffene Unternehmen registrieren sich im Portal des BSI (§ 33 BSIG). Vorher brauchen Sie ein Organisationszertifikat von ELSTER, das per Brief aktiviert wird. Für Unternehmen, die seit Dezember 2025 betroffen sind, endete die Frist am 6. März 2026. Wer sie verpasst hat, registriert sich jetzt: Die Pflicht bleibt bestehen.",
+      "who": {
+        "heading": "Wer sich registrieren muss",
+        "p1": "Jede besonders wichtige und jede wichtige Einrichtung (§ 33 Abs. 1 BSIG). So nennt das Gesetz die Unternehmen, für die NIS 2 gilt.",
+        "p2": "Ob Ihr Unternehmen dazugehört, hängt von seinem Sektor und seiner Größe ab (§ 28 BSIG). Die Sektoren stehen in den Anlagen 1 und 2 des BSIG. Ein Unternehmen in diesen Sektoren ist eine wichtige Einrichtung, wenn es mindestens 50 Beschäftigte hat oder einen Jahresumsatz und eine Bilanzsumme von jeweils über 10 Millionen Euro.",
+        "p3": "Das BSI bietet eine Betroffenheitsprüfung an, die durch die Fragen führt. Ihr Ergebnis ist laut BSI nicht rechtlich bindend."
+      },
+      "deadline": {
+        "heading": "Die Frist",
+        "p1": "Sie registrieren sich spätestens drei Monate, nachdem Ihr Unternehmen erstmals als Einrichtung gilt (§ 33 Abs. 1 BSIG).",
+        "p2": "Das BSIG gilt seit dem 6. Dezember 2025. Für Unternehmen, die seitdem betroffen sind, endete die Frist am 6. März 2026.",
+        "p3": "Wird Ihr Unternehmen erst später betroffen, etwa weil es wächst, laufen die drei Monate ab diesem Zeitpunkt."
       },
       "steps": {
-        "heading": "Fünf Schritte zurück auf Kurs",
-        "description": "Folgen Sie dieser Reihenfolge. Jeder Schritt baut auf dem vorherigen auf, und zusammen schaffen sie eine dokumentierte Nachweiskette, die dem BSI zeigt, dass Sie Compliance ernst nehmen.",
+        "heading": "So registrieren Sie sich, Schritt für Schritt",
+        "description": "Die Registrierung hat zwei Stufen: zuerst ein Zugang bei ELSTER, dann die Anmeldung im Portal des BSI.",
         "items": {
           "check": {
-            "title": "1. Bestätigen Sie, dass Sie tatsächlich betroffen sind",
-            "description": "Bevor Sie sich registrieren, prüfen Sie, ob NIS2 auf Ihr Unternehmen zutrifft. Die Kriterien stehen in §28 BSIG: Sie müssen in einem der 18 aufgelisteten Sektoren tätig sein UND die Größenschwelle erreichen (mindestens 50 Mitarbeiter oder jeweils über 10 Mio. EUR Jahresumsatz und Jahresbilanzsumme). Bei Unsicherheit prüfen Sie die BSI-Sektorlisten in Anhang I und Anhang II der NIS2-Richtlinie. Viele Unternehmen nehmen an, dass sie nicht betroffen sind, obwohl sie es sind - und umgekehrt. Bei echter Unsicherheit holen Sie eine rechtliche Einschätzung ein, aber nutzen Sie Unsicherheit nicht als Vorwand zum Aufschieben."
+            "title": "Prüfen, ob Sie betroffen sind",
+            "description": "Klären Sie Sektor, Zahl der Beschäftigten und Umsatz (§ 28 BSIG). Die Betroffenheitsprüfung des BSI hilft dabei. Bei Grenzfällen hilft eine rechtliche Prüfung."
+          },
+          "certificate": {
+            "title": "Ein Organisationszertifikat bei ELSTER beantragen",
+            "description": "Das geht über „Mein Unternehmenskonto“ (mein-unternehmenskonto.de). Sie brauchen dafür eine deutsche Steuernummer. Die Zugangsdaten kommen per E-Mail, der Aktivierungscode per Brief an die Adresse, die zur Steuernummer gespeichert ist. Laut BSI dauert die Zustellung regelmäßig mindestens fünf Werktage."
+          },
+          "gather": {
+            "title": "Die Angaben bereitlegen",
+            "description": "Name, Anschrift, Rechtsform und Registerdaten übernimmt das Portal aus Ihrem Unternehmenskonto. Dazu kommen nach § 33 Abs. 1 BSIG: E-Mail und Telefonnummern, Ihre öffentlichen IP-Adressbereiche, Ihr Sektor, die EU-Staaten, in denen Sie solche Dienste erbringen, und Ihre zuständigen Aufsichtsbehörden."
           },
           "register": {
-            "title": "2. Sofort über das BSI-Portal registrieren",
-            "description": "Gehen Sie zum NIS2-Registrierungsportal des BSI und schließen Sie Ihre Registrierung nach §33 BSIG ab. Sie benötigen: Ihre Unternehmensdaten, Sektorklassifizierung, Ansprechperson für Cybersicherheit und IP-Adressbereiche Ihrer kritischen Systeme. Die Registrierung selbst dauert etwa 30 Minuten, wenn Sie die Informationen bereit haben. Tun Sie dies heute - jeder Tag Wartezeit vergrößert die Lücke zwischen Fristablauf und Ihrem Registrierungsdatum."
+            "title": "Im Portal des BSI registrieren",
+            "description": "Sie melden sich mit dem Zertifikat im Portal des BSI an (portal.bsi.bund.de) und füllen das Formular aus. Wer die Einrichtung registriert, wird automatisch ihr Verwalter und kann Kollegen einladen."
           },
-          "document": {
-            "title": "3. Dokumentieren Sie, dass Sie begonnen haben",
-            "description": "Erstellen Sie eine schriftliche Dokumentation - auch ein einfaches internes Memo reicht - die festhält, wann Sie von Ihren NIS2-Pflichten erfahren haben, wann Sie sich registriert haben und welche Schritte Sie unternehmen. Dies schafft eine Nachweiskette, die guten Glauben demonstriert. Wenn das BSI jemals fragt, warum Sie verspätet waren, ist ‚Wir haben die Pflicht erkannt, uns sofort registriert und am [Datum] mit der Compliance-Arbeit begonnen' eine starke Antwort."
-          },
-          "implement": {
-            "title": "4. Mit der tatsächlichen Compliance-Arbeit beginnen",
-            "description": "Die Registrierung ist nur der erste Schritt - §30 BSIG verlangt die Umsetzung von Cybersicherheits-Risikomanagementmaßnahmen. Beginnen Sie mit den Grundlagen: Asset-Inventar, Risikobewertungsmethodik und Vorfallmeldeverfahren. Sie müssen nicht über Nacht vollständig compliant sein, aber Sie müssen sichtbar darauf hinarbeiten. Das BSI wird die Entwicklung bewerten, nicht nur den aktuellen Stand."
-          },
-          "legal": {
-            "title": "5. Rechtliche Beratung erwägen, wenn der Geltungsbereich unklar ist",
-            "description": "Wenn Ihr Unternehmen nahe an der Schwelle liegt (um 50 Mitarbeiter oder um jeweils 10 Mio. EUR Umsatz und Bilanzsumme), in einem Sektor tätig ist, der mehrfach interpretiert werden kann, oder eine komplexe Konzernstruktur hat, konsultieren Sie einen auf IT-Recht spezialisierten Anwalt. Die Kosten einer rechtlichen Einschätzung (2.000-5.000 EUR) sind marginal im Vergleich zu den Kosten von Nicht-Compliance oder unnötiger Compliance. Einige Branchenverbände (wie Bitkom oder BDI) bieten auch NIS2-Betroffenheitsberatung für Mitglieder an."
+          "record": {
+            "title": "Festhalten und Zugänge verteilen",
+            "description": "Notieren Sie, an welchem Tag und mit welchem Zertifikat Sie sich registriert haben. Geben Sie den Leuten Zugang, die im Ernstfall Vorfälle melden. Jede Person braucht ein eigenes Zertifikat und muss im Portal Ihrer Einrichtung zugeordnet sein."
           }
         }
       },
-      "risks": {
-        "heading": "Was sind die tatsächlichen Risiken einer verspäteten Registrierung?",
-        "description": "Ehrlichkeit über die Risiken hilft Ihnen, verhältnismäßige Entscheidungen zu treffen. Die Konsequenzen sind real, aber nicht katastrophal - wenn Sie jetzt handeln.",
-        "items": {
-          "fines": {
-            "title": "Verwaltungsrechtliche Bußgelder",
-            "description": "§65 BSIG sieht Bußgelder von bis zu 500.000 EUR speziell für Registrierungsverstöße vor. In der Praxis hat das BSI begrenzte Durchsetzungskapazitäten und konzentriert sich darauf, Unternehmen ins System zu bringen, nicht Nachzügler zu bestrafen. Ein Unternehmen, das sich verspätet registriert und aktive Compliance-Bemühungen nachweist, wird mit hoher Wahrscheinlichkeit nicht die Höchststrafe erhalten. Ein Unternehmen, das sich nie registriert, ist eine andere Geschichte."
-          },
-          "orders": {
-            "title": "Compliance-Anordnungen",
-            "description": "Das BSI kann verbindliche Anordnungen erlassen, die Sie zur Registrierung und Umsetzung bestimmter Maßnahmen innerhalb einer gesetzten Frist verpflichten. Die Nichtbefolgung einer solchen Anordnung verschärft die Rechtslage erheblich. Eine proaktive Registrierung - wenn auch verspätet - vermeidet diesen Eskalationspfad vollständig."
-          },
-          "liability": {
-            "title": "Persönliche Haftung der Geschäftsleitung",
-            "description": "§38 BSIG macht die Geschäftsleitung persönlich haftbar für die Sicherstellung der NIS2-Compliance. Wenn Ihr Unternehmen betroffen ist und Sie als Geschäftsleitung die Registrierung wissentlich verzögert haben, entsteht ein persönliches Haftungsrisiko. Die Haftung kann nicht durch Gesellschafterbeschluss ausgeschlossen werden. Die Dokumentation, dass Sie gehandelt haben, sobald Sie Kenntnis erlangt haben, ist ein wichtiger Schutz."
-          },
-          "audit": {
-            "title": "Erhöhte Prüfungsintensität bei künftigen Audits",
-            "description": "Für wesentliche Einrichtungen führt das BSI regelmäßige Prüfungen durch. Eine verspätete Registrierung wird in Ihrer Compliance-Zeitlinie sichtbar sein. Allerdings wird ein gut dokumentierter Nachholprozess, der systematische Verbesserung zeigt, ganz anders bewertet als ein Muster der Vernachlässigung. Prüfer bewerten die Entwicklung, nicht nur den Ausgangspunkt."
-          }
-        }
+      "after": {
+        "heading": "Was nach der Registrierung kommt",
+        "p1": "§ 33 BSIG sieht nach der Registrierung keinen Bescheid und keinen weiteren Schritt des BSI vor. Rechnen Sie also nicht mit einer Aufforderung, anzufangen.",
+        "p2": "Die anderen Pflichten gelten trotzdem. Sie gelten, weil Ihr Unternehmen eine Einrichtung ist. Die Registrierung ändert daran nichts.",
+        "items": [
+          "Sicherheitsmaßnahmen in zehn Bereichen umsetzen und festhalten (§ 30 BSIG).",
+          "Erhebliche Sicherheitsvorfälle melden, die erste Meldung binnen 24 Stunden (§ 32 BSIG).",
+          "Die Geschäftsleitung setzt die Maßnahmen um, überwacht sie und nimmt regelmäßig an Schulungen teil (§ 38 BSIG).",
+          "Ändern sich Ihre Angaben, melden Sie das dem BSI binnen zwei Wochen (§ 33 Abs. 5 BSIG)."
+        ],
+        "link": "Wie Sie das angehen: NIS2 umsetzen"
       },
-      "context": {
-        "heading": "Warum so viele Unternehmen die Frist verpasst haben",
-        "p1": "Die NIS2-Registrierungslücke ist nicht primär auf Fahrlässigkeit zurückzuführen. Der deutsche Gesetzgebungsprozess hat sich wiederholt verzögert - das NIS2UmsuCG wurde Monate nach der ursprünglichen EU-Umsetzungsfrist verabschiedet. Viele Unternehmen haben verständlicherweise auf die Finalisierung des deutschen Gesetzes gewartet, bevor sie aktiv wurden. Andere wussten nicht, dass sie betroffen sind, weil die Sektordefinitionen im Vergleich zum alten KRITIS-Regime drastisch erweitert wurden.",
-        "p2": "Das BSI selbst hat das Ausmaß der Registrierungslücke öffentlich anerkannt. Die Behörde verfolgt einen pragmatischen Ansatz: Die Priorität liegt darauf, alle 30.000 Einrichtungen registriert und ins Compliance-System zu bringen, nicht die erste Welle verspäteter Registrierungen zu bestrafen. Dieser Pragmatismus hat Grenzen - er gilt für Unternehmen, die aktiv an der Compliance arbeiten, nicht für solche, die die Geduld des BSI als Ausrede nutzen, nichts zu tun."
+      "missed": {
+        "heading": "Frist verpasst? Das tun Sie jetzt",
+        "items": [
+          "Registrieren Sie sich jetzt. Die Pflicht endet nicht mit der Frist.",
+          "Notieren Sie, wann Sie von der Pflicht erfahren und wann Sie sich registriert haben.",
+          "Hatte Ihr Unternehmen schon vor der Registrierung einen erheblichen Sicherheitsvorfall? Melden Sie ihn trotzdem, über ein Formular im Melde- und Informationsportal (MIP) des BSI.",
+          "Fangen Sie mit den Maßnahmen an. Sie gelten unabhängig von der Registrierung."
+        ]
       },
       "faq": {
-        "heading": "Häufig gestellte Fragen",
+        "heading": "Häufige Fragen",
         "q1": {
-          "q": "Ist das BSI-Registrierungsportal noch offen?",
-          "a": "Ja. Das §33 BSIG-Registrierungsportal bleibt offen. Es gibt keine Frist, nach der Sie sich nicht mehr registrieren können - die Pflicht besteht fortlaufend. Die Frist war, wann Sie sich hätten registrieren sollen, nicht wann Sie es konnten. Registrieren Sie sich jetzt."
+          "q": "Kann ich mich nach dem 6. März 2026 noch registrieren?",
+          "a": "Ja. Die Frist sagt, bis wann Sie sich registrieren mussten. Die Pflicht selbst endet nicht. Sie registrieren sich über dasselbe Portal des BSI."
         },
         "q2": {
-          "q": "Welches Bußgeld droht bei verspäteter Registrierung?",
-          "a": "§65 BSIG sieht Bußgelder von bis zu 500.000 EUR für Registrierungsverstöße vor. Allerdings werden Bußgelder im Einzelfall unter Berücksichtigung der Schwere, Dauer und des guten Willens des Unternehmens bemessen. Ein Unternehmen, das sich wenige Monate verspätet registriert und aktive Compliance-Bemühungen zeigt, hat ein völlig anderes Risikoprofil als eines, das die Pflicht vollständig ignoriert."
+          "q": "Bekomme ich einen Bescheid oder eine Registrierungsnummer?",
+          "a": "§ 33 BSIG sieht keinen Bescheid vor. Halten Sie selbst fest, wann und mit welchem Zertifikat Sie sich registriert haben. Bei Vorfallmeldungen ist das anders: Dort bestätigt das BSI den Eingang, nach Möglichkeit binnen 24 Stunden (§ 36 Abs. 1 BSIG)."
         },
         "q3": {
-          "q": "Wirkt sich die verspätete Registrierung auf meine anderen NIS2-Pflichten aus?",
-          "a": "Nein. Ihre Pflichten nach §30 BSIG (Cybersicherheitsmaßnahmen), §32 (Vorfallmeldung) und §38 (Geschäftsführerhaftung) bestehen unabhängig davon, ob Sie sich registriert haben. Die Registrierung schafft die Pflichten nicht - sie erfüllt eine davon. Die anderen Pflichten gelten ab dem Moment, in dem Sie die Betroffenheitskriterien erfüllen, unabhängig vom Registrierungsstatus."
+          "q": "Gelten die anderen Pflichten erst nach der Registrierung?",
+          "a": "Nein. Maßnahmen (§ 30 BSIG), Meldepflicht (§ 32 BSIG) und die Pflichten der Geschäftsleitung (§ 38 BSIG) gelten, sobald Ihr Unternehmen eine Einrichtung ist. Die Registrierung ist eine Pflicht neben den anderen."
         },
         "q4": {
-          "q": "Kann ich mich registrieren, wenn ich nicht sicher bin, ob wir betroffen sind?",
-          "a": "Ja, und das BSI empfiehlt, im Zweifel zu registrieren. Eine Registrierung, die sich als nicht erforderlich herausstellt, hat keine negativen Konsequenzen - die Registrierung kann korrigiert werden. Keine Registrierung bei tatsächlicher Betroffenheit birgt ein echtes rechtliches Risiko. Im Zweifel registrieren."
+          "q": "Wir sind nicht sicher, ob wir betroffen sind. Was nun?",
+          "a": "Nutzen Sie die Betroffenheitsprüfung des BSI und lassen Sie Grenzfälle rechtlich prüfen. Grenzfälle sind etwa eine Größe nahe der Schwelle, ein Geschäft, das zu mehreren Sektoren passen könnte, oder eine Gruppe mit verbundenen Unternehmen (§ 28 Abs. 3 und 4 BSIG)."
         },
         "q5": {
-          "q": "Was, wenn wir registriert sind, aber noch nicht mit der Compliance-Arbeit begonnen haben?",
-          "a": "Registrierung ohne Compliance-Arbeit ist wie eine Steuererklärung abzugeben, aber die Steuer nicht zu zahlen - Sie haben eine Pflicht erfüllt, aber nicht die inhaltlichen. Beginnen Sie jetzt mit den §30 BSIG-Maßnahmen: Asset-Inventar, Risikobewertung, Vorfallmeldeverfahren. Das BSI erwartet von registrierten Einrichtungen, dass sie aktiv an der Compliance arbeiten, nicht nur auf einer Registrierungsnummer sitzen."
+          "q": "Wir haben Standorte in anderen EU-Staaten. Wo registrieren wir uns?",
+          "a": "Grundsätzlich ist der Staat zuständig, in dem Ihr Unternehmen niedergelassen ist (Art. 26 Abs. 1 NIS 2). Für bestimmte digitale Anbieter zählt die Hauptniederlassung. Die Behörden aller EU-Staaten stehen in unserer Übersicht der Registrierungsstellen."
         }
+      },
+      "walk": {
+        "heading": "So geht das im Durchgang",
+        "lead": "Die Registrierung ist der erste Schritt im Durchgang auf nisd2.eu.",
+        "points": [
+          "Der Schritt erklärt in einfachen Worten, wozu die Registrierung dient und wie Sie über ELSTER ins Portal des BSI kommen.",
+          "Er zeigt, in welchem EU-Staat Sie sich registrieren, mit der Behörde und ihrem Portal.",
+          "Sie halten zwei Angaben fest: die Kennung Ihres Benutzerkontos und den Tag der Registrierung.",
+          "Ist der Brief von ELSTER noch nicht da, wählen Sie „Geht noch nicht“ und machen mit dem nächsten Schritt weiter.",
+          "Ein späterer Schritt zeigt, welche Ihrer Angaben sich ändern können."
+        ],
+        "seeItAlt": "Der Schritt Registrierung im Durchgang: das Land und seine Behörde",
+        "next": "Mit der Registrierung im Durchgang beginnen"
       },
       "sources": {
         "heading": "Quellen",
         "items": [
-          "BSI - NIS2-Registrierungsstatistiken und öffentliche Stellungnahmen zum Durchsetzungsansatz (2025)",
-          "G DATA CyberDefense - NIS2-Umfrage: 44 % der Mittelstandsunternehmen kannten ihre Pflichten nicht (2024)",
-          "BSIG - §33 (Registrierungspflicht), §65 (Bußgeldvorschriften), §38 (Geschäftsführerhaftung)",
-          "NIS2UmsuCG - Gesetz zur Umsetzung der NIS-2-Richtlinie und zur Stärkung der Cybersicherheit",
-          "BMI - Parlamentarische Dokumentation und Leitlinien zur NIS2UmsuCG-Umsetzung"
+          "BSI-Gesetz (BSIG), §§ 28, 30, 32, 33, 36 und 38, Anlagen 1 und 2, in Kraft seit 6. Dezember 2025 (gesetze-im-internet.de/bsig_2025)",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Art. 3 Abs. 4 und Art. 26 (eur-lex.europa.eu)",
+          "BSI, Festlegung der Einzelheiten zum Registrierungsverfahren nach § 33 Abs. 6 BSIG, Version 1.0 vom 26.06.2026 (bsi.bund.de/dok/registrierungspflicht)",
+          "BSI, Mein Unternehmenskonto (bsi.bund.de/dok/muk)",
+          "BSI, Meldepflicht nach NIS 2: Meldung vor der Registrierung (bsi.bund.de/dok/nis-2-meldepflicht)",
+          "BSI, Hilfe zur Betroffenheitsprüfung (betroffenheitspruefung-nis-2.bsi.de)"
         ]
-      },
-      "ctaCard": {
-        "heading": "Registrieren, dann Compliance-Nachweise aufbauen",
-        "description": "Die Plattform führt Sie von der Registrierung bis zur vollständigen §30 BSIG-Compliance - und schafft die dokumentierte Nachweiskette, die dem BSI zeigt, dass Sie die Sache ernst nehmen."
-      },
-      "cta": "NIS2-Compliance starten"
+      }
     },
     "kritisComparison": {
       "meta": {
