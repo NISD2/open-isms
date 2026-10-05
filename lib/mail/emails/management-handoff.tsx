@@ -18,13 +18,13 @@ type Parts = Pick<ManagementHandoffProps, "inviterName" | "companyName">;
 export const MANAGEMENT_HANDOFF_COPY = {
   de: {
     subject: ({ inviterName }: Parts) =>
-      `${inviterName} bittet Sie um Ihre Entscheidung zum NIS 2 Durchgang`,
-    heading: "Zur Freigabe: NIS 2 Durchgang",
+      `${inviterName} lädt Sie in das Konto Ihres Unternehmens auf nisd2.eu ein`,
+    heading: "Einladung in Ihr Unternehmenskonto",
     hello: (name: string) => (name ? `Guten Tag ${name},` : "Guten Tag,"),
     invite: ({ inviterName, companyName }: Parts) =>
-      `${inviterName} lädt Sie in das Konto von ${companyName} auf nisd2.eu ein und bittet Sie, über den NIS 2 Durchgang zu entscheiden. Nach der Anmeldung sehen Sie eine Seite mit allem, was Sie dafür brauchen: was der Durchgang ist, welche Dokumente er schreibt, was er kostet und wie man ihn wieder beendet.`,
-    sameAccount: ({ inviterName, companyName }: Parts) =>
-      `Sie arbeiten dann im selben Konto wie ${inviterName}. Bestellen Sie dort, gilt die Bestellung für ${companyName}. Ein eigenes Konto brauchen Sie dafür nicht.`,
+      `${inviterName} lädt Sie als Geschäftsführung in das Konto von ${companyName} auf nisd2.eu ein.`,
+    sameAccount: ({ inviterName }: Parts) =>
+      `Sie arbeiten dann im selben Konto wie ${inviterName}. Ein eigenes Konto brauchen Sie dafür nicht.`,
     button: "Einladung annehmen",
     note: (days: number) =>
       `Die Einladung gilt ${days} Tage. Haben Sie diese E-Mail nicht erwartet, können Sie sie ignorieren.`,
@@ -33,13 +33,13 @@ export const MANAGEMENT_HANDOFF_COPY = {
   },
   en: {
     subject: ({ inviterName }: Parts) =>
-      `${inviterName} asks for your decision on the NIS 2 walkthrough`,
-    heading: "For your approval: NIS 2 walkthrough",
+      `${inviterName} invited you to your company's account on nisd2.eu`,
+    heading: "Invitation to your company's account",
     hello: (name: string) => (name ? `Hello ${name},` : "Hello,"),
     invite: ({ inviterName, companyName }: Parts) =>
-      `${inviterName} has invited you to the account of ${companyName} on nisd2.eu and asks you to decide on the NIS 2 walkthrough. After signing in you see one page with everything you need for that: what the walkthrough is, which documents it writes, what it costs and how to end it.`,
-    sameAccount: ({ inviterName, companyName }: Parts) =>
-      `You then work in the same account as ${inviterName}. If you order there, the order is for ${companyName}. You do not need an account of your own for it.`,
+      `${inviterName} has invited you as management to the account of ${companyName} on nisd2.eu.`,
+    sameAccount: ({ inviterName }: Parts) =>
+      `You then work in the same account as ${inviterName}. You do not need an account of your own for it.`,
     button: "Accept the invitation",
     note: (days: number) =>
       `The invitation is valid for ${days} days. If you did not expect this email, you can ignore it.`,

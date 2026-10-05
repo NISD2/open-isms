@@ -120,8 +120,8 @@ export async function inviteEmail(opts: {
 }
 
 const HANDOFF_QUESTIONS = {
-  de: "Fragen zum Durchgang? Antworten Sie einfach auf diese E-Mail.",
-  en: "Questions about the walkthrough? Just reply to this email.",
+  de: "Fragen? Antworten Sie einfach auf diese E-Mail.",
+  en: "Questions? Just reply to this email.",
 } as const;
 
 /**
