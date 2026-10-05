@@ -22,11 +22,11 @@ const QUESTIONNAIRE_DIR = "/images/fragebogen";
  * above them. The walkthrough's are on the home page, the questionnaire's on /sicherheitsfragebogen.
  */
 export const SHOTS = {
-  // The path's first three steps, then the next three (the same heights in DE and EN).
+  // The path's first three steps, then the next four (the same heights in DE and EN).
   path: {
     file: "1",
-    focus: { x: 0.84, y: 0.29, scale: 3 },
-    next: [{ x: 0.84, y: 0.607, scale: 3 }],
+    focus: { x: 0.84, y: 0.27, scale: 2.5 },
+    next: [{ x: 0.84, y: 0.64, scale: 2.5 }],
   },
   explain: { file: "explain", focus: { x: 0.41, y: 0.64, scale: 2.2 } },
   bsiMethod: { file: "bsi-method", focus: { x: 0.445, y: 0.6, scale: 1.9 } },
@@ -38,13 +38,13 @@ export const SHOTS = {
   assetList: { file: "asset-list", focus: { x: 0.41, y: 0.55, scale: 2.3 } },
   activityLog: { file: "activity-log", focus: { x: 0.43, y: 0.25, scale: 2.4 } },
   export: { file: "export", focus: { x: 0.38, y: 0.23, scale: 2.6 } },
-  // The questionnaire, filled in by a made-up IT service provider: a question with its help and
-  // basis, then the next answer's switch.
+  // The questionnaire, filled in by a made-up IT service provider: the first question whole, with
+  // its help, basis and answer, then closer on the next two answers with their Yes/No switches.
   questionnaire: {
     dir: QUESTIONNAIRE_DIR,
     file: "form",
-    focus: { x: 0.42, y: 0.5, scale: 2.2 },
-    next: [{ x: 0.55, y: 0.73, scale: 2.2 }],
+    focus: { x: 0.455, y: 0.47, scale: 1.5 },
+    next: [{ x: 0.455, y: 0.71, scale: 1.8 }],
   },
   reach: {
     dir: QUESTIONNAIRE_DIR,
@@ -110,7 +110,7 @@ const sizesAt = (wide: number, scale: number): string =>
 
 /** The `sizes` that keeps a screenshot sharp at its deepest zoom: its width on the page times the zoom. */
 export const zoomSizes = (name: ShotName, wide: number): string =>
-  sizesAt(wide, SHOTS[name].focus.scale);
+  sizesAt(wide, Math.max(...stopsOf(name).map((stop) => stop.scale)));
 
 /** The `sizes` of a screenshot shown whole: a file a fraction of the zoom's, so it paints sooner. */
 export const restSizes = (wide: number): string => sizesAt(wide, 1);
