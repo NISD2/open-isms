@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
-import { useRef } from "react";
+import Image, { getImageProps } from "next/image";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { MotionToggle, useMotionAllowed, usePrefersStill } from "./motion";
 import type { Focus, Shot } from "./shots";
@@ -48,7 +48,8 @@ export function ZoomImage({
   hidden = false,
   className,
   stop,
-}: ShotProps & { readonly stop: number | null }) {
+  onLoad,
+}: ShotProps & { readonly stop: number | null; readonly onLoad?: () => void }) {
   const still = usePrefersStill();
   const focus = stop === null ? undefined : image.stops[stop];
   return (
@@ -58,6 +59,7 @@ export function ZoomImage({
       width={image.width}
       height={image.height}
       sizes={sizes}
+      onLoad={onLoad}
       preload={preload}
       fetchPriority={preload ? "high" : undefined}
       aria-hidden={hidden || undefined}
@@ -84,26 +86,63 @@ export function LoopingImage({
 }
 
 /**
+ * Whether the browser holds the file it picks for `image` at `sizes`, fetched in the background
+ * once `start`. An image given the same `sizes` then picks that file and shows it at once.
+ */
+function useFetched(image: Shot, sizes: string, start: boolean): boolean {
+  const [fetched, setFetched] = useState(false);
+  const { src, width, height } = image;
+  useEffect(() => {
+    if (!start) return;
+    const { props } = getImageProps({ src, width, height, sizes, alt: "" });
+    const file = new window.Image();
+    file.fetchPriority = "low";
+    file.sizes = sizes;
+    file.srcset = props.srcSet ?? "";
+    file.src = props.src;
+    const done = () => setFetched(true);
+    file.decode().then(done, done);
+  }, [start, src, width, height, sizes]);
+  return fetched;
+}
+
+/**
  * A framed screenshot that zooms while it is on screen, with the pause switch in its corner:
  * the hero's, and each step's on a phone, where the steps stack instead of sharing one frame.
  * After `rounds` rounds it rests whole, and its switch plays it again.
+ *
+ * With `restSizes` it first loads the smaller file the whole screen needs, so the page paints
+ * sooner, then the zoom's file in the background, and zooms once that one is in. The sharp file
+ * then replaces the first one at rest, never halfway through a zoom.
  */
 export function AutoShot({
   className,
   rounds,
+  restSizes,
   ...props
-}: Omit<ShotProps, "faded" | "hidden"> & { readonly rounds?: number }) {
+}: Omit<ShotProps, "faded" | "hidden"> & {
+  readonly rounds?: number;
+  readonly restSizes?: string;
+}) {
   const frame = useRef<HTMLDivElement>(null);
   const inView = useInView(frame);
   const allowed = useMotionAllowed();
+  const [shown, setShown] = useState(false);
+  const sharp = useFetched(props.image, props.sizes, restSizes !== undefined && shown);
+  const zoomable = restSizes === undefined || sharp;
   const { stop, ended, replay } = useZoomLoop(
-    inView && allowed,
+    inView && allowed && zoomable,
     props.image.stops.length,
     rounds,
   );
   return (
     <div ref={frame} className={cn("relative overflow-hidden bg-muted", className)}>
-      <ZoomImage {...props} stop={stop} />
+      <ZoomImage
+        {...props}
+        sizes={zoomable ? props.sizes : (restSizes ?? props.sizes)}
+        onLoad={() => setShown(true)}
+        stop={stop}
+      />
       <MotionToggle
         className="absolute right-3 bottom-3"
         ended={ended}

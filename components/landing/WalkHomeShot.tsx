@@ -1,5 +1,5 @@
 import { getLocale, getTranslations } from "next-intl/server";
-import { shotImage, zoomSizes } from "@/components/landing/shots";
+import { restSizes, shotImage, zoomSizes } from "@/components/landing/shots";
 import { AutoShot } from "@/components/landing/ZoomShot";
 
 /** The shot's width on a large screen: the 72rem column less the 25rem pitch and gap. */
@@ -21,6 +21,7 @@ export async function WalkHomeShot({ preload = false }: { readonly preload?: boo
       <AutoShot
         image={shotImage("path", locale, t("heroAlt"))}
         sizes={zoomSizes("path", SHOT_PX)}
+        restSizes={restSizes(SHOT_PX)}
         rounds={5}
         preload={preload}
         className="rounded-xl border border-border/60"
