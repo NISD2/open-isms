@@ -13,6 +13,7 @@ import {
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import type { ReactNode } from "react";
+import { SignInLink } from "@/components/auth/SignInLink";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -29,7 +30,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Link } from "@/i18n/navigation";
+import { getPathname, Link } from "@/i18n/navigation";
 import { formatWholeEuro } from "@/lib/billing/order";
 import { cn } from "@/lib/utils";
 import { BookingLink } from "./BookingLink";
@@ -237,10 +238,23 @@ export function PriceAnchor() {
   );
 }
 
-/** The two founders, with their photos: on the talk-first card and the approval page. */
+/**
+ * The two founders, with their photos: on the talk-first card and the approval page.
+ * `takesCalls`: hosts the call booked through BookingLink, so the talk-first card names only them.
+ */
 export const FOUNDERS = [
-  { name: "Simon Orzel", firstName: "Simon", photo: "/images/people/simon.png" },
-  { name: "Cory Hisey", firstName: "Cory", photo: "/images/people/cory.png" },
+  {
+    name: "Simon Orzel",
+    firstName: "Simon",
+    photo: "/images/people/simon.png",
+    takesCalls: true,
+  },
+  {
+    name: "Cory Hisey",
+    firstName: "Cory",
+    photo: "/images/people/cory.png",
+    takesCalls: false,
+  },
 ] as const;
 
 const TALK_FIRST_SIZES = {
@@ -280,7 +294,7 @@ export function TalkFirst({
   const locale = useLocale();
   const s = TALK_FIRST_SIZES[size];
   const names = new Intl.ListFormat(locale, { type: "disjunction" }).format(
-    FOUNDERS.map((person) => person.firstName),
+    FOUNDERS.filter((person) => person.takesCalls).map((person) => person.firstName),
   );
   return (
     <div
@@ -331,6 +345,47 @@ export function ApprovalLink() {
       <Send className="size-3.5" />
       {t("approvalLink")}
     </Link>
+  );
+}
+
+/**
+ * The order button of the pricing cards and the approval page. Someone without an account registers
+ * first, with the page's campaign tags, and comes back to the order page after the sign-up
+ * (SignInCard's callbackUrl). Closed without live keys (sandbox, or no Qonto at all, as on a
+ * self-hosted instance, which sells nothing), so the button keeps its place.
+ */
+export function OrderButton({
+  orderOpen,
+  signedIn,
+}: {
+  /** Whether /bestellen exists for this visitor (lib/billing/ordering-access.ts). */
+  readonly orderOpen: boolean;
+  readonly signedIn: boolean;
+}) {
+  const t = useTranslations("pricing.tiers");
+  const locale = useLocale();
+  if (!orderOpen) {
+    return (
+      <Button className="h-12 w-full text-base" size="lg" disabled>
+        {t("paid.cta")}
+      </Button>
+    );
+  }
+  return (
+    <Button className="h-12 w-full text-base" size="lg" asChild>
+      {signedIn ? (
+        <Link href="/bestellen">{t("paid.cta")}</Link>
+      ) : (
+        <SignInLink
+          query={{
+            mode: "register",
+            callbackUrl: getPathname({ href: "/bestellen", locale }),
+          }}
+        >
+          {t("paid.cta")}
+        </SignInLink>
+      )}
+    </Button>
   );
 }
 
@@ -437,7 +492,10 @@ export function PaidPricingCards({
   /** Whether this visitor is a grandfathered account holder (AGB B4). */
   readonly grandfathered: boolean;
   readonly grandfatheredPrice: string;
-  /** Whether the visitor is signed in; the earlier-signup price note is shown only then. */
+  /**
+   * Whether the visitor is signed in: the order button registers first without it, and the
+   * earlier-signup price note is shown only then.
+   */
   readonly signedIn: boolean;
 }) {
   const t = useTranslations("pricing.tiers");
@@ -513,17 +571,7 @@ export function PaidPricingCards({
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-3">
-              {/* Closed without live keys (sandbox, or no Qonto at all, as on a self-hosted
-                  instance, which sells nothing), so the button keeps its place. */}
-              {orderOpen ? (
-                <Button className="h-12 w-full text-base" size="lg" asChild>
-                  <Link href="/bestellen">{t("paid.cta")}</Link>
-                </Button>
-              ) : (
-                <Button className="h-12 w-full text-base" size="lg" disabled>
-                  {t("paid.cta")}
-                </Button>
-              )}
+              <OrderButton orderOpen={orderOpen} signedIn={signedIn} />
               <p className="text-xs leading-relaxed text-muted-foreground">
                 {t("paid.terms")}{" "}
                 <Link

@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import type { ComponentProps } from "react";
+import { SignInLink } from "@/components/auth/SignInLink";
 import { Art, SETUP_ART } from "@/components/durchgang/Art";
 import { BookingLink } from "@/components/pricing/BookingLink";
 import { Button } from "@/components/ui/button";
@@ -23,10 +24,14 @@ const QUIET_LINK =
 export async function GetStarted({
   variant,
   className,
-  href = "/auth/signin",
+  href,
 }: {
   variant: "landing" | "funnel";
   className?: string;
+  /**
+   * Where the button goes for a reader who is signed in. Without it: the registration form, with
+   * the page's campaign tags.
+   */
   href?: ComponentProps<typeof Link>["href"];
 }) {
   const t = await getTranslations("landing");
@@ -57,7 +62,11 @@ export async function GetStarted({
             size="lg"
             className="h-11 rounded-lg px-5 text-[0.9375rem] font-medium shadow-sm transition-shadow hover:shadow-md"
           >
-            <Link href={href}>{t("guided.cta")}</Link>
+            {href ? (
+              <Link href={href}>{t("guided.cta")}</Link>
+            ) : (
+              <SignInLink query={{ mode: "register" }}>{t("guided.cta")}</SignInLink>
+            )}
           </Button>
           <Link href="/pricing" className={QUIET_LINK}>
             {t("walk.pricing")}

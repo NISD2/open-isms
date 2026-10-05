@@ -7,9 +7,9 @@ import { ForwardActions } from "@/components/pricing/ForwardActions";
 import {
   FOUNDERS,
   gapAnalysisRange,
+  OrderButton,
   TalkFirst,
 } from "@/components/pricing/PaidPricingCards";
-import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { getSession } from "@/lib/auth";
 import { ANNUAL_NET_CENTS, formatWholeEuro } from "@/lib/billing/order";
@@ -195,15 +195,7 @@ export default async function ApprovalPage({
       </dl>
 
       <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] sm:items-center">
-        {orderOpen ? (
-          <Button className="h-12 w-full text-base" size="lg" asChild>
-            <Link href="/bestellen">{tiers("paid.cta")}</Link>
-          </Button>
-        ) : (
-          <Button className="h-12 w-full text-base" size="lg" disabled>
-            {tiers("paid.cta")}
-          </Button>
-        )}
+        <OrderButton orderOpen={orderOpen} signedIn={session !== null} />
         <TalkFirst />
       </div>
     </article>
