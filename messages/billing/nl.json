@@ -13,7 +13,7 @@
       "title": "Bestelling",
       "intro": "De NIS 2 begeleide doorloop voor een jaar, {price} netto. Eén betaling geldt voor alle organisaties en gebruikers in uw account.",
       "sandboxNotice": "Testmodus: deze bestelling maakt een factuur aan in de Qonto sandbox en geeft dit account toegang.",
-      "payerOnly": "De accounthouder kan de bestelling plaatsen. Meestal is dat degene die de organisatie heeft aangemaakt.",
+      "payerOnly": "De accounthouder kan de bestelling plaatsen, of de directie die de accounthouder daarvoor heeft uitgenodigd. De accounthouder is meestal degene die de organisatie heeft aangemaakt.",
       "pendingCheck": "We controleren een eerdere bestelling voor dit account. Bestel alstublieft niet opnieuw; wij nemen contact met u op.",
       "toInvoices": "Naar uw facturen"
     },

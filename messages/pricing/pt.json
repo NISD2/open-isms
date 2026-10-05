@@ -212,7 +212,43 @@
         "provider": {
           "label": "Fornecedor",
           "text": "Kardashev Catalyst UG (haftungsbeschränkt), Colónia. Aplicam-se as <terms>condições</terms>, com o <avv>contrato de tratamento de dados</avv>."
+        },
+        "outputs": {
+          "label": "O que se obtém",
+          "text": "O percurso redige os documentos a partir das respostas da sua empresa e mantém as listas correspondentes. Tudo fica na sua conta, com nome e data, e pode ser exportado a qualquer momento."
+        },
+        "people": {
+          "label": "Quem está por trás"
         }
+      },
+      "outputs": {
+        "documentsTitle": "Documentos que aprova",
+        "recordsTitle": "Listas e evidências",
+        "documents": {
+          "information_security": "Política de segurança da informação",
+          "incident_response": "Plano de resposta a incidentes",
+          "cryptography": "Política de criptografia",
+          "personnel_access": "Política de pessoal, acessos e ativos",
+          "it_rules": "Regras de compra, manutenção e vulnerabilidades de TI",
+          "business_continuity": "Plano de continuidade de negócio"
+        },
+        "records": {
+          "training_management": "Comprovativos de formação da gestão",
+          "risks": "Avaliação de riscos do seu software, tecnologia e fornecedores segundo o método do BSI",
+          "assets": "Lista dos seus processos, software, tecnologia e espaços",
+          "suppliers": "Lista dos seus fornecedores",
+          "agreements": "O que está acordado com cada fornecedor sobre segurança e incidentes",
+          "crypto": "Lista de métodos de cifragem admitidos",
+          "logins": "Onde um segundo fator protege o início de sessão",
+          "critical": "O que tem de continuar a funcionar se a TI falhar",
+          "backups": "As suas cópias de segurança e o último restauro bem-sucedido",
+          "training_staff": "Formações e instruções do pessoal",
+          "management_review": "A sua revisão pela gestão",
+          "approvals": "A sua aprovação de cada documento, com nome e data"
+        }
+      },
+      "people": {
+        "role": "Fundador"
       },
       "forward": {
         "label": "Reencaminhar esta página:",

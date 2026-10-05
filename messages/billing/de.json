@@ -13,7 +13,7 @@
       "title": "Bestellung",
       "intro": "NIS 2 Durchgang für ein Jahr, {price} netto. Eine Zahlung gilt für alle Organisationen und Nutzer Ihres Kontos.",
       "sandboxNotice": "Testmodus: Diese Bestellung erzeugt eine Rechnung in der Qonto Sandbox und schaltet dieses Konto frei.",
-      "payerOnly": "Bestellen kann die Person, der das Konto gehört. In der Regel ist das, wer die Organisation angelegt hat.",
+      "payerOnly": "Bestellen kann die Person, der das Konto gehört, oder die Geschäftsführung, die sie dazu eingeladen hat. In der Regel gehört das Konto der Person, die die Organisation angelegt hat.",
       "pendingCheck": "Wir prüfen gerade eine frühere Bestellung für dieses Konto. Bitte bestellen Sie nicht noch einmal, wir melden uns bei Ihnen.",
       "toInvoices": "Zu Ihren Rechnungen"
     },

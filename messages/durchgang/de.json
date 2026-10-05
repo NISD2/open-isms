@@ -373,7 +373,25 @@
         "notApplicable": "Trifft nicht zu",
         "preview": "So sieht „{step}“ aus",
         "previewAlt": "Der Schritt „{step}“ am Beispiel einer erfundenen Firma",
-        "continueHere": "Jetzt weitermachen"
+        "continueHere": "Jetzt weitermachen",
+        "forward": {
+          "action": "An die Geschäftsführung weiterleiten",
+          "title": "An die Geschäftsführung weiterleiten",
+          "lead": "Ihre Geschäftsführung bekommt eine Einladung in dieses Konto. Nach der Anmeldung sieht sie auf einer Seite, was der Durchgang ist, welche Dokumente er schreibt und was er kostet, und kann dort bestellen. Die Bestellung gilt für Ihr Unternehmen, ein zweites Konto entsteht nicht.",
+          "name": "Name",
+          "email": "E-Mail",
+          "placeholder": "name@ihre-firma.de",
+          "send": "Einladung senden",
+          "sentTitle": "Einladung an {name} verschickt",
+          "sentText": "Sobald die Einladung an {email} angenommen ist, gehört Ihre Geschäftsführung zu diesem Konto und kann bestellen. Sie selbst müssen dafür nichts weiter tun.",
+          "notEmailed": "Die Einladung ist angelegt, aber die E-Mail konnte nicht verschickt werden.",
+          "close": "Fertig",
+          "refused": {
+            "member": "Diese Adresse gehört schon zu Ihrem Team.",
+            "limit": "Heute sind aus Ihrem Konto schon mehrere Einladungen verschickt worden. Morgen geht es wieder.",
+            "failed": "Das hat nicht geklappt. Bitte versuchen Sie es noch einmal."
+          }
+        }
       },
       "intro": {
         "eyebrow": "NIS 2 für den Mittelstand",

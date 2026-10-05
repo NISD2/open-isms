@@ -48,6 +48,17 @@ export const createBillingAccount = async (
   return account.id;
 };
 
+/** The holder of the account a company belongs to, or null when it has none. */
+export const holderOf = async (db: DbOrTx, companyId: string): Promise<string | null> => {
+  const [row] = await db
+    .select({ ownerUserId: billingAccount.ownerUserId })
+    .from(company)
+    .innerJoin(billingAccount, eq(billingAccount.id, company.billingAccountId))
+    .where(eq(company.id, companyId))
+    .limit(1);
+  return row?.ownerUserId ?? null;
+};
+
 /**
  * Delete an account nothing uses any more: no company points at it, no invoice was ever issued to
  * it, and no order for it is waiting to be checked in Qonto. Accounts with invoices are kept,

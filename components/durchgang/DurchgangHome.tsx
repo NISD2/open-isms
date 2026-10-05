@@ -56,6 +56,9 @@ const stepId = (code: string) => `dg-step-${code}`;
  *
  * `call`: beside "Jetzt bestellen", the way to talk to us first (the pricing page's `TalkFirst`,
  * rendered by the server page and passed in).
+ *
+ * `forward`: under the order, the quiet way to hand the decision to management
+ * (`ForwardToManagement`), passed in by the server page only for someone who may send it.
  */
 export function DurchgangHome({
   walk,
@@ -63,12 +66,14 @@ export function DurchgangHome({
   price,
   setup,
   call,
+  forward,
 }: {
   walk: readonly WalkEntry[];
   lock: WalkLock | null;
   price: string | null;
   setup: boolean;
   call?: ReactNode;
+  forward?: ReactNode;
 }) {
   const t = useTranslations("durchgang");
   const locale = useLocale();
@@ -176,6 +181,7 @@ export function DurchgangHome({
                 {t("ui.home.price", { price })}
               </p>
             )}
+            {forward && <div className="w-full">{forward}</div>}
           </div>
         ) : next ? (
           <Button

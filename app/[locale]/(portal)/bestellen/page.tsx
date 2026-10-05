@@ -42,7 +42,7 @@ export default async function BestellenPage({
   const t = await getTranslations("billing.order");
   const blocked = status.orderPending
     ? t("pendingCheck")
-    : status.isPayer
+    : status.mayOrder
       ? null
       : t("payerOnly");
 

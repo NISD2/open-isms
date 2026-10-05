@@ -212,7 +212,43 @@
         "provider": {
           "label": "Fornitore",
           "text": "Kardashev Catalyst UG (haftungsbeschränkt), Colonia. Si applicano le <terms>condizioni</terms>, con l'<avv>accordo sul trattamento dei dati</avv>."
+        },
+        "outputs": {
+          "label": "Cosa si ottiene",
+          "text": "Il percorso redige i documenti a partire dalle risposte della vostra azienda e tiene gli elenchi collegati. Tutto resta nel vostro account, con nome e data, ed è esportabile in qualsiasi momento."
+        },
+        "people": {
+          "label": "Chi c'è dietro"
         }
+      },
+      "outputs": {
+        "documentsTitle": "Documenti che approvate",
+        "recordsTitle": "Elenchi e prove",
+        "documents": {
+          "information_security": "Politica di sicurezza delle informazioni",
+          "incident_response": "Piano di risposta agli incidenti",
+          "cryptography": "Politica crittografica",
+          "personnel_access": "Politica su personale, accessi e asset",
+          "it_rules": "Regole per acquisto, manutenzione e vulnerabilità dell'IT",
+          "business_continuity": "Piano di continuità operativa"
+        },
+        "records": {
+          "training_management": "Attestati di formazione della direzione",
+          "risks": "Valutazione dei rischi di software, tecnologia e fornitori secondo il metodo del BSI",
+          "assets": "Elenco di processi, software, tecnologia e locali",
+          "suppliers": "Elenco dei fornitori",
+          "agreements": "Cosa è concordato con ogni fornitore su sicurezza e incidenti",
+          "crypto": "Elenco dei metodi di cifratura ammessi",
+          "logins": "Dove un secondo fattore protegge l'accesso",
+          "critical": "Cosa deve continuare a funzionare se l'IT si ferma",
+          "backups": "I vostri backup e l'ultimo ripristino riuscito",
+          "training_staff": "Formazione e istruzioni del personale",
+          "management_review": "Il vostro riesame della direzione",
+          "approvals": "La vostra approvazione di ogni documento, con nome e data"
+        }
+      },
+      "people": {
+        "role": "Fondatore"
       },
       "forward": {
         "label": "Inoltra questa pagina:",

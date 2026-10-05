@@ -21,6 +21,10 @@ import CourseFollowupEmail from "./emails/course-followup";
 import DailyDigestEmail from "./emails/daily-digest";
 import DocumentLetterEmail from "./emails/document-letter";
 import InviteEmail from "./emails/invite";
+import ManagementHandoffEmail, {
+  MANAGEMENT_HANDOFF_COPY,
+  type ManagementHandoffProps,
+} from "./emails/management-handoff";
 import MemberRemovedEmail from "./emails/member-removed";
 import NewSaleEmail, { type NewSaleProps } from "./emails/new-sale";
 import NewsletterEmail from "./emails/newsletter";
@@ -114,6 +118,50 @@ export async function inviteEmail(opts: {
       ``,
       `This invite expires in 7 days.`,
     ].join("\n"),
+  };
+}
+
+const HANDOFF_QUESTIONS = {
+  de: "Fragen? Antworten Sie einfach auf diese E-Mail.",
+  en: "Questions? Just reply to this email.",
+} as const;
+
+/**
+ * Management's invitation into the company's account, from the walk's lock. The three names were
+ * typed by people, so each is made unlinkable (companyNameForMail) before it goes into a mail from
+ * our domain. Replies reach a person where one reads them (replyAddress).
+ */
+export async function managementHandoffEmail(opts: {
+  readonly locale: "de" | "en";
+  readonly name: string;
+  readonly inviterName: string | null;
+  readonly companyName: string | null;
+  readonly inviteUrl: string;
+  readonly days: number;
+}): Promise<EmailContent & { readonly replyTo: string }> {
+  const copy = MANAGEMENT_HANDOFF_COPY[opts.locale];
+  const replyTo = letterReplyTo();
+  const props = {
+    locale: opts.locale,
+    name: companyNameForMail(opts.name, ""),
+    inviterName: companyNameForMail(opts.inviterName, copy.colleague),
+    companyName: companyNameForMail(opts.companyName, copy.company),
+    inviteUrl: opts.inviteUrl,
+    days: opts.days,
+    questions: replyTo ? HANDOFF_QUESTIONS[opts.locale] : null,
+  } satisfies ManagementHandoffProps;
+  return {
+    subject: safeHeader(copy.subject(props)),
+    html: await renderEmail(ManagementHandoffEmail, props),
+    text: [
+      copy.hello(props.name),
+      copy.invite(props),
+      copy.sameAccount(props),
+      `${copy.button}: ${props.inviteUrl}`,
+      copy.note(props.days),
+      ...(props.questions ? [props.questions] : []),
+    ].join("\n\n"),
+    replyTo: replyAddress(),
   };
 }
 

@@ -1,13 +1,21 @@
-import { randomBytes } from "node:crypto";
 import { TRPCError } from "@trpc/server";
 import { and, desc, eq, inArray, ne, or, sql } from "drizzle-orm";
 import { z } from "zod";
+import { getPathname } from "@/i18n/navigation";
 import { logAudit } from "@/lib/audit";
+import { holderOf } from "@/lib/billing/accounts";
 import { invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
 import { ALL_ROLE_KEYS } from "@/lib/compliance/role-mapping";
 import { pendingSignersOf } from "@/lib/compliance/sign-off-roster";
+import { MANAGEMENT_ROLE } from "@/lib/durchgang/types";
 import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
-import { inviteEmail, memberRemovedEmail, sendMail } from "@/lib/mail";
+import { LOCALE_CODES } from "@/lib/locale";
+import {
+  inviteEmail,
+  managementHandoffEmail,
+  memberRemovedEmail,
+  sendMail,
+} from "@/lib/mail";
 import { isSuppressedSendId } from "@/lib/mail/delivery";
 import { mailSuppressionReason } from "@/lib/mail/send";
 import { inviteRedirectPath } from "@/lib/organization/invite-redirect";
@@ -24,7 +32,7 @@ import {
   setMembershipRole,
   signupDraftOf,
 } from "@/lib/organization/membership";
-import { getAppUrl } from "@/lib/utils";
+import { rateLimit } from "@/lib/rate-limit";
 import {
   categoryAssignment,
   company,
@@ -38,17 +46,24 @@ import {
   requirementCategory,
   user,
 } from "@/schema";
-import { verifyAssessmentOwnership } from "../guards";
+import {
+  INVITE_EXPIRY_DAYS,
+  invitedRoleOf,
+  issueInvite,
+} from "../helpers/company-invite";
 import { getNis2AssessmentIds } from "../helpers/nis2-scope";
 import { resolveRoleAssignments } from "../helpers/resolve-role-assignments";
 import { discardDraftCompany } from "../helpers/setup-helpers";
-import { adminProcedure, protectedProcedure, router } from "../init";
+import {
+  accountAdminProcedure,
+  adminProcedure,
+  protectedProcedure,
+  router,
+} from "../init";
 
-const INVITE_EXPIRY_DAYS = 7;
-
-function generateToken(): string {
-  return randomBytes(32).toString("hex");
-}
+/** Hand-offs to management one company may send per day: a few retries above honest use. */
+const FORWARD_LIMIT = 5;
+const DAY_MS = 24 * 60 * 60 * 1000;
 
 export const teamRouter = router({
   /** List members of the current company with their category assignments */
@@ -139,85 +154,14 @@ export const teamRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       const email = input.email.toLowerCase();
-
-      // Someone who belongs to another organization can be invited too: accepting adds a
-      // membership and leaves their other organizations as they are.
-      const alreadyMember = await ctx.db.query.user.findFirst({
-        where: and(eq(user.email, email), isMemberOf(ctx.db, ctx.companyId)),
-        columns: { id: true },
+      const { inviteId, token, inviteUrl } = await issueInvite(ctx.db, {
+        companyId: ctx.companyId,
+        invitedBy: ctx.userId,
+        email,
+        redirectPath: input.redirectPath ?? null,
+        complianceRole: input.complianceRole,
+        assignmentContext: input.assignmentContext,
       });
-      if (alreadyMember) {
-        throw new TRPCError({
-          code: "CONFLICT",
-          message: "This person is already a member of your company.",
-        });
-      }
-
-      // Audit H-1 (2026-06-10): the single-format assignmentContext flows
-      // into a `(assessmentId, categoryId)` upsert at accept time. Without
-      // an ownership check, an admin in tenant A could supply tenant B's
-      // (assessmentId, categoryId) pair and overwrite tenant B's
-      // category_assignment row, locking the legitimate owner out of
-      // enforceAssignment + sign-off. Verify ownership at the issue site
-      // so the bad input never reaches the DB. applyAssignmentContext
-      // re-checks at accept time as defense in depth.
-      if (input.assignmentContext) {
-        await verifyAssessmentOwnership(
-          ctx.db,
-          input.assignmentContext.assessmentId,
-          ctx.companyId,
-        );
-      }
-
-      // Resolve compliance role → assignment context
-      let resolvedAssignment: Record<string, unknown> | null =
-        input.assignmentContext ?? null;
-
-      // Kept even when the role owns no category: accepting gives a new member the role itself.
-      if (input.complianceRole) {
-        const rows = await resolveRoleAssignments(
-          ctx.db,
-          ctx.companyId,
-          input.complianceRole,
-          ctx.userId,
-        );
-        resolvedAssignment = {
-          roleKeys: [input.complianceRole],
-          categoryIds: rows.map((r) => r.categoryId),
-        };
-      }
-
-      const token = generateToken();
-      const expiresAt = new Date(Date.now() + INVITE_EXPIRY_DAYS * 24 * 60 * 60 * 1000);
-
-      // Upsert: if a pending invite exists for this email+company, reset it
-      const [invite] = await ctx.db
-        .insert(companyInvite)
-        .values({
-          companyId: ctx.companyId,
-          invitedBy: ctx.userId,
-          email,
-          token,
-          expiresAt,
-          redirectPath: input.redirectPath ?? null,
-          assignmentContext: resolvedAssignment,
-        })
-        .onConflictDoUpdate({
-          target: [companyInvite.companyId, companyInvite.email],
-          set: {
-            token,
-            expiresAt,
-            invitedBy: ctx.userId,
-            status: "pending",
-            acceptedBy: null,
-            acceptedAt: null,
-            redirectPath: input.redirectPath ?? null,
-            assignmentContext: resolvedAssignment,
-          },
-        })
-        .returning();
-
-      const inviteUrl = `${getAppUrl()}/invite/${token}`;
 
       // Send invite email (fire-and-forget)
       const companyRow = await ctx.db.query.company.findFirst({
@@ -261,7 +205,85 @@ export const teamRouter = router({
         })
         .catch((err) => console.error("[team] invite email not sent", err));
 
-      return { inviteId: invite.id, token, inviteUrl, emailed };
+      return { inviteId, token, inviteUrl, emailed };
+    }),
+
+  /**
+   * The hand-off at the walk's lock: the account holder invites management into this company to
+   * decide on the order. The same invite as above, for the management role, landing on the
+   * decision page; once accepted, management orders for this company's account (billing.place,
+   * `mayOrderFor`), not for a new one.
+   *
+   * Account tier rather than the paid ones: the company has not ordered yet, which is the point.
+   * Holder only, because only management the holder invited may order. Capped per company, since
+   * every send mails an address someone typed in.
+   */
+  forwardToManagement: accountAdminProcedure
+    .input(
+      z.object({
+        name: z.string().trim().min(1).max(120),
+        email: z.string().trim().email().max(255),
+        locale: z.enum(LOCALE_CODES),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      if ((await holderOf(ctx.db, ctx.companyId)) !== ctx.userId) {
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "Only the account holder can forward the order to management.",
+        });
+      }
+      if (!(await rateLimit(`team:forward:${ctx.companyId}`, FORWARD_LIMIT, DAY_MS))) {
+        throw new TRPCError({
+          code: "TOO_MANY_REQUESTS",
+          message:
+            "Your organization has sent many of these today. Please try again tomorrow.",
+        });
+      }
+
+      const email = input.email.toLowerCase();
+      const { inviteUrl } = await issueInvite(ctx.db, {
+        companyId: ctx.companyId,
+        invitedBy: ctx.userId,
+        email,
+        redirectPath: inviteRedirectPath(
+          getPathname({ href: "/pricing/approval", locale: input.locale }),
+        ),
+        complianceRole: MANAGEMENT_ROLE,
+      });
+
+      const companyRow = await ctx.db.query.company.findFirst({
+        where: eq(company.id, ctx.companyId),
+        columns: { name: true },
+      });
+      const emailed = mailSuppressionReason() === null;
+
+      managementHandoffEmail({
+        locale: input.locale === "de" ? "de" : "en",
+        name: input.name,
+        inviterName: ctx.session.user.name ?? null,
+        companyName: companyRow?.name ?? null,
+        inviteUrl,
+        days: INVITE_EXPIRY_DAYS,
+      })
+        .then((content) =>
+          sendMail({ emailType: "account.invite", to: email, ...content }),
+        )
+        .then((r) => {
+          if (r.success && "id" in r && !isSuppressedSendId(r.id)) {
+            logAudit({
+              companyId: ctx.companyId,
+              userId: ctx.userId,
+              action: "email.invite_sent",
+              entityType: "email",
+              entityId: r.id ?? null,
+              description: `Management invite email sent to ${email}`,
+            });
+          }
+        })
+        .catch((err) => console.error("[team] management invite email not sent", err));
+
+      return { emailed };
     }),
 
   /** Look up an invite by token (for the accept page) */
@@ -736,14 +758,6 @@ const batchAssignmentSchema = z.object({
   roleKeys: z.array(z.string()),
   categoryIds: z.array(z.string().uuid()),
 });
-
-/** The one compliance role an invite was sent for, or null. */
-const invitedRoleOf = (raw: unknown) => {
-  const batch = batchAssignmentSchema.safeParse(raw);
-  const [only, ...rest] = batch.success ? batch.data.roleKeys : [];
-  const role = z.enum(ALL_ROLE_KEYS).safeParse(only);
-  return role.success && rest.length === 0 ? role.data : null;
-};
 
 const singleAssignmentSchema = z.object({
   assessmentId: z.string().uuid(),

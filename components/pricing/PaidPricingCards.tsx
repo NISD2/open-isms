@@ -237,7 +237,8 @@ export function PriceAnchor() {
   );
 }
 
-const FOUNDERS = [
+/** The two founders, with their photos: on the talk-first card and the approval page. */
+export const FOUNDERS = [
   { name: "Simon Orzel", firstName: "Simon", photo: "/images/people/simon.png" },
   { name: "Cory Hisey", firstName: "Cory", photo: "/images/people/cory.png" },
 ] as const;

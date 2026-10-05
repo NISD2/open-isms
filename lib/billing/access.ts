@@ -5,6 +5,7 @@
  * `grandfatheredAt` and keeps the journey free; everyone else orders.
  */
 import { ORDER_SLUGS } from "@/i18n/slugs";
+import { MANAGEMENT_ROLE } from "@/lib/durchgang/types";
 import type { AccessLevel } from "./accounts";
 
 /**
@@ -53,6 +54,30 @@ export const isGrandfatheredPerson = (person: {
  */
 export const unpaidAccessLevel = (holderGrandfathered: boolean): AccessLevel =>
   holderGrandfathered ? "grandfathered" : "free";
+
+/**
+ * Whether this person may order for the account of the company they have open: the account
+ * holder, or management the holder invited into that company to decide on the order
+ * (team.forwardToManagement). Its order lands on the company's existing account.
+ *
+ * Holding the management role is not enough on its own: any company admin can give that role, and
+ * a company role says nothing about who may put the account on an invoice. So the accepted invite
+ * has to come from the holder and be for management, and the person has to hold the role still.
+ * Invoices and cancelling stay with the holder.
+ */
+export const mayOrderFor = (person: {
+  readonly userId: string;
+  readonly holderUserId: string | null;
+  /** The compliance role the person holds in the open company. */
+  readonly jobTitle: string | null;
+  /** The invite the person accepted into the open company: who sent it, and for which role. */
+  readonly invite: { readonly invitedBy: string; readonly role: string | null } | null;
+}): boolean =>
+  person.holderUserId !== null &&
+  (person.holderUserId === person.userId ||
+    (person.jobTitle === MANAGEMENT_ROLE &&
+      person.invite?.role === MANAGEMENT_ROLE &&
+      person.invite.invitedBy === person.holderUserId));
 
 /** Where an account that must order first is sent from any portal page it may not open. */
 export const OFFER_PATH = "/billing/offer";
