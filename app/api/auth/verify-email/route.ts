@@ -6,6 +6,7 @@ import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
 import { getClientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
 import { newUserSignupEmail, sendMail, sendWelcomeEmail } from "@/lib/mail";
+import { resolveEmailLocale } from "@/lib/mail/locale";
 import { rateLimit } from "@/lib/rate-limit";
 import { user } from "@/schema";
 import { createDraftCompany } from "@/server/trpc/helpers/setup-helpers";
@@ -150,7 +151,7 @@ export async function POST(request: Request) {
         passwordHash ? isNotNull(user.passwordHash) : undefined,
       ),
     )
-    .returning({ id: user.id, name: user.name });
+    .returning({ id: user.id, name: user.name, locale: user.locale });
 
   // First-time verification → fire admin + welcome notifications.
   // If the user was already verified somehow (shouldn't happen given the OTP
@@ -177,6 +178,7 @@ export async function POST(request: Request) {
             userEmail: email,
             userName: userRow.name,
             provider: "credentials",
+            locale: resolveEmailLocale(userRow.locale, null),
           })
             .then((content) =>
               sendMail({

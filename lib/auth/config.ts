@@ -30,6 +30,7 @@ import { db } from "@/lib/db";
 import { env } from "@/lib/env";
 import { isLocaleCode, LOCALE_COOKIE, type LocaleCode } from "@/lib/locale";
 import { newUserSignupEmail, sendMail, sendWelcomeEmail } from "@/lib/mail";
+import { resolveEmailLocale } from "@/lib/mail/locale";
 import { resolveHints } from "@/lib/onboarding/hints";
 import { rateLimit } from "@/lib/rate-limit";
 import { billingAccount, company, companyMembership, user } from "@/schema";
@@ -454,6 +455,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                   userEmail: authUser.email,
                   userName: newName,
                   provider: account.provider,
+                  locale: resolveEmailLocale(await signupLocaleFromCookie(), null),
                 })
                   .then((content) =>
                     sendMail({

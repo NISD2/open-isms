@@ -14,6 +14,8 @@ export interface NewSignupProps {
   readonly provider: string;
   readonly at: string;
   readonly mailtoUrl: string;
+  /** The language the prepared follow-up is written in. */
+  readonly followUpLanguage: string;
 }
 
 export function NewSignupEmail({
@@ -22,6 +24,7 @@ export function NewSignupEmail({
   provider,
   at,
   mailtoUrl,
+  followUpLanguage,
 }: NewSignupProps) {
   return (
     <EmailFrame chrome={ENGLISH_ONLY}>
@@ -32,9 +35,13 @@ export function NewSignupEmail({
           ["Name", userName],
           ["Provider", provider],
           ["Time", at],
+          [
+            "Follow-up",
+            `prepared in ${followUpLanguage}: the offer, the call, the page for management`,
+          ],
         ]}
       />
-      <CtaButton href={mailtoUrl}>Reach out to {userEmail}</CtaButton>
+      <CtaButton href={mailtoUrl}>Follow up with {userEmail}</CtaButton>
     </EmailFrame>
   );
 }
