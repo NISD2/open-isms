@@ -11,6 +11,7 @@ import { WikiAnswerHeader } from "@/components/wiki/WikiAnswerHeader";
 import { WikiMoreLink } from "@/components/wiki/WikiMoreLink";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
+import { WikiPartnerStrip } from "@/components/wiki/WikiPartnerStrip";
 import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -103,13 +104,15 @@ export default async function MissedRegistrationPage({
           badge="Art. 3 Abs. 4 NIS 2 · § 33 BSIG"
           title={t("title")}
           answer={t("subtitle")}
-          art="/images/durchgang/12_2.svg"
+          shot
         />
 
         <WikiPageMeta
           authorSlug="simon-orzel"
           locale={locale === "nl" ? "de" : (locale as "de" | "en")}
         />
+
+        <WikiPartnerStrip />
 
         <Separator />
 

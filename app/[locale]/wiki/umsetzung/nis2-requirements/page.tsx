@@ -18,6 +18,7 @@ import { WikiAnswerHeader } from "@/components/wiki/WikiAnswerHeader";
 import { WikiMoreLink } from "@/components/wiki/WikiMoreLink";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
+import { WikiPartnerStrip } from "@/components/wiki/WikiPartnerStrip";
 import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -100,13 +101,15 @@ export default async function Nis2RequirementsPage({
           badge="Art. 21 NIS 2 · § 30 BSIG"
           title={t("title")}
           answer={t("subtitle")}
-          art="/images/wiki/nis2-anforderungen.svg"
+          shot
         />
 
         <WikiPageMeta
           authorSlug="cory-hisey"
           locale={locale === "nl" ? "de" : (locale as "de" | "en")}
         />
+
+        <WikiPartnerStrip />
 
         <Separator />
 
