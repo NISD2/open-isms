@@ -1,8 +1,10 @@
-import { FileText, ListChecks } from "lucide-react";
+import { ChevronDown, FileText, ListChecks } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
+import { shotImage } from "@/components/landing/shots";
+import { ApprovalPreview } from "@/components/pricing/ApprovalPreview";
 import { ForwardActions } from "@/components/pricing/ForwardActions";
 import { FOUNDERS } from "@/components/pricing/founders";
 import {
@@ -29,6 +31,9 @@ const ROWS = [
   "provider",
   "people",
 ] as const;
+
+/** What the manager reads before scrolling: what it costs, how to get out, what is theirs to do. */
+const SUMMARY = ["cost", "risk", "task"] as const;
 
 const BSIG_38 = "https://www.gesetze-im-internet.de/bsig_2025/__38.html";
 const EUR_LEX_LANG = { de: "DE", en: "EN", nl: "NL" } as const;
@@ -60,12 +65,20 @@ export default async function ApprovalPage({
 }) {
   const { locale: rawLocale } = await params;
   const locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
-  const [t, tiers, session] = await Promise.all([
+  const [t, tiers, walk, session] = await Promise.all([
     getTranslations("pricing.approval"),
     getTranslations("pricing.tiers"),
+    getTranslations("landing.walk"),
     getSession().catch(() => null),
   ]);
   const orderOpen = billingFor(session?.user.email).open;
+  const price = formatWholeEuro(ANNUAL_NET_CENTS, rawLocale);
+  const actions = (
+    <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] sm:items-center">
+      <OrderButton orderOpen={orderOpen} signedIn={session !== null} />
+      <TalkFirst />
+    </div>
+  );
   const { low, high, sources, checked } = gapAnalysisRange(rawLocale);
 
   const tags = {
@@ -117,8 +130,14 @@ export default async function ApprovalPage({
             ))}
           </ul>
         </div>
-        <div>
-          <p className="font-medium text-sm">{t("outputs.recordsTitle")}</p>
+        <details className="group">
+          <summary className="inline-flex min-h-11 cursor-pointer list-none items-center gap-1.5 font-medium text-primary text-sm underline-offset-4 hover:underline [&::-webkit-details-marker]:hidden">
+            {t("outputs.recordsShow", { count: WALK_RECORDS.length })}
+            <ChevronDown
+              aria-hidden
+              className="size-4 transition-transform group-open:rotate-180"
+            />
+          </summary>
           <ul className="mt-2 space-y-1.5 text-sm">
             {WALK_RECORDS.map((key) => (
               <li key={key} className="flex items-start gap-2.5 leading-snug">
@@ -130,7 +149,7 @@ export default async function ApprovalPage({
               </li>
             ))}
           </ul>
-        </div>
+        </details>
       </div>
     ),
     role: (
@@ -138,10 +157,16 @@ export default async function ApprovalPage({
         <span aria-hidden className="font-mono font-semibold text-primary">
           §
         </span>
-        <span>{t.rich("rows.role.text", tags)}</span>
+        <span className="space-y-2">
+          <span className="block">{t.rich("rows.role.text", tags)}</span>
+          <ApprovalPreview
+            shot={shotImage("approved", locale, walk("steps.signOff.alt"))}
+            label={t("seeApproval")}
+          />
+        </span>
       </span>
     ),
-    cost: t("rows.cost.text", { price: formatWholeEuro(ANNUAL_NET_CENTS, rawLocale) }),
+    cost: t("rows.cost.text", { price }),
     comparison: `${tiers("paid.anchorTip.body", { low, high })} ${tiers("paid.anchorTip.note", { sources, checked })}`,
     exit: t.rich("rows.exit.text", tags),
     scope: t("rows.scope.text"),
@@ -180,6 +205,25 @@ export default async function ApprovalPage({
         <ForwardActions url={localizedAbsoluteUrl("/pricing/approval", locale)} />
       </header>
 
+      <section
+        aria-label={t("summary.label")}
+        className="space-y-5 rounded-xl border bg-card p-5 sm:p-6"
+      >
+        <dl className="space-y-2.5">
+          {SUMMARY.map((key) => (
+            <div key={key} className="grid gap-x-6 sm:grid-cols-[11rem_1fr]">
+              <dt className="font-medium text-muted-foreground text-sm sm:pt-0.5">
+                {t(`summary.${key}.label`)}
+              </dt>
+              <dd className="font-medium leading-relaxed">
+                {t(`summary.${key}.text`, { price })}
+              </dd>
+            </div>
+          ))}
+        </dl>
+        {actions}
+      </section>
+
       <dl className="divide-y rounded-xl border bg-card">
         {ROWS.map((key) => (
           <div
@@ -194,10 +238,7 @@ export default async function ApprovalPage({
         ))}
       </dl>
 
-      <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] sm:items-center">
-        <OrderButton orderOpen={orderOpen} signedIn={session !== null} />
-        <TalkFirst />
-      </div>
+      {actions}
     </article>
   );
 }

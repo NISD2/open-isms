@@ -75,7 +75,7 @@
           "note": "Gilt nicht für Verlängerungen. Die Einzelheiten stehen in den AGB, Abschnitt B7."
         },
         "grandfatheredBadge": "Ihr Bestandspreis",
-        "cta": "Bestellen",
+        "cta": "Jetzt bestellen",
         "terms": "Auf Rechnung, 30 Tage Zahlungsziel. Kündigung in den ersten 30 Tagen: Rechnung storniert oder Geld zurück.",
         "termsLink": "AGB",
         "features": {
@@ -185,8 +185,24 @@
         "description": "Eine Seite für die Geschäftsführung: was der NIS 2 Durchgang ist, was er kostet und wie man ihn wieder beendet."
       },
       "eyebrow": "Zur Freigabe",
-      "title": "NIS 2 Durchgang auf nisd2.eu",
+      "title": "NIS 2 im eigenen Haus umsetzen. Sie geben am Ende frei.",
       "lead": "Eine Seite für die Entscheidung: was es ist, was es kostet und wie man es wieder beendet.",
+      "summary": {
+        "label": "Kurz zusammengefasst",
+        "cost": {
+          "label": "Kosten",
+          "text": "{price} netto im Jahr, auf Rechnung"
+        },
+        "risk": {
+          "label": "Risiko",
+          "text": "30 Tage Geld zurück, danach jährlich kündbar"
+        },
+        "task": {
+          "label": "Ihre Aufgabe",
+          "text": "Am Ende in der App freigeben, mit Ihrem eigenen Zugang"
+        }
+      },
+      "seeApproval": "So sieht Ihre Freigabe aus",
       "rows": {
         "what": {
           "label": "Was es ist",
@@ -226,6 +242,7 @@
       "outputs": {
         "documentsTitle": "Dokumente, die Sie freigeben",
         "recordsTitle": "Listen und Nachweise",
+        "recordsShow": "und {count} Listen und Nachweise anzeigen",
         "documents": {
           "information_security": "Leitlinie zur Informationssicherheit",
           "incident_response": "Notfallplan für IT-Sicherheitsvorfälle",
