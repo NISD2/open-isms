@@ -2379,10 +2379,10 @@
     "registration": {
       "meta": {
         "title": "Registrazione NIS2 presso il BSI: termine e guida passo passo",
-        "description": "Registrazione presso il BSI ai sensi del §33 BSIG: chi deve registrarsi, termini, guida al portale. 30.000 soggetti NIS2 in Germania: la maggior parte ancora mancante. Evita multe da 500K €."
+        "description": "Quanti soggetti si sono registrati presso il BSI, perché esiste il divario e cosa comporta una registrazione mancante ai sensi del § 33 BSIG. Con fonti."
       },
       "title": "Analisi delle lacune di registrazione NIS2",
-      "subtitle": "Il BSI ha stimato ~30.000 soggetti rientranti in NIS2 in Germania. Il termine di registrazione è scaduto il 6 marzo 2026. Una quota significativa delle aziende rientranti nell'ambito non si è ancora registrata - lasciandole esposte all'applicazione ai sensi del §65 BSIG.",
+      "subtitle": "Il termine di registrazione previsto dal § 33 BSIG è scaduto il 6 marzo 2026. Al 31 luglio 2026 il BSI aveva ricevuto 19.058 registrazioni (stampato del Bundestag 21/7573). Secondo il governo federale, il numero dei soggetti interessati non è noto.",
       "overview": {
         "p1": "Il §33 BSIG richiede a ogni soggetto che rientra in NIS2 - sia esso soggetto essenziale o importante - di registrarsi presso il Bundesamt für Sicherheit in der Informationstechnik (BSI). Questo non è facoltativo. L'obbligo di registrazione esiste indipendentemente dal fatto che l'azienda abbia implementato misure di cybersicurezza. Devi prima registrarti, poi conformarti.",
         "p2": "Il portale di registrazione del BSI è entrato in funzione il 6 gennaio 2026 - un mese dopo l'entrata in vigore del BSIG. Il termine di registrazione ai sensi del §33 BSIG era il 6 marzo 2026 (3 mesi dopo l'entrata in vigore). Nonostante un chiaro obbligo di legge e una finestra di due mesi, una quota significativa dei circa 29.000-30.000 soggetti stimati rientranti nell'ambito non si è registrata entro il termine. Un sondaggio di G DATA ha rilevato che il 44% delle aziende interessate ignorava del tutto i propri obblighi NIS2.",
@@ -3984,10 +3984,10 @@
     "missedRegistration": {
       "meta": {
         "title": "Registrazione NIS2 presso il BSI mancata? Passi immediati",
-        "description": "Avete mancato la scadenza di registrazione NIS2 presso il BSI? 18.000 aziende sono nella stessa situazione. Il portale è ancora aperto: registratevi ora, documentate, evitate sanzioni fino a 500.000 EUR. Passo dopo passo."
+        "description": "Avete mancato la registrazione NIS2? Il portale del BSI è ancora aperto. Come registrarvi ora ai sensi del § 33 BSIG, passo dopo passo, con FAQ."
       },
       "title": "Avete mancato la scadenza di registrazione presso il BSI. E adesso?",
-      "subtitle": "Circa 18.000 aziende tedesche hanno mancato la scadenza di registrazione prevista dal §33 BSIG. Il portale del BSI è ancora aperto. Ecco ciò che conta ora, e ciò che accade davvero se agite rapidamente.",
+      "subtitle": "Il portale del BSI è ancora aperto. Ecco ciò che conta ora e da dove iniziare.",
       "shortAnswer": {
         "heading": "La risposta breve",
         "p1": "Niente panico. Non siete soli, e non è troppo tardi per rimediare. Il BSI ha stimato che circa 30.000 soggetti rientrano nell'ambito della NIS2 in Germania. La scadenza di registrazione è scaduta il 6 marzo 2026, ma un numero significativo di aziende non si è ancora registrato. Siete ben lungi dall'essere gli unici in questa situazione.",

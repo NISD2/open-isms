@@ -2379,10 +2379,10 @@
     "registration": {
       "meta": {
         "title": "Rejestracja NIS2 w BSI: Termin i przewodnik krok po kroku",
-        "description": "Rejestracja w BSI na podstawie §33 BSIG: kto musi się zarejestrować, terminy, przewodnik po portalu. 30 000 podmiotów NIS2 w Niemczech: większość wciąż brakująca. Unikaj grzywien do 500 tys."
+        "description": "Ile podmiotów zarejestrowało się w BSI, skąd bierze się luka i co oznacza brak rejestracji na podstawie § 33 BSIG. Ze źródłami."
       },
       "title": "Analiza luki rejestracyjnej NIS2",
-      "subtitle": "BSI oszacowało ~30 000 podmiotów podlegających NIS2 w Niemczech. Termin rejestracji upłynął 6 marca 2026 r. Znaczna część firm objętych zakresem wciąż się nie zarejestrowała - co naraża je na egzekucję na podstawie §65 BSIG.",
+      "subtitle": "Termin rejestracji z § 33 BSIG upłynął 6 marca 2026 r. Do 31 lipca 2026 r. BSI otrzymało 19 058 rejestracji (druk Bundestagu 21/7573). Według rządu federalnego liczba objętych podmiotów nie jest znana.",
       "overview": {
         "p1": "§33 BSIG wymaga, aby każdy podmiot objęty NIS2 - czy to podmiot kluczowy, czy ważny - zarejestrował się w Bundesamt für Sicherheit in der Informationstechnik (BSI). To nie jest opcjonalne. Obowiązek rejestracji istnieje niezależnie od tego, czy firma wdrożyła jakiekolwiek środki cyberbezpieczeństwa. Najpierw musisz się zarejestrować, a następnie zapewnić zgodność.",
         "p2": "Portal rejestracyjny BSI ruszył 6 stycznia 2026 r., miesiąc po wejściu BSIG w życie. Termin rejestracji na podstawie §33 BSIG przypadał na 6 marca 2026 r. (3 miesiące po wejściu w życie). Pomimo jasnego obowiązku prawnego i dwumiesięcznego okna znaczny odsetek z szacowanych 29 000-30 000 podmiotów objętych zakresem nie zarejestrował się do terminu. Badanie G DATA wykazało, że 44% dotkniętych firm w ogóle nie było świadomych swoich obowiązków NIS2.",
@@ -3984,10 +3984,10 @@
     "missedRegistration": {
       "meta": {
         "title": "Przegapiona rejestracja NIS2 w BSI? Natychmiastowe kroki",
-        "description": "Przegapiłeś termin rejestracji NIS2 w BSI? 18 000 firm jest w tej samej sytuacji. Portal nadal otwarty: zarejestruj się teraz, udokumentuj, unikaj kar do 500 tys. EUR. Krok po kroku."
+        "description": "Przegapiłeś rejestrację NIS2? Portal BSI jest nadal otwarty. Jak zarejestrować się teraz na podstawie § 33 BSIG, krok po kroku, z FAQ."
       },
       "title": "Przegapiłeś termin rejestracji w BSI. Co teraz?",
-      "subtitle": "Około 18 000 niemieckich firm przegapiło termin rejestracji wynikający z §33 BSIG. Portal BSI jest nadal otwarty. Oto, co liczy się teraz, i co naprawdę się dzieje, jeśli zadziałasz szybko.",
+      "subtitle": "Portal BSI jest nadal otwarty. Oto, co liczy się teraz i od czego zacząć.",
       "shortAnswer": {
         "heading": "Krótka odpowiedź",
         "p1": "Bez paniki. Nie jesteś sam, i nie jest za późno, żeby to naprawić. BSI oszacowało, że w Niemczech pod NIS2 podpada około 30 000 podmiotów. Termin rejestracji upłynął 6 marca 2026 r., ale znacząca liczba firm nadal się nie zarejestrowała. Jesteś daleki od bycia jedynym w tej sytuacji.",

@@ -2379,10 +2379,10 @@
     "registration": {
       "meta": {
         "title": "Inregistrarea NIS2 la BSI: Termen si ghid pas cu pas",
-        "description": "Inregistrarea la BSI in temeiul §33 BSIG: cine trebuie sa se inregistreze, termene, parcurgerea portalului. 30.000 de entitati NIS2 in Germania: majoritatea inca lipsa. Evitati amenzile de 500.000 EUR."
+        "description": "Câte entități s-au înregistrat la BSI, de ce există decalajul și ce înseamnă lipsa înregistrării conform § 33 BSIG. Cu surse."
       },
       "title": "Analiza lacunelor de inregistrare NIS2",
-      "subtitle": "BSI a estimat aproximativ 30.000 de entitati supuse NIS2 in Germania. Termenul de inregistrare a expirat la 6 martie 2026. O proportie semnificativa a companiilor din domeniul de aplicare inca nu s-au inregistrat, lasandu-le expuse aplicarii legii in temeiul §65 BSIG.",
+      "subtitle": "Termenul de înregistrare prevăzut de § 33 BSIG a expirat la 6 martie 2026. Până la 31 iulie 2026, BSI primise 19.058 de înregistrări (documentul Bundestagului 21/7573). Potrivit guvernului federal, numărul entităților vizate nu este cunoscut.",
       "overview": {
         "p1": "§33 BSIG cere fiecarei entitati care intra sub NIS2, fie ea entitate esentiala sau importanta, sa se inregistreze la Bundesamt für Sicherheit in der Informationstechnik (BSI). Acest lucru nu este optional. Obligatia de inregistrare exista independent de faptul ca firma a implementat sau nu vreo masura de securitate cibernetica. Trebuie sa va inregistrati intai, apoi sa va conformati.",
         "p2": "Portalul de inregistrare BSI a fost lansat la 6 ianuarie 2026, la o luna dupa intrarea in vigoare a BSIG. Termenul de inregistrare in temeiul §33 BSIG a fost 6 martie 2026 (3 luni dupa intrarea in vigoare). In ciuda unei obligatii legale clare si a unei ferestre de doua luni, o proportie semnificativa dintre cele 29.000-30.000 de entitati estimate din domeniul de aplicare nu s-au inregistrat pana la termen. Un sondaj G DATA a constatat ca 44% dintre companiile afectate nu erau deloc constiente de obligatiile lor NIS2.",
@@ -3984,10 +3984,10 @@
     "missedRegistration": {
       "meta": {
         "title": "Ați ratat înregistrarea NIS2 la BSI? Pași imediați",
-        "description": "Ați ratat termenul de înregistrare NIS2 la BSI? 18.000 de firme sunt în aceeași situație. Portalul este încă deschis: înregistrați-vă acum, documentați, evitați amenzi de 500.000 EUR. Pas cu pas."
+        "description": "Ați ratat înregistrarea NIS2? Portalul BSI este încă deschis. Cum vă înregistrați acum conform § 33 BSIG, pas cu pas, cu întrebări frecvente."
       },
       "title": "Ați ratat termenul de înregistrare la BSI. Și acum?",
-      "subtitle": "Aproximativ 18.000 de firme germane au ratat termenul de înregistrare prevăzut de §33 BSIG. Portalul BSI este încă deschis. Iată ce contează acum și ce se întâmplă de fapt dacă acționați rapid.",
+      "subtitle": "Portalul BSI este încă deschis. Iată ce contează acum și cu ce să începeți.",
       "shortAnswer": {
         "heading": "Răspunsul pe scurt",
         "p1": "Fără panică. Nu sunteți singur și nu este prea târziu să remediați situația. BSI a estimat că aproximativ 30.000 de entități intră sub incidența NIS2 în Germania. Termenul de înregistrare a expirat pe 6 martie 2026, dar un număr semnificativ de firme tot nu s-au înregistrat. Sunteți departe de a fi singurul în această situație.",

@@ -2379,10 +2379,10 @@
     "registration": {
       "meta": {
         "title": "Enregistrement NIS2 auprès du BSI : délai et guide pas à pas",
-        "description": "Enregistrement auprès du BSI au titre du § 33 BSIG : qui doit s'enregistrer, délais, parcours du portail. 30 000 entités NIS2 en Allemagne : la plupart toujours manquantes. Évitez les amendes de 500 000 €."
+        "description": "Combien d'entités se sont enregistrées auprès du BSI, pourquoi l'écart existe et ce que signifie un enregistrement manquant au titre du § 33 BSIG. Avec sources."
       },
       "title": "Analyse de l'écart d'enregistrement NIS2",
-      "subtitle": "Le BSI a estimé à environ 30 000 le nombre d'entités assujetties à NIS2 en Allemagne. Le délai d'enregistrement a expiré le 6 mars 2026. Une part importante des entreprises concernées ne s'est toujours pas enregistrée - les exposant à une exécution au titre du § 65 BSIG.",
+      "subtitle": "Le délai d'enregistrement prévu au § 33 BSIG a expiré le 6 mars 2026. Au 31 juillet 2026, le BSI avait reçu 19 058 enregistrements (document du Bundestag 21/7573). Selon le gouvernement fédéral, le nombre d'entités concernées n'est pas connu.",
       "overview": {
         "p1": "Le § 33 BSIG impose à chaque entité relevant de NIS2 - qu'elle soit entité essentielle ou importante - de s'enregistrer auprès du Bundesamt für Sicherheit in der Informationstechnik (BSI). Ce n'est pas facultatif. L'obligation d'enregistrement existe indépendamment du fait que l'entreprise ait mis en œuvre ou non des mesures de cybersécurité. Vous devez d'abord vous enregistrer, puis vous mettre en conformité.",
         "p2": "Le portail d'enregistrement du BSI a été mis en ligne le 6 janvier 2026 - un mois après l'entrée en vigueur du BSIG. Le délai d'enregistrement au titre du § 33 BSIG était fixé au 6 mars 2026 (3 mois après l'entrée en vigueur). Malgré une obligation légale claire et une fenêtre de deux mois, une part importante des 29 000 à 30 000 entités concernées estimées ne s'est pas enregistrée dans le délai. Une enquête de G DATA a révélé que 44 % des entreprises concernées ignoraient entièrement leurs obligations NIS2.",
@@ -3984,10 +3984,10 @@
     "missedRegistration": {
       "meta": {
         "title": "Enregistrement NIS2 auprès du BSI manqué ? Mesures immédiates",
-        "description": "Vous avez manqué le délai d'enregistrement NIS2 auprès du BSI ? 18 000 entreprises sont dans la même situation. Le portail reste ouvert : enregistrez-vous maintenant, documentez, évitez des amendes de 500 000 €. Étape par étape."
+        "description": "Vous avez manqué l'enregistrement NIS2 ? Le portail du BSI reste ouvert. Comment vous enregistrer au titre du § 33 BSIG, étape par étape, avec une FAQ."
       },
       "title": "Vous avez manqué le délai d'enregistrement auprès du BSI. Et maintenant ?",
-      "subtitle": "Environ 18 000 entreprises allemandes ont manqué le délai d'enregistrement prévu au §33 BSIG. Le portail du BSI reste ouvert. Voici ce qui compte maintenant, et ce qui se passe réellement si vous agissez rapidement.",
+      "subtitle": "Le portail du BSI reste ouvert. Voici ce qui compte maintenant et par quoi commencer.",
       "shortAnswer": {
         "heading": "La réponse en bref",
         "p1": "Pas de panique. Vous n'êtes pas seul, et il n'est pas trop tard pour corriger la situation. Le BSI a estimé qu'environ 30 000 entités relèvent de NIS2 en Allemagne. Le délai d'enregistrement a expiré le 6 mars 2026, mais un nombre important d'entreprises ne se sont toujours pas enregistrées. Vous êtes loin d'être le seul dans cette situation.",
