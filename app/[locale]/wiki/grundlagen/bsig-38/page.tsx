@@ -1,20 +1,24 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { itemShot } from "@/components/durchgang/itemShots";
 import { JsonLd } from "@/components/JsonLd";
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
-import { RelatedPage } from "@/components/wiki/RelatedPage";
+import { WalkHow } from "@/components/wiki/WalkHow";
+import { WalkPriceCard } from "@/components/wiki/WalkPriceCard";
 import { WalkSteps } from "@/components/wiki/WalkSteps";
+import { WikiAnswerHeader } from "@/components/wiki/WikiAnswerHeader";
+import { WikiMoreLink } from "@/components/wiki/WikiMoreLink";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
+import {
+  faqJsonLd,
+  WikiExample,
+  WikiFaq,
+  type WikiQuestion,
+  WikiSection,
+  WikiSources,
+} from "@/components/wiki/WikiSection";
 import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -40,8 +44,14 @@ export async function generateMetadata({
   };
 }
 
-const dutyKeys = ["d1", "d2", "d3"] as const;
-const faqKeys = ["q1", "q2", "q3", "q4", "q5"] as const;
+/** The walk's step for management training, whose screen shows one line per manager. */
+const TRAINING_STEP = "1.1";
+
+interface Subsection {
+  readonly label: string;
+  readonly quote: string;
+  readonly plain: string;
+}
 
 export default async function BsigParagraph38Page({
   params,
@@ -50,161 +60,119 @@ export default async function BsigParagraph38Page({
 }) {
   const { locale: rawLocale } = await params;
   const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
-  const t = await getTranslations("info");
-
-  const faqs = faqKeys.map((key) => ({
-    "@type": "Question" as const,
-    name: t(`bsigParagraph38.faq.${key}.q`),
-    acceptedAnswer: {
-      "@type": "Answer" as const,
-      text: t(`bsigParagraph38.faq.${key}.a`),
-    },
-  }));
+  const [t, w] = await Promise.all([
+    getTranslations("info.bsigParagraph38"),
+    getTranslations("info.wikiWalk"),
+  ]);
+  const faq = t.raw("faq.items") as WikiQuestion[];
+  const subsections = t.raw("text.items") as Subsection[];
+  const shot = itemShot(TRAINING_STEP, rawLocale, t("walk.seeItAlt"));
+  if (!shot) throw new Error(`The walk has no screenshot for step ${TRAINING_STEP}`);
 
   return (
     <GlossedProse locale={locale}>
-      <div className="space-y-10">
+      <div className="space-y-12">
         <WikiPageJsonLd
           category="grundlagen"
           slug="bsig-38"
           locale={locale}
           authorSlug="simon-orzel"
-          proficiencyLevel="Intermediate"
-          audienceType="Geschäftsführung, Vorstand, CISO"
+          proficiencyLevel="Beginner"
+          audienceType="Geschäftsführung und Vorstand im Mittelstand"
           citationKeys={["nis2", "bsig"]}
           aboutKeys={["bsig"]}
           mentionsKeys={["nis2"]}
         />
-        <JsonLd
-          data={{
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: faqs,
-          }}
+        <JsonLd data={faqJsonLd(faq)} />
+
+        <WikiAnswerHeader
+          badge={t("badge")}
+          title={t("title")}
+          answer={t("subtitle")}
+          art="/images/durchgang/1_1.svg"
         />
 
-        <header>
-          <Badge variant="secondary" className="mb-3">
-            § 38 BSIG
-          </Badge>
-          <h1 className="text-3xl font-bold tracking-tight">
-            {t("bsigParagraph38.title")}
-          </h1>
-          <p className="mt-2 text-lg text-muted-foreground">
-            {t("bsigParagraph38.subtitle")}
-          </p>
-          <RelatedPage href="/wiki/grundlagen/bsig-30">
-            {t("bsigParagraph30.title")}
-          </RelatedPage>
-        </header>
-
-        <WikiPageMeta authorSlug="simon-orzel" locale={locale} />
+        <WikiPageMeta
+          authorSlug="simon-orzel"
+          locale={locale}
+          lastReviewedAt="2026-10-05"
+          sourceLocale="de"
+        />
 
         <Separator />
 
-        <section className="space-y-3">
-          <h2 className="text-xl font-semibold tracking-tight">
-            {t("bsigParagraph38.overview.heading")}
-          </h2>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("bsigParagraph38.overview.p1")}
-          </p>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("bsigParagraph38.overview.p2")}
-          </p>
-        </section>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("bsigParagraph38.duties.heading")}</CardTitle>
-            <CardDescription>{t("bsigParagraph38.duties.description")}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {dutyKeys.map((key, index) => (
-                <div key={key} className="flex gap-4 rounded-lg border p-4">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
-                    {index + 1}
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold">
-                      {t(`bsigParagraph38.duties.items.${key}.title`)}
-                    </p>
-                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                      {t(`bsigParagraph38.duties.items.${key}.text`)}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-950/10">
-          <CardHeader>
-            <CardTitle className="text-amber-800 dark:text-amber-200">
-              {t("bsigParagraph38.liability.heading")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed text-amber-700 dark:text-amber-300">
-              {t("bsigParagraph38.liability.p1")}
-            </p>
-            <p className="text-sm leading-relaxed text-amber-700 dark:text-amber-300">
-              {t("bsigParagraph38.liability.p2")}
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("bsigParagraph38.training.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("bsigParagraph38.training.p1")}
-            </p>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("bsigParagraph38.training.p2")}
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("bsigParagraph38.scope.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("bsigParagraph38.scope.p1")}
-            </p>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("bsigParagraph38.scope.p2")}
-            </p>
-          </CardContent>
-        </Card>
-
         <section className="space-y-4">
-          <h2 className="text-xl font-semibold tracking-tight">
-            {t("bsigParagraph38.faq.heading")}
-          </h2>
+          <div>
+            <h2 className="text-xl font-semibold tracking-tight">{t("text.heading")}</h2>
+            <p className="mt-1 max-w-[62ch] text-sm leading-relaxed text-muted-foreground">
+              {t("text.lead")}
+            </p>
+          </div>
           <div className="space-y-3">
-            {faqKeys.map((key) => (
-              <Card key={key}>
-                <CardContent className="pt-6">
-                  <p className="text-sm font-semibold">
-                    {t(`bsigParagraph38.faq.${key}.q`)}
-                  </p>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                    {t(`bsigParagraph38.faq.${key}.a`)}
-                  </p>
-                </CardContent>
-              </Card>
+            {subsections.map(({ label, quote, plain }) => (
+              <div key={label} className="space-y-2.5 rounded-xl border p-4">
+                <h3 className="text-sm font-semibold">{label}</h3>
+                <blockquote
+                  lang="de"
+                  className="max-w-[62ch] border-l-2 border-primary/30 pl-3 text-sm italic leading-relaxed text-muted-foreground"
+                >
+                  {quote}
+                </blockquote>
+                <p className="max-w-[62ch] text-sm leading-relaxed">
+                  <span className="font-medium">{t("text.plainLabel")}:</span> {plain}
+                </p>
+              </div>
             ))}
           </div>
         </section>
 
+        <WikiSection
+          heading={t("training.heading")}
+          paragraphs={t.raw("training.paragraphs") as string[]}
+          law={t("training.law")}
+        />
+
+        <WikiSection
+          heading={t("implement.heading")}
+          paragraphs={t.raw("implement.paragraphs") as string[]}
+          law={t("implement.law")}
+        />
+
+        <WikiSection
+          heading={t("who.heading")}
+          paragraphs={t.raw("who.paragraphs") as string[]}
+          law={t("who.law")}
+        >
+          <WikiMoreLink href="/wiki/recht-und-folgen/geschaftsfuhrerhaftung">
+            {t("who.link")}
+          </WikiMoreLink>
+        </WikiSection>
+
+        <WikiExample
+          heading={t("example.heading")}
+          lead={t("example.lead")}
+          items={t.raw("example.items") as string[]}
+        />
+
+        <WalkHow
+          heading={t("walk.heading")}
+          lead={t("walk.lead")}
+          points={t.raw("walk.points") as string[]}
+          shot={shot}
+          seeIt={w("seeIt")}
+          next={t("walk.next")}
+        />
+
+        <WikiFaq heading={t("faq.heading")} items={faq} />
+
+        <WikiSources
+          heading={t("sources.heading")}
+          items={t.raw("sources.items") as string[]}
+        />
+
         <WalkSteps codes={["1.1", "7.3"]} />
+
+        <WalkPriceCard />
       </div>
     </GlossedProse>
   );

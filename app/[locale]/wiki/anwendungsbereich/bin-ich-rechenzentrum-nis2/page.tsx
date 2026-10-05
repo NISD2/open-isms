@@ -1,18 +1,23 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { JsonLd } from "@/components/JsonLd";
+import { shotImage } from "@/components/landing/shots";
 import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkHow } from "@/components/wiki/WalkHow";
+import { WalkPriceCard } from "@/components/wiki/WalkPriceCard";
 import { WalkSteps } from "@/components/wiki/WalkSteps";
+import { WikiAnswerHeader } from "@/components/wiki/WikiAnswerHeader";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
+import {
+  faqJsonLd,
+  WikiExample,
+  WikiFaq,
+  type WikiQuestion,
+  WikiSection,
+  WikiSources,
+} from "@/components/wiki/WikiSection";
 import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -41,12 +46,6 @@ export async function generateMetadata({
   };
 }
 
-const anchorKeys = ["directive", "regulation", "transposition"] as const;
-const elementKeys = ["serviceTest", "sizeTest", "kritisOverlap"] as const;
-const principleKeys = ["allDeliveryModels", "ownUseExcluded"] as const;
-const nationalKeys = ["bsi", "bsiC5", "enisa", "memberStates"] as const;
-const pitfallKeys = ["ownServerRoom", "belowKritis", "colocationOnly"] as const;
-
 export default async function AmIDataCentrePage({
   params,
 }: {
@@ -54,221 +53,107 @@ export default async function AmIDataCentrePage({
 }) {
   const { locale: rawLocale } = await params;
   const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
-  const t = await getTranslations("info");
+  const [t, w] = await Promise.all([
+    getTranslations("info.amIDataCentre"),
+    getTranslations("info.wikiWalk"),
+  ]);
+  const faq = t.raw("faq.items") as WikiQuestion[];
 
   return (
     <GlossedProse locale={locale}>
-      <div className="space-y-10">
+      <div className="space-y-12">
         <WikiPageJsonLd
           category="anwendungsbereich"
           slug="bin-ich-rechenzentrum-nis2"
           locale={locale}
           authorSlug="simon-orzel"
-          proficiencyLevel="Intermediate"
-          audienceType="Geschäftsführung, CISO und IT-Verantwortliche bei Rechenzentrumsbetreibern"
+          proficiencyLevel="Beginner"
+          audienceType="Geschäftsführung und IT-Verantwortliche bei Rechenzentrumsbetreibern"
           citationKeys={["nis2", "cir-2024-2690", "bsig"]}
           aboutKeys={["nis2"]}
           mentionsKeys={["bsig"]}
         />
+        <JsonLd data={faqJsonLd(faq)} />
 
-        <header>
-          <Badge variant="secondary" className="mb-3">
-            Anhang I Sektor 8 NIS 2
-          </Badge>
-          <h1 className="text-3xl font-bold tracking-tight">
-            {t("amIDataCentre.title")}
-          </h1>
-          <p className="mt-2 text-lg text-muted-foreground">
-            {t("amIDataCentre.subtitle")}
-          </p>
-        </header>
+        <WikiAnswerHeader
+          badge={t("badge")}
+          title={t("title")}
+          answer={t("subtitle")}
+          art="/images/wiki/nis2-rechenzentrum.svg"
+        />
 
         <WikiPageMeta
           authorSlug="simon-orzel"
           locale={locale === "nl" ? "de" : (locale as "de" | "en")}
-          lastReviewedAt="2026-05-30"
-          sourceLocale="en"
+          lastReviewedAt="2026-10-05"
+          sourceLocale="de"
         />
 
         <Separator />
 
-        {/* Overview */}
-        <section className="space-y-3">
-          <h2 className="text-xl font-semibold tracking-tight">
-            {t("amIDataCentre.overview.heading")}
-          </h2>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("amIDataCentre.overview.p1")}
-          </p>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("amIDataCentre.overview.p2")}
-          </p>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("amIDataCentre.overview.p3")}
-          </p>
-        </section>
+        <WikiSection
+          heading={t("definition.heading")}
+          paragraphs={t.raw("definition.paragraphs") as string[]}
+          law={t("definition.law")}
+        >
+          <figure className="max-w-[62ch] space-y-1.5 border-l-2 border-primary/30 pl-4">
+            <blockquote className="text-sm italic leading-relaxed">
+              {t("definition.quote")}
+            </blockquote>
+            <figcaption className="text-xs text-muted-foreground">
+              {t("definition.quoteSource")}
+            </figcaption>
+          </figure>
+        </WikiSection>
 
-        {/* Legal anchor */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("amIDataCentre.legalAnchor.heading")}</CardTitle>
-            <CardDescription>
-              {t("amIDataCentre.legalAnchor.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {anchorKeys.map((key) => (
-                <div key={key} className="rounded-lg border p-4">
-                  <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                    {t(`amIDataCentre.legalAnchor.${key}.label`)}
-                  </p>
-                  <blockquote className="mt-2 border-l-2 border-primary/40 pl-3 text-sm italic leading-relaxed">
-                    {t(`amIDataCentre.legalAnchor.${key}.quote`)}
-                  </blockquote>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                    {t(`amIDataCentre.legalAnchor.${key}.context`)}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <WikiSection
+          heading={t("size.heading")}
+          paragraphs={t.raw("size.paragraphs") as string[]}
+          law={t("size.law")}
+        />
 
-        {/* Three elements */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("amIDataCentre.elements.heading")}</CardTitle>
-            <CardDescription>{t("amIDataCentre.elements.description")}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-4 sm:grid-cols-3">
-              {elementKeys.map((key) => (
-                <div key={key} className="rounded-lg border p-4">
-                  <Badge variant="outline" className="mb-2 text-[10px]">
-                    {t(`amIDataCentre.elements.items.${key}.section`)}
-                  </Badge>
-                  <p className="text-sm font-semibold">
-                    {t(`amIDataCentre.elements.items.${key}.title`)}
-                  </p>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                    {t(`amIDataCentre.elements.items.${key}.body`)}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <WikiSection
+          heading={t("own.heading")}
+          paragraphs={t.raw("own.paragraphs") as string[]}
+        />
 
-        {/* Two principles */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("amIDataCentre.principles.heading")}</CardTitle>
-            <CardDescription>{t("amIDataCentre.principles.description")}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {principleKeys.map((key) => (
-                <div key={key} className="rounded-lg border p-4">
-                  <p className="text-sm font-semibold">
-                    {t(`amIDataCentre.principles.items.${key}.title`)}
-                  </p>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                    {t(`amIDataCentre.principles.items.${key}.body`)}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <WikiSection
+          heading={t("kritis.heading")}
+          paragraphs={t.raw("kritis.paragraphs") as string[]}
+          law={t("kritis.law")}
+        />
 
-        {/* National view */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("amIDataCentre.nationalView.heading")}</CardTitle>
-            <CardDescription>
-              {t("amIDataCentre.nationalView.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {nationalKeys.map((key) => (
-                <div key={key} className="rounded-lg border p-4">
-                  <div className="flex flex-wrap items-baseline gap-2">
-                    <Badge variant="outline" className="text-[10px]">
-                      {t(`amIDataCentre.nationalView.items.${key}.country`)}
-                    </Badge>
-                    <p className="text-sm font-semibold">
-                      {t(`amIDataCentre.nationalView.items.${key}.label`)}
-                    </p>
-                  </div>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                    {t(`amIDataCentre.nationalView.items.${key}.body`)}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <WikiSection
+          heading={t("cir.heading")}
+          paragraphs={t.raw("cir.paragraphs") as string[]}
+          law={t("cir.law")}
+        />
 
-        {/* Pitfalls */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("amIDataCentre.pitfalls.heading")}</CardTitle>
-            <CardDescription>{t("amIDataCentre.pitfalls.description")}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-4">
-              {pitfallKeys.map((key) => (
-                <li key={key} className="rounded-lg border p-4">
-                  <p className="text-sm font-semibold">
-                    {t(`amIDataCentre.pitfalls.items.${key}.myth`)}
-                  </p>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                    {t(`amIDataCentre.pitfalls.items.${key}.reality`)}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
+        <WikiExample
+          heading={t("example.heading")}
+          lead={t("example.lead")}
+          items={t.raw("example.items") as string[]}
+        />
 
-        {/* Practitioner view */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("amIDataCentre.practitioner.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("amIDataCentre.practitioner.p1")}
-            </p>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("amIDataCentre.practitioner.p2")}
-            </p>
-          </CardContent>
-        </Card>
+        <WalkHow
+          heading={t("walk.heading")}
+          lead={t("walk.lead")}
+          points={t.raw("walk.points") as string[]}
+          shot={shotImage("assetList", rawLocale, t("walk.seeItAlt"))}
+          seeIt={w("seeIt")}
+          next={t("walk.next")}
+        />
 
-        {/* Sources */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("amIDataCentre.sources.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2">
-              {(t.raw("amIDataCentre.sources.items") as string[]).map((source) => (
-                <li
-                  key={source}
-                  className="flex items-start gap-2 text-xs text-muted-foreground"
-                >
-                  <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
-                  {source}
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
+        <WikiFaq heading={t("faq.heading")} items={faq} />
 
-        <WalkSteps codes={["12.2"]} />
+        <WikiSources
+          heading={t("sources.heading")}
+          items={t.raw("sources.items") as string[]}
+        />
+
+        <WalkSteps codes={["2.2", "12.2"]} />
+
+        <WalkPriceCard />
       </div>
     </GlossedProse>
   );

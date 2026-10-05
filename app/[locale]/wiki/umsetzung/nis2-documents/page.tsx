@@ -1,13 +1,7 @@
-import { CheckCircle2, MinusCircle } from "lucide-react";
 import type { Metadata } from "next";
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { getTranslations } from "next-intl/server";
+import { JsonLd } from "@/components/JsonLd";
+import { shotImage } from "@/components/landing/shots";
 import { Separator } from "@/components/ui/separator";
 import {
   Table,
@@ -18,196 +12,22 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkHow } from "@/components/wiki/WalkHow";
+import { WalkPriceCard } from "@/components/wiki/WalkPriceCard";
 import { WalkSteps } from "@/components/wiki/WalkSteps";
+import { WikiAnswerHeader } from "@/components/wiki/WikiAnswerHeader";
+import { WikiMoreLink } from "@/components/wiki/WikiMoreLink";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { Link } from "@/i18n/navigation";
 import {
-  type DocumentGroup,
-  NIS2_DOCUMENT_GROUPS,
-  NIS2_DOCUMENTS,
-} from "@/lib/nis2-documents";
-import { pageAlternates, pageOg, type Locale as SeoLocale } from "@/lib/seo";
-
-type Locale = "de" | "en" | "nl";
-
-const content: Record<
-  Locale,
-  {
-    title: string;
-    subtitle: string;
-    meta: { title: string; description: string };
-    intro: string[];
-    sources: { heading: string; bullets: string[] };
-    countLine: (groupCount: number, docCount: number, coveredCount: number) => string;
-    columns: {
-      name: string;
-      reference: string;
-      description: string;
-      platform: string;
-    };
-    notCoveredLabel: string;
-    cta: { heading: string; description: string; primary: string; secondary: string };
-    footnote: string;
-    breadcrumb: string;
-    badge: string;
-  }
-> = {
-  de: {
-    title: "NIS 2 Dokumente: was Richtlinie, BSIG und CIR 2024/2690 nennen",
-    subtitle:
-      "Die Dokumente und Aufzeichnungen hinter NIS 2 und der Durchführungsverordnung 2024/2690. Die meisten Details stammen aus dem Anhang der Verordnung, der nur die dort erfassten digitalen Anbieter bindet (DNS, TLD, Cloud, Rechenzentren, CDN, MSP, MSSP, Online-Marktplätze, Suchmaschinen, soziale Netzwerke, Vertrauensdienste). Für alle anderen Einrichtungen verlangt das Gesetz Konzepte zu Risikoanalyse und IT-Sicherheit, Wirksamkeit, Kryptographie, Personal, Zugriff und Verwaltung der IT sowie die Dokumentation der Maßnahmen (§ 30 BSIG); die Form ist frei.",
-    meta: {
-      title: "NIS 2 Dokumente: was Richtlinie, BSIG und CIR 2024/2690 nennen",
-      description:
-        "Die Dokumente und Aufzeichnungen, die NIS 2, das BSIG und die CIR 2024/2690 nennen, verankert in den Originaltexten. Zeilen aus dem CIR-Anhang binden nur die dort erfassten digitalen Anbieter. Pro Dokument: Artikel-Verweis, CIR-Annex, Beschreibung und nisd2.eu-Plattform-Modul.",
-    },
-    intro: [
-      "Diese Seite listet die Dokumente und Aufzeichnungen, die NIS 2 (Richtlinie (EU) 2022/2555), das BSIG und die Durchführungsverordnung (EU) 2024/2690 nennen. Zeilen, die nur im CIR-Anhang verankert sind, binden die in Art. 1 CIR genannten digitalen Anbieter; für andere Einrichtungen sind sie Orientierung, keine Pflicht.",
-      "Bewusst kompakt: Beratungs-Toolkits zerlegen jede Anforderung oft in Verfahren, Formular und Anhang. Die Verordnung verlangt das nicht. Eine Anforderung = ein Dokument oder eine Aufzeichnung. Die fünf Stufen der Meldekaskade nach Artikel 23 sind ein Vorfall, der fünf Statusphasen durchläuft, nicht fünf separate Dokumente.",
-      "Letzte Spalte: das genaue nisd2.eu-Modul, in dem das Dokument bzw. der Nachweis aus Ihren Daten lebt — versionsfest, mit Audit-Trail, jederzeit exportierbar. Klicken Sie auf das Modul, um direkt zur Live-Ansicht zu springen. So entsteht keine eingefrorene Word-Vorlage, sondern eine durchgehende Compliance-Posture.",
-    ],
-    sources: {
-      heading: "Quellen",
-      bullets: [
-        "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 3 Abs. 4, 20, 21 Abs. 2 Buchst. a bis j, 23",
-        "Durchführungsverordnung (EU) 2024/2690 — Annex Abschnitte 1-13",
-        "BSIG (deutsche Umsetzung) — §§ 30, 32, 33, 38",
-        "BSI TR-02102 (Kryptografie), TR-03107 (Authentifizierung) — wo einschlägig",
-      ],
-    },
-    countLine: (groupCount, docCount, coveredCount) =>
-      `${docCount} Dokumente in ${groupCount} Themenbereichen — ${coveredCount} davon nativ in der Plattform abgedeckt.`,
-    columns: {
-      name: "Dokument",
-      reference: "Verweis",
-      description: "Beschreibung",
-      platform: "nisd2.eu",
-    },
-    notCoveredLabel: "Nicht nativ",
-    cta: {
-      heading: "Diese Dokumente nicht von Hand pflegen",
-      description:
-        "nisd2.eu erzeugt diese Dokumente und Nachweise aus Ihren Daten — Risiken, Lieferanten, Vorfälle, Schulungen, Audits — mit dauerhaftem Audit-Trail. Kostenlos, ohne Lock-in.",
-      primary: "Plattform ansehen",
-      secondary: "Kostenlose Anwendbarkeitsprüfung",
-    },
-    footnote:
-      "Diese Liste wird gepflegt, ersetzt aber keine juristische Prüfung. Verbindlich sind die Originaltexte der Richtlinie 2022/2555, der CIR 2024/2690 und des BSIG.",
-    breadcrumb: "NIS 2 Dokumente",
-    badge: "Referenz",
-  },
-  en: {
-    title: "NIS 2 Documents: what the Directive, the BSIG and CIR 2024/2690 name",
-    subtitle:
-      "The documents and records behind NIS 2 and Implementing Regulation 2024/2690. Most of the detail comes from the Regulation's Annex, which binds only the digital providers it covers (DNS, TLD, cloud, data centres, CDNs, MSPs, MSSPs, online marketplaces, search engines, social networks, trust services). For every other entity the law asks for policies on risk analysis and IT security, effectiveness, cryptography, staff, access and IT management, and for the measures to be documented (§ 30 BSIG); the form is up to the entity.",
-    meta: {
-      title: "NIS 2 Documents: what the Directive, the BSIG and CIR 2024/2690 name",
-      description:
-        "Documents and records named in NIS 2, the BSIG and CIR 2024/2690, anchored to the source texts. Rows from the CIR Annex bind only the digital providers it covers. Per document: article reference, CIR annex, description, nisd2.eu platform module.",
-    },
-    intro: [
-      "This page lists the documents and records named in NIS 2 (Directive (EU) 2022/2555), the BSIG and Implementing Regulation (EU) 2024/2690. Rows anchored only in the CIR Annex bind the digital providers listed in Art. 1 CIR; for other entities they are a reference, not a duty.",
-      "Intentionally compact: toolkit vendors often split each requirement into a procedure, a form and an appendix. The regulation does not require that. One requirement = one document or record. The five-stage Article 23 reporting cascade is one incident progressing through five status phases, not five separate documents.",
-      "Last column: the exact nisd2.eu module where the document or evidence lives as data — version-controlled, audit-trailed, exportable at any time. Click the module to jump straight to the live view. The point is continuous posture, not a frozen Word template.",
-    ],
-    sources: {
-      heading: "Sources",
-      bullets: [
-        "Directive (EU) 2022/2555 (NIS 2), Articles 3(4), 20, 21(2)(a) to (j), 23",
-        "Implementing Regulation (EU) 2024/2690 — Annex sections 1-13",
-        "BSIG (German transposition) — §§ 30, 32, 33, 38",
-        "BSI TR-02102 (cryptography), TR-03107 (authentication) — where applicable",
-      ],
-    },
-    countLine: (groupCount, docCount, coveredCount) =>
-      `${docCount} documents across ${groupCount} topic areas — ${coveredCount} covered natively by the platform.`,
-    columns: {
-      name: "Document",
-      reference: "Reference",
-      description: "Description",
-      platform: "nisd2.eu",
-    },
-    notCoveredLabel: "Not native",
-    cta: {
-      heading: "Don't maintain these documents by hand",
-      description:
-        "nisd2.eu generates these documents and evidence from your data — risks, suppliers, incidents, training, audits — with a durable audit trail. Free, no lock-in.",
-      primary: "Explore the platform",
-      secondary: "Free applicability check",
-    },
-    footnote:
-      "This list is maintained but does not replace a legal review. The authoritative texts are Directive 2022/2555, CIR 2024/2690, and the relevant national transposition.",
-    breadcrumb: "NIS 2 Documents",
-    badge: "Reference",
-  },
-  nl: {
-    title: "NIS 2 Documents: what the Directive and CIR 2024/2690 name",
-    subtitle:
-      "The documents and records behind NIS 2 and Implementing Regulation 2024/2690. Most of the detail comes from the Regulation's Annex, which binds only the digital providers it covers (DNS, TLD, cloud, data centres, CDNs, MSPs, MSSPs, online marketplaces, search engines, social networks, trust services). For every other entity the national law asks for the measures of Article 21(2) and decides the form of the documentation.",
-    meta: {
-      title: "NIS 2 Documents: what the Directive and CIR 2024/2690 name",
-      description:
-        "Documents and records named in NIS 2 and CIR 2024/2690, anchored to the source texts. Rows from the CIR Annex bind only the digital providers it covers. Per document: article reference, CIR annex, description, nisd2.eu platform module.",
-    },
-    intro: [
-      "This page lists the documents and records named in NIS 2 (Directive (EU) 2022/2555) and Implementing Regulation (EU) 2024/2690. Rows anchored only in the CIR Annex bind the digital providers listed in Art. 1 CIR; for other entities they are a reference, not a duty.",
-      "Intentionally compact: toolkit vendors often split each requirement into a procedure, a form and an appendix. The regulation does not require that. One requirement = one document or record.",
-      "Last column: the exact nisd2.eu module where the document or evidence lives as data — version-controlled, audit-trailed, exportable at any time. Click the module to jump straight to the live view.",
-    ],
-    sources: {
-      heading: "Sources",
-      bullets: [
-        "Directive (EU) 2022/2555 (NIS 2), Articles 3(4), 20, 21(2)(a) to (j), 23",
-        "Implementing Regulation (EU) 2024/2690 — Annex sections 1-13",
-        "National transposition (e.g. BSIG in Germany)",
-      ],
-    },
-    countLine: (groupCount, docCount, coveredCount) =>
-      `${docCount} documents across ${groupCount} topic areas — ${coveredCount} covered natively by the platform.`,
-    columns: {
-      name: "Document",
-      reference: "Reference",
-      description: "Description",
-      platform: "nisd2.eu",
-    },
-    notCoveredLabel: "Not native",
-    cta: {
-      heading: "Don't maintain these documents by hand",
-      description:
-        "nisd2.eu generates these documents and evidence from your data — risks, suppliers, incidents, training, audits — with a durable audit trail. Free, no lock-in.",
-      primary: "Explore the platform",
-      secondary: "Free applicability check",
-    },
-    footnote:
-      "This list is a reference, not legal advice. The authoritative texts are Directive 2022/2555, CIR 2024/2690, and the relevant national transposition.",
-    breadcrumb: "NIS 2 Documents",
-    badge: "Reference",
-  },
-};
-
-function pickLocale(locale: string): Locale {
-  if (locale === "de") return "de";
-  if (locale === "nl") return "nl";
-  return "en";
-}
-
-const GROUP_ORDER: DocumentGroup[] = [
-  "registration",
-  "governance",
-  "risk",
-  "assets",
-  "incident",
-  "incident-reporting",
-  "continuity",
-  "supply-chain",
-  "acquisition",
-  "cryptography",
-  "hr-access",
-  "authentication",
-  "training",
-  "effectiveness",
-];
+  faqJsonLd,
+  WikiExample,
+  WikiFaq,
+  type WikiQuestion,
+  WikiSection,
+  WikiSources,
+} from "@/components/wiki/WikiSection";
+import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -215,19 +35,80 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const c = content[pickLocale(locale)];
+  const t = await getTranslations("info");
+  const title = t("nis2Documents.meta.title");
+  const description = t("nis2Documents.meta.description");
   return {
-    title: c.meta.title,
-    description: c.meta.description,
+    title,
+    description,
     alternates: pageAlternates("wiki/umsetzung/nis2-documents", locale),
     ...pageOg({
       slug: "wiki/umsetzung/nis2-documents",
       locale,
-      title: c.meta.title,
-      description: c.meta.description,
+      title,
+      description,
       type: "article",
     }),
   };
+}
+
+interface Row {
+  readonly name: string;
+  readonly plain: string;
+  readonly law: string;
+}
+
+/** A document or a list, what it says in plain words, and the provision behind it. */
+function DocTable({
+  heading,
+  lead,
+  labels,
+  rows,
+}: {
+  heading: string;
+  lead: string;
+  labels: { readonly name: string; readonly plain: string; readonly law: string };
+  rows: readonly Row[];
+}) {
+  return (
+    <section className="space-y-4">
+      <div>
+        <h2 className="text-xl font-semibold tracking-tight">{heading}</h2>
+        <p className="mt-1 max-w-[62ch] text-sm leading-relaxed text-muted-foreground">
+          {lead}
+        </p>
+      </div>
+      <div className="rounded-xl border">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[32%]">{labels.name}</TableHead>
+              <TableHead>{labels.plain}</TableHead>
+              <TableHead className="hidden sm:table-cell">{labels.law}</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow key={row.name}>
+                <TableCell className="whitespace-normal align-top text-sm font-medium">
+                  {row.name}
+                  <span className="mt-1 block font-mono text-xs font-normal text-muted-foreground sm:hidden">
+                    {row.law}
+                  </span>
+                </TableCell>
+                <TableCell className="whitespace-normal align-top text-sm text-muted-foreground">
+                  {row.plain}
+                </TableCell>
+                <TableCell className="hidden whitespace-nowrap align-top font-mono text-xs text-muted-foreground sm:table-cell">
+                  {row.law}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    </section>
+  );
 }
 
 export default async function Nis2DocumentsPage({
@@ -236,158 +117,119 @@ export default async function Nis2DocumentsPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale = rawLocale;
-  const seoLocale: SeoLocale =
-    rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
-  const loc = pickLocale(locale);
-  const c = content[loc];
-
-  const docsByGroup = GROUP_ORDER.map((g) => ({
-    group: g,
-    label:
-      loc === "de" ? NIS2_DOCUMENT_GROUPS[g].label_de : NIS2_DOCUMENT_GROUPS[g].label_en,
-    docs: NIS2_DOCUMENTS.filter((d) => d.group === g),
-  })).filter((g) => g.docs.length > 0);
-
-  const totalDocs = NIS2_DOCUMENTS.length;
-  const totalGroups = docsByGroup.length;
-  const coveredDocs = NIS2_DOCUMENTS.filter((d) => d.platform.module).length;
+  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const [t, w] = await Promise.all([
+    getTranslations("info.nis2Documents"),
+    getTranslations("info.wikiWalk"),
+  ]);
+  const faq = t.raw("faq.items") as WikiQuestion[];
+  const documents = (
+    t.raw("documents.rows") as { document: string; plain: string; law: string }[]
+  ).map(({ document, plain, law }) => ({ name: document, plain, law }));
+  const lists = (
+    t.raw("lists.rows") as { list: string; plain: string; law: string }[]
+  ).map(({ list, plain, law }) => ({ name: list, plain, law }));
 
   return (
-    <GlossedProse locale={seoLocale}>
-      <div className="space-y-10">
+    <GlossedProse locale={locale}>
+      <div className="space-y-12">
         <WikiPageJsonLd
           category="umsetzung"
           slug="nis2-documents"
-          locale={seoLocale}
+          locale={locale}
           authorSlug="cory-hisey"
-          proficiencyLevel="Intermediate"
-          audienceType="Compliance-Beauftragte"
+          proficiencyLevel="Beginner"
+          audienceType="Geschäftsführung und IT-Verantwortliche im Mittelstand"
           citationKeys={["nis2", "bsig", "cir-2024-2690"]}
           aboutKeys={["nis2"]}
         />
+        <JsonLd data={faqJsonLd(faq)} />
 
-        <header>
-          <Badge variant="secondary" className="mb-3">
-            {c.badge}
-          </Badge>
-          <h1 className="text-3xl font-bold tracking-tight">{c.title}</h1>
-          <p className="mt-2 text-lg text-muted-foreground">{c.subtitle}</p>
-        </header>
+        <WikiAnswerHeader
+          badge={t("badge")}
+          title={t("title")}
+          answer={t("subtitle")}
+          art="/images/durchgang/4_4.svg"
+        />
 
         <WikiPageMeta
           authorSlug="cory-hisey"
-          locale={seoLocale === "nl" ? "de" : (seoLocale as "de" | "en")}
+          locale={locale === "nl" ? "de" : (locale as "de" | "en")}
+          lastReviewedAt="2026-10-05"
+          sourceLocale="de"
         />
 
         <Separator />
 
-        <section className="space-y-3">
-          {c.intro.map((p) => (
-            <p key={p} className="text-sm leading-relaxed text-muted-foreground">
-              {p}
-            </p>
-          ))}
-          <p className="text-sm font-medium">
-            {c.countLine(totalGroups, totalDocs, coveredDocs)}
-          </p>
-        </section>
+        <WikiSection
+          heading={t("duty.heading")}
+          paragraphs={t.raw("duty.paragraphs") as string[]}
+          law={t("duty.law")}
+        />
 
-        <Card>
-          <CardHeader>
-            <CardTitle>{c.sources.heading}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-1.5 text-sm text-muted-foreground">
-              {c.sources.bullets.map((b) => (
-                <li key={b}>{b}</li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
+        <DocTable
+          heading={t("documents.heading")}
+          lead={t("documents.lead")}
+          labels={{
+            name: t("documents.documentLabel"),
+            plain: t("documents.plainLabel"),
+            law: t("documents.lawLabel"),
+          }}
+          rows={documents}
+        />
 
-        {docsByGroup.map(({ group, label, docs }) => (
-          <Card key={group}>
-            <CardHeader>
-              <CardTitle>{label}</CardTitle>
-              <CardDescription>
-                {docs.length}{" "}
-                {docs.length === 1
-                  ? loc === "de"
-                    ? "Dokument"
-                    : "document"
-                  : loc === "de"
-                    ? "Dokumente"
-                    : "documents"}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-[24%]">{c.columns.name}</TableHead>
-                    <TableHead className="w-[16%]">{c.columns.reference}</TableHead>
-                    <TableHead>{c.columns.description}</TableHead>
-                    <TableHead className="w-[22%]">{c.columns.platform}</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {docs.map((doc) => {
-                    const note =
-                      loc === "de" ? doc.platform.note_de : doc.platform.note_en;
-                    return (
-                      <TableRow key={doc.id}>
-                        <TableCell className="font-medium align-top whitespace-normal">
-                          {loc === "de" ? doc.name_de : doc.name_en}
-                        </TableCell>
-                        <TableCell className="align-top whitespace-normal text-xs">
-                          <div>{doc.nis2Ref}</div>
-                          <div className="text-muted-foreground">{doc.cirRef}</div>
-                        </TableCell>
-                        <TableCell className="align-top whitespace-normal text-sm text-muted-foreground">
-                          {loc === "de" ? doc.description_de : doc.description_en}
-                        </TableCell>
-                        <TableCell className="align-top whitespace-normal text-xs">
-                          {doc.platform.module && doc.platform.slug ? (
-                            <div className="flex items-start gap-1.5">
-                              <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-600" />
-                              <div>
-                                <Link
-                                  href={doc.platform.slug as never}
-                                  className="font-medium text-foreground underline-offset-2 hover:underline"
-                                >
-                                  {doc.platform.module}
-                                  <span className="ml-1 text-muted-foreground">
-                                    {doc.platform.slug}
-                                  </span>
-                                </Link>
-                                <div className="text-muted-foreground">{note}</div>
-                              </div>
-                            </div>
-                          ) : (
-                            <div className="flex items-start gap-1.5">
-                              <MinusCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted-foreground" />
-                              <div>
-                                <div className="font-medium text-muted-foreground">
-                                  {c.notCoveredLabel}
-                                </div>
-                                <div className="text-muted-foreground">{note}</div>
-                              </div>
-                            </div>
-                          )}
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-        ))}
+        <DocTable
+          heading={t("lists.heading")}
+          lead={t("lists.lead")}
+          labels={{
+            name: t("lists.listLabel"),
+            plain: t("lists.plainLabel"),
+            law: t("lists.lawLabel"),
+          }}
+          rows={lists}
+        />
 
-        <p className="text-xs text-muted-foreground">{c.footnote}</p>
+        <WikiSection
+          heading={t("digital.heading")}
+          paragraphs={t.raw("digital.paragraphs") as string[]}
+          law={t("digital.law")}
+        >
+          <WikiMoreLink href="/wiki/grundlagen/cir-2024-2690">
+            {t("digital.link")}
+          </WikiMoreLink>
+        </WikiSection>
 
-        <WalkSteps codes={["2.4", "7.3"]} />
+        <WikiSection
+          heading={t("size.heading")}
+          paragraphs={t.raw("size.paragraphs") as string[]}
+          law={t("size.law")}
+        />
+
+        <WikiExample
+          heading={t("example.heading")}
+          lead={t("example.lead")}
+          items={t.raw("example.items") as string[]}
+        />
+
+        <WalkHow
+          heading={t("walk.heading")}
+          lead={t("walk.lead")}
+          points={t.raw("walk.points") as string[]}
+          shot={shotImage("approved", rawLocale, t("walk.seeItAlt"))}
+          seeIt={w("seeIt")}
+          next={t("walk.next")}
+        />
+
+        <WikiFaq heading={t("faq.heading")} items={faq} />
+
+        <WikiSources
+          heading={t("sources.heading")}
+          items={t.raw("sources.items") as string[]}
+        />
+
+        <WalkSteps codes={["2.4", "3.1", "7.3"]} />
+
+        <WalkPriceCard />
       </div>
     </GlossedProse>
   );

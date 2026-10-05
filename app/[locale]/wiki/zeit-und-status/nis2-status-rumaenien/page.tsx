@@ -11,6 +11,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
 import { WalkSteps } from "@/components/wiki/WalkSteps";
+import { WikiAnswerHeader } from "@/components/wiki/WikiAnswerHeader";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
 import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
@@ -68,17 +69,12 @@ export default async function Nis2StatusRumaenienPage({
           mentionsKeys={["bsig"]}
         />
 
-        <header>
-          <Badge variant="secondary" className="mb-3">
-            NIS 2 Status Rumänien
-          </Badge>
-          <h1 className="text-3xl font-bold tracking-tight">
-            {t("nis2StatusRumaenien.title")}
-          </h1>
-          <p className="mt-2 text-lg text-muted-foreground">
-            {t("nis2StatusRumaenien.subtitle")}
-          </p>
-        </header>
+        <WikiAnswerHeader
+          badge="NIS 2 Status Rumänien"
+          title={t("nis2StatusRumaenien.title")}
+          answer={t("nis2StatusRumaenien.subtitle")}
+          art="/images/wiki/nis2-europa.svg"
+        />
 
         <WikiPageMeta
           authorSlug="simon-orzel"

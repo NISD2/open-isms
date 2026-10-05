@@ -10,7 +10,7 @@
  * went wrong when the component built hrefs by hand.
  */
 import { routing } from "@/i18n/routing";
-import { WIKI_TOP_LEVEL, WIKI_TOC } from "@/lib/content/wiki-toc";
+import { WIKI_TOC, WIKI_TOP_LEVEL } from "@/lib/content/wiki-toc";
 
 export const relatedArticles: Record<string, string[]> = {
   "what-is-nis2": [
@@ -37,24 +37,9 @@ export const relatedArticles: Record<string, string[]> = {
     "nis2-meldepflicht",
     "umsetzung-mittelstand",
   ],
-  features: [
-    "what-is-nis2",
-    "pricing",
-    "nis2-requirements",
-    "nis2-tool",
-  ],
-  "nis2-tool": [
-    "features",
-    "nis2-requirements",
-    "kosten",
-    "what-is-nis2",
-  ],
-  faq: [
-    "what-is-nis2",
-    "nis2-registrierung",
-    "geschaftsfuhrerhaftung",
-    "glossar",
-  ],
+  features: ["what-is-nis2", "pricing", "nis2-requirements", "nis2-tool"],
+  "nis2-tool": ["features", "nis2-requirements", "kosten", "what-is-nis2"],
+  faq: ["what-is-nis2", "nis2-registrierung", "geschaftsfuhrerhaftung", "glossar"],
   geschaftsfuhrerhaftung: [
     "nis2-bussgelder",
     "nis2-in-germany",
@@ -91,12 +76,7 @@ export const relatedArticles: Record<string, string[]> = {
     "nis2-documents",
     "kosten",
   ],
-  kosten: [
-    "pricing",
-    "umsetzung-mittelstand",
-    "features",
-    "what-is-nis2",
-  ],
+  kosten: ["pricing", "umsetzung-mittelstand", "features", "what-is-nis2"],
   "it-sicherheitspflicht": [
     "nis2-in-germany",
     "nis2-requirements",
@@ -157,23 +137,14 @@ export const relatedArticles: Record<string, string[]> = {
     "what-is-nis2",
     "nis2-registrierung",
   ],
-  glossar: [
-    "what-is-nis2",
-    "faq",
-    "nis2-requirements",
-    "nis2-einrichtungen",
-  ],
+  glossar: ["what-is-nis2", "faq", "nis2-requirements", "nis2-einrichtungen"],
   "nis2-lieferkette": [
     "nis2-requirements",
     "features",
     "nis2-iso-27001",
     "nis2-in-germany",
   ],
-  pricing: [
-    "features",
-    "kosten",
-    "what-is-nis2",
-  ],
+  pricing: ["features", "kosten", "what-is-nis2"],
   "training/nis2-ceo": [
     "geschaftsfuhrerhaftung",
     "nis2-gap-assessment",
@@ -244,7 +215,7 @@ export const pageTitleKeys: Record<string, string> = {
   "nis2-iso-27001": "isoMapping",
   "nis2-vs-kritis": "kritisComparison",
   "nis2-meldepflicht": "incidentReporting",
-  "cir-2024-2690": "cirGuide",
+  "cir-2024-2690": "cir",
   "nis2-umsetzung-europa": "euImplementation",
   "nis2-einrichtungen": "entityTypes",
   "nis2-timeline": "nis2Timeline",
@@ -333,11 +304,7 @@ export function relatedPathname(slug: string): AppPathname | null {
   for (const candidate of candidates) {
     // The `in` check is the narrowing: only keys the routing config actually
     // carries are returned, so the assertion below cannot outrun reality.
-    if (
-      candidate &&
-      !candidate.includes("[") &&
-      candidate in routing.pathnames
-    ) {
+    if (candidate && !candidate.includes("[") && candidate in routing.pathnames) {
       return candidate as AppPathname;
     }
   }

@@ -1,3 +1,7 @@
+// A client component so the preview triggers are made on the client: passed down from the server,
+// a long page's payload can hand them to the popover as a lazy reference, which its slot rejects.
+"use client";
+
 import { ArrowRight, Check, Eye } from "lucide-react";
 import Image from "next/image";
 import { SignInLink } from "@/components/auth/SignInLink";

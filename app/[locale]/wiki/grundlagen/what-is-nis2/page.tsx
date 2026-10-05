@@ -1,13 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { JsonLd } from "@/components/JsonLd";
+import { shotImage } from "@/components/landing/shots";
+import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import {
   Table,
@@ -18,10 +13,22 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkHow } from "@/components/wiki/WalkHow";
+import { WalkPriceCard } from "@/components/wiki/WalkPriceCard";
 import { WalkSteps } from "@/components/wiki/WalkSteps";
+import { WikiAnswerHeader } from "@/components/wiki/WikiAnswerHeader";
+import { WikiMoreLink } from "@/components/wiki/WikiMoreLink";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { Link } from "@/i18n/navigation";
+import {
+  faqJsonLd,
+  LAW_CHIP,
+  WikiExample,
+  WikiFaq,
+  type WikiQuestion,
+  WikiSection,
+  WikiSources,
+} from "@/components/wiki/WikiSection";
 import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -47,54 +54,35 @@ export async function generateMetadata({
   };
 }
 
-const timelineKeys = [
-  "published",
-  "inForce",
-  "transposition",
-  "registries",
-  "review",
-] as const;
-const comparisonKeys = [
-  "scope",
-  "sectors",
-  "classification",
-  "penalties",
-  "management",
-  "reporting",
-  "supplyChain",
-  "supervision",
-] as const;
-const annexIKeys = [
-  "energy",
-  "transport",
-  "banking",
-  "financial",
-  "health",
-  "water",
-  "wastewater",
-  "digital",
-  "ict",
-  "publicAdmin",
-  "space",
-] as const;
-const annexIIKeys = [
-  "postal",
-  "waste",
-  "chemicals",
-  "food",
-  "manufacturing",
-  "digitalProviders",
-  "research",
-] as const;
-const sizeKeys = ["large", "medium", "small"] as const;
-const obligationKeys = [
-  "risk",
-  "reporting",
-  "management",
-  "supplyChain",
-  "registration",
-  "audit",
-] as const;
+interface Duty {
+  readonly title: string;
+  readonly text: string;
+  readonly law: string;
+}
+
+interface SizeRow {
+  readonly size: string;
+  readonly test: string;
+  readonly result: string;
+}
+
+function SectorList({ heading, items }: { heading: string; items: readonly string[] }) {
+  return (
+    <div className="space-y-2 rounded-xl border p-4">
+      <h3 className="text-sm font-semibold">{heading}</h3>
+      <ol className="space-y-1.5 text-sm">
+        {items.map((item, i) => (
+          <li key={item} className="flex gap-2">
+            <span className="shrink-0 font-mono text-xs leading-5 text-muted-foreground">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <span className="leading-5">{item}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
 
 export default async function WhatIsNis2Page({
   params,
@@ -103,245 +91,179 @@ export default async function WhatIsNis2Page({
 }) {
   const { locale: rawLocale } = await params;
   const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
-  const t = await getTranslations("info");
+  const [t, w] = await Promise.all([
+    getTranslations("info.whatIsNis2"),
+    getTranslations("info.wikiWalk"),
+  ]);
+  const faq = t.raw("faq.items") as WikiQuestion[];
+  const duties = t.raw("duties.items") as Duty[];
+  const sizes = t.raw("size.rows") as SizeRow[];
 
   return (
     <GlossedProse locale={locale}>
-      <div className="space-y-10">
+      <div className="space-y-12">
         <WikiPageJsonLd
           category="grundlagen"
           slug="what-is-nis2"
           locale={locale}
           authorSlug="simon-orzel"
           proficiencyLevel="Beginner"
-          audienceType="Geschäftsführung ohne Vorkenntnisse"
+          audienceType="Geschäftsführung und IT-Verantwortliche ohne Vorkenntnisse"
           citationKeys={["nis2", "bsig"]}
           aboutKeys={["nis2"]}
         />
-        {/* Header */}
-        <header>
-          <Badge variant="secondary" className="mb-3">
-            EU 2022/2555
-          </Badge>
-          <h1 className="text-3xl font-bold tracking-tight">{t("whatIsNis2.title")}</h1>
-          <p className="mt-2 text-lg text-muted-foreground">{t("whatIsNis2.subtitle")}</p>
-        </header>
+        <JsonLd data={faqJsonLd(faq)} />
+
+        <WikiAnswerHeader
+          badge={t("badge")}
+          title={t("title")}
+          answer={t("subtitle")}
+          art="/images/durchgang/7_3.svg"
+        />
 
         <WikiPageMeta
           authorSlug="simon-orzel"
-          locale={locale === "nl" ? "de" : (locale as "de" | "en")}
+          locale={locale}
+          lastReviewedAt="2026-10-05"
+          sourceLocale="de"
         />
 
         <Separator />
 
-        {/* Overview */}
-        <section className="space-y-3">
-          <h2 className="text-xl font-semibold tracking-tight">
-            {t("whatIsNis2.overview.heading")}
-          </h2>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("whatIsNis2.overview.p1")}
+        <WikiSection
+          heading={t("directive.heading")}
+          paragraphs={t.raw("directive.paragraphs") as string[]}
+          law={t("directive.law")}
+        />
+
+        <WikiSection
+          heading={t("who.heading")}
+          paragraphs={t.raw("who.paragraphs") as string[]}
+          law={t("who.law")}
+        >
+          <div className="grid gap-3 md:grid-cols-2">
+            <SectorList
+              heading={t("who.annex1Heading")}
+              items={t.raw("who.annex1") as string[]}
+            />
+            <SectorList
+              heading={t("who.annex2Heading")}
+              items={t.raw("who.annex2") as string[]}
+            />
+          </div>
+        </WikiSection>
+
+        <WikiSection heading={t("size.heading")} paragraphs={[t("size.lead")]}>
+          <div className="rounded-xl border">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>{t("size.sizeLabel")}</TableHead>
+                  <TableHead>{t("size.testLabel")}</TableHead>
+                  <TableHead>{t("size.resultLabel")}</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {sizes.map((row) => (
+                  <TableRow key={row.size}>
+                    <TableCell className="align-top font-medium">{row.size}</TableCell>
+                    <TableCell className="whitespace-normal align-top text-sm">
+                      {row.test}
+                    </TableCell>
+                    <TableCell className="whitespace-normal align-top text-sm">
+                      {row.result}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+          <p className="max-w-[62ch] text-sm leading-relaxed text-muted-foreground">
+            {t("size.note")}
           </p>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("whatIsNis2.overview.p2")}
-          </p>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("whatIsNis2.overview.p3")}
-          </p>
+        </WikiSection>
+
+        <section className="space-y-4">
+          <h2 className="text-xl font-semibold tracking-tight">{t("duties.heading")}</h2>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {duties.map((duty) => (
+              <Card key={duty.title} className="gap-2 py-5">
+                <CardContent className="space-y-2 px-5">
+                  <h3 className="text-base font-semibold">{duty.title}</h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {duty.text}
+                  </p>
+                  <p>
+                    <span className={LAW_CHIP}>{duty.law}</span>
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </section>
 
-        {/* Timeline */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("whatIsNis2.timeline.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[180px]">{t("features.badges.date")}</TableHead>
-                  <TableHead>{t("features.badges.event")}</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {timelineKeys.map((key) => (
-                  <TableRow key={key}>
-                    <TableCell className="font-medium">
-                      {t(`whatIsNis2.timeline.items.${key}.date`)}
-                    </TableCell>
-                    <TableCell className="whitespace-normal">
-                      {t(`whatIsNis2.timeline.items.${key}.event`)}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-            <div className="mt-3">
-              <Link
-                href={"/wiki/zeit-und-status/nis2-timeline" as never}
-                className="text-sm text-primary hover:underline"
-              >
-                {t("whatIsNis2.timeline.seeFullTimeline")} &rarr;
-              </Link>
-            </div>
-          </CardContent>
-        </Card>
+        <WikiSection
+          heading={t("penalties.heading")}
+          paragraphs={t.raw("penalties.paragraphs") as string[]}
+          law={t("penalties.law")}
+        >
+          <WikiMoreLink href="/wiki/recht-und-folgen/nis2-bussgelder">
+            {t("penalties.link")}
+          </WikiMoreLink>
+        </WikiSection>
 
-        {/* NIS1 vs NIS2 */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("whatIsNis2.nis1VsNis2.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[160px]">
-                    {t("whatIsNis2.nis1VsNis2.headers.aspect")}
-                  </TableHead>
-                  <TableHead>{t("whatIsNis2.nis1VsNis2.headers.nis1")}</TableHead>
-                  <TableHead>{t("whatIsNis2.nis1VsNis2.headers.nis2")}</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {comparisonKeys.map((key) => (
-                  <TableRow key={key}>
-                    <TableCell className="font-medium">
-                      {t(`whatIsNis2.nis1VsNis2.rows.${key}.aspect`)}
-                    </TableCell>
-                    <TableCell className="whitespace-normal text-muted-foreground">
-                      {t(`whatIsNis2.nis1VsNis2.rows.${key}.nis1`)}
-                    </TableCell>
-                    <TableCell className="whitespace-normal">
-                      {t(`whatIsNis2.nis1VsNis2.rows.${key}.nis2`)}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
+        <WikiSection
+          heading={t("nis1.heading")}
+          paragraphs={t.raw("nis1.paragraphs") as string[]}
+          law={t("nis1.law")}
+        />
 
-        {/* Sectors */}
-        <section className="space-y-6">
-          <h2 className="text-xl font-semibold tracking-tight">
-            {t("whatIsNis2.sectors.heading")}
-          </h2>
+        <WikiSection
+          heading={t("national.heading")}
+          paragraphs={t.raw("national.paragraphs") as string[]}
+          law={t("national.law")}
+        >
+          <div className="flex flex-col gap-x-6 sm:flex-row">
+            <WikiMoreLink href="/wiki/zeit-und-status/nis2-in-germany">
+              {t("national.germanyLink")}
+            </WikiMoreLink>
+            <WikiMoreLink href="/wiki/zeit-und-status/nis2-umsetzung-europa">
+              {t("national.europeLink")}
+            </WikiMoreLink>
+          </div>
+        </WikiSection>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">
-                {t("whatIsNis2.sectors.annexI.heading")}
-              </CardTitle>
-              <CardDescription>
-                {t("whatIsNis2.sectors.annexI.description")}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ol className="grid gap-2 text-sm sm:grid-cols-2">
-                {annexIKeys.map((key, i) => (
-                  <li key={key} className="flex gap-2">
-                    <span className="shrink-0 font-mono text-xs text-muted-foreground">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span>{t(`whatIsNis2.sectors.annexI.items.${key}`)}</span>
-                  </li>
-                ))}
-              </ol>
-            </CardContent>
-          </Card>
+        <WikiSection
+          heading={t("midsize.heading")}
+          paragraphs={t.raw("midsize.paragraphs") as string[]}
+          law={t("midsize.law")}
+        />
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">
-                {t("whatIsNis2.sectors.annexII.heading")}
-              </CardTitle>
-              <CardDescription>
-                {t("whatIsNis2.sectors.annexII.description")}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ol className="grid gap-2 text-sm sm:grid-cols-2">
-                {annexIIKeys.map((key, i) => (
-                  <li key={key} className="flex gap-2">
-                    <span className="shrink-0 font-mono text-xs text-muted-foreground">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span>{t(`whatIsNis2.sectors.annexII.items.${key}`)}</span>
-                  </li>
-                ))}
-              </ol>
-            </CardContent>
-          </Card>
-        </section>
+        <WikiExample
+          heading={t("example.heading")}
+          lead={t("example.lead")}
+          items={t.raw("example.items") as string[]}
+        />
 
-        {/* Size Thresholds */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("whatIsNis2.sizeThresholds.heading")}</CardTitle>
-            <CardDescription>
-              {t("whatIsNis2.sizeThresholds.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>{t("whatIsNis2.sizeThresholds.headers.size")}</TableHead>
-                  <TableHead>
-                    {t("whatIsNis2.sizeThresholds.headers.employees")}
-                  </TableHead>
-                  <TableHead>
-                    {t("whatIsNis2.sizeThresholds.headers.financial")}
-                  </TableHead>
-                  <TableHead>{t("whatIsNis2.sizeThresholds.headers.scope")}</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {sizeKeys.map((key) => (
-                  <TableRow key={key}>
-                    <TableCell className="font-medium">
-                      {t(`whatIsNis2.sizeThresholds.rows.${key}.size`)}
-                    </TableCell>
-                    <TableCell>
-                      {t(`whatIsNis2.sizeThresholds.rows.${key}.employees`)}
-                    </TableCell>
-                    <TableCell className="whitespace-normal">
-                      {t(`whatIsNis2.sizeThresholds.rows.${key}.financial`)}
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant={key === "small" ? "outline" : "default"}>
-                        {t(`whatIsNis2.sizeThresholds.rows.${key}.scope`)}
-                      </Badge>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-            <p className="text-xs text-muted-foreground">
-              {t("whatIsNis2.sizeThresholds.note")}
-            </p>
-          </CardContent>
-        </Card>
+        <WalkHow
+          heading={t("walk.heading")}
+          lead={t("walk.lead")}
+          points={t.raw("walk.points") as string[]}
+          shot={shotImage("path", rawLocale, t("walk.seeItAlt"))}
+          seeIt={w("seeIt")}
+          next={t("walk.next")}
+        />
 
-        {/* Obligations */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("whatIsNis2.obligations.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2">
-              {obligationKeys.map((key) => (
-                <li key={key} className="flex items-start gap-2 text-sm">
-                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                  {t(`whatIsNis2.obligations.items.${key}`)}
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
+        <WikiFaq heading={t("faq.heading")} items={faq} />
+
+        <WikiSources
+          heading={t("sources.heading")}
+          items={t.raw("sources.items") as string[]}
+        />
 
         <WalkSteps codes={["12.2", "3.3", "1.1"]} />
+
+        <WalkPriceCard />
       </div>
     </GlossedProse>
   );

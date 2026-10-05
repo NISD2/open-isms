@@ -1,26 +1,26 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { JsonLd } from "@/components/JsonLd";
+import { shotImage } from "@/components/landing/shots";
+import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkHow } from "@/components/wiki/WalkHow";
+import { WalkPriceCard } from "@/components/wiki/WalkPriceCard";
+import { WalkSteps } from "@/components/wiki/WalkSteps";
+import { WikiAnswerHeader } from "@/components/wiki/WikiAnswerHeader";
+import { WikiMoreLink } from "@/components/wiki/WikiMoreLink";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { Link } from "@/i18n/navigation";
+import {
+  faqJsonLd,
+  LAW_CHIP,
+  WikiExample,
+  WikiFaq,
+  type WikiQuestion,
+  WikiSection,
+  WikiSources,
+} from "@/components/wiki/WikiSection";
 import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -46,34 +46,24 @@ export async function generateMetadata({
   };
 }
 
-const timelineKeys = [
-  "euPublished",
-  "euForce",
-  "euDeadline",
-  "bundestag",
-  "bundesrat",
-  "published",
-  "inForce",
-  "portal",
-  "registration",
-  "amendmentBill",
-  "kritisAudit",
+/** Each duty with the page that covers it, in the order of `duties.items`. */
+const DUTY_PAGES = [
+  "/wiki/troubleshooting/nis2-registrierung-verpasst",
+  "/wiki/umsetzung/nis2-requirements",
+  "/wiki/umsetzung/nis2-meldepflicht",
+  "/wiki/recht-und-folgen/geschaftsfuhrerhaftung",
 ] as const;
-const highlightedTimelineKeys = new Set(["inForce", "registration"]);
-const categoryKeys = ["essential", "important", "kritis"] as const;
-const penaltyCategoryKeys = ["bwe", "we"] as const;
-const violationKeys = [
-  "measures",
-  "incidents",
-  "bsiDirectives",
-  "kritisComponents",
-  "kritisAudit",
-  "registration",
-  "obstruction",
-  "contact",
-] as const;
-const dutyKeys = ["approval", "oversight", "training"] as const;
-const supervisionKeys = ["approach", "fines", "audit", "kritisAudit"] as const;
+
+interface Duty {
+  readonly title: string;
+  readonly text: string;
+  readonly law: string;
+}
+
+interface Milestone {
+  readonly date: string;
+  readonly event: string;
+}
 
 export default async function Nis2InGermanyPage({
   params,
@@ -82,309 +72,145 @@ export default async function Nis2InGermanyPage({
 }) {
   const { locale: rawLocale } = await params;
   const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
-  const t = await getTranslations("info");
+  const [t, w] = await Promise.all([
+    getTranslations("info.nis2InGermany"),
+    getTranslations("info.wikiWalk"),
+  ]);
+  const faq = t.raw("faq.items") as WikiQuestion[];
+  const duties = t.raw("duties.items") as Duty[];
+  const milestones = t.raw("timeline.items") as Milestone[];
 
   return (
     <GlossedProse locale={locale}>
-      <div className="space-y-10">
+      <div className="space-y-12">
         <WikiPageJsonLd
           category="zeit-und-status"
           slug="nis2-in-germany"
           locale={locale}
           authorSlug="simon-orzel"
-          proficiencyLevel="Intermediate"
-          audienceType="Geschäftsführung und Compliance-Beauftragte"
+          proficiencyLevel="Beginner"
+          audienceType="Geschäftsführung und IT-Verantwortliche im Mittelstand"
           citationKeys={["nis2", "bsig"]}
           aboutKeys={["bsig"]}
           mentionsKeys={["nis2"]}
         />
-        {/* Header */}
-        <header>
-          <Badge variant="secondary" className="mb-3">
-            BSIG / NIS2UmsuCG
-          </Badge>
-          <h1 className="text-3xl font-bold tracking-tight">
-            {t("nis2InGermany.title")}
-          </h1>
-          <p className="mt-2 text-lg text-muted-foreground">
-            {t("nis2InGermany.subtitle")}
-          </p>
-        </header>
+        <JsonLd data={faqJsonLd(faq)} />
+
+        <WikiAnswerHeader
+          badge={t("badge")}
+          title={t("title")}
+          answer={t("subtitle")}
+          art="/images/durchgang/12_3.svg"
+        />
 
         <WikiPageMeta
           authorSlug="simon-orzel"
           locale={locale === "nl" ? "de" : (locale as "de" | "en")}
+          lastReviewedAt="2026-10-05"
+          sourceLocale="de"
         />
 
         <Separator />
 
-        {/* Timeline */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("nis2InGermany.timeline.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[140px]">{t("features.badges.date")}</TableHead>
-                  <TableHead>{t("features.badges.event")}</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {timelineKeys.map((key) => (
-                  <TableRow key={key}>
-                    <TableCell
-                      className={
-                        highlightedTimelineKeys.has(key) ? "font-bold" : "font-medium"
-                      }
-                    >
-                      {t(`nis2InGermany.timeline.items.${key}.date`)}
-                    </TableCell>
-                    <TableCell className="whitespace-normal">
-                      {highlightedTimelineKeys.has(key) ? (
-                        <span className="font-semibold">
-                          {t(`nis2InGermany.timeline.items.${key}.event`)}
-                        </span>
-                      ) : (
-                        t(`nis2InGermany.timeline.items.${key}.event`)
-                      )}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-            <p className="text-xs text-muted-foreground">
-              {t("nis2InGermany.timeline.noTransition")}
-            </p>
-            <div className="mt-3">
-              <Link
-                href={"/wiki/zeit-und-status/nis2-timeline" as never}
-                className="text-sm text-primary hover:underline"
-              >
-                {t("nis2InGermany.timeline.seeFullTimeline")} &rarr;
-              </Link>
-            </div>
-          </CardContent>
-        </Card>
+        <WikiSection
+          heading={t("law.heading")}
+          paragraphs={t.raw("law.paragraphs") as string[]}
+          law={t("law.law")}
+        />
 
-        {/* Entity Categories */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("nis2InGermany.categories.heading")}</CardTitle>
-            <CardDescription>{t("nis2InGermany.categories.description")}</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>{t("nis2InGermany.categories.headers.euTerm")}</TableHead>
-                  <TableHead>
-                    {t("nis2InGermany.categories.headers.germanTerm")}
-                  </TableHead>
-                  <TableHead>
-                    {t("nis2InGermany.categories.headers.abbreviation")}
-                  </TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {categoryKeys.map((key) => (
-                  <TableRow key={key}>
-                    <TableCell className="whitespace-normal">
-                      {t(`nis2InGermany.categories.rows.${key}.eu`)}
-                    </TableCell>
-                    <TableCell className="whitespace-normal font-medium">
-                      {t(`nis2InGermany.categories.rows.${key}.de`)}
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant="outline">
-                        {t(`nis2InGermany.categories.rows.${key}.abbr`)}
-                      </Badge>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-            <p className="text-xs text-muted-foreground">
-              {t("nis2InGermany.categories.hierarchy")}
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* Penalties */}
-        <section className="space-y-6">
+        <section className="space-y-4">
           <h2 className="text-xl font-semibold tracking-tight">
-            {t("nis2InGermany.penalties.heading")}
+            {t("timeline.heading")}
           </h2>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">
-                {t("nis2InGermany.penalties.byCategory.heading")}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>
-                      {t("nis2InGermany.penalties.byCategory.headers.category")}
-                    </TableHead>
-                    <TableHead>
-                      {t("nis2InGermany.penalties.byCategory.headers.maxFine")}
-                    </TableHead>
-                    <TableHead>
-                      {t("nis2InGermany.penalties.byCategory.headers.turnover")}
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {penaltyCategoryKeys.map((key) => (
-                    <TableRow key={key}>
-                      <TableCell className="whitespace-normal font-medium">
-                        {t(`nis2InGermany.penalties.byCategory.rows.${key}.category`)}
-                      </TableCell>
-                      <TableCell className="font-semibold">
-                        {t(`nis2InGermany.penalties.byCategory.rows.${key}.fine`)}
-                      </TableCell>
-                      <TableCell className="whitespace-normal">
-                        {t(`nis2InGermany.penalties.byCategory.rows.${key}.turnover`)}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">
-                {t("nis2InGermany.penalties.byViolation.heading")}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>
-                      {t("nis2InGermany.penalties.byViolation.headers.violation")}
-                    </TableHead>
-                    <TableHead className="text-right">
-                      {t("nis2InGermany.penalties.byViolation.headers.maxFine")}
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {violationKeys.map((key) => (
-                    <TableRow key={key}>
-                      <TableCell className="whitespace-normal">
-                        {t(`nis2InGermany.penalties.byViolation.rows.${key}.violation`)}
-                      </TableCell>
-                      <TableCell className="text-right font-medium">
-                        {t(`nis2InGermany.penalties.byViolation.rows.${key}.fine`)}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
+          <div className="divide-y rounded-xl border">
+            {milestones.map(({ date, event }) => (
+              <div
+                key={date}
+                className="grid gap-1 p-4 sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-6"
+              >
+                <p className="text-sm font-semibold">{date}</p>
+                <p className="max-w-[62ch] text-sm leading-relaxed text-muted-foreground">
+                  {event}
+                </p>
+              </div>
+            ))}
+          </div>
+          <WikiMoreLink href="/wiki/zeit-und-status/nis2-timeline">
+            {t("timeline.link")}
+          </WikiMoreLink>
         </section>
 
-        {/* Management Liability */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("nis2InGermany.managementLiability.heading")}</CardTitle>
-            <CardDescription>
-              {t("nis2InGermany.managementLiability.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div>
-              <h3 className="mb-3 text-sm font-semibold">
-                {t("nis2InGermany.managementLiability.duties.heading")}
-              </h3>
-              <div className="grid gap-4 sm:grid-cols-3">
-                {dutyKeys.map((key) => (
-                  <div key={key} className="rounded-lg border p-4">
-                    <p className="text-sm font-semibold">
-                      {t(`nis2InGermany.managementLiability.duties.${key}.title`)}
-                    </p>
-                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                      {t(`nis2InGermany.managementLiability.duties.${key}.description`)}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
+        <WikiSection
+          heading={t("who.heading")}
+          paragraphs={t.raw("who.paragraphs") as string[]}
+          law={t("who.law")}
+        />
 
-            <Separator />
+        <section className="space-y-4">
+          <h2 className="text-xl font-semibold tracking-tight">{t("duties.heading")}</h2>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {duties.map((duty, i) => (
+              <Card key={duty.title} className="gap-2 py-5">
+                <CardContent className="space-y-2 px-5">
+                  <h3 className="text-base font-semibold">{duty.title}</h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {duty.text}
+                  </p>
+                  <p>
+                    <span className={LAW_CHIP}>{duty.law}</span>
+                  </p>
+                  <WikiMoreLink
+                    href={DUTY_PAGES[i] ?? "/wiki/umsetzung/nis2-requirements"}
+                  >
+                    {w("more")}
+                  </WikiMoreLink>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
 
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("nis2InGermany.managementLiability.liability")}
-            </p>
-            <p className="text-xs text-muted-foreground">
-              {t("nis2InGermany.managementLiability.waiver")}
-            </p>
-          </CardContent>
-        </Card>
+        <WikiSection
+          heading={t("supervision.heading")}
+          paragraphs={t.raw("supervision.paragraphs") as string[]}
+          law={t("supervision.law")}
+        >
+          <WikiMoreLink href="/wiki/recht-und-folgen/nis2-bussgelder">
+            {t("supervision.link")}
+          </WikiMoreLink>
+        </WikiSection>
 
-        {/* BSI Registration */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("nis2InGermany.registration.heading")}</CardTitle>
-            <CardDescription>
-              {t("nis2InGermany.registration.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <div className="rounded-lg bg-muted/50 px-4 py-3">
-              <p className="text-sm font-semibold">
-                {t("nis2InGermany.registration.deadline")}
-              </p>
-            </div>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("nis2InGermany.registration.process")}
-            </p>
-            <p className="text-xs text-muted-foreground">
-              {t("nis2InGermany.registration.selfId")}
-            </p>
-          </CardContent>
-        </Card>
+        <WikiSection
+          heading={t("size.heading")}
+          paragraphs={t.raw("size.paragraphs") as string[]}
+          law={t("size.law")}
+        />
 
-        {/* Supervision */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("nis2InGermany.supervision.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>{t("nis2InGermany.supervision.headers.aspect")}</TableHead>
-                  <TableHead>{t("nis2InGermany.supervision.headers.bwe")}</TableHead>
-                  <TableHead>{t("nis2InGermany.supervision.headers.we")}</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {supervisionKeys.map((key) => (
-                  <TableRow key={key}>
-                    <TableCell className="font-medium">
-                      {t(`nis2InGermany.supervision.rows.${key}.aspect`)}
-                    </TableCell>
-                    <TableCell className="whitespace-normal">
-                      {t(`nis2InGermany.supervision.rows.${key}.bwe`)}
-                    </TableCell>
-                    <TableCell className="whitespace-normal">
-                      {t(`nis2InGermany.supervision.rows.${key}.we`)}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
+        <WikiExample
+          heading={t("example.heading")}
+          lead={t("example.lead")}
+          items={t.raw("example.items") as string[]}
+        />
+
+        <WalkHow
+          heading={t("walk.heading")}
+          lead={t("walk.lead")}
+          points={t.raw("walk.points") as string[]}
+          shot={shotImage("path", rawLocale, t("walk.seeItAlt"))}
+          seeIt={w("seeIt")}
+          next={t("walk.next")}
+        />
+
+        <WikiFaq heading={t("faq.heading")} items={faq} />
+
+        <WikiSources
+          heading={t("sources.heading")}
+          items={t.raw("sources.items") as string[]}
+        />
+
+        <WalkSteps codes={["12.2", "3.3", "1.1"]} />
+
+        <WalkPriceCard />
       </div>
     </GlossedProse>
   );

@@ -1,8 +1,8 @@
 import { ExternalLink } from "lucide-react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { itemShot } from "@/components/durchgang/itemShots";
 import { JsonLd } from "@/components/JsonLd";
-import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
@@ -20,9 +20,20 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkHow } from "@/components/wiki/WalkHow";
+import { WalkPriceCard } from "@/components/wiki/WalkPriceCard";
 import { WalkSteps } from "@/components/wiki/WalkSteps";
+import { WikiAnswerHeader } from "@/components/wiki/WikiAnswerHeader";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
+import {
+  faqJsonLd,
+  WikiExample,
+  WikiFaq,
+  type WikiQuestion,
+  WikiSection,
+  WikiSources,
+} from "@/components/wiki/WikiSection";
 import type { RegistrationPortal } from "@/lib/registration-portals";
 import { getRegistrationPortals } from "@/lib/registration-portals";
 import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
@@ -50,7 +61,10 @@ export async function generateMetadata({
   };
 }
 
-const faqKeys = ["q1", "q2", "q3", "q4"] as const;
+const faqKeys = ["1", "2", "3", "4"] as const;
+
+/** The walk's registration step, whose screen shows the country and its authority. */
+const REGISTRATION_STEP = "12.2";
 
 function PortalTable({
   portals,
@@ -140,218 +154,169 @@ export default async function NIS2EuropaPage({
 }) {
   const { locale: rawLocale } = await params;
   const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
-  const t = await getTranslations("info");
+  const [info, t, w] = await Promise.all([
+    getTranslations("info"),
+    getTranslations("info.euImplementation"),
+    getTranslations("info.wikiWalk"),
+  ]);
   const data = getRegistrationPortals();
+  const shot = itemShot(REGISTRATION_STEP, rawLocale, t("walk.seeItAlt"));
+  if (!shot) throw new Error(`The walk has no screenshot for step ${REGISTRATION_STEP}`);
 
   const operational = data.portals.filter((p) => p.status === "operational");
   const preReg = data.portals.filter((p) => p.status === "pre-registration");
   const planned = data.portals.filter((p) => p.status === "planned");
   const notAvailable = data.portals.filter((p) => p.status === "not-yet-available");
 
-  const faqs = faqKeys.map((key) => ({
-    "@type": "Question" as const,
-    name: t(`multiCountryReg.faq.${key}.q`),
-    acceptedAnswer: {
-      "@type": "Answer" as const,
-      text: t(`multiCountryReg.faq.${key}.a`),
-    },
+  // A country has transposed NIS 2 once its national law is in force.
+  const countryName = (code: string) =>
+    info(`registrationPortals.countries.${code}` as Parameters<typeof info>[0]);
+  const status = {
+    inForce: data.portals.filter((p) => p.entryIntoForce !== null).length,
+    missing: new Intl.ListFormat(rawLocale, { type: "conjunction" }).format(
+      data.portals
+        .filter((p) => p.entryIntoForce === null)
+        .map((p) => countryName(p.countryCode)),
+    ),
+  };
+  const faq: WikiQuestion[] = faqKeys.map((key) => ({
+    q: t(`faq.q${key}`),
+    a: t(`faq.a${key}`, status),
   }));
 
   return (
     <GlossedProse locale={locale}>
-      <div className="space-y-10">
+      <div className="space-y-12">
         <WikiPageJsonLd
           category="zeit-und-status"
           slug="nis2-umsetzung-europa"
           locale={locale}
           authorSlug="simon-orzel"
-          proficiencyLevel="Intermediate"
-          audienceType="Geschäftsführung und Compliance-Beauftragte"
+          proficiencyLevel="Beginner"
+          audienceType="Geschäftsführung und IT-Verantwortliche im Mittelstand"
           citationKeys={["nis2", "cir-2024-2690"]}
           aboutKeys={["nis2"]}
         />
-        <JsonLd
-          data={{
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: faqs,
-          }}
+        <JsonLd data={faqJsonLd(faq)} />
+
+        <WikiAnswerHeader
+          badge={t("badge")}
+          title={t("title")}
+          answer={t("subtitle", status)}
+          art="/images/wiki/nis2-europa.svg"
         />
 
-        {/* ── Hero ── */}
-        <header>
-          <Badge variant="secondary" className="mb-3">
-            EU-27
-          </Badge>
-          <h1 className="text-3xl font-bold tracking-tight">
-            {t("euImplementation.title")}
-          </h1>
-          <p className="mt-2 text-lg text-muted-foreground">
-            {t("euImplementation.subtitle")}
-          </p>
-          <p className="mt-1 text-xs text-muted-foreground">
-            {t("registrationPortals.lastUpdated")}:{" "}
-            {new Date(data.lastUpdated).toLocaleDateString(
-              locale === "de" ? "de-DE" : "en-US",
-              { year: "numeric", month: "long", day: "numeric" },
-            )}
-          </p>
-        </header>
-
-        <WikiPageMeta authorSlug="simon-orzel" locale={locale} />
+        <WikiPageMeta
+          authorSlug="simon-orzel"
+          locale={locale}
+          lastReviewedAt={data.lastUpdated}
+          sourceLocale="de"
+        />
 
         <Separator />
 
-        {/* ── Stats ── */}
-        <div className="grid gap-4 sm:grid-cols-4">
-          {(
-            [
-              { list: operational, key: "operational" },
-              { list: preReg, key: "pre-registration" },
-              { list: planned, key: "planned" },
-              { list: notAvailable, key: "not-yet-available" },
-            ] as const
-          ).map(({ list, key }) => (
-            <Card key={key}>
-              <CardContent className="pt-6 text-center">
-                <p className="text-2xl font-bold text-primary">{list.length}</p>
-                <p className="mt-1 text-sm font-medium">
-                  {t(`registrationPortals.status.${key}`)}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        {/* ── Registration Portals ── */}
-        <section id="portals" className="space-y-6">
-          {operational.length > 0 && (
-            <Card>
-              <CardHeader>
-                <CardTitle>{t("registrationPortals.operationalSection")}</CardTitle>
-                <CardDescription>
-                  {t("registrationPortals.operationalDescription")}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <PortalTable portals={operational} t={t} />
-              </CardContent>
-            </Card>
-          )}
-
-          {preReg.length > 0 && (
-            <Card>
-              <CardHeader>
-                <CardTitle>{t("registrationPortals.preRegSection")}</CardTitle>
-                <CardDescription>
-                  {t("registrationPortals.preRegDescription")}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <PortalTable portals={preReg} t={t} />
-              </CardContent>
-            </Card>
-          )}
-
-          {planned.length > 0 && (
-            <Card>
-              <CardHeader>
-                <CardTitle>{t("registrationPortals.plannedSection")}</CardTitle>
-                <CardDescription>
-                  {t("registrationPortals.plannedDescription")}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <PortalTable portals={planned} t={t} />
-              </CardContent>
-            </Card>
-          )}
-
-          {notAvailable.length > 0 && (
-            <Card>
-              <CardHeader>
-                <CardTitle>{t("registrationPortals.notAvailableSection")}</CardTitle>
-                <CardDescription>
-                  {t("registrationPortals.notAvailableDescription")}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <PortalTable portals={notAvailable} t={t} />
-              </CardContent>
-            </Card>
-          )}
-        </section>
-
-        <Separator />
-
-        {/* ── Multi-Country Registration ── */}
-        <section id="multi-country" className="space-y-6">
+        <section id="portals" className="scroll-mt-24 space-y-6">
           <div>
             <h2 className="text-xl font-semibold tracking-tight">
-              {t("multiCountryReg.rule.heading")}
+              {t("portals.heading")}
             </h2>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              {t("multiCountryReg.rule.p1")}
-            </p>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              {t("multiCountryReg.rule.p2")}
+            <p className="mt-1 max-w-[62ch] text-sm leading-relaxed text-muted-foreground">
+              {t("portals.lead")}
             </p>
           </div>
 
-          <Card className="border-amber-200 bg-amber-50 dark:border-amber-900 dark:bg-amber-950/30">
-            <CardHeader>
-              <CardTitle className="text-base">
-                {t("multiCountryReg.onestop.heading")}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                {t("multiCountryReg.onestop.description")}
-              </p>
-            </CardContent>
-          </Card>
-
-          <section className="space-y-4">
-            <h3 className="text-lg font-semibold tracking-tight">
-              {t("multiCountryReg.faq.heading")}
-            </h3>
-            {faqKeys.map((key) => (
-              <details key={key} className="group rounded-lg border p-4">
-                <summary className="flex cursor-pointer items-center justify-between text-sm font-medium">
-                  {t(`multiCountryReg.faq.${key}.q`)}
-                  <span className="ml-2 shrink-0 text-muted-foreground transition-transform group-open:rotate-180">
-                    &#9662;
-                  </span>
-                </summary>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {t(`multiCountryReg.faq.${key}.a`)}
-                </p>
-              </details>
+          <div className="grid gap-4 sm:grid-cols-4">
+            {(
+              [
+                { list: operational, key: "operational" },
+                { list: preReg, key: "pre-registration" },
+                { list: planned, key: "planned" },
+                { list: notAvailable, key: "not-yet-available" },
+              ] as const
+            ).map(({ list, key }) => (
+              <Card key={key}>
+                <CardContent className="pt-6 text-center">
+                  <p className="text-2xl font-bold text-primary">{list.length}</p>
+                  <p className="mt-1 text-sm font-medium">
+                    {info(`registrationPortals.status.${key}`)}
+                  </p>
+                </CardContent>
+              </Card>
             ))}
-          </section>
+          </div>
+
+          {(
+            [
+              {
+                list: operational,
+                title: "operationalSection",
+                lead: "operationalDescription",
+              },
+              { list: preReg, title: "preRegSection", lead: "preRegDescription" },
+              { list: planned, title: "plannedSection", lead: "plannedDescription" },
+              {
+                list: notAvailable,
+                title: "notAvailableSection",
+                lead: "notAvailableDescription",
+              },
+            ] as const
+          )
+            .filter(({ list }) => list.length > 0)
+            .map(({ list, title, lead }) => (
+              <Card key={title}>
+                <CardHeader>
+                  <CardTitle>{info(`registrationPortals.${title}`)}</CardTitle>
+                  <CardDescription>{info(`registrationPortals.${lead}`)}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <PortalTable portals={list} t={info} />
+                </CardContent>
+              </Card>
+            ))}
         </section>
 
-        {/* ── Sources ── */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("euImplementation.sources.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2">
-              {(t.raw("euImplementation.sources.items") as string[]).map((source) => (
-                <li
-                  key={source}
-                  className="flex items-start gap-2 text-xs text-muted-foreground"
-                >
-                  <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
-                  {source}
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
+        <WikiSection
+          heading={t("rule.heading")}
+          paragraphs={t.raw("rule.paragraphs") as string[]}
+          law={t("rule.law")}
+        />
+
+        <WikiSection
+          heading={t("same.heading")}
+          paragraphs={t.raw("same.paragraphs") as string[]}
+          law={t("same.law")}
+        />
+
+        <WikiSection
+          heading={t("size.heading")}
+          paragraphs={t.raw("size.paragraphs") as string[]}
+        />
+
+        <WikiExample
+          heading={t("example.heading")}
+          lead={t("example.lead")}
+          items={t.raw("example.items") as string[]}
+        />
+
+        <WalkHow
+          heading={t("walk.heading")}
+          lead={t("walk.lead")}
+          points={t.raw("walk.points") as string[]}
+          shot={shot}
+          seeIt={w("seeIt")}
+          next={t("walk.next")}
+        />
+
+        <WikiFaq heading={t("faq.heading")} items={faq} />
+
+        <WikiSources
+          heading={t("sources.heading")}
+          items={t.raw("sources.items") as string[]}
+        />
 
         <WalkSteps kind="national" />
+
+        <WalkPriceCard />
       </div>
     </GlossedProse>
   );

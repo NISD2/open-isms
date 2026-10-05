@@ -1,17 +1,24 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { itemShot } from "@/components/durchgang/itemShots";
+import { JsonLd } from "@/components/JsonLd";
 import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { WalkHow } from "@/components/wiki/WalkHow";
+import { WalkPriceCard } from "@/components/wiki/WalkPriceCard";
+import { WalkSteps } from "@/components/wiki/WalkSteps";
+import { WikiAnswerHeader } from "@/components/wiki/WikiAnswerHeader";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
+import {
+  faqJsonLd,
+  LAW_CHIP,
+  WikiExample,
+  WikiFaq,
+  type WikiQuestion,
+  WikiSection,
+  WikiSources,
+} from "@/components/wiki/WikiSection";
 import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -37,36 +44,14 @@ export async function generateMetadata({
   };
 }
 
-// Art. 1 CIR's entity types, and one card per article or run of articles (a6 covers Arts. 6 to
-// 14, a7 carries Art. 16).
-const scopeKeys = [
-  "dns",
-  "tld",
-  "cloud",
-  "datacentre",
-  "cdn",
-  "managed",
-  "marketplaces",
-  "search",
-  "social",
-  "trust",
-] as const;
-const articleKeys = ["a1", "a2", "a3", "a4", "a5", "a6", "a15", "a7"] as const;
-const measureKeys = [
-  "policy",
-  "risk",
-  "incidents",
-  "continuity",
-  "supply",
-  "acquisition",
-  "effectiveness",
-  "hygiene",
-  "crypto",
-  "hr",
-  "access",
-  "assets",
-  "physical",
-] as const;
+/** The walk's security policy step, which names the yearly review the regulation sets. */
+const POLICY_STEP = "2.4";
+
+interface AnnexSection {
+  readonly title: string;
+  readonly text: string;
+  readonly law: string;
+}
 
 export default async function CirPage({
   params,
@@ -75,160 +60,143 @@ export default async function CirPage({
 }) {
   const { locale: rawLocale } = await params;
   const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
-  const t = await getTranslations("info");
+  const [t, w] = await Promise.all([
+    getTranslations("info.cir"),
+    getTranslations("info.wikiWalk"),
+  ]);
+  const faq = t.raw("faq.items") as WikiQuestion[];
+  const scope = t.raw("scope.items") as string[];
+  const annex = t.raw("annex.items") as AnnexSection[];
+  const shot = itemShot(POLICY_STEP, rawLocale, t("walk.seeItAlt"));
+  if (!shot) throw new Error(`The walk has no screenshot for step ${POLICY_STEP}`);
 
   return (
     <GlossedProse locale={locale}>
-      <div className="space-y-10">
+      <div className="space-y-12">
         <WikiPageJsonLd
           category="grundlagen"
           slug="cir-2024-2690"
           locale={locale}
-          authorSlug="cory-hisey"
-          proficiencyLevel="Expert"
-          audienceType="IT-Verantwortliche und Compliance-Beauftragte"
+          authorSlug="simon-orzel"
+          proficiencyLevel="Intermediate"
+          audienceType="Geschäftsführung und IT-Verantwortliche bei digitalen Anbietern"
           citationKeys={["nis2", "cir-2024-2690"]}
           aboutKeys={["cir-2024-2690"]}
           mentionsKeys={["nis2"]}
         />
-        <header>
-          <Badge variant="secondary" className="mb-3">
-            EU 2024/2690
-          </Badge>
-          <h1 className="text-3xl font-bold tracking-tight">{t("cir.title")}</h1>
-          <p className="mt-2 text-lg text-muted-foreground">{t("cir.subtitle")}</p>
-        </header>
+        <JsonLd data={faqJsonLd(faq)} />
+
+        <WikiAnswerHeader
+          badge={t("badge")}
+          title={t("title")}
+          answer={t("subtitle")}
+          art="/images/durchgang/5_2.svg"
+        />
 
         <WikiPageMeta
-          authorSlug="cory-hisey"
+          authorSlug="simon-orzel"
           locale={locale === "nl" ? "de" : (locale as "de" | "en")}
+          lastReviewedAt="2026-10-05"
+          sourceLocale="de"
         />
 
         <Separator />
 
-        <section className="space-y-3">
-          <h2 className="text-xl font-semibold tracking-tight">
-            {t("cir.overview.heading")}
-          </h2>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("cir.overview.p1")}
-          </p>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("cir.overview.p2")}
-          </p>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {t("cir.overview.p3")}
-          </p>
-        </section>
+        <WikiSection
+          heading={t("scope.heading")}
+          paragraphs={[t("scope.lead")]}
+          law={t("scope.law")}
+        >
+          <ul className="grid max-w-3xl gap-x-6 gap-y-1.5 sm:grid-cols-2">
+            {scope.map((item) => (
+              <li key={item} className="flex items-start gap-2 text-sm leading-relaxed">
+                <span className="mt-2 size-1.5 shrink-0 rounded-full bg-primary" />
+                {item}
+              </li>
+            ))}
+          </ul>
+          {(t.raw("scope.paragraphs") as string[]).map((paragraph) => (
+            <p
+              key={paragraph}
+              className="max-w-[62ch] text-sm leading-relaxed text-muted-foreground"
+            >
+              {paragraph}
+            </p>
+          ))}
+        </WikiSection>
 
-        {/* Who It Applies To */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("cir.scope.heading")}</CardTitle>
-            <CardDescription>{t("cir.scope.description")}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {scopeKeys.map((key) => (
-                <div key={key} className="rounded-lg border p-3">
-                  <p className="text-sm font-medium">{t(`cir.scope.items.${key}`)}</p>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Key Articles */}
         <section className="space-y-4">
           <div>
-            <h2 className="text-xl font-semibold tracking-tight">
-              {t("cir.articles.heading")}
-            </h2>
-            <p className="mt-1 text-sm text-muted-foreground">
-              {t("cir.articles.description")}
+            <h2 className="text-xl font-semibold tracking-tight">{t("annex.heading")}</h2>
+            <p className="mt-1 max-w-[62ch] text-sm leading-relaxed text-muted-foreground">
+              {t("annex.lead")}
             </p>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {articleKeys.map((key) => (
-              <Card key={key}>
-                <CardContent className="pt-6">
-                  <p className="text-sm font-semibold">
-                    {t(`cir.articles.items.${key}.title`)}
+          <div className="divide-y rounded-xl border">
+            {annex.map((section) => (
+              <div
+                key={section.law}
+                className="grid gap-1.5 p-4 sm:grid-cols-[4.5rem_minmax(0,1fr)] sm:gap-4"
+              >
+                <p>
+                  <span className={LAW_CHIP}>{section.law}</span>
+                </p>
+                <div className="space-y-1">
+                  <h3 className="text-sm font-semibold">{section.title}</h3>
+                  <p className="max-w-[62ch] text-sm leading-relaxed text-muted-foreground">
+                    {section.text}
                   </p>
-                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                    {t(`cir.articles.items.${key}.description`)}
-                  </p>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             ))}
           </div>
+          <p className="max-w-[62ch] text-sm leading-relaxed text-muted-foreground">
+            {t("annex.proportionate")}
+          </p>
         </section>
 
-        {/* 13 Thematic Measure Points from the Annex */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("cir.measures.heading")}</CardTitle>
-            <CardDescription>{t("cir.measures.description")}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {measureKeys.map((key, index) => (
-                <div key={key} className="flex gap-4 rounded-lg border p-4">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
-                    {index + 1}
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold">
-                      {t(`cir.measures.items.${key}.title`)}
-                    </p>
-                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                      {t(`cir.measures.items.${key}.description`)}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <WikiSection
+          heading={t("incidents.heading")}
+          paragraphs={t.raw("incidents.paragraphs") as string[]}
+          law={t("incidents.law")}
+        />
 
-        {/* Relationship to BSIG */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("cir.relationship.heading")}</CardTitle>
-            <CardDescription>{t("cir.relationship.description")}</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("cir.relationship.p1")}
-            </p>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("cir.relationship.p2")}
-            </p>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {t("cir.relationship.p3")}
-            </p>
-          </CardContent>
-        </Card>
+        <WikiSection
+          heading={t("germany.heading")}
+          paragraphs={t.raw("germany.paragraphs") as string[]}
+          law={t("germany.law")}
+        />
 
-        {/* Sources */}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("cir.sources.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2">
-              {(t.raw("cir.sources.items") as string[]).map((source) => (
-                <li
-                  key={source}
-                  className="flex items-start gap-2 text-xs text-muted-foreground"
-                >
-                  <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
-                  {source}
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
+        <WikiSection
+          heading={t("size.heading")}
+          paragraphs={t.raw("size.paragraphs") as string[]}
+        />
+
+        <WikiExample
+          heading={t("example.heading")}
+          lead={t("example.lead")}
+          items={t.raw("example.items") as string[]}
+        />
+
+        <WalkHow
+          heading={t("walk.heading")}
+          lead={t("walk.lead")}
+          points={t.raw("walk.points") as string[]}
+          shot={shot}
+          seeIt={w("seeIt")}
+          next={t("walk.next")}
+        />
+
+        <WikiFaq heading={t("faq.heading")} items={faq} />
+
+        <WikiSources
+          heading={t("sources.heading")}
+          items={t.raw("sources.items") as string[]}
+        />
+
+        <WalkSteps codes={["2.4", "11.1", "5.1"]} />
+
+        <WalkPriceCard />
       </div>
     </GlossedProse>
   );
