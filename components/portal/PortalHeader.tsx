@@ -3,6 +3,7 @@
 import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Fragment } from "react";
+import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 import { PortalGuide } from "@/components/onboarding/PortalGuide";
 import {
   Breadcrumb,
@@ -152,7 +153,10 @@ export function PortalHeader({
           })}
         </BreadcrumbList>
       </Breadcrumb>
+      {/* The language sits here in every portal, beside the help, not at the foot of the sidebar
+          (Simon, 05.10.2026); the profile menu keeps its own. */}
       <div className="ml-auto flex items-center gap-1">
+        <LocaleSwitcher />
         {guide && (
           <PortalGuide
             hints={guide.hints}
