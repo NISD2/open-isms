@@ -830,7 +830,8 @@
       },
       "analytics": {
         "heading": "Analyse",
-        "p1": "Wir verwenden Umami für Website-Analysen. Umami ist selbst gehostet auf unserer eigenen Infrastruktur. Es werden keine personenbezogenen Daten erhoben, keine Cookies gesetzt und keine einzelnen Nutzer verfolgt. Alle Daten sind aggregiert und anonym. Für diese Art der Analyse ist keine Einwilligung erforderlich."
+        "p1": "Wir verwenden Umami für Website-Analysen. Umami ist selbst gehostet auf unserer eigenen Infrastruktur. Es werden keine personenbezogenen Daten erhoben, keine Cookies gesetzt und keine einzelnen Nutzer verfolgt. Alle Daten sind aggregiert und anonym. Für diese Art der Analyse ist keine Einwilligung erforderlich.",
+        "p2": "Unabhängig davon: Wenn Sie sich über einen Link mit Kampagnenangaben registrieren (Parameter, die mit utm_ beginnen, zum Beispiel aus einer Anzeige), speichern wir diese Angaben zu Ihrem Konto. So sehen wir, über welche Anzeige oder welchen Link ein Konto entstanden ist. Andere Angaben aus dem Link, etwa Klick-IDs, speichern wir nicht. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO, unser berechtigtes Interesse, die Wirkung unserer Werbung zu messen."
       },
       "cookies": {
         "heading": "Cookies",

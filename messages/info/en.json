@@ -830,7 +830,8 @@
       },
       "analytics": {
         "heading": "Analytics",
-        "p1": "We use Umami for website analytics. Umami is self-hosted on our own infrastructure. It does not collect personal data, does not use cookies, and does not track individual users. All data is aggregated and anonymous. No consent is required for this type of analytics."
+        "p1": "We use Umami for website analytics. Umami is self-hosted on our own infrastructure. It does not collect personal data, does not use cookies, and does not track individual users. All data is aggregated and anonymous. No consent is required for this type of analytics.",
+        "p2": "Separately: if you sign up through a link that carries campaign tags (parameters starting with utm_, for example from an ad), we store those tags with your account, so we can see which ad or link an account came from. Nothing else from the link, such as click IDs, is stored. The legal basis is Art. 6(1)(f) GDPR, our legitimate interest in measuring what our advertising does."
       },
       "cookies": {
         "heading": "Cookies",
