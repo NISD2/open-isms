@@ -18,7 +18,7 @@ import { PARTNER_CONTRACT_INTL_LOCALE, type PartnerContractLocale } from "./date
 export type { PartnerContractLocale } from "./date";
 
 /** Moves whenever the wording changes what an offer says, so a stored offer names its wording. */
-export const PARTNER_CONTRACT_VERSION = "2026-10-06.2";
+export const PARTNER_CONTRACT_VERSION = "2026-10-06.3";
 
 const MESSAGES = {
   de: { ...partnerDe, ...pricingDe },

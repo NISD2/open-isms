@@ -1,3 +1,4 @@
+import { user } from "@nisd2/isms-schema/tables/organization";
 import { sql } from "drizzle-orm";
 import {
   check,
@@ -13,6 +14,18 @@ import {
 } from "drizzle-orm/pg-core";
 
 export const partnerContractLocaleEnum = pgEnum("partner_contract_locale", ["de", "en"]);
+
+/**
+ * What offering an agreement did for the contact email's access to the Durchgang:
+ * a new account created for this offer, an existing account set to full, nothing because the
+ * address belongs to an account someone else holds, or nothing because a write failed.
+ */
+export const partnerAccessOutcomeEnum = pgEnum("partner_access_outcome", [
+  "new_account",
+  "existing_account",
+  "not_holder",
+  "failed",
+]);
 
 /** The agreement as it was offered: what the partner reads, accepts and receives by email. */
 export interface PartnerContractBody {
@@ -52,6 +65,17 @@ export const partnerContract = pgTable(
     partnerContactName: varchar("partner_contact_name", { length: 200 }),
     partnerEmail: varchar("partner_email", { length: 320 }),
 
+    /**
+     * The contact email's access, set up when the offer is made so the partner can look before
+     * signing. Null outcome: no contact email, or an offer from before access came with it.
+     * The user is the one the offer created or found; only a `new_account` user may set a first
+     * password from the agreement page.
+     */
+    accessOutcome: partnerAccessOutcomeEnum("access_outcome"),
+    accessUserId: uuid("access_user_id").references(() => user.id, {
+      onDelete: "set null",
+    }),
+
     commissionPercent: integer("commission_percent").notNull(),
     /** Months of each referred customer's contract the commission covers; null while they pay. */
     commissionMonths: integer("commission_months"),
@@ -90,6 +114,10 @@ export const partnerContract = pgTable(
     check(
       "partner_contract_withdrawn_unsigned",
       sql`${table.withdrawnAt} is null or ${table.signedAt} is null`,
+    ),
+    check(
+      "partner_contract_access_user_granted",
+      sql`${table.accessUserId} is null or ${table.accessOutcome} in ('new_account', 'existing_account')`,
     ),
     index("idx_partner_contract_created").on(table.createdAt),
   ],
