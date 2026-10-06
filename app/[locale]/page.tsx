@@ -1,4 +1,4 @@
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { SignInLink } from "@/components/auth/SignInLink";
@@ -125,38 +125,10 @@ export default async function LandingPage() {
         <WalkShowcase />
         <GetStarted variant="landing" className="mt-24 sm:mt-32" />
 
-        {/* What you get + open source. Aligned to the hero width and left edge,
-            split by a hairline, so it reads as an intentional section rather
-            than a floating centered card. */}
+        {/* Open source, after the close: aligned to the hero's left edge under a
+            hairline, so it reads as a footnote to the offer rather than a second pitch. */}
         <section className="mx-auto mt-16 w-full max-w-6xl border-t border-border/60 pt-10">
-          <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr] lg:gap-16">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                {t("cardGetTitle")}
-              </p>
-              <ul className="mt-5 grid gap-5 sm:grid-cols-3">
-                <li className="flex flex-col gap-2.5">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                    <Check className="h-4 w-4" />
-                  </span>
-                  <span className="text-sm leading-snug">{t("cardGet1")}</span>
-                </li>
-                <li className="flex flex-col gap-2.5">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                    <Check className="h-4 w-4" />
-                  </span>
-                  <span className="text-sm leading-snug">{t("cardGet2")}</span>
-                </li>
-                <li className="flex flex-col gap-2.5">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                    <Check className="h-4 w-4" />
-                  </span>
-                  <span className="text-sm leading-snug">{t("cardGet3")}</span>
-                </li>
-              </ul>
-            </div>
-            <OpenSourceNote className="lg:border-l lg:border-border/60 lg:pl-16" />
-          </div>
+          <OpenSourceNote className="max-w-2xl" />
         </section>
       </main>
       <PublicFooter />
