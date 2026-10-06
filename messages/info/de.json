@@ -7667,14 +7667,14 @@
     "trainingCeo": {
       "courseScale": "{modules} Module · {lessons} Lektionen · rund {hours} Std. · Einstieg bei jeder Lektion",
       "meta": {
-        "title": "NIS2 Management-Training - Artikel 20 + 21",
-        "description": "NIS2-Training zu Artikel 20 + 21: Risiken, die 10 Sicherheitsmaßnahmen und Aufsicht durch die Leitung. Erfüllt die Schulungspflicht nach Art. 20(2). 47 Lektionen, kostenlos.",
-        "ogTitle": "NIS2 Management-Training - Artikel 20 + 21",
-        "ogDescription": "47 Lektionen. 4 Stunden. Artikel 20 und 21 der NIS2-Richtlinie. Erfüllt die Schulungspflicht nach Art. 20(2). Kostenlos."
+        "title": "Kostenlose NIS2 Schulung für die Geschäftsleitung",
+        "description": "NIS2 Schulung für Geschäftsführer und Vorstände nach Art. 20 NIS2 und § 38 Abs. 3 BSIG: 47 Lektionen online, rund 4 Stunden, mit Teilnahmebescheinigung.",
+        "ogTitle": "NIS2 Schulung für die Geschäftsleitung",
+        "ogDescription": "Kostenloser Onlinekurs für Geschäftsführer und Vorstände nach Art. 20 NIS2 und § 38 Abs. 3 BSIG: 47 Lektionen, rund 4 Stunden, mit Teilnahmebescheinigung."
       },
       "badge": "NIS2 Artikel 20 + 21",
-      "title": "NIS2 Management-Training",
-      "subtitle": "Alles, was die NIS2-Richtlinie von Ihnen als Mitglied des Leitungsorgans verlangt - strukturiert, kostenlos und für die Fragen des Auditors aufbereitet.",
+      "title": "NIS2 Schulung für die Geschäftsleitung",
+      "subtitle": "Jedes Mitglied der Geschäftsleitung muss selbst an Schulungen zur Cybersicherheit teilnehmen (Art. 20 Abs. 2 NIS2, § 38 Abs. 3 BSIG). Dieser kostenlose Onlinekurs ist eine solche Schulung, mit Teilnahmebescheinigung zum Abschluss.",
       "startCourse": "Kurs starten",
       "downloadPdf": "PDF herunterladen",
       "lessonsLabel": "Lektionen",
@@ -7682,36 +7682,36 @@
       "highlights": {
         "lessons": {
           "title": "47 Lektionen",
-          "description": "Strukturiert nach den drei BSI-Kompetenzbereichen und den zehn Maßnahmen nach Artikel 21"
+          "description": "Zu den drei Zielen der Schulungspflicht und den zehn Maßnahmen nach Artikel 21"
         },
         "hours": {
           "title": "~4 Stunden",
           "description": "Kurze Lektionen, die Sie in Ihrem eigenen Tempo absolvieren können - zwischen Terminen"
         },
         "quizzes": {
-          "title": "Quiz nach jeder Lektion",
-          "description": "Überprüfen Sie Ihr Verständnis fortlaufend - keine Abschlussprüfung, kein Druck"
+          "title": "Ein Quiz zu jeder Inhaltslektion",
+          "description": "Sie prüfen Ihr Verständnis Lektion für Lektion. Eine Abschlussprüfung gibt es nicht."
         },
         "certificate": {
-          "title": "Abschlusszertifikat",
-          "description": "Datierter Schulungsnachweis für den Auditor - dokumentiert Inhalte und Zeitaufwand"
+          "title": "Teilnahmebescheinigung",
+          "description": "PDF mit Ihrem Namen, dem Abschlussdatum, dem Kursumfang und allen behandelten Themen"
         }
       },
       "whoFor": {
-        "heading": "Für wen ist dieses Training?",
-        "body": "Wenn Sie in der Geschäftsführung eines von NIS2 betroffenen Unternehmens tätig sind - als Geschäftsführer, Vorstand, COO, CFO oder in einer anderen Rolle, die das Gesetz als \"Mitglied des Leitungsorgans\" bezeichnet - ist dieser Kurs für Sie. Artikel 20(2) macht die Schulungspflicht persönlich und nicht delegierbar. Sie können nicht Ihren CISO an Ihrer Stelle schicken."
+        "heading": "Für Geschäftsführer und Vorstände",
+        "body": "Die Schulungspflicht trifft die Geschäftsleitung jeder Einrichtung, die unter NIS2 fällt: jede Person, die nach Gesetz, Satzung oder Gesellschaftsvertrag dazu berufen ist, die Geschäfte zu führen und das Unternehmen zu vertreten, etwa die Geschäftsführer einer GmbH oder der Vorstand einer AG (§ 2 Nr. 13 BSIG). Die Pflicht ist persönlich. Wenn jemand anderes den Kurs für Sie macht, sind Sie damit nicht geschult."
       },
       "whatLearn": {
-        "heading": "Was Sie lernen werden",
-        "body": "Die Schulung muss drei Kompetenzbereiche abdecken: Risiken erkennen, die eingesetzten Maßnahmen bewerten und verstehen, wie diese Risiken die Dienstleistungen Ihres Unternehmens beeinflussen. Dieser Kurs deckt alle drei ab, strukturiert in {moduleCount} Module:"
+        "heading": "Welche Schulung NIS2 verlangt",
+        "body": "Art. 20 Abs. 2 NIS2 und § 38 Abs. 3 BSIG nennen drei Ziele: Risiken erkennen und bewerten, Risikomanagementpraktiken bewerten und ihre Auswirkungen auf die Dienste Ihres Unternehmens beurteilen. Eine Mindestdauer oder einen zertifizierten Anbieter schreiben sie nicht vor. Dieser Kurs behandelt alle drei Ziele in {moduleCount} Modulen:"
       },
       "whyFree": {
         "heading": "Warum ist das kostenlos?",
-        "body": "Kein EU-Mitgliedstaat hat eine staatlich anerkannte Zertifizierungsstelle für NIS2-Schulungen eingerichtet. Bis offizielle Zertifizierungswege existieren, ist die Schulungsdokumentation der universelle Standard. Wir haben diesen Kurs entwickelt, damit jeder betroffene Geschäftsführer in der EU seine Pflicht nach Artikel 20(2) erfüllen kann, ohne einen Berater zu bezahlen."
+        "body": "Die Pflicht trifft jede Geschäftsleitung einer betroffenen Einrichtung, und das Wissen dafür sollte keine Beratung voraussetzen. Deshalb stehen die Kursinhalte offen unter CC BY 4.0."
       },
       "cta": {
-        "heading": "Bereit, Ihre Schulungspflicht zu erfüllen?",
-        "body": "Erstellen Sie ein kostenloses Konto und starten Sie mit Lektion 0.1. Dauert insgesamt etwa vier Stunden.",
+        "heading": "Mit der NIS2 Schulung beginnen",
+        "body": "Legen Sie ein kostenloses Konto an und beginnen Sie mit Lektion 0.1, oder wählen Sie oben direkt die Lektion, die Sie brauchen. Rund vier Stunden insgesamt.",
         "button": "Kostenlos starten"
       },
       "testimonials": {
@@ -7720,14 +7720,14 @@
     },
     "trainingTabletop": {
       "meta": {
-        "title": "Kostenlose NIS-2-Tabletop-Schulung - Artikel 21 + 23",
-        "description": "NIS-2-Tabletop-Schulung für Informationssicherheits-Beauftragte, IT-Verantwortliche und Notfall- und Krisenmanagement-Leitungen. Artikel 21(2)(b) + (c) sowie Artikel 23 Meldekette. 8 Lektionen, 50 Minuten, kostenlos.",
-        "ogTitle": "NIS-2-Tabletop-Schulung",
-        "ogDescription": "8 Lektionen. 50 Minuten. Die jährliche Tabletop-Übung der Richtlinie planen, durchführen und dokumentieren. Kostenlos."
+        "title": "NIS2 Tabletop-Übung moderieren: kostenloser Kurs",
+        "description": "Kostenloser Kurs zur Moderation einer NIS2 Tabletop-Übung: Meldekette nach Art. 23, Rollen, Szenario, Nachbesprechung, Protokoll. 8 Lektionen, 50 Minuten.",
+        "ogTitle": "NIS2 Tabletop-Übung moderieren",
+        "ogDescription": "8 Lektionen, 50 Minuten: eine Tabletop-Übung zur Meldekette nach Art. 23 NIS2 planen, moderieren, dokumentieren. Kostenloser Kurs mit Teilnahmebescheinigung."
       },
       "badge": "NIS 2 Artikel 21 + 23",
-      "title": "NIS-2-Tabletop-Schulung",
-      "subtitle": "Planen, durchführen und dokumentieren Sie die jährliche Übung, die die Richtlinie verlangt. Für Moderationen - 50 Minuten, auditfest, kostenlos.",
+      "title": "NIS2 Tabletop-Übung moderieren",
+      "subtitle": "Planen, moderieren und dokumentieren Sie eine Tabletop-Übung, die Ihre Meldekette nach Art. 23 NIS2 durchspielt. Kostenloser Kurs für die Moderation: 50 Minuten, mit Teilnahmebescheinigung.",
       "startCourse": "Kurs starten",
       "downloadPdf": "PDF herunterladen",
       "lessonsLabel": "Lektionen",
@@ -7747,7 +7747,7 @@
         },
         "certificate": {
           "title": "Teilnahmebescheinigung",
-          "description": "Datierter Nachweis der Schulung nach Artikel 21(2)(g) NIS 2 für die Moderationsrolle - das Dokument, nach dem das Audit fragt"
+          "description": "PDF mit Ihrem Namen, dem Abschlussdatum und den behandelten Themen"
         }
       },
       "whoFor": {
@@ -7760,7 +7760,7 @@
       },
       "whyFree": {
         "heading": "Warum ist der Kurs kostenlos?",
-        "body": "Es gibt keine EU-Stelle, die NIS-2-Schulungsanbieter zertifiziert. Die Übungspflicht aus Artikel 21(2)(b) und (c) trifft jede wesentliche und wichtige Einrichtung. Wir haben diesen Kurs und das Live-System-Tabletop-Modul gebaut, damit jede Moderation einen verteidigungsfähigen Übungsnachweis erstellen kann, ohne eine Beratung zu beauftragen."
+        "body": "Es gibt keine EU-Stelle, die NIS-2-Schulungsanbieter zertifiziert. Art. 21 Abs. 2 Buchst. b und c NIS 2 verlangen von jeder wesentlichen und wichtigen Einrichtung, Sicherheitsvorfälle zu bewältigen und den Betrieb in einer Krise aufrechtzuerhalten. Eine Übung zeigt, ob das trägt. Wir haben diesen Kurs und das Live-System-Tabletop-Modul gebaut, damit jede Moderation einen verteidigungsfähigen Übungsnachweis erstellen kann, ohne eine Beratung zu beauftragen."
       },
       "cta": {
         "heading": "Bereit für Ihre erste Tabletop-Übung?",
