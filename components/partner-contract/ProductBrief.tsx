@@ -46,7 +46,14 @@ function Column({
   );
 }
 
-export function ProductBrief({ locale }: { readonly locale: PartnerContractLocale }) {
+export function ProductBrief({
+  locale,
+  access,
+}: {
+  readonly locale: PartnerContractLocale;
+  /** The partner's own way in, shown first when the offer came with access. */
+  readonly access?: ReactNode;
+}) {
   const t = partnerContractTranslator(locale);
   return (
     <section
@@ -60,6 +67,7 @@ export function ProductBrief({ locale }: { readonly locale: PartnerContractLocal
       <p className="mt-2 max-w-[62ch] text-[15px] leading-6 text-muted-foreground">
         {t(`${A}.lead`)}
       </p>
+      {access ? <div className="mt-6">{access}</div> : null}
       <div className="mt-7">
         <Column
           title={t(`${A}.deliverTitle`)}

@@ -21,7 +21,7 @@
           "heading": "3. Support und Zugang",
           "p1": "nisd2 betreut den Kunden selbst. Fragen beantwortet nisd2 per E-Mail an {email}, in der Regel innerhalb von zwei Werktagen. Der Partner schuldet dem Kunden keinen Support für nisd2.",
           "p2": "Der Partner erreicht nisd2 direkt: {director}, {email}.",
-          "p3": "Mit der Annahme erhält der Partner für die Dauer dieser Vereinbarung unentgeltlich Zugang zum NIS 2 Durchgang auf nisd2.eu, für das eigene Unternehmen, zum Kennenlernen und Vorführen. Für die Nutzung gelten die Allgemeinen Geschäftsbedingungen und der Auftragsverarbeitungsvertrag auf nisd2.eu. Für die Betreuung von Kunden gilt dieser Zugang nicht, jeder Kunde schließt seinen eigenen Vertrag. Endet die Vereinbarung, endet der Zugang."
+          "p3": "Der Partner erhält unentgeltlich Zugang zum NIS 2 Durchgang auf nisd2.eu, für das eigene Unternehmen, zum Kennenlernen und Vorführen: schon vor der Annahme und danach für die Dauer dieser Vereinbarung. Für die Nutzung gelten die Allgemeinen Geschäftsbedingungen und der Auftragsverarbeitungsvertrag auf nisd2.eu. Für die Betreuung von Kunden gilt dieser Zugang nicht, jeder Kunde schließt seinen eigenen Vertrag. Endet die Vereinbarung, endet der Zugang. Kommt sie nicht zustande, kann nisd2 den Zugang beenden."
         },
         "commission": {
           "heading": "4. Provision",
@@ -65,6 +65,13 @@
     },
     "page": {
       "metaTitle": "Partnervereinbarung mit nisd2",
+      "access": {
+        "title": "Ihr Zugang",
+        "body": "Für {email} ist der NIS 2 Durchgang schon freigeschaltet. Sehen Sie sich an, was Ihre Kunden bekommen, ohne vorher etwas zu unterschreiben.",
+        "setup": "Passwort festlegen und ansehen",
+        "signin": "Anmelden und ansehen",
+        "error": "Das hat nicht geklappt. Bitte versuchen Sie es noch einmal oder schreiben Sie an {email}."
+      },
       "about": {
         "title": "nisd2 in Kürze",
         "lead": "Was Ihre Kunden bei uns bekommen, für wen das gedacht ist und was nicht dazugehört.",
@@ -95,7 +102,7 @@
       "questions": "Fragen zur Vereinbarung? Schreiben Sie an {email}.",
       "form": {
         "heading": "Vereinbarung annehmen",
-        "intro": "Mit Ihrem Namen und Ihrer E-Mail-Adresse nehmen Sie die Vereinbarung an. An diese Adresse gehen die Bestätigung mit dem vollständigen Text und Ihr Zugang zum NIS 2 Durchgang.",
+        "intro": "Mit Ihrem Namen und Ihrer E-Mail-Adresse nehmen Sie die Vereinbarung an. An diese Adresse geht die Bestätigung mit dem vollständigen Text.",
         "name": "Ihr vollständiger Name",
         "email": "Ihre E-Mail-Adresse",
         "authority": "Ich darf für {company} unterschreiben und nehme diese Vereinbarung an.",
@@ -112,10 +119,6 @@
         "title": "Vereinbarung angenommen",
         "mailSent": "Die Bestätigung mit dem vollständigen Text ist unterwegs an {email}.",
         "mailNotSent": "Die Bestätigung per E-Mail ist nicht rausgegangen. Wir schicken sie Ihnen von Hand.",
-        "accessSetup": "Ihr Zugang zum NIS 2 Durchgang ist eingerichtet. In der E-Mail steht der Link, mit dem Sie Ihr Passwort festlegen.",
-        "accessExisting": "Ihr Konto mit {email} hat jetzt den NIS 2 Durchgang.",
-        "accessNone": "Ihren Zugang zum NIS 2 Durchgang richten wir von Hand ein und melden uns.",
-        "signIn": "Anmelden",
         "next": "Wenn Sie uns ein Unternehmen empfehlen, schreiben Sie kurz an {email}, mit Firma und Ansprechpartner."
       }
     }

@@ -68,6 +68,13 @@ function LinkActions({ url }: { readonly url: string }) {
   );
 }
 
+const ACCESS_LABEL: Record<NonNullable<Row["accessOutcome"]>, string> = {
+  new_account: "new account, full access",
+  existing_account: "existing account set to full",
+  not_holder: "the email belongs to an account someone else holds",
+  failed: "setting it up failed",
+};
+
 function Status({ row }: { readonly row: Row }) {
   if (row.signedAt) {
     return (
@@ -102,6 +109,9 @@ function OfferForm({ onCreated }: { readonly onCreated: (url: string) => void })
   const create = trpc.partnerContract.create.useMutation({
     onSuccess: (r) => {
       onCreated(r.url);
+      if (r.accessOutcome === "not_holder" || r.accessOutcome === "failed") {
+        toast.warning(`No login set up: ${ACCESS_LABEL[r.accessOutcome]}.`);
+      }
       setCompany("");
       setContact("");
       setEmail("");
@@ -143,7 +153,7 @@ function OfferForm({ onCreated }: { readonly onCreated: (url: string) => void })
         />
       </div>
       <div className="space-y-1.5">
-        <Label htmlFor="pc-email">Contact email (optional)</Label>
+        <Label htmlFor="pc-email">Contact email: gets the login, full access</Label>
         <Input
           id="pc-email"
           type="email"
@@ -286,6 +296,11 @@ export function PartnerContractsPanel() {
                           .filter(Boolean)
                           .join(", ")}
                       </p>
+                      {row.accessOutcome ? (
+                        <p className="text-xs text-muted-foreground">
+                          Login: {ACCESS_LABEL[row.accessOutcome]}
+                        </p>
+                      ) : null}
                     </TableCell>
                     <TableCell className="text-sm">
                       {row.commissionPercent} %
@@ -316,7 +331,7 @@ export function PartnerContractsPanel() {
                             onClick={() => {
                               if (
                                 window.confirm(
-                                  `Withdraw the agreement for ${row.partnerCompany}? The link stops working.`,
+                                  `Withdraw the agreement for ${row.partnerCompany}? The link stops working${row.accessOutcome === "new_account" ? ", and the login it created loses full access" : ""}.`,
                                 )
                               ) {
                                 withdraw.mutate({ id: row.id });

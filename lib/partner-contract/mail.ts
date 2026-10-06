@@ -11,7 +11,7 @@ import { deliverToOperators, wasDelivered } from "@/lib/mail/delivery";
 import { renderRecordMarkdown } from "@/lib/mail/markdown";
 import { getAppUrl } from "@/lib/utils";
 import type { partnerContract } from "@/schema";
-import type { PartnerAccess } from "./access";
+import type { PartnerAccessOutcome } from "./access";
 import { formatPartnerContractDate, type PartnerContractLocale } from "./date";
 import { partnerContractText } from "./document";
 
@@ -39,54 +39,15 @@ const commissionLine = (row: Row, locale: PartnerContractLocale): string => {
     : `${row.commissionPercent}%, for the first ${months} months per customer`;
 };
 
-const ACCESS_LINES = {
-  de: (access: PartnerAccess, email: string): readonly string[] => {
-    switch (access.kind) {
-      case "setup":
-        return [
-          `Ihr Zugang zum NIS 2 Durchgang ist eingerichtet. Mit diesem Link legen Sie Ihr Passwort fest, er gilt sieben Tage: ${access.setupUrl}`,
-          `Danach melden Sie sich mit Google unter ${email} an oder setzen auf der Anmeldeseite über „Passwort vergessen“ ein Passwort.`,
-        ];
-      case "existing":
-        return [
-          `Ihr Konto mit ${email} hat jetzt den NIS 2 Durchgang. Melden Sie sich wie gewohnt auf nisd2.eu an.`,
-        ];
-      case "none":
-        return [
-          "Ihren Zugang zum NIS 2 Durchgang richten wir von Hand ein und melden uns.",
-        ];
-    }
-  },
-  en: (access: PartnerAccess, email: string): readonly string[] => {
-    switch (access.kind) {
-      case "setup":
-        return [
-          `Your access to the NIS 2 walkthrough is set up. This link sets your password and is valid for seven days: ${access.setupUrl}`,
-          `After that, sign in with Google as ${email}, or set a password under "Forgot password" on the sign-in page.`,
-        ];
-      case "existing":
-        return [
-          `Your account with ${email} now has the NIS 2 walkthrough. Sign in on nisd2.eu as usual.`,
-        ];
-      case "none":
-        return [
-          "We will set up your access to the NIS 2 walkthrough by hand and get back to you.",
-        ];
-    }
-  },
-} as const satisfies Record<PartnerContractLocale, unknown>;
-
-const OPERATOR_ACCESS: Record<PartnerAccess["kind"] | "not_holder" | "failed", string> = {
-  setup: "neues Konto auf vollen Zugang gesetzt, Link zum Passwort geschickt",
-  existing: "bestehendes Konto auf vollen Zugang gesetzt",
-  none: "nicht vergeben",
+/** What the offer did for the contact email's access, as the operators read it. */
+export const OPERATOR_ACCESS: Record<PartnerAccessOutcome | "none", string> = {
+  new_account: "neues Konto für die Kontaktadresse, voller Zugang",
+  existing_account: "bestehendes Konto der Kontaktadresse auf vollen Zugang gesetzt",
   not_holder:
-    "nicht vergeben: die Adresse gehört zu einem Konto, das jemand anderes hält. Bitte von Hand",
-  failed: "nicht vergeben: Fehler beim Einrichten. Bitte von Hand",
+    "nicht vergeben: die Kontaktadresse gehört zu einem Konto, das jemand anderes hält",
+  failed: "nicht vergeben: Fehler beim Einrichten",
+  none: "keiner, ohne Kontaktadresse angeboten",
 };
-
-const operatorAccessLine = (access: PartnerAccess): string =>
-  OPERATOR_ACCESS[access.kind === "none" ? access.reason : access.kind];
 
 const WORDING = {
   de: (row: AcceptedPartnerContract) => ({
@@ -133,14 +94,8 @@ const WORDING = {
   }),
 } as const satisfies Record<PartnerContractLocale, unknown>;
 
-/**
- * The partner's copy: the card with what was agreed, how they get into the Durchgang, then the
- * full text they accepted.
- */
-export const partnerCopyEmail = async (
-  row: AcceptedPartnerContract,
-  access: PartnerAccess,
-) => {
+/** The partner's copy: the card with what was agreed, then the full text they accepted. */
+export const partnerCopyEmail = async (row: AcceptedPartnerContract) => {
   const w = WORDING[row.locale](row);
   const text = partnerContractText(row.body);
   return documentEmail({
@@ -154,17 +109,13 @@ export const partnerCopyEmail = async (
       reference: partnerContractReference(row.id),
       facts: w.facts,
     },
-    outro: [...ACCESS_LINES[row.locale](access, row.signerEmail), ...w.outro],
-    link: access.kind === "setup" ? access.setupUrl : null,
+    outro: w.outro,
     appendix: { html: await renderRecordMarkdown(text), text },
   });
 };
 
-const sendPartnerCopy = async (
-  row: AcceptedPartnerContract,
-  access: PartnerAccess,
-): Promise<boolean> => {
-  const content = await partnerCopyEmail(row, access);
+const sendPartnerCopy = async (row: AcceptedPartnerContract): Promise<boolean> => {
+  const content = await partnerCopyEmail(row);
   const outcome = await sendMail({
     emailType: "partner.agreement_accepted",
     to: row.signerEmail,
@@ -176,7 +127,6 @@ const sendPartnerCopy = async (
 
 const notifyOperators = async (
   row: AcceptedPartnerContract,
-  access: PartnerAccess,
   partnerCopySent: boolean,
 ): Promise<void> => {
   const content = await newSaleEmail({
@@ -188,12 +138,12 @@ const notifyOperators = async (
       ["Angenommen von", `${row.signerName}, ${row.signerEmail}`],
       ["Provision", commissionLine(row, "de")],
       ["Angenommen am", formatPartnerContractDate(row.signedAt, "de", true)],
-      ["Zugang", operatorAccessLine(access)],
+      ["Zugang", OPERATOR_ACCESS[row.accessOutcome ?? "none"]],
       [
         "Bestätigung",
         partnerCopySent
           ? "an den Partner gesendet"
-          : "NICHT gesendet. Bitte von Hand schicken; ein Passwort setzt der Partner dann über „Passwort vergessen“",
+          : "NICHT gesendet, bitte von Hand schicken",
       ],
       ["Angeboten von", row.createdByEmail],
     ],
@@ -212,15 +162,13 @@ const notifyOperators = async (
 
 export async function sendPartnerContractAcceptedMails(
   row: AcceptedPartnerContract,
-  access: PartnerAccess,
 ): Promise<{ readonly partnerCopySent: boolean }> {
-  // In turn, not together: the operators' notice says whether the partner's copy, and with it the
-  // password link, actually left.
-  const partnerCopySent = await sendPartnerCopy(row, access).catch((err) => {
+  // In turn, not together: the operators' notice says whether the partner's copy actually left.
+  const partnerCopySent = await sendPartnerCopy(row).catch((err) => {
     console.error("[partner-contract] partner copy not sent", err);
     return false;
   });
-  await notifyOperators(row, access, partnerCopySent).catch((err) =>
+  await notifyOperators(row, partnerCopySent).catch((err) =>
     console.error("[partner-contract] operator notice not sent", err),
   );
   return { partnerCopySent };

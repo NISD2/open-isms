@@ -2,10 +2,13 @@ import { eq } from "drizzle-orm";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
+import { AccessPanel } from "@/components/partner-contract/AccessPanel";
 import { PartnerAgreement } from "@/components/partner-contract/PartnerAgreement";
 import { ProductBrief } from "@/components/partner-contract/ProductBrief";
+import { routing } from "@/i18n/routing";
 import { SELLER } from "@/lib/billing/seller";
 import { db } from "@/lib/db";
+import { partnerAccessShown } from "@/lib/partner-contract/access";
 import {
   partnerContractPageMessages,
   partnerContractTranslator,
@@ -48,6 +51,8 @@ export default async function PartnerAgreementPage({ params }: PageProps) {
     offer.signedAt && offer.signerName && offer.signerEmail
       ? { name: offer.signerName, email: offer.signerEmail, at: offer.signedAt }
       : null;
+  const messages = partnerContractPageMessages(offer.locale);
+  const access = await partnerAccessShown(db, offer);
 
   return (
     <div className="min-h-screen bg-muted/40">
@@ -64,11 +69,28 @@ export default async function PartnerAgreementPage({ params }: PageProps) {
       </header>
 
       <main className="mx-auto max-w-3xl space-y-6 px-4 py-8 sm:px-6 sm:py-12">
-        <ProductBrief locale={offer.locale} />
+        <ProductBrief
+          locale={offer.locale}
+          access={
+            access ? (
+              <AccessPanel
+                token={token}
+                locale={offer.locale}
+                messages={messages}
+                email={access.email}
+                entry={access.entry}
+                localePrefix={
+                  offer.locale === routing.defaultLocale ? "" : `/${offer.locale}`
+                }
+                contactEmail={SELLER.email}
+              />
+            ) : null
+          }
+        />
         <PartnerAgreement
           token={token}
           locale={offer.locale}
-          messages={partnerContractPageMessages(offer.locale)}
+          messages={messages}
           company={offer.partnerCompany}
           contactEmail={SELLER.email}
           seller={{ director: SELLER.director, email: SELLER.email }}

@@ -169,6 +169,13 @@
       "when": 1791287648287,
       "tag": "0023_partner_contract",
       "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1791295200461,
+      "tag": "0024_partner_access_upfront",
+      "breakpoints": true
     }
   ]
 }

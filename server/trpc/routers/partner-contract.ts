@@ -11,7 +11,11 @@ import { TRPCError } from "@trpc/server";
 import { and, desc, eq, isNull } from "drizzle-orm";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
-import { grantPartnerAccess } from "@/lib/partner-contract/access";
+import {
+  partnerAccessEntry,
+  provisionPartnerAccess,
+  revokePartnerAccess,
+} from "@/lib/partner-contract/access";
 import {
   buildPartnerContract,
   PARTNER_CONTRACT_VERSION,
@@ -94,8 +98,54 @@ export const partnerContractRouter = router({
     if (!row) {
       throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Offer not saved" });
     }
-    return { id: row.id, url: partnerContractUrl(input.locale, row.token) };
+    const access = input.partnerEmail
+      ? await provisionPartnerAccess(
+          ctx.db,
+          {
+            email: input.partnerEmail,
+            name: input.partnerContactName ?? input.partnerCompany,
+          },
+          input.locale,
+        )
+      : null;
+    if (access) {
+      await ctx.db
+        .update(partnerContract)
+        .set({ accessOutcome: access.outcome, accessUserId: access.userId })
+        .where(eq(partnerContract.id, row.id));
+    }
+    return {
+      id: row.id,
+      url: partnerContractUrl(input.locale, row.token),
+      accessOutcome: access?.outcome ?? null,
+    };
   }),
+
+  /**
+   * The access button on the agreement page. The token is the invitation: it sets a first password
+   * only for an account this offer created and nobody has signed into (lib/partner-contract/access).
+   */
+  enter: publicProcedure
+    .input(z.object({ token: z.string().length(64) }))
+    .mutation(async ({ ctx, input }) => {
+      if (!(await rateLimit(`partner-contract:enter:${ctx.ip}`, 10, 60_000))) {
+        throw new TRPCError({
+          code: "TOO_MANY_REQUESTS",
+          message: "Too many attempts. Please wait a minute and try again.",
+        });
+      }
+      const offer = await ctx.db.query.partnerContract.findFirst({
+        where: eq(partnerContract.token, input.token),
+        columns: { withdrawnAt: true, accessOutcome: true, accessUserId: true },
+      });
+      if (!offer || offer.withdrawnAt) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "No open agreement at this link.",
+        });
+      }
+      return partnerAccessEntry(ctx.db, offer);
+    }),
 
   withdraw: platformAdminProcedure
     .input(z.object({ id: z.string().uuid() }))
@@ -110,13 +160,17 @@ export const partnerContractRouter = router({
             isNull(partnerContract.withdrawnAt),
           ),
         )
-        .returning({ id: partnerContract.id });
+        .returning({
+          accessOutcome: partnerContract.accessOutcome,
+          accessUserId: partnerContract.accessUserId,
+        });
       if (!row) {
         throw new TRPCError({
           code: "CONFLICT",
           message: "Already accepted or withdrawn.",
         });
       }
+      await revokePartnerAccess(ctx.db, row);
       return { ok: true };
     }),
 
@@ -175,14 +229,7 @@ export const partnerContractRouter = router({
         signerName: accepted.signerName,
         signerEmail: accepted.signerEmail,
       };
-      const access = await grantPartnerAccess(
-        ctx.db,
-        { email: row.signerEmail, name: row.signerName },
-        row.locale,
-        row.id,
-      );
-      const { partnerCopySent } = await sendPartnerContractAcceptedMails(row, access);
-      // The kind only: the setup link travels by email, never back to the page.
-      return { signedAt: row.signedAt, partnerCopySent, access: access.kind };
+      const { partnerCopySent } = await sendPartnerContractAcceptedMails(row);
+      return { signedAt: row.signedAt, partnerCopySent };
     }),
 });

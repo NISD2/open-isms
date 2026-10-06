@@ -14,7 +14,6 @@ import { type FormEvent, type ReactNode, useId, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import type { PartnerAccessKind } from "@/lib/partner-contract/access";
 import {
   formatPartnerContractDate,
   type PartnerContractLocale,
@@ -26,11 +25,8 @@ interface Acceptance {
   readonly name: string;
   readonly email: string;
   readonly at: Date;
-  /** What happened on accepting. Null when the page is reopened later: that was back then. */
-  readonly justNow: {
-    readonly partnerCopySent: boolean;
-    readonly access: PartnerAccessKind;
-  } | null;
+  /** Whether the copy went out. Null when the page is reopened later: that was back then. */
+  readonly partnerCopySent: boolean | null;
 }
 
 interface Props {
@@ -43,7 +39,7 @@ interface Props {
   readonly seller: { readonly director: string; readonly email: string };
   readonly offeredAt: Date;
   readonly prefill: { readonly name: string; readonly email: string };
-  readonly accepted: Omit<Acceptance, "justNow"> | null;
+  readonly accepted: Omit<Acceptance, "partnerCopySent"> | null;
 }
 
 type FieldError = "name" | "email" | "authority";
@@ -72,45 +68,6 @@ function SignatureLine({
   );
 }
 
-type PageTranslator = ReturnType<
-  typeof createTranslator<{ page: PartnerContractPageMessages }, "page">
->;
-
-/**
- * How the partner gets into the Durchgang, said where they just accepted. A new account's password
- * link is only ever in the email, so without the email there is nothing to point at here.
- */
-function AccessLine({
-  access,
-  mailSent,
-  email,
-  t,
-}: {
-  readonly access: PartnerAccessKind;
-  readonly mailSent: boolean;
-  readonly email: string;
-  readonly t: PageTranslator;
-}) {
-  if (access === "existing") {
-    return (
-      <div className="flex flex-wrap items-center gap-3">
-        <p className="text-sm leading-6 opacity-90">
-          {t("done.accessExisting", { email })}
-        </p>
-        <Button asChild size="sm" variant="secondary">
-          <a href="/auth/signin">{t("done.signIn")}</a>
-        </Button>
-      </div>
-    );
-  }
-  if (access === "setup") {
-    return mailSent ? (
-      <p className="text-sm leading-6 opacity-90">{t("done.accessSetup")}</p>
-    ) : null;
-  }
-  return <p className="text-sm leading-6 opacity-90">{t("done.accessNone")}</p>;
-}
-
 export function PartnerAgreement(props: Props) {
   const { locale, company } = props;
   const t = createTranslator({
@@ -125,7 +82,7 @@ export function PartnerAgreement(props: Props) {
   const [authority, setAuthority] = useState(false);
   const [errors, setErrors] = useState<readonly FieldError[]>([]);
   const [acceptance, setAcceptance] = useState<Acceptance | null>(
-    props.accepted ? { ...props.accepted, justNow: null } : null,
+    props.accepted ? { ...props.accepted, partnerCopySent: null } : null,
   );
 
   const accept = trpc.partnerContract.accept.useMutation({
@@ -134,7 +91,7 @@ export function PartnerAgreement(props: Props) {
         name: input.name,
         email: input.email,
         at: r.signedAt,
-        justNow: { partnerCopySent: r.partnerCopySent, access: r.access },
+        partnerCopySent: r.partnerCopySent,
       }),
   });
 
@@ -207,21 +164,13 @@ export function PartnerAgreement(props: Props) {
             <CheckCircle2 className="mt-0.5 h-6 w-6 shrink-0" aria-hidden />
             <div className="space-y-2">
               <h2 className="text-xl font-semibold tracking-tight">{t("done.title")}</h2>
-              {acceptance.justNow ? (
-                <>
-                  <p className="text-sm leading-6 opacity-90">
-                    {acceptance.justNow.partnerCopySent
-                      ? t("done.mailSent", { email: acceptance.email })
-                      : t("done.mailNotSent")}
-                  </p>
-                  <AccessLine
-                    access={acceptance.justNow.access}
-                    mailSent={acceptance.justNow.partnerCopySent}
-                    email={acceptance.email}
-                    t={t}
-                  />
-                </>
-              ) : null}
+              {acceptance.partnerCopySent === null ? null : (
+                <p className="text-sm leading-6 opacity-90">
+                  {acceptance.partnerCopySent
+                    ? t("done.mailSent", { email: acceptance.email })
+                    : t("done.mailNotSent")}
+                </p>
+              )}
               <p className="text-sm leading-6 opacity-90">
                 {t("done.next", { email: props.contactEmail })}
               </p>
