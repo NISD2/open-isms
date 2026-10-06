@@ -7669,14 +7669,14 @@
     "trainingCeo": {
       "courseScale": "{modules} modules · {lessons} lessons · about {hours} h · start at any lesson",
       "meta": {
-        "title": "Free NIS2 Management Training - Articles 20 + 21",
-        "description": "NIS2 management training covering Articles 20 + 21: risks, the 10 cybersecurity measures, and oversight. Meets the Art. 20(2) training duty. 47 lessons, free.",
-        "ogTitle": "NIS2 Management Training - Articles 20 + 21",
-        "ogDescription": "47 lessons. 4 hours. Articles 20 and 21 of the NIS2 Directive. Meets the Art. 20(2) training duty. Free."
+        "title": "Free NIS2 Management Training for Directors and Boards",
+        "description": "Free NIS2 training for managing directors and boards, who must follow training under Article 20(2). 47 lessons, about 4 hours, certificate of completion.",
+        "ogTitle": "NIS2 Management Training for Directors and Boards",
+        "ogDescription": "Free online course for managing directors and board members under Article 20(2) NIS2: 47 lessons, about 4 hours, with a certificate of completion."
       },
       "badge": "NIS2 Articles 20 + 21",
       "title": "NIS2 Management Training",
-      "subtitle": "Everything the NIS2 Directive requires you to know as a member of the management body - structured, free, and built for the auditor's questions.",
+      "subtitle": "Every member of the management body must follow cybersecurity training themselves (Article 20(2) NIS2, Section 38(3) BSIG). This free online course is one such training, with a certificate of completion at the end.",
       "startCourse": "Start the course",
       "downloadPdf": "Download PDF",
       "lessonsLabel": "lessons",
@@ -7684,36 +7684,36 @@
       "highlights": {
         "lessons": {
           "title": "47 lessons",
-          "description": "Structured around the BSI's three competence areas and the ten Article 21 measures"
+          "description": "Covering the three aims of the training duty and the ten Article 21 measures"
         },
         "hours": {
           "title": "~4 hours",
           "description": "Short lessons you can complete at your own pace, between meetings"
         },
         "quizzes": {
-          "title": "Quizzes after every lesson",
-          "description": "Verify your understanding as you go - no final exam, no pressure"
+          "title": "A quiz for every content lesson",
+          "description": "Check your understanding lesson by lesson. There is no final exam."
         },
         "certificate": {
           "title": "Certificate of Completion",
-          "description": "Dated training evidence for the auditor - documents content covered and time spent"
+          "description": "A PDF with your name, the completion date, the course scope and every topic covered"
         }
       },
       "whoFor": {
-        "heading": "Who this is for",
-        "body": "If you sit on the leadership team of a company covered by NIS2 - as a managing director, executive board member, COO, CFO, or any role the law calls a \"member of the management body\" - this course is for you. Article 20(2) makes the training duty personal and non-delegable. You cannot send your CISO in your place."
+        "heading": "For managing directors and board members",
+        "body": "The training duty falls on the management body of every entity covered by NIS2: each person appointed by law, articles or partnership agreement to run and represent the company, such as the managing directors of a German GmbH or the board of an AG (Section 2 no. 13 BSIG). The duty is personal. If someone else takes the course for you, you are not trained."
       },
       "whatLearn": {
-        "heading": "What you will learn",
-        "body": "The training must cover three competence areas: identifying risks, assessing the measures used to manage them, and understanding how those risks affect the services your company provides. This course covers all three, structured into {moduleCount} modules:"
+        "heading": "What training NIS2 requires",
+        "body": "Article 20(2) NIS2 and Section 38(3) BSIG name three aims: identify and assess risks, assess risk-management practices, and judge their impact on the services your company provides. Neither sets a minimum duration or requires a certified provider. This course covers all three aims across {moduleCount} modules:"
       },
       "whyFree": {
         "heading": "Why is this free?",
-        "body": "No EU member state has established a state-backed certification authority for NIS2 training. Until official certification pathways exist, training documentation is the universal standard. We built this course so that every covered managing director in the EU can meet their Article 20(2) duty without paying a consultant."
+        "body": "The duty reaches the management body of every covered entity, and the knowledge it needs should not depend on hiring a consultant. That is why the course content is open under CC BY 4.0."
       },
       "cta": {
-        "heading": "Ready to meet your training duty?",
-        "body": "Create a free account and start with Lesson 0.1. Takes about four hours total.",
+        "heading": "Start your NIS2 management training",
+        "body": "Create a free account and start with Lesson 0.1, or pick the lesson you need from the outline above. About four hours in total.",
         "button": "Start for free"
       },
       "testimonials": {
@@ -7722,14 +7722,14 @@
     },
     "trainingTabletop": {
       "meta": {
-        "title": "Free NIS 2 Tabletop Exercise Training - Articles 21 + 23",
-        "description": "NIS 2 tabletop training for information security officers, IT managers, and BCM leads. Articles 21(2)(b)+(c) + 23 reporting cascade. 8 lessons, 50 minutes, free.",
-        "ogTitle": "NIS 2 Tabletop Exercise Training",
-        "ogDescription": "8 lessons. 50 minutes. Design, run, and document the annual tabletop the directive demands. Free."
+        "title": "Free NIS2 Tabletop Exercise Course for Facilitators",
+        "description": "Free course for facilitators of a NIS2 tabletop exercise: the Article 23 reporting chain, roles, scenario, hot wash, protocol. 8 lessons, 50 minutes.",
+        "ogTitle": "NIS2 Tabletop Exercise Course",
+        "ogDescription": "8 lessons, 50 minutes: plan, facilitate and document a tabletop exercise on the Article 23 NIS2 reporting chain. Free, with a certificate of completion."
       },
       "badge": "NIS 2 Articles 21 + 23",
-      "title": "NIS 2 Tabletop Exercise Training",
-      "subtitle": "Design, run, and document the annual exercise the directive demands. Built for facilitators - 50 minutes, audit-grade, free.",
+      "title": "NIS2 Tabletop Exercise Training",
+      "subtitle": "Plan, facilitate and document a tabletop exercise that rehearses your Article 23 NIS2 reporting chain. A free course for facilitators: 50 minutes, with a certificate of completion.",
       "startCourse": "Start the course",
       "downloadPdf": "Download PDF",
       "lessonsLabel": "lessons",
@@ -7748,8 +7748,8 @@
           "description": "Six per-lesson quizzes plus the 8-question attestation quiz"
         },
         "certificate": {
-          "title": "Attestation PDF",
-          "description": "Dated evidence of Article 21(2)(g) facilitator training - the document the auditor asks for"
+          "title": "Certificate of Completion",
+          "description": "A PDF with your name, the completion date and the topics covered"
         }
       },
       "whoFor": {
@@ -7762,7 +7762,7 @@
       },
       "whyFree": {
         "heading": "Why is this free?",
-        "body": "No EU body certifies NIS 2 training providers. The exercise duty in Articles 21(2)(b)+(c) reaches every essential and important entity. We built this course and the Live-System Tabletop platform module so that every facilitator can produce defensible exercise evidence without paying a consultant."
+        "body": "No EU body certifies NIS 2 training providers. Article 21(2)(b) and (c) NIS 2 require every essential and important entity to handle incidents and keep operating through a crisis. An exercise shows whether that holds. We built this course and the Live-System Tabletop platform module so that every facilitator can produce defensible exercise evidence without paying a consultant."
       },
       "cta": {
         "heading": "Ready to run your first tabletop?",
