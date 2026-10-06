@@ -1,0 +1,97 @@
+{
+  "partnerContract": {
+    "document": {
+      "title": "Partner agreement",
+      "between": "between",
+      "seller": "{name}, {street}, {city}, {register}, represented by its managing director {director} (\"nisd2\")",
+      "and": "and",
+      "partner": "{company} (the \"Partner\")",
+      "sections": {
+        "about": {
+          "heading": "1. What this is about",
+          "p1": "The Partner recommends the nisd2 NIS 2 walkthrough to companies implementing their NIS2 obligations. When a recommended company signs a contract with nisd2, the Partner receives a commission.",
+          "p2": "The Partner is under no obligation to recommend anyone. nisd2 decides freely whether to sign a contract with a recommended company."
+        },
+        "offer": {
+          "heading": "2. What the customer gets",
+          "p1": "The customer contracts directly with nisd2, under the terms published on nisd2.eu. The NIS 2 walkthrough costs {price} net a year, plus VAT, and includes:",
+          "p2": "If nisd2 changes the price or the scope, new contracts follow what is published on nisd2.eu at the time."
+        },
+        "support": {
+          "heading": "3. Support",
+          "p1": "nisd2 looks after the customer itself. nisd2 answers questions by email to {email}, usually within two working days. The Partner owes the customer no support for nisd2.",
+          "p2": "The Partner reaches nisd2 directly: {director}, {email}."
+        },
+        "commission": {
+          "heading": "4. Commission",
+          "p1": "The Partner receives {percent} percent of every net payment nisd2 receives from a recommended customer, {period}.",
+          "periodMonths": "for the first {months} months of that customer's contract",
+          "periodOngoing": "for as long as that customer continues its contract with nisd2",
+          "p2": "Net payment means excluding VAT and after refunds. The claim arises once the payment has reached nisd2 and the customer can no longer ask for it back, so on a first order after the 30 days money back have run out.",
+          "p3": "nisd2 settles quarterly by self-billed credit note and pays within 15 days of the end of the quarter. For this, the Partner gives nisd2 its tax number or VAT ID. If the Partner charges VAT, statutory VAT is added. The credit note lists, per customer, the payments the commission is based on."
+        },
+        "attribution": {
+          "heading": "5. When a customer counts as recommended",
+          "p1": "A customer counts as recommended if, before its first order, the Partner names it to nisd2 by email to {email}, with company and contact person, or the customer tells nisd2 in text form (email is enough) that the Partner recommended it.",
+          "p2": "If the customer already was a nisd2 customer or was already in a documented conversation with nisd2 about an order, nisd2 tells the Partner within five working days. The customer then does not count as recommended."
+        },
+        "independence": {
+          "heading": "6. Independence",
+          "p1": "Both sides are independent businesses and act as traders (Unternehmer) under section 14 BGB. The Partner is not permanently engaged to broker deals, decides the kind and extent of its activity itself and bears its own costs. It has no authority to act for nisd2 and makes no statements in its name. No commercial agency relationship arises.",
+          "p2": "The Partner tells the customer that it receives a commission for the recommendation."
+        },
+        "promotion": {
+          "heading": "7. Promotion",
+          "p1": "The Partner may name nisd2 and point to nisd2.eu. It promises the customer nothing about service or price that is not on nisd2.eu, and promotes only as the law allows, in particular without unlawful advertising by email or phone."
+        },
+        "data": {
+          "heading": "8. Data protection and confidentiality",
+          "p1": "Each side is a separate controller under the GDPR for the contact details the parties exchange. The Partner passes a customer's details to nisd2 only with that customer's knowledge.",
+          "p2": "The terms of this agreement are confidential. The Partner may tell the customer the amount of its commission."
+        },
+        "term": {
+          "heading": "9. Term and termination",
+          "p1": "This agreement runs indefinitely. Either side may end it in text form (email is enough) with one month's notice to the end of a month. For customers who count as recommended by then, nisd2 keeps paying commission under section 4."
+        },
+        "final": {
+          "heading": "10. Final provisions",
+          "p1": "For simple negligence, each side is liable only for breach of essential obligations, meaning those whose fulfilment makes carrying out this agreement possible in the first place and on which the other side may regularly rely, and only up to the foreseeable damage typical for this agreement. This does not apply to injury to life, body or health; otherwise the law applies.",
+          "p2": "This agreement is not meant for lawyers, tax advisers or auditors, whose professional rules prohibit taking advantages for mediating orders.",
+          "p3": "Changes must be made in text form. German law applies. The place of jurisdiction is {seat}, where both sides are merchants. If one provision is invalid, the rest remains valid.",
+          "p4": "The agreement is concluded when the Partner accepts it on nisd2.eu with its name and email address. Both sides receive a confirmation with the full text by email."
+        }
+      }
+    },
+    "page": {
+      "metaTitle": "Partner agreement with nisd2",
+      "offered": "Offered on {date}",
+      "forSeller": "For nisd2",
+      "sellerSigner": "{director}, managing director",
+      "forPartner": "For {company}",
+      "pending": "Acceptance pending",
+      "acceptedOn": "Accepted on {date}",
+      "questions": "Questions about the agreement? Write to {email}.",
+      "form": {
+        "heading": "Accept the agreement",
+        "intro": "Your name and email address accept the agreement. The confirmation with the full text goes to that address.",
+        "name": "Your full name",
+        "email": "Your email address",
+        "authority": "I may sign for {company} and I accept this agreement.",
+        "submit": "Accept, binding",
+        "submitting": "Saving",
+        "errors": {
+          "name": "Please enter your name.",
+          "email": "Please enter a valid email address.",
+          "authority": "Please confirm that you may sign for {company}.",
+          "save": "That did not work. Your details are still here, please try again."
+        }
+      },
+      "done": {
+        "title": "Agreement accepted",
+        "mailSent": "The confirmation with the full text is on its way to {email}.",
+        "mailNotSent": "The confirmation email did not go out. We will send it to you by hand.",
+        "next": "When you recommend a company to us, write a short note to {email} with the company and a contact person."
+      }
+    }
+  }
+}

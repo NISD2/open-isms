@@ -24,6 +24,7 @@ import { llmRouter } from "./routers/llm";
 import { managementReviewRouter } from "./routers/management-review";
 import { newsletterPublicRouter, newsletterRouter } from "./routers/newsletter";
 import { notificationRouter } from "./routers/notification";
+import { partnerContractRouter } from "./routers/partner-contract";
 import { patchRouter } from "./routers/patch";
 import { platformAdminRouter } from "./routers/platform-admin";
 import { policyRouter } from "./routers/policy";
@@ -81,6 +82,7 @@ export const appRouter = router({
   trainingPortal: trainingPortalRouter,
   trainingCertificate: trainingCertificateRouter,
   platformAdmin: platformAdminRouter,
+  partnerContract: partnerContractRouter,
   gapAssessment: gapAssessmentRouter,
   journey: journeyRouter,
   durchgang: durchgangRouter,

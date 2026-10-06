@@ -9,6 +9,7 @@ import {
   CreditCard,
   FlaskConical,
   GraduationCap,
+  Handshake,
   Loader2,
   Mail,
   Rocket,
@@ -35,6 +36,7 @@ import { FeatureFlagsPanel } from "./FeatureFlagsPanel";
 import { EraseUserButton, ErasuresPanel } from "./GdprErasure";
 import { GraphsPanel } from "./GraphsPanel";
 import { median } from "./graphs/derive";
+import { PartnerContractsPanel } from "./PartnerContractsPanel";
 import { PricingPanel } from "./PricingPanel";
 import { SubscriptionsPanel } from "./SubscriptionsPanel";
 
@@ -242,6 +244,7 @@ type Tab =
   | "erasures"
   | "pricing"
   | "subscriptions"
+  | "partners"
   | "close"
   | "flags"
   | "dev";
@@ -391,6 +394,12 @@ export function PlatformAdminPage({
             count: undefined as number | undefined,
           },
           {
+            key: "partners" as const,
+            label: "Partner agreements",
+            icon: Handshake,
+            count: undefined as number | undefined,
+          },
+          {
             key: "close" as const,
             label: "Close",
             icon: Contact,
@@ -439,6 +448,7 @@ export function PlatformAdminPage({
       {tab === "erasures" && <ErasuresPanel />}
       {tab === "pricing" && <PricingPanel />}
       {tab === "subscriptions" && <SubscriptionsPanel />}
+      {tab === "partners" && <PartnerContractsPanel />}
       {tab === "close" && <CloseSyncPanel />}
       {tab === "flags" && <FeatureFlagsPanel />}
       {tab === "dev" && <DevPanel />}
