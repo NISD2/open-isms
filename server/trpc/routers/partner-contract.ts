@@ -11,6 +11,7 @@ import { TRPCError } from "@trpc/server";
 import { and, desc, eq, isNull } from "drizzle-orm";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
+import { grantPartnerAccess } from "@/lib/partner-contract/access";
 import {
   buildPartnerContract,
   PARTNER_CONTRACT_VERSION,
@@ -174,7 +175,14 @@ export const partnerContractRouter = router({
         signerName: accepted.signerName,
         signerEmail: accepted.signerEmail,
       };
-      const { partnerCopySent } = await sendPartnerContractAcceptedMails(row);
-      return { signedAt: row.signedAt, partnerCopySent };
+      const access = await grantPartnerAccess(
+        ctx.db,
+        { email: row.signerEmail, name: row.signerName },
+        row.locale,
+        row.id,
+      );
+      const { partnerCopySent } = await sendPartnerContractAcceptedMails(row, access);
+      // The kind only: the setup link travels by email, never back to the page.
+      return { signedAt: row.signedAt, partnerCopySent, access: access.kind };
     }),
 });
