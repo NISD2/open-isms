@@ -1,0 +1,97 @@
+{
+  "partnerContract": {
+    "document": {
+      "title": "Partnervereinbarung",
+      "between": "zwischen",
+      "seller": "{name}, {street}, {city}, {register}, vertreten durch den Geschäftsführer {director} (nachfolgend „nisd2“)",
+      "and": "und",
+      "partner": "{company} (nachfolgend „Partner“)",
+      "sections": {
+        "about": {
+          "heading": "1. Worum es geht",
+          "p1": "Der Partner empfiehlt Unternehmen, die die Pflichten aus NIS2 umsetzen, den NIS 2 Durchgang von nisd2. Kommt mit einem empfohlenen Unternehmen ein Vertrag zustande, erhält der Partner eine Provision.",
+          "p2": "Der Partner ist nicht verpflichtet, Unternehmen zu empfehlen. nisd2 entscheidet frei, ob es mit einem empfohlenen Unternehmen einen Vertrag schließt."
+        },
+        "offer": {
+          "heading": "2. Was der Kunde bekommt",
+          "p1": "Der Kunde schließt seinen Vertrag direkt mit nisd2, zu den Allgemeinen Geschäftsbedingungen auf nisd2.eu. Der NIS 2 Durchgang kostet {price} netto im Jahr, zuzüglich Umsatzsteuer, und umfasst:",
+          "p2": "Ändert nisd2 Preis oder Umfang, gilt für neue Verträge der dann auf nisd2.eu veröffentlichte Stand."
+        },
+        "support": {
+          "heading": "3. Support",
+          "p1": "nisd2 betreut den Kunden selbst. Fragen beantwortet nisd2 per E-Mail an {email}, in der Regel innerhalb von zwei Werktagen. Der Partner schuldet dem Kunden keinen Support für nisd2.",
+          "p2": "Der Partner erreicht nisd2 direkt: {director}, {email}."
+        },
+        "commission": {
+          "heading": "4. Provision",
+          "p1": "Der Partner erhält {percent} Prozent jeder Nettozahlung, die nisd2 von einem empfohlenen Kunden erhält, {period}.",
+          "periodMonths": "für die ersten {months} Monate seines Vertrags",
+          "periodOngoing": "solange dieser Kunde seinen Vertrag mit nisd2 fortführt",
+          "p2": "Nettozahlung heißt: ohne Umsatzsteuer und nach Abzug von Erstattungen. Der Anspruch entsteht, sobald die Zahlung bei nisd2 eingegangen ist und der Kunde sie nicht mehr zurückverlangen kann, bei seiner ersten Bestellung also nach Ablauf der 30 Tage Geld zurück.",
+          "p3": "nisd2 rechnet vierteljährlich per Gutschrift ab und zahlt innerhalb von 15 Tagen nach Quartalsende. Ist der Partner umsatzsteuerpflichtig, kommt die gesetzliche Umsatzsteuer hinzu. Die Gutschrift nennt je Kunde die Zahlungen, aus denen sich die Provision ergibt."
+        },
+        "attribution": {
+          "heading": "5. Wann ein Kunde als empfohlen gilt",
+          "p1": "Ein Kunde gilt als empfohlen, wenn vor seiner ersten Bestellung der Partner ihn nisd2 per E-Mail an {email} nennt, mit Firma und Ansprechpartner, oder der Kunde nisd2 in Textform mitteilt, dass der Partner ihn empfohlen hat.",
+          "p2": "War der Kunde bereits Kunde von nisd2 oder stand er mit nisd2 schon in einem nachweisbaren Gespräch über eine Bestellung, teilt nisd2 das dem Partner innerhalb von fünf Werktagen mit. Der Kunde gilt dann nicht als empfohlen."
+        },
+        "independence": {
+          "heading": "6. Unabhängigkeit",
+          "p1": "Beide Seiten sind selbständige Unternehmen. Der Partner ist nicht ständig mit der Vermittlung betraut, hat keine Vollmacht für nisd2 und gibt keine Erklärungen in dessen Namen ab. Ein Handelsvertreterverhältnis entsteht nicht.",
+          "p2": "Der Partner sagt dem Kunden, dass er für die Empfehlung eine Provision erhält."
+        },
+        "promotion": {
+          "heading": "7. Werbung",
+          "p1": "Der Partner darf nisd2 nennen und auf nisd2.eu verweisen. Er sagt dem Kunden zu Leistung und Preis nichts zu, was nicht auf nisd2.eu steht, und wirbt nur so, wie das Gesetz es erlaubt, insbesondere ohne unerlaubte Werbung per E-Mail oder Telefon."
+        },
+        "data": {
+          "heading": "8. Datenschutz und Vertraulichkeit",
+          "p1": "Für Kontaktdaten, die die Parteien austauschen, ist jede Seite eigenständig verantwortlich im Sinne der DSGVO. Der Partner gibt Daten eines Kunden nur mit dessen Wissen an nisd2 weiter.",
+          "p2": "Die Bedingungen dieser Vereinbarung sind vertraulich. Die Höhe seiner Provision darf der Partner dem Kunden nennen."
+        },
+        "term": {
+          "heading": "9. Laufzeit und Kündigung",
+          "p1": "Die Vereinbarung gilt unbefristet. Jede Seite kann sie mit einer Frist von einem Monat zum Monatsende in Textform kündigen. Für Kunden, die bis dahin als empfohlen gelten, zahlt nisd2 die Provision nach Abschnitt 4 weiter."
+        },
+        "final": {
+          "heading": "10. Schlussbestimmungen",
+          "p1": "Bei einfacher Fahrlässigkeit haften beide Seiten nur für die Verletzung wesentlicher Pflichten und nur bis zum vorhersehbaren, vertragstypischen Schaden. Das gilt nicht bei Verletzung von Leben, Körper oder Gesundheit; im Übrigen gilt das Gesetz.",
+          "p2": "Diese Vereinbarung ist nicht für Rechtsanwälte, Steuerberater und Wirtschaftsprüfer gedacht, deren Berufsrecht Provisionen für Empfehlungen beschränkt.",
+          "p3": "Änderungen bedürfen der Textform. Es gilt deutsches Recht. Gerichtsstand ist {seat}, soweit beide Seiten Kaufleute sind. Ist eine Bestimmung unwirksam, bleibt der Rest wirksam.",
+          "p4": "Die Vereinbarung kommt zustande, wenn der Partner sie auf nisd2.eu mit Namen und E-Mail-Adresse annimmt. Beide Seiten erhalten eine Bestätigung mit dem vollständigen Text per E-Mail."
+        }
+      }
+    },
+    "page": {
+      "metaTitle": "Partnervereinbarung mit nisd2",
+      "offered": "Angeboten am {date}",
+      "forSeller": "Für nisd2",
+      "sellerSigner": "{director}, Geschäftsführer",
+      "forPartner": "Für {company}",
+      "pending": "Annahme steht aus",
+      "acceptedOn": "Angenommen am {date}",
+      "questions": "Fragen zur Vereinbarung? Schreiben Sie an {email}.",
+      "form": {
+        "heading": "Vereinbarung annehmen",
+        "intro": "Mit Ihrem Namen und Ihrer E-Mail-Adresse nehmen Sie die Vereinbarung an. An diese Adresse geht die Bestätigung mit dem vollständigen Text.",
+        "name": "Ihr vollständiger Name",
+        "email": "Ihre E-Mail-Adresse",
+        "authority": "Ich darf für {company} unterschreiben und nehme diese Vereinbarung an.",
+        "submit": "Verbindlich annehmen",
+        "submitting": "Wird gespeichert",
+        "errors": {
+          "name": "Bitte geben Sie Ihren Namen ein.",
+          "email": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+          "authority": "Bitte bestätigen Sie, dass Sie für {company} unterschreiben dürfen.",
+          "save": "Das hat nicht geklappt. Ihre Angaben sind noch da, bitte versuchen Sie es noch einmal."
+        }
+      },
+      "done": {
+        "title": "Vereinbarung angenommen",
+        "mailSent": "Die Bestätigung mit dem vollständigen Text ist unterwegs an {email}.",
+        "mailNotSent": "Die Bestätigung per E-Mail ist nicht rausgegangen. Wir schicken sie Ihnen von Hand.",
+        "next": "Wenn Sie uns ein Unternehmen empfehlen, schreiben Sie kurz an {email}, mit Firma und Ansprechpartner."
+      }
+    }
+  }
+}

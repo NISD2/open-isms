@@ -33,6 +33,7 @@ export * from "./tables/email-otp";
 export * from "./tables/leads";
 export * from "./tables/newsletter-group";
 export * from "./tables/newsletter-issue";
+export * from "./tables/partner-contract";
 export * from "./tables/rate-limit-window";
 export * from "./tables/supplier-invite";
 export * from "./tables/supplier-portal";

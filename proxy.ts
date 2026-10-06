@@ -135,6 +135,8 @@ const CANONICAL_PUBLIC_PREFIXES: readonly string[] = [
   "/gap-assessment/share",
   // Supplier-relationship access — token-gated landing for external suppliers
   "/supplier-access",
+  // Partner agreement — the token in the link is how a partner reads and accepts it
+  "/partner-agreement",
 ];
 
 type PathnameMapping = string | Partial<Record<string, string>>;

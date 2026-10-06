@@ -77,6 +77,8 @@ export const EMAIL_TYPES = {
   "billing.refund_sent": { category: "account", consent: "essential" },
   /** The erasure certificate, to the person whose account was just erased (Art. 12(3) GDPR). */
   "gdpr.erasure_confirmation": { category: "account", consent: "essential" },
+  /** A partner's copy of the agreement they just accepted, full text included. */
+  "partner.agreement_accepted": { category: "account", consent: "essential" },
 
   // --- Optional, to account holders ----------------------------------------
   "work.category_assigned": { category: "work", consent: "user" },
@@ -110,6 +112,8 @@ export const EMAIL_TYPES = {
   "internal.new_sale": { category: "internal", consent: "operator" },
   /** An erasure whose stored files could not be deleted automatically: a person has to finish it. */
   "internal.gdpr_alert": { category: "internal", consent: "operator" },
+  /** A partner accepted the agreement a platform admin offered them. */
+  "internal.partner_agreement_accepted": { category: "internal", consent: "operator" },
 } as const satisfies Record<string, EmailTypeDefinition>;
 
 export type EmailTypeId = keyof typeof EMAIL_TYPES;
