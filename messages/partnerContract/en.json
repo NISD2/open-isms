@@ -28,7 +28,7 @@
           "periodMonths": "for the first {months} months of that customer's contract",
           "periodOngoing": "for as long as that customer continues its contract with nisd2",
           "p2": "Net payment means excluding VAT and after refunds. The claim arises once the payment has reached nisd2 and the customer can no longer ask for it back, so on a first order after the 30 days money back have run out.",
-          "p3": "nisd2 settles quarterly by self-billed credit note and pays within 15 days of the end of the quarter. If the Partner charges VAT, statutory VAT is added. The credit note lists, per customer, the payments the commission is based on."
+          "p3": "nisd2 settles quarterly by self-billed credit note and pays within 15 days of the end of the quarter. For this, the Partner gives nisd2 its tax number or VAT ID. If the Partner charges VAT, statutory VAT is added. The credit note lists, per customer, the payments the commission is based on."
         },
         "attribution": {
           "heading": "5. When a customer counts as recommended",
@@ -37,7 +37,7 @@
         },
         "independence": {
           "heading": "6. Independence",
-          "p1": "Both sides are independent businesses. The Partner is not permanently engaged to broker deals, has no authority to act for nisd2 and makes no statements in its name. No commercial agency relationship arises.",
+          "p1": "Both sides are independent businesses and act as traders (Unternehmer) under section 14 BGB. The Partner is not permanently engaged to broker deals, decides the kind and extent of its activity itself and bears its own costs. It has no authority to act for nisd2 and makes no statements in its name. No commercial agency relationship arises.",
           "p2": "The Partner tells the customer that it receives a commission for the recommendation."
         },
         "promotion": {
@@ -55,8 +55,8 @@
         },
         "final": {
           "heading": "10. Final provisions",
-          "p1": "For simple negligence, each side is liable only for breach of essential obligations and only up to the foreseeable damage typical for this agreement. This does not apply to injury to life, body or health; otherwise the law applies.",
-          "p2": "This agreement is not meant for lawyers, tax advisers or auditors, whose professional rules restrict commissions for recommendations.",
+          "p1": "For simple negligence, each side is liable only for breach of essential obligations, meaning those whose fulfilment makes carrying out this agreement possible in the first place and on which the other side may regularly rely, and only up to the foreseeable damage typical for this agreement. This does not apply to injury to life, body or health; otherwise the law applies.",
+          "p2": "This agreement is not meant for lawyers, tax advisers or auditors, whose professional rules prohibit taking advantages for mediating orders.",
           "p3": "Changes must be made in text form. German law applies. The place of jurisdiction is {seat}, where both sides are merchants. If one provision is invalid, the rest remains valid.",
           "p4": "The agreement is concluded when the Partner accepts it on nisd2.eu with its name and email address. Both sides receive a confirmation with the full text by email."
         }

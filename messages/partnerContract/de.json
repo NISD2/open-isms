@@ -28,7 +28,7 @@
           "periodMonths": "für die ersten {months} Monate seines Vertrags",
           "periodOngoing": "solange dieser Kunde seinen Vertrag mit nisd2 fortführt",
           "p2": "Nettozahlung heißt: ohne Umsatzsteuer und nach Abzug von Erstattungen. Der Anspruch entsteht, sobald die Zahlung bei nisd2 eingegangen ist und der Kunde sie nicht mehr zurückverlangen kann, bei seiner ersten Bestellung also nach Ablauf der 30 Tage Geld zurück.",
-          "p3": "nisd2 rechnet vierteljährlich per Gutschrift ab und zahlt innerhalb von 15 Tagen nach Quartalsende. Ist der Partner umsatzsteuerpflichtig, kommt die gesetzliche Umsatzsteuer hinzu. Die Gutschrift nennt je Kunde die Zahlungen, aus denen sich die Provision ergibt."
+          "p3": "nisd2 rechnet vierteljährlich per Gutschrift ab und zahlt innerhalb von 15 Tagen nach Quartalsende. Dafür teilt der Partner nisd2 seine Steuernummer oder USt-IdNr. mit. Ist der Partner umsatzsteuerpflichtig, kommt die gesetzliche Umsatzsteuer hinzu. Die Gutschrift nennt je Kunde die Zahlungen, aus denen sich die Provision ergibt."
         },
         "attribution": {
           "heading": "5. Wann ein Kunde als empfohlen gilt",
@@ -37,7 +37,7 @@
         },
         "independence": {
           "heading": "6. Unabhängigkeit",
-          "p1": "Beide Seiten sind selbständige Unternehmen. Der Partner ist nicht ständig mit der Vermittlung betraut, hat keine Vollmacht für nisd2 und gibt keine Erklärungen in dessen Namen ab. Ein Handelsvertreterverhältnis entsteht nicht.",
+          "p1": "Beide Seiten sind selbständige Unternehmen und handeln als Unternehmer im Sinne von § 14 BGB. Der Partner ist nicht ständig mit der Vermittlung betraut, bestimmt Art und Umfang seiner Tätigkeit selbst und trägt seine Kosten selbst. Er hat keine Vollmacht für nisd2 und gibt keine Erklärungen in dessen Namen ab. Ein Handelsvertreterverhältnis entsteht nicht.",
           "p2": "Der Partner sagt dem Kunden, dass er für die Empfehlung eine Provision erhält."
         },
         "promotion": {
@@ -55,8 +55,8 @@
         },
         "final": {
           "heading": "10. Schlussbestimmungen",
-          "p1": "Bei einfacher Fahrlässigkeit haften beide Seiten nur für die Verletzung wesentlicher Pflichten und nur bis zum vorhersehbaren, vertragstypischen Schaden. Das gilt nicht bei Verletzung von Leben, Körper oder Gesundheit; im Übrigen gilt das Gesetz.",
-          "p2": "Diese Vereinbarung ist nicht für Rechtsanwälte, Steuerberater und Wirtschaftsprüfer gedacht, deren Berufsrecht Provisionen für Empfehlungen beschränkt.",
+          "p1": "Bei einfacher Fahrlässigkeit haften beide Seiten nur für die Verletzung wesentlicher Pflichten, also solcher, deren Erfüllung die Durchführung dieser Vereinbarung erst ermöglicht und auf deren Einhaltung die andere Seite regelmäßig vertrauen darf, und nur bis zum vorhersehbaren, vertragstypischen Schaden. Das gilt nicht bei Verletzung von Leben, Körper oder Gesundheit; im Übrigen gilt das Gesetz.",
+          "p2": "Diese Vereinbarung ist nicht für Rechtsanwälte, Steuerberater und Wirtschaftsprüfer gedacht, deren Berufsrecht Vorteile für die Vermittlung von Aufträgen untersagt.",
           "p3": "Änderungen bedürfen der Textform. Es gilt deutsches Recht. Gerichtsstand ist {seat}, soweit beide Seiten Kaufleute sind. Ist eine Bestimmung unwirksam, bleibt der Rest wirksam.",
           "p4": "Die Vereinbarung kommt zustande, wenn der Partner sie auf nisd2.eu mit Namen und E-Mail-Adresse annimmt. Beide Seiten erhalten eine Bestätigung mit dem vollständigen Text per E-Mail."
         }
