@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 import { PartnerAgreement } from "@/components/partner-contract/PartnerAgreement";
+import { ProductBrief } from "@/components/partner-contract/ProductBrief";
 import { SELLER } from "@/lib/billing/seller";
 import { db } from "@/lib/db";
 import {
@@ -63,6 +64,7 @@ export default async function PartnerAgreementPage({ params }: PageProps) {
       </header>
 
       <main className="mx-auto max-w-3xl space-y-6 px-4 py-8 sm:px-6 sm:py-12">
+        <ProductBrief locale={offer.locale} />
         <PartnerAgreement
           token={token}
           locale={offer.locale}
