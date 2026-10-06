@@ -18,9 +18,10 @@
           "p2": "Ändert nisd2 Preis oder Umfang, gilt für neue Verträge der dann auf nisd2.eu veröffentlichte Stand."
         },
         "support": {
-          "heading": "3. Support",
+          "heading": "3. Support und Zugang",
           "p1": "nisd2 betreut den Kunden selbst. Fragen beantwortet nisd2 per E-Mail an {email}, in der Regel innerhalb von zwei Werktagen. Der Partner schuldet dem Kunden keinen Support für nisd2.",
-          "p2": "Der Partner erreicht nisd2 direkt: {director}, {email}."
+          "p2": "Der Partner erreicht nisd2 direkt: {director}, {email}.",
+          "p3": "Mit der Annahme erhält der Partner für die Dauer dieser Vereinbarung unentgeltlich Zugang zum NIS 2 Durchgang auf nisd2.eu, für das eigene Unternehmen, zum Kennenlernen und Vorführen. Für die Nutzung gelten die Allgemeinen Geschäftsbedingungen und der Auftragsverarbeitungsvertrag auf nisd2.eu. Für die Betreuung von Kunden gilt dieser Zugang nicht, jeder Kunde schließt seinen eigenen Vertrag. Endet die Vereinbarung, endet der Zugang."
         },
         "commission": {
           "heading": "4. Provision",
@@ -73,7 +74,7 @@
       "questions": "Fragen zur Vereinbarung? Schreiben Sie an {email}.",
       "form": {
         "heading": "Vereinbarung annehmen",
-        "intro": "Mit Ihrem Namen und Ihrer E-Mail-Adresse nehmen Sie die Vereinbarung an. An diese Adresse geht die Bestätigung mit dem vollständigen Text.",
+        "intro": "Mit Ihrem Namen und Ihrer E-Mail-Adresse nehmen Sie die Vereinbarung an. An diese Adresse gehen die Bestätigung mit dem vollständigen Text und Ihr Zugang zum NIS 2 Durchgang.",
         "name": "Ihr vollständiger Name",
         "email": "Ihre E-Mail-Adresse",
         "authority": "Ich darf für {company} unterschreiben und nehme diese Vereinbarung an.",
@@ -90,6 +91,10 @@
         "title": "Vereinbarung angenommen",
         "mailSent": "Die Bestätigung mit dem vollständigen Text ist unterwegs an {email}.",
         "mailNotSent": "Die Bestätigung per E-Mail ist nicht rausgegangen. Wir schicken sie Ihnen von Hand.",
+        "accessSetup": "Ihr Zugang zum NIS 2 Durchgang ist eingerichtet. In der E-Mail steht der Link, mit dem Sie Ihr Passwort festlegen.",
+        "accessExisting": "Ihr Konto mit {email} hat jetzt den NIS 2 Durchgang.",
+        "accessNone": "Ihren Zugang zum NIS 2 Durchgang richten wir von Hand ein und melden uns.",
+        "signIn": "Anmelden",
         "next": "Wenn Sie uns ein Unternehmen empfehlen, schreiben Sie kurz an {email}, mit Firma und Ansprechpartner."
       }
     }

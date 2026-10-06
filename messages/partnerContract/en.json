@@ -18,9 +18,10 @@
           "p2": "If nisd2 changes the price or the scope, new contracts follow what is published on nisd2.eu at the time."
         },
         "support": {
-          "heading": "3. Support",
+          "heading": "3. Support and access",
           "p1": "nisd2 looks after the customer itself. nisd2 answers questions by email to {email}, usually within two working days. The Partner owes the customer no support for nisd2.",
-          "p2": "The Partner reaches nisd2 directly: {director}, {email}."
+          "p2": "The Partner reaches nisd2 directly: {director}, {email}.",
+          "p3": "On acceptance, the Partner gets access to the NIS 2 walkthrough on nisd2.eu free of charge for the term of this agreement, for its own company, to get to know it and to demonstrate it. Its use is governed by the terms and the data processing agreement published on nisd2.eu. This access does not cover looking after customers; each customer signs its own contract. When this agreement ends, the access ends."
         },
         "commission": {
           "heading": "4. Commission",
@@ -73,7 +74,7 @@
       "questions": "Questions about the agreement? Write to {email}.",
       "form": {
         "heading": "Accept the agreement",
-        "intro": "Your name and email address accept the agreement. The confirmation with the full text goes to that address.",
+        "intro": "Your name and email address accept the agreement. The confirmation with the full text and your access to the NIS 2 walkthrough go to that address.",
         "name": "Your full name",
         "email": "Your email address",
         "authority": "I may sign for {company} and I accept this agreement.",
@@ -90,6 +91,10 @@
         "title": "Agreement accepted",
         "mailSent": "The confirmation with the full text is on its way to {email}.",
         "mailNotSent": "The confirmation email did not go out. We will send it to you by hand.",
+        "accessSetup": "Your access to the NIS 2 walkthrough is set up. The email has the link to set your password.",
+        "accessExisting": "Your account with {email} now has the NIS 2 walkthrough.",
+        "accessNone": "We will set up your access to the NIS 2 walkthrough by hand and get back to you.",
+        "signIn": "Sign in",
         "next": "When you recommend a company to us, write a short note to {email} with the company and a contact person."
       }
     }

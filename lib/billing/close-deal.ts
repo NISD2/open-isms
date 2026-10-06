@@ -58,8 +58,11 @@ export type CloseOutcome =
   | Extract<OrderOutcome, { ok: false }>
   | { readonly ok: false; readonly reason: "no_owned_account"; readonly message: string };
 
-/** The customer's user, created without a password (and with a draft company) when new. */
-const customerFor = async (
+/**
+ * The customer's user, created without a password (and with a draft company) when new. Also how a
+ * partner who accepts an agreement gets an account (lib/partner-contract/access.ts).
+ */
+export const customerFor = async (
   db: Database,
   email: string,
   name: string,
@@ -105,7 +108,7 @@ const customerFor = async (
 };
 
 /** The account the customer holds: the one behind their open company, else any they own. */
-const heldAccount = async (db: DbOrTx, userId: string) => {
+export const heldAccount = async (db: DbOrTx, userId: string) => {
   const columns = { id: billingAccount.id };
   const [open] = await db
     .select(columns)

@@ -18,7 +18,7 @@ import { PARTNER_CONTRACT_INTL_LOCALE, type PartnerContractLocale } from "./date
 export type { PartnerContractLocale } from "./date";
 
 /** Moves whenever the wording changes what an offer says, so a stored offer names its wording. */
-export const PARTNER_CONTRACT_VERSION = "2026-10-06";
+export const PARTNER_CONTRACT_VERSION = "2026-10-06.2";
 
 const MESSAGES = {
   de: { ...partnerDe, ...pricingDe },
@@ -47,7 +47,10 @@ const SECTIONS = [
     paragraphs: [`${S}.offer.p1`, `${S}.offer.p2`],
     withOfferList: true,
   },
-  { heading: `${S}.support.heading`, paragraphs: [`${S}.support.p1`, `${S}.support.p2`] },
+  {
+    heading: `${S}.support.heading`,
+    paragraphs: [`${S}.support.p1`, `${S}.support.p2`, `${S}.support.p3`],
+  },
   {
     heading: `${S}.commission.heading`,
     paragraphs: [`${S}.commission.p1`, `${S}.commission.p2`, `${S}.commission.p3`],
