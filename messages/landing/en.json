@@ -3,7 +3,7 @@
     "guided": {
       "eyebrow": "NIS2 software for companies with 50 to 150 employees",
       "title": "Been asked to handle <blue>NIS2</blue>?",
-      "subtitle": "We guide you step by step. You fill it in, we explain every point in plain words, and at the end management signs.",
+      "subtitle": "In the end you have everything in one document: what is done, what is still open, and your management's approval with name and date. The app writes the texts.",
       "cta": "Get started",
       "trainingCta": "Free training for your Managing Director",
       "meta": {
@@ -13,8 +13,8 @@
     },
     "walk": {
       "heroAlt": "The NIS2 walkthrough: your path step by step, the first items done",
-      "title": "How the walkthrough takes you through NIS2",
-      "lead": "Every picture shows the real app, filled in for made-up example companies.",
+      "title": "How you get there",
+      "lead": "Like tax software: you enter what only your company knows, its software, suppliers and risks. The app writes the texts, and management approves them. Every picture shows the real app, filled in for made-up example companies.",
       "steps": {
         "oneAtATime": {
           "title": "One thing at a time",
@@ -38,7 +38,7 @@
         },
         "signOff": {
           "title": "Management approves in the app",
-          "text": "At the end, management reads the documents the walkthrough wrote and approves them, signed in with its own account. Its name and the date then appear on each document. Nothing is printed or scanned.",
+          "text": "At the end, management reads the documents the app wrote and approves them, signed in with its own account. Its name and the date then appear on each document. Nothing is printed or scanned.",
           "alt": "The walkthrough's documents, approved by management, each with name and date"
         },
         "staysCurrent": {
@@ -48,10 +48,10 @@
         }
       },
       "outcomes": {
-        "title": "What is in your records afterwards",
+        "title": "What you hold at the end",
         "registers": {
           "title": "Your registers",
-          "text": "What you tick and enter in the walkthrough is then in your registers: assets, suppliers, risks, policies, trainings and management reviews.",
+          "text": "What you tick and enter step by step is then in your registers: assets, suppliers, risks, policies, trainings and management reviews.",
           "alt": "The asset list in the walkthrough: business processes to tick"
         },
         "log": {
@@ -61,7 +61,7 @@
         },
         "export": {
           "title": "Everything in one document",
-          "text": "The whole walkthrough, start to finish: status, open points, documents, risk matrix, every register and answer. Save it as a PDF from the browser.",
+          "text": "Everything from start to finish: status, open points, documents, risk matrix, every register and answer. Save it as a PDF from the browser.",
           "alt": "An example company's complete documentation"
         }
       },

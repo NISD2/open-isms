@@ -3,7 +3,7 @@
     "guided": {
       "eyebrow": "NIS2 Software für Betriebe mit 50 bis 150 Beschäftigten",
       "title": "Sie sollen sich um <blue>NIS2</blue> kümmern?",
-      "subtitle": "Wir führen Sie Schritt für Schritt. Sie füllen aus, wir erklären jeden Punkt in einfachen Worten, und am Ende unterschreibt die Geschäftsführung.",
+      "subtitle": "Am Ende haben Sie alles in einem Dokument: was getan ist, was noch offen ist, und die Freigabe Ihrer Geschäftsführung mit Namen und Datum. Die Texte schreibt die App.",
       "cta": "Jetzt starten",
       "trainingCta": "Kostenlose Schulung für Ihre Geschäftsführung",
       "meta": {
@@ -13,8 +13,8 @@
     },
     "walk": {
       "heroAlt": "Der NIS2 Durchgang: Ihr Weg Schritt für Schritt, die ersten Punkte erledigt",
-      "title": "So führt Sie der Durchgang durch NIS2",
-      "lead": "Alle Bilder zeigen die echte App, ausgefüllt für erfundene Beispielfirmen.",
+      "title": "So kommen Sie dahin",
+      "lead": "Wie bei einer Steuersoftware: Eintragen müssen Sie selbst, denn Ihre Programme, Lieferanten und Risiken kennt nur Ihr Betrieb. Die Texte schreibt die App, die Geschäftsführung gibt sie frei. Alle Bilder zeigen die echte App, ausgefüllt für erfundene Beispielfirmen.",
       "steps": {
         "oneAtATime": {
           "title": "Eins nach dem anderen",
@@ -38,7 +38,7 @@
         },
         "signOff": {
           "title": "Die Geschäftsführung gibt in der App frei",
-          "text": "Am Ende liest die Geschäftsführung die Dokumente, die der Durchgang geschrieben hat, und gibt sie frei, angemeldet mit ihrem eigenen Zugang. Name und Datum stehen danach auf jedem Dokument. Gedruckt oder eingescannt wird nichts.",
+          "text": "Am Ende liest die Geschäftsführung die Dokumente, die die App geschrieben hat, und gibt sie frei, angemeldet mit ihrem eigenen Zugang. Name und Datum stehen danach auf jedem Dokument. Gedruckt oder eingescannt wird nichts.",
           "alt": "Die Dokumente des Durchgangs, von der Geschäftsführung freigegeben, jedes mit Namen und Datum"
         },
         "staysCurrent": {
@@ -48,10 +48,10 @@
         }
       },
       "outcomes": {
-        "title": "Was danach in Ihren Unterlagen steht",
+        "title": "Was Sie am Ende in der Hand haben",
         "registers": {
           "title": "Ihre Register",
-          "text": "Was Sie im Durchgang ankreuzen und eintragen, steht danach in Ihren Registern: Assets, Lieferanten, Risiken, Richtlinien, Schulungen und Managementbewertungen.",
+          "text": "Was Sie Schritt für Schritt ankreuzen und eintragen, steht danach in Ihren Registern: Assets, Lieferanten, Risiken, Richtlinien, Schulungen und Managementbewertungen.",
           "alt": "Die Liste der Assets im Durchgang: Geschäftsprozesse zum Ankreuzen"
         },
         "log": {
@@ -61,7 +61,7 @@
         },
         "export": {
           "title": "Alles in einem Dokument",
-          "text": "Der ganze Durchgang von Anfang bis Ende: Stand, offene Punkte, Dokumente, Risikomatrix, alle Register und Angaben. Im Browser als PDF speichern.",
+          "text": "Alles von Anfang bis Ende: Stand, offene Punkte, Dokumente, Risikomatrix, alle Register und Angaben. Im Browser als PDF speichern.",
           "alt": "Die Gesamtdokumentation eines Beispielunternehmens"
         }
       },

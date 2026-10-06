@@ -7,11 +7,11 @@ import { type ShotName, shotImage, zoomSizes } from "./shots";
 import { useZoomLoop } from "./useZoomLoop";
 import { ZoomImage } from "./ZoomShot";
 
-/** In walk order, so the one document that holds everything comes last. */
+/** The one document that holds everything comes first: it is what the visitor is buying. */
 const CARDS = [
+  { key: "export", shot: "export" },
   { key: "registers", shot: "assetList" },
   { key: "log", shot: "activityLog" },
-  { key: "export", shot: "export" },
 ] as const satisfies readonly { readonly key: string; readonly shot: ShotName }[];
 
 /** A card's width on a large screen: a third of the page's 72rem less the two gaps. */

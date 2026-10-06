@@ -120,9 +120,9 @@ export default async function LandingPage() {
           </div>
         </section>
 
-        {/* The walk shown screen by screen, what it leaves behind, and the same one way in. */}
-        <WalkShowcase />
+        {/* What the walk leaves behind first, then the walk screen by screen, then the same one way in. */}
         <WalkOutcomes />
+        <WalkShowcase />
         <GetStarted variant="landing" className="mt-24 sm:mt-32" />
 
         {/* What you get + open source. Aligned to the hero width and left edge,
