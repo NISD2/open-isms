@@ -25,6 +25,7 @@ import { promoSummary } from "@/lib/billing/promo";
 import { PROMO_GRANT_ACTION } from "@/lib/billing/promo-grant";
 import { quoteFor } from "@/lib/billing/quote";
 import { sendRefundConfirmation } from "@/lib/billing/refund-sent";
+import { reissueInvoice } from "@/lib/billing/reissue";
 import {
   listSubscriptions,
   markPaymentArrived,
@@ -560,6 +561,68 @@ export const platformAdminRouter = router({
         createdUser: outcome.createdUser,
         setupSent: outcome.setupSent,
       };
+    }),
+
+  /**
+   * Replace an account's running, unpaid invoice with one on terms agreed with the customer: a
+   * service period, an amount, a Bestellnummer (lib/billing/reissue.ts). The old one is credited,
+   * the new one is mailed. Audited.
+   */
+  reissueInvoice: platformAdminProcedure
+    .input(
+      z.object({
+        billingAccountId: z.uuid(),
+        periodStart: z.iso.date(),
+        periodEnd: z.iso.date(),
+        netCents: z.number().int().positive().max(10_000_000).nullable(),
+        purchaseOrder: z.string().trim().max(120).nullable(),
+        recipients: z.array(z.email()).min(1).max(3),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const mode = orderingMode(env);
+      if (mode.kind === "off") {
+        throw new TRPCError({
+          code: "PRECONDITION_FAILED",
+          message: "Qonto is not configured.",
+        });
+      }
+      const outcome = await reissueInvoice({
+        db: ctx.db,
+        mode,
+        billingAccountId: input.billingAccountId,
+        adminUserId: ctx.userId,
+        invoicePrefix: env.INVOICE_PREFIX,
+        periodStart: input.periodStart,
+        periodEnd: input.periodEnd,
+        netCents: input.netCents,
+        purchaseOrder: input.purchaseOrder || null,
+        recipients: input.recipients,
+      });
+      if (!outcome.ok) {
+        const code =
+          outcome.reason === "qonto_unknown"
+            ? "TIMEOUT"
+            : outcome.reason === "qonto"
+              ? "INTERNAL_SERVER_ERROR"
+              : outcome.reason === "no_invoice"
+                ? "NOT_FOUND"
+                : outcome.reason === "pending" || outcome.reason === "not_unpaid"
+                  ? "PRECONDITION_FAILED"
+                  : "BAD_REQUEST";
+        throw new TRPCError({ code, message: outcome.message });
+      }
+      await logAudit({
+        companyId: null,
+        userId: ctx.userId,
+        action: "billing.invoice_reissued",
+        entityType: "billing_account",
+        entityId: input.billingAccountId,
+        description: `Reissued ${outcome.replacedNumber} as ${outcome.number} (period ${outcome.periodStart} to ${outcome.periodEnd}), credited by ${outcome.creditNoteNumber}`,
+        ipAddress: ctx.ip,
+        userAgent: ctx.userAgent,
+      });
+      return outcome;
     }),
 
   /** The Subscriptions tab: paying customers, their current invoice read live, refunds owed. */

@@ -12,6 +12,7 @@
 
 import { sql } from "drizzle-orm";
 import {
+  type AnyPgColumn,
   boolean,
   check,
   date,
@@ -68,6 +69,15 @@ export const invoice = pgTable(
     termsAcceptedByUserId: uuid("terms_accepted_by_user_id").references(() => user.id, {
       onDelete: "set null",
     }),
+    /**
+     * The invoice this one replaces, when a platform admin reissued it (lib/billing/reissue.ts):
+     * the old one is credited and this one takes its place. A replacement keeps the money back of
+     * the invoice it replaces, counted from that one's order date, because the order did not
+     * change, only the paper.
+     */
+    replacesInvoiceId: uuid("replaces_invoice_id")
+      .unique()
+      .references((): AnyPgColumn => invoice.id, { onDelete: "restrict" }),
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (table) => [

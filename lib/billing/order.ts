@@ -165,6 +165,23 @@ export interface InvoiceDates {
   readonly performanceEndDate: string;
 }
 
+/** The longest service period one invoice may cover: two years, so a typo cannot sell a decade. */
+const MAX_PERIOD_YEARS = 2;
+
+/** Why a period cannot go on an invoice issued today, or null when it can. */
+export const periodProblem = (
+  start: string,
+  end: string,
+  today: string,
+): string | null => {
+  if (end < start) return "The period ends before it starts.";
+  if (end < today) return "The period has already ended.";
+  if (end >= shiftDay(start, { years: MAX_PERIOD_YEARS })) {
+    return `The period may be at most ${MAX_PERIOD_YEARS} years.`;
+  }
+  return null;
+};
+
 /** An ISO calendar day as the reader writes it, British in English, as the terms are: "1 October 2026". */
 export const formatInvoiceDay = (isoDay: string, locale: string): string =>
   new Intl.DateTimeFormat(locale === "en" ? "en-GB" : locale, {
@@ -213,6 +230,15 @@ const moneyBack = (locale: "de" | "en", firstOrder: boolean): string =>
       }[locale]
     : "";
 
+/** On an invoice a platform admin reissued (./reissue): the number of the one it replaces. */
+const replaces = (locale: "de" | "en", replacesNumber: string | undefined): string =>
+  replacesNumber
+    ? {
+        de: `Diese Rechnung ersetzt die stornierte Rechnung ${replacesNumber}.`,
+        en: `This invoice replaces the canceled invoice ${replacesNumber}.`,
+      }[locale]
+    : "";
+
 /**
  * The line item and the footer, in the customer's language.
  *
@@ -225,6 +251,7 @@ export const invoiceWording = (
   money: Money,
   locale: "de" | "en",
   firstOrder: boolean,
+  replacesNumber?: string,
 ): { readonly title: string; readonly description: string; readonly footer: string } => {
   const period =
     locale === "de"
@@ -239,7 +266,12 @@ export const invoiceWording = (
   return {
     title: licenceTitle(locale),
     description: period,
-    footer: [taxNote, moneyBack(locale, firstOrder), PAYMENT_REFERENCE[locale]]
+    footer: [
+      replaces(locale, replacesNumber),
+      taxNote,
+      moneyBack(locale, firstOrder),
+      PAYMENT_REFERENCE[locale],
+    ]
       .filter(Boolean)
       .join(" "),
   };
@@ -300,8 +332,11 @@ export const invoiceEmailWording = (opts: {
   readonly dates: InvoiceDates;
   /** The account's first invoice, the only one that carries money back. */
   readonly firstOrder: boolean;
+  /** The invoice this one replaces, when it was reissued (./reissue). */
+  readonly replacesNumber?: string;
 }): DocumentEmail => {
   const { number, locale, where, termsVersion, amounts, dates, firstOrder } = opts;
+  const replaced = replaces(locale, opts.replacesNumber);
   const day = (iso: string) => formatInvoiceDay(iso, locale);
   const payment = [PAYMENT_REFERENCE[locale], moneyBack(locale, firstOrder)]
     .filter(Boolean)
@@ -332,6 +367,7 @@ export const invoiceEmailWording = (opts: {
           where.attached
             ? "anbei erhalten Sie die Rechnung für die Jahreslizenz NIS 2 Durchgang."
             : `die Rechnung für die Jahreslizenz NIS 2 Durchgang finden Sie hier: ${where.invoiceUrl}`,
+          ...(replaced ? [replaced] : []),
           ...online,
         ],
         document: {
@@ -359,6 +395,7 @@ export const invoiceEmailWording = (opts: {
           where.attached
             ? "Please find attached the invoice for the annual licence for the NIS 2 walkthrough."
             : `The invoice for the annual licence for the NIS 2 walkthrough is here: ${where.invoiceUrl}`,
+          ...(replaced ? [replaced] : []),
           ...online,
         ],
         document: {
