@@ -211,6 +211,13 @@
       "when": 1791160619185,
       "tag": "0029_signup_campaign",
       "breakpoints": true
+    },
+    {
+      "idx": 30,
+      "version": "7",
+      "when": 1791377207206,
+      "tag": "0030_invoice_replaces",
+      "breakpoints": true
     }
   ]
 }

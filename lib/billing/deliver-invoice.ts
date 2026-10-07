@@ -39,6 +39,8 @@ export interface DeliverInvoiceInput {
   readonly dates: InvoiceDates;
   /** The account's first invoice, the only one that carries money back. */
   readonly firstOrder: boolean;
+  /** The invoice this one replaces, when a platform admin reissued it (./reissue). */
+  readonly replacesNumber?: string;
   /** Replaced in tests, so the polling does not really wait. */
   readonly wait?: (ms: number) => Promise<void>;
 }
@@ -132,6 +134,7 @@ const sendInvoice = async (
       amounts: input.amounts,
       dates: input.dates,
       firstOrder: input.firstOrder,
+      replacesNumber: input.replacesNumber,
     }),
   );
   const result = await sendMail({

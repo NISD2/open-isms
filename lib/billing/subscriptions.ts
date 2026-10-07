@@ -17,6 +17,7 @@ import {
   gte,
   inArray,
   isNull,
+  notExists,
   or,
   sql,
 } from "drizzle-orm";
@@ -128,6 +129,7 @@ export const listSubscriptions = async (
         netCents: invoice.netCents,
         vatCents: invoice.vatCents,
         issueDate: invoice.issueDate,
+        periodStart: invoice.periodStart,
         periodEnd: invoice.periodEnd,
         creditNoteNumber: creditNote.number,
       })
@@ -153,6 +155,7 @@ export const listSubscriptions = async (
                 net: formatEuro(latest.netCents),
                 issueDate: latest.issueDate,
                 dueDate: live.dueDate,
+                periodStart: latest.periodStart,
                 periodEnd: latest.periodEnd,
                 status: withOverdue(live.status, live.dueDate, now),
                 qontoUrl: live.url,
@@ -198,6 +201,8 @@ const LATE_PAYMENT_WATCH_DAYS = 90;
  * already on its way only shows up in Qonto's account: a person watches for it. Derived from the
  * rows, no flag.
  */
+const replacement = alias(invoice, "replacement");
+
 const listLatePaymentWatch = (db: DbOrTx, accountIds: readonly string[], now: Date) =>
   db
     .select({
@@ -214,6 +219,14 @@ const listLatePaymentWatch = (db: DbOrTx, accountIds: readonly string[], now: Da
     .where(
       and(
         eq(creditNote.refundOwed, false),
+        // A reissued invoice (./reissue) is not watched: a transfer quoting it pays its
+        // replacement, and is matched to that in Qonto, not refunded.
+        notExists(
+          db
+            .select({ id: replacement.id })
+            .from(replacement)
+            .where(eq(replacement.replacesInvoiceId, invoice.id)),
+        ),
         // Compared as Berlin calendar days (created_at is stored as UTC), like the cancel window.
         sql`(${creditNote.createdAt} AT TIME ZONE 'UTC' AT TIME ZONE ${INVOICE_TIME_ZONE})::date >= ${shiftDay(invoiceToday(now), { days: -LATE_PAYMENT_WATCH_DAYS })}::date`,
         inArray(invoice.billingAccountId, [...accountIds]),

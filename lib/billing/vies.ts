@@ -402,26 +402,45 @@ const EU = new Set([
 
 const DOMESTIC_RATE = 0.19;
 
+const OUTSIDE_EU: VatTreatment = {
+  kind: "outside_eu",
+  rate: 0,
+  note: "Nicht steuerbare sonstige Leistung im Inland, Leistungsort im Ausland.",
+};
+
+const REVERSE_CHARGE: VatTreatment = {
+  kind: "reverse_charge",
+  rate: 0,
+  note: "Steuerschuldnerschaft des Leistungsempfängers (Reverse Charge).",
+};
+
+const UNCONFIRMED_EU: VatTreatment = {
+  kind: "unconfirmed_eu",
+  rate: DOMESTIC_RATE,
+  why: "Reverse charge requires a VAT number confirmed by VIES; this one is not confirmed, so the invoice carries domestic VAT.",
+};
+
 export const vatTreatment = (countryCode: string, check: VatCheck): VatTreatment => {
   const cc = countryCode.toUpperCase();
   if (cc === "DE") return { kind: "domestic", rate: DOMESTIC_RATE };
   if (!EU.has(cc)) {
-    return {
-      kind: "outside_eu",
-      rate: 0,
-      note: "Nicht steuerbare sonstige Leistung im Inland, Leistungsort im Ausland.",
-    };
+    return OUTSIDE_EU;
   }
   if (isConfirmed(check)) {
-    return {
-      kind: "reverse_charge",
-      rate: 0,
-      note: "Steuerschuldnerschaft des Leistungsempfängers (Reverse Charge).",
-    };
+    return REVERSE_CHARGE;
   }
-  return {
-    kind: "unconfirmed_eu",
-    rate: DOMESTIC_RATE,
-    why: "Reverse charge requires a VAT number confirmed by VIES; this one is not confirmed, so the invoice carries domestic VAT.",
-  };
+  return UNCONFIRMED_EU;
 };
+
+/**
+ * The treatment an invoice was issued under, from the kind stored on its row. A reissued invoice
+ * (./reissue) keeps the treatment of the one it replaces, so the VAT is not decided twice.
+ */
+export const treatmentOf = (kind: TreatmentKind): VatTreatment =>
+  kind === "domestic"
+    ? { kind: "domestic", rate: DOMESTIC_RATE }
+    : kind === "reverse_charge"
+      ? REVERSE_CHARGE
+      : kind === "outside_eu"
+        ? OUTSIDE_EU
+        : UNCONFIRMED_EU;

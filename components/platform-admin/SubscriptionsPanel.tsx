@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/table";
 import { type RouterOutputs, trpc } from "@/lib/trpc/client";
 import { DemoCloseForm } from "./DemoCloseForm";
+import { ReissueInvoiceForm } from "./ReissueInvoiceForm";
 
 type Row = RouterOutputs["platformAdmin"]["subscriptions"][number];
 
@@ -283,7 +284,20 @@ export function SubscriptionsPanel() {
                         </div>
                       )}
                     </TableCell>
-                    <TableCell className="align-top text-right">
+                    <TableCell className="align-top space-y-2 text-right">
+                      {r.invoice &&
+                      !r.invoice.creditNoteNumber &&
+                      (r.invoice.status === "unpaid" ||
+                        r.invoice.status === "overdue") ? (
+                        <ReissueInvoiceForm
+                          billingAccountId={r.billingAccountId}
+                          invoiceNumber={r.invoice.number}
+                          periodStart={r.invoice.periodStart}
+                          periodEnd={r.invoice.periodEnd}
+                          ownerEmail={r.ownerEmail}
+                          onDone={subs.refetch}
+                        />
+                      ) : null}
                       {r.accessLevel === "full" ? (
                         <Button
                           size="sm"

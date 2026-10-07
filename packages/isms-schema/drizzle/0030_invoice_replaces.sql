@@ -1,0 +1,3 @@
+ALTER TABLE "invoice" ADD COLUMN "replaces_invoice_id" uuid;--> statement-breakpoint
+ALTER TABLE "invoice" ADD CONSTRAINT "invoice_replaces_invoice_id_invoice_id_fk" FOREIGN KEY ("replaces_invoice_id") REFERENCES "public"."invoice"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "invoice" ADD CONSTRAINT "invoice_replaces_invoice_id_unique" UNIQUE("replaces_invoice_id");
