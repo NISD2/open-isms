@@ -4,7 +4,7 @@ import { CopyProtected } from "@/components/CopyProtected";
 import { PartnerLogoStrip } from "@/components/PartnerLogoStrip";
 import { Separator } from "@/components/ui/separator";
 import { ogImages } from "@/lib/og-card";
-import { programmes } from "@/lib/partners";
+import { programmes, textProgrammes } from "@/lib/partners";
 import { pageAlternates } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -79,7 +79,7 @@ export default async function PartnerPage() {
           <PartnerLogoStrip />
 
           <dl className="grid gap-6 sm:grid-cols-2">
-            {programmes.map((programme) => (
+            {[...programmes, ...textProgrammes].map((programme) => (
               <div key={programme.name}>
                 <dt className="font-medium text-foreground">
                   {t(`partners.${programme.name}.title`)}

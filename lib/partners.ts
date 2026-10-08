@@ -61,6 +61,12 @@ export const programmes = [
 ] as const;
 
 /**
+ * Programmes listed on `/partner` in text only. We have no logo asset for them, so
+ * they stay out of `programmes` and the logo strips built from it.
+ */
+export const textProgrammes = [{ name: "claude" }] as const;
+
+/**
  * The ACS Teilnehmer badge, for the landing-page strip only. `/partner` renders
  * the unaltered full-colour badge in its own block instead, so adding this to
  * `programmes` would show it twice there.
