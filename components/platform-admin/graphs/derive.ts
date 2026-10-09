@@ -217,6 +217,26 @@ export function courseFunnel(users: UserFact[], courseId: CourseId): Bar[] {
   });
 }
 
+/**
+ * Registrations per day, split into people who opened a lesson of one course
+ * and everyone else. The platform does not record why someone registered, so
+ * "course" here means "has opened at least one lesson of it, as of today".
+ * Disposable-address signups are dropped, as in the funnels.
+ */
+export function signupDaysByCourse(
+  users: UserFact[],
+  courseId: CourseId,
+): { course: Map<string, number>; platformOnly: Map<string, number> } {
+  const course = new Map<string, number>();
+  const platformOnly = new Map<string, number>();
+  for (const u of users) {
+    if (u.disposable) continue;
+    const target = u.coursesStarted.includes(courseId) ? course : platformOnly;
+    target.set(u.signupDay, (target.get(u.signupDay) ?? 0) + 1);
+  }
+  return { course, platformOnly };
+}
+
 // ---------------------------------------------------------------------------
 // Distributions
 // ---------------------------------------------------------------------------
