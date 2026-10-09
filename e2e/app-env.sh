@@ -40,8 +40,8 @@ APP_ENV=(
   AWS_S3_REGION="eu-north-1"
   AWS_ACCESS_KEY_ID="minioadmin"
   AWS_SECRET_ACCESS_KEY="minioadmin"
-  # The help dialog renders no address row without this, and guide.spec
-  # asserts the one it renders. A dummy like every other value here: the
-  # test pins the plumbing, not anybody's real mailbox.
   SUPPORT_EMAIL="support@e2e.local"
+  # The help dialog renders no "Book a call" button without this, and guide.spec
+  # asserts it. A dummy handle: nothing here opens the calendar.
+  CAL_LINK="nisd2/e2e"
 )

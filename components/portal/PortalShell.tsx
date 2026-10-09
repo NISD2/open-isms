@@ -48,7 +48,6 @@ export function PortalShell({
           guide={{
             hints: session.hints,
             calLink: env.CAL_LINK,
-            supportEmail: env.SUPPORT_EMAIL,
           }}
         />
         <div className="flex-1 px-6 py-6">{children}</div>

@@ -40,8 +40,6 @@ export function PortalHeader({
     hints: Record<Hint, boolean>;
     /** Cal.com handle from CAL_LINK, "" where the instance sets no calendar. */
     calLink: string;
-    /** Support address from SUPPORT_EMAIL, "" where the instance sets none. */
-    supportEmail: string;
   };
   /**
    * Root the trail at the portal's home, the NIS 2 walkthrough. Only the entity
@@ -157,13 +155,7 @@ export function PortalHeader({
           (Simon, 05.10.2026); the profile menu keeps its own. */}
       <div className="ml-auto flex items-center gap-1">
         <LocaleSwitcher />
-        {guide && (
-          <PortalGuide
-            hints={guide.hints}
-            calLink={guide.calLink}
-            supportEmail={guide.supportEmail}
-          />
-        )}
+        {guide && <PortalGuide hints={guide.hints} calLink={guide.calLink} />}
       </div>
     </header>
   );

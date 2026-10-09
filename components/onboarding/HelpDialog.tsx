@@ -1,17 +1,9 @@
 "use client";
 
-import {
-  CalendarDays,
-  Check,
-  Compass,
-  GraduationCap,
-  Handshake,
-  Mail,
-  Server,
-} from "lucide-react";
+import { Compass } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { BookingLink } from "@/components/pricing/BookingLink";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -19,27 +11,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Link } from "@/i18n/navigation";
-import { useCopy } from "@/lib/clipboard/use-copy";
-
-function HelpRow({
-  icon: Icon,
-  children,
-}: {
-  icon: typeof Mail;
-  children: React.ReactNode;
-}) {
-  return (
-    <li className="flex gap-3 text-sm">
-      <Icon className="mt-0.5 size-4 shrink-0 text-muted-foreground" aria-hidden />
-      <span className="leading-relaxed">{children}</span>
-    </li>
-  );
-}
 
 /**
  * The offer of help behind the portal header's question mark, and the thing a
- * user meets once on their second login.
+ * user meets once on their second login: one sentence and one way to reach us,
+ * the booking calendar.
  *
  * `permanent` distinguishes the two: the second-login appearance retires
  * itself for good, while opening it deliberately from the header should not
@@ -49,7 +25,6 @@ export function HelpDialog({
   open,
   onOpenChange,
   calLink,
-  supportEmail,
   permanent,
   onStartTour,
 }: {
@@ -57,19 +32,12 @@ export function HelpDialog({
   onOpenChange: (open: boolean) => void;
   /** Cal.com handle from CAL_LINK. Empty on instances that set no calendar. */
   calLink: string;
-  /**
-   * Support address from SUPPORT_EMAIL, the same one /email/unsubscribed
-   * shows and outbound mail replies to. "" on an instance that sets none,
-   * where the row is not rendered at all rather than shown as a placeholder.
-   */
-  supportEmail: string;
   permanent: boolean;
   /** Absent on pages that have no tour to replay. */
   onStartTour?: () => void;
 }) {
   const t = useTranslations("guide");
-  const tHelp = useTranslations("help");
-  const { copied, copy } = useCopy();
+  const tCall = useTranslations("pricing.tiers.talkFirst");
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -84,58 +52,17 @@ export function HelpDialog({
           <DialogDescription>{t("help.body")}</DialogDescription>
         </DialogHeader>
 
-        <ul className="space-y-3">
-          {supportEmail && (
-            <HelpRow icon={copied ? Check : Mail}>
-              {t("help.email")}{" "}
-              <button
-                type="button"
-                data-testid="help-copy-email"
-                onClick={() => void copy(supportEmail, t("help.emailCopied"))}
-                className="font-medium underline underline-offset-4 hover:text-foreground"
-              >
-                {supportEmail}
-              </button>
-            </HelpRow>
-          )}
-
-          {calLink && (
-            <HelpRow icon={CalendarDays}>
-              <BookingLink
-                calLink={calLink}
-                className="font-medium underline underline-offset-4"
-              >
-                {t("help.call")}
-              </BookingLink>
-            </HelpRow>
-          )}
-
-          <HelpRow icon={Server}>{t("help.selfHost")}</HelpRow>
-          {/* What happens when the platform is not enough. The full offer,
-              including how a referral earns us anything, lives on /hilfe;
-              this is the pointer to it, not a second copy of it. */}
-          <HelpRow icon={Handshake}>{tHelp("inApp.dialog.line")}</HelpRow>
-          <HelpRow icon={GraduationCap}>
-            {t("help.training")}{" "}
-            <Link
-              href={{
-                pathname: "/training/courses/[courseId]",
-                params: { courseId: "nis2-ceo" },
-              }}
-              className="font-medium underline underline-offset-4"
-            >
-              {t("help.trainingLink")}
-            </Link>
-          </HelpRow>
-        </ul>
+        {calLink && (
+          <BookingLink
+            calLink={calLink}
+            data-testid="help-book-call"
+            className={buttonVariants({ size: "lg" })}
+          >
+            {tCall("title")}
+          </BookingLink>
+        )}
 
         <div className="flex flex-wrap items-center justify-end gap-2">
-          <Button type="button" variant="ghost" asChild>
-            <Link href="/hilfe" target="_blank" rel="noopener noreferrer">
-              <Handshake className="size-4" aria-hidden />
-              {tHelp("inApp.dialog.cta")}
-            </Link>
-          </Button>
           {onStartTour && (
             <Button type="button" variant="ghost" onClick={onStartTour}>
               <Compass className="size-4" aria-hidden />
@@ -144,6 +71,7 @@ export function HelpDialog({
           )}
           <Button
             type="button"
+            variant="ghost"
             data-testid="help-close"
             onClick={() => onOpenChange(false)}
           >
