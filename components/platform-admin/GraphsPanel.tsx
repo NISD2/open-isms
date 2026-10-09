@@ -26,6 +26,7 @@ import {
   questionnairePercents,
   seatBars,
   sectorBars,
+  signupDaysByCourse,
   signupFunnel,
   sizeBars,
 } from "./graphs/derive";
@@ -156,6 +157,11 @@ function GraphsView({ data }: { data: GrowthData }) {
     return { signups, verified, activatedUsers, orgsCreated, orgsActivated };
   }, [data]);
 
+  const courseSignupDays = useMemo(
+    () => signupDaysByCourse(data.users, "nis2-ceo"),
+    [data],
+  );
+
   const totals = useMemo(
     () => ({
       accounts: runningTotals(marks.signups, earliest, today),
@@ -198,6 +204,15 @@ function GraphsView({ data }: { data: GrowthData }) {
           const ok = marks.verified.get(day) ?? 0;
           return { verified: ok, unverified: all - ok };
         },
+        "sum",
+      ),
+      courseSignups: bucketSeries(
+        days,
+        "month",
+        (day) => ({
+          course: courseSignupDays.course.get(day) ?? 0,
+          platformOnly: courseSignupDays.platformOnly.get(day) ?? 0,
+        }),
         "sum",
       ),
       orgs: bucketSeries(
@@ -267,7 +282,7 @@ function GraphsView({ data }: { data: GrowthData }) {
         "sum",
       ),
     }),
-    [days, g, totals, marks, byDay],
+    [days, g, totals, marks, byDay, courseSignupDays],
   );
 
   // ── Range-scoped facts ───────────────────────────────────────────────────
@@ -360,6 +375,10 @@ function GraphsView({ data }: { data: GrowthData }) {
     signups: [
       { key: "verified", label: "Verified", color: VIZ.slot1 },
       { key: "unverified", label: "Never verified", color: VIZ.slot2 },
+    ],
+    courseSignups: [
+      { key: "course", label: "Opened the CEO course", color: VIZ.slot1 },
+      { key: "platformOnly", label: "Platform only", color: VIZ.slot2 },
     ],
     // Two labellings of the same two keys. On the running total, `created`
     // counts every organisation row that exists, named or not, so calling it
@@ -489,6 +508,15 @@ function GraphsView({ data }: { data: GrowthData }) {
           table={trendTable(trends.signups, series.signups, period)}
         >
           <TrendColumns data={trends.signups} series={series.signups} />
+        </ChartCard>
+
+        <ChartCard
+          title="New accounts per month: CEO course or platform only"
+          subtitle="Registrations, split by whether the person ever opened a lesson of the CEO course"
+          note="The platform does not record why someone registered, so this is read from what they did afterwards. Someone who registered for the course and never opened a lesson is counted as platform only. Disposable-address signups are left out. Always monthly, whatever the bucket above says."
+          table={trendTable(trends.courseSignups, series.courseSignups, "Month")}
+        >
+          <TrendColumns data={trends.courseSignups} series={series.courseSignups} />
         </ChartCard>
 
         <ChartCard
