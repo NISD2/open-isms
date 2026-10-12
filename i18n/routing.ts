@@ -290,6 +290,9 @@ export const routing = defineRouting({
     "/review": "/review",
     "/risks": "/risks",
     "/settings": "/settings",
+    // Where an AI assistant's sign-in asks the person to allow it (lib/mcp/oauth.ts). One slug in
+    // every language: the authorization endpoint redirects to it without knowing the locale.
+    "/mcp/verbinden/[request]": "/mcp/verbinden/[request]",
     "/suppliers": "/suppliers",
     "/suppliers/[id]": "/suppliers/[id]",
     "/team": "/team",

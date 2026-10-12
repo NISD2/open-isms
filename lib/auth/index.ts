@@ -1,4 +1,12 @@
-export { handlers, auth, signIn, signOut, getSession } from "./config";
+export {
+  auth,
+  type CompanySession,
+  companySession,
+  getSession,
+  handlers,
+  signIn,
+  signOut,
+} from "./config";
 
 /** Roles that can access the review dashboard and approve/reject submissions. */
 export function hasReviewAccess(role: string): boolean {

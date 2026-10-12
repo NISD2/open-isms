@@ -53,6 +53,15 @@ export const HINT_COLUMN = {
   journeyNotice: "journeyNoticeDismissedAt",
 } as const satisfies Record<Hint, keyof HintState>;
 
+/** No surface coming: for a session without a user row to resolve them from. */
+export const NO_HINTS: Readonly<Record<Hint, boolean>> = {
+  journeyTourGuided: false,
+  journeyTourTeam: false,
+  requirementTour: false,
+  helpOffer: false,
+  journeyNotice: false,
+};
+
 /**
  * Which one-time surfaces this user still has coming.
  *

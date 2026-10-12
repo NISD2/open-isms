@@ -1,5 +1,5 @@
 import { TRPCError } from "@trpc/server";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
 import { epochSeconds, isRecentSignIn } from "@/lib/auth/session-age";
@@ -18,11 +18,16 @@ import {
 import { sendErasureCertificate } from "@/lib/gdpr/send-certificate";
 import { isLocaleCode } from "@/lib/locale";
 import { resolveEmailLocale } from "@/lib/mail/locale";
+import { issuer } from "@/lib/mcp/config";
+import { instanceKey } from "@/lib/mcp/instance-key";
+import { mintKey, PASTED_KEY_SECONDS } from "@/lib/mcp/key";
+import { allow, readRequest } from "@/lib/mcp/oauth";
 import { HINT_COLUMN, HINTS } from "@/lib/onboarding/hints";
 import { rateLimit } from "@/lib/rate-limit";
 import { user } from "@/schema";
 import { userUpdateSchema } from "@/schema/validators";
 import {
+  companyProcedure,
   protectedProcedure,
   publicProcedure,
   router,
@@ -110,6 +115,58 @@ export const userRouter = router({
 
       return { hint: input.hint };
     }),
+
+  /**
+   * A key for the person's AI assistants (lib/mcp): it works in the company open now, as this
+   * person with their role, for 90 days. Shown once and stored nowhere. Bumping the version first
+   * ends the previous key and every assistant signed in before, so a person holds one key at a
+   * time. An assistant cannot make itself a key.
+   */
+  createMcpKey: companyProcedure.mutation(async ({ ctx }) => {
+    if (ctx.viaKey) throw new TRPCError({ code: "FORBIDDEN" });
+    const version = await bumpMcpKeyVersion(ctx.db, ctx.userId);
+    const key = mintKey(
+      instanceKey(),
+      { sub: ctx.userId, cid: ctx.companyId, ver: version },
+      "mcp",
+      epochSeconds(new Date()),
+      PASTED_KEY_SECONDS,
+    );
+    return { key };
+  }),
+
+  /**
+   * The person allowed an assistant on the consent page (lib/mcp/oauth.ts): the address it goes
+   * back to, with a code for this person in the company open now. The audit row of this call is
+   * the record of who connected which assistant.
+   */
+  allowMcpClient: companyProcedure
+    .input(z.object({ request: z.string().max(8192) }))
+    .mutation(async ({ ctx, input }) => {
+      if (ctx.viaKey) throw new TRPCError({ code: "FORBIDDEN" });
+      const now = epochSeconds(new Date());
+      const request = readRequest(instanceKey(), input.request, now);
+      if (!request) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "This request has expired. Connect again from the assistant.",
+        });
+      }
+      const [row] = await ctx.db
+        .select({ version: user.mcpKeyVersion })
+        .from(user)
+        .where(eq(user.id, ctx.userId))
+        .limit(1);
+      if (!row) throw new TRPCError({ code: "NOT_FOUND", message: "Account not found." });
+      const holder = { sub: ctx.userId, cid: ctx.companyId, ver: row.version };
+      return { url: allow(instanceKey(), request, holder, issuer(), now) };
+    }),
+
+  /** Ends the person's key and every assistant they connected, at once. */
+  disconnectMcp: protectedProcedure.mutation(async ({ ctx }) => {
+    await bumpMcpKeyVersion(ctx.db, ctx.userId);
+    return { disconnected: true };
+  }),
 
   /** Whether the signed-in person may delete their own account here, and what goes with it. */
   deletionCheck: protectedProcedure.query(async ({ ctx }): Promise<SelfErasure> => {
@@ -230,4 +287,15 @@ const ownAccount = async (db: DbOrTx, userId: string) => {
     .limit(1);
   if (!row) throw new TRPCError({ code: "NOT_FOUND", message: "Account not found." });
   return row;
+};
+
+/** The person's next key version: every key and assistant sign-in from before stops working. */
+const bumpMcpKeyVersion = async (db: DbOrTx, userId: string): Promise<number> => {
+  const [row] = await db
+    .update(user)
+    .set({ mcpKeyVersion: sql`${user.mcpKeyVersion} + 1` })
+    .where(eq(user.id, userId))
+    .returning({ version: user.mcpKeyVersion });
+  if (!row) throw new TRPCError({ code: "NOT_FOUND", message: "Account not found." });
+  return row.version;
 };

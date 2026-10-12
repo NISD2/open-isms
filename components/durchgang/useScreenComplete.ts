@@ -1,11 +1,15 @@
-import { type ResolvedScreen, recordDay, reviewedWithinYear } from "@/lib/durchgang";
+import {
+  inAudience,
+  type ResolvedScreen,
+  recordDay,
+  reviewedWithinYear,
+} from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import { answerOf, useAgreementRows } from "./AgreementScreen";
 import { approvalReady } from "./ApproveScreen";
 import { type Draft, isAnswered } from "./draft";
 import { useLoginRows } from "./LoginScreen";
 import { rowSettled, useRatingRows } from "./RatingScreens";
-import { inAudience } from "./TrainingRecords";
 import type { ItemView } from "./view";
 
 /**

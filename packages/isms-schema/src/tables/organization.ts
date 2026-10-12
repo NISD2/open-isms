@@ -377,6 +377,13 @@ export const user = pgTable(
      */
     sessionVersion: integer("session_version").default(1).notNull(),
     /**
+     * Revocation counter of the person's keys for AI assistants (MCP, lib/mcp/key.ts). Stamped
+     * into each key; a key whose version no longer matches is refused. Making a new key or
+     * disconnecting every assistant bumps it. Apart from sessionVersion so that revoking a key
+     * does not sign the person out of the app.
+     */
+    mcpKeyVersion: integer("mcp_key_version").default(1).notNull(),
+    /**
      * Completed sign-ins, incremented once per sign-in in the NextAuth `jwt`
      * callback. That hook receives a `user` argument only when a session is
      * first established, never on the silent refreshes that keep an 8h token

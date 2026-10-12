@@ -18,7 +18,11 @@ import { removeReleasedObject } from "@/lib/storage/released-object";
 import type { CourseId } from "@/lib/training/catalog";
 import { courseParticipants } from "@/lib/training/company-course";
 import { trainingRecord } from "@/schema";
-import { trainingInsertSchema, trainingUpdateSchema } from "@/schema/validators";
+import {
+  trainingCreateSchema,
+  trainingInsertSchema,
+  trainingUpdateSchema,
+} from "@/schema/validators";
 import { assertOwnObjectKey, verifyMemberReferences } from "../guards";
 import { companyProcedure, router } from "../init";
 
@@ -69,7 +73,7 @@ export const trainingRouter = router({
   ),
 
   create: companyProcedure
-    .input(trainingInsertSchema.omit({ id: true, companyId: true, createdAt: true }))
+    .input(trainingCreateSchema)
     .mutation(async ({ ctx, input }) => {
       assertOwnObjectKey(certificatePrefix(ctx.companyId), input.certificateFileKey);
       await verifyMemberReferences(ctx.db, [input.userId], ctx.companyId);

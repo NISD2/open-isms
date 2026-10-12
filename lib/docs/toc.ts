@@ -68,8 +68,7 @@ export const DOCS_SECTIONS = [
         slug: "quickstart",
         title: "Quickstart",
         seoTitle: "Install a self-hosted NIS 2 ISMS in one command",
-        description:
-          "One command, about ten minutes, and no Docker knowledge required.",
+        description: "One command, about ten minutes, and no Docker knowledge required.",
         keywords: [
           "self-hosted ISMS install",
           "docker compose ISMS",
@@ -114,8 +113,7 @@ export const DOCS_SECTIONS = [
         slug: "installation",
         title: "Installation",
         seoTitle: "Install open-isms on your own server",
-        description:
-          "The full walkthrough, including the optional compose profiles.",
+        description: "The full walkthrough, including the optional compose profiles.",
         keywords: [
           "install ISMS on server",
           "docker compose profiles",
@@ -192,14 +190,8 @@ export const DOCS_SECTIONS = [
         slug: "domains-and-tls",
         title: "Domains and TLS",
         seoTitle: "Domains, TLS, and the AUTH_URL trap",
-        description:
-          "The Caddy profile, the AUTH_URL trap, and when to turn on HSTS.",
-        keywords: [
-          "AUTH_URL cookie",
-          "Caddy reverse proxy",
-          "self-hosted HTTPS",
-          "HSTS",
-        ],
+        description: "The Caddy profile, the AUTH_URL trap, and when to turn on HSTS.",
+        keywords: ["AUTH_URL cookie", "Caddy reverse proxy", "self-hosted HTTPS", "HSTS"],
       },
       {
         slug: "scheduled-jobs",
@@ -212,6 +204,20 @@ export const DOCS_SECTIONS = [
           "deadline reminders",
           "GDPR retention job",
           "scheduled tasks",
+        ],
+      },
+      {
+        slug: "mcp",
+        title: "AI assistants (MCP)",
+        seoTitle: "Connect Claude or Copilot to the NIS 2 walkthrough",
+        description:
+          "The MCP endpoint: an AI assistant reads the walkthrough and fills in fields and registers.",
+        keywords: [
+          "MCP server",
+          "Claude Code MCP",
+          "Copilot Studio MCP",
+          "NIS 2 AI assistant",
+          "self-hosted MCP",
         ],
       },
       {
@@ -244,8 +250,7 @@ export const DOCS_SECTIONS = [
         slug: "troubleshooting",
         title: "Troubleshooting",
         seoTitle: "Troubleshooting a self-hosted NIS 2 ISMS",
-        description:
-          "Symptoms, causes, and the commands that tell them apart.",
+        description: "Symptoms, causes, and the commands that tell them apart.",
         keywords: [
           "container restart loop",
           "login redirect loop",
@@ -317,8 +322,7 @@ export const DOCS_SECTIONS = [
         slug: "local-development",
         title: "Local development",
         seoTitle: "Run open-isms locally with Bun and Postgres",
-        description:
-          "Clone, install, database, and the dev server on port 3026.",
+        description: "Clone, install, database, and the dev server on port 3026.",
         keywords: [
           "local development setup",
           "bun dev server",
@@ -330,8 +334,7 @@ export const DOCS_SECTIONS = [
         slug: "project-structure",
         title: "Project structure",
         seoTitle: "open-isms project structure and workspace layout",
-        description:
-          "Where the app ends and the workspace packages begin.",
+        description: "Where the app ends and the workspace packages begin.",
         keywords: [
           "monorepo layout",
           "bun workspaces",
@@ -404,14 +407,13 @@ export interface DocsEntry {
 }
 
 /** Every page, in sidebar order. The basis for previous/next and the sitemap. */
-export const DOCS_ENTRIES: readonly DocsEntry[] = DOCS_SECTIONS.flatMap(
-  (section) =>
-    section.pages.map((page) => ({
-      section,
-      page,
-      path: `${section.slug}/${page.slug}`,
-      href: `/docs/${section.slug}/${page.slug}`,
-    })),
+export const DOCS_ENTRIES: readonly DocsEntry[] = DOCS_SECTIONS.flatMap((section) =>
+  section.pages.map((page) => ({
+    section,
+    page,
+    path: `${section.slug}/${page.slug}`,
+    href: `/docs/${section.slug}/${page.slug}`,
+  })),
 );
 
 export function findEntry(path: string): DocsEntry | undefined {

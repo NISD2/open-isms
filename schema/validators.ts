@@ -450,6 +450,22 @@ export const supplierInsertSchema = createInsertSchema(supplier, {
 }).omit({ agreementsCheckedAt: true });
 export const supplierSelectSchema = createSelectSchema(supplier);
 /**
+ * A new supplier: supplier.create, and an assistant's rows (lib/mcp). The customer is the
+ * caller's company and the portal's lifecycle columns are the supplier's side, as below.
+ */
+export const supplierCreateSchema = supplierInsertSchema.omit({
+  id: true,
+  customerCompanyId: true,
+  supplierCompanyId: true,
+  unsubscribeToken: true,
+  status: true,
+  source: true,
+  confirmedAt: true,
+  unsubscribedAt: true,
+  createdAt: true,
+  updatedAt: true,
+});
+/**
  * Note what is omitted beyond the usual meta, and why.
  *
  * `unsubscribeToken` is the supplier portal's bearer credential: holding it
@@ -584,6 +600,12 @@ export const trainingInsertSchema = createInsertSchema(trainingRecord, {
     .nullish(),
 });
 export const trainingSelectSchema = createSelectSchema(trainingRecord);
+/** A new training line: training.create, and an assistant's rows (lib/mcp). */
+export const trainingCreateSchema = trainingInsertSchema.omit({
+  id: true,
+  companyId: true,
+  createdAt: true,
+});
 // companyId must be stripped here too. omitAudit alone leaves it in the
 // input, and training.update writes it straight to the row — the
 // mass-assignment omitTenantMeta exists to prevent. omitTenantMeta itself
@@ -704,6 +726,13 @@ export const managementReviewInsertSchema = createInsertSchema(managementReview,
   title: z.string().min(1).max(500),
 });
 export const managementReviewSelectSchema = createSelectSchema(managementReview);
+/** A new management review: managementReview.create, and an assistant's rows (lib/mcp). */
+export const managementReviewCreateSchema = managementReviewInsertSchema.omit({
+  id: true,
+  companyId: true,
+  createdAt: true,
+  updatedAt: true,
+});
 export const managementReviewUpdateSchema = managementReviewInsertSchema
   .partial()
   .omit(omitTenantMeta);

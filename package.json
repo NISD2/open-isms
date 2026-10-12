@@ -53,6 +53,7 @@
     "@aws-sdk/s3-request-presigner": "^3.985.0",
     "@base-ui/react": "^1.1.0",
     "@hookform/resolvers": "^5.2.2",
+    "@modelcontextprotocol/server": "2.3.1",
     "@nisd2/grc-data-model": "workspace:*",
     "@nisd2/incident-notification-schema": "workspace:*",
     "@nisd2/isms-lib": "workspace:*",

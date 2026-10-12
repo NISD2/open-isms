@@ -17,8 +17,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   enteredDay,
+  inAudience,
   recordDay,
   recordedDay,
+  TRAINING_ROW,
   type TrainingAudience,
   type WalkLocale,
 } from "@/lib/durchgang";
@@ -44,12 +46,6 @@ const blank = () => ({
   date: recordDay(new Date()),
 });
 
-/** Whether a training register row belongs to the audience a screen lists. */
-export const inAudience = (
-  row: Pick<Row, "isManagement">,
-  audience: TrainingAudience,
-): boolean => Boolean(row.isManagement) === (audience === "management");
-
 /**
  * How each audience's line maps to the register's row. Management lines are one person and the
  * provider they trained with; staff lines are one session: what it covered and who took part.
@@ -67,8 +63,7 @@ const AUDIENCE = {
     // is follows from § 38 Abs. 3 BSIG, so the form does not ask it and the row is named for it.
     asksProvider: false,
     row: (entered: Entered, managementTraining: string) => ({
-      trainingType: "management",
-      isManagement: true,
+      ...TRAINING_ROW.management,
       participantName: entered.who,
       title: managementTraining,
       providerName: entered.what,
@@ -85,8 +80,7 @@ const AUDIENCE = {
     },
     asksProvider: true,
     row: (entered: Entered) => ({
-      trainingType: "awareness",
-      isManagement: false,
+      ...TRAINING_ROW.staff,
       participantName: entered.who,
       title: entered.what,
       providerName: entered.provider || null,

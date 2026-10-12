@@ -108,6 +108,7 @@ async function main() {
     companyId: user.companyId,
     ip: "smoke-test",
     userAgent: null,
+    viaKey: false,
   };
   const caller = createCaller(ctx);
 

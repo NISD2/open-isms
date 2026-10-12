@@ -22,7 +22,7 @@ import { PLATFORM_SOURCE } from "@/lib/supplier-portal/register-row";
 import { riskSupplier, supplier } from "@/schema";
 import {
   customerSupplierAssessmentSchema,
-  supplierInsertSchema,
+  supplierCreateSchema,
   supplierLinkedUpdateSchema,
   supplierUpdateSchema,
 } from "@/schema/validators";
@@ -69,20 +69,7 @@ export const supplierRouter = router({
   }),
 
   create: companyProcedure
-    .input(
-      supplierInsertSchema.omit({
-        id: true,
-        customerCompanyId: true,
-        supplierCompanyId: true,
-        unsubscribeToken: true,
-        status: true,
-        source: true,
-        confirmedAt: true,
-        unsubscribedAt: true,
-        createdAt: true,
-        updatedAt: true,
-      }),
-    )
+    .input(supplierCreateSchema)
     .mutation(async ({ ctx, input }) => {
       const values = { ...input, customerCompanyId: ctx.companyId };
       const [row] = await ctx.db

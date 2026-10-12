@@ -1,10 +1,10 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import type { ResolvedScreen } from "@/lib/durchgang";
+import { inAudience, type ResolvedScreen } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import type { Draft } from "./draft";
-import { headOf, inAudience } from "./TrainingRecords";
+import { headOf } from "./TrainingRecords";
 import type { ItemView } from "./view";
 
 const SHOWN_NAMES = 4;

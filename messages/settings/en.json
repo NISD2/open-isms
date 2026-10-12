@@ -24,6 +24,35 @@
     "saved": "Settings saved",
     "saveError": "Failed to save settings",
     "saving": "Saving...",
-    "adminOnly": "Only admins can change settings."
+    "adminOnly": "Only admins can change settings.",
+    "mcp": {
+      "title": "Connect assistants like Claude or Copilot",
+      "description": "A connected assistant reads your NIS 2 walkthrough and fills in fields and registers, with your rights in this company. An item is finished only here in the app, and signed only by management.",
+      "signIn": "Assistants that sign in through the browser need no key: you sign in and allow access. The key is for all others.",
+      "howTo": "How to set up Claude Code, Claude Desktop and Copilot Studio",
+      "create": "Create key",
+      "createAgain": "Create a new key",
+      "created": "Your key, valid for 90 days. It is shown only now.",
+      "keyLabel": "Key",
+      "copy": "Copy",
+      "copied": "Copied",
+      "disconnect": "Disconnect all assistants",
+      "disconnected": "All assistants are disconnected.",
+      "replaceNote": "A new key, or disconnecting, ends the previous key and every assistant's sign-in.",
+      "failed": "That did not work. Please try again.",
+      "connect": {
+        "title": "Connect an assistant",
+        "asks": "{client} wants to access the NIS 2 walkthrough of {company}.",
+        "unnamed": "An assistant",
+        "may": "It reads the walkthrough and fills in fields and registers, as {person} and with your rights.",
+        "mayNot": "It finishes no item, decides nothing and signs nothing. That stays here in the app.",
+        "returnTo": "Afterwards you go back to {host}.",
+        "allow": "Allow",
+        "deny": "Decline",
+        "expired": "This request has expired or is not valid. Start the connection again in the assistant.",
+        "disconnectHint": "You can disconnect at any time in Settings.",
+        "failed": "That did not work. Please try again."
+      }
+    }
   }
 }

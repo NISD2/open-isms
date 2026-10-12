@@ -24,6 +24,35 @@
     "saved": "Einstellungen gespeichert",
     "saveError": "Einstellungen konnten nicht gespeichert werden",
     "saving": "Speichern...",
-    "adminOnly": "Nur Admins können Einstellungen ändern."
+    "adminOnly": "Nur Admins können Einstellungen ändern.",
+    "mcp": {
+      "title": "Assistenten wie Claude oder Copilot verbinden",
+      "description": "Ein verbundener Assistent liest Ihren NIS 2 Durchgang und füllt Felder und Register aus, mit Ihren Rechten in dieser Firma. Abgeschlossen wird ein Punkt nur hier in der App, und unterschrieben nur von der Geschäftsführung.",
+      "signIn": "Assistenten, die sich im Browser anmelden, brauchen keinen Schlüssel: Sie melden sich an und erlauben den Zugriff. Für alle anderen gibt es den Schlüssel.",
+      "howTo": "So richten Sie Claude Code, Claude Desktop und Copilot Studio ein",
+      "create": "Schlüssel erzeugen",
+      "createAgain": "Neuen Schlüssel erzeugen",
+      "created": "Ihr Schlüssel, 90 Tage gültig. Er wird nur jetzt angezeigt.",
+      "keyLabel": "Schlüssel",
+      "copy": "Kopieren",
+      "copied": "Kopiert",
+      "disconnect": "Alle Assistenten trennen",
+      "disconnected": "Alle Assistenten sind getrennt.",
+      "replaceNote": "Ein neuer Schlüssel und das Trennen beenden den bisherigen Schlüssel und jede Anmeldung eines Assistenten.",
+      "failed": "Das hat nicht geklappt. Bitte versuchen Sie es noch einmal.",
+      "connect": {
+        "title": "Assistent verbinden",
+        "asks": "{client} möchte auf den NIS 2 Durchgang von {company} zugreifen.",
+        "unnamed": "Ein Assistent",
+        "may": "Er liest den Durchgang und füllt Felder und Register aus, als {person} und mit Ihren Rechten.",
+        "mayNot": "Er schließt keinen Punkt ab, entscheidet nichts und unterschreibt nichts. Das bleibt hier in der App.",
+        "returnTo": "Danach geht es zurück zu {host}.",
+        "allow": "Erlauben",
+        "deny": "Ablehnen",
+        "expired": "Diese Anfrage ist abgelaufen oder ungültig. Starten Sie die Verbindung im Assistenten neu.",
+        "disconnectHint": "Trennen können Sie jederzeit in den Einstellungen.",
+        "failed": "Das hat nicht geklappt. Bitte versuchen Sie es noch einmal."
+      }
+    }
   }
 }

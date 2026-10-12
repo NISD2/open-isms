@@ -120,10 +120,12 @@ export {
   askedFields,
   BACKUP_FREQUENCIES,
   HOSTINGS,
+  inAudience,
   MANAGEMENT_ROLE,
   MFA_METHODS,
   POLICY_LISTS,
   POLICY_TEMPLATES,
+  TRAINING_ROW,
 } from "./types";
 
 const BY_CODE: ReadonlyMap<string, AnyItem> = new Map(

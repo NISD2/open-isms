@@ -20,6 +20,8 @@ export const SEGMENT_LABELS = {
   journey: "journey",
   kpis: "kpis",
   "management-reviews": "managementReviews",
+  // Connecting an AI assistant is managed in the settings.
+  mcp: "settings",
   notifications: "notifications",
   organization: "organization",
   patches: "patches",

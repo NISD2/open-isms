@@ -24,6 +24,8 @@ export async function createTRPCContext(opts?: { req?: Request }) {
     companyId: session?.companyId ?? null,
     ip,
     userAgent,
+    /** Signed in by an AI assistant's key (lib/mcp/context.ts) rather than the cookie. */
+    viaKey: false,
   };
 }
 
@@ -58,7 +60,8 @@ export const selfErasureProcedure = setup.publicProcedure.use(({ ctx, next }) =>
  * customers, under the operator's own open company, where that company's reviewers can read it.
  */
 export const platformAdminProcedure = setup.platformProcedure.use(({ ctx, next }) => {
-  if (!isPlatformAdmin(ctx.session?.user.email)) {
+  // An assistant's key works in one company; operating the platform takes the person signed in.
+  if (ctx.viaKey || !isPlatformAdmin(ctx.session?.user.email)) {
     throw new TRPCError({ code: "FORBIDDEN", message: "Platform admin access required" });
   }
   return next({ ctx });
