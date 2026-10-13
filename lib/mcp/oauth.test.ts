@@ -9,6 +9,7 @@ import {
   readRequest,
   registerClient,
   sameRedirect,
+  spendOn,
   type TokenDeps,
 } from "./oauth";
 
@@ -63,15 +64,46 @@ function codeFor(clientId: string): string {
   return back.searchParams.get("code") ?? "";
 }
 
-function deps(version = HOLDER.ver): TokenDeps & { used: Set<string> } {
-  const used = new Set<string>();
+const refreshWith = (clientId: string, token: unknown) =>
+  params({
+    grant_type: "refresh_token",
+    client_id: clientId,
+    refresh_token: String(token),
+  });
+
+/**
+ * The rate limiter as Postgres keeps it: one fixed window per key, opened by its first hit, on a
+ * clock in seconds the test moves.
+ */
+function fakeCounter(clock: { now: number }) {
+  const windows = new Map<string, { resetAt: number; count: number }>();
+  return async (key: string, limit: number, windowMs: number) => {
+    const nowMs = clock.now * 1000;
+    const open = windows.get(key);
+    if (!open || nowMs >= open.resetAt) {
+      windows.set(key, { resetAt: nowMs + windowMs, count: 1 });
+      return { allowed: true as const };
+    }
+    if (open.count < limit) {
+      open.count += 1;
+      return { allowed: true as const };
+    }
+    return { allowed: false as const, resetInMs: open.resetAt - nowMs };
+  };
+}
+
+/** The token store as the route wires it, over the fake counter. */
+function deps(
+  version = HOLDER.ver,
+  clock = { now: NOW },
+): TokenDeps & { readonly revoked: string[] } {
+  const revoked: string[] = [];
   return {
-    used,
+    revoked,
     versionOf: async () => version,
-    firstUse: async (hash) => {
-      if (used.has(hash)) return false;
-      used.add(hash);
-      return true;
+    spend: spendOn(fakeCounter(clock)),
+    revoke: async (userId) => {
+      revoked.push(userId);
     },
   };
 }
@@ -225,6 +257,36 @@ describe("token", () => {
     ).toBe(false);
   });
 
+  test("a refresh key used again within a minute still works: a race, not a theft", async () => {
+    const clientId = register();
+    const clock = { now: NOW };
+    const shared = deps(HOLDER.ver, clock);
+    const first = await exchange(KEY, redeem(clientId, codeFor(clientId)), shared, NOW);
+    if (!first.ok) throw new Error(first.description);
+    const again = refreshWith(clientId, first.body.refresh_token);
+    expect((await exchange(KEY, again, shared, NOW)).ok).toBe(true);
+    clock.now = NOW + 30;
+    expect((await exchange(KEY, again, shared, NOW + 30)).ok).toBe(true);
+    expect(shared.revoked).toEqual([]);
+  });
+
+  test("a refresh key used again later was copied: refused, and the person's assistants disconnected", async () => {
+    const clientId = register();
+    const clock = { now: NOW };
+    const shared = deps(HOLDER.ver, clock);
+    const first = await exchange(KEY, redeem(clientId, codeFor(clientId)), shared, NOW);
+    if (!first.ok) throw new Error(first.description);
+    const again = refreshWith(clientId, first.body.refresh_token);
+    const second = await exchange(KEY, again, shared, NOW);
+    if (!second.ok) throw new Error(second.description);
+    clock.now = NOW + 61;
+    expect(await exchange(KEY, again, shared, NOW + 61)).toMatchObject({
+      ok: false,
+      error: "invalid_grant",
+    });
+    expect(shared.revoked).toEqual([HOLDER.sub]);
+  });
+
   test("a refresh key works only for the client it was issued to", async () => {
     const clientId = register();
     const first = await exchange(KEY, redeem(clientId, codeFor(clientId)), deps(), NOW);
@@ -253,5 +315,20 @@ describe("token", () => {
       status: 401,
       error: "invalid_client",
     });
+  });
+});
+
+describe("the single-use ledger on the rate limiter's window", () => {
+  test("a value presented again reads how long after its first use, at any age", async () => {
+    const clock = { now: NOW };
+    const spend = spendOn(fakeCounter(clock));
+    const lifetime = 30 * 24 * 60 * 60;
+    expect(await spend("h", lifetime)).toEqual({ first: true });
+    clock.now += 30;
+    expect(await spend("h", lifetime)).toEqual({ first: false, sinceS: 30 });
+    clock.now += 31;
+    expect(await spend("h", lifetime)).toEqual({ first: false, sinceS: 61 });
+    clock.now += 20 * 24 * 60 * 60;
+    expect(await spend("h", lifetime)).toMatchObject({ first: false });
   });
 });

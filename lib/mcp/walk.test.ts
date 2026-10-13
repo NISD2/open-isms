@@ -7,6 +7,8 @@ import { describe, expect, test } from "bun:test";
 import { WALK } from "@/lib/durchgang";
 import { trainingCreateSchema } from "@/schema/validators";
 import {
+  answersProblem,
+  closedFor,
   fieldKeysOf,
   fieldsSchemaOf,
   jsonSchemaOf,
@@ -96,5 +98,45 @@ describe("the walk as an assistant sees it", () => {
       Date,
     );
     expect(row.safeParse({ ...base, completedAt: "last spring" }).success).toBe(false);
+  });
+});
+
+describe("what an assistant may change", () => {
+  const since = new Date("2026-10-01T00:00:00Z");
+  const unsigned = { status: "in_progress", signedOffAt: null };
+
+  test("only an item still open or waiting, and never one carrying a signature", () => {
+    expect(closedFor({ kind: "open" }, unsigned)).toBeNull();
+    expect(closedFor({ kind: "waiting", reason: "letter", since }, unsigned)).toBeNull();
+    expect(closedFor({ kind: "filled", since }, unsigned)).toBe("filled");
+    expect(closedFor({ kind: "declined", since }, unsigned)).toBe("declined");
+    expect(closedFor({ kind: "signed" }, null)).toBe("signed");
+    expect(closedFor({ kind: "not_applicable" }, null)).toBe("signed");
+  });
+
+  test("an item whose review came due still carries its signature, though the walk shows it filled", () => {
+    const dueForReview = { status: "needs_review", signedOffAt: since };
+    expect(closedFor({ kind: "filled", since }, dueForReview)).toBe("signed");
+    expect(closedFor({ kind: "waiting", reason: null, since }, dueForReview)).toBe(
+      "signed",
+    );
+  });
+
+  test("an item a reviewer rejected is open for the rework the rejection asks for", () => {
+    const rejected = { status: "rejected", signedOffAt: since };
+    expect(closedFor({ kind: "open" }, rejected)).toBeNull();
+  });
+
+  test("answers: only the item's own fields, never empty, of the field's type", () => {
+    const item = WALK.find((i) => i.code === "11.2");
+    if (!item) throw new Error("11.2 is not in the walk");
+    const [field] = fieldKeysOf(item);
+    if (!field) throw new Error("11.2 asks no field");
+    expect(answersProblem(item, { bogus: "x" })).toContain("asks no field bogus");
+    expect(answersProblem(item, { [field]: "" })).toContain("cannot be empty");
+    expect(answersProblem(item, { [field]: null })).toContain("cannot be empty");
+    expect(answersProblem(item, { [field]: "   " })).toContain("cannot be empty");
+    expect(answersProblem(item, { [field]: 12 })).not.toBeNull();
+    expect(answersProblem(item, { [field]: "Signal, Threema" })).toBeNull();
   });
 });

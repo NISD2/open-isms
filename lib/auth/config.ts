@@ -8,6 +8,7 @@ import type { Provider } from "next-auth/providers";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import { cache } from "react";
+import { revokedByCredentialChange } from "@/lib/auth/credential-change";
 import { checkEmailQuality } from "@/lib/auth/email-quality";
 import {
   decideGoogleLink,
@@ -211,8 +212,8 @@ async function admitGoogleAccount(google: {
             // reset does (audit M-1). The jwt callback runs after this one
             // and re-reads sessionVersion, so THIS sign-in is stamped with
             // the incremented value and stays valid; only tokens issued
-            // before the change are rejected.
-            sessionVersion: sql`${user.sessionVersion} + 1`,
+            // before the change are rejected. Assistants' keys end with it.
+            ...revokedByCredentialChange(),
           }
         : {}),
       // A pending-verify account whose owner chose Google over the email code.

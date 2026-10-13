@@ -1,9 +1,11 @@
 import "@/lib/server-guard";
 import { z } from "zod";
 import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
+import { hasSignOffToWithdraw, type SignOffState } from "@/lib/compliance/sign-off-state";
 import {
   type AnyItem,
   type AnyScreen,
+  type ItemState,
   inAudience,
   type ScreenKind,
   TRAINING_ROW,
@@ -85,6 +87,48 @@ export function fieldsSchemaOf(item: AnyItem): z.ZodObject | null {
   return schema
     .pick(Object.fromEntries(keys.map((key) => [key, true as const])))
     .partial();
+}
+
+/** Why these answers cannot be saved for the item, or null: unknown keys, empty values, wrong types. */
+export function answersProblem(
+  item: AnyItem,
+  answers: Readonly<Record<string, unknown>>,
+): string | null {
+  const keys = fieldKeysOf(item);
+  const unknown = Object.keys(answers).filter((key) => !keys.includes(key));
+  if (unknown.length > 0) {
+    return `${item.code} asks no field ${unknown.join(", ")}. Its fields: ${keys.join(", ") || "none"}.`;
+  }
+  // The app reads an empty value as "clear this field", which would erase what the person wrote.
+  const empty = Object.entries(answers)
+    .filter(
+      ([, value]) => value === null || (typeof value === "string" && value.trim() === ""),
+    )
+    .map(([key]) => key);
+  if (empty.length > 0) {
+    return `An answer cannot be empty (${empty.join(", ")}). Leave a field out to keep what is there.`;
+  }
+  const checked = fieldsSchemaOf(item)?.safeParse(answers);
+  return checked && !checked.success ? z.prettifyError(checked.error) : null;
+}
+
+/**
+ * Why an assistant may not change an item now, or null. Only an item the person is still working
+ * on (open, or set aside as waiting) is open to it. A filled or declined item is the person's
+ * finished word; a signed one is management's, and saving into it would withdraw the signature
+ * (`hasSignOffToWithdraw`, the rule intake applies). An item whose review came due still carries
+ * its signature while the walk shows it as filled, so `row`, its status row, is read too. A
+ * rejected item keeps its old signature too, but was sent back for rework: working on it is what
+ * the rejection asks, in the app as here.
+ */
+export function closedFor(
+  state: ItemState,
+  row: SignOffState | null,
+): "signed" | "filled" | "declined" | null {
+  if (state.kind === "signed" || state.kind === "not_applicable") return "signed";
+  if (row && row.status !== "rejected" && hasSignOffToWithdraw(row)) return "signed";
+  if (state.kind === "filled" || state.kind === "declined") return state.kind;
+  return null;
 }
 
 const isDate = (type: z.core.$ZodType): boolean =>

@@ -7,10 +7,10 @@
  * An access key names the person, the company it works in and the person's key version; bumping
  * `user.mcp_key_version` refuses every key made before it.
  *
- * Pure: the caller passes the signing key and the time, so the check script and the tests run
- * without env or a database (lib/mcp/instance-key.ts derives the live one).
+ * No env and no database: the caller passes the signing key and the time, so the tests run
+ * without either (lib/mcp/instance-key.ts derives the live key).
  */
-import { createHmac, hkdfSync, timingSafeEqual } from "node:crypto";
+import { createHmac, hkdfSync, randomBytes, timingSafeEqual } from "node:crypto";
 import { z } from "zod";
 
 /** A pasted key lasts 90 days; the sign-in flow issues shorter ones. */
@@ -89,10 +89,15 @@ const KEY_CLAIMS = z.object({
   client: z.string().max(200).optional(),
   /** The registration it was issued to (a hash of its client id); absent on a pasted key. */
   azp: z.string().max(64).optional(),
+  /**
+   * Random, so two keys made in the same second for the same person differ: a refresh key is
+   * spent by its hash, which must not spend its twin.
+   */
+  jti: z.string().max(64),
 });
 export type KeyClaims = z.infer<typeof KEY_CLAIMS>;
 
-/** Who a key is for, as the caller sets it; the audience and times are stamped by `mintKey`. */
+/** Who a key is for, as the caller sets it; the rest is stamped by `mintKey`. */
 export type KeySubject = Pick<KeyClaims, "sub" | "cid" | "ver" | "client" | "azp">;
 
 export const mintKey = (
@@ -101,7 +106,14 @@ export const mintKey = (
   audience: KeyAudience,
   nowS: number,
   lifetimeS: number,
-): string => sign(key, { ...subject, aud: audience, iat: nowS, exp: nowS + lifetimeS });
+): string =>
+  sign(key, {
+    ...subject,
+    aud: audience,
+    iat: nowS,
+    exp: nowS + lifetimeS,
+    jti: randomBytes(12).toString("base64url"),
+  });
 
 export const readKey = (
   key: Buffer,

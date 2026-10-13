@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
-import { and, eq, isNotNull, isNull, sql } from "drizzle-orm";
+import { and, eq, isNotNull, isNull } from "drizzle-orm";
 import { NextResponse } from "next/server";
+import { revokedByCredentialChange } from "@/lib/auth/credential-change";
 import { verifyOtp } from "@/lib/auth/otp";
 import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
 import { getClientIp } from "@/lib/client-ip";
@@ -129,7 +130,7 @@ export async function POST(request: Request) {
             // account — so this is belt to that reasoning rather than load
             // bearing today. It stops a future path that issues a session
             // before verification from turning this into a silent rotation.
-            sessionVersion: sql`${user.sessionVersion} + 1`,
+            ...revokedByCredentialChange(),
           }
         : {}),
     })

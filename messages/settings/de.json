@@ -47,6 +47,7 @@
         "may": "Er liest den Durchgang und füllt Felder und Register aus, als {person} und mit Ihren Rechten.",
         "mayNot": "Er schließt keinen Punkt ab, entscheidet nichts und unterschreibt nichts. Das bleibt hier in der App.",
         "returnTo": "Danach geht es zurück zu {host}.",
+        "selfNamed": "Den Namen „{client}“ gibt der Assistent selbst an. Erlauben Sie nur, wenn Sie diese Verbindung gerade selbst gestartet haben.",
         "allow": "Erlauben",
         "deny": "Ablehnen",
         "expired": "Diese Anfrage ist abgelaufen oder ungültig. Starten Sie die Verbindung im Assistenten neu.",

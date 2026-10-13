@@ -2,23 +2,21 @@ import "@/lib/server-guard";
 import { z } from "zod";
 import { getPathname } from "@/i18n/navigation";
 import { canSeeCategory, getUserAccess } from "@/lib/compliance/access";
-import {
-  type AnyItem,
-  type ItemState,
-  resolveItem,
-  WALK,
-  type WalkLocale,
-} from "@/lib/durchgang";
+import { type AnyItem, resolveItem, WALK, type WalkLocale } from "@/lib/durchgang";
+import { loggableFailure } from "@/lib/trpc/loggable-failure";
 import { getAppUrl } from "@/lib/utils";
 import de from "@/messages/durchgang/de.json";
 import en from "@/messages/durchgang/en.json";
 import type { KeyHolder } from "./context";
 import { describeError } from "./errors";
 import {
+  answersProblem,
+  closedFor,
   FILLED_BY,
   fieldKeysOf,
   fieldsSchemaOf,
   jsonSchemaOf,
+  type Register,
   registerOfItem,
   screensFilledBy,
 } from "./walk";
@@ -226,21 +224,56 @@ export const getWalkthrough = (
     ? readItem(holder, input.code, input.language)
     : listWalk(holder, input.language);
 
-/** States in which the item is management's: changing it would take their signature back. */
-const SIGNED: ReadonlySet<ItemState["kind"]> = new Set(["signed", "not_applicable"]);
+/** Why an assistant may not change this item now (`closedFor`), in words, or null. */
+async function refusalOf(
+  holder: KeyHolder,
+  found: Extract<Awaited<ReturnType<typeof itemOf>>, { ok: true }>,
+  link: string,
+): Promise<string | null> {
+  const { item, state, req, categoryId, assessment } = found;
+  const statuses = assessment
+    ? await holder.caller.assessment.getStatusesByCategory({
+        assessmentId: assessment.id,
+        categoryId,
+      })
+    : [];
+  const row = statuses.find((s) => s.requirementId === req.id)?.status ?? null;
+  switch (closedFor(state, row)) {
+    case "signed":
+      return `Management has signed ${item.code}. Changing it takes that signature back, so it is changed in the app: ${link}`;
+    case "filled":
+      return `The person has finished ${item.code} and it waits for management's signature. Changes to it are made in the app: ${link}`;
+    case "declined":
+      return `The company decided not to do ${item.code}. That decision is changed in the app: ${link}`;
+    case null:
+      return null;
+  }
+}
 
-async function addRows(holder: KeyHolder, item: AnyItem, rows: readonly unknown[]) {
-  const register = registerOfItem(item);
-  if (!register) return null;
-  // Async, so a row its schema refuses before any promise exists is reported as that row's.
-  const results = await Promise.allSettled(
-    rows.map(async (row) => register.add(holder.caller, row)),
-  );
-  return results.map((result, index) =>
-    result.status === "fulfilled"
-      ? { index, id: result.value.id }
-      : { index, refused: describeError(result.reason) ?? "Could not be saved." },
-  );
+/**
+ * The rows, one after the other in the order sent, each saved or refused on its own, so the
+ * answer lists them in that order and an unexpected failure is logged against its row.
+ */
+async function addRows(holder: KeyHolder, register: Register, rows: readonly unknown[]) {
+  const results: Array<
+    { index: number; id: string } | { index: number; refused: string }
+  > = [];
+  for (const [index, row] of rows.entries()) {
+    try {
+      const { id } = await register.add(holder.caller, row);
+      results.push({ index, id });
+    } catch (error) {
+      const refused = describeError(error);
+      if (!refused) {
+        console.error(
+          "[mcp] a register row failed:",
+          error instanceof Error ? loggableFailure(error) : error,
+        );
+      }
+      results.push({ index, refused: refused ?? "Could not be saved." });
+    }
+  }
+  return results;
 }
 
 export async function fillItem(
@@ -252,28 +285,25 @@ export async function fillItem(
   if (!found.ok) return refuse(found.message);
   const { item, state, categoryId, assessment } = found;
   const link = linkOf(code, input.language);
-
-  if (SIGNED.has(state.kind)) {
-    return refuse(
-      `Management has signed ${code}. Changing it takes that signature back, so it is changed in the app: ${link}`,
-    );
-  }
   const keys = fieldKeysOf(item);
-  const unknown = Object.keys(answers).filter((key) => !keys.includes(key));
-  if (unknown.length > 0) {
-    return refuse(
-      `${code} asks no field ${unknown.join(", ")}. Its fields: ${keys.join(", ") || "none"}.`,
-    );
-  }
-  if (rows.length > 0 && !registerOfItem(item)) {
+  const register = registerOfItem(item);
+  const answering = Object.keys(answers).length > 0;
+
+  if (!answering && rows.length === 0) return refuse("Send answers, rows or both.");
+  if (rows.length > 0 && !register)
     return refuse(`${code} has no register to add rows to.`);
+  const problem = answering ? answersProblem(item, answers) : null;
+  if (problem) return refuse(problem);
+  const refusal = await refusalOf(holder, found, link);
+  if (refusal) return refuse(refusal);
+  if (answering && !assessment) {
+    return refuse(`Finish setting up the company in the app first: ${link}`);
   }
-  if (Object.keys(answers).length === 0 && rows.length === 0) {
-    return refuse("Send answers, rows or both.");
-  }
-  if (Object.keys(answers).length > 0) {
-    if (!assessment)
-      return refuse(`Finish setting up the company in the app first: ${link}`);
+
+  // As in the app, and before any write: working on an item set aside picks it up again, and a
+  // resume the person may not make stops the call before anything is saved.
+  if (state.kind === "waiting") await holder.caller.durchgang.resume({ code });
+  if (answering && assessment) {
     await holder.caller.intake.saveRequirementAnswers({
       assessmentId: assessment.id,
       categoryId,
@@ -281,7 +311,8 @@ export async function fillItem(
       answers,
     });
   }
-  const added = rows.length > 0 ? await addRows(holder, item, rows) : null;
+  const added =
+    register && rows.length > 0 ? await addRows(holder, register, rows) : null;
   const stored = await answersOf(holder, code, assessment?.id ?? null, categoryId);
   return {
     ok: true,

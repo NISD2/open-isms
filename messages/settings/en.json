@@ -47,6 +47,7 @@
         "may": "It reads the walkthrough and fills in fields and registers, as {person} and with your rights.",
         "mayNot": "It finishes no item, decides nothing and signs nothing. That stays here in the app.",
         "returnTo": "Afterwards you go back to {host}.",
+        "selfNamed": "The name “{client}” is the one the assistant gives itself. Allow only if you started this connection yourself just now.",
         "allow": "Allow",
         "deny": "Decline",
         "expired": "This request has expired or is not valid. Start the connection again in the assistant.",

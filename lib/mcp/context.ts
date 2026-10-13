@@ -61,7 +61,9 @@ async function keyContext(token: string, request: Request): Promise<TRPCContext 
     userId: row.id,
     companyId,
     ip: getClientIp(request.headers),
-    userAgent: claims.client ?? request.headers.get("user-agent"),
+    // The audit row's client: a fixed prefix the client cannot choose, so an assistant's change
+    // never reads as the person's own in the browser, then the name it gave or its user agent.
+    userAgent: `mcp: ${claims.client ?? request.headers.get("user-agent") ?? "key"}`,
     viaKey: true,
   };
 }

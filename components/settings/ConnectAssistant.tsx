@@ -16,7 +16,8 @@ export function ConnectAssistant({
   denyUrl,
 }: {
   request: string;
-  client: string;
+  /** The name the assistant gave itself when it registered; null when it gave none. */
+  client: string | null;
   company: string;
   person: string;
   returnTo: string;
@@ -25,7 +26,9 @@ export function ConnectAssistant({
   const t = useTranslations("settings.mcp.connect");
   const allow = trpc.user.allowMcpClient.useMutation({
     onSuccess: ({ url }) => window.location.assign(url),
-    onError: (error) => toast.error(error.message || t("failed")),
+    // The one refusal a person can meet here is a request that ran out on the page.
+    onError: (error) =>
+      toast.error(error.data?.code === "BAD_REQUEST" ? t("expired") : t("failed")),
   });
 
   return (
@@ -34,11 +37,15 @@ export function ConnectAssistant({
         <Bot className="size-6 text-primary" />
         <h1 className="text-xl font-semibold">{t("title")}</h1>
       </div>
-      <p>{t("asks", { client, company })}</p>
+      <p>{t("asks", { client: client ?? t("unnamed"), company })}</p>
+      {/* Where the access goes is the one fact a client cannot choose, so it comes first. */}
+      <p className="rounded-lg border bg-muted/40 px-4 py-3 text-sm">
+        <span className="font-medium">{t("returnTo", { host: returnTo })}</span>
+        {client && <> {t("selfNamed", { client })}</>}
+      </p>
       <ul className="list-disc space-y-1.5 pl-5 text-sm text-muted-foreground">
         <li>{t("may", { person })}</li>
         <li>{t("mayNot")}</li>
-        <li>{t("returnTo", { host: returnTo })}</li>
       </ul>
       <div className="flex flex-wrap gap-2">
         <Button

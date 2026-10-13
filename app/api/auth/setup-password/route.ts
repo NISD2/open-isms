@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
-import { eq, sql } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
+import { revokedByCredentialChange } from "@/lib/auth/credential-change";
 import { consumeSetupToken, readOpenSetupToken } from "@/lib/auth/setup-link";
 import { getClientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
@@ -68,7 +69,7 @@ export async function POST(request: Request) {
       .set({
         passwordHash,
         emailVerifiedAt: account.emailVerifiedAt ?? now,
-        sessionVersion: sql`${user.sessionVersion} + 1`,
+        ...revokedByCredentialChange(),
         updatedAt: now,
       })
       .where(eq(user.id, account.id));

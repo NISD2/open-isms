@@ -1,5 +1,5 @@
 import { TRPCError } from "@trpc/server";
-import { eq, sql } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
 import { epochSeconds, isRecentSignIn } from "@/lib/auth/session-age";
@@ -21,6 +21,7 @@ import { resolveEmailLocale } from "@/lib/mail/locale";
 import { issuer } from "@/lib/mcp/config";
 import { instanceKey } from "@/lib/mcp/instance-key";
 import { mintKey, PASTED_KEY_SECONDS } from "@/lib/mcp/key";
+import { bumpMcpKeyVersion, mcpKeyVersionOf } from "@/lib/mcp/key-version";
 import { allow, readRequest } from "@/lib/mcp/oauth";
 import { HINT_COLUMN, HINTS } from "@/lib/onboarding/hints";
 import { rateLimit } from "@/lib/rate-limit";
@@ -125,6 +126,9 @@ export const userRouter = router({
   createMcpKey: companyProcedure.mutation(async ({ ctx }) => {
     if (ctx.viaKey) throw new TRPCError({ code: "FORBIDDEN" });
     const version = await bumpMcpKeyVersion(ctx.db, ctx.userId);
+    if (version === null) {
+      throw new TRPCError({ code: "NOT_FOUND", message: "Account not found." });
+    }
     const key = mintKey(
       instanceKey(),
       { sub: ctx.userId, cid: ctx.companyId, ver: version },
@@ -152,13 +156,11 @@ export const userRouter = router({
           message: "This request has expired. Connect again from the assistant.",
         });
       }
-      const [row] = await ctx.db
-        .select({ version: user.mcpKeyVersion })
-        .from(user)
-        .where(eq(user.id, ctx.userId))
-        .limit(1);
-      if (!row) throw new TRPCError({ code: "NOT_FOUND", message: "Account not found." });
-      const holder = { sub: ctx.userId, cid: ctx.companyId, ver: row.version };
+      const version = await mcpKeyVersionOf(ctx.db, ctx.userId);
+      if (version === null) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "Account not found." });
+      }
+      const holder = { sub: ctx.userId, cid: ctx.companyId, ver: version };
       return { url: allow(instanceKey(), request, holder, issuer(), now) };
     }),
 
@@ -287,15 +289,4 @@ const ownAccount = async (db: DbOrTx, userId: string) => {
     .limit(1);
   if (!row) throw new TRPCError({ code: "NOT_FOUND", message: "Account not found." });
   return row;
-};
-
-/** The person's next key version: every key and assistant sign-in from before stops working. */
-const bumpMcpKeyVersion = async (db: DbOrTx, userId: string): Promise<number> => {
-  const [row] = await db
-    .update(user)
-    .set({ mcpKeyVersion: sql`${user.mcpKeyVersion} + 1` })
-    .where(eq(user.id, userId))
-    .returning({ version: user.mcpKeyVersion });
-  if (!row) throw new TRPCError({ code: "NOT_FOUND", message: "Account not found." });
-  return row.version;
 };

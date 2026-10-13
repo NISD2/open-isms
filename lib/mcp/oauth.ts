@@ -154,7 +154,7 @@ export type ConsentRequest = z.infer<typeof REQUEST>;
 /**
  * Checked: the person decides on the consent page, which receives the signed request. Or refused,
  * shown as a page and sent nowhere: anyone can register a client with any https address, so an
- * error sent back on its own would make this server an open redirector (RFC 9700, 4.11.2). The
+ * error sent back on its own would make this server an open redirector (RFC 9700, on the authorization server as open redirector). The
  * browser goes back to a client only on the person's own Allow or Decline.
  */
 export type Authorization =
@@ -265,12 +265,55 @@ export const deny = (request: ConsentRequest, issuer: string): string =>
 
 // --- Token ------------------------------------------------------------------------------------
 
+/** A code or refresh token presented: the first time, or again some seconds after the first. */
+export type Spent =
+  | { readonly first: true }
+  | { readonly first: false; readonly sinceS: number };
+
 export interface TokenDeps {
   /** The person's current key version; null when the account is gone. */
   readonly versionOf: (userId: string) => Promise<number | null>;
-  /** True the first time it is asked about a code, false after: a code works once. */
-  readonly firstUse: (codeHash: string) => Promise<boolean>;
+  /** Records a code or refresh token as presented; `lifetimeS` is the whole life of its kind. */
+  readonly spend: (hash: string, lifetimeS: number) => Promise<Spent>;
+  /** Ends every key and assistant sign-in of the person (a version bump). */
+  readonly revoke: (userId: string) => Promise<void>;
 }
+
+/** A counter that allows `limit` hits per window of `windowMs`, opened by the first hit. */
+type CountHit = (
+  key: string,
+  limit: number,
+  windowMs: number,
+) => Promise<
+  { readonly allowed: true } | { readonly allowed: false; readonly resetInMs: number }
+>;
+
+/** Kept a minute past a value's own life, so a clock edge cannot make it good twice. */
+const LEDGER_MARGIN_S = 60;
+
+/**
+ * `spend` on a counter with one hit per window: the rate limiter's (lib/rate-limit.ts), which is
+ * atomic across replicas and throws rather than failing open. The window opens at the first use
+ * and has one fixed length per kind, longer than any such value lives, so the time a refused hit
+ * says is left in it tells how long ago that first use was.
+ */
+export const spendOn =
+  (countHit: CountHit) =>
+  async (hash: string, lifetimeS: number): Promise<Spent> => {
+    const windowMs = (lifetimeS + LEDGER_MARGIN_S) * 1000;
+    const verdict = await countHit(`mcp-used:${hash}`, 1, windowMs);
+    return verdict.allowed
+      ? { first: true }
+      : { first: false, sinceS: Math.max(0, (windowMs - verdict.resetInMs) / 1000) };
+  };
+
+/**
+ * How long after its first use a refresh token still works: a client that refreshes twice at
+ * once, or whose answer was lost on the way, would otherwise be locked out. Used later than that,
+ * the token was copied, and every assistant of the person is disconnected (RFC 9700, refresh
+ * token protection).
+ */
+const REFRESH_GRACE_S = 60;
 
 export type TokenOutcome =
   | { readonly ok: true; readonly body: Record<string, unknown> }
@@ -318,8 +361,9 @@ async function redeem(
   ) {
     return invalidGrant("The code is not valid for this request.");
   }
-  if (!(await deps.firstUse(sha256(raw))))
+  if (!(await deps.spend(sha256(raw), CODE_SECONDS)).first) {
     return invalidGrant("The code was used already.");
+  }
   if ((await deps.versionOf(code.sub)) !== code.ver) {
     return invalidGrant("The assistants of this account were disconnected.");
   }
@@ -327,6 +371,10 @@ async function redeem(
   return tokens(key, { sub, cid, ver, client, azp }, nowS);
 }
 
+/**
+ * A refresh token for a new pair, the old one spent: rotation, which OAuth 2.1 asks of a public
+ * client's refresh tokens. A copy used after the grace is the theft rotation exists to notice.
+ */
 async function refresh(
   key: Buffer,
   form: URLSearchParams,
@@ -334,9 +382,18 @@ async function refresh(
   deps: TokenDeps,
   nowS: number,
 ): Promise<TokenOutcome> {
-  const claims = readKey(key, form.get("refresh_token") ?? "", "mcp_refresh", nowS);
-  if (!claims || claims.azp !== azp)
+  const raw = form.get("refresh_token") ?? "";
+  const claims = readKey(key, raw, "mcp_refresh", nowS);
+  if (!claims || claims.azp !== azp) {
     return invalidGrant("The refresh token is not valid.");
+  }
+  const spent = await deps.spend(sha256(raw), REFRESH_SECONDS);
+  if (!spent.first && spent.sinceS > REFRESH_GRACE_S) {
+    await deps.revoke(claims.sub);
+    return invalidGrant(
+      "This refresh token was used before, so every assistant of this account was disconnected. Connect again.",
+    );
+  }
   if ((await deps.versionOf(claims.sub)) !== claims.ver) {
     return invalidGrant("The assistants of this account were disconnected.");
   }

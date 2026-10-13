@@ -47,6 +47,7 @@
         "may": "Hij leest het stappenplan en vult velden en registers in, als {person} en met uw rechten.",
         "mayNot": "Hij rondt geen onderdeel af, beslist niets en ondertekent niets. Dat blijft hier in de app.",
         "returnTo": "Daarna gaat u terug naar {host}.",
+        "selfNamed": "De naam ‘{client}’ geeft de assistent zichzelf. Sta het alleen toe als u deze koppeling zelf net hebt gestart.",
         "allow": "Toestaan",
         "deny": "Weigeren",
         "expired": "Dit verzoek is verlopen of ongeldig. Start de koppeling opnieuw in de assistent.",

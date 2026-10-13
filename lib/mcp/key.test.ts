@@ -57,6 +57,12 @@ describe("MCP keys", () => {
     ).toBeNull();
   });
 
+  test("two keys made in the same second for the same person differ", () => {
+    expect(mintKey(KEY, SUBJECT, "mcp_refresh", NOW, 60)).not.toBe(
+      mintKey(KEY, SUBJECT, "mcp_refresh", NOW, 60),
+    );
+  });
+
   test("anything that is not a key is refused", () => {
     for (const token of ["", "abc", "a.b.c", "a.b.c.d"]) {
       expect(readKey(KEY, token, "mcp", NOW)).toBeNull();

@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
-import { eq, sql } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
+import { revokedByCredentialChange } from "@/lib/auth/credential-change";
 import { verifyOtp } from "@/lib/auth/otp";
 import { getClientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
@@ -109,10 +110,10 @@ export async function POST(request: Request) {
       googleSubject: null,
       // Audit M-1 (2026-06-10): bump sessionVersion so every JWT
       // stamped before this rotation stops validating on the next
-      // getSession() call. The increment runs inside the same update
-      // statement so a partial write cannot rotate the password
-      // without revoking the old sessions.
-      sessionVersion: sql`${user.sessionVersion} + 1`,
+      // getSession() call, and the assistants' key version with it. The
+      // increment runs inside the same update statement so a partial write
+      // cannot rotate the password without revoking the old sessions.
+      ...revokedByCredentialChange(),
       updatedAt: now,
     })
     .where(eq(user.id, dbUser.id));

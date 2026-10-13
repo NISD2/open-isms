@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { ConnectAssistant } from "@/components/settings/ConnectAssistant";
 import { getSession } from "@/lib/auth";
@@ -24,13 +25,15 @@ export default async function ConnectAssistantPage({
     getSession(),
     api.assessment.getCompany(),
   ]);
+  // A key works in a company; without one there is nothing to connect yet (as on Settings).
+  if (!company) redirect("/onboarding");
 
   return (
     <div className="mx-auto max-w-lg py-10">
-      {request && company ? (
+      {request ? (
         <ConnectAssistant
           request={raw}
-          client={request.client ?? t("unnamed")}
+          client={request.client ?? null}
           company={company.name}
           person={session?.user.name ?? session?.user.email ?? ""}
           returnTo={new URL(request.redirectUri).host}
