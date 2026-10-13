@@ -6,6 +6,7 @@
     "today": "Today",
     "yesterday": "Yesterday",
     "system": "System",
+    "viaAssistant": "via {client}",
     "actions": {
       "durchgang": {
         "item_done": "Walkthrough item filled in",
@@ -45,7 +46,10 @@
         "setMode": "Journey view changed"
       },
       "user": {
-        "dismissHint": "Hint dismissed"
+        "dismissHint": "Hint dismissed",
+        "createMcpKey": "Key for assistants created",
+        "allowMcpClient": "Assistant connected",
+        "disconnectMcp": "All assistants disconnected"
       },
       "notification": {
         "scheduled": "Deadline reminders scheduled"

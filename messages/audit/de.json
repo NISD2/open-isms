@@ -6,6 +6,7 @@
     "today": "Heute",
     "yesterday": "Gestern",
     "system": "System",
+    "viaAssistant": "über {client}",
     "actions": {
       "durchgang": {
         "item_done": "Punkt im Durchgang ausgefüllt",
@@ -45,7 +46,10 @@
         "setMode": "Ansicht des Wegs gewechselt"
       },
       "user": {
-        "dismissHint": "Hinweis geschlossen"
+        "dismissHint": "Hinweis geschlossen",
+        "createMcpKey": "Schlüssel für Assistenten erzeugt",
+        "allowMcpClient": "Assistent verbunden",
+        "disconnectMcp": "Alle Assistenten getrennt"
       },
       "notification": {
         "scheduled": "Erinnerungen an Fristen geplant"

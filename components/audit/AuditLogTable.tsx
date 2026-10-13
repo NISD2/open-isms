@@ -23,6 +23,7 @@ import {
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { recordDay } from "@/lib/durchgang";
+import { assistantOf } from "@/lib/mcp/agent";
 import { AuditDiffView } from "./AuditDiffView";
 
 interface AuditRow {
@@ -34,6 +35,7 @@ interface AuditRow {
   previousValue: unknown;
   newValue: unknown;
   userName: string | null;
+  userAgent: string | null;
   createdAt: Date;
 }
 
@@ -140,6 +142,7 @@ export function AuditLogTable({ rows }: AuditLogTableProps) {
               const hasDiff = !!(row.previousValue || row.newValue);
               const open = expandedId === row.id;
               const detail = detailOf(row);
+              const assistant = assistantOf(row.userAgent);
               const body = (
                 <>
                   <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/[0.08] text-primary">
@@ -155,6 +158,11 @@ export function AuditLogTable({ rows }: AuditLogTableProps) {
                   </span>
                   <span className="shrink-0 text-right text-xs text-muted-foreground">
                     <span className="block">{row.userName ?? t("system")}</span>
+                    {assistant && (
+                      <span className="block max-w-48 truncate">
+                        {t("viaAssistant", { client: assistant })}
+                      </span>
+                    )}
                     <span className="block tabular-nums">
                       {timeLabel.format(new Date(row.createdAt))}
                     </span>

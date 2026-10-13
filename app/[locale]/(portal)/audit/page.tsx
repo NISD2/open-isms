@@ -42,6 +42,7 @@ export default async function AuditPage() {
     previousValue: null,
     newValue: null,
     userName: tx("person"),
+    userAgent: null,
     createdAt: new Date(now - row.minutesAgo * 60_000),
   }));
 
