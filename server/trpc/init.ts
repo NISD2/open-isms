@@ -6,6 +6,7 @@ import { getSession, hasReviewAccess } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { getClientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
+import { browserAgent } from "@/lib/mcp/agent";
 import { company } from "@/schema";
 
 // ============================================================================
@@ -15,7 +16,7 @@ import { company } from "@/schema";
 export async function createTRPCContext(opts?: { req?: Request }) {
   const session = await getSession();
   const ip = opts?.req ? getClientIp(opts.req.headers) : "unknown";
-  const userAgent = opts?.req?.headers.get("user-agent") ?? null;
+  const userAgent = browserAgent(opts?.req?.headers.get("user-agent") ?? null);
 
   return {
     db,

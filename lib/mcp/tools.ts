@@ -18,6 +18,7 @@ import {
   jsonSchemaOf,
   type Register,
   registerOfItem,
+  rowsProblem,
   screensFilledBy,
 } from "./walk";
 
@@ -292,7 +293,9 @@ export async function fillItem(
   if (!answering && rows.length === 0) return refuse("Send answers, rows or both.");
   if (rows.length > 0 && !register)
     return refuse(`${code} has no register to add rows to.`);
-  const problem = answering ? answersProblem(item, answers) : null;
+  const problem =
+    (answering ? answersProblem(item, answers) : null) ??
+    (register && rows.length > 0 ? rowsProblem(register, rows) : null);
   if (problem) return refuse(problem);
   const refusal = await refusalOf(holder, found, link);
   if (refusal) return refuse(refusal);

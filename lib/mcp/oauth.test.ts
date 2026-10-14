@@ -287,6 +287,24 @@ describe("token", () => {
     expect(shared.revoked).toEqual([HOLDER.sub]);
   });
 
+  test("a copied refresh key replayed after a disconnect is refused and disconnects nothing", async () => {
+    const clientId = register();
+    const clock = { now: NOW };
+    const holder = { ver: HOLDER.ver };
+    const shared = { ...deps(HOLDER.ver, clock), versionOf: async () => holder.ver };
+    const first = await exchange(KEY, redeem(clientId, codeFor(clientId)), shared, NOW);
+    if (!first.ok) throw new Error(first.description);
+    const copied = refreshWith(clientId, first.body.refresh_token);
+    expect((await exchange(KEY, copied, shared, NOW)).ok).toBe(true);
+    holder.ver += 1;
+    clock.now = NOW + 61;
+    expect(await exchange(KEY, copied, shared, NOW + 61)).toMatchObject({
+      ok: false,
+      error: "invalid_grant",
+    });
+    expect(shared.revoked).toEqual([]);
+  });
+
   test("a refresh key works only for the client it was issued to", async () => {
     const clientId = register();
     const first = await exchange(KEY, redeem(clientId, codeFor(clientId)), deps(), NOW);

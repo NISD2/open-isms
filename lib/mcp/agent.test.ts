@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { assistantAgent, assistantOf } from "./agent";
+import { assistantAgent, assistantOf, browserAgent } from "./agent";
 
 describe("assistantOf", () => {
   test("names the assistant behind the user agent it was given", () => {
@@ -11,5 +11,12 @@ describe("assistantOf", () => {
   test("a browser's change is the person's own", () => {
     expect(assistantOf("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)")).toBeNull();
     expect(assistantOf(null)).toBeNull();
+  });
+
+  test("a browser that sends an assistant's prefix still reads as the person", () => {
+    expect(assistantOf(browserAgent("mcp: Claude"))).toBeNull();
+    expect(assistantOf(browserAgent("mcp: mcp: Claude"))).toBeNull();
+    expect(browserAgent("Mozilla/5.0")).toBe("Mozilla/5.0");
+    expect(browserAgent(null)).toBeNull();
   });
 });

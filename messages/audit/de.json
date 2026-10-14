@@ -17,7 +17,12 @@
         "approvePolicies": "Dokumente freigegeben",
         "requirements_signed": "Von der Geschäftsführung freigegeben",
         "adopted": "Methode übernommen",
-        "adoptMethod": "Methode übernommen"
+        "adoptMethod": "Methode übernommen",
+        "resume": "Punkt wieder aufgenommen",
+        "resumed": "Punkt wieder aufgenommen"
+      },
+      "supplier": {
+        "create": "Lieferant angelegt"
       },
       "assessment": {
         "signOff": "Anforderung freigegeben",

@@ -4,6 +4,8 @@ import { getTranslations } from "next-intl/server";
 import { AiDataSharingSettings } from "@/components/settings/AiDataSharingSettings";
 import { McpKeySettings } from "@/components/settings/McpKeySettings";
 import { getSession } from "@/lib/auth";
+import { isPlatformAdmin } from "@/lib/auth/platform-admin";
+import { mayWalkDurchgang } from "@/lib/billing/access";
 import { MCP_DOCS_PATH } from "@/lib/mcp/config";
 import { api } from "@/lib/trpc/server";
 
@@ -29,7 +31,13 @@ export default async function SettingsPage() {
       </div>
       <AiDataSharingSettings currentLevel={companyData.aiDataSharing} isAdmin={isAdmin} />
       <div className="mt-10 border-t pt-8">
-        <McpKeySettings docsUrl={MCP_DOCS_PATH} />
+        <McpKeySettings
+          docsUrl={MCP_DOCS_PATH}
+          mayWalk={mayWalkDurchgang(
+            session.accessLevel,
+            isPlatformAdmin(session.user.email),
+          )}
+        />
       </div>
     </div>
   );

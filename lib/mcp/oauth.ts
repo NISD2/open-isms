@@ -374,6 +374,8 @@ async function redeem(
 /**
  * A refresh token for a new pair, the old one spent: rotation, which OAuth 2.1 asks of a public
  * client's refresh tokens. A copy used after the grace is the theft rotation exists to notice.
+ * A token already ended by a disconnect is only refused: a copy of it replayed later must not
+ * disconnect the assistants connected since.
  */
 async function refresh(
   key: Buffer,
@@ -387,15 +389,15 @@ async function refresh(
   if (!claims || claims.azp !== azp) {
     return invalidGrant("The refresh token is not valid.");
   }
+  if ((await deps.versionOf(claims.sub)) !== claims.ver) {
+    return invalidGrant("The assistants of this account were disconnected.");
+  }
   const spent = await deps.spend(sha256(raw), REFRESH_SECONDS);
   if (!spent.first && spent.sinceS > REFRESH_GRACE_S) {
     await deps.revoke(claims.sub);
     return invalidGrant(
       "This refresh token was used before, so every assistant of this account was disconnected. Connect again.",
     );
-  }
-  if ((await deps.versionOf(claims.sub)) !== claims.ver) {
-    return invalidGrant("The assistants of this account were disconnected.");
   }
   const { sub, cid, ver, client } = claims;
   return tokens(key, { sub, cid, ver, client, azp }, nowS);

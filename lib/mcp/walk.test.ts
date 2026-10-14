@@ -13,6 +13,7 @@ import {
   fieldsSchemaOf,
   jsonSchemaOf,
   registerOfItem,
+  rowsProblem,
   screensFilledBy,
   textDates,
 } from "./walk";
@@ -99,6 +100,19 @@ describe("the walk as an assistant sees it", () => {
     );
     expect(row.safeParse({ ...base, completedAt: "last spring" }).success).toBe(false);
   });
+
+  test("a register date only in ISO form: 01.03.2026 would be read as 3 January", () => {
+    const row = textDates(trainingCreateSchema);
+    const base = {
+      trainingType: "awareness",
+      title: "Phishing",
+      participantName: "Team",
+    };
+    expect(row.safeParse({ ...base, completedAt: "01.03.2026" }).success).toBe(false);
+    expect(row.safeParse({ ...base, completedAt: "2026-03-01T09:00:00Z" }).success).toBe(
+      true,
+    );
+  });
 });
 
 describe("what an assistant may change", () => {
@@ -138,5 +152,24 @@ describe("what an assistant may change", () => {
     expect(answersProblem(item, { [field]: "   " })).toContain("cannot be empty");
     expect(answersProblem(item, { [field]: 12 })).not.toBeNull();
     expect(answersProblem(item, { [field]: "Signal, Threema" })).toBeNull();
+  });
+
+  test("a date answer only as YYYY-MM-DD, which the app's date input reads", () => {
+    const item = WALK.find((i) => i.code === "12.2");
+    if (!item) throw new Error("12.2 is not in the walk");
+    expect(answersProblem(item, { bsiRegistrationDate: "2026-03-01" })).toBeNull();
+    for (const value of ["01.03.2026", "March 1, 2026", 1767225600000]) {
+      expect(answersProblem(item, { bsiRegistrationDate: value })).toContain(
+        "YYYY-MM-DD",
+      );
+    }
+  });
+
+  test("rows are checked before anything is written", () => {
+    const item = WALK.find((i) => i.code === "5.1");
+    const register = item && registerOfItem(item);
+    if (!register) throw new Error("5.1 has no register");
+    expect(rowsProblem(register, [{ name: "Hoster" }])).toBeNull();
+    expect(rowsProblem(register, [{ name: "Hoster" }, { name: 12 }])).toContain("Row 1");
   });
 });

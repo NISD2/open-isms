@@ -2,7 +2,9 @@ import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { ConnectAssistant } from "@/components/settings/ConnectAssistant";
 import { getSession } from "@/lib/auth";
+import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { epochSeconds } from "@/lib/auth/session-age";
+import { mayWalkDurchgang } from "@/lib/billing/access";
 import { issuer } from "@/lib/mcp/config";
 import { instanceKey } from "@/lib/mcp/instance-key";
 import { deny, readRequest } from "@/lib/mcp/oauth";
@@ -38,6 +40,10 @@ export default async function ConnectAssistantPage({
           person={session?.user.name ?? session?.user.email ?? ""}
           returnTo={new URL(request.redirectUri).host}
           denyUrl={deny(request, issuer())}
+          mayWalk={
+            session !== null &&
+            mayWalkDurchgang(session.accessLevel, isPlatformAdmin(session.user.email))
+          }
         />
       ) : (
         <p className="text-sm text-muted-foreground">{t("expired")}</p>

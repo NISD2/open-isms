@@ -6,13 +6,22 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Link } from "@/i18n/navigation";
 import { trpc } from "@/lib/trpc/client";
 
 /**
  * Connecting AI assistants (MCP, lib/mcp): a key to paste into an assistant that has no sign-in of
  * its own, shown once, and one button that ends the key and every assistant connected before.
+ * Every tool works in the Durchgang, so an account that may not walk it gets no key, only the way
+ * there; disconnecting stays, for assistants connected before the walk was locked again.
  */
-export function McpKeySettings({ docsUrl }: { docsUrl: string }) {
+export function McpKeySettings({
+  docsUrl,
+  mayWalk,
+}: {
+  docsUrl: string;
+  mayWalk: boolean;
+}) {
   const t = useTranslations("settings.mcp");
   const [key, setKey] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
@@ -31,10 +40,15 @@ export function McpKeySettings({ docsUrl }: { docsUrl: string }) {
     onError: () => toast.error(t("failed")),
   });
 
+  // Absent on a plain-http self-host; the key stays selectable in its field.
   const copy = async () => {
     if (!key) return;
-    await navigator.clipboard.writeText(key);
-    setCopied(true);
+    try {
+      await navigator.clipboard.writeText(key);
+      setCopied(true);
+    } catch {
+      toast.error(t("copyFailed"));
+    }
   };
 
   return (
@@ -66,15 +80,29 @@ export function McpKeySettings({ docsUrl }: { docsUrl: string }) {
         </div>
       )}
 
+      {!mayWalk && (
+        <p className="mb-4 rounded-lg border bg-muted/40 px-4 py-3 text-sm">
+          {t("locked")}{" "}
+          <Link
+            href="/durchgang/nis2"
+            className="font-medium underline underline-offset-2"
+          >
+            {t("toWalk")}
+          </Link>
+        </p>
+      )}
+
       <div className="flex flex-wrap gap-2">
-        <Button
-          type="button"
-          onClick={() => create.mutate()}
-          disabled={create.isPending || disconnect.isPending}
-        >
-          <KeyRound className="size-4" />
-          {key ? t("createAgain") : t("create")}
-        </Button>
+        {mayWalk && (
+          <Button
+            type="button"
+            onClick={() => create.mutate()}
+            disabled={create.isPending || disconnect.isPending}
+          >
+            <KeyRound className="size-4" />
+            {key ? t("createAgain") : t("create")}
+          </Button>
+        )}
         <Button
           type="button"
           variant="outline"
@@ -84,7 +112,9 @@ export function McpKeySettings({ docsUrl }: { docsUrl: string }) {
           {t("disconnect")}
         </Button>
       </div>
-      <p className="mt-2 text-xs text-muted-foreground">{t("replaceNote")}</p>
+      {mayWalk && (
+        <p className="mt-2 text-xs text-muted-foreground">{t("replaceNote")}</p>
+      )}
     </div>
   );
 }

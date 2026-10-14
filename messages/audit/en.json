@@ -17,7 +17,12 @@
         "approvePolicies": "Documents approved",
         "requirements_signed": "Signed off by management",
         "adopted": "Method adopted",
-        "adoptMethod": "Method adopted"
+        "adoptMethod": "Method adopted",
+        "resume": "Item picked up again",
+        "resumed": "Item picked up again"
+      },
+      "supplier": {
+        "create": "Supplier added"
       },
       "assessment": {
         "signOff": "Requirement signed off",

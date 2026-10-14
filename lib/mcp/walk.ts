@@ -108,7 +108,20 @@ export function answersProblem(
   if (empty.length > 0) {
     return `An answer cannot be empty (${empty.join(", ")}). Leave a field out to keep what is there.`;
   }
-  const checked = fieldsSchemaOf(item)?.safeParse(answers);
+  const schema = fieldsSchemaOf(item);
+  // The schema coerces, so it would pass "01.03.2026", and the text is saved as sent.
+  const notIso = Object.entries(answers)
+    .filter(
+      ([key, value]) =>
+        schema?.shape[key] !== undefined &&
+        isDate(schema.shape[key]) &&
+        !ISO_DAY.safeParse(value).success,
+    )
+    .map(([key]) => key);
+  if (notIso.length > 0) {
+    return `A date is sent as YYYY-MM-DD (${notIso.join(", ")}).`;
+  }
+  const checked = schema?.safeParse(answers);
   return checked && !checked.success ? z.prettifyError(checked.error) : null;
 }
 
@@ -136,12 +149,19 @@ const isDate = (type: z.core.$ZodType): boolean =>
   ((type instanceof z.core.$ZodNullable || type instanceof z.core.$ZodOptional) &&
     isDate(type._zod.def.innerType));
 
+/**
+ * A date an assistant sends, read only in ISO form. JavaScript reads "01.03.2026" as 3 January,
+ * and the app's date input shows nothing for text it cannot read.
+ */
+const ISO_DAY = z.iso.date();
+const ISO_DATE = z.union([ISO_DAY, z.iso.datetime({ offset: true })]);
+
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === "object" && value !== null && !Array.isArray(value);
 
 /**
  * The schema, taking its timestamps as text too: the app sends Date objects over superjson, an
- * assistant sends JSON. Text that is no date becomes an invalid date, which the schema refuses.
+ * assistant sends JSON. Text that is no ISO date becomes an invalid date, which the schema refuses.
  */
 export const textDates = <S extends z.ZodObject>(schema: S) => {
   const dates = Object.keys(schema.shape).filter((key) => isDate(schema.shape[key]));
@@ -153,7 +173,9 @@ export const textDates = <S extends z.ZodObject>(schema: S) => {
             ...Object.fromEntries(
               dates.flatMap((key) => {
                 const value = input[key];
-                return typeof value === "string" ? [[key, new Date(value)]] : [];
+                if (typeof value !== "string") return [];
+                const valid = ISO_DATE.safeParse(value).success;
+                return [[key, new Date(valid ? value : Number.NaN)]];
               }),
             ),
           }
@@ -220,6 +242,19 @@ function registerOf(screen: RegisterScreen): Register {
       };
     }
   }
+}
+
+/**
+ * Why these rows cannot be added, or null. Checked before anything is written, so a call whose
+ * rows all fail does not pick a waiting item up again for nothing.
+ */
+export function rowsProblem(register: Register, rows: readonly unknown[]): string | null {
+  const row = textDates(register.row);
+  const problems = rows.flatMap((input, index) => {
+    const checked = row.safeParse(input);
+    return checked.success ? [] : [`Row ${index}: ${z.prettifyError(checked.error)}`];
+  });
+  return problems.length > 0 ? problems.join("\n") : null;
 }
 
 /** The register an item shows; the walk gives no item more than one (walk.test.ts). */

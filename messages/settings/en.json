@@ -40,6 +40,9 @@
       "disconnected": "All assistants are disconnected.",
       "replaceNote": "A new key, or disconnecting, ends the previous key and every assistant's sign-in.",
       "failed": "That did not work. Please try again.",
+      "locked": "An assistant works in the NIS 2 walkthrough, which is not unlocked for your account yet. Until it is, an assistant can read and fill in nothing.",
+      "toWalk": "Go to the walkthrough",
+      "copyFailed": "Copying did not work. Select the key in the field and copy it yourself.",
       "connect": {
         "title": "Connect an assistant",
         "asks": "{client} wants to access the NIS 2 walkthrough of {company}.",

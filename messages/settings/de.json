@@ -40,6 +40,9 @@
       "disconnected": "Alle Assistenten sind getrennt.",
       "replaceNote": "Ein neuer Schlüssel und das Trennen beenden den bisherigen Schlüssel und jede Anmeldung eines Assistenten.",
       "failed": "Das hat nicht geklappt. Bitte versuchen Sie es noch einmal.",
+      "locked": "Ein Assistent arbeitet im NIS 2 Durchgang. Der ist für Ihr Konto noch nicht freigeschaltet, deshalb kann ein Assistent bis dahin nichts lesen und nichts ausfüllen.",
+      "toWalk": "Zum Durchgang",
+      "copyFailed": "Kopieren ging nicht. Markieren Sie den Schlüssel im Feld und kopieren Sie ihn selbst.",
       "connect": {
         "title": "Assistent verbinden",
         "asks": "{client} möchte auf den NIS 2 Durchgang von {company} zugreifen.",

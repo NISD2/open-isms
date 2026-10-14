@@ -1,5 +1,7 @@
 Every instance serves an MCP endpoint at `/api/mcp`, nisd2.eu and each self-hosted one alike. An AI assistant connected there reads the company's NIS 2 walkthrough and fills in the fields and registers its items ask for, as the person who connected it and with that person's rights. It never finishes an item, never decides one (not applicable, or deliberately not done) and never signs anything. The person finishes each item in the app, and management signs it there.
 
+An assistant works only for a person who may open the walkthrough: on nisd2.eu an account whose order includes it, on a self-hosted instance, where new accounts do not get the walkthrough, the addresses in `PLATFORM_ADMIN_EMAILS`. Anyone else gets a refusal on every call, and Settings and the sign-in page show them the way to the walkthrough instead of a key or an *Allow* button.
+
 ## What an assistant can do
 
 Two tools.
@@ -32,13 +34,15 @@ claude mcp add --transport http nisd2 https://isms.example.com/api/mcp \
   --header "Authorization: Bearer $NISD2_MCP_KEY"
 ```
 
+Claude Code connects from the person's own computer, so it also reaches an instance inside the company network.
+
 ### Claude on the web and desktop
 
-Add a custom connector with the endpoint URL. Claude opens the sign-in.
+Add a custom connector with the endpoint URL. Claude opens the sign-in. Claude connects from Anthropic's cloud, not from the person's computer, on the web, on desktop and on mobile alike, so the instance has to be reachable from the internet over https.
 
 ### Copilot Studio
 
-Add the endpoint as an MCP server over Streamable HTTP and choose OAuth 2.0 with dynamic discovery.
+Add the endpoint as an MCP server over Streamable HTTP and choose OAuth 2.0 with dynamic discovery. Copilot Studio runs in Microsoft's cloud, so here too the instance has to be reachable from the internet over https.
 
 ## Disconnecting
 
@@ -51,7 +55,7 @@ Add the endpoint as an MCP server over Streamable HTTP and choose OAuth 2.0 with
 - A browser `Origin` other than the instance's own host or localhost is refused, so a web page cannot reach a local instance through the person's browser.
 - At most 300 tool calls per person per hour.
 
-Changes land in the audit log like any other change, under the person's name. The row each change writes has a client column starting with `mcp:`, followed by the assistant's name for a browser sign-in or the user agent it sends for a pasted key, so an assistant's change never reads as one made in the browser. The rows that record what a change caused (a signature flagged for review, an item picked up again) name the person only; the change's own row next to them shows it came from an assistant. Each read leaves one line in the server log with the tool and the person's id, never what was read.
+Changes land in the audit log like any other change, under the person's name. The row each change writes has a client column starting with `mcp:`, followed by the assistant's name for a browser sign-in or the user agent it sends for a pasted key, so an assistant's change never reads as one made in the browser. The activity log shows it under the person's name as made through that assistant. A browser that sends such a user agent itself has it stored behind a marker, so only a change through a key or a sign-in reads as an assistant's. The rows that record what a change caused (a signature flagged for review, an item picked up again) name the person only; the change's own row next to them shows it came from an assistant. Each read leaves one line in the server log with the tool and the person's id, never what was read.
 
 ## Where the data goes
 
