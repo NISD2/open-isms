@@ -67,12 +67,14 @@
       "metaTitle": "Partnervereinbarung mit nisd2",
       "access": {
         "title": "Ihr Zugang",
-        "body": "Für {email} ist der NIS 2 Durchgang schon freigeschaltet. Sehen Sie sich an, was Ihre Kunden bekommen, ohne vorher etwas zu unterschreiben.",
+        "trial": "Sie haben jetzt Testzugang mit der E-Mail-Adresse des Testnutzers.",
+        "body": "Der NIS 2 Durchgang ist freigeschaltet. Sehen Sie sich an, was Ihre Kunden bekommen, ohne vorher etwas zu unterschreiben.",
         "setup": "Passwort festlegen und ansehen",
         "signin": "Anmelden und ansehen",
         "error": "Das hat nicht geklappt. Bitte versuchen Sie es noch einmal oder schreiben Sie an {email}."
       },
       "about": {
+        "eyebrow": "Für Partner",
         "title": "nisd2 in Kürze",
         "lead": "Was Ihre Kunden bei uns bekommen, für wen das gedacht ist und was nicht dazugehört.",
         "deliverTitle": "Was wir liefern",

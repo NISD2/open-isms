@@ -24,17 +24,21 @@ function Column({
   title,
   marker,
   items,
+  className = "",
 }: {
   readonly title: string;
   readonly marker: ReactNode;
   readonly items: readonly string[];
+  readonly className?: string;
 }) {
   return (
-    <div>
-      <h3 className="text-sm font-semibold">{title}</h3>
-      <ul className="mt-3 space-y-2.5">
+    <div className={className}>
+      <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+        {title}
+      </h3>
+      <ul className="mt-4 space-y-3">
         {items.map((item) => (
-          <li key={item} className="flex gap-2.5 text-[15px] leading-6">
+          <li key={item} className="flex gap-3 text-[15px] leading-6">
             <span className="mt-0.5 shrink-0" aria-hidden>
               {marker}
             </span>
@@ -59,39 +63,49 @@ export function ProductBrief({
     <section
       lang={locale}
       aria-labelledby="product-brief"
-      className="rounded-lg border bg-background px-5 py-7 shadow-sm sm:px-10 sm:py-9"
+      className="overflow-hidden rounded-xl border bg-background shadow-sm"
     >
-      <h2 id="product-brief" className="text-2xl font-semibold tracking-tight">
-        {t(`${A}.title`)}
-      </h2>
-      <p className="mt-2 max-w-[62ch] text-[15px] leading-6 text-muted-foreground">
-        {t(`${A}.lead`)}
-      </p>
-      {access ? <div className="mt-6">{access}</div> : null}
-      <div className="mt-7">
+      <div className="bg-primary px-5 py-8 text-primary-foreground sm:px-10 sm:py-10">
+        <p className="text-sm font-medium opacity-80">{t(`${A}.eyebrow`)}</p>
+        <h2
+          id="product-brief"
+          className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl"
+        >
+          {t(`${A}.title`)}
+        </h2>
+        <p className="mt-3 max-w-[62ch] text-base leading-7 opacity-90">
+          {t(`${A}.lead`)}
+        </p>
+      </div>
+      <div className="space-y-8 px-5 py-7 sm:px-10 sm:py-9">
+        {access}
         <Column
           title={t(`${A}.deliverTitle`)}
-          marker={<Check className="h-4 w-4 text-primary" />}
+          marker={
+            <span className="grid h-6 w-6 place-items-center rounded-full bg-primary/10">
+              <Check className="h-3.5 w-3.5 text-primary" />
+            </span>
+          }
           items={DELIVER.map((key) => t(key))}
         />
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Column
+            className="rounded-lg border bg-muted/30 p-5"
+            title={t(`${A}.forTitle`)}
+            marker={<span className="mt-2 block h-1.5 w-1.5 rounded-full bg-primary" />}
+            items={FOR.map((key) => t(key))}
+          />
+          <Column
+            className="rounded-lg border border-dashed p-5"
+            title={t(`${A}.notTitle`)}
+            marker={<Minus className="h-4 w-4 text-muted-foreground" />}
+            items={NOT.map((key) => t(key))}
+          />
+        </div>
+        <p className="border-l-4 border-primary bg-primary/5 px-5 py-4 text-[15px] font-medium leading-6">
+          {t(`${A}.split`)}
+        </p>
       </div>
-      <div className="mt-8 grid gap-8 sm:grid-cols-2">
-        <Column
-          title={t(`${A}.forTitle`)}
-          marker={
-            <span className="mt-2 block h-1.5 w-1.5 rounded-full bg-foreground/60" />
-          }
-          items={FOR.map((key) => t(key))}
-        />
-        <Column
-          title={t(`${A}.notTitle`)}
-          marker={<Minus className="h-4 w-4 text-muted-foreground" />}
-          items={NOT.map((key) => t(key))}
-        />
-      </div>
-      <p className="mt-8 border-t pt-5 text-[15px] font-medium leading-6">
-        {t(`${A}.split`)}
-      </p>
     </section>
   );
 }

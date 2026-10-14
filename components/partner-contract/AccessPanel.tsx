@@ -5,7 +5,7 @@
  * one button leads in, to set a first password or to sign in. The server decides which
  * (lib/partner-contract/access), so the button only asks and follows.
  */
-import { KeyRound } from "lucide-react";
+import { KeyRound, Mail } from "lucide-react";
 import { createTranslator } from "next-intl";
 import { Button } from "@/components/ui/button";
 import type { PartnerContractLocale } from "@/lib/partner-contract/date";
@@ -37,30 +37,37 @@ export function AccessPanel(props: Props) {
   });
 
   return (
-    <div className="rounded-lg border border-primary/25 bg-primary/5 px-5 py-5 sm:px-6">
-      <div className="flex items-start gap-3">
-        <KeyRound className="mt-1 h-5 w-5 shrink-0 text-primary" aria-hidden />
-        <div className="min-w-0 flex-1 space-y-3">
-          <div className="space-y-1">
-            <h3 className="text-base font-semibold">{t("access.title")}</h3>
-            <p className="max-w-[62ch] text-[15px] leading-6">
-              {t("access.body", { email: props.email })}
-            </p>
-          </div>
-          <Button
-            size="lg"
-            disabled={enter.isPending || enter.isSuccess}
-            onClick={() => enter.mutate({ token: props.token })}
-          >
-            {props.entry === "setup" ? t("access.setup") : t("access.signin")}
-          </Button>
-          {enter.isError ? (
-            <p className="text-sm text-amber-800 dark:text-amber-300">
-              {t("access.error", { email: props.contactEmail })}
-            </p>
-          ) : null}
-        </div>
+    <div className="rounded-xl border border-primary/25 bg-primary/5 p-5 sm:p-6">
+      <div className="flex items-center gap-3">
+        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground">
+          <KeyRound className="h-4 w-4" aria-hidden />
+        </span>
+        <h3 className="text-lg font-semibold tracking-tight">{t("access.title")}</h3>
       </div>
+      <p className="mt-4 max-w-[62ch] text-base font-medium leading-6">
+        {t("access.trial")}
+      </p>
+      <p className="mt-3 inline-flex max-w-full items-center gap-2 rounded-md border bg-background px-3 py-2 text-sm font-medium shadow-sm">
+        <Mail className="h-4 w-4 shrink-0 text-primary" aria-hidden />
+        <span className="min-w-0 break-all">{props.email}</span>
+      </p>
+      <p className="mt-4 max-w-[62ch] text-[15px] leading-6 text-muted-foreground">
+        {t("access.body")}
+      </p>
+      <div className="mt-5">
+        <Button
+          size="lg"
+          disabled={enter.isPending || enter.isSuccess}
+          onClick={() => enter.mutate({ token: props.token })}
+        >
+          {props.entry === "setup" ? t("access.setup") : t("access.signin")}
+        </Button>
+      </div>
+      {enter.isError ? (
+        <p className="mt-3 text-sm text-amber-800 dark:text-amber-300">
+          {t("access.error", { email: props.contactEmail })}
+        </p>
+      ) : null}
     </div>
   );
 }
