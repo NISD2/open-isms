@@ -43,7 +43,15 @@ describe("MCP keys", () => {
 
   test("a changed payload is refused", () => {
     const [header, , signature] = mintKey(KEY, SUBJECT, "mcp", NOW, 60).split(".");
-    const forged = b64({ ...SUBJECT, ver: 4, aud: "mcp", iat: NOW, exp: NOW + 60 });
+    // Every claim a real key carries, so only the signature can refuse it.
+    const forged = b64({
+      ...SUBJECT,
+      ver: 4,
+      aud: "mcp",
+      iat: NOW,
+      exp: NOW + 60,
+      jti: "forged",
+    });
     expect(readKey(KEY, `${header}.${forged}.${signature}`, "mcp", NOW)).toBeNull();
   });
 

@@ -9,6 +9,7 @@
 import { and, asc, eq, inArray } from "drizzle-orm";
 import type { RoleKey } from "@/lib/compliance/role-keys";
 import type { DbOrTx } from "@/lib/db";
+import { bumpMcpKeyVersion } from "@/lib/mcp/key-version";
 import { company, companyMembership, membershipRoleEnum, user } from "@/schema";
 
 export type MembershipRole = (typeof membershipRoleEnum.enumValues)[number];
@@ -153,13 +154,16 @@ export const openCompany = async (
 
 /**
  * Remove the person from the company. If it was the one they had open, their oldest remaining
- * membership is opened instead, or none if they have no other company.
+ * membership is opened instead, or none if they have no other company. Their AI assistants are
+ * disconnected for good: a key checks membership on every call, but would work again if they
+ * were invited back.
  */
 export const leaveCompany = async (
   db: DbOrTx,
   input: { readonly userId: string; readonly companyId: string },
 ): Promise<void> => {
   await db.delete(companyMembership).where(membershipOf(input.userId, input.companyId));
+  await bumpMcpKeyVersion(db, input.userId);
   const next = await db.query.companyMembership.findFirst({
     where: eq(companyMembership.userId, input.userId),
     orderBy: asc(companyMembership.createdAt),

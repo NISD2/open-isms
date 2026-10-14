@@ -233,7 +233,9 @@ async function authorizeIntakeWrite(
   return category.code;
 }
 
-type IntakeWriter = Parameters<typeof authorizeIntakeWrite>[0];
+type IntakeWriter = Parameters<typeof authorizeIntakeWrite>[0] & {
+  userAgent: string | null;
+};
 
 function isAnswered(value: unknown): boolean {
   return value !== undefined && value !== null && value !== "";
@@ -337,6 +339,7 @@ async function writeAnswers(
       ...reopened,
       companyId: ctx.companyId,
       actorId: ctx.userId,
+      userAgent: ctx.userAgent,
       now,
     });
   }

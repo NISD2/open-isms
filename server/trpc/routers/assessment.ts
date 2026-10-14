@@ -825,6 +825,7 @@ export const assessmentRouter = router({
         announceWithdrawal(ctx.db, {
           companyId: ctx.companyId,
           actorId: ctx.userId,
+          userAgent: ctx.userAgent,
           requirement: statusRow.requirement,
           previous,
           newStatus: reopened.status,

@@ -7,7 +7,9 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link } from "@/i18n/navigation";
+import { RECENT_SIGN_IN_S } from "@/lib/auth/session-age";
 import { trpc } from "@/lib/trpc/client";
+import { signInAgain } from "./ConnectAssistant";
 
 /**
  * Connecting AI assistants (MCP, lib/mcp): a key to paste into an assistant that has no sign-in of
@@ -30,8 +32,12 @@ export function McpKeySettings({
       setKey(result.key);
       setCopied(false);
     },
-    onError: () => toast.error(t("failed")),
+    // A key asks for a sign-in from the last few minutes; that answer is shown on the card.
+    onError: (error) => {
+      if (error.message !== "reauth") toast.error(t("failed"));
+    },
   });
+  const needsSignIn = create.error?.message === "reauth";
   const disconnect = trpc.user.disconnectMcp.useMutation({
     onSuccess: () => {
       setKey(null);
@@ -92,8 +98,19 @@ export function McpKeySettings({
         </p>
       )}
 
+      {needsSignIn && (
+        <p className="mb-4 rounded-lg border bg-muted/40 px-4 py-3 text-sm">
+          {t("reauth", { minutes: RECENT_SIGN_IN_S / 60 })}
+        </p>
+      )}
+
       <div className="flex flex-wrap gap-2">
-        {mayWalk && (
+        {mayWalk && needsSignIn && (
+          <Button type="button" onClick={signInAgain}>
+            {t("signInAgain")}
+          </Button>
+        )}
+        {mayWalk && !needsSignIn && (
           <Button
             type="button"
             onClick={() => create.mutate()}

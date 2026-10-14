@@ -8,15 +8,28 @@
  *
  * Pure: the signing key, the time and the two lookups that need a database come in as arguments.
  */
-import { createHash } from "node:crypto";
+import { createHash, randomBytes } from "node:crypto";
 import { z } from "zod";
-import { type KeySubject, mintKey, readKey, sign, verify } from "./key";
+import {
+  type KeyClaims,
+  type KeySubject,
+  mintKey,
+  PASTED_KEY_SECONDS,
+  readKey,
+  sign,
+  verify,
+} from "./key";
 
 const CLIENT_SECONDS = 5 * 365 * 24 * 60 * 60;
 const REQUEST_SECONDS = 10 * 60;
 const CODE_SECONDS = 60;
 export const ACCESS_SECONDS = 60 * 60;
 const REFRESH_SECONDS = 30 * 24 * 60 * 60;
+/**
+ * How long a browser sign-in lasts from the person's Allow, however often it refreshes: as long as
+ * a pasted key, after which the person allows the assistant again (RFC 9700, refresh tokens).
+ */
+export const GRANT_SECONDS = PASTED_KEY_SECONDS;
 
 export const sha256 = (text: string): string =>
   createHash("sha256").update(text).digest("base64url");
@@ -75,9 +88,22 @@ export function withParams(
 
 // --- Registration (RFC 7591) -----------------------------------------------------------------
 
+/**
+ * A name the consent page puts in a sentence: no control, format or line separator characters,
+ * which could reorder that sentence (a bidi override) or start a line of its own.
+ */
+const CLIENT_NAME = z
+  .string()
+  .trim()
+  .min(1)
+  .max(100)
+  .refine((name) => !/[\p{Cc}\p{Cf}\p{Zl}\p{Zp}]/u.test(name), {
+    message: "client_name holds a control or format character.",
+  });
+
 const REGISTRATION = z.object({
   redirect_uris: z.array(z.string().max(512)).min(1).max(5),
-  client_name: z.string().trim().min(1).max(100).optional(),
+  client_name: CLIENT_NAME.optional(),
 });
 
 const CLIENT = z.object({
@@ -273,8 +299,11 @@ export type Spent =
 export interface TokenDeps {
   /** The person's current key version; null when the account is gone. */
   readonly versionOf: (userId: string) => Promise<number | null>;
-  /** Records a code or refresh token as presented; `lifetimeS` is the whole life of its kind. */
-  readonly spend: (hash: string, lifetimeS: number) => Promise<Spent>;
+  /**
+   * Records as presented a code (by its hash) or a step of a sign-in's refresh chain; `lifetimeS`
+   * is the whole life of its kind.
+   */
+  readonly spend: (id: string, lifetimeS: number) => Promise<Spent>;
   /** Ends every key and assistant sign-in of the person (a version bump). */
   readonly revoke: (userId: string) => Promise<void>;
 }
@@ -299,9 +328,9 @@ const LEDGER_MARGIN_S = 60;
  */
 export const spendOn =
   (countHit: CountHit) =>
-  async (hash: string, lifetimeS: number): Promise<Spent> => {
+  async (id: string, lifetimeS: number): Promise<Spent> => {
     const windowMs = (lifetimeS + LEDGER_MARGIN_S) * 1000;
-    const verdict = await countHit(`mcp-used:${hash}`, 1, windowMs);
+    const verdict = await countHit(`mcp-used:${id}`, 1, windowMs);
     return verdict.allowed
       ? { first: true }
       : { first: false, sinceS: Math.max(0, (windowMs - verdict.resetInMs) / 1000) };
@@ -331,14 +360,30 @@ const invalidGrant = (description: string): TokenOutcome => ({
   description,
 });
 
-function tokens(key: Buffer, subject: KeySubject, nowS: number): TokenOutcome {
+type Grant = NonNullable<KeyClaims["grant"]>;
+
+/** An access key and the grant's next refresh key, neither outliving the sign-in. */
+function tokens(
+  key: Buffer,
+  subject: Omit<KeySubject, "grant">,
+  grant: Grant,
+  nowS: number,
+): TokenOutcome {
+  const left = grant.since + GRANT_SECONDS - nowS;
+  const accessS = Math.min(ACCESS_SECONDS, left);
   return {
     ok: true,
     body: {
-      access_token: mintKey(key, subject, "mcp", nowS, ACCESS_SECONDS),
+      access_token: mintKey(key, subject, "mcp", nowS, accessS),
       token_type: "Bearer",
-      expires_in: ACCESS_SECONDS,
-      refresh_token: mintKey(key, subject, "mcp_refresh", nowS, REFRESH_SECONDS),
+      expires_in: accessS,
+      refresh_token: mintKey(
+        key,
+        { ...subject, grant },
+        "mcp_refresh",
+        nowS,
+        Math.min(REFRESH_SECONDS, left),
+      ),
     },
   };
 }
@@ -368,12 +413,16 @@ async function redeem(
     return invalidGrant("The assistants of this account were disconnected.");
   }
   const { sub, cid, ver, client } = code;
-  return tokens(key, { sub, cid, ver, client, azp }, nowS);
+  const grant = { id: randomBytes(12).toString("base64url"), step: 0, since: nowS };
+  return tokens(key, { sub, cid, ver, client, azp }, grant, nowS);
 }
 
 /**
  * A refresh token for a new pair, the old one spent: rotation, which OAuth 2.1 asks of a public
  * client's refresh tokens. A copy used after the grace is the theft rotation exists to notice.
+ * Spent by its step in the sign-in's chain, not by its own text: a copy used within the grace gets
+ * a successor of the same step as the real one's, so whichever of those two is used second, after
+ * the grace, is caught too, and a copied chain cannot run on beside the real one.
  * A token already ended by a disconnect is only refused: a copy of it replayed later must not
  * disconnect the assistants connected since.
  */
@@ -386,13 +435,14 @@ async function refresh(
 ): Promise<TokenOutcome> {
   const raw = form.get("refresh_token") ?? "";
   const claims = readKey(key, raw, "mcp_refresh", nowS);
-  if (!claims || claims.azp !== azp) {
+  if (!claims?.grant || claims.azp !== azp) {
     return invalidGrant("The refresh token is not valid.");
   }
   if ((await deps.versionOf(claims.sub)) !== claims.ver) {
     return invalidGrant("The assistants of this account were disconnected.");
   }
-  const spent = await deps.spend(sha256(raw), REFRESH_SECONDS);
+  const { grant } = claims;
+  const spent = await deps.spend(`${grant.id}.${grant.step}`, REFRESH_SECONDS);
   if (!spent.first && spent.sinceS > REFRESH_GRACE_S) {
     await deps.revoke(claims.sub);
     return invalidGrant(
@@ -400,7 +450,12 @@ async function refresh(
     );
   }
   const { sub, cid, ver, client } = claims;
-  return tokens(key, { sub, cid, ver, client, azp }, nowS);
+  return tokens(
+    key,
+    { sub, cid, ver, client, azp },
+    { ...grant, step: grant.step + 1 },
+    nowS,
+  );
 }
 
 /** The token request (`/token`): a code or a refresh token for an access key. */

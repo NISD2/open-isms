@@ -2,7 +2,9 @@ import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
+import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { epochSeconds, isRecentSignIn } from "@/lib/auth/session-age";
+import { mayWalkDurchgang } from "@/lib/billing/access";
 import { encloseCancelNotice, sendCancelNotice } from "@/lib/billing/cancel-notice";
 import type { DbOrTx } from "@/lib/db";
 import { alertGdprOperators } from "@/lib/gdpr/alert";
@@ -124,7 +126,7 @@ export const userRouter = router({
    * time. An assistant cannot make itself a key.
    */
   createMcpKey: companyProcedure.mutation(async ({ ctx }) => {
-    if (ctx.viaKey) throw new TRPCError({ code: "FORBIDDEN" });
+    mayConnectAssistant(ctx);
     const version = await bumpMcpKeyVersion(ctx.db, ctx.userId);
     if (version === null) {
       throw new TRPCError({ code: "NOT_FOUND", message: "Account not found." });
@@ -147,7 +149,7 @@ export const userRouter = router({
   allowMcpClient: companyProcedure
     .input(z.object({ request: z.string().max(8192) }))
     .mutation(async ({ ctx, input }) => {
-      if (ctx.viaKey) throw new TRPCError({ code: "FORBIDDEN" });
+      mayConnectAssistant(ctx);
       const now = epochSeconds(new Date());
       const request = readRequest(instanceKey(), input.request, now);
       if (!request) {
@@ -279,6 +281,34 @@ export const userRouter = router({
 /** Deleting the account cannot be undone, so it asks for a sign-in from the last few minutes. */
 const signedInJustNow = (authTime: number | null | undefined) =>
   isRecentSignIn(authTime ?? null, epochSeconds(new Date()));
+
+/**
+ * Throws unless the person may connect an AI assistant now: from the browser, never with a key;
+ * with the walkthrough the assistant works in (the gate the durchgang procedures apply); and
+ * signed in within the last few minutes, because a key or an assistant's sign-in outlives the
+ * browser session it was made in, sign-out included. "reauth" sends the page to sign in again.
+ */
+function mayConnectAssistant(ctx: {
+  readonly viaKey: boolean;
+  readonly session: {
+    readonly accessLevel: Parameters<typeof mayWalkDurchgang>[0];
+    readonly authTime?: number | null;
+    readonly user: { readonly email?: string | null };
+  };
+}): void {
+  if (ctx.viaKey) throw new TRPCError({ code: "FORBIDDEN" });
+  if (
+    !mayWalkDurchgang(ctx.session.accessLevel, isPlatformAdmin(ctx.session.user.email))
+  ) {
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: "The Durchgang is not part of this plan.",
+    });
+  }
+  if (!signedInJustNow(ctx.session.authTime)) {
+    throw new TRPCError({ code: "FORBIDDEN", message: "reauth" });
+  }
+}
 
 /** The account's own address and language from the database, not the session snapshot. */
 const ownAccount = async (db: DbOrTx, userId: string) => {

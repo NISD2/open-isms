@@ -43,6 +43,8 @@
       "locked": "An assistant works in the NIS 2 walkthrough, which is not unlocked for your account yet. Until it is, an assistant can read and fill in nothing.",
       "toWalk": "Go to the walkthrough",
       "copyFailed": "Copying did not work. Select the key in the field and copy it yourself.",
+      "reauth": "An assistant stays connected even after you sign out, so connecting one needs a sign-in from the last {minutes} minutes.",
+      "signInAgain": "Sign in again",
       "connect": {
         "title": "Connect an assistant",
         "asks": "{client} wants to access the NIS 2 walkthrough of {company}.",
@@ -50,7 +52,8 @@
         "may": "It reads the walkthrough and fills in fields and registers, as {person} and with your rights.",
         "mayNot": "It finishes no item, decides nothing and signs nothing. That stays here in the app.",
         "returnTo": "Afterwards you go back to {host}.",
-        "selfNamed": "The name “{client}” is the one the assistant gives itself. Allow only if you started this connection yourself just now.",
+        "selfNamed": "The name “{client}” is the one the assistant gives itself.",
+        "onlyYou": "Allow only if you started this connection yourself just now.",
         "allow": "Allow",
         "deny": "Decline",
         "expired": "This request has expired or is not valid. Start the connection again in the assistant.",

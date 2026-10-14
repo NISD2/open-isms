@@ -662,6 +662,8 @@ export const durchgangRouter = router({
       await logWalk({
         companyId: ctx.companyId,
         userId: ctx.userId,
+        // An assistant picks an item up as it fills it (lib/mcp/tools.ts): the entry names it.
+        userAgent: ctx.userAgent,
         action: "durchgang.resumed",
         entityType: "requirement",
         entityId: ref.requirementId,

@@ -1,0 +1,100 @@
+/**
+ * What connecting an AI assistant asks (lib/mcp), pinned because each refusal is a promise made
+ * elsewhere: an assistant cannot make itself a key or allow another one, nobody gets a key for a
+ * walkthrough their plan does not hold, a key or an assistant's sign-in outlives the browser
+ * session it was made in so it asks for a fresh sign-in, and a key never operates the platform.
+ * Every refusal comes before the database (`db` here throws if anything reaches it).
+ */
+import { describe, expect, mock, test } from "bun:test";
+
+const OPERATOR = "operator@example.com";
+
+// The auto-audit middleware files a row for every mutation, refused ones included.
+mock.module("@/lib/audit", () => ({ logAudit: async () => {} }));
+// Set here rather than through PLATFORM_ADMIN_EMAILS: another test file mocks this module for
+// the whole run.
+mock.module("@/lib/auth/platform-admin", () => ({
+  getPlatformAdminEmails: () => [OPERATOR],
+  isPlatformAdmin: (email: string | null | undefined) => email === OPERATOR,
+  requirePlatformAdmin: async () => {},
+}));
+
+const { createCallerFactory, platformAdminProcedure, router } = await import("../init");
+const { userRouter } = await import("./user");
+type TRPCContext = import("../init").TRPCContext;
+const NOW_S = Math.floor(Date.now() / 1000);
+
+const REFUSING_DB = new Proxy(
+  {},
+  {
+    get(_target, prop) {
+      throw new Error(`a refused call touched the database: .${String(prop)}`);
+    },
+  },
+);
+
+type Session = NonNullable<TRPCContext["session"]>;
+
+function contextWith(
+  session: Partial<Session> & { user?: Partial<Session["user"]> },
+  viaKey = false,
+): TRPCContext {
+  return {
+    db: REFUSING_DB as TRPCContext["db"],
+    session: {
+      role: "admin",
+      accessLevel: "full",
+      authTime: NOW_S,
+      ...session,
+      user: { id: "u1", email: "person@example.com", name: null, ...session.user },
+    } as Session,
+    userId: "u1",
+    companyId: "c1",
+    ip: "test",
+    userAgent: null,
+    viaKey,
+  } as TRPCContext;
+}
+
+/** Both ways to connect, each started only when awaited. */
+const connect = (ctx: TRPCContext) => {
+  const caller = createCallerFactory(userRouter)(ctx);
+  return [() => caller.createMcpKey(), () => caller.allowMcpClient({ request: "x" })];
+};
+
+describe("connecting an assistant", () => {
+  test("an assistant's key cannot make a key or allow another assistant", async () => {
+    for (const call of connect(contextWith({}, true))) {
+      await expect(call()).rejects.toMatchObject({ code: "FORBIDDEN" });
+    }
+  });
+
+  test("a plan without the walkthrough gets no key, on the server as on the page", async () => {
+    for (const call of connect(contextWith({ accessLevel: "grandfathered" }))) {
+      await expect(call()).rejects.toMatchObject({
+        code: "FORBIDDEN",
+        message: "The Durchgang is not part of this plan.",
+      });
+    }
+  });
+
+  test("a sign-in older than a few minutes is sent to sign in again", async () => {
+    for (const authTime of [NOW_S - 60 * 60, null]) {
+      for (const call of connect(contextWith({ authTime }))) {
+        await expect(call()).rejects.toMatchObject({
+          code: "FORBIDDEN",
+          message: "reauth",
+        });
+      }
+    }
+  });
+
+  test("a key never operates the platform, not even the operator's own", async () => {
+    const probe = router({ op: platformAdminProcedure.query(() => "operated") });
+    const operator = { user: { email: OPERATOR } };
+    expect(await createCallerFactory(probe)(contextWith(operator)).op()).toBe("operated");
+    await expect(
+      createCallerFactory(probe)(contextWith(operator, true)).op(),
+    ).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });
+});

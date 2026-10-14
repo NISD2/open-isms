@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { ConnectAssistant } from "@/components/settings/ConnectAssistant";
 import { getSession } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
-import { epochSeconds } from "@/lib/auth/session-age";
+import { epochSeconds, isRecentSignIn } from "@/lib/auth/session-age";
 import { mayWalkDurchgang } from "@/lib/billing/access";
 import { issuer } from "@/lib/mcp/config";
 import { instanceKey } from "@/lib/mcp/instance-key";
@@ -21,7 +21,8 @@ export default async function ConnectAssistantPage({
   params: Promise<{ request: string }>;
 }) {
   const { request: raw } = await params;
-  const request = readRequest(instanceKey(), raw, epochSeconds(new Date()));
+  const now = epochSeconds(new Date());
+  const request = readRequest(instanceKey(), raw, now);
   const [t, session, company] = await Promise.all([
     getTranslations("settings.mcp.connect"),
     getSession(),
@@ -44,6 +45,7 @@ export default async function ConnectAssistantPage({
             session !== null &&
             mayWalkDurchgang(session.accessLevel, isPlatformAdmin(session.user.email))
           }
+          signedInRecently={isRecentSignIn(session?.authTime ?? null, now)}
         />
       ) : (
         <p className="text-sm text-muted-foreground">{t("expired")}</p>

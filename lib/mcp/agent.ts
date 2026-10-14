@@ -6,7 +6,14 @@
  */
 const PREFIX = "mcp: ";
 
-export const assistantAgent = (client: string): string => `${PREFIX}${client}`;
+/**
+ * The user agent of a change made with a key: the name the person allowed, else the assistant's
+ * own user agent, else "key". Never blank, which the log would read as no assistant at all.
+ */
+export const assistantAgent = (
+  client: string | undefined,
+  userAgent: string | null,
+): string => `${PREFIX}${client?.trim() || userAgent?.trim() || "key"}`;
 
 /** The assistant that made an audited change, or null when a person made it in the app. */
 export const assistantOf = (userAgent: string | null): string | null =>

@@ -3,9 +3,18 @@ import { assistantAgent, assistantOf, browserAgent } from "./agent";
 
 describe("assistantOf", () => {
   test("names the assistant behind the user agent it was given", () => {
-    expect(assistantOf(assistantAgent("Claude Code (nisd2-local)"))).toBe(
+    expect(assistantOf(assistantAgent("Claude Code (nisd2-local)", "curl/8"))).toBe(
       "Claude Code (nisd2-local)",
     );
+    expect(assistantOf(assistantAgent(undefined, "claude-code/2.1"))).toBe(
+      "claude-code/2.1",
+    );
+  });
+
+  test("a key that sends no name and an empty user agent still reads as an assistant", () => {
+    for (const userAgent of ["", "   ", null]) {
+      expect(assistantOf(assistantAgent(undefined, userAgent))).toBe("key");
+    }
   });
 
   test("a browser's change is the person's own", () => {

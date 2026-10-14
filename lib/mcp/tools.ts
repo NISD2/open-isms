@@ -1,20 +1,24 @@
 import "@/lib/server-guard";
 import { z } from "zod";
 import { getPathname } from "@/i18n/navigation";
+import { isReviewerRole } from "@/lib/auth";
 import { canSeeCategory, getUserAccess } from "@/lib/compliance/access";
+import { signedOffByModule } from "@/lib/compliance/module-recheck";
+import { db } from "@/lib/db";
 import { type AnyItem, resolveItem, WALK, type WalkLocale } from "@/lib/durchgang";
 import { loggableFailure } from "@/lib/trpc/loggable-failure";
 import { getAppUrl } from "@/lib/utils";
 import de from "@/messages/durchgang/de.json";
 import en from "@/messages/durchgang/en.json";
+import { enforceAssignment } from "@/server/trpc/guards";
 import type { KeyHolder } from "./context";
 import { describeError } from "./errors";
 import {
   answersProblem,
   closedFor,
-  FILLED_BY,
   fieldKeysOf,
   fieldsSchemaOf,
+  filledBy,
   jsonSchemaOf,
   type Register,
   registerOfItem,
@@ -201,7 +205,7 @@ async function readItem(
       law: { bsig: req.legalRef, directive: req.frameworkRef },
       screens: words.screens.map((s) => ({
         kind: s.kind,
-        filledBy: FILLED_BY[s.kind],
+        filledBy: filledBy(item, s.kind),
         words: s.copy,
       })),
       fields: schema ? { schema: jsonSchemaOf(schema), answers } : null,
@@ -252,6 +256,23 @@ async function refusalOf(
 }
 
 /**
+ * Why adding rows to this register would take back a signature, or null. A new row sends every
+ * signed item that relies on the register back to management (`invalidateModuleSignOffs`), the
+ * item the rows are for and any other, such as 1.1 for a training row sent to 8.2. An assistant
+ * never takes a signature back, so those rows are added in the app.
+ */
+async function signaturesRowsTakeBack(
+  holder: KeyHolder,
+  register: Register,
+  link: string,
+): Promise<string | null> {
+  const signed = await signedOffByModule(db, holder.companyId, register.module);
+  if (signed.length === 0) return null;
+  const codes = signed.map((s) => s.requirementCode).join(", ");
+  return `A new row in the ${register.name} register would take management's signature back from ${codes}, so it is added in the app: ${link}`;
+}
+
+/**
  * The rows, one after the other in the order sent, each saved or refused on its own, so the
  * answer lists them in that order and an unexpected failure is logged against its row.
  */
@@ -293,20 +314,41 @@ export async function fillItem(
   if (!answering && rows.length === 0) return refuse("Send answers, rows or both.");
   if (rows.length > 0 && !register)
     return refuse(`${code} has no register to add rows to.`);
+  if (rows.length > 0 && filledBy(item, "register") !== "assistant") {
+    return refuse(
+      `Rows on ${code} are added in the app, where management approves the item: ${link}`,
+    );
+  }
   const problem =
     (answering ? answersProblem(item, answers) : null) ??
     (register && rows.length > 0 ? rowsProblem(register, rows) : null);
   if (problem) return refuse(problem);
   const refusal = await refusalOf(holder, found, link);
   if (refusal) return refuse(refusal);
-  if (answering && !assessment) {
+  if (!assessment) {
     return refuse(`Finish setting up the company in the app first: ${link}`);
   }
+  if (isReviewerRole(holder.role)) {
+    return refuse("Your role reviews the walkthrough; it does not fill it in.");
+  }
+  // The rule the app's answer saves apply (intake), held here for rows too, whose procedures in
+  // the app do not check it: the person's own area, or an admin.
+  await enforceAssignment(db, {
+    role: holder.role,
+    userId: holder.userId,
+    assessmentId: assessment.id,
+    categoryId,
+  });
+  const takesBack =
+    register && rows.length > 0
+      ? await signaturesRowsTakeBack(holder, register, link)
+      : null;
+  if (takesBack) return refuse(takesBack);
 
   // As in the app, and before any write: working on an item set aside picks it up again, and a
   // resume the person may not make stops the call before anything is saved.
   if (state.kind === "waiting") await holder.caller.durchgang.resume({ code });
-  if (answering && assessment) {
+  if (answering) {
     await holder.caller.intake.saveRequirementAnswers({
       assessmentId: assessment.id,
       categoryId,
@@ -316,7 +358,7 @@ export async function fillItem(
   }
   const added =
     register && rows.length > 0 ? await addRows(holder, register, rows) : null;
-  const stored = await answersOf(holder, code, assessment?.id ?? null, categoryId);
+  const stored = await answersOf(holder, code, assessment.id, categoryId);
   return {
     ok: true,
     data: {

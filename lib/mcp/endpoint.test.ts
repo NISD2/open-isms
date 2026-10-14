@@ -36,11 +36,23 @@ describe("MCP endpoint", () => {
   });
 
   test("a web page on another host is refused before the key is read", async () => {
-    const response = await call({
-      authorization: "Bearer good",
-      origin: "https://evil.example",
-    });
+    const read: string[] = [];
+    const response = await handleMcpRequest(
+      new Request("https://isms.example.com/api/mcp", {
+        method: "POST",
+        headers: { authorization: "Bearer good", origin: "https://evil.example" },
+        body: "{}",
+      }),
+      {
+        ...deps,
+        holderOf: async (token, request) => {
+          read.push(token);
+          return deps.holderOf(token, request);
+        },
+      },
+    );
     expect(response.status).toBe(403);
+    expect(read).toEqual([]);
   });
 
   test("a good key is served, from no origin, its own or localhost", async () => {

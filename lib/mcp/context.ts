@@ -63,9 +63,7 @@ async function keyContext(token: string, request: Request): Promise<TRPCContext 
     companyId,
     ip: getClientIp(request.headers),
     // So an assistant's change never reads as the person's own in the browser.
-    userAgent: assistantAgent(
-      claims.client ?? request.headers.get("user-agent") ?? "key",
-    ),
+    userAgent: assistantAgent(claims.client, request.headers.get("user-agent")),
     viaKey: true,
   };
 }
@@ -74,6 +72,7 @@ async function keyContext(token: string, request: Request): Promise<TRPCContext 
 export interface KeyHolder {
   readonly caller: Caller;
   readonly userId: string;
+  readonly companyId: string;
   readonly role: string;
 }
 
@@ -83,10 +82,11 @@ export async function keyHolder(
   request: Request,
 ): Promise<KeyHolder | null> {
   const context = await keyContext(token, request);
-  if (!context?.session || !context.userId) return null;
+  if (!context?.session || !context.userId || !context.companyId) return null;
   return {
     caller: createCaller(context),
     userId: context.userId,
+    companyId: context.companyId,
     role: context.session.role,
   };
 }

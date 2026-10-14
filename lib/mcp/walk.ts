@@ -7,11 +7,13 @@ import {
   type AnyScreen,
   type ItemState,
   inAudience,
+  type RegisterModule,
   type ScreenKind,
   TRAINING_ROW,
 } from "@/lib/durchgang";
 import {
   managementReviewCreateSchema,
+  relationshipClausesUpdateSchema,
   supplierCreateSchema,
   trainingCreateSchema,
 } from "@/schema/validators";
@@ -55,8 +57,20 @@ export const FILLED_BY = {
   done: "none",
 } as const satisfies Record<ScreenKind, "assistant" | "app" | "none">;
 
+/**
+ * Who fills a kind of screen on this item. The register on the item where management approves is
+ * the app's: a review recorded there puts the item before management (`approving` in
+ * lib/durchgang/state.ts), which would finish it without the person.
+ */
+export const filledBy = (item: AnyItem, kind: ScreenKind) =>
+  kind === "register" && item.screens.some((s) => s.kind === "approve")
+    ? "app"
+    : FILLED_BY[kind];
+
 export const screensFilledBy = (item: AnyItem, by: "assistant" | "app"): ScreenKind[] => [
-  ...new Set(item.screens.map((s) => s.kind).filter((kind) => FILLED_BY[kind] === by)),
+  ...new Set(
+    item.screens.map((s) => s.kind).filter((kind) => filledBy(item, kind) === by),
+  ),
 ];
 
 /**
@@ -150,11 +164,11 @@ const isDate = (type: z.core.$ZodType): boolean =>
     isDate(type._zod.def.innerType));
 
 /**
- * A date an assistant sends, read only in ISO form. JavaScript reads "01.03.2026" as 3 January,
- * and the app's date input shows nothing for text it cannot read.
+ * A date an assistant sends, read only as a calendar day, YYYY-MM-DD. JavaScript reads
+ * "01.03.2026" as 3 January, the app's date input shows nothing for text it cannot read, and a
+ * time with an offset can fall on the day before in UTC, which is the day the app shows.
  */
 const ISO_DAY = z.iso.date();
-const ISO_DATE = z.union([ISO_DAY, z.iso.datetime({ offset: true })]);
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === "object" && value !== null && !Array.isArray(value);
@@ -174,7 +188,7 @@ export const textDates = <S extends z.ZodObject>(schema: S) => {
               dates.flatMap((key) => {
                 const value = input[key];
                 if (typeof value !== "string") return [];
-                const valid = ISO_DATE.safeParse(value).success;
+                const valid = ISO_DAY.safeParse(value).success;
                 return [[key, new Date(valid ? value : Number.NaN)]];
               }),
             ),
@@ -188,6 +202,8 @@ export const textDates = <S extends z.ZodObject>(schema: S) => {
 export interface Register {
   /** What the register is called in the tools' answers. */
   readonly name: string;
+  /** The module whose rows it holds: the requirements that reference it are signed off on them. */
+  readonly module: RegisterModule;
   /** One new row, as the assistant sends it; dates as text. */
   readonly row: z.ZodObject;
   readonly rows: (caller: Caller) => Promise<readonly unknown[]>;
@@ -196,19 +212,39 @@ export interface Register {
 
 type RegisterScreen = Extract<AnyScreen, { kind: "register" }>;
 
+/** The clause answers a linked supplier writes from its own portal, never the company. */
+const SUPPLIER_WRITES = new Set(Object.keys(relationshipClausesUpdateSchema.shape));
+
+/**
+ * A supplier row as an assistant reads it: on a row linked to the supplier's company, the
+ * supplier's own statements are set apart, so its text reaches the assistant marked as its own.
+ */
+export const markSupplierText = (row: { readonly supplierCompanyId: string | null }) => {
+  if (row.supplierCompanyId === null) return row;
+  const entries = Object.entries(row);
+  return {
+    ...Object.fromEntries(entries.filter(([key]) => !SUPPLIER_WRITES.has(key))),
+    writtenBySupplier: Object.fromEntries(
+      entries.filter(([key]) => SUPPLIER_WRITES.has(key)),
+    ),
+  };
+};
+
 /**
  * Which procedure lists and adds the rows of the register a screen shows: the ones the screen's
  * own component calls (SupplierList, TrainingRecords, ManagementReviews). Files are uploaded in
  * the app, so no row takes a file key.
  */
 function registerOf(screen: RegisterScreen): Register {
-  switch (screen.module) {
+  const { module } = screen;
+  switch (module) {
     case "supplier": {
       const row = supplierCreateSchema;
       return {
         name: "supplier",
+        module,
         row,
-        rows: (caller) => caller.supplier.list(),
+        rows: async (caller) => (await caller.supplier.list()).map(markSupplierText),
         add: (caller, input) => caller.supplier.create(textDates(row).parse(input)),
       };
     }
@@ -221,6 +257,7 @@ function registerOf(screen: RegisterScreen): Register {
       });
       return {
         name: `training_record:${audience}`,
+        module,
         row,
         rows: async (caller) =>
           (await caller.training.list()).filter((r) => inAudience(r, audience)),
@@ -235,6 +272,7 @@ function registerOf(screen: RegisterScreen): Register {
       const row = managementReviewCreateSchema.omit({ minutesFileKey: true });
       return {
         name: "management_review",
+        module,
         row,
         rows: (caller) => caller.managementReview.list(),
         add: (caller, input) =>

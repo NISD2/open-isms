@@ -89,16 +89,27 @@ const KEY_CLAIMS = z.object({
   client: z.string().max(200).optional(),
   /** The registration it was issued to (a hash of its client id); absent on a pasted key. */
   azp: z.string().max(64).optional(),
-  /**
-   * Random, so two keys made in the same second for the same person differ: a refresh key is
-   * spent by its hash, which must not spend its twin.
-   */
+  /** Random, so two keys made in the same second for the same person differ. */
   jti: z.string().max(64),
+  /**
+   * The browser sign-in a refresh key belongs to (lib/mcp/oauth.ts): its id, the key's step in
+   * that sign-in's chain of refresh keys, and when the person allowed it. Absent on other keys.
+   */
+  grant: z
+    .object({
+      id: z.string().max(32),
+      step: z.number().int().nonnegative(),
+      since: z.number().int(),
+    })
+    .optional(),
 });
 export type KeyClaims = z.infer<typeof KEY_CLAIMS>;
 
 /** Who a key is for, as the caller sets it; the rest is stamped by `mintKey`. */
-export type KeySubject = Pick<KeyClaims, "sub" | "cid" | "ver" | "client" | "azp">;
+export type KeySubject = Pick<
+  KeyClaims,
+  "sub" | "cid" | "ver" | "client" | "azp" | "grant"
+>;
 
 export const mintKey = (
   key: Buffer,

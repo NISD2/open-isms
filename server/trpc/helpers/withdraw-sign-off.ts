@@ -142,6 +142,8 @@ export function announceWithdrawal(
   args: {
     companyId: string;
     actorId: string;
+    /** The request's agent, as its own audit row stores it: an assistant's reads as one. */
+    userAgent: string | null;
     requirement: { id: string; code: string; categoryId: string };
     previous: {
       status: string;
@@ -183,6 +185,7 @@ export function announceWithdrawal(
   logAudit({
     companyId: args.companyId,
     userId: args.actorId,
+    userAgent: args.userAgent,
     action: "requirement.sign_off_withdrawn",
     entityType: "requirement",
     entityId: requirement.id,

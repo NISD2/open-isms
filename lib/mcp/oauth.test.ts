@@ -6,6 +6,7 @@ import {
   authorize,
   deny,
   exchange,
+  GRANT_SECONDS,
   readRequest,
   registerClient,
   sameRedirect,
@@ -139,6 +140,20 @@ describe("client registration", () => {
       expect(registerClient(KEY, { redirect_uris: [uri] }, NOW).ok).toBe(false);
     }
     expect(registerClient(KEY, {}, NOW).ok).toBe(false);
+  });
+
+  test("a name with a control or format character is refused: it would reorder the consent page", () => {
+    for (const name of [
+      "Claude‮edoc",
+      "Claude\nAfterwards you go back to claude.ai.",
+      "​",
+      "Claude Code",
+    ]) {
+      expect(
+        registerClient(KEY, { redirect_uris: [REDIRECT], client_name: name }, NOW).ok,
+      ).toBe(false);
+    }
+    expect(register([REDIRECT], "Claude Code (Müller GmbH)")).toBeString();
   });
 
   test("a loopback redirect matches on any port, any other only exactly", () => {
@@ -285,6 +300,54 @@ describe("token", () => {
       error: "invalid_grant",
     });
     expect(shared.revoked).toEqual([HOLDER.sub]);
+  });
+
+  test("a copy used within the grace starts no chain of its own: whichever successor comes second is caught", async () => {
+    const clientId = register();
+    const clock = { now: NOW };
+    const shared = deps(HOLDER.ver, clock);
+    const first = await exchange(KEY, redeem(clientId, codeFor(clientId)), shared, NOW);
+    if (!first.ok) throw new Error(first.description);
+    const copied = refreshWith(clientId, first.body.refresh_token);
+    const real = await exchange(KEY, copied, shared, NOW);
+    clock.now = NOW + 30;
+    const thief = await exchange(KEY, copied, shared, NOW + 30);
+    if (!real.ok || !thief.ok) throw new Error("both refreshes within the grace work");
+    const realNext = refreshWith(clientId, real.body.refresh_token);
+    const thiefNext = refreshWith(clientId, thief.body.refresh_token);
+    clock.now = NOW + 3600;
+    expect((await exchange(KEY, realNext, shared, NOW + 3600)).ok).toBe(true);
+    clock.now = NOW + 3700;
+    expect(await exchange(KEY, thiefNext, shared, NOW + 3700)).toMatchObject({
+      ok: false,
+      error: "invalid_grant",
+    });
+    expect(shared.revoked).toEqual([HOLDER.sub]);
+  });
+
+  test("a sign-in ends 90 days after the person allowed it, however often it refreshes", async () => {
+    const clientId = register();
+    const clock = { now: NOW };
+    const shared = deps(HOLDER.ver, clock);
+    const end = NOW + GRANT_SECONDS;
+    const allowed = await exchange(KEY, redeem(clientId, codeFor(clientId)), shared, NOW);
+    if (!allowed.ok) throw new Error(allowed.description);
+    let token = allowed.body.refresh_token;
+    for (const day of [29, 58, 87]) {
+      clock.now = NOW + day * 24 * 60 * 60;
+      const next = await exchange(KEY, refreshWith(clientId, token), shared, clock.now);
+      if (!next.ok) throw new Error(`day ${day}: ${next.description}`);
+      const access = readKey(KEY, String(next.body.access_token), "mcp", clock.now);
+      expect(access?.exp).toBeLessThanOrEqual(end);
+      token = next.body.refresh_token;
+    }
+    expect(readKey(KEY, String(token), "mcp_refresh", end - 1)?.exp).toBe(end);
+    clock.now = end;
+    expect(await exchange(KEY, refreshWith(clientId, token), shared, end)).toMatchObject({
+      ok: false,
+      error: "invalid_grant",
+    });
+    expect(shared.revoked).toEqual([]);
   });
 
   test("a copied refresh key replayed after a disconnect is refused and disconnects nothing", async () => {

@@ -43,6 +43,8 @@
       "locked": "Ein Assistent arbeitet im NIS 2 Durchgang. Der ist für Ihr Konto noch nicht freigeschaltet, deshalb kann ein Assistent bis dahin nichts lesen und nichts ausfüllen.",
       "toWalk": "Zum Durchgang",
       "copyFailed": "Kopieren ging nicht. Markieren Sie den Schlüssel im Feld und kopieren Sie ihn selbst.",
+      "reauth": "Ein Assistent bleibt verbunden, auch wenn Sie sich abmelden. Deshalb braucht das Verbinden eine Anmeldung aus den letzten {minutes} Minuten.",
+      "signInAgain": "Neu anmelden",
       "connect": {
         "title": "Assistent verbinden",
         "asks": "{client} möchte auf den NIS 2 Durchgang von {company} zugreifen.",
@@ -50,7 +52,8 @@
         "may": "Er liest den Durchgang und füllt Felder und Register aus, als {person} und mit Ihren Rechten.",
         "mayNot": "Er schließt keinen Punkt ab, entscheidet nichts und unterschreibt nichts. Das bleibt hier in der App.",
         "returnTo": "Danach geht es zurück zu {host}.",
-        "selfNamed": "Den Namen „{client}“ gibt der Assistent selbst an. Erlauben Sie nur, wenn Sie diese Verbindung gerade selbst gestartet haben.",
+        "selfNamed": "Den Namen „{client}“ gibt der Assistent selbst an.",
+        "onlyYou": "Erlauben Sie nur, wenn Sie diese Verbindung gerade selbst gestartet haben.",
         "allow": "Erlauben",
         "deny": "Ablehnen",
         "expired": "Diese Anfrage ist abgelaufen oder ungültig. Starten Sie die Verbindung im Assistenten neu.",

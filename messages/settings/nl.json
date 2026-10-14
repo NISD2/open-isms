@@ -43,6 +43,8 @@
       "locked": "Een assistent werkt in het NIS 2 stappenplan. Dat is voor uw account nog niet vrijgegeven, dus tot dan kan een assistent niets lezen en niets invullen.",
       "toWalk": "Naar het stappenplan",
       "copyFailed": "Kopiëren lukte niet. Selecteer de sleutel in het veld en kopieer hem zelf.",
+      "reauth": "Een assistent blijft verbonden, ook nadat u zich afmeldt. Daarom vraagt verbinden om een aanmelding van de afgelopen {minutes} minuten.",
+      "signInAgain": "Opnieuw aanmelden",
       "connect": {
         "title": "Assistent koppelen",
         "asks": "{client} wil toegang tot het NIS 2 stappenplan van {company}.",
@@ -50,7 +52,8 @@
         "may": "Hij leest het stappenplan en vult velden en registers in, als {person} en met uw rechten.",
         "mayNot": "Hij rondt geen onderdeel af, beslist niets en ondertekent niets. Dat blijft hier in de app.",
         "returnTo": "Daarna gaat u terug naar {host}.",
-        "selfNamed": "De naam ‘{client}’ geeft de assistent zichzelf. Sta het alleen toe als u deze koppeling zelf net hebt gestart.",
+        "selfNamed": "De naam ‘{client}’ geeft de assistent zichzelf.",
+        "onlyYou": "Sta het alleen toe als u deze koppeling zelf net hebt gestart.",
         "allow": "Toestaan",
         "deny": "Weigeren",
         "expired": "Dit verzoek is verlopen of ongeldig. Start de koppeling opnieuw in de assistent.",

@@ -12,6 +12,7 @@ import {
   companyMembership,
   notification,
   requirementAssignment,
+  user,
 } from "@/schema";
 
 // The auto-audit middleware would otherwise reach for a real database.
@@ -133,7 +134,13 @@ describe("team.setMemberRole", () => {
  * receipts of sign-offs they made and stay.
  */
 type AssignmentRow = { id: string; userId: string; signedOffAt: Date | null };
-type Write = { op: "delete" | "update"; table: unknown; where: SQL; inTx: boolean };
+type Write = {
+  op: "delete" | "update";
+  table: unknown;
+  where: SQL;
+  inTx: boolean;
+  values?: Record<string, unknown>;
+};
 
 function removalDb(assignments: AssignmentRow[]) {
   const writes: Write[] = [];
@@ -166,9 +173,13 @@ function removalDb(assignments: AssignmentRow[]) {
       },
     }),
     update: (table: unknown) => ({
-      set: () => ({
-        where: async (where: SQL) => {
-          writes.push({ op: "update", table, where, inTx: state.inTx });
+      set: (values: Record<string, unknown>) => ({
+        where: (where: SQL) => {
+          writes.push({ op: "update", table, where, inTx: state.inTx, values });
+          // Awaited as is, or asked for the new key version (lib/mcp/key-version.ts).
+          return Object.assign(Promise.resolve(), {
+            returning: async () => [{ version: 2 }],
+          });
         },
       }),
     }),
@@ -234,6 +245,15 @@ describe("team.removeMember", () => {
       expect(tables).toContain(table);
     }
     expect(writes.every((w) => w.inTx)).toBe(true);
+  });
+
+  test("ends the member's AI assistants for good, in the same transaction", async () => {
+    const writes = await removeMember([]);
+    const disconnect = writes.filter(
+      (w) => w.table === user && w.values !== undefined && "mcpKeyVersion" in w.values,
+    );
+    expect(disconnect).toHaveLength(1);
+    expect(disconnect.every((w) => w.inTx)).toBe(true);
   });
 });
 
