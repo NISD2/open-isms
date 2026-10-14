@@ -86,6 +86,25 @@ export function SignInCard({
 
     try {
       if (mode === "register") {
+        // Someone who already has this account and types their own credentials on the
+        // registration form is signed in. Otherwise they reach a code screen that no code
+        // ever comes to, because a verified address is sent a notice and not a code. This is
+        // the sign-in's own check, rate limit included, so it reveals nothing a login would not.
+        const existing = await signIn("credentials", {
+          email,
+          password,
+          redirect: false,
+        });
+        if (!existing?.error) {
+          router.push(callbackUrl);
+          return;
+        }
+        if (`${existing.error} ${existing.code ?? ""}`.includes("RATE_LIMITED")) {
+          setError(t("errorRateLimited"));
+          setLoading(false);
+          return;
+        }
+
         const res = await fetch("/api/auth/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -294,6 +313,30 @@ export function SignInCard({
           >
             {t("verifyResend")}
           </button>
+
+          <p className="text-center text-sm text-muted-foreground">
+            {t("verifyHaveAccount")}{" "}
+            <button
+              type="button"
+              className="underline hover:text-foreground"
+              onClick={() => {
+                setStep("auth");
+                setMode("login");
+                setCode("");
+                setError("");
+                setInfo("");
+              }}
+            >
+              {t("verifyToSignIn")}
+            </button>
+            {" · "}
+            <Link
+              href="/auth/forgot-password"
+              className="underline hover:text-foreground"
+            >
+              {t("forgotPasswordLink")}
+            </Link>
+          </p>
 
           <button
             type="button"
