@@ -1,7 +1,7 @@
 import "@/lib/server-guard";
 import { z } from "zod";
 import { getPathname } from "@/i18n/navigation";
-import { isReviewerRole } from "@/lib/auth";
+import { isReviewerRole } from "@/lib/auth/roles";
 import { canSeeCategory, getUserAccess } from "@/lib/compliance/access";
 import { signedOffByModule } from "@/lib/compliance/module-recheck";
 import { db } from "@/lib/db";

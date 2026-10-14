@@ -4,16 +4,17 @@
  * Every server component that needs to know "what can this user see/edit?"
  * calls getUserAccess(). React cache ensures one DB hit per request.
  */
+
+import { and, asc, eq } from "drizzle-orm";
 import { cache } from "react";
-import { eq, and, asc } from "drizzle-orm";
+import { hasReviewAccess } from "@/lib/auth/roles";
 import { db } from "@/lib/db";
 import {
   categoryAssignment,
-  requirementCategory,
   complianceFramework,
+  requirementCategory,
   requirement as requirementTable,
 } from "@/schema";
-import { hasReviewAccess } from "@/lib/auth";
 
 // ============================================================================
 // Cached category list — shared across layout, pages, and nav
@@ -105,11 +106,7 @@ export interface UserAccess {
 
 /** Cached per request — safe to call from layout + page in the same render. */
 export const getUserAccess = cache(
-  async (
-    assessmentId: string,
-    userId: string,
-    role: string,
-  ): Promise<UserAccess> => {
+  async (assessmentId: string, userId: string, role: string): Promise<UserAccess> => {
     const isAdmin = hasReviewAccess(role);
     if (isAdmin) {
       return { isAdmin, categoryIds: new Set() };
@@ -137,10 +134,7 @@ export const getUserAccess = cache(
 // ============================================================================
 
 /** Check if user can see a category */
-export function canSeeCategory(
-  access: UserAccess,
-  categoryId: string,
-): boolean {
+export function canSeeCategory(access: UserAccess, categoryId: string): boolean {
   return access.isAdmin || access.categoryIds.has(categoryId);
 }
 
