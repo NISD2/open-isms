@@ -6,6 +6,15 @@
 import { describe, expect, mock, test } from "bun:test";
 
 const signedElsewhere: { codes: string[] } = { codes: [] };
+// The tools reach lib/db and lib/auth, which read a validated env as they load; CI has none.
+mock.module("@/lib/env", () => ({
+  env: {
+    DATABASE_URL: "postgres://unused:unused@localhost:5432/unused",
+    AUTH_SECRET: "test-secret-test-secret-test-secret",
+    NEXT_PUBLIC_APP_URL: "https://example.test",
+  },
+  mailSupportEmail: () => "support@example.test",
+}));
 mock.module("@/lib/audit", () => ({ logAudit: async () => {} }));
 mock.module("@/lib/compliance/module-recheck", () => ({
   signedOffByModule: async () =>

@@ -9,6 +9,15 @@ import { describe, expect, mock, test } from "bun:test";
 
 const OPERATOR = "operator@example.com";
 
+// The router reaches lib/db and lib/auth, which read a validated env as they load; CI has none.
+mock.module("@/lib/env", () => ({
+  env: {
+    DATABASE_URL: "postgres://unused:unused@localhost:5432/unused",
+    AUTH_SECRET: "test-secret-test-secret-test-secret",
+    NEXT_PUBLIC_APP_URL: "https://example.test",
+  },
+  mailSupportEmail: () => "support@example.test",
+}));
 // The auto-audit middleware files a row for every mutation, refused ones included.
 mock.module("@/lib/audit", () => ({ logAudit: async () => {} }));
 // Set here rather than through PLATFORM_ADMIN_EMAILS: another test file mocks this module for
