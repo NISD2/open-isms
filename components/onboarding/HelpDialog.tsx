@@ -2,8 +2,8 @@
 
 import { Compass } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { BookingLink } from "@/components/pricing/BookingLink";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { TalkFirst } from "@/components/pricing/PaidPricingCards";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -37,7 +37,6 @@ export function HelpDialog({
   onStartTour?: () => void;
 }) {
   const t = useTranslations("guide");
-  const tCall = useTranslations("pricing.tiers.talkFirst");
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -53,13 +52,9 @@ export function HelpDialog({
         </DialogHeader>
 
         {calLink && (
-          <BookingLink
-            calLink={calLink}
-            data-testid="help-book-call"
-            className={buttonVariants({ size: "lg" })}
-          >
-            {tCall("title")}
-          </BookingLink>
+          <div data-testid="help-book-call">
+            <TalkFirst calLink={calLink} />
+          </div>
         )}
 
         <div className="flex flex-wrap items-center justify-end gap-2">
