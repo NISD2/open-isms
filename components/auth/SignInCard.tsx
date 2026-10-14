@@ -95,11 +95,11 @@ export function SignInCard({
           password,
           redirect: false,
         });
-        if (!existing?.error) {
+        if (existing && !existing.error) {
           router.push(callbackUrl);
           return;
         }
-        if (`${existing.error} ${existing.code ?? ""}`.includes("RATE_LIMITED")) {
+        if (`${existing?.error ?? ""} ${existing?.code ?? ""}`.includes("RATE_LIMITED")) {
           setError(t("errorRateLimited"));
           setLoading(false);
           return;
