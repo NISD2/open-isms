@@ -60,6 +60,40 @@ export function campaignTags(search: string): URLSearchParams {
   );
 }
 
+/** Same key as in SIGNUP_CAMPAIGN_KEYS (schema), which the client bundle cannot import. */
+export const FROM_PATH_KEY = "from_path";
+const MAX_ORIGIN_PATH_LENGTH = 100;
+
+/**
+ * A page path a signup may record as the page that led to it, or null. Only a plain local path in
+ * its canonical form qualifies (no host, query, fragment or odd escapes), and never a token route,
+ * whose path is a credential. Untrusted input on the server, so it fails closed.
+ */
+export function originPath(value: unknown): string | null {
+  if (typeof value !== "string" || !value.startsWith("/")) return null;
+  if (value.length > MAX_ORIGIN_PATH_LENGTH) return null;
+  try {
+    const parsed = new URL(value, BASE);
+    const plain = parsed.origin === new URL(BASE).origin && parsed.pathname === value;
+    return plain && !isTokenRoute(value) ? value : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * What a registration keeps from the sign-in page's own address: the campaign tags and the path of
+ * the page whose link led there (SignInLink). Nothing else survives, since the rest can carry a
+ * credential, e.g. ?callbackUrl=/invite/<token>.
+ */
+export function signupTags(search: string): URLSearchParams {
+  const origin = originPath(new URLSearchParams(search).get(FROM_PATH_KEY));
+  return new URLSearchParams([
+    ...campaignTags(search),
+    ...(origin === null ? [] : [[FROM_PATH_KEY, origin] as [string, string]]),
+  ]);
+}
+
 /**
  * Umami's `data-before-send` hook, called with every event before it leaves the browser; a
  * falsy return drops it. Needed on top of not loading the script on these pages, because once

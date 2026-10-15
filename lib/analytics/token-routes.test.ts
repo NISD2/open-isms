@@ -1,6 +1,63 @@
 import { describe, expect, test } from "bun:test";
 import { LOCALE_CODES } from "@/lib/locale";
-import { analyticsBeforeSend, isTokenRoute, TOKEN_ROUTE_PREFIXES } from "./token-routes";
+import { SIGNUP_CAMPAIGN_KEYS } from "@/schema";
+import {
+  analyticsBeforeSend,
+  FROM_PATH_KEY,
+  isTokenRoute,
+  originPath,
+  signupTags,
+  TOKEN_ROUTE_PREFIXES,
+} from "./token-routes";
+
+describe("originPath", () => {
+  test("accepts a plain local page path, in any locale", () => {
+    for (const path of [
+      "/",
+      "/en",
+      "/en/wiki/timelines-and-status/nis2-timeline",
+      "/de/preise",
+    ]) {
+      expect(originPath(path)).toBe(path);
+    }
+  });
+
+  test("rejects anything that is not one, and every token route", () => {
+    for (const value of [
+      "",
+      "en/wiki",
+      "https://nisd2.eu/en",
+      "//nisd2.eu/en",
+      "/en?utm_source=x",
+      "/en#top",
+      "/a b",
+      "/invite/5f0c",
+      "/fr/supplier-access/5f0c",
+      "/".padEnd(101, "x"),
+      null,
+      42,
+    ]) {
+      expect(originPath(value)).toBeNull();
+    }
+  });
+});
+
+describe("signupTags", () => {
+  test("keeps campaign tags and the origin path, drops the rest of the query", () => {
+    const tags = signupTags(
+      "mode=register&utm_source=google&from_path=%2Fen%2Fpricing&callbackUrl=%2Finvite%2F5f0c",
+    );
+    expect(tags.toString()).toBe("utm_source=google&from_path=%2Fen%2Fpricing");
+  });
+
+  test("drops an origin that is a token route", () => {
+    expect(signupTags("from_path=%2Finvite%2F5f0c").toString()).toBe("");
+  });
+
+  test("uses the key the schema stores", () => {
+    expect(SIGNUP_CAMPAIGN_KEYS).toContain(FROM_PATH_KEY);
+  });
+});
 
 describe("isTokenRoute", () => {
   test("every listed prefix is a token route in every locale", () => {
