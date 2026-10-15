@@ -6,6 +6,7 @@
  * given the same facts and the same window they return the same rows.
  */
 
+import { isLocaleCode } from "@/lib/locale";
 import type { CompanyFact, CourseId, UserFact } from "@/lib/platform-admin/growth";
 
 /** One bar: a label, its value, and an optional second line under it. */
@@ -262,6 +263,44 @@ export function localeBars(users: UserFact[]): Bar[] {
     users.map((u) => (u.locale === "unknown" ? null : u.locale.toUpperCase())),
     7,
     "Never set",
+  );
+}
+
+/** A page path without its locale prefix, so /en/pricing and /de/pricing are one page. */
+export function pageOf(path: string): string {
+  const [first = "", ...rest] = path.split("/").filter(Boolean);
+  const segments = isLocaleCode(first.toLowerCase())
+    ? rest
+    : [first, ...rest].filter(Boolean);
+  return `/${segments.join("/")}`;
+}
+
+/** Signups per page they registered from, disposable addresses left out as in the funnels. */
+export function signupsByPage(users: UserFact[]): Map<string, number> {
+  const counts = new Map<string, number>();
+  for (const u of users) {
+    if (u.disposable || u.fromPath === null) continue;
+    const page = pageOf(u.fromPath);
+    counts.set(page, (counts.get(page) ?? 0) + 1);
+  }
+  return counts;
+}
+
+export function signupPageBars(users: UserFact[]): Bar[] {
+  const real = users.filter((u) => !u.disposable);
+  return rank(
+    real.map((u) => (u.fromPath === null ? null : pageOf(u.fromPath))),
+    9,
+    "Not recorded",
+  );
+}
+
+export function signupSourceBars(users: UserFact[]): Bar[] {
+  const real = users.filter((u) => !u.disposable);
+  return rank(
+    real.map((u) => u.utmSource ?? (u.fromPath === null ? null : "No campaign tag")),
+    7,
+    "Not recorded",
   );
 }
 

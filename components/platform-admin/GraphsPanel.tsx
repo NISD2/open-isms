@@ -28,6 +28,8 @@ import {
   sectorBars,
   signupDaysByCourse,
   signupFunnel,
+  signupPageBars,
+  signupSourceBars,
   sizeBars,
 } from "./graphs/derive";
 import { InsightsCard } from "./graphs/InsightsCard";
@@ -331,6 +333,8 @@ function GraphsView({ data }: { data: GrowthData }) {
       activationLag: activationLagBars(scoped.newUsers),
       firstWorkLag: firstWorkLagBars(scoped.newUsers),
       locale: localeBars(scoped.newUsers),
+      signupPages: signupPageBars(scoped.newUsers),
+      signupSources: signupSourceBars(scoped.newUsers),
       sector: sectorBars(scoped.namedOrgs),
       size: sizeBars(scoped.namedOrgs),
       country: countryBars(scoped.namedOrgs),
@@ -544,6 +548,24 @@ function GraphsView({ data }: { data: GrowthData }) {
           table={trendTable(trends.leads, series.leads, period)}
         >
           <TrendColumns data={trends.leads} series={series.leads} />
+        </ChartCard>
+
+        <ChartCard
+          title="Signups by the page they registered from"
+          subtitle="Accounts opened in range, by the page whose sign-in link they clicked"
+          note="Recorded at registration, so older accounts and Google sign-ins read as not recorded. Locales are merged: /en/pricing and /de/pricing are one page. Disposable addresses are left out."
+          table={barsTable(bars.signupPages, "Page")}
+        >
+          <CategoryBars bars={bars.signupPages} />
+        </ChartCard>
+
+        <ChartCard
+          title="Signups by campaign source"
+          subtitle="Accounts opened in range, by the utm_source of the page they registered from"
+          note="No campaign tag means the registration page was known but its address carried no utm_source: organic search, direct, a link without tags. Not recorded means the page itself was not captured."
+          table={barsTable(bars.signupSources, "Source")}
+        >
+          <CategoryBars bars={bars.signupSources} />
         </ChartCard>
       </div>
 
