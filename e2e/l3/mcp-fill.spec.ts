@@ -86,10 +86,10 @@ const risksOn = (assetIds: readonly string[]) =>
 async function removeOurAssets(tenant: Tenant): Promise<void> {
   const ids = (await ourAssets(tenant)).map((a) => a.id);
   if (ids.length === 0) return;
-  await e2eQuery(
-    `DELETE FROM risk WHERE id IN (SELECT risk_id FROM risk_asset WHERE asset_id = ANY($1::uuid[]))`,
-    [ids],
-  );
+  const risks = (await risksOn(ids)).map((r) => r.id);
+  // The links first: risk_asset points at both the risk and the asset.
+  await e2eQuery(`DELETE FROM risk_asset WHERE asset_id = ANY($1::uuid[])`, [ids]);
+  await e2eQuery(`DELETE FROM risk WHERE id = ANY($1::uuid[])`, [risks]);
   await e2eQuery(`DELETE FROM asset WHERE id = ANY($1::uuid[])`, [ids]);
 }
 
