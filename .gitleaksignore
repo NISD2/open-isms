@@ -5,6 +5,13 @@
 #
 # Audit EW-16 (2026-06-11).
 
-# (No allowlisted findings yet. Add fingerprints as needed when real
-# secrets and known-safe lookalikes get confused — for example, dummy
-# JWT-shaped strings in fixtures or AWS-style example-key documentation.)
+# Add fingerprints as needed when real secrets and known-safe lookalikes get
+# confused, for example dummy JWT-shaped strings in fixtures or AWS-style
+# example-key documentation.
+
+# MCP tool tests (PR #361): placeholder storage object paths
+# ("companies/c1/evidence/x", "companies/c1/certificates/x") under keys named
+# storageKey and fileKey. Paths, not credentials; the lines now carry
+# `gitleaks:allow`, and these two entries cover the commit before that.
+d3c291193ca06056fb32f1a743d49f349e84341f:lib/mcp/tools.test.ts:generic-api-key:68
+d3c291193ca06056fb32f1a743d49f349e84341f:lib/mcp/tools.test.ts:generic-api-key:77

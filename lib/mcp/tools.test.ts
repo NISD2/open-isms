@@ -62,10 +62,11 @@ function holderOf(
     policyConfig: {
       update: record("policyConfig.update", { id: "config-1" }),
     },
+    // The storage keys below are object paths, not credentials; `gitleaks:allow` marks them so.
     evidence: {
       createUploadUrl: record("evidence.createUploadUrl", {
         uploadUrl: "https://storage.example.test/put",
-        storageKey: "companies/c1/evidence/x",
+        storageKey: "companies/c1/evidence/x", // gitleaks:allow
         evidenceId: "ev-1",
         contentType: "application/pdf",
       }),
@@ -74,7 +75,7 @@ function holderOf(
     training: {
       getCertificateUploadUrl: record("training.getCertificateUploadUrl", {
         uploadUrl: "https://storage.example.test/put",
-        fileKey: "companies/c1/certificates/x",
+        fileKey: "companies/c1/certificates/x", // gitleaks:allow
         contentType: "application/pdf",
       }),
     },
