@@ -173,7 +173,12 @@
         "declined": "Rozhodnuto nezavádět: {reason}",
         "gaps": {
           "title": "Co odpovědi ještě nechávají otevřené",
-          "lead": "Svým schválením potvrzujete, co je zaznamenáno. Podle vlastních odpovědí společnosti body níže ještě nejsou zavedené. Zapište je do přezkumu vedení pod „Úkoly“.",
+          "lead": "Svým schválením potvrzujete, co je zaznamenáno. Podle vlastních odpovědí společnosti body níže ještě nejsou zavedené. U každého určete, kdo se o něj postará a do kdy. Bod se pak se jménem a datem zapíše do seznamu nápravných opatření.",
+          "owner": "Odpovídá",
+          "nobody": "Zatím nikdo",
+          "formerMember": "Už není v týmu",
+          "due": "Hotovo do",
+          "saveFailed": "Neuloženo. Zvolte prosím znovu.",
           "secondFactor": "Bez druhého faktoru: {names}",
           "secondFactorAll": "Žádný program s přihlášením nemá druhý faktor. Obě vyhlášky vyžadují vícefaktorovou autentizaci s alespoň dvěma různými typy faktorů, nebo kontinuální autentizaci založenou na modelu nulové důvěry (vyhláška č. 410/2025 Sb., § 8 odst. 2; vyhláška č. 409/2025 Sb., § 19 odst. 2 písm. a)).",
           "supplier": "Vysoké riziko, smlouva neupravuje bezpečnost ani incidenty: {names}",

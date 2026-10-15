@@ -173,7 +173,12 @@
         "declined": "Decided not to do: {reason}",
         "gaps": {
           "title": "What the answers still leave open",
-          "lead": "Your approval confirms what is recorded. By the company's own answers, the points below are not in place yet. Add them under “To do” in the management review.",
+          "lead": "Your approval confirms what is recorded. By the company's own answers, the points below are not in place yet. For each one, set who takes care of it and by when. It then goes on the action items list with the name and the date.",
+          "owner": "Responsible",
+          "nobody": "Nobody yet",
+          "formerMember": "No longer in the team",
+          "due": "Done by",
+          "saveFailed": "Not saved. Please choose again.",
           "secondFactor": "No second factor: {names}",
           "secondFactorAll": "No program with a sign-in has a second factor. The law asks for one to be used (§ 30(2) no. 10 BSIG).",
           "supplier": "High risk, contract settles neither security nor incidents: {names}",

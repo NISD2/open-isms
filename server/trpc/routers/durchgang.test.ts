@@ -10,8 +10,10 @@ import { PgDialect } from "drizzle-orm/pg-core";
 import type { AuditEntry } from "@/lib/audit";
 import {
   asset,
+  companyMembership,
   companyPolicyConfig,
   companyRequirementStatus,
+  improvementItem,
   policy,
   supplier,
 } from "@/schema";
@@ -84,6 +86,10 @@ function setup(opts: {
     frequency?: string | null;
     lastRestore?: string | null;
   }>;
+  /** The step's open line on the improvement register, if one was made before. */
+  openMeasure?: ReadonlyArray<{ id: string }>;
+  /** The user ids a membership lookup finds in the company. */
+  members?: readonly string[];
 }) {
   const writes: Write[] = [];
   const wheres: Array<{ table: string; where: SQL }> = [];
@@ -99,7 +105,11 @@ function setup(opts: {
       complianceFramework: { findFirst: async () => ({ id: "framework-1" }) },
       companyAssessment: { findFirst: captured("companyAssessment", { id: ASSESSMENT }) },
       requirement: {
-        findFirst: captured("requirement", { id: REQUIREMENT, categoryId: CATEGORY }),
+        findFirst: captured("requirement", {
+          id: REQUIREMENT,
+          categoryId: CATEGORY,
+          priority: "P1",
+        }),
         findMany: async () => [{ id: REQUIREMENT, code: "12.2" }],
       },
       categoryAssignment: {
@@ -158,7 +168,8 @@ function setup(opts: {
     selectDistinctOn: () => ({
       from: () => ({ where: () => ({ orderBy: async () => [] }) }),
     }),
-    // The company lock, the lookup of the walk's policy row, the company's suppliers and assets.
+    // The company lock, the lookup of the walk's policy row, the company's suppliers and assets,
+    // the open register line of a step, and the company's members.
     select: () => ({
       from: (table: unknown) => {
         const rows =
@@ -170,14 +181,21 @@ function setup(opts: {
               ? (opts.suppliers ?? [])
               : table === asset
                 ? (opts.assets ?? [])
-                : [];
+                : table === improvementItem
+                  ? (opts.openMeasure ?? [])
+                  : table === companyMembership
+                    ? (opts.members ?? []).map((userId) => ({ userId }))
+                    : [];
         return {
           where: (where: SQL) => {
             if (table === supplier) wheres.push({ table: "supplier", where });
             if (table === asset) wheres.push({ table: "asset", where });
+            if (table === improvementItem)
+              wheres.push({ table: "improvementItem", where });
             return Object.assign(Promise.resolve(rows), {
               for: async () => rows,
               limit: async () => rows,
+              orderBy: () => ({ limit: async () => rows }),
             });
           },
           // The rated things' risks; the walk's documents join their approver too.
@@ -218,6 +236,9 @@ describe("durchgang router", () => {
     await expect(caller.addAssets({ catalogIds: [] })).rejects.toMatchObject({
       code: "FORBIDDEN",
     });
+    await expect(
+      caller.planMeasure({ code: "1.1", assignedTo: null, targetDate: null }),
+    ).rejects.toMatchObject({ code: "FORBIDDEN" });
     expect(writes).toEqual([]);
   });
 
@@ -1002,5 +1023,67 @@ describe("the processes that must keep running", () => {
       },
     );
     expect(free.writes).toEqual([]);
+  });
+});
+
+describe("planMeasure: who takes care of an open point, and by when", () => {
+  const OWNER = "88888888-8888-4888-8888-888888888888";
+  const LINE = "99999999-9999-4999-8999-999999999999";
+  const plan = { code: "1.1", assignedTo: OWNER, targetDate: "2026-12-31" };
+
+  test("opens one line on the improvement register for the step, in the company's words", async () => {
+    const { caller, writes } = setup({ accessLevel: "full", members: [OWNER] });
+    await caller.planMeasure(plan);
+    const lines = writes.filter((w) => w.table === improvementItem);
+    expect(lines).toHaveLength(1);
+    expect(lines[0]?.op).toBe("insert");
+    expect(lines[0]?.values).toMatchObject({
+      companyId: COMPANY,
+      source: "gap_analysis",
+      sourceReferenceId: REQUIREMENT,
+      assignedTo: OWNER,
+      targetDate: "2026-12-31",
+      priority: "P1",
+    });
+    // With no management training on record, 1.1's open point is what the line says is open.
+    expect(lines[0]?.values).toMatchObject({
+      title: expect.stringMatching(/^1\.1 /),
+      description: expect.stringContaining("Keine Schulung der Geschäftsführung"),
+    });
+  });
+
+  test("changes the step's open line instead of opening a second one", async () => {
+    const { caller, writes, wheres } = setup({
+      accessLevel: "full",
+      members: [OWNER],
+      openMeasure: [{ id: LINE }],
+    });
+    await caller.planMeasure({ ...plan, assignedTo: null });
+    const lines = writes.filter((w) => w.table === improvementItem);
+    expect(lines.map((w) => w.op)).toEqual(["update"]);
+    expect(lines[0]?.values).toMatchObject({
+      assignedTo: null,
+      targetDate: "2026-12-31",
+    });
+    const where = lines[0]?.where;
+    expect(where && paramsOf(where)).toEqual([LINE, COMPANY]);
+    // The open line is looked up in the session's company only.
+    const lookup = wheres.find((w) => w.table === "improvementItem");
+    expect(lookup && paramsOf(lookup.where)).toContain(COMPANY);
+  });
+
+  test("opens no line when it names nobody and no day", async () => {
+    const { caller, writes } = setup({ accessLevel: "full" });
+    await caller.planMeasure({ code: "1.1", assignedTo: null, targetDate: null });
+    expect(writes.filter((w) => w.table === improvementItem)).toEqual([]);
+  });
+
+  test("refuses a person outside the company, and a step outside the walk", async () => {
+    const { caller, writes } = setup({ accessLevel: "full", members: [] });
+    await expect(caller.planMeasure(plan)).rejects.toMatchObject({ code: "NOT_FOUND" });
+    await expect(
+      caller.planMeasure({ ...plan, code: "99.9", assignedTo: null }),
+    ).rejects.toMatchObject({ code: "BAD_REQUEST" });
+    expect(writes).toEqual([]);
   });
 });

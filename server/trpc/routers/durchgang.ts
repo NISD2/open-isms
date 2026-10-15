@@ -1,5 +1,6 @@
 import { TRPCError } from "@trpc/server";
 import { and, desc, eq, inArray } from "drizzle-orm";
+import { createTranslator } from "next-intl";
 import { z } from "zod";
 import { CATALOG_BY_ID } from "@/lib/asset-inventory/catalog";
 import {
@@ -44,6 +45,7 @@ import {
   cryptoNote,
   type DurchgangAction,
   declinedNote,
+  gapLines,
   gapsOf,
   HOSTINGS,
   type ItemState,
@@ -96,16 +98,19 @@ import {
   company,
   companyCategoryIntake,
   companyPolicyConfig,
+  companyRequirementStatus,
   companyRiskMethodology,
+  improvementItem,
   managementReview,
   policy,
+  requirement,
   risk,
   riskAsset,
   riskSupplier,
   supplier,
 } from "@/schema";
-import { riskInsertSchema } from "@/schema/validators";
-import { signerRoleOf } from "../guards";
+import { improvementItemInsertSchema, riskInsertSchema } from "@/schema/validators";
+import { signerRoleOf, verifyMemberReferences } from "../guards";
 import {
   propagateSatisfaction,
   recalculateProgress,
@@ -117,9 +122,12 @@ import {
   declineReasonsOf,
   durchgangItem,
   gapFactsOf,
+  MEASURE_SOURCE,
+  openMeasureOf,
   refuseSettled,
   signDeclined,
   walkItemRef,
+  walkMeasuresOf,
   walkPolicyRows,
   walkRows,
   walkStates,
@@ -231,6 +239,20 @@ const policyScreenOf = (c: string, locale: WalkLocale) => {
     throw new TRPCError({ code: "BAD_REQUEST", message: `${c} writes no policy.` });
   }
   return screen;
+};
+
+/**
+ * What the company's own answers still leave open (`gapsOf`), as the approval and the export show
+ * it: a step set aside comes with its headline in `locale`.
+ */
+const shownGapsOf = async (db: DbOrTx, companyId: string, locale: WalkLocale) => {
+  const headline = (c: string) => {
+    const words = resolveItem(NAMESPACES[locale], itemOf(c));
+    return words.ok ? words.value.headline : c;
+  };
+  return gapsOf(await gapFactsOf(db, companyId, new Date())).map((gap) =>
+    gap.kind === "set_aside" ? { ...gap, headlines: gap.codes.map(headline) } : gap,
+  );
 };
 
 /** The crypto list screen's names for kinds and statuses in `locale`, which the policy prints. */
@@ -1634,14 +1656,90 @@ export const durchgangRouter = router({
    */
   gaps: durchgangProcedure
     .input(z.object({ locale: z.enum(WALK_LOCALES) }))
-    .query(async ({ ctx, input }) => {
-      const headline = (c: string) => {
-        const words = resolveItem(NAMESPACES[input.locale], itemOf(c));
-        return words.ok ? words.value.headline : c;
-      };
-      return gapsOf(await gapFactsOf(ctx.db, ctx.companyId, new Date())).map((gap) =>
-        gap.kind === "set_aside" ? { ...gap, headlines: gap.codes.map(headline) } : gap,
-      );
+    .query(async ({ ctx, input }) => shownGapsOf(ctx.db, ctx.companyId, input.locale)),
+
+  /** Who takes care of each open point and by when, by step, for the approval and the export. */
+  measures: durchgangProcedure.query(({ ctx }) => walkMeasuresOf(ctx.db, ctx.companyId)),
+
+  /**
+   * 7.3: who takes care of an open point and by when (Art. 21(4) NIS 2: corrective measures
+   * without undue delay). The point becomes a line on the improvement register (7.4), the list the
+   * requirement page and the dashboard show, and later calls change that line while it is open.
+   * The line records what was open when it was made, in the company's record language; a call
+   * that names nobody and no day opens none.
+   *
+   * Anyone who walks may plan, as anyone in the company may edit the register itself
+   * (`improvement` router), and like that router each change rechecks the sign-offs resting on
+   * the register (3.5, 7.4).
+   */
+  planMeasure: durchgangWrite
+    .input(
+      improvementItemInsertSchema
+        .pick({ assignedTo: true, targetDate: true })
+        .required()
+        .extend({ code }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const [ref, locale] = await Promise.all([
+        walkItemRef(ctx.db, ctx.companyId, input.code),
+        seedLocale(ctx.db, ctx.userId, ctx.companyId),
+        verifyMemberReferences(ctx.db, [input.assignedTo], ctx.companyId),
+      ]);
+      const plan = { assignedTo: input.assignedTo, targetDate: input.targetDate };
+      const wrote = await ctx.db.transaction(async (tx) => {
+        // Two saves for one point at once must not open two lines: the step's status row is the lock.
+        await tx
+          .select({ id: companyRequirementStatus.id })
+          .from(companyRequirementStatus)
+          .where(eq(companyRequirementStatus.id, ref.statusId))
+          .for("update");
+        const [open] = await tx
+          .select({ id: improvementItem.id })
+          .from(improvementItem)
+          .where(openMeasureOf(ctx.companyId, ref.requirementId))
+          .orderBy(desc(improvementItem.createdAt))
+          .limit(1);
+        if (open) {
+          await tx
+            .update(improvementItem)
+            .set({ ...plan, updatedAt: new Date() })
+            .where(
+              and(
+                eq(improvementItem.id, open.id),
+                eq(improvementItem.companyId, ctx.companyId),
+              ),
+            );
+          return true;
+        }
+        if (plan.assignedTo === null && plan.targetDate === null) return false;
+        const words = resolveItem(NAMESPACES[locale], itemOf(input.code));
+        const headline = words.ok ? words.value.headline : input.code;
+        const t = createTranslator({
+          locale,
+          messages: NAMESPACES[locale],
+          namespace: "ui.approve.gaps",
+        });
+        const openPoints = gapLines(await shownGapsOf(tx, ctx.companyId, locale), t)
+          .filter((line) => line.code === input.code)
+          .map((line) => line.text);
+        const req = await tx.query.requirement.findFirst({
+          where: eq(requirement.id, ref.requirementId),
+          columns: { priority: true },
+        });
+        if (!req) throw new Error(`No requirement ${ref.requirementId}.`);
+        await tx.insert(improvementItem).values({
+          ...plan,
+          companyId: ctx.companyId,
+          source: MEASURE_SOURCE,
+          sourceReferenceId: ref.requirementId,
+          title: `${input.code} ${headline}`.slice(0, 500),
+          description: openPoints.join("\n") || headline,
+          priority: req.priority,
+        });
+        return true;
+      });
+      if (wrote) recheck(ctx, "improvement_item");
+      return { code: input.code, ...plan };
     }),
 
   /**
