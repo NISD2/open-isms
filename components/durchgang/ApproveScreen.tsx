@@ -18,6 +18,7 @@ import {
 import { type RouterOutputs, trpc } from "@/lib/trpc/client";
 import { userFacingError } from "@/lib/trpc/error-message";
 import { Heading, Lead } from "./ExplainScreens";
+import { OpenPointPlan } from "./OpenPointPlan";
 import { Toggle } from "./RowParts";
 import type { ItemView } from "./view";
 import type { Of } from "./WorkScreens";
@@ -219,8 +220,9 @@ type OpenGap = RouterOutputs["durchgang"]["gaps"][number];
 
 /**
  * What the company's own answers still leave open, each with the step where it changes, so
- * management sees it before it signs (§ 38 Abs. 1 BSIG). Amber says "look here", never "failed"
- * (ui-design principle 10), and no count heads it (principle 7).
+ * management sees it before it signs (§ 38 Abs. 1 BSIG), and who takes care of it by when (Art.
+ * 21(4) NIS 2). Points of the same step share one plan, shown under the first of them. Amber says
+ * "look here", never "failed" (ui-design principle 10), and no count heads it (principle 7).
  */
 function OpenPoints({
   gaps,
@@ -234,28 +236,36 @@ function OpenPoints({
   canChange: boolean;
 }) {
   const t = useTranslations("durchgang.ui.approve.gaps");
+  const { data: measures } = trpc.durchgang.measures.useQuery();
   const lines = gapLines(gaps, t);
+  const byCode = new Map((measures ?? []).map((m) => [m.code, m]));
   return (
     <section className="mt-8 rounded-2xl border border-amber-300/70 bg-amber-50/70 p-5 sm:p-6 dark:border-amber-500/40 dark:bg-amber-950/20">
       <p className="font-semibold">{t("title")}</p>
       <p className="mt-1 max-w-[62ch] text-sm leading-6 text-muted-foreground">
         {t("lead")}
       </p>
-      <ul className="mt-4 space-y-2.5">
-        {lines.map((line) => (
-          <li
-            key={`${line.code}:${line.text}`}
-            className="flex items-baseline gap-3 text-sm"
-          >
-            <span className="min-w-0 flex-1">{line.text}</span>
-            {canChange && (
-              <Link
-                href={{ pathname: "/durchgang/nis2/[code]", params: { code: line.code } }}
-                className="shrink-0 font-medium text-primary underline-offset-4 hover:underline"
-              >
-                {t("change")}
-              </Link>
-            )}
+      <ul className="mt-4 space-y-5">
+        {lines.map((line, i) => (
+          <li key={`${line.code}:${line.text}`}>
+            <div className="flex items-baseline gap-3 text-sm">
+              <span className="min-w-0 flex-1">{line.text}</span>
+              {canChange && (
+                <Link
+                  href={{
+                    pathname: "/durchgang/nis2/[code]",
+                    params: { code: line.code },
+                  }}
+                  className="shrink-0 font-medium text-primary underline-offset-4 hover:underline"
+                >
+                  {t("change")}
+                </Link>
+              )}
+            </div>
+            {measures !== undefined &&
+              lines.findIndex((l) => l.code === line.code) === i && (
+                <OpenPointPlan code={line.code} measure={byCode.get(line.code)} />
+              )}
           </li>
         ))}
       </ul>

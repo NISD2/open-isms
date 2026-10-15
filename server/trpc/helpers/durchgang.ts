@@ -39,6 +39,7 @@ import {
   companyMembership,
   companyRequirementStatus,
   complianceFramework,
+  improvementItem,
   policy,
   requirement,
   requirementCategory,
@@ -480,6 +481,54 @@ export async function gapFactsOf(
     setAside: states.filter((s) => s.state.kind === "waiting").map((s) => s.code),
     today,
   };
+}
+
+/**
+ * Where an open point of the approval goes once someone takes it on: a line on the improvement
+ * register (7.4), whose source says it came from the company's own answers and whose reference is
+ * the step's requirement. A line counts while nobody has closed it.
+ */
+export const MEASURE_SOURCE =
+  "gap_analysis" satisfies typeof improvementItem.$inferSelect.source;
+const STILL_OPEN = [
+  "open",
+  "in_progress",
+  "deferred",
+] as const satisfies readonly (typeof improvementItem.$inferSelect.status)[];
+
+/** The open register lines for one step's open points, scoped to the company. */
+export const openMeasureOf = (companyId: string, requirementId: string) =>
+  and(
+    eq(improvementItem.companyId, companyId),
+    eq(improvementItem.source, MEASURE_SOURCE),
+    eq(improvementItem.sourceReferenceId, requirementId),
+    inArray(improvementItem.status, [...STILL_OPEN]),
+  );
+
+/**
+ * Who takes care of each open point and by when, by step: the open lines the approval made,
+ * oldest first, so a later line for the same step wins where a caller keys them by code.
+ */
+export async function walkMeasuresOf(db: DbOrTx, companyId: string) {
+  return db
+    .select({
+      code: requirement.code,
+      assignedTo: improvementItem.assignedTo,
+      ownerName: user.name,
+      ownerEmail: user.email,
+      targetDate: improvementItem.targetDate,
+    })
+    .from(improvementItem)
+    .innerJoin(requirement, eq(requirement.id, improvementItem.sourceReferenceId))
+    .leftJoin(user, eq(user.id, improvementItem.assignedTo))
+    .where(
+      and(
+        eq(improvementItem.companyId, companyId),
+        eq(improvementItem.source, MEASURE_SOURCE),
+        inArray(improvementItem.status, [...STILL_OPEN]),
+      ),
+    )
+    .orderBy(improvementItem.createdAt);
 }
 
 /** One item of the walk for a company: where it stands, and its NIS 2 status row if it has one. */
