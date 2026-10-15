@@ -119,20 +119,21 @@ describe("singlePageTraffic", () => {
         countries: [
           country("DE", 343, 183),
           country("SG", 278, 278),
-          country("HK", 113, 110),
+          country("PL", 113, 110),
         ],
         countriesBefore: [
           { code: "DE", count: 1200 },
           { code: "SG", count: 400 },
-          { code: "HK", count: 6 },
+          { code: "PL", count: 6 },
         ],
       }),
     );
     expect(found?.id).toBe("single-page-traffic");
     expect(found?.kind).toBe("acute");
     expect(found?.tone).toBe("act");
+    // Names come from the runtime's ICU data, so only countries whose name never varies are used.
     expect(found?.headline).toBe(
-      "Singapore and Hong Kong sent 391 visits this week and almost none read past one page",
+      "Singapore and Poland sent 391 visits this week and almost none read past one page",
     );
     expect(found?.detail).toContain("Singapore: 278 visits, 100 percent single page");
     expect(found?.detail).toContain("Up sharply");
