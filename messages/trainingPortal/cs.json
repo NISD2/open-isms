@@ -54,7 +54,7 @@
       "whatIsFree": "Tento kurz a jeho certifikát zůstávají zdarma, stejně jako wiki a vlastní provoz: stejný zdrojový kód (AGPL-3.0) na vašich vlastních serverech. Průvodce NIS 2 na nisd2.eu, který vás krok za krokem provede zaváděním, stojí {price} bez DPH ročně.",
       "afterTraining": {
         "title": "Po školení: zavedení opatření",
-        "body": "Školení je povinností vedení podle § 38 odst. 3 BSIG. <law>Odstavec 1</law> navíc ukládá vedení zavést opatření k řízení rizik podle § 30 a dohlížet na jejich zavádění. Průvodce NIS 2 vás těmito opatřeními provede krok za krokem a na konci podepisuje vedení."
+        "body": "Školení vedení ukládá v Česku vyhláška č. 410/2025 Sb., § 4 písm. b), nebo vyhláška č. 409/2025 Sb., § 4 odst. 1 písm. a), podle režimu. Tentýž paragraf ukládá vedení i další povinnosti, například zajistit potřebné zdroje a prokazatelně se seznamovat se stavem plnění bezpečnostních opatření (nižší režim) nebo se zprávou o hodnocení rizik a plánem zvládání rizik (vyšší režim). Průvodce NIS 2 vás těmito opatřeními provede krok za krokem a na konci podepisuje vedení."
       }
     },
     "estimatedTime": "{minutes} min čtení",

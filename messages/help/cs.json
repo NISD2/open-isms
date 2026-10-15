@@ -12,7 +12,7 @@
       "p1": "Ověření, zda se na vás předpis vztahuje, každé opatření požadované článkem 21 jako jednotlivý krok, nahrávání důkazů, export do PDF, auditní stopa a kurz pro vedení s potvrzením o účasti, které článek 20 žádá umět doložit.",
       "p2": "Chcete-li platformu provozovat sami, zdrojový kód je na GitHubu pod AGPL-3.0. Zdarma, bez licenčního poplatku, bez omezení počtu uživatelů.",
       "p3": "Na nisd2.eu stojí průvodce {price} bez DPH ročně, na fakturu, s 30 dny na vrácení peněz. Ve vlastním provozu platforma nestojí nic.",
-      "p4": "NIS 2 transponuje každý členský stát: text, podle kterého jste kontrolováni, je váš vnitrostátní zákon, nikoli směrnice. Platforma odkazuje nejprve na směrnici a uvádí vnitrostátní odkaz tam, kde existuje, například §30 BSIG v Německu."
+      "p4": "NIS 2 transponuje každý členský stát: text, podle kterého jste kontrolováni, je váš vnitrostátní zákon, nikoli směrnice. Platforma odkazuje nejprve na směrnici a vnitrostátní odkaz uvádí tam, kde ho máme zpracovaný; zatím je to německá transpozice. V Česku je to zákon č. 264/2025 Sb. s vyhláškami č. 409/2025 Sb. a 410/2025 Sb."
     },
     "tier2": {
       "label": "Úroveň 2",
@@ -90,7 +90,7 @@
       },
       "s7": {
         "heading": "7. Nejde o právní službu",
-        "body": "Neposkytujeme právní služby ve smyslu německého zákona o právních službách (Rechtsdienstleistungsgesetz). Naše pokyny k NIS 2 a BSIG nejsou právním poradenstvím a nenahrazují je."
+        "body": "Neposkytujeme právní služby ve smyslu německého zákona o právních službách (Rechtsdienstleistungsgesetz). Naše pokyny k NIS 2 a k vnitrostátním předpisům nejsou právním poradenstvím a nenahrazují je."
       },
       "s8": {
         "heading": "8. Vaše údaje",

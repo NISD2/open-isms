@@ -311,7 +311,7 @@ const quiz = quizSchema.parse({
         it: "Allegato della CIR, punto 1.1.2: almeno annualmente e dopo incidenti significativi o cambiamenti significativi. Al di fuori della CIR la legge non fissa alcun intervallo; il BSI raccomanda di riesaminarla almeno ogni due anni.",
         es: "Anexo de la CIR, punto 1.1.2: al menos una vez al año y tras incidentes significativos o cambios significativos. Fuera de la CIR, la ley no fija ningún intervalo; el BSI recomienda revisarla al menos cada dos años.",
         pl: "Załącznik CIR, pkt 1.1.2: co najmniej raz w roku oraz po poważnych incydentach lub istotnych zmianach. Poza CIR prawo nie określa żadnego interwału; BSI zaleca przegląd co najmniej co dwa lata.",
-        cs: "Příloha CIR, bod 1.1.2: alespoň jednou ročně a po významných incidentech nebo významných změnách. Mimo CIR zákon žádný interval nestanoví; BSI doporučuje ji přezkoumávat alespoň jednou za dva roky.",
+        cs: "Příloha CIR, bod 1.1.2: alespoň jednou ročně a po významných incidentech nebo významných změnách. Mimo CIR pevný interval nestanoví ani české vyhlášky; požadují pravidelný přezkum (vyhláška č. 410/2025 Sb., § 3 odst. 3 písm. b); vyhláška č. 409/2025 Sb., § 6 odst. 3).",
         pt: "Anexo do CIR, ponto 1.1.2: pelo menos anualmente e após incidentes significativos ou alterações significativas. Fora do CIR, a lei não fixa nenhum intervalo; o BSI recomenda revê-la pelo menos de dois em dois anos.",
         ro: "Anexa CIR, punctul 1.1.2: cel puțin anual și după incidente semnificative sau modificări semnificative. În afara CIR, legea nu stabilește niciun interval; BSI recomandă revizuirea ei cel puțin o dată la doi ani.",
       },

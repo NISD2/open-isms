@@ -33,7 +33,7 @@ const quiz = quizSchema.parse({
         it: "Il BSI-Standard 200-1, sezione 7.4 richiede un riesame formale annuale della direzione. L'annuale è il minimo, non il massimo.",
         es: "El BSI-Standard 200-1, sección 7.4 exige una revisión formal anual por la dirección. Lo anual es el mínimo, no el máximo.",
         pl: "BSI-Standard 200-1, sekcja 7.4 wymaga formalnego rocznego przeglądu zarządzania. Roczny to minimum, a nie maksimum.",
-        cs: "BSI-Standard 200-1, oddíl 7.4, vyžaduje formální roční přezkum vedením. Ročně je dolní hranice, nikoli horní.",
+        cs: "V Česku vyžadují roční vyhodnocení vyhlášky (vyhláška č. 409/2025 Sb., § 3 písm. f), g), § 4 odst. 2; vyhláška č. 410/2025 Sb., § 3 odst. 2 písm. b), § 4 písm. d)), stejně jako německá metodika BSI-Standard 200-1, oddíl 7.4. Ročně je dolní hranice, nikoli horní.",
         pt: "A norma BSI-Standard 200-1, secção 7.4, exige uma revisão formal anual pela gestão. Anual é o mínimo, não o máximo.",
         ro: "Norma BSI-Standard 200-1, secțiunea 7.4, impune o revizuire formală anuală efectuată de conducere. Anual este pragul minim, nu cel maxim.",
       },

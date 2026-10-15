@@ -55,7 +55,7 @@
       "alreadyLinked": "Již propojeno"
     },
     "addRiskToAsset": "Přidat riziko k tomuto aktivu",
-    "selectThreat": "Vyberte hrozbu BSI...",
+    "selectThreat": "Vyberte hrozbu z katalogu elementárních hrozeb BSI...",
     "searchThreats": "Hledat hrozby...",
     "noThreatsFound": "Nebyly nalezeny žádné hrozby.",
     "customThreat": "Vlastní hrozba",

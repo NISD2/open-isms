@@ -63,7 +63,7 @@ const quiz = quizSchema.parse({
           it: "I soggetti essenziali vengono sottoposti ad audit dal BSI; i soggetti importanti da società private",
           es: "Las entidades esenciales son auditadas por el BSI; las entidades importantes por empresas privadas",
           pl: "Podmioty kluczowe są audytowane przez BSI; podmioty ważne przez firmy prywatne",
-          cs: "Základní subjekty auditovuje BSI, důležité subjekty soukromé firmy",
+          cs: "Základní subjekty kontroluje NÚKIB, důležité subjekty soukromé firmy",
           pt: "As entidades essenciais são auditadas pelo BSI, as entidades importantes por empresas privadas",
           ro: "Entitățile esențiale sunt auditate de BSI, entitățile importante de firme private",
         },

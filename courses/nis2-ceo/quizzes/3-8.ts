@@ -219,7 +219,7 @@ const quiz = quizSchema.parse({
           it: "Spegnere la rete, chiamare il BSI, avvisare i dipendenti, ripristinare i backup, esaminare l'assicurazione",
           es: "Apagar la red, llamar al BSI, notificar a los empleados, restaurar las copias de seguridad, revisar el seguro",
           pl: "Wyłączyć sieć, zadzwonić do BSI, powiadomić pracowników, przywrócić kopie zapasowe, przejrzeć ubezpieczenie",
-          cs: "Vypnout síť, zavolat BSI, informovat zaměstnance, obnovit zálohy, prověřit pojištění",
+          cs: "Vypnout síť, zavolat NÚKIB, informovat zaměstnance, obnovit zálohy, prověřit pojištění",
           pt: "Desligar a rede, contactar o BSI, notificar os trabalhadores, restaurar as cópias de segurança, rever o seguro",
           ro: "Oprirea rețelei, sunarea BSI, notificarea angajaților, restaurarea copiilor de rezervă, revizuirea asigurării",
         },

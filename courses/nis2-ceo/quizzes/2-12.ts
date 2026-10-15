@@ -101,7 +101,7 @@ const quiz = quizSchema.parse({
         it: "Il BSI Standard 200-1 Principio 6 richiede che l'organo di gestione rispetti personalmente tutte le regole di sicurezza: un amministratore delegato che si esenta crea un rilievo personale.",
         es: "El BSI Standard 200-1 Principio 6 exige que el órgano de dirección cumpla él mismo todas las normas de seguridad: un director general que se exime crea un hallazgo personal.",
         pl: "BSI Standard 200-1 Zasada 6 wymaga, aby organ zarządzający sam przestrzegał wszystkich zasad bezpieczeństwa - dyrektor generalny, który zwalnia siebie, tworzy osobiste ustalenie.",
-        cs: "Zásada 6 normy BSI-Standard 200-1 vyžaduje, aby řídicí orgán sám dodržoval všechna bezpečnostní pravidla. Generální ředitel, který se vyjme, vytvoří osobní zjištění.",
+        cs: "Zásada 6 německé metodiky BSI-Standard 200-1 vyžaduje, aby řídicí orgán sám dodržoval všechna bezpečnostní pravidla. Generální ředitel, který se vyjme, vytvoří osobní zjištění.",
         pt: "O Princípio 6 da norma BSI-Standard 200-1 exige que o próprio órgão de administração cumpra todas as regras de segurança. Um diretor executivo que se isente cria uma constatação pessoal.",
         ro: "Principiul 6 din BSI-Standard 200-1 impune ca organul de conducere să respecte el însuși toate regulile de securitate. Un director general care se exceptează creează o constatare personală.",
       },

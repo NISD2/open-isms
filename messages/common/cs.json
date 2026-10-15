@@ -29,8 +29,8 @@
       "patch_record": "Záznamy o opravách",
       "internal_audit": "Interní audity",
       "improvement_item": "Zlepšení",
-      "bsi_registration": "Registrace u BSI",
-      "bsi_incident_report": "Hlášení incidentů BSI"
+      "bsi_registration": "Registrace u NÚKIB",
+      "bsi_incident_report": "Hlášení incidentů"
     },
     "moduleRef": {
       "confirmCompliance": "Potvrdit shodu",
@@ -54,6 +54,6 @@
   },
   "metadata": {
     "title": "Platforma pro shodu s NIS2",
-    "description": "Řízení shody s NIS2/BSIG 2025"
+    "description": "Řízení shody s NIS2 a zákonem č. 264/2025 Sb."
   }
 }

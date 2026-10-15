@@ -1,7 +1,7 @@
 {
   "audit-readiness": {
     "title": "Připravenost na audit",
-    "subtitle": "Vyhodnoťte svou připravenost na audit podle BSIG/NIS2 pomocí analýzy s umělou inteligencí",
+    "subtitle": "Vyhodnoťte svou připravenost na audit podle NIS2 pomocí analýzy s umělou inteligencí",
     "startEvaluation": "Spustit vyhodnocení",
     "evaluating": "Probíhá vyhodnocení všech oddílů...",
     "reEvaluate": "Vyhodnotit znovu",

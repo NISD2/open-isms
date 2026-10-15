@@ -778,7 +778,7 @@
       "nis2Documents": "Dokumenty NIS 2 (povinný seznam)",
       "featureGuided": "Vedení krok za krokem",
       "featureLiability": "Ochrana před odpovědností vedení",
-      "featureRequirements": "49 strukturovaných požadavků BSIG",
+      "featureRequirements": "49 strukturovaných požadavků NIS 2",
       "featureDeadlines": "Sledování lhůt a eskalace",
       "featureModules": "12 provozních bezpečnostních modulů",
       "featureAuditTrail": "Trvalá auditní stopa a data",
@@ -1470,7 +1470,7 @@
     "features": {
       "meta": {
         "title": "Software pro NIS2 compliance: Bezplatná platforma: Funkce",
-        "description": "Bezplatný software pro NIS2 compliance se všemi 49 požadavky BSIG, sledováním lhůt, audit trailem, ochranou před odpovědností vedení. Celoevropský, bez lock-inu."
+        "description": "Bezplatný software pro NIS2 compliance se všemi 49 požadavky NIS 2, sledováním lhůt, audit trailem, ochranou před odpovědností vedení. Celoevropský, bez lock-inu."
       },
       "title": "Funkce platformy",
       "subtitle": "Krok za krokem každým požadavkem NIS2. Nepotřebujete žádné předchozí znalosti compliance, stačí začít a my vás dovedeme až do cíle.",
@@ -1478,7 +1478,7 @@
         "tenMeasures": "10 opatření",
         "traceable": "Dohledatelné",
         "requirements": "Požadavky",
-        "measures": "Opatření § 30",
+        "measures": "Opatření čl. 21",
         "tenPhases": "10 fází",
         "granular": "Granulární",
         "exportAnytime": "Export kdykoli",
@@ -1489,34 +1489,34 @@
       "guided": {
         "heading": "Řízený proces krok za krokem",
         "p1": "Abyste byli v souladu, nemusíte rozumět NIS2. Platforma vás provede každým požadavkem jeden po druhém, s jasnými pokyny a strukturovanými formuláři.",
-        "p2": "Toto není obecný nástroj GRC. Každý požadavek se přímo mapuje na BSIG, rozdělený do 10 povinných opatření § 30 a kategorií subjektů podle § 28 až 29.",
+        "p2": "Toto není obecný nástroj GRC. Každý požadavek vychází z deseti opatření čl. 21 odst. 2 NIS 2. Jako vzorový příklad cituje německou transpozici; v Česku platí zákon č. 264/2025 Sb. s vyhláškami č. 409/2025 Sb. a 410/2025 Sb., které jdou na některých místech do větších podrobností.",
         "p3": "Stačí odpovědět na otázky, nahrát důkazy a pokračovat dál. Až budete hotovi, máte úplný záznam o souladu připravený pro audit."
       },
       "liability": {
         "heading": "Ochrana před odpovědností vedení",
-        "p1": "§ 38 BSIG činí vedení osobně odpovědným za soulad v oblasti kybernetické bezpečnosti. Platí tři povinnosti: schvalování, dohled a školení. Ty nelze přenést na jiného.",
-        "p2": "NISD2.eu strukturuje compliance tak, aby vedení mohlo prokázat, že splnilo všechny tři povinnosti. Každé schválení je zaznamenáno s časovým razítkem a identitou uživatele, čímž vzniká důkazní stopa, kterou § 38 vyžaduje.",
-        "p3": "Pokud BSI provede u vaší společnosti audit, potřebujete důkaz, že vedení schválilo opatření, dohlíželo na jejich zavedení a absolvovalo školení. Tato platforma takový důkaz vytváří jako vedlejší produkt běžného používání."
+        "p1": "Čl. 20 NIS 2 ukládá vedení tři povinnosti: schvalovat opatření, dohlížet na jejich zavádění a absolvovat školení. V Česku je upravují vyhlášky č. 409/2025 Sb. a 410/2025 Sb. (vždy § 4); odpovědnost členů vedení se řídí občanským zákoníkem (§ 159) a zákonem o obchodních korporacích.",
+        "p2": "NISD2.eu strukturuje compliance tak, aby vedení mohlo prokázat, že splnilo všechny tři povinnosti. Každé schválení je zaznamenáno s časovým razítkem a identitou uživatele, čímž vzniká důkazní stopa k povinnostem podle čl. 20 NIS 2.",
+        "p3": "Pokud NÚKIB provede u vaší společnosti kontrolu, potřebujete důkaz, že vedení schválilo opatření, dohlíželo na jejich zavedení a absolvovalo školení. Tato platforma takový důkaz vytváří jako vedlejší produkt běžného používání."
       },
       "requirements": {
-        "heading": "49 strukturovaných požadavků BSIG",
-        "p1": "10 povinných opatření § 30 BSIG je rozděleno do 49 konkrétních, použitelných požadavků, každý s vlastním strukturovaným formulářem.",
+        "heading": "49 strukturovaných požadavků NIS 2",
+        "p1": "10 opatření čl. 21 odst. 2 NIS 2 je rozděleno do 49 konkrétních, použitelných požadavků, každý s vlastním strukturovaným formulářem.",
         "p2": "Každý požadavek je formulář. Každé pole formuláře se mapuje na konkrétní povinnost compliance. Vyplníte formulář a máte zdokumentovaný svůj soulad. Žádná nejednoznačnost, žádné hádání.",
         "p3": "Formuláře podporují text, výběry, vícenásobný výběr, data a nahrávání souborů jako důkazů."
       },
       "deadlines": {
         "heading": "Sledování lhůt a eskalace",
-        "p1": "NIS2 compliance není jednorázový projekt. Registrace u BSI, kaskády ohlašování incidentů (24 h / 72 h / 1 měsíc), auditní cykly KRITIS a obnovy školení, ty všechny mají pevné lhůty se skutečnými sankcemi.",
+        "p1": "NIS2 compliance není jednorázový projekt. Ohlášení u NÚKIB, lhůty pro hlášení incidentů (24 h / 72 h / závěrečná zpráva do 30 dnů), audity a opakovaná školení, ty všechny mají pevné lhůty se skutečnými sankcemi.",
         "p2": "Platforma sleduje každou lhůtu v celém životním cyklu vašeho souladu. Oznámení eskalují přes 10 fází, od časných připomenutí po kritická upozornění, takže nic nepropadne.",
         "p3": "Granulární oprávnění řídí, kdo je o čem informován. Přiřaďte odpovědnost na úrovni požadavku, modulu i člena týmu. Správný člověk dostane správné upozornění ve správný čas."
       },
       "modules": {
         "heading": "12 provozních bezpečnostních modulů",
-        "p1": "Kromě základních compliance formulářů obsahuje NISD2.eu 12 provozních modulů, které odrážejí průběžné bezpečnostní operace vyžadované BSIG:",
+        "p1": "Kromě základních compliance formulářů obsahuje NISD2.eu 12 provozních modulů, které odrážejí průběžné bezpečnostní operace, které NIS 2 vyžaduje:",
         "items": {
           "assets": "Správa aktiv, inventář všech kritických systémů a infrastruktury",
           "risks": "Registr rizik, strukturovaná posouzení rizik s bodováním pravděpodobnosti a dopadu",
-          "incidents": "Správa incidentů, postupy detekce, reakce a ohlašování BSI",
+          "incidents": "Správa incidentů, postupy detekce, reakce a hlášení NÚKIB nebo Národnímu CERT",
           "suppliers": "Správa dodavatelů, posouzení a monitoring bezpečnosti dodavatelského řetězce",
           "policies": "Správa politik, životní cyklus dokumentů pro bezpečnostní politiky",
           "training": "Záznamy o školeních, sledování povinných školení kybernetické bezpečnosti u jednotlivých zaměstnanců",
@@ -1533,7 +1533,7 @@
       "auditTrail": {
         "heading": "Trvalý audit trail a dlouhodobá data",
         "p1": "Každá akce na platformě je zaznamenána: kdo co změnil, kdy a jaká byla předchozí hodnota. Každý záznam má kontrolní součet (SHA-256) jako důkaz proti neoprávněným zásahům.",
-        "p2": "Všechna data o souladu žijí ve strukturovaných formulářích, které lze kdykoli exportovat, pro audity BSI, interní přezkumy nebo soudní řízení. Úplná historie vašeho stavu compliance je vždy k dispozici.",
+        "p2": "Všechna data o souladu žijí ve strukturovaných formulářích, které lze kdykoli exportovat, pro kontroly NÚKIB, interní přezkumy nebo soudní řízení. Úplná historie vašeho stavu compliance je vždy k dispozici.",
         "p3": "Compliance jen roste. Přibývají nové požadavky, regulace se vyvíjejí, vaše společnost se mění. NISD2.eu stojí na datové architektuře z prvních principů: vaše data o souladu zde zůstávají trvale. Data nikdy nezadáváte znovu. Když se regulace aktualizují, vaše stávající dokumentace se přenese dál, vyplníte jen to, co se změnilo.",
         "p4": "Toto není tabulka, kterou ztratíte, ani konzultantova zpráva, která leží v šuplíku. Je to živý, verzovaný, auditovatelný záznam všeho, co vaše společnost udělala pro NIS2 compliance, od prvního dne, navždy."
       }
@@ -2145,10 +2145,10 @@
             "amount": "6 mld. EUR ušetřeno",
             "principle": "Konzultanti dostávají zaplaceno za to, že překládají zákon. My ho přeložíme jednou.",
             "tactics": [
-              "Žádné poplatky za poradenství podle jednotlivých zemí. Jako výchozí používáme IT-Grundschutz a CIR 2024/2690, nejpřísnější standard v EU. Splňte ten náš, splníte každý členský stát. Žádná samostatná zakázka pro německý BSIG, francouzskou transpozici, italskou implementaci.",
+              "Žádné poplatky za poradenství podle jednotlivých zemí. Opatření vycházejí z NIS 2 a CIR 2024/2690, jako výchozí metodiku používáme IT-Grundschutz. Kde národní předpis jde do větších podrobností, jako v Česku vyhlášky č. 409/2025 Sb. a 410/2025 Sb., platí jeho text.",
               "Žádná přirážka podle jednotlivých odvětví. Neudržujeme 13 odvětvových variant. Jeden přísný standard už pokrývá kontroly každého odvětví, jednodušší pro nás, levnější pro kupujícího.",
-              "Žádné fakturované hodiny za otázku 'co tento článek znamená'. Práce na výkladu, za kterou konzultanti účtují, je na platformě udělána jednou, srozumitelným jazykem, pro každý požadavek BSIG.",
-              "Žádné placení za právní názor za platební bránou. Otevřená datová sada NIS2/BSIG (ve vývoji) umožňuje každému auditorovi ověřit výklad přímo, žádná dodavatelská neprůhlednost, kolem které by se muselo platit."
+              "Žádné fakturované hodiny za otázku 'co tento článek znamená'. Práce na výkladu, za kterou konzultanti účtují, je na platformě udělána jednou, srozumitelným jazykem, pro každý požadavek NIS 2.",
+              "Žádné placení za právní názor za platební bránou. Otevřená datová sada požadavků NIS2 (ve vývoji) umožňuje každému auditorovi ověřit výklad přímo, žádná dodavatelská neprůhlednost, kolem které by se muselo platit."
             ]
           },
           "internal": {
@@ -2159,7 +2159,7 @@
               "Žádná fáze výkladu. Společnosti dnes vynakládají čas interního personálu na zjišťování, co po nich NIS2 vyžaduje. Platforma dodává požadavky předem strukturované.",
               "Žádné kopírování mezi systémy. Data o shodě se dnes udržují odděleně v tabulkách, zásadách a registrech dodavatelů. Platforma zachytí každý fakt jednou a zobrazí ho tam, kde je potřeba.",
               "Žádný samostatný dokumentační průchod. Práce na shodě a její dokumentace jsou dnes dva průchody. Na platformě audit trail zaznamenává práci tak, jak probíhá.",
-              "Žádný ruční plánovač termínů. Kaskáda BSIG (hlášení incidentů do 24 h / 72 h / 1 měsíce, obnovy registrace, cykly školení) dnes vyžaduje ruční sledování. Platforma to sleduje automaticky."
+              "Žádný ruční plánovač termínů. Lhůty NIS 2 (hlášení incidentů do 24 h / 72 h / 1 měsíce, změny registračních údajů, cykly školení) dnes vyžaduje ruční sledování. Platforma to sleduje automaticky."
             ]
           },
           "evidence": {
@@ -2168,9 +2168,9 @@
             "principle": "Tytéž důkazy se dnes znovu sestavují pro každý audit, pro každého dodavatele, pro každý regulační orgán.",
             "tactics": [
               "Žádných 10 dotazníků na dodavatele. Dodavatel obsluhující 10 zákazníků podléhajících NIS2 dnes vyplňuje 10 různých bezpečnostních dotazníků. S profilem dodavatele NIS2 (otevřený standard, nezávislý na GRC platformě) vyplní jeden. Největší jednotlivá úspora v této kategorii.",
-              "Žádné psaní hlášení o incidentu pod tlakem termínu. Hlášení do 24 h / 72 h / 1 měsíce sledují šablony připravené ve formátu BSI namísto toho, aby se psala od nuly, když běží čas.",
+              "Žádné psaní hlášení o incidentu pod tlakem termínu. Hlášení do 24 h / 72 h / 1 měsíce sledují šablony připravené podle fází hlášení z čl. 23 NIS 2 namísto toho, aby se psala od nuly, když běží čas.",
               "Žádný samostatný cyklus přípravy na audit. Důkazy připravené pro audit se generují průběžně tak, jak práce probíhá, nikoli se v panice sestavují měsíc předem.",
-              "Žádná přirážka za nadměrné řešení. Konzultanti nadhodnocují rozsah, aby naúčtovali více hodin. Platforma omezuje na 'vhodná, přiměřená a účinná' (§30(1) BSIG), společnosti neplatí za zbytečné kontroly."
+              "Žádná přirážka za nadměrné řešení. Konzultanti nadhodnocují rozsah, aby naúčtovali více hodin. Platforma omezuje na 'vhodná a přiměřená' opatření (čl. 21 odst. 1 NIS 2), společnosti neplatí za zbytečné kontroly."
             ]
           },
           "software": {
@@ -2189,7 +2189,7 @@
         "heading": "Co poskytujeme",
         "description": "Jádro platformy je dnes zdarma a máme v úmyslu to tak ponechat. Některé pokročilé funkce mohou nakonec nést náklady, princip je ten, že shoda s NIS2 by měla být výrazně levnější než status quo poháněný konzultanty, nikoli nulová u každé položky. A nezamykáme vás: otevřená datová sada, exportovatelné důkazy, profil dodavatele nezávislý na GRC platformě.",
         "items": [
-          "Jádro platformy pro shodu s NIS2 pokrývající každý požadavek BSIG",
+          "Jádro platformy pro shodu s NIS2 pokrývající každý požadavek NIS 2",
           "Návod srozumitelným jazykem pro každý požadavek",
           "Profil dodavatele NIS2 - otevřený standard, nezávislý na GRC platformě",
           "Videonávody pro každou kategorii subjektu NIS2",
@@ -2197,8 +2197,8 @@
           "Videa pro školení povědomí o kybernetické bezpečnosti",
           "Šablony pro hlášení incidentů a pracovní postupy do 24 h / 72 h / 1 měsíce",
           "Stopy důkazů připravené pro audit, generované během práce",
-          "Oznámení a sledování termínů pro kaskádu BSIG",
-          "Otevřená datová sada požadavků NIS2 / BSIG (ve vývoji)",
+          "Oznámení a sledování termínů pro lhůty hlášení",
+          "Otevřená datová sada požadavků NIS2 (ve vývoji)",
           "Žádné uzamčení: otevřená datová sada, exportovatelné důkazy, žádné proprietární formáty"
         ]
       },
@@ -7070,7 +7070,7 @@
       },
       "gapAssessment": {
         "title": "Posouzení mezer NIS2: 116 otázek, 15 domén",
-        "description": "Strukturované sebehodnocení jako typované Zod schéma. Každá otázka je ukotvena ke konkrétnímu právnímu zdroji (směrnice NIS2, BSIG, CIR 2024/2690, BSI IT-Grundschutz). Obsahuje referenční bodovací logiku a příklad uložení odpovědí přes Drizzle."
+        "description": "Strukturované sebehodnocení jako typované Zod schéma. Každá otázka je ukotvena ke konkrétnímu právnímu zdroji (směrnice NIS2, německá transpozice, CIR 2024/2690, BSI IT-Grundschutz). Obsahuje referenční bodovací logiku a příklad uložení odpovědí přes Drizzle."
       },
       "supplierQuestionnaire": {
         "title": "Dodavatelský dotazník NIS2 s mapováním na ISO 27001",
@@ -7326,7 +7326,7 @@
       "badge": "Přesnost",
       "title": "Opravy",
       "subtitle": "Přesnost bereme vážně. Pokud najdete chybu, chceme o ní vědět.",
-      "body": "Náš kurz pro jednatele, analýza nedostatků a platforma pro shodu vznikají čtením skutečné směrnice NIS2, CIR 2024/2690, BSIG a metodiky BSI IT-Grundschutz. Citujeme konkrétní články a odstavce v celém rozsahu. Jsme ale inženýři, ne právníci, a regulatorní prostředí se mění. Pokud najdete věcnou chybu, zastaralý odkaz nebo nesprávný výklad zákona, dejte nám prosím vědět.",
+      "body": "Náš kurz pro jednatele, analýza nedostatků a platforma pro shodu vznikají čtením skutečné směrnice NIS2, CIR 2024/2690, německé transpozice a metodiky BSI IT-Grundschutz, pro Česko zákona č. 264/2025 Sb. a vyhlášek č. 409/2025 Sb. a 410/2025 Sb. Citujeme konkrétní články a odstavce v celém rozsahu. Jsme ale inženýři, ne právníci, a regulatorní prostředí se mění. Pokud najdete věcnou chybu, zastaralý odkaz nebo nesprávný výklad zákona, dejte nám prosím vědět.",
       "emailLabel": "Nahlásit opravu",
       "response": "Každé podání posuzujeme a ověřené opravy provedeme do 48 hodin. Pokud vaše oprava povede k významné změně, uvedeme vás na dotčené stránce."
     },
@@ -7338,11 +7338,11 @@
       "badge": "Tým",
       "title": "Kdo jsme",
       "subtitle": "Dva zakladatelé, kteří se snaží snížit účet za NIS2 na polovinu. Žádná konzultantská firma, žádné krytí od VC. Jen přesvědčení, že compliance by neměla stát šesticiferné částky.",
-      "simon": "Více než 10 let v softwarovém inženýrství napříč bezpečnostně kritickými obory. Senior inženýr a tech lead budující systémy pro jednu z 5 největších bank v EU, největšího evropského výrobce pohybových plastů a platformy s krytím od VC. Prozkoumal a zmapoval celý právní řetězec NIS2 (směrnice, CIR 2024/2690, BSIG, IT-Grundschutz), aby vybudoval platformu NISD2, kurz pro jednatele se 47 lekcemi a posouzení mezer se 116 otázkami. Také buduje právní technologie s podporou AI pro německou judikaturu. Sídlí v Kolíně nad Rýnem.",
+      "simon": "Více než 10 let v softwarovém inženýrství napříč bezpečnostně kritickými obory. Senior inženýr a tech lead budující systémy pro jednu z 5 největších bank v EU, největšího evropského výrobce pohybových plastů a platformy s krytím od VC. Prozkoumal a zmapoval celý právní řetězec NIS2 (směrnice, CIR 2024/2690, německá transpozice, IT-Grundschutz), aby vybudoval platformu NISD2, kurz pro jednatele se 47 lekcemi a posouzení mezer se 116 otázkami. Také buduje právní technologie s podporou AI pro německou judikaturu. Sídlí v Kolíně nad Rýnem.",
       "cory": "M.Eng v mechatronice se zaměřením na vestavěné systémy a integraci AI. Stará se o rozvoj obchodu, partnerství a podporu implementace na straně klienta. Zázemí v softwarovém inženýrství napříč Pythonem, TypeScriptem a IoT systémy. Překlenuje propast mezi technickými požadavky compliance a obchodní realitou společností, které je musí zavést. Sídlí v Německu.",
       "whyUs": {
         "heading": "Proč my",
-        "body": "Nejsme konzultantská firma. Neprodáváme vám nástroj a pak vám neúčtujeme školení, jak ho používat. Vše na této platformě jsme vybudovali tím, že jsme přečetli skutečný zákon, prováděcí nařízení a pokyny BSI. Každá lekce v kurzu pro jednatele cituje svůj právní základ. Každý požadavek na platformě se mapuje na konkrétní paragraf BSIG. Jsme inženýři, kteří se rozhodli, že compliance by neměla stát šesticiferné částky."
+        "body": "Nejsme konzultantská firma. Neprodáváme vám nástroj a pak vám neúčtujeme školení, jak ho používat. Vše na této platformě jsme vybudovali tím, že jsme přečetli skutečný zákon, prováděcí nařízení a pokyny německého BSI. Každá lekce v kurzu pro jednatele cituje svůj právní základ. Každý požadavek na platformě se mapuje na konkrétní článek NIS 2. Jsme inženýři, kteří se rozhodli, že compliance by neměla stát šesticiferné částky."
       },
       "cta": {
         "heading": "Vyzkoušet platformu",

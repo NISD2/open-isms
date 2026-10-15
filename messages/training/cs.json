@@ -1,8 +1,8 @@
 {
   "training": {
     "title": "Záznamy o školeních",
-    "description": "Záznamy o kybernetických školeních zaměstnanců a vedení. Vyžaduje NIS2 čl. 21(2)(g) a BSIG §38(3).",
-    "helpText": "Zaznamenejte všechna absolvovaná kybernetická školení. NIS2 ukládá pravidelná osvětová školení pro všechny zaměstnance a zvláštní školení pro vedení (BSIG §38(3), osobní odpovědnost). Sledujte, kdo absolvoval které školení a kdy.",
+    "description": "Záznamy o kybernetických školeních zaměstnanců a vedení. Vyžaduje NIS2 čl. 20(2) a čl. 21(2)(g); v Česku vyhláška č. 410/2025 Sb., § 4 a § 5, a vyhláška č. 409/2025 Sb., § 4 a § 10.",
+    "helpText": "Zaznamenejte všechna absolvovaná kybernetická školení. NIS2 ukládá pravidelná osvětová školení pro všechny zaměstnance a zvláštní školení pro vedení (v Česku vyhláška č. 410/2025 Sb., § 4 písm. b), a vyhláška č. 409/2025 Sb., § 4 odst. 1 písm. a)). Sledujte, kdo absolvoval které školení a kdy.",
     "add": "Přidat školení",
     "edit": "Upravit školení",
     "empty": "Zatím žádné záznamy o školeních. Přidejte svůj první záznam o školení.",
@@ -20,7 +20,7 @@
     "certUploaded": "Certifikát nahrán",
     "certUploadFailed": "Nahrávání se nezdařilo",
     "removeCert": "Odebrat",
-    "managementTraining": "Školení vedení (§38 BSIG)",
+    "managementTraining": "Školení vedení (§ 4 vyhlášek č. 409/2025 Sb. a 410/2025 Sb.)",
     "managementHint": "Automaticky zjištěno z role. V případě potřeby přepište.",
     "batchCreated": "Vytvořeno záznamů o školeních: {count}",
     "saveTraining": "Uložit školení",
@@ -44,7 +44,7 @@
       "description": "Stručný popis obsahu školení, cílů a cílové skupiny.",
       "participantName": "Celé jméno osoby, která toto školení absolvovala nebo dokončila.",
       "participantRole": "Pracovní pozice nebo role účastníka v rámci organizace.",
-      "isManagement": "Zapněte, pokud jde o školení na úrovni vedení. BSIG §38(3) vyžaduje zvláštní kybernetické školení pro vedení s osobní odpovědností.",
+      "isManagement": "Zapněte, pokud jde o školení na úrovni vedení. Vyhlášky č. 409/2025 Sb. a 410/2025 Sb. (vždy § 4) ukládají vrcholnému vedení prokazatelně absolvovat školení.",
       "providerName": "Název poskytovatele školení nebo organizace, která školení zajišťuje.",
       "trainerName": "Jméno konkrétního lektora nebo facilitátora.",
       "startedAt": "Datum, kdy účastník toto školení zahájil.",

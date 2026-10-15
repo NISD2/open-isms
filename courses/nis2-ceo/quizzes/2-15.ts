@@ -101,7 +101,7 @@ const quiz = quizSchema.parse({
         it: "Il BSI Standard 200-1 Principio 6 individua il dovere di esemplarità dell'organo di gestione: un amministratore delegato che ha approvato la MFA ma ne ha esentato il proprio accesso crea un rilievo di audit personale.",
         es: "El BSI Standard 200-1 Principio 6 designa el deber de liderazgo con el ejemplo del órgano de dirección: un director general que aprobó la MFA pero eximió su propio inicio de sesión crea un hallazgo de auditoría personal.",
         pl: "BSI Standard 200-1 Zasada 6 wskazuje obowiązek dawania przykładu przez organ zarządzający - dyrektor generalny, który zatwierdził MFA, ale zwolnił z niego własny login, tworzy osobiste ustalenie audytowe.",
-        cs: "Zásada 6 normy BSI-Standard 200-1 vyjmenovává povinnost řídicího orgánu jít příkladem. Generální ředitel, který schválil MFA, ale vyňal vlastní přihlášení, vytváří osobní zjištění auditu.",
+        cs: "Zásada 6 německé metodiky BSI-Standard 200-1 vyjmenovává povinnost řídicího orgánu jít příkladem. Generální ředitel, který schválil MFA, ale vyňal vlastní přihlášení, vytváří osobní zjištění auditu.",
         pt: "O Princípio 6 da norma BSI-Standard 200-1 designa o dever do órgão de administração de liderar pelo exemplo. Um diretor executivo que aprovou a MFA mas isentou o seu próprio acesso cria uma constatação de auditoria pessoal.",
         ro: "Principiul 6 din BSI-Standard 200-1 desemnează obligația organului de conducere de a conduce prin exemplu. Un director general care a aprobat MFA, dar a exceptat propria autentificare, creează o constatare de audit personală.",
       },

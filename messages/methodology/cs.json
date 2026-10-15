@@ -17,7 +17,7 @@
     "riskMatrix": "Matice rizik",
     "acceptanceThreshold": "Práh přijatelnosti",
     "thresholdHelp": "Rizika se skóre ≤ {threshold} lze přijmout bez opatření",
-    "includesOt": "Metodika pokrývá systémy OT/ICS (§30(2) BSIG)",
+    "includesOt": "Metodika pokrývá systémy OT/ICS (§ 14 odst. 1 písm. b) bod 11 zákona č. 264/2025 Sb.; vyhláška č. 409/2025 Sb., § 27)",
     "clickToSelect": "Kliknutím na buňku vyberte pravděpodobnost × dopad",
     "selectedScore": "Vybrané skóre"
   }

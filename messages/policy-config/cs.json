@@ -9,7 +9,7 @@
     "resetDefaults": "Obnovit výchozí hodnoty",
 
     "crypto": {
-      "title": "Kryptografická politika (BSI TR-02102)",
+      "title": "Kryptografická politika (BSI TR-02102; v Česku zohledněte doporučení NÚKIB v oblasti kryptografických algoritmů)",
       "algorithms": "Schválené a zakázané algoritmy",
       "algorithm": "Algoritmus",
       "keyLength": "Délka klíče",
@@ -97,7 +97,7 @@
       "patchSla": "SLA pro záplaty podle závažnosti",
       "severity": "Závažnost",
       "slaHours": "SLA (hodiny)",
-      "slaNote": "Běžné hodnoty, nikoli požadavek BSI. BSI nestanovuje pevné lhůty; doporučuje instalovat bezpečnostní aktualizace automaticky (Grundschutz++ KONF.8.1.1).",
+      "slaNote": "Běžné hodnoty, nikoli zákonné lhůty. České vyhlášky pevné lhůty nestanovují: vyhláška č. 410/2025 Sb., § 12 písm. a), vyžaduje bezodkladné aplikování schválených bezpečnostních aktualizací, vyhláška č. 409/2025 Sb., § 24 odst. 1 a 2, jejich aplikování a pro aktiva bez aktualizací náhradní opatření a evidenci. Německá metodika BSI doporučuje instalovat bezpečnostní aktualizace automaticky (Grundschutz++ KONF.8.1.1).",
       "critical": "Kritická",
       "high": "Vysoká",
       "medium": "Střední",

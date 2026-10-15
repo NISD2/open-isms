@@ -38,8 +38,8 @@
       "description": "Detekce, klasifikace a protokolování"
     },
     "3_3": {
-      "title": "Připravenost na hlášení BSI (24h/72h/1M)",
-      "description": "Připravenost na hlášení BSI (24h/72h/1M)"
+      "title": "Připravenost na hlášení incidentů (24 h / 72 h / závěrečná zpráva)",
+      "description": "Nastavte proces hlášení podle § 16 zákona č. 264/2025 Sb.: prvotní hlášení nejpozději do 24 hodin od zjištění incidentu, u incidentu s významným dopadem oznámení do 72 hodin, průběžná zpráva na výzvu NÚKIB nebo Národního CERT a závěrečná zpráva nejpozději do 30 dnů od oznámení. Ve vyšším režimu se hlásí NÚKIB, v nižším režimu Národnímu CERT (§ 15), a to přes Portál NÚKIB. Zajistěte přístup k portálu a určete odpovědné osoby. Připravenost na hlášení se testuje v plánovaných intervalech (CIR 3.5.5); pevný interval není předepsán, doporučení: jednou ročně."
     },
     "3_4": {
       "title": "Cvičení reakce na incidenty",
@@ -146,8 +146,8 @@
       "description": "Klasifikace a rozsah podle NIS2"
     },
     "12_2": {
-      "title": "Registrace u BSI",
-      "description": "Zřídit účet MUK, dokončit registraci na portálu BSI a předat všechny povinné údaje. Zákonná lhůta: nejpozději tři měsíce poté, co je společnost poprvé považována za zásadní nebo důležitý subjekt (§33(1) BSIG). Pro subjekty spadající do působnosti od nabytí účinnosti BSIG dne 6. prosince 2025 tato lhůta uplynula 6. března 2026; registrace je pak splatná okamžitě."
+      "title": "Ohlášení služby NÚKIB",
+      "description": "Ohlásit regulovanou službu NÚKIB přes Portál NÚKIB (přihlášení přes NIA; zahraniční statutární orgán bez české identity přes IIG). Zákonná lhůta: nejpozději do 60 dnů ode dne, kdy služba splnila podmínky pro registraci (§ 6 odst. 1 zákona č. 264/2025 Sb.). Pro většinu firem, které podmínky splnily dnem účinnosti zákona 1. listopadu 2025, tato lhůta uplynula 31. prosince 2025; kdo ještě neohlásil, ohlásí bez dalšího odkladu. Do 30 dnů od doručení rozhodnutí o registraci nahlásit kontaktní a doplňující údaje (§ 11)."
     },
     "12_3": { "title": "Údržba registrace", "description": "Údržba registrace" },
     "12_4": { "title": "Doklady o souladu", "description": "Doklady o souladu" },

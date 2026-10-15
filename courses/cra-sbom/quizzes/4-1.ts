@@ -587,7 +587,7 @@ const quiz = quizSchema.parse({
           "it": "Un database del BSI per i produttori tedeschi per registrare i propri SBOM, operativo a dicembre 2027",
           "es": "Una base de datos del BSI para que los fabricantes alemanes registren sus SBOM, operativa en diciembre de 2027.",
           "pl": "Baza danych BSI dla producentów niemieckich do rejestrowania SBOM, operacyjna od grudnia 2027.",
-          "cs": "Databáze BSI pro německé výrobce k registraci jejich SBOMů, operační od prosince 2027",
+          "cs": "Národní databáze pro výrobce k registraci jejich SBOMů, operační od prosince 2027",
           "pt": "Uma base de dados do BSI para os fabricantes alemães registarem as suas SBOMs, operacional December 2027",
           "ro": "O bază de date BSI pentru producătorii germani de a-și înregistra SBOM-urile, operațională în decembrie 2027."
         },

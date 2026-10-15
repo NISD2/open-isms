@@ -31,7 +31,7 @@ const quiz = quizSchema.parse({
         it: "Il BSI Standard 200-4 §6.5 e l'ISO 22301:2019 Sezione 8.6 convergono su una frequenza almeno annuale. Una frequenza inferiore viene interpretata come collaudo inadeguato.",
         es: "El BSI Standard 200-4 §6.5 y la ISO 22301:2019 Section 8.6 convergen en una frecuencia al menos anual. Una frecuencia inferior se interpreta como una prueba inadecuada.",
         pl: "BSI Standard 200-4 §6.5 i ISO 22301:2019 Section 8.6 są zbieżne co do co najmniej rocznej częstotliwości. Rzadsza częstotliwość jest odczytywana jako niewystarczające testowanie.",
-        cs: "BSI Standard 200-4 §6.5 a ISO 22301:2019 Section 8.6 se shodují na alespoň roční frekvenci. Méně častá frekvence se vykládá jako nedostatečné testování.",
+        cs: "Německá metodika BSI Standard 200-4 §6.5 a ISO 22301:2019 Section 8.6 se shodují na alespoň roční frekvenci; české vyhlášky interval nestanoví. Méně častá frekvence se vykládá jako nedostatečné testování.",
         pt: "O BSI Standard 200-4 §6.5 e a ISO 22301:2019 Section 8.6 convergem numa frequência pelo menos anual. Uma frequência inferior é interpretada como teste inadequado.",
         ro: "BSI Standard 200-4 §6.5 și ISO 22301:2019 Section 8.6 converg către o frecvență cel puțin anuală. O frecvență mai redusă este interpretată ca testare inadecvată.",
       },

@@ -101,7 +101,7 @@ const quiz = quizSchema.parse({
         it: "Il BSI DER.4 nomina l'organo di gestione in nove dei sedici requisiti: un amministratore delegato che non ha mai partecipato a un'esercitazione di crisi ha generato un rilievo di audit.",
         es: "El BSI DER.4 nombra al órgano de dirección en nueve de los dieciséis requisitos: un director general que nunca ha participado en un ejercicio de crisis ha generado un hallazgo de auditoría.",
         pl: "BSI DER.4 wymienia organ zarządzający w dziewięciu z szesnastu wymagań - dyrektor generalny, który nigdy nie uczestniczył w ćwiczeniu kryzysowym, stworzył ustalenie audytowe.",
-        cs: "BSI DER.4 jmenuje řídicí orgán v devíti z šestnácti požadavků. Generální ředitel, který se nikdy nezúčastnil krizového cvičení, tím vytvořil zjištění auditu.",
+        cs: "Německý modul BSI IT-Grundschutz DER.4 jmenuje řídicí orgán v devíti z šestnácti požadavků. Generální ředitel, který se nikdy nezúčastnil krizového cvičení, tím vytvořil zjištění auditu.",
         pt: "O BSI DER.4 designa o órgão de administração em nove dos dezasseis requisitos. Um diretor executivo que nunca participou num exercício de crise criou uma constatação de auditoria.",
         ro: "BSI DER.4 desemnează organul de conducere în nouă din șaisprezece cerințe. Un director general care nu a participat niciodată la un exercițiu de criză a creat o constatare de audit.",
       },

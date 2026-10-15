@@ -13,7 +13,7 @@
       "subhead": "Osm otázek na každé aktivum. Potřeba ochrany podle jednotlivých Grundwerte a doporučená cesta zavedení v duchu BSI Grundschutz 200-2 §8.2."
     },
     "intro": {
-      "trustLine": "Klasifikace podle jednotlivých Grundwerte (V/I/A) podle Maximum-Prinzip. NIS2 čl. 21(1) + čl. 21(2)(a), BSIG §30. Bez registrace, výsledek zůstává u vás.",
+      "trustLine": "Klasifikace podle jednotlivých Grundwerte (V/I/A) podle Maximum-Prinzip. NIS2 čl. 21(1) + čl. 21(2)(a), § 14 odst. 1 písm. a) bod 6 a odst. 2 písm. d) zákona č. 264/2025 Sb. Bez registrace, výsledek zůstává u vás.",
       "inventoryHint": "Jakmile máte inventář z lekce 2.2 našeho kurzu pro vedení (CEO course), každé aktivum zabere méně než minutu.",
       "courseLinkLabel": "Otevřít CEO course"
     },
@@ -78,10 +78,14 @@
       "scenariosLabel": "Scénáře škod (§8.2.1)",
       "scenarios": {
         "gesetzeVorschriftenVertraege": { "label": "Porušení zákonů, předpisů, smluv" },
-        "informationellesSelbstbestimmungsrecht": { "label": "Narušení práva na informační sebeurčení (osobní údaje)" },
+        "informationellesSelbstbestimmungsrecht": {
+          "label": "Narušení práva na informační sebeurčení (osobní údaje)"
+        },
         "persoenlicheUnversehrtheit": { "label": "Narušení osobní bezpečnosti" },
         "aufgabenerfuellung": { "label": "Narušení plnění úkolů" },
-        "innenAussenwirkung": { "label": "Negativní vnitřní nebo vnější dopad (reputace)" },
+        "innenAussenwirkung": {
+          "label": "Negativní vnitřní nebo vnější dopad (reputace)"
+        },
         "finanziell": { "label": "Finanční dopad" }
       },
       "gesamtLabel": "Gesamt-Schutzbedarf",
@@ -105,7 +109,7 @@
       "bumpedTitle": "Zvýšeno z Basis na Standard kvůli indiciím při zavádění",
       "bumpedBody": "Váš Gesamt-Schutzbedarf je normal, ale jedna či více indicií při zavádění (Schwachstellen / Eintrittswahrscheinlichkeit, oblast BSI-200-3) je natolik závažná, že zmenšená podmnožina Bausteine v Basis-Absicherung pravděpodobně nebude dostatečná. Zvýšení vyvolaly tyto indicie:",
       "risikoanalyseTitle": "Vyžadována Risikoanalyse podle BSI-200-3",
-      "risikoanalyseBody": "Když alespoň jeden Grundwert dosáhne hoch nebo sehr hoch, je pro toto aktivum povinná ergänzende Risikoanalyse podle BSI-200-3 (BSI-200-2 §8.5). Tento nástroj tuto analýzu neprovádí. Pouze určuje, že je vyžadována. Dokumentovanou cestou je Standard-Absicherung plus analýza rizik založená na scénářích."
+      "risikoanalyseBody": "Když alespoň jeden Grundwert dosáhne hoch nebo sehr hoch, je podle metodiky BSI pro toto aktivum povinná ergänzende Risikoanalyse podle BSI-200-3 (BSI-200-2 §8.5). Tento nástroj tuto analýzu neprovádí. Pouze určuje, že je vyžadována. Dokumentovanou cestou je Standard-Absicherung plus analýza rizik založená na scénářích."
     },
     "axes": {
       "personalData": {
@@ -293,9 +297,9 @@
       "bausteineSubtitle": "Orientační seznam z katalogu IT-Grundschutz na základě doporučené Absicherungsvariante. Kanonický krok Modellierung podle BSI-200-2 §8.3 stále probíhá v rámci práce na ISMS u provozovatele.",
       "measuresHeading": "Opatření podle čl. 21(2) NIS2",
       "measuresSubtitle": "Čl. 21(2) NIS2 uvádí deset opatření, která musí zavést každý subjekt v působnosti ('musí zahrnovat alespoň následující'). Hloubka zavedení se řídí vaší Absicherungsvariante: Basis vyžaduje minimální doklady, Standard plnou hloubku Grundschutz a Kern dodatečné prohloubení specifické pro rizika podle BSI-200-3 u aktiva Kronjuwel.",
-      "cirNote": "Pro 11 typů subjektů v působnosti CIR 2024/2690 (služby cloud computingu, datová centra, MSP a MSSP, poskytovatelé DNS, registry TLD, sítě pro doručování obsahu, online tržiště, vyhledávače, sociální sítě, poskytovatelé služeb vytvářejících důvěru) stanoví příloha podrobná prováděcí pravidla. Ostatní subjekty uplatňují BSI Grundschutz jako uznávanou metodiku.",
+      "cirNote": "Pro 11 typů subjektů v působnosti CIR 2024/2690 (služby cloud computingu, datová centra, MSP a MSSP, poskytovatelé DNS, registry TLD, sítě pro doručování obsahu, online tržiště, vyhledávače, sociální sítě, poskytovatelé služeb vytvářejících důvěru) stanoví příloha podrobná prováděcí pravidla. Ostatní subjekty v Česku plní vyhlášku č. 409/2025 Sb. (režim vyšších povinností) nebo č. 410/2025 Sb. (režim nižších povinností); německou metodiku BSI Grundschutz mohou použít jako pracovní metodu.",
       "signoffHeading": "Schválení vedením",
-      "signoffBody": "Toto posouzení je závazné pouze se schválením vedením (§38 BSIG, čl. 20 NIS2). Na vytištěný dokument uveďte jméno, datum a podpis."
+      "signoffBody": "Toto posouzení je závazné pouze se schválením vedením (čl. 20 odst. 1 NIS2). V Česku se vedení se stavem opatření (vyhláška č. 410/2025 Sb., § 4 písm. d)) nebo se zprávou o hodnocení rizik (vyhláška č. 409/2025 Sb., § 4 odst. 2) prokazatelně seznamuje. Na vytištěný dokument uveďte jméno, datum a podpis."
     },
     "chart": {
       "ariaLabel": "Paprskový graf posouzení rizik",
@@ -303,49 +307,49 @@
     },
     "disclaimer": {
       "heading": "Právní poznámka",
-      "body": "Tento nástroj je informativní klasifikací na základě vašich vstupů. Nejedná se o právní poradenství podle německého RDG. Posouzení se stává závazným pouze se schválením vedením podle §38 BSIG a čl. 20 NIS2.",
-      "methodologyDisclosure": "Schutzbedarfsfeststellung pro jednotlivá aktiva v souladu s BSI-200-2 §8.2 (předpokládá, že vaše Sicherheitsleitlinie §4 a Strukturanalyse §8.1 jsou již zavedeny). Klasifikace podle jednotlivých Grundwerte (V/I/A) na škále BSI normal/hoch/sehr-hoch, Maximum-Prinzip podle §8.2.3, Kumulationseffekt podle §8.2.4 a dokumentované Schadensszenarien podle §8.2.1. Vererbung, Modellierung (§8.3), IT-Grundschutz-Check (§8.4) a ergänzende Risikoanalyse podle BSI-200-3 zůstávají navazující prací. Není to certifikace: ta vyžaduje audit třetí stranou akreditovanou DAkkS."
+      "body": "Tento nástroj je informativní klasifikací na základě vašich vstupů. Nejedná se o právní poradenství podle německého RDG. Posouzení se stává závazným pouze se schválením vedením podle čl. 20 odst. 1 NIS2; v Česku ukládá povinnosti vrcholnému vedení vyhláška č. 410/2025 Sb., § 4, a vyhláška č. 409/2025 Sb., § 4.",
+      "methodologyDisclosure": "Schutzbedarfsfeststellung pro jednotlivá aktiva v souladu s BSI-200-2 §8.2 (předpokládá, že vaše Sicherheitsleitlinie §4 a Strukturanalyse §8.1 jsou již zavedeny). Klasifikace podle jednotlivých Grundwerte (V/I/A) na tříúrovňové škále BSI normal/hoch/sehr-hoch (v režimu vyšších povinností vyžaduje vyhláška č. 409/2025 Sb., příloha č. 1 odst. 2, zdokumentovat jednoznačnou vazbu této škály na čtyři české úrovně Nízká, Střední, Vysoká, Kritická), Maximum-Prinzip podle §8.2.3, Kumulationseffekt podle §8.2.4 a dokumentované Schadensszenarien podle §8.2.1. Vererbung, Modellierung (§8.3), IT-Grundschutz-Check (§8.4) a ergänzende Risikoanalyse podle BSI-200-3 zůstávají navazující prací. Není to certifikace: ta vyžaduje audit třetí stranou akreditovanou DAkkS."
     },
     "art21Measures": {
       "a": {
         "label": "Analýza rizik a politiky bezpečnosti informačních systémů",
-        "refs": "Art 21(2)(a) NIS2 · BSIG §30(2) Nr. 1"
+        "refs": "čl. 21(2)(a) NIS2 · § 14 odst. 1 písm. a) body 4 a 6, odst. 2 písm. d) zákona č. 264/2025 Sb."
       },
       "b": {
         "label": "Řešení incidentů",
-        "refs": "Art 21(2)(b) NIS2 · BSIG §30(2) Nr. 2"
+        "refs": "čl. 21(2)(b) NIS2 · § 14 odst. 1 písm. a) bod 12, písm. b) body 5 až 7, odst. 2 písm. i), j) zákona č. 264/2025 Sb."
       },
       "c": {
         "label": "Kontinuita provozu (zálohování, obnova po havárii) a krizové řízení",
-        "refs": "Art 21(2)(c) NIS2 · BSIG §30(2) Nr. 3"
+        "refs": "čl. 21(2)(c) NIS2 · § 14 odst. 1 písm. a) bod 13, písm. b) bod 10, odst. 2 písm. f) zákona č. 264/2025 Sb."
       },
       "d": {
         "label": "Bezpečnost dodavatelského řetězce (vztahy s dodavateli a poskytovateli služeb)",
-        "refs": "Art 21(2)(d) NIS2 · BSIG §30(2) Nr. 4"
+        "refs": "čl. 21(2)(d) NIS2 · § 13 odst. 5 a § 14 odst. 1 písm. a) bod 7 zákona č. 264/2025 Sb."
       },
       "e": {
         "label": "Bezpečnost při pořizování, vývoji a údržbě včetně řešení a zveřejňování zranitelností",
-        "refs": "Art 21(2)(e) NIS2 · BSIG §30(2) Nr. 5"
+        "refs": "čl. 21(2)(e) NIS2 · § 14 odst. 1 písm. a) bod 10, písm. b) bod 8, odst. 2 písm. l) zákona č. 264/2025 Sb."
       },
       "f": {
         "label": "Politiky a postupy pro posuzování účinnosti opatření k řízení rizik",
-        "refs": "Art 21(2)(f) NIS2 · BSIG §30(2) Nr. 6"
+        "refs": "čl. 21(2)(f) NIS2 · § 14 odst. 1 písm. a) body 1 a 14, odst. 2 písm. a) zákona č. 264/2025 Sb."
       },
       "g": {
         "label": "Základní postupy kybernetické hygieny a školení v oblasti kybernetické bezpečnosti",
-        "refs": "Art 21(2)(g) NIS2 · BSIG §30(2) Nr. 7"
+        "refs": "čl. 21(2)(g) NIS2 · § 14 odst. 1 písm. a) bod 8, odst. 2 písm. e) zákona č. 264/2025 Sb."
       },
       "h": {
         "label": "Politiky a postupy týkající se používání kryptografie a v případě potřeby šifrování",
-        "refs": "Art 21(2)(h) NIS2 · BSIG §30(2) Nr. 8"
+        "refs": "čl. 21(2)(h) NIS2 · § 14 odst. 1 písm. b) bod 9, odst. 2 písm. m) zákona č. 264/2025 Sb."
       },
       "i": {
         "label": "Bezpečnost lidských zdrojů, politiky řízení přístupu a správa aktiv",
-        "refs": "Art 21(2)(i) NIS2 · BSIG §30(2) Nr. 9"
+        "refs": "čl. 21(2)(i) NIS2 · § 14 odst. 1 písm. a) body 5, 8 a 11, písm. b) bod 4, odst. 2 písm. c), e), g), h) zákona č. 264/2025 Sb."
       },
       "j": {
         "label": "Vícefaktorové nebo průběžné ověřování, zabezpečená hlasová/video/textová komunikace a zabezpečená nouzová komunikace",
-        "refs": "Art 21(2)(j) NIS2 · BSIG §30(2) Nr. 10"
+        "refs": "čl. 21(2)(j) NIS2 · § 14 odst. 1 písm. b) body 2 a 3, odst. 2 písm. h), k) zákona č. 264/2025 Sb."
       }
     }
   }

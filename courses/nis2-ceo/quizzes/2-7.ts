@@ -116,7 +116,7 @@ const quiz = quizSchema.parse({
         it: "Cosa richiede il BSI IT-Grundschutz DER.2.1.A17?",
         es: "¿Qué exige el BSI IT-Grundschutz DER.2.1.A17?",
         pl: "Czego wymaga BSI IT-Grundschutz DER.2.1.A17?",
-        cs: "Co vyžaduje BSI IT-Grundschutz DER.2.1.A17?",
+        cs: "Co vyžaduje německá metodika BSI IT-Grundschutz, požadavek DER.2.1.A17?",
         pt: "O que exige o BSI IT-Grundschutz DER.2.1.A17?",
         ro: "Ce impune BSI IT-Grundschutz DER.2.1.A17?",
       },
