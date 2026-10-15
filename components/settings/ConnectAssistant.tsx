@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { RECENT_SIGN_IN_S } from "@/lib/auth/session-age";
 import { trpc } from "@/lib/trpc/client";
+import { AssistantsAllowedSwitch } from "./AssistantsAllowedSwitch";
 
 /** Signs out and back in, landing on the page the person is on, as account deletion does. */
 export const signInAgain = () =>
@@ -31,6 +32,7 @@ export function ConnectAssistant({
   denyUrl,
   mayWalk,
   allowed,
+  isAdmin,
   signedInRecently,
 }: {
   request: string;
@@ -45,6 +47,8 @@ export function ConnectAssistant({
   mayWalk: boolean;
   /** Whether the company's admin lets its people connect assistants. */
   allowed: boolean;
+  /** An admin turns assistants on right on the card. */
+  isAdmin: boolean;
   signedInRecently: boolean;
 }) {
   const t = useTranslations("settings.mcp.connect");
@@ -93,6 +97,15 @@ export function ConnectAssistant({
               {tm("reauth", { minutes: RECENT_SIGN_IN_S / 60 })}
             </p>
           )}
+        </>
+      ) : mayWalk && isAdmin ? (
+        // The admin is often the one connecting the company's first assistant: the switch is
+        // here, so asking them to "ask your admin" would send them in a circle.
+        <>
+          <p className="rounded-lg border bg-muted/40 px-4 py-3 text-sm">
+            {t("offAdmin")}
+          </p>
+          <AssistantsAllowedSwitch allowed={false} isAdmin />
         </>
       ) : (
         <p className="rounded-lg border bg-muted/40 px-4 py-3 text-sm">

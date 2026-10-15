@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
 import { usePortalPath } from "@/components/portal/use-portal-path";
 import { Button } from "@/components/ui/button";
+import { isConsentPath } from "@/lib/mcp/consent-path";
 import type { Hint } from "@/lib/onboarding/hints";
 import { trpc } from "@/lib/trpc/client";
 import { HelpDialog } from "./HelpDialog";
@@ -72,7 +73,8 @@ export function PortalGuide({
   // Which candidate actually started, so dismissal stamps the right hint.
   const [routeTour, setRouteTour] = useState<RouteTour | null>(null);
 
-  const helpAuto = hints.helpOffer && !dismissed.helpOffer;
+  // Never offered over the consent page: it would cover the Allow the person came to press.
+  const helpAuto = hints.helpOffer && !dismissed.helpOffer && !isConsentPath(path);
   const helpOpen = helpAuto || helpManual;
 
   // Still-armed candidates for this route. The journey offers two, one per

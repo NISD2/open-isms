@@ -125,6 +125,7 @@ function holderOf(
     userId: "u1",
     companyId: "c1",
     role,
+    mayWalk: true,
   } as unknown as KeyHolder;
   return { holder, called };
 }
@@ -154,6 +155,22 @@ async function refusalOf(outcome: ReturnType<typeof fill>): Promise<string> {
   if (settled.ok) throw new Error(`saved: ${JSON.stringify(settled.data)}`);
   return settled.message;
 }
+
+describe("a plan without the walkthrough", () => {
+  test("is refused in the assistant's language, with the way to unlock it, before any read", async () => {
+    const { holder, called } = holderOf("5.1", "admin", { kind: "open" });
+    const locked = { ...holder, mayWalk: false };
+    const outcome = await fillItem(locked, {
+      code: "5.1",
+      language: "cs",
+      rows: [{ name: "Hoster" }],
+    });
+    expect(outcome).toMatchObject({ ok: false });
+    expect(outcome.ok ? "" : outcome.message).toContain("není součástí plánu");
+    expect(outcome.ok ? "" : outcome.message).toContain("/cs/");
+    expect(called).toEqual([]);
+  });
+});
 
 describe("fill_walkthrough_item refuses before it writes", () => {
   test("rows that fail their check leave a waiting item waiting", async () => {

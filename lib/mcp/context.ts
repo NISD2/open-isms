@@ -1,7 +1,9 @@
 import "@/lib/server-guard";
 import { eq } from "drizzle-orm";
 import { companySession } from "@/lib/auth";
+import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { epochSeconds } from "@/lib/auth/session-age";
+import { mayWalkDurchgang } from "@/lib/billing/access";
 import { getClientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
 import { NO_HINTS } from "@/lib/onboarding/hints";
@@ -81,6 +83,11 @@ export interface KeyHolder {
   readonly userId: string;
   readonly companyId: string;
   readonly role: string;
+  /**
+   * Whether the company's plan includes the walkthrough (the rule its procedures apply), so the
+   * tools can say so in the assistant's language, with the way to unlock it.
+   */
+  readonly mayWalk: boolean;
 }
 
 /** The key's holder, or null when the key opens nothing. */
@@ -95,5 +102,9 @@ export async function keyHolder(
     userId: context.userId,
     companyId: context.companyId,
     role: context.session.role,
+    mayWalk: mayWalkDurchgang(
+      context.session.accessLevel,
+      isPlatformAdmin(context.session.user.email),
+    ),
   };
 }

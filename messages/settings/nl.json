@@ -69,7 +69,9 @@
         "disconnectHint": "Ontkoppelen kan altijd in de instellingen.",
         "failed": "Dat is niet gelukt. Probeer het opnieuw.",
         "companyChanged": "U hebt in een ander tabblad een ander bedrijf geopend. Laad deze pagina opnieuw om te koppelen in het bedrijf dat u open hebt.",
-        "off": "De beheerder van dit bedrijf heeft assistenten niet toegestaan, dus er kan er geen worden gekoppeld. Vraag het uw beheerder of weiger."
+        "off": "De beheerder van dit bedrijf heeft assistenten niet toegestaan, dus er kan er geen worden gekoppeld. Vraag het uw beheerder of weiger.",
+        "offAdmin": "AI-assistenten staan uit voor dit bedrijf. Zet ze hier aan om deze te koppelen. Daarna kan iedereen in het bedrijf zijn eigen assistent koppelen.",
+        "setupFirst": "Een AI-assistent wil koppelen met uw bedrijf. Richt eerst uw bedrijf in: zodra het is opgeslagen, vraagt deze pagina of u de assistent toestaat. Is het verzoek dan verlopen, start de aanmelding dan opnieuw in de assistent."
       }
     }
   }

@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { getLocale } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { AllMessagesProvider } from "@/components/AllMessagesProvider";
 import { CompanySetup } from "@/components/organization/CompanySetup";
 import { PortalShell } from "@/components/portal/PortalShell";
@@ -12,6 +12,7 @@ import {
   OFFER_PATH,
   ORDER_PATHS,
 } from "@/lib/billing/access";
+import { isConsentPath } from "@/lib/mcp/consent-path";
 import { WALK_HOME_PATHS } from "@/lib/walkthrough";
 
 export default async function PortalLayout({ children }: { children: React.ReactNode }) {
@@ -62,11 +63,17 @@ export default async function PortalLayout({ children }: { children: React.React
     (p) => pathname === p || pathname.startsWith(`${p}/`),
   );
   const showSetup = !session.companyActivated && needsCompany;
+  // An assistant's sign-in reaches a company not set up yet too: the form then says why it is
+  // there and that the consent follows on the same page once the company is saved.
+  const setupLead =
+    showSetup && isConsentPath(pathname)
+      ? (await getTranslations("settings.mcp.connect"))("setupFirst")
+      : undefined;
 
   return (
     <AllMessagesProvider>
       <PortalShell session={session}>
-        {showSetup ? <CompanySetup /> : children}
+        {showSetup ? <CompanySetup lead={setupLead} /> : children}
       </PortalShell>
     </AllMessagesProvider>
   );

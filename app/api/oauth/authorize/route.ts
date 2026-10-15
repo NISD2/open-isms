@@ -1,5 +1,6 @@
 import { epochSeconds } from "@/lib/auth/session-age";
-import { consentPath, mcpResource, urlOf } from "@/lib/mcp/config";
+import { mcpResource, urlOf } from "@/lib/mcp/config";
+import { consentPath } from "@/lib/mcp/consent-path";
 import { instanceKey } from "@/lib/mcp/instance-key";
 import { authorize } from "@/lib/mcp/oauth";
 

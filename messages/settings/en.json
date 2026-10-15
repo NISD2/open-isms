@@ -69,7 +69,9 @@
         "disconnectHint": "You can disconnect at any time in Settings.",
         "failed": "That did not work. Please try again.",
         "companyChanged": "You opened another company in a different tab. Reload this page to connect in the company you have open.",
-        "off": "This company's admin has not allowed AI assistants, so none can be connected. Ask your admin, or decline."
+        "off": "This company's admin has not allowed AI assistants, so none can be connected. Ask your admin, or decline.",
+        "offAdmin": "AI assistants are off for this company. Turn them on here to connect this one. Everyone in the company can then connect their own.",
+        "setupFirst": "An AI assistant asked to connect to your company. Set up your company first: once it is saved, this page asks you whether to allow the assistant. If the request has run out by then, start the sign-in in the assistant again."
       }
     }
   }

@@ -69,7 +69,9 @@
         "disconnectHint": "Odpojit se můžete kdykoli v Nastavení.",
         "failed": "To se nepovedlo. Zkuste to prosím znovu.",
         "companyChanged": "V jiné záložce jste otevřeli jinou společnost. Načtěte tuto stránku znovu a připojte asistenta ve společnosti, kterou máte otevřenou.",
-        "off": "Správce této společnosti asistenty nepovolil, proto nelze žádného připojit. Zeptejte se správce, nebo žádost odmítněte."
+        "off": "Správce této společnosti asistenty nepovolil, proto nelze žádného připojit. Zeptejte se správce, nebo žádost odmítněte.",
+        "offAdmin": "AI asistenti jsou pro tuto společnost vypnutí. Zapněte je zde a tohoto asistenta připojte. Potom si každý ve společnosti může připojit vlastního.",
+        "setupFirst": "AI asistent žádá o připojení k vaší společnosti. Nejprve společnost založte: jakmile ji uložíte, tato stránka se vás zeptá, zda asistenta povolíte. Pokud žádost mezitím vyprší, zahajte přihlášení v asistentovi znovu."
       }
     }
   }

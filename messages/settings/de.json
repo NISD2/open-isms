@@ -69,7 +69,9 @@
         "disconnectHint": "Trennen können Sie jederzeit in den Einstellungen.",
         "failed": "Das hat nicht geklappt. Bitte versuchen Sie es noch einmal.",
         "companyChanged": "Sie haben in einem anderen Tab ein anderes Unternehmen geöffnet. Laden Sie diese Seite neu, um im geöffneten Unternehmen zu verbinden.",
-        "off": "Der Admin dieses Unternehmens hat Assistenten nicht freigegeben, deshalb lässt sich keiner verbinden. Fragen Sie Ihren Admin oder lehnen Sie ab."
+        "off": "Der Admin dieses Unternehmens hat Assistenten nicht freigegeben, deshalb lässt sich keiner verbinden. Fragen Sie Ihren Admin oder lehnen Sie ab.",
+        "offAdmin": "Assistenten sind für dieses Unternehmen ausgeschaltet. Schalten Sie sie hier ein, um diesen zu verbinden. Danach kann jeder im Unternehmen seinen eigenen verbinden.",
+        "setupFirst": "Ein Assistent möchte sich mit Ihrem Unternehmen verbinden. Legen Sie zuerst Ihr Unternehmen an. Sobald es gespeichert ist, fragt Sie diese Seite, ob Sie den Assistenten zulassen. Ist die Anfrage bis dahin abgelaufen, starten Sie die Anmeldung im Assistenten neu."
       }
     }
   }

@@ -318,13 +318,36 @@ async function readItem(
   };
 }
 
-export const getWalkthrough = (
+/** What an assistant is told when the company's plan does not include the walkthrough yet. */
+const NOT_IN_PLAN: Record<WalkLocale, (link: string) => string> = {
+  en: (link) =>
+    `The NIS 2 walkthrough is not part of this company's plan yet, so an assistant can read and fill in nothing. The person unlocks it here: ${link}`,
+  de: (link) =>
+    `Der NIS 2 Durchgang ist noch nicht Teil des Plans dieses Unternehmens, deshalb kann ein Assistent nichts lesen und nichts ausfüllen. Freischalten lässt er sich hier: ${link}`,
+  cs: (link) =>
+    `Průvodce NIS 2 zatím není součástí plánu této společnosti, proto asistent nemůže nic číst ani vyplňovat. Odemknout ho lze zde: ${link}`,
+};
+
+/** The refusal for a plan without the walkthrough, in the assistant's language, or null. */
+const notInPlan = (holder: KeyHolder, language: WalkLocale): ToolOutcome | null =>
+  holder.mayWalk
+    ? null
+    : refuse(
+        NOT_IN_PLAN[language](
+          `${getAppUrl()}${getPathname({ href: "/pricing", locale: language })}`,
+        ),
+      );
+
+export async function getWalkthrough(
   holder: KeyHolder,
   input: z.output<typeof GetWalkthroughInput>,
-): Promise<ToolOutcome> =>
-  input.code
+): Promise<ToolOutcome> {
+  const locked = notInPlan(holder, input.language);
+  if (locked) return locked;
+  return input.code
     ? readItem(holder, input.code, input.language)
     : listWalk(holder, input.language);
+}
 
 type FoundItem = Extract<Awaited<ReturnType<typeof itemOf>>, { ok: true }>;
 
@@ -616,6 +639,8 @@ export async function fillItem(
   input: z.output<typeof FillItemInput>,
 ): Promise<ToolOutcome> {
   const { code, answers = {}, rows = [], changes = [], files = [] } = input;
+  const locked = notInPlan(holder, input.language);
+  if (locked) return locked;
   const found = await itemOf(holder, code);
   if (!found.ok) return refuse(found.message);
   const { item, state, categoryId } = found;
@@ -723,6 +748,8 @@ export async function uploadFile(
   input: z.output<typeof UploadFileInput>,
 ): Promise<ToolOutcome> {
   const { code, fileName, contentType, fileSize } = input;
+  const locked = notInPlan(holder, input.language);
+  if (locked) return locked;
   const found = await itemOf(holder, code);
   if (!found.ok) return refuse(found.message);
   const link = linkOf(code, input.language);

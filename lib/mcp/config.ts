@@ -22,12 +22,6 @@ export const mcpResource = (): string => `${issuer()}${MCP_PATH}`;
 
 export const urlOf = (path: string): string => `${issuer()}${path}`;
 
-/**
- * The consent page for a checked request. The request rides in the path, not the query: the
- * proxy keeps only the path when it sends a signed-out person to sign in and back.
- */
-export const consentPath = (request: string): string => `/mcp/verbinden/${request}`;
-
 /** Hostnames a browser may call the endpoint from: this instance's own, and localhost. */
 export const allowedOrigins = (): readonly string[] => [
   new URL(getAppUrl()).hostname,
