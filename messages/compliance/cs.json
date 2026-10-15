@@ -35,6 +35,10 @@
     "signOffAllCount": "Schválit vše ({count})",
     "bulkSignOffSuccess": "{count} požadavků schváleno",
     "signedOffBy": "Schválil {role} dne {date}",
+    "reopen": "Zrušit schválení",
+    "reopenTitle": "Zrušit toto schválení?",
+    "reopenDescription": "Požadavek se vrátí k úpravám a bude ho třeba schválit znovu. Záznam v historii schválení zůstane: auditor uvidí, že byl schválen a schválení bylo později zrušeno.",
+    "confirmReopen": "Zrušit schválení",
     "notApplicable": "Nevztahuje se",
     "notApplicablePlaceholder": "Vysvětlete, proč se tento požadavek na vaši organizaci nevztahuje (přiměřenost podle § 13 odst. 2 zákona č. 264/2025 Sb.)...",
     "confirmNotApplicable": "Potvrdit nevztahuje se",
@@ -437,7 +441,62 @@
     "frequencyAnnual": "Ročně",
     "frequencyEvery3Years": "Každé 3 roky",
     "frequencyOnChange": "Při změně",
-    "frequencyOngoing": "Průběžně"
+    "frequencyOngoing": "Průběžně",
+    "answerOptions": {
+      "classificationLevels": {
+        "2_levels": "Dvě úrovně",
+        "3_levels": "Tři úrovně",
+        "4_levels": "Čtyři úrovně"
+      },
+      "classificationScheme": {
+        "bsi": "Schéma BSI (německá metodika)",
+        "enisa": "Schéma ENISA",
+        "custom": "Vlastní schéma"
+      },
+      "drillType": {
+        "tabletop": "Stolní cvičení",
+        "functional": "Funkční cvičení",
+        "full_scale": "Plnohodnotné cvičení"
+      },
+      "backupFrequency": {
+        "real_time": "Průběžně",
+        "hourly": "Každou hodinu",
+        "daily": "Denně",
+        "weekly": "Týdně"
+      },
+      "vulnerabilityScanningFrequency": {
+        "continuous": "Průběžně",
+        "weekly": "Týdně",
+        "monthly": "Měsíčně",
+        "quarterly": "Čtvrtletně"
+      },
+      "auditFrequency": {
+        "quarterly": "Čtvrtletně",
+        "semi_annual": "Dvakrát ročně",
+        "annual": "Ročně"
+      },
+      "trainingFrequency": {
+        "quarterly": "Čtvrtletně",
+        "semi_annual": "Dvakrát ročně",
+        "annual": "Ročně"
+      },
+      "phishingSimFrequency": {
+        "monthly": "Měsíčně",
+        "quarterly": "Čtvrtletně",
+        "semi_annual": "Dvakrát ročně",
+        "annual": "Ročně"
+      },
+      "mfaCoverage": {
+        "critical_only": "Jen kritické systémy",
+        "remote_access": "Vzdálený přístup",
+        "all_users": "Všechny uživatelské účty",
+        "all_systems": "Všechny systémy"
+      },
+      "entityClassification": {
+        "essential": "Základní subjekt",
+        "important": "Důležitý subjekt"
+      }
+    }
   },
   "form": {
     "completeRequirement": "Dokončit požadavek",
@@ -447,7 +506,8 @@
     "edit": "Upravit",
     "save": "Uložit",
     "saving": "Ukládání...",
-    "failedToSave": "Uložení se nezdařilo"
+    "failedToSave": "Uložení se nezdařilo",
+    "requirementReopened": "{code} je znovu v úpravách."
   },
   "evidence": {
     "dropzone": "Přetáhněte soubor sem nebo klikněte pro výběr",

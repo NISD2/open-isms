@@ -79,6 +79,23 @@ export interface FrameworkRequirement {
   requiredSignOffRole: string | null;
 }
 
+/**
+ * Where Czech law places a NIS 2 requirement, as `legalRef` does for the BSIG. Czech law splits
+ * the measures by regime: decree 410/2025 Sb. for the lower one, 409/2025 Sb. for the higher one,
+ * and the Portál NÚKIB shows a company which applies (its registration decision does not, as the
+ * regime can change). Each value is a citation
+ * in Czech style ("§ 4 písm. b); § 5 odst. 2 písm. a)"); null where that text has no place for
+ * the requirement.
+ */
+export interface CzechRef {
+  /** Sections of zákon č. 264/2025 Sb. that carry the duty themselves, beside the decrees. */
+  readonly act: string | null;
+  /** Vyhláška č. 410/2025 Sb., the lower regime. */
+  readonly lower: string | null;
+  /** Vyhláška č. 409/2025 Sb., the higher regime. */
+  readonly higher: string | null;
+}
+
 export interface RequirementOptions {
   priority?: Priority;
   importance?: Importance;

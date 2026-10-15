@@ -30,7 +30,12 @@ import type { settledFactEnum } from "@/schema/enums";
 import type { AssetSlice, RatingTarget } from "./ratings";
 
 /** The languages the walk is written in: its screens, and the notes and documents it writes. */
-export type WalkLocale = "de" | "en";
+export const WALK_LOCALES = ["de", "en", "cs"] as const;
+export type WalkLocale = (typeof WALK_LOCALES)[number];
+
+/** The language the walk shows itself in for a page language: its own where it is written, else English. */
+export const walkLocaleOf = (locale: string): WalkLocale =>
+  locale === "de" || locale === "cs" ? locale : "en";
 
 /**
  * A rule shown as it is, read-only, rendered from the module that holds it: the 200-3 matrix

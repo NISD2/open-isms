@@ -27,6 +27,7 @@ export {
   noteLine,
   recordDay,
   recordedDay,
+  WALK_DATE_LOCALE,
   waitingNote,
 } from "./notes";
 export type { CryptoLabels, PolicyDocument, PolicyPart } from "./policy";
@@ -124,6 +125,8 @@ export {
   MFA_METHODS,
   POLICY_LISTS,
   POLICY_TEMPLATES,
+  WALK_LOCALES,
+  walkLocaleOf,
 } from "./types";
 
 const BY_CODE: ReadonlyMap<string, AnyItem> = new Map(

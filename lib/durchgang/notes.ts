@@ -12,8 +12,15 @@ const berlinDay = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }
 /** A calendar day in Berlin, as the company reads its records: 2026-09-30. */
 export const recordDay = (at: Date): string => berlinDay.format(at);
 
+/** The walk's languages as `Intl` formats their dates. */
+export const WALK_DATE_LOCALE: Readonly<Record<WalkLocale, string>> = {
+  de: "de-DE",
+  en: "en-GB",
+  cs: "cs-CZ",
+};
+
 const longDay = (locale: WalkLocale, timeZone: string) =>
-  new Intl.DateTimeFormat(locale === "de" ? "de-DE" : "en-GB", {
+  new Intl.DateTimeFormat(WALK_DATE_LOCALE[locale], {
     timeZone,
     dateStyle: "long",
   });
@@ -102,6 +109,39 @@ const TEXT = {
       names.length > 0
         ? `Must keep running without IT: ${names.join(", ")}.`
         : "Processes checked: none must keep running without IT.",
+  },
+  cs: {
+    waiting: (reason: string, note: string | null) =>
+      `Zatím nelze: ${reason}.${note ? ` Poznámka: ${note}` : ""}`,
+    method:
+      "Stanovena metoda hodnocení rizik: analýza rizik podle BSI-Standard 200-3 (německá metodika).",
+    declined: (reason: string) => `Vědomě nezavedeno, předloženo k podpisu. Odůvodnění: ${reason}`,
+    agreements: (lines: readonly string[]) =>
+      `Ujednání s dodavateli zkontrolována: ${lines.join("; ")}.`,
+    security: "bezpečnost",
+    incidents: "hlášení incidentů",
+    nothing: "nic neujednáno",
+    logins: (lines: readonly string[]) => `Přihlašování zkontrolováno: ${lines.join("; ")}.`,
+    mfa: "s druhým faktorem",
+    password: "jen heslo",
+    unknown: "zatím neznámo",
+    methods: {
+      app: "aplikace",
+      security_key: "bezpečnostní klíč",
+      company_account: "přes firemní účet",
+      sms: "kód přes SMS",
+      email: "kód e-mailem",
+    } satisfies Record<MfaMethod, string>,
+    backups: (lines: readonly string[]) => `Zálohování zaznamenáno: ${lines.join("; ")}.`,
+    restoredOn: (day: string) => `poslední úspěšná obnova ${day}`,
+    noRestore: "zatím žádná úspěšná obnova",
+    crypto: "Seznam kryptografie převzat z BSI TR-02102 (německé doporučení).",
+    approved: (day: string, titles: readonly string[]) =>
+      `Schváleno vedením dne ${day}: ${titles.join("; ")}.`,
+    critical: (names: readonly string[]) =>
+      names.length > 0
+        ? `Musí běžet i bez IT: ${names.join(", ")}.`
+        : "Procesy zkontrolovány: žádný nemusí běžet bez IT.",
   },
 } as const;
 

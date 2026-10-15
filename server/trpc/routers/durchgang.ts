@@ -79,12 +79,14 @@ import {
   treatmentFor,
   WAIT_REASONS,
   WALK,
+  WALK_LOCALES,
   WALK_POLICIES,
   type WalkLocale,
   waitingNote,
 } from "@/lib/durchgang";
 import { renderDocumentMarkdown } from "@/lib/mail/markdown";
 import { getRegistrationPortals } from "@/lib/registration-portals";
+import durchgangCs from "@/messages/durchgang/cs.json";
 import durchgangDe from "@/messages/durchgang/de.json";
 import durchgangEn from "@/messages/durchgang/en.json";
 import {
@@ -183,7 +185,11 @@ const logWalk = (entry: Parameters<typeof logAudit>[0] & { action: DurchgangActi
 const steps = (levels: unknown) => (Array.isArray(levels) ? levels.length : 0);
 
 const code = z.string().max(10);
-const NAMESPACES = { de: durchgangDe.durchgang, en: durchgangEn.durchgang } as const;
+const NAMESPACES = {
+  de: durchgangDe.durchgang,
+  en: durchgangEn.durchgang,
+  cs: durchgangCs.durchgang,
+} as const;
 
 const actorOf = (ctx: {
   companyId: string;
@@ -1607,7 +1613,7 @@ export const durchgangRouter = router({
    * its headline in the viewer's language, resolved as the walk resolves it.
    */
   awaitingSignature: durchgangProcedure
-    .input(z.object({ locale: z.enum(["de", "en"]) }))
+    .input(z.object({ locale: z.enum(WALK_LOCALES) }))
     .query(async ({ ctx, input }) => {
       const { items } = await waitingForManagement(ctx.db, ctx.companyId);
       return items.map(({ code, drafts, reason }) => {
@@ -1627,7 +1633,7 @@ export const durchgangRouter = router({
    * approval before it signs; a step set aside comes with its headline in the viewer's language.
    */
   gaps: durchgangProcedure
-    .input(z.object({ locale: z.enum(["de", "en"]) }))
+    .input(z.object({ locale: z.enum(WALK_LOCALES) }))
     .query(async ({ ctx, input }) => {
       const headline = (c: string) => {
         const words = resolveItem(NAMESPACES[input.locale], itemOf(c));

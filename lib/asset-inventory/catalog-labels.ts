@@ -1,14 +1,20 @@
+import cs from "@/messages/assetInventory/cs.json";
 import de from "@/messages/assetInventory/de.json";
 import en from "@/messages/assetInventory/en.json";
+import type { WalkLocale } from "@/lib/durchgang/types";
 import type { Asset } from "@/schema/types";
 import { CATALOG, type CatalogItem } from "./catalog";
 
 type Labels = Readonly<Record<string, { readonly label: string }>>;
 
+/** A language an asset can be added in: the walk's languages. */
+type CatalogLocale = WalkLocale;
+
 /** The catalogue's item names in each language an asset can be added in. */
-export const CATALOG_LABELS: Readonly<Record<"de" | "en", Labels>> = {
+export const CATALOG_LABELS: Readonly<Record<CatalogLocale, Labels>> = {
   de: de.assetInventory.catalog,
   en: en.assetInventory.catalog,
+  cs: cs.assetInventory.catalog,
 };
 
 /**
@@ -35,7 +41,7 @@ export const catalogIdByName = (text: string | null): string | null =>
   text === null ? null : (ID_BY_NAME.get(nameKey(text)) ?? null);
 
 /** A catalogue item's name in one language. */
-export const catalogLabel = (id: string | null, locale: "de" | "en"): string | null =>
+export const catalogLabel = (id: string | null, locale: CatalogLocale): string | null =>
   id === null ? null : (CATALOG_LABELS[locale][id]?.label ?? null);
 
 type Listed = Readonly<Pick<Asset, "catalogId" | "name" | "description">>;

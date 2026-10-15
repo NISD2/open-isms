@@ -10,7 +10,8 @@ import {
   Pencil,
   Save,
 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import type { CzechRef, Frequency } from "@nisd2/grc-data-model/frameworks";
+import { useLocale, useTranslations } from "next-intl";
 import { useOptimistic, useState, useTransition } from "react";
 import { Controller, useForm, useFormState } from "react-hook-form";
 import { toast } from "sonner";
@@ -66,6 +67,18 @@ const CEO_COURSE_REQUIREMENT_CODES = new Set(["1.1", "8.3"]);
 import { teachingLessonForCategory } from "@/lib/training/lesson-journey-map";
 import { cn } from "@/lib/utils";
 
+/** Each frequency's name, under `intake` in the compliance messages of every locale. */
+const FREQUENCY_LABEL: Readonly<Record<Frequency, string>> = {
+  "one-time": "frequencyOneTime",
+  monthly: "frequencyMonthly",
+  quarterly: "frequencyQuarterly",
+  "semi-annual": "frequencySemiAnnual",
+  annual: "frequencyAnnual",
+  "every-3-years": "frequencyEvery3Years",
+  "on-change": "frequencyOnChange",
+  ongoing: "frequencyOngoing",
+};
+
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
@@ -85,6 +98,7 @@ export interface RequirementData {
   frameworkCode: string | null;
   referenceUrl: string | null;
   nationalUrl: string | null;
+  czechRef: CzechRef | null;
 }
 
 export interface StatusData {
@@ -203,6 +217,9 @@ export function RequirementDetail({
   // Framework names live in the portal namespace, the same catalog the sidebar
   // reads, so a citation is named the way the rest of the app names it.
   const tp = useTranslations("portal");
+  const tTeam = useTranslations("team");
+  const tIntake = useTranslations("intake");
+  const locale = useLocale();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
@@ -269,7 +286,7 @@ export function RequirementDetail({
     .map((a) => a.user.name || a.user.email)
     .join(", ");
 
-  const citationRows = buildCitationRows(requirement);
+  const citationRows = buildCitationRows(requirement, locale);
   const citationLabel = (label: FrameworkLabel) =>
     label.kind === "message" ? tp(label.key) : label.text;
 
@@ -483,8 +500,10 @@ export function RequirementDetail({
             <CheckCircle2 className="h-3.5 w-3.5" />
             {status.signedOffRole
               ? t("requirement.signedOffByOn", {
-                  name: status.signedOffRole,
-                  date: new Date(status.signedOffAt).toLocaleDateString(),
+                  name: tTeam.has(`roles.${status.signedOffRole}`)
+                    ? tTeam(`roles.${status.signedOffRole}`)
+                    : status.signedOffRole,
+                  date: new Date(status.signedOffAt).toLocaleDateString(locale),
                 })
               : t("requirement.signedOff")}
           </p>
@@ -656,7 +675,9 @@ export function RequirementDetail({
                             role="group" + aria-labelledby, and clicking a label wrapping
                             radios would select the first one. The fix belongs in the
                             renderer, which lib/forms/schema-form.tsx also uses. */}
-                        <label className="text-sm font-medium">{meta.label}</label>
+                        <label className="text-sm font-medium">
+                          {guidance?.fields[meta.key]?.label ?? meta.label}
+                        </label>
                         {renderFieldInput(
                           meta,
                           field,
@@ -831,7 +852,11 @@ export function RequirementDetail({
               {requirement.frequency && requirement.frequency !== "once" && (
                 <div className="flex items-center justify-between">
                   <dt className="text-muted-foreground">{t("requirement.frequency")}</dt>
-                  <dd className="text-xs">{requirement.frequency}</dd>
+                  <dd className="text-xs">
+                    {Object.hasOwn(FREQUENCY_LABEL, requirement.frequency)
+                      ? tIntake(FREQUENCY_LABEL[requirement.frequency as Frequency])
+                      : requirement.frequency}
+                  </dd>
                 </div>
               )}
               {status.nextReviewDate &&
@@ -861,8 +886,13 @@ export function RequirementDetail({
                   it opens that law's source page for this category, which is
                   not always the exact article the citation names. */}
               <div data-tour="requirement-legal" className="space-y-2">
+                {/* Wraps, so a long label (a Czech decree) puts its citation on the next
+                    line instead of squeezing it to one word per line. */}
                 {citationRows.map((row) => (
-                  <div key={row.id} className="flex items-start justify-between gap-3">
+                  <div
+                    key={row.id}
+                    className="flex flex-wrap items-start justify-between gap-x-3 gap-y-0.5"
+                  >
                     <dt className="shrink-0 text-muted-foreground">
                       {row.href ? (
                         <a
@@ -878,7 +908,7 @@ export function RequirementDetail({
                         citationLabel(row.label)
                       )}
                     </dt>
-                    <dd className="text-right text-xs text-muted-foreground">
+                    <dd className="ml-auto text-right text-xs text-muted-foreground">
                       {row.citation}
                     </dd>
                   </div>

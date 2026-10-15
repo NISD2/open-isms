@@ -330,6 +330,7 @@
         "fromKnowledge": "from becoming aware",
         "fromNotification": "after the notification",
         "hours": "{count} hours",
+        "days": "{count, plural, one {# day} other {# days}}",
         "months": "{count, plural, one {# month} other {# months}}"
       },
       "wait": {

@@ -24,6 +24,7 @@
     "managementHint": "Automaticky zjištěno z role. V případě potřeby přepište.",
     "batchCreated": "Vytvořeno záznamů o školeních: {count}",
     "saveTraining": "Uložit školení",
+    "certTooLarge": "Soubor je příliš velký. Limit je {size} MB na soubor.",
     "fields": {
       "title": "Název",
       "trainingType": "Typ školení",

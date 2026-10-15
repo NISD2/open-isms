@@ -44,7 +44,7 @@
  * journey layouts and changes what the lifecycle digest emails say. It is
  * never a cosmetic edit.
  */
-import type { FrameworkCategory, FrameworkRequirement } from "./types";
+import type { CzechRef, FrameworkCategory, FrameworkRequirement } from "./types";
 import { makeRequirementFactory } from "./types";
 
 const mkReq = makeRequirementFactory("nis2-req");
@@ -617,6 +617,140 @@ const NIS2_MODULE_REF: Record<string, string> = {
   "10.2": "asset",
   "12.2": "bsi_registration",
 };
+
+/**
+ * Each requirement's place in Czech law, the Czech counterpart of `legalRef`. Joined by each
+ * requirement's `cirReference` through NÚKIB's crosswalk tables from CIR 2024/2690 to the two
+ * decrees ("Příloha č. 1 Mapovací tabulka", version 1.0: decree 410 of 20.03.2026, decree 409 of
+ * 24.02.2026, on portal.nukib.gov.cz), and by hand against the official e-Sbírka text where a
+ * requirement has no CIR reference or NÚKIB links none. The decree sections follow the measure
+ * list of § 14 of the Act, so `act` names § 14 only where a regime has no decree section for the
+ * measure (risk management in the lower regime), and otherwise the sections where the Act sets
+ * the duty itself (scope, registration, reporting, informing users, suppliers).
+ *
+ * Kept out of the database: every reader has the requirement's code and looks it up here.
+ */
+const NIS2_CZECH_REF: Readonly<Record<string, CzechRef>> = {
+  "1.1": {
+    act: null,
+    lower: "§ 4 písm. b); § 5 odst. 2 písm. a), odst. 3",
+    higher: "§ 4 odst. 1 písm. a); § 10 odst. 3 písm. a), odst. 5",
+  },
+  "1.2": {
+    act: null,
+    lower: "§ 3 odst. 3; § 4 písm. a); § 5 odst. 1",
+    higher: "§ 3 písm. h); § 4 odst. 1, 4; § 5 odst. 1; § 6 odst. 5; § 9 odst. 1; § 10 odst. 2, 4; § 13 odst. 2",
+  },
+  "1.3": { act: null, lower: "§ 4 písm. c)", higher: "§ 4 odst. 1 písm. d), n)" },
+  // No decree asks for an acknowledgement. § 58 lets NÚKIB bar a member of the statutory body of a
+  // higher-regime provider; liability itself is civil and company law, outside this Act.
+  "1.4": { act: "§ 58", lower: null, higher: null },
+  "2.1": {
+    act: "§ 14 odst. 1 písm. a) bod 6, odst. 2 písm. d)",
+    lower: "§ 3 odst. 2",
+    higher: "§ 6 odst. 2; § 8 odst. 1, 3",
+  },
+  "2.2": { act: "§ 12", lower: "§ 3 odst. 4", higher: "§ 7 písm. b), d); § 26 odst. 1" },
+  // Decree 410 has no risk section; NÚKIB's lower-regime manual names the overview of measures
+  // (§ 3 odst. 2) as what serves risk management there.
+  "2.3": {
+    act: "§ 14 odst. 1 písm. a) bod 6, odst. 2 písm. d)",
+    lower: "§ 3 odst. 2",
+    higher: "§ 3 písm. b); § 8 odst. 1, 2",
+  },
+  "2.4": {
+    act: null,
+    lower: "§ 3 odst. 3",
+    higher: "§ 3 písm. b), d), g), h); § 6 odst. 3; § 8 odst. 1",
+  },
+  "3.1": { act: null, lower: "§ 6 písm. b); § 10", higher: "§ 14 odst. 1; § 15 písm. b), e)" },
+  "3.2": {
+    act: null,
+    lower: "§ 9 odst. 1 až 3; § 10 písm. a) až c)",
+    higher: "§ 14 odst. 1; § 17 písm. d); § 21 odst. 1, 2; § 22 odst. 1 až 3, 5, 6; § 23 odst. 1, 2",
+  },
+  "3.3": {
+    act: "§§ 15 až 17",
+    lower: "§ 10 písm. b), e), f); § 14",
+    higher: "§ 14 odst. 1 písm. j), m)",
+  },
+  "3.4": { act: null, lower: "§ 10 písm. d), e)", higher: "§ 14 odst. 1; § 15 písm. e)" },
+  "3.5": { act: "§ 19", lower: "§ 10 písm. f)", higher: "§ 14 odst. 1; § 23 odst. 3" },
+  "4.1": { act: null, lower: "§ 4 písm. f); § 6 písm. a)", higher: "§ 15 písm. a) až c)" },
+  "4.2": { act: null, lower: "§ 6 písm. b)", higher: "§ 15 písm. a) až e)" },
+  "4.3": { act: null, lower: "§ 6 písm. a), b)", higher: "§ 15 písm. e)" },
+  "4.4": { act: null, lower: "§ 6 písm. c)", higher: "§ 15 písm. e); § 26 odst. 1 až 3" },
+  // Decree 410 asks for no test of the continuity plans.
+  "4.5": { act: null, lower: null, higher: "§ 15 písm. e); § 26 odst. 3" },
+  "5.1": { act: "§ 13 odst. 5", lower: "§ 3 odst. 5", higher: "§ 9 odst. 1" },
+  "5.2": {
+    act: "§ 13 odst. 5",
+    lower: "§ 3 odst. 5; příloha č. 2",
+    higher: "§ 9 odst. 1 písm. f), odst. 2 písm. b); příloha č. 5",
+  },
+  "5.3": {
+    act: null,
+    lower: "§ 3 odst. 5",
+    higher: "§ 9 odst. 1 písm. c), g), odst. 2 písm. a), c), d)",
+  },
+  "5.4": { act: null, lower: "příloha č. 2 písm. k)", higher: "příloha č. 5 písm. i) bod 1" },
+  "6.1": { act: null, lower: "§ 3 odst. 6", higher: "§ 6 odst. 3; § 12 odst. 1, 2" },
+  "6.2": {
+    act: null,
+    lower: "§ 3 odst. 6; § 6 písm. c)",
+    higher: "§ 6 odst. 3; § 9 odst. 1; § 12 odst. 1; § 26 odst. 2 až 4",
+  },
+  "6.3": {
+    act: null,
+    lower: "§ 12 písm. a), c)",
+    higher: "§ 6 odst. 1, 3; § 11 odst. 3; § 24 odst. 1, 3 až 5",
+  },
+  "6.4": {
+    act: null,
+    lower: "§ 3 odst. 2; § 12 písm. a), b)",
+    higher: "§ 8 odst. 1; § 11 odst. 2; § 24 odst. 1, 2",
+  },
+  // Decree 410 has no change management section.
+  "6.5": { act: null, lower: null, higher: "§ 11 odst. 1, 2" },
+  "7.1": { act: null, lower: "§ 3 odst. 2", higher: "§ 3 písm. f); § 24 odst. 1" },
+  "7.2": { act: null, lower: "§ 4 písm. d)", higher: "§ 3 písm. e); § 4 odst. 2; § 16 odst. 1 až 6" },
+  "7.3": {
+    act: null,
+    lower: "§ 3 odst. 2; § 4 písm. d)",
+    higher: "§ 3 písm. f), g); § 4 odst. 2; § 8 odst. 1",
+  },
+  "7.4": { act: null, lower: "§ 4 písm. d)", higher: "§ 4 odst. 2; § 16 odst. 3" },
+  "8.1": {
+    act: null,
+    lower: "§ 3 odst. 3; § 5 odst. 1",
+    higher: "§ 3 písm. d); § 4 odst. 1; § 6 odst. 1, 5; § 9 odst. 1; § 10 odst. 2, 4",
+  },
+  "8.2": { act: null, lower: "§ 4 písm. a); § 5 odst. 1, 2", higher: "§ 4 odst. 1; § 10 odst. 1 až 4" },
+  "8.3": { act: null, lower: "§ 4 písm. a); § 5 odst. 1, 2", higher: "§ 6 odst. 3; § 10 odst. 2 až 4" },
+  "8.4": { act: null, lower: "§ 5 odst. 1, 2", higher: "§ 10 odst. 2 až 4" },
+  "9.1": { act: null, lower: "§ 13 odst. 1", higher: "§ 6 odst. 3; § 25 odst. 1" },
+  "9.2": { act: null, lower: "§ 13 odst. 1 písm. a)", higher: "§ 25 odst. 1; § 26 odst. 3 písm. c)" },
+  "9.3": { act: null, lower: "§ 13 odst. 1 písm. b)", higher: "§ 6 odst. 1; § 25 odst. 3" },
+  "10.1": { act: null, lower: "§ 7 odst. 1", higher: "§ 6 odst. 1, 3; § 13 odst. 1, 2" },
+  "10.2": { act: null, lower: "§ 7 odst. 1", higher: "§ 6 odst. 1; § 13 odst. 2; § 22 odst. 3" },
+  "10.3": { act: null, lower: "§ 7 odst. 1", higher: "§ 4 odst. 1; § 6 odst. 1; § 13 odst. 2" },
+  "10.4": { act: null, lower: "§ 7 odst. 1", higher: "§ 13 odst. 2" },
+  "11.1": { act: null, lower: "§ 8 odst. 2", higher: "§ 19 odst. 2" },
+  "11.2": { act: null, lower: "§ 13 odst. 2", higher: "§ 25 odst. 2" },
+  "11.3": {
+    act: null,
+    lower: "§ 7 odst. 1; § 8 odst. 1, 4, 5; § 11 písm. d)",
+    higher: "§ 6 odst. 3; § 13 odst. 1, 2; § 18 písm. f); § 19 odst. 1, 4 až 6",
+  },
+  // Scope and registration sit in the Act alone; decree 408/2025 Sb. lists the regulated services.
+  "12.1": { act: "§§ 4, 5, 7 a 8", lower: null, higher: null },
+  "12.2": { act: "§ 6 odst. 1", lower: null, higher: null },
+  "12.3": { act: "§ 9 odst. 1; § 11", lower: null, higher: null },
+  "12.4": { act: null, lower: "§ 3 odst. 2 písm. b), c)", higher: "§ 3 písm. d); § 6 odst. 1" },
+};
+
+/** The requirement's place in Czech law, or null for a code that is not a NIS 2 requirement. */
+export const getNis2CzechRef = (code: string): CzechRef | null => NIS2_CZECH_REF[code] ?? null;
 
 export function getNis2RequirementsForCategory(slug: string): FrameworkRequirement[] {
   const builder = REQUIREMENTS_BY_SLUG[slug];

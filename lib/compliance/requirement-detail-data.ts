@@ -1,3 +1,4 @@
+import { getNis2CzechRef } from "@nisd2/grc-data-model/frameworks";
 import { getLocale, getTranslations } from "next-intl/server";
 import type { RequirementDetailProps } from "@/components/compliance/RequirementDetail";
 import type { GuidanceFile, RequirementGuidanceData } from "@/lib/ai/guidance-types";
@@ -129,7 +130,9 @@ async function loadGuidance(
     const file: GuidanceFile =
       locale === "de"
         ? (await import("@/data/guidance/de.json")).default
-        : (await import("@/data/guidance/en.json")).default;
+        : locale === "cs"
+          ? (await import("@/data/guidance/cs.json")).default
+          : (await import("@/data/guidance/en.json")).default;
     return file[code] ?? null;
   } catch {
     return null;
@@ -257,6 +260,7 @@ export async function loadRequirementDetail(
       frameworkCode: req.category.framework.code,
       referenceUrl: req.category.referenceUrl,
       nationalUrl: req.category.nationalUrl,
+      czechRef: req.category.framework.code === "nis2" ? getNis2CzechRef(req.code) : null,
     },
     status,
     categoryName: tc(`categories.${req.category.code}.name`),

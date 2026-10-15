@@ -30,11 +30,21 @@
       "internal_audit": "Interní audity",
       "improvement_item": "Zlepšení",
       "bsi_registration": "Registrace u NÚKIB",
-      "bsi_incident_report": "Hlášení incidentů"
+      "bsi_incident_report": "Hlášení incidentů",
+      "vulnerability": "Zranitelnosti",
+      "team": "Tým a role"
     },
     "moduleRef": {
       "confirmCompliance": "Potvrdit shodu",
-      "noRecords": "Zatím žádné záznamy. Nejprve přidejte data v daném modulu."
+      "noRecords": "Zatím žádné záznamy. Nejprve přidejte data v daném modulu.",
+      "noRoute": "Pro modul „{module}“ není napojena žádná stránka. Nahlaste to prosím jako chybu."
+    },
+    "evidenceTypes": {
+      "document": "Očekává se zde dokument: samotná směrnice, koncepce nebo plán.",
+      "proof": "Očekává se zde doklad, že se to skutečně stalo: zápis, potvrzení, úřední oznámení.",
+      "training": "Očekává se zde záznam o školení: prezenční listina, certifikát nebo potvrzení o účasti.",
+      "technical": "Očekává se zde technický doklad: konfigurace, výsledek skenu, snímek obrazovky nebo export.",
+      "sign-off": "Dokladem je samotné schválení. Přesto můžete přiložit podklady, třeba zápis z jednání vedení."
     }
   },
   "status": {

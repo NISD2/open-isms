@@ -1,0 +1,1236 @@
+{
+  "1.1": {
+    "summary": "Vrcholné vedení firmy musí prokazatelně absolvovat školení v kybernetické bezpečnosti, nejprve vstupní a potom pravidelná. Obsahem jsou povinnosti vedení a bezpečnostní politika (vyhláška č. 410/2025 Sb., § 4 písm. b) a § 5 odst. 2 písm. a)); v režimu vyšších povinností navíc systém řízení bezpečnosti informací, řízení rizik a řízení kontinuity činností (vyhláška č. 409/2025 Sb., § 4 odst. 1 písm. a) a § 10 odst. 3 písm. a)). Minimální délku ani pevný interval vyhlášky nestanoví: obojí určíte sami a zapíšete proč. Hotovo je, když máte záznamy, že se zúčastnili všichni, co se probíralo, kdo školil a kdy.",
+    "applicability": "Platí pro každého poskytovatele regulované služby v obou režimech. Školení absolvuje vrcholné vedení, tedy statutární orgán nebo jiná osoba či skupina osob v obdobném řídícím postavení (vyhláška č. 410/2025 Sb., § 4; vyhláška č. 409/2025 Sb., § 4 odst. 1). Firma bez představenstva školí jednatele nebo jiné osoby, které o firmě rozhodují.",
+    "quickTip": "Napište dnes vedení a domluvte termín školení. Bezplatnou možností je Kurz pro vrcholné vedení od NÚKIB na osveta.nukib.gov.cz, ve verzi pro nižší i vyšší režim; jeho certifikát NÚKIB uznává jako doklad o splnění povinnosti poučení vedení.",
+    "implementationSteps": "Vyberte kvalifikovaného školitele, který zná aktuální kybernetické hrozby a zákon č. 264/2025 Sb. s vyhláškami č. 409/2025 Sb. a č. 410/2025 Sb. Bezplatně lze využít Kurz pro vrcholné vedení od NÚKIB (osveta.nukib.gov.cz).\nNaplánujte školení pro všechny členy vedení, nejlépe společně.\nObsah podle vyhlášek: povinnosti vedení a bezpečnostní politika firmy; ve vyšším režimu také systém řízení bezpečnosti informací, řízení rizik a řízení kontinuity činností. Doplňte aktuální hrozby, základy bezpečnosti a odpovědnost členů statutárního orgánu.\nVeďte přehled o školení a seznam školených osob (vyhláška č. 410/2025 Sb., § 5 odst. 3; vyhláška č. 409/2025 Sb., § 10 odst. 5): datum, délka, témata, školitel a podpisy všech účastníků.\nUrčete, jak často školení opakujete, a zapište proč. Platforma navrhuje tři roky; vyhláška 410 říká jen „formou vstupních a pravidelných školení“ (§ 5 odst. 2 písm. a)) a interval nestanoví, stejně jako vyhláška 409.",
+    "evidenceExample": "Záznamy o školení nebo certifikáty: jména všech členů vedení, jméno a kvalifikace školitele, probraná témata (například povinnosti vedení a bezpečnostní politika), délka a datum. U Kurzu pro vrcholné vedení od NÚKIB je dokladem certifikát absolventa.",
+    "fields": {
+      "managementTrainingProvider": {
+        "label": "Poskytovatel školení vedení",
+        "meaning": "Jméno osoby nebo název firmy, která vedení školila v kybernetické bezpečnosti.",
+        "example": "KyberŠkola Příklad s.r.o.",
+        "whereToFind": "Podívejte se na fakturu, smlouvu nebo certifikát od poskytovatele, nebo se zeptejte personálního oddělení. U kurzu NÚKIB uveďte NÚKIB."
+      },
+      "lastManagementTraining": {
+        "label": "Poslední školení vedení",
+        "meaning": "Datum, kdy vedení naposledy absolvovalo povinné školení v kybernetické bezpečnosti.",
+        "example": "2024-03-15",
+        "whereToFind": "V záznamech o školení, na certifikátech nebo v pozvánce v kalendáři; případně se zeptejte členů vedení nebo personálního oddělení."
+      }
+    }
+  },
+  "1.2": {
+    "summary": "Určete konkrétní lidi pro bezpečnostní role. V režimu nižších povinností vrcholné vedení určí osobu pověřenou kybernetickou bezpečností (vyhláška č. 410/2025 Sb., § 4 písm. a)). V režimu vyšších povinností určí čtyři bezpečnostní role: manažera kybernetické bezpečnosti, architekta kybernetické bezpečnosti, garanta aktiva a auditora kybernetické bezpečnosti (vyhláška č. 409/2025 Sb., § 4 odst. 4 a § 5). Hotovo je, když vedení přiřazení na stránce „Tým“ v platformě zkontroluje a schválí.",
+    "applicability": "Platí pro každého poskytovatele regulované služby; které role potřebujete, určuje váš režim, který ukazuje Portál NÚKIB v Přehledu podání. Menší firma může role svěřit stávajícím lidem, například vedoucímu IT. Ve vyšším režimu ale manažer kybernetické bezpečnosti nesmí odpovídat za provoz technických aktiv regulované služby a auditor nesmí zastávat jinou bezpečnostní roli (vyhláška č. 409/2025 Sb., § 5 odst. 1 písm. c) a odst. 4 písm. c)).",
+    "quickTip": "Přihlaste se do platformy a na stránce „Tým“ začněte přiřazovat lidi k rolím.",
+    "implementationSteps": "Sepište role. Nižší režim: osoba pověřená kybernetickou bezpečností, která bez zbytečného odkladu absolvuje odborné školení, nebo prokáže odbornou znalost (vyhláška č. 410/2025 Sb., § 4 písm. a)). Vyšší režim: manažer kybernetické bezpečnosti, architekt kybernetické bezpečnosti, garant aktiva a auditor kybernetické bezpečnosti; manažer, architekt a auditor musí být vyškoleni a mít alespoň 3 roky praxe (vyhláška č. 409/2025 Sb., § 4 odst. 4 a § 5). Vedoucí reakce na incidenty, správce rizik a koordinátor shody jsou role platformy; ve vyšším režimu ale odpovědnost za zvládání incidentů přidělit musíte (vyhláška 409, § 14 odst. 1 písm. c)).\nKe každé roli určete hlavní osobu a zástupce. Ve vyšším režimu je zastupitelnost povinná u manažera a architekta kybernetické bezpečnosti (vyhláška 409, § 4 odst. 5); u ostatních rolí je zástupce osvědčená praxe.\nPřiřazení proveďte na stránce „Tým“ v platformě. Organizační strukturu načte automaticky.\nRole určuje vrcholné vedení (vyhláška 410, § 4 písm. a); vyhláška 409, § 4 odst. 4): nechte vedení přiřazení zkontrolovat a potvrdit.",
+    "evidenceExample": "Snímek obrazovky nebo export ze stránky „Tým“, kde má každá bezpečnostní role jmenovitě určenou osobu a zástupce, a záznam nebo e-mail vedení, které přiřazení potvrdilo.",
+    "fields": {}
+  },
+  "1.3": {
+    "summary": "Vyčleňte na kybernetickou bezpečnost vlastní roční rozpočet a nechte ho schválit vedením. Hotovo je, když máte částku zapsanou a záznam, kdy ji vedení schválilo.",
+    "applicability": "Platí pro každého poskytovatele regulované služby bez ohledu na velikost. Vedení musí zajistit zdroje potřebné pro kybernetickou bezpečnost: v režimu nižších povinností „v souladu s přehledem bezpečnostních opatření“ (vyhláška č. 410/2025 Sb., § 4 písm. c)), v režimu vyšších povinností pro systém řízení bezpečnosti informací a pro bezpečnostní role „včetně rozpočtových prostředků“ (vyhláška č. 409/2025 Sb., § 4 odst. 1 písm. d) a n)). Samostatnou rozpočtovou položku vyhlášky nepožadují; je to nejjednodušší doklad.",
+    "quickTip": "Projděte hodnocení rizik a sečtěte, kolik stojí opatření, pro která jste se rozhodli. To je váš rozpočet. Zákon ani vyhlášky částku nestanoví.",
+    "implementationSteps": "Odhadněte potřeby kybernetické bezpečnosti: čas lidí, softwarové nástroje, školení, audity a rezervu na řešení incidentů.\nČástku odvoďte z hodnocení rizik: kolik stojí opatření, která jste zvolili. Ani NIS 2, ani zákon č. 264/2025 Sb. a vyhlášky č. 409/2025 Sb. a č. 410/2025 Sb. nestanoví minimum ani podíl z rozpočtu na IT. Ve vyšším režimu obsahuje plán zvládání rizik předpokládané lidské, finanční a technické zdroje (vyhláška 409, § 8 odst. 1 písm. g) bod 4).\nZapište ji jako samostatnou položku do ročního rozpočtu.\nPředložte rozpočet vedení spolu s hodnocením rizik.\nNechte vedení rozpočet formálně schválit a zapište datum.\nPokud rozpočet nestačí, zapište, co odkládáte a proč: v nižším režimu do přehledu bezpečnostních opatření s termínem a prioritou, nebo s odůvodněním nezavedení (vyhláška 410, § 3 odst. 2 písm. a)); ve vyšším režimu do plánu zvládání rizik (vyhláška 409, § 8 odst. 1 písm. g)).",
+    "evidenceExample": "Rozpočtový plán se samostatnou položkou na kybernetickou bezpečnost a podepsaný souhrn nebo zápis z jednání vedení, který dokládá, že ho vedení projednalo a schválilo.",
+    "fields": {
+      "annualSecurityBudget": {
+        "label": "Roční rozpočet na bezpečnost",
+        "meaning": "Celková částka, kterou firma plánuje za rok vydat na kybernetickou bezpečnost, vedená odděleně od ostatních nákladů na IT.",
+        "example": "850 000 Kč",
+        "whereToFind": "V ročním rozpočtovém plánu finančního oddělení, nebo požádejte vedoucího IT o realistický odhad podle velikosti firmy a rizik."
+      },
+      "budgetApprovalDate": {
+        "label": "Datum schválení rozpočtu",
+        "meaning": "Přesné datum, kdy vedení rozpočet na kybernetickou bezpečnost oficiálně schválilo.",
+        "example": "2024-12-15",
+        "whereToFind": "V zápisu z jednání vedení nebo v souhrnu schválení z posledního plánování."
+      }
+    }
+  },
+  "1.4": {
+    "summary": "Zákon č. 264/2025 Sb. ani vyhlášky č. 409/2025 Sb. a č. 410/2025 Sb. nevyžadují, aby vedení svou odpovědnost potvrzovalo podpisem. Odpovědnost členů statutárního orgánu upravují obecné předpisy: funkci vykonávají s péčí řádného hospodáře (§ 159 občanského zákoníku, §§ 51 až 53 zákona o obchodních korporacích) a v soudním sporu ji musí prokázat sami (§ 52 odst. 2 zákona o obchodních korporacích). U poskytovatele v režimu vyšších povinností může NÚKIB členovi statutárního orgánu, který opakovaně nebo závažně porušil povinnosti a zmařil splnění rozhodnutí o odstranění nedostatků, zakázat výkon funkce, nejméně na 6 měsíců (§ 58 zákona). Platforma nechá každého člena jednotlivě potvrdit, že své povinnosti a odpovědnost zná; je to dobrovolný doklad. Hotovo je, když potvrdí všichni současní členové.",
+    "applicability": "Zákon to nevyžaduje. Platforma to doporučuje každému členovi statutárního orgánu poskytovatele regulované služby; ostatní zaměstnanci to přeskočí. Zákaz výkonu funkce podle § 58 zákona č. 264/2025 Sb. se týká jen poskytovatelů v režimu vyšších povinností.",
+    "quickTip": "Sepište všechny současné členy statutárního orgánu a ať se první z nich přihlásí do platformy a potvrzení podepíše.",
+    "implementationSteps": "Sepište všechny současné členy statutárního orgánu (jednatele, členy představenstva).\nAť se každý přihlásí do platformy a přečte si informace o odpovědnosti.\nAť každý jednotlivě potvrdí, že zná své povinnosti podle vyhlášky č. 410/2025 Sb., § 4, nebo vyhlášky č. 409/2025 Sb., § 4 (podle režimu) a povinnost péče řádného hospodáře (§ 159 občanského zákoníku).\nZkontrolujte v platformě, že potvrdili všichni.\nNastavte si připomínku a potvrzení zopakujte, když se složení vedení změní.",
+    "evidenceExample": "Snímek obrazovky nebo záznam z platformy se jménem každého člena vedení, datem a potvrzením, že zná své povinnosti a odpovědnost v kybernetické bezpečnosti.",
+    "fields": {
+      "liabilityAcknowledged": {
+        "label": "Odpovědnost potvrzena",
+        "meaning": "Potvrzuje, že člen vedení si přečetl, jaké má povinnosti a odpovědnost v kybernetické bezpečnosti, a bere je na vědomí.",
+        "example": "true",
+        "whereToFind": "Člen vedení se přihlásí do platformy, přečte si informace o odpovědnosti a přepne volbu na „ano“."
+      }
+    }
+  },
+  "2.1": {
+    "summary": "Sepište jednoduchou metodiku hodnocení kybernetických rizik: stupnice pravděpodobnosti a dopadu a pravidla, kdy je riziko přijatelné bez dalších opatření. Hotovo je, když je metodika sepsaná, schválená vedením a odkazuje na ni bezpečnostní politika.",
+    "applicability": "Platí pro každého poskytovatele regulované služby: řízení rizik je bezpečnostní opatření v obou režimech (§ 14 odst. 1 písm. a) bod 6 a odst. 2 písm. d) zákona č. 264/2025 Sb.). V režimu vyšších povinností je metodika povinná včetně kritérií pro akceptovatelnost rizik (vyhláška č. 409/2025 Sb., § 8 odst. 1 písm. a)). Vyhláška č. 410/2025 Sb. pro nižší režim metodiku nepředepisuje; podle manuálu NÚKIB tam roli řízení rizik plní přehled bezpečnostních opatření (§ 3 odst. 2). Jednoduchá metodika je i tam osvědčená praxe.",
+    "quickTip": "Začněte náčrtem stupnice pravděpodobnosti (od „ojediněle“ po „téměř jistě“) a dopadu (od „drobné náklady“ po „zastavení provozu“). Platforma i vyhláška č. 409/2025 Sb. (příloha č. 4) pracují se čtyřmi úrovněmi.",
+    "implementationSteps": "Sepište krátký dokument s metodikou hodnocení rizik: stupnice, pravidla akceptace a kdo rizika řeší. Ve vyšším režimu do něj patří i určování hrozeb a zranitelností (vyhláška č. 409/2025 Sb., § 8 odst. 1 písm. b) a příloha č. 3) a jednoznačná funkce pro určení rizika (příloha č. 4 odst. 1).\nPokud metodika v bezpečnostní politice ještě není, doplňte ji tam.\nNechte celé vedení oba dokumenty zkontrolovat a schválit.\nSeznamte s politikou všechny zaměstnance a nechte si to potvrdit.\nStanovte, jak často rizika přezkoumáváte. Ve vyšším režimu alespoň jednou ročně a při významných změnách (vyhláška 409, § 8 odst. 1 písm. c)). V nižším režimu vyhláška interval nestanoví, přehled bezpečnostních opatření ale aktualizujete alespoň jednou ročně (vyhláška č. 410/2025 Sb., § 3 odst. 2 písm. b)).",
+    "evidenceExample": "Dokument s metodikou hodnocení rizik, definovanými stupnicemi pravděpodobnosti a dopadu, kritérii akceptace (například nejvyšší přijatelné skóre) a podpisy vedení, které ho schválilo.",
+    "fields": {
+      "methodologyName": {
+        "label": "Název metodiky rizik",
+        "meaning": "Krátký výstižný název postupu, kterým firma hodnotí rizika.",
+        "example": "Matice rizik Příklad s.r.o.",
+        "whereToFind": "Zvolte ho sami, například podle názvu firmy; schválení proberte s vedením."
+      },
+      "likelihoodScale": {
+        "label": "Stupnice pravděpodobnosti (úrovně s názvy a popisy)",
+        "meaning": "Tabulka nebo seznam úrovní, jak pravděpodobně riziko nastane, obvykle 3 až 5 úrovní od nejméně po nejvíce pravděpodobné. Platforma používá čtyři úrovně německé metodiky BSI-Standard 200-3. Vyhláška č. 409/2025 Sb. má pro hrozby stejná časová pásma s úrovněmi Nízká, Střední, Vysoká a Kritická (příloha č. 4, tab. č. 1). Ve vyšším režimu smíte jinou metodu použít, pokud zajistí stejnou nebo vyšší úroveň a hrozba a zranitelnost zůstanou rozlišitelné (vyhláška 409, § 8 odst. 3 a příloha č. 4 odst. 5).",
+        "example": "BSI-Standard 200-3 (německá metodika):\n1 - Zřídka: nejvýše jednou za 5 let\n2 - Středně často: jednou za 5 let až jednou ročně\n3 - Často: jednou ročně až jednou měsíčně\n4 - Velmi často: několikrát měsíčně",
+        "whereToFind": "Proberte to s vedoucím IT nebo bezpečnosti; vyjděte z jednoduchých šablon nebo ze stávajících postupů."
+      },
+      "impactScale": {
+        "label": "Stupnice dopadu (úrovně s názvy a popisy)",
+        "meaning": "Tabulka nebo seznam úrovní, jak velkou škodu by riziko způsobilo, kdyby nastalo: finanční, provozní i na dobrém jménu. Ve vyšším režimu vstupuje dopad do rizika jako hodnota aktiva podle přílohy č. 1 vyhlášky č. 409/2025 Sb. (příloha č. 4 odst. 4), na stupnici alespoň o čtyřech úrovních Nízká, Střední, Vysoká a Kritická; u primárních aktiv posuzujete například osobní údaje, finanční ztráty, dobré jméno nebo bezpečnost a zdraví osob (příloha č. 1, tab. č. 4).",
+        "example": "BSI-Standard 200-3 (německá metodika):\n1 - Zanedbatelný: škoda je malá a lze ji zanedbat\n2 - Omezený: škoda je omezená a zvládnutelná\n3 - Značný: škoda může být značná\n4 - Ohrožující existenci organizace: škoda může dosáhnout existenčně ohrožujícího, katastrofálního rozsahu",
+        "whereToFind": "Proberte s vedoucími oddělení (finance, provoz), jaké dopady jsou pro vaši firmu reálné; projděte i minulé incidenty."
+      },
+      "acceptanceThreshold": {
+        "label": "Hranice akceptovatelnosti rizika (nejvyšší skóre bez opatření)",
+        "meaning": "Nejvyšší skóre rizika (obvykle pravděpodobnost krát dopad), které je firma ochotná přijmout bez plánu opatření. Ve vyšším režimu jsou kritéria akceptovatelnosti povinná (vyhláška č. 409/2025 Sb., § 8 odst. 1 písm. a)) a riziko nad hranicí musíte snížit nebo odstranit vhodnými opatřeními (příloha č. 4 odst. 6).",
+        "example": "12",
+        "whereToFind": "Zeptejte se vedení, jakou míru rizika firma snese; vyjděte z velikosti firmy a odvětví, například nízkou hranici u firem s citlivými financemi."
+      },
+      "otIcsCoverage": {
+        "label": "Pokrytí OT/ICS (metodika zahrnuje provozní technologie)",
+        "meaning": "Zaškrtněte, pokud metodika zahrnuje i provozní technologie, například výrobní stroje nebo průmyslové řídicí systémy, nejen kancelářské IT. Ve vyšším režimu je zabezpečení průmyslových a řídicích technických aktiv samostatným bezpečnostním opatřením (§ 14 odst. 1 písm. b) bod 11 zákona č. 264/2025 Sb.).",
+        "example": "zaškrtnuto",
+        "whereToFind": "Zeptejte se provozu nebo výroby; pokud nemáte továrny, provozovny ani speciální stroje, nechte pole nezaškrtnuté."
+      }
+    }
+  },
+  "2.2": {
+    "summary": "Sepište aktiva firmy, vymezte rozsah řízení kybernetické bezpečnosti a aktiva ohodnoťte. Podle § 12 zákona č. 264/2025 Sb. určíte všechna primární aktiva (zpracovávané informace a poskytované služby), posoudíte, která souvisí s regulovanou službou, a k nim určíte podpůrná aktiva, například zaměstnance, dodavatele, techniku a budovy. Evidujete aktiva ve stanoveném rozsahu i vyjmutá primární aktiva s důvodem vyjmutí. Hotovo je, když máte úplný a aktuální seznam, počty ve formuláři s ním souhlasí a víte, čím ho udržujete.",
+    "applicability": "Platí pro každého poskytovatele regulované služby v obou režimech (§ 12 zákona č. 264/2025 Sb.). V režimu vyšších povinností k tomu patří metodika pro určování a hodnocení aktiv, evidence garantů aktiv a vazeb mezi aktivy (vyhláška č. 409/2025 Sb., § 7). V režimu nižších povinností vyhláška č. 410/2025 Sb. hodnocení aktiv nepředepisuje; stanovíte pravidla pro používání technických aktiv a manipulaci s nimi (§ 3 odst. 4).",
+    "quickTip": "Začněte otázkou, jaké informace firma zpracovává a jaké služby poskytuje. Pak požádejte IT o seznam všech počítačů, serverů a aplikací, na kterých běží.",
+    "implementationSteps": "Určete všechna primární aktiva: informace, které zpracováváte, a služby, které poskytujete. Požádejte vedoucího IT o seznam podpůrných aktiv: hardware, software, data a další techniku.\nVymezte stanovený rozsah: která primární aktiva souvisí s regulovanou službou, a k nim určete podpůrná aktiva (§ 12 odst. 2 zákona č. 264/2025 Sb.). Vyjmutá primární aktiva zapište i s důvodem vyjmutí (§ 12 odst. 3). Dokud aktivum neposoudíte, patří do rozsahu (§ 12 odst. 4).\nOhodnoťte aktiva podle citlivosti. Ve vyšším režimu hodnotíte primární aktiva z hlediska důvěrnosti, integrity a dostupnosti na stupnici alespoň o čtyřech úrovních: Nízká, Střední, Vysoká, Kritická (vyhláška č. 409/2025 Sb., § 7 písm. d) a příloha č. 1); podpůrná aktiva hodnotíte podle vazeb na primární (§ 7 písm. g)). V nižším režimu stačí jednodušší členění, například normální, vysoká a velmi vysoká potřeba ochrany.\nZvolte nástroj pro evidenci a aktualizaci seznamu, například tabulku nebo software. Ve vyšším režimu do něj zapište i garanty aktiv (vyhláška 409, § 7 písm. c)).\nVše spočítejte a nechte vedení soupis zkontrolovat a schválit. Rozsah pravidelně přezkoumávejte a aktualizujte (§ 12 odst. 5 zákona).",
+    "evidenceExample": "Tabulka nebo výstup se všemi aktivy: rozdělení na primární a podpůrná, garant nebo vlastník, umístění, úroveň (například Nízká až Kritická), zda patří do stanoveného rozsahu (u vyjmutých primárních aktiv důvod) a celkové počty, které souhlasí s údaji ve formuláři.",
+    "fields": {
+      "locationCount": {
+        "label": "Počet lokalit",
+        "meaning": "Na kolika různých fyzických nebo virtuálních místech vaše aktiva jsou, například kanceláře, datová centra nebo cloudové regiony.",
+        "example": "5",
+        "whereToFind": "Zeptejte se IT nebo správy budov: spočítejte hlavní kancelář, pobočky, sklady a cloudové poskytovatele."
+      },
+      "criticalSystemsCount": {
+        "label": "Počet kritických systémů",
+        "meaning": "Počet klíčových systémů, které nesmějí selhat, například produkční servery nebo zákaznické databáze.",
+        "example": "12",
+        "whereToFind": "Ví to IT: jsou to systémy, jejichž výpadek poškodí tržby nebo provoz."
+      },
+      "totalAssets": {
+        "label": "Celkem aktiv",
+        "meaning": "Celkový počet všech položek v soupisu, včetně hardwaru, softwaru a úložišť dat.",
+        "example": "450",
+        "whereToFind": "Sečtěte celý seznam z tabulky nebo nástroje, ve kterém IT vede evidenci."
+      },
+      "criticalAssets": {
+        "label": "Kritická aktiva",
+        "meaning": "Počet aktiv s vysokou nebo nejvyšší úrovní, protože obsahují citlivá data nebo jsou pro firmu klíčová (ve vyšším režimu úroveň Vysoká nebo Kritická).",
+        "example": "75",
+        "whereToFind": "Projděte ohodnocený soupis a spočítejte položky s vysokou nebo nejvyšší úrovní."
+      },
+      "inventoryTool": {
+        "label": "Nástroj pro evidenci aktiv",
+        "meaning": "Název softwaru, tabulky nebo postupu, kterým seznam aktiv vedete a aktualizujete.",
+        "example": "Sdílený sešit Microsoft Excel",
+        "whereToFind": "Zeptejte se IT, v čem dnes eviduje počítače, softwarové licence a podobně."
+      },
+      "classificationLevels": {
+        "label": "Úrovně klasifikace",
+        "meaning": "Kolik úrovní ochrany pro aktiva používáte. Vyhláška č. 409/2025 Sb. (vyšší režim) předepisuje stupnici alespoň o čtyřech úrovních, Nízká, Střední, Vysoká a Kritická, zvlášť pro důvěrnost, integritu a dostupnost; jiný počet úrovní smíte použít, pokud dodržíte jednoznačné vazby na stupnice přílohy (příloha č. 1 odst. 1 a 2). Pro dostupnost příloha uvádí jako příklad: Nízká, výpadek v řádu týdnů se běžně toleruje; Střední, nejvýše přibližně jeden pracovní den; Vysoká, nejvýše několik hodin; Kritická, nedostupnost není přípustná ani v řádu minut. Vyhláška č. 410/2025 Sb. (nižší režim) stupnici nepředepisuje; stačí i tři úrovně německé metodiky BSI-Standard 200-2 (normální, vysoká, velmi vysoká).",
+        "example": "4_levels",
+        "whereToFind": "Podívejte se do bezpečnostní politiky nebo se zeptejte vedoucího IT či bezpečnosti, jak hodnotíte citlivost aktiv."
+      }
+    }
+  },
+  "2.3": {
+    "summary": "Sepište všechna rizika pro bezpečnost informací ve firmě, ohodnoťte je, ke každému určete vlastníka a naplánujte, jak ho zvládnete. Hotovo je, když máte dokument se všemi riziky, jejich hodnocením, vlastníky a plány zvládání a klíčová čísla jste zadali do platformy.",
+    "applicability": "Platí pro každého poskytovatele regulované služby; řízení rizik je bezpečnostní opatření v obou režimech (§ 14 odst. 1 písm. a) bod 6 a odst. 2 písm. d) zákona č. 264/2025 Sb.). V režimu vyšších povinností z registru vychází zpráva o hodnocení rizik a plán zvládání rizik (vyhláška č. 409/2025 Sb., § 8 odst. 1 písm. e) a g)). Vyhláška č. 410/2025 Sb. registr rizik nepředepisuje; podle manuálu NÚKIB tam roli řízení rizik plní přehled bezpečnostních opatření (§ 3 odst. 2) a registr je osvědčená praxe.",
+    "quickTip": "Zeptejte se vedoucího IT nebo bezpečnosti: „Jaká rizika pro naše data, systémy nebo provoz jsme zatím zjistili?“",
+    "implementationSteps": "Sepište klíčová aktiva, například servery, aplikace, databáze a cloudové služby; vyjděte ze soupisu z požadavku 2.2 (Inventář aktiv, rozsah a klasifikace).\nKe každému aktivu určete hrozby a zranitelnosti, například útok hackerů, únik dat nebo selhání hardwaru. Ve vyšším režimu zvažte alespoň kategorie z přílohy č. 3 vyhlášky č. 409/2025 Sb. (§ 8 odst. 1 písm. b)).\nOhodnoťte u každého rizika pravděpodobnost a dopad, určete vlastníka a způsob zvládání: akceptace, redukce, eliminace, vyhnutí se riziku, nebo přenesení či sdílení (vyhláška 409, příloha č. 4 odst. 6). Ve vyšším režimu má plán zvládání rizik sedm náležitostí, mimo jiné odpovědnou osobu, zdroje a termín (§ 8 odst. 1 písm. g)).\nVše dejte do jednoho dokumentu s ID rizik, hodnocením, vlastníky a plány.\nSpočítejte celkový počet rizik, kritická rizika a procento pokrytí a zadejte je do formuláře.",
+    "evidenceExample": "Tabulka nebo dokument, kde má každé riziko jedinečné ID, hodnocení pravděpodobnosti a dopadu, jméno vlastníka a konkrétní plán zvládání s kroky a termíny.",
+    "fields": {
+      "riskTool": {
+        "label": "Nástroj pro řízení rizik",
+        "meaning": "Název softwaru, tabulky nebo postupu, kterým firma rizika sleduje a řídí.",
+        "example": "Registr rizik v Excelu",
+        "whereToFind": "Zeptejte se týmu IT bezpečnosti nebo osoby, která hodnotí rizika, jaký nástroj používá."
+      },
+      "totalRisks": {
+        "label": "Celkem rizik",
+        "meaning": "Celkový počet rizik v registru rizik.",
+        "example": "45",
+        "whereToFind": "Spočítejte řádky v registru rizik."
+      },
+      "criticalRisks": {
+        "label": "Kritická rizika",
+        "meaning": "Počet rizik hodnocených podle vaší stupnice jako vysoká nebo kritická.",
+        "example": "8",
+        "whereToFind": "Spočítejte rizika označená v registru jako vysoká nebo kritická."
+      },
+      "riskCoverage": {
+        "label": "Pokrytí rizik",
+        "meaning": "Procento klíčových aktiv nebo činností, ke kterým máte zdokumentovaná rizika.",
+        "example": "92",
+        "whereToFind": "Počet důležitých aktiv, ke kterým máte rizika, vydělte počtem všech důležitých aktiv a vynásobte 100 (seznam aktiv vám dá IT)."
+      },
+      "riskRegisterUploaded": {
+        "label": "Nahraný registr rizik",
+        "meaning": "Soubor s úplným registrem rizik.",
+        "example": "Tabulka se 45 riziky s ID, hodnocením, vlastníky a plány zvládání.",
+        "whereToFind": "Dokument se všemi riziky, který jste vytvořili. Pokud chcete, nahrajte ho sem."
+      }
+    }
+  },
+  "2.4": {
+    "summary": "Vedení má podepsat bezpečnostní politiku a výslovně přijmout rizika, která firma úplně neodstraní. Vyhlášky výslovné schválení nepožadují. V nižším režimu se vedení prokazatelně seznamuje se stavem plnění opatření v přehledu bezpečnostních opatření (vyhláška č. 410/2025 Sb., § 4 písm. d)); ve vyšším režimu zajistí stanovení bezpečnostní politiky a prokazatelně se seznamuje se zprávou o hodnocení rizik a s plánem zvládání rizik (vyhláška č. 409/2025 Sb., § 4 odst. 1 písm. b) a odst. 2). Podpis je nejjednodušší doklad. Hotovo je, když máte podepsaná schválení a počet přijatých zbytkových rizik.",
+    "applicability": "Platí pro každého poskytovatele regulované služby: bezpečnostní politiku stanoví v obou režimech (vyhláška č. 410/2025 Sb., § 3 odst. 3; vyhláška č. 409/2025 Sb., § 3 písm. d) a § 6 odst. 1). Kritéria pro akceptovatelnost rizik a plán zvládání rizik vyžaduje jen režim vyšších povinností (vyhláška č. 409/2025 Sb., § 8 odst. 1 písm. a) a g)).",
+    "quickTip": "Požádejte vedení, ať na příštím jednání projde a podepíše bezpečnostní politiku.",
+    "implementationSteps": "Sepište srozumitelnou bezpečnostní politiku přiměřenou velikosti firmy a jejím rizikům.\nVšechna zjištěná rizika zapište do jednoduchého seznamu a označte, která po opatřeních přijmete.\nNechte vedení schválit a podepsat politiku i prohlášení o přijetí rizik.\nSpočítejte přijatá (zbytková) rizika a zapište verzi politiky a datum schválení.\nPřezkoumávejte a aktualizujte to ročně a po velkých změnách. Vyhlášky ukládají politiku přezkoumávat pravidelně, bez pevného intervalu (vyhláška č. 410/2025 Sb., § 3 odst. 3 písm. b); vyhláška č. 409/2025 Sb., § 6 odst. 3); ve vyšším režimu určíte osobu odpovědnou za přezkum (vyhláška 409, § 6 odst. 4). Ročně ale musíte ve vyšším režimu hodnotit rizika a účinnost systému řízení bezpečnosti informací (vyhláška 409, § 8 odst. 1 písm. c) a § 3 písm. f)) a v nižším režimu aktualizovat přehled bezpečnostních opatření (vyhláška 410, § 3 odst. 2 písm. b)). Pro poskytovatele, na které se vztahuje nařízení (EU) 2024/2690, je roční přezkum povinný přímo.",
+    "evidenceExample": "Dokument podepsaný vedením, který dokládá, že vedení bezpečnostní politiku a zbytková rizika projednalo, schválilo a přijalo.",
+    "fields": {
+      "riskAppetiteDocumented": {
+        "label": "Dokument o ochotě nést riziko",
+        "meaning": "Pokud máte dokument, který popisuje, jakou míru rizika firma celkově snese, nahrajte ho.",
+        "example": "Rámec ochoty nést riziko v1.0.pdf",
+        "whereToFind": "Zeptejte se správce rizik nebo osoby odpovědné za shodu; pokud dokument ještě nemáte, přeskočte to."
+      },
+      "residualRiskCount": {
+        "label": "Počet zbytkových rizik",
+        "meaning": "Zadejte celkový počet rizik, která firma přijala i po přiměřených opatřeních.",
+        "example": "12",
+        "whereToFind": "Spočítejte je v registru nebo seznamu rizik po posledním přezkumu."
+      },
+      "policyVersion": {
+        "label": "Verze politiky",
+        "meaning": "Zadejte číslo verze aktuální bezpečnostní politiky.",
+        "example": "2.1",
+        "whereToFind": "Na titulní straně nebo v zápatí podepsané bezpečnostní politiky."
+      },
+      "policyApprovalDate": {
+        "label": "Datum schválení politiky",
+        "meaning": "Zadejte datum, kdy vedení tuto verzi politiky schválilo.",
+        "example": "2024-06-15",
+        "whereToFind": "Datum na podepsané politice nebo v zápisu z jednání vedení."
+      }
+    }
+  },
+  "3.1": {
+    "summary": "Sepište plán reakce na kybernetické bezpečnostní incidenty: kdo je v týmu reakce a jak během krize komunikujete. Hotovo je, když je plán zdokumentovaný, tým jmenovaný i se zástupci, kontakty připravené a máte jednoduché postupy pro nejčastější incidenty.",
+    "applicability": "Platí pro každého poskytovatele regulované služby v obou režimech: řešení incidentů je bezpečnostní opatření (§ 14 odst. 1 písm. a) bod 12 a odst. 2 písm. j) zákona č. 264/2025 Sb.). V režimu vyšších povinností vyhláška č. 409/2025 Sb., § 14 odst. 1 předepisuje procesy, odpovědnosti a záznamy o incidentech; v režimu nižších povinností vyhláška č. 410/2025 Sb., § 10 posuzování a hlášení incidentů a § 6 písm. b) odpovědnost konkrétních osob za kontinuitu a obnovu. Když IT zajišťuje dodavatel, povinnost zůstává vaše a požadavky patří do smlouvy s ním (§ 13 odst. 5 zákona).",
+    "quickTip": "Začněte seznamem 5 až 8 lidí z IT, právního oddělení a vedení, kteří při kybernetické nouzi dokážou nechat všeho ostatního.",
+    "implementationSteps": "Určete vedoucího reakce na incidenty (obvykle hlavní osoba pro IT nebo bezpečnost) a jeho zástupce.\nSestavte tým celkem 5 až 10 lidí včetně rolí jako provoz IT, právo, personalistika a zástupce vedení; zapište jména, role, telefony a zástupce.\nZajistěte bezpečný způsob komunikace během incidentu, například šifrovanou aplikaci nebo vyhrazenou telefonní linku.\nSepište eskalaci: kdo komu kdy volá až po vedení, a lhůty hlášení podle § 16 zákona č. 264/2025 Sb.: prvotní hlášení do 24 hodin od zjištění incidentu, u incidentu s významným dopadem oznámení do 72 hodin od zjištění a závěrečná zpráva do 30 dnů od oznámení. Ve vyšším režimu hlásíte NÚKIB, v nižším Národnímu CERT, v obou případech přes Portál NÚKIB (§§ 15 a 16 zákona).\nPřipravte jednoduché postupy pro hlavní rizika, například ransomware, a naplánujte jednou ročně cvičení. Ve vyšším režimu musí testování procesů zvládání incidentů zajistit vedení (vyhláška č. 409/2025 Sb., § 4 odst. 1 písm. i)).",
+    "evidenceExample": "Jeden dokument nebo složka s plánem reakce na incidenty, statutem týmu (role, pravomoci, pravidla aktivace, kontakty) a základními postupy pro klíčové scénáře. Musí z nich být jasné kroky, odpovědnosti a cesta eskalace.",
+    "fields": {
+      "incidentLead": {
+        "label": "Vedoucí reakce na incidenty",
+        "meaning": "Hlavní osoba, která řídí reakci, když se něco stane.",
+        "example": "Petr Svoboda, vedoucí IT",
+        "whereToFind": "Zeptejte se vedoucího IT nebo osoby pověřené kybernetickou bezpečností. Obvykle je to nejzkušenější člověk z bezpečnosti nebo IT."
+      },
+      "irtTeamSize": {
+        "label": "Velikost týmu reakce na incidenty",
+        "meaning": "Celkový počet lidí v týmu reakce na incidenty včetně zástupců.",
+        "example": "8",
+        "whereToFind": "Spočítejte jména na seznamu týmu poté, co vyberete členy z IT, práva, vedení a provozu."
+      },
+      "secureCommsChannel": {
+        "label": "Zabezpečený komunikační kanál",
+        "meaning": "Nástroj nebo způsob, kterým tým během incidentu bezpečně komunikuje mimo běžný e-mail a telefon.",
+        "example": "Skupina v aplikaci Signal nebo šifrovaný kanál v Microsoft Teams",
+        "whereToFind": "Zjistěte u IT, jaké šifrované aplikace už používáte, nebo vyberte takovou, kterou zvládne každý."
+      },
+      "incidentEscalationContacts": {
+        "label": "Eskalační kontakty",
+        "meaning": "Řetězec lidí, které informujete, když se incident zhoršuje, od IT až po vedení, i s kontakty.",
+        "example": "1. Vedoucí IT: +420 123 456 789\n2. Manažer kybernetické bezpečnosti: kb@priklad.cz\n3. Jednatel: jednatel@priklad.cz, +420 987 654 321\n4. Vedení: vedeni@priklad.cz",
+        "whereToFind": "Telefony a e-maily vezměte z organizační struktury nebo personálního systému, od IT směrem k vedení."
+      },
+      "itEmergencyNumber": {
+        "label": "Číslo pro IT nouzi",
+        "meaning": "Jedno číslo, na které volají všichni zaměstnanci při IT nouzi. Patří na kartu IT nouze (podle vzoru německého úřadu BSI).",
+        "example": "Linka 400 (podpora IT), mimo pracovní dobu pohotovostní telefon",
+        "whereToFind": "Vaše vlastní podpora IT nebo poskytovatel IT služeb. Předem se s ním dohodněte, že na tomto čísle přijímá nouzová volání."
+      }
+    }
+  },
+  "3.2": {
+    "summary": "Nastavte, jak bezpečnostní problémy odhalíte, roztřídíte podle závažnosti a podrobně zaznamenáte. Hotovo je, když máte jasný klasifikační návod, nástroje, které události automaticky zaznamenávají, a písemná pravidla, kdy je incident významný a musíte ho hlásit.",
+    "applicability": "Platí pro každého poskytovatele regulované služby v obou režimech: detekce a zaznamenávání událostí jsou bezpečnostní opatření (§ 14 odst. 1 písm. b) body 5 až 7 a odst. 2 písm. i) zákona č. 264/2025 Sb.). V režimu nižších povinností je upravuje vyhláška č. 410/2025 Sb., §§ 9, 10 a 14, v režimu vyšších povinností vyhláška č. 409/2025 Sb., § 14 a §§ 21 až 23.",
+    "quickTip": "Začněte seznamem nástrojů, které už problémy odhalují a sledují, například antivir nebo tikety na helpdesku.",
+    "implementationSteps": "Zvolte nebo vytvořte jednoduché třídění od běžných událostí po vážné incidenty, které musíte hlásit. V nižším režimu vytvoříte metodiku pro posuzování událostí a incidentů včetně významnosti dopadu (vyhláška č. 410/2025 Sb., § 10 písm. b)).\nSepište všechny nástroje a systémy, které bezpečnostní problémy odhalují a zaznamenávají, například SIEM nebo systém tiketů. V nižším režimu mezi nimi musí být nástroj pro nepřetržitou a automatickou ochranu před škodlivým kódem na serverech a koncových stanicích (vyhláška 410, § 9 odst. 1 písm. b)).\nSepište přesná pravidla, kdy je incident významný, například kolik zákazníků zasáhne nebo jak dlouho trvá výpadek. V nižším režimu stanovíte únosnou míru újmy a oblasti pro posouzení významnosti; incident je významný, když míru překročí a oblast posoudíte jako významnou (vyhláška 410, § 14). Ve vyšším režimu hlásíte NÚKIB každý incident ve stanoveném rozsahu s původem v kybernetickém prostoru, u kterého nelze do 24 hodin vyloučit úmyslné zavinění (§ 15 odst. 1 zákona č. 264/2025 Sb.).\nAť IT nastaví automatické zaznamenávání. Každý záznam obsahuje datum a čas s časovým pásmem, typ činnosti, identifikaci technického aktiva a účtu a úspěch či neúspěch, ve vyšším režimu i identifikaci zařízení původce (vyhláška 410, § 9 odst. 2; vyhláška č. 409/2025 Sb., § 22 odst. 4). Dobu uchování si v nižším režimu stanovíte sami podle bezpečnostních potřeb (vyhláška 410, § 9 odst. 3); ve vyšším režimu je to nejméně 18 měsíců (vyhláška 409, § 22 odst. 5 písm. c)).\nVyzkoušejte to: projděte s týmem smyšlený incident, zařaďte ho a zaznamenejte.",
+    "evidenceExample": "Dokument s úrovněmi klasifikace incidentů a příklady, snímky obrazovky nebo popis detekčních a záznamových nástrojů v provozu a ukázkový záznam incidentu, který zachycuje klíčové údaje jako datum, dopad a reakci.",
+    "fields": {
+      "classificationScheme": {
+        "label": "Klasifikační schéma",
+        "meaning": "Systém, podle kterého určujete závažnost incidentu, v souladu s právními požadavky.",
+        "example": "custom",
+        "whereToFind": "Zeptejte se vedoucího IT nebo bezpečnosti, které schéma preferuje, nebo zda vaše odvětví používá schéma ENISA či německého úřadu BSI."
+      },
+      "detectionTools": {
+        "label": "Detekční nástroje",
+        "meaning": "Vyjmenujte všechen software a systémy, kterými firma odhaluje a automaticky zaznamenává bezpečnostní incidenty.",
+        "example": "SIEM (Splunk), systém tiketů (Jira Service Desk), ochrana koncových stanic (CrowdStrike).",
+        "whereToFind": "Zeptejte se IT nebo projděte licence a smlouvy na bezpečnostní software."
+      },
+      "significantIncidentCriteria": {
+        "label": "Kritéria významného incidentu",
+        "meaning": "Popište přesná pravidla, kdy je incident významný. V režimu nižších povinností se Národnímu CERT hlásí jen incidenty s významným dopadem a práh si stanovíte sami (vyhláška č. 410/2025 Sb., § 14). V režimu vyšších povinností hlásíte NÚKIB širší okruh incidentů (§ 15 odst. 1 zákona č. 264/2025 Sb.) a kritéria slouží k třídění. Významný dopad má incident, který způsobil nebo může způsobit závažné provozní narušení služeb nebo finanční ztráty, nebo jiným osobám značnou újmu (§ 15 odst. 3 zákona).",
+        "example": "Zasáhne více než 100 uživatelů, způsobí výpadek služby delší než 2 hodiny, týká se osobních údajů více než 500 osob nebo vede ke ztrátám nad 1 200 000 Kč.",
+        "whereToFind": "Vyjděte z § 15 zákona č. 264/2025 Sb. a v nižším režimu z § 14 vyhlášky č. 410/2025 Sb.; prahy proberte s právníkem nebo vedením podle velikosti firmy."
+      }
+    }
+  },
+  "3.3": {
+    "summary": "Vaše společnost musí mít postup pro hlášení kybernetických bezpečnostních incidentů podle §§ 15 až 17 zákona č. 264/2025 Sb.: prvotní hlášení nejpozději do 24 hodin od zjištění incidentu, u incidentu s významným dopadem oznámení do 72 hodin od zjištění a závěrečnou zprávu nejpozději do 30 dnů ode dne předložení oznámení (§ 16 odst. 3 písm. c)). V režimu vyšších povinností hlásíte NÚKIB, v režimu nižších povinností Národnímu CERT, v obou případech přes Portál NÚKIB. Hotovo máte, když máte připravené šablony, tým postup vyzkoušel na cvičení a celý proces je zdokumentovaný včetně dokladu o registraci a lhůt.",
+    "applicability": "Platí pro každého poskytovatele regulované služby v obou režimech bez ohledu na velikost, nejpozději do 1 roku ode dne doručení rozhodnutí o registraci (§ 15 odst. 4 zákona č. 264/2025 Sb.). Svůj režim najdete v Portálu NÚKIB v Přehledu podání; rozhodnutí o registraci ho neuvádí. V režimu vyšších povinností hlásíte NÚKIB incidenty ve stanoveném rozsahu, které mají původ v kybernetickém prostoru a u nichž nelze do 24 hodin vyloučit úmyslné zavinění (§ 15 odst. 1); oznámení a závěrečnou zprávu podáváte, když NÚKIB sdělí, že incident má významný dopad na kybernetický prostor státu (§ 16 odst. 2 a 3). V režimu nižších povinností hlásíte Národnímu CERT za stejných podmínek jen incidenty s významným dopadem na poskytování regulované služby (§ 15 odst. 2); významnost posuzujete podle vlastní únosné míry újmy (vyhláška č. 410/2025 Sb., § 14). Poskytovatelé služeb podle § 18 odst. 2 zákona (například cloud computing, datové centrum, řízené služby) hlásí všechny incidenty s významným dopadem, který se určuje podle prováděcího nařízení (EU) 2024/2690.",
+    "quickTip": "Promluvte si ještě dnes se svým vedoucím IT nebo bezpečnosti a zeptejte se: „Dokážeme podat prvotní hlášení přes Portál NÚKIB do 24 hodin, i o víkendu, a kdo k portálu má přístup?“",
+    "implementationSteps": "Připravte jednoduché šablony pro tři podání: prvotní hlášení do 24 hodin, oznámení do 72 hodin a závěrečnou zprávu do 30 dnů od oznámení.\nZaveďte pohotovost, aby někdo s přístupem do Portálu NÚKIB (přihlášení přes NIA) mohl prvotní hlášení podat kdykoli, i v noci a o svátcích; pro výpadek portálu si zapište záložní cestu, tedy e-mail nebo datovou schránku (§ 16 odst. 4 zákona).\nAlespoň jednou ročně proveďte cvičení, ve kterém tým nasimuluje incident a dodrží všechny lhůty (interval je doporučení, zákon ho nestanoví).\nZdokumentujte celý postup hlášení: kdo co dělá, co hlášení spouští a jak posuzujete významnost dopadu (v nižším režimu metodika podle § 10 písm. b) a § 14 vyhlášky č. 410/2025 Sb.).\nNechte postup projednat a schválit vrcholným vedením.",
+    "evidenceExample": "Šablony hlášení, popis postupu krok za krokem s rolemi a odpovědnostmi a záznam z cvičení, který ukazuje, že tým dodržel lhůty 24 hodin, 72 hodin a 30 dnů.",
+    "fields": {
+      "earlyWarningSlaHours": {
+        "label": "Lhůta pro prvotní hlášení (hodiny)",
+        "meaning": "Nejdelší doba v hodinách od zjištění incidentu, do které váš tým podá prvotní hlášení. Zákon připouští nejvýše 24 hodin.",
+        "example": "24",
+        "whereToFind": "§ 16 odst. 1 zákona č. 264/2025 Sb.; při pochybnostech se zeptejte právníka nebo člověka odpovědného za kybernetickou bezpečnost."
+      },
+      "bsiReportingRegistered": {
+        "label": "Registrace u NÚKIB",
+        "meaning": "Potvrzuje, že vaše regulovaná služba je u NÚKIB registrována (máte rozhodnutí o registraci), a vaše společnost tedy musí hlásit incidenty.",
+        "example": "true",
+        "whereToFind": "Rozhodnutí NÚKIB o registraci regulované služby a Portál NÚKIB; zeptejte se osoby, která registraci vyřizovala."
+      }
+    }
+  },
+  "3.4": {
+    "summary": "Alespoň jednou ročně si s týmem procvičte zvládání kybernetického bezpečnostního incidentu, aby každý věděl, co dělat. Interval je doporučení, žádný český předpis ho nestanoví. Hotovo máte, když máte záznam o tom, že cvičení proběhlo, kdo se ho zúčastnil, co jste zjistili a jak odstraníte slabá místa.",
+    "applicability": "V režimu vyšších povinností vrcholné vedení zajišťuje testování procesů spojených se zvládáním incidentů i plánů kontinuity a obnovy (vyhláška č. 409/2025 Sb., § 4 odst. 1 písm. i), § 15 písm. e)); cvičení je obvyklý způsob, jak to doložit. V režimu nižších povinností vyhláška č. 410/2025 Sb. cvičení nevyžaduje; je to ale nejjednodušší způsob, jak ověřit, že posuzování a hlášení incidentů podle § 10 funguje. Interval nestanoví ani jedna vyhláška.",
+    "quickTip": "Požádejte svého vedoucího IT nebo bezpečnosti, aby jako první cvičení připravil jednoduchou diskusi nad scénářem u stolu (tabletop).",
+    "implementationSteps": "Vyberte termín a rozhodněte, zda půjde o diskusi u stolu (tabletop), nebo o praktickou simulaci.\nPozvěte klíčové lidi: IT, vedení a právníka.\nCvičení veďte na realistickém scénáři, například útoku ransomwaru.\nZapište, co se stalo, kdo se zúčastnil, jaké problémy jste našli a co je potřeba opravit.\nShrnutí předložte vrcholnému vedení a nechte si nápravná opatření schválit.",
+    "evidenceExample": "Dokument s popisem použitého scénáře, seznamem účastníků, pozorováními z cvičení, zjištěnými nedostatky a plánovanými nápravnými opatřeními.",
+    "fields": {
+      "lastDrillDate": {
+        "label": "Datum posledního cvičení",
+        "meaning": "Datum, kdy jste naposledy provedli cvičení reakce na incident.",
+        "example": "2024-05-15",
+        "whereToFind": "V záznamech IT nebo bezpečnostního týmu, případně v e-mailovém archivu s poslední zprávou z cvičení."
+      },
+      "drillType": {
+        "label": "Typ cvičení",
+        "meaning": "Druh cvičení, například diskuse u stolu (tabletop) nebo plná simulace.",
+        "example": "tabletop",
+        "whereToFind": "V dokumentaci cvičení, nebo se zeptejte toho, kdo ho organizoval."
+      }
+    }
+  },
+  "3.5": {
+    "summary": "Po každém závažném incidentu proveďte vyhodnocení ve lhůtě, kterou si sami stanovíte (vyhláška č. 409/2025 Sb. vyhodnocení vyžaduje, lhůtu ale neurčuje), abyste zjistili, co selhalo a jak to opravit. U incidentu s významným dopadem ho naplánujte tak, aby jeho výsledky stihly závěrečnou zprávu do 30 dnů od oznámení (§ 16 odst. 3 písm. c) zákona č. 264/2025 Sb.). Zdokumentujte poučení a připravte si předem šablony zpráv pro uživatele vaší služby a veřejnost.",
+    "applicability": "V režimu vyšších povinností vyhláška č. 409/2025 Sb. v § 14 odst. 1 vyžaduje přidělit odpovědnost za zvládání incidentů (písm. c)), prošetřit a určit příčiny incidentu (písm. k)) a vyhodnotit účinnost jeho řešení a stanovit opatření proti opakování (písm. n)). V režimu nižších povinností vyhláška č. 410/2025 Sb. vyžaduje závěrečnou zprávu o vyřešení incidentu s významným dopadem (§ 10 písm. f)); vyhodnocení po incidentu je osvědčená praxe. V obou režimech platí § 19 zákona: uživatele, které může ovlivnit významná hrozba, musíte informovat, co mohou udělat, a o incidentu s významným dopadem je informujete, pokud to považujete za vhodné nebo pokud vám to NÚKIB uloží. Odpovědnou osobu určete i tehdy, když jste zatím žádný incident neměli.",
+    "quickTip": "Vyberte jednoho důvěryhodného člověka v týmu, který bude vyhodnocení vést, a hned si zapište jeho jméno a roli.",
+    "implementationSteps": "Určete jednu osobu, která povede vyhodnocení po incidentu, a zapište její jméno a kontakt.\nNastavte jednoduchý postup: sejděte se ve vlastní lhůtě po skončení incidentu a projděte příčinu, časovou osu, co fungovalo a co selhalo a nápravná opatření s termíny a odpovědnými osobami.\nPřipravte předem šablony zpráv pro uživatele služby a veřejnost: co se stalo, jaká data jsou dotčena, jak reagujete a co mohou udělat oni (§ 19 zákona č. 264/2025 Sb.).\nPo každém vyhodnocení zapište nápravná opatření do seznamu úkolů ke zlepšení.\nPostup jednou vyzkoušejte na smyšleném incidentu se svým týmem.",
+    "evidenceExample": "Dokument s popisem postupu vyhodnocení: kdo ho vede, co se při něm prochází, vzorové šablony komunikace a jak se nápravná opatření promítají do zlepšování.",
+    "fields": {
+      "postIncidentReviewOwner": {
+        "label": "Vedoucí vyhodnocení po incidentu",
+        "meaning": "Jméno a role osoby, která vede vyhodnocení po incidentu a dohlíží, aby proběhly všechny kroky.",
+        "example": "Petr Svoboda, vedoucí IT bezpečnosti",
+        "whereToFind": "Zeptejte se vedoucího IT nebo bezpečnosti, kdo má mít kroky po incidentu na starosti, nebo vyberte zkušeného člověka, který zná váš provoz."
+      }
+    }
+  },
+  "4.1": {
+    "summary": "Zjistěte, které procesy a služby jsou při výpadku nejkritičtější, a stanovte, jak dlouhý výpadek a jakou ztrátu dat ještě unesete. Hotovo máte, když máte dokument se seznamem klíčových procesů, hodnocením dopadu, cíli obnovy a závislostmi a doklad, že jste současný stav s těmito cíli porovnali.",
+    "applicability": "V režimu vyšších povinností je analýza dopadů povinná: metodika, provedení a cíle kontinuity, tedy minimální úroveň poskytovaných služeb, doba obnovení chodu (RTO) a bod obnovení dat (RPO) (vyhláška č. 409/2025 Sb., § 15 písm. a) až c)); vrcholné vedení se na analýze podílí a seznamuje se s jejími výsledky (§ 4 odst. 1 písm. h), odst. 2 písm. d)). V režimu nižších povinností vyhláška č. 410/2025 Sb. analýzu dopadů nevyžaduje; vrcholné vedení ale stanoví prioritu obnovy primárních aktiv (§ 4 písm. f)) a vy podle ní stanovíte prioritu, pořadí a postupy obnovy technických aktiv (§ 6 písm. a)). Zjednodušená analýza dopadů je k tomu nejlepší podklad.",
+    "quickTip": "Nejdřív si sepište 5 až 10 hlavních procesů, například „přijímání plateb od zákazníků“ nebo „vyřizování tísňových volání“, a seřaďte je podle toho, jehož jednodenní výpadek by vás stál nejvíc.",
+    "implementationSteps": "Sepište hlavní procesy a služby a vyberte ty kritické, na kterých stojí vaše regulovaná služba (primární aktiva podle § 2 odst. 1 písm. d) zákona č. 264/2025 Sb.).\nPro každý kritický proces určete MTPD (kolik dní výpadku nejvýše unesete), minimální úroveň služeb (MBCO, tedy co musí běžet vždy) a závislosti, například IT systémy nebo dodavatele.\nPro každý související IT systém stanovte RTO (za kolik hodin musí znovu běžet) a RPO (ztrátu dat za kolik hodin ještě přijmete).\nNakreslete jednoduché schéma závislostí a pořadí obnovy.\nOvěřte, zda současné zálohy a plány obnovy tyto cíle splní, zapište mezery a dokument opatřete datem.",
+    "evidenceExample": "Dokument se seznamem kritických procesů s cíli MTPD a MBCO, cíli RTO a RPO pro systémy, schématem závislostí mezi procesy, IT a dodavateli a analýzou mezer, která porovnává cíle se skutečnými možnostmi.",
+    "fields": {
+      "biaCompletionDate": {
+        "label": "Datum dokončení analýzy dopadů",
+        "meaning": "Datum, kdy jste dokončili celý dokument analýzy dopadů (BIA).",
+        "example": "2024-10-15",
+        "whereToFind": "Datum na podepsané zprávě z analýzy dopadů nebo v zápisu z poslední revize."
+      },
+      "criticalProcessCount": {
+        "label": "Počet kritických procesů",
+        "meaning": "Celkový počet procesů, které jste označili za kritické, protože na nich stojí vaše klíčové služby.",
+        "example": "12",
+        "whereToFind": "Spočítejte je v seznamu procesů v analýze dopadů, například zpracování plateb nebo zákaznická podpora."
+      },
+      "rpoTargetHours": {
+        "label": "Cílové RPO (hodiny)",
+        "meaning": "Nejpřísnější cíl ze všech kritických systémů pro nejvýše přijatelnou ztrátu dat v hodinách (o data za delší dobu nesmíte přijít). Vyhláška č. 409/2025 Sb. mu říká bod obnovení dat.",
+        "example": "4",
+        "whereToFind": "Nejnižší hodnota RPO v analýze dopadů u IT systémů kritických procesů, obvykle od IT nebo od týmu, který spravuje zálohy."
+      },
+      "rtoTargetHours": {
+        "label": "Cílové RTO (hodiny)",
+        "meaning": "Nejpřísnější cíl ze všech kritických systémů pro nejdelší přijatelný výpadek v hodinách (jak rychle musíte znovu běžet). Vyhláška č. 409/2025 Sb. mu říká doba obnovení chodu.",
+        "example": "24",
+        "whereToFind": "Nejnižší hodnota RTO v analýze dopadů u IT systémů, dohodnutá s vedoucími oddělení podle jejich potřeb obnovy."
+      }
+    }
+  },
+  "4.2": {
+    "summary": "Vytvořte plán, jak udržet provoz při narušení, například při výpadku nebo krizi, včetně krizového týmu a postupu komunikace. Hotovo máte, když je plán sepsaný, schválený vedením a máte záznam o jeho nedávné revizi.",
+    "applicability": "V režimu nižších povinností stanovíte povinnosti a odpovědnost konkrétních osob za činnosti pro zajištění kontinuity a obnovy (vyhláška č. 410/2025 Sb., § 6 písm. b)); § 6 patří mezi minimální opatření podle § 3 odst. 1 písm. b). V režimu vyšších povinností vyhláška č. 409/2025 Sb. požaduje politiku řízení kontinuity činností a plány kontinuity činností, které se aktualizují a pravidelně testují (§ 15 písm. d), e)). Krizový tým, šablony komunikace a schválení plánu vedením žádná vyhláška výslovně nepředepisuje; jsou to osvědčené prvky plánu.",
+    "quickTip": "Začněte tím, že sepíšete 2 až 3 nejhorší scénáře, které by zastavily váš klíčový provoz, například pád serveru nebo kybernetický útok.",
+    "implementationSteps": "Vezměte kritické procesy z analýzy dopadů a ke každému zapište, jak ho udržet v chodu při narušení.\nSestavte krizový tým s jasným vedoucím z vrcholného vedení a určete, kdy a jak tým přebírá řízení.\nPřipravte jednoduché šablony komunikace pro zaměstnance, zákazníky a úřady pro případ krize.\nNechte celý plán projednat a schválit vrcholným vedením na poradě.\nPlán jednou ročně otestujte (doporučený interval) a zapište si, co fungovalo a co je třeba opravit.",
+    "evidenceExample": "Úplný dokument plánu kontinuity s pravidly aktivace, rolemi v týmu, šablonami komunikace a shrnutím poslední revize, při které byl aktualizován.",
+    "fields": {
+      "crisisTeamLead": {
+        "label": "Vedoucí krizového týmu",
+        "meaning": "Uveďte osobu, která vede krizový tým a smí v nouzi rychle rozhodovat.",
+        "example": "Ing. Jana Nováková, jednatelka",
+        "whereToFind": "Zeptejte se vrcholného vedení, koho určuje k vedení krizí, nebo vyberte člověka na úrovni ředitele s rozhodovací pravomocí."
+      },
+      "bcpActivationCriteria": {
+        "label": "Kritéria aktivace plánu kontinuity",
+        "meaning": "Popište konkrétní spouštěče nebo situace, kdy tým aktivuje plán kontinuity.",
+        "example": "Aktivovat, pokud je kterýkoli kritický proces mimo provoz déle než 4 hodiny, nebo při potvrzeném kybernetickém útoku na zákaznická data.",
+        "whereToFind": "Proberte s vedoucími oddělení, které výpadky by firmu poškodily nejvíc, a vyjděte z výsledků poslední analýzy dopadů."
+      }
+    }
+  },
+  "4.3": {
+    "summary": "Vytvořte plán obnovy po havárii, který popisuje, jak po havárii znovu spustit kritické IT a provozní technologie (OT), včetně pořadí obnovy a postupů krok za krokem. Hotovo máte, když máte sepsaný plán obnovy pro hlavní scénáře výpadku s jasnými postupy, které jsou otestované nebo připravené k testu.",
+    "applicability": "V režimu nižších povinností je základ plánu obnovy povinný: stanovíte prioritu technických aktiv, pořadí a postupy jejich obnovy podle priority primárních aktiv, kterou určí vrcholné vedení, a odpovědné osoby (vyhláška č. 410/2025 Sb., § 6 písm. a), b), § 4 písm. f)). V režimu vyšších povinností plány obnovy vypracujete, aktualizujete a pravidelně testujete (vyhláška č. 409/2025 Sb., § 15 písm. e)). Firma s malou závislostí na IT může plán zjednodušit, ale nějaký plán obnovy potřebuje.",
+    "quickTip": "Nejdřív si sepište 5 nejkritičtějších systémů, například zákaznickou databázi nebo software pro řízení výroby, a poznamenejte si, co na čem závisí.",
+    "implementationSteps": "Určete kritické IT a OT systémy a seřaďte je podle důležitosti a závislostí.\nKe každému sepište postup obnovy krok za krokem, včetně potřebných záloh a zdrojů.\nStanovte pořadí obnovy, například „obnovit poštovní server před zákaznickým portálem“.\nPokryjte scénáře od částečného výpadku po ztrátu celého datového centra.\nNechte plán projednat a schválit vedoucím IT a vrcholným vedením.",
+    "evidenceExample": "Dokument s plánem obnovy po havárii: pořadí obnovy kritických systémů, postupy obnovy krok za krokem, potřebné zdroje, například zálohy, odhadované doby obnovy a scénáře částečného i úplného výpadku.",
+    "fields": {}
+  },
+  "4.4": {
+    "summary": "Pravidelně zálohujte důležitá data a zkoušejte z nich obnovu, abyste se po problému rychle vrátili do provozu. Hotovo máte, když máte jasný plán zálohování, zálohy jsou šifrované a bezpečně uložené mimo provozovnu a nedávné testy ukazují, že obnova funguje.",
+    "applicability": "Povinné v obou režimech. V režimu nižších povinností vytváříte pravidelné zálohy informací, dat, konfigurací a nastavení technických aktiv potřebných k obnově regulované služby (vyhláška č. 410/2025 Sb., § 6 písm. c)) a síť segmentujete včetně oddělení provozního a zálohovacího prostředí (§ 11 písm. a)). V režimu vyšších povinností navíc zálohy pravidelně testujete na integritu, dostupnost a obnovitelnost, výsledky dokumentujete, každou ukládanou zálohu šifrujete a zálohovací prostředí oddělujete od ostatních prostředí (vyhláška č. 409/2025 Sb., § 26 odst. 2, 3 a 5).",
+    "quickTip": "Zeptejte se svého správce IT, co dnes zálohuje a jak často.",
+    "implementationSteps": "Sepište jednoduchou politiku zálohování: co se zálohuje, jak často, kde se zálohy ukládají (včetně jedné kopie mimo provozovnu) a že jsou šifrované (ve vyšším režimu povinně, vyhláška č. 409/2025 Sb., § 26 odst. 3 písm. c)).\nAlespoň jednu kopii držte offline, oddělenou od sítě a provozních systémů. Obě vyhlášky požadují oddělit zálohovací prostředí (vyhláška 410, § 11 písm. a); vyhláška 409, § 26 odst. 5); offline kopie jde nad jejich rámec. Pravidlo 3-2-1 (3 kopie, 2 typy médií, 1 mimo provozovnu) je běžná cesta, ale žádný předpis ho nepředepisuje.\nU klíčových dat nastavte zálohy oddělené od sítě (air gap) nebo nezměnitelné, aby je nemohl zašifrovat ransomware.\nObnovu ze záloh u kritických dat testujte alespoň jednou za 3 měsíce a výsledky zapisujte (interval je doporučení; vyhláška 409 požaduje pravidelné testy bez pevného intervalu, vyhláška 410 testy nepředepisuje).\nSelhání hned opravte a veďte o tom záznamy.",
+    "evidenceExample": "Dokument s pravidly zálohování a zprávy z nedávných testů obnovy, které ukazují, že obnova proběhla, integrita dat byla ověřena a doba obnovy splnila vaše cíle; navíc doklad o uložení mimo provozovnu nebo o nezměnitelném uložení, například air gap nebo WORM.",
+    "fields": {
+      "backupFrequency": {
+        "label": "Četnost zálohování",
+        "meaning": "Jak často vaše systémy automaticky vytvářejí kopie dat pro případ jejich ztráty.",
+        "example": "denně",
+        "whereToFind": "Zeptejte se IT nebo se podívejte do nastavení zálohovacího softwaru."
+      },
+      "backupEncryption": {
+        "label": "Šifrování záloh",
+        "meaning": "Metoda, kterou se zálohy šifrují, aby je mohli číst jen oprávnění lidé. Ve vyšším režimu musí být šifrovaná každá ukládaná záloha, s ohledem na kryptografická doporučení NÚKIB (vyhláška č. 409/2025 Sb., § 26 odst. 3 písm. c), § 25 odst. 1 písm. c)).",
+        "example": "AES-256",
+        "whereToFind": "Zeptejte se vedoucího IT nebo se podívejte do konfigurace zálohovacího nástroje."
+      },
+      "lastBackupTest": {
+        "label": "Poslední test obnovy",
+        "meaning": "Datum posledního testu, při kterém jste zkusili obnovit data ze záloh a ověřili, že to funguje.",
+        "example": "2024-09-15",
+        "whereToFind": "V záznamech z testů v IT, nebo se zeptejte toho, kdo poslední test obnovy prováděl."
+      },
+      "backupRestoreSuccessRate": {
+        "label": "Úspěšnost obnovy (%)",
+        "meaning": "Podíl testů obnovy ze záloh v procentech, které proběhly úplně a bez problémů.",
+        "example": "95",
+        "whereToFind": "Ve zprávách z testů záloh nebo v souhrnu od IT."
+      }
+    }
+  },
+  "4.5": {
+    "summary": "Plány kontinuity a obnovy po havárii testujte alespoň jednou ročně, diskusí nad scénářem i skutečnou zkouškou obnovy, abyste věděli, že se rychle vrátíte do provozu. Interval je doporučení, předpisy ho nestanoví. Hotovo máte, když máte záznamy o tom, že testy proběhly, co selhalo, jaké byly skutečné doby obnovy a co jste opravili.",
+    "applicability": "V režimu vyšších povinností povinné: plány kontinuity činností a plány obnovy se pravidelně testují a vrcholné vedení testování zajišťuje (vyhláška č. 409/2025 Sb., § 15 písm. e), § 4 odst. 1 písm. i)); zálohy se testují na obnovitelnost (§ 26 odst. 3 písm. a)). Interval není stanoven. V režimu nižších povinností vyhláška č. 410/2025 Sb. testování plánů kontinuity nevyžaduje; test je dobrovolný, ale nejrychleji ukáže, zda pořadí a postupy obnovy podle § 6 fungují. Začít můžete jednoduchou diskusí nad scénářem.",
+    "quickTip": "Vyberte jeden realistický scénář, například útok ransomwaru, a svolejte tým na hodinovou diskusi o tom, jak byste reagovali.",
+    "implementationSteps": "Vyberte realistické scénáře, například ransomware, výpadek proudu nebo selhání dodavatele.\nS vrcholným vedením a klíčovými lidmi projděte u stolu (tabletop) jednotlivé kroky reakce.\nU části systémů proveďte skutečnou zkoušku obnovy, změřte, jak dlouho trvá, a porovnejte to s cíli.\nZapište, co se stalo, jaké problémy jste našli, skutečné doby obnovy oproti cílům a potřebné opravy.\nNechte vrcholné vedení výsledky projednat a schválit úpravy plánů.",
+    "evidenceExample": "Zpráva nebo dokumentace z testu s použitým scénářem, výsledky, změřenými dobami obnovy v porovnání s cílovými dobami obnovy, zjištěnými problémy a přijatými opatřeními.",
+    "fields": {
+      "lastBcpTest": {
+        "label": "Poslední test kontinuity",
+        "meaning": "Datum posledního testu plánu kontinuity nebo plánu obnovy po havárii.",
+        "example": "2024-06-15",
+        "whereToFind": "Ve složce s dokumentací nebo v záznamech IT, případně se zeptejte správce IT nebo rizik na datum poslední zprávy z testu."
+      }
+    }
+  },
+  "5.1": {
+    "summary": "Sepište všechny dodavatele a rozdělte je do skupin podle rizika, například na kritické a málo rizikové. Hotovo máte, když máte pravidla, podle kterých dodavatele třídíte, a úplný seznam s počty v jednotlivých skupinách.",
+    "applicability": "V obou režimech: dodavatel je podpůrné aktivum (§ 2 odst. 1 písm. e) zákona č. 264/2025 Sb.) a aktiva ve stanoveném rozsahu musíte určit a evidovat (§ 12 odst. 2 a 3). Zajišťuje-li bezpečnostní opatření dodavatel, musíte ho podle toho vybírat a požadavky dát do smlouvy (§ 13 odst. 5). V režimu vyšších povinností navíc identifikujete a evidujete významné dodavatele a písemně je o tom informujete (vyhláška č. 409/2025 Sb., § 9 odst. 1 písm. d), e), odst. 3). V režimu nižších povinností posuzujete dodavatele ve stanoveném rozsahu při uzavírání smlouvy (vyhláška č. 410/2025 Sb., § 3 odst. 5).",
+    "quickTip": "Otevřete tabulku a zapište každého dodavatele, kterému platíte. Začněte fakturami z účtárny za poslední rok.",
+    "implementationSteps": "Sepište krátká pravidla, podle kterých rozhodujete, zda je dodavatel kritický (například když má přístup k datům zákazníků), nebo ne; ve vyšším režimu musí pravidla určit i významné dodavatele podle § 2 písm. h) vyhlášky č. 409/2025 Sb.\nVšechny dodavatele veďte na jednom místě: název, co dodávají, data smluv a poznámky k riziku.\nKaždého zařaďte jako kritického, důležitého nebo standardního podle svých pravidel.\nSpočítejte celkový počet a počet kritických a nechte seznam projednat a schválit vedením.\nVyberte nástroj, například Excel nebo systém pro nákup, ve kterém budete seznam udržovat aktuální.",
+    "evidenceExample": "Dokument nebo tabulka s úplným seznamem dodavatelů: názvy, služby, zařazení (například kritický nebo standardní) a počty; k tomu stránka s pravidly, která popisuje způsob třídění a kritéria rizika. Ve vyšším režimu také evidence významných dodavatelů a doklad, že jste je písemně informovali.",
+    "fields": {
+      "totalSupplierCount": {
+        "label": "Celkový počet dodavatelů",
+        "meaning": "Celkový počet dodavatelů, které vaše společnost využívá, včetně všech, kterým platíte za zboží nebo služby.",
+        "example": "45",
+        "whereToFind": "Požádejte účtárnu nebo nákup o přehled všech dodavatelů, kterým jste platili za posledních 12 měsíců."
+      },
+      "criticalSupplierCount": {
+        "label": "Počet kritických dodavatelů",
+        "meaning": "Počet dodavatelů v nejrizikovější skupině, například těch, kteří zpracovávají citlivá data nebo spravují klíčové systémy.",
+        "example": "8",
+        "whereToFind": "Ze seznamu dodavatelů po použití vašich pravidel třídění. Spočítejte ty označené jako kritické."
+      },
+      "supplierClassification": {
+        "label": "Třídění dodavatelů",
+        "meaning": "Jednoduchý popis, jak dodavatele dělíte podle rizika, například kritický (vysoké riziko), důležitý (střední) a standardní (nízké).",
+        "example": "Kritický: přístup k datům zákazníků nebo klíčovému IT; důležitý: pravidelné dodávky s částečným přístupem k datům; standardní: kancelářské potřeby bez přístupu.",
+        "whereToFind": "V pravidlech, která si sepíšete, podle faktorů jako přístup k datům, nahraditelnost a dopad narušení."
+      },
+      "supplierRegisterTool": {
+        "label": "Nástroj pro registr dodavatelů",
+        "meaning": "Název nástroje, softwaru nebo způsobu, kterým uchováváte a spravujete úplný seznam dodavatelů.",
+        "example": "Tabulka v Excelu na sdíleném disku",
+        "whereToFind": "Rozhodněte s nákupem nebo IT. Může to být Excel, Google Sheets nebo software jako SAP či Coupa."
+      }
+    }
+  },
+  "5.2": {
+    "summary": "Do smluv s klíčovými dodavateli musíte dát bezpečnostní požadavky, které vás chrání před riziky na jejich straně. V českém právu je smlouva povinná: § 13 odst. 5 zákona č. 264/2025 Sb. a přílohy vyhlášek 409 a 410 uvádějí, co má podle potřeby obsahovat. Hotovo máte, když vaše hlavní smlouvy tato ustanovení obsahují a máte jednoduchý postup, jak dodavatele prověřit před podpisem.",
+    "applicability": "Povinné v obou režimech. Zajišťujete-li bezpečnostní opatření přes dodavatele, musíte požadavky z opatření zahrnout do smlouvy s ním (§ 13 odst. 5 zákona č. 264/2025 Sb.). V režimu nižších povinností platí pro dodavatele ve stanoveném rozsahu: před uzavřením smlouvy posoudíte hrozby, zranitelnosti a kvalitu dodavatele a smlouva musí obsahovat relevantní ujednání z přílohy č. 2 vyhlášky č. 410/2025 Sb. (14 typů, například bezpečnost informací a mlčenlivost, audit, řetězení dodavatelů, exit strategie, sankce, incidenty) (§ 3 odst. 5). V režimu vyšších povinností platí pro významné dodavatele: relevantní ustanovení z přílohy č. 5 vyhlášky č. 409/2025 Sb. (18 typů), smluvně určený způsob realizace opatření a odpovědnost za ně a hodnocení rizik před uzavřením smlouvy (§ 9 odst. 1 písm. f), odst. 2 písm. a), b)).",
+    "quickTip": "Sepište 5 hlavních dodavatelů, kteří mají přístup k vašim datům nebo systémům, a u jedné smlouvy zkontrolujte, co v ní stojí o bezpečnosti.",
+    "implementationSteps": "Sepište kritické dodavatele (ty, kteří zpracovávají data, dodávají software nebo klíčové služby).\nSepište smluvní ustanovení podle přílohy č. 2 vyhlášky 410 (nižší režim) nebo přílohy č. 5 vyhlášky 409 (vyšší režim) a u každého dodavatele použijte ta relevantní: bezpečnost informací a mlčenlivost, audit, incidenty, řetězení dodavatelů, exit strategie, sankce a další.\nPřipravte krátký kontrolní seznam pro prověření dodavatele před novou smlouvou: hrozby, zranitelnosti a kvalita jeho bezpečnostních postupů včetně bezpečného vývoje.\nUstanovení vkládejte do nových smluv a stávající smlouvy doplňte dodatkem, začněte u kritických dodavatelů.\nNechte ustanovení zkontrolovat a schválit právníkem nebo nákupem.",
+    "evidenceExample": "Výňatky ze smluv nebo vzory s bezpečnostními ustanoveními: požadavky, právo na audit, rychlé oznamování incidentů, pravidla pro subdodavatele, exit strategie a ukončení nebo sankce při porušení; k tomu krátký popis, jak dodavatele prověřujete.",
+    "fields": {
+      "contractSecurityClauses": {
+        "label": "Bezpečnostní ustanovení ve smlouvách",
+        "meaning": "Uveďte hlavní bezpečnostní požadavky, které ve smlouvách s dodavateli vyžadujete. Výchozí seznam je příloha č. 2 vyhlášky č. 410/2025 Sb., ve vyšším režimu příloha č. 5 vyhlášky č. 409/2025 Sb.",
+        "example": "Dodavatel dodržuje naši bezpečnostní politiku, zachovává mlčenlivost, umožní audit na místě nebo formou zpráv, oznámí incident související s plněním smlouvy do 48 hodin, stejné povinnosti přenese na subdodavatele, má sjednanou exit strategii a za porušení odpovídá sankcí nebo ukončením smlouvy.",
+        "whereToFind": "Zeptejte se právníka nebo vedoucího nákupu, nebo projděte bezpečnostní části stávajících smluv s dodavateli."
+      },
+      "dueDiligenceProcess": {
+        "label": "Prověření dodavatele před smlouvou",
+        "meaning": "Popište jednoduché kroky, kterými před uzavřením smlouvy prověříte bezpečnost dodavatele.",
+        "example": "1. Vyžádat si bezpečnostní certifikace a poslední zprávy z auditu. 2. Ověřit reference od jiných zákazníků. 3. Zjistit minulé incidenty. 4. Ohodnotit riziko na stupnici 1 až 5 podle našich potřeb.",
+        "whereToFind": "Zeptejte se nákupu, IT nebo právníka, jak dnes dodavatele prověřují; pokud postup neexistuje, začněte s vedoucím IT."
+      }
+    }
+  },
+  "5.3": {
+    "summary": "Bezpečnost klíčových dodavatelů pravidelně kontrolujte a průběžně sledujte, aby zůstali bezpeční. Hotovo máte, když máte plán kontrol, způsoby průběžného sledování, počet kritických dodavatelů a záznamy z posledních kontrol.",
+    "applicability": "V režimu vyšších povinností povinné pro významné dodavatele: řídíte rizika spojená s dodavateli, před smlouvou hodnotíte rizika podle přílohy č. 4, pravidelně hodnotíte rizika a kontrolujete zavedená opatření vlastními silami nebo přes třetí stranu, nedostatky řešíte bez zbytečného odkladu a pravidelně přezkoumáváte plnění smluv (vyhláška č. 409/2025 Sb., § 9 odst. 1 písm. c), g), odst. 2 písm. a), c), d)). Interval vyhláška nestanoví. V režimu nižších povinností vyhláška č. 410/2025 Sb. vyžaduje posouzení dodavatele jen při uzavírání smlouvy (§ 3 odst. 5); průběžné sledování je osvědčená praxe.",
+    "quickTip": "Sepište 5 hlavních dodavatelů, kteří zpracovávají vaše citlivá data nebo zajišťují kritický provoz, a pošlete jim jednoduchý bezpečnostní dotazník.",
+    "implementationSteps": "Určete kritické dodavatele a spočítejte ty, jejichž selhání by způsobilo velké problémy.\nNastavte pravidelný plán kontrol, například jednou ročně, a vyberte způsoby sledování, například bezpečnostní ratingy nebo upozornění na úniky dat.\nRozešlete standardní dotazník, který posoudí jejich bezpečnost: pravidla, přístupy, incidenty a další.\nZaveďte postup, jak u problémových dodavatelů eskalovat, přidat další opatření nebo naplánovat náhradu.\nZaznamenávejte data posledních kontrol a uchovávejte zprávy s hodnocením, výsledky sledování a eskalacemi.",
+    "evidenceExample": "Zprávy z hodnocení dodavatelů s výsledky a rozhodnutími, zprávy z průběžného sledování, například každoroční přehodnocení nebo upozornění na úniky, a záznamy o eskalacích, které ukazují, jak jste řešili problémové dodavatele.",
+    "fields": {
+      "supplierAuditFrequency": {
+        "label": "Četnost kontrol dodavatelů",
+        "meaning": "Jak často plánujete úplnou kontrolu bezpečnosti kritických dodavatelů.",
+        "example": "ročně",
+        "whereToFind": "Zeptejte se nákupu nebo IT, jaký plán dává smysl podle úrovně rizika dodavatelů."
+      },
+      "monitoringMethod": {
+        "label": "Způsob sledování",
+        "meaning": "Jak sledujete bezpečnost dodavatelů mezi úplnými kontrolami.",
+        "example": "Roční bezpečnostní ratingy od služeb jako Bitsight a upozornění na úniky dat ve zprávách",
+        "whereToFind": "Proberte s vedoucím IT bezpečnosti nástroje nebo služby, které firma už používá nebo může začít používat."
+      },
+      "singlePointOfFailureCount": {
+        "label": "Počet nenahraditelných dodavatelů",
+        "meaning": "Počet dodavatelů, jejichž selhání by ochromilo váš provoz a za které nemáte náhradu.",
+        "example": "3",
+        "whereToFind": "Projděte seznam dodavatelů s vedoucími provozu a IT a najděte ty bez alternativy."
+      },
+      "lastSupplierReview": {
+        "label": "Poslední kontrola dodavatelů",
+        "meaning": "Datum poslední úplné bezpečnostní kontroly kritických dodavatelů.",
+        "example": "2024-06-15",
+        "whereToFind": "V záznamech nákupu nebo auditních záznamech IT, případně se zeptejte toho, kdo spravuje smlouvy s dodavateli."
+      }
+    }
+  },
+  "5.4": {
+    "summary": "Sledujte, jak rychle vás dodavatelé informují o svých incidentech, podle lhůt ve smlouvách. Hotovo máte, když máte záznamy, které ukazují, že oznámení většinou přicházejí v dohodnuté lhůtě, a zpoždění řešíte.",
+    "applicability": "Smlouva s dodavatelem má obsahovat ustanovení o incidentech souvisejících s plněním smlouvy (nižší režim: příloha č. 2 písm. k) vyhlášky č. 410/2025 Sb.), ve vyšším režimu výslovně povinnost dodavatele vás o nich informovat (příloha č. 5 písm. i) bod 1 vyhlášky č. 409/2025 Sb.). Ve vyšším režimu musí dodavatelé také oznamovat neobvyklé chování technických aktiv a podezření na zranitelnosti (§ 14 odst. 1 písm. f)) a plnění smluv s významnými dodavateli pravidelně přezkoumáváte (§ 9 odst. 1 písm. g)). Lhůtu pro oznámení ani vedení záznamů žádná vyhláška nepředepisuje; záznamy jsou osvědčená praxe a podklad pro přezkum.",
+    "quickTip": "Najděte v jedné z hlavních smluv s dodavatelem lhůtu pro oznámení incidentu a zapište si ji.",
+    "implementationSteps": "Projděte smlouvy s hlavními dodavateli a zapište, do kolika hodin od zjištění vám musí incident oznámit; kde lhůta chybí, doplňte ji při nejbližší úpravě smlouvy.\nZaložte jednoduchý záznam (například tabulku) pro každé oznámení incidentu od dodavatele: datum oznámení, za kolik hodin přišlo, závažnost, dopad na vaši firmu a co dodavatel udělal pro nápravu.\nSpočítejte, jak dodavatelé lhůty dodržují, například „90 % oznámeno včas“, a poznamenejte si eskalace kvůli pozdním oznámením.\nZáznamy jednou za čtvrtletí projděte a opakované problémy předejte nákupu nebo právníkovi.\nNechte postup vedení záznamů projednat a schválit vrcholným vedením.",
+    "evidenceExample": "Záznam nebo tabulka s oznámeními incidentů od dodavatelů, dobou do oznámení v porovnání se smluvní lhůtou (SLA), mírou dodržení u každého dodavatele a poznámkami k následným krokům nebo eskalacím při zpoždění.",
+    "fields": {
+      "incidentNotificationSlaHours": {
+        "label": "Lhůta dodavatele pro oznámení incidentu (hodiny)",
+        "meaning": "Nejvyšší počet hodin, do kterého vám dodavatel musí oznámit incident, jak stojí ve smlouvě.",
+        "example": "24",
+        "whereToFind": "Ve smlouvě o úrovni služeb (SLA) nebo v části o incidentech ve smlouvách s dodavateli, často pod nadpisem „oznamovací povinnosti“ nebo „hlášení incidentů“."
+      }
+    }
+  },
+  "6.1": {
+    "summary": "Do nákupu IT (software, hardware, cloudové služby) zabudujte bezpečnostní kontrolu. Hotovo máte, když existují pravidla nákupu s kontrolním seznamem, bezpečnostní ustanovení pro smlouvy a záznam, že je vedení schválilo.",
+    "applicability": "Platí v obou režimech, kdykoli pořizujete, vyvíjíte nebo udržujete technická aktiva. V režimu nižších povinností stanovíte bezpečnostní požadavky a vymáháte jejich dodržování (vyhláška č. 410/2025 Sb., § 3 odst. 6). V režimu vyšších povinností navíc řídíte rizika pořízení, zahrnete bezpečnostní požadavky do akvizice a hlídáte dostupnost bezpečnostních aktualizací po celý životní cyklus (vyhláška č. 409/2025 Sb., § 12 odst. 1 a 2). Kde opatření zajišťuje dodavatel, patří požadavky do smlouvy (§ 13 odst. 5 zákona č. 264/2025 Sb.). Režim je uveden v rozhodnutí NÚKIB o registraci.",
+    "quickTip": "Zeptejte se nákupu nebo vedoucího IT, na jaké bezpečnostní otázky se dnes ptají před nákupem softwaru. To je váš výchozí kontrolní seznam.",
+    "implementationSteps": "Sepište jednoduchá pravidla nákupu s povinnými bezpečnostními požadavky, například šifrování, bezpečnostní aktualizace a prověření dodavatele.\nPřipravte kontrolní seznam, podle kterého nákup před schválením ohodnotí bezpečnost dodavatele. V nižším režimu u dodavatelů ve stanoveném rozsahu zohledněte hrozby a zranitelnosti spojené s dodavatelem a kvalitu jeho bezpečnostních postupů včetně bezpečného vývoje (vyhláška 410, § 3 odst. 5); ve vyšším režimu u významných dodavatelů proveďte před uzavřením smlouvy hodnocení rizik (vyhláška 409, § 9 odst. 2 písm. a)).\nUrčete bezpečnostní ustanovení pro smlouvy o IT. Vyberte ta relevantní z přílohy č. 2 vyhlášky 410 (nižší režim) nebo z přílohy č. 5 vyhlášky 409 (vyšší režim, významní dodavatelé, § 9 odst. 1 písm. f)); platforma k tomu nabízí 8 typových ustanovení.\nPředložte pravidla vedení na poradě ke schválení.\nStanovte částku, od které musí nákup projít úplnou bezpečnostní kontrolou. Zákon žádnou hranici neurčuje, je to vaše rozhodnutí.",
+    "evidenceExample": "Dokument s pravidly nákupu, bezpečnostní kontrolní seznam pro dodavatele, popis, jak hodnotíte riziko konce podpory produktu (ve vyšším režimu musí být bezpečnostní aktualizace dostupné po celý životní cyklus, vyhláška 409, § 12 odst. 2 písm. c)), a zápis z porady, kde vedení pravidla schválilo.",
+    "fields": {
+      "threshold": {
+        "label": "Hranice pro bezpečnostní kontrolu nákupu (EUR)",
+        "meaning": "Částka v eurech, nad kterou musí nákup před schválením projít úplnou bezpečnostní kontrolou. Zákon ani vyhlášky žádnou hranici nestanoví.",
+        "example": "50000",
+        "whereToFind": "Zeptejte se finančního ředitele nebo vedoucího nákupu, od jaké částky dnes nákup prochází dalším schvalováním."
+      },
+      "requiredClauses": {
+        "label": "Bezpečnostní ustanovení ve smlouvách",
+        "meaning": "Bezpečnostní ustanovení, která patří do smluv s dodavateli IT. Platforma nabízí 8 typových ustanovení podle CIR (příloha, bod 5.1.4 písm. a) až h)). České vyhlášky mají vlastní seznamy: příloha č. 2 vyhlášky 410 (14 typů ustanovení) a příloha č. 5 vyhlášky 409 (18 typů). Do smlouvy patří ta, která jsou pro daného dodavatele relevantní.",
+        "example": "Právo na audit dodavatele; hlášení incidentů do 24 hodin; standardy šifrování dat; souhlas se subdodavateli",
+        "whereToFind": "Projděte vzorové smlouvy pro IT nebo se zeptejte právníka. Chybějící ustanovení doplňte z přílohy č. 2 vyhlášky 410 nebo z přílohy č. 5 vyhlášky 409 podle vašeho režimu."
+      },
+      "evaluationCriteria": {
+        "label": "Kritéria hodnocení dodavatelů (s vahami)",
+        "meaning": "Seznam bezpečnostních hledisek, podle kterých dodavatele hodnotíte, například dřívější incidenty nebo rychlost záplat. Váhy dávají dohromady 100 %.",
+        "example": "Bezpečnostní certifikace: 25 %; historie záplatování: 20 %; politika konce podpory: 15 %; podpora šifrování: 20 %; reakce na incidenty: 20 %",
+        "whereToFind": "Proberte s vedoucím IT, co dělá dodavatele bezpečným. Přednost dejte rizikům, která jsou pro vaši firmu nejvážnější, například úniku dat."
+      },
+      "reviewFrequency": {
+        "label": "Jak často pravidla přezkoumáváte",
+        "meaning": "Jak často budete pravidla bezpečného nákupu aktualizovat. Vyhlášky interval nestanoví, chtějí pravidelný přezkum bezpečnostní politiky a dokumentace (vyhláška 410, § 3 odst. 3 písm. b); vyhláška 409, § 6 odst. 3).",
+        "example": "Jednou ročně a po závažných incidentech",
+        "whereToFind": "Podívejte se, jak často přezkoumáváte jiné interní předpisy, například personální nebo finanční. Pro většinu firem stačí jednou ročně."
+      }
+    }
+  },
+  "6.2": {
+    "summary": "Stanovte pravidla pro bezpečný vývoj softwaru a pro zpevnění (hardening) systémů proti útokům, včetně požadavků na bezpečnostní testování. Hotovo máte, když existují písemná pravidla schválená vedením: rámec bezpečného vývoje, základní nastavení zpevnění a požadavky na testování.",
+    "applicability": "Pravidla vývoje potřebujete, pokud software vyvíjíte nebo upravujete; kdo kupuje jen hotové produkty, vystačí si se zpevněním a bezpečnou konfigurací. V režimu nižších povinností stanovíte bezpečnostní požadavky pro akvizici, vývoj a údržbu technických aktiv a vymáháte je (vyhláška č. 410/2025 Sb., § 3 odst. 6). V režimu vyšších povinností navíc oddělujete provozní, vývojové, testovací a další prostředí (vyhláška č. 409/2025 Sb., § 12 odst. 1 písm. e)) a zajišťujete bezpečnou správu konfigurací a nastavení technických aktiv (§ 26 odst. 4).",
+    "quickTip": "Zeptejte se vedoucího IT nebo vývoje: „Vyvíjíme nějaký software, i jen interní nástroje?“ Pokud ano, začněte jednoduchým návodem pro bezpečný vývoj, například od OWASP.",
+    "implementationSteps": "Ať tým vývoje nebo IT vybere a zapíše rámec bezpečného vývoje a standardy zpevnění systémů.\nZapište pravidla bezpečnostního testování, například skenování kódu na chyby před vydáním. Ve vyšším režimu testujte významné změny před uvedením do provozu (vyhláška 409, § 11 odst. 2 písm. e)).\nNechte vedení všechny dokumenty projít a schválit.\nLhůty pro záplaty a řízení změn nastavujete zvlášť, v požadavcích 6.4 Správa aktualizací a 6.5 Řízení změn.",
+    "evidenceExample": "Dokument s pravidly bezpečného vývoje, kontrolními seznamy pro zpevnění systémů a požadavky na testování, s podpisem vedení nebo zápisem z porady.",
+    "fields": {
+      "sdlcFramework": {
+        "label": "Rámec bezpečného vývoje (SDLC)",
+        "meaning": "Celkový postup, podle kterého tým vyvíjí software bezpečně od začátku do konce.",
+        "example": "OWASP Software Assurance Maturity Model (SAMM)",
+        "whereToFind": "Zeptejte se hlavního vývojáře nebo vedoucího IT, jaký rámec používají, nebo vyhledejte bezplatné návody „OWASP secure development“."
+      },
+      "hardeningBaseline": {
+        "label": "Základní nastavení zpevnění systémů",
+        "meaning": "Standardní seznam bezpečnostních nastavení, kterými zpevníte servery, počítače a síťové prvky.",
+        "example": "CIS Benchmarks pro Windows Server",
+        "whereToFind": "Zeptejte se správce systémů nebo bezpečnostního specialisty; často používají bezplatné návody CIS z cisecurity.org."
+      },
+      "testingRequirements": {
+        "label": "Požadavky na bezpečnostní testování (SAST, DAST, SCA, penetrační test, revize kódu)",
+        "meaning": "Seznam bezpečnostních kontrol, které vyžadujete před vydáním softwaru, například automatické skenování kódu nebo ruční revize.",
+        "example": "SAST v CI/CD, SCA pro závislosti, revize kódu u změn autentizace",
+        "whereToFind": "Projděte nástroje v pipeline vývojového týmu (například GitHub Actions, Jenkins) nebo se zeptejte, jaké bezpečnostní skeny spouštějí."
+      },
+      "environmentSegregation": {
+        "label": "Oddělení prostředí (vývoj, test, provoz)",
+        "meaning": "Zda firma odděluje vývojové, testovací a provozní prostředí, aby se netestované změny nedostaly do ostrého provozu. Ve vyšším režimu je oddělení povinné (vyhláška 409, § 12 odst. 1 písm. e)).",
+        "example": "Ano: samostatné účty AWS pro vývoj, staging a produkci",
+        "whereToFind": "Zeptejte se vývojového nebo provozního týmu, zda mají oddělená prostředí pro vývoj, testování a provoz."
+      }
+    }
+  },
+  "6.3": {
+    "summary": "Zaveďte postup, jak hledat a opravovat slabá místa v systémech firmy. Hotovo máte, když pravidelně běží skeny zranitelností, máte doklady o opravách a záznamy o bezpečnostních testech. Ve vyšším režimu to znamená skeny alespoň jednou ročně a penetrační test alespoň jednou za 2 roky.",
+    "applicability": "Platí v obou režimech. V režimu nižších povinností provádíte pravidelné skenování zranitelností relevantních technických aktiv, podle výsledků přijímáte opatření a schválené bezpečnostní aktualizace aplikujete bezodkladně (vyhláška č. 410/2025 Sb., § 12 písm. a) a c)); interval skenů vyhláška nestanoví a penetrační testy nevyžaduje. V režimu vyšších povinností skenujete z vnitřní i vnější sítě alespoň jednou ročně, penetrační testy provádíte s ohledem na hodnocení aktiv a rizik pravidelně alespoň jednou za 2 roky a před uvedením do provozu, při významné změně podle rozhodnutí z řízení rizik (§ 11 odst. 3), a nálezy ověřujete opakovaným testem (vyhláška č. 409/2025 Sb., § 24 odst. 4 až 6).",
+    "quickTip": "Zeptejte se IT, jaký skener zranitelností už používají nebo jaký umí rychle nasadit.",
+    "implementationSteps": "Zeptejte se vedoucího IT, jakými nástroji hledají zranitelnosti a jak často skenují.\nNechte vedení schválit plán skenů a penetračních testů. Ve vyšším režimu: skeny z vnitřní i vnější sítě alespoň jednou ročně a penetrační test odborníky alespoň jednou za 2 roky (vyhláška 409, § 24 odst. 4 a 5). V nižším režimu interval určujete vy.\nNastavte harmonogram. Osvědčená praxe: systémy dostupné z internetu skenovat alespoň měsíčně, interní systémy čtvrtletně.\nPo každém skenu nebo testu zapisujte opravy do jednoduchého záznamu a závažné nálezy propojte s registrem rizik. Ve vyšším režimu opravené nálezy ověřte opakovaným testem (vyhláška 409, § 24 odst. 6) a u penetračních testů evidujte datum a osoby, které test provedly (§ 24 odst. 5 písm. e)).\nSpusťte první sken ještě tento měsíc a výsledky zdokumentujte.",
+    "evidenceExample": "Zprávy ze skenů s datem, kontrolovanými systémy, nalezenými zranitelnostmi, hodnocením rizika a doklady o opravách; výsledky penetračních testů se shrnutím pro vedení, nálezy a doklady o nápravě, ve vyšším režimu také s datem a jmény testerů.",
+    "fields": {
+      "vulnerabilityScanningFrequency": {
+        "label": "Četnost skenování zranitelností",
+        "meaning": "Jak často tým spouští automatické kontroly slabých míst v systémech. Ve vyšším režimu alespoň jednou ročně z vnitřní i vnější sítě (vyhláška 409, § 24 odst. 4); v nižším režimu „pravidelné“ bez stanoveného intervalu (vyhláška 410, § 12 písm. c)).",
+        "example": "měsíčně",
+        "whereToFind": "Zeptejte se IT nebo bezpečnostního týmu na současný harmonogram skenů, nebo ho určete podle svých systémů (měsíčně pro systémy dostupné z internetu)."
+      },
+      "vulnerabilityScanTool": {
+        "label": "Nástroj pro skenování zranitelností",
+        "meaning": "Název softwaru nebo služby, kterou firma používá k automatickému vyhledávání známých zranitelností v systémech.",
+        "example": "Nessus",
+        "whereToFind": "Zeptejte se IT oddělení nebo správců serverů, zda už používají nástroje jako Nessus, Qualys nebo OpenVAS."
+      },
+      "lastPentestDate": {
+        "label": "Datum posledního penetračního testu",
+        "meaning": "Datum posledního odborného bezpečnostního testu, při kterém se odborníci pokusili proniknout do vašich důležitých systémů. Ve vyšším režimu alespoň jednou za 2 roky (vyhláška 409, § 24 odst. 5 písm. c)); v nižším režimu vyhláška penetrační testy nevyžaduje.",
+        "example": "2024-03-15",
+        "whereToFind": "Hledejte ve smlouvách s IT dodavateli, v e-mailech nebo ve zprávách externích bezpečnostních firem. Pokud test zatím neproběhl, naplánujte ho."
+      },
+      "vulnerabilityDisclosureUrl": {
+        "label": "Adresa pro hlášení zranitelností (URL)",
+        "meaning": "Veřejná adresa, kam mohou bezpečnostní výzkumníci hlásit zranitelnosti, které ve vašich systémech najdou. CIR (příloha, bod 6.10.2 písm. e)) chce postup pro zveřejňování zranitelností v souladu s národní politikou koordinovaného zveřejňování zranitelností; koordinátorem je v Česku NÚKIB (§ 42 odst. 5 písm. d) zákona č. 264/2025 Sb.). České vyhlášky veřejnou adresu výslovně nevyžadují.",
+        "example": "https://example.com/.well-known/security.txt",
+        "whereToFind": "Zjistěte, zda firma má soubor security.txt nebo stránku „Nahlásit zranitelnost“. Pokud ne, vytvořte je podle RFC 9116."
+      }
+    }
+  },
+  "6.4": {
+    "summary": "Stanovte, jak rychle instalujete bezpečnostní záplaty podle závažnosti problému. V editoru politiky záplat nastavte lhůty (SLA) pro každou úroveň závažnosti a skutečné záplaty sledujte v registru záplat. Hotovo máte, když jsou lhůty nastavené a záplaty se proti nim sledují.",
+    "applicability": "Platí v obou režimech. V režimu nižších povinností vyhláška chce „bezodkladné aplikování schválených bezpečnostních aktualizací vydaných pro technická aktiva“ a evidenci aktiv, která už nejsou podporována (vyhláška č. 410/2025 Sb., § 12 písm. a) a b)). V režimu vyšších povinností používáte podporovaná aktiva a aplikujete schválené bezpečnostní aktualizace; kde to nejde, zavedete náhradní opatření a dotčená aktiva evidujete (vyhláška č. 409/2025 Sb., § 24 odst. 1 a 2). Lhůty ve dnech nestanoví ani jedna vyhláška.",
+    "quickTip": "Zeptejte se IT, jak rychle dnes instalují záplaty při naléhavé chybě. To je vaše výchozí lhůta.",
+    "implementationSteps": "V editoru politiky záplat nastavte lhůty (SLA) pro každou úroveň závažnosti (kritická, vysoká, střední, nízká).\nLhůty volíte vy a zdůvodníte je svým rizikem: CIR (bod 6.6) chce záplaty nasadit v přiměřené době, ale čísla neuvádí, a české vyhlášky také ne (vyhláška 410, § 12 písm. a): bezodkladně; vyhláška 409, § 24 odst. 1). Německá metodika BSI (Grundschutz++, KONF.8.1.1) doporučuje instalovat bezpečnostní aktualizace automaticky. Hodnoty v editoru jsou běžné hodnoty, ne zákonná povinnost.\nSkutečné záplaty sledujte v registru záplat pod editorem.\nPlatforma automaticky počítá, které záplaty byly nasazeny včas a které po termínu, pro každou úroveň závažnosti.\nLhůty jednou ročně přezkoumejte a upravte.",
+    "evidenceExample": "Politika záplat s lhůtami podle závažnosti a registr záplat s podílem včas nasazených záplat a s výjimkami a jejich zdůvodněním. Ve vyšším režimu také evidence aktiv, na která nelze aplikovat poslední schválenou bezpečnostní aktualizaci, s náhradními opatřeními.",
+    "fields": {}
+  },
+  "6.5": {
+    "summary": "Zaveďte formální postup řízení změn: posouzení rizik před změnou, testování před nasazením do provozu a dodatečné zdokumentování nouzových změn. Ve vyšším režimu to vyžaduje vyhláška č. 409/2025 Sb., § 11; tyto tři kontroly popisuje také CIR v bodě 6.4 přílohy. Hotovo máte, když je postup zdokumentovaný a změny se evidují.",
+    "applicability": "V režimu nižších povinností řízení změn vyhláška č. 410/2025 Sb. nevyžaduje a zákon ho mezi opatřeními pro tento režim neuvádí (§ 14 odst. 2 zákona č. 264/2025 Sb.); vyhláška zmiňuje řízení změn jen jako ustanovení ve smlouvách s dodavateli (příloha č. 2 písm. j)). Jednoduchá evidence změn v tabulce je přesto osvědčená praxe. V režimu vyšších povinností je řízení změn povinné: stanovíte kritéria významných změn a u významných změn řídíte rizika, testujete je před uvedením do provozu a zajistíte možnost návratu do původního stavu (vyhláška č. 409/2025 Sb., § 11). Režim je uveden v rozhodnutí NÚKIB o registraci.",
+    "quickTip": "Zeptejte se IT, jak dnes řeší aktualizace a změny systémů. To je váš výchozí bod.",
+    "implementationSteps": "Do pole níže zapište nástroj, ve kterém změny evidujete.\nOvěřte, že postup pokrývá tři kontroly: posouzení rizik před změnou, testování před nasazením do provozu a dodatečné zdokumentování nouzových změn (CIR, bod 6.4). Ve vyšším režimu doplňte náležitosti podle vyhlášky 409, § 11 odst. 1 a 2: kritéria významných změn, aktualizaci bezpečnostní a provozní dokumentace a možnost návratu do původního stavu.\nSkutečné změny evidujte v registru změn po celý jejich průběh (návrh → schváleno → provedeno).\nJednou za čtvrtletí projděte historii změn a hledejte opakující se vzorce.",
+    "evidenceExample": "Dokumentace postupu řízení změn, registr změn s úplnou auditní stopou a čtvrtletní souhrny přezkumu.",
+    "fields": {
+      "changeManagementTool": {
+        "label": "Nástroj pro řízení změn",
+        "meaning": "Název softwaru, tabulky nebo systému, ve kterém tým žádá o změny IT a OT, schvaluje je, sleduje a zaznamenává.",
+        "example": "Jira Service Management",
+        "whereToFind": "Zeptejte se vedoucího IT nebo správce systémů, kde evidují aktualizace softwaru, změny konfigurace a úpravy systémů."
+      }
+    }
+  },
+  "7.1": {
+    "summary": "Vyberte několik klíčových čísel, která ukazují, jak dobře funguje kybernetická bezpečnost, a sledujte je měsíčně v přehledu s barvami (dobré, špatné) a grafy vývoje. Hotovo máte, když máte čísla definovaná, nástroj, který přehled vytváří, a doklad, že se pro vedení pravidelně aktualizuje.",
+    "applicability": "Ukazatele (KPI) české vyhlášky výslovně nevyžadují. Obě ale chtějí vyhodnocovat účinnost: v režimu nižších povinností alespoň jednou ročně při aktualizaci přehledu bezpečnostních opatření (vyhláška č. 410/2025 Sb., § 3 odst. 2 písm. b)), v režimu vyšších povinností alespoň jednou ročně vyhodnocením účinnosti systému řízení bezpečnosti informací (vyhláška č. 409/2025 Sb., § 3 písm. f)). Pět až deset čísel je pro to nejjednodušší podklad, i v malé firmě.",
+    "quickTip": "Sepište 5 bezpečnostních čísel, která už sledujete, například jak rychle instalujete záplaty nebo kolik lidí dokončilo školení.",
+    "implementationSteps": "Vyberte 5 až 10 ukazatelů bezpečnosti, například podíl nasazených záplat nebo neúspěchy v phishingových testech, a zapište cílové hodnoty a barevné prahy (zelená, žlutá, červená).\nZvolte jednoduchý nástroj pro měsíční přehled, například Excel, Google Sheets nebo Power BI.\nNastavte ho tak, aby ukazoval aktuální hodnoty, vývoj v čase a barvy podle vašich prahů.\nPřipojte krátkou poznámku k výrazným změnám a přehled posílejte měsíčně osobě odpovědné za kybernetickou bezpečnost a čtvrtletně vedení.\nMěsíc ho zkoušejte a upravte podle zpětné vazby.",
+    "evidenceExample": "Dokument s definovanými ukazateli, cíli a prahy a k tomu snímky obrazovky nebo odkaz na aktuální přehled s hodnotami, barevným stavem, grafy vývoje a poznámkami ke změnám.",
+    "fields": {
+      "kpisDefinedCount": {
+        "label": "Počet sledovaných ukazatelů",
+        "meaning": "Kolik konkrétních bezpečnostních ukazatelů jste si vybrali k pravidelnému sledování.",
+        "example": "8",
+        "whereToFind": "Spočítejte je ze seznamu klíčových čísel, například podíl záplat, dokončená školení a kliknutí v phishingových testech."
+      },
+      "kpiDashboardTool": {
+        "label": "Nástroj pro přehled ukazatelů",
+        "meaning": "Software nebo aplikace, ve které vytváříte a prohlížíte měsíční barevný přehled bezpečnostních čísel.",
+        "example": "Microsoft Power BI",
+        "whereToFind": "Zeptejte se IT nebo financí, co už používají pro reporty a grafy."
+      },
+      "trendAnalysisTool": {
+        "label": "Nástroj pro sledování vývoje",
+        "meaning": "Nástroj nebo funkce, která ukazuje, zda se bezpečnostní čísla za poslední měsíce zlepšují, nebo zhoršují.",
+        "example": "Google Sheets se spojnicovými grafy",
+        "whereToFind": "Podívejte se, co nabízí váš nástroj pro přehled, nebo požádejte IT o jednoduché řešení s grafy."
+      }
+    }
+  },
+  "7.2": {
+    "summary": "Pravidelně kontrolujte vlastní nastavení kybernetické bezpečnosti audity, abyste našli problémy a opravili je. Hotovo máte, když máte schválený plán auditů, dokončené zprávy se zjištěními a nápravami a záznamy o tom, jak se problémy vyřešily.",
+    "applicability": "V režimu vyšších povinností je audit kybernetické bezpečnosti povinný: podle plánu auditu, při významných změnách a alespoň jednou za 2 roky, v odůvodněných případech po částech tak, aby celý rozsah proběhl alespoň jednou za 5 let (vyhláška č. 409/2025 Sb., § 16). Provádí ho auditor kybernetické bezpečnosti, který je nestranný a nezastává jinou bezpečnostní roli (§ 5 odst. 4). V režimu nižších povinností povinnost auditu není; nejbližší je roční aktualizace přehledu bezpečnostních opatření s vyhodnocením účinnosti (vyhláška č. 410/2025 Sb., § 3 odst. 2 písm. b)). Interní audit je tam osvědčená praxe. Režim je uveden v rozhodnutí NÚKIB o registraci.",
+    "quickTip": "Požádejte vedení, ať schválí jednoduchý plán auditů na příští 2 roky. Ve vyšším režimu musí audit alespoň jednou za 2 roky pokrýt celý rozsah.",
+    "implementationSteps": "Nechte vedení schválit písemný plán auditů, který podle rizik pokryje všechny oblasti kybernetické bezpečnosti; ve vyšším režimu do 2 let (vyhláška 409, § 16 odst. 1 a 4).\nVyberte kvalifikované auditory, kteří nedělají každodenní práci, kterou kontrolují. Ve vyšším režimu: vyškolený auditor s alespoň 3 lety praxe v auditech, nestranný a bez jiné bezpečnostní role (vyhláška 409, § 5 odst. 4).\nProveďte audity podle plánu a napište zprávy se zjištěními, důkazy a nápravnými opatřeními s termíny.\nSledujte a ověřujte, že jsou všechny nápravy hotové a fungují. Ve vyšším režimu se nápravná opatření přijímají bez zbytečného odkladu a výsledky auditu se promítají do řízení rizik a plánu rozvoje bezpečnostního povědomí (§ 16 odst. 3).\nVšechny zprávy a doklady o uzavření uchovávejte na jednom místě.",
+    "evidenceExample": "Schválený plán auditů a aktuální zprávy z auditů se zjištěními podle závažnosti, shromážděnými důkazy, nápravnými opatřeními s termíny a doklady, že opatření byla dokončena a jsou účinná.",
+    "fields": {
+      "auditFrequency": {
+        "label": "Četnost interních auditů",
+        "meaning": "Jak často firma plánuje interní audity kybernetické bezpečnosti, podle svých rizik. Ve vyšším režimu alespoň jednou za 2 roky (vyhláška 409, § 16 odst. 4 písm. b)).",
+        "example": "jednou ročně",
+        "whereToFind": "Zeptejte se vedení nebo osoby odpovědné za audity, jaká četnost odpovídá úrovni rizika vaší firmy."
+      },
+      "lastAuditDate": {
+        "label": "Datum posledního interního auditu",
+        "meaning": "Datum, kdy byl dokončen poslední interní audit kybernetické bezpečnosti.",
+        "example": "2024-06-15",
+        "whereToFind": "Podívejte se do zpráv z auditů nebo do plánu auditů, případně se zeptejte toho, kdo poslední audit vedl."
+      }
+    }
+  },
+  "7.3": {
+    "summary": "Vedení se alespoň jednou ročně prokazatelně seznámí se stavem kybernetické bezpečnosti: s plněním opatření, riziky, incidenty a audity. Výsledek se zapíše včetně zjištěných mezer a úkolů. Hotovo máte, když máte zápis podepsaný vedením; podpis dokládá, že se vedení se stavem seznámilo.",
+    "applicability": "Platí v obou režimech, ale vyhlášky chtějí seznámení, ne schválení. V režimu nižších povinností se vedení „prokazatelně seznamuje se stavem plnění bezpečnostních opatření uvedeným v přehledu bezpečnostních opatření“ (vyhláška č. 410/2025 Sb., § 4 písm. d)); přehled se aktualizuje alespoň jednou ročně (§ 3 odst. 2 písm. b)). V režimu vyšších povinností se vedení prokazatelně seznamuje se zprávou o přezkoumání systému řízení bezpečnosti informací, se zprávou o hodnocení rizik, s plánem zvládání rizik, s výsledky analýzy dopadů a s výsledky auditů (vyhláška č. 409/2025 Sb., § 4 odst. 2); zpráva o přezkoumání vychází z ročního vyhodnocení účinnosti (§ 3 písm. f) a g)). Ve vyšším režimu se navíc alespoň jednou ročně schází výbor pro řízení kybernetické bezpečnosti a o jednání se pořizuje záznam (§ 4 odst. 3).",
+    "quickTip": "Založte vedení v kalendáři opakovanou pozvánku na jedno jednání ročně o kybernetické bezpečnosti.",
+    "implementationSteps": "Od IT shromážděte podklady: plnění opatření, nedávné incidenty, rizika a audity. Ve vyšším režimu jde o obsah ročního vyhodnocení účinnosti podle vyhlášky 409, § 3 písm. f).\nProjděte vše s vedením na jednání, včetně porovnání se stavem, který chce vyhláška (v nižším režimu přehled bezpečnostních opatření, ve vyšším režimu prohlášení o aplikovatelnosti), a plánu úkolů.\nSepište zápis: kdo byl přítomen, co se probíralo, zjištěné mezery a úkoly s odpovědnou osobou a termínem.\nVedení zápis přečte a podepíše. Podpis dokládá, že se vedení se stavem prokazatelně seznámilo; schválení vyhlášky nevyžadují.\nPodepsaný zápis nahrajte jako doklad a zapište datum.",
+    "evidenceExample": "Podepsaný zápis, ze kterého je vidět, že vedení probralo výkon kybernetické bezpečnosti, rizika, porovnání s požadavky vyhlášky 410 nebo 409 a úkoly s odpovědnými osobami a termíny a že se se stavem seznámilo.",
+    "fields": {
+      "lastManagementReview": {
+        "label": "Datum posledního přezkoumání vedením",
+        "meaning": "Datum posledního jednání, na kterém vedení přezkoumalo kybernetickou bezpečnost.",
+        "example": "2024-10-15",
+        "whereToFind": "Podívejte se do zápisů z jednání nebo do kalendáře vedení na roční přezkoumání kybernetické bezpečnosti."
+      },
+      "managementReviewReportUploaded": {
+        "label": "Zápis z přezkoumání vedením",
+        "meaning": "Soubor s formálním zápisem z přezkoumání vedením.",
+        "example": "PDF podepsaného zápisu z přezkoumání vedením v říjnu 2024",
+        "whereToFind": "Sekretariát vedení, právní oddělení nebo sdílený disk, kde jsou uložené dokumenty z jednání vedení."
+      }
+    }
+  },
+  "7.4": {
+    "summary": "Zjištění z auditů, incidentů a přezkumů sledujte a řešte v jednom centrálním seznamu nápravných opatření. Hotovo máte, když seznam existuje s údaji ke každému opatření, pravidelně ho procházíte a můžete vedení ukázat pokrok.",
+    "applicability": "Platí v obou režimech. V režimu nižších povinností uvádí přehled bezpečnostních opatření u opatření, která teprve zavedete, termín, prioritu a odpovědnou osobu (vyhláška č. 410/2025 Sb., § 3 odst. 2 písm. a) bod 2), a vedení prosazuje neustálé zlepšování (§ 4 písm. e)). V režimu vyšších povinností stanovíte na základě auditu nápravná opatření, která se přijmou bez zbytečného odkladu (vyhláška č. 409/2025 Sb., § 16 odst. 3 písm. b)), a vedení se seznamuje s výsledky auditů (§ 4 odst. 2 písm. e)). Malé firmě stačí tabulka, větší může použít specializovaný nástroj.",
+    "quickTip": "Otevřete tabulku a zapište nedávné problémy z auditů nebo incidentů. To je váš začátek.",
+    "implementationSteps": "Založte seznam nebo tabulku pro všechna nápravná opatření.\nU každého opatření zapište, co se stalo, proč je potřeba to opravit, kdo za to odpovídá, termín a aktuální stav.\nSbírejte opatření z auditů, incidentů, podnětů zaměstnanců a přezkumů rizik.\nSeznam procházejte každý měsíc a vedení informujte o pokroku jednou za čtvrtletí.\nOpatření uzavírejte, až když je oprava hotová a ověřená.",
+    "evidenceExample": "Dokument, například tabulka nebo registr, se seznamem nápravných opatření se sloupci ID, zdroj problému, popis, odpovědná osoba, priorita, termín, stav a doklad o dokončení u uzavřených položek.",
+    "fields": {
+      "correctiveActionTool": {
+        "label": "Nástroj pro nápravná opatření",
+        "meaning": "Název nástroje, softwaru nebo jednoduchého způsobu, kterým sledujete a řídíte seznam nápravných opatření.",
+        "example": "Tabulka v Google Sheets",
+        "whereToFind": "Zeptejte se IT nebo útvaru compliance na existující nástroje, nebo zapište, že používáte Excel nebo Sheets."
+      },
+      "openCorrectiveActions": {
+        "label": "Otevřená nápravná opatření",
+        "meaning": "Celkový počet nápravných opatření, která jsou otevřená a ještě nejsou dokončená.",
+        "example": "12",
+        "whereToFind": "Spočítejte nedokončené položky v seznamu nebo tabulce nápravných opatření."
+      },
+      "avgClosureTimeDays": {
+        "label": "Průměrná doba uzavření (dny)",
+        "meaning": "Průměrný počet dní od otevření do dokončení nápravného opatření.",
+        "example": "45",
+        "whereToFind": "Sečtěte dny u nedávno uzavřených opatření a vydělte je jejich počtem; údaje najdete ve svém seznamu."
+      }
+    }
+  },
+  "8.1": {
+    "summary": "Sepište srozumitelnou politiku bezpečnosti IT s pravidly, jak zaměstnanci používají firemní techniku, například internet, e-mail a soukromá zařízení. Hotovo máte, když je politika napsaná, předaná všem a máte doklad, že je zveřejněná a že ji lidé vzali na vědomí.",
+    "applicability": "Platí v obou režimech, pro každou firmu. V režimu nižších povinností stanovíte politiku bezpečného chování uživatelů s relevantními tématy z přílohy č. 3 (vyhláška č. 410/2025 Sb., § 5 odst. 1 písm. a)), pravidla pro používání technických aktiv (§ 3 odst. 4) a kontrolu dodržování a postup při porušení (§ 5 odst. 1 písm. c) a d)). V režimu vyšších povinností stanovíte mimo jiné přípustné způsoby používání aktiv (vyhláška č. 409/2025 Sb., § 7 písm. h) bod 1) a dotčené osoby informujete o pravidlech (§ 6 odst. 5 písm. b)).",
+    "quickTip": "Začněte jednoduchým dokumentem na 2 až 3 strany s pravidly pro e-mail, soukromé telefony v práci a zamykání obrazovky, když člověk odchází od počítače.",
+    "implementationSteps": "Sepište politiku bezpečnosti IT: pravidla pro internet a e-mail, soukromá zařízení, cloudové aplikace, sociální sítě, USB disky a práci na dálku. Témata najdete v příloze č. 3 vyhlášky 410 nebo v příloze č. 6 vyhlášky 409.\nPřidejte pravidlo čistého stolu: zamykání obrazovky po 5 minutách nečinnosti, bezpečné uložení papírů a namátkové kontroly.\nPředejte politiku všem zaměstnancům a nechte si potvrdit, že ji přečetli (podpis nebo e-mail).\nZveřejněte ji na snadno dostupném místě, například na intranetu nebo sdíleném disku.\nNaplánujte každoroční připomenutí a nové potvrzení.",
+    "evidenceExample": "Dokument, například vaše politika bezpečnosti IT, s pravidly pro používání zařízení, čistý stůl a zamykání obrazovky, a seznam nebo formulář, kde zaměstnanci podpisem potvrdili, že politiku četli a souhlasí s ní.",
+    "fields": {
+      "itSecurityPolicyPublished": {
+        "label": "Zveřejnění politiky bezpečnosti IT",
+        "meaning": "Doklad, že dokument s politikou bezpečnosti IT existuje a je zaměstnancům k dispozici.",
+        "example": "Odkaz na sdílený disk nebo stránku intranetu ze dne 2024-10-01 s přiloženým souborem politika.pdf",
+        "whereToFind": "Zeptejte se IT nebo personálního oddělení. Tvorbu a předávání interních předpisů mají obvykle na starosti oni."
+      }
+    }
+  },
+  "8.2": {
+    "summary": "Zaveďte program bezpečnostního povědomí, který všechny zaměstnance naučí rozpoznat kybernetické hrozby a vyhnout se jim. Hotovo máte, když máte roční plán školení, doklad, že ho absolvovali všichni, a noví zaměstnanci projdou školením dřív, než začnou pracovat.",
+    "applicability": "Platí v obou režimech, pro všechny zaměstnance. V režimu nižších povinností stanovíte pravidla rozvoje bezpečnostního povědomí včetně pravidel pro tvorbu hesel a zajistíte vstupní a pravidelná školení (vyhláška č. 410/2025 Sb., § 5 odst. 1 písm. b), odst. 2 písm. b) a c)). V režimu vyšších povinností stanovíte plán rozvoje bezpečnostního povědomí s relevantními tématy z přílohy č. 6, zajistíte vstupní a pravidelná školení a určíte osoby odpovědné za jednotlivé činnosti plánu (vyhláška č. 409/2025 Sb., § 10 odst. 1 až 4). O školeních vedete v obou režimech přehledy se seznamem školených osob (vyhláška 410, § 5 odst. 3; vyhláška 409, § 10 odst. 5).",
+    "quickTip": "Sejděte se krátce s vedoucím personálního oddělení a IT a sepište 12 témat, jedno na každý měsíc, například phishing. Seznam témat najdete v příloze č. 3 vyhlášky 410 nebo v příloze č. 6 vyhlášky 409.",
+    "implementationSteps": "Vytvořte roční kalendář s jedním bezpečnostním tématem na měsíc, například phishing v lednu a hesla v únoru.\nPřipravte nástupní kontrolní seznam: nový zaměstnanec absolvuje školení, podepíše pravidla a nastaví zabezpečení dřív, než dostane přístup k počítači.\nVyberte formu školení, například online moduly nebo skupinová setkání, a naplánujte je pro všechny alespoň jednou ročně.\nSledujte, kdo školení dokončil, a ověřujte znalosti; kdo neuspěje, absolvuje školení znovu v termínu, který určíte.\nZáznamy o všech školeních, datech a podílu dokončení ukládejte na jedno snadno dohledatelné místo. Vyhlášky vyžadují přehledy o školeních a seznamy školených osob (vyhláška 410, § 5 odst. 3; vyhláška 409, § 10 odst. 5), dobu uchování ale nestanoví. Určete si ji sami a zapište proč.",
+    "evidenceExample": "Dokumenty s ročním kalendářem školení s tématy a daty, nástupní kontrolní seznam s povinnými kroky a podpisy a záznamy o dokončení školení, například prezenční listiny, výsledky testů nebo snímky obrazovky z platformy.",
+    "fields": {
+      "trainingPlatform": {
+        "label": "Platforma pro školení",
+        "meaning": "Nástroj nebo forma, kterou zaměstnancům poskytujete bezpečnostní školení.",
+        "example": "Firemní e-learningový portál, například KnowBe4",
+        "whereToFind": "Zeptejte se IT nebo personálního oddělení, jaký software nebo systém používají pro školení zaměstnanců."
+      },
+      "trainingFrequency": {
+        "label": "Četnost školení",
+        "meaning": "Jak často musí všichni zaměstnanci absolvovat školení bezpečnostního povědomí. Vyhlášky chtějí „pravidelná školení“, interval nestanoví.",
+        "example": "jednou ročně",
+        "whereToFind": "Podívejte se do současného plánu školení nebo se zeptejte personálního oddělení, jak často školení probíhají."
+      },
+      "trainingCompletionRate": {
+        "label": "Podíl proškolených zaměstnanců (%)",
+        "meaning": "Procento zaměstnanců, kteří v posledním cyklu dokončili povinné bezpečnostní školení.",
+        "example": "98",
+        "whereToFind": "Podívejte se do přehledů ze školicí platformy nebo do personální evidence na nejnovější čísla o dokončení."
+      },
+      "lastTrainingDate": {
+        "label": "Datum posledního školení zaměstnanců",
+        "meaning": "Datum, kdy většina nebo všichni zaměstnanci naposledy dokončili školení bezpečnostního povědomí.",
+        "example": "2024-10-15",
+        "whereToFind": "Podívejte se do přehledu školicí platformy nebo do e-mailů personálního oddělení o dokončení posledního kola."
+      },
+      "newEmployeeOnboarding": {
+        "label": "Školení nových zaměstnanců",
+        "meaning": "Krátký popis bezpečnostních kroků, které musí nový zaměstnanec splnit, než dostane plný přístup k systémům.",
+        "example": "Noví zaměstnanci zhlédnou 30minutové video, podepíší pravidla přijatelného užívání, potvrdí bezpečnostní pravidla, zapnou MFA a složí krátký test o hlášení incidentů.",
+        "whereToFind": "Požádejte personální oddělení nebo koordinátora nástupu o aktuální nástupní kontrolní seznam nebo popis postupu."
+      }
+    }
+  },
+  "8.3": {
+    "summary": "Lidem s klíčovými bezpečnostními úkoly, například správcům IT a vývojářům, zajistěte odborné školení a vedení povinné školení. Hotovo máte, když máte přehled, kdo jaké školení potřebuje, a doklad, že vedení své školení absolvovalo.",
+    "applicability": "Platí v obou režimech. Vedení musí prokazatelně absolvovat školení o svých povinnostech a o bezpečnostní politice: v režimu nižších povinností podle vyhlášky č. 410/2025 Sb., § 4 písm. b) a § 5 odst. 2 písm. a), v režimu vyšších povinností podle vyhlášky č. 409/2025 Sb., § 4 odst. 1 písm. a) a § 10 odst. 3 písm. a). Odborná školení potřebují v nižším režimu administrátoři a osoba pověřená kybernetickou bezpečností (vyhláška 410, § 5 odst. 2 písm. d)), ve vyšším režimu administrátoři a osoby v bezpečnostních rolích (vyhláška 409, § 10 odst. 2 písm. c), odst. 3 písm. c)). Firma bez vývojářů se může soustředit hlavně na vedení a správce.",
+    "quickTip": "Sepište 4 až 5 rolí s bezpečnostními úkoly, například vedoucího IT nebo pracovníka personálního oddělení odpovědného za ochranu dat. Pro vedení má NÚKIB vlastní on-line kurz pro vrcholné vedení (osveta.nukib.gov.cz), zvlášť pro nižší a vyšší režim; jeho certifikát NÚKIB uznává jako doklad o splnění povinnosti poučit vedení.",
+    "implementationSteps": "Určete role s bezpečnostními úkoly, například správce IT, vývojáře nebo vedoucí pracovníky, kteří pracují s citlivými daty. Ve vyšším režimu k nim patří čtyři bezpečnostní role podle vyhlášky 409, § 4 odst. 4.\nKaždé roli přiřaďte konkrétní témata školení, například bezpečné programování nebo reakci na incidenty.\nPro každou roli vyberte poskytovatele nebo kurz a naplánujte termíny.\nZajistěte, aby vedení absolvovalo své školení o kybernetické bezpečnosti. Délku a interval určujete vy: vyhlášky říkají jen „formou vstupních a pravidelných školení“ (vyhláška 410, § 5 odst. 2 písm. a); vyhláška 409, § 10 odst. 3 písm. a)).\nVytvořte jednoduchou tabulku s rolemi, školeními, kdo je absolvoval a kdy. Přehledy o školeních se seznamy školených osob vyhlášky vyžadují (vyhláška 410, § 5 odst. 3; vyhláška 409, § 10 odst. 5).",
+    "evidenceExample": "Tabulka nebo matice rolí s povinnými školeními, poskytovateli a daty absolvování a k tomu certifikáty nebo prezenční listiny, které dokládají, že členové vedení absolvovali své školení.",
+    "fields": {
+      "roleSpecificTrainingProvider": {
+        "label": "Poskytovatel školení podle role",
+        "meaning": "Název firmy, online platformy nebo interního týmu, který zajišťuje odborná školení pro jednotlivé role.",
+        "example": "SANS Institute",
+        "whereToFind": "Zeptejte se IT nebo personálního oddělení, koho využívají pro kurzy kybernetické bezpečnosti, nebo vyhledejte poskytovatele online, například Coursera nebo místní školicí firmy."
+      }
+    }
+  },
+  "8.4": {
+    "summary": "Ověřujte, zda bezpečnostní školení funguje, například cvičnými phishingovými e-maily; osvědčená praxe je test jednou za čtvrtletí. Hotovo máte, když máte zprávy s podílem kliknutí a nahlášení proti cílům, které si sami stanovíte, a doklady o testech v čase se zlepšujícím se trendem. Tyto hodnoty ani četnost testů žádný předpis nestanoví.",
+    "applicability": "V režimu vyšších povinností je ověřování povinné: vyhláška chce „pravidelná školení a ověřování bezpečnostního povědomí zaměstnanců“ (vyhláška č. 409/2025 Sb., § 10 odst. 3 písm. d)) a pravidelné hodnocení účinnosti plánu rozvoje bezpečnostního povědomí a provedených školení (§ 10 odst. 4 písm. c)). Phishingové simulace vyhláška nejmenuje; jsou jedním ze způsobů ověřování. V režimu nižších povinností vyhláška č. 410/2025 Sb. ověřování povědomí nevyžaduje; testy jsou dobrovolné a jejich výsledky se hodí do ročního vyhodnocení účinnosti opatření (§ 3 odst. 2 písm. b)). Režim je uveden v rozhodnutí NÚKIB o registraci.",
+    "quickTip": "Zeptejte se IT nebo bezpečnostního týmu, zda už používají nástroj pro phishingové simulace, například KnowBe4 nebo Proofpoint.",
+    "implementationSteps": "Vyberte nástroj pro phishingové simulace a nastavte pravidelné testy (osvědčená praxe: čtvrtletně) s různými typy podvodů, například falešnými přihlašovacími stránkami nebo škodlivými přílohami.\nSpusťte první test a sledujte, kdo klikne, kdo e-mail nahlásí jako podezřelý a kdo zadá falešné přihlašovací údaje.\nVýsledky porovnejte se svými cíli; pokud je nesplníte, zopakujte školení u nejslabších.\nTesty opakujte a v jednoduché databázi nebo tabulce veďte dokončení školení a výsledky testů podle oddělení.\nSledujte vývoj v čase a upravte školení, když se lidé nezlepšují. Ve vyšším režimu je toto pravidelné hodnocení účinnosti povinné (vyhláška 409, § 10 odst. 4 písm. c)).",
+    "evidenceExample": "Zprávy z phishingových kampaní s daty testů, podílem kliknutí a nahlášení proti vašim vlastním cílům, zlepšujícím se trendem za více testů a přehled dokončených školení podle oddělení.",
+    "fields": {
+      "phishingSimFrequency": {
+        "label": "Četnost phishingových testů",
+        "meaning": "Jak často posíláte zaměstnancům cvičné phishingové e-maily. Žádný předpis četnost nestanoví.",
+        "example": "čtvrtletně",
+        "whereToFind": "Přehled nástroje pro simulace, který spravuje IT nebo bezpečnostní tým, nebo nastavení účtu u poskytovatele školení."
+      },
+      "lastPhishingTest": {
+        "label": "Datum posledního phishingového testu",
+        "meaning": "Datum poslední cvičné phishingové kampaně.",
+        "example": "2024-09-15",
+        "whereToFind": "Zpráva nebo přehled z nástroje pro phishingové simulace, například sekce „Campaign History“."
+      },
+      "phishingClickRate": {
+        "label": "Podíl zaměstnanců, kteří v testu klikli (%)",
+        "meaning": "Procento zaměstnanců, kteří v posledním testu klikli na odkaz v cvičném phishingovém e-mailu.",
+        "example": "3.2",
+        "whereToFind": "Souhrnné metriky v poslední zprávě z phishingové kampaně ve vašem nástroji pro simulace."
+      }
+    }
+  },
+  "9.1": {
+    "summary": "Vaše firma potřebuje jasnou politiku, které metody šifrování používat, kterým se vyhnout a jak šifrováním chránit citlivá data. Hotovo máte, když máte písemný dokument se schválenými algoritmy, pravidly podle klasifikace dat a plánem přezkoumání a vyplněná pole formuláře odpovídají těmto pravidlům.",
+    "applicability": "Platí pro každého poskytovatele regulované služby v obou režimech, v rámci stanoveného rozsahu (vyhláška č. 410/2025 Sb., § 13 odst. 1; vyhláška č. 409/2025 Sb., § 25 odst. 1). Obě vyhlášky požadují zohlednit doporučení a metodiky NÚKIB ke kryptografickým algoritmům. Výjimka pro firmy bez citlivých dat neexistuje; rozsah opatření volíte v míře nezbytné (§ 13 odst. 2 zákona č. 264/2025 Sb.).",
+    "quickTip": "Zeptejte se vedoucího IT, jaké šifrování dnes používáte, například AES nebo verze TLS, a porovnejte to s dokumentem NÚKIB „Minimální požadavky na kryptografické algoritmy“ na Portálu NÚKIB.",
+    "implementationSteps": "1. Napište jednoduchou politiku se seznamem povolených a zakázaných metod. Vycházejte z dokumentu NÚKIB „Minimální požadavky na kryptografické algoritmy“ (verze 4.1 ze 4. března 2026), který musíte zohlednit (vyhláška č. 410/2025 Sb., § 13 odst. 1 písm. c); vyhláška č. 409/2025 Sb., § 25 odst. 1 písm. c)). Povolené jsou například AES s klíčem 256 bitů, RSA-PSS a RSA-OAEP s klíčem alespoň 3072 bitů a SHA-256 nebo delší; jako zakázané označte algoritmy, které NÚKIB neschvaluje, například DES, MD5 a SHA-1. Pro TLS stanovte minimum 1.2.\n2. Vytvořte tabulku (matici), která pro každý typ dat (veřejná, důvěrná, přísně důvěrná) určí potřebnou úroveň šifrování. V režimu vyšších povinností musí být šifrovány všechny ukládané zálohy (vyhláška č. 409/2025 Sb., § 26 odst. 3 písm. c)).\n3. Naplánujte přezkoumání pravidel, například jednou ročně a vždy při nové verzi dokumentu NÚKIB. Vyhlášky interval nestanoví, požadují pravidelné přezkoumání bezpečnostní politiky (vyhláška 410, § 3 odst. 3 písm. b); vyhláška 409, § 6 odst. 3). Sledujte i kvantovou hrozbu, NÚKIB k ní vydal přílohu „Kvantová hrozba a kvantově odolná kryptografie“.\n4. Nechte politiku projednat a schválit vedením na poradě.\n5. Vyplňte pole formuláře podle politiky a nahrajte dokument.",
+    "evidenceExample": "Politika s tabulkou povolených a zakázaných algoritmů (s odkazem na dokument NÚKIB), maticí typů dat a potřebného šifrování a plánem pravidelného přezkoumání.",
+    "fields": {
+      "algorithms": {
+        "label": "Povolené a zakázané algoritmy",
+        "meaning": "Tabulka metod šifrování, které vaše firma povoluje nebo zakazuje, s údaji jako délka klíče.",
+        "example": "Povolené: AES-256 (symetrické), RSA-PSS a RSA-OAEP s klíčem 3072 bitů (asymetrické), SHA-256 (haš); zakázané: DES, MD5, SHA-1.",
+        "whereToFind": "Zeptejte se IT nebo bezpečnostního týmu, jaké šifrování dnes používáte, a porovnejte to s dokumentem NÚKIB „Minimální požadavky na kryptografické algoritmy“ na Portálu NÚKIB. Německá technická směrnice BSI TR-02102 může sloužit jen jako doplněk."
+      },
+      "minTlsVersion": {
+        "label": "Minimální verze TLS",
+        "meaning": "Nejstarší bezpečná verze TLS (šifrování síťového provozu, např. webu), kterou musí používat všechny vaše systémy.",
+        "example": "1.2",
+        "whereToFind": "Zkontrolujte webové a poštovní servery, nebo se zeptejte IT, jaké verze TLS jsou zapnuté (cílem je 1.2 nebo 1.3). Dokument NÚKIB verze TLS neuvádí; vyhlášky požadují aktuálně odolné a bezpečné protokoly (vyhláška 410, § 11 písm. c); vyhláška 409, § 18 písm. g)). Doplňkově lze použít německou směrnici BSI TR-02102-2, která se věnuje TLS."
+      },
+      "keyRotation": {
+        "label": "Interval výměny klíčů (roky)",
+        "meaning": "Jak často (v letech) měníte šifrovací klíče, aby zůstaly bezpečné.",
+        "example": "2",
+        "whereToFind": "Projděte současnou praxi v IT, nebo interval stanovte podle rizika; běžně 1 až 3 roky u většiny klíčů. Vyhlášky interval nestanoví."
+      },
+      "postQuantumReadiness": {
+        "label": "Připravenost na postkvantovou kryptografii",
+        "meaning": "Zaškrtněte, pokud vaše politika počítá s ochranou proti kvantovým počítačům, které by mohly prolomit dnešní šifrování.",
+        "example": "zaškrtnuto",
+        "whereToFind": "Proberte s vedoucím IT, zda sledujete kvantově odolné algoritmy. NÚKIB je uvádí v kapitole 4 dokumentu „Minimální požadavky na kryptografické algoritmy“ a v příloze „Kvantová hrozba a kvantově odolná kryptografie“."
+      }
+    }
+  },
+  "9.2": {
+    "summary": "Vaše firma šifruje citlivá data při ukládání i při přenosu mezi systémy, tam kde to vyžadují její bezpečnostní potřeby, a používá k tomu aktuálně odolné algoritmy. Hotovo máte, když máte přehled všech používaných šifrovacích nástrojů, doklad o tom, jakou část citlivých dat šifrování pokrývá, a potvrzení z auditu nebo skenu, že je vše zabezpečené.",
+    "applicability": "Platí pro oba režimy v rámci stanoveného rozsahu. Vyhlášky nepředepisují šifrovat všechna data: kde kryptografii k ochraně aktiv a komunikace používáte, musí jít o aktuálně odolné algoritmy (vyhláška č. 410/2025 Sb., § 13 odst. 1 písm. a); vyhláška č. 409/2025 Sb., § 25 odst. 1). Výslovně: v režimu nižších povinností bezpečné komunikační protokoly (vyhláška 410, § 11 písm. c)); v režimu vyšších povinností důvěrnost a integrita při přenosu (vyhláška 409, § 18 písm. g)) a šifrování všech ukládaných záloh (§ 26 odst. 3 písm. c)).",
+    "quickTip": "Požádejte IT o rychlý seznam všech nástrojů a systémů, které pracují s citlivými daty, a poznamenejte si, které už jsou šifrované.",
+    "implementationSteps": "Projděte s vedoucím IT každý systém, databázi, notebook, cloudové úložiště a zálohu, kde jsou citlivá data.\nVyberte a nasaďte šifrovací nástroje, například BitLocker pro notebooky nebo AES-256 pro zálohy, a stanovte si vlastní cíl pokrytí těchto dat. V režimu vyšších povinností šifrujte všechny ukládané zálohy.\nNastavte TLS 1.2 nebo vyšší pro weby, e-maily a API a ověřte to bezplatným online skenerem.\nVytvořte jednoduchou tabulku: systém, šifrovací nástroj a stav (např. „plně šifrováno“).\nNechte přehled projednat a schválit vedením na poradě.",
+    "evidenceExample": "Tabulka nebo dokument se všemi systémy, jejich šifrovacími nástroji, dosaženým pokrytím a stavem, k tomu zpráva ze skenu nebo auditu, která ukazuje používanou verzi TLS a že žádná záloha není nešifrovaná.",
+    "fields": {}
+  },
+  "9.3": {
+    "summary": "Vaše firma potřebuje bezpečný způsob správy šifrovacích klíčů a certifikátů: nástroje pro jejich správu, pravidelnou výměnu klíčů a hlídání platnosti certifikátů. Hotovo máte, když máte politiku, soupis klíčů a certifikátů, záznamy o výměnách, doklad o nasazených nástrojích a vyplněná pole formuláře.",
+    "applicability": "Platí v obou režimech. V režimu nižších povinností vyhláška požaduje bezpečné nakládání s kryptografickými algoritmy (vyhláška č. 410/2025 Sb., § 13 odst. 1 písm. b)). V režimu vyšších povinností platí, pokud klíče a certifikáty používáte: musí být aktuálně odolné a spravujete je nástrojem, který zajistí jejich generování, distribuci, ukládání, změny, omezení platnosti, zneplatnění certifikátů a řádnou likvidaci klíčů, umožní kontrolu a audit a chrání jejich důvěrnost a integritu (vyhláška č. 409/2025 Sb., § 25 odst. 3). Kdo žádné klíče ani certifikáty nepoužívá, to zaznamená; téměř každá firma ale má aspoň certifikát webu.",
+    "quickTip": "Zeptejte se IT: „Jaké nástroje dnes používáme pro šifrovací klíče a certifikáty?“ Tak začnete nejrychleji.",
+    "implementationSteps": "Napište jednoduchou politiku, jak klíče a certifikáty vytváříte, ukládáte, měníte, zneplatňujete a likvidujete.\nSepište všechny klíče a certifikáty do tabulky včetně data konce platnosti.\nVyberte nástroje: pro ukládání klíčů například hardwarový bezpečnostní modul (HSM) nebo cloudovou službu, pro certifikáty nástroj, který hlídá jejich platnost. V režimu vyšších povinností je nástroj pro správu klíčů a certifikátů povinný (vyhláška 409, § 25 odst. 3 písm. b)).\nNastavte upozornění na blížící se konec platnosti certifikátů a naplánujte výměnu klíčů alespoň jednou ročně.\nJednou vyzkoušejte výměnu a zneplatnění, abyste věděli, že fungují.",
+    "evidenceExample": "Politika, která popisuje celý postup správy klíčů a certifikátů; soupis všech certifikátů s daty konce platnosti; záznamy (logy), které dokládají výměnu klíčů; a schéma nebo popis bezpečného úložiště, například HSM nebo trezoru (vault).",
+    "fields": {
+      "keyManagementTool": {
+        "label": "Nástroj pro správu klíčů",
+        "meaning": "Název softwaru nebo hardwaru, ve kterém bezpečně ukládáte a spravujete šifrovací klíče.",
+        "example": "AWS KMS",
+        "whereToFind": "Zeptejte se správce IT nebo cloudu, v jakém systému jsou uložené důležité šifrovací klíče."
+      },
+      "certificateMonitoringTool": {
+        "label": "Nástroj pro sledování certifikátů",
+        "meaning": "Nástroj, který sleduje vaše digitální certifikáty a upozorní vás před koncem jejich platnosti.",
+        "example": "Certificate Lifecycle Manager",
+        "whereToFind": "Zeptejte se IT, jaký software hlídá končící certifikáty SSL/TLS na vašich webech a serverech."
+      },
+      "certExpiryAlertDays": {
+        "label": "Upozornění před koncem platnosti (dny)",
+        "meaning": "Kolik dní před koncem platnosti certifikátu chcete dostat upozornění, abyste ho obnovili.",
+        "example": "30",
+        "whereToFind": "Podívejte se do nastavení nástroje pro certifikáty, nebo se zeptejte IT, kdy začínají připomínat obnovu."
+      }
+    }
+  },
+  "10.1": {
+    "summary": "Vaše firma potřebuje jasnou politiku, kdo smí k jakým systémům podle své práce, s rolemi a pravidlem nejnižších nutných oprávnění. Hotovo máte, když máte zdokumentovanou politiku s definicemi rolí, postupem schvalování a pravidly pro přezkoumání a privilegovaný přístup, schválenou vedením.",
+    "applicability": "Platí pro každého poskytovatele regulované služby v obou režimech; vynechat ji nelze. Režim nižších povinností: vyhláška č. 410/2025 Sb., § 7 odst. 1 (oprávnění jen na úroveň nezbytně nutnou k práci, jedinečný identifikátor, oddělený uživatelský a administrátorský účet, pravidelné přezkoumání). Režim vyšších povinností: vyhláška č. 409/2025 Sb., § 13 odst. 2, která navíc vyžaduje řízení přístupu podle skupin nebo rolí a přidělování práv v souladu s politikou řízení přístupu.",
+    "quickTip": "Začněte seznamem 5 až 10 běžných pozic ve firmě, například „vedoucí personálního oddělení“ nebo „IT podpora“, a ke každé si poznamenejte, ke kterým systémům má mít přístup.",
+    "implementationSteps": "Napište jednoduchou politiku řízení přístupu, která vysvětlí pravidla.\nDefinujte standardní role podle pracovních činností a ke každé uveďte oprávnění.\nPřiřaďte každého zaměstnance k roli a popište postup žádosti o výjimku.\nNechte politiku projednat a schválit vedením.\nNaplánujte přezkoumání všech přístupových práv, například alespoň jednou ročně.",
+    "evidenceExample": "Politika s pravidly řízení přístupu, definicemi rolí a oprávněními přidělenými každé roli, postupem schvalování žádostí o přístup a pravidly pro privilegovaný přístup.",
+    "fields": {
+      "accessModel": {
+        "label": "Model řízení přístupu",
+        "meaning": "Hlavní způsob, jak vaše firma přístup uspořádává: RBAC podle pracovních rolí, ABAC podle okolností, jako je čas nebo zařízení, nebo jejich kombinace.",
+        "example": "RBAC",
+        "whereToFind": "Zeptejte se vedoucího IT, jaký model sedí na vaše prostředí; většina firem začíná s RBAC. V režimu vyšších povinností vyhláška požaduje řízení přístupu podle skupin nebo rolí (vyhláška 409, § 13 odst. 2 písm. a))."
+      },
+      "reviewFrequency": {
+        "label": "Četnost přezkoumání přístupů",
+        "meaning": "Jak často kontrolujete a upravujete přístupová práva, zvlášť pro běžné a pro privilegované účty.",
+        "example": "jednou ročně u běžných účtů, čtvrtletně u privilegovaných",
+        "whereToFind": "Vyhlášky požadují pravidelné přezkoumání, interval nestanoví (vyhláška 410, § 7 odst. 1 písm. d); vyhláška 409, § 13 odst. 2 písm. h)). Osvědčená praxe: běžné účty alespoň jednou ročně, privilegované čtvrtletně."
+      },
+      "deprovisioningSla": {
+        "label": "Odebrání přístupu po odchodu (hodiny)",
+        "meaning": "Nejdelší povolená doba, do kdy odeberete přístup někomu, kdo z firmy odchází.",
+        "example": "24",
+        "whereToFind": "Projděte postup personálního oddělení při odchodu zaměstnance. Vyhlášky požadují při skončení smluvního vztahu deaktivovat účet a bezodkladně odebrat práva (vyhláška 410, § 7 odst. 1 písm. f); vyhláška 409, § 13 odst. 2 písm. j))."
+      },
+      "sharedAccountPolicy": {
+        "label": "Sdílené a obecné účty",
+        "meaning": "Zda jsou povolené sdílené nebo obecné účty (například „admin@“ nebo „info@“). Obě vyhlášky požadují pro každého uživatele a administrátora jedinečný identifikátor a oddělený uživatelský a administrátorský účet (vyhláška 410, § 7 odst. 1 písm. a); vyhláška 409, § 13 odst. 2 písm. b)).",
+        "example": "Zakázány: jen jedinečné identifikátory",
+        "whereToFind": "Zjistěte, zda některé systémy používají sdílená přihlášení. CIR (bod 11.5.3) sdílenou identitu připouští jen z obchodních nebo provozních důvodů a se zdokumentovaným výslovným schválením."
+      },
+      "authReviewCycle": {
+        "label": "Přezkoumání metod ověřování (roky)",
+        "meaning": "Jak často přezkoumáváte, zda jsou vaše metody ověřování stále vhodné a aktuální.",
+        "example": "2",
+        "whereToFind": "CIR (bod 11.6.4) požaduje přezkoumávat postupy a technologie ověřování v plánovaných intervalech; vyhlášky požadují pravidelné přezkoumání bezpečnostní politiky (vyhláška 410, § 3 odst. 3 písm. b); vyhláška 409, § 6 odst. 3). Interval stanovíte sami."
+      }
+    }
+  },
+  "10.2": {
+    "summary": "U každého aktiva ve svém inventáři zdokumentujte, kdo je jeho vlastníkem, jak se řídí přístup a kolik má privilegovaných a administrátorských účtů. Tady politiku z požadavku 10.1 (Politika a model řízení přístupu) uplatníte na konkrétní systémy. Hotovo máte, když má každé aktivum zdokumentovaného vlastníka, způsob přístupu a počet privilegovaných účtů.",
+    "applicability": "Týká se každé firmy s IT aktivy, v obou režimech: vyhlášky požadují řídit identifikátory, přístupová práva a oprávnění účtů technických aktiv (vyhláška č. 410/2025 Sb., § 7 odst. 1 písm. b); vyhláška č. 409/2025 Sb., § 13 odst. 2 písm. c)). Jde o uplatnění politiky z požadavku 10.1 na jednotlivá aktiva.",
+    "quickTip": "Otevřete inventář aktiv a projděte ho aktivum po aktivu: kdo ho vlastní, jak se lidé přihlašují, má administrátorské účty?",
+    "implementationSteps": "Projděte inventář aktiv z požadavku 2.2 (Inventář aktiv, rozsah a klasifikace).\nKe každému aktivu určete vlastníka, tedy osobu odpovědnou za rozhodnutí o přístupu. V režimu vyšších povinností je to role garanta aktiva (vyhláška č. 409/2025 Sb., § 4 odst. 4 písm. c)).\nU každého aktiva popište, jak se přístup řídí (např. RBAC v Entra ID, klíče SSH, CyberArk, ručně).\nSpočítejte u každého aktiva privilegované a administrátorské účty (root, admin, servisní účty s rozšířenými oprávněními).\nKontrolujte a aktualizujte údaje, kdykoli aktivum přidáte, změníte nebo vyřadíte.",
+    "evidenceExample": "Tabulka, která u každého aktiva ukazuje vlastníka, způsob řízení přístupu a počet privilegovaných účtů. Platforma ji vytvoří automaticky z vašich přiřazení u jednotlivých aktiv.",
+    "fields": {}
+  },
+  "10.3": {
+    "summary": "Zdokumentujte celofiremní postupy pro správu přístupů během celého pracovního vztahu (nástup, změna pozice, odchod) a způsob správy privilegovaných a administrátorských účtů. Hotovo máte, když máte pojmenované nástroje, stanovený rozsah ověření spolehlivosti a určený přístup k PAM (správě privilegovaných účtů).",
+    "applicability": "Postupy pro nástup, změnu pozice a odchod potřebuje každá firma se zaměstnanci: vyhlášky požadují bezodkladně odebrat nebo změnit práva při změně pozice a při skončení smluvního vztahu deaktivovat účet (vyhláška č. 410/2025 Sb., § 7 odst. 1 písm. e), f); vyhláška č. 409/2025 Sb., § 13 odst. 2 písm. i) až k)). Nástroj nebo postup PAM potřebujete, jakmile máte administrátorské nebo servisní účty; uživatelský a administrátorský účet jedné osoby musí být oddělené (vyhláška 410, § 7 odst. 1 písm. a); vyhláška 409, § 13 odst. 2 písm. b)).",
+    "quickTip": "Zeptejte se personálního oddělení: „Co se děje, když někdo nastoupí nebo odchází?“ A IT: „Jakým nástrojem spravujeme administrátorské účty?“",
+    "implementationSteps": "Zdokumentujte postup pro nástup, změnu pozice a odchod: kontrolní seznam pro nástup, postup při změně role, kroky při odchodu.\nUveďte nástroj nebo nástroje, kterými postup sledujete (personální systém, tiketovací systém, tabulka).\nStanovte rozsah ověření spolehlivosti podle bodu 10.2 přílohy CIR pro všechny zaměstnance, bezpečnostní role a vedení. České vyhlášky ověření spolehlivosti nepožadují; režim vyšších povinností požaduje zajistit mlčenlivost administrátorů, bezpečnostních rolí a dodavatelů (vyhláška č. 409/2025 Sb., § 4 odst. 1 písm. m)).\nUveďte nástroj nebo postup PAM pro správu administrátorských účtů.\nNechte zdokumentované postupy schválit vedením.",
+    "evidenceExample": "Dokument s postupem pro nástup, změnu pozice a odchod včetně kontrolních seznamů, nastavení nástroje PAM a pravidla ověření spolehlivosti, nahraný jako doklad nebo vedený v modulu politik na platformě.",
+    "fields": {
+      "jmlTool": {
+        "label": "Nástroj pro nástupy, změny a odchody",
+        "meaning": "Software nebo systém, kterým vaše firma sleduje nástupy, změny pozic a odchody zaměstnanců.",
+        "example": "Pracovní postupy životního cyklu v Entra ID napojené na ServiceNow HR",
+        "whereToFind": "Zeptejte se personálního oddělení na systém pro správu zaměstnanců a IT na nástroj pro evidenci přístupů."
+      },
+      "backgroundCheckScope": {
+        "label": "Rozsah ověření spolehlivosti",
+        "meaning": "Kteří zaměstnanci procházejí ověřením spolehlivosti, než dostanou přístup do systémů.",
+        "example": "Všichni zaměstnanci (základní) a rozšířené ověření u administrátorů a bezpečnostních rolí",
+        "whereToFind": "Podívejte se do podkladů personálního oddělení k nástupu, nebo se zeptejte personalisty, co u nových zaměstnanců ověřuje."
+      },
+      "pamTool": {
+        "label": "Nástroj PAM",
+        "meaning": "Nástroj nebo postup pro správu privilegovaných a administrátorských účtů (CIR, bod 11.3).",
+        "example": "CyberArk Privilege Cloud",
+        "whereToFind": "Zeptejte se bezpečnostního týmu IT; běžné možnosti jsou CyberArk, BeyondTrust, Teleport nebo Microsoft PIM."
+      }
+    }
+  },
+  "10.4": {
+    "summary": "Doložte, že přístupy pravidelně přezkoumáváte: zapište, kdy proběhlo poslední přezkoumání. Interval stanoví vaše politika z požadavku 10.1 (Politika a model řízení přístupu); tento požadavek sleduje, že přezkoumání opravdu děláte. Hotovo máte, když máte datum a doklad o posledním přezkoumání.",
+    "applicability": "Pravidelné přezkoumání přístupových práv potřebuje každá firma: vyhláška č. 410/2025 Sb., § 7 odst. 1 písm. d); vyhláška č. 409/2025 Sb., § 13 odst. 2 písm. h), ve vyšším režimu včetně rozdělení do skupin a rolí a s dokumentací přidělování a odebírání práv (písm. k)). CIR (bod 11.2.3) požaduje výsledky přezkoumání zdokumentovat. Interval nestanoví žádný z těchto předpisů; osvědčená praxe je alespoň jednou ročně.",
+    "quickTip": "Zeptejte se IT manažera, kdy naposledy kontrolovali seznamy uživatelských přístupů, a zjistěte to datum.",
+    "implementationSteps": "Vytáhněte seznam všech uživatelských účtů v každém systému.\nOvěřte, zda každý ještě potřebuje svou současnou úroveň přístupu.\nOdeberte nadbytečná oprávnění a deaktivujte nepoužívané účty.\nZdokumentujte zjištění: koho jste přezkoumali, co se změnilo, kdo to schválil.\nNahrajte zprávu z přezkoumání jako doklad.",
+    "evidenceExample": "Zpráva nebo tabulka z přezkoumání se zkontrolovanými účty, provedenými změnami a podpisem vlastníků systémů.",
+    "fields": {
+      "lastAccessReviewDate": {
+        "label": "Datum posledního přezkoumání přístupů",
+        "meaning": "Datum posledního úplného přezkoumání uživatelských oprávnění ve všech systémech.",
+        "example": "2025-12-15",
+        "whereToFind": "Podívejte se do záznamů IT na nejnovější zprávu z přezkoumání přístupů."
+      }
+    }
+  },
+  "11.1": {
+    "summary": "Vaše firma zavádí vícefaktorové ověřování (MFA) u účtů a systémů, nejdříve u těch nejrizikovějších, jako jsou administrátorské účty. Cílem podle vyhlášek jsou všichni administrátoři, uživatelé i technická aktiva. Hotovo máte, když MFA pokrývá všechny účty, nebo když u zbývajících máte zdokumentované a schválené výjimky s náhradním zabezpečením a sledujete, kolik uživatelů je zapojeno.",
+    "applicability": "Platí pro oba režimy a vyhlášky stanoví pořadí. Pro ověření identity administrátorů, uživatelů a technických aktiv: vícefaktorová autentizace s alespoň dvěma různými typy faktorů, nebo aktuálně odolná kontinuální autentizace založená na modelu nulové důvěry. Dokud ji nemáte, autentizace kryptografickými klíči nebo certifikáty. Dokud nemáte ani tu, hesla, u kterých nástroj vynucuje délku alespoň 12 znaků u účtů uživatelů, 17 u administrátorů a 22 u účtů technických aktiv (vyhláška č. 410/2025 Sb., § 8 odst. 2 až 4; vyhláška č. 409/2025 Sb., § 19 odst. 2 a 4). V režimu vyšších povinností do té doby vedete evidenci technických aktiv, účtů a mechanismů, které požadavek nesplňují, včetně odůvodnění (§ 19 odst. 3).",
+    "quickTip": "Promluvte si s IT ještě dnes: jaké nástroje MFA už používají nebo doporučují, například Microsoft Authenticator nebo klíče YubiKey.",
+    "implementationSteps": "Vyberte nástroj MFA, který funguje s vašimi hlavními systémy (e-mail, VPN, cloudové aplikace).\nZavádějte MFA postupně: hned u všech administrátorských účtů, pak u vzdáleného přístupu a během 12 měsíců u všeho ostatního. Cílem jsou všichni uživatelé, administrátoři i technická aktiva.\nSledujte, kdo je zapojený a jaké procento uživatelů je pokryto; u kritických účtů usilujte o plné pokrytí.\nSepište systémy, které MFA zatím neumí, s důvodem a náhradním zabezpečením (nejdříve klíče nebo certifikáty, jinak hesla podle vyhlášky), nechte seznam schválit vedoucím a stanovte přezkoumání do 12 měsíců. V režimu vyšších povinností je tato evidence povinná (vyhláška č. 409/2025 Sb., § 19 odst. 3).\nKaždé 3 měsíce zkontrolujte počty zapojených uživatelů a podle potřeby postup upravte.",
+    "evidenceExample": "Snímky obrazovky nebo zprávy z nástroje MFA se stavem nasazení, procentem zapojených uživatelů a administrátorů a používanými metodami, k tomu tabulka nebo dokument se schválenými výjimkami, jejich důvody, náhradním zabezpečením a podpisy.",
+    "fields": {
+      "mfaTool": {
+        "label": "Nástroj MFA",
+        "meaning": "Hlavní software nebo hardware, kterým vaše firma zajišťuje vícefaktorové ověřování.",
+        "example": "Aplikace Microsoft Authenticator, pro administrátory klíče FIDO2",
+        "whereToFind": "Zeptejte se IT nebo bezpečnostního týmu, jaké řešení MFA nasadili nebo plánují."
+      },
+      "mfaMethods": {
+        "label": "Metody MFA",
+        "meaning": "Konkrétní způsoby, jak uživatelé kromě hesla prokazují svou identitu, například kódy z aplikace nebo hardwarové klíče. Vyhlášky požadují alespoň dva různé typy faktorů, například něco, co znáte, a něco, co máte.",
+        "example": "Potvrzení přihlášení v aplikaci Authenticator, hardwarové bezpečnostní klíče",
+        "whereToFind": "Projděte dokumentaci IT k nastavení MFA, nebo se zeptejte, jak se zaměstnanci přihlašují."
+      },
+      "mfaCoverage": {
+        "label": "Pokrytí MFA",
+        "meaning": "Které skupiny nebo systémy mají MFA zapnuté.",
+        "example": "Vzdálený přístup",
+        "whereToFind": "Projděte zprávy IT o tom, kde je MFA vynucené, například jen u VPN, nebo u všech uživatelských účtů."
+      },
+      "mfaCoveragePct": {
+        "label": "Pokrytí MFA (%)",
+        "meaning": "Procento uživatelů nebo účtů, které mají MFA zaregistrované a používají ho.",
+        "example": "85",
+        "whereToFind": "Vezměte poslední přehled zapojených uživatelů z nástroje MFA nebo od IT."
+      },
+      "adminMfaEnforced": {
+        "label": "MFA vynuceno u administrátorů",
+        "meaning": "Zda je MFA bez výjimky povinné u administrátorských a privilegovaných účtů.",
+        "example": "ano",
+        "whereToFind": "Ověřte u IT, že přihlášení administrátora vždy vyžaduje druhý faktor; odpověď má být ano."
+      }
+    }
+  },
+  "11.2": {
+    "summary": "Vaše firma stanoví pravidla pro bezpečné komunikační nástroje podle citlivosti informací, zakáže soukromé aplikace pro pracovní data a připraví plán komunikace v nouzi, například při výpadku IT. Hotovo máte, když máte písemnou politiku, doklad o schválených šifrovaných nástrojích a záznamy o testech nouzových kanálů.",
+    "applicability": "Platí pro oba režimy: vyhlášky požadují bezpečnou hlasovou, audiovizuální a textovou komunikaci včetně e-mailové a bezpečnou nouzovou komunikaci v rámci organizace (vyhláška č. 410/2025 Sb., § 13 odst. 2; vyhláška č. 409/2025 Sb., § 25 odst. 2). Rozsah pravidel volíte v míře nezbytné (§ 13 odst. 2 zákona č. 264/2025 Sb.), nouzový kanál ale potřebuje každá firma.",
+    "quickTip": "Sepište, jaké nástroje váš tým dnes používá pro e-maily, chaty a hovory, a rozhodněte, které jsou bezpečné pro důvěrné informace.",
+    "implementationSteps": "Napište krátkou politiku: které nástroje používat pro běžnou práci (např. šifrovaný e-mail pro důvěrné informace) a zákaz soukromých aplikací, jako je WhatsApp, pro pracovní účely.\nVyberte a nastavte nástroje s koncovým šifrováním, například Signal, pro krizové situace a předem založte skupiny pro krizový tým a vedení.\nPřipravte nouzový plán: hlavní kanál (např. Signal), záložní kanál (např. soukromé telefony se šifrovanou komunikací) a offline možnost (vytištěné kontakty) a popište, jak plán spustit.\nVyzkoušejte nouzové kanály krátkým cvičením, například zkušební zprávou týmu.\nNechte politiku a plán projednat a schválit vedením.",
+    "evidenceExample": "Politika se seznamem schválených bezpečných nástrojů podle citlivosti dat, doklad (např. snímky obrazovky nebo návody k nastavení), že jsou nástroje s koncovým šifrováním nasazené a nastavené, a plán nouzové komunikace s kanály, postupy a záznamy o testech.",
+    "fields": {
+      "secureCommsTools": {
+        "label": "Nástroje zabezpečené komunikace",
+        "meaning": "Seznam schválených nástrojů nebo způsobů bezpečné komunikace podle toho, jak citlivá data jsou (například veřejná, důvěrná, přísně důvěrná).",
+        "example": "Důvěrné: Outlook se šifrováním a Signal; přísně důvěrné: jen Signal nebo osobní schůzka.",
+        "whereToFind": "Zeptejte se IT, jaké nástroje dnes používají a doporučují, nebo co k vašim úrovním dat říká pověřenec pro ochranu osobních údajů."
+      },
+      "emergencyCommsChannel": {
+        "label": "Kanál nouzové komunikace",
+        "meaning": "Hlavní způsob komunikace v krizi, kdy běžné IT systémy nefungují.",
+        "example": "Skupina krizového týmu v aplikaci Signal.",
+        "whereToFind": "Rozhodněte s vedoucím IT a vedením podle toho, co funguje i bez firemních serverů nebo internetu."
+      },
+      "lastEmergencyCommsTest": {
+        "label": "Poslední test nouzové komunikace",
+        "meaning": "Datum posledního testu nouzové komunikace.",
+        "example": "2024-09-15",
+        "whereToFind": "Podívejte se do kalendáře IT, zápisů z porad nebo záznamů o testech."
+      }
+    }
+  },
+  "11.3": {
+    "summary": "Vaše firma porovná všechny způsoby přihlašování a pravidla pro hesla s požadavky vyhlášky a uznávanými standardy, výsledek zdokumentuje a napíše jasnou politiku hesel. Hotovo máte, když máte zprávu z kontroly, která potvrzuje soulad, a politiku, kterou může dodržovat každý.",
+    "applicability": "Platí v obou režimech pro každou firmu, kde se zaměstnanci, zákazníci nebo systémy přihlašují digitálně. Nástroj pro ověřování identit musí řídit počet neúspěšných pokusů o přihlášení, po stanovené době nečinnosti znovu ověřit identitu a chránit uložené i přenášené autentizační údaje (vyhláška č. 410/2025 Sb., § 8 odst. 1; vyhláška č. 409/2025 Sb., § 19 odst. 1). Pravidla pro hesla platí tam, kde se přihlašuje jen heslem (vyhláška 410, § 8 odst. 4; vyhláška 409, § 19 odst. 4).",
+    "quickTip": "Požádejte IT o seznam všech nástrojů a aplikací, kam se lidé přihlašují. To je výchozí bod.",
+    "implementationSteps": "Požádejte vedoucího IT, aby porovnal všechny způsoby přihlašování s vyhláškou (vyhláška 410, § 8; vyhláška 409, § 19), doplňkově s NIST SP 800-63B nebo německou směrnicí BSI TR-03107, a zapsal nedostatky, například slabá hesla nebo dlouhé relace.\nNapište jednoduchou politiku hesel podle vyhlášky: délka alespoň 12 znaků u uživatelů, 17 u administrátorů a 22 u účtů technických aktiv, zákaz jednoduchých a často používaných hesel, paměť alespoň 12 předchozích hesel, povinná změna alespoň jednou za 18 měsíců a omezení počtu neúspěšných pokusů o přihlášení.\nVyzkoušejte časový limit relace: nechte přihlášení otevřené a ověřte, že se po nastavené době zamkne.\nNechte zprávu z kontroly a politiku schválit vedením na poradě.\nNahrajte zprávu z kontroly a politiku jako doklad.",
+    "evidenceExample": "Zpráva z kontroly, ve které jsou všechny způsoby ověřování porovnané s vyhláškou (410, § 8, nebo 409, § 19) a s doplňkovými standardy, k tomu písemná politika hesel s pravidly, jako je minimální délka a omezení neúspěšných pokusů.",
+    "fields": {
+      "ssoTool": {
+        "label": "Nástroj SSO",
+        "meaning": "Název nástroje pro jednotné přihlášení (single sign-on), přes který se centrálně přihlašujete do více aplikací.",
+        "example": "Okta",
+        "whereToFind": "Zeptejte se IT nebo bezpečnostního týmu, jaký nástroj obsluhuje firemní přihlašování."
+      },
+      "passwordMinLength": {
+        "label": "Minimální délka hesla",
+        "meaning": "Nejmenší povolený počet znaků hesla ve vašich systémech. Kde se přihlašuje jen heslem, bez MFA a bez klíčů či certifikátů, vyhlášky vyžadují alespoň 12 znaků u účtů uživatelů, 17 u administrátorů a 22 u účtů technických aktiv (vyhláška č. 410/2025 Sb., § 8 odst. 4 písm. a); vyhláška č. 409/2025 Sb., § 19 odst. 4 písm. a)).",
+        "example": "12",
+        "whereToFind": "Zkontrolujte současná pravidla hesel v IT, nebo se zeptejte správce systému, jaké minimum je dnes nastavené."
+      },
+      "sessionTimeoutMinutes": {
+        "label": "Odhlášení po nečinnosti (minuty)",
+        "meaning": "Po kolika minutách nečinnosti relace vyprší a je nutné se znovu přihlásit. Dobu stanovíte sami; vyhlášky vyžadují opětovné ověření identity po stanovené době nečinnosti.",
+        "example": "15",
+        "whereToFind": "Podívejte se do nastavení zabezpečení aplikace nebo systému, nebo se zeptejte IT, jak dlouho relace trvají."
+      }
+    }
+  },
+  "12.1": {
+    "summary": "Zjistěte, zda vaše firma poskytuje regulovanou službu podle zákona č. 264/2025 Sb., o kybernetické bezpečnosti, a v jakém je režimu povinností: vyšších, nebo nižších. Rozhoduje služba a odvětví podle přílohy vyhlášky č. 408/2025 Sb. a velikost podniku (§§ 4 až 8 zákona). Hotovo máte, když máte písemný dokument, který vaše zařazení vysvětluje i s právním odůvodněním.",
+    "applicability": "Týká se firem, které poskytují službu z přílohy vyhlášky č. 408/2025 Sb. v některém z 15 odvětví (§ 4 odst. 1 písm. a) zákona), například energetika, výrobní průmysl, doprava nebo zdravotnictví, a jsou alespoň středním podnikem nebo splňují jinou podmínku významnosti z vyhlášky (§ 4 odst. 1 písm. b)). Služby podle § 5 zákona, například služby subjektu kritické infrastruktury, jsou regulované bez ohledu na velikost. Malé podniky mimo tyto případy mohou požadavek vynechat.",
+    "quickTip": "Sepište, co vaše firma dělá, a ověřte to v Kalkulačce v Průvodci novým zákonem o kybernetické bezpečnosti na Portálu NÚKIB: ukáže, zda poskytujete regulovanou službu a v jakém režimu.",
+    "implementationSteps": "Sepište služby a odvětví, ve kterých vaše firma působí, například energetika nebo finanční trh, a porovnejte je se seznamem regulovaných služeb v příloze vyhlášky č. 408/2025 Sb.\nOvěřte velikost podle doporučení Komise 2003/361/ES se zvláštními pravidly § 7 zákona a všimněte si slova „a“. Velkým podnikem je firma s alespoň 250 zaměstnanci, nebo s ročním obratem nad 50 milionů eur a zároveň bilanční sumou nad 43 milionů eur. Alespoň středním podnikem je firma s alespoň 50 zaměstnanci, nebo s obratem i bilanční sumou nad 10 milionů eur. Samotný obrat nestačí. Částky se přepočítávají na koruny kurzem ČNB (vyhláška č. 408/2025 Sb., § 2 odst. 2).\nUrčete režim: příloha vyhlášky č. 408/2025 Sb. u každé služby uvádí, kdy je poskytovatel v režimu vyšších a kdy nižších povinností; základním kritériem je velikost, u některých služeb rozhodují i další podmínky. Služba registrovaná podle § 5 zákona znamená vždy režim vyšších povinností (§ 8 odst. 3). Podle NÚKIB platí: jedna organizace, jeden režim. Svůj aktuální režim vidíte v Portálu NÚKIB v sekci Chci vyřídit (Přehled podání); rozhodnutí o registraci finální režim neuvádí.\nNapište krátký dokument: služby a odvětví, velikost, režim a důvody, s odkazem na §§ 4 až 8 zákona č. 264/2025 Sb. a vyhlášku č. 408/2025 Sb.\nPokud si nejste jistí, nechte dokument posoudit interním nebo externím právníkem.",
+    "evidenceExample": "Dokument se seznamem služeb a odvětví vaší firmy, počtem zaměstnanců, obratem a bilanční sumou, zjištěným režimem a právním odůvodněním podle §§ 4 až 8 zákona č. 264/2025 Sb. a vyhlášky č. 408/2025 Sb.",
+    "fields": {
+      "entityClassification": {
+        "label": "Kategorie subjektu",
+        "meaning": "Formulář nabízí kategorie směrnice NIS 2: základní a důležitý subjekt. Český zákon místo nich rozlišuje režim vyšších a nižších povinností a v § 18 odst. 4 (u poskytovatelů digitálních služeb) je páruje: režimu vyšších povinností odpovídá základní subjekt, režimu nižších povinností důležitý. Vycházejte vždy ze svého režimu, ne z kategorie.",
+        "example": "Základní subjekt (režim vyšších povinností)",
+        "whereToFind": "Režim vidíte v Portálu NÚKIB v sekci Chci vyřídit (Přehled podání), nebo ho určíte z přílohy vyhlášky č. 408/2025 Sb. podle své služby a velikosti; počet zaměstnanců vám dá personální oddělení, obrat a bilanční sumu účetní."
+      },
+      "applicableSectors": {
+        "label": "Odvětví",
+        "meaning": "Odvětví podle § 4 odst. 1 písm. a) zákona a přílohy vyhlášky č. 408/2025 Sb., do kterých spadají vaše regulované služby.",
+        "example": "Energetika, Digitální infrastruktura a služby",
+        "whereToFind": "Projděte, co vaše firma dělá, v podkladech vedení, výročních zprávách nebo podnikatelském plánu."
+      }
+    }
+  },
+  "12.2": {
+    "summary": "Vaše firma ohlásí regulovanou službu NÚKIB přes Portál NÚKIB, nejpozději do 60 dnů ode dne, kdy splnila podmínky pro registraci (§ 6 odst. 1 zákona č. 264/2025 Sb.). NÚKIB pak vydá rozhodnutí o registraci. Hotovo máte, když je ohlášení vidět v Přehledu podání v sekci Chci vyřídit na Portálu NÚKIB, máte rozhodnutí o registraci a doklad jste nahráli.",
+    "applicability": "Ohlásit musí každý poskytovatel služby, který splňuje podmínky pro registraci podle § 4 odst. 1 zákona, v obou režimech. U většiny firem to bylo dnem účinnosti zákona 1. listopadu 2025, lhůta tedy uplynula 31. prosince 2025; kdo ještě neohlásil, ohlásí bez dalšího odkladu. Pokud už rozhodnutí o registraci máte, zkontrolujte jen, že je vše nahlášené a doklad uložený.",
+    "quickTip": "Ověřte, kdo ze statutárního orgánu se umí přihlásit přes NIA (např. BankID nebo eObčanka). Do formulářů na Portálu NÚKIB se přihlašuje statutární orgán nebo jím pověřený zástupce.",
+    "implementationSteps": "Zajistěte přihlášení: do Portálu NÚKIB se statutární orgán přihlašuje svou identitou občana přes NIA (např. BankID nebo eObčanka). Ve formuláři Pověření/odstranění zástupce může pověřit zástupce, aby přístup měli aspoň dva lidé. Zahraniční statutární orgán bez české identity použije IIG, nebo pověří zástupce datovou schránkou.\nPřipravte registrační údaje (vyhláška č. 334/2025 Sb., § 3 odst. 2): název, IČO, sídlo, případně provozovny v jiných členských státech, seznam regulovaných služeb a splněné podmínky významnosti.\nV sekci Chci vyřídit podejte ohlášení regulované služby (§ 6 odst. 1 zákona). Podává se výlučně elektronicky přes formulář Portálu NÚKIB (§ 45 odst. 2).\nZkontrolujte, že je ohlášení vidět v Přehledu podání, a uložte snímek obrazovky. Do 30 dnů od doručení rozhodnutí o registraci pak nahlaste kontaktní a doplňující údaje (§ 11 zákona; vyhláška 334, § 3 odst. 3 a 4): kontaktní osoby, doménová jména a rozsahy IP adres, geografické rozšíření služby a členství v koncernu.\nNahrajte rozhodnutí o registraci a snímek obrazovky jako doklad na platformu.",
+    "evidenceExample": "Rozhodnutí NÚKIB o registraci regulované služby a snímek obrazovky z Přehledu podání na Portálu NÚKIB, kde je ohlášení vidět.",
+    "fields": {
+      "mukAccountId": {
+        "label": "Číslo jednací rozhodnutí o registraci",
+        "meaning": "Do Portálu NÚKIB se nepřihlašuje firemní účet, ale statutární orgán nebo pověřený zástupce svou identitou přes NIA. Zapište proto číslo jednací rozhodnutí o registraci, podle kterého registraci později dohledáte.",
+        "example": "Číslo jednací tak, jak je uvedené v rozhodnutí",
+        "whereToFind": "V záhlaví rozhodnutí o registraci, které vám NÚKIB doručil."
+      },
+      "bsiRegistrationDate": {
+        "label": "Datum doručení rozhodnutí o registraci",
+        "meaning": "Den, kdy vám bylo doručeno rozhodnutí NÚKIB o registraci regulované služby. Od něj běží 30 dnů na hlášení údajů (§ 11 zákona) a 1 rok na zavedení bezpečnostních opatření (§ 13 odst. 4).",
+        "example": "2026-02-16",
+        "whereToFind": "U zprávy, kterou vám NÚKIB rozhodnutí doručil, nebo ve vašich záznamech o doručené poště."
+      },
+      "registrationProofUploaded": {
+        "label": "Doklad o registraci",
+        "meaning": "Místo pro nahrání dokladu o registraci: rozhodnutí NÚKIB o registraci regulované služby, případně snímek obrazovky z Přehledu podání na Portálu NÚKIB.",
+        "example": "Rozhodnutí o registraci (PDF) a snímek obrazovky z Přehledu podání (PNG).",
+        "whereToFind": "Rozhodnutí vám doručil NÚKIB; Přehled podání najdete na Portálu NÚKIB v sekci Chci vyřídit."
+      }
+    }
+  },
+  "12.3": {
+    "summary": "Udržujte údaje, které jste NÚKIB nahlásili, aktuální. Změnu kontaktních a doplňujících údajů nahlaste nejpozději do 14 dnů ode dne, kdy ke změně došlo (§ 11 odst. 2 zákona č. 264/2025 Sb.); údaje vedené v základních registrech hlásit nemusíte. Změnu služby, která může vést ke změně režimu, nahlaste do 60 dnů (§ 9 odst. 1). Pravidelná kontrola, například jednou ročně, pomůže, abyste žádnou změnu nepřehlédli. Hotovo máte, když máte záznam o kontrole a všechna hlášení změn jsou zdokumentovaná.",
+    "applicability": "Týká se každého poskytovatele regulované služby, kterému NÚKIB doručil rozhodnutí o registraci. Vynechat to nelze.",
+    "quickTip": "Přihlaste se ještě dnes do Portálu NÚKIB a ve formuláři Hlášení a změny údajů k regulované službě zkontrolujte, zda jsou kontaktní osoby stále správné.",
+    "implementationSteps": "Určete hlavní kontaktní osobu a jejího náhradníka a nahlaste je u každé regulované služby.\nPravidelně, například jednou ročně, zkontrolujte všechny nahlášené údaje: jména, e-maily a telefony, doménová jména a rozsahy IP adres, služby, geografické rozšíření a údaje o firmě.\nZastaralé údaje hned opravte a změnu nahlaste NÚKIB nejpozději do 14 dnů ode dne, kdy k ní došlo (§ 11 odst. 2 zákona); potvrzení uložte.\nKaždou kontrolu a změnu zapište s datem a s tím, co jste udělali.\nVyzkoušejte, že kontaktní osoba i náhradník rychle reagují.",
+    "evidenceExample": "Datovaná poznámka nebo zápis z poslední kontroly, který ukazuje, že jste prošli všechny údaje a případně je aktualizovali, potvrzení o změnách nahlášených přes Portál NÚKIB a jednoduchý záznam o testu, že kontaktní osoba i náhradník jsou dosažitelní.",
+    "fields": {
+      "contactPersonName": {
+        "label": "Jméno kontaktní osoby",
+        "meaning": "Celé jméno osoby ve vaší firmě, kterou jste NÚKIB nahlásili jako kontaktní osobu k regulované službě a kterou NÚKIB kontaktuje v bezpečnostních věcech.",
+        "example": "Jana Nováková",
+        "whereToFind": "Na Portálu NÚKIB ve formuláři Hlášení a změny údajů k regulované službě, krok Kontaktní osoby, nebo se zeptejte toho, kdo u vás komunikaci s NÚKIB vede."
+      },
+      "contactPersonEmail": {
+        "label": "E-mail kontaktní osoby",
+        "meaning": "Adresa, na kterou NÚKIB nebo Národní CERT posílá kontaktní osobě naléhavá bezpečnostní upozornění, například když u vaší služby zjistí zranitelnost nebo hrozbu.",
+        "example": "j.novakova@vasefirma.cz",
+        "whereToFind": "Na Portálu NÚKIB u nahlášených kontaktních osob, nebo ve firemním seznamu bezpečnostních kontaktů."
+      },
+      "lastRegistrationUpdate": {
+        "label": "Poslední aktualizace registrace",
+        "meaning": "Datum, kdy jste naposledy zkontrolovali a aktualizovali údaje nahlášené NÚKIB.",
+        "example": "2026-06-15",
+        "whereToFind": "V Přehledu podání na Portálu NÚKIB, v potvrzeních od NÚKIB nebo ve vašich interních záznamech z kontroly."
+      },
+      "nextRegistrationUpdate": {
+        "label": "Příští kontrola registrace",
+        "meaning": "Plánované datum příští úplné kontroly údajů nahlášených NÚKIB.",
+        "example": "2027-06-15",
+        "whereToFind": "Nastavte rok po poslední kontrole podle firemního kalendáře povinností. Zákon pevný termín kontroly nestanoví; změny hlásíte průběžně."
+      }
+    }
+  },
+  "12.4": {
+    "summary": "Mějte klíčové bezpečnostní dokumenty sepsané v katalogu, který můžete hned předložit, a postup, jak rychle odpovědět na žádosti NÚKIB, například při kontrole plnění povinností (§ 42 odst. 3 písm. s) zákona č. 264/2025 Sb.). Hotovo máte, když máte seznam dokumentů, určenou osobu pro odpovědi, záznam dosavadní korespondence a, jste-li subjektem kritické infrastruktury, údaje navíc.",
+    "applicability": "Týká se každého poskytovatele regulované služby. V režimu nižších povinností je hlavním dokladem přehled bezpečnostních opatření: aktualizujete ho alespoň jednou ročně včetně vyhodnocení účinnosti a každou verzi uchováváte alespoň 4 roky (vyhláška č. 410/2025 Sb., § 3 odst. 2 písm. b), c)). V režimu vyšších povinností vedete bezpečnostní politiku a dokumentaci (vyhláška č. 409/2025 Sb., § 3 písm. d), § 6 odst. 1) a audit kybernetické bezpečnosti provádíte alespoň jednou za 2 roky (§ 16 odst. 4). Subjekt kritické infrastruktury je v režimu vyšších povinností (§ 5 písm. d) a § 8 odst. 3 zákona).",
+    "quickTip": "Sepište do jednoduché tabulky všechny bezpečnostní dokumenty, například přehled bezpečnostních opatření, hodnocení rizik a záznamy o školení. To je váš první katalog.",
+    "implementationSteps": "Určete jednu osobu, která vyřizuje žádosti NÚKIB (např. osobu pověřenou kybernetickou bezpečností, ve vyšším režimu manažera kybernetické bezpečnosti), a stanovte cíl, například odpověď do 48 hodin.\nSestavte katalog klíčových dokumentů: bezpečnostní politika, přehled bezpečnostních opatření nebo hodnocení rizik, záznamy o incidentech, výsledky auditů a doklady o školení.\nNapište krátký postup, jak dokumenty shromáždíte a předáte, když o ně NÚKIB požádá.\nJste-li subjektem kritické infrastruktury, doplňte do katalogu údaje o prvku kritické infrastruktury a doklady o nástroji pro detekci kybernetických bezpečnostních událostí (vyhláška č. 409/2025 Sb., § 21).\nZaložte záznam o veškeré korespondenci s NÚKIB a Národním CERT, i když zatím žádná nebyla.",
+    "evidenceExample": "Katalog (dokument nebo tabulka) bezpečnostních dokumentů s popisem a umístěním, k tomu jednostránkový postup s odpovědnou osobou a lhůtami odpovědi; u subjektu kritické infrastruktury i popis detekce kybernetických bezpečnostních událostí a výsledky posledního auditu.",
+    "fields": {
+      "informationSharingCompliant": {
+        "label": "Předávání informací NÚKIB",
+        "meaning": "Popište, jak je vaše firma připravená předat NÚKIB bezpečnostní informace rychle a úplně.",
+        "example": "Máme katalog více než 20 bezpečnostních dokumentů připravených k předání. Osoba pověřená kybernetickou bezpečností odpovídá NÚKIB do 24 hodin. Všechny žádosti evidujeme.",
+        "whereToFind": "Zeptejte se toho, kdo u vás vede kybernetickou bezpečnost nebo právní agendu, nebo projděte zápisy z porad o IT a bezpečnosti."
+      },
+      "correspondenceLogUploaded": {
+        "label": "Záznam korespondence",
+        "meaning": "Nahrajte soubor, ve kterém evidujete dosavadní komunikaci s NÚKIB, Národním CERT nebo jinými úřady o kybernetické bezpečnosti.",
+        "example": "Jednoduchá tabulka v Excelu se sloupci datum, odesílatel, téma (např. „Žádost NÚKIB o informace k incidentu“) a odeslaná odpověď.",
+        "whereToFind": "V datové schránce firmy, v e-mailech a na sdílených discích právního oddělení nebo IT."
+      },
+      "attackDetectionSystem": {
+        "label": "Systém detekce útoků",
+        "meaning": "Jen pro subjekty kritické infrastruktury: nástroj, který odhaluje útoky na IT, na kterém provoz prvku kritické infrastruktury závisí, a které systémy sleduje. Subjekt kritické infrastruktury je v režimu vyšších povinností a ten nástroj pro detekci kybernetických bezpečnostních událostí vyžaduje (vyhláška č. 409/2025 Sb., § 21).",
+        "example": "SIEM provozovaný naším dodavatelem, sleduje síť řídicího systému a brány vzdáleného přístupu úpravny vody.",
+        "whereToFind": "Zeptejte se toho, kdo provozuje IT zařízení, nebo bezpečnostního dodavatele."
+      },
+      "lastKritisEvidenceDate": {
+        "label": "Poslední doklady zaslané NÚKIB",
+        "meaning": "Jen pro subjekty kritické infrastruktury: den, kdy firma naposledy zaslala NÚKIB výsledek auditu, testu nebo certifikace, například na jeho žádost při kontrole. Zákon č. 264/2025 Sb. pravidelné zasílání takových dokladů nestanoví; audit kybernetické bezpečnosti ve vyšším režimu provádíte alespoň jednou za 2 roky (vyhláška č. 409/2025 Sb., § 16 odst. 4). Pokud jste zatím nic nezasílali, nechte pole prázdné.",
+        "example": "2025-03-14",
+        "whereToFind": "V průvodním dopise k zaslaným dokladům, v datové schránce firmy, nebo se zeptejte toho, kdo je odesílal."
+      }
+    }
+  }
+}

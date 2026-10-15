@@ -7,9 +7,10 @@
  * example read from here. The requirement page's 2.1 guidance (data/guidance) shortens the same
  * scales in JSON, which cannot import this file; a test keeps its labels in step.
  *
- * Both languages are the BSI's own words: the German standard (pages 26 to 28) and the BSI's
+ * German and English are the BSI's own words: the German standard (pages 26 to 28) and the BSI's
  * English edition, Version 1.0, October 2017 (pages 21 to 23). Its figure uses shorter labels
  * than its tables ("often", "life-threatening"); the tables are the definitions, so they win.
+ * The BSI publishes no Czech edition: the Czech is our translation of the English edition.
  *
  * The category comes from the matrix, never from multiplying the two values: the standard
  * assigns it cell by cell, and no product threshold reproduces that assignment (a considerable
@@ -47,7 +48,7 @@ const MATRIX: Readonly<Record<Impact, Readonly<Record<Frequency, RiskLevel>>>> =
 export const riskLevel = (frequency: Frequency, impact: Impact): RiskLevel =>
   MATRIX[impact][frequency];
 
-export type Bsi2003Locale = "de" | "en";
+export type Bsi2003Locale = "de" | "en" | "cs";
 
 export interface ScaleText {
   readonly label: string;
@@ -98,6 +99,24 @@ export const FREQUENCY_TEXT: Texts<Frequency> = {
       description: "The event occurs several times a month.",
     },
   },
+  cs: {
+    rare: {
+      label: "Zřídka",
+      description: "Podle současných znalostí by událost mohla nastat nejvýše jednou za pět let.",
+    },
+    medium: {
+      label: "Středně často",
+      description: "Událost nastává jednou za pět let až jednou ročně.",
+    },
+    frequent: {
+      label: "Často",
+      description: "Událost nastává jednou ročně až jednou měsíčně.",
+    },
+    very_frequent: {
+      label: "Velmi často",
+      description: "Událost nastává několikrát měsíčně.",
+    },
+  },
 };
 
 /** Tabelle 9, Schadensauswirkungen. */
@@ -139,6 +158,25 @@ export const IMPACT_TEXT: Texts<Impact> = {
       label: "Threatening the existence of the organisation",
       description:
         "The effects of the damage can reach a catastrophic level that threatens the existence of the organisation.",
+    },
+  },
+  cs: {
+    negligible: {
+      label: "Zanedbatelný",
+      description: "Dopady škody jsou nízké a lze je zanedbat.",
+    },
+    limited: {
+      label: "Omezený",
+      description: "Dopady škody jsou omezené a zvládnutelné.",
+    },
+    considerable: {
+      label: "Značný",
+      description: "Dopady škody mohou být značné.",
+    },
+    existential: {
+      label: "Ohrožující existenci organizace",
+      description:
+        "Dopady škody mohou dosáhnout katastrofálního rozsahu, který ohrožuje existenci organizace.",
     },
   },
 };
@@ -187,6 +225,28 @@ export const RISK_LEVEL_TEXT: Texts<RiskLevel> = {
       label: "Very high",
       description:
         "The security safeguards already implemented or at least envisaged in the security concept do not provide adequate protection against the respective threat. In practice, very high risks are rarely accepted.",
+    },
+  },
+  cs: {
+    low: {
+      label: "Nízké",
+      description:
+        "Již zavedená nebo alespoň v bezpečnostní koncepci plánovaná bezpečnostní opatření poskytují dostatečnou ochranu. V praxi je obvyklé nízká rizika akceptovat a hrozbu přesto dál sledovat.",
+    },
+    medium: {
+      label: "Střední",
+      description:
+        "Již zavedená nebo alespoň v bezpečnostní koncepci plánovaná bezpečnostní opatření možná nestačí.",
+    },
+    high: {
+      label: "Vysoké",
+      description:
+        "Již zavedená nebo alespoň v bezpečnostní koncepci plánovaná bezpečnostní opatření neposkytují dostatečnou ochranu před danou hrozbou.",
+    },
+    very_high: {
+      label: "Velmi vysoké",
+      description:
+        "Již zavedená nebo alespoň v bezpečnostní koncepci plánovaná bezpečnostní opatření neposkytují dostatečnou ochranu před danou hrozbou. V praxi se velmi vysoká rizika akceptují jen zřídka.",
     },
   },
 };

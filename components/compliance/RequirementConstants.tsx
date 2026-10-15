@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 // ---------------------------------------------------------------------------
@@ -32,12 +33,14 @@ export function StatusDot({ status, className }: { status: string; className?: s
   return <span aria-hidden className={cn("inline-block h-1.5 w-1.5 rounded-full", style.dotClass, className)} />;
 }
 
+/** The status in the reader's language, from the shared `status` messages; the English label otherwise. */
 export function StatusBadge({ status }: { status: string }) {
+  const t = useTranslations("status");
   const style = STATUS_STYLES[status] ?? STATUS_STYLES.not_started;
   return (
     <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
       <StatusDot status={status} />
-      {style.label}
+      {t.has(status) ? t(status) : style.label}
     </span>
   );
 }

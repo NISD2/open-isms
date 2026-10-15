@@ -2,7 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { Fragment, type ReactNode } from "react";
 import { NIS2_ASSET_TYPES } from "@/lib/compliance/asset-types";
 import { RISK_LEVEL_TEXT, RISK_LEVELS } from "@/lib/compliance/bsi-200-3";
-import { gapLines, ONGOING_COPY, type ShownGap, type WalkLocale } from "@/lib/durchgang";
+import { gapLines, ONGOING_COPY, type ShownGap } from "@/lib/durchgang";
 import { fromScale, levelOf } from "@/lib/durchgang/ratings";
 import type { CompanyExport } from "@/lib/export/company-export";
 import { riskCounts } from "@/lib/export/risk-cells";
@@ -18,13 +18,14 @@ import {
 } from "@/lib/export/rows";
 import type { ExportNames } from "@/lib/export/value-names";
 import { exportLabels } from "@/lib/pdf/export-labels";
-import { formatReportDate, formatSigner } from "@/lib/pdf/format";
+import { formatReportDate, formatSigner, type PdfLocale } from "@/lib/pdf/format";
 import type { ReportData } from "@/lib/pdf/load-report-data";
 import { getReportLabels, getStatusLabel } from "@/lib/pdf/policy-labels";
 import { RiskCounts } from "./RiskCounts";
 
 export interface CompleteView {
-  readonly locale: WalkLocale;
+  /** The export's labels are written in German and English only, so a Czech walk exports in English. */
+  readonly locale: PdfLocale;
   readonly data: CompanyExport;
   /** The NIS 2 requirements by category; null without an assessment. */
   readonly report: ReportData | null;

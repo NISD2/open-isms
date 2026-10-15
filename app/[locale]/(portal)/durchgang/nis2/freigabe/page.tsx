@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
 import { ApprovalPage } from "@/components/durchgang/ApprovalPage";
 import { getSession } from "@/lib/auth";
-import { MANAGEMENT_ROLE } from "@/lib/durchgang";
+import { MANAGEMENT_ROLE, walkLocaleOf } from "@/lib/durchgang";
 import { requireWalk } from "../../gate";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -20,7 +20,7 @@ export default async function ApprovalRoute() {
   const [session, locale] = await Promise.all([getSession(), getLocale()]);
   return (
     <ApprovalPage
-      locale={locale === "de" ? "de" : "en"}
+      locale={walkLocaleOf(locale)}
       viewer={{
         id: session?.user.id ?? "",
         management: session?.jobTitle === MANAGEMENT_ROLE,

@@ -20,7 +20,7 @@ export const REPORTING_CLOCK = {
 export const REPORTS = ["early_warning", "notification", "final_report"] as const;
 export type Report = (typeof REPORTS)[number];
 
-interface ReportText {
+export interface ReportText {
   readonly name: string;
   readonly content: string;
 }

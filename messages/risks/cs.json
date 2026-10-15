@@ -30,7 +30,8 @@
       "residualLikelihood": "Zbytková pravděpodobnost",
       "residualImpact": "Zbytkový dopad",
       "riskOwner": "Vlastník rizika",
-      "nextReviewDate": "Datum příští revize"
+      "nextReviewDate": "Datum příští revize",
+      "acceptedAt": "Akceptováno dne"
     },
     "fieldDescriptions": {
       "title": "Krátký výstižný název tohoto rizika (např. „Útok ransomwaru na systém ERP“).",
@@ -84,6 +85,12 @@
     },
     "critical": "Kritické",
     "ot": "OT",
-    "riskCount": "{count, plural, one {# riziko} few {# rizika} other {# rizik}}"
+    "riskCount": "{count, plural, one {# riziko} few {# rizika} other {# rizik}}",
+    "treatmentDescriptions": {
+      "mitigate": "Zavedete opatření, které sníží pravděpodobnost nebo škodu: vícefaktorové ověřování, testované zálohy, aktualizace. Obvyklá odpověď.",
+      "accept": "Riziko vědomě nesete a nic dalšího neděláte. Dává to smysl jen pod vaší hranicí akceptace a rozhodnutí patří písemně, s vedením za ním.",
+      "transfer": "Finanční následek přenesete na jiného, pojištěním kybernetických rizik nebo smluvně na dodavatele. Povinnosti podle zákona č. 264/2025 Sb. zůstávají vaší firmě a jejímu vedení: přenáší se škoda, ne odpovědnost.",
+      "avoid": "Přestanete dělat to, co riziko vytváří. Vyřadíte starý systém, zavřete rozhraní, předáte službu někomu, kdo ji provozuje pořádně."
+    }
   }
 }

@@ -330,6 +330,7 @@
         "fromKnowledge": "ab Kenntnis",
         "fromNotification": "nach der Meldung",
         "hours": "{count} Stunden",
+        "days": "{count, plural, one {# Tag} other {# Tage}}",
         "months": "{count, plural, one {# Monat} other {# Monate}}"
       },
       "wait": {

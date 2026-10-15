@@ -31,7 +31,8 @@
       "requiresGdprNotification": "Vyžadováno oznámení porušení podle GDPR",
       "dataSubjectsAffected": "Dotčené subjekty údajů",
       "gdprNotifiedAt": "Úřad pro GDPR vyrozuměn",
-      "notifiedDataSubjectsAt": "Subjekty údajů vyrozuměny"
+      "notifiedDataSubjectsAt": "Subjekty údajů vyrozuměny",
+      "internalRef": "Interní označení"
     },
     "bsiDeadlines": {
       "title": "Lhůty pro hlášení incidentů",

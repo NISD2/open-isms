@@ -1,4 +1,5 @@
 import "@/lib/server-guard";
+import { getNis2CzechRef } from "@nisd2/grc-data-model/frameworks";
 import { getLocale, getTranslations } from "next-intl/server";
 import type { ItemView, WalkEntry } from "@/components/durchgang/view";
 import { onRegister } from "@/lib/asset-inventory/catalog-labels";
@@ -7,6 +8,7 @@ import { getSession } from "@/lib/auth";
 import { canSeeCategory, getUserAccess } from "@/lib/compliance/access";
 import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
 import { buildCitationRows, typesetCitation } from "@/lib/compliance/citations";
+import { czechDutyCitation } from "@/lib/compliance/czech-law";
 import { legislation } from "@/lib/content/citations";
 import { db } from "@/lib/db";
 import {
@@ -17,6 +19,7 @@ import {
   MANAGEMENT_ROLE,
   type RegisterModule,
   WALK,
+  walkLocaleOf,
   walkOf,
 } from "@/lib/durchgang";
 import { introspectSchema } from "@/lib/forms/schema-introspect";
@@ -90,7 +93,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     );
     if (!canSeeCategory(access, req.category.id)) return null;
   }
-  const locale = localeTag === "de" ? "de" : "en";
+  const locale = walkLocaleOf(localeTag);
   const screens: readonly AnyScreen[] = item.screens;
   const shows = (module: RegisterModule) =>
     screens.some((s) => s.kind === "register" && s.module === module);
@@ -158,18 +161,24 @@ export async function loadItem(code: string): Promise<ItemView | null> {
       .filter((f) => asked.has(f.key))
       .map((f) => [f.key, f]),
   );
-  const law = buildCitationRows({
-    frameworkCode: "nis2",
-    frameworkRef: req.frameworkRef,
-    legalRef: req.legalRef,
-    referenceUrl: req.category.referenceUrl,
-    nationalUrl: req.category.nationalUrl,
-  }).map((row) => ({
+  const czechRef = getNis2CzechRef(code);
+  const law = buildCitationRows(
+    {
+      frameworkCode: "nis2",
+      frameworkRef: req.frameworkRef,
+      legalRef: req.legalRef,
+      referenceUrl: req.category.referenceUrl,
+      nationalUrl: req.category.nationalUrl,
+      czechRef,
+    },
+    locale,
+  ).map((row) => ({
     label: row.label.kind === "message" ? tPortal(row.label.key) : row.label.text,
     citation: row.citation,
     href: row.href,
     note: null,
   }));
+  const czechDuty = locale === "cs" ? czechDutyCitation(czechRef) : null;
   const cir = req.cirReference
     ? [
         {
@@ -205,12 +214,12 @@ export async function loadItem(code: string): Promise<ItemView | null> {
         : null,
     })),
     citations: [...law, ...cir],
-    // The duty card cites what its text is written from: the BSIG in German, the directive in
-    // English. Both stay in the rail.
-    duty: typesetCitation(
-      (locale === "de" ? req.legalRef : req.frameworkRef) ?? req.legalRef ?? "",
-    ),
-    dutyHref: dutyHref(item.law, locale),
+    // The duty card cites what its text is written from: the BSIG in German, Czech law in Czech,
+    // the directive in English. All of them stay in the rail.
+    duty:
+      czechDuty?.cite ??
+      typesetCitation((locale === "de" ? req.legalRef : req.frameworkRef) ?? req.legalRef ?? ""),
+    dutyHref: czechDuty?.href ?? dutyHref(item.law, locale),
     gloss: glossary(prose, locale),
     screens: words.screens,
     mayDecline: item.mustDo === undefined,

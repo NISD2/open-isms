@@ -5,7 +5,7 @@ import { getPathname } from "@/i18n/navigation";
 import { getSession } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { mayWalkDurchgang } from "@/lib/billing/access";
-import { opensBeforeSetup } from "@/lib/durchgang";
+import { opensBeforeSetup, walkLocaleOf } from "@/lib/durchgang";
 
 /**
  * The walk's own gates, for its home, its setup step, its items and management's approval page:
@@ -14,7 +14,7 @@ import { opensBeforeSetup } from "@/lib/durchgang";
  * (`requireWalk` sends it there). Paying is each page's check (`walkAccess`): the home opens to
  * everyone, locked for an account that has not paid.
  *
- * The walk is written in German and English only. Any other locale gets the English walk rather
+ * The walk is written in German, English and Czech. Any other locale gets the English walk rather
  * than English text around its own titles and terms.
  */
 export async function guardWalk(): Promise<void> {
@@ -22,7 +22,7 @@ export async function guardWalk(): Promise<void> {
   if (!session) redirect("/auth/signin");
   // No company at all: the portal's home sets one up.
   if (!session.companyId) redirect(getPathname({ href: "/dashboard", locale }));
-  if (locale !== "de" && locale !== "en")
+  if (walkLocaleOf(locale) !== locale)
     redirect(getPathname({ href: "/durchgang/nis2", locale: "en" }));
 }
 

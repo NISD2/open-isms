@@ -37,6 +37,12 @@ export type PatchMgmtConfig = PolicyConfigMap["patch_mgmt"];
 export type PatchSlaHours = PatchMgmtConfig["patchSlaHours"];
 export type PolicyConfigData = PolicyConfigMap[PolicyType];
 
+/**
+ * The languages defaults are written in. Czech exists for the crypto list, the one default the
+ * Czech walk writes; the other editors' words read English in Czech.
+ */
+type DefaultsLocale = "en" | "de" | "cs";
+
 // ============================================================================
 // Default factories — BSI/CIR sourced
 // ============================================================================
@@ -47,19 +53,28 @@ export type PolicyConfigData = PolicyConfigMap[PolicyType];
  * "prohibited" are the company's own line below it. ChaCha20-Poly1305, Ed25519 and X25519 alone are
  * not in the TR (TR-1 §3.2: "keine dedizierten Stromchiffren"), so a policy cannot cite it for them.
  */
-function getDefaultCrypto(locale: "en" | "de"): CryptoPolicyConfig {
-  const words =
-    locale === "de"
-      ? {
-          passwords: "Argon2id (für Passwörter)",
-          padding: "RSA mit PKCS#1-v1.5-Padding",
-          hybrid: "ML-KEM-768 zusammen mit ECDHE",
-        }
-      : {
-          passwords: "Argon2id (for passwords)",
-          padding: "RSA with PKCS#1 v1.5 padding",
-          hybrid: "ML-KEM-768 together with ECDHE",
-        };
+const CRYPTO_WORDS: Readonly<
+  Record<DefaultsLocale, { passwords: string; padding: string; hybrid: string }>
+> = {
+  de: {
+    passwords: "Argon2id (für Passwörter)",
+    padding: "RSA mit PKCS#1-v1.5-Padding",
+    hybrid: "ML-KEM-768 zusammen mit ECDHE",
+  },
+  en: {
+    passwords: "Argon2id (for passwords)",
+    padding: "RSA with PKCS#1 v1.5 padding",
+    hybrid: "ML-KEM-768 together with ECDHE",
+  },
+  cs: {
+    passwords: "Argon2id (pro hesla)",
+    padding: "RSA s paddingem PKCS#1 v1.5",
+    hybrid: "ML-KEM-768 společně s ECDHE",
+  },
+};
+
+function getDefaultCrypto(locale: DefaultsLocale): CryptoPolicyConfig {
+  const words = CRYPTO_WORDS[locale];
   return {
     algorithms: [
       // Symmetric: TR-1 Tab. 3.1 and 3.2 (AES with GCM; 256-bit keys for long-term protection)
@@ -188,7 +203,7 @@ function getDefaultCrypto(locale: "en" | "de"): CryptoPolicyConfig {
   };
 }
 
-function getDefaultAccessControl(locale: "en" | "de"): AccessControlConfig {
+function getDefaultAccessControl(locale: DefaultsLocale): AccessControlConfig {
   return {
     model: "rbac", // ORP.4.A5
     reviewFrequency: {
@@ -201,7 +216,7 @@ function getDefaultAccessControl(locale: "en" | "de"): AccessControlConfig {
   };
 }
 
-function getDefaultProcurement(locale: "en" | "de"): ProcurementConfig {
+function getDefaultProcurement(locale: DefaultsLocale): ProcurementConfig {
   return {
     thresholdEur: 10000,
     requiredClauses: {
@@ -235,7 +250,7 @@ function getDefaultProcurement(locale: "en" | "de"): ProcurementConfig {
   };
 }
 
-function getDefaultSecureDev(_locale: "en" | "de"): SecureDevConfig {
+function getDefaultSecureDev(_locale: DefaultsLocale): SecureDevConfig {
   return {
     sdlcFramework: "owasp_samm",
     hardeningBaseline: "cis",
@@ -252,7 +267,7 @@ function getDefaultSecureDev(_locale: "en" | "de"): SecureDevConfig {
   };
 }
 
-function getDefaultPatchMgmt(_locale: "en" | "de"): PatchMgmtConfig {
+function getDefaultPatchMgmt(_locale: DefaultsLocale): PatchMgmtConfig {
   return {
     patchSlaHours: {
       critical: 24,
@@ -271,9 +286,9 @@ function getDefaultPatchMgmt(_locale: "en" | "de"): PatchMgmtConfig {
 
 export function getDefaultPolicyConfig<T extends PolicyType>(
   policyType: T,
-  locale: "en" | "de" = "en",
+  locale: DefaultsLocale = "en",
 ): PolicyConfigMap[T] {
-  const factories: Record<PolicyType, (l: "en" | "de") => PolicyConfigData> = {
+  const factories: Record<PolicyType, (l: DefaultsLocale) => PolicyConfigData> = {
     crypto: getDefaultCrypto,
     access_control: getDefaultAccessControl,
     procurement: getDefaultProcurement,

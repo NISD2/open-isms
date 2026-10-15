@@ -22,7 +22,9 @@
       "data_store": "Úložiště dat",
       "ot_ics": "OT / ICS",
       "iot": "IoT",
-      "physical": "Fyzické"
+      "physical": "Fyzické",
+      "process": "Podnikový proces",
+      "room": "Místnost"
     },
     "typeDescriptions": {
       "application": "Podnikové aplikace (ERP, CRM, e-mail)",
@@ -65,7 +67,8 @@
       "rpo": "RPO (hodiny)",
       "endOfLife": "Konec životnosti",
       "quantity": "Množství",
-      "processesPersonalData": "Zpracovává osobní údaje"
+      "processesPersonalData": "Zpracovává osobní údaje",
+      "mfaMethod": "Druh druhého faktoru"
     },
     "fieldDescriptions": {
       "name": "Jedinečný název, který toto aktivum identifikuje v inventáři vaší organizace.",
