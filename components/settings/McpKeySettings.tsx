@@ -10,10 +10,12 @@ import { Link } from "@/i18n/navigation";
 import { RECENT_SIGN_IN_S } from "@/lib/auth/session-age";
 import { trpc } from "@/lib/trpc/client";
 import { signInAgain } from "./ConnectAssistant";
+import { McpConnections } from "./McpConnections";
 
 /**
  * Connecting AI assistants (MCP, lib/mcp): a key to paste into an assistant that has no sign-in of
- * its own, shown once, and one button that ends the key and every assistant connected before.
+ * its own, shown once, the assistants connected now, each with its own way out, and one button
+ * that ends them all.
  * Every tool works in the Durchgang, so an account that may not walk it gets no key, only the way
  * there; disconnecting stays, for assistants connected before the walk was locked again.
  */
@@ -36,10 +38,12 @@ export function McpKeySettings({
   const usable = mayWalk && allowed;
   const [key, setKey] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const utils = trpc.useUtils();
   const create = trpc.user.createMcpKey.useMutation({
     onSuccess: (result) => {
       setKey(result.key);
       setCopied(false);
+      void utils.user.mcpConnections.invalidate();
     },
     // A key asks for a sign-in from the last few minutes; that answer is shown on the card.
     onError: (error) => {
@@ -58,6 +62,7 @@ export function McpKeySettings({
     onSuccess: () => {
       setKey(null);
       toast.success(t("disconnected"));
+      void utils.user.mcpConnections.invalidate();
     },
     onError: () => toast.error(t("failed")),
   });
@@ -125,6 +130,8 @@ export function McpKeySettings({
           {t("reauth", { minutes: RECENT_SIGN_IN_S / 60 })}
         </p>
       )}
+
+      <McpConnections />
 
       <div className="flex flex-wrap gap-2">
         {usable && needsSignIn && (

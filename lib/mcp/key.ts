@@ -4,8 +4,9 @@
  * holds them and a self-host needs no new secret. Each carries what it is for (`aud`) and when it
  * ends (`exp`), and is accepted only for that.
  *
- * An access key names the person, the company it works in and the person's key version; bumping
- * `user.mcp_key_version` refuses every key made before it.
+ * An access key names the person, the company it works in, the person's key version and its
+ * connection; bumping `user.mcp_key_version` refuses every key made before it, and ending the
+ * connection refuses the keys of that one.
  *
  * No env and no database: the caller passes the signing key and the time, so the tests run
  * without either (lib/mcp/instance-key.ts derives the live key).
@@ -91,6 +92,8 @@ const KEY_CLAIMS = z.object({
   azp: z.string().max(64).optional(),
   /** Random, so two keys made in the same second for the same person differ. */
   jti: z.string().max(64),
+  /** The connection the key belongs to (`mcp_connection`), which the person can end on its own. */
+  con: z.string().uuid(),
   /**
    * The browser sign-in a refresh key belongs to (lib/mcp/oauth.ts): its id, the key's step in
    * that sign-in's chain of refresh keys, and when the person allowed it. Absent on other keys.
@@ -108,7 +111,7 @@ export type KeyClaims = z.infer<typeof KEY_CLAIMS>;
 /** Who a key is for, as the caller sets it; the rest is stamped by `mintKey`. */
 export type KeySubject = Pick<
   KeyClaims,
-  "sub" | "cid" | "ver" | "client" | "azp" | "grant"
+  "sub" | "cid" | "ver" | "con" | "client" | "azp" | "grant"
 >;
 
 export const mintKey = (

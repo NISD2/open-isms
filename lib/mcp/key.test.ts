@@ -8,6 +8,7 @@ const SUBJECT = {
   sub: "11111111-1111-4111-8111-111111111111",
   cid: "44444444-4444-4444-8444-444444444444",
   ver: 3,
+  con: "55555555-5555-4555-8555-555555555555",
 };
 
 const b64 = (value: unknown) => Buffer.from(JSON.stringify(value)).toString("base64url");

@@ -84,6 +84,8 @@ export const KEPT_ON_RESET: Readonly<Record<string, string>> = {
   company: "the company itself, its profile from onboarding and its billing",
   user: "the people's accounts",
   company_membership: "who belongs to the company, in which role",
+  mcp_connection:
+    "the AI assistants people connected, which are theirs, not the implementation",
   company_invite: "invitations to join the team",
   category_assignment: "who looks after which area, set up with the team",
   company_assessment: "kept so the company stays set up; its progress starts over",

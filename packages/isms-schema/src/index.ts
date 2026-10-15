@@ -18,6 +18,7 @@ export * from "./tables/gap-assessment";
 export * from "./tables/improvement";
 export * from "./tables/incident-broadcast";
 export * from "./tables/kpi";
+export * from "./tables/mcp-connection";
 export * from "./tables/membership";
 export * from "./tables/notification";
 export * from "./tables/organization";

@@ -93,6 +93,7 @@ import {
   kpiMeasurement,
   lead,
   managementReview,
+  mcpConnection,
   newsletterGroupMember,
   notification,
   patchRecord,
@@ -752,6 +753,9 @@ async function erasePerson(
   );
   await del("notification", () =>
     tx.delete(notification).where(eq(notification.recipientId, userId)).returning(),
+  );
+  await del("mcp_connection", () =>
+    tx.delete(mcpConnection).where(eq(mcpConnection.userId, userId)).returning(),
   );
   await del("requirement_assignment", () =>
     tx

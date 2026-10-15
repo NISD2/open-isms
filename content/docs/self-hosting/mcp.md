@@ -53,11 +53,11 @@ Add the endpoint as an MCP server over Streamable HTTP and choose OAuth 2.0 with
 
 ## Disconnecting
 
-*Disconnect all assistants* in Settings ends the person's key and every browser sign-in at once. Creating a new key ends the previous one the same way, and so does any change to the person's password (a reset, a first password, or removing it for Google sign-in). Signing out of the browser does not: the assistants stay connected. Removing a person from the company ends their key and every browser sign-in for good, so inviting them back later brings none of them back.
+Settings lists the person's connected assistants in the company open: the pasted key and every browser sign-in, each with when it was connected and last used, and each with its own *Disconnect*, which ends that one at its next call and leaves the others. Creating a new key ends the previous key only. *Disconnect all assistants* ends the key and every browser sign-in at once, and so does any change to the person's password (a reset, a first password, or removing it for Google sign-in). Signing out of the browser does not: the assistants stay connected. Removing a person from the company ends their key and every browser sign-in for good, so inviting them back later brings none of them back.
 
 ## What every call checks
 
-- The key's signature, expiry and the person's key version. Keys are signed with a key derived from `AUTH_SECRET`, so rotating that secret ends every key and every assistant registration; assistants then connect again.
+- The key's signature, expiry, the person's key version and that its connection has not been ended. Keys are signed with a key derived from `AUTH_SECRET`, so rotating that secret ends every key and every assistant registration; assistants then connect again.
 - The person's membership in the company, their role, the plan and their area assignments, the same gates the app applies.
 - A browser `Origin` other than the instance's own host or localhost is refused, so a web page cannot reach a local instance through the person's browser.
 - A limit of 300 tool calls per person per hour, counted in hourly windows.

@@ -24,6 +24,12 @@ import { accountEmailLocale, assistantConnectedEmail, sendMail } from "@/lib/mai
 import { resolveEmailLocale } from "@/lib/mail/locale";
 import { assistantsAllowed } from "@/lib/mcp/allowed";
 import { issuer } from "@/lib/mcp/config";
+import {
+  connectionsOf,
+  endConnection,
+  endKeys,
+  openConnection,
+} from "@/lib/mcp/connections";
 import { instanceKey } from "@/lib/mcp/instance-key";
 import { mintKey, PASTED_KEY_SECONDS } from "@/lib/mcp/key";
 import { bumpMcpKeyVersion, mcpKeyVersionOf } from "@/lib/mcp/key-version";
@@ -128,23 +134,40 @@ export const userRouter = router({
 
   /**
    * A key for the person's AI assistants (lib/mcp): it works in the company open now, as this
-   * person with their role, for 90 days. Shown once and stored nowhere. Bumping the version first
-   * ends the previous key and every assistant signed in before, so a person holds one key at a
-   * time. An assistant cannot make itself a key.
+   * person with their role, for 90 days. Shown once and stored nowhere; its connection row is
+   * what Settings lists. The person's previous key in this company ends with it, so they hold one
+   * key at a time; assistants they signed in stay connected. An assistant cannot make itself a key.
    */
   createMcpKey: companyProcedure.input(shownCompany).mutation(async ({ ctx, input }) => {
     mayConnectAssistant(ctx);
     sameCompany(ctx, input.companyId);
     await companyAllowsAssistants(ctx);
-    const version = await bumpMcpKeyVersion(ctx.db, ctx.userId);
+    const version = await mcpKeyVersionOf(ctx.db, ctx.userId);
     if (version === null) {
       throw new TRPCError({ code: "NOT_FOUND", message: "Account not found." });
     }
+    const now = new Date();
+    const nowS = epochSeconds(now);
+    const owner = { userId: ctx.userId, companyId: ctx.companyId };
+    const con = await ctx.db.transaction(async (tx) => {
+      await endKeys(tx, owner, now);
+      return openConnection(
+        tx,
+        {
+          ...owner,
+          kind: "key",
+          client: null,
+          keyVersion: version,
+          expiresAt: new Date((nowS + PASTED_KEY_SECONDS) * 1000),
+        },
+        now,
+      );
+    });
     const key = mintKey(
       instanceKey(),
-      { sub: ctx.userId, cid: ctx.companyId, ver: version },
+      { sub: ctx.userId, cid: ctx.companyId, ver: version, con },
       "mcp",
-      epochSeconds(new Date()),
+      nowS,
       PASTED_KEY_SECONDS,
     );
     noticeAssistantConnected(ctx, { kind: "key" });
@@ -189,6 +212,37 @@ export const userRouter = router({
     await bumpMcpKeyVersion(ctx.db, ctx.userId);
     return { disconnected: true };
   }),
+
+  /** The person's connected assistants in the company open now: their key and each sign-in. */
+  mcpConnections: companyProcedure.query(async ({ ctx }) => {
+    const version = await mcpKeyVersionOf(ctx.db, ctx.userId);
+    if (version === null) return [];
+    return connectionsOf(
+      ctx.db,
+      { userId: ctx.userId, companyId: ctx.companyId },
+      version,
+      new Date(),
+    );
+  }),
+
+  /**
+   * Ends one connected assistant, the others stay. Its keys stop at the next call: the endpoint
+   * and the token endpoint read the connection every time.
+   */
+  endMcpConnection: companyProcedure
+    .input(z.object({ id: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const ended = await endConnection(
+        ctx.db,
+        input.id,
+        { userId: ctx.userId, companyId: ctx.companyId },
+        new Date(),
+      );
+      if (!ended) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "Connection not found." });
+      }
+      return { ended: true };
+    }),
 
   /** Whether the signed-in person may delete their own account here, and what goes with it. */
   deletionCheck: protectedProcedure.query(async ({ ctx }): Promise<SelfErasure> => {

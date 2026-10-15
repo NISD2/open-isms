@@ -239,4 +239,23 @@ test.describe("an AI assistant fills the walkthrough over MCP", () => {
     expect(refused.ok ? "" : refused.message).toMatch(/signed|signature/);
     expect(await risksOn([assetId])).toEqual(before);
   });
+
+  test("the key ended in Settings stops at its next call", async ({ page, request }) => {
+    await page.goto("/de/settings");
+    const row = page.getByRole("listitem").filter({ hasText: "Eingefügter Schlüssel" });
+    await expect(row).toHaveCount(1, { timeout: 20_000 });
+    await row.getByRole("button", { name: "Trennen" }).click();
+    await expect(row).toHaveCount(0, { timeout: 20_000 });
+
+    const response = await request.post("/api/mcp", {
+      headers: {
+        authorization: `Bearer ${key}`,
+        accept: "application/json, text/event-stream",
+        "content-type": "application/json",
+        "mcp-protocol-version": "2025-06-18",
+      },
+      data: { jsonrpc: "2.0", id: 1, method: "tools/list" },
+    });
+    expect(response.status()).toBe(401);
+  });
 });

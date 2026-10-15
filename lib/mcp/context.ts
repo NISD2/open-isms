@@ -12,6 +12,7 @@ import { createCallerFactory, type TRPCContext } from "@/server/trpc/init";
 import { appRouter } from "@/server/trpc/router";
 import { assistantAgent } from "./agent";
 import { assistantsAllowed } from "./allowed";
+import { admitConnection } from "./connections";
 import { instanceKey } from "./instance-key";
 import { type KeyClaims, readKey } from "./key";
 import type { KeyCaller } from "./procedures";
@@ -24,8 +25,9 @@ export type Caller = KeyCaller;
 
 /**
  * The person and company behind an access key, or null: a key this instance did not sign, an
- * expired one, one whose version the person has since bumped, one whose person no longer belongs
- * to the company it was made for, or one in a company whose admin has turned assistants off.
+ * expired one, one whose version the person has since bumped, one whose connection the person
+ * ended, one whose person no longer belongs to the company it was made for, or one in a company
+ * whose admin has turned assistants off.
  * Checked on every request, so a removed person's key dies with the membership.
  */
 async function holderOf(claims: KeyClaims) {
@@ -40,6 +42,8 @@ async function holderOf(claims: KeyClaims) {
     },
   });
   if (!row || row.mcpKeyVersion !== claims.ver) return null;
+  const owner = { userId: row.id, companyId: claims.cid };
+  if (!(await admitConnection(db, claims.con, owner, new Date()))) return null;
   const company = await companySession(row.id, claims.cid, row.grandfatheredAt !== null);
   if (!company.companyId || !(await assistantsAllowed(db, company.companyId)))
     return null;

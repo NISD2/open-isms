@@ -1,6 +1,7 @@
 import { epochSeconds } from "@/lib/auth/session-age";
 import { getClientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
+import { connectionOpen, openConnection } from "@/lib/mcp/connections";
 import { instanceKey } from "@/lib/mcp/instance-key";
 import { bumpMcpKeyVersion, mcpKeyVersionOf } from "@/lib/mcp/key-version";
 import { exchange, spendOn, type TokenDeps } from "@/lib/mcp/oauth";
@@ -12,6 +13,14 @@ const deps: TokenDeps = {
   revoke: async (userId) => {
     await bumpMcpKeyVersion(db, userId);
   },
+  connect: ({ expiresAtS, ...connection }) =>
+    openConnection(
+      db,
+      { ...connection, kind: "signin", expiresAt: new Date(expiresAtS * 1000) },
+      new Date(),
+    ),
+  isOpen: (con, userId, companyId) =>
+    connectionOpen(db, con, { userId, companyId }, new Date()),
 };
 
 const json = (status: number, body: Record<string, unknown>): Response =>

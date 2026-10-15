@@ -232,6 +232,13 @@
       "when": 1792102228994,
       "tag": "0032_company_assistants_allowed",
       "breakpoints": true
+    },
+    {
+      "idx": 33,
+      "version": "7",
+      "when": 1792105402894,
+      "tag": "0033_mcp_connection",
+      "breakpoints": true
     }
   ]
 }

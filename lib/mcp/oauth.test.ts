@@ -93,19 +93,26 @@ function fakeCounter(clock: { now: number }) {
   };
 }
 
+/** The connection every redeemed code here opens. */
+const CON = "55555555-5555-4555-8555-555555555555";
+
 /** The token store as the route wires it, over the fake counter. */
 function deps(
   version = HOLDER.ver,
   clock = { now: NOW },
-): TokenDeps & { readonly revoked: string[] } {
+): TokenDeps & { readonly revoked: string[]; readonly ended: Set<string> } {
   const revoked: string[] = [];
+  const ended = new Set<string>();
   return {
     revoked,
+    ended,
     versionOf: async () => version,
     spend: spendOn(fakeCounter(clock)),
     revoke: async (userId) => {
       revoked.push(userId);
     },
+    connect: async () => CON,
+    isOpen: async (con) => !ended.has(con),
   };
 }
 
@@ -217,8 +224,25 @@ describe("token", () => {
     const outcome = await exchange(KEY, redeem(clientId, codeFor(clientId)), deps(), NOW);
     if (!outcome.ok) throw new Error(outcome.description);
     const access = readKey(KEY, String(outcome.body.access_token), "mcp", NOW);
-    expect(access).toMatchObject({ ...HOLDER, client: "Claude Code", exp: NOW + 3600 });
+    expect(access).toMatchObject({
+      ...HOLDER,
+      con: CON,
+      client: "Claude Code",
+      exp: NOW + 3600,
+    });
     expect(readKey(KEY, String(outcome.body.refresh_token), "mcp", NOW)).toBeNull();
+  });
+
+  test("an assistant ended in Settings buys no new key; nothing else is disconnected", async () => {
+    const clientId = register();
+    const shared = deps();
+    const first = await exchange(KEY, redeem(clientId, codeFor(clientId)), shared, NOW);
+    if (!first.ok) throw new Error(first.description);
+    shared.ended.add(CON);
+    expect(
+      await exchange(KEY, refreshWith(clientId, first.body.refresh_token), shared, NOW),
+    ).toMatchObject({ ok: false, error: "invalid_grant" });
+    expect(shared.revoked).toEqual([]);
   });
 
   test("a code works once", async () => {

@@ -306,6 +306,16 @@ export interface TokenDeps {
   readonly spend: (id: string, lifetimeS: number) => Promise<Spent>;
   /** Ends every key and assistant sign-in of the person (a version bump). */
   readonly revoke: (userId: string) => Promise<void>;
+  /** Records the assistant a redeemed code connects (`mcp_connection`); its id rides in the tokens. */
+  readonly connect: (connection: {
+    readonly userId: string;
+    readonly companyId: string;
+    readonly client: string | null;
+    readonly keyVersion: number;
+    readonly expiresAtS: number;
+  }) => Promise<string>;
+  /** Whether the person has not ended this connection in Settings. */
+  readonly isOpen: (con: string, userId: string, companyId: string) => Promise<boolean>;
 }
 
 /** A counter that allows `limit` hits per window of `windowMs`, opened by the first hit. */
@@ -414,7 +424,14 @@ async function redeem(
   }
   const { sub, cid, ver, client } = code;
   const grant = { id: randomBytes(12).toString("base64url"), step: 0, since: nowS };
-  return tokens(key, { sub, cid, ver, client, azp }, grant, nowS);
+  const con = await deps.connect({
+    userId: sub,
+    companyId: cid,
+    client: client ?? null,
+    keyVersion: ver,
+    expiresAtS: nowS + GRANT_SECONDS,
+  });
+  return tokens(key, { sub, cid, ver, con, client, azp }, grant, nowS);
 }
 
 /**
@@ -441,6 +458,9 @@ async function refresh(
   if ((await deps.versionOf(claims.sub)) !== claims.ver) {
     return invalidGrant("The assistants of this account were disconnected.");
   }
+  if (!(await deps.isOpen(claims.con, claims.sub, claims.cid))) {
+    return invalidGrant("This assistant was disconnected in Settings. Connect it again.");
+  }
   const { grant } = claims;
   const spent = await deps.spend(`${grant.id}.${grant.step}`, REFRESH_SECONDS);
   if (!spent.first && spent.sinceS > REFRESH_GRACE_S) {
@@ -449,10 +469,10 @@ async function refresh(
       "This refresh token was used before, so every assistant of this account was disconnected. Connect again.",
     );
   }
-  const { sub, cid, ver, client } = claims;
+  const { sub, cid, ver, con, client } = claims;
   return tokens(
     key,
-    { sub, cid, ver, client, azp },
+    { sub, cid, ver, con, client, azp },
     { ...grant, step: grant.step + 1 },
     nowS,
   );
