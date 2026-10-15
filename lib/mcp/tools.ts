@@ -23,6 +23,7 @@ import { describeError } from "./errors";
 import { type FillableKind, isFillableKind, SCREEN_FILLS } from "./screens";
 import {
   answersProblem,
+  changesProblem,
   closedFor,
   fieldKeysOf,
   fieldsSchemaOf,
@@ -85,12 +86,60 @@ export const FillItemInput = z.object({
     .describe(
       "New rows for the item's register, each as get_walkthrough's rowSchema describes it. The rows already in the register are listed there: do not add them again.",
     ),
+  changes: z
+    .array(
+      z.object({
+        id: z
+          .string()
+          .uuid()
+          .describe("The id of a row get_walkthrough lists in the register."),
+        fields: z
+          .record(z.string(), z.unknown())
+          .describe(
+            "The fields to change, as the register's changeSchema describes them.",
+          ),
+      }),
+    )
+    .max(MAX_ROWS)
+    .optional()
+    .describe(
+      "Corrections to rows already in the item's register; fields left out stay.",
+    ),
+  files: z
+    .array(
+      z.object({
+        evidenceId: z.string().uuid().describe("The evidenceId upload_file returned."),
+        contentHash: z
+          .string()
+          .length(64)
+          .optional()
+          .describe("The file's SHA-256 as hex, recorded with it."),
+      }),
+    )
+    .max(20)
+    .optional()
+    .describe(
+      "Files uploaded with upload_file (purpose evidence), attached to the item as evidence once their bytes are uploaded.",
+    ),
   screens: z
     .record(z.string(), z.unknown())
     .optional()
     .describe(
       "Input for the item's other screens, by screen kind (assets, specify, rate, agreements, logins, backups, critical, policy, crypto, adopt), each as get_walkthrough's screens[].input describes it. Use the ids get_walkthrough lists under screens[].now.",
     ),
+});
+
+export const UploadFileInput = z.object({
+  code: z.string().max(10).describe('The item the file belongs to, for example "8.2".'),
+  language,
+  purpose: z
+    .enum(["evidence", "training_certificate"])
+    .describe(
+      "evidence: a document that shows the item is done, attached to it. training_certificate: the certificate of a training row on an item that keeps training records.",
+    ),
+  fileName: z.string().min(1).max(500),
+  contentType: z.string().min(1).max(100).describe('For example "application/pdf".'),
+  fileSize: z.number().int().positive().describe("The file's size in bytes."),
 });
 
 export type ToolOutcome =
@@ -259,6 +308,7 @@ async function readItem(
         ? {
             name: register.name,
             rowSchema: jsonSchemaOf(register.row),
+            changeSchema: register.change ? jsonSchemaOf(register.change.patch) : null,
             rows: rows.map(withoutEmpty),
           }
         : null,
@@ -275,20 +325,27 @@ export const getWalkthrough = (
     ? readItem(holder, input.code, input.language)
     : listWalk(holder, input.language);
 
-/** Why an assistant may not change this item now (`closedFor`), in words, or null. */
-async function refusalOf(
-  holder: KeyHolder,
-  found: Extract<Awaited<ReturnType<typeof itemOf>>, { ok: true }>,
-  link: string,
-): Promise<string | null> {
-  const { item, state, req, categoryId, assessment } = found;
+type FoundItem = Extract<Awaited<ReturnType<typeof itemOf>>, { ok: true }>;
+
+/** The item's status row in the company's assessment, or null before it has one. */
+async function statusOf(holder: KeyHolder, found: FoundItem) {
+  const { req, categoryId, assessment } = found;
   const statuses = assessment
     ? await holder.caller.assessment.getStatusesByCategory({
         assessmentId: assessment.id,
         categoryId,
       })
     : [];
-  const row = statuses.find((s) => s.requirementId === req.id)?.status ?? null;
+  return statuses.find((s) => s.requirementId === req.id)?.status ?? null;
+}
+
+/** Why an assistant may not change this item now (`closedFor`), in words, or null. */
+function refusalOf(
+  found: FoundItem,
+  row: Awaited<ReturnType<typeof statusOf>>,
+  link: string,
+): string | null {
+  const { item, state } = found;
   switch (closedFor(state, row)) {
     case "signed":
       return `Management has signed ${item.code}. Changing it takes that signature back, so it is changed in the app: ${link}`;
@@ -430,14 +487,106 @@ async function addRows(holder: KeyHolder, register: Register, rows: readonly unk
   return results;
 }
 
+/**
+ * Whether the holder's assistant may change this item now, or why not: closed for it, a company
+ * not set up yet, a reviewer's role, or an area that is not the person's own (the rule the app's
+ * answer saves apply, held here for every write, including those whose procedures do not check
+ * it). Returns the item's status row and assessment for the writes that need them.
+ */
+async function mayChange(holder: KeyHolder, found: FoundItem, link: string) {
+  const { categoryId, assessment } = found;
+  const row = await statusOf(holder, found);
+  const refusal = refusalOf(found, row, link);
+  if (refusal) return { ok: false as const, message: refusal };
+  if (!assessment) {
+    return {
+      ok: false as const,
+      message: `Finish setting up the company in the app first: ${link}`,
+    };
+  }
+  if (isReviewerRole(holder.role)) {
+    return {
+      ok: false as const,
+      message: "Your role reviews the walkthrough; it does not fill it in.",
+    };
+  }
+  await enforceAssignment(db, {
+    role: holder.role,
+    userId: holder.userId,
+    assessmentId: assessment.id,
+    categoryId,
+  });
+  return { ok: true as const, assessment, statusRow: row };
+}
+
+/** The corrections, one after the other, each saved or refused on its own. */
+async function saveChanges(
+  holder: KeyHolder,
+  register: Register,
+  changes: ReadonlyArray<{ readonly id: string; readonly fields: unknown }>,
+) {
+  const { change } = register;
+  if (!change) return [];
+  const results: Array<{ id: string; changed: true } | { id: string; refused: string }> =
+    [];
+  for (const { id, fields } of changes) {
+    try {
+      await change.save(holder.caller, id, fields);
+      results.push({ id, changed: true });
+    } catch (error) {
+      const refused = describeError(error);
+      if (!refused) {
+        console.error(
+          "[mcp] a register change failed:",
+          error instanceof Error ? loggableFailure(error) : error,
+        );
+      }
+      results.push({ id, refused: refused ?? "Could not be saved." });
+    }
+  }
+  return results;
+}
+
+/** The uploaded files, each confirmed as the item's evidence or refused on its own. */
+async function confirmFiles(
+  holder: KeyHolder,
+  files: ReadonlyArray<{ readonly evidenceId: string; readonly contentHash?: string }>,
+) {
+  const results: Array<
+    { evidenceId: string; attached: true } | { evidenceId: string; refused: string }
+  > = [];
+  for (const { evidenceId, contentHash } of files) {
+    try {
+      const confirmed = await holder.caller.evidence.confirmUpload({
+        evidenceId,
+        contentHash,
+      });
+      results.push(
+        confirmed
+          ? { evidenceId, attached: true }
+          : {
+              evidenceId,
+              refused: "Already attached, or not uploaded through upload_file.",
+            },
+      );
+    } catch (error) {
+      results.push({
+        evidenceId,
+        refused: describeError(error) ?? "Could not be attached.",
+      });
+    }
+  }
+  return results;
+}
+
 export async function fillItem(
   holder: KeyHolder,
   input: z.output<typeof FillItemInput>,
 ): Promise<ToolOutcome> {
-  const { code, answers = {}, rows = [] } = input;
+  const { code, answers = {}, rows = [], changes = [], files = [] } = input;
   const found = await itemOf(holder, code);
   if (!found.ok) return refuse(found.message);
-  const { item, state, categoryId, assessment } = found;
+  const { item, state, categoryId } = found;
   const link = linkOf(code, input.language);
   const keys = fieldKeysOf(item);
   const register = registerOfItem(item);
@@ -445,39 +594,32 @@ export async function fillItem(
   const sent = screensOf(item, input.screens ?? {}, link);
   if (!sent.ok) return refuse(sent.message);
   const { screens } = sent;
+  const touchesRegister = rows.length > 0 || changes.length > 0;
 
-  if (!answering && rows.length === 0 && screens.length === 0)
-    return refuse("Send answers, rows, screens or any of them.");
-  if (rows.length > 0 && !register)
-    return refuse(`${code} has no register to add rows to.`);
-  if (rows.length > 0 && filledBy(item, "register") !== "assistant") {
+  if (!answering && !touchesRegister && screens.length === 0 && files.length === 0)
+    return refuse("Send answers, rows, changes, screens or files.");
+  if (touchesRegister && !register)
+    return refuse(`${code} has no register to add rows to or change.`);
+  if (touchesRegister && filledBy(item, "register") !== "assistant") {
     return refuse(
       `Rows on ${code} are added in the app, where management approves the item: ${link}`,
     );
   }
+  const listed =
+    register && changes.length > 0
+      ? new Set((await register.rows(holder.caller)).map((r) => r.id))
+      : new Set<string>();
   const problem =
     (answering ? answersProblem(item, answers) : null) ??
-    (register && rows.length > 0 ? rowsProblem(register, rows) : null);
+    (register && rows.length > 0 ? rowsProblem(register, rows) : null) ??
+    (register && changes.length > 0 ? changesProblem(register, listed, changes) : null);
   if (problem) return refuse(problem);
-  const refusal = await refusalOf(holder, found, link);
-  if (refusal) return refuse(refusal);
-  if (!assessment) {
-    return refuse(`Finish setting up the company in the app first: ${link}`);
-  }
-  if (isReviewerRole(holder.role)) {
-    return refuse("Your role reviews the walkthrough; it does not fill it in.");
-  }
-  // The rule the app's answer saves apply (intake), held here for rows too, whose procedures in
-  // the app do not check it: the person's own area, or an admin.
-  await enforceAssignment(db, {
-    role: holder.role,
-    userId: holder.userId,
-    assessmentId: assessment.id,
-    categoryId,
-  });
+  const allowed = await mayChange(holder, found, link);
+  if (!allowed.ok) return refuse(allowed.message);
+  const { assessment } = allowed;
   const modules = [
     ...new Set([
-      ...(register && rows.length > 0 ? [register.module] : []),
+      ...(register && touchesRegister ? [register.module] : []),
       ...screens.flatMap(([kind]) => SCREEN_FILLS[kind].modules),
     ]),
   ];
@@ -501,7 +643,10 @@ export async function fillItem(
   }
   const added =
     register && rows.length > 0 ? await addRows(holder, register, rows) : null;
+  const changed =
+    register && changes.length > 0 ? await saveChanges(holder, register, changes) : null;
   const saved = screens.length > 0 ? await saveScreens(holder, code, screens) : null;
+  const attached = files.length > 0 ? await confirmFiles(holder, files) : null;
   const stored = await answersOf(holder, code, assessment.id, categoryId);
   return {
     ok: true,
@@ -509,10 +654,72 @@ export async function fillItem(
       code,
       savedAnswers: Object.keys(answers),
       rows: added,
+      changes: changed,
       screens: saved,
+      files: attached,
       stillEmpty: keys.filter((key) => stored[key] == null || stored[key] === ""),
       appOnly: screensFilledBy(item, "app"),
       next: `The person finishes ${code} in the app, where management also signs it: ${link}`,
+    },
+  };
+}
+
+/** The request an assistant sends the file's bytes with: the signed address takes only this. */
+const putRequest = (url: string, contentType: string) => ({
+  method: "PUT",
+  url,
+  headers: { "content-type": contentType },
+});
+
+/**
+ * An address to upload one file to, from the procedure the app's own upload calls, after the
+ * same checks as filling the item. The bytes go from the assistant straight to storage; the app
+ * only signs the address, for this company's own prefix, this size and this type.
+ */
+export async function uploadFile(
+  holder: KeyHolder,
+  input: z.output<typeof UploadFileInput>,
+): Promise<ToolOutcome> {
+  const { code, fileName, contentType, fileSize } = input;
+  const found = await itemOf(holder, code);
+  if (!found.ok) return refuse(found.message);
+  const link = linkOf(code, input.language);
+  const allowed = await mayChange(holder, found, link);
+  if (!allowed.ok) return refuse(allowed.message);
+
+  if (input.purpose === "training_certificate") {
+    const register = registerOfItem(found.item);
+    if (register?.module !== "training_record")
+      return refuse(`${code} keeps no training records to attach a certificate to.`);
+    const signed = await holder.caller.training.getCertificateUploadUrl({
+      fileName,
+      contentType,
+      fileSize,
+    });
+    return {
+      ok: true,
+      data: {
+        upload: putRequest(signed.uploadUrl, signed.contentType),
+        fileKey: signed.fileKey,
+        next: "Send the file's bytes with that request, then put fileKey into certificateFileKey of the training row, in rows or changes of fill_walkthrough_item.",
+      },
+    };
+  }
+
+  if (!allowed.statusRow)
+    return refuse(`${code} has no record in the company's assessment yet: ${link}`);
+  const signed = await holder.caller.evidence.createUploadUrl({
+    requirementStatusId: allowed.statusRow.id,
+    fileName,
+    fileType: contentType,
+    fileSize,
+  });
+  return {
+    ok: true,
+    data: {
+      upload: putRequest(signed.uploadUrl, signed.contentType),
+      evidenceId: signed.evidenceId,
+      next: "Send the file's bytes with that request, then call fill_walkthrough_item with files: [{ evidenceId }] to attach it.",
     },
   };
 }

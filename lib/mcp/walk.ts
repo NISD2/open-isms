@@ -15,7 +15,9 @@ import {
   managementReviewCreateSchema,
   relationshipClausesUpdateSchema,
   supplierCreateSchema,
+  supplierUpdateSchema,
   trainingCreateSchema,
+  trainingUpdateSchema,
 } from "@/schema/validators";
 import type { Caller } from "./context";
 
@@ -208,8 +210,16 @@ export interface Register {
   readonly module: RegisterModule;
   /** One new row, as the assistant sends it; dates as text. */
   readonly row: z.ZodObject;
-  readonly rows: (caller: Caller) => Promise<readonly unknown[]>;
+  readonly rows: (caller: Caller) => Promise<ReadonlyArray<{ readonly id: string }>>;
   readonly add: (caller: Caller, row: unknown) => Promise<{ readonly id: string }>;
+  /**
+   * A correction to a row already listed: the fields sent change, the rest stays. Null where the
+   * register's rows are changed only in the app.
+   */
+  readonly change: {
+    readonly patch: z.ZodObject;
+    readonly save: (caller: Caller, id: string, patch: unknown) => Promise<unknown>;
+  } | null;
 }
 
 type RegisterScreen = Extract<AnyScreen, { kind: "register" }>;
@@ -233,30 +243,38 @@ export const markSupplierText = (row: { readonly supplierCompanyId: string | nul
 };
 
 /**
- * Which procedure lists and adds the rows of the register a screen shows: the ones the screen's
- * own component calls (SupplierList, TrainingRecords, ManagementReviews). Files are uploaded in
- * the app, so no row takes a file key.
+ * Which procedures list, add and change the rows of the register a screen shows: the ones the
+ * screen's own component and the register's page call (SupplierList, TrainingRecords,
+ * ManagementReviews). A training certificate is uploaded first (`upload_file`), and its key goes
+ * into the row; the procedures check the key is under the company's own prefix.
  */
 function registerOf(screen: RegisterScreen): Register {
   const { module } = screen;
   switch (module) {
     case "supplier": {
       const row = supplierCreateSchema;
+      const patch = supplierUpdateSchema;
       return {
         name: "supplier",
         module,
         row,
-        rows: async (caller) => (await caller.supplier.list()).map(markSupplierText),
+        rows: async (caller) =>
+          (await caller.supplier.list()).map((r) => ({
+            id: r.id,
+            ...markSupplierText(r),
+          })),
         add: (caller, input) => caller.supplier.create(textDates(row).parse(input)),
+        change: {
+          patch,
+          save: (caller, id, input) =>
+            caller.supplier.update({ id, ...textDates(patch).parse(input) }),
+        },
       };
     }
     case "training_record": {
       const { audience } = screen;
-      const row = trainingCreateSchema.omit({
-        trainingType: true,
-        isManagement: true,
-        certificateFileKey: true,
-      });
+      const row = trainingCreateSchema.omit({ trainingType: true, isManagement: true });
+      const patch = trainingUpdateSchema.omit({ trainingType: true, isManagement: true });
       return {
         name: `training_record:${audience}`,
         module,
@@ -268,6 +286,11 @@ function registerOf(screen: RegisterScreen): Register {
             ...textDates(row).parse(input),
             ...TRAINING_ROW[audience],
           }),
+        change: {
+          patch,
+          save: (caller, id, input) =>
+            caller.training.update({ id, ...textDates(patch).parse(input) }),
+        },
       };
     }
     case "management_review": {
@@ -279,9 +302,32 @@ function registerOf(screen: RegisterScreen): Register {
         rows: (caller) => caller.managementReview.list(),
         add: (caller, input) =>
           caller.managementReview.create(textDates(row).parse(input)),
+        // Its rows sit on the item management approves, which is filled in the app.
+        change: null,
       };
     }
   }
+}
+
+/**
+ * Why these corrections cannot be saved, or null: a register whose rows change only in the app,
+ * an id the register does not list (another audience's training row, another company's row), or
+ * a patch its schema refuses. Checked before anything is written.
+ */
+export function changesProblem(
+  register: Register,
+  listed: ReadonlySet<string>,
+  changes: ReadonlyArray<{ readonly id: string; readonly fields: unknown }>,
+): string | null {
+  const { change } = register;
+  if (!change) return `Rows of the ${register.name} register are changed in the app.`;
+  const patch = textDates(change.patch);
+  const problems = changes.flatMap(({ id, fields }, index) => {
+    if (!listed.has(id)) return [`Change ${index}: ${id} is not a row of this register.`];
+    const checked = patch.safeParse(fields);
+    return checked.success ? [] : [`Change ${index}: ${z.prettifyError(checked.error)}`];
+  });
+  return problems.length > 0 ? problems.join("\n") : null;
 }
 
 /**

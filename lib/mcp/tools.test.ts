@@ -27,7 +27,10 @@ mock.module("@/lib/compliance/module-recheck", () => ({
   recheckModuleRequirements: async () => {},
 }));
 
-const { fillItem } = await import("./tools");
+const { fillItem, uploadFile } = await import("./tools");
+const { getDefaultPolicyConfig } = await import(
+  "@/lib/compliance/policy-config-defaults"
+);
 type KeyHolder = import("./context").KeyHolder;
 
 const SINCE = new Date("2026-10-01T00:00:00Z");
@@ -38,6 +41,7 @@ function holderOf(
   role: string,
   state: { readonly kind: string; readonly [detail: string]: unknown },
   policies: ReadonlyArray<{ readonly code: string; readonly status: string }> = [],
+  suppliers: ReadonlyArray<{ readonly id: string }> = [],
 ) {
   const called: string[] = [];
   const record =
@@ -53,6 +57,26 @@ function holderOf(
       addAssets: record("durchgang.addAssets", { added: 1 }),
       writePolicy: record("durchgang.writePolicy", undefined),
       walkPolicies: record("durchgang.walkPolicies", policies),
+      adoptCrypto: record("durchgang.adoptCrypto", { adopted: true }),
+    },
+    policyConfig: {
+      update: record("policyConfig.update", { id: "config-1" }),
+    },
+    evidence: {
+      createUploadUrl: record("evidence.createUploadUrl", {
+        uploadUrl: "https://storage.example.test/put",
+        storageKey: "companies/c1/evidence/x",
+        evidenceId: "ev-1",
+        contentType: "application/pdf",
+      }),
+      confirmUpload: record("evidence.confirmUpload", { id: "ev-1" }),
+    },
+    training: {
+      getCertificateUploadUrl: record("training.getCertificateUploadUrl", {
+        uploadUrl: "https://storage.example.test/put",
+        fileKey: "companies/c1/certificates/x",
+        contentType: "application/pdf",
+      }),
     },
     requirement: {
       getByCode: record("requirement.getByCode", {
@@ -66,15 +90,25 @@ function holderOf(
       getActiveAssessment: record("assessment.getActiveAssessment", {
         id: "assessment-1",
       }),
-      getStatusesByCategory: record("assessment.getStatusesByCategory", []),
+      getStatusesByCategory: record("assessment.getStatusesByCategory", [
+        {
+          requirementId: "req-1",
+          requirementCode: code,
+          status: { id: "status-1", status: "in_progress", signedOffAt: null },
+        },
+      ]),
     },
     intake: {
       saveRequirementAnswers: record("intake.saveRequirementAnswers", undefined),
       getRequirementAnswers: record("intake.getRequirementAnswers", { answers: {} }),
     },
     supplier: {
-      list: record("supplier.list", []),
+      list: record(
+        "supplier.list",
+        suppliers.map((s) => ({ ...s, supplierCompanyId: null })),
+      ),
       create: record("supplier.create", { id: "row-1" }),
+      update: record("supplier.update", { id: "row-1" }),
     },
     managementReview: {
       list: record("managementReview.list", []),
@@ -94,6 +128,12 @@ const WRITES = [
   "durchgang.resume",
   "durchgang.addAssets",
   "durchgang.writePolicy",
+  "durchgang.adoptCrypto",
+  "policyConfig.update",
+  "supplier.update",
+  "evidence.createUploadUrl",
+  "evidence.confirmUpload",
+  "training.getCertificateUploadUrl",
   "intake.saveRequirementAnswers",
   "supplier.create",
   "managementReview.create",
@@ -205,6 +245,14 @@ describe("fill_walkthrough_item fills an item's other screens through their own 
     expect(writesIn(called)).toEqual([]);
   });
 
+  test("the crypto list set entry by entry is saved through the requirement page's editor", async () => {
+    const { holder, called } = holderOf("9.1", "admin", { kind: "open" });
+    const list = getDefaultPolicyConfig("crypto", "cs");
+    const outcome = await fillScreens(holder, "9.1", { crypto: { list } });
+    expect(outcome).toMatchObject({ ok: true });
+    expect(writesIn(called)).toEqual(["durchgang.adoptCrypto", "policyConfig.update"]);
+  });
+
   test("a policy management approved is rewritten in the app, not by an assistant", async () => {
     const { holder, called } = holderOf("3.1", "admin", { kind: "open" }, [
       { code: "3.1", status: "approved" },
@@ -213,6 +261,101 @@ describe("fill_walkthrough_item fills an item's other screens through their own 
       policy: { clauses: null, own: "Mehr" },
     });
     expect(await refusalOf(outcome)).toContain("takes that approval back");
+    expect(writesIn(called)).toEqual([]);
+  });
+});
+
+const LISTED = "11111111-1111-4111-8111-111111111111";
+
+/** 5.1, open, with one supplier listed in its register. */
+const withListedSupplier = () =>
+  holderOf("5.1", "admin", { kind: "open" }, [], [{ id: LISTED }]);
+
+describe("fill_walkthrough_item corrects rows already in a register", () => {
+  test("a supplier listed in 5.1 is corrected through the supplier's own update", async () => {
+    const { holder, called } = withListedSupplier();
+    const outcome = await fillItem(holder, {
+      code: "5.1",
+      language: "en",
+      changes: [{ id: LISTED, fields: { name: "Hoster GmbH" } }],
+    });
+    expect(outcome).toMatchObject({ ok: true });
+    expect(writesIn(called)).toEqual(["supplier.update"]);
+  });
+
+  test("a row the register does not list is refused before anything is written", async () => {
+    const { holder, called } = withListedSupplier();
+    const outcome = fillItem(holder, {
+      code: "5.1",
+      language: "en",
+      changes: [
+        { id: "22222222-2222-4222-8222-222222222222", fields: { name: "Fremd" } },
+      ],
+    });
+    expect(await refusalOf(outcome)).toContain("is not a row of this register");
+    expect(writesIn(called)).toEqual([]);
+  });
+
+  test("a correction that would take back a signature is made in the app", async () => {
+    signedElsewhere.codes = ["5.2"];
+    try {
+      const { holder, called } = withListedSupplier();
+      const outcome = fillItem(holder, {
+        code: "5.1",
+        language: "en",
+        changes: [{ id: LISTED, fields: { name: "Hoster GmbH" } }],
+      });
+      expect(await refusalOf(outcome)).toContain("signature back from 5.2");
+      expect(writesIn(called)).toEqual([]);
+    } finally {
+      signedElsewhere.codes = [];
+    }
+  });
+});
+
+const PDF = { fileName: "Nachweis.pdf", contentType: "application/pdf", fileSize: 2048 };
+
+describe("upload_file gives an upload address after the same checks as filling", () => {
+  test("evidence for an item: an address for its own record, then attached with files", async () => {
+    const { holder, called } = holderOf("8.2", "admin", { kind: "open" });
+    const outcome = await uploadFile(holder, {
+      code: "8.2",
+      language: "en",
+      purpose: "evidence",
+      ...PDF,
+    });
+    expect(outcome).toMatchObject({ ok: true, data: { evidenceId: "ev-1" } });
+    expect(writesIn(called)).toEqual(["evidence.createUploadUrl"]);
+    const attached = await fillItem(holder, {
+      code: "8.2",
+      language: "en",
+      files: [{ evidenceId: "ev-1" }],
+    });
+    expect(attached).toMatchObject({ ok: true });
+    expect(writesIn(called)).toContain("evidence.confirmUpload");
+  });
+
+  test("a training certificate only where the item keeps training records", async () => {
+    const { holder, called } = holderOf("9.1", "admin", { kind: "open" });
+    const outcome = uploadFile(holder, {
+      code: "9.1",
+      language: "en",
+      purpose: "training_certificate",
+      ...PDF,
+    });
+    expect(await refusalOf(outcome)).toContain("keeps no training records");
+    expect(writesIn(called)).toEqual([]);
+  });
+
+  test("a reviewer's assistant uploads nothing", async () => {
+    const { holder, called } = holderOf("8.2", "legal_reviewer", { kind: "open" });
+    const outcome = uploadFile(holder, {
+      code: "8.2",
+      language: "en",
+      purpose: "evidence",
+      ...PDF,
+    });
+    expect(await refusalOf(outcome)).toContain("does not fill it in");
     expect(writesIn(called)).toEqual([]);
   });
 });

@@ -14,6 +14,8 @@ import {
   GetWalkthroughInput,
   getWalkthrough,
   type ToolOutcome,
+  UploadFileInput,
+  uploadFile,
 } from "./tools";
 
 /**
@@ -26,7 +28,8 @@ const UNTRUSTED =
 const INSTRUCTIONS = [
   "nisd2.eu guides a company through implementing NIS2, one item at a time: the walkthrough.",
   "get_walkthrough lists the company's items with where each stands. With a code it returns one item in full: its own words, its fields with their JSON schema and current answers, its register with the rows already in it, and each other screen's input schema with what it shows now.",
-  "fill_walkthrough_item saves answers to an item's fields, adds rows to its register and fills its other screens (assets, their details, risk ratings, supplier agreements, sign-ins, backups, critical processes, policies), checked the way the app checks them.",
+  "fill_walkthrough_item saves answers to an item's fields, adds rows to its register and corrects rows already there, fills its other screens (assets, their details, risk ratings, supplier agreements, sign-ins, backups, critical processes, policies, the crypto list) and attaches uploaded files, checked the way the app checks them.",
+  "upload_file gives an upload request for a document (an item's evidence) or a training certificate; send the bytes with it, then attach the file with fill_walkthrough_item.",
   "Fill in only what the company's own documents and systems show, and leave a field out rather than guess.",
   "Nothing here finishes, decides or signs an item: the person finishes each item in the app, and management signs it there. Each item carries its link.",
   "Only items still open or waiting take input; a finished, declined or signed item is changed in the app.",
@@ -102,7 +105,7 @@ function buildServer(holder: KeyHolder): McpServer {
     {
       title: "Fill in a walkthrough item",
       description:
-        "Saves answers to an item's fields, adds rows to its register and fills its other screens (add assets, describe them, rate them, record agreements, sign-ins, backups and critical processes, write the policy), each through the save the app's own screen uses and checked as the app checks it. Takes only items still open or waiting; never finishes, decides or signs one, and refuses a change that would take a signature or an approval back. An answer replaces what the field held and cannot be empty: leave a field out to keep what is there. Returns what was saved and what is still empty.",
+        "Saves answers to an item's fields, adds rows to its register and corrects rows already in it, fills its other screens (add assets, describe them, rate them, record agreements, sign-ins, backups and critical processes, write the policy, set the crypto list entry by entry) and attaches files uploaded with upload_file, each through the save the app's own screen uses and checked as the app checks it. Takes only items still open or waiting; never finishes, decides or signs one, never deletes, and refuses a change that would take a signature or an approval back. An answer replaces what the field held and cannot be empty: leave a field out to keep what is there. Returns what was saved and what is still empty.",
       inputSchema: FillItemInput,
       annotations: {
         readOnlyHint: false,
@@ -113,6 +116,23 @@ function buildServer(holder: KeyHolder): McpServer {
       },
     },
     guarded("fill_walkthrough_item", holder, fillItem),
+  );
+
+  server.registerTool(
+    "upload_file",
+    {
+      title: "Upload a file for a walkthrough item",
+      description:
+        "Gives an upload request for one file: a document as an item's evidence, or a training certificate. Send the file's bytes with it (PUT, the content-type it names), then attach it with fill_walkthrough_item: files for evidence, certificateFileKey on the training row for a certificate. Works only for an assistant that can send the bytes itself; otherwise the person uploads in the app. Same checks as filling the item.",
+      inputSchema: UploadFileInput,
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: false,
+        idempotentHint: false,
+        openWorldHint: false,
+      },
+    },
+    guarded("upload_file", holder, uploadFile),
   );
 
   return server;

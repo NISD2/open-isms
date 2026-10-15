@@ -3,6 +3,7 @@ import { z } from "zod";
 import { CATALOG } from "@/lib/asset-inventory/catalog";
 import { CATALOG_LABELS } from "@/lib/asset-inventory/catalog-labels";
 import type { CountableModule } from "@/lib/compliance/module-tables";
+import { POLICY_CONFIG_SCHEMAS } from "@/lib/compliance/policy-config-schemas";
 import type { ScreenKind, WalkLocale } from "@/lib/durchgang";
 import {
   addAssetsInput,
@@ -149,10 +150,23 @@ export const SCREEN_FILLS = {
     save: (caller, code, input) => caller.durchgang.writePolicy({ code, ...input }),
   }),
   crypto: fill({
-    input: nothing,
+    input: z.object({
+      list: POLICY_CONFIG_SCHEMAS.crypto
+        .optional()
+        .describe(
+          "The whole list as it should stand, every entry with its status, as the requirement page saves it. Left out, the default list is taken over as it is.",
+        ),
+    }),
     modules: [],
     shows: (caller) => caller.durchgang.cryptoList(),
-    save: (caller, code) => caller.durchgang.adoptCrypto({ code }),
+    // Taken over first, as the screen does: the list must exist before an entry changes. A list
+    // the company keeps already is never overwritten by the default.
+    save: async (caller, code, input) => {
+      const adopted = await caller.durchgang.adoptCrypto({ code });
+      if (!input.list) return adopted;
+      await caller.policyConfig.update({ policyType: "crypto", config: input.list });
+      return { ...adopted, listSaved: true };
+    },
   }),
   adopt: fill({
     input: nothing,

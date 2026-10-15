@@ -9,6 +9,7 @@ import { trainingCreateSchema } from "@/schema/validators";
 import { isFillableKind } from "./screens";
 import {
   answersProblem,
+  changesProblem,
   closedFor,
   FILLED_BY,
   fieldKeysOf,
@@ -51,7 +52,7 @@ describe("the walk as an assistant sees it", () => {
     }
   });
 
-  test("each register's rows have a schema, and none takes a file key", () => {
+  test("each register's rows have a schema; only a training row takes a file key, its certificate's", () => {
     const registers = WALK.flatMap((item) => {
       const register = registerOfItem(item);
       return register ? [register] : [];
@@ -67,8 +68,36 @@ describe("the walk as an assistant sees it", () => {
         (jsonSchemaOf(register.row) as JsonSchema).properties ?? {},
       );
       expect(properties.length).toBeGreaterThan(0);
-      expect(properties.filter((p) => p.endsWith("FileKey"))).toEqual([]);
+      // The key upload_file gave for a certificate; the procedures check it is the company's own.
+      expect(properties.filter((p) => p.endsWith("FileKey"))).toEqual(
+        register.module === "training_record" ? ["certificateFileKey"] : [],
+      );
     }
+  });
+
+  test("a register's rows are corrected through its own update, except on the approval", () => {
+    const byName = new Map(
+      WALK.flatMap((item) => {
+        const register = registerOfItem(item);
+        return register ? [[register.name, register] as const] : [];
+      }),
+    );
+    expect(byName.get("supplier")?.change).not.toBeNull();
+    expect(byName.get("training_record:staff")?.change).not.toBeNull();
+    expect(byName.get("management_review")?.change).toBeNull();
+    const supplier = byName.get("supplier");
+    if (!supplier) throw new Error("no supplier register");
+    const listed = new Set(["11111111-1111-4111-8111-111111111111"]);
+    expect(
+      changesProblem(supplier, listed, [
+        { id: "22222222-2222-4222-8222-222222222222", fields: { name: "X" } },
+      ]),
+    ).toContain("is not a row of this register");
+    expect(
+      changesProblem(supplier, listed, [
+        { id: "11111111-1111-4111-8111-111111111111", fields: { name: "Hoster GmbH" } },
+      ]),
+    ).toBeNull();
   });
 
   test("a training row is filed by its screen's audience, never by the assistant", () => {
