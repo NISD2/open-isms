@@ -133,8 +133,8 @@ export function StatTile({
   label: string;
   value: string | number;
   sub?: string;
-  /** Signed change against the previous window of the same length. */
-  delta?: { amount: number; period: string };
+  /** Signed change against the previous window of the same length; `unit` follows the number (e.g. "%"). */
+  delta?: { amount: number; period: string; unit?: string };
 }) {
   return (
     <Card>
@@ -152,7 +152,8 @@ export function StatTile({
             }`}
           >
             {delta.amount > 0 ? "+" : ""}
-            {delta.amount} vs {delta.period}
+            {delta.amount}
+            {delta.unit} vs {delta.period}
           </p>
         )}
         {sub && <p className="text-xs text-muted-foreground">{sub}</p>}

@@ -13,7 +13,7 @@ import bcrypt from "bcryptjs";
 import { and, count, desc, eq, gte, inArray, isNotNull, or, sql } from "drizzle-orm";
 import { z } from "zod";
 import { PARTNER_SLUG_PATTERN } from "@/lib/advisory-options";
-import { loadTraffic } from "@/lib/analytics/umami";
+import { loadPulse, loadTraffic } from "@/lib/analytics/umami";
 import { umamiConfig } from "@/lib/analytics/umami-config";
 import { logAudit } from "@/lib/audit";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
@@ -241,6 +241,11 @@ function refusalAsTrpcError(err: unknown): never {
   }
   throw err;
 }
+
+/** A window of whole UTC days, both ends inclusive. */
+const dayWindowSchema = z
+  .object({ from: z.iso.date(), to: z.iso.date() })
+  .refine((range) => range.from <= range.to, "from must not be after to");
 
 export const platformAdminRouter = router({
   /**
@@ -886,16 +891,23 @@ export const platformAdminRouter = router({
    * of the funnel the Graphs tab otherwise starts below. Read-only, and `configured: false` (not
    * an error) when no analytics login is set, which is the default for a self-hosted instance.
    */
-  traffic: platformAdminProcedure
-    .input(
-      z
-        .object({ from: z.iso.date(), to: z.iso.date() })
-        .refine((range) => range.from <= range.to, "from must not be after to"),
-    )
+  traffic: platformAdminProcedure.input(dayWindowSchema).query(async ({ input }) => {
+    const config = umamiConfig(env);
+    if (config === null) return { configured: false as const };
+    return { configured: true as const, ...(await loadTraffic(config, input)) };
+  }),
+
+  /**
+   * The few traffic numbers the weekly insights compare: this week against the four before it,
+   * and where each week's visits came from. The client names the weeks, so they are exactly the
+   * windows the insight rules use.
+   */
+  trafficPulse: platformAdminProcedure
+    .input(z.object({ weeks: z.array(dayWindowSchema).min(2).max(6) }))
     .query(async ({ input }) => {
       const config = umamiConfig(env);
       if (config === null) return { configured: false as const };
-      return { configured: true as const, ...(await loadTraffic(config, input)) };
+      return { configured: true as const, ...(await loadPulse(config, input.weeks)) };
     }),
 
   overview: platformAdminProcedure.query(async ({ ctx }) => {

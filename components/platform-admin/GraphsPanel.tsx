@@ -34,7 +34,7 @@ import {
   sizeBars,
 } from "./graphs/derive";
 import { InsightsCard } from "./graphs/InsightsCard";
-import { insightWindow, weeklyInsights } from "./graphs/insights";
+import { insightWeeks, insightWindow, weeklyInsights } from "./graphs/insights";
 import { VIZ, VIZ_PALETTE_CSS } from "./graphs/palette";
 import {
   barsTable,
@@ -119,7 +119,8 @@ export function GraphsPanel() {
 }
 
 function GraphsView({ data }: { data: GrowthData }) {
-  const [rangeKey, setRangeKey] = useState<RangeKey>("all");
+  // A month against the month before answers "is it moving"; all time only ever grows.
+  const [rangeKey, setRangeKey] = useState<RangeKey>("30d");
   const [granularity, setGranularity] = useState<GranularityChoice>("auto");
 
   const today = todayUtc();
@@ -354,10 +355,21 @@ function GraphsView({ data }: { data: GrowthData }) {
     [data, today],
   );
 
+  // The weeks the insight rules compare, fetched from the analytics host. Null while loading, when
+  // traffic is off or when it cannot be read: the traffic rules then stay quiet and the rest of
+  // the panel is unaffected.
+  const weeks = useMemo(() => insightWeeks(today), [today]);
+  const pulseQuery = trpc.platformAdmin.trafficPulse.useQuery(
+    { weeks },
+    { refetchOnWindowFocus: false, staleTime: 10 * 60_000 },
+  );
+  const pulse =
+    pulseQuery.data?.configured && pulseQuery.data.ok ? pulseQuery.data.pulse : null;
+
   // Fixed seven-day window, deliberately not scoped by the range selector.
   const insights = useMemo(
-    () => weeklyInsights(data.users, data.companies, data.work, today),
-    [data, today],
+    () => weeklyInsights(data.users, data.companies, data.work, today, pulse),
+    [data, today, pulse],
   );
   const insightDays = insightWindow(today);
 
@@ -506,6 +518,7 @@ function GraphsView({ data }: { data: GrowthData }) {
         granularity={g}
         period={period}
         signups={signupsFrom}
+        compare={rangeKey !== "all"}
       />
 
       <SectionHeading

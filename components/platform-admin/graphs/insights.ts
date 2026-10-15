@@ -17,9 +17,15 @@
  * would be unreadable. That is why the panel sits above the filter row.
  */
 
+import type { TrafficPulse } from "@/lib/analytics/umami";
 import type { CompanyFact, DailyWorkRow, UserFact } from "@/lib/platform-admin/growth";
 import { activePeople, percent } from "./derive";
 import { addDays } from "./range";
+import {
+  engagedVisitsMoved,
+  signupsPerVisitFalling,
+  singlePageTraffic,
+} from "./traffic-insights";
 
 export interface Insight {
   /** Stable across weeks, so a repeat finding is recognisable. */
@@ -76,6 +82,8 @@ interface Facts {
   companies: CompanyFact[];
   work: DailyWorkRow[];
   window: Window;
+  /** Null when traffic is off or could not be read; the traffic rules then say nothing. */
+  pulse: TrafficPulse | null;
 }
 
 /**
@@ -440,11 +448,20 @@ const signOffsHappened: Rule = ({ work, window: w }) => {
   };
 };
 
+/** Traffic rules need the pulse; without one they have nothing to say. */
+const withPulse =
+  (rule: (pulse: TrafficPulse, facts: Facts) => Insight | null): Rule =>
+  (facts) =>
+    facts.pulse === null ? null : rule(facts.pulse, facts);
+
 /**
  * Order matters only for ties: two findings with the same severity always come
  * out in the same order, so the panel does not reshuffle between refreshes.
  */
 const RULES: Rule[] = [
+  withPulse(singlePageTraffic),
+  withPulse(engagedVisitsMoved),
+  withPulse((pulse, { users }) => signupsPerVisitFalling(users, pulse)),
   activityCollapsed,
   activationRateFalling,
   stalledWorkers,
@@ -485,8 +502,9 @@ export function allInsights(
   companies: CompanyFact[],
   work: DailyWorkRow[],
   today: string,
+  pulse: TrafficPulse | null = null,
 ): Insight[] {
-  const facts: Facts = { users, companies, work, window: buildWindow(today) };
+  const facts: Facts = { users, companies, work, window: buildWindow(today), pulse };
   return RULES.map((rule) => rule(facts))
     .filter((insight): insight is Insight => insight !== null)
     .sort((a, b) => b.severity - a.severity);
@@ -497,8 +515,9 @@ export function weeklyInsights(
   companies: CompanyFact[],
   work: DailyWorkRow[],
   today: string,
+  pulse: TrafficPulse | null = null,
 ): Insight[] {
-  const found = allInsights(users, companies, work, today);
+  const found = allInsights(users, companies, work, today, pulse);
 
   const chosen: Insight[] = [];
   let chronic = 0;
@@ -511,6 +530,15 @@ export function weeklyInsights(
     chosen.push(insight);
   }
   return chosen;
+}
+
+/**
+ * The weeks the rules compare, for fetching traffic: this week first, then the four before it
+ * newest first. The same windows the rules use, so a week means the same in both places.
+ */
+export function insightWeeks(today: string): Array<{ from: string; to: string }> {
+  const { weekStart, baselineWeeks } = buildWindow(today);
+  return [{ from: weekStart, to: today }, ...baselineWeeks];
 }
 
 /** The window the panel reports on, for the card's subtitle. */
