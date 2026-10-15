@@ -14,6 +14,7 @@ import {
   MANAGEMENT_ROLE,
   type PolicyTemplate,
   type WalkLocale,
+  withPlanSlot,
 } from "@/lib/durchgang";
 import { type RouterOutputs, trpc } from "@/lib/trpc/client";
 import { userFacingError } from "@/lib/trpc/error-message";
@@ -221,7 +222,7 @@ type OpenGap = RouterOutputs["durchgang"]["gaps"][number];
 /**
  * What the company's own answers still leave open, each with the step where it changes, so
  * management sees it before it signs (§ 38 Abs. 1 BSIG), and who takes care of it by when (Art.
- * 21(4) NIS 2). Points of the same step share one plan, shown under the first of them. Amber says
+ * 21(4) NIS 2). Points of the same step share one plan (`withPlanSlot`). Amber says
  * "look here", never "failed" (ui-design principle 10), and no count heads it (principle 7).
  */
 function OpenPoints({
@@ -237,7 +238,6 @@ function OpenPoints({
 }) {
   const t = useTranslations("durchgang.ui.approve.gaps");
   const { data: measures } = trpc.durchgang.measures.useQuery();
-  const lines = gapLines(gaps, t);
   const byCode = new Map((measures ?? []).map((m) => [m.code, m]));
   return (
     <section className="mt-8 rounded-2xl border border-amber-300/70 bg-amber-50/70 p-5 sm:p-6 dark:border-amber-500/40 dark:bg-amber-950/20">
@@ -246,7 +246,7 @@ function OpenPoints({
         {t("lead")}
       </p>
       <ul className="mt-4 space-y-5">
-        {lines.map((line, i) => (
+        {withPlanSlot(gapLines(gaps, t)).map(({ line, showsPlan }) => (
           <li key={`${line.code}:${line.text}`}>
             <div className="flex items-baseline gap-3 text-sm">
               <span className="min-w-0 flex-1">{line.text}</span>
@@ -262,10 +262,9 @@ function OpenPoints({
                 </Link>
               )}
             </div>
-            {measures !== undefined &&
-              lines.findIndex((l) => l.code === line.code) === i && (
-                <OpenPointPlan code={line.code} measure={byCode.get(line.code)} />
-              )}
+            {measures !== undefined && showsPlan && (
+              <OpenPointPlan code={line.code} measure={byCode.get(line.code)} />
+            )}
           </li>
         ))}
       </ul>

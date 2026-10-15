@@ -8,6 +8,7 @@ import {
   ONGOING_COPY,
   type ShownGap,
   type WalkLocale,
+  withPlanSlot,
 } from "@/lib/durchgang";
 import { fromScale, levelOf } from "@/lib/durchgang/ratings";
 import type { CompanyExport } from "@/lib/export/company-export";
@@ -47,13 +48,19 @@ export interface CompleteView {
   readonly measures: RouterOutputs["durchgang"]["measures"];
 }
 
-/** Who takes care of an open point and by when, as one line; null when neither is set. */
+/**
+ * Who takes care of an open point and by when, as one line; null when neither is set. An owner
+ * who has left the company is named only as gone.
+ */
 function planLine(
   measure: CompleteView["measures"][number] | undefined,
   locale: WalkLocale,
-  t: (key: "owner" | "due") => string,
+  t: (key: "owner" | "due" | "formerMember") => string,
 ): string | null {
-  const owner = measure?.ownerName?.trim() || measure?.ownerEmail;
+  const owner =
+    measure?.ownerName?.trim() ||
+    measure?.ownerEmail ||
+    (measure?.assignedTo ? t("formerMember") : null);
   const parts = [
     ...(owner ? [`${t("owner")}: ${owner}`] : []),
     ...(measure?.targetDate
@@ -219,6 +226,7 @@ function Table({
  */
 export async function CompleteExport({ view }: { view: CompleteView }) {
   const { locale, data, report, names, documents, gaps, measures } = view;
+  const measureOf = new Map(measures.map((m) => [m.code, m]));
   // One language throughout: the walk's, which is German or English.
   const [t, tGaps, tScreens] = await Promise.all([
     getTranslations({ locale, namespace: "export.complete" }),
@@ -361,16 +369,10 @@ export async function CompleteExport({ view }: { view: CompleteView }) {
           <p className="text-sm text-muted-foreground">{t("noGaps")}</p>
         ) : (
           <ul className="space-y-2 rounded-xl border border-amber-300/70 bg-amber-50/70 p-5 text-sm dark:border-amber-500/40 dark:bg-amber-950/20">
-            {gapLines(gaps, tGaps).map((line, i, lines) => {
-              // Points of the same step share one plan, printed under the first of them.
-              const plan =
-                lines.findIndex((l) => l.code === line.code) === i
-                  ? planLine(
-                      measures.findLast((m) => m.code === line.code),
-                      locale,
-                      tGaps,
-                    )
-                  : null;
+            {withPlanSlot(gapLines(gaps, tGaps)).map(({ line, showsPlan }) => {
+              const plan = showsPlan
+                ? planLine(measureOf.get(line.code), locale, tGaps)
+                : null;
               return (
                 <li key={`${line.code}:${line.text}`} className="flex gap-3">
                   <span className="min-w-0 flex-1">

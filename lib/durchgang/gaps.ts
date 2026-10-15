@@ -134,6 +134,17 @@ type GapKey =
   | "setAside";
 
 /**
+ * Where a step's plan (who takes care of it, by when) shows: once, under the first open point of
+ * its step, since one step can carry a gap and be set aside at once. The approval and the export
+ * both place it with this.
+ */
+export const withPlanSlot = <L extends { readonly code: string }>(lines: readonly L[]) =>
+  lines.map((line, i) => ({
+    line,
+    showsPlan: lines.findIndex((l) => l.code === line.code) === i,
+  }));
+
+/**
  * The open points as sentences, each with the step where it changes, in the wording of
  * `durchgang.ui.approve.gaps`, which `t` reads. The approval screen and the export print these.
  */

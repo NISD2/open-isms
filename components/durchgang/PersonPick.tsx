@@ -9,7 +9,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import type { ItemView, Team } from "./view";
 
 /** How a person is written into the record: their name, or their email where they have none. */
-const nameOf = (member: Team[number]) => member.name?.trim() || member.email;
+export const nameOf = (member: Team[number]) => member.name?.trim() || member.email;
 
 const OTHER = "__other";
 

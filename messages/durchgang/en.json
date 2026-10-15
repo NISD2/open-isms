@@ -176,6 +176,7 @@
           "lead": "Your approval confirms what is recorded. By the company's own answers, the points below are not in place yet. For each one, set who takes care of it and by when. It then goes on the action items list with the name and the date.",
           "owner": "Responsible",
           "nobody": "Nobody yet",
+          "formerMember": "No longer in the team",
           "due": "Done by",
           "saveFailed": "Not saved. Please choose again.",
           "secondFactor": "No second factor: {names}",

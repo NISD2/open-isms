@@ -1659,7 +1659,12 @@ export const durchgangRouter = router({
    * 7.3: who takes care of an open point and by when (Art. 21(4) NIS 2: corrective measures
    * without undue delay). The point becomes a line on the improvement register (7.4), the list the
    * requirement page and the dashboard show, and later calls change that line while it is open.
-   * The line records what was open when it was made, in the company's record language.
+   * The line records what was open when it was made, in the company's record language; a call
+   * that names nobody and no day opens none.
+   *
+   * Anyone who walks may plan, as anyone in the company may edit the register itself
+   * (`improvement` router), and like that router each change rechecks the sign-offs resting on
+   * the register (3.5, 7.4).
    */
   planMeasure: durchgangWrite
     .input(
@@ -1669,11 +1674,13 @@ export const durchgangRouter = router({
         .extend({ code }),
     )
     .mutation(async ({ ctx, input }) => {
-      const ref = await walkItemRef(ctx.db, ctx.companyId, input.code);
-      await verifyMemberReferences(ctx.db, [input.assignedTo], ctx.companyId);
+      const [ref, locale] = await Promise.all([
+        walkItemRef(ctx.db, ctx.companyId, input.code),
+        seedLocale(ctx.db, ctx.userId, ctx.companyId),
+        verifyMemberReferences(ctx.db, [input.assignedTo], ctx.companyId),
+      ]);
       const plan = { assignedTo: input.assignedTo, targetDate: input.targetDate };
-      const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
-      await ctx.db.transaction(async (tx) => {
+      const wrote = await ctx.db.transaction(async (tx) => {
         // Two saves for one point at once must not open two lines: the step's status row is the lock.
         await tx
           .select({ id: companyRequirementStatus.id })
@@ -1696,8 +1703,9 @@ export const durchgangRouter = router({
                 eq(improvementItem.companyId, ctx.companyId),
               ),
             );
-          return;
+          return true;
         }
+        if (plan.assignedTo === null && plan.targetDate === null) return false;
         const words = resolveItem(NAMESPACES[locale], itemOf(input.code));
         const headline = words.ok ? words.value.headline : input.code;
         const t = createTranslator({
@@ -1722,8 +1730,9 @@ export const durchgangRouter = router({
           description: openPoints.join("\n") || headline,
           priority: req.priority,
         });
+        return true;
       });
-      recheck(ctx, "improvement_item");
+      if (wrote) recheck(ctx, "improvement_item");
       return { code: input.code, ...plan };
     }),
 

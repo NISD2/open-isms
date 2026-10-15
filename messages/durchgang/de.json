@@ -176,6 +176,7 @@
           "lead": "Mit Ihrer Freigabe bestätigen Sie, was festgehalten ist. Nach den eigenen Angaben des Unternehmens ist das hier noch nicht umgesetzt. Legen Sie für jeden Punkt fest, wer sich kümmert und bis wann. Er steht dann mit Name und Termin auf der Liste der Maßnahmen.",
           "owner": "Zuständig",
           "nobody": "Noch niemand",
+          "formerMember": "Nicht mehr im Team",
           "due": "Erledigt bis",
           "saveFailed": "Nicht gespeichert. Bitte noch einmal auswählen.",
           "secondFactor": "Ohne zweiten Faktor: {names}",

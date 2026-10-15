@@ -1072,6 +1072,12 @@ describe("planMeasure: who takes care of an open point, and by when", () => {
     expect(lookup && paramsOf(lookup.where)).toContain(COMPANY);
   });
 
+  test("opens no line when it names nobody and no day", async () => {
+    const { caller, writes } = setup({ accessLevel: "full" });
+    await caller.planMeasure({ code: "1.1", assignedTo: null, targetDate: null });
+    expect(writes.filter((w) => w.table === improvementItem)).toEqual([]);
+  });
+
   test("refuses a person outside the company, and a step outside the walk", async () => {
     const { caller, writes } = setup({ accessLevel: "full", members: [] });
     await expect(caller.planMeasure(plan)).rejects.toMatchObject({ code: "NOT_FOUND" });

@@ -507,7 +507,9 @@ export const openMeasureOf = (companyId: string, requirementId: string) =>
 
 /**
  * Who takes care of each open point and by when, by step: the open lines the approval made,
- * oldest first, so a later line for the same step wins where a caller keys them by code.
+ * oldest first, so a later line for the same step wins where a caller keys them by code. The
+ * owner's name and email come only while they are in the company: someone who left keeps their
+ * line, but their details stay out of the company's screens and export.
  */
 export async function walkMeasuresOf(db: DbOrTx, companyId: string) {
   return db
@@ -520,7 +522,14 @@ export async function walkMeasuresOf(db: DbOrTx, companyId: string) {
     })
     .from(improvementItem)
     .innerJoin(requirement, eq(requirement.id, improvementItem.sourceReferenceId))
-    .leftJoin(user, eq(user.id, improvementItem.assignedTo))
+    .leftJoin(
+      companyMembership,
+      and(
+        eq(companyMembership.userId, improvementItem.assignedTo),
+        eq(companyMembership.companyId, companyId),
+      ),
+    )
+    .leftJoin(user, eq(user.id, companyMembership.userId))
     .where(
       and(
         eq(improvementItem.companyId, companyId),

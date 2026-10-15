@@ -210,7 +210,22 @@ export async function keepSignOffs(tenant: Tenant): Promise<Undo> {
  * walk's "filled in" event as its newest. Run after `keepSignOffs`, which puts the status row
  * back; the undo removes the event.
  */
-export async function fillWalkItem(tenant: Tenant, code: string): Promise<Undo> {
+export const fillWalkItem = (tenant: Tenant, code: string): Promise<Undo> =>
+  walkItemAt(tenant, code, "durchgang.item_done", `${code} filled in (e2e)`);
+
+/**
+ * Puts the walk item `code` aside, as "Geht noch nicht" leaves it: unsigned, in progress, with
+ * the walk's "waiting" event as its newest. Same contract as `fillWalkItem`.
+ */
+export const setAsideWalkItem = (tenant: Tenant, code: string): Promise<Undo> =>
+  walkItemAt(tenant, code, "durchgang.waiting", `${code} waiting (e2e)`);
+
+async function walkItemAt(
+  tenant: Tenant,
+  code: string,
+  action: "durchgang.item_done" | "durchgang.waiting",
+  description: string,
+): Promise<Undo> {
   const [row] = await e2eQuery<{ status_id: string; requirement_id: string }>(
     `SELECT s.id AS status_id, s.requirement_id
        FROM company_requirement_status s
@@ -231,9 +246,9 @@ export async function fillWalkItem(tenant: Tenant, code: string): Promise<Undo> 
   );
   const [event] = await e2eQuery<{ id: string }>(
     `INSERT INTO audit_log (company_id, user_id, action, entity_type, entity_id, description)
-     VALUES ($1, $2, 'durchgang.item_done', 'requirement', $3, $4)
+     VALUES ($1, $2, $3, 'requirement', $4, $5)
      RETURNING id`,
-    [tenant.company_id, await e2eUserId(), row.requirement_id, `${code} filled in (e2e)`],
+    [tenant.company_id, await e2eUserId(), action, row.requirement_id, description],
   );
   return async () => {
     if (event) await e2eQuery(`DELETE FROM audit_log WHERE id = $1`, [event.id]);
