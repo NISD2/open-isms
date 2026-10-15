@@ -15,12 +15,14 @@ import { pendingSignersOf } from "@/lib/compliance/sign-off-roster";
 import { reopenChange } from "@/lib/compliance/sign-off-state";
 import type { Database } from "@/lib/db";
 import { accountEmailLocale, contactEmailChangedEmail, sendMail } from "@/lib/mail";
+import { bumpMcpKeyVersion } from "@/lib/mcp/key-version";
 import { joinCompany } from "@/lib/organization/membership";
 import {
   auditLog,
   categoryAssignment,
   company,
   companyAssessment,
+  companyMembership,
   companyRequirementStatus,
   complianceFramework,
   evidence,
@@ -79,6 +81,39 @@ export const assessmentRouter = router({
     });
     return row ?? null;
   }),
+
+  /**
+   * Whether the company's people may connect their own AI assistants (lib/mcp): the company's
+   * decision, so an admin's. Every assistant call reads it; turning it off also ends every
+   * member's key and assistant sign-in, so turning it on again later does not revive them.
+   */
+  setAssistantsAllowed: accountAdminProcedure
+    .input(z.object({ allowed: z.boolean() }))
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db
+        .update(company)
+        .set({ assistantsAllowed: input.allowed, updatedAt: new Date() })
+        .where(eq(company.id, ctx.companyId));
+      if (!input.allowed) {
+        const members = await ctx.db
+          .select({ userId: companyMembership.userId })
+          .from(companyMembership)
+          .where(eq(companyMembership.companyId, ctx.companyId));
+        await Promise.all(members.map((m) => bumpMcpKeyVersion(ctx.db, m.userId)));
+      }
+      logAudit({
+        companyId: ctx.companyId,
+        userId: ctx.userId,
+        action: "company.updated",
+        entityType: "company",
+        entityId: ctx.companyId,
+        description: input.allowed
+          ? "AI assistants allowed to connect"
+          : "AI assistants turned off, every connection ended",
+        newValue: { assistantsAllowed: input.allowed },
+      });
+      return { allowed: input.allowed };
+    }),
 
   // Company master data stays editable before an order: it is on the invoice and on /organization.
   updateCompany: accountAdminProcedure

@@ -2,6 +2,7 @@ import { Settings } from "lucide-react";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { AiDataSharingSettings } from "@/components/settings/AiDataSharingSettings";
+import { AssistantsAllowedSwitch } from "@/components/settings/AssistantsAllowedSwitch";
 import { McpKeySettings } from "@/components/settings/McpKeySettings";
 import { getSession } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
@@ -31,9 +32,15 @@ export default async function SettingsPage() {
       </div>
       <AiDataSharingSettings currentLevel={companyData.aiDataSharing} isAdmin={isAdmin} />
       <div className="mt-10 border-t pt-8">
+        <AssistantsAllowedSwitch
+          allowed={companyData.assistantsAllowed}
+          isAdmin={isAdmin}
+        />
         <McpKeySettings
           docsUrl={MCP_DOCS_PATH}
           companyId={companyData.id}
+          allowed={companyData.assistantsAllowed}
+          isAdmin={isAdmin}
           mayWalk={mayWalkDurchgang(
             session.accessLevel,
             isPlatformAdmin(session.user.email),

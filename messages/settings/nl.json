@@ -41,6 +41,14 @@
       "replaceNote": "Een nieuwe sleutel of ontkoppelen beëindigt de vorige sleutel en elke aanmelding van een assistent.",
       "failed": "Dat is niet gelukt. Probeer het opnieuw.",
       "companyChanged": "U hebt in een ander tabblad een ander bedrijf geopend. Laad deze pagina opnieuw om te koppelen in het bedrijf dat u open hebt.",
+      "off": "Uw bedrijf heeft assistenten niet toegestaan. Een beheerder zet ze hierboven aan.",
+      "offAdmin": "Assistenten staan uit voor dit bedrijf. Zet ze hierboven aan om er een te koppelen.",
+      "switch": {
+        "label": "Assistenten toestaan voor dit bedrijf",
+        "description": "Als dit aan staat, mogen mensen in dit bedrijf hun eigen assistent koppelen, die dan het stappenplan leest en invult met de gegevens van het bedrijf. Uitzetten beëindigt elke koppeling.",
+        "turnedOn": "Assistenten zijn toegestaan.",
+        "turnedOff": "Assistenten staan uit. Elke koppeling is beëindigd."
+      },
       "locked": "Een assistent werkt in het NIS 2 stappenplan. Dat is voor uw account nog niet vrijgegeven, dus tot dan kan een assistent niets lezen en niets invullen.",
       "toWalk": "Naar het stappenplan",
       "copyFailed": "Kopiëren lukte niet. Selecteer de sleutel in het veld en kopieer hem zelf.",
@@ -60,7 +68,8 @@
         "expired": "Dit verzoek is verlopen of ongeldig. Start de koppeling opnieuw in de assistent.",
         "disconnectHint": "Ontkoppelen kan altijd in de instellingen.",
         "failed": "Dat is niet gelukt. Probeer het opnieuw.",
-        "companyChanged": "U hebt in een ander tabblad een ander bedrijf geopend. Laad deze pagina opnieuw om te koppelen in het bedrijf dat u open hebt."
+        "companyChanged": "U hebt in een ander tabblad een ander bedrijf geopend. Laad deze pagina opnieuw om te koppelen in het bedrijf dat u open hebt.",
+        "off": "De beheerder van dit bedrijf heeft assistenten niet toegestaan, dus er kan er geen worden gekoppeld. Vraag het uw beheerder of weiger."
       }
     }
   }

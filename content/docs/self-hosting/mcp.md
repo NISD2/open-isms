@@ -1,5 +1,7 @@
 Every instance serves an MCP endpoint at `/api/mcp`, nisd2.eu and each self-hosted one alike. An AI assistant connected there reads the company's NIS 2 walkthrough and fills in what its items ask for (fields, registers, the asset list, ratings, agreements, sign-ins, backups, critical processes and policies), as the person who connected it and with that person's rights. It never finishes an item, never decides one (not applicable, or deliberately not done) and never signs anything. The person finishes each item in the app, and management signs it there.
 
+Whether a company's people may connect assistants at all is the company's decision: an admin turns it on in Settings, under *Allow AI assistants for this company*, and it is off until they do. It is checked when a key is made or an assistant allowed, and on every call, so turning it off stops every connected assistant at once and also ends their keys and sign-ins.
+
 An assistant works only for a person who may open the walkthrough: on nisd2.eu an account whose order includes it, on a self-hosted instance, where new accounts do not get the walkthrough, the addresses in `PLATFORM_ADMIN_EMAILS`. Anyone else gets a refusal on every call, and Settings and the sign-in page show them the way to the walkthrough instead of a key or an *Allow* button.
 
 ## What an assistant can do

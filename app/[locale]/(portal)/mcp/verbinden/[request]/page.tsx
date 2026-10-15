@@ -39,6 +39,7 @@ export default async function ConnectAssistantPage({
           client={request.client ?? null}
           company={company.name}
           companyId={company.id}
+          allowed={company.assistantsAllowed}
           person={session?.user.name ?? session?.user.email ?? ""}
           returnTo={new URL(request.redirectUri).host}
           denyUrl={deny(request, issuer())}

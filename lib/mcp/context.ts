@@ -9,6 +9,7 @@ import { user } from "@/schema";
 import { createCallerFactory, type TRPCContext } from "@/server/trpc/init";
 import { appRouter } from "@/server/trpc/router";
 import { assistantAgent } from "./agent";
+import { assistantsAllowed } from "./allowed";
 import { instanceKey } from "./instance-key";
 import { type KeyClaims, readKey } from "./key";
 
@@ -17,9 +18,9 @@ export type Caller = ReturnType<typeof createCaller>;
 
 /**
  * The person and company behind an access key, or null: a key this instance did not sign, an
- * expired one, one whose version the person has since bumped, or one whose person no longer
- * belongs to the company it was made for. Checked on every request, so a removed person's key dies
- * with the membership.
+ * expired one, one whose version the person has since bumped, one whose person no longer belongs
+ * to the company it was made for, or one in a company whose admin has turned assistants off.
+ * Checked on every request, so a removed person's key dies with the membership.
  */
 async function holderOf(claims: KeyClaims) {
   const row = await db.query.user.findFirst({
@@ -34,7 +35,9 @@ async function holderOf(claims: KeyClaims) {
   });
   if (!row || row.mcpKeyVersion !== claims.ver) return null;
   const company = await companySession(row.id, claims.cid, row.grandfatheredAt !== null);
-  return company.companyId ? { row, company, companyId: company.companyId } : null;
+  if (!company.companyId || !(await assistantsAllowed(db, company.companyId)))
+    return null;
+  return { row, company, companyId: company.companyId };
 }
 
 /**

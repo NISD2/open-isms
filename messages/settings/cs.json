@@ -41,6 +41,14 @@
       "replaceNote": "Nový klíč nebo odpojení ukončí předchozí klíč i přihlášení všech asistentů.",
       "failed": "To se nepovedlo. Zkuste to prosím znovu.",
       "companyChanged": "V jiné záložce jste otevřeli jinou společnost. Načtěte tuto stránku znovu a připojte asistenta ve společnosti, kterou máte otevřenou.",
+      "off": "Vaše společnost asistenty nepovolila. Správce je zapne výše.",
+      "offAdmin": "Asistenti jsou pro tuto společnost vypnutí. Zapněte je výše a pak asistenta připojte.",
+      "switch": {
+        "label": "Povolit asistenty pro tuto společnost",
+        "description": "Když je zapnuto, mohou lidé v této společnosti připojit vlastního asistenta, který pak čte a vyplňuje průvodce daty společnosti. Vypnutí ukončí všechna připojení.",
+        "turnedOn": "Asistenti jsou povoleni.",
+        "turnedOff": "Asistenti jsou vypnutí. Všechna připojení skončila."
+      },
       "locked": "Asistent pracuje v průvodci NIS 2, který pro váš účet zatím není odemčen. Do té doby asistent nemůže nic číst ani vyplňovat.",
       "toWalk": "Přejít do průvodce",
       "copyFailed": "Kopírování se nepovedlo. Označte klíč v poli a zkopírujte ho sami.",
@@ -60,7 +68,8 @@
         "expired": "Tato žádost vypršela nebo není platná. Zahajte připojení v asistentovi znovu.",
         "disconnectHint": "Odpojit se můžete kdykoli v Nastavení.",
         "failed": "To se nepovedlo. Zkuste to prosím znovu.",
-        "companyChanged": "V jiné záložce jste otevřeli jinou společnost. Načtěte tuto stránku znovu a připojte asistenta ve společnosti, kterou máte otevřenou."
+        "companyChanged": "V jiné záložce jste otevřeli jinou společnost. Načtěte tuto stránku znovu a připojte asistenta ve společnosti, kterou máte otevřenou.",
+        "off": "Správce této společnosti asistenty nepovolil, proto nelze žádného připojit. Zeptejte se správce, nebo žádost odmítněte."
       }
     }
   }

@@ -113,6 +113,19 @@ describe("connecting an assistant", () => {
     ).rejects.toMatchObject({ code: "CONFLICT" });
   });
 
+  test("no key and no sign-in while the company's admin has not allowed assistants", async () => {
+    const offDb = {
+      query: { company: { findFirst: async () => ({ assistantsAllowed: false }) } },
+    };
+    const ctx = { ...contextWith({}), db: offDb as unknown as TRPCContext["db"] };
+    for (const call of connect(ctx)) {
+      await expect(call()).rejects.toMatchObject({
+        code: "FORBIDDEN",
+        message: "assistants_off",
+      });
+    }
+  });
+
   test("a key never operates the platform, not even the operator's own", async () => {
     const probe = router({ op: platformAdminProcedure.query(() => "operated") });
     const operator = { user: { email: OPERATOR } };

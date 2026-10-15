@@ -20,6 +20,7 @@ import {
 import { sendErasureCertificate } from "@/lib/gdpr/send-certificate";
 import { isLocaleCode } from "@/lib/locale";
 import { resolveEmailLocale } from "@/lib/mail/locale";
+import { assistantsAllowed } from "@/lib/mcp/allowed";
 import { issuer } from "@/lib/mcp/config";
 import { instanceKey } from "@/lib/mcp/instance-key";
 import { mintKey, PASTED_KEY_SECONDS } from "@/lib/mcp/key";
@@ -131,6 +132,7 @@ export const userRouter = router({
   createMcpKey: companyProcedure.input(shownCompany).mutation(async ({ ctx, input }) => {
     mayConnectAssistant(ctx);
     sameCompany(ctx, input.companyId);
+    await companyAllowsAssistants(ctx);
     const version = await bumpMcpKeyVersion(ctx.db, ctx.userId);
     if (version === null) {
       throw new TRPCError({ code: "NOT_FOUND", message: "Account not found." });
@@ -155,6 +157,7 @@ export const userRouter = router({
     .mutation(async ({ ctx, input }) => {
       mayConnectAssistant(ctx);
       sameCompany(ctx, input.companyId);
+      await companyAllowsAssistants(ctx);
       const now = epochSeconds(new Date());
       const request = readRequest(instanceKey(), input.request, now);
       if (!request) {
@@ -325,6 +328,19 @@ function sameCompany(ctx: { readonly companyId: string }, shown: string): void {
       code: "CONFLICT",
       message: "The company changed in another tab. Reload the page.",
     });
+  }
+}
+
+/**
+ * Throws unless the company's admin has let its people connect assistants
+ * (`company.assistants_allowed`); "assistants_off" tells the page to say so.
+ */
+async function companyAllowsAssistants(ctx: {
+  readonly db: DbOrTx;
+  readonly companyId: string;
+}): Promise<void> {
+  if (!(await assistantsAllowed(ctx.db, ctx.companyId))) {
+    throw new TRPCError({ code: "FORBIDDEN", message: "assistants_off" });
   }
 }
 

@@ -21,13 +21,19 @@ export function McpKeySettings({
   docsUrl,
   mayWalk,
   companyId,
+  allowed,
+  isAdmin,
 }: {
   docsUrl: string;
   mayWalk: boolean;
   /** The company this page shows; the key is made for it, or refused if another is open now. */
   companyId: string;
+  /** Whether the company's admin lets its people connect assistants. */
+  allowed: boolean;
+  isAdmin: boolean;
 }) {
   const t = useTranslations("settings.mcp");
+  const usable = mayWalk && allowed;
   const [key, setKey] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const create = trpc.user.createMcpKey.useMutation({
@@ -38,7 +44,13 @@ export function McpKeySettings({
     // A key asks for a sign-in from the last few minutes; that answer is shown on the card.
     onError: (error) => {
       if (error.message === "reauth") return;
-      toast.error(error.data?.code === "CONFLICT" ? t("companyChanged") : t("failed"));
+      toast.error(
+        error.message === "assistants_off"
+          ? t("off")
+          : error.data?.code === "CONFLICT"
+            ? t("companyChanged")
+            : t("failed"),
+      );
     },
   });
   const needsSignIn = create.error?.message === "reauth";
@@ -102,6 +114,12 @@ export function McpKeySettings({
         </p>
       )}
 
+      {mayWalk && !allowed && (
+        <p className="mb-4 rounded-lg border bg-muted/40 px-4 py-3 text-sm">
+          {isAdmin ? t("offAdmin") : t("off")}
+        </p>
+      )}
+
       {needsSignIn && (
         <p className="mb-4 rounded-lg border bg-muted/40 px-4 py-3 text-sm">
           {t("reauth", { minutes: RECENT_SIGN_IN_S / 60 })}
@@ -109,12 +127,12 @@ export function McpKeySettings({
       )}
 
       <div className="flex flex-wrap gap-2">
-        {mayWalk && needsSignIn && (
+        {usable && needsSignIn && (
           <Button type="button" onClick={signInAgain}>
             {t("signInAgain")}
           </Button>
         )}
-        {mayWalk && !needsSignIn && (
+        {usable && !needsSignIn && (
           <Button
             type="button"
             onClick={() => create.mutate({ companyId })}
@@ -133,9 +151,7 @@ export function McpKeySettings({
           {t("disconnect")}
         </Button>
       </div>
-      {mayWalk && (
-        <p className="mt-2 text-xs text-muted-foreground">{t("replaceNote")}</p>
-      )}
+      {usable && <p className="mt-2 text-xs text-muted-foreground">{t("replaceNote")}</p>}
     </div>
   );
 }

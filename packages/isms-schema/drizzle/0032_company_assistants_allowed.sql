@@ -1,0 +1,1 @@
+ALTER TABLE "company" ADD COLUMN "assistants_allowed" boolean DEFAULT false NOT NULL;

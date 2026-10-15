@@ -93,6 +93,23 @@ async function removeOurAssets(tenant: Tenant): Promise<void> {
   await e2eQuery(`DELETE FROM asset WHERE id = ANY($1::uuid[])`, [ids]);
 }
 
+/** Lets the tenant's people connect assistants, as its admin does in Settings, and undoes it. */
+async function allowAssistants(tenant: Tenant): Promise<Undo> {
+  const [before] = await e2eQuery<{ assistants_allowed: boolean }>(
+    `SELECT assistants_allowed FROM company WHERE id = $1`,
+    [tenant.company_id],
+  );
+  await e2eQuery(`UPDATE company SET assistants_allowed = true WHERE id = $1`, [
+    tenant.company_id,
+  ]);
+  return async () => {
+    await e2eQuery(`UPDATE company SET assistants_allowed = $2 WHERE id = $1`, [
+      tenant.company_id,
+      before?.assistants_allowed ?? false,
+    ]);
+  };
+}
+
 /** The NIS 2 requirements whose sign-off relies on the risk register. */
 const riskRequirements = () =>
   e2eQuery<{ code: string }>(
@@ -115,6 +132,7 @@ test.describe("an AI assistant fills the walkthrough over MCP", () => {
     undos = [
       await keepSignOffs(tenant),
       await payFor(tenant),
+      await allowAssistants(tenant),
       // Open for an assistant: set aside, unsigned, whatever earlier specs left.
       await setAsideWalkItem(tenant, "2.2"),
       await setAsideWalkItem(tenant, "2.3"),

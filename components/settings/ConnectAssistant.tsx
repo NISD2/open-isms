@@ -30,6 +30,7 @@ export function ConnectAssistant({
   returnTo,
   denyUrl,
   mayWalk,
+  allowed,
   signedInRecently,
 }: {
   request: string;
@@ -42,10 +43,13 @@ export function ConnectAssistant({
   returnTo: string;
   denyUrl: string;
   mayWalk: boolean;
+  /** Whether the company's admin lets its people connect assistants. */
+  allowed: boolean;
   signedInRecently: boolean;
 }) {
   const t = useTranslations("settings.mcp.connect");
   const tm = useTranslations("settings.mcp");
+  const usable = mayWalk && allowed;
   const allow = trpc.user.allowMcpClient.useMutation({
     onSuccess: ({ url }) => window.location.assign(url),
     // A sign-in that aged on the page is answered on the card; otherwise the request ran out.
@@ -53,11 +57,13 @@ export function ConnectAssistant({
       if (error.message === "reauth") return;
       const code = error.data?.code;
       toast.error(
-        code === "BAD_REQUEST"
-          ? t("expired")
-          : code === "CONFLICT"
-            ? t("companyChanged")
-            : t("failed"),
+        error.message === "assistants_off"
+          ? t("off")
+          : code === "BAD_REQUEST"
+            ? t("expired")
+            : code === "CONFLICT"
+              ? t("companyChanged")
+              : t("failed"),
       );
     },
   });
@@ -70,7 +76,7 @@ export function ConnectAssistant({
         <h1 className="text-xl font-semibold">{t("title")}</h1>
       </div>
       <p>{t("asks", { client: client ?? t("unnamed"), company })}</p>
-      {mayWalk ? (
+      {usable ? (
         <>
           {/* Where the access goes is the one fact a client cannot choose, so it comes first. */}
           {/* Anyone can register a client under any name, so the warning stands on every request. */}
@@ -89,14 +95,16 @@ export function ConnectAssistant({
           )}
         </>
       ) : (
-        <p className="rounded-lg border bg-muted/40 px-4 py-3 text-sm">{tm("locked")}</p>
+        <p className="rounded-lg border bg-muted/40 px-4 py-3 text-sm">
+          {mayWalk ? t("off") : tm("locked")}
+        </p>
       )}
       <div className="flex flex-wrap gap-2">
-        {mayWalk && needsSignIn ? (
+        {usable && needsSignIn ? (
           <Button type="button" onClick={signInAgain}>
             {tm("signInAgain")}
           </Button>
-        ) : mayWalk ? (
+        ) : usable ? (
           <Button
             type="button"
             onClick={() => allow.mutate({ request, companyId })}
@@ -104,7 +112,7 @@ export function ConnectAssistant({
           >
             {t("allow")}
           </Button>
-        ) : (
+        ) : mayWalk ? null : (
           <Button asChild>
             <Link href="/durchgang/nis2">{tm("toWalk")}</Link>
           </Button>
@@ -113,7 +121,7 @@ export function ConnectAssistant({
           <a href={denyUrl}>{t("deny")}</a>
         </Button>
       </div>
-      {mayWalk && <p className="text-xs text-muted-foreground">{t("disconnectHint")}</p>}
+      {usable && <p className="text-xs text-muted-foreground">{t("disconnectHint")}</p>}
     </div>
   );
 }
