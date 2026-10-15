@@ -65,6 +65,8 @@ export const EMAIL_TYPES = {
   "auth.registration_attempt": { category: "security", consent: "essential" },
   "auth.welcome": { category: "account", consent: "essential" },
   "account.contact_email_changed": { category: "security", consent: "essential" },
+  /** To the person, when a key is made for their AI assistants or an assistant is allowed. */
+  "account.assistant_connected": { category: "security", consent: "essential" },
   "account.invite": { category: "account", consent: "essential" },
   "account.member_removed": { category: "account", consent: "essential" },
   /** The setup link for an account a platform admin opened on a sales call (door two). */

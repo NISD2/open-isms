@@ -639,8 +639,8 @@ export async function fillItem(
   }
   const listed =
     register && changes.length > 0
-      ? new Set((await register.rows(holder.caller)).map((r) => r.id))
-      : new Set<string>();
+      ? new Map((await register.rows(holder.caller)).map((r) => [r.id, r] as const))
+      : new Map();
   const problem =
     (answering ? answersProblem(item, answers) : null) ??
     (register && rows.length > 0 ? rowsProblem(register, rows) : null) ??

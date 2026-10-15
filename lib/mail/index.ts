@@ -7,6 +7,7 @@ export {
 } from "./send";
 export {
   accountSetupEmail,
+  assistantConnectedEmail,
   billingAlertEmail,
   categoryAssignedEmail,
   categoryUnassignedEmail,

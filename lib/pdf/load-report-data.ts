@@ -197,13 +197,17 @@ export async function loadReportData(
                 decidedBy: nameFor(status.notApplicableBy),
               }
             : null,
-        evidence: (status?.evidence ?? []).map((e) => ({
-          fileName: e.fileName,
-          fileType: e.fileType,
-          fileSize: e.fileSize,
-          uploadedAt: e.uploadedAt,
-          status: e.status,
-        })),
+        // A draft is an upload that never arrived (evidence.confirmUpload checks the stored file),
+        // so it is no evidence and has no place in the audit report.
+        evidence: (status?.evidence ?? [])
+          .filter((e) => e.status !== "draft")
+          .map((e) => ({
+            fileName: e.fileName,
+            fileType: e.fileType,
+            fileSize: e.fileSize,
+            uploadedAt: e.uploadedAt,
+            status: e.status,
+          })),
       };
     });
 

@@ -87,17 +87,29 @@ describe("the walk as an assistant sees it", () => {
     expect(byName.get("management_review")?.change).toBeNull();
     const supplier = byName.get("supplier");
     if (!supplier) throw new Error("no supplier register");
-    const listed = new Set(["11111111-1111-4111-8111-111111111111"]);
+    const own = "11111111-1111-4111-8111-111111111111";
+    const linked = "33333333-3333-4333-8333-333333333333";
+    const listed = new Map([
+      [own, { id: own, supplierCompanyId: null }],
+      [linked, { id: linked, supplierCompanyId: "44444444-4444-4444-8444-444444444444" }],
+    ]);
     expect(
       changesProblem(supplier, listed, [
         { id: "22222222-2222-4222-8222-222222222222", fields: { name: "X" } },
       ]),
     ).toContain("is not a row of this register");
     expect(
-      changesProblem(supplier, listed, [
-        { id: "11111111-1111-4111-8111-111111111111", fields: { name: "Hoster GmbH" } },
-      ]),
+      changesProblem(supplier, listed, [{ id: own, fields: { name: "Hoster GmbH" } }]),
     ).toBeNull();
+    // On a linked row the company's own fields change; the supplier's statements do not.
+    expect(
+      changesProblem(supplier, listed, [{ id: linked, fields: { name: "Hoster AG" } }]),
+    ).toBeNull();
+    expect(
+      changesProblem(supplier, listed, [
+        { id: linked, fields: { subprocessorList: "none", customerOrgName: "X" } },
+      ]),
+    ).toContain("the supplier's own statements");
   });
 
   test("a training row is filed by its screen's audience, never by the assistant", () => {

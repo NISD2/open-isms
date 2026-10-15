@@ -33,7 +33,13 @@ export async function createPresignedPut(
     ContentLength: fileSize,
     ServerSideEncryption: UPLOAD_ENCRYPTION,
   });
-  return getSignedUrl(s3Signer, command, { expiresIn: 900 });
+  // The presigner leaves content-type out of the signature unless told otherwise, so a PUT could
+  // store the object under any type it likes. Signed, the type the server chose (normalized, or
+  // forced to PDF) is the one stored; every uploader already sends it back.
+  return getSignedUrl(s3Signer, command, {
+    expiresIn: 900,
+    signableHeaders: new Set(["content-type"]),
+  });
 }
 
 /**

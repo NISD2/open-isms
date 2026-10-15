@@ -20,6 +20,9 @@ import {
   withUtm,
 } from "./digest";
 import AccountSetupEmail, { ACCOUNT_SETUP_COPY } from "./emails/account-setup";
+import AssistantConnectedEmail, {
+  ASSISTANT_CONNECTED_COPY,
+} from "./emails/assistant-connected";
 import CategoryAssignedEmail, {
   CATEGORY_ASSIGNED_COPY,
 } from "./emails/category-assigned";
@@ -232,6 +235,62 @@ export async function contactEmailChangedEmail(opts: {
       ``,
       `${copy.previous}: ${oldEmail}`,
       `${copy.next}: ${newEmail}`,
+      ``,
+      copy.notYou,
+    ].join("\n"),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// AI assistant connected
+// ---------------------------------------------------------------------------
+
+/**
+ * To the person, when a key is made for their assistants or an assistant is allowed as them. The
+ * assistant's name is the one it gave itself, so it is made unlinkable like every other name
+ * someone else typed (companyNameForMail).
+ */
+export async function assistantConnectedEmail(opts: {
+  readonly companyName: string;
+  readonly how:
+    | { readonly kind: "key" }
+    | {
+        readonly kind: "signin";
+        readonly assistant: string | null;
+        readonly returnHost: string;
+      };
+  readonly settingsUrl: string;
+  readonly locale?: EmailLocale;
+}): Promise<EmailContent> {
+  const locale = workflowLocaleOr(opts.locale);
+  const copy = ASSISTANT_CONNECTED_COPY[locale];
+  const companyName = companyNameForMail(opts.companyName, opts.companyName);
+  const how =
+    opts.how.kind === "key"
+      ? opts.how
+      : {
+          kind: "signin" as const,
+          assistant: companyNameForMail(opts.how.assistant, "An assistant"),
+          returnHost: opts.how.returnHost,
+        };
+  return {
+    subject: safeHeader(copy.subject(companyName)),
+    html: await renderEmail(AssistantConnectedEmail, {
+      locale,
+      companyName,
+      how,
+      settingsUrl: opts.settingsUrl,
+    }),
+    text: [
+      copy.heading,
+      ``,
+      how.kind === "key"
+        ? copy.key(companyName)
+        : copy.signin(how.assistant, companyName, how.returnHost),
+      ``,
+      copy.what,
+      ``,
+      `${copy.button}: ${opts.settingsUrl}`,
       ``,
       copy.notYou,
     ].join("\n"),

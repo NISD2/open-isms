@@ -1,4 +1,5 @@
 import "@/lib/server-guard";
+import { randomUUID } from "node:crypto";
 import {
   type CallToolResult,
   createMcpHandler,
@@ -139,12 +140,38 @@ function buildServer(holder: KeyHolder): McpServer {
 }
 
 /**
- * Serves one request whose key the endpoint verified. Stateless on both protocol generations, and
- * whole JSON answers, since no tool streams progress. Nothing here pushes a notification, so no
- * subscription is held open.
+ * The verified holder of each request being served, under a reference only serveMcp makes, for
+ * the one handler's factory to build that person's server. An entry lives only while its request
+ * is in flight.
  */
-export const serveMcp = (request: Request, holder: KeyHolder): Promise<Response> =>
-  createMcpHandler(() => buildServer(holder), {
-    responseMode: "json",
-    maxSubscriptions: 0,
-  }).fetch(request);
+const inFlight = new Map<string, KeyHolder>();
+
+/**
+ * One handler for the process: stateless on both protocol generations, and whole JSON answers,
+ * since no tool streams progress. Nothing here pushes a notification, so no subscription is held
+ * open. Built once, so the SDK's notice about JSON answers is logged once, not on every request.
+ */
+const handler = createMcpHandler(
+  ({ authInfo }) => {
+    const ref = authInfo?.extra?.ref;
+    const holder = typeof ref === "string" ? inFlight.get(ref) : undefined;
+    if (!holder)
+      throw new Error("An MCP request reached the server without its verified key.");
+    return buildServer(holder);
+  },
+  { responseMode: "json", maxSubscriptions: 0 },
+);
+
+/** Serves one request whose key the endpoint verified, as the person the key belongs to. */
+export async function serveMcp(request: Request, holder: KeyHolder): Promise<Response> {
+  const ref = randomUUID();
+  inFlight.set(ref, holder);
+  try {
+    // The person's key never reaches the SDK: the reference stands in for it.
+    return await handler.fetch(request, {
+      authInfo: { token: ref, clientId: holder.userId, scopes: [], extra: { ref } },
+    });
+  } finally {
+    inFlight.delete(ref);
+  }
+}

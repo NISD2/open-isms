@@ -13,8 +13,8 @@ import {
 } from "@/lib/durchgang";
 import {
   managementReviewCreateSchema,
-  relationshipClausesUpdateSchema,
   supplierCreateSchema,
+  supplierLinkedUpdateSchema,
   supplierUpdateSchema,
   trainingCreateSchema,
   trainingUpdateSchema,
@@ -210,7 +210,7 @@ export interface Register {
   readonly module: RegisterModule;
   /** One new row, as the assistant sends it; dates as text. */
   readonly row: z.ZodObject;
-  readonly rows: (caller: Caller) => Promise<ReadonlyArray<{ readonly id: string }>>;
+  readonly rows: (caller: Caller) => Promise<ReadonlyArray<ListedRow>>;
   readonly add: (caller: Caller, row: unknown) => Promise<{ readonly id: string }>;
   /**
    * A correction to a row already listed: the fields sent change, the rest stays. Null where the
@@ -218,14 +218,27 @@ export interface Register {
    */
   readonly change: {
     readonly patch: z.ZodObject;
+    /** On a row linked to the supplier's company, the fields that are the supplier's own. */
+    readonly linkedKeeps: ReadonlySet<string>;
     readonly save: (caller: Caller, id: string, patch: unknown) => Promise<unknown>;
   } | null;
 }
 
+/** A row as the register lists it: its id, and for a supplier whether its company is linked. */
+type ListedRow = { readonly id: string; readonly supplierCompanyId?: string | null };
+
 type RegisterScreen = Extract<AnyScreen, { kind: "register" }>;
 
-/** The clause answers a linked supplier writes from its own portal, never the company. */
-const SUPPLIER_WRITES = new Set(Object.keys(relationshipClausesUpdateSchema.shape));
+/**
+ * What a linked supplier writes, never the company: exactly what `supplier.update` refuses on a
+ * linked row (`supplierLinkedUpdateSchema`), the clause answers from its portal and the
+ * relationship identity it gave when invited.
+ */
+const SUPPLIER_WRITES: ReadonlySet<string> = new Set(
+  Object.keys(supplierUpdateSchema.shape).filter(
+    (key) => !Object.hasOwn(supplierLinkedUpdateSchema.shape, key),
+  ),
+);
 
 /**
  * A supplier row as an assistant reads it: on a row linked to the supplier's company, the
@@ -266,6 +279,7 @@ function registerOf(screen: RegisterScreen): Register {
         add: (caller, input) => caller.supplier.create(textDates(row).parse(input)),
         change: {
           patch,
+          linkedKeeps: SUPPLIER_WRITES,
           save: (caller, id, input) =>
             caller.supplier.update({ id, ...textDates(patch).parse(input) }),
         },
@@ -288,6 +302,7 @@ function registerOf(screen: RegisterScreen): Register {
           }),
         change: {
           patch,
+          linkedKeeps: new Set<string>(),
           save: (caller, id, input) =>
             caller.training.update({ id, ...textDates(patch).parse(input) }),
         },
@@ -316,14 +331,25 @@ function registerOf(screen: RegisterScreen): Register {
  */
 export function changesProblem(
   register: Register,
-  listed: ReadonlySet<string>,
+  listed: ReadonlyMap<string, ListedRow>,
   changes: ReadonlyArray<{ readonly id: string; readonly fields: unknown }>,
 ): string | null {
   const { change } = register;
   if (!change) return `Rows of the ${register.name} register are changed in the app.`;
   const patch = textDates(change.patch);
   const problems = changes.flatMap(({ id, fields }, index) => {
-    if (!listed.has(id)) return [`Change ${index}: ${id} is not a row of this register.`];
+    const row = listed.get(id);
+    if (!row) return [`Change ${index}: ${id} is not a row of this register.`];
+    // The app keeps these silently; an assistant is told, so it does not report a change it did not make.
+    const theirs =
+      typeof row.supplierCompanyId === "string" && isRecord(fields)
+        ? Object.keys(fields).filter((key) => change.linkedKeeps.has(key))
+        : [];
+    if (theirs.length > 0) {
+      return [
+        `Change ${index}: ${theirs.join(", ")} on a linked supplier are the supplier's own statements, written in its portal.`,
+      ];
+    }
     const checked = patch.safeParse(fields);
     return checked.success ? [] : [`Change ${index}: ${z.prettifyError(checked.error)}`];
   });

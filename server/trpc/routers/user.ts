@@ -1,6 +1,7 @@
 import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
+import { getPathname } from "@/i18n/navigation";
 import { logAudit } from "@/lib/audit";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { epochSeconds, isRecentSignIn } from "@/lib/auth/session-age";
@@ -19,6 +20,7 @@ import {
 } from "@/lib/gdpr/self-erasure";
 import { sendErasureCertificate } from "@/lib/gdpr/send-certificate";
 import { isLocaleCode } from "@/lib/locale";
+import { accountEmailLocale, assistantConnectedEmail, sendMail } from "@/lib/mail";
 import { resolveEmailLocale } from "@/lib/mail/locale";
 import { assistantsAllowed } from "@/lib/mcp/allowed";
 import { issuer } from "@/lib/mcp/config";
@@ -28,7 +30,8 @@ import { bumpMcpKeyVersion, mcpKeyVersionOf } from "@/lib/mcp/key-version";
 import { allow, readRequest } from "@/lib/mcp/oauth";
 import { HINT_COLUMN, HINTS } from "@/lib/onboarding/hints";
 import { rateLimit } from "@/lib/rate-limit";
-import { user } from "@/schema";
+import { getAppUrl } from "@/lib/utils";
+import { company, user } from "@/schema";
 import { userUpdateSchema } from "@/schema/validators";
 import {
   companyProcedure,
@@ -144,6 +147,7 @@ export const userRouter = router({
       epochSeconds(new Date()),
       PASTED_KEY_SECONDS,
     );
+    noticeAssistantConnected(ctx, { kind: "key" });
     return { key };
   }),
 
@@ -171,7 +175,13 @@ export const userRouter = router({
         throw new TRPCError({ code: "NOT_FOUND", message: "Account not found." });
       }
       const holder = { sub: ctx.userId, cid: ctx.companyId, ver: version };
-      return { url: allow(instanceKey(), request, holder, issuer(), now) };
+      const url = allow(instanceKey(), request, holder, issuer(), now);
+      noticeAssistantConnected(ctx, {
+        kind: "signin",
+        assistant: request.client ?? null,
+        returnHost: new URL(request.redirectUri).host,
+      });
+      return { url };
     }),
 
   /** Ends the person's key and every assistant they connected, at once. */
@@ -342,6 +352,40 @@ async function companyAllowsAssistants(ctx: {
   if (!(await assistantsAllowed(ctx.db, ctx.companyId))) {
     throw new TRPCError({ code: "FORBIDDEN", message: "assistants_off" });
   }
+}
+
+/**
+ * Tells the person, by mail, that an assistant was connected as them: a key or an assistant's
+ * sign-in outlives the browser session, so one made by someone else holding that session is seen
+ * and can be ended in Settings. Never holds up or fails the connection itself.
+ */
+function noticeAssistantConnected(
+  ctx: {
+    readonly db: DbOrTx;
+    readonly companyId: string;
+    readonly session: { readonly user: { readonly email?: string | null } };
+  },
+  how: Parameters<typeof assistantConnectedEmail>[0]["how"],
+): void {
+  const email = ctx.session.user.email;
+  if (!email) return;
+  const send = async () => {
+    const [locale, row] = await Promise.all([
+      accountEmailLocale(email),
+      ctx.db.query.company.findFirst({
+        where: eq(company.id, ctx.companyId),
+        columns: { name: true },
+      }),
+    ]);
+    const content = await assistantConnectedEmail({
+      companyName: row?.name ?? "",
+      how,
+      settingsUrl: `${getAppUrl()}${getPathname({ href: "/settings", locale })}`,
+      locale,
+    });
+    await sendMail({ emailType: "account.assistant_connected", to: email, ...content });
+  };
+  send().catch((err) => console.error("[mcp] assistant notice not sent", err));
 }
 
 /** The account's own address and language from the database, not the session snapshot. */

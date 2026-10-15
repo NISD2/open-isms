@@ -28,7 +28,8 @@ mock.module("@/lib/auth/platform-admin", () => ({
   requirePlatformAdmin: async () => {},
 }));
 
-const { createCallerFactory, platformAdminProcedure, router } = await import("../init");
+const { createCallerFactory, platformAdminProcedure, protectedProcedure, router } =
+  await import("../init");
 const { userRouter } = await import("./user");
 type TRPCContext = import("../init").TRPCContext;
 const NOW_S = Math.floor(Date.now() / 1000);
@@ -124,6 +125,21 @@ describe("connecting an assistant", () => {
         message: "assistants_off",
       });
     }
+  });
+
+  test("a key reaches only the procedures on the MCP list, refused before anything runs", async () => {
+    const viaKey = createCallerFactory(userRouter)(contextWith({}, true));
+    await expect(viaKey.disconnectMcp()).rejects.toMatchObject({
+      code: "FORBIDDEN",
+      message: "Not available to an assistant.",
+    });
+    const probe = router({
+      durchgang: router({ walk: protectedProcedure.query(() => "walked") }),
+      billing: router({ place: protectedProcedure.mutation(() => "placed") }),
+    });
+    const caller = createCallerFactory(probe)(contextWith({}, true));
+    expect(await caller.durchgang.walk()).toBe("walked");
+    await expect(caller.billing.place()).rejects.toMatchObject({ code: "FORBIDDEN" });
   });
 
   test("a key never operates the platform, not even the operator's own", async () => {

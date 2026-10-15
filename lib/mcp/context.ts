@@ -12,9 +12,13 @@ import { assistantAgent } from "./agent";
 import { assistantsAllowed } from "./allowed";
 import { instanceKey } from "./instance-key";
 import { type KeyClaims, readKey } from "./key";
+import type { KeyCaller } from "./procedures";
 
 const createCaller = createCallerFactory(appRouter);
-export type Caller = ReturnType<typeof createCaller>;
+/** Every procedure of the app, which the key context could call; the tools never get this one. */
+export type AppCaller = ReturnType<typeof createCaller>;
+/** What the MCP tools call: the procedures on the key's list (procedures.ts). */
+export type Caller = KeyCaller;
 
 /**
  * The person and company behind an access key, or null: a key this instance did not sign, an

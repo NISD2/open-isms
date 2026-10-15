@@ -7,6 +7,7 @@ import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { getClientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
 import { browserAgent } from "@/lib/mcp/agent";
+import { keyMayCall } from "@/lib/mcp/procedures";
 import { company } from "@/schema";
 
 // ============================================================================
@@ -40,15 +41,33 @@ const setup = createTRPCSetup<TRPCContext>({
 export const router = setup.router;
 export const mergeRouters = setup.mergeRouters;
 export const createCallerFactory = setup.createCallerFactory;
-export const publicProcedure = setup.publicProcedure;
-export const protectedProcedure = setup.protectedProcedure;
+
+/**
+ * A call made with an AI assistant's key (lib/mcp) reaches only the procedures the MCP tools use
+ * (lib/mcp/procedures.ts). Every procedure tier below is built with it, so the rule holds for any
+ * procedure, including ones added later, and not only by what the tools happen to call.
+ */
+const refuseUnlistedKeyCall = (viaKey: boolean, path: string) => {
+  if (viaKey && !keyMayCall(path)) {
+    throw new TRPCError({ code: "FORBIDDEN", message: "Not available to an assistant." });
+  }
+};
+
+export const publicProcedure = setup.publicProcedure.use(({ ctx, path, next }) => {
+  refuseUnlistedKeyCall(ctx.viaKey, path);
+  return next();
+});
+export const protectedProcedure = setup.protectedProcedure.use(({ ctx, path, next }) => {
+  refuseUnlistedKeyCall(ctx.viaKey, path);
+  return next();
+});
 
 /**
  * Signed in, with no automatic audit row. Only for the mutation that erases its own caller
  * (user.deleteAccount): protectedProcedure's row would name a user who no longer exists, fail on
  * its foreign key, and log the request's details. The handler keeps the erasure record instead.
  */
-export const selfErasureProcedure = setup.publicProcedure.use(({ ctx, next }) => {
+export const selfErasureProcedure = publicProcedure.use(({ ctx, next }) => {
   if (!ctx.userId || !ctx.session) {
     throw new TRPCError({ code: "UNAUTHORIZED", message: "Not authenticated" });
   }
@@ -94,15 +113,18 @@ const assertNotFree = (session: TRPCContext["session"]) => {
   if (session?.accessLevel === "free") throw new MustOrderFirstError();
 };
 
-export const companyProcedure = setup.companyProcedure.use(({ ctx, next }) => {
+export const companyProcedure = setup.companyProcedure.use(({ ctx, path, next }) => {
+  refuseUnlistedKeyCall(ctx.viaKey, path);
   assertNotFree(ctx.session);
   return next({ ctx });
 });
-export const adminProcedure = setup.adminProcedure.use(({ ctx, next }) => {
+export const adminProcedure = setup.adminProcedure.use(({ ctx, path, next }) => {
+  refuseUnlistedKeyCall(ctx.viaKey, path);
   assertNotFree(ctx.session);
   return next({ ctx });
 });
-export const reviewerProcedure = setup.reviewerProcedure.use(({ ctx, next }) => {
+export const reviewerProcedure = setup.reviewerProcedure.use(({ ctx, path, next }) => {
+  refuseUnlistedKeyCall(ctx.viaKey, path);
   assertNotFree(ctx.session);
   return next({ ctx });
 });
@@ -112,8 +134,14 @@ export const reviewerProcedure = setup.reviewerProcedure.use(({ ctx, next }) => 
  * reach: billing and ordering, notifications, its own company master data, and the supplier
  * portal (suppliers answer for paying customers). Nothing else uses these.
  */
-export const accountProcedure = setup.companyProcedure;
-export const accountAdminProcedure = setup.adminProcedure;
+export const accountProcedure = setup.companyProcedure.use(({ ctx, path, next }) => {
+  refuseUnlistedKeyCall(ctx.viaKey, path);
+  return next();
+});
+export const accountAdminProcedure = setup.adminProcedure.use(({ ctx, path, next }) => {
+  refuseUnlistedKeyCall(ctx.viaKey, path);
+  return next();
+});
 
 /**
  * A company that has completed activation (activatedAt stamped). Extends
