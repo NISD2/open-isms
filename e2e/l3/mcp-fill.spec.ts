@@ -8,7 +8,6 @@
  */
 import { createHash } from "node:crypto";
 import { type APIRequestContext, expect, test } from "@playwright/test";
-import { WALK } from "@/lib/durchgang";
 import { e2eQuery } from "../lib/db";
 import {
   e2eTenant,
@@ -212,8 +211,12 @@ test.describe("an AI assistant fills the walkthrough over MCP", () => {
     for (const row of statuses) expect(row.status, row.code).not.toBe("completed");
   });
 
-  test("the walkthrough marks the screen the assistant wrote", async ({ page }) => {
-    const screens = WALK.find((item) => item.code === "2.2")?.screens ?? [];
+  test("the walkthrough marks the screen the assistant wrote", async ({ page, request }) => {
+    // The tool lists the item's screens as its page shows them, in the same order.
+    const read = await callTool(request, key, "get_walkthrough", { code: "2.2" });
+    const screens = read.ok
+      ? (read.data.screens as ReadonlyArray<{ readonly kind: string }>)
+      : [];
     const assets = screens.findIndex((s) => s.kind === "assets");
     expect(assets).toBeGreaterThan(-1);
     await page.goto(`/de/durchgang/nis2/2.2?s=${assets}`);
