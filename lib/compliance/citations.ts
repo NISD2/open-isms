@@ -118,7 +118,10 @@ export const typesetCitation = (text: string): string =>
  * style, then the Act and the decree for each regime, each linked to its section. The regime is
  * not known here (the Portál NÚKIB shows it to the company), so both decrees show.
  */
-const czechRows = (source: CitationSource, czechRef: CzechRef): readonly CitationRow[] => {
+const czechRows = (
+  source: CitationSource,
+  czechRef: CzechRef,
+): readonly CitationRow[] => {
   const style = FRAMEWORK_CITATION_STYLE.nis2;
   const frameworkRef = nonEmpty(source.frameworkRef);
   return [
@@ -141,7 +144,10 @@ const czechRows = (source: CitationSource, czechRef: CzechRef): readonly Citatio
   ];
 };
 
-export function buildCitationRows(source: CitationSource, locale?: string): readonly CitationRow[] {
+export function buildCitationRows(
+  source: CitationSource,
+  locale?: string,
+): readonly CitationRow[] {
   if (!isFrameworkCode(source.frameworkCode)) return [];
   if (locale === "cs" && source.frameworkCode === "nis2" && source.czechRef)
     return czechRows(source, source.czechRef);

@@ -32,12 +32,7 @@ export interface FrameworkCategory {
   nationalUrl: string;
 }
 
-export type EvidenceType =
-  | "document"
-  | "proof"
-  | "sign-off"
-  | "technical"
-  | "training";
+export type EvidenceType = "document" | "proof" | "sign-off" | "technical" | "training";
 
 export type Priority = "P0" | "P1" | "P2" | "P3";
 

@@ -115,13 +115,15 @@ const TEXT = {
       `Zatím nelze: ${reason}.${note ? ` Poznámka: ${note}` : ""}`,
     method:
       "Stanovena metoda hodnocení rizik: analýza rizik podle BSI-Standard 200-3 (německá metodika).",
-    declined: (reason: string) => `Vědomě nezavedeno, předloženo k podpisu. Odůvodnění: ${reason}`,
+    declined: (reason: string) =>
+      `Vědomě nezavedeno, předloženo k podpisu. Odůvodnění: ${reason}`,
     agreements: (lines: readonly string[]) =>
       `Ujednání s dodavateli zkontrolována: ${lines.join("; ")}.`,
     security: "bezpečnost",
     incidents: "hlášení incidentů",
     nothing: "nic neujednáno",
-    logins: (lines: readonly string[]) => `Přihlašování zkontrolováno: ${lines.join("; ")}.`,
+    logins: (lines: readonly string[]) =>
+      `Přihlašování zkontrolováno: ${lines.join("; ")}.`,
     mfa: "s druhým faktorem",
     password: "jen heslo",
     unknown: "zatím neznámo",

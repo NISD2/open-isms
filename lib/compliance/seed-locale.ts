@@ -38,6 +38,7 @@ export async function seedLocale(
   companyId: string,
 ): Promise<WalkLocale> {
   const { userLocale, country } = await accountLanguage(db, userId, companyId);
-  if (userLocale === "cs" || (userLocale === null && country?.toUpperCase() === "CZ")) return "cs";
+  if (userLocale === "cs" || (userLocale === null && country?.toUpperCase() === "CZ"))
+    return "cs";
   return resolveEmailLocale(userLocale, country) === "de" ? "de" : "en";
 }

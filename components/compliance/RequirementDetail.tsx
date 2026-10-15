@@ -1,5 +1,6 @@
 "use client";
 
+import type { CzechRef, Frequency } from "@nisd2/grc-data-model/frameworks";
 import {
   Ban,
   CheckCircle2,
@@ -10,7 +11,6 @@ import {
   Pencil,
   Save,
 } from "lucide-react";
-import type { CzechRef, Frequency } from "@nisd2/grc-data-model/frameworks";
 import { useLocale, useTranslations } from "next-intl";
 import { useOptimistic, useState, useTransition } from "react";
 import { Controller, useForm, useFormState } from "react-hook-form";

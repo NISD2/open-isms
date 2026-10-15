@@ -19,18 +19,23 @@ export const PRIORITY_COLORS: Record<string, string> = {
 };
 
 export const STATUS_STYLES: Record<string, { label: string; dotClass: string }> = {
-  not_started:    { label: "Not started",   dotClass: "bg-muted-foreground/40" },
-  in_progress:    { label: "In progress",   dotClass: "bg-blue-500" },
-  completed:      { label: "Completed",     dotClass: "bg-emerald-500" },
-  approved:       { label: "Approved",      dotClass: "bg-emerald-500" },
-  not_applicable: { label: "N/A",           dotClass: "bg-muted-foreground/40" },
-  needs_review:   { label: "Needs review",  dotClass: "bg-orange-500" },
-  rejected:       { label: "Rejected",      dotClass: "bg-destructive" },
+  not_started: { label: "Not started", dotClass: "bg-muted-foreground/40" },
+  in_progress: { label: "In progress", dotClass: "bg-blue-500" },
+  completed: { label: "Completed", dotClass: "bg-emerald-500" },
+  approved: { label: "Approved", dotClass: "bg-emerald-500" },
+  not_applicable: { label: "N/A", dotClass: "bg-muted-foreground/40" },
+  needs_review: { label: "Needs review", dotClass: "bg-orange-500" },
+  rejected: { label: "Rejected", dotClass: "bg-destructive" },
 };
 
 export function StatusDot({ status, className }: { status: string; className?: string }) {
   const style = STATUS_STYLES[status] ?? STATUS_STYLES.not_started;
-  return <span aria-hidden className={cn("inline-block h-1.5 w-1.5 rounded-full", style.dotClass, className)} />;
+  return (
+    <span
+      aria-hidden
+      className={cn("inline-block h-1.5 w-1.5 rounded-full", style.dotClass, className)}
+    />
+  );
 }
 
 /** The status in the reader's language, from the shared `status` messages; the English label otherwise. */

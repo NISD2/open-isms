@@ -218,7 +218,9 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     // the directive in English. All of them stay in the rail.
     duty:
       czechDuty?.cite ??
-      typesetCitation((locale === "de" ? req.legalRef : req.frameworkRef) ?? req.legalRef ?? ""),
+      typesetCitation(
+        (locale === "de" ? req.legalRef : req.frameworkRef) ?? req.legalRef ?? "",
+      ),
     dutyHref: czechDuty?.href ?? dutyHref(item.law, locale),
     gloss: glossary(prose, locale),
     screens: words.screens,

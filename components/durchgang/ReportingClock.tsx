@@ -28,7 +28,9 @@ export function ReportingClock({ locale }: { locale: WalkLocale }) {
     },
     notification: {
       value: t("hours", {
-        count: czech ? CZECH_REPORTING_CLOCK.notificationHours : REPORTING_CLOCK.notificationHours,
+        count: czech
+          ? CZECH_REPORTING_CLOCK.notificationHours
+          : REPORTING_CLOCK.notificationHours,
       }),
       from: t("fromKnowledge"),
     },
@@ -53,7 +55,9 @@ export function ReportingClock({ locale }: { locale: WalkLocale }) {
           </p>
           <p className="text-xs text-muted-foreground">{when[report].from}</p>
           <p className="mt-3 font-semibold">{text[report].name}</p>
-          <p className="mt-1 text-sm leading-6 text-muted-foreground">{text[report].content}</p>
+          <p className="mt-1 text-sm leading-6 text-muted-foreground">
+            {text[report].content}
+          </p>
         </li>
       ))}
     </ol>

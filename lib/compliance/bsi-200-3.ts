@@ -102,7 +102,8 @@ export const FREQUENCY_TEXT: Texts<Frequency> = {
   cs: {
     rare: {
       label: "Zřídka",
-      description: "Podle současných znalostí by událost mohla nastat nejvýše jednou za pět let.",
+      description:
+        "Podle současných znalostí by událost mohla nastat nejvýše jednou za pět let.",
     },
     medium: {
       label: "Středně často",

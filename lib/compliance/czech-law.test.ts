@@ -31,7 +31,11 @@ test("writes the directive's articles the Czech way", () => {
 });
 
 test("links each text at the first section it cites, on e-Sbírka", () => {
-  const rows = czechCitations({ act: "§§ 15 až 17", lower: "příloha č. 2 písm. k)", higher: null });
+  const rows = czechCitations({
+    act: "§§ 15 až 17",
+    lower: "příloha č. 2 písm. k)",
+    higher: null,
+  });
   expect(rows.map((r) => r.href)).toEqual([
     "https://e-sbirka.gov.cz/sb/2025/264/2025-11-01#par_15",
     "https://e-sbirka.gov.cz/sb/2025/410/2025-11-01",
@@ -62,5 +66,8 @@ test("a Czech page cites Czech law instead of the BSIG; other pages keep the BSI
     ["lower", "§ 4 písm. b); § 5 odst. 2 písm. a), odst. 3"],
     ["higher", "§ 4 odst. 1 písm. a); § 10 odst. 3 písm. a), odst. 5"],
   ]);
-  expect(buildCitationRows(source, "de").map((r) => r.id)).toEqual(["framework", "national"]);
+  expect(buildCitationRows(source, "de").map((r) => r.id)).toEqual([
+    "framework",
+    "national",
+  ]);
 });

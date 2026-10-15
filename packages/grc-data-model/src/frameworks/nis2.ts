@@ -639,7 +639,8 @@ const NIS2_CZECH_REF: Readonly<Record<string, CzechRef>> = {
   "1.2": {
     act: null,
     lower: "§ 3 odst. 3; § 4 písm. a); § 5 odst. 1",
-    higher: "§ 3 písm. h); § 4 odst. 1, 4; § 5 odst. 1; § 6 odst. 5; § 9 odst. 1; § 10 odst. 2, 4; § 13 odst. 2",
+    higher:
+      "§ 3 písm. h); § 4 odst. 1, 4; § 5 odst. 1; § 6 odst. 5; § 9 odst. 1; § 10 odst. 2, 4; § 13 odst. 2",
   },
   "1.3": { act: null, lower: "§ 4 písm. c)", higher: "§ 4 odst. 1 písm. d), n)" },
   // No decree asks for an acknowledgement. § 58 lets NÚKIB bar a member of the statutory body of a
@@ -663,11 +664,16 @@ const NIS2_CZECH_REF: Readonly<Record<string, CzechRef>> = {
     lower: "§ 3 odst. 3",
     higher: "§ 3 písm. b), d), g), h); § 6 odst. 3; § 8 odst. 1",
   },
-  "3.1": { act: null, lower: "§ 6 písm. b); § 10", higher: "§ 14 odst. 1; § 15 písm. b), e)" },
+  "3.1": {
+    act: null,
+    lower: "§ 6 písm. b); § 10",
+    higher: "§ 14 odst. 1; § 15 písm. b), e)",
+  },
   "3.2": {
     act: null,
     lower: "§ 9 odst. 1 až 3; § 10 písm. a) až c)",
-    higher: "§ 14 odst. 1; § 17 písm. d); § 21 odst. 1, 2; § 22 odst. 1 až 3, 5, 6; § 23 odst. 1, 2",
+    higher:
+      "§ 14 odst. 1; § 17 písm. d); § 21 odst. 1, 2; § 22 odst. 1 až 3, 5, 6; § 23 odst. 1, 2",
   },
   "3.3": {
     act: "§§ 15 až 17",
@@ -676,7 +682,11 @@ const NIS2_CZECH_REF: Readonly<Record<string, CzechRef>> = {
   },
   "3.4": { act: null, lower: "§ 10 písm. d), e)", higher: "§ 14 odst. 1; § 15 písm. e)" },
   "3.5": { act: "§ 19", lower: "§ 10 písm. f)", higher: "§ 14 odst. 1; § 23 odst. 3" },
-  "4.1": { act: null, lower: "§ 4 písm. f); § 6 písm. a)", higher: "§ 15 písm. a) až c)" },
+  "4.1": {
+    act: null,
+    lower: "§ 4 písm. f); § 6 písm. a)",
+    higher: "§ 15 písm. a) až c)",
+  },
   "4.2": { act: null, lower: "§ 6 písm. b)", higher: "§ 15 písm. a) až e)" },
   "4.3": { act: null, lower: "§ 6 písm. a), b)", higher: "§ 15 písm. e)" },
   "4.4": { act: null, lower: "§ 6 písm. c)", higher: "§ 15 písm. e); § 26 odst. 1 až 3" },
@@ -693,7 +703,11 @@ const NIS2_CZECH_REF: Readonly<Record<string, CzechRef>> = {
     lower: "§ 3 odst. 5",
     higher: "§ 9 odst. 1 písm. c), g), odst. 2 písm. a), c), d)",
   },
-  "5.4": { act: null, lower: "příloha č. 2 písm. k)", higher: "příloha č. 5 písm. i) bod 1" },
+  "5.4": {
+    act: null,
+    lower: "příloha č. 2 písm. k)",
+    higher: "příloha č. 5 písm. i) bod 1",
+  },
   "6.1": { act: null, lower: "§ 3 odst. 6", higher: "§ 6 odst. 3; § 12 odst. 1, 2" },
   "6.2": {
     act: null,
@@ -713,7 +727,11 @@ const NIS2_CZECH_REF: Readonly<Record<string, CzechRef>> = {
   // Decree 410 has no change management section.
   "6.5": { act: null, lower: null, higher: "§ 11 odst. 1, 2" },
   "7.1": { act: null, lower: "§ 3 odst. 2", higher: "§ 3 písm. f); § 24 odst. 1" },
-  "7.2": { act: null, lower: "§ 4 písm. d)", higher: "§ 3 písm. e); § 4 odst. 2; § 16 odst. 1 až 6" },
+  "7.2": {
+    act: null,
+    lower: "§ 4 písm. d)",
+    higher: "§ 3 písm. e); § 4 odst. 2; § 16 odst. 1 až 6",
+  },
   "7.3": {
     act: null,
     lower: "§ 3 odst. 2; § 4 písm. d)",
@@ -725,15 +743,39 @@ const NIS2_CZECH_REF: Readonly<Record<string, CzechRef>> = {
     lower: "§ 3 odst. 3; § 5 odst. 1",
     higher: "§ 3 písm. d); § 4 odst. 1; § 6 odst. 1, 5; § 9 odst. 1; § 10 odst. 2, 4",
   },
-  "8.2": { act: null, lower: "§ 4 písm. a); § 5 odst. 1, 2", higher: "§ 4 odst. 1; § 10 odst. 1 až 4" },
-  "8.3": { act: null, lower: "§ 4 písm. a); § 5 odst. 1, 2", higher: "§ 6 odst. 3; § 10 odst. 2 až 4" },
+  "8.2": {
+    act: null,
+    lower: "§ 4 písm. a); § 5 odst. 1, 2",
+    higher: "§ 4 odst. 1; § 10 odst. 1 až 4",
+  },
+  "8.3": {
+    act: null,
+    lower: "§ 4 písm. a); § 5 odst. 1, 2",
+    higher: "§ 6 odst. 3; § 10 odst. 2 až 4",
+  },
   "8.4": { act: null, lower: "§ 5 odst. 1, 2", higher: "§ 10 odst. 2 až 4" },
   "9.1": { act: null, lower: "§ 13 odst. 1", higher: "§ 6 odst. 3; § 25 odst. 1" },
-  "9.2": { act: null, lower: "§ 13 odst. 1 písm. a)", higher: "§ 25 odst. 1; § 26 odst. 3 písm. c)" },
-  "9.3": { act: null, lower: "§ 13 odst. 1 písm. b)", higher: "§ 6 odst. 1; § 25 odst. 3" },
+  "9.2": {
+    act: null,
+    lower: "§ 13 odst. 1 písm. a)",
+    higher: "§ 25 odst. 1; § 26 odst. 3 písm. c)",
+  },
+  "9.3": {
+    act: null,
+    lower: "§ 13 odst. 1 písm. b)",
+    higher: "§ 6 odst. 1; § 25 odst. 3",
+  },
   "10.1": { act: null, lower: "§ 7 odst. 1", higher: "§ 6 odst. 1, 3; § 13 odst. 1, 2" },
-  "10.2": { act: null, lower: "§ 7 odst. 1", higher: "§ 6 odst. 1; § 13 odst. 2; § 22 odst. 3" },
-  "10.3": { act: null, lower: "§ 7 odst. 1", higher: "§ 4 odst. 1; § 6 odst. 1; § 13 odst. 2" },
+  "10.2": {
+    act: null,
+    lower: "§ 7 odst. 1",
+    higher: "§ 6 odst. 1; § 13 odst. 2; § 22 odst. 3",
+  },
+  "10.3": {
+    act: null,
+    lower: "§ 7 odst. 1",
+    higher: "§ 4 odst. 1; § 6 odst. 1; § 13 odst. 2",
+  },
   "10.4": { act: null, lower: "§ 7 odst. 1", higher: "§ 13 odst. 2" },
   "11.1": { act: null, lower: "§ 8 odst. 2", higher: "§ 19 odst. 2" },
   "11.2": { act: null, lower: "§ 13 odst. 2", higher: "§ 25 odst. 2" },
@@ -746,11 +788,16 @@ const NIS2_CZECH_REF: Readonly<Record<string, CzechRef>> = {
   "12.1": { act: "§§ 4, 5, 7 a 8", lower: null, higher: null },
   "12.2": { act: "§ 6 odst. 1", lower: null, higher: null },
   "12.3": { act: "§ 9 odst. 1; § 11", lower: null, higher: null },
-  "12.4": { act: null, lower: "§ 3 odst. 2 písm. b), c)", higher: "§ 3 písm. d); § 6 odst. 1" },
+  "12.4": {
+    act: null,
+    lower: "§ 3 odst. 2 písm. b), c)",
+    higher: "§ 3 písm. d); § 6 odst. 1",
+  },
 };
 
 /** The requirement's place in Czech law, or null for a code that is not a NIS 2 requirement. */
-export const getNis2CzechRef = (code: string): CzechRef | null => NIS2_CZECH_REF[code] ?? null;
+export const getNis2CzechRef = (code: string): CzechRef | null =>
+  NIS2_CZECH_REF[code] ?? null;
 
 export function getNis2RequirementsForCategory(slug: string): FrameworkRequirement[] {
   const builder = REQUIREMENTS_BY_SLUG[slug];

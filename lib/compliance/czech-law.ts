@@ -15,7 +15,11 @@ const ESB_VERSION = "2025-11-01";
 
 /** Each text: its number in the collection, its name as a row label, and "of the text" for a citation. */
 const CZECH_TEXTS = {
-  act: { number: 264, label: "Zákon č. 264/2025 Sb.", genitive: "zákona č. 264/2025 Sb." },
+  act: {
+    number: 264,
+    label: "Zákon č. 264/2025 Sb.",
+    genitive: "zákona č. 264/2025 Sb.",
+  },
   lower: {
     number: 410,
     label: "Vyhláška č. 410/2025 Sb. (nižší režim)",
@@ -55,7 +59,14 @@ export const czechCitations = (ref: CzechRef): readonly CzechCitation[] =>
     const citation = ref[part];
     return citation === null
       ? []
-      : [{ part, label: CZECH_TEXTS[part].label, citation, href: czechHref(part, citation) }];
+      : [
+          {
+            part,
+            label: CZECH_TEXTS[part].label,
+            citation,
+            href: czechHref(part, citation),
+          },
+        ];
   });
 
 /**

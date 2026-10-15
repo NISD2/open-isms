@@ -1,7 +1,7 @@
+import type { WalkLocale } from "@/lib/durchgang/types";
 import cs from "@/messages/assetInventory/cs.json";
 import de from "@/messages/assetInventory/de.json";
 import en from "@/messages/assetInventory/en.json";
-import type { WalkLocale } from "@/lib/durchgang/types";
 import type { Asset } from "@/schema/types";
 import { CATALOG, type CatalogItem } from "./catalog";
 
