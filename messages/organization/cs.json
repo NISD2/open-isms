@@ -11,6 +11,16 @@
     "sectorPlaceholder": "Vyberte sektor...",
     "entityType": "Klasifikace subjektu",
     "entityTypeHelp": "Podle čl. 3 NIS2; v Česku určuje režim (vyšší nebo nižší povinnosti) rozhodnutí NÚKIB o registraci (§§ 4 až 8 zákona č. 264/2025 Sb., vyhláška č. 408/2025 Sb.)",
+    "essentials": {
+      "title": "Vaše společnost",
+      "lead": "Pro začátek stačí tři odpovědi. Vše ostatní zadáte tam, kde je to potřeba.",
+      "create": "Pokračovat",
+      "name": "Název společnosti",
+      "nameHint": "Tak, jak se má objevit ve vašich dokumentech, včetně právní formy.",
+      "entityTypeHint": "Jak je vaše společnost zařazena (čl. 3 NIS 2; v Česku režim uvedený v rozhodnutí NÚKIB o registraci).",
+      "missing": "Zadejte prosím název a odvětví.",
+      "failed": "To se nepovedlo. Zkuste to prosím znovu."
+    },
     "entityTypes": {
       "essential": "Základní subjekt",
       "important": "Důležitý subjekt",
