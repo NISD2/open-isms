@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import type { UserFact } from "@/lib/platform-admin/growth";
 import {
+  pageConversion,
   pageOf,
   signupDaysByCourse,
   signupPageBars,
@@ -79,6 +80,26 @@ describe("signup origin", () => {
       user({ fromPath: null }),
     ]);
     expect([...counts]).toEqual([["/pricing", 2]]);
+  });
+
+  test("pageConversion merges locales and keeps pages seen on one side only", () => {
+    const rows = pageConversion(
+      [
+        { name: "/en/pricing", views: 100 },
+        { name: "/de/pricing", views: 100 },
+        { name: "/en/wiki/nis2-timeline", views: 50 },
+      ],
+      new Map([
+        ["/pricing", 4],
+        ["/wiki/cut-off-from-top-list", 1],
+      ]),
+      10,
+    );
+    expect(rows).toEqual([
+      { page: "/pricing", views: 200, signups: 4, per1000: 20 },
+      { page: "/wiki/nis2-timeline", views: 50, signups: 0, per1000: 0 },
+      { page: "/wiki/cut-off-from-top-list", views: 0, signups: 1, per1000: null },
+    ]);
   });
 
   test("bars name the gaps: no record, and a page without a campaign tag", () => {

@@ -13,6 +13,8 @@ import bcrypt from "bcryptjs";
 import { and, count, desc, eq, gte, inArray, isNotNull, or, sql } from "drizzle-orm";
 import { z } from "zod";
 import { PARTNER_SLUG_PATTERN } from "@/lib/advisory-options";
+import { loadTraffic } from "@/lib/analytics/umami";
+import { umamiConfig } from "@/lib/analytics/umami-config";
 import { logAudit } from "@/lib/audit";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { createBillingAccount } from "@/lib/billing/accounts";
@@ -874,6 +876,23 @@ export const platformAdminRouter = router({
    * need it.
    */
   growth: platformAdminProcedure.query(({ ctx }) => loadGrowthData(ctx.db)),
+
+  /**
+   * Visits, top pages and top referrers from the analytics host for a window of UTC days, the top
+   * of the funnel the Graphs tab otherwise starts below. Read-only, and `configured: false` (not
+   * an error) when no analytics login is set, which is the default for a self-hosted instance.
+   */
+  traffic: platformAdminProcedure
+    .input(
+      z
+        .object({ from: z.iso.date(), to: z.iso.date() })
+        .refine((range) => range.from <= range.to, "from must not be after to"),
+    )
+    .query(async ({ input }) => {
+      const config = umamiConfig(env);
+      if (config === null) return { configured: false as const };
+      return { configured: true as const, ...(await loadTraffic(config, input)) };
+    }),
 
   overview: platformAdminProcedure.query(async ({ ctx }) => {
     const thirtyDaysAgo = new Date();

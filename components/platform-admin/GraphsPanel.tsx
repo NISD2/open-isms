@@ -30,6 +30,7 @@ import {
   signupFunnel,
   signupPageBars,
   signupSourceBars,
+  signupsByPage,
   sizeBars,
 } from "./graphs/derive";
 import { InsightsCard } from "./graphs/InsightsCard";
@@ -57,6 +58,7 @@ import {
   resolveWindow,
   todayUtc,
 } from "./graphs/range";
+import { TrafficCards } from "./graphs/TrafficCards";
 
 type GrowthData = RouterOutputs["platformAdmin"]["growth"];
 
@@ -345,6 +347,8 @@ function GraphsView({ data }: { data: GrowthData }) {
     [scoped],
   );
 
+  const signupsFrom = useMemo(() => signupsByPage(scoped.newUsers), [scoped]);
+
   const cohorts = useMemo(
     () => cohortMatrix(data.users, today.slice(0, 7)),
     [data, today],
@@ -489,6 +493,20 @@ function GraphsView({ data }: { data: GrowthData }) {
           sub="any course, finished in range"
         />
       </div>
+
+      <SectionHeading
+        title="Traffic"
+        blurb="The public site above the signup: who visits, which pages they read, where they come from. Read from the analytics host, so it can lag or be off without touching the cards below."
+      />
+
+      <TrafficCards
+        from={frame.start}
+        to={frame.end}
+        days={days}
+        granularity={g}
+        period={period}
+        signups={signupsFrom}
+      />
 
       <SectionHeading
         title="Growth"

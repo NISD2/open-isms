@@ -286,6 +286,43 @@ export function signupsByPage(users: UserFact[]): Map<string, number> {
   return counts;
 }
 
+export interface PageRow {
+  page: string;
+  views: number;
+  signups: number;
+  /** Signups per 1,000 views; null when the page has no recorded views. */
+  per1000: number | null;
+}
+
+/**
+ * Page views (from analytics) next to signups (from the platform) for the same page, locales
+ * merged. A page can appear on one side only: signups from a page the analytics top list cut off,
+ * or a much-read page nobody registered from. Most-viewed first.
+ */
+export function pageConversion(
+  pages: ReadonlyArray<{ name: string; views: number }>,
+  signups: ReadonlyMap<string, number>,
+  top: number,
+): PageRow[] {
+  const views = new Map<string, number>();
+  for (const { name, views: n } of pages) {
+    const page = pageOf(name);
+    views.set(page, (views.get(page) ?? 0) + n);
+  }
+  const names = new Set([...views.keys(), ...signups.keys()]);
+  return [...names]
+    .map((page) => {
+      const v = views.get(page) ?? 0;
+      const s = signups.get(page) ?? 0;
+      return { page, views: v, signups: s, per1000: v === 0 ? null : (s / v) * 1000 };
+    })
+    .sort(
+      (a, b) =>
+        b.views - a.views || b.signups - a.signups || a.page.localeCompare(b.page),
+    )
+    .slice(0, top);
+}
+
 export function signupPageBars(users: UserFact[]): Bar[] {
   const real = users.filter((u) => !u.disposable);
   return rank(
