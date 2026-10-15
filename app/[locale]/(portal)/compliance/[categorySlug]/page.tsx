@@ -14,6 +14,7 @@ import { ExportPolicyButton } from "@/components/compliance/ExportPolicyButton";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { getNextCategory, getPrevCategory } from "@/lib/compliance/helpers";
+import { nis2LegalRef } from "@/lib/compliance/legal-ref";
 import { REQUIREMENT_FIELD_MAP } from "@/lib/compliance/requirement-fields";
 
 export default async function CategoryStepPage({
@@ -145,6 +146,7 @@ export default async function CategoryStepPage({
   // Augment requirements with i18n titles/descriptions
   const tReq = await getTranslations("requirements");
   const tc = await getTranslations("compliance");
+  const locale = await getLocale();
   const requirementRows = requirements.map((req) => {
     const reqKey = req.code.replace(/\./g, "_");
     return {
@@ -154,7 +156,8 @@ export default async function CategoryStepPage({
       description: tReq(`${reqKey}.description`),
       priority: req.priority,
       frequency: req.frequency,
-      legalRef: req.legalRef,
+      legalRef:
+        frameworkCode === "nis2" ? nis2LegalRef(req.code, req.legalRef, locale) : req.legalRef,
       moduleRef: req.moduleRef,
     };
   });

@@ -2,6 +2,7 @@ import { and, asc, count, desc, eq, isNotNull } from "drizzle-orm";
 import { z } from "zod";
 import { daysUntilDeadline } from "@/lib/compliance/deadlines";
 import { isDoneState } from "@/lib/compliance/journey-position";
+import { nis2LegalRef } from "@/lib/compliance/legal-ref";
 import { journeyStates, walkOf } from "@/lib/durchgang";
 import {
   getRequirementDescription,
@@ -231,7 +232,7 @@ export const journeyRouter = router({
           status,
           priority: r.priority,
           frequency: r.frequency,
-          legalRef: r.legalRef,
+          legalRef: nis2LegalRef(r.code, r.legalRef, input?.locale),
           frameworkRef: r.frameworkRef,
           requiredSignOffRole: r.requiredSignOffRole,
           dueAt,
