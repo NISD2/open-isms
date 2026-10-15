@@ -504,6 +504,9 @@
     "assistWhereToFind": "Waar te vinden",
     "assistField": "Veld",
     "assistValue": "Waarde",
-    "rateLimited": "Uw organisatie heeft de uurlimiet voor AI-extractie bereikt. Probeer het later opnieuw."
+    "rateLimited": "Uw organisatie heeft de uurlimiet voor AI-extractie bereikt. Probeer het later opnieuw.",
+    "emptyText": "Plak eerst wat tekst.",
+    "extractFailed": "Extractie mislukt. Probeer het opnieuw.",
+    "aiDisabled": "AI-functies zijn uitgeschakeld voor uw organisatie. Schakel ze in via Instellingen → AI Data Sharing om deze functie te gebruiken."
   }
 }

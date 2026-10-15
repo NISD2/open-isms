@@ -47,9 +47,14 @@ export interface PartnerContractBody {
  * repository is public, and who our partners are and what we pay them is commercial information
  * that belongs in the operator's database.
  *
- * The text is stored as offered, so what the partner read is what they accepted even after the
- * wording in messages/partnerContract changes. The acceptance is recorded on the row, all of it or
- * none, with the hash of the text that was accepted.
+ * The binding text is stored as offered, so what the partner accepted stays on the row even after
+ * the wording in messages/partnerContract changes. The acceptance is recorded on the row, all of it
+ * or none, with the hash of the text that was accepted.
+ *
+ * A partner may have read a translation instead (Czech, over the English text). That translation is
+ * built from the wording of the day and never stored, so the row keeps the language it was read in
+ * and the hash of the translation as shown, which the wording of that release can be checked
+ * against. Acceptances from before this was recorded carry neither.
  */
 export const partnerContract = pgTable(
   "partner_contract",
@@ -95,6 +100,13 @@ export const partnerContract = pgTable(
     signerUserAgent: text("signer_user_agent"),
     /** SHA-256 of the plain text the signer accepted (lib/partner-contract/text). */
     signedTextSha256: varchar("signed_text_sha256", { length: 64 }),
+    /** The language the signer read the agreement in (lib/partner-contract/reading). */
+    signedReadingLocale: varchar("signed_reading_locale", { length: 10 }),
+    /**
+     * SHA-256 of the translation the signer read, in the same plain text form as the signed text.
+     * Null when they read the binding text itself.
+     */
+    signedTranslationSha256: varchar("signed_translation_sha256", { length: 64 }),
   },
   (table) => [
     check(
@@ -114,6 +126,20 @@ export const partnerContract = pgTable(
     check(
       "partner_contract_withdrawn_unsigned",
       sql`${table.withdrawnAt} is null or ${table.signedAt} is null`,
+    ),
+    // Only an accepted row says what was read: the stored text's own language, or a translation of
+    // the English one (lib/legal/contract-language).
+    check(
+      "partner_contract_signed_reading",
+      sql`${table.signedReadingLocale} is null
+        or (${table.signedAt} is not null
+          and (${table.signedReadingLocale} = ${table.locale}::text
+            or (${table.locale} = 'en' and ${table.signedReadingLocale} in ('cs'))))`,
+    ),
+    check(
+      "partner_contract_signed_translation",
+      sql`(${table.signedTranslationSha256} is null)
+        = (${table.signedReadingLocale} is null or ${table.signedReadingLocale} = ${table.locale}::text)`,
     ),
     check(
       "partner_contract_access_user_granted",

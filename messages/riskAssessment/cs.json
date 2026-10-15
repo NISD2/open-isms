@@ -2,15 +2,15 @@
   "riskAssessment": {
     "page": {
       "title": "Posouzení rizik podle NIS2",
-      "subtitle": "Osm otázek na každé aktivum. Schutzbedarf podle jednotlivých Grundwerte a doporučená Absicherungsvariante v duchu BSI Grundschutz 200-2 §8.2.",
+      "subtitle": "Osm otázek na každé aktivum. Schutzbedarf podle jednotlivých Grundwerte a doporučená Absicherungsvariante v duchu kapitoly 8.2 standardu BSI Grundschutz 200-2.",
       "metaTitle": "Posouzení rizik podle NIS2. Zdarma, bez registrace",
-      "metaDescription": "Bezplatná heuristika o 8 otázkách v duchu BSI Grundschutz 200-2 §8.2 Schutzbedarfsfeststellung. Klasifikace podle jednotlivých Grundwerte (V/I/A → normal/hoch/sehr hoch) s agregací podle Maximum-Prinzip a doporučenou Absicherungsvariante."
+      "metaDescription": "Bezplatná heuristika o 8 otázkách v duchu kapitoly 8.2 (Schutzbedarfsfeststellung) standardu BSI Grundschutz 200-2. Klasifikace podle jednotlivých Grundwerte (V/I/A → normal/hoch/sehr hoch) s agregací podle Maximum-Prinzip a doporučenou Absicherungsvariante."
     },
     "hero": {
       "eyebrow": "Zdarma, open source, bez registrace",
       "headline": "Posouzení rizik podle NIS2",
       "headlineAccent": "za méně než 5 minut",
-      "subhead": "Osm otázek na každé aktivum. Potřeba ochrany podle jednotlivých Grundwerte a doporučená cesta zavedení v duchu BSI Grundschutz 200-2 §8.2."
+      "subhead": "Osm otázek na každé aktivum. Potřeba ochrany podle jednotlivých Grundwerte a doporučená cesta zavedení v duchu kapitoly 8.2 standardu BSI Grundschutz 200-2."
     },
     "intro": {
       "trustLine": "Klasifikace podle jednotlivých Grundwerte (V/I/A) podle Maximum-Prinzip. NIS2 čl. 21(1) + čl. 21(2)(a), § 14 odst. 1 písm. a) bod 6 a odst. 2 písm. d) zákona č. 264/2025 Sb. Bez registrace, výsledek zůstává u vás.",
@@ -54,7 +54,7 @@
       }
     },
     "schutzbedarf": {
-      "heading": "BSI-200-2 §8.2 Schutzbedarfsfeststellung",
+      "heading": "Kapitola 8.2 standardu BSI 200-2: Schutzbedarfsfeststellung",
       "subtitle": "Klasifikace podle jednotlivých Grundwerte (Vertraulichkeit, Integrität, Verfügbarkeit) na škále normal / hoch / sehr hoch. Nejvyšší ze tří určuje Gesamt-Schutzbedarf (Maximum-Prinzip).",
       "grundwerte": {
         "v": {
@@ -75,7 +75,7 @@
         "hoch": { "label": "Hoch" },
         "sehrHoch": { "label": "Sehr hoch" }
       },
-      "scenariosLabel": "Scénáře škod (§8.2.1)",
+      "scenariosLabel": "Scénáře škod (kapitola 8.2.1)",
       "scenarios": {
         "gesetzeVorschriftenVertraege": { "label": "Porušení zákonů, předpisů, smluv" },
         "informationellesSelbstbestimmungsrecht": {
@@ -93,7 +93,7 @@
     },
     "variante": {
       "heading": "Doporučená Absicherungsvariante",
-      "subtitle": "Cesta zavedení (BSI-200-2 §3.4) navržená vaším Gesamt-Schutzbedarf. Basis/Standard/Kern jsou tři Vorgehensweisen podle BSI. Odlišné od výše uvedených Schutzbedarfsklassen.",
+      "subtitle": "Cesta zavedení (kapitola 3.3 standardu BSI 200-2) navržená vaším Gesamt-Schutzbedarf. Basis/Standard/Kern jsou tři Vorgehensweisen podle BSI. Odlišné od výše uvedených Schutzbedarfsklassen.",
       "recommendedLabel": "Doporučení",
       "byVariante": {
         "basis": {
@@ -109,7 +109,7 @@
       "bumpedTitle": "Zvýšeno z Basis na Standard kvůli indiciím při zavádění",
       "bumpedBody": "Váš Gesamt-Schutzbedarf je normal, ale jedna či více indicií při zavádění (Schwachstellen / Eintrittswahrscheinlichkeit, oblast BSI-200-3) je natolik závažná, že zmenšená podmnožina Bausteine v Basis-Absicherung pravděpodobně nebude dostatečná. Zvýšení vyvolaly tyto indicie:",
       "risikoanalyseTitle": "Vyžadována Risikoanalyse podle BSI-200-3",
-      "risikoanalyseBody": "Když alespoň jeden Grundwert dosáhne hoch nebo sehr hoch, je podle metodiky BSI pro toto aktivum povinná ergänzende Risikoanalyse podle BSI-200-3 (BSI-200-2 §8.5). Tento nástroj tuto analýzu neprovádí. Pouze určuje, že je vyžadována. Dokumentovanou cestou je Standard-Absicherung plus analýza rizik založená na scénářích."
+      "risikoanalyseBody": "Když alespoň jeden Grundwert dosáhne hoch nebo sehr hoch, je podle metodiky BSI pro toto aktivum povinná ergänzende Risikoanalyse podle BSI-200-3 (kapitola 8.5 standardu BSI 200-2). Tento nástroj tuto analýzu neprovádí. Pouze určuje, že je vyžadována. Dokumentovanou cestou je Standard-Absicherung plus analýza rizik založená na scénářích."
     },
     "axes": {
       "personalData": {
@@ -129,8 +129,8 @@
             "why": "Vertraulichkeit-Schutzbedarf hoch. Hromadná zákaznická nebo obchodně citlivá data nastavují spodní hranici potřeby ochrany na hoch. Vyžadovány standardní TOMs a smlouvy se zpracovateli. Vyžadována Risikoanalyse podle BSI-200-3."
           },
           "sensitivePii": {
-            "label": "Citlivé údaje: čl. 9 GDPR (zdraví, náboženství) nebo regulovaná provozní data (OT, KRITIS)",
-            "why": "Vertraulichkeit-Schutzbedarf hoch jako spodní hranice. Údaje podle čl. 9 GDPR vyžadují posouzení vlivu na ochranu osobních údajů (DPIA) podle čl. 35. Při velkém objemu uživatelů nebo externím přístupu může Kumulationseffekt §8.2.4 zvýšit na sehr hoch. Vyžadována Risikoanalyse podle BSI-200-3."
+            "label": "Citlivé údaje: čl. 9 GDPR (zdraví, náboženství) nebo regulovaná provozní data (OT, kritická infrastruktura)",
+            "why": "Vertraulichkeit-Schutzbedarf hoch jako spodní hranice. Rozsáhlé zpracování údajů podle čl. 9 GDPR vyžaduje posouzení vlivu na ochranu osobních údajů (DPIA) podle čl. 35 odst. 3 písm. b). Při velkém objemu uživatelů nebo externím přístupu může Kumulationseffekt (kapitola 8.2.4 standardu BSI 200-2) zvýšit na sehr hoch. Vyžadována Risikoanalyse podle BSI-200-3."
           }
         }
       },
@@ -192,11 +192,11 @@
           },
           "large": {
             "label": "Včetně privilegovaných uživatelů (administrátoři, finance, vedení)",
-            "why": "Kumulationseffekt §8.2.4: u dat s vysokou V (zákaznická nebo citlivá) může V-Schutzbedarf vystoupat o jednu úroveň. Striktní oddělení rolí, MFA u privilegovaných účtů."
+            "why": "Kumulationseffekt (kapitola 8.2.4 standardu BSI 200-2): u dat s vysokou V (zákaznická nebo citlivá) může V-Schutzbedarf vystoupat o jednu úroveň. Striktní oddělení rolí, MFA u privilegovaných účtů."
           },
           "externalToo": {
             "label": "Včetně externích osob (zákazníci, dodavatelé, partneři)",
-            "why": "Kumulationseffekt §8.2.4 je zde nejsilnější. U dat s vysokou V obvykle V-Schutzbedarf stoupá na sehr hoch. Ověření identity, oddělení interních a externích oprávnění, MFA. NIS2 čl. 21(2)(d) a (j)."
+            "why": "Kumulationseffekt (kapitola 8.2.4 standardu BSI 200-2) je zde nejsilnější. U dat s vysokou V obvykle V-Schutzbedarf stoupá na sehr hoch. Ověření identity, oddělení interních a externích oprávnění, MFA. NIS2 čl. 21(2)(d) a (j)."
           }
         }
       },
@@ -294,9 +294,9 @@
       "whyHeading": "Zdůvodnění podle jednotlivých os",
       "whySubtitle": "Tyto věty tvoří základ zdůvodnění Schutzbedarf a Absicherungsvariante. Použijte je beze změny nebo je upravte společně s vedením.",
       "bausteineHeading": "Použitelné Bausteine podle Grundschutz (doporučené)",
-      "bausteineSubtitle": "Orientační seznam z katalogu IT-Grundschutz na základě doporučené Absicherungsvariante. Kanonický krok Modellierung podle BSI-200-2 §8.3 stále probíhá v rámci práce na ISMS u provozovatele.",
+      "bausteineSubtitle": "Orientační seznam z katalogu IT-Grundschutz na základě doporučené Absicherungsvariante. Kanonický krok Modellierung podle kapitoly 8.3 standardu BSI 200-2 stále probíhá v rámci práce na ISMS u provozovatele.",
       "measuresHeading": "Opatření podle čl. 21(2) NIS2",
-      "measuresSubtitle": "Čl. 21(2) NIS2 uvádí deset opatření, která musí zavést každý subjekt v působnosti ('musí zahrnovat alespoň následující'). Hloubka zavedení se řídí vaší Absicherungsvariante: Basis vyžaduje minimální doklady, Standard plnou hloubku Grundschutz a Kern dodatečné prohloubení specifické pro rizika podle BSI-200-3 u aktiva Kronjuwel.",
+      "measuresSubtitle": "Čl. 21(2) NIS2 uvádí deset opatření, která musí zavést každý subjekt v působnosti (opatření „zahrnují alespoň“ těchto deset bodů). Hloubka zavedení se řídí vaší Absicherungsvariante: Basis vyžaduje minimální doklady, Standard plnou hloubku Grundschutz a Kern dodatečné prohloubení specifické pro rizika podle BSI-200-3 u aktiva Kronjuwel.",
       "cirNote": "Pro 11 typů subjektů v působnosti CIR 2024/2690 (služby cloud computingu, datová centra, MSP a MSSP, poskytovatelé DNS, registry TLD, sítě pro doručování obsahu, online tržiště, vyhledávače, sociální sítě, poskytovatelé služeb vytvářejících důvěru) stanoví příloha podrobná prováděcí pravidla. Ostatní subjekty v Česku plní vyhlášku č. 409/2025 Sb. (režim vyšších povinností) nebo č. 410/2025 Sb. (režim nižších povinností); německou metodiku BSI Grundschutz mohou použít jako pracovní metodu.",
       "signoffHeading": "Schválení vedením",
       "signoffBody": "Toto posouzení je závazné pouze se schválením vedením (čl. 20 odst. 1 NIS2). V Česku se vedení se stavem opatření (vyhláška č. 410/2025 Sb., § 4 písm. d)) nebo se zprávou o hodnocení rizik (vyhláška č. 409/2025 Sb., § 4 odst. 2) prokazatelně seznamuje. Na vytištěný dokument uveďte jméno, datum a podpis."
@@ -307,8 +307,8 @@
     },
     "disclaimer": {
       "heading": "Právní poznámka",
-      "body": "Tento nástroj je informativní klasifikací na základě vašich vstupů. Nejedná se o právní poradenství podle německého RDG. Posouzení se stává závazným pouze se schválením vedením podle čl. 20 odst. 1 NIS2; v Česku ukládá povinnosti vrcholnému vedení vyhláška č. 410/2025 Sb., § 4, a vyhláška č. 409/2025 Sb., § 4.",
-      "methodologyDisclosure": "Schutzbedarfsfeststellung pro jednotlivá aktiva v souladu s BSI-200-2 §8.2 (předpokládá, že vaše Sicherheitsleitlinie §4 a Strukturanalyse §8.1 jsou již zavedeny). Klasifikace podle jednotlivých Grundwerte (V/I/A) na tříúrovňové škále BSI normal/hoch/sehr-hoch (v režimu vyšších povinností vyžaduje vyhláška č. 409/2025 Sb., příloha č. 1 odst. 2, zdokumentovat jednoznačnou vazbu této škály na čtyři české úrovně Nízká, Střední, Vysoká, Kritická), Maximum-Prinzip podle §8.2.3, Kumulationseffekt podle §8.2.4 a dokumentované Schadensszenarien podle §8.2.1. Vererbung, Modellierung (§8.3), IT-Grundschutz-Check (§8.4) a ergänzende Risikoanalyse podle BSI-200-3 zůstávají navazující prací. Není to certifikace: ta vyžaduje audit třetí stranou akreditovanou DAkkS."
+      "body": "Tento nástroj je informativní klasifikací na základě vašich vstupů. Nejedná se o právní poradenství podle německého RDG. Posouzení se stává závazným pouze se schválením vedením podle čl. 20 odst. 1 NIS2; české vyhlášky schválení nepředepisují, vedení se s výsledky prokazatelně seznamuje (vyhláška č. 410/2025 Sb., § 4 písm. d); vyhláška č. 409/2025 Sb., § 4 odst. 2).",
+      "methodologyDisclosure": "Schutzbedarfsfeststellung pro jednotlivá aktiva v souladu s kapitolou 8.2 standardu BSI 200-2 (předpokládá, že vaše Sicherheitsleitlinie podle kapitoly 3.4 a Strukturanalyse podle kapitoly 8.1 jsou již zavedeny). Klasifikace podle jednotlivých Grundwerte (V/I/A) na tříúrovňové škále BSI normal/hoch/sehr-hoch (v režimu vyšších povinností vyžaduje vyhláška č. 409/2025 Sb., příloha č. 1 odst. 2, dodržet jednoznačné vazby této škály na čtyři české úrovně Nízká, Střední, Vysoká, Kritická), Maximum-Prinzip podle kapitoly 8.2.3, Kumulationseffekt podle kapitoly 8.2.4 a dokumentované Schadensszenarien podle kapitoly 8.2.1. Vererbung, Modellierung (kapitola 8.3), IT-Grundschutz-Check (kapitola 8.4) a ergänzende Risikoanalyse podle BSI-200-3 zůstávají navazující prací. Není to certifikace: ta vyžaduje audit třetí stranou akreditovanou národním akreditačním orgánem (v Česku ČIA, v Německu DAkkS)."
     },
     "art21Measures": {
       "a": {

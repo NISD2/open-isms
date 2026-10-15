@@ -4,6 +4,9 @@
  * The Partner agreements tab: offer a one-page agreement to a firm that recommends us, copy its
  * link to send, and see who accepted. The partner accepts on /partner-agreement/[token] with name
  * and email; nothing here signs on their behalf.
+ *
+ * The link goes out in the partner's reading language. A Czech partner reads a translation of the
+ * English offer, so an English offer has an English and a Czech link; both accept the English text.
  */
 import { Copy, ExternalLink, Handshake } from "lucide-react";
 import { type FormEvent, useState } from "react";
@@ -28,6 +31,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import type { PartnerContractReadingLocale } from "@/lib/partner-contract/date";
 import { type RouterOutputs, trpc } from "@/lib/trpc/client";
 
 type Row = RouterOutputs["partnerContract"]["list"]["rows"][number];
@@ -39,6 +43,21 @@ const PERIODS = [
 ] as const;
 type Period = (typeof PERIODS)[number]["value"];
 
+const LANGUAGE = {
+  de: "German",
+  en: "English",
+  cs: "Czech",
+} as const satisfies Record<PartnerContractReadingLocale, string>;
+
+const READERS = [
+  { value: "de", label: LANGUAGE.de },
+  { value: "en", label: LANGUAGE.en },
+  { value: "cs", label: `${LANGUAGE.cs}: reads a translation, the English text binds` },
+] as const satisfies readonly {
+  value: PartnerContractReadingLocale;
+  label: string;
+}[];
+
 const day = (d: Date) => d.toLocaleDateString("de-DE", { timeZone: "Europe/Berlin" });
 
 const blankToNull = (value: string): string | null => value.trim() || null;
@@ -48,18 +67,26 @@ async function copyLink(url: string) {
   toast.success("Link copied.");
 }
 
-function LinkActions({ url }: { readonly url: string }) {
+function LinkActions({
+  url,
+  language,
+}: {
+  readonly url: string;
+  /** Named when a row has a link per reading language. */
+  readonly language?: string;
+}) {
   return (
-    <div className="flex gap-1">
+    <div className="flex justify-end gap-1">
       <Button size="sm" variant="outline" onClick={() => copyLink(url)}>
-        <Copy className="h-3.5 w-3.5" /> Copy link
+        <Copy className="h-3.5 w-3.5" />{" "}
+        {language ? `Copy ${language} link` : "Copy link"}
       </Button>
       <Button size="sm" variant="ghost" asChild>
         <a
           href={url}
           target="_blank"
           rel="noreferrer noopener"
-          aria-label="Open the agreement"
+          aria-label={language ? `Open the ${language} agreement` : "Open the agreement"}
         >
           <ExternalLink className="h-3.5 w-3.5" />
         </a>
@@ -104,7 +131,7 @@ function OfferForm({ onCreated }: { readonly onCreated: (url: string) => void })
   const [email, setEmail] = useState("");
   const [percent, setPercent] = useState("");
   const [period, setPeriod] = useState<Period>("12");
-  const [locale, setLocale] = useState<"de" | "en">("de");
+  const [readerLocale, setReaderLocale] = useState<PartnerContractReadingLocale>("de");
 
   const create = trpc.partnerContract.create.useMutation({
     onSuccess: (r) => {
@@ -123,7 +150,7 @@ function OfferForm({ onCreated }: { readonly onCreated: (url: string) => void })
   const submit = (e: FormEvent) => {
     e.preventDefault();
     create.mutate({
-      locale,
+      readerLocale,
       partnerCompany: company,
       partnerContactName: blankToNull(contact),
       partnerEmail: blankToNull(email),
@@ -193,14 +220,20 @@ function OfferForm({ onCreated }: { readonly onCreated: (url: string) => void })
         </NativeSelect>
       </div>
       <div className="space-y-1.5">
-        <Label htmlFor="pc-locale">Language of the agreement</Label>
+        <Label htmlFor="pc-locale">The partner reads it in</Label>
         <NativeSelect
           id="pc-locale"
-          value={locale}
-          onChange={(e) => setLocale(e.target.value === "en" ? "en" : "de")}
+          value={readerLocale}
+          onChange={(e) => {
+            const picked = READERS.find((r) => r.value === e.target.value);
+            if (picked) setReaderLocale(picked.value);
+          }}
         >
-          <NativeSelectOption value="de">Deutsch</NativeSelectOption>
-          <NativeSelectOption value="en">English</NativeSelectOption>
+          {READERS.map((r) => (
+            <NativeSelectOption key={r.value} value={r.value}>
+              {r.label}
+            </NativeSelectOption>
+          ))}
         </NativeSelect>
       </div>
       <div className="flex items-end justify-end">
@@ -308,7 +341,7 @@ export function PartnerContractsPanel() {
                         {row.commissionMonths === null
                           ? "while the customer pays"
                           : `first ${row.commissionMonths} months`}
-                        , {row.locale.toUpperCase()}
+                        , {LANGUAGE[row.locale]} text binds
                       </p>
                     </TableCell>
                     <TableCell className="text-sm">
@@ -321,8 +354,18 @@ export function PartnerContractsPanel() {
                       <Status row={row} />
                     </TableCell>
                     <TableCell>
-                      <div className="flex justify-end gap-1 whitespace-nowrap">
-                        {row.withdrawnAt ? null : <LinkActions url={row.url} />}
+                      <div className="flex items-start justify-end gap-1 whitespace-nowrap">
+                        {row.withdrawnAt ? null : (
+                          <div className="space-y-1">
+                            {row.links.map((link) => (
+                              <LinkActions
+                                key={link.locale}
+                                url={link.url}
+                                language={LANGUAGE[link.locale]}
+                              />
+                            ))}
+                          </div>
+                        )}
                         {row.signedAt || row.withdrawnAt ? null : (
                           <Button
                             size="sm"

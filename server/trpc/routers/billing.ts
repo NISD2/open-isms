@@ -25,7 +25,7 @@ import {
   cancelSubscription,
 } from "@/lib/billing/cancel";
 import { holderNetCents } from "@/lib/billing/holder-price";
-import { formatEuro, orderSchemaWithVatCheck } from "@/lib/billing/order";
+import { formatReaderEuro, orderSchemaWithVatCheck } from "@/lib/billing/order";
 import { hasOrderCheck } from "@/lib/billing/order-check";
 import { type OrderingMode, orderingMode } from "@/lib/billing/ordering";
 import { billingFor } from "@/lib/billing/ordering-access";
@@ -36,6 +36,7 @@ import { TERMS_VERSION } from "@/lib/billing/terms";
 import { viesConfigFromEnv } from "@/lib/billing/vies";
 import type { DbOrTx } from "@/lib/db";
 import { env } from "@/lib/env";
+import { isLocaleCode } from "@/lib/locale";
 import { rateLimit } from "@/lib/rate-limit";
 import { createPresignedGet } from "@/lib/storage";
 import { billingAccount, company, creditNote, invoice, user } from "@/schema";
@@ -104,6 +105,10 @@ const ordererProcedure = accountProcedure.use(async ({ ctx, next }) => {
   return next({ ctx: { ...ctx, account } });
 });
 
+/** The page's language. It only ever picks a number format (formatReaderEuro). */
+const readerLocale = z.string().refine(isLocaleCode).optional();
+const readerInput = z.object({ locale: readerLocale }).optional();
+
 const requireOrdering = (email: string | null | undefined) => {
   const { mode, open } = billingFor(email);
   if (!open || mode.kind === "off") {
@@ -154,7 +159,7 @@ const liveStatus = async (mode: OrderingMode, qontoInvoiceId: string) => {
 };
 
 export const billingRouter = router({
-  status: accountProcedure.query(async ({ ctx }) => {
+  status: accountProcedure.input(readerInput).query(async ({ ctx, input }) => {
     const account = await accountOf(ctx.db, ctx.companyId);
     const { mode, open } = billingFor(ctx.session.user.email);
     const now = new Date();
@@ -179,7 +184,7 @@ export const billingRouter = router({
       orderPending: pending,
       accessLevel: account.accessLevel,
       netCents,
-      netPrice: formatEuro(netCents),
+      netPrice: formatReaderEuro(netCents, input?.locale),
       activeInvoice: active,
       contract: active ? await contractOf(ctx.db, active.id) : null,
       renewalCanceledAt: account.renewalCanceledAt,
@@ -252,6 +257,7 @@ export const billingRouter = router({
       z.object({
         vatNumber: z.string().trim().min(2).max(32),
         countryCode: z.string().trim().length(2).optional(),
+        locale: readerLocale,
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -279,6 +285,7 @@ export const billingRouter = router({
           accepted: z.literal(true),
           version: z.string().max(20),
         }),
+        locale: readerLocale,
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -309,7 +316,7 @@ export const billingRouter = router({
       if (outcome.ok) {
         return {
           number: outcome.number,
-          gross: formatEuro(outcome.grossCents),
+          gross: formatReaderEuro(outcome.grossCents, input.locale),
           dueDate: outcome.dueDate,
           periodEnd: outcome.periodEnd,
         };
@@ -338,7 +345,7 @@ export const billingRouter = router({
       }
     }),
 
-  invoices: payerProcedure.query(async ({ ctx }) => {
+  invoices: payerProcedure.input(readerInput).query(async ({ ctx, input }) => {
     const { account } = ctx;
     const rows = await ctx.db
       .select({
@@ -363,7 +370,7 @@ export const billingRouter = router({
       rows.map(
         async ({ qontoInvoiceId, archivedPdfKey, netCents, vatCents, ...row }) => ({
           ...row,
-          gross: formatEuro(netCents + vatCents),
+          gross: formatReaderEuro(netCents + vatCents, input?.locale),
           hasPdf: archivedPdfKey !== null,
           status: await liveStatus(mode, qontoInvoiceId),
         }),

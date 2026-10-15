@@ -17,10 +17,16 @@ export interface ExportLabels {
   readonly issuedBy: string;
   readonly confidential: string;
   readonly page: (page: number, total: number) => string;
-  readonly registers: { readonly title: string; readonly eyebrow: string };
+  /** `file` names the download, without date or extension. */
+  readonly registers: {
+    readonly title: string;
+    readonly eyebrow: string;
+    readonly file: string;
+  };
   readonly documents: {
     readonly title: string;
     readonly eyebrow: string;
+    readonly file: string;
     readonly empty: string;
     readonly approvedBy: string;
     readonly approvedAt: string;
@@ -65,10 +71,11 @@ const DE: ExportLabels = {
   issuedBy: "Erstellt mit",
   confidential: "Vertraulich",
   page: (page, total) => `Seite ${page} von ${total}`,
-  registers: { title: "Register", eyebrow: "NIS 2 Dokumentation" },
+  registers: { title: "Register", eyebrow: "NIS 2 Dokumentation", file: "nis2-register" },
   documents: {
     title: "Dokumente",
     eyebrow: "NIS 2 Dokumentation",
+    file: "nis2-dokumente",
     empty: "Der Durchgang hat noch keine Dokumente geschrieben.",
     approvedBy: "Freigegeben von",
     approvedAt: "Freigegeben am",
@@ -113,10 +120,11 @@ const EN: ExportLabels = {
   issuedBy: "Made with",
   confidential: "Confidential",
   page: (page, total) => `Page ${page} of ${total}`,
-  registers: { title: "Registers", eyebrow: "NIS 2 records" },
+  registers: { title: "Registers", eyebrow: "NIS 2 records", file: "nis2-registers" },
   documents: {
     title: "Documents",
     eyebrow: "NIS 2 records",
+    file: "nis2-documents",
     empty: "The walkthrough has not written any documents yet.",
     approvedBy: "Approved by",
     approvedAt: "Approved on",
@@ -127,5 +135,56 @@ const EN: ExportLabels = {
   },
 };
 
-export const exportLabels = (locale: PdfLocale): ExportLabels =>
-  locale === "de" ? DE : EN;
+/** The Czech regulator is NÚKIB: the contact point and the registration are with it, as the organization form says. */
+const CS: ExportLabels = {
+  company: {
+    legalForm: "Právní forma",
+    sector: "Odvětví",
+    entityType: "Klasifikace subjektu",
+    employeeCount: "Počet zaměstnanců",
+    registeredAddress: "Sídlo",
+    primaryLocations: "Lokality",
+    contactEmail: "Kontakt",
+    contactPhone: "Telefon",
+    cisoName: "Osoba odpovědná za informační bezpečnost",
+    cisoReportsTo: "Nadřízený",
+    bsiContactName: "Kontaktní osoba pro NÚKIB",
+    bsiContactEmail: "Kontaktní e-mail pro NÚKIB",
+    bsiContactPhone: "Kontaktní telefon pro NÚKIB",
+    bsiRegistrationId: "Č. j. rozhodnutí NÚKIB o registraci",
+  },
+  records: {
+    company: "Základní údaje",
+    asset: "Aktiva",
+    supplier: "Dodavatelé",
+    risk: "Rizika",
+    training: "Školení",
+    managementReview: "Přezkumy vedení",
+    incident: "Incidenty",
+  },
+  providers: "Poskytovatelé",
+  none: "Žádné záznamy.",
+  yes: "Ano",
+  no: "Ne",
+  asOf: "Stav k",
+  issuedBy: "Vytvořeno pomocí",
+  confidential: "Důvěrné",
+  page: (page, total) => `Strana ${page} z ${total}`,
+  registers: { title: "Registry", eyebrow: "Dokumentace NIS 2", file: "nis2-registry" },
+  documents: {
+    title: "Dokumenty",
+    eyebrow: "Dokumentace NIS 2",
+    file: "nis2-dokumenty",
+    empty: "Průvodce zatím nevytvořil žádné dokumenty.",
+    approvedBy: "Schválil",
+    approvedAt: "Datum schválení",
+    version: "Verze",
+    effectiveFrom: "Účinnost od",
+    draft: "Koncept, zatím neschválený",
+    approved: "Schváleno",
+  },
+};
+
+const LABELS: Readonly<Record<PdfLocale, ExportLabels>> = { de: DE, en: EN, cs: CS };
+
+export const exportLabels = (locale: PdfLocale): ExportLabels => LABELS[locale];

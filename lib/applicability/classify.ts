@@ -9,6 +9,21 @@ export type EntityClassification =
 
 export type CompanySize = "small" | "medium" | "large";
 
+/** Which of the directive's two fine caps an in-scope result carries. */
+export type PenaltyTier = "essential" | "important";
+
+export type PenaltyCeiling = {
+  tier: PenaltyTier;
+  amount: string;
+  turnoverPercent: string;
+};
+
+/** The directive's minimum caps: Art. 34(4) NIS 2 for essential entities, 34(5) for important ones. */
+const PENALTY_CEILINGS: Readonly<Record<PenaltyTier, PenaltyCeiling>> = {
+  essential: { tier: "essential", amount: "EUR 10,000,000", turnoverPercent: "2%" },
+  important: { tier: "important", amount: "EUR 7,000,000", turnoverPercent: "1.4%" },
+};
+
 export type ClassificationResult = {
   classification: EntityClassification;
   size: CompanySize | null;
@@ -19,7 +34,7 @@ export type ClassificationResult = {
     | "below_threshold"
     | "special_case"
     | "size_and_sector";
-  penaltyCeiling: { amount: string; turnoverPercent: string } | null;
+  penaltyCeiling: PenaltyCeiling | null;
   supervision: "proactive" | "reactive" | null;
 };
 
@@ -78,7 +93,7 @@ export function classify(input: {
         size: size ?? null,
         annexes,
         reason: "special_case",
-        penaltyCeiling: { amount: "EUR 10,000,000", turnoverPercent: "2%" },
+        penaltyCeiling: PENALTY_CEILINGS.essential,
         supervision: "proactive",
       };
     }
@@ -90,7 +105,7 @@ export function classify(input: {
         size: size ?? null,
         annexes,
         reason: "special_case",
-        penaltyCeiling: { amount: "EUR 10,000,000", turnoverPercent: "2%" },
+        penaltyCeiling: PENALTY_CEILINGS.essential,
         supervision: "proactive",
       };
     }
@@ -102,7 +117,7 @@ export function classify(input: {
         size: size ?? null,
         annexes,
         reason: "special_case",
-        penaltyCeiling: { amount: "EUR 10,000,000", turnoverPercent: "2%" },
+        penaltyCeiling: PENALTY_CEILINGS.essential,
         supervision: "proactive",
       };
     }
@@ -114,7 +129,7 @@ export function classify(input: {
       size: size ?? null,
       annexes,
       reason: "special_case",
-      penaltyCeiling: { amount: "EUR 7,000,000", turnoverPercent: "1.4%" },
+      penaltyCeiling: PENALTY_CEILINGS.important,
       supervision: "reactive",
     };
   }
@@ -151,7 +166,7 @@ export function classify(input: {
       size,
       annexes,
       reason: "size_and_sector",
-      penaltyCeiling: { amount: "EUR 10,000,000", turnoverPercent: "2%" },
+      penaltyCeiling: PENALTY_CEILINGS.essential,
       supervision: "proactive",
     };
   }
@@ -162,7 +177,7 @@ export function classify(input: {
     size,
     annexes,
     reason: "size_and_sector",
-    penaltyCeiling: { amount: "EUR 7,000,000", turnoverPercent: "1.4%" },
+    penaltyCeiling: PENALTY_CEILINGS.important,
     supervision: "reactive",
   };
 }

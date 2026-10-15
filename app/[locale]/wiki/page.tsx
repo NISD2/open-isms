@@ -1,6 +1,6 @@
-import type { Metadata } from "next";
 import { ArrowRight, Sparkles } from "lucide-react";
-import { Link } from "@/i18n/navigation";
+import type { Metadata } from "next";
+import { MarketingHero } from "@/components/marketing/MarketingHero";
 import { Badge } from "@/components/ui/badge";
 import {
   Breadcrumb,
@@ -8,30 +8,25 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
-import { pageAlternates } from "@/lib/seo";
-import { pickLocalized } from "@/lib/locale";
-import { ogImages } from "@/lib/og-card";
-import { topLevelSummary } from "@/lib/content/wiki-toc";
-import wikiI18n from "@/lib/content/wiki-toc-i18n.json";
 import {
-  WikiHubSearch,
   type WikiCategoryCard,
   type WikiFlatPage,
+  WikiHubSearch,
 } from "@/components/wiki/WikiHubSearch";
-import { MarketingHero } from "@/components/marketing/MarketingHero";
-
-const WIKI_I18N = wikiI18n as Record<
-  string,
-  Record<string, Record<string, string>>
->;
+import { Link } from "@/i18n/navigation";
+import { type TocField, tocTranslation } from "@/lib/content/wiki-locale";
+import { topLevelSummary } from "@/lib/content/wiki-toc";
+import { pickLocalized } from "@/lib/locale";
+import { ogImages } from "@/lib/og-card";
+import { pageAlternates } from "@/lib/seo";
 
 // Localized lookup for category / entry nav strings. de and en are NOT in
 // the lookup: de comes from the *De fields and en from the English fallback
-// passed in. Only fr/it/es/pl resolve here; anything missing falls back to
+// passed in. Only fr/it/es/pl/cs resolve here; anything missing falls back to
 // the English string so a gap never renders an empty cell.
 function navText(
   key: string,
-  field: "title" | "summary" | "question",
+  field: TocField,
   locale: string,
   en: string,
   de: string,
@@ -39,14 +34,22 @@ function navText(
   // nl has no TOC translations; it rendered German before fr/it/es/pl were
   // added, so keep that rather than flipping it to the English fallback.
   if (locale === "nl") return de;
-  return WIKI_I18N[key]?.[locale]?.[field] ?? en;
+  return tocTranslation(key, field, locale) ?? en;
 }
 
 // Pick a locale variant for the page's own inline strings (the ones not in
-// the TOC lookup). de/en stay byte-identical to before; fr/it/es/pl are
+// the TOC lookup). de/en stay byte-identical to before; fr/it/es/pl/cs are
 // authored here; any missing locale falls back to en.
 function pick(
-  variants: { de: string; en: string; fr: string; it: string; es: string; pl: string },
+  variants: {
+    de: string;
+    en: string;
+    fr: string;
+    it: string;
+    es: string;
+    pl: string;
+    cs: string;
+  },
   locale: string,
 ): string {
   // nl has no inline variant; it rendered German before the new locales.
@@ -67,6 +70,7 @@ export async function generateMetadata({
       it: "Wiki : NIS 2, BSIG, CIR spiegati",
       es: "Wiki: NIS 2, BSIG, CIR explicados",
       pl: "Wiki: NIS 2, BSIG, CIR wyjaśnione",
+      cs: "Wiki: NIS 2, zákon č. 264/2025 Sb. a CIR srozumitelně",
     },
     locale,
   );
@@ -78,6 +82,7 @@ export async function generateMetadata({
       it: "La documentazione completa su NIS 2, il BSIG tedesco e il CIR 2024/2690: ambito di applicazione, misure, sanzioni, confronti e come attuarlo concretamente.",
       es: "La documentación completa sobre NIS 2, el BSIG alemán y el CIR 2024/2690: ámbito de aplicación, medidas, multas, comparativas y cómo implementarlo en la práctica.",
       pl: "Pełna dokumentacja dotycząca NIS 2, niemieckiego BSIG i CIR 2024/2690: zakres stosowania, środki, kary, porównania oraz jak to faktycznie wdrożyć.",
+      cs: "Kompletní dokumentace k NIS 2, zákonu č. 264/2025 Sb., o kybernetické bezpečnosti, a CIR 2024/2690: působnost, opatření, pokuty, srovnání a jak to v praxi zavést.",
     },
     locale,
   );
@@ -105,6 +110,7 @@ const INTENT_PATHS = [
       it: "Rientro nell'ambito di applicazione?",
       es: "¿Estoy dentro del ámbito de aplicación?",
       pl: "Czy jestem objęty?",
+      cs: "Týká se mě to?",
     },
     description: {
       de: "Sektor- und Größentest gegen die EU-Richtlinie.",
@@ -113,6 +119,7 @@ const INTENT_PATHS = [
       it: "Test di settore e dimensione rispetto alla direttiva UE.",
       es: "Prueba de sector y tamaño frente a la directiva de la UE.",
       pl: "Test sektora i wielkości względem dyrektywy UE.",
+      cs: "Test odvětví a velikosti podle směrnice EU.",
     },
   },
   {
@@ -124,6 +131,7 @@ const INTENT_PATHS = [
       it: "Cosa devo fare?",
       es: "¿Qué tengo que hacer?",
       pl: "Co muszę zrobić?",
+      cs: "Co musím udělat?",
     },
     description: {
       de: "Die zehn Maßnahmen aus Artikel 21 NIS 2, eine nach der anderen.",
@@ -132,6 +140,7 @@ const INTENT_PATHS = [
       it: "Le dieci misure dell'articolo 21 NIS 2, una alla volta.",
       es: "Las diez medidas del artículo 21 NIS 2, una por una.",
       pl: "Dziesięć środków z artykułu 21 NIS 2, po kolei.",
+      cs: "Deset opatření z čl. 21 směrnice NIS 2, jedno po druhém.",
     },
   },
   {
@@ -143,6 +152,7 @@ const INTENT_PATHS = [
       it: "È successo qualcosa. E adesso?",
       es: "Ha ocurrido algo. ¿Y ahora qué?",
       pl: "Coś się stało. Co teraz?",
+      cs: "Něco se stalo. Co teď?",
     },
     description: {
       de: "Vorfallmeldung, BSI-Anfrage, Bußgeldverfahren.",
@@ -151,6 +161,7 @@ const INTENT_PATHS = [
       it: "Notifica di incidente, richieste del BSI, procedimenti sanzionatori.",
       es: "Notificación de incidentes, requerimientos del BSI, procedimientos sancionadores.",
       pl: "Zgłaszanie incydentów, zapytania BSI, postępowania w sprawie kar.",
+      cs: "Hlášení incidentu, kontrola NÚKIB, řízení o přestupku.",
     },
   },
 ] as const;
@@ -168,6 +179,7 @@ const FEATURED = [
       it: "Nuovo",
       es: "Nuevo",
       pl: "Nowość",
+      cs: "Nové",
     },
     title: {
       de: "NIS 2 EU-Umsetzungstracker",
@@ -176,6 +188,7 @@ const FEATURED = [
       it: "Tracker dell'attuazione di NIS 2 nell'UE",
       es: "Rastreador de la implementación de NIS 2 en la UE",
       pl: "Tracker wdrożenia NIS 2 w UE",
+      cs: "Přehled transpozice NIS 2 v EU",
     },
     summary: {
       de: "Wo jeder der 27 Mitgliedstaaten bei der NIS 2 Umsetzung steht. Nationales Gesetz, Behörde, CSIRT, Stand.",
@@ -184,6 +197,7 @@ const FEATURED = [
       it: "A che punto è ciascuno dei 27 Stati membri nel recepimento di NIS 2. Legge nazionale, autorità, CSIRT, stato.",
       es: "En qué punto está cada uno de los 27 Estados miembros en la transposición de NIS 2. Ley nacional, autoridad, CSIRT, estado.",
       pl: "Na jakim etapie transpozycji NIS 2 jest każde z 27 państw członkowskich. Ustawa krajowa, organ, CSIRT, status.",
+      cs: "Kde je každý z 27 členských států s transpozicí NIS 2. Vnitrostátní zákon, úřad, CSIRT, stav.",
     },
   },
   {
@@ -195,6 +209,7 @@ const FEATURED = [
       it: "Popolare",
       es: "Popular",
       pl: "Popularne",
+      cs: "Oblíbené",
     },
     title: {
       de: "NIS 2 Umsetzung in der EU",
@@ -203,6 +218,7 @@ const FEATURED = [
       it: "L'attuazione di NIS 2 nell'UE",
       es: "La implementación de NIS 2 en la UE",
       pl: "Wdrożenie NIS 2 w UE",
+      cs: "Zavádění NIS 2 v EU",
     },
     summary: {
       de: "Übersicht über die 27 Umsetzungsprozesse. Warum es schiefläuft und was das für Unternehmen bedeutet.",
@@ -211,6 +227,7 @@ const FEATURED = [
       it: "Panoramica dei 27 processi di recepimento. Perché è in ritardo e cosa significa per i soggetti.",
       es: "Visión general de los 27 procesos de transposición. Por qué se ha retrasado y qué significa para las entidades.",
       pl: "Przegląd 27 procesów transpozycji. Dlaczego się opóźnia i co to oznacza dla podmiotów.",
+      cs: "Přehled 27 transpozic. Proč se zpozdily a co to znamená pro firmy.",
     },
   },
   {
@@ -222,6 +239,7 @@ const FEATURED = [
       it: "Nuovo",
       es: "Nuevo",
       pl: "Nowość",
+      cs: "Nové",
     },
     title: {
       de: "NIS 2 in 5 Minuten",
@@ -230,6 +248,7 @@ const FEATURED = [
       it: "NIS 2 in 5 minuti",
       es: "NIS 2 en 5 minutos",
       pl: "NIS 2 w 5 minut",
+      cs: "NIS 2 za 5 minut",
     },
     summary: {
       de: "Für Geschäftsführer. Die Richtlinie, die Pflichten, die Haftung — ohne Beraterprosa.",
@@ -238,6 +257,7 @@ const FEATURED = [
       it: "Per gli amministratori. La direttiva, gli obblighi, la responsabilità personale, senza prosa da consulente.",
       es: "Para directivos. La directiva, las obligaciones, la responsabilidad personal, sin prosa de consultor.",
       pl: "Dla zarządzających. Dyrektywa, obowiązki, odpowiedzialność osobista, bez konsultanckiej nowomowy.",
+      cs: "Pro jednatele. Směrnice, povinnosti, odpovědnost, bez poradenské vaty.",
     },
   },
   {
@@ -249,6 +269,7 @@ const FEATURED = [
       it: "Nuovo",
       es: "Nuevo",
       pl: "Nowość",
+      cs: "Nové",
     },
     title: {
       de: "NIS 2 vs NIS 1",
@@ -257,6 +278,7 @@ const FEATURED = [
       it: "NIS 2 contro NIS 1",
       es: "NIS 2 frente a NIS 1",
       pl: "NIS 2 a NIS 1",
+      cs: "NIS 2 a NIS 1",
     },
     summary: {
       de: "Was sich strukturell geändert hat: Anwendungsbereich, Pflichten, Governance, Meldewesen, Durchsetzung.",
@@ -265,6 +287,7 @@ const FEATURED = [
       it: "Cosa è cambiato a livello strutturale: ambito di applicazione, obblighi, governance, notifica, applicazione.",
       es: "Qué cambió a nivel estructural: ámbito de aplicación, obligaciones, gobernanza, notificación, aplicación.",
       pl: "Co zmieniło się strukturalnie: zakres stosowania, obowiązki, zarządzanie, zgłaszanie, egzekwowanie.",
+      cs: "Co se změnilo ve struktuře: působnost, povinnosti, řízení, hlášení, vymáhání.",
     },
   },
 ] as const;
@@ -357,6 +380,7 @@ export default async function DocsHubPage({
                   it: "Documentazione",
                   es: "Documentación",
                   pl: "Dokumentacja",
+                  cs: "Dokumentace",
                 },
                 locale,
               )}
@@ -371,6 +395,7 @@ export default async function DocsHubPage({
               it: "scritto per chi deve attuarlo.",
               es: "escrito para quienes tienen que aplicarlo.",
               pl: "napisane dla osób, które muszą to wdrożyć.",
+              cs: "napsaná pro ty, kdo ji musí zavést.",
             },
             locale,
           )}
@@ -382,6 +407,7 @@ export default async function DocsHubPage({
               it: "La direttiva UE, il BSIG tedesco, il CIR 2024/2690 e la pratica. Solo fonti primarie. Nessuna prosa da consulente.",
               es: "La directiva de la UE, el BSIG alemán, el CIR 2024/2690 y la práctica. Solo fuentes primarias. Sin prosa de consultor.",
               pl: "Dyrektywa UE, niemiecki BSIG, CIR 2024/2690 i praktyka. Wyłącznie źródła pierwotne. Bez konsultanckiej nowomowy.",
+              cs: "Směrnice EU, zákon č. 264/2025 Sb., o kybernetické bezpečnosti, CIR 2024/2690 a praxe. Jen primární zdroje. Žádná poradenská vata.",
             },
             locale,
           )}
@@ -425,6 +451,7 @@ export default async function DocsHubPage({
                 it: "In evidenza",
                 es: "Destacado",
                 pl: "Polecane",
+                cs: "Doporučujeme",
               },
               locale,
             )}
@@ -458,6 +485,7 @@ export default async function DocsHubPage({
                     it: "Leggi",
                     es: "Leer",
                     pl: "Czytaj",
+                    cs: "Číst",
                   },
                   locale,
                 )}
@@ -483,6 +511,7 @@ export default async function DocsHubPage({
                 it: "Esplora per domanda",
                 es: "Explorar por pregunta",
                 pl: "Przeglądaj według pytania",
+                cs: "Procházet podle otázky",
               },
               locale,
             )}
@@ -496,17 +525,14 @@ export default async function DocsHubPage({
                 it: "Otto domande che ogni soggetto interessato si pone.",
                 es: "Ocho preguntas que se hace toda entidad afectada.",
                 pl: "Osiem pytań, które zadaje każdy objęty podmiot.",
+                cs: "Osm otázek, které si klade každá dotčená firma.",
               },
               locale,
             )}
           </p>
         </div>
 
-        <WikiHubSearch
-          categories={categories}
-          allPages={allPages}
-          locale={locale}
-        />
+        <WikiHubSearch categories={categories} allPages={allPages} locale={locale} />
       </section>
     </div>
   );

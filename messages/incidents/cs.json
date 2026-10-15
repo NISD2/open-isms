@@ -40,7 +40,7 @@
       "dueIn": "Lhůta za {days} d",
       "dueToday": "Lhůta dnes",
       "reportType": {
-        "early_warning": "Včasné varování do 24 h",
+        "early_warning": "Prvotní hlášení do 24 h",
         "notification": "Oznámení do 72 h",
         "intermediate": "Průběžná zpráva",
         "final": "Závěrečná zpráva",
@@ -50,7 +50,7 @@
     "fieldDescriptions": {
       "title": "Krátký výstižný název tohoto incidentu (např. „Phishingový útok na finanční oddělení“).",
       "description": "Podrobný popis toho, co se stalo, které systémy a data byly dotčeny a jaký byl rozsah dopadu.",
-      "severity": "Vyberte úroveň závažnosti. „Významné“ incidenty vyžadují hlášení do 24 h (prvotní hlášení) a do 72 h (oznámení) podle čl. 23 NIS2 a § 16 zákona č. 264/2025 Sb.",
+      "severity": "Vyberte úroveň závažnosti. „Významné“ incidenty vyžadují hlášení do 24 h (prvotní hlášení) a do 72 h (oznámení) podle čl. 23 NIS2 a § 16 zákona č. 264/2025 Sb.; ve vyšším režimu se prvotní hlášení podává u každého incidentu podle § 15 odst. 1, nejen u významného.",
       "situationColor": "Semaforový ukazatel aktuálního stavu incidentu: zelená (zvládnuto), oranžová (probíhá), červená (kritické).",
       "discoveredAt": "Datum a čas, kdy byl tento incident poprvé zjištěn nebo nahlášen.",
       "occurredAt": "Datum a čas, kdy tento incident skutečně začal (může se lišit od zjištění).",

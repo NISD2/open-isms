@@ -40,6 +40,7 @@ import {
   SPECIAL_CASES,
   type SpecialCaseId,
 } from "@/lib/applicability/sectors";
+import { pickLocalized } from "@/lib/locale";
 import { cn } from "@/lib/utils";
 import { LeadCaptureForm } from "./LeadCaptureForm";
 import { ObligationsTable } from "./ObligationsTable";
@@ -384,10 +385,8 @@ function SectorStep({
           {annexI.map((sector, i) => (
             <ListRow
               key={sector.id}
-              label={locale === "de" ? sector.name.de : sector.name.en}
-              description={
-                locale === "de" ? sector.description.de : sector.description.en
-              }
+              label={pickLocalized(sector.name, locale)}
+              description={pickLocalized(sector.description, locale)}
               selected={selected.includes(sector.id)}
               onClick={() => onToggle(sector.id)}
               last={i === annexI.length - 1}
@@ -398,10 +397,8 @@ function SectorStep({
           {annexII.map((sector, i) => (
             <ListRow
               key={sector.id}
-              label={locale === "de" ? sector.name.de : sector.name.en}
-              description={
-                locale === "de" ? sector.description.de : sector.description.en
-              }
+              label={pickLocalized(sector.name, locale)}
+              description={pickLocalized(sector.description, locale)}
               selected={selected.includes(sector.id)}
               onClick={() => onToggle(sector.id)}
               last={i === annexII.length - 1}
@@ -446,8 +443,8 @@ function SpecialCasesStep({
           {SPECIAL_CASES.map((sc, i) => (
             <ListRow
               key={sc.id}
-              label={locale === "de" ? sc.name.de : sc.name.en}
-              tooltip={locale === "de" ? sc.description.de : sc.description.en}
+              label={pickLocalized<string>(sc.name, locale)}
+              tooltip={pickLocalized<string>(sc.description, locale)}
               selected={selected.includes(sc.id)}
               onClick={() => onToggle(sc.id)}
               last={i === SPECIAL_CASES.length - 1}
@@ -616,7 +613,7 @@ function ResultStep({
           <div className="flex flex-wrap gap-2">
             {selectedSectors.map((s) => (
               <Badge key={s.id} variant="outline">
-                {locale === "de" ? s.name.de : s.name.en}
+                {pickLocalized(s.name, locale)}
               </Badge>
             ))}
           </div>

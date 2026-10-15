@@ -17,7 +17,8 @@ import { getSession } from "@/lib/auth";
 import { ANNUAL_NET_CENTS, formatWholeEuro } from "@/lib/billing/order";
 import { billingFor } from "@/lib/billing/ordering-access";
 import { WALK_DOCUMENTS, WALK_RECORDS } from "@/lib/durchgang/outputs";
-import { localizedAbsoluteUrl } from "@/lib/seo";
+import { isLocaleCode } from "@/lib/locale";
+import { type Locale, localizedAbsoluteUrl } from "@/lib/seo";
 
 /** The rows a manager needs to decide, in the order they are asked. */
 const ROWS = [
@@ -36,9 +37,9 @@ const ROWS = [
 const SUMMARY = ["cost", "risk", "task"] as const;
 
 const BSIG_38 = "https://www.gesetze-im-internet.de/bsig_2025/__38.html";
-const EUR_LEX_LANG = { de: "DE", en: "EN", nl: "NL" } as const;
-const nis2Url = (locale: keyof typeof EUR_LEX_LANG) =>
-  `https://eur-lex.europa.eu/legal-content/${EUR_LEX_LANG[locale]}/TXT/?uri=CELEX:32022L2555`;
+/** EUR-Lex names its language versions by the same two letters as our locales. */
+const nis2Url = (locale: Locale) =>
+  `https://eur-lex.europa.eu/legal-content/${locale.toUpperCase()}/TXT/?uri=CELEX:32022L2555`;
 
 const link =
   "underline decoration-primary/30 underline-offset-4 hover:decoration-primary";
@@ -64,7 +65,7 @@ export default async function ApprovalPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale: Locale = isLocaleCode(rawLocale) ? rawLocale : "de";
   const [t, tiers, walk, session] = await Promise.all([
     getTranslations("pricing.approval"),
     getTranslations("pricing.tiers"),

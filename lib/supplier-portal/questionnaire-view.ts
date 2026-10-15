@@ -7,6 +7,7 @@
 import {
   type Condition,
   conditionsOf,
+  legalBasisFor,
   type SupplierField,
 } from "@nisd2/nis2-supply-chain-questionnaire-schema";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -47,7 +48,7 @@ const viewOf = (id: QuestionnaireField, locale: string): QuestionView => {
     type: question.type,
     label: pickLocalized(question.label, locale),
     help: pickLocalized(question.description, locale),
-    basis: question.legalBasis,
+    basis: legalBasisFor(question, locale),
     iso27001: question.iso27001 ?? [],
     options: (question.options ?? []).map((option) => ({
       value: option.value,

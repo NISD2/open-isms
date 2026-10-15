@@ -27,11 +27,18 @@ import { db } from "@/lib/db";
 import { unsubscribeUrl as buildUnsubscribeUrl } from "@/lib/email/unsubscribe";
 import { env } from "@/lib/env";
 import { courseFollowupEmail, replyAddress, sendMail } from "@/lib/mail";
+import type { WorkflowMailLocale } from "@/lib/mail/locale";
 import { maskAddressesIn } from "@/lib/mail/mask-address";
 import { FROM_NAME_PERSONAL } from "@/lib/mail/resend";
+import {
+  courseResumeUrl,
+  followupCourseTitle,
+  followupLanguageOf,
+} from "@/lib/training/course-followup";
 import { loadCourse } from "@/lib/training/course-loader";
+import type { Course } from "@/lib/training/schemas";
 import { getAppUrl } from "@/lib/utils";
-import { notification, user } from "@/schema";
+import { company, notification, user } from "@/schema";
 
 export const dynamic = "force-dynamic";
 
@@ -151,36 +158,50 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ ok: true, elapsed, stats });
     }
 
-    // 5. Look up emails + names. Users who opted out of follow-up emails
-    //    drop out here.
+    // 5. Look up emails + names, and what decides the mail's language: the
+    //    language the user chose, else their company's country. Users who
+    //    opted out of follow-up emails drop out here.
     const users = await db.query.user.findMany({
       where: inArray(user.id, candidateIds),
       columns: {
         id: true,
         email: true,
         name: true,
+        locale: true,
         emailFollowupsDisabled: true,
       },
     });
     stats.eligible_users = users.length;
+    const companyIds = Array.from(
+      new Set(Array.from(filtered.values(), (m) => m.companyId)),
+    );
+    const countryByCompany = new Map(
+      (
+        await db.query.company.findMany({
+          where: inArray(company.id, companyIds),
+          columns: { id: true, country: true },
+        })
+      ).map((c) => [c.id, c.country]),
+    );
 
     // 6. Build per-user emails. Course titles are loaded lazily; unknown
     //    courses (rows in DB for a course no longer in the filesystem
     //    catalog) are skipped silently rather than failing the cron.
     const appUrl = getAppUrl();
-    const courseTitleCache = new Map<string, string | null>();
-    async function getTitle(courseId: string): Promise<string | null> {
+    const courseTitleCache = new Map<string, Course["title"] | null>();
+    async function getTitle(
+      courseId: string,
+      locale: WorkflowMailLocale,
+    ): Promise<string | null> {
       const cached = courseTitleCache.get(courseId);
-      if (cached !== undefined) return cached;
-      try {
-        const course = await loadCourse(courseId);
-        const title = course.title.en;
-        courseTitleCache.set(courseId, title);
-        return title;
-      } catch {
-        courseTitleCache.set(courseId, null);
-        return null;
-      }
+      const titles =
+        cached !== undefined
+          ? cached
+          : await loadCourse(courseId)
+              .then((course) => course.title)
+              .catch(() => null);
+      courseTitleCache.set(courseId, titles);
+      return titles ? (followupCourseTitle(titles, locale) ?? null) : null;
     }
 
     for (const u of users) {
@@ -194,18 +215,22 @@ export async function GET(req: NextRequest) {
       }
       const meta = filtered.get(u.id);
       if (!meta) continue;
+      const { locale, mailLocale } = followupLanguageOf(
+        u.locale,
+        countryByCompany.get(meta.companyId) ?? null,
+      );
 
       const courseList: Array<{ title: string; resumeUrl: string }> = [];
       const courseIdsForRows: string[] = [];
       for (const courseId of meta.courseIds) {
-        const title = await getTitle(courseId);
+        const title = await getTitle(courseId, mailLocale);
         if (!title) {
           stats.skipped_unknown_course++;
           continue;
         }
         courseList.push({
           title,
-          resumeUrl: `${appUrl}/training/courses/${encodeURIComponent(courseId)}`,
+          resumeUrl: courseResumeUrl(appUrl, courseId, mailLocale),
         });
         courseIdsForRows.push(courseId);
       }
@@ -218,6 +243,7 @@ export async function GET(req: NextRequest) {
         recipientName: u.name,
         courses: courseList,
         unsubscribeUrl: unsubUrl,
+        locale,
       }).catch((err: unknown) => {
         console.error("[course-reminders] follow-up not rendered", err);
         return null;

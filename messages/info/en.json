@@ -1732,7 +1732,11 @@
         "exportAnytime": "Export Anytime",
         "dataStaysForever": "Data Stays Forever",
         "date": "Date",
-        "event": "Event"
+        "event": "Event",
+        "platform": "Platform",
+        "lawGuided": "§§ 28–30 BSIG",
+        "lawLiability": "§ 38 BSIG",
+        "reportingClock": "24h / 72h / 1m"
       },
       "guided": {
         "heading": "Guided Step-by-Step Process",
@@ -7593,6 +7597,7 @@
         "description": "Meet the team behind NISD2.eu. Two founders cutting Europe's NIS2 compliance bill in half."
       },
       "badge": "Team",
+      "website": "Website",
       "title": "Who we are",
       "subtitle": "Two founders trying to cut the NIS2 bill in half. No consulting firm, no VC backing. Just the conviction that compliance shouldn't cost six figures.",
       "simon": "10+ years in software engineering across security-critical industries. Senior engineer and tech lead building systems for a top 5 EU bank, Europe's largest motion plastics manufacturer, and VC-backed platforms. Researched and mapped the full NIS2 legal chain (Directive, CIR 2024/2690, BSIG, IT-Grundschutz) to build the NISD2 platform, the 47-lesson managing director course, and the 116-question gap assessment. Also builds AI-powered legal tech for German case law. Based in Cologne.",
@@ -18253,7 +18258,13 @@
         "national": "National portal",
         "overlap": "Overlap",
         "dpv": "W3C DPV URI",
-        "conditional": "Conditional"
+        "conditional": "Conditional",
+        "requiredCount": "{count}× required"
+      },
+      "czechReporting": {
+        "heading": "Reporting under the Czech Cybersecurity Act",
+        "description": "A provider in the higher regime reports to NÚKIB, one in the lower regime to the Národní CERT, both through the NÚKIB portal. The notification and the final report are owed only for an incident with a significant impact; an interim report is owed when NÚKIB or the Národní CERT asks for one.",
+        "source": "Sections 15 and 16 of Act No. 264/2025 Coll."
       },
       "useNote": {
         "heading": "How to use",

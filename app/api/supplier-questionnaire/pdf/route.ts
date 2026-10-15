@@ -7,6 +7,7 @@ import {
   SupplierQuestionnaireDocument,
 } from "@/lib/pdf/supplier-questionnaire";
 import { rateLimitPublicRoute } from "@/lib/rate-limit";
+import { EXPORT_STRINGS } from "@/lib/supplier-questionnaire-export-strings";
 
 export const runtime = "nodejs";
 
@@ -30,10 +31,7 @@ export async function GET(request: Request): Promise<Response> {
 
   try {
     const buffer = await renderToBuffer(SupplierQuestionnaireDocument({ locale }));
-    const filename =
-      locale === "de"
-        ? "nis2-lieferanten-fragebogen.pdf"
-        : "nis2-supplier-questionnaire.pdf";
+    const filename = `${EXPORT_STRINGS[locale].file}.pdf`;
 
     return new Response(new Uint8Array(buffer), {
       status: 200,

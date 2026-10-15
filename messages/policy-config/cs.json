@@ -43,13 +43,13 @@
       "privilegedReview": "Privilegované účty",
       "deprovisioningSla": "SLA pro odebrání oprávnění (hodiny)",
       "sharedAccountPolicy": "Politika sdílených a obecných účtů",
-      "sharedProhibited": "Zakázáno, pouze jedinečné identifikátory (ORP.4.A3)",
-      "sharedDocumentedExceptions": "Povoleny zdokumentované výjimky (CIR 11.5.3)",
+      "sharedProhibited": "Zakázáno, pouze jedinečné identifikátory (vyhláška č. 410/2025 Sb., § 7 odst. 1 písm. a); vyhláška č. 409/2025 Sb., § 13 odst. 2 písm. b))",
+      "sharedDocumentedExceptions": "Povoleny zdokumentované výjimky (CIR 11.5.3; české vyhlášky ukládají přidělit každému uživateli a administrátorovi jedinečný identifikátor)",
       "authReviewCycle": "Cyklus přezkumu autentizace (roky)"
     },
 
     "procurement": {
-      "title": "Bezpečné zadávání zakázek (CIR čl. 5)",
+      "title": "Bezpečné zadávání zakázek (CIR, příloha body 5.1 a 6.1)",
       "threshold": "Práh pro bezpečnostní přezkum (EUR)",
       "requiredClauses": "Povinná smluvní ustanovení (CIR 5.1.4)",
       "cybersecurityRequirements": "Požadavky na kybernetickou bezpečnost (a)",
@@ -72,7 +72,7 @@
     },
 
     "secureDev": {
-      "title": "Bezpečný vývoj a zpevňování (CIR čl. 6(2)-(3), CON.8)",
+      "title": "Bezpečný vývoj a zpevňování (CIR, příloha body 6.2 a 6.3, CON.8)",
       "sdlcFramework": "Rámec SDLC",
       "owaspSamm": "OWASP SAMM",
       "bsimm": "BSIMM",
@@ -88,12 +88,12 @@
       "sca": "Analýza složení softwaru (SCA)",
       "pentest": "Penetrační testování",
       "codeReview": "Přezkum kódu",
-      "environmentSegregation": "Oddělení prostředí (vývoj/test/produkce), CIR 6(2)",
+      "environmentSegregation": "Oddělení prostředí (vývoj/test/produkce), CIR bod 6.2",
       "reviewCycle": "Cyklus přezkumu (roky)"
     },
 
     "patchMgmt": {
-      "title": "Správa záplat (CIR čl. 6(6), OPS.1.1.3)",
+      "title": "Správa záplat (CIR, příloha bod 6.6, OPS.1.1.3)",
       "patchSla": "SLA pro záplaty podle závažnosti",
       "severity": "Závažnost",
       "slaHours": "SLA (hodiny)",

@@ -564,6 +564,9 @@
     "assistWhereToFind": "Wo finde ich das?",
     "assistField": "Feld",
     "assistValue": "Wert",
-    "rateLimited": "Ihre Organisation hat das Stundenlimit für die Datenextraktion per KI erreicht. Bitte versuchen Sie es später erneut."
+    "rateLimited": "Ihre Organisation hat das Stundenlimit für die Datenextraktion per KI erreicht. Bitte versuchen Sie es später erneut.",
+    "emptyText": "Bitte fügen Sie zuerst Text ein.",
+    "extractFailed": "Die Extraktion ist fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "aiDisabled": "Die Funktionen mit KI sind für Ihre Organisation ausgeschaltet. Unter Einstellungen → KI-Datenfreigabe können Sie sie einschalten."
   }
 }

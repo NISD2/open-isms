@@ -34,7 +34,7 @@ export default async function BestellenPage({
   }
   if (!session.companyId) redirect("/onboarding");
 
-  const status = await api.billing.status();
+  const status = await api.billing.status({ locale });
   if (!status.open) notFound();
   // Already paid: what they have, their invoices and how to cancel are on the billing page.
   if (status.activeInvoice) redirect(getPathname({ href: "/billing", locale }));

@@ -18,17 +18,18 @@ import "@/lib/server-guard";
 import { and, eq } from "drizzle-orm";
 import { createSetupToken } from "@/lib/auth/setup-link";
 import type { Database, DbOrTx } from "@/lib/db";
+import type { WalkLocale } from "@/lib/durchgang/types";
 import { accountSetupEmail, sendMail } from "@/lib/mail";
 import { maskAddress } from "@/lib/mail/mask-address";
 import { billingAccount, company, user } from "@/schema";
 import { createDraftCompany } from "@/server/trpc/helpers/setup-helpers";
 import { hasGotIn } from "./access";
 import { alertOperators } from "./alert";
+import { closeLocale } from "./close-locale";
 import { holderNetCents } from "./holder-price";
 import type { OrderInput } from "./order";
 import { type OrderOutcome, type PlaceOrderInput, placeOrder } from "./place-order";
 import { TERMS_VERSION } from "./terms";
-import { splitVatNumber } from "./vies";
 
 export interface CloseDealInput {
   readonly db: Database;
@@ -48,6 +49,8 @@ export interface CloseDealInput {
    * the invoice as the customer's acceptance; not required, because the call is the contract.
    */
   readonly termsAcceptedOnCall: boolean;
+  /** The customer's language picked on the call; null takes it from the VAT number (./close-locale). */
+  readonly locale: WalkLocale | null;
 }
 
 export type CloseOutcome =
@@ -66,7 +69,7 @@ export const customerFor = async (
   db: Database,
   email: string,
   name: string,
-  locale: "de" | "en",
+  locale: WalkLocale,
 ) => {
   const inserted = await db
     .insert(user)
@@ -150,7 +153,7 @@ export const closeNetCents = async (
 const sendSetupLink = async (
   input: CloseDealInput,
   email: string,
-  locale: "de" | "en",
+  locale: WalkLocale,
 ) => {
   // The invoice exists by now, so nothing here may fail the close: a failure is told to the
   // operators and the close still reports its invoice.
@@ -181,8 +184,7 @@ const sendSetupLink = async (
 
 export async function closeDeal(input: CloseDealInput): Promise<CloseOutcome> {
   const email = input.customerEmail.toLowerCase().trim();
-  const locale =
-    splitVatNumber(input.order.vatNumber)?.countryCode === "DE" ? "de" : "en";
+  const locale = closeLocale(input.order.vatNumber, input.locale);
 
   // Priced before the customer is created, so a new customer is priced as new.
   const netCents = await closeNetCents(input.db, email, input.netCentsOverride);

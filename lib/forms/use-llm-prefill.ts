@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { useCallback, useState } from "react";
 import type { FieldValues, Path, PathValue, UseFormReturn } from "react-hook-form";
+import type { LocaleCode } from "@/lib/locale";
 import { trpc } from "@/lib/trpc/client";
 import { trpcErrorCode } from "@/lib/trpc/error-message";
 
@@ -16,7 +17,8 @@ export interface UseLLMPrefillOptions<T extends FieldValues> {
   form: UseFormReturn<T>;
   fields?: LLMFieldMeta[];
   excludeFields?: string[];
-  language?: "de" | "en";
+  /** The language of the pasted text; the server keeps extracted values in it. */
+  language?: LocaleCode;
   context?: string;
   onSuccess?: (data: Partial<T>) => void;
   onError?: (error: string) => void;
@@ -66,7 +68,7 @@ export function useLLMPrefill<T extends FieldValues>(
   const submit = useCallback(
     async (text: string) => {
       if (!text.trim()) {
-        setError("Please paste some text first.");
+        setError(t("emptyText"));
         return;
       }
 
@@ -97,12 +99,16 @@ export function useLLMPrefill<T extends FieldValues>(
         onSuccess?.(data as Partial<T>);
         setTimeout(() => setIsOpen(false), 800);
       } catch (err) {
+        const code = trpcErrorCode(err);
+        // The server words its refusals in English, so each is shown as its own translated line.
+        // llm.extract answers FORBIDDEN only when the workspace switched AI off: a free account
+        // is redirected by the portal layout before this form renders.
         const msg =
-          trpcErrorCode(err) === "TOO_MANY_REQUESTS"
+          code === "TOO_MANY_REQUESTS"
             ? t("rateLimited")
-            : err instanceof Error
-              ? err.message
-              : "Extraction failed";
+            : code === "FORBIDDEN"
+              ? t("aiDisabled")
+              : t("extractFailed");
         setError(msg);
         onError?.(msg);
       } finally {

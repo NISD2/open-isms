@@ -3,7 +3,7 @@
     "promo": {
       "metaTitle": "Přihlášení za cenu pro první uživatele",
       "heading": "Platí pro vás cena pro první uživatele",
-      "body": "Přihlaste se nebo si založte účet. Provázený průchod NIS 2 vás pak bude stát {price} bez DPH ročně místo {fullPrice}, i při každém prodloužení. Samotný účet nic nestojí.",
+      "body": "Přihlaste se nebo si založte účet. Průvodce NIS 2 vás pak bude stát {price} bez DPH ročně místo {fullPrice}, i při každém prodloužení. Samotný účet nic nestojí.",
       "until": "Platí přes tento odkaz do {date}.",
       "expiredHeading": "Tato nabídka skončila",
       "expiredBody": "Cena pro první uživatele přes tento odkaz platila do {date}. Stále se můžete přihlásit nebo založit účet, za ceny platné pro váš účet."
@@ -24,7 +24,7 @@
     "errorEmailNotVerified": "Nejprve prosím ověřte svůj e-mail. Zkontrolujte schránku, kam jsme poslali kód.",
     "errorRateLimited": "Příliš mnoho pokusů. Počkejte prosím několik minut a zkuste to znovu.",
     "errorGooglePasswordAccount": "K této adrese již existuje účet s heslem. Přihlaste se prosím heslem.",
-    "errorGoogleAccountMismatch": "Tato adresa je propojena s jiným účtem Google. Přihlaste se tímto účtem, nebo si nastavte heslo přes \"Zapomněli jste heslo?\".",
+    "errorGoogleAccountMismatch": "Tato adresa je propojena s jiným účtem Google. Přihlaste se tímto účtem, nebo si nastavte heslo přes „Zapomněli jste heslo?“.",
     "errorGoogleEmailChanged": "Adresa tohoto účtu Google se změnila. Obraťte se prosím na podporu: {email}.",
     "termsNotice": "Pokračováním přijímáte <terms>Podmínky služby</terms> a berete na vědomí <privacy>Zásady ochrany osobních údajů</privacy>.",
     "backToHome": "Zpět na nisd2.eu",
@@ -38,7 +38,9 @@
     "verifyResent": "Nový kód byl odeslán. Zkontrolujte svou schránku.",
     "verifyResendCooldown": "Před vyžádáním dalšího kódu několik minut počkejte.",
     "verifyErrorInvalidCode": "Neplatný nebo prošlý kód. Zkuste to znovu nebo si vyžádejte nový.",
-    "verifyErrorSignInFailed": "E-mail potvrzen. Přihlášení se nezdařilo, protože k této adrese je uloženo jiné heslo. Nastavte si nové přes \"Zapomenuté heslo\".",
+    "verifyErrorSignInFailed": "E-mail potvrzen. Přihlášení se nezdařilo, protože k této adrese je uloženo jiné heslo. Nastavte si nové přes „Zapomněli jste heslo?“.",
+    "verifyHaveAccount": "Už máte účet?",
+    "verifyToSignIn": "Přihlásit se",
     "verifyBack": "Použít jiný e-mail",
     "forgotPasswordLink": "Zapomněli jste heslo?",
     "forgotPassword": {
@@ -52,6 +54,17 @@
       "submit": "Nastavit heslo",
       "errorResetFailed": "Neplatný nebo prošlý kód. Vyžádejte si prosím nový.",
       "backToSignIn": "Zpět na přihlášení"
+    },
+    "setup": {
+      "title": "Nastavte si přístup",
+      "description": "Váš účet pro průvodce NIS 2 je připravený. Zvolte, jak se budete přihlašovat.",
+      "forEmail": "Pro {email}",
+      "passwordLabel": "Nastavte heslo",
+      "passwordHint": "Alespoň 8 znaků.",
+      "submit": "Uložit heslo a přihlásit se",
+      "submitting": "Ukládání",
+      "invalidTitle": "Tento odkaz už nefunguje",
+      "invalidDescription": "Platnost odkazu vypršela, nebo už byl použit. Přihlaste se přes Google, nebo si pro tuto e-mailovou adresu nastavte heslo přes „Zapomněli jste heslo?“."
     }
   }
 }

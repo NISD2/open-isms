@@ -1,10 +1,15 @@
 "use client";
 
+import { ArrowRight, Search, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Search, X, ArrowRight } from "lucide-react";
-import { Link, useRouter } from "@/i18n/navigation";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Pagination,
   PaginationContent,
@@ -13,7 +18,44 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { Link, useRouter } from "@/i18n/navigation";
+import { pickLocalized } from "@/lib/locale";
 import { cn } from "@/lib/utils";
+
+/** The search's own words. English and Czech have theirs; every other locale reads German. */
+const CHROME = {
+  de: {
+    placeholder: "Wiki durchsuchen…",
+    label: "Wiki durchsuchen",
+    clear: "Suche löschen",
+    pages: (n: number) => (n === 1 ? "Seite" : "Seiten"),
+    noMatch: "Keine Seiten gefunden.",
+    tryAgain: "Versuchen Sie ein anderes Stichwort, oder schauen Sie ins Glossar.",
+    glossary: "Zum Glossar",
+    keys: "Esc zum Löschen · Eingabe öffnet das erste Ergebnis",
+  },
+  en: {
+    placeholder: "Search the wiki…",
+    label: "Search the wiki",
+    clear: "Clear search",
+    pages: (n: number) => (n === 1 ? "page" : "pages"),
+    noMatch: "No pages match your search.",
+    tryAgain: "Try a different word, or browse the glossary for terminology.",
+    glossary: "Open the glossary",
+    keys: "Press Esc to clear · Enter to open the top result",
+  },
+  cs: {
+    placeholder: "Hledat ve wiki…",
+    label: "Hledat ve wiki",
+    clear: "Smazat hledání",
+    pages: (n: number) =>
+      n === 1 ? "stránka" : n >= 2 && n <= 4 ? "stránky" : "stránek",
+    noMatch: "Hledání neodpovídá žádná stránka.",
+    tryAgain: "Zkuste jiné slovo, nebo se podívejte do slovníku pojmů.",
+    glossary: "Otevřít slovník",
+    keys: "Esc hledání smaže · Enter otevře první výsledek",
+  },
+} as const;
 
 export interface WikiCategoryCard {
   slug: string;
@@ -46,10 +88,7 @@ interface Props {
 const PAGE_SIZE = 8;
 
 function normalize(s: string): string {
-  return s
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .toLowerCase();
+  return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 }
 
 function tokenMatch(haystack: string, query: string): boolean {
@@ -87,11 +126,10 @@ function useIsMac(): boolean | null {
 }
 
 export function WikiHubSearch({ categories, allPages, locale }: Props) {
-  // Chrome strings (search placeholder, "page"/"pages", hints) stay on the
-  // original de/en split. Content strings (titles, questions, summaries,
-  // category labels) are pre-resolved per locale by the page into the
-  // *Localized fields, so they select on de-vs-everything-else.
-  const isEn = locale === "en";
+  // Content strings (titles, questions, summaries, category labels) are
+  // pre-resolved per locale by the page into the *Localized fields, so they
+  // select on de-vs-everything-else.
+  const chrome = pickLocalized(CHROME, locale, "de");
   const isDe = locale === "de";
   const isMac = useIsMac();
   const router = useRouter();
@@ -131,9 +169,7 @@ export function WikiHubSearch({ categories, allPages, locale }: Props) {
       const cat = isDe ? p.categoryTitleDe : p.categoryTitleLocalized;
       return tokenMatch(`${title} ${summary} ${cat}`, q);
     });
-    return matches
-      .slice()
-      .sort((a, b) => scorePage(b, q, isDe) - scorePage(a, q, isDe));
+    return matches.slice().sort((a, b) => scorePage(b, q, isDe) - scorePage(a, q, isDe));
   }, [query, allPages, isDe]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
@@ -166,12 +202,8 @@ export function WikiHubSearch({ categories, allPages, locale }: Props) {
               router.push(filtered[0].href as never);
             }
           }}
-          placeholder={
-            isEn
-              ? "Search the wiki…"
-              : "Wiki durchsuchen…"
-          }
-          aria-label={isEn ? "Search the wiki" : "Wiki durchsuchen"}
+          placeholder={chrome.placeholder}
+          aria-label={chrome.label}
           className={cn(
             "h-14 w-full rounded-xl border bg-background pl-12 pr-28 text-base shadow-sm outline-none",
             "transition-all duration-200",
@@ -188,7 +220,7 @@ export function WikiHubSearch({ categories, allPages, locale }: Props) {
                 setPage(1);
                 inputRef.current?.focus();
               }}
-              aria-label={isEn ? "Clear search" : "Suche löschen"}
+              aria-label={chrome.clear}
               className="pointer-events-auto inline-flex size-7 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
             >
               <X className="size-4" />
@@ -236,14 +268,7 @@ export function WikiHubSearch({ categories, allPages, locale }: Props) {
                   </CardHeader>
                   <CardContent>
                     <p className="text-xs text-muted-foreground">
-                      {cat.count}{" "}
-                      {cat.count === 1
-                        ? isEn
-                          ? "page"
-                          : "Seite"
-                        : isEn
-                          ? "pages"
-                          : "Seiten"}
+                      {cat.count} {chrome.pages(cat.count)}
                     </p>
                   </CardContent>
                 </Card>
@@ -265,26 +290,18 @@ export function WikiHubSearch({ categories, allPages, locale }: Props) {
           <div className="space-y-4">
             <p className="text-sm text-muted-foreground">
               {filtered.length === 0
-                ? isEn
-                  ? "No pages match your search."
-                  : "Keine Seiten gefunden."
-                : isEn
-                  ? `${filtered.length} ${filtered.length === 1 ? "page" : "pages"}`
-                  : `${filtered.length} ${filtered.length === 1 ? "Seite" : "Seiten"}`}
+                ? chrome.noMatch
+                : `${filtered.length} ${chrome.pages(filtered.length)}`}
             </p>
 
             {filtered.length === 0 ? (
               <div className="rounded-xl border bg-muted/30 p-8 text-center">
-                <p className="text-sm text-muted-foreground">
-                  {isEn
-                    ? "Try a different word, or browse the glossary for terminology."
-                    : "Versuchen Sie ein anderes Stichwort, oder schauen Sie ins Glossar."}
-                </p>
+                <p className="text-sm text-muted-foreground">{chrome.tryAgain}</p>
                 <Link
                   href={"/wiki/grundlagen/glossar" as never}
                   className="mt-4 inline-flex items-center gap-1 text-sm font-medium underline-offset-4 hover:underline"
                 >
-                  {isEn ? "Open the glossary" : "Zum Glossar"}
+                  {chrome.glossary}
                   <ArrowRight className="size-3.5" />
                 </Link>
               </div>
@@ -298,7 +315,10 @@ export function WikiHubSearch({ categories, allPages, locale }: Props) {
                     >
                       <div className="flex-1 min-w-0">
                         <div className="mb-1 flex items-center gap-2">
-                          <Badge variant="outline" className="rounded-full text-[10px] font-normal">
+                          <Badge
+                            variant="outline"
+                            className="rounded-full text-[10px] font-normal"
+                          >
                             {isDe ? p.categoryTitleDe : p.categoryTitleLocalized}
                           </Badge>
                         </div>
@@ -331,9 +351,7 @@ export function WikiHubSearch({ categories, allPages, locale }: Props) {
                       }}
                       aria-disabled={safePage === 1}
                       className={
-                        safePage === 1
-                          ? "pointer-events-none opacity-40"
-                          : undefined
+                        safePage === 1 ? "pointer-events-none opacity-40" : undefined
                       }
                     />
                   </PaginationItem>
@@ -370,11 +388,7 @@ export function WikiHubSearch({ categories, allPages, locale }: Props) {
               </Pagination>
             )}
 
-            <p className="text-xs text-muted-foreground/70">
-              {isEn
-                ? "Press Esc to clear · Enter to open the top result"
-                : "Esc zum Löschen · Eingabe öffnet das erste Ergebnis"}
-            </p>
+            <p className="text-xs text-muted-foreground/70">{chrome.keys}</p>
           </div>
         </div>
       </div>

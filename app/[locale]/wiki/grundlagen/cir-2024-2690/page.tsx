@@ -12,14 +12,15 @@ import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
 import {
   faqJsonLd,
-  LAW_CHIP,
+  LawChip,
   WikiExample,
   WikiFaq,
   type WikiQuestion,
   WikiSection,
   WikiSources,
 } from "@/components/wiki/WikiSection";
-import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
+import { wikiLocale } from "@/lib/content/wiki-locale";
+import { pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -59,7 +60,7 @@ export default async function CirPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale = wikiLocale(rawLocale);
   const [t, w] = await Promise.all([
     getTranslations("info.cir"),
     getTranslations("info.wikiWalk"),
@@ -95,7 +96,7 @@ export default async function CirPage({
 
         <WikiPageMeta
           authorSlug="simon-orzel"
-          locale={locale === "nl" ? "de" : (locale as "de" | "en")}
+          locale={locale === "nl" ? "de" : locale}
           lastReviewedAt="2026-10-05"
           sourceLocale="de"
         />
@@ -139,7 +140,7 @@ export default async function CirPage({
                 className="grid gap-1.5 p-4 sm:grid-cols-[4.5rem_minmax(0,1fr)] sm:gap-4"
               >
                 <p>
-                  <span className={LAW_CHIP}>{section.law}</span>
+                  <LawChip law={section.law} />
                 </p>
                 <div className="space-y-1">
                   <h3 className="text-sm font-semibold">{section.title}</h3>

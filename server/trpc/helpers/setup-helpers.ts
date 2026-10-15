@@ -11,7 +11,7 @@ import {
   type RoleKey,
 } from "@/lib/compliance/role-mapping";
 import type { Database, DbOrTx } from "@/lib/db";
-import { inviteEmail, sendMail } from "@/lib/mail";
+import { accountEmailLocale, inviteEmail, sendMail } from "@/lib/mail";
 import { joinCompany } from "@/lib/organization/membership";
 import { getAppUrl } from "@/lib/utils";
 import {
@@ -238,6 +238,9 @@ export async function processTeamRoleAssignments(
 
   const currentUserEmail = opts.userEmail?.toLowerCase();
   const appUrl = getAppUrl();
+  const locale = opts.userEmail
+    ? await accountEmailLocale(opts.userEmail).catch(() => undefined)
+    : undefined;
 
   for (const [email, { roleKeys, categoryIds }] of byEmail) {
     if (categoryIds.size === 0) continue;
@@ -307,6 +310,7 @@ export async function processTeamRoleAssignments(
         inviterName,
         inviteUrl,
         role: "member",
+        locale,
       })
         .then((content) =>
           sendMail({ emailType: "account.invite", to: email, ...content }),

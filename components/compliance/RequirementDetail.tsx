@@ -36,6 +36,7 @@ import type { CustomEditorKey } from "@/lib/compliance/requirement-fields";
 import type { RoleKey } from "@/lib/compliance/role-keys";
 import { pendingSignersOf } from "@/lib/compliance/sign-off-roster";
 import { hasSignOffToWithdraw, reopenChange } from "@/lib/compliance/sign-off-state";
+import { walkLocaleOf } from "@/lib/durchgang/types";
 import { renderFieldInput } from "@/lib/forms/field-renderer";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
 import { trpc } from "@/lib/trpc/client";
@@ -220,6 +221,10 @@ export function RequirementDetail({
   const tTeam = useTranslations("team");
   const tIntake = useTranslations("intake");
   const locale = useLocale();
+  // German and Czech pages name fields, frequency, signer and date in their own words. English,
+  // and every language that falls back to it, keeps the wording it had before Czech arrived: the
+  // schema's field labels, the stored frequency and role, the browser's date format.
+  const translated = walkLocaleOf(locale) !== "en";
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
@@ -500,10 +505,13 @@ export function RequirementDetail({
             <CheckCircle2 className="h-3.5 w-3.5" />
             {status.signedOffRole
               ? t("requirement.signedOffByOn", {
-                  name: tTeam.has(`roles.${status.signedOffRole}`)
-                    ? tTeam(`roles.${status.signedOffRole}`)
-                    : status.signedOffRole,
-                  date: new Date(status.signedOffAt).toLocaleDateString(locale),
+                  name:
+                    translated && tTeam.has(`roles.${status.signedOffRole}`)
+                      ? tTeam(`roles.${status.signedOffRole}`)
+                      : status.signedOffRole,
+                  date: new Date(status.signedOffAt).toLocaleDateString(
+                    translated ? locale : undefined,
+                  ),
                 })
               : t("requirement.signedOff")}
           </p>
@@ -676,7 +684,8 @@ export function RequirementDetail({
                             radios would select the first one. The fix belongs in the
                             renderer, which lib/forms/schema-form.tsx also uses. */}
                         <label className="text-sm font-medium">
-                          {guidance?.fields[meta.key]?.label ?? meta.label}
+                          {(translated && guidance?.fields[meta.key]?.label) ||
+                            meta.label}
                         </label>
                         {renderFieldInput(
                           meta,
@@ -853,7 +862,7 @@ export function RequirementDetail({
                 <div className="flex items-center justify-between">
                   <dt className="text-muted-foreground">{t("requirement.frequency")}</dt>
                   <dd className="text-xs">
-                    {Object.hasOwn(FREQUENCY_LABEL, requirement.frequency)
+                    {translated && Object.hasOwn(FREQUENCY_LABEL, requirement.frequency)
                       ? tIntake(FREQUENCY_LABEL[requirement.frequency as Frequency])
                       : requirement.frequency}
                   </dd>

@@ -1,30 +1,28 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { Info } from "lucide-react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { useLocale, useTranslations } from "next-intl";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import type { PenaltyCeiling } from "@/lib/applicability/classify";
+import { CZECH_PENALTY_CEILING } from "@/lib/compliance/czech-law";
 
 type ObligationsTableProps = {
-  penaltyCeiling: { amount: string; turnoverPercent: string };
+  penaltyCeiling: PenaltyCeiling;
   supervision: "proactive" | "reactive" | null;
 };
 
-export function ObligationsTable({
-  penaltyCeiling,
-  supervision,
-}: ObligationsTableProps) {
+export function ObligationsTable({ penaltyCeiling, supervision }: ObligationsTableProps) {
   const t = useTranslations("applicability.result");
+  // A Czech reader is fined under the Czech Act's caps, not the directive's minimums.
+  const ceiling =
+    useLocale() === "cs" ? CZECH_PENALTY_CEILING[penaltyCeiling.tier] : penaltyCeiling;
 
   const rows = [
     {
       label: t("penalty"),
       value: t("penaltyValue", {
-        amount: penaltyCeiling.amount,
-        percent: penaltyCeiling.turnoverPercent,
+        amount: ceiling.amount,
+        percent: ceiling.turnoverPercent,
       }),
       info: t("penaltyInfo"),
     },
@@ -72,9 +70,7 @@ export function ObligationsTable({
             key={row.label}
             className="flex flex-col sm:flex-row sm:items-center gap-0.5 sm:gap-0 px-3 py-2.5"
           >
-            <div className="font-medium text-xs sm:w-[180px] shrink-0">
-              {row.label}
-            </div>
+            <div className="font-medium text-xs sm:w-[180px] shrink-0">{row.label}</div>
             <div className="flex flex-1 items-center gap-2 text-xs text-muted-foreground">
               <span className="flex-1">{row.value}</span>
               <Tooltip>

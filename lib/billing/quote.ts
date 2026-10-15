@@ -3,16 +3,16 @@
  * the platform admin demo close. Only the offline check digit can stop the form; what the EU
  * register says only adds a warning (./order-gate).
  */
-import { formatEuro, type Money, priceFor } from "./order";
+import { formatReaderEuro, type Money, priceFor } from "./order";
 import { gateFromInput } from "./order-gate";
 import { checkStructure } from "./vat-checksum";
 import { checkVatNumber, splitVatNumber, toAttempt, type ViesConfig } from "./vies";
 
 /** How a price is shown in a form. `grossCents` travels back with the order it was shown for. */
-export const priceView = (money: Money) => ({
-  net: formatEuro(money.netCents),
-  vat: formatEuro(money.vatCents),
-  gross: formatEuro(money.grossCents),
+export const priceView = (money: Money, locale?: string) => ({
+  net: formatReaderEuro(money.netCents, locale),
+  vat: formatReaderEuro(money.vatCents, locale),
+  gross: formatReaderEuro(money.grossCents, locale),
   grossCents: money.grossCents,
   vatRatePercent: Math.round(money.vatRate * 100),
   treatment: money.treatment.kind,
@@ -23,6 +23,7 @@ export const quoteFor = async (input: {
   readonly countryCode?: string | undefined;
   readonly netCents: number;
   readonly vies: ViesConfig;
+  readonly locale?: string | undefined;
 }) => {
   const parts = splitVatNumber(input.vatNumber);
   const countryCode = parts?.countryCode ?? input.countryCode?.toUpperCase() ?? "";
@@ -36,6 +37,6 @@ export const quoteFor = async (input: {
   return {
     gate: gateFromInput(countryCode, parts?.vatNumber ?? "", registry),
     attempt: registry ? toAttempt(input.vatNumber, registry) : null,
-    price: priceView(priceFor(countryCode, registry, input.netCents)),
+    price: priceView(priceFor(countryCode, registry, input.netCents), input.locale),
   };
 };

@@ -5,9 +5,11 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { SourceText } from "@/components/wiki/SourceText";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
+import { wikiLabel, wikiLocale } from "@/lib/content/wiki-locale";
+import { pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -65,7 +67,7 @@ export default async function GlossaryPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale = wikiLocale(rawLocale);
   const t = await getTranslations("info");
 
   const definitions = termKeys.map((key) => ({
@@ -99,16 +101,16 @@ export default async function GlossaryPage({
 
         <header>
           <Badge variant="secondary" className="mb-3">
-            NIS2 / BSIG
+            {wikiLabel(locale, {
+              cs: "NIS2 / zákon č. 264/2025 Sb.",
+              other: "NIS2 / BSIG",
+            })}
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight">{t("glossary.title")}</h1>
           <p className="mt-2 text-lg text-muted-foreground">{t("glossary.subtitle")}</p>
         </header>
 
-        <WikiPageMeta
-          authorSlug="simon-orzel"
-          locale={locale === "nl" ? "de" : (locale as "de" | "en")}
-        />
+        <WikiPageMeta authorSlug="simon-orzel" locale={locale === "nl" ? "de" : locale} />
 
         <Separator />
 
@@ -132,11 +134,15 @@ export default async function GlossaryPage({
                       into every non-en locale key by key, so t.has() can
                       never report "this LOCALE lacks the key" -- only "no
                       locale has it". That is exactly the question being asked.
-                      `german` and `legalRef` are properties of the TERM, not
-                      of the locale (17 of 24 entries have a German term, 23
-                      have a statute reference, identically in all ten files),
+                      Which terms carry `german` and `legalRef` is a property
+                      of the TERM, not of the locale (17 of 24 have `german`,
+                      23 have `legalRef`, the same entries in all ten files),
                       so English's coverage is the right answer for every
-                      locale. Do not copy this pattern to gate on translation
+                      locale. The values are per locale: in Czech, `german`
+                      holds a Czech note naming the term's Czech (or German)
+                      counterpart, not the German name, and `legalRef` cites
+                      Czech law.
+                      Do not copy this pattern to gate on translation
                       status: there it is always true and silently renders
                       English. */}
                     {t.has(`glossary.terms.${key}.german`) && (
@@ -165,7 +171,9 @@ export default async function GlossaryPage({
           <h2 className="text-lg font-semibold">{t("glossary.sources.heading")}</h2>
           <ul className="list-disc space-y-1 pl-5 text-sm text-muted-foreground">
             {sources.map((source) => (
-              <li key={source}>{source}</li>
+              <li key={source}>
+                <SourceText text={source} />
+              </li>
             ))}
           </ul>
         </section>

@@ -2,27 +2,37 @@ import { eq } from "drizzle-orm";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
+import { BindingTranslationNotice } from "@/components/legal/BindingTranslationNotice";
 import { AccessPanel } from "@/components/partner-contract/AccessPanel";
 import { PartnerAgreement } from "@/components/partner-contract/PartnerAgreement";
 import { ProductBrief } from "@/components/partner-contract/ProductBrief";
 import { routing } from "@/i18n/routing";
 import { SELLER } from "@/lib/billing/seller";
 import { db } from "@/lib/db";
+import { BINDING_CONTRACT_LOCALE } from "@/lib/legal/contract-language";
 import { partnerAccessShown } from "@/lib/partner-contract/access";
 import {
   partnerContractPageMessages,
+  partnerContractTranslation,
   partnerContractTranslator,
 } from "@/lib/partner-contract/document";
+import { partnerContractUrl } from "@/lib/partner-contract/offer";
+import { readingLocaleOf } from "@/lib/partner-contract/reading";
 import { partnerContract } from "@/schema";
 
 /**
  * A partner agreement, as it was offered, and the place to accept it. The token in the link is the
  * only credential, as on /supplier-access, so the page is never indexed. A withdrawn offer is gone.
+ *
+ * Read under /cs/, an English offer is shown as a Czech translation with a line that the English
+ * text binds. Accepting it accepts the stored English text, whose hash is the acceptance's; the
+ * translation this page rendered is rebuilt on accept and recorded beside it with its own hash
+ * (signedReadingOf in lib/partner-contract/reading).
  */
 export const dynamic = "force-dynamic";
 
 interface PageProps {
-  params: Promise<{ token: string }>;
+  params: Promise<{ locale: string; token: string }>;
 }
 
 const loadOffer = cache(async (token: string) => {
@@ -34,24 +44,29 @@ const loadOffer = cache(async (token: string) => {
 });
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const offer = await loadOffer((await params).token);
+  const { locale, token } = await params;
+  const offer = await loadOffer(token);
   const title = offer
-    ? partnerContractTranslator(offer.locale)("partnerContract.page.metaTitle")
+    ? partnerContractTranslator(readingLocaleOf(offer, locale))(
+        "partnerContract.page.metaTitle",
+      )
     : undefined;
   return { title, robots: { index: false, follow: false } };
 }
 
 export default async function PartnerAgreementPage({ params }: PageProps) {
-  const { token } = await params;
+  const { locale: requested, token } = await params;
   const offer = await loadOffer(token);
   if (!offer) notFound();
 
-  const { body } = offer;
+  const translation = partnerContractTranslation(offer, requested);
+  const locale = readingLocaleOf(offer, requested);
+  const body = translation?.body ?? offer.body;
   const accepted =
     offer.signedAt && offer.signerName && offer.signerEmail
       ? { name: offer.signerName, email: offer.signerEmail, at: offer.signedAt }
       : null;
-  const messages = partnerContractPageMessages(offer.locale);
+  const messages = partnerContractPageMessages(locale);
   const access = await partnerAccessShown(db, offer);
 
   return (
@@ -70,18 +85,16 @@ export default async function PartnerAgreementPage({ params }: PageProps) {
 
       <main className="mx-auto max-w-3xl space-y-6 px-4 py-8 sm:px-6 sm:py-12">
         <ProductBrief
-          locale={offer.locale}
+          locale={locale}
           access={
             access ? (
               <AccessPanel
                 token={token}
-                locale={offer.locale}
+                locale={locale}
                 messages={messages}
                 email={access.email}
                 entry={access.entry}
-                localePrefix={
-                  offer.locale === routing.defaultLocale ? "" : `/${offer.locale}`
-                }
+                localePrefix={locale === routing.defaultLocale ? "" : `/${locale}`}
                 contactEmail={SELLER.email}
               />
             ) : null
@@ -89,7 +102,7 @@ export default async function PartnerAgreementPage({ params }: PageProps) {
         />
         <PartnerAgreement
           token={token}
-          locale={offer.locale}
+          locale={locale}
           messages={messages}
           company={offer.partnerCompany}
           contactEmail={SELLER.email}
@@ -101,6 +114,12 @@ export default async function PartnerAgreementPage({ params }: PageProps) {
           }}
           accepted={accepted}
         >
+          {translation ? (
+            <BindingTranslationNotice
+              className="mb-8"
+              englishHref={partnerContractUrl(BINDING_CONTRACT_LOCALE, token)}
+            />
+          ) : null}
           <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
             {body.title}
           </h1>

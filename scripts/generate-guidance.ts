@@ -13,26 +13,33 @@
  *   bun run scripts/generate-guidance.ts --category GOV --locale de --force
  */
 
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { drizzle } from "drizzle-orm/node-postgres";
-import { eq } from "drizzle-orm";
-import * as schema from "@/schema";
-import { REQUIREMENT_FIELD_MAP, CUSTOM_EDITOR_FIELDS } from "@/lib/compliance/requirement-fields";
-import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
-import { introspectSchema } from "@/lib/forms/schema-introspect";
 import {
-  generateRequirementGuidance,
   type GenerationInput,
+  generateRequirementGuidance,
 } from "@/lib/ai/generate-requirement-guidance";
-import type { GuidanceFile, RequirementGuidanceData } from "@/lib/ai/guidance-types";
-import requirementsEn from "@/messages/requirements/en.json";
+import type { GuidanceFile } from "@/lib/ai/guidance-types";
+import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
+import {
+  CUSTOM_EDITOR_FIELDS,
+  REQUIREMENT_FIELD_MAP,
+} from "@/lib/compliance/requirement-fields";
+import { introspectSchema } from "@/lib/forms/schema-introspect";
 import complianceEn from "@/messages/compliance/en.json";
-import { readFile, writeFile, mkdir } from "fs/promises";
-import { resolve, dirname } from "path";
-import { fileURLToPath } from "url";
+import requirementsEn from "@/messages/requirements/en.json";
+import * as schema from "@/schema";
 
 const DATA_DIR = resolve(dirname(fileURLToPath(import.meta.url)), "../data/guidance");
+// Never cs: data/guidance/cs.json is hand-checked against Czech law, and a run would overwrite it.
 const LOCALES = ["en", "de"] as const;
 const CONCURRENCY = 5;
+
+const isGeneratedLocale = (
+  value: string | undefined,
+): value is (typeof LOCALES)[number] => LOCALES.some((locale) => locale === value);
 
 // ---------------------------------------------------------------------------
 // CLI args
@@ -56,9 +63,14 @@ function parseArgs() {
       case "--category":
         categoryFilter = args[++i] ?? null;
         break;
-      case "--locale":
-        localeFilter = args[++i] as "en" | "de" | null;
+      case "--locale": {
+        const value = args[++i];
+        if (!isGeneratedLocale(value)) {
+          throw new Error(`--locale takes ${LOCALES.join(" or ")}, not ${value}`);
+        }
+        localeFilter = value;
         break;
+      }
     }
   }
 
@@ -82,7 +94,7 @@ async function loadExisting(locale: string): Promise<GuidanceFile> {
 async function saveFile(locale: string, data: GuidanceFile) {
   await mkdir(DATA_DIR, { recursive: true });
   const path = resolve(DATA_DIR, `${locale}.json`);
-  await writeFile(path, JSON.stringify(data, null, 2) + "\n", "utf-8");
+  await writeFile(path, `${JSON.stringify(data, null, 2)}\n`, "utf-8");
 }
 
 async function runBatch<T, R>(
@@ -152,11 +164,15 @@ async function main() {
     }
 
     if (work.length === 0) {
-      console.log(`  All ${requirements.length} requirements already generated. Use --force to regenerate.`);
+      console.log(
+        `  All ${requirements.length} requirements already generated. Use --force to regenerate.`,
+      );
       continue;
     }
 
-    console.log(`  Generating ${work.length} requirements (${requirements.length - work.length} skipped)...`);
+    console.log(
+      `  Generating ${work.length} requirements (${requirements.length - work.length} skipped)...`,
+    );
 
     let completed = 0;
     let successCount = 0;
@@ -187,7 +203,10 @@ async function main() {
         fieldMetas = CUSTOM_EDITOR_FIELDS[req.code];
       }
 
-      const reqKey = req.code.replace(/\./g, "_") as keyof typeof requirementsEn.requirements;
+      const reqKey = req.code.replace(
+        /\./g,
+        "_",
+      ) as keyof typeof requirementsEn.requirements;
       const catKey = req.category.code as keyof typeof complianceEn.compliance.categories;
       const input: GenerationInput = {
         requirementCode: req.code,
@@ -196,7 +215,8 @@ async function main() {
         evidenceType: req.evidenceType,
         legalRef: req.legalRef,
         frameworkRef: req.frameworkRef,
-        categoryName: complianceEn.compliance.categories[catKey]?.name ?? req.category.code,
+        categoryName:
+          complianceEn.compliance.categories[catKey]?.name ?? req.category.code,
         categoryCode: req.category.code,
         fields: fieldMetas,
         locale: loc,
@@ -211,11 +231,15 @@ async function main() {
         console.log(`  [${completed}/${work.length}] ${req.code} ✓`);
       } catch (error) {
         completed++;
-        console.error(`  [${completed}/${work.length}] ${req.code} ✗ ${error instanceof Error ? error.message : error}`);
+        console.error(
+          `  [${completed}/${work.length}] ${req.code} ✗ ${error instanceof Error ? error.message : error}`,
+        );
       }
     });
 
-    console.log(`  ${locale}.json: ${successCount}/${work.length} succeeded, ${Object.keys(existing).length} total`);
+    console.log(
+      `  ${locale}.json: ${successCount}/${work.length} succeeded, ${Object.keys(existing).length} total`,
+    );
   }
 
   console.log("\nDone.");

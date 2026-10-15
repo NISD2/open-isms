@@ -8,8 +8,13 @@ import { extractText, getDocumentProxy } from "unpdf";
 import { type CompanyExport, EXPORT_FIELDS } from "@/lib/export/company-export";
 import { exportNames, type Register } from "@/lib/export/value-names";
 import { DocumentsDocument, RegistersDocument } from "./company-export";
+import { PDF_LOCALES, type PdfLocale } from "./format";
 
-const NAMES = { de: await exportNames("de"), en: await exportNames("en") };
+const NAMES = {
+  de: await exportNames("de"),
+  en: await exportNames("en"),
+  cs: await exportNames("cs"),
+};
 
 async function pagesOf(node: React.ReactElement): Promise<string[]> {
   const buffer = await renderToBuffer(node);
@@ -132,10 +137,10 @@ const FIXTURE: CompanyExport = {
   incidents: [],
 };
 
-const registers = (locale: "de" | "en") =>
+const registers = (locale: PdfLocale) =>
   RegistersDocument({ data: FIXTURE, locale, names: NAMES[locale] });
-const documents = (data: CompanyExport = FIXTURE) =>
-  DocumentsDocument({ data, locale: "de", names: NAMES.de });
+const documents = (data: CompanyExport = FIXTURE, locale: PdfLocale = "de") =>
+  DocumentsDocument({ data, locale, names: NAMES[locale] });
 
 describe("the export names fields the way the app's forms do", () => {
   const registers: readonly Register[] = [
@@ -146,7 +151,7 @@ describe("the export names fields the way the app's forms do", () => {
     "managementReview",
     "incident",
   ];
-  for (const locale of ["de", "en"] as const) {
+  for (const locale of PDF_LOCALES) {
     test(`every exported register field has its form's label (${locale})`, () => {
       const unlabelled = registers.flatMap((record) =>
         EXPORT_FIELDS[record]
@@ -217,5 +222,42 @@ describe("the documents PDF", () => {
   test("without documents it says the walk has written none yet", async () => {
     const text = await textOf(documents({ ...FIXTURE, documents: [] }));
     expect(text).toContain("Der Durchgang hat noch keine Dokumente geschrieben.");
+  });
+});
+
+describe("the Czech export", () => {
+  // Read back from the rendered file: Inter has to carry the glyphs, not just the source.
+  test("is written in Czech, with its diacritics intact", async () => {
+    const text = await textOf(registers("cs"));
+    expect(text).toContain("Počet zaměstnanců 90");
+    expect(text).toContain("Přezkumy vedení");
+    expect(text).toContain("Žádné záznamy.");
+    for (const glyph of ["č", "ř", "ů", "ě", "Ž"]) {
+      expect(text).toContain(glyph);
+    }
+  });
+
+  test("names every coded value the way the Czech screens do", async () => {
+    const text = await textOf(registers("cs"));
+    expect(text).toContain("Klasifikace subjektu Důležitý subjekt");
+    expect(text).toContain("Odvětví Výroba");
+    expect(text).toContain("Úroveň rizika Vysoká");
+    for (const code of ["important", "manufacturing", "application", "security_key"]) {
+      expect(text).not.toContain(code);
+    }
+  });
+
+  test("every body page carries its Czech page number", async () => {
+    const pages = await pagesOf(registers("cs"));
+    for (const page of pages.slice(1)) {
+      expect(page).toMatch(/Strana \d+ z \d+/);
+    }
+  });
+
+  test("prints who approved a document, and that a draft is one", async () => {
+    const text = await textOf(documents(FIXTURE, "cs"));
+    expect(text).toContain("Schválil Anna Beispiel (Generální ředitel / Jednatel)");
+    expect(text).toContain("Datum schválení 1. 10. 2026");
+    expect(text).toContain("Koncept, zatím neschválený");
   });
 });

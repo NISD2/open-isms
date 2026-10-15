@@ -207,7 +207,7 @@
       "decline": {
         "tab": "Rozhodnuto nezavádět",
         "title": "Rozhodli jste se to nedělat?",
-        "description": "Pak se bod počítá jako hotový, aniž by byl zaveden. Vedení toto rozhodnutí na konci schválí. Zapište, proč.",
+        "description": "Pak se bod počítá jako hotový, aniž by byl zaveden. Vedení toto rozhodnutí na konci schválí. Zapište, proč. Podle českého práva ale nelze vynechat vše: povinnosti přímo ze zákona, například evidenci aktiv podle § 12 zákona č. 264/2025 Sb., nikdy, a v režimu nižších povinností ani opatření podle § 3 až 6 a § 10 vyhlášky č. 410/2025 Sb.; nezavedení jiného opatření tam odůvodníte v přehledu bezpečnostních opatření. V režimu vyšších povinností lze opatření vynechat jen na základě řízení rizik, s odůvodněním v prohlášení o aplikovatelnosti (vyhláška č. 409/2025 Sb., § 8 odst. 1 písm. f) a odst. 4).",
         "label": "Odůvodnění",
         "placeholder": "Například: nemáme vlastní servery. Naše aplikace běží u poskytovatele, který je pro to certifikovaný.",
         "hint": "Alespoň 20 znaků. Odůvodnění se uloží s datem do vaší dokumentace.",
@@ -603,7 +603,7 @@
           },
           "done": {
             "title": "Vaše ujednání jsou zaznamenána",
-            "note": "U dodavatelů ve stanoveném rozsahu, přes které zavádíte bezpečnostní opatření, chybějící požadavky do smlouvy doplňte, například dodatkem nebo při příštím prodloužení (§ 13 odst. 5 zákona). U ostatních rozhodnete sami, zda to otevřete."
+            "note": "Chybějící požadavky do smlouvy doplňte, například dodatkem nebo při příštím prodloužení: vždy u dodavatelů, přes které zavádíte bezpečnostní opatření (§ 13 odst. 5 zákona), v režimu nižších povinností u každého dodavatele do stanoveného rozsahu (vyhláška č. 410/2025 Sb., § 3 odst. 5), v režimu vyšších povinností u významných dodavatelů (vyhláška č. 409/2025 Sb., § 9 odst. 1 písm. f)). U ostatních rozhodnete sami, zda to otevřete."
           }
         }
       },
@@ -1217,11 +1217,11 @@
               "Zaznamenávají to dvě věci: váš seznam přijatých algoritmů a kryptografická politika, která říká, kde šifrujete a jak zacházíte s klíči a certifikáty, například s certifikátem vašeho webu, a seznam do sebe přebírá. Které algoritmy jsou aktuálně odolné, uvádí NÚKIB v dokumentu „Minimální požadavky na kryptografické algoritmy“ (verze 4.1, Portál NÚKIB, podpůrné materiály). Technická směrnice TR-02102, kterou německý úřad BSI každý rok aktualizuje, slouží jen jako doplněk."
             ],
             "duty": "Obě vyhlášky žádají používat aktuálně odolné kryptografické algoritmy, prosazovat bezpečné nakládání s nimi a zohledňovat doporučení a metodiky NÚKIB (vyhláška č. 410/2025 Sb., § 13 odst. 1; vyhláška č. 409/2025 Sb., § 25 odst. 1). V režimu vyšších povinností navíc nástroj pro správu klíčů a certifikátů (§ 25 odst. 3).",
-            "link": "BSI TR-02102 (německý doplněk), anglická vydání"
+            "link": "NÚKIB: Minimální požadavky na kryptografické algoritmy"
           },
           "list": {
             "title": "Vaše přijaté algoritmy",
-            "lead": "Algoritmy, které vaše společnost používá pro šifrování, podpisy a zabezpečená spojení, a ty, které už nepoužívá. Dokud nevedete vlastní seznam, ukazujeme zde doporučení německého úřadu BSI z TR-02102; vaše politika na další obrazovce ho převezme. Porovnejte ho s dokumentem NÚKIB „Minimální požadavky na kryptografické algoritmy“, který vyhlášky žádají zohlednit, a kde se liší, upravte jednotlivé položky na stránce požadavku.",
+            "lead": "Algoritmy, které vaše společnost používá pro šifrování, podpisy a zabezpečená spojení, a ty, které už nepoužívá. Dokud nevedete vlastní seznam, ukazujeme zde seznam podle dokumentu NÚKIB „Minimální požadavky na kryptografické algoritmy“ (verze 4.1 ze 4. března 2026), který obě vyhlášky žádají zohlednit: přijaté jsou jen algoritmy, které NÚKIB schvaluje, a sady TLS složené pouze z nich. Vaše politika na další obrazovce seznam převezme. Co u vás platí jinak, upravte po jednotlivých položkách na stránce požadavku.",
             "document": "Seznam kryptografických algoritmů",
             "categories": {
               "symmetric": "Šifrování",
@@ -1235,7 +1235,7 @@
               "deprecated": "Jen pro stávající použití, ne pro nové",
               "prohibited": "Nepoužívat"
             },
-            "bsi": "BSI TR-02102, verze 2026-01",
+            "bsi": "NÚKIB, „Minimální požadavky na kryptografické algoritmy“, verze 4.1",
             "own": "Váš vlastní seznam",
             "applies": "Tento seznam platí pro nás",
             "change": "Jednotlivé položky změníte na stránce požadavku"
@@ -2187,8 +2187,8 @@
                   },
                   {
                     "name": "Uzavřít otevřené body",
-                    "detail": "Bez zbytečného odkladu řešte, co schválení ukázalo jako ještě otevřené.",
-                    "basis": "čl. 21 odst. 4 NIS 2"
+                    "detail": "Co schválení ukázalo jako ještě otevřené, řešte v termínech, které jste u bodů určili. V režimu nižších povinností patří takové body s termínem, prioritou a odpovědnou osobou do přehledu bezpečnostních opatření, v režimu vyšších povinností do plánu zvládání rizik.",
+                    "basis": "vyhláška č. 410/2025 Sb., § 3 odst. 2 písm. a) bod 2; vyhláška č. 409/2025 Sb., § 8 odst. 1 písm. g) a odst. 2"
                   }
                 ]
               }

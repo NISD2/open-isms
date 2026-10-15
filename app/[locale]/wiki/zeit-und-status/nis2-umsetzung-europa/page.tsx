@@ -34,9 +34,10 @@ import {
   WikiSection,
   WikiSources,
 } from "@/components/wiki/WikiSection";
+import { wikiLocale } from "@/lib/content/wiki-locale";
 import type { RegistrationPortal } from "@/lib/registration-portals";
 import { getRegistrationPortals } from "@/lib/registration-portals";
-import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
+import { pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -153,7 +154,7 @@ export default async function NIS2EuropaPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale = wikiLocale(rawLocale);
   const [info, t, w] = await Promise.all([
     getTranslations("info"),
     getTranslations("info.euImplementation"),

@@ -8,9 +8,11 @@
  * a render must not change between server and client.
  */
 import {
+  czechRefColumns,
   getNis2RequirementsForCategory,
   nis2Categories,
 } from "@nisd2/grc-data-model/frameworks";
+import { legalRefFor } from "@/lib/compliance/czech-law";
 import { journeyIndex, journeyState } from "@/lib/compliance/journey-position";
 import {
   getRequirementDescription,
@@ -76,7 +78,10 @@ export async function buildFullJourneyItems(locale: string): Promise<JourneyItem
       status: sampleStatus(step),
       priority: req.priority,
       frequency: req.frequency,
-      legalRef: req.legalRef || null,
+      legalRef: legalRefFor(
+        { legalRef: req.legalRef || null, ...czechRefColumns(req.czechRef) },
+        locale,
+      ),
       frameworkRef: req.frameworkRef,
       requiredSignOffRole: req.requiredSignOffRole,
       dueAt: null,

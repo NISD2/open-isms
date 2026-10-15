@@ -10,9 +10,11 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { SourceText } from "@/components/wiki/SourceText";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
+import { wikiLabel, wikiLocale } from "@/lib/content/wiki-locale";
+import { pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -55,7 +57,7 @@ export default async function ProportionalityPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale = wikiLocale(rawLocale);
   const t = await getTranslations("info");
 
   return (
@@ -75,7 +77,10 @@ export default async function ProportionalityPage({
 
         <header>
           <Badge variant="secondary" className="mb-3">
-            Art. 21(1) NIS 2 + CIR 2024/2690
+            {wikiLabel(locale, {
+              cs: "čl. 21 odst. 1 NIS 2 + CIR 2024/2690",
+              other: "Art. 21(1) NIS 2 + CIR 2024/2690",
+            })}
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight">
             {t("nis2Proportionality.title")}
@@ -87,7 +92,7 @@ export default async function ProportionalityPage({
 
         <WikiPageMeta
           authorSlug="simon-orzel"
-          locale={locale === "nl" ? "de" : (locale as "de" | "en")}
+          locale={locale === "nl" ? "de" : locale}
           lastReviewedAt="2026-06-04"
           sourceLocale="en"
         />
@@ -216,7 +221,7 @@ export default async function ProportionalityPage({
                   className="flex items-start gap-2 text-xs text-muted-foreground"
                 >
                   <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
-                  {source}
+                  <SourceText text={source} />
                 </li>
               ))}
             </ul>

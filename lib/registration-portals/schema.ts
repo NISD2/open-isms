@@ -43,6 +43,7 @@ export const registrationPortalSchema = z.object({
   trackerNoteIt: z.string().optional(),
   trackerNoteEs: z.string().optional(),
   trackerNotePl: z.string().optional(),
+  trackerNoteCs: z.string().optional(),
   /**
    * Longer per-country notes, localized. `notes` (En) and `notesDe` are the
    * required base; fr/it/es/pl are optional and fall back to the En `notes`
@@ -61,6 +62,4 @@ export const registrationPortalsDataSchema = z.object({
 
 export type PortalStatus = z.infer<typeof portalStatus>;
 export type RegistrationPortal = z.infer<typeof registrationPortalSchema>;
-export type RegistrationPortalsData = z.infer<
-  typeof registrationPortalsDataSchema
->;
+export type RegistrationPortalsData = z.infer<typeof registrationPortalsDataSchema>;

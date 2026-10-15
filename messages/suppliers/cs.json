@@ -46,7 +46,8 @@
       "processesOnlyOnInstructions": "Zpracovává pouze na základě zdokumentovaných pokynů",
       "assistsWithDataSubjectRights": "Pomáhá s právy subjektů údajů",
       "internationalTransfer": "Předává data mimo EHP",
-      "transferMechanism": "Mechanismus předávání"
+      "transferMechanism": "Mechanismus předávání",
+      "dpaAvailable": "Smlouva o zpracování osobních údajů uzavřena"
     },
     "auditFrequency": {
       "annual": "Ročně",
@@ -101,6 +102,22 @@
     "suppliersNoRisks": "Dodavatelé bez rizik",
     "unlinkedRisks": "Rizika nepřiřazená žádnému dodavateli",
     "noSuppliersYet": "Žádní dodavatelé nejsou evidováni. Nejprve přidejte dodavatele v kroku 5.1.",
-    "supplierRiskAssessment": "Hodnocení rizik dodavatele"
+    "supplierRiskAssessment": "Hodnocení rizik dodavatele",
+    "requestProfile": {
+      "button": "Vyžádat bezpečnostní profil od dodavatele",
+      "title": "Vyžádat bezpečnostní profil dodavatele",
+      "description": "Pošlete dodavateli pozvánku s osobním odkazem. Dodavatel se přihlásí do dodavatelského portálu a jednou vyplní jednotný dotazník. Jeho odpovědi se pak zobrazí ve vašem registru dodavatelů.",
+      "emailLabel": "E-mail dodavatele",
+      "emailPlaceholder": "it@dodavatel.example",
+      "emailHint": "Odkaz je vázaný na tuto adresu. Dodavatel ho může přijmout jen po přihlášení se stejným e-mailem.",
+      "messageLabel": "Osobní zpráva",
+      "messagePlaceholder": "Dobrý den, pro přezkum bezpečnosti našeho dodavatelského řetězce potřebujeme vaše odpovědi. Děkujeme.",
+      "submit": "Odeslat pozvánku",
+      "sent": "Pozvánka odeslána na {email}.",
+      "sendFailed": "Pozvánku se nepodařilo odeslat. Zkuste to prosím znovu.",
+      "expiry": "Odkaz platí 30 dní. Můžete ho také níže zkopírovat a sdílet přímo.",
+      "linkLabel": "Odkaz s pozvánkou",
+      "done": "Hotovo"
+    }
   }
 }

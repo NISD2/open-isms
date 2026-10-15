@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
-import { getGapAssessmentData } from "@/lib/gap-assessment";
+import { getTranslations } from "next-intl/server";
 import { GapAssessmentSharePage } from "@/components/gap-assessment/GapAssessmentSharePage";
-
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: "Shared gap assessment",
-    robots: { index: false, follow: false },
-  };
-}
+import { getGapAssessmentData } from "@/lib/gap-assessment";
 
 interface PageProps {
   params: Promise<{ locale: string; token: string }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "gap-assessment.share" });
+  return {
+    title: t("metaTitle"),
+    robots: { index: false, follow: false },
+  };
 }
 
 export default async function GapAssessmentSharedRoute({ params }: PageProps) {

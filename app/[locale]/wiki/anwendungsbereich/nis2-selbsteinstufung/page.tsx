@@ -10,10 +10,12 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { SourceText } from "@/components/wiki/SourceText";
 import { WalkSteps } from "@/components/wiki/WalkSteps";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
+import { wikiLabel, wikiLocale } from "@/lib/content/wiki-locale";
+import { pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -49,7 +51,7 @@ export default async function SelfClassificationPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale = wikiLocale(rawLocale);
   const t = await getTranslations("info");
 
   return (
@@ -69,7 +71,10 @@ export default async function SelfClassificationPage({
 
         <header>
           <Badge variant="secondary" className="mb-3">
-            Art. 3(4) NIS 2 + §33 BSIG
+            {wikiLabel(locale, {
+              cs: "čl. 3 odst. 4 NIS 2 + § 6 odst. 1 zákona č. 264/2025 Sb.",
+              other: "Art. 3(4) NIS 2 + §33 BSIG",
+            })}
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight">
             {t("nis2SelfClassification.title")}
@@ -81,7 +86,7 @@ export default async function SelfClassificationPage({
 
         <WikiPageMeta
           authorSlug="simon-orzel"
-          locale={locale === "nl" ? "de" : (locale as "de" | "en")}
+          locale={locale === "nl" ? "de" : locale}
           lastReviewedAt="2026-06-04"
           sourceLocale="en"
         />
@@ -142,7 +147,7 @@ export default async function SelfClassificationPage({
                 <div key={key} className="rounded-lg border p-4">
                   <div className="flex items-baseline gap-2">
                     <Badge variant="outline" className="text-[10px]">
-                      Schritt {i + 1}
+                      {wikiLabel(locale, { cs: "Krok", other: "Schritt" })} {i + 1}
                     </Badge>
                     <p className="text-sm font-semibold">
                       {t(`nis2SelfClassification.howItWorks.items.${key}.title`)}
@@ -216,7 +221,7 @@ export default async function SelfClassificationPage({
                     className="flex items-start gap-2 text-xs text-muted-foreground"
                   >
                     <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
-                    {source}
+                    <SourceText text={source} />
                   </li>
                 ),
               )}

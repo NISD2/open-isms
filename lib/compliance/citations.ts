@@ -71,7 +71,7 @@ export interface CitationSource {
   readonly referenceUrl: string | null;
   /** requirement_category.national_url — the national transposition, if any. */
   readonly nationalUrl: string | null;
-  /** The requirement's place in Czech law (`getNis2CzechRef`), cited instead of the BSIG on a Czech page. */
+  /** The requirement's place in Czech law (its row's Czech columns), cited instead of the BSIG on a Czech page. */
   readonly czechRef?: CzechRef | null;
 }
 

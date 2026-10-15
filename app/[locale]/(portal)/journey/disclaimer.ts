@@ -1,3 +1,5 @@
+import { pickLocalized } from "@/lib/locale";
+
 /**
  * The single canonical journey disclaimer. We are an opinionated NIS 2
  * framework: the path orders mandatory controls by a recommended sequence.
@@ -13,32 +15,28 @@
  * rather than a fixed bar. A reader told only that all 49 are mandatory
  * concludes they must implement all 49 to the maximum, which is neither what
  * the directive says nor what we believe.
+ *
+ * The Czech text cites the Czech Act instead: its measure of proportion is § 13 odst. 2 zákona
+ * č. 264/2025 Sb., "v míře nezbytné", and unlike Art. 21(1) it names no cost, so the Czech
+ * sentence does not either.
  */
-export type JourneyLocale = "en" | "de" | "nl";
-
-export const JOURNEY_DISCLAIMER: Record<JourneyLocale, string> = {
+const JOURNEY_DISCLAIMER = {
   de: "Dies ist eine bewusst priorisierte Empfehlung zur Reihenfolge, keine Rechtsberatung. Jede Anforderung ist zu prüfen, unabhängig von ihrer Position. Wie weit eine Maßnahme gehen muss, bemisst sich nach Art. 21(1) NIS 2 an Größe, Risiko und Aufwand. Sie können eine Anforderung mit dokumentierter Begründung als nicht zutreffend einstufen. Die Verantwortung für Umsetzung und Fristen bleibt bei Ihrer Einrichtung.",
   en: "This is an opinionated recommended order, not legal advice. Every requirement has to be considered, regardless of its position. How far a measure has to go follows Art. 21(1) NIS 2: your size, your risk and the cost of implementation. You may record a requirement as not applicable with a documented reason. Responsibility for implementation and deadlines remains with your organisation.",
   nl: "Dit is een bewust geprioriteerde aanbevolen volgorde, geen juridisch advies. Elke vereiste moet worden beoordeeld, ongeacht de positie. Hoe ver een maatregel moet gaan, volgt uit Art. 21(1) NIS 2: omvang, risico en kosten van implementatie. U mag een vereiste als niet van toepassing vastleggen met een gedocumenteerde reden. De verantwoordelijkheid voor implementatie en termijnen blijft bij uw organisatie.",
-};
+  cs: "Toto je naše doporučené pořadí, nikoli právní poradenství. Posoudit je třeba každý požadavek bez ohledu na jeho pozici. Jak daleko musí opatření jít, určuje § 13 odst. 2 zákona č. 264/2025 Sb.: opatření zavádíte „v míře nezbytné pro zajištění kybernetické bezpečnosti regulované služby“. Požadavek můžete se zdokumentovaným zdůvodněním označit jako nevztahující se. Odpovědnost za zavedení a lhůty zůstává na vaší organizaci.",
+} as const;
 
 /** Short label for the disclaimer affordance (icon aria-label / heading). */
-export const JOURNEY_DISCLAIMER_LABEL: Record<JourneyLocale, string> = {
+const JOURNEY_DISCLAIMER_LABEL = {
   de: "Hinweis zur Priorisierung",
   en: "About this prioritisation",
   nl: "Over deze prioritering",
-};
+  cs: "Poznámka k pořadí",
+} as const;
 
-export function journeyDisclaimer(locale: string): string {
-  return JOURNEY_DISCLAIMER[
-    (locale as JourneyLocale) in JOURNEY_DISCLAIMER ? (locale as JourneyLocale) : "en"
-  ];
-}
+export const journeyDisclaimer = (locale: string): string =>
+  pickLocalized<string>(JOURNEY_DISCLAIMER, locale);
 
-export function journeyDisclaimerLabel(locale: string): string {
-  return JOURNEY_DISCLAIMER_LABEL[
-    (locale as JourneyLocale) in JOURNEY_DISCLAIMER_LABEL
-      ? (locale as JourneyLocale)
-      : "en"
-  ];
-}
+export const journeyDisclaimerLabel = (locale: string): string =>
+  pickLocalized<string>(JOURNEY_DISCLAIMER_LABEL, locale);

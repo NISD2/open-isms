@@ -170,7 +170,7 @@ const quiz = quizSchema.parse({
         it: "Perché una politica di livello superiore non datata o non firmata è 'la via più rapida verso un rilievo di audit'?",
         es: "¿Por qué una política de nivel superior sin fecha o sin firmar es 'el camino más rápido hacia un hallazgo de auditoría'?",
         pl: "Dlaczego niedatowana lub niepodpisana polityka nadrzędna jest „najszybszą drogą do ustalenia audytowego”?",
-        cs: "Proč je nedatovaná nebo nepodepsaná nadřazená politika 'nejrychlejší cestou ke zjištění auditu'?",
+        cs: "Proč je nedatovaná nebo nepodepsaná nadřazená politika „nejrychlejší cestou ke zjištění auditu“?",
         pt: "O que torna uma política de nível superior não datada ou não assinada o 'caminho mais rápido para uma constatação de auditoria'?",
         ro: "Ce face dintr-o politică de nivel superior nedatată sau nesemnată 'cea mai rapidă cale către o constatare de audit'?",
       },

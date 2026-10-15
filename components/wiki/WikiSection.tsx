@@ -1,7 +1,29 @@
 import type { ReactNode } from "react";
+import { SourceText } from "@/components/wiki/SourceText";
+import { czechProvisionHref } from "@/lib/compliance/czech-law";
 
-export const LAW_CHIP =
+const LAW_CHIP =
   "inline-block rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground ring-1 ring-inset ring-border";
+
+/**
+ * The provision a point rests on, as printed. A chip citing Czech law opens that section in the
+ * official e-Sbírka text; any other chip stays text.
+ */
+export function LawChip({ law }: { law: string }) {
+  const href = czechProvisionHref(law);
+  return href === null ? (
+    <span className={LAW_CHIP}>{law}</span>
+  ) : (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`${LAW_CHIP} underline-offset-2 hover:underline`}
+    >
+      {law}
+    </a>
+  );
+}
 
 /**
  * One topic of a wiki page that answers a search: a heading, short paragraphs of one idea each,
@@ -35,7 +57,7 @@ export function WikiSection({
       ))}
       {law && (
         <p>
-          <span className={LAW_CHIP}>{law}</span>
+          <LawChip law={law} />
         </p>
       )}
       {children}
@@ -98,7 +120,7 @@ export function WikiFaq({
   );
 }
 
-/** The primary sources a page's legal sentences were checked against. */
+/** The primary sources a page's legal sentences were checked against, each address a link. */
 export function WikiSources({
   heading,
   items,
@@ -112,7 +134,7 @@ export function WikiSources({
       <ul className="space-y-1.5">
         {items.map((source) => (
           <li key={source} className="text-xs leading-relaxed text-muted-foreground">
-            {source}
+            <SourceText text={source} />
           </li>
         ))}
       </ul>

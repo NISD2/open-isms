@@ -1,5 +1,4 @@
 import "@/lib/server-guard";
-import { getNis2CzechRef } from "@nisd2/grc-data-model/frameworks";
 import { getLocale, getTranslations } from "next-intl/server";
 import type { ItemView, WalkEntry } from "@/components/durchgang/view";
 import { onRegister } from "@/lib/asset-inventory/catalog-labels";
@@ -8,7 +7,7 @@ import { getSession } from "@/lib/auth";
 import { canSeeCategory, getUserAccess } from "@/lib/compliance/access";
 import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
 import { buildCitationRows, typesetCitation } from "@/lib/compliance/citations";
-import { czechDutyCitation } from "@/lib/compliance/czech-law";
+import { czechDutyCitation, czechRefOf } from "@/lib/compliance/czech-law";
 import { legislation } from "@/lib/content/citations";
 import { db } from "@/lib/db";
 import {
@@ -161,7 +160,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
       .filter((f) => asked.has(f.key))
       .map((f) => [f.key, f]),
   );
-  const czechRef = getNis2CzechRef(code);
+  const czechRef = czechRefOf(req);
   const law = buildCitationRows(
     {
       frameworkCode: "nis2",

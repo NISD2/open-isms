@@ -1,31 +1,30 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  CATEGORY_KEYS,
-  isCategory,
-  type Category,
-  type ChangelogEntry,
-} from "@/lib/changelog/types";
+import type { ChangelogView } from "@/lib/changelog/localize";
+import { CATEGORY_KEYS, type Category, isCategory } from "@/lib/changelog/types";
+import { pickLocalized } from "@/lib/locale";
 
 interface Props {
-  entries: ChangelogEntry[];
+  entries: readonly ChangelogView[];
   locale: string;
   labels: Record<Category | "all" | "empty", string>;
 }
 
+const DATE_LOCALE = { de: "de-DE", en: "en-GB", cs: "cs-CZ" };
+
 function formatMonth(dateIso: string, locale: string): string {
-  return new Date(dateIso).toLocaleDateString(locale === "de" ? "de-DE" : "en-GB", {
+  return new Date(dateIso).toLocaleDateString(pickLocalized(DATE_LOCALE, locale), {
     year: "numeric",
     month: "long",
   });
 }
 
 function formatDate(dateIso: string, locale: string): string {
-  return new Date(dateIso).toLocaleDateString(locale === "de" ? "de-DE" : "en-GB", {
+  return new Date(dateIso).toLocaleDateString(pickLocalized(DATE_LOCALE, locale), {
     year: "numeric",
     month: "short",
     day: "numeric",
@@ -41,7 +40,7 @@ export function ChangelogList({ entries, locale, labels }: Props) {
   );
 
   const grouped = useMemo(() => {
-    const map = new Map<string, ChangelogEntry[]>();
+    const map = new Map<string, ChangelogView[]>();
     for (const e of visible) {
       const month = formatMonth(e.date, locale);
       const list = map.get(month) ?? [];
@@ -51,12 +50,14 @@ export function ChangelogList({ entries, locale, labels }: Props) {
     return Array.from(map.entries());
   }, [visible, locale]);
 
-  const isDe = locale === "de";
   const labelFor = (cat: string): string => (isCategory(cat) ? labels[cat] : cat);
 
   return (
     <div className="space-y-8">
-      <Tabs value={filter} onValueChange={(v) => setFilter(v === "all" || isCategory(v) ? v : "all")}>
+      <Tabs
+        value={filter}
+        onValueChange={(v) => setFilter(v === "all" || isCategory(v) ? v : "all")}
+      >
         <TabsList className="flex flex-wrap gap-1 h-auto bg-muted/50">
           <TabsTrigger value="all">{labels.all}</TabsTrigger>
           {CATEGORY_KEYS.map((cat) => (
@@ -92,13 +93,11 @@ export function ChangelogList({ entries, locale, labels }: Props) {
                         </>
                       ) : null}
                     </div>
-                    <CardTitle className="text-lg">
-                      {isDe ? entry.titleDe : entry.titleEn}
-                    </CardTitle>
+                    <CardTitle className="text-lg">{entry.title}</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3 text-sm text-muted-foreground">
-                    <p>{isDe ? entry.bodyDe : entry.bodyEn}</p>
-                    {entry.links && entry.links.length > 0 ? (
+                    <p>{entry.body}</p>
+                    {entry.links.length > 0 ? (
                       <p className="flex flex-wrap gap-3 pt-1">
                         {entry.links.map((link) => (
                           <a
@@ -106,7 +105,7 @@ export function ChangelogList({ entries, locale, labels }: Props) {
                             href={link.href}
                             className="underline hover:text-foreground"
                           >
-                            {isDe ? link.labelDe : link.labelEn}
+                            {link.label}
                           </a>
                         ))}
                       </p>

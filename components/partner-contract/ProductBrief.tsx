@@ -1,6 +1,6 @@
 import { Check, Minus } from "lucide-react";
 import type { ReactNode } from "react";
-import type { PartnerContractLocale } from "@/lib/partner-contract/date";
+import type { PartnerContractReadingLocale } from "@/lib/partner-contract/date";
 import { partnerContractTranslator } from "@/lib/partner-contract/document";
 
 /**
@@ -54,7 +54,7 @@ export function ProductBrief({
   locale,
   access,
 }: {
-  readonly locale: PartnerContractLocale;
+  readonly locale: PartnerContractReadingLocale;
   /** The partner's own way in, shown first when the offer came with access. */
   readonly access?: ReactNode;
 }) {

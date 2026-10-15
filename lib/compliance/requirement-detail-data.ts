@@ -1,10 +1,10 @@
-import { getNis2CzechRef } from "@nisd2/grc-data-model/frameworks";
 import { getLocale, getTranslations } from "next-intl/server";
 import type { RequirementDetailProps } from "@/components/compliance/RequirementDetail";
 import type { GuidanceFile, RequirementGuidanceData } from "@/lib/ai/guidance-types";
 import { getSession, hasReviewAccess, isReviewerRole } from "@/lib/auth";
 import { canSeeCategory, getUserAccess } from "@/lib/compliance/access";
 import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
+import { czechRefOf } from "@/lib/compliance/czech-law";
 import { PLATFORM_DEFAULTS } from "@/lib/compliance/platform-defaults";
 import { REQUIREMENT_FIELD_MAP } from "@/lib/compliance/requirement-fields";
 import { DEFAULT_SIGN_OFF_ROLE, type RoleKey } from "@/lib/compliance/role-keys";
@@ -260,7 +260,7 @@ export async function loadRequirementDetail(
       frameworkCode: req.category.framework.code,
       referenceUrl: req.category.referenceUrl,
       nationalUrl: req.category.nationalUrl,
-      czechRef: req.category.framework.code === "nis2" ? getNis2CzechRef(req.code) : null,
+      czechRef: czechRefOf(req),
     },
     status,
     categoryName: tc(`categories.${req.category.code}.name`),

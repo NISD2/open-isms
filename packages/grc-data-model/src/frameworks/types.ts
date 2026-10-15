@@ -1,3 +1,6 @@
+import type { InferSelectModel } from "drizzle-orm";
+import type { requirement } from "../schema/requirement";
+
 export interface FrameworkCategory {
   id: string;
   code: string;
@@ -72,6 +75,8 @@ export interface FrameworkRequirement {
   moduleRef: string | null;
   /** Role whose sign-off is required for this requirement, if any. */
   requiredSignOffRole: string | null;
+  /** Where Czech law places the requirement (NIS 2 only), as `legalRef` names the BSIG. */
+  czechRef: CzechRef | null;
 }
 
 /**
@@ -90,6 +95,18 @@ export interface CzechRef {
   /** Vyhláška č. 409/2025 Sb., the higher regime. */
   readonly higher: string | null;
 }
+
+/** The `requirement` columns a `CzechRef` is stored in. */
+export type CzechRefColumns = Readonly<
+  Pick<InferSelectModel<typeof requirement>, "czActRef" | "czLowerRef" | "czHigherRef">
+>;
+
+/** A `CzechRef` as its row stores it; every column null where Czech law has no place for it. */
+export const czechRefColumns = (ref: CzechRef | null): CzechRefColumns => ({
+  czActRef: ref?.act ?? null,
+  czLowerRef: ref?.lower ?? null,
+  czHigherRef: ref?.higher ?? null,
+});
 
 export interface RequirementOptions {
   priority?: Priority;
@@ -122,6 +139,7 @@ export function makeRequirementFactory(idPrefix: string) {
       cirReference: opts.cirReference ?? null,
       moduleRef: opts.moduleRef ?? null,
       requiredSignOffRole: opts.requiredSignOffRole ?? null,
+      czechRef: null,
     };
   };
 }

@@ -59,7 +59,7 @@ export const NUDGE_AFTER_DAYS = 3;
 const NUDGE_EMAIL_TYPE = "product.lifecycle_nudge";
 
 // ---------------------------------------------------------------------------
-// Copy (de primary, en, nl — the locales the auth flow already narrows to)
+// Copy (de primary, en, nl, cs: the email locales)
 // ---------------------------------------------------------------------------
 
 interface NudgeCopy {
@@ -111,6 +111,18 @@ const COPY: Record<EmailLocale, NudgeCopy> = {
       "Elke stap wordt bij afronding direct gedocumenteerd. Zo bouwt het bewijs zich op tijdens het werk, niet pas vlak voor een audit.",
     cta: "Verder met het pad",
     unsubscribe: "Afmelden voor e-mailherinneringen",
+  },
+  // Bare greeting: Czech addresses a person in the vocative, which a stored name does not give us.
+  cs: {
+    subjectPrefix: "Váš další krok",
+    greeting: () => "Dobrý den,",
+    introProgress: (done, total) =>
+      `při zavádění NIS 2 máte hotovo ${done} z celkem ${total} požadavků. Na řadě je:`,
+    introFresh: "vaše cesta zavádění NIS 2 na nisd2.eu je připravená. První krok:",
+    mechanism:
+      "Každý krok se zdokumentuje hned při dokončení. Doklady tak vznikají průběžně při práci, ne až těsně před kontrolou nebo auditem.",
+    cta: "Pokračovat v cestě",
+    unsubscribe: "Odhlásit připomínky e-mailem",
   },
 };
 
@@ -189,6 +201,7 @@ const SAMPLE_STEP_TITLE: Record<EmailLocale, string> = {
   de: "(Beispiel) Risikoanalyse dokumentieren",
   en: "(Sample) Document the risk analysis",
   nl: "(Voorbeeld) Risicoanalyse documenteren",
+  cs: "(Ukázka) Zdokumentovat hodnocení rizik",
 };
 
 /**

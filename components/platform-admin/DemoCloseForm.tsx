@@ -3,9 +3,9 @@
 /**
  * Door two, the demo close: order for a customer while still on the call. The billing fields are
  * the customer's own order form (../billing/OrderFields), typed from their Impressum; above them
- * sit the three things only a platform admin enters: who the customer is, and the amount if it was
- * agreed differently. The server creates the customer if new and mails them a setup link
- * (lib/billing/close-deal.ts).
+ * sit what only a platform admin enters: who the customer is, the amount if it was agreed
+ * differently, and their language if the VAT number's country does not tell it. The server creates
+ * the customer if new and mails them a setup link (lib/billing/close-deal.ts).
  */
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircle, CheckCircle2, Handshake } from "lucide-react";
@@ -31,9 +31,30 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { orderSchemaWithVatCheck } from "@/lib/billing/order";
 import { TERMS_VERSION } from "@/lib/billing/terms";
+import type { WalkLocale } from "@/lib/durchgang/types";
 import { trpc } from "@/lib/trpc/client";
+
+/** The languages a closed customer's account and setup mail can be in, each by its own name. */
+const CUSTOMER_LANGUAGES = {
+  de: "Deutsch",
+  en: "English",
+  cs: "Čeština",
+} as const satisfies Record<WalkLocale, string>;
+
+/** The select's value for "no pick": the server takes the language from the VAT number. */
+const FROM_VAT = "vat";
+
+const isCustomerLanguage = (value: string): value is WalkLocale =>
+  Object.hasOwn(CUSTOMER_LANGUAGES, value);
 
 /** "4800", "4.800" or "4.800,50" euros as cents; null when blank, NaN when not a positive amount. */
 export const centsFrom = (euros: string): number | null => {
@@ -56,6 +77,7 @@ export function DemoCloseForm() {
   const [customerName, setCustomerName] = useState("");
   const [amount, setAmount] = useState("");
   const [termsAcceptedOnCall, setTermsAcceptedOnCall] = useState(false);
+  const [customerLocale, setCustomerLocale] = useState<WalkLocale | null>(null);
   const netCents = centsFrom(amount);
   const amountInvalid = Number.isNaN(netCents);
 
@@ -121,6 +143,7 @@ export function DemoCloseForm() {
       netCents,
       quotedGrossCents: price.grossCents,
       termsAcceptedOnCall,
+      locale: customerLocale,
     });
   };
 
@@ -194,6 +217,31 @@ export function DemoCloseForm() {
                     A positive amount, such as 4.800.
                   </p>
                 ) : null}
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="close-language">
+                  Customer's language (account and setup mail)
+                </Label>
+                <Select
+                  value={customerLocale ?? FROM_VAT}
+                  onValueChange={(v) =>
+                    setCustomerLocale(isCustomerLanguage(v) ? v : null)
+                  }
+                >
+                  <SelectTrigger id="close-language">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={FROM_VAT}>
+                      From the VAT number's country
+                    </SelectItem>
+                    {Object.entries(CUSTOMER_LANGUAGES).map(([code, name]) => (
+                      <SelectItem key={code} value={code}>
+                        {name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 

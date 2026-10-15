@@ -1,4 +1,10 @@
-type Locale = "en" | "de" | "nl";
+import { type JourneyLocale, journeyLocaleOf } from "./path-nodes";
+
+const COPY: Record<JourneyLocale, { title: string; done: string }> = {
+  en: { title: "Your path", done: "done" },
+  de: { title: "Ihr Weg", done: "erledigt" },
+  cs: { title: "Vaše cesta", done: "hotovo" },
+};
 
 /**
  * The journey page's title and its progress figure.
@@ -12,11 +18,10 @@ type Locale = "en" | "de" | "nl";
  * layouts now show the live step in their own chrome, so the sentence was
  * describing the page to someone already looking at it.
  */
-export function JourneyHeading({ locale }: { locale: Locale }) {
-  const de = locale === "de";
+export function JourneyHeading({ locale }: { locale: string }) {
   return (
     <h1 className="text-2xl font-semibold tracking-tight">
-      {de ? "Ihr Weg" : "Your path"}
+      {COPY[journeyLocaleOf(locale)].title}
     </h1>
   );
 }
@@ -29,14 +34,14 @@ export function ProgressChip({
 }: {
   done: number;
   total: number;
-  locale: Locale;
+  locale: string;
 }) {
   const pct = total > 0 ? Math.round((done / total) * 100) : 0;
   return (
     <div className="shrink-0 text-right">
       <div className="text-xl font-semibold leading-none tabular-nums">{pct}%</div>
       <div className="mt-1 text-[11px] text-muted-foreground">
-        {done}/{total} {locale === "de" ? "erledigt" : "done"}
+        {done}/{total} {COPY[journeyLocaleOf(locale)].done}
       </div>
     </div>
   );

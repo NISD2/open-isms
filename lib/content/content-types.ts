@@ -11,23 +11,23 @@
  */
 
 export const DOCS_CATEGORIES = [
-  "scope",          // A — "Bin ich X?"
-  "glossar",        // B — definitions from CEO course dictionary
-  "felder",         // C — asset / supplier modifier fields
-  "anleitungen",    // D.1 + D.3 — how-tos
-  "probleme",       // D.2 — problem / panic queries
-  "iso-27001",      // E — ISO 27001 bridge (NIS 2 anchored)
-  "cra",            // F — CRA + NIS 2 sister regulation
-  "vergleich",      // adjacent — NIS 2 vs DSGVO / DORA / KRITIS / etc.
+  "scope", // A — "Bin ich X?"
+  "glossar", // B — definitions from CEO course dictionary
+  "felder", // C — asset / supplier modifier fields
+  "anleitungen", // D.1 + D.3 — how-tos
+  "probleme", // D.2 — problem / panic queries
+  "iso-27001", // E — ISO 27001 bridge (NIS 2 anchored)
+  "cra", // F — CRA + NIS 2 sister regulation
+  "vergleich", // adjacent — NIS 2 vs DSGVO / DORA / KRITIS / etc.
 ] as const;
 
 export type DocsCategory = (typeof DOCS_CATEGORIES)[number];
 
 export const DOCS_CONTENT_TYPES = [
-  "Article",             // generic explainer / opinion / scope explanation
-  "DefinedTerm",         // single dictionary term
-  "HowTo",               // step-by-step implementation
-  "FAQPage",             // FAQ-shaped problem-solving
+  "Article", // generic explainer / opinion / scope explanation
+  "DefinedTerm", // single dictionary term
+  "HowTo", // step-by-step implementation
+  "FAQPage", // FAQ-shaped problem-solving
   "SoftwareApplication", // generator / downloadable artefact
 ] as const;
 
@@ -52,7 +52,10 @@ export const CATEGORY_DEFAULT_TYPE: Record<DocsCategory, DocsContentType> = {
  * Default word budget per content type, used by the generation prompt to
  * keep articles concise.
  */
-export const CONTENT_TYPE_WORD_BUDGET: Record<DocsContentType, { min: number; max: number }> = {
+export const CONTENT_TYPE_WORD_BUDGET: Record<
+  DocsContentType,
+  { min: number; max: number }
+> = {
   Article: { min: 800, max: 1500 },
   DefinedTerm: { min: 150, max: 400 },
   HowTo: { min: 400, max: 800 },
@@ -96,8 +99,27 @@ export const CATEGORY_LABEL_NL: Record<DocsCategory, string> = {
   vergleich: "Vergelijking",
 };
 
-export function categoryLabel(category: DocsCategory, locale: "de" | "en" | "nl"): string {
-  if (locale === "en") return CATEGORY_LABEL_EN[category];
-  if (locale === "nl") return CATEGORY_LABEL_NL[category];
-  return CATEGORY_LABEL_DE[category];
+export const CATEGORY_LABEL_CS: Record<DocsCategory, string> = {
+  scope: "Oblast působnosti",
+  glossar: "Slovník pojmů",
+  felder: "Vysvětlení polí",
+  anleitungen: "Návody",
+  probleme: "Co dělat, když",
+  "iso-27001": "Návaznost na ISO 27001",
+  cra: "CRA",
+  vergleich: "Srovnání",
+};
+
+const CATEGORY_LABELS = {
+  de: CATEGORY_LABEL_DE,
+  en: CATEGORY_LABEL_EN,
+  nl: CATEGORY_LABEL_NL,
+  cs: CATEGORY_LABEL_CS,
+} as const;
+
+export function categoryLabel(
+  category: DocsCategory,
+  locale: keyof typeof CATEGORY_LABELS,
+): string {
+  return CATEGORY_LABELS[locale][category];
 }

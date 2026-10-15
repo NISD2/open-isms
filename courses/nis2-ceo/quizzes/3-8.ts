@@ -77,7 +77,7 @@ const quiz = quizSchema.parse({
         it: "Articolo 23(1): ventiquattro ore per un'allerta precoce, settantadue ore per un rapporto formale, un mese dopo tale rapporto per l'analisi finale.",
         es: "Artículo 23(1): veinticuatro horas para una alerta temprana, setenta y dos horas para un informe formal, un mes después de ese informe para el análisis final.",
         pl: "Artykuł 23(1): dwadzieścia cztery godziny na wczesne ostrzeżenie, siedemdziesiąt dwie godziny na formalny raport, jeden miesiąc od tego raportu na analizę końcową.",
-        cs: "Článek 23(1): dvacet čtyři hodin na včasné varování, sedmdesát dva hodin na formální hlášení, jeden měsíc po tomto hlášení na závěrečnou analýzu.",
+        cs: "Článek 23(1): dvacet čtyři hodin na včasné varování, sedmdesát dva hodin na formální hlášení, jeden měsíc po tomto hlášení na závěrečnou analýzu. V Česku: prvotní hlášení do 24 hodin, u incidentu s významným dopadem oznámení do 72 hodin a závěrečná zpráva do 30 dnů od oznámení (§ 16 zákona č. 264/2025 Sb.).",
         pt: "Artigo 23(1): vinte e quatro horas para um alerta precoce, setenta e duas horas para um relatório formal, um mês após esse relatório para a análise final.",
         ro: "Articolul 23(1): douăzeci și patru de ore pentru o avertizare timpurie, șaptezeci și două de ore pentru un raport formal, o lună după acel raport pentru analiza finală.",
       },

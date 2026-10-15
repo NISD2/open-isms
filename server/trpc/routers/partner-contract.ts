@@ -5,20 +5,29 @@
  * The token is the only credential on the public side, as on /supplier-access: 64 hex characters,
  * so guessing one is not a way in, and the rate limit keeps the endpoint from being a cheap way to
  * try.
+ *
+ * The admin hands the link out in the partner's reading language. A Czech partner reads a
+ * translation of the English offer; the English text is what is stored, accepted and hashed, and
+ * the acceptance also records the language read and the hash of the translation shown.
  */
 import { randomBytes } from "node:crypto";
 import { TRPCError } from "@trpc/server";
 import { and, desc, eq, isNull } from "drizzle-orm";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
+import type { Database } from "@/lib/db";
+import { isLocaleCode } from "@/lib/locale";
 import {
+  type PartnerAccessOutcome,
   partnerAccessEntry,
   provisionPartnerAccess,
   revokePartnerAccess,
+  untouchedOpenedAccount,
 } from "@/lib/partner-contract/access";
 import {
   buildPartnerContract,
   PARTNER_CONTRACT_VERSION,
+  type PartnerContractReadingLocale,
   partnerContractSha256,
 } from "@/lib/partner-contract/document";
 import {
@@ -29,44 +38,83 @@ import {
   canOfferPartnerContracts,
   partnerContractUrl,
 } from "@/lib/partner-contract/offer";
+import {
+  bindingLocaleFor,
+  PARTNER_CONTRACT_READING_LOCALES,
+  readingLocalesOf,
+  signedReadingOf,
+} from "@/lib/partner-contract/reading";
 import { rateLimit } from "@/lib/rate-limit";
-import { partnerContract } from "@/schema";
+import { partnerContract, user } from "@/schema";
 import { platformAdminProcedure, publicProcedure, router } from "../init";
 
-/** What an admin decides when offering an agreement: the row's own columns, nothing else. */
+/**
+ * What an admin decides when offering an agreement: the row's own columns, and the language the
+ * partner reads it in. The binding language follows from that one (bindingLocaleFor), so the
+ * browser never decides which text binds.
+ */
 const offerInput = createInsertSchema(partnerContract, {
   partnerCompany: (s) => s.trim().min(2),
   partnerContactName: (s) => s.trim().min(1),
   partnerEmail: (s) => s.trim().email(),
   commissionPercent: (s) => s.int().min(1).max(50),
   commissionMonths: (s) => s.int().min(1).max(120),
-}).pick({
-  locale: true,
-  partnerCompany: true,
-  partnerContactName: true,
-  partnerEmail: true,
-  commissionPercent: true,
-  commissionMonths: true,
-});
+})
+  .pick({
+    partnerCompany: true,
+    partnerContactName: true,
+    partnerEmail: true,
+    commissionPercent: true,
+    commissionMonths: true,
+  })
+  .extend({ readerLocale: z.enum(PARTNER_CONTRACT_READING_LOCALES) });
+
+/**
+ * The account an offer opened is created in the language its partner was handed the agreement in
+ * (provisionPartnerAccess). Accepting from a link in another language moves it to that one, so the
+ * mail it gets later follows, while nobody has signed into it: from then on the language is the
+ * holder's own choice. An account that existed before the offer keeps its holder's choice
+ * throughout. Never throws: only the language is at stake, and the acceptance is saved by now.
+ */
+const setOpenedAccountLocale = (
+  db: Database,
+  offer: {
+    readonly accessOutcome: PartnerAccessOutcome | null;
+    readonly accessUserId: string | null;
+  },
+  locale: PartnerContractReadingLocale,
+): Promise<void> =>
+  untouchedOpenedAccount(db, offer)
+    .then(async (account) => {
+      if (account) await db.update(user).set({ locale }).where(eq(user.id, account.id));
+    })
+    .catch((err: unknown) =>
+      console.error("[partner-contract] account language not set", err),
+    );
 
 export const partnerContractRouter = router({
   list: platformAdminProcedure.query(async ({ ctx }) => {
-    // The text and the acceptance evidence stay on the row; the list needs neither.
+    // The acceptance evidence stays on the row. The text is read only to tell which translations
+    // still match it, so a link in each language opens that language.
     const rows = await ctx.db.query.partnerContract.findMany({
       columns: {
-        body: false,
         templateVersion: false,
         signerIp: false,
         signerUserAgent: false,
         signedTextSha256: false,
+        signedReadingLocale: false,
+        signedTranslationSha256: false,
       },
       orderBy: desc(partnerContract.createdAt),
     });
     return {
       canOffer: canOfferPartnerContracts(),
-      rows: rows.map(({ token, ...row }) => ({
+      rows: rows.map(({ token, body, ...row }) => ({
         ...row,
-        url: partnerContractUrl(row.locale, token),
+        links: readingLocalesOf({ ...row, body }).map((locale) => ({
+          locale,
+          url: partnerContractUrl(locale, token),
+        })),
       })),
     };
   }),
@@ -83,29 +131,32 @@ export const partnerContractRouter = router({
     if (!createdByEmail) {
       throw new TRPCError({ code: "UNAUTHORIZED", message: "No email on the session" });
     }
-    const commissionMonths = input.commissionMonths ?? null;
+    const { readerLocale, ...terms } = input;
+    const locale = bindingLocaleFor(readerLocale);
+    const commissionMonths = terms.commissionMonths ?? null;
     const [row] = await ctx.db
       .insert(partnerContract)
       .values({
-        ...input,
+        ...terms,
+        locale,
         commissionMonths,
         token: randomBytes(32).toString("hex"),
         templateVersion: PARTNER_CONTRACT_VERSION,
-        body: buildPartnerContract({ ...input, commissionMonths }),
+        body: buildPartnerContract({ ...terms, locale, commissionMonths }),
         createdByEmail,
       })
       .returning({ id: partnerContract.id, token: partnerContract.token });
     if (!row) {
       throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Offer not saved" });
     }
-    const access = input.partnerEmail
+    const access = terms.partnerEmail
       ? await provisionPartnerAccess(
           ctx.db,
           {
-            email: input.partnerEmail,
-            name: input.partnerContactName ?? input.partnerCompany,
+            email: terms.partnerEmail,
+            name: terms.partnerContactName ?? terms.partnerCompany,
           },
-          input.locale,
+          readerLocale,
         )
       : null;
     if (access) {
@@ -116,7 +167,7 @@ export const partnerContractRouter = router({
     }
     return {
       id: row.id,
-      url: partnerContractUrl(input.locale, row.token),
+      url: partnerContractUrl(readerLocale, row.token),
       accessOutcome: access?.outcome ?? null,
     };
   }),
@@ -181,6 +232,12 @@ export const partnerContractRouter = router({
         name: z.string().trim().min(2).max(200),
         email: z.string().trim().email().max(320),
         authority: z.literal(true),
+        /**
+         * The language the page was read in. It only ever picks a language: what is accepted is the
+         * stored text, and a translation recorded beside it is rebuilt here as that language's page
+         * builds it, never taken from the browser. Absent from a page loaded before it was sent.
+         */
+        locale: z.string().refine(isLocaleCode).optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -199,6 +256,8 @@ export const partnerContractRouter = router({
           message: "No open agreement at this link.",
         });
       }
+      // Narrowed to what this offer can be read in, as its page narrows it.
+      const reading = signedReadingOf(offer, input.locale ?? offer.locale);
       const [accepted] = await ctx.db
         .update(partnerContract)
         .set({
@@ -208,6 +267,7 @@ export const partnerContractRouter = router({
           signerIp: ctx.ip === "unknown" ? null : ctx.ip,
           signerUserAgent: ctx.userAgent,
           signedTextSha256: partnerContractSha256(offer.body),
+          ...reading,
         })
         .where(
           and(
@@ -229,7 +289,11 @@ export const partnerContractRouter = router({
         signerName: accepted.signerName,
         signerEmail: accepted.signerEmail,
       };
-      const { partnerCopySent } = await sendPartnerContractAcceptedMails(row);
+      await setOpenedAccountLocale(ctx.db, offer, reading.signedReadingLocale);
+      const { partnerCopySent } = await sendPartnerContractAcceptedMails(
+        row,
+        reading.signedReadingLocale,
+      );
       return { signedAt: row.signedAt, partnerCopySent };
     }),
 });

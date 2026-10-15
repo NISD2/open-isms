@@ -5,7 +5,13 @@ import {
   nis2Categories,
 } from "@nisd2/grc-data-model/frameworks";
 import { buildCitationRows } from "./citations";
-import { czechArticle, czechCitations, czechDutyCitation } from "./czech-law";
+import {
+  czechArticle,
+  czechCitations,
+  czechDutyCitation,
+  czechRefOf,
+  legalRefFor,
+} from "./czech-law";
 
 const CODES = nis2Categories.flatMap((c) =>
   getNis2RequirementsForCategory(c.slug).map((r) => r.code),
@@ -42,11 +48,18 @@ test("links each text at the first section it cites, on e-Sbírka", () => {
   ]);
 });
 
-test("a duty card cites each decree's first place, and the Act only where no decree has one", () => {
+test("a duty card cites the Act first where it sets the duty, then each decree's first place", () => {
   expect(czechDutyCitation(getNis2CzechRef("1.1"))).toEqual({
     cite: "§ 4 písm. b) vyhlášky č. 410/2025 Sb.; § 4 odst. 1 písm. a) vyhlášky č. 409/2025 Sb.",
     href: "https://e-sbirka.gov.cz/sb/2025/410/2025-11-01#par_4",
   });
+  expect(czechDutyCitation(getNis2CzechRef("3.3"))).toEqual({
+    cite: "§§ 15 až 17 zákona č. 264/2025 Sb.; § 10 písm. b), e), f) vyhlášky č. 410/2025 Sb.; § 14 odst. 1 písm. j), m) vyhlášky č. 409/2025 Sb.",
+    href: "https://e-sbirka.gov.cz/sb/2025/264/2025-11-01#par_15",
+  });
+  expect(czechDutyCitation(getNis2CzechRef("5.2"))?.href).toBe(
+    "https://e-sbirka.gov.cz/sb/2025/264/2025-11-01#par_13",
+  );
   expect(czechDutyCitation(getNis2CzechRef("12.2"))?.cite).toBe(
     "§ 6 odst. 1 zákona č. 264/2025 Sb.",
   );
@@ -70,4 +83,35 @@ test("a Czech page cites Czech law instead of the BSIG; other pages keep the BSI
     "framework",
     "national",
   ]);
+});
+
+test("a requirement row carries its Czech place; a row without one has none", () => {
+  const nis2 = {
+    legalRef: "§33(1) BSIG",
+    czActRef: "§ 6 odst. 1",
+    czLowerRef: null,
+    czHigherRef: null,
+  };
+  const gdpr = {
+    legalRef: "GDPR Art. 28(3)",
+    czActRef: null,
+    czLowerRef: null,
+    czHigherRef: null,
+  };
+  expect(czechRefOf(nis2)).toEqual({ act: "§ 6 odst. 1", lower: null, higher: null });
+  expect(czechRefOf(gdpr)).toBeNull();
+  expect(legalRefFor(nis2, "cs")).toBe("§ 6 odst. 1 zákona č. 264/2025 Sb.");
+  expect(legalRefFor(nis2, "de")).toBe("§33(1) BSIG");
+  expect(legalRefFor(gdpr, "cs")).toBe("GDPR Art. 28(3)");
+});
+
+test("the seeded framework data carries every requirement's Czech place", () => {
+  for (const category of nis2Categories) {
+    for (const r of getNis2RequirementsForCategory(category.slug)) {
+      expect({ code: r.code, czechRef: r.czechRef }).toEqual({
+        code: r.code,
+        czechRef: getNis2CzechRef(r.code),
+      });
+    }
+  }
 });

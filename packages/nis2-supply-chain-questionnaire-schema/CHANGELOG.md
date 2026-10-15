@@ -4,6 +4,17 @@ All notable changes to this repository are documented here. Format follows [Keep
 
 ## [Unreleased]
 
+### Added
+- Czech for every field: label, description, answer options, and the legal-basis line. A test fails if a field lacks any of them.
+- `legalBasisLocalised` (optional): the `legalBasis` citations in another language's citation style, the same instruments and points ("prováděcí nařízení (EU) 2024/2690, příloha, bod 5.1.4 písm. d)"). Czech only for now. `legalBasisFor(field, locale)` returns it, or `legalBasis` where the language is missing.
+
+### Changed
+- Czech examples use Czech names, domains and country codes (Novák a syn s.r.o., prikladsoftware.cz, CZ).
+- `dataProcessingAgreement`, Czech only: no German tax-law example. The description says what a controller is and that a law may designate one (GDPR Art. 4(7)); the `independentController` option names no profession.
+
+### Migration
+- None required. A consumer that renders `legalBasis` keeps working; to show Czech readers their citation style, render `legalBasisFor(field, locale)` instead.
+
 ## [4.0.0] — 2026-10-04
 
 A legal and proportionality review against the primary texts: Directive (EU) 2022/2555, Implementing Regulation (EU) 2024/2690 (CIR), ENISA's Technical Implementation Guidance v1.0 and its ISO 27001 mapping table v1.2, the GDPR, the Cyber Resilience Act (CRA) and, for one German example, § 11 StBerG. Three findings drove it. The questionnaire assumed every supplier is a software vendor: a cleaning company with office keys was asked about pen tests and admin MFA, and nothing about keys. Ten citations pointed at the customer's own security measures as if they bound the supplier. And it asked too much where the law points nowhere, too little where it does (physical access, end of security updates, encryption beyond SaaS, certificate scope).

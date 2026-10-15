@@ -5,21 +5,21 @@
  * (straight from an email link, outside the [locale] segment) and so has no
  * request locale to read — the language rides in the URL instead.
  *
- * de / en / nl only, matching the languages our email copy exists in.
+ * de / en / nl / cs only, matching the languages our email copy exists in.
  */
 import type { EmailCategory, UserConsentEmailTypeId } from "./email-types";
-import type { EmailLocale } from "./locale";
+import { type EmailLocale, isEmailLocale } from "./locale";
 
 /**
  * Alias of EmailLocale. The preference centre and the mail templates answer the
- * same question — which of the three languages our email copy exists in — and
- * used to declare the union twice, so a fourth language would have had to be
- * added in two places to take effect in both.
+ * same question — which languages our email copy exists in — and used to
+ * declare the union twice, so a new language would have had to be added in two
+ * places to take effect in both.
  */
 export type PreferenceLocale = EmailLocale;
 
 export function parsePreferenceLocale(raw: string | null | undefined): PreferenceLocale {
-  return raw === "en" || raw === "nl" ? raw : "de";
+  return raw && isEmailLocale(raw) ? raw : "de";
 }
 
 interface Label {
@@ -44,6 +44,11 @@ export const CATEGORY_LABELS: Record<EmailCategory, Record<PreferenceLocale, Lab
       description:
         "Aanmeldcodes, wachtwoordherstel, meldingen over wijzigingen in uw account. Deze sturen we altijd.",
     },
+    cs: {
+      title: "Zabezpečení a přihlášení",
+      description:
+        "Přihlašovací kódy, obnovení hesla, upozornění na změny ve vašem účtu. Ty posíláme vždy.",
+    },
   },
   account: {
     de: {
@@ -61,6 +66,10 @@ export const CATEGORY_LABELS: Record<EmailCategory, Record<PreferenceLocale, Lab
       description:
         "Uitnodigingen voor een bedrijf en wijzigingen in uw lidmaatschap. Deze sturen we altijd.",
     },
+    cs: {
+      title: "Účet",
+      description: "Pozvánky do organizace a změny vašeho členství. Ty posíláme vždy.",
+    },
   },
   work: {
     de: {
@@ -75,6 +84,10 @@ export const CATEGORY_LABELS: Record<EmailCategory, Record<PreferenceLocale, Lab
     nl: {
       title: "Toewijzingen en beoordelingen",
       description: "Wanneer iemand u een gebied toewijst of een beoordeling afrondt.",
+    },
+    cs: {
+      title: "Přiřazení a schválení",
+      description: "Když vám někdo přiřadí oblast nebo rozhodne o schválení.",
     },
   },
   reminders: {
@@ -93,6 +106,10 @@ export const CATEGORY_LABELS: Record<EmailCategory, Record<PreferenceLocale, Lab
       description:
         "Het dagelijkse overzicht van openstaande punten en het weekrapport voor de leiding.",
     },
+    cs: {
+      title: "Připomínky termínů",
+      description: "Denní přehled otevřených bodů a týdenní zpráva pro vedení.",
+    },
   },
   product: {
     de: {
@@ -110,6 +127,11 @@ export const CATEGORY_LABELS: Record<EmailCategory, Record<PreferenceLocale, Lab
       description:
         "Af en toe een tip wanneer een cursus of uw implementatiepad stilligt.",
     },
+    cs: {
+      title: "Tipy k používání",
+      description:
+        "Občasné upozornění, když se zastaví kurz nebo vaše cesta zavádění NIS 2.",
+    },
   },
   newsletter: {
     de: {
@@ -124,17 +146,23 @@ export const CATEGORY_LABELS: Record<EmailCategory, Record<PreferenceLocale, Lab
       title: "Nieuwsbrief",
       description: "Wat er is veranderd in NIS 2 en in het platform.",
     },
+    cs: {
+      title: "Newsletter",
+      description: "Co se změnilo v NIS 2 a na platformě.",
+    },
   },
   // Not shown in the centre: no account holder can switch these off there.
   supplier: {
     de: { title: "Lieferkette", description: "" },
     en: { title: "Supply chain", description: "" },
     nl: { title: "Toeleveringsketen", description: "" },
+    cs: { title: "Dodavatelský řetězec", description: "" },
   },
   internal: {
     de: { title: "Intern", description: "" },
     en: { title: "Internal", description: "" },
     nl: { title: "Intern", description: "" },
+    cs: { title: "Interní", description: "" },
   },
 };
 
@@ -146,41 +174,49 @@ export const TYPE_LABELS: Record<
     de: "Ein Bereich wurde mir zugewiesen",
     en: "An area was assigned to me",
     nl: "Een gebied is aan mij toegewezen",
+    cs: "Byla mi přiřazena oblast",
   },
   "work.category_unassigned": {
     de: "Eine Zuweisung wurde aufgehoben",
     en: "An assignment was removed",
     nl: "Een toewijzing is ingetrokken",
+    cs: "Přiřazení bylo zrušeno",
   },
   "work.review_decision": {
     de: "Entscheidung über eine Freigabe",
     en: "Decision on a review",
     nl: "Besluit over een beoordeling",
+    cs: "Rozhodnutí o schválení",
   },
   "reminders.daily_digest": {
     de: "Tägliche Übersicht offener Punkte",
     en: "Daily summary of open items",
     nl: "Dagelijks overzicht van openstaande punten",
+    cs: "Denní přehled otevřených bodů",
   },
   "reminders.weekly_management_digest": {
     de: "Wochenbericht für die Leitung",
     en: "Weekly report for management",
     nl: "Weekrapport voor de leiding",
+    cs: "Týdenní zpráva pro vedení",
   },
   "product.course_followup": {
     de: "Nachfrage zu einem begonnenen Kurs",
     en: "Follow-up on a course you started",
     nl: "Navraag over een gestarte cursus",
+    cs: "Dotaz k rozpracovanému kurzu",
   },
   "product.lifecycle_nudge": {
     de: "Hinweis auf den nächsten Schritt im Umsetzungspfad",
     en: "Pointer to your next step on the implementation path",
     nl: "Tip over uw volgende stap op het implementatiepad",
+    cs: "Upozornění na další krok při zavádění NIS 2",
   },
   "newsletter.issue": {
     de: "Newsletter-Ausgaben",
     en: "Newsletter issues",
     nl: "Nieuwsbriefedities",
+    cs: "Vydání newsletteru",
   },
 };
 
@@ -243,5 +279,18 @@ export const PAGE_COPY: Record<
     invalid: "Deze link is niet meer geldig",
     invalidHelp:
       "De link is waarschijnlijk afgekapt bij het kopiëren. Schrijf ons, dan stellen wij het in.",
+  },
+  cs: {
+    title: "Nastavení e-mailů",
+    intro: "Vyberte, které e-maily od nisd2.eu chcete dostávat. Změny platí okamžitě.",
+    allOnTitle: "Dostávat volitelné e-maily",
+    allOnDescription:
+      "Po odškrtnutí zůstane jen to nezbytné: přihlašovací kódy, bezpečnostní upozornění a změny účtu.",
+    alwaysSent: "Posíláme vždy",
+    saved: "Uloženo",
+    failed: "Uložení se nezdařilo. Zkuste to prosím znovu.",
+    invalid: "Tento odkaz už neplatí",
+    invalidHelp:
+      "Odkaz se nejspíš při kopírování zkrátil. Napište nám a nastavíme to za vás.",
   },
 };

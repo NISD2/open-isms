@@ -27,7 +27,8 @@ export type LegislationKey =
   | "cra"
   | "dora"
   | "gdpr"
-  | "enisa-tig";
+  | "enisa-tig"
+  | "zkb";
 
 interface LegislationInput {
   key: LegislationKey;
@@ -38,7 +39,7 @@ interface LegislationInput {
   /** EUR-Lex CELEX or German gesetze-im-internet identifier. */
   legislationIdentifier?: string;
   legislationType: "Directive" | "Regulation" | "Act" | "Decree";
-  jurisdiction: "European Union" | "Deutschland";
+  jurisdiction: "European Union" | "Deutschland" | "Česká republika";
   /** ISO date the act was adopted. */
   legislationDate: string;
   /** ISO date it became applicable / in force. */
@@ -48,7 +49,7 @@ interface LegislationInput {
   responsible?: string;
   /** Primary language of the cited version. */
   inLanguage: string;
-  /** Canonical URL — EUR-Lex for EU, gesetze-im-internet for DE. */
+  /** Canonical URL — EUR-Lex for EU, gesetze-im-internet for DE, e-Sbírka for CZ. */
   url: string;
   /** Stable ELI URI if available. */
   sameAs?: string;
@@ -183,6 +184,23 @@ const ENTRIES: LegislationInput[] = [
     responsible: "European Union Agency for Cybersecurity (ENISA)",
     inLanguage: "en-GB",
     url: "https://www.enisa.europa.eu/publications/technical-implementation-guidance",
+  },
+  {
+    // The Czech pages' law in place of the BSIG. Dates and the ELI path are e-Sbírka's own record.
+    key: "zkb",
+    name: "Zákon č. 264/2025 Sb., o kybernetické bezpečnosti",
+    alternateNames: ["Zákon o kybernetické bezpečnosti", "Czech Cyber Security Act"],
+    legislationType: "Act",
+    jurisdiction: "Česká republika",
+    legislationDate: "2025-06-11",
+    legislationDateOfApplicability: "2025-11-01",
+    legalForce: "InForce",
+    passedBy: "Parlament České republiky",
+    responsible: "Národní úřad pro kybernetickou a informační bezpečnost (NÚKIB)",
+    inLanguage: "cs-CZ",
+    url: "https://e-sbirka.gov.cz/sb/2025/264/2025-11-01",
+    sameAs: "https://e-sbirka.gov.cz/eli/cz/sb/2025/264/2025-11-01",
+    transposesKey: "nis2",
   },
 ];
 

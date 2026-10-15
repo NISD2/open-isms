@@ -137,7 +137,8 @@ const TEXT = {
     backups: (lines: readonly string[]) => `Zálohování zaznamenáno: ${lines.join("; ")}.`,
     restoredOn: (day: string) => `poslední úspěšná obnova ${day}`,
     noRestore: "zatím žádná úspěšná obnova",
-    crypto: "Seznam kryptografie převzat z BSI TR-02102 (německé doporučení).",
+    crypto:
+      "Převzat seznam kryptografických algoritmů podle dokumentu NÚKIB „Minimální požadavky na kryptografické algoritmy“, verze 4.1 ze 4. března 2026.",
     approved: (day: string, titles: readonly string[]) =>
       `Schváleno vedením dne ${day}: ${titles.join("; ")}.`,
     critical: (names: readonly string[]) =>
@@ -223,7 +224,7 @@ export const backupsNote = (
   );
 };
 
-/** The crypto list was taken over from the BSI's recommendations. */
+/** The crypto list was taken over: the BSI's TR-02102 list, or NÚKIB's for a Czech company. */
 export const cryptoNote = (locale: WalkLocale) => TEXT[locale].crypto;
 
 /** The documents management approved in one sitting, by title, on the day of the approval. */

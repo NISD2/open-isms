@@ -22,14 +22,16 @@ import { AlertCircle, Loader2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { type ReactNode, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
+import { BindingTranslationNotice } from "@/components/legal/BindingTranslationNotice";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Form } from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
-import { Link } from "@/i18n/navigation";
+import { getPathname, Link } from "@/i18n/navigation";
 import { formatInvoiceDay, orderSchemaWithVatCheck } from "@/lib/billing/order";
 import { TERMS_VERSION, termsVersionLabel } from "@/lib/billing/terms";
+import { BINDING_CONTRACT_LOCALE } from "@/lib/legal/contract-language";
 import { trpc } from "@/lib/trpc/client";
 import { InvoicePreview } from "./InvoicePreview";
 import { OrderFields, type OrderValues, orderDefaults } from "./OrderFields";
@@ -68,6 +70,11 @@ function OrderLegalNotes() {
         </span>
         {t("title")}
       </h2>
+      <BindingTranslationNotice
+        terms
+        className="mt-4"
+        englishHref={getPathname({ href: "/bestellen", locale: BINDING_CONTRACT_LOCALE })}
+      />
       <dl className="mt-4 space-y-3 text-sm">
         {LEGAL_NOTES.map((key) => (
           <div key={key} className="grid gap-0.5 sm:grid-cols-[8.5rem_1fr] sm:gap-4">
@@ -96,6 +103,7 @@ export function OrderForm({
         quote.mutate({
           vatNumber: vars.order.vatNumber,
           countryCode: vars.order.countryCode,
+          locale,
         });
       }
     },
@@ -121,7 +129,7 @@ export function OrderForm({
     if (vatNumber.length < 4) return;
     // A register outage never surfaces: the quote still answers, only without a confirmation.
     // Only the quote call itself failing is shown (below), because ordering waits on it.
-    quote.mutate({ vatNumber, countryCode: form.getValues("countryCode") });
+    quote.mutate({ vatNumber, countryCode: form.getValues("countryCode"), locale });
   };
 
   const onSubmit = (values: OrderValues) => {
@@ -136,13 +144,14 @@ export function OrderForm({
       quote.variables?.vatNumber === vatNumber ? quote.data?.price.grossCents : undefined;
     // No price shown yet (Enter pressed inside the VAT field): show it first, order on the next click.
     if (quoted === undefined) {
-      quote.mutate({ vatNumber, countryCode: values.countryCode });
+      quote.mutate({ vatNumber, countryCode: values.countryCode, locale });
       return;
     }
     place.mutate({
       order,
       quotedGrossCents: quoted,
       terms: { accepted: true, version: TERMS_VERSION },
+      locale,
     });
   };
 

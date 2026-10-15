@@ -36,12 +36,15 @@ import type { quoteFor } from "@/lib/billing/quote";
 export type OrderValues = z.input<typeof orderSchemaWithVatCheck>;
 export type Quote = Awaited<ReturnType<typeof quoteFor>>;
 
+/** The country a reader of this language most likely orders from; Germany otherwise. */
+const DEFAULT_COUNTRY: Partial<Record<string, string>> = { nl: "NL", cs: "CZ" };
+
 export const orderDefaults = (locale: string): OrderValues => ({
   companyName: "",
   street: "",
   zip: "",
   city: "",
-  countryCode: locale === "nl" ? "NL" : "DE",
+  countryCode: DEFAULT_COUNTRY[locale] ?? "DE",
   vatNumber: "",
   invoiceEmail: "",
   copyToEmail: "",

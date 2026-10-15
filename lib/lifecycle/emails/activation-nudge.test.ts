@@ -89,6 +89,26 @@ describe("renderActivationNudge", () => {
     expect(nl.text).toContain("De volgende stap:");
   });
 
+  test("cs renders its own copy, with a bare greeting and a Czech link", async () => {
+    const cs = await renderActivationNudge(
+      input({
+        locale: "cs",
+        nextStepTitle: "Hodnocení rizik",
+        journeyUrl: "https://nisd2.eu/cs/journey",
+      }),
+    );
+    expect(cs.subject).toBe("Váš další krok: Hodnocení rizik");
+    expect(cs.text).toContain("Dobrý den,");
+    expect(cs.text).not.toContain("Simon");
+    expect(cs.text).toContain("hotovo 3 z celkem 49 požadavků");
+    expect(cs.text).toContain("https://nisd2.eu/cs/journey");
+    expect(cs.html).toContain('lang="cs"');
+    expect(cs.html).toContain("Odhlásit připomínky e-mailem");
+
+    const fresh = await renderActivationNudge(input({ locale: "cs", done: 0 }));
+    expect(fresh.text).toContain("První krok:");
+  });
+
   test("named greetings per locale: DE vocative comma, NL switches to Beste", async () => {
     expect((await renderActivationNudge(input({ locale: "de" }))).text).toContain(
       "Guten Tag, Simon,",

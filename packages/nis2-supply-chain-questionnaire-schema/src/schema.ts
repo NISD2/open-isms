@@ -41,6 +41,9 @@ const localisedString = z.object({
   ro: z.string().min(1).optional(),
 });
 
+/** A `legalBasis` line in another language's citation style. English is `legalBasis` itself. */
+const localisedCitation = localisedString.omit({ en: true }).partial();
+
 /** One answer that must hold for a question to show. */
 export const conditionSchema = z.object({
   field: z.string().min(1),
@@ -80,6 +83,13 @@ export const supplierFieldSchema = z.object({
    */
   legalBasis: z.string().min(1),
   /**
+   * The same citations as `legalBasis`, written the way a reader in that language cites them:
+   * "prováděcí nařízení (EU) 2024/2690, příloha, bod 5.1.4 písm. d)". Same instruments, same
+   * points; `legalBasis` stays the stable form that tests and consumers match on. Read it with
+   * `legalBasisFor`, which falls back to `legalBasis` for a language left out.
+   */
+  legalBasisLocalised: localisedCitation.optional(),
+  /**
    * ISO/IEC 27001:2022 Annex A controls the question serves, taken from
    * ENISA's mapping of CIR 2024/2690 to ISO/IEC 27001 (Technical
    * Implementation Guidance mapping table, version 1.2). For customers who
@@ -110,6 +120,15 @@ export const supplierResponseSchema = z.record(
 export type SupplierField = z.infer<typeof supplierFieldSchema>;
 export type SupplierQuestionnaire = z.infer<typeof supplierQuestionnaireSchema>;
 export type SupplierResponse = z.infer<typeof supplierResponseSchema>;
+
+/** The legal-basis line in the reader's language, or the stable form where it has none. */
+export const legalBasisFor = (
+  field: Pick<SupplierField, "legalBasis" | "legalBasisLocalised">,
+  locale: string,
+): string => {
+  const localised: Partial<Record<string, string>> = field.legalBasisLocalised ?? {};
+  return localised[locale] ?? field.legalBasis;
+};
 
 /** The conditions a question depends on: none, one, or any one of several. */
 export const conditionsOf = (

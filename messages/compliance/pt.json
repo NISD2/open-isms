@@ -504,6 +504,9 @@
     "assistWhereToFind": "Onde encontrar",
     "assistField": "Campo",
     "assistValue": "Valor",
-    "rateLimited": "A sua organização atingiu o limite horário de extração com IA. Tente novamente mais tarde."
+    "rateLimited": "A sua organização atingiu o limite horário de extração com IA. Tente novamente mais tarde.",
+    "emptyText": "Cole primeiro algum texto.",
+    "extractFailed": "A extração falhou. Tente novamente.",
+    "aiDisabled": "As funcionalidades de IA estão desativadas para a sua organização. Ative-as em Definições → Partilha de Dados com a IA para usar esta funcionalidade."
   }
 }

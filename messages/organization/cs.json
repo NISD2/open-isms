@@ -24,7 +24,7 @@
     "entityTypes": {
       "essential": "Základní subjekt",
       "important": "Důležitý subjekt",
-      "kritis": "Provozovatel KRITIS"
+      "kritis": "Subjekt kritické infrastruktury"
     },
     "legalForm": "Právní forma",
     "legalFormPlaceholder": "např. GmbH, AG, KG",

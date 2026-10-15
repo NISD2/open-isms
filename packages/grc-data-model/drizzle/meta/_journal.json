@@ -64,6 +64,13 @@
       "when": 1791114317656,
       "tag": "0008_asset_hosting",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1792078947392,
+      "tag": "0009_requirement_czech_refs",
+      "breakpoints": true
     }
   ]
 }

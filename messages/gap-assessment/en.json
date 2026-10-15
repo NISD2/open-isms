@@ -107,6 +107,17 @@
       },
       "startCompliance": "Start Closing Gaps",
       "retakeAssessment": "Take Assessment Again"
+    },
+    "share": {
+      "metaTitle": "Shared gap assessment",
+      "title": "Password-protected results",
+      "intro": "Enter the password you received with this link to view the gap assessment results.",
+      "password": "Password",
+      "submit": "View results",
+      "checking": "Checking…",
+      "tooManyAttempts": "Too many attempts. Please wait 15 minutes and try again.",
+      "invalidLink": "This share link is invalid or has been revoked.",
+      "wrongPassword": "Incorrect password."
     }
   }
 }

@@ -1,12 +1,11 @@
 import { getPathname } from "@/i18n/navigation";
 import { bookingUrlFor } from "@/lib/booking";
+import { type WalkLocale, walkLocaleOf } from "@/lib/durchgang/types";
 import { baseUrl } from "@/lib/seo";
 import type { EmailLocale } from "./locale";
 
 /** So a call booked from this mail says where it came from (cal.com hidden questions). */
 const FOLLOW_UP_TAGS = "?utm_source=signup&utm_medium=email&utm_campaign=follow-up";
-
-type FollowUpLocale = "de" | "en";
 
 interface FollowUpParts {
   readonly greeting: string;
@@ -15,16 +14,17 @@ interface FollowUpParts {
 }
 
 const COPY: Record<
-  FollowUpLocale,
+  WalkLocale,
   {
     readonly subject: string;
     readonly body: (p: FollowUpParts) => string;
-    readonly hello: string;
+    /** The salutation, with the name where the language can carry it as stored. */
+    readonly greeting: (name: string | null) => string;
   }
 > = {
   de: {
     subject: "Ihre Anmeldung bei nisd2.eu",
-    hello: "Guten Tag",
+    greeting: (name) => (name ? `Guten Tag ${name}` : "Guten Tag"),
     body: ({ greeting, booking, approval }) =>
       [
         `${greeting},`,
@@ -49,7 +49,7 @@ const COPY: Record<
   },
   en: {
     subject: "Your signup at nisd2.eu",
-    hello: "Hello",
+    greeting: (name) => (name ? `Hello ${name}` : "Hello"),
     body: ({ greeting, booking, approval }) =>
       [
         `${greeting},`,
@@ -72,22 +72,49 @@ const COPY: Record<
         "",
       ].join("\n"),
   },
+  // Czech needs the vocative after "Dobrý den", which a stored name does not give us, so the
+  // greeting stays bare. Neither founder speaks Czech, so the offered call says it is in English.
+  cs: {
+    subject: "Vaše registrace na nisd2.eu",
+    greeting: () => "Dobrý den",
+    body: ({ greeting, booking, approval }) =>
+      [
+        `${greeting},`,
+        "",
+        "děkuji za vaši registraci na nisd2.eu. Jsem jeden ze dvou zakladatelů a píšu vám osobně.",
+        "",
+        "Nejdřív krátká otázka: máte NIS 2 ve své firmě zavést, nebo se s tématem zatím jen seznamujete?",
+        "",
+        "Pokud ho máte zavést: průvodce NIS 2 vás provede celým zaváděním krok za krokem. Vy vyplňujete, my každý bod srozumitelně vysvětlíme a na konci vaše vedení schválí dokumenty přímo v aplikaci. 4 800 € bez DPH ročně, na fakturu, 30 dní na vrácení peněz.",
+        "",
+        "Chcete ho nejdřív vidět? Pak vám průvodce ukážu v krátkém hovoru v angličtině, v termínu, který vám vyhovuje:",
+        booking,
+        "",
+        "Rozhoduje někdo jiný? Tady je stránka pro vaše vedení:",
+        approval,
+        "",
+        "Pokud se vám to teď nehodí, tento e-mail prostě ignorujte.",
+        "",
+        "S pozdravem",
+        "",
+      ].join("\n"),
+  },
 };
 
 /**
  * The personal follow-up an operator sends a new signup from the signup notice: one question,
- * the offer and its price, the call, and the page for whoever signs. German for German signups,
- * English for everyone else (the walk itself is German and English). A name that is really an
- * email address (Google can hand one over as the name) is left out of the greeting.
+ * the offer and its price, the call, and the page for whoever signs. In the walk's own languages
+ * (German, English, Czech), English for everyone else. A name that is really an email address
+ * (Google can hand one over as the name) is left out of the greeting.
  */
 export function signupFollowUp(opts: {
   readonly name: string | null;
   readonly locale: EmailLocale;
-}): { readonly locale: FollowUpLocale; readonly subject: string; readonly body: string } {
-  const locale: FollowUpLocale = opts.locale === "de" ? "de" : "en";
+}): { readonly locale: WalkLocale; readonly subject: string; readonly body: string } {
+  const locale = walkLocaleOf(opts.locale);
   const copy = COPY[locale];
   const name = opts.name?.trim() ?? "";
-  const greeting = name && !name.includes("@") ? `${copy.hello} ${name}` : copy.hello;
+  const greeting = copy.greeting(name && !name.includes("@") ? name : null);
   const approval = `${baseUrl}${getPathname({ href: "/pricing/approval", locale })}`;
   return {
     locale,

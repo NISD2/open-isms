@@ -5,7 +5,24 @@ import {
   formatFieldValue,
   formatReportDate,
   formatSigner,
+  getDateLocale,
+  pdfLocale,
 } from "./format";
+
+describe("pdfLocale", () => {
+  test("keeps the languages the documents are written in", () => {
+    expect(pdfLocale("de")).toBe("de");
+    expect(pdfLocale("cs")).toBe("cs");
+    expect(pdfLocale("cs-CZ")).toBe("cs");
+    expect(pdfLocale(" DE-at ")).toBe("de");
+  });
+
+  test("gives every other reader English", () => {
+    expect(pdfLocale("pl")).toBe("en");
+    expect(pdfLocale(null)).toBe("en");
+    expect(pdfLocale("")).toBe("en");
+  });
+});
 
 // Rows saved before answers were checked can hold megabytes; react-pdf lays
 // out whatever it is given, synchronously, on the one app container.
@@ -25,6 +42,12 @@ describe("formatFieldValue", () => {
     expect(formatFieldValue("SIEM_und_EDR", "text", "en")).toBe("SIEM und EDR");
     expect(formatFieldValue(true, "boolean", "de")).toBe("Ja");
     expect(formatFieldValue(4, "number", "de")).toBe("4");
+  });
+
+  test("says yes and no in the document's language", () => {
+    expect(formatFieldValue(true, "boolean", "cs")).toBe("Ano");
+    expect(formatFieldValue(false, "boolean", "cs")).toBe("Ne");
+    expect(formatFieldValue(false, "boolean", "pl")).toBe("No");
   });
 });
 
@@ -52,6 +75,12 @@ describe("formatReportDate", () => {
     const lateEvening = new Date("2026-09-11T23:30:00.000Z");
     expect(formatReportDate(lateEvening, "de")).toBe("12.9.2026");
     expect(formatReportDate(lateEvening, "en")).toBe("12/09/2026");
+    expect(formatReportDate(lateEvening, "cs")).toBe("12. 9. 2026");
+  });
+
+  test("dates a Czech document as Czech does, and any other as en-GB", () => {
+    expect(getDateLocale("cs")).toBe("cs-CZ");
+    expect(getDateLocale("fr")).toBe("en-GB");
   });
 });
 

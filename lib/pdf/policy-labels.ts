@@ -5,7 +5,11 @@
  * a small set of document-level labels here, keyed by locale.
  */
 
-export const POLICY_TITLES: Record<string, Record<string, string>> = {
+import { type PdfLocale, pdfLocale } from "./format";
+
+export const POLICY_TITLES: Readonly<
+  Record<PdfLocale, Readonly<Record<string, string>>>
+> = {
   en: {
     GOV: "Information Security Governance Policy",
     RSK: "Risk Management Policy",
@@ -34,6 +38,20 @@ export const POLICY_TITLES: Record<string, Record<string, string>> = {
     AUT: "Richtlinie zur Authentifizierung & sicheren Kommunikation",
     REG: "Richtlinie zur Registrierung & Meldepflicht",
   },
+  cs: {
+    GOV: "Politika řízení informační bezpečnosti",
+    RSK: "Politika řízení rizik",
+    INC: "Politika řešení incidentů",
+    BCP: "Politika řízení kontinuity činností a obnovy po havárii",
+    SUP: "Politika bezpečnosti dodavatelského řetězce",
+    PRO: "Politika bezpečného nákupu a vývoje",
+    EFF: "Politika hodnocení účinnosti bezpečnostních opatření",
+    TRN: "Politika kybernetické hygieny a školení",
+    CRY: "Politika kryptografie a šifrování",
+    ACC: "Politika řízení přístupu a personální bezpečnosti",
+    AUT: "Politika autentizace a zabezpečené komunikace",
+    REG: "Politika registrace a hlášení",
+  },
 };
 
 interface DocumentLabels {
@@ -49,7 +67,7 @@ interface DocumentLabels {
   page: (n: number, total: number) => string;
 }
 
-const LABELS: Record<string, DocumentLabels> = {
+const LABELS: Readonly<Record<PdfLocale, DocumentLabels>> = {
   en: {
     version: "Version",
     date: "Date",
@@ -69,6 +87,16 @@ const LABELS: Record<string, DocumentLabels> = {
     general: "Allgemein",
     generatedWith: "Erstellt mit",
     page: (n, total) => `Seite ${n} von ${total}`,
+  },
+  cs: {
+    version: "Verze",
+    date: "Datum",
+    signedOff: "Schválil",
+    confidential: "Důvěrné",
+    framework: "Rámec",
+    general: "Obecné",
+    generatedWith: "Vytvořeno pomocí",
+    page: (n, total) => `Strana ${n} z ${total}`,
   },
 };
 
@@ -100,9 +128,11 @@ interface ReportLabels {
   /** A requirement no statute asks of the company. */
   notRequired: string;
   and: string;
+  /** The BSI's method a category maps to: German, so a reader outside Germany is told it is. */
+  grundschutz: string;
 }
 
-const REPORT_LABELS: Record<string, ReportLabels> = {
+const REPORT_LABELS: Readonly<Record<PdfLocale, ReportLabels>> = {
   en: {
     title: "Compliance Report",
     sector: "Sector",
@@ -130,6 +160,7 @@ const REPORT_LABELS: Record<string, ReportLabels> = {
     coveredAwaiting: (codes) => `in the walkthrough with ${codes}, awaiting sign-off`,
     notRequired: "not required by law",
     and: "and",
+    grundschutz: "IT-Grundschutz",
   },
   de: {
     title: "Compliance-Bericht",
@@ -158,10 +189,40 @@ const REPORT_LABELS: Record<string, ReportLabels> = {
     coveredAwaiting: (codes) => `im Durchgang mit ${codes}, wartet auf Freigabe`,
     notRequired: "gesetzlich nicht gefordert",
     and: "und",
+    grundschutz: "IT-Grundschutz",
+  },
+  cs: {
+    title: "Zpráva o souladu",
+    sector: "Odvětví",
+    generated: "Vytvořeno dne",
+    assessmentStarted: "Hodnocení zahájeno dne",
+    draftTitle: "KONCEPT: Obsahuje neschválené body",
+    draftText: (pending, completed) =>
+      `${pending} z ${completed} dokončených bodů čeká na schválení revizorem.`,
+    statCompliance: "Soulad",
+    statCompleted: "Dokončeno",
+    statApproved: "Schváleno",
+    statPendingApproval: "Čeká na schválení",
+    statTotal: "Celkem",
+    signedOffBy: "Schválil",
+    signedOffAt: "Schváleno dne",
+    templateVersion: "Verze šablony",
+    notApplicableReason: "Důvod, proč se nevztahuje",
+    notApplicableDecided: "Rozhodnuto",
+    operationalData: "Provozní údaje",
+    evidenceFiles: "Soubory s doklady",
+    reviewerFeedback: "Připomínky revizora",
+    signedOff: "Schváleno",
+    categoryIntake: "Odpovědi k oblasti",
+    coveredSigned: (codes) => `schváleno v průvodci (${codes})`,
+    coveredAwaiting: (codes) => `v průvodci (${codes}), čeká na schválení`,
+    notRequired: "zákon nevyžaduje",
+    and: "a",
+    grundschutz: "IT-Grundschutz (německá metodika BSI)",
   },
 };
 
-const STATUS_LABELS: Record<string, Record<string, string>> = {
+const STATUS_LABELS: Readonly<Record<PdfLocale, Readonly<Record<string, string>>>> = {
   en: {
     not_started: "not started",
     in_progress: "in progress",
@@ -178,28 +239,36 @@ const STATUS_LABELS: Record<string, Record<string, string>> = {
     rejected: "abgelehnt",
     not_applicable: "nicht anwendbar",
   },
+  cs: {
+    not_started: "nezahájeno",
+    in_progress: "probíhá",
+    completed: "dokončeno",
+    approved: "schváleno",
+    rejected: "zamítnuto",
+    not_applicable: "nevztahuje se",
+  },
 };
 
 export function getReportLabels(locale: string): ReportLabels {
-  return REPORT_LABELS[locale] ?? REPORT_LABELS.en;
+  return REPORT_LABELS[pdfLocale(locale)];
 }
 
 export function getStatusLabel(status: string, locale: string): string {
   return (
-    STATUS_LABELS[locale]?.[status] ??
-    STATUS_LABELS.en?.[status] ??
+    STATUS_LABELS[pdfLocale(locale)][status] ??
+    STATUS_LABELS.en[status] ??
     status.replace(/_/g, " ")
   );
 }
 
 export function getPolicyTitle(categoryCode: string, locale: string): string {
   return (
-    POLICY_TITLES[locale]?.[categoryCode] ??
-    POLICY_TITLES.en?.[categoryCode] ??
+    POLICY_TITLES[pdfLocale(locale)][categoryCode] ??
+    POLICY_TITLES.en[categoryCode] ??
     categoryCode
   );
 }
 
 export function getDocumentLabels(locale: string): DocumentLabels {
-  return LABELS[locale] ?? LABELS.en;
+  return LABELS[pdfLocale(locale)];
 }

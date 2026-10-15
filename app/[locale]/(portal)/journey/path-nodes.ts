@@ -5,10 +5,32 @@ import {
   journeyIndex,
   priorityRank,
 } from "@/lib/compliance/journey-position";
-import type { CoveredBy } from "@/lib/durchgang";
+import { type CoveredBy, type WalkLocale, walkLocaleOf } from "@/lib/durchgang";
 import { type JourneyItem, liveNode } from "./views";
 
 export type { DotState };
+
+/**
+ * The languages the journey's own labels are written in: the walk's, since a Czech reader moves
+ * between the two. Any other page language reads English.
+ */
+export type JourneyLocale = WalkLocale;
+export const journeyLocaleOf = walkLocaleOf;
+
+/** One label in each journey language. */
+export type Localized = Readonly<Record<JourneyLocale, string>>;
+
+type PluralForms = Partial<Record<Intl.LDMLPluralRule, string>> & {
+  readonly other: string;
+};
+
+/** A count with the noun form its language takes for it ("1 den", "3 dny", "5 dní"). */
+export const countOf = (
+  locale: JourneyLocale,
+  count: number,
+  forms: PluralForms,
+): string =>
+  `${count} ${forms[new Intl.PluralRules(locale).select(count)] ?? forms.other}`;
 
 export type NodeStatus = "done" | "current" | "upcoming";
 export type ColumnKey = "leadership" | "security" | "it" | "operations";
@@ -58,43 +80,50 @@ export type Aggregate = {
   open: number;
 };
 
-/** Swimlane columns, in display order. "Management" matches the §38 language. */
+/**
+ * Swimlane columns, in display order. "Management" matches the §38 language; the Czech column
+ * names the management duties of § 4 in both measure decrees.
+ */
 export const COLUMNS: {
   key: ColumnKey;
-  en: string;
-  de: string;
-  infoEn: string;
-  infoDe: string;
+  label: Localized;
+  info: Localized;
 }[] = [
   {
     key: "leadership",
-    en: "Management",
-    de: "Geschäftsführung",
-    infoEn:
-      "Approves and is accountable. Signs off governance, budget and the duties under §38.",
-    infoDe:
-      "Genehmigt und verantwortet. Gibt Governance, Budget und die Pflichten nach §38 frei.",
+    label: { en: "Management", de: "Geschäftsführung", cs: "Vedení" },
+    info: {
+      en: "Approves and is accountable. Signs off governance, budget and the duties under §38.",
+      de: "Genehmigt und verantwortet. Gibt Governance, Budget und die Pflichten nach §38 frei.",
+      cs: "Schvaluje a nese odpovědnost. Schvaluje řízení, rozpočet a povinnosti vrcholného vedení podle § 4 vyhlášky č. 410/2025 Sb. a § 4 vyhlášky č. 409/2025 Sb.",
+    },
   },
   {
     key: "security",
-    en: "Security",
-    de: "Sicherheit",
-    infoEn: "Drives risk, incidents, access, training and effectiveness (CISO).",
-    infoDe: "Steuert Risiko, Vorfälle, Zugriff, Schulung und Wirksamkeit (CISO).",
+    label: { en: "Security", de: "Sicherheit", cs: "Bezpečnost" },
+    info: {
+      en: "Drives risk, incidents, access, training and effectiveness (CISO).",
+      de: "Steuert Risiko, Vorfälle, Zugriff, Schulung und Wirksamkeit (CISO).",
+      cs: "Řídí rizika, incidenty, přístupy, školení a účinnost (CISO).",
+    },
   },
   {
     key: "it",
-    en: "IT",
-    de: "IT",
-    infoEn: "Implements technical controls: cryptography, patching, authentication.",
-    infoDe: "Setzt technische Maßnahmen um: Kryptografie, Patches, Authentifizierung.",
+    label: { en: "IT", de: "IT", cs: "IT" },
+    info: {
+      en: "Implements technical controls: cryptography, patching, authentication.",
+      de: "Setzt technische Maßnahmen um: Kryptografie, Patches, Authentifizierung.",
+      cs: "Zavádí technická opatření: kryptografii, záplaty, autentizaci.",
+    },
   },
   {
     key: "operations",
-    en: "Operations",
-    de: "Betrieb",
-    infoEn: "Owns continuity, backups and supplier management.",
-    infoDe: "Verantwortet Kontinuität, Backups und Lieferantenmanagement.",
+    label: { en: "Operations", de: "Betrieb", cs: "Provoz" },
+    info: {
+      en: "Owns continuity, backups and supplier management.",
+      de: "Verantwortet Kontinuität, Backups und Lieferantenmanagement.",
+      cs: "Odpovídá za kontinuitu, zálohy a řízení dodavatelů.",
+    },
   },
 ];
 
@@ -105,39 +134,43 @@ export const COLUMNS: {
  */
 export const BANDS: {
   key: Band;
-  en: string;
-  de: string;
-  hintEn: string;
-  hintDe: string;
-  phaseEn: string;
-  phaseDe: string;
+  name: Localized;
+  hint: Localized;
+  phase: Localized;
 }[] = [
   {
     key: "minimum",
-    en: "Defensible minimum",
-    de: "Belastbares Minimum",
-    hintEn: "The mandatory, foundational controls",
-    hintDe: "Die verpflichtenden, grundlegenden Maßnahmen",
-    phaseEn: "In the first month",
-    phaseDe: "Im ersten Monat",
+    name: {
+      en: "Defensible minimum",
+      de: "Belastbares Minimum",
+      cs: "Obhajitelné minimum",
+    },
+    hint: {
+      en: "The mandatory, foundational controls",
+      de: "Die verpflichtenden, grundlegenden Maßnahmen",
+      cs: "Povinná základní opatření",
+    },
+    phase: { en: "In the first month", de: "Im ersten Monat", cs: "V prvním měsíci" },
   },
   {
     key: "year",
-    en: "Over the year",
-    de: "Im Lauf des Jahres",
-    hintEn: "The remaining measures, step by step",
-    hintDe: "Die übrigen Maßnahmen, Schritt für Schritt",
-    phaseEn: "In the first year",
-    phaseDe: "Im ersten Jahr",
+    name: { en: "Over the year", de: "Im Lauf des Jahres", cs: "V průběhu roku" },
+    hint: {
+      en: "The remaining measures, step by step",
+      de: "Die übrigen Maßnahmen, Schritt für Schritt",
+      cs: "Zbývající opatření, krok za krokem",
+    },
+    phase: { en: "In the first year", de: "Im ersten Jahr", cs: "V prvním roce" },
   },
   {
     key: "later",
-    en: "Lower priority",
-    de: "Geringere Priorität",
-    hintEn: "Once the rest is in place",
-    hintDe: "Wenn der Rest steht",
-    phaseEn: "After that",
-    phaseDe: "Danach",
+    name: { en: "Lower priority", de: "Geringere Priorität", cs: "Nižší priorita" },
+    hint: {
+      en: "Once the rest is in place",
+      de: "Wenn der Rest steht",
+      cs: "Až bude zbytek hotový",
+    },
+    phase: { en: "After that", de: "Danach", cs: "Poté" },
   },
 ];
 
@@ -151,58 +184,83 @@ const ROLE_COLUMN: Record<string, ColumnKey> = {
   cpo: "operations",
 };
 
-export const ROLE_LABEL: Record<string, { en: string; de: string }> = {
-  ceo: { en: "Management", de: "Geschäftsführung" },
-  legal: { en: "Legal", de: "Recht" },
-  ciso: { en: "CISO", de: "CISO" },
-  hr_director: { en: "HR", de: "HR" },
-  cto: { en: "IT lead", de: "IT-Leitung" },
-  coo: { en: "Operations", de: "Betrieb" },
-  cpo: { en: "Procurement", de: "Einkauf" },
+export const ROLE_LABEL: Record<string, Localized> = {
+  ceo: { en: "Management", de: "Geschäftsführung", cs: "Vedení" },
+  legal: { en: "Legal", de: "Recht", cs: "Právní oddělení" },
+  ciso: { en: "CISO", de: "CISO", cs: "CISO" },
+  hr_director: { en: "HR", de: "HR", cs: "HR" },
+  cto: { en: "IT lead", de: "IT-Leitung", cs: "Vedoucí IT" },
+  coo: { en: "Operations", de: "Betrieb", cs: "Provoz" },
+  cpo: { en: "Procurement", de: "Einkauf", cs: "Nákup" },
 };
 
-/** German display names for the 12 NIS2 categories (chrono section headers). */
-const CATEGORY_NAME_DE: Record<string, string> = {
-  GOV: "Governance",
-  RSK: "Risikomanagement",
-  INC: "Vorfallsbehandlung",
-  BCP: "Geschäftskontinuität",
-  SUP: "Lieferanten und Lieferkette",
-  PRO: "Patches und Schwachstellen",
-  EFF: "Wirksamkeitsprüfung",
-  TRN: "Schulung",
-  CRY: "Kryptografie",
-  ACC: "Zugriffssteuerung",
-  AUT: "Authentifizierung",
-  REG: "Registrierung",
+/**
+ * Display names for the 12 NIS2 categories (chrono section headers) where the framework's English
+ * name is not the one shown. The Czech names are the category pages' own (compliance.categories),
+ * so a heading here reads the same as the page it leads to.
+ */
+const CATEGORY_NAME: Record<Exclude<JourneyLocale, "en">, Record<string, string>> = {
+  de: {
+    GOV: "Governance",
+    RSK: "Risikomanagement",
+    INC: "Vorfallsbehandlung",
+    BCP: "Geschäftskontinuität",
+    SUP: "Lieferanten und Lieferkette",
+    PRO: "Patches und Schwachstellen",
+    EFF: "Wirksamkeitsprüfung",
+    TRN: "Schulung",
+    CRY: "Kryptografie",
+    ACC: "Zugriffssteuerung",
+    AUT: "Authentifizierung",
+    REG: "Registrierung",
+  },
+  cs: {
+    GOV: "Řízení a odpovědnost",
+    RSK: "Řízení rizik",
+    INC: "Řešení incidentů",
+    BCP: "Kontinuita podnikání",
+    SUP: "Bezpečnost dodavatelského řetězce",
+    PRO: "Nákup a vývoj",
+    EFF: "Posouzení účinnosti",
+    TRN: "Kybernetická hygiena a školení",
+    CRY: "Kryptografie a šifrování",
+    ACC: "Řízení přístupu a personální bezpečnost",
+    AUT: "Autentizace a komunikace",
+    REG: "Registrace a hlášení",
+  },
 };
 
 /** Categories in process order, for the chronological view's group headers. */
 export const ORDERED_CATEGORIES: {
   code: string;
-  name: string;
-  nameDe: string;
+  name: Localized;
   slug: string;
   sortOrder: number;
 }[] = [...nis2Categories]
   .sort((a, b) => a.sortOrder - b.sortOrder)
-  .map((c) => ({
-    code: c.code,
-    name: c.name ?? c.code,
-    nameDe: CATEGORY_NAME_DE[c.code] ?? c.name ?? c.code,
-    slug: c.slug ?? c.code.toLowerCase(),
-    sortOrder: c.sortOrder,
-  }));
+  .map((c) => {
+    const en = c.name ?? c.code;
+    return {
+      code: c.code,
+      name: {
+        en,
+        de: CATEGORY_NAME.de[c.code] ?? en,
+        cs: CATEGORY_NAME.cs[c.code] ?? en,
+      },
+      slug: c.slug ?? c.code.toLowerCase(),
+      sortOrder: c.sortOrder,
+    };
+  });
 
 /** Localized human labels for requirement.frequency slugs. */
-export const FREQUENCY_LABEL: Record<string, { en: string; de: string }> = {
-  annual: { en: "Annual", de: "Jährlich" },
-  quarterly: { en: "Quarterly", de: "Vierteljährlich" },
-  monthly: { en: "Monthly", de: "Monatlich" },
-  "every-3-years": { en: "Every 3 years", de: "Alle 3 Jahre" },
-  "on-change": { en: "On change", de: "Bei Änderung" },
-  "one-time": { en: "One-time", de: "Einmalig" },
-  ongoing: { en: "Ongoing", de: "Laufend" },
+export const FREQUENCY_LABEL: Record<string, Localized> = {
+  annual: { en: "Annual", de: "Jährlich", cs: "Ročně" },
+  quarterly: { en: "Quarterly", de: "Vierteljährlich", cs: "Čtvrtletně" },
+  monthly: { en: "Monthly", de: "Monatlich", cs: "Měsíčně" },
+  "every-3-years": { en: "Every 3 years", de: "Alle 3 Jahre", cs: "Každé 3 roky" },
+  "on-change": { en: "On change", de: "Bei Änderung", cs: "Při změně" },
+  "one-time": { en: "One-time", de: "Einmalig", cs: "Jednorázově" },
+  ongoing: { en: "Ongoing", de: "Laufend", cs: "Průběžně" },
 };
 
 const CATEGORY_ROLE: Record<string, string> = Object.fromEntries(
@@ -258,11 +316,17 @@ export function requirementHref(node: Pick<FlowNode, "categorySlug" | "code">) {
  * sign-off is left. The hero, the pinned bar and the pill over the node all say this, and must
  * agree.
  */
-export function startLabel(state: DotState, de: boolean): string {
-  if (state === "awaiting") return de ? "Freigeben" : "Sign off";
-  if (state === "started") return de ? "Weiter" : "Continue";
-  return de ? "Anfangen" : "Start";
+export function startLabel(state: DotState, locale: JourneyLocale): string {
+  if (state === "awaiting") return START_LABEL.awaiting[locale];
+  if (state === "started") return START_LABEL.started[locale];
+  return START_LABEL.todo[locale];
 }
+
+const START_LABEL: Record<"awaiting" | "started" | "todo", Localized> = {
+  awaiting: { en: "Sign off", de: "Freigeben", cs: "Schválit" },
+  started: { en: "Continue", de: "Weiter", cs: "Pokračovat" },
+  todo: { en: "Start", de: "Anfangen", cs: "Začít" },
+};
 
 /** Tailwind text colour for a state, so a status reads the same in every view. */
 export function statusTone(state: DotState): string {
@@ -273,12 +337,40 @@ export function statusTone(state: DotState): string {
 }
 
 /** Localized requirement.frequency, falling back to the raw slug. */
-export function frequencyLabel(frequency: string | null, de: boolean): string | null {
+export function frequencyLabel(
+  frequency: string | null,
+  locale: JourneyLocale,
+): string | null {
   if (!frequency) return null;
-  const label = FREQUENCY_LABEL[frequency];
-  if (!label) return frequency;
-  return de ? label.de : label.en;
+  return FREQUENCY_LABEL[frequency]?.[locale] ?? frequency;
 }
+
+const REVIEW_CLOCK: Record<
+  JourneyLocale,
+  { overdue: (days: number) => string; today: string; next: (days: number) => string }
+> = {
+  en: {
+    overdue: (days) =>
+      `Review ${countOf("en", days, { one: "day", other: "days" })} overdue`,
+    today: "Review due today",
+    next: (days) =>
+      `Next review in ${countOf("en", days, { one: "day", other: "days" })}`,
+  },
+  de: {
+    overdue: (days) =>
+      `Prüfung ${countOf("de", days, { one: "Tag", other: "Tage" })} überfällig`,
+    today: "Prüfung heute fällig",
+    next: (days) =>
+      `Nächste Prüfung in ${countOf("de", days, { one: "Tag", other: "Tagen" })}`,
+  },
+  cs: {
+    overdue: (days) =>
+      `Přezkum ${countOf("cs", days, { one: "den", few: "dny", other: "dní" })} po termínu`,
+    today: "Přezkum je na řadě dnes",
+    next: (days) =>
+      `Další přezkum za ${countOf("cs", days, { one: "den", few: "dny", other: "dní" })}`,
+  },
+};
 
 /**
  * Localized recurring-review clock, or null where there is no review date.
@@ -287,58 +379,85 @@ export function frequencyLabel(frequency: string | null, de: boolean): string | 
  * review statuses: a never-done item carries an initial implementation
  * deadline, and calling that a late review would be wrong.
  */
-export function reviewLabel(dueInDays: number | null, de: boolean): string | null {
+export function reviewLabel(
+  dueInDays: number | null,
+  locale: JourneyLocale,
+): string | null {
   if (dueInDays === null) return null;
-  if (dueInDays < 0) {
-    const days = -dueInDays;
-    return de
-      ? `Prüfung ${days} ${days === 1 ? "Tag" : "Tage"} überfällig`
-      : `Review ${days} ${days === 1 ? "day" : "days"} overdue`;
-  }
-  if (dueInDays === 0) return de ? "Prüfung heute fällig" : "Review due today";
-  return de
-    ? `Nächste Prüfung in ${dueInDays} ${dueInDays === 1 ? "Tag" : "Tagen"}`
-    : `Next review in ${dueInDays} ${dueInDays === 1 ? "day" : "days"}`;
+  const clock = REVIEW_CLOCK[locale];
+  if (dueInDays < 0) return clock.overdue(-dueInDays);
+  if (dueInDays === 0) return clock.today;
+  return clock.next(dueInDays);
 }
 
+/** The status words, one vocabulary per language so the views cannot drift apart. */
+export const STATUS_WORDS: Record<
+  JourneyLocale,
+  Record<DotState | "reviewed" | "notRequired", string> & {
+    and: string;
+    walkSigned: (codes: string) => string;
+    walkAwaiting: (codes: string) => string;
+  }
+> = {
+  en: {
+    notRequired: "Not required by law",
+    and: " and ",
+    walkSigned: (codes) => `Signed off in the walkthrough with ${codes}`,
+    walkAwaiting: (codes) => `In the walkthrough with ${codes}, awaiting sign-off`,
+    reviewed: "Reviewed",
+    signed: "Signed off",
+    na: "Not applicable",
+    awaiting: "Awaiting sign-off",
+    started: "In progress",
+    rejected: "Rejected",
+    todo: "Open",
+  },
+  de: {
+    notRequired: "Gesetzlich nicht gefordert",
+    and: " und ",
+    walkSigned: (codes) => `Im Durchgang mit ${codes} freigegeben`,
+    walkAwaiting: (codes) => `Im Durchgang mit ${codes}, wartet auf Freigabe`,
+    reviewed: "Geprüft",
+    signed: "Freigegeben",
+    na: "Nicht zutreffend",
+    awaiting: "Wartet auf Freigabe",
+    started: "In Arbeit",
+    rejected: "Abgelehnt",
+    todo: "Offen",
+  },
+  cs: {
+    notRequired: "Zákon nevyžaduje",
+    and: " a ",
+    walkSigned: (codes) => `Schváleno v průvodci spolu s ${codes}`,
+    walkAwaiting: (codes) => `V průvodci spolu s ${codes}, čeká na schválení`,
+    reviewed: "Zkontrolováno",
+    signed: "Schváleno",
+    na: "Nevztahuje se",
+    awaiting: "Čeká na schválení",
+    started: "Rozpracováno",
+    rejected: "Zamítnuto",
+    todo: "Otevřené",
+  },
+};
+
 /**
- * Localized status wording. One vocabulary so the views cannot drift apart. The raw status only
- * tells a signature from a reviewer's approval; everything else is the node's state, and where
- * the state came from the walk or from no statute asking for it, the label says so.
+ * Localized status wording. The raw status only tells a signature from a reviewer's approval;
+ * everything else is the node's state, and where the state came from the walk or from no statute
+ * asking for it, the label says so.
  */
 export function statusLabel(
   node: Pick<FlowNode, "rawStatus" | "state" | "coveredBy">,
-  de: boolean,
+  locale: JourneyLocale,
 ): string {
+  const words = STATUS_WORDS[locale];
   const { coveredBy } = node;
-  if (coveredBy?.kind === "not_required") {
-    return de ? "Gesetzlich nicht gefordert" : "Not required by law";
-  }
+  if (coveredBy?.kind === "not_required") return words.notRequired;
   if (coveredBy?.kind === "walk") {
-    const codes = coveredBy.codes.join(de ? " und " : " and ");
-    return node.state === "signed"
-      ? de
-        ? `Im Durchgang mit ${codes} freigegeben`
-        : `Signed off in the walkthrough with ${codes}`
-      : de
-        ? `Im Durchgang mit ${codes}, wartet auf Freigabe`
-        : `In the walkthrough with ${codes}, awaiting sign-off`;
+    const codes = coveredBy.codes.join(words.and);
+    return node.state === "signed" ? words.walkSigned(codes) : words.walkAwaiting(codes);
   }
-  switch (node.state) {
-    case "signed":
-      if (node.rawStatus === "approved") return de ? "Geprüft" : "Reviewed";
-      return de ? "Freigegeben" : "Signed off";
-    case "na":
-      return de ? "Nicht zutreffend" : "Not applicable";
-    case "awaiting":
-      return de ? "Wartet auf Freigabe" : "Awaiting sign-off";
-    case "started":
-      return de ? "In Arbeit" : "In progress";
-    case "rejected":
-      return de ? "Abgelehnt" : "Rejected";
-    case "todo":
-      return de ? "Offen" : "Open";
-  }
+  if (node.state === "signed" && node.rawStatus === "approved") return words.reviewed;
+  return words[node.state];
 }
 
 /** The band a priority falls in, off the one priority-to-tier mapping. */

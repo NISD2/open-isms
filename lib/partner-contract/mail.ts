@@ -12,8 +12,12 @@ import { renderRecordMarkdown } from "@/lib/mail/markdown";
 import { getAppUrl } from "@/lib/utils";
 import type { partnerContract } from "@/schema";
 import type { PartnerAccessOutcome } from "./access";
-import { formatPartnerContractDate, type PartnerContractLocale } from "./date";
-import { partnerContractText } from "./document";
+import {
+  formatPartnerContractDate,
+  type PartnerContractLocale,
+  type PartnerContractReadingLocale,
+} from "./date";
+import { partnerContractText, partnerContractTranslator } from "./document";
 
 type Row = typeof partnerContract.$inferSelect;
 
@@ -27,8 +31,17 @@ export interface AcceptedPartnerContract extends Row {
 export const partnerContractReference = (id: string): string =>
   `PV-${id.slice(0, 8).toUpperCase()}`;
 
-const commissionLine = (row: Row, locale: PartnerContractLocale): string => {
+/** The agreement's own words for the period, whose Czech plural tells one month from several. */
+const czechPeriod = (months: number | null): string => {
+  const t = partnerContractTranslator("cs");
+  return months === null
+    ? t("partnerContract.document.sections.commission.periodOngoing")
+    : t("partnerContract.document.sections.commission.periodMonths", { months });
+};
+
+const commissionLine = (row: Row, locale: PartnerContractReadingLocale): string => {
   const months = row.commissionMonths;
+  if (locale === "cs") return `${row.commissionPercent} %, ${czechPeriod(months)}`;
   if (locale === "de") {
     return months === null
       ? `${row.commissionPercent} %, solange der Kunde zahlt`
@@ -47,6 +60,19 @@ export const OPERATOR_ACCESS: Record<PartnerAccessOutcome | "none", string> = {
     "nicht vergeben: die Kontaktadresse gehört zu einem Konto, das jemand anderes hält",
   failed: "nicht vergeben: Fehler beim Einrichten",
   none: "keiner, ohne Kontaktadresse angeboten",
+};
+
+const GERMAN_LANGUAGE = new Intl.DisplayNames(["de"], { type: "language" });
+
+/** The language the agreement was read in, as the operators read it: a translation names what binds. */
+export const operatorReading = (
+  reading: PartnerContractReadingLocale,
+  binding: PartnerContractLocale,
+): string => {
+  const name = (code: string) => GERMAN_LANGUAGE.of(code) ?? code;
+  return reading === binding
+    ? name(reading)
+    : `${name(reading)} (Übersetzung, verbindlich ist ${name(binding)})`;
 };
 
 const WORDING = {
@@ -92,14 +118,43 @@ const WORDING = {
       `When you recommend a company to us, write a short note to ${SELLER.email} with the company and a contact person.`,
     ],
   }),
-} as const satisfies Record<PartnerContractLocale, unknown>;
+  // Only ever around the English text: a Czech reader accepts the English offer, so the letter says
+  // which text is below. "Dobrý den," stays bare: Czech greets by name in the vocative.
+  cs: (row: AcceptedPartnerContract) => ({
+    subject: `Partnerská smlouva s nisd2 přijata, ${partnerContractReference(row.id)}`,
+    heading: "Partnerská smlouva přijata",
+    greeting: "Dobrý den,",
+    intro: [
+      `děkujeme. Partnerská smlouva mezi ${row.partnerCompany} a nisd2 je přijata. Pod tímto e-mailem najdete její úplný text v anglickém znění, které je závazné.`,
+    ],
+    kind: "Partnerská smlouva",
+    facts: [
+      { label: "Partner", value: row.partnerCompany },
+      { label: "Provize", value: commissionLine(row, "cs"), emphasis: true },
+      { label: "Kdo přijal", value: `${row.signerName}, ${row.signerEmail}` },
+      {
+        label: "Přijato dne",
+        value: formatPartnerContractDate(row.signedAt, "cs", true),
+      },
+    ],
+    outro: [
+      `Až nám doporučíte společnost, napište krátce na ${SELLER.email} s názvem společnosti a kontaktní osobou.`,
+    ],
+  }),
+} as const satisfies Record<PartnerContractReadingLocale, unknown>;
 
-/** The partner's copy: the card with what was agreed, then the full text they accepted. */
-export const partnerCopyEmail = async (row: AcceptedPartnerContract) => {
-  const w = WORDING[row.locale](row);
+/**
+ * The partner's copy: the card with what was agreed, in the language the agreement was read in,
+ * then the full text they accepted, which is the stored one whatever that language.
+ */
+export const partnerCopyEmail = async (
+  row: AcceptedPartnerContract,
+  locale: PartnerContractReadingLocale,
+) => {
+  const w = WORDING[locale](row);
   const text = partnerContractText(row.body);
   return documentEmail({
-    locale: row.locale,
+    locale,
     subject: w.subject,
     heading: w.heading,
     greeting: w.greeting,
@@ -114,8 +169,11 @@ export const partnerCopyEmail = async (row: AcceptedPartnerContract) => {
   });
 };
 
-const sendPartnerCopy = async (row: AcceptedPartnerContract): Promise<boolean> => {
-  const content = await partnerCopyEmail(row);
+const sendPartnerCopy = async (
+  row: AcceptedPartnerContract,
+  locale: PartnerContractReadingLocale,
+): Promise<boolean> => {
+  const content = await partnerCopyEmail(row, locale);
   const outcome = await sendMail({
     emailType: "partner.agreement_accepted",
     to: row.signerEmail,
@@ -127,6 +185,7 @@ const sendPartnerCopy = async (row: AcceptedPartnerContract): Promise<boolean> =
 
 const notifyOperators = async (
   row: AcceptedPartnerContract,
+  locale: PartnerContractReadingLocale,
   partnerCopySent: boolean,
 ): Promise<void> => {
   const content = await newSaleEmail({
@@ -138,6 +197,7 @@ const notifyOperators = async (
       ["Angenommen von", `${row.signerName}, ${row.signerEmail}`],
       ["Provision", commissionLine(row, "de")],
       ["Angenommen am", formatPartnerContractDate(row.signedAt, "de", true)],
+      ["Gelesen in", operatorReading(locale, row.locale)],
       ["Zugang", OPERATOR_ACCESS[row.accessOutcome ?? "none"]],
       [
         "Bestätigung",
@@ -160,15 +220,17 @@ const notifyOperators = async (
   );
 };
 
+/** `locale` is the language the agreement was read and accepted in; the operators read German. */
 export async function sendPartnerContractAcceptedMails(
   row: AcceptedPartnerContract,
+  locale: PartnerContractReadingLocale,
 ): Promise<{ readonly partnerCopySent: boolean }> {
   // In turn, not together: the operators' notice says whether the partner's copy actually left.
-  const partnerCopySent = await sendPartnerCopy(row).catch((err) => {
+  const partnerCopySent = await sendPartnerCopy(row, locale).catch((err) => {
     console.error("[partner-contract] partner copy not sent", err);
     return false;
   });
-  await notifyOperators(row, partnerCopySent).catch((err) =>
+  await notifyOperators(row, locale, partnerCopySent).catch((err) =>
     console.error("[partner-contract] operator notice not sent", err),
   );
   return { partnerCopySent };

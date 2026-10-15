@@ -36,7 +36,7 @@
       "recommended": "Doporučeno",
       "talkFirst": {
         "title": "Domluvit hovor",
-        "body": "Krátký videohovor nebo telefonát v čase, který si zvolíte.",
+        "body": "15 minut, německy nebo anglicky, v čase, který si zvolíte. Hovor vede {names}.",
         "close": "Zavřít",
         "newTab": "Otevřít kalendář v nové kartě"
       },
@@ -185,8 +185,24 @@
         "description": "Jedna stránka pro vedení: co je průvodce NIS 2, kolik stojí a jak ho ukončit."
       },
       "eyebrow": "Ke schválení",
-      "title": "Průvodce NIS 2 na nisd2.eu",
+      "title": "Zaveďte NIS 2 vlastními silami. Vy na konci schválíte.",
       "lead": "Jedna stránka k rozhodnutí: co to je, kolik to stojí a jak to ukončit.",
+      "summary": {
+        "label": "Ve zkratce",
+        "cost": {
+          "label": "Cena",
+          "text": "{price} bez DPH ročně, na fakturu"
+        },
+        "risk": {
+          "label": "Riziko",
+          "text": "30 dní na vrácení peněz, pak lze každý rok zrušit"
+        },
+        "task": {
+          "label": "Váš podíl",
+          "text": "Na konci schválíte v aplikaci, pod vlastním přihlášením"
+        }
+      },
+      "seeApproval": "Podívejte se, jak vaše schválení vypadá",
       "rows": {
         "what": {
           "label": "Co to je",
@@ -226,6 +242,7 @@
       "outputs": {
         "documentsTitle": "Dokumenty, které schvalujete",
         "recordsTitle": "Seznamy a záznamy",
+        "recordsShow": "{count, plural, one {a # seznam nebo záznam} few {a # seznamy a záznamy} many {a # seznamu a záznamu} other {a # seznamů a záznamů}}",
         "documents": {
           "information_security": "Politika bezpečnosti informací",
           "incident_response": "Plán reakce na incidenty",

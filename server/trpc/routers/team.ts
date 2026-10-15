@@ -7,16 +7,18 @@ import { holderOf } from "@/lib/billing/accounts";
 import { invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
 import { ALL_ROLE_KEYS } from "@/lib/compliance/role-mapping";
 import { pendingSignersOf } from "@/lib/compliance/sign-off-roster";
-import { MANAGEMENT_ROLE } from "@/lib/durchgang/types";
+import { MANAGEMENT_ROLE, walkLocaleOf } from "@/lib/durchgang/types";
 import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
 import { LOCALE_CODES } from "@/lib/locale";
 import {
+  accountEmailLocale,
   inviteEmail,
   managementHandoffEmail,
   memberRemovedEmail,
   sendMail,
 } from "@/lib/mail";
 import { isSuppressedSendId } from "@/lib/mail/delivery";
+import { resolveEmailLocale } from "@/lib/mail/locale";
 import { mailSuppressionReason } from "@/lib/mail/send";
 import { inviteRedirectPath } from "@/lib/organization/invite-redirect";
 import {
@@ -196,12 +198,18 @@ export const teamRouter = router({
       // nobody will receive it, so the UI has to say so and offer the link
       // instead of reporting a send that did not happen.
       const emailed = mailSuppressionReason() === null;
+      // The mail's language must never cost the invite: an unreadable account sends the default.
+      const inviterEmail = ctx.session.user.email;
+      const locale = inviterEmail
+        ? await accountEmailLocale(inviterEmail).catch(() => undefined)
+        : undefined;
 
       inviteEmail({
         companyName: companyRow?.name ?? "your company",
         inviterName,
         inviteUrl,
         role: emailRole,
+        locale,
       })
         .then((content) =>
           sendMail({ emailType: "account.invite", to: email, ...content }),
@@ -271,7 +279,7 @@ export const teamRouter = router({
       const emailed = mailSuppressionReason() === null;
 
       managementHandoffEmail({
-        locale: input.locale === "de" ? "de" : "en",
+        locale: walkLocaleOf(input.locale),
         name: input.name,
         inviterName: ctx.session.user.name ?? null,
         companyName: companyRow?.name ?? null,
@@ -583,6 +591,7 @@ export const teamRouter = router({
       memberRemovedEmail({
         companyName: companyRow?.name ?? "your company",
         memberName: member.name,
+        locale: resolveEmailLocale(member.locale, null),
       })
         .then((content) =>
           sendMail({ emailType: "account.member_removed", to: member.email, ...content }),

@@ -7,6 +7,7 @@
 
 import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
 import { asc, eq, type InferSelectModel, inArray } from "drizzle-orm";
+import { legalRefFor } from "@/lib/compliance/czech-law";
 import { isDoneState, isDoneStatus } from "@/lib/compliance/journey-position";
 import { db } from "@/lib/db";
 import type { CoveredBy, JourneyEntry } from "@/lib/durchgang";
@@ -51,6 +52,7 @@ export interface ReportRequirement {
   title: string;
   description: string;
   priority: string;
+  /** The one-line legal reference in the report's language (`legalRefFor`). */
   legalRef: string | null;
   evidenceType: string;
   status: string;
@@ -176,7 +178,7 @@ export async function loadReportData(
         title: getRequirementTitle(requirementMessages, req.code),
         description: getRequirementDescription(requirementMessages, req.code) ?? "",
         priority: req.priority,
-        legalRef: req.legalRef,
+        legalRef: legalRefFor(req, locale),
         evidenceType: req.evidenceType,
         status: currentStatus,
         covered: entry?.coveredBy

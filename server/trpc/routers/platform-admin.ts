@@ -37,6 +37,7 @@ import { compileDailyDigest, compileManagementDigest } from "@/lib/compliance/di
 import { closeSyncOnce, closeSyncState } from "@/lib/crm/schedule";
 import { closeSyncStatus } from "@/lib/crm/status";
 import type { Database } from "@/lib/db";
+import { WALK_LOCALES } from "@/lib/durchgang/types";
 import { env, mailSupportEmail } from "@/lib/env";
 import { isFeatureFlagKey, listFeatures, setFeature } from "@/lib/feature-flags";
 import { answerMapSchema, getGapAssessmentData } from "@/lib/gap-assessment";
@@ -505,6 +506,8 @@ export const platformAdminRouter = router({
         quotedGrossCents: z.number().int().nonnegative(),
         /** The admin records that the customer accepted the AGB and AVV on the call. */
         termsAcceptedOnCall: z.boolean(),
+        /** The customer's language, picked on the call; null takes it from the VAT number. */
+        locale: z.enum(WALK_LOCALES).nullable(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -528,6 +531,7 @@ export const platformAdminRouter = router({
         vies: viesConfigFromEnv(env),
         appUrl: getAppUrl(),
         termsAcceptedOnCall: input.termsAcceptedOnCall,
+        locale: input.locale,
       });
       if (!outcome.ok) {
         const code =

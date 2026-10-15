@@ -31,7 +31,7 @@ import type { RouterOutputs } from "@/lib/trpc/client";
 import { RiskCounts } from "./RiskCounts";
 
 export interface CompleteView {
-  /** The export's labels are written in German and English only, so a Czech walk exports in English. */
+  /** The walk's language, which the whole export is written in. */
   readonly locale: PdfLocale;
   readonly data: CompanyExport;
   /** The NIS 2 requirements by category; null without an assessment. */
@@ -227,7 +227,7 @@ function Table({
 export async function CompleteExport({ view }: { view: CompleteView }) {
   const { locale, data, report, names, documents, gaps, measures } = view;
   const measureOf = new Map(measures.map((m) => [m.code, m]));
-  // One language throughout: the walk's, which is German or English.
+  // One language throughout: the walk's, which is German, English or Czech.
   const [t, tGaps, tScreens] = await Promise.all([
     getTranslations({ locale, namespace: "export.complete" }),
     getTranslations({ locale, namespace: "durchgang.ui.approve.gaps" }),

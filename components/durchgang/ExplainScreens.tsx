@@ -118,12 +118,18 @@ function Duty({ text, cite, href }: { text: string; cite: string; href: string }
  * The page each learn link opens: a platform route, or a BSI landing page. BSI material is linked
  * at its landing page, never at the download, as the BSI's terms of use ask. A BSI page has an
  * English twin only where its English page lists the English editions; the others are German.
+ * Czech readers get NÚKIB's own material where NÚKIB publishes the same thing.
  */
 const LEARN_HREF: Readonly<
   Record<
     LearnLink,
     | { readonly kind: "platform"; readonly href: "/training/nis2-ceo" }
-    | { readonly kind: "bsi"; readonly de: string; readonly en: string }
+    | {
+        readonly kind: "bsi";
+        readonly de: string;
+        readonly en: string;
+        readonly cs?: string;
+      }
   >
 > = {
   ceo_course: { kind: "platform", href: "/training/nis2-ceo" },
@@ -136,6 +142,8 @@ const LEARN_HREF: Readonly<
     kind: "bsi",
     de: "https://www.bsi.bund.de/dok/TR-02102",
     en: "https://www.bsi.bund.de/EN/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/Technische-Richtlinien/TR-nach-Thema-sortiert/tr02102/tr02102_node.html",
+    // „Minimální požadavky na kryptografické algoritmy“, the list the Czech 9.1 is built from.
+    cs: "https://portal.nukib.gov.cz/informacni-servis/podpurne-materialy/69a82264c32c1c948f0686a4",
   },
   bsi_nis2_schulungen: {
     kind: "bsi",
@@ -158,7 +166,9 @@ function LearnMore({ link, label }: { link: LearnLink; label: string }) {
     </Link>
   ) : (
     <a
-      href={locale === "de" ? target.de : target.en}
+      href={
+        locale === "cs" && target.cs ? target.cs : locale === "de" ? target.de : target.en
+      }
       target="_blank"
       rel="noreferrer"
       className={LINK_STYLE}

@@ -2,6 +2,13 @@
 
 import { ArrowRight, Footprints } from "lucide-react";
 import { Link } from "@/i18n/navigation";
+import { pickLocalized } from "@/lib/locale";
+
+const IN_THE_WALK = {
+  de: "Im Durchgang: ",
+  en: "In the walkthrough: ",
+  cs: "V průvodci: ",
+} as const;
 
 interface WalkLinkProps {
   /** The walk item's code (e.g. "5.1"). Lookup happens server-side. */
@@ -16,8 +23,6 @@ interface WalkLinkProps {
  * in a new tab so the learner keeps their place in the course.
  */
 export function WalkLink({ code, headline, locale }: WalkLinkProps) {
-  const de = locale === "de";
-
   return (
     <Link
       href={{ pathname: "/durchgang/nis2/[code]", params: { code } }}
@@ -27,7 +32,7 @@ export function WalkLink({ code, headline, locale }: WalkLinkProps) {
     >
       <Footprints aria-hidden className="size-4 shrink-0 text-primary" />
       <span className="text-muted-foreground">
-        {de ? "Im Durchgang: " : "In the walkthrough: "}
+        {pickLocalized<string>(IN_THE_WALK, locale)}
         <span className="font-medium text-foreground">{headline}</span>
       </span>
       <ArrowRight

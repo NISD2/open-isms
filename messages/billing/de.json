@@ -1,5 +1,7 @@
 {
   "billing": {
+    "translationNotice": "Dies ist eine Übersetzung zu Ihrer Information. Verbindlich ist die <english>englische Fassung</english>.",
+    "translationNoticeTerms": "Dies ist eine Übersetzung zu Ihrer Information. Die Bedingungen gelten in der <english>englischen</english> und der deutschen Fassung; bei Abweichungen geht die deutsche Fassung vor (Ziffer C2).",
     "offer": {
       "title": "Wie möchten Sie weitermachen?",
       "lead": "Das Compliance Portal öffnet sich mit der Bestellung. Lieferantenportal und Schulungsportal nutzen Sie ohne Bestellung.",

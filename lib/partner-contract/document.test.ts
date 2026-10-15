@@ -6,6 +6,7 @@ import {
   type PartnerContractTerms,
   partnerContractSha256,
   partnerContractText,
+  partnerContractTranslation,
 } from "./document";
 
 const terms = (over: Partial<PartnerContractTerms> = {}): PartnerContractTerms => ({
@@ -55,5 +56,64 @@ describe("buildPartnerContract", () => {
     expect(partnerContractSha256(a)).not.toBe(
       partnerContractSha256(buildPartnerContract(terms({ commissionPercent: 13 }))),
     );
+  });
+});
+
+describe("partnerContractTranslation", () => {
+  const stored = (over: Partial<PartnerContractTerms> = {}) => {
+    const t = terms({ locale: "en", ...over });
+    return { ...t, body: buildPartnerContract(t) };
+  };
+
+  test("a Czech reader of an English offer reads it in Czech, with the same facts", () => {
+    const translation = partnerContractTranslation(stored(), "cs");
+    expect(translation?.locale).toBe("cs");
+    const text = partnerContractText(translation?.body ?? stored().body);
+    expect(text).toContain("# Partnerská smlouva");
+    expect(text).toContain("Muster Beratung GmbH („Partner“)");
+    expect(text).toContain("12 procent z každé čisté platby");
+    expect(text).toContain("po dobu prvních 12 měsíců smlouvy tohoto zákazníka");
+    expect(text).toContain(formatWholeEuro(ANNUAL_NET_CENTS, "cs-CZ"));
+  });
+
+  test("one month reads as one month", () => {
+    const text = partnerContractText(
+      partnerContractTranslation(stored({ commissionMonths: 1 }), "cs")?.body ??
+        stored().body,
+    );
+    expect(text).toContain("po dobu prvního měsíce smlouvy tohoto zákazníka");
+  });
+
+  test("what is signed stays the stored English text", () => {
+    const offer = stored();
+    const before = partnerContractSha256(offer.body);
+    partnerContractTranslation(offer, "cs");
+    expect(partnerContractSha256(offer.body)).toBe(before);
+    expect(partnerContractText(offer.body)).toContain("# Partner agreement");
+  });
+
+  test("no translation for a binding-language reader, a German offer or older wording", () => {
+    expect(partnerContractTranslation(stored(), "en")).toBeNull();
+    expect(partnerContractTranslation(stored(), "de")).toBeNull();
+    const german = terms({ locale: "de" });
+    expect(
+      partnerContractTranslation({ ...german, body: buildPartnerContract(german) }, "cs"),
+    ).toBeNull();
+    const older = stored();
+    const edited = {
+      ...older,
+      body: { ...older.body, title: "Partner agreement (earlier wording)" },
+    };
+    expect(partnerContractTranslation(edited, "cs")).toBeNull();
+  });
+
+  test("Czech has every string the agreement uses, so nothing falls back to English", () => {
+    const text = partnerContractText(
+      partnerContractTranslation(stored({ commissionMonths: null }), "cs")?.body ??
+        stored().body,
+    );
+    expect(text).toContain("po celou dobu, po kterou tento zákazník pokračuje");
+    expect(text).not.toContain("Partner agreement");
+    expect(text).not.toContain("<cal>");
   });
 });

@@ -8,13 +8,13 @@
 import { KeyRound, Mail } from "lucide-react";
 import { createTranslator } from "next-intl";
 import { Button } from "@/components/ui/button";
-import type { PartnerContractLocale } from "@/lib/partner-contract/date";
+import type { PartnerContractReadingLocale } from "@/lib/partner-contract/date";
 import type { PartnerContractPageMessages } from "@/lib/partner-contract/document";
 import { trpc } from "@/lib/trpc/client";
 
 interface Props {
   readonly token: string;
-  readonly locale: PartnerContractLocale;
+  readonly locale: PartnerContractReadingLocale;
   readonly messages: PartnerContractPageMessages;
   readonly email: string;
   readonly entry: "setup" | "signin";

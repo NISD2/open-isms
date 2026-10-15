@@ -4,17 +4,18 @@
  * Use these instead of inline `.toLocaleDateString()` / `.toString()` calls so
  * the whole app shares one pattern for dates, numbers, and currency.
  *
- * Locale resolution: pass an explicit "de" | "en" | "nl" (use `useLocale()` in
+ * Locale resolution: pass an explicit "de" | "en" | "nl" | "cs" (use `useLocale()` in
  * client components, `getLocale()` in server components). Internally these map
  * to the matching BCP-47 tag.
  */
 
-type AppLocale = "de" | "en" | "nl";
+type AppLocale = "de" | "en" | "nl" | "cs";
 
 const BCP47: Record<AppLocale, string> = {
   de: "de-DE",
   en: "en-GB",
   nl: "nl-NL",
+  cs: "cs-CZ",
 };
 
 function tag(locale: string | undefined): string {
@@ -32,7 +33,10 @@ function tag(locale: string | undefined): string {
  *   formatDate(new Date(), "de")       // "vor 2 Stunden"
  *   formatDate("2024-01-15", "en")     // "15 Jan 2024"
  */
-export function formatDate(value: Date | string | number | null | undefined, locale: string | undefined = "en"): string {
+export function formatDate(
+  value: Date | string | number | null | undefined,
+  locale: string | undefined = "en",
+): string {
   if (value === null || value === undefined || value === "") return "";
   const d = value instanceof Date ? value : new Date(value);
   if (Number.isNaN(d.getTime())) return "";
@@ -45,7 +49,10 @@ export function formatDate(value: Date | string | number | null | undefined, loc
 /**
  * Always relative ("2 days ago", "in 3 hours") via Intl.RelativeTimeFormat.
  */
-export function formatRelative(value: Date | string | number, locale: string | undefined = "en"): string {
+export function formatRelative(
+  value: Date | string | number,
+  locale: string | undefined = "en",
+): string {
   const d = value instanceof Date ? value : new Date(value);
   if (Number.isNaN(d.getTime())) return "";
   const diffMs = d.getTime() - Date.now();
@@ -55,23 +62,34 @@ export function formatRelative(value: Date | string | number, locale: string | u
   if (abs < 3_600_000) return rtf.format(Math.round(diffMs / 60_000), "minute");
   if (abs < 86_400_000) return rtf.format(Math.round(diffMs / 3_600_000), "hour");
   if (abs < 30 * 86_400_000) return rtf.format(Math.round(diffMs / 86_400_000), "day");
-  if (abs < 365 * 86_400_000) return rtf.format(Math.round(diffMs / (30 * 86_400_000)), "month");
+  if (abs < 365 * 86_400_000)
+    return rtf.format(Math.round(diffMs / (30 * 86_400_000)), "month");
   return rtf.format(Math.round(diffMs / (365 * 86_400_000)), "year");
 }
 
 /**
  * Absolute short date ("15 Jan 2024", "15.01.2024").
  */
-export function formatAbsolute(value: Date | string | number, locale: string | undefined = "en"): string {
+export function formatAbsolute(
+  value: Date | string | number,
+  locale: string | undefined = "en",
+): string {
   const d = value instanceof Date ? value : new Date(value);
   if (Number.isNaN(d.getTime())) return "";
-  return new Intl.DateTimeFormat(tag(locale), { day: "2-digit", month: "short", year: "numeric" }).format(d);
+  return new Intl.DateTimeFormat(tag(locale), {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  }).format(d);
 }
 
 /**
  * Absolute date + time ("15 Jan 2024, 14:32").
  */
-export function formatDateTime(value: Date | string | number, locale: string | undefined = "en"): string {
+export function formatDateTime(
+  value: Date | string | number,
+  locale: string | undefined = "en",
+): string {
   const d = value instanceof Date ? value : new Date(value);
   if (Number.isNaN(d.getTime())) return "";
   return new Intl.DateTimeFormat(tag(locale), {
@@ -121,9 +139,15 @@ export function formatCurrency(
 /**
  * Compact number formatting ("1.2K", "3.4M") — useful for dashboard stat tiles.
  */
-export function formatCompact(value: number | null | undefined, locale: string | undefined = "en"): string {
+export function formatCompact(
+  value: number | null | undefined,
+  locale: string | undefined = "en",
+): string {
   if (value === null || value === undefined || Number.isNaN(value)) return "";
-  return new Intl.NumberFormat(tag(locale), { notation: "compact", maximumFractionDigits: 1 }).format(value);
+  return new Intl.NumberFormat(tag(locale), {
+    notation: "compact",
+    maximumFractionDigits: 1,
+  }).format(value);
 }
 
 /**
@@ -135,5 +159,8 @@ export function formatPercent(
   maximumFractionDigits = 0,
 ): string {
   if (fraction === null || fraction === undefined || Number.isNaN(fraction)) return "";
-  return new Intl.NumberFormat(tag(locale), { style: "percent", maximumFractionDigits }).format(fraction);
+  return new Intl.NumberFormat(tag(locale), {
+    style: "percent",
+    maximumFractionDigits,
+  }).format(fraction);
 }

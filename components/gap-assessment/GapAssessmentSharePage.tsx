@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -26,6 +27,7 @@ export function GapAssessmentSharePage({
   domains,
   questions,
 }: GapAssessmentSharePageProps) {
+  const t = useTranslations("gap-assessment.share");
   const [passwordInput, setPasswordInput] = useState("");
 
   // The page shows its own error; an empty handler keeps the app-wide toast out of it.
@@ -52,27 +54,24 @@ export function GapAssessmentSharePage({
 
   const errorMessage = unlock.error
     ? unlock.error.data?.code === "TOO_MANY_REQUESTS"
-      ? "Too many attempts. Please wait 15 minutes and try again."
+      ? t("tooManyAttempts")
       : unlock.error.data?.code === "NOT_FOUND"
-        ? "This share link is invalid or has been revoked."
-        : "Incorrect password."
+        ? t("invalidLink")
+        : t("wrongPassword")
     : null;
 
   return (
     <div className="container mx-auto flex min-h-[60vh] max-w-md items-center px-4 py-16">
       <Card className="w-full">
         <CardHeader>
-          <CardTitle>Password-protected results</CardTitle>
+          <CardTitle>{t("title")}</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <p className="text-muted-foreground text-sm">
-              Enter the password you received with this link to view the gap assessment
-              results.
-            </p>
+            <p className="text-muted-foreground text-sm">{t("intro")}</p>
 
             <div className="space-y-1">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t("password")}</Label>
               <Input
                 id="password"
                 type="password"
@@ -94,7 +93,7 @@ export function GapAssessmentSharePage({
               disabled={unlock.isPending || passwordInput.length === 0}
               className="w-full"
             >
-              {unlock.isPending ? "Checking..." : "View results"}
+              {unlock.isPending ? t("checking") : t("submit")}
             </Button>
           </form>
         </CardContent>

@@ -311,7 +311,7 @@ const quiz = quizSchema.parse({
         it: "L'autorità di vigilanza valuta l'adeguatezza in base a tre elementi: cosa è stato trattato, per quanto tempo e come è stato documentato.",
         es: "La autoridad reguladora juzga la suficiencia en función de tres elementos: qué se trató, durante cuánto tiempo y cómo se documentó.",
         pl: "Organ nadzoru ocenia wystarczalność na podstawie trzech elementów: co zostało omówione, jak długo i w jaki sposób zostało udokumentowane.",
-        cs: "Regulační orgán posuzuje dostatečnost na základě tří věcí: co bylo probráno, jak dlouho a jak to bylo zdokumentováno.",
+        cs: "Regulační orgán posuzuje dostatečnost na základě tří věcí: co bylo probráno, jak dlouho a jak to bylo zdokumentováno. V Česku NÚKIB navíc uznává jako doklad certifikát svého kurzu pro vrcholné vedení; tento kurz takové uznání nemá.",
         pt: "A autoridade reguladora avalia a suficiência com base em três aspetos: o que foi abrangido, durante quanto tempo e como foi documentado.",
         ro: "Autoritatea de reglementare evaluează suficiența pe baza a trei aspecte: ce a fost acoperit, pentru cât timp și cum a fost documentat.",
       },

@@ -15,7 +15,7 @@ export default async function JourneyPreviewPage() {
   if (process.env.NODE_ENV === "production") notFound();
   const locale = await getLocale();
   const t = await getTranslations("portal");
-  const nodes = buildSampleNodes(titlesFor(locale));
+  const nodes = buildSampleNodes(titlesFor(locale), locale);
   const aggregate = sampleAggregate(nodes);
 
   return (

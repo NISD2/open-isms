@@ -1,5 +1,6 @@
 import {
   groupBySection,
+  legalBasisFor,
   supplierQuestionnaire,
 } from "@nisd2/nis2-supply-chain-questionnaire-schema";
 import { Download, ExternalLink, FileCode, FileText } from "lucide-react";
@@ -259,7 +260,7 @@ export default async function SupplierQuestionnairePage({
                         <span className="text-muted-foreground/70">
                           {t("supplierQuestionnaire.field.legalBasis")}:
                         </span>{" "}
-                        <span className="font-mono">{field.legalBasis}</span>
+                        <span className="font-mono">{legalBasisFor(field, locale)}</span>
                         {iso && (
                           <>
                             <span aria-hidden> · </span>

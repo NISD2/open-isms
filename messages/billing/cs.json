@@ -1,0 +1,199 @@
+{
+  "billing": {
+    "translationNotice": "Toto je překlad pro informaci. Závazné je <english>anglické znění</english>.",
+    "translationNoticeTerms": "Toto je překlad pro informaci. Obchodní podmínky platí v <english>anglickém</english> a německém znění; při rozporu má přednost německé znění (bod C2).",
+    "offer": {
+      "title": "Jak chcete pokračovat?",
+      "lead": "Compliance Portal se otevře objednávkou. Portál pro dodavatele a portál školení žádnou objednávku nepotřebují.",
+      "paidName": "Compliance Portal",
+      "withoutOrder": "Bez objednávky",
+      "supplier": "Jednou vyplňte svůj bezpečnostní profil a pak e-mailem pozvěte každého zákazníka, který o něj požádá.",
+      "training": "Všechny kurzy k NIS 2 a CRA, včetně školení pro vedení."
+    },
+    "order": {
+      "metaTitle": "Objednávka",
+      "title": "Objednávka",
+      "intro": "Průvodce NIS 2 na jeden rok za {price} bez DPH. Jedna platba pokrývá všechny organizace a uživatele ve vašem účtu.",
+      "sandboxNotice": "Testovací režim: tato objednávka vytvoří fakturu v sandboxu Qonto a odemkne tento účet.",
+      "payerOnly": "Objednávku může zadat držitel účtu nebo vedení, které k tomu držitel pozval. Držitelem je obvykle ten, kdo organizaci založil.",
+      "pendingCheck": "Prověřujeme dřívější objednávku tohoto účtu. Neobjednávejte prosím znovu, ozveme se vám.",
+      "toInvoices": "Vaše faktury"
+    },
+    "form": {
+      "recipientTitle": "Fakturováno na",
+      "recipientDescription": "Faktura se vystavuje na společnost. Kam se posílá, nastavíte níže.",
+      "companyName": "Název společnosti",
+      "companyNamePlaceholder": "Příklad Holding s.r.o.",
+      "companyNameHint": "Přesně podle zápisu v rejstříku. Nemůžeme ho za vás ověřit, protože registr DPH EU nezveřejňuje názvy německých společností.",
+      "street": "Ulice a číslo",
+      "streetPlaceholder": "Příkladová 1",
+      "zip": "PSČ",
+      "zipPlaceholder": "110 00",
+      "city": "Město",
+      "cityPlaceholder": "Praha",
+      "countryCode": "Země",
+      "vatNumber": "DIČ",
+      "vatNumberPlaceholder": "CZ12345678",
+      "vatHint": "Určuje DPH na faktuře.",
+      "vatChecking": "Ověřujeme v registru EU",
+      "deliveryTitle": "Kam faktura půjde",
+      "deliveryDescription": "Ve většině firem jde faktura do účtárny, ne tomu, kdo objednává.",
+      "invoiceEmail": "E-mail pro faktury",
+      "invoiceEmailPlaceholder": "faktury@example.invalid",
+      "copyToEmail": "Kopie na (nepovinné)",
+      "copyToEmailPlaceholder": "jana.novakova@example.invalid",
+      "purchaseOrder": "Číslo objednávky nebo nákladové středisko (nepovinné)",
+      "purchaseOrderPlaceholder": "OBJ-2026-0042",
+      "purchaseOrderHint": "Mnoho firem zaplatí jen fakturu, která nese jejich vlastní označení.",
+      "submit": "Objednat",
+      "submitting": "Vytváříme fakturu"
+    },
+    "accept": {
+      "label": "Objednávám za výše uvedenou společnost a mám k tomu oprávnění. Platí <terms>podmínky</terms> a <avv>smlouva o zpracování osobních údajů</avv> ve znění ze dne {date}. Faktury přijímáme jako PDF e-mailem.",
+      "required": "Potvrďte prosím podmínky a smlouvu o zpracování osobních údajů. Bez toho objednávku přijmout nemůžeme."
+    },
+    "legal": {
+      "title": "Před objednávkou",
+      "labels": {
+        "b2b": "Prodávající",
+        "term": "Doba trvání",
+        "moneyBack": "Vrácení peněz",
+        "payment": "Platba",
+        "contract": "Smlouva"
+      },
+      "b2b": "Pouze pro podnikatele. Prodávajícím je Kardashev Catalyst UG (haftungsbeschränkt), Trierer Str. 6, 50676 Köln, Německo, Amtsgericht Köln HRB 126993, DIČ DE462889433.",
+      "term": "Licence platí jeden rok ode dneška a pak se prodlužuje vždy o jeden rok. 14 dní předtím, než vystavíme fakturu na nový rok, vám to připomeneme e-mailem. Zrušit můžete až do data prodloužení.",
+      "moneyBack": "Pokud jde o první objednávku vašeho účtu, můžete ji do 30 dnů ode dneška zrušit bez udání důvodu. Je-li faktura ještě nezaplacená, stornujeme ji dobropisem. Pokud jste už zaplatili, vrátíme vám částku převodem do 30 dnů od zrušení. Neplatí pro prodloužení ani pro pozdější objednávky.",
+      "payment": "Platba bankovním převodem do 30 dnů od data faktury. Pokud do té doby faktura zaplacena není, pozastavíme přístup k licenci, dokud platba nedorazí.",
+      "contract": "Zkontrolujete své údaje a cenu, potvrdíte podmínky a kliknete na „Objednat“. Objednávku přijímáme tím, že ihned otevřeme přístup a pošleme fakturu e-mailem. Chyby v zadání opravíte v polích před kliknutím. Kterou verzi podmínek jste přijali, se pak zobrazí v sekci Fakturace. Podmínky a smlouvu o zpracování osobních údajů si můžete nyní uložit nebo vytisknout. Smluvním jazykem je němčina nebo angličtina podle jazyka, ve kterém objednáváte."
+    },
+    "registry": {
+      "valid": "Potvrzeno registrem EU",
+      "invalid": "Zatím není v registru",
+      "unavailable": "Registr je nedostupný, nic to nebrzdí",
+      "malformed": "Neověřeno"
+    },
+    "warnings": {
+      "notInRegister": "Registr EU toto číslo zatím nezná, což je u nově přiděleného čísla běžné. Objednávku to nebrzdí.",
+      "checkNumber": "Zkontrolujte prosím DIČ."
+    },
+    "price": {
+      "title": "Co se účtuje",
+      "net": "Bez DPH",
+      "vat": "DPH {rate} %",
+      "gross": "Celkem"
+    },
+    "preview": {
+      "caption": "Vaše faktura tak, jak přijde e-mailem. Doplňuje se průběžně, jak píšete.",
+      "title": "Faktura",
+      "draft": "Náhled",
+      "companyPlaceholder": "Vaše společnost",
+      "addressPlaceholder": "Ulice, PSČ a město",
+      "vatId": "DIČ {id}",
+      "date": "Datum faktury",
+      "reference": "Vaše označení",
+      "period": "Období plnění {start} až {end}",
+      "vatLabel": "DPH",
+      "vatPending": "vyplyne z vašeho DIČ",
+      "totalPending": "{net} plus DPH",
+      "due": "Splatné do {date} bankovním převodem.",
+      "sentTo": "Posláno jako PDF na {email}."
+    },
+    "trust": {
+      "invoice": "Nyní se nic neúčtuje. Fakturu zaplatíte do 30 dnů.",
+      "moneyBack": "První objednávka: zrušte do 30 dnů a peníze dostanete zpět.",
+      "access": "Přístup se otevře hned po objednání."
+    },
+    "treatment": {
+      "reverse_charge": "Přenesení daňové povinnosti: DPH přiznáváte sami.",
+      "unconfirmed_eu": "Přenesení daňové povinnosti vyžaduje číslo potvrzené registrem EU. Toto zatím potvrzené není, proto je na faktuře německá DPH.",
+      "outside_eu": "Plnění mimo Německo pro účely DPH, proto bez německé DPH."
+    },
+    "errors": {
+      "companyName": "Na fakturu patří název společnosti podle rejstříku.",
+      "street": "Chybí ulice a číslo.",
+      "zip": "Chybí PSČ.",
+      "city": "Chybí město.",
+      "countryCode": "Dvoupísmenný kód země, například CZ.",
+      "vatFormat": "Nevypadá to jako DIČ. Začíná kódem země.",
+      "vatChecksum": "Jedna číslice v tomto čísle nesedí. Porovnejte ho s dokladem od finančního úřadu.",
+      "vatCountry": "Neodpovídá formátu DIČ této země.",
+      "email": "Adresa, na kterou lze fakturu poslat.",
+      "tooLong": "To je příliš dlouhé.",
+      "generic": "Zkontrolujte prosím toto pole."
+    },
+    "result": {
+      "title": "Objednáno",
+      "accessOpen": "Váš přístup je otevřený. Průvodce je připravený.",
+      "invoice": "Faktura",
+      "amount": "Částka",
+      "sentTo": "Posláno na",
+      "due": "Splatné do",
+      "arrives": "Faktura přijde jako PDF během několika minut, s odkazem na zobrazení online.",
+      "start": "Spustit průvodce",
+      "alreadyOrdered": "Tento účet už má aktuální fakturu. Najdete ji mezi svými fakturami.",
+      "tooManyRequests": "Příliš mnoho pokusů. Počkejte prosím minutu.",
+      "failed": "Objednávku se teď nepodařilo dokončit. Zkuste to prosím později.",
+      "priceChanged": "Registr EU teď odpověděl jinak, a proto se změnila cena. Zkontrolujte prosím novou částku a objednejte znovu.",
+      "termsChanged": "Od otevření této stránky se naše podmínky změnily. Načtěte ji prosím znovu, přečtěte si aktuální verzi a objednejte znovu.",
+      "unknown": "Nepodařilo se s jistotou zjistit, zda byla faktura vytvořena. Neobjednávejte prosím znovu. Prověříme to a ozveme se vám."
+    },
+    "cancel": {
+      "menuItem": "Zrušit licenci",
+      "button": "Zrušit",
+      "moneyBackTitle": "Zrušit objednávku?",
+      "moneyBackBody": "Stále jste v rámci třiceti dnů na vrácení peněz, do {lastDay}. Fakturu stornujeme dobropisem a roční licence ihned skončí. Pokud jste už zaplatili, vrátíme vám částku převodem do 30 dnů od zrušení.",
+      "renewalTitle": "Zrušit prodloužení?",
+      "renewalBody": "Třicet dní na vrácení peněz uplynulo. Vaše licence platí do {periodEnd} a poté se neprodlouží. Faktura zůstává v platnosti.",
+      "renewalLaterInvoiceBody": "Třicet dní na vrácení peněz platí jen pro první objednávku účtu. Vaše licence platí do {periodEnd} a poté se neprodlouží. Faktura zůstává v platnosti.",
+      "kept": "Vaše organizace a vše, co jste zadali, zůstávají ve vašem účtu.",
+      "confirm": "Ano, zrušit",
+      "keep": "Ponechat",
+      "doneMoneyBack": "Zrušeno. Dobropis {number} je na cestě e-mailem. Pokud jste částku už převedli, vrátíme ji do 30 dnů od jejího připsání.",
+      "pending": "Stále prověřujeme dřívější objednávku nebo zrušení tohoto účtu. Nic se nezměnilo. Zkuste to prosím později nebo nám napište.",
+      "doneMoneyBackRefund": "Zrušeno. Dobropis {number} je na cestě e-mailem a zaplacenou částku vám vrátíme převodem do 30 dnů.",
+      "doneRenewal": "Zrušeno. Vaše licence platí do {date}.",
+      "unknown": "Nepodařilo se s jistotou zjistit, zda zrušení proběhlo. Nezkoušejte to prosím znovu. Prověříme to a ozveme se vám.",
+      "failed": "Zrušení teď neproběhlo. Zkuste to prosím později.",
+      "tooManyRequests": "Příliš mnoho pokusů. Počkejte prosím minutu."
+    },
+    "page": {
+      "renewalCanceled": "Zrušeno. Vaše licence končí {date} a neprodlouží se.",
+      "moneyBackUntil": "Třicet dní na vrácení peněz do {date}.",
+      "contractTitle": "Smlouva",
+      "contractAccepted": "Podmínky a smlouva o zpracování osobních údajů ve znění ze dne {version}, přijaté dne {date} ({name}).",
+      "contractOnCall": "Podmínky a smlouva o zpracování osobních údajů ve znění ze dne {version}, přijaté v hovoru dne {date} ({name}).",
+      "contractNotRecorded": "K aktuální faktuře není uloženo žádné přijetí podmínek. Pokud potřebujete smlouvu v textové podobě, napište nám.",
+      "contractUnknownName": "bez jména",
+      "contractLinks": "Přečtěte si aktuální verzi: <terms>podmínky</terms>, <avv>smlouva o zpracování osobních údajů</avv>.",
+      "cancelRoute": "Zrušit můžete zde tlačítkem nebo v textové formě e-mailem na contact@nisd2.eu. Do 30 dnů od první objednávky účtu dostanete peníze zpět. Poté, a u každého prodloužení, licence končí na konci zaplaceného roku.",
+      "title": "Fakturace",
+      "description": "Přístup, cena a faktury vašeho účtu.",
+      "accessTitle": "Přístup",
+      "level": {
+        "free": "Bez licence",
+        "grandfathered": "Raný účet: současný průvodce pro vás zůstává zdarma",
+        "full": "Průvodce NIS 2, roční licence"
+      },
+      "price": "Vaše cena: {price} bez DPH ročně",
+      "order": "Objednat",
+      "invoicesTitle": "Faktury",
+      "payerOnly": "Faktury vidí držitel účtu. Obvykle je to ten, kdo organizaci založil.",
+      "empty": "Zatím žádné faktury.",
+      "number": "Číslo",
+      "amount": "Částka",
+      "period": "Období",
+      "status": "Stav",
+      "download": "PDF",
+      "pdfPending": "PDF bude následovat",
+      "credited": "Dobropisováno ({number})",
+      "statuses": {
+        "paid": "Zaplaceno",
+        "unpaid": "Nezaplaceno",
+        "canceled": "Stornováno",
+        "draft": "Koncept",
+        "unknown": "Nedostupné"
+      }
+    }
+  }
+}

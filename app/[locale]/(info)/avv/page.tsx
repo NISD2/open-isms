@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { BindingTranslationNotice } from "@/components/legal/BindingTranslationNotice";
 import { LegalSections } from "@/components/legal/LegalSections";
 import { Separator } from "@/components/ui/separator";
+import { getPathname } from "@/i18n/navigation";
 import { termsVersionLabel } from "@/lib/billing/terms";
+import { BINDING_CONTRACT_LOCALE } from "@/lib/legal/contract-language";
 import { pageAlternates } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -51,6 +54,9 @@ export default async function AvvPage({
         <p className="font-medium text-sm">
           {t("avvContract.version", { date: termsVersionLabel(locale) })}
         </p>
+        <BindingTranslationNotice
+          englishHref={getPathname({ href: "/avv", locale: BINDING_CONTRACT_LOCALE })}
+        />
       </header>
 
       <Separator className="my-8" />

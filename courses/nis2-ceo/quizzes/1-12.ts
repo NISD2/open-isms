@@ -155,7 +155,7 @@ const quiz = quizSchema.parse({
         it: "L'articolo 23(2) richiede che comunichiate tutte le misure o i rimedi che i destinatari sono in grado di adottare in risposta alla minaccia.",
         es: "El artículo 23(2) exige que comunique cualquier medida o solución que los destinatarios puedan adoptar en respuesta a la amenaza.",
         pl: "Artykuł 23(2) wymaga ujawnienia wszelkich środków lub rozwiązań, które odbiorcy są w stanie podjąć w odpowiedzi na zagrożenie.",
-        cs: "Článek 23(2) vyžaduje, abyste sdělili veškerá opatření nebo nápravné kroky, které mohou příjemci v reakci na hrozbu přijmout.",
+        cs: "Článek 23(2) vyžaduje, abyste sdělili veškerá opatření nebo nápravné kroky, které mohou příjemci v reakci na hrozbu přijmout. V Česku to ukládá § 19 odst. 2 zákona č. 264/2025 Sb. každému poskytovateli regulované služby.",
         pt: "O artigo 23(2) exige que divulgue quaisquer medidas ou soluções que os destinatários possam adotar em resposta à ameaça.",
         ro: "Articolul 23(2) impune să divulgați orice măsuri sau remedii pe care destinatarii le pot lua ca răspuns la amenințare.",
       },

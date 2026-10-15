@@ -16,7 +16,7 @@
       "step1Title": "Týdenní hovor, 30 minut",
       "step1Body": "Jeden pevný termín týdně. Žádný projektový měsíc, žádné nekonečné slaďovací smyčky. Vezmeme další položku z vašeho plánu postupu a společně ji dotáhneme do konce.",
       "step2Title": "Vedeme my, váš vedoucí IT zavádí",
-      "step2Body": "Vaše osobní časová náročnost jako jednatele činí přibližně tři hodiny ročně, poté je schválení a dohled podle článku 20 NIS 2 (v Česku § 4 vyhlášek č. 409/2025 Sb. a 410/2025 Sb.) hotov. Čtyři povinnosti podle článku 21 jsou pevně dané, zbytek se škáluje podle vašeho rizika a je přiměřený. Provozní část, inventář aktiv, registr rizik, dodavatelé a deset opatření, řeší váš tým.",
+      "step2Body": "Vaše osobní časová náročnost jako jednatele činí přibližně tři hodiny ročně, poté je schválení a dohled podle článku 20 NIS 2 hotov (v Česku vedení podle § 4 vyhlášek č. 409/2025 Sb. a 410/2025 Sb. absolvuje školení a prokazatelně se seznamuje se stavem opatření). Čtyři povinnosti podle článku 21 jsou pevně dané, zbytek se škáluje podle vašeho rizika a je přiměřený. Provozní část, inventář aktiv, registr rizik, dodavatelé a deset opatření, řeší váš tým.",
       "step3Title": "Vše zůstává vám. Žádný lock-in.",
       "step3Body": "Vaše data, auditní stopa a důkazy patří vám. Platforma je open source. Pokud chcete pokračovat bez nás, vše vyexportujte a odneste si to s sebou."
     },
@@ -44,11 +44,11 @@
       },
       "deadlines": {
         "title": "Lhůty a hlášení",
-        "description": "Registrace, kaskáda hlášení incidentů podle článku 23 (24 hodin, 72 hodin, jeden měsíc) a obnovování školení. Každá lhůta hlídaná, nic neuteče."
+        "description": "Registrace, kaskáda hlášení incidentů podle § 16 zákona č. 264/2025 Sb. (24 hodin, 72 hodin, závěrečná zpráva do 30 dnů od oznámení) a obnovování školení. Každá lhůta hlídaná, nic neuteče."
       },
       "bsiRegistration": {
         "title": "Registrace u úřadu",
-        "description": "Vedená příprava registrace podle článku 27, se všemi požadovanými dokumenty a kontrolním seznamem před odesláním."
+        "description": "Vedená příprava ohlášení služby NÚKIB podle § 6 odst. 1 zákona č. 264/2025 Sb., se všemi požadovanými údaji a kontrolním seznamem před odesláním."
       }
     },
     "faq": {
@@ -67,7 +67,7 @@
       "a6": "Platformu používáte dál zdarma, nebo svá data vyexportujete a odejdete. Vedení je měsíčně vypovězitelné, software je open source. Žádný lock-in."
     },
     "sources": {
-      "body": "Zdroje a transparentnost: směrnice NIS2 (EU) 2022/2555, německý zákon, který ji transponuje, CIR 2024/2690, ENISA Technical Implementation Guidance. Open source, hostováno v Německu, v souladu s GDPR. Tato stránka je strukturované vedení a není právní radou. Provozní zavedení zajišťuje váš vedoucí IT nebo CISO."
+      "body": "Zdroje a transparentnost: směrnice NIS2 (EU) 2022/2555, zákon č. 264/2025 Sb., o kybernetické bezpečnosti, který ji v Česku transponuje, CIR 2024/2690, ENISA Technical Implementation Guidance. Open source, hostováno v Německu, v souladu s GDPR. Tato stránka je strukturované vedení a není právní radou. Provozní zavedení zajišťuje váš vedoucí IT nebo CISO."
     },
     "finalCta": {
       "headline": "Rezervujte si bezplatný úvodní hovor",

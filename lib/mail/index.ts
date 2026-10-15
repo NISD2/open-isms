@@ -1,5 +1,10 @@
 export { sendAuthCode } from "./auth-code";
-export { type SendMailOptions, sendMail, sendWelcomeEmail } from "./send";
+export {
+  accountEmailLocale,
+  type SendMailOptions,
+  sendMail,
+  sendWelcomeEmail,
+} from "./send";
 export {
   accountSetupEmail,
   billingAlertEmail,

@@ -9,7 +9,43 @@
     },
     "landing": {
       "hero": {
-        "ctaPrimary": "Vytvořit profil dodavatele"
+        "eyebrow": "Pro dodavatele firem, které spadají pod NIS 2",
+        "title": "Vyplňte jeden bezpečnostní dotazník a <blue>sdílejte ho s každým zákazníkem</blue>",
+        "subtitle": "Firmy, které spadají pod NIS 2, musí řídit bezpečnost svého dodavatelského řetězce, a proto se ptají svých dodavatelů. Vy vyplníte jeden dotazník, jen jednou, a každý zákazník čte stejné odpovědi. Pro dodavatele zdarma.",
+        "ctaPrimary": "Vytvořit profil dodavatele",
+        "allQuestions": "Zobrazit všechny otázky ({total})",
+        "shotAlt": "Bezpečnostní dotazník v dodavatelském portálu, vyplněný ukázkovým dodavatelem: každá otázka s vysvětlením a základem"
+      },
+      "showcase": {
+        "title": "Jak dotazník funguje",
+        "lead": "Každý obrázek ukazuje skutečnou aplikaci, vyplněnou pro smyšlené ukázkové firmy.",
+        "steps": {
+          "reach": {
+            "title": "Jen otázky, které se vás týkají",
+            "text": "Nejprve uvedete, zda uchováváte data svých zákazníků, přistupujete k jejich systémům nebo vstupujete do jejich prostor, a jakou službu poskytujete. Potom vidíte jen otázky, které k tomu patří, a žádné, které se na vaši službu nevztahují.",
+            "alt": "V profilu: co dodavatel dodává a k čemu má u zákazníků přístup, u každého bodu ano nebo ne"
+          },
+          "explained": {
+            "title": "U každé otázky stojí, kdy zaškrtnout ano",
+            "text": "Pod každou otázkou je jednoduchými slovy vysvětleno, co je myšleno, s příklady. Pod tím stojí, o co se otázka opírá, většinou o bod prováděcího nařízení (EU) 2024/2690, a tam, kde existuje, i odpovídající opatření z ISO/IEC 27001:2022.",
+            "alt": "Otázky k bezpečnostní praxi, každá s vysvětlením, základem a opatřením z ISO/IEC 27001"
+          },
+          "privateLink": {
+            "title": "Odpovíte jednou, ukážete každému zákazníkovi",
+            "text": "Zákazníky pozvete e-mailem. Každý otevře vaše odpovědi přes vlastní odkaz, bez založení účtu, a čte stejné odpovědi jako všichni ostatní. Nic není veřejné: žádná stránka profilu, nic pro vyhledávače. Přístup můžete kdykoli odebrat.",
+            "alt": "Co pozvaný zákazník vidí přes svůj odkaz: bezpečnostní profil dodavatele"
+          },
+          "inRegister": {
+            "title": "Zákazníci na nisd2.eu vás mají ve svém registru dodavatelů",
+            "text": "Pokud váš zákazník sám používá nisd2.eu, vyžádá si vaše odpovědi v portálu. Od té chvíle je otevírá ze svého registru dodavatelů, kde vede své dodavatele podle NIS 2.",
+            "alt": "Závazky dodavatele, jak je zákazník čte ve svém registru dodavatelů"
+          },
+          "lastSaved": {
+            "title": "Změníte to na jednom místě",
+            "text": "Když přibude subdodavatel nebo se změní odpověď, změníte ji jednou v portálu. Každý zákazník čte vždy aktuální verzi s datem vaší poslední změny.",
+            "alt": "Dotazník se svým stavem: všechny otázky zodpovězeny, naposledy uloženo"
+          }
+        }
       },
       "serviceTypes": {
         "heading": "Na co se vás ptáme, záleží na tom, k čemu máte u zákazníků přístup.",
@@ -33,6 +69,36 @@
           }
         ],
         "example": "Úklidová firma s klíči tak vidí {cleaning, plural, one {# otázku} few {# otázky} many {# otázky} other {# otázek}}, poskytovatel SaaS, který uchovává data zákazníků, {saas}."
+      },
+      "bsi": {
+        "quote": "Wir begrüßen aktuelle Vorstöße der Wirtschaft, einen einheitlichen Fragenkatalog für Lieferanten zu erarbeiten, der die Erfüllung der Anforderungen belegt.",
+        "translation": "Vítáme současné iniciativy podnikatelské sféry vypracovat jednotný katalog otázek pro dodavatele, který doloží splnění požadavků.",
+        "attribution": "Německý úřad BSI, obecné FAQ k NIS 2 (náš překlad)",
+        "context": "Tento dotazník je jednou z takových iniciativ: jednotný, otevřený a volně použitelný. Dodavatelé ho vyplní jednou a každý zákazník čte stejné odpovědi, když řídí bezpečnost svého dodavatelského řetězce podle čl. 21 odst. 2 písm. d) směrnice NIS 2."
+      },
+      "privacy": {
+        "heading": "Jen pro zákazníky, které pozvete",
+        "body": "Vaše odpovědi vidí jen zákazníci, které pozvete nebo jejichž žádost přijmete. Žádná veřejná stránka profilu, nic pro vyhledávače. Hostováno v EU, kód je otevřený na GitHubu."
+      },
+      "cta": {
+        "heading": "Začněte svým profilem",
+        "body": "Přihlaste se, zadejte název firmy a pak vyplňte dotazník vlastním tempem. Zákazníky pozvete, až budete připraveni.",
+        "button": "Vytvořit profil dodavatele"
+      },
+      "related": {
+        "heading": "Další na nisd2.eu",
+        "portal": {
+          "title": "Dodavatelský portál",
+          "body": "Co dalšího portál umí: pozvat zákazníky, uložit certifikáty, hlásit incidenty."
+        },
+        "questions": {
+          "title": "Každá otázka s tím, o co se opírá",
+          "body": "Celý dotazník ke čtení, jako PDF, pro Word a jako otevřené schéma."
+        },
+        "openSource": {
+          "title": "Open source",
+          "body": "Úplný zdrojový kód pod licencí AGPL-3.0 na GitHubu."
+        }
       }
     }
   }

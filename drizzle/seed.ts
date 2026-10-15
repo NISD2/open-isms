@@ -1,4 +1,4 @@
-import { NIS2_PREREQUISITES } from "@nisd2/grc-data-model/frameworks";
+import { czechRefColumns, NIS2_PREREQUISITES } from "@nisd2/grc-data-model/frameworks";
 import { assertLocalDatabase } from "../scripts/lib/assert-local-database";
 
 /**
@@ -206,6 +206,7 @@ async function seedFrameworkData(
           priority: req.priority,
           importance: req.importance,
           legalRef: req.legalRef || null,
+          ...czechRefColumns(req.czechRef),
           frameworkRef: req.frameworkRef || null,
           cirReference: req.cirReference || null,
           moduleRef: req.moduleRef || null,

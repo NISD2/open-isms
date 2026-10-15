@@ -1,4 +1,4 @@
-import { REPORT_TYPE, SECTION, FIELD_TYPE, type IncidentField } from "../schema";
+import { FIELD_TYPE, type IncidentField, REPORT_TYPE, SECTION } from "../schema";
 
 export const classificationFields: ReadonlyArray<IncidentField> = [
   {
@@ -61,15 +61,15 @@ export const classificationFields: ReadonlyArray<IncidentField> = [
       ro: "Motivul notificării",
     },
     description: {
-      en: "The category under which this notification is submitted. NIS 2 Art. 23(3) mandates reporting only of significant incidents; near-miss and non-significant incident reporting is voluntary under Art. 30 NIS 2.",
-      de: "Kategorie der Meldung. Pflichtmeldung nur für erhebliche Sicherheitsvorfälle nach Art. 23(3) NIS 2; Beinahevorfälle und nicht erhebliche Sicherheitsvorfälle sind freiwillig nach Art. 30 NIS 2.",
-      fr: "Catégorie au titre de laquelle cette notification est soumise. L'art. 23(3) NIS2 n'impose la notification que des incidents importants ; la notification des quasi-incidents et des incidents non importants est volontaire au titre de l'art. 30 NIS2.",
-      it: "Categoria sotto la quale viene presentata la presente notifica. L'art. 23(3) NIS2 impone la notifica solo degli incidenti significativi; la notifica dei quasi-incidenti e degli incidenti non significativi è volontaria ai sensi dell'art. 30 NIS2.",
-      es: "Categoría bajo la cual se presenta esta notificación. El art. 23(3) NIS2 solo obliga a notificar los incidentes significativos; la notificación de cuasi-incidentes y de incidentes no significativos es voluntaria conforme al art. 30 NIS2.",
-      pl: "Kategoria, w ramach której składane jest niniejsze zgłoszenie. Art. 23(3) NIS2 nakłada obowiązek zgłaszania wyłącznie poważnych incydentów; zgłaszanie zdarzeń potencjalnie wypadkowych oraz incydentów niemających charakteru poważnego jest dobrowolne na podstawie art. 30 NIS2.",
-      cs: "Kategorie, v jejímž rámci se toto hlášení podává. Čl. 23(3) NIS 2 ukládá povinnost hlásit pouze významné incidenty; hlášení skoronehod a incidentů, které nemají významný charakter, je dobrovolné podle čl. 30 NIS 2.",
-      pt: "Categoria ao abrigo da qual esta notificação é apresentada. O art. 23(3) NIS 2 só impõe a notificação dos incidentes significativos; a notificação de quase-incidentes e de incidentes não significativos é voluntária ao abrigo do art. 30 NIS 2.",
-      ro: "Categoria în temeiul căreia se transmite această notificare. Art. 23(3) NIS 2 impune notificarea numai a incidentelor semnificative; notificarea cvasiincidentelor și a incidentelor fără caracter semnificativ este voluntară în temeiul art. 30 NIS 2.",
+      en: "The category under which this notification is submitted. NIS 2 Art. 23(1) mandates reporting only of significant incidents, as defined in Art. 23(3); near-miss and non-significant incident reporting is voluntary under Art. 30 NIS 2.",
+      de: "Kategorie der Meldung. Pflichtmeldung nach Art. 23(1) NIS 2 nur für erhebliche Sicherheitsvorfälle im Sinne von Art. 23(3) NIS 2; Beinahevorfälle und nicht erhebliche Sicherheitsvorfälle sind freiwillig nach Art. 30 NIS 2.",
+      fr: "Catégorie au titre de laquelle cette notification est soumise. L'art. 23(1) NIS2 n'impose la notification que des incidents importants au sens de l'art. 23(3) NIS2 ; la notification des quasi-incidents et des incidents non importants est volontaire au titre de l'art. 30 NIS2.",
+      it: "Categoria sotto la quale viene presentata la presente notifica. L'art. 23(1) NIS2 impone la notifica solo degli incidenti significativi ai sensi dell'art. 23(3) NIS2; la notifica dei quasi-incidenti e degli incidenti non significativi è volontaria ai sensi dell'art. 30 NIS2.",
+      es: "Categoría bajo la cual se presenta esta notificación. El art. 23(1) NIS2 solo obliga a notificar los incidentes significativos en el sentido del art. 23(3) NIS2; la notificación de cuasi-incidentes y de incidentes no significativos es voluntaria conforme al art. 30 NIS2.",
+      pl: "Kategoria, w ramach której składane jest niniejsze zgłoszenie. Art. 23(1) NIS2 nakłada obowiązek zgłaszania wyłącznie poważnych incydentów w rozumieniu art. 23(3) NIS2; zgłaszanie zdarzeń potencjalnie wypadkowych oraz incydentów niemających charakteru poważnego jest dobrowolne na podstawie art. 30 NIS2.",
+      cs: "Kategorie, v jejímž rámci se toto hlášení podává. Čl. 23(1) NIS 2 ukládá povinnost hlásit pouze významné incidenty ve smyslu čl. 23(3) NIS 2; hlášení skoronehod a incidentů, které nemají významný charakter, je dobrovolné podle čl. 30 NIS 2.",
+      pt: "Categoria ao abrigo da qual esta notificação é apresentada. O art. 23(1) NIS 2 só impõe a notificação dos incidentes significativos na aceção do art. 23(3) NIS 2; a notificação de quase-incidentes e de incidentes não significativos é voluntária ao abrigo do art. 30 NIS 2.",
+      ro: "Categoria în temeiul căreia se transmite această notificare. Art. 23(1) NIS 2 impune notificarea numai a incidentelor semnificative în sensul art. 23(3) NIS 2; notificarea cvasiincidentelor și a incidentelor fără caracter semnificativ este voluntară în temeiul art. 30 NIS 2.",
     },
     requiredIn: [
       REPORT_TYPE.EARLY_WARNING,
@@ -101,10 +101,62 @@ export const classificationFields: ReadonlyArray<IncidentField> = [
     section: SECTION.CLASSIFICATION,
     type: FIELD_TYPE.ENUM,
     options: [
-      { value: "low", label: { en: "Low", de: "Niedrig", fr: "Faible", it: "Basso", es: "Bajo", pl: "Niski", cs: "Nízká", pt: "Baixo", ro: "Scăzut" } },
-      { value: "medium", label: { en: "Medium", de: "Mittel", fr: "Moyen", it: "Medio", es: "Medio", pl: "Średni", cs: "Střední", pt: "Médio", ro: "Mediu" } },
-      { value: "high", label: { en: "High", de: "Hoch", fr: "Élevé", it: "Alto", es: "Alto", pl: "Wysoki", cs: "Vysoká", pt: "Alto", ro: "Ridicat" } },
-      { value: "critical", label: { en: "Critical", de: "Kritisch", fr: "Critique", it: "Critico", es: "Crítico", pl: "Krytyczny", cs: "Kritická", pt: "Crítico", ro: "Critic" } },
+      {
+        value: "low",
+        label: {
+          en: "Low",
+          de: "Niedrig",
+          fr: "Faible",
+          it: "Basso",
+          es: "Bajo",
+          pl: "Niski",
+          cs: "Nízká",
+          pt: "Baixo",
+          ro: "Scăzut",
+        },
+      },
+      {
+        value: "medium",
+        label: {
+          en: "Medium",
+          de: "Mittel",
+          fr: "Moyen",
+          it: "Medio",
+          es: "Medio",
+          pl: "Średni",
+          cs: "Střední",
+          pt: "Médio",
+          ro: "Mediu",
+        },
+      },
+      {
+        value: "high",
+        label: {
+          en: "High",
+          de: "Hoch",
+          fr: "Élevé",
+          it: "Alto",
+          es: "Alto",
+          pl: "Wysoki",
+          cs: "Vysoká",
+          pt: "Alto",
+          ro: "Ridicat",
+        },
+      },
+      {
+        value: "critical",
+        label: {
+          en: "Critical",
+          de: "Kritisch",
+          fr: "Critique",
+          it: "Critico",
+          es: "Crítico",
+          pl: "Krytyczny",
+          cs: "Kritická",
+          pt: "Crítico",
+          ro: "Critic",
+        },
+      },
     ],
     label: {
       en: "Severity level",

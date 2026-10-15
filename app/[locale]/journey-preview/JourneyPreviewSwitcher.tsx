@@ -17,11 +17,22 @@ import {
 import type { JourneyMode } from "../(portal)/journey/journey-mode";
 import { PathFlow } from "../(portal)/journey/PathFlow";
 import { PathHero } from "../(portal)/journey/PathHero";
-import type { Aggregate, FlowNode } from "../(portal)/journey/path-nodes";
+import {
+  type Aggregate,
+  type FlowNode,
+  journeyLocaleOf,
+  type Localized,
+} from "../(portal)/journey/path-nodes";
 import { SoloPath } from "../(portal)/journey/SoloPath";
 import type { JourneyItem } from "../(portal)/journey/views";
 
-type Locale = "en" | "de" | "nl";
+const TABS: { key: JourneyMode; label: Localized }[] = [
+  {
+    key: "solo",
+    label: { de: "Geführter Weg", en: "Guided path", cs: "Krok za krokem" },
+  },
+  { key: "team", label: { de: "Teamansicht", en: "Team view", cs: "Týmový pohled" } },
+];
 
 /**
  * Design route only. Renders both journey layouts against the full 49-step
@@ -40,7 +51,7 @@ export function JourneyPreviewSwitcher({
   reqNodes: FlowNode[];
   aggregate: Aggregate;
   live: JourneyItem | null;
-  locale: Locale;
+  locale: string;
 }) {
   // The question opens over the layout exactly as it does on the real page,
   // and answering it is what dismisses it. No re-open control: on the real
@@ -49,13 +60,8 @@ export function JourneyPreviewSwitcher({
   // exist. Reload to see it again.
   const [tab, setTab] = useState<JourneyMode>("solo");
   const [askingMode, setAskingMode] = useState(true);
-  const de = locale === "de";
+  const lang = journeyLocaleOf(locale);
   const copy = useJourneyModeCopy();
-
-  const TABS: { key: JourneyMode; label: string }[] = [
-    { key: "solo", label: de ? "Geführter Weg" : "Guided path" },
-    { key: "team", label: de ? "Teamansicht" : "Team view" },
-  ];
 
   return (
     <div className="space-y-4 p-4">
@@ -75,7 +81,7 @@ export function JourneyPreviewSwitcher({
                     : "text-muted-foreground hover:text-foreground",
                 )}
               >
-                {option.label}
+                {option.label[lang]}
               </button>
             ))}
           </div>

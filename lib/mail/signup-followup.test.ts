@@ -20,6 +20,18 @@ describe("signupFollowUp", () => {
     expect(mail.body).toContain("/en/pricing/approval");
   });
 
+  test("Czech signups get the Czech offer with the Czech approval page", () => {
+    const mail = signupFollowUp({ name: "Jana Nováková", locale: "cs" });
+    expect(mail.locale).toBe("cs");
+    expect(mail.subject).toBe("Vaše registrace na nisd2.eu");
+    // The vocative cannot be built from a stored name, so the greeting stays bare.
+    expect(mail.body.startsWith("Dobrý den,\n")).toBe(true);
+    expect(mail.body).toContain("4 800 € bez DPH ročně");
+    expect(mail.body).toContain("v angličtině");
+    expect(mail.body).toContain("/cs/pricing/approval");
+    expect(mail.body).not.toContain("BSIG");
+  });
+
   test("the booking link carries the follow-up's campaign tags", () => {
     const mail = signupFollowUp({ name: "Anna", locale: "de" });
     expect(mail.body).toContain(
@@ -34,8 +46,8 @@ describe("signupFollowUp", () => {
     expect(signupFollowUp({ name: null, locale: "en" }).body).toMatch(/^Hello,\n/);
   });
 
-  test("no dash pairs or em dashes in either language", () => {
-    for (const locale of ["de", "en"] as const) {
+  test("no dash pairs or em dashes in any language", () => {
+    for (const locale of ["de", "en", "cs"] as const) {
       const { body } = signupFollowUp({ name: "A", locale });
       expect(body).not.toContain("—");
       expect(body).not.toContain(" - ");

@@ -1,8 +1,8 @@
 {
   "vulnerabilities": {
     "title": "Správa zranitelností",
-    "description": "Sledujte zjištěné zranitelnosti po celou dobu jejich životního cyklu. Vyžaduje CIR 2024/2690 čl. 6.10.",
-    "helpText": "Zaznamenávejte zranitelnosti nalezené při skenování, penetračních testech nebo z bezpečnostních upozornění. Sledujte třídění, rozhodnutí o řešení a vyřešení. CIR vyžaduje zacházení se zranitelnostmi jako samostatný zdokumentovaný proces oddělený od správy oprav.",
+    "description": "Sledujte zjištěné zranitelnosti po celou dobu jejich životního cyklu. Viz CIR 2024/2690, příloha bod 6.10; v Česku pravidelné skenování zranitelností ukládá vyhláška č. 410/2025 Sb., § 12 písm. c), a vyhláška č. 409/2025 Sb., § 24 odst. 4.",
+    "helpText": "Zaznamenávejte zranitelnosti nalezené při skenování, penetračních testech nebo z bezpečnostních upozornění. Sledujte třídění, rozhodnutí o řešení a vyřešení. CIR (příloha bod 6.10) vyžaduje postupy pro řešení zranitelností sladěné se správou záplat (bod 6.6).",
     "add": "Přidat zranitelnost",
     "edit": "Upravit zranitelnost",
     "empty": "Zatím nejsou zaznamenány žádné zranitelnosti. Přidejte svou první zranitelnost.",

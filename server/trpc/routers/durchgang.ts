@@ -1559,7 +1559,10 @@ export const durchgangRouter = router({
       return { changed: changed.length };
     }),
 
-  /** 9.1: the company's crypto list, or the BSI TR-02102 list while it has not taken one over. */
+  /**
+   * 9.1: the company's crypto list, or the default list while it has not taken one over: BSI
+   * TR-02102, or NÚKIB's minimum requirements for a Czech account.
+   */
   cryptoList: durchgangProcedure.query(async ({ ctx }) => {
     const stored = await cryptoListOf(ctx.db, ctx.companyId);
     if (stored) return { stored: true as const, list: stored };
@@ -1568,7 +1571,7 @@ export const durchgangRouter = router({
   }),
 
   /**
-   * 9.1: takes the BSI TR-02102 list over as the company's crypto list, as an explicit write. A
+   * 9.1: takes the default list over as the company's crypto list, as an explicit write. A
    * list the company keeps already, edited on the requirement page, is never overwritten.
    */
   adoptCrypto: durchgangWrite
@@ -1602,7 +1605,7 @@ export const durchgangRouter = router({
         action: "durchgang.crypto_adopted",
         entityType: "requirement",
         entityId: ref.requirementId,
-        description: `${ref.code} BSI TR-02102 crypto list adopted`,
+        description: `${ref.code} ${locale === "cs" ? "NÚKIB" : "BSI TR-02102"} crypto list adopted`,
       });
       return { adopted: true };
     }),

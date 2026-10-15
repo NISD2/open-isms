@@ -1,33 +1,37 @@
-import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
 import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
-import { pageAlternates } from "@/lib/seo";
-import { pickLocalized } from "@/lib/locale";
-import { JsonLd } from "@/components/JsonLd";
-import {
-  incidentNotificationSchema,
   groupBySection,
-  REPORT_TYPE_DPV_URI,
   type IncidentField,
+  incidentNotificationSchema,
   type LocalisedString,
+  REPORT_TYPE_DPV_URI,
   type SectionValue,
 } from "@nisd2/incident-notification-schema";
 import { FileCode, Package } from "lucide-react";
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+import { JsonLd } from "@/components/JsonLd";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { Link } from "@/i18n/navigation";
+import { REPORTS, type Report } from "@/lib/compliance/bsig-32";
+import {
+  CZECH_REPORT_TEXT,
+  CZECH_REPORTING_CLOCK,
+  czechArticle,
+  czechProvisionHref,
+} from "@/lib/compliance/czech-law";
+import { pickLocalized } from "@/lib/locale";
+import { pageAlternates } from "@/lib/seo";
 
-type Locale = "de" | "en" | "nl";
-
-const SCHEMA_REPO_URL =
-  "https://github.com/NISD2/nis2-incident-notification-schema";
+const SCHEMA_REPO_URL = "https://github.com/NISD2/nis2-incident-notification-schema";
 const SCHEMA_NPM_URL =
   "https://www.npmjs.com/package/@nisd2/incident-notification-schema";
 
@@ -64,6 +68,64 @@ export async function generateMetadata({
 function pickLocaleString(value: LocalisedString, locale: string): string {
   return pickLocalized(value as Record<string, string | undefined>, locale);
 }
+
+/**
+ * The schema's EU citations as a Czech reader writes them, article before instrument. The
+ * package holds them in English; one it adds later reads through czechArticle until it is here.
+ */
+const CZECH_CITATION: Readonly<Record<string, string>> = {
+  "Directive (EU) 2022/2555 (NIS 2) Art. 23": "čl. 23 směrnice (EU) 2022/2555 (NIS 2)",
+  "Commission Implementing Regulation (EU) 2024/2690 (CIR)":
+    "prováděcí nařízení Komise (EU) 2024/2690 (CIR)",
+  "ENISA Technical Implementation Guidance v1.0 (June 2025)":
+    "technické pokyny ENISA k provádění (Technical Implementation Guidance) v1.0, červen 2025",
+  "NIS Cooperation Group Common Notification Templates (adopted 26 May 2026; Commission Implementing Regulation pending)":
+    "společné šablony hlášení skupiny pro spolupráci NIS (přijaty 26. května 2026, prováděcí nařízení Komise se připravuje)",
+  "W3C DPV NIS 2 Vocabulary v2.3 (25 February 2026)":
+    "slovník W3C DPV pro NIS 2 v2.3 (25. února 2026)",
+  "NIS 2 Art. 6(6)": "čl. 6 bod 6 NIS 2",
+  "NIS 2 Art. 23(2)": "čl. 23 odst. 2 NIS 2",
+  "NIS 2 Art. 23(3)": "čl. 23 odst. 3 NIS 2",
+  "NIS 2 Art. 23(3)(a)": "čl. 23 odst. 3 písm. a) NIS 2",
+  "NIS 2 Art. 23(4)": "čl. 23 odst. 4 NIS 2",
+  "NIS 2 Art. 23(4)(a)": "čl. 23 odst. 4 písm. a) NIS 2",
+  "NIS 2 Art. 23(4)(b)": "čl. 23 odst. 4 písm. b) NIS 2",
+  "NIS 2 Art. 23(4)(d)": "čl. 23 odst. 4 písm. d) NIS 2",
+  "NIS 2 Art. 23(4)(d)(i)": "čl. 23 odst. 4 písm. d) bod i) NIS 2",
+  "NIS 2 Art. 23(4)(d)(ii)": "čl. 23 odst. 4 písm. d) bod ii) NIS 2",
+  "NIS 2 Art. 23(4)(d)(iii)": "čl. 23 odst. 4 písm. d) bod iii) NIS 2",
+  "NIS 2 Art. 23(4)(d)(iv)": "čl. 23 odst. 4 písm. d) bod iv) NIS 2",
+  "NIS 2 Art. 23(5)": "čl. 23 odst. 5 NIS 2",
+  "NIS 2 Art. 23(6)": "čl. 23 odst. 6 NIS 2",
+  "NIS 2 Art. 30": "čl. 30 NIS 2",
+  "NIS 2 Annex I": "příloha I NIS 2",
+  "NIS 2 Annex II": "příloha II NIS 2",
+  "CIR 2024/2690": "prováděcí nařízení (EU) 2024/2690",
+  "CIR 2024/2690 (where applicable)":
+    "prováděcí nařízení (EU) 2024/2690 (pokud se použije)",
+  "ENISA TIG v1.0 §5 (incident timeline)":
+    "ENISA TIG v1.0, oddíl 5 (časová osa incidentu)",
+  "ENISA TIG v1.0 §5 (incident profiling)": "ENISA TIG v1.0, oddíl 5 (profil incidentu)",
+  "ENISA TIG v1.0 §5 (detection)": "ENISA TIG v1.0, oddíl 5 (zjištění)",
+  "ENISA TIG v1.0 §5 (post-incident review)":
+    "ENISA TIG v1.0, oddíl 5 (přezkum po incidentu)",
+  "ENISA TIG v1.0 §5 (notification logistics)":
+    "ENISA TIG v1.0, oddíl 5 (organizace hlášení)",
+  "GDPR Art. 32(1)": "čl. 32 odst. 1 GDPR",
+  "GDPR Art. 33(1)": "čl. 33 odst. 1 GDPR",
+  "GDPR Art. 33(3)(a)": "čl. 33 odst. 3 písm. a) GDPR",
+  "GDPR Art. 33(3)(b)": "čl. 33 odst. 3 písm. b) GDPR",
+  "GDPR Art. 33(3)(c)": "čl. 33 odst. 3 písm. c) GDPR",
+  "GDPR Art. 33(3)(d)": "čl. 33 odst. 3 písm. d) GDPR",
+  "GDPR Art. 34": "čl. 34 GDPR",
+  "GDPR Art. 34(2)": "čl. 34 odst. 2 GDPR",
+  "DORA Art. 19(1)": "čl. 19 odst. 1 DORA",
+  "DORA Art. 19(4)": "čl. 19 odst. 4 DORA",
+};
+
+/** A citation as the reader's language writes it: Czech style on a Czech page, as stored elsewhere. */
+const citationFor = (citation: string, locale: string): string =>
+  locale === "cs" ? (CZECH_CITATION[citation] ?? czechArticle(citation)) : citation;
 
 export default async function MeldepflichtSchemaPage({
   params,
@@ -123,9 +185,7 @@ export default async function MeldepflichtSchemaPage({
       <Card>
         <CardHeader>
           <CardTitle>{t("meldepflichtSchema.anchors.heading")}</CardTitle>
-          <CardDescription>
-            {t("meldepflichtSchema.anchors.description")}
-          </CardDescription>
+          <CardDescription>{t("meldepflichtSchema.anchors.description")}</CardDescription>
         </CardHeader>
         <CardContent>
           <ul className="space-y-2 text-sm">
@@ -139,10 +199,10 @@ export default async function MeldepflichtSchemaPage({
                     rel="noopener noreferrer"
                     className="underline-offset-2 hover:underline"
                   >
-                    {instrument.citation}
+                    {citationFor(instrument.citation, locale)}
                   </a>
                 ) : (
-                  <span>{instrument.citation}</span>
+                  <span>{citationFor(instrument.citation, locale)}</span>
                 )}
               </li>
             ))}
@@ -166,11 +226,7 @@ export default async function MeldepflichtSchemaPage({
               </a>
             </Button>
             <Button asChild variant="outline">
-              <a
-                href={SCHEMA_REPO_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href={SCHEMA_REPO_URL} target="_blank" rel="noopener noreferrer">
                 <FileCode className="mr-2 h-4 w-4" />
                 {t("meldepflichtSchema.downloads.github")}
               </a>
@@ -204,9 +260,7 @@ export default async function MeldepflichtSchemaPage({
               <dt className="text-muted-foreground">
                 {t("meldepflichtSchema.meta_panel.reportTypes")}
               </dt>
-              <dd className="mt-0.5 font-mono font-medium">
-                {totalReportTypes}
-              </dd>
+              <dd className="mt-0.5 font-mono font-medium">{totalReportTypes}</dd>
             </div>
           </dl>
         </CardContent>
@@ -243,6 +297,14 @@ export default async function MeldepflichtSchemaPage({
         </CardContent>
       </Card>
 
+      {locale === "cs" && (
+        <CzechReportingCard
+          heading={t("meldepflichtSchema.czechReporting.heading")}
+          description={t("meldepflichtSchema.czechReporting.description")}
+          source={t("meldepflichtSchema.czechReporting.source")}
+        />
+      )}
+
       {SECTION_ORDER.map((sectionId) => {
         const group = grouped.find((g) => g.section === sectionId);
         if (!group || group.fields.length === 0) return null;
@@ -268,6 +330,9 @@ export default async function MeldepflichtSchemaPage({
                   overlapLabel={t("meldepflichtSchema.field.overlap")}
                   dpvLabel={t("meldepflichtSchema.field.dpv")}
                   conditionalLabel={t("meldepflichtSchema.field.conditional")}
+                  requiredLabel={t("meldepflichtSchema.field.requiredCount", {
+                    count: field.requiredIn.length,
+                  })}
                 />
               ))}
             </div>
@@ -292,9 +357,7 @@ export default async function MeldepflichtSchemaPage({
       <Card>
         <CardHeader>
           <CardTitle>{t("meldepflichtSchema.ctaCard.heading")}</CardTitle>
-          <CardDescription>
-            {t("meldepflichtSchema.ctaCard.description")}
-          </CardDescription>
+          <CardDescription>{t("meldepflichtSchema.ctaCard.description")}</CardDescription>
         </CardHeader>
         <CardContent>
           <Button asChild>
@@ -306,6 +369,82 @@ export default async function MeldepflichtSchemaPage({
   );
 }
 
+/**
+ * On a Czech page, the reports the Czech Act asks for, beside the EU's: § 16 counts the final
+ * report from the notification, and § 15 names who receives it by regime.
+ */
+async function CzechReportingCard({
+  heading,
+  description,
+  source,
+}: {
+  heading: string;
+  description: string;
+  source: string;
+}) {
+  // The walk's clock words, read here on the server: the public pages hand the browser no
+  // `durchgang` messages, so the walk's client ReportingClock would show its keys on this page.
+  const clock = await getTranslations("durchgang.ui.clock");
+  const when: Readonly<Record<Report, { value: string; from: string }>> = {
+    early_warning: {
+      value: clock("hours", { count: CZECH_REPORTING_CLOCK.initialReportHours }),
+      from: clock("fromKnowledge"),
+    },
+    notification: {
+      value: clock("hours", { count: CZECH_REPORTING_CLOCK.notificationHours }),
+      from: clock("fromKnowledge"),
+    },
+    final_report: {
+      value: clock("days", { count: CZECH_REPORTING_CLOCK.finalReportDays }),
+      from: clock("fromNotification"),
+    },
+  };
+  const href = czechProvisionHref(source);
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>{heading}</CardTitle>
+        <CardDescription>{description}</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <ol className="grid gap-3 sm:grid-cols-3">
+          {REPORTS.map((report, i) => (
+            <li key={report} className="rounded-lg border p-4">
+              <span className="flex size-7 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground tabular-nums">
+                {i + 1}
+              </span>
+              <p className="mt-3 text-xl font-semibold tracking-tight tabular-nums">
+                {when[report].value}
+              </p>
+              <p className="text-xs text-muted-foreground">{when[report].from}</p>
+              <p className="mt-2 text-sm font-semibold">
+                {CZECH_REPORT_TEXT[report].name}
+              </p>
+              <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                {CZECH_REPORT_TEXT[report].content}
+              </p>
+            </li>
+          ))}
+        </ol>
+        <p className="text-xs text-muted-foreground">
+          {href === null ? (
+            source
+          ) : (
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline-offset-2 hover:underline"
+            >
+              {source}
+            </a>
+          )}
+        </p>
+      </CardContent>
+    </Card>
+  );
+}
+
 function FieldCard({
   field,
   locale,
@@ -314,6 +453,7 @@ function FieldCard({
   overlapLabel,
   dpvLabel,
   conditionalLabel,
+  requiredLabel,
 }: {
   field: IncidentField;
   locale: string;
@@ -322,6 +462,7 @@ function FieldCard({
   overlapLabel: string;
   dpvLabel: string;
   conditionalLabel: string;
+  requiredLabel: string;
 }) {
   const label = pickLocaleString(field.label, locale);
   const description = pickLocaleString(field.description, locale);
@@ -337,7 +478,7 @@ function FieldCard({
             </Badge>
             {field.requiredIn.length > 0 && (
               <Badge variant="default" className="text-[10px]">
-                {field.requiredIn.length}× required
+                {requiredLabel}
               </Badge>
             )}
             {isConditional && (
@@ -347,9 +488,7 @@ function FieldCard({
             )}
           </div>
         </div>
-        <p className="text-xs leading-relaxed text-muted-foreground">
-          {description}
-        </p>
+        <p className="text-xs leading-relaxed text-muted-foreground">{description}</p>
         <div className="space-y-1 text-[11px] text-muted-foreground">
           <p>
             <span className="text-muted-foreground/70">{legalBasisLabel}:</span>{" "}
@@ -363,10 +502,10 @@ function FieldCard({
                     rel="noopener noreferrer"
                     className="font-mono underline-offset-2 hover:underline"
                   >
-                    {basis.citation}
+                    {citationFor(basis.citation, locale)}
                   </a>
                 ) : (
-                  <span className="font-mono">{basis.citation}</span>
+                  <span className="font-mono">{citationFor(basis.citation, locale)}</span>
                 )}
               </span>
             ))}
@@ -378,9 +517,7 @@ function FieldCard({
                 <span key={mapping.countryCode} className="font-mono">
                   {idx > 0 && ", "}
                   {mapping.countryCode}: {mapping.portalScreen}
-                  {mapping.portalFieldName
-                    ? ` / ${mapping.portalFieldName}`
-                    : ""}
+                  {mapping.portalFieldName ? ` / ${mapping.portalFieldName}` : ""}
                 </span>
               ))}
             </p>
@@ -391,7 +528,7 @@ function FieldCard({
               {field.crossRegulationOverlaps.map((overlap, idx) => (
                 <span key={overlap.instrument} className="font-mono">
                   {idx > 0 && ", "}
-                  {overlap.instrument}
+                  {citationFor(overlap.instrument, locale)}
                 </span>
               ))}
             </p>

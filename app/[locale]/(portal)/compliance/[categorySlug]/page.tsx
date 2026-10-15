@@ -12,8 +12,8 @@ import {
   getAllActiveCategories,
   getUserAccess,
 } from "@/lib/compliance/access";
+import { legalRefFor } from "@/lib/compliance/czech-law";
 import { getNextCategory, getPrevCategory } from "@/lib/compliance/helpers";
-import { nis2LegalRef } from "@/lib/compliance/legal-ref";
 import { REQUIREMENT_FIELD_MAP } from "@/lib/compliance/requirement-fields";
 import { api } from "@/lib/trpc/server";
 
@@ -164,10 +164,7 @@ export default async function CategoryStepPage({
       description: tReq(`${reqKey}.description`),
       priority: req.priority,
       frequency: req.frequency,
-      legalRef:
-        frameworkCode === "nis2"
-          ? nis2LegalRef(req.code, req.legalRef, locale)
-          : req.legalRef,
+      legalRef: legalRefFor(req, locale),
       moduleRef: req.moduleRef,
     };
   });

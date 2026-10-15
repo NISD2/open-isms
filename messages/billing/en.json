@@ -1,5 +1,7 @@
 {
   "billing": {
+    "translationNotice": "This is a translation for your information. The <english>English text</english> is binding.",
+    "translationNoticeTerms": "This is a translation for your information. The terms apply in their <english>English</english> and German versions; if they differ, the German version prevails (clause C2).",
     "offer": {
       "title": "How would you like to continue?",
       "lead": "The Compliance Portal opens with the order. The supplier portal and the training portal need no order.",

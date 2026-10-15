@@ -1,0 +1,577 @@
+{
+  "entries": {
+    "2026-09-08-product-requirement-page-and-team-signoff": {
+      "title": "Stránka požadavku: vysvětlení, doklady všude, odvolání schválení",
+      "body": "Každý požadavek nyní začíná tím, co vyžaduje, a kroky k zavedení jsou k rozbalení. Doklady lze připojit ke každému požadavku, nejen k těm typu dokument nebo doklad: 15 ze 49 požadavků NIS 2 pro ně dosud nemělo žádné pole, mimo jiné povinnost školení vedení, jejímž dokladem je právě certifikát. Udělené schválení lze odvolat; záznam v historii schválení zůstává, takže auditor stále vidí, že bylo schváleno a později odvoláno. Tlačítka Další a Předchozí nyní přecházejí i přes hranice kategorií a neuložené vstupy se při odchodu uloží, místo aby se zahodily. Upozornění pro stávající účty: požadavek 1.2 (role a odpovědnosti) se nyní chová jako každý jiný modul a vrací se ke kontrole, kdykoli se změní váš tým nebo přiřazení role. Dosud schválení platilo i poté, co osoba v roli odešla. Kdo schválení udělil a o svůj podpis přijde odvoláním, dostane o tom oznámení."
+    },
+    "2026-08-30-regulatory-timeline-august-events": {
+      "title": "Časová osa: pět srpnových událostí, čtyři opravy portálů",
+      "body": "Nově na časové ose: německý úřad BSI uvádí míru zavedení security.txt v Německu na 1,8 procenta, belgická inspekční služba CCB požádala základní subjekty o informace k posouzení shody, český NÚKIB se ptal, které metodické materiály ještě chybí, a za rok 2025 vykázal 203 incidentů a maďarský SZTFH hlásí 2 194 subjektů v prvním cyklu auditů. Belgie upřesnila postup: do 18. dubna 2027 ověří, zda opatření odpovídají úrovni záruky CyFun Important, a úroveň Essential bude následovat nejpozději do 18. dubna 2028. Opraveny byly také tři záznamy zemí: česká nová úprava je účinná jako zákon č. 264/2025 Sb. od 1. listopadu 2025 a už není v legislativním procesu, CERT-SE je od 1. července 2026 součástí NCSC při FRA a u Slovenska chyběla adresa portálu.",
+      "links": { "/wiki/zeit-und-status/nis2-timeline": "Časová osa" }
+    },
+    "2026-08-30-content-nis2-documents-annex-anchors": {
+      "title": "Seznam dokumentů: všech 42 řádků ověřeno podle přílohy prováděcího nařízení",
+      "body": "Seznam dokumentů NIS 2 uvádí u každého řádku bod přílohy prováděcího nařízení (EU) 2024/2690, o který se opírá. Tyto odkazy se od června neměnily a čtyři pozdější opravná kola je vynechala. Všech 42 řádků je nyní ověřeno proti textu v Úředním věstníku: tři odkazy mířily na body, které neexistují (5.3, 5.4 a 7.4), interní audit a přezkum vedením byly zařazeny pod bod 7 místo bodu 2 a kaskáda hlášení podle čl. 23 odst. 4 se nyní opírá o bod 3.5.3.",
+      "links": { "/wiki/umsetzung/nis2-documents": "Seznam dokumentů" }
+    },
+    "2026-08-29-product-self-host-installer": {
+      "title": "Provoz na vlastním serveru: instalace jedním příkazem",
+      "body": "Provoz na vlastním serveru dosud předpokládal, že někdo umí Docker, ručně posbírá tři soubory, sám vygeneruje pět tajných klíčů a obsazené porty řeší jeden po druhém. To nyní dělá instalační skript: zkontroluje Docker, stáhne soubory, jednou vygeneruje tajné klíče, zvolí volné porty a počká, až instance odpoví. Opraveny jsou dvě chyby, kvůli kterým správná instalace vypadala jako nefunkční: katalog požadavků se načte při startu kontejneru, místo aby zůstal prázdný, a bez nastaveného poskytovatele e-mailu se přihlašovací kód zapíše do logu kontejneru, takže lze vůbec vytvořit první účet.",
+      "links": { "/docs": "Dokumentace" }
+    },
+    "2026-08-29-product-docs-site": {
+      "title": "Dokumentace na /docs",
+      "body": "Co bylo v sedmi souborech v repozitáři, je nyní částí webu: 24 stránek o začátcích, provozu na vlastním serveru, datovém modelu platformy, balíčcích npm a o tom, jak přispět. Jen v angličtině, protože tyto stránky čtou lidé, kteří software instalují, a deset překladů návodu k Dockeru by bylo deset dalších textů, které je třeba udržovat pravdivé. Záhlaví, navigace a patička jsou ty z webu, takže logo vede zpět.",
+      "links": { "/docs": "Dokumentace" }
+    },
+    "2026-08-29-compliance-impressum-vat-id": {
+      "title": "Tiráž: doplněno identifikační číslo pro DPH",
+      "body": "Tiráž nyní uvádí identifikační číslo pro DPH podle § 27a německého zákona o dani z přidané hodnoty.",
+      "links": { "/impressum": "Tiráž" }
+    },
+    "2026-08-29-product-self-host-free": {
+      "title": "Provoz na vlastním serveru je nyní zdarma",
+      "body": "Stránka s cenami nabízela dvě cesty: hostovaný provoz zdarma na nisd2.eu, nebo provoz na vlastním serveru za jednorázovou částku podle principu „zaplaťte, kolik můžete“. Tato částka je natrvalo zrušena. Obě cesty nyní stojí 0 eur, natrvalo a se všemi budoucími aktualizacemi. Není žádná smlouva ani aktivační klíč. Kdo začal na nisd2.eu, může svou práci exportovat a dál ji provozovat sám. Mimochodem opraveno: stránka ve všech deseti jazycích uváděla špatnou doménu, nis2.eu místo nisd2.eu.",
+      "links": { "/pricing": "Ceník" }
+    },
+    "2026-08-25-product-nis2-focus": {
+      "title": "Postup nyní počítá jen 49 požadavků NIS 2",
+      "body": "Platforma nyní zobrazuje výhradně NIS 2. Dříve se požadavky z dalších rámců promítaly do přehledů, ukazatelů postupu a reportů; firma, která splnila všech 49 požadavků NIS 2, tak mohla vidět, že má hotovou zhruba polovinu. Data z jiných rámců zůstávají plně zachována, jen se už nezobrazují."
+    },
+    "2026-08-25-regulatory-timeline-austria-bundestag": {
+      "title": "Časová osa: rakouský NISG 2026 a první čísla ze Spolkového sněmu",
+      "body": "Rakousko bylo posledním členským státem, který na časové ose chyběl: zákon NISG 2026 nabývá účinnosti 1. října 2026 a registrace je nutná do tří měsíců. Nově jsou zde také čísla z tisku německého Spolkového sněmu 21/7573: 19 058 registrací k 31. červenci 2026 a upřesnění vlády, že obíhající číslo kolem 29 500 je odhad pro výpočet nákladů, ne skutečný počet. Opraven byl starší záznam k § 35 odst. 2 německého zákona BSIG: oznámení úřadu BSI bylo součástí už původního znění zákona.",
+      "links": { "/wiki/zeit-und-status/nis2-timeline": "Časová osa" }
+    },
+    "2026-08-24-product-signoff-evidence-erasure": {
+      "title": "Doklady ke schválení doplněny, výmaz se týká i snímků schválení",
+      "body": "Požadavky schválené přes vstupní formulář neukazovaly v oblasti kontroly ani v PDF reportu podrobnosti schválení, přestože doklad existoval v záznamu schválení, do kterého se pouze připisuje. Dotčené záznamy byly obnoveny právě z tohoto záznamu; nic nebylo vymyšleno a skutečně chybějící údaje zůstávají prázdné. Výmaz osobních údajů nyní navíc odstraní i kontaktní údaje, které se v okamžiku podpisu uložily ke každému schválení."
+    },
+    "2026-08-21-product-gdpr-catalogue": {
+      "title": "Katalog GDPR: dva nové požadavky, ověřené právní odkazy",
+      "body": "Katalog GDPR nově obsahuje oznámení subjektům údajů podle čl. 34 a povinnost jmenovat pověřence pro ochranu osobních údajů podle čl. 37 až 39 spolu s § 38 německého zákona BDSG, tedy práh, který německé malé a střední firmy přehlížejí nejčastěji. Právní odkazy a výčty prvků v čl. 30 a 32 byly ověřeny proti textu v Úředním věstníku, citace nyní nesou vlastní rámec a stávající instalace dostanou všechny opravy automaticky migrací. Obsah ve všech deseti jazycích."
+    },
+    "2026-08-21-product-self-host-stack": {
+      "title": "Provoz na vlastním serveru: jeden soubor compose, návod, bez účtu AWS",
+      "body": "K provozu na vlastním serveru nyní patří úplný návod, jediný soubor Docker compose v kořeni repozitáře a přehled všech služeb třetích stran. Ukládání souborů běží na přibaleném MinIO, takže účet AWS není potřeba. Webová analytika je nyní striktně volitelná: instance na vlastním serveru nenačítá žádný analytický skript a nic neposílá, pokud to není nastaveno.",
+      "links": { "/open-source": "Open source" }
+    },
+    "2026-08-20-product-legal-refs-verified": {
+      "title": "Právní odkazy všech 49 požadavků ověřeny",
+      "body": "Každý odkaz na paragraf a článek v katalogu NIS2 byl ověřen proti přijatému znění německého zákona BSIG a textu prováděcího nařízení (EU) 2024/2690 v Úředním věstníku a podle potřeby opraven. Intervaly kontrol se nyní řídí zákonnými lhůtami, například dvoutýdenní lhůtou pro změny registrace podle § 33 odst. 5 BSIG; tři kroky byly pro přesnost přejmenovány, mezi nimi připravenost na hlášení úřadu BSI. Doporučené intervaly bez právního základu jsou nyní označeny jako doporučení."
+    },
+    "2026-08-20-product-signoff-enforcement": {
+      "title": "Povinné role podepisujících vynuceny na každé cestě k dokončení",
+      "body": "Požadavky, které vyžadují konkrétní roli podepisujícího, například vedení, již nelze žádnou cestou dokončit bez této role; požadavky s více podepisujícími vždy procházejí postupem přidělení. Od zákazníků to nevyžaduje žádnou akci."
+    },
+    "2026-08-20-product-numeric-digit-caps": {
+      "title": "Číselná pole nyní kontrolují povolený počet číslic",
+      "body": "Vstup v číselných polích, například skóre CVSS nebo částky rozpočtu, se před uložením ověřuje proti povolenému počtu číslic pole. Příliš velké hodnoty vyvolají srozumitelnou validační zprávu místo chyby serveru."
+    },
+    "2026-08-20-product-dependency-updates": {
+      "title": "Srpen: 5 aktualizací závislostí přes Dependabot",
+      "body": "Pět aktualizací knihoven třetích stran, mezi nimi bezpečnostní opravy v přihlašování. Bez dopadu na stávající data."
+    },
+    "2026-08-18-product-portal-locale-fix": {
+      "title": "Texty portálu se řídí zvoleným jazykem",
+      "body": "Chyba při určování jazyka zobrazovala části portálu v angličtině bez ohledu na zvolený jazyk. Texty portálu se nyní důsledně řídí nastaveným jazykem."
+    },
+    "2026-08-18-regulatory-timeline-events-refresh": {
+      "title": "Časová osa a akce aktualizovány, čísla BSI opět dostupná",
+      "body": "Přehled německého úřadu BSI „NIS-2 in Zahlen“ je opět dostupný a mimo jiné uvádí 17 729 registrovaných subjektů k 30. červnu 2026. Časová osa získala šest nových událostí a čtyři opravy portálů; přehled akcí byl synchronizován na 86 položek.",
+      "links": { "/wiki/zeit-und-status/nis2-timeline": "Časová osa" }
+    },
+    "2026-08-05-regulatory-bsig-amendment-registration-lapse": {
+      "title": "Časová osa: novela německého BSIG, registrační lhůta uplynula",
+      "body": "Německý zákon BSIG byl novelizován s účinností od 29. července 2026 (BGBl. 2026 I Nr. 221): kritické komponenty jsou nově vymezeny a subjekty z finančnictví, digitální infrastruktury a dalších odvětví nyní oznamují nápravná opatření proti významným kybernetickým hrozbám úřadu BSI i příjemcům svých služeb. Faktický termín registrace 31. července 2026 uplynul s 18 845 registrovanými subjekty z očekávaných 29 500 a BSI zatím nezahájil žádné správní řízení. Celkem dvanáct nových záznamů; přehled registračních portálů byl aktualizován pro sedm zemí, mezi nimi Nizozemsko před nabytím účinnosti 15. srpna.",
+      "links": { "/wiki/zeit-und-status/nis2-timeline": "Časová osa" }
+    },
+    "2026-07-29-product-form-field-clearing": {
+      "title": "Vymazaná pole se nyní ukládají",
+      "body": "Vymazání volitelného textového pole při úpravě a uložení už nevrací starou hodnotu. Číselná pole kontrolují vstup přísněji a volně zadané hodnoty stavu a závažnosti se nyní všude zobrazují správně."
+    },
+    "2026-07-29-product-end-to-end-tests": {
+      "title": "Automatické testy celé cesty NIS 2",
+      "body": "Devět vlastních editorů a kompletní schválené zavedení NIS 2 nyní pokrývají automatické testy, které procházejí celou cestu. Vedou od zadání aktiv přes doklady až ke schválení s více podepisujícími a průběžně kontrolují oddělení dat jednotlivých organizací."
+    },
+    "2026-07-28-product-evidence-upload-fix": {
+      "title": "Nahrávání dokladů v produkčním prostředí opraveno",
+      "body": "Nahrávání souborů s doklady v produkčním prostředí selhávalo a nyní opět funguje. Chybu odhalila nová sada automatických testů, která prochází celou cestu zavedení NIS 2."
+    },
+    "2026-07-20-regulatory-timeline-july-sweep": {
+      "title": "Časová osa: deset nových událostí z července 2026",
+      "body": "Časová osa NIS 2 získala deset nových červencových záznamů, mezi nimi nabytí účinnosti povinností hlásit incidenty ve Švédsku a přesun CERT-SE do nového NCSC, akční plán EU pro kybernetickou bezpečnost a umělou inteligenci, model vyspělosti ENISA pro CRA určený malým a středním podnikům a národní kroky v Lucembursku, Irsku a Nizozemsku. Přehled registračních portálů byl aktualizován pro Nizozemsko a Francii.",
+      "links": { "/wiki/zeit-und-status/nis2-timeline": "Časová osa" }
+    },
+    "2026-07-20-product-form-reliability": {
+      "title": "Spolehlivější formuláře na celé platformě",
+      "body": "Formuláře pro nové záznamy nyní ověřují jen skutečně zobrazená pole, takže se odešlou bez falešných validačních chyb. Datová pole jsou na celé platformě jednotná a neúspěšné akce zobrazí srozumitelnou chybovou zprávu."
+    },
+    "2026-07-20-content-grc-vergleich-kopexa": {
+      "title": "Srovnání GRC rozšířeno o dodavatele Kopexa",
+      "body": "Veřejné srovnání platforem GRC nyní zahrnuje Kopexa s cenami a podrobnostmi o funkcích. Srovnání průběžně udržujeme.",
+      "links": { "/grc-vergleich": "Zobrazit srovnání" }
+    },
+    "2026-07-20-product-partner-smartcity-house": {
+      "title": "Stránka partnerů: přibyl SmartCity House",
+      "body": "Veřejná stránka partnerů nyní uvádí SmartCity House mezi partnery platformy, ve všech podporovaných jazycích.",
+      "links": { "/partner": "Partneři" }
+    },
+    "2026-07-10-regulatory-cjeu-nl-adoption": {
+      "title": "Žaloba u Soudního dvora EU proti čtyřem státům, Nizozemsko přijalo zákon k NIS 2",
+      "body": "Evropská komise podala na Irsko, Španělsko, Francii a Nizozemsko žalobu u Soudního dvora EU kvůli neúplné transpozici NIS 2. Zároveň Nizozemsko přijalo zákon Cyberbeveiligingswet, který nabývá účinnosti 15. srpna 2026. Obě události jsou zaznamenány na časové ose.",
+      "links": { "/wiki/zeit-und-status/nis2-timeline": "Časová osa" }
+    },
+    "2026-07-10-product-roadmap-guided-path": {
+      "title": "Plán NIS 2 jako přehledná cesta v šesti krocích",
+      "body": "Stránka s plánem NIS 2 nyní uvádí šest kroků jako přehledný seznam s právním základem, odpovědnou osobou a pracností u každého kroku. Jediný krok, který nelze delegovat, je zvýrazněn a stránka vede přímo do průvodce na platformě.",
+      "links": { "/wiki/umsetzung/nis2-roadmap": "Zobrazit plán" }
+    },
+    "2026-07-10-product-self-host-pay-what-you-can": {
+      "title": "Licence pro provoz na vlastním serveru: zaplaťte, kolik můžete, od 1 eura",
+      "body": "Licence pro provoz na vlastním serveru je nyní za cenu podle vlastního uvážení, od 1 eura. Platforma zůstává open source a lze ji provozovat na vlastním serveru.",
+      "links": { "/pricing": "Ceník" }
+    },
+    "2026-07-10-course-certificate-name": {
+      "title": "Úprava jména na osvědčení",
+      "body": "Účastníci kurzu pro jednatele nyní mohou upravit jméno, které se tiskne na jejich osvědčení o absolvování.",
+      "links": { "/training/nis2-ceo": "Ke kurzu" }
+    },
+    "2026-07-08-product-open-source-links": {
+      "title": "Přímé odkazy na otevřený zdrojový kód",
+      "body": "Zdrojový kód platformy je nyní přímo odkázán z navigace a z úvodní stránky. Platforma je open source a lze ji auditovat.",
+      "links": { "/open-source": "Open source" }
+    },
+    "2026-07-07-content-bsig-38-management-duties": {
+      "title": "Nový článek wiki: povinnosti vedení podle § 38 německého zákona BSIG",
+      "body": "Nový základní článek vysvětluje osobní povinnosti vedení podle § 38 německého zákona BSIG: schvalovat opatření k řízení rizik, dohlížet na jejich zavádění a absolvovat povinné školení.",
+      "links": { "/wiki/grundlagen/bsig-38": "Přečíst článek" }
+    },
+    "2026-07-04-product-journey-first-login": {
+      "title": "Noví uživatelé začínají rovnou v průvodci",
+      "body": "Po registraci nové účty přistanou rovnou v průvodci NIS 2 místo na úvodním nastavení. Založení vaší organizace je prvním krokem přímo v průvodci.",
+      "links": { "/start": "Začít se zaváděním" }
+    },
+    "2026-07-04-product-security-txt": {
+      "title": "Bezpečnostní kontakt zveřejněn podle RFC 9116",
+      "body": "Kontakt pro koordinované zveřejňování zranitelností je nyní zveřejněn na /.well-known/security.txt. Správci hesel také najdou cestu k obnovení hesla.",
+      "links": { "/sicherheit": "Bezpečnost" }
+    },
+    "2026-07-03-product-account-erasure": {
+      "title": "Výmaz účtu a organizace podle čl. 17 GDPR",
+      "body": "Svůj účet a data nyní můžete vymazat. Vlastníci smažou celou organizaci včetně všech členů, jednotliví členové smažou svůj vlastní účet. Každý výmaz vytvoří záznam o smazání.",
+      "links": { "/datenschutz": "Ochrana osobních údajů" }
+    },
+    "2026-07-02-content-europe-events-feed": {
+      "title": "Nový přehled: bezplatné akce k NIS 2, GDPR a CRA v Evropě",
+      "body": "Nová veřejná stránka shromažďuje bezplatné akce úřadů, komor a neziskových organizací k NIS 2, GDPR a CRA v několika zemích.",
+      "links": { "/wiki/zeit-und-status/nis2-events": "Akce" }
+    },
+    "2026-06-30-product-course-journey-crosslinks": {
+      "title": "Kurz a cesta zavedení propojeny, pořadí je nyní jen doporučení",
+      "body": "Lekce kurzu a požadavky jsou nyní vzájemně propojeny: každý požadavek ukazuje odpovídající lekci kurzu pro vedení a naopak. Lekce ani požadavky už nejsou zamčené, doporučené pořadí je návrh, ne podmínka.",
+      "links": { "/training/courses/nis2-ceo": "Ke kurzu" }
+    },
+    "2026-06-26-content-open-source-category": {
+      "title": "Nová kategorie wiki: open source a suverenita",
+      "body": "Nová kategorie wiki se čtyřmi články v deseti jazycích vysvětluje, proč je auditovatelný otevřený kód důležitý pro compliance a digitální suverenitu.",
+      "links": { "/wiki/open-source": "Open source" }
+    },
+    "2026-06-26-content-bsig-32-article": {
+      "title": "Nový článek wiki: § 32 německého zákona BSIG (hlášení podle NIS 2)",
+      "body": "Nový článek wiki vysvětluje povinnost hlásit významné incidenty podle § 32 německého zákona BSIG, k dispozici v deseti jazycích.",
+      "links": { "/wiki/grundlagen/bsig-32": "Přečíst článek" }
+    },
+    "2026-06-26-product-newsletter-archive": {
+      "title": "Vydání newsletteru jsou nyní veřejně v archivu",
+      "body": "Všechna vydání newsletteru jsou nyní zveřejněna ve veřejném archivu na /newsletter.",
+      "links": { "/newsletter": "Newsletter" }
+    },
+    "2026-06-24-product-partner-page": {
+      "title": "Nová stránka partnerů s členstvím v NVIDIA Inception",
+      "body": "Nově je k dispozici veřejná stránka partnerů, která ukazuje naše členství v programu NVIDIA Inception.",
+      "links": { "/partner": "Partneři" }
+    },
+    "2026-06-24-product-guided-path-default": {
+      "title": "Průvodce je nyní výchozím zobrazením zavádění",
+      "body": "Zavádění nyní probíhá v průvodci: požadavky v rozumném pořadí, dráhy podle rolí, postup schvalování (N z M podpisů) a roční cyklus přezkumu s položkami, které je třeba vyřídit nebo jsou po termínu. Toto zobrazení je výchozí pro každý účet.",
+      "links": { "/start": "Začít se zaváděním" }
+    },
+    "2026-06-23-regulatory-cir-annex-13-points": {
+      "title": "Wiki opravena: příloha CIR 2024/2690 podle oficiálních 13 bodů",
+      "body": "Technická opatření podle prováděcího nařízení (EU) 2024/2690 nyní wiki uvádí podle oficiální struktury přílohy o 13 bodech. Vícefaktorové ověřování je bodem 11.7 v rámci řízení přístupu, ne samostatnou oblastí."
+    },
+    "2026-06-23-course-cra-citations-parity": {
+      "title": "Kurz k CRA: opravené právní citace, všech deset jazyků sjednoceno",
+      "body": "V kurzu k aktu o kybernetické odolnosti byly opraveny právní citace a všech deset jazykových verzí uvedeno do stejného obsahového stavu."
+    },
+    "2026-06-22-regulatory-timeline-transposition-13-states": {
+      "title": "Časová osa: základní události transpozice pro dalších 13 členských států",
+      "body": "Časová osa NIS 2 nyní obsahuje základní události transpozice, například nabytí účinnosti zákona a lhůtu pro registraci, pro dalších 13 členských států EU s možností filtrovat podle země.",
+      "links": { "/wiki/zeit-und-status/nis2-timeline": "Časová osa" }
+    },
+    "2026-06-20-content-ten-languages": {
+      "title": "Celý web nyní v deseti jazycích",
+      "body": "Platforma, wiki a obsah kurzů jsou nyní k dispozici v deseti jazycích: němčině, angličtině, nizozemštině, francouzštině, italštině, španělštině, polštině, češtině, portugalštině a rumunštině."
+    },
+    "2026-06-18-content-nis2-faq-wiki": {
+      "title": "Časté otázky k NIS 2 ve wiki: 98 otázek a odpovědí",
+      "body": "Nové časté otázky ve wiki odpovídají na 98 otázek k NIS 2 a drží se struktury oficiálních častých otázek německého úřadu BSI k NIS 2. K dispozici v němčině, angličtině a nizozemštině."
+    },
+    "2026-06-18-product-landing-start-refresh": {
+      "title": "Úvodní stránka zjednodušena, /start je nyní stránka s průvodcem zaváděním",
+      "body": "Úvodní stránka byla zjednodušena a přepracována s důrazem na EU: nejprve NIS 2 a CIR 2024/2690, potom vnitrostátní transpozice. Stránka /start je nyní klidný vstup do zavádění s průvodcem místo rezervačního formuláře.",
+      "links": { "/start": "Otevřít /start" }
+    },
+    "2026-06-18-compliance-toms-personnel-availability": {
+      "title": "TOMs aktualizovány: personální opatření a monitorování dostupnosti",
+      "body": "Dokument technických a organizačních opatření byl rozšířen o personální opatření a monitorování dostupnosti.",
+      "links": { "/toms": "TOMs" }
+    },
+    "2026-06-17-regulatory-timeline-cooperation-templates-enisa": {
+      "title": "Časová osa: šablony hlášení skupiny pro spolupráci NIS, publikace ENISA, portál Portugalska",
+      "body": "Šest nových záznamů na časové ose NIS 2: skupina pro spolupráci NIS se dohodla na společných šablonách hlášení incidentů podle čl. 23, k tomu tři publikace ENISA (kryptografické mechanismy EUCC v3, požadavky na odbornou způsobilost oznámených subjektů podle CRA, SBOM Adoption 2026), stanovisko německé AG KRITIS k návrhu nařízení KRITIS-Verordnung a maďarská vnitrostátní lhůta pro první audit 30. června 2026 (není to lhůta pro celou EU). U registračních portálů: portugalská platforma MyCiber je nyní v provozu.",
+      "links": { "/zeitleiste": "Časová osa" }
+    },
+    "2026-06-16-course-certificate-redesign": {
+      "title": "Nový vzhled osvědčení z kurzu: titulní strana, příloha s osnovou, ověřený e-mail",
+      "body": "Osvědčení o absolvování kurzu NIS 2 pro vedení bylo přepracováno na titulní stranu s přílohou osnovy seskupené podle modulů. Uvedeným identifikátorem je nyní ověřená e-mailová adresa účastníka místo názvu firmy.",
+      "links": { "/training/nis2-ceo": "Kurz NIS 2" }
+    },
+    "2026-06-16-product-strukturanalyse-shareable": {
+      "title": "Inventura aktiv: jeden kontrolní seznam, stav v URL, odkaz ke sdílení",
+      "body": "Nástroj pro inventuru aktiv byl přestavěn na jeden velký kontrolní seznam. Celý stav je uložen v hash části URL, takže inventuru lze sdílet odkazem. Žádná data se neukládají.",
+      "links": { "/strukturanalyse": "Inventura aktiv" }
+    },
+    "2026-06-16-regulatory-timeline-cyber-europe-bsi-magazin": {
+      "title": "Časová osa: Cyber Europe 2026, BSI-Magazin 2026/01, lucemburská lhůta pro registraci",
+      "body": "Dva nové záznamy na časové ose NIS 2: Cyber Europe 2026 (ENISA, 10. až 11. června, první celoevropský test plánu EU pro kybernetické krize, EU Cyber Blueprint, se scénářem z železniční a námořní dopravy) a BSI-Magazin 2026/01 německého úřadu BSI z 11. června s NIS-2 a německým zákonem BSIG jako hlavním tématem. U registračních portálů: lucemburský zákon z 5. května 2026 stanoví dvouměsíční lhůtu pro samoregistraci, která končí 10. července 2026.",
+      "links": { "/zeitleiste": "Časová osa" }
+    },
+    "2026-06-13-product-strukturanalyse-layer-1": {
+      "title": "Inventura aktiv, krok 1: výběr odvětví a popis informačního celku",
+      "body": "Nový veřejný nástroj pro inventuru aktiv: tři obecné kroky vedou od výběru odvětví k prvnímu popisu informačního celku (Informationsverbund) podle německého standardu BSI-200-2. Doplňuje posouzení rizik a připravuje základ pro pozdější vrstvy aktiv a potřeby ochrany (Schutzbedarf).",
+      "links": { "/strukturanalyse": "Inventura aktiv" }
+    },
+    "2026-06-12-product-schutzbedarfsfeststellung": {
+      "title": "Samoobslužný nástroj pro stanovení potřeby ochrany",
+      "body": "Nový nástroj pro posouzení rizik: stanovení potřeby ochrany (Schutzbedarfsfeststellung) podle německého standardu BSI-200-2, které odděluje potřebu ochrany od varianty zabezpečení (Basis, Standard, Kern), dokumentuje scénáře škod pro každou základní hodnotu, zobrazí paprskový graf a exportuje PDF. Vstupy jsou faktické (odvětví, kategorie dat, závislosti); zařazení do úrovně ochrany probíhá na serveru.",
+      "links": { "/risikobewertung": "Posouzení rizik" }
+    },
+    "2026-06-12-content-landing-about-og-refresh": {
+      "title": "Úvodní stránka zhuštěna, /pitch a /mission sloučeny do /about, obrázky OG pro každou stránku",
+      "body": "Úklid na veřejných marketingových stránkách: zhuštěné úvodní sdělení na domovské stránce (vypuštěna věta strašící následky, NIS2 barevně zvýrazněno), /pitch a /mission sloučeny do /about s přesměrováním, společný MarketingHero na šesti vstupních stránkách a 41 obrázků Open Graph pro nejnavštěvovanější stránky.",
+      "links": { "/about": "O nás" }
+    },
+    "2026-06-11-product-sicherheitsfragebogen-domain": {
+      "title": "sicherheitsfragebogen.de jako samostatná vstupní stránka dotazníku pro dodavatele",
+      "body": "Nová vstupní stránka s vlastní doménou sicherheitsfragebogen.de. Zrcadlí čtyři oddíly a 59 otázek ze schématu, živě z datového formátu ukazuje tři ukázkové otázky a přihlášení i portál pro dodavatele po přihlášení vede zpět na nisd2.eu.",
+      "links": { "/sicherheitsfragebogen": "Bezpečnostní dotazník" }
+    },
+    "2026-06-11-content-bsig-30-eu-tracker-supplier-portal": {
+      "title": "Wiki: stránka k § 30 německého zákona BSIG, přehled EU zveřejněn, pole portálu pro dodavatele doplněna",
+      "body": "Nová stránka wiki k § 30 německého zákona BSIG (opatření k řízení kybernetických rizik), propojená s prováděcím nařízením (EU) 2024/2690. Přehled provádění NIS 2 ve 27 zemích EU je nyní viditelný. V portálu pro dodavatele bylo doplněno 34 dosud chybějících polí a přibyla podstránka podle typu služby.",
+      "links": {
+        "/wiki/grundlagen/bsig-30": "§ 30 BSIG (Německo)",
+        "/wiki/zeit-und-status/nis2-tracker-eu": "Přehled EU"
+      }
+    },
+    "2026-06-11-product-admin-managed-gap-assessments": {
+      "title": "Analýzy mezer spravované administrátorem s odkazy chráněnými heslem",
+      "body": "Administrátoři platformy nyní mohou vytvářet analýzy mezer za zákazníky a sdílet je přes adresu URL chráněnou heslem. Vedle samoobslužného nástroje přibývá řízený postup pro workshopy a první hovory.",
+      "links": { "/gap-assessment": "Analýza mezer" }
+    },
+    "2026-06-11-compliance-open-isms-agpl": {
+      "title": "open-isms zveřejněn na GitHubu pod licencí AGPL-3.0",
+      "body": "Celá platforma je nyní open source na github.com/NISD2/open-isms (AGPL-3.0). Osm balíčků je vyčleněno do struktury workspace (schémata, UI, tRPC, balíčky pro školení a obsah) včetně referenční aplikace s docker-compose. Volba licence odděluje práci na compliance od hostingu a každou změnu standardu činí auditovatelnou.",
+      "links": { "/open-source": "Open source" }
+    },
+    "2026-06-11-compliance-security-hardening-pass": {
+      "title": "Zpřísnění zabezpečení a auditu v repozitáři",
+      "body": "Spolu se zveřejněním kódu proběhlo cílené zpřísnění: vylepšení ověřování, odvolávání relací, auditních záznamů, ověřování plánovaných úloh (cron) a vyhledávání tajných klíčů v CI. V červnu přišlo také sedm bezpečnostních aktualizací závislostí přes Dependabot."
+    },
+    "2026-06-01-content-eu-tracker-and-fact-check": {
+      "title": "Přehled provádění v EU, 10 stránek zemí, NIS 2 a GDPR v kurzu pro vedení",
+      "body": "Několik souvisejících změn: deset nových přehledů jednotlivých zemí (IT, ES, BE, SE, FI, DK, IE, PT, PL, CZ) a přehled provádění ve 27 zemích EU v sekci /wiki/zeit-und-status. Fakta byla ověřena v primárních zdrojích (retsinformation.dk, finlex.fi, ISAP Sejm, NÚKIB, samsik.dk) a opravy dat se promítly do registračních portálů a kontroly působnosti. Dvě nové základní stránky (NIS 2 za pět minut pro statutární orgán, NIS 2 ve srovnání s NIS 1), nový oddíl o rozdílu mezi ochranou osobních údajů a bezpečností dat v kurzu pro vedení (lekce 1.1) a souběžná lhůta pro ohlášení podle čl. 33 GDPR v lekci 3.9. Rozcestník wiki má nový vzhled, rozvržení wiki je rozšířeno podle navigační lišty a vyhledávání už neukazuje naplánované, dosud nezveřejněné stránky.",
+      "links": {
+        "/wiki/zeit-und-status/nis2-tracker-eu": "Přehled",
+        "/training/courses/nis2-ceo": "Kurz pro vedení",
+        "/applicability": "Kontrola působnosti"
+      }
+    },
+    "2026-05-28-regulatory-nis360-kritisv": {
+      "title": "Časová osa: ENISA NIS360 2026 a nový návrh německého nařízení KRITIS-Verordnung",
+      "body": "Dvě nové události na časové ose NIS 2. ENISA zveřejnila 28. května 2026 třetí zprávu NIS360, která hodnotí vyspělost a kritičnost všech odvětví přílohy I; osm odvětví je v rizikové zóně (mimo jiné zdravotnictví, námořní doprava, veřejná správa). Dne 26. května 2026 zveřejnilo německé spolkové ministerstvo vnitra k připomínkám návrh nového nařízení o určení kritických zařízení (Verordnung zur Bestimmung kritischer Anlagen), lhůta byla 16. června 2026.",
+      "links": { "/zeitleiste": "Časová osa" }
+    },
+    "2026-05-28-product-supplier-questionnaire-public": {
+      "title": "Dotazník pro dodavatele jako veřejná stránka ke stažení v PDF a DOCX",
+      "body": "Dotazník NIS 2 pro dodavatele je nyní k dispozici jako veřejná stránka. Lze jej stáhnout jako PDF nebo DOCX a předat dodavatelům bez přihlášení. Doplňuje obsahovou stránku o dodavatelském řetězci a portál pro dodavatele po přihlášení.",
+      "links": { "/nis2-lieferanten-fragebogen": "Dotazník" }
+    },
+    "2026-05-28-product-auth-disposable-block": {
+      "title": "Registrace: známé domény jednorázových e-mailů jsou blokovány",
+      "body": "Registrace s adresami ze známých domén jednorázových e-mailů jsou tiše odmítnuty. Seznam domén se udržuje z veřejného zdroje s místním souborem výjimek pro případy, které externí seznam ještě nepokrývá. Čistí to uživatelskou základnu; stávající účty nejsou dotčeny.",
+      "links": { "/auth/signin": "Přihlásit se" }
+    },
+    "2026-05-28-content-info-pages-factcheck": {
+      "title": "Informační stránky: kontrola faktů a stylistický úklid",
+      "body": "Věcné opravy na veřejných informačních stránkách po kontrole faktů v patičce a úklid dlouhých pomlček v německých a anglických textech. Čistě práce na čitelnosti a přesnosti, žádná nová tvrzení."
+    },
+    "2026-05-25-regulatory-timeline-refresh": {
+      "title": "Časová osa a vnitrostátní registrační portály aktualizovány",
+      "body": "Aktualizované záznamy k nizozemskému zákonu Cyberbeveiligingswet (fáze v Eerste Kamer), lucemburskému zákonu k NIS 2 z 5. května 2026 a k žalobě Komise u Soudního dvora EU proti 7 členským státům kvůli neprovedení směrnice CER. Seznam vnitrostátních portálů je uveden do ověřeného stavu.",
+      "links": { "/zeitleiste": "Časová osa" }
+    },
+    "2026-05-25-product-pricing-in-navbar": {
+      "title": "Ceník v hlavní navigaci",
+      "body": "Stránka s cenami je nyní dostupná přímo z veřejné navigační lišty; dříve na ni odkazovala jen patička a interní stránky.",
+      "links": { "/pricing": "Ceník" }
+    },
+    "2026-05-23-product-pricing-free-sovereign": {
+      "title": "Ceny: zdarma a doživotní suverénní varianta za 10 000 EUR",
+      "body": "Stránka s cenami je zveřejněna. Dvě možnosti: platforma zůstává zdarma a open source, k tomu jednorázová doživotní suverénní varianta za 10 000 EUR pro organizace, které potřebují licenci pro provoz na vlastním serveru s předáním zdrojového kódu. Žádné umělé žebříčky variant ani vycpávky ve srovnávacích tabulkách.",
+      "links": { "/pricing": "Ceník" }
+    },
+    "2026-05-22-product-portal-ui-polish": {
+      "title": "Rozhraní portálu: boční panely, ukotvené záhlaví, vyladění",
+      "body": "V portálu jsou běžné dialogy (škála rizik, propojení aktiv, žádosti dodavatelům) nyní bočními panely místo modálních oken. Záhlaví stránek zůstávají při posouvání nahoře, karty a tabulky mají jemný stín a pohyb a formuláře jsou vyladěné. Opravena je chyba, kvůli které se v drobečkové navigaci zobrazoval doslovný text [categorySlug]."
+    },
+    "2026-05-22-compliance-ceo-course-cta": {
+      "title": "Kurz pro vedení jako výzva k akci u požadavků na školení vedení",
+      "body": "Požadavky, které ukládají školení vedení (například § 38 odst. 3 německého zákona BSIG, čl. 20 NIS 2), nyní nabízejí přímý odkaz na bezplatný kurz pro vedení jako možnost dostupnou okamžitě.",
+      "links": { "/training/nis2-ceo": "Otevřít kurz" }
+    },
+    "2026-05-21-product-trust-hub": {
+      "title": "Nové stránky o důvěře: centrum důvěry, bezpečnost, stav, další zpracovatelé",
+      "body": "Čtyři nové veřejné stránky popisují úroveň zabezpečení, stav systému, další zpracovatele a model důvěry platformy. Stránka stavu záměrně neuvádí vymyšlená čísla dostupnosti a popisuje skutečnou provozní realitu. Na /.well-known/security.txt je nyní k dispozici soubor security.txt.",
+      "links": {
+        "/vertrauen": "Centrum důvěry",
+        "/sicherheit": "Bezpečnost",
+        "/status": "Stav",
+        "/subprozessoren": "Další zpracovatelé"
+      }
+    },
+    "2026-05-21-product-iso27001-grc-data-model": {
+      "title": "ISO 27001 přidána do open source balíčku @nisd2/grc-data-model",
+      "body": "Veřejný balíček datového modelu GRC nyní obsahuje šest povinných kapitol ISMS (4 až 10) a přílohu A jako strukturované požadavky a k tomu sedm dvojic plnění vůči NIS 2 a GDPR. Model tak může sloužit jako společný základ pro compliance napříč více rámci.",
+      "links": { "https://github.com/NISD2/grc-data-model": "GitHub" }
+    },
+    "2026-05-20-regulatory-ai-act-bundeslagebild": {
+      "title": "Návrh pokynů k čl. 6 aktu o umělé inteligenci a zpráva BKA o kyberkriminalitě na časové ose",
+      "body": "Dva nové záznamy na časové ose. Dne 19. května 2026 zveřejnila Evropská komise návrh pokynů ke klasifikaci vysoce rizikových systémů AI podle čl. 6 aktu o umělé inteligenci; konzultace běží do 23. června 2026 a pokyny upřesňují, že klasifikaci kritické infrastruktury jako vysoce rizikové spouští určení podle směrnice CER (2022/2557), nikoli status základního subjektu podle NIS 2. Přidána byla také německá zpráva BMI a BKA Bundeslagebild Cybercrime 2025 z 12. května 2026 (asi 335 000 případů a hospodářská škoda 202,4 miliardy EUR), která tvoří politické pozadí nastupující fáze kontrol NIS 2 německým úřadem BSI.",
+      "links": { "/nis2-timeline": "Časová osa" }
+    },
+    "2026-05-19-regulatory-timeline-three-updates": {
+      "title": "Tři doplnění časové osy (květen 2026)",
+      "body": "Tři nové záznamy na časové ose. Dne 13. května 2026 přibyla spolupráce německého úřadu BSI se spolkovou zemí Meklenbursko-Přední Pomořansko v kybernetické bezpečnosti (BSI nyní spolupracuje s dvanácti spolkovými zeměmi). Doplněna byla příručka BSI ke školení vedení (Geschäftsleitungs-Schulung) v1.0 zveřejněná 17. dubna 2026. Stanoví, co německý dozorový úřad očekává od organizace, obsahu a sebekontroly školení vedení podle § 38 odst. 3 německého zákona BSIG. Dne 19. května 2026 zahájil nizozemský Senát (Eerste Kamer) fázi písemných připomínek k zákonu Cyberbeveiligingswet (transpozice NIS 2).",
+      "links": { "/nis2-timeline": "Časová osa" }
+    },
+    "2026-05-18-course-nis2-tabletop": {
+      "title": "Nový bezplatný kurz: tabletop cvičení k NIS 2 (DE a EN, 8 lekcí)",
+      "body": "Tabletop cvičení o 8 lekcích pro statutární orgány pokrývá typická rozhodnutí podle NIS 2 během krize: průnik ransomwaru, oznámení zákazníkům podle § 35 německého zákona BSIG, včasné varování do 24 hodin, dopad na dodavatelský řetězec a obnovu. K dispozici v němčině a angličtině.",
+      "links": { "/training/nis2-tabletop": "Otevřít kurz" }
+    },
+    "2026-05-18-course-cra-sbom": {
+      "title": "Nový kurz: akt o kybernetické odolnosti a soupis softwarových komponent (SBOM)",
+      "body": "Nový bezplatný kurz k aktu o kybernetické odolnosti (nařízení 2024/2847) se zaměřením na soupis softwarových komponent (SBOM): požadavky, formáty (SPDX, CycloneDX) a povinnosti výrobců digitálních produktů. Knihovna kurzů nyní obsahuje také přepínač kurzů, takže je více kurzů dostupných vedle sebe.",
+      "links": { "/training/cra-sbom": "Otevřít kurz" }
+    },
+    "2026-05-17-content-grc-vergleich": {
+      "title": "Veřejné srovnání platforem GRC",
+      "body": "Nová veřejná stránka srovnává 145 platforem GRC a ISMS pro evropský trh: ceny, kategorii (malé, střední a velké firmy), regionální dostupnost, status open source a přenositelnost exportu dat. Data jsou výsledkem šesti týdnů průzkumu trhu; každá položka odkazuje na vlastní stránku dodavatele, aby tvrzení zůstala ověřitelná.",
+      "links": { "/grc-vergleich": "Srovnání GRC" }
+    },
+    "2026-05-17-product-cir-annex-refs": {
+      "title": "Odkazy na přílohu CIR 2024/2690 nyní u každého požadavku NIS 2",
+      "body": "Každý požadavek NIS 2 v portálu compliance nyní nese strukturovaný odkaz na příslušnou pasáž přílohy prováděcího nařízení (EU) 2024/2690 (CIR). Auditoři a poradci pro compliance mohou přejít přímo z požadavku k jeho právnímu zdroji v EU."
+    },
+    "2026-05-15-regulatory-bsi-timeline-may": {
+      "title": "Tři publikace německého úřadu BSI z minulého týdne na časové ose",
+      "body": "Tři nové záznamy na časové ose. Dne 7. května 2026 zveřejnily BSI a německé spolkové ministerstvo dopravy první společnou zprávu o bezpečnosti IT veřejné nabíjecí infrastruktury pro elektromobily, která leží na pomezí odvětví dopravy a energetiky podle NIS 2. Dne 11. května vyšel BSI Cybersecurity Monitor 2026 s daty z průzkumu mezi spotřebiteli. Dne 12. května vydaly BSI a italská ACN společně pokyny G7 k minimálním prvkům „SBOM for AI“, které přímo souvisejí s povinností k dodavatelskému řetězci podle čl. 21 odst. 2 písm. d) NIS 2 a s cestou k souladu s aktem o umělé inteligenci.",
+      "links": { "/nis2-timeline": "Časová osa" }
+    },
+    "2026-05-15-product-course-followup-unsubscribe": {
+      "title": "Denní připomínky ke kurzu pro vedení a odkaz na odhlášení v každém e-mailu",
+      "body": "Účastníci bezplatného kurzu pro vedení nyní dostávají jednu denní souhrnnou připomínku otevřených lekcí, za každou s krátkou kontrolní otázkou. Sérii připomínek lze odhlásit pro každý kurz zvlášť; samostatná odhlášení platí pro denní e-maily o lhůtách a týdenní přehled compliance. Každý transakční e-mail nyní obsahuje viditelný odkaz na odhlášení.",
+      "links": { "/training/nis2-ceo": "Kurz pro vedení" }
+    },
+    "2026-05-13-regulatory-luxembourg-cer-referral": {
+      "title": "Lucembursko provedlo NIS 2; Komise žaluje sedm států u Soudního dvora EU kvůli CER",
+      "body": "Dvě doplnění časové osy. Lucembursko provedlo NIS 2 zákonem z 5. května 2026, účinným od 10. května 2026, a portál ILR pro samoregistraci je v provozu. Dne 29. dubna 2026 podala Evropská komise žalobu u Soudního dvora EU na Bulharsko, Francii, Lucembursko, Nizozemsko, Polsko, Španělsko a Švédsko kvůli neprovedení směrnice CER a navrhla finanční sankce. Jde o první velké vymáhací řízení u Soudního dvora EU v rámci balíčku CER a NIS 2.",
+      "links": {
+        "/nis2-timeline": "Časová osa",
+        "/nis2-umsetzung-europa": "Provádění v Evropě"
+      }
+    },
+    "2026-05-13-content-eu-entity-terminology": {
+      "title": "Typy subjektů: sjednoceno na terminologii směrnice EU",
+      "body": "Obsahové stránky k NIS 2 nyní důsledně používají terminologii směrnice EU („wesentliche Einrichtungen“, „essential entities“, „essentiële entiteiten“) místo znění německé transpozice v zákoně BSIG („besonders wichtige Einrichtungen“). Termín z BSIG zůstává jako odkaz ve slovníku a v tabulce terminologie EU a BSIG.",
+      "links": { "/nis2-einrichtungen": "Typy subjektů" }
+    },
+    "2026-05-13-product-transitive-propagation": {
+      "title": "Přenos schválení: tranzitivní započtení napříč čtyřmi rámci EU",
+      "body": "Schválení požadavku nyní automaticky započte každý propojený požadavek v NIS 2, GDPR, aktu EU o umělé inteligenci a aktu o kybernetické odolnosti, jehož doklad vychází ze stejného podkladu (stejný záznam o incidentu, stejný registr dodavatelů, stejná metodika rizik). 16 dvojic je označeno jako „rovnocenné“ a řetězí se tranzitivně; 22 „překrývajících se“ dvojic započítává jen o jeden krok."
+    },
+    "2026-05-13-product-aiact-cra-coverage": {
+      "title": "Akt EU o umělé inteligenci a akt o kybernetické odolnosti nyní na platformě",
+      "body": "Portál compliance nyní pokrývá čtyři rámce EU: NIS 2, GDPR, akt EU o umělé inteligenci (10 kategorií, 24 požadavků ukotvených v nařízení 2024/1689) a akt EU o kybernetické odolnosti (10 kategorií, 21 požadavků ukotvených v nařízení 2024/2847). 27 dvojic plnění napříč rámci propojuje související povinnosti, takže jedno schválení může splnit více předpisů najednou."
+    },
+    "2026-05-13-regulatory-aiact-omnibus-agreement": {
+      "title": "Digitální omnibus k aktu o umělé inteligenci: politická dohoda Rady a Parlamentu",
+      "body": "Dne 7. května 2026 dosáhly Rada EU a Evropský parlament předběžné politické dohody o digitálním omnibusu k aktu o umělé inteligenci. Povinnosti pro vysoce rizikové systémy podle přílohy III se odkládají na 2. prosince 2027, pro vysoce rizikové systémy zabudované do produktů podle přílohy I na 2. srpna 2028 a označování vodoznakem podle čl. 50 odst. 2 na 2. prosince 2026. Nový zákaz v čl. 5 se týká AI, která vytváří intimní snímky bez souhlasu a materiál zobrazující sexuální zneužívání dětí. Sledováno na časové ose.",
+      "links": { "/nis2-timeline": "Časová osa" }
+    },
+    "2026-05-12-content-meldepflicht-cascade": {
+      "title": "Hlášení incidentů podle NIS 2: celá kaskáda čl. 23 v pěti krocích",
+      "body": "Veřejná stránka o povinnosti hlášení podle NIS 2 nyní popisuje celou kaskádu hlášení podle čl. 23 NIS 2 v pěti samostatných krocích: včasné varování do 24 hodin, oznámení incidentu do 72 hodin, průběžná zpráva na žádost, závěrečná zpráva do 1 měsíce a zpráva o pokroku, pokud incident stále trvá. U každého kroku je uveden článek směrnice.",
+      "links": { "/nis2-meldepflicht": "Hlášení incidentů podle NIS 2" }
+    },
+    "2026-05-11-product-localized-pathnames": {
+      "title": "Lokalizované adresy URL a hreflang pro německý a anglický obsah",
+      "body": "Veřejné informační stránky nyní používají cesty URL podle jazyka, směrované funkcí pathnames knihovny next-intl. Mapa webu a hlavičky hreflang se generují automaticky, aby vyhledávače indexovaly správnou adresu pro každý jazyk. Stávající uživatelé nemusí nic dělat."
+    },
+    "2026-05-10-regulatory-bsi-cybergovsecure": {
+      "title": "Německý úřad BSI spouští CyberGovSecure: zavedení NIS 2 v německé spolkové správě",
+      "body": "Dne 4. května 2026 spustil BSI spolu s CISO Bund a spolkovým ministerstvem pro digitalizaci a modernizaci státu program CyberGovSecure: meziresortní rámec pro zavedení opatření kybernetické bezpečnosti podle NIS 2 ve všech německých spolkových úřadech. Sledováno na časové ose.",
+      "links": { "/nis2-timeline": "Časová osa" }
+    },
+    "2026-05-09-product-grc-data-model-040": {
+      "title": "@nisd2/grc-data-model 0.4.0: dvoustranná tabulka aktivum × dodavatel přechází do open source balíčku",
+      "body": "Tabulka `asset_supplier_offering` a výčet `asset_service_type` (saas / on_prem / pro_services / managed) jsou nyní v open source balíčku vedle `asset` a `supplier`. Dříve byly v repozitáři aplikace, přestože mají cizí klíče do dvou tabulek balíčku. Jde čistě o přesun kódu, bez jakékoli změny databázové migrace.",
+      "links": { "https://github.com/NISD2/grc-data-model": "GitHub: grc-data-model" }
+    },
+    "2026-05-08-content-nis2-documents": {
+      "title": "Dokumenty NIS 2: povinný seznam podle směrnice a CIR 2024/2690",
+      "body": "Nová referenční stránka uvádí dokumenty a záznamy, které NIS 2 (směrnice 2022/2555) a prováděcí nařízení 2024/2690 vyžadují, s odkazem na článek, oddíl přílohy CIR a modul platformy, který dokument udržuje jako živá data. 42 dokumentů ve 14 tematických oblastech.",
+      "links": { "/nis2-documents": "Dokumenty NIS 2" }
+    },
+    "2026-05-07-product-grc-data-model-oss": {
+      "title": "@nisd2/grc-data-model: datový model NIS 2 a GDPR zveřejněn jako open source",
+      "body": "Datová vrstva GRC (49 požadavků NIS 2, 7 požadavků GDPR, 11 dvojic napříč rámci, schémata Drizzle pro dodavatele, aktiva, rizika a incidenty) je nyní samostatný balíček pod licencí MIT na GitHubu a npm. REFERENCE.md uvádí každou položku, každou dvojici a každé mapování v jednom dokumentu. Samotná platforma používá tentýž balíček.",
+      "links": {
+        "/open-source": "Open source",
+        "https://github.com/NISD2/grc-data-model": "GitHub: grc-data-model"
+      }
+    },
+    "2026-05-04-product-gdpr-cross-framework": {
+      "title": "GDPR v portálu: jedno schválení pro překrývající se povinnosti NIS 2",
+      "body": "Platforma nyní vedle NIS 2 pokrývá i GDPR. Propojeno je 11 dvojic plnění GDPR↔NIS 2: schválení požadavku NIS 2 automaticky uzavře překrývající se požadavek GDPR (a naopak). Součástí jsou skupiny GDPR v postranním panelu, pole podle čl. 28 u dodavatelů, aktiv a incidentů a předvyplněná data pro začátek."
+    },
+    "2026-05-03-content-seo-retitle-llms": {
+      "title": "Názvy stránek bez přípony značky; llms.txt pro crawlery jazykových modelů",
+      "body": "Pět stránek s nejvíce zobrazeními (pokuty, hlášení incidentů, registrace, zmeškaná registrace, NIS 2 v Německu) dostalo přesnější názvy podle vyhledávaných dotazů, už bez přípony značky. Nově: /llms.txt se základním obsahem pro crawlery jazykových modelů, doplněný o JSON-LD typu Article, Breadcrumb a FAQ na klíčových informačních stránkách.",
+      "links": { "/llms.txt": "/llms.txt" }
+    },
+    "2026-05-01-product-locale-switcher-fix": {
+      "title": "Přepínač jazyka ve vzdělávacím portálu opět funguje",
+      "body": "Přepínač jazyka ve vzdělávacím portálu na některých stránkách přestal ukládat zvolený jazyk. Opraveno."
+    },
+    "2026-04-29-course-public-outline": {
+      "title": "Osnovu kurzu lze procházet bez přihlášení",
+      "body": "Nová veřejná stránka ukazuje všech 47 lekcí se strukturou modulů a odhadem času, bez účtu i bez OAuth. Je zařazena do mapy webu pro obě jazykové verze.",
+      "links": { "/training/nis2-ceo/outline": "Osnova kurzu" }
+    },
+    "2026-04-29-content-5-schritte": {
+      "title": "NIS2 v 5 krocích: plán pro jednatele",
+      "body": "Nová jednostránková přehledová stránka na /5-schritte (DE) a /5-steps (EN): pět povinností podle NIS2, které jednatel nemůže osobně delegovat, v pořadí. Krok 4 vede přímo na analýzu mezer.",
+      "links": { "/5-schritte": "5 kroků" }
+    },
+    "2026-04-29-content-applicability-authorities": {
+      "title": "Kontrola působnosti nyní odkazuje na vnitrostátní úřady",
+      "body": "Sebehodnocení bylo nahrazeno přímými odkazy na příslušný vnitrostátní úřad pro DE, AT, BE, FR, IT a NL. Už netvrdíme, zda firma spadá pod NIS2. Závazně to může určit jen úřad.",
+      "links": { "/applicability": "Kontrola působnosti" }
+    },
+    "2026-04-29-product-security-review": {
+      "title": "Pravidelná bezpečnostní kontrola: zpřísnění na více koncových bodech",
+      "body": "Interní bezpečnostní kontrola je dokončena. Zpřísnění se týká koncových bodů po přihlášení, postupu zakládání účtu a načítání obsahu. Od zákazníků to nevyžaduje žádnou akci."
+    },
+    "2026-04-28-product-status-page": {
+      "title": "Veřejná stránka stavu s historií incidentů",
+      "body": "Nová stránka stavu veřejně ukazuje stav platformy a minulé incidenty.",
+      "links": { "/status": "Stav" }
+    },
+    "2026-04-28-product-security-txt": {
+      "title": "security.txt zveřejněn (RFC 9116)",
+      "body": "Standardní kontaktní bod pro bezpečnostní výzkumníky na /.well-known/security.txt: kontakt, preferované jazyky, kanonická adresa URL, platnost.",
+      "links": { "/.well-known/security.txt": "security.txt" }
+    },
+    "2026-04-28-product-open-source": {
+      "title": "Zveřejněny open source repozitáře: analýza mezer a dotazník pro dodavatele",
+      "body": "Dva repozitáře na github.com/NISD2: nis2-gap-assessment-schema (116 otázek, 15 oblastí, schéma Zod s logikou hodnocení) a nis2-supply-chain-questionnaire-schema (56 polí, 6 oddílů). Dvojí licence (MIT pro kód, CC BY 4.0 pro obsah). Každá otázka a každé pole jsou ukotveny v konkrétním právním zdroji.",
+      "links": { "/open-source": "Přehled open source" }
+    },
+    "2026-04-28-content-changelog": {
+      "title": "Spuštěn veřejný seznam změn",
+      "body": "Nová stránka seznamu změn dokumentuje viditelné změny platformy, kurzu a dokumentů compliance: vybrané změny, ne každý commit. Lze filtrovat podle kategorie (produkt, obsah, kurz, compliance, regulace) a změny jsou seskupené po měsících.",
+      "links": { "/changelog": "Seznam změn" }
+    },
+    "2026-04-28-content-2pct-turnover": {
+      "title": "Pokuty: doplněna alternativní horní hranice 2 % celosvětového obratu",
+      "body": "Úvodní stránka nyní uvádí celou horní hranici pokut podle NIS2: až 10 mil. EUR nebo 2 % celosvětového obratu skupiny, podle toho, která částka je vyšší. Dříve se uváděla jen částka 10 mil. EUR."
+    },
+    "2026-04-28-compliance-avv-toms": {
+      "title": "Zveřejněna smlouva o zpracování podle čl. 28 a TOMs podle čl. 32",
+      "body": "Nové veřejné dokumenty: smlouva o zpracování osobních údajů a technická a organizační opatření. Auditní záznam nyní u každé změny po přihlášení zaznamenává IP adresu a user agent. AWS S3 u každého nahrání výslovně nastavuje šifrování AES256 na straně serveru. Je zapnutý Dependabot. Tiráž je rozšířena o EUID, odpovědnost podle § 18 odst. 2 německé mezistátní smlouvy o médiích (MStV) a odkaz na platformu EU pro řešení sporů online.",
+      "links": {
+        "/avv": "Zobrazit smlouvu o zpracování",
+        "/toms": "Zobrazit TOMs"
+      }
+    },
+    "2026-04-28-content-legal-chain": {
+      "title": "Odznaky právního řetězce EU a stránka oprav",
+      "body": "Úvodní stránka nyní ukazuje celý právní řetězec EU jako odznaky: směrnice NIS2 → německý zákon BSIG → CIR 2024/2690 → IT-Grundschutz. Nová stránka oprav veřejně dokumentuje, kdy opravujeme obsah: transparentnost místo tichých úprav.",
+      "links": { "/corrections": "Opravy" }
+    },
+    "2026-04-28-content-team": {
+      "title": "Stránka týmu s fotografiemi, životopisy a odpovědnostmi",
+      "body": "Samostatná stránka O nás s jednatelem Simonem Orzelem a provozním ředitelem (COO) Corym Hiseym. Jasné odpovědnosti a profesní zázemí, viditelná v horní navigaci.",
+      "links": { "/about": "O nás" }
+    },
+    "2026-04-27-course-dutch": {
+      "title": "Nizozemská verze kurzu pro vedení",
+      "body": "Kurz NIS2 pro vedení je nyní k dispozici i v nizozemštině: úplný překlad všech 47 lekcí.",
+      "links": { "/training/nis2-ceo": "Vzdělávací portál" }
+    },
+    "2026-04-27-course-german-translations": {
+      "title": "Německé překlady: 329 pojmů, 47 názvů lekcí a 45 kvízů",
+      "body": "Úplná německá lokalizace kurzu pro vedení: 329 pojmů ve slovníku, 47 názvů lekcí, 45 kvízů, se správnými přehláskami, terminologií německého zákona BSIG a formátem citací článků."
+    },
+    "2026-04-26-product-gap-assessment": {
+      "title": "Analýza mezer NIS2: 116 otázek, 15 oblastí, struktura na 5 dní",
+      "body": "Veřejná analýza mezer NIS2 se 116 strukturovanými otázkami v 15 oblastech, navržená k vyplnění během 5 dnů. Výsledky lze exportovat do PDF.",
+      "links": { "/nis2-gap-assessment": "Analýza mezer" }
+    },
+    "2026-04-24-regulatory-nl-transposition": {
+      "title": "Nizozemsko přijímá NIS2 a ENISA NCAF 2.0",
+      "body": "Nizozemská transpozice NIS2 je sledována na časové ose. Dále: aktualizace ENISA NCAF 2.0 a obnovený stav nizozemského registračního portálu.",
+      "links": { "/nis2-timeline": "Časová osa" }
+    },
+    "2026-04-23-content-registration-portals": {
+      "title": "Vnitrostátní registrační portály NIS2 pro všechny členské státy EU",
+      "body": "Souhrnný přehled všech vnitrostátních registračních portálů NIS2 v EU se stavem, přímými odkazy a pokyny pro jednotlivé země.",
+      "links": { "/nis2-registration-portals": "Registrační portály" }
+    },
+    "2026-04-23-product-course-certificate": {
+      "title": "Osvědčení o absolvování kurzu (HTML, lze vytisknout jako PDF)",
+      "body": "Účastníci kurzu pro vedení dostanou po dokončení citovatelné osvědčení v HTML, které lze vytisknout jako PDF."
+    },
+    "2026-04-18-compliance-bsig-grundschutz-badges": {
+      "title": "Odznaky na úvodní stránce: § 30 BSIG a IT-Grundschutz",
+      "body": "Odznak CIR na úvodní stránce byl nahrazen odznaky § 30 německého zákona BSIG a IT-Grundschutz: přesnější ukotvení v německé transpozici."
+    },
+    "2026-02-13-product-module-backed-requirements": {
+      "title": "Požadavky plněné moduly se započtením napříč rámci",
+      "body": "Požadavky lze nyní splnit prostřednictvím provozních modulů (inventura aktiv, registr rizik, dodavatelé, incidenty) místo samostatných formulářů. Dokladem je samotná platforma."
+    },
+    "2026-02-11-compliance-legal-pages": {
+      "title": "Zveřejněny podmínky služby, tiráž a zásady ochrany osobních údajů",
+      "body": "Úplné právní dokumenty podle německých standardů: obchodní podmínky odpovídající modelu podpory od dodavatele (bez záruky výsledku compliance), tiráž podle § 5 německého zákona DDG, zásady ochrany osobních údajů podle GDPR.",
+      "links": {
+        "/terms": "Podmínky",
+        "/impressum": "Tiráž",
+        "/datenschutz": "Ochrana osobních údajů"
+      }
+    }
+  }
+}

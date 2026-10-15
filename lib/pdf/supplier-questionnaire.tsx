@@ -1,5 +1,6 @@
 import {
   groupBySection,
+  legalBasisFor,
   type SupplierField,
   supplierQuestionnaire,
 } from "@nisd2/nis2-supply-chain-questionnaire-schema";
@@ -67,7 +68,7 @@ function Field({
   const provenance = [
     field.type,
     requiredLabel(field, strings),
-    `${strings.legalBasis}: ${field.legalBasis}`,
+    `${strings.legalBasis}: ${legalBasisFor(field, locale)}`,
     isoText(field),
   ]
     .filter(Boolean)
@@ -126,11 +127,11 @@ export function SupplierQuestionnaireDocument({
     >
       <Page size="A4" style={[styles.page, styles.coverPage]}>
         <BrandBands />
-        <DocHeader label="Version" value={`${VERSION} · ${LAST_UPDATED}`} />
+        <DocHeader label={strings.version} value={`${VERSION} · ${LAST_UPDATED}`} />
 
         <View style={styles.coverBody}>
           <CoverHeading
-            eyebrow="NIS 2 Art. 21(2)(d)"
+            eyebrow={strings.article}
             title={strings.title}
             subtitle={strings.subtitle}
             meta={sections.map((section) => ({
@@ -153,7 +154,7 @@ export function SupplierQuestionnaireDocument({
       <Page size="A4" style={styles.page}>
         <BrandBands />
         <View fixed>
-          <DocHeader label="Version" value={`${VERSION} · ${LAST_UPDATED}`} />
+          <DocHeader label={strings.version} value={`${VERSION} · ${LAST_UPDATED}`} />
         </View>
 
         {sections.map((section, i) => (

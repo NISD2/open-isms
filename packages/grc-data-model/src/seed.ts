@@ -36,17 +36,21 @@
  *
  *   await linkSatisfactionPairs(db, aiActNis2SatisfactionPairs);
  */
-import { eq, and, type ExtractTablesWithRelations } from "drizzle-orm";
+import { and, type ExtractTablesWithRelations, eq } from "drizzle-orm";
 import type { PgDatabase, PgQueryResultHKT } from "drizzle-orm/pg-core";
 import { frameworkEnum } from "./enums";
 import {
+  czechRefColumns,
+  type FrameworkCategory,
+  type FrameworkRequirement,
+} from "./frameworks/types";
+import type { SatisfactionPair } from "./satisfaction-pairs";
+import {
   complianceFramework,
-  requirementCategory,
   requirement,
+  requirementCategory,
   requirementSatisfaction,
 } from "./schema";
-import type { FrameworkCategory, FrameworkRequirement } from "./frameworks/types";
-import type { SatisfactionPair } from "./satisfaction-pairs";
 
 export type FrameworkCode = (typeof frameworkEnum.enumValues)[number];
 
@@ -57,11 +61,8 @@ export type FrameworkCode = (typeof frameworkEnum.enumValues)[number];
  * without a cast. The seeder only touches the four tables this package owns;
  * the schema parameter is forwarded for variance reasons only.
  */
-export type SeedDb<TSchema extends Record<string, unknown> = Record<string, unknown>> = PgDatabase<
-  PgQueryResultHKT,
-  TSchema,
-  ExtractTablesWithRelations<TSchema>
->;
+export type SeedDb<TSchema extends Record<string, unknown> = Record<string, unknown>> =
+  PgDatabase<PgQueryResultHKT, TSchema, ExtractTablesWithRelations<TSchema>>;
 
 export interface FrameworkSeedSpec {
   /** Must match a value in the `framework` pg enum. */
@@ -200,6 +201,7 @@ export async function seedFramework<TSchema extends Record<string, unknown>>(
         priority: r.priority,
         importance: r.importance,
         legalRef: r.legalRef || null,
+        ...czechRefColumns(r.czechRef),
         frameworkRef: r.frameworkRef || null,
         cirReference: r.cirReference || null,
         moduleRef: r.moduleRef || null,
@@ -207,13 +209,10 @@ export async function seedFramework<TSchema extends Record<string, unknown>>(
         sortOrder: i,
       };
 
-      await db
-        .insert(requirement)
-        .values(reqFields)
-        .onConflictDoUpdate({
-          target: requirement.code,
-          set: reqFields,
-        });
+      await db.insert(requirement).values(reqFields).onConflictDoUpdate({
+        target: requirement.code,
+        set: reqFields,
+      });
       requirementCount++;
     }
   }

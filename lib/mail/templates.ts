@@ -8,37 +8,50 @@
  */
 
 import { describeSignupCampaign } from "@/lib/auth/signup-campaign";
+import type { WalkLocale } from "@/lib/durchgang/types";
 import { mailSupportEmail } from "@/lib/env";
 import type { Locale } from "@/lib/seo";
 import type { SignupCampaign } from "@/schema";
-import { type DigestItem, type DigestNextStep, payoffLine, withUtm } from "./digest";
+import {
+  type DigestItem,
+  type DigestNextStep,
+  formatPercent,
+  payoffLine,
+  withUtm,
+} from "./digest";
 import AccountSetupEmail, { ACCOUNT_SETUP_COPY } from "./emails/account-setup";
-import CategoryAssignedEmail from "./emails/category-assigned";
-import CategoryUnassignedEmail from "./emails/category-unassigned";
+import CategoryAssignedEmail, {
+  CATEGORY_ASSIGNED_COPY,
+} from "./emails/category-assigned";
+import CategoryUnassignedEmail, {
+  CATEGORY_UNASSIGNED_COPY,
+} from "./emails/category-unassigned";
 import CodeEmail from "./emails/code";
-import ContactEmailChangedEmail from "./emails/contact-email-changed";
-import CourseFollowupEmail from "./emails/course-followup";
-import DailyDigestEmail from "./emails/daily-digest";
+import ContactEmailChangedEmail, {
+  CONTACT_EMAIL_CHANGED_COPY,
+} from "./emails/contact-email-changed";
+import CourseFollowupEmail, { COURSE_FOLLOWUP_COPY } from "./emails/course-followup";
+import DailyDigestEmail, { DAILY_DIGEST_COPY } from "./emails/daily-digest";
 import DocumentLetterEmail from "./emails/document-letter";
-import InviteEmail from "./emails/invite";
+import InviteEmail, { INVITE_COPY, inviteText } from "./emails/invite";
 import ManagementHandoffEmail, {
   MANAGEMENT_HANDOFF_COPY,
   type ManagementHandoffProps,
 } from "./emails/management-handoff";
-import MemberRemovedEmail from "./emails/member-removed";
+import MemberRemovedEmail, { MEMBER_REMOVED_COPY } from "./emails/member-removed";
 import NewSaleEmail, { type NewSaleProps } from "./emails/new-sale";
 import NewsletterEmail from "./emails/newsletter";
 import OperatorAlertEmail from "./emails/operator-alert";
 import { AdvisoryRequestEmail, NewSignupEmail } from "./emails/operator-notices";
 import RegistrationAttemptEmail from "./emails/registration-attempt";
-import ReviewDecisionEmail from "./emails/review-decision";
+import ReviewDecisionEmail, { REVIEW_DECISION_COPY } from "./emails/review-decision";
 import {
   SupplierAddedYouEmail,
   SupplierIncidentEmail,
   SupplierInviteEmail,
 } from "./emails/supplier-mails";
-import WeeklyDigestEmail from "./emails/weekly-digest";
-import WelcomeEmail from "./emails/welcome";
+import WeeklyDigestEmail, { WEEKLY_DIGEST_COPY } from "./emails/weekly-digest";
+import WelcomeEmail, { linkedText, WELCOME_COPY } from "./emails/welcome";
 import {
   type EmailContent,
   letterReplyTo,
@@ -47,7 +60,7 @@ import {
   preferenceFooterText,
   safeHeader,
 } from "./layout";
-import { type EmailLocale, resolveEmailLocale } from "./locale";
+import { type EmailLocale, resolveEmailLocale, workflowMailLocaleOf } from "./locale";
 import { renderEmail } from "./render";
 import { companyNameForMail } from "./sender-name";
 import { signupFollowUp } from "./signup-followup";
@@ -58,6 +71,13 @@ export type { DigestItem, DigestNextStep } from "./digest";
 /** The email language closest to a site locale. */
 const emailLocaleOf = (locale: Locale | undefined): EmailLocale =>
   resolveEmailLocale(locale ?? null, null);
+
+/**
+ * The language of a workflow mail whose callers do not all name the reader's language yet: those
+ * that do not keep the English this mail always had.
+ */
+const workflowLocaleOr = (locale: EmailLocale | undefined) =>
+  workflowMailLocaleOf(locale ?? "en");
 
 // ---------------------------------------------------------------------------
 // Welcome
@@ -76,20 +96,23 @@ export const replyAddress = (): string => letterReplyTo() ?? mailSupportEmail();
  */
 export async function welcomeEmail(opts: {
   name: string;
+  locale: EmailLocale;
 }): Promise<EmailContent & { readonly replyTo?: string }> {
   const replyTo = letterReplyTo();
   const contact = replyAddress();
+  const locale = workflowMailLocaleOf(opts.locale);
+  const copy = WELCOME_COPY[locale];
   return {
-    subject: "Your NISD2 account is ready",
-    html: await renderEmail(WelcomeEmail, { name: opts.name, contact }),
+    subject: copy.subject,
+    html: await renderEmail(WelcomeEmail, { locale, name: opts.name, contact }),
     text: [
-      `Hey ${opts.name},`,
-      "thanks for signing up.",
-      "Our mission is straightforward: NIS2 compliance costs European companies €31 billion every year. We're cutting that in half by replacing expensive consultants with a platform that does the heavy lifting for you.",
-      "A good first step is the CEO & Management Training (https://nisd2.eu/training/courses/nis2-ceo). It covers what NIS2 actually requires from leadership and satisfies the §38 BSIG training obligation, it takes about 4 hours.",
-      `If you have any questions, write to me at ${contact}`,
+      copy.hello(opts.name),
+      copy.thanks,
+      linkedText(copy.mission, false),
+      linkedText(copy.course, true),
+      `${copy.questions}${contact}`,
       "Cory Hisey\nNISD2.eu",
-      "You're receiving this because you created an account at nisd2.eu.",
+      copy.reason,
     ].join("\n\n"),
     ...(replyTo ? { replyTo } : {}),
   };
@@ -104,27 +127,42 @@ export async function inviteEmail(opts: {
   inviterName: string;
   inviteUrl: string;
   role: string;
+  /** The invitee's language, when the caller knows it. */
+  locale?: EmailLocale;
 }): Promise<EmailContent> {
   const { companyName, inviterName, inviteUrl, role } = opts;
+  const locale = workflowLocaleOr(opts.locale);
+  const copy = INVITE_COPY[locale];
   return {
-    subject: `${safeHeader(inviterName)} invited you to ${safeHeader(companyName)} on NISD2`,
-    html: await renderEmail(InviteEmail, opts),
+    subject: copy.subject({
+      inviterName: safeHeader(inviterName),
+      companyName: safeHeader(companyName),
+      role,
+    }),
+    html: await renderEmail(InviteEmail, {
+      locale,
+      companyName,
+      inviterName,
+      inviteUrl,
+      role,
+    }),
     text: [
-      `Join ${companyName}`,
+      copy.heading(companyName),
       ``,
-      `${inviterName} has invited you to join ${companyName} as ${role} on the NIS2 Compliance Platform.`,
+      inviteText(locale, { companyName, inviterName, role }),
       ``,
-      `Accept the invite: ${inviteUrl}`,
+      `${copy.acceptText}: ${inviteUrl}`,
       ``,
-      `This invite expires in 7 days.`,
+      copy.expires,
     ].join("\n"),
   };
 }
 
-const HANDOFF_QUESTIONS = {
+const HANDOFF_QUESTIONS: Record<WalkLocale, string> = {
   de: "Fragen? Antworten Sie einfach auf diese E-Mail.",
   en: "Questions? Just reply to this email.",
-} as const;
+  cs: "Máte otázky? Stačí odpovědět na tento e-mail.",
+};
 
 /**
  * Management's invitation into the company's account, from the walk's lock. The three names were
@@ -132,7 +170,7 @@ const HANDOFF_QUESTIONS = {
  * our domain. Replies reach a person where one reads them (replyAddress).
  */
 export async function managementHandoffEmail(opts: {
-  readonly locale: "de" | "en";
+  readonly locale: WalkLocale;
   readonly name: string;
   readonly inviterName: string | null;
   readonly companyName: string | null;
@@ -173,20 +211,29 @@ export async function contactEmailChangedEmail(opts: {
   companyName: string;
   oldEmail: string;
   newEmail: string;
+  /** The company's language, when the caller knows it. */
+  locale?: EmailLocale;
 }): Promise<EmailContent> {
   const { companyName, oldEmail, newEmail } = opts;
+  const locale = workflowLocaleOr(opts.locale);
+  const copy = CONTACT_EMAIL_CHANGED_COPY[locale];
   return {
-    subject: `The compliance contact for ${safeHeader(companyName)} was changed`,
-    html: await renderEmail(ContactEmailChangedEmail, opts),
+    subject: copy.subject(safeHeader(companyName)),
+    html: await renderEmail(ContactEmailChangedEmail, {
+      locale,
+      companyName,
+      oldEmail,
+      newEmail,
+    }),
     text: [
-      `Contact Email Changed`,
+      copy.heading,
       ``,
-      `The compliance contact email for ${companyName} has been changed.`,
+      `${copy.changed.lead}${companyName}${copy.changed.end}`,
       ``,
-      `Previous: ${oldEmail}`,
-      `New: ${newEmail}`,
+      `${copy.previous}: ${oldEmail}`,
+      `${copy.next}: ${newEmail}`,
       ``,
-      `If you did not make this change, please contact your team administrator.`,
+      copy.notYou,
     ].join("\n"),
   };
 }
@@ -204,23 +251,21 @@ export async function categoryAssignedEmail(opts: {
   categoryUrl: string;
   footer: PreferenceFooter;
 }): Promise<EmailContent> {
-  const {
-    assigneeName,
-    categoryName,
-    categoryCode,
-    companyName,
-    assignerName,
-    categoryUrl,
-  } = opts;
+  const copy = CATEGORY_ASSIGNED_COPY[workflowMailLocaleOf(opts.footer.locale)];
+  const { lead, end } = copy.assigned(opts);
   return {
-    subject: `${safeHeader(assignerName)} assigned you ${safeHeader(categoryName)}`,
+    subject: copy.subject({
+      ...opts,
+      assignerName: safeHeader(opts.assignerName),
+      categoryName: safeHeader(opts.categoryName),
+    }),
     html: await renderEmail(CategoryAssignedEmail, opts),
     text: [
-      `New Assignment`,
+      copy.heading,
       ``,
-      `Hi ${assigneeName}, ${assignerName} has assigned you to ${categoryName} (${categoryCode}) in ${companyName}.`,
+      `${lead}${opts.categoryName}${end}`,
       ``,
-      `Go to category: ${categoryUrl}`,
+      `${copy.goTo}: ${opts.categoryUrl}`,
       "",
       preferenceFooterText(opts.footer),
     ].join("\n"),
@@ -238,16 +283,17 @@ export async function categoryUnassignedEmail(opts: {
   companyName: string;
   footer: PreferenceFooter;
 }): Promise<EmailContent> {
-  const { assigneeName, categoryName, categoryCode, companyName } = opts;
+  const copy = CATEGORY_UNASSIGNED_COPY[workflowMailLocaleOf(opts.footer.locale)];
+  const { lead, end } = copy.unassigned(opts);
   return {
-    subject: `You are no longer assigned to ${safeHeader(categoryName)}`,
+    subject: copy.subject(safeHeader(opts.categoryName)),
     html: await renderEmail(CategoryUnassignedEmail, opts),
     text: [
-      `Assignment Removed`,
+      copy.heading,
       ``,
-      `Hi ${assigneeName}, you have been unassigned from ${categoryName} (${categoryCode}) in ${companyName}.`,
+      `${lead}${opts.categoryName}${end}`,
       ``,
-      `If you believe this was a mistake, please contact your team administrator.`,
+      copy.mistake,
       "",
       preferenceFooterText(opts.footer),
     ].join("\n"),
@@ -267,18 +313,15 @@ export async function reviewDecisionEmail(opts: {
   footer: PreferenceFooter;
 }): Promise<EmailContent> {
   const { submitterName, requirementCode, requirementTitle, decision, feedback } = opts;
-  const label = decision === "approved" ? "Approved" : "Rejected";
+  const copy = REVIEW_DECISION_COPY[workflowMailLocaleOf(opts.footer.locale)];
   return {
-    subject:
-      decision === "approved"
-        ? `${safeHeader(requirementCode)} was approved`
-        : `${safeHeader(requirementCode)} needs another look`,
+    subject: copy.subject[decision](safeHeader(requirementCode)),
     html: await renderEmail(ReviewDecisionEmail, opts),
     text: [
-      `Submission ${label}`,
+      copy.heading[decision],
       ``,
-      `Hi ${submitterName}, your submission for ${requirementCode} (${requirementTitle}) has been ${decision}.`,
-      feedback ? `\nFeedback: ${feedback}` : "",
+      `${copy.lead(submitterName)}${requirementCode}${copy.middle(requirementTitle)}${copy.decision[decision]}.`,
+      feedback ? `\n${copy.feedback}: ${feedback}` : "",
       "",
       preferenceFooterText(opts.footer),
     ].join("\n"),
@@ -292,17 +335,22 @@ export async function reviewDecisionEmail(opts: {
 export async function memberRemovedEmail(opts: {
   companyName: string;
   memberName: string;
+  /** The removed member's language, when the caller knows it. */
+  locale?: EmailLocale;
 }): Promise<EmailContent> {
   const { companyName, memberName } = opts;
+  const locale = workflowLocaleOr(opts.locale);
+  const copy = MEMBER_REMOVED_COPY[locale];
+  const { lead, end } = copy.removed(memberName);
   return {
-    subject: `You no longer have access to ${safeHeader(companyName)}`,
-    html: await renderEmail(MemberRemovedEmail, opts),
+    subject: copy.subject(safeHeader(companyName)),
+    html: await renderEmail(MemberRemovedEmail, { locale, companyName, memberName }),
     text: [
-      `Removed from ${companyName}`,
+      copy.heading(companyName),
       ``,
-      `Hi ${memberName}, you have been removed from ${companyName} on the NIS2 Compliance Platform.`,
+      `${lead}${companyName}${end}`,
       ``,
-      `If you believe this was a mistake, please contact your team administrator.`,
+      copy.mistake,
     ].join("\n"),
   };
 }
@@ -362,6 +410,7 @@ const QUESTIONS: Record<EmailLocale, string> = {
   de: "Fragen dazu? Antworten Sie einfach auf diese E-Mail.",
   en: "Questions? Just reply to this email.",
   nl: "Vragen? Beantwoord deze e-mail gewoon.",
+  cs: "Máte k tomu otázky? Stačí odpovědět na tento e-mail.",
 };
 
 const documentCardText = ({
@@ -417,7 +466,7 @@ export async function documentEmail(
  */
 export async function accountSetupEmail(opts: {
   readonly setupUrl: string;
-  readonly locale: "de" | "en";
+  readonly locale: WalkLocale;
 }): Promise<EmailContent> {
   const copy = ACCOUNT_SETUP_COPY[opts.locale];
   return {
@@ -473,37 +522,44 @@ export async function newSaleEmail(
 // Daily Digest
 // ---------------------------------------------------------------------------
 
-function digestItemText(item: DigestItem): string {
-  return `  - ${item.requirementCode}: ${item.requirementTitle} (due ${item.deadline}, ${item.daysRemaining}d remaining)`;
-}
-
 /**
  * Lead with the thing worth opening the mail for. "Daily Compliance Digest" told the reader only
  * that a machine sent it on a schedule, which is the definition of a mail you archive unread.
  * Its own function so the outbox can list a queued digest without rendering it.
  */
-export function dailyDigestSubject(d: {
-  readonly companyName: string;
-  readonly overdueItems: readonly DigestItem[];
-  readonly urgentItems: readonly DigestItem[];
-  readonly upcomingItems: readonly DigestItem[];
-}): string {
+export function dailyDigestSubject(
+  d: {
+    readonly companyName: string;
+    readonly overdueItems: readonly DigestItem[];
+    readonly urgentItems: readonly DigestItem[];
+    readonly upcomingItems: readonly DigestItem[];
+  },
+  locale: EmailLocale,
+): string {
+  const { subject } = DAILY_DIGEST_COPY[workflowMailLocaleOf(locale)];
   return safeHeader(
     d.overdueItems.length > 0
-      ? `${d.overdueItems.length} overdue at ${d.companyName}`
+      ? subject.overdue(d.overdueItems.length, d.companyName)
       : d.urgentItems.length > 0
-        ? `${d.urgentItems.length} due this week at ${d.companyName}`
-        : `${d.upcomingItems.length} deadlines coming up at ${d.companyName}`,
+        ? subject.urgent(d.urgentItems.length, d.companyName)
+        : subject.upcoming(d.upcomingItems.length, d.companyName),
   );
 }
 
 /** The weekly report leads with the score; its own function for the same reason. */
-export function weeklyDigestSubject(d: {
-  readonly companyName: string;
-  readonly compliancePercentage: string;
-}): string {
+export function weeklyDigestSubject(
+  d: {
+    readonly companyName: string;
+    readonly compliancePercentage: string;
+  },
+  locale: EmailLocale,
+): string {
+  const workflowLocale = workflowMailLocaleOf(locale);
   return safeHeader(
-    `${d.companyName} is at ${d.compliancePercentage}% on NIS 2 this week`,
+    WEEKLY_DIGEST_COPY[workflowLocale].subject(
+      d.companyName,
+      formatPercent(d.compliancePercentage, workflowLocale),
+    ),
   );
 }
 
@@ -529,42 +585,35 @@ export async function dailyDigestEmail(opts: {
     dashboardUrl,
     footer,
   } = opts;
+  const locale = workflowMailLocaleOf(footer.locale);
+  const copy = DAILY_DIGEST_COPY[locale];
+  const intro = copy.intro(recipientName);
+  const section = (title: string, items: readonly DigestItem[]): string[] =>
+    items.length > 0
+      ? [`${title} (${items.length}):`, ...items.map(copy.itemText), ``]
+      : [];
 
   return {
-    subject: dailyDigestSubject(opts),
+    subject: dailyDigestSubject(opts, footer.locale),
     html: await renderEmail(DailyDigestEmail, opts),
     text: [
-      `Daily Compliance Digest: ${companyName}`,
+      `${copy.heading}: ${companyName}`,
       ``,
-      `Hi ${recipientName}, here is your daily summary for ${companyName}.`,
-      `Overall compliance: ${compliancePercentage}%`,
+      `${intro.lead}${companyName}${intro.end}`,
+      `${copy.overallText}: ${formatPercent(compliancePercentage, locale)}`,
       ``,
-      ...(overdueItems.length > 0
-        ? [`Overdue (${overdueItems.length}):`, ...overdueItems.map(digestItemText), ``]
-        : []),
-      ...(urgentItems.length > 0
-        ? [
-            `Due This Week (${urgentItems.length}):`,
-            ...urgentItems.map(digestItemText),
-            ``,
-          ]
-        : []),
-      ...(upcomingItems.length > 0
-        ? [
-            `Upcoming (${upcomingItems.length}):`,
-            ...upcomingItems.map(digestItemText),
-            ``,
-          ]
-        : []),
+      ...section(copy.overdue, overdueItems),
+      ...section(copy.urgent, urgentItems),
+      ...section(copy.upcoming, upcomingItems),
       ...(nextStep
         ? [
-            payoffLine(nextStep),
-            `Continue: ${nextStep.requirementCode} ${nextStep.requirementTitle}`,
+            payoffLine(nextStep, locale),
+            `${copy.continue}: ${nextStep.requirementCode} ${nextStep.requirementTitle}`,
             withUtm(nextStep.url, "daily_digest"),
             ``,
           ]
         : []),
-      `View dashboard: ${withUtm(dashboardUrl, "daily_digest")}`,
+      `${copy.viewDashboardText}: ${withUtm(dashboardUrl, "daily_digest")}`,
       ``,
       preferenceFooterText(footer),
     ].join("\n"),
@@ -602,45 +651,44 @@ export async function weeklyManagementDigestEmail(opts: {
     footer,
   } = opts;
 
+  const locale = workflowMailLocaleOf(footer.locale);
+  const copy = WEEKLY_DIGEST_COPY[locale];
+  const intro = copy.intro(recipientName);
+  const percent = formatPercent(compliancePercentage, locale);
   const pct = Math.min(100, Math.max(0, Number.parseFloat(compliancePercentage) || 0));
   const filledBlocks = Math.round(pct / 5);
   const emptyBlocks = 20 - filledBlocks;
-  const progressBarText = `[${"#".repeat(filledBlocks)}${"-".repeat(emptyBlocks)}] ${compliancePercentage}%`;
+  const progressBarText = `[${"#".repeat(filledBlocks)}${"-".repeat(emptyBlocks)}] ${percent}`;
 
   return {
-    subject: weeklyDigestSubject(opts),
+    subject: weeklyDigestSubject(opts, footer.locale),
     html: await renderEmail(WeeklyDigestEmail, opts),
     text: [
-      `Weekly Management Report: ${companyName}`,
+      `${copy.heading}: ${companyName}`,
       ``,
-      `Hi ${recipientName}, here is the weekly compliance summary for ${companyName}.`,
+      `${intro.lead}${companyName}${intro.end}`,
       ``,
-      `Compliance Score: ${compliancePercentage}%`,
+      `${copy.score}: ${percent}`,
       progressBarText,
-      `${completedRequirements} of ${totalRequirements} requirements completed`,
+      copy.completed(completedRequirements, totalRequirements),
       ``,
-      `Overdue Items: ${overdueCount}`,
-      `Urgent Items: ${urgentCount}`,
-      `Escalations: ${escalationCount}`,
+      `${copy.overdue}: ${overdueCount}`,
+      `${copy.urgent}: ${urgentCount}`,
+      `${copy.escalations}: ${escalationCount}`,
       ``,
       ...(nextStep
         ? [
-            `Next up: ${nextStep.requirementCode} ${nextStep.requirementTitle} (${nextStep.categoryName}), ${nextStep.assigneeName ? `assigned to ${nextStep.assigneeName}` : "not yet assigned"}.`,
+            `${copy.nextUp}: ${nextStep.requirementCode} ${nextStep.requirementTitle} (${nextStep.categoryName}), ${copy.owner(nextStep.assigneeName)}.`,
             withUtm(nextStep.url, "weekly_management_digest"),
             ``,
-          ]
-        : []),
-      ...(nextStep
-        ? [
-            `Open items return in every weekly report until they are done. Completed items land in the audit trail as evidence.`,
+            copy.recurring,
             ``,
           ]
         : []),
-      `View dashboard: ${withUtm(dashboardUrl, "weekly_management_digest")}`,
+      `${copy.viewDashboardText}: ${withUtm(dashboardUrl, "weekly_management_digest")}`,
       ``,
       `---`,
-      `This email serves as documentation of management notification per Art. 20 NIS 2 / §38 BSIG.`,
-      `Diese E-Mail dient als Nachweis der Leitungsunterrichtung gemäß Art. 20 NIS 2 / §38 BSIG.`,
+      ...copy.record,
       ``,
       preferenceFooterText(footer),
     ].join("\n"),
@@ -741,6 +789,13 @@ export async function entityInvitesSupplierEmail(opts: {
 // Platform Admin: new user signup notification
 // ---------------------------------------------------------------------------
 
+/** The language the prepared follow-up is written in, named for the operator who sends it. */
+const FOLLOW_UP_LANGUAGE: Record<WalkLocale, string> = {
+  de: "German",
+  en: "English",
+  cs: "Czech",
+};
+
 export async function newUserSignupEmail(opts: {
   userEmail: string;
   userName: string;
@@ -753,7 +808,7 @@ export async function newUserSignupEmail(opts: {
   const { userEmail, userName, provider } = opts;
   const followUp = signupFollowUp({ name: userName, locale: opts.locale });
   const mailtoUrl = `mailto:${encodeURIComponent(userEmail)}?subject=${encodeURIComponent(followUp.subject)}&body=${encodeURIComponent(followUp.body)}`;
-  const followUpLanguage = followUp.locale === "de" ? "German" : "English";
+  const followUpLanguage = FOLLOW_UP_LANGUAGE[followUp.locale];
   const source = describeSignupCampaign(opts.campaign);
 
   return {
@@ -853,16 +908,17 @@ export async function courseFollowupEmail(opts: {
   recipientName: string | null;
   courses: Array<{ title: string; resumeUrl: string }>;
   unsubscribeUrl: string;
+  locale: EmailLocale;
 }): Promise<EmailContent> {
   const { recipientName, courses, unsubscribeUrl } = opts;
+  const locale = workflowMailLocaleOf(opts.locale);
+  const copy = COURSE_FOLLOWUP_COPY[locale];
   const single = courses.length === 1;
-  const firstName = recipientName?.trim().split(" ")[0];
-  const greeting = firstName ? `Hi ${firstName}` : "Hi";
-  const subject = single
-    ? `Following up on the ${courses[0].title} course`
-    : "Following up on your NISD2 courses";
+  const greeting = copy.greeting(recipientName?.trim().split(" ")[0]);
+  const subject = copy.subject(single, courses[0]?.title ?? "");
 
   const html = await renderEmail(CourseFollowupEmail, {
+    locale,
     greeting,
     courses,
     unsubscribeUrl,
@@ -871,18 +927,18 @@ export async function courseFollowupEmail(opts: {
   const text = [
     `${greeting},`,
     ``,
-    `Simon here, from NISD2. I noticed you started ${single ? "a course with us" : "some courses with us"} and haven't been back in a while:`,
+    copy.intro(single),
     ``,
     ...courses.map((c) => `- ${c.title}: ${c.resumeUrl}`),
     ``,
-    `Quick question: what got in the way of finishing? Was something unclear, did the format not fit, or did NIS 2 turn out to be less relevant than you expected? Even a one-line reply helps me make the next version better.`,
+    copy.question(single),
     ``,
-    `If you want to pick up where you left off, the link${single ? "" : "s"} above ${single ? "takes" : "take"} you straight back.`,
+    copy.resume(single),
     ``,
-    `Thanks,`,
+    copy.thanks,
     `Simon`,
     ``,
-    `Unsubscribe from follow-up emails: ${unsubscribeUrl}`,
+    `${copy.unsubscribe}: ${unsubscribeUrl}`,
   ].join("\n");
 
   return { subject: safeHeader(subject), html, text };

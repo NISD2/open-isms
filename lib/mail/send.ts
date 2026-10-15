@@ -1,11 +1,14 @@
 import "@/lib/server-guard";
+import { eq } from "drizzle-orm";
 import type { DbOrTx } from "@/lib/db";
 import { db } from "@/lib/db";
 import { unsubscribeUrl as buildUnsubscribeUrl } from "@/lib/email/unsubscribe";
 import { env } from "@/lib/env";
+import { company, user } from "@/schema";
 import { loadEmailConsent } from "./consent";
 import type { UngatedEmailTypeId, UserConsentEmailTypeId } from "./email-types";
 import { recordEmailFailure } from "./failure-log";
+import { type EmailLocale, resolveEmailLocale } from "./locale";
 import { maskAddressesIn } from "./mask-address";
 import { FROM_EMAIL, FROM_NAME } from "./resend";
 import { welcomeEmail } from "./templates";
@@ -248,10 +251,29 @@ async function failed(opts: SendMailOptions, error: unknown) {
 // Welcome email
 // ---------------------------------------------------------------------------
 
+/**
+ * The language of an account's mail, read from the account itself: both sign-up paths store the
+ * language the person was reading in before they send the welcome, so its callers need not pass it.
+ * A mail to someone without an account yet (an invitation, a changed contact address) goes in the
+ * language of the account that caused it, the closest fact we hold about that company's readers.
+ */
+export async function accountEmailLocale(email: string): Promise<EmailLocale> {
+  const [row] = await db
+    .select({ locale: user.locale, country: company.country })
+    .from(user)
+    .leftJoin(company, eq(user.companyId, company.id))
+    .where(eq(user.email, email))
+    .limit(1);
+  return resolveEmailLocale(row?.locale ?? null, row?.country ?? null);
+}
+
 export async function sendWelcomeEmail(opts: { name: string; email: string }) {
   return sendMail({
     emailType: "auth.welcome",
     to: opts.email,
-    ...(await welcomeEmail({ name: opts.name })),
+    ...(await welcomeEmail({
+      name: opts.name,
+      locale: await accountEmailLocale(opts.email),
+    })),
   });
 }

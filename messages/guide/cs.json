@@ -34,7 +34,7 @@
         },
         "timeline": {
           "title": "Cesta je seřazena podle lhůty",
-          "body": "Vlevo jsou tři okna a cesta sama běží v tomto pořadí: nejdřív vše na první měsíc, pak první tři měsíce, pak zbytek roku. Označení se posouvá s vámi. Povinných je všech 49 kroků; rozdělení je naše doporučení."
+          "body": "Vlevo jsou tři okna a cesta sama běží v tomto pořadí: nejdřív vše na první měsíc, pak první tři měsíce, pak zbytek roku. Označení se posouvá s vámi. Všech 49 kroků vychází z NIS 2; co z nich je v Česku povinné, závisí na režimu (vyhláška č. 409/2025 Sb. nebo č. 410/2025 Sb.). Rozdělení je naše doporučení."
         },
         "order": {
           "title": "Dva způsoby řazení cesty",
@@ -70,7 +70,7 @@
         },
         "legal": {
           "title": "O co se to opírá právně",
-          "body": "Každý požadavek uvádí článek, ze kterého vychází: článek NIS 2 a národní transpozici, zatím německou. Název předpisu vede na zdrojový text."
+          "body": "Každý požadavek uvádí, ze kterého předpisu vychází: článek NIS 2 a české předpisy, tedy zákon č. 264/2025 Sb. a vyhlášky č. 410/2025 Sb. (nižší režim) a č. 409/2025 Sb. (vyšší režim). Název předpisu vede na jeho text ve Sbírce zákonů."
         },
         "decide": {
           "title": "Schválit, nebo vyloučit",

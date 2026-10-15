@@ -1,6 +1,6 @@
 {
   "gap-assessment": {
-    "title": "NIS2 Gap Assessment",
+    "title": "GAP analýza NIS 2",
     "subtitle": "Vyhodnoťte svou připravenost na NIS2 napříč 15 oblastmi",
     "startAssessment": "Spustit hodnocení",
     "resumeAssessment": "Pokračovat v hodnocení",
@@ -47,7 +47,7 @@
         "3": "Vysoký"
       },
       "respondent": {
-        "0": "Generální ředitel / vedení",
+        "0": "Jednatel / vedení",
         "1": "IT / bezpečnost",
         "2": "Personální oddělení",
         "3": "Nákup",
@@ -100,13 +100,24 @@
         "3": "Měsíce"
       },
       "summary": {
-        "criticalGaps": "{count} kritických nedostatků",
-        "fineExposed": "{count} představuje riziko pokuty",
-        "personalLiability": "{count} zakládá osobní odpovědnost generálního ředitele",
-        "quickWins": "{count} lze napravit okamžitě"
+        "criticalGaps": "{count, plural, one {# kritický nedostatek} few {# kritické nedostatky} other {# kritických nedostatků}}",
+        "fineExposed": "{count, plural, few {# z nich představují riziko pokuty} other {# z nich představuje riziko pokuty}}",
+        "personalLiability": "{count, plural, few {# z nich mohou vést k osobní odpovědnosti vedení} other {# z nich může vést k osobní odpovědnosti vedení}}",
+        "quickWins": "{count} z nich lze napravit okamžitě"
       },
       "startCompliance": "Začít odstraňovat nedostatky",
       "retakeAssessment": "Provést hodnocení znovu"
+    },
+    "share": {
+      "metaTitle": "Sdílená GAP analýza",
+      "title": "Výsledky chráněné heslem",
+      "intro": "Zadejte heslo, které jste dostali spolu s tímto odkazem, a zobrazí se výsledky GAP analýzy.",
+      "password": "Heslo",
+      "submit": "Zobrazit výsledky",
+      "checking": "Ověřuje se…",
+      "tooManyAttempts": "Příliš mnoho pokusů. Počkejte 15 minut a zkuste to znovu.",
+      "invalidLink": "Tento odkaz pro sdílení je neplatný nebo byl zrušen.",
+      "wrongPassword": "Nesprávné heslo."
     }
   }
 }

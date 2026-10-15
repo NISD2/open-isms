@@ -2,7 +2,7 @@
   "exercises": {
     "title": "Cvičení",
     "description": "Cvičení kontinuity provozu, obnovy po havárii a reakce na incidenty. Vyžaduje NIS2 čl. 21(2)(c).",
-    "helpText": "Plánujte a dokumentujte cvičení zaměřená na kontinuitu provozu a obnovu po havárii. NIS2 vyžaduje pravidelné testování plánů kontinuity. Zaznamenejte typ cvičení, účastníky, zjištění a navazující opatření.",
+    "helpText": "Plánujte a dokumentujte cvičení zaměřená na kontinuitu provozu a obnovu po havárii. Testování plánů kontinuity a obnovy ukládá v Česku vyhláška č. 409/2025 Sb., § 4 odst. 1 písm. i) (vyšší režim); vyhláška č. 410/2025 Sb. testování plánů nepředepisuje. Zaznamenejte typ cvičení, účastníky, zjištění a navazující opatření.",
     "add": "Přidat cvičení",
     "edit": "Upravit cvičení",
     "empty": "Zatím nejsou naplánována žádná cvičení. Naplánujte své první cvičení.",

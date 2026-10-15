@@ -77,8 +77,8 @@
       "summary": "Kto należy do której kategorii ? Załącznik I a Załącznik II, progi wielkości, przypadki graniczne."
     },
     "cs": {
-      "title": "Klíčové a důležité subjekty",
-      "summary": "Kdo spadá do které kategorie? Příloha I versus příloha II, velikostní prahy, hraniční případy."
+      "title": "Nižší vs. vyšší režim vs. kritická infrastruktura: jiná práce, jiné důsledky",
+      "summary": "Český zákon nezná základní a důležité subjekty, ale režim vyšších a nižších povinností. Jak se režimy liší v opatřeních a hlášení a kde stojí kritická infrastruktura."
     },
     "pt": {
       "title": "Entidades essenciais e importantes",
@@ -107,8 +107,8 @@
       "summary": "Co jest potrzebne do samodzielnej rejestracji w BSI i jak działa portal."
     },
     "cs": {
-      "title": "Registrace u BSI",
-      "summary": "Co potřebujete k vlastní registraci u BSI a jak funguje portál."
+      "title": "Ohlášení služeb NÚKIB: analýza mezery",
+      "summary": "Kolik poskytovatelů ohlásilo NÚKIB své služby, proč část firem chybí a co neohlášení znamená."
     },
     "pt": {
       "title": "Registo junto do BSI",
@@ -258,7 +258,7 @@
     },
     "cs": {
       "title": "Spadám jako nemocnice do oblasti působnosti NIS 2?",
-      "summary": "Příloha I, sektor 5: kdy nemocnice, klinika nebo pečovatelské zařízení podléhá NIS 2. Prahy, zvláštní pravidla, překryv s KRITIS."
+      "summary": "Příloha I, sektor 5: kdy nemocnice nebo jiný poskytovatel zdravotní péče podléhá NIS 2. Tři testy: služba, velikost a registrace z moci úřední, například u kritické infrastruktury."
     },
     "pt": {
       "title": "Estou abrangido pela NIS 2 enquanto hospital?",
@@ -287,8 +287,8 @@
       "summary": "Energia, woda pitna, ścieki, telekomunikacja, często skupione w jednym Stadtwerk. Które sektory załącznika I mają zastosowanie i kiedy wkracza KRITIS."
     },
     "cs": {
-      "title": "Spadám jako Stadtwerk do oblasti působnosti NIS 2?",
-      "summary": "Energie, pitná voda, odpadní vody, telekomunikace, často sloučené v jednom Stadtwerk. Které sektory přílohy I se uplatní a kdy vstupuje do hry KRITIS."
+      "title": "Spadá naše městská společnost pod zákon o kybernetické bezpečnosti?",
+      "summary": "Teplo, elektřina, vodovod, kanalizace, odpady: městská společnost často provozuje několik regulovaných služeb pod jedním IČO. Rozhoduje služba, velikost společnosti, podíl služby na obratu a režim povinností."
     },
     "pt": {
       "title": "Estou abrangido pela NIS 2 enquanto Stadtwerk?",
@@ -438,7 +438,7 @@
     },
     "cs": {
       "title": "Spadám jako dodavatel pitné vody do oblasti působnosti NIS 2?",
-      "summary": "Příloha I, sektor 6: kdo dodává nebo distribuuje pitnou vodu. Velikostní test, práh KRITIS (22 milionů m³/rok), konstelace Stadtwerk."
+      "summary": "Příloha I, sektor 6: provozování vodovodu pro veřejnou potřebu. Služba, velikost a režim povinností podle české vyhlášky a tři nejčastější omyly."
     },
     "pt": {
       "title": "Estou abrangido pela NIS 2 enquanto fornecedor de água potável?",
@@ -468,7 +468,7 @@
     },
     "cs": {
       "title": "Spadám jako provozovatel odpadních vod do oblasti působnosti NIS 2?",
-      "summary": "Příloha I, sektor 7: podniky, které shromažďují, odstraňují nebo čistí městské, domovní nebo průmyslové odpadní vody. Velikostní test, práh KRITIS (500 000 ekvivalentních obyvatel)."
+      "summary": "Příloha I, sektor 7: provozování kanalizace pro veřejnou potřebu. Služba, velikost a režim povinností podle české vyhlášky a tři nejčastější omyly."
     },
     "pt": {
       "title": "Estou abrangido pela NIS 2 enquanto operador de águas residuais?",
@@ -558,7 +558,7 @@
     },
     "cs": {
       "title": "Spadám jako datové centrum do oblasti působnosti NIS 2?",
-      "summary": "Příloha I, sektor 8: poskytovatelé služeb datových center. Definice podle čl. 6 odst. 31, velikostní test, práh KRITIS (3,5 MW)."
+      "summary": "Příloha I, sektor 8: poskytovatelé služeb datových center. Definice podle čl. 6 bodu 31, velikostní test, vlastní serverovna a kritická infrastruktura."
     },
     "pt": {
       "title": "Estou abrangido pela NIS 2 enquanto centro de dados?",
@@ -767,8 +767,8 @@
       "summary": "Obowiązek oceny spoczywa na podmiocie. Art. 3(4) NIS 2 + §33 BSIG. Trzymiesięczny termin biegnie od chwili spełnienia warunków, a nie od otrzymania pisma."
     },
     "cs": {
-      "title": "Sebezařazení podle NIS 2: mlčení BSI není obranou",
-      "summary": "Povinnost posouzení nese subjekt. Čl. 3(4) NIS 2 + §33 BSIG. Tříměsíční lhůta běží od okamžiku, kdy jsou podmínky splněny, nikoli od doručení dopisu."
+      "title": "Vlastní posouzení podle NIS 2: mlčení NÚKIB není obrana",
+      "summary": "Posouzení nese firma sama. Lhůta 60 dnů pro ohlášení služby běží od splnění podmínek (§ 6 odst. 1 zákona č. 264/2025 Sb.), nikoli od doručení dopisu."
     },
     "pt": {
       "title": "Autoclassificação ao abrigo da NIS 2: o silêncio do BSI não é uma defesa",
@@ -1008,7 +1008,7 @@
     },
     "cs": {
       "title": "NIS 2 v dopravě",
-      "summary": "Příloha I, sektor 2: letecká, železniční, vodní a silniční doprava z hlediska NIS 2 a překryv s KRITIS."
+      "summary": "Příloha I, sektor 2: letecká, železniční, vodní a silniční doprava z hlediska NIS 2 a české vyhlášky, test velikosti a NÚKIB jako příslušný orgán."
     },
     "pt": {
       "title": "NIS 2 nos transportes",
@@ -1157,8 +1157,8 @@
       "summary": "Dziesięć środków zarządzania ryzykiem zgodnie z §30(2) BSIG, ich związek z artykułem 21 NIS 2 i CIR (UE) 2024/2690, proporcjonalność oraz sankcje."
     },
     "cs": {
-      "title": "§30 BSIG: deset opatření kybernetické bezpečnosti",
-      "summary": "Deset opatření řízení rizik podle §30 odst. 2 BSIG, jejich vztah k článku 21 NIS 2 a CIR (EU) 2024/2690, proporcionalita a sankce."
+      "title": "§§ 13 a 14 zákona č. 264/2025 Sb.: bezpečnostní opatření",
+      "summary": "Česká úprava čl. 21 NIS 2: bezpečnostní opatření podle §§ 13 a 14 zákona, jejich obsah ve vyhláškách č. 409/2025 Sb. a č. 410/2025 Sb., přiměřenost a sankce."
     },
     "pt": {
       "title": "§30 BSIG: as dez medidas de cibersegurança",
@@ -1217,8 +1217,8 @@
       "summary": "Jak standard BSI odnosi się do niemieckiej transpozycji NIS 2."
     },
     "cs": {
-      "title": "IT-Grundschutz a NIS 2",
-      "summary": "Jak standard BSI souvisí s německou transpozicí NIS 2."
+      "title": "NIS 2 a IT-Grundschutz",
+      "summary": "IT-Grundschutz je německá metodika úřadu BSI. V Česku jeho zavedení soulad se zákonem č. 264/2025 Sb. samo neprokazuje, jako pomůcku ho použít lze."
     },
     "pt": {
       "title": "IT-Grundschutz e NIS 2",
@@ -1277,8 +1277,8 @@
       "summary": "Pojęcia związane z NIS 2, BSIG, CIR i cyberbezpieczeństwem."
     },
     "cs": {
-      "title": "Glosář",
-      "summary": "Pojmy kolem NIS 2, BSIG, CIR a kybernetické bezpečnosti."
+      "title": "Terminologický slovník NIS2",
+      "summary": "Pojmy NIS 2, českého zákona o kybernetické bezpečnosti a CIR, vysvětlené jednoduše."
     },
     "pt": {
       "title": "Glossário",
@@ -1547,8 +1547,8 @@
       "summary": "Federalny Urząd ds. Bezpieczeństwa Informacji, ustanowiony na podstawie §1 BSIG. W ramach NIS 2 właściwy organ, pojedynczy punkt zgłoszeniowy oraz operator krajowego CSIRT."
     },
     "cs": {
-      "title": "Co je BSI?",
-      "summary": "Spolkový úřad pro bezpečnost informačních technologií, zřízený podle §1 BSIG. V rámci NIS 2 příslušný orgán, jednotné kontaktní místo pro ohlašování a provozovatel národního CSIRT."
+      "title": "Co je NÚKIB?",
+      "summary": "Národní úřad pro kybernetickou a informační bezpečnost se sídlem v Brně (§ 42 zákona č. 264/2025 Sb.). Přijímá ohlášení služeb, rozhoduje o registraci, kontroluje a je jednotným kontaktním místem."
     },
     "pt": {
       "title": "O que é o BSI?",
@@ -1577,8 +1577,8 @@
       "summary": "Jedna platforma, dwa obowiązki NIS 2 : pierwsza rejestracja na podstawie §33 BSIG oraz zgłaszanie incydentów na podstawie §32 BSIG. Dostęp przez certyfikat organizacji ELSTER."
     },
     "cs": {
-      "title": "Ohlašovací portál BSI",
-      "summary": "Jedna platforma, dvě povinnosti NIS 2: první registrace podle §33 BSIG a ohlášení incidentu podle §32 BSIG. Přístup přes organizační certifikát ELSTER."
+      "title": "Portál NÚKIB",
+      "summary": "Jedna platforma, dvě hlavní povinnosti: ohlášení regulované služby a hlášení kybernetických bezpečnostních incidentů. Přihlášení identitou občana (NIA)."
     },
     "pt": {
       "title": "O portal de notificação do BSI",
@@ -1668,7 +1668,7 @@
     },
     "cs": {
       "title": "Co je aktivum ve smyslu NIS 2?",
-      "summary": "Aktivum ve smyslu NIS 2 je vše, co zpracovává, ukládá nebo přenáší informace, na nichž závisí vaše činnost. Čl. 21 odst. 2 a CIR 2024/2690 vyžadují inventář; BSI 200-2 §8.1 umožňuje seskupovat shodné objekty."
+      "summary": "Aktivum je podle českého zákona fyzický nebo digitální prostředek, osoba nebo činnost související se zpracováváním informací a dat v elektronické podobě (§ 2 odst. 1 písm. c) zákona č. 264/2025 Sb.). Zákon ukládá aktiva evidovat (§ 12)."
     },
     "pt": {
       "title": "O que é um ativo na aceção da NIS 2?",
@@ -1788,7 +1788,7 @@
     },
     "cs": {
       "title": "Požadavky NIS 2",
-      "summary": "§30 BSIG a čl. 21 odst. 2 NIS 2: deset opatření podrobně."
+      "summary": "Čl. 21 odst. 2 NIS 2 a § 14 zákona č. 264/2025 Sb.: deset oblastí opatření, hlášení incidentů, ohlášení služby a role vedení."
     },
     "pt": {
       "title": "Requisitos da NIS 2",
@@ -1817,8 +1817,8 @@
       "summary": "Kaskada zgłoszeń 24h / 72h / 1 miesiąc do BSI."
     },
     "cs": {
-      "title": "Ohlašovací povinnost podle §32 BSIG / čl. 23 NIS 2",
-      "summary": "Kaskáda ohlašování 24h / 72h / 1 měsíc BSI."
+      "title": "Hlášení incidentů podle NIS 2: kdy a jak hlásit NÚKIB nebo Národnímu CERT",
+      "summary": "Prvotní hlášení do 24 hodin, oznámení do 72 hodin, závěrečná zpráva do 30 dnů od oznámení (§ 16 zákona č. 264/2025 Sb.)."
     },
     "pt": {
       "title": "Obrigação de notificação ao abrigo do §32 BSIG / art. 23.º da NIS 2",
@@ -1847,7 +1847,7 @@
       "summary": "Pragmatyczny przewodnik wdrożeniowy bez 50 000 € na doradztwo."
     },
     "cs": {
-      "title": "Zavést NIS 2 v Mittelstandu",
+      "title": "Zavedení NIS2: jak postupovat ve středně velké firmě",
       "summary": "Pragmatický návod k zavedení bez poradenství za 50 000 €."
     },
     "pt": {
@@ -2058,7 +2058,7 @@
     },
     "cs": {
       "title": "Školení vedoucího orgánu podle čl. 20 odst. 2 NIS 2",
-      "summary": "Čl. 20 odst. 2 NIS 2 vyžaduje, aby každý člen vedoucího orgánu absolvoval školení v oblasti kybernetické bezpečnosti. Co to znamená, co musíte umět doložit a jak to v Německu provádí §38 odst. 3 BSIG."
+      "summary": "Čl. 20 odst. 2 NIS 2 vyžaduje, aby každý člen vedoucího orgánu absolvoval školení v oblasti kybernetické bezpečnosti. Co to znamená, co musíte umět doložit a jak to v Česku provádějí vyhlášky č. 409/2025 Sb. a č. 410/2025 Sb."
     },
     "pt": {
       "title": "Formação do órgão de direção ao abrigo do art. 20.º, n.º 2 da NIS 2",
@@ -2148,7 +2148,7 @@
     },
     "cs": {
       "title": "Řešení incidentů NIS 2 podle čl. 21 odst. 2 písm. b) a CIR §3",
-      "summary": "Co znamená interní řešení incidentů (detekovat, zadržet, obnovit) a čím se liší od povinnosti ohlásit incident BSI."
+      "summary": "Co znamená interní řešení incidentů (detekovat, zadržet, obnovit) a čím se liší od povinnosti hlásit incident NÚKIB nebo Národnímu CERT."
     },
     "pt": {
       "title": "Tratamento de incidentes NIS 2 ao abrigo do art. 21.º, n.º 2, alínea b) e do CIR §3",
@@ -2538,7 +2538,7 @@
     },
     "cs": {
       "title": "Jak vytvořit inventář aktiv NIS 2?",
-      "summary": "Čl. 21 odst. 2 písm. i) NIS 2 a § 30 odst. 2 č. 9 BSIG v praxi: procesy a systémy, seskupování Grundschutz, klasifikace CIA a to, co bod 12.4 CIR vyžaduje od digitálních poskytovatelů, na které se vztahuje."
+      "summary": "Čl. 21 odst. 2 písm. i) NIS 2 a § 12 zákona č. 264/2025 Sb. v praxi: primární a podpůrná aktiva, typová aktiva místo řádku na zařízení a to, co bod 12.4 CIR vyžaduje od digitálních poskytovatelů, na které se vztahuje."
     },
     "pt": {
       "title": "Como elaboro um inventário de ativos NIS 2?",
@@ -2567,8 +2567,8 @@
       "summary": "Jakich dowodów żąda BSI, w jakiej kolejności, z jaką szczegółowością dokumentacji. Co musi być gotowe przed audytem."
     },
     "cs": {
-      "title": "Jak se připravit na audit BSI?",
-      "summary": "Jaké doklady BSI požaduje, v jakém pořadí, s jakou hloubkou dokumentace. Co musí být připraveno před auditem."
+      "title": "Jak se připravit na kontrolu NÚKIB",
+      "summary": "Jak probíhá kontrola NÚKIB podle § 55 zákona č. 264/2025 Sb. a kontrolního řádu, co si NÚKIB vyžádá a co mít připravené."
     },
     "pt": {
       "title": "Como me preparo para uma auditoria do BSI?",
@@ -2597,8 +2597,8 @@
       "summary": "Artykuł 23 NIS 2 i §32 BSIG: wczesne ostrzeżenie 24h, zgłoszenie 72h, raport końcowy 1 miesiąc. Co wchodzi, co zostaje pominięte, kto decyduje."
     },
     "cs": {
-      "title": "Jak ohlásit incident BSI do 24 hodin?",
-      "summary": "Článek 23 NIS 2 a §32 BSIG: včasné varování 24h, ohlášení 72h, závěrečná zpráva 1 měsíc. Co spadá dovnitř, co zůstává venku, kdo rozhoduje."
+      "title": "Jak ohlásit incident podle NIS 2 do 24 hodin",
+      "summary": "Čl. 23 NIS 2 a §§ 15 a 16 zákona č. 264/2025 Sb.: prvotní hlášení do 24 hodin, oznámení do 72 hodin, závěrečná zpráva do 30 dnů od oznámení. Co spadá dovnitř, co zůstává venku, kdo rozhoduje."
     },
     "pt": {
       "title": "Como notifico um incidente ao BSI em 24 horas?",
@@ -2687,7 +2687,7 @@
       "summary": "Osobista odpowiedzialność kierownictwa: co faktycznie na was spoczywa."
     },
     "cs": {
-      "title": "Odpovědnost vedení podle §38 BSIG",
+      "title": "Odpovědnost vedení podle NIS 2: co české právo vyžaduje od vedení",
       "summary": "Osobní odpovědnost vedení: co skutečně musíte."
     },
     "pt": {
@@ -2718,7 +2718,7 @@
     },
     "cs": {
       "title": "Pokuty NIS 2",
-      "summary": "§65 BSIG a čl. 32 NIS 2: výše, výpočet, řízení."
+      "summary": "§ 59 zákona č. 264/2025 Sb. a čl. 34 NIS 2: horní hranice podle režimu povinností, výpočet, řízení."
     },
     "pt": {
       "title": "Coimas NIS 2",
@@ -2778,7 +2778,7 @@
     },
     "cs": {
       "title": "Osobní odpovědnost vedoucího orgánu podle NIS 2",
-      "summary": "§38 BSIG, jakož i §43 GmbHG a §93 AktG: krajina odpovědnosti podrobně."
+      "summary": "Čl. 20 NIS 2 a české právo: péče řádného hospodáře podle § 159 občanského zákoníku a zákon o obchodních korporacích."
     },
     "pt": {
       "title": "Responsabilidade pessoal do órgão de direção ao abrigo da NIS 2",
@@ -2837,8 +2837,8 @@
       "summary": "Gdy BSI wydaje decyzję na podstawie §61 lub §64 BSIG: terminy, ścieżki, konsekwencje."
     },
     "cs": {
-      "title": "Rozhodnutí BSI: odpor a soudní přezkum",
-      "summary": "Když BSI vydá rozhodnutí podle §61 nebo §64 BSIG: lhůty, cesty, důsledky."
+      "title": "Rozklad proti rozhodnutí NÚKIB",
+      "summary": "Když NÚKIB rozhodne podle zákona č. 264/2025 Sb.: rozklad podle správního řádu, odkladný účinek a správní žaloba."
     },
     "pt": {
       "title": "Decisão do BSI: reclamação e controlo jurisdicional",
@@ -2867,8 +2867,8 @@
       "summary": "Od pisma o wysłuchaniu do decyzji: jak BSI oblicza karę pieniężną."
     },
     "cs": {
-      "title": "Řízení o pokutě podle §65 BSIG: jak probíhá",
-      "summary": "Od výzvy k vyjádření po rozhodnutí: jak BSI vypočítá pokutu."
+      "title": "Řízení o přestupku podle zákona o kybernetické bezpečnosti krok za krokem",
+      "summary": "Od zahájení po rozhodnutí: přestupky podle zákona č. 264/2025 Sb. projednává NÚKIB, postup stanoví zákon o odpovědnosti za přestupky."
     },
     "pt": {
       "title": "Procedimento de coima ao abrigo do §65 BSIG: como decorre",
@@ -2898,7 +2898,7 @@
     },
     "cs": {
       "title": "Oznámení whistleblowerů týkající se problémů NIS 2",
-      "summary": "Německý zákon Hinweisgeberschutzgesetz a NIS 2: jak probíhají interní oznámení o nedostatcích v souladu."
+      "summary": "Český zákon o ochraně oznamovatelů a NIS 2: jak probíhají vnitřní oznámení o nedostatcích v plnění."
     },
     "pt": {
       "title": "Denúncias de whistleblowers sobre questões NIS 2",
@@ -2928,7 +2928,7 @@
     },
     "cs": {
       "title": "Změna vedoucího orgánu: bezpečně předat odpovědnost za NIS 2",
-      "summary": "Tři povinnosti, které se aktivují v den jmenování: aktualizace registru podle §33 odst. 5 BSIG do 2 týdnů, školení podle §38 BSIG pro nového člena, kontinuita schvalování podle čl. 20 NIS 2 u stávajících akceptací rizik."
+      "summary": "Tři věci při předání: změna údajů na Portálu NÚKIB, školení nového člena vedení a jeho prokazatelné seznámení se stavem opatření."
     },
     "pt": {
       "title": "Mudança do órgão de direção: transferir com segurança a responsabilidade NIS 2",
@@ -2987,8 +2987,8 @@
       "summary": "Różnica między podmiotem NIS 2 a operatorem KRITIS."
     },
     "cs": {
-      "title": "NIS 2 vs KRITIS",
-      "summary": "Rozdíl mezi subjektem NIS 2 a provozovatelem KRITIS."
+      "title": "NIS 2 a kritická infrastruktura: co se v Česku skutečně změnilo",
+      "summary": "Zákon č. 264/2025 Sb. nahradil zákon č. 181/2014 Sb. a rozšířil regulaci na střední a velké podniky. Subjekt kritické infrastruktury je vždy v režimu vyšších povinností."
     },
     "pt": {
       "title": "NIS 2 vs KRITIS",
@@ -3108,7 +3108,7 @@
     },
     "cs": {
       "title": "Alternativa k Vanta: otevřená cesta k NIS 2",
-      "summary": "Hledáte alternativu k Vanta pro NIS 2? open-isms je zdarma, open source a lze jej provozovat na vlastní infrastruktuře, se všemi 49 požadavky německé transpozice NIS 2. Poctivé srovnání se zdroji."
+      "summary": "Hledáte alternativu k Vanta pro NIS 2? open-isms je zdarma, open source a lze jej provozovat na vlastní infrastruktuře, se všemi 49 požadavky NIS 2 a s odkazy na český zákon č. 264/2025 Sb. Poctivé srovnání se zdroji."
     },
     "pt": {
       "title": "Alternativa à Vanta: o caminho open source para a NIS 2",
@@ -3227,8 +3227,8 @@
       "summary": "Kto podlega obu reżimom: środki BSIG oraz audyt KRITIS co trzy lata (§65 BSIG), dodatkowe zgłoszenia, surowsze cykle nadzoru."
     },
     "cs": {
-      "title": "NIS 2 a KRITIS současně: jaké povinnosti se uplatní?",
-      "summary": "Kdo spadá pod oba režimy: opatření BSIG plus audit KRITIS každé tři roky (§65 BSIG), dodatečná ohlášení, přísnější cykly dohledu."
+      "title": "Subjekty kritické infrastruktury podle zákona o kybernetické bezpečnosti",
+      "summary": "Subjekt kritické infrastruktury je vždy v režimu vyšších povinností (§ 5 písm. d) a § 8 odst. 3 zákona č. 264/2025 Sb.). Čl. 21 NIS 2 dává základ opatření, vyhláška č. 409/2025 Sb. jejich podrobný obsah."
     },
     "pt": {
       "title": "NIS 2 e KRITIS ao mesmo tempo: que obrigações se aplicam?",
@@ -3347,8 +3347,8 @@
       "summary": "BSIG, BSI, stan wdrożenia w Niemczech i kolejne kroki."
     },
     "cs": {
-      "title": "NIS 2 v Německu",
-      "summary": "BSIG, BSI, stav německé implementace a další kroky."
+      "title": "NIS 2 v Česku: co vyžaduje zákon o kybernetické bezpečnosti a od kdy",
+      "summary": "Zákon č. 264/2025 Sb., účinný od 1. listopadu 2025: koho se týká, dva režimy povinností, ohlášení NÚKIB, dozor a lhůty."
     },
     "pt": {
       "title": "NIS 2 na Alemanha",
@@ -3407,8 +3407,8 @@
       "summary": "Ustawa o wdrożeniu NIS2 i wzmocnieniu cyberbezpieczeństwa transponuje dyrektywę NIS 2 do prawa niemieckiego. Co zmienia, na jakim jest etapie (stan na 2026) i dlaczego Niemcy przekroczyły termin UE."
     },
     "cs": {
-      "title": "NIS2UmsuCG: německý transpoziční zákon",
-      "summary": "Zákon o provedení NIS2 a posílení kybernetické bezpečnosti transponuje směrnici NIS 2 do německého práva. Co mění, v jakém je stavu (k roku 2026) a proč Německo zmeškalo lhůtu EU."
+      "title": "Zákon č. 264/2025 Sb.: česká transpozice NIS 2",
+      "summary": "Česká transpozice směrnice NIS 2, která nahradila zákon č. 181/2014 Sb. Jak do sebe směrnice, zákon a vyhlášky zapadají a proč Česko nestihlo lhůtu EU."
     },
     "pt": {
       "title": "NIS2UmsuCG: a lei de transposição alemã",
@@ -4277,8 +4277,8 @@
       "summary": "Przekroczony termin, ryzyko kary, spóźniona rejestracja i komunikacja z BSI."
     },
     "cs": {
-      "title": "Zmeškaná lhůta pro registraci u BSI: co teď?",
-      "summary": "Zmeškaná lhůta, riziko pokuty, dodatečná registrace a komunikace s BSI."
+      "title": "Ohlášení podle NIS 2: jak ohlásit službu vaší firmy NÚKIB",
+      "summary": "Kdo ohlašuje, kroky na Portálu NÚKIB s přihlášením přes NIA, lhůta 60 dnů a co dělat, když jste lhůtu zmeškali."
     },
     "pt": {
       "title": "Prazo de registo junto do BSI ultrapassado: e agora?",
@@ -4308,7 +4308,7 @@
     },
     "cs": {
       "title": "Útok ransomwarem: co udělat okamžitě podle NIS 2",
-      "summary": "Prvních 24 hodin: zadržení, včasné varování BSI (článek 23), krizová komunikace, rozhodnutí o platbě, zajištění důkazů. Co je právně vyžadováno, co nikoli."
+      "summary": "Prvních 24 hodin: zadržení, prvotní hlášení NÚKIB nebo Národnímu CERT (§§ 15 a 16 zákona č. 264/2025 Sb.), krizová komunikace, rozhodnutí o platbě, zajištění důkazů. Co je právně vyžadováno, co nikoli."
     },
     "pt": {
       "title": "Ataque de ransomware: o que fazer de imediato segundo a NIS 2",
@@ -4338,7 +4338,7 @@
     },
     "cs": {
       "title": "Phishingový incident: je to významný incident podle NIS 2?",
-      "summary": "Kdy phishingová vlna překročí práh CIR §11.6 a jak vypadá včasné varování BSI."
+      "summary": "Kdy phishingová vlna překročí práh významného incidentu a jak vypadá prvotní hlášení NÚKIB nebo Národnímu CERT."
     },
     "pt": {
       "title": "Incidente de phishing: é um incidente significativo segundo a NIS 2?",
@@ -4368,7 +4368,7 @@
     },
     "cs": {
       "title": "Útok DDoS: zmírnění a ohlášení podle NIS 2",
-      "summary": "Detekce, zmírnění u poskytovatele internetových služeb, ohlášení podle §32 BSIG a analýza po incidentu."
+      "summary": "Detekce, zmírnění u poskytovatele internetových služeb, hlášení podle §§ 15 a 16 zákona č. 264/2025 Sb. a analýza po incidentu."
     },
     "pt": {
       "title": "Ataque DDoS: mitigação e notificação segundo a NIS 2",
@@ -4457,8 +4457,8 @@
       "summary": "Pierwsze pismo §64 BSIG: terminy, obowiązek współpracy, rozsądne doradztwo, czego nie robić."
     },
     "cs": {
-      "title": "Dotaz od BSI obdržen: jak odpovědět",
-      "summary": "První dopis podle §64 BSIG: lhůty, povinnost spolupráce, rozumné poradenství, čeho se vyvarovat."
+      "title": "Dopis od NÚKIB: co smí NÚKIB požadovat a jak odpovědět",
+      "summary": "Výzva NÚKIB k informacím nebo součinnosti (§ 64 zákona č. 264/2025 Sb., při kontrole § 55): právní základ, lhůta, co poskytnout a čeho se vyvarovat."
     },
     "pt": {
       "title": "Pedido do BSI recebido: como responder",
@@ -4497,6 +4497,48 @@
     "ro": {
       "title": "Scurgere de date: NIS 2 și GDPR în paralel",
       "summary": "Două autorități de supraveghere, două ceasuri, o singură investigație: cum se desfășoară în paralel articolul 23 din NIS 2 și articolul 33 din GDPR."
+    }
+  },
+  "entry:bsig-32": {
+    "cs": {
+      "title": "§§ 15 až 17 zákona: povinnost hlásit kybernetické bezpečnostní incidenty",
+      "summary": "Prvotní hlášení do 24 hodin, oznámení do 72 hodin, závěrečná zpráva do 30 dnů od oznámení (§ 16 zákona č. 264/2025 Sb.). Komu hlásíte a kdy má incident významný dopad."
+    }
+  },
+  "entry:bsig-38": {
+    "cs": {
+      "title": "Povinnosti vedení podle českého práva, ustanovení po ustanovení",
+      "summary": "Vrcholné vedení zajistí zdroje, prokazatelně absolvuje školení a seznamuje se se stavem bezpečnostních opatření a souvisejícími zprávami (§ 4 vyhlášek č. 409/2025 Sb. a č. 410/2025 Sb.). Odpovědnost podle § 159 občanského zákoníku."
+    }
+  },
+  "entry:was-ist-nisd2": {
+    "cs": {
+      "title": "Co je nisd2.eu ve skutečnosti",
+      "summary": "Open source průvodce NIS 2 krok za krokem pro evropské středně velké firmy. Žádný lock-in, žádný prodej založený na strachu."
+    }
+  },
+  "entry:open-source-vs-us-saas": {
+    "cs": {
+      "title": "Software pro NIS 2 ve srovnání: uzavřený americký SaaS versus otevřená, EU-suverénní compliance",
+      "summary": "Na čem záleží u nástroje, kterým plníte zákon EU, a co uzavřené americké cloudové nástroje při compliance v EU přehlížejí."
+    }
+  },
+  "entry:open-source-compliance": {
+    "cs": {
+      "title": "Open source pro compliance: proč auditoři oceňují otevřený ISMS",
+      "summary": "Otevřený ISMS umožňuje auditorovi ověřit, jak jsou doklady zaznamenávány, místo aby důvěřoval dodavateli."
+    }
+  },
+  "entry:open-source-isms-nachteile": {
+    "cs": {
+      "title": "Upřímné nevýhody open source ISMS",
+      "summary": "Provozní zátěž, podpora, vyzrálost a odpovědnost: upřímný protiargument a jak každý z těchto bodů řešíme."
+    }
+  },
+  "entry:nis2-events": {
+    "cs": {
+      "title": "Akce k NIS2, GDPR a CRA v celé Evropě",
+      "summary": "Bezplatné akce, webináře a konference k NIS2, GDPR a CRA od úřadů, agentury ENISA, komor a neziskových organizací."
     }
   }
 }

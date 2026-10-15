@@ -19,7 +19,7 @@ import { revokeAccess } from "@/lib/billing/subscriptions";
 import type { Database } from "@/lib/db";
 import { maskAddress } from "@/lib/mail/mask-address";
 import { billingAccount, type partnerAccessOutcomeEnum, user } from "@/schema";
-import type { PartnerContractLocale } from "./date";
+import type { PartnerContractReadingLocale } from "./date";
 
 export const PARTNER_ACCESS_ACTION = "billing.partner_access_granted";
 
@@ -34,7 +34,7 @@ export interface ProvisionedAccess {
 const provision = async (
   db: Database,
   contact: { readonly email: string; readonly name: string },
-  locale: PartnerContractLocale,
+  locale: PartnerContractReadingLocale,
 ): Promise<ProvisionedAccess> => {
   const email = contact.email.toLowerCase().trim();
   const person = await customerFor(db, email, contact.name, locale);
@@ -59,11 +59,14 @@ const provision = async (
   };
 };
 
-/** Never throws: the offer is saved either way, and the outcome says what happened. */
+/**
+ * Never throws: the offer is saved either way, and the outcome says what happened. `locale` is the
+ * language the partner reads the agreement in, and a user created here is created in it.
+ */
 export const provisionPartnerAccess = (
   db: Database,
   contact: { readonly email: string; readonly name: string },
-  locale: PartnerContractLocale,
+  locale: PartnerContractReadingLocale,
 ): Promise<ProvisionedAccess> =>
   provision(db, contact, locale).catch((err: unknown) => {
     console.error(
@@ -78,14 +81,18 @@ interface OfferAccess {
   readonly accessUserId: string | null;
 }
 
-/** The address of the account this offer created, while nobody has signed into it yet. */
-const firstPasswordEmail = async (
+/**
+ * The account this offer created, while nobody has signed into it yet: until then the offer still
+ * sets it up (a first password, the language), and from then on it is its holder's.
+ */
+export const untouchedOpenedAccount = async (
   db: Database,
   offer: OfferAccess,
-): Promise<string | null> => {
+): Promise<{ readonly id: string; readonly email: string } | null> => {
   if (offer.accessOutcome !== "new_account" || !offer.accessUserId) return null;
   const [person] = await db
     .select({
+      id: user.id,
       email: user.email,
       emailVerifiedAt: user.emailVerifiedAt,
       loginCount: user.loginCount,
@@ -94,8 +101,13 @@ const firstPasswordEmail = async (
     .from(user)
     .where(eq(user.id, offer.accessUserId))
     .limit(1);
-  return person && !hasGotIn(person) ? person.email : null;
+  return person && !hasGotIn(person) ? { id: person.id, email: person.email } : null;
 };
+
+const firstPasswordEmail = async (
+  db: Database,
+  offer: OfferAccess,
+): Promise<string | null> => (await untouchedOpenedAccount(db, offer))?.email ?? null;
 
 /** What the agreement page shows about access: whose it is and which way in. Null: none. */
 export const partnerAccessShown = async (

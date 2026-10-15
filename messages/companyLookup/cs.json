@@ -35,7 +35,7 @@
       "not_in_scope": "Pravděpodobně mimo působnost",
       "important": "Pravděpodobně důležitý subjekt",
       "essential": "Pravděpodobně základní subjekt",
-      "kritis": "Pravděpodobně provozovatel KRITIS"
+      "kritis": "Pravděpodobně subjekt kritické infrastruktury"
     },
     "reason": {
       "excluded": "Vaše organizace je zřejmě z působnosti NIS2 vyňata.",

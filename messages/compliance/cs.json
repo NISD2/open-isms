@@ -108,7 +108,7 @@
         "description": "Dohled vedení, osobní odpovědnost a organizační řízení",
         "legalBasis": "čl. 20 NIS2 · vyhláška č. 409/2025 Sb., § 4; vyhláška č. 410/2025 Sb., § 4",
         "threatLandscape": "Bez jasného řízení postrádají opatření kybernetické bezpečnosti směr a odpovědnost. Vedení, které se bezpečnosti nevěnuje, vytváří kulturu zanedbávání a vystavuje organizaci systematickým selháním.",
-        "bsiGuidance": "Osvědčená praxe: vedení formálně schválí opatření k řízení rizik kybernetické bezpečnosti, jmenuje odpovědné osoby, vyčlení dostatečný rozpočet a pravidelně absolvuje školení kybernetické bezpečnosti. V Česku vedení podle vyhlášky č. 410/2025 Sb., § 4 mimo jiné určí osobu pověřenou kybernetickou bezpečností, prokazatelně absolvuje školení a zajistí potřebné zdroje; vyhláška č. 409/2025 Sb., § 4 odst. 1 výslovně uvádí i rozpočtové prostředky. Odpovědnost členů vedení se řídí obchodním právem (§ 159 občanského zákoníku)."
+        "bsiGuidance": "Osvědčená praxe: vedení formálně schválí opatření k řízení rizik kybernetické bezpečnosti, jmenuje odpovědné osoby, vyčlení dostatečný rozpočet a pravidelně absolvuje školení kybernetické bezpečnosti. V Česku vedení podle vyhlášky č. 410/2025 Sb., § 4 mimo jiné určí osobu pověřenou kybernetickou bezpečností, prokazatelně absolvuje školení a zajistí potřebné zdroje; vyhláška č. 409/2025 Sb., § 4 odst. 1 výslovně uvádí i rozpočtové prostředky. Odpovědnost členů vedení se řídí § 159 občanského zákoníku a §§ 51 až 53 zákona o obchodních korporacích."
       },
       "RSK": {
         "name": "Řízení rizik",
@@ -178,14 +178,14 @@
         "description": "Vícefaktorová nebo průběžná autentizace, zabezpečená komunikace, nouzové kanály",
         "legalBasis": "čl. 21(2)(j) NIS2 · § 14 odst. 1 písm. b) body 2 a 3, odst. 2 písm. h), k) zákona č. 264/2025 Sb.",
         "threatLandscape": "Krádež přihlašovacích údajů a autentizace pouze heslem jsou hlavními vektory kompromitace účtu. Bez vícefaktorové autentizace poskytne jediné odcizené heslo plný přístup. Nezabezpečenou komunikaci lze zachytit pro účely špionáže.",
-        "bsiGuidance": "Osvědčená praxe: zabezpečená řešení hlasové, video a textové komunikace, nouzový komunikační kanál mimo pásmo, centralizovaná správa identit a zásady správy relací. Ověřování identity stanoví obě vyhlášky závazně: vícefaktorová autentizace s alespoň dvěma různými typy faktorů nebo kontinuální autentizace založená na modelu nulové důvěry, do té doby kryptografické klíče nebo certifikáty (vyhláška č. 410/2025 Sb., § 8; vyhláška č. 409/2025 Sb., § 19)."
+        "bsiGuidance": "Osvědčená praxe: zabezpečená řešení hlasové, video a textové komunikace, nouzový komunikační kanál mimo pásmo, centralizovaná správa identit a zásady správy relací. Ověřování identity stanoví obě vyhlášky závazně: vícefaktorová autentizace s alespoň dvěma různými typy faktorů nebo kontinuální autentizace založená na modelu nulové důvěry, do té doby kryptografické klíče nebo certifikáty a do té doby hesla o délce alespoň 12 znaků (uživatelé), 17 znaků (administrátoři) a 22 znaků (technická aktiva) (vyhláška č. 410/2025 Sb., § 8 odst. 2 až 4; vyhláška č. 409/2025 Sb., § 19 odst. 2 a 4)."
       },
       "REG": {
         "name": "Registrace a hlášení",
         "description": "Ohlášení u NÚKIB, aktuální údaje, důkazy o souladu",
         "legalBasis": "čl. 3, čl. 23 NIS2 · § 6 odst. 1, § 9 odst. 1, § 11 zákona č. 264/2025 Sb.",
         "threatLandscape": "Neohlášení služby NÚKIB a neudržování aktuálních kontaktních údajů znamená, že organizace nemůže přijímat varování před hrozbami a nemůže plnit povinné ohlašovací povinnosti, čímž se prohlubuje regulační riziko.",
-        "bsiGuidance": "Zákon č. 264/2025 Sb. vyžaduje ohlášení služby NÚKIB do 60 dnů ode dne splnění podmínek (§ 6 odst. 1), ohlášení změny služby (§ 9 odst. 1) a do 30 dnů od doručení rozhodnutí o registraci kontaktní a doplňující údaje, jejichž změny se hlásí do 14 dnů (§ 11). Osvědčená praxe: určené kontaktní místo a zdokumentovaná korespondence s NÚKIB."
+        "bsiGuidance": "Zákon č. 264/2025 Sb. vyžaduje ohlášení služby NÚKIB do 60 dnů ode dne splnění podmínek (§ 6 odst. 1), ohlášení změn služby, které mohou vést ke změně režimu, do 60 dnů (§ 9 odst. 1) a do 30 dnů od doručení rozhodnutí o registraci kontaktní a doplňující údaje, jejichž změny se hlásí do 14 dnů (§ 11). Osvědčená praxe: určené kontaktní místo a zdokumentovaná korespondence s NÚKIB."
       },
       "DPA": {
         "name": "Smlouvy o zpracování",
@@ -350,28 +350,28 @@
       },
       "CRA-INC": {
         "name": "Hlášení aktivního zneužití",
-        "description": "Včasné varování do 24 hodin pro ENISA a CSIRT, oznámení do 72 hodin, závěrečná zpráva do 14 dnů pro aktivně zneužívané zranitelnosti a závažné incidenty.",
+        "description": "Včasné varování do 24 hodin pro ENISA a CSIRT a oznámení do 72 hodin u aktivně zneužívaných zranitelností i závažných incidentů; závěrečná zpráva u zranitelnosti do 14 dnů od dostupnosti nápravného opatření, u závažného incidentu do jednoho měsíce od oznámení.",
         "legalBasis": "čl. 14 nařízení EU CRA",
-        "threatLandscape": "Zmeškané lhůty pro hlášení (kromě 24hodinové lhůty pro malé a střední podniky) spouštějí nejvyšší sankční pásmo a pravomoci ke stažení produktu z trhu.",
+        "threatLandscape": "Zmeškané lhůty pro hlášení (kromě 24hodinové lhůty u mikropodniků a malých podniků, čl. 64 odst. 10) spouštějí nejvyšší sankční pásmo a pravomoci ke stažení produktu z trhu.",
         "bsiGuidance": ""
       },
       "CRA-CONF": {
         "name": "Posouzení shody",
         "description": "Cesta posouzení shody podle třídy produktu (vlastní posouzení modul A, modul B+C s oznámeným subjektem nebo modul H systém kvality) následovaná označením CE.",
-        "legalBasis": "čl. 24, čl. 27 nařízení EU CRA",
+        "legalBasis": "čl. 28 až 32 nařízení EU CRA",
         "threatLandscape": "Produkty bez platného posouzení shody nelze od 11. prosince 2027 uvádět na trh EU.",
         "bsiGuidance": ""
       },
       "CRA-DOC": {
         "name": "Technická dokumentace",
         "description": "Veďte technickou dokumentaci podle přílohy VII pro každý produkt uvedený na trh EU.",
-        "legalBasis": "čl. 28 · příloha VII nařízení EU CRA",
+        "legalBasis": "čl. 31 · příloha VII nařízení EU CRA",
         "threatLandscape": "Chybějící nebo neúplná technická dokumentace blokuje ověření ze strany dozoru nad trhem a spouští stažení produktu.",
         "bsiGuidance": ""
       },
       "CRA-SUP": {
         "name": "Doba podpory",
-        "description": "Veřejně se zavažte k době podpory bezpečnostních aktualizací (ve výchozím nastavení pět let nebo očekávaná životnost produktu, podle toho, co je delší).",
+        "description": "Veřejně se zavažte k době podpory bezpečnostních aktualizací (nejméně pět let; očekává-li se, že produkt bude používán kratší dobu, odpovídá doba podpory očekávané době používání).",
         "legalBasis": "čl. 13(8) nařízení EU CRA",
         "threatLandscape": "Neposkytnutí podpory po celou dobu vystavuje výrobce nárokům zákazníků uvízlých na nezabezpečených produktech.",
         "bsiGuidance": ""
@@ -379,15 +379,15 @@
       "CRA-SBOM": {
         "name": "Soupis softwarových komponent",
         "description": "Vytvořte a udržujte strojově čitelný soupis softwarových komponent (SBOM) pro každý produkt uvedený na trh EU.",
-        "legalBasis": "příloha I část II §1 nařízení EU CRA",
+        "legalBasis": "příloha I část II bod 1 nařízení EU CRA",
         "threatLandscape": "Bez SBOM nedokážou výrobci dohledat, které produkty obsahují zranitelnou komponentu, a zmeškají okno pro hlášení podle čl. 14.",
         "bsiGuidance": ""
       },
       "CRA-IMP": {
         "name": "Dovozce a distributor",
         "description": "Dovozci ověřují soulad výrobce před uvedením na trh; distributoři provádějí náležitou péči ohledně označení shody.",
-        "legalBasis": "čl. 18, čl. 19 nařízení EU CRA",
-        "threatLandscape": "Dovozci a distributoři, kteří zmeškají ověření, přebírají odpovědnost výrobce podle čl. 22.",
+        "legalBasis": "čl. 19, čl. 20 nařízení EU CRA",
+        "threatLandscape": "Dovozci a distributoři, kteří produkt uvedou na trh pod svým jménem nebo ochrannou známkou nebo ho podstatně změní, nesou povinnosti výrobce podle čl. 21.",
         "bsiGuidance": ""
       },
       "CRA-OSS": {
@@ -399,8 +399,8 @@
       },
       "DPO": {
         "name": "Pověřenec pro ochranu osobních údajů",
-        "description": "Posouzení povinnosti jmenování podle §38 BDSG a čl. 37 GDPR a postavení a úkoly jmenované osoby",
-        "legalBasis": "čl. 37-39 GDPR, §38 BDSG",
+        "description": "Posouzení povinnosti jmenování podle čl. 37 GDPR a postavení a úkoly jmenované osoby",
+        "legalBasis": "čl. 37-39 GDPR",
         "threatLandscape": "",
         "bsiGuidance": ""
       }
@@ -536,7 +536,7 @@
     "title": "Předvyplnění pomocí AI",
     "extractTitle": "Extrahovat data pomocí AI",
     "extractDescription": "Vložte text nebo sem přetáhněte soubor (PDF, DOCX, TXT). AI extrahuje relevantní data pro formulář.",
-    "extractPlaceholder": "Vložte text sem nebo sem přetáhněte soubor...\n\nPříklad: Muller GmbH se sídlem v Berlíně, energetický sektor, 120 zaměstnanců, roční obrat 15 mil. EUR, klasifikováno jako důležitý subjekt podle NIS2...",
+    "extractPlaceholder": "Vložte text sem nebo sem přetáhněte soubor...\n\nPříklad: Příklad s.r.o. se sídlem v Brně, energetický sektor, 120 zaměstnanců, roční obrat 375 mil. Kč, klasifikováno jako důležitý subjekt podle NIS2...",
     "extractButton": "Extrahovat data",
     "unsupportedFormat": "Nepodporovaný formát: {name}. Podporováno: {formats}",
     "noText": "V dokumentu nebyl nalezen žádný text.",
@@ -564,6 +564,9 @@
     "assistWhereToFind": "Kde to najít",
     "assistField": "Pole",
     "assistValue": "Hodnota",
-    "rateLimited": "Vaše organizace dosáhla hodinového limitu pro extrakci dat pomocí AI. Zkuste to prosím později."
+    "rateLimited": "Vaše organizace dosáhla hodinového limitu pro extrakci dat pomocí AI. Zkuste to prosím později.",
+    "emptyText": "Nejprve prosím vložte text.",
+    "extractFailed": "Extrakce se nezdařila. Zkuste to prosím znovu.",
+    "aiDisabled": "Funkce AI jsou pro vaši organizaci vypnuté. Zapnout je můžete v Nastavení → Sdílení dat s AI."
   }
 }

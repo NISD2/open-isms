@@ -107,6 +107,17 @@
       },
       "startCompliance": "Lücken schließen",
       "retakeAssessment": "Analyse wiederholen"
+    },
+    "share": {
+      "metaTitle": "Geteilte Gap-Analyse",
+      "title": "Passwortgeschützte Ergebnisse",
+      "intro": "Geben Sie das Passwort ein, das Sie mit diesem Link erhalten haben, um die Ergebnisse der Gap-Analyse zu sehen.",
+      "password": "Passwort",
+      "submit": "Ergebnisse ansehen",
+      "checking": "Wird geprüft…",
+      "tooManyAttempts": "Zu viele Versuche. Bitte warten Sie 15 Minuten und versuchen Sie es dann erneut.",
+      "invalidLink": "Dieser Link ist ungültig oder wurde widerrufen.",
+      "wrongPassword": "Falsches Passwort."
     }
   }
 }

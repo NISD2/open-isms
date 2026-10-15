@@ -9,10 +9,10 @@
     "tier1": {
       "label": "Úroveň 1",
       "heading": "Uděláte to sami, s platformou.",
-      "p1": "Ověření, zda se na vás předpis vztahuje, každé opatření požadované článkem 21 jako jednotlivý krok, nahrávání důkazů, export do PDF, auditní stopa a kurz pro vedení s potvrzením o účasti, které článek 20 žádá umět doložit.",
+      "p1": "Ověření, zda se na vás předpis vztahuje, každé opatření požadované článkem 21 jako jednotlivý krok, nahrávání důkazů, export do PDF, auditní stopa a kurz pro vedení s potvrzením o účasti. V Česku musí vedení školení absolvovat prokazatelně (vyhláška č. 410/2025 Sb., § 4 písm. b); vyhláška č. 409/2025 Sb., § 4 odst. 1 písm. a)); NÚKIB jako doklad uznává certifikát svého kurzu pro vrcholné vedení.",
       "p2": "Chcete-li platformu provozovat sami, zdrojový kód je na GitHubu pod AGPL-3.0. Zdarma, bez licenčního poplatku, bez omezení počtu uživatelů.",
       "p3": "Na nisd2.eu stojí průvodce {price} bez DPH ročně, na fakturu, s 30 dny na vrácení peněz. Ve vlastním provozu platforma nestojí nic.",
-      "p4": "NIS 2 transponuje každý členský stát: text, podle kterého jste kontrolováni, je váš vnitrostátní zákon, nikoli směrnice. Platforma odkazuje nejprve na směrnici a vnitrostátní odkaz uvádí tam, kde ho máme zpracovaný; zatím je to německá transpozice. V Česku je to zákon č. 264/2025 Sb. s vyhláškami č. 409/2025 Sb. a 410/2025 Sb."
+      "p4": "NIS 2 transponuje každý členský stát: text, podle kterého jste kontrolováni, je váš vnitrostátní zákon, nikoli směrnice. Platforma odkazuje na směrnici a k ní na vnitrostátní předpis. V české verzi je to zákon č. 264/2025 Sb. s vyhláškami č. 409/2025 Sb. a 410/2025 Sb., s odkazem na jejich text ve Sbírce zákonů."
     },
     "tier2": {
       "label": "Úroveň 2",
@@ -49,8 +49,69 @@
       "authority": "Žádný příslib, že úřad vaši realizaci přijme. Ten vám nikdo seriózně nedá.",
       "commission": "Žádné doporučení, které bychom nevyslovili i bez provize."
     },
+    "request": {
+      "heading": "Odeslat žádost",
+      "subheading": "Jedno kliknutí a vaše e-mailová adresa. Účet nepotřebujete.",
+      "reassurance": "Pro vás zdarma. Od firmy dostáváme provizi za doporučení. Bez závazku, rozhodnete se po prvním rozhovoru.",
+      "fields": {
+        "topic": "O co jde?",
+        "sector": "Odvětví",
+        "companySize": "Počet zaměstnanců",
+        "trigger": "Co vás k tomu přivedlo?",
+        "timeframe": "Do kdy?",
+        "contactName": "Jméno",
+        "companyName": "Firma",
+        "email": "E-mail",
+        "note": "Co by firma měla vědět předem"
+      },
+      "detail": {
+        "intro": "Máte-li ještě 30 sekund: firma vám pak odpoví rovnou a nemusí se vás nejdřív doptávat. Vše je nepovinné.",
+        "cta": "Doplnit tyto údaje",
+        "skip": "To stačí"
+      },
+      "topics": {
+        "scope": "Zjistit, zda se na nás zákon vztahuje",
+        "measures": "Zavést opatření",
+        "supplyChain": "Dodavatelský řetězec a dotazníky pro dodavatele",
+        "incident": "Hlášení a řešení incidentů",
+        "managementTraining": "Školení vedení",
+        "certification": "Příprava na certifikaci",
+        "selfHosting": "Vlastní provoz platformy",
+        "other": "Něco jiného"
+      },
+      "triggers": {
+        "customerAsked": "Zeptal se zákazník",
+        "registration": "Registrace u NÚKIB",
+        "audit": "Blíží se audit",
+        "tender": "Výběrové řízení",
+        "internal": "Vlastní iniciativa"
+      },
+      "timeframes": {
+        "thisMonth": "Tento měsíc",
+        "thisQuarter": "Toto čtvrtletí",
+        "noFixedDate": "Bez pevného termínu"
+      },
+      "sizes": {
+        "under50": "Méně než 50",
+        "50to250": "50 až 250",
+        "over250": "Více než 250"
+      },
+      "placeholders": {
+        "select": "Vyberte prosím",
+        "sector": "např. dodávky energie",
+        "email": "jmeno@firma.cz",
+        "note": "Co přesně vás brzdí?"
+      },
+      "consent": "Moje žádost smí být předána vhodné specializované firmě. Co se děje s mými údaji, popisují zásady ochrany osobních údajů.",
+      "cta": "Odeslat žádost",
+      "error": "Nepodařilo se to. Zkuste to prosím znovu, nebo nám pošlete e-mail.",
+      "success": {
+        "heading": "Žádost přijata",
+        "body": "Posoudíme, zda ji zodpovíme sami, nebo zda je potřeba specializovaná firma, a zpravidla se ozveme do dvou pracovních dnů."
+      }
+    },
     "contact": {
-      "heading": "Kontakt",
+      "heading": "Raději e-mailem?",
       "email": "contact@nisd2.eu",
       "p1": "{email}. Stačí jedna řádka: kde váznete, kolik zaměstnanců, jaký obor, jaká země.",
       "cta": "Napište nám",

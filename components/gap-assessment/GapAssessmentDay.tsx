@@ -1,15 +1,15 @@
 "use client";
 
-import { useState, useCallback, useRef, useEffect } from "react";
-import { Link, useRouter } from "@/i18n/navigation";
-import { useTranslations, useLocale } from "next-intl";
-import { trpc } from "@/lib/trpc/client";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { QuestionCard } from "./QuestionCard";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
-import type { GapQuestion, GapDomain } from "@/lib/gap-assessment/schema";
+import { useLocale, useTranslations } from "next-intl";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import { useRouter } from "@/i18n/navigation";
+import { localizeGapDomain } from "@/lib/gap-assessment/localize";
+import type { GapDomain, GapQuestion } from "@/lib/gap-assessment/schema";
+import { trpc } from "@/lib/trpc/client";
+import { QuestionCard } from "./QuestionCard";
 
 interface GapAssessmentDayProps {
   sessionId: string;
@@ -44,6 +44,7 @@ export function GapAssessmentDay({
     .filter((d) => questions.some((q) => q.domain === d.id))
     .map((d) => ({
       domain: d,
+      text: localizeGapDomain(d, locale),
       questions: questions.filter((q) => q.domain === d.id),
     }));
 
@@ -129,14 +130,10 @@ export function GapAssessmentDay({
       </div>
 
       {/* Questions grouped by domain */}
-      {domainGroups.map(({ domain, questions: domainQuestions }) => (
+      {domainGroups.map(({ domain, text, questions: domainQuestions }) => (
         <div key={domain.id} className="space-y-3">
-          <h2 className="text-lg font-semibold">
-            {locale === "de" ? domain.name.de : domain.name.en}
-          </h2>
-          <p className="text-xs text-muted-foreground">
-            {locale === "de" ? domain.description.de : domain.description.en}
-          </p>
+          <h2 className="text-lg font-semibold">{text.name}</h2>
+          <p className="text-xs text-muted-foreground">{text.description}</p>
           <div className="space-y-2">
             {domainQuestions.map((q) => (
               <QuestionCard
@@ -153,7 +150,10 @@ export function GapAssessmentDay({
       {/* Navigation */}
       <div className="flex justify-between pt-4 border-t">
         {day > 1 ? (
-          <Button variant="outline" onClick={() => handleNavigate(`/gap-assessment/${day - 1}`)}>
+          <Button
+            variant="outline"
+            onClick={() => handleNavigate(`/gap-assessment/${day - 1}`)}
+          >
             <ArrowLeft className="mr-2 h-4 w-4" />
             {t("navigation.previousDay")}
           </Button>

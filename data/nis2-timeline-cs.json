@@ -1,0 +1,796 @@
+{
+  "events": {
+    "2022-12-27-eu-nis2-published": {
+      "title": "Směrnice NIS2 zveřejněna v Úředním věstníku",
+      "summary": "Směrnice (EU) 2022/2555 o opatřeních k zajištění vysoké společné úrovně kybernetické bezpečnosti v Unii byla zveřejněna v Úředním věstníku Evropské unie."
+    },
+    "2023-01-16-eu-nis2-force": {
+      "title": "Směrnice NIS2 vstupuje v platnost",
+      "summary": "Směrnice NIS2 vstupuje v platnost 20 dní po zveřejnění. Členské státy ji musí provést do vnitrostátního práva do 17. října 2024."
+    },
+    "2023-02-01-grundschutz-edition-2023": {
+      "title": "Vyšlo IT-Grundschutz Kompendium, vydání 2023",
+      "summary": "Německý úřad BSI vydává IT-Grundschutz Kompendium, vydání 2023, platný provozní standard pro řízení bezpečnosti informací v Německu. Během přechodu na Grundschutz++ zůstává platným referenčním rámcem pro audity."
+    },
+    "2024-09-04-it-dlgs-138-published": {
+      "title": "Itálie přijímá Decreto Legislativo n. 138/2024 (transpozice NIS 2)",
+      "summary": "Itálie patří k prvním členským státům, které NIS 2 formálně provedly. D.Lgs. 138/2024 ze 4. září 2024, zveřejněný v Gazzetta Ufficiale 1. října 2024, určuje ACN (Agenzia per la Cybersicurezza Nazionale) jako jediný příslušný orgán, při kterém působí CSIRT Italia. Nabývá účinnosti 16. října 2024."
+    },
+    "2024-10-17-eu-transposition-deadline": {
+      "title": "Lhůta pro transpozici NIS2 uplynula: většina členských států ji nestihla",
+      "summary": "Do tohoto data měly členské státy provést NIS2 do vnitrostátního práva. Většina, včetně Německa, lhůtu nestihla. Jen Belgie ji plně provedla a začala ji vymáhat."
+    },
+    "2024-10-18-cir-published": {
+      "title": "Zveřejněno CIR 2024/2690: prováděcí nařízení s technickými požadavky NIS2",
+      "summary": "Bylo zveřejněno prováděcí nařízení Komise (EU) 2024/2690, které stanoví technické a metodické požadavky na opatření k řízení kybernetických rizik podle NIS2 pro poskytovatele digitální infrastruktury a služeb."
+    },
+    "2024-10-18-be-nis2-act-in-force": {
+      "title": "Belgie: zákon z 26. dubna 2024 (NIS 2) nabývá účinnosti",
+      "summary": "Belgie dodržuje lhůtu EU. Zákon Loi du 26 avril 2024 (zveřejněný v Moniteur belge 17. května 2024) nabývá účinnosti 18. října 2024. CCB provozuje Safeonweb@Work jako národní registrační portál; CERT.be působí v rámci CCB."
+    },
+    "2024-11-07-cir-force": {
+      "title": "CIR 2024/2690 vstupuje v platnost",
+      "summary": "Prováděcí nařízení Komise se 20 dní po zveřejnění stává závazným ve všech členských státech EU a stanoví technický základ pro soulad s NIS2."
+    },
+    "2025-04-08-fi-cybersecurity-act-in-force": {
+      "title": "Finsko: zákon o kybernetické bezpečnosti 124/2025 nabývá účinnosti",
+      "summary": "Finský parlament schválil Kyberturvallisuuslaki 13. března 2025; jako zákon 124/2025 nabývá účinnosti 8. dubna 2025. Počáteční lhůta pro registraci 8. května 2025. Koordinuje Traficom; NCSC-FI je národní CSIRT a jednotné kontaktní místo pro EU. Dozor je decentralizovaný přes odvětvové regulátory (Energiavirasto, Finanssivalvonta, Tukes)."
+    },
+    "2025-05-07-ec-reasoned-opinion-19ms": {
+      "title": "Komise zasílá odůvodněné stanovisko 19 členským státům kvůli neprovedení NIS 2",
+      "summary": "Krok 2 řízení o porušení povinnosti: 19 členských států, které do lhůty 17. října 2024 neoznámily úplné provedení NIS 2, dostává od Komise odůvodněné stanovisko. Mezi nimi jsou Německo, Francie, Španělsko, Nizozemsko, Švédsko, Finsko, Dánsko, Portugalsko, Irsko, Polsko a další. Dalším krokem je žaloba u Soudního dvora EU."
+    },
+    "2025-06-26-enisa-nis2-guidance": {
+      "title": "ENISA zveřejňuje technické pokyny k provádění NIS2 v1.0",
+      "summary": "Dokument o 170 stranách převádí CIR 2024/2690 do praktických opatření ve 13 tematických oblastech s příklady dokladů a mapováním na normy. Hlavní reference pro zavádění souladu s NIS2."
+    },
+    "2025-07-01-dk-nis2-loven-in-force": {
+      "title": "Dánsko: NIS 2-loven (LOV nr 434) nabývá účinnosti",
+      "summary": "Dánský zákon k NIS 2 (Lov om foranstaltninger til sikring af et højt cybersikkerhedsniveau), přijatý Folketingem 29. dubna 2025 a podepsaný 6. května 2025, nabývá účinnosti 1. července 2025. Samoregistrace přes virk.dk s MitID do 1. října 2025. Energetika se řídí souběžným zákonem LOV nr 258 ze 6. března 2025."
+    },
+    "2025-07-30-de-cabinet-approves": {
+      "title": "Německá vláda schvaluje návrh zákona NIS2UmsuCG",
+      "summary": "Německá spolková vláda schvaluje návrh zákona NIS-2-Umsetzungs- und Cybersicherheitsstärkungsgesetz a předává ho parlamentu. Kvůli zmeškané lhůtě EU šel návrh zrychleným postupem."
+    },
+    "2025-08-04-cz-act-264-published": {
+      "title": "Česko zveřejňuje zákon o kybernetické bezpečnosti č. 264/2025 Sb. ve Sbírce zákonů",
+      "summary": "Nový zákon č. 264/2025 Sb., o kybernetické bezpečnosti, přijatý 11. června 2025 a zveřejněný ve Sbírce zákonů 4. srpna 2025, nahrazuje zákon o kybernetické bezpečnosti z roku 2014 a provádí NIS 2. Hlavním dozorovým orgánem je NÚKIB; GovCERT.CZ provozuje NÚKIB, CSIRT.CZ provozuje CZ.NIC. Dva režimy, režim vyšších a režim nižších povinností. Horní hranice pokuty ve vyšším režimu 250 milionů Kč."
+    },
+    "2025-09-29-grundschutz-github": {
+      "title": "Německý úřad BSI zveřejňuje náhled Grundschutz++ na GitHubu (OSCAL/JSON)",
+      "summary": "BSI zveřejňuje na GitHubu Stand-der-Technik-Bibliothek s náhledem abstraktních požadavků ve formátu OSCAL/JSON. Není připraveno pro provoz: jde jen o první návrh, konkrétní opatření se teprve doplňují."
+    },
+    "2025-11-01-cz-act-264-in-force": {
+      "title": "Česko: zákon č. 264/2025 Sb., o kybernetické bezpečnosti, nabývá účinnosti",
+      "summary": "Zákon č. 264/2025 Sb. nabývá účinnosti 1. listopadu 2025. První vlna (subjekty, na které zákon dopadá už ke dni účinnosti) se musí samy identifikovat a ohlásit přes portal.nukib.gov.cz do 31. prosince 2025. Subjekty, na které začne zákon dopadat později, mají 60 dní."
+    },
+    "2025-11-06-de-coalition-compromise": {
+      "title": "Německá koalice se dohodla na kompromisech k NIS2UmsuCG: dodatečné oznámení u kritických komponent",
+      "summary": "Německá koalice CDU/CSU a SPD se dohodla: regulace kritických komponent přechází od předchozího schvalování k modelu dodatečného oznámení. Role spolkového CISO přechází na BSI v Bonnu."
+    },
+    "2025-11-13-de-bundestag-passes": {
+      "title": "Spolkový sněm schvaluje NIS2UmsuCG: německý zákon k provedení NIS2",
+      "summary": "Německý parlament schvaluje NIS2UmsuCG ve 2. a 3. čtení. Hlasování: CDU/CSU, SPD a AfD pro, Zelení proti, Die Linke se zdržela. Pod dozor německého úřadu BSI nyní spadá přibližně 29 500 subjektů."
+    },
+    "2025-12-04-pt-decreto-lei-125-published": {
+      "title": "Portugalsko zveřejňuje Decreto-Lei n.º 125/2025 v Diário da República",
+      "summary": "Portugalská transpozice NIS 2 vychází v Diário da República 4. prosince 2025. Decreto-Lei n.º 125/2025 zavádí Regime Jurídico da Cibersegurança s CNCS (Centro Nacional de Cibersegurança) jako hlavním orgánem a CERT.PT jako národním CSIRT (začleněným do CNCS). Nabývá účinnosti 3. dubna 2026 (120 dní po zveřejnění)."
+    },
+    "2025-12-05-de-bgbl-published": {
+      "title": "NIS2UmsuCG zveřejněn ve Spolkovém zákoníku (BGBl. 2025 I Nr. 301)",
+      "summary": "Německý zákon NIS-2-Umsetzungs- und Cybersicherheitsstärkungsgesetz je zveřejněn ve Spolkovém zákoníku (Bundesgesetzblatt) a následující den nabývá účinnosti."
+    },
+    "2025-12-06-de-bsig-force": {
+      "title": "Německý BSIG nabývá účinnosti: NIS2 je v Německu zákonem",
+      "summary": "Novelizovaný německý zákon BSIG nabývá účinnosti na svatého Mikuláše, víc než rok po lhůtě EU pro transpozici. Bez přechodného období: všechny povinnosti platí okamžitě pro přibližně 29 500 dotčených subjektů."
+    },
+    "2025-12-11-se-cybersakerhetslagen-issued": {
+      "title": "Švédsko: vydán Cybersäkerhetslagen (SFS 2025:1506)",
+      "summary": "Cybersäkerhetslagen (SFS 2025:1506), švédská transpozice NIS 2, je vydán 11. prosince 2025 na základě vládního návrhu Proposition 2025/26:28 „Ett starkt skydd för nätverks- och informationssystem“. Nabývá účinnosti 15. ledna 2026. Dozor je decentralizovaný přes odvětvové regulátory; MCF (Myndigheten för civilt försvar) je národním jednotným kontaktním místem a působí při něm CERT-SE."
+    },
+    "2026-01-01-grundschutz-plus-transition": {
+      "title": "Začíná přechod na Grundschutz++: souběžný provoz do roku 2029",
+      "summary": "Německý úřad BSI oficiálně zahajuje přechod na modernizovaný Grundschutz++. Strojově čitelný formát OSCAL/JSON nahrazuje PDF a Excel. Vydání 2023 zůstává pro audity platné po celou dobu přechodu do roku 2029."
+    },
+    "2025-01-29-dk-cfcs-samsik-merger": {
+      "title": "Dánsko: CFCS se stává součástí SAMSIK",
+      "summary": "Dne 29. ledna 2025 vznikla pod ministerstvem pro odolnost a připravenost Styrelsen for Samfundssikkerhed (SAMSIK, dánská agentura pro odolnost) spojením útvarů z několika ministerstev včetně Centra pro kybernetickou bezpečnost (CFCS). Královské usnesení z 29. srpna 2024 přesunulo kybernetickou bezpečnost, provádění NIS 2 a CFCS mimo ministerstvo obrany; tam zůstala jen Netsikkerhedstjenesten a části CFCS pro operativní obranné kybernetické operace a obranné úkoly. Národní CSIRT patří k funkcím, které SAMSIK převzala, a cfcs.dk nyní přesměrovává na samsik.dk."
+    },
+    "2026-01-01-se-msb-renamed-mcf": {
+      "title": "Švédsko: MSB přejmenována na MCF (Myndigheten för civilt försvar)",
+      "summary": "Dne 1. ledna 2026 byla švédská agentura pro civilní nouzové situace (MSB) přejmenována na Myndigheten för civilt försvar (MCF, anglicky Swedish Civil Defence and Resilience Agency) poté, co Riksdag 5. listopadu 2025 schválil vládní návrh. MCF si ponechala CERT-SE a roli jednotného kontaktního místa pro NIS 2 do 30. června 2026; 1. července 2026 obojí přešlo do nového Nationellt cybersäkerhetscenter (NCSC) při FRA."
+    },
+    "2026-01-06-de-bsi-portal-launch": {
+      "title": "Německý úřad BSI spouští registrační portál pro NIS2",
+      "summary": "BSI spouští portal.bsi.bund.de pro registraci subjektů a hlášení incidentů podle NIS2. Registrace vyžaduje organizační certifikát ELSTER (aktivační dopis poštou, podle BSI obvykle nejméně pět pracovních dnů; stávající certifikáty lze použít znovu)."
+    },
+    "2026-01-13-eu-first-eucc": {
+      "title": "Vydán první certifikát kybernetické bezpečnosti EUCC v rámci EU",
+      "summary": "Je vydán první evropský certifikát kybernetické bezpečnosti (EUCC), který zavádí společné celoevropské certifikační schéma, jímž mohou subjekty podle NIS2 prokazovat soulad."
+    },
+    "2026-01-15-se-cybersakerhetslagen-in-force": {
+      "title": "Švédsko: Cybersäkerhetslagen (SFS 2025:1506) nabývá účinnosti",
+      "summary": "Švédská transpozice NIS 2 nabývá účinnosti 15. ledna 2026. Starý zákon NIS 1 z roku 2018 se ruší, ale na události před tímto datem se dál použije."
+    },
+    "2026-01-20-eu-cybersecurity-package": {
+      "title": "EU navrhuje změny NIS2: nové typy subjektů, strop harmonizace, přechod na postkvantovou kryptografii",
+      "summary": "Evropská komise představuje balíček kybernetické bezpečnosti s cílenými změnami NIS2: přibývají poskytovatelé podmořské infrastruktury a digitálních peněženek, nová kategorie „small mid-cap“ (asi 22 500 firem), povinné podrobnosti při hlášení ransomwaru a lhůty pro přechod na postkvantovou kryptografii (2030/2035)."
+    },
+    "2026-01-23-de-suedwestfalen-grundschutz": {
+      "title": "Südwestfalen-IT získává certifikaci ISO 27001 na základě IT-Grundschutz",
+      "summary": "Po ničivém útoku ransomwaru v roce 2023 získává německý obecní poskytovatel IT Südwestfalen-IT certifikaci ISO 27001 na základě IT-Grundschutz, která dokládá obnovu a bezpečnostní vyspělost."
+    },
+    "2026-02-09-enisa-international-strategy": {
+      "title": "ENISA zveřejňuje mezinárodní strategii spolupráce v kybernetické bezpečnosti",
+      "summary": "ENISA vydává strategii mezinárodní spolupráce, která popisuje, jak agentura spolupracuje s partnery mimo EU na normách kybernetické bezpečnosti a sdílení informací o hrozbách."
+    },
+    "2026-02-13-eu-ict-supply-chain-toolbox": {
+      "title": "Skupina pro spolupráci NIS přijímá soubor nástrojů pro bezpečnost dodavatelského řetězce ICT",
+      "summary": "Skupina pro spolupráci NIS zveřejňuje společný rámec pro identifikaci, posuzování a zmírňování kybernetických rizik v dodavatelských řetězcích ICT. Soubor nástrojů obsahuje scénáře rizik, opatření ke zmírnění a pokyny ke snížení závislosti na vysoce rizikových dodavatelích. Doprovázejí ho odvětvová posouzení rizik pro propojená vozidla a detekční zařízení."
+    },
+    "2026-02-16-enisa-exercise-methodology": {
+      "title": "ENISA vydává metodiku kybernetických cvičení",
+      "summary": "Nová metodika pro plánování, vedení a vyhodnocení cvičení kybernetické bezpečnosti, relevantní pro subjekty podle NIS2, které musí podle čl. 21 testovat schopnost reagovat na incidenty."
+    },
+    "2026-02-19-eu-poland-nis2-signed": {
+      "title": "Polsko podepisuje transpozici NIS2: účinnost od 2. dubna 2026",
+      "summary": "Prezident Nawrocki podepisuje novelu polského zákona o národním systému kybernetické bezpečnosti (UKSC), která provádí NIS2 do polského práva. Účinnost 2. dubna po měsíční legisvakanci. Lhůta pro registraci subjektů: 3. října 2026. Lhůta pro úplný soulad: 3. dubna 2027. Prezident zároveň předkládá ustanovení o vysoce rizikových dodavatelích a sankcích Ústavnímu soudu."
+    },
+    "2026-02-27-eu-cra-comment-period": {
+      "title": "Otevřeno veřejné připomínkování technické směrnice k souladu s CRA",
+      "summary": "Německý úřad BSI otevírá veřejné připomínkování technické směrnice k souladu s aktem o kybernetické odolnosti (CRA), která propojuje požadavky na bezpečnost produktů s povinnostmi k dodavatelskému řetězci podle NIS2."
+    },
+    "2026-02-27-de-active-cyber-defense-draft": {
+      "title": "Německé ministerstvo vnitra zveřejňuje návrh zákona o aktivní kybernetické obraně: nové povinnosti pro subjekty podle NIS2",
+      "summary": "Německé spolkové ministerstvo vnitra představuje Gesetz zur Stärkung der Cybersicherheit, který dává BKA, spolkové policii a BSI pravomoci aktivní kybernetické obrany včetně narušování infrastruktury útočníků. Přidává povinnosti pro subjekty regulované podle NIS2: povinnou součinnost při státem vedených kybernetických operacích, systémy detekce útoků napojené na BSI a ochranu zákazníků založenou na DNS. Pokuty až 20 mil. EUR nebo 2 % celosvětového obratu. Do roku 2030 vyžaduje asi 375 nových státních míst."
+    },
+    "2026-03-02-pl-uksc-amendment-published": {
+      "title": "Polsko zveřejňuje novelu UKSC v Dziennik Ustaw (Dz.U. 2026 poz. 252)",
+      "summary": "Novela polského zákona o národním systému kybernetické bezpečnosti (UKSC), přijatá Sejmem 23. ledna 2026 a podepsaná prezidentem 19. února 2026, je zveřejněna v polské Sbírce zákonů (Dziennik Ustaw) 2. března 2026 jako Dz.U. 2026 poz. 252. Mění 21 zákonů včetně UKSC z roku 2018. Nabývá účinnosti 3. dubna 2026."
+    },
+    "2026-03-04-de-bos-grundschutz-cert": {
+      "title": "Provozovatel digitální radiové sítě BOS získává certifikaci ISO 27001 na základě IT-Grundschutz",
+      "summary": "Provozovatel německé digitální radiové sítě složek bezpečnosti (BOS) získává certifikaci ISO 27001 na základě IT-Grundschutz, která dokládá soulad v zabezpečení kritické infrastruktury."
+    },
+    "2026-03-06-de-registration-deadline": {
+      "title": "Uplynula lhůta pro registraci u německého úřadu BSI: za neregistraci nyní hrozí pokuty",
+      "summary": "Tři měsíce po nabytí účinnosti německého zákona BSIG uplynula lhůta pro povinnou registraci na portálu BSI. Pozdní registrace se stále přijímá, ale pokuty až 500 000 EUR za porušení registrační povinnosti (§ 65 odst. 2 bod 6 BSIG) lze nyní právně vymáhat."
+    },
+    "2026-03-06-de-registration-gap": {
+      "title": "Do lhůty se zaregistrovalo jen asi 11 500 z přibližně 29 500 dotčených subjektů",
+      "summary": "Do lhůty 6. března se u německého úřadu BSI podle NIS2 zaregistrovalo přibližně 11 500 úřadů, firem a dalších kritických zařízení, takže z 29 500 povinných subjektů jich stále chybí kolem 18 000. Mluvčí BSI uvedl, že zůstává nejasné, zda byl původní odhad příliš vysoký, nebo zda velká část dotčených povinnost prostě nesplnila."
+    },
+    "2026-03-09-eu-transposition-22-of-27": {
+      "title": "22 z 27 členských států EU dokončilo transpozici NIS2",
+      "summary": "Cullen International uvádí, že NIS2 provedlo 22 států EU. Zbývá pět: Francie, Irsko, Lucembursko, Nizozemsko (návrh v parlamentu) a Španělsko (žádný předložený návrh). Nejvíce pozadu je Španělsko."
+    },
+    "2026-03-10-enisa-package-managers": {
+      "title": "ENISA zveřejňuje technické doporučení k bezpečnému používání správců balíčků",
+      "summary": "Nové pokyny k bezpečnému životnímu cyklu vývoje softwaru se zaměřením na bezpečnost správců balíčků, přímo relevantní pro požadavky NIS2 na bezpečnost dodavatelského řetězce (čl. 21 odst. 2 písm. d))."
+    },
+    "2026-03-13-de-bsi-nis2-faq-admin": {
+      "title": "Německý úřad BSI spouští časté otázky k NIS2 pro veřejnou správu",
+      "summary": "BSI zveřejňuje samostatné časté otázky k použitelnosti NIS2 a požadavkům na soulad pro spolkové, zemské a obecní úřady."
+    },
+    "2026-03-13-de-bsi-nis2-checkliste": {
+      "title": "Německý úřad BSI zveřejňuje kontrolní seznam k zavedení NIS-2",
+      "summary": "BSI vydal 13. března 2026 kontrolní seznam NIS-2-Checkliste ke stažení jako praktický nástroj krok za krokem, kterým si dotčené subjekty ověří splnění povinností podle NIS-2 a německého zákona BSIG. Kontrolní seznam je v balíčku #nis2know-Downloads spolu s rozhodovacím stromem pro dotčené subjekty a častými otázkami pro veřejnou správu, které vyšly týž den. Aktuálně ve verzi 9, což ukazuje průběžné úpravy podle zpětné vazby provozovatelů. Pokrývá registraci, řízení, řízení rizik, dodavatelský řetězec, hlášení incidentů a povinnosti školení."
+    },
+    "2026-03-15-market-cyber-security-report": {
+      "title": "Cyber Security Report 2026: 92 % malých německých firem nesprávně chápe působnost NIS2",
+      "summary": "Cyber Security Report 2026 společnosti Schwarz Digits se dotazuje 1 001 německých firem a zjišťuje, že 48 % se mylně domnívá, že se jich NIS2 netýká. U malých firem (10 až 49 zaměstnanců, obrat nad 10 mil. EUR) dosahuje tento omyl 92 %, přestože regulatorní práh splňují."
+    },
+    "2026-03-17-de-kritis-dachgesetz": {
+      "title": "KRITIS-Dachgesetz nabývá účinnosti: fyzická bezpečnost nad rámec kybernetických požadavků NIS2",
+      "summary": "Německá transpozice směrnice CER (KRITIS-Dachgesetz) nabývá účinnosti a přidává požadavky na fyzickou bezpečnost a odolnost nad rámec kybernetické bezpečnosti podle NIS2. Vyžaduje BCMS vedle ISMS, opatření fyzické bezpečnosti a audity každé tři roky. Pokuty až 1 mil. EUR."
+    },
+    "2026-03-18-de-bsi-cyberdome": {
+      "title": "Německý úřad BSI a Govdigital ohlašují „Cyberdome“: automatizovaná kybernetická obrana pro 10 spolkových zemí",
+      "summary": "BSI a sdružení veřejných poskytovatelů IT Govdigital ohlašují Cyberdome: infrastrukturu automatizované kybernetické obrany založenou na senzorech v 10 spolkových zemích a obcích s monitorováním v reálném čase napojeným na BSI."
+    },
+    "2026-03-19-eu-edpb-edps-nis2-opinion": {
+      "title": "EDPB a EDPS přijímají společné stanovisko 4/2026 ke změnám NIS2 a k aktu o kybernetické bezpečnosti 2",
+      "summary": "Orgány EU pro ochranu osobních údajů formálně podporují posílení kybernetické bezpečnosti a zároveň žádají pojistky ochrany údajů: vítají poskytovatele peněženek digitální identity jako základní subjekty, žádají konzultaci ENISA s EDPB před přijetím certifikačních schémat, která se dotýkají osobních údajů, doporučují jednotné kontaktní místo pro hlášení porušení, aby se snížila administrativní zátěž, a vyzývají k vyjasnění překryvu certifikace podle GDPR a kybernetické bezpečnosti."
+    },
+    "2026-04-01-grundschutz-plus-methodology": {
+      "title": "Německý úřad BSI zveřejňuje metodiku Grundschutz++: rámec ISMS založený na cyklu PDCA",
+      "summary": "BSI vydává první metodickou příručku ke Grundschutz++, která zavádí výhledový rámec pro systematické budování ISMS na základě cyklu PDCA. Příručka spojuje strategické plánování, analýzu požadavků, zavedení, monitorování a neustálé zlepšování. Zatím je určena jen pro pilotní projekty. Vydání 2023 zůstává platným referenčním rámcem pro audity do roku 2028."
+    },
+    "2026-04-03-eu-poland-ksc-force": {
+      "title": "Novela polského zákona KSC nabývá účinnosti: do působnosti nyní spadá 42 000 subjektů",
+      "summary": "Novelizovaný polský zákon o národním systému kybernetické bezpečnosti (KSC) nabývá účinnosti 3. dubna 2026 a rozšiřuje působnost NIS2 z asi 400 na asi 42 000 organizací, z toho asi 28 000 subjektů veřejného sektoru. Přibývají odvětví: výroba potravin, nakládání s odpady, chemikálie, poštovní služby, výroba. Registr subjektů spuštěn 13. dubna na platformě S46. Lhůta pro samoregistraci: 3. října 2026. Úplný soulad do 3. dubna 2027."
+    },
+    "2026-04-03-pt-decreto-lei-125-in-force": {
+      "title": "Portugalsko: Decreto-Lei n.º 125/2025 nabývá účinnosti",
+      "summary": "Portugalská transpozice NIS 2 nabývá účinnosti 3. dubna 2026, 120 dní po zveřejnění. Oznámení pověřence pro kybernetickou bezpečnost je nutné do 20 pracovních dnů od nabytí účinnosti. Elektronickou registrační platformu provozuje CNCS."
+    },
+    "2026-04-03-pl-uksc-amendment-in-force": {
+      "title": "Polsko: novela UKSC z 23. ledna 2026 nabývá účinnosti",
+      "summary": "Polská novela UKSC nabývá účinnosti 3. dubna 2026. Hlavním příslušným orgánem je Ministerstwo Cyfryzacji; souběžně působí tři národní CSIRT (CSIRT NASK pro soukromý sektor, CSIRT GOV v rámci ABW, CSIRT MON pro armádu). Dvanáctiměsíční přechodné období pro zavedení bezpečnostních opatření podle kapitoly 3 (do 3. dubna 2027)."
+    },
+    "2026-04-07-de-bsi-c5-2026": {
+      "title": "Německý úřad BSI zveřejňuje katalog kritérií pro cloud C5:2026",
+      "summary": "BSI vydal C5:2026, aktualizovaný katalog kritérií souladu pro cloud computing, který nahrazuje verzi z roku 2020. Nové vydání pokrývá správu kontejnerů, postkvantovou kryptografii a důvěrné výpočty, je sladěno s evropským certifikačním schématem EUCS a při jeho tvorbě byla výslovně zohledněna směrnice NIS2 spolu s ISO/IEC 27001:2022 a CSA Cloud Controls Matrix v4. Poprvé vyjde i ve strojově čitelném formátu."
+    },
+    "2026-04-14-de-denic-phase2-risk-assessment": {
+      "title": "DENIC spouští 2. fázi automatizovaného posuzování rizik domén .de podle NIS2",
+      "summary": "DENIC aktivuje 2. fázi zavádění NIS2 pro registrace domén .de. Automatizovaný systém posuzování rizik na principu semaforu (nízké, podezřelé, vysoké riziko) nyní klasifikuje všechny objednávky kontaktů a domén. Anomálie v registračních údajích spouštějí žádosti o ověření u odpovědného člena DENIC. Neověřeným doménám hrozí karanténa DNS a případné smazání. Už 1. fáze (6. prosince 2025) zveřejnila ve WHOIS údaje o firemních držitelích domén. Týká se všech asi 17 milionů domén .de."
+    },
+    "2026-04-15-eu-netherlands-nis2-passed": {
+      "title": "Nizozemsko: dolní komora schvaluje Cyberbeveiligingswet (transpozice NIS2)",
+      "summary": "Nizozemská Tweede Kamer schválila 15. dubna 2026 zákon Cyberbeveiligingswet a zákon Wet weerbaarheid kritieke entiteiten (provedení CER). Cyberbeveiligingswet nahrazuje dosavadní Wbni a zavádí povinnosti podle NIS2 včetně povinnosti péče, hlášení a registrace. Účinnost se očekává 1. července 2026, pokud ji schválí Senát."
+    },
+    "2026-04-15-de-bsi-congress-implementation-gap": {
+      "title": "Kongres BSI ukazuje, že zavádění NIS-2 v Německu výrazně zaostává: firmy se registraci záměrně vyhýbají",
+      "summary": "Na 21. kongresu bezpečnosti IT uvedl zástupce německého úřadu BSI Manuel Bach, že registrace podle NIS-2 zůstávají daleko pod očekáváním. Téměř 50 % německých firem ke konci roku 2025 pojem „NIS-2“ nikdy neslyšelo. Některé firmy se po konzultaci s vedením a právníky záměrně rozhodují neregistrovat. Bach přirovnal neplnění k daňové povinnosti: „O tom, zda se na vás vztahuje, nemůžete rozhodnout sami.“"
+    },
+    "2026-04-16-de-bsi-congress-21": {
+      "title": "Skončil 21. německý kongres bezpečnosti IT: 8 000 účastníků, v centru NIS2 a bezpečnost AI",
+      "summary": "Německý úřad BSI pořádá 15. a 16. dubna v Bonnu 21. IT-Sicherheitskongress na téma „Cybernation Deutschland“. Osm bloků pokrývá zavádění NIS-2, bezpečnost AI, postkvantovou kryptografii, zero trust, bezpečné dodavatelské řetězce a digitální identitu. Hybridní workshopy se věnují „stavu techniky“ podle Grundschutz++ a peněžence EUDI. Obsah kongresu zůstává dostupný do 15. května."
+    },
+    "2026-04-17-de-bsi-gf-schulung-v1": {
+      "title": "Německý úřad BSI zveřejňuje verzi 1.0 příručky ke školení vedení podle § 38 odst. 3 BSIG",
+      "summary": "BSI vydal 17. dubna 2026 verzi 1.0 své čtyřiadvacetistránkové příručky (Handreichung) „Schulung für Geschäftsleitungen“, která po konzultaci s Bitkom, DIHK, GI, VDMA, Zentralverband Handwerk a ZVEI aktualizuje předběžnou verzi 0.9 ze září 2025. Dokument stanoví, co německý dozorový úřad očekává od povinnosti školení vedení podle § 38 odst. 3 německého zákona BSIG, ve třech blocích: organizace školení (publikum, intervaly, formáty, poskytovatelé, doklady), doporučený obsah (struktura SOLL/KANN pokrývající analýzu rizik, postupy řízení rizik a posouzení dopadů) a řízená sebekontrola (10 oddílů s návodnými otázkami a s odpověďmi, které pomáhají, nebo varují). Výslovně je podpořeno osm formátů školení, mezi nimi čtvrtletní setkání k řízení rizik s CISO, tabletop cvičení, simulace auditu a red/blue teaming s vedením. Dokumentace musí zachytit poskytovatele, účastníky s rolí, datum, čas, délku a obsah s odkazy na zákon."
+    },
+    "2026-04-18-eu-belgium-cyberfun-enforcement": {
+      "title": "Belgie vymáhá první lhůtu souladu s NIS2: základní subjekty musí doložit stav kybernetické bezpečnosti",
+      "summary": "Belgie je první zemí EU, která vymáhá předchozí (ex ante) dozor podle NIS2. Do 18. dubna musí základní subjekty předložit ověřenou dokumentaci kybernetické bezpečnosti jednou ze tří cest: ověření CyberFundamentals (CyFun), certifikace ISO/IEC 27001 nebo žádost o přímou inspekci CCB. Neplnění vede ke správním opatřením a pokutám až 10 mil. EUR nebo 2 % obratu. Úplná certifikace základních subjektů do 18. dubna 2027."
+    },
+    "2026-04-22-eu-nis2-amendment-feedback-closes": {
+      "title": "Končí veřejné připomínkování navržených změn směrnice NIS2",
+      "summary": "Dnes končí veřejné připomínkování navržených změn NIS2 od Evropské komise (zveřejněných 20. ledna 2026). Návrhy zahrnují podmořskou infrastrukturu v působnosti, kategorii subjektů „small mid-cap“, podrobnosti hlášení ransomwaru, posílenou roli ENISA v přeshraničním dozoru a cesty k souladu založené na certifikaci. Následuje řádný legislativní postup v Parlamentu a Radě."
+    },
+    "2026-04-22-enisa-ncaf-2": {
+      "title": "ENISA zveřejňuje rámec pro hodnocení národních schopností NCAF 2.0",
+      "summary": "ENISA vydala NCAF 2.0, aktualizovanou metodiku pro hodnocení národních schopností v kybernetické bezpečnosti a vyspělosti strategií. Je sladěna s procesem vzájemného hodnocení podle čl. 19 NIS2. Pomáhá členským státům najít silné stránky, mezery a prioritní oblasti kybernetické bezpečnosti na strategické i provozní úrovni."
+    },
+    "2026-04-27-de-bsi-c3a-sovereignty": {
+      "title": "Německý úřad BSI zveřejňuje rámec kritérií C3A pro suverenitu cloudu",
+      "summary": "BSI vydává rámec Criteria enabling Cloud Computing Autonomy (C3A), který zavádí transparentní standardy suverenity cloudových služeb. C3A doplňuje stávající katalog C5 tím, že řeší „Cyber Dominance“, tedy schopnost výrobců cloudu udržet si trvalý přístup k systémům a datům zákazníků. Poskytovatelé cloudu musí splnit předpoklady C5; rámec nabízí flexibilitu v lokalizaci dat (Německo nebo EU). Je sladěn s evropským rámcem suverenity cloudu (EU CSF). Není regulací; cesty k certifikaci cloudu podle NIS2 doplňuje, nenahrazuje."
+    },
+    "2026-04-29-de-bsi-brandenburg-cooperation": {
+      "title": "Německý úřad BSI podepisuje dohodu o spolupráci v kybernetické bezpečnosti se spolkovou zemí Braniborsko",
+      "summary": "Prezidentka BSI Claudia Plattner a braniborský státní tajemník Ernst Bürger podepisují formální dohodu o spolupráci v deseti oblastech: provozní kybernetická bezpečnost (správa informací, bezpečnostní testy a cvičení), společné programy osvěty a školení a vzájemná výměna pro budování technické odbornosti. Posiluje koordinaci spolku a zemí při zavádění NIS2 u subjektů veřejné správy, které nyní spadají do působnosti."
+    },
+    "2026-04-29-eu-cer-cjeu-referral-seven-states": {
+      "title": "Komise žaluje 7 členských států u Soudního dvora EU kvůli neprovedení směrnice CER",
+      "summary": "Evropská komise se 29. dubna 2026 rozhodla podat žalobu u Soudního dvora EU na Bulharsko, Francii, Lucembursko, Nizozemsko, Polsko, Španělsko a Švédsko kvůli neprovedení směrnice CER (EU 2022/2557) a v každém případě navrhla finanční sankce. CER a NIS 2 mají stejnou lhůtu pro transpozici 17. října 2024; jde o první velké vymáhací řízení u Soudního dvora EU v rámci tohoto balíčku. Průběh: výzva v listopadu 2024, odůvodněné stanovisko v červenci 2025, žaloba u Soudního dvora EU v dubnu 2026. Silný signál pro souběžné řízení o porušení povinnosti u NIS 2."
+    },
+    "2026-05-04-de-bsi-cybergovsecure": {
+      "title": "Německý úřad BSI spouští program CyberGovSecure: koordinované zavádění NIS-2 v německé spolkové správě",
+      "summary": "BSI, CISO Bund a spolkové ministerstvo pro digitalizaci a modernizaci státu spustily 4. května 2026 CyberGovSecure, strukturovaný meziresortní program pro zavedení opatření kybernetické bezpečnosti ve všech německých spolkových úřadech. Prezidentka BSI Claudia Plattner ho označila za ústřední stavební kámen zavádění NIS-2 ve spolkové správě. Odpovědnost za zavedení nese každý úřad; BSI poskytuje technickou a organizační podporu."
+    },
+    "2026-05-07-eu-ai-act-omnibus-agreement": {
+      "title": "Digitální omnibus k aktu o umělé inteligenci: předběžná politická dohoda",
+      "summary": "Rada a Evropský parlament dosáhly v časných ranních hodinách 7. května 2026 předběžné politické dohody o digitálním omnibusu k aktu o umělé inteligenci. Povinnosti pro vysoce rizikové systémy podle přílohy III se odkládají na 2. prosince 2027, pro vysoce rizikové systémy zabudované do produktů podle přílohy I na 2. srpna 2028. Označování vodoznakem podle čl. 50 odst. 2 se odkládá na 2. prosince 2026. Přidává nový zákaz v čl. 5 týkající se AI, která vytváří intimní snímky bez souhlasu a materiál zobrazující sexuální zneužívání dětí. Úlevy pro malé a střední podniky rozšiřuje na podniky kategorie small mid-cap. Formální přijetí Radou a Parlamentem je nutné před 2. srpnem 2026."
+    },
+    "2026-05-07-de-bsi-ladeinfrastruktur": {
+      "title": "Německý úřad BSI zveřejňuje první zprávu o bezpečnosti IT veřejné nabíjecí infrastruktury",
+      "summary": "BSI a německé spolkové ministerstvo dopravy vydávají první společnou zprávu, která analyzuje bezpečnost IT veřejné nabíjecí infrastruktury pro elektromobily v Německu. Zpráva zkoumá nedostatky na úrovni protokolů ISO 15118 a OCPP i slabiny softwaru u provozovatelů nabíjecích bodů a navrhuje konkrétní bezpečnostní opatření. BSI řadí nabíjecí infrastrukturu na pomezí odvětví dopravy a energetiky podle NIS 2: výpadky se řetězí od narušení mobility až k dopadům na síť."
+    },
+    "2026-05-10-eu-luxembourg-nis2-transposition": {
+      "title": "Lucembursko provádí NIS 2: zákon z 5. května 2026 nabývá účinnosti",
+      "summary": "Lucemburský zákon z 5. května 2026 o opatřeních k zajištění vysoké úrovně kybernetické bezpečnosti nabyl účinnosti 10. května 2026; provádí směrnici NIS 2 a ruší předchozí zákon NIS 1. Příslušným orgánem je Institut Luxembourgeois de Régulation (ILR); portál pro samoregistraci subjektů v působnosti je v provozu. Pozoruhodné proto, že Lucembursko patřilo k opožděným členským státům a jen několik dní předtím, 29. dubna 2026, bylo žalováno u Soudního dvora EU v souběžném řízení o porušení povinnosti u CER. Subjekty v působnosti NIS 2 se musí samy registrovat u ILR."
+    },
+    "2026-05-11-de-bsi-cybersicherheitsmonitor-2026": {
+      "title": "Cybersecurity Monitor 2026 německého úřadu BSI: každý desátý Němec se v uplynulém roce stal obětí kyberkriminality",
+      "summary": "Společný průzkum BSI a ProPK zjišťuje, že 27 % Němců se stalo obětí kyberkriminality, z toho 11 % v posledních 12 měsících. Nejčastější trestné činy: podvody při nakupování a bankovnictví online, převzetí účtu a phishing. Jen 14 % se pravidelně informuje o kybernetické bezpečnosti; 33 % postižených hlásí finanční ztráty. Zpráva ukazuje širokou mezeru v povědomí, kterou mají dozor podle NIS 2 a vzdělávací programy BSI na straně spotřebitelů zmenšit."
+    },
+    "2026-05-12-de-bsi-g7-sbom-ai": {
+      "title": "Německý úřad BSI zveřejňuje pokyny G7 k soupisu softwarových komponent pro AI",
+      "summary": "BSI a italská ACN vedly spolu s orgány kybernetické bezpečnosti G7 a Evropskou komisí přípravu pokynů k minimálním prvkům „Software Bill of Materials (SBOM) for Artificial Intelligence“. Dokument stanoví minimální požadavky v sedmi kategoriích informací včetně modelů AI, zdrojů trénovacích dat a možných zkreslení. Prezidentka BSI Claudia Plattner: transparentnost v celém dodavatelském řetězci AI je základem robustní kybernetické bezpečnosti AI. Přímo relevantní pro řízení rizik dodavatelského řetězce podle čl. 21 odst. 2 písm. d) NIS 2 a pro cestu k souladu s aktem o umělé inteligenci."
+    },
+    "2026-05-12-de-bmi-bundeslagebild-cybercrime-2025": {
+      "title": "Bundeslagebild Cybercrime 2025 (BMI/BKA): asi 335 000 případů, škoda 202,4 mld. EUR pro německou ekonomiku",
+      "summary": "Německý spolkový ministr vnitra Alexander Dobrindt a viceprezidentka BKA Martina Link představují 12. května 2026 Bundeslagebild Cybercrime 2025. V roce 2025 bylo zaznamenáno asi 335 000 případů kyberkriminality v užším smyslu; dvě třetiny (207 888) byly spáchány ze zahraničí nebo z neznámých míst. Odhadovaná škoda pro německou ekonomiku: 202,4 miliardy EUR, zhruba 4,5 procenta HDP. Útočníci stále častěji používají nástroje založené na AI; hlavními cíli jsou firmy, úřady a kritická infrastruktura. Dobrindt rámuje reakci jako vymáhání NIS-2: „Stát nesmí být v digitálním prostoru divákem.“ Tvoří politické pozadí přechodu německého úřadu BSI do aktivní fáze kontrol podle NIS-2, která začala v květnu 2026."
+    },
+    "2026-05-13-de-bsi-mecklenburg-cooperation": {
+      "title": "Německý úřad BSI podepisuje dohodu o spolupráci v kybernetické bezpečnosti s Meklenburskem-Předním Pomořanskem (12. spolková země)",
+      "summary": "Prezidentka BSI Claudia Plattner a ministr financí a digitalizace Meklenburska-Předního Pomořanska Dr. Heiko Geue podepisují v Hamburku formální dohodu o spolupráci, čímž síť spolupráce BSI se spolkovými zeměmi dosahuje dvanácti zemí. Pokrývá provozní kybernetickou bezpečnost, vzájemnou výměnu informací a znalostí a společná opatření k osvětě. Navazuje na koordinaci spolku a zemí, která začala 29. dubna 2026 Braniborskem, a podporuje zavádění NIS-2 u dotčených subjektů veřejné správy."
+    },
+    "2026-05-19-eu-netherlands-eerstekamer-input": {
+      "title": "Výbory nizozemského Senátu otevírají fázi písemných připomínek k zákonu Cyberbeveiligingswet (transpozice NIS2)",
+      "summary": "Výbory Eerste Kamer pro digitalizaci (DIGI) a pro spravedlnost a bezpečnost (J&V) otevřely 19. května 2026 fázi písemných připomínek („inbreng voor het verslag“) k zákonu Cyberbeveiligingswet (návrh 36.764) a souběžnému zákonu Wet weerbaarheid kritieke entiteiten (36.765). Senátoři předkládají stanoviska, než výbory 21. května připraví krátké předběžné poznámky. Tweede Kamer návrh přijala 15. dubna 2026; schválení Senátem je posledním krokem před nabytím účinnosti, očekávaným 1. července 2026. Nizozemsko patří ke zbývajícím opožděným členským státům, které transpozici NIS2 ještě dokončují."
+    },
+    "2026-05-19-eu-ai-act-article-6-guidelines-draft": {
+      "title": "Evropská komise zveřejňuje návrh pokynů ke klasifikaci vysoce rizikových systémů AI (čl. 6 aktu o umělé inteligenci)",
+      "summary": "Evropská komise zveřejnila 19. května 2026 návrh pokynů ke klasifikaci vysoce rizikových systémů AI podle čl. 6 aktu o umělé inteligenci (nařízení (EU) 2024/1689) spolu s cílenou konzultací zúčastněných stran otevřenou do 23. června 2026 (22:00 SEČ). Návrh o 148 stranách uvádí výklad Komise k čl. 6 odst. 1 (bezpečnostní komponenty zabudované podle přílohy I) a čl. 6 odst. 2 (samostatné vysoce rizikové systémy podle přílohy III) a obsahuje praktické příklady použití podle čl. 6 odst. 5. Významné signály pro subjekty regulované podle NIS 2: klasifikaci kritické infrastruktury jako vysoce rizikové podle čl. 6 odst. 2 a přílohy III bodu 2 spouští určení podle směrnice CER (2022/2557), nikoli status „základního subjektu“ podle NIS 2; AI pro účely kybernetické bezpečnosti je z vysokého rizika výslovně vyloučena (bod 55 odůvodnění); vyloučena je i AI pro kvalitu služeb a provoz. Čtyři cesty výjimky podle čl. 6 odst. 3 zůstávají zachovány, přestože je Komise dříve navrhla zrušit. Konečné pokyny se očekávají po skončení konzultace."
+    },
+    "2026-05-26-de-kritis-verordnung-draft": {
+      "title": "Německé ministerstvo vnitra zveřejňuje návrh nového nařízení KRITIS-Verordnung: prahy a seznam odvětví podle KRITIS-Dachgesetz",
+      "summary": "Německé spolkové ministerstvo vnitra zveřejňuje návrh nového nařízení Verordnung zur Bestimmung kritischer Anlagen, které podle KRITIS-Dachgesetz nahrazuje dosavadní BSI-KritisV. Návrh přidává nové odvětví vesmír, ponechává IT a telekomunikace v KRITIS a upravuje prahy zejména v energetice a dopravě. Lhůta pro připomínky je 16. června 2026. Určuje, kteří provozovatelé jsou zároveň základními subjekty podle NIS2 a provozovateli podle KRITIS-Dachgesetz."
+    },
+    "2026-05-28-enisa-nis360-2026": {
+      "title": "ENISA zveřejňuje NIS360 2026: třetí roční hodnocení vyspělosti a kritičnosti odvětví NIS2",
+      "summary": "ENISA vydává třetí vydání NIS360, které hodnotí vyspělost kybernetické bezpečnosti a kritičnost všech vysoce kritických odvětví z přílohy I. Služby vytvářející důvěru, letectví a infrastruktury finančních trhů dosahují vysoké vyspělosti. Osm odvětví je v rizikové zóně (vyspělost zaostává za kritičností): zdravotnictví, železnice, námořní doprava, řízení služeb IKT, vesmír, veřejná správa, pitná voda a odpadní voda. Vesmír a železnice vykazují rostoucí kritičnost. Každoroční referenční dokument pro vnitrostátní orgány a provozovatele, kteří plánují priority dozoru podle NIS2."
+    },
+    "2026-06-02-nl-eerstekamer-cbw-verslag": {
+      "title": "Nizozemsko: výbory Senátu zveřejňují zprávu k zákonu Cyberbeveiligingswet a čekají na odpověď vlády",
+      "summary": "Dne 2. června 2026 vydaly společné výbory Eerste Kamer pro digitalizaci (DIGI) a pro spravedlnost a bezpečnost (J&V) zprávu (verslag) k zákonu Cyberbeveiligingswet (návrh 36.764) a souběžnému zákonu Wet weerbaarheid kritieke entiteiten (36.765), čímž formálně uzavřely fázi písemných připomínek otevřenou 19. května 2026. Výbory nyní čekají na odpověď vlády (nota naar aanleiding van het verslag), než bude možné naplánovat rozpravu v plénu a konečné hlasování Senátu. Účinnost je stále plánována na 1. července 2026 královským výnosem (koninklijk besluit); tento termín teď závisí na tom, jak rychle vláda odpoví."
+    },
+    "2026-06-08-eu-g7-cybersecurity-declaration": {
+      "title": "Evropská komise vítá deklaraci pracovní skupiny G7 pro kybernetickou bezpečnost",
+      "summary": "Dne 8. června 2026 zveřejnilo GŘ CONNECT příspěvek Digibyte, ve kterém vítá deklaraci pracovní skupiny G7 pro kybernetickou bezpečnost přijatou za francouzského předsednictví G7. Deklarace zavazuje G7 ke koordinovanému postupu v postkvantové kryptografii, rizicích kybernetické bezpečnosti souvisejících s AI, odolnosti telekomunikací a ochraně malých a středních podniků. Komise výslovně ukotvuje pilíř odolnosti telekomunikací ve směrnici NIS2 („již stanoví vysoké standardy odolnosti telekomunikací“) a pilíř dodavatelského řetězce propojuje s navrženým revidovaným aktem o kybernetické bezpečnosti (CSA2) a novým rámcem bezpečnosti dodavatelského řetězce IKT. Další zasedání pracovní skupiny G7 na podzim 2026, než v roce 2027 převezmou předsednictví USA."
+    },
+    "2026-06-09-eu-tte-council-cybersecurity-package": {
+      "title": "Rada TTE pro telekomunikace projednává zprávu o pokroku k balíčku kybernetické bezpečnosti (CSA2 a změny NIS2)",
+      "summary": "Na zasedání Rady pro dopravu, telekomunikace a energetiku 9. června 2026 v Lucemburku představilo kyperské předsednictví zprávy o pokroku k aktu o digitálních sítích a k balíčku kybernetické bezpečnosti. Balíček kybernetické bezpečnosti spojuje navržené nařízení Cybersecurity Act 2, cílené změny směrnice NIS2 (návrh Komise z 20. ledna 2026) a nový rámec EU pro bezpečnost důvěryhodného dodavatelského řetězce IKT. Ministři si vyměnili názory bez závazného rozhodnutí; spis zůstává v projednávání v COREPER před irským předsednictvím od července 2026. Poprvé od lednového návrhu Komise je balíček kybernetické bezpečnosti formálně na programu ministerského zasedání Rady."
+    },
+    "2026-06-11-enisa-cyber-europe-2026": {
+      "title": "Cvičení Cyber Europe 2026 pořádané agenturou ENISA testuje reakci EU na kybernetické útoky na železnici a námořní dopravu",
+      "summary": "Ve dnech 10. a 11. června 2026 uspořádala ENISA 8. ročník Cyber Europe s přibližně 5 000 účastníky z členských států EU, průmyslu a partnerských zemí (Spojené království, Norsko, Švýcarsko, Ukrajina). Scénář simuloval koordinované kybernetické útoky na evropské železniční a námořní dopravní sítě, které eskalovaly do širší krize. Šlo o první celoevropský test plánu EU pro kybernetické krize z roku 2025 (EU Cyber Blueprint, doporučení Rady ke koordinované reakci na rozsáhlé kybernetické incidenty) a první aktivační cvičení nové kybernetické rezervy EU podle aktu o kybernetické solidaritě. ENISA uvádí, že pododvětví železnice a námořní dopravy mají v indexu vyspělosti NIS360 vzhledem ke své kritičnosti podprůměrné skóre. Cvičení prověřuje přeshraniční řetězec reakce na incidenty, na kterém stojí čl. 23 NIS2 a síť CSIRT."
+    },
+    "2026-06-02-de-bsi-nis2know-iso27001": {
+      "title": "Německý úřad BSI zveřejňuje infopaket #nis2know o mapování ISO/IEC 27001 na NIS-2 a § 30 BSIG",
+      "summary": "Dne 2. června 2026 přidal německý úřad BSI do řady #nis2know infopaket k ISO/IEC 27001, který strukturovaně mapuje požadavky § 30 německého zákona BSIG na opatření ISO/IEC 27001:2022 v deseti oblastech (analýza rizik, reakce na incidenty, kontinuita činností, dodavatelský řetězec, správa zranitelností, měření účinnosti, školení a osvěta, kryptografie, personál a přístup, MFA a zabezpečená komunikace). BSI výslovně uvádí: „Eine Zertifizierung nach ISO/IEC 27001 bedeutet nicht automatisch, dass ein Unternehmen NIS-2-konform ist.“ (Certifikace podle ISO/IEC 27001 automaticky neznamená, že je firma v souladu s NIS-2.) Autoritativní postoj BSI k otázce ISO a NIS-2, která ovládá trh poradenství a auditu."
+    },
+    "2026-06-11-de-bsi-magazin-2026-01": {
+      "title": "Německý úřad BSI vydává BSI-Magazin 2026/01 s hlavním tématem NIS-2 a zákon BSIG",
+      "summary": "Dne 11. června 2026 vydal BSI první číslo svého půlročníku BSI-Magazin pro rok 2026 s hlavním tématem „Mehr Cybersicherheit für Unternehmen mit NIS-2 und BSIG“. Číslo připomíná šest měsíců účinnosti NIS2UmsuCG (od 6. prosince 2025) a opakuje linii BSI, že transpozice NIS-2 je „ein Meilenstein auf dem Weg zu einer resilienten Cybernation“ (milník na cestě k odolnému kybernetickému národu). Další obsah se týká AI v kybernetické bezpečnosti, modernizovaných certifikačních postupů BSI pro poskytovatele služeb bezpečnosti IT, biometrie a elektronických plateb. Časopis je hlavním komunikačním kanálem BSI směrem ke státu, firmám a společnosti a ukazuje posun vyprávění k fázi vymáhání po registrační lhůtě 6. března 2026."
+    },
+    "2026-06-17-de-bsi-letter-july-31-grace-period": {
+      "title": "Dopis německého úřadu BSI hospodářským svazům stanoví faktický termín registrace 31. července 2026",
+      "summary": "V dopise německým hospodářským svazům, o kterém informoval Tagesspiegel Background a který 17. června 2026 veřejně citoval partner reuschlaw Stefan Hessel, sděluje BSI subjektům, které zmeškaly zákonnou lhůtu 6. března 2026, faktický termín registrace 31. července 2026. Doslova: „Da die Registrierungen überfällig sind, gehen wir davon aus, dass alle bis dahin nicht registrierten Einrichtungen die Registrierung bis zum 31. Juli 2026 erfolgreich abschließen.“ (Protože registrace jsou po termínu, předpokládáme, že všechny dosud neregistrované subjekty registraci úspěšně dokončí do 31. července 2026.) BSI poskytuje úzkou výjimku šesti týdnů, které běží od odpovědi BSI na souhrnné dotazy k vyjasnění. Právně nejde o ochrannou lhůtu ani o prodloužení lhůty: skutková podstata přestupku podle § 65 odst. 2 bodu 6 ve spojení s § 65 odst. 5 bodem 5 německého zákona BSIG (až 500 000 EUR paušálně za porušení registrační povinnosti podle § 33) platí bez přerušení od 7. března 2026. Dopis je výkonem uvážení BSI při stíhání podle § 47 německého zákona OWiG, nyní ukotveným v písemném veřejném měřítku. K 2. dubnu 2026 se zaregistrovalo jen 15 477 z odhadovaných 29 500 subjektů v působnosti. Další aktualizace přehledu BSI NIS-2 in Zahlen je naplánována na 31. července 2026, tedy na tentýž den. Do konce května 2026 vzrostl počet na přibližně 18 500 registrovaných subjektů, což BSI označil za celkově uspokojivé."
+    },
+    "2026-05-26-eu-cooperation-group-incident-templates": {
+      "title": "Skupina pro spolupráci NIS se dohodla na společných šablonách hlášení incidentů",
+      "summary": "Na svém 39. plenárním zasedání na Kypru se skupina pro spolupráci NIS (členské státy, Evropská komise a ENISA) dohodla na společných šablonách pro hlášení incidentů podle čl. 23 směrnice NIS 2, takže subjekty působící přes hranice dostanou jeden jednotný formát místo rozdílných národních formulářů. Komise hodlá šablony učinit závaznými prováděcím aktem."
+    },
+    "2026-06-02-enisa-acm-v3-eucc-review": {
+      "title": "ENISA otevírá veřejné připomínkování verze 3 dohodnutých kryptografických mechanismů pro EUCC",
+      "summary": "Podskupina ECCG pro kryptografii za podpory ENISA zveřejnila k veřejnému připomínkování do konce července 2026 návrh verze 3 dohodnutých kryptografických mechanismů (Agreed Cryptographic Mechanisms). Dokument doporučuje kryptografické mechanismy upřednostňované u produktů IKT předkládaných k certifikaci EUCC a navazuje na verzi 2.0 přijatou v polovině roku 2025."
+    },
+    "2026-06-04-enisa-cra-notified-bodies-competence": {
+      "title": "ENISA zveřejňuje požadavky na technickou způsobilost oznámených subjektů podle CRA",
+      "summary": "ENISA zveřejnila zprávu, která stanoví požadavky na kompetence, praxi a školení personálu subjektů posuzování shody, které usilují o oznámení jako oznámené subjekty podle aktu o kybernetické odolnosti. Podporuje budování kapacit pro posuzování shody před cílovým datem 11. prosince 2026, kdy má být podle CRA k dispozici dostatečný počet oznámených subjektů."
+    },
+    "2026-06-09-enisa-sbom-adoption-2026": {
+      "title": "ENISA zveřejňuje SBOM Adoption State of Play 2026",
+      "summary": "ENISA zveřejnila výsledky průzkumu zavádění soupisu softwarových komponent (SBOM): hlavním hnacím motorem tvorby a automatizace SBOM v celém životním cyklu vývoje softwaru je akt o kybernetické odolnosti. Transparentnost dodavatelského řetězce, kterou dokumentuje, se prolíná s povinnostmi k bezpečnosti dodavatelů podle čl. 21 odst. 2 písm. d) směrnice NIS 2."
+    },
+    "2026-06-15-de-ag-kritis-kritisverordnung-stellungnahme": {
+      "title": "AG KRITIS předkládá stanovisko k návrhu německého nařízení KRITIS-Verordnung",
+      "summary": "Občanská pracovní skupina AG KRITIS zveřejnila stanovisko k návrhu nařízení KRITIS-Verordnung (stav k 26. 5. 2026), které si vyžádalo německé ministerstvo vnitra; za nejzávažnější chybu návrhu označuje zachování standardního prahu 500 000 obyvatel a kritizuje chybějící odvětví, jako jsou chemie, média a kultura."
+    },
+    "2026-06-30-national-transposition-hungary-first-audit-deadline": {
+      "title": "Maďarsko: první povinný audit NIS 2 do 30. června 2026 (vnitrostátní lhůta, ne celoevropská)",
+      "summary": "Podle maďarské transpozice NIS 2 (zákon LXIX z roku 2024, dozor vykonává úřad pro dozor nad regulovanými činnostmi SZTFH) musely subjekty v působnosti uzavřít smlouvu s registrovaným auditorem kybernetické bezpečnosti do 31. srpna 2025 a po šestiměsíčním prodloužení dokončit první povinný audit do 30. června 2026. Jde jen o maďarskou vnitrostátní povinnost: ani směrnice NIS 2 (EU) 2022/2555, ani CIR 2024/2690 nestanoví celoevropskou lhůtu pro první audit, na rozdíl od tvrzení dodavatelů, kteří toto datum zobecňují."
+    },
+    "2026-06-17-national-transposition-nl-cyberbeveiligingswet-senate-response": {
+      "title": "Nizozemsko: vláda podává Senátu odpověď k zákonu Cyberbeveiligingswet, výbory 23. června stanoví další postup",
+      "summary": "Dne 17. června 2026 podala nizozemská vláda odpověď (nota naar aanleiding van het verslag) na zprávu výborů Senátu z 2. června k zákonu Cyberbeveiligingswet (návrh 36.764, transpozice NIS 2). Výbory Eerste Kamer pro digitalizaci a pro spravedlnost a bezpečnost rozhodnou o dalším postupu 23. června 2026, což je poslední krok před hlasováním v plénu. Dolní komora návrh schválila 15. dubna 2026; vláda stále cílí na účinnost 1. července 2026, pokud návrh schválí Senát."
+    },
+    "2024-02-15-national-transposition-hr-zakon-o-kibernetickoj-sigurnosti": {
+      "title": "Chorvatsko: Zakon o kibernetickoj sigurnosti (transpozice NIS 2) nabývá účinnosti",
+      "summary": "Chorvatsko provádí směrnici NIS 2 (EU) 2022/2555. Zákon o kybernetické bezpečnosti (Zakon o kibernetickoj sigurnosti), zveřejněný v Narodne novine 14/2024, nabývá účinnosti 15. února 2024, takže Chorvatsko patří k prvním členským státům s transpozicí. Vymezuje základní a důležité subjekty a určuje dozor v rámci národního systému kybernetické bezpečnosti."
+    },
+    "2024-09-01-national-transposition-lv-kiberdrosibas-likums": {
+      "title": "Lotyšsko: národní zákon o kybernetické bezpečnosti (transpozice NIS 2) nabývá účinnosti",
+      "summary": "Směrnici NIS 2 (EU) 2022/2555 provádí v Lotyšsku národní zákon o kybernetické bezpečnosti (Nacionalas kiberdrosibas likums), přijatý Saeimou 20. června 2024, zveřejněný v Latvijas Vestnesis 4. července 2024 a účinný od 1. září 2024."
+    },
+    "2024-10-18-national-transposition-lt-kibernetinio-saugumo-istatymas": {
+      "title": "Litva: novelizovaný zákon o kybernetické bezpečnosti (transpozice NIS 2) nabývá účinnosti",
+      "summary": "Směrnici NIS 2 (EU) 2022/2555 provádí v Litvě zákon o kybernetické bezpečnosti (Kibernetinio saugumo istatymas, č. XII-1428 ve znění zákona XIV-2902), přijatý 11. července 2024 a účinný od 18. října 2024."
+    },
+    "2024-11-27-national-transposition-gr-law-5160-2024": {
+      "title": "Řecko provádí NIS 2 zákonem 5160/2024",
+      "summary": "Směrnice NIS 2 (EU) 2022/2555 byla do řeckého práva provedena zákonem 5160/2024, zveřejněným ve Věstníku vlády FEK A' 195 dne 27. listopadu 2024 a účinným od tohoto dne. Zákon reorganizuje národní rámec kybernetické bezpečnosti pod Národním úřadem pro kybernetickou bezpečnost a rozšiřuje okruh základních a důležitých subjektů."
+    },
+    "2025-01-01-national-transposition-hu-act-lxix-2024-in-force": {
+      "title": "Maďarsko: zákon LXIX z roku 2024 o kybernetické bezpečnosti nabývá účinnosti",
+      "summary": "Směrnici NIS 2 (EU) 2022/2555 provádí v Maďarsku zákon LXIX z roku 2024 o kybernetické bezpečnosti Maďarska (2024. evi LXIX. torveny), přijatý parlamentem 20. prosince 2024 a účinný od 1. ledna 2025. Nahrazuje dřívější částečnou transpozici (zákon XXIII z roku 2023) a slučuje maďarskou úpravu kybernetické bezpečnosti do jednoho rámce pod dozorem SZTFH."
+    },
+    "2025-01-01-national-transposition-sk-zakon-366-2024": {
+      "title": "Slovensko: zákon 366/2024 Z.z., kterým se mění zákon o kybernetické bezpečnosti (transpozice NIS 2), nabývá účinnosti",
+      "summary": "Směrnici NIS 2 (EU) 2022/2555 provádí na Slovensku zákon 366/2024 Z.z., kterým se mění zákon 69/2018 Z.z. o kybernetické bezpečnosti (zakon o kybernetickej bezpecnosti), účinný od 1. ledna 2025. Rozšiřuje okruh regulovaných subjektů a dozor svěřuje Národnímu bezpečnostnímu úřadu (NBÚ)."
+    },
+    "2025-04-08-national-transposition-mt-ln-71-2025": {
+      "title": "Malta provádí NIS 2 právním předpisem Legal Notice 71 z roku 2025",
+      "summary": "Směrnice NIS 2 (EU) 2022/2555 byla do maltského práva provedena nařízením Measures for a High Common Level of Cybersecurity across the European Union (Malta) Order, 2025, Legal Notice 71 z roku 2025 (S.L. 460.41), zveřejněným ve Věstníku vlády č. 21 418 dne 8. dubna 2025. Jeho ustanovení nabývají účinnosti ke dnům, které určí příslušný ministr, takže nařízení má postupnou účinnost."
+    },
+    "2025-04-25-national-transposition-cy-law-60-i-2025": {
+      "title": "Kypr provádí NIS 2 zákonem 60(I)/2025",
+      "summary": "Směrnice NIS 2 (EU) 2022/2555 byla do kyperského práva provedena zákonem o bezpečnosti sítí a informačních systémů (změna) z roku 2025, zákonem 60(I)/2025, který mění zákon 89(I)/2020 a nabyl účinnosti 25. dubna 2025. Změna rozšiřuje okruh základních a důležitých subjektů a zpřísňuje povinnosti řízení rizik a hlášení incidentů."
+    },
+    "2025-06-19-national-transposition-si-zinfv-1": {
+      "title": "Slovinsko: zákon o informační bezpečnosti (ZInfV-1, transpozice NIS 2) nabývá účinnosti",
+      "summary": "Směrnici NIS 2 (EU) 2022/2555 provádí ve Slovinsku zákon o informační bezpečnosti (Zakon o informacijski varnosti, ZInfV-1), zveřejněný v Uradni list RS 40/25 dne 4. června 2025 a účinný od 19. června 2025. Vymezuje základní a důležité subjekty a dozor svěřuje národnímu úřadu pro informační bezpečnost URSIV."
+    },
+    "2025-07-10-national-transposition-ro-oug-155-2024-in-force": {
+      "title": "Rumunsko: transpozice NIS 2 (OUG 155/2024, schváleno zákonem 124/2025) nabývá účinnosti",
+      "summary": "Směrnici NIS 2 (EU) 2022/2555 provádí v Rumunsku mimořádné nařízení vlády OUG 155/2024 z 30. prosince 2024 (Monitorul Oficial č. 1332 z 31. prosince 2024), schválené se změnami zákonem 124/2025 (Monitorul Oficial č. 638 ze 7. července 2025), účinné od 10. července 2025. Příslušným národním orgánem kybernetické bezpečnosti pro základní a důležité subjekty je DNSC."
+    },
+    "2025-12-23-national-transposition-at-nisg-2026": {
+      "title": "Rakousko přijímá transpozici NIS 2 (NISG 2026)",
+      "summary": "Směrnice NIS 2 (EU) 2022/2555 byla do rakouského práva provedena zákonem Netz- und Informationssystemsicherheitsgesetz 2026 (NISG 2026), BGBl. I Nr. 94/2025, zveřejněným 23. prosince 2025. Zákon byl přijat, ale účinnosti nabývá 1. října 2026; do té doby platí NISG 2018."
+    },
+    "2026-01-01-national-transposition-ee-kuberts-nis2": {
+      "title": "Estonsko: novelizovaný zákon o kybernetické bezpečnosti (transpozice NIS 2) nabývá účinnosti",
+      "summary": "Směrnici NIS 2 (EU) 2022/2555 provádí v Estonsku zákon, kterým se mění zákon o kybernetické bezpečnosti a další zákony (Küberturvalisuse seaduse ja teiste seaduste muutmise seadus), účinný od 1. ledna 2026, který rozšiřuje okruh základních a důležitých subjektů s povinnostmi v kybernetické bezpečnosti."
+    },
+    "2026-02-13-national-transposition-bg-cybersecurity-act-amendment": {
+      "title": "Bulharsko: transpozice NIS 2 (novela zákona o kybernetické bezpečnosti) vyhlášena a účinná",
+      "summary": "Směrnici NIS 2 (EU) 2022/2555 provádí v Bulharsku zákon, kterým se mění a doplňuje zákon o kybernetické bezpečnosti, přijatý Národním shromážděním 5. února 2026 a vyhlášený ve Státním věstníku (Darzhaven vestnik) č. 17 ze 13. února 2026. Rozděluje povinné organizace na základní a důležité subjekty a zavádí odpovědnost vedení a povinnosti řízení rizik; za první porušení platí do 1. července 2026 snížené sankce."
+    },
+    "2026-06-17-eu-cooperation-group-security-measures-reference": {
+      "title": "Skupina pro spolupráci NIS zveřejňuje referenční dokument k bezpečnostním opatřením NIS2 s tabulkou mapování",
+      "summary": "Skupina pro spolupráci NIS (členské státy, Evropská komise a ENISA) zveřejnila nezávazný referenční dokument, který stanoví společné cíle kybernetické bezpečnosti pro subjekty v působnosti směrnice NIS 2, záměrně formulované obecně, aby platily napříč odvětvími, technologiemi a provozními prostředími. Připojená tabulka mapování propojuje cíle s požadavky směrnice, prováděcího nařízení Komise (EU) 2024/2690 a stávajících mezinárodních norem a národních rámců včetně belgického CyberFundamentals (CyFun). Jde jen o pokyny a nenahrazuje vnitrostátní transpoziční právo. Belgický CCB ho ohlásil 17. června 2026; dokumenty jsou na stránce skupiny pro spolupráci NIS na webu Komise."
+    },
+    "2026-06-10-de-bsi-nis2-support-survey": {
+      "title": "Německý úřad BSI spouští průzkum svých nabídek podpory k NIS-2 pro firmy",
+      "summary": "BSI otevřel dotazník, ve kterém se ptá subjektů v působnosti NIS 2 na zpětnou vazbu ke stávajícím nabídkám podpory, jmenovitě k posouzení dotčenosti (Betroffenheitsprüfung), školení vedení (Geschäftsleitungsschulung) a infopaketům #nis2know, a zve k návrhům dalších témat. Průzkum trvá asi 20 minut, zpracovává se anonymně a běžel do 24. června 2026; uvedeným cílem je praktičtější pomoc dotčeným firmám."
+    },
+    "2026-06-26-national-transposition-nl-cyberbeveiligingswet-second-report": {
+      "title": "Nizozemsko: výbory Senátu vydávají druhou zprávu k zákonu Cyberbeveiligingswet, rozprava v plénu 6. nebo 7. července 2026",
+      "summary": "Dne 26. června 2026 vydaly společné výbory Eerste Kamer pro digitalizaci (DIGI) a pro spravedlnost a bezpečnost (J&V) druhou zprávu (tweede verslag) k zákonu Cyberbeveiligingswet (návrh 36.764, transpozice NIS 2), čímž po odpovědi vlády ze 17. června znovu otevřely písemné kolo. Výbory nyní čekají na druhou odpověď vlády, po které je rozprava v plénu naplánována na 6. nebo 7. července 2026 před konečným hlasováním Senátu. Dřívější cíl účinnosti od 1. července 2026 proto už není dosažitelný; datum stanoví královský výnos (koninklijk besluit) po schválení návrhu. Nizozemsko zůstává jedním z posledních opožděných členských států, které transpozici NIS 2 dokončují."
+    },
+    "2026-06-24-enisa-sme-cra-survey-report": {
+      "title": "ENISA zveřejňuje zprávu z průzkumu mezi malými a středními podniky o připravenosti na akt o kybernetické odolnosti",
+      "summary": "ENISA zveřejnila SME CRA Survey Report s výsledky průzkumu mezi malými a středními podniky z února až března 2026 o povědomí o aktu o kybernetické odolnosti (CRA) a připravenosti na něj. Zpráva identifikuje největší mezery vůči očekáváním CRA v modelování hrozeb a soupisech softwarových komponent a uvádí, že malé a střední podniky žádají praktické pokyny vhodné pro týmy bez specializovaných bezpečnostních pracovníků. Hlavní povinnosti podle CRA platí od prosince 2027."
+    },
+    "2026-06-23-national-transposition-pt-myciber-operating-regulation": {
+      "title": "Portugalsko: provozní řád CNCS pro registrační platformu MyCiber nabývá účinnosti",
+      "summary": "Regulamento n.º 756/2026, zveřejněné v Diário da República (2. řada, č. 118) 22. června 2026 a účinné od 23. června 2026, stanoví provozní pravidla platformy MyCiber (myciber.gov.pt) provozované CNCS. Uvádí do praxe registraci a samoidentifikaci subjektů podle Regime Jurídico da Cibersegurança (Decreto-Lei n.º 125/2025, portugalská transpozice NIS 2), čímž se MyCiber mění z fáze konzultace v živý registrační kanál."
+    },
+    "2026-06-25-eu-cra-adco-reporting-september": {
+      "title": "Orgány dozoru nad trhem podle CRA (AdCo CRA) se scházejí v Berlíně; první ohlašovací povinnosti od 11. září 2026",
+      "summary": "Druhé zasedání skupiny pro správní spolupráci podle CRA (AdCo CRA), kterému předsedá německý úřad BSI, se konalo 25. června 2026 v Berlíně. První povinnosti podle aktu o kybernetické odolnosti platí od 11. září 2026, kdy musí výrobci produktů s digitálními prvky hlásit aktivně zneužívané zranitelnosti a závažné incidenty přes jednotnou platformu EU pro podávání zpráv, která se nyní buduje."
+    },
+    "2026-07-01-enisa-nis360-2027-survey": {
+      "title": "ENISA otevírá průzkum NIS360 pro vnitrostátní orgány a vysoce kritické subjekty",
+      "summary": "ENISA spustila 1. července 2026 průzkum, ve kterém vyzývá vnitrostátní orgány a vysoce kritické subjekty podle NIS2, aby přispěly k dalšímu vydání hodnocení vyspělosti a kritičnosti odvětví NIS360. Odpovědi do 30. října 2026."
+    },
+    "2026-07-10-national-transposition-luxembourg-ilr-registration-deadline": {
+      "title": "Lucembursko: samoregistrace podle NIS 2 u ILR končí 10. července 2026",
+      "summary": "Subjekty v působnosti NIS 2 v Lucembursku se musí samy registrovat u Institut Luxembourgeois de Régulation (ILR) do 10. července 2026, kdy končí dvouměsíční lhůta, která začala běžet nabytím účinnosti zákona z 5. května 2026 dne 10. května 2026. Příslušným orgánem je ILR, jednotným kontaktním místem HCPN a pro finanční sektor CSSF."
+    },
+    "2026-07-01-national-transposition-se-ncsc-authority-transfer": {
+      "title": "Švédsko: funkce orgánu pro NIS 2 a CERT-SE přecházejí z MCF do nového NCSC",
+      "summary": "Dne 1. července 2026 přešly švédské jednotné kontaktní místo pro NIS 2, CERT-SE a registrační funkce podle cybersäkerhetslagen z Myndigheten för civilt försvar (MCF, do 1. ledna 2026 MSB) do nově zřízeného Nationellt cybersäkerhetscenter (NCSC) při FRA. Subjekty se registrují zasláním formuláře e-mailem na nis2anmalan@ncsc.se."
+    },
+    "2026-06-30-national-transposition-lt-cybersecurity-law-xv-894": {
+      "title": "Litva: novela XV-894 o vymáhání pokut za kybernetickou bezpečnost nabývá účinnosti",
+      "summary": "Zákon č. XV-894, přijatý Seimasem 12. května 2026 a zveřejněný v Registru právních aktů 15. května 2026, mění od 30. června 2026 čl. 31 odst. 13 zákona o kybernetické bezpečnosti (č. XII-1428). Rozhodnutí Národního centra kybernetické bezpečnosti o pokutě zůstává exekučním titulem, ale nově se vymáhá podle zákona o správě daní i podle občanského soudního řádu a dosavadní tříletá lhůta k předložení k výkonu se ruší. Rozhodnutí, která nabyla právní moci do 29. června 2026, se vymáhají podle dosavadních pravidel. Horní hranice pokut, orgán, který pokuty ukládá, ani postup jejich ukládání se nemění."
+    },
+    "2026-07-04-national-transposition-lt-cybersecurity-law-xv-1076": {
+      "title": "Litva: novela XV-1076 zákona o kybernetické bezpečnosti nabývá účinnosti",
+      "summary": "Zákon č. XV-1076, přijatý Seimasem 25. června 2026 a zveřejněný v Registru právních aktů 3. července 2026, mění od 4. července 2026 zákon o kybernetické bezpečnosti (č. XII-1428). Test velikosti pro základní a důležité subjekty se nyní řídí definicí malých a středních podniků v EU (nad stropem počtu zaměstnanců nebo nad oběma finančními stropy), přičemž počet zaměstnanců se bere z evidence Státního fondu sociálního pojištění a finanční údaje z podaných účetních závěrek nebo daňových údajů; pravidlo, že digitální poskytovatelé registrovaní v Litvě tam mají hlavní provozovnu, se ruší ve prospěch testu podle čl. 26 odst. 2 NIS 2. Hlášení incidentů (čl. 18), opatření k řízení rizik ani horní hranice pokut se nemění."
+    },
+    "2026-07-08-eu-cjeu-referral-nis2-four-states": {
+      "title": "Komise žaluje Irsko, Španělsko, Francii a Nizozemsko u Soudního dvora EU kvůli transpozici NIS 2",
+      "summary": "V červencovém balíčku řízení o porušení povinnosti z roku 2026 podala Evropská komise žalobu u Soudního dvora EU na Irsko, Španělsko, Francii a Nizozemsko kvůli neúplnému provedení směrnice NIS 2 (EU) 2022/2555 a navrhla, aby Soud uložil finanční sankce (paušální částku a denní penále). Lhůta pro transpozici byla 17. října 2024."
+    },
+    "2026-07-07-national-transposition-nl-cyberbeveiligingswet-adopted": {
+      "title": "Nizozemsko přijímá zákon Cyberbeveiligingswet (NIS 2), účinný od 15. srpna 2026",
+      "summary": "Nizozemský Senát (Eerste Kamer) přijal 7. července 2026 zákon Cyberbeveiligingswet (transpozice NIS 2) a zákon Wet weerbaarheid kritieke entiteiten (transpozice CER). Oba nabývají účinnosti 15. srpna 2026, od kdy je povinná registrace přes mijn.ncsc.nl. Pod Cyberbeveiligingswet spadá asi 8 000 subjektů, pod zákon k CER asi 500."
+    },
+    "2026-07-07-eu-ai-cybersecurity-action-plan": {
+      "title": "Komise představuje akční plán EU pro kybernetickou bezpečnost a umělou inteligenci",
+      "summary": "Komise zveřejnila akční plán EU pro kybernetickou bezpečnost a umělou inteligenci (COM(2026) 577), nezávazné sdělení o řízení rizik a příležitostí AI v kybernetické bezpečnosti. Nezavádí žádné nové povinnosti a prezentuje se jako posílení provádění stávajícího práva včetně NIS 2 a CRA; ENISA týž den zveřejnila navazující dokument o kybernetických hrozbách v éře AI."
+    },
+    "2026-07-13-eu-cer-resilience-guidelines": {
+      "title": "Komise zveřejňuje nezávazné pokyny k odolnosti podle směrnice CER",
+      "summary": "Sdělení C/2026/3712 (Úř. věst. 13. července 2026) stanoví nezávazné pokyny podle čl. 13 odst. 5 směrnice CER (EU) 2022/2557 k opatřením k odolnosti kritických subjektů v šesti kategoriích, od prevence a fyzické ochrany po řízení bezpečnosti zaměstnanců. Relevantní pro NIS 2, protože subjekty určené jako kritické podle CER se automaticky považují za základní subjekty podle NIS 2."
+    },
+    "2026-07-13-enisa-sme-cra-maturity-model": {
+      "title": "ENISA zveřejňuje model hodnocení vyspělosti kybernetické odolnosti malých a středních podniků pro CRA",
+      "summary": "ENISA vydala rámec pro hodnocení vyspělosti pro mikro a malé výrobce produktů s digitálními prvky s nástrojem k hodnocení ke stažení. Nezávazné pokyny zaměřené na akt o kybernetické odolnosti, související s povinnostmi k dodavatelskému řetězci podle NIS 2."
+    },
+    "2026-07-10-national-transposition-nl-cbw-staatsblad": {
+      "title": "Nizozemsko zveřejňuje zákon Cyberbeveiligingswet ve Staatsblad (Stb. 2026, 187)",
+      "summary": "Zákon Wet van 8 juli 2026, kterým se provádí NIS 2, byl zveřejněn 10. července 2026 jako Stb. 2026, 187 spolu se zákonem Wet weerbaarheid kritieke entiteiten, kterým se provádí CER (Stb. 2026, 188), a prováděcím nařízením Cyberbeveiligingsbesluit (Stb. 2026, 189). Všechny nabývají účinnosti 15. srpna 2026, kdy se registrace přes MijnNCSC stává povinnou."
+    },
+    "2026-07-13-national-transposition-nl-ienw-sectoral-regulations": {
+      "title": "Nizozemsko: zveřejněny první odvětvové předpisy k NIS 2 pro vodní hospodářství",
+      "summary": "Ministerstvo infrastruktury zveřejnilo první odvětvové ministerské předpisy podle zákona Cyberbeveiligingswet (Stcrt. 2026, 24093) a zákona Wet weerbaarheid kritieke entiteiten (Stcrt. 2026, 24092), které určují CERT-WM jako odvětvový CSIRT pro vodohospodářské úřady a upřesňují povinnost péče a prahy pro hlášení incidentů, a k tomu rozhodnutí o určení dozorových orgánů (Stcrt. 2026, 24155). Účinné od 15. srpna 2026 spolu s nadřazenými zákony."
+    },
+    "2026-07-07-national-transposition-ie-ncsc-board-guidance": {
+      "title": "Irsko: NCSC zveřejňuje pokyny ke kybernetickému řízení pro statutární orgány subjektů podle NIS 2",
+      "summary": "Irské NCSC vydalo nezávazné pokyny pro statutární orgány subjektů v působnosti, postavené na belgickém rámci CyberFundamentals (CyFun) jako preferovaném základu založeném na riziku. Vyšly den předtím, než Komise podala na Irsko žalobu u Soudního dvora EU kvůli neprovedení; zákon National Cyber Security Bill je stále ve fázi předlegislativního posouzení."
+    },
+    "2026-07-10-national-transposition-hu-first-audit-cycle": {
+      "title": "Maďarsko: SZTFH uzavírá první cyklus auditů NIS 2, včas auditováno 2 132 z 2 520 subjektů",
+      "summary": "Maďarská vnitrostátní lhůta pro první audit 30. června 2026 (zákon LXIX z roku 2024) uplynula a 2 132 z 2 520 registrovaných organizací s povinností auditu ho dokončilo včas; zpracováno je 1 511 zpráv z auditu a subjektům, které nesplňují požadavky, hrozí napomenutí nebo pokuty až 150 milionů HUF. Datum 30. června 2026 je maďarská vnitrostátní lhůta, ne celoevropská."
+    },
+    "2026-07-01-national-transposition-se-incident-reporting-in-force": {
+      "title": "Švédsko: povinnosti hlásit incidenty podle NIS 2 nabývají účinnosti (MCFFS 2026:8)",
+      "summary": "Předpisy o hlášení incidentů a informační povinnosti podle švédského zákona o kybernetické bezpečnosti (MCFFS 2026:8) nabyly účinnosti 1. července 2026; hlášení přijímá NCSC při FRA. Předpisy k bezpečnostním opatřením, školení vedení a auditům následují 1. října 2026."
+    },
+    "2026-06-30-national-transposition-it-categorization-window-closes": {
+      "title": "Itálie: končí okno ACN pro kategorizaci stávajících subjektů NIS",
+      "summary": "Okno, ve kterém subjekty registrované v roce 2025 měly dokončit kategorizaci činností přes službu ACN pro kategorizaci NIS (Determinazione 155238/2026, čtyři úrovně relevance), trvalo od 1. května do 30. června 2026. Dalším milníkem pro stávající subjekty je zavedení základních bezpečnostních opatření do 31. října 2026."
+    },
+    "2026-07-07-national-transposition-lu-ilr-implementing-consultations": {
+      "title": "Lucembursko: ILR konzultuje prováděcí předpisy k bezpečnostním opatřením a hlášení incidentů",
+      "summary": "ILR otevřel veřejné konzultace ke dvěma návrhům prováděcích předpisů podle zákona k NIS 2 z 5. května 2026: jeden k bezpečnostním opatřením a druhý k postupům a kritériím hlášení incidentů s významným dopadem (CP/N26/2), několik dní před lhůtou pro samoregistraci 10. července."
+    },
+    "2026-07-22-enisa-health-procurement-guidelines": {
+      "title": "ENISA zveřejňuje pokyny pro zadávání zakázek ke kybernetické bezpečnosti nemocnic a poskytovatelů zdravotní péče",
+      "summary": "ENISA zveřejňuje nezávazné pokyny pro zadávání zakázek, které pomáhají nemocnicím a poskytovatelům zdravotní péče začlenit požadavky kybernetické bezpečnosti do každé fáze životního cyklu zakázky. Jsou sladěny se směrnicí NIS 2, předpisy o zdravotnických prostředcích, GDPR a evropským prostorem pro zdravotní data a jsou prvním výstupem akčního plánu EU pro kybernetickou bezpečnost nemocnic a poskytovatelů zdravotní péče."
+    },
+    "2026-07-24-enisa-eumss-certification-consultation": {
+      "title": "ENISA otevírá veřejnou konzultaci ke schématu EU pro certifikaci řízených bezpečnostních služeb",
+      "summary": "ENISA otevírá do 13. září 2026 veřejnou konzultaci k prvnímu návrhu kandidátského schématu EU pro certifikaci kybernetické bezpečnosti řízených bezpečnostních služeb (EUMSS) podle čl. 48 odst. 1 aktu o kybernetické bezpečnosti. Řeší roztříštěnost požadavků na řízené bezpečnostní služby mezi členskými státy a je důležité pro subjekty podle NIS 2, které detekci a reakci zadávají externím poskytovatelům."
+    },
+    "2026-07-27-eu-cra-business-guidance": {
+      "title": "Komise zveřejňuje pokyny pro firmy k provádění aktu o kybernetické odolnosti",
+      "summary": "Evropská komise zveřejňuje nezávazné pokyny, které vyjasňují, jak výrobci a firmy všech velikostí uplatňují akt o kybernetické odolnosti, včetně působnosti pro produkty, podstatných změn, doby podpory a ohlašovacích povinností. Upozorňuje na první ohlašovací povinnosti od 11. září 2026 a plné uplatňování od 11. prosince 2027; doklady o bezpečnosti produktů podle CRA, například SBOM, podporují i požadavky NIS 2 na dodavatelský řetězec podle čl. 21 odst. 2 písm. d)."
+    },
+    "2026-07-29-de-bsig-amendment-bgbl-221": {
+      "title": "Novela německého BSIG: přesměrovaná definice kritických komponent, přeformulovaná povinnost informovat o kybernetických hrozbách",
+      "summary": "Článek 9 zákona z 21. července 2026 (BGBl. 2026 I Nr. 221, zveřejněno 28. července) mění německý zákon BSIG s účinností od 29. července 2026, den po vyhlášení. Změny jsou technické, nejde o nové povinnosti: § 2 bod 23 nyní u právního předpisu, který určuje kritické komponenty, odkazuje na § 56 odst. 6 místo § 56 odst. 7 a 8 a § 35 odst. 2 nahrazuje křížový odkaz na § 35 odst. 1 větu 1 výslovným odkazem na základní a důležité subjekty, přičemž seznam odvětví i stávající povinnost informovat dotčené příjemce i BSI zůstávají beze změny. § 33 odst. 5 ruší roční režim hlášení údajů o dodávkách a typů kritických komponent, takže každá změna registračních údajů se řídí dvoutýdenní lhůtou, ale zatím se nepoužije: nový § 66 ho, stejně jako § 33 odst. 2, odkládá až do nabytí účinnosti právního předpisu podle § 4 odst. 3 a § 5 odst. 1 KRITIS-Dachgesetz."
+    },
+    "2026-07-29-de-kritis-dachgesetz-amendment": {
+      "title": "Novela německého KRITIS-Dachgesetz: software se počítá jako zařízení, lhůty pro odolnost odpojeny od kalendáře",
+      "summary": "Článek 8 téhož zákona z 21. července 2026 (BGBl. 2026 I Nr. 221) mění KRITIS-Dachgesetz od 29. července 2026. § 2 bod 2 zahrnuje software a IT služby do definice zařízení, přičemž software a IT služby, které přímo neslouží k řízení, monitorování nebo podpoře fyzických procesů, se nadále řídí jen německým zákonem BSIG; § 8 stanoví tříměsíční registrační povinnost přes zařízení provozované společně BSI a BBK, přičemž typy používaných kritických komponent se hlásí jen BSI. Protože prováděcí právní předpis stále chybí, § 13 odst. 5 nahrazuje pevné datum 17. ledna 2026 lhůtou osmi měsíců od nabytí jeho účinnosti."
+    },
+    "2026-07-31-de-registration-grace-period-lapsed": {
+      "title": "Uplynula odkladná lhůta německého úřadu BSI pro registraci: 18 845 registrovaných subjektů, žádné vymáhání zahájeno",
+      "summary": "Faktický termín registrace 31. července 2026, který BSI sdělil hospodářským svazům, uplynul s 18 845 registrovanými subjekty, z toho 6 490 jako besonders wichtige a 12 355 jako wichtige Einrichtungen, oproti oficiálnímu očekávání asi 29 500. heise zveřejnil čísla 4. srpna 2026 s odkazem na BSI, který registraci označil za povinnost pod hrozbou pokut a zároveň potvrdil, že dosud nezahájil žádné správní řízení. Žádná další lhůta nebyla ohlášena a německé spolkové ministerstvo vnitra požádalo Destatis, aby znovu ověřil, kolik subjektů má registrační povinnost skutečně. Rozcestník BSI nyní jasně uvádí, že zákonná lhůta pro registraci už uplynula."
+    },
+    "2026-08-05-de-bsi-tr-03183-1-v1": {
+      "title": "Německý úřad BSI zveřejňuje technickou směrnici TR-03183-1 verze 1.0.0 jako pomůcku pro vstup do CRA",
+      "summary": "Část 1 směrnice TR-03183 (obecné požadavky) dosahuje verze 1.0.0 a je určena výrobcům, kteří ve vývoji zatím nemají vyzrálé bezpečnostní procesy; nabízí cestu založenou na riziku k přiměřeným opatřením kybernetické bezpečnosti pro standardní produkty podle aktu o kybernetické odolnosti. Oznámení uvádí 11. září 2026, kdy začínají ohlašovací povinnosti u aktivně zneužívaných zranitelností a závažných incidentů, a 11. prosince 2027, kdy se CRA uplatní v plném rozsahu, a přikládá strojově čitelnou úvodní sadu opatření ve formátu OSCAL. BSI jasně uvádí, že směrnice není povinná ani závazná a nemůže založit předpoklad shody."
+    },
+    "2026-07-30-enisa-secure-by-design-playbook": {
+      "title": "ENISA zveřejňuje příručku Secure by Design and Default",
+      "summary": "ENISA popisuje praktické kroky k uplatňování zásad bezpečnosti již od návrhu a ve výchozím nastavení v celém životním cyklu produktu, určené zejména malým a středním podnikům a pojaté jako opakovatelné činnosti navázané na stávající vývojové a produktové procesy. Materiál vychází jako verzovaná sada příruček ve veřejném repozitáři, ne jako jedna zpráva. Nezávazné technické pokyny: nezakládají povinnost, ale slovník bezpečnosti od návrhu a ve výchozím nastavení, který používají, je jazykem přílohy I aktu o kybernetické odolnosti."
+    },
+    "2026-07-29-de-bsi-sbom-minimum-elements": {
+      "title": "Německý úřad BSI informuje o aktualizovaných minimálních prvcích SBOM, které revidovala CISA s BSI a mezinárodními partnery",
+      "summary": "CISA ve spolupráci s BSI a mezinárodními partnery revidovala své minimální prvky soupisu softwarových komponent (Minimum Elements for a Software Bill of Materials) z roku 2021, aby zlepšila kvalitu dat a rozšířila okruh případů použití. BSI revizi propojuje se svou směrnicí TR-03183-2, která stanoví datová pole, rozsah a formáty, jaké u SBOM očekává. Na obou stranách jde o nezávazné pokyny: samotná povinnost dodat SBOM vychází z aktu o kybernetické odolnosti, ne z těchto dokumentů."
+    },
+    "2026-07-22-de-cybergovsecure-kabinettsbeschluss": {
+      "title": "Německá spolková vláda přijímá CyberGovSecure jako závazný rámec pro spolkovou správu",
+      "summary": "Německá spolková vláda schválila 22. července 2026 CyberGovSecure a program spuštěný v květnu tak změnila v závazný politický a organizační rámec pro koordinovanou a měřitelnou kybernetickou bezpečnost ve všech spolkových resortech. Oznámení program přímo propojuje se zákonem k provedení NIS2, podle kterého přebírá vedoucí BSI roli koordinátora spolkové vlády pro informační bezpečnost (CISO Bund). Pro rok 2026 mají přednost čtyři oblasti: bezpečné zálohy, bezpečná konfigurace a zabezpečení systémů, správa zranitelností a logování a detekce."
+    },
+    "2026-07-27-grundschutz-sdt-layer-structure": {
+      "title": "Německý úřad BSI převádí Stand-der-Technik-Bibliothek na strukturu ve vrstvách",
+      "summary": "Veřejná knihovna Grundschutz++ přešla 27. července 2026 na strukturu ve vrstvách; následovalo odstranění překonaných definic komponent AWS 28. července a zastaralé komponenty WLAN 30. července. Repozitář stále zveřejňuje průběžné artefakty bez označených vydání, takže nástroje, které knihovnu čtou podle cest k souborům, musí respektovat nové uspořádání. Nezávazné: knihovna je metodický materiál BSI a Kompendium, vydání 2023, zůstává během přechodu platným referenčním rámcem pro audity."
+    },
+    "2026-08-03-national-transposition-nl-registration-mandatory": {
+      "title": "Nizozemsko: NCSC-NL potvrzuje, že registrace bude od 15. srpna povinná bez přechodného období",
+      "summary": "Před nabytím účinnosti zákona Cyberbeveiligingswet uvádí NCSC-NL na své registrační stránce: „De wet treedt op 15 augustus 2026 in werking, vanaf dan is registreren verplicht“ (zákon nabývá účinnosti 15. srpna 2026, od té doby je registrace povinná). Registrace přes mijn.ncsc.nl je dobrovolně otevřená od 17. října 2024 a tímto dnem se stává zákonnou povinností; Cyberbeveiligingsbesluit nestanoví žádné přechodné ustanovení, takže přechodné období neexistuje. Čl. 44 odst. 2 Cbw vyžaduje změny registrovaných údajů hlásit bez zbytečného odkladu, nejpozději do dvou týdnů. NCSC-NL zveřejnilo mezi 20. červencem a 4. srpnem 2026 kontrolní seznam k registraci, rozhodovací strom k působnosti a pokyny k povinnosti péče, hlášení incidentů a dozoru."
+    },
+    "2026-08-03-national-transposition-lu-ilr-consultation-extension": {
+      "title": "Lucembursko: ILR prodlužuje obě konzultace k NIS 2 do 31. srpna a zveřejňuje šablony výstupů",
+      "summary": "ILR prodloužil obě veřejné konzultace, CP/N26/1 k bezpečnostním opatřením a CP/N26/2 k hlášení incidentů, ze 6. srpna do 31. srpna 2026. Spolu s prodloužením zveřejnil čtyři nezávazné šablony výstupů k bezpečnostním opatřením: popis zavedených opatření, analýzu hlavních scénářů kybernetických rizik, víceletý akční plán a seznam závislostí. Šablony jsou pracovní pomůcky; závazné lhůty a technické náležitosti stanoví předpisy ILR (règlements)."
+    },
+    "2026-07-21-national-transposition-hr-zks-q2-2026": {
+      "title": "Chorvatsko: 798 subjektů zařazeno podle zákona o kybernetické bezpečnosti, 87 incidentů ve druhém čtvrtletí",
+      "summary": "NCSC-HR zveřejnilo 21. července 2026 čtvrtletní přehled provádění zákona Zakon o kibernetickoj sigurnosti. Uvádí 798 právnických osob zařazených jako povinné subjekty, z toho 162 základních (kljucni) a 636 důležitých (vazni), a konstatuje, že určování povinných subjektů pokračuje. Za druhé čtvrtletí hlásí 87 kybernetických incidentů, z toho 23 významných a 64 ostatních, převážně ve veřejném sektoru. Chorvatsko určuje subjekty prostřednictvím úřadu, ne samoregistrací, takže jde o čísla zařazení, ne o registrace."
+    },
+    "2026-07-17-national-transposition-hr-cyber-solidarity-act": {
+      "title": "Chorvatsko zveřejňuje nařízení k provedení aktu EU o kybernetické solidaritě",
+      "summary": "Uredba o provedbi Akta o kibernetickoj solidarnosti vyšla v Narodne novine 78/2026 dne 17. července 2026 a nabývá účinnosti osmým dnem po zveřejnění. Provádí na vnitrostátní úrovni nařízení (EU) 2025/38, včetně evropského systému kybernetického varování, kybernetické rezervy EU a přezkumu incidentů. Stojí vedle NIS 2, ne uvnitř: chorvatskou transpozicí NIS 2 zůstává Zakon o kibernetickoj sigurnosti (Narodne novine 14/2024)."
+    },
+    "2026-08-15-national-transposition-nl-cbw-in-force": {
+      "title": "Nizozemsko: zákon Cyberbeveiligingswet je účinný, registrace v registru subjektů je nyní povinná",
+      "summary": "Zákon Cyberbeveiligingswet (NIS 2) nabyl účinnosti 15. srpna 2026. Základní a důležité subjekty se od tohoto dne musí registrovat v národním registru subjektů přes Mijn.NCSC.nl a každou změnu registrovaných údajů hlásit do dvou týdnů. Dozor vykonává RDI, který může uložit pokutu nebo penále; údaje z registru se předávají ENISA."
+    },
+    "2026-08-06-national-transposition-pt-myciber-registration-window": {
+      "title": "Portugalsko: vláda popisuje praktické povinnosti podle nového režimu kybernetické bezpečnosti, 60 pracovních dní na registraci v MyCiber",
+      "summary": "Portugalský vládní digitální portál popsal, jak se Decreto-Lei 125/2025 a Regulamento 756/2026 uplatňují v praxi. Základní, důležité a relevantní veřejné subjekty mají 60 pracovních dní na registraci a samoidentifikaci na platformě MyCiber a 24 měsíců od zařazení ze strany CNCS na zavedení minimálních bezpečnostních opatření."
+    },
+    "2026-08-06-enisa-cve-root-expansion": {
+      "title": "ENISA rozšiřuje svůj CVE Root na 20 autorit pro číslování CVE",
+      "summary": "ENISA přijala NATO Communications and Information Agency a AISLE jako autority pro číslování CVE (CNA), čímž ENISA Root dosahuje 20 CNA, z toho 12 přijatých přímo a 8 převedených z MITRE Root. ENISA se stala CVE Root v listopadu 2025 a provozuje evropskou databázi zranitelností, kterou předpokládá směrnice NIS 2."
+    },
+    "2026-07-31-de-bsi-kritis-in-zahlen": {
+      "title": "Německý úřad BSI aktualizuje KRITIS in Zahlen: 1 231 registrovaných provozovatelů a 2 180 kritických zařízení",
+      "summary": "BSI aktualizoval statistickou stránku KRITIS in Zahlen s daty k 30. červnu 2026: 1 231 registrovaných provozovatelů KRITIS, kteří provozují 2 180 kritických zařízení, a hlášení incidentů za první čtvrtletí 2026 podle odvětví. BSI upozorňuje, že vysoký počet hlášení sám o sobě nevypovídá o bezpečnostní úrovni odvětví."
+    },
+    "2026-07-09-de-bsi-gain-22": {
+      "title": "Německý úřad BSI zveřejňuje GAiN verze 2.2, základní požadavky na prokazování podle § 39 odst. 2 BSIG",
+      "summary": "Verze 2.2 dokumentu Grundsaetzliche Anforderungen im Nachweisverfahren (GAiN) z 9. července 2026 sjednocuje základ auditů provozovatelů KRITIS s novelizovaným německým zákonem BSIG a v celém textu ho reviduje. Kapitola 4 uvádí kontroly, které začnou platit 1. ledna 2027 nebo zaniknou. GAiN jsou pokyny BSI k prokazovacímu řízení podle § 39, které musí provozovatelé KRITIS absolvovat každé tři roky, a samy nové zákonné povinnosti nezakládají."
+    },
+    "2026-07-07-enisa-frontier-ai-view": {
+      "title": "ENISA zveřejňuje svůj pohled na kybernetickou bezpečnost v éře špičkové AI",
+      "summary": "ENISA zveřejnila zprávu pro příslušné vnitrostátní orgány, tvůrce politik EU, obránce a poskytovatele služeb s první sadou doporučení k budování provozních schopností potřebných proti hrozbám v rychlosti strojů. Zpráva je nezávazné technické stanovisko a nemění povinnosti podle směrnice NIS 2."
+    },
+    "2026-08-17-de-bsi-nis2-in-zahlen-restored": {
+      "title": "Přehled NIS-2-in-Zahlen německého úřadu BSI je opět dostupný s čísly k 30. červnu 2026",
+      "summary": "Přehled BSI, který 5. srpna 2026 vracel HTTP 404, je opět dostupný na původní adrese. Uvádí 17 729 subjektů registrovaných na portálu BSI k 30. červnu 2026, z toho 11 501 wichtige a 6 215 besonders wichtige Einrichtungen, a 17 945 včetně 216 registrovaných přeshraničních poboček. Přidává rozdělení podle odvětví a 692 prvních hlášení incidentů a ohlašuje další aktualizaci na 31. října 2026. BSI nezveřejňuje datum obnovení, proto je tento záznam datován k nejdřívějšímu ověřenému výskytu. Číslo je o měsíc starší než 18 845, které pro lhůtu 31. července uvedl mluvčí BSI přes heise."
+    },
+    "2025-12-23-national-transposition-at-nisg-2026-published": {
+      "title": "Rakousko: NISG 2026 zveřejněn ve Spolkovém zákoníku, účinnost od 1. října 2026",
+      "summary": "Rakousko vyhlásilo 23. prosince 2025 Netz- und Informationssystemsicherheitsgesetz 2026 (NISG 2026) jako BGBl. I Nr. 94/2025; zákon provádí NIS 2 a mění Telekommunikationsgesetz 2021 a Gesundheitstelematikgesetz 2012. Podle § 51 nabývají hmotněprávní ustanovení účinnosti prvním dnem měsíce následujícího po devíti měsících od vyhlášení, tedy 1. října 2026, a ruší NISG z roku 2018; § 29 odst. 3 ukládá subjektům registrovat se u úřadu pro kybernetickou bezpečnost do tří měsíců od nabytí účinnosti."
+    },
+    "2026-08-14-de-bundestag-registration-figures-and-estimate": {
+      "title": "Německá spolková vláda uvádí 19 058 registrací podle NIS-2 a vysvětluje, že číslo 29 500 je odhad, ne počet subjektů v působnosti",
+      "summary": "V písemných odpovědích z 10. a 14. srpna 2026, zveřejněných jako tisk Spolkového sněmu 21/7573, uvádí německá spolková vláda 19 058 registrací u BSI do prodloužené lhůty 31. července 2026, rozdělených na 12 354 důležitých subjektů, 6 487 základních subjektů a 1 378 provozovatelů KRITIS v rámci základní skupiny. Jde o první čísla z primárního zdroje (Tier 1) k této lhůtě a jsou vyšší než 18 845 uváděných v tisku, protože vládní počet zahrnuje registrace přeshraničních poboček. Vláda dále uvádí, že číslo přibližně 29 500, ze kterého vychází NIS2UmsuCG, je předběžný odhad nákladů na plnění od Destatis, ze kterého nelze skutečný počet subjektů v působnosti odvodit, a že BSI zahájí řízení o pokutě podle § 65 odst. 2 bodu 6 německého zákona BSIG, jakmile se dozví o konkrétním neregistrovaném subjektu, přičemž subjekty s registrační povinností obvykle jmenovitě nezná."
+    },
+    "2026-08-06-de-bsi-security-txt-adoption": {
+      "title": "Německý úřad BSI měří rozšíření security.txt v Německu na 1,8 procenta a doporučuje tento soubor pro hlášení zranitelností",
+      "summary": "Měření v projektu BSI Cyberdome zjistila, že 1,8 procenta provozovatelů webů v Německu zveřejňuje security.txt na /.well-known/security.txt. BSI a Allianz für Cyber-Sicherheit doporučují tento soubor standardizovaný v RFC 9116 jako pojmenované kontaktní místo pro koordinované zveřejňování zranitelností a upozorňují, že ohlašovací povinnosti u aktivně zneužívaných zranitelností a závažných bezpečnostních incidentů platí od 11. září 2026 a zacházení se zranitelnostmi podle aktu o kybernetické odolnosti bude plně závazné v prosinci 2027. Doporučení je pokyn a samo nezakládá povinnost."
+    },
+    "2026-08-11-national-transposition-be-ccb-conformity-assessment-request": {
+      "title": "Belgie: inspekční služba CCB zasílá základním subjektům podle NIS 2 žádost o informace k posouzení shody",
+      "summary": "Inspekční služba Centra pro kybernetickou bezpečnost Belgie (CCB), která je zároveň národním certifikačním orgánem kybernetické bezpečnosti, zaslala základním subjektům podle NIS 2 sdělení a žádost o informace podle čl. 48 belgického zákona k NIS 2. Dopis je datován 11. srpna 2026 a nese značku NCCA/JK/INS/2026-002; CCB ho zveřejnilo na své stránce novinek 18. srpna 2026. Subjekty mají uvést, jak daleko jsou s povinným posouzením shody, a dozvídají se, co dělat, když lhůtu nestihnou. Inspekční služba uvádí, že přednostně ověří do 18. dubna 2027, zda základní subjekty mají opatření odpovídající úrovni záruky CyFun Important, a úroveň záruky Essential bude následovat nejpozději do 18. dubna 2028."
+    },
+    "2026-08-20-national-transposition-cz-nukib-guidance-call-for-input": {
+      "title": "Česko: NÚKIB se ptá regulovaných subjektů, které metodické materiály k novému zákonu o kybernetické bezpečnosti jim ještě chybí",
+      "summary": "NÚKIB otevřel výzvu bez časového omezení, ve které zjišťuje, které podpůrné materiály a metodiky k zákonu č. 264/2025 Sb. ještě chybí; tento zákon, kterým Česko provádí NIS 2, je účinný od 1. listopadu 2025 a výrazně rozšířil okruh regulovaných subjektů. Subjekty mohou e-mailem na regulace@nukib.gov.cz s předmětem Podpůrné materiály uvést nejasná témata, nezodpovězené otázky a praktické návody, které potřebují. Lhůta není stanovena a podněty se posuzují průběžně. Cokoli NÚKIB na jejich základě zveřejní, bude metodickým materiálem a zákon to nemění."
+    },
+    "2026-08-21-national-transposition-cz-nukib-annual-report-2025": {
+      "title": "Česko: NÚKIB vykazuje za rok 2025, kdy nabyla účinnosti transpozice NIS 2, 203 kybernetických incidentů",
+      "summary": "NÚKIB zveřejnil výroční zprávu o stavu kybernetické bezpečnosti České republiky za rok 2025, kterou vláda vzala na vědomí 17. srpna 2026. Zaznamenává 203 kybernetických incidentů, o 65 méně než v předchozím roce, přičemž velmi významné incidenty vzrostly z jednoho na dva a významné klesly z 18 na 12. Útoky na dostupnost tvořily 46 procent případů, devět z deseti dotázaných organizací zasáhl phishing a více než třetina nikdy netestovala odolnost zaměstnanců proti němu. Zpráva považuje rok 2025 za legislativní zlom: zákon o kybernetické bezpečnosti, který provádí NIS 2, nabyl účinnosti 1. listopadu 2025 a Portál NÚKIB začal fungovat jako hlavní kanál pro regulované organizace."
+    },
+    "2026-08-26-national-transposition-hu-first-audit-results": {
+      "title": "Maďarsko: SZTFH uvádí, že první audit kybernetické bezpečnosti dokončilo 2 194 subjektů, téměř 90 procent vyhovělo",
+      "summary": "Po zpracování všech zpráv z auditu uvádí SZTFH, že první povinný audit kybernetické bezpečnosti dokončilo do 30. června 2026 celkem 2 194 organizací, více než 2 132 včasných dokončení, které úřad zveřejnil 10. července. Téměř 90 procent splnilo požadavky auditu a asi 10 procent získalo nejvyšší hodnocení, soulad se zanedbatelným rizikem. Auditoři zapsaní v registru SZTFH museli podat zprávu do sedmi dnů od ukončení auditu. Úřad poznamenává, že vzdálený přístup do firemních systémů byl pro auditované organizace důležitý, ale dokumentace těchto systémů byla často nedostatečná. Audit je podle maďarského zákona o kybernetické bezpečnosti povinný každé dva roky a jde o vnitrostátní povinnost, ne celoevropskou."
+    },
+    "2026-07-24-national-transposition-it-acn-h1-2026": {
+      "title": "Itálie: ACN uvádí 1 160 hlášení incidentů v první polovině roku 2026 v režimu NIS 2",
+      "summary": "Ve svém provozním přehledu za leden až červen 2026 uvádí ACN, že CSIRT Italia řešil 2 171 kybernetických událostí, o 47 procent více než ve stejném období roku 2025, z toho 1 072 incidentů s potvrzeným dopadem. Přijal 1 160 hlášení, 953 povinných a 207 dobrovolných, od 890 subjektů, z nichž 690 hlásilo poprvé. Agentura přičítá nárůst širšímu záběru, který vytvořily ohlašovací povinnosti podle NIS 2, ne úměrnému nárůstu útoků: případy ransomwaru klesly o 12 procent na 181 a události DDoS o 32 procent na 407. Itálie provedla NIS 2 nařízením Decreto Legislativo 138/2024 a ACN označuje toto pololetí za první při plném uplatňování těchto povinností."
+    },
+    "2026-08-31-de-bsi-kritis-auditor-personenzertifizierung": {
+      "title": "Německý úřad BSI zveřejňuje koncepci školení auditorů KRITIS a ohlašuje povinnou certifikaci osob",
+      "summary": "BSI zveřejnil závaznou osnovu a koncepci školení s prezentacemi, průvodcem a cvičeními pro auditory, kteří vedou auditní tým při prokazovacích kontrolách, které provozovatelé kritických zařízení dluží podle § 39 odst. 1 německého zákona BSIG. Certifikaci potřebuje jen vedoucí týmu, ne každý auditor v týmu. Povinnou se stane s revidovanými Grundsaetzliche Anforderungen im Nachweisverfahren (GAiN), které BSI očekává začátkem roku 2027, a časté otázky BSI k tomu přidávají osmnáctiměsíční přechodné období, během kterého se doklady od necertifikovaných vedoucích ještě přijímají. Cesta vede přes samostudium, kurz u poskytovatele uvedeného BSI, doklad o praxi a zkoušku u BSI; certifikát platí tři roky a dřívější Pruefverfahrenskompetenz podle § 8a odst. 3 BSIG ve starém znění se do něj nezapočítává. Základem je § 39 odst. 2 BSIG a na povinnostech samotných provozovatelů se nic nemění."
+    },
+    "2026-09-01-eu-eccc-digital-europe-cyber-call": {
+      "title": "ECCC otevírá výzvu programu Digitální Evropa za 96 milionů eur, která jmenuje subjekty podle NIS 2 jako příjemce",
+      "summary": "Evropské centrum odborných znalostí v oblasti kybernetické bezpečnosti (ECCC) otevřelo výzvu k předkládání návrhů v rámci programu Digitální Evropa s rozpočtem až 96 milionů eur, otevřenou od 1. září 2026 do 14. ledna 2027 do 17:00 SEČ. Financováno je sedm témat, mezi nimi 20 milionů eur na posílení kapacit kybernetické bezpečnosti evropských malých a středních podniků pomocí řešení s podporou AI, 20 milionů eur na posílení kapacit kybernetické bezpečnosti EU v souladu s legislativními požadavky, 15 milionů eur na koordinované testování připravenosti a 11 milionů eur na síť národních koordinačních center. Jako zamýšlení příjemci jsou jmenovány subjekty podle NIS 2, příslušné orgány a subjekty ve vysoce kritických odvětvích. Jde o financování, ne o novou povinnost."
+    },
+    "2026-09-03-eu-g7-post-quantum-call-to-action": {
+      "title": "Pracovní skupina G7 pro kybernetickou bezpečnost zveřejňuje výzvu Preparing for the Post-Quantum Era: A Call to Action",
+      "summary": "Za francouzského předsednictví G7 vedla ANSSI zveřejnění společné výzvy k postkvantové kryptografii, kterou podepsaly národní agentury kybernetické bezpečnosti všech sedmi států G7, s Evropskou komisí a ENISA jako hosty. Stanoví pět priorit: zvyšovat povědomí o kybernetických rizicích souvisejících s kvantovými technologiemi, národní strategie PQC včetně dodávek produktů PQC, výzkum a nasazení, spolupráci veřejného a soukromého sektoru a začlenění PQC do požadavků kybernetické bezpečnosti a zadávání zakázek. Organizace mají postupovat po etapách a podle rizika, počínaje soupisem kryptografických aktiv a plánem přechodu. Dokument je nezávazný a sám nezakládá povinnost podle NIS 2: kryptografické požadavky na subjekty podle NIS 2 zůstávají ty, které stanoví příloha CIR 2024/2690 a vnitrostátní transpoziční právo."
+    },
+    "2026-09-03-de-bsi-memory-safe-languages": {
+      "title": "Německý úřad BSI a Sovereign Tech Agency doporučují programovací jazyky bezpečné z hlediska paměti",
+      "summary": "Sovereign Tech Agency zveřejnila stanovisko, které doporučuje programovací jazyky bezpečné z hlediska paměti, a BSI k doporučením přispěl. Uvádí, že chyby související s pamětí tvoří 60 až 70 procent zranitelností nalezených ve velkých kódových základnách psaných v jazycích jako C a C++, a tvrdí, že jazyky bezpečné z hlediska paměti tuto třídu chyb odstraňují již při překladu. Stanovisko navrhuje strategie přechodu a financování školení z EU a národních zdrojů místo plošného přepisování a BSI ho prezentuje jako podporu bezpečnosti od návrhu, kterou spojuje s aktem o kybernetické odolnosti. Jde o doporučení, ne o pravidlo, a oznámení necituje ani NIS 2, ani BSIG."
+    },
+    "2025-03-12-national-transposition-fr-senat-first-reading": {
+      "title": "Francie: Senát přijímá v prvním čtení zákon o odolnosti, který provádí NIS 2",
+      "summary": "Francouzský Senát přijal v prvním čtení projet de loi relatif a la resilience des infrastructures critiques et au renforcement de la cybersecurite, jediný předpis, který provádí NIS 2 spolu se směrnicí CER a částmi DORA. Vláda ho předložila 15. října 2024 ve zrychleném řízení; 13. března 2025 byl postoupen Národnímu shromáždění (Assemblee nationale) a zvláštní výbor podal zprávu 10. září 2025. K začátku září 2026 v Národním shromáždění žádné hlasování v plénu neproběhlo a Komise 8. července 2026 podala na Francii žalobu u Soudního dvora EU kvůli neprovedení."
+    },
+    "2026-03-17-national-transposition-fr-recyf": {
+      "title": "Francie: ANSSI zveřejňuje Referentiel Cyber France před dokončením transpozice",
+      "summary": "ANSSI zpřístupnila od 17. března 2026 Referentiel Cyber France (ReCyF), který uvádí opatření doporučená ke splnění bezpečnostních cílů podle NIS 2. Šíří se jako pracovní dokument a ve výchozím stavu je dobrovolný, ale subjekty, které ho uplatňují, se o něj mohou opřít při kontrole ANSSI, a odpovídá rámci kybernetické bezpečnosti, který jmenuje článek 14 zákona o odolnosti. ANSSI uvádí, že dokud transpozice není dokončena, konečnou verzi nezveřejní. Srovnávací nástroj na MesServicesCyber mapuje ReCyF na další rámce včetně řady ISO 2700x a přílohy CIR 2024/2690 a služba předregistrace pro budoucí základní a důležité subjekty je už otevřená."
+    },
+    "2025-01-14-national-transposition-es-anteproyecto": {
+      "title": "Španělsko: Rada ministrů schvaluje návrh zákona o koordinaci a řízení kybernetické bezpečnosti",
+      "summary": "Španělská Rada ministrů schválila Anteproyecto de Ley de Coordinacion y Gobernanza de la Ciberseguridad, návrh zákona, který provádí NIS 2 do španělského práva. Zřizuje Centro Nacional de Ciberseguridad při úřadu předsedy vlády jako jediný příslušný národní orgán, jednotné kontaktní místo pro přeshraniční spolupráci a národní orgán pro řízení kybernetických krizí, s dozorem rozděleným mezi odvětvové orgány. K září 2026 návrh stále nebyl zveřejněn v BOE, mezitím se dál použije královské nařízení 43/2021 a Komise 8. července 2026 podala na Španělsko žalobu u Soudního dvora EU."
+    },
+    "2026-08-27-national-transposition-ro-dnsc-order-1-2026": {
+      "title": "Rumunsko: nařízení DNSC 1/2026 stanoví závazná opatření k řízení rizik a metodiku sebehodnocení vyspělosti",
+      "summary": "Nařízení ředitele DNSC č. 1/2026 bylo zveřejněno v Monitorul Oficial, část I, č. 712 a 712bis z 27. srpna 2026 a zavazuje základní a důležité subjekty podle OUG 155/2024. Schvaluje katalog opatření k řízení kybernetických rizik uspořádaný do oblastí řízení, identifikace, ochrany, detekce, reakce a obnovy a metodiku sebehodnocení vyspělosti těchto opatření a mění metodiku úrovně rizika subjektů stanovenou nařízením DNSC 2/2025. DNSC zveřejnil začátkem září 2026 odpovídající nástroje k sebehodnocení pro úrovně záruky basic, important a essential; subjekty, jejichž celkové skóre rizika bylo validováno, podávají sebehodnocení přes platformu NIS2@RO ve lhůtě stanovené OUG 155/2024."
+    },
+    "2026-08-31-national-transposition-hu-sztfh-review": {
+      "title": "Maďarsko: vláda nařizuje přezkum SZTFH, dozorového úřadu pro NIS 2, včetně možnosti jeho zrušení",
+      "summary": "Usnesení vlády 1277/2026 (VIII. 31.), zveřejněné v Magyar Közlöny č. 121 z 31. srpna 2026, nese název o přezkumu úřadu pro dozor nad regulovanými činnostmi a možnostech jeho zrušení. Ukládá ministru spravedlnosti podat vládě do 30. září 2026 zprávu o tom, jak by bylo možné SZTFH zrušit a jeho úkoly převést na orgány řízené vládou. SZTFH vykonává dozor nad kybernetickou bezpečností podle maďarské transpozice NIS 2 a vedl první cyklus povinných auditů, který skončil 30. června 2026; 1. září 2026 odpověděl, že zůstává nezávislým orgánem odpovědným parlamentu a s přezkumem bude spolupracovat."
+    },
+    "2026-09-11-enisa-cra-single-reporting-platform": {
+      "title": "ENISA spouští jednotnou platformu pro podávání zpráv podle CRA, když začínají platit ohlašovací povinnosti",
+      "summary": "ENISA 11. září 2026 nasadila počáteční provozní verzi jednotné platformy pro podávání zpráv (Single Reporting Platform), tedy v den, kdy výrobce začaly zavazovat ohlašovací povinnosti podle nařízení (EU) 2024/2847 (akt o kybernetické odolnosti). Výrobci produktů s digitálními prvky ohlašují aktivně zneužívané zranitelnosti a závažné incidenty jednou přes platformu: včasné varování do 24 hodin, úplné oznámení do 72 hodin a poté závěrečnou zprávu do 14 dnů od zpřístupnění nápravného opatření u zranitelnosti nebo do jednoho měsíce u závažného incidentu. Oznámení dostane CSIRT členského státu hlavní provozovny výrobce, který ho předá dalším dotčeným CSIRT a ENISA. Správci softwaru s otevřeným zdrojovým kódem jsou zahrnuti od 11. prosince 2027 podle čl. 71 odst. 2. První verze nemá API, takže zprávy se podávají přes webové rozhraní."
+    },
+    "2026-09-11-eu-cooperation-group-incident-overview-2025": {
+      "title": "Skupina pro spolupráci NIS zveřejňuje první roční přehled incidentů hlášených podle NIS 2",
+      "summary": "Přehled 2025 Annual overview on NIS2 Cybersecurity Incident Reporting, označený září 2026 a uvedený na stránce skupiny pro spolupráci 11. září 2026, je prvním vydáním, které pokrývá události oznámené podle čl. 23 a čl. 30 směrnice NIS 2. Členské státy za rok 2025 nahlásily 1 954 událostí oproti 1 508 za rok 2024, zatímco počet hlásících členských států klesl. Úmyslné jednání poprvé za pět let vystřídalo selhání systému jako nejčastěji hlášenou hlavní příčinu, události způsobené selháním systémů trvaly v průměru 48,3 hodiny oproti 8,6 hodiny u úmyslných, veřejná správa nahradila zdravotnictví jako nejvíce zasažené odvětví a 8 členských států nahlásilo 41 přeshraničních událostí. Zpráva je publikací skupiny pro spolupráci založenou na analýze ENISA a nezakládá žádné povinnosti."
+    },
+    "2026-09-11-national-transposition-pt-myciber-half-registered": {
+      "title": "Portugalsko: několik dní před lhůtou se v MyCiber zaregistrovala asi polovina subjektů, které CNCS očekává",
+      "summary": "CNCS 11. září 2026 sdělilo odbornému časopisu IT Security, že počet registrací na platformě MyCiber dosáhl zhruba poloviny odhadovaného okruhu, který úřad podle Decreto-Lei n.º 125/2025 odhaduje na více než 5 000 subjektů, oproti asi 450 v předchozím režimu. Lhůta pro registraci a samoidentifikaci je 15. září 2026, 60 pracovních dní poté, co Regulamento n.º 756/2026 učinilo 23. června 2026 z MyCiber živý kanál. Jde o vnitrostátní lhůtu podle portugalského práva, ne celoevropskou, a její zmeškání je podle nařízení závažným porušením."
+    },
+    "2026-09-08-national-transposition-at-usp-nis2-services": {
+      "title": "Rakousko: registrace a hlášení incidentů přecházejí 1. října 2026 do aplikace NIS2 Services v USP",
+      "summary": "Unternehmensserviceportal, rakouský spolkový portál služeb pro firmy, uvádí na stránce aktualizované 8. září 2026, že aplikace NIS2 Services bude v USP dostupná od 1. října 2026, kdy nabývá účinnosti NISG 2026, a že ji subjekty použijí k registraci i k hlášení významných kybernetických incidentů. Portál uvádí 1. ledna 2027 jako datum, do kdy musí být provedena první registrace; zákonným základem je tříměsíční lhůta od nabytí účinnosti podle § 29 odst. 3 NISG 2026. Datum záznamu je datem aktualizace stránky, protože portál u oznámení neuvádí samostatné datum zveřejnění."
+    },
+    "2026-09-22-enisa-threat-landscape-2026": {
+      "title": "ENISA zveřejňuje Threat Landscape 2026 o incidentech pozorovaných v roce 2025",
+      "summary": "ENISA zveřejnila 22. září 2026 svou výroční zprávu o hrozbách, která analyzuje incidenty a události pozorované od 1. ledna do 31. prosince 2025. Agentura dochází k závěru, že kybernetické závislosti rozšiřují prostor pro útoky, a uvádí, že veřejnou správu v EU stále častěji zasahovaly útoky hacktivistů na dostupnost služeb. Zpráva je hodnocením situace, ne závazným pokynem, a sama podle směrnice NIS 2 nezakládá žádné povinnosti."
+    },
+    "2026-09-23-de-bsi-tr-03185-first-certificate": {
+      "title": "Německý úřad BSI uděluje první certifikát bezpečného procesu vývoje softwaru podle TR-03185",
+      "summary": "BSI 23. září 2026 oznámil, že DUX Healthcare GmbH z Karlsruhe získala první certifikát podle technické směrnice TR-03185, která pokrývá bezpečný životní cyklus softwaru od analýzy požadavků po údržbu a správu zranitelností. Certifikovaní výrobci mohou za stanovených podmínek dodávat aktualizace certifikovaných produktů bez nového přezkumu produktu pokaždé. TR-03185 je dobrovolné certifikační schéma BSI, ne povinnost podle německého zákona BSIG, a oznámení ho nespojuje s NIS 2 ani s aktem o kybernetické odolnosti."
+    },
+    "2026-09-22-national-transposition-fr-assemblee-floor-agenda": {
+      "title": "Francie: návrh zákona k transpozici NIS 2 je na programu pléna Národního shromáždění 7. října 2026",
+      "summary": "Conference des presidents Národního shromáždění (Assemblee nationale) stanovila 22. září 2026 podzimní program a projet de loi relatif a la resilience des infrastructures critiques et au renforcement de la cybersecurite zařadila na veřejné zasedání 7. října 2026, s pokračováním rozpravy 9. října. Oficiální legislativní spis toto datum nyní uvádí. Jde o první termín v plénu od chvíle, kdy Senát návrh přijal 12. března 2025 a zvláštní výbor podal zprávu 10. září 2025, a následuje po žalobě Komise na Francii u Soudního dvora EU z 8. července 2026 kvůli neprovedení. Naplánovaný termín neznamená přijetí a projednání tohoto návrhu bylo už několikrát odloženo."
+    },
+    "2026-09-22-national-transposition-at-bundesamt-cybersicherheit": {
+      "title": "Rakousko: nový Bundesamt fuer Cybersicherheit zahajuje činnost 1. října 2026",
+      "summary": "Rakouské spolkové ministerstvo vnitra oznámilo 22. září 2026, že Bundesamt fuer Cybersicherheit zahájí činnost 1. října 2026, kdy nabývá účinnosti NISG 2026, jako národní orgán podle tohoto zákona. Úřad spadá pod ministerstvo vnitra a soustřeďuje národní dozor nad kybernetickou bezpečností. Od téhož dne probíhají registrace a hlášení incidentů přes aplikaci NIS2 Services v Unternehmensserviceportal."
+    },
+    "2026-09-18-national-transposition-it-acn-enhanced-measures-consultation": {
+      "title": "Itálie: ACN konzultuje posílená bezpečnostní opatření, která mají nahradit základní opatření první fáze",
+      "summary": "Na plenárním zasedání Tavolo NIS 18. září 2026 otevřel italský úřad ACN konzultaci s odvětvovými orgány k posíleným bezpečnostním opatřením (misure di sicurezza rafforzate), postaveným na přiměřenosti a postupnosti, která mají doplnit a nahradit základní bezpečnostní opatření stanovená v první fázi uplatňování D.lgs. 138/2024. ACN také uvedl, že seznam subjektů NIS byl aktualizován poté, co mezi květnem a červencem 2026 vyřídil více než 2 000 opožděných registrací a asi 2 000 řízení o revizi, a potvrdil, že další okno pro registraci a aktualizaci poběží od 1. ledna do 28. února 2027. Posílená opatření jsou ve fázi konzultace a zatím nejsou závazná."
+    },
+    "2026-09-11-national-transposition-it-acn-vademecum": {
+      "title": "Itálie: ACN zveřejňuje Vademecum per i soggetti NIS s kalendářem povinností",
+      "summary": "ACN zveřejnil 11. září 2026 Vademecum per i soggetti NIS, obecného průvodce hlavními povinnostmi podle D.lgs. 138/2024 a jejich lhůtami, s oddíly o udržování aktuálních údajů o subjektu a o kategorizaci činností. Uvádí každoroční okno pro registraci a aktualizaci od 1. ledna do 28. února a registraci popisuje jako cestu ke službám podpory ACN a CSIRT Italia. Vademecum je metodická pomůcka: nenahrazuje nařízení ani rozhodnutí ACN, která opatření stanoví."
+    },
+    "2026-09-21-national-transposition-ro-dnsc-group-norms": {
+      "title": "Rumunsko: normy DNSC stanoví, jak se požadavky kybernetické bezpečnosti uplatňují ve skupině podniků",
+      "summary": "Normy schválené DNSC o tom, jak se požadavky na řízení kybernetických rizik uplatňují u subjektů, které jsou součástí skupiny podniků, byly zveřejněny v Monitorul Oficial, část I, č. 798 z 21. září 2026. Popisují, jak řízení, strategie a řízení rizik stanovené na úrovni skupiny mohou splnit požadavky na úrovni dceřiné společnosti, třídí kontroly na zděděné od skupiny, zavedené místně podle standardu skupiny a sdílené a uvádějí, že politika na úrovni skupiny sama o sobě není dokladem souladu: každý subjekt zůstává odpovědný samostatně. Jde o závazné vnitrostátní normy podle rumunské transpozice NIS 2, která stojí na OUG 155/2024. Web DNSC není dostupný pro automatické kontroly, takže citace vychází z odkazu na Monitorul Oficial, který převzal rumunský právní vydavatel JURIDICE.ro."
+    },
+    "2026-09-18-national-transposition-pl-s46-eid-login": {
+      "title": "Polsko: registr S46 přijímá přeshraniční přihlášení přes eID před lhůtou registrace 3. října",
+      "summary": "Polské ministerstvo digitalizace oznámilo 18. září 2026, že systém S46, který provozuje registr klíčových a důležitých subjektů podle novelizovaného zákona KSC, od 2. září 2026 přijímá přihlášení národní elektronickou identitou (eID) z jiných států EU a přidružených států. Osoby bez polského čísla PESEL se nyní mohou přihlásit přes login.gov.pl pomocí eID z některého z podporovaných států a dostat se do aplikací Wykaz KSC a Cyber Hub. Lhůta pro samoregistraci do registru zůstává 3. října 2026; jde o vnitrostátní lhůtu podle polského práva, ne celoevropskou."
+    },
+    "2026-09-10-national-transposition-nl-supervision-protocol": {
+      "title": "Nizozemsko: vláda zveřejňuje protokol o spolupráci při dozoru podle zákona Cyberbeveiligingswet",
+      "summary": "Dopis parlamentu z 10. září 2026 oznámil zveřejnění protokolu o spolupráci při dozoru podle zákona Cyberbeveiligingswet, nizozemské transpozice NIS 2, a zákona Wet weerbaarheid kritieke entiteiten, který provádí směrnici CER, ve Staatscourant. Protokol stanoví, jak se dozorové orgány koordinují teď, když je Cyberbeveiligingswet od 15. srpna 2026 účinný. Upravuje dozor mezi orgány a nemění povinnosti, které subjekty podle zákona mají."
+    },
+    "2026-09-08-national-transposition-pt-anacom-sectoral-regulation": {
+      "title": "Portugalsko: ANACOM zahajuje přípravu odvětvového předpisu o kybernetické bezpečnosti pro elektronické komunikace",
+      "summary": "ANACOM, kterému Decreto-Lei n.º 125/2025 svěřuje roli odvětvového orgánu kybernetické bezpečnosti pro elektronické komunikace a poštovní služby, schválil 8. září 2026 zahájení regulačního postupu k předpisu Regulamento Sectorial de Ciberseguranca pro odvětví elektronických komunikací. Připomínky lze zasílat do 22. října 2026. Plánované přílohy pokrývají národní referenční rámec kybernetické bezpečnosti, metodiku matice rizik, minimální opatření pro základní a důležité subjekty a opatření pro relevantní veřejné subjekty. Zatím nic není závazné: rozhodnutí otevírá přípravu předpisu, nepřijímá ho. Web ANACOM blokuje automatické načítání, proto byl tento záznam potvrzen přes veřejný vyhledávací index této stránky."
+    },
+    "2026-09-24-eu-itre-draft-reports-nis2-amendments-csa2": {
+      "title": "Evropský parlament: zpravodajka výboru ITRE předkládá návrhy zpráv k cíleným změnám NIS 2 a k aktu o kybernetické bezpečnosti 2",
+      "summary": "Markéta Gregorová (Zelení/EFA), zpravodajka výboru pro průmysl, výzkum a energetiku (ITRE), předložila návrh zprávy k návrhu, kterým se mění směrnice (EU) 2022/2555, pokud jde o zjednodušující opatření a sladění s aktem o kybernetické bezpečnosti 2, postup 2026/0012(COD), z 24. září 2026 (PE792.221). Návrh zprávy k samotnému aktu o kybernetické bezpečnosti 2, postup 2026/0011(COD), je z 18. září 2026 (PE792.222). Lhůta pro pozměňovací návrhy ve výboru je u obou spisů 13. října 2026 a stanovisko k oběma podává IMCO. Jde o návrhy zpravodajky, ne o postoj výboru nebo Parlamentu: směrnice NIS 2 platí beze změny, dokud není pozměňující směrnice přijata, vyhlášena a provedena."
+    },
+    "2026-06-22-de-cybersecurity-bill-bundestag": {
+      "title": "Vládní návrh zákona o posílení kybernetické bezpečnosti ve Spolkovém sněmu: provozovatelé KRITIS by předávali BSI data z detekce útoků",
+      "summary": "Návrh německé spolkové vlády Gesetz zur Staerkung der Cybersicherheit se dostal do Spolkového sněmu jako tisk (Drucksache) 21/6585 z 22. června 2026 poté, co byl 29. května 2026 předložen Spolkové radě jako zvlášť naléhavý. Pro subjekty regulované podle NIS 2 je hlavní změnou německého zákona BSIG nový § 31 odst. 3: provozovatelé kritických zařízení by automaticky předávali BSI ukazatele dostupnosti a ukazatele útoků a zranitelností ze svých systémů detekce útoků, a to dvanáct měsíců poté, co se poprvé stanou provozovateli, nejdříve však dvanáct měsíců po zveřejnění technických požadavků BSI. § 65 by doplnil pokuty za nenasazení detekce útoků nebo nepředávání dat a detekce útoků by vypadla z prokazování podle § 39 odst. 1. Poskytovatelé služeb DNS s nejméně 50 zaměstnanci nebo s ročním obratem i bilanční sumou nad 10 milionů EUR by museli uživatelům nabízet ochranu proti škodlivým doménám založenou na DNS. Jde o návrh zákona, ne o zákon: vláda odmítla všechny návrhy Spolkové rady (tisk 21/7406 z 29. července 2026) a výbor pro vnitro pořádá veřejné slyšení 5. října 2026. Zákon by nabyl účinnosti den po vyhlášení."
+    },
+    "2026-10-01-national-transposition-at-nisg-2026-in-force": {
+      "title": "Rakousko: NISG 2026 je účinný, Bundesamt fuer Cybersicherheit zahajuje činnost a v NIS2 Services se otevírá registrace",
+      "summary": "NISG 2026 (BGBl. I Nr. 94/2025), rakouská transpozice NIS 2, nabyl účinnosti 1. října 2026 a ministerstvo vnitra týž den potvrdilo, že nový Bundesamt fuer Cybersicherheit zahájil činnost pod vedením ředitele Markuse Kasingera. Základní a důležité subjekty a poskytovatelé služeb registrace doménových jmen se registrují přes aplikaci NIS2 Services v Unternehmensserviceportal do tří měsíců od nabytí účinnosti. Úřad uvádí 1. ledna 2027 jako nominální datum a 4. ledna 2027 jako nejzazší, protože § 33 odst. 2 AVG posouvá konec lhůty, který připadne na svátek nebo víkend, na následující pracovní den. Orgány veřejné správy dostanou připojení přes Portalverbund krátce po 1. říjnu 2026. Jde o vnitrostátní lhůty podle rakouského práva."
+    },
+    "2026-10-01-national-transposition-at-nisv-2026": {
+      "title": "Rakousko: NISV 2026 rozšiřuje opatření podle CIR 2024/2690 na všechny typy subjektů a stanoví prahy pro významné incidenty",
+      "summary": "Rakouský úřad pro kybernetickou bezpečnost vydal 1. října 2026 nařízení Netz- und Informationssystemsicherheits-Verordnung (NISV 2026, BGBl. II Nr. 290/2026) podle § 32 odst. 5 a § 35 odst. 3 NISG 2026; nabývá účinnosti uplynutím dne vyhlášení. § 2 uplatňuje požadavky čl. 2 a přílohy prováděcího nařízení (EU) 2024/2690 na všechny typy základních a důležitých subjektů uvedené v přílohách 1 a 2 NISG 2026, nejen na digitální poskytovatele, na které se CIR vztahuje samo. Subjekty, které požadavek nemohou splnit dočasně nebo kvůli své velikosti, musí zavést zdokumentovaná kompenzační opatření a nejméně jednou ročně je přezkoumat. Incident je v každém případě významný, pokud mimo jiné způsobí nebo může způsobit přímou finanční ztrátu nad 500 000 EUR nebo 5 procent ročního obratu, podle toho, co je nižší, výpadek pro více než 100 000 uživatelů nebo 10 procent uživatelů, podle toho, co je nižší, na déle než 24 hodin, nebo výpadek v nejméně jedné spolkové zemi na déle než 24 hodin. Opakované incidenty se počítají jako jeden významný incident, pokud nastanou nejméně dvakrát za šest měsíců se stejnou zjevnou příčinou a dohromady překročí práh ztráty. Jde o závazné vnitrostátní právo."
+    },
+    "2026-09-21-national-transposition-be-ccb-interior-national-cyber-hub": {
+      "title": "Belgie: královský výnos převádí CCB pod ministra vnitra a určuje ho jako národní kybernetický hub",
+      "summary": "Královský výnos z 15. září 2026, zveřejněný v Moniteur belge 21. září 2026, mění výnos z roku 2014, kterým vzniklo Centrum pro kybernetickou bezpečnost Belgie. Od 1. ledna 2027 spadá CCB, belgický orgán pro NIS 2, pod ministra bezpečnosti a vnitra a federální úřad vnitra místo kanceláře předsedy vlády a ustanovení o jeho statusu provozní služby se ruší. Důvodová zpráva změnu opírá o požadavek belgického zákona k NIS2, aby inspekční služba vykonávala své úkoly nezávisle, i vůči orgánům veřejné moci, nad kterými vykonává dozor. Článek 3, který se použije deset dní po zveřejnění, určuje CCB jako národní kybernetický hub podle nařízení (EU) 2025/38, aktu o kybernetické solidaritě. Výnos je závazný, ale organizační: nemění žádnou povinnost základních ani důležitých subjektů."
+    },
+    "2026-09-18-national-transposition-ro-dnsc-order-2-2026": {
+      "title": "Rumunsko: nařízení DNSC 2/2026 omezuje, kolik kontrol smí subjekt v sebehodnocení vyspělosti vyloučit jako nepoužitelné",
+      "summary": "Nařízení DNSC č. 2 ze 14. září 2026, zveřejněné v Monitorul Oficial, část I, č. 792 z 18. září 2026, doplňuje nařízení 1/2026 o katalogu opatření k řízení rizik a sebehodnocení vyspělosti. Subjekty smí označit kontroly jako nepoužitelné (N/A) nejvýše jednu na úrovni záruky basic, tři na úrovni important a pět na úrovni essential, každou s písemným odůvodněním. Kontroly označené jako klíčová opatření nelze vyloučit nikdy, stejně jako kontroly řízení na úrovni essential. Vyloučené kontroly se hodnotí 2,5 na úrovni basic a 3 na ostatních úrovních a vyloučení nad limit činí sebehodnocení nevyhovujícím, dokud nejsou napravena. Subjekty ve skupině podniků uplatňují požadavky podle pravidel použitelnosti schválených rozhodnutím ředitele DNSC. Jde o závazné vnitrostátní nařízení."
+    },
+    "2026-09-28-national-transposition-lu-incident-handling-rulebooks": {
+      "title": "Lucembursko: úřady zveřejňují společné provozní příručky pro řešení kybernetických incidentů",
+      "summary": "Dne 28. září 2026 zveřejnily HCPN (jako ANSSI a GOVCERT.LU), CIRCL, CSSF a ILR provozní pokyny k řešení incidentů (Operational guidance for incident handling) podle čl. 14 odst. 5 zákona Loi du 5 mai 2026, lucemburské transpozice NIS 2. Tvoří je příručky pro typické druhy incidentů zveřejněné na GitHubu. Pokyny nejsou závazné a uvádějí, že se nezabývají právními povinnostmi, jako je hlášení incidentů CSSF, ILR nebo CNPD."
+    },
+    "2026-10-01-national-transposition-lv-data-centre-requirements": {
+      "title": "Lotyšsko: nařízení vlády č. 602 stanoví, kde smí základní a důležité subjekty provozovat své informační systémy",
+      "summary": "Nařízení vlády č. 602 o umístění informačních systémů a bezpečnostních požadavcích na datová centra, přijaté 29. září 2026 podle čl. 30 odst. 2 národního zákona o kybernetické bezpečnosti a zveřejněné v Latvijas Vēstnesis 1. října 2026, nabylo účinnosti 1. října 2026. Pokud nestanoví jinak, smí subjekt umisťovat informační systémy jen do datových center v členských státech NATO, EU nebo EFTA nebo v některé z partnerských zemí NATO v indo-pacifickém regionu a zpracování dat musí probíhat na těchto územích. Od nabytí účinnosti nesmí být žádný nový systém třídy A umístěn způsobem, který nařízení nesplňuje. Subjekty se stávajícím umístěním systémů třídy A je oznámí do 31. prosince 2026; nevyhovující stávající umístění může pokračovat do 31. prosince 2027, pokud jsou jeho rizika řízena a do 31. prosince 2026 je připraven plán souladu. Jde o závazné vnitrostátní právo."
+    },
+    "2026-10-01-national-transposition-se-mcffs-security-measures-in-force": {
+      "title": "Švédsko: předpisy o bezpečnostních opatřeních, školení vedení, auditech a skenování nabývají účinnosti",
+      "summary": "Dva předpisy podle švédského zákona o kybernetické bezpečnosti (cybersäkerhetslagen, SFS 2025:1506), o kterých Myndigheten för civilt försvar rozhodla 15. června 2026 a které byly zveřejněny 18. června 2026, nabyly účinnosti 1. října 2026. MCFFS 2026:11 stanoví bezpečnostní opatření a školení vedení, které vyžaduje kapitola 2 § 3 a 4 zákona; provozovatele působící jen v digitální infrastruktuře, digitální poskytovatele, řízení služeb IKT mezi podniky, poštovní a kurýrní služby nebo vesmír zavazuje jen jeho požadavek na školení vedení. MCFFS 2026:12 pokrývá bezpečnostní audity a bezpečnostní skenování podle kapitoly 3 § 5 až 7. NCSC při FRA nabytí účinnosti oznámilo a uvádí, že ucelené pokyny k předpisům budou následovat kolem přelomu let 2026 a 2027. Oba jsou závazné předpisy úřadu."
+    },
+    "2026-09-25-national-transposition-si-ursiv-800-registered": {
+      "title": "Slovinsko: podle ZInfV-1 se samo zaregistrovalo asi 800 základních a důležitých subjektů",
+      "summary": "Niko Gamulin, pověřený ředitel URSIV, vládního úřadu pro informační bezpečnost, uvedl ve vládní zprávě z 25. září 2026, že ve Slovinsku dokončilo samoregistraci podle ZInfV-1, národní transpozice NIS 2, asi 800 základních a důležitých subjektů z veřejného i soukromého sektoru. URSIV také buduje online platformu pro registraci povinných subjektů, hlášení významných incidentů a sdílení informací o kybernetických hrozbách a rizicích. Číslo je vlastním údajem úřadu."
+    },
+    "2026-10-01-national-transposition-bg-infringement-closed": {
+      "title": "Bulharsko: Komise uzavírá řízení o porušení povinnosti kvůli opožděné transpozici NIS 2",
+      "summary": "Bulharské ministerstvo inovací a digitální transformace oznámilo 1. října 2026, že ho týž den informovali o tom, že Evropská komise uzavřela řízení o porušení povinnosti č. 2024/0257, zahájené kvůli neoznámení úplného provedení směrnice (EU) 2022/2555. Uzavření následuje po novele zákona o kybernetické bezpečnosti a oznámení úplné transpozice, které Bulharsko Komisi zaslalo 6. března 2026. Vlastní registr řízení o porušení povinnosti Komise se pro tento záznam nepodařilo ověřit, zdrojem je proto oznámení ministerstva."
+    },
+    "2026-09-01-national-transposition-sk-nbu-audit-decree-212-2026": {
+      "title": "Slovensko: vyhláška NBÚ 212/2026 doplňuje pravidla auditu kybernetické bezpečnosti o sebehodnocení každé dva roky",
+      "summary": "Vyhláška Národního bezpečnostního úřadu (NBÚ) 212/2026 Z. z., kterou se mění vyhláška o auditu 493/2022 Z. z., nabyla účinnosti 1. září 2026. Sebehodnocení, za které odpovídá manažer kybernetické bezpečnosti subjektu, se provádí každé dva roky a jeho zpráva se do konce daného kalendářního roku podává NBÚ přes jednotný informační systém kybernetické bezpečnosti. Audity musí být dokončeny do konce třetího kalendářního roku po posledním auditu, nebo pátého u provozovatele základní služby, který není kritický a využívá režim sebehodnocení podle § 29 odst. 8 zákona o kybernetické bezpečnosti. Audit je nutný také do šesti měsíců od každé významné změny, která podstatně ovlivní bezpečnostní opatření. Jde o závazné vnitrostátní právo."
+    },
+    "2025-10-01-national-transposition-dk-registration-deadline": {
+      "title": "Dánsko: lhůta pro registraci subjektů podle NIS 2-loven",
+      "summary": "Subjekty, na které se vztahuje dánský NIS 2-loven, se musely zaregistrovat přes službu SAMSIK na virk.dk do 1. října 2025. Subjekt, který začne spadat do působnosti zákona po tomto datu, se musí zaregistrovat nejpozději dva týdny poté, co se na něj zákon začne vztahovat. Jde o vnitrostátní lhůtu podle dánského práva."
+    },
+    "2025-09-30-national-transposition-gr-registration-deadline": {
+      "title": "Řecko: prodloužená lhůta pro registraci podle NIS 2 do 30. září 2025",
+      "summary": "Společné ministerské rozhodnutí č. 1990, zveřejněné ve Věstníku vlády (FEK B 4241) 4. srpna 2025, prodloužilo do 30. září 2025 lhůtu, ve které subjekty předkládají své údaje k zápisu do registru Národního úřadu pro kybernetickou bezpečnost podle čl. 4 odst. 3 zákona 5160/2024, a také lhůtu k předložení podle čl. 19 odst. 1 téhož zákona. Registrace probíhá přes platformu úřadu nis2register.cyber.gov.gr. Jde o vnitrostátní lhůtu podle řeckého práva."
+    },
+    "2025-04-01-national-transposition-lv-registration-deadline": {
+      "title": "Lotyšsko: lhůta, do které základní a důležité subjekty podávají oznámení Národnímu centru kybernetické bezpečnosti",
+      "summary": "Podle přechodného ustanovení 7 národního zákona o kybernetické bezpečnosti, účinného od 1. září 2024, musely základní a důležité subjekty podat oznámení Národnímu centru kybernetické bezpečnosti nejpozději 1. dubna 2025. Jde o vnitrostátní lhůtu podle lotyšského práva."
+    },
+    "2025-07-02-national-transposition-lv-minimum-cybersecurity-requirements": {
+      "title": "Lotyšsko: nařízení vlády č. 397 o minimálních požadavcích na kybernetickou bezpečnost nabývá účinnosti",
+      "summary": "Nařízení vlády č. 397 Minimālās kiberdrošības prasības, přijaté 25. června 2025 a zveřejněné v Latvijas Vēstnesis č. 122, nabylo účinnosti 2. července 2025. Stanoví minimální opatření kybernetické bezpečnosti, která podle národního zákona o kybernetické bezpečnosti uplatňují základní a důležité subjekty a vlastníci kritické infrastruktury IKT, včetně řízení rizik, hlášení incidentů, segmentace sítě, uchovávání logů, záloh, řízení přístupu a bezpečnostního testování. Národní centrum kybernetické bezpečnosti uvádí, že subjekty spravující kritickou infrastrukturu IKT nebo informační systémy třídy A podávají sebehodnocení každý rok a ostatní subjekty každé tři roky. Jde o závazné vnitrostátní právo."
+    },
+    "2026-01-23-national-transposition-mt-ln-22-2026-commencement": {
+      "title": "Malta: oznámení o nabytí účinnosti uvádí v účinnost všechna ustanovení nařízení k NIS 2",
+      "summary": "Právním předpisem Legal Notice 22 z roku 2026, zveřejněným ve Věstníku vlády č. 21 575 dne 23. ledna 2026, stanovil ministr odpovědný za ochranu kritické infrastruktury 23. leden 2026 jako den, kdy nabývají účinnosti všechna ustanovení nařízení Measures for a High Common Level of Cybersecurity across the European Union (Malta) Order, 2025 (S.L. 460.41, Legal Notice 71 z roku 2025). Jde o závazné vnitrostátní právo."
+    },
+    "2026-04-07-national-transposition-mt-ln-89-2026-enforcement-committee": {
+      "title": "Malta: novela nařízení zřizuje výbor pro vymáhání a denní penále",
+      "summary": "Legal Notice 89 z roku 2026, zveřejněný ve Věstníku vlády č. 21 618 dne 7. dubna 2026, mění maltské nařízení k NIS 2 (S.L. 460.41). Zřizuje výbor pro vymáhání (Enforcement Committee), jehož členy jmenuje ministr z vyšších státních úředníků a vedoucích pracovníků dalších organizací s hlavním zájmem v této oblasti a který může subjektům, které CIP Department nebo určený příslušný orgán ohlásí jako nevyhovující, uložit správní pokuty podle nařízení poté, co subjektu umožní vyjádřit se. Pokud subjekt po předchozím rozhodnutí opakovaně neukončí nebo nenapraví porušení, může výbor uložit denní penále 100 EUR za každé porušení za každý den, kdy trvá, a to i zpětně od začátku porušení. Jde o závazné vnitrostátní právo."
+    },
+    "2025-09-01-national-transposition-sk-nbu-decrees-226-227-2025": {
+      "title": "Slovensko: vyhlášky NBÚ o bezpečnostních opatřeních a hlášení incidentů nabývají účinnosti",
+      "summary": "Dvě vyhlášky Národního bezpečnostního úřadu (NBÚ), schválené 26. srpna 2025 a vyhlášené 28. srpna 2025, nabyly účinnosti 1. září 2025: vyhláška 227/2025 Z. z. o bezpečnostních opatřeních a vyhláška 226/2025 Z. z., která stanoví podrobnosti hlášení incidentů. Provádějí slovenský zákon o kybernetické bezpečnosti ve znění novely k NIS 2. Jde o závazné vnitrostátní právo."
+    }
+  }
+}

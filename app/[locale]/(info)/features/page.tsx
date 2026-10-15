@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { isLocaleCode } from "@/lib/locale";
 import {
   buildSoftwareApplicationJsonLd,
   type Locale,
@@ -64,7 +65,7 @@ export default async function FeaturesPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale: Locale = isLocaleCode(rawLocale) ? rawLocale : "de";
   const t = await getTranslations("info");
   const featureList = moduleKeys.map((key) => t(`features.modules.items.${key}`));
 
@@ -81,7 +82,7 @@ export default async function FeaturesPage({
       />
       {/* Header */}
       <MarketingHero
-        eyebrow={<Badge variant="secondary">Platform</Badge>}
+        eyebrow={<Badge variant="secondary">{t("features.badges.platform")}</Badge>}
         headline={t("features.title")}
         subhead={t("features.subtitle")}
       />
@@ -99,7 +100,7 @@ export default async function FeaturesPage({
         <div className="grid gap-4 sm:grid-cols-3">
           <div className="rounded-lg border p-4">
             <Badge variant="outline" className="mb-2">
-              §§ 28–30 BSIG
+              {t("features.badges.lawGuided")}
             </Badge>
             <p className="text-xs leading-relaxed text-muted-foreground">
               {t("features.guided.p1")}
@@ -129,7 +130,7 @@ export default async function FeaturesPage({
         <CardHeader>
           <div className="flex items-center gap-2">
             <CardTitle>{t("features.liability.heading")}</CardTitle>
-            <Badge variant="secondary">§ 38 BSIG</Badge>
+            <Badge variant="secondary">{t("features.badges.lawLiability")}</Badge>
           </div>
           <CardDescription>{t("features.liability.p1")}</CardDescription>
         </CardHeader>
@@ -151,7 +152,7 @@ export default async function FeaturesPage({
         </CardContent>
       </Card>
 
-      {/* 132 Requirements */}
+      {/* 49 Requirements */}
       <Card id="requirements" className="scroll-mt-24">
         <CardHeader>
           <div className="flex items-center gap-2">
@@ -162,7 +163,7 @@ export default async function FeaturesPage({
         <CardContent className="space-y-4">
           <div className="grid gap-3 sm:grid-cols-2">
             <div className="rounded-lg border p-4 text-center">
-              <p className="text-2xl font-bold">132</p>
+              <p className="text-2xl font-bold">49</p>
               <p className="mt-1 text-xs text-muted-foreground">
                 {t("features.badges.requirements")}
               </p>
@@ -210,7 +211,7 @@ export default async function FeaturesPage({
             </div>
             <div className="rounded-lg border p-4">
               <Badge variant="outline" className="mb-2">
-                24h / 72h / 1m
+                {t("features.badges.reportingClock")}
               </Badge>
               <p className="text-xs leading-relaxed text-muted-foreground">
                 {t("features.deadlines.p1")}

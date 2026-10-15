@@ -14,7 +14,8 @@ import { GlossedProse } from "@/components/wiki/GlossedProse";
 import { WalkSteps } from "@/components/wiki/WalkSteps";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
+import { wikiLabel, wikiLocale } from "@/lib/content/wiki-locale";
+import { pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -49,7 +50,7 @@ export default async function SecurityObligationPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale = wikiLocale(rawLocale);
   const t = await getTranslations("info");
 
   const faqs = faqKeys.map((key) => ({
@@ -85,7 +86,7 @@ export default async function SecurityObligationPage({
 
         <header>
           <Badge variant="secondary" className="mb-3">
-            BSIG 2025
+            {wikiLabel(locale, { cs: "Zákon č. 264/2025 Sb.", other: "BSIG 2025" })}
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight">
             {t("securityObligation.title")}
@@ -95,10 +96,7 @@ export default async function SecurityObligationPage({
           </p>
         </header>
 
-        <WikiPageMeta
-          authorSlug="simon-orzel"
-          locale={locale === "nl" ? "de" : (locale as "de" | "en")}
-        />
+        <WikiPageMeta authorSlug="simon-orzel" locale={locale === "nl" ? "de" : locale} />
 
         <Separator />
 
