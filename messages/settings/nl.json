@@ -40,6 +40,7 @@
       "disconnected": "Alle assistenten zijn ontkoppeld.",
       "replaceNote": "Een nieuwe sleutel of ontkoppelen beëindigt de vorige sleutel en elke aanmelding van een assistent.",
       "failed": "Dat is niet gelukt. Probeer het opnieuw.",
+      "companyChanged": "U hebt in een ander tabblad een ander bedrijf geopend. Laad deze pagina opnieuw om te koppelen in het bedrijf dat u open hebt.",
       "locked": "Een assistent werkt in het NIS 2 stappenplan. Dat is voor uw account nog niet vrijgegeven, dus tot dan kan een assistent niets lezen en niets invullen.",
       "toWalk": "Naar het stappenplan",
       "copyFailed": "Kopiëren lukte niet. Selecteer de sleutel in het veld en kopieer hem zelf.",
@@ -58,7 +59,8 @@
         "deny": "Weigeren",
         "expired": "Dit verzoek is verlopen of ongeldig. Start de koppeling opnieuw in de assistent.",
         "disconnectHint": "Ontkoppelen kan altijd in de instellingen.",
-        "failed": "Dat is niet gelukt. Probeer het opnieuw."
+        "failed": "Dat is niet gelukt. Probeer het opnieuw.",
+        "companyChanged": "U hebt in een ander tabblad een ander bedrijf geopend. Laad deze pagina opnieuw om te koppelen in het bedrijf dat u open hebt."
       }
     }
   }

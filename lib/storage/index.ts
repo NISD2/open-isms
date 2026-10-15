@@ -10,5 +10,7 @@ export {
   deleteObject,
   listObjectKeys,
   putObject,
+  storedSize,
+  UPLOAD_ENCRYPTION,
 } from "./presign";
 export { BUCKET, s3 } from "./s3-client";

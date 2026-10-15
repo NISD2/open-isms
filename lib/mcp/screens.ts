@@ -51,7 +51,14 @@ const fill = <S extends z.ZodType>(screen: {
 
 const nothing = z.object({});
 
-/** The company's assets with the columns the asset screens ask about. */
+/** Provider names one `specify` call may carry, each a supplier when the list lacks it. */
+const MAX_NEW_SUPPLIERS = 50;
+
+/**
+ * The company's assets with every column the asset screens ask about. A save writes each row as
+ * sent, so an assistant sends back what is stored for what it does not mean to change; it can do
+ * that only if it sees it, as the app's own screens prefill it.
+ */
 const assetsOf = async (caller: Caller) =>
   (await caller.asset.list()).map((a) => ({
     id: a.id,
@@ -59,6 +66,12 @@ const assetsOf = async (caller: Caller) =>
     type: a.type,
     catalogId: a.catalogId,
     description: a.description,
+    hosting: a.hosting,
+    hasMfa: a.hasMfa,
+    mfaMethod: a.mfaMethod,
+    backupFrequency: a.backupFrequency,
+    lastBackupTestDate: a.lastBackupTestDate,
+    isCritical: a.isCritical,
   }));
 
 /** The catalogue the asset list is ticked from, in the walk's language. */
@@ -71,8 +84,8 @@ const catalogOf = (language: WalkLocale) =>
 
 /**
  * The screens an assistant fills besides an item's fields and its register (walk.ts), keyed by
- * kind. What is left out stays with a person: evidence is a file uploaded in the app, and the
- * approval is management's signature.
+ * kind. Files go through `upload_file` instead (tools.ts). What is left out stays with a person:
+ * the approval is management's signature.
  */
 export const SCREEN_FILLS = {
   assets: fill({
@@ -85,7 +98,13 @@ export const SCREEN_FILLS = {
     save: (caller, _code, input) => caller.durchgang.addAssets(input),
   }),
   specify: fill({
-    input: specifyAssetsInput,
+    // A provider name the company's list lacks becomes a new supplier, so one call names at most
+    // as many as a register call adds rows; the app's screen never sends more.
+    input: specifyAssetsInput.refine(
+      (input) =>
+        new Set(input.rows.flatMap((r) => r.providers)).size <= MAX_NEW_SUPPLIERS,
+      { message: `At most ${MAX_NEW_SUPPLIERS} different provider names per call.` },
+    ),
     modules: ["asset", "supplier"],
     shows: async (caller) => {
       const [assets, providers, suppliers] = await Promise.all([
@@ -122,7 +141,16 @@ export const SCREEN_FILLS = {
   agreements: fill({
     input: recordAgreementsInput.omit({ code: true }),
     modules: ["supplier"],
-    shows: async (caller) => ({ suppliers: await caller.supplier.list() }),
+    // Only what the screen asks about, so nothing a linked supplier wrote reaches the assistant here.
+    shows: async (caller) => ({
+      suppliers: (await caller.supplier.list()).map((s) => ({
+        id: s.id,
+        name: s.name,
+        linkedToSupplier: s.supplierCompanyId !== null,
+        hasSecurityClauses: s.hasSecurityClauses,
+        hasIncidentNotificationClause: s.hasIncidentNotificationClause,
+      })),
+    }),
     save: (caller, code, input) => caller.durchgang.recordAgreements({ code, ...input }),
   }),
   logins: fill({
@@ -140,7 +168,14 @@ export const SCREEN_FILLS = {
   critical: fill({
     input: recordCriticalInput.omit({ code: true }),
     modules: ["asset"],
-    shows: async (caller) => ({ assets: await assetsOf(caller) }),
+    // The one-line fallback per process lives in the plan's config, which the policy draft reads.
+    shows: async (caller, code) => {
+      const [assets, draft] = await Promise.all([
+        assetsOf(caller),
+        caller.durchgang.policyDraft({ code }),
+      ]);
+      return { assets, fallbacks: draft.fallbacks };
+    },
     save: (caller, code, input) => caller.durchgang.recordCritical({ code, ...input }),
   }),
   policy: fill({
@@ -170,7 +205,8 @@ export const SCREEN_FILLS = {
   }),
   adopt: fill({
     input: nothing,
-    modules: [],
+    // Taking the method over replaces the risk scales the register's ratings sit on.
+    modules: ["risk"],
     shows: async () => null,
     save: (caller) => caller.durchgang.adoptMethod(),
   }),

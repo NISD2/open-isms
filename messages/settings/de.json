@@ -40,6 +40,7 @@
       "disconnected": "Alle Assistenten sind getrennt.",
       "replaceNote": "Ein neuer Schlüssel und das Trennen beenden den bisherigen Schlüssel und jede Anmeldung eines Assistenten.",
       "failed": "Das hat nicht geklappt. Bitte versuchen Sie es noch einmal.",
+      "companyChanged": "Sie haben in einem anderen Tab ein anderes Unternehmen geöffnet. Laden Sie diese Seite neu, um im geöffneten Unternehmen zu verbinden.",
       "locked": "Ein Assistent arbeitet im NIS 2 Durchgang. Der ist für Ihr Konto noch nicht freigeschaltet, deshalb kann ein Assistent bis dahin nichts lesen und nichts ausfüllen.",
       "toWalk": "Zum Durchgang",
       "copyFailed": "Kopieren ging nicht. Markieren Sie den Schlüssel im Feld und kopieren Sie ihn selbst.",
@@ -58,7 +59,8 @@
         "deny": "Ablehnen",
         "expired": "Diese Anfrage ist abgelaufen oder ungültig. Starten Sie die Verbindung im Assistenten neu.",
         "disconnectHint": "Trennen können Sie jederzeit in den Einstellungen.",
-        "failed": "Das hat nicht geklappt. Bitte versuchen Sie es noch einmal."
+        "failed": "Das hat nicht geklappt. Bitte versuchen Sie es noch einmal.",
+        "companyChanged": "Sie haben in einem anderen Tab ein anderes Unternehmen geöffnet. Laden Sie diese Seite neu, um im geöffneten Unternehmen zu verbinden."
       }
     }
   }

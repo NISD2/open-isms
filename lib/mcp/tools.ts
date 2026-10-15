@@ -12,6 +12,7 @@ import {
   WALK_LOCALES,
   type WalkLocale,
 } from "@/lib/durchgang";
+import { UPLOAD_ENCRYPTION } from "@/lib/storage";
 import { loggableFailure } from "@/lib/trpc/loggable-failure";
 import { getAppUrl } from "@/lib/utils";
 import cs from "@/messages/durchgang/cs.json";
@@ -387,7 +388,10 @@ async function approvalTakenBack(
   link: string,
 ): Promise<string | null> {
   const policies = await holder.caller.durchgang.walkPolicies();
-  return policies.some((p) => p.code === code && p.status === "approved")
+  // The approval date too: a status set back by hand on the policies page keeps it.
+  return policies.some(
+    (p) => p.code === code && (p.status === "approved" || p.approvedAt !== null),
+  )
     ? `Management approved the policy of ${code}. Rewriting it takes that approval back, so it is changed in the app: ${link}`
     : null;
 }
@@ -410,9 +414,14 @@ function screensOf(
       message: `${item.code} has no screen an assistant fills called ${notHere.map(([k]) => k).join(", ")}.`,
     };
   }
-  const screens = entries.flatMap(([kind, input]) =>
-    isFillableKind(kind) ? [[kind, input] as [FillableKind, unknown]] : [],
-  );
+  // In the item's own order, as the person goes through it: the 9.1 list before the policy that
+  // prints it, the 4.2 processes before the plan.
+  const position = (kind: string) => item.screens.findIndex((s) => s.kind === kind);
+  const screens = entries
+    .flatMap(([kind, input]) =>
+      isFillableKind(kind) ? [[kind, input] as [FillableKind, unknown]] : [],
+    )
+    .sort(([a], [b]) => position(a) - position(b));
   const inApp = screens.filter(([kind]) => filledBy(item, kind) !== "assistant");
   if (inApp.length > 0) {
     return {
@@ -547,15 +556,38 @@ async function saveChanges(
   return results;
 }
 
-/** The uploaded files, each confirmed as the item's evidence or refused on its own. */
+/**
+ * The uploaded files, each confirmed as the item's evidence or refused on its own. Only a file
+ * started for this item (`upload_file` on this code) and not confirmed yet is attached: the item's
+ * own checks, closed and signed among them, are the ones that ran for this call.
+ */
 async function confirmFiles(
   holder: KeyHolder,
+  statusRowId: string | null,
   files: ReadonlyArray<{ readonly evidenceId: string; readonly contentHash?: string }>,
 ) {
+  const drafts = statusRowId
+    ? new Set(
+        (
+          await holder.caller.evidence.listByRequirementStatus({
+            requirementStatusId: statusRowId,
+          })
+        )
+          .filter((e) => e.status === "draft")
+          .map((e) => e.id),
+      )
+    : new Set<string>();
   const results: Array<
     { evidenceId: string; attached: true } | { evidenceId: string; refused: string }
   > = [];
   for (const { evidenceId, contentHash } of files) {
+    if (!drafts.has(evidenceId)) {
+      results.push({
+        evidenceId,
+        refused: "Not a file upload_file started for this item, or already attached.",
+      });
+      continue;
+    }
     try {
       const confirmed = await holder.caller.evidence.confirmUpload({
         evidenceId,
@@ -646,7 +678,10 @@ export async function fillItem(
   const changed =
     register && changes.length > 0 ? await saveChanges(holder, register, changes) : null;
   const saved = screens.length > 0 ? await saveScreens(holder, code, screens) : null;
-  const attached = files.length > 0 ? await confirmFiles(holder, files) : null;
+  const attached =
+    files.length > 0
+      ? await confirmFiles(holder, allowed.statusRow?.id ?? null, files)
+      : null;
   const stored = await answersOf(holder, code, assessment.id, categoryId);
   return {
     ok: true,
@@ -664,17 +699,24 @@ export async function fillItem(
   };
 }
 
-/** The request an assistant sends the file's bytes with: the signed address takes only this. */
+/**
+ * The request an assistant sends the file's bytes with, with the headers the app's own upload
+ * sends (FileUpload): the encryption is part of the signature, so storage refuses a PUT without it.
+ */
 const putRequest = (url: string, contentType: string) => ({
   method: "PUT",
   url,
-  headers: { "content-type": contentType },
+  headers: {
+    "content-type": contentType,
+    "x-amz-server-side-encryption": UPLOAD_ENCRYPTION,
+  },
 });
 
 /**
  * An address to upload one file to, from the procedure the app's own upload calls, after the
  * same checks as filling the item. The bytes go from the assistant straight to storage; the app
- * only signs the address, for this company's own prefix, this size and this type.
+ * only signs the address, for this company's own prefix and this size. Evidence counts once the
+ * file is stored: confirming it checks the object is there at that size.
  */
 export async function uploadFile(
   holder: KeyHolder,

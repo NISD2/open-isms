@@ -71,6 +71,10 @@ function holderOf(
         contentType: "application/pdf",
       }),
       confirmUpload: record("evidence.confirmUpload", { id: "ev-1" }),
+      listByRequirementStatus: record("evidence.listByRequirementStatus", [
+        { id: "ev-1", status: "draft" },
+        { id: "ev-done", status: "in_review" },
+      ]),
     },
     training: {
       getCertificateUploadUrl: record("training.getCertificateUploadUrl", {
@@ -334,6 +338,45 @@ describe("upload_file gives an upload address after the same checks as filling",
     });
     expect(attached).toMatchObject({ ok: true });
     expect(writesIn(called)).toContain("evidence.confirmUpload");
+  });
+
+  test("only a draft this item started is attached; others are refused, nothing confirmed", async () => {
+    const { holder, called } = holderOf("8.2", "admin", { kind: "open" });
+    const outcome = await fillItem(holder, {
+      code: "8.2",
+      language: "en",
+      files: [
+        { evidenceId: "ev-done" },
+        { evidenceId: "99999999-9999-4999-8999-999999999999" },
+      ],
+    });
+    expect(outcome).toMatchObject({
+      ok: true,
+      data: {
+        files: [
+          { evidenceId: "ev-done", refused: expect.any(String) },
+          {
+            evidenceId: "99999999-9999-4999-8999-999999999999",
+            refused: expect.any(String),
+          },
+        ],
+      },
+    });
+    expect(writesIn(called)).not.toContain("evidence.confirmUpload");
+  });
+
+  test("the upload request carries the encryption header the signature asks for", async () => {
+    const { holder } = holderOf("8.2", "admin", { kind: "open" });
+    const outcome = await uploadFile(holder, {
+      code: "8.2",
+      language: "en",
+      purpose: "evidence",
+      ...PDF,
+    });
+    expect(outcome).toMatchObject({
+      ok: true,
+      data: { upload: { headers: { "x-amz-server-side-encryption": "AES256" } } },
+    });
   });
 
   test("a training certificate only where the item keeps training records", async () => {

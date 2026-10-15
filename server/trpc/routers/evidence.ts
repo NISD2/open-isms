@@ -9,6 +9,7 @@ import {
   deleteObject,
   normalizeContentType,
   sanitizeFilename,
+  storedSize,
 } from "@/lib/storage";
 import { MAX_UPLOAD_BYTES } from "@/lib/storage/limits";
 import { companyAssessment, companyRequirementStatus, evidence } from "@/schema";
@@ -122,6 +123,16 @@ export const evidenceRouter = router({
         assessmentId: statusRow.assessmentId,
         categoryId: statusRow.requirement.categoryId,
       });
+
+      // A record is evidence only once its file is stored: an upload that never arrived, or
+      // was refused, must not appear in the evidence register or the audit report.
+      const size = await storedSize(row.storageKey);
+      if (size === null || (row.fileSize !== null && size !== row.fileSize)) {
+        throw new TRPCError({
+          code: "PRECONDITION_FAILED",
+          message: "The file has not been uploaded.",
+        });
+      }
 
       const [updated] = await ctx.db
         .update(evidence)

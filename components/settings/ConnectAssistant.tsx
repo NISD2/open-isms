@@ -25,6 +25,7 @@ export function ConnectAssistant({
   request,
   client,
   company,
+  companyId,
   person,
   returnTo,
   denyUrl,
@@ -35,6 +36,8 @@ export function ConnectAssistant({
   /** The name the assistant gave itself when it registered; null when it gave none. */
   client: string | null;
   company: string;
+  /** The company named on the card; allowing is refused if another is open by the click. */
+  companyId: string;
   person: string;
   returnTo: string;
   denyUrl: string;
@@ -48,7 +51,14 @@ export function ConnectAssistant({
     // A sign-in that aged on the page is answered on the card; otherwise the request ran out.
     onError: (error) => {
       if (error.message === "reauth") return;
-      toast.error(error.data?.code === "BAD_REQUEST" ? t("expired") : t("failed"));
+      const code = error.data?.code;
+      toast.error(
+        code === "BAD_REQUEST"
+          ? t("expired")
+          : code === "CONFLICT"
+            ? t("companyChanged")
+            : t("failed"),
+      );
     },
   });
   const needsSignIn = !signedInRecently || allow.error?.message === "reauth";
@@ -89,7 +99,7 @@ export function ConnectAssistant({
         ) : mayWalk ? (
           <Button
             type="button"
-            onClick={() => allow.mutate({ request })}
+            onClick={() => allow.mutate({ request, companyId })}
             disabled={allow.isPending || allow.isSuccess}
           >
             {t("allow")}

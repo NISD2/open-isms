@@ -20,9 +20,12 @@ import { signInAgain } from "./ConnectAssistant";
 export function McpKeySettings({
   docsUrl,
   mayWalk,
+  companyId,
 }: {
   docsUrl: string;
   mayWalk: boolean;
+  /** The company this page shows; the key is made for it, or refused if another is open now. */
+  companyId: string;
 }) {
   const t = useTranslations("settings.mcp");
   const [key, setKey] = useState<string | null>(null);
@@ -34,7 +37,8 @@ export function McpKeySettings({
     },
     // A key asks for a sign-in from the last few minutes; that answer is shown on the card.
     onError: (error) => {
-      if (error.message !== "reauth") toast.error(t("failed"));
+      if (error.message === "reauth") return;
+      toast.error(error.data?.code === "CONFLICT" ? t("companyChanged") : t("failed"));
     },
   });
   const needsSignIn = create.error?.message === "reauth";
@@ -113,7 +117,7 @@ export function McpKeySettings({
         {mayWalk && !needsSignIn && (
           <Button
             type="button"
-            onClick={() => create.mutate()}
+            onClick={() => create.mutate({ companyId })}
             disabled={create.isPending || disconnect.isPending}
           >
             <KeyRound className="size-4" />

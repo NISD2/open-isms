@@ -32,6 +32,7 @@ const { createCallerFactory, platformAdminProcedure, router } = await import("..
 const { userRouter } = await import("./user");
 type TRPCContext = import("../init").TRPCContext;
 const NOW_S = Math.floor(Date.now() / 1000);
+const COMPANY = "33333333-3333-4333-8333-333333333333";
 
 const REFUSING_DB = new Proxy(
   {},
@@ -58,7 +59,7 @@ function contextWith(
       user: { id: "u1", email: "person@example.com", name: null, ...session.user },
     } as Session,
     userId: "u1",
-    companyId: "c1",
+    companyId: COMPANY,
     ip: "test",
     userAgent: null,
     viaKey,
@@ -68,7 +69,10 @@ function contextWith(
 /** Both ways to connect, each started only when awaited. */
 const connect = (ctx: TRPCContext) => {
   const caller = createCallerFactory(userRouter)(ctx);
-  return [() => caller.createMcpKey(), () => caller.allowMcpClient({ request: "x" })];
+  return [
+    () => caller.createMcpKey({ companyId: COMPANY }),
+    () => caller.allowMcpClient({ request: "x", companyId: COMPANY }),
+  ];
 };
 
 describe("connecting an assistant", () => {
@@ -96,6 +100,17 @@ describe("connecting an assistant", () => {
         });
       }
     }
+  });
+
+  test("a key or code is made only for the company the page showed", async () => {
+    const caller = createCallerFactory(userRouter)(contextWith({}));
+    const other = "44444444-4444-4444-8444-444444444444";
+    await expect(caller.createMcpKey({ companyId: other })).rejects.toMatchObject({
+      code: "CONFLICT",
+    });
+    await expect(
+      caller.allowMcpClient({ request: "x", companyId: other }),
+    ).rejects.toMatchObject({ code: "CONFLICT" });
   });
 
   test("a key never operates the platform, not even the operator's own", async () => {

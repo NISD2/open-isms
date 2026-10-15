@@ -37,6 +37,9 @@ import {
   selfErasureProcedure,
 } from "../init";
 
+/** The company the page showed when the person clicked, which the key or code is made for. */
+const shownCompany = z.object({ companyId: z.string().uuid() });
+
 export const userRouter = router({
   /**
    * Self-service display-name update. Signup only seeds `user.name` (email
@@ -125,8 +128,9 @@ export const userRouter = router({
    * ends the previous key and every assistant signed in before, so a person holds one key at a
    * time. An assistant cannot make itself a key.
    */
-  createMcpKey: companyProcedure.mutation(async ({ ctx }) => {
+  createMcpKey: companyProcedure.input(shownCompany).mutation(async ({ ctx, input }) => {
     mayConnectAssistant(ctx);
+    sameCompany(ctx, input.companyId);
     const version = await bumpMcpKeyVersion(ctx.db, ctx.userId);
     if (version === null) {
       throw new TRPCError({ code: "NOT_FOUND", message: "Account not found." });
@@ -147,9 +151,10 @@ export const userRouter = router({
    * the record of who connected which assistant.
    */
   allowMcpClient: companyProcedure
-    .input(z.object({ request: z.string().max(8192) }))
+    .input(shownCompany.extend({ request: z.string().max(8192) }))
     .mutation(async ({ ctx, input }) => {
       mayConnectAssistant(ctx);
+      sameCompany(ctx, input.companyId);
       const now = epochSeconds(new Date());
       const request = readRequest(instanceKey(), input.request, now);
       if (!request) {
@@ -307,6 +312,19 @@ function mayConnectAssistant(ctx: {
   }
   if (!signedInJustNow(ctx.session.authTime)) {
     throw new TRPCError({ code: "FORBIDDEN", message: "reauth" });
+  }
+}
+
+/**
+ * Throws when the person switched company in another tab after the page loaded: the key or code
+ * would work in a company the page did not name.
+ */
+function sameCompany(ctx: { readonly companyId: string }, shown: string): void {
+  if (shown !== ctx.companyId) {
+    throw new TRPCError({
+      code: "CONFLICT",
+      message: "The company changed in another tab. Reload the page.",
+    });
   }
 }
 

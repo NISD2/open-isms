@@ -2,12 +2,20 @@ import "@/lib/server-guard";
 import {
   DeleteObjectCommand,
   GetObjectCommand,
+  HeadObjectCommand,
   ListObjectsV2Command,
   PutObjectCommand,
+  S3ServiceException,
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { MAX_UPLOAD_BYTES } from "./limits";
 import { BUCKET, s3, s3Signer } from "./s3-client";
+
+/**
+ * The server-side encryption every upload is signed with. It is part of the signature, so the
+ * PUT has to send it back as the `x-amz-server-side-encryption` header or storage refuses it.
+ */
+export const UPLOAD_ENCRYPTION = "AES256";
 
 /** Generate a presigned PUT URL for direct client upload (15 min expiry) */
 export async function createPresignedPut(
@@ -23,9 +31,27 @@ export async function createPresignedPut(
     Key: key,
     ContentType: contentType,
     ContentLength: fileSize,
-    ServerSideEncryption: "AES256",
+    ServerSideEncryption: UPLOAD_ENCRYPTION,
   });
   return getSignedUrl(s3Signer, command, { expiresIn: 900 });
+}
+
+/**
+ * The size of an uploaded object, or null when there is none: a presigned PUT that was never
+ * sent, or was refused, leaves nothing to confirm. AWS answers a missing key with 403 rather than
+ * 404 when the credentials may not list the bucket, so both mean "not there"; an existing object
+ * answers 200 to the same credentials that sign its downloads.
+ */
+export async function storedSize(key: string): Promise<number | null> {
+  try {
+    const head = await s3.send(new HeadObjectCommand({ Bucket: BUCKET, Key: key }));
+    return head.ContentLength ?? null;
+  } catch (error) {
+    const status =
+      error instanceof S3ServiceException ? error.$metadata.httpStatusCode : undefined;
+    if (status === 404 || status === 403) return null;
+    throw error;
+  }
 }
 
 /**

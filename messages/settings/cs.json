@@ -24,6 +24,44 @@
     "saved": "Nastavení uloženo",
     "saveError": "Nastavení se nepodařilo uložit",
     "saving": "Ukládání...",
-    "adminOnly": "Nastavení mohou měnit pouze správci."
+    "adminOnly": "Nastavení mohou měnit pouze správci.",
+    "mcp": {
+      "title": "Připojení asistentů jako Claude nebo Copilot",
+      "description": "Připojený asistent čte váš průvodce NIS 2 a vyplňuje pole, registry, aktiva a hodnocení rizik, s vašimi oprávněními v této společnosti. Krok se dokončuje jen zde v aplikaci a podepisuje ho jen vedení.",
+      "signIn": "Asistenti, kteří se přihlašují přes prohlížeč, klíč nepotřebují: přihlásíte se a přístup povolíte. Klíč je pro všechny ostatní.",
+      "howTo": "Jak nastavit Claude Code, Claude Desktop a Copilot Studio",
+      "create": "Vytvořit klíč",
+      "createAgain": "Vytvořit nový klíč",
+      "created": "Váš klíč, platný 90 dní. Zobrazí se jen teď.",
+      "keyLabel": "Klíč",
+      "copy": "Kopírovat",
+      "copied": "Zkopírováno",
+      "disconnect": "Odpojit všechny asistenty",
+      "disconnected": "Všichni asistenti jsou odpojeni.",
+      "replaceNote": "Nový klíč nebo odpojení ukončí předchozí klíč i přihlášení všech asistentů.",
+      "failed": "To se nepovedlo. Zkuste to prosím znovu.",
+      "companyChanged": "V jiné záložce jste otevřeli jinou společnost. Načtěte tuto stránku znovu a připojte asistenta ve společnosti, kterou máte otevřenou.",
+      "locked": "Asistent pracuje v průvodci NIS 2, který pro váš účet zatím není odemčen. Do té doby asistent nemůže nic číst ani vyplňovat.",
+      "toWalk": "Přejít do průvodce",
+      "copyFailed": "Kopírování se nepovedlo. Označte klíč v poli a zkopírujte ho sami.",
+      "reauth": "Asistent zůstává připojen i po vašem odhlášení, proto připojení vyžaduje přihlášení za posledních {minutes} minut.",
+      "signInAgain": "Přihlásit se znovu",
+      "connect": {
+        "title": "Připojit asistenta",
+        "asks": "{client} žádá o přístup k průvodci NIS 2 společnosti {company}.",
+        "unnamed": "Asistent",
+        "may": "Čte průvodce a vyplňuje pole, registry, aktiva a hodnocení rizik, jako {person} a s vašimi oprávněními.",
+        "mayNot": "Žádný krok nedokončí, nic nerozhodne a nic nepodepíše. To zůstává zde v aplikaci.",
+        "returnTo": "Potom se vrátíte na {host}.",
+        "selfNamed": "Jméno „{client}“ si asistent dává sám.",
+        "onlyYou": "Povolte jen tehdy, pokud jste toto připojení právě sami zahájili.",
+        "allow": "Povolit",
+        "deny": "Odmítnout",
+        "expired": "Tato žádost vypršela nebo není platná. Zahajte připojení v asistentovi znovu.",
+        "disconnectHint": "Odpojit se můžete kdykoli v Nastavení.",
+        "failed": "To se nepovedlo. Zkuste to prosím znovu.",
+        "companyChanged": "V jiné záložce jste otevřeli jinou společnost. Načtěte tuto stránku znovu a připojte asistenta ve společnosti, kterou máte otevřenou."
+      }
+    }
   }
 }

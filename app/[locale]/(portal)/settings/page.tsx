@@ -33,6 +33,7 @@ export default async function SettingsPage() {
       <div className="mt-10 border-t pt-8">
         <McpKeySettings
           docsUrl={MCP_DOCS_PATH}
+          companyId={companyData.id}
           mayWalk={mayWalkDurchgang(
             session.accessLevel,
             isPlatformAdmin(session.user.email),
