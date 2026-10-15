@@ -12,4 +12,6 @@ export const nis2LegalRef = (
   legalRef: string | null,
   locale: string | undefined,
 ): string | null =>
-  locale === "cs" ? (czechDutyCitation(getNis2CzechRef(code))?.cite ?? legalRef) : legalRef;
+  locale === "cs"
+    ? (czechDutyCitation(getNis2CzechRef(code))?.cite ?? legalRef)
+    : legalRef;
