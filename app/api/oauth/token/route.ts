@@ -1,3 +1,4 @@
+import { logAudit } from "@/lib/audit";
 import { epochSeconds } from "@/lib/auth/session-age";
 import { getClientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
@@ -13,12 +14,24 @@ const deps: TokenDeps = {
   revoke: async (userId) => {
     await bumpMcpKeyVersion(db, userId);
   },
-  connect: ({ expiresAtS, ...connection }) =>
-    openConnection(
+  connect: async ({ expiresAtS, returnHost, ...connection }) => {
+    const id = await openConnection(
       db,
       { ...connection, kind: "signin", expiresAt: new Date(expiresAtS * 1000) },
       new Date(),
-    ),
+    );
+    // The record of which assistant the person connected and where it went back to.
+    await logAudit({
+      companyId: connection.companyId,
+      userId: connection.userId,
+      action: "mcp.connected",
+      entityType: "mcp_connection",
+      entityId: id,
+      description: `${connection.client ?? "An assistant"}, back to ${returnHost}`,
+      newValue: { client: connection.client, returnHost },
+    });
+    return id;
+  },
   isOpen: (con, userId, companyId) =>
     connectionOpen(db, con, { userId, companyId }, new Date()),
 };

@@ -48,10 +48,12 @@
       "user": {
         "dismissHint": "Nápověda skryta",
         "createMcpKey": "Klíč pro asistenty vytvořen",
-        "allowMcpClient": "Asistent připojen",
-        "disconnectMcp": "Všichni asistenti odpojeni"
+        "allowMcpClient": "Asistent povolen",
+        "disconnectMcp": "Všichni asistenti odpojeni",
+        "endMcpConnection": "Asistent odpojen"
       },
       "mcp": {
+        "connected": "Asistent připojen",
         "item_filled": "Bod průvodce vyplněn asistentem"
       },
       "notification": {

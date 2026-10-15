@@ -53,10 +53,12 @@
       "user": {
         "dismissHint": "Hint dismissed",
         "createMcpKey": "Key for assistants created",
-        "allowMcpClient": "Assistant connected",
-        "disconnectMcp": "All assistants disconnected"
+        "allowMcpClient": "Assistant allowed",
+        "disconnectMcp": "All assistants disconnected",
+        "endMcpConnection": "Assistant disconnected"
       },
       "mcp": {
+        "connected": "Assistant connected",
         "item_filled": "Walkthrough item filled in by an assistant"
       },
       "notification": {

@@ -53,10 +53,12 @@
       "user": {
         "dismissHint": "Hinweis geschlossen",
         "createMcpKey": "Schlüssel für Assistenten erzeugt",
-        "allowMcpClient": "Assistent verbunden",
-        "disconnectMcp": "Alle Assistenten getrennt"
+        "allowMcpClient": "Assistent erlaubt",
+        "disconnectMcp": "Alle Assistenten getrennt",
+        "endMcpConnection": "Assistent getrennt"
       },
       "mcp": {
+        "connected": "Assistent verbunden",
         "item_filled": "Punkt im Durchgang von einem Assistenten ausgefüllt"
       },
       "notification": {

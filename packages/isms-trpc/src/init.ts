@@ -202,6 +202,10 @@ const AUDIT_REDACT_KEYS = new Set([
   // confirmation; it must never be persisted in the (non-retention-managed)
   // audit log, which would defeat the erasure.
   "confirmemail",
+  // An AI assistant's signed consent request (user.allowMcpClient): opaque in
+  // the log. The token endpoint records the assistant and where it returns to
+  // when the connection opens (mcp.connected).
+  "request",
 ]);
 
 /**

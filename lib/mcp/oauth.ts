@@ -311,6 +311,8 @@ export interface TokenDeps {
     readonly userId: string;
     readonly companyId: string;
     readonly client: string | null;
+    /** Where the person's browser went back to, as the consent page showed it. */
+    readonly returnHost: string;
     readonly keyVersion: number;
     readonly expiresAtS: number;
   }) => Promise<string>;
@@ -428,6 +430,7 @@ async function redeem(
     userId: sub,
     companyId: cid,
     client: client ?? null,
+    returnHost: new URL(code.redirectUri).host,
     keyVersion: ver,
     expiresAtS: nowS + GRANT_SECONDS,
   });
