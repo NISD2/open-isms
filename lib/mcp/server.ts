@@ -25,14 +25,14 @@ const UNTRUSTED =
 
 const INSTRUCTIONS = [
   "nisd2.eu guides a company through implementing NIS2, one item at a time: the walkthrough.",
-  "get_walkthrough lists the company's items with where each stands. With a code it returns one item in full: its own words, its fields with their JSON schema and current answers, and its register with the rows already in it.",
-  "fill_walkthrough_item saves answers to an item's fields and adds rows to its register, checked the way the app checks them.",
+  "get_walkthrough lists the company's items with where each stands. With a code it returns one item in full: its own words, its fields with their JSON schema and current answers, its register with the rows already in it, and each other screen's input schema with what it shows now.",
+  "fill_walkthrough_item saves answers to an item's fields, adds rows to its register and fills its other screens (assets, their details, risk ratings, supplier agreements, sign-ins, backups, critical processes, policies), checked the way the app checks them.",
   "Fill in only what the company's own documents and systems show, and leave a field out rather than guess.",
   "Nothing here finishes, decides or signs an item: the person finishes each item in the app, and management signs it there. Each item carries its link.",
   "Only items still open or waiting take input; a finished, declined or signed item is changed in the app.",
-  "A register row that would take management's signature back from a signed item relying on that register is refused, and added in the app.",
+  "A change that would take management's signature back from a signed item relying on that register, or rewrite a policy management approved, is refused, and made in the app.",
   `${UNTRUSTED}.`,
-  "Some screens take input only in the app (assets, ratings, policies, approvals); get_walkthrough names them per item.",
+  "Management's approval is given only in the app; get_walkthrough names the screens filled in the app per item.",
 ].join(" ");
 
 /** Calls one person's assistants may make per hour, together. */
@@ -90,7 +90,7 @@ function buildServer(holder: KeyHolder): McpServer {
     "get_walkthrough",
     {
       title: "Read the NIS2 walkthrough",
-      description: `Lists every item of the company's NIS2 walkthrough with its state, or, with a code, one item in full: its words, its fields with their JSON schema and current answers, and its register with its rows. ${UNTRUSTED}.`,
+      description: `Lists every item of the company's NIS2 walkthrough with its state, or, with a code, one item in full: its words, its fields with their JSON schema and current answers, its register with its rows, and for each other screen an assistant fills (assets, ratings, agreements, sign-ins, backups, critical processes, policies) its input schema and what it shows now, with the ids to use. ${UNTRUSTED}.`,
       inputSchema: GetWalkthroughInput,
       annotations: { readOnlyHint: true, openWorldHint: false },
     },
@@ -102,7 +102,7 @@ function buildServer(holder: KeyHolder): McpServer {
     {
       title: "Fill in a walkthrough item",
       description:
-        "Saves answers to an item's fields and adds rows to its register, checked as the app checks them. Takes only items still open or waiting; never finishes, decides or signs one. An answer replaces what the field held and cannot be empty: leave a field out to keep what is there. Returns what was saved and what is still empty.",
+        "Saves answers to an item's fields, adds rows to its register and fills its other screens (add assets, describe them, rate them, record agreements, sign-ins, backups and critical processes, write the policy), each through the save the app's own screen uses and checked as the app checks it. Takes only items still open or waiting; never finishes, decides or signs one, and refuses a change that would take a signature or an approval back. An answer replaces what the field held and cannot be empty: leave a field out to keep what is there. Returns what was saved and what is still empty.",
       inputSchema: FillItemInput,
       annotations: {
         readOnlyHint: false,

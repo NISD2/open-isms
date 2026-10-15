@@ -37,6 +37,7 @@ function holderOf(
   code: string,
   role: string,
   state: { readonly kind: string; readonly [detail: string]: unknown },
+  policies: ReadonlyArray<{ readonly code: string; readonly status: string }> = [],
 ) {
   const called: string[] = [];
   const record =
@@ -49,6 +50,9 @@ function holderOf(
     durchgang: {
       walk: record("durchgang.walk", [{ code, state }]),
       resume: record("durchgang.resume", undefined),
+      addAssets: record("durchgang.addAssets", { added: 1 }),
+      writePolicy: record("durchgang.writePolicy", undefined),
+      walkPolicies: record("durchgang.walkPolicies", policies),
     },
     requirement: {
       getByCode: record("requirement.getByCode", {
@@ -88,6 +92,8 @@ function holderOf(
 
 const WRITES = [
   "durchgang.resume",
+  "durchgang.addAssets",
+  "durchgang.writePolicy",
   "intake.saveRequirementAnswers",
   "supplier.create",
   "managementReview.create",
@@ -148,6 +154,65 @@ describe("fill_walkthrough_item refuses before it writes", () => {
     expect(await refusalOf(fill(holder, "7.3", [{ title: "Review" }]))).toContain(
       "where management approves",
     );
+    expect(writesIn(called)).toEqual([]);
+  });
+});
+
+const fillScreens = (holder: KeyHolder, code: string, screens: Record<string, unknown>) =>
+  fillItem(holder, { code, language: "en", screens });
+
+describe("fill_walkthrough_item fills an item's other screens through their own saves", () => {
+  test("assets on 2.2 go through the save the asset screen calls", async () => {
+    const { holder, called } = holderOf("2.2", "admin", { kind: "open" });
+    const outcome = await fillScreens(holder, "2.2", {
+      assets: { catalogIds: [], custom: [{ name: "Buchhaltung", layer: "anwendung" }] },
+    });
+    expect(outcome).toMatchObject({ ok: true });
+    expect(writesIn(called)).toEqual(["durchgang.addAssets"]);
+  });
+
+  test("an asset that would take back another item's signature is added in the app", async () => {
+    signedElsewhere.codes = ["2.1"];
+    try {
+      const { holder, called } = holderOf("2.2", "admin", { kind: "open" });
+      const outcome = fillScreens(holder, "2.2", { assets: { catalogIds: [] } });
+      expect(await refusalOf(outcome)).toContain("signature back from 2.1");
+      expect(writesIn(called)).toEqual([]);
+    } finally {
+      signedElsewhere.codes = [];
+    }
+  });
+
+  test("a screen whose input fails its schema is refused before anything is written", async () => {
+    const { holder, called } = holderOf("2.2", "admin", {
+      kind: "waiting",
+      reason: null,
+      since: SINCE,
+    });
+    const outcome = fillScreens(holder, "2.2", { assets: { catalogIds: "all" } });
+    expect(await refusalOf(outcome)).toContain("assets:");
+    expect(writesIn(called)).toEqual([]);
+  });
+
+  test("a screen the item does not have, or the approval, is never filled", async () => {
+    const { holder, called } = holderOf("2.2", "admin", { kind: "open" });
+    expect(await refusalOf(fillScreens(holder, "2.2", { approve: {} }))).toContain(
+      "has no screen an assistant fills",
+    );
+    expect(await refusalOf(fillScreens(holder, "2.2", { policy: {} }))).toContain(
+      "has no screen an assistant fills",
+    );
+    expect(writesIn(called)).toEqual([]);
+  });
+
+  test("a policy management approved is rewritten in the app, not by an assistant", async () => {
+    const { holder, called } = holderOf("3.1", "admin", { kind: "open" }, [
+      { code: "3.1", status: "approved" },
+    ]);
+    const outcome = fillScreens(holder, "3.1", {
+      policy: { clauses: null, own: "Mehr" },
+    });
+    expect(await refusalOf(outcome)).toContain("takes that approval back");
     expect(writesIn(called)).toEqual([]);
   });
 });

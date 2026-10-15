@@ -13,7 +13,7 @@ import {
   onRegister,
   ownDescription,
 } from "@/lib/asset-inventory/catalog-labels";
-import { ASSET_LAYERS, CUSTOM_ASSET_TYPE } from "@/lib/asset-inventory/types";
+import { CUSTOM_ASSET_TYPE } from "@/lib/asset-inventory/types";
 import { logAudit } from "@/lib/audit";
 import { isFreeMailAddress } from "@/lib/auth/free-mail";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
@@ -36,7 +36,6 @@ import {
   approvedNote,
   askedFields,
   awaitingSignature,
-  BACKUP_FREQUENCIES,
   backupsNote,
   type CryptoLabels,
   contactSuggestions,
@@ -47,12 +46,10 @@ import {
   declinedNote,
   gapLines,
   gapsOf,
-  HOSTINGS,
   type ItemState,
   levelOf,
   loginsNote,
   MANAGEMENT_ROLE,
-  MFA_METHODS,
   marker,
   methodNote,
   noteLine,
@@ -65,7 +62,6 @@ import {
   policyNames,
   policyText,
   policyTitle,
-  RATED_KINDS,
   ratingKey,
   ratingText,
   recordDay,
@@ -109,7 +105,7 @@ import {
   riskSupplier,
   supplier,
 } from "@/schema";
-import { improvementItemInsertSchema, riskInsertSchema } from "@/schema/validators";
+import { improvementItemInsertSchema } from "@/schema/validators";
 import { signerRoleOf, verifyMemberReferences } from "../guards";
 import {
   propagateSatisfaction,
@@ -132,6 +128,17 @@ import {
   walkRows,
   walkStates,
 } from "../helpers/durchgang";
+import {
+  addAssetsInput,
+  itemCode as code,
+  rateInput,
+  recordAgreementsInput,
+  recordBackupsInput,
+  recordCriticalInput,
+  recordLoginsInput,
+  specifyAssetsInput,
+  writePolicyInput,
+} from "../helpers/durchgang-inputs";
 import { rosteredOf, signOffRows } from "../helpers/sign-off-rows";
 import {
   activatedCompanyProcedure,
@@ -192,7 +199,6 @@ const logWalk = (entry: Parameters<typeof logAudit>[0] & { action: DurchgangActi
 /** How many steps a stored scale has; the column is JSON, so its shape is checked, not assumed. */
 const steps = (levels: unknown) => (Array.isArray(levels) ? levels.length : 0);
 
-const code = z.string().max(10);
 const NAMESPACES = {
   de: durchgangDe.durchgang,
   en: durchgangEn.durchgang,
@@ -279,9 +285,6 @@ const STORED_CONFIG = z
     fallbacks: z.record(z.string(), z.string()).catch({}),
   })
   .catch({ clauses: [], own: "", fallbacks: {} });
-
-/** The longest addition a company writes into a walk policy in its own words. */
-const OWN_MAX = 2000;
 
 const storedConfigOf = async (db: DbOrTx, companyId: string, type: PolicyTemplate) => {
   const [row] = await db
@@ -793,20 +796,8 @@ export const durchgangRouter = router({
    * new, and nothing is ever deleted here.
    */
   addAssets: durchgangWrite
-    .input(
-      z.object({
-        catalogIds: z.array(z.string().max(80)).max(CATALOG_BY_ID.size),
-        custom: z
-          .array(
-            z.object({
-              name: z.string().trim().min(1).max(255),
-              layer: z.enum(ASSET_LAYERS),
-            }),
-          )
-          .max(50)
-          .default([]),
-      }),
-    )
+    // The input is shared with the MCP tools, which save this screen for an assistant.
+    .input(addAssetsInput)
     .mutation(async ({ ctx, input }) => {
       const labels = CATALOG_LABELS[await seedLocale(ctx.db, ctx.userId, ctx.companyId)];
       const wanted = [
@@ -873,22 +864,8 @@ export const durchgangRouter = router({
    * what kind of thing it is. An omitted description keeps the stored one.
    */
   specifyAssets: durchgangWrite
-    .input(
-      z.object({
-        rows: z
-          .array(
-            z.object({
-              id: z.string().uuid(),
-              name: z.string().trim().min(1).max(255),
-              description: z.string().trim().max(2000).optional(),
-              providers: z.array(z.string().trim().min(1).max(255)).max(20),
-              // Left out by a page loaded before 2.2 asked it, and then kept as stored.
-              hosting: z.enum(HOSTINGS).nullable().optional(),
-            }),
-          )
-          .max(500),
-      }),
-    )
+    // The input is shared with the MCP tools, which save this screen for an assistant.
+    .input(specifyAssetsInput)
     .mutation(async ({ ctx, input }) => {
       const ids = [...new Set(input.rows.map((r) => r.id))];
       if (ids.length === 0) return { updated: 0, suppliersAdded: 0 };
@@ -1056,26 +1033,8 @@ export const durchgangRouter = router({
    * the risk's treatment description; an emptied note clears it.
    */
   rate: durchgangWrite
-    .input(
-      z.object({
-        rows: z
-          .array(
-            z.object({
-              kind: z.enum(RATED_KINDS),
-              id: z.string().uuid(),
-              frequency: z.enum(FREQUENCIES),
-              impact: z.enum(IMPACTS),
-              note: riskInsertSchema.shape.treatmentDescription
-                .unwrap()
-                .unwrap()
-                .trim()
-                .max(1000)
-                .optional(),
-            }),
-          )
-          .max(1000),
-      }),
-    )
+    // The input is shared with the MCP tools, which save this screen for an assistant.
+    .input(rateInput)
     .mutation(async ({ ctx, input }) => {
       // One rating per thing: the last one sent wins.
       const rows = [
@@ -1267,21 +1226,8 @@ export const durchgangRouter = router({
    * `agreements_checked_at`, the record that a row with neither agreement was looked at.
    */
   recordAgreements: durchgangWrite
-    .input(
-      z.object({
-        code,
-        rows: z
-          .array(
-            z.object({
-              supplierId: z.string().uuid(),
-              security: z.boolean(),
-              incidents: z.boolean(),
-            }),
-          )
-          .min(1)
-          .max(500),
-      }),
-    )
+    // The input is shared with the MCP tools, which save this screen for an assistant.
+    .input(recordAgreementsInput)
     .mutation(async ({ ctx, input }) => {
       const screens: readonly AnyScreen[] = itemOf(input.code).screens;
       if (!screens.some((s) => s.kind === "agreements")) {
@@ -1373,21 +1319,8 @@ export const durchgangRouter = router({
    * row was actually answered "no".
    */
   recordLogins: durchgangWrite
-    .input(
-      z.object({
-        code,
-        rows: z
-          .array(
-            z.object({
-              assetId: z.string().uuid(),
-              mfa: z.boolean().nullable(),
-              method: z.enum(MFA_METHODS).nullable().default(null),
-            }),
-          )
-          .min(1)
-          .max(500),
-      }),
-    )
+    // The input is shared with the MCP tools, which save this screen for an assistant.
+    .input(recordLoginsInput)
     .mutation(async ({ ctx, input }) => {
       const screens: readonly AnyScreen[] = itemOf(input.code).screens;
       if (!screens.some((s) => s.kind === "logins")) {
@@ -1464,21 +1397,8 @@ export const durchgangRouter = router({
    * written as free text that none of the walk's options name.
    */
   recordBackups: durchgangWrite
-    .input(
-      z.object({
-        code,
-        rows: z
-          .array(
-            z.object({
-              assetId: z.string().uuid(),
-              frequency: z.enum(BACKUP_FREQUENCIES).nullable().optional(),
-              lastRestore: z.iso.date().nullable(),
-            }),
-          )
-          .min(1)
-          .max(100),
-      }),
-    )
+    // The input is shared with the MCP tools, which save this screen for an assistant.
+    .input(recordBackupsInput)
     .mutation(async ({ ctx, input }) => {
       const words = resolveItem(
         NAMESPACES[await seedLocale(ctx.db, ctx.userId, ctx.companyId)],
@@ -1883,21 +1803,8 @@ export const durchgangRouter = router({
    * other choices in the plan's policy config, which the plan prints.
    */
   recordCritical: durchgangWrite
-    .input(
-      z.object({
-        code,
-        rows: z
-          .array(
-            z.object({
-              assetId: z.string().uuid(),
-              critical: z.boolean(),
-              how: z.string().trim().max(300),
-            }),
-          )
-          .min(1)
-          .max(200),
-      }),
-    )
+    // The input is shared with the MCP tools, which save this screen for an assistant.
+    .input(recordCriticalInput)
     .mutation(async ({ ctx, input }) => {
       const screens: readonly AnyScreen[] = itemOf(input.code).screens;
       if (!screens.some((s) => s.kind === "critical")) {
@@ -1988,15 +1895,8 @@ export const durchgangRouter = router({
    * draft and loses its approval, because what management approved was the earlier one.
    */
   writePolicy: durchgangWrite
-    .input(
-      z.object({
-        code,
-        /** Null keeps the stored choice: the text is still written, with no clause or the old ones. */
-        clauses: z.array(z.string().min(1).max(60)).max(50).nullable(),
-        /** The company's own words; null keeps the stored ones. */
-        own: z.string().trim().max(OWN_MAX).nullable(),
-      }),
-    )
+    // The input is shared with the MCP tools, which save this screen for an assistant.
+    .input(writePolicyInput)
     .mutation(async ({ ctx, input }) => {
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
       const [draft, intake] = await Promise.all([

@@ -6,9 +6,11 @@
 import { describe, expect, test } from "bun:test";
 import { WALK } from "@/lib/durchgang";
 import { trainingCreateSchema } from "@/schema/validators";
+import { isFillableKind } from "./screens";
 import {
   answersProblem,
   closedFor,
+  FILLED_BY,
   fieldKeysOf,
   fieldsSchemaOf,
   filledBy,
@@ -83,11 +85,30 @@ describe("the walk as an assistant sees it", () => {
     }
   });
 
-  test("screens that take input only in the app are named per item", () => {
+  test("an assistant fills the asset list; only management's approval stays with a person", () => {
     const assets = WALK.find((item) => item.code === "2.2");
     if (!assets) throw new Error("2.2 is not in the walk");
-    expect(screensFilledBy(assets, "app")).toEqual(["assets", "specify"]);
-    expect(screensFilledBy(assets, "assistant")).toEqual([]);
+    expect(screensFilledBy(assets, "assistant")).toEqual(["assets", "specify"]);
+    const appOnly = new Set(
+      WALK.flatMap((item) => item.screens.map((s) => s.kind)).filter(
+        (kind) => FILLED_BY[kind] === "app",
+      ),
+    );
+    expect([...appOnly]).toEqual(["approve"]);
+  });
+
+  test("every screen an assistant fills is saved through the procedure its screen calls", () => {
+    const kinds = new Set(
+      WALK.flatMap((item) =>
+        item.screens
+          .map((s) => s.kind)
+          .filter((kind) => filledBy(item, kind) === "assistant"),
+      ),
+    );
+    for (const kind of kinds) {
+      if (kind === "fields" || kind === "register") continue;
+      expect(isFillableKind(kind)).toBe(true);
+    }
   });
 
   test("dates sent as text reach the schema as dates; text that is no date fails", () => {

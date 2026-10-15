@@ -27,9 +27,11 @@ import type { Caller } from "./context";
  */
 
 /**
- * Who fills each kind of screen. "assistant": an AI assistant may, over MCP. "app": it takes
- * input only in the app (a choice, an upload, a custom editor, a signature). "none": it only
- * shows something. Every kind must be named, so a new kind cannot reach the walk undecided.
+ * Who fills each kind of screen. "assistant": an AI assistant may, over MCP, through the
+ * procedure the screen itself saves with (`SCREEN_FILLS` in screens.ts for all but the fields and
+ * the register). "app": it takes input only from a person in the app: a file upload, and
+ * management's approval. "none": it only shows something. Every kind must be named, so a new
+ * kind cannot reach the walk undecided.
  */
 export const FILLED_BY = {
   learn: "none",
@@ -40,19 +42,19 @@ export const FILLED_BY = {
   provision: "none",
   fields: "assistant",
   evidence: "app",
-  adopt: "app",
+  adopt: "assistant",
   register: "assistant",
-  assets: "app",
-  specify: "app",
-  rate: "app",
-  agreements: "app",
-  logins: "app",
-  policy: "app",
+  assets: "assistant",
+  specify: "assistant",
+  rate: "assistant",
+  agreements: "assistant",
+  logins: "assistant",
+  policy: "assistant",
   approve: "app",
   riskmap: "none",
-  critical: "app",
-  backups: "app",
-  crypto: "app",
+  critical: "assistant",
+  backups: "assistant",
+  crypto: "assistant",
   ongoing: "none",
   done: "none",
 } as const satisfies Record<ScreenKind, "assistant" | "app" | "none">;

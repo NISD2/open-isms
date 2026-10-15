@@ -20,6 +20,7 @@ import en from "@/messages/durchgang/en.json";
 import { enforceAssignment } from "@/server/trpc/guards";
 import type { KeyHolder } from "./context";
 import { describeError } from "./errors";
+import { type FillableKind, isFillableKind, SCREEN_FILLS } from "./screens";
 import {
   answersProblem,
   closedFor,
@@ -34,10 +35,12 @@ import {
 } from "./walk";
 
 /**
- * The two tools: read the company's walkthrough, and fill an item's fields and register. Each is
- * a thin layer over the procedures the walk's own screens call, so the company, role, plan and
- * category gates are the app's. Nothing here decides an item, signs it or deletes anything: the
- * person finishes each item in the app, and management signs it there.
+ * The two tools: read the company's walkthrough, and fill an item: its fields, its register and
+ * its other screens (the asset list, ratings, agreements, sign-ins, backups, critical processes,
+ * policies). Each is a thin layer over the procedures the walk's own screens call, so the company,
+ * role, plan and category gates are the app's. Nothing here signs an item, decides against it,
+ * takes a signature back or deletes anything: the person finishes each item in the app, and
+ * management signs it there.
  */
 
 /** The walk's words per language: the `durchgang` namespace, as the page reads it. */
@@ -81,6 +84,12 @@ export const FillItemInput = z.object({
     .optional()
     .describe(
       "New rows for the item's register, each as get_walkthrough's rowSchema describes it. The rows already in the register are listed there: do not add them again.",
+    ),
+  screens: z
+    .record(z.string(), z.unknown())
+    .optional()
+    .describe(
+      "Input for the item's other screens, by screen kind (assets, specify, rate, agreements, logins, backups, critical, policy, crypto, adopt), each as get_walkthrough's screens[].input describes it. Use the ids get_walkthrough lists under screens[].now.",
     ),
 });
 
@@ -167,6 +176,26 @@ async function answersOf(
   return answers;
 }
 
+/** The screen's own save, when an assistant fills this kind of screen on this item. */
+const assistantFill = (item: AnyItem, kind: string): FillableKind | null =>
+  isFillableKind(kind) && filledBy(item, kind) === "assistant" ? kind : null;
+
+/** What each screen an assistant fills on the item shows now, by kind. */
+async function screenContents(
+  holder: KeyHolder,
+  item: AnyItem,
+  code: string,
+  language: WalkLocale,
+): Promise<ReadonlyMap<FillableKind, unknown>> {
+  const kinds = [
+    ...new Set(item.screens.flatMap((s) => assistantFill(item, s.kind) ?? [])),
+  ];
+  const contents = await Promise.all(
+    kinds.map((kind) => SCREEN_FILLS[kind].shows(holder.caller, code, language)),
+  );
+  return new Map(kinds.map((kind, i) => [kind, contents[i]]));
+}
+
 async function listWalk(holder: KeyHolder, language: WalkLocale): Promise<ToolOutcome> {
   const states = await holder.caller.durchgang.walk();
   const items = states.flatMap(({ code, state }) => {
@@ -200,9 +229,10 @@ async function readItem(
   const words = wordsOf(item, language);
   const schema = fieldsSchemaOf(item);
   const register = registerOfItem(item);
-  const [answers, rows] = await Promise.all([
+  const [answers, rows, nows] = await Promise.all([
     schema ? answersOf(holder, code, assessment?.id ?? null, categoryId) : {},
     register ? register.rows(holder.caller) : [],
+    screenContents(holder, item, code, language),
   ]);
   return {
     ok: true,
@@ -213,11 +243,17 @@ async function readItem(
       area: item.category,
       state,
       law: { bsig: req.legalRef, directive: req.frameworkRef },
-      screens: words.screens.map((s) => ({
-        kind: s.kind,
-        filledBy: filledBy(item, s.kind),
-        words: s.copy,
-      })),
+      screens: words.screens.map((s) => {
+        const fills = assistantFill(item, s.kind);
+        return {
+          kind: s.kind,
+          filledBy: filledBy(item, s.kind),
+          words: s.copy,
+          ...(fills
+            ? { input: jsonSchemaOf(SCREEN_FILLS[fills].input), now: nows.get(fills) }
+            : {}),
+        };
+      }),
       fields: schema ? { schema: jsonSchemaOf(schema), answers } : null,
       register: register
         ? {
@@ -266,20 +302,106 @@ async function refusalOf(
 }
 
 /**
- * Why adding rows to this register would take back a signature, or null. A new row sends every
- * signed item that relies on the register back to management (`invalidateModuleSignOffs`), the
- * item the rows are for and any other, such as 1.1 for a training row sent to 8.2. An assistant
- * never takes a signature back, so those rows are added in the app.
+ * Why changing these registers would take back a signature, or null. A change sends every signed
+ * item that relies on a register back to management (`invalidateModuleSignOffs`), the item being
+ * filled and any other, such as 1.1 for a training row sent to 8.2. An assistant never takes a
+ * signature back, so those changes are made in the app.
  */
-async function signaturesRowsTakeBack(
+async function signaturesTakenBack(
   holder: KeyHolder,
-  register: Register,
+  modules: readonly string[],
   link: string,
 ): Promise<string | null> {
-  const signed = await signedOffByModule(db, holder.companyId, register.module);
+  const signed = (
+    await Promise.all(modules.map((m) => signedOffByModule(db, holder.companyId, m)))
+  ).flat();
   if (signed.length === 0) return null;
-  const codes = signed.map((s) => s.requirementCode).join(", ");
-  return `A new row in the ${register.name} register would take management's signature back from ${codes}, so it is added in the app: ${link}`;
+  const codes = [...new Set(signed.map((s) => s.requirementCode))].join(", ");
+  return `Changing the ${modules.join(" and ")} register would take management's signature back from ${codes}, so it is changed in the app: ${link}`;
+}
+
+/**
+ * Why rewriting this item's policy would take back management's approval of it, or null: a text
+ * that changes goes back to draft (writePolicy), and an assistant never takes an approval back.
+ */
+async function approvalTakenBack(
+  holder: KeyHolder,
+  code: string,
+  link: string,
+): Promise<string | null> {
+  const policies = await holder.caller.durchgang.walkPolicies();
+  return policies.some((p) => p.code === code && p.status === "approved")
+    ? `Management approved the policy of ${code}. Rewriting it takes that approval back, so it is changed in the app: ${link}`
+    : null;
+}
+
+/** The screens sent, each checked against the item and its own schema, or why not. */
+function screensOf(
+  item: AnyItem,
+  sent: Readonly<Record<string, unknown>>,
+  link: string,
+):
+  | { readonly ok: true; readonly screens: ReadonlyArray<[FillableKind, unknown]> }
+  | { readonly ok: false; readonly message: string } {
+  const entries = Object.entries(sent);
+  const notHere = entries.filter(
+    ([kind]) => !item.screens.some((s) => s.kind === kind) || !isFillableKind(kind),
+  );
+  if (notHere.length > 0) {
+    return {
+      ok: false,
+      message: `${item.code} has no screen an assistant fills called ${notHere.map(([k]) => k).join(", ")}.`,
+    };
+  }
+  const screens = entries.flatMap(([kind, input]) =>
+    isFillableKind(kind) ? [[kind, input] as [FillableKind, unknown]] : [],
+  );
+  const inApp = screens.filter(([kind]) => filledBy(item, kind) !== "assistant");
+  if (inApp.length > 0) {
+    return {
+      ok: false,
+      message: `${inApp.map(([k]) => k).join(", ")} on ${item.code} is filled in the app: ${link}`,
+    };
+  }
+  const problems = screens.flatMap(([kind, input]) => {
+    const checked = SCREEN_FILLS[kind].input.safeParse(input);
+    return checked.success ? [] : [`${kind}: ${z.prettifyError(checked.error)}`];
+  });
+  return problems.length > 0
+    ? { ok: false, message: problems.join("\n") }
+    : { ok: true, screens };
+}
+
+/**
+ * The screens, saved one after the other in the item's order, each through its screen's own
+ * procedure and each saved or refused on its own.
+ */
+async function saveScreens(
+  holder: KeyHolder,
+  code: string,
+  screens: ReadonlyArray<[FillableKind, unknown]>,
+) {
+  const results: Array<
+    { kind: FillableKind; saved: unknown } | { kind: FillableKind; refused: string }
+  > = [];
+  for (const [kind, input] of screens) {
+    try {
+      results.push({
+        kind,
+        saved: await SCREEN_FILLS[kind].save(holder.caller, code, input),
+      });
+    } catch (error) {
+      const refused = describeError(error);
+      if (!refused) {
+        console.error(
+          `[mcp] the ${kind} screen failed:`,
+          error instanceof Error ? loggableFailure(error) : error,
+        );
+      }
+      results.push({ kind, refused: refused ?? "Could not be saved." });
+    }
+  }
+  return results;
 }
 
 /**
@@ -320,8 +442,12 @@ export async function fillItem(
   const keys = fieldKeysOf(item);
   const register = registerOfItem(item);
   const answering = Object.keys(answers).length > 0;
+  const sent = screensOf(item, input.screens ?? {}, link);
+  if (!sent.ok) return refuse(sent.message);
+  const { screens } = sent;
 
-  if (!answering && rows.length === 0) return refuse("Send answers, rows or both.");
+  if (!answering && rows.length === 0 && screens.length === 0)
+    return refuse("Send answers, rows, screens or any of them.");
   if (rows.length > 0 && !register)
     return refuse(`${code} has no register to add rows to.`);
   if (rows.length > 0 && filledBy(item, "register") !== "assistant") {
@@ -349,10 +475,17 @@ export async function fillItem(
     assessmentId: assessment.id,
     categoryId,
   });
+  const modules = [
+    ...new Set([
+      ...(register && rows.length > 0 ? [register.module] : []),
+      ...screens.flatMap(([kind]) => SCREEN_FILLS[kind].modules),
+    ]),
+  ];
   const takesBack =
-    register && rows.length > 0
-      ? await signaturesRowsTakeBack(holder, register, link)
-      : null;
+    (modules.length > 0 ? await signaturesTakenBack(holder, modules, link) : null) ??
+    (screens.some(([kind]) => kind === "policy")
+      ? await approvalTakenBack(holder, code, link)
+      : null);
   if (takesBack) return refuse(takesBack);
 
   // As in the app, and before any write: working on an item set aside picks it up again, and a
@@ -368,6 +501,7 @@ export async function fillItem(
   }
   const added =
     register && rows.length > 0 ? await addRows(holder, register, rows) : null;
+  const saved = screens.length > 0 ? await saveScreens(holder, code, screens) : null;
   const stored = await answersOf(holder, code, assessment.id, categoryId);
   return {
     ok: true,
@@ -375,6 +509,7 @@ export async function fillItem(
       code,
       savedAnswers: Object.keys(answers),
       rows: added,
+      screens: saved,
       stillEmpty: keys.filter((key) => stored[key] == null || stored[key] === ""),
       appOnly: screensFilledBy(item, "app"),
       next: `The person finishes ${code} in the app, where management also signs it: ${link}`,
