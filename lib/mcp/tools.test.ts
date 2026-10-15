@@ -16,7 +16,13 @@ mock.module("@/lib/env", () => ({
   },
   mailSupportEmail: () => "support@example.test",
 }));
-mock.module("@/lib/audit", () => ({ logAudit: async () => {} }));
+/** The audit rows the tools write themselves (the procedures' own are the mocked caller's). */
+const audited: Array<{ action: string; newValue?: unknown }> = [];
+mock.module("@/lib/audit", () => ({
+  logAudit: async (entry: { action: string; newValue?: unknown }) => {
+    audited.push(entry);
+  },
+}));
 mock.module("@/lib/compliance/module-recheck", () => ({
   signedOffByModule: async () => {
     if (signedElsewhere.openFor > 0) {
@@ -236,6 +242,32 @@ describe("fill_walkthrough_item refuses before it writes", () => {
     const { holder, called } = holderOf("5.1", "admin", { kind: "open" });
     expect(await fill(holder, "5.1", [{ name: "Hoster" }])).toMatchObject({ ok: true });
     expect(writesIn(called)).toEqual(["supplier.create"]);
+  });
+
+  test("what a call saved is recorded on the item, so the walkthrough can mark it", async () => {
+    audited.length = 0;
+    const { holder } = holderOf("5.1", "admin", { kind: "open" });
+    await fill(holder, "5.1", [{ name: "Hoster" }]);
+    expect(audited).toEqual([
+      expect.objectContaining({
+        action: "mcp.item_filled",
+        newValue: { code: "5.1", answers: [], screens: [], register: true, files: 0 },
+      }),
+    ]);
+  });
+
+  test("a call whose every write was refused records nothing", async () => {
+    signedElsewhere.codes = ["5.2"];
+    signedElsewhere.openFor = 1;
+    audited.length = 0;
+    try {
+      const { holder } = holderOf("5.1", "admin", { kind: "open" });
+      await fill(holder, "5.1", [{ name: "Hoster" }]);
+      expect(audited).toEqual([]);
+    } finally {
+      signedElsewhere.codes = [];
+      signedElsewhere.openFor = 0;
+    }
   });
 
   test("rows on the item where management approves are refused", async () => {

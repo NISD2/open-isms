@@ -1,6 +1,7 @@
 import "@/lib/server-guard";
 import { z } from "zod";
 import { getPathname } from "@/i18n/navigation";
+import { logAudit } from "@/lib/audit";
 import { isReviewerRole } from "@/lib/auth/roles";
 import { canSeeCategory, getUserAccess } from "@/lib/compliance/access";
 import { signedOffByModule } from "@/lib/compliance/module-recheck";
@@ -21,6 +22,7 @@ import en from "@/messages/durchgang/en.json";
 import { enforceAssignment } from "@/server/trpc/guards";
 import type { KeyHolder } from "./context";
 import { describeError } from "./errors";
+import { type FillRecord, ITEM_FILLED } from "./fills";
 import { type FillableKind, isFillableKind, SCREEN_FILLS } from "./screens";
 import {
   answersProblem,
@@ -665,6 +667,31 @@ async function confirmFiles(
   return results;
 }
 
+/**
+ * The item's own audit row for what this call saved, which the walkthrough reads to mark the
+ * screens an assistant wrote (fills.ts). None when everything was refused.
+ */
+async function recordFill(holder: KeyHolder, requirementId: string, record: FillRecord) {
+  const wrote = [
+    record.answers.length > 0 ? "answers" : null,
+    record.register ? "register" : null,
+    ...record.screens,
+    record.files > 0 ? "files" : null,
+  ].filter((part) => part !== null);
+  if (wrote.length === 0) return;
+  await logAudit({
+    companyId: holder.companyId,
+    userId: holder.userId,
+    action: ITEM_FILLED,
+    entityType: "requirement",
+    entityId: requirementId,
+    description: `${record.code}: ${wrote.join(", ")}`,
+    newValue: record,
+    ipAddress: holder.ip,
+    userAgent: holder.agent,
+  });
+}
+
 export async function fillItem(
   holder: KeyHolder,
   input: z.output<typeof FillItemInput>,
@@ -743,6 +770,13 @@ export async function fillItem(
     files.length > 0
       ? await confirmFiles(holder, allowed.statusRow?.id ?? null, files)
       : null;
+  await recordFill(holder, found.req.id, {
+    code,
+    answers: answering ? Object.keys(answers) : [],
+    screens: (saved ?? []).flatMap((s) => ("saved" in s ? [s.kind] : [])),
+    register: [...(added ?? []), ...(changed ?? [])].some((r) => !("refused" in r)),
+    files: (attached ?? []).filter((f) => "attached" in f).length,
+  });
   const stored = await answersOf(holder, code, assessment.id, categoryId);
   return {
     ok: true,

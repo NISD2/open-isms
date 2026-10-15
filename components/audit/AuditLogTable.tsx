@@ -4,6 +4,7 @@ import {
   Activity,
   BadgeCheck,
   Bell,
+  Bot,
   ChevronDown,
   ChevronRight,
   ClipboardCheck,
@@ -63,6 +64,7 @@ const AREA_ICON: Readonly<Record<string, LucideIcon>> = {
   journey: Settings2,
   company: Settings2,
   billing: Receipt,
+  mcp: Bot,
 };
 
 const BERLIN = "Europe/Berlin";

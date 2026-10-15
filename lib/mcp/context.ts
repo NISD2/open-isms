@@ -88,6 +88,9 @@ export interface KeyHolder {
    * tools can say so in the assistant's language, with the way to unlock it.
    */
   readonly mayWalk: boolean;
+  /** As the procedures' own audit rows carry them: the assistant's user agent and the caller's IP. */
+  readonly agent: string | null;
+  readonly ip: string | null;
 }
 
 /** The key's holder, or null when the key opens nothing. */
@@ -106,5 +109,7 @@ export async function keyHolder(
       context.session.accessLevel,
       isPlatformAdmin(context.session.user.email),
     ),
+    agent: context.userAgent,
+    ip: context.ip === "unknown" ? null : context.ip,
   };
 }

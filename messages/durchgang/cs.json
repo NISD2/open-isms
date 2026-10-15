@@ -202,6 +202,7 @@
       },
       "andMore": "{names} a další ({count})",
       "comesNext": "Následuje",
+      "byAssistant": "Zapsáno asistentem {client} dne {date}",
       "saveFailed": "Nepodařilo se uložit. Vaše zadání tu zůstává. Zkuste to prosím znovu.",
       "uploadFirst": "Nahrajte soubor sem. Pokud ho ještě nemáte, zvolte „Zatím nelze“.",
       "decline": {

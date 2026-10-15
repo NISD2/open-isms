@@ -56,6 +56,9 @@
         "allowMcpClient": "Assistant connected",
         "disconnectMcp": "All assistants disconnected"
       },
+      "mcp": {
+        "item_filled": "Walkthrough item filled in by an assistant"
+      },
       "notification": {
         "scheduled": "Deadline reminders scheduled"
       },

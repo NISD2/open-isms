@@ -6,6 +6,7 @@ import {
   BadgeCheck,
   BookOpen,
   BookText,
+  Bot,
   CalendarClock,
   ChevronLeft,
   CircleCheckBig,
@@ -42,7 +43,13 @@ import {
 import { useRouter } from "@/i18n/navigation";
 import { CATALOG_BY_ID } from "@/lib/asset-inventory/catalog";
 import { CUSTOM_ASSET_TYPE } from "@/lib/asset-inventory/types";
-import { type ItemState, resumeAt, type ScreenKind, sliceOf } from "@/lib/durchgang";
+import {
+  type ItemState,
+  recordedDay,
+  resumeAt,
+  type ScreenKind,
+  sliceOf,
+} from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
 import { Agreements } from "./AgreementScreen";
@@ -187,6 +194,7 @@ export function DurchgangItem({
 
   const entry = item.screens[index];
   if (!entry) return null;
+  const mark = item.assistant[index] ?? null;
 
   const forward = () => {
     if (entry.screen.kind === "done") {
@@ -383,6 +391,17 @@ export function DurchgangItem({
             <Icon className="size-3.5" />
             {t(`kinds.${entry.screen.kind}`)}
           </span>
+          {mark && (
+            // Beside where-you-are, in an outline of its own: what is on this screen came from
+            // an AI assistant, for the person (and management) to check before it is finished.
+            <span className="mb-4 ml-2 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs text-muted-foreground">
+              <Bot className="size-3.5" />
+              {t("byAssistant", {
+                client: mark.client,
+                date: recordedDay(item.locale, mark.at),
+              })}
+            </span>
+          )}
           {error === index && (
             <p
               role="alert"

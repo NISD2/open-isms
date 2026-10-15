@@ -56,6 +56,9 @@
         "allowMcpClient": "Assistent verbunden",
         "disconnectMcp": "Alle Assistenten getrennt"
       },
+      "mcp": {
+        "item_filled": "Punkt im Durchgang von einem Assistenten ausgefüllt"
+      },
       "notification": {
         "scheduled": "Erinnerungen an Fristen geplant"
       },

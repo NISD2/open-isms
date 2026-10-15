@@ -6,6 +6,7 @@
     "today": "Dnes",
     "yesterday": "Včera",
     "system": "Systém",
+    "viaAssistant": "přes {client}",
     "actions": {
       "durchgang": {
         "item_done": "Bod průvodce vyplněn",
@@ -45,7 +46,13 @@
         "setMode": "Zobrazení cesty změněno"
       },
       "user": {
-        "dismissHint": "Nápověda skryta"
+        "dismissHint": "Nápověda skryta",
+        "createMcpKey": "Klíč pro asistenty vytvořen",
+        "allowMcpClient": "Asistent připojen",
+        "disconnectMcp": "Všichni asistenti odpojeni"
+      },
+      "mcp": {
+        "item_filled": "Bod průvodce vyplněn asistentem"
       },
       "notification": {
         "scheduled": "Připomínky termínů naplánovány"

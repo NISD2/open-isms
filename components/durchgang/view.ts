@@ -5,6 +5,7 @@ import type {
   WalkLocale,
 } from "@/lib/durchgang";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
+import type { AssistantMark } from "@/lib/mcp/fills";
 import type { RouterOutputs } from "@/lib/trpc/client";
 
 interface RegisterRows {
@@ -107,6 +108,8 @@ export interface ItemView {
   readonly adoptedAt: Date | null;
   /** Loaded only for an item with a registration portals or reporting channels screen. */
   readonly registration: Registration | null;
+  /** Per screen, in `screens` order: the AI assistant that last wrote it and when, or null. */
+  readonly assistant: ReadonlyArray<AssistantMark | null>;
   /**
    * Who is walking: the default for a person the item names, and whether they may approve the
    * walk's documents as management or invite someone who does.

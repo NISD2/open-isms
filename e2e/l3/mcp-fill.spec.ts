@@ -6,6 +6,7 @@
  * a signed risk is the person's, in the app.
  */
 import { type APIRequestContext, expect, test } from "@playwright/test";
+import { WALK } from "@/lib/durchgang";
 import { e2eQuery } from "../lib/db";
 import {
   e2eTenant,
@@ -193,6 +194,21 @@ test.describe("an AI assistant fills the walkthrough over MCP", () => {
       [tenant.company_id, ["2.2", "2.3"]],
     );
     for (const row of statuses) expect(row.status, row.code).not.toBe("completed");
+  });
+
+  test("the walkthrough marks the screen the assistant wrote", async ({ page }) => {
+    const screens = WALK.find((item) => item.code === "2.2")?.screens ?? [];
+    const assets = screens.findIndex((s) => s.kind === "assets");
+    expect(assets).toBeGreaterThan(-1);
+    await page.goto(`/de/durchgang/nis2/2.2?s=${assets}`);
+    await expect(page.getByText(/Eingetragen von .+ am /)).toBeVisible({
+      timeout: 20_000,
+    });
+
+    // A screen it did not write carries no mark.
+    await page.goto("/de/durchgang/nis2/2.2?s=0");
+    await expect(page.locator("[data-dg-item]")).toBeVisible({ timeout: 20_000 });
+    await expect(page.getByText(/Eingetragen von .+ am /)).toHaveCount(0);
   });
 
   test("once management has signed on the risks, the assistant's change is refused", async ({

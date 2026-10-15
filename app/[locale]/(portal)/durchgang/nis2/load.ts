@@ -22,6 +22,8 @@ import {
   walkOf,
 } from "@/lib/durchgang";
 import { introspectSchema } from "@/lib/forms/schema-introspect";
+import { assistantMarks } from "@/lib/mcp/fills";
+import { assistantFillsOf } from "@/lib/mcp/fills-store";
 import { ensurePlatformSupplier } from "@/lib/supplier-portal/platform-supplier";
 import { api } from "@/lib/trpc/server";
 import { glossary } from "./gloss";
@@ -124,6 +126,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     assets,
     adoption,
     registration,
+    fills,
   ] = await Promise.all([
     wordsOf(item),
     getTranslations("compliance"),
@@ -150,6 +153,9 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     asksAssets ? api.asset.list() : Promise.resolve(null),
     asksAdopt ? api.durchgang.adoption() : Promise.resolve({ adoptedAt: null }),
     showsPortals ? api.durchgang.portals() : Promise.resolve(null),
+    session?.companyId
+      ? assistantFillsOf(db, session.companyId, req.id)
+      : Promise.resolve([]),
   ]);
 
   const statusId = statuses.find((s) => s.requirementId === req.id)?.status?.id ?? null;
@@ -241,6 +247,10 @@ export async function loadItem(code: string): Promise<ItemView | null> {
       : null,
     adoptedAt: adoption.adoptedAt,
     registration,
+    assistant: assistantMarks(
+      words.screens.map((s) => s.screen),
+      fills,
+    ),
     viewer: {
       id: session?.user.id ?? "",
       management: session?.jobTitle === MANAGEMENT_ROLE,
