@@ -28,6 +28,9 @@ import {
   sectorBars,
   signupDaysByCourse,
   signupFunnel,
+  signupPageBars,
+  signupSourceBars,
+  signupsByPage,
   sizeBars,
 } from "./graphs/derive";
 import { InsightsCard } from "./graphs/InsightsCard";
@@ -55,6 +58,7 @@ import {
   resolveWindow,
   todayUtc,
 } from "./graphs/range";
+import { TrafficCards } from "./graphs/TrafficCards";
 
 type GrowthData = RouterOutputs["platformAdmin"]["growth"];
 
@@ -331,6 +335,8 @@ function GraphsView({ data }: { data: GrowthData }) {
       activationLag: activationLagBars(scoped.newUsers),
       firstWorkLag: firstWorkLagBars(scoped.newUsers),
       locale: localeBars(scoped.newUsers),
+      signupPages: signupPageBars(scoped.newUsers),
+      signupSources: signupSourceBars(scoped.newUsers),
       sector: sectorBars(scoped.namedOrgs),
       size: sizeBars(scoped.namedOrgs),
       country: countryBars(scoped.namedOrgs),
@@ -340,6 +346,8 @@ function GraphsView({ data }: { data: GrowthData }) {
     }),
     [scoped],
   );
+
+  const signupsFrom = useMemo(() => signupsByPage(scoped.newUsers), [scoped]);
 
   const cohorts = useMemo(
     () => cohortMatrix(data.users, today.slice(0, 7)),
@@ -487,6 +495,20 @@ function GraphsView({ data }: { data: GrowthData }) {
       </div>
 
       <SectionHeading
+        title="Traffic"
+        blurb="The public site above the signup: who visits, which pages they read, where they come from. Read from the analytics host, so it can lag or be off without touching the cards below."
+      />
+
+      <TrafficCards
+        from={frame.start}
+        to={frame.end}
+        days={days}
+        granularity={g}
+        period={period}
+        signups={signupsFrom}
+      />
+
+      <SectionHeading
         title="Growth"
         blurb="How many people and organisations there are, and how fast that is changing."
       />
@@ -544,6 +566,24 @@ function GraphsView({ data }: { data: GrowthData }) {
           table={trendTable(trends.leads, series.leads, period)}
         >
           <TrendColumns data={trends.leads} series={series.leads} />
+        </ChartCard>
+
+        <ChartCard
+          title="Signups by the page they registered from"
+          subtitle="Accounts opened in range, by the page whose sign-in link they clicked"
+          note="Recorded at registration, so older accounts and Google sign-ins read as not recorded. Locales are merged: /en/pricing and /de/pricing are one page. Disposable addresses are left out."
+          table={barsTable(bars.signupPages, "Page")}
+        >
+          <CategoryBars bars={bars.signupPages} />
+        </ChartCard>
+
+        <ChartCard
+          title="Signups by campaign source"
+          subtitle="Accounts opened in range, by the utm_source of the page they registered from"
+          note="No campaign tag means the registration page was known but its address carried no utm_source: organic search, direct, a link without tags. Not recorded means the page itself was not captured."
+          table={barsTable(bars.signupSources, "Source")}
+        >
+          <CategoryBars bars={bars.signupSources} />
         </ChartCard>
       </div>
 

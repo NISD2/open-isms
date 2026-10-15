@@ -7,7 +7,8 @@ import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
+import { wikiLabel, wikiLocale } from "@/lib/content/wiki-locale";
+import { pageAlternates, pageOg } from "@/lib/seo";
 
 const NS = "openSourceVsUsSaas";
 const SLUG = "open-source-vs-us-saas";
@@ -45,7 +46,7 @@ export async function generateMetadata({
 
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale = wikiLocale(rawLocale);
   const t = await getTranslations("info");
 
   const faqs = faqKeys.map((key) => ({
@@ -78,7 +79,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
 
         <header>
           <Badge variant="secondary" className="mb-3">
-            Open Source
+            {wikiLabel(locale, { cs: "Open source", other: "Open Source" })}
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight">{t(`${NS}.title`)}</h1>
           <p className="mt-2 text-lg text-muted-foreground">{t(`${NS}.subtitle`)}</p>

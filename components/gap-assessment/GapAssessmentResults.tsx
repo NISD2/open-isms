@@ -1,10 +1,11 @@
 "use client";
 
-import { Link } from "@/i18n/navigation";
-import { useTranslations, useLocale } from "next-intl";
+import { ArrowRight, Download, RotateCcw, Scale } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 import {
   Table,
   TableBody,
@@ -13,9 +14,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Progress } from "@/components/ui/progress";
-import { ArrowRight, RotateCcw, AlertTriangle, Scale, Download } from "lucide-react";
-import type { AssessmentScores, GapDomain, GapQuestion } from "@/lib/gap-assessment/schema";
+import { Link } from "@/i18n/navigation";
+import { localizeGapDomain, localizeGapQuestion } from "@/lib/gap-assessment/localize";
+import type {
+  AssessmentScores,
+  GapDomain,
+  GapQuestion,
+} from "@/lib/gap-assessment/schema";
 
 const MATURITY_COLORS: Record<string, string> = {
   critical: "bg-red-100 text-red-700",
@@ -51,13 +56,13 @@ export function GapAssessmentResults({
   function getDomainName(domainId: number): string {
     const d = domains.find((dom) => dom.id === domainId);
     if (!d) return `Domain ${domainId}`;
-    return locale === "de" ? d.name.de : d.name.en;
+    return localizeGapDomain(d, locale).name;
   }
 
   function getQuestionText(questionId: string): string {
     const q = questions.find((qu) => qu.id === questionId);
     if (!q) return questionId;
-    return locale === "de" ? q.text.de : q.text.en;
+    return localizeGapQuestion(q, locale).text;
   }
 
   return (
@@ -72,7 +77,9 @@ export function GapAssessmentResults({
         {shared ? null : (
           <div className="flex gap-2">
             <Button variant="outline" asChild>
-              <a href={`/api/export/gap-assessment?sessionId=${sessionId}&locale=${pageLocale}`}>
+              <a
+                href={`/api/export/gap-assessment?sessionId=${sessionId}&locale=${pageLocale}`}
+              >
                 <Download className="mr-2 h-4 w-4" />
                 {t("results.exportPdf")}
               </a>
@@ -87,26 +94,36 @@ export function GapAssessmentResults({
           <div className="flex items-center gap-6">
             <div className="text-center">
               <p className="text-5xl font-bold">{scores.overall}%</p>
-              <p className="mt-1 text-sm text-muted-foreground">{t("results.overallScore")}</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {t("results.overallScore")}
+              </p>
             </div>
             <div className="flex-1 space-y-2">
               <Progress value={scores.overall} className="h-3" />
               <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
                 <div className="text-center text-xs">
                   <p className="font-semibold text-red-600">{criticalGaps}</p>
-                  <p className="text-muted-foreground">{t("results.summary.criticalGaps", { count: criticalGaps })}</p>
+                  <p className="text-muted-foreground">
+                    {t("results.summary.criticalGaps", { count: criticalGaps })}
+                  </p>
                 </div>
                 <div className="text-center text-xs">
                   <p className="font-semibold text-amber-600">{fineExposed}</p>
-                  <p className="text-muted-foreground">{t("results.summary.fineExposed", { count: fineExposed })}</p>
+                  <p className="text-muted-foreground">
+                    {t("results.summary.fineExposed", { count: fineExposed })}
+                  </p>
                 </div>
                 <div className="text-center text-xs">
                   <p className="font-semibold text-orange-600">{personalLiability}</p>
-                  <p className="text-muted-foreground">{t("results.summary.personalLiability", { count: personalLiability })}</p>
+                  <p className="text-muted-foreground">
+                    {t("results.summary.personalLiability", { count: personalLiability })}
+                  </p>
                 </div>
                 <div className="text-center text-xs">
                   <p className="font-semibold text-green-600">{quickWins}</p>
-                  <p className="text-muted-foreground">{t("results.summary.quickWins", { count: quickWins })}</p>
+                  <p className="text-muted-foreground">
+                    {t("results.summary.quickWins", { count: quickWins })}
+                  </p>
                 </div>
               </div>
             </div>
@@ -124,7 +141,9 @@ export function GapAssessmentResults({
             {scores.domains.map((d) => (
               <div key={d.domainId} className="flex items-center gap-3">
                 <div className="w-48 shrink-0">
-                  <p className="text-sm font-medium truncate">{getDomainName(d.domainId)}</p>
+                  <p className="text-sm font-medium truncate">
+                    {getDomainName(d.domainId)}
+                  </p>
                 </div>
                 <div className="flex-1">
                   <Progress value={d.percentage} className="h-2" />
@@ -162,7 +181,9 @@ export function GapAssessmentResults({
               <TableBody>
                 {scores.gaps.slice(0, 30).map((gap, i) => (
                   <TableRow key={gap.questionId}>
-                    <TableCell className="text-xs text-muted-foreground">{i + 1}</TableCell>
+                    <TableCell className="text-xs text-muted-foreground">
+                      {i + 1}
+                    </TableCell>
                     <TableCell className="text-sm max-w-xs">
                       {getQuestionText(gap.questionId)}
                     </TableCell>

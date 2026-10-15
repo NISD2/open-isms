@@ -28,6 +28,8 @@ const FOOTER = {
   locale: "en",
 } as const;
 
+const CS_FOOTER = { ...FOOTER, locale: "cs" } as const;
+
 const ITEM = {
   requirementCode: "GOV-1",
   requirementTitle: "Assign responsibility for the ISMS",
@@ -39,7 +41,8 @@ const ITEM = {
 
 /** One entry per live template: its name and a rendered subject. */
 const SUBJECTS: Array<[string, string]> = [
-  ["welcome", (await t.welcomeEmail({ name: "Anna" })).subject],
+  ["welcome", (await t.welcomeEmail({ name: "Anna", locale: "en" })).subject],
+  ["welcomeCs", (await t.welcomeEmail({ name: "Jana", locale: "cs" })).subject],
   [
     "invite",
     (
@@ -205,6 +208,95 @@ const SUBJECTS: Array<[string, string]> = [
         recipientName: "Jan Müller",
         courses: [{ title: "NIS 2 for CEOs", resumeUrl: "https://nisd2.eu/c" }],
         unsubscribeUrl: "https://nisd2.eu/u",
+        locale: "en",
+      })
+    ).subject,
+  ],
+  [
+    "courseFollowupCs",
+    (
+      await t.courseFollowupEmail({
+        recipientName: "Jana Nováková",
+        courses: [
+          {
+            title: "Školení NIS2 pro vedení společnosti",
+            resumeUrl: "https://nisd2.eu/cs/c",
+          },
+        ],
+        unsubscribeUrl: "https://nisd2.eu/u",
+        locale: "cs",
+      })
+    ).subject,
+  ],
+  [
+    "inviteCs",
+    (
+      await t.inviteEmail({
+        companyName: "Příklad s.r.o.",
+        inviterName: "Jana Nováková",
+        inviteUrl: "https://nisd2.eu/invite/x",
+        role: "member",
+        locale: "cs",
+      })
+    ).subject,
+  ],
+  [
+    "categoryAssignedCs",
+    (
+      await t.categoryAssignedEmail({
+        assigneeName: "Petr",
+        categoryName: "Řízení",
+        categoryCode: "GOV",
+        companyName: "Příklad s.r.o.",
+        assignerName: "Jana Nováková",
+        categoryUrl: "https://nisd2.eu/x",
+        footer: CS_FOOTER,
+      })
+    ).subject,
+  ],
+  [
+    "reviewRejectedCs",
+    (
+      await t.reviewDecisionEmail({
+        submitterName: "Petr",
+        requirementCode: "GOV-1",
+        requirementTitle: "x",
+        decision: "rejected",
+        footer: CS_FOOTER,
+      })
+    ).subject,
+  ],
+  [
+    "dailyDigestOverdueCs",
+    (
+      await t.dailyDigestEmail({
+        recipientName: "Petr",
+        companyName: "Příklad s.r.o.",
+        overdueItems: [ITEM],
+        urgentItems: [],
+        upcomingItems: [],
+        nextStep: null,
+        compliancePercentage: "42.0",
+        dashboardUrl: "https://nisd2.eu/",
+        footer: CS_FOOTER,
+      })
+    ).subject,
+  ],
+  [
+    "weeklyManagementCs",
+    (
+      await t.weeklyManagementDigestEmail({
+        recipientName: "Petr",
+        companyName: "Příklad s.r.o.",
+        compliancePercentage: "42.0",
+        overdueCount: 1,
+        urgentCount: 2,
+        escalationCount: 0,
+        totalRequirements: 49,
+        completedRequirements: 20,
+        nextStep: null,
+        dashboardUrl: "https://nisd2.eu/",
+        footer: CS_FOOTER,
       })
     ).subject,
   ],

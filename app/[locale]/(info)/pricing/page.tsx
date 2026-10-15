@@ -15,6 +15,7 @@ import {
 } from "@/lib/billing/order";
 import { billingFor } from "@/lib/billing/ordering-access";
 import { db } from "@/lib/db";
+import { isLocaleCode } from "@/lib/locale";
 import {
   buildSoftwareApplicationJsonLd,
   type Locale,
@@ -73,7 +74,7 @@ export default async function PricingPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale: Locale = isLocaleCode(rawLocale) ? rawLocale : "de";
   const t = await getTranslations("pricing");
   const offer = await visitorOffer();
   const price = formatEuro(ANNUAL_NET_CENTS, rawLocale);

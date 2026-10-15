@@ -1,0 +1,23 @@
+{
+  "newsletter": {
+    "archive": {
+      "metaTitle": "Archiv newsletteru",
+      "metaDescription": "Všechna vydání newsletteru NISD2: v každém vydání jedna novinka, co znamená pro vedení a jaký je další krok. Přečtete za 30 sekund.",
+      "title": "Newsletter",
+      "intro": "V každém vydání jedna novinka. Co se změnilo, co to znamená pro vedení a jaký je další krok. Všechna vydání zůstávají tady, trvale a ke sdílení.",
+      "empty": "Zatím nevyšlo žádné vydání.",
+      "readIssue": "Číst vydání",
+      "publishedOn": "Vydáno {date}"
+    },
+    "issue": {
+      "backToArchive": "Zpět do archivu newsletteru",
+      "publishedOn": "Vydáno {date}",
+      "ctaHeading": "Další krok"
+    },
+    "cta": {
+      "tool": "Otevřít nástroj NIS2 zdarma",
+      "course": "Přejít na bezplatný kurz",
+      "gap": "Ověřit zdarma, zda se na vás NIS2 vztahuje"
+    }
+  }
+}

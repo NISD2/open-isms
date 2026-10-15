@@ -50,18 +50,19 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
-  nis2Categories,
-  getNis2RequirementsForCategory,
-  gdprCategories,
-  getGdprRequirementsForCategory,
+  czechRefColumns,
   euAiActCategories,
-  getEuAiActRequirementsForCategory,
   euCraCategories,
-  getEuCraRequirementsForCategory,
-  iso27001Categories,
-  getIso27001RequirementsForCategory,
   type FrameworkCategory,
   type FrameworkRequirement,
+  gdprCategories,
+  getEuAiActRequirementsForCategory,
+  getEuCraRequirementsForCategory,
+  getGdprRequirementsForCategory,
+  getIso27001RequirementsForCategory,
+  getNis2RequirementsForCategory,
+  iso27001Categories,
+  nis2Categories,
 } from "@nisd2/grc-data-model/frameworks";
 import { allSatisfactionPairs } from "@nisd2/grc-data-model/satisfaction-pairs";
 
@@ -92,11 +93,31 @@ const FRAMEWORKS: readonly {
   categories: FrameworkCategory[];
   getRequirements: (slug: string) => FrameworkRequirement[];
 }[] = [
-  { code: "nis2", categories: nis2Categories, getRequirements: getNis2RequirementsForCategory },
-  { code: "gdpr", categories: gdprCategories, getRequirements: getGdprRequirementsForCategory },
-  { code: "iso27001", categories: iso27001Categories, getRequirements: getIso27001RequirementsForCategory },
-  { code: "eu_ai_act", categories: euAiActCategories, getRequirements: getEuAiActRequirementsForCategory },
-  { code: "eu_cra", categories: euCraCategories, getRequirements: getEuCraRequirementsForCategory },
+  {
+    code: "nis2",
+    categories: nis2Categories,
+    getRequirements: getNis2RequirementsForCategory,
+  },
+  {
+    code: "gdpr",
+    categories: gdprCategories,
+    getRequirements: getGdprRequirementsForCategory,
+  },
+  {
+    code: "iso27001",
+    categories: iso27001Categories,
+    getRequirements: getIso27001RequirementsForCategory,
+  },
+  {
+    code: "eu_ai_act",
+    categories: euAiActCategories,
+    getRequirements: getEuAiActRequirementsForCategory,
+  },
+  {
+    code: "eu_cra",
+    categories: euCraCategories,
+    getRequirements: getEuCraRequirementsForCategory,
+  },
 ] as const;
 
 /**
@@ -111,13 +132,17 @@ const only = onlyArg ? new Set(onlyArg.split(",").map((c) => c.trim())) : null;
 
 const selected = only ? FRAMEWORKS.filter((f) => only.has(f.code)) : FRAMEWORKS;
 if (selected.length === 0) {
-  throw new Error(`--only ${onlyArg} matched no framework in ${FRAMEWORKS.map((f) => f.code).join(", ")}`);
+  throw new Error(
+    `--only ${onlyArg} matched no framework in ${FRAMEWORKS.map((f) => f.code).join(", ")}`,
+  );
 }
 
 /** Which framework each requirement code belongs to, for scoping pairs. */
 const frameworkByCode = new Map(
   FRAMEWORKS.flatMap((f) =>
-    f.categories.flatMap((c) => f.getRequirements(c.slug).map((r) => [r.code, f.code] as const)),
+    f.categories.flatMap((c) =>
+      f.getRequirements(c.slug).map((r) => [r.code, f.code] as const),
+    ),
   ),
 );
 
@@ -163,6 +188,7 @@ const requirements = selected.flatMap((f) =>
   f.categories.flatMap((c) =>
     f.getRequirements(c.slug).map((r, sortOrder) => ({
       ...r,
+      ...czechRefColumns(r.czechRef),
       frameworkCode: f.code,
       categorySlug: c.slug,
       sortOrder,
@@ -174,11 +200,14 @@ const requirementStatements = requirements.map(
   (r) =>
     `INSERT INTO "requirement" (` +
     `"category_id", "code", "evidence_type", "frequency", "priority", "importance", ` +
-    `"legal_ref", "framework_ref", "cir_reference", "module_ref", "required_sign_off_role", "sort_order") ` +
+    `"legal_ref", "cz_act_ref", "cz_lower_ref", "cz_higher_ref", ` +
+    `"framework_ref", "cir_reference", "module_ref", "required_sign_off_role", "sort_order") ` +
     `SELECT rc."id", ${sqlLiteral(r.code)}, ${sqlLiteral(r.evidenceType)}::"evidence_type", ` +
     `${sqlLiteral(r.frequency)}::"frequency", ${sqlLiteral(r.priority)}::"priority", ` +
     `${sqlLiteral(r.importance)}::"requirement_importance", ` +
-    `${sqlLiteral(r.legalRef || null)}, ${sqlLiteral(r.frameworkRef)}, ${sqlLiteral(r.cirReference)}, ` +
+    `${sqlLiteral(r.legalRef || null)}, ${sqlLiteral(r.czActRef)}, ` +
+    `${sqlLiteral(r.czLowerRef)}, ${sqlLiteral(r.czHigherRef)}, ` +
+    `${sqlLiteral(r.frameworkRef)}, ${sqlLiteral(r.cirReference)}, ` +
     `${sqlLiteral(r.moduleRef)}, ${sqlLiteral(r.requiredSignOffRole)}, ${r.sortOrder} ` +
     `FROM "requirement_category" rc ` +
     `WHERE rc."slug" = ${sqlLiteral(r.categorySlug)} ` +
@@ -187,6 +216,8 @@ const requirementStatements = requirements.map(
     `"category_id" = EXCLUDED."category_id", "evidence_type" = EXCLUDED."evidence_type", ` +
     `"frequency" = EXCLUDED."frequency", "priority" = EXCLUDED."priority", ` +
     `"importance" = EXCLUDED."importance", "legal_ref" = EXCLUDED."legal_ref", ` +
+    `"cz_act_ref" = EXCLUDED."cz_act_ref", "cz_lower_ref" = EXCLUDED."cz_lower_ref", ` +
+    `"cz_higher_ref" = EXCLUDED."cz_higher_ref", ` +
     `"framework_ref" = EXCLUDED."framework_ref", "cir_reference" = EXCLUDED."cir_reference", ` +
     `"module_ref" = EXCLUDED."module_ref", ` +
     `"required_sign_off_role" = EXCLUDED."required_sign_off_role", ` +
@@ -200,7 +231,10 @@ const selectedCodes = new Set(selected.map((f) => f.code));
 const pairs = allSatisfactionPairs.filter(([a, b]) => {
   const fa = frameworkByCode.get(a);
   const fb = frameworkByCode.get(b);
-  return (fa !== undefined && selectedCodes.has(fa)) || (fb !== undefined && selectedCodes.has(fb));
+  return (
+    (fa !== undefined && selectedCodes.has(fa)) ||
+    (fb !== undefined && selectedCodes.has(fb))
+  );
 });
 
 const pairStatements = pairs.map(
@@ -228,8 +262,22 @@ const pairStatements = pairs.map(
 const dryRun = process.argv.includes("--dry-run");
 
 const FRAMEWORK_ROWS = [
-  { code: "nis2", version: "2026", effectiveDate: "2026-03-17", isActive: true, codePrefix: "NIS2-", sidebarLabel: "nis2" },
-  { code: "iso27001", version: "2022", effectiveDate: "2022-10-25", isActive: false, codePrefix: "ISO27001-", sidebarLabel: "iso27001" },
+  {
+    code: "nis2",
+    version: "2026",
+    effectiveDate: "2026-03-17",
+    isActive: true,
+    codePrefix: "NIS2-",
+    sidebarLabel: "nis2",
+  },
+  {
+    code: "iso27001",
+    version: "2022",
+    effectiveDate: "2022-10-25",
+    isActive: false,
+    codePrefix: "ISO27001-",
+    sidebarLabel: "iso27001",
+  },
 ] as const;
 
 const frameworkStatements = FRAMEWORK_ROWS.filter((row) =>
@@ -237,20 +285,16 @@ const frameworkStatements = FRAMEWORK_ROWS.filter((row) =>
 ).map(
   (row) =>
     `INSERT INTO "compliance_framework" (` +
-      `"code", "version", "effective_date", "is_active", "code_prefix", "sidebar_label") ` +
-      `VALUES (${sqlLiteral(row.code)}, ${sqlLiteral(row.version)}, ${sqlLiteral(row.effectiveDate)}, ` +
-      `${row.isActive}, ${sqlLiteral(row.codePrefix)}, ${sqlLiteral(row.sidebarLabel)}) ` +
-      `ON CONFLICT ("code") DO UPDATE SET ` +
-      `"version" = EXCLUDED."version", ` +
-      `"effective_date" = EXCLUDED."effective_date", ` +
-      `"is_active" = EXCLUDED."is_active"`,
+    `"code", "version", "effective_date", "is_active", "code_prefix", "sidebar_label") ` +
+    `VALUES (${sqlLiteral(row.code)}, ${sqlLiteral(row.version)}, ${sqlLiteral(row.effectiveDate)}, ` +
+    `${row.isActive}, ${sqlLiteral(row.codePrefix)}, ${sqlLiteral(row.sidebarLabel)}) ` +
+    `ON CONFLICT ("code") DO UPDATE SET ` +
+    `"version" = EXCLUDED."version", ` +
+    `"effective_date" = EXCLUDED."effective_date", ` +
+    `"is_active" = EXCLUDED."is_active"`,
 );
 
-const statements = [
-  ...categoryStatements,
-  ...requirementStatements,
-  ...pairStatements,
-];
+const statements = [...categoryStatements, ...requirementStatements, ...pairStatements];
 
 const sql =
   [
@@ -259,7 +303,9 @@ const sql =
     `-- Regenerate with: bun run scripts/generate-framework-migration.ts${only ? ` --only ${[...only].join(",")}` : ""}`,
     "-- Upsert-only: no deletes, no operational tables touched.",
     "",
-  ].join("\n") + statements.join(";\n--> statement-breakpoint\n") + ";\n";
+  ].join("\n") +
+  statements.join(";\n--> statement-breakpoint\n") +
+  ";\n";
 
 const categoryCountAll = selected.reduce((n, f) => n + f.categories.length, 0);
 
@@ -320,7 +366,9 @@ if (!seedFileMode) {
   );
   const previous = journal.entries.at(-1);
   if (!previous) {
-    throw new Error(`no existing entries in ${JOURNAL_PATH}; refusing to guess a baseline`);
+    throw new Error(
+      `no existing entries in ${JOURNAL_PATH}; refusing to guess a baseline`,
+    );
   }
 
   const idx = previous.idx + 1;
@@ -338,7 +386,9 @@ if (!seedFileMode) {
 
   if (dryRun) {
     console.log(sql);
-    console.error(`-- dry run: ${summary} (${statements.length} statements), would write ${tag}.sql`);
+    console.error(
+      `-- dry run: ${summary} (${statements.length} statements), would write ${tag}.sql`,
+    );
   } else {
     writeFileSync(join(DRIZZLE_DIR, `${tag}.sql`), sql);
     writeFileSync(

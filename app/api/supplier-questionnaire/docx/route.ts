@@ -1,5 +1,6 @@
 import {
   groupBySection,
+  legalBasisFor,
   supplierQuestionnaire,
 } from "@nisd2/nis2-supply-chain-questionnaire-schema";
 import { AlignmentType, Document, HeadingLevel, Packer, Paragraph, TextRun } from "docx";
@@ -65,7 +66,7 @@ function buildDoc(locale: QuestionnaireLocale): Document {
       const provenance = [
         `[${field.type}]`,
         requiredLabel(field, strings),
-        `${strings.legalBasis}: ${field.legalBasis}`,
+        `${strings.legalBasis}: ${legalBasisFor(field, locale)}`,
         isoText(field),
       ]
         .filter(Boolean)
@@ -133,10 +134,7 @@ export async function GET(request: Request): Promise<Response> {
   try {
     const doc = buildDoc(locale);
     const buffer = await Packer.toBuffer(doc);
-    const filename =
-      locale === "de"
-        ? "nis2-lieferanten-fragebogen.docx"
-        : "nis2-supplier-questionnaire.docx";
+    const filename = `${EXPORT_STRINGS[locale].file}.docx`;
 
     return new Response(buffer as unknown as BodyInit, {
       status: 200,

@@ -1,6 +1,7 @@
 import { EmailFrame } from "../components/frame";
 import { CtaButton, Para, Title } from "../components/parts";
 import type { PreferenceFooter } from "../layout";
+import { type WorkflowMailLocale, workflowMailLocaleOf } from "../locale";
 
 export interface CategoryAssignedProps {
   readonly assigneeName: string;
@@ -12,20 +13,59 @@ export interface CategoryAssignedProps {
   readonly footer: PreferenceFooter;
 }
 
+type Parts = Omit<CategoryAssignedProps, "categoryUrl" | "footer">;
+
+export const CATEGORY_ASSIGNED_COPY: Record<
+  WorkflowMailLocale,
+  {
+    readonly subject: (p: Parts) => string;
+    readonly heading: string;
+    /** The text before and after the category name, which is set in bold. */
+    readonly assigned: (p: Parts) => { readonly lead: string; readonly end: string };
+    readonly fill: string;
+    readonly button: (categoryCode: string) => string;
+    readonly goTo: string;
+  }
+> = {
+  en: {
+    subject: ({ assignerName, categoryName }) =>
+      `${assignerName} assigned you ${categoryName}`,
+    heading: "New Assignment",
+    assigned: ({ assigneeName, assignerName, categoryCode, companyName }) => ({
+      lead: `Hi ${assigneeName}, ${assignerName} has assigned you to `,
+      end: ` (${categoryCode}) in ${companyName}.`,
+    }),
+    fill: "You can now fill out the compliance requirements for this category.",
+    button: (categoryCode) => `Go to ${categoryCode}`,
+    goTo: "Go to category",
+  },
+  cs: {
+    subject: ({ categoryName }) => `Byla vám přiřazena oblast ${categoryName}`,
+    heading: "Nové přiřazení",
+    assigned: ({ assignerName, categoryCode, companyName }) => ({
+      lead: `Dobrý den, v organizaci ${companyName} vám byla přiřazena oblast `,
+      end: ` (${categoryCode}). Přiřadil(a) vám ji ${assignerName}.`,
+    }),
+    fill: "Nyní můžete vyplnit požadavky této oblasti.",
+    button: (categoryCode) => `Přejít na ${categoryCode}`,
+    goTo: "Přejít na oblast",
+  },
+};
+
 /** Optional: someone assigned the reader an area of the journey. */
 export default function CategoryAssignedEmail(props: CategoryAssignedProps) {
-  const { assigneeName, categoryName, categoryCode, companyName, assignerName } = props;
+  const copy = CATEGORY_ASSIGNED_COPY[workflowMailLocaleOf(props.footer.locale)];
+  const { lead, end } = copy.assigned(props);
   return (
     <EmailFrame chrome={props.footer}>
-      <Title>New Assignment</Title>
+      <Title>{copy.heading}</Title>
       <Para>
-        Hi {assigneeName}, {assignerName} has assigned you to{" "}
-        <strong>{categoryName}</strong> ({categoryCode}) in {companyName}.
+        {lead}
+        <strong>{props.categoryName}</strong>
+        {end}
       </Para>
-      <Para style={{ margin: "0 0 24px" }}>
-        You can now fill out the compliance requirements for this category.
-      </Para>
-      <CtaButton href={props.categoryUrl}>Go to {categoryCode}</CtaButton>
+      <Para style={{ margin: "0 0 24px" }}>{copy.fill}</Para>
+      <CtaButton href={props.categoryUrl}>{copy.button(props.categoryCode)}</CtaButton>
     </EmailFrame>
   );
 }

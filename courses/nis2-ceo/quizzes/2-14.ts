@@ -170,7 +170,7 @@ const quiz = quizSchema.parse({
         it: "Cosa significa 'privilegio minimo'?",
         es: "¿Qué significa 'mínimo privilegio'?",
         pl: "Co oznacza 'najmniejsze uprawnienia'?",
-        cs: "Co znamená 'nejmenší oprávnění'?",
+        cs: "Co znamená „nejmenší oprávnění“?",
         pt: "O que significa 'privilégio mínimo'?",
         ro: "Ce înseamnă 'privilegiul minim'?",
       },

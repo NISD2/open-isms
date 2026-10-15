@@ -12,8 +12,10 @@ import {
   CUSTOM_EDITOR_KEYS,
   REQUIREMENT_FIELD_MAP,
 } from "@/lib/compliance/requirement-fields";
+import cs from "@/messages/durchgang/cs.json";
 import de from "@/messages/durchgang/de.json";
 import en from "@/messages/durchgang/en.json";
+import infoCs from "@/messages/info/cs.json";
 import infoDe from "@/messages/info/de.json";
 import infoEn from "@/messages/info/en.json";
 import { marker } from "./copy";
@@ -96,6 +98,7 @@ const screensOf = (item: (typeof NIS2_SCRIPT)[number]): readonly AnyScreen[] =>
 const LOCALES = [
   ["de", de.durchgang, infoDe.info.glossary.terms],
   ["en", en.durchgang, infoEn.info.glossary.terms],
+  ["cs", cs.durchgang, infoCs.info.glossary.terms],
 ] as const;
 
 describe("the NIS 2 script", () => {
@@ -360,7 +363,7 @@ describe("the words of the Durchgang", () => {
     }
   });
 
-  test("a policy offers the same clauses in both languages, in the same order", () => {
+  test("a policy offers the same clauses in every language, in the same order", () => {
     // A clause is stored by its id in the record language and offered by that id in the
     // reader's, so the two lists may not drift apart.
     const clausesIn = (namespace: (typeof LOCALES)[number][1], item: AnyItem) => {
@@ -371,12 +374,15 @@ describe("the words of the Durchgang", () => {
           )
         : [];
     };
-    const [[, first], [, second]] = LOCALES;
+    const [[, first], ...others] = LOCALES;
     for (const item of NIS2_SCRIPT) {
-      expect({ code: item.code, clauses: clausesIn(first, item) }).toEqual({
-        code: item.code,
-        clauses: clausesIn(second, item),
-      });
+      for (const [locale, other] of others) {
+        expect({ code: item.code, locale, clauses: clausesIn(first, item) }).toEqual({
+          code: item.code,
+          locale,
+          clauses: clausesIn(other, item),
+        });
+      }
     }
   });
 

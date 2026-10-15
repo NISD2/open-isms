@@ -1,8 +1,9 @@
+import type { WalkLocale } from "@/lib/durchgang/types";
 import { EmailFrame } from "../components/frame";
 import { CtaButton, Note, Para, Title } from "../components/parts";
 
 export interface ManagementHandoffProps {
-  readonly locale: "de" | "en";
+  readonly locale: WalkLocale;
   /** Management's name as the colleague typed it, made safe for mail; empty for none. */
   readonly name: string;
   readonly inviterName: string;
@@ -15,7 +16,31 @@ export interface ManagementHandoffProps {
 
 type Parts = Pick<ManagementHandoffProps, "inviterName" | "companyName">;
 
-export const MANAGEMENT_HANDOFF_COPY = {
+const CZECH_PLURAL = new Intl.PluralRules("cs");
+const CZECH_DAY: Partial<Record<Intl.LDMLPluralRule, string>> = {
+  one: "den",
+  few: "dny",
+};
+
+/** "1 den", "3 dny", "7 dní": the Czech noun follows the count. */
+const czechDays = (days: number): string =>
+  `${days} ${CZECH_DAY[CZECH_PLURAL.select(days)] ?? "dní"}`;
+
+export const MANAGEMENT_HANDOFF_COPY: Record<
+  WalkLocale,
+  {
+    readonly subject: (p: Parts) => string;
+    readonly heading: string;
+    readonly hello: (name: string) => string;
+    readonly invite: (p: Parts) => string;
+    readonly sameAccount: (p: Parts) => string;
+    readonly button: string;
+    readonly note: (days: number) => string;
+    /** Stand-ins when a name is missing, written to fit the sentences above. */
+    readonly colleague: string;
+    readonly company: string;
+  }
+> = {
   de: {
     subject: ({ inviterName }: Parts) =>
       `${inviterName} lädt Sie in das Konto Ihres Unternehmens auf nisd2.eu ein`,
@@ -46,7 +71,24 @@ export const MANAGEMENT_HANDOFF_COPY = {
     colleague: "A colleague",
     company: "your company",
   },
-} as const;
+  // The colleague accepts into the company's account with a login of their own: Czech law forbids
+  // shared accounts (410 § 7 odst. 1 písm. a), 409 § 13 odst. 2 písm. b)), so the Czech text says so.
+  cs: {
+    subject: ({ inviterName }: Parts) =>
+      `${inviterName} vás zve do účtu vaší organizace na nisd2.eu`,
+    heading: "Pozvánka do účtu vaší organizace",
+    hello: () => "Dobrý den,",
+    invite: ({ inviterName, companyName }: Parts) =>
+      `${inviterName} vás zve v roli vedení do účtu ${companyName} na nisd2.eu.`,
+    sameAccount: ({ inviterName }: Parts) =>
+      `Budete pak pracovat ve stejném účtu organizace jako ${inviterName}, pod vlastním přihlášením. Další účet organizace k tomu nepotřebujete.`,
+    button: "Přijmout pozvánku",
+    note: (days: number) =>
+      `Pozvánka platí ${czechDays(days)}. Pokud jste tento e-mail nečekali, můžete ho ignorovat.`,
+    colleague: "Někdo z vaší organizace",
+    company: "vaší organizace",
+  },
+};
 
 /**
  * Management's invitation into the company's account, sent from the walk's lock by the colleague

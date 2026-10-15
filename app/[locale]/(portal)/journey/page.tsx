@@ -14,8 +14,6 @@ import { liveNode } from "./views";
 
 export const dynamic = "force-dynamic";
 
-type Locale = "en" | "de" | "nl";
-
 export default async function JourneyPage({
   params,
   searchParams,
@@ -27,17 +25,16 @@ export default async function JourneyPage({
   if (!session) redirect("/auth/signin");
   if (!session.companyId) redirect("/dashboard");
 
-  const { locale: rawLocale } = await params;
-  const locale: Locale = (
-    ["en", "de", "nl"].includes(rawLocale) ? rawLocale : "en"
-  ) as Locale;
+  // Each journey component picks its own language from the page's: the labels come in German,
+  // English and Czech, the disclaimer in Dutch as well.
+  const { locale } = await params;
 
   const { focus } = await searchParams;
   const focusRaw = Array.isArray(focus) ? focus[0] : focus;
   const focusCategory = focusRaw ? focusRaw.toUpperCase() : null;
 
   const { items, aggregate, lastActivityAt, mode } = await api.journey.getItems({
-    locale: rawLocale,
+    locale,
   });
 
   // A draft company (auto-provisioned at verification) renders the full seeded
@@ -110,7 +107,7 @@ export default async function JourneyPage({
 }
 
 /** Page-level reuse of the one canonical journey disclaimer. */
-function PathDisclaimer({ locale }: { locale: Locale }) {
+function PathDisclaimer({ locale }: { locale: string }) {
   return (
     <p className="rounded-md border bg-muted/20 px-3 py-2 text-xs text-muted-foreground">
       {journeyDisclaimer(locale)}

@@ -204,6 +204,44 @@
             "type": "string",
             "minLength": 1
           },
+          "legalBasisLocalised": {
+            "type": "object",
+            "properties": {
+              "de": {
+                "type": "string",
+                "minLength": 1
+              },
+              "fr": {
+                "type": "string",
+                "minLength": 1
+              },
+              "it": {
+                "type": "string",
+                "minLength": 1
+              },
+              "es": {
+                "type": "string",
+                "minLength": 1
+              },
+              "pl": {
+                "type": "string",
+                "minLength": 1
+              },
+              "cs": {
+                "type": "string",
+                "minLength": 1
+              },
+              "pt": {
+                "type": "string",
+                "minLength": 1
+              },
+              "ro": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "additionalProperties": false
+          },
           "iso27001": {
             "minItems": 1,
             "type": "array",

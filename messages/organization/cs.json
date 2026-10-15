@@ -10,11 +10,21 @@
     "sector": "Sektor NIS2",
     "sectorPlaceholder": "Vyberte sektor...",
     "entityType": "Klasifikace subjektu",
-    "entityTypeHelp": "Podle definice v BSIG 2025 §28",
+    "entityTypeHelp": "Podle čl. 3 NIS2; v Česku se režim (vyšší nebo nižší povinnosti) řídí §§ 4 až 8 zákona č. 264/2025 Sb. a vyhláškou č. 408/2025 Sb. a ukazuje ho Portál NÚKIB v Přehledu podání",
+    "essentials": {
+      "title": "Vaše společnost",
+      "lead": "Pro začátek stačí tři odpovědi. Vše ostatní zadáte tam, kde je to potřeba.",
+      "create": "Pokračovat",
+      "name": "Název společnosti",
+      "nameHint": "Tak, jak se má objevit ve vašich dokumentech, včetně právní formy.",
+      "entityTypeHint": "Jak je vaše společnost zařazena (čl. 3 NIS 2; v Česku režim, který ukazuje Portál NÚKIB v Přehledu podání).",
+      "missing": "Zadejte prosím název a odvětví.",
+      "failed": "To se nepovedlo. Zkuste to prosím znovu."
+    },
     "entityTypes": {
       "essential": "Základní subjekt",
       "important": "Důležitý subjekt",
-      "kritis": "Provozovatel KRITIS"
+      "kritis": "Subjekt kritické infrastruktury"
     },
     "legalForm": "Právní forma",
     "legalFormPlaceholder": "např. GmbH, AG, KG",
@@ -25,11 +35,11 @@
     "cisoNamePlaceholder": "Jana Nováková",
     "cisoReportsTo": "CISO se zodpovídá",
     "cisoReportsToPlaceholder": "např. generální ředitel, představenstvo",
-    "bsiContactName": "Kontaktní osoba pro BSI",
-    "bsiContactNamePlaceholder": "Max Mustermann",
-    "bsiContactEmail": "Kontaktní e-mail pro BSI",
-    "bsiContactPhone": "Kontaktní telefon pro BSI",
-    "bsiRegistrationId": "Registrační ID u BSI",
+    "bsiContactName": "Kontaktní osoba pro NÚKIB",
+    "bsiContactNamePlaceholder": "Jan Novák",
+    "bsiContactEmail": "Kontaktní e-mail pro NÚKIB",
+    "bsiContactPhone": "Kontaktní telefon pro NÚKIB",
+    "bsiRegistrationId": "Č. j. rozhodnutí NÚKIB o registraci",
     "annualSecurityBudget": "Roční rozpočet na bezpečnost (EUR)",
     "primaryLocations": "Hlavní lokality",
     "primaryLocationsPlaceholder": "např. Berlín, Mnichov",
@@ -42,6 +52,12 @@
     "saving": "Ukládám...",
     "saved": "Změny úspěšně uloženy.",
     "saveError": "Uložení změn se nezdařilo. Zkuste to prosím znovu.",
+    "organizationId": {
+      "label": "ID organizace",
+      "hint": "Uveďte ho, když nám píšete nebo platformu provozujete sami.",
+      "copy": "Kopírovat",
+      "copied": "Zkopírováno"
+    },
     "sectors": {
       "energy": "Energetika",
       "transport": "Doprava",
@@ -73,6 +89,7 @@
       "removeMember": "Odebrat",
       "back": "Zpět",
       "skip": "Zatím přeskočit",
+      "ownsAreas": "Odpovídá za: {areas}",
       "roles": {
         "ceo": {
           "label": "Generální ředitel / Jednatel",

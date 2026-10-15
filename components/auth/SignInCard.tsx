@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "@/i18n/navigation";
-import { campaignTags } from "@/lib/analytics/token-routes";
+import { signupTags } from "@/lib/analytics/token-routes";
 import { type GoogleSignInError, isGoogleSignInError } from "@/lib/auth/google-link";
 import { localCallbackPath } from "@/lib/auth/local-path";
 
@@ -50,9 +50,9 @@ export function SignInCard({
   // walkthrough (locked, with the way to order, for an unpaid account).
   // Company-less users get the company setup there.
   const callbackUrl = localCallbackPath(searchParams.get("callbackUrl"), "/dashboard");
-  // The campaign tags the linking page handed on (SignInLink), kept by the account a registration
-  // creates. The server keeps only the five utm_* keys it knows.
-  const campaign = campaignTags(searchParams.toString()).toString();
+  // The campaign tags and page path the linking page handed on (SignInLink), kept by the account
+  // a registration creates. The server keeps only the keys it knows.
+  const campaign = signupTags(searchParams.toString()).toString();
   const [step, setStep] = useState<Step>("auth");
   // "Jetzt starten" on the landing page links here with ?mode=register: a new visitor meets the
   // registration form, not a login form with registering behind a link.
@@ -86,6 +86,25 @@ export function SignInCard({
 
     try {
       if (mode === "register") {
+        // Someone who already has this account and types their own credentials on the
+        // registration form is signed in. Otherwise they reach a code screen that no code
+        // ever comes to, because a verified address is sent a notice and not a code. This is
+        // the sign-in's own check, rate limit included, so it reveals nothing a login would not.
+        const existing = await signIn("credentials", {
+          email,
+          password,
+          redirect: false,
+        });
+        if (existing && !existing.error) {
+          router.push(callbackUrl);
+          return;
+        }
+        if (`${existing?.error ?? ""} ${existing?.code ?? ""}`.includes("RATE_LIMITED")) {
+          setError(t("errorRateLimited"));
+          setLoading(false);
+          return;
+        }
+
         const res = await fetch("/api/auth/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -294,6 +313,30 @@ export function SignInCard({
           >
             {t("verifyResend")}
           </button>
+
+          <p className="text-center text-sm text-muted-foreground">
+            {t("verifyHaveAccount")}{" "}
+            <button
+              type="button"
+              className="underline hover:text-foreground"
+              onClick={() => {
+                setStep("auth");
+                setMode("login");
+                setCode("");
+                setError("");
+                setInfo("");
+              }}
+            >
+              {t("verifyToSignIn")}
+            </button>
+            {" · "}
+            <Link
+              href="/auth/forgot-password"
+              className="underline hover:text-foreground"
+            >
+              {t("forgotPasswordLink")}
+            </Link>
+          </p>
 
           <button
             type="button"

@@ -5,6 +5,7 @@ import { attachment, exportAccess } from "@/lib/export/access";
 import { loadCompanyExport } from "@/lib/export/company-export";
 import { exportNames } from "@/lib/export/value-names";
 import { DocumentsDocument } from "@/lib/pdf/company-export";
+import { exportLabels } from "@/lib/pdf/export-labels";
 import { pdfLocale } from "@/lib/pdf/format";
 
 /** The documents the walk wrote as one PDF, each with who approved it and when. */
@@ -19,10 +20,6 @@ export async function GET(request: NextRequest) {
   ]);
   const buffer = await renderToBuffer(DocumentsDocument({ data, locale, names }));
   return new Response(new Uint8Array(buffer), {
-    headers: attachment(
-      "application/pdf",
-      locale === "de" ? "nis2-dokumente" : "nis2-documents",
-      "pdf",
-    ),
+    headers: attachment("application/pdf", exportLabels(locale).documents.file, "pdf"),
   });
 }

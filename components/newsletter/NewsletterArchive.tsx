@@ -1,14 +1,17 @@
-import { getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
+import { getTranslations } from "next-intl/server";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Link } from "@/i18n/navigation";
 
-/** The newsletter is authored/published in DE, EN, NL only. */
-export type NewsletterLocale = "de" | "en" | "nl";
+/**
+ * The languages the archive's own words and dates are shown in. An issue is shown as written,
+ * whatever the page's language.
+ */
+export type NewsletterLocale = "de" | "en" | "nl" | "cs";
 
-/** Narrow an incoming route locale to the three the newsletter supports. */
+/** Narrow an incoming route locale to one the archive speaks, German for the rest. */
 export function resolveNewsletterLocale(raw: string): NewsletterLocale {
-  return raw === "en" || raw === "nl" ? raw : "de";
+  return raw === "en" || raw === "nl" || raw === "cs" ? raw : "de";
 }
 
 interface ArchiveIssue {
@@ -22,6 +25,7 @@ export const NEWSLETTER_DATE_LOCALE: Record<NewsletterLocale, string> = {
   de: "de-DE",
   en: "en-GB",
   nl: "nl-NL",
+  cs: "cs-CZ",
 };
 
 export async function NewsletterArchive({
@@ -34,7 +38,9 @@ export async function NewsletterArchive({
   const t = await getTranslations("newsletter");
   const fmt = (d: Date | null) =>
     d
-      ? new Date(d).toLocaleDateString(NEWSLETTER_DATE_LOCALE[locale], { dateStyle: "long" })
+      ? new Date(d).toLocaleDateString(NEWSLETTER_DATE_LOCALE[locale], {
+          dateStyle: "long",
+        })
       : "";
 
   return (

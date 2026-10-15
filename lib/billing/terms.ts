@@ -7,15 +7,22 @@
  */
 export const TERMS_VERSION = "2026-10-05";
 
-/** The version as the reader writes a date: "26.09.2026", "26 September 2026". */
+/** How each language writes the date; any other reads it the British way, as the terms do. */
+const VERSION_DATE: Partial<
+  Record<string, { readonly intl: string; readonly style: "medium" | "long" }>
+> = {
+  de: { intl: "de-DE", style: "medium" },
+  nl: { intl: "nl-NL", style: "long" },
+  cs: { intl: "cs-CZ", style: "long" },
+};
+
+/** The version as the reader writes a date: "26.09.2026", "26 September 2026", "26. září 2026". */
 export const termsVersionLabel = (
   locale: string,
   version: string = TERMS_VERSION,
-): string =>
-  new Intl.DateTimeFormat(
-    locale === "de" ? "de-DE" : locale === "nl" ? "nl-NL" : "en-GB",
-    {
-      dateStyle: locale === "de" ? "medium" : "long",
-      timeZone: "UTC",
-    },
-  ).format(new Date(`${version}T12:00:00Z`));
+): string => {
+  const { intl, style } = VERSION_DATE[locale] ?? { intl: "en-GB", style: "long" };
+  return new Intl.DateTimeFormat(intl, { dateStyle: style, timeZone: "UTC" }).format(
+    new Date(`${version}T12:00:00Z`),
+  );
+};

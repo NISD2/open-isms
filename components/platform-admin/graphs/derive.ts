@@ -6,6 +6,7 @@
  * given the same facts and the same window they return the same rows.
  */
 
+import { isLocaleCode } from "@/lib/locale";
 import type { CompanyFact, CourseId, UserFact } from "@/lib/platform-admin/growth";
 
 /** One bar: a label, its value, and an optional second line under it. */
@@ -262,6 +263,81 @@ export function localeBars(users: UserFact[]): Bar[] {
     users.map((u) => (u.locale === "unknown" ? null : u.locale.toUpperCase())),
     7,
     "Never set",
+  );
+}
+
+/** A page path without its locale prefix, so /en/pricing and /de/pricing are one page. */
+export function pageOf(path: string): string {
+  const [first = "", ...rest] = path.split("/").filter(Boolean);
+  const segments = isLocaleCode(first.toLowerCase())
+    ? rest
+    : [first, ...rest].filter(Boolean);
+  return `/${segments.join("/")}`;
+}
+
+/** Signups per page they registered from, disposable addresses left out as in the funnels. */
+export function signupsByPage(users: UserFact[]): Map<string, number> {
+  const counts = new Map<string, number>();
+  for (const u of users) {
+    if (u.disposable || u.fromPath === null) continue;
+    const page = pageOf(u.fromPath);
+    counts.set(page, (counts.get(page) ?? 0) + 1);
+  }
+  return counts;
+}
+
+export interface PageRow {
+  page: string;
+  views: number;
+  signups: number;
+  /** Signups per 1,000 views; null when the page has no recorded views. */
+  per1000: number | null;
+}
+
+/**
+ * Page views (from analytics) next to signups (from the platform) for the same page, locales
+ * merged. A page can appear on one side only: signups from a page the analytics top list cut off,
+ * or a much-read page nobody registered from. Most-viewed first.
+ */
+export function pageConversion(
+  pages: ReadonlyArray<{ name: string; views: number }>,
+  signups: ReadonlyMap<string, number>,
+  top: number,
+): PageRow[] {
+  const views = new Map<string, number>();
+  for (const { name, views: n } of pages) {
+    const page = pageOf(name);
+    views.set(page, (views.get(page) ?? 0) + n);
+  }
+  const names = new Set([...views.keys(), ...signups.keys()]);
+  return [...names]
+    .map((page) => {
+      const v = views.get(page) ?? 0;
+      const s = signups.get(page) ?? 0;
+      return { page, views: v, signups: s, per1000: v === 0 ? null : (s / v) * 1000 };
+    })
+    .sort(
+      (a, b) =>
+        b.views - a.views || b.signups - a.signups || a.page.localeCompare(b.page),
+    )
+    .slice(0, top);
+}
+
+export function signupPageBars(users: UserFact[]): Bar[] {
+  const real = users.filter((u) => !u.disposable);
+  return rank(
+    real.map((u) => (u.fromPath === null ? null : pageOf(u.fromPath))),
+    9,
+    "Not recorded",
+  );
+}
+
+export function signupSourceBars(users: UserFact[]): Bar[] {
+  const real = users.filter((u) => !u.disposable);
+  return rank(
+    real.map((u) => u.utmSource ?? (u.fromPath === null ? null : "No campaign tag")),
+    7,
+    "Not recorded",
   );
 }
 

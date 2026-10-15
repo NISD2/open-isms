@@ -173,7 +173,12 @@
         "declined": "Bewusst nicht umgesetzt: {reason}",
         "gaps": {
           "title": "Was die Angaben noch offen lassen",
-          "lead": "Mit Ihrer Freigabe bestätigen Sie, was festgehalten ist. Nach den eigenen Angaben des Unternehmens ist das hier noch nicht umgesetzt. Nehmen Sie es unter „Zu erledigen“ in die Managementbewertung auf.",
+          "lead": "Mit Ihrer Freigabe bestätigen Sie, was festgehalten ist. Nach den eigenen Angaben des Unternehmens ist das hier noch nicht umgesetzt. Legen Sie für jeden Punkt fest, wer sich kümmert und bis wann. Er steht dann mit Name und Termin auf der Liste der Maßnahmen.",
+          "owner": "Zuständig",
+          "nobody": "Noch niemand",
+          "formerMember": "Nicht mehr im Team",
+          "due": "Erledigt bis",
+          "saveFailed": "Nicht gespeichert. Bitte noch einmal auswählen.",
           "secondFactor": "Ohne zweiten Faktor: {names}",
           "secondFactorAll": "Kein Programm mit Anmeldung hat einen zweiten Faktor. Das Gesetz verlangt, ihn zu verwenden (§ 30 Abs. 2 Nr. 10 BSIG).",
           "supplier": "Hohes Risiko, im Vertrag weder Sicherheit noch Vorfälle geregelt: {names}",
@@ -330,6 +335,7 @@
         "fromKnowledge": "ab Kenntnis",
         "fromNotification": "nach der Meldung",
         "hours": "{count} Stunden",
+        "days": "{count, plural, one {# Tag} other {# Tage}}",
         "months": "{count, plural, one {# Monat} other {# Monate}}"
       },
       "wait": {

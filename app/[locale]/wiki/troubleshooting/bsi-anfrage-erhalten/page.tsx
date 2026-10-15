@@ -13,14 +13,15 @@ import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
 import {
   faqJsonLd,
-  LAW_CHIP,
+  LawChip,
   WikiExample,
   WikiFaq,
   type WikiQuestion,
   WikiSection,
   WikiSources,
 } from "@/components/wiki/WikiSection";
-import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
+import { wikiLocale } from "@/lib/content/wiki-locale";
+import { pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -57,7 +58,7 @@ export default async function BsiAnfrageErhaltenPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale = wikiLocale(rawLocale);
   const [t, w] = await Promise.all([
     getTranslations("info.bsiAnfrageErhalten"),
     getTranslations("info.wikiWalk"),
@@ -91,7 +92,7 @@ export default async function BsiAnfrageErhaltenPage({
 
         <WikiPageMeta
           authorSlug="simon-orzel"
-          locale={locale === "nl" ? "de" : (locale as "de" | "en")}
+          locale={locale === "nl" ? "de" : locale}
           lastReviewedAt="2026-10-05"
           sourceLocale="de"
         />
@@ -114,7 +115,7 @@ export default async function BsiAnfrageErhaltenPage({
                     {basis.text}
                   </p>
                   <p>
-                    <span className={LAW_CHIP}>{basis.law}</span>
+                    <LawChip law={basis.law} />
                   </p>
                 </CardContent>
               </Card>

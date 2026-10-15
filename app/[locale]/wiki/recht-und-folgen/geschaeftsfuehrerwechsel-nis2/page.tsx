@@ -10,10 +10,12 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { SourceText } from "@/components/wiki/SourceText";
 import { WalkSteps } from "@/components/wiki/WalkSteps";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
+import { wikiLabel, wikiLocale } from "@/lib/content/wiki-locale";
+import { pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -61,7 +63,7 @@ export default async function ManagementChangePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale = wikiLocale(rawLocale);
   const t = await getTranslations("info");
 
   return (
@@ -81,7 +83,10 @@ export default async function ManagementChangePage({
 
         <header>
           <Badge variant="secondary" className="mb-3">
-            Art. 20 + Art. 3(4) NIS 2 · §33(5) + §38 + §65 BSIG
+            {wikiLabel(locale, {
+              cs: "čl. 20 a čl. 3 odst. 4 NIS 2 · § 11 odst. 2 a § 59 zákona č. 264/2025 Sb.",
+              other: "Art. 20 + Art. 3(4) NIS 2 · §33(5) + §38 + §65 BSIG",
+            })}
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight">
             {t("nis2ManagementChange.title")}
@@ -93,7 +98,7 @@ export default async function ManagementChangePage({
 
         <WikiPageMeta
           authorSlug="simon-orzel"
-          locale={locale === "nl" ? "de" : (locale as "de" | "en")}
+          locale={locale === "nl" ? "de" : locale}
           lastReviewedAt="2026-06-04"
           sourceLocale="en"
         />
@@ -238,7 +243,7 @@ export default async function ManagementChangePage({
                   className="flex items-start gap-2 text-xs text-muted-foreground"
                 >
                   <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
-                  {s}
+                  <SourceText text={s} />
                 </li>
               ))}
             </ul>

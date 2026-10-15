@@ -14,7 +14,7 @@ import {
 import { pendingSignersOf } from "@/lib/compliance/sign-off-roster";
 import { reopenChange } from "@/lib/compliance/sign-off-state";
 import type { Database } from "@/lib/db";
-import { contactEmailChangedEmail, sendMail } from "@/lib/mail";
+import { accountEmailLocale, contactEmailChangedEmail, sendMail } from "@/lib/mail";
 import { joinCompany } from "@/lib/organization/membership";
 import {
   auditLog,
@@ -136,6 +136,9 @@ export const assessmentRouter = router({
           companyName: updated.name,
           oldEmail: prev.contactEmail,
           newEmail: input.contactEmail,
+          locale: ctx.session.user.email
+            ? await accountEmailLocale(ctx.session.user.email).catch(() => undefined)
+            : undefined,
         });
         sendMail({
           emailType: "account.contact_email_changed",

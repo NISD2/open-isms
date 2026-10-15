@@ -8,6 +8,8 @@
  */
 
 import type { frameworkEnum } from "@nisd2/grc-data-model/enums";
+import type { CzechRef } from "@nisd2/grc-data-model/frameworks";
+import { type CzechPart, czechArticle, czechCitations } from "./czech-law";
 
 type FrameworkCode = (typeof frameworkEnum.enumValues)[number];
 
@@ -69,10 +71,12 @@ export interface CitationSource {
   readonly referenceUrl: string | null;
   /** requirement_category.national_url — the national transposition, if any. */
   readonly nationalUrl: string | null;
+  /** The requirement's place in Czech law (its row's Czech columns), cited instead of the BSIG on a Czech page. */
+  readonly czechRef?: CzechRef | null;
 }
 
 export interface CitationRow {
-  readonly id: "framework" | "national";
+  readonly id: "framework" | "national" | CzechPart;
   readonly label: FrameworkLabel;
   /** Rendered verbatim. A legal citation is never reformatted for looks. */
   readonly citation: string;
@@ -109,8 +113,44 @@ export const typesetCitation = (text: string): string =>
     .replace(/§[ \t]*(?=\d)/g, `§${NBSP}`)
     .replace(/\b(Abs\.|Nr\.|Art\.)[ \t]+(?=\d)/g, `$1${NBSP}`);
 
-export function buildCitationRows(source: CitationSource): readonly CitationRow[] {
+/**
+ * A Czech page cites Czech law where the requirement has a place in it: the directive in Czech
+ * style, then the Act and the decree for each regime, each linked to its section. The regime is
+ * not known here (the Portál NÚKIB shows it to the company), so both decrees show.
+ */
+const czechRows = (
+  source: CitationSource,
+  czechRef: CzechRef,
+): readonly CitationRow[] => {
+  const style = FRAMEWORK_CITATION_STYLE.nis2;
+  const frameworkRef = nonEmpty(source.frameworkRef);
+  return [
+    ...(frameworkRef === null
+      ? []
+      : [
+          {
+            id: "framework" as const,
+            label: style.label,
+            citation: czechArticle(frameworkRef),
+            href: nonEmpty(source.referenceUrl),
+          },
+        ]),
+    ...czechCitations(czechRef).map((c) => ({
+      id: c.part,
+      label: { kind: "literal" as const, text: c.label },
+      citation: c.citation,
+      href: c.href,
+    })),
+  ];
+};
+
+export function buildCitationRows(
+  source: CitationSource,
+  locale?: string,
+): readonly CitationRow[] {
   if (!isFrameworkCode(source.frameworkCode)) return [];
+  if (locale === "cs" && source.frameworkCode === "nis2" && source.czechRef)
+    return czechRows(source, source.czechRef);
 
   const style = FRAMEWORK_CITATION_STYLE[source.frameworkCode];
   const typeset = (value: string | null) => {

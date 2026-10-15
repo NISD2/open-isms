@@ -18,7 +18,8 @@ const named = (e: CryptoAlgorithmEntry) =>
 
 /**
  * 9.1: the cryptographic methods the company accepts, shown as the list it is, by status and by
- * kind. A company without a list of its own sees the BSI TR-02102 list and ticks that it applies,
+ * kind. A company without a list of its own sees the default list (BSI TR-02102, or NÚKIB's
+ * minimum requirements for a Czech account) and ticks that it applies,
  * which takes it over; single entries are changed in the editor on the requirement page. The
  * cryptography policy on the next screen prints the accepted methods from this list.
  */

@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { Link } from "@/i18n/navigation";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { JsonLd } from "@/components/JsonLd";
 import { Badge } from "@/components/ui/badge";
 import {
   Breadcrumb,
@@ -12,13 +11,18 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { JsonLd } from "@/components/JsonLd";
-import { pageAlternates, baseUrl } from "@/lib/seo";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Link } from "@/i18n/navigation";
 import { AUTHORS, type DocsAuthor } from "@/lib/content/authors";
+import { baseUrl, pageAlternates } from "@/lib/seo";
 
 function isAuthorSlug(value: string): value is DocsAuthor["slug"] {
   return value === "simon-orzel" || value === "cory-hisey";
 }
+
+/** The title, bio and topics in the page's language: Czech on a Czech page, else as written. */
+const profileText = (author: DocsAuthor, locale: string): DocsAuthor["czech"] =>
+  locale === "cs" ? author.czech : author;
 
 export async function generateMetadata({
   params,
@@ -28,14 +32,14 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   if (!isAuthorSlug(slug)) return {};
   const author = AUTHORS[slug];
-  const isEn = locale === "en";
+  const shown = profileText(author, locale);
   return {
-    title: `${author.name} — ${author.jobTitle} | nisd2.eu`,
-    description: author.shortBio,
+    title: `${author.name} — ${shown.jobTitle} | nisd2.eu`,
+    description: shown.shortBio,
     alternates: pageAlternates(`autor/${slug}`, locale),
     openGraph: {
-      title: `${author.name} — ${author.jobTitle}`,
-      description: author.shortBio,
+      title: `${author.name} — ${shown.jobTitle}`,
+      description: shown.shortBio,
       url: `${baseUrl}${author.profileUrl}`,
       type: "profile",
       images: [{ url: author.photoUrl, width: 400, height: 400 }],
@@ -51,6 +55,7 @@ export default async function AuthorProfilePage({
   const { locale, slug } = await params;
   if (!isAuthorSlug(slug)) notFound();
   const author = AUTHORS[slug];
+  const shown = profileText(author, locale);
   const isEn = locale === "en";
 
   // Standalone Person JSON-LD that references the Organization @id from
@@ -62,10 +67,10 @@ export default async function AuthorProfilePage({
     name: author.name,
     url: `${baseUrl}${author.profileUrl}`,
     image: `${baseUrl}${author.photoUrl}`,
-    jobTitle: author.jobTitle,
-    description: author.shortBio,
+    jobTitle: shown.jobTitle,
+    description: shown.shortBio,
     worksFor: { "@id": `${baseUrl}/#organization` },
-    knowsAbout: author.topics,
+    knowsAbout: shown.topics,
     knowsLanguage: ["de", "en", "nl"],
     sameAs: [author.linkedinUrl],
   };
@@ -99,8 +104,8 @@ export default async function AuthorProfilePage({
         <div className="flex-1 space-y-2">
           <Badge variant="secondary">{isEn ? "Author" : "Autor"}</Badge>
           <h1 className="text-3xl font-bold tracking-tight">{author.name}</h1>
-          <p className="text-sm text-muted-foreground">{author.jobTitle}</p>
-          <p className="text-base leading-relaxed text-foreground">{author.shortBio}</p>
+          <p className="text-sm text-muted-foreground">{shown.jobTitle}</p>
+          <p className="text-base leading-relaxed text-foreground">{shown.shortBio}</p>
           <p className="text-sm">
             <a
               href={author.linkedinUrl}
@@ -117,12 +122,12 @@ export default async function AuthorProfilePage({
       <Card>
         <CardHeader>
           <CardTitle className="text-lg">
-            {isEn ? "Topics" : "Themen"}
+            {isEn ? "Topics" : locale === "cs" ? "Témata" : "Themen"}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            {author.topics.map((topic) => (
+            {shown.topics.map((topic) => (
               <li key={topic} className="flex gap-2">
                 <span className="text-foreground/40">·</span>
                 <span>{topic}</span>

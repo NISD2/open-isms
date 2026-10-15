@@ -1,8 +1,10 @@
 import { Link } from "@react-email/components";
+import { Fragment } from "react";
 import { EmailFrame } from "../components/frame";
 import { CtaButton, Para, Title } from "../components/parts";
-import { type DigestNextStep, withUtm } from "../digest";
+import { type DigestNextStep, formatPercent, withUtm } from "../digest";
 import { BRAND, type PreferenceFooter, SEVERITY } from "../layout";
+import { type WorkflowMailLocale, workflowMailLocaleOf } from "../locale";
 
 export interface WeeklyDigestProps {
   readonly recipientName: string;
@@ -17,6 +19,89 @@ export interface WeeklyDigestProps {
   readonly dashboardUrl: string;
   readonly footer: PreferenceFooter;
 }
+
+export const WEEKLY_DIGEST_COPY: Record<
+  WorkflowMailLocale,
+  {
+    readonly subject: (companyName: string, percent: string) => string;
+    readonly heading: string;
+    /** The text before and after the company name, which is set in bold. */
+    readonly intro: (recipientName: string) => {
+      readonly lead: string;
+      readonly end: string;
+    };
+    readonly score: string;
+    readonly completed: (done: number, total: number) => string;
+    readonly overdue: string;
+    readonly urgent: string;
+    readonly escalations: string;
+    readonly nextUp: string;
+    readonly owner: (assigneeName: string | null) => string;
+    readonly recurring: string;
+    readonly review: string;
+    readonly viewDashboard: string;
+    readonly viewDashboardText: string;
+    /**
+     * What the mail documents for management, in the reader's own law. A Czech company is
+     * regulated by the Czech Act and its decrees, never by the BSIG.
+     */
+    readonly record: readonly string[];
+  }
+> = {
+  en: {
+    subject: (companyName, percent) =>
+      `${companyName} is at ${percent} on NIS 2 this week`,
+    heading: "Weekly Management Report",
+    intro: (recipientName) => ({
+      lead: `Hi ${recipientName}, here is the weekly compliance summary for `,
+      end: ".",
+    }),
+    score: "Compliance Score",
+    completed: (done, total) => `${done} of ${total} requirements completed`,
+    overdue: "Overdue Items",
+    urgent: "Urgent Items",
+    escalations: "Escalations",
+    nextUp: "Next up",
+    owner: (assigneeName) =>
+      assigneeName ? `assigned to ${assigneeName}` : "not yet assigned",
+    recurring:
+      "Open items return in every weekly report until they are done. Completed items land in the audit trail as evidence.",
+    review: "Review the open items",
+    viewDashboard: "View Dashboard",
+    viewDashboardText: "View dashboard",
+    record: [
+      "This email serves as documentation of management notification per Art. 20 NIS 2 / §38 BSIG.",
+      "Diese E-Mail dient als Nachweis der Leitungsunterrichtung gemäß Art. 20 NIS 2 / §38 BSIG.",
+    ],
+  },
+  cs: {
+    subject: (companyName, percent) =>
+      `Plnění NIS 2 v organizaci ${companyName} tento týden: ${percent}`,
+    heading: "Týdenní zpráva pro vedení",
+    intro: () => ({
+      // Czech company names end in "s.r.o." or "a.s.", so no sentence ends on one.
+      lead: "Dobrý den, toto je přehled plnění NIS 2 organizace ",
+      end: " za tento týden.",
+    }),
+    score: "Míra plnění",
+    completed: (done, total) => `Splněno ${done} z celkem ${total} požadavků`,
+    overdue: "Po termínu",
+    urgent: "Naléhavé",
+    escalations: "Eskalace",
+    nextUp: "Na řadě",
+    owner: (assigneeName) =>
+      assigneeName ? `přiřazeno: ${assigneeName}` : "zatím nepřiřazeno",
+    recurring:
+      "Otevřené body se v každé týdenní zprávě objeví znovu, dokud nebudou hotové. Dokončené body se jako doklad ukládají do auditní stopy.",
+    review: "Zkontrolovat otevřené body",
+    viewDashboard: "Otevřít dashboard",
+    viewDashboardText: "Otevřít dashboard",
+    record: [
+      "Tento e-mail slouží jako záznam o seznámení vedení se stavem plnění bezpečnostních opatření (čl. 20 směrnice NIS 2; v režimu nižších povinností vyhláška č. 410/2025 Sb., § 4 písm. d)).",
+      "V režimu vyšších povinností se vedení prokazatelně seznamuje s konkrétními zprávami (vyhláška č. 409/2025 Sb., § 4 odst. 2), které tento e-mail nenahrazuje.",
+    ],
+  },
+};
 
 const label = {
   padding: "10px 12px",
@@ -35,23 +120,27 @@ const count = (color: string) =>
 /** Optional: the week's compliance score and open items, as evidence of informing management. */
 export default function WeeklyDigestEmail(props: WeeklyDigestProps) {
   const { nextStep, overdueCount, urgentCount, escalationCount } = props;
+  const locale = workflowMailLocaleOf(props.footer.locale);
+  const copy = WEEKLY_DIGEST_COPY[locale];
+  const intro = copy.intro(props.recipientName);
   const pct = Math.min(
     100,
     Math.max(0, Number.parseFloat(props.compliancePercentage) || 0),
   );
   return (
     <EmailFrame chrome={props.footer}>
-      <Title style={{ margin: "0 0 8px" }}>Weekly Management Report</Title>
+      <Title style={{ margin: "0 0 8px" }}>{copy.heading}</Title>
       <Para style={{ margin: "0 0 24px" }}>
-        Hi {props.recipientName}, here is the weekly compliance summary for{" "}
-        <strong>{props.companyName}</strong>.
+        {intro.lead}
+        <strong>{props.companyName}</strong>
+        {intro.end}
       </Para>
       <div style={{ textAlign: "center", margin: "0 0 24px" }}>
         <span style={{ fontSize: "36px", fontWeight: 700, color: BRAND.primary }}>
-          {props.compliancePercentage}%
+          {formatPercent(props.compliancePercentage, locale)}
         </span>
         <div style={{ color: BRAND.foreground, fontSize: "14px", marginTop: "4px" }}>
-          Compliance Score
+          {copy.score}
         </div>
         <div
           style={{
@@ -72,8 +161,7 @@ export default function WeeklyDigestEmail(props: WeeklyDigestProps) {
           />
         </div>
         <div style={{ color: BRAND.foreground, fontSize: "13px", marginTop: "4px" }}>
-          {props.completedRequirements} of {props.totalRequirements} requirements
-          completed
+          {copy.completed(props.completedRequirements, props.totalRequirements)}
         </div>
       </div>
       <table
@@ -86,19 +174,19 @@ export default function WeeklyDigestEmail(props: WeeklyDigestProps) {
       >
         <tbody>
           <tr>
-            <td style={label}>Overdue Items</td>
+            <td style={label}>{copy.overdue}</td>
             <td style={count(overdueCount > 0 ? SEVERITY.destructive : SEVERITY.success)}>
               {overdueCount}
             </td>
           </tr>
           <tr>
-            <td style={label}>Urgent Items</td>
+            <td style={label}>{copy.urgent}</td>
             <td style={count(urgentCount > 0 ? SEVERITY.warning : SEVERITY.success)}>
               {urgentCount}
             </td>
           </tr>
           <tr>
-            <td style={label}>Escalations</td>
+            <td style={label}>{copy.escalations}</td>
             <td
               style={count(escalationCount > 0 ? SEVERITY.destructive : SEVERITY.success)}
             >
@@ -114,18 +202,14 @@ export default function WeeklyDigestEmail(props: WeeklyDigestProps) {
         nextStep ? (
           <>
             <Para>
-              Next up:{" "}
+              {copy.nextUp}:{" "}
               <Link
                 href={withUtm(nextStep.url, "weekly_management_digest")}
                 style={{ color: BRAND.primary, fontWeight: 600, textDecoration: "none" }}
               >
                 {nextStep.requirementCode} {nextStep.requirementTitle}
               </Link>{" "}
-              ({nextStep.categoryName}),{" "}
-              {nextStep.assigneeName
-                ? `assigned to ${nextStep.assigneeName}`
-                : "not yet assigned"}
-              .
+              ({nextStep.categoryName}), {copy.owner(nextStep.assigneeName)}.
             </Para>
             <p
               style={{
@@ -135,14 +219,13 @@ export default function WeeklyDigestEmail(props: WeeklyDigestProps) {
                 margin: "0 0 16px",
               }}
             >
-              Open items return in every weekly report until they are done. Completed
-              items land in the audit trail as evidence.
+              {copy.recurring}
             </p>
           </>
         ) : null
       }
       <CtaButton href={withUtm(props.dashboardUrl, "weekly_management_digest")}>
-        {nextStep ? "Review the open items" : "View Dashboard"}
+        {nextStep ? copy.review : copy.viewDashboard}
       </CtaButton>
       <div
         style={{
@@ -156,11 +239,12 @@ export default function WeeklyDigestEmail(props: WeeklyDigestProps) {
           lineHeight: 1.5,
         }}
       >
-        This email serves as documentation of management notification per Art. 20 NIS 2 /
-        §38 BSIG.
-        <br />
-        Diese E-Mail dient als Nachweis der Leitungsunterrichtung gemäß Art. 20 NIS 2 /
-        §38 BSIG.
+        {copy.record.map((line, i) => (
+          <Fragment key={line}>
+            {i > 0 ? <br /> : null}
+            {line}
+          </Fragment>
+        ))}
       </div>
     </EmailFrame>
   );

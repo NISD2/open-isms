@@ -20,9 +20,12 @@ import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { PathTimeline, RAIL_WIDTH } from "./PathTimeline";
 import {
+  countOf,
   type DotState,
   type FlowNode,
   frequencyLabel,
+  type JourneyLocale,
+  journeyLocaleOf,
   requirementHref,
   reviewLabel,
   startLabel,
@@ -38,7 +41,55 @@ import {
   STAGE_COUNT,
 } from "./solo-path";
 
-type Locale = "en" | "de" | "nl";
+const COPY: Record<
+  JourneyLocale,
+  {
+    stage: string;
+    guide: string;
+    nextUp: string;
+    allDone: string;
+    comesNext: string;
+    step: string;
+    stepOf: (step: number, total: number) => string;
+    steps: (count: number) => string;
+    wholePath: (total: number) => string;
+  }
+> = {
+  en: {
+    stage: "Stage",
+    guide: "Guide",
+    nextUp: "Next up",
+    allDone: "All done",
+    comesNext: "Next",
+    step: "Step",
+    stepOf: (step, total) => `Step ${step} of ${total}`,
+    steps: (count) => countOf("en", count, { one: "step", other: "steps" }),
+    wholePath: (total) => `That is the whole path: ${total} steps.`,
+  },
+  de: {
+    stage: "Stufe",
+    guide: "Hinweise",
+    nextUp: "Als Nächstes",
+    allDone: "Alles erledigt",
+    comesNext: "Anschließend",
+    step: "Schritt",
+    stepOf: (step, total) => `Schritt ${step} von ${total}`,
+    steps: (count) => countOf("de", count, { one: "Schritt", other: "Schritte" }),
+    wholePath: (total) => `Das ist der ganze Weg: ${total} Schritte.`,
+  },
+  cs: {
+    stage: "Etapa",
+    guide: "Pokyny",
+    nextUp: "Na řadě",
+    allDone: "Vše hotovo",
+    comesNext: "Následuje",
+    step: "Krok",
+    stepOf: (step, total) => `Krok ${step} z ${total}`,
+    steps: (count) => countOf("cs", count, { one: "krok", few: "kroky", other: "kroků" }),
+    wholePath: (total) =>
+      `To je celá cesta: ${countOf("cs", total, { one: "krok", few: "kroky", other: "kroků" })}.`,
+  },
+};
 
 function categoryHref(categorySlug: string) {
   return {
@@ -63,13 +114,14 @@ export function SoloPath({
   tourAnchored = true,
 }: {
   reqNodes: FlowNode[];
-  locale: Locale;
+  /** The page language; the disclaimer has more languages than the rest of the journey. */
+  locale: string;
   /** Advertise this path to the guided tour. False while the mode question is
    *  open, so the walkthrough cannot start underneath the dialog. */
   tourAnchored?: boolean;
 }) {
-  const de = locale === "de";
-  const sections = useMemo(() => buildSoloSections(reqNodes, de), [reqNodes, de]);
+  const lang = journeyLocaleOf(locale);
+  const sections = useMemo(() => buildSoloSections(reqNodes, lang), [reqNodes, lang]);
   const stages = useMemo(() => buildStageProgress(sections), [sections]);
 
   // Starts on the first section, not on the one holding the live step. At
@@ -131,7 +183,7 @@ export function SoloPath({
         aria-hidden="true"
         className="pointer-events-none sticky top-12 z-20 -mb-5 h-5 bg-gradient-to-b from-background to-transparent"
       />
-      <StickyPathBar section={active} liveNode={liveNode} de={de} />
+      <StickyPathBar section={active} liveNode={liveNode} lang={lang} />
 
       <div className="lg:flex lg:gap-8">
         <PathTimeline stages={stages} activeStage={active.stage.index} locale={locale} />
@@ -152,19 +204,17 @@ export function SoloPath({
               {i > 0 ? <SectionDivider title={section.title} /> : <div className="h-4" />}
               <ol className="flex flex-col items-center gap-3">
                 {section.steps.map((step) => (
-                  <StepNode key={step.node.id} step={step} total={total} de={de} />
+                  <StepNode key={step.node.id} step={step} total={total} lang={lang} />
                 ))}
               </ol>
               {section.nextStage ? (
-                <NextStageCard stage={section.nextStage} de={de} />
+                <NextStageCard stage={section.nextStage} lang={lang} />
               ) : null}
             </section>
           ))}
 
           <p className="mt-10 pb-4 text-center text-xs text-muted-foreground">
-            {de
-              ? `Das ist der ganze Weg: ${total} Schritte.`
-              : `That is the whole path: ${total} steps.`}
+            {COPY[lang].wholePath(total)}
           </p>
         </div>
 
@@ -200,12 +250,13 @@ export function SoloPath({
 function StickyPathBar({
   section,
   liveNode,
-  de,
+  lang,
 }: {
   section: SoloSection;
   liveNode: FlowNode | null;
-  de: boolean;
+  lang: JourneyLocale;
 }) {
+  const copy = COPY[lang];
   // Stage one holds a single category, so its stage label and section title
   // are the same word. Printing it twice reads as a rendering fault.
   const showSection = section.title !== section.stage.label;
@@ -221,7 +272,7 @@ function StickyPathBar({
       {/* Hidden where the rail is shown: it names the stage already, and two
           copies of the same position is one too many. */}
       <span className="shrink-0 rounded bg-primary/10 px-1.5 py-0.5 text-[11px] font-semibold tabular-nums text-primary lg:hidden">
-        {de ? "Stufe" : "Stage"} {section.stage.index}/{STAGE_COUNT}
+        {copy.stage} {section.stage.index}/{STAGE_COUNT}
       </span>
       <h2 className="min-w-0 truncate text-sm font-semibold">
         {showSection ? section.title : section.stage.label}
@@ -231,13 +282,13 @@ function StickyPathBar({
         className="inline-flex shrink-0 items-center gap-1.5 rounded-md border px-2 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
       >
         <BookOpen className="h-3.5 w-3.5" />
-        {de ? "Hinweise" : "Guide"}
+        {copy.guide}
       </Link>
 
       {liveNode ? (
         <div className="ml-auto flex min-w-0 items-center gap-2.5">
           <span className="hidden shrink-0 text-[11px] font-medium uppercase tracking-wide text-muted-foreground lg:inline">
-            {de ? "Als Nächstes" : "Next up"}
+            {copy.nextUp}
           </span>
           <span className="shrink-0 font-mono text-xs text-muted-foreground">
             {liveNode.code}
@@ -249,14 +300,14 @@ function StickyPathBar({
             href={requirementHref(liveNode)}
             className="inline-flex shrink-0 items-center gap-1 rounded-md bg-primary px-2.5 py-1 text-xs font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
           >
-            {startLabel(liveNode.state, de)}
+            {startLabel(liveNode.state, lang)}
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
       ) : (
         <span className="ml-auto inline-flex shrink-0 items-center gap-1.5 text-xs text-muted-foreground">
           <CheckCheck className="h-3.5 w-3.5 text-primary" />
-          {de ? "Alles erledigt" : "All done"}
+          {copy.allDone}
         </span>
       )}
     </div>
@@ -275,7 +326,16 @@ function SectionDivider({ title }: { title: string }) {
   );
 }
 
-function StepNode({ step, total, de }: { step: SoloStep; total: number; de: boolean }) {
+function StepNode({
+  step,
+  total,
+  lang,
+}: {
+  step: SoloStep;
+  total: number;
+  lang: JourneyLocale;
+}) {
+  const copy = COPY[lang];
   const { node } = step;
   const { state } = node;
   const current = node.status === "current";
@@ -291,12 +351,12 @@ function StepNode({ step, total, de }: { step: SoloStep; total: number; de: bool
       className="flex flex-col items-center"
       style={{ transform: `translateX(${step.offsetPx}px)` }}
     >
-      {current ? <StartPill state={state} de={de} /> : null}
+      {current ? <StartPill state={state} lang={lang} /> : null}
       <HoverCard openDelay={120} closeDelay={60}>
         <HoverCardTrigger asChild>
           <Link
             href={requirementHref(node)}
-            aria-label={`${de ? "Schritt" : "Step"} ${step.step}: ${node.label}`}
+            aria-label={`${copy.step} ${step.step}: ${node.label}`}
             className={cn(
               "relative flex items-center justify-center rounded-full border-2 transition-transform hover:-translate-y-0.5",
               current ? "h-[72px] w-[72px]" : "h-16 w-16",
@@ -323,8 +383,8 @@ function StepNode({ step, total, de }: { step: SoloStep; total: number; de: bool
           ) : null}
           <div className="space-y-1 border-t pt-2 text-xs text-muted-foreground">
             <p>
-              {de ? "Schritt" : "Step"} {step.step} {de ? "von" : "of"} {total} ·{" "}
-              <span className={statusTone(state)}>{statusLabel(node, de)}</span>
+              {copy.stepOf(step.step, total)} ·{" "}
+              <span className={statusTone(state)}>{statusLabel(node, lang)}</span>
             </p>
             {node.legalRef ? (
               <p className="flex items-center gap-1.5">
@@ -335,13 +395,13 @@ function StepNode({ step, total, de }: { step: SoloStep; total: number; de: bool
             {node.frequency ? (
               <p className="flex items-center gap-1.5">
                 <Repeat className="h-3 w-3 shrink-0" />
-                {frequencyLabel(node.frequency, de)}
+                {frequencyLabel(node.frequency, lang)}
               </p>
             ) : null}
             {node.dueInDays !== null ? (
               <p className="flex items-center gap-1.5">
                 <CalendarClock className="h-3 w-3 shrink-0" />
-                {reviewLabel(node.dueInDays, de)}
+                {reviewLabel(node.dueInDays, lang)}
               </p>
             ) : null}
           </div>
@@ -359,7 +419,7 @@ function StepNode({ step, total, de }: { step: SoloStep; total: number; de: bool
       </span>
       {current ? (
         <span className="mt-0.5 text-[10px] text-muted-foreground">
-          {de ? "Schritt" : "Step"} {step.step} {de ? "von" : "of"} {total}
+          {copy.stepOf(step.step, total)}
         </span>
       ) : null}
     </li>
@@ -367,11 +427,11 @@ function StepNode({ step, total, de }: { step: SoloStep; total: number; de: bool
 }
 
 /** Speech-bubble call-out over the one live step. */
-function StartPill({ state, de }: { state: DotState; de: boolean }) {
+function StartPill({ state, lang }: { state: DotState; lang: JourneyLocale }) {
   return (
     <div className="relative mb-2">
       <div className="rounded-lg border-2 border-primary bg-background px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary shadow-sm">
-        {startLabel(state, de)}
+        {startLabel(state, lang)}
       </div>
       <div className="absolute left-1/2 top-full h-2.5 w-2.5 -translate-x-1/2 -translate-y-[60%] rotate-45 border-b-2 border-r-2 border-primary bg-background" />
     </div>
@@ -407,23 +467,22 @@ function StateBadge({ state }: { state: DotState }) {
 
 function NextStageCard({
   stage,
-  de,
+  lang,
 }: {
   stage: { index: number; label: string; hint: string; steps: number };
-  de: boolean;
+  lang: JourneyLocale;
 }) {
+  const copy = COPY[lang];
   return (
     <div className="my-8 rounded-xl border bg-muted/30 px-4 py-4 text-center">
       <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
-        {de ? "Anschließend" : "Next"}
+        {copy.comesNext}
       </p>
       <h3 className="mt-1 text-base font-semibold">
-        {de ? "Stufe" : "Stage"} {stage.index} · {stage.label}
+        {copy.stage} {stage.index} · {stage.label}
       </h3>
       <p className="mt-1 text-sm text-muted-foreground">{stage.hint}</p>
-      <p className="mt-2 text-xs text-muted-foreground">
-        {stage.steps} {de ? "Schritte" : "steps"}
-      </p>
+      <p className="mt-2 text-xs text-muted-foreground">{copy.steps(stage.steps)}</p>
     </div>
   );
 }

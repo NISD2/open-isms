@@ -3,6 +3,8 @@
 // board drops into the real page unchanged. Titles are localized separately
 // (sample-titles.ts) so the preview can be screenshotted per locale.
 
+import { czechRefColumns, getNis2CzechRef } from "@nisd2/grc-data-model/frameworks";
+import { legalRefFor } from "@/lib/compliance/czech-law";
 import { journeyState } from "@/lib/compliance/journey-position";
 import type { Aggregate, FlowNode } from "../(portal)/journey/path-nodes";
 
@@ -201,7 +203,10 @@ const SEEDS: Seed[] = [
 /** Build the FlowNode[] for a given locale's requirement titles. rawStatus is
  *  the real column: done->completed, current->in_progress, prepared->needs_review
  *  (auto-drafted, awaiting sign-off), otherwise not_started. */
-export function buildSampleNodes(titles: Record<string, string>): FlowNode[] {
+export function buildSampleNodes(
+  titles: Record<string, string>,
+  locale: string,
+): FlowNode[] {
   return SEEDS.map((s, i) => {
     const rawStatus =
       s.status === "done"
@@ -230,7 +235,15 @@ export function buildSampleNodes(titles: Record<string, string>): FlowNode[] {
       dueInDays: s.dueInDays ?? null,
       priority: s.priority ?? null,
       description: null,
-      legalRef: s.legalRef ?? null,
+      // A card with a citation cites, on a Czech page, the requirement's place in Czech law, the
+      // way the real journey does (legalRefFor).
+      legalRef:
+        s.legalRef == null
+          ? null
+          : legalRefFor(
+              { legalRef: s.legalRef, ...czechRefColumns(getNis2CzechRef(s.code)) },
+              locale,
+            ),
       frequency: s.frequency ?? null,
       signOff: {
         signed: s.status === "done" ? 1 : 0,

@@ -20,6 +20,7 @@ import {
   WikiSources,
 } from "@/components/wiki/WikiSection";
 import { Link } from "@/i18n/navigation";
+import { isWikiLocale } from "@/lib/content/wiki-locale";
 import { isLocaleCode } from "@/lib/locale";
 import {
   getRegistrationPortals,
@@ -93,6 +94,7 @@ function trackerNote(portal: RegistrationPortal, locale: Locale): string | undef
     it: portal.trackerNoteIt,
     es: portal.trackerNoteEs,
     pl: portal.trackerNotePl,
+    cs: portal.trackerNoteCs,
   };
   return byLocale[locale] ?? portal.trackerNoteEn;
 }
@@ -130,7 +132,7 @@ export default async function Nis2TrackerEuPage({
   const shot = itemShot(REGISTRATION_STEP, rawLocale, t("walk.seeItAlt"));
   if (!shot) throw new Error(`The walk has no screenshot for step ${REGISTRATION_STEP}`);
 
-  const { portals, lastUpdated } = getRegistrationPortals();
+  const { portals, lastUpdated } = getRegistrationPortals(rawLocale);
   const display = new Intl.DisplayNames([locale], { type: "region" });
   const countryName = (code: string): string => display.of(code) ?? code;
 
@@ -196,7 +198,7 @@ export default async function Nis2TrackerEuPage({
 
         <WikiPageMeta
           authorSlug="simon-orzel"
-          locale={locale === "de" || locale === "en" || locale === "nl" ? locale : "en"}
+          locale={isWikiLocale(locale) ? locale : "en"}
           lastReviewedAt={lastUpdated}
           sourceLocale="de"
         />

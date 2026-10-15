@@ -963,15 +963,15 @@ const content = (price: string): Record<Locale, PageContent> => ({
     subtitle:
       "Jaké funkce software pro NIS2 potřebuje, jaké nástroje vedle něj stále potřebujete a kolik software stojí.",
     intro:
-      "Software pro NIS2 pomáhá firmám zavést směrnici EU NIS 2 (2022/2555) a její vnitrostátní provedení, v Německu BSIG. Pokrývá deset opatření z čl. 21 odst. 2 NIS 2 (§ 30 BSIG), k tomu ohlašování incidentů a registraci u příslušného orgánu.",
+      "Software pro NIS2 pomáhá firmám zavést směrnici EU NIS 2 (2022/2555) a její vnitrostátní provedení, v Česku zákon č. 264/2025 Sb. s vyhláškami č. 409/2025 Sb. a 410/2025 Sb. Pokrývá deset opatření z čl. 21 odst. 2 NIS 2, k tomu hlášení incidentů a ohlášení služby u NÚKIB.",
     productHeading: "Co pro vás nisd2.eu udělá",
     free: "Školení pro vedení zůstává zdarma, stejně jako vlastní provoz: stejný zdrojový kód (AGPL-3.0) na vašich vlastních serverech.",
     why: {
       heading: "Proč software pro NIS2?",
       bullets: [
-        "§ 30 odst. 1 BSIG vyžaduje, abyste dokumentovali dodržování opatření. Software drží tyto doklady na jednom místě.",
-        "Významné incidenty se ohlašují ve třech krocích: včasné varování do 24 hodin, oznámení do 72 hodin, závěrečná zpráva měsíc po oznámení (§ 32 BSIG).",
-        "Vedení musí opatření zavést a na jejich zavádění dohlížet (§ 38 odst. 1 BSIG). Schválení v softwaru ukazují, kdo co a kdy rozhodl.",
+        "České vyhlášky vyžadují bezpečnostní politiku a dokumentaci k opatřením (vyhláška č. 410/2025 Sb., § 3; vyhláška č. 409/2025 Sb., § 6). Software drží tyto doklady na jednom místě.",
+        "Incidenty se hlásí ve třech krocích: prvotní hlášení do 24 hodin, u incidentu s významným dopadem oznámení do 72 hodin a závěrečná zpráva do 30 dnů od oznámení (§ 16 zákona č. 264/2025 Sb.).",
+        "Vrcholné vedení má podle vyhlášek č. 409/2025 Sb. a 410/2025 Sb. (vždy § 4) vlastní povinnosti, například zajistit zdroje a prokazatelně se seznamovat se stavem opatření. Schválení v softwaru ukazují, kdo co a kdy rozhodl.",
         "Deset opatření se týká IT, nákupu, personálního oddělení a vedení. Jeden společný nástroj ukazuje všem stejný stav.",
       ],
     },
@@ -985,7 +985,8 @@ const content = (price: string): Record<Locale, PageContent> => ({
           name: "Platforma GRC",
           purpose:
             "Governance, riziko a shoda: opatření, rizika, doklady a audity na jednom místě.",
-          basis: "Dokumentace opatření (§ 30 odst. 1 BSIG)",
+          basis:
+            "Dokumentace opatření (vyhláška č. 410/2025 Sb., § 3; č. 409/2025 Sb., § 6)",
         },
         {
           name: "Správa aktiv",
@@ -1019,7 +1020,8 @@ const content = (price: string): Record<Locale, PageContent> => ({
         },
         {
           name: "Vzdělávací platforma",
-          purpose: "Školení pro všechny zaměstnance a pro vedení (§ 38 odst. 3 BSIG).",
+          purpose:
+            "Školení pro všechny zaměstnance a pro vedení (vyhláška č. 410/2025 Sb., § 4 a 5; č. 409/2025 Sb., § 4 a 10).",
           basis: "Povinná (čl. 21(2)(g) NIS 2)",
         },
       ],
@@ -1028,14 +1030,17 @@ const content = (price: string): Record<Locale, PageContent> => ({
       heading: "Co ověřit před nákupem softwaru pro NIS2",
       description: "Software pro NIS2 by měl pokrýt tyto body:",
       items: [
-        { yes: true, text: "Deset opatření z čl. 21 NIS 2 (§ 30 BSIG)" },
         {
           yes: true,
-          text: "Ohlašování incidentů ve třech krocích (24 hodin, 72 hodin, jeden měsíc) podle § 32 BSIG",
+          text: "Deset opatření z čl. 21 NIS 2 (v Česku § 14 zákona č. 264/2025 Sb.)",
         },
         {
           yes: true,
-          text: "Registrační údaje podle § 33 BSIG s historií, abyste změny ohlásili včas",
+          text: "Hlášení incidentů ve třech krocích (24 hodin, 72 hodin, závěrečná zpráva) podle § 16 zákona č. 264/2025 Sb.",
+        },
+        {
+          yes: true,
+          text: "Kontaktní a doplňující údaje podle § 11 zákona č. 264/2025 Sb. s historií, abyste změny ohlásili do 14 dnů",
         },
         { yes: true, text: "Historie: každá změna s časem a odpovědnou osobou" },
         { yes: true, text: "Schválení vedením, uložená dohledatelně" },
@@ -1060,7 +1065,7 @@ const content = (price: string): Record<Locale, PageContent> => ({
         },
         {
           q: "Stačí Excel?",
-          a: "Zákon žádný nástroj nepředepisuje. § 30 odst. 1 BSIG vyžaduje dokumentovat dodržování opatření, a to Excel zvládne. Obtížné to začne být, jakmile soubor upravuje více lidí a vy později potřebujete ukázat, kdo co a kdy změnil nebo schválil. Na to je software s historií.",
+          a: "Zákon žádný nástroj nepředepisuje. České vyhlášky vyžadují opatření dokumentovat (vyhláška č. 410/2025 Sb., § 3; č. 409/2025 Sb., § 6), a to Excel zvládne. Obtížné to začne být, jakmile soubor upravuje více lidí a vy později potřebujete ukázat, kdo co a kdy změnil nebo schválil. Na to je software s historií.",
         },
         {
           q: "Stačí jeden nástroj, nebo jich potřebuji několik?",
@@ -1068,7 +1073,7 @@ const content = (price: string): Record<Locale, PageContent> => ({
         },
         {
           q: "Předepisuje NIS 2 konkrétní software?",
-          a: "Ne. NIS 2 ani BSIG nejmenují žádného dodavatele. Rozhoduje, zda opatření zavedete a jejich dodržování zdokumentujete. Open source to zvládne stejně dobře jako koupený software.",
+          a: "Ne. NIS 2 ani český zákon č. 264/2025 Sb. nejmenují žádného dodavatele. Rozhoduje, zda opatření zavedete a jejich dodržování zdokumentujete. Open source to zvládne stejně dobře jako koupený software.",
         },
       ],
     },

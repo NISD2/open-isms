@@ -10,11 +10,13 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { SourceText } from "@/components/wiki/SourceText";
 import { WalkSteps } from "@/components/wiki/WalkSteps";
 import { WikiAnswerHeader } from "@/components/wiki/WikiAnswerHeader";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
+import { wikiLabel, wikiLocale } from "@/lib/content/wiki-locale";
+import { pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -51,7 +53,7 @@ export default async function Nis2StatusRumaenienPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale = wikiLocale(rawLocale);
   const t = await getTranslations("info");
 
   return (
@@ -70,7 +72,10 @@ export default async function Nis2StatusRumaenienPage({
         />
 
         <WikiAnswerHeader
-          badge="NIS 2 Status Rumänien"
+          badge={wikiLabel(locale, {
+            cs: "Stav NIS 2: Rumunsko",
+            other: "NIS 2 Status Rumänien",
+          })}
           title={t("nis2StatusRumaenien.title")}
           answer={t("nis2StatusRumaenien.subtitle")}
           art="/images/wiki/nis2-europa.svg"
@@ -78,7 +83,7 @@ export default async function Nis2StatusRumaenienPage({
 
         <WikiPageMeta
           authorSlug="simon-orzel"
-          locale={locale === "nl" ? "de" : (locale as "de" | "en")}
+          locale={locale === "nl" ? "de" : locale}
           lastReviewedAt="2026-06-01"
           sourceLocale="en"
         />
@@ -252,7 +257,7 @@ export default async function Nis2StatusRumaenienPage({
                   className="flex items-start gap-2 text-xs text-muted-foreground"
                 >
                   <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
-                  {source}
+                  <SourceText text={source} />
                 </li>
               ))}
             </ul>

@@ -1,8 +1,8 @@
-import { REPORT_TYPE, SECTION, FIELD_TYPE, type IncidentField } from "../schema";
+import { FIELD_TYPE, type IncidentField, REPORT_TYPE, SECTION } from "../schema";
 
 /**
  * NIS 2 Art. 23(2) requires the entity to notify the recipients of its
- * services of significant cyber threats — distinct from the Art. 23(3)
+ * services of significant cyber threats, distinct from the Art. 23(1)
  * obligation to notify the CSIRT. These fields capture that customer-
  * facing communication so it can be replayed across email + status
  * page + portal.
@@ -39,7 +39,11 @@ export const customerNotificationFields: ReadonlyArray<IncidentField> = [
       ro: "Art. 23(2) NIS 2: după caz, entitatea comunică fără întârziere nejustificată destinatarilor serviciilor sale care sunt potențial afectați de o amenințare cibernetică semnificativă orice măsuri sau remedii pe care le pot lua.",
     },
     requiredIn: [REPORT_TYPE.INCIDENT_NOTIFICATION, REPORT_TYPE.FINAL],
-    optionalIn: [REPORT_TYPE.EARLY_WARNING, REPORT_TYPE.INTERMEDIATE, REPORT_TYPE.PROGRESS],
+    optionalIn: [
+      REPORT_TYPE.EARLY_WARNING,
+      REPORT_TYPE.INTERMEDIATE,
+      REPORT_TYPE.PROGRESS,
+    ],
     legalBasis: [
       {
         citation: "NIS 2 Art. 23(2)",
@@ -51,8 +55,7 @@ export const customerNotificationFields: ReadonlyArray<IncidentField> = [
     crossRegulationOverlaps: [
       {
         instrument: "GDPR Art. 34",
-        fieldReference:
-          "Communication of personal data breach to the data subject",
+        fieldReference: "Communication of personal data breach to the data subject",
       },
     ],
   },
@@ -83,7 +86,12 @@ export const customerNotificationFields: ReadonlyArray<IncidentField> = [
       ro: "Mesaj formulat într-un limbaj clar, adresat destinatarilor serviciilor entității cu privire la amenințare și la acțiunile corective recomandate. Obligatoriu dacă customerNotificationRequired este adevărat.",
     },
     requiredIn: [],
-    optionalIn: [REPORT_TYPE.INCIDENT_NOTIFICATION, REPORT_TYPE.INTERMEDIATE, REPORT_TYPE.PROGRESS, REPORT_TYPE.FINAL],
+    optionalIn: [
+      REPORT_TYPE.INCIDENT_NOTIFICATION,
+      REPORT_TYPE.INTERMEDIATE,
+      REPORT_TYPE.PROGRESS,
+      REPORT_TYPE.FINAL,
+    ],
     legalBasis: [
       {
         citation: "NIS 2 Art. 23(2)",

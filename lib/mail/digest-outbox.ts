@@ -173,7 +173,7 @@ export async function buildDigestQueue(db: Database): Promise<QueuedDigest[]> {
             email: digest.recipientEmail,
             companyId: co.id,
             companyName: co.name,
-            subject: dailyDigestSubject(digest),
+            subject: dailyDigestSubject(digest, locale),
             summary: `${digest.overdueItems.length} overdue, ${digest.urgentItems.length} urgent, ${digest.upcomingItems.length} upcoming`,
             locale,
           });
@@ -196,7 +196,7 @@ export async function buildDigestQueue(db: Database): Promise<QueuedDigest[]> {
             email: mgmt.recipientEmail,
             companyId: co.id,
             companyName: co.name,
-            subject: weeklyDigestSubject(mgmt),
+            subject: weeklyDigestSubject(mgmt, locale),
             summary: `${mgmt.compliancePercentage}% compliant, ${mgmt.overdueCount} overdue, ${mgmt.escalationCount} escalations`,
             locale,
           });

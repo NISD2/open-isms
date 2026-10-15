@@ -1,9 +1,9 @@
 {
   "compliance": {
     "title": "Soulad s NIS2",
-    "subtitle": "BSIG 2025: {totalReqs} požadavků v {steps} krocích",
+    "subtitle": "NIS2: {totalReqs} požadavků v {steps} krocích",
     "startAssessment": "Spustit posouzení souladu",
-    "startDescription": "Systematicky projděte všechny požadavky NIS2/BSIG. Požadavky se zobrazují podle oblasti a lze je řešit přímo.",
+    "startDescription": "Systematicky projděte všechny požadavky NIS2. Požadavky se zobrazují podle oblasti a lze je řešit přímo.",
     "startButton": "Spustit posouzení",
     "continueButton": "Pokračovat",
     "completeAssessment": "Dokončit posouzení",
@@ -35,8 +35,12 @@
     "signOffAllCount": "Schválit vše ({count})",
     "bulkSignOffSuccess": "{count} požadavků schváleno",
     "signedOffBy": "Schválil {role} dne {date}",
+    "reopen": "Zrušit schválení",
+    "reopenTitle": "Zrušit toto schválení?",
+    "reopenDescription": "Požadavek se vrátí k úpravám a bude ho třeba schválit znovu. Záznam v historii schválení zůstane: auditor uvidí, že byl schválen a schválení bylo později zrušeno.",
+    "confirmReopen": "Zrušit schválení",
     "notApplicable": "Nevztahuje se",
-    "notApplicablePlaceholder": "Vysvětlete, proč se tento požadavek na vaši organizaci nevztahuje (proporcionalita podle §30 BSIG)...",
+    "notApplicablePlaceholder": "Vysvětlete, proč se tento požadavek na vaši organizaci nevztahuje (přiměřenost podle § 13 odst. 2 zákona č. 264/2025 Sb.)...",
     "confirmNotApplicable": "Potvrdit nevztahuje se",
     "exportPolicy": "Exportovat zásadu",
     "completedSectionCount": "Schváleno ({count})",
@@ -93,95 +97,95 @@
       "prerequisitePending": "Vyžadováno",
       "prerequisitesBlocked": "Doporučeno: nejprve dokončete tyto požadavky:",
       "ceoCourseTitle": "K dispozici je kurz NIS 2 pro vedení",
-      "ceoCourseDescription": "Absolvujte zabudovaný kurz školení vedení, abyste splnili povinnost školení podle §38(3) BSIG / čl. 20(2) NIS 2.",
+      "ceoCourseDescription": "Absolvujte zabudovaný kurz pro vedení. Školení vedení vyžaduje čl. 20 odst. 2 NIS 2, v Česku vyhláška č. 410/2025 Sb., § 4 písm. b) a vyhláška č. 409/2025 Sb., § 4 odst. 1 písm. a).",
       "takeCourse": "Spustit kurz",
       "seeInCourse": "Zobrazit v kurzu"
     },
-    "frameworkName": "NIS2 / BSIG 2026",
+    "frameworkName": "NIS2 / zákon č. 264/2025 Sb.",
     "categories": {
       "GOV": {
         "name": "Řízení a odpovědnost",
         "description": "Dohled vedení, osobní odpovědnost a organizační řízení",
-        "legalBasis": "čl. 20 NIS2 · §38 BSIG",
+        "legalBasis": "čl. 20 NIS2 · vyhláška č. 409/2025 Sb., § 4; vyhláška č. 410/2025 Sb., § 4",
         "threatLandscape": "Bez jasného řízení postrádají opatření kybernetické bezpečnosti směr a odpovědnost. Vedení, které se bezpečnosti nevěnuje, vytváří kulturu zanedbávání a vystavuje organizaci systematickým selháním.",
-        "bsiGuidance": "BSI očekává, že vedení formálně schválí opatření k řízení rizik kybernetické bezpečnosti, jmenuje odpovědné osoby, vyčlení dostatečný rozpočet a pravidelně absolvuje školení kybernetické bezpečnosti (§38 BSIG). Na jednatele se vztahuje osobní odpovědnost."
+        "bsiGuidance": "Osvědčená praxe: vedení formálně schválí opatření k řízení rizik kybernetické bezpečnosti, jmenuje odpovědné osoby, vyčlení dostatečný rozpočet a pravidelně absolvuje školení kybernetické bezpečnosti. V Česku vedení podle vyhlášky č. 410/2025 Sb., § 4 mimo jiné určí osobu pověřenou kybernetickou bezpečností, prokazatelně absolvuje školení a zajistí potřebné zdroje; vyhláška č. 409/2025 Sb., § 4 odst. 1 výslovně uvádí i rozpočtové prostředky. Odpovědnost členů vedení se řídí § 159 občanského zákoníku a §§ 51 až 53 zákona o obchodních korporacích."
       },
       "RSK": {
         "name": "Řízení rizik",
         "description": "Identifikace, posouzení a ošetření rizik přístupem zaměřeným na všechna nebezpečí (kybernetická, fyzická, environmentální)",
-        "legalBasis": "čl. 21(2)(a) NIS2 · §30(2) č. 1 BSIG",
+        "legalBasis": "čl. 21(2)(a) NIS2 · § 14 odst. 1 písm. a) body 4 a 6, odst. 2 písm. d) zákona č. 264/2025 Sb.",
         "threatLandscape": "Organizace, kterým chybí strukturovaný proces posuzování rizik, nedokážou účinně stanovit priority bezpečnostních investic. To vede k tomu, že kritické systémy zůstávají bez ochrany, zatímco zdroje se plýtvají na oblasti s nízkým rizikem.",
-        "bsiGuidance": "BSI očekává zdokumentovanou metodiku posuzování rizik, úplný registr rizik, plán ošetření s akceptací rizik schválenou vedením a pravidelný cyklus přezkumu (nejméně ročně). Musí pokrývat všechny kritické informační systémy přístupem zaměřeným na všechna nebezpečí."
+        "bsiGuidance": "Osvědčená praxe: zdokumentovaná metodika posuzování rizik, úplný registr rizik, plán ošetření s akceptací rizik schválenou vedením a pravidelný cyklus přezkumu (nejméně ročně), pro všechny kritické informační systémy a všechna nebezpečí. Ve vyšším režimu vyhláška č. 409/2025 Sb., § 8 vyžaduje kritéria pro akceptovatelnost rizik, hodnocení rizik nejméně jednou ročně, zprávu o hodnocení rizik, prohlášení o aplikovatelnosti a plán zvládání rizik."
       },
       "INC": {
         "name": "Řešení incidentů",
-        "description": "Detekce, reakce a hlášení BSI",
-        "legalBasis": "čl. 21(2)(b), čl. 23 NIS2 · §30(2) č. 2, §32 BSIG",
-        "threatLandscape": "Kybernetické incidenty jsou nevyhnutelné. Bez nacvičeného plánu reakce ztrácejí organizace kritické hodiny během 24hodinového okna včasného varování BSI a 72hodinové lhůty pro oznámení, čímž riskují regulační sankce nad rámec provozních škod.",
-        "bsiGuidance": "BSI očekává plán reakce na incidenty s jasnými rolemi a eskalačními cestami, schopnost včasného varování do 24 hodin (§32(1)), oznámení incidentu do 72 hodin s posouzením dopadu, klasifikační schéma, důkazy o cvičeních a proces přezkumu po incidentu."
+        "description": "Detekce, reakce a hlášení incidentů",
+        "legalBasis": "čl. 21(2)(b), čl. 23 NIS2 · § 14 odst. 1 písm. a) bod 12, písm. b) body 5 až 7, odst. 2 písm. i), j), §§ 15 až 17 zákona č. 264/2025 Sb.",
+        "threatLandscape": "Kybernetické incidenty jsou nevyhnutelné. Bez nacvičeného plánu reakce ztrácejí organizace kritické hodiny během 24hodinové lhůty pro prvotní hlášení a 72hodinové lhůty pro oznámení, čímž riskují regulační sankce nad rámec provozních škod.",
+        "bsiGuidance": "Osvědčená praxe: plán reakce na incidenty s jasnými rolemi a eskalačními cestami, schopnost podat prvotní hlášení do 24 hodin a oznámení s posouzením dopadu do 72 hodin (§ 16 zákona č. 264/2025 Sb.), klasifikační schéma, důkazy o cvičeních a proces přezkumu po incidentu. Ve vyšším režimu se hlásí NÚKIB, v nižším režimu Národnímu CERT (§ 15)."
       },
       "BCP": {
         "name": "Kontinuita podnikání",
         "description": "Zálohování, obnova a krizové řízení",
-        "legalBasis": "čl. 21(2)(c) NIS2 · §30(2) č. 3 BSIG",
+        "legalBasis": "čl. 21(2)(c) NIS2 · § 14 odst. 1 písm. a) bod 13, písm. b) bod 10, odst. 2 písm. f) zákona č. 264/2025 Sb.",
         "threatLandscape": "Ransomware a výpadky infrastruktury mohou zcela zastavit provoz. Bez otestovaných postupů zálohování a obnovy a plánu krizového řízení se doby obnovy prodlužují z hodin na týdny, což ohrožuje přežití podniku.",
-        "bsiGuidance": "BSI očekává analýzu dopadů na podnikání, zdokumentovaný plán kontinuity podnikání s cíli RPO/RTO, pravidelné testy zálohování a obnovy, postupy krizové komunikace a důkazy o testování plánu kontinuity nejméně jednou ročně."
+        "bsiGuidance": "Osvědčená praxe: analýza dopadů na podnikání, zdokumentovaný plán kontinuity podnikání s cíli RPO/RTO, pravidelné testy zálohování a obnovy, postupy krizové komunikace a důkazy o testování plánu kontinuity nejméně jednou ročně."
       },
       "SUP": {
         "name": "Bezpečnost dodavatelského řetězce",
         "description": "Řízení rizik třetích stran",
-        "legalBasis": "čl. 21(2)(d) NIS2 · §30(2) č. 4 BSIG",
+        "legalBasis": "čl. 21(2)(d) NIS2 · § 13 odst. 5, § 14 odst. 1 písm. a) bod 7 zákona č. 264/2025 Sb.",
         "threatLandscape": "Útoky na dodavatelský řetězec (SolarWinds, Kaseya) ukazují, že jediný kompromitovaný dodavatel se může kaskádovitě rozšířit do tisíců organizací. Riziko třetích stran je dnes hlavním vektorem útoku.",
-        "bsiGuidance": "BSI očekává registr dodavatelů s klasifikací bezpečnostní kritičnosti, bezpečnostní požadavky ve smlouvách (SLA, práva na audit), průběžné monitorování dodavatelů, doložky o oznamování incidentů a posouzení jednotlivých bodů selhání."
+        "bsiGuidance": "Osvědčená praxe: registr dodavatelů s klasifikací bezpečnostní kritičnosti, bezpečnostní požadavky ve smlouvách (SLA, práva na audit), průběžné monitorování dodavatelů, doložky o oznamování incidentů a posouzení jednotlivých bodů selhání. Kde opatření zajišťuje dodavatel, musí požadavky z něj plynoucí obsahovat smlouva (§ 13 odst. 5 zákona č. 264/2025 Sb.); co smlouvy pokrývají, uvádí vyhláška č. 410/2025 Sb., příloha č. 2 a vyhláška č. 409/2025 Sb., příloha č. 5."
       },
       "PRO": {
         "name": "Nákup a vývoj",
         "description": "Bezpečný nákup, správa záplat, řízení změn",
-        "legalBasis": "čl. 21(2)(e) NIS2 · §30(2) č. 5 BSIG",
+        "legalBasis": "čl. 21(2)(e) NIS2 · § 14 odst. 1 písm. a) bod 10, písm. b) bod 8, odst. 2 písm. l) zákona č. 264/2025 Sb.",
         "threatLandscape": "Nezáplatované zranitelnosti jsou nejčastějším vstupním bodem útočníků. Organizace, kterým chybí strukturované procesy správy zranitelností a záplat, zůstávají vystaveny známým zneužitím po týdny nebo měsíce.",
-        "bsiGuidance": "BSI očekává bezpečnostní požadavky při nákupu, bezpečný životní cyklus vývoje softwaru při vývoji softwaru, skenování zranitelností a záplatování s definovanými SLA, zásadu koordinovaného zveřejňování, základní úrovně konfiguračního zpevnění a sledování komponent třetích stran."
+        "bsiGuidance": "Osvědčená praxe: bezpečnostní požadavky při nákupu, bezpečný životní cyklus vývoje softwaru při vývoji softwaru, skenování zranitelností a záplatování s definovanými SLA, zásada koordinovaného zveřejňování, základní úrovně konfiguračního zpevnění a sledování komponent třetích stran."
       },
       "EFF": {
         "name": "Posouzení účinnosti",
         "description": "Audity, klíčové ukazatele výkonnosti a přezkumy vedení",
-        "legalBasis": "čl. 21(2)(f) NIS2 · §30(2) č. 6 BSIG",
+        "legalBasis": "čl. 21(2)(f) NIS2 · § 14 odst. 1 písm. a) body 1 a 14, odst. 2 písm. a) zákona č. 264/2025 Sb.",
         "threatLandscape": "Bezpečnostní opatření se časem zhoršují. Bez pravidelného posuzování účinnosti si organizace vytvářejí falešný pocit bezpečí, zatímco skutečná úroveň ochrany klesá v důsledku odklonu konfigurace a vyvíjejících se hrozeb.",
-        "bsiGuidance": "BSI očekává definované klíčové ukazatele výkonnosti a metriky účinnosti kybernetické bezpečnosti, pravidelné interní audity, přezkumy vedení, analýzu trendů incidentů a zjištění a sledování nápravných opatření z posouzení."
+        "bsiGuidance": "Osvědčená praxe: definované klíčové ukazatele výkonnosti a metriky účinnosti kybernetické bezpečnosti, pravidelné interní audity, přezkumy vedení, analýza trendů incidentů a zjištění a sledování nápravných opatření z posouzení. V nižším režimu vyhláška č. 410/2025 Sb., § 3 odst. 2 vyžaduje přehled bezpečnostních opatření, nejméně jednou ročně aktualizovaný s vyhodnocením účinnosti a uchovávaný nejméně 4 roky; ve vyšším režimu vyhláška č. 409/2025 Sb., § 16 vyžaduje audit kybernetické bezpečnosti."
       },
       "TRN": {
         "name": "Kybernetická hygiena a školení",
         "description": "Povědomí, phishingové testy, školení vedení",
-        "legalBasis": "čl. 21(2)(g) NIS2 · §30(2) č. 7 BSIG",
+        "legalBasis": "čl. 21(2)(g) NIS2 · § 14 odst. 1 písm. a) bod 8, odst. 2 písm. e) zákona č. 264/2025 Sb.",
         "threatLandscape": "Lidská chyba stojí za více než 80 % bezpečnostních narušení. Phishing, sociální inženýrství a zneužití přihlašovacích údajů jsou nejúčinnější techniky útoku a všechny cílí na nevyškolené zaměstnance.",
-        "bsiGuidance": "BSI očekává program školení povědomí o kybernetické bezpečnosti pro všechny zaměstnance, školení specifické pro roli pro IT a bezpečnostní pracovníky, sledování dokončení školení, opakovací kurzy nejméně jednou ročně, phishingové simulace a bezpečnostní zaškolení pro nové zaměstnance."
+        "bsiGuidance": "Osvědčená praxe: program školení povědomí o kybernetické bezpečnosti pro všechny zaměstnance, školení specifické pro roli pro IT a bezpečnostní pracovníky, sledování dokončení školení, opakovací kurzy nejméně jednou ročně, phishingové simulace a bezpečnostní zaškolení pro nové zaměstnance. Vyhláška č. 410/2025 Sb., § 5 a vyhláška č. 409/2025 Sb., § 10 vyžadují vstupní a pravidelná školení a záznamy o nich."
       },
       "CRY": {
         "name": "Kryptografie a šifrování",
         "description": "Zásady šifrování a správa klíčů",
-        "legalBasis": "čl. 21(2)(h) NIS2 · §30(2) č. 8 BSIG",
+        "legalBasis": "čl. 21(2)(h) NIS2 · § 14 odst. 1 písm. b) bod 9, odst. 2 písm. m) zákona č. 264/2025 Sb.",
         "threatLandscape": "Slabé nebo zastaralé šifrování vystavuje data při přenosu i v klidu. Špatná správa klíčů může učinit i silné šifrování zbytečným a kvantové počítače ohrožují současné kryptografické standardy.",
-        "bsiGuidance": "BSI očekává zásadu kryptografie se schválenými algoritmy (podle BSI TR-02102), šifrování dat v klidu i při přenosu, postupy správy klíčů (generování, rotace, zneplatnění), správu certifikátů a inventář kryptografických aktiv."
+        "bsiGuidance": "Osvědčená praxe: zásada kryptografie se schválenými algoritmy, šifrování dat v klidu i při přenosu, postupy správy klíčů (generování, rotace, zneplatnění), správa certifikátů a inventář kryptografických aktiv. Obě vyhlášky ukládají zohlednit doporučení a metodiky NÚKIB v oblasti kryptografických algoritmů (vyhláška č. 410/2025 Sb., § 13 odst. 1 písm. c); vyhláška č. 409/2025 Sb., § 25 odst. 1 písm. c)); německou metodiku BSI TR-02102 lze použít jako doplňující zdroj."
       },
       "ACC": {
         "name": "Řízení přístupu a personální bezpečnost",
         "description": "Správa identit, privilegovaný přístup, personální procesy",
-        "legalBasis": "čl. 21(2)(i) NIS2 · §30(2) č. 9 BSIG",
+        "legalBasis": "čl. 21(2)(i) NIS2 · § 14 odst. 1 písm. a) body 5, 8 a 11, písm. b) bod 4, odst. 2 písm. c), e), g), h) zákona č. 264/2025 Sb.",
         "threatLandscape": "Nadměrná přístupová práva jsou násobitelem každého jiného útoku. Kompromitovaný účet se širokými oprávněními může získat přístup k mnohem více datům, exfiltrovat je nebo zničit, než je nutné. Vnitřní hrozby zneužívají slabé řízení přístupu.",
-        "bsiGuidance": "BSI očekává zásadu řízení přístupu založenou na nejmenších oprávněních, proces zřizování a rušení uživatelů, pravidelné přezkumy přístupu, správu privilegovaného přístupu (PAM), zásadu správy aktiv a personální bezpečnostní procesy včetně nástupů, přesunů a odchodů."
+        "bsiGuidance": "Osvědčená praxe: zásada řízení přístupu založená na nejmenších oprávněních, proces zřizování a rušení uživatelů, pravidelné přezkumy přístupu, správa privilegovaného přístupu (PAM), zásada správy aktiv a personální bezpečnostní procesy včetně nástupů, přesunů a odchodů."
       },
       "AUT": {
         "name": "Autentizace a komunikace",
         "description": "Vícefaktorová nebo průběžná autentizace, zabezpečená komunikace, nouzové kanály",
-        "legalBasis": "čl. 21(2)(j) NIS2 · §30(2) č. 10 BSIG",
+        "legalBasis": "čl. 21(2)(j) NIS2 · § 14 odst. 1 písm. b) body 2 a 3, odst. 2 písm. h), k) zákona č. 264/2025 Sb.",
         "threatLandscape": "Krádež přihlašovacích údajů a autentizace pouze heslem jsou hlavními vektory kompromitace účtu. Bez vícefaktorové autentizace poskytne jediné odcizené heslo plný přístup. Nezabezpečenou komunikaci lze zachytit pro účely špionáže.",
-        "bsiGuidance": "BSI očekává vícefaktorovou nebo průběžnou autentizaci pro kritické systémy a vzdálený přístup, zabezpečená řešení hlasové, video a textové komunikace, nouzový komunikační kanál mimo pásmo, centralizovanou správu identit a zásady správy relací."
+        "bsiGuidance": "Osvědčená praxe: zabezpečená řešení hlasové, video a textové komunikace, nouzový komunikační kanál mimo pásmo, centralizovaná správa identit a zásady správy relací. Ověřování identity stanoví obě vyhlášky závazně: vícefaktorová autentizace s alespoň dvěma různými typy faktorů nebo kontinuální autentizace založená na modelu nulové důvěry, do té doby kryptografické klíče nebo certifikáty a do té doby hesla o délce alespoň 12 znaků (uživatelé), 17 znaků (administrátoři) a 22 znaků (technická aktiva) (vyhláška č. 410/2025 Sb., § 8 odst. 2 až 4; vyhláška č. 409/2025 Sb., § 19 odst. 2 a 4)."
       },
       "REG": {
         "name": "Registrace a hlášení",
-        "description": "Registrace u BSI, roční aktualizace, důkazy o souladu",
-        "legalBasis": "čl. 3, čl. 23 NIS2 · §33, §34, §39 BSIG",
-        "threatLandscape": "Neprovedení registrace u BSI a neudržování aktuálních kontaktních údajů znamená, že organizace nemůže přijímat varování před hrozbami a nemůže plnit povinné ohlašovací povinnosti, čímž se prohlubuje regulační riziko.",
-        "bsiGuidance": "BSI očekává dokončenou registraci (§33), určené kontaktní místo, aktuální registrační údaje (roční aktualizace), soulad s povinnostmi sdílení informací (§34), údržbu registru doménových jmen (§39, pokud se vztahuje) a zdokumentovanou regulační korespondenci."
+        "description": "Ohlášení u NÚKIB, aktuální údaje, důkazy o souladu",
+        "legalBasis": "čl. 3, čl. 23 NIS2 · § 6 odst. 1, § 9 odst. 1, § 11 zákona č. 264/2025 Sb.",
+        "threatLandscape": "Neohlášení služby NÚKIB a neudržování aktuálních kontaktních údajů znamená, že organizace nemůže přijímat varování před hrozbami a nemůže plnit povinné ohlašovací povinnosti, čímž se prohlubuje regulační riziko.",
+        "bsiGuidance": "Zákon č. 264/2025 Sb. vyžaduje ohlášení služby NÚKIB do 60 dnů ode dne splnění podmínek (§ 6 odst. 1), ohlášení změn služby, které mohou vést ke změně režimu, do 60 dnů (§ 9 odst. 1) a do 30 dnů od doručení rozhodnutí o registraci kontaktní a doplňující údaje, jejichž změny se hlásí do 14 dnů (§ 11). Osvědčená praxe: určené kontaktní místo a zdokumentovaná korespondence s NÚKIB."
       },
       "DPA": {
         "name": "Smlouvy o zpracování",
@@ -346,28 +350,28 @@
       },
       "CRA-INC": {
         "name": "Hlášení aktivního zneužití",
-        "description": "Včasné varování do 24 hodin pro ENISA a CSIRT, oznámení do 72 hodin, závěrečná zpráva do 14 dnů pro aktivně zneužívané zranitelnosti a závažné incidenty.",
+        "description": "Včasné varování do 24 hodin pro ENISA a CSIRT a oznámení do 72 hodin u aktivně zneužívaných zranitelností i závažných incidentů; závěrečná zpráva u zranitelnosti do 14 dnů od dostupnosti nápravného opatření, u závažného incidentu do jednoho měsíce od oznámení.",
         "legalBasis": "čl. 14 nařízení EU CRA",
-        "threatLandscape": "Zmeškané lhůty pro hlášení (kromě 24hodinové lhůty pro malé a střední podniky) spouštějí nejvyšší sankční pásmo a pravomoci ke stažení produktu z trhu.",
+        "threatLandscape": "Zmeškané lhůty pro hlášení (kromě 24hodinové lhůty u mikropodniků a malých podniků, čl. 64 odst. 10) spouštějí nejvyšší sankční pásmo a pravomoci ke stažení produktu z trhu.",
         "bsiGuidance": ""
       },
       "CRA-CONF": {
         "name": "Posouzení shody",
         "description": "Cesta posouzení shody podle třídy produktu (vlastní posouzení modul A, modul B+C s oznámeným subjektem nebo modul H systém kvality) následovaná označením CE.",
-        "legalBasis": "čl. 24, čl. 27 nařízení EU CRA",
+        "legalBasis": "čl. 28 až 32 nařízení EU CRA",
         "threatLandscape": "Produkty bez platného posouzení shody nelze od 11. prosince 2027 uvádět na trh EU.",
         "bsiGuidance": ""
       },
       "CRA-DOC": {
         "name": "Technická dokumentace",
         "description": "Veďte technickou dokumentaci podle přílohy VII pro každý produkt uvedený na trh EU.",
-        "legalBasis": "čl. 28 · příloha VII nařízení EU CRA",
+        "legalBasis": "čl. 31 · příloha VII nařízení EU CRA",
         "threatLandscape": "Chybějící nebo neúplná technická dokumentace blokuje ověření ze strany dozoru nad trhem a spouští stažení produktu.",
         "bsiGuidance": ""
       },
       "CRA-SUP": {
         "name": "Doba podpory",
-        "description": "Veřejně se zavažte k době podpory bezpečnostních aktualizací (ve výchozím nastavení pět let nebo očekávaná životnost produktu, podle toho, co je delší).",
+        "description": "Veřejně se zavažte k době podpory bezpečnostních aktualizací (nejméně pět let; očekává-li se, že produkt bude používán kratší dobu, odpovídá doba podpory očekávané době používání).",
         "legalBasis": "čl. 13(8) nařízení EU CRA",
         "threatLandscape": "Neposkytnutí podpory po celou dobu vystavuje výrobce nárokům zákazníků uvízlých na nezabezpečených produktech.",
         "bsiGuidance": ""
@@ -375,15 +379,15 @@
       "CRA-SBOM": {
         "name": "Soupis softwarových komponent",
         "description": "Vytvořte a udržujte strojově čitelný soupis softwarových komponent (SBOM) pro každý produkt uvedený na trh EU.",
-        "legalBasis": "příloha I část II §1 nařízení EU CRA",
+        "legalBasis": "příloha I část II bod 1 nařízení EU CRA",
         "threatLandscape": "Bez SBOM nedokážou výrobci dohledat, které produkty obsahují zranitelnou komponentu, a zmeškají okno pro hlášení podle čl. 14.",
         "bsiGuidance": ""
       },
       "CRA-IMP": {
         "name": "Dovozce a distributor",
         "description": "Dovozci ověřují soulad výrobce před uvedením na trh; distributoři provádějí náležitou péči ohledně označení shody.",
-        "legalBasis": "čl. 18, čl. 19 nařízení EU CRA",
-        "threatLandscape": "Dovozci a distributoři, kteří zmeškají ověření, přebírají odpovědnost výrobce podle čl. 22.",
+        "legalBasis": "čl. 19, čl. 20 nařízení EU CRA",
+        "threatLandscape": "Dovozci a distributoři, kteří produkt uvedou na trh pod svým jménem nebo ochrannou známkou nebo ho podstatně změní, nesou povinnosti výrobce podle čl. 21.",
         "bsiGuidance": ""
       },
       "CRA-OSS": {
@@ -395,15 +399,15 @@
       },
       "DPO": {
         "name": "Pověřenec pro ochranu osobních údajů",
-        "description": "Posouzení povinnosti jmenování podle §38 BDSG a čl. 37 GDPR a postavení a úkoly jmenované osoby",
-        "legalBasis": "čl. 37-39 GDPR, §38 BDSG",
+        "description": "Posouzení povinnosti jmenování podle čl. 37 GDPR a postavení a úkoly jmenované osoby",
+        "legalBasis": "čl. 37-39 GDPR",
         "threatLandscape": "",
         "bsiGuidance": ""
       }
     }
   },
   "intake": {
-    "bsiContext": "Co BSI očekává",
+    "bsiContext": "Osvědčená praxe a požadavky",
     "threatLandscape": "Prostředí hrozeb",
     "grundschutzModule": "Modul IT-Grundschutz",
     "companyContext": "Profil vaší společnosti",
@@ -420,8 +424,8 @@
     "statusDraft": "Koncept",
     "statusSubmitted": "Odesláno",
     "statusSignedOff": "Schváleno",
-    "validate": "Ověřit panelem BSI",
-    "validating": "Probíhá vyhodnocení panelem BSI...",
+    "validate": "Ověřit hodnoticím panelem",
+    "validating": "Probíhá vyhodnocení hodnoticím panelem...",
     "validateFailed": "Ověření se nezdařilo",
     "noSchema": "Pro tuto kategorii není k dispozici žádný vstupní formulář.",
     "autoSaved": "Automaticky uloženo",
@@ -437,7 +441,62 @@
     "frequencyAnnual": "Ročně",
     "frequencyEvery3Years": "Každé 3 roky",
     "frequencyOnChange": "Při změně",
-    "frequencyOngoing": "Průběžně"
+    "frequencyOngoing": "Průběžně",
+    "answerOptions": {
+      "classificationLevels": {
+        "2_levels": "Dvě úrovně",
+        "3_levels": "Tři úrovně",
+        "4_levels": "Čtyři úrovně"
+      },
+      "classificationScheme": {
+        "bsi": "Schéma BSI (německá metodika)",
+        "enisa": "Schéma ENISA",
+        "custom": "Vlastní schéma"
+      },
+      "drillType": {
+        "tabletop": "Stolní cvičení",
+        "functional": "Funkční cvičení",
+        "full_scale": "Plnohodnotné cvičení"
+      },
+      "backupFrequency": {
+        "real_time": "Průběžně",
+        "hourly": "Každou hodinu",
+        "daily": "Denně",
+        "weekly": "Týdně"
+      },
+      "vulnerabilityScanningFrequency": {
+        "continuous": "Průběžně",
+        "weekly": "Týdně",
+        "monthly": "Měsíčně",
+        "quarterly": "Čtvrtletně"
+      },
+      "auditFrequency": {
+        "quarterly": "Čtvrtletně",
+        "semi_annual": "Dvakrát ročně",
+        "annual": "Ročně"
+      },
+      "trainingFrequency": {
+        "quarterly": "Čtvrtletně",
+        "semi_annual": "Dvakrát ročně",
+        "annual": "Ročně"
+      },
+      "phishingSimFrequency": {
+        "monthly": "Měsíčně",
+        "quarterly": "Čtvrtletně",
+        "semi_annual": "Dvakrát ročně",
+        "annual": "Ročně"
+      },
+      "mfaCoverage": {
+        "critical_only": "Jen kritické systémy",
+        "remote_access": "Vzdálený přístup",
+        "all_users": "Všechny uživatelské účty",
+        "all_systems": "Všechny systémy"
+      },
+      "entityClassification": {
+        "essential": "Základní subjekt",
+        "important": "Důležitý subjekt"
+      }
+    }
   },
   "form": {
     "completeRequirement": "Dokončit požadavek",
@@ -447,7 +506,8 @@
     "edit": "Upravit",
     "save": "Uložit",
     "saving": "Ukládání...",
-    "failedToSave": "Uložení se nezdařilo"
+    "failedToSave": "Uložení se nezdařilo",
+    "requirementReopened": "{code} je znovu v úpravách."
   },
   "evidence": {
     "dropzone": "Přetáhněte soubor sem nebo klikněte pro výběr",
@@ -476,7 +536,7 @@
     "title": "Předvyplnění pomocí AI",
     "extractTitle": "Extrahovat data pomocí AI",
     "extractDescription": "Vložte text nebo sem přetáhněte soubor (PDF, DOCX, TXT). AI extrahuje relevantní data pro formulář.",
-    "extractPlaceholder": "Vložte text sem nebo sem přetáhněte soubor...\n\nPříklad: Muller GmbH se sídlem v Berlíně, energetický sektor, 120 zaměstnanců, roční obrat 15 mil. EUR, klasifikováno jako důležitý subjekt podle NIS2...",
+    "extractPlaceholder": "Vložte text sem nebo sem přetáhněte soubor...\n\nPříklad: Příklad s.r.o. se sídlem v Brně, energetický sektor, 120 zaměstnanců, roční obrat 375 mil. Kč, klasifikováno jako důležitý subjekt podle NIS2...",
     "extractButton": "Extrahovat data",
     "unsupportedFormat": "Nepodporovaný formát: {name}. Podporováno: {formats}",
     "noText": "V dokumentu nebyl nalezen žádný text.",
@@ -504,6 +564,9 @@
     "assistWhereToFind": "Kde to najít",
     "assistField": "Pole",
     "assistValue": "Hodnota",
-    "rateLimited": "Vaše organizace dosáhla hodinového limitu pro extrakci dat pomocí AI. Zkuste to prosím později."
+    "rateLimited": "Vaše organizace dosáhla hodinového limitu pro extrakci dat pomocí AI. Zkuste to prosím později.",
+    "emptyText": "Nejprve prosím vložte text.",
+    "extractFailed": "Extrakce se nezdařila. Zkuste to prosím znovu.",
+    "aiDisabled": "Funkce AI jsou pro vaši organizaci vypnuté. Zapnout je můžete v Nastavení → Sdílení dat s AI."
   }
 }

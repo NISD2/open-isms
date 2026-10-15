@@ -3,6 +3,7 @@
     "loading": "Načítání souborů…",
     "uploading": "Nahrávání…",
     "uploadFailed": "Nahrávání se nezdařilo. Zkuste to prosím znovu.",
-    "deleteFailed": "Smazání se nezdařilo. Zkuste to prosím znovu."
+    "deleteFailed": "Smazání se nezdařilo. Zkuste to prosím znovu.",
+    "fileTooLarge": "Soubor je příliš velký. Limit je {size} MB na soubor."
   }
 }

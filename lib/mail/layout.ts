@@ -91,12 +91,23 @@ export const LEGAL_COPY: Record<
       ["/terms", "Voorwaarden"],
     ],
   },
+  cs: {
+    seat: "Sídlo",
+    director: "Jednatel",
+    vatId: "DIČ",
+    links: [
+      ["/impressum", "Tiráž"],
+      ["/datenschutz", "Zásady ochrany osobních údajů"],
+      ["/terms", "Podmínky služby"],
+    ],
+  },
 };
 
 const CLOSING: Record<EmailLocale, string> = {
   de: "Mit freundlichen Grüßen",
   en: "Kind regards",
   nl: "Met vriendelijke groet",
+  cs: "S pozdravem",
 };
 
 /**
@@ -153,6 +164,11 @@ export const FOOTER_COPY: Record<
     manage: "E-mailinstellingen",
     separator: "of",
   },
+  cs: {
+    unsubscribe: "Odhlásit odběr e-mailů",
+    manage: "Nastavení e-mailů",
+    separator: "nebo",
+  },
 };
 
 /** Plain-text twin of the footer, for the text/plain alternative. */
@@ -172,7 +188,10 @@ export function preferenceFooterText(footer: PreferenceFooter): string {
  */
 export type EmailChrome = PreferenceFooter | { readonly locale: EmailLocale };
 
-/** The chrome of a message written only in English (most of the workflow mail, for now). */
+/**
+ * The chrome of a message written only in English: the supplier mails (to an address another
+ * company typed, whose language nobody knows), the newsletter and the signup notice.
+ */
 export const ENGLISH_ONLY = { locale: "en" } as const satisfies EmailChrome;
 
 /** The chrome of a message to our own operators, who read German. */

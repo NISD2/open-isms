@@ -3,7 +3,9 @@ import { renderToBuffer } from "@react-pdf/renderer";
 import { extractText, getDocumentProxy } from "unpdf";
 import { POLICY_FIXTURE, REPORT_FIXTURE } from "@/scripts/lib/pdf-fixtures";
 import { ComplianceReport } from "./compliance-report";
+import { PDF_LOCALES } from "./format";
 import { PolicyDocument } from "./policy-document";
+import { POLICY_TITLES } from "./policy-labels";
 import { styles } from "./styles";
 import { SupplierQuestionnaireDocument } from "./supplier-questionnaire";
 
@@ -93,6 +95,35 @@ describe("compliance report content", () => {
   });
 });
 
+describe("Czech documents", () => {
+  test("the compliance report is labelled in Czech and dated the Czech way", async () => {
+    const text = (await pagesOf(ComplianceReport({ data: REPORT_FIXTURE, locale: "cs" })))
+      .join(" ")
+      .toLowerCase();
+    expect(text).toContain("zpráva o souladu");
+    expect(text).toContain("důvod, proč se nevztahuje");
+    expect(text).toContain("rozhodnuto 2. 3. 2026, jonas pieper");
+    expect(text).toContain("it-grundschutz (německá metodika bsi)");
+    expect(text).toMatch(/strana \d+ z \d+/);
+  });
+
+  test("the policy document is labelled in Czech", async () => {
+    const text = (
+      await pagesOf(PolicyDocument({ data: POLICY_FIXTURE, locale: "cs" }))
+    ).join(" ");
+    expect(text).toContain("Verze");
+    expect(text).toMatch(/Strana \d+ z \d+/);
+  });
+
+  test("every label table has a policy title for every category English has", () => {
+    for (const locale of PDF_LOCALES) {
+      expect(Object.keys(POLICY_TITLES[locale]).toSorted()).toEqual(
+        Object.keys(POLICY_TITLES.en).toSorted(),
+      );
+    }
+  });
+});
+
 describe("glyph coverage", () => {
   // IBM Plex Mono's Google Fonts build puts `space` in the last four glyphs of
   // `glyf`, where fontkit reads past the end of the table and throws. Any mono
@@ -101,6 +132,15 @@ describe("glyph coverage", () => {
     const pages = await pagesOf(SupplierQuestionnaireDocument({ locale: "pl" }));
     const all = pages.join(" ");
     for (const glyph of ["ł", "ż", "ś", "ę", "ą"]) {
+      expect(all).toContain(glyph);
+    }
+  });
+
+  test("renders Czech, read back from the file", async () => {
+    const pages = await pagesOf(SupplierQuestionnaireDocument({ locale: "cs" }));
+    const all = pages.join(" ");
+    expect(all).toContain("Dotazník pro dodavatele NIS 2");
+    for (const glyph of ["č", "ř", "ů", "ě", "í"]) {
       expect(all).toContain(glyph);
     }
   });

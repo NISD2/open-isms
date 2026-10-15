@@ -1,0 +1,455 @@
+{
+  "vendors": {
+    "nisd2": {
+      "priceModel": "0 €: zdarma a open source. Bez lock-inu. Bez prodejních hovorů. Bez skrytých poplatků.",
+      "dataExportEvidence": "Open source datový model na GitHubu (github.com/NISD2/grc-data-model). Plně zdokumentovaný, kopírovatelný, lze provozovat na vlastním serveru. Úplný export včetně historie změn: aktiva, registr rizik, dodavatelé, řetězce schválení, časové osy incidentů, se zachovanými vazbami a historií verzí. Zákazník vlastní schéma I vazby, nejen snímky seznamů."
+    },
+    "verinice": {
+      "priceModel": "240 € ročně za balíček NIS-2 (1 hlavní uživatel, 2 jednotky); zdarma jako open source (EPL)"
+    },
+    "nis2compass": {
+      "priceModel": "Od 29 € měsíčně (jen NIS2, „bez konzultantů“)"
+    },
+    "edira": {
+      "priceModel": "49 € měsíčně + 150 € za zřízení (doplněk NIS-2 ke stávajícímu rámci)"
+    },
+    "grasp": {
+      "priceModel": "159 až 179 € měsíčně za modul NIS2 (při závazku na 3 roky 159, na 1 rok 179); 1 uživatel v ceně",
+      "dataExportEvidence": "Reporty lze exportovat do PDF, Excelu a Wordu; k dispozici je export auditní složky. Jde o exporty REPORTŮ, ne o export datového modelu. Úplnou historii auditu nelze v jiné platformě znovu sestavit."
+    },
+    "conformio": {
+      "priceModel": "Starter 145 € měsíčně, Pro 245 € měsíčně, Advanced 299 € měsíčně (při ročním placení)"
+    },
+    "nis2vision": {
+      "priceModel": "Basic 4 999 € za 1. rok (zřízení 2 599 € + 200 € měsíčně, 5 uživatelů); Important 8 800 € za 1. rok; Essential 17 600 € za 1. rok",
+      "dataExportEvidence": "Veřejná dokumentace nenalezena. Před jakýmkoli víceletým závazkem si to ověřte přímo u dodavatele."
+    },
+    "copla": {
+      "priceModel": "NIS2 3 500 € ročně + 499 € za zaškolení (samostatná položka); ISO 27001 2 999 € ročně; DORA 4 500 € ročně; sleva 20 % na každý další rámec"
+    },
+    "activemind-cloud": {
+      "priceModel": "290 € měsíčně za modul + 49 € za každou další normu; whistleblowing 99 až 390 € měsíčně; další uživatelé 20 € měsíčně"
+    },
+    "matproof": {
+      "priceModel": "Starter 480 € měsíčně (1 rámec, 10 členů); Professional 1 200 € měsíčně (3 rámce); sleva 20 % při ročním placení"
+    },
+    "cyberday": {
+      "priceModel": "Podle počtu zaměstnanců: méně než 20 2 500 € ročně; 20 až 49 3 200 €; 50 až 99 4 500 €; 100 až 199 6 800 €; 200 až 499 9 900 €; do 2 999 19 900 €"
+    },
+    "wired-relations": {
+      "priceModel": "Zdarma (150 prvků); Pro 670 € měsíčně (jen při ročním placení); Enterprise na základě nabídky"
+    },
+    "ratisbona": {
+      "priceModel": "RC_NIS2 799 € měsíčně (workshopy + ISMS); školení vedení (GF-Schulung) 999 € jednorázově",
+      "dataExportEvidence": "Inzeruje „přibalený software ISMS“, ale konkrétní nástroj veřejně nejmenuje. Auditní data jsou v něm; přenositelnost závisí na tom, o jaký nástroj jde. Před závazkem ověřte. Dvojí lock-in (data i rytmus workshopů)."
+    },
+    "ciso-assistant": {
+      "priceModel": "Komunitní verze open source (AGPLv3) zdarma; Pro a Enterprise jen po hovoru s demem"
+    },
+    "isms-builder": {
+      "priceModel": "Na vlastním serveru, zdarma (AGPL-3.0). „Žádný cloud. Žádné poplatky za SaaS. Vaše data zůstávají na vašem serveru.“"
+    },
+    "deming": {
+      "priceModel": "Na vlastním serveru přes Docker, zdarma (GPL-3.0)"
+    },
+    "unicis": {
+      "priceModel": "Na vlastním serveru zdarma (Apache-2.0); cloudová zkušební verze k dispozici, ceny cloudu nezveřejněny"
+    },
+    "little-isms-helper": {
+      "priceModel": "Na vlastním serveru, zdarma (AGPL-3.0)"
+    },
+    "nis2-public": {
+      "priceModel": "Na vlastním serveru, zdarma (AGPL-3.0) nebo komerční licence; navržen přímo pro NIS2 (čl. 21 + čl. 23 + italský D.Lgs 138/2024)"
+    },
+    "eramba": {
+      "priceModel": "Komunitní verze zdarma (licence mimo OSI); Enterprise na vlastním serveru 2 500 € ročně; Enterprise jako SaaS 5 000 € ročně"
+    },
+    "venvera": {
+      "priceModel": "Basic 399 € měsíčně (4 rámce: DORA, NIS2, GDPR, Cyber Essentials); Pro 899 € měsíčně (6 včetně ISO 27001 a aktu EU o umělé inteligenci); sleva 11 % při ročním placení"
+    },
+    "defendsphere": {
+      "priceModel": "Basic 299 € měsíčně (5 licencí infrastruktury); Standard 499 € měsíčně; Premium individuálně"
+    },
+    "compleye": {
+      "priceModel": "Platforma 275 € měsíčně; ověření NIS2 (2 dny) 1 600 €; školení (4 dny) na vyžádání"
+    },
+    "orbiq": {
+      "priceModel": "Free 0 €; Team 85 € měsíčně (850 € ročně); Business 190 € měsíčně (1 900 € ročně); Enterprise individuálně; sleva 17 % při ročním placení"
+    },
+    "isoplanner": {
+      "priceModel": "NIS2 samostatně 39 € měsíčně; ISO 59 až 118 € za uživatele z vedení měsíčně (při ročním placení)"
+    },
+    "outlex": {
+      "priceModel": "Core od 249 € měsíčně, Growth od 549 € měsíčně + konzultace s advokátem placené kredity"
+    },
+    "nis2-manager": {
+      "priceModel": "24 900 Kč měsíčně (asi 980 €) bez DPH, jediná varianta, závazek na 12 měsíců, přes 30 modulů"
+    },
+    "comp-ai": {
+      "priceModel": "Starter 199 USD měsíčně, Pro 997 USD měsíčně, DFY (vše uděláme za vás) 3 000 USD jednorázově; na vlastním serveru zdarma (AGPLv3)"
+    },
+    "kopexa": {
+      "priceModel": "249 € měsíčně za prostor (Space, Lite, závazek na 12 měsíců); Pro 599 € měsíčně; Enterprise na vyžádání"
+    },
+    "strike-graph": {
+      "priceModel": "Launch zdarma; Certify od 10 000 USD ročně; Scale od 21 500 USD ročně; Enterprise od 35 000 USD ročně; doplňkové rámce 2 000 až 8 000 USD"
+    },
+    "upguard": {
+      "priceModel": "Standard 1 750 USD měsíčně (při ročním placení, 50 dodavatelů); vyšší varianty jen po hovoru s demem; další dodavatelé 79 USD měsíčně"
+    },
+    "connectsecure": {
+      "priceModel": "Od 300 USD měsíčně (jen pro MSP, podle využití); ceny variant jen po hovoru s demem"
+    },
+    "vcomply": {
+      "priceModel": "Pro GRC Suite od 1 000 USD měsíčně za modul; jen ročně, minimálně 12 měsíců; sleva 20 % pro neziskové organizace"
+    },
+    "boc-adogrc": {
+      "priceModel": "Focus Editions od 520 € měsíčně (5 míst); Core od 1 195 € měsíčně (3 scénáře); Extended od 2 100 € měsíčně (7 scénářů); podrobné nabídky chráněné heslem"
+    },
+    "heydata": {
+      "priceModel": "Starter od 59 € měsíčně, Pro od 99 € měsíčně, Enterprise od 169 € měsíčně; minimální smlouva na 2 roky"
+    },
+    "docusnap": {
+      "priceModel": "Od 465 € ročně (on-prem nebo SaaS); cena roste s velikostí inventáře"
+    },
+    "kronsoft": {
+      "priceModel": "Od 259 € ročně (základ: 2 moduly + podpora + aktualizace); úplný ceník jako PDF ke stažení"
+    },
+    "proliance": {
+      "priceModel": "Ochrana osobních údajů od 125 do 233 € měsíčně; ISMS Light od 500 € měsíčně; ISMS Core od 1 000 € měsíčně; školení vedení k NIS2 600 €"
+    },
+    "cybervize": {
+      "priceModel": "vCISO Basic 3 600 € měsíčně (do 20 h); Standard 4 900 € měsíčně (do 40 h); dočasný CISO 8 000 až 15 000 € měsíčně; licence platformy modulární, cena nezveřejněna"
+    },
+    "mitratech-alyne": {
+      "priceModel": "Plán Enterprise od 25 000 € ročně (veřejně uvedeno); knihovna 1 500+ kontrol"
+    },
+    "vanta": {
+      "priceModel": "Nutný hovor s demem (4 varianty: Essentials, Plus, Professional, Enterprise, bez uvedených cen)",
+      "dataExportEvidence": "Silná podpora migrace DO Vanty je zdokumentovaná. Migrace VEN konkrétně zveřejněna není. Auditní doklady jsou v platformě označeny jako „Ready/Not Ready for Audit“, bez balíčku pro přenos."
+    },
+    "drata": {
+      "priceModel": "Nutný hovor s demem; NIS2 na stránce s cenami není uvedena",
+      "dataExportEvidence": "Nejlépe zdokumentovaný export ve zkoumaném vzorku. Články nápovědy popisují export knihovny dokladů, mapování kontrol na požadavky jako CSV a ruční export dat dokladů do JSON. Úplná migrace historie auditu zdokumentována není, ale zveřejňují víc než konkurence."
+    },
+    "secureframe": {
+      "priceModel": "Nutný hovor s demem; u každé varianty „Get a quote“",
+      "dataExportEvidence": "Filtrovaný export CSV na místní disk nebo do datové místnosti. Samotné CSV omezuje přenositelnost, chybí úplný datový model. Užitečné při auditu, slabé pro přechod na jiný nástroj."
+    },
+    "sprinto": {
+      "priceModel": "Nutný hovor s demem; stránka s cenami je JS SPA, ceny nejsou vidět",
+      "dataExportEvidence": "Zdokumentovaný export dokladů, politik a implementace kontrol. Zdroje třetích stran popisují cesty migrace ZE Sprinto. V tomto vzorku patří k přívětivějším z hlediska přenositelnosti."
+    },
+    "onetrust": {
+      "priceModel": "Nutný hovor s demem; 6 samostatných sad řešení, všechny modulární"
+    },
+    "scytale": {
+      "priceModel": "Nutný hovor s demem; 5 názvů variant bez cen"
+    },
+    "hyperproof": {
+      "priceModel": "Nutný hovor s demem; marketing „AI-powered GRC“"
+    },
+    "optro": {
+      "priceModel": "Nutný hovor s demem; v březnu 2026 přejmenováno z AuditBoard na Optro"
+    },
+    "wiz": {
+      "priceModel": "Nutný hovor s demem; cloudová bezpečnost CNAPP, ne čisté GRC"
+    },
+    "hybridity": {
+      "priceModel": "Nutný hovor s demem; investice 2 mil. € v únoru 2026"
+    },
+    "securityscorecard": {
+      "priceModel": "Varianta Free Forever (omezená); Core/Premium/Elite/TITAN MAX jen po hovoru s demem"
+    },
+    "compliance-aspekte": {
+      "priceModel": "Web byl v době kontroly nedostupný (HTTP 522)",
+      "dataExportEvidence": "Jednotné úložiště dat s integracemi Azure, SAP a i-doit (pro import). Veřejná dokumentace exportu dat zákazníkem pro migraci ven chybí. Historie auditu zůstává v proprietárním formátu platformy."
+    },
+    "dataguard": {
+      "priceModel": "Nutný hovor s demem; Base/Pro/Enterprise, všude „Get a quote“",
+      "dataExportEvidence": "Přenositelnost údajů subjektů údajů podle GDPR je zdokumentovaná (práva subjektů údajů). Migrace na úrovni platformy VEN, kterou provádí zákazník, veřejně zdokumentována NENÍ. Inzerovaná „bezproblémová migrace“ znamená migraci DO DataGuard, ne ven."
+    },
+    "hiscout": {
+      "priceModel": "Nutný hovor s demem; veřejná stránka s cenami chybí",
+      "dataExportEvidence": "Client Backup pro provozní kontinuitu. Správa dokumentů odolná pro audit s historizací a verzováním. Zákaznický export dat pro migraci na jinou platformu zdokumentován není."
+    },
+    "omnitracker": {
+      "priceModel": "Nutný hovor s demem; „KOSTENFREI TESTEN“ je žádost o hovor s demem",
+      "dataExportEvidence": "Podporuje import dat ze systémů třetích stran přes standardní rozhraní („používejte dál svá stávající data“). Migrace ven prováděná zákazníkem veřejně zdokumentována NENÍ."
+    },
+    "complydo": {
+      "priceModel": "Nutný hovor s demem; YC F25, Berlín",
+      "dataExportEvidence": "Veřejná dokumentace nenalezena. Zcela nový dodavatel (založen 2025, 10 lidí, YC F25, Telekom hubraum). Zdokumentované jsou integrace pro import (SharePoint, EQS, Confluence, PDF, Excel). Migrace stavu compliance ven neověřena."
+    },
+    "secjur": {
+      "priceModel": "Nutný hovor s demem; chybí stránka /pricing"
+    },
+    "kertos": {
+      "priceModel": "Nutný hovor s demem"
+    },
+    "secfix": {
+      "priceModel": "Nutný hovor s demem; chybí stránka /pricing"
+    },
+    "contechnet": {
+      "priceModel": "Nutný hovor s demem; CONTECHNET přesměrovává (301) na i-doit"
+    },
+    "docsetminder": {
+      "priceModel": "Nutný hovor s demem; převzato společností Allgeier CyRis"
+    },
+    "gbtec": {
+      "priceModel": "Nutný hovor s demem; stránka produktu vrací 404"
+    },
+    "sosafe": {
+      "priceModel": "Nutný hovor s demem; jen názvy variant, bez cen"
+    },
+    "gdata": {
+      "priceModel": "Hovor s demem u firemních produktů; spotřebitelská řada s veřejnými cenami"
+    },
+    "fuentis": {
+      "priceModel": "Suite 4 (ISMS): tři veřejné varianty, Free na 12 měsíců, Standard 379 € měsíčně, Professional 979 € měsíčně. Enterprise a samostatná GRC Suite na vyžádání."
+    },
+    "otris": {
+      "priceModel": "Nutný hovor s demem; prodej primárně po telefonu"
+    },
+    "athereon": {
+      "priceModel": "Nutný hovor s demem; 4 velikostní třídy S/M/L/XL"
+    },
+    "infodas": {
+      "priceModel": "Nutný hovor s demem; výslovně v balíčku s poradenstvím"
+    },
+    "schleupen": {
+      "priceModel": "Nutný hovor s demem; licence na souběžné uživatele nebo podniková licence"
+    },
+    "qsec": {
+      "priceModel": "Nutný hovor s demem; tvrdí „transparent“, ale neukazuje žádné €"
+    },
+    "robin-data": {
+      "priceModel": "Nutný hovor s demem; stránka /preise vrací 404"
+    },
+    "secunet": {
+      "priceModel": "Individuální nabídka podle projektu; dodavatel pro státní správu a obranu"
+    },
+    "governx": {
+      "priceModel": "Nutný hovor s demem, ceny až po přihlášení; „Made in Romania, for Europe“"
+    },
+    "formalize": {
+      "priceModel": "Nutný hovor s demem; omezená zkušební verze na 14 dní"
+    },
+    "complycloud": {
+      "priceModel": "Nutný hovor s demem; součást fúze Cerivo 2025/2026"
+    },
+    "risma": {
+      "priceModel": "Nutný hovor s demem; jen /price-request, chybí /pricing"
+    },
+    "heimdal": {
+      "priceModel": "Nutný hovor s demem; /pricing vrací 404"
+    },
+    "holm-security": {
+      "priceModel": "Nutný hovor s demem; minimální smlouva na 1 až 3 roky"
+    },
+    "northgrc": {
+      "priceModel": "Nutný hovor s demem; chybí stránka /pricing"
+    },
+    "3rdrisk": {
+      "priceModel": "Nutný hovor s demem; v lednu 2026 převzato společností Diligent"
+    },
+    "cerrix": {
+      "priceModel": "Nutný hovor s demem; GRC pro velké podniky"
+    },
+    "perium": {
+      "priceModel": "Nutný hovor s demem; tvrdí zřízení za 30 minut"
+    },
+    "globalsuite": {
+      "priceModel": "Nutný hovor s demem; chybí stránka /pricing"
+    },
+    "syteca": {
+      "priceModel": "Nutný hovor s demem; varianty SaaS / on-prem / AWS / Azure všechny jen po hovoru s demem"
+    },
+    "surecloud": {
+      "priceModel": "Nutný hovor s demem; „Talk to us about pricing“"
+    },
+    "isms-online": {
+      "priceModel": "Nutný hovor s demem; „Bespoke, customized pricing“; NIS2 jako „optional extra“"
+    },
+    "kymatio": {
+      "priceModel": "Nutný hovor s demem; chybí stránka /pricing"
+    },
+    "swissgrc": {
+      "priceModel": "Nutný hovor s demem; chybí stránka /pricing"
+    },
+    "secrato": {
+      "priceModel": "Názvy plánů veřejné, ceny ne; spuštěno v březnu 2026"
+    },
+    "aptien": {
+      "priceModel": "Dodavatel zobrazuje zástupný znak „$-“; model za uživatele, ale bez čísla"
+    },
+    "cyberarrow": {
+      "priceModel": "Nutný hovor s demem; /pricing vrací 403"
+    },
+    "apptega": {
+      "priceModel": "Nutný hovor s demem; zkušební verze Essentials na 14 dní"
+    },
+    "zengrc": {
+      "priceModel": "Nutný hovor s demem; přímé načtení skončilo chybou ECONNREFUSED"
+    },
+    "logicgate": {
+      "priceModel": "Nutný hovor s demem; nástroj na tvorbu pracovních postupů GRC bez programování"
+    },
+    "standardfusion": {
+      "priceModel": "Nutný hovor s demem; přesměrovává (308) na Wolters Kluwer TeamMate"
+    },
+    "resolver": {
+      "priceModel": "Nutný hovor s demem; nabídka podle 3 faktorů (moduly + přizpůsobení + aktivní uživatelé)"
+    },
+    "onspring": {
+      "priceModel": "Nutný hovor s demem; Bronze/Silver/Gold/Platinum bez cen"
+    },
+    "processunity": {
+      "priceModel": "Nutný hovor s demem; čistě platforma pro dotazníky"
+    },
+    "metricstream": {
+      "priceModel": "Nutný hovor s demem; obří sada IRM, AppStudio = nástroj na tvorbu formulářů"
+    },
+    "archer": {
+      "priceModel": "Nutný hovor s demem; IRM s formuláři a pracovními postupy, které definovalo celou kategorii"
+    },
+    "ibm-openpages": {
+      "priceModel": "Nutný hovor s demem; GRC pro velké podniky + AI"
+    },
+    "servicenow-grc": {
+      "priceModel": "Nutný hovor s demem; GRC na Now Platform = formuláře + pracovní postupy"
+    },
+    "sai360": {
+      "priceModel": "Nutný hovor s demem; balíčky Compliance a Risk, všude „Request Quote“"
+    },
+    "riskonnect": {
+      "priceModel": "Nutný hovor s demem; IRM na platformě Salesforce"
+    },
+    "workiva": {
+      "priceModel": "Nutný hovor s demem; zaměření na ESG a CSRD"
+    },
+    "logicmanager": {
+      "priceModel": "Nutný hovor s demem; „Job-to-be-Done pricing“"
+    },
+    "cybersaint": {
+      "priceModel": "Nutný hovor s demem; jen roční nebo víceleté smlouvy"
+    },
+    "centraleyes": {
+      "priceModel": "Nutný hovor s demem; 180+ rámců"
+    },
+    "whistic": {
+      "priceModel": "Nutný hovor s demem; profil zdarma, placené funkce jen po hovoru s demem"
+    },
+    "hypercomply": {
+      "priceModel": "Nutný hovor s demem; automatizace TPRM a dotazníků"
+    },
+    "bitsight": {
+      "priceModel": "Nutný hovor s demem; kybernetické hodnocení + TPRM + ASM"
+    },
+    "black-kite": {
+      "priceModel": "Nutný hovor s demem; kybernetické hodnocení a TPRM"
+    },
+    "diligent": {
+      "priceModel": "Nutný hovor s demem; po fúzích asi 23 000 klientů"
+    },
+    "anitian": {
+      "priceModel": "Nutný hovor s demem; zaměření na FedRAMP"
+    },
+    "trustcloud": {
+      "priceModel": "Nutný hovor s demem; „Every GRC journey is different“"
+    },
+    "anecdotes": {
+      "priceModel": "Nutný hovor s demem; „One Platform, Simple Pricing“, ale žádné €"
+    },
+    "thoropass": {
+      "priceModel": "Nutný hovor s demem; balíček auditu a platformy"
+    },
+    "cypago": {
+      "priceModel": "Nutný hovor s demem; na AWS Marketplace od 60 000 USD ročně"
+    },
+    "oneleet": {
+      "priceModel": "Nutný hovor s demem; série A 33 mil. USD, GRC + penetrační testy"
+    },
+    "6clicks": {
+      "priceModel": "Nutný hovor s demem; GRC pro MSP v modelu hub-and-spoke, 1 000+ rámců"
+    },
+    "compyl": {
+      "priceModel": "Nutný hovor s demem; 20+ rámců"
+    },
+    "akitra": {
+      "priceModel": "Nutný hovor s demem; compliance s agentní AI"
+    },
+    "trustero": {
+      "priceModel": "Nutný hovor s demem; GRC s AI"
+    },
+    "delve": {
+      "priceModel": "Duben 2026: YC je vyřadil kvůli falešným auditům SOC 2 a krádeži kódu"
+    },
+    "legiscope": {
+      "priceModel": "Nutný hovor s demem; /pricing vrací 404"
+    },
+    "enactia": {
+      "priceModel": "Nutný hovor s demem; zkušební verze zdarma na 14 dní"
+    },
+    "kiteworks": {
+      "priceModel": "Nutný hovor s demem; u Enterprise „CALL FOR PRICING“"
+    },
+    "norm-ai": {
+      "priceModel": "Nutný hovor s demem; celkové financování 87 mil. USD (Coatue, Bain, Blackstone)"
+    },
+    "complyance": {
+      "priceModel": "Nutný hovor s demem; série A 20 mil. USD v únoru 2026 (GV a evropské fondy Creandum, HV, Speedinvest)"
+    },
+    "steryon": {
+      "priceModel": "Nutný hovor s demem; seed 1 mil. €, OT a průmysl, výslovně NIS2"
+    },
+    "privado": {
+      "priceModel": "Web Auditor od 600 USD za web měsíčně; App Auditor od 800 USD za aplikaci měsíčně; Wren AI Privacy Agent od 4 200 USD měsíčně (při ročním placení)"
+    },
+    "tenacy": {
+      "priceModel": "Nutný hovor s demem; „suverénní“ hosting ve Francii"
+    },
+    "auditool": {
+      "priceModel": "Hovor s demem pro plnou verzi; 7denní sandbox zdarma s 50+ akcemi k NIS2"
+    },
+    "shieldiq": {
+      "priceModel": "Freemium, „bez karty, bez hovorů k nastavení“; ceny variant jen po hovoru s demem"
+    },
+    "cibgest": {
+      "priceModel": "Nutný hovor s demem; zkušební verze na 14 dní, bez platební karty"
+    },
+    "teseo": {
+      "priceModel": "Nutný hovor s demem; „demo di 20 minuti“"
+    },
+    "atena-governance": {
+      "priceModel": "Nutný hovor s demem; zkušební verze na 30 dní, bez platební karty"
+    },
+    "complidoo": {
+      "priceModel": "Nutný hovor s demem; GRC s low-code"
+    },
+    "datalog": {
+      "priceModel": "Nutný hovor s demem; skupina Zucchetti"
+    },
+    "adaptivegrc": {
+      "priceModel": "Nutný hovor s demem"
+    },
+    "rig-nis": {
+      "priceModel": "Nutný hovor s demem"
+    },
+    "lexcyberai": {
+      "priceModel": "Nutný hovor s demem; bezplatný bootcamp k NIS 2"
+    },
+    "nis2-control": {
+      "priceModel": "Nutný hovor s demem; ZInfV-1, Slovinsko"
+    },
+    "grctools-esg": {
+      "priceModel": "Nutný hovor s demem"
+    },
+    "make-it-safe": {
+      "priceModel": "Nutný hovor s demem; přes referenční rámec ReCyF"
+    },
+    "nis2-portugal": {
+      "priceModel": "Katalog služeb: analýza mezer od 1 500 €; školení 990 € za účastníka; sada dokumentů od 2 500 € ročně; externí CISO od 750 € měsíčně"
+    }
+  }
+}

@@ -5,6 +5,7 @@ import { shotImage } from "@/components/landing/shots";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { SourceText } from "@/components/wiki/SourceText";
 import { WalkHow } from "@/components/wiki/WalkHow";
 import { WalkPriceCard } from "@/components/wiki/WalkPriceCard";
 import { WalkSteps } from "@/components/wiki/WalkSteps";
@@ -13,7 +14,9 @@ import { WikiMoreLink } from "@/components/wiki/WikiMoreLink";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
 import { WikiPartnerStrip } from "@/components/wiki/WikiPartnerStrip";
-import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
+import { LawChip } from "@/components/wiki/WikiSection";
+import { wikiLocale } from "@/lib/content/wiki-locale";
+import { pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -54,16 +57,13 @@ const mistakeKeys = [
   "paperOnly",
 ] as const;
 
-const LAW_CHIP =
-  "inline-block rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground ring-1 ring-inset ring-border";
-
 export default async function SmeGuidePage({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale = wikiLocale(rawLocale);
   const [t, w] = await Promise.all([
     getTranslations("info.smeGuide"),
     getTranslations("info.wikiWalk"),
@@ -104,10 +104,7 @@ export default async function SmeGuidePage({
           shot
         />
 
-        <WikiPageMeta
-          authorSlug="simon-orzel"
-          locale={locale === "nl" ? "de" : (locale as "de" | "en")}
-        />
+        <WikiPageMeta authorSlug="simon-orzel" locale={locale === "nl" ? "de" : locale} />
 
         <WikiPartnerStrip />
 
@@ -135,7 +132,7 @@ export default async function SmeGuidePage({
                   <dl className="grid grid-cols-[5.5rem_1fr] gap-x-3 gap-y-1.5 text-sm">
                     <dt className="text-muted-foreground">{w("lawLabel")}</dt>
                     <dd>
-                      <span className={LAW_CHIP}>{t(`duties.items.${key}.law`)}</span>
+                      <LawChip law={t(`duties.items.${key}.law`)} />
                     </dd>
                     <dt className="text-muted-foreground">{w("whoLabel")}</dt>
                     <dd>{t(`duties.items.${key}.who`)}</dd>
@@ -228,7 +225,7 @@ export default async function SmeGuidePage({
           <ul className="space-y-1.5">
             {(t.raw("sources.items") as string[]).map((source) => (
               <li key={source} className="text-xs leading-relaxed text-muted-foreground">
-                {source}
+                <SourceText text={source} />
               </li>
             ))}
           </ul>

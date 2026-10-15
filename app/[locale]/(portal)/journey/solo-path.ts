@@ -25,6 +25,7 @@ import {
   BANDS,
   type Band,
   type FlowNode,
+  type JourneyLocale,
   ORDERED_CATEGORIES,
 } from "./path-nodes";
 
@@ -35,13 +36,13 @@ import {
  * what the middle window means — which is exactly what happened when this
  * file said "first 3 months" while the band said "over the year".
  */
-function stageForBand(band: Band, de: boolean): SoloStage {
+function stageForBand(band: Band, locale: JourneyLocale): SoloStage {
   const meta = BANDS.find((b) => b.key === band) ?? BANDS[1];
   return {
     index: BAND_RANK[band] + 1,
     band,
-    label: de ? meta.phaseDe : meta.phaseEn,
-    hint: de ? meta.hintDe : meta.hintEn,
+    label: meta.phase[locale],
+    hint: meta.hint[locale],
   };
 }
 
@@ -141,7 +142,10 @@ const CATEGORY_BY_CODE = new Map(ORDERED_CATEGORIES.map((c) => [c.code, c]));
  * windows appears once in each, which is correct: its urgent steps genuinely
  * belong to a different block of work than its rest.
  */
-export function buildSoloSections(nodes: FlowNode[], de: boolean): SoloSection[] {
+export function buildSoloSections(
+  nodes: FlowNode[],
+  locale: JourneyLocale,
+): SoloSection[] {
   const sections = nodes.reduce<SoloSection[]>((acc, node, i) => {
     const step: SoloStep = {
       node,
@@ -163,8 +167,8 @@ export function buildSoloSections(nodes: FlowNode[], de: boolean): SoloSection[]
       // With the step it starts at: under prerequisite order the same window and category can
       // run twice, and the key names a section for React and for the scroll observer.
       key: `${node.band}-${node.categoryCode}-${step.step}`,
-      stage: stageForBand(node.band, de),
-      title: (de ? category?.nameDe : category?.name) ?? node.categoryCode,
+      stage: stageForBand(node.band, locale),
+      title: category?.name[locale] ?? node.categoryCode,
       categorySlug: node.categorySlug,
       steps: [step],
       nextStage: null,

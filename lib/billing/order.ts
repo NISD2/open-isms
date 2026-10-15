@@ -118,6 +118,13 @@ export const formatEuro = (cents: number, locale = "de-DE"): string =>
   );
 
 /**
+ * A price on the order form and the billing page. Every reader saw the German format before Czech
+ * existed and still does; only a Czech page switches to Czech numbers.
+ */
+export const formatReaderEuro = (cents: number, readerLocale?: string): string =>
+  readerLocale === "cs" ? formatEuro(cents, "cs-CZ") : formatEuro(cents);
+
+/**
  * A price for the /pricing cards, where "4.800 €" reads better than "4.800,00 €". Only for the
  * whole-euro list prices; anything that can carry cents (an invoice, a quote) uses formatEuro.
  */
@@ -208,9 +215,19 @@ export const invoiceDates = (
   };
 };
 
-/** The line item's title, on the invoice and on the credit note that cancels it. */
-export const licenceTitle = (locale: "de" | "en"): string =>
-  locale === "de" ? "NIS 2 Durchgang, Jahreslizenz" : "NIS 2 walkthrough, annual licence";
+/**
+ * The line item's title, on the invoice and on the credit note that cancels it. Czech exists only
+ * for the order form's preview: an issued invoice is a tax record and stays German or English
+ * (`invoiceWording` takes no other language).
+ */
+const LICENCE_TITLE = {
+  de: "NIS 2 Durchgang, Jahreslizenz",
+  en: "NIS 2 walkthrough, annual licence",
+  cs: "Průvodce NIS 2, roční licence",
+} as const;
+
+export const licenceTitle = (locale: keyof typeof LICENCE_TITLE): string =>
+  LICENCE_TITLE[locale];
 
 /** What makes the automatic payment match work: the invoice number as the payment reference. */
 const PAYMENT_REFERENCE = {
@@ -281,6 +298,7 @@ const NUMBER_LOCALE: Record<EmailLocale, string> = {
   de: "de-DE",
   en: "en-GB",
   nl: "nl-NL",
+  cs: "cs-CZ",
 };
 
 /**
@@ -301,11 +319,13 @@ export const amountFact = (
           de: "netto, ohne Umsatzsteuer",
           en: "net, no VAT charged",
           nl: "netto, zonder btw",
+          cs: "bez DPH, DPH se neúčtuje",
         }[locale]
       : {
           de: `${euro(netCents)} netto zzgl. ${euro(vatCents)} USt (${percent} %)`,
           en: `${euro(netCents)} net plus ${euro(vatCents)} VAT (${percent}%)`,
           nl: `${euro(netCents)} excl. ${euro(vatCents)} btw (${percent}%)`,
+          cs: `${euro(netCents)} bez DPH plus ${euro(vatCents)} DPH (${percent} %)`,
         }[locale];
   return { label, value: euro(netCents + vatCents), detail, emphasis: true };
 };

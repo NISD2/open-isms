@@ -2,7 +2,13 @@ import { getTranslations } from "next-intl/server";
 import { Fragment, type ReactNode } from "react";
 import { NIS2_ASSET_TYPES } from "@/lib/compliance/asset-types";
 import { RISK_LEVEL_TEXT, RISK_LEVELS } from "@/lib/compliance/bsi-200-3";
-import { gapLines, ONGOING_COPY, type ShownGap, type WalkLocale } from "@/lib/durchgang";
+import {
+  enteredDay,
+  gapLines,
+  ONGOING_COPY,
+  type ShownGap,
+  withPlanSlot,
+} from "@/lib/durchgang";
 import { fromScale, levelOf } from "@/lib/durchgang/ratings";
 import type { CompanyExport } from "@/lib/export/company-export";
 import { riskCounts } from "@/lib/export/risk-cells";
@@ -18,13 +24,15 @@ import {
 } from "@/lib/export/rows";
 import type { ExportNames } from "@/lib/export/value-names";
 import { exportLabels } from "@/lib/pdf/export-labels";
-import { formatReportDate, formatSigner } from "@/lib/pdf/format";
+import { formatReportDate, formatSigner, type PdfLocale } from "@/lib/pdf/format";
 import type { ReportData } from "@/lib/pdf/load-report-data";
 import { getReportLabels, getStatusLabel } from "@/lib/pdf/policy-labels";
+import type { RouterOutputs } from "@/lib/trpc/client";
 import { RiskCounts } from "./RiskCounts";
 
 export interface CompleteView {
-  readonly locale: WalkLocale;
+  /** The walk's language, which the whole export is written in. */
+  readonly locale: PdfLocale;
   readonly data: CompanyExport;
   /** The NIS 2 requirements by category; null without an assessment. */
   readonly report: ReportData | null;
@@ -36,6 +44,30 @@ export interface CompleteView {
   }>;
   /** What the company's own answers leave open; null when it does not walk, so nothing worked it out. */
   readonly gaps: readonly ShownGap[] | null;
+  /** Who takes care of each open point and by when, by step. */
+  readonly measures: RouterOutputs["durchgang"]["measures"];
+}
+
+/**
+ * Who takes care of an open point and by when, as one line; null when neither is set. An owner
+ * who has left the company is named only as gone.
+ */
+function planLine(
+  measure: CompleteView["measures"][number] | undefined,
+  locale: PdfLocale,
+  t: (key: "owner" | "due" | "formerMember") => string,
+): string | null {
+  const owner =
+    measure?.ownerName?.trim() ||
+    measure?.ownerEmail ||
+    (measure?.assignedTo ? t("formerMember") : null);
+  const parts = [
+    ...(owner ? [`${t("owner")}: ${owner}`] : []),
+    ...(measure?.targetDate
+      ? [`${t("due")}: ${enteredDay(locale, measure.targetDate)}`]
+      : []),
+  ];
+  return parts.length > 0 ? parts.join(" · ") : null;
 }
 
 /** Processes first, rooms last, the presets between, anything typed in after them. */
@@ -193,8 +225,9 @@ function Table({
  * the two never disagree; fields and values are named as the PDFs name them (`lib/export/rows`).
  */
 export async function CompleteExport({ view }: { view: CompleteView }) {
-  const { locale, data, report, names, documents, gaps } = view;
-  // One language throughout: the walk's, which is German or English.
+  const { locale, data, report, names, documents, gaps, measures } = view;
+  const measureOf = new Map(measures.map((m) => [m.code, m]));
+  // One language throughout: the walk's, which is German, English or Czech.
   const [t, tGaps, tScreens] = await Promise.all([
     getTranslations({ locale, namespace: "export.complete" }),
     getTranslations({ locale, namespace: "durchgang.ui.approve.gaps" }),
@@ -336,14 +369,22 @@ export async function CompleteExport({ view }: { view: CompleteView }) {
           <p className="text-sm text-muted-foreground">{t("noGaps")}</p>
         ) : (
           <ul className="space-y-2 rounded-xl border border-amber-300/70 bg-amber-50/70 p-5 text-sm dark:border-amber-500/40 dark:bg-amber-950/20">
-            {gapLines(gaps, tGaps).map((line) => (
-              <li key={`${line.code}:${line.text}`} className="flex gap-3">
-                <span className="min-w-0 flex-1">{line.text}</span>
-                <span className="shrink-0 text-muted-foreground">
-                  {t("step", { code: line.code })}
-                </span>
-              </li>
-            ))}
+            {withPlanSlot(gapLines(gaps, tGaps)).map(({ line, showsPlan }) => {
+              const plan = showsPlan
+                ? planLine(measureOf.get(line.code), locale, tGaps)
+                : null;
+              return (
+                <li key={`${line.code}:${line.text}`} className="flex gap-3">
+                  <span className="min-w-0 flex-1">
+                    {line.text}
+                    {plan && <span className="block text-muted-foreground">{plan}</span>}
+                  </span>
+                  <span className="shrink-0 text-muted-foreground">
+                    {t("step", { code: line.code })}
+                  </span>
+                </li>
+              );
+            })}
           </ul>
         )}
       </Section>

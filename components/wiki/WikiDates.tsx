@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { LAW_CHIP } from "@/components/wiki/WikiSection";
+import { LawChip } from "@/components/wiki/WikiSection";
 
 export interface WikiDate {
   readonly when: string;
@@ -42,7 +42,7 @@ export function WikiDates({
                 {what}
               </p>
               <p>
-                <span className={LAW_CHIP}>{law}</span>
+                <LawChip law={law} />
               </p>
             </div>
           </div>

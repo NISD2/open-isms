@@ -241,6 +241,18 @@ const TEXT = {
       description: `The worst realistic case at ${name}: the supplier fails or has a security incident. Rated on the scales of BSI Standard 200-3.`,
     }),
   },
+  // The name stays undeclined after its noun ("aktivum", "dodavatel"), as Czech writes a name it
+  // cannot inflect.
+  cs: {
+    asset: (name: string) => ({
+      title: `${name}: výpadek, útok nebo ztráta dat`,
+      description: `Nejhorší realistický případ pro aktivum ${name}: výpadek, útok nebo ztráta dat. Hodnoceno na škálách BSI-Standard 200-3 (německá metodika).`,
+    }),
+    supplier: (name: string) => ({
+      title: `${name}: výpadek nebo bezpečnostní incident u dodavatele`,
+      description: `Nejhorší realistický případ u dodavatele ${name}: dodavatel vypadne nebo má bezpečnostní incident. Hodnoceno na škálách BSI-Standard 200-3 (německá metodika).`,
+    }),
+  },
 } as const;
 
 /** What a rating screen rates: the company's assets, or its suppliers. */

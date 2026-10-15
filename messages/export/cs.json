@@ -7,8 +7,46 @@
     "complete": {
       "card": {
         "title": "Vše v jednom dokumentu",
-        "text": "Celý průvodce od začátku do konce: stav, otevřené body, dokumenty, matice rizik, všechny registry a odpovědi. Uložte jej v prohlížeči jako PDF. Dokument je v angličtině."
-      }
+        "text": "Celý průvodce od začátku do konce: stav, otevřené body, dokumenty, matice rizik, všechny registry a odpovědi. Uložte jej v prohlížeči jako PDF."
+      },
+      "print": "Uložit jako PDF",
+      "printHint": "V okně tisku zvolte jako cíl „Uložit jako PDF“.",
+      "back": "Zpět na export",
+      "eyebrow": "Dokumentace NIS 2",
+      "title": "Úplná dokumentace",
+      "asOf": "Stav k {date}",
+      "contents": "Obsah",
+      "sections": {
+        "status": "Stav zavádění",
+        "open": "Co je ještě otevřené",
+        "documents": "Dokumenty",
+        "risks": "Rizika",
+        "assets": "Aktiva",
+        "suppliers": "Dodavatelé",
+        "trainings": "Školení",
+        "reviews": "Přezkumy vedení",
+        "incidents": "Incidenty",
+        "answers": "Odpovědi podle oblastí"
+      },
+      "statusLead": "Požadavky celkem: {total}. Schváleno: {approved}, nevztahuje se: {notApplicable}, zákon nevyžaduje: {notRequired}, otevřeno: {open}. Co podle vlastních odpovědí společnosti ještě není zavedeno, najdete v části „Co je ještě otevřené“.",
+      "openLead": "Podle vlastních odpovědí společnosti toto ještě není zavedeno.",
+      "noGaps": "Podle vlastních odpovědí společnosti není nic otevřené.",
+      "gapsNotWorkedOut": "Otevřené body sestavuje průvodce NIS 2 z odpovědí společnosti. Tato společnost ho nepoužívá, proto zde žádný seznam není.",
+      "step": "Krok {code}",
+      "approved": "Schváleno: {signer}, {date}",
+      "matrixLead": "Každé pole ukazuje, kolik rizik společnosti do něj spadá.",
+      "risk": "Riziko",
+      "level": "Úroveň",
+      "treatment": "Ošetření",
+      "note": "Poznámka",
+      "entries": "{count, plural, one {# záznam} few {# záznamy} many {# záznamu} other {# záznamů}}",
+      "requirement": "Požadavek",
+      "state": "Stav",
+      "signedOff": "Schválení",
+      "evidence": "Doklady",
+      "notApplicable": "Důvod",
+      "none": "Žádné záznamy.",
+      "noIncidents": "Nejsou zaznamenány žádné incidenty."
     },
     "files": {
       "report": {

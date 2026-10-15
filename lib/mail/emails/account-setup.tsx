@@ -1,12 +1,22 @@
+import type { WalkLocale } from "@/lib/durchgang/types";
 import { EmailFrame } from "../components/frame";
 import { CtaButton, Note, Para, Title } from "../components/parts";
 
 export interface AccountSetupProps {
   readonly setupUrl: string;
-  readonly locale: "de" | "en";
+  readonly locale: WalkLocale;
 }
 
-export const ACCOUNT_SETUP_COPY = {
+export const ACCOUNT_SETUP_COPY: Record<
+  WalkLocale,
+  {
+    readonly subject: string;
+    readonly heading: string;
+    readonly body: string;
+    readonly button: string;
+    readonly note: string;
+  }
+> = {
   de: {
     subject: "Ihr Zugang zu nisd2.eu",
     heading: "Ihr Zugang ist eingerichtet",
@@ -21,7 +31,14 @@ export const ACCOUNT_SETUP_COPY = {
     button: "Set up access",
     note: "The link is valid for seven days and works once. The invoice arrives in a separate email.",
   },
-} as const;
+  cs: {
+    subject: "Váš přístup k nisd2.eu",
+    heading: "Váš přístup je připravený",
+    body: "Založili jsme vám účet pro průvodce NIS 2. Přes odkaz si nastavte heslo, nebo se přihlaste přes Google pod touto e-mailovou adresou.",
+    button: "Nastavit přístup",
+    note: "Odkaz platí sedm dní a lze ho použít jednou. Faktura přijde v samostatném e-mailu.",
+  },
+};
 
 /**
  * The way into an account a platform admin opened on a sales call. Sent next to the invoice; the

@@ -9,8 +9,6 @@ import { buildFullJourneyItems } from "../full-sample";
 import { JourneyPreviewSwitcher } from "../JourneyPreviewSwitcher";
 import { SAMPLE_USER } from "../sample-data";
 
-type Locale = "en" | "de" | "nl";
-
 /**
  * Design route for the solo/team journey fork. No auth, no DB: the real
  * components render against the real framework definition, so the 49 steps,
@@ -19,13 +17,10 @@ type Locale = "en" | "de" | "nl";
  */
 export default async function JourneyForkPreviewPage() {
   if (process.env.NODE_ENV === "production") notFound();
-  const rawLocale = await getLocale();
-  const locale: Locale = (
-    ["en", "de", "nl"].includes(rawLocale) ? rawLocale : "en"
-  ) as Locale;
+  const locale = await getLocale();
   const t = await getTranslations("portal");
 
-  const items = await buildFullJourneyItems(rawLocale);
+  const items = await buildFullJourneyItems(locale);
   const reqNodes = buildRequirementNodes(items);
   const done = items.filter((i) => isDoneStatus(i.status)).length;
   const aggregate = {

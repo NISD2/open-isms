@@ -31,17 +31,20 @@ import {
   type DotState,
   type FlowNode,
   frequencyLabel,
+  type JourneyLocale,
+  journeyLocaleOf,
+  type Localized,
   ORDERED_CATEGORIES,
   type Order,
   processOrder,
   ROLE_LABEL,
   requirementHref,
   reviewLabel,
+  STATUS_WORDS,
   statusLabel,
   statusTone,
 } from "./path-nodes";
 
-type Locale = "en" | "de" | "nl";
 type StatusFilter = "open" | "overdue" | "duesoon" | "awaiting";
 
 type Aggregate = {
@@ -64,34 +67,102 @@ type Section = {
 
 const ORDER_OPTS: {
   key: Order;
-  en: string;
-  de: string;
-  sub_en: string;
-  sub_de: string;
+  label: Localized;
+  sub: Localized;
 }[] = [
   {
     key: "defensible",
-    en: "Defensible minimum",
-    de: "Belastbares Minimum",
-    sub_en: "Biggest risk and legal exposure first.",
-    sub_de: "Größtes Risiko und Haftung zuerst.",
+    label: {
+      en: "Defensible minimum",
+      de: "Belastbares Minimum",
+      cs: "Obhajitelné minimum",
+    },
+    sub: {
+      en: "Biggest risk and legal exposure first.",
+      de: "Größtes Risiko und Haftung zuerst.",
+      cs: "Nejdřív největší riziko a odpovědnost.",
+    },
   },
   {
     key: "chrono",
-    en: "Chronological",
-    de: "Chronologisch",
-    sub_en: "Ordered by the natural process, category by category.",
-    sub_de: "Sortiert nach dem natürlichen Prozess, Kategorie für Kategorie.",
+    label: { en: "Chronological", de: "Chronologisch", cs: "Chronologicky" },
+    sub: {
+      en: "Ordered by the natural process, category by category.",
+      de: "Sortiert nach dem natürlichen Prozess, Kategorie für Kategorie.",
+      cs: "Seřazeno podle přirozeného postupu, kategorie po kategorii.",
+    },
   },
 ];
 
-function buildSections(reqNodes: FlowNode[], order: Order, de: boolean): Section[] {
+/** The team view's own words; the status words come from path-nodes. */
+const COPY: Record<
+  JourneyLocale,
+  {
+    heading: string;
+    step: string;
+    ordering: string;
+    filter: string;
+    reviewOverdue: string;
+    reviewDue: string;
+    awaitingFilter: string;
+    clearFilter: string;
+    now: string;
+    overdue: string;
+    signOffs: (signed: number, total: number) => string;
+  }
+> = {
+  en: {
+    heading: "The Journey",
+    step: "Step",
+    ordering: "Ordering",
+    filter: "Filter",
+    reviewOverdue: "Review overdue",
+    reviewDue: "Review due",
+    awaitingFilter: "Awaiting",
+    clearFilter: "Clear filter",
+    now: "Now",
+    overdue: "overdue",
+    signOffs: (signed, total) => `${signed} of ${total} sign-offs completed`,
+  },
+  de: {
+    heading: "Die Reise",
+    step: "Schritt",
+    ordering: "Reihenfolge",
+    filter: "Filter",
+    reviewOverdue: "Prüfung überfällig",
+    reviewDue: "Prüfung bald",
+    awaitingFilter: "Freigabe offen",
+    clearFilter: "Filter zurücksetzen",
+    now: "Jetzt",
+    overdue: "überfällig",
+    signOffs: (signed, total) => `${signed} von ${total} Freigaben abgeschlossen`,
+  },
+  cs: {
+    heading: "Cesta",
+    step: "Krok",
+    ordering: "Pořadí",
+    filter: "Filtr",
+    reviewOverdue: "Přezkum po termínu",
+    reviewDue: "Přezkum brzy",
+    awaitingFilter: "Čeká na schválení",
+    clearFilter: "Zrušit filtr",
+    now: "Na řadě",
+    overdue: "po termínu",
+    signOffs: (signed, total) => `Schváleno ${signed} z ${total}`,
+  },
+};
+
+function buildSections(
+  reqNodes: FlowNode[],
+  order: Order,
+  lang: JourneyLocale,
+): Section[] {
   if (order === "chrono") {
     const byProcess = [...reqNodes].sort((a, b) => processOrder(a) - processOrder(b));
     const withIdx = byProcess.map((node, i) => ({ node, index: i + 1 }));
     return ORDERED_CATEGORIES.map((cat) => ({
       key: cat.code,
-      title: de ? cat.nameDe : cat.name,
+      title: cat.name[lang],
       subtitle: null,
       phase: null,
       band: null,
@@ -102,9 +173,9 @@ function buildSections(reqNodes: FlowNode[], order: Order, de: boolean): Section
   const withIdx = ordered.map((node, i) => ({ node, index: i + 1 }));
   return BANDS.map((b) => ({
     key: b.key,
-    title: de ? b.de : b.en,
-    subtitle: de ? b.hintDe : b.hintEn,
-    phase: de ? b.phaseDe : b.phaseEn,
+    title: b.name[lang],
+    subtitle: b.hint[lang],
+    phase: b.phase[lang],
     band: b.key,
     rows: withIdx.filter((r) => r.node.band === b.key),
   })).filter((s) => s.rows.length > 0);
@@ -128,14 +199,16 @@ export function PathFlow({
 }: {
   reqNodes: FlowNode[];
   aggregate: Aggregate;
-  locale: Locale;
+  /** The page language; the disclaimer has more languages than the rest of the journey. */
+  locale: string;
   /** Category code (e.g. "SUP") to scroll to and highlight, from ?focus=. */
   focusCategory?: string | null;
   /** Advertise this path to the guided tour. False while the mode question is
    *  open, so the walkthrough cannot start underneath the dialog. */
   tourAnchored?: boolean;
 }) {
-  const de = locale === "de";
+  const lang = journeyLocaleOf(locale);
+  const copy = COPY[lang];
   const [order, setOrder] = useState<Order>("defensible");
   const [filter, setFilter] = useState<StatusFilter | null>(null);
   const [highlightedCode, setHighlightedCode] = useState<string | null>(null);
@@ -163,7 +236,7 @@ export function PathFlow({
   }, [focusCategory, reqNodes]);
 
   const swimlane = order === "defensible";
-  const sections = buildSections(reqNodes, order, de);
+  const sections = buildSections(reqNodes, order, lang);
   const rowCols = swimlane
     ? "grid-cols-[2.75rem_repeat(4,minmax(0,1fr))]"
     : "grid-cols-[2.75rem_minmax(0,1fr)]";
@@ -174,24 +247,20 @@ export function PathFlow({
 
   return (
     <div className="space-y-2">
-      <h2 className="text-lg font-semibold tracking-tight">
-        {de ? "Die Reise" : "The Journey"}
-      </h2>
+      <h2 className="text-lg font-semibold tracking-tight">{copy.heading}</h2>
       {/* Control bar: ordering (primary) on the left, filters on the right. */}
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-        <OrderToggle order={order} setOrder={setOrder} de={de} />
+        <OrderToggle order={order} setOrder={setOrder} lang={lang} />
         <FilterGroup
           aggregate={aggregate}
           filter={filter}
           setFilter={setFilter}
-          de={de}
+          lang={lang}
         />
       </div>
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
-        <p className="text-[11px] text-muted-foreground">
-          {de ? activeOrder?.sub_de : activeOrder?.sub_en}
-        </p>
-        <Legend de={de} />
+        <p className="text-[11px] text-muted-foreground">{activeOrder?.sub[lang]}</p>
+        <Legend lang={lang} />
       </div>
 
       <div
@@ -207,9 +276,9 @@ export function PathFlow({
           >
             <span className="text-center">#</span>
             {swimlane ? (
-              COLUMNS.map((c) => <ColumnHeader key={c.key} col={c} de={de} />)
+              COLUMNS.map((c) => <ColumnHeader key={c.key} col={c} lang={lang} />)
             ) : (
-              <span>{de ? "Schritt" : "Step"}</span>
+              <span>{copy.step}</span>
             )}
           </div>
 
@@ -267,11 +336,11 @@ export function PathFlow({
 function OrderToggle({
   order,
   setOrder,
-  de,
+  lang,
 }: {
   order: Order;
   setOrder: (o: Order) => void;
-  de: boolean;
+  lang: JourneyLocale;
 }) {
   return (
     // Toggle-button group rather than a radiogroup: role="radio" on a <button>
@@ -279,7 +348,7 @@ function OrderToggle({
     // that is aria-pressed. Same pattern as JourneyModeToggle.
     <fieldset
       data-tour="journey-order"
-      aria-label={de ? "Reihenfolge" : "Ordering"}
+      aria-label={COPY[lang].ordering}
       className="inline-flex rounded-lg border bg-muted/60 p-0.5"
     >
       {ORDER_OPTS.map((opt) => {
@@ -302,7 +371,7 @@ function OrderToggle({
             ) : (
               <Repeat className="h-3.5 w-3.5" />
             )}
-            {de ? opt.de : opt.en}
+            {opt.label[lang]}
           </button>
         );
       })}
@@ -314,40 +383,41 @@ function FilterGroup({
   aggregate,
   filter,
   setFilter,
-  de,
+  lang,
 }: {
   aggregate: Aggregate;
   filter: StatusFilter | null;
   setFilter: (f: StatusFilter | null) => void;
-  de: boolean;
+  lang: JourneyLocale;
 }) {
   const toggle = (f: StatusFilter) => setFilter(filter === f ? null : f);
+  const copy = COPY[lang];
   return (
     <div data-tour="journey-filters" className="flex flex-wrap items-center gap-1.5">
       <span className="text-[11px] uppercase tracking-wide text-muted-foreground">
-        {de ? "Filter" : "Filter"}
+        {copy.filter}
       </span>
       <FilterChip
-        label={de ? "Offen" : "Open"}
+        label={STATUS_WORDS[lang].todo}
         value={aggregate.open}
         active={filter === "open"}
         onClick={() => toggle("open")}
       />
       <FilterChip
-        label={de ? "Prüfung überfällig" : "Review overdue"}
+        label={copy.reviewOverdue}
         value={aggregate.overdue}
         active={filter === "overdue"}
         tone={aggregate.overdue > 0 ? "destructive" : "default"}
         onClick={() => toggle("overdue")}
       />
       <FilterChip
-        label={de ? "Prüfung bald" : "Review due"}
+        label={copy.reviewDue}
         value={aggregate.dueSoon}
         active={filter === "duesoon"}
         onClick={() => toggle("duesoon")}
       />
       <FilterChip
-        label={de ? "Freigabe offen" : "Awaiting"}
+        label={copy.awaitingFilter}
         value={aggregate.awaitingSignoff}
         active={filter === "awaiting"}
         onClick={() => toggle("awaiting")}
@@ -356,7 +426,7 @@ function FilterGroup({
         <button
           type="button"
           onClick={() => setFilter(null)}
-          aria-label={de ? "Filter zurücksetzen" : "Clear filter"}
+          aria-label={copy.clearFilter}
           className="inline-flex items-center text-muted-foreground hover:text-foreground"
         >
           <X className="h-3.5 w-3.5" />
@@ -409,12 +479,13 @@ function FilterChip({
 }
 
 /** Compact key for the rail dot states, including the sign-off distinction. */
-function Legend({ de }: { de: boolean }) {
+function Legend({ lang }: { lang: JourneyLocale }) {
+  const words = STATUS_WORDS[lang];
   const items: { state: DotState | "current"; label: string }[] = [
-    { state: "current", label: de ? "Jetzt" : "Now" },
-    { state: "started", label: de ? "In Arbeit" : "In progress" },
-    { state: "awaiting", label: de ? "Wartet auf Freigabe" : "Awaiting sign-off" },
-    { state: "signed", label: de ? "Freigegeben" : "Signed off" },
+    { state: "current", label: COPY[lang].now },
+    { state: "started", label: words.started },
+    { state: "awaiting", label: words.awaiting },
+    { state: "signed", label: words.signed },
   ];
   return (
     <div data-tour="journey-legend" className="hidden items-center gap-3 sm:flex">
@@ -435,7 +506,13 @@ function Legend({ de }: { de: boolean }) {
   );
 }
 
-function ColumnHeader({ col, de }: { col: (typeof COLUMNS)[number]; de: boolean }) {
+function ColumnHeader({
+  col,
+  lang,
+}: {
+  col: (typeof COLUMNS)[number];
+  lang: JourneyLocale;
+}) {
   return (
     <HoverCard openDelay={120} closeDelay={60}>
       <HoverCardTrigger asChild>
@@ -443,19 +520,19 @@ function ColumnHeader({ col, de }: { col: (typeof COLUMNS)[number]; de: boolean 
           type="button"
           className="inline-flex items-center gap-1 truncate rounded text-left uppercase tracking-wide hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
-          {de ? col.de : col.en}
+          {col.label[lang]}
           <Info className="h-3 w-3 shrink-0 opacity-50" />
         </button>
       </HoverCardTrigger>
       <HoverCardContent side="top" className="w-64 text-xs leading-relaxed">
-        <p className="font-semibold text-foreground">{de ? col.de : col.en}</p>
-        <p className="mt-1 text-muted-foreground">{de ? col.infoDe : col.infoEn}</p>
+        <p className="font-semibold text-foreground">{col.label[lang]}</p>
+        <p className="mt-1 text-muted-foreground">{col.info[lang]}</p>
       </HoverCardContent>
     </HoverCard>
   );
 }
 
-function SectionHeader({ section, locale }: { section: Section; locale: Locale }) {
+function SectionHeader({ section, locale }: { section: Section; locale: string }) {
   return (
     <div className="flex items-center gap-2 border-b bg-muted/20 px-3 py-1.5 sm:px-4">
       <h3 className="text-xs font-semibold tracking-wide text-foreground">
@@ -481,7 +558,7 @@ function SectionHeader({ section, locale }: { section: Section; locale: Locale }
   );
 }
 
-function DisclaimerIcon({ locale }: { locale: Locale }) {
+function DisclaimerIcon({ locale }: { locale: string }) {
   return (
     <HoverCard openDelay={120} closeDelay={60}>
       <HoverCardTrigger asChild>
@@ -606,16 +683,15 @@ function NodeCard({
   highlighted = false,
 }: {
   node: FlowNode;
-  locale: Locale;
+  locale: string;
   dimmed: boolean;
   showOwner?: boolean;
   /** Transient spotlight when arrived at via a course ?focus= deep link. */
   highlighted?: boolean;
 }) {
-  const de = locale === "de";
-  const owner = ROLE_LABEL[node.ownerRole] ?? { en: node.ownerRole, de: node.ownerRole };
-  const ownerLabel = de ? owner.de : owner.en;
-  const freqLabel = frequencyLabel(node.frequency, de);
+  const lang = journeyLocaleOf(locale);
+  const ownerLabel = ROLE_LABEL[node.ownerRole]?.[lang] ?? node.ownerRole;
+  const freqLabel = frequencyLabel(node.frequency, lang);
   const { state } = node;
   // Only the action-needing states get a card corner pip, so the at-a-glance
   // signal survives the horizontal distance to the rail dot without re-cluttering.
@@ -633,7 +709,7 @@ function NodeCard({
   const due = node.dueInDays;
   const reviewState: "overdue" | "soon" | "later" | null =
     due === null ? null : due < 0 ? "overdue" : due <= 30 ? "soon" : "later";
-  const reviewText = reviewLabel(due, de);
+  const reviewText = reviewLabel(due, lang);
 
   const ring =
     node.status === "current"
@@ -687,7 +763,7 @@ function NodeCard({
               {reviewState === "overdue" ? (
                 <span className="inline-flex items-center gap-0.5 rounded bg-destructive/10 px-1 py-0 text-[10px] font-medium text-destructive">
                   <CalendarClock className="h-2.5 w-2.5" />
-                  {de ? "überfällig" : "overdue"}
+                  {COPY[lang].overdue}
                 </span>
               ) : reviewState === "soon" ? (
                 <span className="inline-flex items-center gap-0.5 rounded bg-amber-50 px-1 py-0 text-[10px] font-medium text-amber-700 dark:bg-amber-950/40 dark:text-amber-400">
@@ -721,16 +797,14 @@ function NodeCard({
           )}
         >
           <Dot state={state} current={node.status === "current"} size="sm" />
-          {statusLabel(node, de)}
+          {statusLabel(node, lang)}
         </p>
         {(so.total >= 2 || isDoneStatus(node.rawStatus)) &&
         node.rawStatus !== "rejected" &&
         node.rawStatus !== "needs_review" ? (
           <p className="mt-1 flex items-center gap-1 text-[11px] text-muted-foreground">
             <Users className="h-3 w-3" />
-            {de
-              ? `${so.signed} von ${so.total} Freigaben abgeschlossen`
-              : `${so.signed} of ${so.total} sign-offs completed`}
+            {COPY[lang].signOffs(so.signed, so.total)}
           </p>
         ) : null}
         {reviewText ? (

@@ -50,10 +50,10 @@ export default async function BillingPage({
   if (!session.companyId) redirect("/onboarding");
 
   const t = await getTranslations("billing.page");
-  const status = await api.billing.status();
+  const status = await api.billing.status({ locale });
   // Ordering is not open here (no live keys, or a sandbox and not an admin): no billing page.
   if (!status.open) notFound();
-  const invoices = status.isPayer ? await api.billing.invoices() : null;
+  const invoices = status.isPayer ? await api.billing.invoices({ locale }) : null;
 
   const days = new Intl.DateTimeFormat(locale, { dateStyle: "medium", timeZone: "UTC" });
   const noon = (iso: string) => new Date(`${iso}T12:00:00Z`);

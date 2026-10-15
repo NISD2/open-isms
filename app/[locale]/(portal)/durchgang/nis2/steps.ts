@@ -9,6 +9,7 @@ import {
   type ResolvedItem,
   resolveItem,
   WALK,
+  walkLocaleOf,
 } from "@/lib/durchgang";
 
 /** The step art on disk, read once per server process rather than on every render. */
@@ -60,8 +61,8 @@ export async function stepOf(item: AnyItem, locale?: string): Promise<WalkStep> 
 /**
  * These items as their cards show them, in the order given, for pages outside the walk (the
  * wiki). It reads only the walk's copy and art, never a company or the database. The walk is
- * written in German and English, so a page in any other language gets its cards in English,
- * area included, rather than half translated. A code that is not a step of the walk throws; wiki
+ * written in German, English and Czech, so a page in any other language gets its cards in
+ * English, area included, rather than half translated. A code that is not a step of the walk throws; wiki
  * pages render on request, so components/wiki/WalkSteps.test.ts checks every code the wiki uses.
  */
 export async function stepsOf(codes: readonly string[]): Promise<readonly WalkStep[]> {
@@ -75,6 +76,5 @@ export async function stepsOf(codes: readonly string[]): Promise<readonly WalkSt
   );
 }
 
-/** The language the walk shows itself in: German, else English. */
-export const walkLanguage = (locale: string): "de" | "en" =>
-  locale === "de" ? "de" : "en";
+/** The language the walk shows itself in: its own where it is written (German, Czech), else English. */
+export const walkLanguage = walkLocaleOf;

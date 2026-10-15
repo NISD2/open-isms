@@ -4,6 +4,7 @@ import type { GuidanceFile, RequirementGuidanceData } from "@/lib/ai/guidance-ty
 import { getSession, hasReviewAccess, isReviewerRole } from "@/lib/auth";
 import { canSeeCategory, getUserAccess } from "@/lib/compliance/access";
 import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
+import { czechRefOf } from "@/lib/compliance/czech-law";
 import { PLATFORM_DEFAULTS } from "@/lib/compliance/platform-defaults";
 import { REQUIREMENT_FIELD_MAP } from "@/lib/compliance/requirement-fields";
 import { DEFAULT_SIGN_OFF_ROLE, type RoleKey } from "@/lib/compliance/role-keys";
@@ -129,7 +130,9 @@ async function loadGuidance(
     const file: GuidanceFile =
       locale === "de"
         ? (await import("@/data/guidance/de.json")).default
-        : (await import("@/data/guidance/en.json")).default;
+        : locale === "cs"
+          ? (await import("@/data/guidance/cs.json")).default
+          : (await import("@/data/guidance/en.json")).default;
     return file[code] ?? null;
   } catch {
     return null;
@@ -257,6 +260,7 @@ export async function loadRequirementDetail(
       frameworkCode: req.category.framework.code,
       referenceUrl: req.category.referenceUrl,
       nationalUrl: req.category.nationalUrl,
+      czechRef: czechRefOf(req),
     },
     status,
     categoryName: tc(`categories.${req.category.code}.name`),

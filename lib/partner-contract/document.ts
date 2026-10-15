@@ -8,14 +8,25 @@ import { createHash } from "node:crypto";
 import { createTranslator } from "next-intl";
 import { ANNUAL_NET_CENTS, formatWholeEuro } from "@/lib/billing/order";
 import { SELLER } from "@/lib/billing/seller";
+import {
+  BINDING_CONTRACT_LOCALE,
+  type ContractTranslationLocale,
+  isContractTranslationLocale,
+} from "@/lib/legal/contract-language";
+import partnerCs from "@/messages/partnerContract/cs.json";
 import partnerDe from "@/messages/partnerContract/de.json";
 import partnerEn from "@/messages/partnerContract/en.json";
+import pricingCs from "@/messages/pricing/cs.json";
 import pricingDe from "@/messages/pricing/de.json";
 import pricingEn from "@/messages/pricing/en.json";
-import type { PartnerContractBody } from "@/schema";
-import { PARTNER_CONTRACT_INTL_LOCALE, type PartnerContractLocale } from "./date";
+import type { PartnerContractBody, partnerContract } from "@/schema";
+import {
+  PARTNER_CONTRACT_INTL_LOCALE,
+  type PartnerContractLocale,
+  type PartnerContractReadingLocale,
+} from "./date";
 
-export type { PartnerContractLocale } from "./date";
+export type { PartnerContractLocale, PartnerContractReadingLocale } from "./date";
 
 /** Moves whenever the wording changes what an offer says, so a stored offer names its wording. */
 export const PARTNER_CONTRACT_VERSION = "2026-10-06.3";
@@ -23,13 +34,14 @@ export const PARTNER_CONTRACT_VERSION = "2026-10-06.3";
 const MESSAGES = {
   de: { ...partnerDe, ...pricingDe },
   en: { ...partnerEn, ...pricingEn },
+  cs: { ...partnerCs, ...pricingCs },
 } as const;
 
-export const partnerContractTranslator = (locale: PartnerContractLocale) =>
+export const partnerContractTranslator = (locale: PartnerContractReadingLocale) =>
   createTranslator({ locale, messages: MESSAGES[locale] });
 
-/** The acceptance page's own strings, handed to the client in the agreement's language. */
-export const partnerContractPageMessages = (locale: PartnerContractLocale) =>
+/** The acceptance page's own strings, handed to the client in the language it is read in. */
+export const partnerContractPageMessages = (locale: PartnerContractReadingLocale) =>
   MESSAGES[locale].partnerContract.page;
 
 export type PartnerContractPageMessages = ReturnType<typeof partnerContractPageMessages>;
@@ -92,7 +104,47 @@ export interface PartnerContractTerms {
   readonly commissionMonths: number | null;
 }
 
-export function buildPartnerContract(terms: PartnerContractTerms): PartnerContractBody {
+/** The agreement as it is offered and stored: only ever in a binding language. */
+export const buildPartnerContract = (terms: PartnerContractTerms): PartnerContractBody =>
+  buildBody(terms);
+
+type StoredOffer = Pick<
+  typeof partnerContract.$inferSelect,
+  "locale" | "partnerCompany" | "commissionPercent" | "commissionMonths" | "body"
+>;
+
+/**
+ * The agreement for a reader of a translation locale, for reading only: what is signed, hashed and
+ * mailed stays the stored English text. It is built with today's wording, so it translates the
+ * stored text only while today's English wording still builds exactly that text. A reader of any
+ * other locale, an offer made under older wording, or one in German gets none (null) and reads the
+ * stored text.
+ */
+export function partnerContractTranslation(
+  offer: StoredOffer,
+  readerLocale: string,
+): {
+  readonly locale: ContractTranslationLocale;
+  readonly body: PartnerContractBody;
+} | null {
+  if (!isContractTranslationLocale(readerLocale)) return null;
+  if (offer.locale !== BINDING_CONTRACT_LOCALE) return null;
+  const terms = {
+    partnerCompany: offer.partnerCompany,
+    commissionPercent: offer.commissionPercent,
+    commissionMonths: offer.commissionMonths,
+  };
+  const english = partnerContractText(buildBody({ ...terms, locale: offer.locale }));
+  return english === partnerContractText(offer.body)
+    ? { locale: readerLocale, body: buildBody({ ...terms, locale: readerLocale }) }
+    : null;
+}
+
+function buildBody(
+  terms: Omit<PartnerContractTerms, "locale"> & {
+    readonly locale: PartnerContractReadingLocale;
+  },
+): PartnerContractBody {
   const t = partnerContractTranslator(terms.locale);
   const intl = PARTNER_CONTRACT_INTL_LOCALE[terms.locale];
   const period =
@@ -144,7 +196,8 @@ export function buildPartnerContract(terms: PartnerContractTerms): PartnerContra
 
 /**
  * The agreement as plain text, in markdown: what the confirmation email carries and what the
- * acceptance hash is taken over. Built from the stored copy only, so it is the text the signer saw.
+ * acceptance hashes are taken over, the stored copy's and, for a reader of a translation, the
+ * translation's.
  */
 export function partnerContractText(body: PartnerContractBody): string {
   return [

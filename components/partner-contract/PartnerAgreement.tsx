@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   formatPartnerContractDate,
-  type PartnerContractLocale,
+  type PartnerContractReadingLocale,
 } from "@/lib/partner-contract/date";
 import type { PartnerContractPageMessages } from "@/lib/partner-contract/document";
 import { trpc } from "@/lib/trpc/client";
@@ -32,7 +32,7 @@ interface Acceptance {
 interface Props {
   readonly children: ReactNode;
   readonly token: string;
-  readonly locale: PartnerContractLocale;
+  readonly locale: PartnerContractReadingLocale;
   readonly messages: PartnerContractPageMessages;
   readonly company: string;
   readonly contactEmail: string;
@@ -109,6 +109,7 @@ export function PartnerAgreement(props: Props) {
       name: name.trim(),
       email: email.trim(),
       authority: true,
+      locale,
     });
   };
 

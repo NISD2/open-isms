@@ -17,7 +17,7 @@ import {
 const VERSION = supplierQuestionnaire.version;
 const LAST_UPDATED = supplierQuestionnaire.lastUpdated;
 
-export type QuestionnaireLocale = "de" | "en" | "nl" | "fr" | "it" | "es" | "pl";
+export type QuestionnaireLocale = "de" | "en" | "nl" | "fr" | "it" | "es" | "pl" | "cs";
 
 export const QUESTIONNAIRE_LOCALES: QuestionnaireLocale[] = [
   "de",
@@ -27,6 +27,7 @@ export const QUESTIONNAIRE_LOCALES: QuestionnaireLocale[] = [
   "it",
   "es",
   "pl",
+  "cs",
 ];
 
 export const SECTION_TITLES: Record<SectionValue, Record<QuestionnaireLocale, string>> = {
@@ -38,6 +39,7 @@ export const SECTION_TITLES: Record<SectionValue, Record<QuestionnaireLocale, st
     it: "Profilo del fornitore",
     es: "Perfil del proveedor",
     pl: "Profil dostawcy",
+    cs: "Profil dodavatele",
   },
   security_practices: {
     de: "Sicherheitspraktiken",
@@ -47,6 +49,7 @@ export const SECTION_TITLES: Record<SectionValue, Record<QuestionnaireLocale, st
     it: "Pratiche di sicurezza",
     es: "Prácticas de seguridad",
     pl: "Praktyki bezpieczeństwa",
+    cs: "Bezpečnostní postupy",
   },
   saas_technical: {
     de: "Software als Dienst (SaaS)",
@@ -56,6 +59,7 @@ export const SECTION_TITLES: Record<SectionValue, Record<QuestionnaireLocale, st
     it: "Software come servizio (SaaS)",
     es: "Software como servicio (SaaS)",
     pl: "Oprogramowanie jako usługa (SaaS)",
+    cs: "Software jako služba (SaaS)",
   },
   on_prem_technical: {
     de: "Software beim Kunden (On-Premise)",
@@ -65,6 +69,7 @@ export const SECTION_TITLES: Record<SectionValue, Record<QuestionnaireLocale, st
     it: "Software presso il cliente (on-premise)",
     es: "Software en las instalaciones del cliente (on-premise)",
     pl: "Oprogramowanie u klienta (on-premise)",
+    cs: "Software u zákazníka (on-premise)",
   },
 };
 
@@ -73,6 +78,11 @@ type Counts = typeof QUESTIONNAIRE_COUNTS;
 export interface ExportStrings extends ConditionWords {
   readonly title: string;
   readonly subtitle: string;
+  /** The article the questionnaire serves, cited the way the reader's language cites it. */
+  readonly article: string;
+  readonly version: string;
+  /** The download's name, without extension. */
+  readonly file: string;
   readonly meta: (counts: Counts) => string;
   readonly intro: (counts: Counts) => string;
   readonly source: string;
@@ -89,6 +99,9 @@ export const EXPORT_STRINGS: Record<QuestionnaireLocale, ExportStrings> = {
     title: "NIS 2 Lieferantenfragebogen",
     subtitle:
       "Offener Fragebogen für die Lieferantenbewertung unter NIS 2, im EU-Recht verankert",
+    article: "NIS 2 Art. 21(2)(d)",
+    version: "Version",
+    file: "nis2-lieferanten-fragebogen",
     meta: (c) =>
       `Version ${VERSION} - Stand ${LAST_UPDATED} - ${c.total} Felder in ${c.sections} Sektionen`,
     intro: (c) =>
@@ -110,6 +123,9 @@ export const EXPORT_STRINGS: Record<QuestionnaireLocale, ExportStrings> = {
   en: {
     title: "NIS 2 Supplier Questionnaire",
     subtitle: "An open, EU-anchored questionnaire for NIS 2 supplier due diligence",
+    article: "NIS 2 Art. 21(2)(d)",
+    version: "Version",
+    file: "nis2-supplier-questionnaire",
     meta: (c) =>
       `Version ${VERSION} - Last updated ${LAST_UPDATED} - ${c.total} fields across ${c.sections} sections`,
     intro: (c) =>
@@ -130,6 +146,9 @@ export const EXPORT_STRINGS: Record<QuestionnaireLocale, ExportStrings> = {
   nl: {
     title: "NIS 2 Leveranciersvragenlijst",
     subtitle: "Een open, EU-verankerde vragenlijst voor de NIS 2 leveranciersbeoordeling",
+    article: "NIS 2 Art. 21(2)(d)",
+    version: "Versie",
+    file: "nis2-supplier-questionnaire",
     meta: (c) =>
       `Versie ${VERSION} - Laatst bijgewerkt ${LAST_UPDATED} - ${c.total} velden in ${c.sections} secties`,
     intro: (c) =>
@@ -152,6 +171,9 @@ export const EXPORT_STRINGS: Record<QuestionnaireLocale, ExportStrings> = {
     title: "Questionnaire fournisseur NIS 2",
     subtitle:
       "Un questionnaire ouvert et ancré dans le droit de l'UE pour l'évaluation des fournisseurs au titre de NIS 2",
+    article: "NIS 2 Art. 21(2)(d)",
+    version: "Version",
+    file: "nis2-supplier-questionnaire",
     meta: (c) =>
       `Version ${VERSION} - Dernière mise à jour ${LAST_UPDATED} - ${c.total} champs répartis en ${c.sections} sections`,
     intro: (c) =>
@@ -174,6 +196,9 @@ export const EXPORT_STRINGS: Record<QuestionnaireLocale, ExportStrings> = {
     title: "Questionario per i fornitori NIS 2",
     subtitle:
       "Un questionario aperto e ancorato al diritto dell'UE per la valutazione dei fornitori ai sensi di NIS 2",
+    article: "NIS 2 Art. 21(2)(d)",
+    version: "Versione",
+    file: "nis2-supplier-questionnaire",
     meta: (c) =>
       `Versione ${VERSION} - Ultimo aggiornamento ${LAST_UPDATED} - ${c.total} campi in ${c.sections} sezioni`,
     intro: (c) =>
@@ -196,6 +221,9 @@ export const EXPORT_STRINGS: Record<QuestionnaireLocale, ExportStrings> = {
     title: "Cuestionario para proveedores NIS 2",
     subtitle:
       "Un cuestionario abierto y anclado en el derecho de la UE para la evaluación de proveedores conforme a NIS 2",
+    article: "NIS 2 Art. 21(2)(d)",
+    version: "Versión",
+    file: "nis2-supplier-questionnaire",
     meta: (c) =>
       `Versión ${VERSION} - Última actualización ${LAST_UPDATED} - ${c.total} campos en ${c.sections} secciones`,
     intro: (c) =>
@@ -218,6 +246,9 @@ export const EXPORT_STRINGS: Record<QuestionnaireLocale, ExportStrings> = {
     title: "Kwestionariusz dla dostawców NIS 2",
     subtitle:
       "Otwarty, zakotwiczony w prawie UE kwestionariusz do oceny dostawców w ramach NIS 2",
+    article: "NIS 2 Art. 21(2)(d)",
+    version: "Wersja",
+    file: "nis2-supplier-questionnaire",
     meta: (c) =>
       `Wersja ${VERSION} - Ostatnia aktualizacja ${LAST_UPDATED} - ${plural("pl", c.total, { one: "pole", few: "pola", many: "pól", other: "pola" })} w ${c.sections} sekcjach`,
     intro: (c) =>
@@ -236,6 +267,32 @@ export const EXPORT_STRINGS: Record<QuestionnaireLocale, ExportStrings> = {
       "Licencja: MIT (schemat) + CC BY 4.0 (treść). Można swobodnie używać, forkować i adaptować.",
     fieldCount: (n) =>
       plural("pl", n, { one: "pole", few: "pola", many: "pól", other: "pola" }),
+  },
+  cs: {
+    title: "Dotazník pro dodavatele NIS 2",
+    subtitle:
+      "Otevřený dotazník pro posouzení dodavatelů podle NIS 2, ukotvený v právu EU",
+    article: "NIS 2 čl. 21 odst. 2 písm. d)",
+    version: "Verze",
+    file: "nis2-dotaznik-pro-dodavatele",
+    meta: (c) =>
+      `Verze ${VERSION} - stav k ${LAST_UPDATED} - ${plural("cs", c.total, { one: "pole", few: "pole", many: "pole", other: "polí" })}, počet oddílů: ${c.sections}`,
+    intro: (c) =>
+      `U každé otázky je uveden její zdroj v právu EU: prováděcí nařízení (EU) 2024/2690, Technical Implementation Guidance agentury ENISA, obecné nařízení o ochraně osobních údajů (GDPR) nebo akt o kybernetické odolnosti (Cyber Resilience Act). Slouží-li otázka opatřením z přílohy A normy ISO/IEC 27001:2022, jsou uvedena vedle ní. Na ${plural("cs", c.always, { one: "otázku", few: "otázky", many: "otázky", other: "otázek" })} odpovídá každý dodavatel; u každé další je uvedeno, na jaké odpovědi závisí. To se řídí tím, čeho se dodavatel u svých zákazníků dotýká: jejich dat, systémů, prostor nebo softwaru, který provozuje či dodává. Odvětvová rozšíření (TISAX, VDA ISA, německé BSI C5 a KRITIS) tento základ doplňují, nenahrazují.`,
+    source:
+      "Zdroj: github.com/NISD2/nis2-supply-chain-questionnaire-schema (MIT + CC BY 4.0)",
+    legalBasis: "Právní základ",
+    required: "Povinné",
+    optional: "Nepovinné",
+    conditional: "Podmíněné",
+    onlyIf: "Jen pokud",
+    yes: "Ano",
+    no: "Ne",
+    or: "nebo",
+    license:
+      "Licence: MIT (schéma) + CC BY 4.0 (obsah). Volně k použití, převzetí i úpravám.",
+    fieldCount: (n) =>
+      plural("cs", n, { one: "pole", few: "pole", many: "pole", other: "polí" }),
   },
 };
 

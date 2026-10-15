@@ -18,9 +18,18 @@ import {
   LEGAL_COPY,
   type PreferenceFooter,
 } from "../layout";
-import type { EmailLocale } from "../locale";
+import {
+  type EmailLocale,
+  type WorkflowMailLocale,
+  workflowMailLocaleOf,
+} from "../locale";
 
 const LOGO_URL = "https://nisd2.eu/nisd2-logo.png";
+
+const SOFTWARE_LINE: Record<WorkflowMailLocale, string> = {
+  en: "Open NIS2 compliance platform",
+  cs: "Otevřená platforma pro zavádění NIS 2",
+};
 
 /** One full-width row of the card. */
 function Band({ style, children }: { style: CSSProperties; children: ReactNode }) {
@@ -120,7 +129,7 @@ function LegalFooter({ locale }: { locale: EmailLocale }) {
         >
           nisd2.eu
         </Link>
-        {" ·  Open NIS2 compliance platform"}
+        {` ·  ${SOFTWARE_LINE[workflowMailLocaleOf(locale)]}`}
       </>
     );
   }

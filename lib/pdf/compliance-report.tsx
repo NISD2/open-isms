@@ -200,7 +200,7 @@ export function ComplianceReport({ data, locale }: ComplianceReportProps) {
           <SectionHeading code={cat.code} title={cat.name} />
 
           {cat.grundschutzModule && (
-            <FieldRow label="IT-Grundschutz" value={cat.grundschutzModule} />
+            <FieldRow label={labels.grundschutz} value={cat.grundschutzModule} />
           )}
 
           {cat.description && <Text style={styles.sectionNote}>{cat.description}</Text>}

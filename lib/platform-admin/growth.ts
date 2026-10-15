@@ -59,6 +59,14 @@ export interface UserFact {
   disposable: boolean;
   /** Stored UI language, or "unknown" for accounts predating the column. */
   locale: string;
+  /**
+   * Path of the page they clicked "register" on, as recorded at registration. Null for accounts
+   * that predate it, that signed up with Google, or that came from a page with no sign-in link.
+   */
+  fromPath: string | null;
+  /** utm_source and utm_campaign of that page's address; null when it carried none. */
+  utmSource: string | null;
+  utmCampaign: string | null;
   /** Attached to a company row, activated or still a draft shell. */
   inOrg: boolean;
   /** Day their org was activated; null while it is still a draft shell. */
@@ -213,6 +221,7 @@ export async function loadGrowthData(db: Database): Promise<GrowthData> {
         verified: sql<boolean>`${user.emailVerifiedAt} IS NOT NULL`,
         disposable: user.isDisposableEmail,
         locale: user.locale,
+        signupCampaign: user.signupCampaign,
         companyId: user.companyId,
         activatedDay: nullableDayOf(company.activatedAt),
       })
@@ -441,6 +450,9 @@ export async function loadGrowthData(db: Database): Promise<GrowthData> {
       verified: u.verified,
       disposable: u.disposable,
       locale: u.locale ?? "unknown",
+      fromPath: u.signupCampaign?.from_path ?? null,
+      utmSource: u.signupCampaign?.utm_source ?? null,
+      utmCampaign: u.signupCampaign?.utm_campaign ?? null,
       inOrg: u.companyId !== null,
       activatedDay: u.activatedDay,
       activeDays: work ? Array.from(work.days).sort() : [],

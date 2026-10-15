@@ -105,7 +105,7 @@ export function InvoicePreview({
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="font-medium">
-                  {licenceTitle(locale === "de" ? "de" : "en")}
+                  {licenceTitle(locale === "de" || locale === "cs" ? locale : "en")}
                 </p>
                 <p className="text-muted-foreground text-xs">
                   {t("preview.period", {

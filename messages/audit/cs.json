@@ -1,11 +1,63 @@
 {
   "audit": {
-    "title": "Auditní stopa",
-    "subtitle": "Záznam všech akcí významných pro compliance s ochranou proti neoprávněné změně",
+    "title": "Protokol aktivit",
+    "subtitle": "Kdo co a kdy změnil, den po dni.",
     "noEntries": "Zatím nejsou žádné záznamy v auditním protokolu.",
-    "description": "Popis",
-    "action": "Akce",
-    "user": "Uživatel",
-    "time": "Čas"
+    "today": "Dnes",
+    "yesterday": "Včera",
+    "system": "Systém",
+    "actions": {
+      "durchgang": {
+        "item_done": "Bod průvodce vyplněn",
+        "finish": "Bod průvodce dokončen",
+        "waiting": "Bod odložen",
+        "declined": "Rozhodnuto nezavádět",
+        "writePolicy": "Dokument vytvořen v průvodci",
+        "approvePolicies": "Dokumenty schváleny",
+        "requirements_signed": "Schváleno vedením",
+        "adopted": "Metodika převzata",
+        "adoptMethod": "Metodika převzata"
+      },
+      "assessment": {
+        "signOff": "Požadavek schválen",
+        "updateRequirementStatus": "Stav změněn"
+      },
+      "requirement": {
+        "signoff": "Požadavek schválen",
+        "status_change": "Stav změněn"
+      },
+      "evidence": {
+        "confirmUpload": "Doklad nahrán",
+        "deleteEvidence": "Doklad smazán",
+        "upload": "Doklad nahrán",
+        "delete": "Doklad smazán"
+      },
+      "managementReview": {
+        "create": "Přezkum vedení zaznamenán"
+      },
+      "training": {
+        "create": "Školení zaznamenáno"
+      },
+      "intake": {
+        "saveRequirementAnswers": "Odpovědi uloženy"
+      },
+      "journey": {
+        "setMode": "Zobrazení cesty změněno"
+      },
+      "user": {
+        "dismissHint": "Nápověda skryta"
+      },
+      "notification": {
+        "scheduled": "Připomínky termínů naplánovány"
+      },
+      "billing": {
+        "quote": "Cena objednávky spočítána",
+        "place": "Objednáno",
+        "cancel": "Zrušeno"
+      },
+      "dev": {
+        "resetImplementation": "Zavádění vynulováno (test)"
+      }
+    }
   }
 }

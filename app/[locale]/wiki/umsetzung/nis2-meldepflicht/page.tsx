@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { SourceText } from "@/components/wiki/SourceText";
 import { WalkHow } from "@/components/wiki/WalkHow";
 import { WalkPriceCard } from "@/components/wiki/WalkPriceCard";
 import { WalkSteps } from "@/components/wiki/WalkSteps";
@@ -19,7 +20,8 @@ import { WikiMoreLink } from "@/components/wiki/WikiMoreLink";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
 import { WikiPartnerStrip } from "@/components/wiki/WikiPartnerStrip";
-import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
+import { wikiLabel, wikiLocale } from "@/lib/content/wiki-locale";
+import { pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -56,7 +58,7 @@ export default async function IncidentReportingPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale = wikiLocale(rawLocale);
   const [t, w] = await Promise.all([
     getTranslations("info.incidentReporting"),
     getTranslations("info.wikiWalk"),
@@ -79,7 +81,10 @@ export default async function IncidentReportingPage({
         />
 
         <WikiAnswerHeader
-          badge="Art. 23 NIS 2 · § 32 BSIG"
+          badge={wikiLabel(locale, {
+            cs: "čl. 23 NIS 2 · §§ 15 až 17 zákona č. 264/2025 Sb.",
+            other: "Art. 23 NIS 2 · § 32 BSIG",
+          })}
           title={t("title")}
           answer={t("subtitle")}
           shot
@@ -251,7 +256,7 @@ export default async function IncidentReportingPage({
           <ul className="space-y-1.5">
             {(t.raw("sources.items") as string[]).map((source) => (
               <li key={source} className="text-xs leading-relaxed text-muted-foreground">
-                {source}
+                <SourceText text={source} />
               </li>
             ))}
           </ul>

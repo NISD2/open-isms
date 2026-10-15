@@ -2,7 +2,7 @@
   "changes": {
     "title": "Řízení změn",
     "description": "Žádosti o změny IT/OT s posouzením rizik a schvalovacím procesem. Podporuje NIS2 čl. 21 odst. 2 písm. e).",
-    "helpText": "Sledujte všechny změny v systémech IT a OT prostřednictvím formálního schvalovacího procesu. Každá žádost o změnu zahrnuje posouzení rizik, plán implementace a postup vrácení změny. NIS2 vyžaduje řízené řízení změn, aby se předešlo bezpečnostním regresím.",
+    "helpText": "Sledujte všechny změny v systémech IT a OT prostřednictvím formálního schvalovacího procesu. Každá žádost o změnu zahrnuje posouzení rizik, plán implementace a postup vrácení změny. Řízení významných změn ukládá v Česku vyhláška č. 409/2025 Sb., § 11 (vyšší režim); vyhláška č. 410/2025 Sb. vlastní ustanovení o řízení změn nemá.",
     "add": "Nová žádost o změnu",
     "edit": "Upravit žádost o změnu",
     "empty": "Zatím žádné žádosti o změnu. Vytvořte svou první žádost o změnu.",

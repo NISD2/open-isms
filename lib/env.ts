@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { analyticsEnvShape } from "@/lib/analytics/umami-config";
 import { billingEnvShape } from "@/lib/billing/config-schema";
 import { closeEnvShape } from "@/lib/crm/config-schema";
 import { trimmed, withoutBlanks } from "@/lib/env-value";
@@ -108,6 +109,10 @@ const envSchema = z.object({
   // nothing leaves the instance, which is the correct default for a self-hoster.
   // Defined in lib/crm/config-schema.ts, normalised once and never rejected.
   ...closeEnvShape,
+
+  // Analytics tag and the login the Graphs tab reads traffic back with — all optional.
+  // Defined in lib/analytics/umami-config.ts, normalised once and never rejected.
+  ...analyticsEnvShape,
 
   // Cron — optional
   CRON_SECRET: z.string().optional(),

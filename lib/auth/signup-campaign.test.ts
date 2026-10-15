@@ -28,6 +28,35 @@ describe("signupCampaignFrom", () => {
     });
   });
 
+  test("keeps the page the visitor registered from, next to the tags", () => {
+    expect(
+      signupCampaignFrom(
+        "utm_source=google&from_path=/en/wiki/timelines-and-status/nis2-timeline",
+      ),
+    ).toEqual({
+      utm_source: "google",
+      from_path: "/en/wiki/timelines-and-status/nis2-timeline",
+    });
+    expect(signupCampaignFrom("from_path=/")).toEqual({ from_path: "/" });
+  });
+
+  test("drops an origin that is not a plain local path or is a token route", () => {
+    for (const from of [
+      "https://evil.example/x",
+      "//evil.example/x",
+      "/wiki?token=abc",
+      "/wiki#section",
+      "/invite/5f0c",
+      "/de/auth/setup",
+      "wiki/x",
+      `/${"x".repeat(100)}`,
+    ]) {
+      expect(
+        signupCampaignFrom(new URLSearchParams({ from_path: from }).toString()),
+      ).toBeNull();
+    }
+  });
+
   test("null when nothing survives or the input is not a short string", () => {
     expect(signupCampaignFrom("")).toBeNull();
     expect(signupCampaignFrom("callbackUrl=/invite/abc")).toBeNull();
@@ -51,5 +80,11 @@ describe("describeSignupCampaign", () => {
   test("null without tags", () => {
     expect(describeSignupCampaign(null)).toBeNull();
     expect(describeSignupCampaign({})).toBeNull();
+  });
+
+  test("names the origin page last", () => {
+    expect(
+      describeSignupCampaign({ from_path: "/en/pricing", utm_source: "google" }),
+    ).toBe("utm_source=google / from_path=/en/pricing");
   });
 });

@@ -1,5 +1,7 @@
 {
   "billing": {
+    "translationNotice": "Dit is een vertaling ter informatie. De <english>Engelse tekst</english> is bindend.",
+    "translationNoticeTerms": "Dit is een vertaling ter informatie. De voorwaarden gelden in de <english>Engelse</english> en de Duitse versie; bij verschillen gaat de Duitse versie voor (punt C2).",
     "offer": {
       "title": "Hoe wilt u verdergaan?",
       "lead": "Het Compliance Portal gaat open met de bestelling. Het leveranciersportaal en het trainingsportaal gebruikt u zonder bestelling.",

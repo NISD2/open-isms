@@ -47,6 +47,12 @@ export const requirement = pgTable(
     minEmployees: integer("min_employees"),
 
     legalRef: varchar("legal_ref", { length: 255 }),
+    // Where Czech law places a NIS 2 requirement, as legal_ref names the BSIG: the Act 264/2025 Sb.,
+    // decree 410/2025 Sb. (lower regime) and 409/2025 Sb. (higher regime). Null where that text has
+    // no place for it, and on every other framework. Source: getNis2CzechRef in frameworks/nis2.ts.
+    czActRef: varchar("cz_act_ref", { length: 500 }),
+    czLowerRef: varchar("cz_lower_ref", { length: 500 }),
+    czHigherRef: varchar("cz_higher_ref", { length: 500 }),
     // frameworkRef = short structured reference within the framework:
     //   NIS 2 / GDPR / AI Act / CRA → Article number like "21(2)(a)"
     //   ISO 27001 / 42001          → Clause or Annex code like "5.1" or "A.5.9"

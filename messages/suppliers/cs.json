@@ -46,7 +46,8 @@
       "processesOnlyOnInstructions": "Zpracovává pouze na základě zdokumentovaných pokynů",
       "assistsWithDataSubjectRights": "Pomáhá s právy subjektů údajů",
       "internationalTransfer": "Předává data mimo EHP",
-      "transferMechanism": "Mechanismus předávání"
+      "transferMechanism": "Mechanismus předávání",
+      "dpaAvailable": "Smlouva o zpracování osobních údajů uzavřena"
     },
     "auditFrequency": {
       "annual": "Ročně",
@@ -82,7 +83,7 @@
       "hasIncidentNotificationClause": "Zapněte, pokud smlouva vyžaduje, aby vás dodavatel ve stanovené lhůtě informoval o bezpečnostních incidentech.",
       "hasAuditRights": "Zapněte, pokud vám smlouva dává právo auditovat bezpečnostní postupy dodavatele.",
       "hasSubcontractorFlowDown": "Zapněte, pokud jsou bezpečnostní požadavky smluvně přeneseny na subdodavatele tohoto dodavatele.",
-      "nis2RegistrationId": "Pokud tento dodavatel podléhá NIS2, zadejte jeho registrační číslo u BSI. Umožní vám to odkázat na jeho stav shody.",
+      "nis2RegistrationId": "Pokud tento dodavatel podléhá NIS2, zadejte údaj o jeho registraci u národního úřadu (v Česku číslo jednací rozhodnutí NÚKIB o registraci). Umožní vám to odkázat na jeho stav shody.",
       "hasSecurityCertification": "Zapněte, pokud tento dodavatel drží uznávanou bezpečnostní certifikaci (ISO 27001, SOC 2, BSI C5 atd.).",
       "securityCertificationType": "Typ držené certifikace (např. ISO 27001, SOC 2 Type II, BSI C5, TISAX).",
       "contractSecurityClauses": "Konkrétní bezpečnostní doložky ve smlouvě tohoto dodavatele (SLA, práva na audit, oznamování incidentů, nakládání s daty, povinnosti při ukončení).",
@@ -101,6 +102,22 @@
     "suppliersNoRisks": "Dodavatelé bez rizik",
     "unlinkedRisks": "Rizika nepřiřazená žádnému dodavateli",
     "noSuppliersYet": "Žádní dodavatelé nejsou evidováni. Nejprve přidejte dodavatele v kroku 5.1.",
-    "supplierRiskAssessment": "Hodnocení rizik dodavatele"
+    "supplierRiskAssessment": "Hodnocení rizik dodavatele",
+    "requestProfile": {
+      "button": "Vyžádat bezpečnostní profil od dodavatele",
+      "title": "Vyžádat bezpečnostní profil dodavatele",
+      "description": "Pošlete dodavateli pozvánku s osobním odkazem. Dodavatel se přihlásí do dodavatelského portálu a jednou vyplní jednotný dotazník. Jeho odpovědi se pak zobrazí ve vašem registru dodavatelů.",
+      "emailLabel": "E-mail dodavatele",
+      "emailPlaceholder": "it@dodavatel.example",
+      "emailHint": "Odkaz je vázaný na tuto adresu. Dodavatel ho může přijmout jen po přihlášení se stejným e-mailem.",
+      "messageLabel": "Osobní zpráva",
+      "messagePlaceholder": "Dobrý den, pro přezkum bezpečnosti našeho dodavatelského řetězce potřebujeme vaše odpovědi. Děkujeme.",
+      "submit": "Odeslat pozvánku",
+      "sent": "Pozvánka odeslána na {email}.",
+      "sendFailed": "Pozvánku se nepodařilo odeslat. Zkuste to prosím znovu.",
+      "expiry": "Odkaz platí 30 dní. Můžete ho také níže zkopírovat a sdílet přímo.",
+      "linkLabel": "Odkaz s pozvánkou",
+      "done": "Hotovo"
+    }
   }
 }

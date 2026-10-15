@@ -1,0 +1,310 @@
+{
+  "events": {
+    "2026-07-24-nl-sdv-nis2-actie-webinars": {
+      "notes": "Tři stejná třicetiminutová setkání: 24. 7. v 9:00, 13. 8. ve 14:30, 26. 8. v 10:00. Načasováno kolem nabytí účinnosti nizozemského zákona Cbw (Cyberbeveiligingswet) 15. 8. 2026."
+    },
+    "2026-08-25-de-cra-umsetzungswebinar-dihk": {
+      "notes": "10:00 až 12:00 přes MS Teams. Bezplatnost odvozena: poplatek není uveden, registrace je jednoduchý formulář se jménem a e-mailem. Pořádá celostátní svaz komor. Prezentace se nahrává, živé otázky a odpovědi ne."
+    },
+    "2026-08-25-nl-gemeentebestuur-cyberbeveiligingswet": {
+      "notes": "Pořádají veřejné a neziskové organizace (IBD a VNG), předpokládá se bezplatná účast. 25. srpna 2026 od 16:00 do 17:00, pro členy obecních zastupitelstev, podle osnovy školení VNG k řízení kybernetické bezpečnosti. Jmenuje Cyberbeveiligingswet, nizozemskou transpozici NIS 2. Uvedeno také na vng.nl/agenda."
+    },
+    "2026-08-26-de-ihk-hessen-cra-hersteller": {
+      "notes": "Webinář 10:00 až 11:00, uzávěrka přihlášek 25. 8. 2026. Probírá ohlašovací povinnosti podle CRA platné od 11. 9. 2026, harmonizované normy a analýzu rizik. Stránka akci výslovně uvádí jako bezplatnou."
+    },
+    "2026-08-26-de-mdz-handel-cra-einfuehrung": {
+      "notes": "11:00 až 12:00, v řádku s cenou zdarma. Třetí termín tematického týdne IT bezpečnosti v obchodě od 24. do 28. 8. 2026, ostatní termíny týdne žádný ze tří předpisů nezmiňují. Přednášející z projektu EASY.CRA v ibi research."
+    },
+    "2026-08-27-nl-ezk-ncsc-cra-meldplicht": {
+      "notes": "14:00 až 15:00 o ohlašovací povinnosti podle CRA, která začíná 11. září 2026. Přihlášky do 25. srpna 2026. Pozor: EZK a NCSC nezveřejnily vlastní stránku akce, všechny údaje pocházejí z oznámení oborové organizace NLdigital. Název je popisný, oficiální název zveřejněn nebyl."
+    },
+    "2026-09-01-de-bitmi-fragestunde-nis2": {
+      "notes": "Otevřená hodina otázek ve formátu IT-Security Tuesday, 9:00 až 10:00 přes Zoom, podle stránky otevřená všem a uvedená za 0,00 eur. Přihláška přes rezervační formulář na stránce. Opakovaný formát, toto je nejbližší termín."
+    },
+    "2026-09-01-de-blnbdi-starthilfe-dsgvo": {
+      "notes": "Zemský úřad pro ochranu osobních údajů, zdarma. Součást opakované řady BlnBDI Starthilfe Datenschutz (další bloky do listopadu 2026)."
+    },
+    "2026-09-02-de-hmbbfdi-datenschutzsprechstunde-sep": {
+      "notes": "Měsíční konzultační hodina dozorového úřadu, otevřená všem, přihláška e-mailem s popisem dotazu. Zdarma jako formát úřadu. Řada pokračuje každý měsíc (15. 10., 4. 11.), na stejné stránce je navíc 22. 10. tematický webinář o kamerovém dohledu; uvádí se jen nejbližší termín."
+    },
+    "2026-09-02-de-ihk-erfurt-it-security-day": {
+      "notes": "Spolupořádá komora a úřad, opakovaná akce, dosud vždy zdarma; NIS2 je opakovaným tématem programu. Datum z oznámení save-the-date; program na rok 2026 zatím chybí."
+    },
+    "2026-09-02-eu-cracademy-cra-smes": {
+      "notes": "11:00 až 12:00 SELČ v MS Teams. Setkání pro malé a střední podniky o reakci na zranitelnosti, SBOM, modelování hrozeb a komunikaci se zákazníky podle CRA. Stránka ECCC uvádí, že je zdarma."
+    },
+    "2026-09-03-at-nis-initiative-steyr": {
+      "notes": "15:30 až 19:30 v DigiSpace, kampus FH OÖ ve Steyru. Zdarma, omezená kapacita. Druhý ročník po úvodní akci v červnu, program k povinnostem podle rakouského NISG 2026, registraci, prioritizaci rizik, dodavatelským řetězcům a přípravě na incidenty. Oficiální stránka blokuje automatické načítání, údaje ověřeny přes záznam na meinbezirk. Pořadatelem je konsorcium vysoké školy a města s firemními partnery."
+    },
+    "2026-09-03-de-chemnitzer-wirtschaftsschutzforum": {
+      "notes": "13:00 až 17:00 v IHK Chemnitz, podle stránky s podrobnostmi zdarma. Obsahuje přednášku o NIS 2 v praxi firem: požadavky, povinnost registrace a tipy k zavedení. Přihlašovací stránka na ihk.de je pro roboty částečně blokovaná, odkaz neověřen."
+    },
+    "2026-09-03-de-hk-hamburg-cra-einstieg": {
+      "notes": "Webinář 10:00 až 12:15, Security by Design, dodavatelský řetězec, zkušenosti z praxe Jungheinrich. Není totožný s webinářem k CRA IHK München téhož dne. Zdarma podle stránky s termíny DiWiSH."
+    },
+    "2026-09-03-de-ihk-muenchen-cra-beschaffung": {
+      "notes": "11:00 až 12:00. Zdarma podle přihlašovací stránky. Pohled nákupu, odlišný od sledovaného setkání Transferstelle k CRA 4. 9."
+    },
+    "2026-09-03-dk-dmaerket-nis2": {
+      "notes": "9:00 až 10:00, nahrává se. Mapuje kritéria D-mærket na dánský zákon k NIS 2 účinný od 1. 7. 2026."
+    },
+    "2026-09-03-nl-cbw-webinar6-toezicht": {
+      "notes": "11:00 až 12:00. Šesté setkání opakované řady webinářů NCSC, NCTV a RDI k zákonu Cyberbeveiligingswet (setkání 1 až 5 proběhla od listopadu 2025 do června 2026); toto se týká dozoru (toezicht) s NVWA a ILT. Zdrojová stránka je KNMP (svaz lékárníků), která přebírá vládní oznámení; registrační odkaz vede na vlastní stránku formdesk NCSC. Načasováno na týden po nabytí účinnosti Cbw (15. 8. 2026)."
+    },
+    "2026-09-04-de-bihk-cra-betroffenheit": {
+      "notes": "11:00 až 12:00, zdarma, přihláška přes společný formulář řady. Není totožný s workshopem Transferstelle „CRA verstehen“ téhož dne (10:00 až 11:30), před registrací zkontrolujte překryv."
+    },
+    "2026-09-04-de-ihk-ostbrandenburg-it-sicherheitstag-bb": {
+      "notes": "Spolupořádá komora a řemeslná komora (Handwerkskammer), zdarma. Konference s výstavou a workshopy na TH Wildau, 9:30 až 15:30. Popis zmiňuje NIS2 a akt o kybernetické odolnosti. Registrace otevřena, uzávěrka 2. září 2026. Ověřeno na stránkách IHK Ostbrandenburg a HWK Frankfurt (Oder)."
+    },
+    "2026-09-04-de-transferstelle-cra": {
+      "notes": "Financováno státem. Online workshop 10:00 až 11:30."
+    },
+    "2026-09-07-at-securityweek-graz-decrypting-cyber": {
+      "notes": "16:00 až 18:00, Campus Alte Technik, součást Securityweek TU Graz. Abstrakt přednášky zmiňuje NIS2, CRA, GDPR, akt o umělé inteligenci a nařízení o strojních zařízeních. Stránka uvádí volný vstup, registrace v Indico zmiňuje slevu pro členy, před registrací ověřte. Klastr je podporován spolkovou zemí."
+    },
+    "2026-09-08-de-blnbdi-starthilfe-themenblock-4": {
+      "notes": "10:00 až 15:30 prezenčně. Školicí řada dozorového úřadu pro startupy, malé firmy a spolky. Zdarma, ale tento termín je už obsazen, přihlášení teď není možné."
+    },
+    "2026-09-08-de-ihk-schwaben-cra-schwachstellenmanagement": {
+      "notes": "Zdarma podle stránky akce. Nalezeno nezávisle při dvou průchodech. Stránka akce uvádí 14:00 až 15:00, přehled řady BIHK 11:00 až 12:00, před registrací ověřte. Tématem jsou ohlašovací povinnosti podle CRA od 11. 9. 2026."
+    },
+    "2026-09-08-de-tzn-niederrhein-forum-mittelstand": {
+      "notes": "Začátek v 18:00, radnice Niederkrüchten. Zdarma podle stránky akce. Pořádá obecní agentura pro hospodářský rozvoj."
+    },
+    "2026-09-08-eu-digitalsme-cra-sme-route": {
+      "notes": "Bezplatný webinář 15:00 až 16:30 SEČ, na stránce akce uveden jako bezplatný. Pokrývá cesty k souladu s CRA přes projekty OCCTET a CRA-AI a ohlašovací povinnost podle CRA od 11. září 2026 u aktivně zneužívaných zranitelností. Registrace přes stránku akce."
+    },
+    "2026-09-08-si-ursiv-training-series": {
+      "notes": "Opakované vládní školení pro odpovědné osoby subjektů registrovaných podle slovinského zákona ZInfV-1; další termíny 6. 10., 3. 11., 1. 12. Elektronický certifikát platí 4 roky. Jen pro subjekty, které se samy zaregistrovaly: nejprve registrace, potom školení."
+    },
+    "2026-09-09-pt-aep-nis2-registo-myciber": {
+      "notes": "11:30 až 12:30. Stránka uvádí pro členy AEP 0 EUR i pro ostatní 0 EUR, účast zdarma s povinnou přihláškou. Probírá lhůtu registrace v MyCiber 15. září, živou ukázku, oznámení CNCS a čl. 32 odst. 3 portugalského předpisu Regulamento 756/2026. AEP je největší portugalský svaz zaměstnavatelů. Upozornění: desetiminutový blok propaguje placené kurzy AEP v říjnu a listopadu."
+    },
+    "2026-09-10-be-voka-update-digitale-wetgevingen": {
+      "notes": "11:45 až 13:00. Zdarma, ale jen pro členy Voka. Probírá GDPR, NIS2, akt o umělé inteligenci a akt o datech v rámci digitálního omnibusu."
+    },
+    "2026-09-10-de-itsbb-nis2know-umsetzung": {
+      "notes": "Řada #nis2know německého úřadu BSI, 14:00 až 15:00, GoTo Webinar. Povinnosti registrace, hlášení a řízení rizik podle německého zákona BSIG. Spolek it's.BB řadu také zveřejňuje."
+    },
+    "2026-09-10-de-transferstelle-nis2-verstehen": {
+      "notes": "Financováno státem (CYBERsicher). Online workshop 9:00 až 11:00. Úvod pro malé a střední podniky: zda se jich to týká, povinnosti, první opatření. Jiný pořadatel než setkání it's.BB nis2know Umsetzung 10. 9."
+    },
+    "2026-09-10-hu-mkik-isms-leadership": {
+      "notes": "Povinnosti vedení podle NIS2 a maďarského zákona Kibertan. Bezplatný program komory."
+    },
+    "2026-09-10-nl-rdi-ictwaarborg-cbw-ict": {
+      "notes": "9:30 až 10:30. Uvedeným pořadatelem a přednášejícím je vládní inspekce RDI; ICTWaarborg je certifikační nadace, která akci předává svým členům, takže účast se může soustředit spíš na firmy certifikované ICTWaarborg než na širokou veřejnost. infoUrl znovu ověřena 5. 8. 2026 a načítá se normálně; dřívější chyba 403 při automatickém načtení závisela na user agentu."
+    },
+    "2026-09-10-nl-sdv-nis2-inzicht-webinar": {
+      "notes": "13:00 až 13:30, s akčním kontrolním seznamem NIS2 pro účastníky. Navazuje na řadu akčních webinářů z července a srpna. Přihláška přes formulář v JavaScriptu bez přímé adresy URL."
+    },
+    "2026-09-14-be-agoria-cra-learn-and-share": {
+      "notes": "13:00 až 17:00, Amber Building, Hermeslaan 7. Zdarma, ale jen pro členy Agoria. Dokumentace, security by design a praktické cvičení k souladu s CRA."
+    },
+    "2026-09-15-hu-mkik-mikro-kisvallalkozas": {
+      "notes": "Deváté setkání bezplatné řady workshopů MKIK a SZTFH, jediný díl, který ve sledovaném souboru chyběl. Cena na přihlašovací stránce uvedena není, bezplatnost odvozena podle zbytku řady."
+    },
+    "2026-09-15-pl-uodo-rodo-ochrona-zdrowia": {
+      "notes": "Začátek v 10:00 v Urząd Marszałkowski Województwa Pomorskiego. S předsedou UODO a expertním týmem dozorového úřadu. Přihláška přes vložený formulář, stránka neuvádí žádný poplatek."
+    },
+    "2026-09-16-de-bihk-cra-meldepflichten": {
+      "notes": "11:00 až 12:00, zdarma, stejný formulář řady jako setkání 4. 9. Nalezeno nezávisle při dvou průchodech. Probírá ohlašovací povinnosti podle CRA platné od 11. 9. 2026, poslední dosud otevřený díl čtyřdílné řady."
+    },
+    "2026-09-16-sk-kcckb-kyber-2026": {
+      "notes": "Národní kompetenční centrum; zdarma. Poradenské setkání k CRA a blok k NIS2."
+    },
+    "2026-09-17-de-lfdi-bw-datenschutzgrundlagen": {
+      "notes": "10:00 až 13:00, online přes BigBlueButton, kapacita 40. Pro zaměstnance veřejného sektoru, zejména obcí, a pověřence pro ochranu osobních údajů. Hlavní text stránky slovo DSGVO nepoužívá, ale účastníkům doporučuje předem si projít obecné nařízení o ochraně osobních údajů. Pořádá zemský úřad pro ochranu osobních údajů, výslovně zdarma."
+    },
+    "2026-09-17-fr-interconnectes-exigences-cyber": {
+      "notes": "9:00 až 10:00 přes video. Podle stránky zdarma a otevřené všem samosprávám a veřejným subjektům, nejen členům. Zmiňuje směrnici NIS 2 i francouzský návrh zákona Projet de loi Résilience. Pořádá celostátní svaz samospráv a meziobecních sdružení."
+    },
+    "2026-09-17-nl-ncsc-csirt-dag-gemeenten": {
+      "notes": "10:00 až 15:30, NBC Congrescentrum. Cena neuvedena, u vládního formátu NCSC předpokládáme bezplatnou účast, při přihlášení ověřte. Cílová skupina jen zaměstnanci obcí a provincií. Popis výslovně jmenuje Cbw: povinnost registrace, povinnost hlášení a povinnost péče po 15. 8. 2026."
+    },
+    "2026-09-17-pl-nist-ksc-nis2-jst": {
+      "notes": "10:00 až 12:00 přes Webex, výslovně zdarma (bezpłatne). Probírá zařazení jako klíčový nebo důležitý subjekt (podmiot kluczowy, ważny), povinnosti, sankce a kontrolní seznam zavedení. Koná se dva týdny před lhůtou registrace podle polského KSC 3. října 2026. Omezená kapacita."
+    },
+    "2026-09-17-pt-cra-standards-unlocked-lisbon": {
+      "notes": "9:00 až 17:00, na místě nejvýše 40 osob a také online. Lisabon 17. 9. a Bonn 7. 10. jsou jediné zbývající zastávky."
+    },
+    "2026-09-21-de-bvmw-webimpuls-nis2-vorfall": {
+      "notes": "Neziskový svaz středních firem (e.V.). Díl 5 bezplatné šestidílné řady WebImpuls NIS2, každé setkání lze navštívit samostatně."
+    },
+    "2026-09-21-eu-cys-cra-horizontal-standards": {
+      "notes": "9:00 až 16:15 v Egkomi. Horizontální normy CEN a CENELEC na podporu zavádění CRA. Stránka neuvádí poplatek, považujeme za bezplatné, protože sesterské zastávky CRA Standards Unlocked jsou výslovně zdarma. Registrační odkaz na stránce chybně vede na zastávku v Paříži, proto adresu pro přihlášení neuvádíme."
+    },
+    "2026-09-22-be-be-cyber-2026": {
+      "notes": "Nezisková veřejně-soukromá koalice (s CCB). Zdarma (nutná registrace). Bloky k NIS2 a DORA."
+    },
+    "2026-09-22-hu-mkik-nis2-cra": {
+      "notes": "Spolupořádá komora a úřad. Jeden z bezplatné devítidílné řady workshopů k NIS2 (červenec až listopad 2026); všechny termíny na nis2.mkik.hu/workshopok."
+    },
+    "2026-09-22-it-verona-pid-nis2": {
+      "notes": "Obchodní komora (veřejnoprávní subjekt), jeden ze 4 bezplatných otevřených webinářů. Setkání k NIS2 a aktu o umělé inteligenci."
+    },
+    "2026-09-24-de-teletrust-it-sicherheitsrechtstag": {
+      "notes": "Prezenčně v Berlíně-Mitte a také online. Program zmiňuje školení vedení podle NIS-2 a německého zákona BSIG a CRA v životním cyklu produktu. Bezplatnost předpokládána, protože jde o neziskový svaz a stránka neuvádí poplatek; přihláška přes formulář v PDF, poplatek před registrací určitě ověřte."
+    },
+    "2026-09-24-nl-fg-cafe-2026": {
+      "notes": "Pořádá úřad (Autoriteit Persoonsgegevens, nizozemský úřad pro ochranu osobních údajů) s CIP, předpokládá se bezplatná účast. 24. září 2026 od 13:00 do 16:45, Jaarbeurs Meetup Utrecht. Pro pověřence pro ochranu osobních údajů (FG, role podle GDPR) ve veřejném sektoru. Přihláška e-mailem."
+    },
+    "2026-09-25-fr-cnil-dpo-webinar": {
+      "notes": "25. 9. v 11:00, bezplatný webinář CNIL. Název jmenuje pověřence (DPO), roli podle čl. 37 GDPR; CNIL představí svůj průzkum o pověřencích a AI. RGPD v názvu doslova není. Přihlášky k 25. 8. ještě nebyly otevřené (Inscriptions à venir), odkaz se objeví na stránce akce."
+    },
+    "2026-09-29-at-dih-sued-nis2-ai-act": {
+      "notes": "9:00 až 12:00, FH JOANNEUM Kapfenberg. Digitální inovační hub financovaný EU (kompetenční centrum), zdarma pro malé a střední podniky, registrace přes bezplatný účet DIH SÜD. Program pokrývá akt o umělé inteligenci, NIS2 a rakouský NISG 2026 a základy práva ochrany osobních údajů (Rechtliche Grundlagen zum Datenschutz). První rakouská akce nalezená pro tento přehled; NISG 2026 nabývá účinnosti 1. 10. 2026."
+    },
+    "2026-09-29-be-digital-wallonia-cyber-forum": {
+      "notes": "9:30 až 19:00, Aula Magna. Plenární vystoupení CCB ke dvěma letům NIS2 (Phedra Clouner v 10:30); workshop k RGPD (GDPR). Bezplatnost potvrzena přes Eventbrite, 0,00 EUR. Zahajuje Evropský měsíc kybernetické bezpečnosti."
+    },
+    "2026-09-29-de-acs-cyber-sicherheits-tag-hamburg": {
+      "notes": "10:00 až 16:00, Handelskammer Hamburg. Hlavní den ACS pro firmy a osoby s rozhodovací pravomocí; hybridní hrozby, kybernetická bezpečnost firem, AI. NIS-2 zatím ve zveřejněném programu není; přidáno z newsletteru ACS 16/2026 jako akce úřadu pro osoby s rozhodovací pravomocí. Bezplatnost odvozena (pořádá ACS a komora)."
+    },
+    "2026-09-29-de-blnbdi-datenschutzmanagement-verwaltung": {
+      "notes": "Nový formát BlnBDI vedle bloků Starthilfe. Dvoudenní metodické školení ke Standardnímu modelu ochrany údajů (Standard-Datenschutzmodell) v digitalizačních projektech veřejné správy, podle stránky zdarma. Určeno externím dodavatelům a zaměstnancům v digitalizačních projektech, přihláška e-mailem na BlnBDI. Souběžné setkání 16. a 17. 9. je jen pro správu a neuvádíme ho."
+    },
+    "2026-09-29-de-nagold-cra-transformations-lounge": {
+      "notes": "17:30 až 20:00 ve vzdělávacím centru IHK v Nagoldu. Účast podle stránky zdarma. Přednáší vedoucí oddělení Cybersecurity and Law ve FZI Karlsruhe."
+    },
+    "2026-09-29-de-technologieforum-industrial-security-cra": {
+      "notes": "13:00 až 17:00 ve Fraunhofer IIS, Nordostpark 84. Účast zdarma podle přihlašovací stránky, uzávěrka přihlášek 22. 9. 2026. Zaměření na ohlašovací povinnosti podle CRA platné od 11. 9. 2026."
+    },
+    "2026-09-29-fr-cnil-rencontres-informatique-libertes": {
+      "notes": "Hlavní právní akce CNIL v sídle CNIL, pro pověřence a právníky. RGPD v aktuálním popisu doslova uvedeno není (tématem je právo ochrany osobních údajů); registrace zatím není otevřená. V programu CNIL uvedeno jako zdarma."
+    },
+    "2026-09-29-lu-cnpd-dp-basics-ai": {
+      "notes": "9:00 až 13:00, přístavba Twist Building, Belval. Opakované měsíční školení CNPD (lucemburský národní úřad pro ochranu osobních údajů, veřejný subjekt); další termíny k AI 13. 10., 24. 11., 15. 12. 2026 na adrese stejného tvaru. Výslovně pokrývá „Implications of the GDPR and the AI Act“. Zdarma, přihláška e-mailem, omezená kapacita. První lucemburské akce nalezené pro tento přehled."
+    },
+    "2026-09-30-de-bitkom-privacy-conference-day2": {
+      "notes": "Zdarma je jen živý přenos 2. dne (ověřeno na stránce vstupenek); 1. den na místě je placený. Mezinárodní den v angličtině; započítává se do školení pověřenců."
+    },
+    "2026-09-30-de-nis2-praxis-digibasics-paritaetischer": {
+      "notes": "Online workshop DigiBasics 10:00 až 12:00, zdarma, projekt podporovaný BMWK. Není totožný s večerním termínem WFL Lippstadt téhož dne. Odkaz na přihlášku zatím nezveřejněn, stránka uvádí, že další informace budou následovat, zkontrolujte blíže k termínu."
+    },
+    "2026-09-30-de-wfl-lippstadt-nis2-praxis": {
+      "notes": "Uvedeno jako zdarma, veřejně podporovaný projekt KMU.kompetent.sicher. 18:00 až 20:00. Opakovaná kontrola vyřešena: místo konání je nyní zveřejněno, CARTEC u Wirtschaftsförderung Lippstadt GmbH, Erwitter Straße 105, 59557 Lippstadt. Přihláška e-mailem u WFL do 21. 9. 2026."
+    },
+    "2026-09-30-hu-mkik-ot-nis2": {
+      "notes": "Bezplatná řada MKIK a SZTFH (OT a průmyslový NIS2). Celá řada na nis2.mkik.hu/workshopok."
+    },
+    "2026-10-01-at-dih-sued-cyber-it-security": {
+      "notes": "Třídílná online řada 1., 8. a 15. října, vždy 15:00 až 16:30. Modul k oborovým požadavkům zmiňuje NIS 2, modul 3 GDPR. Zdarma pro malé a střední podniky, přihláška jen po přihlášení do portálu DIH SÜD."
+    },
+    "2026-10-01-eu-cra-standards-unlocked-hague": {
+      "notes": "9:30 až 17:00. Stránka uvádí, že je zdarma. Na místě kapacita 85 osob s kontrolou průkazu u vchodu, setkání v angličtině a nizozemštině. Zpravodajové norem představí návrhy harmonizovaných norem."
+    },
+    "2026-10-01-nl-overheidsbreed-cyberprogramma": {
+      "notes": "Osm setkání včetně zákona Cyberbeveiligingswet a rizik dodavatelského řetězce, určeno CISO a vedení (bestuurders) ve veřejném sektoru. Termíny jednotlivých setkání jsou na přihlašovací stránce náročné na JavaScript."
+    },
+    "2026-10-02-eu-cyber-resilience-digital-era-athens": {
+      "notes": "9:00 až 16:00 v hotelu Electra Palace Athens. Společný workshop k souladu s NIS2 v praxi, vymáhání CRA a přeshraniční reakci na incidenty. Stránka uvádí, že je zdarma, program zatím nezveřejněn."
+    },
+    "2026-10-05-de-cybersicherheitsmonat-kickoff": {
+      "notes": "Zdarma podle přihlašovací stránky. Zahajuje řadu webinářů Cybersicherheitsmonat 2026 financovanou BMWE; jako témata programu jmenuje NIS2 a CRA."
+    },
+    "2026-10-06-de-cybersicherheitsmonat-compliance-gf": {
+      "notes": "Zdarma podle přihlašovací stránky. Součást Cybersicherheitsmonat 2026. Popis jmenuje směrnici NIS2 a požadavky GDPR. Pohled povinností vedení, nejblíže publiku kurzu pro vedení."
+    },
+    "2026-10-06-nl-one-conference": {
+      "notes": "Vládní konference, zdarma (nutná registrace). Blok Cyber Governance a vedlejší blok k NIS2."
+    },
+    "2026-10-07-de-cra-standards-unlocked-bonn": {
+      "notes": "9:00 až 17:00, CityHub Bonn, na místě nejvýše 80 osob, DE a EN. Návrhy harmonizovaných norem k CRA představí zpravodajové evropských normalizačních organizací; výzva pro řečníky je OTEVŘENÁ pro patnáctiminutové bloky výrobců a malých a středních podniků i pro panel (e-mail CRA-Standards-Unlocked@bsi.bund.de, v kopii kilian.mitterweger@bsi.bund.de). Bezplatnost odvozena (projekty financované EU). Zdroj: newsletter ACS 16/2026."
+    },
+    "2026-10-07-de-ihk-sbh-it-sicherheitskonferenz": {
+      "notes": "Opakovaná kontrola vyřešena: datum při posledním průchodu ještě nebylo zveřejněno, nyní potvrzeno 9:00 až 15:30 v sídle IHK, Albert-Schweitzer-Str. 7, 78052 Villingen-Schwenningen. Uveden volný vstup, závazná přihláška přes vložený formulář (bez samostatné adresy URL). Popis jmenuje NIS2 a DORA společně. 4. ročník konference, dříve asi 180 účastníků. Kontakt Alexander Rösgen, alexander.roesgen@vs.ihk.de."
+    },
+    "2026-10-07-eu-enisa-ehealth": {
+      "notes": "Akce agentury EU, zdarma. Zavádění NIS2 ve zdravotnictví a evropský prostor pro zdravotní data (EHDS)."
+    },
+    "2026-10-07-hu-mkik-nis2-fokusztema": {
+      "notes": "Bezplatný program komory."
+    },
+    "2026-10-08-at-dih-sued-business-nachmittag-cybersicherheit": {
+      "notes": "16:00 až 18:00 v Asslingu, Východní Tyrolsko. Program zmiňuje nové požadavky podle rakouského NISG 2026 a plánování pro mimořádné události. Zdarma pro malé a střední podniky, přihláška jen po přihlášení do portálu DIH SÜD."
+    },
+    "2026-10-08-de-cybersicherheitsmonat-nis2-erklaert": {
+      "notes": "10:00 až 11:00, zdarma podle přihlašovací stránky. Součást Cybersicherheitsmonat 2026. Nalezeno nezávisle při dvou regionálních průchodech."
+    },
+    "2026-10-08-de-hmbbfdi-datenschutz-websites": {
+      "notes": "Měsíční konzultační hodina HmbBfDI k ochraně osobních údajů, 12:00 až 13:00, veřejná, bez přihlášky. Cookies, sledování a vložený obsah třetích stran pro provozovatele webů. Zdarma podle stránky úřadu."
+    },
+    "2026-10-13-de-blnbdi-starthilfe-themenblock-5": {
+      "notes": "10:00 až 15:30 prezenčně. Zdarma, ale tento termín je už obsazen, přihlášení teď není možné."
+    },
+    "2026-10-13-de-cybersicherheitsmonat-cra-1": {
+      "notes": "10:00 až 11:00, zdarma podle přihlašovací stránky. První díl dvoudílné řady, druhý díl je 15. 10. Pohled OT a malých a středních podniků."
+    },
+    "2026-10-13-hu-mkik-nis2-workshop-vote": {
+      "notes": "Začátek v 10:00, zdarma (ingyenes) podle přihlašovací stránky. Další termín již zařazené řady MKIK. Hlavní téma volí účastníci hlasováním v přihlašovacím formuláři."
+    },
+    "2026-10-13-lv-certlv-cyberchess": {
+      "notes": "Národní CERT (s lotyšským ministerstvem obrany a NCSC). Zaměření na NIS2 a politiku EU. Bezplatnost odvozena z předchozích ročníků; ověřte, až se otevře registrace na rok 2026."
+    },
+    "2026-10-14-de-cra-medical-devices-bayern-innovativ": {
+      "notes": "Webinář 15:00 až 16:00 o připravenosti propojených zdravotnických prostředků na CRA, popis CRA výslovně zmiňuje. Pořádá zemská inovační agentura a spolek, jeden firemní partner přispívá přednáškou. Účastníci dostanou kontrolní seznam pro sebehodnocení."
+    },
+    "2026-10-14-it-privacy-day-forum": {
+      "notes": "Dvanáctý ročník, 9:15 až 17:00, Arezzo Fiere e Congressi. Prezenční účast podle pořadatele zdarma po online rezervaci (gratuita previa prenotazione online). Téma: od formálního souladu s GDPR k podstatné ochraně údajů, včetně pravidel pro AI. Už v srpnu hlášeno téměř 500 přihlášek, rezervujte včas. federprivacy.org blokuje automatické načítání, přihlášky tam."
+    },
+    "2026-10-15-de-cybersicherheitsmonat-cra-2": {
+      "notes": "10:00 až 11:00, zdarma podle přihlašovací stránky. Druhý díl řady z 13. 10. Pokrývá bezpečnost produktů, security by design a povinnosti k technické dokumentaci."
+    },
+    "2026-10-15-es-camarabilbao-rgpd-dia-a-dia": {
+      "notes": "Webinář 10:00 až 11:00. Bezplatnost potvrzena dvakrát, polem s cenou na stránce a přes API akcí komory. Součást veřejně podporovaného programu Pyme Cibersegura. Přihláška přes formulář na téže stránce."
+    },
+    "2026-10-15-fr-cci-yonne-atelier-cyber": {
+      "notes": "12:00 až 13:00, na stránce uvedeno gratuit (zdarma). Soulad s NIS2 a DORA je jen jednou částí hodiny, ne celým setkáním."
+    },
+    "2026-10-20-ro-dnsc-bcc2026": {
+      "notes": "Konference národního úřadu, zdarma. Setkání k CRA. Informační stránka vrací 403; cenu ověřte, až bude opět dostupná."
+    },
+    "2026-10-21-es-incibe-20enise": {
+      "notes": "Hlavní celostátní kongres INCIBE; očekává se regulatorní blok k NIS2 a CRA, program na rok 2026 zatím nezveřejněn. V předchozích ročnících zdarma, cena odvozena; znovu ověřte, až se otevře registrace (kolem září)."
+    },
+    "2026-10-21-hu-mkik-risk-bcp-supply-chain": {
+      "notes": "Rizika podle NIS2, plánování kontinuity činností (BCP) a hodnocení dodavatelského řetězce. Bezplatný program komory."
+    },
+    "2026-10-22-pl-nist-it-iodo-jst": {
+      "notes": "Bezplatné školení přes Webex (bezpłatne) 10:00 až 12:00 pro místní samosprávu (JST), pořádá státní institut NIST. Probírá spolupráci IT a IODO, tedy role pověřence pro ochranu osobních údajů podle RODO (GDPR); RODO v názvu doslova není. Omezená kapacita, individuální přihláška na stránce, certifikát do 2 pracovních dnů. Další termín měsíční řady po zařazeném setkání ke KSC 17. 9."
+    },
+    "2026-10-28-hu-mkik-nis2-software-devs": {
+      "notes": "Soulad s NIS2 pro vývojáře softwaru ve vztahu k odpovědnosti za výrobek a aktu o umělé inteligenci. Bezplatný program komory."
+    },
+    "2026-10-28-nl-ienw-cybersim-executive": {
+      "notes": "13:00 až 16:30 ve Ville Jongerius. Krizová simulace pro vedení a CIO, popis výslovně zmiňuje odpovědnost vedení podle zákona Cyberbeveiligingswet. Nalezeno přes program VNCI, protože vlastní stránka ministerstva není čitelná."
+    },
+    "2026-11-02-de-cybersicher-nis2-verstehen": {
+      "notes": "9:00 až 11:00, zdarma podle přihlašovací stránky. Opakovaný workshop; toto je další termín po zařazeném setkání 10. 9., na samostatné stránce akce."
+    },
+    "2026-11-03-lu-cnpd-dp-basics-intro-fr": {
+      "notes": "10:00 až 12:00 a 13:00 až 16:00, přístavba Twist Building, Belval. Opakovaný úvodní kurz CNPD (národní úřad pro ochranu osobních údajů, veřejný subjekt); další francouzský termín 7. 12. 2026. Výslovně určeno k tomu, „aby bylo možné GDPR správně pochopit a uplatňovat“. Zdarma, bez předpokladů, omezená kapacita."
+    },
+    "2026-11-04-eu-enisa-skills-conference": {
+      "notes": "Opakovaná kontrola vyřešena: NIS2 je nyní na stránce akce prokazatelně zmíněna přes pokyny ENISA Cybersecurity roles and skills for NIS2 Essential and Important Entities. Tématem je revize ECSF a ověřování dovedností. Registrace se otevře v září 2026, program bude následovat. Bezplatnost odvozena, protože jde o konferenci agentury ENISA, ověřte při otevření registrace."
+    },
+    "2026-11-05-de-innozent-owl-nis2-stand-der-technik": {
+      "notes": "Spolek s komorou jako hostitelem, 10:00 až 12:00, IHK Lippe zu Detmold, Leonardo-da-Vinci-Weg 2. Přihláška přes formulář na stránce. Poplatek neuveden, veřejně podporovaný projekt KMU.kompetent.sicher."
+    },
+    "2026-11-06-de-bvmw-webimpuls-nis2-nachweisbarkeit": {
+      "notes": "Neziskový svaz středních firem (e.V.). Díl 6 (poslední) bezplatné šestidílné řady WebImpuls NIS2."
+    },
+    "2026-11-10-de-blnbdi-starthilfe-themenblock-6": {
+      "notes": "10:00 až 15:00 prezenčně. Zpracování na základě pověření a AI podle GDPR. Zdarma, ale tento termín je už obsazen, přihlášení teď není možné."
+    },
+    "2026-11-10-hu-mkik-zaro": {
+      "notes": "Závěrečné prezenční setkání bezplatné řady MKIK a SZTFH k NIS2, Budapešť."
+    },
+    "2026-11-16-lu-cnpd-dp-basics-intro-en": {
+      "notes": "10:00 až 12:00 a 13:00 až 16:00, přístavba Twist Building, Belval. Anglický běh opakovaného úvodního kurzu CNPD (národní úřad pro ochranu osobních údajů, veřejný subjekt). Zdarma, omezená kapacita."
+    },
+    "2026-12-08-de-it-sicherheitstag-nrw-duisburg": {
+      "notes": "Datum potvrzeno dvěma zdroji, 14. ročník, Landschaftspark Nord. Bezplatnost odvozena, poplatek neuveden a pořádají komory a zemské kompetenční centrum. Upozornění: stránka s programem na rok 2026 je zatím jen zástupná, takže zaměření na NIS2 je převzato z minulého ročníku a v letošním popisu zatím není znovu potvrzeno. Znovu ověřte, až bude program zveřejněn."
+    },
+    "2027-04-20-de-hh-datenschutzforum": {
+      "notes": "Neziskový subjekt, hamburský úřad pro ochranu osobních údajů a Handelskammer, každoroční fórum, zdarma. Program zatím chybí."
+    }
+  }
+}

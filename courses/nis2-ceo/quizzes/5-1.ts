@@ -39,7 +39,7 @@ const quiz = quizSchema.parse({
           it: "Confermare la valutazione dell'ambito di applicazione, registrarsi presso il BSI e confermare la linea di reporting del CISO",
           es: "Confirmar la evaluación del ámbito de aplicación, registrarse ante el BSI y confirmar la línea de reporte del CISO",
           pl: "Potwierdzić ocenę zakresu, zarejestrować się w BSI i potwierdzić linię raportowania CISO",
-          cs: "Potvrdit posouzení působnosti, zaregistrovat se u BSI a potvrdit linii podávání zpráv CISO",
+          cs: "Potvrdit posouzení působnosti, ohlásit službu NÚKIB a potvrdit linii podávání zpráv CISO",
           pt: "Confirmar a avaliação de âmbito, registar-se junto do BSI e confirmar a linha de reporte do CISO",
           ro: "Confirmarea evaluării domeniului de aplicare, înregistrarea la BSI și confirmarea liniei de raportare a CISO",
         },

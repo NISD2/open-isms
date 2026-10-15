@@ -87,6 +87,119 @@
     "durchgang": "Průvodce NIS 2",
     "administration": "Správa",
     "comingSoon": "Již brzy",
+    "examples": {
+      "person": "Jana Nováková",
+      "badge": "Příklad",
+      "order": "Objednat",
+      "audit": "Takto protokol aktivit zaznamenává, kdo co a kdy změnil. Vaše vlastní záznamy se tu objeví, jakmile začnete pracovat v průvodci.",
+      "auditRows": [
+        {
+          "action": "durchgang.requirements_signed",
+          "detail": "12 požadavků schváleno po kontrole",
+          "minutesAgo": 12
+        },
+        {
+          "action": "durchgang.approvePolicies",
+          "detail": "Bezpečnostní politika a plán reakce na incidenty schváleny",
+          "minutesAgo": 14
+        },
+        {
+          "action": "durchgang.writePolicy",
+          "detail": "Bezpečnostní politika sepsána",
+          "minutesAgo": 41
+        },
+        {
+          "action": "durchgang.waiting",
+          "detail": "5.2 odloženo: smlouva je u dodavatele",
+          "minutesAgo": 58
+        },
+        {
+          "action": "durchgang.item_done",
+          "detail": "2.2 Sepište, co vaše firma má",
+          "minutesAgo": 75
+        },
+        {
+          "action": "training.create",
+          "detail": "Školení vedení zaznamenáno",
+          "minutesAgo": 96
+        }
+      ],
+      "registers": {
+        "assets": {
+          "text": "Takto vypadá váš registr aktiv: software, zařízení a služby, se kterými vaše firma pracuje. V průvodci NIS 2 je zadáváte krok za krokem.",
+          "columns": ["Název", "Typ", "Kritické", "Vlastník"],
+          "rows": [
+            ["ERP Helios Orange", "Aplikace", "Ano", "Vedoucí IT"],
+            ["Microsoft 365", "Cloudová služba", "Ano", "Vedoucí IT"],
+            ["Hyper-V host 1", "Server", "Ano", "IT servis Dvořák"],
+            ["62 notebooků s Windows 11", "Koncová zařízení", "Ne", "Vedoucí IT"]
+          ]
+        },
+        "suppliers": {
+          "text": "Takto vypadá váš seznam dodavatelů: kdo pro vás pracuje a jak moc na něm závisí váš provoz. Průvodce ho vyplní z vašich aktiv.",
+          "columns": ["Název", "Služba", "Úroveň"],
+          "rows": [
+            ["IT servis Dvořák s.r.o.", "Správa IT a vzdálená údržba", "Vysoká"],
+            ["WebHost Morava s.r.o.", "Hosting webových stránek", "Střední"],
+            ["Účetní kancelář Svobodová s.r.o.", "Mzdy a účetnictví", "Střední"],
+            ["Daňová kancelář Procházka a partneři", "Roční účetní závěrka", "Nízká"]
+          ]
+        },
+        "risks": {
+          "text": "Takto vypadá váš registr rizik: každé aktivum a každý dodavatel s úrovní v matici rizik a s tím, jak riziko řešíte.",
+          "columns": ["Riziko", "Úroveň", "Ošetření"],
+          "rows": [
+            ["Microsoft 365: výpadek, útok nebo ztráta dat", "Velmi vysoké", "Zmírnit"],
+            ["Přístup dodavatelů ke vzdálené údržbě", "Velmi vysoké", "Zmírnit"],
+            ["ERP Helios Orange: výpadek, útok nebo ztráta dat", "Vysoké", "Zmírnit"],
+            ["Venkovní kamery v areálu závodu", "Nízké", "Přijmout"]
+          ]
+        },
+        "policies": {
+          "text": "Takto vypadají vaše dokumenty: politika, plány a koncepce, které s vámi průvodce sepíše a které vaše vedení schválí v aplikaci.",
+          "columns": ["Dokument", "Stav", "Schválení"],
+          "rows": [
+            ["Bezpečnostní politika", "Schváleno", "Vedení, 3. října 2026"],
+            ["Plán reakce na incidenty", "Schváleno", "Vedení, 3. října 2026"],
+            ["Kryptografická politika", "Koncept", "Čeká na schválení"]
+          ]
+        },
+        "training": {
+          "text": "Takto vypadají vaše školení: kdo se co a kdy naučil, včetně školení vedení.",
+          "columns": ["Školení", "Účastníci", "Datum"],
+          "rows": [
+            ["Školení vedení (čl. 20 odst. 2 NIS 2)", "Vedení", "12. března 2026"],
+            [
+              "Rozpoznání a nahlášení phishingu",
+              "Všichni zaměstnanci administrativy",
+              "24. února 2026"
+            ],
+            [
+              "USB disky a vzdálená údržba strojů",
+              "Vedoucí směn ve výrobě a ve skladu",
+              "6. května 2026"
+            ]
+          ]
+        },
+        "managementReviews": {
+          "text": "Takto vypadají vaše přezkumy vedení: kdy vedení zkontrolovalo zavádění a co rozhodlo.",
+          "columns": ["Datum", "Účastníci", "Rozhodnutí"],
+          "rows": [
+            [
+              "3. října 2026",
+              "Vedení, vedoucí IT",
+              "Bezpečnostní politika a plán reakce na incidenty schváleny. Druhý faktor pro ERP do 31. března 2027."
+            ]
+          ]
+        }
+      }
+    },
+    "journeyNotice": {
+      "title": "Cesta je podrobný pohled. Přesto tam přejít?",
+      "text": "Ukazuje všechny požadavky najednou, s registry, které k nim patří. Tento pohled doporučujeme velkým firmám (250 a více zaměstnanců podle definice EU) s vlastním týmem pro bezpečnost informací. Všem ostatním doporučujeme průvodce NIS 2: provede vás bod po bodu a každý krok vysvětlí.",
+      "stay": "Zůstat v průvodci",
+      "go": "Přesto přejít na cestu"
+    },
     "journeyBoard": {
       "hero": {
         "title": "Vaše zavádění NIS2",
@@ -126,7 +239,7 @@
       },
       "owner": {
         "leadershipName": "Vedení",
-        "leadershipResp": "Schvaluje a nese odpovědnost. Governance, rozpočet a povinnosti podle § 38 BSIG.",
+        "leadershipResp": "Schvaluje a nese odpovědnost. Governance, rozpočet a povinnosti vrcholného vedení podle § 4 vyhlášek č. 409/2025 Sb. a 410/2025 Sb.",
         "securityName": "Bezpečnost (CISO)",
         "securityResp": "Řídí riziko, incidenty, přístup, školení a účinnost.",
         "itName": "IT",

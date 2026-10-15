@@ -2,7 +2,7 @@
   "incidents": {
     "title": "Registr incidentů",
     "description": "Záznam bezpečnostních incidentů s klasifikací závažnosti a sledováním časové osy. Vyžaduje NIS2 čl. 23.",
-    "helpText": "Zaznamenejte každý bezpečnostní incident, jakmile nastane. NIS2 vyžaduje včasné varování pro BSI do 24 hodin a úplné oznámení do 72 hodin u významných incidentů. Zaznamenejte závažnost, dotčené systémy, časovou osu a kroky k vyřešení.",
+    "helpText": "Zaznamenejte každý bezpečnostní incident, jakmile nastane. NIS2 vyžaduje včasné varování do 24 hodin a úplné oznámení do 72 hodin u významných incidentů. V Česku se prvotní hlášení podává do 24 hodin NÚKIB (vyšší režim) nebo Národnímu CERT (nižší režim) a oznámení do 72 hodin (§§ 15 a 16 zákona č. 264/2025 Sb.). Zaznamenejte závažnost, dotčené systémy, časovou osu a kroky k vyřešení.",
     "add": "Nahlásit incident",
     "edit": "Upravit incident",
     "empty": "Nejsou zaznamenány žádné incidenty. Nahlaste incident, jakmile nastane.",
@@ -31,15 +31,16 @@
       "requiresGdprNotification": "Vyžadováno oznámení porušení podle GDPR",
       "dataSubjectsAffected": "Dotčené subjekty údajů",
       "gdprNotifiedAt": "Úřad pro GDPR vyrozuměn",
-      "notifiedDataSubjectsAt": "Subjekty údajů vyrozuměny"
+      "notifiedDataSubjectsAt": "Subjekty údajů vyrozuměny",
+      "internalRef": "Interní označení"
     },
     "bsiDeadlines": {
-      "title": "Lhůty pro hlášení BSI",
+      "title": "Lhůty pro hlášení incidentů",
       "overdue": "Po lhůtě",
       "dueIn": "Lhůta za {days} d",
       "dueToday": "Lhůta dnes",
       "reportType": {
-        "early_warning": "Včasné varování do 24 h",
+        "early_warning": "Prvotní hlášení do 24 h",
         "notification": "Oznámení do 72 h",
         "intermediate": "Průběžná zpráva",
         "final": "Závěrečná zpráva",
@@ -49,7 +50,7 @@
     "fieldDescriptions": {
       "title": "Krátký výstižný název tohoto incidentu (např. „Phishingový útok na finanční oddělení“).",
       "description": "Podrobný popis toho, co se stalo, které systémy a data byly dotčeny a jaký byl rozsah dopadu.",
-      "severity": "Vyberte úroveň závažnosti. „Významné“ incidenty vyžadují oznámení BSI do 24 h (včasné varování) a do 72 h (úplná zpráva) podle NIS2 čl. 23.",
+      "severity": "Vyberte úroveň závažnosti. „Významné“ incidenty vyžadují hlášení do 24 h (prvotní hlášení) a do 72 h (oznámení) podle čl. 23 NIS2 a § 16 zákona č. 264/2025 Sb.; ve vyšším režimu se prvotní hlášení podává u každého incidentu podle § 15 odst. 1, nejen u významného.",
       "situationColor": "Semaforový ukazatel aktuálního stavu incidentu: zelená (zvládnuto), oranžová (probíhá), červená (kritické).",
       "discoveredAt": "Datum a čas, kdy byl tento incident poprvé zjištěn nebo nahlášen.",
       "occurredAt": "Datum a čas, kdy tento incident skutečně začal (může se lišit od zjištění).",

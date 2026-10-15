@@ -13,7 +13,8 @@
       "reviewDate": "Datum přezkumu",
       "decisions": "Rozhodnutí",
       "actionItems": "Úkoly",
-      "nextReviewDate": "Datum dalšího přezkumu"
+      "nextReviewDate": "Datum dalšího přezkumu",
+      "attendees": "Účastníci"
     },
     "fieldDescriptions": {
       "title": "Název schůzky přezkumu vedením (např. „Přezkum kybernetické bezpečnosti za 1. čtvrtletí 2025“).",

@@ -504,6 +504,9 @@
     "assistWhereToFind": "Gdzie to znaleźć",
     "assistField": "Pole",
     "assistValue": "Wartość",
-    "rateLimited": "Twoja organizacja osiągnęła godzinny limit ekstrakcji danych przez AI. Spróbuj ponownie później."
+    "rateLimited": "Twoja organizacja osiągnęła godzinny limit ekstrakcji danych przez AI. Spróbuj ponownie później.",
+    "emptyText": "Najpierw wklej tekst.",
+    "extractFailed": "Ekstrakcja nie powiodła się. Spróbuj ponownie.",
+    "aiDisabled": "Funkcje AI są wyłączone dla Twojej organizacji. Włącz je w sekcji Ustawienia → Udostępnianie danych dla AI, aby korzystać z tej funkcji."
   }
 }

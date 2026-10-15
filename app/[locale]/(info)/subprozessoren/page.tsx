@@ -25,35 +25,57 @@ const processors = [
   {
     key: "hetzner",
     name: "Hetzner Online GmbH",
-    location: "Deutschland (DE)",
+    country: "DE",
+    area: "DE",
     basisKey: "EU",
     url: "https://www.hetzner.com",
   },
   {
     key: "aws",
     name: "Amazon Web Services EMEA SARL",
-    location: "Luxemburg (EU)",
+    country: "LU",
+    area: "EU",
     basisKey: "EU",
     url: "https://aws.amazon.com/compliance/gdpr-center/",
   },
   {
     key: "google",
     name: "Google Ireland Limited",
-    location: "Irland (EU)",
+    country: "IE",
+    area: "EU",
     basisKey: "EU",
     url: "https://policies.google.com/privacy",
   },
   {
     key: "resend",
     name: "Resend Inc.",
-    location: "USA",
+    country: "US",
+    area: null,
     basisKey: "SCC",
     url: "https://resend.com/privacy",
   },
 ] as const;
 
-export default async function SubprocessorsPage() {
+/** Where a processor sits, named in the reader's language: "Deutschland (DE)", "Irsko (EU)", "USA". */
+const locationOf = (
+  names: Intl.DisplayNames,
+  processor: (typeof processors)[number],
+): string => {
+  const country = names.of(processor.country) ?? processor.country;
+  return processor.area ? `${country} (${processor.area})` : country;
+};
+
+export default async function SubprocessorsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const t = await getTranslations("info");
+  const countryNames = new Intl.DisplayNames([locale], {
+    type: "region",
+    style: "short",
+  });
 
   return (
     <article className="space-y-10 max-w-3xl">
@@ -101,7 +123,9 @@ export default async function SubprocessorsPage() {
                   <td className="py-3 pr-4 text-muted-foreground">
                     {t(`subprozessoren.processors.${p.key}.purpose`)}
                   </td>
-                  <td className="py-3 pr-4 text-muted-foreground">{p.location}</td>
+                  <td className="py-3 pr-4 text-muted-foreground">
+                    {locationOf(countryNames, p)}
+                  </td>
                   <td className="py-3 text-muted-foreground">
                     {p.basisKey === "EU"
                       ? t("subprozessoren.basisEU")

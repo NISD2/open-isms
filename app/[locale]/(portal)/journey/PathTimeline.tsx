@@ -8,9 +8,35 @@ import {
 } from "@/components/ui/hover-card";
 import { cn } from "@/lib/utils";
 import { journeyDisclaimer, journeyDisclaimerLabel } from "./disclaimer";
+import { type JourneyLocale, journeyLocaleOf } from "./path-nodes";
 import type { StageProgress } from "./solo-path";
 
-type Locale = "en" | "de" | "nl";
+const COPY: Record<
+  JourneyLocale,
+  { progress: string; recommended: string; done: string; deadlines: string }
+> = {
+  en: {
+    progress: "Progress",
+    recommended: "Recommended order",
+    done: "Done",
+    deadlines:
+      "Our recommended order, derived from each requirement's priority. The law sets no deadline for implementing the individual measures. Two duties carry dates of their own: registration within three months under § 33 BSIG, and the reporting cascade under § 32 BSIG, which runs from the moment you become aware of a significant incident.",
+  },
+  de: {
+    progress: "Fortschritt",
+    recommended: "Empfohlene Reihenfolge",
+    done: "Erledigt",
+    deadlines:
+      "Unsere empfohlene Reihenfolge, abgeleitet aus der Priorität jeder Anforderung. Für die Umsetzung der einzelnen Maßnahmen nennt das Gesetz keine Frist. Zwei Pflichten haben eigene Termine: die Registrierung binnen drei Monaten nach § 33 BSIG und die Meldekette nach § 32 BSIG, die ab Kenntnis eines erheblichen Vorfalls läuft.",
+  },
+  cs: {
+    progress: "Postup",
+    recommended: "Doporučené pořadí",
+    done: "Hotovo",
+    deadlines:
+      "Naše doporučené pořadí, odvozené z priority každého požadavku. Lhůty stanoví zákon č. 264/2025 Sb.: službu ohlásíte NÚKIB nejpozději do 60 dnů ode dne, kdy splníte podmínky (§ 6 odst. 1). Zavádět bezpečnostní opatření a hlásit incidenty musíte začít nejpozději do 1 roku ode dne doručení rozhodnutí o registraci (§ 13 odst. 4, § 15 odst. 4). Hlášení incidentu běží od jeho zjištění: prvotní hlášení do 24 hodin, u incidentu s významným dopadem pak oznámení do 72 hodin (§ 16 odst. 1 a 3).",
+  },
+};
 
 /**
  * The rail's footprint in the row, exported because SoloPath mirrors it on the
@@ -49,15 +75,16 @@ export function PathTimeline({
   stages: StageProgress[];
   /** 1-based stage the reader is currently scrolled into. */
   activeStage: number;
-  locale: Locale;
+  /** The page language; the disclaimer has more languages than the rest of the journey. */
+  locale: string;
 }) {
-  const de = locale === "de";
+  const copy = COPY[journeyLocaleOf(locale)];
   if (stages.length === 0) return null;
 
   return (
     <nav
       data-tour="journey-timeline"
-      aria-label={de ? "Fortschritt" : "Progress"}
+      aria-label={copy.progress}
       // Pins below the bar, not level with it: the bar occupies 68px to about
       // 108px, so a rail sharing its offset slides underneath and loses its
       // first lines to it.
@@ -72,14 +99,13 @@ export function PathTimeline({
               stage.index === activeStage ? "here" : stage.open === 0 ? "done" : "ahead"
             }
             last={i === stages.length - 1}
-            de={de}
+            done={copy.done}
           />
         ))}
       </ol>
 
       <p className="mt-1 border-t pt-3 text-[11px] leading-relaxed text-muted-foreground">
-        {de ? "Empfohlene Reihenfolge" : "Recommended order"}{" "}
-        <DueDisclaimer locale={locale} />
+        {copy.recommended} <DueDisclaimer locale={locale} />
       </p>
     </nav>
   );
@@ -89,12 +115,13 @@ function StageStop({
   stage,
   state,
   last,
-  de,
+  done,
 }: {
   stage: StageProgress;
   state: "done" | "here" | "ahead";
   last: boolean;
-  de: boolean;
+  /** The word for a cleared window. */
+  done: string;
 }) {
   return (
     <li className="flex gap-3">
@@ -127,7 +154,7 @@ function StageStop({
           {stage.open === 0 ? (
             <>
               <Check className="h-3 w-3 shrink-0 text-primary" aria-hidden="true" />
-              {de ? "Erledigt" : "Done"}
+              {done}
             </>
           ) : (
             <span className="tabular-nums">
@@ -150,9 +177,13 @@ function StageStop({
  * three months from coming into scope, and §32 BSIG runs 24h/72h/one month
  * from awareness of a significant incident. Verified against
  * gesetze-im-internet 16.09.2026.
+ *
+ * The Czech Act does set a deadline for the measures, so the Czech text says so: a provider has
+ * to start implementing them, and reporting incidents, within one year of the registration
+ * decision's delivery (§ 13 odst. 4, § 15 odst. 4), and has to notify its service within 60 days
+ * (§ 6 odst. 1). Verified against e-Sbírka, version of 1 November 2025, on 15.10.2026.
  */
-function DueDisclaimer({ locale }: { locale: Locale }) {
-  const de = locale === "de";
+function DueDisclaimer({ locale }: { locale: string }) {
   return (
     <HoverCard openDelay={120} closeDelay={60}>
       <HoverCardTrigger asChild>
@@ -169,11 +200,7 @@ function DueDisclaimer({ locale }: { locale: Locale }) {
         align="start"
         className="w-80 space-y-2 text-xs leading-relaxed text-muted-foreground"
       >
-        <p>
-          {de
-            ? "Unsere empfohlene Reihenfolge, abgeleitet aus der Priorität jeder Anforderung. Für die Umsetzung der einzelnen Maßnahmen nennt das Gesetz keine Frist. Zwei Pflichten haben eigene Termine: die Registrierung binnen drei Monaten nach § 33 BSIG und die Meldekette nach § 32 BSIG, die ab Kenntnis eines erheblichen Vorfalls läuft."
-            : "Our recommended order, derived from each requirement's priority. The law sets no deadline for implementing the individual measures. Two duties carry dates of their own: registration within three months under § 33 BSIG, and the reporting cascade under § 32 BSIG, which runs from the moment you become aware of a significant incident."}
-        </p>
+        <p>{COPY[journeyLocaleOf(locale)].deadlines}</p>
         <p>{journeyDisclaimer(locale)}</p>
       </HoverCardContent>
     </HoverCard>

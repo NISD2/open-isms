@@ -44,4 +44,12 @@ describe("the routing map and the redirects agree", () => {
     const chained = LEGACY_REDIRECTS.filter((r) => sources.has(r.destination));
     expect(chained).toEqual([]);
   });
+
+  test("a Czech URL never redirects to a page in another language", () => {
+    const czech = (path: string) => path === "/cs" || path.startsWith("/cs/");
+    const leaving = LEGACY_REDIRECTS.filter(
+      (r) => czech(r.source) && !czech(r.destination),
+    );
+    expect(leaving).toEqual([]);
+  });
 });

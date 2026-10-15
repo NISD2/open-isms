@@ -12,6 +12,10 @@ describe("terms version", () => {
     expect(termsVersionLabel("de", "2026-09-26")).toBe("26.09.2026");
     expect(termsVersionLabel("en", "2026-09-26")).toBe("26 September 2026");
   });
+
+  test("reads as a Czech date on the Czech pages, never the English one", () => {
+    expect(termsVersionLabel("cs", "2026-09-26")).toBe("26. září 2026");
+  });
 });
 
 const order = {

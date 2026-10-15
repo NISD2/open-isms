@@ -12,7 +12,7 @@ export { itemKey, marker, ONGOING_COPY, resolveItem } from "./copy";
 export type { CoveredBy, Covering, JourneyEntry, JourneyRow } from "./coverage";
 export { coveredState, journeyStates } from "./coverage";
 export type { Gap, GapFacts, ShownGap } from "./gaps";
-export { GAP_STEP, gapLines, gapsOf } from "./gaps";
+export { GAP_STEP, gapLines, gapsOf, withPlanSlot } from "./gaps";
 export { dutyHref } from "./law";
 export {
   agreementsNote,
@@ -27,6 +27,7 @@ export {
   noteLine,
   recordDay,
   recordedDay,
+  WALK_DATE_LOCALE,
   waitingNote,
 } from "./notes";
 export type { CryptoLabels, PolicyDocument, PolicyPart } from "./policy";
@@ -126,6 +127,8 @@ export {
   POLICY_LISTS,
   POLICY_TEMPLATES,
   TRAINING_ROW,
+  WALK_LOCALES,
+  walkLocaleOf,
 } from "./types";
 
 const BY_CODE: ReadonlyMap<string, AnyItem> = new Map(

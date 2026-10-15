@@ -2,6 +2,7 @@
  * What the two digests share between their React Email markup and their plain-text twin: the
  * shapes they are given, the tracked links, and the payoff line.
  */
+import type { WorkflowMailLocale } from "./locale";
 
 export interface DigestItem {
   requirementCode: string;
@@ -48,16 +49,48 @@ export function withUtm(url: string, campaign: DigestCampaign): string {
   return fragment ? `${tagged}#${fragment}` : tagged;
 }
 
+const PERCENT: Record<WorkflowMailLocale, (pct: string) => string> = {
+  en: (pct) => `${pct}%`,
+  cs: (pct) => `${pct.replace(".", ",")} %`,
+};
+
+/** A percentage string such as "42.0" the way the reader writes it: "42.0%", or "42,0 %" in Czech. */
+export const formatPercent = (pct: string, locale: WorkflowMailLocale): string =>
+  PERCENT[locale](pct);
+
+const PAYOFF: Record<
+  WorkflowMailLocale,
+  {
+    readonly completes: (s: DigestNextStep) => string;
+    readonly moves: (s: DigestNextStep) => string;
+    readonly line: (s: DigestNextStep, categoryPart: string) => string;
+  }
+> = {
+  en: {
+    completes: (s) => `completes ${s.categoryName}`,
+    moves: (s) =>
+      `moves ${s.categoryName} to ${s.categoryDone + 1} of ${s.categoryTotal}`,
+    line: (s, categoryPart) =>
+      `You are at ${s.done} of ${s.total} steps. Finishing ${s.requirementCode} makes it ${s.done + 1} and ${categoryPart}.`,
+  },
+  cs: {
+    completes: (s) => `dokončí oblast ${s.categoryName}`,
+    moves: (s) =>
+      `oblast ${s.categoryName} na ${s.categoryDone + 1} z celkem ${s.categoryTotal}`,
+    line: (s, categoryPart) =>
+      `Máte hotovo ${s.done} z celkem ${s.total} kroků. Krok ${s.requirementCode} vás posune na ${s.done + 1} a ${categoryPart}.`,
+  },
+};
+
 /**
  * What completing the next step does to the numbers the reader already
  * owns. When it is the category's last open step, say so: "completes
  * Registration" pulls harder than another fraction.
  */
-export function payoffLine(nextStep: DigestNextStep): string {
+export function payoffLine(nextStep: DigestNextStep, locale: WorkflowMailLocale): string {
+  const copy = PAYOFF[locale];
   const categoryLeft = nextStep.categoryTotal - nextStep.categoryDone;
   const categoryPart =
-    categoryLeft === 1
-      ? `completes ${nextStep.categoryName}`
-      : `moves ${nextStep.categoryName} to ${nextStep.categoryDone + 1} of ${nextStep.categoryTotal}`;
-  return `You are at ${nextStep.done} of ${nextStep.total} steps. Finishing ${nextStep.requirementCode} makes it ${nextStep.done + 1} and ${categoryPart}.`;
+    categoryLeft === 1 ? copy.completes(nextStep) : copy.moves(nextStep);
+  return copy.line(nextStep, categoryPart);
 }

@@ -74,6 +74,10 @@ const CRYPTO_TEXT = {
     bits: "bits",
     tls: (version: string) => `TLS at least in version ${version}, preferably 1.3.`,
   },
+  cs: {
+    bits: "bitů",
+    tls: (version: string) => `TLS alespoň ve verzi ${version}, přednostně 1.3.`,
+  },
 } as const;
 
 const TLS_VERSION = { tls_1_2: "1.2", tls_1_3: "1.3" } as const satisfies Record<
@@ -125,18 +129,30 @@ export const acceptedCryptoText = (
   ].join("\n");
 };
 
-/** The country whose reporting channel and its button we have checked: Germany's BSI portal. */
-const CHECKED_COUNTRY = "DE";
-
-const BUTTON = {
-  de: (url: string) => `BSI-Portal (${url}), Schaltfläche „Sicherheitsvorfall melden“`,
-  en: (url: string) => `the BSI portal (${url}), button "Sicherheitsvorfall melden"`,
-} as const;
+/**
+ * The reporting channels we have checked, by country: Germany's BSI portal and its button, against
+ * the BSI's instructions; Czechia's Portál NÚKIB, through which both regimes report (§ 16 odst. 4
+ * of Act 264/2025 Sb.; the lower regime's reports reach the Národní CERT there).
+ */
+const CHECKED_CHANNEL: Readonly<
+  Record<string, Readonly<Record<WalkLocale, (url: string) => string>>>
+> = {
+  DE: {
+    de: (url) => `BSI-Portal (${url}), Schaltfläche „Sicherheitsvorfall melden“`,
+    en: (url) => `the BSI portal (${url}), button "Sicherheitsvorfall melden"`,
+    cs: (url) => `portál BSI (${url}), tlačítko „Sicherheitsvorfall melden“`,
+  },
+  CZ: {
+    de: (url) => `Portál NÚKIB (${url})`,
+    en: (url) => `the Portál NÚKIB (${url})`,
+    cs: (url) => `Portál NÚKIB (${url})`,
+  },
+};
 
 /**
- * Where a plan says incidents are reported, from the company's country: in Germany the BSI portal
- * and its button, checked against the BSI's instructions; elsewhere the authority and its
- * website, which says how; a blank where the country is not set.
+ * Where a plan says incidents are reported, from the company's country: a checked portal where
+ * there is one; elsewhere the authority and its website, which says how; a blank where the
+ * country is not set.
  */
 export const reportingChannelText = (
   locale: WalkLocale,
@@ -146,9 +162,8 @@ export const reportingChannelText = (
   > | null,
 ): string => {
   if (!portal) return BLANK;
-  if (portal.countryCode === CHECKED_COUNTRY && portal.portalUrl) {
-    return BUTTON[locale](portal.portalUrl);
-  }
+  const checked = CHECKED_CHANNEL[portal.countryCode];
+  if (checked && portal.portalUrl) return checked[locale](portal.portalUrl);
   return portal.authorityUrl
     ? `${portal.authority} (${portal.authorityUrl})`
     : portal.authority;

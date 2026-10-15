@@ -1,19 +1,20 @@
 import { getTranslations } from "next-intl/server";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
-import { type Locale } from "@/lib/seo";
+import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { SourceText } from "@/components/wiki/SourceText";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { Link } from "@/i18n/navigation";
+import { wikiLocale } from "@/lib/content/wiki-locale";
 
 const goodAtKeys = ["automation", "frameworks", "trust"] as const;
 const gapKeys = ["pricing", "residency", "depth", "weight"] as const;
@@ -31,8 +32,7 @@ export async function VendorAlternativePage({
   badge: string;
   rawLocale: string;
 }) {
-  const locale: Locale =
-    rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale = wikiLocale(rawLocale);
   const t = await getTranslations("info");
 
   return (
@@ -54,9 +54,7 @@ export async function VendorAlternativePage({
           <Badge variant="secondary" className="mb-3">
             {badge}
           </Badge>
-          <h1 className="text-3xl font-bold tracking-tight">
-            {t(`${namespace}.title`)}
-          </h1>
+          <h1 className="text-3xl font-bold tracking-tight">{t(`${namespace}.title`)}</h1>
           <p className="mt-2 text-lg text-muted-foreground">
             {t(`${namespace}.subtitle`)}
           </p>
@@ -64,7 +62,7 @@ export async function VendorAlternativePage({
 
         <WikiPageMeta
           authorSlug="simon-orzel"
-          locale={locale === "nl" ? "de" : (locale as "de" | "en")}
+          locale={locale === "nl" ? "de" : locale}
           lastReviewedAt="2026-09-08"
           sourceLocale="en"
         />
@@ -91,9 +89,7 @@ export async function VendorAlternativePage({
         <Card>
           <CardHeader>
             <CardTitle>{t(`${namespace}.goodAt.heading`)}</CardTitle>
-            <CardDescription>
-              {t(`${namespace}.goodAt.description`)}
-            </CardDescription>
+            <CardDescription>{t(`${namespace}.goodAt.description`)}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 sm:grid-cols-3">
@@ -115,9 +111,7 @@ export async function VendorAlternativePage({
         <Card>
           <CardHeader>
             <CardTitle>{t(`${namespace}.gaps.heading`)}</CardTitle>
-            <CardDescription>
-              {t(`${namespace}.gaps.description`)}
-            </CardDescription>
+            <CardDescription>{t(`${namespace}.gaps.description`)}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -139,9 +133,7 @@ export async function VendorAlternativePage({
         <Card>
           <CardHeader>
             <CardTitle>{t(`${namespace}.different.heading`)}</CardTitle>
-            <CardDescription>
-              {t(`${namespace}.different.description`)}
-            </CardDescription>
+            <CardDescription>{t(`${namespace}.different.description`)}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -202,17 +194,15 @@ export async function VendorAlternativePage({
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">
-              {(t.raw(`${namespace}.sources.items`) as string[]).map(
-                (source, i) => (
-                  <li
-                    key={i}
-                    className="flex items-start gap-2 text-xs text-muted-foreground"
-                  >
-                    <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
-                    {source}
-                  </li>
-                ),
-              )}
+              {(t.raw(`${namespace}.sources.items`) as string[]).map((source) => (
+                <li
+                  key={source}
+                  className="flex items-start gap-2 text-xs text-muted-foreground"
+                >
+                  <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
+                  <SourceText text={source} />
+                </li>
+              ))}
             </ul>
           </CardContent>
         </Card>
@@ -221,9 +211,7 @@ export async function VendorAlternativePage({
         <Card>
           <CardHeader>
             <CardTitle>{t(`${namespace}.ctaCard.heading`)}</CardTitle>
-            <CardDescription>
-              {t(`${namespace}.ctaCard.description`)}
-            </CardDescription>
+            <CardDescription>{t(`${namespace}.ctaCard.description`)}</CardDescription>
           </CardHeader>
           <CardContent>
             <Button asChild>

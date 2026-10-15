@@ -1,17 +1,38 @@
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
+import { AUTHORS, type DocsAuthor } from "@/lib/content/authors";
+import type { LegislationKey } from "@/lib/content/citations";
+import { type WikiLocale, wikiLocale, wikiTocText } from "@/lib/content/wiki-locale";
+import { isPublished } from "@/lib/content/wiki-publish-schedule";
+import { WIKI_TOC, type WikiTocEntry, type WikiTopLevel } from "@/lib/content/wiki-toc";
 import {
   buildBreadcrumbListJsonLd,
   buildTechArticleJsonLd,
   type Locale,
 } from "@/lib/seo";
-import {
-  WIKI_TOC,
-  type WikiTopLevel,
-  type WikiTocEntry,
-} from "@/lib/content/wiki-toc";
-import { AUTHORS, type DocsAuthor } from "@/lib/content/authors";
-import { isPublished } from "@/lib/content/wiki-publish-schedule";
+
+const HOME: Record<WikiLocale, string> = {
+  de: "Startseite",
+  en: "Home",
+  nl: "Startseite",
+  cs: "Domů",
+};
+
+/** Who a Czech page is for: the Czech companies the Czech Act covers, not the German audience a page names. */
+const CZECH_AUDIENCE = {
+  type: "Vedení a IT ve středních firmách",
+  country: "Česko",
+} as const;
+
+/** The German acts a page cites, as a Czech page cites them: the Czech Act is the reader's law there. */
+const CZECH_FOR_GERMAN: Readonly<Partial<Record<string, LegislationKey>>> = {
+  bsig: "zkb",
+  "bsi-kritisv": "zkb",
+};
+
+/** A page's legislation keys on a Czech page: German law becomes the Czech Act, once. */
+const czechKeys = (keys: readonly string[]): string[] =>
+  Array.from(new Set(keys.map((key) => CZECH_FOR_GERMAN[key] ?? key)));
 
 /**
  * One-line JSON-LD drop-in for every wiki content page.
@@ -50,7 +71,7 @@ export function WikiPageJsonLd({
   category: WikiTopLevel;
   /** German-canonical slug under the category. Matches the directory name. */
   slug: string;
-  /** Current request locale. */
+  /** The page's language: `inLanguage`. Titles and labels follow the wiki's language for it. */
   locale: Locale;
   /** Which author's byline. Defaults to Simon. */
   authorSlug?: DocsAuthor["slug"];
@@ -83,26 +104,35 @@ export function WikiPageJsonLd({
 
   const meta = WIKI_TOC[category];
   const entry: WikiTocEntry | undefined = meta.entries.find((e) => e.slug === slug);
-  const isEn = locale === "en";
   const author = AUTHORS[authorSlug];
+  const wiki = wikiLocale(locale);
+  const audience =
+    wiki === "cs" ? CZECH_AUDIENCE : { type: audienceType, country: audienceCountry };
 
   const pageSlugPath = `wiki/${category}/${slug}`;
-  const baseUrl =
-    process.env.NEXT_PUBLIC_APP_URL ?? "https://www.nisd2.eu";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://www.nisd2.eu";
 
   const headline = entry
-    ? isEn
-      ? entry.titleEn ?? entry.titleDe
-      : entry.titleDe
+    ? wikiTocText(wiki, `entry:${slug}`, "title", {
+        de: entry.titleDe,
+        en: entry.titleEn ?? entry.titleDe,
+      })
     : slug;
   const summary = entry
-    ? isEn
-      ? entry.summaryEn ?? entry.summaryDe
-      : entry.summaryDe
+    ? wikiTocText(wiki, `entry:${slug}`, "summary", {
+        de: entry.summaryDe,
+        en: entry.summaryEn ?? entry.summaryDe,
+      })
     : "";
-  const sectionTitle = isEn ? meta.titleEn : meta.titleDe;
+  const sectionTitle = wikiTocText(wiki, `cat:${category}`, "title", {
+    de: meta.titleDe,
+    en: meta.titleEn,
+  });
 
-  const legId = (key: string) => `${baseUrl}/wiki/zitate/${key}#legislation`;
+  const legIds = (keys: readonly string[]) =>
+    (wiki === "cs" ? czechKeys(keys) : keys).map(
+      (key) => `${baseUrl}/wiki/zitate/${key}#legislation`,
+    );
 
   const techArticle = buildTechArticleJsonLd({
     slug: pageSlugPath,
@@ -119,17 +149,17 @@ export function WikiPageJsonLd({
     keywords: entry?.tags,
     proficiencyLevel,
     dependencies: undefined,
-    audienceType,
-    audienceCountry,
-    aboutLegislationIds: aboutKeys.map(legId),
-    mentionsLegislationIds: mentionsKeys.map(legId),
-    citationLegislationIds: citationKeys.map(legId),
+    audienceType: audience.type,
+    audienceCountry: audience.country,
+    aboutLegislationIds: legIds(aboutKeys),
+    mentionsLegislationIds: legIds(mentionsKeys),
+    citationLegislationIds: legIds(citationKeys),
     breadcrumbId: `${baseUrl}/${pageSlugPath}#breadcrumb`,
   });
 
   const breadcrumb = buildBreadcrumbListJsonLd(
     [
-      { name: isEn ? "Home" : "Startseite", url: "/" },
+      { name: HOME[wiki], url: "/" },
       { name: "Wiki", url: "/wiki" },
       { name: sectionTitle, url: `/wiki/${category}` },
       { name: headline, url: `/${pageSlugPath}` },

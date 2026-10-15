@@ -1,20 +1,21 @@
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { getLocale, getTranslations } from "next-intl/server";
+import { CategoryContent } from "@/components/compliance/CategoryContent";
+import { CategoryHeader } from "@/components/compliance/CategoryHeader";
+import { ExportPolicyButton } from "@/components/compliance/ExportPolicyButton";
+import { GuidedBanner } from "@/components/compliance/GuidedBanner";
+import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
-import { getTranslations, getLocale } from "next-intl/server";
-import { api } from "@/lib/trpc/server";
 import { getSession } from "@/lib/auth";
 import {
+  canSeeCategory,
   getAllActiveCategories,
   getUserAccess,
-  canSeeCategory,
 } from "@/lib/compliance/access";
-import { GuidedBanner } from "@/components/compliance/GuidedBanner";
-import { CategoryHeader } from "@/components/compliance/CategoryHeader";
-import { CategoryContent } from "@/components/compliance/CategoryContent";
-import { ExportPolicyButton } from "@/components/compliance/ExportPolicyButton";
-import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { legalRefFor } from "@/lib/compliance/czech-law";
 import { getNextCategory, getPrevCategory } from "@/lib/compliance/helpers";
 import { REQUIREMENT_FIELD_MAP } from "@/lib/compliance/requirement-fields";
+import { api } from "@/lib/trpc/server";
 
 export default async function CategoryStepPage({
   params,
@@ -23,7 +24,10 @@ export default async function CategoryStepPage({
   params: Promise<{ categorySlug: string }>;
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  const [{ categorySlug }, resolvedSearchParams] = await Promise.all([params, searchParams]);
+  const [{ categorySlug }, resolvedSearchParams] = await Promise.all([
+    params,
+    searchParams,
+  ]);
   const guided = resolvedSearchParams?.guided === "true";
 
   const [
@@ -47,9 +51,7 @@ export default async function CategoryStepPage({
   if (!category) {
     return (
       <div className="text-center py-12">
-        <p className="text-muted-foreground">
-          {t("compliance.categoryNotFound")}
-        </p>
+        <p className="text-muted-foreground">{t("compliance.categoryNotFound")}</p>
       </div>
     );
   }
@@ -68,9 +70,7 @@ export default async function CategoryStepPage({
   if (assessment && !canSeeCategory(access, category.id)) {
     return (
       <div className="text-center py-12">
-        <p className="text-muted-foreground">
-          {t("compliance.categoryNotFound")}
-        </p>
+        <p className="text-muted-foreground">{t("compliance.categoryNotFound")}</p>
       </div>
     );
   }
@@ -83,11 +83,16 @@ export default async function CategoryStepPage({
           assessmentId: assessment.id,
           categoryId: category.id,
         }),
-        api.intake.getForm({
-          assessmentId: assessment.id,
-          categoryId: category.id,
-          categoryCode: category.code,
-        }).catch(() => ({ answers: {} as Record<string, unknown>, signedOffAt: null as string | null })),
+        api.intake
+          .getForm({
+            assessmentId: assessment.id,
+            categoryId: category.id,
+            categoryCode: category.code,
+          })
+          .catch(() => ({
+            answers: {} as Record<string, unknown>,
+            signedOffAt: null as string | null,
+          })),
       ])
     : [
         [] as Awaited<ReturnType<typeof api.assessment.getStatusesByCategory>>,
@@ -105,7 +110,11 @@ export default async function CategoryStepPage({
       status,
       frequency: req.frequency,
       nextReviewDate: s?.status?.nextReviewDate ?? null,
-      isSatisfiable: !!req.moduleRef && (operationalCounts[req.moduleRef] ?? 0) > 0 && status !== "completed" && status !== "approved",
+      isSatisfiable:
+        !!req.moduleRef &&
+        (operationalCounts[req.moduleRef] ?? 0) > 0 &&
+        status !== "completed" &&
+        status !== "approved",
     };
   });
 
@@ -145,6 +154,7 @@ export default async function CategoryStepPage({
   // Augment requirements with i18n titles/descriptions
   const tReq = await getTranslations("requirements");
   const tc = await getTranslations("compliance");
+  const locale = await getLocale();
   const requirementRows = requirements.map((req) => {
     const reqKey = req.code.replace(/\./g, "_");
     return {
@@ -154,15 +164,13 @@ export default async function CategoryStepPage({
       description: tReq(`${reqKey}.description`),
       priority: req.priority,
       frequency: req.frequency,
-      legalRef: req.legalRef,
+      legalRef: legalRefFor(req, locale),
       moduleRef: req.moduleRef,
     };
   });
 
   const fwData = allFrameworks.get(frameworkCode);
-  const frameworkCategorySlugs = fwData
-    ? fwData.categories.map((cat) => cat.slug)
-    : [];
+  const frameworkCategorySlugs = fwData ? fwData.categories.map((cat) => cat.slug) : [];
 
   const visibleSlugs = isAdmin
     ? undefined
@@ -198,9 +206,11 @@ export default async function CategoryStepPage({
           <ExportPolicyButton
             assessmentId={assessment.id}
             categoryCode={category.code}
-            disabled={!statuses.every((s) =>
-              ["completed", "approved", "not_applicable"].includes(s.currentStatus),
-            )}
+            disabled={
+              !statuses.every((s) =>
+                ["completed", "approved", "not_applicable"].includes(s.currentStatus),
+              )
+            }
           />
         )}
       </div>

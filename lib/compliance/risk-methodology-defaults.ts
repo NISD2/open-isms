@@ -7,7 +7,13 @@
  * The scales are Tabelle 8 and Tabelle 9 of BSI-Standard 200-3, read from ./bsi-200-3.
  */
 
-import { FREQUENCIES, FREQUENCY_TEXT, IMPACT_TEXT, IMPACTS } from "./bsi-200-3";
+import {
+  type Bsi2003Locale,
+  FREQUENCIES,
+  FREQUENCY_TEXT,
+  IMPACT_TEXT,
+  IMPACTS,
+} from "./bsi-200-3";
 
 export interface ScaleLevel {
   value: number;
@@ -23,7 +29,7 @@ export interface RiskMethodologyData {
   includesOt: boolean;
 }
 
-export function getDefaultMethodology(locale: "en" | "de"): RiskMethodologyData {
+export function getDefaultMethodology(locale: Bsi2003Locale): RiskMethodologyData {
   return {
     name: "BSI 200-3",
     likelihoodLevels: FREQUENCIES.map((f, i) => ({

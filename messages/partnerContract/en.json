@@ -67,12 +67,14 @@
       "metaTitle": "Partner agreement with nisd2",
       "access": {
         "title": "Your access",
-        "body": "The NIS 2 walkthrough is already unlocked for {email}. Have a look at what your clients get, without signing anything first.",
+        "trial": "You now have trial access with this test user email.",
+        "body": "The NIS 2 walkthrough is unlocked. Have a look at what your clients get, without signing anything first.",
         "setup": "Set a password and take a look",
         "signin": "Sign in and take a look",
         "error": "That did not work. Please try again or write to {email}."
       },
       "about": {
+        "eyebrow": "For partners",
         "title": "nisd2 in brief",
         "lead": "What your clients get from us, who it is for, and what it does not include.",
         "deliverTitle": "What we deliver",

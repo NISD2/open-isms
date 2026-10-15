@@ -5,6 +5,7 @@ import { attachment, exportAccess } from "@/lib/export/access";
 import { loadCompanyExport } from "@/lib/export/company-export";
 import { exportNames } from "@/lib/export/value-names";
 import { RegistersDocument } from "@/lib/pdf/company-export";
+import { exportLabels } from "@/lib/pdf/export-labels";
 import { pdfLocale } from "@/lib/pdf/format";
 
 /** The registers as one PDF: master data, assets, suppliers, risks, trainings, reviews, incidents. */
@@ -19,10 +20,6 @@ export async function GET(request: NextRequest) {
   ]);
   const buffer = await renderToBuffer(RegistersDocument({ data, locale, names }));
   return new Response(new Uint8Array(buffer), {
-    headers: attachment(
-      "application/pdf",
-      locale === "de" ? "nis2-register" : "nis2-registers",
-      "pdf",
-    ),
+    headers: attachment("application/pdf", exportLabels(locale).registers.file, "pdf"),
   });
 }

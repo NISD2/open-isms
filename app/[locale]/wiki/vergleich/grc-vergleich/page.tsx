@@ -1,12 +1,18 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { pageAlternates, pageOg, type Locale } from "@/lib/seo";
+import { GrcComparisonPage } from "@/components/grc-comparison/GrcComparisonPage";
+import { GlossedProse } from "@/components/wiki/GlossedProse";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { GlossedProse } from "@/components/wiki/GlossedProse";
 import grcVendorsRaw from "@/data/grc-vendors.json";
-import { loadVendorDataset, summarise, type VendorDataset } from "@/lib/grc-vendors/schema";
-import { GrcComparisonPage } from "@/components/grc-comparison/GrcComparisonPage";
+import { wikiLocale } from "@/lib/content/wiki-locale";
+import { localiseDataset } from "@/lib/grc-vendors/localize";
+import {
+  loadVendorDataset,
+  summarise,
+  type VendorDataset,
+} from "@/lib/grc-vendors/schema";
+import { pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -37,7 +43,7 @@ export default async function GrcVergleichRoute({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale = wikiLocale(rawLocale);
   const fullDataset = loadVendorDataset(grcVendorsRaw);
   const dataset: VendorDataset = {
     ...fullDataset,
@@ -58,7 +64,9 @@ export default async function GrcVergleichRoute({
       />
       <WikiPageMeta authorSlug="simon-orzel" locale={locale} />
       <GlossedProse locale={locale}>
-        <GrcComparisonPage dataset={dataset} stats={stats} locale={locale} />
+        {/* The wiki's language, not the request's: a language the wiki is not written in keeps
+            the German vendor texts it always had, and a Czech page gets Czech. */}
+        <GrcComparisonPage dataset={localiseDataset(dataset, locale)} stats={stats} />
       </GlossedProse>
     </>
   );

@@ -142,7 +142,7 @@ describe("canceledEmailWording", () => {
       reason: "window_passed",
     } as const;
     const paidBack = { ...moneyBack, refundOwed: true } as const;
-    for (const locale of ["de", "en", "nl"] as const) {
+    for (const locale of ["de", "en", "nl", "cs"] as const) {
       for (const mail of [renewal, paidBack]) {
         const kept = wordsOf(canceledEmailWording(mail, locale));
         const erased = wordsOf(
@@ -150,11 +150,13 @@ describe("canceledEmailWording", () => {
         );
         expect(erased).not.toEqual(kept);
         expect(erased).not.toMatch(
-          /bleiben in Ihrem Konto|stay in your account|blijven in uw/,
+          /bleiben in Ihrem Konto|stay in your account|blijven in uw|zůstávají ve vašem účtu/,
         );
-        expect(erased).not.toMatch(/Zugang bis|Access until|Toegang tot/);
+        expect(erased).not.toMatch(/Zugang bis|Access until|Toegang tot|Přístup do/);
         // Nobody is left to send the refund confirmation to.
-        expect(erased).not.toMatch(/kurzen E-Mail|short email|korte e-mail/);
+        expect(erased).not.toMatch(
+          /kurzen E-Mail|short email|korte e-mail|krátkým e-mailem/,
+        );
         // The holder reads it inside the erasure confirmation, the accounting copy needs no word of it.
         expect(erased).not.toMatch(/eigenen E-Mail|separate email|aparte e-mail/);
       }
@@ -166,8 +168,20 @@ describe("canceledEmailWording", () => {
     expect(words).toContain("we confirm it in a short email");
   });
 
+  test("a Czech holder reads the cancel in Czech, with Czech amounts and dates", () => {
+    // Czech number formatting groups with no-break spaces; compared as plain spaces.
+    const words = wordsOf(
+      canceledEmailWording({ ...moneyBack, refundOwed: true }, "cs"),
+    ).replace(/\s/gu, " ");
+    expect(words).toContain("Dobropis GS-2026-0001: vaše objednávka je stornována");
+    expect(words).toContain("Fakturu RE-2026-0001 ze dne 15. září 2026");
+    expect(words).toContain("Průvodce NIS 2, roční licence");
+    expect(words).toContain("4 800,00 € bez DPH plus 912,00 € DPH (19 %)");
+    expect(words).not.toMatch(/Credit note|Invoice|Refund|annual licence/);
+  });
+
   test("carries no em dash in any language", () => {
-    for (const locale of ["de", "en", "nl"] as const) {
+    for (const locale of ["de", "en", "nl", "cs"] as const) {
       const mails = [
         canceledEmailWording({ ...moneyBack, refundOwed: true, attached: false }, locale),
         canceledEmailWording(

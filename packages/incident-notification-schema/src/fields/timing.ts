@@ -1,4 +1,4 @@
-import { REPORT_TYPE, SECTION, FIELD_TYPE, type IncidentField } from "../schema";
+import { FIELD_TYPE, type IncidentField, REPORT_TYPE, SECTION } from "../schema";
 
 export const timingFields: ReadonlyArray<IncidentField> = [
   {
@@ -70,15 +70,15 @@ export const timingFields: ReadonlyArray<IncidentField> = [
       ro: "Ora detectării / luării la cunoștință (ISO-8601)",
     },
     description: {
-      en: "Time the entity became aware of the significant incident. Starts the 24h / 72h / 1m clocks under NIS 2 Art. 23(4).",
-      de: "Zeitpunkt der Kenntniserlangung des erheblichen Sicherheitsvorfalls. Startet die 24h / 72h / 1m-Fristen nach Art. 23(4) NIS 2.",
-      fr: "Heure à laquelle l'entité a eu connaissance de l'incident important. Déclenche les délais de 24h / 72h / 1m au titre de l'art. 23(4) NIS 2.",
-      it: "Ora in cui il soggetto è venuto a conoscenza dell'incidente significativo. Avvia i termini di 24h / 72h / 1m ai sensi dell'art. 23(4) NIS 2.",
-      es: "Hora en que la entidad tuvo conocimiento del incidente significativo. Inicia los plazos de 24h / 72h / 1m conforme al art. 23(4) NIS 2.",
-      pl: "Czas, w którym podmiot powziął wiedzę o poważnym incydencie. Rozpoczyna bieg terminów 24h / 72h / 1m zgodnie z art. 23(4) NIS 2.",
-      cs: "Čas, kdy se subjekt dozvěděl o významném incidentu. Spouští lhůty 24h / 72h / 1m podle čl. 23(4) NIS 2.",
-      pt: "Hora em que a entidade tomou conhecimento do incidente significativo. Inicia os prazos de 24h / 72h / 1m ao abrigo do art. 23(4) NIS 2.",
-      ro: "Ora la care entitatea a luat cunoștință de incidentul semnificativ. Declanșează termenele de 24h / 72h / 1m în temeiul art. 23(4) NIS 2.",
+      en: "Time the entity became aware of the significant incident. Starts the 24h and 72h clocks under NIS 2 Art. 23(4)(a) and (b); the one-month deadline for the final report runs from the incident notification (Art. 23(4)(d)).",
+      de: "Zeitpunkt der Kenntniserlangung des erheblichen Sicherheitsvorfalls. Startet die Fristen von 24 und 72 Stunden nach Art. 23(4)(a) und (b) NIS 2; die Frist von einem Monat für den Abschlussbericht läuft ab der Meldung über den Sicherheitsvorfall (Art. 23(4)(d) NIS 2).",
+      fr: "Heure à laquelle l'entité a eu connaissance de l'incident important. Déclenche les délais de 24h et de 72h au titre de l'art. 23(4)(a) et (b) NIS 2 ; le délai d'un mois pour le rapport final court à compter de la notification d'incident (art. 23(4)(d) NIS 2).",
+      it: "Ora in cui il soggetto è venuto a conoscenza dell'incidente significativo. Avvia i termini di 24h e 72h ai sensi dell'art. 23(4)(a) e (b) NIS 2; il termine di un mese per la relazione finale decorre dalla notifica dell'incidente (art. 23(4)(d) NIS 2).",
+      es: "Hora en que la entidad tuvo conocimiento del incidente significativo. Inicia los plazos de 24h y 72h conforme al art. 23(4)(a) y (b) NIS 2; el plazo de un mes para el informe final se cuenta desde la notificación del incidente (art. 23(4)(d) NIS 2).",
+      pl: "Czas, w którym podmiot powziął wiedzę o poważnym incydencie. Rozpoczyna bieg terminów 24h i 72h zgodnie z art. 23(4)(a) i (b) NIS 2; termin jednego miesiąca na sprawozdanie końcowe biegnie od zgłoszenia incydentu (art. 23(4)(d) NIS 2).",
+      cs: "Čas, kdy se subjekt dozvěděl o významném incidentu. Spouští lhůty 24 a 72 hodin podle čl. 23(4)(a) a (b) NIS 2; lhůta jednoho měsíce pro závěrečnou zprávu běží od předložení oznámení incidentu (čl. 23(4)(d) NIS 2).",
+      pt: "Hora em que a entidade tomou conhecimento do incidente significativo. Inicia os prazos de 24h e 72h ao abrigo do art. 23(4)(a) e (b) NIS 2; o prazo de um mês para o relatório final conta a partir da notificação do incidente (art. 23(4)(d) NIS 2).",
+      ro: "Ora la care entitatea a luat cunoștință de incidentul semnificativ. Declanșează termenele de 24h și 72h în temeiul art. 23(4)(a) și (b) NIS 2; termenul de o lună pentru raportul final curge de la notificarea incidentului (art. 23(4)(d) NIS 2).",
     },
     requiredIn: [
       REPORT_TYPE.EARLY_WARNING,

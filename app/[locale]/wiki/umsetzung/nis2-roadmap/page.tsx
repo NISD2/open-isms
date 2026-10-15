@@ -13,6 +13,7 @@ import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
 import {
   faqJsonLd,
+  LawChip,
   WikiExample,
   WikiFaq,
   type WikiQuestion,
@@ -20,7 +21,8 @@ import {
   WikiSources,
 } from "@/components/wiki/WikiSection";
 import { Link } from "@/i18n/navigation";
-import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
+import { wikiLocale } from "@/lib/content/wiki-locale";
+import { pageAlternates, pageOg } from "@/lib/seo";
 import { PrintShareActions } from "./PrintShareActions";
 
 export async function generateMetadata({
@@ -46,10 +48,13 @@ export async function generateMetadata({
   };
 }
 
-/** Where a step's action leads: a page of this site, or the authority's own tool. */
+/**
+ * Where a step's action leads: a page of this site, or the authority's own tool, which for a
+ * Czech reader is NÚKIB's (`czechUrl`), not the BSI's.
+ */
 type StepLink =
   | { readonly kind: "internal"; readonly path: string }
-  | { readonly kind: "external"; readonly url: string };
+  | { readonly kind: "external"; readonly url: string; readonly czechUrl: string };
 
 /**
  * The roadmap, in the order the steps come up. Each names who does it and, where the walkthrough
@@ -59,7 +64,12 @@ const STEPS = [
   {
     key: "check",
     personal: false,
-    link: { kind: "external", url: "https://betroffenheitspruefung-nis-2.bsi.de/" },
+    link: {
+      kind: "external",
+      url: "https://betroffenheitspruefung-nis-2.bsi.de/",
+      // NÚKIB's FAQ sends companies unsure whether the Act applies to this calculator.
+      czechUrl: "https://portal.nukib.gov.cz/kalkulacka",
+    },
   },
   {
     key: "register",
@@ -118,7 +128,7 @@ export default async function Nis2RoadmapPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale = wikiLocale(rawLocale);
   const [t, w] = await Promise.all([
     getTranslations("info.nis2Roadmap"),
     getTranslations("info.wikiWalk"),
@@ -165,7 +175,7 @@ export default async function Nis2RoadmapPage({
           <div className="mt-6">
             <WikiPageMeta
               authorSlug="simon-orzel"
-              locale={locale === "nl" ? "de" : (locale as "de" | "en")}
+              locale={locale === "nl" ? "de" : locale}
               lastReviewedAt="2026-10-05"
               sourceLocale="de"
             />
@@ -215,16 +225,14 @@ export default async function Nis2RoadmapPage({
                     <dl className="mt-5 grid gap-x-4 gap-y-2 text-sm sm:grid-cols-[9rem_1fr]">
                       <dt className="text-muted-foreground">{t("lawLabel")}</dt>
                       <dd>
-                        <span className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs ring-1 ring-inset ring-border">
-                          {t(`steps.${step.key}.law`)}
-                        </span>
+                        <LawChip law={t(`steps.${step.key}.law`)} />
                       </dd>
                       <dt className="text-muted-foreground">{t("ownerLabel")}</dt>
                       <dd>{t(`steps.${step.key}.owner`)}</dd>
                     </dl>
                     {step.link.kind === "external" ? (
                       <a
-                        href={step.link.url}
+                        href={locale === "cs" ? step.link.czechUrl : step.link.url}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={ACTION_CLASS}

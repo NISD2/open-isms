@@ -1,4 +1,5 @@
 import { Document, Page, View } from "@react-pdf/renderer";
+import { localizeGapDomain, localizeGapQuestion } from "@/lib/gap-assessment/localize";
 import type {
   AssessmentScores,
   GapDomain,
@@ -17,6 +18,7 @@ import {
   scoreColor,
   Table,
 } from "./chrome";
+import { type PdfLocale, pdfLocale } from "./format";
 import { styles } from "./styles";
 import { SIGNAL } from "./theme";
 
@@ -29,7 +31,7 @@ import { SIGNAL } from "./theme";
  * that did not look like they came from the same company.
  */
 
-const MATURITY_LABELS: Record<string, Record<string, string>> = {
+const MATURITY_LABELS: Readonly<Record<PdfLocale, Readonly<Record<string, string>>>> = {
   en: {
     critical: "Critical",
     initial: "Initial",
@@ -44,21 +46,36 @@ const MATURITY_LABELS: Record<string, Record<string, string>> = {
     managed: "Gesteuert",
     optimized: "Optimiert",
   },
-};
-
-const CONSEQUENCE_LABELS: Record<string, Record<number, string>> = {
-  en: { 0: "Audit finding", 1: "Operational risk", 2: "Fine", 3: "Personal liability" },
-  de: {
-    0: "Audit-Feststellung",
-    1: "Operatives Risiko",
-    2: "Bußgeld",
-    3: "Persönliche Haftung",
+  cs: {
+    critical: "Kritická",
+    initial: "Počáteční",
+    developing: "Rozvíjející se",
+    managed: "Řízená",
+    optimized: "Optimalizovaná",
   },
 };
 
-const TIME_LABELS: Record<string, Record<number, string>> = {
+const CONSEQUENCE_LABELS: Readonly<Record<PdfLocale, Readonly<Record<number, string>>>> =
+  {
+    en: { 0: "Audit finding", 1: "Operational risk", 2: "Fine", 3: "Personal liability" },
+    de: {
+      0: "Audit-Feststellung",
+      1: "Operatives Risiko",
+      2: "Bußgeld",
+      3: "Persönliche Haftung",
+    },
+    cs: {
+      0: "Zjištění z auditu",
+      1: "Provozní riziko",
+      2: "Pokuta",
+      3: "Osobní odpovědnost",
+    },
+  };
+
+const TIME_LABELS: Readonly<Record<PdfLocale, Readonly<Record<number, string>>>> = {
   en: { 0: "Quick win", 1: "Days", 2: "Weeks", 3: "Months" },
   de: { 0: "Sofort", 1: "Tage", 2: "Wochen", 3: "Monate" },
+  cs: { 0: "Ihned", 1: "Dny", 2: "Týdny", 3: "Měsíce" },
 };
 
 const COPY = {
@@ -110,7 +127,31 @@ const COPY = {
     generatedWith: "Erstellt mit",
     page: (n: number, total: number) => `Seite ${n} von ${total}`,
   },
-} as const;
+  cs: {
+    title: "GAP analýza NIS 2",
+    subtitle: "Hodnocení připravenosti",
+    company: "Organizace",
+    date: "Datum",
+    answered: "Zodpovězené otázky",
+    domainScores: "Skóre podle oblastí",
+    priorityGaps: "Prioritní nedostatky",
+    overall: "Celkové skóre",
+    criticalGaps: "Kritické nedostatky",
+    fineExposure: "Riziko pokuty",
+    quickWins: "Napravitelné ihned",
+    domain: "Oblast",
+    score: "Skóre",
+    maturity: "Vyspělost",
+    answeredShort: "Zodpovězeno",
+    finding: "Zjištění",
+    consequence: "Důsledek",
+    effort: "Náročnost",
+    fine: "Pokuta",
+    confidential: "Důvěrné",
+    generatedWith: "Vytvořeno pomocí",
+    page: (n: number, total: number) => `Strana ${n} z ${total}`,
+  },
+} as const satisfies Record<PdfLocale, object>;
 
 export function GapAssessmentReport({
   scores,
@@ -127,7 +168,7 @@ export function GapAssessmentReport({
   companyName?: string;
   date: string;
 }) {
-  const l = locale === "de" ? "de" : "en";
+  const l = pdfLocale(locale);
   const t = COPY[l];
   const maturityLabels = MATURITY_LABELS[l];
   const consequenceLabels = CONSEQUENCE_LABELS[l];
@@ -141,12 +182,12 @@ export function GapAssessmentReport({
 
   function getDomainName(id: number) {
     const d = domains.find((dom) => dom.id === id);
-    return d ? (l === "de" ? d.name.de : d.name.en) : `Domain ${id}`;
+    return d ? localizeGapDomain(d, l).name : `${t.domain} ${id}`;
   }
 
   function getQuestionText(qid: string) {
     const q = questions.find((qu) => qu.id === qid);
-    return q ? (l === "de" ? q.text.de : q.text.en) : qid;
+    return q ? localizeGapQuestion(q, l).text : qid;
   }
 
   const domainColumns: Column[] = [

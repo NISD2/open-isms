@@ -1,11 +1,26 @@
 {
   "supplierPortal": {
     "certifications": {
+      "title": "Certifikáty",
+      "intro": "ISO 27001, BSI IT-Grundschutz (německá metodika), SOC 2 nebo TISAX: nahrajte certifikát jako PDF, včetně auditora a data konce platnosti.",
+      "introReadOnly": "Certifikáty, které dodavatel nahrál, včetně auditora a data konce platnosti.",
+      "add": "Přidat",
+      "save": "Uložit certifikát",
+      "empty": "Zatím žádné certifikáty. První nahrajete tlačítkem Přidat.",
+      "emptyReadOnly": "Dodavatel nenahrál žádný platný certifikát.",
+      "validUntil": "platný do {date}",
       "uploadHint": "Přetáhněte sem PDF s certifikátem, nebo klikněte a vyberte soubor",
       "uploading": "Nahrávání…",
       "uploadFailed": "Nahrání se nezdařilo. Zkuste to prosím znovu nebo kontaktujte podporu.",
       "tooManyUploads": "Vaše společnost za poslední hodinu nahrála příliš mnoho souborů. Zkuste to prosím znovu za hodinu.",
-      "remove": "Odebrat"
+      "remove": "Odebrat",
+      "typeLabel": "Druh dokladu",
+      "typePenTest": "Penetrační test",
+      "typeOther": "Jiný doklad",
+      "auditorLabel": "Auditor",
+      "auditorPlaceholder": "Název certifikačního orgánu",
+      "validUntilLabel": "Platný do",
+      "fileLabel": "Certifikát v PDF"
     },
     "nav": {
       "portalName": "Dodavatelský portál",
@@ -16,7 +31,7 @@
       "practices": "Bezpečnostní praxe",
       "serviceType": "Typ služby",
       "certifications": "Certifikáty",
-      "assets": "Assets",
+      "assets": "Aktiva",
       "incidents": "Incidenty",
       "access": "Přístup"
     },
@@ -49,7 +64,7 @@
       "step3Title": "Pozvat zákazníky",
       "step3Body": "Každý zákazník dostane vlastní soukromý odkaz. Vidí váš profil, systémy, které pro něj provozujete, a vaše certifikáty. Účet k tomu nepotřebuje.",
       "step4Title": "Hlásit incidenty",
-      "step4Body": "Pokud je zasažen systém některého zákazníka, nahlásíte to přímo z portálu. Hlášení vidí jen tento jeden zákazník. Tím plní svou povinnost průběžně sledovat dodavatele podle článku 21(2)(d) NIS 2.",
+      "step4Body": "Pokud je zasažen systém některého zákazníka, nahlásíte to přímo z portálu. Hlášení vidí jen tento jeden zákazník. Zákazníkovi to pomáhá plnit povinnost podle čl. 21 odst. 2 písm. d) směrnice NIS 2 mít přehled o bezpečnosti svého dodavatelského řetězce.",
       "coversTitle": "Na co se ptáme",
       "coversIntro": "Otázky vycházejí z článku 21 NIS2, prováděcího nařízení (EU) 2024/2690 a Technical Implementation Guidance v1.0 agentury ENISA z června 2025; každá uvádí ustanovení, o které se opírá, a tam, kde existuje, odpovídající opatření z ISO 27001. Ptáme se na to, co zákazník potřebuje pro svůj dodavatelský řetězec, a na nic víc. Sada otázek je veřejná na GitHubu.",
       "covers1Title": "Identita a kontakt",
@@ -66,9 +81,9 @@
       "privacyBody": "Žádný veřejný seznam dodavatelů neexistuje. Váš profil vidí jen zákazníci, kterým jej zpřístupníte, a každý z nich může svůj přístup sám ukončit. Žádná veřejná adresa, žádné indexování ve vyhledávačích.",
       "bsiQuote": "Wir begrüßen aktuelle Vorstöße der Wirtschaft, einen einheitlichen Fragenkatalog für Lieferanten zu erarbeiten.",
       "bsiQuoteTranslation": "Vítáme současné iniciativy podnikatelské sféry vypracovat jednotný katalog otázek pro dodavatele.",
-      "bsiAttribution": "BSI, FAQ k NIS 2 (dodavatelské řetězce a bezpečnost). Tento portál je přesně to: jednotná sada otázek, kterou postavila firma a kterou smí použít kdokoli.",
+      "bsiAttribution": "Německý úřad BSI, FAQ k NIS 2 (dodavatelské řetězce a bezpečnost). Tento portál je přesně to: jednotná sada otázek, kterou postavila firma a kterou může zdarma použít kdokoli.",
       "whyFreeTitle": "Proč zdarma?",
-      "whyFree": "Dodavatelský portál nic nestojí a kód je otevřený. Vyděláváme na školení a doprovodu při zavádění, ne na vašich datech. Platforma i sada otázek jsou na GitHubu, můžete si to ověřit sami.",
+      "whyFree": "Dodavatelský portál nic nestojí a kód je otevřený. Vyděláváme na průvodci pro firmy, které spadají pod NIS 2, ne na vašich datech. Platforma i sada otázek jsou na GitHubu, můžete si to ověřit sami.",
       "proofOpenSource": "Open source, k nahlédnutí na GitHubu",
       "proofEuHosted": "Hostováno v EU",
       "trustLink": "Více v Trust Center",
@@ -84,6 +99,20 @@
       "saved": "Uloženo",
       "saveError": "Nepodařilo se uložit. Zkuste to prosím znovu.",
       "savedAt": "Naposledy uloženo {time}",
+      "notSavedYet": "Zatím neuloženo",
+      "unsaved": "Neuložené změny",
+      "answered": "Zodpovězeno {answered} z {total}",
+      "yes": "Ano",
+      "no": "Ne",
+      "unanswered": "Nezodpovězeno",
+      "hours": "hod.",
+      "basis": "Základ",
+      "invalid": {
+        "domain": "Zadejte jen doménu, například prikladsoftware.cz.",
+        "email": "Zadejte e-mailovou adresu, například bezpecnost@prikladsoftware.cz.",
+        "country": "Zadejte dvě písmena, například CZ.",
+        "other": "Tuto odpověď nelze v této podobě uložit. Zkontrolujte ji prosím."
+      },
       "groups": {
         "identity": {
           "title": "Kdo jste",
@@ -181,6 +210,103 @@
         "significant": "Významný incident"
       }
     },
+    "customers": {
+      "emailLabel": "E-mail bezpečnostního kontaktu zákazníka",
+      "emailPlaceholder": "it@zakaznik.example",
+      "orgNameLabel": "Název firmy zákazníka",
+      "orgNamePlaceholder": "Příklad s.r.o.",
+      "submit": "Pozvat zákazníka"
+    },
+    "assets": {
+      "add": "Přidat aktivum",
+      "newTitle": "Nové aktivum",
+      "editTitle": "Upravit aktivum",
+      "save": "Uložit aktivum",
+      "saveChanges": "Uložit změny",
+      "remove": "Odebrat aktivum",
+      "empty": "Pro tohoto zákazníka zatím není zaznamenáno žádné aktivum. První zaznamenáte tlačítkem Přidat aktivum.",
+      "serviceTypes": {
+        "saas": "Software jako služba (SaaS)",
+        "on_prem": "Software u zákazníka",
+        "pro_services": "Odborné služby",
+        "managed": "Spravovaná služba"
+      }
+    },
+    "incidents": {
+      "intro": "Informujte {recipient} o bezpečnostním incidentu, který se týká aktiv, jež pro něj spravujete. Zákazníkovi to pomáhá plnit povinnost podle čl. 21 odst. 2 písm. d) směrnice NIS 2 mít přehled o bezpečnosti svého dodavatelského řetězce.",
+      "thisCustomer": "tohoto zákazníka",
+      "newTitle": "Nahlásit nový incident",
+      "affectedAssets": "Dotčená aktiva (nepovinné, bez výběru půjde o obecné oznámení)",
+      "loadingAssets": "Načítání aktiv…",
+      "noAssets": "Pro tohoto zákazníka zatím není zaznamenáno žádné aktivum. Oznámení odejde bez uvedení aktiva.",
+      "titleLabel": "Název",
+      "titlePlaceholder": "Výpadek zákaznického portálu",
+      "descriptionLabel": "Popis (nejvýše {max, number} znaků)",
+      "descriptionPlaceholder": "Mezi 14:00 a 15:30 UTC byl zákaznický portál nedostupný…",
+      "descriptionHint": "Neuvádějte interní poznámky z vyšetřování ani osobní údaje. Zákazník čte text přesně tak, jak ho napíšete. E-mail, který dostane, text neobsahuje, jen odkazuje na vaše oznámení.",
+      "severity": "Závažnost",
+      "severityOptions": {
+        "info": "Téměř incident",
+        "warning": "Incident",
+        "critical": "Významný incident"
+      },
+      "notify": "Informovat zákazníka",
+      "historyTitle": "Nahlášené incidenty",
+      "historyEmpty": "Zatím nebyly nahlášeny žádné incidenty.",
+      "reportedAt": "Nahlášeno {date}",
+      "delivery": "Oznámení: {status} (odesláno: {count})",
+      "deliveryStatus": {
+        "queued": "ve frontě",
+        "sending": "odesílá se",
+        "sent": "odesláno",
+        "failed": "selhalo",
+        "none": "žádné"
+      }
+    },
+    "access": {
+      "contactMissing": "(bez e-mailu)",
+      "revokeConfirm": "Ukončit přístup pro tohoto zákazníka? Váš bezpečnostní profil pak už neuvidí.",
+      "status": {
+        "active": "Aktivní",
+        "revoked": "Ukončeno",
+        "bounced": "E-mail nedoručen"
+      },
+      "clausesTitle": "Smluvní doložky pro tohoto zákazníka",
+      "clausesIntro": "Co jste s tímto zákazníkem sjednali ve smlouvě. Vychází z bodu 5.1.4 přílohy prováděcího nařízení (EU) 2024/2690 a z Technical Implementation Guidance agentury ENISA k tomuto bodu.",
+      "saveClauses": "Uložit doložky"
+    },
+    "acceptInvite": {
+      "metaTitle": "Přijetí pozvání pro dodavatele",
+      "wrongEmailTitle": "Přihlášeni s jiným e-mailem",
+      "wrongEmailBody": "Toto pozvání bylo odesláno na <b>{invited}</b>, ale jste přihlášeni jako <b>{signedIn}</b>.",
+      "wrongEmailHint": "Odhlaste se a přihlaste se znovu jako {invited}, abyste mohli pozvání přijmout.",
+      "signOut": "Odhlásit se",
+      "hasCompanyTitle": "Účet se už používá",
+      "hasCompanyBody": "Váš účet už na platformě patří jiné společnosti. Chcete-li toto pozvání přijmout, přihlaste se prosím jinou e-mailovou adresou.",
+      "toPortal": "Přejít do mého dodavatelského portálu",
+      "eyebrow": "Pozvání",
+      "title": "{company} žádá o přístup k vašemu bezpečnostnímu profilu",
+      "intro": "{company} spadá pod NIS 2 a musí ověřovat, jak bezpečně pracují její dodavatelé. Místo vlastního dotazníku používá nisd2.eu: jednotný dotazník vyplníte jednou a zpřístupníte ho každému zákazníkovi, který o to požádá.",
+      "yourEmail": "Váš e-mail",
+      "nameLabel": "Název vaší firmy",
+      "namePlaceholder": "Příklad s.r.o.",
+      "countryLabel": "Země (kód ISO)",
+      "countryHint": "Dvoupísmenný kód podle ISO 3166-1, například CZ nebo SK.",
+      "submit": "Přijmout a vytvořit profil",
+      "freeNote": "Dodavatelský portál nic nestojí. Většina dodavatelů sama pod NIS 2 nespadá a tento formulář to ani nepředpokládá."
+    },
+    "options": {
+      "saasHostingRegion": {
+        "eu": "Pouze EU",
+        "de_only": "Pouze Německo",
+        "global": "Celosvětově"
+      },
+      "backgroundCheckScope": {
+        "criminal": "Výpis z rejstříku trestů",
+        "employment": "Pracovní historie",
+        "both": "Obojí"
+      }
+    },
     "fields": {
       "dataProcessingLocations": "Země / regiony, kde se zpracovávají data zákazníků",
       "saasHostingRegion": "Region hostování",
@@ -193,7 +319,20 @@
       "proServicesCustomerPremisesPolicy": "Zdokumentovaná pravidla chování v prostorách zákazníka",
       "managedPrivilegedAccessMgmt": "Zavedena správa privilegovaného přístupu (PAM)",
       "managedSessionRecording": "Administrátorské relace jsou zaznamenávány",
-      "managedOnCall24x7": "Pohotovostní pokrytí 24/7"
+      "managedOnCall24x7": "Pohotovostní pokrytí 24/7",
+      "name": "Název",
+      "serviceType": "Typ služby",
+      "serviceDescription": "Popis služby",
+      "acceptRightToAudit": "Přijímáme audity ze strany zákazníka nebo poskytujeme zprávy z auditů",
+      "hasSubprocessors": "Pro tohoto zákazníka využíváme subdodavatele",
+      "subprocessorList": "Seznam subdodavatelů",
+      "dataReturnOnTermination": "Po skončení smlouvy vrátíme nebo zničíme vše, co od zákazníka máme",
+      "dpaAvailable": "Smlouva o zpracování osobních údajů je uzavřena",
+      "hasExitPlan": "Máme zdokumentovaný plán ukončení spolupráce s přiměřeným přechodným obdobím",
+      "notifyOnLocationChange": "Zákazníka předem informujeme, pokud se změní místo zpracování dat",
+      "notifyMaterialChanges": "Zákazníka informujeme o podstatných změnách naší služby",
+      "incidentAssistanceCommitment": "Při incidentech zákazníkovi pomáháme bez dalších nákladů",
+      "incidentSlaHours": "Jak rychle zákazníka informujete o incidentu (hodiny)"
     }
   }
 }

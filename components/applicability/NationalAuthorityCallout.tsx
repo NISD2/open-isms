@@ -1,14 +1,37 @@
+import { ArrowUpRight, Building2 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
-import { Building2, ArrowUpRight } from "lucide-react";
 import { getRegistrationPortals } from "@/lib/registration-portals";
 
 const FEATURED_COUNTRIES = [
-  "DE", "AT", "BE", "FR", "IT", "NL",
-  "ES", "SE", "FI", "DK", "IE", "PT", "PL", "CZ",
-  "HU", "RO", "GR", "SK", "BG", "HR", "LU", "SI",
-  "CY", "EE", "LT", "LV", "MT",
+  "DE",
+  "AT",
+  "BE",
+  "FR",
+  "IT",
+  "NL",
+  "ES",
+  "SE",
+  "FI",
+  "DK",
+  "IE",
+  "PT",
+  "PL",
+  "CZ",
+  "HU",
+  "RO",
+  "GR",
+  "SK",
+  "BG",
+  "HR",
+  "LU",
+  "SI",
+  "CY",
+  "EE",
+  "LT",
+  "LV",
+  "MT",
 ] as const;
 
 export async function NationalAuthorityCallout({
@@ -22,14 +45,17 @@ export async function NationalAuthorityCallout({
   highlightCountry?: string;
 }) {
   const t = await getTranslations("companyLookup.authorityCallout");
-  const data = getRegistrationPortals();
+  const data = getRegistrationPortals(locale);
 
-  const featuredList = FEATURED_COUNTRIES
-    .map((code) => data.portals.find((p) => p.countryCode === code))
-    .filter((p): p is NonNullable<typeof p> => p !== undefined);
+  const featuredList = FEATURED_COUNTRIES.map((code) =>
+    data.portals.find((p) => p.countryCode === code),
+  ).filter((p): p is NonNullable<typeof p> => p !== undefined);
 
-  // Re-order so the highlighted country comes first. Stable for the rest.
-  const highlight = highlightCountry?.toUpperCase();
+  // Re-order so the highlighted country comes first. Stable for the rest. A Czech reader with no
+  // country chosen sees NÚKIB first rather than the BSI.
+  const highlight = (
+    highlightCountry ?? (locale === "cs" ? "CZ" : undefined)
+  )?.toUpperCase();
   const featured = highlight
     ? [
         ...featuredList.filter((p) => p.countryCode === highlight),
@@ -54,9 +80,7 @@ export async function NationalAuthorityCallout({
           </div>
           <div className="flex-1 min-w-0">
             <h2 className="font-semibold">{t("heading")}</h2>
-            <p className="text-sm text-muted-foreground mt-0.5">
-              {t("body")}
-            </p>
+            <p className="text-sm text-muted-foreground mt-0.5">{t("body")}</p>
           </div>
         </div>
 
@@ -100,9 +124,7 @@ export async function NationalAuthorityCallout({
                   <>
                     <span className="text-xs text-muted-foreground/60">·</span>
                     <Link
-                      href={
-                        `/wiki/zeit-und-status/${portal.wikiSlug}` as never
-                      }
+                      href={`/wiki/zeit-und-status/${portal.wikiSlug}` as never}
                       className="text-xs text-primary hover:underline"
                     >
                       {t("details")}

@@ -2,29 +2,38 @@
  * Shared formatting utilities for PDF document rendering.
  */
 import { clipAnswer } from "@/lib/compliance/intake-answers";
-
-export type PdfLocale = "en" | "de";
+import { WALK_DATE_LOCALE } from "@/lib/durchgang/notes";
+import { WALK_LOCALES, type WalkLocale } from "@/lib/durchgang/types";
+import { exportLabels } from "./export-labels";
 
 /**
- * The report and policy documents ship in two languages.
+ * The languages the export, report and policy documents ship in: the walk's, because the walk
+ * writes what they print.
  *
  * This used to be a font limitation: PDFs rendered in the base-14 Helvetica,
  * whose WinAnsi encoding silently garbled pl/cs/ro. That is fixed - lib/pdf
  * embeds Inter, and the certificate and the supplier questionnaire render all
- * ten locales. What still constrains these two documents is translation:
- * policy-labels.ts is hand-authored and only has en and de. Adding a locale
- * there is now the only thing standing between them and the rest of the set.
+ * ten locales. What still constrains these documents is translation: the
+ * labels in policy-labels.ts and export-labels.ts are hand-authored and keyed
+ * by this type, so a language the walk gains does not compile until they have it.
  */
+export const PDF_LOCALES = WALK_LOCALES;
+export type PdfLocale = WalkLocale;
+
+const isPdfLocale = (value: string | undefined): value is PdfLocale =>
+  PDF_LOCALES.some((locale) => locale === value);
+
 export function pdfLocale(raw: string | null): PdfLocale {
-  return raw?.trim().toLowerCase().split("-")[0] === "de" ? "de" : "en";
+  const language = raw?.trim().toLowerCase().split("-")[0];
+  return isPdfLocale(language) ? language : "en";
 }
 
 /**
- * English is what every reader but a German one gets, across Europe, so its dates are day first
- * (en-GB): a reader in Prague takes "3/12/2026" for 3 December.
+ * Dates as the walk writes them. English is what every other reader gets, across Europe, so its
+ * dates are day first (en-GB): a reader in Lisbon takes "3/12/2026" for 3 December.
  */
 export function getDateLocale(locale: string): string {
-  return locale === "de" ? "de-DE" : "en-GB";
+  return WALK_DATE_LOCALE[pdfLocale(locale)];
 }
 
 /** Calendar day in German time, so a decision made just after midnight in
@@ -57,8 +66,10 @@ export function formatFieldValue(
   locale: string,
 ): string {
   if (value === null || value === undefined) return "—";
-  if (value === true) return locale === "de" ? "Ja" : "Yes";
-  if (value === false) return locale === "de" ? "Nein" : "No";
+  if (typeof value === "boolean") {
+    const { yes, no } = exportLabels(pdfLocale(locale));
+    return value ? yes : no;
+  }
 
   if (
     fieldType === "date" ||

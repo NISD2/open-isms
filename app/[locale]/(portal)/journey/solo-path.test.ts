@@ -53,7 +53,7 @@ describe("buildSoloSections", () => {
       node("3.1", "year", "RISK", "upcoming"),
       node("2.2", "year", "GOV", "upcoming"),
     ];
-    const keys = buildSoloSections(twice, false).map((s) => s.key);
+    const keys = buildSoloSections(twice, "en").map((s) => s.key);
     expect(keys).toHaveLength(3);
     expect(new Set(keys).size).toBe(3);
   });
@@ -61,7 +61,7 @@ describe("buildSoloSections", () => {
   test("still merges neighbouring steps of the same window and category", () => {
     const sections = buildSoloSections(
       [node("2.1", "year", "GOV", "upcoming"), node("2.2", "year", "GOV", "upcoming")],
-      false,
+      "en",
     );
     expect(sections).toHaveLength(1);
     expect(sections[0]?.steps).toHaveLength(2);
@@ -70,13 +70,21 @@ describe("buildSoloSections", () => {
 
 describe("buildStageProgress", () => {
   test("lists each window once, in window order, however often the path returns to it", () => {
-    const stages = buildStageProgress(buildSoloSections(path, false));
+    const stages = buildStageProgress(buildSoloSections(path, "en"));
     expect(stages.map((s) => s.band)).toEqual(["minimum", "year", "later"]);
     expect(new Set(stages.map((s) => s.index)).size).toBe(stages.length);
   });
 
   test("adds a window's steps up across every run of it", () => {
-    const [firstMonth] = buildStageProgress(buildSoloSections(path, false));
+    const [firstMonth] = buildStageProgress(buildSoloSections(path, "en"));
     expect(firstMonth).toMatchObject({ total: 3, done: 1, open: 2 });
+  });
+});
+
+describe("a Czech page", () => {
+  test("names stages and sections in Czech, never in German or English", () => {
+    const [first] = buildSoloSections([node("2.1", "minimum", "GOV", "upcoming")], "cs");
+    expect(first?.stage.label).toBe("V prvním měsíci");
+    expect(first?.title).toBe("Řízení a odpovědnost");
   });
 });

@@ -1,7 +1,7 @@
 {
   "assets": {
     "title": "Registr aktiv",
-    "description": "Inventář všech IT a OT systémů podporujících základní služby. Vyžadováno podle CIR 2024/2690 §12 a NIS2 čl. 21(2)(i).",
+    "description": "Inventář všech IT a OT systémů podporujících základní služby. Evidenci aktiv ve stanoveném rozsahu vyžaduje § 12 odst. 3 zákona č. 264/2025 Sb. (viz též čl. 21(2)(i) NIS2 a bod 12 přílohy CIR 2024/2690).",
     "helpText": "Zaevidujte každý IT systém, OT zařízení, cloudovou službu a fyzické aktivum, na kterém vaše organizace závisí. Kritická aktiva a OT systémy označte zvlášť. Vztahují se na ně přísnější požadavky NIS2.",
     "add": "Přidat aktivum",
     "edit": "Upravit aktivum",
@@ -22,7 +22,9 @@
       "data_store": "Úložiště dat",
       "ot_ics": "OT / ICS",
       "iot": "IoT",
-      "physical": "Fyzické"
+      "physical": "Fyzické",
+      "process": "Podnikový proces",
+      "room": "Místnost"
     },
     "typeDescriptions": {
       "application": "Podnikové aplikace (ERP, CRM, e-mail)",
@@ -65,7 +67,8 @@
       "rpo": "RPO (hodiny)",
       "endOfLife": "Konec životnosti",
       "quantity": "Množství",
-      "processesPersonalData": "Zpracovává osobní údaje"
+      "processesPersonalData": "Zpracovává osobní údaje",
+      "mfaMethod": "Druh druhého faktoru"
     },
     "fieldDescriptions": {
       "name": "Jedinečný název, který toto aktivum identifikuje v inventáři vaší organizace.",
@@ -95,7 +98,7 @@
       "rto": "Cíl doby obnovy (RTO) v hodinách.",
       "rpo": "Cíl bodu obnovy (RPO) v hodinách.",
       "endOfLife": "Datum, kdy toto aktivum dosáhne konce životnosti nebo konce podpory (CIR 2024/2690, recitál).",
-      "quantity": "Počet identických jednotek v této skupině aktiv (seskupení podle BSI-200-2 §8.1).",
+      "quantity": "Počet identických jednotek v této skupině aktiv (seskupení podle kapitoly 8.1 standardu BSI 200-2).",
       "processesPersonalData": "Zapněte, pokud toto aktivum ukládá, zpracovává nebo přenáší osobní údaje (spouští úvahy podle GDPR a doplňuje inventář RoPA)."
     }
   }

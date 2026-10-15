@@ -1,0 +1,128 @@
+{
+  "partnerContract": {
+    "document": {
+      "title": "Partnerská smlouva",
+      "between": "mezi",
+      "seller": "{name}, {street}, {city}, {register}, zastoupenou jednatelem {director} („nisd2“)",
+      "and": "a",
+      "partner": "{company} („Partner“)",
+      "sections": {
+        "about": {
+          "heading": "1. O co jde",
+          "p1": "Partner doporučuje průvodce NIS 2 od nisd2 společnostem, které plní své povinnosti podle NIS2. Když doporučená společnost uzavře smlouvu s nisd2, Partner obdrží provizi.",
+          "p2": "Partner není povinen nikoho doporučovat. nisd2 se svobodně rozhoduje, zda s doporučenou společností smlouvu uzavře."
+        },
+        "offer": {
+          "heading": "2. Co zákazník dostane",
+          "p1": "Zákazník uzavírá smlouvu přímo s nisd2, za podmínek zveřejněných na nisd2.eu. Průvodce NIS 2 stojí {price} bez DPH ročně, plus DPH, a zahrnuje:",
+          "p2": "Pokud nisd2 změní cenu nebo rozsah, řídí se nové smlouvy tím, co je v dané době zveřejněno na nisd2.eu."
+        },
+        "support": {
+          "heading": "3. Podpora a přístup",
+          "p1": "nisd2 se o zákazníka stará sama. nisd2 odpovídá na dotazy e-mailem na {email}, obvykle do dvou pracovních dnů. Partner není zákazníkovi povinen poskytovat k nisd2 žádnou podporu.",
+          "p2": "Partner se na nisd2 obrací přímo: {director}, {email}.",
+          "p3": "Partner získá k průvodci NIS 2 na nisd2.eu bezplatný přístup pro vlastní společnost, aby ho poznal a mohl ho předvádět: už před přijetím a poté po dobu trvání této smlouvy. Jeho užívání se řídí podmínkami a smlouvou o zpracování osobních údajů zveřejněnými na nisd2.eu. Tento přístup nezahrnuje péči o zákazníky; každý zákazník uzavírá vlastní smlouvu. Skončením této smlouvy končí i přístup. Pokud smlouva uzavřena nebude, může nisd2 přístup ukončit."
+        },
+        "commission": {
+          "heading": "4. Provize",
+          "p1": "Partner obdrží {percent} procent z každé čisté platby, kterou nisd2 obdrží od doporučeného zákazníka, {period}.",
+          "periodMonths": "{months, plural, one {po dobu prvního měsíce smlouvy tohoto zákazníka} other {po dobu prvních # měsíců smlouvy tohoto zákazníka}}",
+          "periodOngoing": "po celou dobu, po kterou tento zákazník pokračuje ve své smlouvě s nisd2",
+          "p2": "Čistou platbou se rozumí platba bez DPH a po odečtení vrácených částek. Nárok vzniká, jakmile platba dorazí k nisd2 a zákazník ji již nemůže požadovat zpět, u první objednávky tedy po uplynutí 30 dnů na vrácení peněz.",
+          "p3": "nisd2 provádí vyúčtování čtvrtletně dobropisem v režimu samofakturace (self-billing) a platí do 15 dnů od konce čtvrtletí. Partner za tímto účelem sdělí nisd2 své daňové číslo nebo DIČ. Pokud Partner účtuje DPH, připočítává se DPH v zákonné výši. Dobropis uvádí u každého zákazníka platby, z nichž se provize počítá."
+        },
+        "attribution": {
+          "heading": "5. Kdy se zákazník považuje za doporučeného",
+          "p1": "Zákazník se považuje za doporučeného, pokud ho Partner před jeho první objednávkou oznámí nisd2 e-mailem na {email}, s uvedením společnosti a kontaktní osoby, nebo pokud zákazník sdělí nisd2 v textové formě (stačí e-mail), že ho Partner doporučil.",
+          "p2": "Pokud zákazník již byl zákazníkem nisd2 nebo již s nisd2 vedl doložený rozhovor o objednávce, nisd2 to Partnerovi sdělí do pěti pracovních dnů. Zákazník se pak za doporučeného nepovažuje."
+        },
+        "independence": {
+          "heading": "6. Nezávislost",
+          "p1": "Obě strany jsou nezávislí podnikatelé a jednají jako podnikatelé (Unternehmer) ve smyslu § 14 BGB. Partner není trvale pověřen zprostředkováním obchodů, o druhu a rozsahu své činnosti rozhoduje sám a nese vlastní náklady. Není oprávněn jednat za nisd2 a nečiní jejím jménem žádná prohlášení. Nevzniká žádný vztah obchodního zastoupení.",
+          "p2": "Partner zákazníkovi sdělí, že za doporučení dostává provizi."
+        },
+        "promotion": {
+          "heading": "7. Propagace",
+          "p1": "Partner smí uvádět nisd2 a odkazovat na nisd2.eu. Neslibuje zákazníkovi nic o službě ani o ceně, co není uvedeno na nisd2.eu, a propaguje jen tak, jak to dovoluje zákon, zejména bez nezákonné reklamy e-mailem nebo telefonem."
+        },
+        "data": {
+          "heading": "8. Ochrana osobních údajů a mlčenlivost",
+          "p1": "Každá strana je samostatným správcem podle GDPR pro kontaktní údaje, které si strany vyměňují. Partner předává údaje zákazníka nisd2 jen s vědomím tohoto zákazníka.",
+          "p2": "Podmínky této smlouvy jsou důvěrné. Partner smí zákazníkovi sdělit výši své provize."
+        },
+        "term": {
+          "heading": "9. Doba trvání a výpověď",
+          "p1": "Tato smlouva se uzavírá na dobu neurčitou. Každá strana ji může vypovědět v textové formě (stačí e-mail) s výpovědní dobou jednoho měsíce ke konci měsíce. U zákazníků, kteří do té doby platí za doporučené, nisd2 nadále vyplácí provizi podle článku 4."
+        },
+        "final": {
+          "heading": "10. Závěrečná ustanovení",
+          "p1": "Při prosté nedbalosti odpovídá každá strana jen za porušení podstatných povinností, tedy těch, jejichž splnění vůbec umožňuje plnění této smlouvy a na jejichž splnění se druhá strana může pravidelně spoléhat, a jen do výše předvídatelné škody typické pro tuto smlouvu. To neplatí pro újmu na životě, těle nebo zdraví; jinak platí zákon.",
+          "p2": "Tato smlouva není určena advokátům, daňovým poradcům ani auditorům, jejichž profesní předpisy zakazují přijímat výhody za zprostředkování zakázek.",
+          "p3": "Změny vyžadují textovou formu. Platí německé právo. Místem soudní příslušnosti je {seat}, pokud jsou obě strany obchodníky (Kaufleute). Je-li některé ustanovení neplatné, zbytek zůstává platný.",
+          "p4": "Smlouva je uzavřena, jakmile ji Partner přijme na nisd2.eu svým jménem a e-mailovou adresou. Obě strany obdrží e-mailem potvrzení s úplným textem."
+        }
+      }
+    },
+    "page": {
+      "metaTitle": "Partnerská smlouva s nisd2",
+      "access": {
+        "title": "Váš přístup",
+        "trial": "Nyní máte zkušební přístup s tímto e-mailem testovacího uživatele.",
+        "body": "Průvodce NIS 2 je odemčený. Podívejte se, co dostanou vaši klienti, aniž byste cokoli předem podepisovali.",
+        "setup": "Nastavit heslo a podívat se",
+        "signin": "Přihlásit se a podívat se",
+        "error": "Nepodařilo se. Zkuste to prosím znovu nebo napište na {email}."
+      },
+      "about": {
+        "eyebrow": "Pro partnery",
+        "title": "nisd2 ve zkratce",
+        "lead": "Co od nás dostanou vaši klienti, pro koho to je a co to nezahrnuje.",
+        "deliverTitle": "Co dodáváme",
+        "deliver1": "Průvodce NIS 2: povinnosti podle NIS2 (čl. 21 NIS2, v Česku §§ 13 a 14 zákona č. 264/2025 Sb. s vyhláškami č. 409/2025 Sb. a č. 410/2025 Sb.) jako řízené kroky, každý bod vysvětlený srozumitelně.",
+        "deliver2": "Předvyplněno, ne prázdné: kde německý úřad BSI doporučuje metodu, je připravená k použití, například hodnocení rizik podle německé metodiky BSI-Standard 200-3. Společnost ji převezme, nebo se rozhodne jinak.",
+        "deliver3": "Průvodce sepíše dokumenty z odpovědí. Vedení je schválí v aplikaci, se jménem a datem.",
+        "deliver4": "Zůstává aktuální i potom: termíny, připomínky a opakující se body se vracejí vedení ke schválení.",
+        "deliver5": "Bezpečnostní dotazník pro dodavatele, export do PDF nebo CSV. Open source, bez závislosti na dodavateli.",
+        "forTitle": "Pro koho to je",
+        "for1": "Společnosti s 50 až 150 zaměstnanci, na které dopadá NIS2.",
+        "for2": "Bez vlastního bezpečnostního oddělení: o IT se stará jeden člověk vedle své běžné práce.",
+        "for3": "Vedení rozhoduje a podepisuje samo.",
+        "notTitle": "Co nedodáváme",
+        "not1": "Žádné poradenství na místě a žádné workshopy. Na dotazy odpovídáme e-mailem nebo v hovoru.",
+        "not2": "Žádná certifikace a žádný audit. Co průvodce vytvoří, je vlastní prohlášení společnosti.",
+        "not3": "Žádné právní poradenství a žádné závazné posouzení, zda na společnost dopadá NIS2.",
+        "not4": "Žádná technická realizace: firewally, zálohy, monitoring a aktualizace zůstávají na společnosti nebo jejím poskytovateli IT.",
+        "not5": "Ne GDPR. Průvodce pokrývá NIS2.",
+        "split": "Ve zkratce: kdo chce NIS2 zavést sám, s průvodcem, je u nás správně. Kdo potřebuje podporu na místě, audit nebo technickou realizaci, je správně u partnera, jako jste vy."
+      },
+      "offered": "Nabídnuto dne {date}",
+      "forSeller": "Za nisd2",
+      "sellerSigner": "{director}, jednatel",
+      "forPartner": "Za {company}",
+      "pending": "Čeká na přijetí",
+      "acceptedOn": "Přijato dne {date}",
+      "questions": "Dotazy ke smlouvě? Napište na {email}.",
+      "form": {
+        "heading": "Přijmout smlouvu",
+        "intro": "Svým jménem a e-mailovou adresou smlouvu přijímáte. Potvrzení s úplným textem přijde na tuto adresu.",
+        "name": "Vaše celé jméno",
+        "email": "Vaše e-mailová adresa",
+        "authority": "Smím podepisovat za {company} a tuto smlouvu přijímám.",
+        "submit": "Závazně přijmout",
+        "submitting": "Ukládáme",
+        "errors": {
+          "name": "Zadejte prosím své jméno.",
+          "email": "Zadejte prosím platnou e-mailovou adresu.",
+          "authority": "Potvrďte prosím, že smíte podepisovat za {company}.",
+          "save": "Nepodařilo se. Vaše údaje tu zůstaly, zkuste to prosím znovu."
+        }
+      },
+      "done": {
+        "title": "Smlouva přijata",
+        "mailSent": "Potvrzení s úplným textem je na cestě na {email}.",
+        "mailNotSent": "Potvrzovací e-mail neodešel. Pošleme vám ho ručně.",
+        "next": "Až nám doporučíte společnost, napište krátce na {email} s názvem společnosti a kontaktní osobou."
+      }
+    }
+  }
+}

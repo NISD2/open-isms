@@ -3,7 +3,7 @@
 import { ExternalLink } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import type { WalkLocale } from "@/lib/durchgang";
+import { WALK_DATE_LOCALE, type WalkLocale } from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
 import type { Registration } from "./view";
 
@@ -71,7 +71,7 @@ export function RegistrationPortals({
       </details>
       <p className="text-xs text-muted-foreground">
         {t("asOf", {
-          date: new Intl.DateTimeFormat(locale === "de" ? "de-DE" : "en-GB", {
+          date: new Intl.DateTimeFormat(WALK_DATE_LOCALE[locale], {
             timeZone: "UTC",
             dateStyle: "long",
           }).format(new Date(registration.lastUpdated)),

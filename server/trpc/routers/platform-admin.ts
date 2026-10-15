@@ -13,6 +13,8 @@ import bcrypt from "bcryptjs";
 import { and, count, desc, eq, gte, inArray, isNotNull, or, sql } from "drizzle-orm";
 import { z } from "zod";
 import { PARTNER_SLUG_PATTERN } from "@/lib/advisory-options";
+import { loadTraffic } from "@/lib/analytics/umami";
+import { umamiConfig } from "@/lib/analytics/umami-config";
 import { logAudit } from "@/lib/audit";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { createBillingAccount } from "@/lib/billing/accounts";
@@ -37,6 +39,7 @@ import { compileDailyDigest, compileManagementDigest } from "@/lib/compliance/di
 import { closeSyncOnce, closeSyncState } from "@/lib/crm/schedule";
 import { closeSyncStatus } from "@/lib/crm/status";
 import type { Database } from "@/lib/db";
+import { WALK_LOCALES } from "@/lib/durchgang/types";
 import { env, mailSupportEmail } from "@/lib/env";
 import { isFeatureFlagKey, listFeatures, setFeature } from "@/lib/feature-flags";
 import { answerMapSchema, getGapAssessmentData } from "@/lib/gap-assessment";
@@ -505,6 +508,8 @@ export const platformAdminRouter = router({
         quotedGrossCents: z.number().int().nonnegative(),
         /** The admin records that the customer accepted the AGB and AVV on the call. */
         termsAcceptedOnCall: z.boolean(),
+        /** The customer's language, picked on the call; null takes it from the VAT number. */
+        locale: z.enum(WALK_LOCALES).nullable(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -528,6 +533,7 @@ export const platformAdminRouter = router({
         vies: viesConfigFromEnv(env),
         appUrl: getAppUrl(),
         termsAcceptedOnCall: input.termsAcceptedOnCall,
+        locale: input.locale,
       });
       if (!outcome.ok) {
         const code =
@@ -874,6 +880,23 @@ export const platformAdminRouter = router({
    * need it.
    */
   growth: platformAdminProcedure.query(({ ctx }) => loadGrowthData(ctx.db)),
+
+  /**
+   * Visits, top pages and top referrers from the analytics host for a window of UTC days, the top
+   * of the funnel the Graphs tab otherwise starts below. Read-only, and `configured: false` (not
+   * an error) when no analytics login is set, which is the default for a self-hosted instance.
+   */
+  traffic: platformAdminProcedure
+    .input(
+      z
+        .object({ from: z.iso.date(), to: z.iso.date() })
+        .refine((range) => range.from <= range.to, "from must not be after to"),
+    )
+    .query(async ({ input }) => {
+      const config = umamiConfig(env);
+      if (config === null) return { configured: false as const };
+      return { configured: true as const, ...(await loadTraffic(config, input)) };
+    }),
 
   overview: platformAdminProcedure.query(async ({ ctx }) => {
     const thirtyDaysAgo = new Date();

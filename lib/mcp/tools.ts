@@ -5,9 +5,16 @@ import { isReviewerRole } from "@/lib/auth/roles";
 import { canSeeCategory, getUserAccess } from "@/lib/compliance/access";
 import { signedOffByModule } from "@/lib/compliance/module-recheck";
 import { db } from "@/lib/db";
-import { type AnyItem, resolveItem, WALK, type WalkLocale } from "@/lib/durchgang";
+import {
+  type AnyItem,
+  resolveItem,
+  WALK,
+  WALK_LOCALES,
+  type WalkLocale,
+} from "@/lib/durchgang";
 import { loggableFailure } from "@/lib/trpc/loggable-failure";
 import { getAppUrl } from "@/lib/utils";
+import cs from "@/messages/durchgang/cs.json";
 import de from "@/messages/durchgang/de.json";
 import en from "@/messages/durchgang/en.json";
 import { enforceAssignment } from "@/server/trpc/guards";
@@ -33,17 +40,20 @@ import {
  * person finishes each item in the app, and management signs it there.
  */
 
-const LANGUAGES = ["de", "en"] as const satisfies readonly WalkLocale[];
 /** The walk's words per language: the `durchgang` namespace, as the page reads it. */
-const COPY = { de: de.durchgang, en: en.durchgang } as const;
+const COPY = {
+  de: de.durchgang,
+  en: en.durchgang,
+  cs: cs.durchgang,
+} as const satisfies Record<WalkLocale, unknown>;
 
 /** Rows one call may add: enough for a register, small enough to read back. */
 const MAX_ROWS = 50;
 
 const language = z
-  .enum(LANGUAGES)
+  .enum(WALK_LOCALES)
   .default("de")
-  .describe("The language of the walkthrough's own words and links: de or en.");
+  .describe("The language of the walkthrough's own words and links: de, en or cs.");
 
 export const GetWalkthroughInput = z.object({
   code: z

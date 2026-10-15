@@ -27,7 +27,8 @@ import {
   WikiSection,
   WikiSources,
 } from "@/components/wiki/WikiSection";
-import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
+import { wikiLocale } from "@/lib/content/wiki-locale";
+import { pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -64,7 +65,7 @@ export default async function PenaltiesPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale = wikiLocale(rawLocale);
   const [t, w] = await Promise.all([
     getTranslations("info.penalties"),
     getTranslations("info.wikiWalk"),
@@ -97,7 +98,7 @@ export default async function PenaltiesPage({
 
         <WikiPageMeta
           authorSlug="simon-orzel"
-          locale={locale === "nl" ? "de" : (locale as "de" | "en")}
+          locale={locale === "nl" ? "de" : locale}
           lastReviewedAt="2026-10-05"
           sourceLocale="de"
         />

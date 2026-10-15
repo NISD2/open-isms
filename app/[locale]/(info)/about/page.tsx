@@ -6,6 +6,7 @@ import { GetStarted } from "@/components/GetStarted";
 import { JsonLd } from "@/components/JsonLd";
 import { OpenSourceNote } from "@/components/landing/OpenSourceNote";
 import { PartnerLogoStrip } from "@/components/PartnerLogoStrip";
+import { isLocaleCode } from "@/lib/locale";
 import { buildAboutPageJsonLd, type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 function GithubIcon({ className }: { className?: string }) {
@@ -55,7 +56,7 @@ const FOUNDERS = [
     bio: "simon",
     links: [
       { label: "+49 221 95676311", href: "tel:+4922195676311", Icon: Phone },
-      { label: "Website", href: "https://sorzel.com", Icon: Globe },
+      { labelKey: "website", href: "https://sorzel.com", Icon: Globe },
       { label: "GitHub", href: "https://github.com/simonorzel26", Icon: GithubIcon },
       {
         label: "LinkedIn",
@@ -114,7 +115,7 @@ export default async function TeamPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale: Locale = isLocaleCode(rawLocale) ? rawLocale : "de";
   const t = await getTranslations("info");
   const tLanding = await getTranslations("landing");
 
@@ -174,8 +175,8 @@ export default async function TeamPage({
                 {t(`teamPage.${founder.bio}`)}
               </p>
               <ul className="mt-5 flex flex-wrap gap-2">
-                {founder.links.map(({ label, href, Icon }) => (
-                  <li key={label}>
+                {founder.links.map(({ href, Icon, ...link }) => (
+                  <li key={href}>
                     <a
                       href={href}
                       {...(href.startsWith("tel:")
@@ -185,7 +186,7 @@ export default async function TeamPage({
                       className="relative inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-2.5 py-1 text-xs after:absolute after:-inset-y-2.5 after:inset-x-0 hover:bg-muted"
                     >
                       <Icon className="size-3.5" />
-                      {label}
+                      {"labelKey" in link ? t(`teamPage.${link.labelKey}`) : link.label}
                     </a>
                   </li>
                 ))}

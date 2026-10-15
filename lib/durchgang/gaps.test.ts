@@ -3,7 +3,7 @@
  * whose answers leave nothing open sees none.
  */
 import { describe, expect, test } from "bun:test";
-import { type GapFacts, gapsOf } from "./gaps";
+import { type GapFacts, gapsOf, withPlanSlot } from "./gaps";
 
 const TODAY = new Date("2026-10-03T10:00:00Z");
 
@@ -78,6 +78,21 @@ describe("the gaps management sees before it signs", () => {
   test("steps set aside, which the approval does not sign", () => {
     expect(gapsOf({ ...complete, setAside: ["9.1"] })).toEqual([
       { kind: "set_aside", codes: ["9.1"] },
+    ]);
+  });
+});
+
+describe("withPlanSlot", () => {
+  test("a step's plan shows once, under its first open point", () => {
+    const lines = [
+      { code: "11.1", text: "Ohne zweiten Faktor: DATEV" },
+      { code: "4.4", text: "Noch keine Wiederherstellung" },
+      { code: "11.1", text: "Noch zur Seite gelegt: Zweiter Faktor" },
+    ];
+    expect(withPlanSlot(lines).map((slot) => slot.showsPlan)).toEqual([
+      true,
+      true,
+      false,
     ]);
   });
 });

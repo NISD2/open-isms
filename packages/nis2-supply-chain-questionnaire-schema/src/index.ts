@@ -23,6 +23,7 @@ export {
   conditionsOf,
   FIELD_TYPE,
   fieldTypeSchema,
+  legalBasisFor,
   SECTION,
   sectionSchema,
   supplierFieldSchema,

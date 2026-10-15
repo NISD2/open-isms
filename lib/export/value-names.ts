@@ -5,6 +5,7 @@ import {
   nis2Categories,
 } from "@nisd2/grc-data-model/frameworks";
 import { z } from "zod";
+import { WALK_LOCALES } from "@/lib/durchgang/types";
 import type { PdfLocale } from "@/lib/pdf/format";
 import type { ExportRecord } from "./company-export";
 
@@ -66,7 +67,7 @@ export interface ExportNames {
   readonly fields: Readonly<Record<Register, Names>>;
   readonly answers: AnswerNames;
   /**
-   * The title the walk gives a management training (§ 38 Abs. 3 BSIG), in the export's language,
+   * The title the walk gives a management training, in the export's language,
    * and as it is stored in every language the walk is written in: the walk saves it in the
    * language of whoever entered the row.
    */
@@ -75,9 +76,6 @@ export interface ExportNames {
     readonly stored: readonly string[];
   };
 }
-
-/** The languages the walk is written in, so the languages its stored titles can be in. */
-const WALK_LOCALES = ["de", "en"] as const satisfies readonly PdfLocale[];
 
 /** The walk's title for a management training row, in `locale`. */
 const managementTrainingTitle = async (locale: PdfLocale): Promise<string> => {

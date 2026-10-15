@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { SourceText } from "@/components/wiki/SourceText";
 import { WalkHow } from "@/components/wiki/WalkHow";
 import { WalkPriceCard } from "@/components/wiki/WalkPriceCard";
 import { WalkSteps } from "@/components/wiki/WalkSteps";
@@ -19,7 +20,9 @@ import { WikiMoreLink } from "@/components/wiki/WikiMoreLink";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
 import { WikiPartnerStrip } from "@/components/wiki/WikiPartnerStrip";
-import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
+import { LawChip } from "@/components/wiki/WikiSection";
+import { wikiLabel, wikiLocale } from "@/lib/content/wiki-locale";
+import { pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -68,16 +71,13 @@ const stageKeys = ["s1", "s2", "s3"] as const;
 const evidenceKeys = ["audits", "certifications", "documentation"] as const;
 const supplyChainKeys = ["assess", "contractual", "monitor"] as const;
 
-const LAW_CHIP =
-  "inline-block rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground ring-1 ring-inset ring-border";
-
 export default async function Nis2RequirementsPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale = wikiLocale(rawLocale);
   const [t, w] = await Promise.all([
     getTranslations("info.nis2Requirements"),
     getTranslations("info.wikiWalk"),
@@ -98,16 +98,16 @@ export default async function Nis2RequirementsPage({
         />
 
         <WikiAnswerHeader
-          badge="Art. 21 NIS 2 · § 30 BSIG"
+          badge={wikiLabel(locale, {
+            cs: "čl. 21 NIS 2 · §§ 13 a 14 zákona č. 264/2025 Sb.",
+            other: "Art. 21 NIS 2 · § 30 BSIG",
+          })}
           title={t("title")}
           answer={t("subtitle")}
           shot
         />
 
-        <WikiPageMeta
-          authorSlug="cory-hisey"
-          locale={locale === "nl" ? "de" : (locale as "de" | "en")}
-        />
+        <WikiPageMeta authorSlug="cory-hisey" locale={locale === "nl" ? "de" : locale} />
 
         <WikiPartnerStrip />
 
@@ -133,7 +133,7 @@ export default async function Nis2RequirementsPage({
                     {t(`overview.items.${key}.text`)}
                   </p>
                   <p>
-                    <span className={LAW_CHIP}>{t(`overview.items.${key}.law`)}</span>
+                    <LawChip law={t(`overview.items.${key}.law`)} />
                   </p>
                   <WikiMoreLink href={href}>{w("more")}</WikiMoreLink>
                 </CardContent>
@@ -170,7 +170,7 @@ export default async function Nis2RequirementsPage({
                       {t(`measures.items.${key}.example`)}
                     </p>
                     <p>
-                      <span className={LAW_CHIP}>{t(`measures.items.${key}.law`)}</span>
+                      <LawChip law={t(`measures.items.${key}.law`)} />
                     </p>
                   </div>
                 </CardContent>
@@ -308,7 +308,7 @@ export default async function Nis2RequirementsPage({
           <ul className="space-y-1.5">
             {(t.raw("sources.items") as string[]).map((source) => (
               <li key={source} className="text-xs leading-relaxed text-muted-foreground">
-                {source}
+                <SourceText text={source} />
               </li>
             ))}
           </ul>

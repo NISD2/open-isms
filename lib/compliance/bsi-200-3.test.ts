@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+import guidanceCs from "@/data/guidance/cs.json";
 import guidanceDe from "@/data/guidance/de.json";
 import guidanceEn from "@/data/guidance/en.json";
 import {
@@ -19,6 +20,7 @@ describe("BSI-Standard 200-3", () => {
     for (const [locale, guidance] of [
       ["de", guidanceDe],
       ["en", guidanceEn],
+      ["cs", guidanceCs],
     ] as const) {
       const fields = guidance["2.1"].fields;
       const numbered = (labels: readonly string[]) =>

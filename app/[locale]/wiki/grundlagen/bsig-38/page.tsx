@@ -19,7 +19,8 @@ import {
   WikiSection,
   WikiSources,
 } from "@/components/wiki/WikiSection";
-import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
+import { wikiLocale } from "@/lib/content/wiki-locale";
+import { pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -59,7 +60,7 @@ export default async function BsigParagraph38Page({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale = wikiLocale(rawLocale);
   const [t, w] = await Promise.all([
     getTranslations("info.bsigParagraph38"),
     getTranslations("info.wikiWalk"),
@@ -112,8 +113,10 @@ export default async function BsigParagraph38Page({
             {subsections.map(({ label, quote, plain }) => (
               <div key={label} className="space-y-2.5 rounded-xl border p-4">
                 <h3 className="text-sm font-semibold">{label}</h3>
+                {/* The reader's law, quoted verbatim: Czech law on a Czech page, the BSIG's German
+                    text on every other. */}
                 <blockquote
-                  lang="de"
+                  lang={locale === "cs" ? "cs" : "de"}
                   className="max-w-[62ch] border-l-2 border-primary/30 pl-3 text-sm italic leading-relaxed text-muted-foreground"
                 >
                   {quote}

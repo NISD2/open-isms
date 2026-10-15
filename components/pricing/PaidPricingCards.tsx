@@ -267,8 +267,11 @@ const TALK_FIRST_SIZES = {
 export function TalkFirst({
   size = "default",
   className,
+  calLink,
 }: {
   size?: keyof typeof TALK_FIRST_SIZES;
+  /** An instance's own CAL_LINK; absent, the booking link's default calendar. */
+  calLink?: string;
   /** To match the button it sits beside, such as the walk home's taller order button. */
   className?: string;
 }) {
@@ -298,7 +301,10 @@ export function TalkFirst({
       </div>
       <div className="min-w-0 flex-1 space-y-0.5">
         <p className={cn("font-semibold leading-snug", s.title)}>
-          <BookingLink className="after:absolute after:inset-0 focus-visible:outline-none">
+          <BookingLink
+            calLink={calLink}
+            className="after:absolute after:inset-0 focus-visible:outline-none"
+          >
             {t("title")}
           </BookingLink>
         </p>

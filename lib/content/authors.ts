@@ -24,6 +24,12 @@ export interface DocsAuthor {
   linkedinUrl: string;
   /** Public photo URL (without origin) — used in author profile + Person.image. */
   photoUrl: string;
+  /** What a Czech profile page shows instead of the German title, bio and topics. */
+  czech: {
+    readonly jobTitle: string;
+    readonly shortBio: string;
+    readonly topics: readonly string[];
+  };
 }
 
 const NISD2_ORG = {
@@ -49,6 +55,20 @@ export const SIMON: DocsAuthor = {
   profileUrl: "/autor/simon-orzel",
   linkedinUrl: "https://www.linkedin.com/in/simon-orzel-5a974b180/",
   photoUrl: "/images/people/simon.png",
+  czech: {
+    jobTitle: "CEO a spoluzakladatel",
+    shortBio:
+      "Simon Orzel je spoluzakladatel a jednatel NISD2. Píše o vymezení NIS 2, odpovědnosti vedení, evropské politice kybernetické bezpečnosti a o obchodním modelu platformy.",
+    topics: [
+      "Vymezení a působnost NIS 2",
+      "Odpovědnost vedení (čl. 20 NIS 2)",
+      "Pokuty a sankce (čl. 32 a 34 NIS 2)",
+      "Evropská politika kybernetické bezpečnosti (ENISA, Evropská komise)",
+      "Vývoj veřejně a open source jako obchodní model",
+      "Srovnání s jinými nástroji GRC",
+      "Poslání, náklady, přiměřenost (čl. 21 odst. 1 NIS 2)",
+    ],
+  },
 };
 
 export const CORY: DocsAuthor = {
@@ -72,6 +92,23 @@ export const CORY: DocsAuthor = {
   profileUrl: "/autor/cory-hisey",
   linkedinUrl: "https://www.linkedin.com/in/cory-hisey-730a8a59/",
   photoUrl: "/images/people/cory.png",
+  czech: {
+    jobTitle: "Spoluzakladatel, technický vedoucí",
+    shortBio:
+      "Cory Hisey je spoluzakladatel a technický vedoucí NISD2. Píše o řízení aktiv, řízení dodavatelů, bezpečnosti OT, technických opatřeních podle NIS 2 a o praktickém zavádění ve středních firmách.",
+    topics: [
+      "Řízení aktiv (RSK 2.2, pole modifikátorů aktiv)",
+      "Řízení dodavatelů a portál dodavatelů",
+      "OT, SCADA a ICS podle NIS 2",
+      "Technická opatření podle čl. 21 odst. 2 písm. e), f), g), h) a j) NIS 2",
+      "Šifrování a kryptografie (bod 9 přílohy CIR)",
+      "Řízení přístupu a MFA (bod 11 přílohy CIR)",
+      "Postup reakce na incidenty",
+      "Kontinuita činností a strategie zálohování",
+      "Řízení zranitelností a záplatování",
+      "Návody k zavedení pro střední firmy",
+    ],
+  },
 };
 
 export const AUTHORS: Record<DocsAuthor["slug"], DocsAuthor> = {

@@ -13,7 +13,8 @@ import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
+import { wikiLabel, wikiLocale } from "@/lib/content/wiki-locale";
+import { pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -58,7 +59,7 @@ export default async function BsigParagraph30Page({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const locale = wikiLocale(rawLocale);
   const t = await getTranslations("info");
 
   const faqs = faqKeys.map((key) => ({
@@ -94,7 +95,10 @@ export default async function BsigParagraph30Page({
 
         <header>
           <Badge variant="secondary" className="mb-3">
-            § 30 BSIG
+            {wikiLabel(locale, {
+              cs: "§§ 13 a 14 zákona č. 264/2025 Sb.",
+              other: "§ 30 BSIG",
+            })}
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight">
             {t("bsigParagraph30.title")}

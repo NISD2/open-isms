@@ -12,8 +12,15 @@ const berlinDay = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }
 /** A calendar day in Berlin, as the company reads its records: 2026-09-30. */
 export const recordDay = (at: Date): string => berlinDay.format(at);
 
+/** The walk's languages as `Intl` formats their dates. */
+export const WALK_DATE_LOCALE: Readonly<Record<WalkLocale, string>> = {
+  de: "de-DE",
+  en: "en-GB",
+  cs: "cs-CZ",
+};
+
 const longDay = (locale: WalkLocale, timeZone: string) =>
-  new Intl.DateTimeFormat(locale === "de" ? "de-DE" : "en-GB", {
+  new Intl.DateTimeFormat(WALK_DATE_LOCALE[locale], {
     timeZone,
     dateStyle: "long",
   });
@@ -103,6 +110,42 @@ const TEXT = {
         ? `Must keep running without IT: ${names.join(", ")}.`
         : "Processes checked: none must keep running without IT.",
   },
+  cs: {
+    waiting: (reason: string, note: string | null) =>
+      `Zatím nelze: ${reason}.${note ? ` Poznámka: ${note}` : ""}`,
+    method:
+      "Stanovena metoda hodnocení rizik: analýza rizik podle BSI-Standard 200-3 (německá metodika).",
+    declined: (reason: string) =>
+      `Vědomě nezavedeno, předloženo k podpisu. Odůvodnění: ${reason}`,
+    agreements: (lines: readonly string[]) =>
+      `Ujednání s dodavateli zkontrolována: ${lines.join("; ")}.`,
+    security: "bezpečnost",
+    incidents: "hlášení incidentů",
+    nothing: "nic neujednáno",
+    logins: (lines: readonly string[]) =>
+      `Přihlašování zkontrolováno: ${lines.join("; ")}.`,
+    mfa: "s druhým faktorem",
+    password: "jen heslo",
+    unknown: "zatím neznámo",
+    methods: {
+      app: "aplikace",
+      security_key: "bezpečnostní klíč",
+      company_account: "přes firemní účet",
+      sms: "kód přes SMS",
+      email: "kód e-mailem",
+    } satisfies Record<MfaMethod, string>,
+    backups: (lines: readonly string[]) => `Zálohování zaznamenáno: ${lines.join("; ")}.`,
+    restoredOn: (day: string) => `poslední úspěšná obnova ${day}`,
+    noRestore: "zatím žádná úspěšná obnova",
+    crypto:
+      "Převzat seznam kryptografických algoritmů podle dokumentu NÚKIB „Minimální požadavky na kryptografické algoritmy“, verze 4.1 ze 4. března 2026.",
+    approved: (day: string, titles: readonly string[]) =>
+      `Schváleno vedením dne ${day}: ${titles.join("; ")}.`,
+    critical: (names: readonly string[]) =>
+      names.length > 0
+        ? `Musí běžet i bez IT: ${names.join(", ")}.`
+        : "Procesy zkontrolovány: žádný nemusí běžet bez IT.",
+  },
 } as const;
 
 export const waitingNote = (locale: WalkLocale, reason: string, note: string | null) =>
@@ -181,7 +224,7 @@ export const backupsNote = (
   );
 };
 
-/** The crypto list was taken over from the BSI's recommendations. */
+/** The crypto list was taken over: the BSI's TR-02102 list, or NÚKIB's for a Czech company. */
 export const cryptoNote = (locale: WalkLocale) => TEXT[locale].crypto;
 
 /** The documents management approved in one sitting, by title, on the day of the approval. */

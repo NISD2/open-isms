@@ -5,7 +5,7 @@ import {
   supplierQuestionnaire,
   visibleFields,
 } from "../src/data";
-import { conditionsOf, FIELD_TYPE } from "../src/schema";
+import { conditionsOf, FIELD_TYPE, legalBasisFor } from "../src/schema";
 
 // These tests guard invariants that the Zod schema cannot express:
 // uniqueness, cross-references, conditional shape, semantic content,
@@ -107,7 +107,62 @@ describe("citations", () => {
   });
 });
 
+describe("Czech", () => {
+  // Partners resell in the Czech Republic: a Czech reader must never fall back to English.
+  test("every question, help text, answer option and legal-basis line has Czech", () => {
+    const missing = supplierQuestionnaire.fields.flatMap((field) => [
+      ...(field.label.cs ? [] : [`${field.id}.label`]),
+      ...(field.description.cs ? [] : [`${field.id}.description`]),
+      ...(field.legalBasisLocalised?.cs ? [] : [`${field.id}.legalBasis`]),
+      ...(field.options ?? []).flatMap((option) =>
+        option.label.cs ? [] : [`${field.id}.options.${option.value}`],
+      ),
+    ]);
+    expect(missing).toEqual([]);
+  });
+
+  test("a Czech legal-basis line cites the same EU instruments, as many times", () => {
+    const czechName = {
+      CIR: "prováděcí nařízení (EU) 2024/2690",
+      ENISA: "ENISA TIG",
+      GDPR: "(GDPR)",
+      CRA: "(CRA)",
+    } as const;
+    for (const field of supplierQuestionnaire.fields) {
+      const czech = legalBasisFor(field, "cs");
+      for (const [instrument, name] of Object.entries(czechName)) {
+        expect(czech.includes(name)).toBe(field.legalBasis.includes(instrument));
+      }
+      expect(czech.split("; ").length).toBe(field.legalBasis.split("; ").length);
+    }
+  });
+
+  test("no Czech text cites a German statute", () => {
+    const german = ["BSIG", "StBerG", "DSGVO"];
+    for (const field of supplierQuestionnaire.fields) {
+      const czech = [field.label.cs, field.description.cs, legalBasisFor(field, "cs")];
+      for (const term of german) {
+        for (const text of czech) expect(text).not.toContain(term);
+      }
+    }
+  });
+});
+
 describe("helpers", () => {
+  test("legalBasisFor gives the reader's citation, and the stable form where none exists", () => {
+    const field = {
+      legalBasis: "CIR 2024/2690 §5.2",
+      legalBasisLocalised: { cs: "prováděcí nařízení (EU) 2024/2690, příloha, bod 5.2" },
+    };
+    expect(legalBasisFor(field, "cs")).toBe(
+      "prováděcí nařízení (EU) 2024/2690, příloha, bod 5.2",
+    );
+    expect(legalBasisFor(field, "de")).toBe("CIR 2024/2690 §5.2");
+    expect(legalBasisFor({ legalBasis: "CIR 2024/2690 §5.2" }, "cs")).toBe(
+      "CIR 2024/2690 §5.2",
+    );
+  });
+
   test("groupBySection places every field in exactly one section bucket", () => {
     const grouped = groupBySection(supplierQuestionnaire);
     let total = 0;

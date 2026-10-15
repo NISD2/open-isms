@@ -48,11 +48,11 @@
     }
   },
   "status": {
-    "not_started": "Open",
-    "in_progress": "In Progress",
+    "not_started": "Not started",
+    "in_progress": "In progress",
     "completed": "Completed",
     "not_applicable": "N/A",
-    "needs_review": "Needs Review",
+    "needs_review": "Needs review",
     "approved": "Approved",
     "rejected": "Rejected"
   },

@@ -4,9 +4,11 @@
 //
 // Descriptions are Mittelstand-readable plain language: what to type, with
 // a short example where the question is ambiguous. Legal citations live in
-// the `legalBasis` field so audit teams still see the source. A field whose
-// English or German text changes carries those two only, until it is
-// translated again; consumers fall back to English.
+// the `legalBasis` field so audit teams still see the source, and in
+// `legalBasisLocalised` the way a Czech reader cites them. A field whose
+// English or German text changes carries those two and Czech (a test checks
+// Czech) until the other locales are translated again; consumers fall back
+// to English.
 
 import type { SupplierField } from "../schema";
 import { PROCESSES_DATA } from "./gates";
@@ -34,11 +36,14 @@ export const profileFields: SupplierField[] = [
       it: "Il nome registrato della vostra azienda, così come appare nel registro delle imprese. Esempio: Müller GmbH o Acme Software Ltd.",
       es: "El nombre registrado de su empresa, tal como aparece en el registro mercantil. Ejemplo: Müller GmbH o Acme Software Ltd.",
       pl: "Zarejestrowana nazwa Twojej firmy, taka jak widnieje w rejestrze handlowym. Przykład: Müller GmbH lub Acme Software Ltd.",
-      cs: "Zapsaný název vaší společnosti tak, jak je uveden v obchodním rejstříku. Příklad: Müller GmbH nebo Acme Software Ltd.",
+      cs: "Zapsaný název vaší společnosti tak, jak je uveden v obchodním rejstříku. Příklad: Novák a syn s.r.o. nebo Příklad Software a.s.",
       pt: "O nome registado da sua empresa, tal como consta do registo comercial. Exemplo: Müller GmbH ou Acme Software Ltd.",
       ro: "Denumirea înregistrată a companiei dumneavoastră, astfel cum apare în registrul comerțului. Exemplu: Müller GmbH sau Acme Software Ltd.",
     },
     legalBasis: "CIR 2024/2690 §5.2",
+    legalBasisLocalised: {
+      cs: "prováděcí nařízení (EU) 2024/2690, příloha, bod 5.2",
+    },
     required: true,
   },
   {
@@ -68,6 +73,9 @@ export const profileFields: SupplierField[] = [
       ro: "Adresa comercială înregistrată a companiei dumneavoastră. Este suficientă o singură adresă, chiar dacă aveți mai multe locații.",
     },
     legalBasis: "CIR 2024/2690 §5.2",
+    legalBasisLocalised: {
+      cs: "prováděcí nařízení (EU) 2024/2690, příloha, bod 5.2",
+    },
     required: true,
   },
   {
@@ -92,11 +100,14 @@ export const profileFields: SupplierField[] = [
       it: "Il paese in cui la vostra azienda è legalmente stabilita. Due lettere, ad esempio DE per la Germania.",
       es: "El país donde su empresa está legalmente establecida. Dos letras, por ejemplo DE para Alemania.",
       pl: "Kraj, w którym Twoja firma ma siedzibę prawną. Dwie litery, np. DE dla Niemiec.",
-      cs: "Země, ve které je vaše společnost právně usazena. Dvě písmena, například DE pro Německo.",
+      cs: "Země, ve které je vaše společnost právně usazena. Dvě písmena, například CZ pro Českou republiku.",
       pt: "O país onde a sua empresa está legalmente estabelecida. Duas letras, por exemplo DE para a Alemanha.",
       ro: "Țara în care compania dumneavoastră este stabilită legal. Două litere, de exemplu DE pentru Germania.",
     },
     legalBasis: "CIR 2024/2690 §5.2",
+    legalBasisLocalised: {
+      cs: "prováděcí nařízení (EU) 2024/2690, příloha, bod 5.2",
+    },
     required: true,
   },
   {
@@ -121,11 +132,14 @@ export const profileFields: SupplierField[] = [
       it: "Il vostro dominio principale, di solito l'URL del vostro sito web. Esempio: acmesoftware.com.",
       es: "Su dominio principal, normalmente la URL de su sitio web. Ejemplo: acmesoftware.com.",
       pl: "Twoja domena główna, zwykle adres URL Twojej witryny. Przykład: acmesoftware.com.",
-      cs: "Vaše hlavní doména, obvykle adresa URL vašich webových stránek. Příklad: acmesoftware.com.",
+      cs: "Vaše hlavní doména, obvykle adresa vašich webových stránek. Příklad: prikladsoftware.cz.",
       pt: "O seu domínio principal, normalmente o URL do seu sítio web. Exemplo: acmesoftware.com.",
       ro: "Domeniul dumneavoastră principal, de obicei adresa URL a site-ului web. Exemplu: acmesoftware.com.",
     },
     legalBasis: "CIR 2024/2690 §5.2(a)",
+    legalBasisLocalised: {
+      cs: "prováděcí nařízení (EU) 2024/2690, příloha, bod 5.2 písm. a)",
+    },
     required: false,
   },
   {
@@ -135,12 +149,17 @@ export const profileFields: SupplierField[] = [
     label: {
       en: "Description of services provided",
       de: "Beschreibung der erbrachten Leistungen",
+      cs: "Popis poskytovaných služeb",
     },
     description: {
       en: "One paragraph on what you deliver to customers: concrete products, services or work, not marketing. Examples: “Office cleaning three evenings a week, with keys to the building” or “Payroll accounting for up to 200 employees”.",
       de: "Ein Absatz dazu, was Sie Kunden liefern: konkrete Produkte, Dienste oder Arbeiten, keine Werbung. Beispiele: „Büroreinigung an drei Abenden pro Woche, mit Schlüssel zum Gebäude“ oder „Lohnabrechnung für bis zu 200 Mitarbeitende“.",
+      cs: "Jeden odstavec o tom, co zákazníkům dodáváte: konkrétní produkty, služby nebo práce, žádná reklama. Příklady: „Úklid kanceláří tři večery v týdnu, s klíči od budovy“ nebo „Zpracování mezd až pro 200 zaměstnanců“.",
     },
     legalBasis: "CIR 2024/2690 §5.2(b)",
+    legalBasisLocalised: {
+      cs: "prováděcí nařízení (EU) 2024/2690, příloha, bod 5.2 písm. b)",
+    },
     iso27001: ["A.5.19", "A.5.22"],
     required: true,
   },
@@ -171,6 +190,9 @@ export const profileFields: SupplierField[] = [
       ro: "Persoana pe care clienții o contactează atunci când are loc un incident de securitate. În companiile mai mici, adesea directorul general sau responsabilul IT. Este suficientă o singură persoană.",
     },
     legalBasis: "CIR 2024/2690 §5.2(a)",
+    legalBasisLocalised: {
+      cs: "prováděcí nařízení (EU) 2024/2690, příloha, bod 5.2 písm. a)",
+    },
     iso27001: ["A.5.20", "A.5.24"],
     required: true,
   },
@@ -196,11 +218,14 @@ export const profileFields: SupplierField[] = [
       it: "Indirizzo e-mail che i clienti utilizzano per segnalare un incidente di sicurezza. Idealmente una lista di distribuzione come security@example.com che raggiunge più persone.",
       es: "Dirección de correo electrónico que los clientes utilizan para notificar un incidente de seguridad. Idealmente una lista de distribución como security@example.com que llegue a varias personas.",
       pl: "Adres e-mail, którego klienci używają do zgłaszania incydentu bezpieczeństwa. Najlepiej lista dystrybucyjna, taka jak security@example.com, która dociera do wielu osób.",
-      cs: "E-mailová adresa, kterou zákazníci používají k nahlášení bezpečnostního incidentu. Ideálně distribuční seznam jako security@example.com, který zastihne více osob.",
+      cs: "E-mailová adresa, kterou zákazníci používají k nahlášení bezpečnostního incidentu. Ideálně distribuční seznam jako bezpecnost@prikladsoftware.cz, který zastihne více osob.",
       pt: "Endereço de e-mail que os clientes utilizam para comunicar um incidente de segurança. Idealmente uma lista de distribuição como security@example.com que chegue a várias pessoas.",
       ro: "Adresa de e-mail pe care clienții o folosesc pentru a raporta un incident de securitate. În mod ideal, o listă de distribuție precum security@example.com care ajunge la mai multe persoane.",
     },
     legalBasis: "CIR 2024/2690 §5.2(a)",
+    legalBasisLocalised: {
+      cs: "prováděcí nařízení (EU) 2024/2690, příloha, bod 5.2 písm. a)",
+    },
     iso27001: ["A.5.20", "A.5.24"],
     required: true,
   },
@@ -211,12 +236,17 @@ export const profileFields: SupplierField[] = [
     label: {
       en: "Incident contact phone",
       de: "Telefonnummer für Vorfälle",
+      cs: "Telefon pro kontakt při incidentech",
     },
     description: {
       en: "Phone number for urgent incident reports. Add the hours it is answered in brackets; round-the-clock cover is not expected.",
       de: "Telefonnummer für dringende Vorfallsmeldungen. Nennen Sie in Klammern, wann sie besetzt ist; eine Erreichbarkeit rund um die Uhr wird nicht erwartet.",
+      cs: "Telefonní číslo pro naléhavá hlášení incidentů. Do závorky uveďte, v jakých hodinách je dostupné; nepřetržitá dostupnost se neočekává.",
     },
     legalBasis: "CIR 2024/2690 §5.2(a)",
+    legalBasisLocalised: {
+      cs: "prováděcí nařízení (EU) 2024/2690, příloha, bod 5.2 písm. a)",
+    },
     iso27001: ["A.5.20", "A.5.24"],
     required: false,
   },
@@ -227,12 +257,17 @@ export const profileFields: SupplierField[] = [
     label: {
       en: "How fast you inform customers of an incident (hours)",
       de: "Wie schnell Sie Kunden über einen Vorfall informieren (Stunden)",
+      cs: "Jak rychle informujete zákazníky o incidentu (hodiny)",
     },
     description: {
       en: "At most this many hours after you notice a security incident that affects a customer, for example a data leak, a hacked account or a lost key. A customer under NIS 2 must send its authority an early warning within 24 hours of becoming aware of a significant incident (Art. 23(4)(a) NIS 2), so a promise of 24 hours or less helps them most. Give a value you keep.",
       de: "Höchstens so viele Stunden, nachdem Sie einen Sicherheitsvorfall bemerkt haben, der einen Kunden betrifft, zum Beispiel ein Datenleck, ein gehacktes Konto oder einen verlorenen Schlüssel. Ein Kunde unter NIS 2 muss seiner Behörde einen erheblichen Sicherheitsvorfall innerhalb von 24 Stunden, nachdem er davon erfahren hat, als Frühwarnung melden (Art. 23 Abs. 4 Buchst. a NIS 2). Eine Zusage von 24 Stunden oder weniger hilft ihm deshalb am meisten. Nennen Sie einen Wert, den Sie halten.",
+      cs: "Nejvýše tolik hodin poté, co zjistíte bezpečnostní incident, který se týká zákazníka, například únik dat, napadený účet nebo ztracený klíč. Zákazník, na kterého se vztahuje NIS 2, musí do 24 hodin od okamžiku, kdy se o významném incidentu dozvěděl, podat svému CSIRT nebo úřadu včasné varování (čl. 23 odst. 4 písm. a) NIS 2). Nejvíce mu proto pomůže závazek 24 hodin nebo méně. Uveďte hodnotu, kterou dodržíte.",
     },
     legalBasis: "CIR 2024/2690 §5.1.4(d)",
+    legalBasisLocalised: {
+      cs: "prováděcí nařízení (EU) 2024/2690, příloha, bod 5.1.4 písm. d)",
+    },
     iso27001: ["A.5.20", "A.5.24"],
     required: false,
   },
@@ -263,6 +298,9 @@ export const profileFields: SupplierField[] = [
       ro: "Rulați software pentru clienți pe propria infrastructură și îl livrați prin internet. Bifați mai multe casete dacă oferiți mai multe modele.",
     },
     legalBasis: "CIR 2024/2690 §5.2(b)",
+    legalBasisLocalised: {
+      cs: "prováděcí nařízení (EU) 2024/2690, příloha, bod 5.2 písm. b)",
+    },
     iso27001: ["A.5.19", "A.5.22", "A.5.23"],
     required: true,
   },
@@ -293,6 +331,9 @@ export const profileFields: SupplierField[] = [
       ro: "Livrați software pe care clienții îl instalează și îl rulează pe propria infrastructură.",
     },
     legalBasis: "CIR 2024/2690 §5.2(b)",
+    legalBasisLocalised: {
+      cs: "prováděcí nařízení (EU) 2024/2690, příloha, bod 5.2 písm. b)",
+    },
     iso27001: ["A.5.19", "A.5.22"],
     required: true,
   },
@@ -323,6 +364,9 @@ export const profileFields: SupplierField[] = [
       ro: "Operați pentru client părți din infrastructura sa IT, cu personal propriu. Tipic pentru modelele MSP și MSSP.",
     },
     legalBasis: "CIR 2024/2690 §5.2(b)",
+    legalBasisLocalised: {
+      cs: "prováděcí nařízení (EU) 2024/2690, příloha, bod 5.2 písm. b)",
+    },
     iso27001: ["A.5.19", "A.5.22"],
     required: true,
   },
@@ -335,12 +379,17 @@ export const profileFields: SupplierField[] = [
     label: {
       en: "We process or store our customers' data",
       de: "Wir verarbeiten oder speichern Daten unserer Kunden",
+      cs: "Zpracováváme nebo uchováváme data našich zákazníků",
     },
     description: {
       en: "Tick yes if you hold or handle your customers' data or documents, electronically or on paper, for example in software, a data centre, a ticket system, accounting or an archive.",
       de: "Ja, wenn Sie Daten oder Unterlagen Ihrer Kunden elektronisch oder auf Papier halten oder bearbeiten, etwa in Software, Rechenzentrum, Ticketsystem, Buchhaltung oder Archiv.",
+      cs: "Ano, pokud data nebo dokumenty svých zákazníků uchováváte nebo s nimi pracujete, elektronicky nebo v papírové podobě, například v softwaru, datovém centru, systému pro správu požadavků, účetnictví nebo archivu.",
     },
     legalBasis: "ENISA TIG §5.1.2",
+    legalBasisLocalised: {
+      cs: "ENISA TIG, oddíl 5.1.2",
+    },
     iso27001: ["A.5.19"],
     required: true,
   },
@@ -366,11 +415,14 @@ export const profileFields: SupplierField[] = [
       it: "Tutti i paesi in cui i dati dei vostri clienti vengono archiviati o trattati. Separati da virgole, codici paese ISO. Esempio: DE, NL, US. Se trattate interamente all'interno dell'UE, è sufficiente elencare i paesi dell'UE.",
       es: "Todos los países donde se almacenan o tratan los datos de sus clientes. Separados por comas, códigos de país ISO. Ejemplo: DE, NL, US. Si trata los datos enteramente dentro de la UE, basta con enumerar los países de la UE.",
       pl: "Wszystkie kraje, w których przechowywane lub przetwarzane są dane Twoich klientów. Oddzielone przecinkami, kody krajów ISO. Przykład: DE, NL, US. Jeśli przetwarzasz dane wyłącznie w UE, wystarczy wymienić kraje UE.",
-      cs: "Všechny země, kde se ukládají nebo zpracovávají data vašich zákazníků. Oddělené čárkami, kódy zemí ISO. Příklad: DE, NL, US. Pokud zpracováváte výhradně v rámci EU, stačí uvést země EU.",
+      cs: "Všechny země, kde se ukládají nebo zpracovávají data vašich zákazníků. Oddělené čárkami, kódy zemí ISO. Příklad: CZ, DE, US. Pokud zpracováváte výhradně v rámci EU, stačí uvést země EU.",
       pt: "Todos os países onde os dados dos seus clientes são armazenados ou tratados. Separados por vírgulas, códigos de país ISO. Exemplo: DE, NL, US. Se tratar os dados inteiramente dentro da UE, basta enumerar os países da UE.",
       ro: "Toate țările în care datele clienților dumneavoastră sunt stocate sau prelucrate. Separate prin virgule, coduri de țară ISO. Exemplu: DE, NL, US. Dacă prelucrați integral în interiorul UE, este suficient să enumerați țările UE.",
     },
     legalBasis: "ENISA TIG §5.1.4 TIPS",
+    legalBasisLocalised: {
+      cs: "ENISA TIG, oddíl 5.1.4, tipy",
+    },
     iso27001: ["A.5.20", "A.5.23", "A.5.34"],
     required: true,
     visibleWhen: PROCESSES_DATA,
@@ -382,12 +434,17 @@ export const profileFields: SupplierField[] = [
     label: {
       en: "We access our customers' systems",
       de: "Wir greifen auf Systeme unserer Kunden zu",
+      cs: "Přistupujeme k systémům našich zákazníků",
     },
     description: {
       en: "Tick yes if you can sign in to your customers' systems, remotely, as an administrator or on site, for example for maintenance, support or operations.",
       de: "Ja, wenn Sie sich bei Ihren Kunden anmelden können, aus der Ferne, als Administrator oder vor Ort, zum Beispiel für Wartung, Support oder Betrieb.",
+      cs: "Ano, pokud se můžete přihlásit do systémů svých zákazníků, na dálku, jako administrátor nebo na místě, například kvůli údržbě, podpoře nebo provozu.",
     },
     legalBasis: "ENISA TIG §5.1.2",
+    legalBasisLocalised: {
+      cs: "ENISA TIG, oddíl 5.1.2",
+    },
     iso27001: ["A.5.19"],
     required: true,
   },
@@ -398,12 +455,17 @@ export const profileFields: SupplierField[] = [
     label: {
       en: "Our staff enter our customers' premises",
       de: "Unsere Mitarbeitenden betreten Räume unserer Kunden",
+      cs: "Naši pracovníci vstupují do prostor našich zákazníků",
     },
     description: {
       en: "Tick yes if your staff or subcontractors go into a customer's offices or buildings, escorted or not, for example for cleaning, maintenance, repairs, deliveries into the building or on-site support. Holding keys, badges or door codes counts.",
       de: "Ja, wenn Ihre Mitarbeitenden oder Unterauftragnehmer Büros oder Gebäude eines Kunden betreten, mit oder ohne Begleitung, etwa für Reinigung, Wartung, Reparaturen, Anlieferung ins Gebäude oder Support vor Ort. Schlüssel, Ausweise oder Türcodes zählen dazu.",
+      cs: "Ano, pokud vaši pracovníci nebo subdodavatelé vstupují do kanceláří nebo budov zákazníka, s doprovodem i bez něj, například kvůli úklidu, údržbě, opravám, dodávkám do budovy nebo podpoře na místě. Počítá se i držení klíčů, přístupových karet nebo kódů ke dveřím.",
     },
     legalBasis: "CIR 2024/2690 §11.1.2(a); §13.3.2(b)",
+    legalBasisLocalised: {
+      cs: "prováděcí nařízení (EU) 2024/2690, příloha, bod 11.1.2 písm. a); bod 13.3.2 písm. b)",
+    },
     iso27001: ["A.5.19"],
     required: true,
   },

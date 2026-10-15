@@ -1,4 +1,4 @@
-import { REPORT_TYPE, SECTION, FIELD_TYPE, type IncidentField } from "../schema";
+import { FIELD_TYPE, type IncidentField, REPORT_TYPE, SECTION } from "../schema";
 
 export const geographicFields: ReadonlyArray<IncidentField> = [
   {
@@ -17,15 +17,15 @@ export const geographicFields: ReadonlyArray<IncidentField> = [
       ro: "Impact transfrontalier (da / nu)",
     },
     description: {
-      en: "NIS 2 Art. 23(4)(a) requires the early warning to indicate whether the significant incident has a cross-border impact. CSIRTs of other affected Member States are notified via the cooperation mechanism in NIS 2 Art. 15.",
-      de: "Art. 23(4)(a) NIS 2 verlangt im 24h-Frühwarnbericht die Angabe, ob der Sicherheitsvorfall grenzüberschreitende Auswirkungen hat. Die CSIRTs anderer Mitgliedstaaten werden über den Kooperationsmechanismus nach Art. 15 NIS 2 informiert.",
-      fr: "L'art. 23(4)(a) NIS 2 exige que l'alerte précoce indique si l'incident important a un impact transfrontalier. Les CSIRT des autres États membres concernés sont informés via le mécanisme de coopération prévu à l'art. 15 NIS 2.",
-      it: "L'art. 23(4)(a) NIS 2 richiede che il preallarme indichi se l'incidente significativo ha un impatto transfrontaliero. I CSIRT degli altri Stati membri interessati sono informati tramite il meccanismo di cooperazione di cui all'art. 15 NIS 2.",
-      es: "El art. 23(4)(a) NIS 2 exige que la alerta temprana indique si el incidente significativo tiene un impacto transfronterizo. Los CSIRT de los demás Estados miembros afectados son informados a través del mecanismo de cooperación del art. 15 NIS 2.",
-      pl: "Art. 23(4)(a) NIS 2 wymaga, aby wczesne ostrzeżenie wskazywało, czy poważny incydent ma wpływ transgraniczny. CSIRT innych zainteresowanych państw członkowskich są informowane za pośrednictwem mechanizmu współpracy określonego w art. 15 NIS 2.",
-      cs: "Čl. 23(4)(a) NIS 2 vyžaduje, aby včasné varování uvádělo, zda má významný incident přeshraniční dopad. CSIRT ostatních dotčených členských států jsou informovány prostřednictvím mechanismu spolupráce podle čl. 15 NIS 2.",
-      pt: "O art. 23.º, n.º 4, alínea a), da NIS 2 exige que o alerta precoce indique se o incidente significativo tem impacto transfronteiriço. As CSIRT dos demais Estados-Membros afetados são notificadas através do mecanismo de cooperação previsto no art. 15.º da NIS 2.",
-      ro: "Art. 23(4)(a) NIS 2 impune ca avertizarea timpurie să indice dacă incidentul semnificativ are un impact transfrontalier. CSIRT-urile celorlalte state membre afectate sunt informate prin mecanismul de cooperare prevăzut la art. 15 NIS 2.",
+      en: "NIS 2 Art. 23(4)(a) requires the early warning to indicate, where applicable, whether the significant incident could have a cross-border impact. Under NIS 2 Art. 23(6), the CSIRT, the competent authority or the single point of contact informs the other affected Member States and ENISA where appropriate.",
+      de: "Art. 23(4)(a) NIS 2 verlangt im 24h-Frühwarnbericht gegebenenfalls die Angabe, ob der Sicherheitsvorfall grenzüberschreitende Auswirkungen haben könnte. Nach Art. 23(6) NIS 2 unterrichtet das CSIRT, die zuständige Behörde oder die zentrale Anlaufstelle gegebenenfalls die anderen betroffenen Mitgliedstaaten und die ENISA.",
+      fr: "L'art. 23(4)(a) NIS 2 exige que l'alerte précoce indique, le cas échéant, si l'incident important pourrait avoir un impact transfrontalier. En vertu de l'art. 23(6) NIS 2, le CSIRT, l'autorité compétente ou le point de contact unique informe, lorsque c'est approprié, les autres États membres touchés et l'ENISA.",
+      it: "L'art. 23(4)(a) NIS 2 richiede che il preallarme indichi, se opportuno, se l'incidente significativo può avere un impatto transfrontaliero. Ai sensi dell'art. 23(6) NIS 2, il CSIRT, l'autorità competente o il punto di contatto unico informa, se opportuno, gli altri Stati membri interessati e l'ENISA.",
+      es: "El art. 23(4)(a) NIS 2 exige que la alerta temprana indique, cuando proceda, si el incidente significativo puede tener un impacto transfronterizo. Conforme al art. 23(6) NIS 2, el CSIRT, la autoridad competente o el punto de contacto único informa, cuando proceda, a los demás Estados miembros afectados y a la ENISA.",
+      pl: "Art. 23(4)(a) NIS 2 wymaga, aby wczesne ostrzeżenie w stosownych przypadkach wskazywało, czy poważny incydent może mieć wpływ transgraniczny. Zgodnie z art. 23(6) NIS 2 CSIRT, właściwy organ lub pojedynczy punkt kontaktowy w stosownych przypadkach informują pozostałe państwa członkowskie, których incydent dotyczy, oraz ENISA.",
+      cs: "Čl. 23(4)(a) NIS 2 vyžaduje, aby včasné varování případně uvádělo, zda by významný incident mohl mít přeshraniční dopad. Podle čl. 23(6) NIS 2 informuje tým CSIRT, příslušný orgán nebo jednotné kontaktní místo tam, kde je to vhodné, ostatní dotčené členské státy a agenturu ENISA.",
+      pt: "O art. 23.º, n.º 4, alínea a), da NIS 2 exige que o alerta precoce indique, se aplicável, se o incidente significativo pode ter impacto transfronteiriço. Nos termos do art. 23.º, n.º 6, da NIS 2, a CSIRT, a autoridade competente ou o ponto de contacto único informa, se for caso disso, os outros Estados-Membros afetados e a ENISA.",
+      ro: "Art. 23(4)(a) NIS 2 impune ca avertizarea timpurie să indice, după caz, dacă incidentul semnificativ ar putea avea un impact transfrontalier. În temeiul art. 23(6) NIS 2, echipa CSIRT, autoritatea competentă sau punctul unic de contact informează, după caz, celelalte state membre afectate și ENISA.",
     },
     requiredIn: [
       REPORT_TYPE.EARLY_WARNING,
@@ -100,7 +100,7 @@ export const geographicFields: ReadonlyArray<IncidentField> = [
         url: "https://eur-lex.europa.eu/eli/dir/2022/2555/oj",
       },
       {
-        citation: "NIS 2 Art. 15 (Cooperation Group)",
+        citation: "NIS 2 Art. 23(6)",
         url: "https://eur-lex.europa.eu/eli/dir/2022/2555/oj",
       },
     ],

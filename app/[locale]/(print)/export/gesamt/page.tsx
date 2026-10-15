@@ -49,13 +49,14 @@ export default async function CompleteExportPage() {
     isPlatformAdmin(session.user.email),
   );
 
-  const [data, assessment, names, gaps, t] = await Promise.all([
+  const [data, assessment, names, gaps, measures, t] = await Promise.all([
     loadCompanyExport(db, companyId),
     getNis2Assessment(db, companyId),
     exportNames(locale),
     // The open points come from the walk, which only a company that may walk has; without it
     // they were never worked out (null), which is not the same as nothing open.
     mayWalk ? api.durchgang.gaps({ locale }) : Promise.resolve(null),
+    mayWalk ? api.durchgang.measures() : Promise.resolve([]),
     getTranslations({ locale, namespace: "export.complete" }),
   ]);
   const [report, documents] = await Promise.all([
@@ -86,7 +87,7 @@ export default async function CompleteExportPage() {
           <PrintButton label={t("print")} />
         </div>
       </div>
-      <CompleteExport view={{ locale, data, report, names, documents, gaps }} />
+      <CompleteExport view={{ locale, data, report, names, documents, gaps, measures }} />
     </div>
   );
 }

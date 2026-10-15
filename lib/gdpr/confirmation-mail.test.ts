@@ -61,7 +61,7 @@ const row = (retainedUnderLegalDuty?: string[]): Row => ({
 const DONE: Files = { kind: "not_applicable" };
 const RECORD = { html: "<p>record</p>", text: "record" };
 
-const words = (r: Row, files: Files, locale: "de" | "en" | "nl" = "de") => {
+const words = (r: Row, files: Files, locale: "de" | "en" | "nl" | "cs" = "de") => {
   const mail = erasureConfirmationWording(r, files, locale, RECORD);
   return [
     mail.subject,
@@ -101,7 +101,21 @@ describe("erasureConfirmationWording", () => {
     expect(words(row(), DONE, "de")).toContain("Gelöscht am 1. Oktober 2026");
     expect(words(row(), DONE, "en")).toContain("Deleted on 1 October 2026");
     expect(words(row(), DONE, "nl")).toContain("Verwijderd op 1 oktober 2026");
+    expect(words(row(), DONE, "cs")).toContain("Smazáno dne 1. října 2026");
     expect(words(row(), DONE, "en")).toContain("anna@kunde.example");
+  });
+
+  test("Czech claims no more than the record either", () => {
+    const pending = words(
+      row(),
+      { kind: "pending", deleted: 3, pendingPrefixes: ["companies/a/"] },
+      "cs",
+    );
+    expect(pending).toContain("zatím nejsou úplně smazané");
+    expect(pending).not.toContain("všechny osobní údaje");
+    expect(words(row(["Invoices issued to the organization"]), DONE, "cs")).toContain(
+      "Co vyžaduje zákon",
+    );
   });
 
   test("carries the formal record below the signature", () => {

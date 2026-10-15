@@ -77,9 +77,15 @@
       },
       "scenariosLabel": "Schadensszenarien (§8.2.1)",
       "scenarios": {
-        "gesetzeVorschriftenVertraege": { "label": "Verstoß gegen Gesetze, Vorschriften, Verträge" },
-        "informationellesSelbstbestimmungsrecht": { "label": "Beeinträchtigung des informationellen Selbstbestimmungsrechts" },
-        "persoenlicheUnversehrtheit": { "label": "Beeinträchtigung der persönlichen Unversehrtheit" },
+        "gesetzeVorschriftenVertraege": {
+          "label": "Verstoß gegen Gesetze, Vorschriften, Verträge"
+        },
+        "informationellesSelbstbestimmungsrecht": {
+          "label": "Beeinträchtigung des informationellen Selbstbestimmungsrechts"
+        },
+        "persoenlicheUnversehrtheit": {
+          "label": "Beeinträchtigung der persönlichen Unversehrtheit"
+        },
         "aufgabenerfuellung": { "label": "Beeinträchtigung der Aufgabenerfüllung" },
         "innenAussenwirkung": { "label": "Negative Innen- oder Außenwirkung" },
         "finanziell": { "label": "Finanzielle Auswirkungen" }
@@ -294,6 +300,7 @@
       "measuresHeading": "Maßnahmen nach Art. 21(2) NIS2",
       "measuresSubtitle": "Art. 21(2) NIS2 nennt zehn Maßnahmen, die alle Einrichtungen mindestens umsetzen müssen ('shall include at least the following'). Die Umsetzungstiefe richtet sich nach Ihrer Absicherungsvariante: Basis verlangt minimalen Nachweis; Standard die volle Grundschutz-Tiefe; Kern zusätzlich risikospezifische Vertiefung nach BSI-200-3 auf dem Kronjuwel-Asset.",
       "cirNote": "Für die 11 Einrichtungstypen im Anwendungsbereich der CIR 2024/2690 (Cloud-Dienste, Rechenzentren, MSPs und MSSPs, DNS-Diensteanbieter, TLD-Registrierungsstellen, CDN, Online-Marktplätze, Suchmaschinen, soziale Netzwerke, Vertrauensdienste) konkretisiert der Anhang die Umsetzung. Übrige Einrichtungen folgen BSI Grundschutz als anerkannter Methodik.",
+      "finalTierLabel": "Empfohlene Absicherungsvariante",
       "signoffHeading": "Freigabe durch die Geschäftsleitung",
       "signoffBody": "Diese Bewertung ist erst durch die Freigabe der Geschäftsleitung verbindlich (§38 BSIG, Art. 20 NIS2). Tragen Sie Name, Datum und Unterschrift in das ausgedruckte Dokument ein."
     },

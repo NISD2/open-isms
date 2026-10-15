@@ -176,6 +176,20 @@
       "when": 1791295200461,
       "tag": "0024_partner_access_upfront",
       "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "7",
+      "when": 1792080864621,
+      "tag": "0025_framework_data_sync",
+      "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "7",
+      "when": 1792082496239,
+      "tag": "0026_partner_contract_signed_reading",
+      "breakpoints": true
     }
   ]
 }

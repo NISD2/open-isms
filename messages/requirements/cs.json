@@ -38,8 +38,8 @@
       "description": "Detekce, klasifikace a protokolování"
     },
     "3_3": {
-      "title": "Připravenost na hlášení BSI (24h/72h/1M)",
-      "description": "Připravenost na hlášení BSI (24h/72h/1M)"
+      "title": "Připravenost na hlášení incidentů (24 h / 72 h / závěrečná zpráva)",
+      "description": "Nastavte proces hlášení podle § 16 zákona č. 264/2025 Sb.: prvotní hlášení nejpozději do 24 hodin od zjištění incidentu, u incidentu s významným dopadem oznámení do 72 hodin, průběžná zpráva na výzvu NÚKIB nebo Národního CERT a závěrečná zpráva nejpozději do 30 dnů od oznámení. Ve vyšším režimu se hlásí NÚKIB, v nižším režimu Národnímu CERT (§ 15), a to přes Portál NÚKIB. Zajistěte přístup k portálu a určete odpovědné osoby. Připravenost na hlášení se testuje v plánovaných intervalech (CIR 3.5.5; v Česku ve vyšším režimu vyhláška č. 409/2025 Sb., § 4 odst. 1 písm. i)); pevný interval není předepsán, doporučení: jednou ročně."
     },
     "3_4": {
       "title": "Cvičení reakce na incidenty",
@@ -146,8 +146,8 @@
       "description": "Klasifikace a rozsah podle NIS2"
     },
     "12_2": {
-      "title": "Registrace u BSI",
-      "description": "Zřídit účet MUK, dokončit registraci na portálu BSI a předat všechny povinné údaje. Zákonná lhůta: nejpozději tři měsíce poté, co je společnost poprvé považována za zásadní nebo důležitý subjekt (§33(1) BSIG). Pro subjekty spadající do působnosti od nabytí účinnosti BSIG dne 6. prosince 2025 tato lhůta uplynula 6. března 2026; registrace je pak splatná okamžitě."
+      "title": "Ohlášení služby NÚKIB",
+      "description": "Ohlásit regulovanou službu NÚKIB přes Portál NÚKIB (přihlášení přes NIA; zahraniční statutární orgán bez české identity přes IIG). Zákonná lhůta: nejpozději do 60 dnů ode dne, kdy služba splnila podmínky pro registraci (§ 6 odst. 1 zákona č. 264/2025 Sb.). Pro většinu firem, které podmínky splnily dnem účinnosti zákona 1. listopadu 2025, tato lhůta uplynula 31. prosince 2025; kdo ještě neohlásil, ohlásí bez dalšího odkladu. Do 30 dnů od doručení rozhodnutí o registraci nahlásit kontaktní a doplňující údaje (§ 11)."
     },
     "12_3": { "title": "Údržba registrace", "description": "Údržba registrace" },
     "12_4": { "title": "Doklady o souladu", "description": "Doklady o souladu" },
@@ -661,7 +661,7 @@
     },
     "AI-PRO_1": {
       "title": "Politika zakázaných praktik",
-      "description": "Zdokumentujte politiku, která zakazuje praktiky AI zakázané podle AI Act čl. 5 odst. 1 písm. a) až i)."
+      "description": "Zdokumentujte politiku, která zakazuje praktiky AI zakázané podle AI Act čl. 5 odst. 1 písm. a) až h)."
     },
     "AI-PRO_2": {
       "title": "Žádné používání zakázané AI",
@@ -709,7 +709,7 @@
     },
     "AI-TRA_3": {
       "title": "Informování o deepfake a rozpoznávání emocí",
-      "description": "Informujte dotčené osoby o použití deepfake a rozpoznávání emocí nebo biometrické kategorizace (čl. 50 odst. 4)."
+      "description": "Informujte dotčené osoby o použití deepfake a rozpoznávání emocí nebo biometrické kategorizace (čl. 50 odst. 3 a 4)."
     },
     "AI-INC_1": {
       "title": "Politika hlášení závažných incidentů",
@@ -761,11 +761,11 @@
     },
     "CRA-ESS_2": {
       "title": "Bezpečná výchozí konfigurace",
-      "description": "Dodávejte produkty s bezpečnou výchozí konfigurací (příloha I část I, bod 3 písm. a))."
+      "description": "Dodávejte produkty s bezpečnou výchozí konfigurací (příloha I část I, bod 2 písm. b))."
     },
     "CRA-ESS_3": {
       "title": "Žádné známé zneužitelné zranitelnosti",
-      "description": "Uvádějte na trh produkty bez známých zneužitelných zranitelností (příloha I část I, bod 1)."
+      "description": "Uvádějte na trh produkty bez známých zneužitelných zranitelností (příloha I část I, bod 2 písm. a))."
     },
     "CRA-VLN_1": {
       "title": "Politika řešení zranitelností",
@@ -777,11 +777,11 @@
     },
     "CRA-VLN_3": {
       "title": "Poskytování bezpečnostních aktualizací",
-      "description": "Poskytujte bezpečnostní aktualizace bez zbytečného odkladu a bezplatně po dobu podpory (příloha I část II, bod 3)."
+      "description": "Poskytujte bezpečnostní aktualizace bez zbytečného odkladu a bezplatně po dobu podpory (příloha I část II, bod 8)."
     },
     "CRA-VLN_4": {
       "title": "Testování zranitelností",
-      "description": "Pravidelně testujte a přezkoumávejte bezpečnost produktu (příloha I část II, bod 8)."
+      "description": "Pravidelně testujte a přezkoumávejte bezpečnost produktu (příloha I část II, bod 3)."
     },
     "CRA-INC_1": {
       "title": "Včasné varování",
@@ -789,27 +789,27 @@
     },
     "CRA-INC_2": {
       "title": "Oznámení zranitelnosti",
-      "description": "Oznamte zranitelnost nebo závažný incident ve lhůtě stanovené CRA (čl. 14 odst. 2 písm. b))."
+      "description": "Oznamte zranitelnost nebo závažný incident ve lhůtě stanovené CRA (čl. 14 odst. 2 písm. b) a odst. 4 písm. b))."
     },
     "CRA-INC_3": {
       "title": "Závěrečná zpráva o incidentu",
-      "description": "Předložte orgánům závěrečnou zprávu o zranitelnosti nebo incidentu (čl. 14 odst. 2 písm. c))."
+      "description": "Předložte orgánům závěrečnou zprávu o zranitelnosti nebo incidentu (čl. 14 odst. 2 písm. c) a odst. 4 písm. c))."
     },
     "CRA-INC_4": {
       "title": "Informování uživatelů",
-      "description": "Informujte dotčené uživatele o incidentu a případných nápravných opatřeních (čl. 14 odst. 4)."
+      "description": "Informujte dotčené uživatele o incidentu a případných nápravných opatřeních (čl. 14 odst. 8)."
     },
     "CRA-CONF_1": {
       "title": "Posuzování shody",
-      "description": "Proveďte příslušný postup posuzování shody produktu (CRA čl. 24)."
+      "description": "Proveďte příslušný postup posuzování shody produktu (CRA čl. 32)."
     },
     "CRA-CONF_2": {
       "title": "Označení CE a shoda",
-      "description": "Umístěte označení CE a vypracujte EU prohlášení o shodě (čl. 27)."
+      "description": "Umístěte označení CE a vypracujte EU prohlášení o shodě (čl. 28 až 30)."
     },
     "CRA-DOC_1": {
       "title": "Technická dokumentace CRA",
-      "description": "Sestavte a průběžně aktualizujte technickou dokumentaci podle CRA přílohy VII (čl. 28)."
+      "description": "Sestavte a průběžně aktualizujte technickou dokumentaci podle CRA přílohy VII (čl. 31)."
     },
     "CRA-SUP_1": {
       "title": "Doba podpory",
@@ -821,11 +821,11 @@
     },
     "CRA-IMP_1": {
       "title": "Povinnosti dovozce",
-      "description": "Ověřte, že dovážené produkty splňují požadavky CRA, než je uvedete na trh (čl. 18)."
+      "description": "Ověřte, že dovážené produkty splňují požadavky CRA, než je uvedete na trh (čl. 19)."
     },
     "CRA-IMP_2": {
       "title": "Povinnosti distributora",
-      "description": "Při distribuci produktů ověřujte shodu s CRA a reagujte na nesoulad (čl. 19)."
+      "description": "Při distribuci produktů ověřujte shodu s CRA a reagujte na nesoulad (čl. 20)."
     },
     "CRA-OSS_1": {
       "title": "Povinnosti správce open-source",

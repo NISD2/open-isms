@@ -122,6 +122,36 @@ const COPY: Record<
     outro:
       "De formele bevestiging met alle details staat hieronder in het Engels en is als bestand bijgevoegd.",
   },
+  cs: {
+    subject: (caseRef) => `Potvrzení výmazu ${caseRef}: váš účet je smazán`,
+    heading: "Váš účet je smazán",
+    greeting: "Dobrý den,",
+    intro: {
+      all: "smazali jsme váš účet a všechny osobní údaje, které k němu patří, jak jste požádali.",
+      kept_by_law:
+        "smazali jsme váš účet a osobní údaje, které k němu patří, jak jste požádali. Co nám zákon ukládá uchovat, uvádíme níže.",
+      files_pending:
+        "smazali jsme váš účet a osobní údaje, které k němu patří, v naší databázi, jak jste požádali. Uložené soubory vaší organizace zatím nejsou úplně smazané; jejich stav najdete níže.",
+    },
+    kind: "Potvrzení výmazu",
+    erasedOn: "Smazáno dne",
+    account: "Účet",
+    organization: "Organizace",
+    organizationDetail: {
+      all: "smazána se vším, co v ní bylo zadáno",
+      kept_by_law: "smazána kromě toho, co vyžaduje zákon",
+      files_pending: "databáze smazána, soubory zatím ne úplně",
+    },
+    kept: "Uchováno",
+    keptValue: {
+      all: "Jen tento doklad",
+      kept_by_law: "Co vyžaduje zákon, viz níže",
+      files_pending: "Tento doklad a soubory, jejichž mazání ještě probíhá, viz níže",
+    },
+    recordUntil: (day) => `Doklad uchováváme do ${day}`,
+    outro:
+      "Formální potvrzení se všemi podrobnostmi je níže v angličtině a je přiložené jako soubor.",
+  },
 };
 
 /**

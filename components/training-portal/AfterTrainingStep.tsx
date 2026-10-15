@@ -1,9 +1,21 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { TalkFirst } from "@/components/pricing/PaidPricingCards";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
+import { czechCitations } from "@/lib/compliance/czech-law";
+import { pickLocalized } from "@/lib/locale";
 
 const BSIG_38 = "https://www.gesetze-im-internet.de/bsig_2025/__38.html";
+
+/**
+ * The law the text links, in the reader's legal order: § 38 BSIG, or for a Czech reader § 4 of
+ * vyhláška č. 410/2025 Sb., which holds management's training (písm. b)) and its other duties.
+ */
+const LAW_HREF = {
+  de: BSIG_38,
+  en: BSIG_38,
+  cs: czechCitations({ act: null, lower: "§ 4 písm. b)", higher: null })[0]?.href,
+};
 
 /**
  * The end of the management training: the training is one of management's duties under § 38 BSIG,
@@ -12,9 +24,10 @@ const BSIG_38 = "https://www.gesetze-im-internet.de/bsig_2025/__38.html";
  * stand (not set up yet, not paid).
  */
 export async function AfterTrainingStep() {
-  const [t, tGuided] = await Promise.all([
+  const [t, tGuided, locale] = await Promise.all([
     getTranslations("trainingPortal.coursePage.afterTraining"),
     getTranslations("landing.guided"),
+    getLocale(),
   ]);
   return (
     <section className="rounded-3xl bg-primary/[0.06] px-6 py-10 sm:px-10">
@@ -25,7 +38,7 @@ export async function AfterTrainingStep() {
         {t.rich("body", {
           law: (chunks) => (
             <a
-              href={BSIG_38}
+              href={pickLocalized<string>(LAW_HREF, locale)}
               target="_blank"
               rel="noopener noreferrer"
               className="font-medium text-foreground underline underline-offset-4"

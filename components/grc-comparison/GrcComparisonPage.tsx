@@ -1,13 +1,13 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { ExternalLink } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -23,17 +23,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ExternalLink } from "lucide-react";
+import { Link } from "@/i18n/navigation";
+import type { LocalisedVendor, LocalisedVendorDataset } from "@/lib/grc-vendors/localize";
 import type {
-  Vendor,
   VendorCategory,
   VendorDataExport,
-  VendorDataset,
   VendorTier,
 } from "@/lib/grc-vendors/schema";
 
 interface Props {
-  dataset: VendorDataset;
+  /** Already in the reader's language (localiseDataset, on the server). */
+  dataset: LocalisedVendorDataset;
   stats: {
     total: number;
     transparent: number;
@@ -50,10 +50,12 @@ interface Props {
     dataExportNone: number;
     dataExportResearched: number;
   };
-  locale: string;
 }
 
-const TIER_VARIANT: Record<VendorTier, "default" | "secondary" | "destructive" | "outline"> = {
+const TIER_VARIANT: Record<
+  VendorTier,
+  "default" | "secondary" | "destructive" | "outline"
+> = {
   transparent: "default",
   partial: "secondary",
   gated: "destructive",
@@ -67,7 +69,10 @@ const TIER_SORT: Record<VendorTier, number> = {
   transparent: 3,
 };
 
-const DATA_EXPORT_VARIANT: Record<VendorDataExport, "default" | "secondary" | "destructive" | "outline"> = {
+const DATA_EXPORT_VARIANT: Record<
+  VendorDataExport,
+  "default" | "secondary" | "destructive" | "outline"
+> = {
   "full-open": "default",
   "documented-partial": "secondary",
   "report-only": "outline",
@@ -126,9 +131,8 @@ const FREE_TIER_LABEL_KEY = {
   oss: "freeTierOss",
 } as const;
 
-export function GrcComparisonPage({ dataset, stats, locale }: Props) {
+export function GrcComparisonPage({ dataset, stats }: Props) {
   const t = useTranslations("grcComparison");
-  const lang: "de" | "en" = locale === "de" ? "de" : "en";
 
   const [search, setSearch] = useState("");
   const [tier, setTier] = useState<VendorTier | "all">("all");
@@ -195,7 +199,7 @@ export function GrcComparisonPage({ dataset, stats, locale }: Props) {
         setFreeOnly={setFreeOnly}
         resetFilters={resetFilters}
       />
-      <VendorTable t={t} vendors={filtered} lang={lang} />
+      <VendorTable t={t} vendors={filtered} />
       <Methodology t={t} dataset={dataset} />
       <CallToAction t={t} />
     </div>
@@ -267,8 +271,12 @@ function Thesis({ t }: { t: ReturnType<typeof useTranslations<"grcComparison">> 
   return (
     <section className="mx-auto max-w-5xl space-y-6">
       <div className="space-y-2 text-center">
-        <h2 className="text-2xl font-bold tracking-tight md:text-3xl">{t("thesis.title")}</h2>
-        <p className="mx-auto max-w-3xl text-sm text-muted-foreground">{t("thesis.body")}</p>
+        <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
+          {t("thesis.title")}
+        </h2>
+        <p className="mx-auto max-w-3xl text-sm text-muted-foreground">
+          {t("thesis.body")}
+        </p>
       </div>
       <div className="grid gap-4 md:grid-cols-2">
         {points.map((p) => (
@@ -341,7 +349,9 @@ function FilterBar({
               <SelectItem value="transparent">{t("filters.tierTransparent")}</SelectItem>
               <SelectItem value="partial">{t("filters.tierPartial")}</SelectItem>
               <SelectItem value="gated">{t("filters.tierGated")}</SelectItem>
-              <SelectItem value="unverifiable">{t("filters.tierUnverifiable")}</SelectItem>
+              <SelectItem value="unverifiable">
+                {t("filters.tierUnverifiable")}
+              </SelectItem>
             </SelectContent>
           </Select>
           <Select value={country} onValueChange={setCountry}>
@@ -373,15 +383,17 @@ function FilterBar({
               ))}
             </SelectContent>
           </Select>
-          <label className="flex items-center gap-2 text-sm">
+          <label htmlFor="grc-nis2-only" className="flex items-center gap-2 text-sm">
             <Checkbox
+              id="grc-nis2-only"
               checked={nis2Only}
               onCheckedChange={(v) => setNis2Only(v === true)}
             />
             <span>{t("filters.nis2OnlyLabel")}</span>
           </label>
-          <label className="flex items-center gap-2 text-sm">
+          <label htmlFor="grc-free-only" className="flex items-center gap-2 text-sm">
             <Checkbox
+              id="grc-free-only"
               checked={freeOnly}
               onCheckedChange={(v) => setFreeOnly(v === true)}
             />
@@ -399,11 +411,9 @@ function FilterBar({
 function VendorTable({
   t,
   vendors,
-  lang,
 }: {
   t: ReturnType<typeof useTranslations<"grcComparison">>;
-  vendors: Vendor[];
-  lang: "de" | "en";
+  vendors: readonly LocalisedVendor[];
 }) {
   if (vendors.length === 0) {
     return (
@@ -446,9 +456,13 @@ function VendorTable({
                   {v.dataExport ? (
                     <Badge
                       variant={DATA_EXPORT_VARIANT[v.dataExport]}
-                      title={v.dataExportEvidence?.[lang] ?? undefined}
+                      title={v.dataExportEvidence}
                     >
-                      {t(`table.${DATA_EXPORT_LABEL_KEY[v.dataExport]}` as Parameters<typeof t>[0])}
+                      {t(
+                        `table.${DATA_EXPORT_LABEL_KEY[v.dataExport]}` as Parameters<
+                          typeof t
+                        >[0],
+                      )}
                     </Badge>
                   ) : (
                     <span className="text-xs text-muted-foreground">
@@ -468,7 +482,9 @@ function VendorTable({
                   </span>
                 </TableCell>
                 <TableCell className="text-xs text-muted-foreground">
-                  {t(`table.${FREE_TIER_LABEL_KEY[v.freeTier]}` as Parameters<typeof t>[0])}
+                  {t(
+                    `table.${FREE_TIER_LABEL_KEY[v.freeTier]}` as Parameters<typeof t>[0],
+                  )}
                 </TableCell>
                 <TableCell>
                   <a
@@ -483,7 +499,7 @@ function VendorTable({
                   </a>
                 </TableCell>
                 <TableCell className="text-sm text-muted-foreground">
-                  {v.priceModel[lang]}
+                  {v.priceModel}
                 </TableCell>
               </TableRow>
             ))}
@@ -499,7 +515,7 @@ function Methodology({
   dataset,
 }: {
   t: ReturnType<typeof useTranslations<"grcComparison">>;
-  dataset: VendorDataset;
+  dataset: LocalisedVendorDataset;
 }) {
   const rules = t.raw("methodology.rules") as string[];
   return (
@@ -521,24 +537,24 @@ function Methodology({
           <CardTitle className="text-base">{t("methodology.correctionsTitle")}</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">{t("methodology.correctionsBody")}</p>
+          <p className="text-sm text-muted-foreground">
+            {t("methodology.correctionsBody")}
+          </p>
         </CardContent>
       </Card>
     </section>
   );
 }
 
-function CallToAction({
-  t,
-}: {
-  t: ReturnType<typeof useTranslations<"grcComparison">>;
-}) {
+function CallToAction({ t }: { t: ReturnType<typeof useTranslations<"grcComparison">> }) {
   return (
     <section className="mx-auto max-w-4xl">
       <Card>
         <CardContent className="space-y-4 py-8 text-center">
           <h2 className="text-2xl font-bold tracking-tight">{t("cta.title")}</h2>
-          <p className="mx-auto max-w-2xl text-sm text-muted-foreground">{t("cta.body")}</p>
+          <p className="mx-auto max-w-2xl text-sm text-muted-foreground">
+            {t("cta.body")}
+          </p>
           <Button asChild size="lg">
             <Link href="/auth/signin">{t("cta.button")}</Link>
           </Button>

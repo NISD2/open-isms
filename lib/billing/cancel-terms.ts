@@ -137,6 +137,7 @@ const ACCOUNT_KEPT: Record<EmailLocale, string> = {
   de: "Ihre Organisationen und alles, was Sie eingetragen haben, bleiben in Ihrem Konto erhalten.",
   nl: "Uw organisaties en alles wat u heeft ingevoerd, blijven in uw account bewaard.",
   en: "Your organizations and everything you entered stay in your account.",
+  cs: "Vaše organizace a vše, co jste zadali, zůstávají ve vašem účtu.",
 };
 
 const accountLine = (locale: EmailLocale, erased: boolean): readonly string[] =>
@@ -146,6 +147,7 @@ const GREETING: Record<EmailLocale, string> = {
   de: "Guten Tag,",
   en: "Hello,",
   nl: "Goedendag,",
+  cs: "Dobrý den,",
 };
 
 /** The confirmation of a cancel that only stops the renewal, in the holder's language. */
@@ -229,6 +231,28 @@ const renewalWording = (
         },
         outro: [
           `${firstOnly ? "The thirty days money back apply only to an account's first order" : "The thirty days money back have passed"}, so invoice ${inv} stands. If it is still open, please pay it as agreed.`,
+          ...account,
+        ],
+      };
+    case "cs":
+      return {
+        ...common,
+        subject: `Zrušení potvrzeno: vaše licence končí ${end}`,
+        heading: "Vaše zrušení je potvrzeno",
+        intro: ["Zrušili jste roční licenci k průvodci NIS 2. Nebude prodloužena."],
+        document: {
+          kind: "Zrušení",
+          reference: licenceName(locale),
+          facts: [
+            erased
+              ? { label: "Přístup", value: "Končí smazáním vašeho účtu" }
+              : { label: "Přístup do", value: end, emphasis: true },
+            { label: "Prodloužení", value: "Žádné" },
+            { label: "Faktura", value: inv, detail: "zůstává v platnosti" },
+          ],
+        },
+        outro: [
+          `${firstOnly ? "Třicet dní na vrácení peněz platí jen pro první objednávku účtu" : "Třicet dní na vrácení peněz uplynulo"}, proto faktura ${inv} zůstává v platnosti. Pokud je ještě nezaplacená, uhraďte ji prosím podle dohody.`,
           ...account,
         ],
       };
@@ -371,6 +395,45 @@ const moneyBackWording = (
           ...account,
         ],
       };
+    case "cs":
+      return {
+        ...common,
+        subject: `Dobropis ${cn}: vaše objednávka je stornována`,
+        heading: "Vaše objednávka je stornována",
+        intro: [
+          `Zrušili jste roční licenci k průvodci NIS 2 v rámci 30 dnů. Faktura je stornována dobropisem${attached ? ", který najdete v příloze" : ""}.`,
+        ],
+        document: {
+          kind: "Dobropis",
+          reference,
+          facts: [
+            {
+              label: "Stornuje",
+              value: `Fakturu ${inv} ze dne ${day(mail.invoiceIssueDate)}`,
+            },
+            { label: "Plnění", value: licenceName(locale) },
+            amountFact("Částka", amounts, locale),
+            refundOwed
+              ? {
+                  label: "Vrácení peněz",
+                  value: `do ${due}`,
+                  detail: "na účet, ze kterého přišla vaše platba",
+                  emphasis: true,
+                }
+              : {
+                  label: "Platba",
+                  value: "Již není potřeba",
+                  detail: "Faktura je stornována.",
+                },
+          ],
+        },
+        outro: [
+          refundOwed
+            ? `Fakturu jste už zaplatili.${erased ? "" : " Jakmile částku převedeme, potvrdíme vám to krátkým e-mailem."}`
+            : "Zatím jsme od vás žádnou platbu neobdrželi. Pokud jste částku už převedli, vrátíme ji do 30 dnů od jejího připsání.",
+          ...account,
+        ],
+      };
   }
 };
 
@@ -447,6 +510,24 @@ export const refundSentWording = (
             { label: "Cancels", value: `Invoice ${inv}` },
             amountFact("Refunded", amounts, locale),
             { label: "Transferred to", value: "the account your payment came from" },
+          ],
+        },
+      };
+    case "cs":
+      return {
+        ...common,
+        subject: `Vrácení peněz k dobropisu ${cn}: částka převedena`,
+        heading: "Peníze jsou vráceny",
+        intro: [
+          "Jak jsme oznámili, převedli jsme vám zpět částku stornované faktury. Tím je vaše objednávka zcela vyřízena.",
+        ],
+        document: {
+          kind: "Vrácení peněz k dobropisu",
+          reference: cn,
+          facts: [
+            { label: "Stornuje", value: `Fakturu ${inv}` },
+            amountFact("Vráceno", amounts, locale),
+            { label: "Převedeno na", value: "účet, ze kterého přišla vaše platba" },
           ],
         },
       };
