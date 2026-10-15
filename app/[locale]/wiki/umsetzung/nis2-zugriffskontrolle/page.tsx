@@ -40,7 +40,7 @@ export async function generateMetadata({
   };
 }
 
-const anchorKeys = ["directiveI", "directiveJ", "regulation", "transposition"] as const;
+const anchorKeys = ["directive", "regulation", "transposition"] as const;
 const elementKeys = ["policy", "privileged", "identity"] as const;
 const principleKeys = ["needToKnow", "privilegedSeparate"] as const;
 const nationalKeys = ["bsi", "enisa", "transposition"] as const;

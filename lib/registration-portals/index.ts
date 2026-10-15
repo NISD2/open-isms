@@ -1,13 +1,24 @@
-import { readFileSync } from "fs";
-import { join } from "path";
-import { registrationPortalsDataSchema } from "./schema";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import type { RegistrationPortal, RegistrationPortalsData } from "./schema";
+import { registrationPortalsDataSchema } from "./schema";
 
-export function getRegistrationPortals(): RegistrationPortalsData {
+/**
+ * The portals, for a Czech page with the Czech gloss of each authority and act where the data
+ * has one. Every other page, and every caller that passes no locale, gets the data as written.
+ */
+export function getRegistrationPortals(locale?: string): RegistrationPortalsData {
   const filePath = join(process.cwd(), "data", "nis2-registration-portals.json");
   const raw = JSON.parse(readFileSync(filePath, "utf-8"));
-  return registrationPortalsDataSchema.parse(raw);
+  const data = registrationPortalsDataSchema.parse(raw);
+  return locale === "cs" ? { ...data, portals: data.portals.map(inCzech) } : data;
 }
+
+const inCzech = (portal: RegistrationPortal): RegistrationPortal => ({
+  ...portal,
+  authority: portal.authorityCs ?? portal.authority,
+  nationalLaw: portal.nationalLawCs ?? portal.nationalLaw,
+});
 
 /**
  * Whether the national NIS 2 transposition is in force, still in the
@@ -15,11 +26,7 @@ export function getRegistrationPortals(): RegistrationPortalsData {
  * `portal.entryIntoForce` + `portal.status` so the tracker UI and the
  * applicability callout never disagree.
  */
-export type TranspositionStatus =
-  | "in-force"
-  | "bill-pending"
-  | "drafting"
-  | "unknown";
+export type TranspositionStatus = "in-force" | "bill-pending" | "drafting" | "unknown";
 
 export function getTranspositionStatus(
   portal: RegistrationPortal,
@@ -36,14 +43,13 @@ export function getTranspositionStatus(
   return "bill-pending";
 }
 
-export {
-  portalStatus,
-  registrationPortalSchema,
-  registrationPortalsDataSchema,
-} from "./schema";
-
 export type {
   PortalStatus,
   RegistrationPortal,
   RegistrationPortalsData,
+} from "./schema";
+export {
+  portalStatus,
+  registrationPortalSchema,
+  registrationPortalsDataSchema,
 } from "./schema";

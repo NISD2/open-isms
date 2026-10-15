@@ -10,12 +10,16 @@ export const portalStatus = z.enum([
 export const registrationPortalSchema = z.object({
   countryCode: z.string().length(2),
   authority: z.string(),
+  /** The authority with its English gloss in Czech; names in their own language stay as they are. */
+  authorityCs: z.string().optional(),
   authorityUrl: z.string().nullable(),
   portalName: z.string().nullable(),
   portalUrl: z.string().nullable(),
   status: portalStatus,
   registrationDeadline: z.string().nullable(),
   nationalLaw: z.string().nullable(),
+  /** The act with its English gloss in Czech, where `nationalLaw` carries one. */
+  nationalLawCs: z.string().optional(),
   entryIntoForce: z.string().nullable(),
   notes: z.string(),
   notesDe: z.string(),

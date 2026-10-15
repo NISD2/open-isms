@@ -298,6 +298,7 @@
       "measuresHeading": "Opatření podle čl. 21(2) NIS2",
       "measuresSubtitle": "Čl. 21(2) NIS2 uvádí deset opatření, která musí zavést každý subjekt v působnosti (opatření „zahrnují alespoň“ těchto deset bodů). Hloubka zavedení se řídí vaší Absicherungsvariante: Basis vyžaduje minimální doklady, Standard plnou hloubku Grundschutz a Kern dodatečné prohloubení specifické pro rizika podle BSI-200-3 u aktiva Kronjuwel.",
       "cirNote": "Pro 11 typů subjektů v působnosti CIR 2024/2690 (služby cloud computingu, datová centra, MSP a MSSP, poskytovatelé DNS, registry TLD, sítě pro doručování obsahu, online tržiště, vyhledávače, sociální sítě, poskytovatelé služeb vytvářejících důvěru) stanoví příloha podrobná prováděcí pravidla. Ostatní subjekty v Česku plní vyhlášku č. 409/2025 Sb. (režim vyšších povinností) nebo č. 410/2025 Sb. (režim nižších povinností); německou metodiku BSI Grundschutz mohou použít jako pracovní metodu.",
+      "finalTierLabel": "Doporučená Absicherungsvariante",
       "signoffHeading": "Schválení vedením",
       "signoffBody": "Toto posouzení je závazné pouze se schválením vedením (čl. 20 odst. 1 NIS2). V Česku se vedení se stavem opatření (vyhláška č. 410/2025 Sb., § 4 písm. d)) nebo se zprávou o hodnocení rizik (vyhláška č. 409/2025 Sb., § 4 odst. 2) prokazatelně seznamuje. Na vytištěný dokument uveďte jméno, datum a podpis."
     },

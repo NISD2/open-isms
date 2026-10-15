@@ -132,7 +132,7 @@ export default async function Nis2TrackerEuPage({
   const shot = itemShot(REGISTRATION_STEP, rawLocale, t("walk.seeItAlt"));
   if (!shot) throw new Error(`The walk has no screenshot for step ${REGISTRATION_STEP}`);
 
-  const { portals, lastUpdated } = getRegistrationPortals();
+  const { portals, lastUpdated } = getRegistrationPortals(rawLocale);
   const display = new Intl.DisplayNames([locale], { type: "region" });
   const countryName = (code: string): string => display.of(code) ?? code;
 

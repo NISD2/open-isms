@@ -77,11 +77,17 @@
       },
       "scenariosLabel": "Damage scenarios (§8.2.1)",
       "scenarios": {
-        "gesetzeVorschriftenVertraege": { "label": "Violation of laws, regulations, contracts" },
-        "informationellesSelbstbestimmungsrecht": { "label": "Impairment of informational self-determination (personal data)" },
+        "gesetzeVorschriftenVertraege": {
+          "label": "Violation of laws, regulations, contracts"
+        },
+        "informationellesSelbstbestimmungsrecht": {
+          "label": "Impairment of informational self-determination (personal data)"
+        },
         "persoenlicheUnversehrtheit": { "label": "Impairment of personal safety" },
         "aufgabenerfuellung": { "label": "Impairment of task fulfilment" },
-        "innenAussenwirkung": { "label": "Negative internal or external impact (reputation)" },
+        "innenAussenwirkung": {
+          "label": "Negative internal or external impact (reputation)"
+        },
         "finanziell": { "label": "Financial impact" }
       },
       "gesamtLabel": "Gesamt-Schutzbedarf",
@@ -294,6 +300,7 @@
       "measuresHeading": "Measures per Art 21(2) NIS2",
       "measuresSubtitle": "Art 21(2) NIS2 lists ten measures every entity in scope must implement ('shall include at least the following'). Implementation depth follows your Absicherungsvariante: Basis requires minimal evidence; Standard the full Grundschutz depth; Kern an additional risk-specific deepening per BSI-200-3 on the Kronjuwel asset.",
       "cirNote": "For the 11 entity types in scope of CIR 2024/2690 (cloud computing services, data centres, MSPs and MSSPs, DNS providers, TLD registries, content delivery networks, online marketplaces, search engines, social networks, trust service providers), the Annex sets out detailed implementing rules. Other entities apply BSI Grundschutz as the recognised methodology.",
+      "finalTierLabel": "Recommended Absicherungsvariante",
       "signoffHeading": "Management body sign-off",
       "signoffBody": "This assessment is binding only with management body sign-off (§38 BSIG, Art 20 NIS2). Enter name, date and signature on the printed document."
     },

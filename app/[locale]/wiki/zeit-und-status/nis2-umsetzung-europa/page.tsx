@@ -160,7 +160,7 @@ export default async function NIS2EuropaPage({
     getTranslations("info.euImplementation"),
     getTranslations("info.wikiWalk"),
   ]);
-  const data = getRegistrationPortals();
+  const data = getRegistrationPortals(rawLocale);
   const shot = itemShot(REGISTRATION_STEP, rawLocale, t("walk.seeItAlt"));
   if (!shot) throw new Error(`The walk has no screenshot for step ${REGISTRATION_STEP}`);
 
