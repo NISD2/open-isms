@@ -211,7 +211,10 @@ test.describe("an AI assistant fills the walkthrough over MCP", () => {
     for (const row of statuses) expect(row.status, row.code).not.toBe("completed");
   });
 
-  test("the walkthrough marks the screen the assistant wrote", async ({ page, request }) => {
+  test("the walkthrough marks the screen the assistant wrote", async ({
+    page,
+    request,
+  }) => {
     // The tool lists the item's screens as its page shows them, in the same order.
     const read = await callTool(request, key, "get_walkthrough", { code: "2.2" });
     const screens = read.ok
