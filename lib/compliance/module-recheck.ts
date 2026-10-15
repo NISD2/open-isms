@@ -8,7 +8,7 @@
  *
  * Fire-and-forget: callers should `.catch(() => {})`.
  */
-import { and, eq, inArray, sql } from "drizzle-orm";
+import { and, eq, inArray, isNull, lt, or, sql } from "drizzle-orm";
 import { logAudit } from "@/lib/audit";
 import type { DbOrTx } from "@/lib/db";
 import { companyRequirementStatus, requirement } from "@/schema";
@@ -67,7 +67,21 @@ interface RevertContext {
   companyId: string;
   userId: string | null;
   reason: "module_data_changed" | "module_data_deleted";
+  /** When the data changed: only a signature older than that was given on the old data. */
+  changedAt: Date;
 }
+
+/**
+ * A sign-off given before this moment, or one with no sign-off time on record (rows signed before
+ * the column, or set by hand). A signature given after the change was given on the changed data,
+ * so the change does not take it back: the recheck runs in the background, after the save, and
+ * management signing in between was withdrawn although nothing changed after it.
+ */
+const signedBefore = (changedAt: Date) =>
+  or(
+    isNull(companyRequirementStatus.signedOffAt),
+    lt(companyRequirementStatus.signedOffAt, changedAt),
+  );
 
 /**
  * The company's signed-off NIS 2 requirements that reference this module: the ones a change to its
@@ -109,24 +123,38 @@ async function revertSignOffs(
   const toRevert = await signedOffByModule(db, ctx.companyId, moduleRef);
   if (toRevert.length === 0) return;
 
-  await db
-    .update(companyRequirementStatus)
-    .set({
-      status: "needs_review",
-      updatedAt: new Date(),
-    })
-    .where(
-      inArray(
-        companyRequirementStatus.id,
-        toRevert.map((r) => r.statusId),
-      ),
-    );
+  // Read and revert in one statement's conditions: a row signed again between the two keeps the
+  // new signature, and the audit entry names only the rows this update actually reverted.
+  const revertedIds = new Set(
+    (
+      await db
+        .update(companyRequirementStatus)
+        .set({
+          status: "needs_review",
+          updatedAt: new Date(),
+        })
+        .where(
+          and(
+            inArray(
+              companyRequirementStatus.id,
+              toRevert.map((r) => r.statusId),
+            ),
+            inArray(companyRequirementStatus.status, ["completed", "approved"]),
+            signedBefore(ctx.changedAt),
+          ),
+        )
+        .returning({ id: companyRequirementStatus.id })
+    ).map((r) => r.id),
+  );
+  if (revertedIds.size === 0) return;
 
-  const reverted = toRevert.map((r) => ({
-    code: r.requirementCode,
-    statusId: r.statusId,
-    previousStatus: r.previousStatus,
-  }));
+  const reverted = toRevert
+    .filter((r) => revertedIds.has(r.statusId))
+    .map((r) => ({
+      code: r.requirementCode,
+      statusId: r.statusId,
+      previousStatus: r.previousStatus,
+    }));
   const reasonText =
     ctx.reason === "module_data_changed" ? "data changed" : "data deleted (empty)";
   logAudit({
@@ -157,11 +185,14 @@ export async function invalidateModuleSignOffs(
   moduleRef: string,
   userId?: string | null,
 ): Promise<void> {
+  // Read before anything waits: callers fire this right after their write has landed.
+  const changedAt = new Date();
   if (!companyId) return;
   return revertSignOffs(db, moduleRef, {
     companyId,
     userId: userId ?? null,
     reason: "module_data_changed",
+    changedAt,
   });
 }
 
@@ -175,6 +206,7 @@ export async function recheckModuleRequirements(
   moduleRef: string,
   userId?: string | null,
 ): Promise<void> {
+  const changedAt = new Date();
   if (!companyId) return;
 
   const countFn = TABLE_COUNT_SQL[moduleRef];
@@ -187,5 +219,6 @@ export async function recheckModuleRequirements(
     companyId,
     userId: userId ?? null,
     reason: "module_data_deleted",
+    changedAt,
   });
 }

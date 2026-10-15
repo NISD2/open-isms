@@ -462,6 +462,15 @@ function screensOf(
 }
 
 /**
+ * Why a write would take a signature or an approval back now, or null. fillItem asks before the
+ * first write and again right before each one, so management signing while a call runs stops the
+ * writes still to come. What remains is one write's own few milliseconds: a signature landing
+ * inside one is taken back as the person's own save would take it, and the audit entry names the
+ * assistant. Closing that too needs the check inside each procedure's transaction.
+ */
+type Guard = (modules: readonly string[], policy: boolean) => Promise<string | null>;
+
+/**
  * The screens, saved one after the other in the item's order, each through its screen's own
  * procedure and each saved or refused on its own.
  */
@@ -469,11 +478,17 @@ async function saveScreens(
   holder: KeyHolder,
   code: string,
   screens: ReadonlyArray<[FillableKind, unknown]>,
+  guard: Guard,
 ) {
   const results: Array<
     { kind: FillableKind; saved: unknown } | { kind: FillableKind; refused: string }
   > = [];
   for (const [kind, input] of screens) {
+    const takesBack = await guard(SCREEN_FILLS[kind].modules, kind === "policy");
+    if (takesBack) {
+      results.push({ kind, refused: takesBack });
+      continue;
+    }
     try {
       results.push({
         kind,
@@ -497,11 +512,21 @@ async function saveScreens(
  * The rows, one after the other in the order sent, each saved or refused on its own, so the
  * answer lists them in that order and an unexpected failure is logged against its row.
  */
-async function addRows(holder: KeyHolder, register: Register, rows: readonly unknown[]) {
+async function addRows(
+  holder: KeyHolder,
+  register: Register,
+  rows: readonly unknown[],
+  guard: Guard,
+) {
   const results: Array<
     { index: number; id: string } | { index: number; refused: string }
   > = [];
   for (const [index, row] of rows.entries()) {
+    const takesBack = await guard([register.module], false);
+    if (takesBack) {
+      results.push({ index, refused: takesBack });
+      continue;
+    }
     try {
       const { id } = await register.add(holder.caller, row);
       results.push({ index, id });
@@ -556,12 +581,18 @@ async function saveChanges(
   holder: KeyHolder,
   register: Register,
   changes: ReadonlyArray<{ readonly id: string; readonly fields: unknown }>,
+  guard: Guard,
 ) {
   const { change } = register;
   if (!change) return [];
   const results: Array<{ id: string; changed: true } | { id: string; refused: string }> =
     [];
   for (const { id, fields } of changes) {
+    const takesBack = await guard([register.module], false);
+    if (takesBack) {
+      results.push({ id, refused: takesBack });
+      continue;
+    }
     try {
       await change.save(holder.caller, id, fields);
       results.push({ id, changed: true });
@@ -680,11 +711,13 @@ export async function fillItem(
       ...screens.flatMap(([kind]) => SCREEN_FILLS[kind].modules),
     ]),
   ];
-  const takesBack =
-    (modules.length > 0 ? await signaturesTakenBack(holder, modules, link) : null) ??
-    (screens.some(([kind]) => kind === "policy")
-      ? await approvalTakenBack(holder, code, link)
-      : null);
+  const guard: Guard = async (checked, policy) =>
+    (checked.length > 0 ? await signaturesTakenBack(holder, checked, link) : null) ??
+    (policy ? await approvalTakenBack(holder, code, link) : null);
+  const takesBack = await guard(
+    modules,
+    screens.some(([kind]) => kind === "policy"),
+  );
   if (takesBack) return refuse(takesBack);
 
   // As in the app, and before any write: working on an item set aside picks it up again, and a
@@ -699,10 +732,13 @@ export async function fillItem(
     });
   }
   const added =
-    register && rows.length > 0 ? await addRows(holder, register, rows) : null;
+    register && rows.length > 0 ? await addRows(holder, register, rows, guard) : null;
   const changed =
-    register && changes.length > 0 ? await saveChanges(holder, register, changes) : null;
-  const saved = screens.length > 0 ? await saveScreens(holder, code, screens) : null;
+    register && changes.length > 0
+      ? await saveChanges(holder, register, changes, guard)
+      : null;
+  const saved =
+    screens.length > 0 ? await saveScreens(holder, code, screens, guard) : null;
   const attached =
     files.length > 0
       ? await confirmFiles(holder, allowed.statusRow?.id ?? null, files)

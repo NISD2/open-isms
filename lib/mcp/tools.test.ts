@@ -5,7 +5,8 @@
  */
 import { describe, expect, mock, test } from "bun:test";
 
-const signedElsewhere: { codes: string[] } = { codes: [] };
+/** Signed items the register's sign-off check finds; `openFor` checks pass first, unsigned. */
+const signedElsewhere: { codes: string[]; openFor: number } = { codes: [], openFor: 0 };
 // The tools reach lib/db and lib/auth, which read a validated env as they load; CI has none.
 mock.module("@/lib/env", () => ({
   env: {
@@ -17,12 +18,17 @@ mock.module("@/lib/env", () => ({
 }));
 mock.module("@/lib/audit", () => ({ logAudit: async () => {} }));
 mock.module("@/lib/compliance/module-recheck", () => ({
-  signedOffByModule: async () =>
-    signedElsewhere.codes.map((code) => ({
+  signedOffByModule: async () => {
+    if (signedElsewhere.openFor > 0) {
+      signedElsewhere.openFor -= 1;
+      return [];
+    }
+    return signedElsewhere.codes.map((code) => ({
       statusId: `status-${code}`,
       previousStatus: "approved",
       requirementCode: code,
-    })),
+    }));
+  },
   invalidateModuleSignOffs: async () => {},
   recheckModuleRequirements: async () => {},
 }));
@@ -202,6 +208,27 @@ describe("fill_walkthrough_item refuses before it writes", () => {
       expect(writesIn(called)).toEqual([]);
     } finally {
       signedElsewhere.codes = [];
+    }
+  });
+
+  test("a signature given while the call runs stops the rows still to come", async () => {
+    // Open for the check before the first write and for the first row; signed for the second.
+    signedElsewhere.codes = ["5.2"];
+    signedElsewhere.openFor = 2;
+    try {
+      const { holder, called } = holderOf("5.1", "admin", { kind: "open" });
+      const outcome = await fill(holder, "5.1", [{ name: "Hoster" }, { name: "Mailer" }]);
+      expect(outcome.ok ? outcome.data.rows : outcome.message).toEqual([
+        { index: 0, id: "row-1" },
+        {
+          index: 1,
+          refused: expect.stringContaining("signature back from 5.2"),
+        },
+      ]);
+      expect(writesIn(called)).toEqual(["supplier.create"]);
+    } finally {
+      signedElsewhere.codes = [];
+      signedElsewhere.openFor = 0;
     }
   });
 
