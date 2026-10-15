@@ -1,10 +1,12 @@
 /**
  * L3 MCP: an AI assistant puts a company's data into the walkthrough through /api/mcp, as the
  * person who connected it, and signs nothing. It adds an asset (2.2) and rates it (2.3, the risk
- * matrix); the rows land as the app's own screens write them. Once management has signed an item
- * that relies on the risks, the assistant's next rating is refused and nothing changes: changing
- * a signed risk is the person's, in the app.
+ * matrix); the rows land as the app's own screens write them, and the walkthrough marks the screen
+ * it wrote. It uploads a file to storage and attaches it as evidence. Once management has signed
+ * an item that relies on the risks, the assistant's next rating is refused and nothing changes:
+ * changing a signed risk is the person's, in the app. Ending the key in Settings stops it.
  */
+import { createHash } from "node:crypto";
 import { type APIRequestContext, expect, test } from "@playwright/test";
 import { WALK } from "@/lib/durchgang";
 import { e2eQuery } from "../lib/db";
@@ -19,6 +21,9 @@ import {
 } from "../lib/durchgang";
 
 const ASSET = "E2E MCP Buchhaltung";
+const FILE_NAME = "e2e-mcp-inventar.pdf";
+const FILE_BODY = Buffer.from("%PDF-1.4\n% e2e assistant evidence\n");
+const FILE_SHA256 = createHash("sha256").update(FILE_BODY).digest("hex");
 
 type ToolResult =
   | { readonly ok: true; readonly data: Record<string, unknown> }
@@ -94,6 +99,16 @@ async function removeOurAssets(tenant: Tenant): Promise<void> {
   await e2eQuery(`DELETE FROM asset WHERE id = ANY($1::uuid[])`, [ids]);
 }
 
+/** Removes the evidence rows this spec's uploads made on the tenant's items. */
+const removeOurFiles = (tenant: Tenant) =>
+  e2eQuery(
+    `DELETE FROM evidence e
+      USING company_requirement_status s, company_assessment a
+      WHERE e.requirement_status_id = s.id AND s.assessment_id = a.id
+        AND a.company_id = $1 AND e.file_name = $2`,
+    [tenant.company_id, FILE_NAME],
+  );
+
 /** Lets the tenant's people connect assistants, as its admin does in Settings, and undoes it. */
 async function allowAssistants(tenant: Tenant): Promise<Undo> {
   const [before] = await e2eQuery<{ assistants_allowed: boolean }>(
@@ -138,6 +153,7 @@ test.describe("an AI assistant fills the walkthrough over MCP", () => {
       await setAsideWalkItem(tenant, "2.2"),
       await setAsideWalkItem(tenant, "2.3"),
       () => removeOurAssets(tenant),
+      () => removeOurFiles(tenant).then(() => {}),
     ];
   });
 
@@ -209,6 +225,68 @@ test.describe("an AI assistant fills the walkthrough over MCP", () => {
     await page.goto("/de/durchgang/nis2/2.2?s=0");
     await expect(page.locator("[data-dg-item]")).toBeVisible({ timeout: 20_000 });
     await expect(page.getByText(/Eingetragen von .+ am /)).toHaveCount(0);
+  });
+
+  test("the assistant uploads a file as the item's evidence; one never sent is refused", async ({
+    request,
+  }) => {
+    const asked = await callTool(request, key, "upload_file", {
+      code: "2.2",
+      purpose: "evidence",
+      fileName: FILE_NAME,
+      contentType: "application/pdf",
+      fileSize: FILE_BODY.length,
+    });
+    expect(asked.ok, JSON.stringify(asked)).toBe(true);
+    const data = asked.ok ? asked.data : {};
+    const upload = data.upload as {
+      readonly method: string;
+      readonly url: string;
+      readonly headers: Record<string, string>;
+    };
+    const evidenceId = String(data.evidenceId);
+
+    // The bytes go from the assistant straight to storage, with the headers the tool names.
+    const put = await request.fetch(upload.url, {
+      method: upload.method,
+      headers: upload.headers,
+      data: FILE_BODY,
+    });
+    expect(put.status(), await put.text()).toBe(200);
+
+    const attached = await callTool(request, key, "fill_walkthrough_item", {
+      code: "2.2",
+      files: [{ evidenceId, contentHash: FILE_SHA256 }],
+    });
+    expect(attached.ok, JSON.stringify(attached)).toBe(true);
+    expect(attached.ok ? attached.data.files : null).toEqual([
+      { evidenceId, attached: true },
+    ]);
+    const [stored] = await e2eQuery<{ status: string; content_hash: string | null }>(
+      `SELECT status, content_hash FROM evidence WHERE id = $1`,
+      [evidenceId],
+    );
+    expect(stored).toEqual({ status: "in_review", content_hash: FILE_SHA256 });
+
+    // Asked for, never sent: confirming finds no object and attaches nothing.
+    const unsent = await callTool(request, key, "upload_file", {
+      code: "2.2",
+      purpose: "evidence",
+      fileName: FILE_NAME,
+      contentType: "application/pdf",
+      fileSize: FILE_BODY.length,
+    });
+    const unsentId = String(unsent.ok ? unsent.data.evidenceId : "");
+    const refused = await callTool(request, key, "fill_walkthrough_item", {
+      code: "2.2",
+      files: [{ evidenceId: unsentId }],
+    });
+    const files = refused.ok
+      ? (refused.data.files as ReadonlyArray<Record<string, unknown>>)
+      : [];
+    expect(files).toEqual([
+      { evidenceId: unsentId, refused: expect.stringContaining("not been uploaded") },
+    ]);
   });
 
   test("once management has signed on the risks, the assistant's change is refused", async ({
