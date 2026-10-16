@@ -50,8 +50,9 @@ async function requireLlmBudget(
 /**
  * Hard-fail any LLM call when the company has opted out of AI data sharing.
  *
- * `aiDataSharing === "none"` is the most restrictive setting and the settings
- * UI promises that no organisation data leaves the platform. The body content
+ * `aiDataSharing === "none"` is the default and the most restrictive level: no
+ * organisation data leaves the platform. Settings no longer offers the choice
+ * (Simon, 16.10.2026), so a company stays on the level it had. The body content
  * (intake answers, pasted documents, sign-off snapshots) is exactly what users
  * mean by "data" — gating only the metadata via buildAiContext is insufficient.
  */
@@ -67,7 +68,7 @@ async function requireAiEnabled(
     throw new TRPCError({
       code: "FORBIDDEN",
       message:
-        "AI features are disabled for this workspace. Enable them in Settings → AI to use this feature.",
+        "AI features are disabled for this workspace.",
     });
   }
 }

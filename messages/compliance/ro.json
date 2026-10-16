@@ -507,6 +507,6 @@
     "rateLimited": "Organizația dumneavoastră a atins limita orară pentru extragerea datelor cu IA. Vă rugăm să încercați din nou mai târziu.",
     "emptyText": "Lipiți mai întâi un text.",
     "extractFailed": "Extragerea a eșuat. Vă rugăm să încercați din nou.",
-    "aiDisabled": "Funcțiile AI sunt dezactivate pentru organizația dumneavoastră. Activați-le din Setări → Partajarea datelor cu AI pentru a folosi această funcție."
+    "aiDisabled": "Funcțiile AI sunt dezactivate pentru organizația dumneavoastră."
   }
 }

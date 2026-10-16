@@ -567,6 +567,6 @@
     "rateLimited": "Your organization has reached the hourly limit for AI extraction. Please try again later.",
     "emptyText": "Please paste some text first.",
     "extractFailed": "Extraction failed. Please try again.",
-    "aiDisabled": "AI features are switched off for your organization. Switch them on under Settings → AI Data Sharing to use this feature."
+    "aiDisabled": "AI features are switched off for your organization."
   }
 }

@@ -507,6 +507,6 @@
     "rateLimited": "Su organización ha alcanzado el límite por hora de extracción con IA. Inténtelo de nuevo más tarde.",
     "emptyText": "Pegue primero algún texto.",
     "extractFailed": "La extracción ha fallado. Inténtelo de nuevo.",
-    "aiDisabled": "Las funciones de IA están desactivadas para su organización. Actívelas en Configuración → Compartir datos con la IA para usar esta función."
+    "aiDisabled": "Las funciones de IA están desactivadas para su organización."
   }
 }

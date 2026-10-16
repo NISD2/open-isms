@@ -507,6 +507,6 @@
     "rateLimited": "La tua organizzazione ha raggiunto il limite orario per l'estrazione con IA. Riprova più tardi.",
     "emptyText": "Incolla prima del testo.",
     "extractFailed": "Estrazione non riuscita. Riprova.",
-    "aiDisabled": "Le funzioni di IA sono disattivate per la tua organizzazione. Attivale in Impostazioni → Condivisione dei dati con l'IA per usare questa funzione."
+    "aiDisabled": "Le funzioni di IA sono disattivate per la tua organizzazione."
   }
 }

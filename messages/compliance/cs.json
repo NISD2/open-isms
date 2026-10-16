@@ -567,6 +567,6 @@
     "rateLimited": "Vaše organizace dosáhla hodinového limitu pro extrakci dat pomocí AI. Zkuste to prosím později.",
     "emptyText": "Nejprve prosím vložte text.",
     "extractFailed": "Extrakce se nezdařila. Zkuste to prosím znovu.",
-    "aiDisabled": "Funkce AI jsou pro vaši organizaci vypnuté. Zapnout je můžete v Nastavení → Sdílení dat s AI."
+    "aiDisabled": "Funkce AI jsou pro vaši organizaci vypnuté."
   }
 }
