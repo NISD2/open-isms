@@ -248,7 +248,7 @@ export function AppSidebar({
       </SidebarContent>
 
       <SidebarFooter>
-        <UserNav user={user} />
+        <UserNav user={user} showSettings />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

@@ -6,6 +6,7 @@ import {
   CircleX,
   Globe,
   LogOut,
+  Settings,
   Shield,
   Trash2,
 } from "lucide-react";
@@ -46,9 +47,11 @@ interface UserNavProps {
     image?: string | null;
     isPlatformAdmin?: boolean;
   };
+  /** Settings belong to the open company, so only the compliance portal links them. */
+  showSettings?: boolean;
 }
 
-export function UserNav({ user }: UserNavProps) {
+export function UserNav({ user, showSettings = false }: UserNavProps) {
   const t = useTranslations("portal");
   const locale = useLocale();
   const router = useRouter();
@@ -155,6 +158,12 @@ export function UserNav({ user }: UserNavProps) {
                 ))}
               </DropdownMenuSubContent>
             </DropdownMenuSub>
+            {showSettings && (
+              <DropdownMenuItem onClick={() => router.push("/settings")}>
+                <Settings className="mr-2 h-4 w-4" />
+                {t("settings")}
+              </DropdownMenuItem>
+            )}
             {user.isPlatformAdmin && (
               <>
                 <DropdownMenuSeparator />
