@@ -158,7 +158,10 @@ test("cross-tenant: a person ends only their own AI assistant, in their own comp
   try {
     // Positive control: the person's own connection here ends, so the path is live.
     await trpcMutation(request, "user.endMcpConnection", { id: own });
-    expect(await endedAt(own), "own connection did not end (path is dead)").not.toBeNull();
+    expect(
+      await endedAt(own),
+      "own connection did not end (path is dead)",
+    ).not.toBeNull();
 
     // Their own connection in another company, and a colleague's here, stay open.
     await trpcMutation(request, "user.endMcpConnection", { id: elsewhere });
