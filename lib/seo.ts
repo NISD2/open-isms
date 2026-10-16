@@ -2,7 +2,17 @@ import { routing } from "@/i18n/routing";
 import { isLocaleCode, type LocaleCode } from "@/lib/locale";
 import { ogCard } from "./og-card";
 
-export const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://www.nisd2.eu";
+export const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://nisd2.eu";
+
+/**
+ * The one name the site goes by in search: the header shows it, and it is the business name
+ * Google Ads accepts without brand verification. Search picks a site name only when the home
+ * page uses one name consistently.
+ */
+const SITE_NAME = "nisd2.eu";
+
+/** A square logo of at least 112 px, as Google's Organization logo needs (the favicon is 32 px). */
+const LOGO = { url: `${baseUrl}/android-chrome-512x512.png`, width: 512, height: 512 };
 
 /**
  * Alias, not a second union. ~160 files import `Locale` from here, so the name
@@ -174,7 +184,7 @@ export function ogSite(slug: string, locale: string) {
   const safeLocale: Locale = isLocaleCode(locale) ? locale : routing.defaultLocale;
   return {
     url: pageUrl(slug, safeLocale),
-    siteName: "NISD2",
+    siteName: SITE_NAME,
     locale: OG_LOCALE[safeLocale],
   };
 }
@@ -214,7 +224,7 @@ export function pageOg(args: {
       description: args.description,
       url,
       type: args.type ?? "website",
-      siteName: "NISD2",
+      siteName: SITE_NAME,
       locale: OG_LOCALE[safeLocale],
       alternateLocale: alternates,
       images: image
@@ -361,12 +371,12 @@ export function articleJsonLd(args: {
     inLanguage: args.locale,
     datePublished: args.datePublished,
     dateModified: args.dateModified ?? args.datePublished,
-    author: { "@type": "Organization", name: "nisd2.eu", url: baseUrl },
+    author: { "@type": "Organization", name: SITE_NAME, url: baseUrl },
     publisher: {
       "@type": "Organization",
-      name: "nisd2.eu",
+      name: SITE_NAME,
       url: baseUrl,
-      logo: { "@type": "ImageObject", url: `${baseUrl}/icon.png` },
+      logo: { "@type": "ImageObject", ...LOGO },
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
   };
@@ -414,9 +424,9 @@ const LOCALE_BCP47: Record<Locale, string> = {
 function docsPublisher() {
   return {
     "@type": "Organization" as const,
-    name: "NISD2",
+    name: SITE_NAME,
     url: baseUrl,
-    logo: { "@type": "ImageObject" as const, url: `${baseUrl}/icon.png` },
+    logo: { "@type": "ImageObject" as const, ...LOGO },
   };
 }
 
@@ -614,24 +624,19 @@ export function buildSiteGraphJsonLd(_locale: Locale): Record<string, unknown> {
         "@type": "WebSite",
         "@id": `${baseUrl}/#website`,
         url: `${baseUrl}/`,
-        name: "NISD2",
-        alternateName: ["NIS 2 Wiki", "nisd2.eu"],
+        name: SITE_NAME,
+        alternateName: ["NISD2"],
         inLanguage: routing.locales.map((l) => LOCALE_BCP47[l]),
         publisher: { "@id": `${baseUrl}/#organization` },
       },
       {
         "@type": "Organization",
         "@id": `${baseUrl}/#organization`,
-        name: "NISD2",
+        name: SITE_NAME,
         legalName: "Kardashev Catalyst UG (haftungsbeschränkt)",
         vatID: "DE462889433",
         url: `${baseUrl}/`,
-        logo: {
-          "@type": "ImageObject" as const,
-          url: `${baseUrl}/icon.png`,
-          width: 512,
-          height: 512,
-        },
+        logo: { "@type": "ImageObject" as const, ...LOGO },
         foundingDate: "2026-03-11",
         email: "contact@nisd2.eu",
         knowsAbout: [

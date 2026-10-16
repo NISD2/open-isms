@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
-const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://www.nisd2.eu";
+const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://nisd2.eu";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
