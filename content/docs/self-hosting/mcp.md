@@ -2,6 +2,14 @@ Every instance serves an MCP endpoint at `/api/mcp`, nisd2.eu and each self-host
 
 Whether a company's people may connect assistants at all is the company's decision: an admin turns it on in Settings, under *Allow AI assistants for this company*, and it is off until they do. It is checked when a key is made or an assistant allowed, and on every call, so turning it off stops every connected assistant at once and also ends their keys and sign-ins.
 
+Settings is in the profile menu at the bottom of the sidebar:
+
+![The profile menu opened over the walkthrough, with Settings highlighted](/images/wiki/mcp/en-settings-menu.webp)
+
+The switch is the first thing on the page. Below it each person connects their own assistant and sees the ones they connected:
+
+![Settings with Allow AI assistants for this company turned on, and the card to connect an assistant below it](/images/wiki/mcp/en-settings.webp)
+
 An assistant works only for a person who may open the walkthrough: on nisd2.eu an account whose order includes it, on a self-hosted instance, where new accounts do not get the walkthrough, the addresses in `PLATFORM_ADMIN_EMAILS`. Anyone else gets a refusal on every call, and Settings and the sign-in page show them the way to the walkthrough instead of a key or an *Allow* button.
 
 ## What an assistant can do
@@ -9,14 +17,14 @@ An assistant works only for a person who may open the walkthrough: on nisd2.eu a
 Three tools.
 
 - `get_walkthrough` lists every item of the company's walkthrough with where it stands. With a code, for example `5.1`, it returns that item in full: the walkthrough's own words, its fields with their JSON Schema and current answers, its register with the rows already in it, and for each of its other screens the JSON Schema of what it takes and what it shows now (the assets, suppliers and ratings, with their ids).
-- `fill_walkthrough_item` saves answers to an item's fields, adds rows to its register, corrects rows already in it, and fills its other screens: it adds assets and says what each is and who provides it, rates assets and suppliers, records what supplier contracts settle, which sign-ins take a second factor, how often backups run, which processes are critical, writes the item's policy from its clauses and sets the crypto list entry by entry. It also attaches files uploaded with `upload_file`. Answers are checked the way the app checks them, and everything goes through the same procedures the app's screens call, with the same schemas.
+- `fill_walkthrough_item` saves answers to an item's fields, adds rows to its register, corrects rows already in it, and fills its other screens: it adds assets and says what each is and who provides it, rates assets and suppliers, records what supplier contracts settle, which sign-ins take a second factor, how often backups run, which processes are critical, writes the item's policy from its clauses and sets the crypto list. The crypto list is sent whole, as the screen saves it, so an entry the assistant leaves out is removed from it. It also attaches files uploaded with `upload_file`. Answers are checked the way the app checks them, and everything goes through the same procedures the app's screens call, with the same schemas.
 - `upload_file` gives an upload request for one file: a document as an item's evidence, or a training certificate. The assistant sends the file's bytes with it straight to storage, then attaches the file with `fill_walkthrough_item`. The app only signs the address, for the company's own storage and that size, and a file counts as evidence only once it is stored at that size. This works for an assistant that can send the bytes itself, such as Claude Code; with a chat app that cannot, the person uploads in the app.
 
 Both writing tools work only on items still open or set aside as waiting (and pick a waiting item up again, as the app does). A finished, declined or signed item is changed in the app, so the assistant never takes back the person's word or management's signature. An empty answer to a field is refused rather than taken to clear it. A screen's rows are saved as sent, as the app's screen saves them, so `get_walkthrough` shows each stored value for the assistant to send back what it does not mean to change. The tools fill only items in the person's own areas, or in any area for an admin, and an assistant of someone in a reviewer's role reads but fills nothing.
 
-A change to a register (a new row, an asset added or rated, a sign-in or a backup recorded) sends every signed item that relies on that register back to management, in the app as well: the signed item now rests on a register that changed. An assistant never does that. While an item relying on a register is signed, the change is refused and made in the app, which names the items. A policy management approved is rewritten only in the app too, since a changed text loses its approval. The same goes for the management reviews on the approval item: a review recorded there puts the item before management, which only the person does.
+A change to a register (a new row, an asset added or rated, a sign-in or a backup recorded) sends every signed item that relies on that register back to management, in the app as well: the signed item now rests on a register that changed. An assistant is refused that: the tools check before the first write and again right before each one, and while an item relying on a register is signed, the change is refused and made in the app, which names the items. One narrow case remains: a signature given within the few milliseconds of a single write is taken back by that write, as a person's save would take it back, and the audit entry names the assistant. A policy management approved is rewritten only in the app too, since a changed text loses its approval. The same goes for the management reviews on the approval item: a review recorded there puts the item before management, which only the person does.
 
-What stays with a person is the decision and the signature: finishing an item, deciding it is not applicable or not done, the management reviews and open points on the approval item, and management's approval itself. An assistant also never deletes a row and never invites anyone: a wrong row is removed, and a colleague invited, in the app. `get_walkthrough` says for each item which of its screens are filled where, and links to the item in the app.
+What stays with a person is the decision and the signature: finishing an item, deciding it is not applicable or not done, the management reviews and open points on the approval item, and management's approval itself. An assistant also never deletes a register row and never invites anyone: a wrong row is removed, and a colleague invited, in the app. `get_walkthrough` says for each item which of its screens are filled where, and links to the item in the app.
 
 ## Connecting
 
@@ -45,15 +53,29 @@ Claude Code connects from the person's own computer, so it also reaches an insta
 
 ### Claude on the web and desktop
 
-Add a custom connector with the endpoint URL. Claude opens the sign-in. Claude connects from Anthropic's cloud, not from the person's computer, on the web, on desktop and on mobile alike, so the instance has to be reachable from the internet over https.
+Add a custom connector with the endpoint URL and choose *Register automatically*: the instance registers assistants dynamically and does not read Claude's published identity (a Client ID Metadata Document). Claude opens the sign-in. Claude connects from Anthropic's cloud, not from the person's computer, on the web, on desktop and on mobile alike, so the instance has to be reachable from the internet over https.
 
 ### Copilot Studio
 
 Add the endpoint as an MCP server over Streamable HTTP and choose OAuth 2.0 with dynamic discovery. Copilot Studio runs in Microsoft's cloud, so here too the instance has to be reachable from the internet over https.
 
+### ChatGPT
+
+Add the endpoint as a custom MCP server and sign in through the browser. ChatGPT cannot send a pasted key (OpenAI's own documentation), so the sign-in is the only way, and like Claude it connects from its vendor's cloud: the instance has to be reachable from the internet over https.
+
+### VS Code, Cursor and Gemini CLI
+
+Each takes a remote server over HTTP with an `Authorization: Bearer` header carrying the key; VS Code and Gemini CLI also run the browser sign-in. They run on the person's computer, so, like Claude Code, they also reach an instance inside the company network.
+
+### What has been tested
+
+Claude Code, with both the browser sign-in and a pasted key, has been run end to end against an instance. The other clients above follow their vendors' documentation and have not yet been tested against one.
+
 ## Disconnecting
 
 Settings lists the person's connected assistants in the company open: the pasted key and every browser sign-in, each with when it was connected and last used, and each with its own *Disconnect*, which ends that one at its next call and leaves the others. Creating a new key ends the previous key only. *Disconnect all assistants* ends the key and every browser sign-in at once, and so does any change to the person's password (a reset, a first password, or removing it for Google sign-in). Signing out of the browser does not: the assistants stay connected. Removing a person from the company ends their key and every browser sign-in for good, so inviting them back later brings none of them back.
+
+All of these except a single *Disconnect* and a new key work through one counter on the person's account, so for someone in several companies they end the assistants in every company, not only in the one open. The same holds when an admin turns assistants off: every member of that company loses their assistants in all their companies.
 
 ## What every call checks
 
@@ -68,4 +90,8 @@ Changes land in the audit log like any other change, under the person's name. Th
 
 The assistant is the company's own choice. What it reads goes to that assistant's vendor, under the company's own agreement with them. With an assistant and a model that run on the company's own hardware, nothing leaves its network.
 
-Answers and rows were written by people, and a supplier row linked to the supplier's own company carries that supplier's statements, set apart under `writtenBySupplier`. The tool descriptions tell the assistant to read all of it as data, never as instructions, and `fill_walkthrough_item` is marked as a tool that changes data, so a client that asks before such calls asks here. An assistant that acts on its own should still be one whose actions the person approves.
+Answers and rows were written by people, and a supplier row linked to the supplier's own company carries that supplier's statements, set apart under `writtenBySupplier`. The server's instructions, and the description of `get_walkthrough`, the tool that returns it, tell the assistant to read all of it as data, never as instructions, and `fill_walkthrough_item` is marked as a tool that changes data, so a client that asks before such calls asks here. An assistant that acts on its own should still be one whose actions the person approves.
+
+## In plain words
+
+The wiki answers the questions a company asks before it connects an assistant (what it fills, who answers for its entries, data protection, prompt injection, each client's setup) under [AI assistants and MCP](/en/wiki/ai-assistants).

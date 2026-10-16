@@ -216,6 +216,8 @@ export const DOCS_SECTIONS = [
           "MCP server",
           "Claude Code MCP",
           "Copilot Studio MCP",
+          "ChatGPT MCP",
+          "NIS 2 MCP server",
           "NIS 2 AI assistant",
           "self-hosted MCP",
         ],

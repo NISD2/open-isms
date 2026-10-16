@@ -3,6 +3,7 @@ import { getRequestConfig } from "next-intl/server";
 import { routing } from "./routing";
 
 const namespaces = [
+  "aiAssistants",
   "applicability",
   "assets",
   "auth",

@@ -13,10 +13,11 @@
  */
 
 .docs-root {
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
-    "Liberation Mono", monospace;
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
   font-family: var(--font-sans);
 }
 
@@ -234,7 +235,10 @@
   font-size: 0.6875rem;
   color: #8b949e;
   opacity: 0;
-  transition: opacity 150ms ease, color 150ms ease, border-color 150ms ease;
+  transition:
+    opacity 150ms ease,
+    color 150ms ease,
+    border-color 150ms ease;
 }
 
 .docs-prose pre:hover .docs-copy-button,
@@ -245,6 +249,13 @@
 .docs-copy-button:hover {
   color: #e6edf3;
   border-color: #8b949e;
+}
+
+/* ------------------------------------------------------------ screenshot */
+
+.docs-prose img {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
 }
 
 /* --------------------------------------------------------------- callout */

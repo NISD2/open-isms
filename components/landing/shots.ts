@@ -13,6 +13,7 @@ export interface Shot extends PreviewImage {
 /** Where a screenshot's file lies under `public/`, unless it names its own `dir`. */
 const WALK_DIR = "/images/durchgang/promises";
 const QUESTIONNAIRE_DIR = "/images/fragebogen";
+const ASSISTANTS_DIR = "/images/wiki/mcp";
 
 /**
  * The screenshots on the landing pages, each in its `dir` as `{de,en}-{file}.webp`, with the point
@@ -71,6 +72,20 @@ export const SHOTS = {
     dir: QUESTIONNAIRE_DIR,
     file: "form",
     focus: { x: 0.375, y: 0.95, scale: 2.4 },
+  },
+  // Settings with AI assistants allowed: the admin's switch, then the card that connects one.
+  assistants: {
+    dir: ASSISTANTS_DIR,
+    file: "settings",
+    focus: { x: 0.58, y: 0.25, scale: 2.2 },
+    next: [{ x: 0.58, y: 0.55, scale: 1.9 }],
+  },
+  // A 2.2 screen an assistant wrote: its mark with the assistant's name and day, then the entry.
+  assistantMark: {
+    dir: ASSISTANTS_DIR,
+    file: "filled-by",
+    focus: { x: 0.41, y: 0.21, scale: 2.4 },
+    next: [{ x: 0.36, y: 0.39, scale: 2.2 }],
   },
 } as const satisfies Record<
   string,

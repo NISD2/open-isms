@@ -65,6 +65,12 @@ export const EXTRA_CATEGORY_SLUGS: Record<WikiTopLevel, Extra> = {
     fr: "mise-en-oeuvre",
     it: "attuazione",
   },
+  "ki-assistenten": {
+    pl: "asystenci-ai",
+    ro: "asistenti-ai",
+    fr: "assistants-ia",
+    it: "assistenti-ia",
+  },
   "recht-und-folgen": {
     pl: "prawo-i-konsekwencje",
     ro: "drept-si-consecinte",

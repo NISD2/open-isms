@@ -1739,6 +1739,36 @@
       "question": "Ce trebuie, concret, să fac?"
     }
   },
+  "cat:ki-assistenten": {
+    "fr": {
+      "title": "Assistants IA et MCP",
+      "question": "Un assistant comme Claude ou Copilot peut-il aider à remplir le parcours ?"
+    },
+    "it": {
+      "title": "Assistenti IA e MCP",
+      "question": "Un assistente come Claude o Copilot può aiutare a compilare il percorso?"
+    },
+    "es": {
+      "title": "Asistentes de IA y MCP",
+      "question": "¿Puede un asistente como Claude o Copilot ayudar a completar el recorrido?"
+    },
+    "pl": {
+      "title": "Asystenci AI i MCP",
+      "question": "Czy asystent taki jak Claude lub Copilot może pomóc wypełnić przewodnik?"
+    },
+    "cs": {
+      "title": "AI asistenti a MCP",
+      "question": "Může asistent jako Claude nebo Copilot pomoci vyplnit průvodce?"
+    },
+    "pt": {
+      "title": "Assistentes de IA e MCP",
+      "question": "Um assistente como o Claude ou o Copilot pode ajudar a preencher o percurso?"
+    },
+    "ro": {
+      "title": "Asistenți AI și MCP",
+      "question": "Poate un asistent precum Claude sau Copilot să ajute la completarea parcursului?"
+    }
+  },
   "entry:nis2-roadmap": {
     "fr": {
       "title": "NIS 2 en cinq étapes",
