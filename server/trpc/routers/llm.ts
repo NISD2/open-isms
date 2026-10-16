@@ -67,8 +67,7 @@ async function requireAiEnabled(
   if (!row || row.aiDataSharing === "none") {
     throw new TRPCError({
       code: "FORBIDDEN",
-      message:
-        "AI features are disabled for this workspace.",
+      message: "AI features are disabled for this workspace.",
     });
   }
 }
