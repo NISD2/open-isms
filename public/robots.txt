@@ -31,4 +31,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://www.nisd2.eu/sitemap.xml
+Sitemap: https://nisd2.eu/sitemap.xml
