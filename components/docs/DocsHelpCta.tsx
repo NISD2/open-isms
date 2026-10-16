@@ -40,7 +40,7 @@ export function DocsHelpCta() {
         </div>
       </div>
       <a
-        href={`/en/hilfe?from=${from}`}
+        href={`/en/help?from=${from}`}
         className="inline-flex shrink-0 items-center gap-2 self-start rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 sm:self-auto"
       >
         Send a request

@@ -224,7 +224,7 @@ export default async function MissedRegistrationPage({
               </div>
             ))}
           </div>
-          <WikiMoreLink href="/wiki/umsetzung/nis2-registration-portals">
+          <WikiMoreLink href="/wiki/zeit-und-status/nis2-umsetzung-europa">
             {w("more")}
           </WikiMoreLink>
         </section>

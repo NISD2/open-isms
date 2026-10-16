@@ -54,7 +54,7 @@ const applicationSchema = {
   name: "NIS2 Risk Assessment",
   description:
     "Free self-assessment heuristic in the spirit of BSI Grundschutz 200-2 §8.2 Schutzbedarfsfeststellung. Classifies V/I/A protection-need per asset (normal/hoch/sehr hoch) and recommends an Absicherungsvariante.",
-  url: "https://www.nisd2.eu/risikobewertung",
+  url: "https://nisd2.eu/risikobewertung",
   applicationCategory: "BusinessApplication",
   offers: {
     "@type": "Offer",
@@ -64,7 +64,7 @@ const applicationSchema = {
   provider: {
     "@type": "Organization",
     name: "NIS2 Compliance Platform",
-    url: "https://www.nisd2.eu",
+    url: "https://nisd2.eu",
   },
 };
 

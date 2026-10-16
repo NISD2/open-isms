@@ -48,4 +48,4 @@ The point is not to claim that one certificate satisfies another regulation. It 
 
 ## Where the legal text is not
 
-These pages document the software. The subject-matter reference, including sector applicability, national transposition status, the Implementing Regulation and registration procedure, lives on [the nisd2.eu wiki](https://www.nisd2.eu/wiki), in German and nine other languages. That is a different audience and a different job.
+These pages document the software. The subject-matter reference, including sector applicability, national transposition status, the Implementing Regulation and registration procedure, lives on [the nisd2.eu wiki](https://nisd2.eu/wiki), in German and nine other languages. That is a different audience and a different job.

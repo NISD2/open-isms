@@ -286,6 +286,44 @@ const nextConfig: NextConfig = {
         destination: "/opengraph-image.png",
         permanent: true,
       },
+      // Mistyped URLs that collected search impressions (Search Console,
+      // 16.10.2026). They answered 404, or sent the reader to the sign-in page.
+      {
+        source: "/wiki/zeit-and-status/:slug",
+        destination: "/wiki/zeit-und-status/:slug",
+        permanent: true,
+      },
+      {
+        source: "/wiki/zeit-und-status/nisd2-events",
+        destination: "/wiki/zeit-und-status/nis2-events",
+        permanent: true,
+      },
+      {
+        source: "/en/wiki/implementation/nis-documents",
+        destination: "/en/wiki/implementation/nis2-documents",
+        permanent: true,
+      },
+      {
+        source:
+          "/en/wiki/timelines-and-status/nis-2-danmark---hvad-skal-din-virksomhed-vaere-opmaerksom-paa",
+        destination: "/en/wiki/timelines-and-status/nis2-status-denmark",
+        permanent: true,
+      },
+      {
+        source: "/fr/wiki/law-and-consources/:slug",
+        destination: "/fr/wiki/droit-et-consequences/:slug",
+        permanent: true,
+      },
+      {
+        source: "/nl/nis2-roadmap",
+        destination: "/nl/wiki/implementatie/nis2-stappenplan",
+        permanent: true,
+      },
+      {
+        source: "/training/nisd2-tabletop",
+        destination: "/training/nis2-tabletop",
+        permanent: true,
+      },
       // Docs hub migration — entries land in lib/content/legacy-redirects.ts
       // when an info page moves under /docs. Empty array today; non-breaking.
       ...LEGACY_REDIRECTS,

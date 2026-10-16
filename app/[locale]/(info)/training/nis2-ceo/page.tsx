@@ -80,7 +80,7 @@ export default async function TrainingLandingPage({
           provider: {
             "@type": "Organization",
             name: "NISD2.eu",
-            url: "https://www.nisd2.eu",
+            url: "https://nisd2.eu",
           },
           isAccessibleForFree: true,
           numberOfLessons: 47,

@@ -1,7 +1,37 @@
 import { describe, expect, test } from "bun:test";
 import { routing } from "@/i18n/routing";
 import { ORDER_SLUGS, PRICING_SLUGS, PROMO_SIGNIN_SLUGS } from "@/i18n/slugs";
-import { LEGACY_REDIRECTS, translatedSlugRedirects } from "./legacy-redirects";
+import {
+  LEGACY_REDIRECTS,
+  movedWikiRedirects,
+  translatedSlugRedirects,
+} from "./legacy-redirects";
+import { wikiSitemapPaths } from "./wiki-toc";
+
+describe("movedWikiRedirects", () => {
+  const moved = movedWikiRedirects();
+
+  test("every locale of a moved page lands on the target in its own language", () => {
+    expect(moved).toContainEqual({
+      source: "/en/wiki/implementation/nis2-registration-portals",
+      destination: "/en/wiki/timelines-and-status/nis2-eu-implementation#portals",
+      permanent: true,
+    });
+    expect(moved).toContainEqual({
+      source: "/wiki/anwendungsbereich/nis2-mehrere-eu-laender",
+      destination: "/wiki/zeit-und-status/nis2-umsetzung-europa",
+      permanent: true,
+    });
+    const locales = (path: string) => path.split("/")[1];
+    expect(moved.filter((r) => locales(r.source) !== locales(r.destination))).toEqual([]);
+  });
+
+  test("a moved page is not in the sitemap", () => {
+    const listed = new Set(wikiSitemapPaths().map((p) => p.path));
+    expect(listed.has("/wiki/anwendungsbereich/nis2-mehrere-eu-laender")).toBe(false);
+    expect(listed.has("/wiki/umsetzung/nis2-registration-portals")).toBe(false);
+  });
+});
 
 describe("translatedSlugRedirects", () => {
   test("sends each locale's old slug to its new one, and skips locales that kept it", () => {

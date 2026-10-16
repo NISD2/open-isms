@@ -74,7 +74,7 @@ const STEPS = [
   {
     key: "register",
     personal: false,
-    link: { kind: "internal", path: "/wiki/umsetzung/nis2-registration-portals" },
+    link: { kind: "internal", path: "/wiki/zeit-und-status/nis2-umsetzung-europa" },
     shot: "explain",
   },
   {

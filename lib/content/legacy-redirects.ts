@@ -20,7 +20,11 @@ import { LOCALE_CODES, type LocaleCode } from "../locale";
 import {
   docsToWikiRedirects,
   localizedWikiSlugRedirects,
+  slugFor,
+  WIKI_TOC,
+  WIKI_TOP_LEVEL,
   wikiLegacyRedirects,
+  wikiPathnames,
 } from "./wiki-toc";
 
 export interface LegacyRedirect {
@@ -53,12 +57,54 @@ export const translatedSlugRedirects = (
         ],
   );
 
+/**
+ * A wiki entry merged into another page (`movedTo`): each of its localized
+ * URLs 308s to the target in the same language. The page-level redirect() this
+ * replaced was a 307 to one German path, two hops from the page, and the
+ * sitemap still listed all ten URLs.
+ */
+export const movedWikiRedirects = (): LegacyRedirect[] => {
+  const paths = wikiPathnames();
+  return WIKI_TOP_LEVEL.flatMap((cat) =>
+    WIKI_TOC[cat].entries.flatMap((entry) => {
+      if (!entry.movedTo) return [];
+      const from = paths[`/wiki/${cat}/${entry.slug}`];
+      const to = paths[entry.movedTo.path];
+      if (!from || !to) {
+        throw new Error(
+          `Wiki entry ${entry.slug} moved to ${entry.movedTo.path}, which is not a wiki page.`,
+        );
+      }
+      const hash = entry.movedTo.anchor ? `#${entry.movedTo.anchor}` : "";
+      return LOCALE_CODES.map((locale) => ({
+        source: localePath(locale, slugFor(from, locale)),
+        destination: `${localePath(locale, slugFor(to, locale))}${hash}`,
+        permanent: true,
+      }));
+    }),
+  );
+};
+
+const MOVED_WIKI_REDIRECTS = movedWikiRedirects();
+const MOVED_DESTINATION = new Map(
+  MOVED_WIKI_REDIRECTS.map((r) => [r.source, r.destination]),
+);
+
+/** An older redirect that lands on a moved page goes straight to where it moved, in one hop. */
+const skipMovedPages = (redirect: LegacyRedirect): LegacyRedirect => ({
+  ...redirect,
+  destination: MOVED_DESTINATION.get(redirect.destination) ?? redirect.destination,
+});
+
 export const LEGACY_REDIRECTS: LegacyRedirect[] = [
-  ...wikiLegacyRedirects(),
-  ...docsToWikiRedirects(),
-  // pl/ro/fr/it moved off English slugs onto localized ones; the English
-  // URLs they were indexed on still have to resolve.
-  ...localizedWikiSlugRedirects(),
+  ...MOVED_WIKI_REDIRECTS,
+  ...[
+    ...wikiLegacyRedirects(),
+    ...docsToWikiRedirects(),
+    // pl/ro/fr/it moved off English slugs onto localized ones; the English
+    // URLs they were indexed on still have to resolve.
+    ...localizedWikiSlugRedirects(),
+  ].map(skipMovedPages),
   // Pricing and the order page got a slug per locale on 30.09.2026.
   ...translatedSlugRedirects(REPLACED_SLUGS.pricing, PRICING_SLUGS),
   ...translatedSlugRedirects(REPLACED_SLUGS.order, ORDER_SLUGS),

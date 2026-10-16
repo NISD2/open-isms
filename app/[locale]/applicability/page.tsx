@@ -38,7 +38,7 @@ const applicationSchema = {
   name: "NIS2 Applicability Check",
   description:
     "Free self-assessment tool to check if your company falls under NIS2 (EU 2022/2555) and the German BSIG 2025.",
-  url: "https://www.nisd2.eu/applicability",
+  url: "https://nisd2.eu/applicability",
   applicationCategory: "BusinessApplication",
   offers: {
     "@type": "Offer",
@@ -48,7 +48,7 @@ const applicationSchema = {
   provider: {
     "@type": "Organization",
     name: "NIS2 Compliance Platform",
-    url: "https://www.nisd2.eu",
+    url: "https://nisd2.eu",
   },
 };
 
