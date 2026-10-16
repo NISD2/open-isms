@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import type { ComponentProps } from "react";
 import { JsonLd } from "@/components/JsonLd";
 import { type ShotName, shotImage } from "@/components/landing/shots";
 import { Separator } from "@/components/ui/separator";
@@ -17,8 +18,10 @@ import {
   WikiSection,
   WikiSources,
 } from "@/components/wiki/WikiSection";
+import { Link } from "@/i18n/navigation";
 import type { LegislationKey } from "@/lib/content/citations";
-import { wikiLocale } from "@/lib/content/wiki-locale";
+import { wikiLocale, wikiTocText } from "@/lib/content/wiki-locale";
+import { isPublished } from "@/lib/content/wiki-publish-schedule";
 import { WIKI_TOC, type WikiTopLevel } from "@/lib/content/wiki-toc";
 import { pageAlternates, pageOg } from "@/lib/seo";
 
@@ -54,12 +57,25 @@ interface AssistantPage {
 
 type Params = { params: Promise<{ locale: string }> };
 
+/**
+ * The page's related entries from any category, in the TOC's order of `relatedSlugs`, leaving out
+ * one still waiting for its publish slot so a link never leads to a 404.
+ */
+const publishedRelated = (slugs: readonly string[]) =>
+  slugs.flatMap((slug) =>
+    isPublished(slug)
+      ? Object.values(WIKI_TOC).flatMap(({ slug: topLevel, entries }) =>
+          entries
+            .filter((entry) => entry.slug === slug)
+            .map((entry) => ({ topLevel, entry })),
+        )
+      : [],
+  );
+
 export function assistantPage(page: AssistantPage) {
   const path = `wiki/${CATEGORY}/${page.slug}`;
   const namespace = `aiAssistants.${page.messages}`;
-  const reviewed = WIKI_TOC[CATEGORY].entries.find(
-    (entry) => entry.slug === page.slug,
-  )?.lastReviewedAt;
+  const own = WIKI_TOC[CATEGORY].entries.find((entry) => entry.slug === page.slug);
 
   const metadata = async ({ params }: Params): Promise<Metadata> => {
     const { locale } = await params;
@@ -77,12 +93,14 @@ export function assistantPage(page: AssistantPage) {
   async function Page({ params }: Params) {
     const { locale: rawLocale } = await params;
     const locale = wikiLocale(rawLocale);
-    const [t, w] = await Promise.all([
+    const [t, w, category] = await Promise.all([
       getTranslations(namespace),
       getTranslations("info.wikiWalk"),
+      getTranslations("aiAssistants"),
     ]);
     const sections = t.raw("sections") as ArticleSection[];
     const faq = t.raw("faq.items") as WikiQuestion[];
+    const related = publishedRelated(own?.relatedSlugs ?? []);
 
     return (
       <GlossedProse locale={locale}>
@@ -109,7 +127,7 @@ export function assistantPage(page: AssistantPage) {
           <WikiPageMeta
             authorSlug="simon-orzel"
             locale={locale === "nl" ? "de" : locale}
-            lastReviewedAt={reviewed}
+            lastReviewedAt={own?.lastReviewedAt}
             sourceLocale="de"
           />
 
@@ -142,6 +160,42 @@ export function assistantPage(page: AssistantPage) {
           />
 
           <WikiFaq heading={t("faq.heading")} items={faq} />
+
+          {related.length > 0 && (
+            <section className="space-y-3">
+              <h2 className="text-xl font-semibold tracking-tight">
+                {category("related")}
+              </h2>
+              <ul className="grid gap-3 sm:grid-cols-2">
+                {related.map(({ topLevel, entry }) => (
+                  <li key={entry.slug}>
+                    <Link
+                      // Wiki pathnames are built at runtime (wikiPathnames), so the typed union cannot list them.
+                      href={
+                        `/wiki/${topLevel}/${entry.slug}` as ComponentProps<
+                          typeof Link
+                        >["href"]
+                      }
+                      className="group flex h-full flex-col gap-1 rounded-xl border p-4 transition-colors hover:border-primary/40 hover:bg-muted/40"
+                    >
+                      <span className="text-sm font-semibold group-hover:underline">
+                        {wikiTocText(locale, `entry:${entry.slug}`, "title", {
+                          de: entry.titleDe,
+                          en: entry.titleEn ?? entry.titleDe,
+                        })}
+                      </span>
+                      <span className="text-xs leading-relaxed text-muted-foreground">
+                        {wikiTocText(locale, `entry:${entry.slug}`, "summary", {
+                          de: entry.summaryDe,
+                          en: entry.summaryEn ?? entry.summaryDe,
+                        })}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
           <WikiSources
             heading={t("sources.heading")}
