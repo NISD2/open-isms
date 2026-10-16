@@ -85,7 +85,7 @@ export function assistantPage(page: AssistantPage) {
     return {
       title,
       description,
-      alternates: pageAlternates(path, locale),
+      alternates: pageAlternates(path, locale, WIKI_TOC[CATEGORY].textLocales),
       ...pageOg({ slug: path, locale, title, description, type: "article" }),
     };
   };

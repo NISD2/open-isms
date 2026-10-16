@@ -119,8 +119,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }),
 
     // /docs hub + 8 category indexes + all migrated pages — auto-generated from docs-toc
-    ...wikiSitemapPaths().flatMap(({ path, priority }) =>
-      multilingualEntries(path, { priority }),
+    ...wikiSitemapPaths().flatMap(({ path, priority, lastModified, locales }) =>
+      multilingualEntries(path, { priority, lastModified, locales }),
     ),
 
     // Wiki citation library

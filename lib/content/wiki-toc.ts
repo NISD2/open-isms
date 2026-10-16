@@ -21,7 +21,8 @@
  * lib/content/wiki-publish-schedule.ts.
  */
 
-import { isPublished } from "./wiki-publish-schedule";
+import type { LocaleCode } from "@/lib/locale";
+import { getPublishAt, isPublished } from "./wiki-publish-schedule";
 import {
   EXTRA_CATEGORY_SLUGS,
   EXTRA_ENTRY_SLUGS,
@@ -193,6 +194,12 @@ export interface WikiCategoryMeta {
   titleEn: string;
   questionDe: string;
   questionEn: string;
+  /**
+   * The languages this category's pages are written in, where that is fewer than all. A page in
+   * any other language serves the English text, so it names the English page as its canonical and
+   * stays out of the sitemap (pageAlternates). Absent: written in every language.
+   */
+  textLocales?: readonly LocaleCode[];
   entries: WikiTocEntry[];
 }
 
@@ -784,6 +791,7 @@ export const WIKI_TOC: Record<WikiTopLevel, WikiCategoryMeta> = {
     titleEn: "AI assistants and MCP",
     questionDe: "Kann ein Assistent wie Claude oder Copilot den Durchgang mit ausfüllen?",
     questionEn: "Can an assistant like Claude or Copilot help fill in the walkthrough?",
+    textLocales: ["de", "en"],
     entries: [
       { slug: "nis2-mcp-server", slugs: { de: "nis2-mcp-server", en: "nis2-mcp-server", nl: "nis2-mcp-server" }, titleDe: "Was ist ein NIS2 MCP Server?", titleEn: "What is a NIS2 MCP server?", summaryDe: "Der Anschluss, über den Ihr eigener KI Assistent den Durchgang liest und ausfüllt, als Sie. Was er tut, was er nicht darf und wie Sie anfangen.", summaryEn: "The connection through which your own AI assistant reads and fills in the walkthrough, as you. What it does, what it may not do and how to start.", authorSlug: "simon-orzel", lastReviewedAt: "2026-10-16", tags: ["regulation:nis2", "topic:ai-assistants", "topic:mcp", "audience:ceo", "audience:it-leiter", "level:beginner"], subCategory: "Grundlagen", audience: ["ceo", "it-leiter", "ciso"], relatedSlugs: ["was-der-assistent-ausfuellt", "claude-code-verbinden", "compliance-mcp-server-vergleich", "nis2-claude-skill"] },
       { slug: "ki-nis2-umsetzen", slugs: { de: "ki-nis2-umsetzen", en: "ai-nis2-implementation", nl: "ai-nis2-implementatie" }, titleDe: "Kann man NIS2 mit KI umsetzen?", titleEn: "Can you implement NIS2 with AI?", summaryDe: "Ein KI Assistent sammelt, ordnet und trägt ein. Umsetzen und billigen muss Ihr Unternehmen. Was NIS 2 über KI sagt und wo die Grenze im Durchgang liegt.", summaryEn: "An AI assistant collects, sorts and enters facts. Your company carries out and approves the measures. What NIS 2 says about AI, and where the line runs.", authorSlug: "simon-orzel", lastReviewedAt: "2026-10-16", tags: ["regulation:nis2", "topic:ai-assistants", "audience:ceo", "level:beginner"], subCategory: "Grundlagen", audience: ["ceo", "it-leiter"], relatedSlugs: ["nis2-mcp-server", "ki-verantwortung-geschaeftsleitung", "ki-unterlagen-pruefung", "nis2-ai-act"] },
@@ -1227,14 +1235,27 @@ export function wikiPathnames(): Record<string, PerLocaleSlug> {
  * Filters out entries whose publishAt is still in the future so Google
  * does not crawl pages that 404 in production.
  */
-export function wikiSitemapPaths(): Array<{ path: string; priority: number }> {
-  const out: Array<{ path: string; priority: number }> = [
-    { path: "/wiki", priority: 0.8 },
-  ];
+export function wikiSitemapPaths(): Array<{
+  path: string;
+  priority: number;
+  /** The later of the page's publish slot and its last review, so a new page reads as new. */
+  lastModified?: string;
+  locales?: readonly LocaleCode[];
+}> {
+  const out: ReturnType<typeof wikiSitemapPaths> = [{ path: "/wiki", priority: 0.8 }];
   for (const cat of WIKI_TOP_LEVEL) {
     out.push({ path: `/wiki/${cat}`, priority: 0.7 });
     for (const entry of publishedEntries(cat)) {
-      out.push({ path: `/wiki/${cat}/${entry.slug}`, priority: 0.6 });
+      const lastModified = [getPublishAt(entry.slug)?.slice(0, 10), entry.lastReviewedAt]
+        .filter((date): date is string => Boolean(date))
+        .sort()
+        .at(-1);
+      out.push({
+        path: `/wiki/${cat}/${entry.slug}`,
+        priority: 0.6,
+        lastModified,
+        locales: WIKI_TOC[cat].textLocales,
+      });
     }
   }
   return out;
